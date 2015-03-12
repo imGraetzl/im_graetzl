@@ -3,13 +3,6 @@
 # build hook has been run but before the application has been started back
 # up again.  This script gets executed directly, so it could be python, php,
 # ruby, etc.
-
-source $OPENSHIFT_CARTRIDGE_SDK_BASH
-source ${OPENSHIFT_RUBY_DIR}/lib/ruby_context
-
-set -e
-
 pushd ${OPENSHIFT_REPO_DIR} > /dev/null
-echo "bundle exec rake db:migrate RAILS_ENV=${RAILS_ENV:-production}"
-ruby_with_nodejs_context "bundle exec rake db:migrate RAILS_ENV=${RAILS_ENV:-production}"
+bundle exec rake db:migrate RAILS_ENV="production"
 popd > /dev/null
