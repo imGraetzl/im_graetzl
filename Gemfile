@@ -46,7 +46,7 @@ group :doc do
 end
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-groupd :development do
+group :development do
   gem 'spring'
 end
 
