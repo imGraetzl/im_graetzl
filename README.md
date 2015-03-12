@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/klappradla/im_graetzl.svg?branch=master)](https://travis-ci.org/klappradla/im_graetzl)
 # imGrätzl
 
 Prototype for imGrätzl social network site.
