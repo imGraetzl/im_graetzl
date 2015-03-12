@@ -116,13 +116,11 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 2.0)
   jquery-rails
-  minitest
   pg
   rails (= 4.1.4)
   rake (~> 0.9.6)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
-  thor
   turbolinks
   uglifier (>= 1.3.0)
