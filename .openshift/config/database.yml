@@ -1,9 +1,19 @@
-sqlite: &sqlite
-  adapter: sqlite3
-  database: db/<%= Rails.env %>.sqlite3
-
-postgresql: &postgresql
+defaults: &default
   adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+
+development:
+  <<: *default
+  database: im_graetzl_development
+
+test:
+  <<: *default
+  database: im_graetzl_test
+
+production:
   database: <%=ENV['OPENSHIFT_APP_NAME']%>
   username: <%=ENV['OPENSHIFT_POSTGRESQL_DB_USERNAME']%>
   password: <%=ENV['OPENSHIFT_POSTGRESQL_DB_PASSWORD']%>
@@ -11,18 +21,3 @@ postgresql: &postgresql
   port:     <%=ENV['OPENSHIFT_POSTGRESQL_DB_PORT']%>
   min_messages: ERROR
   reconnect: false
-
-defaults: &defaults
-  pool: 5
-  timeout: 5000
-  encoding: utf8
-  <<: *<%= ENV['RAILS_DB'] || "sqlite" %>
-
-development:
-  <<: *defaults
-
-test: &test
-  <<: *defaults
-
-production:
-  <<: *defaults
