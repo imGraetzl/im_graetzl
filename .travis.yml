@@ -3,8 +3,5 @@ deploy:
   user: klappradla@gmail.com
   password:
     secure: pMb/izrWfWRverPT5pmzXJ92w5B1CC7n6WCXfEAoViejB/BikC75Xo7tWOjGJAtN42U4TGE9vkrJLwtdE15Ifl5MYhqeUxTro9yc7u35I1vaTIgfOw2wdP3PlYWMXOp/Ny7Tl/10bi3sq7xTJOlk/kztpzK7gU8A7wcO/ddCDv4=
-  app: 
-    master: staging
-    production: production
+  app: production
   domain: imgraetzl
-  on: production
