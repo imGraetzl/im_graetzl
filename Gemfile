@@ -30,6 +30,9 @@ end
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development do
   gem 'spring'
+
+  # open outcoming mail in browser
+  gem 'letter_opener'
 end
 
 # use rspec for testing
