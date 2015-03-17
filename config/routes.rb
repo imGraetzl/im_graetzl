@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'static_pages/welcome'
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: "registrations"}
 
   root 'static_pages#welcome'
 
