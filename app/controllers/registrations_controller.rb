@@ -16,9 +16,11 @@ class RegistrationsController < Devise::RegistrationsController
     if params[:back_button]
       @user.previous_registration_step
     elsif @user.last_step?
-      # todo: validations....
-      session[:registration_params] = session[:registration_step] = nil
-      return super
+      if @user.valid?
+        # todo: validations....
+        session[:registration_params] = session[:registration_step] = nil
+        return super
+      end
     else
       @user.next_registration_step
     end
