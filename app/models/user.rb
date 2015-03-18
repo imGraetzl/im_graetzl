@@ -18,10 +18,11 @@ class User < ActiveRecord::Base
   end
 
   def registration_steps
-    %w[address choose_location personal_data]
+    %w[address choose_location personal_data image]
   end
 
   def next_registration_step
+    puts "current registrationstep: #{@registration_step}"
     self.registration_step = registration_steps[registration_steps.index(registration_step) + 1]
   end
 
@@ -47,5 +48,11 @@ class User < ActiveRecord::Base
     else
       where(conditions.to_h).first
     end
+  end
+
+  # temp method to get rid of session
+  def self.empty_session
+    @registrationstep = nil
+    session[:registration_params] = nil
   end
 end

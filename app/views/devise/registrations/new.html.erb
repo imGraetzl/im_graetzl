@@ -12,3 +12,6 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<%= @user.registration_step if @user %>
+<%= debug session[:registration_params] %>
