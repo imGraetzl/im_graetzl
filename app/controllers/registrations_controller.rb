@@ -16,11 +16,6 @@ class RegistrationsController < Devise::RegistrationsController
       @user.previous_registration_step
     elsif @user.last_step?
       return create_user(session[:registration_params]) if @user.valid?
-      # if @user.valid?
-      #   # todo: validations....
-      #   session[:registration_params] = session[:registration_step] = nil
-      #   return super
-      # end
     else
       @user.next_registration_step
     end
@@ -51,34 +46,5 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
-
-  # prepend_before_filter :require_no_authentication, :only => [ :cancel ]
-  # prepend_before_filter :authenticate_scope!, :only => [ :new, :create, :edit, :update, :destroy ]
-
-  # def new
-  #   if user_signed_in? && current_user.admin?
-  #     super
-  #   else
-  #     set_flash_message :alert, :not_authorized
-  #     redirect_to users_path
-  #   end
-  # end
-
-  # protected
-
-  # def sign_up(resource_name, resource)
-  # end
-
-  # def after_sign_up_path_for(resource)
-  #   if resource.is_a?(User)
-  #     users_path
-  #   end
-  # end
-
-  # def after_update_path_for(resource)
-  #   if resource.is_a?(User)
-  #     user_path(current_user)
-  #   end
-  # end
 
 end
