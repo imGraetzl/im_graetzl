@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {registrations: "registrations"}
 
+  devise_scope :user do
+    get 'users/sign_up/address', to: 'registrations#address'
+  end
+
   root 'static_pages#welcome'
 
   # The priority is based upon order of creation: first created -> highest priority.

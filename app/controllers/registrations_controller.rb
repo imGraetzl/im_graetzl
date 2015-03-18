@@ -1,5 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def address
+    
+  end
+
   def new
     super
     session[:registration_params] ||= {}
@@ -7,6 +11,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    if session[:registration_step] == 'address'
+      search_address(params[:search])
+    end
+
     session[:registration_params].deep_merge! sign_up_params if sign_up_params
     @user = build_resource(session[:registration_params])
 
@@ -44,6 +52,30 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       set_minimum_password_length
       respond_with resource
+    end
+  end
+
+
+  # tempchaos
+
+  def search_address(address)
+    uri = URI.parse("http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{address}&crs=EPSG:4326")
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    puts "Search for: #{address}"
+
+    if response.code == "200"
+      result = JSON.parse(response.body)
+      
+      result.each do |doc|
+        #puts doc["id"] #reference properties like this
+        puts doc # this is the result in object form    
+        puts ""
+        puts ""
+      end
+    else
+      puts "ERROR!!!"
     end
   end
 
