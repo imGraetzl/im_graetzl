@@ -1,9 +1,11 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def address
-    @addresses = HTTParty.get("http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{params[:address]}&crs=EPSG:4326")
-    puts @addresses
-    @coords = @addresses['features'][0]['geometry']['coordinates']
+    query_string = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{params[:address]}&crs=EPSG:4326"
+    uri = URI.parse(URI.encode(query_string))
+    @addresses = HTTParty.get(uri)
+    @address = @addresses['features'][0] 
+    @coords = @address['geometry']['coordinates']
     puts @coords
   end
 
