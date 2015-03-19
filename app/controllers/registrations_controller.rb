@@ -14,10 +14,8 @@ class RegistrationsController < Devise::RegistrationsController
     #build_resource({})
     respond_to do |format|
       #format.html { render :new }
-
-      # in html send result as parameter (visible in url)
-      format.html { redirect_to new_user_registration_path(graetzls: @graetzls) }
-      format.js
+      format.html { redirect_to new_user_registration_path(graetzls: @graetzls) } # in html result as param
+      format.js # otherwise just execute some js
     end
   end
 
