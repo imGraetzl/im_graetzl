@@ -1,1 +1,7 @@
-<h1>addresss!</h1>
+<h1>Addresses:</h1>
+<ul>
+<% @addresses.each do |address| %>
+  <li><%= address %></li>
+<% end %>
+</ul>
+<p><%= @coords %></p>

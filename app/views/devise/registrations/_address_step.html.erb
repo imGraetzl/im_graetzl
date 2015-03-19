@@ -1,3 +1,6 @@
 <h3>Address</h3>
-
-<%= text_field_tag :search, params[:search], placeholder: 'addresse...' %>
+<%= form_tag(users_sign_up_address_path, method: :post) do %>
+  <%= label_tag :address, 'Your address' %><br>
+  <%= text_field_tag :address %><br>
+  <%= submit_tag 'weiter' %>
+<% end %>

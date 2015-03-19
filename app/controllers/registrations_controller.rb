@@ -1,13 +1,16 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def address
-    
+    @addresses = HTTParty.get("http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{params[:address]}&crs=EPSG:4326")
+    puts @addresses
+    @coords = @addresses['features'][0]['geometry']['coordinates']
+    puts @coords
   end
 
   def new
     super
-    session[:registration_params] ||= {}
-    resource.registration_step = session[:registration_step]
+    session[:registration_params] ||= {}  
+    #resource.registration_step = session[:registration_step]
   end
 
   def create

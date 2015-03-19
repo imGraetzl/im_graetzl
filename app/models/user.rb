@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   attr_writer :registration_step
 
   def registration_step
-    @registration_step || registration_steps.first
+    #@registration_step || registration_steps.first
+    registration_steps.first # always set to first for now...
   end
 
   def registration_steps
