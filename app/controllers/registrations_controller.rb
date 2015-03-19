@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def address
-    #if params[:street]
+    if params[:street]
       street = params[:street]
       number = params[:number] || ''
       query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{street}&crs=EPSG:4326"
@@ -9,13 +9,20 @@ class RegistrationsController < Devise::RegistrationsController
       response = HTTParty.get(uri)
       @address = response['features'][0]
       @coords = @address['geometry']['coordinates']
-    #end
+      @graetzls = ['grätzl_1', 'grätzl_2', 'grätzl_3']
+    end
+    #build_resource({})
     respond_to do |format|
+      #format.html { render :new }
+
+      # in html send result as parameter (visible in url)
+      format.html { redirect_to new_user_registration_path(graetzls: @graetzls) }
       format.js
     end
   end
 
   def new
+    @graetzls = params[:graetzls] || nil
     super
     #session[:registration_params] ||= {}  
     #resource.registration_step = session[:registration_step]

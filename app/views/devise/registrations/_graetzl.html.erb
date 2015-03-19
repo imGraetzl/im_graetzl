@@ -3,6 +3,8 @@
 
 <div id="graetzl-field" class="field" style="display:none;">
 </div>
-<% if @graetzls %>
-  <p>grätzl go here</p>
+<% if graetzls %>
+  <% graetzls.each do |graetzl| %>
+    <p><%= graetzl %></p>
+  <% end %>
 <% end %>

@@ -1,4 +1,4 @@
 console.log("<%= @coords %>");
 <% @graetzls = "im so yeah yeah yeah" %>
-$('#graetzl-field').html("<%= j (@graetzls) %>");
+$('#graetzl-field').html("<%= j (render 'graetzl_fields') %>");
 $('#graetzl-field').slideDown(350);
