@@ -1,0 +1,9 @@
+<h3>Lass uns zu Beginn dein Heimatgrätzl finden...</h3>
+
+<%= form_tag(users_sign_up_address_path, method: :get,  remote: true) do %>
+  <%= label_tag :street, 'Straße' %>
+  <%= text_field_tag :street %>
+  <%= label_tag :number, 'Hausnummer' %>
+  <%= text_field_tag :number %><br>
+  <%= submit_tag 'weiter' %>
+<% end %>

@@ -1,6 +1,19 @@
 <h2>Sign up</h2>
-  
-<%= render "#{resource.registration_step}_step" %>
 
-<%= debug resource.registration_step if resource %>
-<%= debug session[:registration_params] %>
+<%= render 'address' %>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <%= render 'graetzl' %>
+
+  <%= render 'user_data', f: f %>
+
+  <%= render 'photo' %>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
