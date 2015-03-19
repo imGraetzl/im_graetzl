@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {registrations: "registrations"}
 
   devise_scope :user do
-    get 'users/sign_up/address', to: 'registrations#address'
+    get "fetch_address" => 'registrations#address', as: 'fetch_address'
   end
 
   root 'static_pages#welcome'
