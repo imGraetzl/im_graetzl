@@ -1,52 +1,30 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def address
-    if params[:street]
-      street = params[:street]
-      number = params[:number] || ''
-      query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{street}&crs=EPSG:4326"
-      uri = URI.parse(URI.encode(query))
-      response = HTTParty.get(uri)
-      @address = response['features'][0]
-      @coords = @address['geometry']['coordinates']
-      @graetzls = ['grätzl_1', 'grätzl_2', 'grätzl_3']
-    end
+    session[:graetzls] = nil
+    # if params[:street]
+    #   street = params[:street]
+    #   number = params[:number] || ''
+    #   query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{street}&crs=EPSG:4326"
+    #   uri = URI.parse(URI.encode(query))
+    #   response = HTTParty.get(uri)
+    #   @address = response['features'][0]
+    #   @coords = @address['geometry']['coordinates']
+    #   @graetzls = ['grätzl_1', 'grätzl_2', 'grätzl_3']
+    # end
     #build_resource({})
+    session[:graetzls] = ['grätzl_1', 'grätzl_2', 'grätzl_3']
+    @graetzls = session[:graetzls]
     respond_to do |format|
-      #format.html { render :new }
-      format.html { redirect_to new_user_registration_path(graetzls: @graetzls) } # in html result as param
+      format.html { redirect_to new_user_registration_path }
       format.js # otherwise just execute some js
     end
   end
 
   def new
-    @graetzls = params[:graetzls] || nil
+    @graetzls = session[:graetzls]
+    session[:graetzls] = nil
     super
-    #session[:registration_params] ||= {}  
-    #resource.registration_step = session[:registration_step]
-  end
-
-  def create
-    super
-    # if session[:registration_step] == 'address'
-    #   search_address(params[:search])
-    # end
-
-    # session[:registration_params].deep_merge! sign_up_params if sign_up_params
-    # @user = build_resource(session[:registration_params])
-
-    # @user.registration_step = session[:registration_step]
-
-    # if params[:back_button]
-    #   @user.previous_registration_step
-    # elsif @user.last_step?
-    #   return create_user(session[:registration_params]) if @user.valid?
-    # else
-    #   @user.next_registration_step
-    # end
-    
-    # session[:registration_step] = @user.registration_step
-    # render 'new'
   end
 
   # def create_user(registration_params)

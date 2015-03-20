@@ -5,7 +5,7 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <%= render partial: 'graetzl', locals: { f: f, graetzls: @graetzls } %>
+  <%= render 'graetzl', f: f, graetzls: @graetzls %>
 
   <%= render 'user_data', f: f %>
 
@@ -18,4 +18,5 @@
 
 <%= render "devise/shared/links" %>
 
-<%= debug @coords %>
+<%= debug @graetzls %>
+<%= debug params %>

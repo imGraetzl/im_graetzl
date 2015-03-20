@@ -2,9 +2,11 @@
 
 
 <div id="graetzl-field" class="field" style="display:none;">
-</div>
 <% if graetzls %>
-  <% graetzls.each do |graetzl| %>
-    <p><%= graetzl %></p>
+  <% graetzls.each do |graetzl| %>  
+    <%= f.radio_button :gender, graetzl %>
+    <%= f.label :gender_male, graetzl %>
+    <br>
   <% end %>
-<% end %>
+<% end -%>
+</div>
