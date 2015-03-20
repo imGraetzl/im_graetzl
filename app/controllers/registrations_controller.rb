@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  skip_before_filter :verify_authenticity_token, only: [:address]
 
   def address
     session[:graetzls] = nil
@@ -15,9 +16,12 @@ class RegistrationsController < Devise::RegistrationsController
     #build_resource({})
     session[:graetzls] = ['grätzl_1', 'grätzl_2', 'grätzl_3']
     @graetzls = session[:graetzls]
-    respond_to do |format|
-      format.html { redirect_to new_user_registration_path }
-      format.js # otherwise just execute some js
+    respond_with do |format|
+      if request.xhr?
+        format.js
+      else
+        format.html { redirect_to new_user_registration_path }
+      end
     end
   end
 
