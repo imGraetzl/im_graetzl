@@ -50,3 +50,14 @@
   <%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation, autocomplete: "off" %>
 </div>
+
+
+<div class="field">
+  <%= f.check_box(:newsletter )%>
+  <%= f.label :newsletter, 'Newsletter abonnieren' %>
+</div>
+
+<div class="field">
+  <%= f.check_box(:terms_and_conditions )%>
+  <%= f.label :terms_and_conditions, "ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
+</div>

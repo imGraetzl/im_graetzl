@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   # validations
   validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :terms_and_conditions, acceptance: true
 
   # virtual attribute to login with either username or password
   attr_accessor :login
