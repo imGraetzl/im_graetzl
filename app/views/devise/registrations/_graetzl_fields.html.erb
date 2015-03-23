@@ -1,7 +1,7 @@
 <% if @graetzls %>
   <% @graetzls.each do |graetzl| %>  
-    <%= radio_button_tag :gender, graetzl %>
-    <%= label_tag :gender_male, graetzl %>
+    <%= radio_button_tag :graetzl, graetzl %>
+    <%= label_tag :graetzl, graetzl %>
     <br>
   <% end %>
 <% end -%>

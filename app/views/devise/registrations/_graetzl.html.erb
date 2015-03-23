@@ -1,12 +1,5 @@
 <h3>Wähle dein Heimatgrätzl</h3>
 
-
 <div id="graetzl-field" class="field">
-<% if @graetzls %>
-  <% @graetzls.each do |graetzl| %>  
-    <%= f.radio_button :gender, graetzl %>
-    <%= f.label :gender_male, graetzl %>
-    <br>
-  <% end %>
-<% end -%>
+  <%= render 'graetzl_fields' %>
 </div>

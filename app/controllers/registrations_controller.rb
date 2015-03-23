@@ -3,23 +3,23 @@ class RegistrationsController < Devise::RegistrationsController
 
   def address
     session[:graetzls] = nil
-    # if params[:street]
-    #   street = params[:street]
-    #   number = params[:number] || ''
-    #   query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{street}&crs=EPSG:4326"
-    #   uri = URI.parse(URI.encode(query))
-    #   response = HTTParty.get(uri)
-    #   @address = response['features'][0]
-    #   @coords = @address['geometry']['coordinates']
-    #   @graetzls = ['grätzl_1', 'grätzl_2', 'grätzl_3']
-    # end
-    #build_resource({})
-    session[:graetzls] = ['grätzl_1', 'grätzl_2', 'grätzl_3']
-    @graetzls = session[:graetzls]
+    @graetzls = []
+    if params[:address]
+      address = params[:address]
+      query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{address}&crs=EPSG:4326"
+      uri = URI.parse(URI.encode(query))
+      response = HTTParty.get(uri)
+
+      if response
+        @address = response['features'][0]
+        @graetzls << @address['properties']['MunicipalitySubdivision']
+      end
+    end
     respond_with do |format|
       if request.xhr?
         format.js
       else
+        session[:graetzls] = @graetzls
         format.html { redirect_to new_user_registration_path }
       end
     end
