@@ -14,7 +14,7 @@ The application uses:
 * PostgreSQL (in all environments)
 * "postgis" database adapter to use PostgreSQL with spatial data
 
-The `.ruby-version` and `.ruby-gemset` specify the used Ruby and the name of the uses gemset ("meep") for rbenv, rvm and Travis CI.
+The `.ruby-version` and `.ruby-gemset` specify the used Ruby and the name of the uses gemset ("morgenjungs") for rbenv, rvm and Travis CI.
 
 
 ## Deployment
