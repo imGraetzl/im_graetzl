@@ -1,3 +1,9 @@
-<h1>imGrätzl</h1>
+<h3>
+  <% if user_signed_in? %>
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to 'Login', new_user_session_path %> or <%= link_to 'Register', new_user_registration_path %>
+  <% end %>
+</h3>
 <h2>imGrätzl</h2>
 <p>placeholder startup-page</p>
