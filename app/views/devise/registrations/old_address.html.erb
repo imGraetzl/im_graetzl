@@ -1,9 +1,0 @@
-<h1>Addresses:</h1>
-<%= content_tag :div, id: 'map', data: { coords: @coords, address: @address } do %>
-<% end %>
-
-<% @addresses.each do |address| %>
-  <li><%= address %></li>
-<% end %>
-</ul>
-<p><%= @coords %></p>
