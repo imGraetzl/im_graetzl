@@ -64,7 +64,7 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
 
   # parse sendgrid env variables
-  sendgrid_info = JSON.parse(ENV[sendgrid_55a22])
+  sendgrid_info = JSON.parse(ENV['sendgrid_55a22'])
 
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { host: ENV['OPENSHIFT_APP_DNS'] }
