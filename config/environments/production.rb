@@ -63,21 +63,21 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
 
-  # parse sendgrid env variables
-  sendgrid_info = JSON.parse(ENV['sendgrid_55a22'])
+  # # parse sendgrid env variables
+  # sendgrid_info = JSON.parse(ENV['sendgrid_55a22'])
 
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: ENV['OPENSHIFT_APP_DNS'] }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: sendgrid_info['hostname'],
-    port: 587,
-    domain: ENV['OPENSHIFT_APP_DNS'],
-    user_name: sendgrid_info['username'],
-    password: sendgrid_info['password'],
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
+  # config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.default_url_options = { host: ENV['OPENSHIFT_APP_DNS'] }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: sendgrid_info['hostname'],
+  #   port: 587,
+  #   domain: ENV['OPENSHIFT_APP_DNS'],
+  #   user_name: sendgrid_info['username'],
+  #   password: sendgrid_info['password'],
+  #   authentication: :plain,
+  #   enable_starttls_auto: true
+  # }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
