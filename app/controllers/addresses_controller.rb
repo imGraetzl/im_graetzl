@@ -1,6 +1,7 @@
 class AddressesController < ApplicationController
 
   def fetch
+    @graetzls = ['graetzl_1', 'graetzl_2', 'graetzl_3']
     unless params[:address].empty?
       address = params[:address]
       query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{address}&crs=EPSG:4326"

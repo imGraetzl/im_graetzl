@@ -1,6 +1,11 @@
 console.log('inject values into hidden address form');
-$('#user_address_attributes_street_name').val('<%= @address.street_name %>');
-$('#user_address_attributes_street_number').val('<%= @address.street_number %>');
-$('#user_address_attributes_zip').val('<%= @address.zip %>');
-$('#user_address_attributes_city').val('<%= @address.city %>');
-$('#user_address_attributes_coordinates').val('<%= @address.coordinates %>');
+<% if @address %>
+  $('#user_address_attributes_street_name').val('<%= @address.street_name %>');
+  $('#user_address_attributes_street_number').val('<%= @address.street_number %>');
+  $('#user_address_attributes_zip').val('<%= @address.zip %>');
+  $('#user_address_attributes_city').val('<%= @address.city %>');
+  $('#user_address_attributes_coordinates').val('<%= @address.coordinates %>');
+<% end %>
+
+$('#user_graetzl').html("<%= j (render 'devise/registrations/graetzl') %>")
+$('#user_graetzl').slideDown(350);
