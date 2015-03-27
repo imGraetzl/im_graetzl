@@ -28,7 +28,12 @@ class RegistrationsController < Devise::RegistrationsController
         :password, :password_confirmation,
         :terms_and_conditions,
         :newsletter,
-        address_attributes: [:street_name])
+        address_attributes: [
+          :street_name,
+          :street_number,
+          :zip,
+          :city,
+          :coordinates])
     end
     devise_parameter_sanitizer.for(:sign_in) do |u|
       u.permit(:login, :username, :email, :password, :remember_me)

@@ -1,13 +1,18 @@
 <h2>Sign up</h2>
 
+<%= render 'address' %>
+
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
-  <h3>Address</h3>
+  <h3>Address (hidden) </h3>
   <%= f.fields_for :address do |address_fields| %>
-      <%= address_fields.label :street_name %>
-      <%= address_fields.hidden :street_name %>
+      <%= address_fields.hidden_field :street_name %>
+      <%= address_fields.hidden_field :street_number %>
+      <%= address_fields.hidden_field :zip %>
+      <%= address_fields.hidden_field :city %>
+      <%= address_fields.hidden_field :coordinates %>
   <% end %>
   </div>
 
