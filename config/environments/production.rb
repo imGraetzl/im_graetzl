@@ -66,18 +66,18 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
 
   # parse sendgrid env variables
-  sendgrid_id = 'sendgrid_55a22'
-  sendgrid_account = JSON.parse(ENV[sendgrid_id])
+  # sendgrid_id = 'sendgrid_55a22'
+  # sendgrid_account = JSON.parse(ENV[sendgrid_id])
 
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { host: ENV['OPENSHIFT_APP_DNS'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: sendgrid_account['hostname'],
+    address: 'smtp.sendgrid.net',
     port: 587,
     domain: ENV['OPENSHIFT_APP_DNS'],
-    user_name: sendgrid_account['username'],
-    password: sendgrid_account['password'],
+    user_name: '4Qfy5f18Ml',
+    password: '92UJnNjS63',
     authentication: :plain,
     enable_starttls_auto: true
   }
