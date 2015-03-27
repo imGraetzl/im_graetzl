@@ -4,6 +4,14 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+  <h3>Address</h3>
+  <%= f.fields_for :address do |address_fields| %>
+      <%= address_fields.label :street_name %>
+      <%= address_fields.hidden :street_name %>
+  <% end %>
+  </div>
+
+  <div class="field">
   <%= f.label :username %><br />
   <%= f.text_field :username, autofocus: true %>
   </div>

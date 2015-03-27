@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_one :address, dependent: :destroy
+  accepts_nested_attributes_for :address
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
