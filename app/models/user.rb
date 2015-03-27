@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   # virtual attribute to login with either username or password
   attr_accessor :login
 
+  has_one :address, dependent: :destroy
+
   # overwrite devise authentication method to allow username OR email
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
