@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
 
   def fetch
-    @graetzls = ['graetzl_1', 'graetzl_2', 'graetzl_3']
+    @graetzls = []
     unless params[:address].empty?
       address = params[:address]
       query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{address}&crs=EPSG:4326"
@@ -17,8 +17,7 @@ class AddressesController < ApplicationController
           zip: feature['properties']['PostalCode'],
           city: feature['properties']['Municipality'])
         
-        #@graetzls = @address.match_graetzl
-        puts "address: #{@address}"
+        @graetzls = @address.match_graetzl
       end
     end
 

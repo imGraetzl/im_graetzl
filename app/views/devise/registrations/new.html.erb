@@ -6,7 +6,6 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-  <h3>Address (hidden) </h3>
   <%= f.fields_for :address do |address_fields| %>
       <%= address_fields.hidden_field :street_name %>
       <%= address_fields.hidden_field :street_number %>
@@ -16,7 +15,10 @@
   <% end %>
   </div>
 
-  <div id="user_graetzl" class="field" style="display:none;"></div>
+  <div id="user_graetzl" class="field" style="display:none;">
+  <%= f.fields_for :graetzl do |graetzl_fields| %>
+  <% end %>
+  </div>
 
   <div class="field">
   <%= f.label :username %><br />
