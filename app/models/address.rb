@@ -5,6 +5,9 @@ class Address < ActiveRecord::Base
 
   def match_graetzls
     graetzls = Graetzl.where('ST_CONTAINS(area, :point)', point: coordinates)
+    if graetzls.empty?
+      graetzls = Graetzl.all
+    end
     graetzls
   end
 
