@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  post 'addresses/fetch'
+  post 'addresses/fetch_graetzl', as: 'fetch_graetzl'
 
   devise_for :users, controllers: { registrations: "registrations" }
 

@@ -1,0 +1,24 @@
+console.log("graetzl_form_fields");
+
+// render fields for user to select graetzl
+<% if @graetzls.size < 5 %>
+
+  <% @graetzls.each do |graetzl| %>
+    var input = "<input id='user_graetzl_attributes_name_"
+      + "<%= graetzl.id %>'"
+      + "name='user[graetzl_attributes][name]' type='radio'"
+      + "value='"
+      + "<%= graetzl.name %>"
+      + "'>";
+    var label = "<label for='user_graetzl_attributes_name'>"
+      + "<%= graetzl.name %>"
+      + "</label>";
+
+    $('#user_graetzl').append(input);
+    $('#user_graetzl').append(label);
+    $('#user_graetzl').append("<br>");
+  <% end %>
+
+  // show form
+  $('#user_graetzl').slideDown(350);
+<% end %>
