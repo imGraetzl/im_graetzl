@@ -19,6 +19,13 @@ console.log("graetzl_form_fields");
     $('#user_graetzl').append("<br>");
   <% end %>
 
-  // show form
-  $('#user_graetzl').slideDown(350);
+<% else %>
+  var selectField = "<select id='user_graetzl_attributes_name' "
+      + "name='user[graetzl_attributes][name]'>";
+  $('#user_graetzl').append(selectField);
+  selectField = $('#user_graetzl').children().first();
+  selectField.append("<%= j options_for_select(@graetzls.all.map { |g| [g.name] }) %>");
 <% end %>
+
+// show form
+$('#user_graetzl').slideDown(350);
