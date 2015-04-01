@@ -3,6 +3,11 @@ class Address < ActiveRecord::Base
   ## ASSOCIATIONS
   belongs_to :user
 
+  ## VALIDATIONS
+  validates :coordinates, presence: true
+  validates :street_name, presence: true
+  validates :city, presence: true
+
   def match_graetzls
     graetzls = Graetzl.where('ST_CONTAINS(area, :point)', point: coordinates)
     if graetzls.empty?
