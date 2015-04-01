@@ -16,11 +16,10 @@ class AddressesController < ApplicationController
 
   def get_address_from_api(address_string)
     response = query_address_service(address_string)
-    if response
-      Address.new_from_geojson(response['features'][0])
-    else
-      Address.new()
-    end 
+    if response && response.body.present?
+      return Address.new_from_geojson(response['features'][0])
+    end
+    Address.new()
   end
 
   def query_address_service(address_string)
