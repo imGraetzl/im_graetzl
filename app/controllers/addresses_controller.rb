@@ -17,7 +17,7 @@ class AddressesController < ApplicationController
   def get_address_from_api(address_string)
     response = query_address_service(address_string)
     if response && response.body.present?
-      puts "Address: #{response['features'][0]}"
+      #puts "Address: #{response['features'][0]}"
       return Address.new_from_geojson(response['features'][0])
     end
     Address.new()

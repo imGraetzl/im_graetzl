@@ -2,25 +2,28 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
 
+  ## CHECK FACTORY
   it 'has a valid factory' do
     expect(create(:address)).to be_valid
     expect(create(:esterhazygasse)).to be_valid
   end
 
   ## VALIDATIONS
-  it 'is invalid without coordinates' do
-    expect(build(:address, coordinates: nil)).not_to be_valid
-  end
+  describe 'validations' do
+    it 'is invalid without coordinates' do
+      expect(build(:address, coordinates: nil)).not_to be_valid
+    end
 
-  it 'is invalid without street_name' do
-    expect(build(:address, street_name: nil)).not_to be_valid
-  end
+    it 'is invalid without street_name' do
+      expect(build(:address, street_name: nil)).not_to be_valid
+    end
 
-  it 'is invalid without city and zip' do
-    expect(build(:address, city: nil, zip: nil)).not_to be_valid
-  end
+    it 'is invalid without city and zip' do
+      expect(build(:address, city: nil, zip: nil)).not_to be_valid
+    end
 
-  #it 'is invalid without a user'
+    #it 'is invalid without a user'
+  end
 
   ## CLASS METHODS
   it 'builds a new address from a geojson object' do

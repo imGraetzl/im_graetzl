@@ -21,8 +21,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :terms_and_conditions, acceptance: true
 
-
-
+  ## CLASS METHODS
   # overwrite devise authentication method to allow username OR email
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
@@ -35,11 +34,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  ## INSTANCE METHODS
   def autosave_associated_records_for_graetzl
     if new_graetzl = Graetzl.find_by_name(graetzl.name)
       self.graetzl = new_graetzl
     else
-      self.graetzl.save!
+      self.graetzl = Graetzl.first
     end
   end
 
