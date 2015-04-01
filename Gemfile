@@ -36,9 +36,16 @@ group :development do
   gem 'letter_opener'
 end
 
-# use rspec for tests
+# use rspec and factory for tests
 group :development, :test do
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
+group :test do  
+  gem 'faker'
+  gem 'capybara'
+  gem 'launchy'
 end
 
 # Use ActiveModel has_secure_password
