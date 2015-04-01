@@ -1,30 +1,19 @@
 <h2>Sign up</h2>
 
-<%= render 'address' %>
+<%= render 'find_graetzl' %>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-  <%= f.fields_for :address do |address_fields| %>
-      <%= address_fields.hidden_field :street_name %>
-      <%= address_fields.hidden_field :street_number %>
-      <%= address_fields.hidden_field :zip %>
-      <%= address_fields.hidden_field :city %>
-      <%= address_fields.hidden_field :coordinates %>
-  <% end %>
-  </div>
+  <%= render 'address_hidden', f: f %>
 
-  <div id="user_graetzl" class="field" style="display:none;">
-  <%= f.fields_for :graetzl do |graetzl_fields| %>
-  <% end %>
-  </div>
+  <%= render 'graetzl_hidden', f: f %>
 
   <h6>step 3</h6>
   
   <div class="field">
   <%= f.label :username %><br />
-  <%= f.text_field :username, autofocus: true %>
+  <%= f.text_field :username %>
   </div>
 
   <div class="field">
@@ -87,5 +76,3 @@
     <%= f.submit "Sign up" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>

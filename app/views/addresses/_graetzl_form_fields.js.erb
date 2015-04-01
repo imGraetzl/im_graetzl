@@ -1,6 +1,4 @@
-console.log("graetzl_form_fields");
-
-// render fields for user to select graetzl
+// render radio buttons
 <% if @graetzls.size < 5 %>
 
   <% @graetzls.each do |graetzl| %>
@@ -14,18 +12,19 @@ console.log("graetzl_form_fields");
       + "<%= graetzl.name %>"
       + "</label>";
 
-    $('#user_graetzl').append(input);
-    $('#user_graetzl').append(label);
-    $('#user_graetzl').append("<br>");
+    $('#user_graetzl_fields').append(input);
+    $('#user_graetzl_fields').append(label);
+    $('#user_graetzl_fields').append("<br>");
   <% end %>
 
+// render select
 <% else %>
   var selectField = "<select id='user_graetzl_attributes_name' "
       + "name='user[graetzl_attributes][name]'>";
-  $('#user_graetzl').append(selectField);
-  selectField = $('#user_graetzl').children().first();
-  selectField.append("<%= j options_for_select(@graetzls.all.map { |g| [g.name] }) %>");
+  $('#user_graetzl_fields').append(selectField);
+  selectField = $('#user_graetzl_fields').children().first();
+  selectField.append("<%= j options_for_select(@graetzls.all.map { |g| [g.name.html_safe] }) %>");
 <% end %>
 
 // show form
-$('#user_graetzl').slideDown(350);
+$('#user_graetzl_fields').slideDown(350);

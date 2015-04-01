@@ -2,6 +2,7 @@ class AddressesController < ApplicationController
   after_filter { flash.discard if request.xhr? }
 
   def fetch_graetzl
+    puts params
     if params[:address].present?
       @address = get_address_from_api(params[:address])
       @graetzls = @address.match_graetzls
