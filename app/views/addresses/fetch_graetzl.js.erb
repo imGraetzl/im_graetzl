@@ -9,13 +9,12 @@ $('#user_address_attributes_coordinates').val('<%= @address.coordinates %>');
 
 
 // empty form element form previous search
-$('#user_graetzl').empty();
+$('#user_graetzl_fields').empty();
+$('#user_graetzl_fields_description').empty();
 
-// render new input fields
+// render input fields
 <% if @graetzls.size > 1 %>
-  <%= render 'graetzl_form_fields' %>
-  $('#user_graetzl_description').html('<%= j render partial: "devise/registrations/graetzl_description" %>');
-
+  <%= render 'addresses/registrations/user_graetzl_fields' %>
 <% else %>
 
   // inject single graetzl values into hidden form
@@ -26,4 +25,5 @@ $('#user_graetzl').empty();
     + "<%= @graetzls.first.name.html_safe %>"
     + "'>";
   $('#user_graetzl_fields').append(input);
+  $('#user_fields_description').html('<%= j render "addresses/registrations/user_fields_description", graetzl: @graetzls.first %>');
 <% end %>

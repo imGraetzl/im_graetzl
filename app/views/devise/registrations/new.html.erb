@@ -1,5 +1,3 @@
-<h2>Sign up</h2>
-
 <%= render 'find_graetzl' %>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -9,68 +7,7 @@
 
   <%= render 'graetzl_hidden', f: f %>
 
-  <h6>step 3</h6>
-  
-  <div class="field">
-  <%= f.label :username %><br />
-  <%= f.text_field :username %>
-  </div>
-
-  <div class="field">
-    <%= f.radio_button :gender, "male" %>
-    <%= f.label :gender_male, "männlich" %>
-    <%= f.radio_button :gender, "female" %>
-    <%= f.label :gender_female, "weiblich" %>
-    <%= f.radio_button :gender, "different" %>
-    <%= f.label :gender_different, "anders" %>
-  </div>
-
-  <div class="field">  
-    <%= f.label :birthday %><br />
-    <%= f.date_select :birthday,
-      use_short_month: true,
-      order: [:day, :month, :year],
-      start_year: 1900,
-      end_year: Time.now.year %>    
-  </div>
-
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @validatable %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.check_box(:newsletter )%>
-    <%= f.label :newsletter, 'Newsletter abonnieren' %>
-  </div>
-
-  <div class="field">
-    <%= f.check_box(:terms_and_conditions )%>
-    <%= f.label :terms_and_conditions, "ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
-  </div>
+  <%= render 'fields', f: f %>
 
   <div class="actions">
     <%= f.submit "Sign up" %>

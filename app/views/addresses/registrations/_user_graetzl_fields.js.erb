@@ -22,9 +22,12 @@
   var selectField = "<select id='user_graetzl_attributes_name' "
       + "name='user[graetzl_attributes][name]'>";
   $('#user_graetzl_fields').append(selectField);
-  selectField = $('#user_graetzl_fields').children().first();
+  selectField = $('#user_graetzl_fields').children('select').first();
   selectField.append("<%= j options_for_select(@graetzls.all.map { |g| [g.name.html_safe] }) %>");
 <% end %>
+
+// render form description
+$('#user_graetzl_fields_description').html('<%= j render partial: "addresses/registrations/user_graetzl_fields_description" %>');
 
 // show form
 $('#user_graetzl_fields').slideDown(350);
