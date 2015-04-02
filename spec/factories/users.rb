@@ -9,6 +9,6 @@ FactoryGirl.define do
     u.password { Faker::Internet.password(8) }
     u.birthday { Faker::Date.birthday(min_age = 18, max_age = 100) }
     u.gender { 'female' }
-    u.graetzl { create(:graetzl) }
+    u.graetzl { build(:graetzl) }
   end
 end

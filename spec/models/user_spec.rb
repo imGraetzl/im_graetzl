@@ -25,6 +25,10 @@ RSpec.describe User, type: :model do
     it 'is invalid without last_name' do
       expect(build(:user, last_name: nil)).not_to be_valid
     end
+
+    it 'is invalid without graetzl' do
+      expect(build(:user, graetzl: nil)).not_to be_valid
+    end
   end
 
   # class methods
@@ -52,5 +56,5 @@ RSpec.describe User, type: :model do
       end
     end
   end
-  
+
 end
