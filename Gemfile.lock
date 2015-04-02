@@ -47,6 +47,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1)
+    database_cleaner (1.4.1)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -183,6 +184,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   capybara
   coffee-rails (~> 4.0.0)
+  database_cleaner
   devise
   factory_girl_rails
   faker
