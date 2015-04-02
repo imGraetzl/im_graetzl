@@ -13,7 +13,25 @@ RSpec.describe AddressesController, type: :controller do
         xhr :post, :fetch_graetzl, address: 'mariahilferstraße 10'
         expect(assigns(:graetzls)).not_to be_nil
       end
+      it 'renders fetch_graetzl template' do
+        xhr :post, :fetch_graetzl, address: 'mariahilferstraße 10'
+        expect(response).to render_template(:fetch_graetzl)
+      end
     end
+
+    context 'with esterhazygasse address parameter' do
+      let(:esterhazygasse) { build(:esterhazygasse) }
+
+      it 'assigns correct address object' do
+        xhr :post, :fetch_graetzl, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
+        expect(assigns(:address).attributes).to eql(esterhazygasse.attributes)
+      end
+      it 'assigns correct graetzl object' do
+        xhr :post, :fetch_graetzl, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
+        expect(assigns(:graetzls).first.name).to eql('Naschmarkt, Wien')
+      end
+    end
+
 
     context 'without address parameter' do
       it 'assigns nothing' do
@@ -24,6 +42,10 @@ RSpec.describe AddressesController, type: :controller do
       it 'returns flash message' do
         xhr :post, :fetch_graetzl
         expect(flash[:error]).to be_present
+      end
+      it 'renders no_address template' do
+        xhr :post, :fetch_graetzl
+        expect(response).to render_template('no_address')
       end
     end
 
@@ -36,6 +58,10 @@ RSpec.describe AddressesController, type: :controller do
       it 'returns flash message' do
         xhr :post, :fetch_graetzl, address: ''
         expect(flash[:error]).to be_present
+      end
+      it 'renders no_address template' do
+        xhr :post, :fetch_graetzl
+        expect(response).to render_template(:no_address)
       end
     end
   end

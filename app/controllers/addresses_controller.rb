@@ -7,7 +7,7 @@ class AddressesController < ApplicationController
       @graetzls = @address.match_graetzls
     else
       flash[:error] = 'Please enter address.'
-      render 'no_address'
+      render :no_address
     end
   end
 
