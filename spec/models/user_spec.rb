@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   
-  ## CHECK FACTORY
+  # check factory
   it 'has a valid factory' do
     expect(create(:user)).to be_valid
   end
 
-  ## VALIDATIONS
+  # validations
   describe 'validations' do
     it 'is invalid without username' do
       expect(build(:user, username: nil)).not_to be_valid
@@ -27,7 +27,9 @@ RSpec.describe User, type: :model do
     end
   end
 
-  ## INSTANCE METHODS
+  # class methods
+
+  # instance methods
   describe 'autosave graetzl association' do
     context 'when graetzl exists:' do
       it 'associates with existing record in db' do
@@ -50,62 +52,5 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
-
-  # #it 'is invalid without a user'
-
-  # ## CLASS METHODS
-  # it 'builds a new address from a geojson object' do
-  #   geojson_hash = {"type"=>"Feature",
-  #     "geometry"=>{
-  #       "type"=>"Point",
-  #       "coordinates"=>[16.35955137895887, 48.20137456512505]},
-  #       "bbox"=>[48.20137456512505, 16.35955137895887, 16.35955137895887, 48.20137456512505],
-  #       "properties"=>{
-  #         "Bezirk"=>"7",
-  #         "Adresse"=>"Mariahilfer Straße 10",
-  #         "CountryCode"=>"AT",
-  #         "StreetName"=>"Mariahilfer Straße",
-  #         "StreetNumber"=>"10",
-  #         "CountrySubdivision"=>"Wien",
-  #         "Municipality"=>"Wien",
-  #         "MunicipalitySubdivision"=>"Neubau",
-  #         "Kategorie"=>"Adresse",
-  #         "Zaehlbezirk"=>"0702",
-  #         "Zaehlgebiet"=>"07023",
-  #         "Ranking"=>0.0,
-  #         "PostalCode"=>"1070"}}
-  #   address = Address.new_from_geojson(geojson_hash)
-  #   expect(address).to be_valid
-  # end
-
-
-  # ## INSTANCE METHODS
-  # describe 'match respective graetzls' do
-
-  #   context 'single result' do
-  #     it 'returns 1 matching graetzl' do
-  #       esterhazygasse = build(:esterhazygasse)
-  #       graetzls = esterhazygasse.match_graetzls
-  #       expect(graetzls.size).to eq(1)
-  #       expect(graetzls.first.name).to eq('Naschmarkt, Wien')
-  #     end
-  #   end
-
-  #   context 'multiple results' do
-  #     it 'returns 2 matching graetzls' do
-  #       seestadt = build(:seestadt)
-  #       graetzls = seestadt.match_graetzls
-  #       expect(graetzls.size).to eq(2)
-  #     end
-  #   end    
-
-  #   context 'no results' do
-  #     it 'returns all graetzls' do
-  #       address = build(:address, coordinates: nil)
-  #       graetzls = address.match_graetzls
-  #       expect(graetzls.size).to eq(Graetzl.all.size)
-  #     end
-  #   end
-  # end
+  
 end

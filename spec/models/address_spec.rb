@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
 
-  ## CHECK FACTORY
+  # check factory
   it 'has a valid factory' do
     expect(create(:address)).to be_valid
     expect(create(:esterhazygasse)).to be_valid
   end
 
-  ## VALIDATIONS
+  # validations
   describe 'validations' do
     it 'is invalid without coordinates' do
       expect(build(:address, coordinates: nil)).not_to be_valid
@@ -25,7 +25,7 @@ RSpec.describe Address, type: :model do
     #it 'is invalid without a user'
   end
 
-  ## CLASS METHODS
+  # class methods
   it 'builds a new address from a geojson object' do
     geojson_hash = {"type"=>"Feature",
       "geometry"=>{
@@ -51,7 +51,7 @@ RSpec.describe Address, type: :model do
   end
 
 
-  ## INSTANCE METHODS
+  # instance methods
   describe 'match respective graetzls' do
 
     context 'single result' do

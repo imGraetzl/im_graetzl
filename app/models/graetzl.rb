@@ -1,5 +1,4 @@
 class Graetzl < ActiveRecord::Base
-
-  ## ASSOCIATIONS
+  # associations
   has_many :users
 end
