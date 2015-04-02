@@ -4,8 +4,8 @@ RSpec.describe Address, type: :model do
 
   # check factory
   it 'has a valid factory' do
-    expect(create(:address)).to be_valid
-    expect(create(:esterhazygasse)).to be_valid
+    expect(build_stubbed(:address)).to be_valid
+    expect(build_stubbed(:esterhazygasse)).to be_valid
   end
 
   # validations

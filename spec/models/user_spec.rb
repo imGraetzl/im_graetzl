@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   
   # check factory
   it 'has a valid factory' do
-    expect(create(:user)).to be_valid
+    expect(build_stubbed(:user)).to be_valid
   end
 
   # validations
