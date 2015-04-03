@@ -45,8 +45,8 @@ end
 group :test do  
   gem 'faker'
   gem 'capybara'
+  gem 'poltergeist'
   gem 'database_cleaner'
-  gem 'launchy'
 end
 
 # Use ActiveModel has_secure_password

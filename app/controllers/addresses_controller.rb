@@ -4,6 +4,7 @@ class AddressesController < ApplicationController
   def fetch_graetzl
     if params[:address].present?
       @address = get_address_from_api(params[:address])
+      puts "here here here here #{@address.street_name}"
       @graetzls = @address.match_graetzls
     else
       flash[:error] = 'Please enter address.'
