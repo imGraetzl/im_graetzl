@@ -37,7 +37,6 @@ RSpec.describe AddressesController, type: :controller do
       end
     end
 
-
     context 'without address parameter' do
       it 'assigns nothing' do
         xhr :post, :fetch_graetzl
@@ -50,23 +49,38 @@ RSpec.describe AddressesController, type: :controller do
       end
       it 'renders no_address template' do
         xhr :post, :fetch_graetzl
-        expect(response).to render_template('no_address')
+        expect(response).to render_template(:no_address)
       end
     end
 
     context 'with blank address parameter' do
+      before { xhr :post, :fetch_graetzl, address: '' }
       it 'assigns nothing' do
-        xhr :post, :fetch_graetzl, address: ''
         expect(assigns(:address)).to be_nil
         expect(assigns(:graetzls)).to be_nil
       end
       it 'returns flash message' do
-        xhr :post, :fetch_graetzl, address: ''
         expect(flash[:error]).to be_present
       end
       it 'renders no_address template' do
-        xhr :post, :fetch_graetzl
         expect(response).to render_template(:no_address)
+      end
+    end
+
+    context 'with address cannot be found' do
+      before do
+        3.times { create(:graetzl) }
+        xhr :post, :fetch_graetzl, address: 'qwertzuiopü+'
+      end
+
+      it 'assigns blank address' do
+        expect(assigns(:address)).not_to be_nil
+        expect(assigns(:address).street_name).to be_nil
+        expect(assigns(:address).coordinates).to be_nil
+      end
+      it 'assigns all graetzl' do
+        expect(assigns(:graetzls)).to eq(Graetzl.all)
+        expect(assigns(:graetzls).size).to eq(3)
       end
     end
   end

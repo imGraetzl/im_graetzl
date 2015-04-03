@@ -2,12 +2,12 @@ class AddressesController < ApplicationController
   after_filter { flash.discard if request.xhr? }
 
   def fetch_graetzl
-    if params[:address].present?
-      @address = get_address_from_api(params[:address])
-      @graetzls = @address.match_graetzls
-    else
+    if params[:address].blank?
       flash[:error] = 'Please enter address.'
       render :no_address
+    else
+      @address = get_address_from_api(params[:address])
+      @graetzls = @address.match_graetzls
     end
   end
 
@@ -15,7 +15,7 @@ class AddressesController < ApplicationController
 
   def get_address_from_api(address_string)
     response = query_address_service(address_string)
-    if response && response.body.present?
+    if !response.blank? && response.body.present?
       #puts "Address: #{response['features'][0]}"
       return Address.new_from_geojson(response['features'][0])
     end
@@ -28,7 +28,6 @@ class AddressesController < ApplicationController
     begin
       HTTParty.get(uri)
     rescue
-      # no api response, render whole grätzl list
       nil
     end
   end

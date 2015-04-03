@@ -82,6 +82,21 @@ RSpec.feature "Registrations", type: :feature do
           expect(page).to have_content(@naschmarkt.name)
         end
       end
+
+      describe 'second time' do
+
+        it 'discards previous data', js: true do
+          expect {
+            fill_in 'address', with: "#{Faker::Address.street_name}"
+            click_button('Weiter')
+            wait_for_ajax
+          }.to change { find("input[name='user[address_attributes][coordinates]']", visible: false).value }
+          expect(page).not_to have_selector("input[name='user[graetzl_attributes][name]']", visible: false)
+          within find('div#user_fields_description') do
+            expect(page).not_to have_content(@naschmarkt.name)
+          end
+        end
+      end
     end
 
     context 'with 2 results' do
@@ -118,15 +133,16 @@ RSpec.feature "Registrations", type: :feature do
 
     context 'with no result' do
       before do
-        fill_in 'address', with: "  "
+        fill_in 'address', with: 'qwertzuiopü+'
         click_button('Weiter')
         wait_for_ajax
       end
 
       it 'injects no address values', js: true do
+        expect(find("input[name='user[address_attributes][street_name]']", visible: false).value).to be_blank
       end
-
       it 'shows select with all graetzls', js: true do
+        expect(page).to have_selector('select#user_graetzl_attributes_name')
       end
     end
   end

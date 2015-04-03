@@ -4,6 +4,6 @@
 
 <%= form_tag(fetch_graetzl_path, method: :post, remote: true) do %>
   <%= label_tag :address, 'Wo in Wien bist Du Zuhause?' %><br>
-  <%= text_field_tag :address, nil, placeholder: 'Straße Hausnummer', autofocus: true, required: true %>
+  <%= text_field_tag :address, nil, placeholder: 'Straße Hausnummer', autofocus: true, minlength: 6 %>
   <%= submit_tag 'Weiter' %>
 <% end %>
