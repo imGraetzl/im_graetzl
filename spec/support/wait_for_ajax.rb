@@ -10,6 +10,7 @@ module WaitForAjax
   end
 end
 
+# make available in feature specs
 RSpec.configure do |config|
   config.include WaitForAjax, type: :feature
 end

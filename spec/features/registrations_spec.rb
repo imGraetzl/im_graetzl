@@ -25,6 +25,12 @@ RSpec.feature "Registrations", type: :feature do
         expect(page).to have_selector('input#user_address_attributes_zip', visible: false)
         expect(page).to have_selector('input#user_address_attributes_city', visible: false)
         expect(page).to have_selector('input#user_address_attributes_coordinates', visible: false)
+
+        expect(page).to have_selector("input[name='user[address_attributes][street_name]']", visible: false)
+        expect(page).to have_selector("input[name='user[address_attributes][street_number]']", visible: false)
+        expect(page).to have_selector("input[name='user[address_attributes][zip]']", visible: false)
+        expect(page).to have_selector("input[name='user[address_attributes][city]']", visible: false)
+        expect(page).to have_selector("input[name='user[address_attributes][coordinates]']", visible: false)
       end
     end
   end
@@ -36,14 +42,17 @@ RSpec.feature "Registrations", type: :feature do
       click_button('Weiter')
       wait_for_ajax
 
+      street_name = find("input[name='user[address_attributes][street_name]']", visible: false).value
+      street_number = find("input[name='user[address_attributes][street_number]']", visible: false).value
+      zip = find("input[name='user[address_attributes][zip]']", visible: false).value
+      city = find("input[name='user[address_attributes][city]']", visible: false).value
+      coords = find("input[name='user[address_attributes][coordinates]']", visible: false).value
 
-      #DatabaseCleaner.clean
-      #page.execute_script("$('#user_address_attributes_street_name').show()")
-      click_button('Weiter')
-      
-      #el = find("input[name='user[address_attributes][street_name]']", visible: false)
-      el = find("input[name='user[address_attributes][street_name]']", visible: false)
-      expect(el.value).to eq(address.street_name)
+      expect(street_name).to eq(address.street_name)
+      expect(street_number).to eq(address.street_number)
+      expect(zip).to eq(address.zip)
+      expect(city).to eq(address.city)
+      expect(coords).to eq(address.coordinates.as_text)
     end
   end
 end

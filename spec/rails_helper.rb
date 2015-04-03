@@ -7,11 +7,13 @@ require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'database_cleaner'
 require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
 # Add additional requires below this line. Rails is not loaded until this point!
 
-# require all support files
+# require all spec support files
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
+# use poltergeist for feature requests using js
+Capybara.javascript_driver = :poltergeist
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
