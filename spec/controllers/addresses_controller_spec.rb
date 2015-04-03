@@ -22,13 +22,18 @@ RSpec.describe AddressesController, type: :controller do
     context 'with esterhazygasse address parameter' do
       let(:esterhazygasse) { build(:esterhazygasse) }
 
+      before do
+        @naschmarkt = create(:naschmarkt)
+        2.times { create(:graetzl) }
+      end
+
       it 'assigns correct address object' do
         xhr :post, :fetch_graetzl, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
         expect(assigns(:address).attributes).to eql(esterhazygasse.attributes)
       end
       it 'assigns correct graetzl object' do
         xhr :post, :fetch_graetzl, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
-        expect(assigns(:graetzls).first.name).to eql('Naschmarkt, Wien')
+        expect(assigns(:graetzls).first.name).to eql(@naschmarkt.name)
       end
     end
 

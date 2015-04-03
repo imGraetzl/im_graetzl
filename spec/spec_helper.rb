@@ -40,7 +40,7 @@ RSpec.configure do |config|
 
   # seed db before test suite
   config.before(:suite) do
-    load "#{Rails.root}/db/seeds.rb"
+    #load "#{Rails.root}/db/seeds.rb"
   end
 
 # The settings below are suggested to provide a good initial experience

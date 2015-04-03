@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Registrations", type: :feature do
+
   before { visit new_user_registration_path }
 
   describe 'step 1: show address form' do
@@ -36,42 +37,89 @@ RSpec.feature "Registrations", type: :feature do
   end
 
   describe 'step 2: submit address' do
-    let(:esterhazygasse) { build(:esterhazygasse) }
-    let(:naschmarkt) { build(:naschmarkt) }
-
     before do
-      fill_in 'address', with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
-      click_button('Weiter')
-      wait_for_ajax
+      @naschmarkt = create(:naschmarkt)
+      @seestadt_aspern = create(:seestadt_aspern)
+      @aspern = create(:aspern)
+      2.times { create(:graetzl) }
     end
 
-    it 'injects address_attributes in hidden field', js: true do
-      street_name = find("input[name='user[address_attributes][street_name]']", visible: false).value
-      street_number = find("input[name='user[address_attributes][street_number]']", visible: false).value
-      zip = find("input[name='user[address_attributes][zip]']", visible: false).value
-      city = find("input[name='user[address_attributes][city]']", visible: false).value
-      coords = find("input[name='user[address_attributes][coordinates]']", visible: false).value
+    context 'with single result' do
+      let(:esterhazygasse) { build(:esterhazygasse) }
 
-      expect(street_name).to eq(esterhazygasse.street_name)
-      expect(street_number).to eq(esterhazygasse.street_number)
-      expect(zip).to eq(esterhazygasse.zip)
-      expect(city).to eq(esterhazygasse.city)
-      expect(coords).to eq(esterhazygasse.coordinates.as_text)
-    end
-    it 'has hidden field for graetzl_name', js: true do
-      graetzl_fields = find('div#user_graetzl_fields', visible: false)
-      within graetzl_fields do
-        expect(page).to have_selector("input[name='user[graetzl_attributes][name]']", visible: false)
+      before do
+        fill_in 'address', with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
+        click_button('Weiter')
+        wait_for_ajax
+      end
+
+      it 'injects address_attributes in hidden field', js: true do
+        street_name = find("input[name='user[address_attributes][street_name]']", visible: false).value
+        street_number = find("input[name='user[address_attributes][street_number]']", visible: false).value
+        zip = find("input[name='user[address_attributes][zip]']", visible: false).value
+        city = find("input[name='user[address_attributes][city]']", visible: false).value
+        coords = find("input[name='user[address_attributes][coordinates]']", visible: false).value
+
+        expect(street_name).to eq(esterhazygasse.street_name)
+        expect(street_number).to eq(esterhazygasse.street_number)
+        expect(zip).to eq(esterhazygasse.zip)
+        expect(city).to eq(esterhazygasse.city)
+        expect(coords).to eq(esterhazygasse.coordinates.as_text)
+      end
+      it 'has hidden field for graetzl_name', js: true do
+        graetzl_fields = find('div#user_graetzl_fields', visible: false)
+        within graetzl_fields do
+          expect(page).to have_selector("input[name='user[graetzl_attributes][name]']", visible: false)
+        end
+      end
+      it 'injects graetzl_name in hidden field', js: true do
+        graetzl_name = find("input[name='user[graetzl_attributes][name]']", visible: false).value
+        expect(graetzl_name).to eq(@naschmarkt.name)
+      end
+      it 'shows welcome message', js: true do
+        fields_description = find('div#user_fields_description')
+        within fields_description do
+          expect(page).to have_content(@naschmarkt.name)
+        end
       end
     end
-    it 'injects graetzl_name in hidden field', js: true do
-      graetzl_name = find("input[name='user[graetzl_attributes][name]']", visible: false).value
-      expect(graetzl_name).to eq(naschmarkt.name)
-    end
-    it 'shows welcome message', js: true do
-      fields_description = find('div#user_fields_description')
-      within fields_description do
-        expect(page).to have_content(naschmarkt.name)
+
+    context 'with 2 results' do
+      let(:seestadt) { build(:seestadt) }
+
+      before do
+        fill_in 'address', with: "#{seestadt.street_name}"
+        click_button('Weiter')
+        wait_for_ajax
+      end
+
+      it 'injects street_name, city, coordintaes in hidden field', js: true do
+        street_name = find("input[name='user[address_attributes][street_name]']", visible: false).value
+        city = find("input[name='user[address_attributes][city]']", visible: false).value
+        coords = find("input[name='user[address_attributes][coordinates]']", visible: false).value
+
+        expect(street_name).to eq(seestadt.street_name)
+        expect(city).to eq(seestadt.city)
+        expect(coords).to eq(seestadt.coordinates.as_text)
+      end
+      it 'shows 2 radio buttons to choose graetzl', js: true do
+        graetzl_fields = find('div#user_graetzl_fields')
+        within graetzl_fields do
+          expect(page).to have_field('user[graetzl_attributes][name]', type: 'radio', count: 2)
+        end
+      end
+      it 'associates the right graetzls', js: true do
+        button_1 = find("input#user_graetzl_attributes_name_#{@seestadt_aspern.id}")
+        button_2 = find("input#user_graetzl_attributes_name_#{@aspern.id}")
+      # it 'injects graetzl_name in hidden field', js: true do
+      #   graetzl_name = find("input[name='user[graetzl_attributes][name]']", visible: false).value
+      #   expect(graetzl_name).to eq(naschmarkt.name)
+      # end
+      # it 'shows welcome message', js: true do
+      #   fields_description = find('div#user_fields_description')
+      #   within fields_description do
+      #     expect(page).to have_content(naschmarkt.name)
+      #   end
       end
     end
   end

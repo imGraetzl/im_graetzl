@@ -53,13 +53,23 @@ RSpec.describe Address, type: :model do
 
   # instance methods
   describe 'match respective graetzls' do
+    before do
+      @naschmarkt = create(:naschmarkt)
+      seestadt_aspern = create(:seestadt_aspern)
+      aspern = create(:aspern)
+      matching_graetzls = []
+    end
 
-    context 'single result' do
+    it 'with 3 graetzls in db' do
+      expect(Graetzl.all.size).to eq(3)
+    end
+    
+    context 'single result' do      
       it 'returns 1 matching graetzl' do
         esterhazygasse = build(:esterhazygasse)
         graetzls = esterhazygasse.match_graetzls
         expect(graetzls.size).to eq(1)
-        expect(graetzls.first.name).to eq('Naschmarkt, Wien')
+        expect(graetzls.first.name).to eq(@naschmarkt.name)
       end
     end
 
