@@ -111,15 +111,22 @@ RSpec.feature "Registrations", type: :feature do
       it 'associates the right graetzls', js: true do
         button_1 = find("input#user_graetzl_attributes_name_#{@seestadt_aspern.id}")
         button_2 = find("input#user_graetzl_attributes_name_#{@aspern.id}")
-      # it 'injects graetzl_name in hidden field', js: true do
-      #   graetzl_name = find("input[name='user[graetzl_attributes][name]']", visible: false).value
-      #   expect(graetzl_name).to eq(naschmarkt.name)
-      # end
-      # it 'shows welcome message', js: true do
-      #   fields_description = find('div#user_fields_description')
-      #   within fields_description do
-      #     expect(page).to have_content(naschmarkt.name)
-      #   end
+        expect(button_1.value).to eq (@seestadt_aspern.name)
+        expect(button_2.value).to eq (@aspern.name)
+      end
+    end
+
+    context 'with no result' do
+      before do
+        fill_in 'address', with: "  "
+        click_button('Weiter')
+        wait_for_ajax
+      end
+
+      it 'injects no address values', js: true do
+      end
+
+      it 'shows select with all graetzls', js: true do
       end
     end
   end
