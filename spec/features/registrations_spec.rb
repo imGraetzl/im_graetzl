@@ -67,7 +67,7 @@ RSpec.feature "Registrations", type: :feature do
         expect(coords).to eq(esterhazygasse.coordinates.as_text)
       end
       it 'has hidden field for graetzl_name', js: true do
-        graetzl_fields = find('div#user_graetzl_fields', visible: false)
+        graetzl_fields = find('div#user_graetzl_field', visible: false)
         within graetzl_fields do
           expect(page).to have_selector("input[name='user[graetzl_attributes][name]']", visible: false)
         end
@@ -91,7 +91,6 @@ RSpec.feature "Registrations", type: :feature do
             click_button('Weiter')
             wait_for_ajax
           }.to change { find("input[name='user[address_attributes][coordinates]']", visible: false).value }
-          expect(page).not_to have_selector("input[name='user[graetzl_attributes][name]']", visible: false)
           within find('div#user_fields_description') do
             expect(page).not_to have_content(@naschmarkt.name)
           end
@@ -118,7 +117,7 @@ RSpec.feature "Registrations", type: :feature do
         expect(coords).to eq(seestadt.coordinates.as_text)
       end
       it 'shows 2 radio buttons to choose graetzl', js: true do
-        graetzl_fields = find('div#user_graetzl_fields')
+        graetzl_fields = find('div#user_graetzl_field')
         within graetzl_fields do
           expect(page).to have_field('user[graetzl_attributes][name]', type: 'radio', count: 2)
         end

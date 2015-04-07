@@ -9,22 +9,14 @@ $('#user_address_attributes_coordinates').val('<%= @address.coordinates %>');
 
 
 // empty form element form previous search
-$('#user_graetzl_fields').empty();
-$('#user_graetzl_fields_description').empty();
+$('#user_graetzl_field_description').empty();
 $('#user_fields_description').empty();
 
 // render input fields
 <% if @graetzls.size > 1 %>
-  <%= render 'addresses/registrations/user_graetzl_fields' %>
+  <%= render 'addresses/registrations/graetzl_field' %>
 <% else %>
-
   // inject single graetzl values into hidden form
-  //console.log("inject hidden data for graetzl");
-  var input = "<input id='user_graetzl_attributes_name'"
-    + "name='user[graetzl_attributes][name]' type='hidden'"
-    + "value='"
-    + "<%= @graetzls.first.name.html_safe %>"
-    + "'>";
-  $('#user_graetzl_fields').append(input);
-  $('#user_fields_description').html('<%= j render "addresses/registrations/user_fields_description", graetzl: @graetzls.first %>');
+  $('#user_graetzl_attributes_name').val('<%= @graetzls.first.name.html_safe %>');
+  $('#user_fields_description').html('<%= j render "addresses/registrations/welcome", graetzl: @graetzls.first %>');
 <% end %>

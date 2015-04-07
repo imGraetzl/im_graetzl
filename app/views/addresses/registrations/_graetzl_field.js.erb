@@ -1,3 +1,6 @@
+// empty field
+$('#user_graetzl_field').empty();
+
 // render radio buttons
 <% if @graetzls.size < 5 %>
 
@@ -12,22 +15,19 @@
       + "<%= graetzl.name %>"
       + "</label>";
 
-    $('#user_graetzl_fields').append(input);
-    $('#user_graetzl_fields').append(label);
-    $('#user_graetzl_fields').append("<br>");
+    $('#user_graetzl_field').append(input);
+    $('#user_graetzl_field').append(label);
+    $('#user_graetzl_field').append("<br>");
   <% end %>
 
 // render select
 <% else %>
   var selectField = "<select id='user_graetzl_attributes_name' "
       + "name='user[graetzl_attributes][name]'>";
-  $('#user_graetzl_fields').append(selectField);
-  selectField = $('#user_graetzl_fields').children('select').first();
+  $('#user_graetzl_field').append(selectField);
+  selectField = $('#user_graetzl_field').children('select').first();
   selectField.append("<%= j options_for_select(@graetzls.all.map { |g| [g.name.html_safe] }) %>");
 <% end %>
 
 // render form description
-$('#user_graetzl_fields_description').html('<%= j render partial: "addresses/registrations/user_graetzl_fields_description" %>');
-
-// show form
-$('#user_graetzl_fields').slideDown(350);
+$('#user_graetzl_field_description').html('<%= j render partial: "addresses/registrations/graetzl_field_description" %>');
