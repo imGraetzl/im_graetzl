@@ -63,6 +63,7 @@ end
 
 # to query json apis
 gem 'httparty'
-
 # use devise for authentication
 gem 'devise'
+# for imageuploads
+gem 'carrierwave'

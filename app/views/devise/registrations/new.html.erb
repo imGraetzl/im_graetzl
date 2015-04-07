@@ -1,6 +1,6 @@
 <%= render 'find_graetzl' %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {}) do |f| %>
   <%= devise_error_messages! %>
 
   <%= render 'address_hidden', f: f %>

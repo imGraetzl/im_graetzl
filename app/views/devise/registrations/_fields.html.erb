@@ -62,3 +62,11 @@
   <%= f.check_box(:terms_and_conditions )%>
   <%= f.label :terms_and_conditions, "ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
 </div>
+
+<h6>step 4</h6>
+<p>Schenk Deinem Grätzl noch ein Lächeln!</p>
+<div class="field">
+  <%= f.label :avatar, 'Profilfoto hochladen' %><br>
+  <%= f.file_field :avatar %>
+  <%= f.hidden_field :avatar_cache %>
+</div>
