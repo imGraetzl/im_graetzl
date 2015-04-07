@@ -65,5 +65,6 @@ end
 gem 'httparty'
 # use devise for authentication
 gem 'devise'
-# for imageuploads
+# for images
 gem 'carrierwave'
+gem 'mini_magick'

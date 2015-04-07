@@ -67,6 +67,7 @@
 <p>Schenk Deinem Grätzl noch ein Lächeln!</p>
 <div class="field">
   <%= f.label :avatar, 'Profilfoto hochladen' %><br>
+  <%= image_tag(resource.avatar_url(:thumb)) if resource.avatar? %>
   <%= f.file_field :avatar %>
   <%= f.hidden_field :avatar_cache %>
 </div>
