@@ -39,7 +39,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
 
-  # configure database_cleaner (after thoughtbot tut)
+  # configure database_cleaner (thoughtbot tutorial)
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -58,6 +58,13 @@ RSpec.configure do |config|
  
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  # clean up carrierwave file uploads after tests
+  config.after(:all) do
+    if Rails.env.test? 
+      FileUtils.rm_rf(Rails.root + "public/test_uploads")
+    end 
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   #config.fixture_path = "#{::Rails.root}/spec/fixtures"

@@ -9,25 +9,62 @@ RSpec.describe User, type: :model do
 
   # validations
   describe 'validations' do
-    it 'is invalid without username' do
+    it 'invalid without username' do
       expect(build(:user, username: nil)).not_to be_valid
     end
 
-    it 'is invalid with dublicate username' do
+    it 'invalid with dublicate username' do
       first_user = create(:user)
       expect(build(:user, username: first_user.username)).not_to be_valid
     end
 
-    it 'is invalid without first_name' do
+    it 'invalid without first_name' do
       expect(build(:user, first_name: nil)).not_to be_valid
     end
 
-    it 'is invalid without last_name' do
+    it 'invalid without last_name' do
       expect(build(:user, last_name: nil)).not_to be_valid
     end
 
-    it 'is invalid without graetzl' do
+    it 'invalid without graetzl' do
       expect(build(:user, graetzl: nil)).not_to be_valid
+    end
+
+    describe 'avatar' do
+      let(:user) { create(:user, graetzl: create(:graetzl)) }
+
+      context 'when image filetype (png, jpg..)' do
+        before do
+          File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.png')) do |f|
+            user.avatar = f
+          end
+        end
+        after { user.avatar.remove! }
+
+        it 'is valid' do
+          expect(user).to be_valid
+        end
+
+        it 'has individual avatar' do
+          expect(user.avatar.identifier).to eq('avatar_test.png')
+        end
+      end
+
+      context 'when non-image filetype' do
+        before do
+          File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.wrong')) do |f|
+            user.avatar = f
+          end
+        end
+
+        it 'is invalid' do
+          expect(user).not_to be_valid
+        end
+
+        it 'has default avatar' do
+          expect(user.avatar_url).to eq('avatar/default.png')
+        end
+      end
     end
   end
 
@@ -56,5 +93,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
 end
