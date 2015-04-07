@@ -3,3 +3,8 @@
 # available.  Otherwise it will execute while your application is stopped
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
+
+# directory for image uploads (if not already existent)
+mkdir -p $OPENSHIFT_DATA_DIR/uploads
+# symlink directory
+ln -sf $OPENSHIFT_DATA_DIR/uploads $OPENSHIFT_REPO_DIR/public/uploads
