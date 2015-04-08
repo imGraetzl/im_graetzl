@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
-  validates :terms_and_conditions, acceptance: true
+  #validates :terms_and_conditions, acceptance: true
   # validates_presence_of :avatar
   validates_integrity_of :avatar
   validates_processing_of :avatar
