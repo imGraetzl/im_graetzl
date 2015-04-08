@@ -4,13 +4,20 @@
   <title>ImGraetzl</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <!-- fonts -->
+  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' %>
+  <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Amatic+SC:400,700' %>
+  <!-- icons -->
+  <%= javascript_include_tag "https://fontastic.s3.amazonaws.com/P7x6EJva372RfDgNFpjLYd/icons.js" %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
+  <%= render 'layouts/header' %>
 
-<%= render 'layouts/flash_messages' %>
-
-<%= yield %>
+  <main>
+    <%= yield %>
+  </main>
 
 </body>
 </html>
