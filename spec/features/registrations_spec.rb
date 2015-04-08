@@ -37,7 +37,9 @@ RSpec.feature "Registrations", type: :feature do
   end
 
   describe 'step 2: submit address' do
+
     before do
+      @address_form = find("form[action='/addresses/fetch_graetzl'][method='post']")
       @naschmarkt = create(:naschmarkt)
       @seestadt_aspern = create(:seestadt_aspern)
       @aspern = create(:aspern)
@@ -48,8 +50,10 @@ RSpec.feature "Registrations", type: :feature do
       let(:esterhazygasse) { build(:esterhazygasse) }
 
       before do
-        fill_in 'address', with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
-        click_button('Weiter')
+        within @address_form do
+          fill_in 'address', with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
+          click_button('Weiter')
+        end
         wait_for_ajax
       end
 
@@ -87,8 +91,10 @@ RSpec.feature "Registrations", type: :feature do
 
         it 'discards previous data', js: true do
           expect {
-            fill_in 'address', with: "#{Faker::Address.street_name}"
-            click_button('Weiter')
+            within @address_form do
+              fill_in 'address', with: "#{Faker::Address.street_name}"
+              click_button('Weiter')
+            end
             wait_for_ajax
           }.to change { find("input[name='user[address_attributes][coordinates]']", visible: false).value }
           within find('div#user_fields_description') do
@@ -102,8 +108,10 @@ RSpec.feature "Registrations", type: :feature do
       let(:seestadt) { build(:seestadt) }
 
       before do
-        fill_in 'address', with: "#{seestadt.street_name}"
-        click_button('Weiter')
+        within @address_form do
+          fill_in 'address', with: "#{seestadt.street_name}"
+          click_button('Weiter')
+        end
         wait_for_ajax
       end
 
@@ -132,8 +140,10 @@ RSpec.feature "Registrations", type: :feature do
 
     context 'with no result' do
       before do
-        fill_in 'address', with: 'qwertzuiopü+'
-        click_button('Weiter')
+        within @address_form do
+          fill_in 'address', with: 'qwertzuiopü+'
+          click_button('Weiter')
+        end
         wait_for_ajax
       end
 
