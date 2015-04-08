@@ -8,7 +8,7 @@
       <%= form_tag(fetch_graetzl_path, method: :post, remote: true) do %>
 
         <div class="input-group">
-          <%= text_field_tag :address, nil, autofocus: true %>
+          <%= text_field_tag :address, nil %>
           <%= label_tag :address, 'An welcher Adresse in Wien wohnst du...?' %>
         </div>
         <div class="btn-navBar">
