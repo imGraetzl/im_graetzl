@@ -69,12 +69,7 @@ APP.pages.registrations = (function() {
 
         init: function() {
 
-            $('#birthdate').mask('00/00/0000');
-
-            wizard = APP.components.formStepSlider({
-                el: $(".slider-elements"),
-                steps: steps
-            });
+            $('#user_birthday').mask('00/00/0000');
 
         }
     }
