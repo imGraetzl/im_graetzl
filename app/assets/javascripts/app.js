@@ -6,6 +6,8 @@ var APP = {
     init: function() {
         APP.pages.sitewide.init();
         var pageToInit = $("body").attr("data-page");
-        APP.pages[pageToInit].init();
+        if (APP.pages[pageToInit]) {
+            APP.pages[pageToInit].init();
+        }
     }
 };

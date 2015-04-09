@@ -12,7 +12,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body>
+<body data-page=<%= controller_name %>>
   <%= render 'layouts/header' %>
 
   <main>
@@ -20,4 +20,9 @@
   </main>
 
 </body>
+  <%= javascript_tag do %>
+    $( document ).ready(function() {
+      APP.init();
+    });
+  <% end %>
 </html>
