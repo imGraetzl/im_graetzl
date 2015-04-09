@@ -39,14 +39,10 @@
       </div>
 
       <div class="select-group">
-        <%= f.select :gender, [
-          ['männlich', :gender_male],
-          ['weiblich', :gender_female],
-          ['keines von beiden', :gender_different]
-        ] %>
+        <%= f.select :gender, User::GENDER_TYPES,
+          { include_blank: 'Geschlecht' } %>
       </div>
 
-      <!-- todo: birthday -->
       <div class="birthdate input-group">
         <%= f.text_field :birthday %>
         <%= f.label :birthday, 'Geburtsdatum (TT/MM/JJJJ)' %>
