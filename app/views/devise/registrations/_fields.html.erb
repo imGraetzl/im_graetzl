@@ -48,8 +48,15 @@
         <%= f.label :birthday, 'Geburtsdatum (TT/MM/JJJJ)' %>
       </div>
 
-      <!-- todo: newsletter -->
-      <!-- todo: terms and conditions -->
+      <div class="input-group">
+        <%= f.label :newsletter, 'Newsletter abonnieren' %>
+        <%= f.check_box(:newsletter )%>
+      </div>
+
+      <div class="input-group">
+        <%= f.label :terms_and_conditions, "ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
+        <%= f.check_box(:terms_and_conditions )%>
+      </div>
     </div>
 
     <div class="btn-navBar">
