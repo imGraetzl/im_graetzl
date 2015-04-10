@@ -1,3 +1,5 @@
+require 'JSON'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -63,9 +65,8 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
 
-  # parse sendgrid env variables
-  # sendgrid_id = 'sendgrid_55a22'
-  # sendgrid_account = JSON.parse(ENV[sendgrid_id])
+  # parse sendgrid env variable
+  sendgrid_account = JSON.parse(ENV['sendgrid_55a22'])
 
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { host: ENV['OPENSHIFT_APP_DNS'] }
@@ -74,8 +75,8 @@ Rails.application.configure do
     address: 'smtp.sendgrid.net',
     port: 587,
     domain: ENV['OPENSHIFT_APP_DNS'],
-    user_name: '4Qfy5f18Ml',
-    password: '92UJnNjS63',
+    user_name: sendgrid_account['username'],
+    password: sendgrid_account['password'],
     authentication: :plain,
     enable_starttls_auto: true
   }
