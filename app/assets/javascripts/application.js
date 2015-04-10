@@ -12,6 +12,7 @@
 //
 //= require underscore
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery.mask
 //= require jquery_ujs
 //= require turbolinks

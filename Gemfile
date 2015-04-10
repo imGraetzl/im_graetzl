@@ -25,6 +25,8 @@ gem 'jquery-rails'
 gem 'underscore-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+# Advanced JS events with turbolinks
+gem 'jquery-turbolinks'
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website
 gem 'autoprefixer-rails', '~> 5.1.8.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
