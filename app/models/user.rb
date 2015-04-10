@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   # attributes
   # virtual attribute to login with username or email
   attr_accessor :login
+  GENDER_TYPES = { female: 1, male: 2, other: 3 }
 
   # validations
   validates :graetzl, presence: true

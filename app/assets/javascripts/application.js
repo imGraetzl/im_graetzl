@@ -10,7 +10,14 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require underscore
 //= require jquery
+//= require jquery.mask
 //= require jquery_ujs
 //= require turbolinks
+//= require utils/app
 //= require_tree .
+
+$( document ).ready(function() {
+  APP.init();
+});

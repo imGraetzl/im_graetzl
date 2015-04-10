@@ -1,0 +1,11 @@
+.slider {
+
+}
+
+.slider-elements {
+  overflow: hidden;
+  > div {
+    float: left;
+    margin-bottom: 20px;
+  }
+}

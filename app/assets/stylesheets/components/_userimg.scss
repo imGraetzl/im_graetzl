@@ -1,0 +1,17 @@
+.userDummy {
+  overflow: hidden;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background-image: image-url("concrete-wall.png");
+  background-color: lighten($color-ambient-mint, 20);
+  border-radius: 50%;
+  border: 2px solid $color-ambient-mint;
+  .icon-vcard {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    transform: translate(0, 10%);
+    fill: $color-ambient-mint;
+  }
+}

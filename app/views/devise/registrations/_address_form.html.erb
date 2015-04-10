@@ -1,9 +1,20 @@
-<h6>step 1</h6>
+<div class="step-search" data-step="searchGraetzl">
+  <div class="inner">
 
-<h3>Lass uns zu Beginn dein Heimatgrätzl finden...</h3>
+    <h5>Schritt 1/4 </h5>
+    <h2>Lass uns zu Beginn dein <span>Heimatgrätzl</span> finden...</h2>
 
-<%= form_tag(fetch_graetzl_path, method: :post, remote: true) do %>
-  <%= label_tag :address, 'Wo in Wien bist Du Zuhause?' %><br>
-  <%= text_field_tag :address, nil, placeholder: 'Straße Hausnummer', autofocus: true, minlength: 6 %>
-  <%= submit_tag 'Weiter' %>
-<% end %>
+    <div class="assisted">
+      <%= form_tag(fetch_graetzl_path, method: :post, remote: true) do %>
+
+        <div class="input-group">
+          <%= text_field_tag :address, nil %>
+          <%= label_tag :address, 'An welcher Adresse in Wien wohnst du...?' %>
+        </div>
+        <div class="btn-navBar">
+          <%= submit_tag 'Weiter', class: 'btn-primary next' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
