@@ -1,4 +1,4 @@
-APP.pages.sitewide = (function() {
+APP.controllers.application = (function() {
 
     var privateVar = "Sitewide!";
 

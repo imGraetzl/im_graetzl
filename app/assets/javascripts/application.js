@@ -12,10 +12,12 @@
 //
 //= require underscore
 //= require jquery
+//= require jquery.mask
 //= require jquery_ujs
-//= require_directory ./vendors
 //= require turbolinks
-//= require app
-//= require_directory ./components
-//= require_directory ./pages
-//= require_directory ./utils
+//= require utils/app
+//= require_tree .
+
+$( document ).ready(function() {
+  APP.init();
+});

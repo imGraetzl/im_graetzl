@@ -1,4 +1,4 @@
-APP.pages.registrations = (function() {
+APP.controllers.registrations = (function() {
 
     var steps = {};
     var wizard;
