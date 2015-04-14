@@ -24,9 +24,8 @@ RSpec.describe AddressesController, type: :controller do
       end
 
       it 'assigns nothing' do
-        xhr :post, :fetch_graetzl
-        expect(assigns(:address)).to be_nil
-        expect(assigns(:graetzls)).to be_nil
+        expect(session[:address]).to be_nil
+        expect(session[:graetzls]).to be_nil
       end
     end
 
