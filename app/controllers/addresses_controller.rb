@@ -9,12 +9,25 @@ class AddressesController < ApplicationController
       render :registration
     else
       address = get_address_from_api(params[:address])
-      graetzl = address.match_graetzls.first
       session[:address] = address.attributes
-      #session[:address] = nil
-      session[:graetzl] = graetzl.attributes
-      redirect_to new_user_registration_path
+      @graetzls = address.match_graetzls
+      if @graetzls.size == 1
+        session[:graetzl] = @graetzls.first.id
+        redirect_to new_user_registration_path
+      end
     end
+  end
+
+  def match
+    puts params[:graetzl]
+    if params[:graetzl].blank?
+      flash.now[:error] = 'Bitte wähle ein Grätzl.'
+      render :registration
+    else
+      graetzl = Graetzl.find(params[:graetzl])
+      session[:graetzl] = graetzl.id
+      redirect_to new_user_registration_path
+    end    
   end
 
   after_filter { flash.discard if request.xhr? }

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'addresses/registration'
   post 'addresses/search'
+  post 'addresses/match'
 
   post 'addresses/fetch_graetzl', as: 'fetch_graetzl'
 

@@ -1,2 +1,40 @@
-<p><%= @address.attributes['street_number'] %></p>
-<p><%= @graetzl.attributes %></p>
+<div class="step-search" data-step="searchGraetzl">
+  <div class="inner">
+
+    <h5>Schritt 1b/4 </h5>
+    <h2>Wähle dein <span>Heimatgrätzl</span></h2>
+
+    <div>
+      <%= form_tag(addresses_match_path, method: :post) do %>
+
+        <% if @graetzls.size < 4 %>
+
+          <p class="text">
+            Unter deiner Addresse konnten wir <%= @graetzls.size %> Grätzl finden. Wo fühlst Du dich denn Zuhause?
+          </p>
+          <div class="field">
+            <% @graetzls.each do |g| %>
+              <%= radio_button_tag :graetzl, g.id %>
+              <%= label_tag :graetzl, g.name %>
+              <br>
+            <% end %>
+          </div>
+
+        <% else %>
+
+          <p class="text">
+            Wir konnten deine Addresse leider keinem Grätzl zuordnen. Bitte wähle Dein Heimatgrätzl aus der Liste.
+          </p>
+          <div class="field">
+            <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, "id", "name") %>
+          </div>
+
+        <% end %>
+
+        <div class="btn-navBar">
+          <%= submit_tag 'Weiter', class: 'btn-primary next' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

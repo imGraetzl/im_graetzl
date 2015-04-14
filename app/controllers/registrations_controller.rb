@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     if session[:graetzl].present?
       build_resource({})
       self.resource.build_address(session[:address] ||= {})
-      self.resource.build_graetzl(session[:graetzl])
+      self.resource.build_graetzl(Graetzl.find(session[:graetzl]).attributes)
       respond_with self.resource
     else
       redirect_to addresses_registration_path
