@@ -11,18 +11,6 @@
           <%= text_field_tag :address, nil %>
           <%= label_tag :address, 'An welcher Adresse in Wien wohnst du...?' %>
         </div>
-
-        <!-- if multiple grätzls -->
-        <% if @graetzls %>
-          <div class="step-search" data-step="searchGraetzl">
-            <div class="inner">
-
-              <h5>Schritt 1b/4 </h5>
-              <h2>Wähle dein <span>Heimatgrätzl</span></h2>
-            </div>
-          </div>
-        <% end %>
-        
         <div class="btn-navBar">
           <%= submit_tag 'Weiter', class: 'btn-primary next' %>
         </div>

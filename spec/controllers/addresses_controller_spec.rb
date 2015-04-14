@@ -2,87 +2,113 @@ require 'rails_helper'
 
 RSpec.describe AddressesController, type: :controller do
 
-  describe 'POST fetch_graetzl' do
+  describe 'GET registration' do
+    it 'renders first registration step' do
+      get :registration
+      expect(response).to render_template(:registration)
+    end
+  end
 
-    context 'with address parameter' do
-      it 'assigns address' do
-        xhr :post, :fetch_graetzl, address: 'mariahilferstraße 10'
-        expect(assigns(:address)).not_to be_nil
+  describe 'POST search' do
+    context 'without address param' do
+      before { post :search }
+
+      it 'shows flash message and discards it on refresh' do
+        expect(flash[:error]).to be_present
+        get :registration
+        expect(flash[:error]).not_to be_present
       end
-      it 'assigns graetzls' do
-        xhr :post, :fetch_graetzl, address: 'mariahilferstraße 10'
-        expect(assigns(:graetzls)).not_to be_nil
+
+      it 'renders registration again' do
+        expect(response).to render_template(:registration)
       end
-      it 'renders fetch_graetzl template' do
-        xhr :post, :fetch_graetzl, address: 'mariahilferstraße 10'
-        expect(response).to render_template(:fetch_graetzl)
+
+      it 'assigns nothing' do
+        xhr :post, :fetch_graetzl
+        expect(assigns(:address)).to be_nil
+        expect(assigns(:graetzls)).to be_nil
       end
     end
 
-    context 'with esterhazygasse address parameter' do
-      let(:esterhazygasse) { build(:esterhazygasse) }
+    context 'with blank address param' do
+      before { post :search, address: '' }
 
+      it 'shows flash message' do
+        expect(flash[:error]).to be_present
+      end
+
+      it 'renders registration again' do
+        expect(response).to render_template(:registration)
+      end
+    end
+
+    context 'with random address param' do
+      before do
+        3.times { create(:graetzl) }
+        post :search, address: 'someweirdstreet 10'
+      end
+
+      it 'puts address but no graetzl in session' do
+        expect(session[:address]).not_to be_nil
+        expect(session[:graetzl]).to be_nil
+      end
+
+      it 'assigns all graetzls' do
+        expect(assigns(:graetzls).size).to eq(3)
+      end
+
+      it 'renders search' do
+        expect(response).to render_template(:search)
+      end
+    end
+
+    context 'with matching address param' do
+      let(:esterhazygasse) { build(:esterhazygasse) }
       before do
         @naschmarkt = create(:naschmarkt)
         2.times { create(:graetzl) }
+        post :search, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
       end
 
-      it 'assigns correct address object' do
-        xhr :post, :fetch_graetzl, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
-        expect(assigns(:address).attributes).to eql(esterhazygasse.attributes)
-      end
-      it 'assigns correct graetzl object' do
-        xhr :post, :fetch_graetzl, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
-        expect(assigns(:graetzls).first.name).to eql(@naschmarkt.name)
-      end
-    end
-
-    context 'without address parameter' do
-      it 'assigns nothing' do
-        xhr :post, :fetch_graetzl
-        expect(assigns(:address)).to be_nil
-        expect(assigns(:graetzls)).to be_nil
-      end
-      it 'returns flash message' do
-        xhr :post, :fetch_graetzl
-        expect(flash[:error]).to be_present
-      end
-      it 'renders no_address template' do
-        xhr :post, :fetch_graetzl
-        expect(response).to render_template(:no_address)
-      end
-    end
-
-    context 'with blank address parameter' do
-      before { xhr :post, :fetch_graetzl, address: '' }
-      it 'assigns nothing' do
-        expect(assigns(:address)).to be_nil
-        expect(assigns(:graetzls)).to be_nil
-      end
-      it 'returns flash message' do
-        expect(flash[:error]).to be_present
-      end
-      it 'renders no_address template' do
-        expect(response).to render_template(:no_address)
-      end
-    end
-
-    context 'with address cannot be found' do
-      before do
-        3.times { create(:graetzl) }
-        xhr :post, :fetch_graetzl, address: 'qwertzuiopü+'
+      it 'puts correct address and graetzl in session' do
+        expect(session[:address]).to eql(esterhazygasse.attributes)
+        expect(session[:graetzl]).to eql(@naschmarkt.id)
       end
 
-      it 'assigns blank address' do
-        expect(assigns(:address)).not_to be_nil
-        expect(assigns(:address).street_name).to be_nil
-        expect(assigns(:address).coordinates).to be_nil
-      end
-      it 'assigns all graetzl' do
-        expect(assigns(:graetzls)).to eq(Graetzl.all)
-        expect(assigns(:graetzls).size).to eq(3)
+      it 'redirects to new user registration' do
+        expect(response).to redirect_to new_user_registration_path
       end
     end
   end
 
+  describe 'POST match' do
+    context 'when no graetzl chosen' do
+      before { post :match }
+
+      it 'shows flash message' do
+        expect(flash[:error]).to be_present
+      end
+
+      it 'renders registration again' do
+        expect(response).to render_template(:registration)
+      end
+
+      it 'puts no graetzl in session' do
+        expect(session[:graetzl]).to be_nil
+      end
+    end
+
+    context 'when graetzl chosen' do
+      let(:naschmarkt) { create(:naschmarkt) }
+      before { post :match, graetzl: naschmarkt.id }
+
+      it 'puts graetzl id in session' do
+        expect(session[:graetzl]).to eql(naschmarkt.id)
+      end
+
+      it 'redirects to new user registration' do
+        expect(response).to redirect_to new_user_registration_path
+      end
+    end
+  end
 end
