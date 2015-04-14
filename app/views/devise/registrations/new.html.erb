@@ -8,7 +8,6 @@
       <div class="form-register">
 
         <div class="field">
-          <%= resource.address.street_name %>
           <%= f.fields_for :address do |address_fields| %>
             <%= address_fields.hidden_field :street_name %>
             <%= address_fields.hidden_field :street_number %>
@@ -19,7 +18,6 @@
         </div>
 
         <div class="field">
-          <%= resource.graetzl.name %>
           <%= f.fields_for :graetzl do |graetzl_fields| %>
             <%= graetzl_fields.hidden_field :name %>
           <% end %>
@@ -67,13 +65,6 @@
           <%= f.label :birthday, 'Geburtsdatum (TT/MM/JJJJ)' %>
         </div>
 
-        <!-- user img temp -->
-        <div class="input-group">
-          <%= f.label :avatar, 'Profilfoto hochladen' %><br>
-          <%= f.file_field :avatar %>
-          <%= f.hidden_field :avatar_cache %>
-        </div>
-
         <div class="input-group">
           <%= f.label :newsletter, 'Newsletter abonnieren' %>
           <%= f.check_box(:newsletter )%>
@@ -84,10 +75,20 @@
           <%= f.check_box(:terms_and_conditions )%>
         </div>
 
-        <div class="btn-navBar">
-          <button class="btn prev" type="button">Schritt zurück</button>
-          <%= f.button "Anmelden", class: 'btn-primary next' %>
+        <div class="wrap">
+          <button class="btn-primary" type="button">
+            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg> Portrait hochladen
+            <%= image_tag(resource.avatar_url(:thumb)) if resource.avatar? %>
+            <%= f.file_field :avatar %>
+            <%= f.hidden_field :avatar_cache %>
+          </button>
         </div>
+
+      </div>
+
+      <div class="btn-navBar">
+        <button class="btn prev" type="button">Schritt zurück</button>
+        <%= f.submit "Anmelden", class: 'btn-primary next' %>
       </div>
     <% end %>
   </div>

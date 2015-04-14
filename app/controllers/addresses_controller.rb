@@ -5,7 +5,7 @@ class AddressesController < ApplicationController
 
   def search
     if params[:address].blank?
-      flash[:error] = 'Please enter address.'
+      flash.now[:error] = 'Please enter address.'
       render :registration
     else
       address = get_address_from_api(params[:address])
@@ -15,8 +15,6 @@ class AddressesController < ApplicationController
       session[:graetzl] = graetzl.attributes
       redirect_to new_user_registration_path
     end
-    #puts "search address search address search address search address"
-    #redirect_to new_user_registration_path    
   end
 
   after_filter { flash.discard if request.xhr? }
