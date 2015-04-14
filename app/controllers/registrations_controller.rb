@@ -4,10 +4,16 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
 
   def new
-    build_resource({})
-    self.resource.build_address
-    self.resource.build_graetzl
-    respond_with self.resource
+    # need graetzl here...
+    if session[:graetzl].present?
+      build_resource({})
+      self.resource.build_address(session[:address] ||= {})
+      self.resource.build_graetzl(session[:graetzl])
+      puts "render new render new render new render new render new #{resource.address}"
+      respond_with self.resource
+    else
+      redirect_to address_registration_path
+    end
   end
 
   protected

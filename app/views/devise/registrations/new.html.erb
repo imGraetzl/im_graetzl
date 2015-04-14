@@ -1,12 +1,94 @@
-<%= render 'address_form' %>
+<div class="step-personal" data-step="personalData">
+  <div class="inner">
+    <h5>Schritt 2/4</h5>
+    <h2>Willkommen im <span><%= resource.graetzl.name %></span></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {}) do |f| %>
-  <%= devise_error_messages! %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {}) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="form-register">
 
-  <%= render 'address_fields', f: f %>
+        <div class="field">
+          <%= resource.address.street_name %>
+          <%= f.fields_for :address do |address_fields| %>
+            <%= address_fields.hidden_field :street_name %>
+            <%= address_fields.hidden_field :street_number %>
+            <%= address_fields.hidden_field :zip %>
+            <%= address_fields.hidden_field :city %>
+            <%= address_fields.hidden_field :coordinates %>
+          <% end %>
+        </div>
 
-  <%= render 'graetzl_field', f: f %>
+        <div class="field">
+          <%= resource.graetzl.name %>
+          <%= f.fields_for :graetzl do |graetzl_fields| %>
+            <%= graetzl_fields.hidden_field :name %>
+          <% end %>
+        </div>
 
-  <%= render 'fields', f: f %>
-  
-<% end %>
+        <div class="username input-group">
+        <%= f.text_field :username %>
+        <%= f.label :username %>
+        </div>
+
+        <div class="input-group">
+          <%= f.password_field :password, autocomplete: "off" %>
+          <%= f.label :password %>
+        </div>
+
+        <div class="input-group">
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          <%= f.label :password_confirmation %>
+        </div>
+
+        <p class="text">... um dich besser kennen zu lernen</p>
+
+        <div class="input-group">
+          <%= f.text_field :first_name %>
+          <%= f.label :first_name %>
+        </div>
+
+        <div class="input-group">
+          <%= f.text_field :last_name %>
+          <%= f.label :last_name %>
+        </div>
+
+        <div class="input-group">
+          <%= f.email_field :email %>
+          <%= f.label :email %>
+        </div>
+
+        <div class="select-group">
+          <%= f.select :gender, User::GENDER_TYPES,
+            { include_blank: 'Geschlecht' } %>
+        </div>
+
+        <div class="birthdate input-group">
+          <%= f.text_field :birthday %>
+          <%= f.label :birthday, 'Geburtsdatum (TT/MM/JJJJ)' %>
+        </div>
+
+        <!-- user img temp -->
+        <div class="input-group">
+          <%= f.label :avatar, 'Profilfoto hochladen' %><br>
+          <%= f.file_field :avatar %>
+          <%= f.hidden_field :avatar_cache %>
+        </div>
+
+        <div class="input-group">
+          <%= f.label :newsletter, 'Newsletter abonnieren' %>
+          <%= f.check_box(:newsletter )%>
+        </div>
+
+        <div class="input-group">
+          <%= f.label :terms_and_conditions, "ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
+          <%= f.check_box(:terms_and_conditions )%>
+        </div>
+
+        <div class="btn-navBar">
+          <button class="btn prev" type="button">Schritt zurück</button>
+          <%= f.button "Anmelden", class: 'btn-primary next' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
