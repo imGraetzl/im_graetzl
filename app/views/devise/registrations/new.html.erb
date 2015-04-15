@@ -1,7 +1,13 @@
+<% title('Registrierung') %>
+
 <div class="step-personal" data-step="personalData">
   <div class="inner">
     <h5>Schritt 2/4</h5>
-    <h2>Willkommen im <span><%= resource.graetzl.name %></span></h2>
+    <h2>Willkommen im <span><%= resource.graetzl.short_name %></span></h2>
+    <p class="neighbourCount">
+      <span><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
+      Ein paar Dinge müssen wir noch wissen, dann geht's los!
+    </p>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {}) do |f| %>
       <%= devise_error_messages! %>

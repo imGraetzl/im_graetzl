@@ -1,3 +1,5 @@
+<% title('Registrierung') %>
+
 <div class="step-search" data-step="searchGraetzl">
   <div class="inner">
 
@@ -15,7 +17,7 @@
           <div class="field">
             <% @graetzls.each do |g| %>
               <%= radio_button_tag :graetzl, g.id %>
-              <%= label_tag :graetzl, g.name %>
+              <%= label_tag :graetzl, g.short_name %>
               <br>
             <% end %>
           </div>
@@ -26,7 +28,7 @@
             Wir konnten deine Addresse leider keinem Grätzl zuordnen. Bitte wähle Dein Heimatgrätzl aus der Liste.
           </p>
           <div class="field">
-            <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, "id", "name") %>
+            <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name') %>
           </div>
 
         <% end %>

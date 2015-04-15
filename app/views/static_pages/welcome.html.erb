@@ -1,11 +1,11 @@
 <h3>
   <% if user_signed_in? %>
-    <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+    <%= link_to 'Abmelden', destroy_user_session_path, method: :delete %>
   <% else %>
-    <%= link_to 'Login', new_user_session_path %> or <%= link_to 'Register', addresses_registration_path %>
+    <%= link_to 'Anmelden', new_user_session_path %> | <%= link_to 'Registrieren', addresses_registration_path %>
   <% end %>
 </h3>
-<h2>imGrätzl</h2>
-<p>placeholder startup-page</p>
+<h1>imGrätzl</h1>
+<p>Platzhalter Willkommens-Seite</p>
 
 <%= image_tag @user.avatar_url(:thumb) if @user %>

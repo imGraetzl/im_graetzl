@@ -97,7 +97,7 @@ RSpec.feature "Registrations", type: :feature do
         describe 'when choosen' do
 
           before do
-            select(@naschmarkt.name, from: 'graetzl')
+            select(@naschmarkt.short_name, from: 'graetzl')
             click_button('Weiter')
           end
 
