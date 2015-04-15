@@ -93,8 +93,8 @@
       </div>
 
       <div class="btn-navBar">
-        <button class="btn prev" type="button">Schritt zurück</button>
-        <%= f.submit "Anmelden", class: 'btn-primary next' %>
+        <%= link_to 'Schritt zurück', 'javascript:history.back();' %>
+        <%= f.button "Anmelden", class: 'btn-primary next' %>
       </div>
     <% end %>
   </div>

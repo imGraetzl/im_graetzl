@@ -34,7 +34,8 @@
         <% end %>
 
         <div class="btn-navBar">
-          <%= submit_tag 'Weiter', class: 'btn-primary next' %>
+          <%= link_to 'Schritt zurück', 'javascript:history.back();' %>
+          <%= button_tag 'Weiter', class: 'btn-primary next' %>
         </div>
       <% end %>
     </div>
