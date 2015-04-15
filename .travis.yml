@@ -2,6 +2,10 @@ language: ruby
 cache: bundler
 before_script:
 - bundle exec rake db:create db:schema:load RAILS_ENV=test
+notifications:
+  email:
+    - klappradla@gmail.com
+    - peter.tilg@gmail.com
 deploy:
   provider: openshift
   user: klappradla@gmail.com
