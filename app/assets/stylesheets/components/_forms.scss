@@ -1,0 +1,184 @@
+input, select {
+  font-family: $font-primary;
+}
+
+// ---------------------------------------------------------------------- Input Group
+
+.input-group {
+  display: flex;
+  position: relative;
+  .wrap-field {
+    position: relative;
+    flex: 1;
+  }
+  input {
+    width: 100%;
+    flex: 1;
+    background-color: $form-color-secondary;
+    color: $color-font-primary;
+    border: none;
+    padding: 1.3rem;
+    outline: none;
+    font-size: 1rem;
+  }
+  label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    font-size: 1rem;
+    padding-left: 1.1rem;
+    font-family: $font-primary;
+    color: $form-color-primary;
+    transition: 0.2s ease;
+    transform: translate(0,-50%);
+  }
+  input:focus + label,
+  &.filled label {
+    top: 7px;
+    left: 2px;
+    padding-left: 0;
+    font-size: 0.8em;
+  }
+  :first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  :last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+// ---------------------------------------------------------------------- Select Group
+
+.select-group {
+  display: flex;
+  position: relative;
+  align-items: center;
+  border-color: $form-color-secondary;
+  border-style: solid;
+  border-width: 2px;
+  label {
+    padding-left: 0.9em;
+    padding-right: 0.9rem;
+    color: $form-color-primary;
+  }
+  select {
+    position: relative;
+    flex: 1 0 8em;
+    display: block;
+    background-color: $form-color-secondary;
+    color: $form-color-primary;
+    border: 0;
+    padding: 1.1rem 0 1.1rem 0.9rem;
+    -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    option {
+      color: $form-color-primary;
+    }
+    option:disabled {
+      color: grey;
+    }
+  }
+  select[disabled] {
+    color: rgba(0, 0, 0, .3);
+  }
+  select[disabled]::after {
+    color: rgba(0, 0, 0, .1);
+  }
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+  }
+  &::after {
+    /*  Custom dropdown arrow */
+    content: "\25BC";
+    height: 1em;
+    font-size: 0.8rem;
+    line-height: 1;
+    right: 0.75em;
+    top: 50%;
+    color: $form-color-tertiary;
+    margin-top: -0.5em;
+  }
+  &::before {
+    /*  Custom dropdown arrow cover */
+    width: 2em;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $form-color-secondary;
+  }
+}
+
+// ---------------------------------------------------------------------- Radio Group
+
+.radio-group {
+  position: relative;
+  display: inline-block;
+  input {
+    display: none;
+  }
+  label {
+    display: block;
+    padding: 10px 0 10px 60px;
+    &:before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: 50%;
+      left: 18px;
+      background-color: $form-color-secondary;
+      border-radius: 50%;
+      border: 4px solid $form-color-tertiary;
+      transform: translate(0, -50%);
+      transition: 0.5s;
+    }
+  }
+  input:checked + label {
+    &:before {
+      background-color: $color-font-primary;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------- Checkbox Group
+
+.checkbox-group {
+  position: relative;
+  display: inline-block;
+  input {
+    display: none;
+  }
+  label {
+    display: block;
+    padding: 10px 0 10px 60px;
+    &:before {
+      content: '';
+      display: block;
+      width: 18px;
+      color: $color-ambient-mint;
+      height: 18px;
+      position: absolute;
+      top: 50%;
+      left: 18px;
+      background-color: $form-color-secondary;
+      border: 4px solid $form-color-tertiary;
+      transform: translate(0, -50%);
+      transition: 0.5s;
+      font-size: 23px;
+      line-height: 15px;
+    }
+  }
+  input:checked + label {
+    &:before {
+      content: '✔';
+      color: $color-font-primary;
+    }
+  }
+}

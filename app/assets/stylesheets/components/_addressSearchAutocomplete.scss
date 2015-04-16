@@ -1,0 +1,61 @@
+#addressSearchAutocomplete {
+
+  .twitter-typeahead {
+    width: 100%;
+    display: block;
+  }
+
+  #address,
+  .tt-hint {
+    width: 100%;
+    border: none;
+    font-family: $font-primary;
+    outline: none;
+  }
+
+  #address {
+    color: $color-font-primary;
+    background-color: $form-color-secondary;
+  }
+
+  .tt-hint {
+    color: $color-ambient-grey;
+  }
+
+  .tt-dropdown-menu {
+    background-color: $color-background-bright;
+    border: 2px solid $form-color-secondary;
+    margin-top: -2px;
+    width: 100%;
+  }
+
+  .tt-suggestion {
+    padding: 0.6rem 1.6rem;
+    border-bottom: 2px solid $form-color-secondary;
+    &:last-child {
+      border-bottom: none;
+    }
+    .district {
+      font-size: 0.8rem;
+      float: right;
+      vertical-align: middle;
+      color: $color-ambient-grey;
+    }
+  }
+
+  .tt-cursor {
+    background-color: $form-color-secondary;
+    color: $color-font-primary;
+  }
+
+  @include respond-to(">medium") {
+    #address,
+    .tt-hint {
+    }
+    .tt-dropdown-menu {
+      min-width: 50%;
+      width: auto;
+    }
+  }
+
+}

@@ -1,6 +1,41 @@
-//= require parsley
-//= require_self
-@import "utils/*";
-@import "layout/*";
-@import "components/*";
-@import "controllers/*";
+//---------------------------------------------------------------------------------------------*\
+// UTILS
+// mixins, functions, variables, placeholders.
+//---------------------------------------------------------------------------------------------*/
+
+@import "utils/variables";
+@import "utils/mixins";
+@import "utils/include-media";
+
+//---------------------------------------------------------------------------------------------*\
+// LAYOUT
+// Styles for the main sections and the layout (header, footer, grid, forms, typography).
+//---------------------------------------------------------------------------------------------*/
+
+@import "layout/normalize";
+@import "layout/base";
+@import "layout/icons";
+
+//---------------------------------------------------------------------------------------------*\
+// COMPONENTS
+// All kinds of specific modules (buttons, sliders, avatars, thumbnails).
+//---------------------------------------------------------------------------------------------*/
+
+@import "components/header";
+@import "components/buttons";
+@import "components/forms";
+@import "components/userimg";
+@import "components/addressSearchAutocomplete";
+
+//---------------------------------------------------------------------------------------------*\
+// PAGES
+// Page-specific styles. Mainly for positioning and fine adjust the components in the layout.
+//---------------------------------------------------------------------------------------------*/
+
+@import "controllers/registration";
+
+//---------------------------------------------------------------------------------------------*\
+// VENDOR
+// CSS files from external libraries and frameworks.
+//---------------------------------------------------------------------------------------------*/
+
