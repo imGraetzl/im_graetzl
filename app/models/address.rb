@@ -1,6 +1,6 @@
 class Address < ActiveRecord::Base
   # associations
-  belongs_to :user
+  belongs_to :addressable, polymorphic: true
 
   # validations
   validates :coordinates, presence: true
