@@ -8,15 +8,25 @@ APP.controllers.application = (function() {
 
         init: function() {
 
+
+            //input fields label effect TODO: place code in module
             $(".input-group").each(function() {
                 var $input= $(this).find("input");
-                $input.on("blur", function() {
-                    if($input.val() != "") {
+
+                if($input.val() != "") {
+                    $(this).addClass("filled");
+                }
+
+                $input
+                    .on("blur", function() {
+                        if($input.val() != "") {
+                            $input.closest(".input-group").addClass("filled");
+                        } else {
+                            $input.closest(".input-group").removeClass("filled");
+                        }
+                    }).on("focus", function() {
                         $input.closest(".input-group").addClass("filled");
-                    } else {
-                        $input.closest(".input-group").removeClass("filled");
-                    }
-                })
+                    })
             })
 
         }

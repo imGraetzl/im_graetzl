@@ -1,4 +1,9 @@
 var APP = {
+
+    config: {
+      adressSearchOpenGov: 'http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address='
+    },
+
     utils: {},
     components: {},
     controllers: {},
@@ -6,8 +11,6 @@ var APP = {
     init: function() {
         APP.controllers.application.init();
         var pageToInit = $("body").attr("data-controller");
-        if (APP.controllers[pageToInit]) {
-            APP.controllers[pageToInit].init();
-        }
+        APP.controllers[pageToInit] && APP.controllers[pageToInit].init();
     }
 };

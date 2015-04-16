@@ -1,77 +1,66 @@
-APP.controllers.registrations = (function() {
+APP.controllers.registration = (function() {
 
-    var steps = {};
-    var wizard;
+    function init() {
+
+        events();
+        addressSearchAutocomplete();
+
+        $('#birthdate').mask('00/00/0000');
+
+    }
+
+    function events() {
+
+    }
 
 
-    steps.searchGraetzl = (function() {
+// ---------------------------------------------------------------------- Custom
 
-        var $container;
+    function addressSearchAutocomplete() {
 
-        function events() {
-            $container.on("click", ".btn", function() {
-                if(!$container.find(".manual").is(":visible")) {
-                    $container.find(".manual").fadeIn();
-                    $container.find(".assisted").hide();
-                    $(this).text("Adresssuche verwenden");
-                    wizard.slider.trigger("updateSizes");
-                } else {
-                    $container.find(".assisted").fadeIn();
-                    $container.find(".manual").hide();
-                    $(this).text("Manuell w�hlen");
+        var addressSearch = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            limit: 7,
+            remote: {
+                url:  APP.config.adressSearchOpenGov + '%QUERY',
+                filter: function(addresses) {
+                    console.log(addresses.features);
+                    // Map the remote source JSON array to a JavaScript object array
+                    return $.map(addresses.features, function (address) {
+                        return {
+                            value: {
+                                street: address.properties.Adresse,
+                                district: address.properties.Bezirk
+                            }
+                        };
+                    });
                 }
-            });
-        }
-
-        return {
-            init: function() {
-                $container = $(".step-search");
-                events();
-            },
-
-            onEnter: function() {
-                console.log("enter gr�tzl search");
-            },
-
-            onExit: function() {
-                console.log("exit gratzl search");
             }
-        }
+        });
 
-    })();
+        addressSearch.initialize();
 
-
-    steps.personalData = (function() {
-
-        return {
-            init: function() {
-                console.log("init personalData");
+        $('#address').typeahead(null, {
+            name: 'addresse',
+            source: addressSearch.ttAdapter(),
+            displayKey: function (data) {
+                return data.value.street;
             },
-
-            onEnter: function() {
-                console.log("enter personalData");
-            },
-
-            onExit: function() {
-                console.log("exit personalData");
-            },
-
-            validate: function() {
-                console.log("validate personalData");
-                return true;
+            templates: {
+                suggestion: function(data) {
+                    return data.value.street +'<span class="district">' + data.value.district + '</span>'
+                }
             }
-        };
+        });
 
-    })();
+    }
 
+
+// ---------------------------------------------------------------------- Public
 
     return {
-
-        init: function() {
-
-            $('#user_birthday').mask('00/00/0000');
-
-        }
+        init: init
     }
 
 })();
