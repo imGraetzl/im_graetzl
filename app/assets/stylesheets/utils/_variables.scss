@@ -20,4 +20,5 @@ $form-color-tertiary: darken($form-color-primary, 5);
 
 
 //textures
-$texture-primary: url(../images/groovepaper.png);
+$texture-primary: url(image_path('groovepaper.png'));
+$texture-secondary: url(image_path('concrete-wall.png'));

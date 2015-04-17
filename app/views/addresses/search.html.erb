@@ -1,43 +1,63 @@
 <% title('Registrierung') %>
 
-<div class="step-search" data-step="searchGraetzl">
-  <div class="inner">
+<section class="register-selectGraetzl">
 
-    <h5>Schritt 1b/4 </h5>
-    <h2>Wähle dein <span>Heimatgrätzl</span></h2>
+  <h2>Wähle dein <span>Heimatgrätzl</span></h2>
 
-    <div>
-      <%= form_tag(addresses_match_path, method: :post) do %>
+  <%= form_tag(addresses_match_path, method: :post) do %>
 
-        <% if @graetzls.size < 4 %>
+      <% if @graetzls.size < 4 %>
 
-          <p class="text">
-            Unter deiner Addresse konnten wir <%= @graetzls.size %> Grätzl finden. Wo fühlst Du dich denn Zuhause?
-          </p>
-          <div class="field">
+          <div class="txt">
+            <p>Unter <span class="address">$Die Adresse</span> konnten wir <%= @graetzls.size %> Grätzl zuordnen.<br>
+              Wo fühlst du dich denn zuhause?</p>
+            <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
+          </div>
+
+          <div class="wrp-radios">
             <% @graetzls.each do |g| %>
-              <%= radio_button_tag :graetzl, g.id %>
-              <%= label_tag :graetzl, g.short_name %>
-              <br>
+                <div class="radio-group">
+                  <%= radio_button_tag :graetzl, g.id %>
+                  <%= label_tag :graetzl, g.short_name %>
+                </div>
             <% end %>
           </div>
 
-        <% else %>
 
-          <p class="text">
-            Wir konnten deine Addresse leider keinem Grätzl zuordnen. Bitte wähle Dein Heimatgrätzl aus der Liste.
-          </p>
-          <div class="field">
-            <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name') %>
+      <% else %>
+
+
+          <div class="txt">
+            <p>Unter <span class="address">Ausstellungsstrasse</span> konnten wir kein Grätzl zuordnen.<br>
+              Bitte wähle dein Grätzl manuell.</p>
+            <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
+          </div>
+          <div class="wrp-selects">
+            <div class="select-group">
+              <label for="district">Bezirk</label>
+              <select id="district">
+                <option value=" " disabled selected>wählen</option>
+                <option value=" ">1010</option>
+                <option value=" ">1020</option>
+                <option value=" ">1030</option>
+              </select>
+            </div>
+            <div class="select-group">
+              <label for="graetzl">Grätzl</label>
+              <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name') %>
+            </div>
           </div>
 
-        <% end %>
 
-        <div class="btn-navBar">
-          <%= link_to 'Schritt zurück', 'javascript:history.back();' %>
-          <%= button_tag 'Weiter', class: 'btn-primary next' %>
-        </div>
       <% end %>
-    </div>
-  </div>
-</div>
+
+
+      <div class="nav-btnBar">
+        <%= link_to 'Schritt zurück', 'javascript:history.back();' %>
+        <%= button_tag 'Weiter', class: 'btn-primary' %>
+      </div>
+
+
+  <% end %>
+
+</section>

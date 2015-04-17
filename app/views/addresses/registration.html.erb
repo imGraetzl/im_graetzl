@@ -1,22 +1,18 @@
 <% title('Registrierung') %>
 
-<div class="step-search" data-step="searchGraetzl">
-  <div class="inner">
+<section class="register-searchGraetzl">
 
-    <h5>Schritt 1/4 </h5>
-    <h2>Lass uns zu Beginn dein <span>Heimatgrätzl</span> finden...</h2>
+  <h2>Lass uns zu Beginn dein <span>Heimatgrätzl</span> finden...</h2>
 
-    <div class="assisted">
-      <%= form_tag(addresses_search_path, method: :post) do %>
+  <%= form_tag(addresses_search_path, method: :post) do %>
 
-        <div class="input-group">
-          <%= text_field_tag :address, nil %>
-          <%= label_tag :address, 'An welcher Adresse in Wien wohnst du...?' %>
-        </div>
-        <div class="btn-navBar">
-          <%= button_tag 'Weiter', class: 'btn-primary next' %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
+      <div id="addressSearchAutocomplete" class="input-group">
+        <%= text_field_tag :address, nil %>
+        <%= label_tag :address, 'Wo wohnst du? (Strasse und Hausnummer)' %>
+      </div>
+      <div class="nav-btnBar">
+        <%= button_tag 'Weiter', class: 'btn-primary' %>
+      </div>
+  <% end %>
+
+</section>

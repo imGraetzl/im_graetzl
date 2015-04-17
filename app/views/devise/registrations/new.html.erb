@@ -1,50 +1,49 @@
 <% title('Registrierung') %>
 
-<div class="step-personal" data-step="personalData">
-  <div class="inner">
-    <h5>Schritt 2/4</h5>
-    <h2>Willkommen im <span><%= resource.graetzl.short_name %></span></h2>
-    <p class="neighbourCount">
-      <span><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
-      Ein paar Dinge müssen wir noch wissen, dann geht's los!
-    </p>
+<section class="register-personalInfo">
+  <h2>Willkommen im <span><%= resource.graetzl.short_name %></span></h2>
+  <div class="txt">
+    <p class="neighbourCount"><span><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
+      Ein paar Dinge müssen wir noch wissen, dann geht's los!</p>
+  </div>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {}) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {}) do |f| %>
       <%= devise_error_messages! %>
+
       <div class="form-register">
 
         <div class="field">
           <%= f.fields_for :address do |address_fields| %>
-            <%= address_fields.hidden_field :street_name %>
-            <%= address_fields.hidden_field :street_number %>
-            <%= address_fields.hidden_field :zip %>
-            <%= address_fields.hidden_field :city %>
-            <%= address_fields.hidden_field :coordinates %>
+              <%= address_fields.hidden_field :street_name %>
+              <%= address_fields.hidden_field :street_number %>
+              <%= address_fields.hidden_field :zip %>
+              <%= address_fields.hidden_field :city %>
+              <%= address_fields.hidden_field :coordinates %>
           <% end %>
         </div>
 
         <div class="field">
           <%= f.fields_for :graetzl do |graetzl_fields| %>
-            <%= graetzl_fields.hidden_field :name %>
+              <%= graetzl_fields.hidden_field :name %>
           <% end %>
         </div>
 
         <div class="username input-group">
-        <%= f.text_field :username %>
-        <%= f.label :username %>
+          <%= f.text_field :username, :required => true %>
+          <%= f.label :username %>
         </div>
 
         <div class="input-group">
-          <%= f.password_field :password, autocomplete: "off" %>
+          <%= f.password_field :password, autocomplete: "off", :required => true %>
           <%= f.label :password %>
         </div>
 
         <div class="input-group">
-          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          <%= f.password_field :password_confirmation, autocomplete: "off", :required => true %>
           <%= f.label :password_confirmation %>
         </div>
 
-        <p class="text">... um dich besser kennen zu lernen</p>
+        <p class="txt">... um dich besser kennen zu lernen</p>
 
         <div class="input-group">
           <%= f.text_field :first_name %>
@@ -57,13 +56,14 @@
         </div>
 
         <div class="input-group">
-          <%= f.email_field :email %>
+          <%= f.email_field :email, :required => true %>
           <%= f.label :email %>
         </div>
 
-        <div class="select-group">
+        <div class="gender select-group">
+          <label for="gender">Geschlecht</label>
           <%= f.select :gender, User::GENDER_TYPES,
-            { include_blank: 'Geschlecht' } %>
+                       { include_blank: 'Geschlecht' } %>
         </div>
 
         <div class="birthdate input-group">
@@ -71,31 +71,35 @@
           <%= f.label :birthday, 'Geburtsdatum (TT/MM/JJJJ)' %>
         </div>
 
-        <div class="input-group">
-          <%= f.label :newsletter, 'Newsletter abonnieren' %>
-          <%= f.check_box(:newsletter )%>
+        <div class="upload-portrait">
+          <div class="userDummy">
+            <svg class="icon-vcard"><use xlink:href="#icon-vcard"></use></svg>
+          </div> Portrait hochladen
+          <%= image_tag(resource.avatar_url(:thumb)) if resource.avatar? %>
+          <%= f.file_field :avatar %>
+          <%= f.hidden_field :avatar_cache %>
         </div>
 
-        <div class="input-group">
-          <%= f.label :terms_and_conditions, "ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
-          <%= f.check_box(:terms_and_conditions )%>
-        </div>
+        <div class="wrp-checkboxes">
+          <div class="checkbox-group">
+            <%= f.label :newsletter, 'Newsletter abonnieren' %>
+            <%= f.check_box(:newsletter )%>
+          </div>
 
-        <div class="wrap">
-          <button class="btn-primary" type="button">
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg> Portrait hochladen
-            <%= image_tag(resource.avatar_url(:thumb)) if resource.avatar? %>
-            <%= f.file_field :avatar %>
-            <%= f.hidden_field :avatar_cache %>
-          </button>
+          <div class="checkbox-group">
+            <%= f.label :terms_and_conditions, "ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
+            <%= f.check_box(:terms_and_conditions )%>
+          </div>
+
         </div>
 
       </div>
 
-      <div class="btn-navBar">
+      <div class="nav-btnBar">
         <%= link_to 'Schritt zurück', addresses_registration_path %>
         <%= f.button "Anmelden", class: 'btn-primary' %>
       </div>
-    <% end %>
-  </div>
-</div>
+
+  <% end %>
+
+</section>
