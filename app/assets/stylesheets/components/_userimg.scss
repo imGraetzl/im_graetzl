@@ -15,3 +15,12 @@
     fill: $color-ambient-mint;
   }
 }
+
+.img-round {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid $color-ambient-mint;
+  background-color: lighten($color-ambient-mint, 20);
+  padding: 1px;
+}

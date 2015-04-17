@@ -182,3 +182,43 @@ input, select {
     }
   }
 }
+
+// ---------------------------------------------------------------------- Upload Portrait
+
+.upload-portrait {
+  position: relative;
+  display: flex;
+  padding: 0.3rem 1.2rem 0.3rem 0.3rem;
+  background-color: $form-color-secondary;
+  color: $form-color-primary;
+  align-items: center;
+  .userDummy,
+  .img-round {
+    margin-right: 1rem;
+    flex: 0 0 auto;
+  }
+  .userDummy {
+    width: 50px;
+    height: 50px;
+  }
+  .img-round {
+    width: 52px;
+    height: 52px;
+  }
+  [class*=delete] {
+    position: relative;
+    z-index: 2;
+    margin-left: auto;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+}
