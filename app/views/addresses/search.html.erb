@@ -18,7 +18,7 @@
             <% @graetzls.each do |g| %>
                 <div class="radio-group">
                   <%= radio_button_tag :graetzl, g.id %>
-                  <%= label_tag :graetzl, g.short_name %>
+                  <%= label_tag "#{:graetzl}_#{g.id}", g.short_name %>
                 </div>
             <% end %>
           </div>

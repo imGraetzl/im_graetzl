@@ -18,7 +18,7 @@ APP.controllers.application = (function() {
                 }
 
                 $input
-                    .on("blur, change", function() {
+                    .on("blur", function() {
                         if($input.val() != "") {
                             $input.closest(".input-group").addClass("filled");
                         } else {
