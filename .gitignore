@@ -17,3 +17,6 @@
 
 # Ignore uploaded images
 public/uploads
+
+# Ignore idea folder (jetbrains)
+/.idea
