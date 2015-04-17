@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416154114) do
+ActiveRecord::Schema.define(version: 20150417143623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,7 +53,18 @@ ActiveRecord::Schema.define(version: 20150416154114) do
     t.datetime "end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_initialized_id"
   end
+
+  add_index "meetings", ["user_initialized_id"], :name => "index_meetings_on_user_initialized_id"
+
+  create_table "meetings_users_going", id: false, force: true do |t|
+    t.integer "meeting_id"
+    t.integer "user_id"
+  end
+
+  add_index "meetings_users_going", ["meeting_id"], :name => "index_meetings_users_going_on_meeting_id"
+  add_index "meetings_users_going", ["user_id"], :name => "index_meetings_users_going_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
