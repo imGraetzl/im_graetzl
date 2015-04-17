@@ -1,0 +1,9 @@
+<% title('graetzl_index_working') %>
+
+<h2>all graetzls (working view)</h2>
+
+<ul>
+  <% @graetzls.each do |g| %>
+    <li><%= link_to g.short_name, g %></li>
+  <% end %>
+</ul>

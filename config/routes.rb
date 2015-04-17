@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :graetzls, only: [:show]
+  resources :graetzls, only: [:index, :show]
 
   get 'addresses/registration'
   post 'addresses/search'
