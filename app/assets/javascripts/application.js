@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery.mask
+//= require typeahead.bundle
 //= require jquery_ujs
 //= require turbolinks
 //= require utils/app
