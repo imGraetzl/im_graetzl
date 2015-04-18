@@ -1,0 +1,10 @@
+de:
+  activerecord:
+    models:
+      meeting: 'Treffen'
+    attributes:
+      meeting:
+        description: 'Beschreibung'
+        start: 'Beginn'
+        end: 'Ende'
+        user_initialized: 'Initiator'
