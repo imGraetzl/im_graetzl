@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :graetzls, only: [:index, :show]
+  resources :graetzls, only: [:index, :show] do   
+    resources :meetings
+  end
+
+  #resources :meetings
 
   get 'addresses/registration'
   post 'addresses/search'

@@ -10,3 +10,13 @@
     <% end %>
   </ul>
 </div>
+
+<div>
+  Meetings: <%= @graetzl.meetings.count %>
+  <ul>
+    <% @graetzl.meetings.each do |meeting| %>
+      <li><%= link_to meeting.name, graetzl_meeting_path(meeting) %></li>
+    <% end %>
+  </ul>
+  <%= link_to 'Neues Treffen initiieren', new_graetzl_meeting_path(@graetzl) %>
+</div>

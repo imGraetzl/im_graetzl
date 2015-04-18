@@ -1,0 +1,49 @@
+<%= form_for([@graetzl, @meeting]) do |f| %>
+
+  <!-- TODO: translate errors -->
+  <% if @meeting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+
+      <ul>
+      <% @meeting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- TODO: translate errors -->
+
+  <h5>Was für ein Treffen planst du genau? Gib deinem Treffen einen kurzen Namen.</h5>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, placeholder: 'Name des Treffens' %>
+  </div>
+
+  <div>
+    <%= f.label :description %><br>
+    <%= f.text_area :description, placeholder: 'Beschreibe dein Treffen in 1-2 Sätzen...' %>
+  </div>
+
+  <h5>Wo soll dein Treffen stattfinden</h5>
+  <div>
+    <%= f.fields_for :address do |address_fields| %>
+      <%= address_fields.label :street_name %><br>
+      <%= address_fields.text_field :street_name %>
+    <% end %>
+  </div>
+
+  <h5>Wann planst du dein Treffen?</h5>
+  <div>
+    <%= f.label :start %><br>
+    <%= f.datetime_field :start %>
+  </div>
+  <div>
+    <%= f.label :end %><br>
+    <%= f.datetime_field :end %>
+  </div>
+
+  <div class="actions">
+    <%= f.button %>
+  </div>
+<% end %>
