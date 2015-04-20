@@ -8,6 +8,16 @@ class Address < ActiveRecord::Base
   validates :city, presence: true
 
   # class methods
+
+  # maybe put into service object later...
+  def self.get_address_from_api(address_string)
+    response = query_address_service(address_string)
+    if !response.blank? && response.body.present?
+      return Address.new_from_geojson(response['features'][0])
+    end
+    Address.new()
+  end
+
   def self.new_from_geojson(feature)
     point = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
     Address.new(
@@ -26,5 +36,17 @@ class Address < ActiveRecord::Base
     end
     graetzls
   end
+
+  private
+
+    def self.query_address_service(address_string)
+      query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{address_string}&crs=EPSG:4326"
+      uri = URI.parse(URI.encode(query))
+      begin
+        HTTParty.get(uri)
+      rescue
+        nil
+      end
+    end
 
 end

@@ -17,7 +17,7 @@
   <h5>Was für ein Treffen planst du genau? Gib deinem Treffen einen kurzen Namen.</h5>
   <div>
     <%= f.label :name %><br>
-    <%= f.text_field :name, placeholder: 'Name des Treffens' %>
+    <%= f.text_field :name, placeholder: 'Name des Treffens...' %>
   </div>
 
   <div>
@@ -29,14 +29,16 @@
   <div>
     <%= f.fields_for :address do |address_fields| %>
       <%= address_fields.label :street_name %><br>
-      <%= address_fields.text_field :street_name %>
+      <%= address_fields.text_field :street_name, placeholder: 'Straße...' %><br>
+      <%= address_fields.label :description %><br>
+      <%= address_fields.text_field :description, placeholder: 'Ortsbeschreibung (z.B. Name des Lokals, Park, ...)' %>
     <% end %>
   </div>
 
   <h5>Wann planst du dein Treffen?</h5>
   <div>
     <%= f.label :start %><br>
-    <%= f.datetime_field :start %>
+    <%= f.datetime_select :start %>
   </div>
   <div>
     <%= f.label :end %><br>

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :graetzls, only: [:index, :show] do   
-    resources :meetings
+    resources :meetings, only: [:index, :show, :new, :create]
   end
 
   get 'addresses/registration'
