@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417143623) do
+ActiveRecord::Schema.define(version: 20150420111753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150417143623) do
     t.spatial  "coordinates",      limit: {:srid=>0, :type=>"point"}
     t.integer  "addressable_id"
     t.string   "addressable_type"
+    t.string   "description"
   end
 
   add_index "addresses", ["addressable_id", "addressable_type"], :name => "index_addresses_on_addressable_id_and_addressable_type"
