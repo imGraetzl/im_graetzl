@@ -9,7 +9,7 @@
       <% if @graetzls.size < 4 %>
 
           <div class="txt">
-            <p>Unter <span class="address">$Die Adresse</span> konnten wir <%= @graetzls.size %> Grätzl zuordnen.<br>
+            <p>Unter <span class="address"><%= @search_input %></span> konnten wir <%= @graetzls.size %> Grätzl zuordnen.<br>
               Wo fühlst du dich denn zuhause?</p>
             <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
           </div>
@@ -28,7 +28,7 @@
 
 
           <div class="txt">
-            <p>Unter <span class="address">Ausstellungsstrasse</span> konnten wir kein Grätzl zuordnen.<br>
+            <p>Unter <span class="address"><%= @search_input %></span> konnten wir kein Grätzl zuordnen.<br>
               Bitte wähle dein Grätzl manuell.</p>
             <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
           </div>

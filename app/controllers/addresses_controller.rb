@@ -8,7 +8,8 @@ class AddressesController < ApplicationController
       flash.now[:error] = 'Bitte gib eine Addresse an.'
       render :registration
     else
-      address = Address.get_address_from_api(params[:address])
+      @search_input = params[:address]
+      address = Address.get_address_from_api(@search_input)
       session[:address] = address.attributes
       @graetzls = address.match_graetzls
       if @graetzls.size == 1
