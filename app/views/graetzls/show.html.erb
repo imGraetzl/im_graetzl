@@ -3,7 +3,7 @@
 <h1><%= @graetzl.short_name %></h1>
 
 <div>
-  Users: <%= @graetzl.users.count %>
+  <h5>Users: <%= @graetzl.users.count %></h5>
   <ul>
     <% @graetzl.users.each do |user| %>
       <li><%= user.username %></li>
@@ -12,10 +12,10 @@
 </div>
 
 <div>
-  Meetings: <%= @graetzl.meetings.count %>
+  <h5>Meetings: <%= @graetzl.meetings.count %></h5>
   <ul>
     <% @graetzl.meetings.each do |meeting| %>
-      <li><%= link_to meeting.name, graetzl_meeting_path(@graetzl, meeting) %></li>
+      <li><%= link_to meeting.name, [@graetzl, meeting] %></li>
     <% end %>
   </ul>
   <%= link_to 'Neues Treffen initiieren', new_graetzl_meeting_path(@graetzl) %>

@@ -1,9 +1,8 @@
 <%= form_for([@graetzl, @meeting]) do |f| %>
 
-  <!-- TODO: translate errors -->
   <% if @meeting.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+      <h2>Treffen konnte nicht erstellt werden: <%= @meeting.errors.count %> Fehler.</h2>
 
       <ul>
       <% @meeting.errors.full_messages.each do |message| %>
@@ -12,7 +11,6 @@
       </ul>
     </div>
   <% end %>
-  <!-- TODO: translate errors -->
 
   <h5>Was für ein Treffen planst du genau? Gib deinem Treffen einen kurzen Namen.</h5>
   <div>
