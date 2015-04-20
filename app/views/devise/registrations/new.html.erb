@@ -66,8 +66,7 @@
 
         <div class="gender select-group">
           <label for="gender">Geschlecht</label>
-          <%= f.select :gender, User::GENDER_TYPES,
-                       { include_blank: 'wählen' } %>
+          <%= f.select :gender, User::GENDER_TYPES, { include_blank: 'wählen' } %>
         </div>
 
         <div class="birthdate input-group">
