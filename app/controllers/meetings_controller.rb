@@ -1,9 +1,5 @@
 class MeetingsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
-
-  def index
-    @meetings = Meeting.all
-  end
+  before_filter :authenticate_user!, except: [:show]
 
   def show
     @graetzl = Graetzl.find(params[:graetzl_id])
@@ -29,9 +25,8 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        format.html { redirect_to graetzl_meeting_path(@graetzl, @meeting), notice: 'Meeting was successfully created.' }
+        format.html { redirect_to graetzl_meeting_path(@graetzl, @meeting), notice: 'Neues Treffen wurde erstellt.' }
       else
-        puts "could not save could not save could not save could not save #{@meeting.graetzls.size}"
         format.html { render :new }
       end
     end
