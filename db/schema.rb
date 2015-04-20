@@ -11,24 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409124601) do
+ActiveRecord::Schema.define(version: 20150420111753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
 
   create_table "addresses", force: true do |t|
-    t.integer  "user_id"
     t.string   "street_name"
     t.string   "street_number"
     t.string   "zip"
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "coordinates",   limit: {:srid=>0, :type=>"point"}
+    t.spatial  "coordinates",      limit: {:srid=>0, :type=>"point"}
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.string   "description"
   end
 
-  add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
+  add_index "addresses", ["addressable_id", "addressable_type"], :name => "index_addresses_on_addressable_id_and_addressable_type"
 
   create_table "graetzls", force: true do |t|
     t.string   "name"
@@ -36,6 +38,34 @@ ActiveRecord::Schema.define(version: 20150409124601) do
     t.datetime "updated_at"
     t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
   end
+
+  create_table "graetzls_meetings", id: false, force: true do |t|
+    t.integer "graetzl_id"
+    t.integer "meeting_id"
+  end
+
+  add_index "graetzls_meetings", ["graetzl_id"], :name => "index_graetzls_meetings_on_graetzl_id"
+  add_index "graetzls_meetings", ["meeting_id"], :name => "index_graetzls_meetings_on_meeting_id"
+
+  create_table "meetings", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_initialized_id"
+  end
+
+  add_index "meetings", ["user_initialized_id"], :name => "index_meetings_on_user_initialized_id"
+
+  create_table "meetings_users_going", id: false, force: true do |t|
+    t.integer "meeting_id"
+    t.integer "user_id"
+  end
+
+  add_index "meetings_users_going", ["meeting_id"], :name => "index_meetings_users_going_on_meeting_id"
+  add_index "meetings_users_going", ["user_id"], :name => "index_meetings_users_going_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false
