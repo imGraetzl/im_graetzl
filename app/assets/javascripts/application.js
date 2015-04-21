@@ -14,6 +14,11 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery.mask
+//= require picker
+//= require picker.date
+//= require picker.time
+//= require picker.de_DE
+//= require jquery.sumoselect
 //= require typeahead.bundle
 //= require jquery_ujs
 //= require turbolinks

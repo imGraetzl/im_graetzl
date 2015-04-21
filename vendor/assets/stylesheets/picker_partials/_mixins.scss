@@ -1,0 +1,87 @@
+
+
+
+// ==========================================================================
+// $MIXINS
+// ==========================================================================
+
+
+//
+// Common picker item states
+//
+
+// Highlighted.
+%picker-item-highlighted{
+    border-color: $blue;
+}
+
+// Hovered.
+%picker-item-hovered{
+    cursor: pointer;
+    color: $black;
+    background: $blue-hover;
+}
+
+// Selected.
+%picker-item-selected{
+    background: $blue;
+    color: $white;
+}
+
+// Disabled.
+%picker-item-disabled{
+    background: $disabled-things-bg;
+    border-color: $disabled-things-bg;
+    color: $disabled-things-text;
+    cursor: default;
+}
+
+
+
+//
+// Opacity
+//
+@mixin opacity( $decimal ) {
+    $percent: $decimal * 100;
+    // -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{percent})";
+    // filter: ~"alpha(opacity=@{percent})";
+    -moz-opacity: $decimal;
+         opacity: $decimal;
+}
+
+
+
+//
+// Vendor prefixes
+//
+@mixin box-shadow ( $arguments... ) {
+    -webkit-box-shadow: $arguments;
+       -moz-box-shadow: $arguments;
+            box-shadow: $arguments;
+}
+@mixin box-sizing ( $arguments... ) {
+    -webkit-box-sizing: $arguments;
+       -moz-box-sizing: $arguments;
+            box-sizing: $arguments;
+}
+@mixin border-radius ( $arguments... ) {
+    -webkit-border-radius: $arguments;
+       -moz-border-radius: $arguments;
+            border-radius: $arguments;
+}
+@mixin transition ( $arguments... ) {
+    -webkit-transition: $arguments;
+       -moz-transition: $arguments;
+            transition: $arguments;
+}
+@mixin transform ( $arguments... ) {
+    -webkit-transform: $arguments;
+       -moz-transform: $arguments;
+            transform: $arguments;
+}
+@mixin user-select ( $arguments... ) {
+    -webkit-user-select: $arguments;
+       -moz-user-select: $arguments;
+        -ms-user-select: $arguments;
+            user-select: $arguments;
+}

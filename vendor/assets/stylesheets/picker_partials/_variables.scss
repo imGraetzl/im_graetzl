@@ -1,0 +1,112 @@
+
+// ==========================================================================
+// $VARIABLES
+// ==========================================================================
+
+
+//
+// Base colors
+//
+$blue: $form-color-primary !default;
+$blue-hover: $form-color-secondary !default;
+$black: $color-font-primary !default;
+$white: $color-background-bright !default;
+
+
+//
+// Backgrounds
+//
+$bg-white: $color-background-bright !default;
+$bg-grey-light: #f2f2f2 !default;
+
+
+//
+// Borders
+//
+$border-grey: #777 !default;
+$border-grey-light: #ddd !default;
+$border-select: darken( $border-grey-light, 15% ) !default;
+
+
+//
+// Buttons
+//
+$clear-red: #777 !default;
+
+
+
+
+
+//
+// Picker base
+//
+
+// Make sure nothing is above the picker.
+$picker-z-index: 10000 !default;
+
+// Animation speeds.
+$speed-animate-in: .15s !default;
+
+// Focused input border color.
+$input-active-border: $blue !default;
+
+// Typography.
+$base-font-size: 1rem !default;
+$base-line-height: 1.5 !default;
+
+// Corners.
+$picker-border-radius: 5px !default;
+
+// Drop shadows.
+$picker-box-shadow: 0 12px 36px 16px rgba(0,0,0,.24) !default;
+$picker-box-shadow-light: 0 6px 18px 1px rgba(0,0,0,.12) !default;
+
+// Height breakpoints.
+$breakpoint-tiny: 26.5em !default; // 424px @ 16px
+$breakpoint-small: 33.875em !default; // 542px @ 16px
+$breakpoint-medium: 40.125em !default; // 642px @ 16px
+$breakpoint-large: 46.75em !default; // 748px @ 16px
+
+// Width breakpoints.
+$breakpoint-width-tiny: 24.5em !default; // 392px @ 16px
+
+
+
+
+//
+// Date picker options
+//
+
+// The year and weekday labels.
+$year-weekday-label: #999 !default;
+
+// “Today” tag indicators.
+$blue-tag: $color-ambient-rosa !default;
+$disabled-tag: #aaa !default;
+
+// Disabled things.. such as days, month nav, etc.
+$disabled-things-bg: #f5f5f5 !default;
+$disabled-things-text: #ddd !default;
+$disabled-highlighted-things-bg: #bbb !default;
+
+
+
+
+
+//
+// Theme configurations
+//
+
+// The “default” min & max widths.
+$picker-min-width: 256px !default;
+$picker-max-width: 666px !default;
+
+// The time picker min & max widths.
+$time-min-width: 80px !default;
+$time-max-width: 250px !default;
+
+// The “classic” theme settings.
+$classic-max-width: $picker-max-width - 200px !default;
+$classic-min-width: $picker-min-width - 80px !default;
+$classic-max-height: 25em !default;
+$classic-box-shadow: 0 6px 18px 1px rgba(0,0,0,.12) !default;
