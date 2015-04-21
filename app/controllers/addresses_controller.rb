@@ -8,7 +8,8 @@ class AddressesController < ApplicationController
       flash.now[:error] = 'Bitte gib eine Addresse an.'
       render :registration
     else
-      address = get_address_from_api(params[:address])
+      @search_input = params[:address]
+      address = Address.get_address_from_api(@search_input)
       session[:address] = address.attributes
       @graetzls = address.match_graetzls
       if @graetzls.size == 1
@@ -28,25 +29,4 @@ class AddressesController < ApplicationController
       redirect_to new_user_registration_path
     end    
   end
-
-  private
-
-    def get_address_from_api(address_string)
-      response = query_address_service(address_string)
-      if !response.blank? && response.body.present?
-        #puts "Address: #{response['features'][0]}"
-        return Address.new_from_geojson(response['features'][0])
-      end
-      Address.new()
-    end
-
-    def query_address_service(address_string)
-      query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{address_string}&crs=EPSG:4326"
-      uri = URI.parse(URI.encode(query))
-      begin
-        HTTParty.get(uri)
-      rescue
-        nil
-      end
-    end
 end

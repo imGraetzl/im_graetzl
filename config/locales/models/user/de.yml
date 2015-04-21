@@ -10,3 +10,5 @@ de:
         password_confirmation: 'Passwort bestätigen'
         terms_and_conditions: 'AGBs'
         avatar: 'Profilbild'
+        login: 'Username oder Email'
+        remember_me: 'Angemeldet bleiben'

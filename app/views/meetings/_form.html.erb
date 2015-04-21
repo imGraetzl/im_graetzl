@@ -1,0 +1,49 @@
+<%= form_for([@graetzl, @meeting]) do |f| %>
+
+  <% if @meeting.errors.any? %>
+    <div id="error_explanation">
+      <h2>Treffen konnte nicht erstellt werden: <%= @meeting.errors.count %> Fehler.</h2>
+
+      <ul>
+      <% @meeting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h5>Was für ein Treffen planst du genau? Gib deinem Treffen einen kurzen Namen.</h5>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, placeholder: 'Name des Treffens...' %>
+  </div>
+
+  <div>
+    <%= f.label :description %><br>
+    <%= f.text_area :description, placeholder: 'Beschreibe dein Treffen in 1-2 Sätzen...' %>
+  </div>
+
+  <h5>Wo soll dein Treffen stattfinden</h5>
+  <div>
+    <%= f.fields_for :address do |address_fields| %>
+      <%= address_fields.label :street_name %><br>
+      <%= address_fields.text_field :street_name, placeholder: 'Straße...' %><br>
+      <%= address_fields.label :description %><br>
+      <%= address_fields.text_field :description, placeholder: 'Ortsbeschreibung (z.B. Name des Lokals, Park, ...)' %>
+    <% end %>
+  </div>
+
+  <h5>Wann planst du dein Treffen?</h5>
+  <div>
+    <%= f.label :start %><br>
+    <%= f.datetime_select :start %>
+  </div>
+  <div>
+    <%= f.label :end %><br>
+    <%= f.datetime_field :end %>
+  </div>
+
+  <div class="actions">
+    <%= f.button %>
+  </div>
+<% end %>

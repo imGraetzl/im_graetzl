@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :graetzls, only: [:index, :show] do   
+    resources :meetings, only: [:show, :new, :create]
+  end
+
   get 'addresses/registration'
   post 'addresses/search'
   post 'addresses/match'

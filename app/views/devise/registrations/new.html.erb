@@ -3,8 +3,12 @@
 <section class="register-personalInfo">
   <h2>Willkommen im <span><%= resource.graetzl.short_name %></span></h2>
 
-  <p class="txt"><span><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
-    Ein paar Dinge müssen wir noch wissen, dann geht's los!</p>
+  <p class="txt">
+    <% if resource.graetzl.users.count > 5 %>
+        <span><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
+    <% end %>
+    Ein paar Dinge müssen wir noch wissen, dann geht's los!
+  </p>
 
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {}) do |f| %>
@@ -63,8 +67,7 @@
 
           <div class="gender select-group">
             <label for="gender">Geschlecht</label>
-            <%= f.select :gender, User::GENDER_TYPES,
-                         { include_blank: 'wählen' } %>
+            <%= f.select :gender, User::GENDER_TYPES, {include_blank: 'wählen' } %>
           </div>
         </div>
 

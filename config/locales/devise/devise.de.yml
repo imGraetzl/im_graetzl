@@ -3,6 +3,8 @@
 de:
   devise:
     confirmations:
+      new:
+        resend_confirmation_instructions: Anleitung zur Bestätigung noch mal schicken
       confirmed: "Vielen Dank für Deine Registrierung. Bitte melde dich jetzt an."
       confirmed_and_signed_in: "Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet."
       send_instructions: "Du erhältst in wenigen Minuten eine E-Mail, mit der Du Deine Registrierung bestätigen kannst."

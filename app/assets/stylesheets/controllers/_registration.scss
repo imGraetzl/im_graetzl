@@ -45,13 +45,17 @@
 
   @include respond-to(">medium") {
     .wrp-selects {
-      justify-content: center;
+      @include clearfix;
     }
     .select-group {
       width: 49%;
+      margin-right: 2%;
+      float: left;
       &:first-of-type {
         margin-bottom: 0;
-        margin-right: 2%;
+      }
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
@@ -70,7 +74,7 @@
 
 }
 .form-register {
-  overflow: hidden;
+  @include clearfix;
   .txt {
     width: 100%;
     font-family: $font-secondary;

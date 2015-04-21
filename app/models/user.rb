@@ -7,16 +7,20 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   # associations
-  has_one :address, dependent: :destroy
+  has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
 
   belongs_to :graetzl
   accepts_nested_attributes_for :graetzl
 
+  has_many :meetings_initialized, class_name: 'Meeting', foreign_key: 'user_initialized_id'
+
+  has_and_belongs_to_many :meetings_going_to, class_name: 'Meeting', join_table: 'meetings_users_going'
+
   # attributes
   # virtual attribute to login with username or email
   attr_accessor :login
-  GENDER_TYPES = { female: 1, male: 2, other: 3 }
+  GENDER_TYPES = { weiblich: 1, männlich: 2, anders: 3 }
 
   # validations
   validates :graetzl, presence: true

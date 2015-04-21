@@ -26,28 +26,30 @@ RSpec.describe Address, type: :model do
   end
 
   # class methods
-  it 'builds a new address from a geojson object' do
-    geojson_hash = {"type"=>"Feature",
-      "geometry"=>{
-        "type"=>"Point",
-        "coordinates"=>[16.35955137895887, 48.20137456512505]},
-        "bbox"=>[48.20137456512505, 16.35955137895887, 16.35955137895887, 48.20137456512505],
-        "properties"=>{
-          "Bezirk"=>"7",
-          "Adresse"=>"Mariahilfer Straße 10",
-          "CountryCode"=>"AT",
-          "StreetName"=>"Mariahilfer Straße",
-          "StreetNumber"=>"10",
-          "CountrySubdivision"=>"Wien",
-          "Municipality"=>"Wien",
-          "MunicipalitySubdivision"=>"Neubau",
-          "Kategorie"=>"Adresse",
-          "Zaehlbezirk"=>"0702",
-          "Zaehlgebiet"=>"07023",
-          "Ranking"=>0.0,
-          "PostalCode"=>"1070"}}
-    address = Address.new_from_geojson(geojson_hash)
-    expect(address).to be_valid
+  describe 'class methods' do
+    it 'builds new address from geojson object' do
+      geojson_hash = {"type"=>"Feature",
+        "geometry"=>{
+          "type"=>"Point",
+          "coordinates"=>[16.35955137895887, 48.20137456512505]},
+          "bbox"=>[48.20137456512505, 16.35955137895887, 16.35955137895887, 48.20137456512505],
+          "properties"=>{
+            "Bezirk"=>"7",
+            "Adresse"=>"Mariahilfer Straße 10",
+            "CountryCode"=>"AT",
+            "StreetName"=>"Mariahilfer Straße",
+            "StreetNumber"=>"10",
+            "CountrySubdivision"=>"Wien",
+            "Municipality"=>"Wien",
+            "MunicipalitySubdivision"=>"Neubau",
+            "Kategorie"=>"Adresse",
+            "Zaehlbezirk"=>"0702",
+            "Zaehlgebiet"=>"07023",
+            "Ranking"=>0.0,
+            "PostalCode"=>"1070"}}
+      address = Address.new_from_geojson(geojson_hash)
+      expect(address).to be_valid
+    end
   end
 
 

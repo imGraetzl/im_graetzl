@@ -30,5 +30,10 @@ module ImGraetzl
     config.i18n.default_locale = :de
     # Set path for nested translation files
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # Disable Rails field_with_errors
+    ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+      html_tag.html_safe
+    end
   end
 end
