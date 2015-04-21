@@ -55,36 +55,42 @@
           <%= f.label :last_name %>
         </div>
 
-        <div class="input-group">
-          <%= f.email_field :email %>
-          <%= f.label :email %>
+        <div class="row">
+          <div class="input-group">
+            <%= f.email_field :email %>
+            <%= f.label :email %>
+          </div>
+
+          <div class="gender select-group">
+            <label for="gender">Geschlecht</label>
+            <%= f.select :gender, User::GENDER_TYPES,
+                         { include_blank: 'wählen' } %>
+          </div>
         </div>
 
-        <div class="gender select-group">
-          <label for="gender">Geschlecht</label>
-          <%= f.select :gender, User::GENDER_TYPES,
-                       { include_blank: 'wählen' } %>
+        <div class="row">
+          <div class="birthdate input-group">
+            <%= f.text_field :birthday %>
+            <%= f.label :birthday, 'Geburtsdatum (TT/MM/JJJJ)' %>
+          </div>
+
+          <div class="upload-portrait">
+            <% if resource.avatar? %>
+                <%= image_tag(resource.avatar_url(:thumb), :class => "img-round") %>
+                Portrait ändern
+                <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+            <% else %>
+                <div class="userDummy">
+                  <svg class="icon-vcard"><use xlink:href="#icon-vcard"></use></svg>
+                </div>
+                Portrait hochladen
+            <% end %>
+            <%= f.file_field :avatar %>
+            <%= f.hidden_field :avatar_cache %>
+          </div>
         </div>
 
-        <div class="birthdate input-group">
-          <%= f.text_field :birthday %>
-          <%= f.label :birthday, 'Geburtsdatum (TT/MM/JJJJ)' %>
-        </div>
 
-        <div class="upload-portrait">
-          <% if resource.avatar? %>
-              <%= image_tag(resource.avatar_url(:thumb), :class => "img-round") %>
-              Portrait ändern
-              <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-          <% else %>
-              <div class="userDummy">
-                <svg class="icon-vcard"><use xlink:href="#icon-vcard"></use></svg>
-              </div>
-              Portrait hochladen
-          <% end %>
-          <%= f.file_field :avatar %>
-          <%= f.hidden_field :avatar_cache %>
-        </div>
 
         <div class="wrp-checkboxes">
           <div class="checkbox-group">

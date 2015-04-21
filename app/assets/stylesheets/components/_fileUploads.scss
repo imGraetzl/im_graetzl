@@ -1,0 +1,34 @@
+.upload-image {
+  @extend %file-group;
+  > img {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  [class^=icon-]:first-of-type {
+    margin-right: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.upload-portrait {
+  @extend %file-group;
+  padding: 0.5rem 1.2rem 0.5rem 0.3rem;
+  .userDummy,
+  .img-round {
+    margin-right: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .userDummy {
+    width: 50px;
+    height: 50px;
+  }
+  .img-round {
+    width: 52px;
+    height: 52px;
+  }
+}
+

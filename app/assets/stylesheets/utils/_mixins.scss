@@ -3,3 +3,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

@@ -3,6 +3,7 @@
   border: none;
   border-radius: 0.3em;
   outline:none;
+  display: inline-block;
   position: relative;
   padding: 0.9em 1.8em;
   [class*=icon-] {
@@ -39,12 +40,10 @@
 
 
 .nav-btnBar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
+  text-align: right;
   button, a {
     margin-left: 2rem;
+    display: inline-block;
     &:first-child {
       margin-left: 0;
     }

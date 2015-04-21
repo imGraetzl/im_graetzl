@@ -11,7 +11,7 @@ html {
 body {
   font-family: $font-primary;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 1.5;
   color: $color-font-primary;
   background-color: $color-background-bright;
 }
@@ -28,21 +28,15 @@ a {
   color: $color-ambient-rosa;
 }
 
-p {
-  line-height: 1.5;
+input, select, textarea {
+  font-family: $font-primary;
 }
 
-p.txt,
-p[class^=txt-],
-div.txt p,
-div[class^=txt-] p {
-  margin-bottom: 1.0rem;
+// vertical rythm
+h1,h2,h3,h4,h5,h6,
+p, div.txt p, div[class^=txt-] p {
+  margin-bottom:1.5rem;
 }
-div.txt p:last-child,
-div[class^=txt-] p:last-child {
-  margin-bottom: 0;
-}
-
 
 // ---------------------------------------------------------------------- Headings
 
@@ -51,11 +45,11 @@ h2 {
   font-family: $font-secondary;
 }
 h1, .h1 {
-  font-size: 4.242rem;
+  font-size: 4.2rem;
   line-height: 1.2;
 }
 h2, .h2 {
-  font-size: 2.828rem;
+  font-size: 2.8rem;
   line-height: 1;
 }
 

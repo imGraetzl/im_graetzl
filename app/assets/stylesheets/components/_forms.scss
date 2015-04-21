@@ -1,25 +1,19 @@
-input, select {
-  font-family: $font-primary;
-}
 
 // ---------------------------------------------------------------------- Input Group
 
 .input-group {
-  display: flex;
   position: relative;
-  .wrap-field {
-    position: relative;
-    flex: 1;
-  }
+  display: table;
+  width: 100%;
   input {
-    width: 100%;
-    flex: 1;
     background-color: $form-color-secondary;
     color: $color-font-primary;
     border: none;
-    padding: 1.3rem;
+    padding: 1.5rem;
     outline: none;
     font-size: 1rem;
+    display: table-cell;
+    width: 100%;
   }
   label {
     position: absolute;
@@ -27,7 +21,7 @@ input, select {
     left: 0;
     width: 100%;
     font-size: 1rem;
-    padding-left: 1.1rem;
+    padding-left: 1.3rem;
     font-family: $font-primary;
     color: $form-color-primary;
     transition: 0.2s ease;
@@ -35,44 +29,58 @@ input, select {
   }
   input:focus + label,
   &.filled label {
-    top: 7px;
-    left: 2px;
-    padding-left: 0;
+    top: 0;
     font-size: 0.8em;
+    line-height: 0.8rem;
+    padding-left: 0 !important;
+    transform: translate(0,-100%);
   }
-  :first-child {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+  .wrp-icon {
+    padding-left: 8px;
+    padding-right: 8px;
+    display: table-cell;
+    width: 60px;
+    text-align: center;
+    background-color: $form-color-secondary;
+    vertical-align: middle;
+    [class*=icon-] {
+      fill: $form-color-primary;
+      margin: 0 auto;
+    }
   }
-  :last-child {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+
+  .wrp-icon + input + label {
+    padding-left: 3.8rem;
+  }
+  .wrp-icon + input {
+    padding-left: 0;
   }
 }
 
 // ---------------------------------------------------------------------- Select Group
 
 .select-group {
-  display: flex;
   position: relative;
-  align-items: center;
   border-color: $form-color-secondary;
   border-style: solid;
   border-width: 2px;
+  width: 100%;
+  display: table;
   label {
     padding-left: 0.9em;
     padding-right: 0.9rem;
     color: $form-color-primary;
+    display: table-cell;
   }
   select {
     position: relative;
-    flex: 1 0 8em;
-    display: block;
     background-color: $form-color-secondary;
     color: $form-color-primary;
     border: 0;
     padding: 1.1rem 0 1.1rem 0.9rem;
     -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    display: table-cell;
+    width: 100%;
     option {
       color: $form-color-primary;
     }
@@ -162,8 +170,8 @@ input, select {
       content: '';
       display: block;
       width: 18px;
-      color: $color-ambient-mint;
       height: 18px;
+      color: $color-ambient-mint;
       position: absolute;
       top: 50%;
       left: 18px;
@@ -183,34 +191,60 @@ input, select {
   }
 }
 
-// ---------------------------------------------------------------------- Upload Portrait
+// ---------------------------------------------------------------------- Textarea Group
 
-.upload-portrait {
+.textarea-group {
   position: relative;
-  display: flex;
-  padding: 0.3rem 1.2rem 0.3rem 0.3rem;
+  display: block;
+  textarea {
+    width: 100%;
+    background-color: $form-color-secondary;
+    color: $color-font-primary;
+    border: none;
+    padding: 1.3rem;
+    outline: none;
+    display: block;
+    max-height: 8rem;
+    resize: none;
+  }
+  label {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 100%;
+    font-size: 1rem;
+    padding-left: 1.3rem;
+    font-family: $font-primary;
+    color: $form-color-primary;
+    transition: 0.2s ease;
+    transform: translate(0,0);
+  }
+  textarea:focus + label,
+  &.filled label {
+    top: 0;
+    padding-left: 0;
+    font-size: 0.8em;
+    line-height: 0.8rem;
+    transform: translate(0,-100%);
+  }
+}
+
+// ---------------------------------------------------------------------- Upload Fields
+
+.file-group, %file-group {
+  position: relative;
+  padding: 1.2rem;
   background-color: $form-color-secondary;
   color: $form-color-primary;
-  align-items: center;
-  .userDummy,
-  .img-round {
-    margin-right: 1rem;
-    flex: 0 0 auto;
-  }
-  .userDummy {
-    width: 50px;
-    height: 50px;
-  }
-  .img-round {
-    width: 52px;
-    height: 52px;
-  }
+  display: table;
+  width: 100%;
   [class*=delete] {
     position: relative;
     z-index: 2;
-    margin-left: auto;
+    margin-left: 1rem;
     cursor: pointer;
-    flex: 0 0 auto;
+    display: inline-block;
+    vertical-align: middle;
   }
   input {
     position: absolute;
@@ -221,4 +255,57 @@ input, select {
     height: 100%;
     opacity: 0;
   }
+}
+
+// ---------------------------------------------------------------------- Datepicker
+
+.datepicker-group, .timepicker-group {
+  position: relative;
+  border-color: $form-color-secondary;
+  border-style: solid;
+  border-width: 2px;
+  display: table;
+  width: 100%;
+  label {
+    color: $form-color-primary;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: table-cell;
+    width: 120px;
+    vertical-align: middle;
+    [class*=icon-] {
+      fill: $form-color-primary;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+  input {
+    background-color: $form-color-secondary;
+    color: $color-font-primary;
+    border: none;
+    padding: 1.3rem;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
+    display: table-cell;
+  }
+}
+
+// ---------------------------------------------------------------------- Generic
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+  color:    $form-color-primary;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    $form-color-primary;
+  opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    $form-color-primary;
+  opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:    $form-color-primary;
 }

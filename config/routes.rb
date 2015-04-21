@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'static_pages/welcome'
 
+  get 'static_pages/treffenAnlegen'
+
   root 'static_pages#welcome'
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,8 +1,6 @@
 [class^=register-] {
-  margin-bottom: 200px;
   max-width: 800px;
   h2 {
-    margin-bottom: 1.5rem;
     text-align: center;
     span {
       color: $color-ambient-rosa;
@@ -13,7 +11,6 @@
   }
   .txt {
     text-align: center;
-    margin-bottom: 2rem;
   }
   .txt-hint {
     font-style: italic;
@@ -48,7 +45,6 @@
 
   @include respond-to(">medium") {
     .wrp-selects {
-      display: flex;
       justify-content: center;
     }
     .select-group {
@@ -71,40 +67,39 @@
       color: $color-ambient-rosa;
     }
   }
-  .input-group,
-  .select-group,
-  .gender-radios,
-  .upload-portrait {
-    margin-bottom: 1.0rem;
-  }
-}
 
+}
 .form-register {
-  margin-bottom: 2rem;
+  overflow: hidden;
   .txt {
     width: 100%;
-    color: #808080;
     font-family: $font-secondary;
     font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+  }
+  .input-group,
+  .select-group,
+  .upload-portrait {
+    margin-bottom: 1.5rem;
   }
 
   @include respond-to(">medium") {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
     .input-group,
     .select-group,
-    .wrp-checkboxes,
     .upload-portrait {
-      width: 49%;
+      width: 48%;
+      float: left;
+      margin-right: 1%;
+      margin-left: 1%;
     }
     .username {
-      margin-right: 51%;
+     margin-right: 51%;
     }
     .wrp-checkboxes {
       margin-bottom: 0;
     }
+    .row {
+     @include clearfix;
+    }
+
   }
 }
