@@ -23,6 +23,7 @@ class MeetingsController < ApplicationController
     @meeting.graetzls << @graetzl
     @meeting.address = Address.get_address_from_api(@meeting.address.street_name)
     @meeting.address.description = meeting_params[:address_attributes][:description]
+    @meeting.end_date = @meeting.start_date
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to graetzl_meeting_path(@graetzl, @meeting), notice: 'Neues Treffen wurde erstellt.' }

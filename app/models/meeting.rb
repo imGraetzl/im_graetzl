@@ -26,7 +26,7 @@ class Meeting < ActiveRecord::Base
 
     def start_date_cannot_be_in_the_past
       if start.present? && start < Date.today
-        errors.add(:start, "can't be in the past")
+        errors.add(:start, 'kann nicht in der Vergangenheit liegen')
       end
     end
 
