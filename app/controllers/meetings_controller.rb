@@ -22,7 +22,7 @@ class MeetingsController < ApplicationController
     @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting.graetzls << @graetzl
     @meeting.address = Address.get_address_from_api(@meeting.address.street_name)
-
+    @meeting.address.description = meeting_params[:address_attributes][:description]
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to graetzl_meeting_path(@graetzl, @meeting), notice: 'Neues Treffen wurde erstellt.' }
@@ -56,6 +56,10 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:name, :description, :start, :end, address_attributes: [:street_name, :description])
+      params.require(:meeting).permit(:name,
+        :description,
+        :start_date, :start_time,
+        :end_time,
+        address_attributes: [:street_name, :description])
     end
 end

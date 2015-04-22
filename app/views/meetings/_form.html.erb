@@ -12,38 +12,75 @@
     </div>
   <% end %>
 
-  <h5>Was für ein Treffen planst du genau? Gib deinem Treffen einen kurzen Namen.</h5>
-  <div>
-    <%= f.label :name %><br>
-    <%= f.text_field :name, placeholder: 'Name des Treffens...' %>
+
+  <div class="meet-what">
+    <p>Was für ein Treffen planst du genau?</p>
+
+    <div class="input-group">
+      <%= f.text_field :name %>
+      <%= f.label :name, 'Gib deinem Treffen einen kurzen Namen.' %>
+    </div>
+    <div class="textarea-group">
+      <%= f.text_area :description, cols: 30, rows: 10 %>
+      <%= f.label :description, 'Beschreibe dein Treffen in 1-2 Sätzen' %>
+    </div>
   </div>
 
-  <div>
-    <%= f.label :description %><br>
-    <%= f.text_area :description, placeholder: 'Beschreibe dein Treffen in 1-2 Sätzen...' %>
-  </div>
 
-  <h5>Wo soll dein Treffen stattfinden</h5>
-  <div>
+  <div class="meet-where">
+    <p>Wo soll dein Treffen stattfinden?</p>
+    
     <%= f.fields_for :address do |address_fields| %>
-      <%= address_fields.label :street_name %><br>
-      <%= address_fields.text_field :street_name, placeholder: 'Straße...' %><br>
-      <%= address_fields.label :description %><br>
-      <%= address_fields.text_field :description, placeholder: 'Ortsbeschreibung (z.B. Name des Lokals, Park, ...)' %>
+
+      <div class="input-group">
+        <div class="wrp-icon">
+          <svg class="icon-pin"><use xlink:href="#icon-pin"></use></svg>
+        </div>
+        <%= address_fields.text_field :street_name %>
+        <%= address_fields.label :street_name, 'Straße Hausnummer' %>
+      </div>
+
+      <div class="input-group">
+        <div class="wrp-icon">
+          <svg class="icon-flag"><use xlink:href="#icon-flag"></use></svg>
+        </div>
+        <%= address_fields.text_field :description %>
+        <%= address_fields.label :description, 'Ortsbeschreibung' %>
+      </div>
+
     <% end %>
   </div>
 
-  <h5>Wann planst du dein Treffen?</h5>
-  <div>
-    <%= f.label :start %><br>
-    <%= f.datetime_select :start %>
-  </div>
-  <div>
-    <%= f.label :end %><br>
-    <%= f.datetime_field :end %>
+
+  <div class="meet-when">
+    <p class="txt">Wann planst du dein Treffen?</p>
+
+    <div class="datepicker-group">
+      <%= f.label :start do %>
+        <svg class="icon-calendar"><use xlink:href="#icon-calendar"></use></svg>
+        Datum
+      <% end %>
+      <%= f.text_field :start_date, class: 'datepicker', placeholder: 'wählen' %>
+    </div>
+
+    <div class="timepicker-group">
+      <%= f.label :start do %>
+        <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
+        Beginn
+      <% end %>
+      <%= f.text_field :start_time, class: 'timepicker', placeholder: 'wählen' %>
+    </div>
+
+    <div class="timepicker-group">
+      <%= f.label :end do %>
+        <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
+        Ende
+      <% end %>
+      <%= f.text_field :end_time, ignore_date: true, class: 'timepicker', placeholder: 'wählen' %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= f.button %>
+    <%= f.button class: 'btn-primary' %>
   </div>
 <% end %>

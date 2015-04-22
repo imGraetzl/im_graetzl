@@ -6,7 +6,9 @@
   <script>
 
     $(document).ready(function() {
-      $('.datepicker').pickadate();
+      $('.datepicker').pickadate({
+        formatSubmit: 'yyyy-mm-dd'
+      });
 
       $('.timepicker').pickatime({
         interval: 15,

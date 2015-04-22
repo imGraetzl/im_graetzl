@@ -1,4 +1,9 @@
 class Meeting < ActiveRecord::Base
+
+  # split datetime in date and time
+  date_time_attribute :start
+  date_time_attribute :end
+
   # associations
   has_and_belongs_to_many :graetzls
 
