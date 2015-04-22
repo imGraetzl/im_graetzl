@@ -75,3 +75,5 @@ gem 'devise'
 # for images
 gem 'carrierwave'
 gem 'mini_magick'
+# split datetime in date and time
+gem 'date_time_attribute'
