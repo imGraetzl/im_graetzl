@@ -4,7 +4,11 @@
 
   <h2>Wähle dein <span>Heimatgrätzl</span></h2>
 
-  <%= form_tag(addresses_match_path, method: :post) do %>
+  <%= form_tag(addresses_match_path, method: :post) do %>  
+
+      <div class="field">
+        <%= hidden_field_tag :address, @search_input, id: 'address_search_input' %>
+      </div>
 
       <% if @graetzls.size < 4 %>
 
@@ -44,7 +48,8 @@
             </div>
             <div class="select-group">
               <label for="graetzl">Grätzl</label>
-              <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name') %>
+              <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name'),
+                { prompt: 'wählen', required: true } %>
             </div>
           </div>
 

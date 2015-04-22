@@ -36,7 +36,7 @@ RSpec.describe AddressesController, type: :controller do
         expect(flash[:error]).to be_present
       end
 
-      it 'renders registration again' do
+      it 'renders search again' do
         expect(response).to render_template(:registration)
       end
     end
@@ -88,8 +88,8 @@ RSpec.describe AddressesController, type: :controller do
         expect(flash[:error]).to be_present
       end
 
-      it 'renders registration again' do
-        expect(response).to render_template(:registration)
+      it 'renders search again' do
+        expect(response).to render_template(:search)
       end
 
       it 'puts no graetzl in session' do

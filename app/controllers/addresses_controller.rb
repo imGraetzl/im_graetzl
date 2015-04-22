@@ -22,7 +22,9 @@ class AddressesController < ApplicationController
   def match
     if params[:graetzl].blank?
       flash.now[:error] = 'Bitte wähle ein Grätzl.'
-      render :registration
+      @search_input = params[:address]
+      @graetzls = Address.new(session[:address]).match_graetzls
+      render :search
     else
       graetzl = Graetzl.find(params[:graetzl])
       session[:graetzl] = graetzl.id
