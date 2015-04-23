@@ -21,7 +21,7 @@ RSpec.feature "Registrations", type: :feature do
 
       it 'redirects to new_user_registration', js: true do
         fill_in :address, with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
-        sleep 1
+        sleep 2
         click_button 'Weiter'
 
         expect(page).to have_text('Willkommen im Naschmarkt')
@@ -33,7 +33,7 @@ RSpec.feature "Registrations", type: :feature do
 
       it 'shows options to choose graetzl', js: true do
         fill_in :address, with: "#{seestadt.street_name}"
-        sleep 1
+        sleep 2
         click_button 'Weiter'
 
         expect(page).to have_text("Unter #{seestadt.street_name} konnten wir 2 Grätzl finden.")
@@ -44,7 +44,7 @@ RSpec.feature "Registrations", type: :feature do
     context 'with no result' do
       it 'lets user choose from all graetzls' do
         fill_in :address, with: 'qwertzuiopü'
-        sleep 1
+        sleep 2
         click_button 'Weiter'
 
         expect(page).to have_text('Bitte wähle dein Grätzl manuell.')
