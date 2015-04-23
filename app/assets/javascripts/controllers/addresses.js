@@ -19,7 +19,7 @@ APP.controllers.addresses = (function() {
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             limit: 7,
             remote: {
-                url:  APP.config.adressSearchOpenGov + '%QUERY',
+                url:  APP.config.adressSearchOpenGov + '%QUERY' + '&crs=EPSG:4326',
                 filter: function(addresses) {
                     updateFeatureHiddenField(addresses.features[0]);
                     return addresses.features;

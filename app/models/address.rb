@@ -18,6 +18,18 @@ class Address < ActiveRecord::Base
     Address.new()
   end
 
+  def self.parse_feature(feature)
+    begin
+      data = JSON.parse(feature)
+      #puts JSON.pretty_generate(feature)
+      Address.new_from_geojson(data)
+    rescue JSON::ParserError => e
+      # blahblah
+      puts "json ran into parser error, return empty address"
+      Address.new
+    end
+  end
+
   def self.new_from_geojson(feature)
     point = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
     Address.new(

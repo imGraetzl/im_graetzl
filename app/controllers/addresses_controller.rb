@@ -4,13 +4,15 @@ class AddressesController < ApplicationController
   end
 
   def search
-    puts params
+    puts params[:feature]
     if params[:address].blank?
       flash.now[:error] = 'Bitte gib eine Addresse an.'
       render :registration
     else
       @search_input = params[:address]
-      address = Address.get_address_from_api(@search_input)
+      #address = Address.get_address_from_api(@search_input)
+      address = Address.parse_feature(params[:feature])
+      puts "address point: #{address.coordinates}"
       session[:address] = address.attributes
       @graetzls = address.match_graetzls
       if @graetzls.size == 1
