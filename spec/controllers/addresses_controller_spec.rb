@@ -1,4 +1,5 @@
 require 'rails_helper'
+include GeojsonSupport
 
 RSpec.describe AddressesController, type: :controller do
 
@@ -8,6 +9,7 @@ RSpec.describe AddressesController, type: :controller do
       expect(response).to render_template(:registration)
     end
   end
+
 
   describe 'POST search' do
     context 'without address param' do
@@ -41,7 +43,7 @@ RSpec.describe AddressesController, type: :controller do
       end
     end
 
-    context 'with random address param' do
+    context 'without feature param' do
       before do
         3.times { create(:graetzl) }
         post :search, address: 'someweirdstreet 10'
@@ -61,12 +63,13 @@ RSpec.describe AddressesController, type: :controller do
       end
     end
 
-    context 'with matching address param' do
+    context 'with valid feature param' do
       let(:esterhazygasse) { build(:esterhazygasse) }
+      let(:feature_hash) { esterhazygasse_hash }
       before do
         @naschmarkt = create(:naschmarkt)
         2.times { create(:graetzl) }
-        post :search, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
+        post :search, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}", feature: feature_hash.to_json
       end
 
       it 'puts correct address and graetzl in session' do
@@ -79,6 +82,7 @@ RSpec.describe AddressesController, type: :controller do
       end
     end
   end
+
 
   describe 'POST match' do
     context 'when no graetzl chosen' do
