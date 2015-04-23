@@ -1,8 +1,8 @@
 class Meeting < ActiveRecord::Base
 
   # split datetime in date and time
-  date_time_attribute :start
-  date_time_attribute :end
+  date_time_attribute :starts_at
+  date_time_attribute :ends_at
 
   # associations
   has_and_belongs_to_many :graetzls
@@ -18,15 +18,15 @@ class Meeting < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
   validates :user_initialized, presence: true
-  validates :start, presence: true
-  validate :start_date_cannot_be_in_the_past
+  validates :starts_at, presence: true
+  validate :starts_at_cannot_be_in_the_past
   validate :graetzls_must_be_present
 
   private
 
-    def start_date_cannot_be_in_the_past
-      if start.present? && start < Date.today
-        errors.add(:start, 'kann nicht in der Vergangenheit liegen')
+    def starts_at_cannot_be_in_the_past
+      if starts_at.present? && starts_at < Date.today
+        errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
       end
     end
 

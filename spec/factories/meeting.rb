@@ -5,7 +5,7 @@ FactoryGirl.define do
     m.name { Faker::Lorem.sentence() }
     m.description { Faker::Lorem.paragraph }
     m.user_initialized { build(:user) }
-    m.start { Faker::Date.forward() }
+    m.starts_at { Faker::Date.forward() }
     m.address { build(:address) }
     m.graetzls { [build(:graetzl)] }
   end

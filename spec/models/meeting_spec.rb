@@ -21,12 +21,12 @@ RSpec.describe Meeting, type: :model do
       expect(build(:meeting, user_initialized: nil)).not_to be_valid
     end
 
-    it 'invalid without start date' do
-      expect(build(:meeting, start: nil)).not_to be_valid
+    it 'invalid without starts_at date' do
+      expect(build(:meeting, starts_at: nil)).not_to be_valid
     end
 
-    it 'invalid with start date in past' do
-      expect(build(:meeting, start: 1.day.ago)).not_to be_valid
+    it 'invalid with starts_at date in past' do
+      expect(build(:meeting, starts_at: 1.day.ago)).not_to be_valid
     end
 
     it 'not invalid without address' do

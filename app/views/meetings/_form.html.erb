@@ -56,27 +56,27 @@
     <p class="txt">Wann planst du dein Treffen?</p>
 
     <div class="datepicker-group">
-      <%= f.label :start_date do %>
+      <%= f.label :starts_at_date do %>
         <svg class="icon-calendar"><use xlink:href="#icon-calendar"></use></svg>
         Datum
       <% end %>
-      <%= f.text_field :start_date, class: 'datepicker', placeholder: 'wählen' %>
+      <%= f.text_field :starts_at_date, class: 'datepicker', placeholder: 'wählen' %>
     </div>
 
     <div class="timepicker-group">
-      <%= f.label :start_time do %>
+      <%= f.label :starts_at_time do %>
         <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
         Beginn
       <% end %>
-      <%= f.text_field :start_time, class: 'timepicker', placeholder: 'wählen' %>
+      <%= f.text_field :starts_at_time, class: 'timepicker', placeholder: 'wählen' %>
     </div>
 
     <div class="timepicker-group">
-      <%= f.label :end do %>
+      <%= f.label :ends_at_time do %>
         <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
         Ende
       <% end %>
-      <%= f.text_field :end_time, ignore_date: true, class: 'timepicker', placeholder: 'wählen' %>
+      <%= f.text_field :ends_at_time, ignore_date: true, class: 'timepicker', placeholder: 'wählen' %>
     </div>
   </div>
 

@@ -23,7 +23,7 @@ class MeetingsController < ApplicationController
     @meeting.graetzls << @graetzl
     @meeting.address = Address.get_address_from_api(@meeting.address.street_name)
     @meeting.address.description = meeting_params[:address_attributes][:description]
-    @meeting.end_date = @meeting.start_date
+    @meeting.ends_at_date = @meeting.starts_at_date
     
     respond_to do |format|
       if @meeting.save
@@ -60,8 +60,8 @@ class MeetingsController < ApplicationController
     def meeting_params
       params.require(:meeting).permit(:name,
         :description,
-        :start_date, :start_time,
-        :end_time,
+        :starts_at_date, :starts_at_time,
+        :ends_at_time,
         address_attributes: [:street_name, :description])
     end
 end
