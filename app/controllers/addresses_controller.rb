@@ -4,6 +4,7 @@ class AddressesController < ApplicationController
   end
 
   def search
+    puts params
     if params[:address].blank?
       flash.now[:error] = 'Bitte gib eine Addresse an.'
       render :registration

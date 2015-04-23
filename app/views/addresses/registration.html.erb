@@ -9,6 +9,7 @@
       <div id="addressSearchAutocomplete" class="input-group">
         <%= text_field_tag :address, nil %>
         <%= label_tag :address, 'Wo wohnst du? (Strasse und Hausnummer)' %>
+        <%= hidden_field_tag :feature %>
       </div>
       <div class="nav-btnBar">
         <%= button_tag 'Weiter', class: 'btn-primary' %>
