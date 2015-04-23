@@ -11,7 +11,7 @@ class AddressesController < ApplicationController
     else
       @search_input = params[:address]
       #address = Address.get_address_from_api(@search_input)
-      address = Address.parse_feature(params[:feature])
+      address = Address.new_from_json_string(params[:feature])
       puts "address point: #{address.coordinates}"
       session[:address] = address.attributes
       @graetzls = address.match_graetzls

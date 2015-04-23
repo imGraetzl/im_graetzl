@@ -8,26 +8,14 @@ class Address < ActiveRecord::Base
   validates :city, presence: true
 
   # class methods
-
-  # maybe put into service object later...
-  def self.get_address_from_api(address_string)
-    response = query_address_service(address_string)
-    if !response.blank? && response.body.present?
-      return Address.new_from_geojson(response['features'][0])
-    end
-    Address.new()
-  end
-
-  def self.parse_feature(feature)
+  def self.new_from_json_string(feature)
     begin
       data = JSON.parse(feature)
-      #puts JSON.pretty_generate(feature)
       Address.new_from_geojson(data)
     rescue JSON::ParserError => e
-      # blahblah
-      puts "json ran into parser error, return empty address"
+      puts 'could not parse json feature, return empty address'
       Address.new
-    end
+    end    
   end
 
   def self.new_from_geojson(feature)
@@ -38,6 +26,16 @@ class Address < ActiveRecord::Base
       street_number: feature['properties']['StreetNumber'],
       zip: feature['properties']['PostalCode'],
       city: feature['properties']['Municipality'])    
+  end
+
+
+  # maybe put into service object later...
+  def self.get_address_from_api(address_string)
+    response = query_address_service(address_string)
+    if !response.blank? && response.body.present?
+      return Address.new_from_geojson(response['features'][0])
+    end
+    Address.new()
   end
 
   # instance methods

@@ -1,4 +1,5 @@
 require 'rails_helper'
+include GeojsonSupport
 
 RSpec.describe Address, type: :model do
 
@@ -21,40 +22,48 @@ RSpec.describe Address, type: :model do
     it 'is invalid without city and zip' do
       expect(build(:address, city: nil, zip: nil)).not_to be_valid
     end
-
-    #it 'is invalid without a user'
   end
 
   # class methods
-  describe 'class methods' do
-    it 'builds new address from geojson object' do
-      geojson_hash = {"type"=>"Feature",
-        "geometry"=>{
-          "type"=>"Point",
-          "coordinates"=>[16.35955137895887, 48.20137456512505]},
-          "bbox"=>[48.20137456512505, 16.35955137895887, 16.35955137895887, 48.20137456512505],
-          "properties"=>{
-            "Bezirk"=>"7",
-            "Adresse"=>"Mariahilfer Straße 10",
-            "CountryCode"=>"AT",
-            "StreetName"=>"Mariahilfer Straße",
-            "StreetNumber"=>"10",
-            "CountrySubdivision"=>"Wien",
-            "Municipality"=>"Wien",
-            "MunicipalitySubdivision"=>"Neubau",
-            "Kategorie"=>"Adresse",
-            "Zaehlbezirk"=>"0702",
-            "Zaehlgebiet"=>"07023",
-            "Ranking"=>0.0,
-            "PostalCode"=>"1070"}}
-      address = Address.new_from_geojson(geojson_hash)
-      expect(address).to be_valid
+  let(:feature) { feature_hash }
+
+  describe 'build new address form geojson object' do
+    context 'when valid hash param' do
+      it 'returns valid address object' do        
+        address = Address.new_from_geojson(feature)
+        expect(address).to be_valid
+      end
+    end
+
+    context 'when missing keys' do
+      before { feature.except!('geometry') }
+      it 'returns invalid address object' do
+        address = Address.new_from_geojson(feature)
+        expect(address).not_to be_valid
+      end
+    end
+  end
+
+  describe 'build new address from json string' do
+    context 'for valid json' do
+      it 'returns new address' do        
+        address = Address.new_from_json_string(feature.to_json)
+        expect(address).to be_valid
+      end
+    end
+
+    context 'for invalid json' do
+      it 'returns empty address' do
+        address = Address.new_from_json_string('invalid')
+        expect(address).not_to be_valid
+        expect(address.coordinates).to be_nil
+      end
     end
   end
 
 
   # instance methods
-  describe 'match respective graetzls' do
+  describe 'matches respective graetzls' do
     before do
       @naschmarkt = create(:naschmarkt)
       seestadt_aspern = create(:seestadt_aspern)

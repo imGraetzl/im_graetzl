@@ -7,7 +7,7 @@ FactoryGirl.define do
     a.zip { Faker::Address.zip }
     a.city { Faker::Address.city }
     a.coordinates { "POINT(#{Faker::Address.longitude} #{Faker::Address.latitude})" }
-    #a.description { Faker::Lorem.paragraph }
+    a.description { Faker::Lorem.paragraph }
 
     factory :esterhazygasse do |a|
       a.street_name 'Esterházygasse'
