@@ -1,6 +1,7 @@
 <% title(@meeting.name) %>
 
 <h2>Treffen: <%= @meeting.name %></h2>
+<%= image_tag @meeting.cover_photo_url %>
 <%= debug @meeting %>
 
 <%= link_to 'Zurück', @graetzl %>

@@ -1,4 +1,5 @@
 class Meeting < ActiveRecord::Base
+  mount_uploader :cover_photo, CoverPhotoUploader
 
   # split datetime in date and time
   date_time_attribute :starts_at

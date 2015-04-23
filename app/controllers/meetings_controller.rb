@@ -62,6 +62,7 @@ class MeetingsController < ApplicationController
         :description,
         :starts_at_date, :starts_at_time,
         :ends_at_time,
+        :cover_photo,
         address_attributes: [:street_name, :description])
     end
 end

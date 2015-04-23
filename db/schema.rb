@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423101450) do
+ActiveRecord::Schema.define(version: 20150423110724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150423101450) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_initialized_id"
+    t.string   "cover_photo"
   end
 
   add_index "meetings", ["user_initialized_id"], :name => "index_meetings_on_user_initialized_id"
