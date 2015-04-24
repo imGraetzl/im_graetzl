@@ -16,10 +16,10 @@ RSpec.feature "Registrations", type: :feature do
       expect(page).to have_selector('#feature', visible: false)
     end
 
-    context 'with single graetzl resutlt' do
+    context 'with single graetzl result' do
       let(:esterhazygasse) { build(:esterhazygasse) }
 
-      it 'redirects to new_user_registration', js: true do
+      it 'redirects to user_form', js: true do
         fill_in :address, with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
         sleep 2
         click_button 'Weiter'
@@ -28,7 +28,7 @@ RSpec.feature "Registrations", type: :feature do
       end
     end
 
-    context 'with two results' do
+    context 'with multiple graetzl results' do
       let(:seestadt) { build(:seestadt) }
 
       it 'shows options to choose graetzl', js: true do
@@ -38,7 +38,7 @@ RSpec.feature "Registrations", type: :feature do
 
         expect(page).to have_text("Unter #{seestadt.street_name} konnten wir 2 Grätzl finden.")
         expect(page).to have_field('graetzl', type: 'radio', count: 2, visible: false)
-      end
+      end      
     end
 
     context 'with no result' do
@@ -49,7 +49,7 @@ RSpec.feature "Registrations", type: :feature do
 
         expect(page).to have_text('Bitte wähle dein Grätzl manuell.')
         expect(page).to have_selector('select#graetzl')
-      end
+      end      
     end
   end
 end
