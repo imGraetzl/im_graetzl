@@ -10,10 +10,14 @@ RSpec.feature "Registrations", type: :feature do
     visit addresses_registration_path
   end
 
-  describe 'step 1: address' do
+  describe 'address search' do
     it 'has address and feature fields' do
       expect(page).to have_field(:address)
       expect(page).to have_selector('#feature', visible: false)
+    end
+
+    it 'requires address parameter' do
+      expect(page).to have_xpath("//input[@required='required']")
     end
 
     context 'with single graetzl result' do
@@ -50,6 +54,24 @@ RSpec.feature "Registrations", type: :feature do
         expect(page).to have_text('Bitte wähle dein Grätzl manuell.')
         expect(page).to have_selector('select#graetzl')
       end      
+    end
+  end
+  
+
+  describe 'choose graetzl manually' do
+    it 'has link to choose graetzl manually' do
+      expect(page).to have_link('Manuell wählen')
+    end
+
+    it 'lets user choose from all graetzls' do
+      click_link 'Manuell wählen'
+      expect(page).to have_text('Wähle dein Heimatgrätzl')
+      expect(page).to have_selector('select#graetzl')
+    end    
+
+    it 'requires graetzl selection' do
+      click_link 'Manuell wählen'
+      expect(page).to have_xpath("//select[@required='required']")
     end
   end
 end

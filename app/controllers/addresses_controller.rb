@@ -4,32 +4,20 @@ class AddressesController < ApplicationController
   end
 
   def search
-    if params[:address].blank?
-      flash.now[:error] = 'Bitte gib eine Addresse an.'
-      render :registration
-    else
-      @search_input = params[:address]
-      #address = Address.get_address_from_api(@search_input)
-      address = Address.new_from_json_string(params[:feature] || '')
-      session[:address] = address.attributes
-      @graetzls = address.match_graetzls
-      if @graetzls.size == 1
-        session[:graetzl] = @graetzls.first.id
-        redirect_to new_user_registration_path
-      end
+    @search_input = params[:address]
+    #address = Address.get_address_from_api(@search_input)
+    address = Address.new_from_json_string(params[:feature] || '')
+    session[:address] = address.attributes
+    @graetzls = address.match_graetzls
+    if @graetzls.size == 1
+      session[:graetzl] = @graetzls.first.id
+      redirect_to new_user_registration_path
     end
   end
 
   def match
-    if params[:graetzl].blank?
-      flash.now[:error] = 'Bitte wähle ein Grätzl.'
-      @search_input = params[:address]
-      @graetzls = Address.new(session[:address]).match_graetzls
-      render :search
-    else
-      graetzl = Graetzl.find(params[:graetzl])
-      session[:graetzl] = graetzl.id
-      redirect_to new_user_registration_path
-    end    
+    graetzl = Graetzl.find(params[:graetzl])
+    session[:graetzl] = graetzl.id
+    redirect_to new_user_registration_path
   end
 end

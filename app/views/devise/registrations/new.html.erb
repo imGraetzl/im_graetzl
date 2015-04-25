@@ -7,7 +7,8 @@
     <% if resource.graetzl.users.count > 5 %>
         <span><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
     <% end %>
-    Ein paar Dinge müssen wir noch wissen, dann geht's los!
+    Ein paar Dinge müssen wir noch wissen, dann geht's los!<br>
+    <small><%= link_to 'Nicht dein Grätzl?', addresses_search_path(address: ''), method: :post %></small>
   </p>
 
 

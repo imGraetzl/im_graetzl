@@ -4,63 +4,66 @@
 
   <h2>Wähle dein <span>Heimatgrätzl</span></h2>
 
-  <%= form_tag(addresses_match_path, method: :post) do %>  
+  <%= form_tag(addresses_match_path, method: :post) do %>
 
-      <div class="field">
-        <%= hidden_field_tag :address, @search_input, id: 'address_search_input' %>
+    <% if @graetzls.size < 4 %>
+
+      <div class="txt">
+        <p>
+        <% unless @search_input.blank? %>
+          Unter <span class="address"><%= @search_input %></span> konnten wir <%= @graetzls.size %> Grätzl finden.<br>
+        <% end %>
+        Wo fühlst du dich denn zuhause?</p>
+        <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
       </div>
 
-      <% if @graetzls.size < 4 %>
-
-          <div class="txt">
-            <p>Unter <span class="address"><%= @search_input %></span> konnten wir <%= @graetzls.size %> Grätzl finden.<br>
-            Wo fühlst du dich denn zuhause?</p>
-            <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
-          </div>
-
-          <div class="wrp-radios">
-            <% @graetzls.each do |g| %>
-                <div class="radio-group">
-                  <%= radio_button_tag :graetzl, g.id %>
-                  <%= label_tag "#{:graetzl}_#{g.id}", g.short_name %>
-                </div>
-            <% end %>
-          </div>
-
-
-      <% else %>
-
-
-          <div class="txt">
-            <p>Unter <span class="address"><%= @search_input %></span> konnten wir leider kein Grätzl finden.<br>
-              Bitte wähle dein Grätzl manuell.</p>
-            <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
-          </div>
-          <div class="wrp-selects">
-            <div class="select-group">
-              <label for="district">Bezirk</label>
-              <select id="district">
-                <option value=" " disabled selected>wählen</option>
-                <option value=" ">1010</option>
-                <option value=" ">1020</option>
-                <option value=" ">1030</option>
-              </select>
+      <div class="wrp-radios">
+        <% @graetzls.each do |g| %>
+            <div class="radio-group">
+              <%= radio_button_tag :graetzl, g.id, required: true %>
+              <%= label_tag "#{:graetzl}_#{g.id}", g.short_name %>
             </div>
-            <div class="select-group">
-              <label for="graetzl">Grätzl</label>
-              <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name'),
-                { prompt: 'wählen', required: true } %>
-            </div>
-          </div>
-
-
-      <% end %>
-
-
-      <div class="nav-btnBar">
-        <%= link_to 'Schritt zurück', 'javascript:history.back();' %>
-        <%= button_tag 'Weiter', class: 'btn-primary' %>
+        <% end %>
       </div>
+
+
+    <% else %>
+
+
+      <div class="txt">
+        <p>
+          <% unless @search_input.blank? %>
+            Unter <span class="address"><%= @search_input %></span> konnten wir leider kein Grätzl finden.<br>
+          <% end %>
+          Bitte wähle dein Grätzl manuell.
+        </p>
+        <p class="txt-hint">(Du kannst deine Auswahl später noch ändern)</p>
+      </div>
+
+      <div class="wrp-selects">
+        <div class="select-group">
+          <label for="district">Bezirk</label>
+          <select id="district">
+            <option value=" " disabled selected>wählen</option>
+            <option value=" ">1010</option>
+            <option value=" ">1020</option>
+            <option value=" ">1030</option>
+          </select>
+        </div>
+        <div class="select-group">
+          <label for="graetzl">Grätzl</label>
+          <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name'),
+            { prompt: 'wählen', required: true } %>
+        </div>
+      </div>
+
+
+    <% end %>
+
+    <div class="nav-btnBar">
+      <%= link_to 'Schritt zurück', 'javascript:history.back();' %>
+      <%= button_tag 'Weiter', class: 'btn-primary' %>
+    </div>
 
 
   <% end %>
