@@ -3,9 +3,9 @@ class Address < ActiveRecord::Base
   belongs_to :addressable, polymorphic: true
 
   # validations
-  validates :coordinates, presence: true
-  validates :street_name, presence: true
-  validates :city, presence: true
+  # validates :coordinates, presence: true
+  # validates :street_name, presence: true
+  # validates :city, presence: true
 
   # class methods
   def self.new_from_json_string(feature)
