@@ -1,0 +1,16 @@
+<div class="wrp-selects">
+  <div class="select-group">
+    <label for="district">Bezirk</label>
+    <select id="district">
+      <option value=" " disabled selected>wählen</option>
+      <option value=" ">1010</option>
+      <option value=" ">1020</option>
+      <option value=" ">1030</option>
+    </select>
+  </div>
+  <div class="select-group">
+    <label for="graetzl">Grätzl</label>
+    <%= select_tag :graetzl, options_from_collection_for_select(@graetzls, 'id', 'short_name'),
+      { prompt: 'wählen', required: true } %>
+  </div>
+</div>
