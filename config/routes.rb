@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  resources :graetzls, only: [:index, :show] do   
+  resources :graetzls, only: [:index]
+  resources :graetzls, path: "", only: [:show] do
     resources :meetings, only: [:show, :new, :create]
   end
 
