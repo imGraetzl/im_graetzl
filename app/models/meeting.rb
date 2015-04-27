@@ -1,4 +1,6 @@
 class Meeting < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name
   mount_uploader :cover_photo, CoverPhotoUploader
 
   # split datetime in date and time
