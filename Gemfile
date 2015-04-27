@@ -77,3 +77,5 @@ gem 'carrierwave'
 gem 'mini_magick'
 # split datetime in date and time
 gem 'date_time_attribute'
+# use seo-friendly urls
+gem 'friendly_id', '~> 5.1.0'
