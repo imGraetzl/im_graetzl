@@ -1,23 +1,23 @@
 Rails.application.routes.draw do
 
-  resources :graetzls, only: [:index]
-  resources :graetzls, path: "", only: [:show] do
-    resources :meetings, only: [:show, :new, :create]
-  end
+  # resources :graetzls, only: [:index, :show] do
+  #   resources :meetings, only: [:show, :new, :create]
+  # end
 
   get 'addresses/registration'
   post 'addresses/search'
   post 'addresses/match'
 
-  post 'addresses/fetch_graetzl', as: 'fetch_graetzl'
-
   devise_for :users, controllers: { registrations: "registrations" }
 
   get 'static_pages/welcome'
-
   get 'static_pages/treffenAnlegen'
+  root 'static_pages#welcome'  
 
-  root 'static_pages#welcome'
+  resources :graetzls, only: [:index]
+  resources :graetzls, path: '', only: [:show] do
+    resources :meetings, path: '', only: [:show, :new, :create]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
