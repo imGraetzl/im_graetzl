@@ -22,8 +22,8 @@ class Meeting < ActiveRecord::Base
   validates :name, presence: true
   validates :description, presence: true
   validates :user_initialized, presence: true
-  validates :starts_at, presence: true
   validate :starts_at_cannot_be_in_the_past
+  validate :ends_at_cannot_be_before_starts_at
   validate :graetzls_must_be_present
 
   private
@@ -31,6 +31,18 @@ class Meeting < ActiveRecord::Base
     def starts_at_cannot_be_in_the_past
       if starts_at.present? && starts_at < Date.today
         errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
+      end
+    end
+
+    def ends_at_cannot_be_in_the_past
+      if ends_at.present? && ends_at < Date.today
+        errors.add(:ends_at, 'kann nicht in der Vergangenheit liegen')
+      end
+    end
+
+    def ends_at_cannot_be_before_starts_at
+      if starts_at.present? && ends_at.present? && ends_at < starts_at
+        errors.add(:ends_at, 'kann nicht vor Beginn liegen')
       end
     end
 
