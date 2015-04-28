@@ -18,6 +18,8 @@ class Meeting < ActiveRecord::Base
   
   has_and_belongs_to_many :users_going, class_name: 'User', join_table: 'meetings_users_going'
 
+  has_and_belongs_to_many :categories
+
   # validations
   validates :name, presence: true
   validates :description, presence: true
