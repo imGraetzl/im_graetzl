@@ -18,6 +18,7 @@ class MeetingsController < ApplicationController
   # end
 
   def create
+    puts params
     @meeting = current_user.meetings_initialized.build(meeting_params)
     @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting.graetzls << @graetzl
@@ -63,6 +64,7 @@ class MeetingsController < ApplicationController
         :starts_at_date, :starts_at_time,
         :ends_at_time,
         :cover_photo,
+        category_ids: [],
         address_attributes: [:street_name, :description])
     end
 end

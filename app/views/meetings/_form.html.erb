@@ -93,6 +93,11 @@
     </div>
   </div>
 
+  <div class="meet-categories">
+    <p>Zum Abschluss versuche noch dein Treffen einem oder mehreren Themen zuzuordnen</p>
+    <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
+  </div>
+
   <div class="actions">
     <%= f.button class: 'btn-primary' %>
   </div>
