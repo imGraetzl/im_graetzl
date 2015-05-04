@@ -18,12 +18,11 @@ class MeetingsController < ApplicationController
   # end
 
   def create
-    puts params
     @meeting = current_user.meetings_initialized.build(meeting_params)
     @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting.graetzls << @graetzl
-    @meeting.address = Address.get_address_from_api(@meeting.address.street_name)
-    @meeting.address.description = meeting_params[:address_attributes][:description]
+    #@meeting.address = Address.get_address_from_api(@meeting.address.street_name)
+    #@meeting.address.description = meeting_params[:address_attributes][:description]
     @meeting.ends_at_date = @meeting.starts_at_date
     
     respond_to do |format|
