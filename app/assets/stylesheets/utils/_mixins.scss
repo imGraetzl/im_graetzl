@@ -11,3 +11,61 @@
     clear: both;
   }
 }
+
+@mixin triangle($direction, $color: $color-ambient-mint, $size: 6px){
+  display: block;
+  height: 0;
+  width: 0;
+  @if ($direction == 'up'){
+    border-bottom: $size solid $color;
+    border-left: 1/2*$size solid transparent;
+    border-right: 1/2*$size solid transparent;
+  }
+  @else if ($direction == 'down'){
+    border-top: $size solid $color;
+    border-left: 1/2*$size solid transparent;
+    border-right: 1/2*$size solid transparent;
+  }
+  @else if ($direction == 'left'){
+    border-top: 1/2*$size solid transparent;
+    border-bottom: 1/2*$size solid transparent;
+    border-right: $size solid $color;
+  }
+  @else if ($direction == 'right'){
+    border-top: 1/2*$size solid transparent;
+    border-bottom: 1/2*$size solid transparent;
+    border-left: $size solid $color;
+  }
+}
+
+@mixin btn($btnColor: $color-ambient-rosa, $btnType: normal, $btnTxtColor: #fff, $btnTexture: $texture-primary) {
+  position: relative;
+  display: inline-block;
+  font-family: $font-primary;
+  border-radius: 0.3em;
+  border: none;
+  outline: none;
+  color: $btnTxtColor;
+  background-color: $btnColor;
+  background-image: $btnTexture;
+  @if $btnType == 'normal' {
+    padding: 0.8rem 1.2rem;
+  }
+  @else if $btnType == 'img' {
+    padding: 0.4rem 1.6rem 0.4rem 1.2rem;
+    font-size: 1.2rem;
+    .img-round {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0.8rem;
+      border-color: $color-background-bright;
+    }
+  }
+  @else if $btnType == 'icon' {
+    [class*=icon-] {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0.5rem;
+    }
+  }
+}

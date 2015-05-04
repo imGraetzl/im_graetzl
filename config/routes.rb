@@ -11,8 +11,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
 
   get 'static_pages/welcome'
-  get 'static_pages/treffenAnlegen'
-  root 'static_pages#welcome'  
+  get 'static_pages/meetingCreate'
+  get 'static_pages/meetingDetail'
+  root 'static_pages#welcome'
 
   resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do

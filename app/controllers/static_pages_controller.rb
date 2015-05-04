@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
     @user = User.last
   end
 
-  def treffenAnlegen
+  def meetingCreate
   end
 
 end
