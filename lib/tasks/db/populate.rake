@@ -4,11 +4,12 @@ namespace :db do
     erase_old_data
     check_for_graetzl_data
     add_users
+    add_categories
   end
 
   def erase_old_data
     puts 'remove old data'
-    [User, Meeting].each(&:destroy_all)
+    [User, Meeting, Category].each(&:destroy_all)
   end
 
   def check_for_graetzl_data
@@ -29,6 +30,27 @@ namespace :db do
       graetzl: Graetzl.first,
       confirmed_at: Time.now)
     admin.save(validate: false)
+  end
+
+  def add_categories
+    default_categories = [
+      'Essen & Trinken',
+      'Leute kennenlernen',
+      'Neu in der Stadt',
+      'Musik machen',
+      'Gemeinsam Sport machen',
+      'Ausgehen',
+      'Kultur',
+      'Kinder',
+      'Malen und Zeichnen',
+      'Swingerclubs',
+      'Modelbau',
+      'Aquaristik',
+      'Kunst und Forschung']
+
+    default_categories.each do |c|
+      Category.create(name: c).save!
+    end
   end
   
 end

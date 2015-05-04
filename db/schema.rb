@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427215643) do
+ActiveRecord::Schema.define(version: 20150428125459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,20 @@ ActiveRecord::Schema.define(version: 20150427215643) do
   end
 
   add_index "addresses", ["addressable_id", "addressable_type"], :name => "index_addresses_on_addressable_id_and_addressable_type"
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories_meetings", id: false, force: true do |t|
+    t.integer "category_id"
+    t.integer "meeting_id"
+  end
+
+  add_index "categories_meetings", ["category_id"], :name => "index_categories_meetings_on_category_id"
+  add_index "categories_meetings", ["meeting_id"], :name => "index_categories_meetings_on_meeting_id"
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false

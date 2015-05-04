@@ -38,6 +38,7 @@
         </div>
         <%= address_fields.text_field :street_name %>
         <%= address_fields.label :street_name, 'Straße Hausnummer' %>
+        <%= hidden_field_tag :feature %>
       </div>
 
       <div class="input-group">
@@ -91,6 +92,11 @@
       <!--  <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg> -->
       <%= f.file_field :cover_photo %>
     </div>
+  </div>
+
+  <div class="meet-categories">
+    <p>Zum Abschluss versuche noch dein Treffen einem oder mehreren Themen zuzuordnen</p>
+    <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
   </div>
 
   <div class="actions">
