@@ -61,10 +61,10 @@ class MeetingsController < ApplicationController
     def meeting_params
       params.require(:meeting).permit(:name,
         :description,
+        :feature,
         :starts_at_date, :starts_at_time,
         :ends_at_time,
         :cover_photo,
-        :feature,
         category_ids: [],
         address_attributes: [:street_name, :description])
     end
