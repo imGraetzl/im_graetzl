@@ -6,13 +6,14 @@
 @import "utils/variables";
 @import "utils/mixins";
 @import "utils/include-media";
+@import "utils/grid/main";
 
 //---------------------------------------------------------------------------------------------*\
 // LAYOUT
 // Styles for the main sections and the layout (header, footer, grid, forms, typography).
 //---------------------------------------------------------------------------------------------*/
 
-@import "layout/normalize";
+//@import "layout/normalize";
 @import "layout/base";
 @import "layout/icons";
 
@@ -34,7 +35,8 @@
 //---------------------------------------------------------------------------------------------*/
 
 @import "controllers/registration";
-@import "controllers/createMeeting";
+@import "controllers/_meetingCreate";
+@import "controllers/_meetingDetail";
 
 //---------------------------------------------------------------------------------------------*\
 // VENDOR

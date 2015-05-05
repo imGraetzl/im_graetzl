@@ -1,0 +1,63 @@
+
+
+.meeting-detail {
+  background-color: olive;
+  .headline {
+    .district {
+
+    }
+    h1 {
+      text-align: center;
+    }
+  }
+}
+
+.theMeeting {
+
+  @include cf;
+  background-color: red;
+
+
+  .description {
+    @include col(1/2);
+    background-color: yellow;
+    h3 {
+
+    }
+    .dateTime {
+
+    }
+    .locationMap {
+
+    }
+    .txt {
+        margin-bottom: 0;
+    }
+  }
+
+  .participate {
+    @include col(1/2);
+    background-color: coral;
+
+    .btn-userimg {
+      margin: 0 auto;
+    }
+
+  }
+
+}
+
+.userCount {
+  span {
+
+  }
+}
+
+.userCollection {
+  img {
+
+  }
+  .showMore {
+
+  }
+}

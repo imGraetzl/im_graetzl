@@ -1,43 +1,14 @@
-%btn {
-  font-family: $font-primary;
-  border: none;
-  border-radius: 0.3em;
-  outline:none;
-  display: inline-block;
-  position: relative;
-  padding: 0.9em 1.8em;
-  [class*=icon-] {
-    display: inline-block;
-    vertical-align: middle;
-    height: 26px;
-    width: 26px;
-    &:first-of-type {
-      margin-right: 1rem;
-    }
-  }
-}
-
-@mixin btn-small() {
-  padding: 0.6rem 1.4em;
-  font-size: 0.75rem;
-}
-@mixin btn-skin() {
-  background-color: red;
-}
-
-
-.btn {
-  @extend %btn;
-}
-
 .btn-primary {
-  @extend %btn;
-  padding: 0.9em 1.8em;
-  background-color: $color-ambient-rosa;
-  color: $color-font-bright;
-  background-image: $texture-primary;
+  @include btn;
 }
 
+.btn-userimg {
+  @include btn($btnType: img);
+}
+
+.btn-icon {
+
+}
 
 .nav-btnBar {
   text-align: right;
