@@ -61,12 +61,8 @@ class User < ActiveRecord::Base
     meetings_going_to.include?(meeting)
   end
 
-  def attend_meeting(meeting)
-    self.meetings_going_to << meeting
-  end
-
-  def join(meeting)
-    #TODO: go to meeting
+  def go_to(meeting)
+    going_tos.create!(meeting_id: meeting.id)
   end
 
   def leave(meeting)

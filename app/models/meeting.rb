@@ -22,10 +22,10 @@ class Meeting < ActiveRecord::Base
   # validations
   validates :name, presence: true
   validates :description, presence: true
-  validates :user_initialized, presence: true
+  #validates :user_initialized, presence: true
   validate :starts_at_cannot_be_in_the_past
   validate :ends_at_cannot_be_before_starts_at
-  validate :graetzls_must_be_present
+  #validate :graetzls_must_be_present
 
   private
 

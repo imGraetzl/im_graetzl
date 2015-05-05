@@ -3,12 +3,7 @@
 <h3><%= @graetzl.short_name %></h3>
 <h2>Treffen: <%= @meeting.name %></h2>
 
-<% if current_user.going_to?(@meeting) %>
-  <!-- TODO: change path to no longer attend -->
-  <%= button_to 'Nicht Teilnehmen x', attend_graetzl_meeting_path(@graetzl, @meeting), remote: true %>
-<% else %>
-  <%= button_to 'Teilnehmen', attend_graetzl_meeting_path(@graetzl, @meeting), remote: true %>
-<% end %>
+
 
 <%= image_tag @meeting.cover_photo_url %>
 <%= debug @meeting %>
