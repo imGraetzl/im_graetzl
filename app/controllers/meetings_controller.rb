@@ -35,6 +35,20 @@ class MeetingsController < ApplicationController
     end
   end
 
+  def attend
+    puts "I'm called I'm called I'm called I'm called"
+    meeting = Meeting.find(params[:id])
+    current_user.attend_meeting(meeting)
+
+    respond_to do |format|
+      if current_user.save
+        format.js {}
+      else
+        format.js {}
+      end
+    end
+  end
+
   # def update
   #   respond_to do |format|
   #     if @meeting.update(meeting_params)

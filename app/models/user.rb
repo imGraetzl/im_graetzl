@@ -53,4 +53,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  # returns true if user is going to meeting
+  def going_to?(meeting)
+    meetings_going_to.include?(meeting)
+  end
+
+  def attend_meeting(meeting)
+    self.meetings_going_to << meeting
+  end
+
+  def join(meeting)
+    #TODO: go to meeting
+  end
+
+  def leave(meeting)
+    #TODO: leave meeting
+  end
+
 end
