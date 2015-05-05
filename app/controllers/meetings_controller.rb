@@ -36,7 +36,6 @@ class MeetingsController < ApplicationController
   end
 
   def attend
-    puts "I'm called I'm called I'm called I'm called"
     meeting = Meeting.find(params[:id])
     current_user.attend_meeting(meeting)
 

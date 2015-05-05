@@ -13,9 +13,12 @@ class User < ActiveRecord::Base
   belongs_to :graetzl
   accepts_nested_attributes_for :graetzl
 
-  has_many :meetings_initialized, class_name: 'Meeting', foreign_key: 'user_initialized_id'
+  has_many :going_tos
+  has_many :meetings, through: :going_tos
 
-  has_and_belongs_to_many :meetings_going_to, class_name: 'Meeting', join_table: 'meetings_users_going'
+  #has_many :meetings_initialized, class_name: 'Meeting', foreign_key: 'user_initialized_id'
+
+  #has_and_belongs_to_many :meetings_going_to, class_name: 'Meeting', join_table: 'meetings_users_going'
 
   # attributes
   # virtual attribute to login with username or email

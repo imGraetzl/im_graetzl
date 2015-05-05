@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428125459) do
+ActiveRecord::Schema.define(version: 20150505154601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,17 @@ ActiveRecord::Schema.define(version: 20150428125459) do
   add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
 
+  create_table "going_tos", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "meeting_id"
+    t.integer  "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "going_tos", ["meeting_id"], :name => "index_going_tos_on_meeting_id"
+  add_index "going_tos", ["user_id"], :name => "index_going_tos_on_user_id"
+
   create_table "graetzls", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -91,14 +102,6 @@ ActiveRecord::Schema.define(version: 20150428125459) do
 
   add_index "meetings", ["slug"], :name => "index_meetings_on_slug"
   add_index "meetings", ["user_initialized_id"], :name => "index_meetings_on_user_initialized_id"
-
-  create_table "meetings_users_going", id: false, force: true do |t|
-    t.integer "meeting_id"
-    t.integer "user_id"
-  end
-
-  add_index "meetings_users_going", ["meeting_id"], :name => "index_meetings_users_going_on_meeting_id"
-  add_index "meetings_users_going", ["user_id"], :name => "index_meetings_users_going_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

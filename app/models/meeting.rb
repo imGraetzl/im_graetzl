@@ -14,9 +14,8 @@ class Meeting < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
 
-  belongs_to :user_initialized, class_name: 'User'
-  
-  has_and_belongs_to_many :users_going, class_name: 'User', join_table: 'meetings_users_going'
+  has_many :going_tos
+  has_many :users, through: :going_tos
 
   has_and_belongs_to_many :categories
 
