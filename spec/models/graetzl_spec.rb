@@ -7,7 +7,7 @@ RSpec.describe Graetzl, type: :model do
   end
 
   # instance methods
-  describe 'short_name' do
+  describe '#short_name' do
     let(:aspern) { build(:aspern) }
     it 'returns first part of name' do
       expect(aspern.short_name).to eql('Aspern')

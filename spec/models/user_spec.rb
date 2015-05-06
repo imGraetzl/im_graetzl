@@ -71,26 +71,66 @@ RSpec.describe User, type: :model do
   # class methods
 
   # instance methods
-  describe 'autosave graetzl association' do
-    context 'when graetzl exists:' do
-      it 'associates with existing record in db' do
-        existing_graetzl = create(:graetzl)
-        other_graetzl = create(:graetzl, name: existing_graetzl.name)
-        user = create(:user, graetzl: build(:graetzl, name: existing_graetzl.name))
-        expect(user.graetzl).to eq(existing_graetzl)
-        expect(user.graetzl).not_to eq(other_graetzl)
-      end
-    end
-    context 'when no graetzl:' do
-      it 'associates with default graetzl record in db (first graetzl for now)' do
-        default_graetzl = Graetzl.first
-        user_graetzl = create(:user, graetzl: build(:graetzl)).graetzl
-        expect(user_graetzl).to eq(default_graetzl)
+  describe '#autosave_associated_records_for_graetzl' do
+
+    context 'when graetzl in db' do
+      before do
+        @existing_graetzl = create(:graetzl)
       end
 
-      it 'should not create new record' do
-        expect { create(:user, graetzl: build(:graetzl)) }.not_to change { Graetzl.count }
+      it 'associates with existing graetzl record' do
+        user = create(:user, graetzl: build(:graetzl, name: @existing_graetzl.name))
+        expect(user.graetzl).to eq(@existing_graetzl)
       end
+
+      it 'does not create new graetzl record' do
+        expect {
+          user = create(:user, graetzl: build(:graetzl, name: @existing_graetzl.name))
+        }.not_to change(Graetzl, :count)
+      end
+    end
+
+    context 'when graetzl not in db' do
+      before do
+        @default_graetzl = create(:graetzl)
+      end
+
+      it 'associates with first graetzl record' do
+        user = create(:user, graetzl: build(:graetzl))
+        expect(user.graetzl).to eq(@default_graetzl)
+      end
+
+      it 'does not create new graetzl record' do
+        expect {
+          user = create(:user, graetzl: build(:graetzl))
+        }.not_to change(Graetzl, :count)
+      end
+    end
+
+    context 'when no graetzl in db' do
+      #TODO add this edgecase
+    end
+  end
+
+  describe '#init' do
+    let(:user) { create(:user) }
+    let(:meeting) { create(:meeting) }
+
+    it 'creates new going_to record' do
+      expect {
+        user.init(meeting)
+      }.to change(GoingTo, :count).by(1)
+    end
+
+    it 'adds going_to to user' do
+      expect {
+        user.init(meeting)
+      }.to change(user.going_tos, :count).by(1)
+    end
+
+    it 'add meeting to user' do
+      user.init(meeting)
+      expect(user.meetings.last).to eq(meeting)
     end
   end
 end
