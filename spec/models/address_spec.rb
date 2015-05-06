@@ -48,7 +48,7 @@ RSpec.describe Address, type: :model do
       it 'builds point-coordinates' do
         coordinates = Address.new_from_geojson(feature).coordinates
         expect(coordinates).not_to be_nil
-        expect(coordinates.class).to eq(RGeo::Geos::CAPIPointImpl)
+        expect(coordinates.as_text).to include('POINT')
       end
     end
 
