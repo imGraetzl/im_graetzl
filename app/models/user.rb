@@ -16,10 +16,6 @@ class User < ActiveRecord::Base
   has_many :going_tos
   has_many :meetings, through: :going_tos
 
-  #has_many :meetings_initialized, class_name: 'Meeting', foreign_key: 'user_initialized_id'
-
-  #has_and_belongs_to_many :meetings_going_to, class_name: 'Meeting', join_table: 'meetings_users_going'
-
   # attributes
   # virtual attribute to login with username or email
   attr_accessor :login
@@ -56,17 +52,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  def init(meeting)
+    going_tos.create!(meeting_id: meeting.id, role: GoingTo::ROLES[:initator])
+  end
+
   # returns true if user is going to meeting
   def going_to?(meeting)
-    meetings_going_to.include?(meeting)
+    meetings.include?(meeting)
   end
 
   def go_to(meeting)
-    going_tos.create!(meeting_id: meeting.id)
+    going_tos.create!(meeting_id: meeting.id, role: GoingTo::ROLES[:attendee])
   end
 
-  def leave(meeting)
-    #TODO: leave meeting
-  end
+  # def leave(meeting)
+  #   #TODO: leave meeting
+  # end
 
 end
