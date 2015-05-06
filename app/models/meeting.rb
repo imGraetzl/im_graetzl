@@ -27,10 +27,9 @@ class Meeting < ActiveRecord::Base
 
   # instance methods
   def complete_datetimes
-    if ends_at_time
-      ends_at_date = starts_at_date || starts_at_time || Time.now
+    if self.ends_at_time
+      self.ends_at_date = self.starts_at_date || Time.now
     end
-    puts "times: #{ends_at_date} #{ends_at_time}"
   end
 
   private
