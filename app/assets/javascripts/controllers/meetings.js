@@ -1,6 +1,9 @@
 APP.controllers.meetings = (function() {
 
     function init() {
+
+        APP.components.addressSearchAutocomplete();
+
         $('.datepicker').pickadate({
             formatSubmit: 'yyyy-mm-dd',
             hiddenSuffix: ''

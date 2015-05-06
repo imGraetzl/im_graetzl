@@ -23,6 +23,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require utils/app
+//= require components/addressSearchAutocomplete
 //= require_tree .
 
 $( document ).ready(function() {

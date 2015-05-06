@@ -49,12 +49,13 @@
     }
   }
 
-  .wrp-icon + input + label {
+  .wrp-icon ~ label {
     padding-left: 3.8rem;
   }
-  .wrp-icon + input {
+  .wrp-icon ~ input {
     padding-left: 0;
   }
+
 }
 
 // ---------------------------------------------------------------------- Select Group
