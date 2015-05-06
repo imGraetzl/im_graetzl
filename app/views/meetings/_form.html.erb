@@ -61,7 +61,7 @@
         Datum
       <% end %>
       <%= f.text_field :starts_at_date,
-        value: (f.object.starts_at_date.strftime('%A, %d. %B %Y') if f.object.starts_at_date),
+        value: ( I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
         class: 'datepicker',
         placeholder: 'wählen' %>
     </div>
