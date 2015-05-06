@@ -112,25 +112,39 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#init' do
+  describe '#go_to' do
     let(:user) { create(:user) }
     let(:meeting) { create(:meeting) }
 
-    it 'creates new going_to record' do
-      expect {
-        user.init(meeting)
+    context 'when attendee' do      
+
+      it 'creates new going_to record with default role' do
+        expect {
+          user.go_to(meeting)
+        }.to change(GoingTo, :count).by(1)
+      expect(user.going_tos.last.role).to eq(GoingTo::ROLES[:attendee])
+      end
+
+      it 'adds going_to to user' do
+        expect {
+          user.go_to(meeting)
+        }.to change(user.going_tos, :count).by(1)
+      end
+
+      it 'add meeting to user' do
+        user.go_to(meeting)
+        expect(user.meetings.last).to eq(meeting)
+      end
+    end
+
+    context 'when initator' do
+      
+      it 'creates going_to record with role initator' do
+        expect {
+        user.go_to(meeting, GoingTo::ROLES[:initator])
       }.to change(GoingTo, :count).by(1)
-    end
-
-    it 'adds going_to to user' do
-      expect {
-        user.init(meeting)
-      }.to change(user.going_tos, :count).by(1)
-    end
-
-    it 'add meeting to user' do
-      user.init(meeting)
-      expect(user.meetings.last).to eq(meeting)
+      expect(user.going_tos.last.role).to eq(GoingTo::ROLES[:initator])
+      end
     end
   end
 end

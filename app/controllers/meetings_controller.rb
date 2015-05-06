@@ -21,9 +21,8 @@ class MeetingsController < ApplicationController
     @meeting = @graetzl.meetings.create(meeting_params)
     @meeting.address = Address.new_from_json_string(params[:feature] || '')
     @meeting.address.description = meeting_params[:address_attributes][:description]
-
-    @meeting.ends_at_date = @meeting.starts_at_date
-    current_user.init(@meeting)
+    current_user.go_to(@meeting, GoingTo::ROLES[:initator])
+    @meeting.complete_datetimes
     
     respond_to do |format|
       if @meeting.save

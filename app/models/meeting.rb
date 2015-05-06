@@ -25,22 +25,30 @@ class Meeting < ActiveRecord::Base
   validate :starts_at_cannot_be_in_the_past
   validate :ends_at_cannot_be_before_starts_at
 
+  # instance methods
+  def complete_datetimes
+    if ends_at_time
+      ends_at_date = starts_at_date || starts_at_time || Time.now
+    end
+    puts "times: #{ends_at_date} #{ends_at_time}"
+  end
+
   private
 
     def starts_at_cannot_be_in_the_past
-      if starts_at.present? && starts_at < Date.today
+      if starts_at && starts_at < Date.today
         errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
       end
     end
 
     def ends_at_cannot_be_in_the_past
-      if ends_at.present? && ends_at < Date.today
+      if ends_at && ends_at < Date.today
         errors.add(:ends_at, 'kann nicht in der Vergangenheit liegen')
       end
     end
 
     def ends_at_cannot_be_before_starts_at
-      if starts_at.present? && ends_at.present? && ends_at < starts_at
+      if starts_at && ends_at && ends_at < starts_at
         errors.add(:ends_at, 'kann nicht vor Beginn liegen')
       end
     end
