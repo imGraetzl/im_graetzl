@@ -8,6 +8,8 @@ gem 'rails', '4.1.4'
 gem 'pg'
 # postgis adapter
 gem 'activerecord-postgis-adapter'
+# ruby lib for geospatial data
+gem 'rgeo', '~> 0.3.20'
 # rgeo geojson module for encode/decode
 gem 'rgeo-geojson'
 # Use SCSS for stylesheets

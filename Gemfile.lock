@@ -228,6 +228,7 @@ DEPENDENCIES
   pg
   poltergeist
   rails (= 4.1.4)
+  rgeo (~> 0.3.20)
   rgeo-geojson
   rspec-rails
   sass-rails (~> 5.0.1)
