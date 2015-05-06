@@ -23,14 +23,9 @@ RSpec.describe MeetingsController, type: :controller do
         expect(response).to render_template(:new)
       end
 
-      it 'builds meeting for user' do
-        expect(assigns(:meeting).user_initialized).to eq (user)
-      end
-
       it 'assigns meeting, graetzl and address' do
         expect(assigns(:meeting)).not_to be_nil
         expect(assigns(:graetzl)).to eq(graetzl)
-        expect(assigns(:meeting).graetzls).to eq([graetzl])
         expect(assigns(:meeting).address).not_to be_nil
       end
     end
@@ -56,7 +51,7 @@ RSpec.describe MeetingsController, type: :controller do
 
       it 'assigns meeting for current_user in home_graetzl' do
         post :create, graetzl_id: graetzl.id, meeting: attrs
-        expect(assigns(:meeting).user_initialized).to eq(user)
+        expect(assigns(:meeting).users).to include(user)
         expect(assigns(:meeting).graetzls.first).to eq(graetzl)
       end
 
