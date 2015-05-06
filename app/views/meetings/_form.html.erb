@@ -28,19 +28,18 @@
 
 
   <div class="meet-where">
-    <p>Wo soll dein Treffen stattfinden?</p>
-    
-    <%= f.fields_for :address do |address_fields| %>
+    <p>Wo soll dein Treffen stattfinden?</p>    
 
-      <div class="input-group">
-        <div class="wrp-icon">
-          <svg class="icon-pin"><use xlink:href="#icon-pin"></use></svg>
-        </div>
-        <%= address_fields.text_field :street_name %>
-        <%= address_fields.label :street_name, 'Straße Hausnummer' %>
-        <%= hidden_field_tag :feature %>
+    <div id="addressSearchAutocomplete" class="input-group">
+      <div class="wrp-icon">
+        <svg class="icon-pin"><use xlink:href="#icon-pin"></use></svg>
       </div>
+      <%= text_field_tag :address, nil %>
+      <%= label_tag :address, 'Straße Hausnummer' %>
+      <%= hidden_field_tag :feature %>
+    </div>
 
+    <%= f.fields_for :address do |address_fields| %>
       <div class="input-group">
         <div class="wrp-icon">
           <svg class="icon-flag"><use xlink:href="#icon-flag"></use></svg>

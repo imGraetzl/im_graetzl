@@ -48,13 +48,16 @@
     color: $color-font-primary;
   }
 
+  .wrp-icon + .twitter-typeahead input  {
+    padding-left: 0;
+  }
+
   @include respond-to(">medium") {
     #address,
     .tt-hint {
     }
     .tt-dropdown-menu {
-      min-width: 50%;
-      width: auto;
+      min-width: 100%;
     }
   }
 
