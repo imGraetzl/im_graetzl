@@ -7,11 +7,8 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    #@meeting = current_user.meetings_initialized.build
     @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting = @graetzl.meetings.build
-
-    #@meeting.graetzls << @graetzl
     @meeting.build_address
   end
 
@@ -19,11 +16,12 @@ class MeetingsController < ApplicationController
   # end
 
   def create
+    puts params
     @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting = @graetzl.meetings.create(meeting_params)
-    #@meeting.graetzls << @graetzl
-    #@meeting.address = Address.get_address_from_api(@meeting.address.street_name)
-    #@meeting.address.description = meeting_params[:address_attributes][:description]
+    @meeting.address = Address.new_from_json_string(params[:feature] || '')
+    @meeting.address.description = meeting_params[:address_attributes][:description]
+
     @meeting.ends_at_date = @meeting.starts_at_date
     current_user.init(@meeting)
     
@@ -67,6 +65,6 @@ class MeetingsController < ApplicationController
         :ends_at_time,
         :cover_photo,
         category_ids: [],
-        address_attributes: [:street_name, :description])
+        address_attributes: [:description])
     end
 end
