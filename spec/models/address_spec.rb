@@ -25,77 +25,116 @@ RSpec.describe Address, type: :model do
   # end
 
   # class methods
-  let(:feature) { feature_hash }
+  describe '.new_from_geojson' do
+    let(:feature) { feature_hash }
 
-  describe 'build new address form geojson object' do
-    context 'when valid hash param' do
-      it 'returns valid address object' do        
+    context 'with valid hash' do
+
+      it 'returns new address object' do
         address = Address.new_from_geojson(feature)
-        expect(address).to be_valid
+        expect(address.class).to eq(Address)
+      end
+
+      it 'builds address with properties' do
+        address = Address.new_from_geojson(feature)
+        expect(address).to have_attributes(
+          street_name: feature['properties']['StreetName'],
+          street_number: feature['properties']['StreetNumber'],
+          zip: feature['properties']['PostalCode'],
+          city: feature['properties']['Municipality'],
+          )
+      end
+
+      it 'builds point-coordinates' do
+        coordinates = Address.new_from_geojson(feature).coordinates
+        expect(coordinates).not_to be_nil
+        expect(coordinates.class).to eq(RGeo::Geos::CAPIPointImpl)
       end
     end
 
-    context 'when missing keys' do
+    context 'with missing key' do
       before { feature.except!('geometry') }
-      it 'returns empty address' do
+
+      it 'returns address object without property' do
         address = Address.new_from_geojson(feature)
         expect(address.coordinates).to be_nil
       end
     end
   end
 
-  describe 'build new address from json string' do
-    context 'for valid json' do
-      it 'returns new address' do        
+  describe '.new_from_json_string' do
+    let(:feature) { feature_hash }
+
+    context 'with valid json' do
+      it 'parses json and calls .new_from_geojson' do
         address = Address.new_from_json_string(feature.to_json)
-        expect(address).to be_valid
+        expect(address).to have_attributes(
+          street_name: feature['properties']['StreetName'],
+          street_number: feature['properties']['StreetNumber'],
+          zip: feature['properties']['PostalCode'],
+          city: feature['properties']['Municipality'],
+          )
       end
     end
 
-    context 'for invalid json' do
-      it 'returns empty address' do
+    context 'with invalid json' do
+      it 'returns empty address object' do
         address = Address.new_from_json_string('invalid')
-        expect(address.coordinates).to be_nil
+        expect(address.attributes.values).to all(be_nil)
       end
     end
   end
 
 
   # instance methods
-  describe 'matches respective graetzls' do
-    before do
-      @naschmarkt = create(:naschmarkt)
-      seestadt_aspern = create(:seestadt_aspern)
-      aspern = create(:aspern)
-      matching_graetzls = []
-    end
+  describe '#match_graetzls' do
 
-    it 'with 3 graetzls in db' do
-      expect(Graetzl.all.size).to eq(3)
-    end
-    
-    context 'single result' do      
-      it 'returns 1 matching graetzl' do
-        esterhazygasse = build(:esterhazygasse)
+    context 'with single result' do
+      let(:esterhazygasse) { build(:esterhazygasse) }
+
+      before { @naschmarkt = create(:naschmarkt) }
+
+      it 'returns 1 graetzl' do
         graetzls = esterhazygasse.match_graetzls
         expect(graetzls.size).to eq(1)
-        expect(graetzls.first.name).to eq(@naschmarkt.name)
+      end
+
+      it 'returns matching graetzl (naschmarkt)' do
+        graetzl = esterhazygasse.match_graetzls.first
+        expect(graetzl).to eq(@naschmarkt)
       end
     end
 
-    context 'multiple results' do
-      it 'returns 2 matching graetzls' do
-        seestadt = build(:seestadt)
+    context 'with multiple results' do
+      let(:seestadt) { build(:seestadt) }
+
+      before do
+        @seestadt_aspern = create(:seestadt_aspern)
+        @aspern = create(:aspern)
+      end
+
+      it 'returns array of results' do
         graetzls = seestadt.match_graetzls
         expect(graetzls.size).to eq(2)
       end
-    end    
 
-    context 'no results' do
-      it 'returns all graetzls' do
-        address = build(:address, coordinates: nil)
-        graetzls = address.match_graetzls
-        expect(graetzls.size).to eq(Graetzl.all.size)
+      it 'returns 2 matching graetzls' do
+        graetzls = seestadt.match_graetzls
+        expect(graetzls).to include(@seestadt_aspern)
+        expect(graetzls).to include(@aspern)
+      end
+    end
+
+    context 'with no result' do
+      let(:non_matching_address) { build(:address, coordinates: nil) }
+
+      before do
+        3.times { create(:graetzl) }
+      end
+
+      it 'returns all graetzl' do
+        graetzls = non_matching_address.match_graetzls
+        expect(graetzls.size).to eq(3)
       end
     end
   end
