@@ -16,7 +16,6 @@ class MeetingsController < ApplicationController
   # end
 
   def create
-    puts params
     @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting = @graetzl.meetings.create(meeting_params)
     @meeting.address = Address.new_from_json_string(params[:feature] || '')
