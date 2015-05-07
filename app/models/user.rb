@@ -61,8 +61,4 @@ class User < ActiveRecord::Base
     going_tos.create!(meeting_id: meeting.id, role: role)
   end
 
-  # def leave(meeting)
-  #   #TODO: leave meeting
-  # end
-
 end
