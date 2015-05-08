@@ -97,19 +97,18 @@ RSpec.describe MeetingsController, type: :controller do
 
       context 'when address feature present' do
         before do
-          attrs[:feature] = esterhazygasse_hash.to_json
           sign_in user
         end
 
         it 'adds address from feature to meeting' do
-          post :create, graetzl_id: graetzl.id, meeting: attrs
+          post :create, graetzl_id: graetzl.id, meeting: attrs, feature: esterhazygasse_hash.to_json
           address = Meeting.last.address
           expect(address.street_name).to eq('Esterházygasse')
         end
 
         it 'adds address description to meeting' do
           attrs[:address_attributes][:description] = 'new_address_description'
-          post :create, graetzl_id: graetzl.id, meeting: attrs
+          post :create, graetzl_id: graetzl.id, meeting: attrs, feature: esterhazygasse_hash.to_json
           address = Meeting.last.address
           expect(address.street_name).to eq('Esterházygasse')
           expect(address.description).to eq('new_address_description')
