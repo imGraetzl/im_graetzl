@@ -47,6 +47,14 @@ class Address < ActiveRecord::Base
     graetzls
   end
 
+  def merge_feature(attrs)
+    self.attributes = attrs.slice('street_name',
+      'coordinates',
+      'street_number',
+      'city',
+      'zip')
+  end
+
   private
 
     def self.query_address_service(address_string)
