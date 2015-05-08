@@ -36,11 +36,9 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        format.html { redirect_to [@graetzl, @meeting], notice: 'Meeting was successfully updated.' }
-        format.json { render :show, status: :ok, location: @meeting }
+        format.html { redirect_to [@graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert." }
       else
         format.html { render :edit }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
   end
