@@ -12,8 +12,10 @@ class MeetingsController < ApplicationController
     @meeting.build_address
   end
 
-  # def edit
-  # end
+  def edit
+    @graetzl = Graetzl.find(params[:graetzl_id])
+    @meeting = @graetzl.meetings.find(params[:id])
+  end
 
   def create
     @graetzl = Graetzl.find(params[:graetzl_id])

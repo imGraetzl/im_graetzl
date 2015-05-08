@@ -1,6 +1,11 @@
-<h1>Editing meeting</h1>
+<% title('Treffen bearbeiten') %>
 
-<%= render 'form' %>
+<section class="create-meeting">
 
-<%= link_to 'Show', @meeting %> |
-<%= link_to 'Back', meetings_path %>
+  <h2>Treffen <span><%= @meeting.name %></span> bearbeiten</h2>
+
+  <%= render 'form' %>
+  
+</section>
+
+<%= link_to 'Zurück', @graetzl %>
