@@ -3,7 +3,7 @@ class MeetingsController < ApplicationController
 
   def show
     @graetzl = Graetzl.find(params[:graetzl_id])
-    @meeting = Meeting.find(params[:id])
+    @meeting = @graetzl.meetings.find(params[:id])
   end
 
   def new
@@ -19,7 +19,7 @@ class MeetingsController < ApplicationController
 
   def create
     @graetzl = Graetzl.find(params[:graetzl_id])
-    @meeting = @graetzl.meetings.create(meeting_params)
+    @meeting = @graetzl.meetings.create(meeting_params.except(:feature))
     @meeting.address = Address.new_from_json_string(meeting_params[:feature] || '')
     @meeting.address.description = meeting_params[:address_attributes][:description]
     @meeting.complete_datetimes
@@ -37,15 +37,36 @@ class MeetingsController < ApplicationController
   end
 
   # def update
+  #   @graetzl = Graetzl.find(params[:graetzl_id])
+  #   @meeting = @graetzl.meetings.find(params[:id])
+  #   if meeting_params[:feature].present?
+  #     @meeting.address = Address.new_from_json_string(params[:feature] || '')
+  #     @meeting.address.description = meeting_params[:address_attributes][:description]
+  #   end
+  #   @meeting.complete_datetimes
+  #   @meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
+
   #   respond_to do |format|
   #     if @meeting.update(meeting_params)
-  #       format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
+  #       format.html { redirect_to [@graetzl, @meeting], notice: 'Meeting was successfully updated.' }
   #       format.json { render :show, status: :ok, location: @meeting }
   #     else
   #       format.html { render :edit }
   #       format.json { render json: @meeting.errors, status: :unprocessable_entity }
   #     end
   #   end
+  # end
+
+  # def update
+    # respond_to do |format|
+    #   if @meeting.update(meeting_params)
+    #     format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @meeting }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @meeting.errors, status: :unprocessable_entity }
+    #   end
+    # end
   # end
 
   # def destroy

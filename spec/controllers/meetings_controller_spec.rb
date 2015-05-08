@@ -1,4 +1,5 @@
 require 'rails_helper'
+include GeojsonSupport
 
 RSpec.describe MeetingsController, type: :controller do
   let(:graetzl) { create(:graetzl) }
@@ -47,7 +48,8 @@ RSpec.describe MeetingsController, type: :controller do
     context 'when current_user set' do
       let(:attrs) { attributes_for(:meeting) }
       before do
-        attrs[:address_attributes] = attributes_for(:address)
+        attrs[:address_attributes] = {}
+        attrs[:address_attributes][:description] = ''
         sign_in user
       end
 
@@ -70,6 +72,17 @@ RSpec.describe MeetingsController, type: :controller do
         expect(Meeting.last.graetzls.first).to eq(graetzl)
       end
 
+      it 'adds empty address to meeting' do
+        post :create, graetzl_id: graetzl.id, meeting: attrs
+        expect(Meeting.last.address).to be_present
+      end
+
+      it 'adds address description' do
+        attrs[:address_attributes][:description] = 'new_address_description'
+        post :create, graetzl_id: graetzl.id, meeting: attrs
+        expect(Meeting.last.address.description).to eq('new_address_description')
+      end
+
       context 'when categories chosen' do
         before do
           5.times { create(:category) }
@@ -79,6 +92,27 @@ RSpec.describe MeetingsController, type: :controller do
         it 'adds categories to meeting' do
           post :create, graetzl_id: graetzl.id, meeting: attrs
           expect(assigns(:meeting).categories.size).to eq(5)
+        end
+      end
+
+      context 'when address feature present' do
+        before do
+          attrs[:feature] = esterhazygasse_hash.to_json
+          sign_in user
+        end
+
+        it 'adds address from feature to meeting' do
+          post :create, graetzl_id: graetzl.id, meeting: attrs
+          address = Meeting.last.address
+          expect(address.street_name).to eq('Esterházygasse')
+        end
+
+        it 'adds address description to meeting' do
+          attrs[:address_attributes][:description] = 'new_address_description'
+          post :create, graetzl_id: graetzl.id, meeting: attrs
+          address = Meeting.last.address
+          expect(address.street_name).to eq('Esterházygasse')
+          expect(address.description).to eq('new_address_description')
         end
       end
     end
