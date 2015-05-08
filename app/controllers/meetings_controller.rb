@@ -20,10 +20,12 @@ class MeetingsController < ApplicationController
   def create
     @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting = @graetzl.meetings.create(meeting_params)
-    @meeting.address = Address.new_from_json_string(params[:feature] || '')
+    @meeting.address = Address.new_from_json_string(meeting_params[:feature] || '')
     @meeting.address.description = meeting_params[:address_attributes][:description]
-    current_user.go_to(@meeting, GoingTo::ROLES[:initator])
     @meeting.complete_datetimes
+    @meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
+
+    current_user.go_to(@meeting, GoingTo::ROLES[:initator])
     
     respond_to do |format|
       if @meeting.save
@@ -64,6 +66,8 @@ class MeetingsController < ApplicationController
         :starts_at_date, :starts_at_time,
         :ends_at_time,
         :cover_photo,
+        :cover_photo_cache,
+        :remove_cover_photo,
         category_ids: [],
         address_attributes: [:description])
     end

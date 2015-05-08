@@ -92,12 +92,16 @@
   <div class="meet-picture">
     <p>Hast du vielleicht ein Foto für dein Treffen?<br>
       Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
+      <% if f.object.cover_photo? %>
+        <label><%= f.check_box :remove_cover_photo %></label>
+      <% end %>
     <div class="upload-image">
-      <!-- <img src="http://kulyo.com/wp-content/uploads/2013/01/eventica-dummy-image-31.jpg" alt=""/> -->
+      <%= image_tag(f.object.cover_photo_url) if f.object.cover_photo? %>
       <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
       Cover-Foto hochladen
       <!--  <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg> -->
       <%= f.file_field :cover_photo %>
+      <%= f.hidden_field :cover_photo_cache %>
     </div>
   </div>
 
