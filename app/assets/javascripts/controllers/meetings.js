@@ -22,6 +22,10 @@ APP.controllers.meetings = (function() {
             captionFormat: '{0} Kategorien ausgewählt'
         });
 
+        $('#meeting_remove_cover_photo:checkbox').change(function() {
+            $('.upload-image img').toggle();
+        });
+
     }
 
 

@@ -93,7 +93,8 @@
     <p>Hast du vielleicht ein Foto für dein Treffen?<br>
       Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
       <% if f.object.cover_photo? %>
-        <label><%= f.check_box :remove_cover_photo %></label>
+        <%= f.label :remove_cover_photo, 'Foto Löschen' %>
+        <%= f.check_box :remove_cover_photo %>
       <% end %>
     <div class="upload-image">
       <%= image_tag(f.object.cover_photo_url) if f.object.cover_photo? %>
