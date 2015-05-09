@@ -97,7 +97,11 @@
         <%= f.check_box :remove_cover_photo %>
       <% end %>
     <div class="upload-image">
-      <%= image_tag(f.object.cover_photo_url) if f.object.cover_photo? %>
+      <% if f.object.cover_photo? %>
+        <%= image_tag(f.object.cover_photo_url) %>
+      <% else %>
+        <img>
+      <% end %>
       <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
       Cover-Foto hochladen
       <!--  <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg> -->
