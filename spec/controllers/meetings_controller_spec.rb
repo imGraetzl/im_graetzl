@@ -116,4 +116,115 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
   end
+
+
+  describe 'GET edit' do
+    let(:graetzl) { create(:graetzl) }
+    let(:meeting) { create(:meeting, graetzls: [graetzl]) }
+
+    context 'when no current_user' do
+      it 'redirects to login_page' do
+        get :edit, { graetzl_id: graetzl.id, id: meeting.id }
+        expect(response).to render_template(session[:new])
+      end
+    end
+
+    context 'when current_user set' do
+      before do
+        sign_in user
+        get :edit, { graetzl_id: graetzl.id, id: meeting.id }
+      end
+
+      it 'locates requested @meeting' do
+        expect(assigns(:meeting)).to eq(meeting)
+      end
+
+      it 'locates requested @graetzl' do
+        expect(assigns(:graetzl)).to eq(graetzl)
+      end
+
+      it 'renders #edit' do        
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
+
+
+  describe 'PUT update' do
+    let(:graetzl) { create(:graetzl) }
+    let(:meeting) { create(:meeting, graetzls: [graetzl]) }
+
+    context 'when no current_user' do
+      it 'redirects to login_page' do
+        put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attributes_for(:meeting) }
+        expect(response).to render_template(session[:new])
+      end
+    end
+
+    context 'when current_user set' do
+      before do
+        sign_in user
+      end
+
+      it 'locates requested @meeting' do
+        put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attributes_for(:meeting) }
+        expect(assigns(:meeting)).to eq(meeting)
+      end
+
+      it 'locates requested @graetzl' do
+        put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attributes_for(:meeting) }
+        expect(assigns(:graetzl)).to eq(graetzl)
+      end
+
+      context 'with valid attributes' do
+        let(:attrs) { attributes_for(:meeting, name: 'New name', description: 'New description') }
+
+        before do
+          attrs[:address_attributes] = {}
+          attrs[:address_attributes][:description] = 'new_address_description'
+          attrs[:address_attributes][:description] = 'new_address_description'
+          attrs['starts_at_date'] = '2020-01-01'
+          attrs['starts_at_time'] = '18:00'
+          attrs['ends_at_time'] = '20:00'          
+        end
+
+        it 'updates name and description' do
+          put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attrs }
+          meeting.reload
+          expect(meeting.name).to eq('New name')
+          expect(meeting.description).to eq('New description')
+        end
+
+        it 'updates address and addess_description' do
+          put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attrs, feature: esterhazygasse_hash.to_json }
+          meeting.reload
+          expect(meeting.address.description).to eq('new_address_description')
+          expect(meeting.address.street_name).to eq('Esterházygasse')
+        end
+
+        it 'updates starts_at and ends_at' do
+          put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attrs, feature: esterhazygasse_hash.to_json }
+          meeting.reload
+          expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
+          expect(meeting.ends_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
+          expect(meeting.starts_at_time.strftime('%H:%M')).to eq ('18:00')
+          expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
+        end
+
+        context 'with categories' do
+
+          before do
+            5.times { create(:category) }
+            attrs[:category_ids] = Category.all.map(&:id)
+          end
+
+          it 'updates categories' do
+            put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attrs, feature: esterhazygasse_hash.to_json }
+            meeting.reload
+            expect(meeting.categories.size).to eq(5)
+          end
+        end
+      end
+    end
+  end
 end

@@ -1,5 +1,5 @@
 class MeetingsController < ApplicationController
-  before_filter :load_graetzl
+  before_filter :set_graetzl
   before_filter :authenticate_user!, except: [:show]
 
   def show
@@ -18,7 +18,7 @@ class MeetingsController < ApplicationController
     
     respond_to do |format|
       if @meeting.save
-        format.html { redirect_to graetzl_meeting_path(@graetzl, @meeting), notice: 'Neues Treffen wurde erstellt.' }
+        format.html { redirect_to [@graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.' }
       else
         format.html { render :new }
       end
@@ -66,7 +66,7 @@ class MeetingsController < ApplicationController
         address_attributes: [:description])
     end
 
-    def load_graetzl
+    def set_graetzl
       @graetzl = Graetzl.find(params[:graetzl_id])
     end
 
