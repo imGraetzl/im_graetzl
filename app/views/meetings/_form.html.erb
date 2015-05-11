@@ -92,18 +92,25 @@
   <div class="meet-picture">
     <p>Hast du vielleicht ein Foto für dein Treffen?<br>
       Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
+
       <% if f.object.cover_photo? %>
         <%= f.label :remove_cover_photo, 'Foto Löschen' %>
         <%= f.check_box :remove_cover_photo %>
       <% end %>
+
     <div class="upload-image">
+
       <% if f.object.cover_photo? %>
         <%= image_tag(f.object.cover_photo_url) %>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Cover-Foto ändern
+
       <% else %>
         <img>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Cover-Foto hochladen
       <% end %>
-      <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-      Cover-Foto hochladen
+
       <!--  <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg> -->
       <%= f.file_field :cover_photo %>
       <%= f.hidden_field :cover_photo_cache %>
