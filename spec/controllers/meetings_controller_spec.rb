@@ -227,4 +227,25 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
   end
+
+
+  describe 'DELETE destroy' do
+    let!(:graetzl) { create(:graetzl) }
+    let!(:meeting) { create(:meeting, graetzls: [graetzl]) }
+
+    context 'when current_user set' do
+      before { sign_in user }
+
+      it 'deletes the record' do
+        expect {
+          delete :destroy, graetzl_id: graetzl, id: meeting
+        }.to change(Meeting, :count).by(-1)
+      end
+
+      it 'redirects to graetzl_path' do
+        delete :destroy, graetzl_id: graetzl, id: meeting
+        expect(response).to redirect_to(graetzl)
+      end
+    end
+  end
 end

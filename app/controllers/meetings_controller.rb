@@ -43,13 +43,14 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @meeting.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to meetings_url, notice: 'Meeting was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  def destroy
+    @meeting = @graetzl.meetings.find(params[:id])
+    @meeting.destroy
+    respond_to do |format|
+      format.html { redirect_to @graetzl, notice: 'Treffen abgesagt.' }
+      format.json { head :no_content }
+    end
+  end
 
   private
 

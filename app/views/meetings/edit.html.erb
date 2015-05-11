@@ -5,7 +5,9 @@
   <h2>Treffen <span><%= @meeting.name %></span> bearbeiten</h2>
 
   <%= render 'form' %>
+
+  <%= link_to 'Treffen absagen', [@graetzl, @meeting],
+    method: :delete,
+    data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich absagen?" } %>
   
 </section>
-
-<%= link_to 'Zurück', @graetzl %>
