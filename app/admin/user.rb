@@ -26,7 +26,8 @@ ActiveAdmin.register User do
     f.inputs          # builds an input field for every attribute
 
     f.inputs 'Addresse' do
-      f.semantic_fields_for [:address, (f.object.address || f.object.build_address)] do |a| 
+      f.fields_for [:address, (f.object.address || f.object.build_address)] do |a|
+        #a.inputs
         a.input :street_name
         a.input :street_number
         a.input :zip

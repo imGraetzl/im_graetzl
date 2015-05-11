@@ -9,3 +9,4 @@ de:
         zip: 'Postleitzahl'
         city: 'Stadt'
         coordinates: 'Koordinaten'
+        description: 'Beschreibung'
