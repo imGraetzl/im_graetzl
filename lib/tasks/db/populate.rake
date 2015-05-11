@@ -27,6 +27,7 @@ namespace :db do
       email: 'admin@example.com',
       password: 'admin',
       password_confirmation: 'admin',
+      admin: true,
       graetzl: Graetzl.first,
       confirmed_at: Time.now)
     admin.save(validate: false)
