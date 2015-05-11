@@ -64,7 +64,8 @@ RSpec.describe MeetingsController, type: :controller do
         going_to = Meeting.last.going_tos.last
         expect(going_to).to have_attributes(
           user: user,
-          role: GoingTo::ROLES[:initator])
+          role: GoingTo::ROLES[:initiator])
+        expect(going_to.role).not_to be_nil
       end
 
       it 'puts current_user graetzl to meeting graetzls' do
@@ -232,14 +233,21 @@ RSpec.describe MeetingsController, type: :controller do
   describe 'DELETE destroy' do
     let!(:graetzl) { create(:graetzl) }
     let!(:meeting) { create(:meeting, graetzls: [graetzl]) }
+    let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:initiator]) }
 
     context 'when current_user set' do
       before { sign_in user }
 
-      it 'deletes the record' do
+      it 'deletes record' do
         expect {
           delete :destroy, graetzl_id: graetzl, id: meeting
         }.to change(Meeting, :count).by(-1)
+      end
+
+      it 'deletes going_tos' do
+        expect {
+          delete :destroy, graetzl_id: graetzl, id: meeting
+        }.to change(GoingTo, :count).by(-1)
       end
 
       it 'redirects to graetzl_path' do

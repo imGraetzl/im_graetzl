@@ -1,6 +1,7 @@
 class MeetingsController < ApplicationController
   before_filter :set_graetzl
   before_filter :authenticate_user!, except: [:show]
+  before_filter :check_permission!, only: [:edit, :update, :destroy]
 
   def show
     @meeting = @graetzl.meetings.find(params[:id])
@@ -14,7 +15,7 @@ class MeetingsController < ApplicationController
   def create
     @meeting = @graetzl.meetings.create(meeting_params)
     merge_changes
-    current_user.go_to(@meeting, GoingTo::ROLES[:initator])
+    current_user.go_to(@meeting, GoingTo::ROLES[:initiator])
     
     respond_to do |format|
       if @meeting.save
@@ -69,6 +70,10 @@ class MeetingsController < ApplicationController
 
     def set_graetzl
       @graetzl = Graetzl.find(params[:graetzl_id])
+    end
+
+    def check_permission!
+      
     end
 
     def merge_changes
