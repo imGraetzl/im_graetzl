@@ -130,7 +130,20 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
 
-    context 'when current_user set' do
+    context 'when current_user not initiator' do
+      before do
+        sign_in user
+        get :edit, { graetzl_id: graetzl.id, id: meeting.id }
+      end
+
+      it 'redirects to meeting_page' do
+        expect(response).to redirect_to([graetzl, meeting])
+      end
+    end
+
+    context 'when current_user initator' do
+      let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:initiator]) }
+
       before do
         sign_in user
         get :edit, { graetzl_id: graetzl.id, id: meeting.id }
@@ -162,7 +175,22 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
 
-    context 'when current_user set' do
+    context 'when current_user not inititor' do
+      let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:attendee]) }      
+
+      before do
+        sign_in user
+      end
+
+      it 'redirects to meeting_page' do
+        put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attributes_for(:meeting) }
+        expect(response).to redirect_to([graetzl, meeting])
+      end
+    end
+
+    context 'when current_user initiator' do
+      let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:initiator]) }
+
       before do
         sign_in user
       end

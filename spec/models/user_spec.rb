@@ -112,6 +112,7 @@ RSpec.describe User, type: :model do
     end
   end
 
+
   describe '#go_to' do
     let(:user) { create(:user) }
     let(:meeting) { create(:meeting) }
@@ -144,6 +145,72 @@ RSpec.describe User, type: :model do
         user.go_to(meeting, GoingTo::ROLES[:initator])
       }.to change(GoingTo, :count).by(1)
       expect(user.going_tos.last.role).to eq(GoingTo::ROLES[:initator])
+      end
+    end
+  end
+
+
+  describe '#initiated?(meeting)' do
+    let(:user) { create(:user) }
+    let(:meeting) { create(:meeting) }
+
+    context 'when initiator' do
+      before do
+        create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:initiator])
+      end
+
+      it 'returns true' do
+        expect(user.initiated?(meeting)).to be_truthy
+      end
+    end
+
+    context 'when attendee' do
+      before do
+        create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:attendee])
+      end
+
+      it 'returns false' do
+        expect(user.initiated?(meeting)).to be_falsey
+      end
+    end
+
+    context 'when not going' do
+
+      it 'returns false' do
+        expect(user.initiated?(meeting)).to be_falsey
+      end
+    end
+  end
+
+
+  describe '#going_to?(meeting)' do
+    let(:user) { create(:user) }
+    let(:meeting) { create(:meeting) }
+
+    context 'when initiator' do
+      before do
+        create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:initiator])
+      end
+
+      it 'returns true' do
+        expect(user.going_to?(meeting)).to be_truthy
+      end
+    end
+
+    context 'when attendee' do
+      before do
+        create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:attendee])
+      end
+
+      it 'returns true' do
+        expect(user.going_to?(meeting)).to be_truthy
+      end
+    end
+
+    context 'when not going' do
+
+      it 'returns false' do
+        expect(user.going_to?(meeting)).to be_falsey
       end
     end
   end

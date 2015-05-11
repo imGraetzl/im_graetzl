@@ -1,10 +1,10 @@
 class MeetingsController < ApplicationController
   before_filter :set_graetzl
+  before_filter :set_meeting, except: [:new, :create]
   before_filter :authenticate_user!, except: [:show]
   before_filter :check_permission!, only: [:edit, :update, :destroy]
 
   def show
-    @meeting = @graetzl.meetings.find(params[:id])
   end
 
   def new
@@ -27,11 +27,9 @@ class MeetingsController < ApplicationController
   end
 
   def edit
-    @meeting = @graetzl.meetings.find(params[:id])
   end
 
   def update
-    @meeting = @graetzl.meetings.find(params[:id])
     @meeting.attributes = meeting_params
     merge_changes
 
@@ -45,7 +43,6 @@ class MeetingsController < ApplicationController
   end
 
   def destroy
-    @meeting = @graetzl.meetings.find(params[:id])
     @meeting.destroy
     respond_to do |format|
       format.html { redirect_to @graetzl, notice: 'Treffen abgesagt.' }
@@ -72,8 +69,14 @@ class MeetingsController < ApplicationController
       @graetzl = Graetzl.find(params[:graetzl_id])
     end
 
+    def set_meeting
+      @meeting = @graetzl.meetings.find(params[:id])
+    end
+
     def check_permission!
-      
+      unless current_user.initiated?(@meeting)
+        redirect_to [@graetzl, @meeting], notice: 'Keine Rechte.'
+      end
     end
 
     def merge_changes

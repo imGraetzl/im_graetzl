@@ -9,7 +9,9 @@
   <%= button_to 'Teilnehmen', going_tos_path(meeting_id: @meeting.id), remote: true %>
 <% end %>
 
-<%= link_to "#{@meeting.name} bearbeiten", edit_graetzl_meeting_path(@graetzl, @meeting) %>
+<% if current_user.initiated?(@meeting) %>
+  <%= link_to "#{@meeting.name} bearbeiten", edit_graetzl_meeting_path(@graetzl, @meeting) %>
+<% end %>
 
 <%= image_tag @meeting.cover_photo_url %>
 <%= debug @meeting %>
