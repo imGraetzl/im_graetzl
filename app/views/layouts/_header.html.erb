@@ -1,8 +1,14 @@
 <header>
-  <div class="inner">
+  <% if user_signed_in? %>
+
+    <%= link_to(image_tag('logo.png', class: 'logo-graetzl'), current_user.graetzl) %>
+    <%= link_to 'Abmelden', destroy_user_session_path, method: :delete %>
+
+  <% else %>
+  
     <%= link_to(image_tag('logo.png', class: 'logo-graetzl'), root_path) %>
 
-    <%= render 'layouts/flash_messages' %>
-  </div>
+  <% end %>
 
+  <%= render 'layouts/flash_messages' %>
 </header>

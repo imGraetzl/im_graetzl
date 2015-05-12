@@ -5,6 +5,5 @@ de:
     attributes:
       meeting:
         description: 'Beschreibung'
-        start: 'Beginn'
-        end: 'Ende'
-        user_initialized: 'Initiator'
+        starts_at: 'Beginn'
+        ends_at: 'Ende'

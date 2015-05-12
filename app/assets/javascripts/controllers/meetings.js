@@ -22,6 +22,22 @@ APP.controllers.meetings = (function() {
             captionFormat: '{0} Kategorien ausgewählt'
         });
 
+        $('#meeting_remove_cover_photo:checkbox').change(function() {
+            $('.upload-image img').toggle();
+        });
+
+        $('input#meeting_cover_photo').change(function() {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+            
+                reader.onload = function (e) {
+                    $('.upload-image img').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
     }
 
 

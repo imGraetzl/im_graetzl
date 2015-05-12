@@ -4,9 +4,13 @@
 <h2>Treffen: <%= @meeting.name %></h2>
 
 <% if current_user.going_to?(@meeting) %>
-  <%= button_to 'nicht mehr teilnehmen', going_to_path(meeting_id: @meeting.id), method: :delete, remote: true %>
+  <%= button_to 'nicht mehr teilnehmen', going_to_path(@meeting.going_tos.find_by_user_id(current_user)), method: :delete, remote: true %>
 <% else %>
   <%= button_to 'Teilnehmen', going_tos_path(meeting_id: @meeting.id), remote: true %>
+<% end %>
+
+<% if current_user.initiated?(@meeting) %>
+  <%= link_to "#{@meeting.name} bearbeiten", edit_graetzl_meeting_path(@graetzl, @meeting) %>
 <% end %>
 
 <%= image_tag @meeting.cover_photo_url %>

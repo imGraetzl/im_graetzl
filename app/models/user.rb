@@ -52,21 +52,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def init(meeting)
-    going_tos.create!(meeting_id: meeting.id, role: GoingTo::ROLES[:initator])
-  end
-
   # returns true if user is going to meeting
   def going_to?(meeting)
     meetings.include?(meeting)
   end
 
-  def go_to(meeting)
-    going_tos.create!(meeting_id: meeting.id, role: GoingTo::ROLES[:attendee])
+  def initiated?(meeting)
+    going_to = going_tos.find_by_meeting_id(meeting)
+    going_to && going_to.role == GoingTo::ROLES[:initiator]
   end
 
-  # def leave(meeting)
-  #   #TODO: leave meeting
-  # end
+  def go_to(meeting, role=GoingTo::ROLES[:attendee])
+    going_tos.create!(meeting_id: meeting.id, role: role)
+  end
 
 end

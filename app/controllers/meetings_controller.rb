@@ -1,60 +1,54 @@
 class MeetingsController < ApplicationController
+  before_filter :set_graetzl
+  before_filter :set_meeting, except: [:new, :create]
   before_filter :authenticate_user!, except: [:show]
+  before_filter :check_permission!, only: [:edit, :update, :destroy]
 
   def show
-    @graetzl = Graetzl.find(params[:graetzl_id])
-    @meeting = Meeting.find(params[:id])
   end
 
   def new
-    #@meeting = current_user.meetings_initialized.build
-    @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting = @graetzl.meetings.build
-
-    #@meeting.graetzls << @graetzl
     @meeting.build_address
   end
 
-  # def edit
-  # end
-
   def create
-    @graetzl = Graetzl.find(params[:graetzl_id])
     @meeting = @graetzl.meetings.create(meeting_params)
-    #@meeting.graetzls << @graetzl
-    #@meeting.address = Address.get_address_from_api(@meeting.address.street_name)
-    #@meeting.address.description = meeting_params[:address_attributes][:description]
-    @meeting.ends_at_date = @meeting.starts_at_date
-    current_user.init(@meeting)
+    merge_changes
+    current_user.go_to(@meeting, GoingTo::ROLES[:initiator])
     
     respond_to do |format|
       if @meeting.save
-        format.html { redirect_to graetzl_meeting_path(@graetzl, @meeting), notice: 'Neues Treffen wurde erstellt.' }
+        format.html { redirect_to [@graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.' }
       else
         format.html { render :new }
       end
     end
   end
 
-  # def update
-  #   respond_to do |format|
-  #     if @meeting.update(meeting_params)
-  #       format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @meeting }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @meeting.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def edit
+  end
 
-  # def destroy
-  #   @meeting.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to meetings_url, notice: 'Meeting was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
+  def update
+    @meeting.attributes = meeting_params
+    merge_changes
+
+    respond_to do |format|
+      if @meeting.save
+        format.html { redirect_to [@graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert." }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+
+  def destroy
+    @meeting.destroy
+    respond_to do |format|
+      format.html { redirect_to @graetzl, notice: 'Treffen abgesagt.' }
+      format.json { head :no_content }
+    end
+  end
 
   private
 
@@ -62,11 +56,35 @@ class MeetingsController < ApplicationController
     def meeting_params
       params.require(:meeting).permit(:name,
         :description,
-        :feature,
         :starts_at_date, :starts_at_time,
         :ends_at_time,
         :cover_photo,
+        :cover_photo_cache,
+        :remove_cover_photo,
         category_ids: [],
-        address_attributes: [:street_name, :description])
+        address_attributes: [:description])
+    end
+
+    def set_graetzl
+      @graetzl = Graetzl.find(params[:graetzl_id])
+    end
+
+    def set_meeting
+      @meeting = @graetzl.meetings.find(params[:id])
+    end
+
+    def check_permission!
+      unless current_user.initiated?(@meeting)
+        redirect_to [@graetzl, @meeting], notice: 'Keine Rechte.'
+      end
+    end
+
+    def merge_changes
+      if params[:feature].present?
+        new_address_attrs = Address.new_from_json_string(params[:feature]).attributes
+        @meeting.address.merge_feature(new_address_attrs)
+      end
+      @meeting.complete_datetimes
+      @meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
     end
 end

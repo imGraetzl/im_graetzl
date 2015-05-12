@@ -138,4 +138,23 @@ RSpec.describe Address, type: :model do
       end
     end
   end
+
+  describe '#merge_feature' do
+    let(:old_address) { build(:address, description: 'old description') }
+    let(:new_address) { build(:address, description: 'new description') }
+    before { old_address.merge_feature(new_address.attributes) }
+
+    it 'updates all geo-specific attributes' do
+      expect(old_address).to have_attributes(
+        street_name: new_address.street_name,
+        street_number: new_address.street_number,
+        city: new_address.city,
+        zip: new_address.zip,
+        coordinates: new_address.coordinates)
+    end
+
+    it 'keeps non-geo-specific attributes' do
+      expect(old_address.description).to eq('old description')
+    end
+  end
 end

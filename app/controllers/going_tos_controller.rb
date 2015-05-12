@@ -7,7 +7,6 @@ class GoingTosController < ApplicationController
   end
 
   def destroy
-    meeting = Meeting.find(params[:meeting_id])
-    current_user.going_tos.find_by_meeting_id(44).destroy    
+    GoingTo.find(params[:id]).destroy
   end
 end
