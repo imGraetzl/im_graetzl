@@ -1,19 +1,85 @@
-<% title(@meeting.name) %>
+<div class="titleHeadline">
+  <h3 class="district"><%= @graetzl.short_name %></h3>
 
-<h3><%= @graetzl.short_name %></h3>
-<h2>Treffen: <%= @meeting.name %></h2>
+  <h1><%= @meeting.name %></h1>
+</div>
 
-<% if current_user.going_to?(@meeting) %>
-  <%= button_to 'nicht mehr teilnehmen', going_to_path(@meeting.going_tos.find_by_user_id(current_user)), method: :delete, remote: true %>
-<% else %>
-  <%= button_to 'Teilnehmen', going_tos_path(meeting_id: @meeting.id), remote: true %>
-<% end %>
+<div class="titleImg">
 
-<% if current_user.initiated?(@meeting) %>
-  <%= link_to "#{@meeting.name} bearbeiten", edit_graetzl_meeting_path(@graetzl, @meeting) %>
-<% end %>
+  <%= image_tag('yoga.jpg') %>
+</div>
 
-<%= image_tag @meeting.cover_photo_url %>
-<%= debug @meeting %>
+<div class="entryDescription">
+
+  <div class="dateTime">
+    <div class="wrp-icon">
+      <span><%= I18n.localize(@meeting.starts_at_date, format:'%b') %><br><%= @meeting.starts_at_date.day %></span>
+      <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+    </div>
+    <div class="dayYearTimes"><%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %><br>
+      <span class="begin">Beginn: <%= @meeting.starts_at_time.strftime('%H:%M') %></span><span class="end">Ende: <%= @meeting.ends_at_time.strftime('%H:%M') %></span>
+    </div>
+  </div>
+
+  <div class="location">
+    <a class="wrp-icon" href="http://www.openstreetmap.org/#map=18/48.21931/16.39572" target="_blank">
+      <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
+      Karte
+    </a>
+    <div class="address">
+      <strong><%= @meeting.address.description %></strong><br>
+      <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
+      <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
+    </div>
+  </div>
+
+  <p class="txt"><%= @meeting.description %></p>
+
+</div>
+
+<div class="entryParticipate">
+  <% if current_user.going_to?(@meeting) %>
+
+    <%= button_to going_to_path(@meeting.going_tos.find_by_user_id(current_user)), method: :delete, remote: true, class: 'btn-userCallToAction' do %>
+      <%= image_tag current_user.avatar_url(:thumb), class: 'img-round' %> Nicht mehr teilnehmen
+    <% end %>
+
+  <% else %>
+
+    <%= button_to going_tos_path(meeting_id: @meeting.id), remote: true, class: 'btn-userCallToAction' do %>
+      <%= image_tag current_user.avatar_url(:thumb), class: 'img-round' %> Am Treffen teilnehmen
+    <% end %>
+
+  <% end %>  
+
+  <% if current_user.initiated?(@meeting) %>
+    <%= link_to 'Treffen bearbeiten', edit_graetzl_meeting_path(@graetzl, @meeting) %>
+  <% end %>
+
+  <div class="participants">
+    <p class="userCount"><span><%= @meeting.users.count %></span> Teilnehmer</p>
+    <div class="portraitCollection">
+      <% @meeting.users.each do |user| %>
+        <%= image_tag current_user.avatar_url(:thumb), class: 'img-round' %>
+      <% end %>
+      <div class="dotdotdot">
+        <svg class="icon-dot-3">
+          <use xlink:href="#icon-dot-3"></use>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stream">
+  <div class="writeEntry">
+    Stream
+  </div>
+  <div class="streamEntry">
+
+  </div>
+</div>
 
 <%= link_to 'Zurück', @graetzl %>
+
+<%= image_tag @meeting.cover_photo_url %>
