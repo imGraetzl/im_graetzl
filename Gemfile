@@ -73,11 +73,13 @@ end
 # to query json apis
 gem 'httparty'
 # use devise for authentication
-gem 'devise'
+gem 'devise', '~> 3.4.1'
 # for images
-gem 'carrierwave'
-gem 'mini_magick'
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 4.2.4'
 # split datetime in date and time
-gem 'date_time_attribute'
+gem 'date_time_attribute', '~> 0.1.2'
 # use seo-friendly urls
 gem 'friendly_id', '~> 5.1.0'
+# activeadmin for admin interface (pre version)
+gem 'activeadmin', '~> 1.0.0.pre1'

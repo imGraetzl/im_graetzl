@@ -6,4 +6,16 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     graetzl_path(resource.graetzl)
   end
+
+  def authenticate_admin_user!
+    authenticate_user!
+    unless current_user.admin?
+      flash[:alert] = 'Keine Admin Rechte.'
+      redirect_to root_path 
+    end
+  end
+
+  def set_admin_locale
+    I18n.locale = :en
+  end
 end
