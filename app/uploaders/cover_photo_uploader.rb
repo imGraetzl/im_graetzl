@@ -22,7 +22,8 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url(*args)
-    'cover_photo/' + [version_name, 'default.jpg'].compact.join('_')
+    #'cover_photo/' + [version_name, 'default.jpg'].compact.join('_')
+    'https://placeimg.com/900/500/people'
   end
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
