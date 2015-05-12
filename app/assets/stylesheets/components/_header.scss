@@ -1,18 +1,29 @@
 header {
-  padding: 0.7rem 0;
-  color: grey;
+  margin-bottom: 2rem;
   position: relative;
-  margin-bottom: 3rem;
+  background-color: $color-background-mint;
+  border-bottom: 1px solid lighten($color-ambient-mint, 18);
+  color: grey;
+  z-index: 4;
+  .titleImg {
+
+  }
+  .inner {
+    padding: 0.1rem 0;
+    max-width: $layout-max-width;
+    margin: 0 auto;
+  }
   @include respond-to(">medium") {
-    padding: 1rem 0;
+    padding: 0.3rem 0;
+    margin-bottom: 4rem;
   }
 }
 
 .logo-graetzl {
-  width: 140px;
+  width: 100px;
   display: block;
   @include respond-to(">large") {
-    width: 180px;
+    width: 140px;
   }
 }
 

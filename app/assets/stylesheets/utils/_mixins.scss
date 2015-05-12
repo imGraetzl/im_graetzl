@@ -38,34 +38,16 @@
   }
 }
 
-@mixin btn($btnColor: $color-ambient-rosa, $btnType: normal, $btnTxtColor: #fff, $btnTexture: $texture-primary) {
-  position: relative;
-  display: inline-block;
-  font-family: $font-primary;
-  border-radius: 0.3em;
-  border: none;
-  outline: none;
-  color: $btnTxtColor;
-  background-color: $btnColor;
-  background-image: $btnTexture;
-  @if $btnType == 'normal' {
-    padding: 0.8rem 1.2rem;
+@mixin stickynavMobile($navPos: bottom) {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  border-radius: 0;
+  z-index: 10;
+  @if $navPos == 'bottom' {
+    bottom: 0;
   }
-  @else if $btnType == 'img' {
-    padding: 0.4rem 1.6rem 0.4rem 1.2rem;
-    font-size: 1.2rem;
-    .img-round {
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 0.8rem;
-      border-color: $color-background-bright;
-    }
-  }
-  @else if $btnType == 'icon' {
-    [class*=icon-] {
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0.5rem;
-    }
+  @else if $navPos == 'top' {
+    top: 0;
   }
 }

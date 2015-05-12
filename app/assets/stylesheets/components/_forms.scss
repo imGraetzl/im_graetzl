@@ -58,6 +58,44 @@
 
 }
 
+.input-group-icon {
+  position: relative;
+  display: block;
+  input {
+    background-color: $form-color-secondary;
+    color: $color-font-primary;
+    border: none;
+    padding: 1.5rem 1.5rem 1.5rem 4rem;
+    outline: none;
+    font-size: 1rem;
+    width: 100%;
+  }
+  label {
+    position: absolute;
+    top: 50%;
+    left: 4rem;
+    font-size: 1rem;
+    font-family: $font-primary;
+    color: $form-color-primary;
+    transition: 0.2s ease;
+    transform: translate(0, -50%);
+  }
+  input:focus + label,
+  &.filled label {
+    font-size: 0.8em;
+    top: 0;
+    left: 0.2rem;
+    //transform: translate(0, 0%);
+  }
+  [class*=icon-] {
+    fill: $form-color-primary;
+    position: absolute;
+    top: 50%;
+    left: 1.2rem;
+    transform: translate(0,-50%);
+  }
+}
+
 // ---------------------------------------------------------------------- Select Group
 
 .select-group {

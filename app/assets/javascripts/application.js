@@ -18,6 +18,7 @@
 //= require picker.date
 //= require picker.time
 //= require picker.de_DE
+//= require leaflet
 //= require jquery.sumoselect
 //= require typeahead.bundle
 //= require jquery_ujs
