@@ -178,12 +178,17 @@
     text-align: center;
     font-size: 0.8rem;
     font-style: italic;
+    text-decoration: none;
+    &:hover [class^=icon-] {
+      fill: $color-ambient-rosa;
+    }
   }
 
   [class^=icon-] {
     width: 45px;
     height: 45px;
     fill: $color-ambient-mint;
+    transition: fill 0.2s ease-out;
   }
 
   .address {
