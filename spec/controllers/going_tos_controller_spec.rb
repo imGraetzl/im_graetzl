@@ -24,6 +24,11 @@ RSpec.describe GoingTosController, type: :controller do
           }.to change(GoingTo, :count).by(1)
       end
 
+      it 'assigns meeting' do
+        xhr :post, :create, meeting_id: meeting.id
+        expect(assigns(:meeting)).to eq(meeting)
+      end
+
       it 'renders create.js' do
         xhr :post, :create, meeting_id: meeting.id
         expect(response).to render_template('going_tos/create')
@@ -56,6 +61,11 @@ RSpec.describe GoingTosController, type: :controller do
     before do
       going_to.save
       sign_in user
+    end
+
+    it 'assigns meeting' do
+      xhr :delete, :destroy, id: going_to.id
+      expect(assigns(:meeting)).to eq(meeting)
     end
 
     it 'removes GoingTo' do
