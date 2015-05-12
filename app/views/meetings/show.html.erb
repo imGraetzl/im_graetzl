@@ -1,19 +1,33 @@
-<% title(@meeting.name) %>
+<div class="titleHeadline">
+  <h3 class="district"><%= @graetzl.short_name %></h3>
+  <h1><%= @meeting.name %></h1>
+</div>
 
-<h3><%= @graetzl.short_name %></h3>
-<h2>Treffen: <%= @meeting.name %></h2>
+<div class="titleImg">
+  <%= image_tag @meeting.cover_photo_url %>
+</div>
 
-<% if current_user.going_to?(@meeting) %>
-  <%= button_to 'nicht mehr teilnehmen', going_to_path(@meeting.going_tos.find_by_user_id(current_user)), method: :delete, remote: true %>
-<% else %>
-  <%= button_to 'Teilnehmen', going_tos_path(meeting_id: @meeting.id), remote: true %>
-<% end %>
+<div class="entryDescription">
 
-<% if current_user.initiated?(@meeting) %>
-  <%= link_to "#{@meeting.name} bearbeiten", edit_graetzl_meeting_path(@graetzl, @meeting) %>
-<% end %>
+  <%= render 'time', object: @meeting %>
 
-<%= image_tag @meeting.cover_photo_url %>
-<%= debug @meeting %>
+  <%= render 'location', object: @meeting %>  
+
+  <p class="txt"><%= @meeting.description %></p>
+
+</div>
+
+<div class="entryParticipate">
+  <%= render 'participation', object: @meeting %>
+</div>
+
+<div class="stream">
+  <div class="writeEntry">
+    Stream
+  </div>
+  <div class="streamEntry">
+
+  </div>
+</div>
 
 <%= link_to 'Zurück', @graetzl %>

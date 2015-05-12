@@ -1,0 +1,11 @@
+<div class="location">
+  <a class="wrp-icon" href="http://www.openstreetmap.org/#map=18/48.21931/16.39572" target="_blank">
+    <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
+    Karte
+  </a>
+  <div class="address">
+    <strong><%= @meeting.address.description %></strong><br>
+    <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
+    <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
+  </div>
+</div>

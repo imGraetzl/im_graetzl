@@ -1,0 +1,27 @@
+<div class="dateTime">
+
+  <% if @meeting.starts_at %>
+
+    <div class="wrp-icon">
+      <span>
+        <%= I18n.localize(@meeting.starts_at_date, format:'%b') %><br>
+        <%= @meeting.starts_at_date.day %>
+      </span>
+      <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+    </div>
+    
+    <div class="dayYearTimes"><%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %><br>
+      <span class="begin">Beginn: <%= @meeting.starts_at_time.strftime('%H:%M') %></span>
+      <span class="end">Ende: <%= @meeting.ends_at_time.strftime('%H:%M') %></span>
+    </div>
+
+  <% else %>
+
+    <div class="wrp-icon">
+      <span>?<br>?</span>
+      <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+    </div>
+
+  <% end %>
+
+</div>

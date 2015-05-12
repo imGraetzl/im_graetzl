@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  ActiveAdmin.routes(self)
   # resources :graetzls, only: [:index, :show] do
   #   resources :meetings, only: [:show, :new, :create]
   # end

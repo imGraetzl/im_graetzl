@@ -26,7 +26,7 @@ APP.controllers.application = (function() {
                     })
             });
 
-            $(window).load(function() {
+            $(document).on('ready page:load', function() {
                 $(".titleImg").css("opacity", 1);
             })
 
