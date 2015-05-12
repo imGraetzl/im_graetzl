@@ -2,12 +2,9 @@ APP.controllers.application = (function() {
 
     var privateVar = "Sitewide!";
 
-
-
     return {
 
         init: function() {
-
 
             //input fields label effect TODO: place code in module
             $(".input-group").each(function() {
@@ -27,7 +24,14 @@ APP.controllers.application = (function() {
                     }).on("focus", function() {
                         $input.closest(".input-group").addClass("filled");
                     })
+            });
+
+            $(window).load(function() {
+                $(".titleImg").css("opacity", 1);
             })
+
+
+
 
         }
 

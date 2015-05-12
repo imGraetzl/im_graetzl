@@ -1,63 +1,283 @@
 
+.titleHeadline {
+  z-index: 2;
+  position: relative;
+  @include respond-to(">=medium") {
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+  }
+  @include respond-to(">=large") {
+    margin-top: 4rem;
+  }
 
-.meeting-detail {
-  background-color: olive;
-  .headline {
-    .district {
-
+  h1, h3 {
+    font-family: $font-secondary;
+    text-shadow: 2px 2px $color-background-bright;
+    line-height: 1;
+    text-align: center;
+    @include respond-to(">=medium") {
+      text-align: left;
     }
-    h1 {
-      text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 0;
+    font-size: 2.6rem;
+    @include respond-to(">=medium") {
+      font-size: 3.5rem;
+      max-width: 500px;
+      margin-left: 25px;
+    }
+    @include respond-to(">=large") {
+      font-size: 3.8rem;
+    }
+  }
+
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 0;
+    color: $color-ambient-rosa;
+    @include respond-to(">=medium") {
+      font-size: 2.8rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 3.2rem;
     }
   }
 }
 
-.theMeeting {
-
-  @include cf;
-  background-color: red;
-
-
-  .description {
-    @include col(1/2);
-    background-color: yellow;
-    h3 {
-
-    }
-    .dateTime {
-
-    }
-    .locationMap {
-
-    }
-    .txt {
-        margin-bottom: 0;
+.titleImg {
+  position: relative;
+  @include respond-to("<medium") {
+    max-width: 380px;
+    margin: 1rem auto;
+    overflow: hidden;
+  }
+  @include respond-to(">=medium") {
+    position: absolute;
+    width: 80%;
+    min-width: 500px;
+    right: 0;
+    top: -100px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.8s linear;
+    &:before {
+      content: '';
+      display: block;
+      background-image: url(image_path('mask-cloud.png'));
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
     }
   }
-
-  .participate {
-    @include col(1/2);
-    background-color: coral;
-
-    .btn-userimg {
-      margin: 0 auto;
-    }
-
+  @include respond-to(">=large") {
+    width: 900px;
+    right: -15px;
+    top: -160px;
   }
 
-}
-
-.userCount {
-  span {
-
-  }
-}
-
-.userCollection {
   img {
-
+    max-width: 100%;
+    display: block;
+    @include respond-to("<medium") {
+      margin-top: -40px;
+    }
   }
-  .showMore {
+}
+
+.entryDescription {
+  margin-bottom: 3rem;
+  @include respond-to(">=medium") {
+    @include col(1/2);
+    overflow: hidden;
+  }
+  @include respond-to(">=large") {
+    @include col(7/12);
+  }
+
+  h3 {
+    font-size: 1.4rem ;
+    font-weight: 600;
+  }
+
+  .wrp-icon {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    display: block;
+    @include respond-to(">=medium") {
+      margin-right: 20px;
+    }
+  }
+
+  .txt {
+    margin-bottom: 2rem;
+    @include respond-to(">=medium") {
+      clear: both;
+    }
+    @include respond-to(">=large") {
+      padding-right: 70px;
+    }
+  }
+}
+
+.dateTime {
+  padding-top: 10px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  @include respond-to(">=medium") {
+    text-shadow: 1px 1px $color-background-bright;
+  }
+
+  .wrp-icon {
+    span {
+      z-index: 2;
+      font-size: 12px;
+      display: block;
+      position: absolute;
+      border-radius: 4px;
+      text-align: center;
+      width: 100%;
+      line-height: 1;
+      color: $color-ambient-mint;
+      font-weight: 600;
+      margin-top: 17px;
+    }
+    [class^=icon] {
+      fill: $color-ambient-mint;
+      height: 45px;
+      width: 45px;
+    }
+  }
+  .dayYearTimes {
+    float: left;
+    width: calc(100% - 65px);
+  }
+  .begin {
+    margin-right: 0.5rem;
+    padding-right: 0.5rem;
+    border-right: 1px dotted $color-font-primary;
+  }
+}
+
+.location {
+  overflow: hidden;
+  margin-bottom: 2rem;
+  @include respond-to(">=medium") {
+    text-shadow: 1px 1px $color-background-bright;
+  }
+
+  .wrp-icon {
+    float: left;
+    text-align: center;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  [class^=icon-] {
+    width: 45px;
+    height: 45px;
+    fill: $color-ambient-mint;
+  }
+
+  .address {
+    float: left;
+    width: calc(100% - 65px);
+  }
+}
+
+.entryParticipate {
+  margin-bottom: 3rem;
+  @include respond-to(">=medium") {
+    @include col(1/2);
+    margin-top: -20px;
+    padding: 1.5rem;
+    margin-right: 0;
+    position: relative;
+    z-index: 5;
+  }
+  @include respond-to(">=large") {
+    @include col(5/12);
+    margin-top: -25px;
+    margin-right: 0;
+  }
+
+  .btn-userCallToAction {
+    @include respond-to("<medium") {
+      @include stickynavMobile;
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+      .img-round {
+        display: none;
+      }
+    }
+    @include respond-to(">=medium") {
+      margin-bottom: 2rem;
+    }
+    @include respond-to(">=large") {
+      margin-bottom: 40px;
+    }
+  }
+}
+
+.participants {
+  @include respond-to(">=large") {
+    padding: 1rem;
+    background-color: rgba($color-background-bright, 0.75);
+    border-radius: 8px;
+  }
+
+  .userCount {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    span {
+      color: $color-ambient-rosa;
+      font-size: 1.4rem;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+
+}
+
+.stream {
+  clear: both;
+  height: 50px;
+  border-top: 2px dotted lighten($color-ambient-mint, 20);
+  margin-bottom: 100px;
+  padding: 2rem 0;
+  @include respond-to(">=large") {
+    margin: 0 auto;
+  }
+
+  .writeEntry,
+  .streamEntry {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .writeEntry {
+    background-color: lighten($color-ambient-mint, 20);
+    height: 130px;
+    text-align: center;
+    font-size: 30px;
+    color: $color-background-bright;
+    font-style: italic;
+    padding-top: 2rem;
+  }
+
+  .streamEntry {
 
   }
 }
+
+
+
+

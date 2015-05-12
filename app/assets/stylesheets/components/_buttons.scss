@@ -1,13 +1,50 @@
+%btn {
+  position: relative;
+  font-family: $font-primary;
+  border-radius: 0.3em;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  color: white;
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  background-image: $texture-primary;
+  background-color: $color-ambient-rosa;
+}
+%btn-imgRound {
+  padding: 0.4rem 1.4rem 0.4rem 0.8rem;
+  .img-round {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1rem;
+    border-color: $color-background-bright;
+  }
+}
+%btn-call {
+  background-color: $color-ambient-rosa;
+  box-shadow: 3px 3px rgba($color-font-primary, 0.5);
+  font-style: italic;
+  transition: box-shadow 0.2s linear;
+  @include respond-to(">medium") {
+    font-size: 1.2rem;
+  }
+}
+%btn-icon {
+
+}
+
+
+
+
 .btn-primary {
-  @include btn;
+  @extend %btn;
 }
 
-.btn-userimg {
-  @include btn($btnType: img);
-}
-
-.btn-icon {
-
+.btn-userCallToAction {
+  @extend %btn;
+  @extend %btn-imgRound;
+  @extend %btn-call;
+  @include ellipsis;
 }
 
 .nav-btnBar {

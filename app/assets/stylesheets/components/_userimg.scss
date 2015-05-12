@@ -24,3 +24,33 @@
   background-color: lighten($color-ambient-mint, 20);
   padding: 1px;
 }
+
+.portraitCollection {
+  overflow: hidden;
+  img, .dotdotdot {
+    float: left;
+    display: block;
+    margin-bottom: 5px;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+  }
+  .dotdotdot {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    border: 2px solid $color-ambient-mint;
+    background-color: $color-background-bright;
+    padding: 1px;
+    cursor: pointer;
+    z-index: 1;
+    [class*=icon-] {
+      fill: $color-ambient-mint;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: 0 auto;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
