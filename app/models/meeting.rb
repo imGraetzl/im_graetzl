@@ -22,14 +22,14 @@ class Meeting < ActiveRecord::Base
   # validations
   validates :name, presence: true
   validates :description, presence: true
-  validate :starts_at_cannot_be_in_the_past
-  validate :ends_at_cannot_be_before_starts_at
+  # validate :starts_at_cannot_be_in_the_past
+  # validate :ends_at_cannot_be_before_starts_at
 
   # instance methods
   def complete_datetimes
-    if self.ends_at_time
-      self.ends_at_date = self.starts_at_date || Time.now
-    end
+    # if self.ends_at_time
+    #   self.ends_at_date = self.starts_at_date || Time.now
+    # end
   end
 
   private
