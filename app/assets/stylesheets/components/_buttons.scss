@@ -1,17 +1,33 @@
-%btn {
+@mixin btn(
+  $btnBackground: $color-ambient-rosa,
+  $btnFontColor: $color-background-bright,
+  $btnTexture: $texture-primary,
+  $btnSize: normal)
+{
   position: relative;
   font-family: $font-primary;
   border-radius: 0.3em;
   border: none;
   outline: none;
   font-size: 1rem;
-  color: white;
-  padding: 1rem 1.2rem;
   cursor: pointer;
-  background-image: $texture-primary;
-  background-color: $color-ambient-rosa;
+  color: $btnFontColor;
+  background-image: $btnTexture;
+  background-color: $btnBackground;
+  display: block;
+  text-decoration: none;
+  line-height: 1;
+  @if ($btnSize == 'normal') {
+    padding: 1rem 1.2rem;
+  }
+  @else if ($btnSize == 'small') {
+    padding: 0.6rem 1rem;
+  }
+  @else if ($btnSize == 'large') {
+    padding: 1.4rem 1.6rem;
+  }
 }
-%btn-imgRound {
+@mixin btn-imgRound {
   padding: 0.4rem 1.4rem 0.4rem 0.8rem;
   .img-round {
     display: inline-block;
@@ -20,38 +36,44 @@
     border-color: $color-background-bright;
   }
 }
-%btn-call {
-  background-color: $color-ambient-rosa;
-  box-shadow: 3px 3px rgba($color-font-primary, 0.5);
-  font-style: italic;
-  transition: box-shadow 0.2s linear;
-  @include respond-to(">medium") {
-    font-size: 1.2rem;
-  }
-}
-%btn-icon {
-
-}
-
 
 
 
 .btn-primary {
-  @extend %btn;
+  @include btn;
+}
+.btn-secondary {
+  @include btn($btnBackground: $color-background-bright, $btnTexture: none, $btnFontColor: $color-ambient-rosa);
+  border: 2px solid lighten($color-ambient-rosa, 10);
 }
 
 .btn-userCallToAction {
-  @extend %btn;
-  @extend %btn-imgRound;
-  @extend %btn-call;
+  @include btn;
+  @include btn-imgRound;
   @include ellipsis;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+  box-shadow: 3px 3px 0px rgba($color-font-primary, 0.5);
+  font-style: italic;
+  transition: background-color 0.2s linear;
+  &:hover {
+    background-color: darken($color-ambient-rosa, 7);
+  }
+  @include respond-to(">medium") {
+    font-size: 1.2rem;
+  }
+
 }
 
 .nav-btnBar {
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
   button, a {
-    margin-left: 2rem;
+    margin-left: 1rem;
     display: inline-block;
+    flex: 0 0 auto;
     &:first-child {
       margin-left: 0;
     }

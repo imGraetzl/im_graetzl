@@ -7,7 +7,7 @@
     }
   }
   .nav-btnBar {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
   .txt {
     text-align: center;
@@ -21,13 +21,20 @@
     padding: 0 0.4rem;
   }
 
-  @include respond-to(">medium") {
+  @include respond-to(">=medium") {
     margin-left: auto;
     margin-right: auto;
   }
 }
 
 // ---------------------------------------------------------------------- Define Graetzl
+
+.register-searchGraetzl {
+  .input-group input {
+    font-size: 1.2rem;
+  }
+}
+
 
 .register-selectGraetzl {
   .wrp-radios {
@@ -44,7 +51,7 @@
   }
 
 
-  @include respond-to(">medium") {
+  @include respond-to(">=medium") {
     .wrp-selects {
       @include clearfix;
     }
@@ -65,29 +72,43 @@
 // ---------------------------------------------------------------------- Personal Data
 
 .register-personalInfo {
-  h2 + p {
-    span {
-      font-weight: 700;
-      margin-right: 0.2rem;
+  h2 {
+    margin-bottom: 0.2rem;
+  }
+  h2+a {
+    margin: 0 auto;
+    display: table;
+    color: $color-ambient-grey;
+    margin-bottom: 2rem;
+    text-decoration: none;
+    font-style: italic;
+    &:hover {
+      text-decoration: underline;
       color: $color-ambient-rosa;
     }
   }
-
-}
-.form-register {
-  @include clearfix;
   .txt {
     width: 100%;
     font-family: $font-secondary;
     font-size: 1.8rem;
+    text-align: left;
   }
+  .numberUsers {
+    font-weight: 600;
+    color: $color-ambient-rosa
+  }
+
+
+}
+.form-register {
+  @include cf;
   .input-group,
   .select-group,
   .upload-portrait {
     margin-bottom: 1.5rem;
   }
 
-  @include respond-to(">medium") {
+  @include respond-to(">=medium") {
     .input-group,
     .select-group,
     .upload-portrait {
@@ -97,13 +118,19 @@
       margin-left: 1%;
     }
     .username {
-     margin-right: 51%;
+      margin-right: 51%;
     }
     .wrp-checkboxes {
       margin-bottom: 0;
     }
     .row {
-     @include clearfix;
+      @include cf;
+      clear: both;
+      display: flex;
+      align-items: stretch;
+      > div {
+        flex: 0 0 auto;
+      }
     }
 
   }

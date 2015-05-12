@@ -15,7 +15,7 @@
     display: table-cell;
     width: 100%;
   }
-  label {
+  input ~ label {
     position: absolute;
     top: 50%;
     left: 0;
@@ -28,7 +28,7 @@
     transform: translate(0,-50%);
   }
   input:focus + label,
-  &.filled label {
+  &.filled input ~ label {
     top: 0;
     font-size: 0.8em;
     line-height: 0.8rem;
@@ -105,21 +105,25 @@
   border-width: 2px;
   width: 100%;
   display: table;
+  display: flex;
+  align-items: center;
   label {
     padding-left: 0.9em;
     padding-right: 0.9rem;
     color: $form-color-primary;
     display: table-cell;
+    flex: 0 0 auto;
   }
   select {
+    padding: 1.3rem 0 1.3rem 0.9rem;
     position: relative;
     background-color: $form-color-secondary;
     color: $form-color-primary;
     border: 0;
-    padding: 1.1rem 0 1.1rem 0.9rem;
     -webkit-appearance: button; /* hide default arrow in chrome OSX */
     display: table-cell;
     width: 100%;
+    font-size: 1rem;
     option {
       color: $form-color-primary;
     }

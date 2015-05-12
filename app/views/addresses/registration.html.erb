@@ -7,13 +7,14 @@
   <%= form_tag(addresses_search_path, method: :post) do %>
 
       <div id="addressSearchAutocomplete" class="input-group">
-        <%= text_field_tag :address, nil, required: true %>
-        <%= label_tag :address, 'Wo wohnst du? (Straße und Hausnummer)' %>
+        <%= label_tag :address, 'Wo wohnst du?' %>
+        <%= text_field_tag :address, nil, required: true, placeholder: 'Straße und Hausnummer', autofocus: true %>
+        <!-- <%= label_tag :address, 'Wo wohnst du? (Straße und Hausnummer)' %> -->
         <%= hidden_field_tag :feature %>
       </div>
       <div class="nav-btnBar">
-        <%= link_to 'Manuell wählen', addresses_search_path(address: ''), method: :post %>
-        <%= button_tag 'Weiter', class: 'btn-primary' %>
+       <!-- <%= link_to 'Manuell wählen', addresses_search_path(address: ''), method: :post, class: 'btn-secondary' %> -->
+        <%= button_tag 'Weiter in\'s Grätzl', class: 'btn-primary' %>
       </div>
   <% end %>
 
