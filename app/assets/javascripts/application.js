@@ -25,7 +25,7 @@
 //= require turbolinks
 //= require utils/app
 //= require components/addressSearchAutocomplete
-//= require_tree .
+//= require_directory ./controllers
 
 $( document ).ready(function() {
   APP.init();
