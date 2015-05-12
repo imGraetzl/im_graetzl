@@ -15,7 +15,7 @@
     display: table-cell;
     width: 100%;
   }
-  input ~ label {
+  label {
     position: absolute;
     top: 50%;
     left: 0;
@@ -28,7 +28,7 @@
     transform: translate(0,-50%);
   }
   input:focus + label,
-  &.filled input ~ label {
+  &.filled label {
     top: 0;
     font-size: 0.8em;
     line-height: 0.8rem;
