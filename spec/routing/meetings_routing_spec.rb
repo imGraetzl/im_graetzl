@@ -3,6 +3,10 @@ require "rails_helper"
 RSpec.describe MeetingsController, type: :routing do
   describe "routing with 'treffen'" do
 
+    it 'routes to #index' do
+      expect(get: '/graetzl_slug/treffen').to route_to('meetings#index', graetzl_id: 'graetzl_slug')
+    end
+
     it 'routes to #show' do
       expect(get: '/graetzl_slug/treffen/meeting_slug').to route_to('meetings#show', id: 'meeting_slug', graetzl_id: 'graetzl_slug')
     end
@@ -21,6 +25,10 @@ RSpec.describe MeetingsController, type: :routing do
   end
 
   describe "named routing with 'meeting'" do
+
+    it 'routes to #index' do
+      expect(get: graetzl_meetings_path(graetzl_id: 'graetzl_slug')).to route_to('meetings#index', graetzl_id: 'graetzl_slug')
+    end
 
     it 'routes to #show' do
       expect(get: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to('meetings#show', id: 'meeting_slug', graetzl_id: 'graetzl_slug')
