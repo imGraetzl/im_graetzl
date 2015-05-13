@@ -10,4 +10,11 @@ class Graetzl < ActiveRecord::Base
   def short_name
     name.split(',')[0]
   end
+
+  def next_meetings
+    meetings
+      .where.not(starts_at: nil)
+      .order(starts_at: :desc)
+      .limit(2)
+  end
 end
