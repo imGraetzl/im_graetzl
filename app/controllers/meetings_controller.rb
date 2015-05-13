@@ -1,8 +1,12 @@
 class MeetingsController < ApplicationController
   before_filter :set_graetzl
-  before_filter :set_meeting, except: [:new, :create]
+  before_filter :set_meeting, except: [:index, :new, :create]
   before_filter :authenticate_user!, except: [:show]
   before_filter :check_permission!, only: [:edit, :update, :destroy]
+
+  def index
+    @meetings = @graetzl.meetings
+  end
 
   def show
   end

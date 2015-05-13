@@ -5,13 +5,18 @@
 <div>
   <h2>Nächste Treffen</h2>
   <% @graetzl.next_meetings.each do |meeting| %>
-    <%= link_to [@graetzl, meeting] do %>
-      <strong><%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %B %Y') %></strong>
+
+    <%= link_to [@graetzl, meeting] do %>      
+      <strong>
+        <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
+        <%= meeting.starts_at_date.day %>
+      </strong>
       <p><%= meeting.name %><br><%= meeting.users.count %> nehmen schon teil</p>
     <% end %>
+
   <% end %>
-  </ul>
-  <p><%= @graetzl.meetings.count %> Treffen im Grätzl</p>
+
+  <%= link_to 'Alle Treffen im Grätzl', graetzl_meetings_path(@graetzl) %>
 </div>
 
 <div class="stream">
