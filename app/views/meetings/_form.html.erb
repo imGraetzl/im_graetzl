@@ -18,7 +18,7 @@
 
     <div class="input-group">
       <%= f.text_field :name %>
-      <%= f.label :name, 'Gib deinem Treffen einen kurzen Namen.' %>
+      <%= f.label :name, 'Gib deinem Treffen einen kurzen Namen' %>
     </div>
     <div class="textarea-group">
       <%= f.text_area :description, cols: 30, rows: 10 %>
@@ -28,7 +28,7 @@
 
 
   <div class="meet-where">
-    <p>Wo soll dein Treffen stattfinden?</p>    
+    <p>Wo soll dein Treffen stattfinden?</p>
 
     <div id="addressSearchAutocomplete" class="input-group">
       <div class="wrp-icon">
@@ -122,8 +122,8 @@
     <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
   </div>
 
-  <div class="actions">
+  <div class="nav-btnBar">
+    <%= link_to 'Zurück', @graetzl, class: 'btn-secondary'  %>
     <%= f.button class: 'btn-primary' %>
-    <%= link_to 'Zurück', @graetzl %>
   </div>
 <% end %>

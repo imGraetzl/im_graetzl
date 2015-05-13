@@ -2,6 +2,7 @@ APP.controllers.meetings = (function() {
 
     function init() {
 
+        APP.components.inputTextareaMovingLabel();
         APP.components.addressSearchAutocomplete();
 
         $('.datepicker').pickadate({
@@ -37,6 +38,11 @@ APP.controllers.meetings = (function() {
                 reader.readAsDataURL(this.files[0]);
             }
         });
+
+        // titleImg
+        $(document).on('ready page:load', function() {
+            $(".titleImg").css("opacity", 1);
+        })
 
     }
 

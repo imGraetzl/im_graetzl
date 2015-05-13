@@ -24,7 +24,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require utils/app
-//= require components/addressSearchAutocomplete
+//= require_directory ./components
 //= require_directory ./controllers
 
 $( document ).ready(function() {
