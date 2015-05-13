@@ -21,9 +21,10 @@
 //= require leaflet
 //= require jquery.sumoselect
 //= require typeahead.bundle
+//= require jquery.noty.packaged
 //= require jquery_ujs
 //= require turbolinks
-//= require utils/app
+//= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers
 
