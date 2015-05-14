@@ -14,7 +14,7 @@ class Graetzl < ActiveRecord::Base
   def next_meetings
     meetings
       .where.not(starts_at: nil)
-      .order(starts_at: :desc)
+      .order(starts_at: :asc)
       .limit(2)
   end
 end

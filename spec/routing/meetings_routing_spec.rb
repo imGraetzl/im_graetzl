@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe MeetingsController, type: :routing do
+
   describe "routing with 'treffen'" do
 
     it 'routes to #index' do
@@ -39,6 +40,7 @@ RSpec.describe MeetingsController, type: :routing do
       expect(delete: '/slug/treffen/meeting_slug').to route_to('meetings#destroy', graetzl_id: 'slug', id: 'meeting_slug')
     end
   end
+  
 
   describe "named routing with 'meeting'" do
 

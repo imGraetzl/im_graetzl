@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe GraetzlsController, type: :routing do
+  
   describe 'routing' do
 
     it 'routes /graetzls to #index' do

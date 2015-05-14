@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Admin::UsersController, type: :routing do
+  
   describe 'routing' do
 
     it 'routes /admin to admin/dashboard#index' do
