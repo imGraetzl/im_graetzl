@@ -11,7 +11,7 @@
 <% @graetzl.meetings.each do |meeting| %>
 
   <%= link_to [@graetzl, meeting] do %>
-    <% if meeting.starts_at %>
+    <% if meeting.starts_at_date %>
       <strong>
         <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
         <%= meeting.starts_at_date.day %>
