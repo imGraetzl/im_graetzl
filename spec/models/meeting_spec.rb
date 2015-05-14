@@ -13,22 +13,15 @@ RSpec.describe Meeting, type: :model do
       expect(build(:meeting_full, name: nil)).not_to be_valid
     end
 
-    it 'invalid without description' do
-      expect(build(:meeting_full, description: nil)).not_to be_valid
+    it 'invalid with starts_at_date in past' do
+      expect(build(:meeting_full, starts_at_date: 1.day.ago)).not_to be_valid
     end
 
-    # it 'invalid with starts_at in past' do
-    #   expect(build(:meeting_full, starts_at: 1.day.ago)).not_to be_valid
-    # end
-
-    # it 'invalid with ends_at in past' do
-    #   expect(build(:meeting_full, ends_at: 1.day.ago)).not_to be_valid
-    # end
-
-    # it 'invalid with ends_at before_starts_at' do
-    #   expect(build(:meeting_full, starts_at: Time.now + 1.day, ends_at: Time.now)).not_to be_valid
-    # end
+    it 'invalid with ends_at_time before_starts_at_time' do
+      expect(build(:meeting_full, starts_at_date: Date.today, starts_at_time: Time.now + 1.hour, ends_at_time: Time.now)).not_to be_valid
+    end
   end
+  
 
   # instance methods
   describe '#complete_datetimes' do
