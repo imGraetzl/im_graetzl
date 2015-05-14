@@ -2,7 +2,7 @@
 
   <div class="wrp-icon">
 
-    <% if @meeting.starts_at %>
+    <% if @meeting.starts_at_date %>
 
       <span>
         <%= I18n.localize(@meeting.starts_at_date, format: '%b') %><br>
@@ -21,13 +21,13 @@
 
   <div class="dayYearTimes">
 
-    <% if @meeting.starts_at %>
+    <% if @meeting.starts_at_date %>
 
       <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
 
     <% else %>
 
-      Zeitpunkt steht noch nicht fest...
+      Tag steht noch nicht fest...
 
     <% end %>
 

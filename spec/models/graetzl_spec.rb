@@ -45,9 +45,9 @@ RSpec.describe Graetzl, type: :model do
     end    
 
     context 'when meetings with date' do
-      let(:first_meeting) { create(:meeting, starts_at: Date.today + 1.day) }
-      let(:second_meeting) { create(:meeting, starts_at: Date.today + 2.days) }
-      let(:last_meeting) { create(:meeting, starts_at: Date.today + 3.days) }
+      let(:first_meeting) { create(:meeting, starts_at_date: Date.today + 1.day) }
+      let(:second_meeting) { create(:meeting, starts_at_date: Date.today + 2.days) }
+      let(:last_meeting) { create(:meeting, starts_at_date: Date.today + 3.days) }
 
       before do
         graetzl.meetings << first_meeting

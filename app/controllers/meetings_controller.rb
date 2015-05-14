@@ -88,7 +88,6 @@ class MeetingsController < ApplicationController
         new_address_attrs = Address.new_from_json_string(params[:feature]).attributes
         @meeting.address.merge_feature(new_address_attrs)
       end
-      @meeting.complete_datetimes
       @meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
     end
 end
