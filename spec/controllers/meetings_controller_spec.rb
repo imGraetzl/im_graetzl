@@ -231,11 +231,11 @@ RSpec.describe MeetingsController, type: :controller do
           expect(meeting.address.street_name).to eq('Esterházygasse')
         end
 
-        it 'updates starts_at and ends_at' do
+        it 'updates starts_at_date, starts_at_time, ends_at_time' do
           put :update, { graetzl_id: graetzl.id, id: meeting, meeting: attrs, feature: esterhazygasse_hash.to_json }
           meeting.reload
           expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
-          expect(meeting.ends_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
+          expect(meeting.ends_at_date).to be_falsy
           expect(meeting.starts_at_time.strftime('%H:%M')).to eq ('18:00')
           expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
         end
