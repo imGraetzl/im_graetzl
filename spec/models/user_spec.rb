@@ -219,7 +219,7 @@ RSpec.describe User, type: :model do
 
 
   describe '#avatar' do
-    let(:user) { create(:user) }
+    let(:user) { build_stubbed(:user) }
 
     context 'when file uploaded' do
       before do
@@ -258,11 +258,11 @@ RSpec.describe User, type: :model do
         expect(user.avatar_url(:large)).to include('large_default.png')
       end
 
-      it 'returms medium version' do
+      it 'returns medium version' do
         expect(user.avatar_url(:medium)).to include('medium_default.png')
       end
 
-      it 'returms small version' do
+      it 'returns small version' do
         expect(user.avatar_url(:small)).to include('small_default.png')
       end
     end
