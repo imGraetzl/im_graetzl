@@ -1,19 +1,19 @@
 <% if current_user.initiated?(@meeting) %>
 
   <%= button_to edit_graetzl_meeting_path(@graetzl, @meeting), method: :get, class: 'btn-userCallToAction' do %>
-    <%= image_tag current_user.avatar_url(:thumb), class: 'img-round' %> Treffen bearbeiten
+    <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Treffen bearbeiten
   <% end %>
 
 <% elsif current_user.going_to?(@meeting) %>
 
   <%= button_to going_to_path(current_going_to), method: :delete, remote: true, class: 'btn-userCallToAction' do %>
-      <%= image_tag current_user.avatar_url(:thumb), class: 'img-round' %> Nicht mehr teilnehmen
+      <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Nicht mehr teilnehmen
   <% end %>
 
 <% else %>
 
   <%= button_to going_tos_path(meeting_id: @meeting.id), remote: true, class: 'btn-userCallToAction' do %>
-    <%= image_tag current_user.avatar_url(:thumb), class: 'img-round' %> Am Treffen teilnehmen
+    <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Am Treffen teilnehmen
   <% end %>
 
 <% end %>

@@ -99,9 +99,8 @@
             <%= f.check_box :remove_cover_photo, class: 'deleteCheckbox' %>
         <% end %>
 
-
         <% if f.object.cover_photo? %>
-            <div class="imgCrop"> <%= image_tag(f.object.cover_photo_url) %></div>
+            <div class="imgCrop"> <%= image_tag(f.object.cover_photo_url(:small)) %></div>
             <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
             Cover-Foto ändern
 

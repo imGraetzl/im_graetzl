@@ -4,7 +4,7 @@
   <p class="userCount"><span><%= @meeting.users.count %></span> Teilnehmer</p>
   <div class="portraitCollection">
     <% @meeting.users.each do |user| %>
-      <%= image_tag current_user.avatar_url(:thumb), class: 'img-round' %>
+      <%= image_tag current_user.avatar_url(:small), class: 'img-round' %>
     <% end %>
     <div class="dotdotdot">
       <svg class="icon-dot-3">
