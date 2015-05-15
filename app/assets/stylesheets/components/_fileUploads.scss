@@ -1,15 +1,26 @@
 .upload-image {
   @extend %file-group;
-  > img {
+  .imgCrop {
+    overflow: hidden;
     width: 100%;
-    margin-bottom: 1rem;
-    display: inline-block;
-    vertical-align: middle;
+    position: relative;
+    margin-bottom: 0.6rem;
+    img {
+      position: absolute;
+      width: 100%;
+      display: block;
+    }
   }
   [class^=icon-]:first-of-type {
     margin-right: 1rem;
     display: inline-block;
     vertical-align: middle;
+  }
+  [class^=icon-delete] {
+    display: none;
+  }
+  .deleteCheckbox {
+    display: none;
   }
 }
 
@@ -29,6 +40,9 @@
   .img-round {
     width: 52px;
     height: 52px;
+  }
+  [class^=icon-delete] {
+    display: none;
   }
 }
 
