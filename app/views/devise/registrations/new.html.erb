@@ -80,7 +80,7 @@
 
         <div class="upload-portrait">
           <% if resource.avatar? %>
-              <%= image_tag(resource.avatar_url(:thumb), :class => "img-round") %>
+              <%= image_tag(resource.avatar_url(:small), :class => "img-round") %>
               Portrait ändern
               <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
           <% else %>
