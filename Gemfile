@@ -75,7 +75,7 @@ gem 'httparty'
 # use devise for authentication
 gem 'devise', '~> 3.4.1'
 # for images
-gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick', '~> 4.2.4'
 # use seo-friendly urls
 gem 'friendly_id', '~> 5.1.0'
