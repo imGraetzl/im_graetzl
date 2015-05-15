@@ -101,7 +101,7 @@
     <div class="upload-image">
 
       <% if f.object.cover_photo? %>
-        <%= image_tag(f.object.cover_photo_url) %>
+        <%= image_tag(f.object.cover_photo_url(:small)) %>
         <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
         Cover-Foto ändern
 
