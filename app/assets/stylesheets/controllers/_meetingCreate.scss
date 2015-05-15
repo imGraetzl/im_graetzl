@@ -70,6 +70,14 @@
 }
 
 .meet-picture {
-
+  .upload-image {
+    display: table;
+    margin: 0 auto;
+    width: auto;
+  }
+  .imgCrop {
+    width: 450px;
+    height: 250px;
+  }
 }
 
