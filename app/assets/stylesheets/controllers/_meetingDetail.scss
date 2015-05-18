@@ -61,7 +61,7 @@
     top: -100px;
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.8s linear;
+    transition: opacity 0.8s 0.5s linear;
     &:before {
       content: '';
       display: block;

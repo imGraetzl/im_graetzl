@@ -1,25 +1,12 @@
 .upload-image {
   @extend %file-group;
-  .imgCrop {
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    margin-bottom: 0.6rem;
-    img {
-      position: absolute;
-      width: 100%;
-      display: block;
-    }
-  }
+
   [class^=icon-]:first-of-type {
     margin-right: 1rem;
     display: inline-block;
     vertical-align: middle;
   }
   [class^=icon-delete] {
-    display: none;
-  }
-  .deleteCheckbox {
     display: none;
   }
 }

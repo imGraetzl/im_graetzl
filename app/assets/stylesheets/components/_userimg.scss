@@ -1,3 +1,13 @@
+@mixin img-round() {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid $color-ambient-mint;
+  background-color: lighten($color-ambient-mint, 20);
+  padding: 3px;
+}
+
+
 .userDummy {
   overflow: hidden;
   position: relative;

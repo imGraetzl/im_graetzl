@@ -282,7 +282,19 @@
   color: $form-color-primary;
   display: table;
   width: 100%;
-  [class*=delete] {
+  .imgCrop {
+    overflow: hidden;
+    width: 400px;
+    height: 200px;
+    position: relative;
+    margin-bottom: 0.6rem;
+    img {
+      width: 100%;
+      position: absolute;
+      display: block;
+    }
+  }
+  [class*=icon-delete] {
     position: relative;
     z-index: 2;
     margin-left: 1rem;
@@ -297,7 +309,11 @@
     display: block;
     width: 100%;
     height: 100%;
-    opacity: 1;
+    opacity: 0;
+  }
+  .checkbox-group {
+    z-index: 2;
+    display: inline-block;
   }
 }
 

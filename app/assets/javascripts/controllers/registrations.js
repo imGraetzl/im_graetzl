@@ -3,6 +3,7 @@ APP.controllers.registrations = (function() {
     function init() {
 
         APP.components.inputTextareaMovingLabel();
+        APP.components.imgUploadPreview();
 
         $('#user_birthday').mask('00/00/0000');
 

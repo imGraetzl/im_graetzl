@@ -99,27 +99,38 @@
 }
 .form-register {
   @include cf;
+
   .input-group,
   .select-group,
-  .upload-portrait {
+  .upload-image,
+  .wrp-checkboxes {
     margin-bottom: 1.5rem;
+  }
+
+  .imgCrop {
+    margin: 0 auto 1rem auto;
+    width: 100px;
+    height: 100px;
+    img {
+      width: auto;
+    }
   }
 
   @include respond-to(">=medium") {
     .input-group,
     .select-group,
-    .upload-portrait {
+    .upload-image,
+    .wrp-checkboxes {
       width: 48%;
       float: left;
       margin-right: 1%;
       margin-left: 1%;
     }
-    .username {
-      margin-right: 51%;
+    .upload-image {
+      width: auto;
+      margin-left: 1%;
     }
-    .wrp-checkboxes {
-      margin-bottom: 0;
-    }
+
     .row {
       @include cf;
       clear: both;

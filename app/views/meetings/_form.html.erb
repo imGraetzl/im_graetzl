@@ -93,21 +93,19 @@
       <p>Hast du vielleicht ein Foto für dein Treffen?<br>
         Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
 
-      <div class="upload-image">
+      <div class="upload-image js-imgUpld">
 
         <% if f.object.cover_photo? %>
-            <%= f.check_box :remove_cover_photo, class: 'deleteCheckbox' %>
-        <% end %>
-
-
-        <% if f.object.cover_photo? %>
-            <div class="imgCrop"> <%= image_tag(f.object.cover_photo_url) %></div>
+            <div class="imgCrop"><%= image_tag(f.object.cover_photo_url) %></div>
             <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Cover-Foto ändern
-
+            Foto ändern
+            <div class="checkbox-group">
+              <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+              <%= f.label :remove_cover_photo, 'Foto Löschen' %>
+            </div>
         <% else %>
             <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Cover-Foto hochladen
+            Foto hochladen
         <% end %>
 
         <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
@@ -115,6 +113,7 @@
         <%= f.hidden_field :cover_photo_cache %>
 
       </div>
+
     </div>
 
     <div class="meet-categories">
