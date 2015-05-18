@@ -84,7 +84,7 @@ class MeetingsController < ApplicationController
     end
 
     def merge_changes
-      if params[:feature].present? || (params[:address].blank? && @meeting.address.street_name.present?)
+      if params[:feature].present? || (params[:address].blank? && @meeting.address.present?)
         new_address_attrs = Address.new_from_json_string(params[:feature]).attributes
         @meeting.address.merge_feature(new_address_attrs)
       end

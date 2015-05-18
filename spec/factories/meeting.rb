@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :meeting do |m|
     m.name { Faker::Lorem.sentence }
     m.description { Faker::Lorem.paragraph }
+    address    
 
     factory :meeting_full do |m|
       m.starts_at_date { Faker::Date.forward() }
