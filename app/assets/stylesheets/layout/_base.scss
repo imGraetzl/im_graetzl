@@ -22,6 +22,7 @@ footer {
   max-width: $layout-max-width;
   position: relative;
   margin: 0 auto;
+  display: block;
 }
 
 main {
@@ -33,6 +34,10 @@ a {
   &:hover {
     text-decoration: none;
   }
+}
+
+img {
+  border: 0;
 }
 
 input, select, textarea {
