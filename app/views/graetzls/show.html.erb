@@ -3,20 +3,32 @@
 <h1><%= @graetzl.short_name %></h1>
 
 <div>
-  <h5>Users: <%= @graetzl.users.count %></h5>
-  <ul>
-    <% @graetzl.users.each do |user| %>
-      <li><%= user.username %></li>
+  <h2>Nächste Treffen</h2>
+  <% @graetzl.next_meetings.each do |meeting| %>
+
+    <%= link_to [@graetzl, meeting] do %>      
+      <strong>
+        <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
+        <%= meeting.starts_at_date.day %>
+      </strong>
+      <p><%= meeting.name %><br><%= meeting.users.count %> nehmen schon teil</p>
     <% end %>
-  </ul>
+
+  <% end %>
+
+  <%= link_to 'Alle Treffen im Grätzl', graetzl_meetings_path(@graetzl) %>
 </div>
 
-<div>
-  <h5>Meetings: <%= @graetzl.meetings.count %></h5>
-  <ul>
-    <% @graetzl.meetings.each do |meeting| %>
-      <li><%= link_to meeting.name, [@graetzl, meeting] %></li>
-    <% end %>
-  </ul>
-  <%= link_to 'Neues Treffen initiieren', new_graetzl_meeting_path(@graetzl) %>
+<div class="stream">
+
+  <%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
+    <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
+  <% end %>
+
+  <div class="writeEntry">
+    Stream
+  </div>
+  <div class="streamEntry">
+
+  </div>
 </div>

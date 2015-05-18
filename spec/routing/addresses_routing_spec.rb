@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe AddressesController, type: :routing do
+
   describe 'routing' do
 
     it 'routes GET addresses/registration to #registration' do
@@ -15,6 +16,7 @@ RSpec.describe AddressesController, type: :routing do
       expect(post: 'addresses/match').to route_to('addresses#match')
     end
   end
+  
 
   describe 'named routing' do
 

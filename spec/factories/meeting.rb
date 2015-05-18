@@ -6,7 +6,7 @@ FactoryGirl.define do
     m.description { Faker::Lorem.paragraph }
 
     factory :meeting_full do |m|
-      m.starts_at { Faker::Date.forward() }
+      m.starts_at_date { Faker::Date.forward() }
       m.address { build(:address) }
       m.graetzls { [build(:graetzl)] }
     end

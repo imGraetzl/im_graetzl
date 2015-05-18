@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do
-    resources :treffen,  as: :meetings, controller: :meetings
+    resources :treffen, as: :meetings, controller: :meetings
   end
 
   resources :going_tos, only: [:create, :destroy]

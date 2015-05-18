@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'carrierwave/test/matchers'
 
 RSpec.describe Meeting, type: :model do
+  include CarrierWave::Test::Matchers
   
   # check factory
   it 'has a valid factory' do
@@ -13,85 +15,48 @@ RSpec.describe Meeting, type: :model do
       expect(build(:meeting_full, name: nil)).not_to be_valid
     end
 
-    it 'invalid without description' do
-      expect(build(:meeting_full, description: nil)).not_to be_valid
+    it 'invalid with starts_at_date in past' do
+      expect(build(:meeting_full, starts_at_date: 1.day.ago)).not_to be_valid
     end
 
-    # it 'invalid with starts_at in past' do
-    #   expect(build(:meeting_full, starts_at: 1.day.ago)).not_to be_valid
-    # end
-
-    # it 'invalid with ends_at in past' do
-    #   expect(build(:meeting_full, ends_at: 1.day.ago)).not_to be_valid
-    # end
-
-    # it 'invalid with ends_at before_starts_at' do
-    #   expect(build(:meeting_full, starts_at: Time.now + 1.day, ends_at: Time.now)).not_to be_valid
-    # end
+    it 'invalid with ends_at_time before_starts_at_time' do
+      expect(build(:meeting_full, starts_at_date: Date.today, starts_at_time: Time.now + 1.hour, ends_at_time: Time.now)).not_to be_valid
+    end
   end
 
-  # instance methods
-  describe '#complete_datetimes' do
-    let(:meeting) { build(:meeting) }
 
-    context 'when no ends_at_time set' do
-      before { meeting.complete_datetimes }
+  describe '#cover_photo' do
+    let(:meeting) { build_stubbed(:meeting) }
 
-      it 'does not set ends_at_date and ends_at_time' do
-        expect(meeting.ends_at_date).to be_nil
-        expect(meeting.ends_at_time).to be_nil
+    context 'when file uploaded' do
+      before do
+        File.open(File.join(Rails.root, 'spec', 'support', 'cover_photo_test.png')) do |f|
+          meeting.cover_photo = f
+        end        
       end
 
-      it 'does not set ends_at' do
-        expect(meeting.ends_at).to be_nil
+      it 'has cover_photo' do
+        expect(meeting.cover_photo.identifier).to eq('cover_photo_test.png')
+      end
+
+      it 'has retina dimension' do
+        expect(meeting.cover_photo).to have_dimensions(1800, 1000)
+      end
+
+      it 'has small version' do
+        expect(meeting.cover_photo.small).to have_dimensions(900, 500)
+        expect(meeting.cover_photo_url(:small)).to include('small_cover_photo_test.png')
       end
     end
 
-    context 'when ends_at_time and no starts_at set' do
-      before do
-        meeting.ends_at_time = '20:00'
-        meeting.complete_datetimes
+    context 'when no file uploaded' do
+
+      it 'returns default avatar' do
+        expect(meeting.cover_photo_url).to eq('cover_photo/default.jpg')
       end
 
-      it 'sets ends_at_date to today' do
-        expect(meeting.ends_at_date.strftime('%Y-%m-%d')).to eq(Time.now.strftime('%Y-%m-%d'))
-      end
-
-      it 'keeps ends_at_time' do
-        expect(meeting.ends_at_time.strftime('%H:%M')).to eq('20:00')
-      end
-    end
-
-    context 'when ends_at_time and starts_at_time set' do
-      before do
-        meeting.ends_at_time = '20:00'
-        meeting.starts_at_time = '19:00'
-        meeting.complete_datetimes
-      end
-
-      it 'sets ends_at_date to today' do
-        expect(meeting.ends_at_date.strftime('%Y-%m-%d')).to eq (Time.now.strftime('%Y-%m-%d'))
-      end
-
-      it 'keeps ends_at_time' do
-        expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
-      end
-    end
-
-    context 'when ends_at_time set and starts_at set' do
-      before do
-        meeting.ends_at_time = '20:00'
-        meeting.starts_at_date = '2020-01-01'
-        meeting.starts_at_time = '19:00'
-        meeting.complete_datetimes
-      end
-
-      it 'sets ends_at_date to starts_at_date' do
-        expect(meeting.ends_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
-      end
-
-      it 'keeps ends_at_time' do
-        expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
+      it 'returns small version' do
+        expect(meeting.cover_photo_url(:small)).to include('small_default.jpg')
       end
     end
   end

@@ -6,8 +6,6 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
-  process resize_to_fill: [900, 500]
-
   # Choose what kind of storage to use for this uploader:
   storage :file
 
@@ -25,24 +23,14 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
     'cover_photo/' + [version_name, 'default.jpg'].compact.join('_')
     #'https://placeimg.com/900/500/people'
   end
-  # def default_url
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
 
   # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  process resize_to_fill: [1800, 1000]
 
   # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :resize_to_fit => [50, 50]
-  # end
+  version :small do
+    process resize_to_fill: [900, 500]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

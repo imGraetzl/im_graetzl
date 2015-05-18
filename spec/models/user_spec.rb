@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'carrierwave/test/matchers'
 
 RSpec.describe User, type: :model do
+  include CarrierWave::Test::Matchers
   
   # check factory
   it 'has a valid factory' do
@@ -211,6 +213,57 @@ RSpec.describe User, type: :model do
 
       it 'returns false' do
         expect(user.going_to?(meeting)).to be_falsey
+      end
+    end
+  end
+
+
+  describe '#avatar' do
+    let(:user) { build_stubbed(:user) }
+
+    context 'when file uploaded' do
+      before do
+        File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.png')) do |f|
+          user.avatar = f
+        end        
+      end
+
+      it 'has avatar' do
+        expect(user.avatar.identifier).to eq('avatar_test.png')
+      end
+
+      it 'has large version' do
+        expect(user.avatar.large).to have_dimensions(300, 300)
+        expect(user.avatar_url(:large)).to include('large_avatar_test.png')
+      end
+
+      it 'has medium version' do
+        expect(user.avatar.medium).to have_dimensions(200, 200)
+        expect(user.avatar_url(:medium)).to include('medium_avatar_test.png')
+      end
+
+      it 'has small version' do
+        expect(user.avatar.small).to have_dimensions(100, 100)
+        expect(user.avatar_url(:small)).to include('small_avatar_test.png')
+      end
+    end
+
+    context 'when no file uploaded' do
+
+      it 'returns default avatar' do
+        expect(user.avatar_url).to eq('avatar/default.png')
+      end
+
+      it 'returns large version' do
+        expect(user.avatar_url(:large)).to include('large_default.png')
+      end
+
+      it 'returns medium version' do
+        expect(user.avatar_url(:medium)).to include('medium_default.png')
+      end
+
+      it 'returns small version' do
+        expect(user.avatar_url(:small)).to include('small_default.png')
       end
     end
   end

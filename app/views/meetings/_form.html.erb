@@ -88,7 +88,6 @@
       </div>
     </div>
 
-
     <div class="meet-picture">
       <p>Hast du vielleicht ein Foto für dein Treffen?<br>
         Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
@@ -96,7 +95,7 @@
       <div class="upload-image js-imgUpld">
 
         <% if f.object.cover_photo? %>
-            <div class="imgCrop"><%= image_tag(f.object.cover_photo_url) %></div>
+            <div class="imgCrop"><%= image_tag(f.object.cover_photo_url(:small)) %></div>
             <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
             Foto ändern
             <div class="checkbox-group">
@@ -113,7 +112,6 @@
         <%= f.hidden_field :cover_photo_cache %>
 
       </div>
-
     </div>
 
     <div class="meet-categories">

@@ -80,7 +80,7 @@
 
         <div class="upload-image js-imgUpld">
           <% if resource.avatar? %>
-              <div class="imgCrop"><%= image_tag(resource.avatar_url(:thumb)) %></div>
+              <div class="imgCrop"> <%= image_tag(resource.avatar_url(:small)) %></div>
               <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
               Portrait ändern
               <div class="checkbox-group">
@@ -96,9 +96,6 @@
           <%= f.file_field :avatar %>
           <%= f.hidden_field :avatar_cache %>
         </div>
-
-
-
 
         <div class="wrp-checkboxes">
           <div class="checkbox-group">
