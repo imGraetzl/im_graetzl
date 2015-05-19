@@ -1,108 +1,181 @@
+%navFont {
+  color: $color-ambient-mint-dark;
+  font-family: $font-tertiary;
+  font-size: 1.4rem;
+}
+
 header {
   margin-bottom: 2rem;
-  position: relative;
-  background-color: $color-background-mint;
-  border-bottom: 1px solid lighten($color-ambient-mint, 18);
-  color: grey;
-  z-index: 4;
-  display: block;
-  .titleImg {
-
-  }
-  .inner {
-    padding: 0.1rem 0;
-    max-width: $layout-max-width;
-    margin: 0 auto;
-  }
-  @include respond-to(">medium") {
-    padding: 0.3rem 0;
-    margin-bottom: 4rem;
-  }
-}
-
-.logo-graetzl {
-  width: 100px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #DEEAE6;
   display: block;
   @include respond-to(">large") {
-    width: 140px;
+    margin-bottom: 6rem;
+  }
+
+  .inner {
+    width: 90%;
+    margin: 0 auto;
+    max-width: $layout-max-width;
+  }
+
+  .upperNavHolder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    position: relative;
+    @include respond-to(">=medium") {
+      height: 70px;
+    }
   }
 }
 
-.nav-openClose {
-  display: none;
+
+.logoGraetzl {
   position: absolute;
-  right: 0;
-  top: 0.8rem;
-  &.active .icon-list {
-    fill: $color-ambient-mint;
+  width: 80px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  @include respond-to(">=medium") {
+    width: 100px;
   }
-  @include respond-to(">medium") {
+  @include respond-to(">=large") {
+    width: 203px;
+    background: url(image_path('bg-logo-bottom.png')) no-repeat center bottom;
+    top: 20px;
+    transform: translate(-50%, 0);
+  }
+
+  img {
+    width: 100%;
+    display: block;
+    max-width: 120px;
+    @include respond-to(">=large") {
+      padding-bottom: 20px;
+      margin: 0 auto;
+    }
+  }
+}
+
+
+.mobileNavToggle {
+  @include respond-to(">=large") {
     display: none;
   }
+
+  span {
+    display: none;
+    @extend %navFont;
+    @include respond-to(">500px") {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  [class*=icon-] {
+    display: inline-block;
+    vertical-align: middle;
+    width: 29px;
+    height: 29px;
+    fill: $color-ambient-rosa;
+    @include respond-to(">500px") {
+      margin-right: 0.5rem;
+      width: 35px;
+      height: 35px;
+    }
+  }
 }
 
-nav {
-  display: none !important;
-  li {
-    border-top: 1px dotted $color-ambient-mint;
-    list-style: none;
-  }
+
+.nav-mainActions, .nav-loggedOut {
   a {
-    padding: 0.5rem 0;
+    @extend %navFont;
     text-decoration: none;
     display: block;
+    text-align: center;
+    &:hover {
+      color: $color-ambient-rosa;
+    }
+    @include respond-to(">=large") {
+      float: left;
+      padding-right: 20px;
+      margin-right: 20px;
+      border-right: 1px dotted lighten($color-ambient-mint, 10);
+      &:last-child {
+        padding-right: 0;
+        margin-left: 0;
+        border: none;
+      }
+    }
   }
-  @include respond-to(">medium") {
+}
+
+.mobileNavHolder {
+  display: none;
+  background-color: lighten($color-ambient-mint, 20);
+  @include respond-to(">=large") {
+    display: none !important;
+  }
+}
+.upperNavHolder {
+  .nav-mainActions, .nav-loggedOut {
+    display: none;
+    @include respond-to(">=large") {
+      display: block;
+    }
+  }
+}
+
+
+.nav-userContext {
+  display: flex;
+  align-items: center;
+}
+
+.newNotifications {
+  [class*=icon-] {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.userSettings {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  .img-user {
+    @include img-round(35px);
+    display: block;
+    @include respond-to(">=medium") {
+      width: 45px;
+      height: 45px;
+    }
+  }
+
+  .username {
+    @extend %navFont;
+    display: none;
+    @include respond-to(">600px") {
+      display: block;
+      margin-left: 10px;
+    }
+  }
+}
+
+.contextMenu {
+  position: relative;
+  .toggle {
+
+  }
+
+  .toggleContent {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
     display: none;
   }
-}
 
-.nav-primary {
-  padding-top: 0.7rem;
-}
-
-.nav-secondary {
-  padding-bottom: 1rem;
-}
-
-.nav-search {
-  input {
-    border-bottom: none;
-  }
-  button {
-    background-color: transparent;
-    border: none;
-    margin-left: 0.4rem;
-  }
-}
-
-// ---------------------------------------------------------------------- Navigation Vendor
-
-.js nav {
-  clip: rect(0 0 0 0);
-  max-height: 0;
-  //position: absolute;
-  //display: block;
-  overflow: hidden;
-  zoom: 1;
-}
-
-nav.opened {
-  max-height: 9999px;
-}
-
-.nav-toggle, .nav-openClose {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
-}
-
-@include respond-to(">medium") {
-  .js .nav-wrapper.closed {
-    max-height: none;
-  }
 }

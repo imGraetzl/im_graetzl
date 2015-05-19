@@ -22,7 +22,7 @@
 $breakpoints: (
         'small': 320px,
         'medium': 650px,
-        'large': 1024px
+        'large': 1015px
 ) !default;
 
 ///
@@ -34,7 +34,7 @@ $breakpoints: (
 ///  $media-expressions: ('screen': 'screen');
 ///
 /// @example scss - Creates a static expression with logical disjunction (OR operator)
-///  $media-expressions: (
+///  $media-expressions: (65
 ///		'retina2x': (
 ///			'(-webkit-min-device-pixel-ratio: 2)',
 ///			'(min-resolution: 192dpi)'

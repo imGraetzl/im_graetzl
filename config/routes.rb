@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'static_pages/welcome'
   get 'static_pages/meetingCreate'
   get 'static_pages/meetingDetail'
+  get 'static_pages/homeOut'
   root 'static_pages#welcome'
 
   resources :graetzls, only: [:index]

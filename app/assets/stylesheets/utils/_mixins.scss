@@ -51,3 +51,12 @@
     top: 0;
   }
 }
+
+@mixin img-round($imgDimensions: 40px) {
+  border-radius: 50%;
+  border: 1px solid $color-ambient-mint;
+  background-color: #ffffff;
+  padding: 3px;
+  width: $imgDimensions;
+  height: $imgDimensions;
+}

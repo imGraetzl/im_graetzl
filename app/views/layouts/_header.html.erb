@@ -1,14 +1,68 @@
 <header>
-  <% if user_signed_in? %>
+  <div class="inner">
 
-    <%= link_to(image_tag('logo.png', class: 'logo-graetzl'), current_user.graetzl) %>
+    <div class="upperNavHolder">
+
+      <div class="mobileNavToggle">
+        <svg class="icon-menu"><use xlink:href="#icon-menu"></use></svg>
+        <span>Navigation</span>
+      </div>
+
+      <div class="nav-mainActions">
+        <a href="" class="discover">Grätzl entdecken</a>
+        <a href="" class="createMeeting">Treffen anlegen</a>
+      </div>
+
+      <div class="logoGraetzl">
+        <%= link_to(image_tag('logo.png'), root_path) %>
+      </div>
+
+      <% if user_signed_in? %>
+          <div class="nav-userContext">
+            <div class="newNotifications contextMenu">
+              <div class="toggle">
+                <svg class="icon-mail"><use xlink:href="#icon-mail"></use></svg>
+              </div>
+              <div class="toggleContent">
+                sdsd
+              </div>
+            </div>
+            <div class="userSettings">
+              <img src="https://placeimg.com/60/60/people" alt="" class="img-user"/>
+              <div class="username">Peckomingo</div>
+            </div>
+          </div>
+      <% else %>
+          <div class="nav-loggedOut">
+            <a href="" class="register">Kostenos registrieren</a>
+            <a href="" class="login">Anmelden</a>
+          </div>
+      <% end %>
+
+    </div>
+
+    <div class="mobileNavHolder">
+      <div class="nav-mainActions">
+        <a href="" class="discover">Grätzl entdecken</a>
+        <a href="" class="createMeeting">Treffen anlegen</a>
+      </div>
+      <div class="nav-loggedOut">
+        <a href="" class="register">Kostenos registrieren</a>
+        <a href="" class="login">Anmelden</a>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</header>
+
+<% if user_signed_in? %>
+
     <%= link_to 'Abmelden', destroy_user_session_path, method: :delete %>
 
-  <% else %>
-  
-    <%= link_to(image_tag('logo.png', class: 'logo-graetzl'), root_path) %>
+<% else %>
 
-  <% end %>
 
-  <%= render 'layouts/flash_messages' %>
-</header>
+<% end %>

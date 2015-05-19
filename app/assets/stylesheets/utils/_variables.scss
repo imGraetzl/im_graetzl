@@ -1,17 +1,19 @@
 $font-primary: 'Lato', sans-serif;
 $font-secondary: 'Amatic SC', cursive;
+$font-tertiary: 'Loved by the King', cursive;
 
 $color-font-primary: #615454;
 $color-font-secondary: #59453e;
 $color-font-bright: #F6FAFB;
 
 $color-ambient-mint: #83C7BD;
+$color-ambient-mint-dark: #69a8a7;
 $color-ambient-rosa: #EC776A;
 $color-ambient-grey: #9b9b9b;
 
 $color-background-bright: #F6FAFB;
 $color-background-mint: lighten($color-ambient-mint, 25);
-$layout-max-width: 1024px;
+$layout-max-width: 990px;
 
 
 // default color for input, selects, radios
