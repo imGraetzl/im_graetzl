@@ -20,15 +20,14 @@ module MeetingsHelper
     end
   end
 
-  def map_link
-    coords = @meeting.address.coordinates
-    "http://www.openstreetmap.org/?mlat=#{coords.y}&mlon=#{coords.x}&zoom=18"
+  def map_link(coordinates)
+    "http://www.openstreetmap.org/?mlat=#{coordinates.y}&mlon=#{coordinates.x}&zoom=18"
   end
 
-  def address_description
-    if @meeting.address.description.present?
-      content_tag(:strong, @meeting.address.description) + tag(:br)
-    elsif @meeting.address.coordinates.blank?
+  def address_description(address)
+    if address.description.present?
+      content_tag(:strong, address.description) + tag(:br)
+    elsif address.coordinates.blank?
       content_tag(:strong, 'Ort steht noch nicht fest...')
     end
   end

@@ -2,7 +2,7 @@
 
   <% if address.coordinates %>
 
-    <%= link_to map_link, target: '_blank', class: 'wrp-icon' do %>
+    <%= link_to map_link(address.coordinates), target: '_blank', class: 'wrp-icon' do %>
       <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
       Karte
     <% end %>
@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="address">
-    <%= address_description %>
+    <%= address_description(address) %>
     <%= "#{address.street_name} #{address.street_number}" %><br>
     <%= "#{address.zip} #{address.city}" %>
   </div>
