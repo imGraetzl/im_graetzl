@@ -11,11 +11,12 @@ RSpec.describe MeetingsController, type: :controller do
       before { get :show, graetzl_id: graetzl.id, id: meeting.id }
 
       it 'returns a 200 OK status' do
+        expect(response).to be_success
         expect(response).to have_http_status(:ok)
       end
 
       it 'renders #show' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to render_template(:show)
       end
     end
 
@@ -26,13 +27,67 @@ RSpec.describe MeetingsController, type: :controller do
       end
       
       it 'returns a 200 OK status' do
+        expect(response).to be_success
         expect(response).to have_http_status(:ok)
       end
 
       it 'renders #show' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns @graetzl and @meeting' do
+        expect(assigns(:meeting)).to eq(meeting)
+        expect(assigns(:graetzl)).to eq(graetzl)
       end
     end
+  end
+
+
+  describe 'GET index' do
+    before do
+      3.times { new_meeting = create(:meeting, graetzls: [graetzl]) }
+    end
+
+    context 'when no current_user' do
+      before { get :index, graetzl_id: graetzl.id }
+
+      it 'returns a 200 OK status' do
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #index' do
+        expect(response).to render_template(:index)
+      end
+    end
+
+    context 'when current_user' do
+      before do
+        sign_in user
+        get :index, graetzl_id: graetzl.id
+      end
+      
+      it 'returns a 200 OK status' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #index' do
+        expect(response).to render_template(:index)
+      end
+
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq(graetzl)
+      end
+
+      it 'assigns @meetings to @graetzl.meetings' do
+        expect(assigns(:meetings)).to eq(graetzl.meetings)
+      end
+
+      it 'has 3 meetings' do
+        expect(assigns(:meetings).count).to eq(3)        
+      end
+    end
+
   end
 
   describe 'GET new' do

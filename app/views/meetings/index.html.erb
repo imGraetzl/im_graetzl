@@ -2,8 +2,12 @@
 
 <h1><%= @graetzl.short_name %></h1>
 
-<%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
-  <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
+<% if user_signed_in? %>
+
+  <%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
+    <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
+  <% end %>
+  
 <% end %>
 
 <h2>Treffen im <%= @graetzl.short_name %></h2>
