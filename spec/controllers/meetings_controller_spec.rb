@@ -46,6 +46,8 @@ RSpec.describe MeetingsController, type: :controller do
   describe 'GET index' do
     before do
       3.times { new_meeting = create(:meeting, graetzls: [graetzl]) }
+      past_meeting = build(:meeting, graetzls: [graetzl], starts_at_date: Date.yesterday)
+      past_meeting.save(validate: false)
     end
 
     context 'when no current_user' do
@@ -83,8 +85,21 @@ RSpec.describe MeetingsController, type: :controller do
         expect(assigns(:meetings)).to eq(graetzl.meetings)
       end
 
-      it 'has 3 meetings' do
-        expect(assigns(:meetings).count).to eq(3)        
+      it 'has 4 meetings' do
+        expect(assigns(:meetings).count).to eq(4)        
+      end
+
+      it 'assigns @meetings_current and @meetings_past' do
+        expect(assigns(:meetings_current)).to be
+        expect(assigns(:meetings_past)).to be
+      end
+
+      it 'has 3 meetings_current' do
+        expect(assigns(:meetings_current).count).to eq(3)
+      end
+
+      it 'has 1 meetings_past' do
+        expect(assigns(:meetings_past).count).to eq(1)
       end
     end
 

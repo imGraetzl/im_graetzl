@@ -10,10 +10,8 @@
   
 <% end %>
 
-<h2>Treffen im <%= @graetzl.short_name %></h2>
-
-<% @graetzl.meetings.each do |meeting| %>
-
+<%= content_tag(:h2, "Treffen im #{@graetzl.short_name}") unless @meetings_current.empty? %>
+<% @meetings_current.each do |meeting| %>
   <%= link_to [@graetzl, meeting] do %>
     <% if meeting.starts_at_date %>
       <strong>
@@ -25,4 +23,20 @@
   <% end %>
 
 <% end %>
+
+
+<%= content_tag(:h2, 'Vergangene Treffen') unless @meetings_past.empty? %>
+<% @meetings_past.each do |meeting| %>
+  <%= link_to [@graetzl, meeting] do %>
+    <% if meeting.starts_at_date %>
+      <strong>
+        <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
+        <%= meeting.starts_at_date.day %>
+      </strong>
+    <% end %>
+    <p><%= meeting.name %><br><%= meeting.users.count %> haben teilgenommen</p>
+  <% end %>
+
+<% end %>
+
   
