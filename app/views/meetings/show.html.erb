@@ -9,7 +9,7 @@
 
 <div class="entryDescription">
 
-  <%= render 'time', object: @meeting %>
+  <%= render 'time', meeting: @meeting %>
 
   <%= render 'location', address: @meeting.address %>  
 
@@ -18,7 +18,7 @@
 </div>
 
 <div class="entryParticipate">
-  <%= render 'participation', object: @meeting %>
+  <%= render 'participation', users: @meeting.users %>
 </div>
 
 <div class="stream">

@@ -1,2 +1,2 @@
 console.log('attending');
-$('div.entryParticipate').html("<%= escape_javascript(render 'meetings/participation', object: @meeting) %>");
+$('div.entryParticipate').html("<%= escape_javascript(render 'meetings/participation', users: @meeting.users) %>");
