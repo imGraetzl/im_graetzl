@@ -6,6 +6,35 @@ RSpec.describe MeetingsController, type: :controller do
   let(:user) { create(:user, graetzl: graetzl) }
   let(:meeting) { create(:meeting, graetzls: [graetzl]) }
 
+  describe 'GET show' do
+    context 'when no current_user' do
+      before { get :show, graetzl_id: graetzl.id, id: meeting.id }
+
+      it 'returns a 200 OK status' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #show' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when current_user' do
+      before do
+        sign_in user
+        get :show, graetzl_id: graetzl.id, id: meeting.id
+      end
+      
+      it 'returns a 200 OK status' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #show' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
   describe 'GET new' do
     context 'when no current_user' do
       it 'redirects to login' do
