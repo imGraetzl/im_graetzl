@@ -34,7 +34,7 @@
         <div class="wrp-icon">
           <svg class="icon-pin"><use xlink:href="#icon-pin"></use></svg>
         </div>
-        <%= text_field_tag :address, address_value(f.object) %>
+        <%= text_field_tag :address, address_value(f.object.address) %>
         <%= label_tag :address, 'Straße Hausnummer' %>
         <%= hidden_field_tag :feature %>
       </div>
