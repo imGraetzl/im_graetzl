@@ -66,7 +66,7 @@ class MeetingsController < ApplicationController
         :cover_photo_cache,
         :remove_cover_photo,
         category_ids: [],
-        address_attributes: [:description])
+        address_attributes: [:id, :description])
     end
 
     def set_graetzl
@@ -84,7 +84,7 @@ class MeetingsController < ApplicationController
     end
 
     def merge_changes
-      if params[:feature].present?
+      if params[:feature].present? || (params[:address].blank? && @meeting.address.present?)
         new_address_attrs = Address.new_from_json_string(params[:feature]).attributes
         @meeting.address.merge_feature(new_address_attrs)
       end
