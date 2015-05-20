@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514185950) do
+ActiveRecord::Schema.define(version: 20150520142442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,14 @@ ActiveRecord::Schema.define(version: 20150514185950) do
 
   add_index "categories_meetings", ["category_id"], :name => "index_categories_meetings_on_category_id"
   add_index "categories_meetings", ["meeting_id"], :name => "index_categories_meetings_on_meeting_id"
+
+  create_table "districts", force: true do |t|
+    t.string   "name"
+    t.string   "zip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
+  end
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
