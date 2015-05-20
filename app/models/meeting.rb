@@ -28,6 +28,13 @@ class Meeting < ActiveRecord::Base
     true
   end
 
+  def past?
+    if starts_at_date
+      return starts_at_date < Date.today
+    end
+    false    
+  end
+
   private
 
     def starts_at_date_cannot_be_in_the_past

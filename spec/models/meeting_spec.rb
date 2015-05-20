@@ -60,4 +60,84 @@ RSpec.describe Meeting, type: :model do
       end
     end
   end
+
+
+  describe '#upcoming?' do
+    let(:meeting) { build_stubbed(:meeting) }
+
+    context 'without starts_at_date' do
+
+      it 'has no starts_at_date' do
+        expect(meeting.starts_at_date).to be_falsey
+      end
+
+      it 'returns true' do
+        expect(meeting.upcoming?).to be_truthy
+      end
+    end
+
+    context 'with starts_at_date in future' do
+      before { meeting.starts_at_date = Date.tomorrow }
+      
+      it 'has starts_at_date' do
+        expect(meeting.starts_at_date).to be_truthy
+      end
+
+      it 'returns true' do
+        expect(meeting.upcoming?).to be_truthy
+      end
+    end
+
+    context 'with starts_at_date in past' do
+      before { meeting.starts_at_date = Date.yesterday }
+      
+      it 'has starts_at_date' do
+        expect(meeting.starts_at_date).to be_truthy
+      end
+
+      it 'returns true' do
+        expect(meeting.upcoming?).to be_falsey
+      end
+    end
+  end
+  
+
+  describe '#past?' do
+    let(:meeting) { build_stubbed(:meeting) }
+
+    context 'without starts_at_date' do
+
+      it 'has no starts_at_date' do
+        expect(meeting.starts_at_date).to be_falsey
+      end
+
+      it 'returns true' do
+        expect(meeting.past?).to be_falsey
+      end
+    end
+
+    context 'with starts_at_date in future' do
+      before { meeting.starts_at_date = Date.tomorrow }
+      
+      it 'has starts_at_date' do
+        expect(meeting.starts_at_date).to be_truthy
+      end
+
+      it 'returns true' do
+        expect(meeting.past?).to be_falsey
+      end
+    end
+
+    context 'with starts_at_date in past' do
+      before { meeting.starts_at_date = Date.yesterday }
+      
+      it 'has starts_at_date' do
+        expect(meeting.starts_at_date).to be_truthy
+      end
+
+      it 'returns true' do
+        expect(meeting.past?).to be_truthy
+      end
+    end
+  end
 end
