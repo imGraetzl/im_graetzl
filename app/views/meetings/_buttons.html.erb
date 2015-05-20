@@ -8,13 +8,13 @@
 
   <% elsif current_user.going_to?(meeting) %>
 
-    <%= button_to going_to_path(current_going_to(meeting)), method: :delete, remote: true, class: 'btn-userCallToAction' do %>
+    <%= button_to going_to_path(graetzl_id: @graetzl.id, id: current_going_to(meeting)), method: :delete, remote: true, class: 'btn-userCallToAction' do %>
         <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Nicht mehr teilnehmen
     <% end %>
 
   <% else %>
 
-    <%= button_to going_tos_path(meeting_id: meeting.id), remote: true, class: 'btn-userCallToAction' do %>
+    <%= button_to going_tos_path(meeting_id: meeting.id, graetzl_id: @graetzl.id), remote: true, class: 'btn-userCallToAction' do %>
       <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Am Treffen teilnehmen
     <% end %>
 

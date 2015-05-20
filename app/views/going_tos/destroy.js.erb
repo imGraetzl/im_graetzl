@@ -1,2 +1,12 @@
 console.log('no longer attending');
-$('div.entryParticipate').html("<%= escape_javascript(render 'meetings/participation', users: @meeting.users) %>");
+var meetingID = "<%= j(@meeting.id.to_s) %>"
+
+if ( $('div.entryParticipate').length ) {
+
+  $('div.entryParticipate').html("<%= escape_javascript(render 'meetings/participation', users: @meeting.users) %>");
+
+} else if ( $('div#meeting_' + meetingID).length ) {
+
+  $('div#meeting_' + meetingID).replaceWith("<%= j render 'meetings/meeting', meeting: @meeting %> ")
+
+}

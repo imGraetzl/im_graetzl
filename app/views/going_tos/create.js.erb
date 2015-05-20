@@ -1,12 +1,12 @@
 console.log('attending');
+var meetingID = "<%= j(@meeting.id.to_s) %>"
+
 if ( $('div.entryParticipate').length ) {
 
   $('div.entryParticipate').html("<%= j render 'meetings/participation', users: @meeting.users %>");
 
-} else if ($("<%= j(div#meeting_#{meeting.id}) %>").length) {
-  console.log("In else");
+} else if ( $('div#meeting_' + meetingID).length ) {
 
-  $("<%= j('div#meeting_#{meeting.id} p') %>")
-    .html('hello');
+  $('div#meeting_' + meetingID).replaceWith("<%= j render 'meetings/meeting', meeting: @meeting %> ")
 
 }

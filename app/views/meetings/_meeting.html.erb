@@ -5,7 +5,7 @@
     <p><small><%= meeting.users.count %> nehmen teil</small></p>
   <% end %>
 
-  <div id="button">
-    <%= render 'buttons', meeting: meeting if meeting.upcoming? %>
+  <div class="userCallToActionFields">
+    <%= render 'meetings/buttons', meeting: meeting if meeting.upcoming? %>
   </div>
 <% end %>
