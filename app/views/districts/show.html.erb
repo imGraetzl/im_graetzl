@@ -1,0 +1,6 @@
+<h1><%= @district.name %> | <%= @district.zip %></h1>
+
+<h2>Grätzl:</h2>
+<% @district.graetzls.each do |graetzl| %>
+  <%= link_to graetzl.short_name, graetzl %><br>
+<% end %>

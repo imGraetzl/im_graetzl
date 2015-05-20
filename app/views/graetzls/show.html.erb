@@ -1,7 +1,13 @@
 <% title(@graetzl.short_name) %>
 
 <h1><%= @graetzl.short_name %></h1>
-<%= content_tag(:small, "in #{@graetzl.districts.pluck(:zip).to_sentence}") unless @graetzl.districts.empty? %>
+
+<%= content_tag :span do %>
+  in
+  <% @graetzl.districts.each do |district| %>
+    <%= link_to district.zip, district %>
+  <% end %>
+<% end %>
 
 <div>
   <h2>Nächste Treffen</h2>

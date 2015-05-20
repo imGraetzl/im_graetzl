@@ -1,0 +1,5 @@
+<h1>Bezirke</h1>
+
+<% @districts.each do |district| %>
+  <%= link_to "#{district.zip} - #{district.name}", district %><br>
+<% end %>
