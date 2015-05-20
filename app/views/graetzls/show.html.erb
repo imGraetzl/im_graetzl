@@ -1,6 +1,7 @@
 <% title(@graetzl.short_name) %>
 
 <h1><%= @graetzl.short_name %></h1>
+<%= content_tag(:small, "in #{@graetzl.districts.pluck(:zip).to_sentence}") unless @graetzl.districts.empty? %>
 
 <div>
   <h2>Nächste Treffen</h2>

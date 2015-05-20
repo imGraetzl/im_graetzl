@@ -17,4 +17,8 @@ class Graetzl < ActiveRecord::Base
       .order(starts_at_date: :asc)
       .limit(2)
   end
+
+  def districts
+    District.where('ST_OVERLAPS(area, :graetzl)', graetzl: self.area)
+  end
 end
