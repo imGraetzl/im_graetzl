@@ -1,2 +1,12 @@
 console.log('attending');
-$('div.entryParticipate').html("<%= escape_javascript(render 'meetings/participation', users: @meeting.users) %>");
+if ( $('div.entryParticipate').length ) {
+
+  $('div.entryParticipate').html("<%= j render 'meetings/participation', users: @meeting.users %>");
+
+} else if ($("<%= j(div#meeting_#{meeting.id}) %>").length) {
+  console.log("In else");
+
+  $("<%= j('div#meeting_#{meeting.id} p') %>")
+    .html('hello');
+
+}

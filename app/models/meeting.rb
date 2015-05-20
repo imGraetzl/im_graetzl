@@ -20,6 +20,14 @@ class Meeting < ActiveRecord::Base
   validate :starts_at_date_cannot_be_in_the_past
   validate :ends_at_time_cannot_be_before_starts_at_time
 
+  # instance methods
+  def upcoming?
+    if starts_at_date
+      return starts_at_date > Date.today
+    end
+    true
+  end
+
   private
 
     def starts_at_date_cannot_be_in_the_past

@@ -1,42 +1,40 @@
 <% title(@graetzl.short_name) %>
 
-<h1><%= @graetzl.short_name %></h1>
+<div id="head-section">
+  <h1><%= @graetzl.short_name %></h1>
 
-<% if user_signed_in? %>
+  <% if user_signed_in? %>
 
-  <%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
-    <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
+    <%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
+      <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
+    <% end %>
+    
   <% end %>
-  
-<% end %>
+</div>
 
 <%= content_tag(:h2, "Treffen im #{@graetzl.short_name}") unless @meetings_current.empty? %>
-<% @meetings_current.each do |meeting| %>
-  <%= link_to [@graetzl, meeting] do %>
-    <% if meeting.starts_at_date %>
-      <strong>
-        <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
-        <%= meeting.starts_at_date.day %>
-      </strong>
-    <% end %>
-    <p><%= meeting.name %><br><%= meeting.users.count %> nehmen schon teil</p>
-  <% end %>
-
-<% end %>
+<%= render partial: 'meeting', collection: @meetings_current %>
 
 
 <%= content_tag(:h2, 'Vergangene Treffen') unless @meetings_past.empty? %>
-<% @meetings_past.each do |meeting| %>
-  <%= link_to [@graetzl, meeting] do %>
-    <% if meeting.starts_at_date %>
-      <strong>
-        <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
-        <%= meeting.starts_at_date.day %>
-      </strong>
-    <% end %>
-    <p><%= meeting.name %><br><%= meeting.users.count %> haben teilgenommen</p>
-  <% end %>
+<%= render partial: 'meeting', collection: @meetings_past %>
 
-<% end %>
+
+
+<!-- tmp styles -->
+<style type="text/css">
+  div#head-section {
+    padding-bottom: 1em;
+    margin-bottom: 3em;
+    border-bottom: 1px dotted #666;
+  }
+
+  div.meeting {
+    padding: 1em;
+    border: 1px solid #666;
+    margin-bottom: 1em;
+    background: #c2e4df;
+  }
+</style>
 
   
