@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'addresses/registration'
   post 'addresses/search'
   post 'addresses/match'
+  get 'addresses/update_graetzls'
 
   devise_for :users, controllers: { registrations: "registrations" }
 

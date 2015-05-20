@@ -19,4 +19,9 @@ class AddressesController < ApplicationController
     session[:graetzl] = graetzl.id
     redirect_to new_user_registration_path
   end
+
+  def update_graetzls
+    district = District.find(params[:district_id])
+    @graetzls = district.graetzls
+  end
 end

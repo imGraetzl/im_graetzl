@@ -1,0 +1,5 @@
+<div class="select-group" id="graetzl-select">
+  <label for="graetzl">Grätzl</label>
+  <%= select_tag :graetzl, options_from_collection_for_select(graetzls, 'id', 'short_name'),
+    { prompt: 'wählen', required: true } %>
+</div>

@@ -1,4 +1,5 @@
 class District < ActiveRecord::Base
+  default_scope { order('zip ASC') }
 
   # instance methods
   def graetzls
