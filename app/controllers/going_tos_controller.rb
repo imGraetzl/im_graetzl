@@ -1,8 +1,9 @@
 class GoingTosController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :set_graetzl
 
   def create
-    @meeting = Meeting.find(params[:meeting_id])
+    @meeting = @graetzl.meetings.find(params[:meeting_id])
     current_user.go_to(@meeting)
 
     respond_to do |format|
@@ -21,4 +22,10 @@ class GoingTosController < ApplicationController
       format.json { render json: @meeting }
     end
   end
+
+  private
+
+    def set_graetzl
+      @graetzl = Graetzl.find(params[:graetzl_id])
+    end
 end

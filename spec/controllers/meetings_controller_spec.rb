@@ -6,6 +6,105 @@ RSpec.describe MeetingsController, type: :controller do
   let(:user) { create(:user, graetzl: graetzl) }
   let(:meeting) { create(:meeting, graetzls: [graetzl]) }
 
+  describe 'GET show' do
+    context 'when no current_user' do
+      before { get :show, graetzl_id: graetzl.id, id: meeting.id }
+
+      it 'returns a 200 OK status' do
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #show' do
+        expect(response).to render_template(:show)
+      end
+    end
+
+    context 'when current_user' do
+      before do
+        sign_in user
+        get :show, graetzl_id: graetzl.id, id: meeting.id
+      end
+      
+      it 'returns a 200 OK status' do
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #show' do
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns @graetzl and @meeting' do
+        expect(assigns(:meeting)).to eq(meeting)
+        expect(assigns(:graetzl)).to eq(graetzl)
+      end
+    end
+  end
+
+
+  describe 'GET index' do
+    before do
+      3.times { new_meeting = create(:meeting, graetzls: [graetzl]) }
+      past_meeting = build(:meeting, graetzls: [graetzl], starts_at_date: Date.yesterday)
+      past_meeting.save(validate: false)
+    end
+
+    context 'when no current_user' do
+      before { get :index, graetzl_id: graetzl.id }
+
+      it 'returns a 200 OK status' do
+        expect(response).to be_success
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #index' do
+        expect(response).to render_template(:index)
+      end
+    end
+
+    context 'when current_user' do
+      before do
+        sign_in user
+        get :index, graetzl_id: graetzl.id
+      end
+      
+      it 'returns a 200 OK status' do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders #index' do
+        expect(response).to render_template(:index)
+      end
+
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq(graetzl)
+      end
+
+      it 'assigns @meetings to @graetzl.meetings' do
+        expect(assigns(:meetings)).to eq(graetzl.meetings)
+      end
+
+      it 'has 4 meetings' do
+        expect(assigns(:meetings).count).to eq(4)        
+      end
+
+      it 'assigns @meetings_current and @meetings_past' do
+        expect(assigns(:meetings_current)).to be
+        expect(assigns(:meetings_past)).to be
+      end
+
+      it 'has 3 meetings_current' do
+        expect(assigns(:meetings_current).count).to eq(3)
+      end
+
+      it 'has 1 meetings_past' do
+        expect(assigns(:meetings_past).count).to eq(1)
+      end
+    end
+
+  end
+
   describe 'GET new' do
     context 'when no current_user' do
       it 'redirects to login' do

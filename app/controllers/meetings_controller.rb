@@ -1,11 +1,13 @@
 class MeetingsController < ApplicationController
   before_filter :set_graetzl
   before_filter :set_meeting, except: [:index, :new, :create]
-  before_filter :authenticate_user!, except: [:show]
+  before_filter :authenticate_user!, except: [:show, :index]
   before_filter :check_permission!, only: [:edit, :update, :destroy]
 
   def index
     @meetings = @graetzl.meetings
+    @meetings_past = @meetings.where('starts_at_date < ?', Date.today)
+    @meetings_current = @meetings.where.not(id: @meetings_past.pluck(:id))
   end
 
   def show

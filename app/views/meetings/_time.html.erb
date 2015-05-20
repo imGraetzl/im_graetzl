@@ -2,11 +2,11 @@
 
   <div class="wrp-icon">
 
-    <% if @meeting.starts_at_date %>
+    <% if meeting.starts_at_date %>
 
       <span>
-        <%= I18n.localize(@meeting.starts_at_date, format: '%b') %><br>
-        <%= @meeting.starts_at_date.day %>
+        <%= I18n.localize(meeting.starts_at_date, format: '%b') %><br>
+        <%= meeting.starts_at_date.day %>
       </span>
 
     <% else %>
@@ -21,9 +21,9 @@
 
   <div class="dayYearTimes">
 
-    <% if @meeting.starts_at_date %>
+    <% if meeting.starts_at_date %>
 
-      <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
+      <%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %B %Y') %>
 
     <% else %>
 
@@ -32,7 +32,7 @@
     <% end %>
 
     <br>
-    <span class="begin">Beginn: <%= localize_time(@meeting.starts_at_time, '%H:%M') %></span>
-    <span class="end">Ende: <%= localize_time(@meeting.ends_at_time, '%H:%M') %></span>
+    <span class="begin">Beginn: <%= localize_time(meeting.starts_at_time, '%H:%M') %></span>
+    <span class="end">Ende: <%= localize_time(meeting.ends_at_time, '%H:%M') %></span>
   </div>
 </div>
