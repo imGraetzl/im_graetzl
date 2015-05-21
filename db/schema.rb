@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520142442) do
+ActiveRecord::Schema.define(version: 20150521212032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,10 @@ ActiveRecord::Schema.define(version: 20150520142442) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
+    t.string   "slug"
   end
+
+  add_index "districts", ["slug"], :name => "index_districts_on_slug"
 
   create_table "friendly_id_slugs", force: true do |t|
     t.string   "slug",                      null: false
