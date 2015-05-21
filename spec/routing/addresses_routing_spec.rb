@@ -18,7 +18,7 @@ RSpec.describe AddressesController, type: :routing do
   end
   
 
-  describe 'named routing' do
+  describe 'named route helpers' do
 
     it 'routes GET addresses/registration to #registration' do
       expect(get: addresses_registration_path).to route_to('addresses#registration')

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :districts, only: [:index, :show]
+  resources :districts, path: 'wien', only: [:index, :show]
 
   ActiveAdmin.routes(self)
   # resources :graetzls, only: [:index, :show] do
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do
-    resources :treffen, as: :meetings, controller: :meetings
+    resources :meetings, path: 'treffen'
   end
 
   resources :going_tos, only: [:create, :destroy]

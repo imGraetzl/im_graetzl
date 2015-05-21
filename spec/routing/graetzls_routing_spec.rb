@@ -22,7 +22,7 @@ RSpec.describe GraetzlsController, type: :routing do
   end
 
 
-  describe 'named routing' do
+  describe 'named route helpers' do
 
     it 'routes to #index' do
       expect(get: graetzls_path).to route_to('graetzls#index')
