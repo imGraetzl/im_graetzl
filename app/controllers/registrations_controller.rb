@@ -36,6 +36,9 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def set_graetzl
+    graetzl = Graetzl.find(params[:graetzl])
+    session[:graetzl] = graetzl.id
+    redirect_to new_user_registration_path
   end
 
   def graetzl
