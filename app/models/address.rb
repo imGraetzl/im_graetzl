@@ -13,7 +13,6 @@ class Address < ActiveRecord::Base
       data = JSON.parse(feature)
       Address.new_from_geojson(data)
     rescue JSON::ParserError => e
-      puts 'could not parse json feature, return empty address'
       Address.new
     end    
   end
