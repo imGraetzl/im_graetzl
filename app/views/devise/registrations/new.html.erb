@@ -2,7 +2,7 @@
 
 <section class="register-personalInfo">
   <h2>Willkommen im Grätzl <span><%= resource.graetzl.short_name %></span></h2>
-  <%= link_to 'Nicht dein Grätzl?', user_registration_gratzl_path %>
+  <%= link_to 'Nicht dein Grätzl?', user_registration_graetzl_path %>
   <p class="txt">
     <% if resource.graetzl.users.count > 5 %>
         <span class="numberUsers"><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
