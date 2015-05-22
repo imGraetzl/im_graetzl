@@ -1,0 +1,33 @@
+
+[class*=dropDownMenu-] {
+  position: relative;
+  z-index: 5;
+
+  .dropDownToggle {
+    cursor: pointer;
+  }
+
+  .dropDownContent {
+    @include boxShadow;
+    position: absolute;
+    background-color: $color-background-bright;
+    border: 1px solid $color-ambient-mint;
+    min-width: 200px;
+    display: none;
+    border-radius: 5px;
+  }
+
+  .menuSlice {
+    padding: 10px 20px;
+    border-bottom: 1px solid $color-ambient-mint;
+  }
+
+}
+
+//bottom right
+.dropDownMenu-br {
+  .dropDownContent {
+    top: 100%;
+    right: 0;
+  }
+}

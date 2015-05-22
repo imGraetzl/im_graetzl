@@ -1,67 +1,51 @@
 APP.controllers.application = (function() {
 
-    var privateVar = "Sitewide!";
+    var getMq = APP.utils.getMq;
 
-    function navigation() {
 
-        enquire.register("screen and (min-width: 650px)", {
+    // ---------------------------------------------------------------------- Boilerplate Functions
 
-            deferSetup : true,
-            setup : function() {
-                console.log("init 650");
-            },
-            match : function() {
-                console.log("jo now 650");
-            },
-            unmatch : function() {
-                console.log("650 nomore");
-            }
+    function init() {
+        breakPointEvents();
 
+        $(".dropDownToggle").on("click", function() {
+            var $container = $(this).next();
+            ($container.is(":visible")) ? $container.hide() :  $container.show();
         });
 
-        enquire.register("screen and (min-width: 1015px)", {
+    }
 
+    function breakPointEvents() {
+
+        enquire.register(getMq("<large"), {
             deferSetup : true,
             setup : function() {
-                console.log("init 1015");
-            },
-            match : function() {
-                console.log("jo now 1015");
-            },
-            unmatch : function() {
-                console.log("1015 nomore");
+                createMobileNav();
             }
-
         });
-
 
     }
 
 
+    // ---------------------------------------------------------------------- Specific Functions
+
+    function createMobileNav() {
+        var $mainHolder =  $(".mainNavHolder"),
+            $mobileNav = $('<div class="mobileNavHolder">');
+        $mainHolder.find(".nav-mainActions, .nav-loggedOut").clone().appendTo($mobileNav);
+        $mobileNav.insertAfter($mainHolder).hide();
+
+        $(".mobileNavToggle").on("click", function() {
+            ($mobileNav.is(":visible")) ? $mobileNav.hide() : $mobileNav.show();
+        });
+
+    }
+
+
+    // ---------------------------------------------------------------------- Returns
+
     return {
-
-        init: function() {
-
-            navigation();
-
-            /*
-            if ($("#error_explanation").exists()) {
-
-                var $markup = ($("#error_explanation").html());
-                $("#error_explanation").remove();
-
-                var n = noty({
-                    layout: 'center',
-                    text: $markup,
-                    type: 'error'
-
-                });
-            }
-            */
-
-
-        }
-
+        init: init
     }
 
 })();

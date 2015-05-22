@@ -1,7 +1,7 @@
 <header>
   <div class="inner">
 
-    <div class="upperNavHolder">
+    <div class="mainNavHolder">
 
       <div class="mobileNavToggle">
         <svg class="icon-menu"><use xlink:href="#icon-menu"></use></svg>
@@ -9,50 +9,47 @@
       </div>
 
       <div class="nav-mainActions">
-        <a href="" class="discover">Grätzl entdecken</a>
         <a href="" class="createMeeting">Treffen anlegen</a>
+        <a href="" class="discover">Grätzl entdecken</a>
       </div>
 
       <div class="logoGraetzl">
-        <%= link_to(image_tag('logo.png'), root_path) %>
+        <%= link_to(image_tag('svg/logo.svg'), root_path) %>
       </div>
 
       <% if user_signed_in? %>
-          <div class="nav-userContext">
-            <div class="newNotifications contextMenu">
-              <div class="toggle">
+
+          <div class="newNotifications dropDownMenu-br">
+            <div class="dropDownToggle">
+              <div class="iconWithBadge">
+                <div class="badgeNumber">12</div>
                 <svg class="icon-mail"><use xlink:href="#icon-mail"></use></svg>
               </div>
-              <div class="toggleContent">
-                sdsd
-              </div>
             </div>
-            <div class="userSettings">
-              <img src="https://placeimg.com/60/60/people" alt="" class="img-user"/>
-              <div class="username">Peckomingo</div>
+            <div class="dropDownContent">
+              <p>Mega geiles Notification Center Web 2.0</p>
             </div>
           </div>
+          <div class="userSettings dropDownMenu-br">
+            <div class="dropDownToggle">
+              <img src="https://placeimg.com/60/60/people" alt="" class="img-user"/>
+              <div class="username">Peckomingo</div>
+              <svg class="icon-angle-down"><use xlink:href="#icon-angle-down"></use></svg>
+            </div>
+            <div class="dropDownContent">
+              <div class="menuSlice">Profileinstellungen</div>
+              <div class="menuSlice">Abmelden</div>
+            </div>
+          </div>
+
       <% else %>
           <div class="nav-loggedOut">
-            <a href="" class="register">Kostenos registrieren</a>
+            <a href="" class="register">Kostenlos registrieren</a>
             <a href="" class="login">Anmelden</a>
           </div>
       <% end %>
 
     </div>
-
-    <div class="mobileNavHolder">
-      <div class="nav-mainActions">
-        <a href="" class="discover">Grätzl entdecken</a>
-        <a href="" class="createMeeting">Treffen anlegen</a>
-      </div>
-      <div class="nav-loggedOut">
-        <a href="" class="register">Kostenos registrieren</a>
-        <a href="" class="login">Anmelden</a>
-      </div>
-    </div>
-
-
 
 
   </div>

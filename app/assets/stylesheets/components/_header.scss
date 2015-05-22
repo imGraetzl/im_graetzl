@@ -2,7 +2,9 @@
   color: $color-ambient-mint-dark;
   font-family: $font-tertiary;
   font-size: 1.4rem;
+  text-decoration: none;
 }
+
 
 header {
   margin-bottom: 2rem;
@@ -14,37 +16,40 @@ header {
   }
 
   .inner {
-    width: 90%;
     margin: 0 auto;
     max-width: $layout-max-width;
   }
+}
 
-  .upperNavHolder {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    position: relative;
-    @include respond-to(">=medium") {
-      height: 70px;
-    }
+.mainNavHolder {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  position: relative;
+  @include respond-to(">=medium") {
+    height: 70px;
   }
 }
 
-
 .logoGraetzl {
-  position: absolute;
   width: 80px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  margin-right: auto;
   @include respond-to(">=medium") {
+    margin-right: 0;
     width: 100px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
   @include respond-to(">=large") {
     width: 203px;
-    background: url(image_path('bg-logo-bottom.png')) no-repeat center bottom;
-    top: 20px;
+    background: url(image_path('bg-logo-bottom@2x.png')) no-repeat center bottom;
+    background-size: 100%;
+    top: 19px;
     transform: translate(-50%, 0);
   }
 
@@ -61,17 +66,12 @@ header {
 
 
 .mobileNavToggle {
+  margin-right: 20px;
+  @include respond-to(">=medium") {
+    margin-right: auto;
+  }
   @include respond-to(">=large") {
     display: none;
-  }
-
-  span {
-    display: none;
-    @extend %navFont;
-    @include respond-to(">500px") {
-      display: inline-block;
-      vertical-align: middle;
-    }
   }
 
   [class*=icon-] {
@@ -86,65 +86,103 @@ header {
       height: 35px;
     }
   }
-}
 
+  span {
+    display: none;
+    @extend %navFont;
+    @include respond-to(">500px") {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
 
 .nav-mainActions, .nav-loggedOut {
   a {
+
     @extend %navFont;
-    text-decoration: none;
     display: block;
     text-align: center;
-    &:hover {
-      color: $color-ambient-rosa;
+
+    @include respond-to("<large") {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 2px;
+      background-color: lighten($color-ambient-mint, 25);
+      &:active {
+        background-color: lighten($color-ambient-mint, 20);
+      }
     }
+
     @include respond-to(">=large") {
       float: left;
+      border-right: 1px dotted lighten($color-ambient-mint, 10);
       padding-right: 20px;
       margin-right: 20px;
-      border-right: 1px dotted lighten($color-ambient-mint, 10);
+      &:hover {
+        color: $color-ambient-rosa;
+      }
       &:last-child {
         padding-right: 0;
         margin-left: 0;
         border: none;
       }
     }
+
   }
 }
 
-.mobileNavHolder {
-  display: none;
-  background-color: lighten($color-ambient-mint, 20);
+.nav-mainActions {
   @include respond-to(">=large") {
-    display: none !important;
+    margin-right: auto;
   }
 }
-.upperNavHolder {
+
+.nav-loggedOut {
+  @include respond-to("<large") {
+    overflow: hidden;
+    margin-bottom: 5px;
+    a {
+      font-size: 1.2rem;
+      float: left;
+      width: 50%;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      background-color: $color-ambient-mint;
+      color: $color-background-bright;
+      background-image: $texture-primary;
+      &:first-child {
+        width: calc(50% - 2px);
+        margin-right: 2px;
+      }
+      &:active {
+        background-color: lighten($color-ambient-mint, 10);
+      }
+    }
+  }
+}
+
+// ---------------------- Navigation Desktop
+.mainNavHolder {
   .nav-mainActions, .nav-loggedOut {
     display: none;
-    @include respond-to(">=large") {
+    @include respond-to(">large") {
       display: block;
     }
   }
 }
 
-
-.nav-userContext {
-  display: flex;
-  align-items: center;
-}
-
-.newNotifications {
-  [class*=icon-] {
-    width: 30px;
-    height: 30px;
+// ---------------------- Navigation Mobile
+.mobileNavHolder {
+  @include respond-to(">=large") {
+    display: none;
   }
 }
 
 .userSettings {
-  display: flex;
-  align-items: center;
-  margin-left: 15px;
+  color: $color-ambient-mint-dark;;
+  font-size: 1rem;
+  height: 100%;
   .img-user {
     @include img-round(35px);
     display: block;
@@ -153,29 +191,80 @@ header {
       height: 45px;
     }
   }
+  .dropDownToggle {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .dropDownContent {
+    &:before {
+      @include triangleSingle(up, $color-ambient-mint, 8px);
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: 15px;
+    }
+  }
 
   .username {
-    @extend %navFont;
     display: none;
-    @include respond-to(">600px") {
+    margin-right: 8px;
+    @include respond-to(">medium") {
       display: block;
       margin-left: 10px;
     }
   }
 }
 
-.contextMenu {
-  position: relative;
-  .toggle {
-
+.newNotifications {
+  height: 100%;
+  [class*=icon-] {
+    width: 25px;
+    height: 25px;
+    fill: $color-ambient-mint-dark;
   }
+  .dropDownToggle {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .dropDownContent {
 
-  .toggleContent {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
+    padding-top: 50px;
     display: none;
-  }
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 200px;
+    color: grey;
 
+    &:before {
+      @include triangleSingle(up, $color-ambient-mint, 8px);
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: 15px;
+    }
+  }
+  .badgeNumber {
+
+  }
 }
+
+.badgeNumber {
+  background-color: $color-ambient-rosa;
+  color: $color-background-bright;
+  border-radius: 3px;
+  line-height: 1;
+  font-size: 0.6rem;
+  padding: 1px 3px;
+}
+
+
+
+

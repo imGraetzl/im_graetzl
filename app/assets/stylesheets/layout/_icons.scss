@@ -4,3 +4,12 @@
   fill: currentColor;
   display: block;
 }
+
+.iconWithBadge {
+  position: relative;
+  .badgeNumber {
+    position: absolute;
+    top: -4px;
+    right: -5px;
+  }
+}

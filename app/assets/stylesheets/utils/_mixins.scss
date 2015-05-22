@@ -12,28 +12,28 @@
   }
 }
 
-@mixin triangle($direction, $color: $color-ambient-mint, $size: 6px){
+@mixin triangleSingle($direction: "up", $color: $color-ambient-mint, $size: 6px){
   display: block;
   height: 0;
   width: 0;
   @if ($direction == 'up'){
     border-bottom: $size solid $color;
-    border-left: 1/2*$size solid transparent;
-    border-right: 1/2*$size solid transparent;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
   }
   @else if ($direction == 'down'){
     border-top: $size solid $color;
-    border-left: 1/2*$size solid transparent;
-    border-right: 1/2*$size solid transparent;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
   }
   @else if ($direction == 'left'){
-    border-top: 1/2*$size solid transparent;
-    border-bottom: 1/2*$size solid transparent;
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
     border-right: $size solid $color;
   }
   @else if ($direction == 'right'){
-    border-top: 1/2*$size solid transparent;
-    border-bottom: 1/2*$size solid transparent;
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
     border-left: $size solid $color;
   }
 }
@@ -60,3 +60,10 @@
   width: $imgDimensions;
   height: $imgDimensions;
 }
+
+@mixin boxShadow() {
+  box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.32);
+}
+
+
+
