@@ -4,11 +4,6 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  get 'addresses/registration'
-  post 'addresses/search'
-  post 'addresses/match'
-  get 'addresses/update_graetzls'
-
   devise_for :users,
     controllers: { registrations: 'registrations' },
     path_names: {
@@ -17,9 +12,12 @@ Rails.application.routes.draw do
       registration: 'registrierung', edit: 'edit/profile'
     }
 
-  get 'users/registrierung/adresse', to: 'registrations#address_search', as: :new_user_registration_address
-  post 'users/registrierung/adresse', to: 'registrations#address_create', as: :user_registration_address
-  post 'users/registrierung/graetzl', to: 'registrations#graetzl_set', as: :new_user_registration_gratzl
+  devise_scope :user do
+    get 'users/registrierung/adresse', to: 'registrations#address', as: :user_registration_address
+    post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
+    get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_gratzl
+    post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_gratzl
+  end
 
   get 'static_pages/welcome'
   get 'static_pages/meetingCreate'
