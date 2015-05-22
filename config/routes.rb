@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/registrierung/adresse', to: 'registrations#address', as: :user_registration_address
     post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
-    get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_gratzl
-    post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_gratzl
+    get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_graetzl
+    post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_graetzl
   end
 
   get 'static_pages/welcome'
