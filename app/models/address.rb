@@ -29,21 +29,17 @@ class Address < ActiveRecord::Base
 
 
   # maybe put into service object later...
-  def self.get_address_from_api(address_string)
-    response = query_address_service(address_string)
-    if !response.blank? && response.body.present?
-      return Address.new_from_geojson(response['features'][0])
-    end
-    Address.new()
-  end
+  # def self.get_address_from_api(address_string)
+  #   response = query_address_service(address_string)
+  #   if !response.blank? && response.body.present?
+  #     return Address.new_from_geojson(response['features'][0])
+  #   end
+  #   Address.new()
+  # end
 
   # instance methods
-  def match_graetzls
-    graetzls = Graetzl.where('ST_CONTAINS(area, :point)', point: coordinates)
-    if graetzls.empty?
-      graetzls = Graetzl.all
-    end
-    graetzls
+  def graetzls
+    Graetzl.where('ST_CONTAINS(area, :point)', point: coordinates)
   end
 
   def merge_feature(attrs)
