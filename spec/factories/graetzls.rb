@@ -1,5 +1,3 @@
-require 'faker'
-
 FactoryGirl.define do
   factory :graetzl do
     name { Faker::Address.state }
