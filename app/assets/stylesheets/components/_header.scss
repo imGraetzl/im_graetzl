@@ -1,7 +1,7 @@
 %navFont {
   color: $color-ambient-mint-dark;
   font-family: $font-tertiary;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   text-decoration: none;
 }
 
@@ -22,15 +22,18 @@ header {
 }
 
 .mainNavHolder {
-  width: 90%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 60px;
   position: relative;
+  width: 90%;
   @include respond-to(">=medium") {
     height: 70px;
+  }
+  @include respond-to(">=large") {
+    width: 100%;
   }
 }
 
@@ -124,7 +127,7 @@ header {
       }
       &:last-child {
         padding-right: 0;
-        margin-left: 0;
+        margin-right: 0;
         border: none;
       }
     }
@@ -136,12 +139,23 @@ header {
   @include respond-to(">=large") {
     margin-right: auto;
   }
+
+  .createMeeting {
+    span {
+      background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
+      background-position: right center, left center;
+      background-repeat: no-repeat;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0 auto;
+      display: table;
+    }
+  }
 }
 
 .nav-loggedOut {
   @include respond-to("<large") {
     overflow: hidden;
-    margin-bottom: 5px;
     a {
       font-size: 1.2rem;
       float: left;
@@ -160,6 +174,17 @@ header {
       }
     }
   }
+
+  .register {
+    span {
+      background-image: url(image_path('svg/icon-arrow-right-blinky.svg'));
+      background-repeat: no-repeat;
+      padding-left: 44px;
+      margin: 0 auto;
+      display: table;
+    }
+  }
+
 }
 
 // ---------------------- Navigation Desktop
@@ -175,7 +200,7 @@ header {
 // ---------------------- Navigation Mobile
 .mobileNavHolder {
   @include respond-to(">=large") {
-    display: none;
+    display: none !important;
   }
 }
 

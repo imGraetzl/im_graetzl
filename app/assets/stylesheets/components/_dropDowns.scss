@@ -24,6 +24,12 @@
 
 }
 
+[class*=dropDownMenu-].is-visible {
+  .dropDownContent {
+    display: block;
+  }
+}
+
 //bottom right
 .dropDownMenu-br {
   .dropDownContent {
