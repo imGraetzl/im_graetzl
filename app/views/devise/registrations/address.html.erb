@@ -4,16 +4,14 @@
 
   <h2>Lass uns zu Beginn dein <span>Heimatgrätzl</span> finden...</h2>
 
-  <%= form_tag(addresses_search_path, method: :post) do %>
+  <%= form_tag(user_registration_address_path, method: :post) do %>
 
       <div id="addressSearchAutocomplete" class="input-group">
-        <!--<%= label_tag :address, 'Wo wohnst du?' %>-->
         <%= text_field_tag :address, nil, required: true, autofocus: true %>
         <%= label_tag :address, 'Wo wohnst du? (Straße und Hausnummer)' %>
         <%= hidden_field_tag :feature %>
       </div>
       <div class="nav-btnBar">
-        <!-- <%= link_to 'Manuell wählen', addresses_search_path(address: ''), method: :post, class: 'btn-secondary' %> -->
         <%= button_tag 'Weiter ins Grätzl', class: 'btn-primary' %>
       </div>
   <% end %>

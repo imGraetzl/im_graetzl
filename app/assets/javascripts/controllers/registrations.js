@@ -4,6 +4,7 @@ APP.controllers.registrations = (function() {
 
         APP.components.inputTextareaMovingLabel();
         APP.components.imgUploadPreview();
+        APP.components.addressSearchAutocomplete();
 
         $('#user_birthday').mask('00/00/0000');
 

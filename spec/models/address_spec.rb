@@ -72,7 +72,7 @@ RSpec.describe Address, type: :model do
 
 
   # instance methods
-  describe '#match_graetzls' do
+  describe '#graetzls' do
 
     context 'with single result' do
       let(:esterhazygasse) { build(:esterhazygasse) }
@@ -80,12 +80,12 @@ RSpec.describe Address, type: :model do
       before { @naschmarkt = create(:naschmarkt) }
 
       it 'returns 1 graetzl' do
-        graetzls = esterhazygasse.match_graetzls
+        graetzls = esterhazygasse.graetzls
         expect(graetzls.size).to eq(1)
       end
 
       it 'returns matching graetzl (naschmarkt)' do
-        graetzl = esterhazygasse.match_graetzls.first
+        graetzl = esterhazygasse.graetzls.first
         expect(graetzl).to eq(@naschmarkt)
       end
     end
@@ -99,12 +99,12 @@ RSpec.describe Address, type: :model do
       end
 
       it 'returns array of results' do
-        graetzls = seestadt.match_graetzls
+        graetzls = seestadt.graetzls
         expect(graetzls.size).to eq(2)
       end
 
       it 'returns 2 matching graetzls' do
-        graetzls = seestadt.match_graetzls
+        graetzls = seestadt.graetzls
         expect(graetzls).to include(@seestadt_aspern)
         expect(graetzls).to include(@aspern)
       end
@@ -117,9 +117,8 @@ RSpec.describe Address, type: :model do
         3.times { create(:graetzl) }
       end
 
-      it 'returns all graetzl' do
-        graetzls = non_matching_address.match_graetzls
-        expect(graetzls.size).to eq(3)
+      it 'returns empty array graetzl' do
+        expect(non_matching_address.graetzls).to be_empty
       end
     end
   end

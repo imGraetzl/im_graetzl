@@ -3,16 +3,21 @@ Rails.application.routes.draw do
   resources :districts, path: 'wien', only: [:index, :show]
 
   ActiveAdmin.routes(self)
-  # resources :graetzls, only: [:index, :show] do
-  #   resources :meetings, only: [:show, :new, :create]
-  # end
 
-  get 'addresses/registration'
-  post 'addresses/search'
-  post 'addresses/match'
-  get 'addresses/update_graetzls'
+  devise_for :users,
+    controllers: { registrations: 'registrations' },
+    path_names: {
+      sign_up: 'details', sign_in: 'login', sign_out: 'logout',
+      password: 'secret', confirmation: 'verification',
+      registration: 'registrierung', edit: 'edit/profile'
+    }
 
-  devise_for :users, controllers: { registrations: "registrations" }
+  devise_scope :user do
+    get 'users/registrierung/adresse', to: 'registrations#address', as: :user_registration_address
+    post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
+    get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_graetzl
+    post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_graetzl
+  end
 
   get 'static_pages/welcome'
   get 'static_pages/meetingCreate'

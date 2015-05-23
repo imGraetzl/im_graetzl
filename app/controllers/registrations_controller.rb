@@ -19,6 +19,36 @@ class RegistrationsController < Devise::RegistrationsController
     super    
   end
 
+  def address    
+  end
+
+  def set_address
+    @search_input = params[:address]
+    address = Address.new_from_json_string(params[:feature] || '')
+    session[:address] = address.attributes
+    @graetzls = address.graetzls
+    if @graetzls.size == 1
+      session[:graetzl] = @graetzls.first.id
+      redirect_to new_user_registration_path
+    else
+      render :graetzl
+    end
+  end
+
+  def set_graetzl
+    graetzl = Graetzl.find(params[:graetzl])
+    session[:graetzl] = graetzl.id
+    redirect_to new_user_registration_path
+  end
+
+  def graetzl
+    @graetzls = []
+    if request.xhr?  
+      district = District.find(params[:district_id])
+      @graetzls = district.graetzls
+    end
+  end
+
   protected
 
     def configure_permitted_parameters
@@ -32,8 +62,7 @@ class RegistrationsController < Devise::RegistrationsController
           :password, :password_confirmation,
           :terms_and_conditions,
           :newsletter,
-          :avatar,
-          :avatar_cache,
+          :avatar, :avatar_cache,
           address_attributes: [
             :street_name,
             :street_number,

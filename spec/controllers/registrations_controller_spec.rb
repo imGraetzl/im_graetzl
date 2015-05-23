@@ -1,72 +1,109 @@
 require 'rails_helper'
+include GeojsonSupport
 
 RSpec.describe RegistrationsController, type: :controller do
 
-  before { @request.env["devise.mapping"] = Devise.mappings[:user] }
+  before { @request.env['devise.mapping'] = Devise.mappings[:user] }
 
-  describe 'GET new' do
+  describe 'GET address' do
+    before { get :address }
+      
+    it 'returns a 200 OK status' do
+      expect(response).to be_success
+      expect(response).to have_http_status(:ok)
+    end
 
-    context 'without graetzl id in session' do
-      it 'redirects to address_registration_path' do
-        session[:graetzl] = nil
-        get :new
-        expect(response).to redirect_to addresses_registration_path
+    it 'renders first registration step' do
+      expect(response).to render_template(:address)
+    end
+  end
+
+
+  describe 'POST set_address' do
+
+    context 'without :address' do
+      before do
+        create(:graetzl)
+        post :set_address, address: ''
+      end
+
+      it 'puts empty address in session' do
+        expect(session[:address]).not_to be_nil
+        expect(session[:address][:coordinates]).to be_nil
+      end
+
+      it 'puts no graetzl in session' do
+        expect(session[:graetzl]).to be_nil
+      end
+
+      it 'assigns @graetzls empty' do
+        expect(assigns(:graetzls)).to be_empty
+      end
+
+      it 'renders graetzl' do
+        expect(response).to render_template(:graetzl)
       end
     end
 
-    context 'with graetzl id but empty address in session' do
-      let(:naschmarkt) { create(:naschmarkt) }
+    context 'without :feature' do
+      before do
+        3.times { create(:graetzl) }
+        post :set_address, address: 'someweirdstreet 10'
+      end
 
-      it 'renders new' do
-        session[:graetzl] = naschmarkt.id
-        session[:address] = Address.new.attributes
-        get :new
-        expect(response).to render_template(:new)
+      it 'puts address in session' do
+        expect(session[:address]).not_to be_nil
+      end
+
+      it 'puts no graetzl in session' do
+        expect(session[:graetzl]).to be_nil
+      end
+
+      it 'assigns @graetzls empty' do
+        expect(assigns(:graetzls)).to be_empty
+      end
+
+      it 'renders graetzl' do
+        expect(response).to render_template(:graetzl)
+      end
+    end
+
+    context 'with valid feature param' do
+      let(:esterhazygasse) { build(:esterhazygasse) }
+      let(:feature_hash) { esterhazygasse_hash }
+      before do
+        @naschmarkt = create(:naschmarkt)
+        2.times { create(:graetzl) }
+        post :set_address, address: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}", feature: feature_hash.to_json
+      end
+
+      it 'puts address in session' do
+        expect(session[:address]).to eql(esterhazygasse.attributes)
+      end
+
+      it 'puts graetzl in session' do
+        expect(session[:graetzl]).to eql(@naschmarkt.id)
+      end
+
+      it 'redirects to new user registration' do
+        expect(response).to redirect_to new_user_registration_path
       end
     end
   end
 
 
-  describe 'POST create' do
-    let(:attrs) { attributes_for(:user) }
-    let(:graetzl) { create(:graetzl) }
-    let(:address) { build(:address) }
+  describe 'POST set_graetzl' do
 
-    context 'with address and graetzl' do
-      before do
-        attrs[:address_attributes] = address.attributes
-        attrs[:graetzl_attributes] = { name: graetzl.name }
+    context 'with :graetzl' do
+      let(:naschmarkt) { create(:naschmarkt) }
+      before { post :set_graetzl, graetzl: naschmarkt.id }
+
+      it 'puts graetzl id in session' do
+        expect(session[:graetzl]).to eql(naschmarkt.id)
       end
 
-      it 'creates new user with address and graetzl' do
-        expect {
-          post :create, user: attrs
-        }.to change(User, :count).by(1)
-        expect(User.last.graetzl).to eq(graetzl)
-        expect(User.last.address.coordinates).to eq(address.coordinates)
-      end
-
-      it 'clears sessiond data' do
-        post :create, user: attrs
-        expect(session[:address]).not_to be_present
-        expect(session[:graetzl]).not_to be_present
-      end
-    end
-
-    context 'with empty address' do
-      before do
-        attrs[:graetzl_attributes] = { name: graetzl.name }
-        attrs[:address_attributes] = Address.new().attributes
-      end
-
-      it 'creates new user with empty address' do
-        expect {
-          post :create, user: attrs
-        }.to change(User, :count).by(1)
-        expect(User.last.graetzl).to eq(graetzl)
-        expect(User.last.address).not_to be_nil
-        expect(User.last.address.coordinates).to be_nil
-        expect(User.last.address.street_name).to be_nil
+      it 'redirects to new user registration' do
+        expect(response).to redirect_to new_user_registration_path
       end
     end
   end
