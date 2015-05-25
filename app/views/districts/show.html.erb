@@ -1,6 +1,6 @@
 <h1><%= @district.name %> | <%= @district.zip %></h1>
 
-<h2>Treffen in <%= @district.name %>:</h2>
+<h2>Treffen in <%= @district.name %> (4 per default):</h2>
 <% @meetings.each do |meeting| %>
   <%= link_to meeting.name, [meeting.graetzls.first, meeting] %><br>
 <% end %>

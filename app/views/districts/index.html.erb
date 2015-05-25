@@ -1,4 +1,9 @@
-<h1>Bezirke</h1>
+<h2>Aktuelle Treffen (4 per default):</h2>
+<% @meetings.each do |meeting| %>
+  <%= link_to meeting.name, [meeting.graetzls.first, meeting] %><br>
+<% end %>
+
+<h2>Bezirke</h2>
 
 <% @districts.each do |district| %>
   <%= link_to "#{district.zip} - #{district.name}", district %><br>
