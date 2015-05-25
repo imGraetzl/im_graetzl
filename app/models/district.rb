@@ -6,7 +6,7 @@ class District < ActiveRecord::Base
 
   # instance methods
   def graetzls
-    Graetzl.where('ST_OVERLAPS(area, :district)', district: self.area)
+    Graetzl.where('ST_INTERSECTS(area, :district)', district: self.area)
   end
 
   def long_name

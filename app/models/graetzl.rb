@@ -19,6 +19,6 @@ class Graetzl < ActiveRecord::Base
   end
 
   def districts
-    District.where('ST_OVERLAPS(area, :graetzl)', graetzl: self.area)
+    District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
   end
 end
