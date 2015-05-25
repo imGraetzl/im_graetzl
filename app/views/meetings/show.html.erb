@@ -1,5 +1,5 @@
 <div class="titleHeadline">
-  <h3 class="district"><%= @graetzl.short_name %></h3>
+  <%= link_to content_tag(:h3, @graetzl.short_name, class: 'district'), @graetzl %>
   <h1><%= @meeting.name %></h1>
 </div>
 
@@ -29,5 +29,3 @@
 
   </div>
 </div>
-
-<%= link_to 'Zurück', @graetzl %>
