@@ -1,5 +1,10 @@
 <h1><%= @district.name %> | <%= @district.zip %></h1>
 
+<h2>Treffen in <%= @district.name %>:</h2>
+<% @meetings.each do |meeting| %>
+  <%= link_to meeting.name, [meeting.graetzls.first, meeting] %><br>
+<% end %>
+
 <h2>Grätzl:</h2>
 <% @district.graetzls.each do |graetzl| %>
   <%= link_to graetzl.short_name, graetzl %><br>
