@@ -10,7 +10,7 @@
 <% end %>
 
 <div>
-  <h2>Nächste Treffen</h2>
+  <%= content_tag(:h2, 'Nächste Treffen') unless @graetzl.next_meetings.empty? %>
   <% @graetzl.next_meetings.each do |meeting| %>
 
     <%= link_to [@graetzl, meeting] do %>      

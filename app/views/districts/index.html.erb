@@ -1,4 +1,4 @@
-<h2>Aktuelle Treffen (4 per default):</h2>
+<%= content_tag(:h2, 'Aktuelle Treffen (4 per default)') unless @meetings.empty? %>
 <% @meetings.each do |meeting| %>
   <%= link_to meeting.name, [meeting.graetzls.first, meeting] %><br>
 <% end %>
