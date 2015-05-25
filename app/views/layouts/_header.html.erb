@@ -6,60 +6,63 @@
       <div class="mobileNavToggle">
         <svg class="icon-menu"><use xlink:href="#icon-menu"></use></svg>
         <span>Navigation</span>
-      </div>
-
-      <div class="nav-mainActions">
-        <a href="" class="createMeeting"><span>Treffen anlegen</span></a>
-        <a href="" class="discover">Grätzl entdecken</a>
-      </div>
-
-      <div class="logoGraetzl">
-        <%= link_to(image_tag('svg/logo.svg'), root_path) %>
-      </div>
+      </div>      
 
       <% if user_signed_in? %>
 
-          <div class="newNotifications dropDownMenu-br">
-            <div class="dropDownToggle">
-              <div class="iconWithBadge">
-                <div class="badgeNumber">12</div>
-                <svg class="icon-mail"><use xlink:href="#icon-mail"></use></svg>
-              </div>
-            </div>
-            <div class="dropDownContent">
-              <p>Mega geiles Notification Center Web 2.0</p>
-            </div>
-          </div>
-          <div class="userSettings dropDownMenu-br">
-            <div class="dropDownToggle">
-              <img src="https://placeimg.com/60/60/people" alt="" class="img-user"/>
-              <div class="username">Peckomingo</div>
-              <svg class="icon-angle-down"><use xlink:href="#icon-angle-down"></use></svg>
-            </div>
-            <div class="dropDownContent">
-              <div class="menuSlice">Profileinstellungen</div>
-              <div class="menuSlice">Abmelden</div>
+        <div class="nav-mainActions">
+          <%= link_to content_tag(:span, 'Treffen anlegen'), new_graetzl_meeting_path(current_user.graetzl), class: 'createMeeting' %>
+          <%= link_to 'Grätzl entdecken', root_path, class: 'discover' %>
+        </div>
+
+        <div class="logoGraetzl">
+          <%= link_to(image_tag('svg/logo.svg'), current_user.graetzl) %>
+        </div>
+
+        <div class="newNotifications dropDownMenu-br">
+          <div class="dropDownToggle">
+            <div class="iconWithBadge">
+              <div class="badgeNumber">12</div>
+              <svg class="icon-mail"><use xlink:href="#icon-mail"></use></svg>
             </div>
           </div>
+          <div class="dropDownContent">
+            <p>Mega geiles Notification Center Web 2.0</p>
+          </div>
+        </div>
+        <div class="userSettings dropDownMenu-br">
+          <div class="dropDownToggle">
+            <%= image_tag current_user.avatar_url(:small), class: 'img-user' %>
+            <div class="username"><%= current_user.username %></div>
+            <svg class="icon-angle-down"><use xlink:href="#icon-angle-down"></use></svg>
+          </div>
+          <div class="dropDownContent">
+            <div class="menuSlice">Profileinstellungen</div>
+            <%= link_to content_tag(:div, 'Admin', class: 'menuSlice'), admin_root_path %>
+            <%= link_to content_tag(:div, 'Abmelden', class: 'menuSlice'),
+                destroy_user_session_path, method: :delete %>
+          </div>
+        </div>
 
       <% else %>
-          <div class="nav-loggedOut">
-            <a href="" class="register"><span>Kostenlos registrieren</span></a>
-            <a href="" class="login">Anmelden</a>
-          </div>
+
+        <div class="nav-mainActions">
+          <%= link_to content_tag(:span, 'Treffen anlegen'), "javascript:alert('Wo soll das hinführen?');", class: 'createMeeting' %>
+          <%= link_to 'Grätzl entdecken', root_path, class: 'discover' %>
+        </div>
+
+        <div class="logoGraetzl">
+          <%= link_to(image_tag('svg/logo.svg'), graetzl_path(Graetzl.order('RANDOM()').first)) %>
+        </div>
+        <div class="nav-loggedOut">
+          <%= link_to user_registration_address_path, class: 'register' do %>
+            <span>Kostenlos registrieren</span>
+          <% end %>
+          <%= link_to 'Anmelden', new_user_session_path, class: 'login' %>
+        </div>
+
       <% end %>
 
     </div>
-
-
   </div>
 </header>
-
-<% if user_signed_in? %>
-
-    <%= link_to 'Abmelden', destroy_user_session_path, method: :delete %>
-
-<% else %>
-
-
-<% end %>
