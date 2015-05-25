@@ -48,16 +48,18 @@ RSpec.describe Graetzl, type: :model do
       let(:first_meeting) { create(:meeting, starts_at_date: Date.today + 1.day) }
       let(:second_meeting) { create(:meeting, starts_at_date: Date.today + 2.days) }
       let(:last_meeting) { create(:meeting, starts_at_date: Date.today + 3.days) }
+      let(:past_meeting) { build(:meeting, starts_at_date: Date.yesterday) }
 
       before do
+        past_meeting.save(validate: false)
         graetzl.meetings << first_meeting
         graetzl.meetings << second_meeting
         graetzl.meetings << last_meeting
-        graetzl.save
+        graetzl.meetings << past_meeting
       end
 
       it 'has meetings associated' do
-        expect(graetzl.meetings.count).to eq(3)
+        expect(graetzl.meetings.count).to eq(4)
       end
 
       it 'returns 2 meetings' do
@@ -68,6 +70,10 @@ RSpec.describe Graetzl, type: :model do
         expect(graetzl.next_meetings[0]).to eq(first_meeting)
         expect(graetzl.next_meetings[1]).to eq(second_meeting)
         expect(graetzl.next_meetings).not_to include(last_meeting)
+      end
+
+      it 'excludes past' do
+        expect(graetzl.next_meetings).not_to include(past_meeting)
       end
     end
   end
