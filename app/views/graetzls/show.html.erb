@@ -28,18 +28,21 @@
 
 <div class="stream">
 
-  <% if user_signed_in? %>
-
-    <%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
-      <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
-    <% end %>
-
-  <% end %>
-
   <div class="writeEntry">
-    Stream
+    <% if user_signed_in? %>
+      <%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
+        <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
+      <% end %>
+  <% end %>
   </div>
-  <div class="streamEntry">
 
-  </div>
+  <%= render_activities(@activities, layout: :activity, fallback: 'default') %>
 </div>
+
+<!-- tmp styles -->
+<style type="text/css">
+  div.streamEntry {
+    padding: 1em;
+    border-bottom: 1px dotted #666;
+  }
+</style>

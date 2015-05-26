@@ -5,5 +5,6 @@ class GraetzlsController < ApplicationController
   
   def show
     @graetzl = Graetzl.find(params[:id])
+    @activities = PublicActivity::Activity.where(owner: @graetzl.users)
   end
 end
