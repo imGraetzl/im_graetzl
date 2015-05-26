@@ -25,6 +25,7 @@ class MeetingsController < ApplicationController
     
     respond_to do |format|
       if @meeting.save
+        @meeting.create_activity :create, owner: current_user
         format.html { redirect_to [@graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.' }
       else
         format.html { render :new }
@@ -41,6 +42,7 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
+        @meeting.create_activity :update, owner: current_user
         format.html { redirect_to [@graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert." }
       else
         format.html { render :edit }
