@@ -1,22 +1,15 @@
-%navFont {
-  color: $color-ambient-mint-dark;
-  font-family: $font-tertiary;
-  font-size: 1.3rem;
-  text-decoration: none;
-}
-
-
 header {
   margin-bottom: 2rem;
   background-color: #ffffff;
   border-bottom: 1px solid #DEEAE6;
   display: block;
-  @include respond-to(">large") {
+  @include respond-to(">=large") {
     margin-bottom: 6rem;
   }
 
   .inner {
     margin: 0 auto;
+    width: 90%;
     max-width: $layout-max-width;
   }
 }
@@ -28,17 +21,22 @@ header {
   align-items: center;
   height: 60px;
   position: relative;
-  width: 90%;
   @include respond-to(">=medium") {
     height: 70px;
   }
   @include respond-to(">=large") {
     width: 100%;
   }
+  .nav-mainActions {
+    display: none;
+    @include respond-to(">=large") {
+      display: block;
+    }
+  }
 }
 
 .logoGraetzl {
-  width: 80px;
+  width: 60px;
   margin-right: auto;
   @include respond-to(">=medium") {
     margin-right: 0;
@@ -69,69 +67,52 @@ header {
 
 
 .mobileNavToggle {
-  margin-right: 20px;
+  padding: 12px 16px 12px 0;
   @include respond-to(">=medium") {
     margin-right: auto;
   }
   @include respond-to(">=large") {
     display: none;
   }
-
   [class*=icon-] {
     display: inline-block;
     vertical-align: middle;
-    width: 29px;
-    height: 29px;
+    width: 34px;
+    height: 34px;
     fill: $color-ambient-rosa;
-    @include respond-to(">500px") {
-      margin-right: 0.5rem;
-      width: 35px;
-      height: 35px;
-    }
   }
-
   span {
     display: none;
-    @extend %navFont;
-    @include respond-to(">500px") {
+    @include respond-to(">=medium") {
+      color: $color-ambient-mint-dark;
+      font-family: $font-tertiary;
+      font-size: 1.3rem;
+      text-decoration: none;
       display: inline-block;
       vertical-align: middle;
     }
   }
 }
 
+
 .nav-mainActions, .nav-loggedOut {
+  @include cf;
   a {
-
-    @extend %navFont;
+    color: $color-ambient-mint-dark;
+    font-family: $font-tertiary;
+    text-decoration: none;
     display: block;
-    text-align: center;
-
-    @include respond-to("<large") {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      margin-bottom: 2px;
-      background-color: lighten($color-ambient-mint, 25);
-      &:active {
-        background-color: lighten($color-ambient-mint, 20);
-      }
+    float: left;
+    font-size: 1rem;
+    &:hover, &:active {
+      color: $color-ambient-rosa;
     }
-
+    @include respond-to(">=medium") {
+      font-size: 1.2rem;
+    }
     @include respond-to(">=large") {
-      float: left;
-      border-right: 1px dotted lighten($color-ambient-mint, 10);
-      padding-right: 20px;
-      margin-right: 20px;
-      &:hover {
-        color: $color-ambient-rosa;
-      }
-      &:last-child {
-        padding-right: 0;
-        margin-right: 0;
-        border: none;
-      }
+      font-size: 1.3rem;
     }
-
   }
 }
 
@@ -140,7 +121,28 @@ header {
     margin-right: auto;
   }
 
+  //mobile
+  @include respond-to("<large") {
+    a {
+      display: block;
+      float: none;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 8px 0;
+      border: none;
+      background-color: lighten($color-ambient-mint, 20);
+      margin: 0 0 2px 0;
+    }
+  }
+
+
+
   .createMeeting {
+    @include respond-to(">=large") {
+      border-left: 1px dotted lighten($color-ambient-mint, 20);
+      margin-left: 20px;
+      padding-left: 20px;
+    }
     span {
       background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
       background-position: right center, left center;
@@ -154,51 +156,30 @@ header {
 }
 
 .nav-loggedOut {
-  @include respond-to("<large") {
-    overflow: hidden;
-    a {
-      font-size: 1.2rem;
-      float: left;
-      width: 50%;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      background-color: $color-ambient-mint;
-      color: $color-background-bright;
-      background-image: $texture-primary;
-      &:first-child {
-        width: calc(50% - 2px);
-        margin-right: 2px;
-      }
-      &:active {
-        background-color: lighten($color-ambient-mint, 10);
-      }
-    }
-  }
-
   .register {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px dotted lighten($color-ambient-mint, 20);
+    @include respond-to(">=large") {
+      margin-right: 20px;
+      padding-right: 20px;
+    }
     span {
-      background-image: url(image_path('svg/icon-arrow-right-blinky.svg'));
-      background-repeat: no-repeat;
-      padding-left: 44px;
-      margin: 0 auto;
-      display: table;
-    }
-  }
-
-}
-
-// ---------------------- Navigation Desktop
-.mainNavHolder {
-  .nav-mainActions, .nav-loggedOut {
-    display: none;
-    @include respond-to(">large") {
-      display: block;
+      @include respond-to(">=medium") {
+        background-image: url(image_path('svg/icon-arrow-right-blinky.svg'));
+        background-repeat: no-repeat;
+        padding-left: 38px;
+        background-position: left center;
+      }
     }
   }
 }
 
-// ---------------------- Navigation Mobile
+
+
 .mobileNavHolder {
+  padding-bottom: 10px;
+  padding-top: 10px;
   @include respond-to(">=large") {
     display: none !important;
   }
@@ -237,7 +218,9 @@ header {
   .username {
     display: none;
     margin-right: 8px;
-    @include respond-to(">medium") {
+    font-size: 1.2rem;
+    font-family: $font-tertiary;
+    @include respond-to(">=medium") {
       display: block;
       margin-left: 10px;
     }
@@ -259,7 +242,6 @@ header {
     padding-right: 10px;
   }
   .dropDownContent {
-
     padding-top: 50px;
     display: none;
     justify-content: center;
@@ -275,9 +257,6 @@ header {
       top: -8px;
       right: 15px;
     }
-  }
-  .badgeNumber {
-
   }
 }
 
