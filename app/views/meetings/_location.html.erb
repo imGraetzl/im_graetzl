@@ -2,14 +2,14 @@
 
   <% if address.coordinates %>
 
-    <%= link_to map_link(address.coordinates), target: '_blank', class: 'wrp-icon' do %>
+    <%= link_to map_link(address.coordinates), target: '_blank', class: 'iconMapLink' do %>
       <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
       Karte
     <% end %>
 
   <% else %>
 
-    <div class="wrp-icon">
+    <div class="iconMapLink">
       <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
     </div>
 

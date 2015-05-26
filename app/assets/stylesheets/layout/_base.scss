@@ -21,11 +21,16 @@ body {
 
 main,
 footer {
-  width: 90%;
+  padding-left: 18px;
+  padding-right: 18px;
   max-width: $layout-max-width;
   position: relative;
   margin: 0 auto;
   display: block;
+  @include respond-to(">=medium") {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
 main {

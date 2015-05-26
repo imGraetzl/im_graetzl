@@ -9,7 +9,6 @@ header {
 
   .inner {
     margin: 0 auto;
-    width: 90%;
     max-width: $layout-max-width;
   }
 }
@@ -21,8 +20,12 @@ header {
   align-items: center;
   height: 60px;
   position: relative;
+  padding-left: 18px;
+  padding-right: 18px;
   @include respond-to(">=medium") {
     height: 70px;
+    padding-left: 25px;
+    padding-right: 25px;
   }
   @include respond-to(">=large") {
     width: 100%;
@@ -83,13 +86,16 @@ header {
   }
   span {
     display: none;
-    @include respond-to(">=medium") {
+    @include respond-to(">450px") {
       color: $color-ambient-mint-dark;
       font-family: $font-tertiary;
-      font-size: 1.3rem;
+      font-size: 1rem;
       text-decoration: none;
       display: inline-block;
       vertical-align: middle;
+    }
+    @include respond-to(">=medium") {
+      font-size: 1.3rem;
     }
   }
 }
@@ -165,7 +171,7 @@ header {
       padding-right: 20px;
     }
     span {
-      @include respond-to(">=medium") {
+      @include respond-to(">450px") {
         background-image: url(image_path('svg/icon-arrow-right-blinky.svg'));
         background-repeat: no-repeat;
         padding-left: 38px;
@@ -180,6 +186,7 @@ header {
 .mobileNavHolder {
   padding-bottom: 10px;
   padding-top: 10px;
+  border-top: 1px solid #DEEAE6;
   @include respond-to(">=large") {
     display: none !important;
   }
@@ -220,7 +227,7 @@ header {
     margin-right: 8px;
     font-size: 1.2rem;
     font-family: $font-tertiary;
-    @include respond-to(">=medium") {
+    @include respond-to(">450px") {
       display: block;
       margin-left: 10px;
     }

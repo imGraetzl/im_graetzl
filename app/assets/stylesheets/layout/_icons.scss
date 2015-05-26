@@ -3,6 +3,7 @@
   width: 24px;
   fill: currentColor;
   display: block;
+  pointer-events: none;
 }
 
 .iconWithBadge {
@@ -12,4 +13,36 @@
     top: -4px;
     right: -5px;
   }
+}
+
+.iconCalendarTextual {
+  position: relative;
+  span {
+    z-index: 2;
+    font-size: 12px;
+    display: block;
+    position: absolute;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+    line-height: 1;
+    color: $color-ambient-mint;
+    font-weight: 600;
+    margin-top: 17px;
+  }
+  [class^=icon] {
+    fill: $color-ambient-mint;
+    height: 45px;
+    width: 45px;
+  }
+}
+
+.iconMapLink {
+  text-align: center;
+  font-size: 0.8rem;
+  font-style: italic;
+  text-decoration: none;
+}
+a.iconMapLink:hover [class^=icon] {
+  fill: $color-ambient-rosa;
 }

@@ -10,6 +10,16 @@
     margin-top: 4rem;
   }
 
+  a {
+    display: table;
+    margin: 0 auto;
+    text-decoration: none;
+    &:hover { opacity: 0.8; }
+    @include respond-to(">=medium") {
+      margin-left: 0;
+    }
+  }
+
   h1, h3 {
     font-family: $font-secondary;
     text-shadow: 2px 2px $color-background-bright;
@@ -49,7 +59,6 @@
 .titleImg {
   position: relative;
   @include respond-to("<medium") {
-    max-width: 380px;
     margin: 1rem auto;
     overflow: hidden;
   }
@@ -106,7 +115,7 @@
     font-weight: 600;
   }
 
-  .wrp-icon {
+  .iconMapLink, .iconCalendarTextual {
     position: relative;
     float: left;
     margin-right: 10px;
@@ -135,26 +144,6 @@
     text-shadow: 1px 1px $color-background-bright;
   }
 
-  .wrp-icon {
-    span {
-      z-index: 2;
-      font-size: 12px;
-      display: block;
-      position: absolute;
-      border-radius: 4px;
-      text-align: center;
-      width: 100%;
-      line-height: 1;
-      color: $color-ambient-mint;
-      font-weight: 600;
-      margin-top: 17px;
-    }
-    [class^=icon] {
-      fill: $color-ambient-mint;
-      height: 45px;
-      width: 45px;
-    }
-  }
   .dayYearTimes {
     float: left;
     width: calc(100% - 65px);
@@ -173,16 +162,6 @@
     text-shadow: 1px 1px $color-background-bright;
   }
 
-  .wrp-icon {
-    float: left;
-    text-align: center;
-    font-size: 0.8rem;
-    font-style: italic;
-    text-decoration: none;
-    &:hover [class^=icon-] {
-      fill: $color-ambient-rosa;
-    }
-  }
 
   [class^=icon-] {
     width: 45px;
@@ -214,19 +193,10 @@
   }
 
   .btn-userCallToAction {
-    @include respond-to("<medium") {
-      @include stickynavMobile;
-      padding-top: 0.7rem;
-      padding-bottom: 0.7rem;
-      .img-round {
-        display: none;
-      }
-    }
+    margin: 0 auto 2rem auto;
     @include respond-to(">=medium") {
-      margin-bottom: 2rem;
-    }
-    @include respond-to(">=large") {
-      margin-bottom: 40px;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 }
@@ -251,38 +221,3 @@
   }
 
 }
-
-.stream {
-  clear: both;
-  height: 50px;
-  border-top: 2px dotted lighten($color-ambient-mint, 20);
-  margin-bottom: 100px;
-  padding: 2rem 0;
-  @include respond-to(">=large") {
-    margin: 0 auto;
-  }
-
-  .writeEntry,
-  .streamEntry {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .writeEntry {
-    background-color: lighten($color-ambient-mint, 20);
-    height: 130px;
-    text-align: center;
-    font-size: 30px;
-    color: $color-background-bright;
-    font-style: italic;
-    padding-top: 2rem;
-  }
-
-  .streamEntry {
-
-  }
-}
-
-
-
-
