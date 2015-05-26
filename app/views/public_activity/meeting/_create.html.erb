@@ -1,12 +1,2 @@
 hat ein neues Treffen erstellt:<br>
-<%= div_for activity.trackable do %>
-  <%= link_to [@graetzl, activity.trackable] do %>
-    <strong><%= activity.trackable.name %></strong><br>
-    <%= I18n.localize(activity.trackable.starts_at_date, format:'%A, %d. %B %Y') if activity.trackable.starts_at_date %>
-    <p><small><%= activity.trackable.users.count %> nehmen teil</small></p>
-  <% end %>
-
-  <div class="userCallToActionFields">
-    <%= render 'meetings/buttons', meeting: activity.trackable if activity.trackable.upcoming? %>
-  </div>
-<% end %>
+<%= render 'meetings/meeting', meeting: activity.trackable %>

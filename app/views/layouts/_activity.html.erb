@@ -1,5 +1,5 @@
 <div class="streamEntry">
   <small>(vor <%= time_ago_in_words(activity.created_at) %>)</small><br>
-  <strong><%= activity.owner.username %></strong>
+  <strong><%= activity.owner.username if activity.owner %></strong>
   <%= yield %>
 </div>
