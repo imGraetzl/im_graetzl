@@ -1,3 +1,7 @@
+<% if @graetzl.blank? %>
+  <% @graetzl = meeting.graetzls.first %>
+<% end %>
+
 <%= div_for meeting do %>
   <%= link_to [@graetzl, meeting] do %>
     <strong><%= meeting.name %></strong><br>

@@ -1,10 +1,24 @@
 <%= content_tag(:h2, 'Aktuelle Treffen (4 per default)') unless @meetings.empty? %>
-<% @meetings.each do |meeting| %>
-  <%= link_to meeting.name, [meeting.graetzls.first, meeting] %><br>
-<% end %>
+<%= render partial: 'meetings/meeting', collection: @meetings %>
 
 <h2>Bezirke</h2>
 
 <% @districts.each do |district| %>
   <%= link_to "#{district.zip} - #{district.name}", district %><br>
 <% end %>
+
+<!-- tmp styles -->
+<style type="text/css">
+  div#head-section {
+    padding-bottom: 1em;
+    margin-bottom: 3em;
+    border-bottom: 1px dotted #666;
+  }
+
+  div.meeting {
+    padding: 1em;
+    border: 1px solid #666;
+    margin-bottom: 1em;
+    background: #c2e4df;
+  }
+</style>
