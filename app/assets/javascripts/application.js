@@ -25,6 +25,7 @@
 //= require jquery.noty.packaged
 //= require jquery_ujs
 //= require turbolinks
+//= require fastclick
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers

@@ -27,6 +27,7 @@
 @import "components/forms";
 @import "components/dropDowns";
 @import "components/userimg";
+@import "components/stream";
 @import "components/addressSearchAutocomplete";
 @import "components/fileUploads";
 @import "components/notificationsValidation";
@@ -37,9 +38,9 @@
 //---------------------------------------------------------------------------------------------*/
 
 @import "controllers/registration";
-@import "controllers/_meetingCreate";
-@import "controllers/_meetingDetail";
-@import "controllers/_homeOut";
+@import "controllers/meetingCreate";
+@import "controllers/meetingDetail";
+@import "controllers/homeOut";
 
 //---------------------------------------------------------------------------------------------*\
 // VENDOR

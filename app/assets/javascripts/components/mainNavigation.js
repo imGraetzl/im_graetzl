@@ -16,7 +16,7 @@ APP.components.mainNavigation = (function() {
     function createMobileNav() {
         var $mainHolder =  $(".mainNavHolder"),
             $mobileNav = $('<div class="mobileNavHolder">');
-        $mainHolder.find(".nav-mainActions, .nav-loggedOut").clone().appendTo($mobileNav);
+        $mainHolder.find(".nav-mainActions").clone().appendTo($mobileNav);
         $mobileNav.insertAfter($mainHolder).hide();
 
         $(".mobileNavToggle").on("click", function() {

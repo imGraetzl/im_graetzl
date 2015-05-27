@@ -1,0 +1,30 @@
+.stream {
+  clear: both;
+  height: 50px;
+  border-top: 2px dotted lighten($color-ambient-mint, 20);
+  margin-bottom: 100px;
+  padding: 2rem 0;
+  @include respond-to(">=large") {
+    margin: 0 auto;
+  }
+
+  .writeEntry,
+  .streamEntry {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .writeEntry {
+    background-color: lighten($color-ambient-mint, 20);
+    height: 130px;
+    text-align: center;
+    font-size: 30px;
+    color: $color-background-bright;
+    font-style: italic;
+    padding-top: 2rem;
+  }
+
+  .streamEntry {
+
+  }
+}

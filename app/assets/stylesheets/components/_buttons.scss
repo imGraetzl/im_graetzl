@@ -17,6 +17,9 @@
   display: block;
   text-decoration: none;
   line-height: 1;
+  &:hover {
+    background-color: $color-ambient-mint;
+  }
   @if ($btnSize == 'normal') {
     padding: 1rem 1.2rem;
   }
@@ -27,17 +30,6 @@
     padding: 1.4rem 1.6rem;
   }
 }
-@mixin btn-imgRound {
-  padding: 0.4rem 1.4rem 0.4rem 0.8rem;
-  .img-round {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 1rem;
-    border-color: $color-background-bright;
-  }
-}
-
-
 
 .btn-primary {
   @include btn;
@@ -49,20 +41,19 @@
 
 .btn-userCallToAction {
   @include btn;
-  @include btn-imgRound;
   @include ellipsis;
-  padding-left: 1.8rem;
-  padding-right: 1.8rem;
-  box-shadow: 3px 3px 0px rgba($color-font-primary, 0.5);
+  @include boxShadow;
   font-style: italic;
-  transition: background-color 0.2s linear;
-  &:hover {
-    background-color: darken($color-ambient-rosa, 7);
-  }
-  @include respond-to(">medium") {
+  padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+  display: flex;
+  align-items: center;
+  @include respond-to(">=medium") {
     font-size: 1.2rem;
   }
-
+  .img-round {
+    margin-right: 0.8rem;
+    border-color: $color-background-bright;
+  }
 }
 
 .nav-btnBar {
