@@ -160,6 +160,12 @@ RSpec.describe MeetingsController, type: :controller do
         }.to change(Meeting, :count).by(1)
       end
 
+      it 'creates new graetzl_meeting record' do
+        expect {
+          post :create, attrs
+        }.to change(GraetzlMeeting, :count).by(1)
+      end
+
       it 'sets current_user as initiator' do
         post :create, attrs
         expect(new_meeting.going_tos.last).to have_attributes(user: user, role: GoingTo::ROLES[:initiator])
