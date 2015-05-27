@@ -420,6 +420,12 @@ RSpec.describe MeetingsController, type: :controller do
         }.to change(GoingTo, :count).by(-1)
       end
 
+      it 'deletes graetzl_meeting' do
+        expect {
+          delete :destroy, graetzl_id: graetzl, id: meeting
+        }.to change(GraetzlMeeting, :count).by(-1)
+      end
+
       it 'redirects to graetzl_path' do
         delete :destroy, graetzl_id: graetzl, id: meeting
         expect(response).to redirect_to(graetzl)

@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :graetzl_meeting do
-    graetzl nil
-meeting nil
+    graetzl strategy: :create
+    meeting strategy: :create
   end
-
 end
