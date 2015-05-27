@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526120841) do
+ActiveRecord::Schema.define(version: 20150527113356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,16 @@ ActiveRecord::Schema.define(version: 20150526120841) do
   add_index "going_tos", ["meeting_id"], :name => "index_going_tos_on_meeting_id"
   add_index "going_tos", ["user_id"], :name => "index_going_tos_on_user_id"
 
+  create_table "graetzl_meetings", force: true do |t|
+    t.integer  "graetzl_id"
+    t.integer  "meeting_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "graetzl_meetings", ["graetzl_id"], :name => "index_graetzl_meetings_on_graetzl_id"
+  add_index "graetzl_meetings", ["meeting_id"], :name => "index_graetzl_meetings_on_meeting_id"
+
   create_table "graetzls", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -122,14 +132,6 @@ ActiveRecord::Schema.define(version: 20150526120841) do
   end
 
   add_index "graetzls", ["slug"], :name => "index_graetzls_on_slug"
-
-  create_table "graetzls_meetings", id: false, force: true do |t|
-    t.integer "graetzl_id"
-    t.integer "meeting_id"
-  end
-
-  add_index "graetzls_meetings", ["graetzl_id"], :name => "index_graetzls_meetings_on_graetzl_id"
-  add_index "graetzls_meetings", ["meeting_id"], :name => "index_graetzls_meetings_on_meeting_id"
 
   create_table "meetings", force: true do |t|
     t.string   "name"
