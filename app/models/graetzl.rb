@@ -4,7 +4,8 @@ class Graetzl < ActiveRecord::Base
 
   # associations
   has_many :users
-  has_and_belongs_to_many :meetings
+  has_many :graetzl_meetings
+  has_many :meetings, through: :graetzl_meetings
 
   # instance methods
   def short_name
