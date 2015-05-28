@@ -4,7 +4,7 @@ include GeojsonSupport
 RSpec.describe MeetingsController, type: :controller do
   let(:graetzl) { create(:graetzl) }
   let(:user) { create(:user, graetzl: graetzl) }
-  let(:meeting) { create(:meeting, graetzls: [graetzl]) }
+  let(:meeting) { create(:meeting, graetzl: graetzl) }
 
   describe 'GET show' do
     context 'when no current_user' do
@@ -45,8 +45,8 @@ RSpec.describe MeetingsController, type: :controller do
 
   describe 'GET index' do
     before do
-      3.times { new_meeting = create(:meeting, graetzls: [graetzl]) }
-      past_meeting = build(:meeting, graetzls: [graetzl], starts_at_date: Date.yesterday)
+      3.times { new_meeting = create(:meeting, graetzl: graetzl) }
+      past_meeting = build(:meeting, graetzl: graetzl, starts_at_date: Date.yesterday)
       past_meeting.save(validate: false)
     end
 
@@ -160,20 +160,14 @@ RSpec.describe MeetingsController, type: :controller do
         }.to change(Meeting, :count).by(1)
       end
 
-      it 'creates new graetzl_meeting record' do
-        expect {
-          post :create, attrs
-        }.to change(GraetzlMeeting, :count).by(1)
-      end
-
       it 'sets current_user as initiator' do
         post :create, attrs
         expect(new_meeting.going_tos.last).to have_attributes(user: user, role: GoingTo::ROLES[:initiator])
       end
 
-      it 'adds current_user graetzl to meeting graetzls' do
+      it 'associates graetzl with meeting' do
         post :create, attrs
-        expect(new_meeting.graetzls).to include(graetzl)
+        expect(new_meeting.graetzl).to eq(graetzl)
       end
 
       it 'adds address to meeting' do
@@ -418,12 +412,6 @@ RSpec.describe MeetingsController, type: :controller do
         expect {
           delete :destroy, graetzl_id: graetzl, id: meeting
         }.to change(GoingTo, :count).by(-1)
-      end
-
-      it 'deletes graetzl_meeting' do
-        expect {
-          delete :destroy, graetzl_id: graetzl, id: meeting
-        }.to change(GraetzlMeeting, :count).by(-1)
       end
 
       it 'redirects to graetzl_path' do

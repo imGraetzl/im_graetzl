@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GoingTosController, type: :controller do
   let(:graetzl) { create(:graetzl) }
-  let(:meeting) { create(:meeting, graetzls: [graetzl]) }
+  let(:meeting) { create(:meeting, graetzl: graetzl) }
   let(:user) { create(:user) }
 
   describe 'POST create' do
