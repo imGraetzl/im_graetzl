@@ -8,10 +8,6 @@ module MeetingsHelper
     end
   end
 
-  def current_going_to(meeting)
-    meeting.going_tos.find_by_user_id(current_user)
-  end
-
   def localize_time(time, format)
     if time
       I18n.localize(time, format: format)
