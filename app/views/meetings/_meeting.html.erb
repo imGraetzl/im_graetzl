@@ -1,9 +1,5 @@
-<% if @graetzl.blank? %>
-  <% @graetzl = meeting.graetzls.first %>
-<% end %>
-
 <%= div_for meeting do %>
-  <%= link_to [@graetzl, meeting] do %>
+  <%= link_to [meeting.graetzl, meeting] do %>
     <strong><%= meeting.name %></strong><br>
     <%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %B %Y') if meeting.starts_at_date %>
     <p><small><%= meeting.users.count %> nehmen teil</small></p>
