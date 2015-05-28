@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527113356) do
+ActiveRecord::Schema.define(version: 20150528134228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,16 +113,6 @@ ActiveRecord::Schema.define(version: 20150527113356) do
   add_index "going_tos", ["meeting_id"], :name => "index_going_tos_on_meeting_id"
   add_index "going_tos", ["user_id"], :name => "index_going_tos_on_user_id"
 
-  create_table "graetzl_meetings", force: true do |t|
-    t.integer  "graetzl_id"
-    t.integer  "meeting_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "graetzl_meetings", ["graetzl_id"], :name => "index_graetzl_meetings_on_graetzl_id"
-  add_index "graetzl_meetings", ["meeting_id"], :name => "index_graetzl_meetings_on_meeting_id"
-
   create_table "graetzls", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -144,8 +134,10 @@ ActiveRecord::Schema.define(version: 20150527113356) do
     t.date     "ends_at_date"
     t.time     "starts_at_time"
     t.time     "ends_at_time"
+    t.integer  "graetzl_id"
   end
 
+  add_index "meetings", ["graetzl_id"], :name => "index_meetings_on_graetzl_id"
   add_index "meetings", ["slug"], :name => "index_meetings_on_slug"
 
   create_table "users", force: true do |t|

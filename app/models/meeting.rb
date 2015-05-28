@@ -6,8 +6,7 @@ class Meeting < ActiveRecord::Base
   mount_uploader :cover_photo, CoverPhotoUploader
 
   # associations
-  has_many :graetzl_meetings, dependent: :destroy
-  has_many :graetzls, through: :graetzl_meetings
+  belongs_to :graetzl
 
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
