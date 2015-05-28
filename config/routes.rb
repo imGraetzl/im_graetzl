@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
   resources :districts, path: 'wien', only: [:index, :show]
 
-  root 'districts#index'
-
   ActiveAdmin.routes(self)
 
   devise_for :users,
@@ -24,6 +22,7 @@ Rails.application.routes.draw do
   get 'static_pages/meetingCreate'
   get 'static_pages/meetingDetail'
   get 'static_pages/homeOut'
+  root 'static_pages#home'
 
   resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do

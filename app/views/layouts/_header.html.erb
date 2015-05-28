@@ -52,7 +52,7 @@
         </div>
 
         <div class="logoGraetzl">
-          <%= link_to(image_tag('svg/logo.svg'), graetzl_path(Graetzl.order('RANDOM()').first)) %>
+          <%= link_to(image_tag('svg/logo.svg'), root_path) %>
         </div>
         <div class="nav-loggedOut">
           <%= link_to user_registration_address_path, class: 'register' do %>
