@@ -6,7 +6,7 @@ RSpec.describe Meeting, type: :model do
   
   # check factory
   it 'has a valid factory' do
-    expect(build_stubbed(:meeting_full)).to be_valid
+    expect(build_stubbed(:meeting)).to be_valid
   end
 
   # validations
