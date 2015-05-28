@@ -31,7 +31,7 @@ RSpec.describe Graetzl, type: :model do
 
     context 'when meetings without date' do
       before do
-        3.times { graetzl.meetings << create(:meeting) }
+        3.times { create(:meeting, graetzl: graetzl) }
         graetzl.save
       end
 
@@ -45,17 +45,13 @@ RSpec.describe Graetzl, type: :model do
     end    
 
     context 'when meetings with date' do
-      let(:first_meeting) { create(:meeting, starts_at_date: Date.today + 1.day) }
-      let(:second_meeting) { create(:meeting, starts_at_date: Date.today + 2.days) }
-      let(:last_meeting) { create(:meeting, starts_at_date: Date.today + 3.days) }
-      let(:past_meeting) { build(:meeting, starts_at_date: Date.yesterday) }
+      let!(:first_meeting) { create(:meeting, graetzl: graetzl, starts_at_date: Date.today + 1.day) }
+      let!(:second_meeting) { create(:meeting, graetzl: graetzl, starts_at_date: Date.today + 2.days) }
+      let!(:last_meeting) { create(:meeting, graetzl: graetzl, starts_at_date: Date.today + 3.days) }
+      let(:past_meeting) { build(:meeting, graetzl: graetzl, starts_at_date: Date.yesterday) }
 
       before do
         past_meeting.save(validate: false)
-        graetzl.meetings << first_meeting
-        graetzl.meetings << second_meeting
-        graetzl.meetings << last_meeting
-        graetzl.meetings << past_meeting
       end
 
       it 'has meetings associated' do
