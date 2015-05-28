@@ -9,7 +9,7 @@ namespace :db do
 
   def erase_old_data
     puts 'remove old data'
-    [User, Meeting, Category].each(&:destroy_all)
+    [User, Meeting, Category, PublicActivity::Activity].each(&:destroy_all)
   end
 
   def check_for_graetzl_data
@@ -31,6 +31,17 @@ namespace :db do
       graetzl: Graetzl.first,
       confirmed_at: Time.now)
     admin.save(validate: false)
+    user_1 = User.new(
+      username: 'user_1',
+      first_name: 'user_1',
+      last_name: 'user_1',
+      email: 'user_1@example.com',
+      password: 'user_1',
+      password_confirmation: 'user_1',
+      admin: false,
+      graetzl: Graetzl.limit(1).offset(1).first,
+      confirmed_at: Time.now)
+    user_1.save(validate: false)
   end
 
   def add_categories
