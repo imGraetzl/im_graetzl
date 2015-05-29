@@ -1,9 +1,8 @@
 require 'httparty'
 
 namespace :db do
-  desc "import districts from open gv"
+  desc 'import districts from open gv api'
   task import_districts: :environment do
-    District.destroy_all
     api_response = query_api
     if api_response
       parse_features(api_response)
@@ -27,7 +26,7 @@ namespace :db do
       polygon = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
       name = feature['properties']['NAMEK']
       zip = feature['properties']['DISTRICT_CODE']
-      District.create(name: name, zip: zip, area: polygon).save!
+      District.find_or_create_by(name: name, zip: zip.to_s, area: polygon)
     end
   end
 end
