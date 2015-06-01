@@ -4,7 +4,8 @@ class Graetzl < ActiveRecord::Base
 
   # associations
   has_many :users
-  has_many :meetings
+  has_many :meetings, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   # instance methods
   def short_name
