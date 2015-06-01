@@ -31,4 +31,19 @@ RSpec.describe Post, type: :model do
       expect(Post.all).to eq([newer_post, older_post])
     end
   end
+
+  describe 'validations' do
+
+    it 'is invalid without content' do
+      expect(build(:post, content: '')).not_to be_valid
+    end
+
+    it 'is invalid without user' do
+      expect(build(:post, user: nil)).not_to be_valid
+    end
+
+    it 'is invalid without graetzl' do
+      expect(build(:post, graetzl: nil)).not_to be_valid
+    end
+  end
 end
