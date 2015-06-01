@@ -22,4 +22,13 @@ class Graetzl < ActiveRecord::Base
   def districts
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
   end
+
+  def activity
+    a = PublicActivity::Activity.arel_table
+    PublicActivity::Activity.where(
+      a[:owner_id].in(users.pluck(:id)).or(
+        a[:trackable_id].in(meetings.pluck(:id)).and(a[:trackable_type].eq('Meeting'))).or(
+        a[:trackable_id].in(posts.pluck(:id)).and(a[:trackable_type].eq('Post')))
+      ).order(created_at: :desc)
+  end
 end

@@ -28,11 +28,11 @@ RSpec.describe Graetzl, type: :model do
       end
 
       it 'has meetings' do
-        expect(graetzl.meetings).not_to be_empty
+        expect(graetzl.meetings.count).to eq(3)
       end
 
       it 'has posts' do
-        expect(graetzl.posts).not_to be_empty
+        expect(graetzl.posts.count).to eq(3)
       end
 
       it 'destroys meetings' do
@@ -64,8 +64,7 @@ RSpec.describe Graetzl, type: :model do
     let(:graetzl) { create(:graetzl) }
 
     context 'when no meetings' do
-
-      it 'returns empty' do
+      it 'has no meetings associated' do
         expect(graetzl.next_meetings).to be_empty
       end
 
@@ -117,5 +116,9 @@ RSpec.describe Graetzl, type: :model do
         expect(graetzl.next_meetings).not_to include(past_meeting)
       end
     end
+  end
+
+  describe '#activities' do
+    #todo
   end
 end
