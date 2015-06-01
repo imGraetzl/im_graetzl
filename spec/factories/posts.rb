@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :post do
-    content "MyText"
-graetzl nil
-user nil
+    content { Faker::Lorem.paragraph }
+    graetzl
+    user
   end
-
 end
