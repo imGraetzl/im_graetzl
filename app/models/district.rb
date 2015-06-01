@@ -1,8 +1,8 @@
-class District < ActiveRecord::Base
+class District < ActiveRecord::Base  
+  default_scope { order(zip: :asc) }
+
   extend FriendlyId
   friendly_id :long_name
-
-  default_scope { order('zip ASC') }
 
   # instance methods
   def graetzls
