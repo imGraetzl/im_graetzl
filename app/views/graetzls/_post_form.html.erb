@@ -1,0 +1,4 @@
+<%= form_for([@graetzl, @graetzl.posts.new], remote: true) do |f| %>
+  <%= f.text_area :content, cols: 80, rows: 5 %>
+  <%= f.button class: 'btn-primary' %>
+<% end %>

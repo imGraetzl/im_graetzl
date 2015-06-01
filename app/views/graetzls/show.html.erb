@@ -27,6 +27,9 @@
 </div>
 
 <div class="stream">
+  <div class="writeEntry">
+    <%= render 'post_form' if user_signed_in? %>
+  </div>
 
   <div class="writeEntry">
     <% if user_signed_in? %>
@@ -38,6 +41,7 @@
 
   <%= render_activities(@activities, layout: :activity, fallback: 'default') %>
 </div>
+
 
 <!-- tmp styles -->
 <style type="text/css">
