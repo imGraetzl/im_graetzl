@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def create
     @post = @graetzl.posts.build(post_params)
     if @post.save
+      @post.create_activity :create, owner: current_user
       redirect_to @graetzl
     else
       render nothing: true

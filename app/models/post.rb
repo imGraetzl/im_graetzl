@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
   default_scope { order(created_at: :desc) }
 
+  include PublicActivity::Common
+
   # associations
   belongs_to :graetzl
   belongs_to :user
