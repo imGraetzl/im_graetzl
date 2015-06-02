@@ -1,5 +1,11 @@
 <div class="streamEntry">
   <small>(vor <%= time_ago_in_words(activity.created_at) %>)</small><br>
   <strong><%= activity.owner.username if activity.owner %></strong>
+
   <%= yield %>
+
+  <% if activity.trackable.comments.present? %>
+    <strong>Comment:</strong><br>
+    <p><%= activity.trackable.comments.first.content %></p>
+  <% end %>
 </div>
