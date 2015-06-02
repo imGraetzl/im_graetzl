@@ -4,7 +4,8 @@ class Graetzl < ActiveRecord::Base
 
   # associations
   has_many :users
-  has_many :meetings
+  has_many :meetings, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   # instance methods
   def short_name
@@ -20,5 +21,14 @@ class Graetzl < ActiveRecord::Base
 
   def districts
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
+  end
+
+  def activity
+    a = PublicActivity::Activity.arel_table
+    PublicActivity::Activity.where(
+      a[:owner_id].in(users.pluck(:id)).or(
+        a[:trackable_id].in(meetings.pluck(:id)).and(a[:trackable_type].eq('Meeting'))).or(
+        a[:trackable_id].in(posts.pluck(:id)).and(a[:trackable_type].eq('Post'))))
+      .order(created_at: :desc)
   end
 end

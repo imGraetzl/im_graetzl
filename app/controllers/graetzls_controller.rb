@@ -5,9 +5,6 @@ class GraetzlsController < ApplicationController
   
   def show
     @graetzl = Graetzl.find(params[:id])
-    user_activity = PublicActivity::Activity.where(owner: @graetzl.users).pluck(:id)
-    meeting_activity = PublicActivity::Activity.where(trackable: @graetzl.meetings).pluck(:id)
-    activity_ids = user_activity.concat(meeting_activity)
-    @activities = PublicActivity::Activity.where(id: activity_ids).order(created_at: :desc) unless activity_ids.empty?
+    @activities = @graetzl.activity
   end
 end

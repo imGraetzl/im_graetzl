@@ -9,7 +9,7 @@ namespace :db do
 
   def delete_old
     puts 'remove old data'
-    [User, Meeting, Category].each(&:destroy_all)
+    [User, Meeting, Category, PublicActivity::Activity].each(&:destroy_all)
   end
 
   def graetzl_and_districts?
