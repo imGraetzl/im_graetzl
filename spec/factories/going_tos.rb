@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :going_to do
-    user strategy: :create
-    meeting strategy: :create
+    user
+    meeting
     role 1
   end
 end

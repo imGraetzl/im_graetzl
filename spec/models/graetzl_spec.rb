@@ -117,8 +117,4 @@ RSpec.describe Graetzl, type: :model do
       end
     end
   end
-
-  describe '#activities' do
-    #todo
-  end
 end

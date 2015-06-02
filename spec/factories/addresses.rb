@@ -1,5 +1,3 @@
-require 'faker'
-
 FactoryGirl.define do
   factory :address do
     street_name { Faker::Address.street_name }

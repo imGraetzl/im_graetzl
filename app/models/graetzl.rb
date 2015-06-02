@@ -28,7 +28,7 @@ class Graetzl < ActiveRecord::Base
     PublicActivity::Activity.where(
       a[:owner_id].in(users.pluck(:id)).or(
         a[:trackable_id].in(meetings.pluck(:id)).and(a[:trackable_type].eq('Meeting'))).or(
-        a[:trackable_id].in(posts.pluck(:id)).and(a[:trackable_type].eq('Post')))
-      ).order(created_at: :desc)
+        a[:trackable_id].in(posts.pluck(:id)).and(a[:trackable_type].eq('Post'))))
+      .order(created_at: :desc)
   end
 end
