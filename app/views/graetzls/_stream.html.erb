@@ -1,13 +1,5 @@
-<div>
+<div id="stream-post-form">
   <%= render 'graetzls/post_form' if user_signed_in? %>
-</div>
-
-<div>
-  <% if user_signed_in? %>
-    <%= button_to new_graetzl_meeting_path(graetzl), method: :get, class: 'btn-userCallToAction' do %>
-      <%= image_tag current_user.avatar_url(:small), class: 'img-round' %> Neues Treffen starten
-    <% end %>
-<% end %>
 </div>
 
 <%= render_activities(activities, layout: :activity, fallback: 'default') %>

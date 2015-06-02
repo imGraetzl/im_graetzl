@@ -3,9 +3,9 @@ class PostsController < ApplicationController
   before_filter :set_graetzl
 
   def create
-    @post = @graetzl.posts.build(post_params)
-    if @post.save
-      @post.create_activity :create, owner: current_user
+    post = @graetzl.posts.build(post_params)
+    if post.save
+      @activity = post.create_activity :create, owner: current_user
     else
       render nothing: true
     end
