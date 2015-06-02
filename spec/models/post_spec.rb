@@ -8,7 +8,7 @@ RSpec.describe Post, type: :model do
   end
 
   describe 'associations' do
-    let(:post) { build_stubbed(:post) }
+    let(:post) { create(:post) }
 
     it 'has content' do
       expect(post).to respond_to(:content)
@@ -20,6 +20,28 @@ RSpec.describe Post, type: :model do
 
     it 'has graetzl' do
       expect(post).to respond_to(:graetzl)      
+    end
+
+    it 'has comments' do
+      expect(post).to respond_to(:comments)      
+    end
+
+    describe 'destroy associated records' do
+      before do
+        3.times { create(:comment, commentable: post) }
+      end
+
+      it 'has comments' do
+        expect(post.comments.count).to eq(3)
+      end
+
+      it 'destroys comments' do
+        comments = post.comments
+        post.destroy
+        comments.each do |comment|
+          expect(Comment.find_by_id(comment.id)).to be_nil
+        end
+      end
     end
   end
 
