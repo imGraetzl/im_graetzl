@@ -1,0 +1,93 @@
+.iconCalendarTextual {
+  position: relative;
+  span {
+    z-index: 2;
+    font-size: 12px;
+    display: block;
+    position: absolute;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+    line-height: 1;
+    color: $color-ambient-mint;
+    font-weight: 600;
+    margin-top: 17px;
+  }
+  [class^=icon] {
+    fill: $color-ambient-mint;
+    height: 45px;
+    width: 45px;
+  }
+}
+
+.iconMapLink {
+  text-align: center;
+  font-size: 0.8rem;
+  font-style: italic;
+  text-decoration: none;
+  [class^=icon-] {
+    width: 45px;
+    height: 45px;
+    fill: $color-ambient-mint;
+  }
+}
+a.iconMapLink:hover [class^=icon] {
+  fill: $color-ambient-rosa;
+}
+
+
+.dateTime {
+  overflow: hidden;
+
+  .dayYearTimes {
+    float: left;
+    width: calc(100% - 65px);
+  }
+  .begin {
+    margin-right: 0.5rem;
+    padding-right: 0.5rem;
+    border-right: 1px dotted $color-font-primary;
+  }
+
+  .iconCalendarTextual {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    display: block;
+    @include respond-to(">=medium") {
+      margin-right: 20px;
+    }
+  }
+}
+
+.location {
+  overflow: hidden;
+  .address {
+    float: left;
+    width: calc(100% - 65px);
+  }
+  .iconMapLink {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    display: block;
+    @include respond-to(">=medium") {
+      margin-right: 20px;
+    }
+  }
+
+}
+
+
+
+.dateTimeIconSmall, .locationIconSmall {
+  font-size: 0.8rem;
+  [class^=icon-] {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+  }
+}
+

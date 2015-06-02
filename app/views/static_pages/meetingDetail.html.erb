@@ -4,6 +4,57 @@
   <meta charset="UTF-8">
   <title></title>
 
+  <script>
+
+      $(document).ready(function() {
+
+          APP.components.imgUploadPreview();
+
+          $(".respondForm textarea, .writeEntry textarea").autogrow();
+
+          $(".respondForm textarea")
+                  .on("focus", function() {
+                      var $parent = $(this).parents(".respondForm");
+                      $parent.addClass("is-focused");
+                  })
+                  .on("blur", function() {
+                      var $parent = $(this).parents(".respondForm");
+                      if(!$(this).val().length) {
+                          $parent.removeClass("is-focused");
+                      }
+                  });
+
+          $(".writeEntry textarea")
+                  .on("focus", function() {
+                      var $parent = $(this).parents(".writeEntry");
+                      $parent.addClass("is-focused");
+                  })
+                  .on("blur", function() {
+                      var $parent = $(this).parents(".writeEntry");
+                      if(!$(this).val().length) {
+                          $parent.removeClass("is-focused");
+                      }
+                  });
+
+          /*
+           $(".respondForm textarea").showMoreOnTyping({
+           elementsToShow: function() {
+           return $(this).parent().parent().find("button");
+           }
+           });
+
+           $(".writeEntry textarea").showMoreOnTyping({
+           elementsToShow: function() {
+           return $(this).parent().parent().find("button, .upload-image");
+           }
+           });
+           */
+
+
+      });
+
+
+  </script>
 
 
 </head>
@@ -16,13 +67,14 @@
 </div>
 
 <div class="titleImg">
-  <%= link_to(image_tag('yoga.jpg'), root_path) %>
+  <img src="https://placeimg.com/900/500/nature" alt=""/>
+
 </div>
 
 <div class="entryDescription">
 
   <div class="dateTime">
-    <div class="wrp-icon">
+    <div class="iconCalendarTextual">
       <span>Nov<br>31</span>
       <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
     </div>
@@ -32,7 +84,7 @@
   </div>
 
   <div class="location">
-    <a class="wrp-icon" href="http://www.openstreetmap.org/#map=18/48.21931/16.39572" target="_blank">
+    <a class="iconMapLink" href="http://www.openstreetmap.org/#map=18/48.21931/16.39572" target="_blank">
       <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
       Karte
     </a>
@@ -81,12 +133,212 @@
 </div>
 
 <div class="stream">
-  <div class="writeEntry">
-    Stream
+  <div class="wrp-writeEntry">
+    <div class="writeEntry">
+      <img src="https://placeimg.com/200/200/people?7" alt="" class="img-round"/>
+      <div class="streamCreateContent">
+        <div class="textEditor">
+          <textarea name="" id="" placeholder="Beitrag verfassen"></textarea>
+          <div class="upload-image js-imgUpld">
+            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+            Bilder hochladen
+            <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+            <input id="file_id" name="" type="file">
+          </div>
+        </div>
+        <button>Beitrag senden</button>
+      </div>
+    </div>
   </div>
-  <div class="streamEntry">
 
+  <div class="userContent">
+    <div class="userCreateInfo">
+      <img src="https://placeimg.com/200/200/people?8" alt="" class="img-round"/>
+      <span class="userAndType"><a href="">Johanniter Mönch</a> hat eine Nachricht erstellt</span>
+    </div>
+    <div class="wrp-content">
+      <div class="txt-initiator">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+      </div>
+      <div class="userContentResponse">
+        <div class="userCreateInfo">
+          <img src="https://placeimg.com/200/200/people?5" alt="" class="img-round"/>
+          <span class="userAndType">Antwort von <a href="">Hugenotten Karl</a></span>
+        </div>
+        <div class="txt-responder">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+        </div>
+        <div class="respondForm">
+          <label>
+            <img src="https://placeimg.com/200/200/people?7" class="img-round" alt=""/>
+            <textarea name="" id="" placeholder="Antworten"></textarea>
+          </label>
+          <button>Antwort senden</button>
+        </div>
+      </div>
+    </div>
   </div>
+
+
+  <div class="userContent">
+    <div class="userCreateInfo">
+      <img src="https://placeimg.com/200/200/people?4" alt="" class="img-round"/>
+      <span class="userAndType"><a href="">Fritz Verzetnitsch</a> hat ein Treffen erstellt</span>
+    </div>
+    <div class="wrp-content">
+      <div class="meetingTeaser">
+        <h2><a href="">Sauber Petern im Park</a></h2>
+        <div class="dateTimeIconSmall">
+          <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+          17. August 2015 | 12:00 Uhr
+        </div>
+        <div class="locationIconSmall">
+          <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
+          Gasthaus Hansy
+        </div>
+        <div class="meetingImg">
+          <img src="https://placeimg.com/900/500/nature?8" alt=""/>
+        </div>
+      </div>
+      <div class="txt-initiator">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+      </div>
+      <div class="userContentResponse">
+        <div class="userCreateInfo">
+          <img src="https://placeimg.com/200/200/people?12" alt="" class="img-round"/>
+          <span class="userAndType">Antwort von <a href="">Kurt Cobain</a></span>
+        </div>
+        <div class="txt-responder">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+        </div>
+        <div class="respondForm">
+          <label>
+            <img src="https://placeimg.com/200/200/people?7" class="img-round" alt=""/>
+            <textarea name="" id="" placeholder="Antworten"></textarea>
+          </label>
+          <button>Antwort senden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="userContent">
+    <div class="userCreateInfo">
+      <img src="https://placeimg.com/200/200/people?4" alt="" class="img-round"/>
+      <span class="userAndType"><a href="">Jazz Brigitte</a> hat ein Treffen erstellt</span>
+    </div>
+    <div class="wrp-content">
+      <div class="meetingTeaser">
+        <h2><a href="">Imkerkurs am Donaukanal</a></h2>
+        <div class="dateTimeIconSmall">
+          <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+          17. Juli 2015 | 09:00 Uhr
+        </div>
+        <div class="locationIconSmall">
+          <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
+          Vor der Hafenkneipe
+        </div>
+        <div class="meetingImg">
+          <img src="https://placeimg.com/900/500/architecture?5" alt=""/>
+        </div>
+      </div>
+      <div class="txt-initiator">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+      </div>
+      <div class="userContentResponse">
+        <div class="userCreateInfo">
+          <img src="https://placeimg.com/200/200/people?1" alt="" class="img-round"/>
+          <span class="userAndType">Antwort von <a href="">Panther Rei</a></span>
+        </div>
+        <div class="txt-responder">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+        </div>
+        <div class="respondForm">
+          <label>
+            <img src="https://placeimg.com/200/200/people?11" class="img-round" alt=""/>
+            <textarea name="" id="" placeholder="Antworten"></textarea>
+          </label>
+          <button>Antwort senden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="userContent">
+    <div class="userCreateInfo">
+      <img src="https://placeimg.com/200/200/people?8" alt="" class="img-round"/>
+      <span class="userAndType"><a href="">Johanniter Mönch</a> hat eine Nachricht erstellt</span>
+    </div>
+    <div class="wrp-content">
+      <div class="txt-initiator">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+      </div>
+      <div class="userContentResponse">
+        <div class="userCreateInfo">
+          <img src="https://placeimg.com/200/200/people?5" alt="" class="img-round"/>
+          <span class="userAndType">Antwort von <a href="">Hugenotten Karl</a></span>
+        </div>
+        <div class="txt-responder">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+        </div>
+        <div class="respondForm">
+          <label>
+            <img src="https://placeimg.com/200/200/people?7" class="img-round" alt=""/>
+            <textarea name="" id="" placeholder="Antworten"></textarea>
+          </label>
+          <button>Antwort senden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="userContent">
+    <div class="userCreateInfo">
+      <img src="https://placeimg.com/200/200/people?6" alt="" class="img-round"/>
+      <span class="userAndType"><a href="">Horst Tischler</a> hat ein Treffen erstellt</span>
+    </div>
+    <div class="wrp-content">
+      <div class="meetingTeaser">
+        <h2><a href="">Autorennen auf der A2 Richtung Graz</a></h2>
+        <div class="dateTimeIconSmall">
+          <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+          17. Dezember 2015 | 21:00 Uhr
+        </div>
+        <div class="locationIconSmall">
+          <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
+          Verteilerkreis Favoriten
+        </div>
+        <div class="meetingImg">
+          <img src="https://placeimg.com/900/500/technology?8" alt=""/>
+        </div>
+      </div>
+      <div class="txt-initiator">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+      </div>
+      <div class="userContentResponse">
+        <div class="userCreateInfo">
+          <img src="https://placeimg.com/200/200/people?12" alt="" class="img-round"/>
+          <span class="userAndType">Antwort von <a href="">Resi Brunz</a></span>
+        </div>
+        <div class="txt-responder">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque beatae eaque incidunt iusto officia optio porro quam quas suscipit voluptate?</p>
+        </div>
+        <div class="respondForm">
+          <label>
+            <img src="https://placeimg.com/200/200/people?7" class="img-round" alt=""/>
+            <textarea name="" id="" placeholder="Antworten"></textarea>
+          </label>
+          <button>Antwort senden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 </div>
 
 </body>

@@ -3,13 +3,8 @@ header {
   background-color: #ffffff;
   border-bottom: 1px solid #DEEAE6;
   display: block;
-  @include respond-to(">=large") {
-    margin-bottom: 6rem;
-  }
-
-  .inner {
-    margin: 0 auto;
-    max-width: $layout-max-width;
+  @include respond-to(">=medium") {
+    margin-bottom: 4rem;
   }
 }
 
@@ -20,15 +15,8 @@ header {
   align-items: center;
   height: 60px;
   position: relative;
-  padding-left: 18px;
-  padding-right: 18px;
   @include respond-to(">=medium") {
     height: 70px;
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-  @include respond-to(">=large") {
-    width: 100%;
   }
   .nav-mainActions {
     display: none;
@@ -80,9 +68,14 @@ header {
   [class*=icon-] {
     display: inline-block;
     vertical-align: middle;
-    width: 34px;
-    height: 34px;
-    fill: $color-ambient-rosa;
+    width: 28px;
+    height: 28px;
+    fill: $color-font-primary;
+    pointer-events: none;
+    @include respond-to(">=medium") {
+      width: 34px;
+      height: 34px;
+    }
   }
   span {
     display: none;
@@ -171,7 +164,7 @@ header {
       padding-right: 20px;
     }
     span {
-      @include respond-to(">450px") {
+      @include respond-to(">=medium") {
         background-image: url(image_path('svg/icon-arrow-right-blinky.svg'));
         background-repeat: no-repeat;
         padding-left: 38px;
@@ -193,7 +186,7 @@ header {
 }
 
 .userSettings {
-  color: $color-ambient-mint-dark;;
+  color: $color-ambient-mint-dark;
   font-size: 1rem;
   height: 100%;
   .img-user {

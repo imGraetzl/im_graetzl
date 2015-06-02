@@ -8,7 +8,7 @@
   }
 
   .dropDownContent {
-    @include boxShadow;
+    box-shadow: $boxShadow;
     position: absolute;
     background-color: $color-background-bright;
     border: 1px solid $color-ambient-mint;
