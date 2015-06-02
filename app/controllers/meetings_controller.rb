@@ -23,13 +23,11 @@ class MeetingsController < ApplicationController
     merge_changes
     current_user.go_to(@meeting, GoingTo::ROLES[:initiator])
     
-    respond_to do |format|
-      if @meeting.save
-        @meeting.create_activity :create, owner: current_user
-        format.html { redirect_to [@graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.' }
-      else
-        format.html { render :new }
-      end
+    if @meeting.save
+      @meeting.create_activity :create, owner: current_user
+      redirect_to [@graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.'
+    else
+      render :new
     end
   end
 
@@ -40,22 +38,16 @@ class MeetingsController < ApplicationController
     @meeting.attributes = meeting_params
     merge_changes
 
-    respond_to do |format|
-      if @meeting.save
-        @meeting.create_activity :update, owner: current_user
-        format.html { redirect_to [@graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert." }
-      else
-        format.html { render :edit }
-      end
+    if @meeting.save
+      redirect_to [@graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
+    else
+      render :edit
     end
   end
 
   def destroy
     @meeting.destroy
-    respond_to do |format|
-      format.html { redirect_to @graetzl, notice: 'Treffen abgesagt.' }
-      format.json { head :no_content }
-    end
+    redirect_to @graetzl, notice: 'Treffen abgesagt.'
   end
 
   private
