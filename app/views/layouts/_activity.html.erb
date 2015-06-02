@@ -8,4 +8,9 @@
     <strong>Comment:</strong><br>
     <p><%= activity.trackable.comments.first.content %></p>
   <% end %>
+
+  <%= form_for(Comment.new, url: comments_path(commentable_type: activity.trackable_type, commentable_id: activity.trackable_id), remote: true) do |f| %>
+    <%= f.text_area :content, cols: 60, rows: 2 %>
+    <%= f.button class: 'btn-primary' %>
+  <% end %>
 </div>

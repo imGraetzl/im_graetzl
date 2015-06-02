@@ -31,6 +31,11 @@ RSpec.describe Comment, type: :model do
         expect(Comment.all).to eq([newer_comment, older_comment])
       end
     end
+  end
 
+  describe 'validations' do
+    it 'is invalid without content' do
+      expect(build(:comment, content: '')).not_to be_valid
+    end
   end
 end
