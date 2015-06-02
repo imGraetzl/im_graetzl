@@ -12,13 +12,6 @@ class Graetzl < ActiveRecord::Base
     name.split(',')[0]
   end
 
-  def next_meetings
-    meetings
-      .where('starts_at_date > ?', Date.yesterday)
-      .order(starts_at_date: :asc)
-      .limit(2)
-  end
-
   def districts
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
   end

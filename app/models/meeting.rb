@@ -1,4 +1,6 @@
 class Meeting < ActiveRecord::Base
+  default_scope { order(starts_at_date: :asc) }
+
   include PublicActivity::Common
   extend FriendlyId
   friendly_id :name
@@ -22,6 +24,19 @@ class Meeting < ActiveRecord::Base
   validates :name, presence: true
   validate :starts_at_date_cannot_be_in_the_past
   validate :ends_at_time_cannot_be_before_starts_at_time
+
+  # class methods
+  def self.upcoming
+    m = Meeting.arel_table
+    where(
+      m[:starts_at_date].eq(nil).or(
+        m[:starts_at_date].gt(Date.yesterday)))
+  end
+
+  def self.past
+    m = Meeting.arel_table
+    where(m[:starts_at_date].lt(Date.today))    
+  end
 
   # instance methods
   def upcoming?

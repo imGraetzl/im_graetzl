@@ -10,16 +10,18 @@
 <% end %>
 
 <div>
-  <%= content_tag(:h2, 'Nächste Treffen') unless @graetzl.next_meetings.empty? %>
-  <% @graetzl.next_meetings.each do |meeting| %>
+  <%= content_tag(:h2, 'Nächste Treffen') if @meetings %>
+  <% @meetings.each do |meeting| %>
 
-    <%= link_to [@graetzl, meeting] do %>      
-      <strong>
-        <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
-        <%= meeting.starts_at_date.day %>
-      </strong>
-      <p><%= meeting.name %><br><%= meeting.users.count %> nehmen schon teil</p>
-    <% end %>
+    <div class="meeting">
+      <%= link_to [@graetzl, meeting] do %>      
+        <strong>
+          <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
+          <%= meeting.starts_at_date.day %>
+        </strong>
+        <p><%= meeting.name %><br><%= meeting.users.count %> nehmen schon teil</p>
+      <% end %>
+    </div>
 
   <% end %>
 
@@ -32,6 +34,11 @@
 
 <!-- tmp styles -->
 <style type="text/css">
+  div.meeting {
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: #DCDCDC;
+  }
   div.streamEntry {
     padding: 1em;
     border-bottom: 1px dotted #666;

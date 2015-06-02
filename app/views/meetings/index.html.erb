@@ -12,12 +12,12 @@
   <% end %>
 </div>
 
-<%= content_tag(:h2, "Treffen im #{@graetzl.short_name}") unless @meetings_current.empty? %>
-<%= render partial: 'meeting', collection: @meetings_current %>
+<%= content_tag(:h2, "Treffen im #{@graetzl.short_name}") if @meetings.upcoming %>
+<%= render partial: 'meeting', collection: @meetings.upcoming %>
 
 
-<%= content_tag(:h2, 'Vergangene Treffen') unless @meetings_past.empty? %>
-<%= render partial: 'meeting', collection: @meetings_past %>
+<%= content_tag(:h2, 'Vergangene Treffen') if @meetings.past %>
+<%= render partial: 'meeting', collection: @meetings.past %>
 
 
 

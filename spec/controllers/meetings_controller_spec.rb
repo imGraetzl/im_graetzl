@@ -88,21 +88,7 @@ RSpec.describe MeetingsController, type: :controller do
       it 'has 4 meetings' do
         expect(assigns(:meetings).count).to eq(4)        
       end
-
-      it 'assigns @meetings_current and @meetings_past' do
-        expect(assigns(:meetings_current)).to be
-        expect(assigns(:meetings_past)).to be
-      end
-
-      it 'has 3 meetings_current' do
-        expect(assigns(:meetings_current).count).to eq(3)
-      end
-
-      it 'has 1 meetings_past' do
-        expect(assigns(:meetings_past).count).to eq(1)
-      end
     end
-
   end
 
   describe 'GET new' do

@@ -6,8 +6,6 @@ class MeetingsController < ApplicationController
 
   def index
     @meetings = @graetzl.meetings
-    @meetings_past = @meetings.where('starts_at_date < ?', Date.today)
-    @meetings_current = @meetings.where.not(id: @meetings_past.pluck(:id))
   end
 
   def show
