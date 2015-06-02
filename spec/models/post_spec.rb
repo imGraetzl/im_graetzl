@@ -45,12 +45,14 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe 'default scope' do
-    let!(:older_post) { create(:post, created_at: 1.day.ago) }
-    let!(:newer_post) { create(:post, created_at: 1.hour.ago) }
+  describe 'scopes' do
+    describe 'default scope' do
+      let!(:older_post) { create(:post, created_at: 1.day.ago) }
+      let!(:newer_post) { create(:post, created_at: 1.hour.ago) }
 
-    it 'has newer_post before older_post' do
-      expect(Post.all).to eq([newer_post, older_post])
+      it 'retrieves newer_post before older_post' do
+        expect(Post.all).to eq([newer_post, older_post])
+      end
     end
   end
 
