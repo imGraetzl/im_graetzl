@@ -1,30 +1,268 @@
 .stream {
   clear: both;
-  height: 50px;
-  border-top: 2px dotted lighten($color-ambient-mint, 20);
   margin-bottom: 100px;
-  padding: 2rem 0;
+  padding-top: 30px;
   @include respond-to(">=large") {
     margin: 0 auto;
   }
+}
 
-  .writeEntry,
-  .streamEntry {
-    max-width: 700px;
-    margin: 0 auto;
+.writeEntry, .streamEntry {
+  margin: 0 auto;
+  display: flex;
+  img {
+    flex: 0 0 auto;
+    margin-right: 1rem;
   }
 
-  .writeEntry {
-    background-color: lighten($color-ambient-mint, 20);
-    height: 130px;
-    text-align: center;
-    font-size: 30px;
-    color: $color-background-bright;
-    font-style: italic;
-    padding-top: 2rem;
+  .streamCreateContent {
+    flex: 1 1 auto;
   }
 
-  .streamEntry {
+  textarea {
+    width: 100%;
+    height: 40px;
+  }
 
+}
+
+.wrp-writeEntry {
+  box-shadow: $boxShadow-light;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-bottom: 100px;
+  background-color: #ffffff;
+  background-image: $texture-secondary;
+  position: relative;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  @include respond-to(">=medium") {
+    margin-left: 0;
+    margin-right: 0;
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      width: 140px;
+      height: calc(100% + 30px);
+      top: -20px;
+    }
+    &:before {
+      left: -10px;
+      background: linear-gradient(to right, rgba(251, 251, 251, 100) 30px, rgba(251, 251, 251, 0) 100%);
+    }
+    &:after {
+      right: -10px;
+      background: linear-gradient(to left, rgba(251, 251, 251, 100) 30px, rgba(251, 251, 251, 0) 100%);
+    }
   }
 }
+
+.writeEntry {
+  max-width: 650px;
+  button {
+    @include btn();
+    margin-top: 1rem;
+    display: none;
+    width: 100%;
+  }
+  .img-round {
+    display: none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
+  }
+}
+.writeEntry.is-focused {
+  button, .upload-image {
+    display: block;
+  }
+}
+
+.textEditor {
+  border: 1px solid $color-ambient-mint-light;
+  border-radius: 5px;
+  position: relative;
+  &:before {
+    content: '';
+    left: -10px;
+    top: 5px;
+    position: absolute;
+    @include triangleSingle($direction: "left", $color: $color-ambient-mint-light, $size: 15px);
+  }
+  textarea {
+    @include textarea-plain($bgColor: $color-ambient-mint-light);
+    border-radius: 5px 5px 0 0;
+    border: none;
+    display: block;
+    height: 70px;
+    padding: 9px 14px;
+  }
+  .upload-image {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.8rem;
+    display: none;
+    background-color: #ffffff;
+    border-radius: 0 0 5px 5px;
+  }
+  [class*=icon-camera] {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem !important;
+  }
+}
+
+
+
+.userContent {
+  max-width: 650px;
+  margin: 0 auto 120px auto;
+  .txt-initiator {
+    margin-bottom: 0.8rem;
+    @include respond-to(">=large") {
+      margin-left: 60px;
+      position: relative;
+      z-index: 5;
+    }
+  }
+}
+
+.userContentResponse {
+  @include respond-to(">=medium") {
+    padding-left: 60px;
+  }
+  .img-round {
+    width: 40px;
+    height: 40px;
+  }
+  .txt-responder {
+    @include respond-to(">=medium") {
+      margin-left: 50px;
+    }
+  }
+}
+
+.userCreateInfo {
+  color: $color-ambient-grey;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  @include respond-to(">=medium") {
+    margin-bottom: 0;
+  }
+  .img-round {
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+
+.respondForm {
+  textarea {
+    @include textarea-plain($borderColor: $color-ambient-grey-light);
+    width: 100%;
+    display: block;
+    color: $color-ambient-grey;
+    height: 40px;
+    padding: 8px 14px;
+    &::placeholder {
+      color: lighten($color-ambient-grey, 20);
+    }
+  }
+  label {
+    display: flex;
+    align-items: flex-start;
+  }
+  .img-round {
+    flex: 0 0 auto;
+    display: none;
+    margin-right: 8px;
+  }
+  button {
+    @include btn($btnSize: small, $btnBackground: $color-ambient-grey);
+    margin-top: 0.5rem;
+    display: none;
+    float: right;
+  }
+}
+.respondForm.is-focused {
+  .img-round {
+    @include respond-to(">=medium") {
+      display: block;
+    }
+  }
+  button {
+    display: block;
+  }
+}
+
+
+.meetingTeaser {
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  @include respond-to(">=medium") {
+    padding-left: 60px;
+    margin-top: 0;
+  }
+
+  h2, button, .dateTimeIconSmall, .locationIconSmall {
+    @include respond-to(">=medium") {
+      position: relative;
+      z-index: 5;
+    }
+  }
+
+  .dateTimeIconSmall, .locationIconSmall {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    @include respond-to(">=medium") {
+      text-align: left;
+      font-size: 2.2rem;
+    }
+    a {
+      color: $color-font-primary;
+      text-decoration: none;
+      &:hover {
+        color: $color-ambient-rosa;
+      }
+    }
+  }
+
+  .meetingImg {
+    margin-top: 20px;
+    @include respond-to(">=medium") {
+      @include cloudMaskOverImg;
+      width: 305px;
+      height: 170px;
+      position: absolute;
+      top: -65px;
+      right: 0;
+      z-index: 1;
+    }
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+
+

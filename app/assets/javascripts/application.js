@@ -26,6 +26,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require fastclick
+//= require autogrow
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers

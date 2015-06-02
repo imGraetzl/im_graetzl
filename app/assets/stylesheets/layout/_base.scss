@@ -20,7 +20,8 @@ body {
 }
 
 main,
-footer {
+footer .inner,
+header .inner {
   padding-left: 18px;
   padding-right: 18px;
   max-width: $layout-max-width;
@@ -35,6 +36,7 @@ footer {
 
 main {
   margin-bottom: 4rem;
+  position: relative;
 }
 
 a {

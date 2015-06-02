@@ -9,7 +9,6 @@
   border-radius: 0.3em;
   border: none;
   outline: none;
-  font-size: 1rem;
   cursor: pointer;
   color: $btnFontColor;
   background-image: $btnTexture;
@@ -22,17 +21,23 @@
   }
   @if ($btnSize == 'normal') {
     padding: 1rem 1.2rem;
+    font-size: 1rem;
   }
   @else if ($btnSize == 'small') {
     padding: 0.6rem 1rem;
+    font-size: 0.8rem;
   }
   @else if ($btnSize == 'large') {
     padding: 1.4rem 1.6rem;
+    font-size: 1.2rem;
   }
 }
 
 .btn-primary {
   @include btn;
+  &:hover {
+    background-color: $color-ambient-mint;
+  }
 }
 .btn-secondary {
   @include btn($btnBackground: $color-background-bright, $btnTexture: none, $btnFontColor: $color-ambient-rosa);
@@ -42,17 +47,25 @@
 .btn-userCallToAction {
   @include btn;
   @include ellipsis;
-  @include boxShadow;
-  font-style: italic;
+  box-shadow: $boxShadow;
   padding: 0.4rem 1.2rem 0.4rem 0.8rem;
   display: flex;
   align-items: center;
-  @include respond-to(">=medium") {
-    font-size: 1.2rem;
+  &:hover {
+    background-color: $color-ambient-mint;
   }
   .img-round {
     margin-right: 0.8rem;
     border-color: $color-background-bright;
+  }
+  &.small {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem 0.4rem 0.6rem;
+    .img-round {
+      width: 30px;
+      height: 30px;
+      padding: 1px;
+    }
   }
 }
 

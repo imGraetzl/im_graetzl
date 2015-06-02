@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(version: 20150601134715) do
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "coordinates",      limit: {:srid=>0, :type=>"point"}
     t.integer  "addressable_id"
     t.string   "addressable_type"
     t.string   "description"
+    t.spatial  "coordinates",      limit: {:srid=>0, :type=>"point"}
   end
 
   add_index "addresses", ["addressable_id", "addressable_type"], :name => "index_addresses_on_addressable_id_and_addressable_type"
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 20150601134715) do
     t.string   "zip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
     t.string   "slug"
+    t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
   end
 
   add_index "districts", ["slug"], :name => "index_districts_on_slug"
@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(version: 20150601134715) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
     t.string   "slug"
+    t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
   end
 
   add_index "graetzls", ["slug"], :name => "index_graetzls_on_slug"

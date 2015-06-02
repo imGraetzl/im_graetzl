@@ -52,17 +52,41 @@
   }
 }
 
-@mixin img-round($imgDimensions: 40px) {
+@mixin img-round($imgDimensions: 50px) {
   border-radius: 50%;
   border: 1px solid $color-ambient-mint;
   background-color: #ffffff;
-  padding: 3px;
+  padding: 2px;
   width: $imgDimensions;
   height: $imgDimensions;
 }
 
-@mixin boxShadow() {
-  box-shadow: 2px 2px 8px 0px rgba(0,0,0,0.32);
+@mixin textarea-plain($bgColor: #ffffff, $borderColor: $color-ambient-mint) {
+  background-color: $bgColor;
+  border: 1px solid $borderColor;
+  color: $color-font-primary;
+  outline: none;
+  font-family: $font-primary;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  resize: none;
+}
+
+@mixin cloudMaskOverImg() {
+  &:before {
+    content: '';
+    display: block;
+    background-image: url(image_path('mask-cloud.png'));
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
 }
 
 
