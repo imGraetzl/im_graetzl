@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601134715) do
+ActiveRecord::Schema.define(version: 20150602141346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,10 +56,10 @@ ActiveRecord::Schema.define(version: 20150601134715) do
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.spatial  "coordinates",      limit: {:srid=>0, :type=>"point"}
     t.integer  "addressable_id"
     t.string   "addressable_type"
     t.string   "description"
-    t.spatial  "coordinates",      limit: {:srid=>0, :type=>"point"}
   end
 
   add_index "addresses", ["addressable_id", "addressable_type"], :name => "index_addresses_on_addressable_id_and_addressable_type"
@@ -78,13 +78,24 @@ ActiveRecord::Schema.define(version: 20150601134715) do
   add_index "categories_meetings", ["category_id"], :name => "index_categories_meetings_on_category_id"
   add_index "categories_meetings", ["meeting_id"], :name => "index_categories_meetings_on_meeting_id"
 
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "commentable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "districts", force: true do |t|
     t.string   "name"
     t.string   "zip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
     t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
+    t.string   "slug"
   end
 
   add_index "districts", ["slug"], :name => "index_districts_on_slug"
@@ -117,8 +128,8 @@ ActiveRecord::Schema.define(version: 20150601134715) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
     t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
+    t.string   "slug"
   end
 
   add_index "graetzls", ["slug"], :name => "index_graetzls_on_slug"
