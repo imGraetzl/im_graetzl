@@ -15,7 +15,7 @@ ActiveAdmin.register User do
     column :first_name
     column :last_name
     column :graetzl do |user|
-      user.graetzl.short_name
+      user.graetzl.name
     end
     actions
   end
