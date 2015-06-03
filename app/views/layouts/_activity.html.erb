@@ -4,13 +4,8 @@
 
   <%= yield %>
 
-  <% if activity.trackable.comments.present? %>
-    <strong>Comment:</strong><br>
-    <p><%= activity.trackable.comments.first.content %></p>
-  <% end %>
+  <%= render 'comments/comment', comment: activity.trackable.comments.first if activity.trackable.comments.present? %>
 
-  <%= form_for(Comment.new, url: comments_path(commentable_type: activity.trackable_type, commentable_id: activity.trackable_id), remote: true) do |f| %>
-    <%= f.text_area :content, cols: 60, rows: 2 %>
-    <%= f.button class: 'btn-primary' %>
-  <% end %>
+  <%= render 'comments/form', type: activity.trackable_type, id: activity.trackable_id %>
+
 </div>

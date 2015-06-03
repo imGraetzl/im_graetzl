@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_commentable
+  before_filter :set_form_id, only: [:create]
 
   def create
-    comment = @commentable.comments.build(comment_params)
-    if comment.save
-      #@activity = post.create_activity :create, owner: current_user
+    @comment = @commentable.comments.build(comment_params)
+    if @comment.save
+      @commentable.create_activity :commented_on, owner: current_user, recipient: @comment
     else
       render nothing: true
     end
@@ -15,7 +16,11 @@ class CommentsController < ApplicationController
 
     def find_commentable
       klass = params[:commentable_type].constantize
-      @commentable = klass.find(params[:commentable_id])      
+      @commentable = klass.find(params[:commentable_id])  
+    end
+
+    def set_form_id
+      @form_id = params[:form_id]
     end
 
     def comment_params

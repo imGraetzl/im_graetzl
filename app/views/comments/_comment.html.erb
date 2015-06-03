@@ -1,0 +1,4 @@
+<%= div_for(comment) do %>
+  <small>Comment von <%= comment.user.username %></small><br>
+  <p><%= comment.content %></p>
+<% end %>

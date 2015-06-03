@@ -1,0 +1,9 @@
+<% @form_id = SecureRandom.hex(4) %>
+
+<div id="<%= @form_id %>" class="comment comment-form">
+  <%= form_for(Comment.new, url: comments_path(commentable_type: type, commentable_id: id, form_id: @form_id), remote: true) do |f| %>
+    <%= f.text_area :content, cols: 60, rows: 2 %>
+    <%= f.hidden_field :form_id, value: @id %>
+    <%= f.button class: 'btn-primary' %>
+  <% end %>
+</div>
