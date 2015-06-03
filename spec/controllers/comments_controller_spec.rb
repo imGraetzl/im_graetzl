@@ -25,6 +25,8 @@ RSpec.describe CommentsController, type: :controller do
     context 'when current_user' do
       before { sign_in user }
 
+      subject(:new_comment) { Comment.last }
+
       it 'assigns @commentable' do
         xhr :post, :create, params
         expect(assigns(:commentable)).to eq(commentable_post)
@@ -33,6 +35,17 @@ RSpec.describe CommentsController, type: :controller do
       it 'assigns @form_id' do
         xhr :post, :create, params
         expect(assigns(:form_id)).to eq(form_id_hex)
+      end
+
+      it 'creates new comment record' do
+        expect {
+          xhr :post, :create, params
+        }.to change(Comment, :count).by(1)
+      end
+
+      it 'sets current_user as user' do
+        xhr :post, :create, params
+        expect(new_comment.user).to eq(user)
       end
     end
   end
