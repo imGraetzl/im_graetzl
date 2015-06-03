@@ -60,6 +60,9 @@ h1,h2,h3,h4,h5,h6,
 p, div.txt p, div[class^=txt-] p {
   margin-bottom:1.5rem;
 }
+div.txt p:last-child, div[class^=txt-] p:last-child {
+  margin-bottom: 0;
+}
 
 
 

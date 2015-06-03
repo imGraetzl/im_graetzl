@@ -21,6 +21,8 @@ $layout-max-width: 990px;
 $boxShadow: 2px 2px 8px 0px rgba(0,0,0,0.32);
 $boxShadow-light: 2px 1px 4px 0px rgba(0,0,0,0.10);
 
+$textShadow-hardWhite: 2px 2px $color-background-bright;
+
 
 // default color for input, selects, radios
 $form-color-primary: $color-ambient-mint;

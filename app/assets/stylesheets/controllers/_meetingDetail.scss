@@ -18,7 +18,7 @@
 
   h1, h3 {
     font-family: $font-secondary;
-    text-shadow: 2px 2px $color-background-bright;
+    text-shadow: $textShadow-hardWhite;
     line-height: 1;
     text-align: center;
     @include respond-to(">=medium") {

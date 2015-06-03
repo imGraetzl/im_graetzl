@@ -75,19 +75,26 @@ a.iconMapLink:hover [class^=icon] {
       margin-right: 20px;
     }
   }
-
 }
 
 
 
-.dateTimeIconSmall, .locationIconSmall {
+.dateTimeIconSmall, .locationIconSmall, .participantsCountSmall {
   font-size: 0.8rem;
+  display: flex;
+  align-items: center;
   [class^=icon-] {
     display: inline-block;
     vertical-align: middle;
-    width: 18px;
-    height: 18px;
-    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    margin-right: 9px;
   }
 }
 
+.participantsCountSmall {
+  color: $color-ambient-mint-dark;
+  [class^=icon] {
+    fill: $color-ambient-mint-dark;
+  }
+}
