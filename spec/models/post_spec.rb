@@ -9,10 +9,6 @@ RSpec.describe Post, type: :model do
   describe 'associations' do
     let(:post) { create(:post) }
 
-    it 'has content' do
-      expect(post).to respond_to(:content)
-    end
-
     it 'has user' do
       expect(post).to respond_to(:user)      
     end

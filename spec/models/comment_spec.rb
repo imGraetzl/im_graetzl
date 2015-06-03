@@ -9,10 +9,6 @@ RSpec.describe Comment, type: :model do
   describe 'associations' do
     let(:comment) { create(:comment) }
 
-    it 'has content' do
-      expect(comment).to respond_to(:content)
-    end
-
     it 'has user' do
       expect(comment).to respond_to(:user)      
     end
