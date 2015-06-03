@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
   # associations
   belongs_to :graetzl
   belongs_to :user
+  has_many :comments, as: :commentable, dependent: :destroy
 
   # validations
   validates :content, presence: true

@@ -9,16 +9,13 @@ class Meeting < ActiveRecord::Base
 
   # associations
   belongs_to :graetzl
-
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
-
   has_many :going_tos, dependent: :destroy
   has_many :users, through: :going_tos
-
-  has_and_belongs_to_many :categories
-  
+  has_and_belongs_to_many :categories  
   has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   # validations
   validates :name, presence: true

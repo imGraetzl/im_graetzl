@@ -27,10 +27,12 @@ Rails.application.routes.draw do
   resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: 'treffen'
-    resources :posts
+    resources :posts, only: [:create]
   end
 
   resources :going_tos, only: [:create, :destroy]
+
+  resources :comments, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

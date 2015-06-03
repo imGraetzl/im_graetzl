@@ -8,7 +8,7 @@ RSpec.describe Post, type: :model do
   end
 
   describe 'associations' do
-    let(:post) { build_stubbed(:post) }
+    let(:post) { create(:post) }
 
     it 'has content' do
       expect(post).to respond_to(:content)
@@ -21,14 +21,38 @@ RSpec.describe Post, type: :model do
     it 'has graetzl' do
       expect(post).to respond_to(:graetzl)      
     end
+
+    it 'has comments' do
+      expect(post).to respond_to(:comments)      
+    end
+
+    describe 'destroy associated records' do
+      before do
+        3.times { create(:comment, commentable: post) }
+      end
+
+      it 'has comments' do
+        expect(post.comments.count).to eq(3)
+      end
+
+      it 'destroys comments' do
+        comments = post.comments
+        post.destroy
+        comments.each do |comment|
+          expect(Comment.find_by_id(comment.id)).to be_nil
+        end
+      end
+    end
   end
 
-  describe 'default scope' do
-    let!(:older_post) { create(:post, created_at: 1.day.ago) }
-    let!(:newer_post) { create(:post, created_at: 1.hour.ago) }
+  describe 'scopes' do
+    describe 'default scope' do
+      let!(:older_post) { create(:post, created_at: 1.day.ago) }
+      let!(:newer_post) { create(:post, created_at: 1.hour.ago) }
 
-    it 'has newer_post before older_post' do
-      expect(Post.all).to eq([newer_post, older_post])
+      it 'retrieves newer_post before older_post' do
+        expect(Post.all).to eq([newer_post, older_post])
+      end
     end
   end
 
