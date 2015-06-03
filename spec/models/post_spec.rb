@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user) { create(:user) }
 
   it 'has a valid factory' do
     expect(build_stubbed(:post)).to be_valid

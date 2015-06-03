@@ -79,7 +79,7 @@ class MeetingsController < ApplicationController
 
     def merge_changes
       if params[:feature].present? || (params[:address].blank? && @meeting.address.present?)
-        new_address_attrs = Address.new_from_json_string(params[:feature]).attributes
+        new_address_attrs = Address.new_from_feature(params[:feature]).attributes
         @meeting.address.merge_feature(new_address_attrs)
       end
       @meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
