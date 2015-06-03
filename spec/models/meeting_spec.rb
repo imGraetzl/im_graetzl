@@ -4,12 +4,10 @@ require 'carrierwave/test/matchers'
 RSpec.describe Meeting, type: :model do
   include CarrierWave::Test::Matchers
   
-  # check factory
   it 'has a valid factory' do
     expect(build_stubbed(:meeting)).to be_valid
   end
 
-  # validations
   describe 'validations' do
     it 'invalid without name' do
       expect(build(:meeting, name: nil)).not_to be_valid
