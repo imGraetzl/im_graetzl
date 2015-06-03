@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.build(comment_params)
     if @comment.save
-      @commentable.create_activity :commented_on, owner: current_user, recipient: @comment
+      @commentable.create_activity :comment, owner: current_user, recipient: @comment
     else
       render nothing: true
     end
