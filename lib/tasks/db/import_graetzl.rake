@@ -46,7 +46,8 @@ namespace :db do
         polygon = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
         name = feature['properties']['name']
         name = name.partition(',').first if name
-        graetzl = Graetzl.find_or_create_by(name: name, area: polygon) if polygon.geometry_type.type_name == 'Polygon'
+        #graetzl = Graetzl.find_or_create_by(name: name, area: polygon) if polygon.geometry_type.type_name == 'Polygon'
+        graetzl = Graetzl.find_or_create_by(name: name, area: polygon)
       end
     end
   end
