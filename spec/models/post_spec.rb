@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  let(:user) { create(:user) }
 
   it 'has a valid factory' do
     expect(build_stubbed(:post)).to be_valid
@@ -9,10 +8,6 @@ RSpec.describe Post, type: :model do
 
   describe 'associations' do
     let(:post) { create(:post) }
-
-    it 'has content' do
-      expect(post).to respond_to(:content)
-    end
 
     it 'has user' do
       expect(post).to respond_to(:user)      

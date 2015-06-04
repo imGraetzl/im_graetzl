@@ -131,7 +131,7 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when current_user' do
       subject(:new_meeting) { Meeting.last }
-      let(:attrs) { {
+      let(:params) { {
         graetzl_id: graetzl.id,
         meeting: attributes_for(:meeting).merge({ address_attributes: { description: '' } }),
         feature: '',
@@ -142,49 +142,49 @@ RSpec.describe MeetingsController, type: :controller do
 
       it 'creates new meeting' do
         expect {
-          post :create, attrs
+          post :create, params
         }.to change(Meeting, :count).by(1)
       end
 
       it 'sets current_user as initiator' do
-        post :create, attrs
+        post :create, params
         expect(new_meeting.going_tos.last).to have_attributes(user: user, role: GoingTo::ROLES[:initiator])
       end
 
       it 'associates graetzl with meeting' do
-        post :create, attrs
+        post :create, params
         expect(new_meeting.graetzl).to eq(graetzl)
       end
 
       it 'adds address to meeting' do
-        post :create, attrs
+        post :create, params
         expect(new_meeting.address).to be_present
       end
 
       it 'adds address description' do
-        attrs[:meeting][:address_attributes][:description] = 'new_address_description'
-        post :create, attrs
+        params[:meeting][:address_attributes][:description] = 'new_address_description'
+        post :create, params
         expect(new_meeting.address.description).to eq('new_address_description')
       end
 
       context 'with category_ids' do
         before do
           5.times { create(:category) }
-          attrs[:meeting][:category_ids] = Category.all.map(&:id)
+          params[:meeting][:category_ids] = Category.all.map(&:id)
         end
 
         it 'adds categories to meeting' do
-          post :create, attrs
+          post :create, params
           expect(new_meeting.categories.size).to eq(5)
         end
       end
 
       context 'with feature' do
         before do
-          attrs[:meeting][:address_attributes][:description] = 'new_address_description'
-          attrs[:feature] = esterhazygasse_hash.to_json
-          attrs[:address] = 'Esterházygasse 5'
-          post :create, attrs
+          params[:meeting][:address_attributes][:description] = 'new_address_description'
+          params[:feature] = esterhazygasse_hash.to_json
+          params[:address] = 'Esterházygasse 5'
+          post :create, params
         end
 
         it 'adds address from feature to meeting' do
@@ -198,8 +198,8 @@ RSpec.describe MeetingsController, type: :controller do
 
       context 'with only address_description' do
         before do
-          attrs[:meeting][:address_attributes][:description] = 'new_address_description'
-          post :create, attrs
+          params[:meeting][:address_attributes][:description] = 'new_address_description'
+          post :create, params
         end
 
         it 'adds address description to meeting' do
@@ -253,7 +253,7 @@ RSpec.describe MeetingsController, type: :controller do
 
 
   describe 'PUT update' do
-    let(:attrs) { {
+    let(:params) { {
       graetzl_id: graetzl.id,
       id: meeting.id,
       meeting: attributes_for(:meeting).merge({ address_attributes: { description: '' } }),
@@ -263,7 +263,7 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when no current_user' do
       it 'redirects to login' do
-        put :update, attrs
+        put :update, params
         expect(response).to render_template(session[:new])
       end
     end
@@ -275,7 +275,7 @@ RSpec.describe MeetingsController, type: :controller do
         let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:attendee]) }   
 
         it 'redirects to meeting' do
-          put :update, attrs
+          put :update, params
           expect(response).to redirect_to([graetzl, meeting])
         end
       end
@@ -284,34 +284,34 @@ RSpec.describe MeetingsController, type: :controller do
         let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:initiator]) }
 
         it 'assigns requested @meeting' do
-          put :update, attrs
+          put :update, params
           expect(assigns(:meeting)).to eq(meeting)
         end
 
         it 'assigns requested @graetzl' do
-          put :update, attrs
+          put :update, params
           expect(assigns(:graetzl)).to eq(graetzl)
         end
 
         context 'with valid attributes' do
 
           before do
-            attrs[:meeting][:name] = 'New name'
-            attrs[:meeting][:description] = 'New description'
-            attrs[:meeting]['starts_at_date'] = '2020-01-01'
-            attrs[:meeting]['starts_at_time'] = '18:00'
-            attrs[:meeting]['ends_at_time'] = '20:00'        
+            params[:meeting][:name] = 'New name'
+            params[:meeting][:description] = 'New description'
+            params[:meeting]['starts_at_date'] = '2020-01-01'
+            params[:meeting]['starts_at_time'] = '18:00'
+            params[:meeting]['ends_at_time'] = '20:00'        
           end
 
           it 'updates name and description' do
-            put :update, attrs
+            put :update, params
             meeting.reload
             expect(meeting.name).to eq('New name')
             expect(meeting.description).to eq('New description')
           end
 
           it 'updates starts_at_date, starts_at_time, ends_at_time' do
-            put :update, attrs
+            put :update, params
             meeting.reload
             expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
             expect(meeting.ends_at_date).to be_falsy
@@ -323,11 +323,11 @@ RSpec.describe MeetingsController, type: :controller do
 
             before do
               5.times { create(:category) }
-              attrs[:meeting][:category_ids] = Category.all.map(&:id)
+              params[:meeting][:category_ids] = Category.all.map(&:id)
             end
 
             it 'updates categories' do
-              put :update, attrs
+              put :update, params
               meeting.reload
               expect(meeting.categories.size).to eq(5)
             end
@@ -335,11 +335,11 @@ RSpec.describe MeetingsController, type: :controller do
 
           context 'with address_attributes' do
             before do
-              attrs[:meeting][:address_attributes][:description] = 'New address_description'
-              attrs[:feature] = esterhazygasse_hash.to_json              
-              attrs[:address] = 'Esterházygasse 5'
+              params[:meeting][:address_attributes][:description] = 'New address_description'
+              params[:feature] = esterhazygasse_hash.to_json              
+              params[:address] = 'Esterházygasse 5'
 
-              put :update, attrs
+              put :update, params
               meeting.reload
             end
 
@@ -355,8 +355,8 @@ RSpec.describe MeetingsController, type: :controller do
           context 'when remove address' do
             let(:address) { create(:address) }
             before do
-              attrs[:address] = ''
-              attrs[:feature] = ''
+              params[:address] = ''
+              params[:feature] = ''
               meeting.address = address
             end
 
@@ -365,13 +365,13 @@ RSpec.describe MeetingsController, type: :controller do
             end
 
             it 'removes address' do
-              put :update, attrs
+              put :update, params
               meeting.reload
               expect(meeting.address.street_name).to be_falsy
             end
 
             it 'keeps address_description' do
-              put :update, attrs
+              put :update, params
               meeting.reload
               expect(meeting.address.description).to be
             end

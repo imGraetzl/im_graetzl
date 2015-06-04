@@ -3,25 +3,30 @@ include GeojsonSupport
 
 RSpec.describe Address, type: :model do
 
-  # check factory
   it 'has a valid factory' do
     expect(build_stubbed(:address)).to be_valid
     expect(build_stubbed(:esterhazygasse)).to be_valid
   end
 
-  # class methods
-  describe '.new_from_geojson' do
+  describe 'associations' do
+    let(:address) { create(:address) }
+
+    it 'has addressable' do
+      expect(address).to respond_to(:addressable)
+    end
+  end
+
+  describe '.new_from_feature' do
     let(:feature) { feature_hash }
 
-    context 'with valid hash' do
+    subject(:address) { Address.new_from_feature(feature.to_json) }
 
-      it 'returns new address object' do
-        address = Address.new_from_geojson(feature)
-        expect(address.class).to eq(Address)
-      end
+    it 'returns new address' do
+      expect(address).to be_a_new(Address)
+    end
 
-      it 'builds address with properties' do
-        address = Address.new_from_geojson(feature)
+    context 'with valid json' do
+      it 'returns address with attributes' do
         expect(address).to have_attributes(
           street_name: feature['properties']['StreetName'],
           street_number: feature['properties']['StreetNumber'],
@@ -30,54 +35,34 @@ RSpec.describe Address, type: :model do
           )
       end
 
-      it 'builds point-coordinates' do
-        coordinates = Address.new_from_geojson(feature).coordinates
-        expect(coordinates).not_to be_nil
-        expect(coordinates.as_text).to include('POINT')
+      it 'sets coordinates' do
+        expect(address.coordinates).not_to be_nil
+        expect(address.coordinates.as_text).to include('POINT')
+      end
+    end
+
+    context 'with invalid json' do
+      subject(:address) { Address.new_from_feature('invalid') }
+
+      it 'returns empty address' do
+        expect(address.attributes.values).to all(be_nil)
       end
     end
 
     context 'with missing key' do
       before { feature.except!('geometry') }
 
-      it 'returns address object without property' do
-        address = Address.new_from_geojson(feature)
+      it 'returns address without attribute' do
         expect(address.coordinates).to be_nil
       end
     end
   end
 
-  describe '.new_from_json_string' do
-    let(:feature) { feature_hash }
-
-    context 'with valid json' do
-      it 'parses json and calls .new_from_geojson' do
-        address = Address.new_from_json_string(feature.to_json)
-        expect(address).to have_attributes(
-          street_name: feature['properties']['StreetName'],
-          street_number: feature['properties']['StreetNumber'],
-          zip: feature['properties']['PostalCode'],
-          city: feature['properties']['Municipality'],
-          )
-      end
-    end
-
-    context 'with invalid json' do
-      it 'returns empty address object' do
-        address = Address.new_from_json_string('invalid')
-        expect(address.attributes.values).to all(be_nil)
-      end
-    end
-  end
-
-
-  # instance methods
   describe '#graetzls' do
 
     context 'with single result' do
       let(:esterhazygasse) { build(:esterhazygasse) }
-
-      before { @naschmarkt = create(:naschmarkt) }
+      let!(:naschmarkt) { create(:naschmarkt) }
 
       it 'returns 1 graetzl' do
         graetzls = esterhazygasse.graetzls
@@ -86,17 +71,14 @@ RSpec.describe Address, type: :model do
 
       it 'returns matching graetzl (naschmarkt)' do
         graetzl = esterhazygasse.graetzls.first
-        expect(graetzl).to eq(@naschmarkt)
+        expect(graetzl).to eq(naschmarkt)
       end
     end
 
     context 'with multiple results' do
       let(:seestadt) { build(:seestadt) }
-
-      before do
-        @seestadt_aspern = create(:seestadt_aspern)
-        @aspern = create(:aspern)
-      end
+      let!(:seestadt_aspern) { create(:seestadt_aspern) }
+      let!(:aspern) { create(:aspern) }
 
       it 'returns array of results' do
         graetzls = seestadt.graetzls
@@ -105,8 +87,8 @@ RSpec.describe Address, type: :model do
 
       it 'returns 2 matching graetzls' do
         graetzls = seestadt.graetzls
-        expect(graetzls).to include(@seestadt_aspern)
-        expect(graetzls).to include(@aspern)
+        expect(graetzls).to include(seestadt_aspern)
+        expect(graetzls).to include(aspern)
       end
     end
 

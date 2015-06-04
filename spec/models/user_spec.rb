@@ -4,12 +4,10 @@ require 'carrierwave/test/matchers'
 RSpec.describe User, type: :model do
   include CarrierWave::Test::Matchers
   
-  # check factory
   it 'has a valid factory' do
     expect(build_stubbed(:user)).to be_valid
   end
 
-  # validations
   describe 'validations' do
     it 'invalid without username' do
       expect(build(:user, username: nil)).not_to be_valid
@@ -31,61 +29,95 @@ RSpec.describe User, type: :model do
     it 'invalid without graetzl' do
       expect(build(:user, graetzl: nil)).not_to be_valid
     end
+  end
 
-    describe 'avatar' do
-      let(:user) { create(:user, graetzl: create(:graetzl)) }
+  describe 'associations' do
+    let(:user) { create(:user) }
 
-      context 'when image filetype (png, jpg..)' do
-        before do
-          File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.png')) do |f|
-            user.avatar = f
-          end
-        end
-        after { user.avatar.remove! }
+    it 'has address' do
+      expect(user).to respond_to(:address)
+    end
 
-        it 'is valid' do
-          expect(user).to be_valid
-        end
+    it 'has graetzl' do
+      expect(user).to respond_to(:graetzl)
+    end
 
-        it 'has individual avatar' do
-          expect(user.avatar.identifier).to eq('avatar_test.png')
-        end
+    it 'has meetings' do
+      expect(user).to respond_to(:meetings)
+    end
+
+    it 'has posts' do
+      expect(user).to respond_to(:posts)
+    end
+
+    it 'has comments' do
+      expect(user).to respond_to(:comments)
+    end
+
+    describe 'destroy associated records' do
+      before { user.create_address(attributes_for(:address)) }
+
+      it 'has address' do
+        expect(user.address).not_to be_nil
       end
 
-      context 'when non-image filetype' do
-        before do
-          File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.wrong')) do |f|
-            user.avatar = f
-          end
-        end
-
-        it 'is invalid' do
-          expect(user).not_to be_valid
-        end
-
-        it 'has default avatar' do
-          expect(user.avatar_url).to eq('avatar/default.png')
-        end
+      it 'destroys address with user' do
+        address = user.address
+        user.destroy
+        expect(Address.find_by_id(address.id)).to be_nil
       end
     end
   end
 
-  # class methods
+  describe '.avatar' do
+    let(:user) { create(:user) }
 
-  # instance methods
+    context 'when image filetype (png, jpg..)' do
+      before do
+        File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.png')) do |f|
+          user.avatar = f
+        end
+      end
+      after { user.avatar.remove! }
+
+      it 'is valid' do
+        expect(user).to be_valid
+      end
+
+      it 'has individual avatar' do
+        expect(user.avatar.identifier).to eq('avatar_test.png')
+      end
+    end
+
+    context 'when non-image filetype' do
+      before do
+        File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.wrong')) do |f|
+          user.avatar = f
+        end
+      end
+
+      it 'is invalid' do
+        expect(user).not_to be_valid
+      end
+
+      it 'has default avatar' do
+        expect(user.avatar_url).to eq('avatar/default.png')
+      end
+    end
+  end
+
   describe '#autosave_associated_records_for_graetzl' do
-
     context 'when graetzl in db' do
       before do
         @existing_graetzl = create(:graetzl)
       end
 
-      it 'associates with existing graetzl record' do
+      it 'associates existing graetzl' do
         user = create(:user, graetzl: build(:graetzl, name: @existing_graetzl.name))
         expect(user.graetzl).to eq(@existing_graetzl)
       end
 
-      it 'does not create new graetzl record' do
+      it 'does not create new graetzl' do
         expect {
           user = create(:user, graetzl: build(:graetzl, name: @existing_graetzl.name))
         }.not_to change(Graetzl, :count)
@@ -108,20 +140,14 @@ RSpec.describe User, type: :model do
         }.not_to change(Graetzl, :count)
       end
     end
-
-    context 'when no graetzl in db' do
-      #TODO add this edgecase
-    end
   end
-
 
   describe '#go_to' do
     let(:user) { create(:user) }
     let(:meeting) { create(:meeting) }
 
-    context 'when attendee' do      
-
-      it 'creates new going_to record with default role' do
+    context 'when attendee' do
+      it 'creates new going_to with default role' do
         expect {
           user.go_to(meeting)
         }.to change(GoingTo, :count).by(1)
@@ -140,9 +166,8 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context 'when initator' do
-      
-      it 'creates going_to record with role initator' do
+    context 'when initator' do      
+      it 'creates going_to with role initator' do
         expect {
         user.go_to(meeting, GoingTo::ROLES[:initator])
       }.to change(GoingTo, :count).by(1)
@@ -150,7 +175,6 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
 
   describe '#initiated?(meeting)' do
     let(:user) { create(:user) }
@@ -177,13 +201,11 @@ RSpec.describe User, type: :model do
     end
 
     context 'when not going' do
-
       it 'returns false' do
         expect(user.initiated?(meeting)).to be_falsey
       end
     end
   end
-
 
   describe '#going_to?(meeting)' do
     let(:user) { create(:user) }
@@ -210,13 +232,11 @@ RSpec.describe User, type: :model do
     end
 
     context 'when not going' do
-
       it 'returns false' do
         expect(user.going_to?(meeting)).to be_falsey
       end
     end
   end
-
 
   describe '#avatar' do
     let(:user) { build_stubbed(:user) }
