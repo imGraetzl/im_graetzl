@@ -18,7 +18,8 @@ require 'httparty'
 namespace :db do
   desc 'import graetzl from mapbox api'
   task import_graetzl: :environment do
-    api_response = query_api
+    #api_response = query_api
+    api_response = File.read(Rails.root+"public/graetzl.json")
     if api_response
       parse_features(api_response)
     else
