@@ -6,6 +6,16 @@ RSpec.describe GoingTo, type: :model do
     expect(build_stubbed(:going_to)).to be_valid
   end
 
+  describe 'validations' do
+    it 'is invalid without user' do
+      expect(build(:going_to, user: nil)).not_to be_valid
+    end
+
+    it 'is invalid without meeting' do
+      expect(build(:going_to, meeting: nil)).not_to be_valid
+    end
+  end
+
   describe 'associations' do
     let(:going_to) { create(:going_to) }
 
