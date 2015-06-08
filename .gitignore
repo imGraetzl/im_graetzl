@@ -20,3 +20,6 @@ public/uploads
 
 # Ignore idea folder (jetbrains)
 /.idea
+
+# Ignore vim .swp files
+*.swp
