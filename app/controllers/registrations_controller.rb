@@ -24,7 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def set_address
     @search_input = params[:address]
-    address = Address.new_from_json_string(params[:feature] || '')
+    address = Address.new_from_feature(params[:feature] || '')
     session[:address] = address.attributes
     @graetzls = address.graetzls
     if @graetzls.size == 1

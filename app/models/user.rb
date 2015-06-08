@@ -9,12 +9,12 @@ class User < ActiveRecord::Base
   # associations
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
-
   belongs_to :graetzl
   accepts_nested_attributes_for :graetzl
-
   has_many :going_tos
   has_many :meetings, through: :going_tos
+  has_many :posts
+  has_many :comments
 
   # attributes
   # virtual attribute to login with username or email
@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  # returns true if user is going to meeting
   def going_to?(meeting)
     meetings.include?(meeting)
   end
@@ -63,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def go_to(meeting, role=GoingTo::ROLES[:attendee])
-    going_tos.create!(meeting_id: meeting.id, role: role)
+    going_tos.create(meeting_id: meeting.id, role: role)
   end
 
 end

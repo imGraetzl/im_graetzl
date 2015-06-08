@@ -38,7 +38,7 @@ class Meeting < ActiveRecord::Base
   # instance methods
   def upcoming?
     if starts_at_date
-      return starts_at_date > Date.today
+      return starts_at_date > Date.yesterday
     end
     true
   end

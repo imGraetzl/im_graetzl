@@ -1,6 +1,6 @@
 class Graetzl < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :short_name
+  friendly_id :name
 
   # associations
   has_many :users
@@ -8,10 +8,6 @@ class Graetzl < ActiveRecord::Base
   has_many :posts, dependent: :destroy
 
   # instance methods
-  def short_name
-    name.split(',')[0]
-  end
-
   def districts
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
   end

@@ -2,40 +2,20 @@ class Address < ActiveRecord::Base
   # associations
   belongs_to :addressable, polymorphic: true
 
-  # validations
-  # validates :coordinates, presence: true
-  # validates :street_name, presence: true
-  # validates :city, presence: true
-
   # class methods
-  def self.new_from_json_string(feature)
+  def self.new_from_feature(feature)
     begin
-      data = JSON.parse(feature)
-      Address.new_from_geojson(data)
+      feature = JSON.parse(feature)
+      Address.new(
+        coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
+        street_name: feature['properties']['StreetName'],
+        street_number: feature['properties']['StreetNumber'],
+        zip: feature['properties']['PostalCode'],
+        city: feature['properties']['Municipality'])
     rescue JSON::ParserError => e
       Address.new
     end    
   end
-
-  def self.new_from_geojson(feature)
-    point = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
-    Address.new(
-      coordinates: point,
-      street_name: feature['properties']['StreetName'],
-      street_number: feature['properties']['StreetNumber'],
-      zip: feature['properties']['PostalCode'],
-      city: feature['properties']['Municipality'])    
-  end
-
-
-  # maybe put into service object later...
-  # def self.get_address_from_api(address_string)
-  #   response = query_address_service(address_string)
-  #   if !response.blank? && response.body.present?
-  #     return Address.new_from_geojson(response['features'][0])
-  #   end
-  #   Address.new()
-  # end
 
   # instance methods
   def graetzls

@@ -16,8 +16,8 @@ RSpec.describe GraetzlsController, type: :routing do
       expect(get: '/1').to route_to('graetzls#show', id: '1')
     end
 
-    it 'routes /graetzl_short_name to #show' do
-      expect(get: '/graetzl_short_name').to route_to('graetzls#show', id: 'graetzl_short_name')
+    it 'routes /graetzl_name to #show' do
+      expect(get: '/graetzl_name').to route_to('graetzls#show', id: 'graetzl_name')
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe GraetzlsController, type: :routing do
     end
 
     it 'routes to #show' do
-      expect(get: graetzl_path('graetzl_short_name')).to route_to('graetzls#show', id: 'graetzl_short_name')
+      expect(get: graetzl_path('graetzl_name')).to route_to('graetzls#show', id: 'graetzl_name')
     end
 
     it 'routes to #show (with numeric id)' do
