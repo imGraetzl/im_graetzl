@@ -1,13 +1,15 @@
 <div class="streamElement">
   <div class="entryInitialContent">
+
     <div class="userCreateInfo">
       <%= image_tag activity.owner.avatar_url(:small), class: 'img-round' %>
       <span class="userAndType"><%= activity.key %> <a href=""><%= activity.owner.username if activity.owner %></a></span>
     </div>
 
     <%= yield %>
-    
+
   </div>
+  
   <%= render 'comments/comment', comment: activity.trackable.comments.first if activity.trackable.comments.present? %>
 
   <%= render 'comments/form', type: activity.trackable_type, id: activity.trackable_id %>
