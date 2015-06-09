@@ -1,2 +1,7 @@
-hat kommentiert:<br>
-<p><%= activity.trackable.content %></p>
+<% content_for :user_and_type, flush: true do %>
+  <a href=""><%= activity.owner.username if activity.owner %></a> hat Post kommentiert
+<% end %>
+
+<div class="txt">
+  <p><%= activity.trackable.content %></p>
+</div>

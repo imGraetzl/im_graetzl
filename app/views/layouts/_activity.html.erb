@@ -3,7 +3,7 @@
 
     <div class="userCreateInfo">
       <%= image_tag activity.owner.avatar_url(:small), class: 'img-round' %>
-      <span class="userAndType"><%= activity.key %> <a href=""><%= activity.owner.username if activity.owner %></a></span>
+      <span class="userAndType"><%= content_for :user_and_type %></span>
     </div>
 
     <%= yield %>

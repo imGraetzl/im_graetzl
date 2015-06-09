@@ -1,3 +1,7 @@
+<% content_for :user_and_type, flush: true do %>
+  Neuer Post von <a href=""><%= activity.owner.username if activity.owner %></a>
+<% end %>
+
 <div class="txt">
   <p><%= activity.trackable.content %></p>
 </div>
