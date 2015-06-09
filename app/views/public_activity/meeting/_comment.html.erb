@@ -1,30 +1,8 @@
-<%= link_to [activity.trackable.graetzl, activity.trackable] do %>
-  <div class="meetingTeaser">
-    <h2><%= activity.trackable.name %></h2>
-
-    <% if activity.trackable.starts_at_date %>
-      <div class="dateTimeIconSmall">
-        <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
-        <%= I18n.localize(activity.trackable.starts_at_date, format:'%A, %d. %B %Y') if activity.trackable.starts_at_date %>
-      </div>
-    <% end %>
-
-    <% if activity.trackable.address %> 
-      <div class="locationIconSmall">
-        <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
-        <%= activity.trackable.address.description %>
-      </div>
-    <% end %>
-
-    <div class="participantsCountSmall">
-      <svg class="icon-person"><use xlink:href="#icon-person"></use></svg>
-      <%= activity.trackable.users.count %> Teilnehmer
-    </div>
-    <div class="meetingImg">
-      <%= image_tag activity.trackable.cover_photo_url(:small) %>
-    </div>
-  </div>
+<% content_for :user_and_type, flush: true do %>
+  <a href=""><%= activity.owner.username if activity.owner %></a> hat ein Treffen kommentiert
 <% end %>
+
+<%= render 'meetings/teaser', meeting: activity.trackable %>
 
 <div class="txt">
   <p><%= activity.trackable.description %></p>
