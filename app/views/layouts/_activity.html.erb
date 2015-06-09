@@ -3,7 +3,7 @@
 
     <div class="userCreateInfo">
       <%= image_tag activity.owner.avatar_url(:small), class: 'img-round' %>
-      <span class="userAndType"><%= content_for :user_and_type %></span>
+      <span class="userAndType"><%= content_for :user_and_type %> (vor <%= time_ago_in_words(activity.created_at) %>)</span>
     </div>
 
     <%= yield %>
