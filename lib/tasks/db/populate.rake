@@ -1,25 +1,20 @@
 namespace :db do
   desc 'Erase and fill db with sample data'
   task populate: :environment do
-    delete_old
-    graetzl_and_districts?
-    add_users
-    add_categories
-  end
 
-  def delete_old
     puts 'remove old data'
-    [User, Meeting, Category, PublicActivity::Activity].each(&:destroy_all)
-  end
 
-  def graetzl_and_districts?
+    [User, Meeting, Category, PublicActivity::Activity].each(&:destroy_all)
+
+    puts 'check for graetzl and districts'
+
     if Graetzl.all.empty? || District.all.empty?
       puts 'invoke db:seed'
       Rake::Task['db:seed'].invoke
     end
-  end
 
-  def add_users
+    puts 'add users'
+
     admin = User.new(
       username: 'admin',
       first_name: 'admin',
@@ -31,6 +26,7 @@ namespace :db do
       graetzl: Graetzl.first,
       confirmed_at: Time.now)
     admin.save(validate: false)
+
     user_1 = User.create(
       username: 'user_1',
       first_name: 'user_1',
@@ -42,9 +38,9 @@ namespace :db do
       graetzl: Graetzl.second,
       confirmed_at: Time.now)
     user_1.save(validate: false)
-  end
 
-  def add_categories
+    puts 'add categories'
+
     default_categories = [
       'Essen & Trinken',
       'Leute kennenlernen',
@@ -63,6 +59,5 @@ namespace :db do
     default_categories.each do |c|
       Category.create(name: c)
     end
-  end
-  
+  end  
 end
