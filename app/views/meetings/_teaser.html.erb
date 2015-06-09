@@ -9,10 +9,10 @@
       </div>
     <% end %>
 
-    <% if meeting.address %> 
+    <% if meeting.address.description.present? || meeting.address.street_name %> 
       <div class="locationIconSmall">
         <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
-        <%= meeting.address.description %>
+        <%= address_for_teaser(meeting.address) %>
       </div>
     <% end %>
 

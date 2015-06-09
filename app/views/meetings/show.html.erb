@@ -13,7 +13,7 @@
 
   <%= render 'location', address: @meeting.address %>  
 
-  <p class="txt"><%= @meeting.description %></p>
+  <p class="txt"><%= simple_format @meeting.description %></p>
 
 </div>
 
