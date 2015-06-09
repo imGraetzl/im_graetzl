@@ -1,3 +1,5 @@
 <% content_for :user_and_type, flush: true do %>
   <a href=""><%= activity.owner.username if activity.owner %></a> hat ein Treffen kommentiert
 <% end %>
+
+<%= render 'meetings/teaser', meeting: activity.trackable %>
