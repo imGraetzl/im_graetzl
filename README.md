@@ -16,6 +16,11 @@ The application uses:
 
 The `.ruby-version` and `.ruby-gemset` specify the used Ruby and the name of the uses gemset ("morgenjungs") for rbenv, rvm and Travis CI.
 
+#### Test dependencies
+
+The tests use:
+* phantomjs
+
 
 ## Deployment
 
