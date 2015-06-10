@@ -3,20 +3,6 @@ class Address < ActiveRecord::Base
   belongs_to :addressable, polymorphic: true
 
   # class methods
-  def self.new_from_feature(feature)
-    begin
-      feature = JSON.parse(feature)
-      Address.new(
-        coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
-        street_name: feature['properties']['StreetName'],
-        street_number: feature['properties']['StreetNumber'],
-        zip: feature['properties']['PostalCode'],
-        city: feature['properties']['Municipality'])
-    rescue JSON::ParserError => e
-      Address.new
-    end    
-  end
-
   def self.attributes_from_feature(feature)
     begin
       feature = JSON.parse(feature)
@@ -27,7 +13,7 @@ class Address < ActiveRecord::Base
         city: feature['properties']['Municipality']
       }
     rescue JSON::ParserError => e
-      #something?
+      #something? or just nothing?
     end
   end
 
@@ -38,14 +24,6 @@ class Address < ActiveRecord::Base
 
   def graetzl
     graetzls.first
-  end
-
-  def merge_feature(attrs)
-    self.attributes = attrs.slice('street_name',
-      'coordinates',
-      'street_number',
-      'city',
-      'zip')
   end
 
   private

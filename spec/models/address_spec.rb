@@ -16,17 +16,17 @@ RSpec.describe Address, type: :model do
     end
   end
 
-  describe '.new_from_feature' do
+  describe '.attributes_from_feature' do
     let(:feature) { feature_hash }
 
-    subject(:address) { Address.new_from_feature(feature.to_json) }
+    subject(:address) { Address.new(Address.attributes_from_feature(feature.to_json)) }
 
     it 'returns new address' do
       expect(address).to be_a_new(Address)
     end
 
     context 'with valid json' do
-      it 'returns address with attributes' do
+      it 'has attributes from feature' do
         expect(address).to have_attributes(
           street_name: feature['properties']['StreetName'],
           street_number: feature['properties']['StreetNumber'],
@@ -42,9 +42,9 @@ RSpec.describe Address, type: :model do
     end
 
     context 'with invalid json' do
-      subject(:address) { Address.new_from_feature('invalid') }
+      subject(:address) { Address.new(Address.attributes_from_feature('invalid')) }
 
-      it 'returns empty address' do
+      it 'has no attributes' do
         expect(address.attributes.values).to all(be_nil)
       end
     end
@@ -59,7 +59,6 @@ RSpec.describe Address, type: :model do
   end
 
   describe '#graetzls' do
-
     context 'with single result' do
       let(:esterhazygasse) { build(:esterhazygasse) }
       let!(:naschmarkt) { create(:naschmarkt) }
@@ -102,25 +101,6 @@ RSpec.describe Address, type: :model do
       it 'returns empty array graetzl' do
         expect(non_matching_address.graetzls).to be_empty
       end
-    end
-  end
-
-  describe '#merge_feature' do
-    let(:old_address) { build(:address, description: 'old description') }
-    let(:new_address) { build(:address, description: 'new description') }
-    before { old_address.merge_feature(new_address.attributes) }
-
-    it 'updates all geo-specific attributes' do
-      expect(old_address).to have_attributes(
-        street_name: new_address.street_name,
-        street_number: new_address.street_number,
-        city: new_address.city,
-        zip: new_address.zip,
-        coordinates: new_address.coordinates)
-    end
-
-    it 'keeps non-geo-specific attributes' do
-      expect(old_address.description).to eq('old description')
     end
   end
 end
