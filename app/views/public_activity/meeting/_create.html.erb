@@ -1,2 +1,5 @@
-hat ein neues Treffen erstellt:<br>
-<%= render 'meetings/meeting', meeting: activity.trackable %>
+<% content_for :user_and_type, flush: true do %>
+  <a href=""><%= activity.owner.username if activity.owner %></a> hat ein Treffen erstellt
+<% end %>
+
+<%= render 'meetings/teaser', meeting: activity.trackable %>

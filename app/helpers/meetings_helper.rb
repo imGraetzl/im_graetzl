@@ -27,4 +27,12 @@ module MeetingsHelper
       content_tag(:strong, 'Ort steht noch nicht fest...')
     end
   end
+
+  def address_for_teaser(address)
+    if address.description.present?
+      address.description
+    elsif address.street_name
+     "#{address.street_name} #{address.street_number}"
+    end    
+  end
 end

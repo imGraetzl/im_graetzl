@@ -1,4 +1,4 @@
 console.log('add comment');
 var formID = "<%= j(@form_id.to_s) %>";
-$('div#' + formID + '.comment-form').before("<%= j render 'comments/comment', comment: @comment %>");
-$('div#' + formID + '.comment-form').replaceWith("<%= j render 'comments/form', type: @commentable.class, id: @commentable.id %>");
+$('form#' + formID + '.entryCommentForm').before("<%= j render 'comments/comment', comment: @comment %>");
+$('form#' + formID + '.entryCommentForm').replaceWith("<%= j render 'comments/form', type: @commentable.class, id: @commentable.id %>");

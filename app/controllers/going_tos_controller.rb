@@ -4,6 +4,7 @@ class GoingTosController < ApplicationController
   def create
     @meeting = Meeting.find(params[:meeting_id])
     current_user.go_to(@meeting)
+    @meeting.create_activity :go_to, owner: current_user
 
     respond_to do |format|
       format.js

@@ -1,4 +1,20 @@
-<%= form_for([@graetzl, @graetzl.posts.new], remote: true) do |f| %>
-  <%= f.text_area :content, cols: 80, rows: 5 %>
-  <%= f.button class: 'btn-primary' %>
-<% end %>
+<div class="entryCreate">
+  <%= image_tag current_user.avatar_url(:small), class: 'img-round' %>
+
+  <%= form_for([@graetzl, @graetzl.posts.new], html: { class: 'textEditor' }, remote: true) do |f| %>
+    <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Beitrag verfassen' %>
+
+    <div class="upload-image js-imgUpld">
+        <svg class="icon-camera">
+          <use xlink:href="#icon-camera"></use>
+        </svg>
+        Bilder hochladen
+        <svg class="icon-delete-circle">
+          <use xlink:href="#icon-delete-circle"></use>
+        </svg>
+        <input id="file_id" name="" type="file">
+      </div>
+
+    <%= f.button 'Beitrag senden' %>
+  <% end %>
+</div>
