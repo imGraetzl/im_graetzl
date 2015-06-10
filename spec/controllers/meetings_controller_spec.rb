@@ -35,13 +35,15 @@ RSpec.describe MeetingsController, type: :controller do
         expect(response).to render_template(:show)
       end
 
-      it 'assigns @graetzl and @meeting' do
-        expect(assigns(:meeting)).to eq(meeting)
+      it 'assigns @graetzl' do
         expect(assigns(:graetzl)).to eq(graetzl)
+      end
+
+      it 'assigns @meeting' do
+        expect(assigns(:meeting)).to eq(meeting)
       end
     end
   end
-
 
   describe 'GET index' do
     before do
@@ -120,7 +122,6 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-
   describe 'POST create' do
     context 'when no current_user' do
       it 'redirects to login' do
@@ -146,12 +147,17 @@ RSpec.describe MeetingsController, type: :controller do
         }.to change(Meeting, :count).by(1)
       end
 
+      it 'redirects_to meeting in @graetzl' do
+        post :create, params
+        expect(response).to redirect_to([graetzl, new_meeting])
+      end
+
       it 'sets current_user as initiator' do
         post :create, params
         expect(new_meeting.going_tos.last).to have_attributes(user: user, role: GoingTo::ROLES[:initiator])
       end
 
-      it 'associates graetzl with meeting' do
+      it 'associates @graetzl with meeting' do
         post :create, params
         expect(new_meeting.graetzl).to eq(graetzl)
       end
@@ -180,6 +186,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       context 'with feature' do
+        let!(:naschmarkt) { create(:naschmarkt) }
         before do
           params[:meeting][:address_attributes][:description] = 'new_address_description'
           params[:feature] = esterhazygasse_hash.to_json
@@ -193,6 +200,14 @@ RSpec.describe MeetingsController, type: :controller do
 
         it 'adds address_description to meeting' do
           expect(new_meeting.address.description).to eq('new_address_description')
+        end
+
+        it 'associates address.graetzl with @meeting' do
+          expect(new_meeting.graetzl).to eq(naschmarkt)
+        end
+
+        it 'redirects_to meeting in address.graetzl' do
+          expect(response).to redirect_to([naschmarkt, new_meeting])
         end
       end
 
@@ -209,9 +224,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-
   describe 'GET edit' do
-
     context 'when no current_user' do
       it 'redirects to login' do
         get :edit, graetzl_id: graetzl.id, id: meeting.id
@@ -250,7 +263,6 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
   end
-
 
   describe 'PUT update' do
     let(:params) { {
@@ -334,6 +346,7 @@ RSpec.describe MeetingsController, type: :controller do
           end
 
           context 'with address_attributes' do
+            let!(:naschmarkt) { create(:naschmarkt) }
             before do
               params[:meeting][:address_attributes][:description] = 'New address_description'
               params[:feature] = esterhazygasse_hash.to_json              
@@ -347,8 +360,16 @@ RSpec.describe MeetingsController, type: :controller do
               expect(meeting.address.description).to eq('New address_description')
             end
 
-            it 'updates address from feature' do
+            it 'updates address attributes' do
               expect(meeting.address.street_name).to eq('Esterházygasse')
+            end
+
+            it 'updates graetzl_id' do
+              expect(meeting.graetzl).to eq(naschmarkt)
+            end
+
+            it 'redirects_to meeting in new graetzl' do
+              expect(response).to redirect_to([naschmarkt, meeting])
             end
           end
 
@@ -380,7 +401,6 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
   end
-
 
   describe 'DELETE destroy' do
     let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:initiator]) }
