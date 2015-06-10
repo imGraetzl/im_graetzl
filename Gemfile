@@ -49,10 +49,6 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'pry'
-  gem 'pry-remote'
-  gem 'pry-stack_explorer'
-  gem 'pry-debugger'
 end
 
 group :test do  
