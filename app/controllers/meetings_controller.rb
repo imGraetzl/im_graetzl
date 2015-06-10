@@ -17,17 +17,13 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    puts 'normal params'
-    puts params
-    puts 'meeting_params'
-    puts meeting_params
     @meeting = @graetzl.meetings.create(meeting_params)
-    #merge_changes
+    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
     current_user.go_to(@meeting, GoingTo::ROLES[:initiator])
     
     if @meeting.save
       @meeting.create_activity :create, owner: current_user
-      redirect_to [@graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.'
+      redirect_to [@meeting.graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.'
     else
       render :new
     end
@@ -37,16 +33,12 @@ class MeetingsController < ApplicationController
   end
 
   def update
-    puts 'normal params'
-    puts params
-    puts 'meeting_params'
-    puts meeting_params
     @meeting.attributes = meeting_params
+    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
     @meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
-    #merge_changes
 
     if @meeting.save
-      redirect_to [@graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
+      redirect_to [@meeting.graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
     else
       render :edit
     end

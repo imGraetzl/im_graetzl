@@ -26,9 +26,6 @@ class Address < ActiveRecord::Base
         zip: feature['properties']['PostalCode'],
         city: feature['properties']['Municipality']
       }
-      puts 'in address:'
-      puts a
-      a
     rescue JSON::ParserError => e
       #something?
     end
@@ -37,6 +34,10 @@ class Address < ActiveRecord::Base
   # instance methods
   def graetzls
     Graetzl.where('ST_CONTAINS(area, :point)', point: coordinates)
+  end
+
+  def graetzl
+    graetzls.first
   end
 
   def merge_feature(attrs)
