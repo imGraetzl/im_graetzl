@@ -18,9 +18,7 @@ RSpec.describe RegistrationsController, type: :controller do
     end
   end
 
-
   describe 'POST set_address' do
-
     context 'without :address' do
       before do
         create(:graetzl)
@@ -91,9 +89,7 @@ RSpec.describe RegistrationsController, type: :controller do
     end
   end
 
-
   describe 'POST set_graetzl' do
-
     context 'with :graetzl' do
       let(:naschmarkt) { create(:naschmarkt) }
       before { post :set_graetzl, graetzl: naschmarkt.id }
