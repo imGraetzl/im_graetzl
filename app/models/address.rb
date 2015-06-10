@@ -17,6 +17,23 @@ class Address < ActiveRecord::Base
     end    
   end
 
+  def self.attributes_from_feature(feature)
+    begin
+      feature = JSON.parse(feature)
+      a = { coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
+        street_name: feature['properties']['StreetName'],
+        street_number: feature['properties']['StreetNumber'],
+        zip: feature['properties']['PostalCode'],
+        city: feature['properties']['Municipality']
+      }
+      puts 'in address:'
+      puts a
+      a
+    rescue JSON::ParserError => e
+      #something?
+    end
+  end
+
   # instance methods
   def graetzls
     Graetzl.where('ST_CONTAINS(area, :point)', point: coordinates)
