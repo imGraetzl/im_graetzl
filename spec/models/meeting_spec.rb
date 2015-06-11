@@ -142,11 +142,11 @@ RSpec.describe Meeting, type: :model do
       end
 
       it 'has retina dimension' do
-        expect(meeting.cover_photo).to have_dimensions(1800, 1000)
+        expect(meeting.cover_photo).to have_dimensions(1960, 740)
       end
 
       it 'has small version' do
-        expect(meeting.cover_photo.small).to have_dimensions(900, 500)
+        expect(meeting.cover_photo.small).to have_dimensions(980, 370)
         expect(meeting.cover_photo_url(:small)).to include('small_cover_photo_test.png')
       end
     end
