@@ -5,6 +5,8 @@ header {
   display: block;
   @include respond-to(">=medium") {
     margin-bottom: 4rem;
+    position: relative;
+    z-index: 5;
   }
 }
 
@@ -164,7 +166,7 @@ header {
       padding-right: 20px;
     }
     span {
-      @include respond-to(">=medium") {
+      @include respond-to(">=large") {
         background-image: url(image_path('svg/icon-arrow-right-blinky.svg'));
         background-repeat: no-repeat;
         padding-left: 38px;

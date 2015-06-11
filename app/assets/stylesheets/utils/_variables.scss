@@ -11,12 +11,15 @@ $color-ambient-mint-dark: #69a8a7;
 $color-ambient-mint-light: #DBEFEC;
 
 $color-ambient-rosa: #EC776A;
+$color-ambient-rosa-dark: #ba564d;
+
+
 $color-ambient-grey: #9b9b9b;
 $color-ambient-grey-light: lighten($color-ambient-grey, 20);
 
 $color-background-bright: #FCFCFC;
 $color-background-mint: lighten($color-ambient-mint, 25);
-$layout-max-width: 990px;
+$layout-max-width: 980px;
 
 $boxShadow: 2px 2px 8px 0px rgba(0,0,0,0.32);
 $boxShadow-light: 2px 1px 4px 0px rgba(0,0,0,0.10);
@@ -33,3 +36,5 @@ $form-color-tertiary: darken($form-color-primary, 5);
 //textures
 $texture-primary: url(image_path('texture-alpha-noise.png'));
 $texture-secondary: url(image_path('concrete-wall.png'));
+$texture-stoff1: url(image_path('texture-alpha-stoff1.png'));
+$texture-stoff2: url(image_path('texture-alpha-stoff2.png'));

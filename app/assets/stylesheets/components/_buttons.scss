@@ -49,22 +49,38 @@
   @include ellipsis;
   box-shadow: $boxShadow;
   padding: 0.4rem 1.2rem 0.4rem 0.8rem;
-  display: flex;
-  align-items: center;
-  &:hover {
-    background-color: $color-ambient-mint;
+  font-style: italic;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px $color-font-primary;
+  span {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
   }
   .img-round {
     margin-right: 0.8rem;
-    border-color: $color-background-bright;
+    border-color: $color-ambient-rosa-dark;
   }
-  &.small {
-    font-size: 0.8rem;
-    padding: 0.4rem 1rem 0.4rem 0.6rem;
+  &:before {
+    content: '';
+    width: 100%;
+    height: 0%;
+    background: $color-ambient-mint url(image_path('texture-alpha-noise.png'));
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: height 0.3s ease-in-out;
+    display: block;
+  }
+  &:hover {
+    background-color: $color-ambient-rosa;
+    &:before {
+      height: 100%;
+    }
     .img-round {
-      width: 30px;
-      height: 30px;
-      padding: 1px;
+      border-color: $color-ambient-mint-dark;
     }
   }
 }

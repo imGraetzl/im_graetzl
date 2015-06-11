@@ -2,7 +2,7 @@
   position: relative;
   span {
     z-index: 2;
-    font-size: 12px;
+    font-size: 10px;
     display: block;
     position: absolute;
     border-radius: 4px;
@@ -11,12 +11,12 @@
     line-height: 1;
     color: $color-ambient-mint;
     font-weight: 600;
-    margin-top: 17px;
+    margin-top: 11px;
   }
   [class^=icon] {
     fill: $color-ambient-mint;
-    height: 45px;
-    width: 45px;
+    height: 35px;
+    width: 35px;
   }
 }
 
@@ -26,8 +26,8 @@
   font-style: italic;
   text-decoration: none;
   [class^=icon-] {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
     fill: $color-ambient-mint;
   }
 }
@@ -38,7 +38,7 @@ a.iconMapLink:hover [class^=icon] {
 
 .dateTime {
   overflow: hidden;
-
+  line-height: 1.2;
   .dayYearTimes {
     float: left;
     width: calc(100% - 65px);
@@ -62,6 +62,7 @@ a.iconMapLink:hover [class^=icon] {
 
 .location {
   overflow: hidden;
+  line-height: 1.2;
   .address {
     float: left;
     width: calc(100% - 65px);

@@ -78,17 +78,42 @@
   &:before {
     content: '';
     display: block;
-    background-image: url(image_path('mask-cloud.png'));
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 2;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background: url(image_path('mask-imgcloudybottom.png')) no-repeat left bottom;
   }
 }
 
+@mixin headlineBarbapapa() {
+  color: #ffffff;
+  background:
+  url(image_path('texture-alpha-noise.png')),
+  url(image_path('svg/bg-headline-barpapapa.svg')) 0 0 / auto 100% no-repeat ;
+  border-radius: 0 8px 12px 0;
+  padding: 5px 10px;
+  display: table;
+}
+
+
+@mixin blockPaperTagHole() {
+  box-shadow: 4px 4px 25px -4px rgba(0,0,0,0.75);
+  background-color: #ffffff;
+  background-image: $texture-stoff2;
+  padding: 20px 3px 20px 20px;
+  display: table;
+  &:after {
+    content: '';
+    position: absolute;
+    right: -63px;
+    top: 0;
+    width: 65px;
+    height: 100%;
+    background-image: url(image_path('fabricHoleCorner-rightTop.png'));
+  }
+}
 
 

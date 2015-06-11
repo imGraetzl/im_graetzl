@@ -15,8 +15,8 @@ html {
 body {
   font-family: $font-primary;
   color: $color-font-primary;
-  background-color: $color-background-bright;
-  background-image: url(image_path('bg-pageMain.jpg'));
+  background-color: #ffffff;
+  background-image: $texture-stoff1;
 }
 
 main,
