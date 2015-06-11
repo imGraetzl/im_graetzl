@@ -100,7 +100,6 @@
 
 
 @mixin blockPaperTagHole() {
-  box-shadow: 4px 4px 25px -4px rgba(0,0,0,0.75);
   background-color: #ffffff;
   background-image: $texture-stoff2;
   padding: 20px 3px 20px 20px;

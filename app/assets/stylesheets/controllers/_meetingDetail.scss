@@ -18,10 +18,9 @@
     @include blockPaperTagHole;
     z-index: 4;
     position: absolute;
-    left: -25px;
+    left: 0;
     bottom: 120px;
     max-width: 450px;
-    transform: rotate(-4deg);
   }
 
   a {
