@@ -1,11 +1,13 @@
-<div class="titleHeadline">
-  <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
-  <h1><%= @meeting.name %></h1>
+<div class="headerBlock">
+
+  <div class="titleHeadline">
+    <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
+    <h1><%= @meeting.name %></h1>
+  </div>
+  <%= image_tag @meeting.cover_photo_url(:small), class: 'titleImg' %>
+
 </div>
 
-<div class="titleImg">
-  <%= image_tag @meeting.cover_photo_url(:small) %>
-</div>
 
 <div class="entryDescription">
 

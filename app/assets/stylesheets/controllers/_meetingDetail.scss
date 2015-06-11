@@ -7,6 +7,9 @@
     margin-left: -25px;
     margin-top: -4rem;
     margin-bottom: -80px;
+    @include respond-to(">=large") {
+      height: 370px;
+    }
   }
 }
 
@@ -15,8 +18,8 @@
     @include blockPaperTagHole;
     z-index: 4;
     position: absolute;
-    left: 20px;
-    bottom: 110px;
+    left: -25px;
+    bottom: 120px;
     max-width: 450px;
     transform: rotate(-4deg);
   }
@@ -134,7 +137,6 @@
     @include respond-to(">=medium") {
       margin-left: 0;
       margin-right: 0;
-      width: 300px;
     }
   }
 }
