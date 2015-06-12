@@ -1,32 +1,35 @@
-<%= link_to [meeting.graetzl, meeting] do %>
-  <div class="meetingTeaser">
-    <h2><%= meeting.name %></h2>
+<%= link_to [meeting.graetzl, meeting], class: 'meetingTeaser' do %>
 
-    <% if meeting.starts_at_date %>
-      <div class="dateTimeIconSmall">
-        <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
-        <%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %B %Y') if meeting.starts_at_date %>
-      </div>
-    <% end %>
+    <%= image_tag meeting.cover_photo_url(:small) %>
 
-    <% if meeting.address.description.present? || meeting.address.street_name %> 
-      <div class="locationIconSmall">
-        <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
-        <%= address_for_teaser(meeting.address) %>
+    <div class="facts">
+      <h2><%= meeting.name %></h2>
+      <div class="dateLocation">
+        <% if meeting.starts_at_date %>
+            <div class="dateTimeIconSmall">
+              <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+              <%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %B %Y') if meeting.starts_at_date %>
+            </div>
+        <% end %>
+        <% if meeting.address.description.present? || meeting.address.street_name %>
+            <div class="locationIconSmall">
+              <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
+              <%= address_for_teaser(meeting.address) %>
+            </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
 
     <div class="participantsCountSmall">
-      <svg class="icon-person"><use xlink:href="#icon-person"></use></svg>
-      <%= meeting.users.count %> Teilnehmer
+      <svg class="icon-person">
+        <use xlink:href="#icon-person"></use>
+      </svg>
+      <%= meeting.users.count %>
     </div>
-    <div class="meetingImg">
-      <%= image_tag meeting.cover_photo_url(:small) %>
-    </div>
-  </div>
+
 <% end %>
 
 
 <div class="txt">
-  <%= simple_format(truncate(meeting.description)) %>
+  <%= simple_format(truncate(meeting.description, length: 200)) %>
 </div>
