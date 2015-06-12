@@ -80,10 +80,10 @@ test:
 #
 production:
   <<: *default
-  database: <%=ENV['OPENSHIFT_APP_NAME']%>
-  username: <%=ENV['OPENSHIFT_POSTGRESQL_DB_USERNAME']%>
-  password: <%=ENV['OPENSHIFT_POSTGRESQL_DB_PASSWORD']%>
-  host:     <%=ENV['OPENSHIFT_POSTGRESQL_DB_HOST']%>
-  port:     <%=ENV['OPENSHIFT_POSTGRESQL_DB_PORT']%>
+  database: 'im_graetzl_staging'
+  username: 'power_user'
+  password: 'secret'
+  host:     '52.28.150.87'
+  port:     '5432'
   min_messages: ERROR
   reconnect: false
