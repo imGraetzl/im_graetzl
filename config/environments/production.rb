@@ -64,20 +64,20 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
 
   # parse sendgrid env variable
-  sendgrid_account = JSON.parse(ENV['sendgrid_55a22'])
+  # sendgrid_account = JSON.parse(ENV['sendgrid_55a22'])
 
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: ENV['OPENSHIFT_APP_DNS'] }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    domain: ENV['OPENSHIFT_APP_DNS'],
-    user_name: sendgrid_account['username'],
-    password: sendgrid_account['password'],
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
+  # config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.default_url_options = { host: ENV['OPENSHIFT_APP_DNS'] }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.sendgrid.net',
+  #   port: 587,
+  #   domain: ENV['OPENSHIFT_APP_DNS'],
+  #   user_name: sendgrid_account['username'],
+  #   password: sendgrid_account['password'],
+  #   authentication: :plain,
+  #   enable_starttls_auto: true
+  # }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
