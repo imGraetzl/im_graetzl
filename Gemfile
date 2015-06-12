@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+#gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.4'
+gem 'rails'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # postgis adapter
@@ -13,11 +13,11 @@ gem 'rgeo', '~> 0.3.20'
 # rgeo geojson module for encode/decode
 gem 'rgeo-geojson'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0.1'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
@@ -30,12 +30,12 @@ gem 'turbolinks'
 # Advanced JS events with turbolinks
 gem 'jquery-turbolinks'
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website
-gem 'autoprefixer-rails', '~> 5.1.8.1'
+gem 'autoprefixer-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
 group :doc do
-  gem 'sdoc', '~> 0.4.0'
+  gem 'sdoc'
 end
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -73,12 +73,12 @@ end
 # to query json apis
 gem 'httparty'
 # use devise for authentication
-gem 'devise', '~> 3.4.1'
+gem 'devise'
 # for images
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
-gem 'mini_magick', '~> 4.2.4'
+gem 'mini_magick'
 # use seo-friendly urls
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id'
 # activeadmin for admin interface (pre version)
 gem 'activeadmin', '~> 1.0.0.pre1'
 #activity tracking for active record models
