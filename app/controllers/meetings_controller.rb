@@ -54,31 +54,24 @@ class MeetingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       if params[:address].present? && params[:feature].blank?
-        params.
-          require(:meeting).
-          permit(:name,
-            :description,
-            :starts_at_date, :starts_at_time,
-            :ends_at_time,
-            :cover_photo,
-            :cover_photo_cache,
-            :remove_cover_photo,
-            category_ids: [],
-            address_attributes: [:id, :description])
+        meeting_params_basic
       else
-        params.
-          require(:meeting).
-          permit(:name,
-            :description,
-            :starts_at_date, :starts_at_time,
-            :ends_at_time,
-            :cover_photo,
-            :cover_photo_cache,
-            :remove_cover_photo,
-            category_ids: [],
-            address_attributes: [:id, :description]).
-          deep_merge(address_attributes: address_attr)
+        meeting_params_basic.deep_merge(address_attributes: address_attr)
       end
+    end
+
+    def meeting_params_basic
+      params.
+        require(:meeting).
+        permit(:name,
+          :description,
+          :starts_at_date, :starts_at_time,
+          :ends_at_time,
+          :cover_photo,
+          :cover_photo_cache,
+          :remove_cover_photo,
+          category_ids: [],
+          address_attributes: [:id, :description])      
     end
 
     def address_attr
