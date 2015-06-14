@@ -66,7 +66,6 @@ class MeetingsController < ApplicationController
             category_ids: [],
             address_attributes: [:id, :description])
       else
-        puts 'call else call else'
         params.
           require(:meeting).
           permit(:name,
