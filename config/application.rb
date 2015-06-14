@@ -31,6 +31,10 @@ module ImGraetzl
     # Set path for nested translation files
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
+    # No longer suppress Active Record errors within after_rollback or after_commit
+    # (behavior added in Rails 4.2)
+    config.active_record.raise_in_transactional_callbacks = true
+
     # Disable Rails field_with_errors
     ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
       html_tag.html_safe
