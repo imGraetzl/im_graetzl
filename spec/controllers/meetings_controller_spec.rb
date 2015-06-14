@@ -306,7 +306,6 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         context 'with valid attributes' do
-
           before do
             params[:meeting][:name] = 'New name'
             params[:meeting][:description] = 'New description'
@@ -332,7 +331,6 @@ RSpec.describe MeetingsController, type: :controller do
           end
 
           context 'with categories' do
-
             before do
               5.times { create(:category) }
               params[:meeting][:category_ids] = Category.all.map(&:id)
