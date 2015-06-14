@@ -29,3 +29,6 @@ public/uploads
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Ignore rvm .ruby-gemset files
+.ruby-gemset
