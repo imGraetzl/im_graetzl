@@ -1,21 +1,22 @@
 source 'https://rubygems.org'
 
+ruby '2.2.0'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '~> 4.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # postgis adapter
 gem 'activerecord-postgis-adapter'
 # ruby lib for geospatial data
-gem 'rgeo', '~> 0.3.20'
+gem 'rgeo'
 # rgeo geojson module for encode/decode
 gem 'rgeo-geojson'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
