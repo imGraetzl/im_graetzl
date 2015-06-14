@@ -4,17 +4,31 @@ class Address < ActiveRecord::Base
 
   # class methods
   def self.attributes_from_feature(feature)
-    begin
-      feature = JSON.parse(feature)
-      a = { coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
-        street_name: feature['properties']['StreetName'],
-        street_number: feature['properties']['StreetNumber'],
-        zip: feature['properties']['PostalCode'],
-        city: feature['properties']['Municipality']
-      }
-    rescue JSON::ParserError => e
-      #something? or just nothing?
+    if feature.blank?
+      nil
+    else
+      begin
+        feature = JSON.parse(feature)
+        a = { coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
+          street_name: feature['properties']['StreetName'],
+          street_number: feature['properties']['StreetNumber'],
+          zip: feature['properties']['PostalCode'],
+          city: feature['properties']['Municipality']
+        }
+      rescue JSON::ParserError => e
+        #something? or just nothing?
+        #nil
+      end
     end
+  end
+
+  def self.attributes_to_reset_location
+    a = { coordinates: nil,
+      street_name: nil,
+      street_number: nil,
+      zip: nil,
+      city: nil
+    }
   end
 
   # instance methods
@@ -37,5 +51,4 @@ class Address < ActiveRecord::Base
         nil
       end
     end
-
 end

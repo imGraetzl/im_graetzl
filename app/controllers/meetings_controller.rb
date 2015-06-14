@@ -18,7 +18,7 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = @graetzl.meetings.create(meeting_params)
-    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
+    @meeting.graetzl = @meeting.address.graetzl || @graetzl
     current_user.go_to(@meeting, GoingTo::ROLES[:initiator])
     
     if @meeting.save
@@ -53,20 +53,7 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      if params[:feature].present?
-        params.
-          require(:meeting).
-          permit(:name,
-            :description,
-            :starts_at_date, :starts_at_time,
-            :ends_at_time,
-            :cover_photo,
-            :cover_photo_cache,
-            :remove_cover_photo,
-            category_ids: [],
-            address_attributes: [:id, :description]).
-          deep_merge(address_attributes: Address.attributes_from_feature(params[:feature]))
-      else
+      if params[:address].present? && params[:feature].blank?
         params.
           require(:meeting).
           permit(:name,
@@ -78,7 +65,25 @@ class MeetingsController < ApplicationController
             :remove_cover_photo,
             category_ids: [],
             address_attributes: [:id, :description])
+      else
+        puts 'call else call else'
+        params.
+          require(:meeting).
+          permit(:name,
+            :description,
+            :starts_at_date, :starts_at_time,
+            :ends_at_time,
+            :cover_photo,
+            :cover_photo_cache,
+            :remove_cover_photo,
+            category_ids: [],
+            address_attributes: [:id, :description]).
+          deep_merge(address_attributes: address_attr)
       end
+    end
+
+    def address_attr
+      Address.attributes_from_feature(params[:feature]) || Address.attributes_to_reset_location
     end
 
     def set_graetzl
