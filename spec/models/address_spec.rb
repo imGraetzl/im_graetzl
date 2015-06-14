@@ -42,10 +42,10 @@ RSpec.describe Address, type: :model do
     end
 
     context 'with invalid json' do
-      subject(:address) { Address.new(Address.attributes_from_feature('invalid')) }
+      subject(:address) { Address.attributes_from_feature('invalid') }
 
-      it 'has no attributes' do
-        expect(address.attributes.values).to all(be_nil)
+      it 'returns nil' do
+        expect(address).to be_nil
       end
     end
 
@@ -55,6 +55,31 @@ RSpec.describe Address, type: :model do
       it 'returns address without attribute' do
         expect(address.coordinates).to be_nil
       end
+    end
+  end
+
+  describe '.attributes_to_reset_location' do
+    let(:geo_attributes) { [:coordinates, :street_name, :street_number, :city, :zip] }
+    subject { Address.attributes_to_reset_location }
+
+    it 'returns nil for geo attributes' do
+      expect(subject.values).to all(be_nil)
+    end
+
+    it 'includes geo attributes' do
+      expect(subject.keys).to match_array(geo_attributes)
+    end
+
+    it 'does not include :id' do
+      expect(subject.has_key?(:id)).to eq(false)
+    end
+
+    it 'does not include :description' do
+      expect(subject.has_key?(:description)).to eq(false)
+    end
+
+    it 'does not include :addressable' do
+      expect(subject.keys).not_to include(:addressable_id, :addressable_type)
     end
   end
 
