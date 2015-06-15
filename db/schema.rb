@@ -17,104 +17,104 @@ ActiveRecord::Schema.define(version: 20150602141346) do
   enable_extension "plpgsql"
   enable_extension "postgis"
 
-  create_table "active_admin_comments", force: true do |t|
-    t.string   "namespace"
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace",     limit: 255
     t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
+    t.string   "resource_id",   limit: 255, null: false
+    t.string   "resource_type", limit: 255, null: false
     t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "activities", force: true do |t|
+  create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
-    t.string   "trackable_type"
+    t.string   "trackable_type", limit: 255
     t.integer  "owner_id"
-    t.string   "owner_type"
-    t.string   "key"
+    t.string   "owner_type",     limit: 255
+    t.string   "key",            limit: 255
     t.text     "parameters"
     t.integer  "recipient_id"
-    t.string   "recipient_type"
+    t.string   "recipient_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "activities", ["owner_id", "owner_type"], :name => "index_activities_on_owner_id_and_owner_type"
-  add_index "activities", ["recipient_id", "recipient_type"], :name => "index_activities_on_recipient_id_and_recipient_type"
-  add_index "activities", ["trackable_id", "trackable_type"], :name => "index_activities_on_trackable_id_and_trackable_type"
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
-  create_table "addresses", force: true do |t|
-    t.string   "street_name"
-    t.string   "street_number"
-    t.string   "zip"
-    t.string   "city"
+  create_table "addresses", force: :cascade do |t|
+    t.string   "street_name",      limit: 255
+    t.string   "street_number",    limit: 255
+    t.string   "zip",              limit: 255
+    t.string   "city",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "coordinates",      limit: {:srid=>0, :type=>"point"}
+    t.geometry "coordinates",      limit: {:srid=>0, :type=>"point"}
     t.integer  "addressable_id"
-    t.string   "addressable_type"
-    t.string   "description"
+    t.string   "addressable_type", limit: 255
+    t.string   "description",      limit: 255
   end
 
-  add_index "addresses", ["addressable_id", "addressable_type"], :name => "index_addresses_on_addressable_id_and_addressable_type"
+  add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "categories_meetings", id: false, force: true do |t|
+  create_table "categories_meetings", id: false, force: :cascade do |t|
     t.integer "category_id"
     t.integer "meeting_id"
   end
 
-  add_index "categories_meetings", ["category_id"], :name => "index_categories_meetings_on_category_id"
-  add_index "categories_meetings", ["meeting_id"], :name => "index_categories_meetings_on_meeting_id"
+  add_index "categories_meetings", ["category_id"], name: "index_categories_meetings_on_category_id", using: :btree
+  add_index "categories_meetings", ["meeting_id"], name: "index_categories_meetings_on_meeting_id", using: :btree
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id"
     t.integer  "commentable_id"
-    t.string   "commentable_type"
+    t.string   "commentable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
-  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "districts", force: true do |t|
-    t.string   "name"
-    t.string   "zip"
+  create_table "districts", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "zip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
-    t.string   "slug"
+    t.geometry "area",       limit: {:srid=>0, :type=>"polygon"}
+    t.string   "slug",       limit: 255
   end
 
-  add_index "districts", ["slug"], :name => "index_districts_on_slug"
+  add_index "districts", ["slug"], name: "index_districts_on_slug", using: :btree
 
-  create_table "friendly_id_slugs", force: true do |t|
-    t.string   "slug",                      null: false
-    t.integer  "sluggable_id",              null: false
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",           limit: 255, null: false
+    t.integer  "sluggable_id",               null: false
     t.string   "sluggable_type", limit: 50
-    t.string   "scope"
+    t.string   "scope",          limit: 255
     t.datetime "created_at"
   end
 
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", :unique => true
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], :name => "index_friendly_id_slugs_on_slug_and_sluggable_type"
-  add_index "friendly_id_slugs", ["sluggable_id"], :name => "index_friendly_id_slugs_on_sluggable_id"
-  add_index "friendly_id_slugs", ["sluggable_type"], :name => "index_friendly_id_slugs_on_sluggable_type"
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "going_tos", force: true do |t|
+  create_table "going_tos", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "meeting_id"
     t.integer  "role"
@@ -122,26 +122,26 @@ ActiveRecord::Schema.define(version: 20150602141346) do
     t.datetime "updated_at"
   end
 
-  add_index "going_tos", ["meeting_id"], :name => "index_going_tos_on_meeting_id"
-  add_index "going_tos", ["user_id"], :name => "index_going_tos_on_user_id"
+  add_index "going_tos", ["meeting_id"], name: "index_going_tos_on_meeting_id", using: :btree
+  add_index "going_tos", ["user_id"], name: "index_going_tos_on_user_id", using: :btree
 
-  create_table "graetzls", force: true do |t|
-    t.string   "name"
+  create_table "graetzls", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.spatial  "area",       limit: {:srid=>0, :type=>"polygon"}
-    t.string   "slug"
+    t.geometry "area",       limit: {:srid=>0, :type=>"polygon"}
+    t.string   "slug",       limit: 255
   end
 
-  add_index "graetzls", ["slug"], :name => "index_graetzls_on_slug"
+  add_index "graetzls", ["slug"], name: "index_graetzls_on_slug", using: :btree
 
-  create_table "meetings", force: true do |t|
-    t.string   "name"
+  create_table "meetings", force: :cascade do |t|
+    t.string   "name",           limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cover_photo"
-    t.string   "slug"
+    t.string   "cover_photo",    limit: 255
+    t.string   "slug",           limit: 255
     t.date     "starts_at_date"
     t.date     "ends_at_date"
     t.time     "starts_at_time"
@@ -149,10 +149,10 @@ ActiveRecord::Schema.define(version: 20150602141346) do
     t.integer  "graetzl_id"
   end
 
-  add_index "meetings", ["graetzl_id"], :name => "index_meetings_on_graetzl_id"
-  add_index "meetings", ["slug"], :name => "index_meetings_on_slug"
+  add_index "meetings", ["graetzl_id"], name: "index_meetings_on_graetzl_id", using: :btree
+  add_index "meetings", ["slug"], name: "index_meetings_on_slug", using: :btree
 
-  create_table "posts", force: true do |t|
+  create_table "posts", force: :cascade do |t|
     t.text     "content"
     t.integer  "graetzl_id"
     t.integer  "user_id"
@@ -160,40 +160,40 @@ ActiveRecord::Schema.define(version: 20150602141346) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["graetzl_id"], :name => "index_posts_on_graetzl_id"
-  add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
+  add_index "posts", ["graetzl_id"], name: "index_posts_on_graetzl_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",                      default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.string   "unconfirmed_email",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "username"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "username",               limit: 255
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
     t.date     "birthday"
     t.integer  "gender"
-    t.boolean  "newsletter",             default: false, null: false
+    t.boolean  "newsletter",                         default: false, null: false
     t.integer  "graetzl_id"
-    t.string   "avatar"
+    t.string   "avatar",                 limit: 255
     t.boolean  "admin"
   end
 
-  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["graetzl_id"], :name => "index_users_on_graetzl_id"
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
