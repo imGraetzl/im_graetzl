@@ -80,10 +80,10 @@ test:
 #
 production:
   <<: *default
-  database: 'im_graetzl_staging'
-  username: 'power_user'
-  password: 'secret'
-  host:     '52.28.150.87'
-  port:     '5432'
+  database: ENV['DB_NAME']
+  username: ENV['DB_USERNAME']
+  password: ENV['DB_PASSWORD']
+  host:     ENV['DB_HOST']
+  port:     ENV['DB_PORT']
   min_messages: ERROR
   reconnect: false
