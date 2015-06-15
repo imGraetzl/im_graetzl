@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 #gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -44,6 +43,8 @@ group :development do
   gem 'spring'
   # open mail in browser
   gem 'letter_opener'
+  # for debug in rails 4.2
+  gem 'web-console', '~> 2.0'
 end
 
 # use rspec and factory for tests

@@ -1,0 +1,21 @@
+sudo: false
+language: ruby
+rvm:
+  - 1.9
+  - 2.0
+  - 2.1
+  - 2.2
+  - jruby-19mode
+
+env:
+  - EXECJS_RUNTIME=Node
+  - EXECJS_RUNTIME=      # Rubyracer or rubyrhino depending on platform
+
+gemfile:
+  - Gemfile
+  - Gemfile.rails3
+
+matrix:
+  exclude:
+    - rvm: 2.2
+      gemfile: Gemfile.rails3
