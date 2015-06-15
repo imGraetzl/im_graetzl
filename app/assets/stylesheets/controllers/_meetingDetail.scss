@@ -3,6 +3,7 @@
   z-index: 1;
   @include respond-to(">=medium") {
     @include cloudMaskOverImg;
+    overflow: hidden;
     margin-right: -25px;
     margin-left: -25px;
     margin-top: -4rem;
@@ -16,11 +17,14 @@
 .titleHeadline {
   @include respond-to(">=medium") {
     @include blockPaperTagHole;
+    padding-left: 40px;
     z-index: 4;
     position: absolute;
-    left: 0;
+    left: -12px;
     bottom: 120px;
     max-width: 450px;
+    transform: rotate(-3deg);
+    box-shadow: 4px 4px 25px -4px rgba(0,0,0,0.75);
   }
 
   a {

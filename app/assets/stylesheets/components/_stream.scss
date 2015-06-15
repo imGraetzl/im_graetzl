@@ -8,31 +8,13 @@
 }
 
 .entryCreate {
-  box-shadow: $boxShadow-light;
-  margin-bottom: 100px;
-  background: #ffffff $texture-secondary;
+  max-width: 650px;
+  //background: #ffffff $texture-secondary;
+  margin: 0 auto 80px auto;
   position: relative;
-  padding: 40px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  //gradients on left and right side
   @include respond-to(">=medium") {
-    &:before, &:after {
-      content: '';
-      position: absolute;
-      width: 140px;
-      height: calc(100% + 30px);
-      top: -20px;
-    }
-    &:before {
-      left: -10px;
-      background: linear-gradient(to right, rgba(251, 251, 251, 100) 30px, rgba(251, 251, 251, 0) 100%);
-    }
-    &:after {
-      right: -10px;
-      background: linear-gradient(to left, rgba(251, 251, 251, 100) 30px, rgba(251, 251, 251, 0) 100%);
-    }
+    align-items: flex-start;
+    display: flex;
   }
 
   button {
@@ -43,10 +25,10 @@
   }
 
   .img-round {
-    flex: 0 0 auto;
     margin-right: 1rem;
     display: none;
     @include respond-to(">=medium") {
+      flex: 0 0 auto;
       display: block;
     }
   }
@@ -63,7 +45,6 @@
 
 .textEditor {
   position: relative;
-  max-width: 581px;
   width: 100%;
   &:before {
     @include triangleSingle($direction: "left", $color: $color-ambient-mint-light, $size: 15px);
@@ -75,7 +56,8 @@
   textarea {
     @include textarea-plain($bgColor: $color-ambient-mint-light);
     width: 100%;
-    height: 50px;
+    color: $color-ambient-mint-dark;
+    height: 80px;
     display: block;
     border: none;
     padding: 15px 25px;
@@ -103,7 +85,7 @@
 
 .streamElement {
   max-width: 650px;
-  margin: 0 auto 120px auto;
+  margin: 0 auto 80px auto;
 }
 
 .entryInitialContent {
@@ -161,6 +143,7 @@
   }
   a {
     margin-left: 3px;
+    margin-right: 3px;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -260,57 +243,85 @@
   position: relative;
   margin-top: 20px;
   margin-bottom: 20px;
-  @include respond-to(">=medium") {
-    padding-left: 60px;
-    margin-top: 0;
-  }
-
-  h2, button, .dateTimeIconSmall, .locationIconSmall, .participantsCountSmall {
-    @include respond-to(">=medium") {
-      position: relative;
-      z-index: 5;
+  display: block;
+  color: $color-font-primary;
+  text-decoration: none;
+  &:hover, &:active {
+    h2 {
+      color: $color-ambient-rosa;
     }
   }
+  @include respond-to(">=medium") {
+    margin-left: 60px;
+    max-width: 100%;
+    margin-top: 0;
+    padding: 8px;
+    background-color: #ffffff;
+    background-image: $texture-secondary;
+    box-shadow: $boxShadow-light;
+  }
 
-  .dateTimeIconSmall, .locationIconSmall, .participantsCountSmall {
-    margin-top: 7px;
-    margin-bottom: 7px;
+  img {
+    width: 100%;
+  }
+
+  .facts {
+    @include respond-to(">=medium") {
+      padding-left: 5px;
+      padding-right: 5px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 
   h2 {
     text-align: center;
-    margin-bottom: 15px;
-    font-size: 1.8rem;
-    text-shadow: $textShadow-hardWhite;
+    font-size: 1.6rem;
+    color: $color-ambient-mint-dark;
+    margin-bottom: 1rem;
     @include respond-to(">=medium") {
       text-align: left;
-      font-size: 2.2rem;
-    }
-    a {
-      color: $color-font-primary;
-      text-decoration: none;
-      &:hover {
-        color: $color-ambient-rosa;
-      }
+      margin-bottom: 0;
+      font-size: 2rem;
+      max-width: 65%;
     }
   }
 
-  .meetingImg {
-    margin-top: 20px;
+  .participantsCountSmall {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    font-size: 1rem;
+    background-color: #ffffff;
+    background-image: $texture-secondary;
+    padding: 3px 20px 3px 6px;
+    display: flex;
+    border-radius: 5px 0 0 5px;
+  }
+
+  .dateLocation {
+    margin: 0 auto;
+    display: table;
     @include respond-to(">=medium") {
-      @include cloudMaskOverImg;
-      width: 305px;
-      height: 170px;
-      position: absolute;
-      top: -65px;
-      right: 0;
-      z-index: 1;
-    }
-    img {
-      max-width: 100%;
-      display: block;
+      max-width: 35%;
+      margin-left: auto;
+      margin-right: 0;
     }
   }
+
+  .dateTimeIconSmall, .locationIconSmall {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+}
+
+.timeago {
+  padding-left: 10px;
+  margin-left: 10px;
+  border-left: 1px dotted $color-ambient-grey-light;
 }
 
 
