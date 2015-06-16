@@ -79,7 +79,7 @@ gem 'devise'
 # fog module for amazon web services s3
 gem 'fog'
 # for images
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave'
 gem 'mini_magick'
 # use seo-friendly urls
 gem 'friendly_id'

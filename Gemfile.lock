@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/carrierwaveuploader/carrierwave.git
-  revision: de2a9550dadf5d71563e933d583ba8c3ad6bb101
-  specs:
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
-
-GIT
   remote: git://github.com/pokonski/public_activity.git
   revision: 0c249537f376d5eeabfea5dfe148e6ad3685321f
   specs:
@@ -94,6 +84,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     cliver (0.3.2)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -397,7 +392,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   autoprefixer-rails
   capybara
-  carrierwave!
+  carrierwave
   coffee-rails
   database_cleaner
   devise
