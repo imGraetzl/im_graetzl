@@ -7,7 +7,6 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  # storage :file
 
   # hooks
   after :remove, :delete_empty_upload_dirs

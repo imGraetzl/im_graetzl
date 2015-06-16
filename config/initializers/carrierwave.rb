@@ -7,16 +7,16 @@ CarrierWave.configure do |config|
     #config.root = File.join(Rails.root, 'public/')
     #config.cache_dir = config.root + 'uploads'
 
-    config.storage = :fog
-    config.fog_provider = 'fog/aws'
-    config.fog_credentials = {
+    config.storage = :aws
+    #config.fog_provider = 'fog/aws'
+    config.aws_credentials = {
       provider: 'AWS',
       aws_access_key_id: ENV['S3_ACCESS_KEY'],
       aws_secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
       region: 'eu-central-1'
     }
-    config.fog_directory =  ENV['S3_BUCKET'],
-    config.fog_public = false # optional, defaults to true
+    config.aws_bucket =  ENV['S3_BUCKET'],
+    config.aws_acl = :'public-read'
     #config.fog_attributes = { 'Cache-Control' => "max-age=#{365.day.to_i}" } # optional, defaults to {}
 
   else
