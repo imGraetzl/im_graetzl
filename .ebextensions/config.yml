@@ -9,5 +9,7 @@ packages:
   yum:
     git: []
     postgresql93-devel: []
+    ImageMagick: []
+    ImageMagick-devel: []
 
 container_commands:

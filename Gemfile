@@ -79,6 +79,8 @@ gem 'devise'
 # for images
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
+# fog module for amazon web services s3
+gem 'fog-aws'
 # use seo-friendly urls
 gem 'friendly_id'
 # activeadmin for admin interface (pre version)
