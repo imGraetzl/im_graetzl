@@ -24,7 +24,7 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
   end
 
   # Process files as they are uploaded:
-  process resize_to_fill: [1960, 740]
+  #process resize_to_fill: [1960, 740]
 
   # Create different versions of your uploaded files:
   version :small do
