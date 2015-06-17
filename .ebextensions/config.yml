@@ -13,3 +13,5 @@ packages:
     ImageMagick-devel: []
 
 container_commands:
+  01_reload_nginx:
+    command: "service nginx reload"
