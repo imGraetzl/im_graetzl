@@ -77,7 +77,7 @@ gem 'httparty'
 # use devise for authentication
 gem 'devise'
 # fog module for amazon web services s3
-gem 'carrierwave-aws'
+gem 'fog-aws'
 # for images
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
