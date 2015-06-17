@@ -13,14 +13,6 @@ class CoverPhotoUploader < CarrierWave::Uploader::Base
     storage :file
   end
 
-  def move_to_cache
-    true
-  end
-
-  def move_to_store
-    true
-  end
-
   # hooks
   after :remove, :delete_empty_upload_dirs
 
