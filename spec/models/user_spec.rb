@@ -90,18 +90,12 @@ RSpec.describe User, type: :model do
     end
 
     context 'when non-image filetype' do
-      before do
-        File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.wrong')) do |f|
-          user.avatar = f
-        end
-      end
-
-      it 'is invalid' do
-        expect(user).not_to be_valid
-      end
-
-      it 'has default avatar' do
-        expect(user.avatar_url).to eq('avatar/default.png')
+      it 'raises error' do
+        expect{
+          File.open(File.join(Rails.root, 'spec', 'support', 'avatar_test.wrong')) do |f|
+            user.avatar = f
+          end
+          }.to raise_error(CarrierWave::IntegrityError)
       end
     end
   end
