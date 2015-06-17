@@ -10,12 +10,11 @@ CarrierWave.configure do |config|
     config.storage = :aws
     #config.fog_provider = 'fog/aws'
     config.aws_credentials = {
-      provider: 'AWS',
-      aws_access_key_id: ENV['S3_ACCESS_KEY'],
-      aws_secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      access_key_id: ENV.fetch('S3_ACCESS_KEY'),
+      secret_access_key: ENV.fetch('S3_SECRET_ACCESS_KEY'),
       region: 'eu-central-1'
     }
-    config.aws_bucket =  ENV['S3_BUCKET'],
+    config.aws_bucket =  ENV.fetch('S3_BUCKET'),
     config.aws_acl = :'public-read'
     #config.fog_attributes = { 'Cache-Control' => "max-age=#{365.day.to_i}" } # optional, defaults to {}
 
