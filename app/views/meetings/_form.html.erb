@@ -93,7 +93,7 @@
         Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
 
         <%= f.label :cover_photo %>
-        <%= f.attachment_field :cover_photo, direct: true %>
+        <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
 
         <%= f.check_box :remove_cover_photo %>
         <%= f.label :remove_cover_photo %>
