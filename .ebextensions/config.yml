@@ -11,7 +11,3 @@ packages:
     postgresql93-devel: []
     ImageMagick: []
     ImageMagick-devel: []
-
-container_commands:
-  db_rollback:
-    command: bundle exec rake db:rollback
