@@ -81,6 +81,11 @@ gem 'fog-aws'
 # for images
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
+
+# refile
+gem 'refile', require: ['refile/rails', 'refile/image_processing']
+gem 'refile-mini_magick'
+
 # use seo-friendly urls
 gem 'friendly_id'
 # activeadmin for admin interface (pre version)
