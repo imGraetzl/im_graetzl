@@ -27,6 +27,7 @@
 //= require turbolinks
 //= require fastclick
 //= require autogrow
+//= require refile
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers
