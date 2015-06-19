@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602141346) do
+ActiveRecord::Schema.define(version: 20150619092943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,13 +140,13 @@ ActiveRecord::Schema.define(version: 20150602141346) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cover_photo",    limit: 255
     t.string   "slug",           limit: 255
     t.date     "starts_at_date"
     t.date     "ends_at_date"
     t.time     "starts_at_time"
     t.time     "ends_at_time"
     t.integer  "graetzl_id"
+    t.string   "cover_photo_id"
   end
 
   add_index "meetings", ["graetzl_id"], name: "index_meetings_on_graetzl_id", using: :btree
@@ -187,8 +187,8 @@ ActiveRecord::Schema.define(version: 20150602141346) do
     t.integer  "gender"
     t.boolean  "newsletter",                         default: false, null: false
     t.integer  "graetzl_id"
-    t.string   "avatar",                 limit: 255
     t.boolean  "admin"
+    t.string   "avatar"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

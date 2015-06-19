@@ -85,7 +85,8 @@ gem 'mini_magick'
 # refile
 gem 'refile', require: ['refile/rails', 'refile/image_processing']
 gem 'refile-mini_magick'
-
+gem 'refile-s3'
+gem 'aws-sdk'
 # use seo-friendly urls
 gem 'friendly_id'
 # activeadmin for admin interface (pre version)

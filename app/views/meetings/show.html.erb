@@ -4,7 +4,7 @@
     <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
     <h1><%= @meeting.name %></h1>
   </div>
-  <%= image_tag @meeting.cover_photo_url(:small), class: 'titleImg' %>
+  <%= attachment_image_tag(@meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/default.jpg', class: 'titleImg') %>
 
 </div>
 
