@@ -1,0 +1,7 @@
+# install git to be able to bundle gems from github
+packages:
+  yum:
+    git: []
+    postgresql93-devel: []
+    ImageMagick: []
+    ImageMagick-devel: []
