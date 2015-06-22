@@ -1,0 +1,297 @@
+
+.buehne {
+  overflow: hidden;
+  background-image: url(image_path('illu-sitzendeAmTisch.png')), url(image_path('illu-karte.jpg'));
+  background-repeat: no-repeat;
+  background-size: 270px auto, 700px auto;
+  background-position: 15% 125px, center center;
+  min-height: 400px;
+  position: relative;
+  @include respond-to("<medium") {
+    margin-left: -18px;
+    margin-right: -18px;
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  @include respond-to("retina2x") {
+    background-image: url(image_path('illu-sitzendeAmTisch@2x.png')), url(image_path('illu-karte@2x.jpg'));
+  }
+  @include respond-to(">=medium") {
+    min-height: 530px;
+    background-size: 400px auto, 800px auto;
+    background-position: 10% 180px, center center;
+  }
+  @include respond-to(">=large") {
+    background-size: 507px auto, 936px auto;
+    background-position: 10px 168px, 110px 29px;
+    min-height: 580px;
+  }
+
+  h1 {
+    @include ResponsiveText(30, 50, 60);
+    @include textShadowHard(#A8241D);
+    display: table;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 350px;
+    font-weight: 300;
+    @include respond-to("<medium") {
+      @include headlineBarbapapa;
+    }
+
+    @include respond-to(">=medium") {
+      text-align: left;
+      max-width: none;
+      margin-left: 18%;
+    }
+    @include respond-to(">=large") {
+      margin-left: 310px;
+    }
+
+    span {
+      display: table;
+      @include respond-to(">=medium") {
+        @include headlineBarbapapa;
+      }
+
+    }
+    span:nth-child(2) {
+      @include respond-to(">=medium") {
+        margin-left: 90px;
+        margin-top: 5px;
+      }
+    }
+
+  }
+
+}
+
+.btn-badge {
+  height: 90px;
+  width: 90px;
+  font-family: $font-secondary;
+  font-size: 1.8rem;
+  position: absolute;
+  right: 20%;
+  bottom: 30px;
+  padding-top: 20px;
+  &::before {
+    content: '';
+    width:40px;
+    height: 40px;
+    position: absolute;
+    bottom: -20px;
+    right: -40px;
+    display: block;
+    background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
+    background-repeat: no-repeat;
+    background-position: center center;
+    transform: rotate(-140deg);
+    transition: bottom 0.2s, right 0.2s;
+  }
+  &::after {
+    //preload in pseudo element for hover
+    background-image: url(image_path('svg/bg-badge-barpapapa-mint.svg')), url(image_path('svg/icon-arrow-right-blinky-mint.svg'))
+  }
+  &:hover {
+    &::before {
+      bottom: -10px;
+      right: -30px;
+      background-image: url(image_path('svg/icon-arrow-right-blinky-mint.svg'));
+    }
+  }
+  @include respond-to(">=medium") {
+    height: 130px;
+    width: 130px;
+    font-size: 2.6rem;
+    padding-top: 28px;
+    bottom: 50px;
+    right: 25%;
+  }
+  @include respond-to(">=large") {
+    right: 180px;
+    bottom: 65px;
+  }
+}
+
+
+.teaserBlock {
+
+  h2 {
+    @include ResponsiveText(30, 40, 50);
+    text-align: center;
+    color: $color-ambient-rosa;
+    margin-bottom: 5px;
+  }
+  h2 + p {
+    @include ResponsiveText(16, 20, 24);
+    text-align: center;
+    margin-bottom: 3rem;
+
+  }
+
+}
+
+.meetingBoxes {
+  @include cf;
+  .meetingBox, .ownMeetingBox {
+    min-height: 500px;
+    margin-bottom: 1rem;
+    @include respond-to(">=medium") {
+      @include col(1/2, $cycle:2);
+    }
+    @include respond-to(">=large") {
+      @include col(1/3, $uncycle:2, $cycle:3);
+      margin-bottom: 0;
+    }
+  }
+  .ownMeetingBox {
+    min-height: 400px;
+    @include respond-to(">=medium") {
+      clear: both;
+      margin: 40px auto 0 auto;
+      float: none;
+    }
+    @include respond-to(">=large") {
+      margin-top: 0;
+    transform: rotate(-1deg) translate(20px, 20px);
+    }
+  }
+}
+
+.meetingBox {
+  border: 1px solid $color-ambient-grey-light;
+  padding: 8px 16px 20px 16px;
+  border-radius: 8px;
+  position: relative;
+  .meetingBoxHeader {
+    margin-bottom: 45px;
+  }
+  h3 {
+    @include ResponsiveText(20, 22, 24);
+    margin-bottom: 0.8rem;
+  }
+  .txt {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+  button {
+    @include btn($btnBackground: $color-ambient-mint);
+  }
+}
+
+.meetingBoxHeader {
+  position: relative;
+  margin-left: -8px;
+  margin-right: -8px;
+  .coverImg {
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+  }
+  .districtFlag {
+    position: absolute;
+    bottom: -10px;
+    right: -16px;
+  }
+  .user {
+    position: absolute;
+    bottom: -30px;
+    left: 5px;
+    img {
+      vertical-align: bottom;
+    }
+    span {
+      color: $color-ambient-mint;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+      vertical-align: bottom;
+    }
+  }
+  .calendarSheet {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+}
+
+.calendarSheet {
+  background-color: $color-ambient-mint-light;
+  color: $color-ambient-mint-dark;
+  border-radius: 4px;
+  text-align: center;
+  overflow: hidden;
+  line-height: 1.2;
+  padding: 20px 0 7px 0;
+  width: 55px;
+  .day {
+    width: 100%;
+    font-size: 1.4rem;
+  }
+  .month {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+  &:before, &:after {
+    content: '';
+    height: 17px;
+    width: 50%;
+    position: absolute;
+    top: 0;
+    background-image: $texture-primary;
+  }
+  &:before {
+    background-color: lighten($color-ambient-mint-dark, 15);
+    left: 0;
+  }
+  &:after {
+    background-color: $color-ambient-mint-dark;
+    right: 0;
+  }
+}
+
+.districtFlag {
+  font-family: $font-secondary;
+  background-color: $color-ambient-mint-light;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: $color-ambient-mint-dark;
+  padding: 8px 10px 8px 15px;
+  position: relative;
+  clip-path: polygon(1% 0%, 2% 23%, 3% 59%, 1% 86%, 0% 100%, 100% 100%, 98% 0%);
+  border-radius: 12px 2px 0 9px;
+  max-width: 160px;
+  line-height: 1;
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 8px 0 0;
+    border-color: $color-ambient-mint-dark transparent transparent transparent;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
+}
+
+.ownMeetingBox {
+  position: relative;
+  transform: rotate(-1deg) translate3d( 0, 0, 0);
+  background-color: #ffffff;
+  box-shadow: 0 0 4px rgba(0,0,0,0.22);
+  &:before {
+    content: '';
+    position: absolute;
+    right: -39px;
+    top: -66px;
+    width: 70px;
+    height: 105px;
+    z-index: 6;
+    background: url(image_path('svg/paperHoleString-1.svg')) no-repeat;
+  }
+}
+
+

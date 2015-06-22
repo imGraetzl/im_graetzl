@@ -1,5 +1,6 @@
 .iconCalendarTextual {
   position: relative;
+  display: table;
   span {
     z-index: 2;
     font-size: 10px;
@@ -9,14 +10,26 @@
     text-align: center;
     width: 100%;
     line-height: 1;
-    color: $color-ambient-mint;
+    color: $color-ambient-mint-dark;
     font-weight: 600;
-    margin-top: 11px;
+    top: 11px;
+    left: 0;
   }
   [class^=icon] {
     fill: $color-ambient-mint;
     height: 35px;
     width: 35px;
+  }
+
+  &.-large {
+    [class^=icon] {
+      height: 50px;
+      width: 50px;
+    }
+    span {
+      font-size: 14px;
+      top: 21px;
+    }
   }
 }
 

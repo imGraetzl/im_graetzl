@@ -16,15 +16,17 @@
   display: block;
   text-decoration: none;
   line-height: 1;
+  font-style: italic;
   &:hover {
     background-color: $color-ambient-mint;
+    opacity: 0.9;
   }
   @if ($btnSize == 'normal') {
-    padding: 1rem 1.2rem;
+    padding: 0.95rem 1.2rem;
     font-size: 1rem;
   }
   @else if ($btnSize == 'small') {
-    padding: 0.6rem 1rem;
+    padding: 0.85rem 1.1rem;
     font-size: 0.8rem;
   }
   @else if ($btnSize == 'large') {
@@ -66,6 +68,38 @@
      .img-round {
       border-color: $color-ambient-mint-dark;
     }
+  }
+}
+
+.btn-badge {
+  background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-rosa.svg'));
+  background-repeat: repeat, no-repeat;
+  background-size: 100px 100px, 100% 100%;
+  background-position: top left;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  display: block;
+  border-radius: 25%;
+  padding: 10px 10px;
+  line-height: 0.8;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  //preload in pseudo element for hover
+  &:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-image: url(image_path('svg/bg-badge-barpapapa-mint.svg'));
+    opacity: 0;
+  }
+  &:hover, &:active {
+    background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-mint.svg'));
+  }
+  @include respond-to("retina2x") {
+    background-size:  50px 50px, 100% 100%;
   }
 }
 
