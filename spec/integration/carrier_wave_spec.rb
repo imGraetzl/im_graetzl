@@ -16,6 +16,11 @@ class TestUploader < CoverPhotoUploader
 end
 
 RSpec.describe "CarrierWave Integration" do
+
+  after(:example) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/object"])
+  end
+
   it "should process images with MiniMagick without raising CarrierWave::ProcessingError" do
     uploader = TestUploader.new
     
