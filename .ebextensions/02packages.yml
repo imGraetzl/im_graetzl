@@ -1,9 +1,3 @@
-# settings
-option_settings:
-  - namespace: 'aws:elasticbeanstalk:application:environment'
-    option_name: RAILS_SKIP_MIGRATIONS
-    value: true
-
 # install git to be able to bundle gems from github
 packages:
   yum:
