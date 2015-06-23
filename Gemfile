@@ -79,7 +79,7 @@ gem 'devise'
 # fog module for amazon web services s3
 gem 'fog-aws'
 # for images
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave'
 gem 'mini_magick'
 
 # refile
@@ -92,4 +92,4 @@ gem 'friendly_id'
 # activeadmin for admin interface (pre version)
 gem 'activeadmin', '~> 1.0.0.pre1'
 #activity tracking for active record models
-gem 'public_activity', github: 'pokonski/public_activity'
+gem 'public_activity'
