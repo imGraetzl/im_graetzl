@@ -1,8 +1,6 @@
 require 'rails_helper'
-require 'carrierwave/test/matchers'
 
 RSpec.describe Meeting, type: :model do
-  include CarrierWave::Test::Matchers
   
   it 'has a valid factory' do
     expect(build_stubbed(:meeting)).to be_valid
@@ -47,6 +45,10 @@ RSpec.describe Meeting, type: :model do
 
     it 'has categories' do
       expect(meeting).to respond_to(:categories)      
+    end
+
+    it 'has cover_photo' do
+      expect(meeting).to respond_to(:cover_photo)
     end
 
     describe 'destroy associated records' do
@@ -126,43 +128,6 @@ RSpec.describe Meeting, type: :model do
       end
     end
   end
-
-  describe '#cover_photo' do
-    let(:meeting) { build_stubbed(:meeting) }
-
-    context 'when file uploaded' do
-      before do
-        File.open(File.join(Rails.root, 'spec', 'support', 'cover_photo_test.png')) do |f|
-          meeting.cover_photo = f
-        end        
-      end
-
-      it 'has cover_photo' do
-        expect(meeting.cover_photo.identifier).to eq('cover_photo_test.png')
-      end
-
-      it 'has retina dimension' do
-        expect(meeting.cover_photo).to have_dimensions(1960, 740)
-      end
-
-      it 'has small version' do
-        expect(meeting.cover_photo.small).to have_dimensions(980, 370)
-        expect(meeting.cover_photo_url(:small)).to include('small_cover_photo_test.png')
-      end
-    end
-
-    context 'when no file uploaded' do
-
-      it 'returns default avatar' do
-        expect(meeting.cover_photo_url).to eq('cover_photo/default.jpg')
-      end
-
-      it 'returns small version' do
-        expect(meeting.cover_photo_url(:small)).to include('small_default.jpg')
-      end
-    end
-  end
-
 
   describe '#upcoming?' do
     let(:meeting) { build_stubbed(:meeting) }
