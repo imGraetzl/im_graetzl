@@ -69,8 +69,6 @@ class MeetingsController < ApplicationController
           :ends_at_time,
           :cover_photo,
           :remove_cover_photo,
-          :cover_photo_cache,
-          :remove_cover_photo,
           category_ids: [],
           address_attributes: [:id, :description])      
     end

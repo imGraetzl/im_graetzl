@@ -86,4 +86,4 @@ gem 'friendly_id'
 # activeadmin for admin interface (pre version)
 gem 'activeadmin', '~> 1.0.0.pre1'
 #activity tracking for active record models
-gem 'public_activity'
+gem 'public_activity', github: 'pokonski/public_activity'

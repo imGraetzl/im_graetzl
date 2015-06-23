@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/pokonski/public_activity.git
+  revision: bcddf721f919c4e3ed92ac557f7300563335814f
+  specs:
+    public_activity (2.0)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -177,11 +187,6 @@ GEM
       websocket-driver (>= 0.2.0)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
-    public_activity (1.4.2)
-      actionpack (>= 3.0.0)
-      activerecord (>= 3.0)
-      i18n (>= 0.5.0)
-      railties (>= 3.0.0)
     rack (1.6.1)
     rack-protection (1.5.3)
       rack
@@ -335,7 +340,7 @@ DEPENDENCIES
   letter_opener
   pg
   poltergeist
-  public_activity
+  public_activity!
   rails (~> 4.2.1)
   refile
   refile-mini_magick

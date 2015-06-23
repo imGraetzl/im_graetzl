@@ -4,7 +4,7 @@
   <p class="userCount"><span><%= users.count %></span> Teilnehmer</p>
   <div class="portraitCollection">
     <% users.each do |user| %>
-      <%= image_tag user.avatar_url(:small), class: 'img-round' %>
+      <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
     <% end %>
     <div class="dotdotdot">
       <svg class="icon-dot-3">

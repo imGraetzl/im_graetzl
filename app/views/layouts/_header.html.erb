@@ -32,7 +32,7 @@
         </div>
         <div class="userSettings dropDownMenu-br">
           <div class="dropDownToggle">
-            <%= image_tag current_user.avatar_url(:small), class: 'img-user' %>
+          <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-user') %>
             <div class="username"><%= current_user.username %></div>
             <svg class="icon-angle-down"><use xlink:href="#icon-angle-down"></use></svg>
           </div>

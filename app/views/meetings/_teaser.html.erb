@@ -1,6 +1,5 @@
 <%= link_to [meeting.graetzl, meeting], class: 'meetingTeaser' do %>
-
-    <%= image_tag meeting.cover_photo_url(:small) %>
+  <%= attachment_image_tag(meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/default.jpg') %>
 
     <div class="facts">
       <h2><%= meeting.name %></h2>

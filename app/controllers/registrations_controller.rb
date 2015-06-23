@@ -62,7 +62,7 @@ class RegistrationsController < Devise::RegistrationsController
           :password, :password_confirmation,
           :terms_and_conditions,
           :newsletter,
-          :avatar, :avatar_cache,
+          :avatar, :remove_avatar,
           address_attributes: [
             :street_name,
             :street_number,
