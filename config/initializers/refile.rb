@@ -8,7 +8,7 @@ if Rails.env.production?
     region: 'eu-central-1',
     bucket: ENV['S3_BUCKET'],
   }
-  Refile.cache = Refile::S3.new(prefix: "cache", **aws)
-  Refile.store = Refile::S3.new(prefix: "store", **aws)
+  Refile.cache = Refile::S3.new(prefix: 'refile/cache', **aws)
+  Refile.store = Refile::S3.new(prefix: 'refile/store', **aws)
 
 end
