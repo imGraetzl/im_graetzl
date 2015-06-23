@@ -1,29 +1,41 @@
 [![Build Status](https://travis-ci.org/klappradla/im_graetzl.svg?branch=master)](https://travis-ci.org/klappradla/im_graetzl)
 # imGrätzl
 
-Prototype Ruby on Rails application for "imGrätzl" social network site Vienna. See a deployed version of the app [here](http://staging-imgraetzl.rhcloud.com/) on [Openshift](https://www.openshift.com/).
+Ruby on Rails social network app Vienna.
 
 
 ## Getting Started
 
 ### Dependencies
 
-The application uses:
-* Ruby 2.0.0
-* Ruby on Rails 4.1.4 (required version for OpenShift)
-* PostgreSQL (in all environments)
-* "postgis" database adapter to use PostgreSQL with spatial data
+* PostgreSQL with PostGIS extenstion for spatial data
+* ImageMagick
+* Ruby >= 2.1.0 (requrired by refile)
+* GEOS and Proj for some spatial calculations
 
-The `.ruby-version` and `.ruby-gemset` specify the used Ruby and the name of the uses gemset ("morgenjungs") for rbenv, rvm and Travis CI.
 
 #### Test dependencies
 
-The tests use:
 * phantomjs
+
+
+### Setup
+
+general:
+
+* `$ rake db:setup` to setup postgis DBs
+* `$ rake db:seed` to import district and graetzl data
+
+for local development:
+
+* `$ rake db:populate` to populate DB with sample data
 
 
 ## Deployment
 
-The application uses Travis CI to automatically deploy the master branch to Openshift. See the `.travis.yml` file for the configuration of the process of continuous integration and the `.openshift` directory for configuring the build process on the OpenShift platform.
+The app is hosted on [Amazon Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) (instance running Ruby 2.2.2, Puma, Nginx). Config in .ebextensions folder. Files are executed in alphabetical order:
 
-The app uses OpenShift's "hot deploy" maker to prevent shutdown and restart during build. To disable, remove the `hot_deploy` file in the `.openshift/markers` directory.
+* 01options.config
+* 02packages.config - *install yum packages*
+* 03nginx.conf - *Nginx conf to allow uploads up to 20MB*
+
