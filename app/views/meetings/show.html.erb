@@ -1,8 +1,10 @@
 <div class="headerBlock">
 
   <div class="titleHeadline">
-    <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
-    <h1><%= @meeting.name %></h1>
+    <div class="wrp">
+      <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
+      <h1><%= @meeting.name %></h1>
+    </div>
   </div>
   <%= image_tag @meeting.cover_photo_url(:small), class: 'titleImg' %>
 
@@ -13,7 +15,7 @@
 
   <%= render 'time', meeting: @meeting %>
 
-  <%= render 'location', address: @meeting.address %>  
+  <%= render 'location', address: @meeting.address %>
 
   <%= simple_format @meeting.description, class: 'txt' %>
 

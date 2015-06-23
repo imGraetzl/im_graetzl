@@ -167,7 +167,7 @@ header {
     }
     span {
       @include respond-to(">=large") {
-        background-image: url(image_path('svg/icon-arrow-right-blinky.svg'));
+        background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
         background-repeat: no-repeat;
         padding-left: 38px;
         background-position: left center;

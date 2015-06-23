@@ -88,14 +88,23 @@
   }
 }
 
+@mixin textShadowHard($color: #ffffff) {
+  text-shadow: 2px 2px $color;
+}
+
 @mixin headlineBarbapapa() {
   color: #ffffff;
-  background:
-  url(image_path('texture-alpha-noise.png')),
-  url(image_path('svg/bg-headline-barpapapa.svg')) 0 0 / auto 100% no-repeat ;
-  border-radius: 0 8px 12px 0;
-  padding: 5px 10px;
+  background-image: url(image_path('texture-alpha-noise.png')), url(image_path('svg/bg-headline-barpapapa.svg'));
+  background-repeat: repeat, no-repeat;
+  background-size:  100px 100px, auto 100%;
+  background-position: top left;
+  border-radius: 0 12px 12px 0;
+  padding: 10px 20px;
   display: table;
+  line-height: 1;
+  @include respond-to("retina2x") {
+    background-size:  50px 50px, auto 100%;
+  }
 }
 
 
@@ -111,8 +120,21 @@
     top: 0;
     width: 65px;
     height: 100%;
+    background-repeat: no-repeat;
     background-image: url(image_path('fabricHoleCorner-rightTop.png'));
   }
 }
+
+
+@mixin ResponsiveText($s:16, $m: $s+2, $l: $m+2) {
+  font-size: #{$s}px;
+  @include respond-to(">=medium") {
+    font-size: #{$m}px;
+  }
+  @include respond-to(">=large") {
+    font-size: #{$l}px;
+  }
+}
+
 
 

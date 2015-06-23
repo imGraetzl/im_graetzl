@@ -25,6 +25,7 @@
 //= require jquery.noty.packaged
 //= require jquery_ujs
 //= require turbolinks
+//= require modernizr.custom
 //= require fastclick
 //= require autogrow
 //= require_directory ./utils

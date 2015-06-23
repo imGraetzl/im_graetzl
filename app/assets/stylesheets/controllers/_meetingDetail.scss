@@ -15,16 +15,31 @@
 }
 
 .titleHeadline {
-  @include respond-to(">=medium") {
-    @include blockPaperTagHole;
-    padding-left: 40px;
-    z-index: 4;
+  display: table;
+  position: absolute;
+  left: -12px;
+  bottom: 120px;
+  max-width: 450px;
+  transform: rotate(-3deg) translate3d( 0, 0, 0);
+  box-shadow: 4px 4px 25px -4px rgba(0,0,0,0.75);
+  z-index: 4;
+  &:before {
+    content: '';
     position: absolute;
-    left: -12px;
-    bottom: 120px;
-    max-width: 450px;
-    transform: rotate(-3deg);
-    box-shadow: 4px 4px 25px -4px rgba(0,0,0,0.75);
+    right: -39px;
+    top: -66px;
+    width: 70px;
+    height: 105px;
+    z-index: 6;
+    background: url(image_path('svg/paperHoleString-1.svg')) no-repeat;
+  }
+  .wrp {
+    @include respond-to(">=medium") {
+      background-image: $texture-stoff2;
+      background-color: #ffffff;
+      mask: url(image_path('svg/cssmask-paperHoleCorner.svg')) no-repeat top right;
+      padding: 20px 45px 20px 20px;
+    }
   }
 
   a {
@@ -58,11 +73,15 @@
     margin-bottom: 0;
     color: $color-ambient-rosa;
     @include respond-to(">=medium") {
-    @include headlineBarbapapa;
+      @include headlineBarbapapa;
       font-size: 2.2rem;
     }
   }
 }
+
+
+
+
 
 .titleImg {
   max-width: 100%;
