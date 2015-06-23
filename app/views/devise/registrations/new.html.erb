@@ -78,12 +78,16 @@
 
         </div>
 
-        <div class="upload-image js-imgUpld">
+        <div>
           <%= f.label :avatar %>
           <%= f.attachment_field :avatar, direct: true, presigned: true %>
 
-          <%= f.check_box :remove_avatar %>
-          <%= f.label :remove_avatar %>
+          <% if resource.avatar %>
+            <br/>
+            <%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %><br/>
+            <%= f.check_box :remove_avatar %>
+            <%= f.label :remove_avatar %>
+          <% end %>
         </div>
 
         <div class="wrp-checkboxes">

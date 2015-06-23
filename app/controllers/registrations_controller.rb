@@ -10,11 +10,12 @@ class RegistrationsController < Devise::RegistrationsController
       self.resource.build_graetzl(Graetzl.find(session[:graetzl]).attributes)
       respond_with self.resource
     else
-      redirect_to addresses_registration_path
+      redirect_to user_registration_address_path
     end
   end
 
   def create
+    puts params
     clear_session_data
     super    
   end
