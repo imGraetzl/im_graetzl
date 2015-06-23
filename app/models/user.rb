@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  mount_uploader :avatar, AvatarUploader
+  attachment :avatar
 
   # associations
   has_one :address, as: :addressable, dependent: :destroy
@@ -27,8 +27,8 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :terms_and_conditions, acceptance: true
-  validates_integrity_of :avatar
-  validates_processing_of :avatar
+  #validates_integrity_of :avatar
+  #validates_processing_of :avatar
 
   # class methods
   # overwrite devise authentication method to allow username OR email

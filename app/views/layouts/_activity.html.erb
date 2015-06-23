@@ -2,7 +2,7 @@
   <div class="entryInitialContent">
 
     <div class="userCreateInfo">
-      <%= image_tag activity.owner.avatar_url(:small), class: 'img-round' %>
+      <%= attachment_image_tag(activity.owner, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
       <span class="userAndType"><%= content_for :user_and_type %> <span class="timeago">vor <%= time_ago_in_words(activity.created_at) %></span></span>
     </div>
 

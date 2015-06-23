@@ -1,6 +1,6 @@
 <div class="entryUserComment">
   <div class="userCreateInfo">
-    <%= image_tag comment.user.avatar_url(:small), class: 'img-round' %>
+    <%= attachment_image_tag(comment.user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
     <span class="userAndType">Kommentar von <a href=""><%= comment.user.username %></a></span>
   </div>
   <div class="txt">

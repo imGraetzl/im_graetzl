@@ -79,22 +79,11 @@
         </div>
 
         <div class="upload-image js-imgUpld">
-          <% if resource.avatar? %>
-              <div class="imgCrop"> <%= image_tag(resource.avatar_url(:small)) %></div>
-              <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-              Portrait ändern
-              <div class="checkbox-group">
-                <input class="deleteCheckbox" id="del" type="checkbox"/>
-                <label for="del">Löschen</label>
-              </div>
-          <% else %>
-              <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-              Portrait hochladen
-          <% end %>
+          <%= f.label :avatar %>
+          <%= f.attachment_field :avatar, direct: true, presigned: true %>
 
-          <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-          <%= f.file_field :avatar %>
-          <%= f.hidden_field :avatar_cache %>
+          <%= f.check_box :remove_avatar %>
+          <%= f.label :remove_avatar %>
         </div>
 
         <div class="wrp-checkboxes">

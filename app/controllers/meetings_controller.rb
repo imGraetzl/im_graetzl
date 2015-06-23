@@ -35,7 +35,7 @@ class MeetingsController < ApplicationController
   def update
     @meeting.attributes = meeting_params
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
-    @meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
+    #@meeting.remove_cover_photo! if meeting_params[:remove_cover_photo] == '1'
 
     if @meeting.save
       redirect_to [@meeting.graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
@@ -68,7 +68,6 @@ class MeetingsController < ApplicationController
           :starts_at_date, :starts_at_time,
           :ends_at_time,
           :cover_photo,
-          :cover_photo_cache,
           :remove_cover_photo,
           category_ids: [],
           address_attributes: [:id, :description])      

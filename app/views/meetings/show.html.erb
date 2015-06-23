@@ -6,7 +6,7 @@
       <h1><%= @meeting.name %></h1>
     </div>
   </div>
-  <%= image_tag @meeting.cover_photo_url(:small), class: 'titleImg' %>
+  <%= attachment_image_tag(@meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/default.jpg', class: 'titleImg') %>
 
 </div>
 

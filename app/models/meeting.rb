@@ -5,7 +5,8 @@ class Meeting < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name
 
-  mount_uploader :cover_photo, CoverPhotoUploader
+  #mount_uploader :cover_photo, CoverPhotoUploader
+  attachment :cover_photo
 
   # associations
   belongs_to :graetzl
