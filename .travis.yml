@@ -6,7 +6,7 @@ rvm:
  - '2.2.2'
 cache: bundler
 before_script:
-- bundle exec rake db:schema:load RAILS_ENV=test
+- bundle exec rake db:create db:schema:load RAILS_ENV=test
 notifications:
   email:
     recipients:
