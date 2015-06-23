@@ -1,7 +1,12 @@
 language: ruby
+rvm:
+ - '2.0.0'
+ - '2.1.0'
+ - '2.2.0'
+ - '2.2.2'
 cache: bundler
 before_script:
-- bundle exec rake db:create db:schema:load RAILS_ENV=test
+- bundle exec rake db:schema:load RAILS_ENV=test
 notifications:
   email:
     recipients:
@@ -9,10 +14,3 @@ notifications:
       - peter.tilg@gmail.com
     on_success: always
     on_failure: always
-deploy:
-  provider: openshift
-  user: klappradla@gmail.com
-  password:
-    secure: pMb/izrWfWRverPT5pmzXJ92w5B1CC7n6WCXfEAoViejB/BikC75Xo7tWOjGJAtN42U4TGE9vkrJLwtdE15Ifl5MYhqeUxTro9yc7u35I1vaTIgfOw2wdP3PlYWMXOp/Ny7Tl/10bi3sq7xTJOlk/kztpzK7gU8A7wcO/ddCDv4=
-  app: staging
-  domain: imgraetzl
