@@ -15,7 +15,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    puts params
     clear_session_data
     super    
   end
