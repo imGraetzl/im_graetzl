@@ -106,8 +106,10 @@
             <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
             Foto hochladen
         <% end %>
-
+        
+        <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
         <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+        <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
 
       </div>
     </div>
