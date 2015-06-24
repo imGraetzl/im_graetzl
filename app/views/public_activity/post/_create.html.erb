@@ -1,12 +1,17 @@
-<% content_for :user_avatar, flush: true do %>
-  <%= attachment_image_tag(activity.owner, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
+<% content_for :initial_content, flush: true do %>
+  
+  <div class="userCreateInfo">
+    <%= attachment_image_tag(activity.owner, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
+  
+    <span class="userAndType">
+      Neuer Post von <a href=""><%= activity.owner.username if activity.owner %></a>
+      <span class="timeago">vor <%= time_ago_in_words(activity.created_at) %></span>
+    </span>
+  </div>
+
+  <div class="txt">
+    <p><%= activity.trackable.content %></p>
+  </div>
+
 <% end %>
 
-<% content_for :user_and_type, flush: true do %>
-  Neuer Post von <a href=""><%= activity.owner.username if activity.owner %></a>
-  <span class="timeago">vor <%= time_ago_in_words(activity.created_at) %></span>
-<% end %>
-
-<div class="txt">
-  <p><%= activity.trackable.content %></p>
-</div>

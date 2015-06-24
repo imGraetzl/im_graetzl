@@ -1,10 +1,14 @@
-<% content_for :user_avatar, flush: true do %>
-  <%= attachment_image_tag(activity.trackable.initiator, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
-<% end %>
+<% content_for :initial_content, flush: true do %>
+  
+  <div class="userCreateInfo">
+    <%= attachment_image_tag(activity.trackable.initiator, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
+  
+    <span class="userAndType">
+      Treffen von <a href=""><%= activity.trackable.initiator.username if activity.trackable.initiator %></a>
+      <span class="timeago">vor <%= time_ago_in_words(activity.trackable.created_at) %></span>
+    </span>
+  </div>
 
-<% content_for :user_and_type, flush: true do %>
-  Treffen von <a href=""><%= activity.trackable.initiator.username if activity.trackable.initiator %></a>
-  <span class="timeago">vor <%= time_ago_in_words(activity.trackable.created_at) %></span>
 <% end %>
 
 <%= render 'meetings/teaser', meeting: activity.trackable %>

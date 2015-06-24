@@ -1,12 +1,19 @@
-<% content_for :user_avatar, flush: true do %>
-  <%= attachment_image_tag(activity.trackable.user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
+<% content_for :initial_content, flush: true do %>
+  
+  <div class="userCreateInfo">
+    <%= attachment_image_tag(activity.trackable.user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
+  
+    <span class="userAndType">
+      Post von <a href=""><%= activity.trackable.user.username if activity.trackable.user %></a>
+      <span class="timeago">vor <%= time_ago_in_words(activity.trackable.created_at) %></span>
+    </span>
+  </div>
+
+  <div class="txt">
+    <p><%= activity.trackable.content %></p>
+  </div>
+
 <% end %>
 
-<% content_for :user_and_type, flush: true do %>
-  Post von <a href=""><%= activity.trackable.user.username if activity.trackable.user %></a>
-  <span class="timeago">vor <%= time_ago_in_words(activity.trackable.created_at) %></span>
-<% end %>
+<%= render 'comments/comment', comment: activity.trackable.comments.first if activity.trackable.comments.present? %>
 
-<div class="txt">
-  <p><%= activity.trackable.content %></p>
-</div>

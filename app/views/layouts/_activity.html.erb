@@ -1,16 +1,9 @@
 <div class="streamElement">
   <div class="entryInitialContent">
-
-    <div class="userCreateInfo">
-      <%= content_for :user_avatar %>
-      <span class="userAndType"><%= content_for :user_and_type %></span>
-    </div>
-
-    <%= yield %>
-
+    <%= content_for :initial_content %>
   </div>
   
-  <%= render 'comments/comment', comment: activity.trackable.comments.first if activity.trackable.comments.present? %>
+  <%= yield %>
 
   <%= render 'comments/form', type: activity.trackable_type, id: activity.trackable_id %>
 
