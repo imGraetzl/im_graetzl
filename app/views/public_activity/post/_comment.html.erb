@@ -4,6 +4,7 @@
 
 <% content_for :user_and_type, flush: true do %>
   Post von <a href=""><%= activity.trackable.user.username if activity.trackable.user %></a>
+  <span class="timeago">vor <%= time_ago_in_words(activity.trackable.created_at) %></span>
 <% end %>
 
 <div class="txt">

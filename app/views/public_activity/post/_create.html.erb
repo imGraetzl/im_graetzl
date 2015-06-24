@@ -3,7 +3,8 @@
 <% end %>
 
 <% content_for :user_and_type, flush: true do %>
-  Post von <a href=""><%= activity.trackable.user.username if activity.trackable.user %></a>
+  Neuer Post von <a href=""><%= activity.owner.username if activity.owner %></a>
+  <span class="timeago">vor <%= time_ago_in_words(activity.created_at) %></span>
 <% end %>
 
 <div class="txt">

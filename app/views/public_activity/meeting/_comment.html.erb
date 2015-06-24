@@ -1,5 +1,10 @@
+<% content_for :user_avatar, flush: true do %>
+  <%= attachment_image_tag(activity.trackable.initiator, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
+<% end %>
+
 <% content_for :user_and_type, flush: true do %>
-  <a href=""><%= activity.owner.username if activity.owner %></a> hat ein Treffen kommentiert
+  Treffen von <a href=""><%= activity.trackable.initiator.username if activity.trackable.initiator %></a>
+  <span class="timeago">vor <%= time_ago_in_words(activity.trackable.created_at) %></span>
 <% end %>
 
 <%= render 'meetings/teaser', meeting: activity.trackable %>
