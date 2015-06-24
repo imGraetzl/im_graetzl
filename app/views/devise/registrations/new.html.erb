@@ -78,16 +78,23 @@
 
         </div>
 
-        <div>
-          <%= f.label :avatar %>
-          <%= f.attachment_field :avatar, direct: true, presigned: true %>
-
+         <div class="upload-image js-imgUpld">
           <% if resource.avatar %>
-            <br/>
-            <%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %><br/>
-            <%= f.check_box :remove_avatar %>
-            <%= f.label :remove_avatar %>
+              <div class="imgCrop"><%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %></div>
+              <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+              Portrait ändern
+              <div class="checkbox-group">
+                <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
+                <%= f.label :remove_avatar, 'Löschen' %>
+              </div>
+          <% else %>
+              <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+              Portrait hochladen
           <% end %>
+
+          <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+           <%= f.attachment_field :avatar, direct: true, presigned: true %>
+           <%= f.check_box :remove_avatar, { class: 'deleteCheckbox', style: 'display: none;' } %>
         </div>
 
         <div class="wrp-checkboxes">
