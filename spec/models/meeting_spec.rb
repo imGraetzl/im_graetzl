@@ -207,4 +207,39 @@ RSpec.describe Meeting, type: :model do
       end
     end
   end
+
+  describe '#initator' do
+    let(:meeting) { create(:meeting) }
+    let(:initiator) { create(:user) }
+
+    context 'when present' do
+      before { create(:going_to, meeting: meeting, user: initiator, role: GoingTo::ROLES[:initiator]) }
+
+      it 'returns user' do
+        expect(meeting.initiator).to eq initiator
+      end
+    end
+
+    context 'when multiple present' do
+      before do
+        create(:going_to, meeting: meeting, role: GoingTo::ROLES[:initiator])
+        create(:going_to, meeting: meeting, user: initiator, role: GoingTo::ROLES[:initiator])
+      end
+
+      it 'returns last user' do
+        expect(meeting.initiator).to eq initiator
+      end
+    end
+
+    context 'when not present' do
+      before do
+        create(:going_to, meeting: meeting, role: GoingTo::ROLES[:attendee])
+      end
+
+      it 'returns nil' do
+        expect(meeting.initiator).to be_nil
+      end
+    end
+
+  end
 end

@@ -50,6 +50,11 @@ class Meeting < ActiveRecord::Base
     false    
   end
 
+  def initiator
+    going_to = going_tos.where(role: GoingTo::ROLES[:initiator]).last
+    going_to.user if going_to
+  end
+
   private
 
     def starts_at_date_cannot_be_in_the_past
