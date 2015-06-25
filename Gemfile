@@ -87,3 +87,5 @@ gem 'friendly_id'
 gem 'activeadmin', '~> 1.0.0.pre1'
 #activity tracking for active record models
 gem 'public_activity', github: 'pokonski/public_activity'
+# submit multipart forms with ajax
+gem 'remotipart'

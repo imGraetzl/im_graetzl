@@ -239,6 +239,7 @@ GEM
     refile-s3 (0.1.0)
       aws-sdk (~> 2.0)
       refile (~> 0.5.0)
+    remotipart (1.2.1)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rest-client (1.8.0)
@@ -350,6 +351,7 @@ DEPENDENCIES
   refile!
   refile-mini_magick
   refile-s3
+  remotipart
   rgeo
   rgeo-geojson
   rspec-rails
