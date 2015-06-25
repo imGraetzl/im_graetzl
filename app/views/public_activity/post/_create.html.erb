@@ -1,22 +1,8 @@
 <% content_for :initial_content, flush: true do %>
-  
-  <div class="userCreateInfo">
-    <%= attachment_image_tag(activity.owner, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
-  
-    <span class="userAndType">
-      Neuer Post von <a href=""><%= activity.owner.username if activity.owner %></a>
-      <span class="timeago">vor <%= time_ago_in_words(activity.created_at) %></span>
-    </span>
-  </div>
 
-  <div class="txt">
-    <p><%= activity.trackable.content %></p>
-  </div>  
-  <div class="entryImgUploads">
-    <% activity.trackable.images.each do |image| %>
-      <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
-    <% end %>
-  </div>
+  <%= render 'shared/stream/user_create_info', user: activity.owner, activity: activity, entry: activity %>
+
+  <%= render 'shared/stream/entry', entry: activity.trackable %>
 
 <% end %>
 
