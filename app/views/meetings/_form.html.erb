@@ -14,7 +14,7 @@
 
 
     <div class="meet-what">
-      <p>Was für ein Treffen planst du genau?</p>
+      <p class="txt">Was für ein Treffen planst du genau?</p>
 
       <div class="input-group">
         <%= f.text_field :name %>
@@ -28,7 +28,7 @@
 
 
     <div class="meet-where">
-      <p>Wo soll dein Treffen stattfinden?</p>
+      <p class="txt">Wo soll dein Treffen stattfinden?</p>
 
       <div id="addressSearchAutocomplete" class="input-group">
         <div class="wrp-icon">
@@ -89,7 +89,7 @@
     </div>
 
     <div class="meet-picture">
-      <p>Hast du vielleicht ein Foto für dein Treffen?<br>
+      <p class="txt">Hast du vielleicht ein Foto für dein Treffen?<br>
         Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
 
       <div class="upload-image js-imgUpld">
@@ -115,7 +115,7 @@
     </div>
 
     <div class="meet-categories">
-      <p>Zum Abschluss versuche noch dein Treffen einem oder mehreren Themen zuzuordnen</p>
+      <p class="txt">Zum Abschluss versuche noch dein Treffen einem oder mehreren Themen zuzuordnen</p>
       <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
     </div>
 

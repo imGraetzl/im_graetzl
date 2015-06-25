@@ -22,16 +22,16 @@
     opacity: 0.9;
   }
   @if ($btnSize == 'normal') {
-    padding: 0.95rem 1.2rem;
-    font-size: 1rem;
+    padding: 1.4rem 1.6rem;
+    font-size: 1.6rem;
   }
   @else if ($btnSize == 'small') {
-    padding: 0.85rem 1.1rem;
-    font-size: 0.8rem;
+    padding: 1.2rem 1.4rem;
+    font-size: 1.4rem;
   }
   @else if ($btnSize == 'large') {
-    padding: 1.4rem 1.6rem;
-    font-size: 1.2rem;
+    padding: 1.6rem 1.8rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -44,15 +44,20 @@
 .btn-secondary {
   @include btn($btnBackground: $color-background-bright, $btnTexture: none, $btnFontColor: $color-ambient-rosa);
   border: 2px solid lighten($color-ambient-rosa, 10);
+  &:hover {
+    background-color: inherit;
+    border-color: $color-ambient-mint;
+    color: $color-ambient-mint;
+  }
 }
 
 .btn-userCallToAction {
   @include btn;
   @include ellipsis;
   box-shadow: $boxShadow;
-  padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+  padding: 0.4rem 1.6rem 0.4rem 0.8rem;
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   text-shadow: 1px 1px $color-font-primary;
   span {
     display: flex;

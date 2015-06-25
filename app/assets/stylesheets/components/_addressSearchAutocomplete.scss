@@ -32,13 +32,17 @@
   .tt-suggestion {
     padding: 0.6rem 1.6rem;
     border-bottom: 2px solid $form-color-secondary;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     &:last-child {
       border-bottom: none;
     }
     .district {
-      font-size: 0.8rem;
-      float: right;
-      vertical-align: middle;
+      font-size: 1.2rem;
+      flex: 0 0 auto;
+      text-align: right;
+      min-width: 60px;
       color: $color-ambient-grey;
     }
   }

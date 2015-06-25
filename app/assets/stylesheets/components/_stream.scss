@@ -46,13 +46,16 @@
 .textEditor {
   position: relative;
   width: 100%;
-  &:before {
-    @include triangleSingle($direction: "left", $color: $color-ambient-mint-light, $size: 15px);
-    content: '';
-    left: -10px;
-    top: 10px;
-    position: absolute;
+  @include respond-to(">=medium") {
+    &:before {
+      @include triangleSingle($direction: "left", $color: $color-ambient-mint-light, $size: 10px);
+      content: '';
+      left: -9px;
+      top: 15px;
+      position: absolute;
+    }
   }
+
   textarea {
     @include textarea-plain($bgColor: $color-ambient-mint-light);
     width: 100%;
@@ -60,13 +63,13 @@
     height: 80px;
     display: block;
     border: none;
-    padding: 15px 25px;
+    padding: 0.8rem 1.4rem;
     border-radius: 5px;
   }
   .upload-image {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     display: none;
     background-color: #ffffff;
     border-radius: 0 0 5px 5px;
@@ -130,7 +133,7 @@
 .userCreateInfo {
   color: $color-ambient-grey;
   margin-bottom: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 1.4rem;
   font-style: italic;
   display: flex;
   align-items: center;
@@ -159,7 +162,7 @@
   strong {
     margin-bottom: 10px;
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
   }
   .userPortraitName {
     display: inline-block;
@@ -173,7 +176,7 @@
       height: 30px;
     }
     span {
-      font-size: 0.8rem;
+      font-size: 1.2rem;
       font-style: italic;
     }
   }
@@ -186,8 +189,9 @@
     float: left;
     display: block;
     max-width: 110px;
-    margin-right: 5px;
-    padding: 4px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.4rem;
     background-color: #ffffff;
     background-image: $texture-secondary;
     box-shadow: $boxShadow-light;
@@ -203,8 +207,8 @@
     width: 100%;
     display: block;
     color: $color-ambient-grey;
-    height: 40px;
-    padding: 8px 14px;
+    height: 4.0rem;
+    padding: 0.8rem 1.4rem;
     &::placeholder {
       color: lighten($color-ambient-grey, 20);
     }
@@ -278,13 +282,13 @@
 
   h2 {
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 2.4rem;
     color: $color-ambient-mint-dark;
     margin-bottom: 1rem;
     @include respond-to(">=medium") {
       text-align: left;
       margin-bottom: 0;
-      font-size: 2rem;
+      font-size: 3.2rem;
       max-width: 65%;
     }
   }
@@ -293,7 +297,7 @@
     position: absolute;
     top: 20px;
     right: 0;
-    font-size: 1rem;
+    font-size: 1.4rem;
     background-color: #ffffff;
     background-image: $texture-secondary;
     padding: 3px 20px 3px 6px;

@@ -10,9 +10,9 @@
     background-color: $form-color-secondary;
     color: $color-font-primary;
     border: none;
-    padding: 1.5rem;
+    padding: 2.2rem 1.8rem;
     outline: none;
-    font-size: 1rem;
+    font-size: 1.6rem;
     display: table-cell;
     width: 100%;
   }
@@ -21,8 +21,8 @@
     top: 50%;
     left: 0;
     width: 100%;
-    font-size: 1rem;
-    padding-left: 1.3rem;
+    font-size: 1.6rem;
+    padding-left: 1.6rem;
     font-family: $font-primary;
     color: $form-color-primary;
     transition: 0.2s ease;
@@ -30,7 +30,7 @@
   }
   input:focus + label,
   &.filled label {
-    top: 0;
+    top: -5px;
     font-size: 0.8em;
     line-height: 0.8rem;
     padding-left: 0 !important;
@@ -78,7 +78,7 @@
     flex: 0 0 auto;
   }
   select {
-    padding: 1.3rem 0 1.3rem 0.9rem;
+    padding: 1.8rem 0 1.8rem 0.9rem;
     position: relative;
     background-color: $form-color-secondary;
     color: $form-color-primary;
@@ -86,7 +86,7 @@
     -webkit-appearance: button; /* hide default arrow in chrome OSX */
     display: table-cell;
     width: 100%;
-    font-size: 1rem;
+    font-size: 1.6rem;
     option {
       color: $form-color-primary;
     }
@@ -95,28 +95,24 @@
     }
   }
   select[disabled] {
-    color: rgba(0, 0, 0, .3);
+    color: rgba(0, 0, 0, 0.3);
   }
   select[disabled]::after {
-    color: rgba(0, 0, 0, .1);
+    color: rgba(0, 0, 0, 0.1);
   }
   &::before,
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     pointer-events: none;
     z-index: 2;
   }
   &::after {
     /*  Custom dropdown arrow */
-    content: "\25BC";
-    height: 1em;
-    font-size: 0.8rem;
-    line-height: 1;
-    right: 0.75em;
-    top: 50%;
-    color: $form-color-tertiary;
-    margin-top: -0.5em;
+    content: '';
+    @include triangleSingle($direction: "down", $color: $color-ambient-mint-dark);
+    right: 9px;
+    top: 27px;
   }
   &::before {
     /*  Custom dropdown arrow cover */
@@ -212,14 +208,14 @@
     display: block;
     max-height: 8rem;
     resize: none;
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
   label {
     position: absolute;
     top: 1rem;
     left: 0;
     width: 100%;
-    font-size: 1rem;
+    font-size: 1.6rem;
     padding-left: 1.3rem;
     font-family: $font-primary;
     color: $form-color-primary;
@@ -240,7 +236,7 @@
 
 .file-group, %file-group {
   position: relative;
-  padding: 1.2rem;
+  padding: 1.6rem;
   background-color: $form-color-secondary;
   color: $form-color-primary;
   display: table;
