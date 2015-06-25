@@ -69,9 +69,9 @@
   font-family: $font-primary;
   padding: 1rem;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1.6rem;
   resize: none;
-  line-height: 1.2rem;
+  line-height: 1.4;
 }
 
 @mixin cloudMaskOverImg() {
@@ -126,13 +126,13 @@
 }
 
 
-@mixin ResponsiveText($s:16, $m: $s+2, $l: $m+2) {
-  font-size: #{$s}px;
+@mixin ResponsiveText($s:1.6, $m: $s+0.2, $l: $m+0.2) {
+  font-size: #{$s}rem;
   @include respond-to(">=medium") {
-    font-size: #{$m}px;
+    font-size: #{$m}rem;
   }
   @include respond-to(">=large") {
-    font-size: #{$l}px;
+    font-size: #{$l}rem;
   }
 }
 

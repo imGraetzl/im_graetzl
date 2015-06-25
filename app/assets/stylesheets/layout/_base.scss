@@ -6,10 +6,10 @@
 
 html {
   -webkit-font-smoothing: antialiased;
-  font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.4;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
+  font-size: 62.5%;
 }
 
 body {
@@ -17,6 +17,7 @@ body {
   color: $color-font-primary;
   background-color: #ffffff;
   background-image: $texture-stoff1;
+  font-size: 1.6rem;
 }
 
 main,
@@ -58,7 +59,7 @@ input, select, textarea {
 // vertical rythm
 h1,h2,h3,h4,h5,h6,
 p, div.txt p, div[class^=txt-] p {
-  margin-bottom:1.5rem;
+  margin-bottom:2.0rem;
 }
 div.txt p:last-child, div[class^=txt-] p:last-child {
   margin-bottom: 0;
@@ -67,7 +68,7 @@ div.txt p:last-child, div[class^=txt-] p:last-child {
 
 
 p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.0rem;
 }
 
 // ---------------------------------------------------------------------- Headings

@@ -3,16 +3,16 @@
   display: table;
   span {
     z-index: 2;
-    font-size: 10px;
+    font-size: 1.1rem;
     display: block;
     position: absolute;
     border-radius: 4px;
     text-align: center;
     width: 100%;
-    line-height: 1;
+    line-height: 0.9;
     color: $color-ambient-mint-dark;
     font-weight: 600;
-    top: 11px;
+    top: 12px;
     left: 0;
   }
   [class^=icon] {
@@ -27,7 +27,7 @@
       width: 50px;
     }
     span {
-      font-size: 14px;
+      font-size: 1.4rem;
       top: 21px;
     }
   }
@@ -35,7 +35,7 @@
 
 .iconMapLink {
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   font-style: italic;
   text-decoration: none;
   [class^=icon-] {
@@ -51,14 +51,13 @@ a.iconMapLink:hover [class^=icon] {
 
 .dateTime {
   overflow: hidden;
-  line-height: 1.2;
   .dayYearTimes {
     float: left;
     width: calc(100% - 65px);
   }
   .begin {
-    margin-right: 0.5rem;
-    padding-right: 0.5rem;
+    margin-right: 10px;
+    padding-right: 10px;
     border-right: 1px dotted $color-font-primary;
   }
 
@@ -75,7 +74,6 @@ a.iconMapLink:hover [class^=icon] {
 
 .location {
   overflow: hidden;
-  line-height: 1.2;
   .address {
     float: left;
     width: calc(100% - 65px);
@@ -93,7 +91,7 @@ a.iconMapLink:hover [class^=icon] {
 
 
 .dateTimeIconSmall, .locationIconSmall, .participantsCountSmall {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   [class^=icon-] {

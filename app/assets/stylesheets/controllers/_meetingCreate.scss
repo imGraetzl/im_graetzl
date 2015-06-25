@@ -2,6 +2,7 @@
   max-width: 800px;
   margin: 0 auto;
   h2 {
+    @include ResponsiveText(3.0, 4.0, 5.0);
     text-align: center;
     span {
       color: $color-ambient-rosa;
@@ -22,6 +23,10 @@
 
   .btn-primary {
     float: right;
+  }
+
+  .txt {
+    @include ResponsiveText(1.6, 1.8, 1.8);
   }
 
 }

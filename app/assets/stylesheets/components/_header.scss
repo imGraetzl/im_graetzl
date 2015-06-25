@@ -1,10 +1,10 @@
 header {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   background-color: #ffffff;
   border-bottom: 1px solid #DEEAE6;
   display: block;
   @include respond-to(">=medium") {
-    margin-bottom: 4rem;
+    margin-bottom: 6rem;
     position: relative;
     z-index: 5;
   }
@@ -72,7 +72,7 @@ header {
     vertical-align: middle;
     width: 28px;
     height: 28px;
-    fill: $color-font-primary;
+    fill: $color-ambient-mint-dark;
     pointer-events: none;
     @include respond-to(">=medium") {
       width: 34px;
@@ -84,13 +84,13 @@ header {
     @include respond-to(">450px") {
       color: $color-ambient-mint-dark;
       font-family: $font-tertiary;
-      font-size: 1rem;
+      font-size: 1.6rem;
       text-decoration: none;
       display: inline-block;
       vertical-align: middle;
     }
     @include respond-to(">=medium") {
-      font-size: 1.3rem;
+      font-size: 2.0rem;
     }
   }
 }
@@ -104,15 +104,15 @@ header {
     text-decoration: none;
     display: block;
     float: left;
-    font-size: 1rem;
+    font-size: 1.6rem;
     &:hover, &:active {
       color: $color-ambient-rosa;
     }
     @include respond-to(">=medium") {
-      font-size: 1.2rem;
+      font-size: 2.0rem;
     }
     @include respond-to(">=large") {
-      font-size: 1.3rem;
+      font-size: 2.2rem;
     }
   }
 }
@@ -123,17 +123,23 @@ header {
   }
 
   //mobile
-  @include respond-to("<large") {
-    a {
+  a {
+    @include respond-to("<large") {
       display: block;
       float: none;
-      font-size: 1.2rem;
       text-align: center;
       padding: 8px 0;
       border: none;
       background-color: lighten($color-ambient-mint, 20);
       margin: 0 0 2px 0;
     }
+    @include respond-to(">=medium") {
+      font-size: 2.0rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 2.2rem;
+    }
+
   }
 
 
@@ -189,7 +195,7 @@ header {
 
 .userSettings {
   color: $color-ambient-mint-dark;
-  font-size: 1rem;
+  font-size: 1.6rem;
   height: 100%;
   .img-user {
     @include img-round(35px);
@@ -220,11 +226,17 @@ header {
   .username {
     display: none;
     margin-right: 8px;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     font-family: $font-tertiary;
     @include respond-to(">450px") {
       display: block;
       margin-left: 10px;
+    }
+    @include respond-to(">=medium") {
+      font-size: 2.0rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 2.2rem;
     }
   }
 }
@@ -267,7 +279,7 @@ header {
   color: $color-background-bright;
   border-radius: 3px;
   line-height: 1;
-  font-size: 0.6rem;
+  font-size: 1.0rem;
   padding: 1px 3px;
 }
 
