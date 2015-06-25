@@ -77,7 +77,7 @@ gem 'httparty'
 # use devise for authentication
 gem 'devise'
 # refile
-gem 'refile', require: ['refile/rails', 'refile/image_processing']
+gem 'refile', require: ['refile/rails'], github: 'refile/refile'
 gem 'refile-mini_magick'
 gem 'refile-s3'
 gem 'aws-sdk'
@@ -87,3 +87,5 @@ gem 'friendly_id'
 gem 'activeadmin', '~> 1.0.0.pre1'
 #activity tracking for active record models
 gem 'public_activity', github: 'pokonski/public_activity'
+# submit multipart forms with ajax
+gem 'remotipart'

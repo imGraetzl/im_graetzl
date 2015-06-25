@@ -7,6 +7,8 @@ class Post < ActiveRecord::Base
   belongs_to :graetzl
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :images, as: :imageable, dependent: :destroy
+  accepts_attachments_for :images, attachment: :file
 
   # validations
   validates :content, presence: true
