@@ -24,6 +24,7 @@
 //= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require turbolinks
 //= require modernizr.custom
 //= require fastclick
