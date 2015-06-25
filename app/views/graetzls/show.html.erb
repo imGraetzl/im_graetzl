@@ -28,6 +28,4 @@
   <%= link_to 'Alle Treffen im Grätzl', graetzl_meetings_path(@graetzl) %>
 </div>
 
-<div class="stream">
-  <%= render 'stream', graetzl: @graetzl, activities: @activities %>
-</div>
+<%= render partial: 'stream', layout: 'shared/stream/layout', locals: { graetzl: @graetzl, activities: @activities } %>

@@ -25,11 +25,4 @@
   <%= render 'participation', users: @meeting.users %>
 </div>
 
-<div class="stream">
-  <div class="writeEntry">
-    Stream
-  </div>
-  <div class="streamEntry">
-
-  </div>
-</div>
+<%= render partial: 'stream', layout: 'shared/stream/layout', locals: { graetzl: @graetzl } %>
