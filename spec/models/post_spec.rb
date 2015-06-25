@@ -21,9 +21,14 @@ RSpec.describe Post, type: :model do
       expect(post).to respond_to(:comments)      
     end
 
+    it 'has images' do
+      expect(post).to respond_to(:images)      
+    end
+
     describe 'destroy associated records' do
       before do
         3.times { create(:comment, commentable: post) }
+        3.times { create(:image, imageable: post) }
       end
 
       it 'has comments' do
@@ -35,6 +40,18 @@ RSpec.describe Post, type: :model do
         post.destroy
         comments.each do |comment|
           expect(Comment.find_by_id(comment.id)).to be_nil
+        end
+      end
+
+      it 'has images' do
+        expect(post.images.count).to eq(3)
+      end
+
+      it 'destroys images' do
+        images = post.images
+        post.destroy
+        images.each do |image|
+          expect(Image.find_by_id(image.id)).to be_nil
         end
       end
     end
