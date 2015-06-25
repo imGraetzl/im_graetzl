@@ -1,13 +1,6 @@
 <% content_for :initial_content, flush: true do %>
-  
-  <div class="userCreateInfo">
-    <%= attachment_image_tag(activity.trackable.initiator, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
-  
-    <span class="userAndType">
-      Treffen von <a href=""><%= activity.trackable.initiator.username if activity.trackable.initiator %></a>
-      <span class="timeago">vor <%= time_ago_in_words(activity.trackable.created_at) %></span>
-    </span>
-  </div>
+
+  <%= render 'shared/stream/user_create_info', user: activity.trackable.initiator, entry: activity.trackable %>
 
 <% end %>
 

@@ -2,7 +2,7 @@
   <%= attachment_image_tag(user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
 
   <span class="userAndType">
-    <%= activity_description(user, activity) %>
+    <%= entry_description(user, entry) %>
     <span class="timeago">vor <%= time_ago_in_words(entry.created_at) %></span>
   </span>
 </div>

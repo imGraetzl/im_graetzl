@@ -3,18 +3,21 @@ module ApplicationHelper
     content_for(:title) { "#{page_title} | "}    
   end
 
-  def activity_description(user, activity)
-    puts activity.key
-    case activity.key
-    when 'post.create'
-      "Neuer post von <a href=''>#{user.username if user}</a>".html_safe
-    when 'post.comment'
+  def entry_description(user, entry)
+    case entry.class.name.demodulize.downcase
+    when 'activity'
+      case entry.key
+      when 'post.create'
+        "Neuer Post von <a href=''>#{user.username if user}</a>".html_safe
+      when 'meeting.create'
+        "<a href=''>#{user.username if user}</a> hat ein Treffen erstellt".html_safe
+      else
+      end
+    when 'post'
       "Post von <a href=''>#{user.username if user}</a>".html_safe
-    when 'meeting.create'
-    when 'meeting.comment'
-    when 'meeting.go_to'
+    when 'meeting'
+      "Treffen von <a href=''>#{user.username if user}</a>".html_safe
     else
-    end
-    
+    end    
   end
 end
