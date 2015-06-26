@@ -7,6 +7,10 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.build(comment_params)
     if @comment.save
       @commentable.create_activity :comment, owner: current_user, recipient: @comment
+      respond_to do |format|
+        format.js
+        format.html { redirect_to [@commentable.graetzl, @commentable] }
+      end
     else
       render nothing: true
     end
