@@ -28,6 +28,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.require(:comment).permit(:content).merge(user_id: current_user.id)
+      params.require(:comment).permit(:content, images_files: []).merge(user_id: current_user.id)
     end
 end
