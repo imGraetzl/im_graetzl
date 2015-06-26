@@ -1,25 +1,5 @@
-<div class="entryCreate">
-  <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
-
-  <% @form_id = SecureRandom.hex(4) %>
-
-  <%= form_for(Comment.new,
-    url: comments_path(commentable_type: @meeting.class.name, commentable_id: @meeting.id, form_id: @form_id),
-    html: { id: "#{@form_id}", class: 'textEditor' }) do |f| %>
-
-    <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben' %>
-
-    <div class="upload-image js-imgUpld">
-      <svg class="icon-camera">
-        <use xlink:href="#icon-camera"></use>
-      </svg>
-      Bilder hochladen
-      <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
-    </div>
-
-    <%= f.hidden_field :form_id, value: @id %>
-    <%= f.button 'Kommentar senden' %>
-  <% end %>
+<div id="stream-comment-form">
+  <%= render partial: 'comments/form', layout: 'shared/stream/entry_create', locals: { type: @meeting.class.name, id: @meeting.id } if user_signed_in? %>
 </div>
 
 <% @comments.each do |comment| %>

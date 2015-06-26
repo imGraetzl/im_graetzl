@@ -2,12 +2,19 @@
 
 <%= form_for(Comment.new,
   url: comments_path(commentable_type: type, commentable_id: id, form_id: @form_id),
-  html: { id: "#{@form_id}", class: 'entryCommentForm' },
-  remote: true) do |f| %>
-  <label>
-    <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
-    <%= f.text_area :content, cols: 60, rows: 2, placeholder: 'Kommentieren' %>
-  </label>
+  html: { id: "#{@form_id}", class: 'textEditor',
+  remote: true }) do |f| %>
+
+  <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben' %>
+
+  <div class="upload-image js-imgUpld">
+    <svg class="icon-camera">
+      <use xlink:href="#icon-camera"></use>
+    </svg>
+    Bilder hochladen
+    <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+  </div>
+
   <%= f.hidden_field :form_id, value: @id %>
-  <%= f.button 'Antwort senden' %>
+  <%= f.button 'Kommentar senden' %>
 <% end %>
