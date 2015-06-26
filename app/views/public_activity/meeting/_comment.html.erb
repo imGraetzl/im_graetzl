@@ -1,9 +1,1 @@
-<% content_for :initial_content, flush: true do %>
-
-  <%= render 'shared/stream/user_create_info', user: activity.trackable.initiator, entry: activity.trackable %>
-
-<% end %>
-
-<%= render 'meetings/teaser', meeting: activity.trackable %>
-
-<%= render 'comments/comment', comment: activity.trackable.comments.first if activity.trackable.comments.present? %>
+<%= render 'shared/stream/element_meeting', user: activity.trackable.initiator, activity: activity.trackable, entry: activity.trackable %>
