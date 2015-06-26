@@ -2,7 +2,7 @@ console.log('add comment');
 var formID = "<%= j(@form_id.to_s) %>";
 
 if ($('div#stream-comment-form').length) {
-  $('div#stream-comment-form').html("<%= j render partial: 'form', layout: 'shared/stream/entry_create', locals: { type: @commentable.class.name, id: @commentable.id } %>");
+  $('div#stream-comment-form').html("<%= j render partial: 'form', layout: 'shared/stream/entry_create', locals: { commentable: @commentable } %>");
   $('div#stream-comment-form').after("<%= j render 'shared/stream/element_comment', user: @comment.user, activity: @comment, entry: @comment %>");
 
 } else {
