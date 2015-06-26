@@ -17,6 +17,8 @@ module ApplicationHelper
       "Post von <a href=''>#{user.username if user}</a>".html_safe
     when 'meeting'
       "Treffen von <a href=''>#{user.username if user}</a>".html_safe
+    when 'comment'
+      "Kommentar von <a href=''>#{user.username if user}</a>".html_safe
     else
     end    
   end
