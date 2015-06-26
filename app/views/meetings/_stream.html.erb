@@ -22,6 +22,6 @@
   <% end %>
 </div>
 
-<% @meeting.comments.each do |comment| %>
-  <%= comment.content %><br>
+<% @comments.each do |comment| %>
+  <%= render 'shared/stream/element_comment', user: comment.user, activity: comment, entry: comment %>
 <% end %>
