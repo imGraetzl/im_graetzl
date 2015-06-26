@@ -8,5 +8,5 @@ if ($('div#stream-comment-form').length) {
 } else {
 
   $('form#' + formID + '.entryCommentForm').before("<%= j render 'shared/stream/comment', user: @comment.user, activity: @comment, entry: @comment %>");
-  $('form#' + formID + '.entryCommentForm').replaceWith("<%= j render 'comments/form_inline', type: @commentable.class, id: @commentable.id %>");
+  $('form#' + formID + '.entryCommentForm').replaceWith("<%= j render 'comments/form_inline', commentable: @commentable %>");
 }
