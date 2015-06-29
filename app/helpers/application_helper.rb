@@ -3,10 +3,10 @@ module ApplicationHelper
     content_for(:title) { "#{page_title} | "}    
   end
 
-  def activity_description(user, activity)
-    case activity.class.name.demodulize.downcase
+  def activity_description(user, entity)
+    case entity.class.name.demodulize.downcase
     when 'activity'
-      case activity.key
+      case entity.key
       when 'post.create'
         "Neuer Post von <a href=''>#{user.username if user}</a>".html_safe
       when 'meeting.create'

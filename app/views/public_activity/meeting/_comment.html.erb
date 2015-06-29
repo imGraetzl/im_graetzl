@@ -1,1 +1,13 @@
-<%= render 'shared/stream/element_meeting', user: activity.trackable.initiator, activity: activity.trackable, entry: activity.trackable %>
+<div class="entryInitialContent">
+  <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
+</div>
+
+
+<%= render 'meetings/teaser', meeting: activity.trackable %>
+
+<% unless activity.trackable.comments.empty? %>
+  <%= render partial: 'comments/comment_inline', layout: 'layouts/stream/comment', locals: { comment: activity.trackable.comments.first } %>
+<% end %>
+
+<%= render 'comments/form_inline', commentable: activity.trackable %>
+

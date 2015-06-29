@@ -1,83 +1,133 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe MeetingsController, type: :routing do
 
   describe 'routing with treffen' do
 
-    it 'routes to #index' do
-      expect(get: '/graetzl_slug/treffen').to route_to('meetings#index', graetzl_id: 'graetzl_slug')
+    it 'routes GET /treffen to #index' do
+      expect(get: '/graetzl_slug/treffen').to route_to(
+        controller: 'meetings',
+        action: 'index',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #show' do
-      expect(get: '/graetzl_slug/treffen/meeting_slug').to route_to('meetings#show', id: 'meeting_slug', graetzl_id: 'graetzl_slug')
+    it 'routes GET /treffen/meeting_slug to #show' do
+      expect(get: '/graetzl_slug/treffen/meeting_slug').to route_to(
+        controller: 'meetings',
+        action: 'show',
+        id: 'meeting_slug',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #new' do
-      expect(get: '/graetzl_slug/treffen/new').to route_to('meetings#new', graetzl_id: 'graetzl_slug')
+    it 'routes GET /treffen/new to #new' do
+      expect(get: '/graetzl_slug/treffen/new').to route_to(
+        controller: 'meetings',
+        action: 'new',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #create (with numeric id)' do
-      expect(post: '/1/treffen').to route_to('meetings#create', graetzl_id: '1')
+    it 'routes POST /treffen/new to #create' do
+      expect(post: '/graetzl_slug/treffen').to route_to(
+        controller: 'meetings',
+        action: 'create',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #create' do
-      expect(post: '/slug/treffen').to route_to('meetings#create', graetzl_id: 'slug')
+    it 'routes GET /treffen/meeting_slug/edit to #edit' do
+      expect(get: '/graetzl_slug/treffen/meeting_slug/edit').to route_to(
+        controller: 'meetings',
+        action: 'edit',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
 
-    it 'routes to #edit' do
-      expect(get: '/slug/treffen/meeting_slug/edit').to route_to('meetings#edit', graetzl_id: 'slug', id: 'meeting_slug')
+    it 'routes PUT /treffen/meeting_slug to #update' do
+      expect(put: '/graetzl_slug/treffen/meeting_slug').to route_to(
+        controller: 'meetings', 
+        action: 'update',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
 
-    it 'routes put to #update' do
-      expect(put: '/slug/treffen/meeting_slug').to route_to('meetings#update', graetzl_id: 'slug', id: 'meeting_slug')
+    it 'routes PATCH /treffen/meeting_slug/ to #update' do
+      expect(patch: '/graetzl_slug/treffen/meeting_slug').to route_to(
+        controller: 'meetings', 
+        action: 'update',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
 
-    it 'routes patch to #update' do
-      expect(patch: '/slug/treffen/meeting_slug').to route_to('meetings#update', graetzl_id: 'slug', id: 'meeting_slug')
-    end
-
-    it 'routes to #destroy' do
-      expect(delete: '/slug/treffen/meeting_slug').to route_to('meetings#destroy', graetzl_id: 'slug', id: 'meeting_slug')
+    it 'routes DELETE /treffen/meeting_slug to #destroy' do
+      expect(delete: '/graetzl_slug/treffen/meeting_slug').to route_to(
+        controller: 'meetings',
+        action: 'destroy',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
   end
   
 
   describe 'named route helpers' do
 
-    it 'routes to #index' do
-      expect(get: graetzl_meetings_path(graetzl_id: 'graetzl_slug')).to route_to('meetings#index', graetzl_id: 'graetzl_slug')
+    it 'routes GET graetzl_meetings_path to #index' do
+      expect(get: graetzl_meetings_path(graetzl_id: 'graetzl_slug')).to route_to(
+        controller: 'meetings',
+        action: 'index',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #show' do
-      expect(get: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to('meetings#show', id: 'meeting_slug', graetzl_id: 'graetzl_slug')
+    it 'routes GET graetzl_meeting_path to #show' do
+      expect(get: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to(
+        controller: 'meetings',
+        action: 'show',
+        id: 'meeting_slug',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #new' do
-      expect(get: new_graetzl_meeting_path(graetzl_id: 'graetzl_slug')).to route_to('meetings#new', graetzl_id: 'graetzl_slug')
+    it 'routes GET new_graetzl_meeting_path to #new' do
+      expect(get: new_graetzl_meeting_path(graetzl_id: 'graetzl_slug')).to route_to(
+        controller: 'meetings',
+        action: 'new',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #create' do
-      expect(post: graetzl_meetings_path(graetzl_id: 'graetzl_slug')).to route_to('meetings#create', graetzl_id: 'graetzl_slug')
+    it 'routes POST graetzl_meetings_path to #create' do
+      expect(post: graetzl_meetings_path(graetzl_id: 'graetzl_slug')).to route_to(
+        controller: 'meetings',
+        action: 'create',
+        graetzl_id: 'graetzl_slug')
     end
 
-    it 'routes to #create (with numeric id)' do
-      expect(post: graetzl_meetings_path(graetzl_id: 1)).to route_to('meetings#create', graetzl_id: '1')
+    it 'routes GET edit_graetzl_meeting_path to #edit' do
+      expect(get: edit_graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to(
+        controller: 'meetings',
+        action: 'edit',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
 
-    it 'routes to #edit' do
-      expect(get: edit_graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to('meetings#edit', graetzl_id: 'graetzl_slug', id: 'meeting_slug')
+    it 'routes PUT graetzl_meeting_path to #update' do
+      expect(put: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to(
+        controller: 'meetings',
+        action: 'update',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
 
-    it 'routes put to #update' do
-      expect(put: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to('meetings#update', graetzl_id: 'graetzl_slug', id: 'meeting_slug')
+    it 'routes PATCH graetzl_meeting_path to #update' do
+      expect(patch: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to(
+        controller: 'meetings',
+        action: 'update',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
 
-    it 'routes patch to #update' do
-      expect(patch: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to('meetings#update', graetzl_id: 'graetzl_slug', id: 'meeting_slug')
-    end
-
-    it 'routes to #destroy' do
-      expect(delete: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to('meetings#destroy', graetzl_id: 'graetzl_slug', id: 'meeting_slug')
+    it 'routes DELETE graetzl_meeting_path to #destroy' do
+      expect(delete: graetzl_meeting_path(graetzl_id: 'graetzl_slug', id: 'meeting_slug')).to route_to(
+        controller: 'meetings',
+        action: 'destroy',
+        graetzl_id: 'graetzl_slug',
+        id: 'meeting_slug')
     end
   end
 end
