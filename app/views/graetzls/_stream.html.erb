@@ -2,4 +2,4 @@
   <%= render partial: 'posts/form', layout: 'shared/stream/entry_create' if user_signed_in? %>
 </div>
 
-<%= render_activities(@activities, layout: :activity, fallback: 'default') %>
+<%= render_activities(@activities, fallback: 'default') %>

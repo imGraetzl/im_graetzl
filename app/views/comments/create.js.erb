@@ -1,4 +1,4 @@
 console.log('add comment');
 var formID = "<%= j(@form_id.to_s) %>";
-$('form#' + formID + '.entryCommentForm').before("<%= j render 'comments/comment', comment: @comment %>");
+$('form#' + formID + '.entryCommentForm').before("<%= j render 'shared/stream/comment', user: @comment.user, activity: @comment, entry: @comment %>");
 $('form#' + formID + '.entryCommentForm').replaceWith("<%= j render 'comments/form', type: @commentable.class, id: @commentable.id %>");

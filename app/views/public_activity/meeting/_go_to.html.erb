@@ -1,15 +1,1 @@
-<% content_for :initial_content, flush: true do %>
-  
-  <%= render 'shared/stream/user_create_info', user: activity.trackable.initiator, entry: activity.trackable %>
-
-<% end %>
-
-<%= render 'meetings/teaser', meeting: activity.trackable %>
-
-<div class="entryNewParticipants">
-  <strong>neuer Teilnehmer</strong>
-  <%= link_to '', class: 'userPortraitName' do %>
-    <%= attachment_image_tag(activity.owner, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
-    <span><%= activity.owner.username if activity.owner %></span>
-  <% end %>
-</div>
+<%= render 'shared/stream/element_meeting', user: activity.trackable.initiator, activity: activity, entry: activity.trackable %>

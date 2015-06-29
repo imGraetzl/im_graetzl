@@ -1,7 +1,1 @@
-<% content_for :initial_content, flush: true do %>
-
-  <%= render 'shared/stream/user_create_info', user: activity.owner, entry: activity %>
-
-<% end %>
-
-<%= render 'meetings/teaser', meeting: activity.trackable %>
+<%= render 'shared/stream/element_meeting', user: activity.owner, activity: activity, entry: activity.trackable %>

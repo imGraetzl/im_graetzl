@@ -16,6 +16,28 @@ RSpec.describe Comment, type: :model do
     it 'has commentables' do
       expect(comment).to respond_to(:commentable)      
     end
+
+    it 'has images' do
+      expect(comment).to respond_to(:images)      
+    end
+
+    describe 'destroy associated records' do
+      before do
+        3.times { create(:image, imageable: comment) }
+      end
+
+      it 'has images' do
+        expect(comment.images.count).to eq(3)
+      end
+
+      it 'destroys images' do
+        images = comment.images
+        comment.destroy
+        images.each do |image|
+          expect(Image.find_by_id(image.id)).to be_nil
+        end
+      end
+    end
   end
 
   describe 'scopes' do
