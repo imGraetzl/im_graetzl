@@ -1,5 +1,5 @@
 <div class="entryInitialContent">
-  <%= render 'shared/stream/user_info', user: comment.user, activity: comment, entry: comment %>
+  <%= render 'public_activity/info', user: comment.user, entity: comment %>
 
   <div class="txt">
     <%= simple_format comment.content %>

@@ -3,7 +3,7 @@ var formID = "<%= j(@form_id.to_s) %>";
 
 if ($('div#stream-comment-form').length) {
   $('div#stream-comment-form').
-    html("<%= j render partial: 'form', layout: 'shared/stream/entry_create', locals: { commentable: @commentable } %>");
+    html("<%= j render partial: 'form', layout: 'layouts/stream/form', locals: { commentable: @commentable } %>");
   $('div#stream-comment-form').
     after("<%= j render partial: 'comment', layout: 'layouts/stream/element', locals: { comment: @comment } %>");
 

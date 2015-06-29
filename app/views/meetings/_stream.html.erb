@@ -1,7 +1,11 @@
-<div id="stream-comment-form">
-  <%= render partial: 'comments/form', layout: 'shared/stream/entry_create', locals: { commentable: @meeting } if user_signed_in? %>
-</div>
+<div class="stream">
 
-<% @comments.each do |comment| %>
-  <%= render partial: 'comments/comment', layout: 'layouts/stream/element', locals: { comment: comment } %>
-<% end %>
+  <div id="stream-comment-form">
+    <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @meeting } if user_signed_in? %>
+  </div>
+
+  <% @comments.each do |comment| %>
+    <%= render partial: 'comments/comment', layout: 'layouts/stream/element', locals: { comment: comment } %>
+  <% end %>
+
+</div>

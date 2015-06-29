@@ -1,5 +1,5 @@
   <div class="entryInitialContent">
-    <%= render 'shared/stream/user_info', user: activity.owner, activity: activity, entry: activity.trackable %>
+    <%= render 'public_activity/info', user: activity.owner, entity: activity %>
 
     <%= render activity.trackable %>
   </div>
