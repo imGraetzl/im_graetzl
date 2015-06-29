@@ -5,7 +5,7 @@ if ($('div#stream-comment-form').length) {
   $('div#stream-comment-form').
     html("<%= j render partial: 'form', layout: 'shared/stream/entry_create', locals: { commentable: @commentable } %>");
   $('div#stream-comment-form').
-    after("<%= j render 'shared/stream/element_comment', user: @comment.user, activity: @comment, entry: @comment %>");
+    after("<%= j render partial: 'comment', layout: 'shared/stream/element', locals: { comment: @comment, user: @comment.user, activity: @comment, entry: @comment } %>");
 
 } else {
 
