@@ -1,0 +1,37 @@
+.calendarSheet {
+  background-color: $color-ambient-mint-light;
+  color: $color-ambient-mint-dark;
+  border-radius: 4px;
+  text-align: center;
+  overflow: hidden;
+  line-height: 1.2;
+  padding: 20px 0 7px 0;
+  width: 55px;
+  position: relative;
+  .day {
+    width: 100%;
+    font-size: 2.0rem;
+  }
+  .month {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+  &:before, &:after {
+    content: '';
+    height: 17px;
+    width: 50%;
+    position: absolute;
+    top: 0;
+    background-image: $texture-primary;
+  }
+  &:before {
+    background-color: lighten($color-ambient-mint-dark, 15);
+    left: 0;
+  }
+  &:after {
+    background-color: $color-ambient-mint-dark;
+    right: 0;
+  }
+}

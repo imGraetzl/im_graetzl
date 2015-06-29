@@ -15,22 +15,22 @@
   background-color: $btnBackground;
   display: block;
   text-decoration: none;
+
   line-height: 1;
   font-style: italic;
   &:hover {
-    background-color: $color-ambient-mint;
     opacity: 0.9;
   }
   @if ($btnSize == 'normal') {
-    padding: 1.4rem 1.6rem;
+    padding: 1.4rem 2.0rem;
     font-size: 1.6rem;
   }
   @else if ($btnSize == 'small') {
-    padding: 1.2rem 1.4rem;
+    padding: 1.2rem 1.8rem;
     font-size: 1.4rem;
   }
   @else if ($btnSize == 'large') {
-    padding: 1.6rem 1.8rem;
+    padding: 1.6rem 2.2rem;
     font-size: 1.8rem;
   }
 }

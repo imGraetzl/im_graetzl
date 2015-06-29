@@ -51,7 +51,7 @@
   }
 
   .wrp-icon ~ label {
-    padding-left: 3.8rem;
+    padding-left: 4.6rem;
   }
   .wrp-icon ~ input {
     padding-left: 0;
@@ -71,14 +71,14 @@
   display: flex;
   align-items: center;
   label {
-    padding-left: 0.9em;
-    padding-right: 0.9rem;
+    padding-left: 1.8rem;
+    padding-right: rem;
     color: $form-color-primary;
     display: table-cell;
     flex: 0 0 auto;
   }
   select {
-    padding: 1.8rem 0 1.8rem 0.9rem;
+    padding: 2.2rem 0 2.2rem 0.9rem;
     position: relative;
     background-color: $form-color-secondary;
     color: $form-color-primary;
@@ -288,7 +288,7 @@
   width: 100%;
   label {
     color: $form-color-primary;
-    padding-left: 1rem;
+    padding-left: 1.4rem;
     padding-right: 1rem;
     display: table-cell;
     width: 120px;
@@ -304,9 +304,9 @@
     background-color: $form-color-secondary;
     color: $color-font-primary;
     border: none;
-    padding: 1.3rem;
+    padding: 2.2rem;
     outline: none;
-    font-size: 1rem;
+    font-size: 1.6rem;
     width: 100%;
     display: table-cell;
   }

@@ -1,12 +1,18 @@
+main {
+  @include respond-to("<medium") {
+    overflow: hidden;
+  }
+}
 
 .buehne {
   overflow: hidden;
-  background-image: url(image_path('illu-sitzendeAmTisch.png')), url(image_path('illu-karte.jpg'));
+  background-image: url(image_path('illu/illu-sitzendeAmTisch.png')), url(image_path('illu/illu-karte.jpg'));
   background-repeat: no-repeat;
   background-size: 270px auto, 700px auto;
   background-position: 15% 125px, center center;
   min-height: 400px;
   position: relative;
+
   @include respond-to("<medium") {
     margin-left: -18px;
     margin-right: -18px;
@@ -14,7 +20,7 @@
     padding-right: 18px;
   }
   @include respond-to("retina2x") {
-    background-image: url(image_path('illu-sitzendeAmTisch@2x.png')), url(image_path('illu-karte@2x.jpg'));
+    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
   }
   @include respond-to(">=medium") {
     min-height: 530px;
@@ -36,6 +42,7 @@
     margin: 0 auto;
     max-width: 350px;
     font-weight: 300;
+
     @include respond-to("<medium") {
       @include headlineBarbapapa;
     }
@@ -65,64 +72,35 @@
 
   }
 
-}
-
-.btn-badge {
-  @include ResponsiveText(2.7, 4.0, 4.0);
-  height: 90px;
-  width: 90px;
-  font-family: $font-secondary;
-  position: absolute;
-  right: 20%;
-  bottom: 30px;
-  padding-top: 20px;
-  &::before {
-    content: '';
-    width:40px;
-    height: 40px;
+  .btn-badge {
     position: absolute;
-    bottom: -20px;
-    right: -40px;
-    display: block;
-    background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
-    background-repeat: no-repeat;
-    background-position: center center;
-    transform: rotate(-140deg);
-    transition: bottom 0.2s, right 0.2s;
-  }
-  &::after {
-    //preload in pseudo element for hover
-    background-image: url(image_path('svg/bg-badge-barpapapa-mint.svg')), url(image_path('svg/icon-arrow-right-blinky-mint.svg'))
-  }
-  &:hover {
-    &::before {
-      bottom: -10px;
-      right: -30px;
-      background-image: url(image_path('svg/icon-arrow-right-blinky-mint.svg'));
+    right: 20%;
+    bottom: 30px;
+
+    @include respond-to(">=medium") {
+      bottom: 50px;
+      right: 25%;
+    }
+    @include respond-to(">=large") {
+      right: 180px;
+      bottom: 65px;
     }
   }
-  @include respond-to(">=medium") {
-    height: 130px;
-    width: 130px;
-    padding-top: 28px;
-    bottom: 50px;
-    right: 25%;
-  }
-  @include respond-to(">=large") {
-    right: 180px;
-    bottom: 65px;
-  }
+
 }
 
-
 .teaserBlock {
-
+  margin-bottom: 60px;
+  @include respond-to(">=medium") {
+    margin-bottom: 100px;
+  }
   h2 {
     @include ResponsiveText(3.0, 4.0, 6.0);
     text-align: center;
     color: $color-ambient-rosa;
     margin-bottom: 0.5rem;
   }
+
   h2 + p {
     @include ResponsiveText(1.6, 2.0, 2.4);
     text-align: center;
@@ -132,165 +110,222 @@
 
 }
 
+
 .meetingBoxes {
   @include cf;
-  .meetingBox, .ownMeetingBox {
-    margin-bottom: 1rem;
+
+  .meetingBox {
+    margin-bottom: 35px;
     @include respond-to(">=medium") {
-      @include col(1/2, $cycle:2);
+      float: left;
+      width: 49%;
+      &:first-of-type {
+        margin-right: 2%;
+      }
     }
     @include respond-to(">=large") {
-      @include col(1/3, $uncycle:2, $cycle:3);
-      margin-bottom: 0;
+      float: left;
+      width: 32%;
+      margin-right: 2%;
     }
   }
-  .ownMeetingBox {
-    min-height: 400px;
-    @include respond-to(">=medium") {
-      clear: both;
-      margin: 40px auto 0 auto;
-      float: none;
-    }
-    @include respond-to(">=large") {
-      margin-top: 0;
-    transform: rotate(-1deg) translate(20px, 20px);
-    }
-  }
+
 }
 
-.meetingBox {
-  border: 1px solid $color-ambient-grey-light;
-  padding: 8px 16px 20px 16px;
-  border-radius: 8px;
-  position: relative;
-  .meetingBoxHeader {
-    margin-bottom: 4.5rem;
-  }
-  h3 {
-    @include ResponsiveText(1.8, 2.0, 2.4);
-    margin-bottom: 1.6rem;
-    line-height: 1.2;
-  }
-  .txt {
-    margin-bottom: 1.6rem;
-  }
-  button {
-    @include btn($btnBackground: $color-ambient-mint);
-  }
-}
 
-.meetingBoxHeader {
-  position: relative;
-  margin-left: -8px;
-  margin-right: -8px;
-  .coverImg {
-    width: 100%;
-    border-radius: 6px;
-    display: block;
+.ownMeetingBox {
+  @include paperCard;
+  background-image: url(image_path('illu/illu-cylce.png'));
+  background-repeat: no-repeat;
+  background-position: 3px 14px;
+  padding: 162px 32px 20px;
+  text-decoration: none;
+  width: 250px;
+  margin: 0 auto;
+  @include respond-to(">=medium") {
+    width: 300px;
+    background-position: 36px 14px;
+    transform: rotate(-2deg) translate3d(10px,20px,0);
+    margin-top: 80px;
+    clear: both;
   }
-  .districtFlag {
-    position: absolute;
-    bottom: -10px;
-    right: -16px;
+  @include respond-to(">=large") {
+    margin: 0;
+    width: 32%;
+    float: left;
+    clear: none;
   }
+
+  @include respond-to("retina2x") {
+    background-image: url(image_path('illu/illu-cylce@2x.png'));
+  }
+
   .user {
-    position: absolute;
-    bottom: -30px;
-    left: 5px;
     img {
       vertical-align: bottom;
     }
     span {
       color: $color-ambient-mint;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin-bottom: 10px;
       vertical-align: bottom;
     }
   }
-  .calendarSheet {
-    position: absolute;
-    top: 5px;
-    left: 5px;
+
+  h3 {
+    @include ResponsiveText(2.4, 2.8, 2.8);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: $color-ambient-mint-dark;
+  }
+
+  button {
+    @include btn($btnBackground: $color-ambient-rosa);
+  }
+
+}
+
+.no-touch {
+  .ownMeetingBox {
+    transform-origin: 20px 300px;
+    transition: transform 0.5s;
+    &:hover {
+      transform: rotate(-4deg) translate3d(20px,30px,0);
+      button {
+        opacity: 0.9;
+      }
+    }
   }
 }
 
-.calendarSheet {
-  background-color: $color-ambient-mint-light;
-  color: $color-ambient-mint-dark;
-  border-radius: 4px;
-  text-align: center;
-  overflow: hidden;
-  line-height: 1.2;
-  padding: 20px 0 7px 0;
-  width: 55px;
-  .day {
-    width: 100%;
-    font-size: 2.0rem;
+
+.aboutGraetzl {
+  h2 {
+    @include ResponsiveText(3.0, 4.0, 6.0);
+    text-align: center;
+    color: $color-ambient-rosa;
+    margin-bottom: 3.0rem;
   }
-  .month {
-    width: 100%;
-    text-transform: uppercase;
-    font-size: 1.6rem;
-    font-weight: 300;
+
+  h3 {
+    @include ResponsiveText(2.8, 3.4, 4.0);
+    text-align: center;
+    font-family: $font-secondary;
+    color: $color-ambient-mint;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    @include respond-to(">=medium") {
+      text-align: left;
+    }
   }
-  &:before, &:after {
-    content: '';
-    height: 17px;
-    width: 50%;
-    position: absolute;
-    top: 0;
-    background-image: $texture-primary;
+
+  p {
+    @include ResponsiveText(1.6, 1.6, 1.8);
   }
-  &:before {
-    background-color: lighten($color-ambient-mint-dark, 15);
-    left: 0;
+
+  .btn-go {
+    @include btn($btnSize: "large");
+    text-align: center;
+    box-shadow: 2px 2px $color-ambient-rosa-dark;
+    width: 80%;
+    font-size: 2.2rem;
+    @include respond-to(">=medium") {
+      margin: 0 auto;
+    }
   }
-  &:after {
-    background-color: $color-ambient-mint-dark;
-    right: 0;
-  }
+
 }
 
-.districtFlag {
-  font-family: $font-secondary;
-  background-color: $color-ambient-mint-light;
-  font-size: 2.0rem;
-  font-weight: bold;
-  color: $color-ambient-mint-dark;
-  padding: 8px 10px 8px 15px;
+.aboutGraetzl [class^=graetzl-] {
+  margin-bottom: 3.0rem;
   position: relative;
-  clip-path: polygon(1% 0%, 2% 23%, 3% 59%, 1% 86%, 0% 100%, 100% 100%, 98% 0%);
-  border-radius: 12px 2px 0 9px;
-  max-width: 160px;
-  line-height: 1;
+
   &:after {
     content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 5px 8px 0 0;
-    border-color: $color-ambient-mint-dark transparent transparent transparent;
-    position: absolute;
-    right: 0;
-    top: 100%;
+    width: 325px;
+    height: 320px;
+    display: block;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    @include respond-to(">=medium") {
+      position: absolute;
+      margin: auto;
+    }
+  }
+
+  &:nth-child(even) {
+    @include respond-to(">=medium") {
+      padding-left: 350px;
+    }
+    &:after {
+      @include respond-to(">=medium") {
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+
+  &:nth-child(odd) {
+    @include respond-to(">=medium") {
+      padding-right: 350px;
+    }
+    &:after {
+      @include respond-to(">=medium") {
+        top: 0;
+        right: 0;
+      }
+    }
+  }
+
+  @include respond-to(">=medium") {
+    min-height: 340px;
+    padding-top: 4.0rem;
+    margin-bottom: 0;
+  }
+  @include respond-to(">=large") {
+    margin-bottom: -2.0rem;
   }
 }
 
-.ownMeetingBox {
-  position: relative;
-  transform: rotate(-1deg) translate3d( 0, 0, 0);
-  background-color: #ffffff;
-  box-shadow: 0 0 4px rgba(0,0,0,0.22);
-  &:before {
-    content: '';
-    position: absolute;
-    right: -39px;
-    top: -66px;
-    width: 70px;
-    height: 105px;
-    z-index: 6;
-    background: url(image_path('svg/paperHoleString-1.svg')) no-repeat;
+.graetzl-meeting {
+  &:after {
+    background-image: url(image_path('illu/illu-card-cylce.png'));
+    background-position: 0 0;
+    background-size: 293px 316px;
+  }
+  @include respond-to('retina2x') {
+    background-image: url(image_path('illu/illu-card-cylce@2x.png'));
   }
 }
-
-
+.graetzl-events {
+  &:after {
+    background-image: url(image_path('illu/illu-card-painter.png'));
+    background-position: 0 0;
+    background-size: 325px 285px;
+  }
+  @include respond-to('retina2x') {
+    background-image: url(image_path('illu/illu-card-painter@2x.png'));
+  }
+}
+.graetzl-initiative {
+  &:after {
+    background-image: url(image_path('illu/illu-card-flohmarkt.png'));
+    background-position: 0 0;
+    background-size: 293px 316px;
+  }
+  @include respond-to('retina2x') {
+    background-image: url(image_path('illu/illu-card-flohmarkt@2x.png'));
+  }
+}
+.graetzl-economy {
+  &:after {
+    background-image: url(image_path('illu/illu-card-wirtschaft.png'));
+    background-position: 0 0;
+    background-size: 325px 285px;
+  }
+  @include respond-to('retina2x') {
+    background-image: url(image_path('illu/illu-card-wirtschaft@2x.png'));
+  }
+}

@@ -1,0 +1,37 @@
+.btn-badge {
+  @include ResponsiveText(2.7, 4.0, 4.0);
+  height: 90px;
+  width: 90px;
+  font-family: $font-secondary;
+  padding-top: 21px;
+  &::before {
+    content: '';
+    width:40px;
+    height: 40px;
+    position: absolute;
+    bottom: -20px;
+    right: -40px;
+    display: block;
+    background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
+    background-repeat: no-repeat;
+    background-position: center center;
+    transform: rotate(-140deg);
+    transition: bottom 0.2s, right 0.2s;
+  }
+  &::after {
+    //preload in pseudo element for hover
+    background-image: url(image_path('svg/bg-badge-barpapapa-mint.svg')), url(image_path('svg/icon-arrow-right-blinky-mint.svg'))
+  }
+  &:hover {
+    &::before {
+      bottom: -10px;
+      right: -30px;
+      background-image: url(image_path('svg/icon-arrow-right-blinky-mint.svg'));
+    }
+  }
+  @include respond-to(">=medium") {
+    height: 130px;
+    width: 130px;
+    padding-top: 31px;
+  }
+}

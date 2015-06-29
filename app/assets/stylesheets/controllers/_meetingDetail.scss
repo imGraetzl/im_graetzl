@@ -4,8 +4,6 @@
   @include respond-to(">=medium") {
     @include cloudMaskOverImg;
     overflow: hidden;
-    margin-right: -25px;
-    margin-left: -25px;
     margin-top: -6.0rem;
     margin-bottom: -80px;
     @include respond-to(">=large") {

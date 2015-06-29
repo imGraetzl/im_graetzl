@@ -1,0 +1,57 @@
+.meetingBox {
+  border: 1px solid $color-ambient-grey-light;
+  padding: 8px 16px 20px 16px;
+  border-radius: 8px;
+  position: relative;
+  .meetingBoxHeader {
+    margin-bottom: 4.5rem;
+  }
+  h3 {
+    @include ResponsiveText(1.8, 2.0, 2.4);
+    margin-bottom: 1.6rem;
+    line-height: 1.2;
+  }
+  .txt {
+    margin-bottom: 1.6rem;
+    @include ResponsiveText(1.6, 1.6, 1.8);
+  }
+  button {
+    @include btn($btnBackground: $color-ambient-mint);
+  }
+
+}
+
+.meetingBoxHeader {
+  position: relative;
+  margin-left: -8px;
+  margin-right: -8px;
+  .coverImg {
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+  }
+  .districtTag {
+    position: absolute;
+    bottom: -10px;
+    right: -16px;
+  }
+  .user {
+    position: absolute;
+    bottom: -30px;
+    left: 5px;
+    img {
+      vertical-align: bottom;
+    }
+    span {
+      color: $color-ambient-mint;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      vertical-align: bottom;
+    }
+  }
+  .calendarSheet {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+}

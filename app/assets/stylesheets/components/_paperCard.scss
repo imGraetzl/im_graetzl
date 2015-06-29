@@ -1,0 +1,29 @@
+@mixin paperCard($pos: "RT1") {
+  position: relative;
+  background-color: #ffffff;
+  box-shadow: 0 0 4px rgba(0,0,0,0.22);
+  padding: 20px;
+  display: block;
+
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: 6;
+  }
+
+  @if ($pos=="RT1") {
+    &:before {
+      right: -39px;
+      top: -66px;
+      width: 70px;
+      height: 105px;
+      background: url(image_path('svg/paperHoleString-1.svg')) no-repeat;
+    }
+  }
+
+}
+
+.paperCard {
+
+
+}
