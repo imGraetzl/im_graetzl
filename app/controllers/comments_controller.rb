@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_commentable
   before_filter :set_form_id, only: [:create]
 
   def create
@@ -13,11 +12,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-    def find_commentable
-      klass = params[:commentable_type].constantize
-      @commentable = klass.find(params[:commentable_id])  
-    end
 
     def set_form_id
       @form_id = params[:form_id]

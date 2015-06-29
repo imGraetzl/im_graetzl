@@ -1,9 +1,7 @@
 <% @form_id = SecureRandom.hex(4) %>
 
-<%= form_for(Comment.new,
-  url: comments_path(commentable_type: commentable.class.name, commentable_id: commentable.id, form_id: @form_id),
-  html: { id: "#{@form_id}", class: 'textEditor',
-  remote: true }) do |f| %>
+<%= form_for [commentable.graetzl, commentable, Comment.new],
+  html: { id: "#{@form_id}", class: 'textEditor', remote: true } do |f| %>
 
   <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben' %>
 
@@ -15,6 +13,6 @@
     <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
   </div>
 
-  <%= f.hidden_field :form_id, value: @id %>
+  <%= hidden_field_tag :form_id, @form_id %>
   <%= f.button 'Kommentar senden' %>
 <% end %>
