@@ -1,8 +1,6 @@
 @mixin paperCard($pos: "RT1") {
   position: relative;
-  background-color: #ffffff;
   box-shadow: 0 0 4px rgba(0,0,0,0.22);
-  padding: 20px;
   display: block;
 
   &:before {
@@ -11,10 +9,22 @@
     z-index: 6;
   }
 
+  .wrp {
+    background-image: $texture-stoff2;
+    background-color: #ffffff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+  }
+
   @if ($pos=="RT1") {
+    .wrp {
+      padding-right: 45px;
+      mask: url(image_path('svg/cssmask-paperHoleCorner.svg')) no-repeat top right;
+    }
     &:before {
       right: -39px;
-      top: -66px;
+      top: -68px;
       width: 70px;
       height: 105px;
       background: url(image_path('svg/paperHoleString-1.svg')) no-repeat;
@@ -27,3 +37,4 @@
 
 
 }
+

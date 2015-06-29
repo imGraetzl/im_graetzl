@@ -13,42 +13,14 @@
 }
 
 .titleHeadline {
-  text-align: center;
-  display: block;
-  position: relative;
   margin-bottom: 2.0rem;
   @include respond-to(">=medium") {
-    margin-bottom: 0;
-    display: table;
+    @include paperCard($pos: "RT1");
     position: absolute;
-    transform: rotate(-3deg) translate3d( 0, 0, 0);
-    box-shadow: 4px 4px 25px -4px rgba(0,0,0,0.75);
     bottom: 105px;
     left: -12px;
     max-width: 450px;
-    z-index: 4;
-    &:before {
-      content: '';
-      position: absolute;
-      right: -39px;
-      top: -66px;
-      width: 70px;
-      height: 105px;
-      z-index: 6;
-      background: url(image_path('svg/paperHoleString-1.svg')) no-repeat;
-    }
-  }
-
-  .wrp {
-    @include respond-to(">=medium") {
-      background-image: $texture-stoff2;
-      background-color: #ffffff;
-      padding: 20px 45px 20px 30px;
-      mask: url(image_path('svg/cssmask-paperHoleCorner.svg')) no-repeat top right;
-    }
-    @include respond-to(">=large") {
-      padding-left: 40px;
-    }
+    transform: rotate(-3deg) translate3d( 0, 0, 0);
   }
 
   a {
@@ -72,6 +44,7 @@
   h1 {
     margin-bottom: 0;
     font-size: 3.4rem;
+    text-align: center;
     @include respond-to(">=medium") {
       margin-left: 25px;
     }
