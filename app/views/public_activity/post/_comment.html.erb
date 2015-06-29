@@ -1,2 +1,11 @@
-<%= render 'shared/stream/element_post', user: activity.trackable.user, activity: activity.trackable, entry: activity.trackable %>
+  <div class="entryInitialContent">
+    <%= render 'shared/stream/user_info', user: activity.trackable.user, activity: activity.trackable, entry: activity.trackable %>
 
+    <%= render activity.trackable %>
+  </div>
+
+  <% unless activity.trackable.comments.empty? %>
+    <%= render partial: 'comments/comment_inline', layout: 'layouts/stream/comment', locals: { comment: activity.trackable.comments.first } %>
+  <% end %>
+
+  <%= render 'comments/form_inline', commentable: activity.trackable %>

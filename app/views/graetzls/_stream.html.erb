@@ -2,4 +2,6 @@
   <%= render partial: 'posts/form', layout: 'shared/stream/entry_create' if user_signed_in? %>
 </div>
 
-<%= render_activities(@activities, fallback: 'default') %>
+<% @activities.each do |activity| %>
+  <%= render_activity(activity, fallback: 'default', layout: 'stream/element') %>
+<% end %>

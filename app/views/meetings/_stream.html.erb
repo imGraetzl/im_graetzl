@@ -3,6 +3,5 @@
 </div>
 
 <% @comments.each do |comment| %>
-  <%= render partial: 'comments/comment', layout: 'shared/stream/element',
-    locals: { comment: comment, user: comment.user, activity: comment, entry: comment } %>
+  <%= render partial: 'comments/comment', layout: 'layouts/stream/element', locals: { comment: comment } %>
 <% end %>

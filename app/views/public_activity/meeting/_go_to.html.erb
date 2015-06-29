@@ -1,1 +1,9 @@
-<%= render 'shared/stream/element_meeting', user: activity.trackable.initiator, activity: activity, entry: activity.trackable %>
+<div class="entryInitialContent">
+  <%= render 'shared/stream/user_info', user: activity.trackable.initiator, activity: activity, entry: activity.trackable %>
+</div>
+
+
+<%= render 'meetings/teaser', meeting: activity.trackable %>
+
+<%= render 'comments/form_inline', commentable: activity.trackable %>
+
