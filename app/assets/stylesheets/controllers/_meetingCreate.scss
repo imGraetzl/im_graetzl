@@ -62,7 +62,7 @@
   }
 
   @include respond-to(">medium") {
-    @include clearfix;
+    @include cf();
     .timepicker-group {
       float: left;
       width: 49%;

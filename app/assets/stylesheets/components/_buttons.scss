@@ -1,63 +1,89 @@
-@mixin btn(
-  $btnBackground: $color-ambient-rosa,
-  $btnFontColor: $color-background-bright,
-  $btnTexture: $texture-primary,
-  $btnSize: normal)
-{
+.btn-primary,
+.btn-secondary {
   position: relative;
   font-family: $font-primary;
   border-radius: 0.3em;
   border: none;
   outline: none;
   cursor: pointer;
-  color: $btnFontColor;
-  background-image: $btnTexture;
-  background-color: $btnBackground;
   display: block;
   text-decoration: none;
-
   line-height: 1;
   font-style: italic;
+  padding: 1.4rem 2.0rem;
+  font-size: 1.8rem;
+  text-align: center;
+
   &:hover {
     opacity: 0.9;
   }
-  @if ($btnSize == 'normal') {
-    padding: 1.4rem 2.0rem;
-    font-size: 1.6rem;
-  }
-  @else if ($btnSize == 'small') {
+
+  &.-small {
     padding: 1.2rem 1.8rem;
     font-size: 1.4rem;
   }
-  @else if ($btnSize == 'large') {
-    padding: 1.6rem 2.2rem;
-    font-size: 1.8rem;
+  &.-large {
+    padding: 1.8rem 2.8rem;
+    font-size: 2.2rem;
   }
+
+  &.-shadow {
+    transition: box-shadow 0.3s;
+  }
+
+  &.-rose {
+    &.-shadow {
+      box-shadow: 2px 2px $color-ambient-rosa-dark;
+      &:hover {
+        box-shadow: 5px 5px $color-ambient-rosa-dark;
+      }
+    }
+  }
+  &.-mint {
+    &.-shadow {
+      box-shadow: 2px 2px $color-ambient-mint-dark;
+      &:hover {
+        box-shadow: 5px 5px $color-ambient-mint-dark;
+      }
+    }
+  }
+
 }
 
 .btn-primary {
-  @include btn;
-  &:hover {
+  color: #ffffff;
+  background-image: $texture-primary;
+  background-color: $color-ambient-rosa;
+  &.-rose {
+    background-color: $color-ambient-rosa;
+  }
+  &.-mint {
     background-color: $color-ambient-mint;
   }
 }
+
 .btn-secondary {
-  @include btn($btnBackground: $color-background-bright, $btnTexture: none, $btnFontColor: $color-ambient-rosa);
-  border: 2px solid lighten($color-ambient-rosa, 10);
-  &:hover {
-    background-color: inherit;
+  background-color: transparent;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $color-ambient-rosa;
+  color: $color-ambient-rosa;
+  &.-rose {
+    border-color: $color-ambient-rosa;
+    color: $color-ambient-rosa;
+  }
+  &.-mint {
     border-color: $color-ambient-mint;
     color: $color-ambient-mint;
   }
 }
 
+
 .btn-userCallToAction {
-  @include btn;
-  @include ellipsis;
-  box-shadow: $boxShadow;
-  padding: 0.4rem 1.6rem 0.4rem 0.8rem;
+  @extend .btn-primary;
+  @extend .btn-primary.-rose;
+  @extend .btn-primary.-shadow;
   font-style: italic;
-  font-size: 1.8rem;
   text-shadow: 1px 1px $color-font-primary;
   span {
     display: flex;
@@ -67,46 +93,20 @@
   }
   .img-round {
     margin-right: 0.8rem;
+    margin-top: -10px;
+    margin-bottom: -10px;
+    margin-left: -10px;
     border-color: $color-ambient-rosa-dark;
   }
   &:hover {
-     .img-round {
+    background-color: $color-ambient-mint;
+    box-shadow: 5px 5px $color-ambient-mint-dark;
+    .img-round {
       border-color: $color-ambient-mint-dark;
     }
   }
 }
 
-.btn-badge {
-  background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-rosa.svg'));
-  background-repeat: repeat, no-repeat;
-  background-size: 100px 100px, 100% 100%;
-  background-position: top left;
-  background-color: transparent;
-  border: none;
-  color: #ffffff;
-  text-align: center;
-  display: block;
-  border-radius: 25%;
-  padding: 10px 10px;
-  line-height: 0.8;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
-  //preload in pseudo element for hover
-  &:after {
-    content: '';
-    width: 100%;
-    height: 100%;
-    background-image: url(image_path('svg/bg-badge-barpapapa-mint.svg'));
-    opacity: 0;
-  }
-  &:hover, &:active {
-    background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-mint.svg'));
-  }
-  @include respond-to("retina2x") {
-    background-size:  50px 50px, 100% 100%;
-  }
-}
 
 .nav-btnBar {
   text-align: right;
@@ -122,5 +122,8 @@
     }
   }
 }
+
+
+
 
 

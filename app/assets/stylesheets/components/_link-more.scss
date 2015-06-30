@@ -1,0 +1,15 @@
+.link-more {
+  font-size: 1.8rem;
+  background-image: url(image_path('svg/icon-arrow-right-blinky-mint.svg'));
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  text-decoration: none;
+  color: $color-font-primary;
+  font-weight: 600;
+  padding: 1.0rem 0 1.0rem 4.5rem;
+  transition: background-position 0.2s;
+  &:hover {
+    background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
+    background-position: 6px center;
+  }
+}

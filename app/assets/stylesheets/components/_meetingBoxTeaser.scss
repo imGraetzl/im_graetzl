@@ -15,9 +15,6 @@
     margin-bottom: 1.6rem;
     @include ResponsiveText(1.6, 1.6, 1.8);
   }
-  button {
-    @include btn($btnBackground: $color-ambient-mint);
-  }
 
 }
 

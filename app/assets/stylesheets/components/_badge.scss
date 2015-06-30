@@ -1,0 +1,72 @@
+
+.badge {
+  font-size: 4.0rem;
+  width: 130px;
+  height: 130px;
+  font-family: $font-secondary;
+  background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-rosa.svg'));
+  background-repeat: repeat, no-repeat;
+  background-size: 100px 100px, 100% 100%;
+  background-position: top left;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  display: block;
+  border-radius: 25%;
+  padding: 10px 10px;
+  line-height: 0.8;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  padding-top: 28px;
+  transform: scale(0.7);
+
+  @include respond-to(">=medium") {
+    transform: scale(1);
+  }
+  @include respond-to("retina2x") {
+    background-size:  50px 50px, 100% 100%;
+  }
+
+  //preload for hover
+  &:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-image: url(image_path('svg/bg-badge-barpapapa-mint.svg'));
+    opacity: 0;
+  }
+  &:hover, &:active {
+    background-image:$texture-primary, url(image_path('svg/bg-badge-barpapapa-mint.svg'));
+  }
+
+  &.-arrow {
+    &::before {
+      content: '';
+      width:40px;
+      height: 40px;
+      position: absolute;
+      bottom: -20px;
+      right: -40px;
+      display: block;
+      background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
+      background-repeat: no-repeat;
+      background-position: center center;
+      transform: rotate(-140deg);
+      transition: bottom 0.2s, right 0.2s;
+    }
+    &::after {
+      //preload for hover
+      background-image: url(image_path('svg/bg-badge-barpapapa-mint.svg')), url(image_path('svg/icon-arrow-right-blinky-mint.svg'))
+    }
+    &:hover {
+      &::before {
+        bottom: -10px;
+        right: -30px;
+        background-image: url(image_path('svg/icon-arrow-right-blinky-mint.svg'));
+      }
+    }
+  }
+
+}

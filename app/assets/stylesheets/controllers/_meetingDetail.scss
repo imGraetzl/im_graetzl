@@ -4,10 +4,12 @@
   @include respond-to(">=medium") {
     @include cloudMaskOverImg;
     overflow: hidden;
-    margin-top: -6.0rem;
+    margin-top: -8.0rem;
     margin-bottom: -80px;
     @include respond-to(">=large") {
       height: 370px;
+      margin-right: -25px;
+      margin-left: -25px;
     }
   }
 }
@@ -15,12 +17,11 @@
 .titleHeadline {
   margin-bottom: 2.0rem;
   @include respond-to(">=medium") {
-    @include paperCard($pos: "RT1");
+    @include paperCard();
     position: absolute;
     bottom: 105px;
     left: -12px;
     max-width: 450px;
-    transform: rotate(-3deg) translate3d( 0, 0, 0);
   }
 
   a {
@@ -43,11 +44,8 @@
 
   h1 {
     margin-bottom: 0;
-    font-size: 3.4rem;
-    text-align: center;
-    @include respond-to(">=medium") {
-      margin-left: 25px;
-    }
+    font-size: 3.0rem;
+    color: $color-ambient-mint;
     @include respond-to(">=large") {
       font-size: 4.0rem;
     }
@@ -59,17 +57,12 @@
     font-size: 2.4rem;
     margin: 0 auto;
     @include respond-to(">=medium") {
-      font-size: 2.8rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 3.2rem;
+      font-size: 2.6rem;
+      margin-left: 0;
+      margin-bottom: 0.5rem;
     }
   }
 }
-
-
-
-
 
 .titleImg {
   max-width: 100%;

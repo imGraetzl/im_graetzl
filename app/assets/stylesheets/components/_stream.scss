@@ -18,7 +18,8 @@
   }
 
   button {
-    @include btn();
+    @extend .btn-primary;
+    @extend .btn-primary.-rose;
     margin-top: 1rem;
     display: none;
     width: 100%;
@@ -225,7 +226,9 @@
     margin-right: 8px;
   }
   button {
-    @include btn($btnSize: small, $btnBackground: $color-ambient-grey);
+    @extend .btn-primary;
+    @extend .btn-primary.-small;
+    background-color: $color-ambient-grey;
     margin-top: 0.5rem;
     display: none;
     float: right;
