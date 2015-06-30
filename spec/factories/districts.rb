@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :district do
     name { Faker::Address.city }
     zip { Faker::Address.zip }
-    area 'POLYGON ((100.0 0.0, 101.0 0.0, 101.0 1.0, 100.0 1.0, 100.0 0.0))'
+    area 'POLYGON ((0.0 0.0, 0.0 10.0, 10.0 10.0, 10.0 0.0, 0.0 0.0))'
   end
 
 end
