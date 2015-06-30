@@ -52,4 +52,33 @@ RSpec.describe Graetzl, type: :model do
       end
     end
   end
+
+  describe '#districts' do
+    let(:graetzl) { create(:graetzl,
+      area: 'POLYGON ((1.0 1.0, 1.0 5.0, 5.0 5.0, 5.0 1.0, 1.0 1.0))') }
+    let!(:d_intersect) { create(:district,
+      area: 'POLYGON ((3.0 3.0, 3.0 6.0, 6.0 6.0, 3.0 3.0))') }
+    let!(:d_covers) { create(:district,
+      area: 'POLYGON ((0.0 0.0, 0.0 6.0, 6.0 6.0, 6.0 0.0, 0.0 0.0))') }
+    let!(:d_outside) { create(:district,
+      area: 'POLYGON ((6.0 6.0, 10.0 6.0, 10.0 10.0, 6.0 6.0))') }
+
+    subject(:districts) { graetzl.districts }
+
+    it 'returns intersecting districts' do
+      expect(districts.size).to eq 2
+    end
+
+    it 'includes intersecting' do
+      expect(districts).to include d_intersect
+    end
+
+    it 'includes covering' do
+      expect(districts).to include d_covers
+    end
+
+    it 'excludes outside' do
+      expect(districts).not_to include d_outside
+    end
+  end
 end

@@ -84,47 +84,58 @@ RSpec.describe Address, type: :model do
   end
 
   describe '#graetzls' do
+    let(:address) { build(:address, coordinates: 'POINT (1.00 1.00)') }
+
     context 'with single result' do
-      let(:esterhazygasse) { build(:esterhazygasse) }
-      let!(:naschmarkt) { create(:naschmarkt) }
+      let!(:matching_graetzl) { create(:graetzl) }
+      let!(:wrong_graetzl) { create(:graetzl,
+        area: 'POLYGON ((0.0 0.0, 0.0 0.9, 0.9 0.9, 0.9 0.0, 0.0 0.0))') }
 
       it 'returns 1 graetzl' do
-        graetzls = esterhazygasse.graetzls
-        expect(graetzls.size).to eq(1)
+        expect(address.graetzls.size).to eq(1)
       end
 
-      it 'returns matching graetzl (naschmarkt)' do
-        graetzl = esterhazygasse.graetzls.first
-        expect(graetzl).to eq(naschmarkt)
+      it 'includes matching graetzl' do
+        expect(address.graetzls).to include matching_graetzl
+      end
+
+      it 'excludes matching graetzl' do
+        expect(address.graetzls).not_to include wrong_graetzl
       end
     end
 
     context 'with multiple results' do
-      let(:seestadt) { build(:seestadt) }
-      let!(:seestadt_aspern) { create(:seestadt_aspern) }
-      let!(:aspern) { create(:aspern) }
+      let!(:matching_graetzl) { create(:graetzl) }
+      let!(:other_graetzl) { create(:graetzl,
+        area: 'POLYGON ((0.0 0.0, 0.0 5.0, 5.0 5.0, 5.0 0.0, 0.0 0.0))') }
 
       it 'returns array of results' do
-        graetzls = seestadt.graetzls
-        expect(graetzls.size).to eq(2)
+        expect(address.graetzls.size).to eq(2)
       end
 
-      it 'returns 2 matching graetzls' do
-        graetzls = seestadt.graetzls
-        expect(graetzls).to include(seestadt_aspern)
-        expect(graetzls).to include(aspern)
+      it 'includes 2 matching graetzls' do
+        expect(address.graetzls).to include(matching_graetzl, other_graetzl)
       end
     end
 
     context 'with no result' do
-      let(:non_matching_address) { build(:address, coordinates: nil) }
+      let!(:wrong_graetzl) { create(:graetzl,
+        area: 'POLYGON ((0.0 0.0, 0.0 0.9, 0.9 0.9, 0.9 0.0, 0.0 0.0))') }
 
+      it 'returns empty array graetzl' do
+        expect(address.graetzls).to be_empty
+      end
+    end
+
+    context 'when no coordinates' do
+      let!(:matching_graetzl) { create(:graetzl) }
       before do
-        3.times { create(:graetzl) }
+        address.coordinates = nil
+        address.save
       end
 
       it 'returns empty array graetzl' do
-        expect(non_matching_address.graetzls).to be_empty
+        expect(address.graetzls).to be_empty
       end
     end
   end

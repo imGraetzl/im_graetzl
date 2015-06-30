@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe CommentsController, type: :controller do
+RSpec.describe Meetings::CommentsController, type: :controller do
   let(:user) { create(:user) }
-  let(:commentable_post) { create(:post) }
+  let(:meeting) { create(:meeting) }
   let(:form_id_hex) { SecureRandom.hex(4) }
 
   describe 'POST create' do
     let(:params) {
       {
-        comment: { content: 'content_text' },
-        commentable_type: commentable_post.class,
-        commentable_id: commentable_post.id,
+        comment: { content: 'comment_text' },
+        graetzl_id: meeting.graetzl.id,
+        meeting_id: meeting.id,
         form_id: form_id_hex
       }
     }
@@ -29,7 +29,12 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'assigns @commentable' do
         xhr :post, :create, params
-        expect(assigns(:commentable)).to eq(commentable_post)
+        expect(assigns(:commentable)).to eq(meeting)
+      end
+
+      it 'assigns @commentable of type Meeting' do
+        xhr :post, :create, params
+        expect(assigns(:commentable).class.name).to eq('Meeting')
       end
 
       it 'assigns @form_id' do
@@ -37,7 +42,7 @@ RSpec.describe CommentsController, type: :controller do
         expect(assigns(:form_id)).to eq(form_id_hex)
       end
 
-      it 'creates new comment record' do
+      it 'creates new comment' do
         expect {
           xhr :post, :create, params
         }.to change(Comment, :count).by(1)
@@ -46,6 +51,12 @@ RSpec.describe CommentsController, type: :controller do
       it 'sets current_user as user' do
         xhr :post, :create, params
         expect(new_comment.user).to eq(user)
+      end
+
+      it 'renders create.js template' do
+        xhr :post, :create, params
+        expect(response).to render_template('comments/create')
+        expect(response.header['Content-Type']).to include('text/javascript')
       end
     end
   end

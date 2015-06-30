@@ -73,30 +73,26 @@ RSpec.describe User, type: :model do
 
   describe '#autosave_associated_records_for_graetzl' do
     context 'when graetzl in db' do
-      before do
-        @existing_graetzl = create(:graetzl)
-      end
+      let!(:g_exiting) { create(:graetzl) }
 
       it 'associates existing graetzl' do
-        user = create(:user, graetzl: build(:graetzl, name: @existing_graetzl.name))
-        expect(user.graetzl).to eq(@existing_graetzl)
+        user = create(:user, graetzl: build(:graetzl, name: g_exiting.name))
+        expect(user.graetzl).to eq(g_exiting)
       end
 
       it 'does not create new graetzl' do
         expect {
-          user = create(:user, graetzl: build(:graetzl, name: @existing_graetzl.name))
+          user = create(:user, graetzl: build(:graetzl, name: g_exiting.name))
         }.not_to change(Graetzl, :count)
       end
     end
 
     context 'when graetzl not in db' do
-      before do
-        @default_graetzl = create(:graetzl)
-      end
+      let!(:g_default) { create(:graetzl) }
 
       it 'associates with first graetzl record' do
         user = create(:user, graetzl: build(:graetzl))
-        expect(user.graetzl).to eq(@default_graetzl)
+        expect(user.graetzl).to eq(g_default)
       end
 
       it 'does not create new graetzl record' do

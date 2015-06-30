@@ -30,6 +30,17 @@ APP.controllers.meetings = (function() {
             $(".titleImg").css("opacity", 1);
         });
 
+        $(".stream").on("focusin focusout", "textarea", function(event){
+            var $parent = $(this).parents(".entryCommentForm, .entryCreate");
+            if (event.type === 'focusin') {
+                $parent.addClass("is-focused");
+            } else if (event.type === 'focusout') {
+                if (!$(this).val().length) {
+                    $parent.removeClass("is-focused");
+                }
+            }
+        });
+
         // refile
         $(document).on("upload:start", "form", function(e) {
             console.log('Start upload');

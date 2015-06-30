@@ -1,0 +1,11 @@
+<div class="txt">
+  <%= simple_format post.content %>
+</div>
+
+<% unless post.images.empty? %>
+  <div class="entryImgUploads">
+    <% post.images.each do |image| %>
+      <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
+    <% end %>
+  </div>
+<% end %>

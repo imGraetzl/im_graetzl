@@ -9,6 +9,7 @@ class MeetingsController < ApplicationController
   end
 
   def show
+    @comments = @meeting.comments
   end
 
   def new

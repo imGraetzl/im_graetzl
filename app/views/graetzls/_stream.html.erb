@@ -1,5 +1,11 @@
-<div id="stream-post-form">
-  <%= render partial: 'posts/form', layout: 'shared/stream/entry_create' if user_signed_in? %>
-</div>
+<div class="stream">
 
-<%= render_activities(@activities, fallback: 'default') %>
+  <div id="stream-post-form">
+    <%= render partial: 'posts/form', layout: 'layouts/stream/form' if user_signed_in? %>
+  </div>
+
+  <% @activities.each do |activity| %>
+    <%= render_activity(activity, fallback: 'default', layout: 'stream/element') %>
+  <% end %>
+  
+</div>

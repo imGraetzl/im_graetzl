@@ -6,18 +6,16 @@ RSpec.describe GoingTosController, type: :controller do
   let(:user) { create(:user) }
 
   describe 'POST create' do
+    context 'when not logged in' do
 
-    context 'when no current_user' do
       it 'redirects to login_page' do
         xhr :post, :create, meeting_id: meeting.id
         expect(response).to render_template(session[:new])
       end
     end
 
-    context 'when current_user' do
-      before do
-        sign_in user
-      end
+    context 'when logged in' do
+      before { sign_in user }
 
       it 'creates new GoingTo record' do
         expect {
@@ -55,14 +53,10 @@ RSpec.describe GoingTosController, type: :controller do
     end
   end
 
-
   describe 'DELETE destroy' do
-    let(:going_to) { create(:going_to, user: user, meeting: meeting) }
+    let!(:going_to) { create(:going_to, user: user, meeting: meeting) }
 
-    before do
-      going_to.save
-      sign_in user
-    end
+    before { sign_in user }
 
     it 'assigns @meeting' do
       xhr :delete, :destroy, id: going_to.id

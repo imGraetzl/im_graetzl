@@ -1,0 +1,13 @@
+<%= render 'public_activity/info', user: comment.user, entity: comment %>
+
+<div class="txt">
+  <%= simple_format comment.content %>
+</div>
+
+<% unless comment.images.empty? %>
+  <div class="entryImgUploads">
+    <% comment.images.each do |image| %>
+      <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
+    <% end %>
+  </div>
+<% end %>

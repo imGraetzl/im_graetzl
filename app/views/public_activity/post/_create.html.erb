@@ -1,2 +1,8 @@
-<%= render 'shared/stream/element_post', user: activity.owner, activity: activity, entry: activity.trackable %>
+  <div class="entryInitialContent">
+    <%= render 'public_activity/info', user: activity.owner, entity: activity %>
+
+    <%= render activity.trackable %>
+  </div>
+
+  <%= render 'comments/form_inline', commentable: activity.trackable %>
 
