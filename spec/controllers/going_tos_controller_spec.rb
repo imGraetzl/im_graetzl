@@ -6,7 +6,7 @@ RSpec.describe GoingTosController, type: :controller do
   let(:user) { create(:user) }
 
   describe 'POST create' do
-    context 'when no current_user' do
+    context 'when not logged in' do
 
       it 'redirects to login_page' do
         xhr :post, :create, meeting_id: meeting.id
@@ -14,7 +14,7 @@ RSpec.describe GoingTosController, type: :controller do
       end
     end
 
-    context 'when current_user' do
+    context 'when logged in' do
       before { sign_in user }
 
       it 'creates new GoingTo record' do

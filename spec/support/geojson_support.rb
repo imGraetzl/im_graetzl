@@ -1,10 +1,10 @@
 module GeojsonSupport
-  def feature_hash
+  def feature_hash(x = 10, y = 10)
     {"type"=>"Feature",
         "geometry"=>{
           "type"=>"Point",
-          "coordinates"=>[16.35955137895887, 48.20137456512505]},
-          "bbox"=>[48.20137456512505, 16.35955137895887, 16.35955137895887, 48.20137456512505],
+          "coordinates"=>[x, y]},
+          "bbox"=>[y, x, x, y],
           "properties"=>{
             "Bezirk"=>"7",
             "Adresse"=>"Mariahilfer Straße 10",
