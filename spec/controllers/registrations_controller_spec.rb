@@ -10,7 +10,6 @@ RSpec.describe RegistrationsController, type: :controller do
       
     it 'returns a 200 OK status' do
       expect(response).to be_success
-      expect(response).to have_http_status(:ok)
     end
 
     it 'renders first registration step' do
@@ -181,6 +180,5 @@ RSpec.describe RegistrationsController, type: :controller do
           addressable_type: 'User')
       end
     end
-
   end
 end
