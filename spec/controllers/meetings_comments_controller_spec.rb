@@ -52,6 +52,12 @@ RSpec.describe Meetings::CommentsController, type: :controller do
         xhr :post, :create, params
         expect(new_comment.user).to eq(user)
       end
+
+      it 'renders create.js template' do
+        xhr :post, :create, params
+        expect(response).to render_template('comments/create')
+        expect(response.header['Content-Type']).to include('text/javascript')
+      end
     end
   end
 end
