@@ -4,8 +4,4 @@ FactoryGirl.define do
     zip { Faker::Address.zip }
     area 'POLYGON ((0.0 0.0, 0.0 10.0, 10.0 10.0, 10.0 0.0, 0.0 0.0))'
   end
-
 end
-
-
-
