@@ -17,11 +17,12 @@
 .titleHeadline {
   margin-bottom: 2.0rem;
   @include respond-to(">=medium") {
-    @include paperCard();
+    @include paperCard($rotation: "L", $texture: true);
     position: absolute;
     bottom: 105px;
     left: -12px;
     max-width: 450px;
+    padding-left: 42px;
   }
 
   a {
