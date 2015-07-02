@@ -198,4 +198,216 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "website_notifcations" do
+    let(:graetzl) { create(:graetzl) }
+    let(:user) { create(:user, :graetzl => graetzl) }
+
+    it "can be enabled for a specific type" do
+      PublicActivity.with_tracking do
+        type = :new_meeting_in_graetzl
+        expect(user.enabled_website_notification?(type)).to be_falsey  
+        user.enable_website_notification(type)
+        expect(user.enabled_website_notification?(type)).to be_truthy
+      end
+    end
+
+    describe "meeting activities" do
+      context "of meetings that the user organizes" do
+        let(:meeting) { create(:meeting, :graetzl => graetzl) }
+        before { create(:going_to,
+                        :user => user,
+                        :meeting => meeting,
+                        :role => GoingTo::ROLES[:initiator]) }
+
+        it "a new participant activity notifies the user" do
+          PublicActivity.with_tracking do
+            participant = create(:user)
+            going_to = create(:going_to,
+                              :meeting => meeting,
+                              :user => participant,
+                              :role => GoingTo::ROLES[:attendee])
+            a = going_to.create_activity :create, :owner => participant 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:another_attendee)
+            expect(user.website_notifications.to_a).to include(a)
+          end
+        end
+      end
+
+      context "user is going to" do
+        let(:meeting) { create(:meeting, :graetzl => graetzl) }
+        before { create(:going_to, :user => user, :meeting => meeting) }
+
+        it "an update notifies the user" do
+          PublicActivity.with_tracking do
+            a = meeting.create_activity :update, :owner => create(:user) 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:update_of_meeting)
+            expect(user.website_notifications).to include(a)
+          end
+        end
+
+        it "an organizer comment notifies the user" do
+          PublicActivity.with_tracking do
+            organizer = create(:user)
+            create(:going_to, :meeting => meeting,
+                   :user => organizer,
+                   :role => GoingTo::ROLES[:initiator])
+
+            comment = create(:comment, :user => organizer, :commentable => meeting)
+            a = comment.create_activity :create, :owner => organizer 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:organizer_comments)
+            expect(user.website_notifications.to_a).to include(a)
+          end
+        end
+
+        it "a user comment notifies the user" do
+          PublicActivity.with_tracking do
+            comment = create(:comment, :user => create(:user), :commentable => meeting)
+            a = comment.create_activity :create, :owner => comment.user 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:another_user_comments)
+            expect(user.website_notifications.to_a).to include(a)
+          end
+        end
+      end
+
+      context "user is not going to" do
+        let(:meeting) { create(:meeting, :graetzl => graetzl) }
+
+        it "an update does not notify the user" do
+          PublicActivity.with_tracking do
+            a = meeting.create_activity :update, :owner => create(:user) 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:update_of_meeting)
+            expect(user.website_notifications.to_a).not_to include(a)
+          end
+        end
+
+        it "an organizer commen does not notify the user" do
+          PublicActivity.with_tracking do
+            organizer = create(:user)
+            create(:going_to, :meeting => meeting,
+                   :user => organizer,
+                   :role => GoingTo::ROLES[:initiator])
+
+            comment = create(:comment, :user => organizer, :commentable => meeting)
+            a = comment.create_activity :create, :owner => organizer 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:organizer_comments)
+            expect(user.website_notifications.to_a).not_to include(a)
+          end
+        end
+
+        it "a user comment does not notify the user" do
+          PublicActivity.with_tracking do
+            comment = create(:comment, :user => create(:user), :commentable => meeting)
+            a = comment.create_activity :create, :owner => comment.user 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:another_user_comments)
+            expect(user.website_notifications.to_a).not_to include(a)
+          end
+        end
+      end
+    end
+
+    context "activities within the user's graetzl" do
+      let(:meeting) { create(:meeting, :graetzl => graetzl) }
+      let(:post) { create(:post, :graetzl => graetzl) }
+
+      it "returns new meeting activities" do
+        PublicActivity.with_tracking do
+          type = :new_meeting_in_graetzl
+          a = meeting.create_activity :create, owner: create(:user)
+          expect(user.website_notifications.to_a).not_to include(a)
+          user.enable_website_notification(type)
+          expect(user.website_notifications.to_a).to include(a)
+        end
+      end
+
+      it "returns new post activities" do
+        PublicActivity.with_tracking do
+          type = :new_post_in_graetzl
+          a = post.create_activity :create, owner: create(:user)
+          expect(user.website_notifications.to_a).not_to include(a)
+          user.enable_website_notification(type)
+          expect(user.website_notifications.to_a).to include(a)
+        end
+      end
+
+      context "when the user creates activity" do
+        before { create(:going_to,
+                        :user => user,
+                        :role => GoingTo::ROLES[:initiator])
+        }
+
+        it "does not return the activity" do
+          PublicActivity.with_tracking do
+            a = post.create_activity :create, owner: user
+            b = meeting.create_activity :create, owner: user
+
+            user.enable_website_notification(:new_meeting_in_graetzl)
+            user.enable_website_notification(:new_post_in_graetzl)
+            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a).not_to include(b)
+          end
+        end
+      end
+
+      describe "all types enabled" do
+        it "returns all activities" do
+          PublicActivity.with_tracking do
+            a = meeting.create_activity :create, owner: create(:user)
+            b = post.create_activity :create, owner: create(:user)
+            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a).not_to include(b)
+            user.enable_website_notification(:new_post_in_graetzl)
+            user.enable_website_notification(:new_meeting_in_graetzl)
+            expect(user.website_notifications.to_a).to include(a)
+            expect(user.website_notifications.to_a).to include(b)
+          end
+        end
+      end
+    end
+
+    context "activities outside the user's graetzl" do
+      let(:meeting) { create(:meeting, :graetzl => create(:graetzl)) }
+      let(:post) { create(:post, :graetzl => create(:graetzl)) }
+
+      it "does not return new meeting activities" do
+        PublicActivity.with_tracking do
+          type = :new_meeting_in_graetzl
+          a = meeting.create_activity :create, owner: create(:user)
+          user.enable_website_notification(type)
+          expect(user.website_notifications.to_a).not_to include(a)
+        end
+      end
+
+      it "does not return new post activities" do
+        PublicActivity.with_tracking do
+          type = :new_post_in_graetzl
+          a = post.create_activity :create, owner: create(:user)
+          user.enable_website_notification(type)
+          expect(user.website_notifications.to_a).not_to include(a)
+        end
+      end
+
+      describe "all types enabled" do
+        it "returns none" do
+          PublicActivity.with_tracking do
+            a = meeting.create_activity :create, owner: create(:user)
+            b = post.create_activity :create, owner: create(:user)
+            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a).not_to include(b)
+            user.enable_website_notification(:new_meeting_in_graetzl)
+            user.enable_website_notification(:new_post_in_graetzl)
+            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a).not_to include(b)
+          end
+        end
+      end
+    end
+  end
 end

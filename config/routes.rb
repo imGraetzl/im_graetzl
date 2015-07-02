@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
     get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_graetzl
     post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_graetzl
+
+    get 'users/notification_settings', to: 'notification_settings#index', as: :user_notification_settings
   end
 
   get 'static_pages/meetingCreate'
