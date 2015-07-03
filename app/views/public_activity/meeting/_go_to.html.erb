@@ -1,9 +1,7 @@
 <div class="entryInitialContent">
   <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
+  <%= render 'meetings/teaser', meeting: activity.trackable %>
 </div>
-
-
-<%= render 'meetings/teaser', meeting: activity.trackable %>
 
 <div class="entryNewParticipants">
   <strong>neuer Teilnehmer</strong>
