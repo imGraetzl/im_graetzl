@@ -3,7 +3,7 @@
 
   <div class="illu1"></div>
   <div class="illuMap"></div>
-  <a href="" class="badge -arrow">Mit-<br/>machen</a>
+  <%= link_to 'Mit-machen', new_user_session_path, class: 'badge -arrow' %>
 </div>
 
 <div class="teaserBlock">
@@ -17,17 +17,17 @@
       <%= render 'meetings/box', meeting: meeting %>
     <% end %>
 
-    <a href="" class="ownMeetingBox">
+    <%= link_to new_user_session_path, class: 'ownMeetingBox' do %>
       <div class="user">
         <img src="assets/avatar/small_default.png" alt="Profilbild Platzhalter" class="img-round"/>
         <span>Dein Name</span>
       </div>
       <h3>Starte Dein<br/>eigenes Treffen</h3>
       <button class="btn-primary -rose">Jetzt loslegen</button>
-    </a>
+    <% end %>
 
   </div>
-  <a href="#" class="link-more">Alle Treffen</a>
+  <%= link_to 'Alle Treffen', districts_path, class: 'link-more' %>
 </div>
 
 
@@ -58,7 +58,7 @@
       frage einfach die anderen Bewohner, die wissen, welche Unternehmen die kundenfreundlichsten sind.</p>
   </div>
 
-  <a class="btn-primary -rose -large -shadow" >Jetzt loslegen</a>
+  <%= link_to 'Jetzt loslegen', new_user_session_path, class: 'btn-primary -rose -large -shadow' %>
 
 </div>
 
