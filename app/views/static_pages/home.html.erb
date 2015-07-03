@@ -13,45 +13,9 @@
 
   <div class="meetingBoxes">
 
-    <div class="meetingBox">
-      <div class="meetingBoxHeader">
-        <img class="coverImg" src="assets/dummy/dummy-300x180-HorseRace-plain.jpg" alt=""/>
-
-        <div class="calendarSheet">
-          <div class="day">14</div>
-          <div class="month">Mär</div>
-        </div>
-        <div class="districtTag">Stuwerviertel</div>
-        <div class="user">
-          <img src="assets/dummy/dummy-100x100-SarahVaughan-plain.jpg" alt="" class="img-round"/>
-          <span>MalanoEisenherz</span>
-        </div>
-      </div>
-      <h3>Bingoabend</h3>
-
-      <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim est eveniet repellendus!</div>
-      <button class="btn-primary -mint">Mitmachen</button>
-    </div>
-
-    <div class="meetingBox">
-      <div class="meetingBoxHeader">
-        <img class="coverImg" src="assets/dummy/dummy-300x180-Motocross-plain.jpg" alt=""/>
-
-        <div class="calendarSheet">
-          <div class="day">17</div>
-          <div class="month">Jul</div>
-        </div>
-        <div class="districtTag">Czerninviertel</div>
-        <div class="user">
-          <img src="assets/dummy/dummy-100x100-GambiaGirl-plain.jpg" alt="" class="img-round"/>
-          <span>Horst Tischler</span>
-        </div>
-      </div>
-      <h3>Reisepass machen lassen</h3>
-
-      <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-      <button class="btn-primary -mint">Mitmachen</button>
-    </div>
+    <% @meetings.each do |meeting| %>
+      <%= render 'meetings/box', meeting: meeting %>
+    <% end %>
 
     <a href="" class="ownMeetingBox">
       <div class="user">

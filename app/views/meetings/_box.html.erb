@@ -1,0 +1,33 @@
+<div class="meetingBox">
+  <div class="meetingBoxHeader">
+    <%= attachment_image_tag(meeting, :cover_photo,
+      :fill, 300, 180,
+      fallback: 'cover_photo/default.jpg',
+      class: 'coverImg') %>
+
+    <% if meeting.starts_at_date %>
+      <div class="calendarSheet">
+        <div class="day"><%= meeting.starts_at_date.day %></div>
+        <div class="month"><%= I18n.localize(meeting.starts_at_date, format:'%b') %></div>
+      </div>
+    <% end %>
+
+    <div class="districtTag"><%= meeting.graetzl.name %></div>
+
+    <div class="user">
+      <% if meeting.initiator.avatar %>
+        <%= image_tag attachment_url(meeting.initiator, :avatar, :fill, 100, 100), class: 'img-round' %>
+      <% else %>
+        <%= image_tag 'avatar/small_default.png', class: 'img-round' %>
+      <% end %>
+      <span><%= meeting.initiator.username %></span>
+    </div>
+  </div>
+  <h3><%= meeting.name %></h3>
+
+  <div class="txt">
+    <%= simple_format(truncate(meeting.description, length: 200)) %>
+  </div>
+  <%= link_to 'Mitmachen', [meeting.graetzl, meeting],
+    class: 'btn-primary -mint' %>
+</div>
