@@ -1,40 +1,27 @@
 <% title(@graetzl.name) %>
 
-<div id="head-section">
-  <h1><%= @graetzl.name %></h1>
+<h1><%= @graetzl.name %></h1>
+<% if user_signed_in? %>
+  <%= link_to 'Neues Treffen starten', new_graetzl_meeting_path(@graetzl), class: 'btn-userCallToAction' %>  
+<% end %>
 
-  <% if user_signed_in? %>
+<% if @meetings.upcoming.present? %>
+  <h2>Treffen im <%= @graetzl.name %></h2>
 
-    <%= button_to new_graetzl_meeting_path(@graetzl), method: :get, class: 'btn-userCallToAction' do %>
-      <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %> Neues Treffen starten
+  <div class="meetingBoxes">
+    <% @meetings.upcoming.each do |meeting| %>
+      <%= render 'meetings/box', meeting: meeting %>
     <% end %>
-    
-  <% end %>
-</div>
-
-<%= content_tag(:h2, "Treffen im #{@graetzl.name}") if @meetings.upcoming %>
-<%= render partial: 'meeting', collection: @meetings.upcoming %>
+  </div>
+<% end %>
 
 
-<%= content_tag(:h2, 'Vergangene Treffen') if @meetings.past %>
-<%= render partial: 'meeting', collection: @meetings.past %>
+<% if @meetings.past.present? %>
+  <h2>Treffen im <%= @graetzl.name %></h2>
 
-
-
-<!-- tmp styles -->
-<style type="text/css">
-  div#head-section {
-    padding-bottom: 1em;
-    margin-bottom: 3em;
-    border-bottom: 1px dotted #666;
-  }
-
-  div.meeting {
-    padding: 1em;
-    border: 1px solid #666;
-    margin-bottom: 1em;
-    background: #c2e4df;
-  }
-</style>
-
-  
+  <div class="meetingBoxes">
+    <% @meetings.past.each do |meeting| %>
+      <%= render 'meetings/box', meeting: meeting %>
+    <% end %>
+  </div>
+<% end %>
