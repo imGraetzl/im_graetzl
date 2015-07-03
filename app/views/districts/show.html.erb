@@ -1,25 +1,17 @@
+<% title(@district.name) %>
+
 <h1><%= @district.name %> | <%= @district.zip %></h1>
 
-<%= content_tag(:h2, "Treffen in #{@district.name} (4 per default)") unless @meetings.empty? %>
-<%= render partial: 'meetings/meeting', collection: @meetings %>
+<% if @meetings.present? %>
+  <h2>Treffen in <%= @district.name %></h2>
+  <div class="meetingBoxes">
+    <% @meetings.each do |meeting| %>
+      <%= render 'meetings/box', meeting: meeting %>
+    <% end %>
+  </div>
+<% end %>
 
 <h2>Grätzl:</h2>
 <% @district.graetzls.each do |graetzl| %>
   <%= link_to graetzl.name, graetzl %><br>
 <% end %>
-
-<!-- tmp styles -->
-<style type="text/css">
-  div#head-section {
-    padding-bottom: 1em;
-    margin-bottom: 3em;
-    border-bottom: 1px dotted #666;
-  }
-
-  div.meeting {
-    padding: 1em;
-    border: 1px solid #666;
-    margin-bottom: 1em;
-    background: #c2e4df;
-  }
-</style>

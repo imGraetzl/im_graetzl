@@ -2,12 +2,12 @@
 
 <% if @meetings.present? %>
   <h2>Aktuelle Treffen</h2>
-    <div class="meetingBoxes">
-      <% @meetings.each do |meeting| %>
-        <%= render 'meetings/box', meeting: meeting %>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="meetingBoxes">
+    <% @meetings.each do |meeting| %>
+      <%= render 'meetings/box', meeting: meeting %>
+    <% end %>
+  </div>
+<% end %>
 
 <h2>Bezirke</h2>
 <% @districts.each do |district| %>
