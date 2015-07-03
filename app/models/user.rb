@@ -173,7 +173,7 @@ class User < ActiveRecord::Base
   end
 
   def website_notifications
-    return [] if enabled_website_notifications == 0
+    return PublicActivity::Activity.where("1 <> 1") if enabled_website_notifications == 0
 
     scope = PublicActivity::Activity.where(["owner_id <> :id", id: self.id])
     WEBSITE_NOTIFICATION_TYPES.keys.each do |type|
@@ -182,5 +182,13 @@ class User < ActiveRecord::Base
       end
     end
     scope
+  end
+
+  def new_website_notifications_count
+    unless website_notifications_last_checked.nil?
+      website_notifications.where(["created_at > ?", website_notifications_last_checked]).count
+    else
+      website_notifications.count
+    end
   end
 end
