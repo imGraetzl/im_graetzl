@@ -212,6 +212,17 @@ RSpec.describe User, type: :model do
       end
     end
 
+    it "can be toggled for a specific type" do
+      PublicActivity.with_tracking do
+        type = :new_meeting_in_graetzl
+        expect(user.enabled_website_notification?(type)).to be_falsey  
+        user.toggle_website_notification(type)
+        expect(user.enabled_website_notification?(type)).to be_truthy
+        user.toggle_website_notification(type)
+        expect(user.enabled_website_notification?(type)).to be_falsey  
+      end
+    end
+
     describe "meeting activities" do
       context "of meetings that the user organizes" do
         let(:meeting) { create(:meeting, :graetzl => graetzl) }

@@ -167,6 +167,11 @@ class User < ActiveRecord::Base
     update_attribute(:enabled_website_notifications, new_setting)
   end
 
+  def toggle_website_notification(type)
+    new_setting = enabled_website_notifications ^ WEBSITE_NOTIFICATION_TYPES[type][:bitmask] 
+    update_attribute(:enabled_website_notifications, new_setting)
+  end
+
   def website_notifications
     return [] if enabled_website_notifications == 0
 

@@ -1,1 +1,87 @@
+<p>Auf der Website</p>
 
+<table>
+  <tr>
+    <td>Auf der Website</td>
+    <td>per Email</td>
+    <td><b>Neuigkeiten aus meinem Grätzl</b></td>
+  </tr>
+
+  <tr>  
+    <td>
+      <a id="toggle_new_meeting_in_graetzl" href="#">
+        <span <% unless current_user.enabled_website_notification?(:new_meeting_in_graetzl) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:new_meeting_in_graetzl) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>ein neues Treffen wurde in meinem Grätzl erstellt</td>
+  </tr>
+
+  <tr>  
+    <td>
+      <a id="toggle_new_post_in_graetzl" href="#">
+        <span <% unless current_user.enabled_website_notification?(:new_post_in_graetzl) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:new_post_in_graetzl) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>ein neuer Beitrag wurde in meinem Grätzl erstellt</td>
+  </tr>
+
+  <tr>
+    <td>Auf der Website</td>
+    <td>per Email</td>
+    <td><b>Treffen an denen ich teilnehme</b></td>
+  </tr>
+  
+  <tr>  
+    <td>
+      <a id="toggle_update_of_meeting" href="#">
+        <span <% unless current_user.enabled_website_notification?(:update_of_meeting) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:update_of_meeting) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>ein Treffen geändert wird</td>
+  </tr>
+
+  <tr>  
+    <td>
+      <a id="toggle_organizer_comments" href="#">
+        <span <% unless current_user.enabled_website_notification?(:organizer_comments) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:organizer_comments) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>Ein Veranstalter das Treffen kommentiert</td>
+  </tr>
+
+  <tr>  
+    <td>
+      <a id="toggle_another_user_comments" href="#">
+        <span <% unless current_user.enabled_website_notification?(:another_user_comments) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:another_user_comments) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>ein User das Treffen kommentiert</td>
+  </tr>
+
+  <tr>
+    <td>Auf der Website</td>
+    <td>per Email</td>
+    <td><b>Treffen die ich erstellt habe</b></td>
+  </tr>
+
+  <tr>  
+    <td>
+      <a id="toggle_another_attendee" href="#">
+        <span <% unless current_user.enabled_website_notification?(:another_attendee) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:another_attendee) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>ein neues Treffen wurde in meinem Grätzl erstellt</td>
+  </tr>
+</table>
