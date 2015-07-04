@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
         PublicActivity::Activity.
           joins("LEFT JOIN meetings m1 ON m1.id = activities.trackable_id
           AND activities.trackable_type = E'Meeting'
+          AND activities.key = E'meeting.create'
           AND m1.graetzl_id = #{user.graetzl_id}").
           where("(m1.id IS NOT NULL OR activities.key <>  E'meeting.create')")
       end
@@ -59,23 +60,24 @@ class User < ActiveRecord::Base
     },
     organizer_comments: {
       bitmask: 8,
-      description: "notify if orgainzer comments a meeting that user attends",
+      description: "notify if organizer comments a meeting that user attends",
       scope: ->(user) do
         PublicActivity::Activity.
           joins("LEFT JOIN comments c1 ON c1.id = activities.trackable_id
             AND activities.trackable_type = E'Comment'
             AND c1.commentable_type = E'Meeting'
+            AND activities.key = E'comment.create'
             LEFT JOIN meetings m3 ON
             m3.id = c1.commentable_id
             LEFT JOIN going_tos gt2 ON
             gt2.meeting_id = m3.id
             AND gt2.role = #{GoingTo::ROLES[:initiator]}
+            AND c1.user_id = gt2.user_id
             LEFT JOIN going_tos gt3 ON
             gt3.meeting_id = gt2.meeting_id
             AND gt3.user_id = #{user.id}").
-          where("(gt3.id IS NOT NULL AND
-            gt2.id IS NOT NULL)
-            OR m3.id IS NULL")
+          where("gt3.id IS NOT NULL
+            OR gt2.id IS NULL")
       end
     },
     another_user_comments: {
@@ -110,6 +112,24 @@ class User < ActiveRecord::Base
             AND gt6.role = #{GoingTo::ROLES[:initiator]}").
           where("gt6.id IS NOT NULL
             OR gt5.id IS NULL")
+      end
+    },
+    user_comments_users_meeting: {
+      bitmask: 64,
+      description: "notify if user comments the meeting created by the user",
+      scope: ->(user) do
+        PublicActivity::Activity.
+          joins("LEFT JOIN comments c3 ON
+            c3.id = activities.trackable_id
+            AND activities.trackable_type = E'Comment'
+            AND c3.commentable_type = E'Meeting'
+            LEFT JOIN meetings m5 ON
+            m5.id = c3.commentable_id
+            LEFT JOIN going_tos gt7 ON
+            gt7.meeting_id = m5.id
+            AND gt7.role = #{GoingTo::ROLES[:initiator]}
+            AND gt7.user_id = #{user.id}").
+          where("gt7.id IS NOT NULL OR c3.id IS NULL")
       end
     }
   }
@@ -178,7 +198,12 @@ class User < ActiveRecord::Base
     scope = PublicActivity::Activity.where(["owner_id <> :id", id: self.id])
     WEBSITE_NOTIFICATION_TYPES.keys.each do |type|
       if enabled_website_notification?(type)
-        scope = scope.merge(WEBSITE_NOTIFICATION_TYPES[type][:scope].call(self))
+        if (type == :user_comments_users_meeting &&
+            enabled_website_notification?(:another_user_comments))
+          next
+        else
+          scope = scope.merge(WEBSITE_NOTIFICATION_TYPES[type][:scope].call(self))
+        end
       end
     end
     scope

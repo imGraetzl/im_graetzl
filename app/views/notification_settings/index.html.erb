@@ -82,6 +82,17 @@
       </a>
     </td>
     <td>nicht implementiert</td>
-    <td>ein neues Treffen wurde in meinem Grätzl erstellt</td>
+    <td>jemand Neuer am Treffen teilnimmt </td>
+  </tr>
+
+  <tr>  
+    <td>
+      <a id="toggle_user_comments_users_meeting" href="#">
+        <span <% unless current_user.enabled_website_notification?(:user_comments_users_meeting) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:user_comments_users_meeting) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>ein User das Treffen kommentiert</td>
   </tr>
 </table>

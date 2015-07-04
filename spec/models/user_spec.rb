@@ -199,9 +199,11 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "website_notifcations" do
+  describe "website_notifications" do
     let(:graetzl) { create(:graetzl) }
     let(:user) { create(:user, :graetzl => graetzl) }
+    let(:meeting) { create(:meeting, :graetzl => graetzl) }
+    let(:post) { create(:post, :graetzl => graetzl) }
 
     it "can be enabled for a specific type" do
       PublicActivity.with_tracking do
@@ -225,29 +227,42 @@ RSpec.describe User, type: :model do
 
     describe "meeting activities" do
       context "of meetings that the user organizes" do
-        let(:meeting) { create(:meeting, :graetzl => graetzl) }
-        before { create(:going_to,
-                        :user => user,
-                        :meeting => meeting,
-                        :role => GoingTo::ROLES[:initiator]) }
+        let(:attendee) { create(:user, :graetzl => graetzl) }
+        let!(:going_to) do
+          create(:going_to,
+                            :meeting => meeting,
+                            :user => attendee,
+                            :role => GoingTo::ROLES[:attendee])
+        end
+
+        before do
+          create(:going_to,
+                 :user => user,
+                 :meeting => meeting,
+                 :role => GoingTo::ROLES[:initiator])
+        end
 
         it "a new participant activity notifies the user" do
           PublicActivity.with_tracking do
-            participant = create(:user)
-            going_to = create(:going_to,
-                              :meeting => meeting,
-                              :user => participant,
-                              :role => GoingTo::ROLES[:attendee])
-            a = going_to.create_activity :create, :owner => participant 
+            a = going_to.create_activity :create, :owner => attendee 
             expect(user.website_notifications.to_a).not_to include(a)
             user.enable_website_notification(:another_attendee)
+            expect(user.website_notifications.to_a).to include(a)
+          end
+        end
+
+        it "a new comment notifies the user" do
+          PublicActivity.with_tracking do
+            comment = create(:comment, :user => attendee, :commentable => meeting)
+            a = comment.create_activity :create, :owner => attendee 
+            expect(user.website_notifications.to_a).not_to include(a)
+            user.enable_website_notification(:user_comments_users_meeting)
             expect(user.website_notifications.to_a).to include(a)
           end
         end
       end
 
       context "user is going to" do
-        let(:meeting) { create(:meeting, :graetzl => graetzl) }
         before { create(:going_to, :user => user, :meeting => meeting) }
 
         it "an update notifies the user" do
@@ -286,8 +301,6 @@ RSpec.describe User, type: :model do
       end
 
       context "user is not going to" do
-        let(:meeting) { create(:meeting, :graetzl => graetzl) }
-
         it "an update does not notify the user" do
           PublicActivity.with_tracking do
             a = meeting.create_activity :update, :owner => create(:user) 
@@ -297,7 +310,7 @@ RSpec.describe User, type: :model do
           end
         end
 
-        it "an organizer commen does not notify the user" do
+        it "an organizer comment does not notify the user" do
           PublicActivity.with_tracking do
             organizer = create(:user)
             create(:going_to, :meeting => meeting,
@@ -325,9 +338,6 @@ RSpec.describe User, type: :model do
     end
 
     context "activities within the user's graetzl" do
-      let(:meeting) { create(:meeting, :graetzl => graetzl) }
-      let(:post) { create(:post, :graetzl => graetzl) }
-
       it "returns new meeting activities" do
         PublicActivity.with_tracking do
           type = :new_meeting_in_graetzl
@@ -349,11 +359,6 @@ RSpec.describe User, type: :model do
       end
 
       context "when the user creates activity" do
-        before { create(:going_to,
-                        :user => user,
-                        :role => GoingTo::ROLES[:initiator])
-        }
-
         it "does not return the activity" do
           PublicActivity.with_tracking do
             a = post.create_activity :create, owner: user
@@ -417,6 +422,44 @@ RSpec.describe User, type: :model do
             expect(user.website_notifications.to_a).not_to include(a)
             expect(user.website_notifications.to_a).not_to include(b)
           end
+        end
+      end
+    end
+
+    context "when all notifications are enabled" do
+      let(:other_user) { create(:user) }
+
+      before do
+        User::WEBSITE_NOTIFICATION_TYPES.keys.each do |k|
+          user.enable_website_notification(k)
+        end
+      end
+
+      it "returns all related activities" do
+        PublicActivity.with_tracking do
+          activities = [ ]
+          activities << meeting.create_activity(:create, :owner => other_user)
+          activities << post.create_activity(:create, :owner => other_user)
+
+          create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:attendee])
+          create(:going_to, user: other_user, meeting: meeting, role: GoingTo::ROLES[:initiator])
+          activities << meeting.create_activity(:update, :owner => other_user)
+          comment_by_organizer = create(:comment, user: other_user, commentable: meeting)
+          activities << comment_by_organizer.create_activity(:create, :owner => other_user)
+          comment_by_user = create(:comment, user: create(:user), commentable: meeting)
+          activities << comment_by_user.create_activity(:create, owner: create(:user))
+
+          organized_meeting = create(:meeting, :graetzl => graetzl)
+          create(:going_to, user: user, meeting: organized_meeting, role: GoingTo::ROLES[:initiator])
+          going_to = create(:going_to, user: other_user, meeting: organized_meeting, role: GoingTo::ROLES[:attendee])
+          activities << going_to.create_activity(:create, :owner => other_user)
+          comment = create(:comment, user: other_user, commentable: organized_meeting)
+          activities << comment.create_activity(:create, owner: other_user)
+
+          result = user.website_notifications.to_a.collect(&:id)
+          activities.each do |a|
+            expect(result).to include(a.id)
+          end          
         end
       end
     end

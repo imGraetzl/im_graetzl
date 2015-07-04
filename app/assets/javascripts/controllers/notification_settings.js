@@ -7,7 +7,8 @@ APP.controllers.notification_settings = (function() {
       "organizer_comments",
       "another_user_comments",
       "another_attendee",
-      "update_of_meeting"
+      "update_of_meeting",
+      "user_comments_users_meeting"
     ];
     jQuery.each(notfication_types, function(index, notification_type) {
       $('#toggle_' + notification_type).click(function() {
