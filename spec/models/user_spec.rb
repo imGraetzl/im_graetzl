@@ -245,9 +245,9 @@ RSpec.describe User, type: :model do
         it "a new participant activity notifies the user" do
           PublicActivity.with_tracking do
             a = going_to.create_activity :create, :owner => attendee 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:another_attendee)
-            expect(user.website_notifications.to_a).to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
           end
         end
 
@@ -255,9 +255,9 @@ RSpec.describe User, type: :model do
           PublicActivity.with_tracking do
             comment = create(:comment, :user => attendee, :commentable => meeting)
             a = comment.create_activity :create, :owner => attendee 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:user_comments_users_meeting)
-            expect(user.website_notifications.to_a).to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
           end
         end
       end
@@ -268,9 +268,9 @@ RSpec.describe User, type: :model do
         it "an update notifies the user" do
           PublicActivity.with_tracking do
             a = meeting.create_activity :update, :owner => create(:user) 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:update_of_meeting)
-            expect(user.website_notifications).to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
           end
         end
 
@@ -283,9 +283,9 @@ RSpec.describe User, type: :model do
 
             comment = create(:comment, :user => organizer, :commentable => meeting)
             a = comment.create_activity :create, :owner => organizer 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:organizer_comments)
-            expect(user.website_notifications.to_a).to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
           end
         end
 
@@ -293,9 +293,9 @@ RSpec.describe User, type: :model do
           PublicActivity.with_tracking do
             comment = create(:comment, :user => create(:user), :commentable => meeting)
             a = comment.create_activity :create, :owner => comment.user 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:another_user_comments)
-            expect(user.website_notifications.to_a).to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
           end
         end
       end
@@ -304,9 +304,9 @@ RSpec.describe User, type: :model do
         it "an update does not notify the user" do
           PublicActivity.with_tracking do
             a = meeting.create_activity :update, :owner => create(:user) 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:update_of_meeting)
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
           end
         end
 
@@ -319,9 +319,9 @@ RSpec.describe User, type: :model do
 
             comment = create(:comment, :user => organizer, :commentable => meeting)
             a = comment.create_activity :create, :owner => organizer 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:organizer_comments)
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
           end
         end
 
@@ -329,9 +329,9 @@ RSpec.describe User, type: :model do
           PublicActivity.with_tracking do
             comment = create(:comment, :user => create(:user), :commentable => meeting)
             a = comment.create_activity :create, :owner => comment.user 
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
             user.enable_website_notification(:another_user_comments)
-            expect(user.website_notifications.to_a).not_to include(a)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
           end
         end
       end
@@ -342,9 +342,9 @@ RSpec.describe User, type: :model do
         PublicActivity.with_tracking do
           type = :new_meeting_in_graetzl
           a = meeting.create_activity :create, owner: create(:user)
-          expect(user.website_notifications.to_a).not_to include(a)
+          expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
           user.enable_website_notification(type)
-          expect(user.website_notifications.to_a).to include(a)
+          expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
         end
       end
 
@@ -352,9 +352,9 @@ RSpec.describe User, type: :model do
         PublicActivity.with_tracking do
           type = :new_post_in_graetzl
           a = post.create_activity :create, owner: create(:user)
-          expect(user.website_notifications.to_a).not_to include(a)
+          expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
           user.enable_website_notification(type)
-          expect(user.website_notifications.to_a).to include(a)
+          expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
         end
       end
 
@@ -366,8 +366,8 @@ RSpec.describe User, type: :model do
 
             user.enable_website_notification(:new_meeting_in_graetzl)
             user.enable_website_notification(:new_post_in_graetzl)
-            expect(user.website_notifications.to_a).not_to include(a)
-            expect(user.website_notifications.to_a).not_to include(b)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(b.id)
           end
         end
       end
@@ -377,12 +377,12 @@ RSpec.describe User, type: :model do
           PublicActivity.with_tracking do
             a = meeting.create_activity :create, owner: create(:user)
             b = post.create_activity :create, owner: create(:user)
-            expect(user.website_notifications.to_a).not_to include(a)
-            expect(user.website_notifications.to_a).not_to include(b)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(b.id)
             user.enable_website_notification(:new_post_in_graetzl)
             user.enable_website_notification(:new_meeting_in_graetzl)
-            expect(user.website_notifications.to_a).to include(a)
-            expect(user.website_notifications.to_a).to include(b)
+            expect(user.website_notifications.to_a.collect(&:id)).to include(a.id)
+            expect(user.website_notifications.to_a.collect(&:id)).to include(b.id)
           end
         end
       end
@@ -397,7 +397,7 @@ RSpec.describe User, type: :model do
           type = :new_meeting_in_graetzl
           a = meeting.create_activity :create, owner: create(:user)
           user.enable_website_notification(type)
-          expect(user.website_notifications.to_a).not_to include(a)
+          expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
         end
       end
 
@@ -406,7 +406,7 @@ RSpec.describe User, type: :model do
           type = :new_post_in_graetzl
           a = post.create_activity :create, owner: create(:user)
           user.enable_website_notification(type)
-          expect(user.website_notifications.to_a).not_to include(a)
+          expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
         end
       end
 
@@ -415,12 +415,12 @@ RSpec.describe User, type: :model do
           PublicActivity.with_tracking do
             a = meeting.create_activity :create, owner: create(:user)
             b = post.create_activity :create, owner: create(:user)
-            expect(user.website_notifications.to_a).not_to include(a)
-            expect(user.website_notifications.to_a).not_to include(b)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(b.id)
             user.enable_website_notification(:new_meeting_in_graetzl)
             user.enable_website_notification(:new_post_in_graetzl)
-            expect(user.website_notifications.to_a).not_to include(a)
-            expect(user.website_notifications.to_a).not_to include(b)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(a.id)
+            expect(user.website_notifications.to_a.collect(&:id)).not_to include(b.id)
           end
         end
       end
