@@ -1,126 +1,119 @@
 <%= form_for([@graetzl, @meeting]) do |f| %>
 
-    <% if @meeting.errors.any? %>
-        <div id="error_explanation">
-          <h2>Treffen konnte nicht erstellt werden: <%= @meeting.errors.count %> Fehler.</h2>
+  <% if @meeting.errors.any? %>
+    <div id="error_explanation">
+      <h2>Treffen konnte nicht erstellt werden: <%= @meeting.errors.count %> Fehler.</h2>
 
-          <ul>
-            <% @meeting.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+      <ul>
+        <% @meeting.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
+  <div class="meet-what">
+    <p class="txt">Was für ein Treffen planst du genau?</p>
+    <div class="input-group">
+      <%= f.text_field :name %>
+      <%= f.label :name, 'Gib deinem Treffen einen kurzen Namen' %>
+    </div>
+    <div class="textarea-group">
+      <%= f.text_area :description, cols: 30, rows: 10 %>
+      <%= f.label :description, 'Beschreibe dein Treffen in 1-2 Sätzen' %>
+    </div>
+  </div>
 
-    <div class="meet-what">
-      <p class="txt">Was für ein Treffen planst du genau?</p>
+  <div class="meet-where">
+    <p class="txt">Wo soll dein Treffen stattfinden?</p>
 
+    <div id="addressSearchAutocomplete" class="input-group">
+      <div class="wrp-icon">
+        <svg class="icon-pin"><use xlink:href="#icon-pin"></use></svg>
+      </div>
+      <%= text_field_tag :address, address_value(f.object.address) %>
+      <%= label_tag :address, 'Straße Hausnummer' %>
+      <%= hidden_field_tag :feature %>
+    </div>
+
+    <%= f.fields_for :address do |address_fields| %>
       <div class="input-group">
-        <%= f.text_field :name %>
-        <%= f.label :name, 'Gib deinem Treffen einen kurzen Namen' %>
-      </div>
-      <div class="textarea-group">
-        <%= f.text_area :description, cols: 30, rows: 10 %>
-        <%= f.label :description, 'Beschreibe dein Treffen in 1-2 Sätzen' %>
-      </div>
-    </div>
-
-
-    <div class="meet-where">
-      <p class="txt">Wo soll dein Treffen stattfinden?</p>
-
-      <div id="addressSearchAutocomplete" class="input-group">
         <div class="wrp-icon">
-          <svg class="icon-pin"><use xlink:href="#icon-pin"></use></svg>
+          <svg class="icon-flag"><use xlink:href="#icon-flag"></use></svg>
         </div>
-        <%= text_field_tag :address, address_value(f.object.address) %>
-        <%= label_tag :address, 'Straße Hausnummer' %>
-        <%= hidden_field_tag :feature %>
+        <%= address_fields.text_field :description %>
+        <%= address_fields.label :description, 'Ortsbeschreibung' %>
       </div>
+    <% end %>
+  </div>
 
-      <%= f.fields_for :address do |address_fields| %>
-          <div class="input-group">
-            <div class="wrp-icon">
-              <svg class="icon-flag"><use xlink:href="#icon-flag"></use></svg>
-            </div>
-            <%= address_fields.text_field :description %>
-            <%= address_fields.label :description, 'Ortsbeschreibung' %>
-          </div>
+  <div class="meet-when">
+    <p class="txt">Wann planst du dein Treffen?</p>
 
+    <div class="datepicker-group">
+      <%= f.label :starts_at_date do %>
+        <svg class="icon-calendar"><use xlink:href="#icon-calendar"></use></svg>
+        Datum
       <% end %>
+      <%= f.text_field :starts_at_date,
+        value: ( I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
+        class: 'datepicker',
+        placeholder: 'wählen' %>
     </div>
 
-
-    <div class="meet-when">
-      <p class="txt">Wann planst du dein Treffen?</p>
-
-      <div class="datepicker-group">
-        <%= f.label :starts_at_date do %>
-            <svg class="icon-calendar"><use xlink:href="#icon-calendar"></use></svg>
-            Datum
-        <% end %>
-        <%= f.text_field :starts_at_date,
-                         value: ( I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
-                         class: 'datepicker',
-                         placeholder: 'wählen' %>
-      </div>
-
-      <div class="timepicker-group">
-        <%= f.label :starts_at_time do %>
-            <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-            Beginn
-        <% end %>
-        <%= f.text_field :starts_at_time,
-                         value: (f.object.starts_at_time.strftime('%H:%M') if f.object.starts_at_time),
-                         class: 'timepicker',
-                         placeholder: 'wählen' %>
-      </div>
-
-      <div class="timepicker-group">
-        <%= f.label :ends_at_time do %>
-            <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
-            Ende
-        <% end %>
-        <%= f.text_field :ends_at_time, ignore_date: true,
-                         value: (f.object.ends_at_time.strftime('%H:%M') if f.object.ends_at_time),
-                         class: 'timepicker', placeholder: 'wählen' %>
-      </div>
+    <div class="timepicker-group">
+      <%= f.label :starts_at_time do %>
+        <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
+        Beginn
+      <% end %>
+      <%= f.text_field :starts_at_time,
+        value: (f.object.starts_at_time.strftime('%H:%M') if f.object.starts_at_time),
+        class: 'timepicker',
+        placeholder: 'wählen' %>
     </div>
 
-    <div class="meet-picture">
-      <p class="txt">Hast du vielleicht ein Foto für dein Treffen?<br>
-        Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
-
-      <div class="upload-image js-imgUpld">
-
-        <% if f.object.cover_photo %>
-            <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Foto ändern
-            <div class="checkbox-group">
-              <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-              <%= f.label :remove_cover_photo, 'Foto Löschen' %>
-            </div>
-        <% else %>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Foto hochladen
-        <% end %>
-        
-        <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-        <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
-        <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
-
-      </div>
+    <div class="timepicker-group">
+      <%= f.label :ends_at_time do %>
+        <svg class="icon-clock"><use xlink:href="#icon-clock"></use></svg>
+        Ende
+      <% end %>
+      <%= f.text_field :ends_at_time, ignore_date: true,
+        value: (f.object.ends_at_time.strftime('%H:%M') if f.object.ends_at_time),
+        class: 'timepicker', placeholder: 'wählen' %>
     </div>
+  </div>
 
-    <div class="meet-categories">
-      <p class="txt">Zum Abschluss versuche noch dein Treffen einem oder mehreren Themen zuzuordnen</p>
-      <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
-    </div>
+  <div class="meet-picture">
+    <p class="txt">Hast du vielleicht ein Foto für dein Treffen?<br>
+      Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
 
-    <div class="nav-btnBar">
-      <%= link_to 'Zurück', @graetzl, class: 'btn-secondary'  %>
-      <%= f.button class: 'btn-primary' %>
+    <div class="upload-image js-imgUpld">
+      <% if f.object.cover_photo %>
+        <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Foto ändern
+        <div class="checkbox-group">
+          <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+          <%= f.label :remove_cover_photo, 'Foto Löschen' %>
+        </div>
+      <% else %>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Foto hochladen
+      <% end %>
+      
+      <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+      <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+      <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
     </div>
+  </div>
+
+  <div class="meet-categories">
+    <p class="txt">Zum Abschluss versuche noch dein Treffen einem oder mehreren Themen zuzuordnen</p>
+    <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
+  </div>
+
+  <div class="nav-btnBar">
+    <%= link_to 'Zurück', @graetzl, class: 'btn-secondary'  %>
+    <%= f.button class: 'btn-primary' %>
+  </div>
 <% end %>
