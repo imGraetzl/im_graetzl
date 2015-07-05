@@ -1,4 +1,4 @@
-@mixin paperCard($corner: "RT", $rotation: null, $texture: false) {
+@mixin paperCard($corner: "RT", $rotation: 0, $texture: false) {
 
   padding-top: 20px;
   padding-bottom: 20px;
@@ -16,7 +16,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 4px rgba(0,0,0,0.40);
+    box-shadow: 0 0 4px rgba(0,0,0,0.20);
     display: block;
     z-index: 1;
 
@@ -32,27 +32,24 @@
       }
     }
 
-    @if $rotation == "L" {
-      transform: rotate(-4deg) translate3d(0,0,0);
-    } @else if $rotation == "R" {
-      transform: rotate(4deg) translate3d(0,0,0);
-    }
+    transform: rotate(#{$rotation}deg) translate3d(0,0,0);
 
     //string
     &::before {
       content: '';
-      width: 70px;
-      height: 60px;
       position: absolute;
       z-index: 6;
-      background-image: url(image_path('svg/card-string1.svg'));
       background-repeat: no-repeat;
+      width: 78px;
+      height: 60px;
+      background-image: url(image_path('svg/card-string1.svg'));
 
       //hole position
       @if $corner == "RT" {
-        top: 4px;
+        top: 3px;
         right: -48px;
       }
+
     }
 
   }

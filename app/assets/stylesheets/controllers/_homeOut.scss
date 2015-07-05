@@ -1,9 +1,3 @@
-main {
-  @include respond-to("<medium") {
-    overflow: hidden;
-  }
-}
-
 .buehne {
   overflow: hidden;
   background-image: url(image_path('illu/illu-sitzendeAmTisch.png')), url(image_path('illu/illu-karte.jpg'));
@@ -239,6 +233,10 @@ main {
     @include respond-to(">=medium") {
       text-align: left;
     }
+  }
+
+  span {
+    color: $color-ambient-rosa;
   }
 
   p {

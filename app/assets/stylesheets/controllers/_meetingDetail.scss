@@ -17,7 +17,7 @@
 .titleHeadline {
   margin-bottom: 2.0rem;
   @include respond-to(">=medium") {
-    @include paperCard($rotation: "L", $texture: true);
+    @include paperCard($rotation: -4, $texture: true);
     position: absolute;
     bottom: 105px;
     left: -12px;

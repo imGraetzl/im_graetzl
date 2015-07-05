@@ -28,8 +28,12 @@
     <% if @graetzls.empty? %>
 
       <div class="wrp-selects">
-        <div class="select-group">
-          <label for="district">Bezirk</label>
+
+        <div class="input-select">
+          <label for="last_name">
+            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+            <span>Bezirk</span>
+          </label>
           <%= select_tag :district_id, options_from_collection_for_select(District.all, :id, :zip),
             prompt: 'wählen',
             data: { remote: true, url: url_for(action: :graetzl) }
@@ -42,7 +46,7 @@
 
       <div class="wrp-radios">
         <% @graetzls.each do |g| %>
-            <div class="radio-group">
+            <div class="input-radio">
               <%= radio_button_tag :graetzl, g.id, required: true %>
               <%= label_tag "#{:graetzl}_#{g.id}", g.name %>
             </div>
@@ -57,5 +61,5 @@
     </div>
 
   <% end %>
-  
+
 </section>

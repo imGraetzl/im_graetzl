@@ -2,17 +2,15 @@
 .btn-secondary {
   position: relative;
   font-family: $font-primary;
-  border-radius: 0.3em;
+  border-radius: 0.2em;
   border: none;
   outline: none;
   cursor: pointer;
-  display: block;
   text-decoration: none;
   line-height: 1;
   font-style: italic;
   padding: 1.4rem 2.0rem;
   font-size: 1.8rem;
-  text-align: center;
 
   &:hover {
     opacity: 0.9;

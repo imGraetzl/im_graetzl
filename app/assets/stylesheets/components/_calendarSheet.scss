@@ -4,13 +4,13 @@
   border-radius: 4px;
   text-align: center;
   overflow: hidden;
-  line-height: 1.2;
-  padding: 20px 0 7px 0;
-  width: 55px;
+  line-height: 1;
+  padding: 17px 0 4px 0;
+  width: 50px;
   position: relative;
   .day {
     width: 100%;
-    font-size: 2.0rem;
+    font-size: 1.8rem;
   }
   .month {
     width: 100%;
@@ -20,7 +20,7 @@
   }
   &:before, &:after {
     content: '';
-    height: 17px;
+    height: 13px;
     width: 50%;
     position: absolute;
     top: 0;

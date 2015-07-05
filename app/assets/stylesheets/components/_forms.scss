@@ -1,105 +1,94 @@
+$fieldHeight: 60px;
 
+// ---------------------------------------------------------------------- building blocks
 
-// ---------------------------------------------------------------------- Input Group
+%label {
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  line-height: 1.2;
+  color: $color-ambient-mint-dark;
+  background-color: #ffffff;
+  border-top: solid 1px $color-ambient-mint-light;
+  border-right: solid 1px $color-ambient-mint-light;
+  border-left: solid 1px $color-ambient-mint-light;
+  padding: 5px;
+  border-radius: 4px 4px 0 0;
+  @include respond-to(">=medium") {
+    flex: 0 0 auto;
+    padding: 0 10px;
+    border-radius: 4px 0 0 4px;
+    border-bottom: solid 1px $color-ambient-mint-light;
+    border-right: 0;
+  }
 
-.input-group {
-  position: relative;
-  display: table;
-  width: 100%;
-  input {
-    background-color: $form-color-secondary;
-    color: $color-font-primary;
-    border: none;
-    padding: 2.2rem 1.8rem;
-    outline: none;
-    font-size: 1.6rem;
-    display: table-cell;
-    width: 100%;
+  [class^=icon] {
+    fill: currentcolor;
+  }
+
+  [class^=icon] + span {
+    min-width: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+%field {
+  @include respond-to(">=medium") {
+    display: flex;
   }
   label {
-    position: absolute;
-    top: 50%;
-    left: 0;
+    @extend %label;
+  }
+  input, select {
+    @extend .input-plain;
     width: 100%;
-    font-size: 1.6rem;
-    padding-left: 1.6rem;
-    font-family: $font-primary;
-    color: $form-color-primary;
-    transition: 0.2s ease;
-    transform: translate(0,-50%);
+    flex-grow: 1;
+    height: $fieldHeight;
   }
-  input:focus + label,
-  &.filled label {
-    top: -5px;
-    font-size: 0.8em;
-    line-height: 0.8rem;
-    padding-left: 0 !important;
-    transform: translate(0,-100%);
-  }
-  .wrp-icon {
-    padding-left: 8px;
-    padding-right: 8px;
-    display: table-cell;
-    width: 60px;
-    text-align: center;
-    background-color: $form-color-secondary;
-    vertical-align: middle;
-    [class*=icon-] {
-      fill: $form-color-primary;
-      margin: 0 auto;
-    }
-  }
+}
 
-  .wrp-icon ~ label {
-    padding-left: 4.6rem;
-  }
-  .wrp-icon ~ input {
-    padding-left: 0;
+// ---------------------------------------------------------------------- base
+
+
+input, select, textarea {
+  font-family: $font-primary;
+  border: none;
+}
+
+.input-plain {
+  font-size: 1.6rem;
+  padding: 2.0rem 1.4rem;
+  margin: 0;
+  background-color: $color-ambient-mint-light;
+  color: $color-font-primary;
+  box-shadow: inset 2px 2px 2px 0 rgba(0,0,0,0.05);
+}
+
+// ---------------------------------------------------------------------- text field
+
+.input-field {
+  @extend %field;
+
+  button:last-of-type {
+    width: 100%;
+    margin-top: 10px;
+    @include respond-to(">=medium") {
+      margin-top: 0;
+      flex: 0 0 auto;
+      width: auto;
+      border-radius: 0 4px 4px 0;
+    }
   }
 
 }
 
-// ---------------------------------------------------------------------- Select Group
+// ---------------------------------------------------------------------- select dropdown
 
-.select-group {
+.input-select {
+  @extend %field;
   position: relative;
-  border-color: $form-color-secondary;
-  border-style: solid;
-  border-width: 2px;
-  width: 100%;
-  display: table;
-  display: flex;
-  align-items: center;
-  label {
-    padding-left: 1.8rem;
-    padding-right: rem;
-    color: $form-color-primary;
-    display: table-cell;
-    flex: 0 0 auto;
-  }
-  select {
-    padding: 2.2rem 0 2.2rem 0.9rem;
-    position: relative;
-    background-color: $form-color-secondary;
-    color: $form-color-primary;
-    border: 0;
-    -webkit-appearance: button; /* hide default arrow in chrome OSX */
-    display: table-cell;
-    width: 100%;
-    font-size: 1.6rem;
-    option {
-      color: $form-color-primary;
-    }
-    option:disabled {
-      color: grey;
-    }
-  }
-  select[disabled] {
-    color: rgba(0, 0, 0, 0.3);
-  }
-  select[disabled]::after {
-    color: rgba(0, 0, 0, 0.1);
-  }
+
   &::before,
   &::after {
     content: '';
@@ -107,49 +96,98 @@
     pointer-events: none;
     z-index: 2;
   }
-  &::after {
-    /*  Custom dropdown arrow */
-    content: '';
-    @include triangleSingle($direction: "down", $color: $color-ambient-mint-dark);
-    right: 9px;
-    top: 27px;
-  }
   &::before {
     /*  Custom dropdown arrow cover */
-    width: 2em;
+    width: 40px;
     right: 0;
-    top: 0;
     bottom: 0;
+    height: $fieldHeight;
+    border-left: 1px dotted #ffffff;
     background-color: $form-color-secondary;
+  }
+  &::after {
+    /*  Custom dropdown arrow */
+    @include triangleSingle($direction: "down", $color: $color-ambient-mint-dark);
+    right: 14px;
+    bottom: 27px;
+  }
+
+  select {
+    -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    option {
+      color: $color-ambient-mint-dark;
+      &:disabled {
+        color: $color-ambient-grey;
+        font-style: italic;
+      }
+      &:first-child {
+        color: $color-ambient-mint !important;
+        font-style: italic;
+      }
+    }
+  }
+  select[disabled] {
+    color: $color-ambient-grey;
+    background-color: $color-ambient-grey-light;
+    font-style: italic;
+  }
+
+}
+
+
+%checks {
+  position: relative;
+  input { display: none; }
+  label {
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 35px;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: 20px;
+      height: 20px;
+      background-color: $color-ambient-mint-light;
+      border: 2px solid $color-ambient-mint;
+      transition: 0.5s;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------- Checkbox Group
+
+.input-checkbox {
+  @extend %checks;
+
+  label::before {
+    border-radius: 2px;
+    font-size: 28px;
+    line-height: 20px;
+    color: $color-ambient-mint;
+  }
+
+  input:checked + label {
+    &::before {
+      content: '✔';
+      color: $color-font-primary;
+    }
   }
 }
 
 // ---------------------------------------------------------------------- Radio Group
 
-.radio-group {
-  position: relative;
-  display: inline-block;
-  input {
-    display: none;
+.input-radio {
+  @extend %checks;
+
+  label::before {
+    border-radius: 50%;
   }
-  label {
-    display: block;
-    padding: 10px 0 10px 60px;
-    &:before {
-      content: '';
-      display: block;
-      width: 18px;
-      height: 18px;
-      position: absolute;
-      top: 50%;
-      left: 18px;
-      background-color: $form-color-secondary;
-      border-radius: 50%;
-      border: 4px solid $form-color-tertiary;
-      transform: translate(0, -50%);
-      transition: 0.5s;
-    }
-  }
+
   input:checked + label {
     &:before {
       background-color: $color-font-primary;
@@ -157,41 +195,14 @@
   }
 }
 
-// ---------------------------------------------------------------------- Checkbox Group
 
-.checkbox-group {
-  position: relative;
-  display: inline-block;
-  input {
-    display: none;
-  }
-  label {
-    display: block;
-    padding: 10px 0 10px 60px;
-    &:before {
-      content: '';
-      display: block;
-      width: 18px;
-      height: 18px;
-      color: $color-ambient-mint;
-      position: absolute;
-      top: 50%;
-      left: 18px;
-      background-color: $form-color-secondary;
-      border: 4px solid $form-color-tertiary;
-      transform: translate(0, -50%);
-      transition: 0.5s;
-      font-size: 23px;
-      line-height: 15px;
-    }
-  }
-  input:checked + label {
-    &:before {
-      content: '✔';
-      color: $color-font-primary;
-    }
-  }
-}
+
+
+
+
+
+
+
 
 // ---------------------------------------------------------------------- Textarea Group
 
@@ -231,6 +242,8 @@
     transform: translate(0,-100%);
   }
 }
+
+
 
 // ---------------------------------------------------------------------- Upload Fields
 
@@ -317,17 +330,29 @@
 // ---------------------------------------------------------------------- Generic
 
 
+// Change the white to any color ;)
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px $form-color-secondary inset;
+}
+
+
+
+
 ::-webkit-input-placeholder { /* WebKit browsers */
   color:    $form-color-primary;
+  font-style: italic;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
   color:    $form-color-primary;
+  font-style: italic;
   opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
   color:    $form-color-primary;
+  font-style: italic;
   opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
   color:    $form-color-primary;
+  font-style: italic;
 }

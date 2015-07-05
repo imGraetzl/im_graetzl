@@ -1,0 +1,87 @@
+body {
+  //background-color: red !important;
+}
+
+section.loginPage {
+
+  @include cf();
+
+  h2 {
+    @include ResponsiveText(3.0, 4.0, 5.0);
+    text-align: center;
+    margin-bottom: 3rem;
+    @include respond-to(">=medium") {
+      margin-bottom: 5rem;
+    }
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+
+}
+
+.loginForm, .registerHint {
+  @include respond-to(">=medium") {
+    @include column(1/2, $gutter: 8);
+  }
+}
+
+
+.loginForm {
+  margin-bottom: 5rem;
+  @include respond-to(">=medium") {
+    margin-bottom: 0;
+  }
+
+  .input-field {
+    margin-bottom: 2rem;
+  }
+
+  .wrp {
+    @include respond-to(">=medium") {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .checkbox-group {
+    margin-bottom: 2rem;
+    @include respond-to(">=medium") {
+      margin-bottom: 0;
+    }
+  }
+
+  .btn-primary {
+    width: 100%;
+    @include respond-to(">=medium") {
+      width: auto;
+    }
+  }
+
+  [href*='registrierung'] {
+    display: none;
+  }
+
+  .sharedLinks {
+
+    font-size: 1.4rem;
+    a {
+      color: $color-ambient-grey;
+    }
+
+  }
+
+}
+
+.registerHint {
+  @include paperCard($rotation: -2);
+  position: relative;
+  font-family: $font-secondary;
+  color: $color-ambient-mint;
+  font-size: 3.5rem;
+  padding: 40px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
