@@ -22,12 +22,19 @@
         <div class="newNotifications dropDownMenu-br">
           <div class="dropDownToggle">
             <div class="iconWithBadge">
-              <div class="badgeNumber">12</div>
+              <div class="badgeNumber"><%= current_user.new_website_notifications_count %></div>
               <svg class="icon-mail"><use xlink:href="#icon-mail"></use></svg>
             </div>
           </div>
           <div class="dropDownContent">
             <p>Mega geiles Notification Center Web 2.0</p>
+            <div class="stream">
+
+
+              <% current_user.website_notifications.each do |activity| %>
+                <%= render_activity(activity, fallback: 'default', layout: 'stream/element') %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="userSettings dropDownMenu-br">

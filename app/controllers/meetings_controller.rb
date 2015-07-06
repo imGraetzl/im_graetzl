@@ -38,6 +38,7 @@ class MeetingsController < ApplicationController
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
 
     if @meeting.save
+      @meeting.create_activity :update, owner: current_user
       redirect_to [@meeting.graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
     else
       render :edit
