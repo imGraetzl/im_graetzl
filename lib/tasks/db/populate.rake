@@ -14,30 +14,23 @@ namespace :db do
     end
 
     puts 'add users'
-
-    admin = User.new(
-      username: 'admin',
-      first_name: 'admin',
-      last_name: 'admin',
-      email: 'admin@example.com',
-      password: 'admin',
-      password_confirmation: 'admin',
-      admin: true,
-      graetzl: Graetzl.first,
-      confirmed_at: Time.now)
-    admin.save(validate: false)
-
-    user_1 = User.create(
-      username: 'user_1',
-      first_name: 'user_1',
-      last_name: 'user_1',
-      email: 'user_1@example.com',
-      password: 'user_1',
-      password_confirmation: 'user_1',
-      admin: false,
-      graetzl: Graetzl.second,
-      confirmed_at: Time.now)
-    user_1.save(validate: false)
+    users = ['malano', 'mirjam', 'jack', 'peter', 'max', 'tawan']
+    users.each do |user|
+      new_user = User.new(
+        username: user,
+        first_name: user,
+        last_name: user,
+        email: user + '@example.com',
+        password: 'secret',
+        password_confirmation: 'secret',
+        admin: true,
+        graetzl: Graetzl.first,
+        confirmed_at: Time.now)
+      File.open(Rails.root+"public/avatars/#{user}.gif", 'rb') do |file|
+        new_user.avatar = file
+      end
+      new_user.save(validate: false)
+    end
 
     puts 'add categories'
 
