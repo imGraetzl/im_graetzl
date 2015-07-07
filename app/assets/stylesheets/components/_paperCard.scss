@@ -1,9 +1,6 @@
-@mixin paperCard($corner: "RT", $rotation: 0, $texture: false) {
+@mixin paperCard($corner: "RT", $rotation: 0, $texture: false, $fakehole: true) {
 
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 30px;
+  position: relative;
 
   > * {
     z-index: 2;
@@ -16,9 +13,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 4px rgba(0,0,0,0.20);
+    box-shadow: 0 0 6px rgba(0,0,0,0.12);
     display: block;
     z-index: 1;
+    border-radius: 2px;
+    transform: rotate(#{$rotation}deg) translate3d(0,0,0);
 
     @if $texture == true {
       background-image: $texture-stoff2, url(image_path('svg/card-holes.svg'));
@@ -32,24 +31,37 @@
       }
     }
 
-    transform: rotate(#{$rotation}deg) translate3d(0,0,0);
+    &::after, &::before {
+      content: '';
+      position: absolute;
+    }
+
+    //shadow bottom
+    &::after {
+      width: 100%;
+      height: 10px;
+      top: 100%;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center top, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+    }
 
     //string
     &::before {
-      content: '';
-      position: absolute;
       z-index: 6;
       background-repeat: no-repeat;
-      width: 78px;
-      height: 60px;
-      background-image: url(image_path('svg/card-string1.svg'));
-
-      //hole position
       @if $corner == "RT" {
         top: 3px;
         right: -48px;
+        height: 60px;
+        @if $fakehole == false {
+          width: 69px;
+          background-image: url(image_path('svg/card-string1.svg'));
+        } @else {
+          width: 75px;
+          background-image: url(image_path('svg/card-string1-fakehole.svg'));
+        }
       }
-
     }
 
   }

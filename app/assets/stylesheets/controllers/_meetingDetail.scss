@@ -17,12 +17,12 @@
 .titleHeadline {
   margin-bottom: 2.0rem;
   @include respond-to(">=medium") {
-    @include paperCard($rotation: -4, $texture: true);
+    @include paperCard($rotation: -4, $texture: true, $fakehole: false);
+    padding: 20px 30px 20px 42px;
     position: absolute;
     bottom: 105px;
     left: -12px;
     max-width: 450px;
-    padding-left: 42px;
   }
 
   a {
@@ -107,14 +107,14 @@
     padding-top: 10px;
     margin-bottom: 1rem;
     @include respond-to(">=medium") {
-      text-shadow: 1px 1px $color-background-bright;
+      text-shadow: 1px 1px $color-ambient-bright;
     }
   }
 
   .location {
     margin-bottom: 2rem;
     @include respond-to(">=medium") {
-      text-shadow: 1px 1px $color-background-bright;
+      text-shadow: 1px 1px $color-ambient-bright;
     }
   }
 

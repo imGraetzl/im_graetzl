@@ -6,6 +6,7 @@ APP.controllers.meetings = (function() {
         APP.components.addressSearchAutocomplete();
         APP.components.imgUploadPreview();
 
+        $(".meet-what textarea").autogrow();
 
         $('.datepicker').pickadate({
             formatSubmit: 'yyyy-mm-dd',
@@ -20,8 +21,10 @@ APP.controllers.meetings = (function() {
         });
 
         $('select.categories').SumoSelect({
-            placeholder: 'Kategorien wählen',
+            placeholder: 'wählen',
             csvDispCount: 5,
+            okCancelInMulti: true,
+            triggerChangeCombined : false,
             captionFormat: '{0} Kategorien ausgewählt'
         });
 

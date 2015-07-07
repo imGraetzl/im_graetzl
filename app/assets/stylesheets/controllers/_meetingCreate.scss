@@ -1,5 +1,5 @@
 .create-meeting {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   h2 {
     @include ResponsiveText(3.0, 4.0, 5.0);
@@ -10,15 +10,15 @@
   }
 
   [class^=meet-] {
-    margin-bottom: 2rem;
-    > p:first-child {
-      text-align: center;
+    margin-bottom: 2.5rem;
+    @include respond-to(">=medium") {
+      margin-bottom: 5.0rem;
     }
   }
 
-  .input-group,
-  .textarea-group {
-    margin-bottom: 1.5rem;
+  .input-field,
+  .input-textarea {
+    margin-bottom: 2.0rem;
   }
 
   .btn-primary {
@@ -27,52 +27,31 @@
 
   .txt {
     @include ResponsiveText(1.6, 1.8, 1.8);
+    text-align: center;
   }
 
 }
 
-.meet-what {
-  .textarea-group {
-
-  }
-}
-
-.meet-where {
-
-  @include respond-to(">large") {
-    .input-group {
-      float: left;
-      width: 49%;
-      margin-right: 2%;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-
-}
 
 .meet-when {
-  .datepicker-group,
-  .timepicker-group {
-    margin-bottom: 0.5rem;
-  }
-  .timepicker-group {
-    margin-bottom: 0.5rem;
-  }
 
   @include respond-to(">medium") {
     @include cf();
-    .timepicker-group {
-      float: left;
-      width: 49%;
-      margin-right: 2%;
-      &:last-child {
-        margin-right: 0;
+    .input-field {
+      &:nth-of-type(1) { @include col(4/4); }
+      &:nth-of-type(2) { @include col(2/4); }
+      &:nth-of-type(3) {
+        [class^=icon] {
+          transform: rotate(90deg);
+        }
+        @include col(2/4);
       }
     }
   }
+
 }
+
+
 
 .meet-picture {
   .upload-image {

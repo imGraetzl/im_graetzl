@@ -41,7 +41,7 @@ header {
   }
   @include respond-to(">=large") {
     width: 203px;
-    background: url(image_path('bg-logo-bottom@2x.png')) no-repeat center bottom;
+    background: url(image_path('svg/logo-bulge.svg')) no-repeat center bottom;
     background-size: 100%;
     top: 19px;
     transform: translate(-50%, 0);
@@ -276,7 +276,7 @@ header {
 
 .badgeNumber {
   background-color: $color-ambient-rosa;
-  color: $color-background-bright;
+  color: $color-ambient-bright;
   border-radius: 3px;
   line-height: 1;
   font-size: 1.0rem;

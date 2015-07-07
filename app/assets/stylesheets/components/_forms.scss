@@ -1,52 +1,5 @@
 $fieldHeight: 60px;
 
-// ---------------------------------------------------------------------- building blocks
-
-%label {
-  display: flex;
-  align-items: center;
-  font-style: italic;
-  line-height: 1.2;
-  color: $color-ambient-mint-dark;
-  background-color: #ffffff;
-  border-top: solid 1px $color-ambient-mint-light;
-  border-right: solid 1px $color-ambient-mint-light;
-  border-left: solid 1px $color-ambient-mint-light;
-  padding: 5px;
-  border-radius: 4px 4px 0 0;
-  @include respond-to(">=medium") {
-    flex: 0 0 auto;
-    padding: 0 10px;
-    border-radius: 4px 0 0 4px;
-    border-bottom: solid 1px $color-ambient-mint-light;
-    border-right: 0;
-  }
-
-  [class^=icon] {
-    fill: currentcolor;
-  }
-
-  [class^=icon] + span {
-    min-width: 70px;
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-}
-
-%field {
-  @include respond-to(">=medium") {
-    display: flex;
-  }
-  label {
-    @extend %label;
-  }
-  input, select {
-    @extend .input-plain;
-    width: 100%;
-    flex-grow: 1;
-    height: $fieldHeight;
-  }
-}
 
 // ---------------------------------------------------------------------- base
 
@@ -65,29 +18,92 @@ input, select, textarea {
   box-shadow: inset 2px 2px 2px 0 rgba(0,0,0,0.05);
 }
 
-// ---------------------------------------------------------------------- text field
 
-.input-field {
-  @extend %field;
+// ---------------------------------------------------------------------- textfield & select & textarea
+@mixin field-HorizontalLayout {
+  display: flex;
 
-  button:last-of-type {
-    width: 100%;
-    margin-top: 10px;
-    @include respond-to(">=medium") {
-      margin-top: 0;
-      flex: 0 0 auto;
-      width: auto;
+  > label {
+    flex: 0 0 auto;
+    padding: 0 10px;
+    border-radius: 4px 0 0 4px;
+    border-bottom: solid 1px $color-ambient-mint-light;
+    border-right: 0;
+    min-width: 140px;
+  }
+  input, select, textarea {
+    &:last-of-type {
       border-radius: 0 4px 4px 0;
     }
   }
 
+  button:last-of-type {
+    margin-top: 0;
+    flex: 0 0 auto;
+    width: auto;
+    border-radius: 0 4px 4px 0;
+  }
 }
 
-// ---------------------------------------------------------------------- select dropdown
+%field {
+  > label {
+    display: flex;
+    font-style: italic;
+    line-height: 1.2;
+    color: $color-ambient-mint-dark;
+    background-color: #ffffff;
+    border-top: solid 1px $color-ambient-mint-light;
+    border-right: solid 1px $color-ambient-mint-light;
+    border-left: solid 1px $color-ambient-mint-light;
+    padding: 5px;
+    border-radius: 4px 4px 0 0;
+    align-items: center;
+
+    [class^=icon] {
+      fill: currentcolor;
+    }
+
+    [class^=icon] + span {
+      //min-width: 100px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+  }
+
+  input, select, textarea {
+    @extend .input-plain;
+    width: 100%;
+    flex-grow: 1;
+    &:last-of-type {
+      border-radius: 0 0 4px 4px;
+    }
+  }
+
+  button:last-of-type {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  @include respond-to(">=medium") {
+    @include field-HorizontalLayout;
+  }
+
+}
+
+.input-field {
+  @extend %field;
+  input {
+    height: $fieldHeight;
+  }
+}
 
 .input-select {
   @extend %field;
   position: relative;
+  select {
+    height: $fieldHeight;
+  }
 
   &::before,
   &::after {
@@ -103,7 +119,7 @@ input, select, textarea {
     bottom: 0;
     height: $fieldHeight;
     border-left: 1px dotted #ffffff;
-    background-color: $form-color-secondary;
+    background-color: $color-ambient-mint-light;
   }
   &::after {
     /*  Custom dropdown arrow */
@@ -134,6 +150,35 @@ input, select, textarea {
 
 }
 
+.input-select .SumoSelect {
+  width: 100%;
+  .SlectBox {
+    @extend .input-plain;
+  }
+
+  .placeholder {
+    color: $color-ambient-mint;
+    font-style: italic;
+  }
+
+  label {
+    display: none;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+}
+
+.input-textarea {
+  @extend %field;
+  textarea {
+    height: $fieldHeight*1.5;
+  }
+}
+
+// ---------------------------------------------------------------------- checkbox & radios
 
 %checks {
   position: relative;
@@ -159,8 +204,6 @@ input, select, textarea {
   }
 }
 
-// ---------------------------------------------------------------------- Checkbox Group
-
 .input-checkbox {
   @extend %checks;
 
@@ -179,8 +222,6 @@ input, select, textarea {
   }
 }
 
-// ---------------------------------------------------------------------- Radio Group
-
 .input-radio {
   @extend %checks;
 
@@ -197,61 +238,13 @@ input, select, textarea {
 
 
 
-
-
-
-
-
-
-
-// ---------------------------------------------------------------------- Textarea Group
-
-.textarea-group {
-  position: relative;
-  display: block;
-  textarea {
-    width: 100%;
-    background-color: $form-color-secondary;
-    color: $color-font-primary;
-    border: none;
-    padding: 1.3rem;
-    outline: none;
-    display: block;
-    max-height: 8rem;
-    resize: none;
-    font-size: 1.6rem;
-  }
-  label {
-    position: absolute;
-    top: 1rem;
-    left: 0;
-    width: 100%;
-    font-size: 1.6rem;
-    padding-left: 1.3rem;
-    font-family: $font-primary;
-    color: $form-color-primary;
-    transition: 0.2s ease;
-    transform: translate(0,0);
-  }
-  textarea:focus + label,
-  &.filled label {
-    top: 0;
-    padding-left: 0;
-    font-size: 0.8em;
-    line-height: 0.8rem;
-    transform: translate(0,-100%);
-  }
-}
-
-
-
 // ---------------------------------------------------------------------- Upload Fields
 
 .file-group, %file-group {
   position: relative;
   padding: 1.6rem;
-  background-color: $form-color-secondary;
-  color: $form-color-primary;
+  background-color: $color-ambient-mint-light;
+  color: $color-ambient-mint;
   display: table;
   width: 100%;
   .imgCrop {
@@ -290,69 +283,30 @@ input, select, textarea {
   }
 }
 
-// ---------------------------------------------------------------------- Datepicker
 
-.datepicker-group, .timepicker-group {
-  position: relative;
-  border-color: $form-color-secondary;
-  border-style: solid;
-  border-width: 2px;
-  display: table;
-  width: 100%;
-  label {
-    color: $form-color-primary;
-    padding-left: 1.4rem;
-    padding-right: 1rem;
-    display: table-cell;
-    width: 120px;
-    vertical-align: middle;
-    [class*=icon-] {
-      fill: $form-color-primary;
-      margin-right: 0.5rem;
-      vertical-align: middle;
-      display: inline-block;
-    }
-  }
-  input {
-    background-color: $form-color-secondary;
-    color: $color-font-primary;
-    border: none;
-    padding: 2.2rem;
-    outline: none;
-    font-size: 1.6rem;
-    width: 100%;
-    display: table-cell;
-  }
-}
+// ---------------------------------------------------------------------- misc
 
 
-
-// ---------------------------------------------------------------------- Generic
-
-
-// Change the white to any color ;)
+// hack to prevent chrome from coloring autoprefilled fields
 input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px $form-color-secondary inset;
+  -webkit-box-shadow: 0 0 0 1000px $color-ambient-mint-light inset;
 }
-
-
-
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-  color:    $form-color-primary;
+  color: $color-ambient-mint;
   font-style: italic;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:    $form-color-primary;
+  color: $color-ambient-mint;
   font-style: italic;
-  opacity:  1;
+  opacity: 1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color:    $form-color-primary;
+  color: $color-ambient-mint;
   font-style: italic;
-  opacity:  1;
+  opacity: 1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-  color:    $form-color-primary;
+  color: $color-ambient-mint;
   font-style: italic;
 }

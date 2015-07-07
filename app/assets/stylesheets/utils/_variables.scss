@@ -1,6 +1,8 @@
+$layout-max-width: 980px;
+
 $font-primary: 'Lato', sans-serif;
-$font-secondary: 'Amatic SC', cursive;
-$font-tertiary: 'Loved by the King', cursive;
+$font-secondary: 'Amatic SC', sans-serif;
+$font-tertiary: 'Loved by the King', sans-serif;
 
 $color-font-primary: #615454;
 $color-font-secondary: #59453e;
@@ -13,21 +15,13 @@ $color-ambient-mint-light: #DBEFEC;
 $color-ambient-rosa: #EC776A;
 $color-ambient-rosa-dark: #ba564d;
 
-
 $color-ambient-grey: #aaaaaa;
 $color-ambient-grey-light: #f0f0f0;
 
-$color-background-bright: #FCFCFC;
-$color-background-mint: lighten($color-ambient-mint, 25);
-$layout-max-width: 980px;
+$color-ambient-bright: #FCFCFC;
 
 $boxShadow: 2px 2px 8px 0px rgba(0,0,0,0.32);
 $boxShadow-light: 0px 0px 4px 0px rgba(0,0,0,0.20);
-
-$form-color-primary: $color-ambient-mint;
-$form-color-secondary: lighten($form-color-primary, 25);
-$form-color-tertiary: darken($form-color-primary, 5);
-
 
 //textures
 $texture-primary: url(image_path('texture-alpha-noise.png'));

@@ -1,9 +1,4 @@
-body {
-  //background-color: red !important;
-}
-
 section.loginPage {
-
   @include cf();
 
   h2 {
@@ -17,7 +12,6 @@ section.loginPage {
       color: $color-ambient-rosa;
     }
   }
-
 }
 
 .loginForm, .registerHint {
@@ -25,7 +19,6 @@ section.loginPage {
     @include column(1/2, $gutter: 8);
   }
 }
-
 
 .loginForm {
   margin-bottom: 5rem;
@@ -43,11 +36,12 @@ section.loginPage {
       align-items: center;
       justify-content: space-between;
       margin-bottom: 2rem;
+      padding-left: 13px;
     }
   }
 
-  .checkbox-group {
-    margin-bottom: 2rem;
+  .input-checkbox {
+    margin-bottom: 20px;
     @include respond-to(">=medium") {
       margin-bottom: 0;
     }

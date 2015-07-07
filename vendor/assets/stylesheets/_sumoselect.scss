@@ -45,7 +45,7 @@
 .SumoSelect > .CaptionCont {
   position: relative;
   min-height: 14px;
-  background-color: $form-color-secondary;
+  background-color: $color-ambient-mint-light;
   margin: 0;
   padding: 2.2rem 1.1rem;
 }
@@ -61,7 +61,7 @@
 
 /*placeholder style*/
 .SumoSelect > .CaptionCont > span.placeholder {
-  color: $form-color-primary;
+  color: $color-ambient-mint;
 }
 
 .SumoSelect > .CaptionCont > label {
@@ -86,7 +86,7 @@
   height: 0 !important;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-top: 7px solid $form-color-primary;
+  border-top: 7px solid $color-ambient-mint;
 }
 
 .SumoSelect > .optWrapper {
@@ -226,8 +226,8 @@
   width: 18px;
   height: 18px;
   color: $color-ambient-mint;
-  background-color: $form-color-secondary;
-  border: 1px solid $form-color-tertiary;
+  background-color: $color-ambient-mint-light;
+  border: 1px solid $color-ambient-mint-dark;
 
 }
 
@@ -298,7 +298,7 @@
 .SumoSelect > .optWrapper.multiple > .options > li.selected span i,
 .SumoSelect .select-all.selected > span i,
 .SumoSelect .select-all.partial > span i {
-  background-color: $form-color-primary;
+  background-color: $color-ambient-mint;
   box-shadow: none;
   border-color: transparent;
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAYAAAD+Bd/7AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAABMSURBVAiZfc0xDkAAFIPhd2Kr1WRjcAExuIgzGUTIZ/AkImjSofnbNBAfHvzAHjOKNzhiQ42IDFXCDivaaxAJd0xYshT3QqBxqnxeHvhunpu23xnmAAAAAElFTkSuQmCC');

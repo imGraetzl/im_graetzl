@@ -124,7 +124,10 @@
 
 .meetingBoxes {
   @include cf;
-
+  margin-bottom: 5.0rem;
+  @include respond-to(">=large") {
+    margin-bottom: 3.0rem;
+  }
   .meetingBox {
     margin-bottom: 35px;
     @include respond-to(">=medium") {
@@ -146,30 +149,31 @@
 
 
 .ownMeetingBox {
-  padding: 255px 62px 20px;
+  @include paperCard($rotation: -2);
   text-decoration: none;
-  width: 317px;
-  height: 571px;
   margin: 0 auto;
+  width: 290px;
   display: block;
-  background-image: url(image_path('illu/illu-card-cycle-high.png'));
-  background-repeat: no-repeat;
-  background-position: 3px 14px;
-  background-size: 317px 551px;
-  transform: translate3d(-20px, 0, 0);
-  @include respond-to("retina2x") {
-    background-image: url(image_path('illu/illu-card-cycle-high@2x.png'));
+  .wrp  {
+    padding: 177px 30px 30px 30px;
+    background-image: url(image_path('illu/illu-cylce.png'));
+    background-repeat: no-repeat;
+    background-position: 32px 22px;
+    background-size: 265px 189px;
+    @include respond-to("retina2x") {
+      background-image: url(image_path('illu/illu-cycle@2x.png'));
+    }
   }
+
   @include respond-to(">=medium") {
     margin-top: 80px;
     clear: both;
+    transform: translate(0, 0);
   }
   @include respond-to(">=large") {
-    margin: 0;
     float: left;
-    margin-right: -25px;
     clear: none;
-    margin-top: -70px;
+    margin: 10px -20px 0 20px;
   }
 
 
@@ -186,11 +190,11 @@
   }
 
   h3 {
-    @include ResponsiveText(2.4, 2.8, 2.8);
+    @include ResponsiveText(2.2, 2.6, 2.6);
     font-weight: 600;
-    line-height: 1.4;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    line-height: 1.2;
+    margin-top: 20px;
+    margin-bottom: 20px;
     color: $color-ambient-mint-dark;
   }
 }
@@ -199,9 +203,9 @@
   @include respond-to(">=medium") {
     .ownMeetingBox {
       transition: transform 0.5s;
-      transform: translate3d(0px,10px,0) rotate(0deg);
       &:hover {
-        transform: translate3d(0px,20px,0) rotate(4deg);
+        transform: rotate(4deg) translate3d(10px, -25px, 0);
+
         button {
           opacity: 0.9;
         }

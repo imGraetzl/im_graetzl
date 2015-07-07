@@ -15,7 +15,7 @@
 
   #address {
     color: $color-font-primary;
-    background-color: $form-color-secondary;
+    background-color: $color-ambient-mint-light;
   }
 
   .tt-hint {
@@ -23,15 +23,15 @@
   }
 
   .tt-dropdown-menu {
-    background-color: $color-background-bright;
-    border: 2px solid $form-color-secondary;
+    background-color: $color-ambient-bright;
+    border: 2px solid $color-ambient-mint-light;
     margin-top: -2px;
     width: 100%;
   }
 
   .tt-suggestion {
     padding: 0.6rem 1.6rem;
-    border-bottom: 2px solid $form-color-secondary;
+    border-bottom: 2px solid $color-ambient-mint-light;
     display: flex;
     align-items: center;
     justify-content: space-between;

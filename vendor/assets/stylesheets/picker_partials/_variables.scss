@@ -7,16 +7,16 @@
 //
 // Base colors
 //
-$blue: $form-color-primary !default;
-$blue-hover: $form-color-secondary !default;
+$blue: $color-ambient-mint !default;
+$blue-hover: $color-ambient-mint-light !default;
 $black: $color-font-primary !default;
-$white: $color-background-bright !default;
+$white: $color-ambient-bright !default;
 
 
 //
 // Backgrounds
 //
-$bg-white: $color-background-bright !default;
+$bg-white: $color-ambient-bright !default;
 $bg-grey-light: #f2f2f2 !default;
 
 
@@ -51,7 +51,7 @@ $speed-animate-in: .15s !default;
 $input-active-border: $blue !default;
 
 // Typography.
-$base-font-size: 1rem !default;
+$base-font-size: 1.6rem !default;
 $base-line-height: 1.5 !default;
 
 // Corners.
