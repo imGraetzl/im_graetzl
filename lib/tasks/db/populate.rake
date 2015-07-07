@@ -22,7 +22,6 @@ namespace :db do
         last_name: user,
         email: user + '@example.com',
         password: 'secret',
-        password_confirmation: 'secret',
         admin: true,
         graetzl: Graetzl.first,
         confirmed_at: Time.now)
