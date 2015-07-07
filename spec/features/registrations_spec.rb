@@ -25,7 +25,7 @@ RSpec.feature 'Registrations', type: :feature do
           it 'forwards to details form', js: true do
             fill_in :address, with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
             sleep 2
-            click_button 'Weiter ins Grätzl'
+            click_button 'Weiter'
 
             expect(page).to have_text('Willkommen im Grätzl Naschmarkt')
             expect(page).to have_link('Nicht dein Grätzl?', href: user_registration_graetzl_path)
@@ -38,13 +38,13 @@ RSpec.feature 'Registrations', type: :feature do
           it 'shows options to choose graetzl and forwards to details from', js: true do
             fill_in :address, with: "#{seestadt.street_name}"
             sleep 2
-            click_button 'Weiter ins Grätzl'
+            click_button 'Weiter'
 
             expect(page).to have_text("Unter #{seestadt.street_name} konnten wir 2 Grätzl finden.")
             expect(page).to have_field('graetzl', type: 'radio', count: 2, visible: false)
 
             find("label[for=graetzl_#{seestadt_aspern.id}]").click
-            click_button 'Weiter ins Grätzl'
+            click_button 'Weiter'
 
             expect(page).to have_text('Willkommen im Grätzl Seestadt Aspern')
             expect(page).to have_link('Nicht dein Grätzl?', href: user_registration_graetzl_path)
@@ -56,7 +56,7 @@ RSpec.feature 'Registrations', type: :feature do
           it 'lets choose district and graetzl', js: true do
             fill_in :address, with: 'qwertzuiopü'
             sleep 2
-            click_button 'Weiter ins Grätzl'
+            click_button 'Weiter'
 
             expect(page).to have_text('Unter qwertzuiopü konnten wir leider kein Grätzl finden.')
             expect(page).to have_selector('select#graetzl')
