@@ -6,47 +6,40 @@
   <div class="loginForm">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-        <div class="input-field">
-          <label for="user_login">
-            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-            <span>Username</span>
-          </label>
-          <%= f.text_field :login, autofocus: true, placeholder: "Username oder E-Mail" %>
-        </div>
+      <div class="input-field">
+        <%= f.label :login do %>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <span>Username</span>
+        <% end %>
+        <%= f.text_field :login, autofocus: true, placeholder: "Username oder E-Mail" %>
+      </div>
 
-        <div class="input-field">
-          <label for="password">
-            <svg class="icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
-            <span>Passwort</span>
-          </label>
-          <%= f.password_field :password, autocomplete: "off", placeholder: "Passwort" %>
-        </div>
+      <div class="input-field">
+        <%= f.label :password do %>
+          <svg class="icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
+          <span>Passwort</span>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "off", placeholder: "Passwort" %>
+      </div>
 
-        <div class="wrp">
-          <% if devise_mapping.rememberable? -%>
-
-              <div class="input-checkbox">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
-              </div>
-
-          <% end -%>
-
-          <%= f.button 'Anmelden', class: 'btn-primary' %>
-        </div>
-
-
-
+      <div class="wrp">
+        <% if devise_mapping.rememberable? %>
+          <div class="input-checkbox">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+        <%= f.button 'Anmelden', class: 'btn-primary' %>
+      </div>
     <% end %>
 
     <div class="sharedLinks">
       <%= render "devise/shared/links" %>
     </div>
-
   </div>
 
   <div class="registerHint">
-    <p>  Noch keinen Account?<br/>
+    <p>Noch keinen Account?<br/>
       Registriere dich hier!<br/>
       Jeannine Job!</p>
     <div class="card"></div>
