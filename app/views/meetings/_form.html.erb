@@ -96,7 +96,6 @@
       Irgendetwas was dein Treffen bildlich beschreiben könnte?</p>
 
     <div class="upload-image js-imgUpld">
-
       <% if f.object.cover_photo %>
         <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
         <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
@@ -113,7 +112,6 @@
       <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
       <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
       <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
-
     </div>
   </div>
 
