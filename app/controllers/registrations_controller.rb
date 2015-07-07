@@ -59,7 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
           :birthday,
           :first_name, :last_name,
           :email,
-          :password, :password_confirmation,
+          :password,
           :terms_and_conditions,
           :newsletter,
           :avatar, :remove_avatar,
