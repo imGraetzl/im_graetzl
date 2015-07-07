@@ -1,12 +1,4 @@
 console.log('attending');
 var meetingID = "<%= j(@meeting.id.to_s) %>"
 
-if ( $('div.entryParticipate').length ) {
-
-  $('div.entryParticipate').html("<%= j render 'meetings/participation', users: @meeting.users %>");
-
-} else if ( $('div#meeting_' + meetingID).length ) {
-
-  $('div#meeting_' + meetingID).replaceWith("<%= j render 'meetings/meeting', meeting: @meeting %> ")
-
-}
+$('div.entryParticipate').html("<%= j render 'meetings/participation', users: @meeting.users %>");

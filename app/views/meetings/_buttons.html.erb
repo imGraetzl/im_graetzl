@@ -9,7 +9,7 @@
   <% elsif current_user.going_to?(meeting) %>
 
     <%= button_to going_to_path(current_user.going_tos.find_by_meeting_id(meeting)), method: :delete, remote: true, class: 'btn-userCallToAction' do %>
-        <span><%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %> Nicht mehr teilnehmen</span>
+      <span><%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %> Nicht mehr teilnehmen</span>
     <% end %>
 
   <% else %>

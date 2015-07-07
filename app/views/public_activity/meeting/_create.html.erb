@@ -1,9 +1,7 @@
 <div class="entryInitialContent">
   <%= render 'public_activity/info', user: activity.owner, entity: activity %>
+  <%= render 'meetings/teaser', meeting: activity.trackable %>
 </div>
-
-
-<%= render 'meetings/teaser', meeting: activity.trackable %>
 
 <%= render 'comments/form_inline', commentable: activity.trackable %>
 

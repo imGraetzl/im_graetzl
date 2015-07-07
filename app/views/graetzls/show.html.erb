@@ -9,23 +9,15 @@
   <% end %>
 <% end %>
 
-<div>
-  <%= content_tag(:h2, 'Nächste Treffen') if @meetings %>
-  <% @meetings.each do |meeting| %>
+<div class="teaserBlock">
+  <h2>Nächste Treffen</h2>
 
-    <div class="meeting">
-      <%= link_to [@graetzl, meeting] do %>      
-        <strong>
-          <%= I18n.localize(meeting.starts_at_date, format:'%b') %><br>
-          <%= meeting.starts_at_date.day %>
-        </strong>
-        <p><%= meeting.name %><br><%= meeting.users.count %> nehmen schon teil</p>
-      <% end %>
-    </div>
-
-  <% end %>
-
-  <%= link_to 'Alle Treffen im Grätzl', graetzl_meetings_path(@graetzl) %>
+  <div class="meetingBoxes">
+    <% @meetings.each do |meeting| %>
+      <%= render 'meetings/box', meeting: meeting %>
+    <% end %>
+  </div>
+  <%= link_to 'Alle Treffen', graetzl_meetings_path(@graetzl), class: 'link-more' %>
 </div>
 
 <%= render 'stream' %>

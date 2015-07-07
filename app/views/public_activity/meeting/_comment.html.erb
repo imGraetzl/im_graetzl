@@ -1,9 +1,7 @@
 <div class="entryInitialContent">
   <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
+  <%= render 'meetings/teaser', meeting: activity.trackable %>
 </div>
-
-
-<%= render 'meetings/teaser', meeting: activity.trackable %>
 
 <% unless activity.trackable.comments.empty? %>
   <%= render partial: 'comments/comment_inline', layout: 'layouts/stream/comment', locals: { comment: activity.trackable.comments.first } %>

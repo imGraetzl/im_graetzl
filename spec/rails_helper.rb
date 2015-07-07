@@ -42,6 +42,7 @@ RSpec.configure do |config|
   # include FactoryGirl and Devise helpers
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
+  config.include Devise::TestHelpers, type: :view
 
   # configure database_cleaner (thoughtbot tutorial)
   config.before(:suite) do
