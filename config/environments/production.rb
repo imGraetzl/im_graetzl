@@ -74,7 +74,7 @@ Rails.application.configure do
     enable_starttls_auto: true,
     user_name: ENV['MANDILL_USER'],
     password: ENV['MANDRILL_KEY'],
-    authentication: :login
+    authentication: 'login'
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
