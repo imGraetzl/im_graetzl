@@ -72,9 +72,9 @@ Rails.application.configure do
     address: 'smtp.mandrillapp.com',
     port: 587,
     enable_starttls_auto: true,
-    user_name: ENV['MANDILL_USER'],
+    user_name: ENV['MANDRILL_USER'],
     password: ENV['MANDRILL_KEY'],
-    authentication: 'login'
+    authentication: :login
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
