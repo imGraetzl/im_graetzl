@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :graetzl do
-    name { Faker::Address.state }
+    sequence(:name) { |n| "#{Faker::Address.state}_#{n}" }
     area 'POLYGON ((0.0 0.0, 0.0 10.0, 10.0 10.0, 10.0 0.0, 0.0 0.0))'
 
     factory :naschmarkt do
