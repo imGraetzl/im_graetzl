@@ -200,10 +200,9 @@ RSpec.describe User, type: :model do
   end
 
   describe "website_notifications" do
-    let(:graetzl) { create(:graetzl) }
-    let(:user) { create(:user, :graetzl => graetzl) }
-    let(:meeting) { create(:meeting, :graetzl => graetzl) }
-    let(:post) { create(:post, :graetzl => graetzl) }
+    let(:user) { create(:user, :graetzl => create(:graetzl)) }
+    let(:meeting) { create(:meeting, :graetzl => user.graetzl) }
+    let(:post) { create(:post, :graetzl => user.graetzl) }
 
     it "can be enabled for a specific type" do
       PublicActivity.with_tracking do
@@ -227,7 +226,7 @@ RSpec.describe User, type: :model do
 
     describe "meeting activities" do
       context "of meetings that the user organizes" do
-        let(:attendee) { create(:user, :graetzl => graetzl) }
+        let(:attendee) { create(:user, :graetzl => user.graetzl) }
         let!(:going_to) do
           create(:going_to,
                             :meeting => meeting,
@@ -449,7 +448,7 @@ RSpec.describe User, type: :model do
           comment_by_user = create(:comment, user: create(:user), commentable: meeting)
           activities << comment_by_user.create_activity(:create, owner: create(:user))
 
-          organized_meeting = create(:meeting, :graetzl => graetzl)
+          organized_meeting = create(:meeting, :graetzl => user.graetzl)
           create(:going_to, user: user, meeting: organized_meeting, role: GoingTo::ROLES[:initiator])
           going_to = create(:going_to, user: other_user, meeting: organized_meeting, role: GoingTo::ROLES[:attendee])
           activities << going_to.create_activity(:create, :owner => other_user)
