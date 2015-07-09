@@ -26,9 +26,7 @@
       </div>
 
       <div class="field">
-        <%= f.fields_for :graetzl do |graetzl_fields| %>
-          <%= graetzl_fields.hidden_field :name %>
-        <% end %>
+        <%= f.hidden_field :graetzl_id %>
       </div>
 
       <div class="input-field">

@@ -151,7 +151,7 @@ RSpec.describe RegistrationsController, type: :controller do
       {
         user: attributes_for(:user).merge(
           { address_attributes: address.attributes,
-            graetzl_attributes: { name: graetzl.name } }),
+            graetzl_id: graetzl.id }),
       }
     }
     context 'with all attributes' do

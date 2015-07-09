@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
     if session[:graetzl].present?
       build_resource({})
       self.resource.build_address(session[:address] ||= {})
-      self.resource.build_graetzl(Graetzl.find(session[:graetzl]).attributes)
+      self.resource.graetzl = Graetzl.find(session[:graetzl])
       respond_with self.resource
     else
       redirect_to user_registration_address_path
@@ -63,14 +63,13 @@ class RegistrationsController < Devise::RegistrationsController
           :terms_and_conditions,
           :newsletter,
           :avatar, :remove_avatar,
+          :graetzl_id,
           address_attributes: [
             :street_name,
             :street_number,
             :zip,
             :city,
-            :coordinates],
-          graetzl_attributes: [
-            :name])
+            :coordinates])
       end
       devise_parameter_sanitizer.for(:sign_in) do |u|
         u.permit(:login, :username, :email, :password, :remember_me)

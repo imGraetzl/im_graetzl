@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
   belongs_to :graetzl
-  accepts_nested_attributes_for :graetzl
   has_many :going_tos
   has_many :meetings, through: :going_tos
   has_many :posts
@@ -153,15 +152,6 @@ class User < ActiveRecord::Base
         first
     else
       where(conditions.to_h).first
-    end
-  end
-
-  # instance methods
-  def autosave_associated_records_for_graetzl
-    if new_graetzl = Graetzl.find_by_name(graetzl.name)
-      self.graetzl = new_graetzl
-    else
-      self.graetzl = Graetzl.first
     end
   end
 
