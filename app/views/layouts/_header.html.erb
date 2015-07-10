@@ -31,8 +31,9 @@
             <div class="stream">
 
 
-              <% current_user.website_notifications.collect(&:activity).each do |activity| %>
-                <%= render_activity(activity, fallback: 'default', layout: 'stream/element') %>
+              <% current_user.website_notifications.each do |n| %>
+                <br />
+                <%= render partial: "notifications/#{Notification::TYPE_BITMASKS.select { |k, v| v == n.bitmask }.first[0].to_s}", locals: { notification: n } %>
               <% end %>
             </div>
           </div>

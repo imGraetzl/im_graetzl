@@ -1,0 +1,2 @@
+<%- meeting = notification.activity.trackable %>
+Neues Treffen im Grätzl <%= meeting.graetzl.name %> von <%= notification.activity.owner.username %>: <%= link_to meeting.name, [meeting.graetzl, meeting] %>
