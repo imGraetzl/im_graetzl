@@ -4,7 +4,7 @@ APP.controllers.notification_settings = (function() {
     var notfication_types = [
       "new_meeting_in_graetzl",
       "new_post_in_graetzl",
-      "organizer_comments",
+      "initiator_comments",
       "another_user_comments",
       "another_attendee",
       "update_of_meeting",

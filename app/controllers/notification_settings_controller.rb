@@ -7,7 +7,7 @@ class NotificationSettingsController < ApplicationController
 
   def toggle_website_notification
     type = params[:type].to_sym
-    unless User::WEBSITE_NOTIFICATION_TYPES.keys.include?(type)
+    unless Notification::TYPE_BITMASKS.keys.include?(type)
       render body: "unrecognized type: #{type} in order to toggle website_notification", status: :forbidden
       return
     end

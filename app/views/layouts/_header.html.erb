@@ -31,7 +31,7 @@
             <div class="stream">
 
 
-              <% current_user.website_notifications.each do |activity| %>
+              <% current_user.website_notifications.collect(&:activity).each do |activity| %>
                 <%= render_activity(activity, fallback: 'default', layout: 'stream/element') %>
               <% end %>
             </div>
