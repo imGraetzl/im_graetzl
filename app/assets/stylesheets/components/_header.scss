@@ -4,9 +4,12 @@ header {
   border-bottom: 1px solid #DEEAE6;
   display: block;
   @include respond-to(">=medium") {
-    margin-bottom: 8rem;
+    margin-bottom: 5rem;
     position: relative;
     z-index: 5;
+  }
+  @include respond-to(">=large") {
+    margin-bottom: 8rem;
   }
 }
 
@@ -43,7 +46,7 @@ header {
     width: 203px;
     background: url(image_path('svg/logo-bulge.svg')) no-repeat center bottom;
     background-size: 100%;
-    top: 19px;
+    top: 20px;
     transform: translate(-50%, 0);
   }
 
@@ -60,8 +63,17 @@ header {
 
 
 .mobileNavToggle {
-  padding: 12px 16px 12px 0;
+  background-color: $color-ambient-mint-light;
+  padding: 0;
+  height: 100%;
+  width: 45px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
   @include respond-to(">=medium") {
+    width: 120px;
     margin-right: auto;
   }
   @include respond-to(">=large") {
@@ -81,7 +93,7 @@ header {
   }
   span {
     display: none;
-    @include respond-to(">450px") {
+    @include respond-to(">=medium") {
       color: $color-ambient-mint-dark;
       font-family: $font-tertiary;
       font-size: 1.6rem;
@@ -142,8 +154,6 @@ header {
 
   }
 
-
-
   .createMeeting {
     @include respond-to(">=large") {
       border-left: 1px dotted lighten($color-ambient-mint, 20);
@@ -163,6 +173,10 @@ header {
 }
 
 .nav-loggedOut {
+  margin-right: 15px;
+  @include respond-to(">=large") {
+    margin-right: 0;
+  }
   .register {
     margin-right: 10px;
     padding-right: 10px;
@@ -197,6 +211,10 @@ header {
   color: $color-ambient-mint-dark;
   font-size: 1.6rem;
   height: 100%;
+  margin-right: 10px;
+  @include respond-to(">=large") {
+    margin-right: 0;
+  }
   .img-user {
     @include img-round(35px);
     display: block;

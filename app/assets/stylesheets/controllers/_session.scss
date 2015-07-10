@@ -1,16 +1,9 @@
 section.loginPage {
   @include cf();
-
-  h2 {
-    @include ResponsiveText(3.0, 4.0, 5.0);
+  h1 {
+    @extend .hl-main;
+    @extend .hl-main.-large;
     text-align: center;
-    margin-bottom: 3rem;
-    @include respond-to(">=medium") {
-      margin-bottom: 5rem;
-    }
-    span {
-      color: $color-ambient-rosa;
-    }
   }
 }
 

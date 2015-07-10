@@ -7,33 +7,26 @@
       <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
       <h1><%= @meeting.name %></h1>
     </div>
+    <div class="card"></div>
   </div>
   <%= attachment_image_tag(@meeting, :cover_photo,
-    :fill, 980, 370,
-    fallback: 'cover_photo/default.jpg',
-    class: 'titleImg') %>
+                           :fill, 980, 370,
+                           fallback: 'cover_photo/default.jpg',
+                           class: 'titleImg') %>
 </div>
 
 <div class="entryDescription">
 
   <div class="dateTime">
     <div class="iconCalendarTextual">
-      <% if @meeting.starts_at_date %>
-        <span>
-          <%= I18n.localize(@meeting.starts_at_date, format: '%b') %><br>
-          <%= @meeting.starts_at_date.day %>
-        </span>
-      <% else %>
-        <span>?<br>?</span>
-      <% end %>
-      <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+      <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
     </div>
 
     <div class="dayYearTimes">
       <% if @meeting.starts_at_date %>
-        <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
+          <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
       <% else %>
-        Tag steht noch nicht fest...
+          Tag steht noch nicht fest...
       <% end %>
       <br>
       <span class="begin">Beginn: <%= localize_time(@meeting.starts_at_time, '%H:%M') %></span>
@@ -43,14 +36,14 @@
 
   <div class="location">
     <% if @meeting.address.coordinates %>
-      <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
-        <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
-        Karte
-      <% end %>
+        <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
+            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+            Karte
+        <% end %>
     <% else %>
-      <div class="iconMapLink">
-        <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
-      </div>
+        <div class="iconMapLink">
+          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        </div>
     <% end %>
 
     <div class="address">
@@ -59,7 +52,7 @@
       <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
     </div>
   </div>
-  
+
   <%= simple_format @meeting.description, class: 'txt' %>
 </div>
 

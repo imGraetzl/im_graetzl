@@ -6,11 +6,9 @@
     overflow: hidden;
     margin-top: -8.0rem;
     margin-bottom: -80px;
-    @include respond-to(">=large") {
-      height: 370px;
-      margin-right: -25px;
-      margin-left: -25px;
-    }
+    margin-right: -25px;
+    margin-left: -25px;
+    max-height: 370px;
   }
 }
 
@@ -20,9 +18,12 @@
     @include paperCard($rotation: -4, $texture: true, $fakehole: false);
     padding: 20px 30px 20px 42px;
     position: absolute;
-    bottom: 105px;
+    bottom: 70px;
     left: -12px;
     max-width: 450px;
+    @include respond-to(">=large") {
+      bottom: 105px;
+    }
   }
 
   a {

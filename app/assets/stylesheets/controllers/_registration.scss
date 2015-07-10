@@ -1,22 +1,15 @@
 [class^=register-] {
-  h2 {
-    @include ResponsiveText(3.0, 4.0, 5.0);
-    text-align: center;
-    margin-bottom: 2.6rem;
-    span {
-      color: $color-ambient-rosa;
-    }
-  }
-  .nav-btnBar {
-    margin-top: 2rem;
-  }
-  .txt {
-    @include ResponsiveText(1.6, 1.8, 1.8);
+
+  h1 {
+    @extend .hl-main;
+    @extend .hl-main.-large;
     text-align: center;
   }
+
   .txt-hint {
     font-style: italic;
   }
+
   .address {
     color: $color-ambient-rosa;
     font-style: italic;
@@ -32,7 +25,27 @@
 // ---------------------------------------------------------------------- Define Graetzl
 
 
-.register-selectGraetzl {
+section.register-searchGraetzl {
+
+  .txt {
+    text-align: center;
+  }
+
+  form {
+    width: 800px;
+    display: block;
+    margin: 0 auto;
+  }
+
+}
+
+section.register-selectGraetzl {
+  h1 {
+    margin-bottom: 0.2rem;
+  }
+  .txt {
+    text-align: center;
+  }
   .wrp-radios {
     margin: 20px auto 35px auto;
     display: table;
@@ -67,32 +80,56 @@
 
 // ---------------------------------------------------------------------- Personal Data
 
-.register-personalInfo {
-  h2 {
-    margin-bottom: 0.2rem;
-  }
-  h2+a {
-    margin: 0 auto;
+section.register-personalInfo {
+  @include cf();
+  .wrp {
     display: table;
-    color: $color-ambient-grey;
-    margin-bottom: 2rem;
-    text-decoration: none;
-    font-style: italic;
-    &:hover {
-      text-decoration: underline;
-      color: $color-ambient-rosa;
-    }
+    margin: 0 auto;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+  h1 {
+    display: table;
+    margin-bottom: 0;
+  }
+  .link-subtle {
+    text-align: center;
+    display: block;
+    margin-top: -10px;
+
   }
   .txt {
-    width: 100%;
+    @extend .hl-main;
+    @extend .hl-main.-small;
+    text-align: center;
   }
+
   .numberUsers {
     font-weight: 600;
     color: $color-ambient-rosa
   }
 
-
+  form {
+    @include respond-to(">=medium") {
+      width: 600px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  .btn-primary {
+    float: right;
+  }
 }
+
+.user-login {
+  margin-bottom: 1.8rem;
+}
+.user-personal {
+  margin-bottom: 3.0rem;
+}
+
+
+
 .form-register {
   @include cf;
 
@@ -100,7 +137,7 @@
   .input-select,
   .upload-image,
   .wrp-checkboxes {
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.4rem;
   }
 
   .wrp-checkboxes {
@@ -124,15 +161,4 @@
     }
   }
 
-  @include respond-to(">=medium") {
-    .input-field,
-    .input-select,
-    .upload-image,
-    .wrp-checkboxes {
-      width: 48%;
-      float: left;
-      margin-right: 1%;
-      margin-left: 1%;
-    }
-  }
 }

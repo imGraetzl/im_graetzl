@@ -30,13 +30,11 @@
 
   h1 {
     @include textShadowHard($color-ambient-rosa-dark);
-    @include ResponsiveText(3.0, 4.0, 6.0);
-    font-size: 3rem;
+    @include ResponsiveText(3.0, 4.0, 6.5);
     display: table;
     text-align: center;
     margin: 0 auto;
     max-width: 350px;
-    font-weight: 300;
 
     @include respond-to("<medium") {
       @include headlineBarbapapa();

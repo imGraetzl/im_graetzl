@@ -18,12 +18,15 @@
     <% end %>
 
     <%= link_to new_user_session_path, class: 'ownMeetingBox' do %>
-      <div class="user">
-        <img src="assets/avatar/small_default.png" alt="Profilbild Platzhalter" class="img-round"/>
-        <span>Dein Name</span>
-      </div>
-      <h3>Starte Dein<br/>eigenes Treffen</h3>
-      <button class="btn-primary -rose">Jetzt loslegen</button>
+        <div class="wrp">
+          <div class="user">
+            <img src="assets/avatar/small_default.png" alt="Profilbild Platzhalter" class="img-round"/>
+            <span>Dein Name</span>
+          </div>
+          <h3>Starte Dein<br/>eigenes Treffen</h3>
+          <button class="btn-primary -rose">Jetzt loslegen</button>
+        </div>
+        <div class="card"></div>
     <% end %>
 
   </div>

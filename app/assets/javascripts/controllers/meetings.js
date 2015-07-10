@@ -21,7 +21,7 @@ APP.controllers.meetings = (function() {
         });
 
         $('select.categories').SumoSelect({
-            placeholder: 'wählen',
+            placeholder: 'Ordne dein Treffen einen oder mehreren Themen zu',
             csvDispCount: 5,
             okCancelInMulti: true,
             triggerChangeCombined : false,

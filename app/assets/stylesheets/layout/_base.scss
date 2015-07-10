@@ -20,19 +20,30 @@ body {
   font-size: 1.6rem;
 }
 
+
 main,
-footer .inner,
-header .inner {
+footer .inner {
   padding-left: 18px;
   padding-right: 18px;
-  max-width: $layout-max-width;
-  position: relative;
-  margin: 0 auto;
-  display: block;
   @include respond-to(">=medium") {
     padding-left: 25px;
     padding-right: 25px;
   }
+}
+header .inner {
+  @include respond-to(">=large") {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+main,
+footer .inner,
+header .inner {
+  max-width: $layout-max-width;
+  position: relative;
+  margin: 0 auto;
+  display: block;
 }
 
 main {
@@ -53,55 +64,6 @@ img {
 
 
 
-// vertical rythm
-h1,h2,h3,h4,h5,h6,
-p, div.txt p, div[class^=txt-] p {
-  margin-bottom:2.0rem;
-}
-div.txt p:last-child, div[class^=txt-] p:last-child {
-  margin-bottom: 0;
-}
-
-
-
-p {
-  margin-bottom: 2.0rem;
-}
-
-// ---------------------------------------------------------------------- Headings
-
-h1,
-h2 {
-  font-family: $font-secondary;
-}
-h1, .h1 {
-  font-size: 4.2rem;
-  line-height: 1.2;
-}
-h2, .h2 {
-  font-size: 2.8rem;
-  line-height: 1;
-}
-
-h3,
-h4,
-h5,
-h6 {
-  font-weight: normal;
-}
-
-h3, .h3 {
-  font-size: 1.6rem;
-}
-h4, .h4 {
-  font-size: 1.4rem;
-}
-h5, .h5 {
-  font-size: 1.2rem;
-}
-h6, .h6 {
-  font-size: 1rem;
-}
 
 ::selection {
   background: lighten($color-ambient-rosa, 20);

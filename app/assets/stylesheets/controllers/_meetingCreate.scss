@@ -1,15 +1,20 @@
 .create-meeting {
+  @include cf();
   max-width: 700px;
   margin: 0 auto;
-  h2 {
-    @include ResponsiveText(3.0, 4.0, 5.0);
+
+  h1 {
+    @extend .hl-main;
+    @extend .hl-main.-large;
     text-align: center;
-    span {
-      color: $color-ambient-rosa;
-    }
   }
 
   [class^=meet-] {
+    p:first-child {
+      @extend .hl-main;
+      @extend .hl-main.-small;
+      text-align: center;
+    }
     margin-bottom: 2.5rem;
     @include respond-to(">=medium") {
       margin-bottom: 5.0rem;
@@ -25,13 +30,7 @@
     float: right;
   }
 
-  .txt {
-    @include ResponsiveText(1.6, 1.8, 1.8);
-    text-align: center;
-  }
-
 }
-
 
 .meet-when {
 
@@ -39,8 +38,12 @@
     @include cf();
     .input-field {
       &:nth-of-type(1) { @include col(4/4); }
-      &:nth-of-type(2) { @include col(2/4); }
+      &:nth-of-type(2) {
+        @include col(2/4);
+        margin-bottom: 0;
+      }
       &:nth-of-type(3) {
+        margin-bottom: 0;
         [class^=icon] {
           transform: rotate(90deg);
         }
@@ -50,8 +53,6 @@
   }
 
 }
-
-
 
 .meet-picture {
   .upload-image {
