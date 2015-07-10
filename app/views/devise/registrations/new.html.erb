@@ -88,19 +88,6 @@
           </div>
         </div>
 
-        <div class="wrp-checkboxes">
-          <div class="input-checkbox">
-            <%= f.check_box(:newsletter )%>
-            <%= f.label :newsletter, 'Newsletter abonnieren' %>
-          </div>
-          <div class="input-checkbox">
-            <%= f.check_box(:terms_and_conditions )%>
-            <%= f.label :terms_and_conditions, "Ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
-          </div>
-        </div>
-
-        <!--
-
         <div class="upload-image js-imgUpld">
           <% if resource.avatar %>
               <div class="imgCrop"><%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %></div>
@@ -121,8 +108,16 @@
         </div>
 
 
-
-        -->
+        <div class="wrp-checkboxes">
+          <div class="input-checkbox">
+            <%= f.check_box(:newsletter )%>
+            <%= f.label :newsletter, 'Newsletter abonnieren' %>
+          </div>
+          <div class="input-checkbox">
+            <%= f.check_box(:terms_and_conditions )%>
+            <%= f.label :terms_and_conditions, "Ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
+          </div>
+        </div>
 
       </div>
 

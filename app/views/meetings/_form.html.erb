@@ -98,7 +98,7 @@
           <svg class="icon-image"><use xlink:href="#icon-image"></use></svg>
           <span>Coverfoto</span>
         </label>
-        <%= text_field_tag :cover_photo, address_value(f.object.address), placeholder: 'Beschreibe dein Treffen mit einem Bild' %>
+        <%= text_field_tag :dummy, address_value(f.object.address), placeholder: 'Beschreibe dein Treffen mit einem Bild' %>
       </div>
 
       <div class="input-select">
@@ -109,37 +109,28 @@
         <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
       </div>
 
+      <div class="upload-image js-imgUpld">
+        <% if f.object.cover_photo %>
+            <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
+            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+            Foto ändern
+            <div class="checkbox-group">
+              <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+              <%= f.label :remove_cover_photo, 'Foto Löschen' %>
+            </div>
+        <% else %>
+            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+            Foto hochladen
+        <% end %>
+
+        <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+        <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+        <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
+      </div>
+
     </div>
 
     <%= f.button class: 'btn-primary' %>
-
-
-
-
-
-
-    <!--
-
-    <div class="upload-image js-imgUpld">
-      <% if f.object.cover_photo %>
-        <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
-        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-        Foto ändern
-        <div class="checkbox-group">
-          <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-        <%= f.label :remove_cover_photo, 'Foto Löschen' %>
-        </div>
-      <% else %>
-        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-        Foto hochladen
-      <% end %>
-
-      <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-      <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
-    <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
-    </div>
-
-    -->
 
 
 
