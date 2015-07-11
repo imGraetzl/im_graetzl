@@ -1,0 +1,3 @@
+<%- meeting = notification.activity.trackable %>
+<%= notification.activity.owner.username %> hat dein Treffen <%= link_to meeting.name, [meeting.graetzl, meeting] %> kommentiert.
+<span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
