@@ -154,8 +154,10 @@ RSpec.describe RegistrationsController, type: :controller do
             graetzl_id: graetzl.id }),
       }
     }
-    context 'with all attributes' do
-      subject(:new_user) { User.last }
+
+    subject(:new_user) { User.last }
+
+    context 'with all required attributes' do
       
       it 'creates new user' do
         expect{
@@ -163,12 +165,12 @@ RSpec.describe RegistrationsController, type: :controller do
         }.to change(User, :count).by(1)
       end
 
-      it 'associates graetzl' do
+      it 'has graetzl' do
         post :create, params
         expect(new_user.graetzl).to eq graetzl
       end
 
-      it 'associates address' do
+      it 'has address' do
         post :create, params
         expect(new_user.address).to have_attributes(
           street_name: address.street_name,
@@ -178,6 +180,21 @@ RSpec.describe RegistrationsController, type: :controller do
           coordinates: address.coordinates,
           addressable_id: new_user.id,
           addressable_type: 'User')
+      end
+
+      it 'has no role' do
+        post :create, params
+        expect(new_user.role).to eq nil        
+      end
+    end
+
+    context 'with role :business' do
+      before { params.deep_merge!({ user: { role: :business } }) }
+
+      it 'has role business' do
+        puts params
+        post :create, params
+        expect(new_user.role).to eq 'business'
       end
     end
   end
