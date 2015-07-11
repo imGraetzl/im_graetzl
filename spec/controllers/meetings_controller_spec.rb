@@ -318,9 +318,9 @@ RSpec.describe MeetingsController, type: :controller do
             PublicActivity.with_tracking do
               put :update, params
               activity = meeting.activities.last
-              expect(activity.parameters[:changed_attributes]).to include("starts_at_date")
-              expect(activity.parameters[:changed_attributes]).to include("starts_at_time")
-              expect(activity.parameters[:changed_attributes]).to include("ends_at_time")
+              expect(activity.parameters[:changed_attributes]).to include(:starts_at_date)
+              expect(activity.parameters[:changed_attributes]).to include(:starts_at_time)
+              expect(activity.parameters[:changed_attributes]).to include(:ends_at_time)
             end
           end
         end
@@ -362,7 +362,7 @@ RSpec.describe MeetingsController, type: :controller do
 
           it "adds address to activity parameters" do
             activity = meeting.activities.last
-            expect(activity.parameters[:changed_attributes]).to include("address")
+            expect(activity.parameters[:changed_attributes]).to include(:address)
           end
 
           it 'updates graetzl' do
