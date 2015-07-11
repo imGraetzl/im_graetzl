@@ -23,7 +23,7 @@ namespace :db do
         last_name: user,
         email: user + '@example.com',
         password: 'secret',
-        admin: true,
+        role: :admin,
         graetzl: Graetzl.find_by_name('Stuwerviertel'),
         confirmed_at: Time.now)
       File.open(Rails.root+"public/avatars/#{user}.gif", 'rb') do |file|
@@ -38,7 +38,6 @@ namespace :db do
       last_name: 'user_1',
       email: 'user_1@example.com',
       password: 'secret',
-      admin: false,
       graetzl: Graetzl.first,
       confirmed_at: Time.now)
     File.open(Rails.root+'public/avatars/user_1.jpg', 'rb') do |file|
