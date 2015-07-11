@@ -107,7 +107,6 @@
           <%= f.check_box :remove_avatar, { class: 'deleteCheckbox', style: 'display: none;' } %>
         </div>
 
-
         <div class="wrp-checkboxes">
           <div class="input-checkbox">
             <%= f.check_box(:newsletter )%>
@@ -117,10 +116,10 @@
             <%= f.check_box(:terms_and_conditions )%>
             <%= f.label :terms_and_conditions, "Ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
           </div>
-        </div>
-        <div class="input-checkbox">
-          <%= f.check_box :role, {}, :business, nil %>
-          <%= f.label :role, 'Ich bin wirtschaftlich im Grätzl tätig' %>
+          <div class="input-checkbox">
+            <%= f.check_box :role, {}, :business, nil %>
+            <%= f.label :role, 'Ich bin wirtschaftlich im Grätzl tätig' %>
+          </div>
         </div>
       </div>
 
