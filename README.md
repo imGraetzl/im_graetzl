@@ -16,7 +16,7 @@ Ruby on Rails social network app Vienna.
 
 #### Test dependencies
 
-* phantomjs
+* [PhantomJS](http://phantomjs.org/)
 
 
 ### Setup
