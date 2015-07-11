@@ -304,13 +304,25 @@ RSpec.describe MeetingsController, type: :controller do
             description: 'New description')
         end
 
-        it 'updates time' do
-          put :update, params
-          meeting.reload
-          expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
-          expect(meeting.ends_at_date).to be_falsy
-          expect(meeting.starts_at_time.strftime('%H:%M')).to eq ('18:00')
-          expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
+        describe "time attributes" do
+          it 'updates time' do
+            put :update, params
+            meeting.reload
+            expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
+            expect(meeting.ends_at_date).to be_falsy
+            expect(meeting.starts_at_time.strftime('%H:%M')).to eq ('18:00')
+            expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
+          end
+
+          it "adds changed time attributes to activity parameters hash" do
+            PublicActivity.with_tracking do
+              put :update, params
+              activity = meeting.activities.last
+              expect(activity.parameters[:changed_attributes]).to include("starts_at_date")
+              expect(activity.parameters[:changed_attributes]).to include("starts_at_time")
+              expect(activity.parameters[:changed_attributes]).to include("ends_at_time")
+            end
+          end
         end
 
         describe 'categories' do
@@ -336,14 +348,21 @@ RSpec.describe MeetingsController, type: :controller do
             params[:feature] = address_feature.to_json              
             params[:address] = 'new address input'
 
-            put :update, params
-            meeting.reload
+            PublicActivity.with_tracking do
+              put :update, params
+              meeting.reload
+            end
           end
 
           it 'updates address attributes' do
             expect(meeting.address).to have_attributes(
               street_name: address_feature['properties']['StreetName'],
               description: 'New address_description')
+          end
+
+          it "adds address to activity parameters" do
+            activity = meeting.activities.last
+            expect(activity.parameters[:changed_attributes]).to include("address")
           end
 
           it 'updates graetzl' do
