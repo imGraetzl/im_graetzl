@@ -190,4 +190,29 @@ RSpec.describe Notification, type: :model do
       end
     end
   end
+
+  describe "attendee left meeting" do
+    let(:attendee) { create(:user) }
+    let(:going_to) { create(:going_to,
+                            meeting: meeting,
+                            user: attendee,
+                            role: GoingTo::ROLES[:attendee])
+    }
+
+    context "when user is initiator of meeting" do
+      before do
+        create(:going_to,
+               user: user,
+               meeting: meeting,
+               role: GoingTo::ROLES[:initiator])
+      end
+
+      it "user is notified" do
+        expect(user.notifications.to_a).to be_empty
+        meeting.create_activity :left, owner: attendee
+        user.notifications.reload
+        expect(user.notifications.to_a).to_not be_empty
+      end
+    end
+  end
 end
