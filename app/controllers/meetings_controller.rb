@@ -40,7 +40,7 @@ class MeetingsController < ApplicationController
     changed_attributes = @meeting.changed_attributes
     if @meeting.save
       if @meeting.address.try(:id) != old_address_id
-        changed_attributes = changed_attributes.merge({ "address": old_address_id })
+        changed_attributes = changed_attributes.merge({ address: old_address_id })
       end
       @meeting.create_activity :update,
         owner: current_user,
