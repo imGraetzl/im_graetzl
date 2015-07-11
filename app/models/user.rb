@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :meetings, through: :going_tos
   has_many :posts
   has_many :comments
-  has_many :notifications
+  has_many :notifications, dependent: :destroy
 
   # attributes
     # virtual attribute to login with username or email
