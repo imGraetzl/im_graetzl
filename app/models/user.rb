@@ -75,10 +75,6 @@ class User < ActiveRecord::Base
   end
 
   def new_website_notifications_count
-    unless website_notifications_last_checked.nil?
-      website_notifications.where(["created_at > ?", website_notifications_last_checked]).count
-    else
-      website_notifications.count
-    end
+    website_notifications.where(seen: false).count
   end
 end
