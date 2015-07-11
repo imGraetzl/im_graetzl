@@ -267,7 +267,7 @@ RSpec.describe MeetingsController, type: :controller do
     context 'when logged in' do
       before { sign_in user }
 
-      context 'when not inititor' do
+      context 'when not initiator' do
         let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo::ROLES[:attendee]) }   
 
         it 'redirects to meeting' do
