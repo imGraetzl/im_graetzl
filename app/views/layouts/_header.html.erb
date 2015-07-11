@@ -45,7 +45,7 @@
           </div>
           <div class="dropDownContent">
             <div class="menuSlice">Profileinstellungen</div>
-            <%= link_to content_tag(:div, 'Admin', class: 'menuSlice'), admin_root_path if current_user.admin %>
+            <%= link_to content_tag(:div, 'Admin', class: 'menuSlice'), admin_root_path if current_user.admin? %>
             <%= link_to content_tag(:div, 'Abmelden', class: 'menuSlice'),
                 destroy_user_session_path, method: :delete %>
           </div>

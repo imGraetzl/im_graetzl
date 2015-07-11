@@ -15,6 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    puts params
     clear_session_data
     super    
   end
@@ -62,6 +63,7 @@ class RegistrationsController < Devise::RegistrationsController
           :password,
           :terms_and_conditions,
           :newsletter,
+          :role,
           :avatar, :remove_avatar,
           :graetzl_id,
           address_attributes: [
