@@ -62,6 +62,7 @@ class RegistrationsController < Devise::RegistrationsController
           :password,
           :terms_and_conditions,
           :newsletter,
+          :role,
           :avatar, :remove_avatar,
           :graetzl_id,
           address_attributes: [

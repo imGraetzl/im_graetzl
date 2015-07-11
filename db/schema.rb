@@ -215,10 +215,10 @@ ActiveRecord::Schema.define(version: 20150709183910) do
     t.integer  "gender"
     t.boolean  "newsletter",                                     default: false, null: false
     t.integer  "graetzl_id"
-    t.boolean  "admin"
     t.string   "avatar_id"
     t.datetime "website_notifications_last_checked"
     t.integer  "enabled_website_notifications",                  default: 0
+    t.integer  "role"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

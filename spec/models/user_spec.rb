@@ -29,6 +29,41 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'attributes' do
+    let(:user) { build_stubbed(:user) }
+
+    describe 'role' do
+
+      it 'has role' do
+        expect(user).to respond_to(:role)
+      end
+
+      context 'when admin' do
+        before { user.role = :admin }
+
+        it 'responds #admin? true' do
+          expect(user.admin?).to eq(true)
+        end
+
+        it 'responds #business? false' do
+          expect(user.business?).to eq(false)
+        end
+      end
+
+      context 'when business' do
+        before { user.role = :business }
+
+        it 'responds #business? true' do
+          expect(user.business?).to eq(true)
+        end
+
+        it 'responds #admin? false' do
+          expect(user.admin?).to eq(false)
+        end
+      end
+    end
+  end
+
   describe 'associations' do
     let(:user) { create(:user) }
 
