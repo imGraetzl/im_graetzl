@@ -44,9 +44,8 @@ RSpec.describe 'meetings/show', type: :view do
           expect(rendered).to have_content('Ende: ???')
         end
 
-        it 'displays empty calendar icon' do
-          expect(rendered).to have_selector('svg.icon-calendar-1')
-          expect(rendered).to have_selector('div.iconCalendarTextual', text: '??')
+        it 'displays calendar icon' do
+          expect(rendered).to have_selector('svg.icon-calendar-2')
         end
       end
 
@@ -67,10 +66,8 @@ RSpec.describe 'meetings/show', type: :view do
           expect(rendered).to have_content('Ende: 16:00')
         end
 
-        it 'displays date in calendar icon' do
-          expect(rendered).to have_selector('svg.icon-calendar-1')
-          expect(rendered).to have_selector('div.iconCalendarTextual', text: 'Jul')
-          expect(rendered).to have_selector('div.iconCalendarTextual', text: '23')
+        it 'displays calendar icon' do
+          expect(rendered).to have_selector('svg.icon-calendar-2')
         end
       end
     end
@@ -87,7 +84,7 @@ RSpec.describe 'meetings/show', type: :view do
         end
 
         it 'displays map icon' do
-          expect(rendered).to have_selector('svg.icon-map')
+          expect(rendered).to have_selector('svg.icon-map-location')
         end
       end
 
