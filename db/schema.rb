@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709183910) do
+ActiveRecord::Schema.define(version: 20150711172852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,8 +216,7 @@ ActiveRecord::Schema.define(version: 20150709183910) do
     t.boolean  "newsletter",                                     default: false, null: false
     t.integer  "graetzl_id"
     t.string   "avatar_id"
-    t.datetime "website_notifications_last_checked"
-    t.integer  "enabled_website_notifications",                  default: 0
+    t.integer  "enabled_website_notifications",             default: 0
     t.integer  "role"
   end
 

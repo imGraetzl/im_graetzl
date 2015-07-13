@@ -44,7 +44,7 @@ class MeetingsController < ApplicationController
       end
       @meeting.create_activity :update,
         owner: current_user,
-        parameters: { changed_attributes: changed_attributes.keys }
+        parameters: { changed_attributes: changed_attributes.keys.collect(&:to_sym) }
       redirect_to [@meeting.graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
     else
       render :edit

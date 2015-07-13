@@ -11,7 +11,6 @@ RSpec.describe NotificationSettingsController, type: :controller do
   end
 
   describe 'POST toggle_website_notification' do
-
     context 'when no current_user' do
       it 'redirects to login' do
         post :toggle_website_notification
@@ -34,6 +33,19 @@ RSpec.describe NotificationSettingsController, type: :controller do
         post :toggle_website_notification, :type => type
         user.reload
         expect(user.enabled_website_notification?(type)).to be_falsey  
+      end
+
+      it 'marks notifications as seen' do
+        
+        n = create(:notification,
+                   user: user,
+                   seen: false,
+                   bitmask: Notification::TYPE_BITMASKS[:new_meeting_in_graetzl])
+        user.enable_website_notification(:new_meeting_in_graetzl)
+        expect(user.new_website_notifications_count).to eq(1)
+        post :mark_as_seen
+        expect(user.new_website_notifications_count).to eq(0)
+
       end
 
       context 'when submitted bitmask is invalid' do
