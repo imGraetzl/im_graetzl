@@ -7,9 +7,6 @@ FactoryGirl.define do
     last_name { Faker::Name.last_name }
     email { Faker::Internet.email }
     password { Faker::Internet.password(8) }
-    password_confirmation { password }
-    birthday { Faker::Date.birthday(min_age = 18, max_age = 100) }
-    gender 'female'
     graetzl
     confirmed_at Date.today
   end
