@@ -192,7 +192,6 @@ RSpec.describe RegistrationsController, type: :controller do
       before { params.deep_merge!({ user: { role: :business } }) }
 
       it 'has role business' do
-        puts params
         post :create, params
         expect(new_user.role).to eq 'business'
       end
