@@ -69,6 +69,20 @@ RSpec.describe Location, type: :model do
           expect(Address.find_by_id(address.id)).to be_nil
         end
       end
+
+      describe 'contact' do
+        before { create(:contact, location: location) }
+
+        it 'has contact' do
+          expect(location.contact).not_to be_nil
+        end
+
+        it 'destroys contact' do
+          contact = location.contact
+          location.destroy
+          expect(Contact.find_by_id(contact.id)).to be_nil
+        end
+      end
     end
   end
 end

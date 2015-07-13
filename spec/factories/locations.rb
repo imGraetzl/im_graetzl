@@ -4,6 +4,7 @@ FactoryGirl.define do
     slogan { Faker::Company.catch_phrase }
     description { Faker::Lorem.paragraph }
     address
+    contact
     graetzl    
   end
 

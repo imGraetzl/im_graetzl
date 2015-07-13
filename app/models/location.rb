@@ -7,6 +7,7 @@ class Location < ActiveRecord::Base
   # associations
   belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
+  has_one :contact, dependent: :destroy
   has_many :location_ownerships, dependent: :destroy
   has_many :users, through: :location_ownerships
 end
