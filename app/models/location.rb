@@ -5,5 +5,8 @@ class Location < ActiveRecord::Base
   attachment :cover_photo, type: :image
 
   # associations
+  belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
+  has_many :location_ownerships, dependent: :destroy
+  has_many :users, through: :location_ownerships
 end

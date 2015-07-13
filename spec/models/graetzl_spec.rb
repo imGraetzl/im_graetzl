@@ -21,33 +21,56 @@ RSpec.describe Graetzl, type: :model do
       expect(graetzl).to respond_to(:posts)      
     end
 
+    it 'has locations' do
+      expect(graetzl).to respond_to(:locations)      
+    end
+
     describe 'destroy associated records' do
-      before do
-        3.times { create(:meeting, graetzl: graetzl) }
-        3.times { create(:post, graetzl: graetzl) }
-      end
+      describe 'meetings' do
+        before { 3.times { create(:meeting, graetzl: graetzl) } }
 
-      it 'has meetings' do
-        expect(graetzl.meetings.count).to eq(3)
-      end
+        it 'has meetings' do
+          expect(graetzl.meetings.count).to eq(3)
+        end
 
-      it 'has posts' do
-        expect(graetzl.posts.count).to eq(3)
-      end
-
-      it 'destroys meetings' do
-        meetings = graetzl.meetings
-        graetzl.destroy
-        meetings.each do |meeting|
-          expect(Meeting.find_by_id(meeting.id)).to be_nil
+        it 'destroys meetings' do
+          meetings = graetzl.meetings
+          graetzl.destroy
+          meetings.each do |meeting|
+            expect(Meeting.find_by_id(meeting.id)).to be_nil
+          end
         end
       end
 
-      it 'destroys posts' do
-        posts = graetzl.posts
-        graetzl.destroy
-        posts.each do |post|
-          expect(Post.find_by_id(post.id)).to be_nil
+      describe 'posts' do
+        before { 3.times { create(:post, graetzl: graetzl) } }
+
+        it 'has posts' do
+          expect(graetzl.posts.count).to eq(3)
+        end
+
+        it 'destroys posts' do
+          posts = graetzl.posts
+          graetzl.destroy
+          posts.each do |post|
+            expect(Post.find_by_id(post.id)).to be_nil
+          end
+        end
+      end
+
+      describe 'locations' do
+        before { 3.times { create(:location, graetzl: graetzl) } }
+
+        it 'has locations' do
+          expect(graetzl.locations.count).to eq(3)
+        end
+
+        it 'destroys locations' do
+          locations = graetzl.locations
+          graetzl.destroy
+          locations.each do |location|
+            expect(Location.find_by_id(location.id)).to be_nil
+          end
         end
       end
     end

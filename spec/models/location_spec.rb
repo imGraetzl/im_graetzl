@@ -13,6 +13,10 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:slug)
     end
 
+    it 'has graetzl' do
+      expect(location).to respond_to(:graetzl)
+    end
+
     it 'has avatar' do
       expect(location).to respond_to(:avatar)
     end
@@ -25,19 +29,45 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:address)
     end
 
+    it 'has users' do
+      expect(location).to respond_to(:users)
+    end
+
     describe 'destroy associated records' do
-      before do
-        create(:address, addressable: location)
+      describe 'users' do
+        before do
+          3.times { create(:location_ownership, location: location) }
+        end
+
+        it 'has location_ownerships' do
+          expect(location.location_ownerships.count).to eq 3
+        end
+
+        it 'has users' do
+          expect(location.users.count).to eq 3
+        end
+
+        it 'destroys location_ownerships' do
+          location_ownerships = location.location_ownerships
+          location.destroy
+          location_ownerships.each do |location_ownership|
+            expect(LocationOwnerships.find_by_id(location_ownership.id)).to be_nil
+          end
+        end
       end
 
-      it 'has address' do
-        expect(location.address).not_to be_nil
-      end
+      describe 'address' do
+        before { create(:address, addressable: location) }
 
-      it 'destroys address' do
-        address = location.address
-        location.destroy
-        expect(Address.find_by_id(address.id)).to be_nil
+        it 'has address' do
+          expect(location.address).not_to be_nil
+        end
+
+        it 'destroys address' do
+          address = location.address
+          location.destroy
+          expect(Address.find_by_id(address.id)).to be_nil
+        end
       end
     end
   end
