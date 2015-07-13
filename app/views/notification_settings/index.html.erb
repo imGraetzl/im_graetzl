@@ -95,4 +95,15 @@
     <td>nicht implementiert</td>
     <td>ein User das Treffen kommentiert</td>
   </tr>
+
+  <tr>  
+    <td>
+      <a id="toggle_attendee_left" href="#">
+        <span <% unless current_user.enabled_website_notification?(:attendee_left) -%> style="display: none;" <% end -%> class="on">Ein</span>
+        <span <% if current_user.enabled_website_notification?(:attendee_left) -%> style="display: none;" <% end -%> class="off">Aus</span>
+      </a>
+    </td>
+    <td>nicht implementiert</td>
+    <td>ein Teilnehmer wieder absagt</td>
+  </tr>
 </table>

@@ -19,10 +19,11 @@
           <%= link_to(image_tag('svg/logo.svg'), current_user.graetzl) %>
         </div>
 
-        <div class="newNotifications dropDownMenu-br">
+        <div class="newNotifications dropDownMenu-br" id="notificationCenterDropDown">
           <div class="dropDownToggle">
             <div class="iconWithBadge">
-              <div class="badgeNumber"><%= current_user.new_website_notifications_count %></div>
+              <%- notifications_count = current_user.new_website_notifications_count %>
+              <div <%- if notifications_count == 0 %> style="display: none;" <%- end %> class="badgeNumber" id="notificationsCount"><%= notifications_count %></div>
               <svg class="icon-mail-1"><use xlink:href="#icon-mail-1"></use></svg>
             </div>
           </div>

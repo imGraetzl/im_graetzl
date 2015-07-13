@@ -20,7 +20,8 @@ class Notification < ActiveRecord::Base
     initiator_comments: 8,
     user_comments_users_meeting: 16,
     another_user_comments: 32,
-    another_attendee: 64
+    another_attendee: 64,
+    attendee_left: 128
   }
   
   TYPES = [
@@ -109,6 +110,18 @@ class Notification < ActiveRecord::Base
         already_notified << meeting.initiator.id
         meeting.initiator.notifications.create(activity: activity,
                                                         bitmask: TYPE_BITMASKS[:another_attendee])
+      end
+    end,
+
+    # New attendee on meeting that the user initiated
+    Type.new('meeting.left', TYPE_BITMASKS[:attendee_left]) do |activity, already_notified|
+      meeting = activity.trackable
+      if (meeting.initiator.present? &&
+          meeting.initiator.try(:id) != activity.owner_id &&
+          !already_notified.include?(meeting.initiator.id))
+        already_notified << meeting.initiator.id
+        meeting.initiator.notifications.create(activity: activity,
+                                                        bitmask: TYPE_BITMASKS[:attendee_left])
       end
     end
   ]

@@ -15,4 +15,9 @@ class NotificationSettingsController < ApplicationController
 
     render nothing: true
   end
+
+  def mark_as_seen
+    Notification.where(user_id: current_user.id).update_all(seen: true)
+    render nothing: true
+  end
 end

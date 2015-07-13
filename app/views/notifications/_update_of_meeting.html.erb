@@ -1,12 +1,12 @@
 <%- meeting = notification.activity.trackable %>
 <%-
   translation = {
-    "address" => "Ort",
-    "starts_at_date" => "Datum",
-    "ends_at_date" => "Datum",
-    "starts_at_time" => "Uhrzeit",
-    "ends_at_time" => nil,
-    "description" => "Beschreibung"
+    :address => "Ort",
+    :starts_at_date => "Datum",
+    :ends_at_date => "Datum",
+    :starts_at_time => "Uhrzeit",
+    :ends_at_time => nil,
+    :description => "Beschreibung"
   }
 
   translated_changes = notification.activity.parameters[:changed_attributes].collect { |a| translation[a] }.uniq.compact

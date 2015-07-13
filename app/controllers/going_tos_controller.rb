@@ -16,6 +16,7 @@ class GoingTosController < ApplicationController
     going_to = GoingTo.find(params[:id])
     @meeting = going_to.meeting
     going_to.destroy
+    @meeting.create_activity :left, owner: current_user
     
     respond_to do |format|
       format.js
