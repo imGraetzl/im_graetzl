@@ -139,4 +139,44 @@ RSpec.describe Address, type: :model do
       end
     end
   end
+
+  describe '#locations' do
+    let(:address) { build(:address, coordinates: 'POINT (0.0 0.0)') }
+
+    context 'when location within 200 units' do
+      let!(:location_within_range) { create(:location,
+        address: build(:address, coordinates: 'POINT (42.0 42.0)')) }
+      let!(:location_outside_range) { create(:location,
+        address: build(:address, coordinates: 'POINT (200.0 200.0)')) }
+
+      it 'contains location_within_range' do
+        expect(address.locations).to include(location_within_range)
+      end
+
+      it 'does not contain location_outside_range' do
+        expect(address.locations).not_to include(location_outside_range)
+      end
+    end
+
+    context 'when no locations yet' do
+      it 'returns empty' do
+        expect(address.locations).to be_empty
+      end
+    end
+
+    context 'when nil coordinates' do
+      let!(:location_within_range) { create(:location,
+        address: build(:address, coordinates: 'POINT (42.0 42.0)')) }
+
+      before { address.coordinates = nil }
+
+      it 'has empty coordintes' do
+        expect(address.coordinates).to eq nil
+      end
+
+      it 'returns empty' do
+        expect(address.locations).to be_empty
+      end
+    end
+  end
 end

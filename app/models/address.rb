@@ -36,6 +36,15 @@ class Address < ActiveRecord::Base
     graetzls.first
   end
 
+  def locations
+    Location.where(id: (
+      Address.where(addressable_type: 'Location')
+        .where('ST_DWithin(coordinates, :point, 200)', point: coordinates)
+        .pluck(:addressable_id)
+      ))
+  end
+
+
   private
 
     def self.query_address_service(address_string)
