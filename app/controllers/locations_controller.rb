@@ -1,5 +1,7 @@
 class LocationsController < ApplicationController
   before_filter :set_graetzl
+  before_filter :authenticate_user!
+  before_filter :authorize_user!
 
   # GET /new/address
   def new_address
@@ -7,32 +9,30 @@ class LocationsController < ApplicationController
 
   # POST /new/address
   def set_new_address
-    puts address_params    
-    #@search_input = address_params[:address]
     address = Address.new(Address.attributes_from_feature(address_params[:feature] || ''))
     session[:address] = address.attributes
     @graetzl = address.graetzl || @graetzl
     @locations = address.locations
 
     if @locations.empty?
-      #build_location(address)
       redirect_to new_graetzl_location_path(@graetzl)
-      #render :new
     else
       render :new_adopt
     end
   end
 
-  def new_adopt    
+  def new_adopt
+    #todo... 
   end
 
   def new
-    puts params
-    @location = @graetzl.locations.build(address_attributes: session[:address])
-    @location.build_contact
+    @location = @graetzl.locations.build(address_attributes: session[:address] || Address.new.attributes)
+    @location.build_contact    
+  end
 
-    #@graetzl.locations.build(address: @address)
-    
+  def create
+    empty_session
+    @graetzl.locations.create(location_params)    
   end
 
   private
@@ -41,8 +41,40 @@ class LocationsController < ApplicationController
       @graetzl = Graetzl.find(params[:graetzl_id])
     end
 
+    def authorize_user!      
+      if !current_user.business?
+        redirect_to @graetzl, notice: 'Nur wirtschaftstreibende User können Locations erstellen.'
+      end
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def location_params
+      params.
+        require(:location).
+        permit(:name,
+          :slogan,
+          :description,
+          :avatar, :remove_avatar,
+          :cover_photo, :remove_cover_photo,
+          contact_attributes: [
+            :website,
+            :email,
+            :phone],
+          address_attributes: [
+            :street_name,
+            :street_number,
+            :zip,
+            :city,
+            :coordinates])
+        merge(user_ids: [current_user.id])
+    end
+
     # strong params for address
     def address_params
       params.permit(:address, :feature)
+    end
+
+    def empty_session
+      session.delete(:address)
     end
 end
