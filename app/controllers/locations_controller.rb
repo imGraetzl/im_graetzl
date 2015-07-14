@@ -32,7 +32,16 @@ class LocationsController < ApplicationController
 
   def create
     empty_session
-    @graetzl.locations.create(location_params)    
+    @location = @graetzl.locations.build(location_params)
+    if @location.save
+      redirect_to [@graetzl, @location]
+    else
+      render :new
+    end 
+  end
+
+  def show
+    @location = @graetzl.locations.find(params[:id])    
   end
 
   private
@@ -65,7 +74,7 @@ class LocationsController < ApplicationController
             :street_number,
             :zip,
             :city,
-            :coordinates])
+            :coordinates]).
         merge(user_ids: [current_user.id])
     end
 
