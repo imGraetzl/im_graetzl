@@ -36,6 +36,11 @@ Rails.application.routes.draw do
     resources :posts, only: [:create] do
       resource :comments, module: :posts, only: [:create]
     end
+    resources :locations do
+      get 'address', to: 'locations#new_address', on: :new
+      post 'address', to: 'locations#set_new_address', on: :new
+      post 'adopt', on: :new
+    end
   end
 
   resources :going_tos, only: [:create, :destroy]

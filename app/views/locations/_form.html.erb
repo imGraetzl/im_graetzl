@@ -1,0 +1,157 @@
+<%= form_for([@graetzl, @location]) do |f| %>
+
+  <% if @location.errors.any? %>
+    <div id="error_explanation">
+      <h2>Location konnte nicht erstellt werden: <%= @location.errors.count %> Fehler.</h2>
+      <ul>
+        <% @location.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-register">
+
+    <div class="user-personal">
+      <p class="txt">Basic Info</p>
+
+      <div class="input-field">
+        <%= f.label :name do %>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <span>Name</span>
+        <% end %>
+        <%= f.text_field :name, placeholder: 'z.B.: Horsts Tattoo Horst' %>
+      </div>
+
+      <div class="input-field">
+        <%= f.label :slogan do %>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <span>Slogan</span>
+        <% end %>
+        <%= f.text_field :slogan, placeholder: 'z.B.: Geht ur unter die Haut!' %>
+      </div>
+
+      <div class="input-textarea">
+        <%= f.label :description do %>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <span>description</span>
+        <% end %>
+        <%= f.text_area :description, placeholder: 'Beschreibe die Location' %>
+      </div>
+    </div>
+
+    <div class="upload-image js-imgUpld">
+      <% if f.object.cover_photo %>
+        <div class="imgCrop"><%= image_tag attachment_url(resource, :cover_photo, :fill, 980, 370) %></div>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Coverphoto
+        <div class="checkbox-group">
+          <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+          <%= f.label :remove_cover_photo, 'Löschen' %>
+        </div>
+      <% else %>
+          <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+          Coverphoto
+      <% end %>
+
+      <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+      <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+      <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
+    </div>
+
+    <div class="upload-image js-imgUpld">
+      <% if f.object.avatar %>
+        <div class="imgCrop"><%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %></div>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Profilbild
+        <div class="checkbox-group">
+          <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
+          <%= f.label :remove_avatar, 'Löschen' %>
+        </div>
+      <% else %>
+          <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+          Profilbild
+      <% end %>
+
+      <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+      <%= f.attachment_field :avatar, direct: true, presigned: true %>
+      <%= f.check_box :remove_avatar, { class: 'deleteCheckbox', style: 'display: none;' } %>
+    </div>
+  
+    <%= f.fields_for :contact do |contact_fields| %>
+      <div class="user-personal">
+        <p class="txt">Kontakt</p>
+
+        <div class="input-field">
+          <%= contact_fields.label :website do %>
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+            <span>Website</span>
+          <% end %>
+          <%= contact_fields.url_field :website, placeholder: 'http://www.horst-tattoo.at' %>
+        </div>
+
+        <div class="input-field">
+          <%= contact_fields.label :email do %>
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+            <span>Email</span>
+          <% end %>
+          <%= contact_fields.email_field :email, placeholder: 'E-Mail' %>
+        </div>
+
+        <div class="input-field">
+          <%= contact_fields.label :phone do %>
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+            <span>Telefon</span>
+          <% end %>
+          <%= contact_fields.telephone_field :phone, placeholder: '+43 xxx xxxxxxx' %>
+        </div>
+      </div>
+    <% end %>
+  
+    <%= f.fields_for :address do |address_fields| %>
+      <div class="user-personal">
+        <p class="txt">Adresse</p>
+
+        <div class="input-field">
+          <%= address_fields.label :street_name do %>
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+            <span>Straße</span>
+          <% end %>
+          <%= address_fields.text_field :street_name %>
+        </div>
+
+        <div class="input-field">
+          <%= address_fields.label :street_number do %>
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+            <span>Hausnummer</span>
+          <% end %>
+          <%= address_fields.text_field :street_number %>
+        </div>
+
+        <div class="input-field">
+          <%= address_fields.label :zip do %>
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+            <span>Postleitzahl</span>
+          <% end %>
+          <%= address_fields.text_field :zip %>
+        </div>
+
+        <div class="input-field">
+          <%= address_fields.label :city do %>
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+            <span>Ort</span>
+          <% end %>
+          <%= address_fields.text_field :city %>
+        </div>
+
+        <div class="field">
+          <%= address_fields.hidden_field :coordinates %>
+        </div>
+      </div>
+
+      <%= f.button 'Location anlegen!', class: 'btn-primary' %>
+    <% end %>
+  </div>
+
+<% end %>

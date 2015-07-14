@@ -1,0 +1,21 @@
+<% title('Neue Location Adresse') %>
+
+<section class="register-searchGraetzl">
+
+  <h1>Lass uns zu Beginn die <span>Adresse</span> finden...</h1>
+
+  <%= form_tag(address_new_graetzl_location_path, method: :post) do %>
+    <div id="addressSearchAutocomplete" class="input-field">
+      <%= label_tag :address do %>
+        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        <span>Wo bist du tätig?</span>
+      <% end %>
+      <%= text_field_tag :address, nil, required: true, autofocus: true, placeholder: 'Strasse und Hausnummer' %>
+      <button class="btn-primary">Weiter</button>
+      <%= hidden_field_tag :feature %>
+    </div>
+  <% end %>
+
+</section>
+
+
