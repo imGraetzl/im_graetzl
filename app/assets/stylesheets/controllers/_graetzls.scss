@@ -1,0 +1,93 @@
+section.graetzls {
+
+  .headerImgBlock {
+    margin-bottom: 30px;
+    background-image: url(image_path('illu/illu-stuwerviertel.png'));
+    background-size: 500px 220px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: block;
+    margin-left: -18px;
+    margin-right: -18px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    @include respond-to('retina2x') {
+      background-image: url(image_path('illu/illu-stuwerviertel@2x.png'));
+    }
+    @include respond-to(">=medium") {
+      background-size: 862px 379px;
+    }
+    @include respond-to(">=large") {
+      height: 200px;
+      padding-bottom: 0;
+      border-top: 0;
+      background-position: 91px -69px;
+    }
+
+    .wrp-headline {
+      display: table;
+      margin: 0 auto;
+      @include respond-to(">=large") {
+        position: absolute;
+        left: 350px;
+        top: 76px;
+        display: table;
+        margin: 0;
+      }
+      span {
+        float: right;
+        font-size: 1.4rem;
+        border-radius: 4px;
+        background-color: rgba(245,245,240,0.9);
+        padding: 1px 5px;
+        margin-right: 5px;
+        a:not(:last-child) {
+          display: inline-block;
+          border-right: 1px dotted $color-ambient-mint-dark;
+          padding-right: 5px;
+          margin-right: 3px;
+        }
+      }
+    }
+    h1 {
+      @include font-size-secondaryFont('larger');
+      @include headlineBarbapapa;
+      @include textShadowHard($color-ambient-rosa-dark);
+      margin-bottom: 0;
+    }
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+  }
+
+  .teaserBlock {
+    h2 {
+      @include font-size-secondaryFont('base');
+      margin-bottom: 20px;
+      text-align: center;
+      color: $color-ambient-rosa;
+    }
+  }
+
+  .specialBox {
+    padding: 20px;
+    height: 320px;
+    background-color: lightgoldenrodyellow;
+  }
+
+  .districtTag {
+    display: none;
+  }
+
+}

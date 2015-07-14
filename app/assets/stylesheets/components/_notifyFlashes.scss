@@ -1,0 +1,23 @@
+[id^=error_] {
+  display: table;
+  margin: 0 auto 40px auto;
+  border-width: 2px;
+  border-style: solid;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 6px;
+  h2 {
+    font-family: $font-primary;
+    font-size: 20px;
+  }
+  ul {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-left: 0;
+  }
+}
+
+#error_explanation {
+  border-color: #ffab22;
+  color: #ffab22;
+}

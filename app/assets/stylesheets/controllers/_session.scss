@@ -1,8 +1,14 @@
 section.loginPage {
   @include cf();
   h1 {
-    @extend .hl-main;
-    @extend .hl-main.-large;
+    @include font-size-secondaryFont('large');
+    span {
+      color: $color-ambient-rosa;
+    }
+    margin-bottom: 30px;
+    @include respond-to(">=large") {
+      margin-bottom: 50px;
+    }
     text-align: center;
   }
 }

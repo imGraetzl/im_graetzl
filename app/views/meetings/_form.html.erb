@@ -93,6 +93,7 @@
     <div class="meet-how">
       <p><span>Wie</span> würdest du dein Treffen zuordnen?</p>
 
+      <!--
       <div class="input-field">
         <label for="cover_photo">
           <svg class="icon-image"><use xlink:href="#icon-image"></use></svg>
@@ -100,14 +101,7 @@
         </label>
         <%= text_field_tag :dummy, address_value(f.object.address), placeholder: 'Beschreibe dein Treffen mit einem Bild' %>
       </div>
-
-      <div class="input-select">
-        <%= f.label :category_ids do %>
-            <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-            <span>Kategorien</span>
-        <% end %>
-        <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
-      </div>
+      -->
 
       <div class="upload-image js-imgUpld">
         <% if f.object.cover_photo %>
@@ -126,6 +120,14 @@
         <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
         <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
         <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
+      </div>
+
+      <div class="input-select">
+        <%= f.label :category_ids do %>
+            <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+            <span>Kategorien</span>
+        <% end %>
+        <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
       </div>
 
     </div>

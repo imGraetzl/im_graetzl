@@ -1,14 +1,14 @@
-.headerBlock  {
-  position: relative;
-  z-index: 1;
-  @include respond-to(">=medium") {
-    @include cloudMaskOverImg;
-    overflow: hidden;
-    margin-top: -8.0rem;
-    margin-bottom: -80px;
-    margin-right: -25px;
-    margin-left: -25px;
-    max-height: 370px;
+[data-controller=meetings] {
+  .headerImgBlock {
+    @include respond-to(">=medium") {
+      @include cloudMaskOverImg;
+      margin-top: -8.0rem;
+      margin-right: -25px;
+      margin-left: -25px;
+      overflow: hidden;
+      max-height: 370px;
+      margin-bottom: -80px;
+    }
   }
 }
 

@@ -1,0 +1,19 @@
+.headerImgBlock {
+  position: relative;
+  z-index: 1;
+  margin-top: -3rem;
+  margin-left: -18rem;
+  margin-right: -18rem;
+  padding-right: 18px;
+  padding-left: 18px;
+  @include respond-to(">=medium") {
+    margin-top: -5rem;
+    margin-left: -25rem;
+    margin-right: -25rem;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  @include respond-to(">=large") {
+    margin-top: -8rem;
+  }
+}

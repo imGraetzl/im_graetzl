@@ -1,3 +1,18 @@
+.meetingBoxes {
+  @include cf();
+  > * {
+    display: block;
+    margin-bottom: 35px;
+    @include respond-to(">=medium") {
+      @include col(1/2, $cycle: 2);
+    }
+    @include respond-to(">=large") {
+      @include col(1/3, $cycle: 3, $uncycle: 2);
+    }
+  }
+}
+
+
 .meetingBox {
   border: 1px solid $color-ambient-grey-light;
   background-color: #ffffff;
@@ -13,11 +28,13 @@
     line-height: 1.3;
   }
   .txt {
-    margin-bottom: 1.6rem;
     @include ResponsiveText(1.6, 1.6, 1.8);
+    overflow: hidden;
+    margin-bottom: 1.6rem;
+    position: relative;
   }
-
 }
+
 
 .meetingBoxHeader {
   position: relative;
