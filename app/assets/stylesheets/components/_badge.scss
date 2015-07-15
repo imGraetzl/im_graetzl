@@ -18,15 +18,16 @@
   cursor: pointer;
   outline: none;
   text-decoration: none;
-  padding-top: 20px;
+  padding-top: 18px;
   @include respond-to(">=medium") {
     width: 110px;
     height: 110px;
-    padding-top: 28px;
+    padding-top: 25px;
   }
   @include respond-to(">=large") {
     width: 130px;
     height: 130px;
+    padding-top: 30px;
   }
   @include respond-to("retina2x") {
     background-size:  50px 50px, 100% 100%;

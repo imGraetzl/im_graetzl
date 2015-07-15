@@ -1,60 +1,26 @@
-@mixin font-size-secondaryFont($size: 'base') {
-  font-family: $font-secondary;
-  font-weight: normal;
-  line-height: 1.0;
+/* sizing scheme
 
-  @if $size == 'base' {
-    font-size: 2.8rem;
-    @include respond-to(">=medium") {
-      font-size: 3.0rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 4.0rem;
-    }
-  }
+  largest
+  larger
+  large
+ base
+  small
+  smaller
+  smallest
 
-  @if $size == 'small' {
-    font-size: 2.4rem;
-    @include respond-to(">=medium") {
-      font-size: 2.6rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 3.0rem;
-    }
-  }
-
-  @if $size == 'large' {
-    font-size: 3.2rem;
-    @include respond-to(">=medium") {
-      font-size: 4.0rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 5.0rem;
-    }
-  }
-
-  @if $size == 'larger' {
-    font-size: 3.5rem;
-    @include respond-to(">=medium") {
-      font-size: 4.5rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 6.0rem;
-    }
-  }
-}
+*/
 
 @mixin font-size-primaryFont($size: 'base') {
 
   line-height: 1.4;
 
-  @if $size == 'base' {
-    font-size: 1.6rem;
+  @if $size == 'smaller' {
+    font-size: 1.2rem;
     @include respond-to(">=medium") {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
     }
     @include respond-to(">=large") {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
     }
   }
 
@@ -68,13 +34,81 @@
     }
   }
 
+  @if $size == 'base' {
+    font-size: 1.6rem;
+    @include respond-to(">=medium") {
+      font-size: 1.8rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 1.8rem;
+    }
+  }
+
   @if $size == 'large' {
     font-size: 1.8rem;
     @include respond-to(">=medium") {
-      font-size: 2.0rem;
+      font-size: 2.2rem;
     }
     @include respond-to(">=large") {
       font-size: 2.4rem;
+    }
+  }
+
+}
+
+
+@mixin font-size-secondaryFont($size: 'base') {
+  font-family: $font-secondary;
+  font-weight: normal;
+  line-height: 1.0;
+
+  @if $size == 'smaller' {
+    font-size: 2.2rem;
+    @include respond-to(">=medium") {
+      font-size: 2.4rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 2.4rem;
+    }
+  }
+
+  @if $size == 'small' {
+    font-size: 2.6rem;
+    @include respond-to(">=medium") {
+      font-size: 2.8rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 3.0rem;
+    }
+  }
+
+  @if $size == 'base' {
+    font-size: 3.0rem;
+    @include respond-to(">=medium") {
+      font-size: 3.6rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 4.0rem;
+    }
+  }
+
+  @if $size == 'large' {
+    font-size: 3.5rem;
+    @include respond-to(">=medium") {
+      font-size: 4.5rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 5.5rem;
+    }
+  }
+
+  @if $size == 'larger' {
+    font-size: 4.0rem;
+    @include respond-to(">=medium") {
+      font-size: 5.0rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 6.0rem;
     }
   }
 

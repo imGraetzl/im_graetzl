@@ -22,15 +22,15 @@
 // All kinds of specific modules (buttons, sliders, avatars, thumbnails).
 //---------------------------------------------------------------------------------------------*/
 
-@import "components/_fonts";
-@import "components/_fontsizes";
+@import "components/fonts";
+@import "components/fontsizes";
 @import "components/header";
 @import "components/footer";
 @import "components/paperCard";
 @import "components/buttons";
 @import "components/forms";
 @import "components/dropDowns";
-@import "components/notifyFlashes";
+@import "components/notificationsValidation";
 @import "components/userimg";
 @import "components/headlineBarbapapa";
 @import "components/dateTimeLocation";
@@ -45,6 +45,7 @@
 @import "components/fileUploads";
 @import "components/notificationsValidation";
 @import "components/teaserBlock";
+@import "components/shame";
 
 //---------------------------------------------------------------------------------------------*\
 // PAGES

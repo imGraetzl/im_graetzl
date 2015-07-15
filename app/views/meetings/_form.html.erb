@@ -2,10 +2,11 @@
 
     <% if @meeting.errors.any? %>
         <div id="error_explanation">
-          <h2>Treffen konnte nicht erstellt werden: <%= @meeting.errors.count %> Fehler.</h2>
+          <h2>Treffen konnte nicht erstellt werden!<br><%= @meeting.errors.count %> Fehler:</h2>
+
           <ul>
             <% @meeting.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
+                <li><svg class="icon-arrow-down"><use xlink:href="#icon-arrow-down"></use></svg><%= message %></li>
             <% end %>
           </ul>
         </div>

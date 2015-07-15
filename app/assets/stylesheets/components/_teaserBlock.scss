@@ -21,6 +21,7 @@
     position: relative;
     @include respond-to(">=large") {
       float: right;
+      margin-right: 20px;
       display: block;
     }
   }

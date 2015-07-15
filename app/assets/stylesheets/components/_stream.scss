@@ -211,7 +211,7 @@
     height: 4.0rem;
     padding: 0.8rem 1.4rem;
     &::placeholder {
-      color: lighten($color-ambient-grey, 20);
+      color: $color-ambient-grey;
     }
   }
   label {
@@ -229,7 +229,7 @@
     @extend .btn-primary;
     @extend .btn-primary.-small;
     background-color: $color-ambient-grey;
-    margin-top: 0.5rem;
+    margin-top: 10px;
     display: none;
     float: right;
   }
@@ -255,7 +255,7 @@
   text-decoration: none;
   &:hover, &:active {
     h2 {
-      color: $color-ambient-rosa;
+      color: $color-ambient-rosa-dark;
     }
   }
   @include respond-to(">=medium") {
@@ -264,7 +264,6 @@
     margin-top: 0;
     padding: 8px;
     background-color: #ffffff;
-    background-image: $texture-secondary;
     box-shadow: $boxShadow-light;
   }
 
@@ -286,7 +285,7 @@
   h2 {
     text-align: center;
     font-size: 2.4rem;
-    color: $color-ambient-mint-dark;
+    color: $color-ambient-rosa;
     margin-bottom: 1rem;
     @include respond-to(">=medium") {
       text-align: left;
@@ -302,7 +301,6 @@
     right: 0;
     font-size: 1.4rem;
     background-color: #ffffff;
-    background-image: $texture-secondary;
     padding: 3px 20px 3px 6px;
     display: flex;
     border-radius: 5px 0 0 5px;
