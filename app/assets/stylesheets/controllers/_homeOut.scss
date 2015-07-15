@@ -5,8 +5,9 @@ section.homeOut {
       @include font-size-secondaryFont('large');
       text-align: center;
       color: $color-ambient-rosa;
+      margin-bottom: 10px;
       + p {
-        @include font-size-primaryFont('large');
+        @include font-size-primaryFont('larger');
         text-align: center;
         margin-bottom: 30px;
         @include respond-to(">=large") {
@@ -24,9 +25,9 @@ section.homeOut {
     .wrp  {
       display: block;
       background-image: url(image_path('illu/illu-cylce.png'));
-      padding: 156px 30px 30px 30px;
+      padding: 164px 30px 30px 30px;
       background-repeat: no-repeat;
-      background-position: 32px 15px;
+      background-position: 42px 19px;
       background-size: 265px 189px;
       @include respond-to("retina2x") {
         background-image: url(image_path('illu/illu-cycle@2x.png'));
@@ -50,8 +51,7 @@ section.homeOut {
     }
 
     h3 {
-      font-size: 2.4rem;
-      font-weight: 600;
+      font-size: 2.2rem;
       line-height: 1.2;
       margin-top: 30px;
       margin-bottom: 30px;
@@ -178,7 +178,6 @@ section.homeOut {
     font-family: $font-secondary;
     color: $color-ambient-mint;
     margin-bottom: 1rem;
-    font-weight: 600;
     @include respond-to(">=medium") {
       text-align: left;
     }
@@ -189,7 +188,7 @@ section.homeOut {
   }
 
   p {
-    @include font-size-primaryFont('base');
+    @include font-size-primaryFont('large');
   }
 
   .btn-primary {

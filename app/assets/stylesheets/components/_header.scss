@@ -32,7 +32,7 @@ header {
 }
 
 .logoGraetzl {
-  width: 60px;
+  width: 45px;
   margin-right: auto;
   @include respond-to(">=medium") {
     margin-right: 0;
@@ -48,6 +48,19 @@ header {
     background-size: 100%;
     top: 20px;
     transform: translate(-50%, 0);
+  }
+
+  .logo_main {
+    display: none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
+  }
+  .logo_reduced {
+    display: block;
+    @include respond-to(">=medium") {
+      display: none;
+    }
   }
 
   img {

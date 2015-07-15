@@ -17,9 +17,8 @@ body {
   color: $color-font-primary;
   background-color: #ffffff;
   background-image: $texture-stoff1;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
-
 
 main,
 footer .inner {
@@ -70,7 +69,4 @@ img {
 h1, h2 {
   font-family: $font-secondary;
   font-weight: normal;
-}
-h3, h4, h5, h6 {
-  font-weight: 600;
 }
