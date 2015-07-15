@@ -12,4 +12,7 @@ class Location < ActiveRecord::Base
   accepts_nested_attributes_for :contact
   has_many :location_ownerships, dependent: :destroy
   has_many :users, through: :location_ownerships
+
+  # validations
+  validates :name, presence: true
 end

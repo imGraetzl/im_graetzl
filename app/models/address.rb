@@ -2,6 +2,9 @@ class Address < ActiveRecord::Base
   # associations
   belongs_to :addressable, polymorphic: true
 
+  # attributes
+  LOCATION_RADIUS = 0.001
+
   # class methods
   def self.attributes_from_feature(feature)
     begin
@@ -39,7 +42,7 @@ class Address < ActiveRecord::Base
   def locations
     Location.where(id: (
       Address.where(addressable_type: 'Location')
-        .where('ST_DWithin(coordinates, :point, 200)', point: coordinates)
+        .where("ST_DWithin(coordinates, :point, #{LOCATION_RADIUS})", point: coordinates)
         .pluck(:addressable_id)
       ))
   end

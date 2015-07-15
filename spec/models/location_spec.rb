@@ -4,6 +4,12 @@ RSpec.describe Location, type: :model do
 
   it 'has a valid factory' do
     expect(build_stubbed(:location)).to be_valid
+  end  
+
+  describe 'validations' do
+    it 'is invalid without name' do
+      expect(build(:location, name: '')).not_to be_valid
+    end
   end
   
   describe 'associations' do

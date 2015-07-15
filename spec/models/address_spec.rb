@@ -141,13 +141,13 @@ RSpec.describe Address, type: :model do
   end
 
   describe '#locations' do
-    let(:address) { build(:address, coordinates: 'POINT (0.0 0.0)') }
+    let(:address) { build(:address, coordinates: 'POINT (0.0000 0.0000)') }
 
-    context 'when location within 200 units' do
+    context 'when location within 0.001 units' do
       let!(:location_within_range) { create(:location,
-        address: build(:address, coordinates: 'POINT (42.0 42.0)')) }
+        address: build(:address, coordinates: 'POINT (0.0005 0.0000)')) }
       let!(:location_outside_range) { create(:location,
-        address: build(:address, coordinates: 'POINT (200.0 200.0)')) }
+        address: build(:address, coordinates: 'POINT (0.0015 0.0000)')) }
 
       it 'contains location_within_range' do
         expect(address.locations).to include(location_within_range)
