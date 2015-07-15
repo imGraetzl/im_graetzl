@@ -1,12 +1,12 @@
 /* sizing scheme
 
-  largest
-  larger
-  large
+ largest
+ larger
+ large
  base
-  small
-  smaller
-  smallest
+ small
+ smaller
+ smallest
 
 */
 
@@ -19,9 +19,6 @@
     @include respond-to(">=medium") {
       font-size: 1.4rem;
     }
-    @include respond-to(">=large") {
-      font-size: 1.4rem;
-    }
   }
 
   @if $size == 'small' {
@@ -29,17 +26,11 @@
     @include respond-to(">=medium") {
       font-size: 1.6rem;
     }
-    @include respond-to(">=large") {
-      font-size: 1.6rem;
-    }
   }
 
   @if $size == 'base' {
     font-size: 1.6rem;
     @include respond-to(">=medium") {
-      font-size: 1.8rem;
-    }
-    @include respond-to(">=large") {
       font-size: 1.8rem;
     }
   }
@@ -62,22 +53,10 @@
   font-weight: normal;
   line-height: 1.0;
 
-  @if $size == 'smaller' {
-    font-size: 2.2rem;
-    @include respond-to(">=medium") {
-      font-size: 2.4rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 2.4rem;
-    }
-  }
 
   @if $size == 'small' {
     font-size: 2.6rem;
     @include respond-to(">=medium") {
-      font-size: 2.8rem;
-    }
-    @include respond-to(">=large") {
       font-size: 3.0rem;
     }
   }
@@ -93,16 +72,6 @@
   }
 
   @if $size == 'large' {
-    font-size: 3.5rem;
-    @include respond-to(">=medium") {
-      font-size: 4.5rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 5.5rem;
-    }
-  }
-
-  @if $size == 'larger' {
     font-size: 4.0rem;
     @include respond-to(">=medium") {
       font-size: 5.0rem;

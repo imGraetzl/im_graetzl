@@ -17,7 +17,7 @@ section.homeOut {
   }
 
   .specialBox {
-    @include paperCard($rotation: -2);
+    @include paperCard($rotation: -2, $string: 2);
     @include respond-to(">=large") {
       transform: translate(15px, -15px);
     }
@@ -50,7 +50,7 @@ section.homeOut {
     }
 
     h3 {
-      @include ResponsiveText(2.2, 2.6, 2.6);
+      font-size: 2.4rem;
       font-weight: 600;
       line-height: 1.2;
       margin-top: 30px;
@@ -109,7 +109,7 @@ section.homeOut {
   }
 
   h1 {
-    @include font-size-secondaryFont('larger');
+    @include font-size-secondaryFont('large');
     @include textShadowHard($color-ambient-rosa-dark);
     display: table;
     text-align: center;
@@ -163,7 +163,7 @@ section.homeOut {
 .aboutGraetzl {
   padding-bottom: 3.0rem;
   h2 {
-    @include font-size-secondaryFont('larger');
+    @include font-size-secondaryFont('large');
     text-align: center;
     color: $color-ambient-rosa;
     margin-bottom: 2.0rem;

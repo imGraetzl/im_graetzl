@@ -1,4 +1,4 @@
-@mixin paperCard($corner: "RT", $rotation: 0, $texture: false, $fakehole: true) {
+@mixin paperCard($corner: "RT", $rotation: 0, $texture: false, $fakehole: true, $string: 1) {
 
   position: relative;
 
@@ -17,7 +17,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 6px rgba(0,0,0,0.12);
+    box-shadow: 0 0 4px rgba(0,0,0,0.10);
     display: block;
     z-index: 1;
     border-radius: 2px;
@@ -55,16 +55,31 @@
       z-index: 6;
       background-repeat: no-repeat;
       @if $corner == "RT" {
-        top: 3px;
-        right: -45px;
-        height: 60px;
-        @if $fakehole == false {
-          width: 69px;
-          background-image: url(image_path('svg/card-string1.svg'));
-        } @else {
-          width: 75px;
-          background-image: url(image_path('svg/card-string1-fakehole.svg'));
+
+        @if $string == 1 {
+          top: 3px;
+          right: -51px;
+          height: 60px;
+          width: 81px;
+          @if $fakehole == false {
+            background-image: url(image_path('svg/card-string1.svg'));
+          } @else {
+            background-image: url(image_path('svg/card-string1-fakehole.svg'));
+          }
         }
+
+        @if $string == 2 {
+          top: -65px;
+          right: -38px;
+          height: 95px;
+          width: 68px;
+          @if $fakehole == false {
+            background-image: url(image_path('svg/card-string2.svg'));
+          } @else {
+            background-image: url(image_path('svg/card-string2-fakehole.svg'));
+          }
+        }
+
       }
     }
 

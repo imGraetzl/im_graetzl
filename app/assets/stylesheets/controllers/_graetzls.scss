@@ -51,7 +51,7 @@ section.graetzls {
       }
     }
     h1 {
-      @include font-size-secondaryFont('larger');
+      @include font-size-secondaryFont('large');
       @include headlineBarbapapa;
       @include textShadowHard($color-ambient-rosa-dark);
       margin-bottom: 0;
@@ -77,13 +77,22 @@ section.graetzls {
       margin-bottom: 20px;
       text-align: center;
       color: $color-ambient-rosa;
+      @include respond-to(">=large") {
+        width: 66%;
+      }
     }
   }
 
   .specialBox {
-    padding: 20px;
+    @include paperCard($rotation: 3, $string: 2);
+    font-family: $font-secondary;
+    color: $color-ambient-mint-dark;
+    font-size: 35px;
+    padding: 50px;
     height: 320px;
-    background-color: lightgoldenrodyellow;
+    @include respond-to(">=large") {
+      transform: translate(0, -30px);
+    }
   }
 
   .districtTag {
