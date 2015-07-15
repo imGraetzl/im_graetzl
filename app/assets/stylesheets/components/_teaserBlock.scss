@@ -1,0 +1,29 @@
+.teaserBlock {
+  @include cf();
+  margin-bottom: 40px;
+  border-bottom: 1px dotted $color-ambient-mint-light;
+  padding-bottom: 3rem;
+  @include respond-to(">=medium") {
+    margin-bottom: 70px;
+  }
+  .meetingBoxes {
+    > * {
+      @include respond-to(">=large") {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .link-more {
+    margin: 0 auto;
+    display: table;
+    z-index: 3;
+    position: relative;
+    @include respond-to(">=large") {
+      float: right;
+      margin-right: 20px;
+      display: block;
+    }
+  }
+
+}

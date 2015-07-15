@@ -6,13 +6,13 @@
       <div class="dateLocation">
         <% if meeting.starts_at_date %>
             <div class="dateTimeIconSmall">
-              <svg class="icon-calendar-1"><use xlink:href="#icon-calendar-1"></use></svg>
+              <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
               <%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %B %Y') if meeting.starts_at_date %>
             </div>
         <% end %>
         <% if meeting.address.description.present? || meeting.address.street_name %>
             <div class="locationIconSmall">
-              <svg class="icon-map"><use xlink:href="#icon-map"></use></svg>
+              <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
               <%= address_for_teaser(meeting.address) %>
             </div>
         <% end %>
@@ -20,9 +20,7 @@
     </div>
 
     <div class="participantsCountSmall">
-      <svg class="icon-person">
-        <use xlink:href="#icon-person"></use>
-      </svg>
+      <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
       <%= meeting.users.count %>
     </div>
 

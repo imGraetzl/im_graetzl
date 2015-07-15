@@ -17,7 +17,7 @@ body {
   color: $color-font-primary;
   background-color: #ffffff;
   background-image: $texture-stoff1;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 }
 
 
@@ -62,10 +62,15 @@ img {
   border: 0;
 }
 
-
-
-
 ::selection {
   background: lighten($color-ambient-rosa, 20);
   color: #fff;
+}
+
+h1, h2 {
+  font-family: $font-secondary;
+  font-weight: normal;
+}
+h3, h4, h5, h6 {
+  font-weight: 600;
 }

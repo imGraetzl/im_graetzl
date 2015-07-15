@@ -43,7 +43,7 @@
           <div class="dropDownToggle">
           <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-user') %>
             <div class="username"><%= current_user.username %></div>
-            <svg class="icon-angle-down"><use xlink:href="#icon-angle-down"></use></svg>
+            <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
           </div>
           <div class="dropDownContent">
             <div class="menuSlice">Profileinstellungen</div>
@@ -65,7 +65,7 @@
         </div>
         <div class="nav-loggedOut">
           <%= link_to user_registration_address_path, class: 'register' do %>
-            <span>Kostenlos registrieren</span>
+            <span>Kostenlos</span> <span>registrieren</span>
           <% end %>
           <%= link_to 'Anmelden', new_user_session_path, class: 'login' %>
         </div>
@@ -75,3 +75,5 @@
     </div>
   </div>
 </header>
+
+<%= render 'layouts/flash_messages' %>

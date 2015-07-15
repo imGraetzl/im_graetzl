@@ -6,7 +6,7 @@ header {
   @include respond-to(">=medium") {
     margin-bottom: 5rem;
     position: relative;
-    z-index: 5;
+    z-index: 15;
   }
   @include respond-to(">=large") {
     margin-bottom: 8rem;
@@ -185,7 +185,12 @@ header {
       margin-right: 20px;
       padding-right: 20px;
     }
-    span {
+
+    span:first-child {
+      display: none;
+      @include respond-to(">=medium") {
+        display: inline;
+      }
       @include respond-to(">=large") {
         background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
         background-repeat: no-repeat;
@@ -193,6 +198,13 @@ header {
         background-position: left center;
       }
     }
+    span:nth-child(2) {
+      text-transform: capitalize;
+      @include respond-to(">=medium") {
+        text-transform: none;
+      }
+    }
+
   }
 }
 

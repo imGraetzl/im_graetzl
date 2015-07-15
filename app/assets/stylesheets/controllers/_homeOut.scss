@@ -1,3 +1,83 @@
+section.homeOut {
+
+  .teaserBlock {
+    h2 {
+      @include font-size-secondaryFont('large');
+      text-align: center;
+      color: $color-ambient-rosa;
+      + p {
+        @include font-size-primaryFont('large');
+        text-align: center;
+        margin-bottom: 30px;
+        @include respond-to(">=large") {
+          margin-bottom: 50px;
+        }
+      }
+    }
+  }
+
+  .specialBox {
+    @include paperCard($rotation: -2);
+    @include respond-to(">=large") {
+      transform: translate(15px, -15px);
+    }
+    .wrp  {
+      display: block;
+      background-image: url(image_path('illu/illu-cylce.png'));
+      padding: 156px 30px 30px 30px;
+      background-repeat: no-repeat;
+      background-position: 32px 15px;
+      background-size: 265px 189px;
+      @include respond-to("retina2x") {
+        background-image: url(image_path('illu/illu-cycle@2x.png'));
+      }
+    }
+
+    button {
+      width: 100%;
+    }
+
+    .user {
+      img {
+        vertical-align: bottom;
+      }
+      span {
+        color: $color-ambient-mint;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        vertical-align: bottom;
+      }
+    }
+
+    h3 {
+      @include ResponsiveText(2.2, 2.6, 2.6);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      color: $color-ambient-mint-dark;
+    }
+  }
+
+}
+
+.no-touch {
+  section.homeOut {
+    @include respond-to(">=medium") {
+      .specialBox {
+        transition: transform 0.5s;
+        &:hover {
+          transform: rotate(4deg) translate3d(10px, -25px, 0);
+          button {
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+  }
+}
+
+
 .buehne {
   overflow: hidden;
   background-image: url(image_path('illu/illu-sitzendeAmTisch.png')), url(image_path('illu/illu-karte.jpg'));
@@ -29,8 +109,8 @@
   }
 
   h1 {
+    @include font-size-secondaryFont('larger');
     @include textShadowHard($color-ambient-rosa-dark);
-    @include ResponsiveText(3.0, 4.0, 6.5);
     display: table;
     text-align: center;
     margin: 0 auto;
@@ -54,7 +134,6 @@
       @include respond-to(">=medium") {
         @include headlineBarbapapa();
       }
-
     }
     span:nth-child(2) {
       @include respond-to(">=medium") {
@@ -79,144 +158,12 @@
       bottom: 65px;
     }
   }
-
 }
-
-.teaserBlock {
-  @include cf();
-  margin-bottom: 40px;
-  border-bottom: 1px dotted $color-ambient-mint-light;
-  padding-bottom: 3rem;
-  @include respond-to(">=medium") {
-    margin-bottom: 70px;
-  }
-  h2 {
-    @include ResponsiveText(3.0, 4.0, 6.0);
-    text-align: center;
-    color: $color-ambient-rosa;
-    margin-bottom: 0.5rem;
-  }
-
-  h2 + p {
-    @include ResponsiveText(1.6, 2.0, 2.4);
-    text-align: center;
-    @include respond-to(">=large") {
-      margin-bottom: 6.0rem;
-    }
-
-  }
-
-  .link-more {
-    margin: -2.0rem auto 0 auto;
-    display: table;
-    z-index: 3;
-    position: relative;
-    @include respond-to(">=large") {
-      float: right;
-      display: block;
-    }
-  }
-
-}
-
-
-.meetingBoxes {
-  @include cf;
-  margin-bottom: 5.0rem;
-  @include respond-to(">=large") {
-    margin-bottom: 3.0rem;
-  }
-  .meetingBox {
-    margin-bottom: 35px;
-    @include respond-to(">=medium") {
-      float: left;
-      width: 49%;
-      &:first-of-type {
-        margin-right: 2%;
-      }
-    }
-    @include respond-to(">=large") {
-      float: left;
-      width: 32%;
-      margin-right: 2%;
-      margin-bottom: 0;
-    }
-  }
-
-}
-
-
-.ownMeetingBox {
-  @include paperCard($rotation: -2);
-  text-decoration: none;
-  margin: 0 auto;
-  width: 290px;
-  display: block;
-  .wrp  {
-    padding: 177px 30px 30px 30px;
-    background-image: url(image_path('illu/illu-cylce.png'));
-    background-repeat: no-repeat;
-    background-position: 32px 22px;
-    background-size: 265px 189px;
-    @include respond-to("retina2x") {
-      background-image: url(image_path('illu/illu-cycle@2x.png'));
-    }
-  }
-
-  @include respond-to(">=medium") {
-    margin-top: 80px;
-    clear: both;
-    transform: translate(0, 0);
-  }
-  @include respond-to(">=large") {
-    float: left;
-    clear: none;
-    margin: 10px -20px 0 20px;
-  }
-
-
-  .user {
-    img {
-      vertical-align: bottom;
-    }
-    span {
-      color: $color-ambient-mint;
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      vertical-align: bottom;
-    }
-  }
-
-  h3 {
-    @include ResponsiveText(2.2, 2.6, 2.6);
-    font-weight: 600;
-    line-height: 1.2;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    color: $color-ambient-mint-dark;
-  }
-}
-
-.no-touch {
-  @include respond-to(">=medium") {
-    .ownMeetingBox {
-      transition: transform 0.5s;
-      &:hover {
-        transform: rotate(4deg) translate3d(10px, -25px, 0);
-
-        button {
-          opacity: 0.9;
-        }
-      }
-    }
-  }
-}
-
 
 .aboutGraetzl {
   padding-bottom: 3.0rem;
   h2 {
-    @include ResponsiveText(3.0, 4.0, 6.0);
+    @include font-size-secondaryFont('larger');
     text-align: center;
     color: $color-ambient-rosa;
     margin-bottom: 2.0rem;
@@ -226,11 +173,11 @@
   }
 
   h3 {
-    @include ResponsiveText(2.8, 3.4, 4.0);
+    @include font-size-secondaryFont('base');
     text-align: center;
     font-family: $font-secondary;
     color: $color-ambient-mint;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     font-weight: 600;
     @include respond-to(">=medium") {
       text-align: left;
@@ -242,7 +189,7 @@
   }
 
   p {
-    @include ResponsiveText(1.6, 1.6, 1.8);
+    @include font-size-primaryFont('base');
   }
 
   .btn-primary {

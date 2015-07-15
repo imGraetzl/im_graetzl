@@ -1,5 +1,6 @@
 @mixin headlineBarbapapa() {
   color: #ffffff;
+  font-family: $font-secondary;
   background-image: url(image_path('texture-alpha-noise.png')), url(image_path('svg/bg-headline-barpapapa.svg'));
   background-repeat: repeat, no-repeat;
   background-size:  100px 100px, auto 100%;

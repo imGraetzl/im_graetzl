@@ -7,6 +7,10 @@
     position: relative;
   }
 
+  .wrp {
+    text-decoration: none;
+  }
+
   .card {
     position: absolute;
     top: 0;
@@ -52,7 +56,7 @@
       background-repeat: no-repeat;
       @if $corner == "RT" {
         top: 3px;
-        right: -48px;
+        right: -45px;
         height: 60px;
         @if $fakehole == false {
           width: 69px;

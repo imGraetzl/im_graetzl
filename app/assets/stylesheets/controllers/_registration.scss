@@ -1,9 +1,15 @@
 [class^=register-] {
 
   h1 {
-    @extend .hl-main;
-    @extend .hl-main.-large;
+    @include font-size-secondaryFont('large');
+    margin-bottom: 30px;
     text-align: center;
+    @include respond-to(">=large") {
+      margin-bottom: 50px;
+    }
+    span {
+      color: $color-ambient-rosa;
+    }
   }
 
   .txt-hint {
@@ -32,7 +38,7 @@ section.register-searchGraetzl {
   }
 
   form {
-    width: 800px;
+    max-width: 800px;
     display: block;
     margin: 0 auto;
   }
@@ -86,7 +92,7 @@ section.register-personalInfo {
     display: table;
     margin: 0 auto;
     overflow: hidden;
-    margin-bottom: 4rem;
+    margin-bottom: 30px;
   }
   h1 {
     display: table;
@@ -99,9 +105,12 @@ section.register-personalInfo {
 
   }
   .txt {
-    @extend .hl-main;
-    @extend .hl-main.-small;
+    @include font-size-secondaryFont('small');
+    margin-bottom: 20px;
     text-align: center;
+    span {
+      color: $color-ambient-rosa;
+    }
   }
 
   .numberUsers {
@@ -126,6 +135,11 @@ section.register-personalInfo {
 }
 .user-personal {
   margin-bottom: 3.0rem;
+  padding-bottom: 1.0rem;
+  border-bottom: 1px solid $color-ambient-mint-light;
+  .input-checkbox {
+    margin-left: 13px;
+  }
 }
 
 

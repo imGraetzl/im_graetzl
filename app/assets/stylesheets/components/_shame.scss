@@ -1,0 +1,8 @@
+#flash {
+  display: none;
+}
+[data-controller='sessions'] {
+  #flash:not(:empty) {
+    display: table;
+  }
+}

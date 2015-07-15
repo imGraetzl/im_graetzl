@@ -1,0 +1,36 @@
+[id^=error_], #flash {
+  @include font-size-primaryFont('base');
+  display: table;
+  margin: 0 auto 40px auto;
+  border-width: 1px;
+  border-style: dotted;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 6px;
+  font-style: italic;
+  h2 {
+    @include font-size-secondaryFont('small');
+    margin-bottom: 20px;
+    text-align: center;
+    font-style: normal;
+  }
+  ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+  }
+  [class^=icon-] {
+    margin-right: 10px;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  > div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+#error_explanation, #flash {
+  border-color: #ffab22;
+  color: #ffab22;
+}
