@@ -26,7 +26,7 @@
   <h3><%= meeting.name %></h3>
 
   <div class="txt">
-    <%= simple_format(truncate(meeting.description, length: 200)) %>
+    <%= simple_format(truncate(meeting.description, length: 140)) %>
   </div>
   <%= link_to 'Mitmachen', [meeting.graetzl, meeting],
     class: 'btn-primary -mint' %>

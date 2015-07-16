@@ -8,7 +8,9 @@
 
     <div class="illu1"></div>
     <div class="illuMap"></div>
-    <%= link_to 'Mit-machen', new_user_session_path, class: 'badge -arrow' %>
+    <%= link_to new_user_session_path, class: 'badge -arrow' do %>
+        Mit-<br/>machen
+    <% end %>
   </div>
 
   <div class="teaserBlock">
