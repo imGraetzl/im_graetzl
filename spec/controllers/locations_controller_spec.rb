@@ -174,8 +174,8 @@ RSpec.describe LocationsController, type: :controller do
           expect(assigns(:locations)).not_to include(other_location)
         end
 
-        it 'renders :new_adopt' do
-          expect(response).to render_template(:new_adopt)
+        it 'renders :adopt' do
+          expect(response).to render_template(:adopt)
         end
       end      
 
@@ -341,6 +341,45 @@ RSpec.describe LocationsController, type: :controller do
             phone: attr_contact[:phone],
             email: attr_contact[:email])
         end
+      end
+    end
+  end
+
+  describe 'GET edit' do
+    let(:location) { create(:location, graetzl: graetzl) }
+
+    context 'when user.business' do
+      let(:user) { create(:user, role: :business) }
+
+      before do
+        sign_in user
+        get :edit, graetzl_id: graetzl, id: location
+      end
+
+      it 'returns a 200 OK status' do
+        expect(response).to be_success
+      end
+
+      it 'assigns @location' do
+        expect(assigns(:location)).to eq location
+      end
+
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq graetzl
+      end
+
+      it 'renders :edit' do
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'when non-business user' do
+      let(:user) { create(:user, role: nil) }
+      before { sign_in user }
+
+      it 'redirects to @graetzl' do
+        get :edit, graetzl_id: graetzl, id: location
+        expect(response).to redirect_to(graetzl)
       end
     end
   end

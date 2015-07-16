@@ -39,7 +39,6 @@ Rails.application.routes.draw do
     resources :locations do
       get 'address', to: 'locations#new_address', on: :new
       post 'address', to: 'locations#set_new_address', on: :new
-      post 'adopt', on: :new
     end
   end
 

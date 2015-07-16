@@ -17,12 +17,8 @@ class LocationsController < ApplicationController
     if @locations.empty?
       redirect_to new_graetzl_location_path(@graetzl)
     else
-      render :new_adopt
+      render :adopt
     end
-  end
-
-  def new_adopt
-    #todo... 
   end
 
   def new
@@ -38,6 +34,10 @@ class LocationsController < ApplicationController
     else
       render :new
     end 
+  end
+
+  def edit
+    @location = @graetzl.locations.find(params[:id])
   end
 
   def show
