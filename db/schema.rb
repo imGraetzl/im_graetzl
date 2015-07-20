@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713113503) do
+ActiveRecord::Schema.define(version: 20150720114653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,8 +159,9 @@ ActiveRecord::Schema.define(version: 20150713113503) do
     t.string   "file_id"
     t.integer  "imageable_id"
     t.string   "imageable_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_content_type"
   end
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
@@ -191,17 +192,18 @@ ActiveRecord::Schema.define(version: 20150713113503) do
   add_index "locations", ["slug"], name: "index_locations_on_slug", using: :btree
 
   create_table "meetings", force: :cascade do |t|
-    t.string   "name",           limit: 255
+    t.string   "name",                     limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",           limit: 255
+    t.string   "slug",                     limit: 255
     t.date     "starts_at_date"
     t.date     "ends_at_date"
     t.time     "starts_at_time"
     t.time     "ends_at_time"
     t.integer  "graetzl_id"
     t.string   "cover_photo_id"
+    t.string   "cover_photo_content_type"
   end
 
   add_index "meetings", ["graetzl_id"], name: "index_meetings_on_graetzl_id", using: :btree
@@ -254,6 +256,7 @@ ActiveRecord::Schema.define(version: 20150713113503) do
     t.string   "avatar_id"
     t.integer  "enabled_website_notifications",             default: 0
     t.integer  "role"
+    t.string   "avatar_content_type"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

@@ -91,8 +91,15 @@ RSpec.describe User, type: :model do
       expect(user).to respond_to(:comments)
     end
 
-    it 'has avatar' do
-      expect(user).to respond_to(:avatar)
+    describe 'avatar' do
+
+      it 'has avatar' do
+        expect(user).to respond_to(:avatar)
+      end
+
+      it 'has avatar_content_type' do
+        expect(user).to respond_to(:avatar_content_type)
+      end
     end
 
     describe 'destroy associated records' do

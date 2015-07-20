@@ -25,9 +25,9 @@ section.homeOut {
     .wrp  {
       display: block;
       background-image: url(image_path('illu/illu-cylce.png'));
-      padding: 162px 30px 30px 30px;
+      padding: 175px 30px 30px 30px;
       background-repeat: no-repeat;
-      background-position: 42px 19px;
+      background-position: 33px 23px;
       background-size: 265px 189px;
       @include respond-to("retina2x") {
         background-image: url(image_path('illu/illu-cycle@2x.png'));
