@@ -15,7 +15,7 @@ namespace :db do
 
     puts 'add users'
 
-    users = ['malano', 'mirjam', 'jack', 'peter', 'max', 'tawan']
+    users = ['malano', 'mirjam', 'jack', 'peter', 'jeanine', 'max', 'tawan']
     users.each do |user|
       new_user = User.new(
         username: user,
