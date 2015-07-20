@@ -47,8 +47,15 @@ RSpec.describe Meeting, type: :model do
       expect(meeting).to respond_to(:categories)      
     end
 
-    it 'has cover_photo' do
-      expect(meeting).to respond_to(:cover_photo)
+    describe 'cover_photo' do
+
+      it 'has cover_photo' do
+        expect(meeting).to respond_to(:cover_photo)
+      end
+
+      it 'has cover_photo_content_type' do
+        expect(meeting).to respond_to(:cover_photo_content_type)
+      end
     end
 
     describe 'destroy associated records' do

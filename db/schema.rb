@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711172852) do
+ActiveRecord::Schema.define(version: 20150720114653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,17 @@ ActiveRecord::Schema.define(version: 20150711172852) do
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "contacts", force: :cascade do |t|
+    t.string   "website"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "contacts", ["location_id"], name: "index_contacts_on_location_id", using: :btree
+
   create_table "cover_photos", force: :cascade do |t|
     t.string   "image"
     t.integer  "meeting_id"
@@ -148,24 +159,51 @@ ActiveRecord::Schema.define(version: 20150711172852) do
     t.string   "file_id"
     t.integer  "imageable_id"
     t.string   "imageable_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_content_type"
   end
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
+  create_table "location_ownerships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "location_ownerships", ["location_id"], name: "index_location_ownerships_on_location_id", using: :btree
+  add_index "location_ownerships", ["user_id"], name: "index_location_ownerships_on_user_id", using: :btree
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slogan"
+    t.text     "description"
+    t.string   "avatar_id"
+    t.string   "cover_photo_id"
+    t.string   "slug"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "graetzl_id"
+  end
+
+  add_index "locations", ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree
+  add_index "locations", ["slug"], name: "index_locations_on_slug", using: :btree
+
   create_table "meetings", force: :cascade do |t|
-    t.string   "name",           limit: 255
+    t.string   "name",                     limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug",           limit: 255
+    t.string   "slug",                     limit: 255
     t.date     "starts_at_date"
     t.date     "ends_at_date"
     t.time     "starts_at_time"
     t.time     "ends_at_time"
     t.integer  "graetzl_id"
     t.string   "cover_photo_id"
+    t.string   "cover_photo_content_type"
   end
 
   add_index "meetings", ["graetzl_id"], name: "index_meetings_on_graetzl_id", using: :btree
@@ -192,32 +230,33 @@ ActiveRecord::Schema.define(version: 20150711172852) do
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                              limit: 255, default: "",    null: false
-    t.string   "encrypted_password",                 limit: 255, default: "",    null: false
-    t.string   "reset_password_token",               limit: 255
+    t.string   "email",                         limit: 255, default: "",    null: false
+    t.string   "encrypted_password",            limit: 255, default: "",    null: false
+    t.string   "reset_password_token",          limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                  default: 0,     null: false
+    t.integer  "sign_in_count",                             default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",                 limit: 255
-    t.string   "last_sign_in_ip",                    limit: 255
-    t.string   "confirmation_token",                 limit: 255
+    t.string   "current_sign_in_ip",            limit: 255
+    t.string   "last_sign_in_ip",               limit: 255
+    t.string   "confirmation_token",            limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email",                  limit: 255
+    t.string   "unconfirmed_email",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "username",                           limit: 255
-    t.string   "first_name",                         limit: 255
-    t.string   "last_name",                          limit: 255
+    t.string   "username",                      limit: 255
+    t.string   "first_name",                    limit: 255
+    t.string   "last_name",                     limit: 255
     t.date     "birthday"
     t.integer  "gender"
-    t.boolean  "newsletter",                                     default: false, null: false
+    t.boolean  "newsletter",                                default: false, null: false
     t.integer  "graetzl_id"
     t.string   "avatar_id"
     t.integer  "enabled_website_notifications",             default: 0
     t.integer  "role"
+    t.string   "avatar_content_type"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
