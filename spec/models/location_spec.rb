@@ -23,12 +23,26 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
-    it 'has avatar' do
-      expect(location).to respond_to(:avatar)
+    describe 'avatar' do
+
+      it 'has avatar' do
+        expect(location).to respond_to(:avatar)
+      end
+
+      it 'has avatar_content_type' do
+        expect(location).to respond_to(:avatar_content_type)
+      end
     end
 
-    it 'has cover_photo' do
-      expect(location).to respond_to(:cover_photo)
+    describe 'cover_photo' do
+
+      it 'has cover_photo' do
+        expect(location).to respond_to(:cover_photo)
+      end
+
+      it 'has cover_photo_content_type' do
+        expect(location).to respond_to(:cover_photo_content_type)
+      end
     end
 
     it 'has address' do
