@@ -23,6 +23,10 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
+    it 'has state' do
+      expect(location).to respond_to(:state)
+    end
+
     describe 'avatar' do
 
       it 'has avatar' do

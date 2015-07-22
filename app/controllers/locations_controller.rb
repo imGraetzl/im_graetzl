@@ -29,8 +29,8 @@ class LocationsController < ApplicationController
   def create
     empty_session
     @location = @graetzl.locations.build(location_params)
-    if @location.save
-      redirect_to [@graetzl, @location]
+    if @location.adopt!(nil, current_user)
+      redirect_to @graetzl, notice: 'Locationanfrage wird geprüft, Du erhältst Nachricht.'
     else
       render :new
     end 
@@ -38,6 +38,10 @@ class LocationsController < ApplicationController
 
   def edit
     @location = @graetzl.locations.find(params[:id])
+    # unless @location.may_adopt?
+    #   @location.request_ownership(current_user)
+    #   redirect_to @graetzl, notice 'Dein Besitzanspruch wird geprüft.'
+    # end
   end
 
   def show

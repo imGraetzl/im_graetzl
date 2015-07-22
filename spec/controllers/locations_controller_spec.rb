@@ -210,18 +210,26 @@ RSpec.describe LocationsController, type: :controller do
         expect(response).to be_success
       end
 
-      it 'assigns @location' do
-        expect(assigns(:location)).not_to be_nil
-      end
+      describe '@location' do
+        subject(:location) { assigns(:location) }
 
-      it 'assigns @location with empty address' do
-        attrs = Address.new(addressable_type: 'Location').attributes
-        expect(assigns(:location).address.attributes).to eq attrs
-      end
+        it 'is not nil' do
+          expect(location).not_to be_nil
+        end
 
-      it 'assigns @location with empty contact' do
-        attrs = Contact.new.attributes
-        expect(assigns(:location).contact.attributes).to eq attrs
+        it 'has empty address' do
+          attrs = Address.new(addressable_type: 'Location').attributes
+          expect(location.address.attributes).to eq attrs
+        end
+
+        it 'has empty contact' do
+          attrs = Contact.new.attributes
+          expect(location.contact.attributes).to eq attrs
+        end
+
+        it 'is basic' do
+          expect(location.basic?).to be_truthy
+        end
       end
 
       it 'renders :new' do
@@ -341,6 +349,11 @@ RSpec.describe LocationsController, type: :controller do
             phone: attr_contact[:phone],
             email: attr_contact[:email])
         end
+      end
+
+      it 'is pending' do
+        post :create, params
+        expect(new_location.pending?).to be_truthy
       end
     end
   end
