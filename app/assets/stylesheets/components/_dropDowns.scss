@@ -1,20 +1,25 @@
 
-[class*=dropDownMenu-] {
+.dropDownMenu {
   position: relative;
   z-index: 5;
 
   .dropDownToggle {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .dropDownContent {
-    box-shadow: $boxShadow;
+    box-shadow: $boxShadow-light;
     position: absolute;
     background-color: $color-ambient-bright;
     border: 1px solid $color-ambient-mint;
     min-width: 200px;
     display: none;
-    border-radius: 5px;
+    border-radius: 4px;
   }
 
   .menuSlice {
@@ -24,16 +29,24 @@
 
 }
 
-[class*=dropDownMenu-].is-visible {
+.dropDownMenu.is-visible {
   .dropDownContent {
     display: block;
   }
 }
 
 //bottom right
-.dropDownMenu-br {
+.dropDownMenu.-br {
   .dropDownContent {
     top: 100%;
     right: 0;
+
+    &:before {
+      @include triangleSingle(up, $color-ambient-mint, 8px);
+      content: '';
+      position: absolute;
+      top: -8px;
+      right: 15px;
+    }
   }
 }

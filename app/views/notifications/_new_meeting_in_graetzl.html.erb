@@ -1,3 +1,7 @@
 <%- meeting = notification.activity.trackable %>
-Neues Treffen im Grätzl <%= meeting.graetzl.name %> von <%= notification.activity.owner.username %>: <%= link_to meeting.name, [meeting.graetzl, meeting] %>
-    <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+<li>
+  <%= link_to [meeting.graetzl, meeting] do %>
+      <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+      Neues Treffen <%= meeting.name %> von <%= notification.activity.owner.username %> im Grätzl <%= meeting.graetzl.name %>
+  <% end %>
+</li>

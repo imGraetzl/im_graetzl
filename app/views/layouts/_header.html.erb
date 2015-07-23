@@ -20,7 +20,7 @@
             <%= link_to(image_tag('svg/logo_reduced.svg'), current_user.graetzl, class: 'logo_reduced') %>
           </div>
 
-          <div class="newNotifications dropDownMenu-br" id="notificationCenterDropDown">
+          <div class="newNotifications dropDownMenu -br" id="notificationCenterDropDown">
             <div class="dropDownToggle">
               <div class="iconWithBadge">
                 <%- notifications_count = current_user.new_website_notifications_count %>
@@ -29,18 +29,14 @@
               </div>
             </div>
             <div class="dropDownContent">
-              <p>Mega geiles Notification Center Web 2.0</p>
-              <div class="stream">
-
-
+              <ul>
                 <% current_user.website_notifications.each do |n| %>
-                    <br />
                     <%= render partial: "notifications/#{Notification::TYPE_BITMASKS.select { |k, v| v == n.bitmask }.first[0].to_s}", locals: { notification: n } %>
                 <% end %>
-              </div>
+              </ul>
             </div>
           </div>
-          <div class="userSettings dropDownMenu-br">
+          <div class="userSettings dropDownMenu -br">
             <div class="dropDownToggle">
               <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-user') %>
               <div class="username"><%= current_user.username %></div>
