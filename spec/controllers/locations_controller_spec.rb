@@ -227,7 +227,7 @@ RSpec.describe LocationsController, type: :controller do
           expect(location.contact.attributes).to eq attrs
         end
 
-        it 'is basic' do
+        it 'has state :basic' do
           expect(location.basic?).to be_truthy
         end
       end
@@ -296,9 +296,10 @@ RSpec.describe LocationsController, type: :controller do
         }.to change(Location, :count).by(1)
       end
 
-      it 'redirects to location in graetzl' do
+      it 'redirects to graetzl with notice' do
         post :create, params
-        expect(response).to redirect_to [graetzl, new_location]
+        expect(response).to redirect_to graetzl
+        expect(flash[:notice]).to be_present
       end
 
       it 'has right attributes' do
@@ -351,9 +352,9 @@ RSpec.describe LocationsController, type: :controller do
         end
       end
 
-      it 'is pending' do
+      it 'has state :requested' do
         post :create, params
-        expect(new_location.pending?).to be_truthy
+        expect(new_location.requested?).to be_truthy
       end
     end
   end

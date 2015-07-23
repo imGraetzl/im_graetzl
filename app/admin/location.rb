@@ -1,9 +1,9 @@
 ActiveAdmin.register Location do
 
-  scope :all, default: true
+  scope 'Alle', :all, default: true
   scope :basic
-  scope :pending
-  scope :approved
+  scope('Pending') { |scope| scope.where(state: [Location.states[:pending], Location.states[:requested]]) }
+  scope :managed
 
    index do
     selectable_column
@@ -84,13 +84,14 @@ ActiveAdmin.register Location do
     end
     active_admin_comments
   end
-  
+
 
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |location|
       user = location.users.last
       if location.may_approve?
-        location.approve!(nil, user)
+        #location.approve!(nil, user)
+        location.approve!
       end
     end
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden approved.'

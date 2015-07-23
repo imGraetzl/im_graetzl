@@ -6,19 +6,29 @@ class Location < ActiveRecord::Base
 
   # states
   include AASM
-  enum state: { basic: 0, pending: 1, approved: 2 }
+  enum state: { requested: 0, basic: 1, pending: 2, managed: 3 }
   aasm column: :state do
     state :basic, initial: true
+    state :requested
     state :pending
-    state :approved
+    state :managed
 
     event :adopt do
-      transitions from: :basic, to: :pending, after: :notify_user
+      transitions from: :basic, to: :requested
     end
 
     event :approve do
-      transitions from: :pending, to: :approved, after: :notify_user
+      transitions from: :pending, to: :managed
+      transitions from: :requested, to: :managed
     end
+
+    # event :adopt do
+    #   transitions from: :basic, to: :pending, after: :notify_user
+    # end
+
+    # event :approve do
+    #   transitions from: :pending, to: :approved, after: :notify_user
+    # end
   end
 
   # associations
