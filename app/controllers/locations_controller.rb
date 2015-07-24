@@ -30,8 +30,9 @@ class LocationsController < ApplicationController
     empty_session
     @location = @graetzl.locations.build(location_params)
     #if @location.adopt!(nil, current_user)
-    if @location.adopt!
-      redirect_to @graetzl, notice: 'Locationanfrage wird geprüft, Du erhältst Nachricht.'
+    if @location.request!
+      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+      redirect_to @graetzl
     else
       render :new
     end 
@@ -39,10 +40,22 @@ class LocationsController < ApplicationController
 
   def edit
     @location = @graetzl.locations.find(params[:id])
-    # unless @location.may_adopt?
-    #   @location.request_ownership(current_user)
-    #   redirect_to @graetzl, notice 'Dein Besitzanspruch wird geprüft.'
-    # end
+    if !@location.may_adopt?
+      # open ownership request
+      flash[:notice] = 'Deine Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+      redirect_to @graetzl
+    end
+  end
+
+  def update
+    @location = @graetzl.locations.find(params[:id])
+    @location.attributes = location_params
+    if @location.adopt!
+      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+      redirect_to @graetzl
+    else
+      render :edit
+    end    
   end
 
   def show
@@ -57,7 +70,8 @@ class LocationsController < ApplicationController
 
     def authorize_user!      
       if !current_user.business?
-        redirect_to @graetzl, notice: 'Nur wirtschaftstreibende User können Locations erstellen.'
+        flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben.'
+        redirect_to @graetzl
       end
     end
 

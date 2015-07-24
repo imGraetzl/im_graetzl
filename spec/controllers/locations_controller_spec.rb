@@ -27,7 +27,7 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     context 'when unauthorized user (logged in)' do
-      let(:user) { create(:user) }
+      let(:user) { create(:user, role: nil) }
 
       before do
         sign_in user
@@ -320,6 +320,11 @@ RSpec.describe LocationsController, type: :controller do
         expect(new_location.graetzl).to eq graetzl
       end
 
+      it 'has state :requested' do
+        post :create, params
+        expect(new_location.requested?).to be_truthy
+      end
+
       describe 'address' do
         before { post :create, params }
 
@@ -351,18 +356,60 @@ RSpec.describe LocationsController, type: :controller do
             email: attr_contact[:email])
         end
       end
-
-      it 'has state :requested' do
-        post :create, params
-        expect(new_location.requested?).to be_truthy
-      end
     end
   end
 
   describe 'GET edit' do
-    let(:location) { create(:location, graetzl: graetzl) }
+    context 'when basic location' do
+      let(:location) { create(:location, graetzl: graetzl) }
 
-    context 'when user.business' do
+      context 'when user.role non-business' do
+        let(:user) { create(:user, role: nil) }
+
+        before do
+          sign_in user
+          get :edit, graetzl_id: graetzl, id: location
+        end
+
+        it 'redirects to @graetzl' do
+          get :edit, graetzl_id: graetzl, id: location
+          expect(response).to redirect_to(graetzl)
+        end
+
+        it 'shows error flash message' do
+          get :edit, graetzl_id: graetzl, id: location
+          expect(flash[:error]).to be_present
+        end
+      end
+
+      context 'when user.role :business' do
+        let(:user) { create(:user, role: :business) }
+
+        before do
+          sign_in user
+          get :edit, graetzl_id: graetzl, id: location
+        end
+
+        it 'returns a 200 OK status' do
+          expect(response).to be_success
+        end
+
+        it 'assigns @location' do
+          expect(assigns(:location)).to eq location
+        end
+
+        it 'assigns @graetzl' do
+          expect(assigns(:graetzl)).to eq graetzl
+        end
+
+        it 'renders :edit' do
+          expect(response).to render_template(:edit)
+        end
+      end
+    end
+
+    context 'when managed location' do
+      let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
       let(:user) { create(:user, role: :business) }
 
       before do
@@ -370,30 +417,95 @@ RSpec.describe LocationsController, type: :controller do
         get :edit, graetzl_id: graetzl, id: location
       end
 
-      it 'returns a 200 OK status' do
-        expect(response).to be_success
+      it 'redirects to @graetzl page' do
+        expect(response).to redirect_to(graetzl)
       end
 
-      it 'assigns @location' do
-        expect(assigns(:location)).to eq location
-      end
-
-      it 'assigns @graetzl' do
-        expect(assigns(:graetzl)).to eq graetzl
-      end
-
-      it 'renders :edit' do
-        expect(response).to render_template(:edit)
+      it 'shows flash notice' do
+        expect(flash[:notice]).to be_present
       end
     end
 
-    context 'when non-business user' do
-      let(:user) { create(:user, role: nil) }
-      before { sign_in user }
+    context 'when pending location' do
+      let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
+      let(:user) { create(:user, role: :business) }
+
+      before do
+        sign_in user
+        get :edit, graetzl_id: graetzl, id: location
+      end
+
+      it 'redirects to @graetzl page' do
+        expect(response).to redirect_to(graetzl)
+      end
+
+      it 'shows flash notice' do
+        expect(flash[:notice]).to be_present
+      end
+    end
+
+    context 'when requested location' do
+      let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
+      let(:user) { create(:user, role: :business) }
+
+      before do
+        sign_in user
+        get :edit, graetzl_id: graetzl, id: location
+      end
+
+      it 'redirects to @graetzl page' do
+        expect(response).to redirect_to(graetzl)
+      end
+
+      it 'shows flash notice' do
+        expect(flash[:notice]).to be_present
+      end
+    end
+  end
+
+  describe 'PUT update' do
+    let(:user) { create(:user, role: :business) }
+    before { sign_in user }
+
+    context 'when basic location' do
+      let(:location) { create(:location, state: :basic, graetzl: graetzl) }
+      let(:user) { create(:user, role: :business) }
+      let(:params) {
+        {
+          graetzl_id: graetzl,
+          id: location,
+          location: attributes_for(:location)
+        }
+      }
+
+      it 'assigns @graetzl' do
+        put :update, params
+        expect(assigns(:graetzl)).to eq graetzl
+      end
+
+      it 'assigns @location' do
+        put :update, params
+        expect(assigns(:location)).to eq location
+      end
+
+      it 'sets location.state to :pending' do
+        put :update, params
+        expect(location.reload.pending?).to be_truthy
+      end
+
+      it 'sets current_user as owner' do
+        put :update, params
+        expect(location.reload.users).to include(user)
+      end
 
       it 'redirects to @graetzl' do
-        get :edit, graetzl_id: graetzl, id: location
-        expect(response).to redirect_to(graetzl)
+        put :update, params
+        expect(response).to redirect_to graetzl
+      end
+
+      it 'shows flash notice' do
+        put :update, params
+        expect(flash[:notice]).to be_present
       end
     end
   end

@@ -13,8 +13,12 @@ class Location < ActiveRecord::Base
     state :pending
     state :managed
 
-    event :adopt do
+    event :request do
       transitions from: :basic, to: :requested
+    end
+
+    event :adopt do
+      transitions from: :basic, to: :pending
     end
 
     event :approve do
