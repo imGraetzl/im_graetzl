@@ -30,7 +30,7 @@
             </div>
             <div class="dropDownContent">
               <ul>
-                <% current_user.website_notifications.each do |n| %>
+                <% current_user.website_notifications.order("created_at DESC").each do |n| %>
                     <%= render partial: "notifications/#{Notification::TYPE_BITMASKS.select { |k, v| v == n.bitmask }.first[0].to_s}", locals: { notification: n } %>
                 <% end %>
               </ul>
