@@ -38,13 +38,20 @@ class MeetingsController < ApplicationController
     @meeting.attributes = meeting_params
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
     changed_attributes = @meeting.changed_attributes
+    if @meeting.address.present? && !@meeting.address.changed_attributes.blank?
+      changed_attributes = changed_attributes.merge({ address: @meeting.address.changed_attributes })
+      puts changed_attributes
+    end
     if @meeting.save
       if @meeting.address.try(:id) != old_address_id
-        changed_attributes = changed_attributes.merge({ address: old_address_id })
+        changed_attributes = changed_attributes.merge({ address_attritbutes: old_address_id })
       end
-      @meeting.create_activity :update,
-        owner: current_user,
-        parameters: { changed_attributes: changed_attributes.keys.collect(&:to_sym) }
+      changed_attribute_keys = changed_attributes.keys.collect(&:to_sym)
+      if changed_attribute_keys.any? { |a| [ :address, :address_attritbutes, :starts_at_time, :starts_at_date, :ends_at_time, :ends_at_date, :description ].include?(a) }
+        @meeting.create_activity :update,
+          owner: current_user,
+          parameters: { changed_attributes: changed_attribute_keys }
+      end
       redirect_to [@meeting.graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
     else
       render :edit
