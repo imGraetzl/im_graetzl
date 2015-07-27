@@ -21,9 +21,9 @@ class Location < ActiveRecord::Base
       transitions from: :basic, to: :pending
     end
 
-    event :approve do
-      transitions from: :pending, to: :managed, after: :update_ownerships
-      transitions from: :requested, to: :managed, after: :update_ownerships
+    event :approve, after: :update_ownerships do
+      transitions from: :pending, to: :managed
+      transitions from: :requested, to: :managed
     end
   end
 
