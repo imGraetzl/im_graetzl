@@ -21,6 +21,7 @@
 //= require leaflet
 //= require enquire
 //= require jquery.sumoselect
+//= require jquery.dropdown
 //= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require jquery_ujs

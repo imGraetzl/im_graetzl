@@ -23,12 +23,6 @@ header {
   @include respond-to(">=medium") {
     height: 70px;
   }
-  .nav-mainActions {
-    display: none;
-    @include respond-to(">=large") {
-      display: block;
-    }
-  }
 }
 
 .logoGraetzl {
@@ -74,117 +68,6 @@ header {
   }
 }
 
-
-.mobileNavToggle {
-  background-color: $color-ambient-mint-light;
-  padding: 0;
-  height: 100%;
-  width: 45px;
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  @include respond-to(">=medium") {
-    width: 120px;
-    margin-right: auto;
-  }
-  @include respond-to(">=large") {
-    display: none;
-  }
-  [class*=icon-] {
-    display: inline-block;
-    vertical-align: middle;
-    width: 28px;
-    height: 28px;
-    fill: $color-ambient-mint-dark;
-    pointer-events: none;
-    @include respond-to(">=medium") {
-      width: 34px;
-      height: 34px;
-    }
-  }
-  span {
-    display: none;
-    @include respond-to(">=medium") {
-      color: $color-ambient-mint-dark;
-      font-family: $font-tertiary;
-      font-size: 1.6rem;
-      text-decoration: none;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    @include respond-to(">=medium") {
-      font-size: 2.0rem;
-    }
-  }
-}
-
-
-.nav-mainActions, .nav-loggedOut {
-  @include cf;
-  a {
-    color: $color-ambient-mint-dark;
-    font-family: $font-tertiary;
-    text-decoration: none;
-    display: block;
-    float: left;
-    font-size: 1.6rem;
-    &:hover, &:active {
-      color: $color-ambient-rosa;
-    }
-    @include respond-to(">=medium") {
-      font-size: 2.0rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 2.2rem;
-    }
-  }
-}
-
-.nav-mainActions {
-  @include respond-to(">=large") {
-    margin-right: auto;
-  }
-
-  //mobile
-  a {
-    @include respond-to("<large") {
-      display: block;
-      float: none;
-      text-align: center;
-      padding: 8px 0;
-      border: none;
-      background-color: lighten($color-ambient-mint, 20);
-      margin: 0 0 2px 0;
-    }
-    @include respond-to(">=medium") {
-      font-size: 2.0rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 2.2rem;
-    }
-
-  }
-
-  .createMeeting {
-    @include respond-to(">=large") {
-      border-left: 1px dotted lighten($color-ambient-mint, 20);
-      margin-left: 20px;
-      padding-left: 20px;
-    }
-    span {
-      background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
-      background-position: right center, left center;
-      background-repeat: no-repeat;
-      padding-left: 20px;
-      padding-right: 20px;
-      margin: 0 auto;
-      display: table;
-    }
-  }
-}
-
 .nav-loggedOut {
   margin-right: 15px;
   @include respond-to(">=large") {
@@ -222,53 +105,6 @@ header {
 }
 
 
-
-.mobileNavHolder {
-  padding-bottom: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #DEEAE6;
-  @include respond-to(">=large") {
-    display: none !important;
-  }
-}
-
-.userSettings {
-  color: $color-ambient-mint-dark;
-  font-size: 1.6rem;
-  height: 100%;
-  margin-right: 10px;
-  @include respond-to(">=large") {
-    margin-right: 0;
-  }
-  .img-user {
-    @include img-round(35px);
-    display: block;
-    @include respond-to(">=medium") {
-      width: 45px;
-      height: 45px;
-    }
-  }
-
-
-
-  .username {
-    display: none;
-    margin-right: 8px;
-    font-size: 1.6rem;
-    font-family: $font-tertiary;
-    @include respond-to(">450px") {
-      display: block;
-      margin-left: 10px;
-    }
-    @include respond-to(">=medium") {
-      font-size: 2.0rem;
-    }
-    @include respond-to(">=large") {
-      font-size: 2.2rem;
-    }
-  }
-}
-
 .badgeNumber {
   background-color: $color-ambient-rosa;
   color: $color-ambient-bright;
@@ -277,6 +113,10 @@ header {
   font-size: 1.0rem;
   padding: 1px 3px;
 }
+
+
+
+
 
 
 

@@ -20,15 +20,16 @@
             <%= link_to(image_tag('svg/logo_reduced.svg'), current_user.graetzl, class: 'logo_reduced') %>
           </div>
 
-          <div class="newNotifications dropDownMenu -br" id="notificationCenterDropDown">
-            <div class="dropDownToggle">
-              <div class="iconWithBadge">
-                <%- notifications_count = current_user.new_website_notifications_count %>
-                <div <%- if notifications_count == 0 %> style="display: none;" <%- end %> class="badgeNumber" id="notificationsCount"><%= notifications_count %></div>
-                <svg class="icon-mail-1"><use xlink:href="#icon-mail-1"></use></svg>
-              </div>
+          <div class="notificationsTrigger" data-horizontal-offset="-7">
+            <div class="iconWithBadge">
+              <%- notifications_count = current_user.new_website_notifications_count %>
+              <div <%- if notifications_count == 0 %> style="display: none;" <%- end %> class="badgeNumber" id="notificationsCount"><%= notifications_count %></div>
+              <svg class="icon-mail-1"><use xlink:href="#icon-mail-1"></use></svg>
             </div>
-            <div class="dropDownContent">
+          </div>
+
+          <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
+            <div class="jq-dropdown-panel nav-notifications">
               <ul>
                 <% current_user.website_notifications.order("created_at DESC").each do |n| %>
                     <%= render partial: "notifications/#{Notification::TYPE_BITMASKS.select { |k, v| v == n.bitmask }.first[0].to_s}", locals: { notification: n } %>
@@ -36,13 +37,15 @@
               </ul>
             </div>
           </div>
-          <div class="userSettings dropDownMenu -br">
-            <div class="dropDownToggle">
-              <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-user') %>
-              <div class="username"><%= current_user.username %></div>
-              <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
-            </div>
-            <div class="dropDownContent">
+
+          <div class="usersettingsTrigger" data-horizontal-offset="-7">
+            <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-user') %>
+            <div class="username"><%= current_user.username %></div>
+            <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
+          </div>
+
+          <div class="usersettingsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
+            <div class="jq-dropdown-panel nav-usersettings">
               <div class="menuSlice">Profileinstellungen</div>
               <%= link_to content_tag(:div, 'Admin', class: 'menuSlice'), admin_root_path if current_user.admin? %>
               <%= link_to content_tag(:div, 'Abmelden', class: 'menuSlice'),
@@ -72,8 +75,11 @@
 
       <% end %>
 
-    </div>
+      </div>
+  <div class="mobileNavHolder"></div>
   </div>
 </header>
+
+
 
 <%= render 'layouts/flash_messages' %>

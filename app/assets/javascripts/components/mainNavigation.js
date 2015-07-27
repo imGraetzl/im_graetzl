@@ -1,29 +1,51 @@
 APP.components.mainNavigation = (function() {
 
-    var getMq = APP.utils.getMq;
-
+    var $mobileNavTrigger,
+        $mainNavHolder,
+        $mobileNavHolder,
+        $mobileMainNav;
 
     function init() {
-        enquire.register(getMq("<large"), {
-            deferSetup : true,
-            setup : function() {
-                createMobileNav();
+
+        $mobileNavTrigger =  $('.mobileNavToggle');
+        $mainNavHolder =  $(".mainNavHolder");
+        $mobileNavHolder = $(".mobileNavHolder");
+
+        enquire
+            .register("screen and (max-width:" + APP.config.majorBreakpoints.large + "px)", {
+                deferSetup : true,
+                setup : function() {
+                    createMobileNav();
+                }
+            });
+
+        $(document).on("closeAllTopnav", function() {
+            closeMobileNav();
+        });
+    }
+
+    function createMobileNav() {
+        $mainNavHolder.find(".nav-mainActions").clone().appendTo($mobileNavHolder);
+        $mobileMainNav = $mobileNavHolder.find(".nav-mainActions");
+        $mobileNavTrigger.on("click", function() {
+            if ($mobileMainNav.is(":visible")) {
+                closeMobileNav();
+            } else {
+                openMobileNav();
             }
         });
     }
 
-
-    function createMobileNav() {
-        var $mainHolder =  $(".mainNavHolder"),
-            $mobileNav = $('<div class="mobileNavHolder">');
-        $mainHolder.find(".nav-mainActions").clone().appendTo($mobileNav);
-        $mobileNav.insertAfter($mainHolder).hide();
-
-        $(".mobileNavToggle").on("click", function() {
-            ($mobileNav.is(":visible")) ? $mobileNav.hide() : $mobileNav.show();
-        });
+    function openMobileNav() {
+        $(document).trigger('closeAllTopnav');
+        $mobileNavTrigger.addClass("is-open");
+        $mobileMainNav.addClass("is-open")
     }
 
+    function closeMobileNav() {
+        $mobileNavTrigger.removeClass("is-open");
+        $mobileMainNav.removeClass("is-open");
+    }
 
     return {
         init: init

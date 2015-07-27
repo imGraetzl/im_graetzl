@@ -1,0 +1,142 @@
+.mobileNavToggle {
+  background-color: $color-ambient-mint-light;
+  padding: 0;
+  height: 100%;
+  width: 45px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  color: $color-ambient-mint-dark;
+  @include respond-to(">=medium") {
+    width: 120px;
+    margin-right: auto;
+  }
+  @include respond-to(">=large") {
+    display: none;
+  }
+  &.is-open {
+    color: #ffffff;
+    background-color: $color-ambient-rosa;
+  }
+  [class*=icon-] {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+    pointer-events: none;
+    @include respond-to(">=medium") {
+      width: 34px;
+      height: 34px;
+    }
+  }
+  span {
+    display: none;
+    @include respond-to(">=medium") {
+      font-family: $font-tertiary;
+      font-size: 1.6rem;
+      text-decoration: none;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @include respond-to(">=medium") {
+      font-size: 2.0rem;
+    }
+  }
+}
+
+
+.nav-loggedOut {
+  @include cf;
+  a {
+    color: $color-ambient-mint-dark;
+    font-family: $font-tertiary;
+    text-decoration: none;
+    display: block;
+    float: left;
+    font-size: 1.6rem;
+    &:hover, &:active {
+      color: $color-ambient-rosa;
+    }
+    @include respond-to(">=medium") {
+      font-size: 2.0rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+.nav-mainActions {
+  display: none;
+  a {
+    color: $color-ambient-mint-dark;
+    font-family: $font-tertiary;
+    text-decoration: none;
+    display: block;
+    float: left;
+    font-size: 2.0rem;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    &:hover, &:active {
+      color: $color-ambient-rosa;
+    }
+  }
+
+  .createMeeting {
+    border-left: 1px dotted lighten($color-ambient-mint, 20);
+    margin-left: 20px;
+    padding-left: 20px;
+    span {
+      background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
+      background-position: right center, left center;
+      background-repeat: no-repeat;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin: 0 auto;
+      display: table;
+    }
+  }
+}
+
+//--------------------------------------------------------------- desktop
+
+.mainNavHolder {
+  .nav-mainActions {
+    @include respond-to(">=large") {
+      margin-right: auto;
+      display: block;
+    }
+    a {
+      @include respond-to(">=medium") {
+        font-size: 2.2rem;
+      }
+      @include respond-to(">=large") {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+//--------------------------------------------------------------- mobile
+
+.mobileNavHolder {
+  background-image: $texture-stoff2;
+  .nav-mainActions {
+    opacity: 0;
+    border-top: 1px solid $color-ambient-mint-light;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.8s linear;
+    &.is-open {
+      opacity: 1;
+      display: flex;
+    }
+    @include respond-to(">=large") {
+      display: none !important;
+    }
+  }
+}
