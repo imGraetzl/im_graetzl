@@ -248,23 +248,8 @@ header {
       height: 45px;
     }
   }
-  .dropDownToggle {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
 
-  .dropDownContent {
-    &:before {
-      @include triangleSingle(up, $color-ambient-mint, 8px);
-      content: '';
-      position: absolute;
-      top: -8px;
-      right: 15px;
-    }
-  }
+
 
   .username {
     display: none;
@@ -284,39 +269,6 @@ header {
   }
 }
 
-.newNotifications {
-  height: 100%;
-  [class*=icon-] {
-    width: 25px;
-    height: 25px;
-    fill: $color-ambient-mint-dark;
-  }
-  .dropDownToggle {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .dropDownContent {
-    padding-top: 50px;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 200px;
-    color: grey;
-
-    &:before {
-      @include triangleSingle(up, $color-ambient-mint, 8px);
-      content: '';
-      position: absolute;
-      top: -8px;
-      right: 15px;
-    }
-  }
-}
-
 .badgeNumber {
   background-color: $color-ambient-rosa;
   color: $color-ambient-bright;
@@ -325,6 +277,7 @@ header {
   font-size: 1.0rem;
   padding: 1px 3px;
 }
+
 
 
 

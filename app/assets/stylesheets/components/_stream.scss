@@ -5,6 +5,11 @@
   @include respond-to(">=large") {
     margin: 0 auto;
   }
+  .timeago {
+    padding-left: 10px;
+    margin-left: 10px;
+    border-left: 1px dotted $color-ambient-grey-light;
+  }
 }
 
 .entryCreate {
@@ -323,11 +328,7 @@
 
 }
 
-.timeago {
-  padding-left: 10px;
-  margin-left: 10px;
-  border-left: 1px dotted $color-ambient-grey-light;
-}
+
 
 
 
