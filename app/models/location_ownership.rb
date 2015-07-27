@@ -11,9 +11,9 @@ class LocationOwnership < ActiveRecord::Base
     state :requested
     state :approved
 
-    event :approve do
-      transitions from: :pending, to: :approved, after: :notify_user, guard: :location_approved?
-      transitions from: :requested, to: :approved, after: :notify_user
+    event :approve, after: :notify_user do
+      transitions from: :pending, to: :approved, guard: :location_approved?
+      transitions from: :requested, to: :approved, guard: :location_approved?
     end
 
     # event :request do

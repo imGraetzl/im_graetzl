@@ -8,11 +8,9 @@ RSpec.describe LocationOwnership, type: :model do
 
   describe 'assocations' do
     let(:location_ownership) { create(:location_ownership) }
-    describe 'state' do
 
-      it 'has state attribute' do
-        expect(location_ownership).to respond_to(:state)
-      end
+    it 'has state attribute' do
+      expect(location_ownership).to respond_to(:state)
     end
   end
 
@@ -24,18 +22,72 @@ RSpec.describe LocationOwnership, type: :model do
         expect(location_ownership.pending?).to be_truthy
       end
 
-      context 'when location :managed' do
-        before { location_ownership.location.state = Location.states[:managed] }
+      context 'when #approve' do
+        context 'when location :managed' do
+          before { location_ownership.location.state = Location.states[:managed] }
 
-        it 'can be approved' do
-          expect(location_ownership.may_approve?).to be_truthy
+          it 'can be approved' do
+            expect(location_ownership.may_approve?).to be_truthy
+          end
+
+          it 'changes to :approved' do
+            expect{
+              location_ownership.approve
+            }.to change(location_ownership, :state).to 'approved'
+          end
+
+          it 'notifies user' do
+            expect(location_ownership).to receive(:notify_user)
+            location_ownership.approve
+          end
+        end
+
+        context 'when location not :managed' do
+          it 'can not be approved' do
+            expect(location_ownership.may_approve?).to be_falsey
+            expect{ location_ownership.approve }.to raise_error(AASM::InvalidTransition)
+          end
         end
       end
+    end
 
-      context 'when location not :managed' do
-        it 'can not be approved' do
-          expect(location_ownership.may_approve?).to be_falsey
+    describe ':requested' do
+      let(:location_ownership) { create(:location_ownership, state: LocationOwnership.states[:requested]) }
+
+      context 'when #approve' do
+        context 'when location :managed' do
+          before { location_ownership.location.state = Location.states[:managed] }
+
+          it 'can be approved' do
+            expect(location_ownership.may_approve?).to be_truthy
+          end
+
+          it 'changes to :approved' do
+            expect{
+              location_ownership.approve
+            }.to change(location_ownership, :state).to 'approved'
+          end
+
+          it 'notifies user' do
+            expect(location_ownership).to receive(:notify_user)
+            location_ownership.approve
+          end
         end
+
+        context 'when location not :managed' do
+          it 'can not be approved' do
+            expect(location_ownership.may_approve?).to be_falsey
+            expect{ location_ownership.approve }.to raise_error(AASM::InvalidTransition)
+          end
+        end
+      end
+    end
+
+    describe ':approved' do
+      let(:location_ownership) { create(:location_ownership, state: LocationOwnership.states[:approved]) }
+
+      it 'can not be approved again' do
+        expect(location_ownership.may_approve?).to be_falsey
       end
     end
   end

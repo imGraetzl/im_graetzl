@@ -119,7 +119,7 @@ RSpec.describe Location, type: :model do
         expect{ location.adopt }.to raise_error(AASM::InvalidTransition)
       end
 
-      it 'can not be requested again' do
+      it 'can not be requested' do
         expect(location.may_request?).to be_falsey
         expect{ location.request }.to raise_error(AASM::InvalidTransition)
       end
@@ -165,6 +165,10 @@ RSpec.describe Location, type: :model do
         expect(location.may_adopt?).to be_truthy
       end
 
+      it 'can be requested' do
+        expect(location.may_request?).to be_truthy
+      end
+
       it 'can not be approved' do
         expect(location.may_approve?).to be_falsey
         expect{ location.approve }.to raise_error(AASM::InvalidTransition)
@@ -197,6 +201,11 @@ RSpec.describe Location, type: :model do
       it 'can not be adopted' do
         expect(location.may_adopt?).to be_falsey
         expect{ location.adopt }.to raise_error(AASM::InvalidTransition)
+      end
+
+      it 'can not be requested' do
+        expect(location.may_request?).to be_falsey
+        expect{ location.request }.to raise_error(AASM::InvalidTransition)
       end
 
       context 'when #approve' do

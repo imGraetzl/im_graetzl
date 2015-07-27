@@ -5,7 +5,7 @@ ActiveAdmin.register Location do
   scope('Pending') { |scope| scope.where(state: [Location.states[:pending], Location.states[:requested]]) }
   scope :managed
 
-   index do
+  index do
     selectable_column
     column('ID', sortable: :id) do |location|
       link_to "##{location.id} ", admin_location_path(location)
@@ -31,6 +31,9 @@ ActiveAdmin.register Location do
       column do
         panel 'Basic Info' do
           attributes_table_for location do
+            row :status do |location|
+              status_tag location.state
+            end
             row :id
             row :name
             row :slogan
@@ -66,17 +69,17 @@ ActiveAdmin.register Location do
       column do
         panel 'Inhaber' do
           table_for location.location_ownerships do
-            column 'User' do |l|
-              link_to "#{l.user.username} (#{l.user.first_name} #{l.user.last_name})", admin_user_path(l.user)
+            column 'User' do |ownership|
+              link_to "#{ownership.user.username} (#{ownership.user.first_name} #{ownership.user.last_name})", admin_user_path(ownership.user)
             end
-            column 'Email' do |l|
-              mail_to l.user.email
+            column 'Email' do |ownership|
+              mail_to ownership.user.email
             end
-            column 'Inhaber seit:' do |l| 
-              I18n.l l.created_at
+            column 'Inhaber seit:' do |ownership| 
+              I18n.l ownership.created_at
             end
-            column 'Status' do |l|
-              'to come...'
+            column 'Status' do |ownership|
+              status_tag ownership.state
             end
           end
         end
