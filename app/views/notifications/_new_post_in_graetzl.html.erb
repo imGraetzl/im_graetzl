@@ -1,5 +1,7 @@
 <%- post = notification.activity.trackable %>
 <li>
+<%= link_to(url_for(post.graetzl) + "#post-#{post.id}") do %>
   <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
   Neuer Beitrag im Grätzl <%= post.graetzl.name %> von <%= notification.activity.owner.username %>: <%= post.content %>
+<% end %>
 </li>
