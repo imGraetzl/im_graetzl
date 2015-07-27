@@ -13,9 +13,29 @@ RSpec.describe LocationOwnership, type: :model do
       it 'has state attribute' do
         expect(location_ownership).to respond_to(:state)
       end
+    end
+  end
 
-      it 'has inital state :pending' do
+  describe 'state' do
+    describe ':pending' do
+      let(:location_ownership) { create(:location_ownership) }
+
+      it 'is initial state' do
         expect(location_ownership.pending?).to be_truthy
+      end
+
+      context 'when location :managed' do
+        before { location_ownership.location.state = Location.states[:managed] }
+
+        it 'can be approved' do
+          expect(location_ownership.may_approve?).to be_truthy
+        end
+      end
+
+      context 'when location not :managed' do
+        it 'can not be approved' do
+          expect(location_ownership.may_approve?).to be_falsey
+        end
       end
     end
   end

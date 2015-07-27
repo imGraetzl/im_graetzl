@@ -12,7 +12,7 @@ class LocationOwnership < ActiveRecord::Base
     state :approved
 
     event :approve do
-      transitions from: :pending, to: :approved, after: :notify_user
+      transitions from: :pending, to: :approved, after: :notify_user, guard: :location_approved?
       transitions from: :requested, to: :approved, after: :notify_user
     end
 
@@ -38,7 +38,12 @@ class LocationOwnership < ActiveRecord::Base
     # end
   end
 
-  def notify_user
-    
-  end
+  private
+
+    def notify_user    
+    end
+
+    def location_approved?
+      location.managed?
+    end
 end
