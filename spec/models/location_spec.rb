@@ -116,4 +116,89 @@ RSpec.describe Location, type: :model do
       end
     end
   end
+
+  describe '#request_ownership' do
+    context 'when user.business' do
+      let(:user) { create(:user, role: User.roles[:business]) }
+
+      context 'when location.basic' do
+        let(:location) { build_stubbed(:location, state: Location.states[:basic]) }
+
+        it 'does not create ownership request' do
+          expect{
+            location.request_ownership(user)
+          }.not_to change(LocationOwnership, :count)
+        end
+      end
+
+      context 'when location.requested' do
+        let(:location) { build_stubbed(:location, state: Location.states[:requested]) }
+
+        it 'does not create ownership request' do
+          expect{
+            location.request_ownership(user)
+          }.not_to change(LocationOwnership, :count)
+        end
+      end
+
+      context 'when location.pending' do
+        let(:location) { build_stubbed(:location, state: Location.states[:pending]) }
+
+        it 'creates ownership request' do
+          expect{
+            location.request_ownership(user)
+          }.to change(LocationOwnership, :count).by(1)
+        end
+
+        describe 'onwership_request' do
+          subject(:ownership_request) { LocationOwnership.last }
+
+          before { location.request_ownership(user) }
+
+          it 'has state :requested' do
+            expect(ownership_request.requested?).to be_truthy
+          end
+
+          it 'has user associated' do
+            expect(ownership_request.user).to eq user
+          end
+        end
+      end
+
+      context 'when location.managed' do
+        let(:location) { build_stubbed(:location, state: Location.states[:managed]) }
+
+        it 'creates ownership request' do
+          expect{
+            location.request_ownership(user)
+          }.to change(LocationOwnership, :count).by(1)
+        end
+
+        describe 'onwership_request' do
+          subject(:ownership_request) { LocationOwnership.last }
+
+          before { location.request_ownership(user) }
+
+          it 'has state :requested' do
+            expect(ownership_request.requested?).to be_truthy
+          end
+
+          it 'has user associated' do
+            expect(ownership_request.user).to eq user
+          end
+        end
+      end
+    end
+
+    context 'when user non-business' do
+      let(:user) { create(:user, role: nil) }
+      let(:location) { build_stubbed(:location, state: Location.states[:managed]) }
+
+      it 'does not create ownership request' do
+        expect{
+          location.request_ownership(user)
+        }.not_to change(LocationOwnership, :count)
+      end
+    end
+  end
 end

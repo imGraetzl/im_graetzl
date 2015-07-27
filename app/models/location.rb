@@ -54,6 +54,8 @@ class Location < ActiveRecord::Base
   end
 
   def request_ownership(user)
-    # do sth
+    if user.business? && (pending? || managed?)
+      location_ownerships.create(user: user, state: LocationOwnership.states[:requested])
+    end
   end
 end

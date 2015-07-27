@@ -288,12 +288,17 @@ RSpec.describe LocationsController, type: :controller do
         }}
 
       before { sign_in user }
-      subject(:new_location) { Location.last }
 
       it 'creates new location' do
         expect{
           post :create, params
         }.to change(Location, :count).by(1)
+      end
+
+      it 'creates new location_onwership' do
+        expect{
+          post :create, params
+        }.to change(LocationOwnership, :count).by(1)
       end
 
       it 'redirects to graetzl with notice' do
@@ -302,58 +307,68 @@ RSpec.describe LocationsController, type: :controller do
         expect(flash[:notice]).to be_present
       end
 
-      it 'has right attributes' do
-        post :create, params
-        expect(new_location).to have_attributes(
-          name: attr_basic[:name],
-          slogan: attr_basic[:slogan],
-          description: attr_basic[:description])
-      end
+      describe 'new location' do
+        subject(:new_location) { Location.last }
 
-      it 'has current_user associated' do
-        post :create, params
-        expect(new_location.users).to include(user)
-      end
-
-      it 'has graetzl associated' do
-        post :create, params
-        expect(new_location.graetzl).to eq graetzl
-      end
-
-      it 'has state :requested' do
-        post :create, params
-        expect(new_location.requested?).to be_truthy
-      end
-
-      describe 'address' do
-        before { post :create, params }
-
-        it 'has address' do
-          expect(new_location.address).to be
+        it 'has right attributes' do
+          post :create, params
+          expect(new_location).to have_attributes(
+            name: attr_basic[:name],
+            slogan: attr_basic[:slogan],
+            description: attr_basic[:description])
         end
 
-        it 'has right address_attributes' do
-          expect(new_location.address).to have_attributes(
-            street_name: attr_address[:street_name],
-            street_number: attr_address[:street_number],
-            zip: attr_address[:zip],
-            city: attr_address[:city])
-          expect(new_location.address.coordinates.as_text).to eq attr_address[:coordinates]
-        end
-      end
-
-      describe 'contact' do
-        before { post :create, params }
-
-        it 'has contact' do
-          expect(new_location.contact).to be
+        it 'has graetzl associated' do
+          post :create, params
+          expect(new_location.graetzl).to eq graetzl
         end
 
-        it 'has right contact_attributes' do
-          expect(new_location.contact).to have_attributes(
-            website: attr_contact[:website],
-            phone: attr_contact[:phone],
-            email: attr_contact[:email])
+        it 'has state :requested' do
+          post :create, params
+          expect(new_location.requested?).to be_truthy
+        end
+
+        it 'has current_user associated' do
+          post :create, params
+          expect(new_location.users).to include(user)
+        end
+
+        it 'has new :requested ownership' do
+          post :create, params
+          ownership = new_location.location_ownerships.find_by_user_id(user)
+          expect(ownership.pending?).to be_truthy
+        end
+
+        describe 'address' do
+          before { post :create, params }
+
+          it 'has address' do
+            expect(new_location.address).to be
+          end
+
+          it 'has right address_attributes' do
+            expect(new_location.address).to have_attributes(
+              street_name: attr_address[:street_name],
+              street_number: attr_address[:street_number],
+              zip: attr_address[:zip],
+              city: attr_address[:city])
+            expect(new_location.address.coordinates.as_text).to eq attr_address[:coordinates]
+          end
+        end
+
+        describe 'contact' do
+          before { post :create, params }
+
+          it 'has contact' do
+            expect(new_location.contact).to be
+          end
+
+          it 'has right contact_attributes' do
+            expect(new_location.contact).to have_attributes(
+              website: attr_contact[:website],
+              phone: attr_contact[:phone],
+              email: attr_contact[:email])
+          end
         end
       end
     end
