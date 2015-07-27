@@ -6,8 +6,8 @@ rvm:
 addons:
   postgresql: '9.4'
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install libgeos-dev libproj-dev
+  - apt-get update
+  - apt-get install libgeos-dev libproj-dev
 before_script:
   - psql -U postgres -c "create extension postgis"
   - bundle exec rake db:create db:schema:load RAILS_ENV=test
