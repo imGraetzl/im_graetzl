@@ -23,15 +23,8 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
-    describe 'state' do
-
-      it 'has state' do
-        expect(location).to respond_to(:state)
-      end
-
-      it 'has initial state :basic' do
-        expect(location.basic?).to be_truthy
-      end
+    it 'has state' do
+      expect(location).to respond_to(:state)
     end
 
     describe 'avatar' do
@@ -112,6 +105,102 @@ RSpec.describe Location, type: :model do
           contact = location.contact
           location.destroy
           expect(Contact.find_by_id(contact.id)).to be_nil
+        end
+      end
+    end
+  end
+
+  describe 'state' do
+    describe ':requested' do
+      let(:location) { create(:location, state: Location.states[:requested]) }
+
+      it 'can not be adopted' do
+        expect{ location.adopt }.to raise_error(AASM::InvalidTransition)
+        expect(location.may_adopt?).to be_falsey
+      end
+
+      it 'can not be requested again' do
+        expect{ location.request }.to raise_error(AASM::InvalidTransition)
+        expect(location.may_request?).to be_falsey
+      end
+
+      it 'can be approved' do
+        expect(location.may_approve?).to be_truthy
+      end
+
+      it 'changes to :managed on #approve' do
+        location.approve
+        expect(location.managed?).to be_truthy
+      end
+    end
+
+    describe ':basic' do
+      let(:location) { create(:location) }
+
+      it 'is initial state' do
+        expect(location.basic?).to be_truthy
+      end
+
+      it 'changes to :pending on #adopt' do
+        location.adopt
+        expect(location.pending?).to be_truthy
+      end
+
+      it 'changes to :requested on #request' do
+        location.request
+        expect(location.requested?).to be_truthy
+      end
+
+      it 'can not be approved' do
+        expect{ location.approve }.to raise_error(AASM::InvalidTransition)
+        expect(location.may_approve?).to be_falsey
+      end
+    end
+
+    describe ':pending' do
+      let(:location) { create(:location, state: Location.states[:pending]) }      
+
+      it 'can be approved' do
+        expect(location.may_approve?).to be_truthy
+      end
+
+      it 'changes to :managed on #approve' do
+        location.approve
+        expect(location.managed?).to be_truthy
+      end
+    end
+
+    describe 'transitions' do
+      describe '#approve' do
+        let(:location) { create(:location, state: Location.states[:pending]) }
+        let!(:pending_ownership) { create(:location_ownership,
+          location: location,
+          user: create(:user, role: User.roles[:business]),
+          state: LocationOwnership.states[:pending]) }
+        let!(:requested_ownership) { create(:location_ownership,
+          location: location,
+          user: create(:user, role: User.roles[:business]),
+          state: LocationOwnership.states[:requested]) }
+
+        it 'changes state to :managed' do
+          expect{
+            location.approve
+          }.to change(location, :state).to 'managed'
+        end
+
+        it 'updates ownerships' do          
+          expect(location).to receive(:update_ownerships)
+          location.approve
+        end
+
+        it 'updates :pending ownerships to :approved' do
+          location.approve!
+          expect(pending_ownership.reload.approved?).to be_truthy
+        end
+
+        it 'does not update :requested ownerships' do
+          location.approve!
+          expect(requested_ownership.reload.approved?).to be_falsey
         end
       end
     end

@@ -11,6 +11,11 @@ class LocationOwnership < ActiveRecord::Base
     state :requested
     state :approved
 
+    event :approve do
+      transitions from: :pending, to: :approved, after: :notify_user
+      transitions from: :requested, to: :approved, after: :notify_user
+    end
+
     # event :request do
     #   transitions from: :basic, to: :requested
     # end
@@ -31,5 +36,9 @@ class LocationOwnership < ActiveRecord::Base
     # event :approve do
     #   transitions from: :pending, to: :approved, after: :notify_user
     # end
+  end
+
+  def notify_user
+    
   end
 end

@@ -22,17 +22,9 @@ class Location < ActiveRecord::Base
     end
 
     event :approve do
-      transitions from: :pending, to: :managed
-      transitions from: :requested, to: :managed
+      transitions from: :pending, to: :managed, after: :update_ownerships
+      transitions from: :requested, to: :managed, after: :update_ownerships
     end
-
-    # event :adopt do
-    #   transitions from: :basic, to: :pending, after: :notify_user
-    # end
-
-    # event :approve do
-    #   transitions from: :pending, to: :approved, after: :notify_user
-    # end
   end
 
   # associations
@@ -48,14 +40,17 @@ class Location < ActiveRecord::Base
   validates :name, presence: true
 
   # instance methods
-  def notify_user(user)
-    puts 'yeah yeah yeah yeah yeah yeah'
-    puts user.username
-  end
-
   def request_ownership(user)
     if user.business? && (pending? || managed?)
       location_ownerships.create(user: user, state: LocationOwnership.states[:requested])
     end
   end
+
+  private
+
+    def update_ownerships
+      location_ownerships.pending.each do |ownership|
+        ownership.approve!
+      end
+    end
 end
