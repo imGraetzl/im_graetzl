@@ -101,6 +101,26 @@ ActiveAdmin.register Location do
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden approved.'
   end
 
+
+  # action buttons
+  action_item :view, only: :show do
+    link_to 'Approve', approve_admin_location_path(location), class: 'approve'
+  end
+
+
+  # custom member actions
+
+  member_action :approve, method: :get do
+    if resource.may_approve?
+      resource.approve!
+      flash[:notice] = 'Location wurde approved.'
+      redirect_to resource_path
+    else
+      flash[:error] = 'Location kann nicht approved werden'
+      redirect_to resource_path
+    end
+  end
+
   # index do
   #   id_column
   #   column :name
