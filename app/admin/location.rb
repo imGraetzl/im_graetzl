@@ -3,27 +3,25 @@ ActiveAdmin.register Location do
 
   scope 'Alle', :all, default: true
   scope :basic
-  scope 'Pending', :all_pending
+  scope 'Offene Anfragen', :all_pending
   scope :managed
 
   index do
     selectable_column
-    column('ID', sortable: :id) do |location|
-      link_to "##{location.id} ", admin_location_path(location)
-    end
-    column(:name, sortable: :name) do |location|
+    column('Location', sortable: :name) do |location|
       link_to location.name, admin_location_path(location)
     end
+    column(:graetzl)
     column('Status') do |location|
       status_tag(location.state)
     end
-    column('Erstellt', :updated_at)
-    column('Inhaber') do |location|
+    column('User') do |location|
       location.users.each do |user|
         a user.username, href: admin_user_path(user)
         text_node ', '.html_safe
       end
     end
+    column('Letztes Update', :updated_at)
   end
 
 
@@ -36,9 +34,24 @@ ActiveAdmin.register Location do
               status_tag location.state
             end
             row :id
+            row :graetzl
             row :name
             row :slogan
             row :description
+            row :cover_photo do |location|
+              if location.cover_photo
+                image_tag attachment_url(location, :cover_photo, :fill, 200, 100)
+              else
+                'nicht vorhanden'
+              end
+            end
+            row :avatar do |location|
+              if location.avatar
+                image_tag attachment_url(location, :avatar, :fill, 100, 100)
+              else
+                'nicht vorhanden'
+              end
+            end
           end
         end
 
@@ -70,17 +83,20 @@ ActiveAdmin.register Location do
       column do
         panel 'Inhaber' do
           table_for location.location_ownerships do
+            column 'Anfrage' do |ownership|
+              link_to "Anfrage ##{ownership.id}", admin_location_ownership_path(ownership)
+            end
+            column 'Status' do |ownership|
+              status_tag ownership.state
+            end
             column 'User' do |ownership|
               link_to "#{ownership.user.username} (#{ownership.user.first_name} #{ownership.user.last_name})", admin_user_path(ownership.user)
             end
             column 'Email' do |ownership|
               mail_to ownership.user.email
             end
-            column 'Inhaber seit:' do |ownership| 
+            column 'Erstellt:' do |ownership| 
               I18n.l ownership.created_at
-            end
-            column 'Status' do |ownership|
-              status_tag ownership.state
             end
           end
         end
@@ -98,52 +114,23 @@ ActiveAdmin.register Location do
         location.approve!
       end
     end
-    redirect_to collection_path, alert: 'Die ausgewählten Locations wurden approved.'
+    redirect_to collection_path, alert: 'Die ausgewählten Locations wurden freigeschalten.'
   end
 
 
   # action buttons
-  action_item :view, only: :show do
-    link_to 'Approve', approve_admin_location_path(location), class: 'approve'
+  action_item :view, only: :show, if: proc{ location.may_approve? } do
+    link_to 'Location Freischalten', approve_admin_location_path(location), class: 'approve'
   end
 
 
   # custom member actions
-
   member_action :approve, method: :get do
-    if resource.may_approve?
-      resource.approve!
-      flash[:notice] = 'Location wurde approved.'
-      redirect_to resource_path
+    if resource.approve!
+      flash[:notice] = 'Location wurde freigeschalten.'
     else
-      flash[:error] = 'Location kann nicht approved werden'
-      redirect_to resource_path
+      flash[:error] = 'Location kann nicht freigeschalten werden'
     end
+    redirect_to resource_path
   end
-
-  # index do
-  #   id_column
-  #   column :name
-  #   actions
-  # end
-
-  # index as: :grid do |location|
-  #   link_to location.name, admin_location_path(location)
-  # end
-
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
-
-
 end

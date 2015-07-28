@@ -10,23 +10,27 @@ ActiveAdmin.register_page "Dashboard" do
             column(:location, sortable: :name) do |location|
               link_to location.name, admin_location_path(location)
             end
+            column(:graetzl)
             column('User') do |location|
               location.users.each do |user|
                 a user.username, href: admin_user_path(user)
                 text_node ', '.html_safe
               end
             end
-            column('Erstellt', :updated_at)
+            column('Erstellt', :created_at)
             column('status') { |location| status_tag(location.state) }
           end
 
           span do
-            link_to 'Anfragen Bearbeiten', '/admin/locations?scope=pending'
+            link_to 'Offene Anfragen Bearbeiten', '/admin/locations?scope=offene_anfragen'
           end
         end
 
-        panel 'Offene Inhaber Anfragen' do
-          table_for LocationOwnership.all_pending.order(updated_at: :asc) do
+        panel 'Offene Location-Mitarbeiter Anfragen' do
+          table_for LocationOwnership.requested.order(updated_at: :asc) do
+            column('Anfrage', sortable: :id) do |ownership|
+              link_to "Anfrage #{ownership.id} ", admin_location_ownership_path(ownership)
+            end
             column(:location) do |ownership|
               link_to ownership.location.name, admin_location_path(ownership.location)
             end

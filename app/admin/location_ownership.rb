@@ -1,5 +1,5 @@
 ActiveAdmin.register LocationOwnership do
-  menu parent: 'Locations'
+  menu parent: 'Locations', label: 'Location-Inhaber'
 
   scope 'Alle', :all, default: true
   scope 'Pending', :all_pending
@@ -22,6 +22,9 @@ ActiveAdmin.register LocationOwnership do
     column('Letztes Update', :updated_at)
   end
 
+
+  # batch actions
+
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |ownership|
       if ownership.may_approve?
@@ -32,18 +35,22 @@ ActiveAdmin.register LocationOwnership do
   end
 
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
+  # action buttons
+  action_item :view, only: :show do
+    link_to 'Approve', approve_admin_location_ownership_path(location_ownership), class: 'approve'
+  end
 
 
+  # custom member actions
+
+  member_action :approve, method: :get do
+    if resource.may_approve?
+      resource.approve!
+      flash[:success] = 'Inhaberanfrage wurde approved.'
+      redirect_to resource_path
+    else
+      flash[:error] = 'Inhaberanfrage kann nicht approved werden'
+      redirect_to resource_path
+    end
+  end
 end
