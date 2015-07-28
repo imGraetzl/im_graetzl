@@ -5,6 +5,7 @@ ActiveAdmin.register Location do
   scope :basic
   scope 'Offene Anfragen', :all_pending
   scope :managed
+  scope 'Abgelehnt', :rejected
 
   index do
     selectable_column
@@ -117,19 +118,41 @@ ActiveAdmin.register Location do
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden freigeschalten.'
   end
 
+  batch_action :reject do |ids|
+    batch_action_collection.find(ids).each do |location|
+      if location.may_reject?
+        location.reject!
+      end
+    end
+    redirect_to collection_path, alert: 'Die ausgewählten Locations wurden abgelehnt.'
+  end
+
 
   # action buttons
-  action_item :view, only: :show, if: proc{ location.may_approve? } do
-    link_to 'Location Freischalten', approve_admin_location_path(location), class: 'approve'
+  action_item :approve, only: :show, if: proc{ location.may_approve? } do
+    link_to 'Location Freischalten', approve_admin_location_path(location), { method: :put }
+  end
+
+  action_item :reject, only: :show, if: proc{ location.may_reject? } do
+    link_to 'Location Ablehnen', reject_admin_location_path(location), { method: :put }
   end
 
 
   # custom member actions
-  member_action :approve, method: :get do
+  member_action :approve, method: :put do
     if resource.approve!
       flash[:notice] = 'Location wurde freigeschalten.'
     else
       flash[:error] = 'Location kann nicht freigeschalten werden'
+    end
+    redirect_to resource_path
+  end
+
+  member_action :reject, method: :put do
+    if resource.reject!
+      flash[:notice] = 'Location wurde abgelehnt.'
+    else
+      flash[:error] = 'Location kann nicht abgelehnt werden'
     end
     redirect_to resource_path
   end

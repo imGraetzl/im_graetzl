@@ -2,7 +2,8 @@ ActiveAdmin.register LocationOwnership do
   menu parent: 'Locations', label: 'Location-Inhaber'
 
   scope 'Alle', :all, default: true
-  scope 'Pending', :all_pending
+  scope 'Offene Mitarbeiter Anfragen', :requested
+  scope :pending
   scope :approved
 
   index do
@@ -24,7 +25,6 @@ ActiveAdmin.register LocationOwnership do
 
 
   # batch actions
-
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |ownership|
       if ownership.may_approve?
@@ -42,7 +42,6 @@ ActiveAdmin.register LocationOwnership do
 
 
   # custom member actions
-
   member_action :approve, method: :get do
     if resource.may_approve?
       resource.approve!

@@ -9,12 +9,13 @@ class Location < ActiveRecord::Base
 
   # states
   include AASM
-  enum state: { requested: 0, basic: 1, pending: 2, managed: 3 }
+  enum state: { requested: 0, basic: 1, pending: 2, managed: 3, rejected: 4 }
   aasm column: :state do
     state :basic, initial: true
     state :requested
     state :pending
     state :managed
+    state :rejected
 
     event :request do
       transitions from: :basic, to: :requested
@@ -27,6 +28,12 @@ class Location < ActiveRecord::Base
     event :approve, after: :update_ownerships do
       transitions from: :pending, to: :managed
       transitions from: :requested, to: :managed
+      transitions from: :rejected, to: :managed
+    end
+
+    event :reject do
+      transitions from: :requested, to: :rejected
+      #transitions from: :pending, to: :basic
     end
   end
 

@@ -138,6 +138,12 @@ RSpec.describe Location, type: :model do
   describe 'state' do
     describe ':requested' do
       let(:location) { create(:location, state: Location.states[:requested]) }
+      let!(:pending_ownership) { create(:location_ownership,
+        location: location, user: create(:user, role: User.roles[:business]),
+        state: LocationOwnership.states[:pending]) }
+      let!(:requested_ownership) { create(:location_ownership,
+        location: location, user: create(:user, role: User.roles[:business]),
+        state: LocationOwnership.states[:requested]) }
 
       it 'can not be adopted' do
         expect(location.may_adopt?).to be_falsey
@@ -154,12 +160,6 @@ RSpec.describe Location, type: :model do
       end
 
       context 'when #approve' do
-        let!(:pending_ownership) { create(:location_ownership,
-          location: location, user: create(:user, role: User.roles[:business]),
-          state: LocationOwnership.states[:pending]) }
-        let!(:requested_ownership) { create(:location_ownership,
-          location: location, user: create(:user, role: User.roles[:business]),
-          state: LocationOwnership.states[:requested]) }
 
         it 'changes state to :managed' do
           expect{
@@ -175,6 +175,20 @@ RSpec.describe Location, type: :model do
         it 'does not update :requested ownerships' do
           location.approve
           expect(requested_ownership.reload.approved?).to be_falsey
+        end
+      end
+
+      context 'when #reject' do
+        it 'changes state to :rejected' do
+          expect{
+            location.reject
+          }.to change(location, :state).to 'rejected'
+        end
+
+        it 'does not change :pending and :requested ownerships' do
+          location.reject
+          expect(pending_ownership.reload.pending?).to be_truthy
+          expect(requested_ownership.reload.requested?).to be_truthy
         end
       end
     end
@@ -240,6 +254,49 @@ RSpec.describe Location, type: :model do
         let!(:requested_ownership) { create(:location_ownership,
           location: location, user: create(:user, role: User.roles[:business]),
           state: LocationOwnership.states[:requested]) }
+
+        it 'changes state to :managed' do
+          expect{
+            location.approve
+          }.to change(location, :state).to 'managed'
+        end
+
+        it 'updates :pending ownerships' do
+          location.approve!
+          expect(pending_ownership.reload.approved?).to be_truthy
+        end
+
+        it 'does not update :requested ownerships' do
+          location.approve
+          expect(requested_ownership.reload.approved?).to be_falsey
+        end
+      end
+    end
+
+    describe ':rejected' do
+      let(:location) { create(:location, state: Location.states[:rejected]) }
+      let!(:pending_ownership) { create(:location_ownership,
+        location: location, user: create(:user, role: User.roles[:business]),
+        state: LocationOwnership.states[:pending]) }
+      let!(:requested_ownership) { create(:location_ownership,
+        location: location, user: create(:user, role: User.roles[:business]),
+        state: LocationOwnership.states[:requested]) }
+
+      it 'can be approved' do
+        expect(location.may_approve?).to be_truthy
+      end
+
+      it 'can not be adopted' do
+        expect(location.may_adopt?).to be_falsey
+        expect{ location.adopt }.to raise_error(AASM::InvalidTransition)
+      end
+
+      it 'can not be requested' do
+        expect(location.may_request?).to be_falsey
+        expect{ location.request }.to raise_error(AASM::InvalidTransition)
+      end
+
+      context 'when #approve' do
 
         it 'changes state to :managed' do
           expect{

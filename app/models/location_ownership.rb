@@ -8,11 +8,12 @@ class LocationOwnership < ActiveRecord::Base
 
   # states
   include AASM
-  enum state: { pending: 0, requested: 1, approved: 2 }
+  enum state: { pending: 0, requested: 1, approved: 2, rejected: 3 }
   aasm column: :state do
     state :pending, initial: true
     state :requested
     state :approved
+    state :rejected
 
     event :approve, after: :notify_user do
       transitions from: :pending, to: :approved, guard: :location_approved?
