@@ -70,7 +70,6 @@
 }
 
 .nav-mainActions {
-  display: none;
   a {
     color: $color-ambient-mint-dark;
     font-family: $font-tertiary;
@@ -105,6 +104,7 @@
 
 .mainNavHolder {
   .nav-mainActions {
+    display: none;
     @include respond-to(">=large") {
       margin-right: auto;
       display: block;
@@ -124,9 +124,8 @@
 //--------------------------------------------------------------- mobile
 
 .mobileNavHolder {
-  background-image: $texture-stoff2;
   .nav-mainActions {
-    opacity: 0;
+    display: none;
     border-top: 1px solid $color-ambient-mint-light;
     align-items: center;
     justify-content: center;

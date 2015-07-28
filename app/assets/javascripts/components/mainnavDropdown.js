@@ -48,7 +48,7 @@ APP.components.mainnavDropdown = function(trigger, container) {
 
     function bindMobileEvents() {
         $dropdownTrigger.on('click', function() {
-            if ($mobileDropdownContainer.is(":visible")) {
+            if ($mobileDropdownContainer.hasClass("is-open")) {
                 closeMobileNotifications();
             } else {
                 openMobileDropdown();

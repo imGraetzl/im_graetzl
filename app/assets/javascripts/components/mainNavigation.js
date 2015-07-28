@@ -28,7 +28,7 @@ APP.components.mainNavigation = (function() {
         $mainNavHolder.find(".nav-mainActions").clone().appendTo($mobileNavHolder);
         $mobileMainNav = $mobileNavHolder.find(".nav-mainActions");
         $mobileNavTrigger.on("click", function() {
-            if ($mobileMainNav.is(":visible")) {
+            if ($mobileMainNav.hasClass("is-open")) {
                 closeMobileNav();
             } else {
                 openMobileNav();

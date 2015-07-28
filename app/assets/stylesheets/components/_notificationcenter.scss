@@ -65,6 +65,8 @@
 
 .mobileNavHolder {
   .nav-notifications {
+    width: 100%;
+
     border-top: 1px solid $color-ambient-mint-light;
     display: none;
     &.is-open {

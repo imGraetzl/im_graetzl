@@ -46,10 +46,13 @@
 
           <div class="usersettingsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
             <div class="jq-dropdown-panel nav-usersettings">
-              <div class="menuSlice">Profileinstellungen</div>
-              <%= link_to content_tag(:div, 'Admin', class: 'menuSlice'), admin_root_path if current_user.admin? %>
-              <%= link_to content_tag(:div, 'Abmelden', class: 'menuSlice'),
-                          destroy_user_session_path, method: :delete %>
+              <a href=""><svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profileinstellungen</a>
+              <%= link_to admin_root_path do %>
+                  <svg class="icon-magic-wand"><use xlink:href="#icon-magic-wand"></use></svg>Admin
+              <% end %>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                  <svg class="icon-power"><use xlink:href="#icon-power"></use></svg>Abmelden
+              <% end %>
             </div>
           </div>
 
@@ -75,8 +78,8 @@
 
       <% end %>
 
-      </div>
-  <div class="mobileNavHolder"></div>
+    </div>
+    <div class="mobileNavHolder"></div>
   </div>
 </header>
 

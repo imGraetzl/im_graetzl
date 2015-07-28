@@ -47,10 +47,11 @@
 .nav-usersettings {
   > div, a {
     border-bottom: 1px solid $color-ambient-mint-light;
-    display: block;
     padding: 15px;
     text-decoration: none;
     color: $color-font-primary;
+    display: flex;
+    align-items: center;
     &:hover, &:active {
       background-color: $color-ambient-mint-light;
     }
@@ -58,13 +59,19 @@
       border-bottom: none;
     }
   }
+  [class^=icon-] {
+    margin-right: 10px;
+  }
 }
 
 //--------------------------------------------------------------- desktop
 
 .mainNavHolder {
   .nav-usersettings {
-
+    >div, a {
+      display: flex;
+      align-items: center;
+    }
   }
 
 }
@@ -75,15 +82,13 @@
   .nav-usersettings {
     border-top: 1px solid $color-ambient-mint-light;
     display: none;
-    > div, a {
-      text-align: right;
-      padding-right: 30px;
-    }
     &.is-open {
       display: block;
     }
+
     @include respond-to(">=medium") {
       display: none !important;
     }
+
   }
 }

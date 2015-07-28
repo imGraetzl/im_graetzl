@@ -24,6 +24,11 @@ header {
     height: 70px;
   }
 }
+.mobileNavHolder {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
 
 .logoGraetzl {
   width: 45px;
