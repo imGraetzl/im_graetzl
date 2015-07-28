@@ -17,7 +17,6 @@ ActiveAdmin.register_page "Dashboard" do
                 text_node ', '.html_safe
               end
             end
-            column('Erstellt', :created_at)
             column('status') { |location| status_tag(location.state) }
           end
 
