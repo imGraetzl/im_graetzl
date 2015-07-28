@@ -11,6 +11,13 @@ APP.controllers.application = (function() {
 
         FastClick.attach(document.body);
 
+        jQuery('.notificationsTrigger').click(function() {
+            jQuery.post("/users/notification_settings/mark_as_seen").
+                done(function(response) {
+                    jQuery('#notificationsCount').hide();
+                });
+        });
+
     }
 
 
