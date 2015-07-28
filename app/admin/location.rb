@@ -1,8 +1,9 @@
 ActiveAdmin.register Location do
+  menu priority: 2
 
   scope 'Alle', :all, default: true
   scope :basic
-  scope('Pending') { |scope| scope.where(state: [Location.states[:pending], Location.states[:requested]]) }
+  scope 'Pending', :all_pending
   scope :managed
 
   index do

@@ -1,4 +1,7 @@
 class LocationOwnership < ActiveRecord::Base
+  # scopes
+  scope :all_pending, -> { where(state: [states[:pending], states[:requested]]) }
+  
   # associations
   belongs_to :user
   belongs_to :location

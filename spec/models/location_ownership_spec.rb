@@ -4,7 +4,29 @@ RSpec.describe LocationOwnership, type: :model do
 
   it 'has a valid factory' do
     expect(build_stubbed(:location_ownership)).to be_valid
-  end  
+  end
+
+  describe 'scope' do
+    describe ':all_pending' do
+      let!(:pending_ownership) { create(:location_ownership) }
+      let!(:requested_ownership) { create(:location_ownership,
+        state: LocationOwnership.states[:requested]) }
+      let!(:approved_ownership) { create(:location_ownership,
+        state: LocationOwnership.states[:approved]) }
+
+      it 'includes :pending location_ownerships' do
+        expect(LocationOwnership.all_pending).to include(pending_ownership)
+      end
+
+      it 'includes :requested location_ownerships' do
+        expect(LocationOwnership.all_pending).to include(requested_ownership)
+      end
+
+      it 'does not include :approved location_ownerships' do
+        expect(LocationOwnership.all_pending).not_to include(approved_ownership)
+      end
+    end
+  end
 
   describe 'assocations' do
     let(:location_ownership) { create(:location_ownership) }

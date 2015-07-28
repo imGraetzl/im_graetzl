@@ -4,6 +4,9 @@ class Location < ActiveRecord::Base
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
 
+  # scopes
+  scope :all_pending, -> { where(state: [states[:pending], states[:requested]]) }
+
   # states
   include AASM
   enum state: { requested: 0, basic: 1, pending: 2, managed: 3 }

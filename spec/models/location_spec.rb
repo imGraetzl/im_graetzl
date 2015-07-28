@@ -4,7 +4,32 @@ RSpec.describe Location, type: :model do
 
   it 'has a valid factory' do
     expect(build_stubbed(:location)).to be_valid
-  end  
+  end
+
+  describe 'scope' do
+    describe ':all_pending' do
+      let!(:basic_location) { create(:location) }
+      let!(:requested_location) { create(:location,
+        state: Location.states[:requested]) }
+      let!(:pending_location) { create(:location,
+        state: Location.states[:pending]) }
+      let!(:managed_location) { create(:location,
+        state: Location.states[:managed]) }
+
+      it 'includes :pending locations' do
+        expect(Location.all_pending).to include(pending_location)
+      end
+
+      it 'includes :requested locations' do
+        expect(Location.all_pending).to include(requested_location)
+      end
+
+      it 'does not include :basic and :managed locations' do
+        expect(Location.all_pending).not_to include(basic_location)
+        expect(Location.all_pending).not_to include(managed_location)
+      end
+    end
+  end
 
   describe 'validations' do
     it 'is invalid without name' do

@@ -1,7 +1,8 @@
 ActiveAdmin.register LocationOwnership do
+  menu parent: 'Locations'
 
   scope 'Alle', :all, default: true
-  scope('Pending') { |scope| scope.where(state: [LocationOwnership.states[:pending], LocationOwnership.states[:requested]]) }
+  scope 'Pending', :all_pending
   scope :approved
 
   index do
