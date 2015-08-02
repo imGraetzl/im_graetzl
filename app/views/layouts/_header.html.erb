@@ -30,10 +30,8 @@
 
           <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
             <div class="jq-dropdown-panel nav-notifications">
-              <ul>
-                <% current_user.website_notifications.order("created_at DESC").each do |n| %>
-                    <%= render partial: "notifications/#{Notification::TYPE_BITMASKS.select { |k, v| v == n.bitmask }.first[0].to_s}", locals: { notification: n } %>
-                <% end %>
+              <ul id="notifications">
+                <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
               </ul>
             </div>
           </div>
