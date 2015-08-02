@@ -28,7 +28,8 @@ class Notification < ActiveRecord::Base
     # New meeting in user's graetzl
     Type.new('meeting.create', TYPE_BITMASKS[:new_meeting_in_graetzl]) do |activity, already_notified|
       meeting = activity.trackable
-      users = User.where(graetzl_id: meeting.graetzl_id).where(["enabled_website_notifications & ? > 0", TYPE_BITMASKS[:new_meeting_in_graetzl]])
+      users = User.where(graetzl_id: meeting.graetzl_id).
+        where(["enabled_website_notifications & ? > 0", TYPE_BITMASKS[:new_meeting_in_graetzl]])
       users = users.reject { |u| already_notified.include?(u.id) }
       users.reject { |u| u.id == activity.owner_id }.each do |u|
         already_notified << u.id
@@ -133,11 +134,7 @@ class Notification < ActiveRecord::Base
   belongs_to :activity, :class => PublicActivity::Activity
 
   def self.receive_new_activity(activity)
-    triggered_types = TYPES.select { |t| t.trigger_key == activity.key }
-    already_notified = [ ]
-    triggered_types.sort { |a, b| a.bitmask <=> b.bitmask  }.each do |type|
-      type.broadcast(activity, already_notified)
-    end
+    CreateWebsiteNotificationsJob.perform_later(activity.id)
   end
 
   PublicActivity::Activity.after_create do |activity|
