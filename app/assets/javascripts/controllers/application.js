@@ -13,10 +13,6 @@ APP.controllers.application = (function() {
 
         jQuery('.notificationsTrigger').click(function() {
             jQuery('#notifications_more').trigger('click');
-            jQuery.post("/users/notification_settings/mark_as_seen").
-                done(function(response) {
-                    jQuery('#notificationsCount').hide();
-                });
         });
 
     }

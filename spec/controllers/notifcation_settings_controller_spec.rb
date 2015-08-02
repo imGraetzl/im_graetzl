@@ -35,19 +35,6 @@ RSpec.describe NotificationSettingsController, type: :controller do
         expect(user.enabled_website_notification?(type)).to be_falsey  
       end
 
-      it 'marks notifications as seen' do
-        
-        n = create(:notification,
-                   user: user,
-                   seen: false,
-                   bitmask: Notification::TYPE_BITMASKS[:new_meeting_in_graetzl])
-        user.enable_website_notification(:new_meeting_in_graetzl)
-        expect(user.new_website_notifications_count).to eq(1)
-        post :mark_as_seen
-        expect(user.new_website_notifications_count).to eq(0)
-
-      end
-
       context 'when submitted bitmask is invalid' do
         let(:type) { 'blabla' }
 
