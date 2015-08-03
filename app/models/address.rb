@@ -40,11 +40,8 @@ class Address < ActiveRecord::Base
   end
 
   def locations
-    Location.where(id: (
-      Address.where(addressable_type: 'Location')
-        .where("ST_DWithin(coordinates, :point, #{LOCATION_RADIUS})", point: coordinates)
-        .pluck(:addressable_id)
-      ))
+    Location.joins(:address)
+      .where("ST_DWithin(addresses.coordinates, :point, #{LOCATION_RADIUS})", point: coordinates)
   end
 
   def available_locations

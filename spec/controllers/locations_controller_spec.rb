@@ -158,15 +158,13 @@ RSpec.describe LocationsController, type: :controller do
         end
 
         describe '@locations' do
-          subject(:locations) { assigns{:locations} }
-
+          
           it 'contains near basic and managed locations' do
-            #puts locations
-            expect(locations).to include(basic_location, managed_location)
+            expect(assigns(:locations)).to include(basic_location, managed_location)
           end
 
           it 'does not contain outside and pending locations' do
-            expect(locations).not_to include(other_location, pending_location)
+            expect(assigns(:locations)).not_to include(other_location, pending_location)
           end
         end
 

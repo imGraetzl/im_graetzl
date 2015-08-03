@@ -12,8 +12,7 @@ class LocationsController < ApplicationController
     address = Address.new(Address.attributes_from_feature(address_params[:feature] || ''))
     session[:address] = address.attributes
     @graetzl = address.graetzl || @graetzl
-    @locations = address.locations.
-      where(state: [Location.states[:basic], Location.states[:managed]])
+    @locations = address.available_locations
 
     if @locations.empty?
       redirect_to new_graetzl_location_path(@graetzl)
