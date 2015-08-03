@@ -300,7 +300,7 @@ RSpec.describe LocationsController, type: :controller do
           post :create, params
         }.to change(LocationOwnership, :count).by(1)        
       end
-      
+
       it 'redirects to graetzl with notice' do
         post :create, params
         expect(response).to redirect_to graetzl
@@ -427,7 +427,69 @@ RSpec.describe LocationsController, type: :controller do
   #   end
   # end
 
-  # describe 'GET edit' do
+  describe 'GET edit' do
+    context 'when basic location' do
+      let(:location) { create(:location,
+        graetzl: graetzl,
+        state: Location.states[:basic]) }
+
+      context 'when non-business user' do
+        let(:user) { create(:user, role: nil) }
+
+        before do
+          sign_in user
+          get :edit, graetzl_id: graetzl, id: location
+        end
+
+        it 'redirects to @graetzl with flash[:error] message' do
+          expect(response).to redirect_to graetzl
+          expect(flash[:error]).to be_present
+        end
+      end
+
+      context 'when business user' do
+        let(:user) { create(:user, role: User.roles[:business]) }
+
+        before do
+          sign_in user
+          get :edit, graetzl_id: graetzl, id: location
+        end
+
+        it 'assigns @graetzl and @location' do
+          expect(assigns(:graetzl)).to eq graetzl
+          expect(assigns(:location)).to eq location
+        end
+
+        it 'renders :edit' do
+          expect(response).to render_template(:edit)
+        end
+      end
+    end
+
+    context 'when managed location' do
+      let!(:location) { create(:location,
+        graetzl: graetzl,
+        state: Location.states[:managed]) }
+
+      context 'when business user' do
+        let(:user) { create(:user, role: User.roles[:business]) }
+
+        before { sign_in user }
+
+        it 'redirects to @graetzl with flash[:notice]' do
+          get :edit, graetzl_id: graetzl, id: location
+          expect(response).to redirect_to graetzl
+          expect(flash[:notice]).to be_present
+        end
+
+        it 'opens ownership_request' do
+          expect{
+            get :edit, graetzl_id: graetzl, id: location
+          }.to change(LocationOwnership, :count).by(1)
+        end
+      end
+    end
+  end
   #   context 'when basic location' do
   #     let(:location) { create(:location, graetzl: graetzl) }
 

@@ -39,8 +39,8 @@ class LocationsController < ApplicationController
 
   def edit
     @location = @graetzl.locations.find(params[:id])
-    if !@location.may_adopt?
-      # open ownership request
+    if @location.managed?
+      @location.request_ownership(current_user)
       flash[:notice] = 'Deine Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
       redirect_to @graetzl
     end
@@ -68,7 +68,7 @@ class LocationsController < ApplicationController
     end
 
     def authorize_user!      
-      if !current_user.business?
+      unless current_user.business?
         flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben.'
         redirect_to @graetzl
       end
