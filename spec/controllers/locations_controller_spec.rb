@@ -6,7 +6,7 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'GET address' do
     context 'when authorized user' do
-      let(:user) { create(:user, role: :business) }
+      let(:user) { create(:user_business) }
 
       before do
         sign_in user
@@ -50,7 +50,7 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   describe 'POST address' do
-    let(:user) { create(:user, role: :business) }
+    let(:user) { create(:user_business) }
 
     context 'without :address and :feature' do
       let(:params) { { graetzl_id: graetzl, address: '' } }
@@ -192,7 +192,7 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   describe 'GET new' do
-    let(:user) { create(:user, role: :business) }
+    let(:user) { create(:user_business) }
 
     context 'when no address in session' do
       before do
@@ -251,7 +251,7 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   describe 'POST create' do
-    let(:user) { create(:user, role: :business) }
+    let(:user) { create(:user_business) }
 
     before { sign_in user }
 
@@ -310,7 +310,7 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   # describe 'POST create' do
-  #   let(:user) { create(:user, role: :business) }
+  #   let(:user) { create(:user_business) }
 
   #   describe 'empty session' do
   #     before do
@@ -472,7 +472,7 @@ RSpec.describe LocationsController, type: :controller do
         state: Location.states[:managed]) }
 
       context 'when business user' do
-        let(:user) { create(:user, role: User.roles[:business]) }
+        let(:user) { create(:user_business) }
 
         before { sign_in user }
 
@@ -513,7 +513,7 @@ RSpec.describe LocationsController, type: :controller do
   #     end
 
   #     context 'when user.role :business' do
-  #       let(:user) { create(:user, role: :business) }
+  #       let(:user) { create(:user_business) }
 
   #       before do
   #         sign_in user
@@ -540,7 +540,7 @@ RSpec.describe LocationsController, type: :controller do
 
   #   context 'when managed location' do
   #     let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
-  #     let(:user) { create(:user, role: :business) }
+  #     let(:user) { create(:user_business) }
 
   #     before do
   #       sign_in user
@@ -558,7 +558,7 @@ RSpec.describe LocationsController, type: :controller do
 
   #   context 'when pending location' do
   #     let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
-  #     let(:user) { create(:user, role: :business) }
+  #     let(:user) { create(:user_business) }
 
   #     before do
   #       sign_in user
@@ -576,7 +576,7 @@ RSpec.describe LocationsController, type: :controller do
 
   #   context 'when requested location' do
   #     let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
-  #     let(:user) { create(:user, role: :business) }
+  #     let(:user) { create(:user_business) }
 
   #     before do
   #       sign_in user
@@ -593,50 +593,44 @@ RSpec.describe LocationsController, type: :controller do
   #   end
   # end
 
-  # describe 'PUT update' do
-  #   let(:user) { create(:user, role: :business) }
-  #   before { sign_in user }
+  describe 'PUT update' do
+    context 'when basic location' do
+      let(:location) { create(:location,
+        graetzl: graetzl,
+        state: Location.states[:basic]) }
+      let(:user) { create(:user_business) }
+      let(:params) {
+        {
+          graetzl_id: graetzl,
+          id: location,
+          location: attributes_for(:location)
+        }
+      }
 
-  #   context 'when basic location' do
-  #     let(:location) { create(:location, state: :basic, graetzl: graetzl) }
-  #     let(:user) { create(:user, role: :business) }
-  #     let(:params) {
-  #       {
-  #         graetzl_id: graetzl,
-  #         id: location,
-  #         location: attributes_for(:location)
-  #       }
-  #     }
+      before { sign_in user }
 
-  #     it 'assigns @graetzl' do
-  #       put :update, params
-  #       expect(assigns(:graetzl)).to eq graetzl
-  #     end
+      it 'assigns @graetzl and @location' do
+        put :update, params
+        expect(assigns(:graetzl)).to eq graetzl
+        expect(assigns(:location)).to eq location
+      end
 
-  #     it 'assigns @location' do
-  #       put :update, params
-  #       expect(assigns(:location)).to eq location
-  #     end
+      it 'updates state to pending' do
+        expect{
+          put :update, params
+        }.to change{location.reload.state}.to 'pending'
+      end
 
-  #     it 'sets location.state to :pending' do
-  #       put :update, params
-  #       expect(location.reload.pending?).to be_truthy
-  #     end
+      it 'adds current_user to users' do
+        put :update, params
+        expect(assigns(:location).users).to include(user)
+      end
 
-  #     it 'sets current_user as owner' do
-  #       put :update, params
-  #       expect(location.reload.users).to include(user)
-  #     end
-
-  #     it 'redirects to @graetzl' do
-  #       put :update, params
-  #       expect(response).to redirect_to graetzl
-  #     end
-
-  #     it 'shows flash notice' do
-  #       put :update, params
-  #       expect(flash[:notice]).to be_present
-  #     end
-  #   end
-  # end
+      it 'redirects to @graetzl with flash[:notice]' do
+        put :update, params
+        expect(response).to redirect_to graetzl
+        expect(flash[:notice]).to be_present
+      end
+    end
+  end
 end

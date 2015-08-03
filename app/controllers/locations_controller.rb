@@ -49,7 +49,7 @@ class LocationsController < ApplicationController
   def update
     @location = @graetzl.locations.find(params[:id])
     @location.attributes = location_params
-    if @location.adopt!
+    if @location.pending!
       flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
       redirect_to @graetzl
     else
