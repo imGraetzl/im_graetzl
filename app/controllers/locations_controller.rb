@@ -12,7 +12,8 @@ class LocationsController < ApplicationController
     address = Address.new(Address.attributes_from_feature(address_params[:feature] || ''))
     session[:address] = address.attributes
     @graetzl = address.graetzl || @graetzl
-    @locations = address.locations
+    @locations = address.locations.
+      where(state: [Location.states[:basic], Location.states[:managed]])
 
     if @locations.empty?
       redirect_to new_graetzl_location_path(@graetzl)
@@ -29,8 +30,7 @@ class LocationsController < ApplicationController
   def create
     empty_session
     @location = @graetzl.locations.build(location_params)
-    #if @location.adopt!(nil, current_user)
-    if @location.request!
+    if @location.pending!
       flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
       redirect_to @graetzl
     else

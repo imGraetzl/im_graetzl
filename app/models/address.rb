@@ -47,6 +47,10 @@ class Address < ActiveRecord::Base
       ))
   end
 
+  def available_locations
+    locations.where(state: [Location.states[:basic], Location.states[:managed]])
+  end
+
 
   private
 

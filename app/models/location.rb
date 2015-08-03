@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
-  include ActiveModel::Dirty
+  #include ActiveModel::Dirty
+  has_paper_trail
   
   extend FriendlyId
   friendly_id :name
@@ -7,37 +8,38 @@ class Location < ActiveRecord::Base
   attachment :cover_photo, type: :image
 
   # scopes
-  scope :all_pending, -> { where(state: [states[:pending], states[:requested]]) }
+  #scope :all_pending, -> { where(state: [states[:pending], states[:requested]]) }
 
   # states
-  include AASM
-  enum state: { requested: 0, basic: 1, pending: 2, managed: 3, rejected: 4 }
-  aasm column: :state do
-    state :basic, initial: true
-    state :requested
-    state :pending
-    state :managed
-    state :rejected
+  enum state: { basic: 0, pending: 1, managed: 2 }
+  # include AASM
+  # enum state: { requested: 0, basic: 1, pending: 2, managed: 3, rejected: 4 }
+  # aasm column: :state do
+  #   state :basic, initial: true
+  #   state :requested
+  #   state :pending
+  #   state :managed
+  #   state :rejected
 
-    event :request do
-      transitions from: :basic, to: :requested
-    end
+  #   event :request do
+  #     transitions from: :basic, to: :requested
+  #   end
 
-    event :adopt do
-      transitions from: :basic, to: :pending
-    end
+  #   event :adopt do
+  #     transitions from: :basic, to: :pending
+  #   end
 
-    event :approve, after: :update_ownerships do
-      transitions from: :pending, to: :managed
-      transitions from: :requested, to: :managed
-      transitions from: :rejected, to: :managed
-    end
+  #   event :approve, after: :update_ownerships do
+  #     transitions from: :pending, to: :managed
+  #     transitions from: :requested, to: :managed
+  #     transitions from: :rejected, to: :managed
+  #   end
 
-    event :reject do
-      transitions from: :requested, to: :rejected
-      transitions from: :pending, to: :basic, after: :reset_attributes
-    end
-  end
+  #   event :reject do
+  #     transitions from: :requested, to: :rejected
+  #     transitions from: :pending, to: :basic, after: :reset_attributes
+  #   end
+  # end
 
   # associations
   belongs_to :graetzl
@@ -60,21 +62,21 @@ class Location < ActiveRecord::Base
 
   private
 
-    def update_ownerships
-      location_ownerships.pending.each do |ownership|
-        ownership.approve!
-      end
-    end
+    # def update_ownerships
+    #   location_ownerships.pending.each do |ownership|
+    #     ownership.approve!
+    #   end
+    # end
 
-    def reset_attributes
-      previous_changes.slice(:name, :slogan, :description, :cover_photo_id, :cover_photo_content_type, :avatar_id, :avatar_photo_content_type).each do |key, value|
-        self[key.to_sym] = value.first
-      end
-      address.previous_changes.slice(:street_name, :street_number, :zip, :city, :coordinates).each do |key, value|
-        self.address[key.to_sym] = value.first
-      end
-      contact.previous_changes.slice(:website, :email, :phone).each do |key, value|
-        self.contact[key.to_sym] = value.first
-      end
-    end
+    # def reset_attributes
+    #   previous_changes.slice(:name, :slogan, :description, :cover_photo_id, :cover_photo_content_type, :avatar_id, :avatar_photo_content_type).each do |key, value|
+    #     self[key.to_sym] = value.first
+    #   end
+    #   address.previous_changes.slice(:street_name, :street_number, :zip, :city, :coordinates).each do |key, value|
+    #     self.address[key.to_sym] = value.first
+    #   end
+    #   contact.previous_changes.slice(:website, :email, :phone).each do |key, value|
+    #     self.contact[key.to_sym] = value.first
+    #   end
+    # end
 end
