@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get 'static_pages/homeOut'
   root 'static_pages#home'
 
+  resources :notifications, only: [ :index ]
+
   resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: 'treffen' do
