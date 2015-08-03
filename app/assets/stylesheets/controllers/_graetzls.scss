@@ -2,22 +2,12 @@ section.graetzls {
 
   .headerImgBlock {
     margin-bottom: 30px;
-    background-image: url(image_path('illu/illu-stuwerviertel.png'));
-    background-size: 500px 220px;
-    background-position: center center;
     background-repeat: no-repeat;
     position: relative;
     display: block;
     margin-left: -18px;
     margin-right: -18px;
-    padding-top: 40px;
     padding-bottom: 40px;
-    @include respond-to('retina2x') {
-      background-image: url(image_path('illu/illu-stuwerviertel@2x.png'));
-    }
-    @include respond-to(">=medium") {
-      background-size: 862px 379px;
-    }
     @include respond-to(">=large") {
       height: 200px;
       padding-bottom: 0;
@@ -28,6 +18,7 @@ section.graetzls {
     .wrp-headline {
       display: table;
       margin: 0 auto;
+      z-index: 10;
       @include respond-to(">=large") {
         position: absolute;
         left: 350px;
@@ -55,18 +46,6 @@ section.graetzls {
       @include headlineBarbapapa;
       @include textShadowHard($color-ambient-rosa-dark);
       margin-bottom: 0;
-    }
-
-    &::after {
-      content: '';
-      width: 100%;
-      height: 10px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
-      pointer-events: none;
-      z-index: 2;
     }
 
   }
@@ -97,6 +76,32 @@ section.graetzls {
 
   .districtTag {
     display: none;
+  }
+
+  #graetzlMapWidget {
+    position: relative;
+  }
+
+}
+
+
+
+.illuDistrict {
+  display: none;
+  @include respond-to(">=large") {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 110px;
+    width: 233px;
+    height: 206px;
+    background-image: url(image_path('illu/illu-stuwerviertel.png'));
+    background-size: 233px 206px;
+    background-position: center center;
+    z-index: 9;
+  }
+  @include respond-to('retina2x') {
+    background-image: url(image_path('illu/illu-stuwerviertel@2x.png'));
   }
 
 }

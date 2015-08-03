@@ -19,6 +19,8 @@
 //= require picker.time
 //= require picker.de_DE
 //= require leaflet
+//= require leaflet-providers
+//= require leaflet.activearea
 //= require enquire
 //= require jquery.sumoselect
 //= require jquery.dropdown

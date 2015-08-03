@@ -1,8 +1,13 @@
 <% title(@graetzl.name) %>
 
-<section class="graetzls">
+<section class="graetzls" data-mapvisible='{"graetzls":["0205"]}'>
 
   <div class="headerImgBlock">
+
+    <div id="graetzlMapWidget"></div>
+    <div class="activeArea"></div>
+    <div class="illuDistrict"></div>
+    <div class="mapInfoText"></div>
 
     <div class="wrp-headline">
       <h1><%= @graetzl.name %></h1>

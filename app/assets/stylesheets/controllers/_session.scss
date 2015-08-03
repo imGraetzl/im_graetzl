@@ -69,12 +69,19 @@ section.loginPage {
 }
 
 .registerHint {
-  @include paperCard($rotation: -2);
+  @include paperCard($rotation: -5, $string: 2);
+  width: 250px;
   position: relative;
   font-family: $font-secondary;
-  color: $color-ambient-mint;
-  font-size: 3.5rem;
+  font-size: 3rem;
   padding: 40px;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  text-align: center;
+ a {
+   text-decoration: none;
+   &:hover {
+     text-decoration: underline;
+   }
+ }
 }

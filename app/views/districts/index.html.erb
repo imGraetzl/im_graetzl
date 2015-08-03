@@ -1,15 +1,31 @@
 <% title('Wien') %>
 
-<% if @meetings.present? %>
-  <h2>Aktuelle Treffen</h2>
-  <div class="meetingBoxes">
-    <% @meetings.each do |meeting| %>
-      <%= render 'meetings/box', meeting: meeting %>
-    <% end %>
-  </div>
-<% end %>
+<section class="vienna">
 
-<h2>Bezirke</h2>
-<% @districts.each do |district| %>
-  <%= link_to "#{district.zip} - #{district.name}", district %><br>
+  <div class="headerImgBlock">
+    <div id="graetzlMapWidget"></div>
+    <div class="activeArea"></div>
+    <div class="navBlock">
+      <h1>Wien</h1>
+      <div class="links">
+        <% @districts.each do |district| %>
+            <%= link_to "#{district.zip} - #{district.name}", district %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+
+</section>
+
+
+
+<% if @meetings.present? %>
+    <h2>Aktuelle Treffen</h2>
+    <div class="meetingBoxes">
+      <% @meetings.each do |meeting| %>
+          <%= render 'meetings/box', meeting: meeting %>
+      <% end %>
+    </div>
 <% end %>

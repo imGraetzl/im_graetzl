@@ -1,0 +1,131 @@
+
+
+
+#graetzlMapWidget {
+  width: 100%;
+  min-height: 200px;
+  background-color: transparent;
+  position: relative;
+  cursor: default;
+  margin-bottom: 50px;
+  .leaflet-map-pane {
+    display: none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
+  }
+  @include respond-to(">=medium") {
+    display: block;
+  }
+  @include respond-to(">=large") {
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    &::before{
+      left: 0;
+      width: 600px;
+      background: linear-gradient(to right, rgba(252,252,252,1) 33%,rgba(252,252,252,0) 100%);
+    }
+    &::after {
+      width: 50px;
+      background: linear-gradient(to left, rgba(252,252,252,1) 0%,rgba(252,252,252,0) 100%);
+      right: 0;
+    }
+  }
+}
+
+.leaflet-tile-pane {
+  -webkit-filter: hue-rotate(-1100deg) saturate(50%);
+  opacity: 0.8;
+}
+
+.leaflet-control-attribution,
+.leaflet-control-container {
+  display: none;
+}
+
+.activeArea {
+  // border: 1px solid red;
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+  @include respond-to(">=medium") {
+    height: 100%;
+    width: 80%;
+  }
+  @include respond-to(">=large") {
+    width: 55%;
+  }
+}
+
+
+.headerImgBlock .navBlock {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  z-index: 5;
+  h1 {
+    @include headlineBarbapapa();
+    @include font-size-secondaryFont('large');
+    @include textShadowHard($color-ambient-rosa-dark);
+    margin-bottom: 20px;
+  }
+  .districtNumber {
+    font-size: 28px;
+  }
+  .districtName,
+  .graetzlName {
+    font-size: 38px;
+  }
+  .links {
+    overflow: hidden;
+    @include respond-to(">=medium") {
+      width: 320px;
+    }
+    a {
+      @include ellipsis();
+      display: block;
+      float: left;
+      background-color: $color-ambient-bright;
+      border: 1px solid $color-ambient-rosa;
+      padding: 3px 8px;
+      border-radius: 3px;
+      text-decoration: none;
+      color: $color-ambient-rosa;
+      font-size: 12px;
+      margin-bottom: 6px;
+      margin-left: 3px;
+      margin-right: 3px;
+      width: calc(50% - 6px);
+      @include respond-to(">=medium") {
+        width: 147px;
+      }
+      &:hover {
+        background-color: $color-ambient-rosa;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.headerImgBlock {
+  &::after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+    z-index: 9;
+  }
+}
