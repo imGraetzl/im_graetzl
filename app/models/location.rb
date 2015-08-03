@@ -8,6 +8,7 @@ class Location < ActiveRecord::Base
   attachment :cover_photo, type: :image
 
   # scopes
+  scope :available, -> { where(state: [states[:basic], states[:managed]]) }
   #scope :all_pending, -> { where(state: [states[:pending], states[:requested]]) }
 
   # states

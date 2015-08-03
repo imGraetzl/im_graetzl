@@ -300,6 +300,12 @@ RSpec.describe LocationsController, type: :controller do
           post :create, params
         }.to change(LocationOwnership, :count).by(1)        
       end
+      
+      it 'redirects to graetzl with notice' do
+        post :create, params
+        expect(response).to redirect_to graetzl
+        expect(flash[:notice]).to be_present
+      end
     end
   end
 
@@ -348,11 +354,11 @@ RSpec.describe LocationsController, type: :controller do
   #       }.to change(LocationOwnership, :count).by(1)
   #     end
 
-  #     it 'redirects to graetzl with notice' do
-  #       post :create, params
-  #       expect(response).to redirect_to graetzl
-  #       expect(flash[:notice]).to be_present
-  #     end
+      # it 'redirects to graetzl with notice' do
+      #   post :create, params
+      #   expect(response).to redirect_to graetzl
+      #   expect(flash[:notice]).to be_present
+      # end
 
   #     describe 'new location' do
   #       subject(:new_location) { Location.last }
