@@ -1,4 +1,6 @@
 class Location < ActiveRecord::Base
+  include ActiveModel::Dirty
+  
   extend FriendlyId
   friendly_id :name
   attachment :avatar, type: :image
@@ -33,7 +35,7 @@ class Location < ActiveRecord::Base
 
     event :reject do
       transitions from: :requested, to: :rejected
-      #transitions from: :pending, to: :basic
+      transitions from: :pending, to: :basic, after: :reset_attributes
     end
   end
 
@@ -61,6 +63,18 @@ class Location < ActiveRecord::Base
     def update_ownerships
       location_ownerships.pending.each do |ownership|
         ownership.approve!
+      end
+    end
+
+    def reset_attributes
+      previous_changes.slice(:name, :slogan, :description, :cover_photo_id, :cover_photo_content_type, :avatar_id, :avatar_photo_content_type).each do |key, value|
+        self[key.to_sym] = value.first
+      end
+      address.previous_changes.slice(:street_name, :street_number, :zip, :city, :coordinates).each do |key, value|
+        self.address[key.to_sym] = value.first
+      end
+      contact.previous_changes.slice(:website, :email, :phone).each do |key, value|
+        self.contact[key.to_sym] = value.first
       end
     end
 end

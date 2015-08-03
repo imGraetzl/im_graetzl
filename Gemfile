@@ -91,3 +91,5 @@ gem 'public_activity', github: 'pokonski/public_activity'
 gem 'remotipart'
 # acts-as-state-machine rails plugin
 gem 'aasm'
+# track changes to model data
+gem 'paper_trail'

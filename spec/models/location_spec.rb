@@ -160,7 +160,6 @@ RSpec.describe Location, type: :model do
       end
 
       context 'when #approve' do
-
         it 'changes state to :managed' do
           expect{
             location.approve
@@ -270,6 +269,51 @@ RSpec.describe Location, type: :model do
           location.approve
           expect(requested_ownership.reload.approved?).to be_falsey
         end
+      end
+
+      context 'when #reject' do
+        it 'changes state to :basic' do
+          expect{
+            location.reject
+          }.to change(location, :state).to 'basic'
+        end
+
+        context 'when attributes have changed' do
+
+          it 'resets attributes' do
+            old_name = location.name
+            new_name = 'new name'
+            location.update(name: new_name)
+            expect(location.name).to eq new_name
+            location.reject!
+            expect(location.name).to eq old_name
+          end
+
+          it 'resets address_attributes' do
+            old_name = location.address.street_name
+            new_name = 'new street'
+            location.address.update(street_name: new_name)
+            expect(location.address.street_name).to eq new_name
+            location.reject!
+            expect(location.address.street_name).to eq old_name
+          end
+
+          it 'resets contact_attributes' do
+            old_email = location.contact.email
+            new_email = 'new@mail.at'
+            location.contact.update(email: new_email)
+            expect(location.contact.email).to eq new_email
+            location.reject!
+            expect(location.contact.email).to eq old_email
+          end
+
+        end
+
+        # it 'does not change :pending and :requested ownerships' do
+        #   location.reject
+        #   expect(pending_ownership.reload.pending?).to be_truthy
+        #   expect(requested_ownership.reload.requested?).to be_truthy
+        # end
       end
     end
 
