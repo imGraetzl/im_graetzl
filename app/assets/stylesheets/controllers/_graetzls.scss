@@ -15,6 +15,13 @@ section.graetzls {
       background-position: 91px -69px;
     }
 
+    .activeArea {
+      @include respond-to(">=large") {
+        width: 55%;
+      }
+    }
+
+
     .wrp-headline {
       display: table;
       margin: 0 auto;

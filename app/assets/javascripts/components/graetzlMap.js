@@ -11,7 +11,7 @@ APP.components.graetzlMap = (function() {
                 color: '#93CFC6',
                 fill: '#93CFC6',
                 opacity: 1,
-                weight: 3,
+                weight: 2,
                 fillOpacity: 0.1
             },
             over: {
@@ -21,7 +21,7 @@ APP.components.graetzlMap = (function() {
                 color: '#F37468',
                 fill: '#F37468',
                 opacity: 1,
-                weight: 3,
+                weight: 2,
                 fillOpacity: 0.1
             }
         },
@@ -36,7 +36,7 @@ APP.components.graetzlMap = (function() {
 
 
     function init(callback) {
-        $.when($.getJSON('/assets/graetzls.json'), $.getJSON('/assets/districts.json')).done(function(featureGraetzl, featureDistrict) {
+        $.when($.getJSON('/assets/javascripts/graetzls.json'), $.getJSON('/assets/javascripts/districts.json')).done(function(featureGraetzl, featureDistrict) {
                 geoGraetzl = featureGraetzl[0];
                 geoVienna = featureDistrict[0];
                 map = L.map('graetzlMapWidget', {
