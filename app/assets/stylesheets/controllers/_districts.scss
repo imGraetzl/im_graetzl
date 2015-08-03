@@ -1,0 +1,32 @@
+section.districts {
+
+  #graetzlMapWidget {
+    height: 400px;
+  }
+  .navBlock {
+    .links {
+      width: 500px;
+    }
+  }
+
+}
+
+section.vienna {
+
+  #graetzlMapWidget {
+    height: 500px;
+    @include respond-to(">=large") {
+      &::before {
+        width: 400px;
+      }
+    }
+  }
+
+  .activeArea {
+    @include respond-to(">=large") {
+      height: 100%;
+
+    }
+  }
+
+}

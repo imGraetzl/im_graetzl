@@ -1,17 +1,29 @@
 <% title(@district.name) %>
 
-<h1><%= @district.name %> | <%= @district.zip %></h1>
+<section class="districts" data-mapvisible='{"districts":["2"]}'>
 
-<% if @meetings.present? %>
-  <h2>Treffen in <%= @district.name %></h2>
-  <div class="meetingBoxes">
-    <% @meetings.each do |meeting| %>
-      <%= render 'meetings/box', meeting: meeting %>
-    <% end %>
+  <div class="headerImgBlock">
+    <div id="graetzlMapWidget"></div>
+    <div class="activeArea"></div>
+    <div class="navBlock">
+      <h1><%= @district.name %> | <%= @district.zip %></h1>
+      <div class="links">
+        <% @district.graetzls.each do |graetzl| %>
+            <%= link_to graetzl.name, graetzl %>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
 
-<h2>Grätzl:</h2>
-<% @district.graetzls.each do |graetzl| %>
-  <%= link_to graetzl.name, graetzl %><br>
-<% end %>
+
+  <% if @meetings.present? %>
+      <h2>Treffen in <%= @district.name %></h2>
+      <div class="meetingBoxes">
+        <% @meetings.each do |meeting| %>
+            <%= render 'meetings/box', meeting: meeting %>
+        <% end %>
+      </div>
+  <% end %>
+
+
+</section>
