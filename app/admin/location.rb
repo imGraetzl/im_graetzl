@@ -6,6 +6,25 @@ ActiveAdmin.register Location do
   scope :pending
   scope :managed
 
+  permit_params :graetzl_id, :state,
+    :name,
+    :slogan,
+    :description,
+    :avatar, :remove_avatar,
+    :cover_photo, :remove_cover_photo,
+    contact_attributes: [
+      :website,
+      :email,
+      :phone],
+    address_attributes: [
+      :street_name,
+      :street_number,
+      :zip,
+      :city,
+      :coordinates],
+    user_ids: []
+
+
   index do
     selectable_column
     column('Location', sortable: :name) do |location|
@@ -105,11 +124,43 @@ ActiveAdmin.register Location do
     active_admin_comments
   end
 
+  # form
+  form do |f|
+    inputs 'Basic Info' do
+      input :graetzl
+      input :state, as: :select, collection: Location.states.keys
+      input :name
+      input :slogan
+      input :description
+      input :cover_photo, as: :file,
+        hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
+      input :remove_cover_photo, as: :boolean if f.object.cover_photo
+      input :avatar, as: :file, hint: image_tag(attachment_url(f.object, :avatar, :fill, 100, 100))
+      input :remove_avatar, as: :boolean if f.object.avatar
+    end
+    inputs 'Kontakt', for: [:contact, (f.object.contact || f.object.build_contact)] do |c|
+      c.input :website, as: :url
+      c.input :email, as: :email
+      c.input :phone
+    end
+    inputs 'Adresse', for: [:address, (f.object.address || f.object.build_address)] do |a|
+      a.input :street_name
+      a.input :street_number
+      a.input :description
+      a.input :zip
+      a.input :city
+      a.input :coordinates, as: :string,
+        placeholder: 'POINT (16.345169051785824 48.19314778332606)',
+        hint: 'POINT (16.345169051785824 48.19314778332606)'
+    end
+    actions
+  end
+
 
   # batch actions
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |location|
-      location.approve!
+      location.approve
     end
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden freigeschalten.'
   end
