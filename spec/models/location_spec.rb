@@ -155,6 +155,45 @@ RSpec.describe Location, type: :model do
     end
   end
 
+  describe '.reset_or_destroy' do
+    context 'when previous version' do
+      let!(:location) { create(:location_basic, name: 'basic_name') }
+
+      before do
+        location.name = 'pending_name'
+        location.pending!
+      end
+
+      it 'resets attributes to previous version' do
+        Location.reset_or_destroy(location)
+        expect(location.reload.name).to eq 'basic_name'
+        expect(location.reload.state).to eq 'basic'
+      end
+
+      it 'adds new version' do
+        expect{
+          Location.reset_or_destroy(location)
+        }.to change(location.versions, :count).by(1)
+      end
+    end
+
+    context 'when no previous version' do
+      let!(:location) { create(:location_pending) }
+
+        it 'destroys record' do
+          expect{
+            Location.reset_or_destroy(location)
+          }.to change(Location, :count).by(-1)
+        end
+
+      it 'adds new version' do
+        expect{
+          Location.reset_or_destroy(location)
+        }.to change(location.versions, :count).by(1)
+      end
+    end
+  end
+
   # describe 'state' do
   #   describe ':requested' do
   #     let(:location) { create(:location, state: Location.states[:requested]) }
@@ -411,7 +450,69 @@ RSpec.describe Location, type: :model do
       end
 
       it 'returns false' do
-        expect(location.approve).to be_falsey
+        expect(location.approve).to eq false
+      end
+    end
+  end
+
+  describe '#reject' do
+    context 'when location pending' do
+      context 'when previous version exists' do
+        let!(:location) { create(:location_basic, name: 'basic_name') }
+
+        before do
+          location.name = 'pending_name'
+          location.pending!
+        end
+
+        it 'returns true' do
+          expect(location.reject).to eq true
+        end
+
+        it 'resets attributes' do
+          expect{
+            location.reject
+          }.to change{ location.reload.name }.from('pending_name').to('basic_name')
+        end
+
+        it 'resets state' do
+          expect{
+            location.reject
+          }.to change{ location.reload.state }.to 'basic'
+        end
+      end
+
+      context 'when no previous version exists' do
+        let!(:location) { create(:location_pending) }
+
+        it 'returns true' do
+          expect(location.reject).to eq true
+        end
+
+        it 'destroys record' do
+          expect{
+            location.reject
+          }.to change(Location, :count).by(-1)
+        end
+
+        it 'marks location as destroyed' do
+          location.reject
+          expect(location.version.event).to eq 'destroy'
+        end
+      end
+    end
+
+    context 'when location not pending' do
+      let(:location) { create(:location_managed) }
+
+      it 'keeps state' do
+        expect{
+          location.reject
+        }.not_to change(location.reload, :state)
+      end
+
+      it 'returns false' do
+        expect(location.reject).to eq false
       end
     end
   end

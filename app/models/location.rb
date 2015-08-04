@@ -54,6 +54,16 @@ class Location < ActiveRecord::Base
   # validations
   validates :name, presence: true
 
+  # class methods
+  def self.reset_or_destroy(location)
+    if location.previous_version
+      location = location.previous_version
+      location.save
+    else
+      location.destroy
+    end
+  end
+
   # instance methods
   def request_ownership(user)
     if user.business? && (pending? || managed?)
@@ -63,6 +73,15 @@ class Location < ActiveRecord::Base
 
   def approve
     if pending? && managed!
+      # update users
+      return true
+    end
+    false
+  end
+
+  def reject
+    if pending?
+      Location.reset_or_destroy(self)
       # update users
       return true
     end
