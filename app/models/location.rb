@@ -61,6 +61,14 @@ class Location < ActiveRecord::Base
     end
   end
 
+  def approve
+    if pending? && managed!
+      # update users
+      return true
+    end
+    false
+  end
+
   private
 
     # def update_ownerships

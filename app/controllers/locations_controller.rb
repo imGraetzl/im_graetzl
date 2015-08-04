@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   before_filter :set_graetzl
+  before_filter :set_location, only: [:show, :edit, :update]
   before_filter :authenticate_user!
   before_filter :authorize_user!
 
@@ -38,7 +39,6 @@ class LocationsController < ApplicationController
   end
 
   def edit
-    @location = @graetzl.locations.find(params[:id])
     if @location.managed?
       @location.request_ownership(current_user)
       flash[:notice] = 'Deine Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
@@ -47,7 +47,6 @@ class LocationsController < ApplicationController
   end
 
   def update
-    @location = @graetzl.locations.find(params[:id])
     @location.attributes = location_params
     if @location.pending!
       flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
@@ -58,13 +57,16 @@ class LocationsController < ApplicationController
   end
 
   def show
-    @location = @graetzl.locations.find(params[:id])    
   end
 
   private
 
     def set_graetzl
       @graetzl = Graetzl.find(params[:graetzl_id])
+    end
+
+    def set_location
+      @location = @graetzl.locations.find(params[:id])
     end
 
     def authorize_user!      

@@ -13,5 +13,9 @@ FactoryGirl.define do
     factory :user_business do
       role User.roles[:business]
     end
+
+    factory :user_admin do
+      role User.roles[:admin]
+    end
   end
 end

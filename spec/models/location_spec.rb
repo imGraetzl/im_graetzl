@@ -381,88 +381,123 @@ RSpec.describe Location, type: :model do
   #   end
   # end
 
-  describe '#request_ownership' do
-    context 'when user.business' do
-      let(:user) { create(:user, role: User.roles[:business]) }
+  describe '#approve' do
+    context 'when location pending' do
+      let(:location) { create(:location_pending) }
 
-      context 'when location.basic' do
-        let(:location) { build_stubbed(:location, state: Location.states[:basic]) }
-
-        it 'does not create ownership request' do
-          expect{
-            location.request_ownership(user)
-          }.not_to change(LocationOwnership, :count)
-        end
+      it 'sets state to managed' do
+        expect{
+          location.approve
+        }.to change{location.state}.to 'managed'
       end
 
-      context 'when location.requested' do
-        let(:location) { build_stubbed(:location, state: Location.states[:requested]) }
-
-        it 'does not create ownership request' do
-          expect{
-            location.request_ownership(user)
-          }.not_to change(LocationOwnership, :count)
-        end
+      it 'returns true' do
+        expect(location.approve).to be_truthy
       end
 
-      context 'when location.pending' do
-        let(:location) { build_stubbed(:location, state: Location.states[:pending]) }
-
-        it 'creates ownership request' do
-          expect{
-            location.request_ownership(user)
-          }.to change(LocationOwnership, :count).by(1)
-        end
-
-        describe 'onwership_request' do
-          subject(:ownership_request) { LocationOwnership.last }
-
-          before { location.request_ownership(user) }
-
-          it 'has state :requested' do
-            expect(ownership_request.requested?).to be_truthy
-          end
-
-          it 'has user associated' do
-            expect(ownership_request.user).to eq user
-          end
-        end
-      end
-
-      context 'when location.managed' do
-        let(:location) { build_stubbed(:location, state: Location.states[:managed]) }
-
-        it 'creates ownership request' do
-          expect{
-            location.request_ownership(user)
-          }.to change(LocationOwnership, :count).by(1)
-        end
-
-        describe 'onwership_request' do
-          subject(:ownership_request) { LocationOwnership.last }
-
-          before { location.request_ownership(user) }
-
-          it 'has state :requested' do
-            expect(ownership_request.requested?).to be_truthy
-          end
-
-          it 'has user associated' do
-            expect(ownership_request.user).to eq user
-          end
-        end
+      it 'updates ownerships' do
+        pending('not implemented yet')
+        fail
       end
     end
 
-    context 'when user non-business' do
-      let(:user) { create(:user, role: nil) }
-      let(:location) { build_stubbed(:location, state: Location.states[:managed]) }
+    context 'when location not pending' do
+      let(:location) { create(:location_basic) }
 
-      it 'does not create ownership request' do
+      it 'keeps state' do
         expect{
-          location.request_ownership(user)
-        }.not_to change(LocationOwnership, :count)
+          location.approve
+        }.not_to change(location, :state)
+      end
+
+      it 'returns false' do
+        expect(location.approve).to be_falsey
       end
     end
   end
+
+  # describe '#request_ownership' do
+  #   context 'when user.business' do
+  #     let(:user) { create(:user, role: User.roles[:business]) }
+
+  #     context 'when location.basic' do
+  #       let(:location) { build_stubbed(:location, state: Location.states[:basic]) }
+
+  #       it 'does not create ownership request' do
+  #         expect{
+  #           location.request_ownership(user)
+  #         }.not_to change(LocationOwnership, :count)
+  #       end
+  #     end
+
+  #     context 'when location.requested' do
+  #       let(:location) { build_stubbed(:location, state: Location.states[:requested]) }
+
+  #       it 'does not create ownership request' do
+  #         expect{
+  #           location.request_ownership(user)
+  #         }.not_to change(LocationOwnership, :count)
+  #       end
+  #     end
+
+  #     context 'when location.pending' do
+  #       let(:location) { build_stubbed(:location, state: Location.states[:pending]) }
+
+  #       it 'creates ownership request' do
+  #         expect{
+  #           location.request_ownership(user)
+  #         }.to change(LocationOwnership, :count).by(1)
+  #       end
+
+  #       describe 'onwership_request' do
+  #         subject(:ownership_request) { LocationOwnership.last }
+
+  #         before { location.request_ownership(user) }
+
+  #         it 'has state :requested' do
+  #           expect(ownership_request.requested?).to be_truthy
+  #         end
+
+  #         it 'has user associated' do
+  #           expect(ownership_request.user).to eq user
+  #         end
+  #       end
+  #     end
+
+  #     context 'when location.managed' do
+  #       let(:location) { build_stubbed(:location, state: Location.states[:managed]) }
+
+  #       it 'creates ownership request' do
+  #         expect{
+  #           location.request_ownership(user)
+  #         }.to change(LocationOwnership, :count).by(1)
+  #       end
+
+  #       describe 'onwership_request' do
+  #         subject(:ownership_request) { LocationOwnership.last }
+
+  #         before { location.request_ownership(user) }
+
+  #         it 'has state :requested' do
+  #           expect(ownership_request.requested?).to be_truthy
+  #         end
+
+  #         it 'has user associated' do
+  #           expect(ownership_request.user).to eq user
+  #         end
+  #       end
+  #     end
+  #   end
+
+  #   context 'when user non-business' do
+  #     let(:user) { create(:user, role: nil) }
+  #     let(:location) { build_stubbed(:location, state: Location.states[:managed]) }
+
+  #     it 'does not create ownership request' do
+  #       expect{
+  #         location.request_ownership(user)
+  #       }.not_to change(LocationOwnership, :count)
+  #     end
+  #   end
+  # end
 end

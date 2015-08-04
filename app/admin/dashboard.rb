@@ -6,7 +6,8 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column do
         panel 'Offene Location Anfragen' do
-          table_for Location.all_pending.order(updated_at: :asc) do
+          #table_for Location.all_pending.order(updated_at: :asc) do
+          table_for Location.pending.order(updated_at: :asc) do
             column(:location, sortable: :name) do |location|
               link_to location.name, admin_location_path(location)
             end

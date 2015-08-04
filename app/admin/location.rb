@@ -3,9 +3,10 @@ ActiveAdmin.register Location do
 
   scope 'Alle', :all, default: true
   scope :basic
-  scope 'Offene Anfragen', :all_pending
+  #scope 'Offene Anfragen', :all_pending
+  scope :pending
   scope :managed
-  scope 'Abgelehnt', :rejected
+  #scope 'Abgelehnt', :rejected
 
   index do
     selectable_column
@@ -129,24 +130,32 @@ ActiveAdmin.register Location do
 
 
   # action buttons
-  action_item :approve, only: :show, if: proc{ location.may_approve? } do
+  action_item :approve, only: :show, if: proc{ location.pending? } do
     link_to 'Location Freischalten', approve_admin_location_path(location), { method: :put }
   end
 
-  action_item :reject, only: :show, if: proc{ location.may_reject? } do
-    link_to 'Location Ablehnen', reject_admin_location_path(location), { method: :put }
-  end
+  # action_item :reject, only: :show, if: proc{ location.may_reject? } do
+  #   link_to 'Location Ablehnen', reject_admin_location_path(location), { method: :put }
+  # end
 
 
-  # custom member actions
+  # member actions
   member_action :approve, method: :put do
-    if resource.approve!
-      flash[:notice] = 'Location wurde freigeschalten.'
+    if resource.approve
+      flash[:success] = 'Location wurde freigeschalten.'
     else
       flash[:error] = 'Location kann nicht freigeschalten werden'
     end
     redirect_to resource_path
   end
+  # member_action :approve, method: :put do
+  #   if resource.approve!
+  #     flash[:notice] = 'Location wurde freigeschalten.'
+  #   else
+  #     flash[:error] = 'Location kann nicht freigeschalten werden'
+  #   end
+  #   redirect_to resource_path
+  # end
 
   member_action :reject, method: :put do
     if resource.reject!
