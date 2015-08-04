@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
   before_filter :set_graetzl
   before_filter :set_location, only: [:show, :edit, :update]
   before_filter :authenticate_user!
-  before_filter :authorize_user!
+  before_filter :authorize_user!, except: [:index, :show]
 
   # GET /new/address
   def new_address
@@ -54,6 +54,10 @@ class LocationsController < ApplicationController
     else
       render :edit
     end    
+  end
+
+  def index
+    @locations = @graetzl.locations.available
   end
 
   def show

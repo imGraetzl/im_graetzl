@@ -191,6 +191,83 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
+  describe 'GET index' do
+
+    shared_examples :a_successfull_index_request do
+      let!(:location_basic) { create(:location_basic, graetzl: graetzl) }
+      let!(:location_managed) { create(:location_managed, graetzl: graetzl) }
+      let!(:location_pending) { create(:location_pending, graetzl: graetzl) }
+      let!(:other_location) { create(:location, graetzl: create(:graetzl)) }
+
+      before do
+        sign_in user
+        get :index, graetzl_id: graetzl
+      end
+
+      it 'renders :index' do
+        expect(response).to render_template(:index)
+      end
+
+      it 'assigns @locations' do
+        expect(assigns(:locations)).to be
+      end
+
+      describe '@locations' do
+
+        it 'contains basic and managed' do
+          expect(assigns(:locations)).to include(location_basic, location_managed)
+        end
+
+        it 'does not contain pending' do
+          expect(assigns(:locations)).not_to include(location_pending)
+        end
+
+        it 'does not contain other locations' do
+          expect(assigns(:locations)).not_to include(other_location)
+        end
+      end
+    end
+
+    context 'when business user' do
+      let(:user) { create(:user_business) }
+      it_behaves_like :a_successfull_index_request
+    end
+
+    context 'when non business user' do
+      let(:user) { create(:user) }
+      it_behaves_like :a_successfull_index_request
+    end
+  end
+
+  describe 'GET show' do
+    shared_examples :a_successfull_show_request do
+      let(:location) { create(:location, graetzl: graetzl) }
+
+      before do
+        sign_in user
+        get :show, graetzl_id: graetzl, id: location
+      end
+
+      it 'renders :show' do
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns @location' do
+        expect(assigns(:location)).to eq location
+      end
+    end
+
+    context 'when business user' do
+      let(:user) { create(:user) }
+      it_behaves_like :a_successfull_show_request
+    end
+
+    context 'when non business user' do
+      let(:user) { create(:user_business) }
+      it_behaves_like :a_successfull_show_request
+    end
+  end
+
   describe 'GET new' do
     let(:user) { create(:user_business) }
 
@@ -220,10 +297,6 @@ RSpec.describe LocationsController, type: :controller do
           attrs = Contact.new.attributes
           expect(location.contact.attributes).to eq attrs
         end
-
-        # it 'has state :basic' do
-        #   expect(location.basic?).to be_truthy
-        # end
       end
 
       it 'renders :new' do
@@ -309,124 +382,6 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
-  # describe 'POST create' do
-  #   let(:user) { create(:user_business) }
-
-  #   describe 'empty session' do
-  #     before do
-  #       sign_in user
-  #       session[:address] = Address.new.attributes
-  #     end
-
-  #     it 'has address in session' do
-  #       expect(session[:address]).to be
-  #     end
-
-  #     it 'empties session' do
-  #       expect{
-  #         post :create, graetzl_id: graetzl, location: attributes_for(:location)
-  #       }.to change{ session[:address] }.to nil
-  #     end
-  #   end
-
-  #   context 'with valid attributes' do
-  #     let(:attr_basic) { attributes_for(:location) }
-  #     let(:attr_contact) { attributes_for(:contact) }
-  #     let(:attr_address) { attributes_for(:address) }
-  #     let(:params) {{
-  #       graetzl_id: graetzl,
-  #       location: attr_basic.
-  #         merge({ contact_attributes: attr_contact }).
-  #         merge({ address_attributes: attr_address })
-  #       }}
-
-  #     before { sign_in user }
-
-  #     it 'creates new location' do
-  #       expect{
-  #         post :create, params
-  #       }.to change(Location, :count).by(1)
-  #     end
-
-  #     it 'creates new location_onwership' do
-  #       expect{
-  #         post :create, params
-  #       }.to change(LocationOwnership, :count).by(1)
-  #     end
-
-      # it 'redirects to graetzl with notice' do
-      #   post :create, params
-      #   expect(response).to redirect_to graetzl
-      #   expect(flash[:notice]).to be_present
-      # end
-
-  #     describe 'new location' do
-  #       subject(:new_location) { Location.last }
-
-  #       it 'has right attributes' do
-  #         post :create, params
-  #         expect(new_location).to have_attributes(
-  #           name: attr_basic[:name],
-  #           slogan: attr_basic[:slogan],
-  #           description: attr_basic[:description])
-  #       end
-
-  #       it 'has graetzl associated' do
-  #         post :create, params
-  #         expect(new_location.graetzl).to eq graetzl
-  #       end
-
-  #       it 'has state :requested' do
-  #         post :create, params
-  #         expect(new_location.requested?).to be_truthy
-  #       end
-
-  #       it 'has current_user associated' do
-  #         post :create, params
-  #         expect(new_location.users).to include(user)
-  #       end
-
-  #       it 'has new :requested ownership' do
-  #         post :create, params
-  #         ownership = new_location.location_ownerships.find_by_user_id(user)
-  #         expect(ownership.pending?).to be_truthy
-  #       end
-
-  #       describe 'address' do
-  #         before { post :create, params }
-
-  #         it 'has address' do
-  #           expect(new_location.address).to be
-  #         end
-
-  #         it 'has right address_attributes' do
-  #           expect(new_location.address).to have_attributes(
-  #             street_name: attr_address[:street_name],
-  #             street_number: attr_address[:street_number],
-  #             zip: attr_address[:zip],
-  #             city: attr_address[:city])
-  #           expect(new_location.address.coordinates.as_text).to eq attr_address[:coordinates]
-  #         end
-  #       end
-
-  #       describe 'contact' do
-  #         before { post :create, params }
-
-  #         it 'has contact' do
-  #           expect(new_location.contact).to be
-  #         end
-
-  #         it 'has right contact_attributes' do
-  #           expect(new_location.contact).to have_attributes(
-  #             website: attr_contact[:website],
-  #             phone: attr_contact[:phone],
-  #             email: attr_contact[:email])
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
-
   describe 'GET edit' do
     context 'when basic location' do
       let(:location) { create(:location,
@@ -492,108 +447,6 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
   end
-  #   context 'when basic location' do
-  #     let(:location) { create(:location, graetzl: graetzl) }
-
-  #     context 'when user.role non-business' do
-  #       let(:user) { create(:user, role: nil) }
-
-  #       before do
-  #         sign_in user
-  #         get :edit, graetzl_id: graetzl, id: location
-  #       end
-
-  #       it 'redirects to @graetzl' do
-  #         get :edit, graetzl_id: graetzl, id: location
-  #         expect(response).to redirect_to(graetzl)
-  #       end
-
-  #       it 'shows error flash message' do
-  #         get :edit, graetzl_id: graetzl, id: location
-  #         expect(flash[:error]).to be_present
-  #       end
-  #     end
-
-  #     context 'when user.role :business' do
-  #       let(:user) { create(:user_business) }
-
-  #       before do
-  #         sign_in user
-  #         get :edit, graetzl_id: graetzl, id: location
-  #       end
-
-  #       it 'returns a 200 OK status' do
-  #         expect(response).to be_success
-  #       end
-
-  #       it 'assigns @location' do
-  #         expect(assigns(:location)).to eq location
-  #       end
-
-  #       it 'assigns @graetzl' do
-  #         expect(assigns(:graetzl)).to eq graetzl
-  #       end
-
-  #       it 'renders :edit' do
-  #         expect(response).to render_template(:edit)
-  #       end
-  #     end
-  #   end
-
-  #   context 'when managed location' do
-  #     let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
-  #     let(:user) { create(:user_business) }
-
-  #     before do
-  #       sign_in user
-  #       get :edit, graetzl_id: graetzl, id: location
-  #     end
-
-  #     it 'redirects to @graetzl page' do
-  #       expect(response).to redirect_to(graetzl)
-  #     end
-
-  #     it 'shows flash notice' do
-  #       expect(flash[:notice]).to be_present
-  #     end
-  #   end
-
-  #   context 'when pending location' do
-  #     let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
-  #     let(:user) { create(:user_business) }
-
-  #     before do
-  #       sign_in user
-  #       get :edit, graetzl_id: graetzl, id: location
-  #     end
-
-  #     it 'redirects to @graetzl page' do
-  #       expect(response).to redirect_to(graetzl)
-  #     end
-
-  #     it 'shows flash notice' do
-  #       expect(flash[:notice]).to be_present
-  #     end
-  #   end
-
-  #   context 'when requested location' do
-  #     let(:location) { create(:location, state: Location.states[:managed], graetzl: graetzl) }
-  #     let(:user) { create(:user_business) }
-
-  #     before do
-  #       sign_in user
-  #       get :edit, graetzl_id: graetzl, id: location
-  #     end
-
-  #     it 'redirects to @graetzl page' do
-  #       expect(response).to redirect_to(graetzl)
-  #     end
-
-  #     it 'shows flash notice' do
-  #       expect(flash[:notice]).to be_present
-  #     end
-  #   end
-  # end
 
   describe 'PUT update' do
     context 'when basic location' do
