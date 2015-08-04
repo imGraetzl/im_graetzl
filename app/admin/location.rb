@@ -3,10 +3,8 @@ ActiveAdmin.register Location do
 
   scope 'Alle', :all, default: true
   scope :basic
-  #scope 'Offene Anfragen', :all_pending
   scope :pending
   scope :managed
-  #scope 'Abgelehnt', :rejected
 
   index do
     selectable_column
@@ -108,22 +106,17 @@ ActiveAdmin.register Location do
   end
 
 
+  # batch actions
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |location|
-      user = location.users.last
-      if location.may_approve?
-        #location.approve!(nil, user)
-        location.approve!
-      end
+      location.approve!
     end
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden freigeschalten.'
   end
 
-  batch_action :reject do |ids|
+  batch_action :reject, confirm: 'Wirklich alle ablehnen?' do |ids|
     batch_action_collection.find(ids).each do |location|
-      if location.may_reject?
-        location.reject!
-      end
+      location.reject
     end
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden abgelehnt.'
   end
