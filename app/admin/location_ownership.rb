@@ -1,5 +1,6 @@
 ActiveAdmin.register LocationOwnership do
-  menu parent: 'Locations', label: 'Location-Inhaber'
+  #menu parent: 'Locations', label: 'Location-Inhaber'
+  menu false
 
   scope 'Alle', :all, default: true
   scope 'Offene Mitarbeiter Anfragen', :requested
