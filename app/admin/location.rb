@@ -14,10 +14,12 @@ ActiveAdmin.register Location do
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
     contact_attributes: [
+      :id,
       :website,
       :email,
       :phone],
     address_attributes: [
+      :id,
       :street_name,
       :street_number,
       :zip,
