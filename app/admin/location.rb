@@ -21,8 +21,12 @@ ActiveAdmin.register Location do
       :street_number,
       :zip,
       :city,
-      :coordinates],
-    user_ids: []
+      :coordinates,
+      :description],
+    location_ownerships_attributes: [
+      :id,
+      :user_id,
+      :_destroy]
 
 
   index do
@@ -100,15 +104,18 @@ ActiveAdmin.register Location do
       end
 
       column do
-        panel 'Inhaber' do
+        panel 'User' do
           table_for location.location_ownerships do
             column 'Anfrage' do |ownership|
               link_to "Anfrage ##{ownership.id}", admin_location_ownership_path(ownership)
             end
-            column 'Status' do |ownership|
-              status_tag ownership.state
+            # column 'Status' do |ownership|
+            #   status_tag ownership.state
+            # end
+            column 'User ID' do |ownership|
+              link_to "User ##{ownership.user.id}", admin_user_path(ownership.user)
             end
-            column 'User' do |ownership|
+            column 'Username' do |ownership|
               link_to "#{ownership.user.username} (#{ownership.user.first_name} #{ownership.user.last_name})", admin_user_path(ownership.user)
             end
             column 'Email' do |ownership|
@@ -126,34 +133,46 @@ ActiveAdmin.register Location do
 
   # form
   form do |f|
-    inputs 'Basic Info' do
-      input :graetzl
-      input :state, as: :select, collection: Location.states.keys
-      input :name
-      input :slogan
-      input :description
-      input :cover_photo, as: :file,
-        hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
-      input :remove_cover_photo, as: :boolean if f.object.cover_photo
-      input :avatar, as: :file, hint: image_tag(attachment_url(f.object, :avatar, :fill, 100, 100))
-      input :remove_avatar, as: :boolean if f.object.avatar
+    columns do
+      column do
+        inputs 'Basic Info' do
+          input :graetzl
+          input :state, as: :select, collection: Location.states.keys
+          input :name
+          input :slogan
+          input :description
+          input :cover_photo, as: :file,
+            hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
+          input :remove_cover_photo, as: :boolean if f.object.cover_photo
+          input :avatar, as: :file, hint: image_tag(attachment_url(f.object, :avatar, :fill, 100, 100))
+          input :remove_avatar, as: :boolean if f.object.avatar
+        end
+        inputs 'Kontakt', for: [:contact, (f.object.contact || f.object.build_contact)] do |c|
+          c.input :website, as: :url
+          c.input :email, as: :email
+          c.input :phone
+        end
+        inputs 'Adresse', for: [:address, (f.object.address || f.object.build_address)] do |a|
+          a.input :street_name
+          a.input :street_number
+          a.input :description
+          a.input :zip
+          a.input :city
+          a.input :coordinates, as: :string,
+            placeholder: 'POINT (16.345169051785824 48.19314778332606)',
+            hint: 'POINT (16.345169051785824 48.19314778332606)'
+        end
+        actions
+      end
+      column do
+        inputs 'Users' do
+          has_many :location_ownerships, allow_destroy: true, heading: false, new_record: 'User Hinzufügen' do |o|
+            o.input :user_id, label: 'User ID'
+            #o.input :user
+          end
+        end
+      end
     end
-    inputs 'Kontakt', for: [:contact, (f.object.contact || f.object.build_contact)] do |c|
-      c.input :website, as: :url
-      c.input :email, as: :email
-      c.input :phone
-    end
-    inputs 'Adresse', for: [:address, (f.object.address || f.object.build_address)] do |a|
-      a.input :street_name
-      a.input :street_number
-      a.input :description
-      a.input :zip
-      a.input :city
-      a.input :coordinates, as: :string,
-        placeholder: 'POINT (16.345169051785824 48.19314778332606)',
-        hint: 'POINT (16.345169051785824 48.19314778332606)'
-    end
-    actions
   end
 
 

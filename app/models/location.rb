@@ -49,6 +49,7 @@ class Location < ActiveRecord::Base
   has_one :contact, dependent: :destroy
   accepts_nested_attributes_for :contact
   has_many :location_ownerships, dependent: :destroy
+  accepts_nested_attributes_for :location_ownerships
   has_many :users, through: :location_ownerships
 
   # validations
