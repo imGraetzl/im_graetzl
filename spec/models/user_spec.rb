@@ -212,8 +212,8 @@ RSpec.describe User, type: :model do
   describe "website_notifications" do
     let(:user) { create(:user, :graetzl => create(:graetzl)) }
     before do
-      Notification::TYPE_BITMASKS.keys.each do |type|
-        bitmask = Notification::TYPE_BITMASKS[type]
+      Notification::TYPES.keys.each do |type|
+        bitmask = Notification::TYPES[type][:bitmask]
         create(:notification, user: user, bitmask: bitmask)
       end
     end

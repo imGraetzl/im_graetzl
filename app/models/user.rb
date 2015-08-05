@@ -57,16 +57,16 @@ class User < ActiveRecord::Base
   end
 
   def enabled_website_notification?(type)
-    enabled_website_notifications & Notification::TYPE_BITMASKS[type] > 0
+    enabled_website_notifications & Notification::TYPES[type][:bitmask] > 0
   end
 
   def enable_website_notification(type)
-    new_setting = enabled_website_notifications | Notification::TYPE_BITMASKS[type] 
+    new_setting = enabled_website_notifications | Notification::TYPES[type][:bitmask] 
     update_attribute(:enabled_website_notifications, new_setting)
   end
 
   def toggle_website_notification(type)
-    new_setting = enabled_website_notifications ^ Notification::TYPE_BITMASKS[type] 
+    new_setting = enabled_website_notifications ^ Notification::TYPES[type][:bitmask] 
     update_attribute(:enabled_website_notifications, new_setting)
   end
 
