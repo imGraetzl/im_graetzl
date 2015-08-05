@@ -6,7 +6,8 @@ ActiveAdmin.register Location do
   scope :pending
   scope :managed
 
-  permit_params :graetzl_id, :state,
+  permit_params :graetzl_id,
+    :state,
     :name,
     :slogan,
     :description,
@@ -26,6 +27,7 @@ ActiveAdmin.register Location do
     location_ownerships_attributes: [
       :id,
       :user_id,
+      :state,
       :_destroy]
 
 
@@ -167,8 +169,8 @@ ActiveAdmin.register Location do
       column do
         inputs 'Users' do
           has_many :location_ownerships, allow_destroy: true, heading: false, new_record: 'User Hinzufügen' do |o|
-            o.input :user_id, label: 'User ID'
-            #o.input :user
+            o.input :user
+            o.input :state
           end
         end
       end

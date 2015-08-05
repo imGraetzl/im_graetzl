@@ -22,3 +22,12 @@
     background: green;
   }
 }
+
+a.btn-light {
+  @include light-button;
+  text-decoration: none;
+}
+
+a.btn-dark {
+  @include dark-button;
+}

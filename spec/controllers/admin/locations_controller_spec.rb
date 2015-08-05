@@ -117,4 +117,56 @@ RSpec.describe Admin::LocationsController, type: :controller do
       end
     end
   end
+
+  describe 'PUT update' do
+    let!(:location) { create(:location_managed) }
+    let(:params) {
+      {
+        id: location,
+        location: location.attributes.merge('state' => location.state)
+      }
+    }
+
+    describe 'location_ownerships' do
+      let!(:new_user) { create(:user_business) }
+
+      context 'add user' do
+        before do
+          params[:location].merge!({ location_ownerships_attributes: {'0' => { user_id: new_user.id }}})
+        end
+
+        it 'creates new location_ownership record' do
+          expect{
+            put :update, params
+          }.to change(LocationOwnership, :count).by(1)
+        end
+
+        it 'adds user to location' do
+          put :update, params
+          expect(location.reload.users).to include(new_user)
+        end
+      end
+
+      context 'remove user' do
+        let!(:location_ownership) { create(:location_ownership, user: new_user, location: location) }
+
+        before do
+          params[:location].merge!({ location_ownerships_attributes:
+            { '0' => { id: location_ownership.id, user_id: new_user.id, _destroy: 1 } } })
+        end
+
+        it 'deletes location_ownership record' do
+          expect{
+            put :update, params
+          }.to change(LocationOwnership, :count).by(-1)
+        end
+
+        it 'removes user from location' do
+          expect(location.users). to include(new_user)
+          put :update, params
+          expect(location.reload.users).not_to include(new_user)
+        end
+      end
+    end
+  end
 end
