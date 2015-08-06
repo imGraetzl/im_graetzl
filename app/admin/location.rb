@@ -180,6 +180,15 @@ ActiveAdmin.register Location do
   end
 
 
+  # controller actions
+  collection_action :new_from_address, method: :get do
+    @location = Location.new(name: 'hello')
+    #resource = Location.new(name: 'hello')
+    #redirect_to new_admin_location_path
+    #render :new
+  end
+
+
   # batch actions
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |location|

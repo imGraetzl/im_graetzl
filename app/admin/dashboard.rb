@@ -21,7 +21,7 @@ ActiveAdmin.register_page "Dashboard" do
           end
 
           span do
-            link_to 'Offene Anfragen Bearbeiten', '/admin/locations?scope=offene_anfragen'
+            link_to 'Offene Anfragen Bearbeiten', '/admin/locations?scope=offene_anfragen', class: 'btn-light'
           end
         end
 
@@ -48,7 +48,7 @@ ActiveAdmin.register_page "Dashboard" do
 
       column do
         panel 'Neue Adressen' do
-          'soon to come...'
+          render 'admin/locations/candidates_table', compact: true
         end
       end
     end
