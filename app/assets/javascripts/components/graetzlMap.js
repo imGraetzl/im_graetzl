@@ -1,10 +1,9 @@
 APP.components.graetzlMap = (function() {
-
     var map,
         geoVienna,
         geoGraetzl,
-    // mainLayer =  L.tileLayer.provider('Stamen.Watercolor'),
-        mainLayer = L.tileLayer.provider('MapBox', { id: 'peckomingo.lb8m2cga', accessToken: 'pk.eyJ1IjoicGVja29taW5nbyIsImEiOiJoVHNQM29zIn0.AVmpyDYApR5mryMCJB1ryw'}),
+     mainLayer =  L.tileLayer.provider('Stamen.Watercolor'),
+    //    mainLayer = L.tileLayer.provider('MapBox', { id: 'peckomingo.lb8m2cga', accessToken: 'pk.eyJ1IjoicGVja29taW5nbyIsImEiOiJoVHNQM29zIn0.AVmpyDYApR5mryMCJB1ryw'}),
 
         styles = {
             mint: {
@@ -40,7 +39,13 @@ APP.components.graetzlMap = (function() {
                 geoGraetzl = featureGraetzl[0];
                 geoVienna = featureDistrict[0];
                 map = L.map('graetzlMapWidget', {
-                    layers: [mainLayer]
+                    layers: [mainLayer],
+                    dragging: false,
+                    touchZoom: false,
+                    scrollWheelZoom: false,
+                    doubleClickZoom: false,
+                    boxZoom: false,
+                    tap: false
                 }).setActiveArea('activeArea');
                 callback();
             }

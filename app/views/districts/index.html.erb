@@ -15,17 +15,15 @@
     </div>
   </div>
 
-
+  <% if @meetings.present? %>
+      <div class="teaserBlock">
+        <h2>Aktuelle Treffen in ganz Wien</h2>
+        <div class="meetingBoxes">
+          <% @meetings.each do |meeting| %>
+              <%= render 'meetings/box', meeting: meeting %>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
 
 </section>
-
-
-
-<% if @meetings.present? %>
-    <h2>Aktuelle Treffen</h2>
-    <div class="meetingBoxes">
-      <% @meetings.each do |meeting| %>
-          <%= render 'meetings/box', meeting: meeting %>
-      <% end %>
-    </div>
-<% end %>

@@ -25,8 +25,21 @@ section.vienna {
   .activeArea {
     @include respond-to(">=large") {
       height: 100%;
-
     }
   }
 
+}
+
+section.vienna,
+section.districts {
+  .headerImgBlock {
+    margin-bottom: 30px;
+  }
+  .teaserBlock {
+    h2 {
+      @include font-size-secondaryFont('base');
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  }
 }
