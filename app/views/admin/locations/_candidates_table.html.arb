@@ -16,7 +16,7 @@ table_for Address.where(addressable_type: 'Meeting').where.not(description: '') 
       I18n.l address.created_at, format: :short
     end
     column '' do |address|
-      link_to 'Location Erstellen', nil, class: 'btn-light'
+      button_to 'Location Erstellen', new_from_address_admin_locations_path(address: address)
     end
   end
 end

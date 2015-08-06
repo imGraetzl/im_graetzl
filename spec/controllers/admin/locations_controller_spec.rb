@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Admin::LocationsController, type: :controller do
-  let(:admin) { create(:user_admin) }
+  let(:graetzl) { create(:graetzl) }
+  let(:admin) { create(:user_admin, graetzl: graetzl) }
 
   before { sign_in admin }
 
@@ -166,6 +167,50 @@ RSpec.describe Admin::LocationsController, type: :controller do
           put :update, params
           expect(location.reload.users).not_to include(new_user)
         end
+      end
+    end
+  end
+
+  describe 'POST :new_from_address' do
+    let!(:address) { create(:address, description: 'name', coordinates: 'POINT (1.00 1.00)') }
+
+    before { post :new_from_address, address: address }
+
+    it 'renders :new_from_address' do
+      expect(response).to render_template(:new_from_address)
+    end
+
+    describe '@location' do
+      subject(:location) { assigns(:location) }
+
+      it 'has address.description as name' do
+        expect(location.name).to eq address.description
+      end
+
+      it 'has address.graetzl as graetzl' do
+        expect(location.graetzl).to eq graetzl
+      end
+
+      it 'is basic' do
+        expect(location.basic?).to eq true
+      end
+
+      describe 'address' do
+        subject(:location_address) { location.address }
+
+        it 'has address attributes' do
+          expect(location_address).to have_attributes(
+            street_name: address.street_name,
+            street_number: address.street_number,
+            zip: address.zip,
+            city: address.city,
+            coordinates: address.coordinates)
+        end
+
+        it 'has no description' do
+          expect(location_address.description).to be_nil
+        end
+
       end
     end
   end

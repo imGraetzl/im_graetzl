@@ -181,11 +181,16 @@ ActiveAdmin.register Location do
 
 
   # controller actions
-  collection_action :new_from_address, method: :get do
-    @location = Location.new(name: 'hello')
-    #resource = Location.new(name: 'hello')
-    #redirect_to new_admin_location_path
-    #render :new
+  collection_action :new_from_address, method: :post do
+    address = Address.find(params[:address])
+    @location = Location.new(name: address.description,
+      state: 'basic',
+      graetzl: address.graetzl)
+    @location.build_address(street_name: address.street_name,
+      street_number: address.street_number,
+      zip: address.zip,
+      city: address.city,
+      coordinates: address.coordinates)
   end
 
 
