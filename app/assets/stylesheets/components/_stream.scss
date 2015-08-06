@@ -136,29 +136,7 @@
   }
 }
 
-.userCreateInfo {
-  color: $color-ambient-grey;
-  margin-bottom: 0.5rem;
-  font-size: 1.4rem;
-  font-style: italic;
-  display: flex;
-  align-items: center;
-  @include respond-to(">=medium") {
-    margin-bottom: 0;
-  }
-  .img-round {
-    flex: 0 0 auto;
-    margin-right: 10px;
-  }
-  a {
-    margin-left: 3px;
-    margin-right: 3px;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
+
 
 .entryNewParticipants {
   margin-bottom: 1rem;
