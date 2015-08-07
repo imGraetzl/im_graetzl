@@ -27,6 +27,7 @@ RSpec.describe Notification, type: :model do
   end
 
   describe "a new meeting in graetzl" do
+    before { user.enable_website_notification :new_meeting_in_graetzl }
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: meeting.graetzl) }
       it "user is notified" do
@@ -49,6 +50,7 @@ RSpec.describe Notification, type: :model do
 
   describe "update of meeting" do
     let(:user) { create(:user, graetzl: meeting.graetzl) }
+    before { user.enable_website_notification :update_of_meeting }
 
     context "when user attends the meeting" do
       let!(:going_to) { create(:going_to,
@@ -75,6 +77,8 @@ RSpec.describe Notification, type: :model do
   describe "a new post in graetzl" do
     let(:post) { create(:post) }
 
+    before { user.enable_website_notification :new_post_in_graetzl }
+
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: post.graetzl) }
       it "user is notified" do
@@ -97,6 +101,12 @@ RSpec.describe Notification, type: :model do
 
   describe "new comment" do
     let(:commenter) { create(:user) }
+
+    before do
+      user.enable_website_notification :user_comments_users_meeting
+      user.enable_website_notification :another_user_comments
+      user.enable_website_notification :initiator_comments
+    end
 
     describe "on meeting" do
       let(:comment) { create(:comment,
@@ -174,6 +184,10 @@ RSpec.describe Notification, type: :model do
                             role: GoingTo::ROLES[:attendee])
     }
 
+    before do
+      user.enable_website_notification :another_attendee
+    end
+
     context "when user is initiator of meeting" do
       before do
         create(:going_to,
@@ -192,6 +206,10 @@ RSpec.describe Notification, type: :model do
   end
 
   describe "attendee left meeting" do
+    before do
+      user.enable_website_notification :attendee_left
+    end
+
     let(:attendee) { create(:user) }
     let(:going_to) { create(:going_to,
                             meeting: meeting,

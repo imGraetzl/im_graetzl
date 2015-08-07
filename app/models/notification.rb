@@ -1,139 +1,77 @@
 class Notification < ActiveRecord::Base
-  class Type
-    attr_reader :trigger_key, :bitmask
 
-    def initialize(trigger_key, bitmask, &broadcast)
-      @trigger_key = trigger_key
-      @broadcast = broadcast
-      @bitmask = bitmask
-    end
-
-    def broadcast(activity, already_notified)
-      @broadcast.call(activity, already_notified)
-    end
-  end
-
-  TYPE_BITMASKS = {
-    new_meeting_in_graetzl: 1,
-    new_post_in_graetzl: 2,
-    update_of_meeting: 4,
-    initiator_comments: 8,
-    user_comments_users_meeting: 16,
-    another_user_comments: 32,
-    another_attendee: 64,
-    attendee_left: 128
+  TYPES = {
+    new_meeting_in_graetzl: {
+      bitmask: 1,
+      triggered_by_activity_with_key: 'meeting.create',
+      receivers: ->(activity) { User.where(graetzl_id: activity.trackable.graetzl_id) }
+    },
+    new_post_in_graetzl: {
+      bitmask: 2,
+      triggered_by_activity_with_key: 'post.create',
+      receivers: ->(activity) { User.where(graetzl_id: activity.trackable.graetzl_id) }
+    },
+    update_of_meeting: {
+      triggered_by_activity_with_key: 'meeting.update',
+      bitmask: 4,
+      receivers: ->(activity) { activity.trackable.users }
+    },
+    initiator_comments: {
+      bitmask: 8,
+      triggered_by_activity_with_key: 'meeting.comment',
+      receivers: ->(activity) { activity.trackable.users },
+      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id == activity.owner_id }
+    },
+    user_comments_users_meeting: {
+      triggered_by_activity_with_key: 'meeting.comment',
+      bitmask: 16,
+      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
+      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
+    },
+    another_user_comments: {
+      triggered_by_activity_with_key: 'meeting.comment',
+      bitmask: 32,
+      receivers: ->(activity) { activity.trackable.users }
+    },
+    another_attendee: {
+      triggered_by_activity_with_key: 'meeting.go_to',
+      bitmask: 64,
+      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
+      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
+    },
+    attendee_left: {
+      triggered_by_activity_with_key: 'meeting.left',
+      bitmask: 128,
+      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
+      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
+    }
   }
   
-  TYPES = [
-    # New meeting in user's graetzl
-    Type.new('meeting.create', TYPE_BITMASKS[:new_meeting_in_graetzl]) do |activity, already_notified|
-      meeting = activity.trackable
-      users = User.where(graetzl_id: meeting.graetzl_id)
-      users = users.reject { |u| already_notified.include?(u.id) }
-      users.reject { |u| u.id == activity.owner_id }.each do |u|
-        already_notified << u.id
-        u.notifications.create(activity: activity,
-                               bitmask: TYPE_BITMASKS[:new_meeting_in_graetzl])
-      end
-    end,
-
-    # New post in user's graetzl
-    Type.new('post.create', TYPE_BITMASKS[:new_post_in_graetzl]) do |activity, already_notified|
-      post = activity.trackable
-      users = User.where(graetzl_id: post.graetzl_id)
-      users = users.reject { |u| already_notified.include?(u.id) }
-      users.reject { |u| u.id == activity.owner_id }.each do |u|
-        already_notified << u.id
-        u.notifications.create(activity: activity,
-                               bitmask: TYPE_BITMASKS[:new_post_in_graetzl])
-      end
-    end,
-
-    # Update of meeting that the user attends
-    Type.new('meeting.update', TYPE_BITMASKS[:update_of_meeting]) do |activity, already_notified|
-      meeting = activity.trackable
-      users = meeting.users
-      users = users.reject { |u| already_notified.include?(u.id) }
-      users.reject { |u| u.id == activity.owner_id }.each do |u|
-        already_notified << u.id
-        u.notifications.create(activity: activity,
-                               bitmask: TYPE_BITMASKS[:update_of_meeting])
-      end
-    end,
-
-    # New comment on meeting that the user attends by the initiator
-    Type.new('meeting.comment', TYPE_BITMASKS[:initiator_comments]) do |activity, already_notified|
-      meeting = activity.trackable
-      if (meeting.initiator.present? &&
-          meeting.initiator.id == activity.owner_id)
-        users = meeting.users
-        users = users.reject { |u| u.id == activity.owner_id }
-        users = users.reject { |u| already_notified.include?(u.id) }
-        users.each do |u|
-          already_notified << u.id
-          u.notifications.create(activity: activity,
-                                 bitmask: TYPE_BITMASKS[:initiator_comments])
-        end
-      end
-    end,
-
-    # New comment on meeting that the user initiated
-    Type.new('meeting.comment', TYPE_BITMASKS[:user_comments_users_meeting]) do |activity, already_notified|
-      meeting = activity.trackable
-      if (meeting.initiator.present? &&
-        meeting.initiator.id != activity.owner_id &&
-        !already_notified.include?(meeting.initiator.id))
-        already_notified << meeting.initiator.id
-        meeting.initiator.notifications.create(activity: activity,
-                                               bitmask: TYPE_BITMASKS[:user_comments_users_meeting])
-      end
-    end,
-
-    # New comment on meeting that the user attends by another attendee
-    Type.new('meeting.comment', TYPE_BITMASKS[:another_user_comments]) do |activity, already_notified|
-      meeting = activity.trackable
-      users = meeting.users
-      users = users.reject { |u| already_notified.include?(u.id) }
-      users.reject { |u| u.id == activity.owner_id }.each do |u|
-        already_notified << u.id
-        u.notifications.create(activity: activity,
-                               bitmask: TYPE_BITMASKS[:another_user_comments])
-      end
-    end,
-
-    # New attendee on meeting that the user initiated
-    Type.new('meeting.go_to', TYPE_BITMASKS[:another_attendee]) do |activity, already_notified|
-      meeting = activity.trackable
-      if (meeting.initiator.present? &&
-          meeting.initiator.try(:id) != activity.owner_id &&
-          !already_notified.include?(meeting.initiator.id))
-        already_notified << meeting.initiator.id
-        meeting.initiator.notifications.create(activity: activity,
-                                                        bitmask: TYPE_BITMASKS[:another_attendee])
-      end
-    end,
-
-    # New attendee on meeting that the user initiated
-    Type.new('meeting.left', TYPE_BITMASKS[:attendee_left]) do |activity, already_notified|
-      meeting = activity.trackable
-      if (meeting.initiator.present? &&
-          meeting.initiator.try(:id) != activity.owner_id &&
-          !already_notified.include?(meeting.initiator.id))
-        already_notified << meeting.initiator.id
-        meeting.initiator.notifications.create(activity: activity,
-                                                        bitmask: TYPE_BITMASKS[:attendee_left])
-      end
-    end
-  ]
-
   belongs_to :user
   belongs_to :activity, :class => PublicActivity::Activity
 
   def self.receive_new_activity(activity)
-    triggered_types = TYPES.select { |t| t.trigger_key == activity.key }
-    already_notified = [ ]
-    triggered_types.sort { |a, b| a.bitmask <=> b.bitmask  }.each do |type|
-      type.broadcast(activity, already_notified)
+    CreateWebsiteNotificationsJob.perform_later(activity.id)
+  end
+
+  def self.broadcast(activity)
+    triggered_types = TYPES.select { |k, v| v[:triggered_by_activity_with_key] == activity.key }
+    ids_notified_users =  []
+    #sort by bitmask, so that lower order bitmask types are sent first, because
+    #higher order bitmask types might not needed to be sent at all, when a user
+    #has been already notified via a lower order type.
+    triggered_types.keys.sort { |a,b| triggered_types[a][:bitmask] <=> triggered_types[b][:bitmask] }.each do |k|
+      v = triggered_types[k]
+      if v[:condition].nil? || v[:condition].call(activity)
+        users = v[:receivers].call(activity)
+        users = users.merge(User.where(["enabled_website_notifications & ? > 0", v[:bitmask]]))
+        users.each do |u|
+          unless ids_notified_users.include?(u.id)
+            u.notifications.create(activity: activity, bitmask: v[:bitmask])
+          end
+          ids_notified_users << u.id
+        end
+      end
     end
   end
 

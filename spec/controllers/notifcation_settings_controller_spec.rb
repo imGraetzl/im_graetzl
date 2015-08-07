@@ -26,7 +26,7 @@ RSpec.describe NotificationSettingsController, type: :controller do
 
       it 'toggles a single website notification setting' do
         expect(user.enabled_website_notification?(type)).to be_falsey  
-        bitmask = Notification::TYPE_BITMASKS[type]
+        bitmask = Notification::TYPES[type][:bitmask]
         post :toggle_website_notification, :type => type
         user.reload
         expect(user.enabled_website_notification?(type)).to be_truthy
