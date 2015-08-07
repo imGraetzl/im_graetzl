@@ -8,12 +8,9 @@ RSpec.describe Location, type: :model do
 
   describe 'scope' do
     describe ':available' do
-      let!(:basic_location) { create(:location,
-        state: Location.states[:basic]) }
-      let!(:pending_location) { create(:location,
-        state: Location.states[:pending]) }
-      let!(:managed_location) { create(:location,
-        state: Location.states[:managed]) }
+      let!(:basic_location) { create(:location_basic) }
+      let!(:pending_location) { create(:location_pending) }
+      let!(:managed_location) { create(:location_managed) }
       let!(:nil_location) { create(:location) }
 
       it 'includes basic and managed locations' do
@@ -31,42 +28,35 @@ RSpec.describe Location, type: :model do
       expect(build(:location, name: '')).not_to be_valid
     end
   end
-  
-  describe 'associations' do
+
+  describe 'attributes' do
     let(:location) { create(:location) }
 
     it 'has friendly_id' do
       expect(location).to respond_to(:slug)
     end
 
-    it 'has graetzl' do
-      expect(location).to respond_to(:graetzl)
-    end
-
     it 'has state' do
       expect(location).to respond_to(:state)
     end
 
-    describe 'avatar' do
-
-      it 'has avatar' do
-        expect(location).to respond_to(:avatar)
-      end
-
-      it 'has avatar_content_type' do
-        expect(location).to respond_to(:avatar_content_type)
-      end
+    it 'has avatar with content_type' do
+      expect(location).to respond_to(:avatar)
+      expect(location).to respond_to(:avatar_content_type)
     end
 
-    describe 'cover_photo' do
+    it 'has cover_photo with content_type' do
+      expect(location).to respond_to(:cover_photo)
+      expect(location).to respond_to(:cover_photo_content_type)
+    end
 
-      it 'has cover_photo' do
-        expect(location).to respond_to(:cover_photo)
-      end
+  end
+  
+  describe 'associations' do
+    let(:location) { create(:location) }
 
-      it 'has cover_photo_content_type' do
-        expect(location).to respond_to(:cover_photo_content_type)
-      end
+    it 'has graetzl' do
+      expect(location).to respond_to(:graetzl)
     end
 
     it 'has address' do

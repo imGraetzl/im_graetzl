@@ -4,8 +4,30 @@ include GeojsonSupport
 RSpec.describe LocationsController, type: :controller do
   let(:graetzl) { create(:graetzl) }
 
+  shared_examples :an_unauthenticated_request do
+    it 'redirects to login' do
+      get :new_address, graetzl_id: graetzl
+      expect(response).to render_template(session[:new])
+    end
+  end
+
+  shared_examples :an_unauthorized_request do
+    it 'redirects to @graetzl' do
+      expect(response).to redirect_to graetzl
+    end
+
+    it 'shows flash[:error]' do
+      expect(flash[:error]).to be_present
+    end
+  end
+
   describe 'GET address' do
-    context 'when authorized user' do
+    context 'when logged out' do
+      before { get :new_address, graetzl_id: graetzl }
+      it_behaves_like :an_unauthenticated_request
+    end
+
+    context 'when business user' do
       let(:user) { create(:user_business) }
 
       before do
@@ -22,29 +44,15 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
 
-    context 'when unauthorized user' do
-      let(:user) { create(:user, role: nil) }
+    context 'when non business user' do
+      let(:user) { create(:user) }
 
       context 'logged in' do
         before do
           sign_in user
           get :new_address, graetzl_id: graetzl
         end
-
-        it 'redirects to @graetzl' do
-          expect(response).to redirect_to graetzl
-        end
-
-        it 'shows flash[:error]' do
-          expect(flash[:error]).to be_present
-        end
-      end
-
-      context 'logged out' do
-        it 'redirects to login' do
-          get :new_address, graetzl_id: graetzl
-          expect(response).to render_template(session[:new])
-        end
+        it_behaves_like :an_unauthorized_request
       end
     end
   end
@@ -438,11 +446,9 @@ RSpec.describe LocationsController, type: :controller do
         end
 
         it 'opens ownership_request' do
-          pending 'feature not implemented yet'
-          fail
-          # expect{
-          #   get :edit, graetzl_id: graetzl, id: location
-          # }.to change(LocationOwnership, :count).by(1)
+          expect{
+            get :edit, graetzl_id: graetzl, id: location
+          }.to change(LocationOwnership, :count).by(1)
         end
       end
     end
