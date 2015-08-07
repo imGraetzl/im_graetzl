@@ -1,5 +1,4 @@
 class Location < ActiveRecord::Base
-  #include ActiveModel::Dirty
   has_paper_trail
   
   extend FriendlyId
@@ -9,38 +8,9 @@ class Location < ActiveRecord::Base
 
   # scopes
   scope :available, -> { where(state: [states[:basic], states[:managed]]) }
-  #scope :all_pending, -> { where(state: [states[:pending], states[:requested]]) }
 
   # states
   enum state: { basic: 0, pending: 1, managed: 2 }
-  # include AASM
-  # enum state: { requested: 0, basic: 1, pending: 2, managed: 3, rejected: 4 }
-  # aasm column: :state do
-  #   state :basic, initial: true
-  #   state :requested
-  #   state :pending
-  #   state :managed
-  #   state :rejected
-
-  #   event :request do
-  #     transitions from: :basic, to: :requested
-  #   end
-
-  #   event :adopt do
-  #     transitions from: :basic, to: :pending
-  #   end
-
-  #   event :approve, after: :update_ownerships do
-  #     transitions from: :pending, to: :managed
-  #     transitions from: :requested, to: :managed
-  #     transitions from: :rejected, to: :managed
-  #   end
-
-  #   event :reject do
-  #     transitions from: :requested, to: :rejected
-  #     transitions from: :pending, to: :basic, after: :reset_attributes
-  #   end
-  # end
 
   # associations
   belongs_to :graetzl
