@@ -2,6 +2,9 @@ class Address < ActiveRecord::Base
   # associations
   belongs_to :addressable, polymorphic: true
 
+  # attributes
+  LOCATION_RADIUS = 0.001
+
   # class methods
   def self.attributes_from_feature(feature)
     begin
@@ -35,6 +38,16 @@ class Address < ActiveRecord::Base
   def graetzl
     graetzls.first
   end
+
+  def locations
+    Location.joins(:address)
+      .where("ST_DWithin(addresses.coordinates, :point, #{LOCATION_RADIUS})", point: coordinates)
+  end
+
+  def available_locations
+    locations.where(state: [Location.states[:basic], Location.states[:managed]])
+  end
+
 
   private
 

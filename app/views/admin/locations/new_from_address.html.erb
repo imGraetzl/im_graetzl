@@ -1,0 +1,28 @@
+<%= semantic_form_for [:admin, @location] do |f| %>
+
+  <%= f.inputs name: 'Basic Location' do %>
+    <%= f.input :name %>
+    <%= f.input :graetzl %>
+    <%= f.input :state, as: :select, collection: Location.states.keys %>
+  <% end %>
+
+  <%= f.inputs name: 'Adresse', for: :address do |address_form| %>
+    <%= address_form.input :street_name %>
+    <%= address_form.input :street_number %>
+    <%= address_form.input :zip %>
+    <%= address_form.input :city %>
+    <%= address_form.input :coordinates, as: :hidden %>
+  <% end %>
+
+  <%= f.inputs name: 'Kontakt', for: :contact do |contact_form| %>
+    <%= contact_form.input :website, as: :url %>
+    <%= contact_form.input :email, as: :email %>
+    <%= contact_form.input :phone %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, as: :button %>
+    <%= f.action :cancel, as: :link, class: 'btn-light' %>
+  <% end %>
+
+<% end %>

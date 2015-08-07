@@ -1,0 +1,10 @@
+<% title("Location #{edit_status @location}") %>
+
+<section class="register-personalInfo">
+  <div class="wrp">
+    <h1>Location <span><%= @location.name %></span> <%= edit_status @location %></h1>
+  </div>
+
+  <%= render 'form' %>
+  
+</section>

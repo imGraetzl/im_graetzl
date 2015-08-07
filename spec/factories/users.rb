@@ -9,5 +9,13 @@ FactoryGirl.define do
     password { Faker::Internet.password(8) }
     graetzl
     confirmed_at Date.today
+
+    factory :user_business do
+      role User.roles[:business]
+    end
+
+    factory :user_admin do
+      role User.roles[:admin]
+    end
   end
 end

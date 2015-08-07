@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720114653) do
+ActiveRecord::Schema.define(version: 20150807151953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,15 +101,6 @@ ActiveRecord::Schema.define(version: 20150720114653) do
 
   add_index "contacts", ["location_id"], name: "index_contacts_on_location_id", using: :btree
 
-  create_table "cover_photos", force: :cascade do |t|
-    t.string   "image"
-    t.integer  "meeting_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "cover_photos", ["meeting_id"], name: "index_cover_photos_on_meeting_id", using: :btree
-
   create_table "districts", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "zip",        limit: 255
@@ -169,8 +160,9 @@ ActiveRecord::Schema.define(version: 20150720114653) do
   create_table "location_ownerships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "location_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "state",       default: 0
   end
 
   add_index "location_ownerships", ["location_id"], name: "index_location_ownerships_on_location_id", using: :btree
@@ -183,9 +175,12 @@ ActiveRecord::Schema.define(version: 20150720114653) do
     t.string   "avatar_id"
     t.string   "cover_photo_id"
     t.string   "slug"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "graetzl_id"
+    t.string   "avatar_content_type"
+    t.string   "cover_photo_content_type"
+    t.integer  "state"
   end
 
   add_index "locations", ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree
@@ -263,5 +258,16 @@ ActiveRecord::Schema.define(version: 20150720114653) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

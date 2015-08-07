@@ -118,13 +118,11 @@ RSpec.describe RegistrationsController, type: :controller do
 
     context 'with graetzl in session' do
       let!(:naschmarkt) { create(:naschmarkt) }
-      let(:params) {
-        {
-          graetzl: "#{naschmarkt.id}"
-        }
-      }
 
-      before { get :new, nil, params }
+      before do
+        session[:graetzl] = naschmarkt.id
+        get :new
+      end
 
       it 'renders new' do
         expect(response).to render_template(:new)

@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
   has_many :notifications, dependent: :destroy
+  has_many :location_ownerships
+  has_many :locations, through: :location_ownerships
 
   # attributes
     # virtual attribute to login with username or email

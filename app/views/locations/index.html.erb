@@ -1,0 +1,7 @@
+<h1>Locations (basic und managed)</h1>
+
+<ul>
+  <% @locations.each do |location| %>
+    <li><%= link_to location.name, [@graetzl, location] %> (<%= location.state %>) </li>
+  <% end %>
+</ul>

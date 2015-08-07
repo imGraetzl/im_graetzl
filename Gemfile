@@ -89,3 +89,5 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'public_activity', github: 'pokonski/public_activity'
 # submit multipart forms with ajax
 gem 'remotipart'
+# track changes to model data
+gem 'paper_trail'

@@ -83,6 +83,10 @@ RSpec.describe User, type: :model do
       expect(user).to respond_to(:posts)
     end
 
+    it 'has locations' do
+      expect(user).to respond_to(:locations)
+    end
+
     it 'has comments' do
       expect(user).to respond_to(:comments)
     end
