@@ -6,6 +6,8 @@ class LocationOwnership < ActiveRecord::Base
   belongs_to :user
   belongs_to :location
 
+  enum state: { basic: 0, pending: 1 }
+
   # states
   # include AASM
   # enum state: { pending: 0, requested: 1, approved: 2, rejected: 3 }

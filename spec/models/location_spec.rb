@@ -265,4 +265,75 @@ RSpec.describe Location, type: :model do
       end
     end
   end
+
+  describe '#request_ownership' do
+
+    shared_examples :a_successfull_ownership_request do
+
+      it 'creates new location_onwership record' do
+        expect{
+          location.request_ownership(user)
+        }.to change(LocationOwnership, :count).by 1
+      end
+
+      describe 'location' do
+        before { location.request_ownership(user) }
+
+        it 'has user' do
+          expect(location.reload.users).to include(user)
+        end
+      end
+
+      describe 'location_ownership' do
+        subject(:location_ownership) { location.request_ownership(user) }
+
+        it 'is location_ownership object' do
+          expect(location_ownership).to be_instance_of(LocationOwnership)
+        end
+
+        it 'has state :pending' do
+          expect(location_ownership.pending?).to be true
+        end
+      end
+    end
+
+    shared_examples :an_unsuccessfull_ownership_request do
+
+      it 'does not create location_onwership record' do
+        expect{
+          location.request_ownership(user)
+        }.not_to change{LocationOwnership.count}
+      end
+
+      it 'returns nothing' do
+        expect(location.request_ownership(user)).to be nil
+      end
+    end
+
+    context 'when business user' do
+      let(:user) { create(:user_business) }
+
+      context 'when location pending' do
+        let(:location) { create(:location_pending) }
+        it_behaves_like :a_successfull_ownership_request
+      end
+
+      context 'when location managed' do
+        let(:location) { create(:location_managed) }
+        it_behaves_like :a_successfull_ownership_request
+      end
+
+      context 'when location basic' do
+        let(:location) { create(:location_basic) }
+        it_behaves_like :an_unsuccessfull_ownership_request
+      end
+    end
+
+    context 'when non business user' do
+      let(:user) { create(:user) }
+      let(:location) { create(:location_managed) }
+
+      it_behaves_like :an_unsuccessfull_ownership_request
+    end
+  end
 end
