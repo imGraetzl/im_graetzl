@@ -30,21 +30,36 @@ RSpec.describe 'admin/locations/new_from_address', type: :view do
 
   describe 'address' do
 
-    it 'has field [address_attributes][street_name] with address.street_name' do
+    it 'has field :street_name with address.street_name' do
       expect(rendered).to have_field('location[address_attributes][street_name]', with: address.street_name)
     end
 
-    it 'has field [address_attributes][street_number] with address.street_number' do
+    it 'has field :street_number with address.street_number' do
       expect(rendered).to have_field('location[address_attributes][street_number]', with: address.street_number)
     end
 
-    it 'has field [address_attributes][zip] with address.zip' do
+    it 'has field :zip with address.zip' do
       expect(rendered).to have_field('location[address_attributes][zip]', with: address.zip)
     end
 
-    it 'has hidden field [address_attributes][coordinates] with address.coordinates' do
+    it 'has hidden field :coordinates with address.coordinates' do
       expect(rendered).to have_selector('#location_address_attributes_coordinates', visible: false)
       have_selector("input#location_address_attributes_coordinates[value=\"#{address.coordinates.as_text}\"]")
+    end
+  end
+
+  describe 'contact' do
+
+    it 'has field :website' do
+      expect(rendered).to have_field('location[contact_attributes][website]')
+    end
+
+    it 'has field :email' do
+      expect(rendered).to have_field('location[contact_attributes][email]')
+    end
+
+    it 'has field :phone' do
+      expect(rendered).to have_field('location[contact_attributes][phone]')
     end
   end
 end

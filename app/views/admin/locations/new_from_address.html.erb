@@ -14,6 +14,12 @@
     <%= address_form.input :coordinates, as: :hidden %>
   <% end %>
 
+  <%= f.inputs name: 'Kontakt', for: :contact do |contact_form| %>
+    <%= contact_form.input :website, as: :url %>
+    <%= contact_form.input :email, as: :email %>
+    <%= contact_form.input :phone %>
+  <% end %>
+
   <%= f.actions do %>
     <%= f.action :submit, as: :button %>
     <%= f.action :cancel, as: :link, class: 'btn-light' %>

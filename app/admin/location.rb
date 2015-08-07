@@ -185,7 +185,8 @@ ActiveAdmin.register Location do
     address = Address.find(params[:address])
     @location = Location.new(name: address.description,
       state: 'basic',
-      graetzl: address.graetzl)
+      graetzl: address.graetzl,
+      contact: Contact.new)
     @location.build_address(street_name: address.street_name,
       street_number: address.street_number,
       zip: address.zip,

@@ -195,6 +195,10 @@ RSpec.describe Admin::LocationsController, type: :controller do
         expect(location.basic?).to eq true
       end
 
+      it 'has contact' do
+        expect(location.contact).not_to eq nil
+      end
+
       describe 'address' do
         subject(:location_address) { location.address }
 
@@ -210,7 +214,6 @@ RSpec.describe Admin::LocationsController, type: :controller do
         it 'has no description' do
           expect(location_address.description).to be_nil
         end
-
       end
     end
   end
