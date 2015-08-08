@@ -233,4 +233,46 @@ RSpec.describe Notification, type: :model do
       end
     end
   end
+
+  describe "mail notifications" do
+    before { user.enable_mail_notification(:new_meeting_in_graetzl, interval) }
+    let(:user) { create(:user, graetzl: meeting.graetzl) }
+
+    context "when immediate notification is enabled" do
+      let(:interval) { :immediate }
+
+      it "the notification is sent per mail immediatly" do
+        spy = class_double("SendMailNotificationJob", perform_later: nil).as_stubbed_const
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        activity = meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+        expect(spy).to have_received(:perform_later).with(user.id,
+                                                          activity.id,
+                                                          "new_meeting_in_graetzl")
+      end
+    end
+
+    context "when daily notification is enabled" do
+      let(:interval) { :daily }
+
+      it "the notification is sent at the end of day" do
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+      end
+    end
+
+    context "when weekly notification is enabled" do
+      let(:interval) { :weekly }
+
+      it "the notification is sent at the end of day" do
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+      end
+    end
+  end 
 end

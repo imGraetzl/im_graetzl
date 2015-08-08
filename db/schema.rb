@@ -252,6 +252,9 @@ ActiveRecord::Schema.define(version: 20150807151953) do
     t.integer  "enabled_website_notifications",             default: 0
     t.integer  "role"
     t.string   "avatar_content_type"
+    t.integer  "immediate_mail_notifications",              default: 0
+    t.integer  "daily_mail_notifications",                  default: 0
+    t.integer  "weekly_mail_notifications",                 default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

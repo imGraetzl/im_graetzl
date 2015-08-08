@@ -213,6 +213,41 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "mail notifications" do
+    let(:user) { create(:user, :graetzl => create(:graetzl)) }
+    before do
+      Notification::TYPES.keys.each do |type|
+        bitmask = Notification::TYPES[type][:bitmask]
+        create(:notification, user: user, bitmask: bitmask)
+      end
+    end
+
+    describe "enabling" do
+      let(:type) { :new_meeting_in_graetzl }
+
+      it "can be enabled for a specific type" do
+        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey  
+        user.enable_mail_notification(type, :daily)
+        expect(user.enabled_mail_notification?(type, :daily)).to be_truthy
+        expect(user.enabled_mail_notification?(type, :weekly)).to be_falsey  
+        user.enable_mail_notification(type, :weekly)
+        expect(user.enabled_mail_notification?(type, :weekly)).to be_truthy
+        expect(user.enabled_mail_notification?(type, :immediate)).to be_falsey  
+        user.enable_mail_notification(type, :immediate)
+        expect(user.enabled_mail_notification?(type, :immediate)).to be_truthy
+      end
+
+      it "can only be set to either immediate, daily, or weekly" do
+        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey  
+        user.enable_mail_notification(type, :daily)
+        expect(user.enabled_mail_notification?(type, :daily)).to be_truthy
+        user.enable_mail_notification(type, :weekly)
+        expect(user.enabled_mail_notification?(type, :weekly)).to be_truthy
+        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey  
+      end 
+    end
+  end
+
   describe "website_notifications" do
     let(:user) { create(:user, :graetzl => create(:graetzl)) }
     before do

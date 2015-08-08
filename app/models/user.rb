@@ -76,7 +76,30 @@ class User < ActiveRecord::Base
     notifications.where(["bitmask & ? > 0", enabled_website_notifications])
   end
 
+  def mail_notifications(interval)
+    notifications.where(["bitmask & ? > 0", send("#{interval}_mail_notifications".to_sym)])
+  end
+
   def new_website_notifications_count
     website_notifications.where(seen: false).count
+  end
+
+  def enabled_mail_notification?(type, interval)
+    send("#{interval}_mail_notifications".to_sym) & Notification::TYPES[type][:bitmask] > 0
+  end
+
+  def enable_mail_notification(type, interval)
+    [ :immediate, :daily, :weekly ].each do |i|
+      disable_mail_notification(type, i)
+    end
+
+    new_setting = send("#{interval}_mail_notifications".to_sym) | Notification::TYPES[type][:bitmask] 
+    update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
+  end
+
+  def disable_mail_notification(type, interval)
+    mask = 999999999999 ^ Notification::TYPES[type][:bitmask] 
+    new_setting = send("#{interval}_mail_notifications".to_sym) & mask
+    update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
   end
 end

@@ -64,9 +64,12 @@ class Notification < ActiveRecord::Base
       v = triggered_types[k]
       if v[:condition].nil? || v[:condition].call(activity)
         users = v[:receivers].call(activity)
-        users = users.merge(User.where(["enabled_website_notifications & ? > 0", v[:bitmask]]))
+        #users = users.merge(User.where(["enabled_website_notifications & ? > 0", v[:bitmask]]))
         users.each do |u|
           unless ids_notified_users.include?(u.id)
+            if u.immediate_mail_notifications & v[:bitmask] > 0
+              SendMailNotificationJob.perform_later(u.id, activity.id, k.to_s)
+            end
             u.notifications.create(activity: activity, bitmask: v[:bitmask])
           end
           ids_notified_users << u.id
