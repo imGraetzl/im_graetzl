@@ -1,5 +1,3 @@
-<p>Auf der Website</p>
-
 <table>
   <tr>
     <td>Auf der Website</td>
@@ -14,7 +12,9 @@
         <span <% if current_user.enabled_website_notification?(:new_meeting_in_graetzl) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td>
+      <%= render partial: 'mail_settings', locals: { type: "new_meeting_in_graetzl" } %>
+    </td>
     <td>ein neues Treffen wurde in meinem Grätzl erstellt</td>
   </tr>
 
@@ -25,7 +25,9 @@
         <span <% if current_user.enabled_website_notification?(:new_post_in_graetzl) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td>
+      <%= render partial: 'mail_settings', locals: { type: "new_post_in_graetzl" } %>
+</td>
     <td>ein neuer Beitrag wurde in meinem Grätzl erstellt</td>
   </tr>
 
@@ -42,7 +44,7 @@
         <span <% if current_user.enabled_website_notification?(:update_of_meeting) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td><%= render partial: 'mail_settings', locals: { type: "update_of_meeting" } %></td>
     <td>ein Treffen geändert wird</td>
   </tr>
 
@@ -53,7 +55,7 @@
         <span <% if current_user.enabled_website_notification?(:initiator_comments) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td><%= render partial: 'mail_settings', locals: { type: "initiator_comments" } %></td>
     <td>Ein Veranstalter das Treffen kommentiert</td>
   </tr>
 
@@ -64,7 +66,7 @@
         <span <% if current_user.enabled_website_notification?(:another_user_comments) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td><%= render partial: 'mail_settings', locals: { type: "another_user_comments" } %></td>
     <td>ein User das Treffen kommentiert</td>
   </tr>
 
@@ -81,7 +83,7 @@
         <span <% if current_user.enabled_website_notification?(:another_attendee) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td><%= render partial: 'mail_settings', locals: { type: "another_attendee" } %></td>
     <td>jemand Neuer am Treffen teilnimmt </td>
   </tr>
 
@@ -92,7 +94,7 @@
         <span <% if current_user.enabled_website_notification?(:user_comments_users_meeting) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td><%= render partial: 'mail_settings', locals: { type: "user_comments_users_meeting" } %></td>
     <td>ein User das Treffen kommentiert</td>
   </tr>
 
@@ -103,7 +105,7 @@
         <span <% if current_user.enabled_website_notification?(:attendee_left) -%> style="display: none;" <% end -%> class="off">Aus</span>
       </a>
     </td>
-    <td>nicht implementiert</td>
+    <td><%= render partial: 'mail_settings', locals: { type: "attendee_left" } %></td>
     <td>ein Teilnehmer wieder absagt</td>
   </tr>
 </table>
