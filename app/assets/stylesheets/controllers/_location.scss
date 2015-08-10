@@ -1,0 +1,245 @@
+section.locationPage {
+  @include cf;
+  .titleHeadline .wrp {
+    @include respond-to(">=medium") {
+      padding-right: 40px;
+    }
+  }
+
+  .cloudyImgHeader {
+    @include respond-to(">=medium") {
+      margin-bottom: -40px;
+    }
+  }
+
+  .sideBar, .mainContent {
+    @include respond-to(">=medium") {
+      padding-top: 30px;
+    }
+    @include respond-to(">=large") {
+      padding-top: 20px;
+    }
+  }
+
+  .introtxt {
+    h3 {
+      margin-bottom: 20px;
+    }
+    @include font-size-primaryFont('large');
+    margin-bottom: 40px;
+    @include respond-to(">=medium") {
+      margin-bottom: 60px;
+    }
+  }
+
+}
+
+.sideBar {
+  position: relative;
+  z-index: 8;
+  @include respond-to(">=medium") {
+    float: left;
+    width: 38%;
+  }
+  @include respond-to(">=large") {
+    width: 33%;
+  }
+
+
+  .staff {
+    img {
+      width: 40px;
+      height: 40px;
+      margin-left: 3px;
+      margin-right: 3px;
+    }
+  }
+
+  .openinghours {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+
+  .contact {
+    a {
+      color: $color-ambient-mint;
+      text-decoration: none;
+      margin-bottom: 10px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .address {
+      margin-top: 20px;
+      img {
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin-top: 10px;
+        @include respond-to(">=medium") {
+          max-width: 250px;
+        }
+      }
+    }
+  }
+}
+
+.sideBarbox {
+  margin-bottom: 40px;
+  .sideflag {
+    @include font-size-secondaryFont('small');
+    margin-bottom: 20px;
+  }
+  [class^=icon-] {
+    fill: $color-ambient-mint;
+  }
+}
+
+.tagCollection {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  li {
+    float: left;
+    background-color: #ffffff;
+    margin-right: 8px;
+    color: $color-ambient-mint-dark;
+    border: 1px solid $color-ambient-mint-dark;
+    border-radius: 4px;
+    padding: 0 6px;
+    margin-bottom: 8px;
+  }
+}
+
+.imgCollection {
+  overflow: hidden;
+  max-width: 300px;
+  @include respond-to(">=medium") {
+    max-width: 250px;
+  }
+  img {
+    display: block;
+    margin-bottom: 8px;
+    @include col(1/2, $cycle: 2);
+  }
+}
+
+
+.mainContent {
+  position: relative;
+  z-index: 8;
+  margin-bottom: 30px;
+  @include respond-to(">=medium") {
+    float: right;
+    width: 60%;
+    margin-bottom: 0;
+  }
+  @include respond-to(">=large") {
+    margin-right: -25px;
+    width: 66%;
+    width: calc(66% + 26px);
+  }
+}
+
+.zuckerlBlock {
+  margin-bottom: 70px;
+  @include respond-to(">=large") {
+    margin-bottom: 120px;
+  }
+  h2 {
+    @include font-size-secondaryFont('large');
+    color: $color-ambient-rosa;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+    display: table;
+    &::before {
+      content: '';
+      position: relative;
+      display:inline-block;
+      background-image: url(image_path('graetzlzuckerl.png'));
+      background-position: 0 0;
+      background-size: 100px 63px;
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 63px;
+      vertical-align: middle;
+      margin-right: 10px;
+      @include respond-to(">=medium") {
+        position: absolute;
+        top: -9px;
+        left: -16px;
+        width: 220px;
+        height: 120px;
+        background-image: url(image_path('graetzlzuckerl.png')), url(image_path('svg/arrow-dashed-bend.svg'));
+        background-position: 0 0, 88px 1px;
+        background-size: 166px 105px, 114px 57px;
+
+      }
+    }
+    @include respond-to(">=medium") {
+      padding-left: 196px;
+      display: block;
+      margin-left: 0;
+    }
+  }
+  .zuckerlCollection {
+    .zuckerlBox {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.meetingsBlock {
+
+  .wrp-hl {
+    margin-bottom: 30px;
+    @include respond-to(">=medium") {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  h2 {
+    @include font-size-secondaryFont('large');
+    text-align: center;
+    color: $color-ambient-rosa;
+    margin-bottom: 20px;
+    @include respond-to(">=medium") {
+      text-align: left;
+      margin-bottom: 0;
+    }
+  }
+
+  .btn-userCallToAction {
+    margin: 0 auto;
+    @include respond-to(">=medium") {
+      margin: 0;
+    }
+  }
+
+  .meetingBoxCollection {
+    @include cf();
+    .meetingBox {
+      display: block;
+      margin-bottom: 25px;
+      @include respond-to(">=large") {
+        @include col(1/2, $gutter: 2, $cycle: 2);
+      }
+    }
+
+  }
+}
+
+
+
+
+
+
+

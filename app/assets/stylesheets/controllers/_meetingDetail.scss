@@ -1,79 +1,8 @@
-[data-controller=meetings] {
-  .headerImgBlock {
-    padding-top: 30px;
+section.meeting {
+  .cloudyImgHeader {
     @include respond-to(">=medium") {
-      @include cloudMaskOverImg;
-      padding-top: 0;
-      overflow: hidden;
-      max-height: 370px;
       margin-bottom: -80px;
     }
-    &::after {
-      display: none;
-    }
-  }
-}
-
-.titleHeadline {
-  margin-bottom: 2.0rem;
-  @include respond-to(">=medium") {
-    @include paperCard($rotation: -4, $texture: true, $fakehole: false);
-    padding: 25px 30px 20px 42px;
-    position: absolute;
-    bottom: 70px;
-    left: -12px;
-    max-width: 450px;
-    @include respond-to(">=large") {
-      bottom: 105px;
-    }
-  }
-
-  a {
-    display: table;
-    margin: 0 auto;
-    text-decoration: none;
-    @include respond-to(">=medium") {
-      margin-left: 0;
-    }
-  }
-
-  h1, h3 {
-    font-family: $font-secondary;
-    line-height: 1;
-    text-align: center;
-    @include respond-to(">=medium") {
-      text-align: left;
-    }
-  }
-
-  h1 {
-    @include font-size-secondaryFont;
-    margin-bottom: 0;
-    color: $color-ambient-mint;
-    @include respond-to(">=large") {
-    }
-  }
-
-  h3 {
-    @include headlineBarbapapa;
-    @include font-size-secondaryFont('small');
-    display: table;
-    margin: 0 auto;
-    @include respond-to(">=medium") {
-      margin-left: 0;
-      margin-bottom: 0.5rem;
-    }
-  }
-}
-
-.titleImg {
-  max-width: 100%;
-  display: block;
-  margin-bottom: 2rem;
-  @include respond-to(">=medium") {
-    z-index: 1;
-    margin-top: 0;
-    margin-bottom: 0;
   }
 }
 

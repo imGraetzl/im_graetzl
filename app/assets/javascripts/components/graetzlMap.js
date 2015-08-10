@@ -35,21 +35,24 @@ APP.components.graetzlMap = (function() {
 
 
     function init(callback) {
-        $.when($.getJSON('/assets/javascripts/graetzls.json'), $.getJSON('/assets/javascripts/districts.json')).done(function(featureGraetzl, featureDistrict) {
-                geoGraetzl = featureGraetzl[0];
-                geoVienna = featureDistrict[0];
-                map = L.map('graetzlMapWidget', {
-                    layers: [mainLayer],
-                    dragging: false,
-                    touchZoom: false,
-                    scrollWheelZoom: false,
-                    doubleClickZoom: false,
-                    boxZoom: false,
-                    tap: false
-                }).setActiveArea('activeArea');
-                callback();
-            }
-        );
+        $(document).on('ready page:load', function () {
+            $.when($.getJSON('/assets/javascripts/graetzls.json'), $.getJSON('/assets/javascripts/districts.json')).done(function(featureGraetzl, featureDistrict) {
+                    geoGraetzl = featureGraetzl[0];
+                    geoVienna = featureDistrict[0];
+                    map = L.map('graetzlMapWidget', {
+                        layers: [mainLayer],
+                        dragging: false,
+                        touchZoom: false,
+                        scrollWheelZoom: false,
+                        doubleClickZoom: false,
+                        boxZoom: false,
+                        tap: false
+                    }).setActiveArea('activeArea');
+                    callback();
+                }
+            );
+        });
+
     }
 
 

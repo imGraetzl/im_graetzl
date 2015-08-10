@@ -15,11 +15,6 @@ section.vienna {
 
   #graetzlMapWidget {
     height: 500px;
-    @include respond-to(">=large") {
-      &::before {
-        width: 400px;
-      }
-    }
   }
 
   .activeArea {
@@ -32,7 +27,7 @@ section.vienna {
 
 section.vienna,
 section.districts {
-  .headerImgBlock {
+  .mapImgBlock {
     margin-bottom: 30px;
   }
   .teaserBlock {

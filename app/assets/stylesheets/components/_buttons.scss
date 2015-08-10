@@ -28,7 +28,7 @@
   }
 
   &.-shadow {
-    transition: box-shadow 0.3s;
+    transition: box-shadow 0.1s;
   }
 
   &.-rose {
@@ -92,6 +92,8 @@
     z-index: 2;
   }
   .img-round {
+    width: 40px;
+    height: 40px;
     margin-right: 0.8rem;
     margin-top: -10px;
     margin-bottom: -10px;
@@ -104,6 +106,9 @@
     .img-round {
       border-color: $color-ambient-mint-dark;
     }
+  }
+  [class^=icon-]:last-child {
+    margin-left: 10px;
   }
 }
 

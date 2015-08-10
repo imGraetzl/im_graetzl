@@ -1,68 +1,71 @@
 <% title(@meeting.name) %>
 
-<div class="headerImgBlock">
+<section class="meeting">
 
-  <div class="titleHeadline">
-    <div class="wrp">
-      <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
-      <h1><%= @meeting.name %></h1>
+  <div class="cloudyImgHeader">
+
+    <div class="titleHeadline">
+      <div class="wrp">
+        <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
+        <h1><%= @meeting.name %></h1>
+      </div>
+      <div class="card"></div>
     </div>
-    <div class="card"></div>
-  </div>
-  <%= attachment_image_tag(@meeting, :cover_photo,
-                           :fill, 980, 370,
-                           fallback: 'cover_photo/default.jpg',
-                           class: 'titleImg') %>
-</div>
-
-<div class="entryDescription">
-
-  <div class="dateTime">
-    <div class="iconCalendarTextual">
-      <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-    </div>
-
-    <div class="dayYearTimes">
-      <% if @meeting.starts_at_date %>
-          <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
-      <% else %>
-          Tag steht noch nicht fest...
-      <% end %>
-      <br>
-      <span class="begin">Beginn: <%= localize_time(@meeting.starts_at_time, '%H:%M') %></span>
-      <span class="end">Ende: <%= localize_time(@meeting.ends_at_time, '%H:%M') %></span>
-    </div>
+    <%= attachment_image_tag(@meeting, :cover_photo,
+                             :fill, 980, 370,
+                             fallback: 'cover_photo/default.jpg',
+                             class: 'titleImg') %>
   </div>
 
-  <div class="location">
-    <% if @meeting.address.coordinates %>
-        <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
-            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-            Karte
+  <div class="entryDescription">
+
+    <div class="dateTime">
+      <div class="iconCalendarTextual">
+        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+      </div>
+
+      <div class="dayYearTimes">
+        <% if @meeting.starts_at_date %>
+            <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
+        <% else %>
+            Tag steht noch nicht fest...
         <% end %>
-    <% else %>
-        <div class="iconMapLink">
-          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-        </div>
-    <% end %>
-
-    <div class="address">
-      <%= address_description(@meeting.address) %>
-      <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
-      <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
+        <br>
+        <span class="begin">Beginn: <%= localize_time(@meeting.starts_at_time, '%H:%M') %></span>
+        <span class="end">Ende: <%= localize_time(@meeting.ends_at_time, '%H:%M') %></span>
+      </div>
     </div>
+
+    <div class="location">
+      <% if @meeting.address.coordinates %>
+          <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
+              <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+              Karte
+          <% end %>
+      <% else %>
+          <div class="iconMapLink">
+            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+          </div>
+      <% end %>
+
+      <div class="address">
+        <%= address_description(@meeting.address) %>
+        <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
+        <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
+      </div>
+    </div>
+
+    <div class="userPortraitName">
+      <img class="img-round" src="http://place-hoff.com/100/100" alt="">
+      Erstellt von <a href="">Peter</a>
+    </div>
+
+    <%= simple_format @meeting.description, class: 'txt' %>
   </div>
 
-  <div class="userPortraitName">
-    <img class="img-round" src="http://place-hoff.com/100/100" alt="">
-    Erstellt von <a href="">Peter</a>
+  <div class="entryParticipate">
+    <%= render 'participation', users: @meeting.users %>
   </div>
 
-  <%= simple_format @meeting.description, class: 'txt' %>
-</div>
-
-<div class="entryParticipate">
-  <%= render 'participation', users: @meeting.users %>
-</div>
-
-<%= render 'stream', graetzl: @graetzl %>
+  <%= render 'stream', graetzl: @graetzl %>
+</section>

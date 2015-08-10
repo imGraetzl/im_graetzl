@@ -3,6 +3,7 @@ APP.controllers.districts = (function() {
     var map =  APP.components.graetzlMap;
 
     function init() {
+
         if($('section.vienna').exists()){
             map.init(function() {
                     map.showMapDistrict(null, {
@@ -14,7 +15,6 @@ APP.controllers.districts = (function() {
 
 
         if($('section.districts').exists()){
-            console.log("jkjk");
             var mapvisible= jQuery('section.districts').data('mapvisible');
             map.init(function() {
                     map.showMapDistrict(mapvisible.districts, {

@@ -14,3 +14,11 @@
   }
 }
 
+.icontxt {
+  display: flex;
+  align-items: center;
+  [class^=icon-] {
+    margin-right: 12px;
+  }
+}
+

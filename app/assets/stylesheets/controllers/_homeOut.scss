@@ -48,7 +48,7 @@ section.homeOut {
   .specialBox {
     @include paperCard($rotation: -2, $string: 2);
     @include respond-to(">=large") {
-      transform: translate(15px, -15px);
+      transform: translate(15px, -5px);
     }
     .wrp  {
       display: block;
@@ -95,7 +95,7 @@ section.homeOut {
       .specialBox {
         transition: transform 0.5s;
         &:hover {
-          transform: rotate(4deg) translate3d(10px, -25px, 0);
+          transform: rotate(4deg) translate3d(10px, 0, 0);
           button {
             opacity: 0.9;
           }
@@ -262,7 +262,7 @@ section.homeOut {
 
   &:nth-child(odd) {
     @include respond-to(">=medium") {
-      padding-right: 350px;
+      padding-right: 370px;
       background-position: right top;
     }
   }

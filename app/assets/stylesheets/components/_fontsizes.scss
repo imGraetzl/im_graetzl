@@ -57,7 +57,7 @@
   @if $size == 'small' {
     font-size: 2.6rem;
     @include respond-to(">=large") {
-      font-size: 3.0rem;
+      font-size: 2.8rem;
     }
   }
 

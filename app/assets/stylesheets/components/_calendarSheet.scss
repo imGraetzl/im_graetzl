@@ -25,7 +25,6 @@
     width: 50%;
     position: absolute;
     top: 0;
-    background-image: $texture-primary;
   }
   &:before {
     background-color: lighten($color-ambient-mint-dark, 15);

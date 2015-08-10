@@ -1,0 +1,84 @@
+.titleHeadline {
+  margin-bottom: 2.0rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  @include respond-to(">=medium") {
+    @include paperCard($rotation: -4, $texture: true, $fakehole: false);
+    padding: 25px 30px 20px 42px;
+    position: absolute;
+    bottom: 70px;
+    left: -12px;
+    max-width: 450px;
+    @include respond-to(">=large") {
+      bottom: 105px;
+    }
+  }
+
+  a {
+    display: table;
+    margin: 0 auto;
+    text-decoration: none;
+    @include respond-to(">=medium") {
+      margin-left: 0;
+    }
+  }
+
+  h1, h3 {
+    font-family: $font-secondary;
+    line-height: 1;
+    text-align: center;
+    @include respond-to(">=medium") {
+      text-align: left;
+    }
+  }
+
+  h1 {
+    @include font-size-secondaryFont;
+    margin-bottom: 0;
+    @include respond-to(">=large") {
+    }
+  }
+
+  h3 {
+    @include headlineBarbapapa;
+    @include font-size-secondaryFont('small');
+    display: table;
+    margin: 0 auto;
+    @include respond-to(">=medium") {
+      margin-left: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+  h4 {
+    @include font-size-secondaryFont('small');
+    display: table;
+    margin: 0 auto;
+    color: $color-ambient-mint;
+    margin-top: 5px;
+    @include respond-to(">=medium") {
+      margin-left: 0;
+    }
+  }
+
+  .locationAvatar {
+    width: 80px;
+    height: 80px;
+    border: solid 1px $color-ambient-mint;
+    padding: 4px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    @include respond-to(">=medium") {
+    transform: translate(0, 0);
+      position: absolute;
+      bottom: -45px;
+      right: -84px;
+      left: auto;
+      width: 120px;
+      height: 120px;
+    }
+  }
+
+}

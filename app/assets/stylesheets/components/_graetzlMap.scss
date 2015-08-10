@@ -1,5 +1,100 @@
+.mapImgBlock {
 
+  position: relative;
+  z-index: 1;
+  margin-top: -3rem;
+  margin-left: -18px;
+  margin-right: -18px;
+  &::after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+    z-index: 9;
+  }
+  @include respond-to(">=medium") {
+    margin-top: -5rem;
+    margin-left: -25px;
+    margin-right: -25px;
+  }
+  @include respond-to(">=large") {
+    margin-top: -8rem;
+  }
 
+  .navBlock {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    z-index: 5;
+    h1 {
+      @include headlineBarbapapa();
+      @include font-size-secondaryFont('large');
+      @include textShadowHard($color-ambient-rosa-dark);
+      margin-bottom: 20px;
+    }
+    .districtNumber {
+      font-size: 28px;
+    }
+    .districtName,
+    .graetzlName {
+      font-size: 38px;
+    }
+    .links {
+      overflow: hidden;
+      @include respond-to(">=medium") {
+        width: 320px;
+      }
+      a {
+        @include ellipsis();
+        display: block;
+        float: left;
+        background-color: $color-ambient-bright;
+        border-width: 1px;
+        border-style: solid;
+        border-color: $color-ambient-rosa;
+        padding: 4px 8px;
+        border-radius: 3px;
+        text-decoration: none;
+        color: $color-ambient-rosa;
+        font-size: 12px;
+        margin-bottom: 4px;
+        margin-left: 2px;
+        margin-right: 2px;
+        width: calc(50% - 4px);
+        @include respond-to(">=medium") {
+          width: 147px;
+        }
+        &:hover {
+          background-color: $color-ambient-rosa;
+          color: #ffffff;
+        }
+      }
+      a.toVienna {
+        border-color: $color-ambient-mint-dark;
+        color: $color-ambient-mint-dark;
+        position: relative;
+        padding-left: 25px;
+        [class^=icon-] {
+          width: 20px;
+          height: 20px;
+          position: absolute;
+          left: 1px;
+          top: 2px;
+        }
+      }
+      a.toVienna:hover {
+        background-color: $color-ambient-mint-dark;
+        color: #ffffff;
+        [class^=icon-] {
+        }
+      }
+    }
+  }
+}
 
 #graetzlMapWidget {
   width: 100%;
@@ -27,7 +122,7 @@
     }
     &::before{
       left: 0;
-      width: 600px;
+      width: 200px;
       background: linear-gradient(to right, rgba(252,252,252,1) 33%,rgba(252,252,252,0) 100%);
     }
     &::after {
@@ -49,7 +144,7 @@
 }
 
 .activeArea {
- //  border: 1px solid red;
+  //  border: 1px solid red;
   width: 100%;
   height: 200px;
   position: absolute;
@@ -62,90 +157,5 @@
   }
   @include respond-to(">=large") {
     width: 70%;
-  }
-}
-
-
-.headerImgBlock .navBlock {
-  position: absolute;
-  bottom: 20px;
-  left: 10px;
-  z-index: 5;
-  h1 {
-    @include headlineBarbapapa();
-    @include font-size-secondaryFont('large');
-    @include textShadowHard($color-ambient-rosa-dark);
-    margin-bottom: 20px;
-  }
-  .districtNumber {
-    font-size: 28px;
-  }
-  .districtName,
-  .graetzlName {
-    font-size: 38px;
-  }
-  .links {
-    overflow: hidden;
-    @include respond-to(">=medium") {
-     width: 320px;
-    }
-    a {
-      @include ellipsis();
-      display: block;
-      float: left;
-      background-color: $color-ambient-bright;
-      border-width: 1px;
-      border-style: solid;
-      border-color: $color-ambient-rosa;
-      padding: 4px 8px;
-      border-radius: 3px;
-      text-decoration: none;
-      color: $color-ambient-rosa;
-      font-size: 12px;
-      margin-bottom: 4px;
-      margin-left: 2px;
-      margin-right: 2px;
-      width: calc(50% - 4px);
-      @include respond-to(">=medium") {
-        width: 147px;
-      }
-      &:hover {
-        background-color: $color-ambient-rosa;
-        color: #ffffff;
-      }
-    }
-    a.toVienna {
-      border-color: $color-ambient-mint-dark;
-      color: $color-ambient-mint-dark;
-      position: relative;
-      padding-left: 25px;
-      [class^=icon-] {
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        left: 1px;
-        top: 2px;
-      }
-    }
-    a.toVienna:hover {
-      background-color: $color-ambient-mint-dark;
-      color: #ffffff;
-      [class^=icon-] {
-      }
-    }
-  }
-}
-
-.headerImgBlock {
-  &::after {
-    content: '';
-    width: 100%;
-    height: 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
-    pointer-events: none;
-    z-index: 9;
   }
 }

@@ -1,18 +1,10 @@
 section.graetzls {
 
-  .headerImgBlock {
+  .mapImgBlock {
     margin-bottom: 30px;
-    background-repeat: no-repeat;
-    position: relative;
-    display: block;
-    margin-left: -18px;
-    margin-right: -18px;
-    padding-bottom: 40px;
     @include respond-to(">=large") {
       height: 200px;
       padding-bottom: 0;
-      border-top: 0;
-      background-position: 91px -69px;
     }
 
     .activeArea {
@@ -20,7 +12,6 @@ section.graetzls {
         width: 55%;
       }
     }
-
 
     .wrp-headline {
       display: table;
@@ -105,12 +96,17 @@ section.graetzls {
     height: 320px;
   }
 
-  .districtTag {
+  .sideflag {
     display: none;
   }
 
   #graetzlMapWidget {
     position: relative;
+    @include respond-to(">=medium") {
+      &::before {
+        width: 400px;
+      }
+    }
   }
 
 }
