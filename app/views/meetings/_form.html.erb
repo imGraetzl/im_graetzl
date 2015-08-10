@@ -128,7 +128,7 @@
             <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
             <span>Kategorien</span>
         <% end %>
-        <%= f.collection_select(:category_ids, Category.all, :id, :name, {}, {multiple: true, class: 'categories'}) %>
+        <%= f.collection_select(:category_ids, Category.recreation, :id, :name, {}, {multiple: true, class: 'categories'}) %>
       </div>
 
     </div>
