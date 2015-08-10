@@ -31,8 +31,7 @@ class LocationsController < ApplicationController
     empty_session
     @location = @graetzl.locations.build(location_params)
     if @location.pending!
-      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-      redirect_to @graetzl
+      enqueue_and_redirect
     else
       render :new
     end 
@@ -41,16 +40,14 @@ class LocationsController < ApplicationController
   def edit
     if @location.managed?
       @location.request_ownership(current_user)
-      flash[:notice] = 'Deine Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-      redirect_to @graetzl
+      enqueue_and_redirect
     end
   end
 
   def update
     @location.attributes = location_params
     if @location.pending!
-      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-      redirect_to @graetzl
+      enqueue_and_redirect
     else
       render :edit
     end    
@@ -78,6 +75,11 @@ class LocationsController < ApplicationController
         flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben.'
         redirect_to @graetzl
       end
+    end
+
+    def enqueue_and_redirect
+      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+      redirect_to @graetzl      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
