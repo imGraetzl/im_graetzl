@@ -27,6 +27,7 @@ RSpec.describe Notification, type: :model do
   end
 
   describe "a new meeting in graetzl" do
+    before { user.enable_website_notification :new_meeting_in_graetzl }
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: meeting.graetzl) }
       it "user is notified" do
@@ -49,6 +50,7 @@ RSpec.describe Notification, type: :model do
 
   describe "update of meeting" do
     let(:user) { create(:user, graetzl: meeting.graetzl) }
+    before { user.enable_website_notification :update_of_meeting }
 
     context "when user attends the meeting" do
       let!(:going_to) { create(:going_to,
@@ -75,6 +77,8 @@ RSpec.describe Notification, type: :model do
   describe "a new post in graetzl" do
     let(:post) { create(:post) }
 
+    before { user.enable_website_notification :new_post_in_graetzl }
+
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: post.graetzl) }
       it "user is notified" do
@@ -97,6 +101,12 @@ RSpec.describe Notification, type: :model do
 
   describe "new comment" do
     let(:commenter) { create(:user) }
+
+    before do
+      user.enable_website_notification :user_comments_users_meeting
+      user.enable_website_notification :another_user_comments
+      user.enable_website_notification :initiator_comments
+    end
 
     describe "on meeting" do
       let(:comment) { create(:comment,
@@ -174,6 +184,10 @@ RSpec.describe Notification, type: :model do
                             role: GoingTo::ROLES[:attendee])
     }
 
+    before do
+      user.enable_website_notification :another_attendee
+    end
+
     context "when user is initiator of meeting" do
       before do
         create(:going_to,
@@ -192,6 +206,10 @@ RSpec.describe Notification, type: :model do
   end
 
   describe "attendee left meeting" do
+    before do
+      user.enable_website_notification :attendee_left
+    end
+
     let(:attendee) { create(:user) }
     let(:going_to) { create(:going_to,
                             meeting: meeting,
@@ -215,4 +233,46 @@ RSpec.describe Notification, type: :model do
       end
     end
   end
+
+  describe "mail notifications" do
+    before { user.enable_mail_notification(:new_meeting_in_graetzl, interval) }
+    let(:user) { create(:user, graetzl: meeting.graetzl) }
+
+    context "when immediate notification is enabled" do
+      let(:interval) { :immediate }
+
+      it "the notification is sent per mail immediatly" do
+        spy = class_double("SendMailNotificationJob", perform_later: nil).as_stubbed_const
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        activity = meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+        expect(spy).to have_received(:perform_later).with(user.id,
+                                                          activity.id,
+                                                          "new_meeting_in_graetzl")
+      end
+    end
+
+    context "when daily notification is enabled" do
+      let(:interval) { :daily }
+
+      it "the notification is sent at the end of day" do
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+      end
+    end
+
+    context "when weekly notification is enabled" do
+      let(:interval) { :weekly }
+
+      it "the notification is sent at the end of day" do
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+      end
+    end
+  end 
 end

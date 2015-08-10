@@ -14,4 +14,20 @@
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
-//   .status_tag { background: #6090DB; }
+.status_tag {
+  &.pending {
+    background: orange;
+  }
+  &.managed {
+    background: green;
+  }
+}
+
+a.btn-light {
+  @include light-button;
+  text-decoration: none;
+}
+
+a.btn-dark {
+  @include dark-button;
+}

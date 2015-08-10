@@ -1,5 +1,5 @@
 console.log('render notifications');
-$('ul#notifications').html('<%= escape_javascript(raw(@notifications.inject("") { |sum, n| sum << (render partial: "/notifications/#{Notification::TYPE_BITMASKS.select { |k, v| v == n.bitmask }.first[0].to_s}", locals: { notification: n }); sum })) %>');
+$('ul#notifications').html('<%= escape_javascript(raw(@notifications.inject("") { |sum, n| sum << (render partial: "/notifications/#{Notification::TYPES.select { |k, v| v[:bitmask] == n.bitmask }.first[0].to_s}", locals: { notification: n }); sum })) %>');
 <% if @more_notifications -%>
   $('ul#notifications').append('<li><%= escape_javascript(link_to 'mehr..', notifications_path(params: { page: (@current_page + 1) }), remote: true ) -%></li>');
 <% end -%>

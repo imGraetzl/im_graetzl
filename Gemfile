@@ -34,6 +34,7 @@ gem 'autoprefixer-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
+gem 'mandrill-api', '~> 1.0.53', require: "mandrill"
 group :doc do
   gem 'sdoc'
 end
@@ -89,3 +90,5 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'public_activity', github: 'pokonski/public_activity'
 # submit multipart forms with ajax
 gem 'remotipart'
+# track changes to model data
+gem 'paper_trail'

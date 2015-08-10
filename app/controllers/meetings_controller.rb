@@ -24,7 +24,7 @@ class MeetingsController < ApplicationController
     
     if @meeting.save
       @meeting.create_activity :create, owner: current_user
-      redirect_to [@meeting.graetzl, @meeting], notice: 'Neues Treffen wurde erstellt.'
+      redirect_to [@meeting.graetzl, @meeting]
     else
       render :new
     end
@@ -52,7 +52,7 @@ class MeetingsController < ApplicationController
           owner: current_user,
           parameters: { changed_attributes: changed_attribute_keys }
       end
-      redirect_to [@meeting.graetzl, @meeting], notice: "Treffen #{@meeting.name} wurde aktualisiert."
+      redirect_to [@meeting.graetzl, @meeting]
     else
       render :edit
     end
@@ -60,7 +60,7 @@ class MeetingsController < ApplicationController
 
   def destroy
     @meeting.destroy
-    redirect_to @graetzl, notice: 'Treffen abgesagt.'
+    redirect_to @graetzl, notice: 'Dein Treffen wurde abgesagt.'
   end
 
   private
@@ -101,7 +101,8 @@ class MeetingsController < ApplicationController
 
     def check_permission!
       unless current_user.initiated?(@meeting)
-        redirect_to [@graetzl, @meeting], notice: 'Keine Rechte.'
+        flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
+        redirect_to [@graetzl, @meeting]
       end
     end
 end

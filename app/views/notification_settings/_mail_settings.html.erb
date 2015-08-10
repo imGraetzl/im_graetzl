@@ -1,0 +1,6 @@
+<select id="mail_notification_settings_<%= type -%>">
+<%- [['off', 'Aus'], ['immediate', 'Sofort'], ['daily', 'Täglich'], ['weekly', 'Wöchentlich']].each do |option| -%>
+  <%- selected = (option[0] == 'off' ? false : current_user.enabled_mail_notification?(type.to_sym, option[0].to_sym)) -%>
+  <option value="<%= option[0] -%>" <%- if selected -%> selected="selected" <%-end -%>><%= option[1] -%></option>
+<%- end -%>
+</select>

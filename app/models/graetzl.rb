@@ -6,6 +6,7 @@ class Graetzl < ActiveRecord::Base
   has_many :users
   has_many :meetings, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :locations, dependent: :destroy
 
   # attributes
   STREAM_ACTIVITY_KEYS = [

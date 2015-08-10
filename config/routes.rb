@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
     get 'users/notification_settings', to: 'notification_settings#index', as: :user_notification_settings
     post 'users/notification_settings/toggle_website_notification', to: 'notification_settings#toggle_website_notification', as: :user_toggle_website_notification
+    post 'users/notification_settings/change_mail_notification', to: 'notification_settings#change_mail_notification', as: :user_change_mail_notification
     post 'users/notification_settings/mark_as_seen', to: 'notification_settings#mark_as_seen', as: :user_notifications_mark_as_seen
   end
 
@@ -38,6 +39,10 @@ Rails.application.routes.draw do
     end
     resources :posts, only: [:create] do
       resource :comments, module: :posts, only: [:create]
+    end
+    resources :locations do
+      get 'address', to: 'locations#new_address', on: :new
+      post 'address', to: 'locations#set_new_address', on: :new
     end
   end
 
