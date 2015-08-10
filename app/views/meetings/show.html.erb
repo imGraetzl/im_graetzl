@@ -55,10 +55,15 @@
       </div>
     </div>
 
-    <div class="userPortraitName">
-      <img class="img-round" src="http://place-hoff.com/100/100" alt="">
-      Erstellt von <a href="">Peter</a>
-    </div>
+    <% if @meeting.initiator %>
+      <div class="userPortraitName">
+        <%= attachment_image_tag(@meeting.initiator, :avatar,
+          :fill, 100, 100,
+          fallback: 'avatar/default.png',
+          class: 'img-round') %>
+        Erstellt von <a href=""><%= @meeting.initiator.username %></a>
+      </div>
+    <% end %>
 
     <%= simple_format @meeting.description, class: 'txt' %>
   </div>
