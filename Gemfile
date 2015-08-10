@@ -34,6 +34,7 @@ gem 'autoprefixer-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
+gem 'mandrill-api', '~> 1.0.53', require: "mandrill"
 group :doc do
   gem 'sdoc'
 end

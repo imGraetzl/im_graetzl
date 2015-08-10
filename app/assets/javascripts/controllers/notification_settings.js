@@ -23,6 +23,16 @@ APP.controllers.notification_settings = (function() {
           alert("Etwas ist schief gegangen!");
         });
       }); 
+
+      $('#mail_notification_settings_' + notification_type).change(function() {
+        jQuery.post("/users/notification_settings/change_mail_notification", {
+          type: notification_type, interval: $(this).find("option:selected")[0].value }).
+          done(function(response) {
+          })
+        .fail(function() {
+          alert("Etwas ist schief gegangen!");
+        });
+      }); 
     });
   }
 
