@@ -1,0 +1,43 @@
+.sideflag {
+  font-family: $font-secondary;
+  background-color: $color-ambient-mint-light;
+  color: $color-ambient-mint-dark;
+  font-size: 2.4rem;
+  position: relative;
+  max-width: 160px;
+  display: table;
+  line-height: 1;
+  padding: 4px 15px 6px 15px;
+  &.-R, &.-L {
+    &:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      position: absolute;
+      top: 100%;
+    }
+
+  }
+
+  &.-R {
+    border-radius: 4px 4px 0 4px;
+    clip-path: polygon(100% 100%, 96% 0%, 0% 0%, 0% 100%);
+    &:after {
+      border-width: 6px 12px 0 0;
+      border-color: $color-ambient-mint-dark transparent transparent transparent;
+      right: 0;
+    }
+  }
+
+  &.-L {
+    border-radius: 4px 4px 4px 0;
+    clip-path: polygon(100% 0%, 100% 100%, 0% 97%, 4% 0%);
+    &:after {
+      border-width: 0 12px 6px 0;
+      border-color: transparent $color-ambient-mint-dark transparent transparent;
+      left: 0;
+    }
+  }
+
+}
