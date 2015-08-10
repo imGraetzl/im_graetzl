@@ -47,7 +47,7 @@ namespace :db do
 
     puts 'add categories'
 
-    default_categories = [
+    meeting_categories = [
       'Essen & Trinken',
       'Leute kennenlernen',
       'Neu in der Stadt',
@@ -62,7 +62,7 @@ namespace :db do
       'Aquaristik',
       'Kunst und Forschung']
 
-    default_categories.each do |c|
+    meeting_categories.each do |c|
       Category.create(name: c)
     end
   end  

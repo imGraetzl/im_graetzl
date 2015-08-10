@@ -13,7 +13,8 @@ class Meeting < ActiveRecord::Base
   accepts_nested_attributes_for :address
   has_many :going_tos, dependent: :destroy
   has_many :users, through: :going_tos
-  has_and_belongs_to_many :categories  
+  has_many :categorizations, as: :categorizable
+  has_many :categories, through: :categorizations
   has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 

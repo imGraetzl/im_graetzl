@@ -1,0 +1,9 @@
+de:
+  activerecord:
+    models:
+      category:
+        one: 'Kategorie'
+        other: 'Kategorien'
+    attributes:
+      category:
+        context: 'Kontext'

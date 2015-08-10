@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807151953) do
+ActiveRecord::Schema.define(version: 20150810114139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,15 +68,19 @@ ActiveRecord::Schema.define(version: 20150807151953) do
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "context",                default: 0
   end
 
-  create_table "categories_meetings", id: false, force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "meeting_id"
+  create_table "categorizations", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "categorizable_id"
+    t.string   "categorizable_type"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  add_index "categories_meetings", ["category_id"], name: "index_categories_meetings_on_category_id", using: :btree
-  add_index "categories_meetings", ["meeting_id"], name: "index_categories_meetings_on_meeting_id", using: :btree
+  add_index "categorizations", ["categorizable_type", "categorizable_id"], name: "idx_categorizations_on_categorizable", using: :btree
+  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
