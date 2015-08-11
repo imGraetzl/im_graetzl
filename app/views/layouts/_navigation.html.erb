@@ -8,7 +8,7 @@
   <% if user_signed_in? %>
 
     <div class="nav-mainActions">
-      <%= link_to 'Grätzl entdecken', districts_path, class: 'discover' %>
+      <%= link_to 'Grätzl entdecken', districts_path, class: 'discover', 'data-no-turbolink' => true %>
       <%= link_to content_tag(:span, 'Treffen anlegen'), new_graetzl_meeting_path(current_user.graetzl), class: 'createMeeting' %>
     </div>
 
@@ -56,7 +56,7 @@
   <% else %>
 
     <div class="nav-mainActions">
-      <%= link_to 'Grätzl entdecken', districts_path, class: 'discover' %>
+      <%= link_to 'Grätzl entdecken', districts_path, class: 'discover', 'data-no-turbolink' => true %>
       <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
     </div>
 
