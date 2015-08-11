@@ -39,6 +39,6 @@
 
 
 
-$(document).on('ready page:change', function(event) {
+$(document).on('ready', function(event) {
     APP.init();
 });
