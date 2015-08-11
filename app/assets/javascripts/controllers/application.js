@@ -9,6 +9,8 @@ APP.controllers.application = (function() {
         APP.components.mainnavDropdown('.usersettingsTrigger', '.usersettingsContainer');
         APP.components.mainnavDropdown('.notificationsTrigger', '.notificationsContainer');
 
+        Turbolinks.enableProgressBar();
+
         FastClick.attach(document.body);
 
         jQuery('.notificationsTrigger').click(function() {

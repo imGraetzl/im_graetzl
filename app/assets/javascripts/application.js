@@ -37,6 +37,8 @@
 //= require_directory ./components
 //= require_directory ./controllers
 
-$( document ).ready(function() {
-  APP.init();
+
+
+$(document).on('ready page:change', function(event) {
+    APP.init();
 });

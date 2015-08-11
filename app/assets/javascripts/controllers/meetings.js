@@ -27,9 +27,7 @@ APP.controllers.meetings = (function() {
         });
 
         // titleImg
-        $(document).on('ready page:load', function() {
-            $(".titleImg").css("opacity", 1);
-        });
+        $(".titleImg").css("opacity", 1);
 
         $(".stream").on("focusin focusout", "textarea", function(event){
             var $parent = $(this).parents(".entryCommentForm, .entryCreate");
@@ -45,14 +43,14 @@ APP.controllers.meetings = (function() {
         // refile
         $(document).on("upload:start", "form", function(e) {
             console.log('Start upload');
-          $(this).find("input[type=submit]").attr("disabled", true)
+            $(this).find("input[type=submit]").attr("disabled", true)
         });
 
         $(document).on("upload:complete", "form", function(e) {
-          if(!$(this).find("input.uploading").length) {
-            console.log('upload complete');
-            $(this).find("input[type=submit]").removeAttr("disabled")
-          }
+            if(!$(this).find("input.uploading").length) {
+                console.log('upload complete');
+                $(this).find("input[type=submit]").removeAttr("disabled")
+            }
         });
 
     }
