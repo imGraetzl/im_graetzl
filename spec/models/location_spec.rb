@@ -67,6 +67,10 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:users)
     end
 
+    it 'has categories' do
+      expect(location).to respond_to(:categories)
+    end
+
     describe 'destroy associated records' do
       describe 'users' do
         before do
