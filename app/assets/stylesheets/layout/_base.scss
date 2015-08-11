@@ -70,3 +70,9 @@ h1, h2 {
   font-family: $font-secondary;
   font-weight: normal;
 }
+
+
+html.turbolinks-progress-bar::before {
+  background-color: $color-ambient-mint !important;
+  height: 5px !important;
+}
