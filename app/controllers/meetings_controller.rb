@@ -18,9 +18,9 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    @meeting = @graetzl.meetings.create(meeting_params)
+    @meeting = @graetzl.meetings.build(meeting_params)
     @meeting.graetzl = @meeting.address.graetzl || @graetzl
-    current_user.go_to(@meeting, GoingTo::ROLES[:initiator])
+    @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
     
     if @meeting.save
       @meeting.create_activity :create, owner: current_user
@@ -96,11 +96,11 @@ class MeetingsController < ApplicationController
     end
 
     def set_meeting
-      @meeting = @graetzl.meetings.find(params[:id])
+      @meeting = @graetzl.meetings.eager_load(:going_tos).find(params[:id])
     end
 
     def check_permission!
-      unless current_user.initiated?(@meeting)
+      unless @meeting.going_tos.initiator.find_by_user_id(current_user)
         flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
         redirect_to [@graetzl, @meeting]
       end

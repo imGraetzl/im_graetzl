@@ -149,7 +149,7 @@ RSpec.describe 'meetings/show', type: :view do
           let!(:initiator) { create(:user) }
 
           before do
-            create(:going_to, meeting: meeting, user: initiator, role: 0)
+            create(:going_to, meeting: meeting, user: initiator, role: GoingTo.roles[:initiator])
             render
           end
 

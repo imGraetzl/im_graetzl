@@ -27,4 +27,16 @@ RSpec.describe GoingTo, type: :model do
       expect(going_to).to respond_to(:meeting)      
     end
   end
+
+  describe 'attributes' do
+    let(:going_to) { build(:going_to) }
+
+    it 'has role' do
+      expect(going_to).to respond_to(:role)
+    end
+
+    it 'has default role :attendee' do
+      expect(going_to.attendee?).to be true
+    end
+  end
 end

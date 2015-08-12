@@ -51,10 +51,11 @@ class User < ActiveRecord::Base
 
   def initiated?(meeting)
     going_to = going_tos.find_by_meeting_id(meeting)
+    #going_to && going_to.role == GoingTo::ROLES[:initiator]
     going_to && going_to.role == GoingTo::ROLES[:initiator]
   end
 
-  def go_to(meeting, role=GoingTo::ROLES[:attendee])
+  def go_to(meeting, role=GoingTo.roles[:attendee])
     going_tos.create(meeting_id: meeting.id, role: role)
   end
 
