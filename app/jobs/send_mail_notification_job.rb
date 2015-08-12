@@ -2,20 +2,29 @@ class SendMailNotificationJob < ActiveJob::Base
   queue_as :default
   include Rails.application.routes.url_helpers
 
-  def perform(user_id, notification_ids, type)
+  def perform(user_id, interval, notification_id = nil)
     user = User.find user_id
-    template_name = "immediate-notification"
+    notifications = []
+    case interval
+    when "immediate"
+      notifications = [ Notification.find(notification_id) ]
+    when "daily"
+      notifications = user.notifications_of_the_day
+    when "weekly"
+      notifications = user.notifications_of_the_week
+    else
+      notifications = []
+    end
+    template_name = "summary-notification"
     template_content = []
     default_url_options = Rails.application.config.action_mailer.default_url_options
     vars = [
       { name: "first_name", content: user.first_name},
       { name: "last_name", content: user.last_name},
-      { name: "notification_type", content: type.to_s},
     ]
 
     notification_vars = [ ]
-    notification_ids.each do |n_id|
-      notification = Notification.find n_id
+    notifications.each do |notification|
       activity = PublicActivity::Activity.find notification.activity_id
       type = Notification::TYPES.select { |k,v| v[:bitmask] == notification.bitmask }.first[0].to_s
       case type
@@ -113,7 +122,7 @@ class SendMailNotificationJob < ActiveJob::Base
       to: [ { email: user.email } ],
       merge_vars: [
         rcpt: user.email,
-        vars: [
+        vars: vars + [
           { name: "notifications", content: notification_vars }
         ]
       ]

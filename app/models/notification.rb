@@ -69,7 +69,7 @@ class Notification < ActiveRecord::Base
           unless ids_notified_users.include?(u.id) || u.id == activity.owner.id
             n = u.notifications.create(activity: activity, bitmask: v[:bitmask])
             if u.immediate_mail_notifications & v[:bitmask] > 0
-              SendMailNotificationJob.perform_later(u.id, [n.id], k.to_s)
+              SendMailNotificationJob.perform_later(u.id, "immediate", n.id)
             end
           end
           ids_notified_users << u.id
