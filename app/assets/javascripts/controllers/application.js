@@ -6,8 +6,7 @@ APP.controllers.application = (function() {
 
         APP.components.mainNavigation.init();
 
-        APP.components.mainnavDropdown('.usersettingsTrigger', '.usersettingsContainer');
-        APP.components.mainnavDropdown('.notificationsTrigger', '.notificationsContainer');
+
 
         Turbolinks.enableProgressBar();
 

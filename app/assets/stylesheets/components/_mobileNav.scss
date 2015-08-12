@@ -1,0 +1,96 @@
+
+.mobileNavToggle {
+  background-color: $color-ambient-mint-light;
+  padding: 0;
+  height: 100%;
+  width: 45px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  color: $color-ambient-mint-dark;
+  @include respond-to(">=medium") {
+    width: 120px;
+    margin-right: 20px;
+  }
+  @include respond-to(">=large") {
+    display: none;
+  }
+  &.is-open {
+    color: #ffffff;
+    background-color: $color-ambient-rosa;
+  }
+  [class*=icon-] {
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+    pointer-events: none;
+    @include respond-to(">=medium") {
+      width: 34px;
+      height: 34px;
+    }
+  }
+  span {
+    display: none;
+    @include respond-to(">=medium") {
+      font-family: $font-tertiary;
+      font-size: 1.6rem;
+      text-decoration: none;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    @include respond-to(">=medium") {
+      font-size: 2.0rem;
+    }
+  }
+}
+
+.mobileNavHolder {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  a {
+    color: $color-font-primary;
+    text-decoration: none;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    &:active, &:hover {
+      background-color: $color-ambient-mint-light;
+    }
+    &:not(:first-child) {
+      border-top: 1px solid $color-ambient-mint-light;
+    }
+    [class^=icon-] {
+      margin-right: 20px;
+    }
+  }
+
+  .mobileMainNav,
+  .mobileUserSettings,
+  .mobileNotifications {
+    border-top: 1px solid $color-ambient-mint-light;
+    @include respond-to(">=large") {
+      display: none !important;
+    }
+    display: none;
+    &.is-open {
+      display: block;
+    }
+  }
+
+
+  .mobileMainNav {
+
+  }
+  .mobileUserSettings {
+
+  }
+  .mobileNotifications {
+
+  }
+
+}

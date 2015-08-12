@@ -1,63 +1,52 @@
-.mobileNavToggle {
-  background-color: $color-ambient-mint-light;
-  padding: 0;
-  height: 100%;
-  width: 45px;
-  margin-right: 10px;
+.mainNavHolder {
+  margin: 0 auto;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  align-content: center;
-  justify-content: center;
-  color: $color-ambient-mint-dark;
+  height: 60px;
+  position: relative;
+  padding-right: 20px;
+
   @include respond-to(">=medium") {
-    width: 120px;
-    margin-right: auto;
+    height: 70px;
   }
   @include respond-to(">=large") {
-    display: none;
+    padding-left: 25px;
+    padding-right: 25px;
   }
-  &.is-open {
-    color: #ffffff;
-    background-color: $color-ambient-rosa;
-  }
-  [class*=icon-] {
-    display: inline-block;
-    vertical-align: middle;
-    width: 28px;
-    height: 28px;
-    fill: currentColor;
-    pointer-events: none;
-    @include respond-to(">=medium") {
-      width: 34px;
-      height: 34px;
-    }
-  }
-  span {
-    display: none;
-    @include respond-to(">=medium") {
-      font-family: $font-tertiary;
-      font-size: 1.6rem;
+  .mainNav, .personalNav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    > a {
+      color: $color-ambient-mint-dark;
       text-decoration: none;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    @include respond-to(">=medium") {
-      font-size: 2.0rem;
     }
   }
-}
 
+  .mainNav {
+    display: none;
+    @include respond-to(">=large") {
+      display: flex;
+    }
+  }
 
-.nav-loggedOut {
-  @include cf;
-  a {
+  .personalNav {
+    justify-content: flex-end;
+  }
+
+  .homelink,
+  .bloglink,
+  .createMeeting,
+  .graetzlTrigger,
+  .registerlink,
+  .loginlink,
+  .notificationsTrigger,
+  .usersettingsTrigger {
     color: $color-ambient-mint-dark;
     font-family: $font-tertiary;
-    text-decoration: none;
-    display: block;
-    float: left;
     font-size: 1.6rem;
-    &:hover, &:active {
+    &:hover, >*:active {
       color: $color-ambient-rosa;
     }
     @include respond-to(">=medium") {
@@ -67,27 +56,24 @@
       font-size: 2.2rem;
     }
   }
-}
 
-.nav-mainActions {
-  a {
-    color: $color-ambient-mint-dark;
-    font-family: $font-tertiary;
-    text-decoration: none;
-    display: block;
-    float: left;
-    font-size: 2.0rem;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    &:hover, &:active {
-      color: $color-ambient-rosa;
-    }
+  .homelink {
+    padding-right: 20px;
+    margin-right: 20px;
+    border-right: 1px dotted lighten($color-ambient-mint, 20);
+  }
+
+  .bloglink {
+    padding-right: 20px;
+    padding-left: 20px;
+    border-left: 1px dotted lighten($color-ambient-mint, 20);
   }
 
   .createMeeting {
-    border-left: 1px dotted lighten($color-ambient-mint, 20);
-    margin-left: 20px;
     padding-left: 20px;
+    padding-right: 20px;
+    border-right: 1px dotted lighten($color-ambient-mint, 20);
+    display: none;
     span {
       background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
       background-position: right center, left center;
@@ -97,45 +83,218 @@
       margin: 0 auto;
       display: table;
     }
-  }
-}
-
-//--------------------------------------------------------------- desktop
-
-.mainNavHolder {
-  .nav-mainActions {
-    display: none;
     @include respond-to(">=large") {
-      margin-right: auto;
       display: block;
     }
-    a {
+  }
+
+  .registerlink {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px dotted lighten($color-ambient-mint, 20);
+    @include respond-to(">=large") {
+      margin-right: 20px;
+      padding-right: 20px;
+    }
+
+    span:first-child {
+      display: none;
       @include respond-to(">=medium") {
-        font-size: 2.2rem;
+        display: inline;
       }
       @include respond-to(">=large") {
-        padding-top: 0;
-        padding-bottom: 0;
+        background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
+        background-repeat: no-repeat;
+        padding-left: 38px;
+        background-position: left center;
+      }
+    }
+    span:nth-child(2) {
+      text-transform: capitalize;
+      @include respond-to(">=medium") {
+        text-transform: none;
+      }
+    }
+
+  }
+
+
+  .graetzlTrigger {
+    margin-right: 16px;
+    [class^=icon-] {
+      margin-left: 8px;
+    }
+  }
+
+  .notificationsTrigger {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 100%;
+    [class*=icon-] {
+      width: 25px;
+      height: 25px;
+      fill: $color-ambient-mint-dark;
+    }
+    &:hover, &.jq-dropdown-open, &.is-open {
+      [class*=icon-] {
+        fill: $color-ambient-rosa;
       }
     }
   }
+
+  .usersettingsTrigger {
+    .img-user {
+      @include img-round(35px);
+      display: block;
+      @include respond-to(">=medium") {
+        width: 45px;
+        height: 45px;
+      }
+    }
+    .username {
+      display: none;
+      margin-right: 8px;
+
+      @include respond-to(">450px") {
+        margin-left: 10px;
+      }
+
+    }
+  }
+
 }
 
-//--------------------------------------------------------------- mobile
-
-.mobileNavHolder {
-  .nav-mainActions {
-    display: none;
-    border-top: 1px solid $color-ambient-mint-light;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.8s linear;
-    &.is-open {
-      opacity: 1;
-      display: flex;
-    }
-    @include respond-to(">=large") {
-      display: none !important;
+.dropdownTrigger {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &.jq-dropdown-open, &.is-open {
+    color: $color-ambient-rosa;
+    .img-user {
+      border-color: $color-ambient-rosa;
     }
   }
 }
+
+.dropDownContainer {
+  [class^=jq-dropdown-] {
+    > div, a {
+      border-bottom: 1px solid $color-ambient-mint-light;
+      padding: 15px;
+      text-decoration: none;
+      color: $color-font-primary;
+      display: flex;
+      align-items: center;
+      &:hover, &:active {
+        background-color: $color-ambient-mint-light;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    [class^=icon-] {
+      margin-right: 10px;
+    }
+  }
+}
+
+.nav-notifications {
+  width: 100%;
+  @include respond-to(">=medium") {
+    width: 400px;
+  }
+  ul {
+    list-style: none;
+  }
+
+  ul li {
+    border-bottom: 1px solid $color-ambient-mint-light;
+    padding: 15px;
+    color: $color-font-primary;
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background-color: $color-ambient-mint-light;
+    }
+  }
+
+  ul li > a:first-child {
+    color: $color-font-primary;
+    display: block;
+    text-decoration: none;
+    margin: -15px;
+    padding: 15px;
+  }
+
+  .timeago {
+    font-style: italic;
+    color: $color-ambient-grey;
+    display: block;
+  }
+}
+
+
+.logoGraetzl {
+  width: 45px;
+  margin-right: auto;
+  @include respond-to(">=medium") {
+    width: 100px;
+  }
+  @include respond-to(">=large") {
+    margin-right: 0;
+    width: 203px;
+    background: url(image_path('svg/logo-bulge.svg')) no-repeat center bottom;
+    background-size: 100%;
+    top: 20px;
+    transform: translate(-50%, 0);
+    position: absolute;
+    left: 50%;
+  }
+
+  .logo_main {
+    display: none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
+  }
+  .logo_reduced {
+    display: block;
+    @include respond-to(">=medium") {
+      display: none;
+    }
+  }
+
+  img {
+    width: 100%;
+    display: block;
+    max-width: 120px;
+    @include respond-to(">=large") {
+      padding-bottom: 20px;
+      margin: 0 auto;
+    }
+  }
+}
+
+
+.badgeNumber {
+  background-color: $color-ambient-rosa;
+  color: $color-ambient-bright;
+  border-radius: 3px;
+  line-height: 1;
+  font-size: 1.0rem;
+  padding: 1px 3px;
+}
+
+
+
+
+
+
+
+
+
+
