@@ -1,0 +1,57 @@
+<% if user_signed_in? %>
+
+  <div class="personalNav">
+    <%= link_to new_graetzl_meeting_path(current_user.graetzl), class: 'createMeeting' do %>
+      <span>Treffen anlegen</span>
+    <% end %>
+    <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications">
+      <div class="iconWithBadge">
+        <%- notifications_count = current_user.new_website_notifications_count %>
+        <div <%- if notifications_count == 0 %> style="display: none;" <%- end %> class="badgeNumber" id="notificationsCount"><%= notifications_count %></div>
+        <svg class="icon-mail-1"><use xlink:href="#icon-mail-1"></use></svg>
+      </div>
+    </div>
+
+    <div class="usersettingsTrigger dropdownTrigger" data-horizontal-offset="2" data-mobileNavID="usersettings">
+      <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-user') %>
+      <span class="username txt"><%= current_user.username %></span>
+      <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
+    </div>
+
+    <!-- dropDowns -->
+    <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
+      <div class="jq-dropdown-panel nav-notifications">
+        <ul class="notifications">
+          <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="usersettingsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative dropDownContainer">
+      <div class="jq-dropdown-panel nav-usersettings">
+        <%= link_to user_notification_settings_path do %>
+          <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profileinstellungen
+        <% end %>
+        <% if current_user.admin? %>
+          <%= link_to admin_root_path do %>
+            <svg class="icon-magic-wand"><use xlink:href="#icon-magic-wand"></use></svg>Admin
+          <% end %>
+        <% end %>
+        <%= link_to destroy_user_session_path, method: :delete do %>
+          <svg class="icon-power"><use xlink:href="#icon-power"></use></svg>Abmelden
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+
+<% else %>
+
+  <div class="personalNav">
+    <%= link_to user_registration_address_path, class: 'registerlink' do %>
+      <span>Kostenlos</span> <span>registrieren</span>
+    <% end %>
+    <%= link_to 'Anmelden', new_user_session_path, class: 'loginlink' %>
+  </div>
+
+<% end %>

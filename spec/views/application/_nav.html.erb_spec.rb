@@ -1,10 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe 'layouts/_navigation', type: :view do
+RSpec.describe 'application/_nav', type: :view do
 
   shared_examples :basic_navigation do
     it 'displays link to discover graetzls' do
-      expect(rendered).to have_link('Grätzl entdecken', href: districts_path)
+      expect(rendered).to have_link('Wien Übersicht', href: districts_path)
+    end
+
+    it 'displays link to home' do
+      expect(rendered).to have_link('Home', href: '/')
     end
   end
 
@@ -13,9 +17,17 @@ RSpec.describe 'layouts/_navigation', type: :view do
       expect(rendered).to have_link('Treffen anlegen', href: new_graetzl_meeting_path(user.graetzl))
     end
 
-    it 'displays link to home graetzl' do
-      expect(rendered).to have_xpath("//a[@href='#{graetzl_path(user.graetzl)}']")
+    it 'displays link to graetzl_meetings' do
+      expect(rendered).to have_link('Treffen im Grätzl', href: graetzl_meetings_path(user.graetzl))
     end
+
+    it 'displays link to graetzl_locations' do
+      expect(rendered).to have_link('Plätze & Orte im Grätzl', href: graetzl_locations_path(user.graetzl))
+    end
+
+    # it 'displays link to home graetzl' do
+    #   expect(rendered).to have_xpath("//a[@href='#{graetzl_path(user.graetzl)}']")
+    # end
 
     it 'does not display link to register' do
       expect(rendered).not_to have_link('Kostenlos registrieren', href: user_registration_address_path)
@@ -28,16 +40,16 @@ RSpec.describe 'layouts/_navigation', type: :view do
     it 'displays link to logout' do
       expect(rendered).to have_link('Abmelden', href: destroy_user_session_path)
     end
+
+    it 'displays link to settings' do
+      expect(rendered).to have_link('Profileinstellungen')
+    end
   end
 
   context 'when logged out' do
     before { render }
 
     it_behaves_like :basic_navigation
-
-    it 'displays link to root' do
-      expect(response).to have_xpath("//a[@href='/']")
-    end
 
     it 'displays link create_meeting to login' do
       expect(rendered).to have_link('Treffen anlegen', href: new_user_session_path)
@@ -49,11 +61,6 @@ RSpec.describe 'layouts/_navigation', type: :view do
 
     it 'displays link to login' do
       expect(rendered).to have_link('Anmelden', href: new_user_session_path)
-    end
-
-    it 'displays link to settings' do
-      pending('not implemented yet')
-      expect(rendered).to have_link('Profileinstellungen')
     end
   end
 

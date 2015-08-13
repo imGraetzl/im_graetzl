@@ -5,13 +5,6 @@ RSpec.describe 'meetings/show', type: :view do
   let(:graetzl) { create(:graetzl) }
   let(:meeting) { create(:meeting, graetzl: graetzl) }
 
-  shared_examples :title do
-    it 'displays meeting name in title' do
-      render template: 'meetings/show', layout: 'layouts/application'
-      expect(rendered).to have_title("#{meeting.name} | imGrätzl")
-    end
-  end
-
   shared_examples :display_basic_info do
     describe 'header section' do
       describe 'basics' do
@@ -176,7 +169,6 @@ RSpec.describe 'meetings/show', type: :view do
       assign(:comments, meeting.comments)
       sign_in user
     end
-    it_behaves_like :title
     it_behaves_like :display_basic_info
   end
 
@@ -186,7 +178,6 @@ RSpec.describe 'meetings/show', type: :view do
       assign(:meeting, meeting)
       assign(:comments, meeting.comments)
     end
-    it_behaves_like :title
     it_behaves_like :display_basic_info
   end
 end
