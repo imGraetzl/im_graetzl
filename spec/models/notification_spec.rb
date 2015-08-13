@@ -247,9 +247,7 @@ RSpec.describe Notification, type: :model do
         activity = meeting.create_activity :create, owner: create(:user)
         user.mail_notifications(interval).reload
         expect(user.mail_notifications(interval).to_a).not_to be_empty
-        expect(spy).to have_received(:perform_later).with(user.id,
-                                                          activity.id,
-                                                          "new_meeting_in_graetzl")
+        expect(spy).to have_received(:perform_later).with(user.id, "immediate", user.notifications.last.id)
       end
     end
 

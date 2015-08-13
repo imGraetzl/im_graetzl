@@ -102,4 +102,16 @@ class User < ActiveRecord::Base
     new_setting = send("#{interval}_mail_notifications".to_sym) & mask
     update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
   end
+
+  def notifications_of_the_day
+    notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
+                      where("created_at >= NOW() - interval '24 hours'").
+                      where(sent: false)
+  end
+
+  def notifications_of_the_week
+    notifications.where(["bitmask & ? > 0", weekly_mail_notifications]).
+                      where("created_at >= NOW() - interval '168 hours'").
+                      where(sent: false)
+  end
 end
