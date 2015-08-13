@@ -52,7 +52,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def initiator
-    going_to = going_tos.where(role: GoingTo::ROLES[:initiator]).last
+    going_to = going_tos.initiator.last
     going_to.user if going_to
   end
 

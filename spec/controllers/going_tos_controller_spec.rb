@@ -5,13 +5,22 @@ RSpec.describe GoingTosController, type: :controller do
   let(:meeting) { create(:meeting, graetzl: graetzl) }
   let(:user) { create(:user) }
 
+  shared_examples :a_successful_request do
+    it 'assigns @meeting' do
+      expect(assigns(:meeting)).to eq(meeting)
+    end
+  end
+
+  shared_examples :an_unauthenticated_request do
+    it 'redirects to login' do
+      expect(response).to render_template(session[:new])
+    end
+  end
+
   describe 'POST create' do
     context 'when not logged in' do
-
-      it 'redirects to login_page' do
-        xhr :post, :create, meeting_id: meeting.id
-        expect(response).to render_template(session[:new])
-      end
+      before { xhr :post, :create, meeting_id: meeting.id }
+      it_behaves_like :an_unauthenticated_request
     end
 
     context 'when logged in' do
@@ -23,32 +32,29 @@ RSpec.describe GoingTosController, type: :controller do
           }.to change(GoingTo, :count).by(1)
       end
 
-      it 'assigns @meeting' do
-        xhr :post, :create, meeting_id: meeting.id
-        expect(assigns(:meeting)).to eq(meeting)
-      end
+      describe 'meeting' do
+        before { xhr :post, :create, meeting_id: meeting.id }
 
-      it 'renders create.js' do
-        xhr :post, :create, meeting_id: meeting.id
-        expect(response).to render_template('going_tos/create')
-        expect(response.header['Content-Type']).to include('text/javascript')
-      end
+        it_behaves_like :a_successful_request
 
-      it 'creates GoingTo with role attendee' do
-        xhr :post, :create, meeting_id: meeting.id
-        expect(GoingTo.last).to have_attributes(
-          user: user,
-          role: GoingTo::ROLES[:attendee])
-      end
+        it 'renders create.js' do
+          expect(response).to render_template('going_tos/create')
+          expect(response.header['Content-Type']).to include('text/javascript')
+        end
 
-      it 'adds meeting to user' do
-        xhr :post, :create, meeting_id: meeting.id
-        expect(user.meetings).to include(meeting)
-      end
+        it 'creates GoingTo with role attendee' do
+          expect(GoingTo.last).to have_attributes(
+            user: user,
+            role: 'attendee')
+        end
 
-      it 'adds user to meeting' do
-        xhr :post, :create, meeting_id: meeting.id
-        expect(meeting.users).to include(user)
+        it 'adds meeting to user' do
+          expect(user.meetings).to include(meeting)
+        end
+
+        it 'adds user to meeting' do
+          expect(meeting.users).to include(user)
+        end
       end
     end
   end
@@ -56,29 +62,38 @@ RSpec.describe GoingTosController, type: :controller do
   describe 'DELETE destroy' do
     let!(:going_to) { create(:going_to, user: user, meeting: meeting) }
 
-    before { sign_in user }
-
-    it 'assigns @meeting' do
-      xhr :delete, :destroy, id: going_to.id
-      expect(assigns(:meeting)).to eq(meeting)
+    context 'when not logged in' do
+      before { xhr :delete, :destroy, id: going_to.id }
+      it_behaves_like :an_unauthenticated_request
     end
 
-    it 'removes GoingTo' do
-      expect {
-        xhr :delete, :destroy, id: going_to.id
-        }.to change(GoingTo, :count).by(-1)
-    end
+    context 'when logged in' do
+      before { sign_in user }
 
-    it 'removes user from meeting' do
-      xhr :delete, :destroy, id: going_to.id
-      expect(meeting.users).not_to include(user)
-    end
+      it 'removes GoingTo' do
+        expect {
+          xhr :delete, :destroy, id: going_to.id
+          }.to change(GoingTo, :count).by(-1)
+      end
 
-    it 'removes meeting from user' do
-      xhr :delete, :destroy, id: going_to.id
-      expect(user.meetings).not_to include(meeting)
-      expect(user.going_to?(meeting)).to be_falsey
+      describe 'meeting' do
+        before { xhr :delete, :destroy, id: going_to.id }
+
+        it_behaves_like :a_successful_request
+
+        it 'renders destroy.js' do
+          expect(response).to render_template('going_tos/destroy')
+          expect(response.header['Content-Type']).to include('text/javascript')
+        end
+
+        it 'removes user from meeting' do
+          expect(meeting.users).not_to include(user)
+        end
+
+        it 'removes meeting from user' do
+          expect(user.meetings).not_to include(meeting)
+        end
+      end
     end
   end
-
 end

@@ -18,7 +18,6 @@
   </div>
 
   <div class="entryDescription">
-
     <div class="dateTime">
       <div class="iconCalendarTextual">
         <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
@@ -38,14 +37,14 @@
 
     <div class="location">
       <% if @meeting.address.coordinates %>
-          <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
-              <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-              Karte
-          <% end %>
+        <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
+          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+          Karte
+        <% end %>
       <% else %>
-          <div class="iconMapLink">
-            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-          </div>
+        <div class="iconMapLink">
+          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        </div>
       <% end %>
 
       <div class="address">
@@ -68,9 +67,7 @@
     <%= simple_format @meeting.description, class: 'txt' %>
   </div>
 
-  <div class="entryParticipate">
-    <%= render 'participation', users: @meeting.users %>
-  </div>
+  <%= render 'going_tos/participation', meeting: @meeting %>
 
   <%= render 'stream', graetzl: @graetzl %>
 </section>

@@ -10,5 +10,9 @@ class GoingTo < ActiveRecord::Base
   validates :user, presence: true
   validates :meeting, presence: true
 
-  ROLES = { initiator: 0, attendee: 1 }
+  enum role: { attendee: 0, initiator: 1 }
+
+  def button_type
+    
+  end
 end

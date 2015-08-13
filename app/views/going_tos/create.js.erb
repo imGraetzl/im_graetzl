@@ -1,4 +1,4 @@
 console.log('attending');
 var meetingID = "<%= j(@meeting.id.to_s) %>"
 
-$('div.entryParticipate').html("<%= j render 'meetings/participation', users: @meeting.users %>");
+$('div.entryParticipate').html("<%= j render 'going_tos/participation', meeting: @meeting %>");

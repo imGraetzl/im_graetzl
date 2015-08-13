@@ -35,4 +35,6 @@ module MeetingsHelper
      "#{address.street_name} #{address.street_number}"
     end    
   end
+
+  
 end

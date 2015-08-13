@@ -56,7 +56,7 @@ RSpec.describe Notification, type: :model do
       let!(:going_to) { create(:going_to,
                                user: user,
                                meeting: meeting,
-                               role: GoingTo::ROLES[:attendee]) }
+                               role: GoingTo.roles[:attendee]) }
       it "user is notified" do
         expect(user.notifications.to_a).to be_empty
         meeting.create_activity :update, owner: create(:user)
@@ -119,11 +119,11 @@ RSpec.describe Notification, type: :model do
           create(:going_to,
                  meeting: meeting,
                  user: commenter,
-                 role: GoingTo::ROLES[:initiator])
+                 role: GoingTo.roles[:initiator])
           create(:going_to,
                  user: user,
                  meeting: meeting,
-                 role: GoingTo::ROLES[:attendee])
+                 role: GoingTo.roles[:attendee])
         end
 
         it "user is notified" do
@@ -139,11 +139,11 @@ RSpec.describe Notification, type: :model do
           create(:going_to,
                  meeting: meeting,
                  user: commenter,
-                 role: GoingTo::ROLES[:attendee])
+                 role: GoingTo.roles[:attendee])
           create(:going_to,
                  user: user,
                  meeting: meeting,
-                 role: GoingTo::ROLES[:initiator])
+                 role: GoingTo.roles[:initiator])
         end
 
         it "user is notified" do
@@ -159,11 +159,11 @@ RSpec.describe Notification, type: :model do
           create(:going_to,
                  meeting: meeting,
                  user: commenter,
-                 role: GoingTo::ROLES[:attendee])
+                 role: GoingTo.roles[:attendee])
           create(:going_to,
                  user: user,
                  meeting: meeting,
-                 role: GoingTo::ROLES[:attendee])
+                 role: GoingTo.roles[:attendee])
         end
 
         it "user is notified" do
@@ -181,7 +181,7 @@ RSpec.describe Notification, type: :model do
     let(:going_to) { create(:going_to,
                             meeting: meeting,
                             user: attendee,
-                            role: GoingTo::ROLES[:attendee])
+                            role: GoingTo.roles[:attendee])
     }
 
     before do
@@ -193,7 +193,7 @@ RSpec.describe Notification, type: :model do
         create(:going_to,
                user: user,
                meeting: meeting,
-               role: GoingTo::ROLES[:initiator])
+               role: GoingTo.roles[:initiator])
       end
 
       it "user is notified" do
@@ -214,7 +214,7 @@ RSpec.describe Notification, type: :model do
     let(:going_to) { create(:going_to,
                             meeting: meeting,
                             user: attendee,
-                            role: GoingTo::ROLES[:attendee])
+                            role: GoingTo.roles[:attendee])
     }
 
     context "when user is initiator of meeting" do
@@ -222,7 +222,7 @@ RSpec.describe Notification, type: :model do
         create(:going_to,
                user: user,
                meeting: meeting,
-               role: GoingTo::ROLES[:initiator])
+               role: GoingTo.roles[:initiator])
       end
 
       it "user is notified" do
