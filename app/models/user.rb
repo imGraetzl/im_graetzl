@@ -29,8 +29,6 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :terms_and_conditions, acceptance: true
-  #validates_integrity_of :avatar
-  #validates_processing_of :avatar
 
   # class methods
   # overwrite devise authentication method to allow username OR email
@@ -43,20 +41,6 @@ class User < ActiveRecord::Base
     else
       where(conditions.to_h).first
     end
-  end
-
-  def going_to?(meeting)
-    meetings.include?(meeting)
-  end
-
-  def initiated?(meeting)
-    going_to = going_tos.find_by_meeting_id(meeting)
-    #going_to && going_to.role == GoingTo::ROLES[:initiator]
-    going_to && going_to.role == GoingTo::ROLES[:initiator]
-  end
-
-  def go_to(meeting, role=GoingTo.roles[:attendee])
-    going_tos.create(meeting_id: meeting.id, role: role)
   end
 
   def enabled_website_notification?(type)

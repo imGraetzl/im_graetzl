@@ -92,7 +92,6 @@ RSpec.describe GoingTosController, type: :controller do
 
         it 'removes meeting from user' do
           expect(user.meetings).not_to include(meeting)
-          expect(user.going_to?(meeting)).to be_falsey
         end
       end
     end
