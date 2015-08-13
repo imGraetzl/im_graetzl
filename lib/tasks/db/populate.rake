@@ -26,9 +26,7 @@ namespace :db do
         role: :admin,
         graetzl: Graetzl.find_by_name('Stuwerviertel'),
         confirmed_at: Time.now)
-      File.open(Rails.root+"public/avatars/#{user}.gif", 'rb') do |file|
-        new_user.avatar = file
-      end
+
       new_user.save(validate: false)
     end
 
@@ -40,9 +38,7 @@ namespace :db do
       password: 'secret',
       graetzl: Graetzl.first,
       confirmed_at: Time.now)
-    File.open(Rails.root+'public/avatars/user_1.jpg', 'rb') do |file|
-      user_1.avatar = file
-    end
+
     user_1.save(validate: false)
 
     puts 'add categories'

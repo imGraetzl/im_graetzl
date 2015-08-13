@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
   <meta name="msapplication-tap-highlight" content="no" />
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <!-- fonts -->
   <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic&subset=latin,latin-ext' %>
   <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Loved+by+the+King' %>
@@ -17,7 +17,7 @@
   <%= favicon_link_tag 'favicon.ico' %>
 </head>
 
-<body data-controller=<%= controller_name %> data-no-turbolink>
+<body data-controller=<%= controller_name %>>
 
 <%= render 'header' %>
 

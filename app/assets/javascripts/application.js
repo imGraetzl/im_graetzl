@@ -12,7 +12,6 @@
 //
 //= require underscore
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery.mask
 //= require picker
 //= require picker.date
@@ -28,7 +27,6 @@
 //= require jquery.noty.packaged
 //= require jquery_ujs
 //= require jquery.remotipart
-//= require turbolinks
 //= require modernizr.custom
 //= require fastclick
 //= require autogrow

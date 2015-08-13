@@ -9,7 +9,7 @@
   <!-- dropDowns -->
   <div class="graetzlContainer jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropDownContainer">
     <div class="jq-dropdown-panel nav-graetzl">
-      <%= link_to 'Wien Übersicht', districts_path, class: 'discover', 'data-no-turbolink' => true %>
+      <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
       <% if user_signed_in? %>
         <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_user.graetzl) %>
         <%= link_to 'Plätze & Orte im Grätzl', graetzl_locations_path(current_user.graetzl) %>

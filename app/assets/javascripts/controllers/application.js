@@ -8,8 +8,6 @@ APP.controllers.application = (function() {
 
 
 
-        Turbolinks.enableProgressBar();
-
         FastClick.attach(document.body);
 
         jQuery('.notificationsTrigger').click(function() {

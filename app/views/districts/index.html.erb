@@ -7,7 +7,7 @@
     <div class="activeArea"></div>
     <div class="navBlock">
       <h1>Wien</h1>
-      <div class="links" data-no-turbolink>
+      <div class="links">
         <% @districts.each do |district| %>
             <%= link_to "#{district.zip} - #{district.name}", district %>
         <% end %>
