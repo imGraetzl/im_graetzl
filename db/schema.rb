@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20150812184847) do
   create_table "going_tos", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "meeting_id"
-    t.integer  "role"
+    t.integer  "role",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
