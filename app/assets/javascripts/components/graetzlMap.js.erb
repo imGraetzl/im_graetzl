@@ -31,10 +31,7 @@ APP.components.graetzlMap = (function() {
             style: styles.rose
         };
 
-
-
-
-    function init(callback) {
+    function init(callback, options) {
         $.when($.getJSON("<%= asset_path('graetzls.json') %>"), $.getJSON("<%= asset_path('districts.json') %>")).done(function(featureGraetzl, featureDistrict) {
                 geoGraetzl = featureGraetzl[0];
                 geoVienna = featureDistrict[0];

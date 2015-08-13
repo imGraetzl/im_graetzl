@@ -29,12 +29,6 @@ footer .inner {
     padding-right: 25px;
   }
 }
-header .inner {
-  @include respond-to(">=large") {
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-}
 
 main,
 footer .inner,
@@ -43,6 +37,21 @@ header .inner {
   position: relative;
   margin: 0 auto;
   display: block;
+}
+
+header {
+  margin-bottom: 3rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #DEEAE6;
+  display: block;
+  @include respond-to(">=medium") {
+    margin-bottom: 5rem;
+    position: relative;
+    z-index: 15;
+  }
+  @include respond-to(">=large") {
+    margin-bottom: 8rem;
+  }
 }
 
 main {

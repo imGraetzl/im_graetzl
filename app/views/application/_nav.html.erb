@@ -1,0 +1,15 @@
+<div class="mainNavHolder">
+
+  <div class="mobileNavToggle">
+    <svg class="icon-layout-text"><use xlink:href="#icon-layout-text"></use></svg>
+    <span>Navigation</span>
+  </div>
+
+  <%= render 'application/nav/main' %>
+  <%= render 'application/nav/personal' %>
+</div>
+
+<div class="mobileNavHolder">
+  <%= render 'application/nav/mobile_main' %>
+  <%= render 'application/nav/mobile_personal' if user_signed_in? %>
+</div>

@@ -9,6 +9,8 @@
   position: relative;
   .badgeNumber {
     position: absolute;
+    font-family: $font-primary;
+    font-size: 12px;
     top: -4px;
     right: -5px;
   }

@@ -1,0 +1,21 @@
+<div class="mobileUserSettings" data-mobileNavID="usersettings">
+  <div class="nav-usersettings">
+    <%= link_to user_notification_settings_path do %>
+      <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profileinstellungen
+    <% end %>
+    <% if current_user.admin? %>
+      <%= link_to admin_root_path do %>
+        <svg class="icon-magic-wand"><use xlink:href="#icon-magic-wand"></use></svg>Admin
+      <% end %>
+    <% end %>
+    <%= link_to destroy_user_session_path, method: :delete do %>
+      <svg class="icon-power"><use xlink:href="#icon-power"></use></svg>Abmelden
+    <% end %>
+  </div>
+</div>
+
+<div class="mobileNotifications nav-notifications" data-mobileNavID="notifications">
+  <ul class="notifications">
+    <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
+  </ul>
+</div>
