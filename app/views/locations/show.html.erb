@@ -1,3 +1,6 @@
+<% if user_signed_in? %>
+  <%= link_to 'Bearbeiten', edit_graetzl_location_path(@graetzl, @location) %>
+<% end %>
 <%= debug @location.attributes %>
 <%= debug @location.address.attributes if @location.address %>
 <%= debug @location.contact.attributes if @location.contact %>

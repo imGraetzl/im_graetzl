@@ -40,7 +40,7 @@ class Location < ActiveRecord::Base
 
   # instance methods
   def request_ownership(user)
-    if user.business? && (pending? || managed?)
+    if user.business? && (pending? || managed?) && !users.include?(user)
       location_ownerships.create(user: user, state: LocationOwnership.states[:pending])
     end
   end
@@ -60,6 +60,10 @@ class Location < ActiveRecord::Base
       return true
     end
     false
+  end
+
+  def owned_by(user)
+    location_ownerships.basic.find_by_user_id(user)
   end
 
   private

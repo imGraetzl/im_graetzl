@@ -38,7 +38,7 @@ class LocationsController < ApplicationController
   end
 
   def edit
-    if @location.managed?
+    if @location.managed? && !@location.owned_by(current_user)
       @location.request_ownership(current_user)
       enqueue_and_redirect
     end
@@ -46,11 +46,13 @@ class LocationsController < ApplicationController
 
   def update
     @location.attributes = location_params
-    if @location.pending!
+    if !@location.managed? && @location.pending!
       enqueue_and_redirect
+    elsif @location.managed? && @location.save
+      redirect_to [@location.graetzl, @location]
     else
       render :edit
-    end    
+    end
   end
 
   def index
@@ -100,7 +102,8 @@ class LocationsController < ApplicationController
             :street_number,
             :zip,
             :city,
-            :coordinates]).
+            :coordinates],
+          category_ids: []).
         merge(user_ids: [current_user.id])
     end
 

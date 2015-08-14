@@ -310,16 +310,31 @@ RSpec.describe Location, type: :model do
       context 'when location pending' do
         let(:location) { create(:location_pending) }
         it_behaves_like :a_successfull_ownership_request
+
+        context 'with existing ownership' do
+          before { location.users << user }
+          it_behaves_like :an_unsuccessfull_ownership_request
+        end
       end
 
       context 'when location managed' do
         let(:location) { create(:location_managed) }
         it_behaves_like :a_successfull_ownership_request
+        
+        context 'with existing ownership' do
+          before { location.users << user }
+          it_behaves_like :an_unsuccessfull_ownership_request
+        end
       end
 
       context 'when location basic' do
         let(:location) { create(:location_basic) }
         it_behaves_like :an_unsuccessfull_ownership_request
+
+        context 'with existing ownership' do
+          before { location.users << user }
+          it_behaves_like :an_unsuccessfull_ownership_request
+        end
       end
     end
 

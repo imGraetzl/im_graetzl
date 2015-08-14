@@ -149,9 +149,13 @@
           <%= address_fields.hidden_field :coordinates %>
         </div>
       </div>
-
-      <%= f.button "Location #{edit_status(@location)}", class: 'btn-primary' %>
     <% end %>
+
+    <% if @location.owned_by(current_user) %>
+      <%= render 'fields_additional', f: f %>
+    <% end %>
+
+    <%= f.button "Location #{edit_status(@location)}", class: 'btn-primary' %>
   </div>
 
 <% end %>

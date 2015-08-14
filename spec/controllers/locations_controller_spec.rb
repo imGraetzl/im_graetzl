@@ -21,6 +21,16 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
+  shared_examples :a_successfull_location_request do
+    it 'assigns @graetzl' do
+      expect(assigns(:graetzl)).to eq graetzl
+    end
+
+    it 'assigns @location' do
+      expect(assigns(:location)).to eq location
+    end
+  end
+
   describe 'GET address' do
     context 'when logged out' do
       before { get :new_address, graetzl_id: graetzl }
@@ -418,10 +428,7 @@ RSpec.describe LocationsController, type: :controller do
           get :edit, graetzl_id: graetzl, id: location
         end
 
-        it 'assigns @graetzl and @location' do
-          expect(assigns(:graetzl)).to eq graetzl
-          expect(assigns(:location)).to eq location
-        end
+        it_behaves_like :a_successfull_location_request
 
         it 'renders :edit' do
           expect(response).to render_template(:edit)
@@ -439,42 +446,68 @@ RSpec.describe LocationsController, type: :controller do
 
         before { sign_in user }
 
-        it 'redirects to @graetzl with flash[:notice]' do
-          get :edit, graetzl_id: graetzl, id: location
-          expect(response).to redirect_to graetzl
-          expect(flash[:notice]).to be_present
+        context 'without ownership' do
+
+          it 'redirects to @graetzl with flash[:notice]' do
+            get :edit, graetzl_id: graetzl, id: location
+            expect(response).to redirect_to graetzl
+            expect(flash[:notice]).to be_present
+          end
+
+          it 'opens ownership_request' do
+            expect{
+              get :edit, graetzl_id: graetzl, id: location
+            }.to change(LocationOwnership, :count).by(1)
+          end
         end
 
-        it 'opens ownership_request' do
-          expect{
+        context 'with basic ownership' do
+          before do
+            create(:location_ownership, location: location, user: user)
             get :edit, graetzl_id: graetzl, id: location
-          }.to change(LocationOwnership, :count).by(1)
+          end
+
+          it_behaves_like :a_successfull_location_request
+
+          it 'renders :edit' do
+            expect(response).to render_template(:edit)
+          end
+        end
+
+        context 'with pending ownership' do
+          before do
+            create(:location_ownership, location: location, user: user, state: LocationOwnership.states[:pending])
+            get :edit, graetzl_id: graetzl, id: location
+          end
+
+          it_behaves_like :a_successfull_location_request
+
+          it 'redirect_to @graetzl' do
+            expect(response).to redirect_to(graetzl)
+          end
+
+          it 'shows flash[:notice]' do
+            expect(flash[:notice]).to be_present
+          end
         end
       end
     end
   end
 
   describe 'PUT update' do
-    context 'when basic location' do
-      let(:location) { create(:location,
-        graetzl: graetzl,
-        state: Location.states[:basic]) }
-      let(:user) { create(:user_business) }
-      let(:params) {
+    let(:location) { create(:location, graetzl: graetzl) }
+    let(:user) { create(:user_business) }
+    let(:params) {
         {
           graetzl_id: graetzl,
           id: location,
           location: attributes_for(:location)
         }
       }
+    before { sign_in user }
 
-      before { sign_in user }
-
-      it 'assigns @graetzl and @location' do
-        put :update, params
-        expect(assigns(:graetzl)).to eq graetzl
-        expect(assigns(:location)).to eq location
-      end
+    context 'with basic location' do
+      before { location.basic! }
 
       it 'updates state to pending' do
         expect{
@@ -491,6 +524,31 @@ RSpec.describe LocationsController, type: :controller do
         put :update, params
         expect(response).to redirect_to graetzl
         expect(flash[:notice]).to be_present
+      end
+    end
+
+    context 'with managed location' do
+      before { location.managed! }
+
+      it 'does not change state' do
+        expect{
+          put :update, params
+        }.not_to change{location.state}
+      end
+
+      it 'redirects to @location' do
+        put :update, params
+        expect(response).to redirect_to [graetzl, location]
+      end
+    end
+
+    context 'with pending location' do
+      before { location.pending! }
+
+      it 'does not change state' do
+        expect{
+          put :update, params
+        }.not_to change{location.state}
       end
     end
   end
