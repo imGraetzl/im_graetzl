@@ -1,4 +1,4 @@
 console.log('no longer attending');
 var meetingID = "<%= j(@meeting.id.to_s) %>"
 
-$('div.entryParticipate').html("<%= escape_javascript(render 'going_tos/participation', meeting: @meeting) %>");
+$('div.entryParticipate').replaceWith("<%= escape_javascript(render 'going_tos/participation', meeting: @meeting) %>");
