@@ -30,6 +30,10 @@ ActiveAdmin.register Location do
       :id,
       :user_id,
       :state,
+      :_destroy],
+    categorizations_attributes: [
+      :id,
+      :category_id,
       :_destroy]
 
 
@@ -105,6 +109,14 @@ ActiveAdmin.register Location do
             end
           end
         end
+
+        panel 'Erweiterte Info' do
+          attributes_table_for location.categories do
+            row 'Kategorien' do |c|
+              link_to c.name, admin_category_path(c)
+            end
+          end
+        end
       end
 
       column do
@@ -150,6 +162,11 @@ ActiveAdmin.register Location do
           input :remove_cover_photo, as: :boolean if f.object.cover_photo
           input :avatar, as: :file, hint: image_tag(attachment_url(f.object, :avatar, :fill, 100, 100))
           input :remove_avatar, as: :boolean if f.object.avatar
+        end
+        inputs 'Erweiterte Info' do
+          has_many :categorizations, allow_destroy: true, heading: 'Kategorien', new_record: 'Kategorie Hinzufügen' do |c|
+            c.input :category, as: :select, collection: Category.business
+          end
         end
         inputs 'Kontakt', for: [:contact, (f.object.contact || f.object.build_contact)] do |c|
           c.input :website, as: :url

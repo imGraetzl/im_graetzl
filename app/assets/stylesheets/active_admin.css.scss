@@ -21,6 +21,12 @@
   &.managed {
     background: green;
   }
+  &.recreation {
+    background: LightCoral; 
+  }
+  &.business {
+    background: LightBlue; 
+  }
 }
 
 a.btn-light {

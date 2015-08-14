@@ -17,6 +17,18 @@ ActiveAdmin.register Category do
     actions
   end
 
+  show do
+    attributes_table_for category do
+      row :id
+      row :name
+      row :created_at
+      row :updated_at
+      row :context do |category|
+        status_tag category.context
+      end
+    end
+  end
+
   # form
   form do |f|
     inputs do

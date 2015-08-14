@@ -22,6 +22,7 @@ class Location < ActiveRecord::Base
   accepts_nested_attributes_for :location_ownerships, allow_destroy: true
   has_many :users, through: :location_ownerships
   has_many :categorizations, as: :categorizable
+  accepts_nested_attributes_for :categorizations, allow_destroy: true
   has_many :categories, through: :categorizations
 
   # validations
