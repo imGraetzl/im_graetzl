@@ -27,6 +27,4 @@
 <% end %>
 
 
-<div class="txt">
-  <%= simple_format(truncate(meeting.description, length: 200)) %>
-</div>
+<div class="txt"><%= truncate(meeting.description, length: 200) %></div>

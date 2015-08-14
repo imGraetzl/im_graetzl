@@ -98,7 +98,8 @@
 }
 
 .entryInitialContent {
-  margin-bottom: 1rem;
+  margin-bottom: 30px;
+  position: relative;
   .txt {
     margin-bottom: 1rem;
     @include respond-to(">=medium") {
@@ -302,6 +303,94 @@
   .dateTimeIconSmall, .locationIconSmall {
     margin-top: 4px;
     margin-bottom: 4px;
+  }
+
+}
+
+
+
+
+
+
+
+
+.editControls {
+  display: table;
+  position: absolute;
+  top: 6px;
+  right: 0;
+  overflow: hidden;
+  opacity: 0;
+  [class^=btn-] {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    float: left;
+    color: $color-ambient-grey;
+    &:hover {
+      color: $color-ambient-rosa;
+    }
+  }
+  [class^=icon-] {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+  }
+}
+
+.entryUserComment,
+.entryInitialContent {
+  position: relative;
+  &:hover {
+    .editControls {
+      opacity: 1;
+      transition: opacity 0.2s 0s linear;
+    }
+  }
+  .txt {
+    white-space: pre-wrap;
+  }
+}
+
+
+.entryUserComment.inlineEdit-isVisible,
+.entryInitialContent.inlineEdit-isVisible {
+  .editControls {
+    display: none !important;
+  }
+}
+
+.entryUserComment .txt form,
+.entryInitialContent .txt form {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin-bottom: 20px;
+  textarea {
+    width: 100%;
+    display: block;
+    outline: none;
+    margin-bottom: 10px;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid $color-ambient-mint-light;
+    line-height: 20px;
+    font-size: 16px;
+    min-height: 80px;
+    font-family: $font-primary;
+    color: $color-font-primary;
+  }
+  button {
+    @extend .btn-secondary;
+    @extend .btn-secondary.-mint;
+    @extend .btn-secondary.-small;
+    float: right;
+  }
+  button[type=cancel] {
+    border-color: transparent;
+    color: $color-ambient-grey;
   }
 
 }

@@ -25,6 +25,7 @@ section.meeting {
 
   .txt {
     margin-bottom: 2rem;
+    white-space: pre-wrap;
     @include respond-to(">=medium") {
       clear: both;
     }
