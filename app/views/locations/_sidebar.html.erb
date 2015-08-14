@@ -1,0 +1,63 @@
+<aside class="sideBar">
+  <% unless @location.users.empty? %>
+    <div class="sideBarbox staff">
+      <h4 class="sideflag -L">Arbeiten hier</h4>
+      <% @location.users.each do |u| %>
+        <%= attachment_image_tag(u, :avatar, :fill, 40, 40,
+                                    fallback: 'avatar/small_default.png',
+                                    class: 'img-round') %>
+      <% end %>
+    </div>
+    <% if user_signed_in? && @location.owned_by(current_user) %>
+      <div class="sideBarbox">
+        <%= link_to 'Location bearbeiten', edit_graetzl_location_path(@graetzl, @location) %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="sideBarbox openinghours">
+    <h4 class="sideflag -L">Öffnungszeiten</h4>
+
+    <div class="icontxt">
+      <svg class="icon-time-clock">
+        <use xlink:href="#icon-time-clock"></use>
+      </svg>
+      <ul>
+        <li>Di - Fr 08:00 — 18:00</li>
+        <li>Sa 08:00 — 13:00</li>
+      </ul>
+    </div>
+  </div>
+
+    <div class="sideBarbox contact">
+      <% if @location.contact %>
+        <h4 class="sideflag -L">Kontakt</h4>
+        <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
+          <svg class="icon-globe">
+            <use xlink:href="#icon-globe"></use>
+          </svg>
+          <%= @location.contact.website.sub(/^https?\:\/\//,'') %>
+        <% end %>
+        <%= mail_to @location.contact.email, class: 'icontxt' do %>
+          <svg class="icon-at-symbol">
+            <use xlink:href="#icon-at-symbol"></use>
+          </svg>
+          <%= @location.contact.email %>
+        <% end %>
+        <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
+          <svg class="icon-mobile">
+            <use xlink:href="#icon-mobile"></use>
+          </svg>
+          <%= @location.contact.phone %>
+        <% end %>
+      <% end %>
+
+      <div class="address">
+        <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
+        <%= "#{@location.address.zip} #{@location.address.city}" %>
+        <%= link_to "https://www.google.com/maps/place/#{@location.address.street_name}+#{@location.address.street_number}" do %>
+          <%= image_tag "http://maps.google.com/maps/api/staticmap?center=#{@location.address.coordinates.y},#{@location.address.coordinates.x}&zoom=16&scale=2&markers=#{@location.address.street_name}+#{@location.address.street_number} 22&size=250x250&sensor=TRUE_OR_FALSE" %>
+      </div>
+    </div>
+  <% end %>
+</aside>

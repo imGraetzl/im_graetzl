@@ -1,6 +1,25 @@
-<% if user_signed_in? %>
-  <%= link_to 'Bearbeiten', edit_graetzl_location_path(@graetzl, @location) %>
-<% end %>
-<%= debug @location.attributes %>
-<%= debug @location.address.attributes if @location.address %>
-<%= debug @location.contact.attributes if @location.contact %>
+<section class="locationPage">
+  <div class="cloudyImgHeader">
+    <div class="titleHeadline">
+      <div class="wrp">
+        <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
+        <h1><%= @location.name %></h1>
+        <h4 class="locationType"><%= @location.categories.first.name %></h4>
+      </div>
+      <%= attachment_image_tag(@location, :avatar, :fill, 432, 432, class: 'locationAvatar') %>
+      <div class="card"></div>
+    </div>
+    <%= attachment_image_tag(@location, :cover_photo,
+                                        :fill, 980, 370,
+                                        fallback: 'cover_photo/default.jpg' ,
+                                        class: 'titleImg') %>
+  </div>
+
+  <div class="mainContent">
+    <div class="introtxt">
+      <h3><%= @location.slogan %></h3>
+      <p><%= @location.description %></p>
+    </div>
+  </div>
+  <%= render 'sidebar' %>
+</section>
