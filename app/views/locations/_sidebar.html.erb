@@ -30,20 +30,24 @@
   </div>
 
     <div class="sideBarbox contact">
-      <% if @location.contact %>
-        <h4 class="sideflag -L">Kontakt</h4>
+      <h4 class="sideflag -L">Kontakt</h4>
+      <% if @location.contact.website.present? %>
         <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
           <svg class="icon-globe">
             <use xlink:href="#icon-globe"></use>
           </svg>
           <%= @location.contact.website.sub(/^https?\:\/\//,'') %>
         <% end %>
+      <% end %>
+      <% if @location.contact.email.present? %>
         <%= mail_to @location.contact.email, class: 'icontxt' do %>
           <svg class="icon-at-symbol">
             <use xlink:href="#icon-at-symbol"></use>
           </svg>
           <%= @location.contact.email %>
         <% end %>
+      <% end %>
+      <% if @location.contact.phone.present? %>
         <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
           <svg class="icon-mobile">
             <use xlink:href="#icon-mobile"></use>

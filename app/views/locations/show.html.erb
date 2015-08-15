@@ -4,7 +4,7 @@
       <div class="wrp">
         <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
         <h1><%= @location.name %></h1>
-        <h4 class="locationType"><%= @location.categories.first.name %></h4>
+        <h4 class="locationType"><%= @location.slogan %></h4>
       </div>
       <%= attachment_image_tag(@location, :avatar, :fill, 432, 432, class: 'locationAvatar') %>
       <div class="card"></div>

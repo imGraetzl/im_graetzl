@@ -125,13 +125,10 @@ ActiveAdmin.register Location do
             column 'Anfrage' do |ownership|
               link_to "Anfrage ##{ownership.id}", admin_location_ownership_path(ownership)
             end
-            # column 'Status' do |ownership|
-            #   status_tag ownership.state
-            # end
-            column 'User ID' do |ownership|
-              link_to "User ##{ownership.user.id}", admin_user_path(ownership.user)
+            column 'Status' do |ownership|
+              status_tag ownership.state
             end
-            column 'Username' do |ownership|
+            column 'User' do |ownership|
               link_to "#{ownership.user.username} (#{ownership.user.first_name} #{ownership.user.last_name})", admin_user_path(ownership.user)
             end
             column 'Email' do |ownership|
