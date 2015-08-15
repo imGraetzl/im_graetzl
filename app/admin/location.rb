@@ -139,6 +139,11 @@ ActiveAdmin.register Location do
             end
           end
         end
+        panel 'Treffen' do
+          table_for location.meetings do
+            column :id
+          end
+        end
       end
     end
     active_admin_comments

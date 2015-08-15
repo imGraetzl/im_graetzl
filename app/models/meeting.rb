@@ -17,6 +17,7 @@ class Meeting < ActiveRecord::Base
   has_many :categories, through: :categorizations
   has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
+  belongs_to :location
 
   # validations
   validates :name, presence: true

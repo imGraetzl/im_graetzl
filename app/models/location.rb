@@ -24,6 +24,7 @@ class Location < ActiveRecord::Base
   has_many :categorizations, as: :categorizable
   accepts_nested_attributes_for :categorizations, allow_destroy: true
   has_many :categories, through: :categorizations
+  has_many :meetings
 
   # validations
   validates :name, presence: true

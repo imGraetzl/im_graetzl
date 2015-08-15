@@ -20,11 +20,28 @@ RSpec.describe Meeting, type: :model do
     end
   end
 
+  describe 'attributes' do
+    let(:meeting) { create(:meeting) }
+
+    it 'has cover_photo' do
+      expect(meeting).to respond_to(:cover_photo)
+    end
+
+    it 'has cover_photo_content_type' do
+      expect(meeting).to respond_to(:cover_photo_content_type)
+    end
+  end
+
+
   describe 'associations' do
     let(:meeting) { create(:meeting) }
 
     it 'has graetzl' do
       expect(meeting).to respond_to(:graetzl)
+    end    
+
+    it 'has location' do
+      expect(meeting).to respond_to(:location)
     end
 
     it 'has address' do
@@ -47,56 +64,51 @@ RSpec.describe Meeting, type: :model do
       expect(meeting).to respond_to(:categories)      
     end
 
-    describe 'cover_photo' do
-
-      it 'has cover_photo' do
-        expect(meeting).to respond_to(:cover_photo)
-      end
-
-      it 'has cover_photo_content_type' do
-        expect(meeting).to respond_to(:cover_photo_content_type)
-      end
-    end
-
     describe 'destroy associated records' do
-      before do
-        3.times { create(:comment, commentable: meeting) }
-        3.times { create(:going_to, meeting: meeting) }
-        create(:address, addressable: meeting)
-      end
+      describe 'comments' do
+        before { 3.times { create(:comment, commentable: meeting) } }
 
-      it 'has comments' do
-        expect(meeting.comments.count).to eq(3)
-      end
+        it 'has comments' do
+          expect(meeting.comments.count).to eq(3)
+        end
 
-      it 'has going_tos' do
-        expect(meeting.going_tos.count).to eq(3)
-      end
-
-      it 'has address' do
-        expect(meeting.address).not_to be_nil
-      end
-
-      it 'destroys comments' do
-        comments = meeting.comments
-        meeting.destroy
-        comments.each do |comment|
-          expect(Comment.find_by_id(comment.id)).to be_nil
+        it 'destroys comments' do
+          comments = meeting.comments
+          meeting.destroy
+          comments.each do |comment|
+            expect(Comment.find_by_id(comment.id)).to be_nil
+          end
         end
       end
 
-      it 'destroys going_tos' do
-        going_tos = meeting.going_tos
-        meeting.destroy
-        going_tos.each do |going_to|
-          expect(GoingTo.find_by_id(going_to.id)).to be_nil
+      describe 'going_tos' do
+        before { 3.times { create(:going_to, meeting: meeting) } }
+
+        it 'has going_tos' do
+          expect(meeting.going_tos.count).to eq(3)
+        end
+
+        it 'destroys going_tos' do
+          going_tos = meeting.going_tos
+          meeting.destroy
+          going_tos.each do |going_to|
+            expect(GoingTo.find_by_id(going_to.id)).to be_nil
+          end
         end
       end
 
-      it 'destroys address' do
-        address = meeting.address
-        meeting.destroy
-        expect(Address.find_by_id(address.id)).to be_nil
+      describe 'address' do
+        before { create(:address, addressable: meeting) }
+
+        it 'has address' do
+          expect(meeting.address).not_to be_nil
+        end
+
+        it 'destroys address' do
+          address = meeting.address
+          meeting.destroy
+          expect(Address.find_by_id(address.id)).to be_nil
+        end
       end
     end
   end

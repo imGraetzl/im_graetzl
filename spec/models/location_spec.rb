@@ -49,7 +49,6 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:cover_photo)
       expect(location).to respond_to(:cover_photo_content_type)
     end
-
   end
   
   describe 'associations' do
@@ -59,29 +58,38 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
-    it 'has address' do
-      expect(location).to respond_to(:address)
+    describe 'address' do
+      it 'has address' do
+        expect(location).to respond_to(:address)
+      end
+
+      describe 'destroy association' do
+        before { create(:address, addressable: location) }
+
+        it 'had address before' do
+          expect(location.address).not_to be_nil
+        end
+
+        it 'destroys address' do
+          address = location.address
+          location.destroy
+          expect(Address.find_by_id(address.id)).to be_nil
+        end
+      end
     end
 
-    it 'has users' do
-      expect(location).to respond_to(:users)
-    end
+    describe 'users' do
+      it 'has users' do
+        expect(location).to respond_to(:users)
+      end
 
-    it 'has categories' do
-      expect(location).to respond_to(:categories)
-    end
-
-    describe 'destroy associated records' do
-      describe 'users' do
+      describe 'destroys association' do
         before do
           3.times { create(:location_ownership, location: location) }
         end
 
-        it 'has location_ownerships' do
+        it 'had location_ownerships and users before' do
           expect(location.location_ownerships.count).to eq 3
-        end
-
-        it 'has users' do
           expect(location.users.count).to eq 3
         end
 
@@ -93,25 +101,21 @@ RSpec.describe Location, type: :model do
           end
         end
       end
+    end
 
-      describe 'address' do
-        before { create(:address, addressable: location) }
+    it 'has categories' do
+      expect(location).to respond_to(:categories)
+    end
 
-        it 'has address' do
-          expect(location.address).not_to be_nil
-        end
-
-        it 'destroys address' do
-          address = location.address
-          location.destroy
-          expect(Address.find_by_id(address.id)).to be_nil
-        end
+    describe 'contact' do
+      it 'has contact' do
+        expect(location).to respond_to(:contact)
       end
 
-      describe 'contact' do
+      describe 'destroy association' do
         before { create(:contact, location: location) }
 
-        it 'has contact' do
+        it 'had contact before' do
           expect(location.contact).not_to be_nil
         end
 
@@ -121,6 +125,10 @@ RSpec.describe Location, type: :model do
           expect(Contact.find_by_id(contact.id)).to be_nil
         end
       end
+    end
+
+    it 'has meetings' do
+      expect(location).to respond_to(:meetings)
     end
   end
 
