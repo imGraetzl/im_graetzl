@@ -40,7 +40,6 @@ class MeetingsController < ApplicationController
     changed_attributes = @meeting.changed_attributes
     if @meeting.address.present? && !@meeting.address.changed_attributes.blank?
       changed_attributes = changed_attributes.merge({ address: @meeting.address.changed_attributes })
-      puts changed_attributes
     end
     if @meeting.save
       if @meeting.address.try(:id) != old_address_id
@@ -68,6 +67,7 @@ class MeetingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       if params[:address].present? && params[:feature].blank?
+        puts meeting_params_basic
         meeting_params_basic
       else
         meeting_params_basic.deep_merge(address_attributes: address_attr)
@@ -83,8 +83,9 @@ class MeetingsController < ApplicationController
           :ends_at_time,
           :cover_photo,
           :remove_cover_photo,
+          :location_id,
           category_ids: [],
-          address_attributes: [:id, :description])      
+          address_attributes: [:id, :description])
     end
 
     def address_attr

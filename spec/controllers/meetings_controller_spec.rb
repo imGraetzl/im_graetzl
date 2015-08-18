@@ -122,9 +122,7 @@ RSpec.describe MeetingsController, type: :controller do
           address: ''
         }
       }
-
       before { sign_in user }
-
       subject(:new_meeting) { Meeting.last }
 
       it 'creates new meeting' do
@@ -186,8 +184,7 @@ RSpec.describe MeetingsController, type: :controller do
 
         before do
           params[:meeting].merge!({ address_attributes: { description: 'new_description' } })
-          params[:feature] = address_feature.to_json
-          params[:address] = 'address input'
+          params.merge!(feature: address_feature.to_json, address: 'address input')
           post :create, params
         end
 
@@ -196,7 +193,6 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         describe 'meeting' do
-
           it 'has address from feature' do
             expect(new_meeting.address.street_name).to eq(address_feature['properties']['StreetName'])
           end
@@ -254,7 +250,7 @@ RSpec.describe MeetingsController, type: :controller do
       {
         graetzl_id: graetzl,
         id: meeting,
-        meeting: attributes_for(:meeting).merge({ address_attributes: { } }),
+        meeting: { address_attributes: { } },
         feature: '',
         address: ''
       }
@@ -268,41 +264,48 @@ RSpec.describe MeetingsController, type: :controller do
     context 'when logged in' do
       before { sign_in user }
 
-      context 'when not initiator' do
-        let!(:going_to) { create(:going_to, user: user, meeting: meeting) }
+      context 'when not going' do
         before { put :update, params }
         it_behaves_like :an_unauthorized_request
       end
 
-      context 'when initiator' do
-        let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator]) }
-
+      context 'when attendee' do
         before do
-          params[:meeting][:name] = 'New name'
-          params[:meeting][:description] = 'New description'
-          put :update, params     
+          create(:going_to, user: user, meeting: meeting)
+          put :update, params
+        end
+        it_behaves_like :an_unauthorized_request
+      end
+
+      context 'when initiator' do
+        before do
+          create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator])
+          put :update, params
         end
 
         it_behaves_like :a_successful_meeting_request
 
-        it 'updates attributes' do
-          expect(meeting.reload).to have_attributes(
+        it 'updates name and description' do
+          params[:meeting].merge!(name: 'New name', description: 'New description')
+          put :update, params
+          meeting.reload
+          expect(meeting).to have_attributes(
             name: 'New name',
             description: 'New description')
         end
 
         describe 'update time attributes' do
           before do
-            params[:meeting]['starts_at_date'] = '2020-01-01'
-            params[:meeting]['starts_at_time'] = '18:00'
-            params[:meeting]['ends_at_time'] = '20:00'
+            params[:meeting].merge!(starts_at_date: '2020-01-01',
+                                    starts_at_time: '18:00',
+                                    ends_at_time: '20:00')
             PublicActivity.with_tracking do
               put :update, params
               meeting.reload
             end
           end
 
-          it 'has updated time' do
+          it 'updates time' do
             expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
             expect(meeting.ends_at_date).to be_falsy
             expect(meeting.starts_at_time.strftime('%H:%M')).to eq ('18:00')
@@ -310,35 +313,35 @@ RSpec.describe MeetingsController, type: :controller do
           end
 
           it "adds changed time attributes to activity parameters hash" do
-            activity = meeting.reload.activities.last
+            activity = meeting.activities.last
             expect(activity.parameters[:changed_attributes]).to include(:starts_at_date)
             expect(activity.parameters[:changed_attributes]).to include(:starts_at_time)
             expect(activity.parameters[:changed_attributes]).to include(:ends_at_time)
           end
         end
 
-        # describe 'categories' do
-        #   before do
-        #     5.times { create(:category) }
-        #     params[:meeting][:category_ids] = Category.all.map(&:id)
-        #   end
+        describe 'categories' do
+          before do
+            5.times { create(:category, context: Category.contexts[:recreation]) }
+            params[:meeting].merge!(category_ids: Category.all.map(&:id))
+          end
 
-        #   it 'updates categories' do
-        #     put :update, params
-        #     meeting.reload
-        #     expect(meeting.categories.size).to eq(5)
-        #   end
-        # end
+          it 'updates categories' do
+            put :update, params
+            meeting.reload
+            expect(meeting.categories.size).to eq(5)
+          end
+        end
 
-        describe 'update address attributes' do
+        describe 'address' do
           let!(:new_graetzl) { create(:graetzl,
             area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
           let(:address_feature) { feature_hash(16.0, 16.0) }
 
           before do
-            params[:meeting][:address_attributes][:description] = 'New address_description'
-            params[:feature] = address_feature.to_json              
-            params[:address] = 'new address input'
+            params[:meeting].deep_merge!(address_attributes: { description: 'New address_description' })
+            params.merge!(feature: address_feature.to_json)
+            params.merge!(address: 'new address input')
 
             PublicActivity.with_tracking do
               put :update, params
@@ -367,31 +370,55 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         describe 'remove address' do
-          let(:address) { create(:address, description: 'blabla') }
+          let(:old_address) { create(:address, description: 'blabla') }
 
           before do
-            meeting.address = address
-            params[:meeting].merge!({ address_attributes: { description: address.description } })
+            meeting.address = old_address
+            params[:meeting].merge!({ address_attributes: { description: old_address.description } })
           end
 
-          it 'removes address attributes street_name' do
+          it 'removes street_name' do
             expect{
               put :update, params
               meeting.reload
-            }.to change{meeting.address.street_name}.from(address.street_name).to(nil)
+            }.to change{meeting.address.street_name}.from(old_address.street_name).to(nil)
           end
 
-          it 'removes address attributes coordinates' do
+          it 'removes coordinates' do
             expect{
               put :update, params
               meeting.reload
-            }.to change{meeting.address.coordinates}.from(address.coordinates).to(nil)
+            }.to change{meeting.address.coordinates}.from(old_address.coordinates).to(nil)
           end
 
-          it 'keeps address_description' do
+          it 'keeps description' do
             expect{
               put :update, params
             }.to_not change{meeting.address.description}
+          end
+        end
+
+        describe 'location' do
+          let(:location) { create(:location_managed) }
+
+          context 'when business user' do
+            before { user.business! }
+
+            it 'links location' do
+              params[:meeting].merge!(location_id: location.id)
+              put :update, params
+              meeting.reload
+              expect(meeting.location).to eq location
+            end
+
+            it 'removes location' do
+              meeting.update(location_id: location.id)
+              params[:meeting].merge!(location_id: '')
+              expect{
+                put :update, params
+                meeting.reload
+              }.to change{meeting.location}.from(location).to nil
+            end
           end
         end
       end

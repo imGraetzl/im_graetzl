@@ -54,6 +54,8 @@
                                           placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.'  %>
           </div>
       <% end %>
+
+      <%= render('location_field', f: f) if current_user.business? %>
     </div>
 
     <div class="meet-when">
