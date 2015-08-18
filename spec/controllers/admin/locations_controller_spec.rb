@@ -124,9 +124,37 @@ RSpec.describe Admin::LocationsController, type: :controller do
     let(:params) {
       {
         id: location,
-        location: location.attributes.merge('state' => location.state)
+        location: location.attributes.merge(state: location.state)
       }
     }
+
+    describe 'basic attributes' do
+      describe 'graetzl' do
+        let!(:new_graetzl) { create(:graetzl) }
+
+        before do
+          params[:location].merge!({ graetzl_id: new_graetzl.id })
+          puts params
+          put :update, params
+        end
+
+        it 'changes graetzl' do
+          expect(location.reload.graetzl).to eq new_graetzl
+        end
+      end
+
+      describe 'state' do
+        before do
+          params[:location].merge!({ state: 'basic' })
+        end
+
+        it 'changes state' do
+          expect{
+            put :update, params
+          }.to change{location.reload.state}.to 'basic'
+        end
+      end
+    end
 
     describe 'location_ownerships' do
       let!(:new_user) { create(:user_business) }

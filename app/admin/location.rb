@@ -39,9 +39,7 @@ ActiveAdmin.register Location do
 
   index do
     selectable_column
-    column('Location', sortable: :name) do |location|
-      link_to location.name, admin_location_path(location)
-    end
+    column :name
     column(:graetzl)
     column('Status') do |location|
       status_tag(location.state)
@@ -53,6 +51,7 @@ ActiveAdmin.register Location do
       end
     end
     column('Letztes Update', :updated_at)
+    actions
   end
 
 
@@ -125,18 +124,11 @@ ActiveAdmin.register Location do
             column 'Anfrage' do |ownership|
               link_to "Anfrage ##{ownership.id}", admin_location_ownership_path(ownership)
             end
+            column :user
             column 'Status' do |ownership|
               status_tag ownership.state
             end
-            column 'User' do |ownership|
-              link_to "#{ownership.user.username} (#{ownership.user.first_name} #{ownership.user.last_name})", admin_user_path(ownership.user)
-            end
-            column 'Email' do |ownership|
-              mail_to ownership.user.email
-            end
-            column 'Erstellt:' do |ownership| 
-              I18n.l ownership.created_at
-            end
+            column :created_at
           end
         end
         panel 'Treffen' do
@@ -152,7 +144,8 @@ ActiveAdmin.register Location do
   # form
   form do |f|
     columns do
-      column do
+      column do        
+        semantic_errors *f.object.errors.keys
         inputs 'Basic Info' do
           input :graetzl
           input :state, as: :select, collection: Location.states.keys
