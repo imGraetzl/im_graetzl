@@ -20,6 +20,20 @@
       <h3><%= @location.slogan %></h3>
       <p><%= @location.description %></p>
     </div>
+    <div class="meetingsBlock">
+      <div class="wrp-hl">
+        <h2>Treffen</h2>
+        <%= link_to new_graetzl_meeting_path(@graetzl, location_id: @location.id), class: "btn-userCallToAction" do %>
+          <span>
+            <img src="/assets/images/dummy/dummy-100x100-Mermaid-plain.jpg" alt="" class="img-round"/>
+            Treffen erstellen
+            <svg class="icon-plus">
+              <use xlink:href="#icon-plus"></use>
+            </svg>
+          </span>
+        <% end %>
+      </div>
+    </div>
   </div>
   <%= render 'sidebar' %>
 </section>

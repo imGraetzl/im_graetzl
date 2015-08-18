@@ -48,7 +48,11 @@
       <% end %>
 
       <div class="address">
-        <%= address_description(@meeting.address) %>
+        <% if location = @meeting.location %>
+          <%= link_to address_description(@meeting.address), [location.graetzl, location] %>
+        <% else %>
+          <%= address_description(@meeting.address) %>
+        <% end %>
         <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
         <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
       </div>
