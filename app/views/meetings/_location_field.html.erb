@@ -1,4 +1,9 @@
-<div class="input-select">
+<div class="input-checkbox">
+  <%= check_box_tag 'location', 1, f.object.location %>
+  <%= label_tag 'location', 'hat mit meiner wirtschaftlichen Tätigkeit im Grätzl zu tun' %>
+</div>
+
+<div id="meeting-location-field" class="input-select" <% unless f.object.location %> style="display:none;" <% end %>>
   <%= f.label :location_id do %>
       <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
       <span>Location</span>

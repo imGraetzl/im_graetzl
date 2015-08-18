@@ -53,6 +53,15 @@ APP.controllers.meetings = (function() {
             }
         });
 
+        // location field
+        $('input:checkbox#location').on('change', function() {
+            if(!this.checked) {
+                console.log('reset location field');
+                $('#meeting_location_id').val('');    
+            }
+            $('div#meeting-location-field').toggle();
+        });
+
     }
 
 
