@@ -78,19 +78,8 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
   describe 'GET new' do
-    context 'when logged out' do
-      before { get :new, graetzl_id: graetzl }
-      it_behaves_like :an_unauthenticated_request
-    end
 
-    context 'when logged in' do
-      let(:user) { create(:user)}
-
-      before do
-        sign_in user
-        get :new, graetzl_id: graetzl
-      end
-
+    shared_examples :a_successful_new_request do
       it 'renders #new' do        
         expect(response).to render_template(:new)
       end
@@ -102,6 +91,42 @@ RSpec.describe MeetingsController, type: :controller do
       it 'assigns @meeting and address' do
         expect(assigns(:meeting)).to be_a_new(Meeting)
         expect(assigns(:meeting).address).to be_a_new(Address)
+      end
+    end
+
+    context 'when logged out' do
+      before { get :new, graetzl_id: graetzl }
+      it_behaves_like :an_unauthenticated_request
+    end
+
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before do
+        sign_in user
+        get :new, graetzl_id: graetzl
+      end
+
+      it_behaves_like :a_successful_new_request
+
+      context 'with location' do
+        let(:location) { create(:location_managed) }
+        before { get :new, { graetzl_id: graetzl, location_id: location.id } }
+
+        it_behaves_like :a_successful_new_request
+
+        it 'links location' do
+          expect(assigns(:meeting).location).to eq location
+        end
+
+        it 'adopts location address and description' do
+          expect(assigns(:meeting).address).to have_attributes(
+            street_name: location.address.street_name,
+            street_number: location.address.street_number,
+            zip: location.address.zip,
+            city: location.address.city,
+            coordinates: location.address.coordinates,
+            description: location.name)
+        end
       end
     end
   end

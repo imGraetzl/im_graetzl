@@ -52,6 +52,11 @@
             <% end %>
             <%= address_fields.text_field :description,
                                           placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.'  %>
+            <%= address_fields.hidden_field :street_name %>
+            <%= address_fields.hidden_field :street_number %>
+            <%= address_fields.hidden_field :zip %>
+            <%= address_fields.hidden_field :city %>
+            <%= address_fields.hidden_field :coordinates %>
           </div>
       <% end %>
 

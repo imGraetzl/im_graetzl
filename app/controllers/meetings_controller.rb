@@ -13,8 +13,13 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    @meeting = @graetzl.meetings.build
-    @meeting.build_address
+    puts params
+    @meeting = @graetzl.meetings.build(location_id: params[:location_id])
+    if location = @meeting.location
+      @meeting.build_address(location.address.attributes.merge(description: location.name))
+    else
+      @meeting.build_address
+    end
   end
 
   def create
@@ -85,7 +90,14 @@ class MeetingsController < ApplicationController
           :remove_cover_photo,
           :location_id,
           category_ids: [],
-          address_attributes: [:id, :description])
+          address_attributes: [
+            :id,
+            :description,
+            :street_name,
+            :street_number,
+            :zip,
+            :city,
+            :coordinates])
     end
 
     def address_attr
