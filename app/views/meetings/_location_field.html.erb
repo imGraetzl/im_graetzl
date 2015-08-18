@@ -10,5 +10,5 @@
   <% end %>
   <%= f.select(:location_id,
               current_user.locations.managed.collect {|l| [l.name, l.id] },
-              {include_blank: true}) %>
+              {include_blank: 'wähle deine Location'}) %>
 </div>
