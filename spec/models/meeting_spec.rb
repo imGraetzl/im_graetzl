@@ -114,38 +114,35 @@ RSpec.describe Meeting, type: :model do
   end
 
   describe 'scopes' do
-    let!(:first_meeting) { create(:meeting, starts_at_date: Date.today + 1.day) }
-    let!(:second_meeting) { create(:meeting, starts_at_date: Date.today + 2.days) }
-    let(:past_meeting) { build(:meeting, starts_at_date: Date.yesterday) }
+    describe 'upcoming' do
+      let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
+      let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1.day) }
+      let!(:m_nil) { create(:meeting, starts_at_date: nil) }
+      let(:m_yesterday) { build(:meeting, starts_at_date: Date.yesterday) }
 
-    before do
-      past_meeting.save(validate: false)
-    end
-
-    describe '.upcoming' do
+      before { m_yesterday.save(validate: false) }
       subject(:meetings) { Meeting.upcoming }
 
-      it 'returns most recent first' do
-        expect(meetings.first).to eq(first_meeting)
-        expect(meetings.second).to eq(second_meeting)
+      it 'retrieves nearest first, nil last' do
+        expect(meetings.map(&:id)).to eq [m_tomorrow.id, m_after_tomorrow.id, m_nil.id]
       end
 
       it 'excludes past' do
-        expect(meetings).not_to include(past_meeting)
+        expect(meetings).not_to include(m_yesterday)
       end
     end
 
-    describe '.past' do
-      subject(:meetings) { Meeting.past }
+    # describe '.past' do
+    #   subject(:meetings) { Meeting.past }
 
-      it 'returns past' do
-        expect(meetings).to include(past_meeting)
-      end
+    #   it 'returns past' do
+    #     expect(meetings).to include(past_meeting)
+    #   end
 
-      it 'excludes upcoming' do
-        expect(meetings).not_to include(first_meeting, second_meeting)        
-      end
-    end
+    #   it 'excludes upcoming' do
+    #     expect(meetings).not_to include(first_meeting, second_meeting)        
+    #   end
+    # end
   end
 
   describe '#upcoming?' do

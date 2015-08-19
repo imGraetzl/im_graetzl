@@ -1,10 +1,13 @@
 class Meeting < ActiveRecord::Base
-  default_scope { order(starts_at_date: :asc) }
-
   include PublicActivity::Common
   extend FriendlyId
-  friendly_id :name
 
+  # scopes
+  scope :upcoming, -> { where(arel_table[:starts_at_date].eq(nil)
+                        .or(arel_table[:starts_at_date].gt(Date.yesterday))) }
+
+  # attr
+  friendly_id :name
   attachment :cover_photo, type: :image
 
   # associations
@@ -27,13 +30,6 @@ class Meeting < ActiveRecord::Base
   validate :ends_at_time_cannot_be_before_starts_at_time
 
   # class methods
-  def self.upcoming
-    m = Meeting.arel_table
-    where(
-      m[:starts_at_date].eq(nil).or(
-        m[:starts_at_date].gt(Date.yesterday)))
-  end
-
   def self.past
     m = Meeting.arel_table
     where(m[:starts_at_date].lt(Date.today))    
