@@ -29,39 +29,41 @@
     </div>
   </div>
 
-    <div class="sideBarbox contact">
-      <h4 class="sideflag -L">Kontakt</h4>
-      <% if @location.contact.website.present? %>
-        <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
-          <svg class="icon-globe">
-            <use xlink:href="#icon-globe"></use>
-          </svg>
-          <%= @location.contact.website.sub(/^https?\:\/\//,'') %>
-        <% end %>
+  <div class="sideBarbox contact">
+    <h4 class="sideflag -L">Kontakt</h4>
+    <% if @location.contact.website.present? %>
+      <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
+        <svg class="icon-globe">
+          <use xlink:href="#icon-globe"></use>
+        </svg>
+        <%= @location.contact.website.sub(/^https?\:\/\//,'') %>
       <% end %>
-      <% if @location.contact.email.present? %>
-        <%= mail_to @location.contact.email, class: 'icontxt' do %>
-          <svg class="icon-at-symbol">
-            <use xlink:href="#icon-at-symbol"></use>
-          </svg>
-          <%= @location.contact.email %>
-        <% end %>
+    <% end %>
+    <% if @location.contact.email.present? %>
+      <%= mail_to @location.contact.email, class: 'icontxt' do %>
+        <svg class="icon-at-symbol">
+          <use xlink:href="#icon-at-symbol"></use>
+        </svg>
+        <%= @location.contact.email %>
       <% end %>
-      <% if @location.contact.phone.present? %>
-        <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
-          <svg class="icon-mobile">
-            <use xlink:href="#icon-mobile"></use>
-          </svg>
-          <%= @location.contact.phone %>
-        <% end %>
+    <% end %>
+    <% if @location.contact.phone.present? %>
+      <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
+        <svg class="icon-mobile">
+          <use xlink:href="#icon-mobile"></use>
+        </svg>
+        <%= @location.contact.phone %>
       <% end %>
+    <% end %>
 
-      <div class="address">
-        <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
-        <%= "#{@location.address.zip} #{@location.address.city}" %>
+    <div class="address">
+      <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
+      <%= "#{@location.address.zip} #{@location.address.city}" %>
+      <% if @location.address.coordinates %>
         <%= link_to "https://www.google.com/maps/place/#{@location.address.street_name}+#{@location.address.street_number}" do %>
           <%= image_tag "http://maps.google.com/maps/api/staticmap?center=#{@location.address.coordinates.y},#{@location.address.coordinates.x}&zoom=16&scale=2&markers=#{@location.address.street_name}+#{@location.address.street_number} 22&size=250x250&sensor=TRUE_OR_FALSE" %>
-      </div>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </aside>
