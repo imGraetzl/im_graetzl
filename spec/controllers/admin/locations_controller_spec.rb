@@ -134,7 +134,6 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
         before do
           params[:location].merge!({ graetzl_id: new_graetzl.id })
-          puts params
           put :update, params
         end
 
