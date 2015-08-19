@@ -10,6 +10,7 @@ ActiveAdmin.register Location do
   permit_params :graetzl_id,
     :state,
     :name,
+    :slug,
     :slogan,
     :description,
     :avatar, :remove_avatar,
@@ -135,7 +136,11 @@ ActiveAdmin.register Location do
         end
         panel 'Treffen' do
           table_for location.meetings do
-            column :id
+            column 'Treffen' do |meeting|
+              link_to meeting.name, admin_meeting_path(meeting)
+            end
+            column :graetzl
+            column :initiator
           end
         end
       end
@@ -152,6 +157,7 @@ ActiveAdmin.register Location do
           input :graetzl
           input :state, as: :select, collection: Location.states.keys
           input :name
+          input :slug if f.object.slug
           input :slogan
           input :description
           input :cover_photo, as: :file,

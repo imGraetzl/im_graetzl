@@ -3,6 +3,7 @@ ActiveAdmin.register Meeting do
 
   permit_params :graetzl_id,
     :name,
+    :slug,
     :description,
     :cover_photo, :remove_cover_photo,
     :starts_at_date, :starts_at_time,
@@ -43,6 +44,7 @@ ActiveAdmin.register Meeting do
         panel 'Basic Info' do
           attributes_table_for meeting do
             row :id
+            row :slug
             row :graetzl
             row :location
             row :name
@@ -96,6 +98,7 @@ ActiveAdmin.register Meeting do
         inputs 'Treffen' do
           input :graetzl
           input :name
+          input :slug if f.object.slug
           input :description
           input :cover_photo, as: :file,
             hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))

@@ -29,6 +29,18 @@ RSpec.describe Admin::MeetingsController, type: :controller do
       expect(meeting.description).to eq 'new description'
     end
 
+    describe 'slug' do
+      before do
+        params[:meeting].merge!({ slug: 'new-slug' })
+      end
+
+      it 'changes slug' do
+        expect{
+          put :update, params
+        }.to change{meeting.reload.slug}.to 'new-slug'
+      end
+    end
+
     describe 'location' do
       let(:location) { create(:location) }
 

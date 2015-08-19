@@ -154,6 +154,18 @@ RSpec.describe Admin::LocationsController, type: :controller do
           }.to change{location.reload.state}.to 'basic'
         end
       end
+
+      describe 'slug' do
+        before do
+          params[:location].merge!({ slug: 'new-slug' })
+        end
+
+        it 'changes slug' do
+          expect{
+            put :update, params
+          }.to change{location.reload.slug}.to 'new-slug'
+        end
+      end
     end
 
     describe 'location_ownerships' do
