@@ -260,9 +260,12 @@ RSpec.describe LocationsController, type: :controller do
   describe 'GET show' do
     shared_examples :a_successfull_show_request do
       let(:location) { create(:location, graetzl: graetzl) }
+      let(:location_meeting) { create(:meeting, location: location) }
+      let(:location_meeting_past) { build(:meeting, location: location, starts_at_date: Date.yesterday) }
 
       before do
         sign_in user
+        location_meeting_past.save(validate: false)
         get :show, graetzl_id: graetzl, id: location
       end
 
@@ -272,6 +275,22 @@ RSpec.describe LocationsController, type: :controller do
 
       it 'assigns @location' do
         expect(assigns(:location)).to eq location
+      end
+
+      it 'assigns @meetings' do
+        expect(assigns(:meetings)).to be
+      end
+
+      describe '@meetings' do
+        subject(:meetings) { assigns(:meetings) }
+
+        it 'includes upcoming location meetings' do
+          expect(meetings).to include(location_meeting)
+        end
+
+        it 'excludes past location meetings' do
+          expect(assigns(:meetings)).not_to include(location_meeting_past)
+        end
       end
     end
 

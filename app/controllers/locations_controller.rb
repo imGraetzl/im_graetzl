@@ -60,6 +60,7 @@ class LocationsController < ApplicationController
   end
 
   def show
+    @meetings = @location.meetings.upcoming
   end
 
   private

@@ -1,14 +1,11 @@
 <div class="meetingBox">
   <div class="meetingBoxHeader">
-
     <%= link_to [meeting.graetzl, meeting] do %>
         <%= attachment_image_tag(meeting, :cover_photo,
                                  :fill, 300, 180,
                                  fallback: 'cover_photo/default.jpg',
                                  class: 'coverImg') %>
     <% end %>
-
-
 
     <% if meeting.starts_at_date %>
       <div class="calendarSheet">
@@ -17,7 +14,17 @@
       </div>
     <% end %>
 
-    <div class="sideflag -R"><%= meeting.graetzl.name %></div>
+    <% if meeting.location %>
+      <div class="medalBadge">
+        <%= attachment_image_tag(meeting.location, :avatar,
+                                  :fill, 100, 100,
+                                  fallback: 'avatar/small_default.png',
+                                  class: 'img-round') %>
+      </div>
+    <% else %>
+      <div class="sideflag -R"><%= meeting.graetzl.name %></div>
+    <% end %>
+    
 
     <div class="user">
       <% if meeting.initiator.avatar %>
