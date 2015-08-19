@@ -184,7 +184,7 @@ ActiveAdmin.register Location do
         inputs 'Users' do
           has_many :location_ownerships, allow_destroy: true, heading: false, new_record: 'User Hinzufügen' do |o|
             o.input :user
-            o.input :state
+            o.input :state, as: :select, collection: LocationOwnership.states.keys, include_blank: false
           end
         end
       end
