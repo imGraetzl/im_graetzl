@@ -31,6 +31,7 @@ ActiveAdmin.register Category do
 
   # form
   form do |f|
+    semantic_errors *f.object.errors.keys
     inputs do
       f.input :name
       f.input :context, as: :select, collection: Category.contexts.keys

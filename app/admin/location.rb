@@ -151,7 +151,7 @@ ActiveAdmin.register Location do
   # form
   form do |f|
     columns do
-      column do        
+      column do
         semantic_errors *f.object.errors.keys
         inputs 'Basic Info' do
           input :graetzl
