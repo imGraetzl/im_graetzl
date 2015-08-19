@@ -1,4 +1,5 @@
 ActiveAdmin.register Location do
+  include SharedAdmin
   menu priority: 2
 
   scope 'Alle', :all, default: true
@@ -64,6 +65,7 @@ ActiveAdmin.register Location do
               status_tag location.state
             end
             row :id
+            row :slug
             row :graetzl
             row :name
             row :slogan
