@@ -98,7 +98,7 @@ ActiveAdmin.register Meeting do
         inputs 'Treffen' do
           input :graetzl
           input :name
-          input :slug if f.object.slug
+          input :slug if f.object.persisted?
           input :description
           input :cover_photo, as: :file,
             hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))

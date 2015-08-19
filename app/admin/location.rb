@@ -157,7 +157,7 @@ ActiveAdmin.register Location do
           input :graetzl
           input :state, as: :select, collection: Location.states.keys
           input :name
-          input :slug if f.object.slug
+          input :slug if f.object.persisted?
           input :slogan
           input :description
           input :cover_photo, as: :file,
