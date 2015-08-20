@@ -3,6 +3,18 @@ require 'rails_helper'
 RSpec.describe StaticPagesController, type: :controller do
 
   describe 'GET home' do
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before do
+        sign_in user
+        get :home
+      end
+
+      it 'redirect_to user.graetzl' do
+        expect(response).to redirect_to(user.graetzl)
+      end
+    end
+
     context 'when logged out' do
       before { get :home }
 
@@ -16,8 +28,8 @@ RSpec.describe StaticPagesController, type: :controller do
 
       describe '@meetings' do
         subject(:meetings) { assigns(:meetings) }
-
         context 'without meetings' do
+
           it 'is empty' do
             get :home
             expect(meetings).to be_empty
@@ -27,8 +39,7 @@ RSpec.describe StaticPagesController, type: :controller do
         context 'with meetings' do
           let(:past_meeting) { build(:meeting, starts_at_date: Date.yesterday) }
           let!(:upcoming_meeting) { create(:meeting, starts_at_date: Date.tomorrow) }
-          let!(:nil_meeting) { create(:meeting, starts_at_date: nil) }
-          
+          let!(:nil_meeting) { create(:meeting, starts_at_date: nil) }          
           before do
             past_meeting.save(validate: false)
             get :home
