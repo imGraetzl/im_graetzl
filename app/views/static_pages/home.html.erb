@@ -18,10 +18,7 @@
 
 
     <div class="meetingBoxes">
-
-      <% @meetings.each do |meeting| %>
-          <%= render 'meetings/box', meeting: meeting %>
-      <% end %>
+      <%= render partial: 'meetings/box', collection: @meetings, as: 'meeting' %>
 
       <div class="specialBox">
         <%= link_to new_user_session_path, class: 'wrp' do %>
