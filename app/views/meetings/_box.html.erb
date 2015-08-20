@@ -24,22 +24,21 @@
     <% else %>
       <div class="sideflag -R"><%= meeting.graetzl.name %></div>
     <% end %>
-    
 
-    <div class="user">
-      <% if meeting.initiator %>
-        <%= image_tag attachment_url(meeting.initiator, :avatar, :fill, 100, 100), class: 'img-round' %>
-      <% else %>
-        <%= image_tag 'avatar/small_default.png', class: 'img-round' %>
-      <% end %>
-      <span><%= meeting.initiator.username %></span>
-    </div>
+    <% if initiator = meeting.initiator %>  
+      <div class="user">
+        <%= attachment_image_tag(initiator, :avatar,
+                                  :fill, 100, 100,
+                                  fallback: 'avatar/small_default.png',
+                                  class: 'img-round') %>
+        <span><%= initiator.username %></span>
+      </div>
+    <% end %>
   </div>
   <h3><%= meeting.name %></h3>
 
   <div class="txt">
     <%= simple_format(truncate(meeting.description, length: 140)) %>
   </div>
-  <%= link_to 'Mitmachen', [meeting.graetzl, meeting],
-    class: 'btn-primary -mint' %>
+  <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
 </div>

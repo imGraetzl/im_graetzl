@@ -63,6 +63,9 @@
     left: 5px;
     img {
       vertical-align: bottom;
+      position: relative;
+      bottom: 0;
+      left: 0;
     }
     span {
       color: $color-ambient-mint-dark;
