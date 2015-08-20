@@ -114,17 +114,18 @@ RSpec.describe Meeting, type: :model do
   end
 
   describe 'scopes' do
-    describe 'upcoming' do
-      let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
-      let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1.day) }
-      let!(:m_nil) { create(:meeting, starts_at_date: nil) }
-      let(:m_yesterday) { build(:meeting, starts_at_date: Date.yesterday) }
+    let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
+    let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
+    let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1.day) }
+    let!(:m_nil) { create(:meeting, starts_at_date: nil) }
+    let(:m_yesterday) { build(:meeting, starts_at_date: Date.yesterday) }
+    before { m_yesterday.save(validate: false) }
 
-      before { m_yesterday.save(validate: false) }
+    describe 'upcoming' do
       subject(:meetings) { Meeting.upcoming }
 
       it 'retrieves nearest first, nil last' do
-        expect(meetings.map(&:id)).to eq [m_tomorrow.id, m_after_tomorrow.id, m_nil.id]
+        expect(meetings.to_a).to eq [m_today, m_tomorrow, m_after_tomorrow, m_nil]
       end
 
       it 'excludes past' do
@@ -132,17 +133,21 @@ RSpec.describe Meeting, type: :model do
       end
     end
 
-    # describe '.past' do
-    #   subject(:meetings) { Meeting.past }
+    describe 'past' do
+      subject(:meetings) { Meeting.past }
 
-    #   it 'returns past' do
-    #     expect(meetings).to include(past_meeting)
-    #   end
+      it 'retrieves past' do
+        expect(meetings).to include(m_yesterday)
+      end
 
-    #   it 'excludes upcoming' do
-    #     expect(meetings).not_to include(first_meeting, second_meeting)        
-    #   end
-    # end
+      it 'excludes upcoming' do
+        expect(meetings).not_to include(m_today, m_tomorrow, m_after_tomorrow)        
+      end
+
+      it 'excludes nil' do
+        expect(meetings).not_to include(m_nil)        
+      end
+    end
   end
 
   describe '#upcoming?' do

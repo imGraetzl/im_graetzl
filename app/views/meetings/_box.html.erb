@@ -27,7 +27,7 @@
     
 
     <div class="user">
-      <% if meeting.initiator.avatar %>
+      <% if meeting.initiator %>
         <%= image_tag attachment_url(meeting.initiator, :avatar, :fill, 100, 100), class: 'img-round' %>
       <% else %>
         <%= image_tag 'avatar/small_default.png', class: 'img-round' %>

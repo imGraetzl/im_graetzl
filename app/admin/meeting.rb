@@ -1,6 +1,10 @@
 ActiveAdmin.register Meeting do
   include SharedAdmin
 
+  scope :all, default: true
+  scope :upcoming
+  scope :past
+
   permit_params :graetzl_id,
     :name,
     :slug,

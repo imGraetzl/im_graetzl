@@ -1,0 +1,24 @@
+section.meetings {
+  .specialBox {
+    @include paperCard($rotation: 1, $string: 2);
+    @include respond-to(">=large") {
+      transform: translate(15px, -5px);
+    }
+    .wrp  {
+      display: block;
+      padding: 100px 30px 30px 30px;
+    }
+
+    button {
+      width: 100%;
+    }
+
+    h3 {
+      font-size: 2.2rem;
+      line-height: 1.2;
+      margin-top: 25px;
+      margin-bottom: 30px;
+      color: $color-ambient-mint-dark;
+    }
+  }
+}

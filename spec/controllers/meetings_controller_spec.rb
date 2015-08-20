@@ -47,10 +47,11 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
   describe 'GET index' do
-    let!(:graetzl_meeting) { create(:meeting, graetzl: graetzl) }
-    let!(:other_meeting) { create(:meeting) }
-
-    before { get :index, graetzl_id: graetzl }
+    before do
+      2.times{create(:meeting, graetzl: graetzl)}
+      2.times{create(:meeting)}
+      get :index, graetzl_id: graetzl
+    end
 
     it 'renders #index' do
       expect(response).to render_template(:index)
@@ -60,20 +61,13 @@ RSpec.describe MeetingsController, type: :controller do
       expect(assigns(:graetzl)).to eq(graetzl)
     end
 
-    it 'assigns @meetings' do
-      expect(assigns(:meetings)).to eq(graetzl.meetings)
+    it 'assigns @upcoming_meetings' do
+      expect(assigns(:upcoming_meetings)).to eq(graetzl.meetings.upcoming)
+      expect(assigns(:upcoming_meetings).count).to eq 2
     end
 
-    describe '@meetings' do
-      subject(:meetings) { assigns(:meetings) }
-
-      it 'includes graetzl meetings' do
-        expect(meetings).to include graetzl_meeting
-      end
-
-      it 'excludes other meetings' do
-        expect(meetings).not_to include other_meeting
-      end
+    it 'assigns @past_meetings' do
+      expect(assigns(:past_meetings)).to eq(graetzl.meetings.past)
     end
   end
 

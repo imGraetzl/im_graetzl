@@ -5,7 +5,8 @@ class MeetingsController < ApplicationController
   before_filter :check_permission!, only: [:edit, :update, :destroy]
 
   def index
-    @meetings = @graetzl.meetings
+    @upcoming_meetings = @graetzl.meetings.upcoming
+    @past_meetings = @graetzl.meetings.past
   end
 
   def show
@@ -13,7 +14,6 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    puts params
     @meeting = @graetzl.meetings.build(location_id: params[:location_id])
     if location = @meeting.location
       @meeting.build_address(location.address.attributes.merge(description: location.name))

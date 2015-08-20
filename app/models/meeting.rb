@@ -5,6 +5,7 @@ class Meeting < ActiveRecord::Base
   # scopes
   scope :upcoming, -> { where(arel_table[:starts_at_date].eq(nil)
                         .or(arel_table[:starts_at_date].gt(Date.yesterday))) }
+  scope :past, -> { where(arel_table[:starts_at_date].lt(Date.today)) }
 
   # attr
   friendly_id :name
@@ -28,12 +29,6 @@ class Meeting < ActiveRecord::Base
   validates :name, presence: true
   validate :starts_at_date_cannot_be_in_the_past
   validate :ends_at_time_cannot_be_before_starts_at_time
-
-  # class methods
-  def self.past
-    m = Meeting.arel_table
-    where(m[:starts_at_date].lt(Date.today))    
-  end
 
   # instance methods
   def upcoming?

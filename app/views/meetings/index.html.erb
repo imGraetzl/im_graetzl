@@ -1,27 +1,14 @@
-<% title(@graetzl.name) %>
-
-<h1><%= @graetzl.name %></h1>
-<% if user_signed_in? %>
-  <%= link_to 'Neues Treffen starten', new_graetzl_meeting_path(@graetzl), class: 'btn-userCallToAction' %>  
-<% end %>
-
-<% if @meetings.upcoming.present? %>
-  <h2>Treffen im <%= @graetzl.name %></h2>
-
+<% title("Treffen im #{@graetzl.name}") %>
+<section class="meetings">
+  <h2>Kommende Treffen im <%= @graetzl.name %></h2>
   <div class="meetingBoxes">
-    <% @meetings.upcoming.each do |meeting| %>
-      <%= render 'meetings/box', meeting: meeting %>
-    <% end %>
+    <%= render 'box_action' %>
+    <%= render partial: 'box', collection: @upcoming_meetings, as: 'meeting' %>
   </div>
-<% end %>
-
-
-<% if @meetings.past.present? %>
-  <h2>Treffen im <%= @graetzl.name %></h2>
-
-  <div class="meetingBoxes">
-    <% @meetings.past.each do |meeting| %>
-      <%= render 'meetings/box', meeting: meeting %>
-    <% end %>
-  </div>
-<% end %>
+  <% if @past_meetings %>
+    <h2>Vergangene Treffen im <%= @graetzl.name %></h2>
+    <div class="meetingBoxes">
+      <%= render partial: 'meetings/box', collection: @past_meetings, as: 'meeting' %>
+    </div>
+  <% end %>
+</section>
