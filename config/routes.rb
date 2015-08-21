@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  # routing concerns
+  concern :address_before_new do
+    collection do
+      post 'new', as: :address
+    end
+  end
+
   resources :districts, path: 'wien', only: [:index, :show]
 
   ActiveAdmin.routes(self)
@@ -41,8 +48,7 @@ Rails.application.routes.draw do
       resource :comments, module: :posts, only: [:create]
     end
     resources :locations do
-      get 'address', to: 'locations#new_address', on: :new
-      post 'address', to: 'locations#set_new_address', on: :new
+      concerns :address_before_new
     end
   end
 

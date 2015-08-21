@@ -1,34 +1,19 @@
 class LocationsController < ApplicationController
-  before_filter :set_graetzl
+  include AddressUtilities
+  
+  prepend_before_action :set_graetzl
   before_filter :set_location, only: [:show, :edit, :update]
   before_filter :authenticate_user!
   before_filter :authorize_user!, except: [:index, :show]
 
-  # GET /new/address
-  def new_address
-  end
-
-  # POST /new/address
-  def set_new_address
-    address = Address.new(Address.attributes_from_feature(address_params[:feature] || ''))
-    session[:address] = address.attributes
-    @graetzl = address.graetzl || @graetzl
-    @locations = address.available_locations
-
-    if @locations.empty?
-      redirect_to new_graetzl_location_path(@graetzl)
-    else
-      render :adopt
-    end
-  end
-
   def new
-    @location = @graetzl.locations.build(address_attributes: session[:address] || Address.new.attributes)
-    @location.build_contact    
+    get_address(check_for_adopt) if request.post?
+    @location = @graetzl.locations.build(address_attributes: session[:address])
+    @location.build_contact
+    empty_session
   end
 
   def create
-    empty_session
     @location = @graetzl.locations.build(location_params)
     if @location.pending!
       enqueue_and_redirect
@@ -108,12 +93,15 @@ class LocationsController < ApplicationController
         merge(user_ids: [current_user.id])
     end
 
-    # strong params for address
-    def address_params
-      params.permit(:address, :feature)
+    def check_for_adopt
+      puts 'CALLING CHECK FOR ADOPT'
+      return Proc.new do |address|
+        puts 'CALLING CHECK FOR ADOPT CALLBACK'
+        @graetzl = address.graetzl || @graetzl
+        @locations = address.available_locations        
+        render :adopt unless @locations.empty?
+      end
     end
 
-    def empty_session
-      session.delete(:address)
-    end
+
 end
