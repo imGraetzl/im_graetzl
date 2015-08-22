@@ -13,6 +13,9 @@ require 'public_activity/testing'
 # require all spec support files
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+# require shared examples
+Dir[Rails.root.join("spec/routing/shared_examples/**/*.rb")].each {|f| require f}
+
 # use poltergeist for feature requests using js
 Capybara.javascript_driver = :poltergeist
 
