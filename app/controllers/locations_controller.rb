@@ -1,10 +1,8 @@
 class LocationsController < ApplicationController
-  before_action :set_graetzl, only: [:index, :show]
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :authorize_user!, except: [:index, :show]
-
   include AddressBeforeNew
-  
+  include GraetzlNesting  
   before_filter :set_location, only: [:show, :edit, :update]
 
   def new
@@ -57,12 +55,7 @@ class LocationsController < ApplicationController
 
   private
 
-    def set_graetzl
-      @graetzl ||= Graetzl.find(params[:graetzl_id])
-    end
-
     def set_location
-      #@location = @graetzl.locations.find(params[:id])
       @location = Location.find(params[:id])
     end
 
