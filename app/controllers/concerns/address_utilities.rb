@@ -6,13 +6,13 @@ module AddressUtilities
   end
 
   def get_address(callback)
-    if params[:address]
+    if request.post? && address_params[:address]
       address = Address.new(Address.attributes_from_feature(address_params[:feature] || ''))
       puts 'SETTING ADDRESS'
       session[:address] = address.attributes
       callback.call(address)
     else
-      session[:address] || Address.new.attributes
+      false
     end
   end
 
@@ -24,7 +24,7 @@ module AddressUtilities
   private
 
     def ensure_address
-      render :address_form unless(session[:address] || params[:address])
+      render :address_form unless(session[:address] || address_params[:address])
     end    
 
     # strong params for address

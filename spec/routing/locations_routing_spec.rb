@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe LocationsController, type: :routing do
 
-  include_examples :post_new, 'location'
+  include_examples :address_before_new_routing, 'location'
   
   describe 'routing ' do
 

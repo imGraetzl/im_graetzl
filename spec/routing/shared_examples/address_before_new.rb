@@ -1,4 +1,4 @@
-shared_examples :post_new do |resource|
+shared_examples :address_before_new_routing do |resource|
 
   describe 'routes address_before_new' do
 

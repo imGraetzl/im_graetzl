@@ -1,13 +1,14 @@
 class LocationsController < ApplicationController
-  include AddressUtilities
-  
-  prepend_before_action :set_graetzl
-  before_filter :set_location, only: [:show, :edit, :update]
+  before_action :set_graetzl
   before_filter :authenticate_user!
   before_filter :authorize_user!, except: [:index, :show]
 
+  include AddressUtilities
+  
+  before_filter :set_location, only: [:show, :edit, :update]
+
   def new
-    get_address(check_for_adopt) if request.post?
+    return if get_address(check_for_adopt)
     @location = @graetzl.locations.build(address_attributes: session[:address])
     @location.build_contact
     empty_session
@@ -15,9 +16,10 @@ class LocationsController < ApplicationController
 
   def create
     @location = @graetzl.locations.build(location_params)
-    if @location.pending!
+    begin
+      @location.pending!
       enqueue_and_redirect
-    else
+    rescue ActiveRecord::RecordInvalid => invalid
       render :new
     end 
   end
@@ -30,6 +32,7 @@ class LocationsController < ApplicationController
   end
 
   def update
+    # todo: check for validation errors
     @location.attributes = location_params
     if !@location.managed? && @location.pending!
       enqueue_and_redirect
@@ -51,7 +54,7 @@ class LocationsController < ApplicationController
   private
 
     def set_graetzl
-      @graetzl = Graetzl.find(params[:graetzl_id])
+      @graetzl ||= Graetzl.find(params[:graetzl_id])
     end
 
     def set_location
@@ -95,13 +98,22 @@ class LocationsController < ApplicationController
 
     def check_for_adopt
       puts 'CALLING CHECK FOR ADOPT'
-      return Proc.new do |address|
+      Proc.new do |address|
         puts 'CALLING CHECK FOR ADOPT CALLBACK'
-        @graetzl = address.graetzl || @graetzl
+        new_graetzl = address.graetzl
+        if new_graetzl != @graetzl
+          redirect_to new_graetzl_location_path(new_graetzl)
+          true
+        end
+        #@graetzl = address.graetzl || @graetzl
         @locations = address.available_locations        
-        render :adopt unless @locations.empty?
+        #render :adopt unless @locations.empty?
+        unless @locations.empty?
+          render :adopt
+          true
+        else
+          false
+        end
       end
     end
-
-
 end
