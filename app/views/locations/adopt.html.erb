@@ -4,7 +4,7 @@
   <h1>Wähle deine <span>Location</span></h1>
   <div class="txt">
     <p>
-      Unter der Adresse gibt es bereits <%= @locations.size %> <%= 'Location'.pluralize(@locations.size) %>.<br>
+      Unter der Adresse <%= @address.street_name %> <%= @address.street_number %> gibt es bereits <%= @locations.size %> <%= 'Location'.pluralize(@locations.size) %>.<br>
       Wenn deine dabei ist kannst du sie einfach übernehmen.
     </p>
   </div>
@@ -13,7 +13,7 @@
       <tr>
         <td><%= location.name %></td>
         <td><%= "#{location.address.street_name} #{location.address.street_number}" %></td>
-        <td><%= link_to 'Übernehmen', edit_graetzl_location_path(@graetzl, location), class: 'btn-secondary' %></td>
+        <td><%= link_to 'Übernehmen', edit_location_path(location), class: 'btn-secondary' %></td>
       </tr>
     <% end %>
   </table>
@@ -22,5 +22,5 @@
   <div class="txt">
     <p>Dann leg eine neue an.</p>
   </div>
-  <%= link_to 'Neue Location', new_graetzl_location_path(@graetzl), class: 'btn-primary' %>
+  <%= link_to 'Neue Location', new_location_path, class: 'btn-primary' %>
 </section>

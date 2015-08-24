@@ -47,12 +47,14 @@ Rails.application.routes.draw do
     resources :posts, only: [:create] do
       resource :comments, module: :posts, only: [:create]
     end
-    resources :locations do
-      concerns :address_before_new
-    end
+    resources :locations, only: [:index, :show]
   end
 
   resources :going_tos, only: [:create, :destroy]
+
+  resources :locations, except: [:index, :show] do
+    concerns :address_before_new
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

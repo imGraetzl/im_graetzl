@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_graetzl
+  before_action :set_graetzl, only: [:index, :show]
   before_filter :authenticate_user!
   before_filter :authorize_user!, except: [:index, :show]
 
@@ -8,7 +8,8 @@ class LocationsController < ApplicationController
   before_filter :set_location, only: [:show, :edit, :update]
 
   def new
-    return if get_address(check_for_adopt)
+    render :adopt and return if adopt?
+    @graetzl ||= Graetzl.find(session[:graetzl])
     @location = @graetzl.locations.build(address_attributes: session[:address])
     @location.build_contact
     empty_session
@@ -78,6 +79,7 @@ class LocationsController < ApplicationController
       params.
         require(:location).
         permit(:name,
+          :graetzl_id,
           :slogan,
           :description,
           :avatar, :remove_avatar,
@@ -96,24 +98,10 @@ class LocationsController < ApplicationController
         merge(user_ids: [current_user.id])
     end
 
-    def check_for_adopt
-      puts 'CALLING CHECK FOR ADOPT'
-      Proc.new do |address|
-        puts 'CALLING CHECK FOR ADOPT CALLBACK'
-        new_graetzl = address.graetzl
-        if new_graetzl != @graetzl
-          redirect_to new_graetzl_location_path(new_graetzl)
-          true
-        end
-        #@graetzl = address.graetzl || @graetzl
-        @locations = address.available_locations        
-        #render :adopt unless @locations.empty?
-        unless @locations.empty?
-          render :adopt
-          true
-        else
-          false
-        end
+    def adopt?
+      if request.post?
+        @locations = @address.available_locations
+        return @locations.present?
       end
     end
 end
