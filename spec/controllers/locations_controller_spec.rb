@@ -12,8 +12,8 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   shared_examples :an_unauthorized_request do
-    it 'redirects to @graetzl' do
-      expect(response).to redirect_to graetzl
+    it 'redirects to root' do
+      expect(response).to redirect_to root_url
     end
 
     it 'shows flash[:error]' do
@@ -37,8 +37,7 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'GET new' do
     context 'when logged out' do
-      before { get :new, graetzl_id: graetzl }
-      include_examples :graetzl_context
+      before { get :new }
       it_behaves_like :an_unauthenticated_request
     end
 
@@ -46,9 +45,8 @@ RSpec.describe LocationsController, type: :controller do
       let(:user) { create(:user) }
       before do
         sign_in user
-        get :new, graetzl_id: graetzl
+        get :new
       end
-      include_examples :graetzl_context
       it_behaves_like :an_unauthenticated_request
     end
 
@@ -56,21 +54,26 @@ RSpec.describe LocationsController, type: :controller do
       let(:user) { create(:user_business) }
       before { sign_in user }
 
-      context 'without address in session' do
-        before { get :new, graetzl_id: graetzl }
-        include_examples :graetzl_context
+      context 'without address and graetzl in session' do
+        before { get :new }
+
+        it 'assigns no graetzl' do
+          expect(assigns(:graetzl)).not_to be
+        end
 
         it 'renders :address_form' do
           expect(response).to render_template(:address_form)
         end
       end
 
-      context 'with address attributes in session' do
+      context 'with address and graetzl in session' do
         let(:address) { build(:address, addressable_type: 'Location') }
         before do
           session[:address] = address.attributes
-          get :new, graetzl_id: graetzl
+          session[:graetzl] = graetzl.id
+          get :new
         end
+
         include_examples :graetzl_context
 
         it 'assigns @location with address' do
@@ -86,8 +89,7 @@ RSpec.describe LocationsController, type: :controller do
 
     describe 'POST new' do
       context 'when logged out' do
-        before { post :new, graetzl_id: graetzl }
-        include_examples :graetzl_context
+        before { post :new }
         it_behaves_like :an_unauthenticated_request
       end
 
@@ -95,21 +97,18 @@ RSpec.describe LocationsController, type: :controller do
         let(:user) { create(:user) }
         before do
           sign_in user
-          post :new, graetzl_id: graetzl
+          post :new
         end
-        include_examples :graetzl_context
         it_behaves_like :an_unauthenticated_request
       end
 
       context 'when business user' do
         let(:user) { create(:user_business) }
-        let(:params) { { graetzl_id: graetzl } }
+        let(:params) { {} }
         before { sign_in user }
 
         describe 'without :address parameter' do
           before { post :new, params }
-          include_examples :graetzl_context
-
           it 'renders :address_form' do
             expect(response).to render_template(:address_form)
           end
@@ -120,7 +119,10 @@ RSpec.describe LocationsController, type: :controller do
             params.merge!(address: 'something')
             post :new, params
           end
-          include_examples :graetzl_context
+
+          it 'assigns @graetzl with user.graetzl' do
+            expect(assigns(:graetzl)).to eq user.graetzl
+          end
 
           it 'assigns @location with empty address' do
             expect(assigns(:location)).to be_an_instance_of(Location)
@@ -139,21 +141,19 @@ RSpec.describe LocationsController, type: :controller do
 
         describe 'with :feature parameter' do
           let!(:new_graetzl) { create(:graetzl,
-            area: 'POLYGON ((0.0 0.0, 0.0 2.0, 2.0 2.0, 2.0 0.0, 0.0 0.0))') }
-          let(:feature) { feature_hash(1,1) }
+            area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))') }
+          let(:feature) { feature_hash(25,25) }
           before do
             params.merge!({ address: 'something', feature: feature.to_json })
             post :new, params
           end
 
           it 'assigns new @graetzl' do
-            #expect(assigns(:graetzl)).to eq new_graetzl
-            expect(assigns(:location).address.graetzl).to eq new_graetzl
+            expect(assigns(:graetzl)).to eq new_graetzl
           end
 
           it 'assigns @location with address from feature' do
             a = Address.attributes_from_feature(feature.to_json)
-            puts a
             expect(assigns(:location)).to be_an_instance_of(Location)
             expect(assigns(:location).address).to have_attributes(
               street_name: a[:street_name],

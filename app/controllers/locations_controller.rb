@@ -65,7 +65,7 @@ class LocationsController < ApplicationController
     def authorize_user!      
       unless current_user.business?
         flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben.'
-        redirect_to @graetzl
+        redirect_to root_url
       end
     end
 
