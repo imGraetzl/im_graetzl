@@ -18,12 +18,11 @@ RSpec.describe LocationsController, type: :routing do
         action: 'new')
     end
 
-    # it 'routes POST /locations to #create' do
-    #   expect(post: '/graetzl_slug/locations').to route_to(
-    #     controller: 'locations',
-    #     action: 'create',
-    #     graetzl_id: 'graetzl_slug')
-    # end
+    it 'routes POST /locations to #create' do
+      expect(post: '/locations').to route_to(
+        controller: 'locations',
+        action: 'create')
+    end
 
     # it 'routes GET /locations/location_slug to #show' do
     #   expect(get: '/graetzl_slug/locations/location_slug').to route_to(
@@ -42,12 +41,11 @@ RSpec.describe LocationsController, type: :routing do
         action: 'new')
     end
 
-    # it 'routes POST graetzl_locations to #create' do
-    #   expect(post: graetzl_locations_path(graetzl_id: 'graetzl_slug')).to route_to(
-    #     controller: 'locations',
-    #     action: 'create',
-    #     graetzl_id: 'graetzl_slug')
-    # end
+    it 'routes POST locations to #create' do
+      expect(post: locations_path).to route_to(
+        controller: 'locations',
+        action: 'create')
+    end
 
     # it 'routes GET graetzl_location to #show' do
     #   expect(get: graetzl_location_path(graetzl_id: 'graetzl_slug', id: 'location_slug')).to route_to(

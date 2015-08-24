@@ -27,6 +27,10 @@ RSpec.describe Location, type: :model do
     it 'is invalid without name' do
       expect(build(:location, name: '')).not_to be_valid
     end
+
+    it 'is invalid without graetzl' do
+      expect(build(:location, graetzl: nil)).not_to be_valid
+    end
   end
 
   describe 'attributes' do

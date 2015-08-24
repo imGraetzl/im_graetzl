@@ -28,6 +28,7 @@ class Location < ActiveRecord::Base
 
   # validations
   validates :name, presence: true
+  validates :graetzl, presence: true
 
   # class methods
   def self.reset_or_destroy(location)

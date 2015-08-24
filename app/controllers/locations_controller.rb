@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = @graetzl.locations.build(location_params)
+    @location = Location.new(location_params)
     begin
       @location.pending!
       enqueue_and_redirect
@@ -59,7 +59,8 @@ class LocationsController < ApplicationController
     end
 
     def set_location
-      @location = @graetzl.locations.find(params[:id])
+      #@location = @graetzl.locations.find(params[:id])
+      @location = Location.find(params[:id])
     end
 
     def authorize_user!      
@@ -71,7 +72,7 @@ class LocationsController < ApplicationController
 
     def enqueue_and_redirect
       flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-      redirect_to @graetzl      
+      redirect_to root_url
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
