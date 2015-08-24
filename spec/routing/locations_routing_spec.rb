@@ -31,6 +31,13 @@ RSpec.describe LocationsController, type: :routing do
     #     graetzl_id: 'graetzl_slug',
     #     id: 'location_slug')
     # end
+
+    it 'routes GET /locations/location_slug/edit to #edit' do
+      expect(get: '/locations/location_slug/edit').to route_to(
+        controller: 'locations',
+        action: 'edit',
+        id: 'location_slug')
+    end
   end
 
   describe 'named routing' do
@@ -45,6 +52,13 @@ RSpec.describe LocationsController, type: :routing do
       expect(post: locations_path).to route_to(
         controller: 'locations',
         action: 'create')
+    end
+
+    it 'routes GET edit_location to #edit' do
+      expect(get: edit_location_path(id: 'location_slug')).to route_to(
+        controller: 'locations',
+        action: 'edit',
+        id: 'location_slug')
     end
 
     # it 'routes GET graetzl_location to #show' do

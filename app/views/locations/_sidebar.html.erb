@@ -10,7 +10,7 @@
     </div>
     <% if user_signed_in? && @location.owned_by(current_user) %>
       <div class="sideBarbox">
-        <%= link_to 'Location bearbeiten', edit_graetzl_location_path(@graetzl, @location) %>
+        <%= link_to 'Location bearbeiten', edit_location_path(@location) %>
       </div>
     <% end %>
   <% end %>

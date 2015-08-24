@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_action :set_graetzl, only: [:index, :show]
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:index, :show]
   before_filter :authorize_user!, except: [:index, :show]
 
   include AddressUtilities
@@ -33,13 +33,16 @@ class LocationsController < ApplicationController
   end
 
   def update
-    # todo: check for validation errors
     @location.attributes = location_params
-    if !@location.managed? && @location.pending!
-      enqueue_and_redirect
-    elsif @location.managed? && @location.save
-      redirect_to [@location.graetzl, @location]
-    else
+    begin
+      if !@location.managed? && @location.pending!
+        enqueue_and_redirect
+      elsif @location.managed? && @location.save
+        redirect_to [@location.graetzl, @location]
+      else
+        render :edit
+      end
+    rescue ActiveRecord::RecordInvalid => invalid
       render :edit
     end
   end
