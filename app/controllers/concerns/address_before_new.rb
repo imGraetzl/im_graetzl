@@ -1,4 +1,5 @@
-module AddressUtilities
+# Set address and graetzl before rendering :new
+module AddressBeforeNew
   extend ActiveSupport::Concern
 
   included do

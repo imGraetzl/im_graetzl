@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :authorize_user!, except: [:index, :show]
 
-  include AddressUtilities
+  include AddressBeforeNew
   
   before_filter :set_location, only: [:show, :edit, :update]
 
