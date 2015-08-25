@@ -1,12 +1,19 @@
 section.meetings {
   .specialBox {
-    @include paperCard($rotation: 1, $string: 2);
+    @include paperCard($rotation: -2, $string: 2);
     @include respond-to(">=large") {
       transform: translate(15px, -5px);
     }
     .wrp  {
       display: block;
-      padding: 100px 30px 30px 30px;
+      background-image: url(image_path('illu/illu-cylce.png'));
+      padding: 175px 30px 30px 30px;
+      background-repeat: no-repeat;
+      background-position: 33px 23px;
+      background-size: 265px 189px;
+      @include respond-to("retina2x") {
+        background-image: url(image_path('illu/illu-cycle@2x.png'));
+      }
     }
 
     button {
@@ -19,6 +26,22 @@ section.meetings {
       margin-top: 25px;
       margin-bottom: 30px;
       color: $color-ambient-mint-dark;
+    }
+  }
+}
+
+.no-touch {
+  section.meetings {
+    @include respond-to(">=medium") {
+      .specialBox {
+        transition: transform 0.5s;
+        &:hover {
+          transform: rotate(4deg) translate3d(10px, 0, 0);
+          button {
+            opacity: 0.9;
+          }
+        }
+      }
     }
   }
 }
