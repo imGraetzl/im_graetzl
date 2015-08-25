@@ -14,7 +14,7 @@
       </div>
     <% end %>
 
-    <% if meeting.location %>
+    <% if meeting.location && meeting.location.users.include?(meeting.initiator) %>
       <div class="medalBadge">
         <%= attachment_image_tag(meeting.location, :avatar,
                                   :fill, 100, 100,
