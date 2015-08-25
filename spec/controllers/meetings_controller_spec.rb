@@ -133,6 +133,7 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when logged in' do
       let(:user) { create(:user) }
+      let(:location) { create(:location_managed) }
       let(:params) {
         {
           graetzl_id: graetzl,
@@ -157,7 +158,9 @@ RSpec.describe MeetingsController, type: :controller do
 
       describe 'meeting' do
         before do
-          params[:meeting].merge!({ address_attributes: { description: 'new_description' } })
+          params[:meeting].merge!({
+            address_attributes: { description: 'new_description' },
+            location_id: location.id })
           post :create, params
         end
 
@@ -167,11 +170,15 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         it 'has @graetzl' do
-          expect(new_meeting.graetzl).to eq(graetzl)
+          expect(new_meeting.graetzl).to eq graetzl
         end
 
         it 'has address' do
           expect(new_meeting.address).to be_present
+        end
+
+        it 'has location' do
+          expect(new_meeting.location).to eq location
         end
 
         it 'has address description' do

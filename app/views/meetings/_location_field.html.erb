@@ -1,14 +1,18 @@
-<div class="input-checkbox">
-  <%= check_box_tag 'location', 1, f.object.location %>
-  <%= label_tag 'location', 'hat mit meiner wirtschaftlichen Tätigkeit im Grätzl zu tun' %>
-</div>
+<% if current_user.business? %>
+  <div class="input-checkbox">
+    <%= check_box_tag 'location', 1, f.object.location %>
+    <%= label_tag 'location', 'hat mit meiner wirtschaftlichen Tätigkeit im Grätzl zu tun' %>
+  </div>
 
-<div id="meeting-location-field" class="input-select" <% unless f.object.location %> style="display:none;" <% end %>>
-  <%= f.label :location_id do %>
-      <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-      <span>Location</span>
-  <% end %>
-  <%= f.select(:location_id,
-              current_user.locations.managed.collect {|l| [l.name, l.id] },
-              {include_blank: 'wähle deine Location'}) %>
-</div>
+  <div id="meeting-location-field" class="input-select" <% unless f.object.location %> style="display:none;" <% end %>>
+    <%= f.label :location_id do %>
+        <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+        <span>Location</span>
+    <% end %>
+    <%= f.select(:location_id,
+                current_user.locations.managed.collect {|l| [l.name, l.id] },
+                {include_blank: 'wähle deine Location'}) %>
+  </div>
+<% else %>
+  <%= f.hidden_field :location_id %>
+<% end %>
