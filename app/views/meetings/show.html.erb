@@ -49,7 +49,7 @@
 
       <div class="address">
         <% if location = @meeting.location %>
-          <%= link_to address_description(@meeting.address), [location.graetzl, location] %>
+          <%= link_to location.name, [location.graetzl, location] %>
         <% else %>
           <%= address_description(@meeting.address) %>
         <% end %>
