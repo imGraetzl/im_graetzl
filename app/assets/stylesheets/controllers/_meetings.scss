@@ -20,6 +20,18 @@ section.meetings {
       width: 100%;
     }
 
+    .user {
+      img {
+        vertical-align: bottom;
+      }
+      span {
+        color: $color-ambient-mint;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        vertical-align: bottom;
+      }
+    }
+
     h3 {
       font-size: 2.2rem;
       line-height: 1.2;

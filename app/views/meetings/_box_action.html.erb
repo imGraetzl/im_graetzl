@@ -1,5 +1,14 @@
 <div class="specialBox">
   <%= link_to new_graetzl_meeting_path(@graetzl), class: 'wrp' do %>
+    <% if user_signed_in? %>
+      <div class="user">
+        <%= attachment_image_tag(current_user, :avatar,
+                                    :fill, 100, 100,
+                                    fallback: 'avatar/small_default.png',
+                                    class: 'img-round') %>
+        <span><%= current_user.username %></span>
+      </div>
+    <% end %>
     <h3>Starte Dein<br/>eigenes Treffen</h3>
     <button class="btn-primary -rose">Treffen anlegen</button>
   <% end %>
