@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'meetings/_box', type: :view do
-  # pass locals
-  # render :partial => "widgets/widget.html.erb", :locals => {:widget => widget}
   context 'without location' do
     let(:meeting) { create(:meeting, location: nil) }
     before { render 'meetings/box', meeting: meeting }
