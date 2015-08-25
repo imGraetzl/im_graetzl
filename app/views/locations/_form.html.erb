@@ -44,7 +44,7 @@
 
     <div class="upload-image js-imgUpld">
       <% if f.object.cover_photo %>
-        <div class="imgCrop"><%= image_tag attachment_url(resource, :cover_photo, :fill, 980, 370) %></div>
+        <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
         <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
         Coverphoto
         <div class="checkbox-group">
@@ -63,7 +63,7 @@
 
     <div class="upload-image js-imgUpld">
       <% if f.object.avatar %>
-        <div class="imgCrop"><%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %></div>
+        <div class="imgCrop"><%= image_tag attachment_url(f.object, :avatar, :fill, 100, 100) %></div>
         <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
         Profilbild
         <div class="checkbox-group">
