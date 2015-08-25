@@ -176,6 +176,43 @@ RSpec.describe LocationsController, type: :controller do
             expect(session[:graetzl]).to be nil
           end
         end
+
+        describe 'with locations nearby' do
+          let!(:new_graetzl) { create(:graetzl,
+            area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))') }
+          let!(:l_managed) { create(:location_managed,
+            address: build(:address, coordinates: 'POINT (25.00 25.00)')) }
+          let!(:l_basic) { create(:location_basic,
+            address: build(:address, coordinates: 'POINT (25.00 25.00)')) }
+          let(:feature) { feature_hash(25.00,25.00) }
+          before do
+            params.merge!({ address: 'something', feature: feature.to_json })
+            post :new, params
+          end
+
+          it 'assigns @address with address from feature' do
+            a = Address.attributes_from_feature(feature.to_json)
+            expect(assigns(:address)).to have_attributes(
+              street_name: a[:street_name],
+              street_number: a[:street_number],
+              zip: a[:zip],
+              city: a[:city],
+              coordinates: a[:coordinates])
+          end
+
+          it 'assigns @locations' do
+            expect(assigns(:locations)).to contain_exactly(l_managed, l_basic)
+          end
+
+          it 'stores address and graetzl in session' do
+            expect(session[:address]).to eq assigns(:address).attributes
+            expect(session[:graetzl]).to eq new_graetzl.id
+          end
+
+          it 'renders :adopt' do
+            expect(response).to render_template(:adopt)
+          end
+        end
       end
     end
   end
