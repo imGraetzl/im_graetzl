@@ -2,10 +2,11 @@
 <section class="meetings">
   <h2>Kommende Treffen im <%= @graetzl.name %></h2>
   <div class="meetingBoxes">
+    <%= render partial: 'box', collection: @upcoming_meetings.first(2), as: 'meeting' %>
     <%= render 'box_action' %>
-    <%= render partial: 'box', collection: @upcoming_meetings, as: 'meeting' %>
+    <%= render partial: 'box', collection: @upcoming_meetings.offset(2), as: 'meeting' %>
   </div>
-  <% if @past_meetings %>
+  <% if @past_meetings.present? %>
     <h2>Vergangene Treffen im <%= @graetzl.name %></h2>
     <div class="meetingBoxes">
       <%= render partial: 'meetings/box', collection: @past_meetings, as: 'meeting' %>

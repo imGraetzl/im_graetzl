@@ -4,9 +4,6 @@ RSpec.describe 'meetings/index', type: :view do
 
   # Shared examples
   shared_examples :display_action_button do
-    it 'displays headline' do
-      expect(rendered).to have_selector('h2', text: "Kommende Treffen im #{graetzl.name}")
-    end
 
     it 'displays special box' do
       expect(rendered).to have_selector('div.specialBox')
@@ -18,40 +15,44 @@ RSpec.describe 'meetings/index', type: :view do
     end
   end
 
-  shared_examples :no_past_meetings do
+  shared_examples :special_box_on_3rd do 
+    it 'displays special box on 3rd position' do
+      expect(rendered).to have_xpath('(//div[@class="meetingBox"])[2]/following-sibling::div[@class="specialBox"][1]')
+    end
+  end
 
+  shared_examples :no_past_meetings do
     it 'does not display headline for past meetings' do
       expect(rendered).not_to have_selector('h2', text: "Vergangene Treffen im #{graetzl.name}")
     end
-
-    it 'does not display past meetings' do
-      expect(rendered).not_to have_selector('div.meetingBox h3', text: m_yesterday.name)
-    end
   end
 
-  # setup data
+  # Scenarios
+  # Setup
   let(:graetzl) { create(:graetzl) }
-  let(:m_today) { create(:meeting, graetzl: graetzl, starts_at_date: Date.today) }
-  let(:m_tomorrow) { create(:meeting, graetzl: graetzl, starts_at_date: Date.tomorrow) }
-  let(:m_yesterday) { build(:meeting, graetzl: graetzl, starts_at_date: Date.yesterday) }
-
   before do
-    m_yesterday.save(validate: false)
-    allow(m_today).to receive(:initiator) { create(:user) }
-    allow(m_tomorrow).to receive(:initiator) { create(:user) }
-    allow(m_yesterday).to receive(:initiator) { create(:user) }
     assign(:graetzl, graetzl)
   end
 
-  # scenarios
-  context 'with meetings' do
+  context 'with 2 upcoming and past meetings' do
+    let!(:m_today) { create(:meeting, graetzl: graetzl, starts_at_date: Date.today) }
+    let!(:m_tomorrow) { create(:meeting, graetzl: graetzl, starts_at_date: Date.tomorrow) }
+    let(:m_yesterday) { build(:meeting, graetzl: graetzl, starts_at_date: Date.yesterday) }
+
     before do
-      assign(:upcoming_meetings, [m_today, m_tomorrow])
-      assign(:past_meetings, [m_yesterday])
+      m_yesterday.save(validate: false)
+      assign(:upcoming_meetings, graetzl.meetings.upcoming)
+      assign(:past_meetings, graetzl.meetings.past)
       render
     end
 
-    it_behaves_like :display_action_button
+    include_examples :display_action_button
+
+    include_examples :special_box_on_3rd
+
+    it 'displays headline for upcoming meetings' do
+      expect(rendered).to have_selector('h2', text: "Kommende Treffen im #{graetzl.name}")
+    end
 
     it 'displays upcoming meetings' do
       expect(rendered).to have_selector('div.meetingBox h3', text: m_today.name)
@@ -67,37 +68,49 @@ RSpec.describe 'meetings/index', type: :view do
     end
   end
 
-  context 'with only upcoming meetings' do
+  context 'when only upcoming meetings' do
+    let!(:m_today) { create(:meeting, graetzl: graetzl, starts_at_date: Date.today) }
+
     before do
-      assign(:upcoming_meetings, [m_today, m_tomorrow])
-      assign(:past_meetings, nil)
+      5.times{ create(:meeting, graetzl: graetzl) }
+      assign(:upcoming_meetings, graetzl.meetings.upcoming)
+      assign(:past_meetings, graetzl.meetings.past)
       render
     end
 
-    it_behaves_like :display_action_button
+    include_examples :display_action_button
+   
+    include_examples :special_box_on_3rd
+
+    it 'displays headline for upcoming meetings' do
+      expect(rendered).to have_selector('h2', text: "Kommende Treffen im #{graetzl.name}")
+    end
 
     it 'displays upcoming meetings' do
       expect(rendered).to have_selector('div.meetingBox h3', text: m_today.name)
-      expect(rendered).to have_selector('div.meetingBox h3', text: m_tomorrow.name)
+      expect(rendered).to have_selector('div.meetingBox h3', count: 6)
     end
 
-    it_behaves_like :no_past_meetings
+    include_examples :no_past_meetings
   end
 
-  context 'without meetings' do
+  context 'when no meetings' do
     before do
-      assign(:upcoming_meetings, nil)
-      assign(:past_meetings, nil)
+      assign(:upcoming_meetings, graetzl.meetings.upcoming)
+      assign(:past_meetings, graetzl.meetings.past)
       render
     end
 
-    it_behaves_like :display_action_button
+    include_examples :display_action_button
 
-    it 'does not display upcoming meetings' do
-      expect(rendered).not_to have_selector('div.meetingBox h3', text: m_today.name)
-      expect(rendered).not_to have_selector('div.meetingBox h3', text: m_tomorrow.name)
+    it 'displays headline for upcoming meetings' do
+      expect(rendered).to have_selector('h2', text: "Kommende Treffen im #{graetzl.name}")
     end
 
-    it_behaves_like :no_past_meetings
+    it 'displays no meetings' do
+      expect(rendered).not_to have_selector('div.meetingBox h3')
+    end
+
+    include_examples :no_past_meetings
   end
 end
