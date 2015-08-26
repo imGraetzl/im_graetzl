@@ -1,7 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   include GraetzlNesting
-  before_action :assert_graetzl, only: [:new]
   before_action :set_meeting, except: [:index, :new, :create]
   before_action :check_permission!, only: [:edit, :update, :destroy]
 
@@ -15,7 +14,8 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    @meeting = @graetzl.meetings.build(location_id: params[:location_id])
+    @parent = parent_context
+    @meeting = @parent.meetings.build()
     if location = @meeting.location
       @meeting.graetzl = location.graetzl
       @meeting.build_address(location.address.attributes.merge(description: location.name))
@@ -108,6 +108,12 @@ class MeetingsController < ApplicationController
 
     def set_meeting
       @meeting = Meeting.eager_load(:going_tos).find(params[:id])
+    end
+
+    def parent_context
+      context = Location.find(params[:location_id]) if params[:location_id].present?
+      context ||= Graetzl.find(params[:graetzl_id]) if params[:graetzl_id].present?
+      context || current_user.graetzl
     end
 
     def check_permission!
