@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_graetzl
+  before_action :authenticate_user!
+  before_action :set_graetzl
 
   def create
     post = @graetzl.posts.build(post_params)

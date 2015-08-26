@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_form_id, only: [:create]
+  before_action :authenticate_user!
+  before_action :set_form_id, only: [:create]
 
   def create
     @comment = @commentable.comments.build(comment_params)

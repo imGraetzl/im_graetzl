@@ -1,5 +1,5 @@
 class GoingTosController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def create
     @meeting = Meeting.find(params[:meeting_id])
