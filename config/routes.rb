@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do
-    resources :meetings, path: 'treffen' do
+    resources :meetings, path: 'treffen', only: [:index, :show, :new] do
       resource :comments, module: :meetings, only: [:create]
     end
     resources :posts, only: [:create] do
@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   resources :locations, except: [:index, :show] do
     concerns :address_before_new
   end
+
+  resources :meetings, path: 'treffen', except: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

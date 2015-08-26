@@ -1,8 +1,9 @@
 class MeetingsController < ApplicationController
-  before_filter :set_graetzl
-  before_filter :set_meeting, except: [:index, :new, :create]
-  before_filter :authenticate_user!, except: [:show, :index]
-  before_filter :check_permission!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
+  include GraetzlNesting
+  before_action :assert_graetzl, only: [:new]
+  before_action :set_meeting, except: [:index, :new, :create]
+  before_action :check_permission!, only: [:edit, :update, :destroy]
 
   def index
     @upcoming_meetings = @graetzl.meetings.upcoming
@@ -16,6 +17,7 @@ class MeetingsController < ApplicationController
   def new
     @meeting = @graetzl.meetings.build(location_id: params[:location_id])
     if location = @meeting.location
+      @meeting.graetzl = location.graetzl
       @meeting.build_address(location.address.attributes.merge(description: location.name))
     else
       @meeting.build_address
@@ -23,8 +25,8 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    @meeting = @graetzl.meetings.build(meeting_params)
-    @meeting.graetzl = @meeting.address.graetzl || @graetzl
+    @meeting = Meeting.new(meeting_params)
+    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
     @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
     
     if @meeting.save
@@ -63,8 +65,8 @@ class MeetingsController < ApplicationController
   end
 
   def destroy
-    @meeting.destroy
-    redirect_to @graetzl, notice: 'Dein Treffen wurde abgesagt.'
+    graetzl = @meeting.destroy.graetzl
+    redirect_to graetzl, notice: 'Dein Treffen wurde abgesagt.'
   end
 
   private
@@ -72,7 +74,6 @@ class MeetingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       if params[:address].present? && params[:feature].blank?
-        puts meeting_params_basic
         meeting_params_basic
       else
         meeting_params_basic.deep_merge(address_attributes: address_attr)
@@ -82,7 +83,8 @@ class MeetingsController < ApplicationController
     def meeting_params_basic
       params.
         require(:meeting).
-        permit(:name,
+        permit(:graetzl_id,
+          :name,
           :description,
           :starts_at_date, :starts_at_time,
           :ends_at_time,
@@ -104,18 +106,14 @@ class MeetingsController < ApplicationController
       Address.attributes_from_feature(params[:feature]) || Address.attributes_to_reset_location
     end
 
-    def set_graetzl
-      @graetzl = Graetzl.find(params[:graetzl_id])
-    end
-
     def set_meeting
-      @meeting = @graetzl.meetings.eager_load(:going_tos).find(params[:id])
+      @meeting = Meeting.eager_load(:going_tos).find(params[:id])
     end
 
     def check_permission!
       unless @meeting.going_tos.initiator.find_by_user_id(current_user)
         flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
-        redirect_to [@graetzl, @meeting]
+        redirect_to [@meeting.graetzl, @meeting]
       end
     end
 end

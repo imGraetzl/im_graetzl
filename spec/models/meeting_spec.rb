@@ -11,6 +11,10 @@ RSpec.describe Meeting, type: :model do
       expect(build(:meeting, name: nil)).not_to be_valid
     end
 
+    it 'invalid without graetzl' do
+      expect(build(:meeting, graetzl: nil)).not_to be_valid
+    end
+
     it 'invalid with starts_at_date in past' do
       expect(build(:meeting, starts_at_date: 1.day.ago)).not_to be_valid
     end

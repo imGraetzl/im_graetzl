@@ -1,4 +1,5 @@
 <%= form_for(@location) do |f| %>
+  <%= f.hidden_field :graetzl_id %>
 
   <% if @location.errors.any? %>
     <div id="error_explanation">
@@ -17,7 +18,6 @@
       <p class="txt">Basic Info</p>
 
       <div class="input-field">
-        <%= f.hidden_field :graetzl_id %>
         <%= f.label :name do %>
           <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
           <span>Name</span>

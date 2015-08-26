@@ -1,147 +1,144 @@
-<%= form_for([@graetzl, @meeting]) do |f| %>
+<%= form_for @meeting do |f| %>
+  <%= f.hidden_field :graetzl_id %>
 
-    <% if @meeting.errors.any? %>
-        <div id="error_explanation">
-          <h2>Treffen konnte nicht erstellt werden!<br><%= @meeting.errors.count %> Fehler:</h2>
+  <% if @meeting.errors.any? %>
+    <div id="error_explanation">
+      <h2>Treffen konnte nicht erstellt werden!<br><%= @meeting.errors.count %> Fehler:</h2>
 
-          <ul>
-            <% @meeting.errors.full_messages.each do |message| %>
-                <li><svg class="icon-arrow-down"><use xlink:href="#icon-arrow-down"></use></svg><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
-    <div class="meet-what">
-      <p><span>Was</span> für ein Treffen planst du genau?</p>
-
-      <div class="input-field">
-        <%= f.label :name do %>
-            <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
-            <span>Titel</span>
+      <ul>
+        <% @meeting.errors.full_messages.each do |message| %>
+          <li><svg class="icon-arrow-down"><use xlink:href="#icon-arrow-down"></use></svg><%= message %></li>
         <% end %>
-        <%= f.text_field :name, placeholder: 'Gib deinem Treffen einen kurzen Namen'  %>
-      </div>
+      </ul>
+    </div>
+  <% end %>
 
-      <div class="input-textarea">
-        <%= f.label :description do %>
-            <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
-            <span>Beschreibung</span>
-        <% end %>
-        <%= f.text_area :description, placeholder: 'Beschreibe in wenigen Sätzen um was es bei deinem Treffen geht' %>
-      </div>
+  <div class="meet-what">
+    <p><span>Was</span> für ein Treffen planst du genau?</p>
+
+    <div class="input-field">
+      <%= f.label :name do %>
+        <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+        <span>Titel</span>
+      <% end %>
+      <%= f.text_field :name, placeholder: 'Gib deinem Treffen einen kurzen Namen'  %>
     </div>
 
-    <div class="meet-where">
-      <p><span>Wo</span> soll dein Treffen stattfinden?</p>
+    <div class="input-textarea">
+      <%= f.label :description do %>
+        <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+        <span>Beschreibung</span>
+      <% end %>
+      <%= f.text_area :description, placeholder: 'Beschreibe in wenigen Sätzen um was es bei deinem Treffen geht' %>
+    </div>
+  </div>
 
-      <div id="addressSearchAutocomplete" class="input-field">
-        <%= label_tag :address do %>
-            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-            <span>Adresse</span>
+  <div class="meet-where">
+    <p><span>Wo</span> soll dein Treffen stattfinden?</p>
+
+    <div id="addressSearchAutocomplete" class="input-field">
+      <%= label_tag :address do %>
+        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        <span>Adresse</span>
+      <% end %>
+      <%= text_field_tag :address, address_value(f.object.address), placeholder: 'Strasse und Hausnummer' %>
+      <%= hidden_field_tag :feature %>
+    </div>
+
+    <%= f.fields_for :address do |address_fields| %>
+      <div class="input-field">
+        <%= address_fields.label :description do %>
+            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+            <span>Ortsbeschreibung</span>
         <% end %>
-        <%= text_field_tag :address, address_value(f.object.address), placeholder: 'Strasse und Hausnummer' %>
-        <%= hidden_field_tag :feature %>
+        <%= address_fields.text_field :description,
+                                      placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.'  %>
+        <%= address_fields.hidden_field :street_name %>
+        <%= address_fields.hidden_field :street_number %>
+        <%= address_fields.hidden_field :zip %>
+        <%= address_fields.hidden_field :city %>
+        <%= address_fields.hidden_field :coordinates %>
       </div>
+    <% end %>
+    <%= render('location_field', f: f) %>
+  </div>
 
-      <%= f.fields_for :address do |address_fields| %>
-          <div class="input-field">
-            <%= address_fields.label :description do %>
-                <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
-                <span>Ortsbeschreibung</span>
-            <% end %>
-            <%= address_fields.text_field :description,
-                                          placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.'  %>
-            <%= address_fields.hidden_field :street_name %>
-            <%= address_fields.hidden_field :street_number %>
-            <%= address_fields.hidden_field :zip %>
-            <%= address_fields.hidden_field :city %>
-            <%= address_fields.hidden_field :coordinates %>
-          </div>
+  <div class="meet-when">
+    <p><span>Wann</span> planst du dein Treffen?</p>
+
+    <div class="input-field">
+      <%= f.label :starts_at_date do %>
+        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+        <span>Datum</span>
+      <% end %>
+      <%= f.text_field :starts_at_date,
+                       value: ( I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
+                       class: 'datepicker',
+                       placeholder: 'wählen' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :starts_at_time do %>
+        <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
+        <span>Beginn</span>
+      <% end %>
+      <%= f.text_field :starts_at_time,
+                       value: (f.object.starts_at_time.strftime('%H:%M') if f.object.starts_at_time),
+                       class: 'timepicker',
+                       placeholder: 'wählen' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :ends_at_time do %>
+        <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
+        <span>Ende</span>
+      <% end %>
+      <%= f.text_field :ends_at_time, ignore_date: true,
+                       value: (f.object.ends_at_time.strftime('%H:%M') if f.object.ends_at_time),
+                       class: 'timepicker', placeholder: 'wählen' %>
+    </div>
+  </div>
+  <div class="meet-how">
+    <p><span>Wie</span> würdest du dein Treffen zuordnen?</p>
+
+    <!--
+    <div class="input-field">
+      <label for="cover_photo">
+        <svg class="icon-image"><use xlink:href="#icon-image"></use></svg>
+        <span>Coverfoto</span>
+      </label>
+      <%= text_field_tag :dummy, address_value(f.object.address), placeholder: 'Beschreibe dein Treffen mit einem Bild' %>
+    </div>
+    -->
+
+    <div class="upload-image js-imgUpld">
+      <% if f.object.cover_photo %>
+        <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Foto ändern
+        <div class="checkbox-group">
+          <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+          <%= f.label :remove_cover_photo, 'Foto Löschen' %>
+        </div>
+      <% else %>
+        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
+        Foto hochladen
       <% end %>
 
-      <%= render('location_field', f: f) %>
+      <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
+      <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+      <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
     </div>
 
-    <div class="meet-when">
-      <p><span>Wann</span> planst du dein Treffen?</p>
-
-      <div class="input-field">
-        <%= f.label :starts_at_date do %>
-            <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-            <span>Datum</span>
-        <% end %>
-        <%= f.text_field :starts_at_date,
-                         value: ( I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
-                         class: 'datepicker',
-                         placeholder: 'wählen' %>
-      </div>
-
-      <div class="input-field">
-        <%= f.label :starts_at_time do %>
-            <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
-            <span>Beginn</span>
-        <% end %>
-        <%= f.text_field :starts_at_time,
-                         value: (f.object.starts_at_time.strftime('%H:%M') if f.object.starts_at_time),
-                         class: 'timepicker',
-                         placeholder: 'wählen' %>
-      </div>
-
-      <div class="input-field">
-        <%= f.label :ends_at_time do %>
-            <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
-            <span>Ende</span>
-        <% end %>
-        <%= f.text_field :ends_at_time, ignore_date: true,
-                         value: (f.object.ends_at_time.strftime('%H:%M') if f.object.ends_at_time),
-                         class: 'timepicker', placeholder: 'wählen' %>
-      </div>
+    <div class="input-select">
+      <%= f.label :category_ids do %>
+        <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+        <span>Kategorien</span>
+      <% end %>
+      <%= f.collection_select(:category_ids, Category.recreation, :id, :name, {}, {multiple: true, class: 'categories'}) %>
     </div>
-    <div class="meet-how">
-      <p><span>Wie</span> würdest du dein Treffen zuordnen?</p>
+  </div>
 
-      <!--
-      <div class="input-field">
-        <label for="cover_photo">
-          <svg class="icon-image"><use xlink:href="#icon-image"></use></svg>
-          <span>Coverfoto</span>
-        </label>
-        <%= text_field_tag :dummy, address_value(f.object.address), placeholder: 'Beschreibe dein Treffen mit einem Bild' %>
-      </div>
-      -->
-
-      <div class="upload-image js-imgUpld">
-        <% if f.object.cover_photo %>
-            <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Foto ändern
-            <div class="checkbox-group">
-              <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-              <%= f.label :remove_cover_photo, 'Foto Löschen' %>
-            </div>
-        <% else %>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Foto hochladen
-        <% end %>
-
-        <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-        <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
-        <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
-      </div>
-
-      <div class="input-select">
-        <%= f.label :category_ids do %>
-            <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-            <span>Kategorien</span>
-        <% end %>
-        <%= f.collection_select(:category_ids, Category.recreation, :id, :name, {}, {multiple: true, class: 'categories'}) %>
-      </div>
-
-    </div>
-
-    <%= f.button class: 'btn-primary' %>
-
-
+  <%= f.button class: 'btn-primary' %>
 
 <% end %>

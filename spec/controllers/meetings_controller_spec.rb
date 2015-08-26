@@ -2,13 +2,10 @@ require 'rails_helper'
 include GeojsonSupport
 
 RSpec.describe MeetingsController, type: :controller do
-  let(:graetzl) { create(:graetzl) }
+  let!(:graetzl) { create(:graetzl) }
 
+  # Shared examples
   shared_examples :a_successful_meeting_request do
-    it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq(graetzl)
-    end
-
     it 'assigns @meeting' do
       expect(assigns(:meeting)).to eq(meeting)
     end
@@ -22,7 +19,7 @@ RSpec.describe MeetingsController, type: :controller do
 
   shared_examples :an_unauthorized_request do
     it 'redirects to meeting_page' do          
-      expect(response).to redirect_to([graetzl, meeting])
+      expect(response).to redirect_to([meeting.graetzl, meeting])
     end
 
     it 'shows flash[:error]' do
@@ -30,83 +27,112 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-  describe 'GET show' do
-    let(:meeting) { create(:meeting, graetzl: graetzl) }
 
-    before { get :show, graetzl_id: graetzl, id: meeting }
+  # Controller methods
+  describe 'GET show' do
+    let!(:meeting) { create(:meeting, graetzl: graetzl) }
+
+    before { get :show, {graetzl_id: graetzl, id: meeting} }
+
+    include_examples :a_successful_meeting_request
+
+    it 'assigns @graetzl' do
+      expect(assigns(:graetzl)).to eq(graetzl)
+    end
 
     it 'renders #show' do
       expect(response).to render_template(:show)
     end
-
-    it_behaves_like :a_successful_meeting_request
 
     it 'assigns @comments' do
       expect(assigns(:comments)).to eq(meeting.comments)
     end
   end
 
-  describe 'GET index' do
-    before do
-      2.times{create(:meeting, graetzl: graetzl)}
-      2.times{create(:meeting)}
-      get :index, graetzl_id: graetzl
-    end
+  # describe 'GET index' do
+  #   before do
+  #     2.times{create(:meeting, graetzl: graetzl)}
+  #     2.times{create(:meeting)}
+  #     get :index, graetzl_id: graetzl
+  #   end
 
-    it 'renders #index' do
-      expect(response).to render_template(:index)
-    end
+  #   it 'renders #index' do
+  #     expect(response).to render_template(:index)
+  #   end
 
-    it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq(graetzl)
-    end
+  #   it 'assigns @graetzl' do
+  #     expect(assigns(:graetzl)).to eq(graetzl)
+  #   end
 
-    it 'assigns @upcoming_meetings' do
-      expect(assigns(:upcoming_meetings)).to eq(graetzl.meetings.upcoming)
-      expect(assigns(:upcoming_meetings).count).to eq 2
-    end
+  #   it 'assigns @upcoming_meetings' do
+  #     expect(assigns(:upcoming_meetings)).to eq(graetzl.meetings.upcoming)
+  #     expect(assigns(:upcoming_meetings).count).to eq 2
+  #   end
 
-    it 'assigns @past_meetings' do
-      expect(assigns(:past_meetings)).to eq(graetzl.meetings.past)
-    end
-  end
+  #   it 'assigns @past_meetings' do
+  #     expect(assigns(:past_meetings)).to eq(graetzl.meetings.past)
+  #   end
+  # end
 
   describe 'GET new' do
 
     shared_examples :a_successful_new_request do
-      it 'renders #new' do        
-        expect(response).to render_template(:new)
-      end
 
-      it 'assigns @graetzl' do
-        expect(assigns(:graetzl)).to eq(graetzl)
-      end
-
-      it 'assigns @meeting and address' do
+      it 'assigns @meeting with address and graetzl' do
         expect(assigns(:meeting)).to be_a_new(Meeting)
         expect(assigns(:meeting).address).to be_a_new(Address)
+        expect(assigns(:meeting).graetzl).to be_present
+      end
+
+      it 'renders #new' do        
+        expect(response).to render_template(:new)
       end
     end
 
     context 'when logged out' do
-      before { get :new, graetzl_id: graetzl }
-      it_behaves_like :an_unauthenticated_request
+      context 'within graetzl' do
+        before { get :new, graetzl_id: graetzl }
+        include_examples :an_unauthenticated_request
+      end
+      context 'within location' do
+        before { get :new, location_id: 1 }
+        include_examples :an_unauthenticated_request
+      end
     end
 
     context 'when logged in' do
-      let(:user) { create(:user) }
-      before do
-        sign_in user
-        get :new, graetzl_id: graetzl
+      let(:user) { create(:user, graetzl: create(:graetzl)) }
+      before { sign_in user }
+
+      context 'outside graetzl' do
+        before { get :new }
+
+        include_examples :a_successful_new_request
+
+        it 'assigns graetzl from user' do
+          expect(assigns(:meeting).graetzl).to eq user.graetzl
+        end
       end
 
-      it_behaves_like :a_successful_new_request
+      context 'within graetzl' do
+        before { get :new, graetzl_id: graetzl }
 
-      context 'with location' do
+        include_examples :a_successful_new_request
+
+        it 'assigns graetzl from params' do
+          expect(assigns(:meeting).graetzl).to eq graetzl
+        end
+      end
+
+      context 'within location' do
         let(:location) { create(:location_managed) }
-        before { get :new, { graetzl_id: graetzl, location_id: location.id } }
+        before { get :new, location_id: location.id }
 
-        it_behaves_like :a_successful_new_request
+        include_examples :a_successful_new_request
+
+        it 'assigns graetzl from location' do
+          expect(assigns(:meeting).graetzl).to eq location.graetzl
+        end
 
         it 'links location' do
           expect(assigns(:meeting).location).to eq location
@@ -127,8 +153,8 @@ RSpec.describe MeetingsController, type: :controller do
 
   describe 'POST create' do
     context 'when logged out' do
-      before { post :create, graetzl_id: graetzl }
-      it_behaves_like :an_unauthenticated_request
+      before { post :create }
+      include_examples :an_unauthenticated_request
     end
 
     context 'when logged in' do
@@ -136,8 +162,8 @@ RSpec.describe MeetingsController, type: :controller do
       let(:location) { create(:location_managed) }
       let(:params) {
         {
-          graetzl_id: graetzl,
-          meeting: attributes_for(:meeting).merge({ address_attributes: { } }),
+          meeting: attributes_for(:meeting).merge(
+            { address_attributes: { },  graetzl_id: graetzl.id }),
           feature: '',
           address: ''
         }
@@ -151,9 +177,9 @@ RSpec.describe MeetingsController, type: :controller do
         }.to change(Meeting, :count).by(1)
       end
 
-      it 'redirects_to meeting in @graetzl' do
+      it 'redirects_to meeting in graetzl' do
         post :create, params
-        expect(response).to redirect_to([graetzl, new_meeting])
+        expect(response).to redirect_to([new_meeting.graetzl, new_meeting])
       end
 
       describe 'meeting' do
@@ -169,7 +195,7 @@ RSpec.describe MeetingsController, type: :controller do
             user: user, role: 'initiator')
         end
 
-        it 'has @graetzl' do
+        it 'has graetzl' do
           expect(new_meeting.graetzl).to eq graetzl
         end
 
@@ -240,27 +266,22 @@ RSpec.describe MeetingsController, type: :controller do
     let(:meeting) { create(:meeting, graetzl: graetzl) }
 
     context 'when logged out' do
-      before { get :edit, graetzl_id: graetzl, id: meeting }
-
-      it_behaves_like :an_unauthenticated_request
+      before { get :edit, id: meeting }
+      include_examples :an_unauthenticated_request
     end
 
     context 'when logged in' do
-
       before { sign_in user }
-
       context 'when not initiator' do
-        before { get :edit, graetzl_id: graetzl, id: meeting }
-
-        it_behaves_like :an_unauthorized_request
+        before { get :edit, id: meeting }
+        include_examples :an_unauthorized_request
       end
 
       context 'when initator' do
         let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator]) }
+        before { get :edit, id: meeting }
 
-        before { get :edit, graetzl_id: graetzl, id: meeting }
-
-        it_behaves_like :a_successful_meeting_request
+        include_examples :a_successful_meeting_request
 
         it 'renders #edit' do        
           expect(response).to render_template(:edit)
@@ -270,11 +291,9 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
   describe 'PUT update' do
-    let(:user) { create(:user) }
     let(:meeting) { create(:meeting, graetzl: graetzl) }
     let(:params) {
       {
-        graetzl_id: graetzl,
         id: meeting,
         meeting: { address_attributes: { } },
         feature: '',
@@ -284,15 +303,16 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when logged out' do
       before { put :update, params }
-      it_behaves_like :an_unauthenticated_request
+      include_examples :an_unauthenticated_request
     end
 
     context 'when logged in' do
+      let(:user) { create(:user) }
       before { sign_in user }
 
       context 'when not going' do
         before { put :update, params }
-        it_behaves_like :an_unauthorized_request
+        include_examples :an_unauthorized_request
       end
 
       context 'when attendee' do
@@ -300,7 +320,7 @@ RSpec.describe MeetingsController, type: :controller do
           create(:going_to, user: user, meeting: meeting)
           put :update, params
         end
-        it_behaves_like :an_unauthorized_request
+        include_examples :an_unauthorized_request
       end
 
       context 'when initiator' do
@@ -309,7 +329,7 @@ RSpec.describe MeetingsController, type: :controller do
           put :update, params
         end
 
-        it_behaves_like :a_successful_meeting_request
+        include_examples :a_successful_meeting_request
 
         it 'updates name and description' do
           params[:meeting].merge!(name: 'New name', description: 'New description')
@@ -453,21 +473,30 @@ RSpec.describe MeetingsController, type: :controller do
 
   describe 'DELETE destroy' do
     let(:meeting) { create(:meeting, graetzl: graetzl) }
-    let(:user) { create(:user) }
 
     context 'when logged out' do
-      before { delete :destroy, graetzl_id: graetzl, id: meeting }
-      it_behaves_like :an_unauthenticated_request
+      before { delete :destroy, id: meeting }
+      include_examples :an_unauthenticated_request
     end
 
     context 'when logged in' do
+      let(:user) { create(:user) }
       before { sign_in user }
+
+      context 'when attendee' do
+        before do
+          create(:going_to, user: user, meeting: meeting)
+          delete :destroy, id: meeting
+        end
+        include_examples :an_unauthorized_request
+      end
+
       context 'when initiator' do
         let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator]) }
         describe 'general' do
-          before { delete :destroy, graetzl_id: graetzl, id: meeting }
+          before { delete :destroy, id: meeting }
 
-          it_behaves_like :a_successful_meeting_request
+          include_examples :a_successful_meeting_request
 
           it 'redirects to graetzl_path' do
             expect(response).to redirect_to(graetzl)
@@ -489,12 +518,6 @@ RSpec.describe MeetingsController, type: :controller do
             delete :destroy, graetzl_id: graetzl, id: meeting
           }.to change(GoingTo, :count).by(-1)
         end
-      end
-
-      context 'when not initiator' do
-        let!(:going_to) { create(:going_to, user: user, meeting: meeting) }
-        before { delete :destroy, graetzl_id: graetzl, id: meeting }
-        it_behaves_like :an_unauthorized_request
       end
     end
   end
