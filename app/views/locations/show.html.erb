@@ -24,7 +24,7 @@
       <div class="wrp-hl">
         <h2>Treffen</h2>
         <% if user_signed_in? %>
-          <%= link_to new_graetzl_meeting_path(@graetzl, location_id: @location.id), class: "btn-userCallToAction" do %>
+          <%= link_to new_meeting_path(location_id: @location.id), class: "btn-userCallToAction" do %>
             <span>
               <%= attachment_image_tag(current_user, :avatar,
                                                   :fill, 100, 100,

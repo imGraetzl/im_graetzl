@@ -1,6 +1,6 @@
 <div class="mobileMainNav">
   <% if user_signed_in? %>
-    <%= link_to content_tag(:span, 'Treffen anlegen'), new_graetzl_meeting_path(current_user.graetzl), class: 'createMeeting' %>
+    <%= link_to content_tag(:span, 'Treffen anlegen'), new_meeting_path, class: 'createMeeting' %>
   <% else %>
     <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
   <% end %>

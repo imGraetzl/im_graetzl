@@ -14,7 +14,7 @@ RSpec.describe 'application/_nav', type: :view do
 
   shared_examples :basic_logged_in do
     it 'displays link to create meeting' do
-      expect(rendered).to have_link('Treffen anlegen', href: new_graetzl_meeting_path(user.graetzl))
+      expect(rendered).to have_link('Treffen anlegen', href: new_meeting_path)
     end
 
     it 'displays link to graetzl_meetings' do
@@ -49,7 +49,7 @@ RSpec.describe 'application/_nav', type: :view do
   context 'when logged out' do
     before { render }
 
-    it_behaves_like :basic_navigation
+    include_examples :basic_navigation
 
     it 'displays link create_meeting to login' do
       expect(rendered).to have_link('Treffen anlegen', href: new_user_session_path)
@@ -72,9 +72,9 @@ RSpec.describe 'application/_nav', type: :view do
       render
     end
 
-    it_behaves_like :basic_navigation
+    include_examples :basic_navigation
 
-    it_behaves_like :basic_logged_in
+    include_examples :basic_logged_in
 
     it 'does not display link to admin pages' do
       expect(rendered).not_to have_link('Admin', href: admin_root_path)
@@ -89,9 +89,9 @@ RSpec.describe 'application/_nav', type: :view do
       render
     end
 
-    it_behaves_like :basic_navigation
+    include_examples :basic_navigation
 
-    it_behaves_like :basic_logged_in
+    include_examples :basic_logged_in
 
     it 'displays link to admin pages' do
       expect(rendered).to have_link('Admin', href: admin_root_path)

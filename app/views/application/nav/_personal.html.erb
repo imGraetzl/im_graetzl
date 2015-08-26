@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 
   <div class="personalNav">
-    <%= link_to new_graetzl_meeting_path(current_user.graetzl), class: 'createMeeting' do %>
+    <%= link_to new_meeting_path, class: 'createMeeting' do %>
       <span>Treffen anlegen</span>
     <% end %>
     <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications">
