@@ -19,5 +19,3 @@ notifications:
     recipients:
       - klappradla@gmail.com
       - peter.tilg@gmail.com
-    on_success: always
-    on_failure: always
