@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :authorize_user!, except: [:index, :show]
   include AddressBeforeNew
-  include GraetzlNesting
+  include GraetzlChild
   before_filter :set_location, only: [:show, :edit, :update]
 
   def new
@@ -20,7 +20,7 @@ class LocationsController < ApplicationController
       enqueue_and_redirect
     rescue ActiveRecord::RecordInvalid => invalid
       render :new
-    end 
+    end
   end
 
   def edit
@@ -50,6 +50,7 @@ class LocationsController < ApplicationController
   end
 
   def show
+    verify_graetzl_child(@location)
     @meetings = @location.meetings.upcoming
   end
 

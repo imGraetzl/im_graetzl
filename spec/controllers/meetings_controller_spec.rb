@@ -47,6 +47,16 @@ RSpec.describe MeetingsController, type: :controller do
     it 'assigns @comments' do
       expect(assigns(:comments)).to eq(meeting.comments)
     end
+
+    context 'when wrong graetzl' do
+      before do
+        get :show, graetzl_id: create(:graetzl).slug, id: meeting
+      end
+
+      it 'redirects to right graetzl' do
+        expect(response).to redirect_to [graetzl, meeting]
+      end
+    end
   end
 
   # describe 'GET index' do

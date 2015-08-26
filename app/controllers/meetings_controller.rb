@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
-  include GraetzlNesting
+  include GraetzlChild
   before_action :set_meeting, except: [:index, :new, :create]
   before_action :check_permission!, only: [:edit, :update, :destroy]
 
@@ -10,6 +10,7 @@ class MeetingsController < ApplicationController
   end
 
   def show
+    verify_graetzl_child(@meeting)
     @comments = @meeting.comments
   end
 
@@ -35,9 +36,6 @@ class MeetingsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def edit
   end
 
   def update

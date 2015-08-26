@@ -35,10 +35,11 @@ RSpec.describe LocationsController, type: :controller do
   end
 
 
+  # Controller methods
   describe 'GET new' do
     context 'when logged out' do
       before { get :new }
-      it_behaves_like :an_unauthenticated_request
+      include_examples :an_unauthenticated_request
     end
 
     context 'when non-business' do
@@ -47,7 +48,7 @@ RSpec.describe LocationsController, type: :controller do
         sign_in user
         get :new
       end
-      it_behaves_like :an_unauthenticated_request
+      include_examples :an_unauthenticated_request
     end
 
     context 'when business user' do
@@ -90,7 +91,7 @@ RSpec.describe LocationsController, type: :controller do
     describe 'POST new' do
       context 'when logged out' do
         before { post :new }
-        it_behaves_like :an_unauthenticated_request
+        include_examples :an_unauthenticated_request
       end
 
       context 'when non-business' do
@@ -99,7 +100,7 @@ RSpec.describe LocationsController, type: :controller do
           sign_in user
           post :new
         end
-        it_behaves_like :an_unauthenticated_request
+        include_examples :an_unauthenticated_request
       end
 
       context 'when business user' do
@@ -251,7 +252,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when logged out' do    
       before { get :index, graetzl_id: graetzl }
-      it_behaves_like :a_successfull_index_request
+      include_examples :a_successfull_index_request
     end
 
     context 'when business user' do
@@ -260,7 +261,7 @@ RSpec.describe LocationsController, type: :controller do
         sign_in user
         get :index, graetzl_id: graetzl
       end
-      it_behaves_like :a_successfull_index_request
+      include_examples :a_successfull_index_request
     end
 
     context 'when non business user' do
@@ -269,7 +270,7 @@ RSpec.describe LocationsController, type: :controller do
         sign_in user
         get :index, graetzl_id: graetzl
       end
-      it_behaves_like :a_successfull_index_request
+      include_examples :a_successfull_index_request
     end
   end
 
@@ -280,7 +281,6 @@ RSpec.describe LocationsController, type: :controller do
     before { location_meeting_past.save(validate: false) }
 
     shared_examples :a_successfull_show_request do
-      before { get :show, graetzl_id: graetzl, id: location }
 
       it 'renders :show' do
         expect(response).to render_template(:show)
@@ -308,19 +308,36 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     context 'when logged out' do
-      it_behaves_like :a_successfull_show_request
+      before { get :show, graetzl_id: graetzl, id: location }
+      include_examples :a_successfull_show_request
     end
 
     context 'when business user' do
       let(:user) { create(:user) }
-      before { sign_in user }
-      it_behaves_like :a_successfull_show_request
+      before do
+        sign_in user
+        get :show, graetzl_id: graetzl, id: location
+      end
+      include_examples :a_successfull_show_request
     end
 
     context 'when non business user' do
       let(:user) { create(:user_business) }
-      before { sign_in user }
-      it_behaves_like :a_successfull_show_request
+      before do
+        sign_in user
+        get :show, graetzl_id: graetzl, id: location
+      end
+      include_examples :a_successfull_show_request
+    end
+
+    context 'when wrong graetzl' do
+      before do
+        get :show, graetzl_id: create(:graetzl).slug, id: location
+      end
+
+      it 'redirects to right graetzl' do
+        expect(response).to redirect_to [graetzl, location]
+      end
     end
   end
 
@@ -388,7 +405,7 @@ RSpec.describe LocationsController, type: :controller do
           get :edit, id: location
         end
 
-        it_behaves_like :an_unauthorized_request
+        include_examples :an_unauthorized_request
       end
 
       context 'when business user' do
@@ -399,7 +416,7 @@ RSpec.describe LocationsController, type: :controller do
           get :edit, id: location
         end
 
-        it_behaves_like :a_successfull_location_request
+        include_examples :a_successfull_location_request
 
         it 'renders :edit' do
           expect(response).to render_template(:edit)
@@ -438,7 +455,7 @@ RSpec.describe LocationsController, type: :controller do
             get :edit, graetzl_id: graetzl, id: location
           end
 
-          it_behaves_like :a_successfull_location_request
+          include_examples :a_successfull_location_request
 
           it 'renders :edit' do
             expect(response).to render_template(:edit)
@@ -451,7 +468,7 @@ RSpec.describe LocationsController, type: :controller do
             get :edit, id: location
           end
 
-          it_behaves_like :a_successfull_location_request
+          include_examples :a_successfull_location_request
 
           it 'redirect_to root' do
             expect(response).to redirect_to root_url
@@ -477,7 +494,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when logged out' do
       before { put :update, params }
-      it_behaves_like :an_unauthenticated_request
+      include_examples :an_unauthenticated_request
     end
 
     context 'when non-business user' do
@@ -487,7 +504,7 @@ RSpec.describe LocationsController, type: :controller do
         put :update, params
       end
 
-      it_behaves_like :an_unauthorized_request
+      include_examples :an_unauthorized_request
     end
 
     context 'when business user' do
