@@ -42,6 +42,10 @@ section.meetings {
   }
 }
 
+.sideflag {
+  display: none;
+}
+
 .no-touch {
   section.meetings {
     @include respond-to(">=medium") {
