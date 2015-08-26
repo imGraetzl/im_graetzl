@@ -1,8 +1,14 @@
 <% title('Neues Treffen') %>
+<%= debug @parent.model_name.human %>
+<%= debug Location.name %>
 
 <section class="create-meeting">
-
-  <h1>Ein <span>neues Treffen</span>, wie schön!</h1>
+ 
+  <% if (request.fullpath.include? @parent.slug) ||( @parent.model_name.human == Location.name) %>
+    <h1>Ein <span>neues Treffen</span> im <span><%= @parent.name %></span>!</h1>
+  <% else %>
+    <h1>Ein <span>neues Treffen</span>, wie schön!</h1>
+  <% end %>
 
   <%= render 'form' %>
   
