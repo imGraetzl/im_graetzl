@@ -68,7 +68,8 @@
       </div>
     <% end %>
 
-    <%= simple_format @meeting.description, class: 'txt' %>
+    <div class="txt"><%= @meeting.description %></div>
+
   </div>
 
   <%= render 'going_tos/participation', meeting: @meeting %>

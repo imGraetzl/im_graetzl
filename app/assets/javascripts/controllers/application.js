@@ -5,8 +5,7 @@ APP.controllers.application = (function() {
     function init() {
 
         APP.components.mainNavigation.init();
-
-
+        APP.components.stream.init();
 
         FastClick.attach(document.body);
 
