@@ -1,4 +1,4 @@
-<div class="entryInitialContent" data-commentid="111">
+<div class="entryInitialContent">
   <div class="editControls">
     <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
     <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
@@ -7,7 +7,7 @@
   <a name="comment-<%= comment.id -%>"></a>
   <%= render 'public_activity/info', user: comment.user, entity: comment %>
 
-  <div class="txt"><%= comment.content %></div>
+  <div id="<%= comment.id %>" class="txt"><%= comment.content %></div>
 
   <% unless comment.images.empty? %>
     <div class="entryImgUploads">

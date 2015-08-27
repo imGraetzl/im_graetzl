@@ -58,6 +58,8 @@ Rails.application.routes.draw do
 
   resources :meetings, path: 'treffen', except: [:index, :show]
 
+  resources :comments, only: [:update, :destroy]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,6 +1,6 @@
 <%= render 'public_activity/info', user: comment.user, entity: comment %>
 
-<div class="txt"><%= comment.content %></div>
+<div id="<%= comment.id %> "class="txt"><%= comment.content %></div>
 
 <% unless comment.images.empty? %>
   <div class="entryImgUploads">

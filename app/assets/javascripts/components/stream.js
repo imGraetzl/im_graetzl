@@ -28,8 +28,8 @@ APP.components.stream = (function() {
 
             var $parent = $(this).closest(".entryUserComment, .entryInitialContent");
             var $txt = $parent.find(".txt");
-            var commentID = $parent.data("commentid");
-            var sendURL = "/updatecomment/"+commentID; // change URL here
+            var commentID = $txt.attr('id');
+            var sendURL = "/comments/"+commentID;
 
             if (!$parent.attr("data-inlineEditInitialized")) {
                 initInlineEdit(sendURL);
@@ -40,14 +40,15 @@ APP.components.stream = (function() {
             function initInlineEdit(url) {
                 $txt.editable(url, {
                     method    : 'PUT',
-                    name      : 'textareaNAME', // name of the value inside the textarea
+                    name      : 'content',
+                    indicator : 'verarbeit...',
                     type      : 'autogrow',
                     cancel    : 'Abbrechen',
-                    submit    : 'Ändern',
+                    submit    : 'Ändern'
                     //onblur    : 'ignore',
-                    submitdata : {
-                        id: commentID //comment id, so we don't need to use a hidden field
-                    }
+                    // submitdata : {
+                    //     id: commentID //comment id, so we don't need to use a hidden field
+                    // }
                 });
                 $parent.attr("data-inlineEditInitialized", true);
                 $txt.on("focusin", "textarea" ,function() {

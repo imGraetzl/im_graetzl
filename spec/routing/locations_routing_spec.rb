@@ -4,7 +4,7 @@ RSpec.describe LocationsController, type: :routing do
 
   include_examples :address_before_new_routing, 'location'
   
-  describe 'routing ' do
+  describe 'routing' do
 
     it 'routes GET /graetzl-slug/locations/location-slug to #show' do
       expect(get: '/graetzl-slug/locations/location-slug').to route_to(
