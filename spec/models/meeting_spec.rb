@@ -179,9 +179,14 @@ RSpec.describe Meeting, type: :model do
         expect(meetings).not_to include(m_nil)        
       end
 
+      it 'ignores :created_at order' do
+        m_yesterday.update(created_at: Date.yesterday)
+        m_1_before_yesterday.update(created_at: Date.today)
+        expect(meetings.to_a).to eq [m_yesterday, m_1_before_yesterday, m_2_before_yesterday]
+      end
+
       it 'orders starts_at_date: :desc (anti default_scope)' do
-        puts meetings.map(&:starts_at_date)
-        expect(meetings).to eq [m_2_before_yesterday, m_1_before_yesterday, m_yesterday]
+        expect(meetings).to eq [m_yesterday, m_1_before_yesterday, m_2_before_yesterday]
       end
     end
   end

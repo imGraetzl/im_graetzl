@@ -7,7 +7,7 @@ class Meeting < ActiveRecord::Base
   scope :upcoming, -> { where(arel_table[:starts_at_date].eq(nil)
                         .or(arel_table[:starts_at_date].gt(Date.yesterday))) }
   scope :past, -> { where(arel_table[:starts_at_date].lt(Date.today))
-                      .order(starts_at_date: :desc) }
+                    .reverse_order }
 
   # attr
   friendly_id :name
