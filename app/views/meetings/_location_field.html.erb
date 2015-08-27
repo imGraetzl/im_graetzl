@@ -1,6 +1,6 @@
 <% if current_user.business? %>
   <div class="input-checkbox">
-    <%= check_box_tag 'location', 1, f.object.location %>
+    <%= check_box_tag 'location', 1, f.object.location, disabled: disable_fields %>
     <%= label_tag 'location', 'hat mit meiner wirtschaftlichen Tätigkeit im Grätzl zu tun' %>
   </div>
 
@@ -11,7 +11,8 @@
     <% end %>
     <%= f.select(:location_id,
                 current_user.locations.managed.collect {|l| [l.name, l.id] },
-                {include_blank: 'wähle deine Location'}) %>
+                {include_blank: 'wähle deine Location'},
+                  disabled: disable_fields) %>
   </div>
 <% else %>
   <%= f.hidden_field :location_id %>

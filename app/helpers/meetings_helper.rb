@@ -36,5 +36,7 @@ module MeetingsHelper
     end    
   end
 
-  
+  def disable_fields
+    disable_fields ||= false    
+  end  
 end

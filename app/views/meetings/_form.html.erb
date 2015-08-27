@@ -41,7 +41,9 @@
         <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
         <span>Adresse</span>
       <% end %>
-      <%= text_field_tag :address, address_value(f.object.address), placeholder: 'Strasse und Hausnummer' %>
+      <%= text_field_tag :address, address_value(f.object.address),
+                        placeholder: 'Strasse und Hausnummer',
+                        disabled: disable_fields %>
       <%= hidden_field_tag :feature %>
     </div>
 
@@ -52,7 +54,8 @@
             <span>Ortsbeschreibung</span>
         <% end %>
         <%= address_fields.text_field :description,
-                                      placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.'  %>
+                                      placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.',
+                                      disabled: disable_fields %>
         <%= address_fields.hidden_field :street_name %>
         <%= address_fields.hidden_field :street_number %>
         <%= address_fields.hidden_field :zip %>
@@ -60,7 +63,7 @@
         <%= address_fields.hidden_field :coordinates %>
       </div>
     <% end %>
-    <%= render('location_field', f: f) %>
+    <%= render 'location_field', f: f, disable_fields: disable_fields %>
   </div>
 
   <div class="meet-when">
