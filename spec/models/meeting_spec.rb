@@ -120,10 +120,24 @@ RSpec.describe Meeting, type: :model do
   describe 'scopes' do
     let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
     let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
-    let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1.day) }
+    let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1) }
     let!(:m_nil) { create(:meeting, starts_at_date: nil) }
     let(:m_yesterday) { build(:meeting, starts_at_date: Date.yesterday) }
     before { m_yesterday.save(validate: false) }
+
+    describe 'default scope (starts_at_date: :asc)' do
+      subject(:meetings) { Meeting.all }
+
+      it 'retrieves earliest first, nil last' do
+        expect(meetings.to_a).to eq [m_yesterday, m_today, m_tomorrow, m_after_tomorrow, m_nil]
+      end
+
+      it 'ignores :created_at order' do
+        m_today.update(created_at: Date.yesterday-1)
+        m_after_tomorrow.update(created_at: Date.yesterday)
+        expect(meetings.to_a).to eq [m_yesterday, m_today, m_tomorrow, m_after_tomorrow, m_nil]
+      end
+    end
 
     describe 'upcoming' do
       subject(:meetings) { Meeting.upcoming }
@@ -135,13 +149,26 @@ RSpec.describe Meeting, type: :model do
       it 'excludes past' do
         expect(meetings).not_to include(m_yesterday)
       end
+
+      it 'ignores :created_at order' do
+        m_today.update(created_at: Date.yesterday-1)
+        m_after_tomorrow.update(created_at: Date.yesterday)
+
+        expect(meetings.to_a).to eq [m_today, m_tomorrow, m_after_tomorrow, m_nil]
+      end
     end
 
     describe 'past' do
+      let(:m_1_before_yesterday) { build(:meeting, starts_at_date: Date.yesterday-1) }
+      let(:m_2_before_yesterday) { build(:meeting, starts_at_date: Date.yesterday-2) }
+      before do
+        m_1_before_yesterday.save(validate: false)
+        m_2_before_yesterday.save(validate: false)
+      end
       subject(:meetings) { Meeting.past }
 
       it 'retrieves past' do
-        expect(meetings).to include(m_yesterday)
+        expect(meetings).to include(m_yesterday, m_1_before_yesterday, m_2_before_yesterday)
       end
 
       it 'excludes upcoming' do
@@ -150,6 +177,11 @@ RSpec.describe Meeting, type: :model do
 
       it 'excludes nil' do
         expect(meetings).not_to include(m_nil)        
+      end
+
+      it 'orders starts_at_date: :desc (anti default_scope)' do
+        puts meetings.map(&:starts_at_date)
+        expect(meetings).to eq [m_2_before_yesterday, m_1_before_yesterday, m_yesterday]
       end
     end
   end
