@@ -4,7 +4,7 @@
 </div>
 
 <% unless activity.trackable.comments.empty? %>
-  <%= render partial: 'comments/comment_inline', layout: 'layouts/stream/comment', locals: { comment: activity.trackable.comments.first } %>
+  <%= render 'comments/comment', comment: activity.trackable.comments.first, comment_inline: true %>
 <% end %>
 
 <%= render 'comments/form_inline', commentable: activity.trackable %>

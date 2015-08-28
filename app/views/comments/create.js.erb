@@ -10,7 +10,7 @@ if ($('div#stream-comment-form').length) {
 } else {
 
   $('form#' + formID + '.entryCommentForm').
-    before("<%= j render partial: 'comment_inline', layout: 'layouts/stream/comment', locals: {comment: @comment } %>");
+    before("<%= j render 'comment', comment: @comment, comment_inline: true %>");
   $('form#' + formID + '.entryCommentForm').
     replaceWith("<%= j render 'form_inline', commentable: @commentable %>");
 }

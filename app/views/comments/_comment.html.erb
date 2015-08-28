@@ -1,8 +1,10 @@
-<div class="entryInitialContent">
-  <div class="editControls">
-    <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
-    <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
-  </div>
+<div class="<%= (comment_inline ||= false) ? 'entryUserComment' : 'entryInitialContent' %>">
+  <% if current_user == comment.user %>
+    <div class="editControls">
+      <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+      <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
+    </div>
+  <% end %>
 
   <a name="comment-<%= comment.id -%>"></a>
   <%= render 'public_activity/info', user: comment.user, entity: comment %>
