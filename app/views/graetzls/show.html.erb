@@ -24,24 +24,21 @@
 
 
   <% if @meetings.present? %>
-      <div class="teaserBlock">
+    <div class="teaserBlock">
 
-        <h2>Nächste Treffen</h2>
-        <div class="meetingBoxes">
-          <% @meetings.each do |meeting| %>
-              <%= render 'meetings/box', meeting: meeting %>
-          <% end %>
-          <div class="specialBox">
-            <div class="wrp">Grätzl Special!</div>
-            <div class="card"></div>
-          </div>
+      <h2>Nächste Treffen</h2>
+      <div class="meetingBoxes">
+        <%= render partial: 'meetings/box', collection: @meetings, as: 'meeting' %>
+        <div class="specialBox">
+          <div class="wrp">Grätzl Special!</div>
+          <div class="card"></div>
         </div>
-
-        <%= link_to 'Alle Treffen', graetzl_meetings_path(@graetzl), class: 'link-more' %>
       </div>
+
+      <%= link_to 'Alle Treffen', graetzl_meetings_path(@graetzl), class: 'link-more' %>
+    </div>
   <% end %>
 
-  <%= render 'stream' %>
-
+  <%= render 'stream' if user_signed_in? %>
 
 </section>

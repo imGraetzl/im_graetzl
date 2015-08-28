@@ -74,5 +74,5 @@
 
   <%= render 'going_tos/participation', meeting: @meeting %>
 
-  <%= render 'stream', graetzl: @graetzl %>
+  <%= render 'stream', graetzl: @graetzl if user_signed_in? %>
 </section>
