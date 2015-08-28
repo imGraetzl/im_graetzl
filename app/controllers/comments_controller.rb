@@ -20,6 +20,15 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+    if @comment.destroy
+      render nothing: true, status: :ok
+    else
+      render nothing: true, status: :internal_server_error
+    end
+  end
+
   private
 
     def set_form_id

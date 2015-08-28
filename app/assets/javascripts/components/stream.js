@@ -64,6 +64,38 @@ APP.components.stream = (function() {
             }
 
         });
+
+        $(".stream").on("click", ".entryUserComment .btn-delete, .entryInitialContent .btn-delete", function() {
+
+            var $parent = $(this).closest(".entryUserComment, .entryInitialContent");
+            var $txt = $parent.find(".txt");
+            var commentID = $txt.attr('id');
+            var sendURL = "/comments/"+commentID;
+
+            if (confirm("Kommentar wirklich löschen?")) {
+                inlineDelete(sendURL)
+            }
+
+            function inlineDelete(url) {
+                var commentContent = $txt.text();
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    beforeSend: function() {
+                        $txt.html('löschen...');
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        $parent.fadeOut('slow', function() {
+                            $(this).remove();
+                        });
+                    },
+                    error: function(jqXHR, textStatus,errorThrown) {
+                        $txt.html(commentContent);
+                        alert("Dein Kommentar konnte nicht gelöscht werden. Bitte versuche es später nochmal");
+                    }
+                });
+            }
+        });
     }
 
 

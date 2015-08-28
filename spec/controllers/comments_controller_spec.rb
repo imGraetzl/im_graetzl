@@ -42,5 +42,35 @@ RSpec.describe CommentsController, type: :controller do
         end
       end
     end
+
+  describe 'DELETE destroy' do
+    let(:user) { create(:user) }
+    let(:comment) { create(:comment, user: user) }
+
+    context 'when logged in' do
+      before { sign_in user }
+
+      context 'with valid params' do
+        describe 'request' do
+          before { xhr :delete, :destroy, id: comment.id }
+
+          it 'assigns @comment' do
+            expect(assigns(:comment)).to eq comment
+          end
+
+          it 'renders empty success response' do
+            expect(response.body).to be_empty
+            expect(response).to have_http_status(:success)
+          end
+        end
+        describe 'db' do
+          it 'deletes record' do
+            expect {
+              xhr :delete, :destroy, id: comment.id
+            }.to change(Comment, :count).by(-1)
+          end
+        end
+      end
+    end
   end
 end
