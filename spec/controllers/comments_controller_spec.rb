@@ -42,6 +42,7 @@ RSpec.describe CommentsController, type: :controller do
         end
       end
     end
+  end
 
   describe 'DELETE destroy' do
     let(:user) { create(:user) }
@@ -49,7 +50,6 @@ RSpec.describe CommentsController, type: :controller do
 
     context 'when logged in' do
       before { sign_in user }
-
       context 'with valid params' do
         describe 'request' do
           before { xhr :delete, :destroy, id: comment.id }
@@ -64,6 +64,8 @@ RSpec.describe CommentsController, type: :controller do
           end
         end
         describe 'db' do
+          before { comment.save }
+
           it 'deletes record' do
             expect {
               xhr :delete, :destroy, id: comment.id
