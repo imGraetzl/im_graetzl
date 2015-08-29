@@ -10,6 +10,40 @@ APP.components.stream = (function() {
             var $parent = $(this).parents(".entryCommentForm, .entryCreate");
             if (event.type === 'focusin') {
                 $parent.addClass("is-focused");
+
+                // temporary solution for better UX on ajax requests (only inline comments so far)
+                if ($parent.hasClass('entryCommentForm')) {                    
+                    var $button = $parent.find('button');
+                    var buttonText = $button.text();
+                    $parent
+                        .on("ajax:beforeSend", function() {
+                            $button.html('sendet...');
+                            //$button.prop('disabled', true);
+                        })
+                        .on("ajax:success", function(event, data, status, xhr) {
+                            console.log('call ajax success');
+                            console.log(data);
+                            $parent.before(data);
+                            // reset form:
+                            // console.log('hello hello');
+                            // console.log(data);
+                            // console.log(xhr.responseText);
+                        })
+                        .on("ajax:error", function(event, xhr, status, error) {
+                            $parent.replaceWith("<em>Es gab ein Problem, bitte versuch es später nochmal.</em>");
+                        })
+                        .on("ajax:complete", function(xhr, status) {
+                            $button.html(buttonText);
+                            $parent.trigger('reset');
+                            $parent.removeClass("is-focused");
+                            $parent.off("ajax:beforeSend");
+                            $parent.off("ajax:error");
+                            $parent.off("ajax:success");
+                            $parent.off("ajax:complete");
+                        });
+                }
+
+
             } else if (event.type === 'focusout') {
                 if (!$(this).val().length) {
                     $parent.removeClass("is-focused");

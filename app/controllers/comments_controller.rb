@@ -1,13 +1,14 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_form_id, only: [:create]
+  #before_action :set_form_id, only: [:create]
 
   def create
     @comment = @commentable.comments.build(comment_params)
     if @comment.save
       @commentable.create_activity :comment, owner: current_user, recipient: @comment
+      render partial: 'comment', locals: { comment: @comment, comment_inline: true } if inline?
     else
-      render nothing: true
+      render nothing: true, status: :internal_server_error
     end
   end
 
@@ -31,8 +32,12 @@ class CommentsController < ApplicationController
 
   private
 
-    def set_form_id
-      @form_id = params[:form_id]
+    # def set_form_id
+    #   @form_id = params[:form_id]
+    # end
+
+    def inline?
+      params[:inline] == 'true'
     end
 
     def comment_params

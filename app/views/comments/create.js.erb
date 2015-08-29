@@ -1,5 +1,4 @@
 console.log('add comment');
-var formID = "<%= j(@form_id.to_s) %>";
 
 if ($('div#stream-comment-form').length) {
   $('div#stream-comment-form').
@@ -7,10 +6,4 @@ if ($('div#stream-comment-form').length) {
   $('div#stream-comment-form').
     after("<%= j render partial: 'comment', layout: 'layouts/stream/element', locals: { comment: @comment } %>");
 
-} else {
-
-  $('form#' + formID + '.entryCommentForm').
-    before("<%= j render 'comment', comment: @comment, comment_inline: true %>");
-  $('form#' + formID + '.entryCommentForm').
-    replaceWith("<%= j render 'form_inline', commentable: @commentable %>");
 }

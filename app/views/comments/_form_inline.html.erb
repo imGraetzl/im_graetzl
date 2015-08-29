@@ -1,5 +1,3 @@
-<% @form_id = SecureRandom.hex(4) %>
-
 <%= form_for [commentable, Comment.new],
   html: { id: "#{@form_id}", class: 'entryCommentForm', remote: true } do |f| %>
   <label>
@@ -7,6 +5,6 @@
     <%= f.text_area :content, cols: 60, rows: 2, placeholder: 'Kommentieren' %>
   </label>
   
-  <%= hidden_field_tag :form_id, @form_id %>
+  <%= hidden_field_tag :inline, true %>
   <%= f.button 'Antwort senden' %>
 <% end %>

@@ -37,11 +37,6 @@ RSpec.describe Posts::CommentsController, type: :controller do
         expect(assigns(:commentable).class.name).to eq('Post')
       end
 
-      it 'assigns @form_id' do
-        xhr :post, :create, params
-        expect(assigns(:form_id)).to eq(form_id_hex)
-      end
-
       it 'creates new comment' do
         expect {
           xhr :post, :create, params
