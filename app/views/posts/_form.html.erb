@@ -1,4 +1,5 @@
-<%= form_for([@graetzl, @graetzl.posts.new], html: { class: 'textEditor' }, remote: true) do |f| %>
+<%= form_for(@graetzl.posts.new, html: { class: 'textEditor' }, remote: true) do |f| %>
+  <%= f.hidden_field :graetzl_id %>
   <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Beitrag verfassen' %>
 
   <div class="upload-image js-imgUpld">

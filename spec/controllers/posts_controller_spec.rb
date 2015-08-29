@@ -6,24 +6,17 @@ RSpec.describe PostsController, type: :controller do
 
   describe 'POST create' do
     context 'when logged out' do
-
       it 'redirects to login_page' do
-        xhr :post, :create, graetzl_id: graetzl.id
+        xhr :post, :create
         expect(response).to render_template(session[:new])
       end
     end
 
     context 'when logged in' do
       let(:params) { {
-        graetzl_id: graetzl.id,
-        post: { content: 'post_content' } }
+        post: { graetzl_id: graetzl.id, content: 'post_content' } }
       }
-      before { sign_in user }
-
-      it 'assigns @graetzl' do
-        xhr :post, :create, params
-        expect(assigns(:graetzl)).to eq graetzl
-      end
+      before { sign_in user }     
 
       it 'creates new post' do
         expect {
@@ -31,16 +24,25 @@ RSpec.describe PostsController, type: :controller do
         }.to change(Post, :count).by(1)
       end
 
-      it 'associates current_user' do
-        xhr :post, :create, params
-        expect(Post.last.user).to eq user
-      end
-
-      it 'assigns @activity' do
-        PublicActivity.with_tracking do
-          xhr :post, :create, params
+      describe 'request' do
+        before do
+          PublicActivity.with_tracking do
+            xhr :post, :create, params
+          end
         end
-        expect(assigns(:activity)).not_to be_nil
+        subject(:new_post) { Post.last }
+
+        it 'associates current_user' do
+          expect(new_post.user).to eq user
+        end
+
+        it 'associates graetzl' do
+          expect(new_post.graetzl).to eq graetzl
+        end
+
+        it 'assigns @activity' do
+          expect(assigns(:activity)).not_to be_nil
+        end
       end
     end
   end

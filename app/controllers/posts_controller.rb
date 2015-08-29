@@ -1,9 +1,10 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_graetzl
 
   def create
-    post = @graetzl.posts.build(post_params)
+    post = Post.new(post_params)
+    # tmp set graetzl:    
+    @graetzl = post.graetzl
     if post.save
       @activity = post.create_activity :create, owner: current_user
     else
@@ -13,14 +14,10 @@ class PostsController < ApplicationController
 
   private
 
-    def set_graetzl
-      @graetzl = Graetzl.find(params[:graetzl_id])
-    end
-
     def post_params
       params.
         require(:post).
-        permit(:content, images_files: []).
+        permit(:graetzl_id, :content, images_files: []).
         merge(user_id: current_user.id)
     end
 end

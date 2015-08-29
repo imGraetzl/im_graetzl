@@ -1,6 +1,6 @@
 <% @form_id = SecureRandom.hex(4) %>
 
-<%= form_for [commentable.graetzl, commentable, Comment.new],
+<%= form_for [commentable, Comment.new],
   html: { id: "#{@form_id}", class: 'entryCommentForm', remote: true } do |f| %>
   <label>
     <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>

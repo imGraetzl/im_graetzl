@@ -4,19 +4,17 @@ RSpec.describe CommentsController, type: :routing do
   
   describe 'routing' do
 
-    it 'routes POST /graetzl-slug/treffen/meeting-slug/comments to meetings/comments#create' do
-      expect(post: '/graetzl-slug/treffen/meeting-slug/comments').to route_to(
+    it 'routes POST /treffen/meeting-slug/comments to meetings/comments#create' do
+      expect(post: '/treffen/meeting-slug/comments').to route_to(
         controller: 'meetings/comments',
         action: 'create',
-        graetzl_id: 'graetzl-slug',
         meeting_id: 'meeting-slug')
     end
 
-    it 'routes POST /graetzl-slug/posts/post_id/comments to posts/comments#create' do
-      expect(post: '/graetzl-slug/posts/post_id/comments').to route_to(
+    it 'routes POST /posts/post_id/comments to posts/comments#create' do
+      expect(post: '/posts/post_id/comments').to route_to(
         controller: 'posts/comments',
         action: 'create',
-        graetzl_id: 'graetzl-slug',
         post_id: 'post_id')
     end
 
@@ -37,21 +35,17 @@ RSpec.describe CommentsController, type: :routing do
 
   describe 'named routing' do
 
-    it 'routes POST graetzl_meeting_comments to meetings/comments#create' do
-      expect(post: graetzl_meeting_comments_path(graetzl_id: 'graetzl-slug',
-        meeting_id: 'meeting-slug')).to route_to(
+    it 'routes POST meeting_comments to meetings/comments#create' do
+      expect(post: meeting_comments_path(meeting_id: 'meeting-slug')).to route_to(
           controller: 'meetings/comments',
           action: 'create',
-          graetzl_id: 'graetzl-slug',
           meeting_id: 'meeting-slug')
     end
 
-    it 'routes POST graetzl_post_comments to post/comments#create' do
-      expect(post: graetzl_post_comments_path(graetzl_id: 'graetzl-slug',
-        post_id: 'post_id')).to route_to(
+    it 'routes POST post_comments to post/comments#create' do
+      expect(post: post_comments_path(post_id: 'post_id')).to route_to(
           controller: 'posts/comments',
           action: 'create',
-          graetzl_id: 'graetzl-slug',
           post_id: 'post_id')
     end
 

@@ -1,6 +1,6 @@
 <% @form_id = SecureRandom.hex(4) %>
 
-<%= form_for [commentable.graetzl, commentable, Comment.new],
+<%= form_for [commentable, Comment.new],
   html: { id: "#{@form_id}", class: 'textEditor', remote: true } do |f| %>
 
   <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben' %>
