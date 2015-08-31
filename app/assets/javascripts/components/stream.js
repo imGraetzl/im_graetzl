@@ -8,6 +8,8 @@ APP.components.stream = (function() {
 
         $(".stream").on("focusin focusout", ".entryCommentForm textarea, .entryCreate textarea", function(event){
             var $parent = $(this).parents(".entryCommentForm, .entryCreate");
+            var buttonText = $parent.find('button').text();
+            
             if (event.type === 'focusin') {
                 $parent.addClass("is-focused");
 
@@ -40,6 +42,42 @@ APP.components.stream = (function() {
                             $parent.off("ajax:error");
                             $parent.off("ajax:success");
                             $parent.off("ajax:complete");
+                        });
+                } else {
+                    console.log('IN ELSE NOW');                   
+                    var $form = $parent.find('form.textEditor');
+                    console.log($form);
+                    $parent
+                        .on("ajax:beforeSend", function() {
+                            console.log('BEFORE SEND');
+                        })
+                        .on("ajax:complete", function(event, xhr) {
+                            // console.log(status.status);
+                            // console.log(status.status != 200);
+                            // console.log(status.status != '200');
+                            console.log('COMPLETE');
+                            // due to problems with jquery and parsing files...
+                            // use complete event an manually check for errors:
+                            if (xhr.status != 200 || !xhr.responseText) {
+                                alert('Es gab ein Problem, bitte versuch es später nochmal.');
+                            } else {
+                                console.log(xhr);
+                                $('div#stream-comment-form').after(xhr.responseText);
+                                $form.trigger('reset');
+                                $form.find('[name="comment[images_files][]"]').val('');
+                                $parent.removeClass("is-focused");
+                                $parent.off("ajax:beforeSend");
+                                $parent.off("ajax:error");
+                                $parent.off("ajax:success");
+                                $parent.off("ajax:complete");
+                            }
+                            // $button.html(buttonText);
+                            // $parent.trigger('reset');
+                            // $parent.removeClass("is-focused");
+                            // $parent.off("ajax:beforeSend");
+                            // $parent.off("ajax:error");
+                            // $parent.off("ajax:success");
+                            // $parent.off("ajax:complete");
                         });
                 }
 
