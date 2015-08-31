@@ -128,7 +128,7 @@ APP.components.stream = (function() {
                 if (inline) {
                     $parent.before(content)
                 } else {
-                    $('div#stream-comment-form').after(content);
+                    $('div#stream-form').after(content);
                 }
             }
 
