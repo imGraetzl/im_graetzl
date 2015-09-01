@@ -54,27 +54,34 @@ Vagrant.configure(2) do |config|
     chef.add_recipe "git"
     chef.add_recipe "nodejs"
     chef.add_recipe "phantomjs"
-    chef.add_recipe "ruby_build"
-    chef.add_recipe "rvm::user"
-    chef.add_recipe "rvm::vagrant"
+    chef.add_recipe "ruby_build"   
+    chef.add_recipe "rbenv::user"
+    chef.add_recipe "rbenv::vagrant"
     chef.add_recipe "vim"
-    chef.add_recipe "postgres::server"
-    chef.add_recipe "postgres::client"
+    chef.add_recipe "postgresql::server"
+    chef.add_recipe "postgresql::client"
     chef.add_recipe "postgis"
 
     chef.json = {
-      rvm: {
-        user_installs: [
-           {
-              user: 'vagrant',
-              rubies: ["2.2.3"]
-              default_ruby: "2.2.3",
-              global_gems: [
-                  { name: 'bundler' }
-              ]         
-           }
-        ]
+      rbenv: {
+        user_installs: [{
+          user: 'vagrant',
+          rubies: ["2.2.3"],
+          global: "2.2.3",
+          gems: {
+            "2.2.3" => [
+              { name: "bundler" }
+            ]
+          }
+        }]
+      },
+      postgresql: {
+        password: {
+          postgres: ''
+        }
       }
+    }
+  end
 
   # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
   # such as FTP and Heroku are also available. See the documentation at

@@ -8,6 +8,6 @@ cookbook 'phantomjs'
 cookbook 'git', {}
 cookbook 'postgresql'
 cookbook 'postgis'
-cookbook 'rvm', github: 'fnichol/chef-rvm'
+cookbook 'rbenv', git: 'https://github.com/aminin/chef-rbenv'
 cookbook 'imagemagick'
 cookbook 'vim'
