@@ -1,5 +1,4 @@
-<%= form_for [commentable, Comment.new],
-  html: { id: "#{@form_id}", class: 'textEditor', remote: true } do |f| %>
+<%= form_for [commentable, Comment.new], html: { class: 'textEditor', remote: true } do |f| %>
 
   <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben' %>
 

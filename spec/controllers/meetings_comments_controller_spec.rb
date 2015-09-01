@@ -3,16 +3,33 @@ require 'rails_helper'
 RSpec.describe Meetings::CommentsController, type: :controller do
   let(:user) { create(:user) }
   let(:meeting) { create(:meeting) }
-  let(:form_id_hex) { SecureRandom.hex(4) }
 
   describe 'POST create' do
+    shared_examples :a_successfull_create_request do
+
+      it 'assigns @commentable' do
+        expect(assigns(:commentable)).to eq(meeting)
+      end          
+
+      it 'assigns @commentable of type Meeting' do
+        expect(assigns(:commentable).class.name).to eq('Meeting')
+      end
+
+      describe 'new comment' do
+        subject(:new_comment) { Comment.last }
+
+        it 'has commentable meeting' do
+          expect(new_comment.commentable).to eq meeting
+        end
+
+        it 'has current_user as user' do
+          expect(new_comment.user).to eq user
+        end
+      end
+    end
+
     let(:params) {
-      {
-        comment: { content: 'comment_text' },
-        graetzl_id: meeting.graetzl.id,
-        meeting_id: meeting.id,
-        form_id: form_id_hex
-      }
+      { comment: { content: 'comment_text' }, meeting_id: meeting.id }
     }
 
     context 'when no current_user' do
@@ -25,33 +42,53 @@ RSpec.describe Meetings::CommentsController, type: :controller do
     context 'when current_user' do
       before { sign_in user }
 
-      subject(:new_comment) { Comment.last }
+      context 'without inline param' do
 
-      it 'assigns @commentable' do
-        xhr :post, :create, params
-        expect(assigns(:commentable)).to eq(meeting)
+        it 'creates new comment' do
+          expect {
+            xhr :post, :create, params
+          }.to change(Comment, :count).by(1)
+        end
+
+        describe 'request' do
+          render_views
+          before { xhr :post, :create, params }
+
+          include_examples :a_successfull_create_request
+
+          it 'renders comment partial' do
+            expect(response).to render_template(partial: 'comments/_comment')
+          end
+
+          it 'renders stream layout' do
+            expect(response.body).to have_selector('div.streamElement')
+          end
+        end
       end
 
-      it 'assigns @commentable of type Meeting' do
-        xhr :post, :create, params
-        expect(assigns(:commentable).class.name).to eq('Meeting')
-      end
+      context 'with inline param true' do
+        before { params.merge!(inline: 'true') }
 
-      it 'creates new comment' do
-        expect {
-          xhr :post, :create, params
-        }.to change(Comment, :count).by(1)
-      end
+        it 'creates new comment' do
+          expect {
+            xhr :post, :create, params
+          }.to change(Comment, :count).by(1)
+        end
 
-      it 'sets current_user as user' do
-        xhr :post, :create, params
-        expect(new_comment.user).to eq(user)
-      end
+        describe 'request' do
+          render_views
+          before { xhr :post, :create, params }
 
-      it 'renders create.js template' do
-        xhr :post, :create, params
-        expect(response).to render_template('comments/create')
-        expect(response.header['Content-Type']).to include('text/javascript')
+          include_examples :a_successfull_create_request
+
+          it 'renders comment partial' do
+            expect(response).to render_template(partial: 'comments/_comment')
+          end
+
+          it 'does not render stream layout' do
+            expect(response.body).not_to have_selector('div.streamElement')
+          end
+        end
       end
     end
   end

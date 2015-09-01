@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  #before_action :set_form_id, only: [:create]
 
   def create
     @comment = @commentable.comments.build(comment_params)
@@ -32,10 +31,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-    # def set_form_id
-    #   @form_id = params[:form_id]
-    # end
 
     def inline?
       params[:inline] == 'true'

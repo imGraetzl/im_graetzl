@@ -1,5 +1,5 @@
 <%= form_for [commentable, Comment.new],
-  html: { id: "#{@form_id}", class: 'entryCommentForm', remote: true } do |f| %>
+  html: { class: 'entryCommentForm', remote: true } do |f| %>
   <label>
     <%= attachment_image_tag(current_user, :avatar, :fill, 100, 100, fallback: 'avatar/small_default.png', class: 'img-round') %>
     <%= f.text_area :content, cols: 60, rows: 2, placeholder: 'Kommentieren' %>
