@@ -3,8 +3,6 @@ class PostsController < ApplicationController
 
   def create
     post = Post.new(post_params)
-    # tmp set graetzl:    
-    @graetzl = post.graetzl
     if post.save
       @activity = post.create_activity :create, owner: current_user
       render partial: 'public_activity/post/create', layout: 'stream/element', locals: { activity: @activity } and return

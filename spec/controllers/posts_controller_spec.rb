@@ -43,6 +43,10 @@ RSpec.describe PostsController, type: :controller do
         it 'assigns @activity' do
           expect(assigns(:activity)).not_to be_nil
         end
+
+        it 'renders activity partial' do
+          expect(response).to render_template(partial: 'public_activity/post/_create')
+        end
       end
     end
   end
