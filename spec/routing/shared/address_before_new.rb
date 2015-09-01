@@ -1,4 +1,4 @@
-shared_examples :address_before_new_routing do |resource|
+RSpec.shared_examples :address_before_new do |resource|
 
   describe 'routes address_before_new' do
 

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   attachment :avatar, type: :image
-  enum role: [:admin, :business] 
+  enum role: { admin: 0, business: 1 }
 
   # associations
   has_one :address, as: :addressable, dependent: :destroy

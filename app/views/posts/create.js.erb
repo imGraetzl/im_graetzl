@@ -1,3 +1,0 @@
-console.log('render new stream item');
-$('div#stream-post-form').html("<%= j render partial: 'form', layout: 'layouts/stream/form' %>");
-$('div#stream-post-form').after("<%= j render_activity(@activity, layout: 'stream/element') %>");
