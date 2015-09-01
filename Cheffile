@@ -1,0 +1,13 @@
+site "http://community.opscode.com/api/v1"
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'ruby_build'
+cookbook 'nodejs'
+cookbook 'phantomjs'
+cookbook 'git', {}
+cookbook 'postgresql'
+cookbook 'postgis'
+cookbook 'rvm', github: 'fnichol/chef-rvm'
+cookbook 'imagemagick'
+cookbook 'vim'
