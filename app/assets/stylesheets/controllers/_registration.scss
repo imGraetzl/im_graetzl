@@ -86,7 +86,7 @@ section.register-selectGraetzl {
 
 // ---------------------------------------------------------------------- Personal Data
 
-section.register-personalInfo {
+section.register-personalInfo, section.register-locationInfo  {
   @include cf();
   .wrp {
     display: table;
@@ -133,12 +133,16 @@ section.register-personalInfo {
 .user-login {
   margin-bottom: 1.8rem;
 }
-.user-personal {
-  margin-bottom: 3.0rem;
-  padding-bottom: 1.0rem;
-  border-bottom: 1px solid $color-ambient-mint-light;
-  .input-checkbox {
-    margin-left: 13px;
+
+
+section.register-personalInfo {
+  .user-personal {
+    margin-bottom: 3.0rem;
+    padding-bottom: 1.0rem;
+    border-bottom: 1px solid $color-ambient-mint-light;
+    .input-checkbox {
+      margin-left: 13px;
+    }
   }
 }
 
@@ -149,6 +153,7 @@ section.register-personalInfo {
 
   .input-field,
   .input-select,
+  .input-textarea,
   .upload-image,
   .wrp-checkboxes {
     margin-bottom: 1.4rem;

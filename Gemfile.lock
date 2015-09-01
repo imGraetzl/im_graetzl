@@ -306,6 +306,8 @@ GEM
     tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2015.5)
+      tzinfo (>= 1.0.0)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -363,9 +365,7 @@ DEPENDENCIES
   sass-rails
   sdoc
   spring
+  tzinfo-data
   uglifier
   underscore-rails
   web-console (~> 2.0)
-
-BUNDLED WITH
-   1.10.3

@@ -1,26 +1,23 @@
 <% title('Neue Location') %>
 
-<section class="register-selectGraetzl">
+<section class="adoptLocation">
   <h1>Wähle deine <span>Location</span></h1>
-  <div class="txt">
-    <p>
-      Unter der Adresse <%= @address.street_name %> <%= @address.street_number %> gibt es bereits <%= @locations.size %> <%= 'Location'.pluralize(@locations.size) %>.<br>
-      Wenn deine dabei ist kannst du sie einfach übernehmen.
-    </p>
-  </div>
-  <table style="width:100%">
-    <% @locations.each do |location| %>
-      <tr>
-        <td><%= location.name %></td>
-        <td><%= "#{location.address.street_name} #{location.address.street_number}" %></td>
-        <td><%= link_to 'Übernehmen', edit_location_path(location), class: 'btn-secondary' %></td>
-      </tr>
-    <% end %>
-  </table>
+  <p>
+    Unter der Adresse <span><%= @address.street_name %> <%= @address.street_number %></span> gibt es bereits <span><%= @locations.size %> <%= 'Location'.pluralize(@locations.size) %></span>.<br>
+    Wenn deine dabei ist kannst du sie einfach übernehmen.
+  </p>
 
-  <h1>Nicht dabei?</h1>
-  <div class="txt">
-    <p>Dann leg eine neue an.</p>
+  <div class="suggestedlocations">
+    <% @locations.each do |location| %>
+        <div class="singlelocation">
+          <span class="locationname"><%= location.name %></span>
+          <span class="locationaddress"><%= "#{location.address.street_name} #{location.address.street_number}" %></span>
+          <%= link_to 'Übernehmen', edit_location_path(location), class: 'btn-secondary -small' %>
+        </div>
+    <% end %>
   </div>
-  <%= link_to 'Neue Location', new_location_path, class: 'btn-primary' %>
+  <div class="newlocation">
+    <span>Nicht dabei?</span>
+    <%= link_to 'Leg eine neue Location an', new_location_path, class: 'btn-primary' %>
+  </div>
 </section>
