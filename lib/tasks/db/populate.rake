@@ -4,7 +4,7 @@ namespace :db do
 
     puts 'remove old data'
 
-    [User, Meeting, Category, Post, PublicActivity::Activity].each(&:destroy_all)
+    [User, Meeting, Location, Category, Post, PublicActivity::Activity].each(&:destroy_all)
 
     puts 'check for graetzl and districts'
 
@@ -26,7 +26,9 @@ namespace :db do
         role: :admin,
         graetzl: Graetzl.find_by_name('Stuwerviertel'),
         confirmed_at: Time.now)
-
+      File.open(Rails.root+"public/avatars/#{user}.gif", 'rb') do |file|
+        new_user.avatar = file
+      end
       new_user.save(validate: false)
     end
 
@@ -36,9 +38,12 @@ namespace :db do
       last_name: 'user_1',
       email: 'user_1@example.com',
       password: 'secret',
-      graetzl: Graetzl.first,
+      role: :business,
+      graetzl: Graetzl.find_by_name('Stuwerviertel'),
       confirmed_at: Time.now)
-
+    File.open(Rails.root+'public/avatars/user_1.jpg', 'rb') do |file|
+      user_1.avatar = file
+    end
     user_1.save(validate: false)
 
     puts 'add categories'

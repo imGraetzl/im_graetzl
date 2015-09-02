@@ -76,7 +76,11 @@ cd /vagrant
 rails s -b 0.0.0.0
 ```
 
-The app in now available on your local machine's port 3000: **http://localhost:3000**
+The app in now available on your local machine's port 3000: **http://localhost:3000** (first time starting the app takes a while).
+
+#### Sample data
+
+The populate task adds 4 admin users: *malano, mirjam, jack, peter, jeanine, max, tawan* and a busines user *user_1* with password *secret*.
 
 
 ### Stop the app
