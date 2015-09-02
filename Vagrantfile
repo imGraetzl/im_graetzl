@@ -54,10 +54,9 @@ Vagrant.configure(2) do |config|
     chef.add_recipe "git"
     chef.add_recipe "nodejs"
     chef.add_recipe "phantomjs"
-    chef.add_recipe "ruby_build"   
-    chef.add_recipe "rbenv::user"
+    chef.add_recipe "ruby_build"
     chef.add_recipe "rbenv::vagrant"
-    chef.add_recipe "vim"
+    #chef.add_recipe "rvm::system"
     chef.add_recipe "postgresql::server"
     chef.add_recipe "postgresql::client"
     chef.add_recipe "postgis"
@@ -75,7 +74,14 @@ Vagrant.configure(2) do |config|
           }
         }]
       },
+      # rvm: {
+      #   rubies: ["2.2-head"],
+      #   global_gems: [
+      #     { name: "bundler" }
+      #   ]
+      # },
       postgresql: {
+        version: '9.4',
         password: {
           postgres: ''
         }
