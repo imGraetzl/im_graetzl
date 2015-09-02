@@ -99,11 +99,10 @@ APP.components.stream = (function() {
 
                 // temporary solution for better UX on ajax requests (only inline comments so far)               
                 var $button = $parent.find('button');
-                var buttonText = $button.text();
                 $parent
                     .on("ajax:beforeSend", function() {
                         console.log('BEFORE SEND');
-                        $button.html('sendet...');
+                        $button.html('sendet...').prop('disabled', true);
                     })
                     .on("ajax:complete", function(event, xhr) {
                         console.log('COMPLETE');
@@ -138,14 +137,13 @@ APP.components.stream = (function() {
                 $parent.off("ajax:beforeSend");
                 $parent.off("ajax:complete");
                 $parent.removeClass("is-focused");
-
-                $button.html(buttonText);
+                $button.html(buttonText).prop('disabled', false);
 
                 if (form.length == 0) form = $parent;
 
                 form.trigger('reset');
 
-                form.find('.imgCrop').remove().end()
+                form.find('.imgCrop').remove().end();
                 $("input[name$='[images_files][]']").val('');
             }
         });
