@@ -6,7 +6,13 @@ cookbook 'ruby_build'
 cookbook 'nodejs'
 cookbook 'phantomjs'
 cookbook 'git', {}
-cookbook 'postgresql'
-cookbook 'postgis'
-cookbook 'rbenv', git: 'https://github.com/aminin/chef-rbenv'
+
+# db
+#cookbook 'postgresql'
+cookbook 'postgresql', github: 'phlipper/chef-postgresql'
+#cookbook 'postgis'
+#cookbook 'database', github: 'manuelvanrijn/cookbook-database'
+
+cookbook 'rbenv', github: 'aminin/chef-rbenv'
 cookbook 'imagemagick'
+cookbook 'sudo'

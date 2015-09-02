@@ -51,15 +51,37 @@ Vagrant.configure(2) do |config|
     chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
 
     chef.add_recipe "apt"
+    chef.add_recipe "build-essential"
+    #chef.add_recipe "sudo"
+
     chef.add_recipe "git"
     chef.add_recipe "nodejs"
     chef.add_recipe "phantomjs"
+
+    # ruby
     chef.add_recipe "ruby_build"
+    chef.add_recipe "rbenv::user"
     chef.add_recipe "rbenv::vagrant"
+
+    # RVM
+    # chef.add_recipe "rvm::vagrant"
+    # chef.add_recipe "rvm::system"
+
+    chef.add_recipe "imagemagick"
+    chef.add_recipe "imagemagick::devel"
     #chef.add_recipe "rvm::system"
+
+    # db
     chef.add_recipe "postgresql::server"
     chef.add_recipe "postgresql::client"
-    chef.add_recipe "postgis"
+    #chef.add_recipe "postgresql::postgis"
+    #chef.add_recipe "postgresql::setup_users"
+    #chef.add_recipe "postgis"
+    chef.add_recipe "postgresql::server_dev"
+    chef.add_recipe "postgresql::postgis"
+    chef.add_recipe "postgresql::setup_users"
+    #chef.add_recipe "database"
+
 
     chef.json = {
       rbenv: {
@@ -74,17 +96,24 @@ Vagrant.configure(2) do |config|
           }
         }]
       },
-      # rvm: {
-      #   rubies: ["2.2-head"],
-      #   global_gems: [
-      #     { name: "bundler" }
-      #   ]
-      # },
       postgresql: {
-        version: '9.4',
+        version: "9.4",
         password: {
-          postgres: ''
-        }
+          postgres: 'password'
+        },
+        users: [
+          {
+            username: "vagrant",
+            password: "password",
+            superuser: true,
+            replication: false,
+            createdb: true,
+            createrole: true,
+            inherit: true,
+            replication: false,
+            login: true
+          }
+        ]
       }
     }
   end
