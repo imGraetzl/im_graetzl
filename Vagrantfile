@@ -138,5 +138,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/bin/rbenv rehash}
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/rake db:setup}
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/rake db:populate}
-  config.vm.provision :shell, run: 'always', privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/rails s -b 0.0.0.0}
+  #config.vm.provision :shell, run: 'always', privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/rails s -b 0.0.0.0}
 end
