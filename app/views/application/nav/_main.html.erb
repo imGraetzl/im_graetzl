@@ -1,7 +1,7 @@
 <div class="mainNav">
   <%= link_to 'Home', root_path, class: 'homelink' %>
   <div class="graetzlTrigger dropdownTrigger" data-horizontal-offset="0" data-mobileNavID="graetzl">
-    <span class="txt">Grätzl entdecken</span>
+    <span class="txt"><%= @graetzl ? @graetzl.name : 'Grätzl entdecken' %></span>
     <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
   </div>  
   <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank">Blog</a>
@@ -10,9 +10,10 @@
   <div class="graetzlContainer jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropDownContainer">
     <div class="jq-dropdown-panel nav-graetzl">
       <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
-      <% if user_signed_in? %>
-        <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_user.graetzl) %>
-        <%= link_to 'Plätze & Orte im Grätzl', graetzl_locations_path(current_user.graetzl) %>
+      <% current_graetzl = @graetzl || (current_user.graetzl if user_signed_in?) %>
+      <% if current_graetzl %>
+        <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_graetzl) %>
+        <%= link_to 'Plätze & Orte im Grätzl', graetzl_locations_path(current_graetzl) %>
         <a href="">Grätzlzuckerl im August</a>
       <% end %>
     </div>
