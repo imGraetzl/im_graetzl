@@ -84,9 +84,10 @@ The populate task adds 4 admin users: *malano, mirjam, jack, peter, jeanine, max
 
 
 ### Stop the app
-Stop the rails server with `ctrl c` and suspend your Vagrant box.
+Stop the rails server with `ctrl c`, exit the SSH session and suspend your Vagrant box.
 
 ```
+exit
 vagrant suspend
 ```
 
