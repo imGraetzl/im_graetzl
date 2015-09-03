@@ -4,7 +4,7 @@
 
   <h2>Treffen <span><%= @meeting.name %></span> bearbeiten</h2>
 
-  <%= render 'form' %>
+  <%= render 'form', disable_fields: @meeting.location && !@meeting.location.users.include?(current_user) %>
 
   <%= link_to 'Treffen absagen', @meeting,
     method: :delete,

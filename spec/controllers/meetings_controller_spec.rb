@@ -59,47 +59,49 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-  # describe 'GET index' do
-  #   before do
-  #     2.times{create(:meeting, graetzl: graetzl)}
-  #     2.times{create(:meeting)}
-  #     get :index, graetzl_id: graetzl
-  #   end
+  describe 'GET index' do
+    before do
+      2.times{create(:meeting, graetzl: graetzl)}
+      2.times{create(:meeting)}
+      get :index, graetzl_id: graetzl
+    end
 
-  #   it 'renders #index' do
-  #     expect(response).to render_template(:index)
-  #   end
+    it 'renders #index' do
+      expect(response).to render_template(:index)
+    end
 
-  #   it 'assigns @graetzl' do
-  #     expect(assigns(:graetzl)).to eq(graetzl)
-  #   end
+    it 'assigns @graetzl' do
+      expect(assigns(:graetzl)).to eq(graetzl)
+    end
 
-  #   it 'assigns @upcoming_meetings' do
-  #     expect(assigns(:upcoming_meetings)).to eq(graetzl.meetings.upcoming)
-  #     expect(assigns(:upcoming_meetings).count).to eq 2
-  #   end
+    it 'assigns @upcoming_meetings' do
+      expect(assigns(:upcoming_meetings)).to eq(graetzl.meetings.upcoming)
+      expect(assigns(:upcoming_meetings).count).to eq 2
+    end
 
-  #   it 'assigns @past_meetings' do
-  #     expect(assigns(:past_meetings)).to eq(graetzl.meetings.past)
-  #   end
-  # end
+    it 'assigns @past_meetings' do
+      expect(assigns(:past_meetings)).to eq(graetzl.meetings.past)
+    end
+  end
 
   describe 'GET new' do
-
+    # Shared Examples
     shared_examples :a_successful_new_request do
-
       it 'assigns @meeting with address and graetzl' do
         expect(assigns(:meeting)).to be_a_new(Meeting)
         expect(assigns(:meeting).address).to be_a_new(Address)
         expect(assigns(:meeting).graetzl).to be_present
       end
-
       it 'renders #new' do        
         expect(response).to render_template(:new)
       end
     end
 
-    context 'when logged out' do
+    # Scenarios
+    context 'when logged out' do      
+      include_examples :an_unauthenticated_request do
+        before { get :new }
+      end
       context 'within graetzl' do
         before { get :new, graetzl_id: graetzl }
         include_examples :an_unauthenticated_request
@@ -111,7 +113,8 @@ RSpec.describe MeetingsController, type: :controller do
     end
 
     context 'when logged in' do
-      let(:user) { create(:user, graetzl: create(:graetzl)) }
+      let!(:user_graetzl) { create(:graetzl) }
+      let(:user) { create(:user, graetzl: user_graetzl) }
       before { sign_in user }
 
       context 'outside graetzl' do
@@ -120,7 +123,7 @@ RSpec.describe MeetingsController, type: :controller do
         include_examples :a_successful_new_request
 
         it 'assigns graetzl from user' do
-          expect(assigns(:meeting).graetzl).to eq user.graetzl
+          expect(assigns(:meeting).graetzl).to eq user_graetzl
         end
       end
 
@@ -162,6 +165,34 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
   describe 'POST create' do
+    # Shared Examples
+    shared_examples :a_successful_create_request do
+      it 'creates a new meeting record' do
+        expect {
+          post :create, params
+        }.to change(Meeting, :count).by(1)
+      end
+
+      it 'creates new address record' do
+        expect {
+          post :create, params
+        }.to change(Address, :count).by(1)
+      end
+
+      it 'creates new going_to record' do
+        expect {
+          post :create, params
+        }.to change(GoingTo, :count).by(1)
+      end
+
+      it 'redirects_to meeting in graetzl' do
+        post :create, params
+        meeting = Meeting.last
+        expect(response).to redirect_to([meeting.graetzl, meeting])
+      end
+    end
+
+    # Scenarios
     context 'when logged out' do
       before { post :create }
       include_examples :an_unauthenticated_request
@@ -169,102 +200,143 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when logged in' do
       let(:user) { create(:user) }
-      let(:location) { create(:location_managed) }
+      #let(:location) { create(:location_managed) }
       let(:params) {
         {
-          meeting: attributes_for(:meeting).merge(
-            { address_attributes: { },  graetzl_id: graetzl.id }),
+          meeting: { name: 'new_meeting', graetzl_id: graetzl.id, address_attributes: {} },
           feature: '',
           address: ''
         }
       }
       before { sign_in user }
-      subject(:new_meeting) { Meeting.last }
 
-      it 'creates new meeting' do
-        expect {
-          post :create, params
-        }.to change(Meeting, :count).by(1)
+      context 'with empty address and feature' do
+
+        include_examples :a_successful_create_request
+
+        describe 'new meeting' do
+          before { post :create, params }
+          subject(:new_meeting) { Meeting.last }
+
+          it 'has current_user as initiator' do
+            expect(new_meeting.going_tos.last).to have_attributes(
+              user: user, role: 'initiator')
+          end
+
+          it 'has graetzl' do
+            expect(new_meeting.graetzl).to eq graetzl
+          end
+
+          it 'has address' do
+            expect(new_meeting.address).to be_present
+          end
+        end
       end
-
-      it 'redirects_to meeting in graetzl' do
-        post :create, params
-        expect(response).to redirect_to([new_meeting.graetzl, new_meeting])
-      end
-
-      describe 'meeting' do
+      context 'with only address description' do
         before do
-          params[:meeting].merge!({
-            address_attributes: { description: 'new_description' },
-            location_id: location.id })
-          post :create, params
+          params[:meeting].merge!({ address_attributes: { description: 'new_description' } })
         end
 
-        it 'has current_user as initiator' do
-          expect(new_meeting.going_tos.last).to have_attributes(
-            user: user, role: 'initiator')
-        end
+        include_examples :a_successful_create_request
 
-        it 'has graetzl' do
-          expect(new_meeting.graetzl).to eq graetzl
-        end
+        describe 'new meeting' do
+          before { post :create, params }
+          subject(:new_meeting) { Meeting.last }
 
-        it 'has address' do
-          expect(new_meeting.address).to be_present
-        end
+          it 'has current_user as initiator' do
+            expect(new_meeting.going_tos.last).to have_attributes(
+              user: user, role: 'initiator')
+          end
 
-        it 'has location' do
-          expect(new_meeting.location).to eq location
-        end
+          it 'has graetzl' do
+            expect(new_meeting.graetzl).to eq graetzl
+          end
 
-        it 'has address description' do
-          expect(new_meeting.address.description).to eq('new_description')
+          it 'has address with description' do
+            expect(new_meeting.address).to be_present
+            expect(new_meeting.address.description).to eq 'new_description'
+          end
         end
       end
-
-      # context 'with category_ids' do
-      #   before do
-      #     5.times { create(:category) }
-      #     params[:meeting][:category_ids] = Category.all.map(&:id)
-      #     # TODO: refactor to use new category style
-      #     post :create, params
-      #   end
-
-      #   describe 'meeting' do
-      #     subject(:new_meeting) { Meeting.last }
-
-      #     it 'has categories' do
-      #       expect(new_meeting.categories.size).to eq(5)
-      #     end
-      #   end
-      # end
-
-      context 'with feature' do
+      context 'with address and feature' do
         let!(:other_graetzl) { create(:graetzl,
           area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
         let(:address_feature) { feature_hash(16.0, 16.0) }
 
         before do
-          params[:meeting].merge!({ address_attributes: { description: 'new_description' } })
+          params[:meeting].merge!({ address_attributes: { description: 'another_description' } })
           params.merge!(feature: address_feature.to_json, address: 'address input')
-          post :create, params
         end
+
+        include_examples :a_successful_create_request
 
         it 'redirects_to meeting in address.graetzl' do
-          expect(response).to redirect_to([other_graetzl, new_meeting])
+          post :create, params
+          meeting = Meeting.last
+          expect(response).to redirect_to([other_graetzl, meeting])
         end
 
-        describe 'meeting' do
+        describe 'new meeting' do
+          before { post :create, params }
+          subject(:new_meeting) { Meeting.last }
+
+          it 'has current_user as initiator' do
+            expect(new_meeting.going_tos.last).to have_attributes(
+              user: user, role: 'initiator')
+          end
+
           it 'has address from feature' do
             expect(new_meeting.address.street_name).to eq(address_feature['properties']['StreetName'])
           end
 
           it 'has address_description' do
-            expect(new_meeting.address.description).to eq('new_description')
+            expect(new_meeting.address.description).to eq('another_description')
           end
 
           it 'has address.graetzl as graetzl' do
             expect(new_meeting.graetzl).to eq(other_graetzl)
+          end
+        end
+      end
+      context 'with full address and location' do
+        let(:address) { build(:address) }
+        let!(:location) { create(:location_managed) }
+        before do
+          params.merge!(address: 'something')
+          params[:meeting].merge!({
+            location_id: location.id,
+            address_attributes: {
+              street_name: address.street_name,
+              street_number: address.street_number,
+              zip: address.zip,
+              city: address.city,
+              coordinates: address.coordinates,
+              description: 'new_description' }
+          })
+        end
+
+        include_examples :a_successful_create_request
+
+        describe 'new meeting' do
+          before { post :create, params }
+          subject(:new_meeting) { Meeting.last }
+
+          it 'has current_user as initiator' do
+            expect(new_meeting.going_tos.last).to have_attributes(
+              user: user, role: 'initiator')
+          end
+
+          it 'has location' do
+            expect(new_meeting.location).to eq location
+          end
+
+          it 'has address from params' do
+            expect(new_meeting.address).to have_attributes(
+              street_name: address.street_name,
+              street_number: address.street_number,
+              zip: address.zip,
+              city: address.city,
+              coordinates: address.coordinates,)
           end
         end
       end
@@ -481,54 +553,54 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-  describe 'DELETE destroy' do
-    let(:meeting) { create(:meeting, graetzl: graetzl) }
+  # describe 'DELETE destroy' do
+  #   let(:meeting) { create(:meeting, graetzl: graetzl) }
 
-    context 'when logged out' do
-      before { delete :destroy, id: meeting }
-      include_examples :an_unauthenticated_request
-    end
+  #   context 'when logged out' do
+  #     before { delete :destroy, id: meeting }
+  #     include_examples :an_unauthenticated_request
+  #   end
 
-    context 'when logged in' do
-      let(:user) { create(:user) }
-      before { sign_in user }
+  #   context 'when logged in' do
+  #     let(:user) { create(:user) }
+  #     before { sign_in user }
 
-      context 'when attendee' do
-        before do
-          create(:going_to, user: user, meeting: meeting)
-          delete :destroy, id: meeting
-        end
-        include_examples :an_unauthorized_request
-      end
+  #     context 'when attendee' do
+  #       before do
+  #         create(:going_to, user: user, meeting: meeting)
+  #         delete :destroy, id: meeting
+  #       end
+  #       include_examples :an_unauthorized_request
+  #     end
 
-      context 'when initiator' do
-        let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator]) }
-        describe 'general' do
-          before { delete :destroy, id: meeting }
+  #     context 'when initiator' do
+  #       let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator]) }
+  #       describe 'general' do
+  #         before { delete :destroy, id: meeting }
 
-          include_examples :a_successful_meeting_request
+  #         include_examples :a_successful_meeting_request
 
-          it 'redirects to graetzl_path' do
-            expect(response).to redirect_to(graetzl)
-          end
+  #         it 'redirects to graetzl_path' do
+  #           expect(response).to redirect_to(graetzl)
+  #         end
 
-          it 'has flash[:notice]' do
-            expect(flash[:notice]).to be_present
-          end
-        end
+  #         it 'has flash[:notice]' do
+  #           expect(flash[:notice]).to be_present
+  #         end
+  #       end
 
-        it 'deletes record' do
-          expect {
-            delete :destroy, graetzl_id: graetzl, id: meeting
-          }.to change(Meeting, :count).by(-1)
-        end
+  #       it 'deletes record' do
+  #         expect {
+  #           delete :destroy, graetzl_id: graetzl, id: meeting
+  #         }.to change(Meeting, :count).by(-1)
+  #       end
 
-        it 'deletes going_tos' do
-          expect {
-            delete :destroy, graetzl_id: graetzl, id: meeting
-          }.to change(GoingTo, :count).by(-1)
-        end
-      end
-    end
-  end
+  #       it 'deletes going_tos' do
+  #         expect {
+  #           delete :destroy, graetzl_id: graetzl, id: meeting
+  #         }.to change(GoingTo, :count).by(-1)
+  #       end
+  #     end
+  #   end
+  # end
 end
