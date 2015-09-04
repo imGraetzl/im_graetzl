@@ -88,6 +88,10 @@
     }
   }
 
+  .loginlink {
+    margin-left: 20px;
+  }
+
   .registerlink {
     margin-right: 10px;
     padding-right: 10px;
@@ -123,6 +127,10 @@
     margin-right: 16px;
     [class^=icon-] {
       margin-left: 8px;
+    }
+    .txt {
+      @include ellipsis;
+      max-width: 185px;
     }
   }
 

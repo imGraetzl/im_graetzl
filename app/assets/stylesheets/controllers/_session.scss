@@ -11,13 +11,24 @@ section.loginPage {
     }
     text-align: center;
   }
+
+  .loginForm, .ownMeetingBox {
+    @include respond-to(">=medium") {
+      @include column(1/2, $gutter: 8);
+    }
+  }
+
+  .ownMeetingBox {
+    max-width: 320px;
+    .wrp {
+      padding-top: 185px;
+    }
+  }
+
 }
 
-.loginForm, .registerHint {
-  @include respond-to(">=medium") {
-    @include column(1/2, $gutter: 8);
-  }
-}
+
+
 
 .loginForm {
   margin-bottom: 5rem;
@@ -68,20 +79,3 @@ section.loginPage {
 
 }
 
-.registerHint {
-  @include paperCard($rotation: -5, $string: 2);
-  width: 250px;
-  position: relative;
-  font-family: $font-secondary;
-  font-size: 3rem;
-  padding: 40px;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
- a {
-   text-decoration: none;
-   &:hover {
-     text-decoration: underline;
-   }
- }
-}

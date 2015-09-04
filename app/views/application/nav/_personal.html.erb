@@ -48,8 +48,10 @@
 <% else %>
 
   <div class="personalNav">
-    <%= link_to user_registration_address_path, class: 'registerlink' do %>
-      <span>Kostenlos</span> <span>registrieren</span>
+    <% if user_signed_in? %>
+        <%= link_to content_tag(:span, 'Treffen anlegen'), new_meeting_path, class: 'createMeeting' %>
+    <% else %>
+        <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
     <% end %>
     <%= link_to 'Anmelden', new_user_session_path, class: 'loginlink' %>
   </div>
