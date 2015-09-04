@@ -324,11 +324,25 @@ section.adoptLocation {
       }
     }
   }
-
-
 }
 
-
+section.locations-overview {
+  h1 {
+    @include font-size-secondaryFont('large');
+    text-align: center;
+    margin-bottom: 40px;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+  .cardBox {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      color: $color-ambient-rosa;
+    }
+  }
+}
 
 
 

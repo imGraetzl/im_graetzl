@@ -1,4 +1,4 @@
-.meetingBoxes {
+.meetingBoxes, .cardCollection {
   @include cf();
   @include respond-to(">=large") {
     margin-left: -25px;
@@ -16,15 +16,12 @@
   }
 }
 
-.meetingBox {
+.meetingBox, .cardBox {
   border: 1px solid $color-ambient-grey-light;
   background-color: #ffffff;
   padding: 8px 16px 20px 16px;
   border-radius: 8px;
   position: relative;
-  .meetingBoxHeader {
-    margin-bottom: 4.5rem;
-  }
   h3 {
     @include font-size-primaryFont('larger');
     margin-bottom: 15px;
@@ -40,13 +37,37 @@
     bottom: -25px;
     right: 7px;
   }
+
+  .locationAvatar {
+    display: table;
+    position: absolute;
+    left: 7px;
+    bottom: -38px;
+    .locationMap {
+      border-radius: 4px 4px 0 0;
+      background-color: #fff;
+      padding: 4px 4px 0 4px;
+      width: 79px;
+      height: 100px;
+      display: block;
+      margin: 0 auto;
+    }
+    .img-round {
+      width: 85px;
+      height: 85px;
+      display: block;
+      margin-top: -41px;
+    }
+  }
+
 }
 
 
-.meetingBoxHeader {
+.meetingBoxHeader, .cardHeader {
   position: relative;
   margin-left: -8px;
   margin-right: -8px;
+  margin-bottom: 4.5rem;
   .coverImg {
     width: 100%;
     border-radius: 4px;

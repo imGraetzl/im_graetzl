@@ -1,7 +1,27 @@
-<h1>Locations (basic und managed)</h1>
+<section class="locations-overview">
 
-<ul>
-  <% @locations.each do |location| %>
-    <li><%= link_to location.name, [@graetzl, location] %> (<%= location.state %>) </li>
-  <% end %>
-</ul>
+  <h1>Treffpunkte und Örtlichkeiten im <span>Stuwerviertel</span></h1>
+
+  <div class="cardCollection">
+
+    <a href="" class="cardBox">
+      <div class="cardHeader">
+        <img class="coverImg" src="https://placeimg.com/300/180/animals" alt="Cover photo">
+        <div class="locationAvatar">
+          <img class="locationMap" src="http://maps.google.com/maps/api/staticmap?center=48.221718,16.402051&zoom=16&scale=2&markers=vorgartenmarkt+stand 22&size=79x100&sensor=TRUE_OR_FALSE" alt="">
+          <img class="img-round" src="https://placeimg.com/85/85/any" alt="Avatar">
+        </div>
+      </div>
+      <h3>Big Garten</h3>
+      <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus explicabo facere in molestiae
+        nisi non, porro quia quibusdam suscipit voluptas?
+      </div>
+    </a>
+
+  </div>
+  <ul>
+    <% @locations.each do |location| %>
+        <li><%= link_to location.name, [@graetzl, location] %> (<%= location.state %>)</li>
+    <% end %>
+  </ul>
+</section>
