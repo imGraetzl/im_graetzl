@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Use Ubuntu 14.04 Trusty Tahr 64-bit as our operating system
   config.vm.box = "ubuntu/trusty64"
-  config.vm.synced_folder "./.ruby-version", "/vagrant/.ruby-version", disabled: true
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".ruby-version"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

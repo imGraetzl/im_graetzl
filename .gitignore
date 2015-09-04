@@ -31,7 +31,6 @@ public/uploads
 
 # Ignore rvm .ruby-gemset files
 .ruby-gemset
-.ruby-version
 
 # Vagrant stuff
 /.vagrant
