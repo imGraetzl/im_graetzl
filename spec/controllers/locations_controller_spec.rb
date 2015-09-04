@@ -236,8 +236,12 @@ RSpec.describe LocationsController, type: :controller do
 
       describe '@locations' do
 
-        it 'contains basic and managed' do
-          expect(assigns(:locations)).to include(location_basic, location_managed)
+        # it 'contains basic and managed' do
+        #   expect(assigns(:locations)).to include(location_basic, location_managed)
+        # end
+
+        it 'contains only managed' do
+          expect(assigns(:locations)).to include(location_managed)
         end
 
         it 'does not contain pending' do

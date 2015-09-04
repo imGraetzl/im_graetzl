@@ -6,7 +6,7 @@ RSpec.describe 'meetings/index', type: :view do
   shared_examples :display_action_button do
 
     it 'displays special box' do
-      expect(rendered).to have_selector('div.specialBox')
+      expect(rendered).to have_selector('div.ownMeetingBox')
     end
     
     it 'displays link to start meeting' do
@@ -17,13 +17,13 @@ RSpec.describe 'meetings/index', type: :view do
 
   shared_examples :special_box_on_3rd do 
     it 'displays special box on 3rd position' do
-      expect(rendered).to have_xpath('(//div[@class="meetingBox"])[2]/following-sibling::div[@class="specialBox"][1]')
+      expect(rendered).to have_xpath('(//div[@class="meetingBox"])[2]/following-sibling::div[@class="ownMeetingBox"][1]')
     end
   end
 
   shared_examples :no_past_meetings do
     it 'does not display headline for past meetings' do
-      expect(rendered).not_to have_selector('h2', text: "Vergangene Treffen im #{graetzl.name}")
+      expect(rendered).not_to have_selector('h1', text: "Vergangene Treffen im #{graetzl.name}")
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe 'meetings/index', type: :view do
     include_examples :special_box_on_3rd
 
     it 'displays headline for upcoming meetings' do
-      expect(rendered).to have_selector('h2', text: "Kommende Treffen im #{graetzl.name}")
+      expect(rendered).to have_selector('h1', text: "Kommende Treffen im #{graetzl.name}")
     end
 
     it 'displays upcoming meetings' do
@@ -60,7 +60,7 @@ RSpec.describe 'meetings/index', type: :view do
     end
 
     it 'displays headline for past meetings' do
-      expect(rendered).to have_selector('h2', text: "Vergangene Treffen im #{graetzl.name}")
+      expect(rendered).to have_selector('h1', text: "Vergangene Treffen im #{graetzl.name}")
     end
 
     it 'displays past meetings' do
@@ -83,7 +83,7 @@ RSpec.describe 'meetings/index', type: :view do
     include_examples :special_box_on_3rd
 
     it 'displays headline for upcoming meetings' do
-      expect(rendered).to have_selector('h2', text: "Kommende Treffen im #{graetzl.name}")
+      expect(rendered).to have_selector('h1', text: "Kommende Treffen im #{graetzl.name}")
     end
 
     it 'displays upcoming meetings' do
@@ -104,7 +104,7 @@ RSpec.describe 'meetings/index', type: :view do
     include_examples :display_action_button
 
     it 'displays headline for upcoming meetings' do
-      expect(rendered).to have_selector('h2', text: "Kommende Treffen im #{graetzl.name}")
+      expect(rendered).to have_selector('h1', text: "Kommende Treffen im #{graetzl.name}")
     end
 
     it 'displays no meetings' do
