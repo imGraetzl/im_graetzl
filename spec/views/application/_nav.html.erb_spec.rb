@@ -46,13 +46,16 @@ RSpec.describe 'application/_nav', type: :view do
           assign(:graetzl, graetzl)
           render
         end
+
         include_examples :nav_main_basic
+
         include_examples :nav_main_graetzl do
           let(:current_graetzl) { graetzl }
         end
       end
       context 'without graetzl context' do
         before { render }
+
         include_examples :nav_main_basic
 
         it 'displays dropdown to discover graetzl' do
@@ -73,13 +76,26 @@ RSpec.describe 'application/_nav', type: :view do
   end
   context 'when logged in' do
     let(:user_graetzl) { create(:graetzl) }
-    let(:user) { create(:user) }
+    let(:user) { create(:user, graetzl: user_graetzl) }
     before { sign_in user }
     describe 'nav/main' do
       context 'with graetzl context' do
+        before do
+          assign(:graetzl, graetzl)
+          render
+        end
+
+        include_examples :nav_main_basic
+
+        include_examples :nav_main_graetzl do
+          let(:current_graetzl) { graetzl }
+        end
       end
       context 'without graetzl context' do
+        before { render }
+
         include_examples :nav_main_basic
+        
         include_examples :nav_main_graetzl do
           let(:current_graetzl) { user_graetzl }
         end

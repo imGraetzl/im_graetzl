@@ -5,9 +5,9 @@
     <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
   <% end %>
   <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
-  <% if user_signed_in? %>
-    <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_user.graetzl) %>
-    <%= link_to 'Plätze & Orte im Grätzl', graetzl_locations_path(current_user.graetzl) %>
+  <% if current_graetzl %>
+    <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_graetzl) %>
+    <%= link_to 'Plätze & Orte im Grätzl', graetzl_locations_path(current_graetzl) %>
     <a href="">Grätzlzuckerl im August</a>
   <% end %>
   <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank">Blog</a>
