@@ -113,15 +113,6 @@ section.graetzls {
     }
   }
 
-  .specialBox {
-    @include paperCard($rotation: 1, $string: 2);
-    font-family: $font-secondary;
-    color: $color-ambient-mint-dark;
-    font-size: 35px;
-    padding: 50px;
-    height: 320px;
-  }
-
   .sideflag {
     display: none;
   }

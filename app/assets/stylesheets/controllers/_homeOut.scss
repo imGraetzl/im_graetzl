@@ -44,67 +44,7 @@ section.homeOut {
       }
     }
   }
-
-  .specialBox {
-    @include paperCard($rotation: -2, $string: 2);
-    @include respond-to(">=large") {
-      transform: translate(15px, -5px);
-    }
-    .wrp  {
-      display: block;
-      background-image: url(image_path('illu/illu-cylce.png'));
-      padding: 175px 30px 30px 30px;
-      background-repeat: no-repeat;
-      background-position: 33px 23px;
-      background-size: 265px 189px;
-      @include respond-to("retina2x") {
-        background-image: url(image_path('illu/illu-cycle@2x.png'));
-      }
-    }
-
-    button {
-      width: 100%;
-    }
-
-    .user {
-      img {
-        vertical-align: bottom;
-      }
-      span {
-        color: $color-ambient-mint;
-        font-size: 1.4rem;
-        margin-bottom: 10px;
-        vertical-align: bottom;
-      }
-    }
-
-    h3 {
-      font-size: 2.2rem;
-      line-height: 1.2;
-      margin-top: 25px;
-      margin-bottom: 30px;
-      color: $color-ambient-mint-dark;
-    }
-  }
-
 }
-
-.no-touch {
-  section.homeOut {
-    @include respond-to(">=medium") {
-      .specialBox {
-        transition: transform 0.5s;
-        &:hover {
-          transform: rotate(4deg) translate3d(10px, 0, 0);
-          button {
-            opacity: 0.9;
-          }
-        }
-      }
-    }
-  }
-}
-
 
 .buehne {
   overflow: hidden;

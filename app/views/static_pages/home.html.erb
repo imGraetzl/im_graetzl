@@ -20,7 +20,7 @@
     <div class="meetingBoxes">
       <%= render partial: 'meetings/box', collection: @meetings, as: 'meeting' %>
 
-      <div class="specialBox">
+      <div class="ownMeetingBox">
         <%= link_to new_user_session_path, class: 'wrp' do %>
             <div class="user">
               <%= image_tag('avatar/small_default.png', class: 'img-round') %>

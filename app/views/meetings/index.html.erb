@@ -1,13 +1,13 @@
 <% title("Treffen im #{@graetzl.name}") %>
-<section class="meetings">
-  <h2>Kommende Treffen im <%= @graetzl.name %></h2>
+<section class="meetings-overview">
+  <h1 class="hl-main">Kommende Treffen im <span><%= @graetzl.name %></span></h1>
   <div class="meetingBoxes">
     <%= render partial: 'box', collection: @upcoming_meetings.first(2), as: 'meeting' %>
     <%= render 'box_action' %>
     <%= render partial: 'box', collection: @upcoming_meetings.offset(2), as: 'meeting' %>
   </div>
   <% if @past_meetings.present? %>
-    <h2>Vergangene Treffen im <%= @graetzl.name %></h2>
+    <h1 class="hl-main">Vergangene Treffen im <span><%= @graetzl.name %></span></h1>
     <div class="meetingBoxes">
       <%= render partial: 'meetings/box', collection: @past_meetings, as: 'meeting' %>
     </div>

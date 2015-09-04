@@ -71,7 +71,7 @@
     bottom: 18px;
     left: 18px;
     @include respond-to(">=medium") {
-    transform: translate(0, 0);
+      transform: translate(0, 0);
       position: absolute;
       bottom: -45px;
       right: -84px;
