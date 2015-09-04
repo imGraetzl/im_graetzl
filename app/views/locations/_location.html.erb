@@ -1,0 +1,17 @@
+<%= link_to [@graetzl, location], class: 'cardBox' do %>
+  <div class="cardHeader">
+    <%= attachment_image_tag(location, :cover_photo,
+                                        :fill, 300, 180,
+                                        fallback: 'cover_photo/default.jpg' ,
+                                        class: 'coverImg') %>
+    <div class="locationAvatar">
+      <%= image_tag "http://maps.google.com/maps/api/staticmap?center=#{location.address.coordinates.y},#{location.address.coordinates.x}&zoom=16&scale=2&markers=#{location.address.street_name}+#{location.address.street_number} 22&size=250x250&sensor=TRUE_OR_FALSE", class: 'locationMap' %>
+      <%= attachment_image_tag(location, :avatar,
+                                              :fill, 85, 85,
+                                              fallback: 'avatar/small_default.png',
+                                              class: 'img-round') %>
+    </div>
+  </div>
+  <h3><%= location.name %></h3>
+  <div class="txt"><%= location.description %></div>
+<% end %>

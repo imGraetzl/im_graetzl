@@ -46,7 +46,8 @@ class LocationsController < ApplicationController
   end
 
   def index
-    @locations = @graetzl.locations.available
+    #@locations = @graetzl.locations.available
+    @locations = @graetzl.locations.managed
   end
 
   def show
