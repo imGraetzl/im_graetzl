@@ -12,7 +12,7 @@
       <% if current_graetzl %>
         <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_graetzl) %>
         <%= link_to 'Kreative Wirtschaft im Grätzl', graetzl_locations_path(current_graetzl) %>
-        <a href="">Grätzlzuckerl im August</a>
+        <a href="">Grätzlzuckerl im <%= l(Date.today, format: "%B") %></a>
       <% end %>
       <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
     </div>
