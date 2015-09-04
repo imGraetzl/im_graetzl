@@ -38,6 +38,10 @@ RSpec.describe User, type: :model do
         expect(user).to respond_to(:role)
       end
 
+      it 'has friendly_id' do
+        expect(user).to respond_to(:slug)
+      end
+
       context 'when admin' do
         before { user.role = :admin }
 
