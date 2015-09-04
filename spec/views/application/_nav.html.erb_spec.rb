@@ -27,7 +27,7 @@ RSpec.describe 'application/_nav', type: :view do
     end
 
     it 'displays link to graetzl_locations' do
-      expect(rendered).to have_link('Plätze & Orte im Grätzl', href: graetzl_locations_path(current_graetzl))
+      expect(rendered).to have_link('Kreative Wirtschaft im Grätzl', href: graetzl_locations_path(current_graetzl))
     end
 
     # it 'displays link to home graetzl' do
@@ -67,7 +67,7 @@ RSpec.describe 'application/_nav', type: :view do
         end
 
         it 'displays link to graetzl_locations' do
-          expect(rendered).not_to have_link('Plätze & Orte im Grätzl')
+          expect(rendered).not_to have_link('Kreative Wirtschaft im Grätzl')
         end
       end
     end
@@ -128,7 +128,7 @@ end
 #     end
 
 #     it 'displays link to graetzl_locations' do
-#       expect(rendered).to have_link('Plätze & Orte im Grätzl', href: graetzl_locations_path(user.graetzl))
+#       expect(rendered).to have_link('Kreative Wirtschaft im Grätzl', href: graetzl_locations_path(user.graetzl))
 #     end
 
 #     # it 'displays link to home graetzl' do

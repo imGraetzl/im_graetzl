@@ -9,12 +9,12 @@
   <!-- dropDowns -->
   <div class="graetzlContainer jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropDownContainer">
     <div class="jq-dropdown-panel nav-graetzl">
-      <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
       <% if current_graetzl %>
         <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_graetzl) %>
-        <%= link_to 'Plätze & Orte im Grätzl', graetzl_locations_path(current_graetzl) %>
+        <%= link_to 'Kreative Wirtschaft im Grätzl', graetzl_locations_path(current_graetzl) %>
         <a href="">Grätzlzuckerl im August</a>
       <% end %>
+      <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
     </div>
   </div>
 </div>
