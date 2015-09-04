@@ -48,6 +48,30 @@ vagrant plugin install vagrant-vbguest
 vagrant plugin install vagrant-librarian-chef-nochef
 ```
 
+We use Vagrant's option to [sync folders with RSync](https://docs.vagrantup.com/v2/synced-folders/rsync.html) (to avoid permission issues on Windows machines).
+
+Check if [RSync](https://rsync.samba.org/) is already installed (should be avilable on Unix systems).
+
+```
+rsync --version
+```
+On Windows, if not available, there are several options:
+
+1. Get package with Cygwin ([follow these steps](http://terokarvinen.com/rsync_from_windows.html#install_cygwin_with_rsync))
+2. Install [MYSYS2](http://sourceforge.net/projects/msys2/) (minimal version of Cygwin coming with Pacman package manager 👍) and follow these steps:
+
+  ```
+  # update package repository (just in case)
+  pacman -Sy
+  
+  # install rsync
+  pacman -S rsync
+  
+  # check again (should now be available)
+  rsync --version
+  ```
+
+
 ### Start Vagrant
 
 Fire up a terminal window within the project's root directory.
