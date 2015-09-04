@@ -3,6 +3,11 @@ module ApplicationHelper
     content_for(:title) { "#{page_title} | "}    
   end
 
+  def current_graetzl
+    #current_graetzl ||= @graetzl || (current_user.graetzl if user_signed_in?)
+    @graetzl || (current_user.graetzl if user_signed_in?)
+  end
+
   def activity_description(user, entity)
     case entity.class.name.demodulize.downcase
     when 'activity'
