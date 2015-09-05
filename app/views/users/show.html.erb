@@ -1,3 +1,43 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<section id="user-pink">
+  <%= attachment_image_tag(@user, :avatar, :fill, 200, 200,
+                              fallback: 'avatar/small_default.png') %>
+  <h2><%= @user.username %></h2>
+  <h3><%= link_to @user.graetzl.name, @user.graetzl %></h3>
+  <h3>bio:</h3>
+  <h3>dabei seit: <%= l(@user.created_at, format: "%B, %Y") %></h3>
+</section>
+<section id="user-blue">
+  <h2>Treffen Tabs</h2>
+  <% if meetings_initalized = @user.meetings.merge(GoingTo.initiator) %>
+    <h3><%= meetings_initalized.count %> Treffen erstellt:</h3>
+    <ul>
+      <% meetings_initalized.each do |m| %>
+        <li><%= link_to m.name, [ m.graetzl, m ] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <% if meetings_attended = @user.meetings.merge(GoingTo.attendee) %>
+    <h3>An <%= meetings_attended.count %> Treffen teilgenommen:</h3>
+    <ul>
+      <% meetings_attended.each do |m| %>
+        <li><%= link_to m.name, [ m.graetzl, m ] %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>
+<section id="user-pink">
+  <h2>Stream (Pinnwand, whatever..)</h2>
+</section>
+
+</section>
+
 <%= debug @user %>
+
+<style type="text/css">
+  section#user-pink {
+    background: lightpink;
+  }
+  section#user-blue {
+    background: lightsteelblue;
+  }
+</style>

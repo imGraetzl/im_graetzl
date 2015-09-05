@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_graetzl, only: [:show]
   #include GraetzlChild
 
