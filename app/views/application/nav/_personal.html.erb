@@ -29,6 +29,9 @@
 
     <div class="usersettingsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative dropDownContainer">
       <div class="jq-dropdown-panel nav-usersettings">
+        <%= link_to user_path(current_user) do %>
+          <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profil
+        <% end %>
         <%= link_to user_notification_settings_path do %>
           <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profileinstellungen
         <% end %>
