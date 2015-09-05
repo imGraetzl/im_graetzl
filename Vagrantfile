@@ -129,14 +129,18 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  # Run the Rails project right on vagrant up
-  # config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant}
-  # config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant}
+  # Scripts to run on vagrant up:
+  # Install bundler and gems
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/gem install bundler}
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/bin/rbenv rehash}
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/bundle}
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/bin/rbenv rehash}
+
+  # Setup and populate db
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/rake db:setup}
   config.vm.provision :shell, privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/rake db:populate}
   #config.vm.provision :shell, run: 'always', privileged: false, inline: %q{cd /vagrant && /home/vagrant/.rbenv/shims/rails s -b 0.0.0.0}
+
+  # always run migrations:
+  config.vm.provision :shell, run: 'always', privileged: false, inline: %q{cd /vagrant && rake db:migrate}
 end
