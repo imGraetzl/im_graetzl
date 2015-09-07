@@ -20,9 +20,9 @@ Rails.application.routes.draw do
     }
 
   devise_scope :user do
-    post 'new', as: :address_users, to: 'users/registrations#new'
-    post 'graetzl', as: :registration_graetzl, to: 'users/registrations#graetzl'
-    get 'graetzl', as: :registration_graetzls, to: 'users/registrations#graetzl'
+    post 'users/new', as: :address_users, to: 'users/registrations#new'
+    post 'users/graetzl', as: :registration_graetzl, to: 'users/registrations#graetzl'
+    get 'users/graetzl', as: :registration_graetzls, to: 'users/registrations#graetzl'
     # get 'users/registrierung/adresse', to: 'registrations#address', as: :user_registration_address
     # post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
     # get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_graetzl
