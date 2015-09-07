@@ -39,4 +39,8 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:content, images_files: []).merge(user_id: current_user.id)
     end
+
+    def log_activity?
+      @commentable != current_user
+    end
 end

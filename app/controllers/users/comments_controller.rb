@@ -12,8 +12,4 @@ class Users::CommentsController < CommentsController
     def set_commentable
       @commentable = User.find(params[:user_id])
     end
-
-    def log_activity?
-      @commentable != current_user
-    end
 end
