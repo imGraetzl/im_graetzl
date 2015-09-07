@@ -2,7 +2,7 @@
   <div class="cardHeader">
     <%= cover_photo_for(location) %>
     <div class="locationAvatar">
-      <%= image_tag "http://maps.google.com/maps/api/staticmap?center=#{location.address.coordinates.y},#{location.address.coordinates.x}&zoom=16&scale=2&markers=#{location.address.street_name}+#{location.address.street_number} 22&size=250x250&sensor=TRUE_OR_FALSE", class: 'locationMap' %>
+      <%= image_tag static_map_url(location.address.coordinates), class: 'locationMap' %>
       <%= avatar_for(location, fill: [85, 85]) %>
     </div>
   </div>
