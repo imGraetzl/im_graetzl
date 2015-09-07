@@ -7,17 +7,17 @@ RSpec.describe Meetings::CommentsController, type: :controller do
 
   describe 'POST create' do
     let(:params) {
-      { comment: { content: 'comment_text' }, meeting_id: meeting.id }
+      { comment: { content: 'comment_text' }, meeting_id: meeting }
     }
 
-    context 'when no current_user' do
+    context 'when logged out' do
       it 'redirects to login_page' do
         xhr :post, :create, params
         expect(response).to render_template(session[:new])
       end
     end
 
-    context 'when current_user' do
+    context 'when logged in' do
       before { sign_in user }
 
       context 'without inline param' do
