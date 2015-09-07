@@ -22,6 +22,10 @@ RSpec.describe 'application/_nav', type: :view do
       expect(rendered).not_to have_selector('span.txt', text: 'Grätzl entdecken')
     end
 
+    it 'displays link to show current graetz' do
+      expect(rendered).to have_link(current_graetzl.name, href: graetzl_path(current_graetzl))
+    end
+
     it 'displays link to graetzl_meetings' do
       expect(rendered).to have_link('Treffen im Grätzl', href: graetzl_meetings_path(current_graetzl))
     end
