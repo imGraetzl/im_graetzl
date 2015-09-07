@@ -6,13 +6,10 @@
         <h1><%= @location.name %></h1>
         <h4 class="locationType"><%= @location.slogan %></h4>
       </div>
-      <%= attachment_image_tag(@location, :avatar, :fill, 432, 432, class: 'locationAvatar') %>
+      <%= avatar_for(@location, fill: [432, 432], class: 'locationAvatar') %>
       <div class="card"></div>
     </div>
-    <%= attachment_image_tag(@location, :cover_photo,
-                                        :fill, 980, 370,
-                                        fallback: 'cover_photo/default.jpg' ,
-                                        class: 'titleImg') %>
+    <%= cover_photo_for(@location, fill: [980, 370], class: 'titleImg') %>
   </div>
 
   <div class="mainContent">
@@ -26,10 +23,7 @@
         <% if user_signed_in? %>
           <%= link_to new_meeting_path(location_id: @location.id), class: "btn-userCallToAction" do %>
             <span>
-              <%= attachment_image_tag(current_user, :avatar,
-                                                  :fill, 100, 100,
-                                                  fallback: 'avatar/small_default.png',
-                                                  class: 'img-round') %>
+              <%= avatar_for current_user %>
               Treffen hier starten
               <svg class="icon-plus">
                 <use xlink:href="#icon-plus"></use>

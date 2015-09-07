@@ -2,10 +2,7 @@
   <%= link_to new_graetzl_meeting_path(@graetzl), class: 'wrp' do %>
     <% if user_signed_in? %>
       <div class="user">
-        <%= attachment_image_tag(current_user, :avatar,
-                                    :fill, 100, 100,
-                                    fallback: 'avatar/small_default.png',
-                                    class: 'img-round') %>
+        <%= avatar_for current_user %>
         <span><%= current_user.username %></span>
       </div>
     <% end %>
