@@ -12,5 +12,6 @@ class NotificationsController < ApplicationController
     @notifications = scope.offset(offset).limit(NOTIFICATIONS_PER_PAGE)
     Notification.where(user_id: current_user.id, id: @notifications.collect(&:id)).update_all(seen: true)
     @more_notifications = NOTIFICATIONS_PER_PAGE * @current_page < total_count
+    @less_notifications = @current_page > 1
   end
 end
