@@ -12,18 +12,21 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users,
-    controllers: { registrations: 'registrations' },
+    controllers: { registrations: 'users/registrations' },
     path_names: {
-      sign_up: 'details', sign_in: 'login', sign_out: 'logout',
-      password: 'secret', confirmation: 'verification',
-      registration: 'registrierung', edit: 'edit/profile'
+      #sign_up: 'details', sign_in: 'login', sign_out: 'logout',
+      sign_up: 'registrierung', sign_in: 'login', sign_out: 'logout',
+      password: 'secret', confirmation: 'verification'
     }
 
   devise_scope :user do
-    get 'users/registrierung/adresse', to: 'registrations#address', as: :user_registration_address
-    post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
-    get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_graetzl
-    post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_graetzl
+    post 'new', as: :address_users, to: 'users/registrations#new'
+    post 'graetzl', as: :registration_graetzl, to: 'users/registrations#graetzl'
+    get 'graetzl', as: :registration_graetzls, to: 'users/registrations#graetzl'
+    # get 'users/registrierung/adresse', to: 'registrations#address', as: :user_registration_address
+    # post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
+    # get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_graetzl
+    # post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_graetzl
 
     get 'users/notification_settings', to: 'notification_settings#index', as: :user_notification_settings
     post 'users/notification_settings/toggle_website_notification', to: 'notification_settings#toggle_website_notification', as: :user_toggle_website_notification

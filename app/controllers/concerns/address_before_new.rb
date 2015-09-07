@@ -22,10 +22,14 @@ module AddressBeforeNew
     end
 
     def set_address_and_graetzl
+      # temp solution for search input
+      @search_input = address_params[:address]
       @address = Address.new(Address.attributes_from_feature(address_params[:feature] || ''))
       session[:address] = @address.attributes
-      @graetzl = @address.graetzl || current_user.graetzl
-      session[:graetzl] = @graetzl.id
+
+      # generic solution...?
+      @graetzl = @address.graetzl || (current_user ? current_user.graetzl : nil)
+      session[:graetzl] = @graetzl.id if @graetzl
     end
 
     # strong params for address
