@@ -39,7 +39,14 @@
             data: { remote: true, url: url_for(action: :graetzl) }
             %>
         </div>
-        <%= render 'graetzls', graetzls: Graetzl.all %>
+        <div class="input-select" id="graetzl-select">
+          <label for="last_name">
+            <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>
+            <span>Grätzl</span>
+          </label>
+          <%= select_tag :graetzl, options_from_collection_for_select(Graetzl.all, 'id', 'name'),
+            { prompt: 'wählen', required: true } %>
+        </div>
       </div>
 
     <% else %>
