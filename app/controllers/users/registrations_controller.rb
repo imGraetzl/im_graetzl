@@ -8,6 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     render :graetzl and return if multiple_graetzl?
 
     # otherwise
+    @graetzl ||= Graetzl.find(session[:graetzl])
     build_resource({})
     self.resource.build_address(session[:address] ||= {})
     self.resource.graetzl = @graetzl
@@ -107,14 +108,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
             :city,
             :coordinates])
       end
-      devise_parameter_sanitizer.for(:sign_in) do |u|
-        u.permit(:login, :username, :email, :password, :remember_me)
-      end
-    end
-
-    def clear_session_data
-      session.delete(:address)
-      session.delete(:graetzl)
     end
 
     def multiple_graetzl?

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RegistrationsController, type: :routing do
+RSpec.describe Users::RegistrationsController, type: :routing do
 
   describe 'routes' do
 

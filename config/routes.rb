@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   devise_for :users,
-    controllers: { registrations: 'users/registrations' },
+    controllers: {
+      registrations: 'users/registrations',
+      sessions: 'users/sessions'
+    },
     path_names: {
       #sign_up: 'details', sign_in: 'login', sign_out: 'logout',
       sign_up: 'registrierung', sign_in: 'login', sign_out: 'logout',
