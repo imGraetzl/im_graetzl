@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'users/show'
-
-  get 'users/index'
-
   # routing concerns
   concern :address_before_new do
     collection do
@@ -66,7 +62,9 @@ Rails.application.routes.draw do
     resource :comments, module: :posts, only: [:create]
   end
 
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    resource :comments, module: :users, only: [:create]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

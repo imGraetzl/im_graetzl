@@ -95,6 +95,10 @@ RSpec.describe User, type: :model do
       expect(user).to respond_to(:comments)
     end
 
+    it 'has wall_posts' do
+      expect(user).to respond_to(:wall_posts)
+    end
+
     describe 'avatar' do
 
       it 'has avatar' do

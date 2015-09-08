@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
+  include PublicActivity::Common
   extend FriendlyId
-  
+
+  # macros  
   friendly_id :username
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
@@ -8,9 +10,8 @@ class User < ActiveRecord::Base
   enum role: { admin: 0, business: 1 }
 
   # associations
-  has_one :address, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :address
   belongs_to :graetzl
+  has_one :address, as: :addressable, dependent: :destroy
   has_many :going_tos
   has_many :meetings, through: :going_tos
   has_many :posts
@@ -18,6 +19,9 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :location_ownerships
   has_many :locations, through: :location_ownerships
+  has_many :wall_posts, as: :commentable, class_name: Comment
+
+  accepts_nested_attributes_for :address
 
   # attributes
     # virtual attribute to login with username or email

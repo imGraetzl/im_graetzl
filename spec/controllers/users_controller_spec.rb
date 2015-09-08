@@ -4,7 +4,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'GET show' do
     context 'when logged out' do
-      before { get :show }
+      before { get :show, id: create(:user) }
 
       it 'redirects to login with flash' do
         expect(response).to render_template(session[:new])

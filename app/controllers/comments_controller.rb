@@ -2,9 +2,9 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @comment = @commentable.comments.build(comment_params)
+    @comment ||= @commentable.comments.build(comment_params)
     if @comment.save
-      @commentable.create_activity :comment, owner: current_user, recipient: @comment
+      @commentable.create_activity :comment, owner: current_user, recipient: @comment if log_activity?
       render partial: 'comment', locals: { comment: @comment, comment_inline: true } and return if inline?
       render partial: 'comment', layout: 'layouts/stream/element', locals: { comment: @comment } and return      
     else
@@ -38,5 +38,9 @@ class CommentsController < ApplicationController
 
     def comment_params
       params.require(:comment).permit(:content, images_files: []).merge(user_id: current_user.id)
+    end
+
+    def log_activity?
+      @commentable != current_user
     end
 end
