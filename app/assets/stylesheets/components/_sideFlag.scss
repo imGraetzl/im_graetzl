@@ -22,7 +22,7 @@
 
   &.-R {
     border-radius: 4px 4px 0 4px;
-    clip-path: polygon(100% 100%, 96% 0%, 0% 0%, 0% 100%);
+    //clip-path: polygon(100% 100%, 96% 0%, 0% 0%, 0% 100%);
     &:after {
       border-width: 6px 12px 0 0;
       border-color: $color-ambient-mint-dark transparent transparent transparent;
@@ -32,7 +32,7 @@
 
   &.-L {
     border-radius: 4px 4px 4px 0;
-    clip-path: polygon(100% 0%, 100% 100%, 0% 97%, 4% 0%);
+   // clip-path: polygon(100% 0%, 100% 100%, 0% 97%, 4% 0%);
     &:after {
       border-width: 0 12px 6px 0;
       border-color: transparent $color-ambient-mint-dark transparent transparent;

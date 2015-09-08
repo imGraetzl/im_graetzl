@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery.mask
 //= require picker
+//= require jquery.tabslet.min
 //= require picker.date
 //= require picker.time
 //= require picker.de_DE

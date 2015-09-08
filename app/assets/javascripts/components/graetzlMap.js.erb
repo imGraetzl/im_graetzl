@@ -1,51 +1,51 @@
 APP.components.graetzlMap = (function() {
     var map,
-        geoVienna,
-        geoGraetzl,
+            geoVienna,
+            geoGraetzl,
     // mainLayer =  L.tileLayer.provider('Stamen.Watercolor'),
-        mainLayer = L.tileLayer.provider('MapBox', { id: 'peckomingo.lb8m2cga', accessToken: 'pk.eyJ1IjoicGVja29taW5nbyIsImEiOiJoVHNQM29zIn0.AVmpyDYApR5mryMCJB1ryw'}),
+            mainLayer = L.tileLayer.provider('MapBox', { id: 'peckomingo.lb8m2cga', accessToken: 'pk.eyJ1IjoicGVja29taW5nbyIsImEiOiJoVHNQM29zIn0.AVmpyDYApR5mryMCJB1ryw'}),
 
-        styles = {
-            mint: {
-                color: '#93CFC6',
-                fill: '#93CFC6',
-                opacity: 1,
-                weight: 2,
-                fillOpacity: 0.1
+            styles = {
+                mint: {
+                    color: '#93CFC6',
+                    fill: '#93CFC6',
+                    opacity: 1,
+                    weight: 2,
+                    fillOpacity: 0.1
+                },
+                over: {
+                    fillOpacity: 0.8
+                },
+                rose: {
+                    color: '#F37468',
+                    fill: '#F37468',
+                    opacity: 1,
+                    weight: 2,
+                    fillOpacity: 0.1
+                }
             },
-            over: {
-                fillOpacity: 0.8
-            },
-            rose: {
-                color: '#F37468',
-                fill: '#F37468',
-                opacity: 1,
-                weight: 2,
-                fillOpacity: 0.1
-            }
-        },
 
-        defaults = {
-            interactive: false,
-            zoomAfterRender: true,
-            style: styles.rose
-        };
+            defaults = {
+                interactive: false,
+                zoomAfterRender: true,
+                style: styles.rose
+            };
 
     function init(callback, options) {
         $.when($.getJSON("<%= asset_path('graetzls.json') %>"), $.getJSON("<%= asset_path('districts.json') %>")).done(function(featureGraetzl, featureDistrict) {
-                geoGraetzl = featureGraetzl[0];
-                geoVienna = featureDistrict[0];
-                map = L.map('graetzlMapWidget', {
-                    layers: [mainLayer],
-                    dragging: false,
-                    touchZoom: false,
-                    scrollWheelZoom: false,
-                    doubleClickZoom: false,
-                    boxZoom: false,
-                    tap: false
-                }).setActiveArea('activeArea');
-                callback();
-            }
+                    geoGraetzl = featureGraetzl[0];
+                    geoVienna = featureDistrict[0];
+                    map = L.map('graetzlMapWidget', {
+                        layers: [mainLayer],
+                        dragging: false,
+                        touchZoom: false,
+                        scrollWheelZoom: false,
+                        doubleClickZoom: false,
+                        boxZoom: false,
+                        tap: false
+                    }).setActiveArea('activeArea');
+                    callback();
+                }
         );
     }
 
@@ -144,12 +144,30 @@ APP.components.graetzlMap = (function() {
         return map;
     }
 
+
+
+    //show single grätzl in header
+    function showSingleGraetzlHeader() {
+        var mapvisible= $('#graetzlMapWidget').data('mapvisible');
+        init(function() {
+                    showMapGraetzl(mapvisible.graetzls, null, {
+                        style: $.extend(styles.rose, {
+                            weight: 4,
+                            fillOpacity: 0.2
+                        })
+                    });
+
+                }
+        );
+    }
+
     return {
         styles: styles,
         init: init,
         showMapGraetzl: showMapGraetzl,
         showMapDistrict: showMapDistrict,
-        getMap: getMap
+        getMap: getMap,
+        showSingleGraetzlHeader: showSingleGraetzlHeader
     }
 
 

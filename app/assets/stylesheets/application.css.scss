@@ -25,6 +25,7 @@
 @import "components/fonts";
 @import "components/fontsizes";
 @import "components/footer";
+@import "components/sidebarLayout";
 @import "components/paperCard";
 @import "components/buttons";
 @import "components/forms";
@@ -34,23 +35,25 @@
 @import "components/dateTimeLocation";
 @import "components/sideFlag";
 @import "components/badge";
+@import "components/_tabs-ctrl";
 @import "components/medalBadge";
 @import "components/meetingBoxes";
 @import "components/zuckerlBox";
-@import "components/_ownMeetingBox";
+@import "components/graetzlMapWidget";
+@import "components/userprofile";
+@import "components/ownMeetingBox";
 @import "components/commonTypograpy";
 @import "components/link-more";
 @import "components/userCreateInfo";
 @import "components/calendarSheet";
 @import "components/stream";
-@import "components/graetzlMap";
+@import "components/mapImgBlock";
 @import "components/mainNav";
 @import "components/mobileNav";
 @import "components/addressSearchAutocomplete";
-@import "components/headerImgBlock";
 @import "components/fileUploads";
 @import "components/titleHeadline";
-@import "components/cloudyImgHeader";
+@import "components/_imgHeader";
 @import "components/notificationsValidation";
 @import "components/shame";
 

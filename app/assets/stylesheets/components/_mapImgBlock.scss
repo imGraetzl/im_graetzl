@@ -107,30 +107,6 @@
   }
 }
 
-#graetzlMapWidget {
-  width: 100%;
-  background-color: transparent;
-  position: relative;
-  cursor: default;
-  display: block;
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    min-width: 40px;
-  }
-  &::before{
-    left: 0;
-    background: linear-gradient(to right, rgba(252,252,252,1) 33%,rgba(252,252,252,0) 100%);
-  }
-  &::after {
-    background: linear-gradient(to left, rgba(252,252,252,1) 0%,rgba(252,252,252,0) 100%);
-    right: 0;
-  }
-}
 
 .leaflet-tile-pane {
   -webkit-filter: hue-rotate(-1100deg) saturate(50%);
@@ -151,3 +127,6 @@
   pointer-events: none;
 
 }
+
+
+

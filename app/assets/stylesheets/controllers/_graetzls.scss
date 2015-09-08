@@ -1,31 +1,13 @@
 section.graetzls {
 
-  #graetzlMapWidget {
-    height: 150px;
-    @include respond-to(">=medium") {
-      height: 200px;
-      &::before {
-        width: 50%;
-      }
-      &::after {
-        width: 60px;
-      }
-    }
-    @include respond-to(">=large") {
-      height: 200px;
-      &::before {
-        width: 400px;
-      }
-      &::after {
-        width: 100px;
-      }
-    }
-  }
-
   .mapImgBlock {
     margin-bottom: 30px;
     @include respond-to(">=large") {
       padding-bottom: 0;
+      &::after {
+        width: 500px;
+        left: 240px;
+      }
     }
 
     .activeArea {
@@ -117,11 +99,7 @@ section.graetzls {
     display: none;
   }
 
-
-
 }
-
-
 
 .illuDistrict {
   display: none;
@@ -138,7 +116,6 @@ section.graetzls {
     z-index: 9;
   }
   @include respond-to(">=large") {
-    top: 5px;
     left: 90px;
     width: 233px;
     height: 206px;
