@@ -1,7 +1,12 @@
 class Post < ActiveRecord::Base
+  include PublicActivity::Common
+  extend FriendlyId
+
+  # scopes
   default_scope { order(created_at: :desc) }
 
-  include PublicActivity::Common
+  # macros
+  friendly_id :date_and_snippet
 
   # associations
   belongs_to :graetzl
@@ -14,4 +19,9 @@ class Post < ActiveRecord::Base
   validates :content, presence: true
   validates :graetzl, presence: true
   validates :user, presence: true
+
+  # instance methods
+  def date_and_snippet
+    "#{Time.now.strftime('%m')} #{Time.now.strftime('%Y')} #{content[0..20]}..."
+  end
 end

@@ -6,6 +6,14 @@ RSpec.describe Post, type: :model do
     expect(build_stubbed(:post)).to be_valid
   end
 
+  describe 'attributes' do
+    let(:post) { create(:post) }
+
+    it 'has friendly_id' do
+      expect(post).to respond_to(:slug)
+    end
+  end
+
   describe 'associations' do
     let(:post) { create(:post) }
 
@@ -80,6 +88,20 @@ RSpec.describe Post, type: :model do
 
     it 'is invalid without graetzl' do
       expect(build(:post, graetzl: nil)).not_to be_valid
+    end
+  end
+
+  describe '#date_and_snippet' do
+    let(:post) { build(:post) }
+    let(:month) { Time.now.strftime('%m') }
+    let(:year) { Time.now.strftime('%Y') }
+
+    it 'includes month, year and ...' do
+      expect(post.date_and_snippet).to include(month, year, '...')
+    end
+
+    it 'includes 20 chars of content' do
+      expect(post.date_and_snippet).to include(post.content[0..20])
     end
   end
 end
