@@ -3,9 +3,7 @@
     <div class="sideBarbox staff">
       <h4 class="sideflag -L">Arbeiten hier</h4>
       <% @location.users.each do |u| %>
-        <%= attachment_image_tag(u, :avatar, :fill, 40, 40,
-                                    fallback: 'avatar/small_default.png',
-                                    class: 'img-round') %>
+        <%= avatar_for u, fill: [40, 40] %>
       <% end %>
     </div>
     <% if user_signed_in? && @location.owned_by(current_user) %>
@@ -14,20 +12,6 @@
       </div>
     <% end %>
   <% end %>
-
-  <div class="sideBarbox openinghours">
-    <h4 class="sideflag -L">Öffnungszeiten</h4>
-
-    <div class="icontxt">
-      <svg class="icon-time-clock">
-        <use xlink:href="#icon-time-clock"></use>
-      </svg>
-      <ul>
-        <li>Di - Fr 08:00 — 18:00</li>
-        <li>Sa 08:00 — 13:00</li>
-      </ul>
-    </div>
-  </div>
 
   <div class="sideBarbox contact">
     <h4 class="sideflag -L">Kontakt</h4>
@@ -60,8 +44,8 @@
       <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
       <%= "#{@location.address.zip} #{@location.address.city}" %>
       <% if @location.address.coordinates %>
-        <%= link_to "https://www.google.com/maps/place/#{@location.address.street_name}+#{@location.address.street_number}" do %>
-          <%= image_tag "http://maps.google.com/maps/api/staticmap?center=#{@location.address.coordinates.y},#{@location.address.coordinates.x}&zoom=16&scale=2&markers=#{@location.address.street_name}+#{@location.address.street_number} 22&size=250x250&sensor=TRUE_OR_FALSE" %>
+        <%= link_to google_map_url(@location.address) do %>
+          <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,250]) %>
         <% end %>
       <% end %>
     </div>

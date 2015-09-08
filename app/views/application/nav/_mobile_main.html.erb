@@ -5,6 +5,7 @@
     <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
   <% end %>
   <% if current_graetzl %>
+    <%= link_to current_graetzl.name, graetzl_path(current_graetzl) %>
     <%= link_to 'Treffen im Grätzl', graetzl_meetings_path(current_graetzl) %>
     <%= link_to 'Kreative Wirtschaft im Grätzl', graetzl_locations_path(current_graetzl) %>
     <a href="">Grätzlzuckerl im <%= l(Date.today, format: "%B") %></a>

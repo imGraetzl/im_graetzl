@@ -1,4 +1,6 @@
-<div class="txt"><%= post.content %></div>
+<%= link_to [post.graetzl, post] do %>
+  <div class="txt"><%= post.content %></div>
+<% end %>
 
 <% unless post.images.empty? %>
   <div class="entryImgUploads">

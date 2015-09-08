@@ -16,10 +16,6 @@ module MeetingsHelper
     end
   end
 
-  def map_link(coordinates)
-    "http://www.openstreetmap.org/?mlat=#{coordinates.y}&mlon=#{coordinates.x}&zoom=18"
-  end
-
   def address_description(address)
     if address.description.present?
       content_tag(:strong, address.description) + tag(:br)

@@ -6,6 +6,14 @@ RSpec.describe Post, type: :model do
     expect(build_stubbed(:post)).to be_valid
   end
 
+  describe 'attributes' do
+    let(:post) { create(:post) }
+
+    it 'has friendly_id' do
+      expect(post).to respond_to(:slug)
+    end
+  end
+
   describe 'associations' do
     let(:post) { create(:post) }
 
@@ -80,6 +88,41 @@ RSpec.describe Post, type: :model do
 
     it 'is invalid without graetzl' do
       expect(build(:post, graetzl: nil)).not_to be_valid
+    end
+  end
+
+  describe '#date_and_snippet' do
+    context 'when new object' do
+      let(:month) { Time.now.strftime('%m') }
+      let(:year) { Time.now.strftime('%Y') }
+      let(:post) { build(:post) }
+
+      it 'includes current month, year and ...' do
+        expect(post.date_and_snippet).to include(month, year, '...')
+      end
+
+      it 'includes 20 chars of content' do
+        expect(post.date_and_snippet).to include(post.content[0..20])
+      end
+    end
+    context 'when new object' do
+      let(:created_at_time) { Time.now-2.months }
+      let(:month) { created_at_time.strftime('%m') }
+      let(:year) { created_at_time.strftime('%Y') }
+      let(:post) { build(:post) }
+
+      before do
+        post.created_at = created_at_time
+        post.save(validate: false)
+      end
+
+      it 'includes current month, year and ...' do
+        expect(post.date_and_snippet).to include(month, year, '...')
+      end
+
+      it 'includes 20 chars of content' do
+        expect(post.date_and_snippet).to include(post.content[0..20])
+      end
     end
   end
 end
