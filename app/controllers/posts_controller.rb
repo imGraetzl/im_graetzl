@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    
+    @post = Post.includes(:images, :user, comments: [:user, :images]).find(params[:id])
   end
 
   private

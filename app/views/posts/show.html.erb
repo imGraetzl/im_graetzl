@@ -1,0 +1,39 @@
+<section class="pink">
+  <!-- link to user profile later -->
+  <%= link_to '#' do %>
+    <%= avatar_for @post.user %>
+    <span><%= @post.user.username %></span>
+  <% end %>
+  <p><%= l(@post.created_at, format:'%A, %d. %B %Y') %></p>
+</section>
+
+<section class="blue">
+  <div class="txt">
+    <%= @post.content %>
+  </div>
+  <% unless @post.images.empty? %>
+    <% @post.images.each do |image| %>
+      <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
+    <% end %>
+  <% end %>
+</section>
+
+<div class="stream">
+
+  <div id="stream-form">
+    <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @post } %>
+  </div>
+  <%= render partial: 'comments/comment', collection: @post.comments, layout: 'layouts/stream/element' %>
+
+</div>
+
+
+<!-- 90s I'm so yeah -->
+<style type="text/css">
+  section.pink {
+    background: lightpink;
+  }
+  section.blue {
+    background: lightsteelblue;
+  }
+</style>
