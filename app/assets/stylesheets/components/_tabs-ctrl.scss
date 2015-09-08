@@ -1,0 +1,46 @@
+.tabs-ctrl {
+
+}
+
+.tabs-nav {
+  border: 1px solid $color-ambient-mint-light;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  @include respond-to(">=medium") {
+    display: table;
+  }
+  a {
+    @include font-size-secondaryFont('base');
+    font-family: $font-secondary;
+    overflow: hidden;
+    padding-left: 20px;
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 20px;
+    border-right: solid 1px $color-ambient-mint-light;
+    text-decoration: none;
+  }
+  li {
+    display: block;
+    &:last-child a {
+      border: none;
+      margin-right: 0;
+    }
+    &:not(.active) a {
+      color: $color-ambient-grey;
+      &:hover {
+        color: darken($color-ambient-grey, 10);
+      }
+    }
+    &.active a {
+      color: $color-ambient-mint-dark;
+      background-color: $color-ambient-mint-light;
+    }
+    @include respond-to(">=medium") {
+      float: left;
+    }
+  }
+}
+

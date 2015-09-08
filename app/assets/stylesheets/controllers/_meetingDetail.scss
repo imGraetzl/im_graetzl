@@ -1,5 +1,6 @@
 section.meeting {
-  .cloudyImgHeader {
+  @include cf;
+  .imgHeader {
     @include respond-to(">=medium") {
       margin-bottom: -80px;
     }

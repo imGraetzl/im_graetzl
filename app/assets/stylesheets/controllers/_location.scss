@@ -6,7 +6,7 @@ section.locationPage {
     }
   }
 
-  .cloudyImgHeader {
+  .imgHeader {
     @include respond-to(">=medium") {
       margin-bottom: -40px;
     }
@@ -32,19 +32,19 @@ section.locationPage {
     }
   }
 
-}
-
-.sideBar {
-  position: relative;
-  z-index: 8;
-  @include respond-to(">=medium") {
-    float: left;
-    width: 38%;
-  }
-  @include respond-to(">=large") {
-    width: 33%;
+  .sideBar {
+    position: relative;
+    z-index: 8;
   }
 
+  .mainContent {
+    position: relative;
+    z-index: 8;
+    margin-bottom: 30px;
+    @include respond-to(">=medium") {
+      margin-bottom: 0;
+    }
+  }
 
   .staff {
     img {
@@ -87,16 +87,6 @@ section.locationPage {
   }
 }
 
-.sideBarbox {
-  margin-bottom: 40px;
-  .sideflag {
-    @include font-size-secondaryFont('small');
-    margin-bottom: 20px;
-  }
-  [class^=icon-] {
-    fill: $color-ambient-mint;
-  }
-}
 
 .tagCollection {
   list-style: none;
@@ -125,23 +115,6 @@ section.locationPage {
     display: block;
     margin-bottom: 8px;
     @include col(1/2, $cycle: 2);
-  }
-}
-
-
-.mainContent {
-  position: relative;
-  z-index: 8;
-  margin-bottom: 30px;
-  @include respond-to(">=medium") {
-    float: right;
-    width: 60%;
-    margin-bottom: 0;
-  }
-  @include respond-to(">=large") {
-    margin-right: -25px;
-    width: 66%;
-    width: calc(66% + 26px);
   }
 }
 
@@ -224,17 +197,6 @@ section.locationPage {
     }
   }
 
-  .meetingBoxCollection {
-    @include cf();
-    .meetingBox {
-      display: block;
-      margin-bottom: 25px;
-      @include respond-to(">=large") {
-        @include col(1/2, $gutter: 2, $cycle: 2);
-      }
-    }
-
-  }
 }
 
 
