@@ -22,6 +22,7 @@ class Post < ActiveRecord::Base
 
   # instance methods
   def date_and_snippet
-    "#{Time.now.strftime('%m')} #{Time.now.strftime('%Y')} #{content[0..20]}..."
+    time = created_at || Time.now
+    "#{time.strftime('%m')} #{time.strftime('%Y')} #{content[0..20]}..."
   end
 end

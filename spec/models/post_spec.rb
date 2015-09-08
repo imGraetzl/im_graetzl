@@ -92,16 +92,37 @@ RSpec.describe Post, type: :model do
   end
 
   describe '#date_and_snippet' do
-    let(:post) { build(:post) }
-    let(:month) { Time.now.strftime('%m') }
-    let(:year) { Time.now.strftime('%Y') }
+    context 'when new object' do
+      let(:month) { Time.now.strftime('%m') }
+      let(:year) { Time.now.strftime('%Y') }
+      let(:post) { build(:post) }
 
-    it 'includes month, year and ...' do
-      expect(post.date_and_snippet).to include(month, year, '...')
+      it 'includes current month, year and ...' do
+        expect(post.date_and_snippet).to include(month, year, '...')
+      end
+
+      it 'includes 20 chars of content' do
+        expect(post.date_and_snippet).to include(post.content[0..20])
+      end
     end
+    context 'when new object' do
+      let(:created_at_time) { Time.now-2.months }
+      let(:month) { created_at_time.strftime('%m') }
+      let(:year) { created_at_time.strftime('%Y') }
+      let(:post) { build(:post) }
 
-    it 'includes 20 chars of content' do
-      expect(post.date_and_snippet).to include(post.content[0..20])
+      before do
+        post.created_at = created_at_time
+        post.save(validate: false)
+      end
+
+      it 'includes current month, year and ...' do
+        expect(post.date_and_snippet).to include(month, year, '...')
+      end
+
+      it 'includes 20 chars of content' do
+        expect(post.date_and_snippet).to include(post.content[0..20])
+      end
     end
   end
 end
