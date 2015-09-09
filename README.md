@@ -106,6 +106,20 @@ The app in now available on your local machine's port 3000: **http://localhost:3
 
 The populate task adds 4 admin users: *malano, mirjam, jack, peter, jeanine, max, tawan* and a busines user *user_1* with password *secret*.
 
+#### Managing gems
+
+The box setup uses [rbenv](https://github.com/sstephenson/rbenv) to manage rubies and gems. To install gems / update accoding to changes in Gemfile:
+
+```
+# ssh into the box
+vagrant ssh
+cd /vagrant
+
+# run bundle command and rehash
+bundle install
+rbenv rehash
+```
+
 
 ### Stop the app
 Stop the rails server with `ctrl c`, exit the SSH session and suspend your Vagrant box.
