@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   attachment :avatar, type: :image
+  attachment :cover_photo, type: :image
   enum role: { admin: 0, business: 1 }
 
   # associations

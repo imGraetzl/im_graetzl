@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908104611) do
+ActiveRecord::Schema.define(version: 20150909083323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,10 @@ ActiveRecord::Schema.define(version: 20150908104611) do
     t.integer  "daily_mail_notifications",                  default: 0
     t.integer  "weekly_mail_notifications",                 default: 0
     t.string   "slug"
+    t.string   "cover_photo_id"
+    t.string   "cover_photo_content_type"
+    t.text     "bio"
+    t.string   "website"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

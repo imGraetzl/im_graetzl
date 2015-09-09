@@ -29,17 +29,17 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'attributes' do
+  describe 'macros' do
     let(:user) { build_stubbed(:user) }
+
+    it 'has friendly_id' do
+      expect(user).to respond_to(:slug)
+    end
 
     describe 'role' do
 
-      it 'has role' do
+      it 'has one' do
         expect(user).to respond_to(:role)
-      end
-
-      it 'has friendly_id' do
-        expect(user).to respond_to(:slug)
       end
 
       context 'when admin' do
@@ -65,6 +65,37 @@ RSpec.describe User, type: :model do
           expect(user.admin?).to eq(false)
         end
       end
+    end
+
+    describe 'photos' do
+
+      it 'has avatar' do
+        expect(user).to respond_to(:avatar)
+      end
+
+      it 'has avatar_content_type' do
+        expect(user).to respond_to(:avatar_content_type)
+      end
+
+      it 'has cover_photo' do
+        expect(user).to respond_to(:cover_photo)
+      end
+
+      it 'has cover_photo_content_type' do
+        expect(user).to respond_to(:cover_photo_content_type)
+      end
+    end
+  end
+
+  describe 'attributes' do
+    let(:user) { build(:user) }
+
+    it 'has bio' do
+      expect(user).to respond_to(:bio)
+    end
+
+    it 'has website' do
+      expect(user).to respond_to(:website)
     end
   end
 
@@ -97,17 +128,6 @@ RSpec.describe User, type: :model do
 
     it 'has wall_posts' do
       expect(user).to respond_to(:wall_posts)
-    end
-
-    describe 'avatar' do
-
-      it 'has avatar' do
-        expect(user).to respond_to(:avatar)
-      end
-
-      it 'has avatar_content_type' do
-        expect(user).to respond_to(:avatar_content_type)
-      end
     end
 
     describe 'destroy associated records' do
