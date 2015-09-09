@@ -2,7 +2,9 @@ class User < ActiveRecord::Base
   include PublicActivity::Common
   extend FriendlyId
 
-  # macros  
+  # macros
+  attr_accessor :login # virtual attribute to login with username or email
+  GENDER_TYPES = { weiblich: 1, männlich: 2, anders: 3 }
   friendly_id :username
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
@@ -21,13 +23,7 @@ class User < ActiveRecord::Base
   has_many :location_ownerships
   has_many :locations, through: :location_ownerships
   has_many :wall_posts, as: :commentable, class_name: Comment
-
   accepts_nested_attributes_for :address
-
-  # attributes
-    # virtual attribute to login with username or email
-    attr_accessor :login
-  GENDER_TYPES = { weiblich: 1, männlich: 2, anders: 3 }
 
   # validations
   validates :graetzl, presence: true

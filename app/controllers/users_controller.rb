@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   #include GraetzlChild
 
   def show
-    @user = User.find(params[:id])
+    @user = User.includes(:comments, meetings: [:going_tos]).find(params[:id])
     redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
   end
 
