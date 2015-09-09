@@ -16,17 +16,31 @@ APP.controllers.districts = (function() {
         });
 
 
+        // gets called on index
         if($('section.vienna').exists()){
+            console.log("SELECT VIENNA FUNCTION");
+            var districts = jQuery('section.vienna').data('map');
             map.init(function() {
-                    map.showMapDistrict(null, {
-                        interactive: true
-                    });
-                }
+                map.showMapDistrict(null, {
+                    interactive: true
+                });
+                }, {districts: districts}
             );
+            // var url= jQuery('section.vienna').data('url');
+            // $.when($.getJSON(url)).done(function(districts) {
+
+            //     map.init(function() {
+            //             map.showMapDistrict(null, {
+            //                 interactive: true
+            //             });
+            //         }, {districts: districts}
+            //     );
+            // });
         }
 
 
         if($('section.districts').exists()){
+            console.log("SELECT DISTRICTS");
             var mapvisible= jQuery('section.districts').data('mapvisible');
             map.init(function() {
                     map.showMapDistrict(mapvisible.districts, {

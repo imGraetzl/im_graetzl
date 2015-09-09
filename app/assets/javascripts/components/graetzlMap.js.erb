@@ -32,9 +32,13 @@ APP.components.graetzlMap = (function() {
         };
 
     function init(callback, options) {
-        $.when($.getJSON("<%= asset_path('graetzls.json') %>"), $.getJSON("<%= asset_path('districts.json') %>")).done(function(featureGraetzl, featureDistrict) {
+        console.log('INIT MAP' + options);
+        //$.when($.getJSON("<%= asset_path('graetzls.json') %>"), $.getJSON("<%= asset_path('districts.json') %>")).done(function(featureGraetzl, featureDistrict) {
+        $.when($.getJSON("<%= asset_path('graetzls.json') %>")).done(function(featureGraetzl) {
                 geoGraetzl = featureGraetzl[0];
-                geoVienna = featureDistrict[0];
+                //geoVienna = featureDistrict[0];
+                geoVienna = options.districts;
+                console.log(geoVienna);
                 map = L.map('graetzlMapWidget', {
                     layers: [mainLayer],
                     dragging: false,
@@ -51,6 +55,7 @@ APP.components.graetzlMap = (function() {
 
 
     function showMapDistrict(districts, options) {
+        console.log('SHOW DISTRICT');
         var config = $.extend({}, defaults, options);
         var districtMap = L.geoJson(geoVienna, {
             style: function () {
@@ -82,6 +87,7 @@ APP.components.graetzlMap = (function() {
                 } else {
                     return true;
                 }
+                return true;
             }
         });
 
