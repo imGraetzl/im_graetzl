@@ -18,6 +18,13 @@ RSpec.describe UsersController, type: :routing do
         graetzl_id: 'graetzl-slug',
         id: 'user-slug')
     end
+
+    it 'routes GET /users/user-slug/edit to users#edit' do
+      expect(get: '/users/user-slug/edit').to route_to(
+        controller: 'users',
+        action: 'edit',
+        id: 'user-slug')
+    end
   end
 
   describe 'named routes' do
@@ -34,6 +41,13 @@ RSpec.describe UsersController, type: :routing do
         controller: 'users',
         action: 'show',
         graetzl_id: 'graetzl-slug',
+        id: 'user-slug')
+    end
+
+    it 'routes GET edit_user_path(user-slug) to users#edit' do
+      expect(get: edit_user_path('user-slug')).to route_to(
+        controller: 'users',
+        action: 'edit',
         id: 'user-slug')
     end
   end
