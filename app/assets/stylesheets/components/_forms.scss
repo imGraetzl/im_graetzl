@@ -46,6 +46,15 @@ input, select, textarea {
 }
 
 %field {
+
+
+  &.disabled {
+    > label {
+      color: $color-ambient-grey;
+      border-color: $color-ambient-grey-light;
+    }
+  }
+
   > label {
     display: flex;
     font-style: italic;
@@ -62,6 +71,7 @@ input, select, textarea {
 
     [class^=icon] {
       fill: currentcolor;
+      flex: 0 0 auto;
     }
 
     [class^=icon] + span {
@@ -78,6 +88,10 @@ input, select, textarea {
     flex-grow: 1;
     &:last-of-type {
       border-radius: 0 0 4px 4px;
+    }
+    &[disabled] {
+      background-color: $color-ambient-grey-light;
+      color: $color-ambient-grey !important;
     }
   }
 
@@ -234,6 +248,47 @@ input, select, textarea {
   input:checked + label {
     &:before {
       background-color: $color-font-primary;
+    }
+  }
+}
+
+.input-switch {
+  width: 80px;
+  height: 40px;
+  position: relative;
+  input {
+    display: none;
+  }
+  label {
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: #fff;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 2px solid lighten($color-ambient-grey,20);
+    padding: 2px;
+    transition: all 0.2s;
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      background-color: lighten($color-ambient-grey,20);
+      z-index: 2;
+      transform: translate(0, 0);
+      border-radius: 50%;
+      transition: all 0.2s;
+      left: 4px;
+      top: 4px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+  input:checked + label {
+    border-color: $color-ambient-mint;
+    &:before {
+      background-color: $color-ambient-mint;
+      left: 44px;
     }
   }
 }
