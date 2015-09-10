@@ -7,8 +7,6 @@ class GraetzlsController < ApplicationController
     @graetzl = Graetzl.find(params[:id])
     @activities = @graetzl.activity
     @meetings = @graetzl.meetings.upcoming.first(2)
-    @map_data = {
-      graetzls: GeoJSONService.graetzl(@graetzl),
-    }.to_json
+    @map_data = GeoJSONService.call(graetzls: @graetzl)
   end
 end

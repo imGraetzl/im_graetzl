@@ -32,27 +32,6 @@ APP.components.graetzlMap = (function() {
         };
 
     function init(callback, options) {
-        //$.when($.getJSON("<%= asset_path('graetzls.json') %>"), $.getJSON("<%= asset_path('districts.json') %>")).done(function(featureGraetzl, featureDistrict) {
-        // $.when($.getJSON("<%= asset_path('graetzls.json') %>")).done(function(featureGraetzl) {
-        //         geoGraetzl = featureGraetzl[0];
-        //         //geoVienna = featureDistrict[0];
-        //         geoVienna = options.districts;
-        //         console.log(geoVienna);
-        //         map = L.map('graetzlMapWidget', {
-        //             layers: [mainLayer],
-        //             dragging: false,
-        //             touchZoom: false,
-        //             scrollWheelZoom: false,
-        //             doubleClickZoom: false,
-        //             boxZoom: false,
-        //             tap: false
-        //         }).setActiveArea('activeArea');
-        //         callback();
-        //     }
-        // );
-        //geoGraetzl = featureGraetzl[0];
-        // geoVienna = options.districts || null;
-        // console.log(geoVienna);
         map = L.map('graetzlMapWidget', {
             layers: [mainLayer],
             dragging: false,
@@ -67,8 +46,6 @@ APP.components.graetzlMap = (function() {
 
 
     function showMapDistrict(districts, options) {
-        // change districts param (prev geoVienna)
-        console.log('SHOW DISTRICT');
         var config = $.extend({}, defaults, options);
         var districtMap = L.geoJson(districts, {
             style: function () {
@@ -82,26 +59,14 @@ APP.components.graetzlMap = (function() {
                     });
                     layer.on('mouseover', function () {
                         this.setStyle(styles.over);
-                        $('.mapInfoText').html('<div class="districtNumber">' + feature.properties.BEZNR + ' . Bezirk</div> <div class="districtName">' + feature.properties.NAMEK + '</div>');
+                        $('.mapInfoText').html('<div class="districtNumber">' + feature.properties.zip + ' . Bezirk</div> <div class="districtName">' + feature.properties.name + '</div>');
                     });
                     layer.on('mouseout', function () {
                         districtMap.resetStyle(layer);
                         $('.mapInfoText').empty();
                     });
                 }
-            },
-            // filter: function(feature, layer) {
-            //     if (districts != null || districts != undefined) {
-            //         for (var i = 0; i < districts.length; i++) {
-            //             if (feature.properties.BEZNR == districts[i]) {
-            //                 return true;
-            //             }
-            //         }
-            //     } else {
-            //         return true;
-            //     }
-            //     return true;
-            // }
+            }
         });
 
         map.addLayer(districtMap, true);
@@ -112,7 +77,7 @@ APP.components.graetzlMap = (function() {
     }
 
 
-    function showMapGraetzl(graetzls, inDistricts, options) { // Array or String
+    function showMapGraetzl(graetzls, options) { // Array or String
         var config = $.extend({}, defaults, options);
         var graetzlMap = L.geoJson(graetzls, {
             style: function() {
@@ -132,23 +97,7 @@ APP.components.graetzlMap = (function() {
                         $('.mapInfoText').empty();
                     });
                 }
-            },
-            // filter: function(feature, layer) {
-            //     if (visibleGraetzl != null || visibleGraetzl != undefined) {
-            //         for (var i = 0; i < visibleGraetzl.length; i++) {
-            //             if (feature.properties.graetzlID == visibleGraetzl[i]) {
-            //                 return true;
-            //             }
-            //         }
-            //     }
-            //     if (inDistricts != null || inDistricts != undefined) {
-            //         for (var i = 0; i < inDistricts.length; i++) {
-            //             if(feature.properties.districts && feature.properties.districts.indexOf(inDistricts[i]) > -1) {
-            //                 return true;
-            //             }
-            //         }
-            //     }
-            // }
+            }
         });
 
         map.addLayer(graetzlMap);

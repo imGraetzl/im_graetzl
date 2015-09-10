@@ -5,7 +5,7 @@ APP.controllers.graetzls = (function() {
     function init() {
         var mapdata = jQuery('section.graetzls').data('mapdata');
         map.init(function() {
-                map.showMapGraetzl(mapdata.graetzls, null, {
+                map.showMapGraetzl(mapdata.graetzls, {
                     style: $.extend(map.styles.rose, {
                         weight: 4,
                         fillOpacity: 0.2

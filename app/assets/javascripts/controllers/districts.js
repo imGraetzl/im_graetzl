@@ -16,9 +16,7 @@ APP.controllers.districts = (function() {
         });
 
 
-        // gets called on index
         if($('section.vienna').exists()){
-            console.log("SELECT VIENNA FUNCTION");
             var mapdata = jQuery('section.vienna').data('mapdata');
             map.init(function() {
                 console.log(mapdata.districts);
@@ -27,22 +25,10 @@ APP.controllers.districts = (function() {
                 });
                 }
             );
-            // var url= jQuery('section.vienna').data('url');
-            // $.when($.getJSON(url)).done(function(districts) {
-
-            //     map.init(function() {
-            //             map.showMapDistrict(null, {
-            //                 interactive: true
-            //             });
-            //         }, {districts: districts}
-            //     );
-            // });
         }
 
 
         if($('section.districts').exists()){
-            console.log("SELECT DISTRICTS");
-            //var mapvisible= jQuery('section.districts').data('mapvisible');
             var mapdata = jQuery('section.districts').data('mapdata');
             map.init(function() {
                     map.showMapDistrict(mapdata.districts, {
@@ -51,7 +37,7 @@ APP.controllers.districts = (function() {
                             fillOpacity: 0.5
                         })
                     });
-                    map.showMapGraetzl(mapdata.graetzls, null, {
+                    map.showMapGraetzl(mapdata.graetzls, {
                         interactive: true,
                         zoomAfterRender: false
                     });
