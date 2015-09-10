@@ -1,6 +1,7 @@
 <% title(@district.name) %>
 
-<section class="districts" data-mapvisible='{"districts":["2"]}'>
+<!-- <section class="districts" data-mapvisible='{"districts":["2"]}'> -->
+<section class="districts" data-mapdata="<%= @map_data %>">
 
   <div class="mapImgBlock">
     <div id="graetzlMapWidget"></div>
