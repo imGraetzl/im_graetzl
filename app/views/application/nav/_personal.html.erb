@@ -8,7 +8,7 @@
       <div class="iconWithBadge">
         <%- notifications_count = current_user.new_website_notifications_count %>
         <div <%- if notifications_count == 0 %> style="display: none;" <%- end %> class="badgeNumber" id="notificationsCount"><%= notifications_count %></div>
-        <svg class="icon-mail-1"><use xlink:href="#icon-mail-1"></use></svg>
+        <svg class="icon-bell"><use xlink:href="#icon-bell"></use></svg>
       </div>
     </div>
 
@@ -30,10 +30,10 @@
     <div class="usersettingsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative dropDownContainer">
       <div class="jq-dropdown-panel nav-usersettings">
         <%= link_to user_path(current_user) do %>
-          <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profil
+            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>Profil
         <% end %>
         <%= link_to user_notification_settings_path do %>
-          <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profileinstellungen
+          <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Einstellungen
         <% end %>
         <% if current_user.admin? %>
           <%= link_to admin_root_path do %>

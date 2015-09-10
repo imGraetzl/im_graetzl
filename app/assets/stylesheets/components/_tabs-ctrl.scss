@@ -3,7 +3,7 @@
 }
 
 .tabs-nav {
-  border: 1px solid $color-ambient-mint-light;
+  border: 1px solid $color-ambient-grey-light;
   border-radius: 4px;
   margin-bottom: 30px;
   overflow: hidden;
@@ -19,7 +19,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
     padding-right: 20px;
-    border-right: solid 1px $color-ambient-mint-light;
+    border-right: solid 1px $color-ambient-grey-light;
     text-decoration: none;
   }
   li {
@@ -31,15 +31,20 @@
     &:not(.active) a {
       color: $color-ambient-grey;
       &:hover {
-        color: darken($color-ambient-grey, 10);
+        color: lighten($color-ambient-grey,10);
       }
     }
     &.active a {
       color: $color-ambient-mint-dark;
-      background-color: $color-ambient-mint-light;
+      background-color: #fff;
     }
     @include respond-to(">=medium") {
       float: left;
+    }
+  }
+  &.-small {
+    a {
+      @include font-size-secondaryFont('small');
     }
   }
 }

@@ -16,13 +16,11 @@ APP.controllers.notification_settings = (function() {
         jQuery.post("/users/notification_settings/toggle_website_notification", {
           type: notification_type }).
           done(function(response) {
-            $('#toggle_' + notification_type + ' .on').toggle();
-            $('#toggle_' + notification_type + ' .off').toggle();
           })
         .fail(function() {
           alert("Etwas ist schief gegangen!");
         });
-      }); 
+      });
 
       $('#mail_notification_settings_' + notification_type).change(function() {
         jQuery.post("/users/notification_settings/change_mail_notification", {
@@ -32,7 +30,7 @@ APP.controllers.notification_settings = (function() {
         .fail(function() {
           alert("Etwas ist schief gegangen!");
         });
-      }); 
+      });
     });
   }
 

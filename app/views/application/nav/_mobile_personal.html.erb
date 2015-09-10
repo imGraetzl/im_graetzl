@@ -1,7 +1,10 @@
 <div class="mobileUserSettings" data-mobileNavID="usersettings">
   <div class="nav-usersettings">
+    <%= link_to user_path(current_user) do %>
+        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>Profil
+    <% end %>
     <%= link_to user_notification_settings_path do %>
-      <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Profileinstellungen
+      <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Einstellungen
     <% end %>
     <% if current_user.admin? %>
       <%= link_to admin_root_path do %>

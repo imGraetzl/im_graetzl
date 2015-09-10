@@ -40,7 +40,6 @@
 @import "components/meetingBoxes";
 @import "components/zuckerlBox";
 @import "components/graetzlMapWidget";
-@import "components/userprofile";
 @import "components/ownMeetingBox";
 @import "components/commonTypograpy";
 @import "components/link-more";
@@ -67,6 +66,8 @@
 @import "controllers/meetingDetail";
 @import "controllers/meetings";
 @import "controllers/session";
+@import "controllers/userprofile";
+@import "controllers/usersettings";
 @import "controllers/homeOut";
 @import "controllers/graetzls";
 @import "controllers/districts";
