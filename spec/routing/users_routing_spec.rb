@@ -19,10 +19,17 @@ RSpec.describe UsersController, type: :routing do
         id: 'user-slug')
     end
 
-    it 'routes GET /users/user-slug/edit to users#edit' do
-      expect(get: '/users/user-slug/edit').to route_to(
+    it 'routes GET /users/user-slug/einstellungen to users#edit' do
+      expect(get: '/users/user-slug/einstellungen').to route_to(
         controller: 'users',
         action: 'edit',
+        id: 'user-slug')
+    end
+
+    it 'routes PUT /users/user-slug to users#update' do
+      expect(put: '/users/user-slug').to route_to(
+        controller: 'users',
+        action: 'update',
         id: 'user-slug')
     end
   end
@@ -48,6 +55,13 @@ RSpec.describe UsersController, type: :routing do
       expect(get: edit_user_path('user-slug')).to route_to(
         controller: 'users',
         action: 'edit',
+        id: 'user-slug')
+    end
+
+    it 'routes PUT user_path(user-slug) to users#update' do
+      expect(put: user_path('user-slug')).to route_to(
+        controller: 'users',
+        action: 'update',
         id: 'user-slug')
     end
   end

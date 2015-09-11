@@ -66,4 +66,57 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET edit' do
+    context 'when logged out' do
+      it 'redirects to login with flash' do
+        get :edit, id: create(:user)
+        expect(response).to render_template(session[:new])
+        expect(flash[:alert]).to be_present
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before { sign_in user }
+
+      context 'when user is other user' do
+        it 'redirect_to to current_user with alert' do
+          get :edit, id: create(:user)
+          expect(response).to redirect_to([user.graetzl, user])
+          expect(flash[:alert]).to be_present
+        end
+      end
+      context 'when user is current_user' do
+        before { get :edit, id: user }
+
+        it 'assigns @user' do
+          expect(assigns(:user)).to eq user
+        end
+
+        it 'renders :edit' do
+          expect(response).to render_template(:edit)
+        end
+      end
+    end
+  end
+  describe 'PUT update' do
+    context 'when logged out' do
+      it 'redirects to login with flash' do
+        put :update
+        expect(response).to render_template(session[:new])
+        expect(flash[:alert]).to be_present
+      end
+    end
+    context 'when logged in' do
+      context 'when user is other user' do
+        it 'redirect_to to current_user with alert' do
+          put :update, id: create(:user)
+          expect(response).to redirect_to([user.graetzl, user])
+          expect(flash[:alert]).to be_present
+        end
+      end
+      context 'when user is current_user' do
+      end
+    end
+  end
 end

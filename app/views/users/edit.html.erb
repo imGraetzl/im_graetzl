@@ -1,1 +1,14 @@
-<h1>would be edit view</h1>
+<section class="user-settings">
+
+  <div class='tabs-ctrl'>
+    <ul class="tabs-nav">
+      <li><a href="#tab-1">Persönliche Daten</a></li>
+      <li><a href="#tab-2">Benachrichtigungen</a></li>
+      <li><a href="#tab-3">Meine Locations</a></li>
+    </ul>
+  </div>
+
+  <div id='tab-1' class="personal-settings">
+    <%= render 'edit_profile', user: @user %>
+  </div>
+</section>

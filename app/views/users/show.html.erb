@@ -18,7 +18,7 @@
             <svg class="icon-globe">
               <use xlink:href="#icon-globe"></use>
             </svg>
-            <%= @location.contact.website.sub(/^https?\:\/\//,'') %>
+            <%= @user.website.sub(/^https?\:\/\//,'') %>
           <% end %>
         <% end %>
         <div class="icontxt">

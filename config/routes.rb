@@ -80,7 +80,8 @@ Rails.application.routes.draw do
     resource :comments, module: :posts, only: [:create]
   end
 
-  resources :users, only: [:show, :edit] do
+  resources :users, only: [:show, :edit, :update],
+    path_names: { edit: 'einstellungen' } do
     resource :comments, module: :users, only: [:create]
   end
 

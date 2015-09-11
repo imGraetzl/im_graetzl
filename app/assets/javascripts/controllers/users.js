@@ -2,7 +2,8 @@ APP.controllers.users = (function() {
 
     function init() {
       $('.tabs-ctrl').tabslet({
-            animation: true
+            animation: true,
+            deeplinking: true
         });
     }
     

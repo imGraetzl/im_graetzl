@@ -33,6 +33,12 @@ RSpec.describe Users::RegistrationsController, type: :routing do
         controller: 'users/registrations',
         action: 'graetzl')
     end
+
+    # it 'routes GET /users/einstellungen to users/registrations#edit' do
+    #   expect(get: '/users/einstellungen').to route_to(
+    #     controller: 'users/registrations',
+    #     action: 'edit')
+    # end
   end
 
   describe 'named routes' do
@@ -66,5 +72,11 @@ RSpec.describe Users::RegistrationsController, type: :routing do
         controller: 'users/registrations',
         action: 'create')
     end
+
+    # it 'routes GET edit_registration_path to users/registrations#edit' do
+    #   expect(get: edit_registration_path).to route_to(
+    #     controller: 'users/registrations',
+    #     action: 'edit')
+    # end
   end
 end
