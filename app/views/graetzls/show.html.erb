@@ -123,15 +123,18 @@
 
   </div>
 
-  <div class="wrp-stream">
-    <h2>Neues im <span>Stuwerviertel</span> Stream</h2>
-    <div class="streamEntryNav">
-      <span class="createEntry icontxt"><svg class="icon-speech-bubble"><use xlink:href="#icon-speech-bubble"></use></svg>Beitrag</span>
-      <a href="#" class="createMeeting">Treffen anlegen</a>
-    </div>
+  <% if user_signed_in? %>
+      <div class="wrp-stream">
+        <h2>Neues im <span><%= @graetzl.name %></span> Stream</h2>
+        <div class="streamEntryNav">
+          <span class="createEntry icontxt"><svg class="icon-speech-bubble"><use xlink:href="#icon-speech-bubble"></use></svg>Beitrag</span>
+          <a href="/treffen/new" class="createMeeting">Treffen anlegen</a>
+        </div>
 
-    <%= render 'stream' if user_signed_in? %>
-  </div>
+      </div>
+      <%= render 'stream' %>
+  <% end %>
+
 
 
 </section>
