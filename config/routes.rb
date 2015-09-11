@@ -80,10 +80,11 @@ Rails.application.routes.draw do
     resource :comments, module: :posts, only: [:create]
   end
 
-  resources :users, only: [:show, :edit, :update],
-    path_names: { edit: 'einstellungen' } do
+  resources :users, only: [:show, :update] do
     resource :comments, module: :users, only: [:create]
   end
+
+  resource :user, only: [:edit], path_names: { edit: 'einstellungen' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,14 +1,19 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_graetzl, only: [:show]
-  before_action :correct_user, only: [:edit, :update]
 
   def show
     @user = User.includes(:comments, meetings: [:going_tos]).find(params[:id])
     redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
   end
 
+  def edit
+    @user = current_user
+  end
+
   def update
+    puts user_params
+    @user = User.find(params[:id])
     if @user.update(user_params)
       sign_in @user, bypass: true
       redirect_to [@user.graetzl, @user], notice: 'Profil gespeichert!'
@@ -25,13 +30,6 @@ class UsersController < ApplicationController
 
   def wrong_graetzl?
     !@graetzl || (@graetzl != @user.graetzl)
-  end
-
-  def correct_user
-    @user = User.find(params[:id])
-    if @user != current_user
-      redirect_to [current_user.graetzl, current_user], alert: 'Du hast keine Rechte für diesen User'
-    end
   end
 
   def user_params

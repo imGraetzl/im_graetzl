@@ -70,52 +70,76 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET edit' do
     context 'when logged out' do
       it 'redirects to login with flash' do
-        get :edit, id: create(:user)
+        get :edit
         expect(response).to render_template(session[:new])
         expect(flash[:alert]).to be_present
       end
     end
     context 'when logged in' do
       let(:user) { create(:user) }
-      before { sign_in user }
-
-      context 'when user is other user' do
-        it 'redirect_to to current_user with alert' do
-          get :edit, id: create(:user)
-          expect(response).to redirect_to([user.graetzl, user])
-          expect(flash[:alert]).to be_present
-        end
+      before do
+        sign_in user
+        get :edit
       end
-      context 'when user is current_user' do
-        before { get :edit, id: user }
 
-        it 'assigns @user' do
-          expect(assigns(:user)).to eq user
-        end
+      it 'assigns @user with current_user' do
+        expect(assigns(:user)).to eq user
+      end
 
-        it 'renders :edit' do
-          expect(response).to render_template(:edit)
-        end
+      it 'renders :edit' do
+        expect(response).to render_template(:edit)
       end
     end
   end
   describe 'PUT update' do
     context 'when logged out' do
       it 'redirects to login with flash' do
-        put :update
+        put :update, id: create(:user)
         expect(response).to render_template(session[:new])
         expect(flash[:alert]).to be_present
       end
     end
     context 'when logged in' do
-      context 'when user is other user' do
-        it 'redirect_to to current_user with alert' do
-          put :update, id: create(:user)
-          expect(response).to redirect_to([user.graetzl, user])
-          expect(flash[:alert]).to be_present
+      let!(:user) { create(:user) }
+      let(:params) {
+        {
+          id: user,
+          user: { email: 'new@newer.com' }
+        }
+      }
+      before { sign_in user }
+      
+      describe 'change attributes' do
+
+        it 'updates user record' do
+          expect{
+            put :update, params
+            user.reload
+          }.to change(user, :email)
+        end
+
+        it 'does not change password' do
+          expect{
+            put :update, params
+            user.reload
+          }.not_to change(user, :password)
+        end
+
+        describe 'request' do
+          before { put :update, params }
+
+          it 'assigns @user' do
+            expect(assigns(:user)).to eq user
+          end
+
+          it 'redirect_to to current_user with notice' do
+            expect(response).to redirect_to([user.graetzl, user])
+            expect(flash[:notice]).to be_present
+          end
         end
       end
-      context 'when user is current_user' do
+      describe 'change password' do
+        it "is a pending example"
       end
     end
   end
