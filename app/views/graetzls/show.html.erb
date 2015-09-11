@@ -23,18 +23,115 @@
   </div>
 
 
-  <% if @meetings.present? %>
-    <div class="teaserBlock">
 
-      <h2>Nächste Treffen</h2>
-      <div class="meetingBoxes">
-        <%= render partial: 'meetings/box', collection: @meetings, as: 'meeting' %>
+  <div class="teaserBlock">
+
+    <div class="meetingBoxes -quart">
+      <% if @meetings.present? %>
+          <%= render partial: 'meetings/box', collection: @meetings, as: 'meeting' %>
+      <% end %>
+
+      <div class="wrp-cardBox">
+        <h2>Treffen & Events</h2>
+        <div class="cardBox meetBox">
+          <div class="cardBoxHeader">
+            <a href="#">
+              <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="Cover photo">
+            </a>
+            <div class="calendarSheet">
+              <div class="day">18</div>
+              <div class="month">Sep</div>
+            </div>
+            <div class="sideflag -R">Stuwerviertel</div>
+            <div class="initiator">
+              <img class="attachment user avatar img-round" src="https://placeimg.com/100/100/pepople" >
+              <span>mirjam</span>
+            </div>
+          </div>
+          <h3>Launch Party von imGrätzl.at beim Stuwerviertelfest</h3>
+          <a class="btn-primary -mint" href="/stuwerviertel/treffen/launch-party-von-imgratzl-at-beim-stuwerviertelfest">Mitmachen</a>
+          <a href="#" class="icontxt">
+            Alle Treffen & Events<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
+          </a>
+        </div>
       </div>
 
-      <%= link_to 'Alle Treffen', graetzl_meetings_path(@graetzl), class: 'link-more' %>
-    </div>
-  <% end %>
+      <div class="wrp-cardBox">
+        <h2>Initiativen</h2>
+        <div class="cardBox initiativeBox">
+          <h3><svg class="icon-lightbulb"><use xlink:href="#icon-lightbulb"></use></svg>Du hast eine Idee für dein Grätzl?</h3>
+          <div class="txt">
+            <p>Ein Community-Gartenprojekt, ein Flohmarkt, eine Charityaktion?</p>
+            <p><strong>Wir arbeiten an dieser Funktion!</strong> Bald kannst du deine Idee hier eintragen und Mitorganisatoren bzw. Unterstützer finden.</p>
+          </div>
+        </div>
+      </div>
 
-  <%= render 'stream' if user_signed_in? %>
+      <div class="wrp-cardBox">
+        <h2>Locations</h2>
+        <div class="cardBox locationBox">
+
+          <a href="#" class="locationUserSlice">
+            <div class="wrp-user">
+              <img src="https://placeimg.com/100/100/pepople?4" alt="" class="img-round">
+              <div class="col">
+                <span class="username">Sepp Forcher</span><br>
+                betreibt
+              </div>
+            </div>
+            <div class="locationName">
+              Palette - Bio und<br>feinstes vom Land
+            </div>
+          </a>
+
+          <a href="#" class="locationUserSlice">
+            <div class="wrp-user">
+              <img src="https://placeimg.com/100/100/pepople?7" alt="" class="img-round">
+              <div class="col">
+                <span class="username">Jazz Gitte</span><br>
+                betreibt
+              </div>
+            </div>
+            <div class="locationName">
+              Wohnwagenverleih für Waldmenschen
+            </div>
+          </a>
+
+          <a href="#" class="icontxt">
+            Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
+          </a>
+        </div>
+
+
+
+      </div>
+
+      <div class="wrp-cardBox">
+        <div class="cardBox candyBox">
+          <h3>Entdecke<br>einzigartiges im Grätzl!</h3>
+          <div class="txt">
+            <p>Stöbere durch besondere Angebote von grätzlansässigen Kreativen, Selbständigen und kleinen Unternehmen im Viertel.</p>
+            <p>Jeder erste Mittwoch des Monats ist Grätzlzuckerltag und es erscheinen neue Angebote!</p>
+          </div>
+          <a href="#" class="icontxt">
+            Zu den Grätzlzuckerl<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="wrp-stream">
+    <h2>Neues im <span>Stuwerviertel</span> Stream</h2>
+    <div class="streamEntryNav">
+      <span class="createEntry icontxt"><svg class="icon-speech-bubble"><use xlink:href="#icon-speech-bubble"></use></svg>Beitrag</span>
+      <a href="#" class="createMeeting">Treffen anlegen</a>
+    </div>
+
+    <%= render 'stream' if user_signed_in? %>
+  </div>
+
 
 </section>

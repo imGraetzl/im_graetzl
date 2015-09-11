@@ -65,6 +65,7 @@ section.graetzls {
         }
       }
     }
+
     h1 {
       @include font-size-secondaryFont('large');
       @include headlineBarbapapa;
@@ -74,13 +75,18 @@ section.graetzls {
 
   }
 
+  .textEditor:before {
+    left: 21px;
+    top: -15px;
+    position: absolute;
+    transform: rotate(90deg);
+  }
+
   .teaserBlock {
     @include cf();
     margin-bottom: 40px;
-    border-bottom: 1px dotted $color-ambient-mint-light;
-    padding-bottom: 3rem;
     @include respond-to(">=medium") {
-      margin-bottom: 70px;
+      margin-bottom: 50px;
     }
 
     .meetingBoxes {
@@ -90,31 +96,104 @@ section.graetzls {
         }
       }
     }
-    h2 {
-      @include font-size-secondaryFont('base');
-      margin-bottom: 30px;
-      text-align: center;
-      @include respond-to(">=large") {
-        width: 66%;
-      }
-    }
 
-    .link-more {
-      @include font-size-primaryFont('large');
-      margin: 0 auto;
-      display: table;
-      z-index: 3;
-      position: relative;
-      @include respond-to(">=large") {
-        float: right;
-        margin-right: 10px;
-        display: block;
-      }
-    }
   }
 
   .sideflag {
     display: none;
+  }
+
+  .cardBox {
+    .icontxt {
+      margin-left: auto;
+      margin-right: -7px;
+      display: table;
+      [class^=icon-] {
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 0;
+      }
+    }
+
+  }
+
+
+  .wrp-cardBox {
+    h2:first-child {
+      height: 35px;
+      margin-bottom: 0;
+    }
+  }
+
+  .candyBox {
+    margin-top: 35px;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: -45px;
+      left: 123px;
+      width: 130px;
+      height: 71px;
+      background-image: url(image_path('graetzlzuckerl.png'));
+      background-position: 0 0;
+      background-size: 130px 71px;
+      background-repeat: no-repeat;
+    }
+
+  }
+
+  .meetBox {
+    .btn-primary {
+      margin-bottom: 20px;
+    }
+  }
+
+  .initiativeBox {
+    [class^=icon-] {
+      width: 50px;
+      height: 50px;
+      float: left;
+      margin-left: -10px;
+    }
+  }
+
+  .locationBox {
+    padding-top: 15px;
+  }
+
+  .locationUserSlice {
+    margin-bottom: 20px;
+    display: block;
+    text-decoration: none;
+    color: $color-font-primary;
+
+    &:hover {
+      .locationName {
+        color: $color-ambient-rosa;
+      }
+    }
+    .wrp-user {
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      margin-bottom: 5px;
+      .img-round {
+        flex: 0 0 auto;
+        margin-right: 10px;
+      }
+      .col {
+        font-size: 1.4rem;
+        line-height: 1.3;
+      }
+    }
+    .username {
+      color: $color-ambient-mint-dark;
+    }
+    .locationName {
+      @include font-size-primaryFont('base');
+      font-weight: bold;
+    }
   }
 
 
