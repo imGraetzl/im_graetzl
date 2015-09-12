@@ -27,33 +27,14 @@
   <div class="teaserBlock">
 
     <div class="meetingBoxes -quart">
-      <% if @meetings.present? %>
-          <%= render partial: 'meetings/box', collection: @meetings, as: 'meeting' %>
-      <% end %>
 
       <div class="wrp-cardBox">
         <h2>Treffen & Events</h2>
-        <div class="cardBox meetBox">
-          <div class="cardBoxHeader">
-            <a href="#">
-              <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="Cover photo">
-            </a>
-            <div class="calendarSheet">
-              <div class="day">18</div>
-              <div class="month">Sep</div>
-            </div>
-            <div class="sideflag -R">Stuwerviertel</div>
-            <div class="initiator">
-              <img class="attachment user avatar img-round" src="https://placeimg.com/100/100/pepople" >
-              <span>mirjam</span>
-            </div>
-          </div>
-          <h3>Launch Party von imGrätzl.at beim Stuwerviertelfest</h3>
-          <a class="btn-primary -mint" href="/stuwerviertel/treffen/launch-party-von-imgratzl-at-beim-stuwerviertelfest">Mitmachen</a>
-          <a href="#" class="icontxt">
-            Alle Treffen & Events<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-          </a>
-        </div>
+        <% if @meeting %>
+          <%= render @meeting, card: true %>
+        <% else %>
+          bla
+        <% end %>
       </div>
 
       <div class="wrp-cardBox">
@@ -70,36 +51,30 @@
       <div class="wrp-cardBox">
         <h2>Locations</h2>
         <div class="cardBox locationBox">
+          <% if @graetzl.locations.managed.present? %>
 
-          <a href="#" class="locationUserSlice">
-            <div class="wrp-user">
-              <img src="https://placeimg.com/100/100/pepople?4" alt="" class="img-round">
-              <div class="col">
-                <span class="username">Sepp Forcher</span><br>
-                betreibt
-              </div>
-            </div>
-            <div class="locationName">
-              Palette - Bio und<br>feinstes vom Land
-            </div>
-          </a>
+            <% @graetzl.locations.managed.order("RANDOM()").limit(2).each do |location| %>
+              <%= link_to [location.graetzl, location], class: 'locationUserSlice' do %>
+                <div class="wrp-user">
+                  <%= avatar_for (user = location.users.first) %>
+                  <div class="col">
+                    <span class="username"><%= user.username %></span><br>
+                    betreibt
+                  </div>
+                </div>
+                <div class="locationName"><%= location.name %></div>
+              <% end %>
+            <% end %>
 
-          <a href="#" class="locationUserSlice">
-            <div class="wrp-user">
-              <img src="https://placeimg.com/100/100/pepople?7" alt="" class="img-round">
-              <div class="col">
-                <span class="username">Jazz Gitte</span><br>
-                betreibt
-              </div>
-            </div>
-            <div class="locationName">
-              Wohnwagenverleih für Waldmenschen
-            </div>
-          </a>
-
-          <a href="#" class="icontxt">
+          <%= link_to graetzl_locations_path(@graetzl), class: 'icontxt' do %>
             Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-          </a>
+          <% end %>
+
+        <% else %>
+          <div class="cardBox locationBox">
+            <p>Es wurden noch keine Locations im Grätzl angelegt. Bist du selbst wirtschaftlich im Grätzl tätig, so kannst du hier deine Location anlegen</p>
+          </div>
+        <% end %>
         </div>
 
 

@@ -6,7 +6,7 @@ class GraetzlsController < ApplicationController
   def show
     @graetzl = Graetzl.find(params[:id])
     @activities = @graetzl.activity
-    @meetings = @graetzl.meetings.upcoming.first(2)
+    @meeting = @graetzl.meetings.upcoming.first
     @map_data = GeoJSONService.call(graetzls: @graetzl)
   end
 end
