@@ -26,7 +26,7 @@
 
         <%= render partial: 'locations/slice', collection: @user.locations, as: 'location' %>
 
-        <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-primary' %>
+        <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-primary' if @user.business? %>
       </div>
 
     </div>
