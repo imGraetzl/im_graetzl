@@ -14,9 +14,6 @@ APP.controllers.graetzls = (function() {
 
             }
         );
-
-        APP.components.graetzlMap.showSingleGraetzlHeader();
-        
     }
 
     return {
