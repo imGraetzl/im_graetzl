@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    puts user_params
     @user = User.find(params[:id])
     if @user.update(user_params)
       sign_in @user, bypass: true

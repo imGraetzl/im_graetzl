@@ -68,7 +68,7 @@
       <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @user } %>
     </div>
 
-    <% @user.comments.each do |comment| %>
+    <% @user.wall_posts.each do |comment| %>
       <%= render partial: comment, layout: 'layouts/stream/element' %>
     <% end %>
   </div>
