@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
+    @user = User.includes(locations: [:location_ownerships, :users]).find(current_user.id)
   end
 
   def update

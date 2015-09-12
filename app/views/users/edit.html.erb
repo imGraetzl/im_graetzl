@@ -24,47 +24,9 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam at atque culpa delectus deserunt distinctio, doloremque ex, id ipsam maxime nobis pariatur, perspiciatis sapiente voluptatum. Ab at placeat ratione?
         </div>
 
-        <div class="locationSlice">
-          <div class="col1">
-            <div class="locationName">
-              <div class="medalBadge">
-                <img class="img-round" src="https://placeimg.com/200/200/nature?11">
-              </div>
-              <span class="txt"><a href="#">Bude im Keller</a></span>
-            </div>
-          </div>
-          <div class="col2">
-            <span class="txt">Location wird geprüft...</span>
-          </div>
-        </div>
+        <%= render partial: 'locations/slice', collection: @user.locations, as: 'location' %>
 
-        <div class="locationSlice">
-          <div class="col1">
-            <div class="locationName">
-              <div class="medalBadge">
-                <img class="img-round" src="https://placeimg.com/200/200/nature">
-              </div>
-              <span class="txt"><a href="#">Gasthaus Hansy</a></span>
-            </div>
-            <div class="locationMembers">
-              <div class="singleMember">
-                <img src="https://placeimg.com/100/100/people" class="img-round" alt="">Fritz Verzetnitsch
-              </div>
-              <div class="singleMember">
-                <img src="https://placeimg.com/100/100/people?2" class="img-round" alt="">Renate Brauner
-              </div>
-            </div>
-          </div>
-          <div class="col2">
-            <div class="btnCollection">
-              <div class="btn-secondary -small">Bearbeiten</div>
-              <div class="btn-secondary -small">Besitzer hinzufügen</div>
-              <div class="btn-secondary -small">Location entfernen</div>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn-primary">Location hinzufügen</button>
+        <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-primary' %>
       </div>
 
     </div>
