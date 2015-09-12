@@ -5,6 +5,16 @@
   @include respond-to(">=large") {
     margin: 0 auto;
   }
+
+  h3 {
+    @include font-size-secondaryFont('base');
+    text-align: center;
+    margin-bottom: 40px;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+
   .timeago {
     padding-left: 10px;
     margin-left: 10px;

@@ -1,10 +1,6 @@
 class NotificationSettingsController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-
-  end
-
   def toggle_website_notification
     type = params[:type].to_sym
     unless Notification::TYPES.keys.include?(type)

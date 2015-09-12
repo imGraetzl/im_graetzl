@@ -1,0 +1,76 @@
+<section class="userprofile">
+  <div class="imgHeader -shadowed">
+    <div class="titleHeadline">
+      <div class="wrp">
+        <h1><%= @user.username %></h1>
+      </div>
+      <div class="card"></div>
+    </div>
+    <%= cover_photo_for(@user, fill: [980,200], class: 'titleImg') %>
+  </div>
+
+  <div class="userContent">
+    <div class="col1">
+      <%= avatar_for(@user, fill: [400,400], class: 'img-round -largest') %>
+      <div class="sideBarbox">
+        <% if @user.website %>
+          <%= link_to @user.website, class: 'icontxt', target: '_blank' do %>
+            <svg class="icon-globe">
+              <use xlink:href="#icon-globe"></use>
+            </svg>
+            <%= @user.website.sub(/^https?\:\/\//,'') %>
+          <% end %>
+        <% end %>
+        <div class="icontxt">
+          <svg class="icon-calendar-2">
+            <use xlink:href="#icon-calendar-2"></use>
+          </svg>
+          Beigetreten: <%= l(@user.created_at, format: "%b, %Y") %>
+        </div>
+        <div class="icontxt">
+          <svg class="icon-flag-1">
+            <use xlink:href="#icon-flag-1"></use>
+          </svg>
+          <%= link_to @user.graetzl.name, @user.graetzl %>
+        </div>
+      </div>
+    </div>
+    <div class="col2"><%= @user.bio %></div>
+  </div>
+
+  <div class='tabs-ctrl'>
+    <ul class="tabs-nav">
+      <li><a href="#tab-1"><%= @user.meetings.initiated.count %> Treffen erstellt</a></li>
+      <li><a href="#tab-2">An <%= @user.meetings.attended.count %> Treffen teilgenommen</a></li>
+    </ul>
+    <div id='tab-1'>
+      <!-- own meetings -->
+      <div class="meetingBoxCollection -tripple" data-tabID="one">
+        <%= render partial: 'meetings/box', collection: @user.meetings.initiated, as: 'meeting' %>
+      </div>
+      <!-- own meetings end -->
+      <a class="link-more" href="/wien">Alle Treffen welche Grätzlmacho initiiert hat</a>
+    </div>
+    <div id='tab-2'>
+
+      <!-- other meetings -->
+      <div class="meetingBoxCollection -tripple" data-tabID="two">
+        <%= render partial: 'meetings/box', collection: @user.meetings.attended, as: 'meeting' %>
+      </div>
+      <!-- other meetings end -->
+    </div>
+  </div>
+
+  <div class="stream">
+    <h3>Deine persönliche <span>Pinnwand</span></h3>
+
+    <div id="stream-form">
+      <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @user } %>
+    </div>
+
+    <% @user.comments.each do |comment| %>
+      <%= render partial: comment, layout: 'layouts/stream/element' %>
+    <% end %>
+  </div>
+
+</section>

@@ -1,6 +1,12 @@
-APP.controllers.notification_settings = (function() {
+APP.controllers.users = (function() {
 
-  function init() {
+    function init() {
+      $('.tabs-ctrl').tabslet({
+            animation: true,
+            deeplinking: true
+        });
+
+    // notification settings
     var notfication_types = [
       "new_meeting_in_graetzl",
       "new_post_in_graetzl",
@@ -16,13 +22,11 @@ APP.controllers.notification_settings = (function() {
         jQuery.post("/users/notification_settings/toggle_website_notification", {
           type: notification_type }).
           done(function(response) {
-            $('#toggle_' + notification_type + ' .on').toggle();
-            $('#toggle_' + notification_type + ' .off').toggle();
           })
         .fail(function() {
           alert("Etwas ist schief gegangen!");
         });
-      }); 
+      });
 
       $('#mail_notification_settings_' + notification_type).change(function() {
         jQuery.post("/users/notification_settings/change_mail_notification", {
@@ -32,16 +36,15 @@ APP.controllers.notification_settings = (function() {
         .fail(function() {
           alert("Etwas ist schief gegangen!");
         });
-      }); 
+      });
     });
-  }
-
-
+    }
+    
 
 // ---------------------------------------------------------------------- Public
 
-return {
-  init: init
-}
+    return {
+        init: init
+    }
 
 })();

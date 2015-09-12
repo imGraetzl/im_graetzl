@@ -24,7 +24,7 @@ RSpec.describe Meeting, type: :model do
     end
   end
 
-  describe 'attributes' do
+  describe 'macros' do
     let(:meeting) { create(:meeting) }
 
     it 'has cover_photo' do
@@ -34,8 +34,11 @@ RSpec.describe Meeting, type: :model do
     it 'has cover_photo_content_type' do
       expect(meeting).to respond_to(:cover_photo_content_type)
     end
-  end
 
+    it 'has friendly_id' do
+      expect(meeting).to respond_to(:friendly_id)
+    end
+  end
 
   describe 'associations' do
     let(:meeting) { create(:meeting) }
@@ -187,6 +190,40 @@ RSpec.describe Meeting, type: :model do
 
       it 'orders starts_at_date: :desc (anti default_scope)' do
         expect(meetings).to eq [m_yesterday, m_1_before_yesterday, m_2_before_yesterday]
+      end
+    end
+
+    describe 'initiated' do
+      let(:m_initiated) { create(:meeting,
+        going_tos: [create(:going_to, role: GoingTo::roles[:initiator])]) }
+      let(:m_attended) { create(:meeting,
+        going_tos: [create(:going_to, role: GoingTo::roles[:attendee])]) }
+
+      subject(:meetings) { Meeting.initiated }
+
+      it 'returns meetings with initator going_tos' do
+        expect(meetings).to include(m_initiated)
+      end
+
+      it 'excludes meetings without initator going_tos' do
+        expect(meetings).not_to include(m_attended)
+      end
+    end
+
+    describe 'attended' do
+      let(:m_initiated) { create(:meeting,
+        going_tos: [create(:going_to, role: GoingTo::roles[:initiator])]) }
+      let(:m_attended) { create(:meeting,
+        going_tos: [create(:going_to, role: GoingTo::roles[:attendee])]) }
+
+      subject(:meetings) { Meeting.attended }
+
+      it 'returns meetings with only attendee going_tos' do
+        expect(meetings).to include(m_attended)
+      end
+
+      it 'excludes meetings without attendee going_tos' do
+        expect(meetings).not_to include(m_initiated)
       end
     end
   end

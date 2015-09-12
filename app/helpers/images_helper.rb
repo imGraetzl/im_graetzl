@@ -3,7 +3,7 @@ module ImagesHelper
     options = cover_photo_defaults.merge(options)
     attachment_image_tag(model, :cover_photo,
                                 :fill, options[:fill][0], options[:fill][1],
-                                fallback: options[:fallback],
+                                fallback: stock_photo(options),
                                 class: options[:class])
   end
 
@@ -17,9 +17,15 @@ module ImagesHelper
 
   private
     def cover_photo_defaults
-      { fill: [300,180],
-        fallback: 'cover_photo/default.jpg',
-        class: 'coverImg' }
+      { fill: [300,180], class: 'coverImg' }
+    end
+
+    def stock_photo(opt)
+      alpha_img = "cover_photo/#{opt[:fill].join('x')}.png"
+      if Rails.application.assets.find_asset(alpha_img).blank?
+        return "https://placeimg.com/#{opt[:fill].join('/')}/nature/grayscale"
+      end
+      alpha_img
     end
 
     def avatar_defaults

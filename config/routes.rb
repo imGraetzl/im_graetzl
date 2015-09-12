@@ -11,27 +11,36 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  devise_for :users,
+  devise_for :users, skip: [:passwords, :confirmations, :registrations],
     controllers: {
-      registrations: 'users/registrations',
-      sessions: 'users/sessions'
+      sessions: 'users/sessions',
     },
     path_names: {
-      #sign_up: 'details', sign_in: 'login', sign_out: 'logout',
-      sign_up: 'registrierung', sign_in: 'login', sign_out: 'logout',
-      password: 'secret', confirmation: 'verification'
+      sign_in: 'login',
+      sign_out: 'logout',
     }
 
   devise_scope :user do
-    post 'users/registrierung', as: :address_users, to: 'users/registrations#new'
-    post 'users/graetzl', as: :registration_graetzl, to: 'users/registrations#graetzl'
-    get 'users/graetzl', as: :registration_graetzls, to: 'users/registrations#graetzl'
-    # get 'users/registrierung/adresse', to: 'registrations#address', as: :user_registration_address
-    # post 'users/registrierung/adresse', to: 'registrations#set_address', as: :user_registration_set_address
-    # get 'users/registrierung/graetzl', to: 'registrations#graetzl', as: :user_registration_graetzl
-    # post 'users/registrierung/graetzl', to: 'registrations#set_graetzl', as: :user_registration_set_graetzl
+    resource :password,
+      only: [:new, :create],
+      path: 'users/passwort',
+      controller: 'users/passwords',
+      path_names: { new: 'neu' }
+    resource :confirmation,
+      only: [:new, :create, :show],
+      path: 'users/bestaetigung',
+      controller: 'users/confirmations',
+      path_names: { new: 'neu' }
+    resource :registration,
+      only: [:new, :create],
+      path: 'users',
+      controller: 'users/registrations',
+      path_names: { new: 'registrierung' } do
+        post :registrierung, as: :address, action: :new
+        post :graetzl, as: :graetzl, action: :graetzl
+        get :graetzl, as: :graetzls, action: :graetzl
+      end
 
-    get 'users/notification_settings', to: 'notification_settings#index', as: :user_notification_settings
     post 'users/notification_settings/toggle_website_notification', to: 'notification_settings#toggle_website_notification', as: :user_toggle_website_notification
     post 'users/notification_settings/change_mail_notification', to: 'notification_settings#change_mail_notification', as: :user_change_mail_notification
     post 'users/notification_settings/mark_as_seen', to: 'notification_settings#mark_as_seen', as: :user_notifications_mark_as_seen
@@ -40,6 +49,7 @@ Rails.application.routes.draw do
   get 'static_pages/meetingCreate'
   get 'static_pages/meetingDetail'
   get 'static_pages/homeOut'
+  get 'static_pages/userprofile'
   get 'static_pages/location'
   root 'static_pages#home'
 
@@ -49,6 +59,7 @@ Rails.application.routes.draw do
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: 'treffen', only: [:index, :show, :new]
     resources :locations, only: [:index, :show]
+    resources :users, only: [:index, :show]
     resources :posts, only: [:show]
   end
 
@@ -67,6 +78,12 @@ Rails.application.routes.draw do
   resources :posts, only: [:create] do
     resource :comments, module: :posts, only: [:create]
   end
+
+  resources :users, only: [:show, :update] do
+    resource :comments, module: :users, only: [:create]
+  end
+
+  resource :user, only: [:edit], path_names: { edit: 'einstellungen' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -112,12 +112,30 @@ APP.components.graetzlMap = (function() {
         return map;
     }
 
+
+
+    //show single grätzl in header
+    function showSingleGraetzlHeader() {
+        var mapvisible= $('#graetzlMapWidget').data('mapvisible');
+        init(function() {
+                    showMapGraetzl(mapvisible.graetzls, null, {
+                        style: $.extend(styles.rose, {
+                            weight: 4,
+                            fillOpacity: 0.2
+                        })
+                    });
+
+                }
+        );
+    }
+
     return {
         styles: styles,
         init: init,
         showMapGraetzl: showMapGraetzl,
         showMapDistrict: showMapDistrict,
-        getMap: getMap
+        getMap: getMap,
+        showSingleGraetzlHeader: showSingleGraetzlHeader
     }
 
 

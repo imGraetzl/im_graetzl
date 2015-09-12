@@ -1,0 +1,30 @@
+<div class="locationSlice">
+  <div class="col1">
+    <div class="locationName">
+      <div class="medalBadge">
+        <%= avatar_for location, fill: [200,200] %>
+      </div>
+      <span class="txt"><%= link_to location.name, [location.graetzl, location] %></span>
+    </div>
+    <% if (ownerships = location.location_ownerships.basic.where.not(id: current_user.location_ownerships)).present? %>
+      <div class="locationMembers">
+        <% ownerships.each do |ownership| %>
+          <div class="singleMember">
+            <%= avatar_for ownership.user %><%= ownership.user.username %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="col2">
+    <% if location.pending? %>
+      <span class="txt">Location wird geprüft...</span>
+    <% else %>
+      <div class="btnCollection">
+        <%= link_to 'Bearbeiten', edit_location_path(location), class: 'btn-secondary -small' %>
+        <div class="btn-secondary -small">Besitzer hinzufügen</div>
+        <div class="btn-secondary -small">Location entfernen</div>
+      </div>
+    <% end %>
+  </div>
+</div>

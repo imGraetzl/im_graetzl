@@ -1,5 +1,5 @@
 APP.controllers.graetzls = (function() {
-
+    
     var map =  APP.components.graetzlMap;
 
     function init() {
@@ -14,6 +14,9 @@ APP.controllers.graetzls = (function() {
 
             }
         );
+
+        APP.components.graetzlMap.showSingleGraetzlHeader();
+        
     }
 
     return {

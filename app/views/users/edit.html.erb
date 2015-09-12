@@ -1,0 +1,35 @@
+<section class="user-settings">
+
+  <div class='tabs-ctrl'>
+    <ul class="tabs-nav">
+      <li><a href="#tab-1">Persönliche Daten</a></li>
+      <li><a href="#tab-2">Benachrichtigungen</a></li>
+      <li><a href="#tab-3">Meine Locations</a></li>
+    </ul>
+
+
+
+    <div id='tab-1' class="personal-settings">
+      <%= render 'form', user: @user %>
+    </div>
+
+    <div id='tab-2' class="notification-settings">
+      <%= render 'notification_settings/index' %>
+    </div>
+
+    <div id='tab-3'>
+
+      <div class="notification-settings">
+        <div class="introtext">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam at atque culpa delectus deserunt distinctio, doloremque ex, id ipsam maxime nobis pariatur, perspiciatis sapiente voluptatum. Ab at placeat ratione?
+        </div>
+
+        <%= render partial: 'locations/slice', collection: @user.locations, as: 'location' %>
+
+        <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-primary' %>
+      </div>
+
+    </div>
+  </div>
+
+</section>

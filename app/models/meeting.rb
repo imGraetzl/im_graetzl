@@ -8,8 +8,13 @@ class Meeting < ActiveRecord::Base
                         .or(arel_table[:starts_at_date].gt(Date.yesterday))) }
   scope :past, -> { where(arel_table[:starts_at_date].lt(Date.today))
                     .reverse_order }
+  # scopes primarily used for users
+  scope :initiated, -> { includes(:going_tos)
+                        .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos) }
+  scope :attended, -> { includes(:going_tos)
+                        .where('going_tos.role = ?', GoingTo::roles[:attendee]).references(:going_tos) }
 
-  # attr
+  # macros
   friendly_id :name
   attachment :cover_photo, type: :image
 

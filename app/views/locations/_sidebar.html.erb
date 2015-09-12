@@ -6,11 +6,6 @@
         <%= avatar_for u, fill: [40, 40] %>
       <% end %>
     </div>
-    <% if user_signed_in? && @location.owned_by(current_user) %>
-      <div class="sideBarbox">
-        <%= link_to 'Location bearbeiten', edit_location_path(@location) %>
-      </div>
-    <% end %>
   <% end %>
 
   <div class="sideBarbox contact">

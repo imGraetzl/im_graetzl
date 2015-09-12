@@ -1,0 +1,238 @@
+section.user-settings {
+  h2 {
+    @include font-size-secondaryFont('base');
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+  .block-settings {
+    margin-bottom: 30px;
+  }
+
+  .tabs-nav {
+    margin: 0 auto;
+    margin-bottom: 60px;
+  }
+}
+
+// ---------------------------------------------------------------------- personal settings
+
+div.personal-settings {
+  @include respond-to(">=medium") {
+    @include cf;
+  }
+  .col1, .col2 {
+    @include respond-to(">=medium") {
+      @include col(1/2);
+      overflow: hidden;
+    }
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-bottom: 50px;
+    @include respond-to(">=medium") {
+      width: auto;
+      margin-bottom: 0;
+      display: table;
+      float: right;
+    }
+  }
+
+  .profileSection {
+    .input-checkbox {
+      display: inline-block;
+      margin-right: 40px;
+    }
+    .col1 {
+      .input-field {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .del-Account {
+    cursor: pointer;
+    background-color: transparent;
+    font-family: $font-primary;
+    font-size: 14px;
+    font-style: italic;
+    color: $color-ambient-grey;
+    padding: 4px 8px;
+    border: 1px solid $color-ambient-grey-light;
+  }
+}
+
+
+
+
+// ---------------------------------------------------------------------- notification settings
+
+div.notification-settings {
+
+  .settingSlice, .settingHead {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .col1 {
+      flex: 0 0 100%;
+      @include respond-to(">=medium") {
+        flex: 0 0 50%;
+        margin-bottom: 0;
+      }
+    }
+    .col2 {
+      flex: 0 0 auto;
+      @include respond-to(">=medium") {
+        flex: 0 0 25%;
+      }
+      .input-switch {
+        margin-right: 20px;
+        @include respond-to(">=medium") {
+          margin: 0 auto;
+        }
+      }
+    }
+    .col3 {
+      flex: 0 0 auto;
+      @include respond-to(">=medium") {
+        flex: 0 0 25%;
+        .input-select {
+          @include respond-to(">=medium") {
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+  .settingSlice {
+    margin-bottom: 40px;
+    @include respond-to(">=medium") {
+      margin-bottom: 10px;
+    }
+    .col1 {
+      margin-bottom: 10px;
+      @include respond-to(">=medium") {
+        margin-bottom: 0;
+      }
+    }
+    .col2 {
+
+    }
+  }
+  .settingHead {
+    margin-bottom: 30px;
+    .col2, .col3 {
+      display: none;
+      @include respond-to(">=medium") {
+        display: block;
+        text-align: center;
+        color: $color-ambient-grey;
+        font-size: 14px;
+        font-style: italic;
+        [class^=icon-] {
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
+}
+
+
+
+.formBlock {
+  margin-bottom: 30px;
+  h2 {
+    @include font-size-secondaryFont('base');
+    text-align: center;
+    margin-bottom: 30px;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+}
+
+.formRow  {
+  @include cf;
+  > * {
+    margin-bottom: 2rem;
+  }
+  &:last-child {
+    > * {
+      margin-bottom: 0;
+    }
+  }
+  &.-double {
+    > * {
+      @include respond-to(">=medium") {
+        @include col(1/2);
+      }
+    }
+  }
+}
+
+
+// ---------------------------------------------------------------------- location settings
+
+
+div.notification-settings {
+  overflow: hidden;
+  .introtext {
+    margin-bottom: 40px;
+  }
+  .locationSlice {
+    display: flex;
+    margin-bottom: 40px;
+  }
+  .col1 {
+    flex: 0 0 350px;
+  }
+  .col2 {
+    padding-top: 18px;
+    .txt {
+      font-style: italic;
+    }
+  }
+
+  .locationName {
+    display: flex;
+    font-family: $font-secondary;
+    @include font-size-secondaryFont('small');
+    .img-round {
+      margin-right: 15px;
+    }
+    .txt {
+      margin-top: 23px;
+    }
+  }
+  .locationMembers {
+    margin-left: 92px;
+    margin-top: -40px;
+    .singleMember {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+    .img-round {
+      margin-right: 10px;
+      width: 40px;
+      height: 40px;
+      padding: 2px;
+    }
+  }
+  .btn-primary {
+    float: right;
+  }
+
+}
+
+.btnCollection {
+  display: flex;
+  align-items: center;
+  >* {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+}
