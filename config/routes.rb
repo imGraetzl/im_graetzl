@@ -41,7 +41,6 @@ Rails.application.routes.draw do
         get :graetzl, as: :graetzls, action: :graetzl
       end
 
-    get 'users/notification_settings', to: 'notification_settings#index', as: :user_notification_settings
     post 'users/notification_settings/toggle_website_notification', to: 'notification_settings#toggle_website_notification', as: :user_toggle_website_notification
     post 'users/notification_settings/change_mail_notification', to: 'notification_settings#change_mail_notification', as: :user_change_mail_notification
     post 'users/notification_settings/mark_as_seen', to: 'notification_settings#mark_as_seen', as: :user_notifications_mark_as_seen

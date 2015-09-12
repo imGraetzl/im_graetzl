@@ -6,9 +6,68 @@
       <li><a href="#tab-2">Benachrichtigungen</a></li>
       <li><a href="#tab-3">Meine Locations</a></li>
     </ul>
+
+
+
+    <div id='tab-1' class="personal-settings">
+      <%= render 'form', user: @user %>
+    </div>
+
+    <div id='tab-2' class="notification-settings">
+      <%= render 'notification_settings/index' %>
+    </div>
+
+    <div id='tab-3'>
+
+      <div class="notification-settings">
+        <div class="introtext">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam at atque culpa delectus deserunt distinctio, doloremque ex, id ipsam maxime nobis pariatur, perspiciatis sapiente voluptatum. Ab at placeat ratione?
+        </div>
+
+        <div class="locationSlice">
+          <div class="col1">
+            <div class="locationName">
+              <div class="medalBadge">
+                <img class="img-round" src="https://placeimg.com/200/200/nature?11">
+              </div>
+              <span class="txt"><a href="#">Bude im Keller</a></span>
+            </div>
+          </div>
+          <div class="col2">
+            <span class="txt">Location wird geprüft...</span>
+          </div>
+        </div>
+
+        <div class="locationSlice">
+          <div class="col1">
+            <div class="locationName">
+              <div class="medalBadge">
+                <img class="img-round" src="https://placeimg.com/200/200/nature">
+              </div>
+              <span class="txt"><a href="#">Gasthaus Hansy</a></span>
+            </div>
+            <div class="locationMembers">
+              <div class="singleMember">
+                <img src="https://placeimg.com/100/100/people" class="img-round" alt="">Fritz Verzetnitsch
+              </div>
+              <div class="singleMember">
+                <img src="https://placeimg.com/100/100/people?2" class="img-round" alt="">Renate Brauner
+              </div>
+            </div>
+          </div>
+          <div class="col2">
+            <div class="btnCollection">
+              <div class="btn-secondary -small">Bearbeiten</div>
+              <div class="btn-secondary -small">Besitzer hinzufügen</div>
+              <div class="btn-secondary -small">Location entfernen</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary">Location hinzufügen</button>
+      </div>
+
+    </div>
   </div>
 
-  <div id='tab-1' class="personal-settings">
-    <%= render 'edit_profile', user: @user %>
-  </div>
 </section>
