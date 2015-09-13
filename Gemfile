@@ -7,11 +7,11 @@ gem 'rails', '~> 4.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # postgis adapter
-gem 'activerecord-postgis-adapter'
+#gem 'activerecord-postgis-adapter'
 # ruby lib for geospatial data
-gem 'rgeo'
+#gem 'rgeo'
 # rgeo geojson module for encode/decode
-gem 'rgeo-geojson'
+#gem 'rgeo-geojson'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
