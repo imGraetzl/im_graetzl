@@ -9,7 +9,7 @@ gem 'pg'
 # postgis adapter
 gem 'activerecord-postgis-adapter'
 # ruby lib for geospatial data
-gem 'rgeo', require: false
+gem 'rgeo'
 # rgeo geojson module for encode/decode
 gem 'rgeo-geojson'
 # Use SCSS for stylesheets
