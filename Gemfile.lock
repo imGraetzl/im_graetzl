@@ -62,6 +62,9 @@ GEM
       activemodel (= 4.2.1)
       activesupport (= 4.2.1)
       arel (~> 6.0)
+    activerecord-postgis-adapter (3.0.0)
+      activerecord (~> 4.2)
+      rgeo-activerecord (~> 4.0)
     activesupport (4.2.1)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -254,6 +257,12 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rgeo (0.3.20)
+    rgeo-activerecord (4.0.0)
+      activerecord (~> 4.2)
+      rgeo (~> 0.3)
+    rgeo-geojson (0.3.1)
+      rgeo (~> 0.3)
     rspec-core (3.3.0)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.0)
@@ -326,6 +335,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin (~> 1.0.0.pre1)
+  activerecord-postgis-adapter
   autoprefixer-rails
   aws-sdk
   capybara
@@ -349,6 +359,8 @@ DEPENDENCIES
   refile-mini_magick
   refile-s3
   remotipart
+  rgeo
+  rgeo-geojson
   rspec-rails
   sass-rails
   sdoc
