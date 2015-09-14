@@ -119,8 +119,8 @@ class SendMailNotificationJob < ActiveJob::Base
         notification_vars << {
           "type": "new_wall_comment",
           "comment_url": graetzl_users_url(activity.trackable.graetzl, activity.trackable, default_url_options) + "#comment-#{activity.recipient.id}",
-          "comment_content": activity.recipient.content
-          "created_by": activity.owner.username,
+          "comment_content": activity.recipient.content,
+          "created_by": activity.owner.username
         }
       end
     end
