@@ -1,58 +1,7 @@
 section.graetzls {
 
   .mapImgBlock {
-    margin-bottom: 30px;
-    @include respond-to(">=large") {
-      padding-bottom: 0;
-      &::after {
-        width: 500px;
-        left: 240px;
-      }
-    }
 
-    .activeArea {
-      @include respond-to(">=large") {
-        width: 55%;
-      }
-    }
-
-    .wrp-headline {
-      display: table;
-      margin: 0 auto;
-      z-index: 10;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      @include respond-to(">=large") {
-        position: absolute;
-        left: 350px;
-        top: 76px;
-        display: table;
-        margin: 0;
-        transform: translate(0, 0);
-      }
-      span {
-        float: right;
-        font-size: 1.4rem;
-        border-radius: 4px;
-        background-color: rgba(245,245,240,0.9);
-        padding: 1px 5px;
-        margin-right: 5px;
-        a:not(:last-child) {
-          display: inline-block;
-          border-right: 1px dotted $color-ambient-mint-dark;
-          padding-right: 5px;
-          margin-right: 3px;
-        }
-      }
-    }
-    h1 {
-      @include font-size-secondaryFont('large');
-      @include headlineBarbapapa;
-      @include textShadowHard($color-ambient-rosa-dark);
-      margin-bottom: 0;
-    }
 
   }
 
