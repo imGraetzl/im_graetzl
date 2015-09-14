@@ -234,6 +234,28 @@ RSpec.describe Notification, type: :model do
     end
   end
 
+  describe "new wall comment for user" do
+    before do
+      user.enable_website_notification :new_wall_comment
+    end
+
+    let(:commenter) { create(:user) }
+    let(:wall_comment) { create(:comment,
+                                commentable: user,
+                                user: commenter)
+    }
+
+    context "when commenter and comment present" do
+
+      it "user is notified" do
+        expect(user.notifications.to_a).to be_empty
+        user.create_activity :comment, owner: commenter, recipient: wall_comment
+        user.notifications.reload
+        expect(user.notifications.to_a).to_not be_empty
+      end
+    end
+  end
+
   describe "mail notifications" do
     before { user.enable_mail_notification(:new_meeting_in_graetzl, interval) }
     let(:user) { create(:user, graetzl: meeting.graetzl) }

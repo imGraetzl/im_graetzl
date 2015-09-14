@@ -126,8 +126,8 @@ RSpec.describe User, type: :model do
       expect(user).to respond_to(:comments)
     end
 
-    it 'has wall_posts' do
-      expect(user).to respond_to(:wall_posts)
+    it 'has wall_comments' do
+      expect(user).to respond_to(:wall_comments)
     end
 
     describe 'destroy associated records' do

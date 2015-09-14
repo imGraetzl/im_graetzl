@@ -115,6 +115,13 @@ class SendMailNotificationJob < ActiveJob::Base
           "graetzl_name": activity.trackable.graetzl.name,
           "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
         }
+      when "new_wall_comment"
+        notification_vars << {
+          "type": "new_wall_comment",
+          "comment_url": graetzl_users_url(activity.trackable.graetzl, activity.trackable, default_url_options) + "#comment-#{activity.recipient.id}",
+          "comment_content": activity.recipient.content
+          "created_by": activity.owner.username,
+        }
       end
     end
 

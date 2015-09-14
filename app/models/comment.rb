@@ -12,4 +12,16 @@ class Comment < ActiveRecord::Base
 
   # validations
   validates :content, presence: true
+
+  # callbacks
+  before_destroy :destroy_activity_and_notifications, prepend: true
+
+  private
+
+  def destroy_activity_and_notifications
+    activity = PublicActivity::Activity.where(recipient: self)
+    notifications = Notification.where(activity: activity)
+    notifications.destroy_all
+    activity.destroy_all
+  end
 end

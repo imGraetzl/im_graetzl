@@ -1,0 +1,10 @@
+<%- user = notification.user %>
+<%- comment = notification.activity.recipient %>
+<% if user && comment %>
+  <li>
+  <%= link_to(url_for([user.graetzl, user]) + "#comment-#{comment.id}") do %>
+        <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+        Neuer Beitrag von <%= notification.activity.owner.username %> an deiner Pinnwand
+    <% end %>
+  </li>
+<% end %>
