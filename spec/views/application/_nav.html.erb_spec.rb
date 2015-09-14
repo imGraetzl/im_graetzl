@@ -27,11 +27,11 @@ RSpec.describe 'application/_nav', type: :view do
     end
 
     it 'displays link to graetzl_meetings' do
-      expect(rendered).to have_link('Treffen im Grätzl', href: graetzl_meetings_path(current_graetzl))
+      expect(rendered).to have_link('Treffen & Events im Grätzl', href: graetzl_meetings_path(current_graetzl))
     end
 
     it 'displays link to graetzl_locations' do
-      expect(rendered).to have_link('Kreative Wirtschaft im Grätzl', href: graetzl_locations_path(current_graetzl))
+      expect(rendered).to have_link('Treffpunkte & Anbieter', href: graetzl_locations_path(current_graetzl))
     end
 
     # it 'displays link to home graetzl' do
