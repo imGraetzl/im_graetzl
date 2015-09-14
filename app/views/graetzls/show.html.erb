@@ -65,7 +65,7 @@
 
           <% else %>
               <h3> <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>Bist du wirtschaftlich im Grätzl tätig?</h3>
-              <p>Es wurden noch keine Locations im Grätzl angelegt. Du kannst dir <a href="#">hier</a> deine eigene Location anlegen.</p>
+              <p>Es wurden noch keine Locations im Grätzl angelegt. Du kannst dir <%= link_to 'hier', new_location_path %> deine eigene Location anlegen.</p>
           <% end %>
         </div>
       </div>
