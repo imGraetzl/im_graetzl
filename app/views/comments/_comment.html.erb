@@ -4,6 +4,10 @@
       <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
       <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
     </div>
+  <% elsif (current_user == comment.commentable) || current_user.admin? %>
+    <div class="editControls">
+      <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+    </div>
   <% end %>
 
   <a name="comment-<%= comment.id -%>"></a>
