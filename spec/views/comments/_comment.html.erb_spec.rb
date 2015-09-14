@@ -16,6 +16,14 @@ RSpec.describe 'comments/_comment', type: :view do
       it 'displays edit controls' do
         expect(rendered).to have_selector('div.editControls')
       end
+
+      it 'displays edit button' do
+        expect(rendered).to have_selector('div.editControls div.btn-edit')
+      end
+
+      it 'displays delete button' do
+        expect(rendered).to have_selector('div.editControls div.btn-delete')
+      end
     end
 
     context 'when comment not by user' do
@@ -23,6 +31,44 @@ RSpec.describe 'comments/_comment', type: :view do
 
       it 'does display edit controls' do
         expect(rendered).not_to have_selector('div.editControls')
+      end
+    end
+
+    context 'when user commentable' do
+      before do
+        allow(comment).to receive(:commentable) { user }
+        render 'comments/comment', comment: comment
+      end
+
+      it 'displays edit controls' do
+        expect(rendered).to have_selector('div.editControls')
+      end
+
+      it 'does not display edit button' do
+        expect(rendered).not_to have_selector('div.editControls div.btn-edit')
+      end
+
+      it 'displays delete button' do
+        expect(rendered).to have_selector('div.editControls div.btn-delete')
+      end
+    end
+
+    context 'when user admin' do
+      before do
+        user.admin!
+        render 'comments/comment', comment: comment
+      end
+
+      it 'displays edit controls' do
+        expect(rendered).to have_selector('div.editControls')
+      end
+
+      it 'does not display edit button' do
+        expect(rendered).not_to have_selector('div.editControls div.btn-edit')
+      end
+
+      it 'displays delete button' do
+        expect(rendered).to have_selector('div.editControls div.btn-delete')
       end
     end
   end
