@@ -3,7 +3,6 @@
 <section class="graetzls" data-mapdata="<%= @map_data %>">
 
   <div class="mapImgBlock">
-
     <div id="graetzlMapWidget" class="singleGraetzlHeader" data-mapvisible='{"graetzls":["0205"]}'></div>
     <div class="activeArea"></div>
     <div class="illuDistrict"></div>
@@ -11,7 +10,6 @@
 
     <div class="wrp-headline">
       <h1><%= @graetzl.name %></h1>
-
       <%= content_tag :span do %>
           in
           <% @graetzl.districts.each do |district| %>
@@ -19,13 +17,9 @@
           <% end %>
       <% end %>
     </div>
-
   </div>
 
-
-
   <div class="teaserBlock">
-
     <div class="meetingBoxes -quart">
 
       <div class="wrp-cardBox">
@@ -33,7 +27,7 @@
         <% if @meeting %>
           <%= render @meeting, card: true %>
         <% else %>
-          bla
+          <%= render 'meetings/box_action' %>
         <% end %>
       </div>
 
@@ -51,9 +45,9 @@
       <div class="wrp-cardBox">
         <h2>Locations</h2>
         <div class="cardBox locationBox">
-          <% if @graetzl.locations.managed.present? %>
+          <% if @locations.present? %>
 
-            <% @graetzl.locations.managed.order("RANDOM()").limit(2).each do |location| %>
+            <% @locations.each do |location| %>
               <%= link_to [location.graetzl, location], class: 'locationUserSlice' do %>
                 <div class="wrp-user">
                   <%= avatar_for (user = location.users.first) %>
@@ -65,7 +59,6 @@
                 <div class="locationName"><%= location.name %></div>
               <% end %>
             <% end %>
-
           <%= link_to graetzl_locations_path(@graetzl), class: 'icontxt' do %>
             Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
           <% end %>
@@ -76,9 +69,6 @@
           </div>
         <% end %>
         </div>
-
-
-
       </div>
 
       <div class="wrp-cardBox">
@@ -93,23 +83,8 @@
           </a>
         </div>
       </div>
-
     </div>
-
   </div>
 
-  <% if user_signed_in? %>
-      <div class="wrp-stream">
-        <h2>Neues im <span><%= @graetzl.name %></span> Stream</h2>
-        <div class="streamEntryNav">
-          <span class="createEntry icontxt"><svg class="icon-speech-bubble"><use xlink:href="#icon-speech-bubble"></use></svg>Beitrag</span>
-          <a href="/treffen/new" class="createMeeting">Treffen anlegen</a>
-        </div>
-
-      </div>
-      <%= render 'stream' %>
-  <% end %>
-
-
-
+  <%= render 'stream' if user_signed_in? %>
 </section>

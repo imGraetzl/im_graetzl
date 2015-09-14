@@ -1,18 +1,18 @@
 class Graetzl < ActiveRecord::Base
   extend FriendlyId
+
+  # macros
   friendly_id :name
+  STREAM_ACTIVITY_KEYS = [
+    'meeting.comment', 'meeting.create', 'meeting.go_to',
+    'post.comment', 'post.create'
+  ]
 
   # associations
   has_many :users
   has_many :meetings, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :locations, dependent: :destroy
-
-  # attributes
-  STREAM_ACTIVITY_KEYS = [
-    'meeting.comment', 'meeting.create', 'meeting.go_to',
-    'post.comment', 'post.create'
-  ]
 
   # instance methods
   def districts
