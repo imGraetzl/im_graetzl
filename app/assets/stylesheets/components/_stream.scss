@@ -405,6 +405,16 @@
       transition: opacity 0.2s 0s linear;
     }
   }
+
+  .linkToPost {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      text-decoration: underline;
+      color: $color-ambient-rosa;
+    }
+  }
+
   .txt {
     white-space: pre-wrap;
   }
