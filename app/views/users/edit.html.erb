@@ -19,9 +19,15 @@
 
     <div id='tab-3'>
 
-      <div class="notification-settings">
+      <div class="location-settings">
         <div class="introtext">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam at atque culpa delectus deserunt distinctio, doloremque ex, id ipsam maxime nobis pariatur, perspiciatis sapiente voluptatum. Ab at placeat ratione?
+          <div class="tease">
+            Du bespielst im Viertel einen öffentlichen Raum?<br>
+            Du möchtest dir dein Schaufenster im Grätzl einrichten?<br>
+            Bei dir im Laden finden Events statt?
+          </div>
+          <strong>Um eine Location hinzuzufügen:</strong> Aktiviere zunächst in den <span class="toPersonal">Einstellungen für deine persönlichen Daten</span> den Haken <strong>'Ich bin wirtschaftlich und/oder kreativ im Grätzl tätig'</strong>.
+          Wenn du deine Location hinzugefügt hast, bekommst du hier die Nachricht angezeigt, ob sie freigeschaltet wurde.
         </div>
 
         <%= render partial: 'locations/slice', collection: @user.locations, as: 'location' %>

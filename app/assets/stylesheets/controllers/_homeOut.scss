@@ -207,33 +207,43 @@ section.homeOut {
     }
   }
 }
+.aboutGraetzl {
 
-.graetzl-meeting {
-  background-image: url(image_path('illu/illu-card-cylce.png'));
-  background-size: 293px 316px;
-  @include respond-to('retina2x') {
-    background-image: url(image_path('illu/illu-card-cylce@2x.png'));
+  .graetzl-meeting {
+    background-image: url(image_path('illu/illu-card-cylce.png'));
+    background-size: 293px 316px;
+    @include respond-to('retina2x') {
+      background-image: url(image_path('illu/illu-card-cylce@2x.png'));
+    }
+  }
+  .graetzl-events {
+    background-image: url(image_path('illu/illu-card-painter.png'));
+    background-size: 325px 285px;
+    @include respond-to('retina2x') {
+      background-image: url(image_path('illu/illu-card-painter@2x.png'));
+    }
+  }
+  .graetzl-initiative {
+    background-image: url(image_path('illu/illu-card-flohmarkt.png'));
+    background-size: 293px 316px;
+    @include respond-to('retina2x') {
+      background-image: url(image_path('illu/illu-card-flohmarkt@2x.png'));
+    }
+  }
+  .graetzl-economy {
+    background-image: url(image_path('illu/illu-card-wirtschaft.png'));
+    background-size: 325px 285px;
+    @include respond-to('retina2x') {
+      background-image: url(image_path('illu/illu-card-wirtschaft@2x.png'));
+    }
+  }
+  .graetzl-zuckerl {
+    background-image: url(image_path('graetzlzuckerl.png'));
+    background-size: 220px 139px;
+    padding-bottom: 170px;
+    @include respond-to(">=medium") {
+      background-position: 90px 50px !important;
+      padding-bottom: 0;
+    }
   }
 }
-.graetzl-events {
-  background-image: url(image_path('illu/illu-card-painter.png'));
-  background-size: 325px 285px;
-  @include respond-to('retina2x') {
-    background-image: url(image_path('illu/illu-card-painter@2x.png'));
-  }
-}
-.graetzl-initiative {
-  background-image: url(image_path('illu/illu-card-flohmarkt.png'));
-  background-size: 293px 316px;
-  @include respond-to('retina2x') {
-    background-image: url(image_path('illu/illu-card-flohmarkt@2x.png'));
-  }
-}
-.graetzl-economy {
-  background-image: url(image_path('illu/illu-card-wirtschaft.png'));
-  background-size: 325px 285px;
-  @include respond-to('retina2x') {
-    background-image: url(image_path('illu/illu-card-wirtschaft@2x.png'));
-  }
-}
-

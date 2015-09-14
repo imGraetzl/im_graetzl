@@ -175,10 +175,27 @@ div.notification-settings {
 // ---------------------------------------------------------------------- location settings
 
 
-div.notification-settings {
+div.location-settings {
   overflow: hidden;
   .introtext {
     margin-bottom: 40px;
+    padding: 0 100px;
+  }
+  .tease {
+    @include font-size-secondaryFont('base');
+    font-family: $font-secondary;
+    font-weight: bold;
+    text-align: center;
+    color: $color-ambient-rosa;
+    margin-bottom: 20px;
+  }
+  .toPersonal {
+    color: $color-ambient-rosa;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+    }
   }
   .locationSlice {
     display: flex;

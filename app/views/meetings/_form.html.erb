@@ -14,14 +14,14 @@
   <% end %>
 
   <div class="meet-what">
-    <p><span>Was</span> für ein Treffen planst du genau?</p>
+    <p><span>Was</span> für ein Treffen oder Veranstaltung planst du genau?</p>
 
     <div class="input-field">
       <%= f.label :name do %>
         <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
         <span>Titel</span>
       <% end %>
-      <%= f.text_field :name, placeholder: 'Gib deinem Treffen einen kurzen Namen'  %>
+      <%= f.text_field :name, placeholder: 'Gib deinem Treffen oder Veranstaltung einen kurzen Namen'  %>
     </div>
 
     <div class="input-textarea">
@@ -34,7 +34,7 @@
   </div>
 
   <div class="meet-where">
-    <p><span>Wo</span> soll dein Treffen stattfinden?</p>
+    <p><span>Wo</span> soll dein Treffen oder Veranstaltung stattfinden?</p>
 
     <div id="addressSearchAutocomplete" class="input-field">
       <%= label_tag :address do %>
@@ -67,7 +67,7 @@
   </div>
 
   <div class="meet-when">
-    <p><span>Wann</span> planst du dein Treffen?</p>
+    <p><span>Wann</span> planst du dein Treffen, deine Veranstaltung?</p>
 
     <div class="input-field">
       <%= f.label :starts_at_date do %>
@@ -102,7 +102,7 @@
     </div>
   </div>
   <div class="meet-how">
-    <p><span>Wie</span> würdest du dein Treffen zuordnen?</p>
+    <p>Beschreibe dein Treffen, bzw. Veranstaltung mit <span>Bild & Thema</span>.</p>
 
     <!--
     <div class="input-field">
