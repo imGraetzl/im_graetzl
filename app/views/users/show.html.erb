@@ -62,7 +62,7 @@
   </div>
 
   <div class="stream">
-    <h3>Deine persönliche <span>Pinnwand</span></h3>
+    <h3>Persönliche <span>Pinnwand</span> von <%= @user.username %></h3>
 
     <div id="stream-form">
       <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @user } %>
