@@ -1,3 +1,4 @@
+<div class="streamElement">
   <div class="entryInitialContent">
     <a name="post-<%= activity.trackable.id -%>"></a>
     <%= render 'public_activity/info', user: activity.owner, entity: activity %>
@@ -6,4 +7,4 @@
   </div>
 
   <%= render 'comments/form_inline', commentable: activity.trackable %>
-
+</div>

@@ -1,15 +1,16 @@
-<div class="entryInitialContent">
-  <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
-  <%= render 'meetings/teaser', meeting: activity.trackable %>
+<div class="streamElement">
+  <div class="entryInitialContent">
+    <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
+    <%= render 'meetings/teaser', meeting: activity.trackable %>
+  </div>
+
+  <div class="entryNewParticipants">
+    <strong>neuer Teilnehmer</strong>
+    <%= link_to '', class: 'userPortraitName' do %>
+      <%= avatar_for activity.owner %>
+      <span><%= activity.owner.username if activity.owner %></span>
+    <% end %>
+  </div>
+
+  <%= render 'comments/form_inline', commentable: activity.trackable %>
 </div>
-
-<div class="entryNewParticipants">
-  <strong>neuer Teilnehmer</strong>
-  <%= link_to '', class: 'userPortraitName' do %>
-    <%= avatar_for activity.owner %>
-    <span><%= activity.owner.username if activity.owner %></span>
-  <% end %>
-</div>
-
-<%= render 'comments/form_inline', commentable: activity.trackable %>
-

@@ -13,19 +13,19 @@ module ApplicationHelper
     when 'activity'
       case entity.key
       when 'post.create'
-        "Neuer Post von <a href=''>#{user.username if user}</a>".html_safe
+        "Neuer Post von #{link_to user.username, user}".html_safe
       when 'meeting.create'
-        "<a href=''>#{user.username if user}</a> hat ein Treffen erstellt".html_safe
+        "#{link_to user.username, user} hat ein Treffen erstellt".html_safe
       when 'meeting.go_to'
-        "Treffen von <a href=''>#{user.username if user}</a> hat neue Teilnehmer".html_safe
+        "Treffen von #{link_to user.username, user} hat neue Teilnehmer".html_safe
       else
       end
     when 'post'
-      "Post von <a href=''>#{user.username if user}</a>".html_safe
+      "Post von #{link_to user.username, user}".html_safe
     when 'meeting'
-      "Treffen von <a href=''>#{user.username if user}</a>".html_safe
+      "Treffen von #{link_to user.username, user}".html_safe
     when 'comment'
-      "Kommentar von <a href=''>#{user.username if user}</a>".html_safe
+      "Kommentar von #{link_to user.username, user}".html_safe
     else
     end    
   end

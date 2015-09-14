@@ -55,10 +55,10 @@
       </div>
     </div>
 
-    <% if @meeting.initiator %>
+    <% if (initiator = @meeting.initiator) %>
       <div class="userPortraitName">
-        <%= avatar_for @meeting.initiator %>
-        Erstellt von <a href=""><%= @meeting.initiator.username %></a>
+        <%= avatar_for initiator %>
+        Erstellt von <%= link_to initiator.username, initiator %></a>
       </div>
     <% end %>
 

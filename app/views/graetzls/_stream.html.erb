@@ -11,7 +11,5 @@
     <%= render partial: 'posts/form', layout: 'layouts/stream/form' %>
   </div>
 
-  <% @activities.each do |activity| %>
-    <%= render_activity(activity, fallback: 'default', layout: 'stream/element') %>
-  <% end %>  
+  <%= render_activities @activities %>
 </div>

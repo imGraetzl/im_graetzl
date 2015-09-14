@@ -1,11 +1,12 @@
-<div class="entryInitialContent">
-  <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
-  <%= render 'meetings/teaser', meeting: activity.trackable %>
+<div class="streamElement">
+  <div class="entryInitialContent">
+    <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
+    <%= render 'meetings/teaser', meeting: activity.trackable %>
+  </div>
+
+  <% unless activity.trackable.comments.empty? %>
+    <%= render 'comments/comment', comment: activity.trackable.comments.first, comment_inline: true %>
+  <% end %>
+
+  <%= render 'comments/form_inline', commentable: activity.trackable %>
 </div>
-
-<% unless activity.trackable.comments.empty? %>
-  <%= render 'comments/comment', comment: activity.trackable.comments.first, comment_inline: true %>
-<% end %>
-
-<%= render 'comments/form_inline', commentable: activity.trackable %>
-
