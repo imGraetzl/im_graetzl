@@ -44,6 +44,12 @@ class Notification < ActiveRecord::Base
       bitmask: 128,
       receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
       condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
+    },
+    new_wall_comment: {
+      triggered_by_activity_with_key: 'user.comment',
+      bitmask: 256,
+      receivers: ->(activity) { User.where(["id = ?", activity.trackable.id]) },
+      condition: ->(activity) { activity.owner.present? && activity.recipient.present? }
     }
   }
   

@@ -41,6 +41,21 @@
       <%= render 'notification_settings/mail_settings', type: "new_post_in_graetzl" %>
     </div>
   </div>
+
+  <div class="settingSlice">
+    <div class="col1">
+      Ein neuer Kommentar wurde in an meiner Pinnwand gepostet
+    </div>
+    <div class="col2">
+      <div class="input-switch">
+        <input id="toggle_new_wall_comment" type="checkbox" <% if current_user.enabled_website_notification?(:new_wall_comment) %>checked <% end %>>
+        <label for="toggle_new_wall_comment"></label>
+      </div>
+    </div>
+    <div class="col3">
+      <%= render 'notification_settings/mail_settings', type: "new_wall_comment" %>
+    </div>
+  </div>
 </div>
 
 <div class="block-settings">
