@@ -22,7 +22,6 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     resource :password,
-      only: [:new, :create],
       path: 'users/passwort',
       controller: 'users/passwords',
       path_names: { new: 'neu' }
