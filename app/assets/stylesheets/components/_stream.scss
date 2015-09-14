@@ -1,3 +1,49 @@
+.wrp-stream {
+  padding-top: 40px;
+  border-top: 1px dotted $color-ambient-mint-light;
+  h2 {
+    @include font-size-secondaryFont('large');
+    text-align: center;
+    margin-bottom: 50px;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+}
+
+.streamEntryNav {
+  display: flex;
+  margin: 0 auto;
+  width: 510px;
+  margin-bottom: -15px;
+  > * {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: $color-font-primary;
+    display: flex;
+    align-items: center;
+  }
+  .createEntry {
+    padding-right: 15px;
+    margin-right: 15px;
+    border-right: 1px dotted lighten($color-ambient-grey, 20);
+    [class^=icon-] {
+      color: $color-ambient-mint;
+      margin-right: 5px;
+    }
+  }
+  .createMeeting {
+    background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
+    background-position: right center, left center;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    padding-right: 20px;
+    &:hover {
+      color: $color-ambient-rosa;
+    }
+  }
+}
+
 .stream {
   clear: both;
   margin-bottom: 100px;
