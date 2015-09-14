@@ -25,9 +25,9 @@
       <div class="wrp-cardBox">
         <h2>Treffen & Events</h2>
         <% if @meeting %>
-          <%= render @meeting, card: true %>
+            <%= render @meeting, card: true %>
         <% else %>
-          <%= render 'meetings/box_action' %>
+            <%= render 'meetings/box_action' %>
         <% end %>
       </div>
 
@@ -47,27 +47,26 @@
         <div class="cardBox locationBox">
           <% if @locations.present? %>
 
-            <% @locations.each do |location| %>
-              <%= link_to [location.graetzl, location], class: 'locationUserSlice' do %>
-                <div class="wrp-user">
-                  <%= avatar_for (user = location.users.first) %>
-                  <div class="col">
-                    <span class="username"><%= user.username %></span><br>
-                    betreibt
-                  </div>
-                </div>
-                <div class="locationName"><%= location.name %></div>
+              <% @locations.each do |location| %>
+                  <%= link_to [location.graetzl, location], class: 'locationUserSlice' do %>
+                      <div class="wrp-user">
+                        <%= avatar_for (user = location.users.first) %>
+                        <div class="col">
+                          <span class="username"><%= user.username %></span><br>
+                          betreibt
+                        </div>
+                      </div>
+                      <div class="locationName"><%= location.name %></div>
+                  <% end %>
               <% end %>
-            <% end %>
-          <%= link_to graetzl_locations_path(@graetzl), class: 'icontxt' do %>
-            Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-          <% end %>
+              <%= link_to graetzl_locations_path(@graetzl), class: 'icontxt' do %>
+                  Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
+              <% end %>
 
-        <% else %>
-          <div class="cardBox locationBox">
-            <p>Es wurden noch keine Locations im Grätzl angelegt. Bist du selbst wirtschaftlich im Grätzl tätig, so kannst du hier deine Location anlegen</p>
-          </div>
-        <% end %>
+          <% else %>
+              <h3> <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>Bist du wirtschaftlich im Grätzl tätig?</h3>
+              <p>Es wurden noch keine Locations im Grätzl angelegt. Du kannst dir <a href="#">hier</a> deine eigene Location anlegen.</p>
+          <% end %>
         </div>
       </div>
 

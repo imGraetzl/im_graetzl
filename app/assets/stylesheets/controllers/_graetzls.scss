@@ -1,7 +1,7 @@
 section.graetzls {
 
   .mapImgBlock {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     @include respond-to(">=large") {
       padding-bottom: 0;
       &::after {
@@ -55,6 +55,24 @@ section.graetzls {
       margin-bottom: 0;
     }
 
+  }
+
+  .ownMeetingBox {
+    transform: translate(-20px, 8px);
+    &:hover {
+      transform: translate(-16px, 13px);
+    }
+    .wrp {
+      background-position: -7px 23px;
+    }
+    .card {
+      background-image: none;
+      background-color: #fff;
+    }
+    .card::before {
+      transform: scale(0.7);
+      top: -60px;
+    }
   }
 
   .textEditor:before {
@@ -141,7 +159,16 @@ section.graetzls {
   }
 
   .locationBox {
-    padding-top: 15px;
+    [class^=icon-] {
+      width: 45px;
+      height: 45px;
+      float: left;
+      margin-left: -10px;
+      margin-right: 5px;
+    }
+    h3 {
+      margin-right: -15px;
+    }
   }
 
   .locationUserSlice {
