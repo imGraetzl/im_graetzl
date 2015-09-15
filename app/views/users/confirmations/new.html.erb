@@ -1,16 +1,23 @@
-<h2>Resend confirmation instructions</h2>
+<section class="resetStuff">
 
-<%= form_for(resource, as: resource_name, url: confirmation_path, html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+  <h2>Bestätigungsmail nicht erhalten?</h2>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: confirmation_path, html: { method: :post }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
+      <div class="input-field">
+        <%= f.label :email do %>
+            <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+            <span>E-Mail</span>
+        <% end %>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
 
-<%= render "devise/shared/links" %>
+      <div class="actions">
+        <%= f.submit "Bestätigungsmail erneut senden", class: 'btn-primary' %>
+      </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+
+</section>
