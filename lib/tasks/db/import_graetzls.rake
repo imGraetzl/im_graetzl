@@ -33,9 +33,9 @@ namespace :db do
 
     def parse_features(geojson)
       features = JSON.parse(geojson)['features']
-      File.open("public/graetzls_tmp.json","w") do |f|
-        f.write(JSON.pretty_generate(features))
-      end
+      # File.open("public/graetzls_tmp.json","w") do |f|
+      #   f.write(JSON.pretty_generate(features))
+      # end
       features.each do |feature|
         if feature['geometry'].present?
           polygon = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
