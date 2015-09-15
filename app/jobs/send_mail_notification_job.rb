@@ -122,6 +122,15 @@ class SendMailNotificationJob < ActiveJob::Base
           "comment_content": activity.recipient.content,
           "created_by": activity.owner.username
         }
+      when "cancel_of_meeting"
+        notification_vars << {
+          "type": "cancel_of_meeting",
+          "meeting_name": activity.trackable.name,
+          "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
+          "meeting_url": activity.recipient.content,
+          "owner_name": activity.owner.username,
+          "owner_url": user_url(activity.owner, default_url_options)
+        }
       end
     end
 

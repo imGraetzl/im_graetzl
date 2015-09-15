@@ -5,8 +5,8 @@ class MeetingsController < ApplicationController
   before_action :check_permission!, only: [:edit, :update, :destroy]
 
   def index
-    @upcoming_meetings = @graetzl.meetings.upcoming
-    @past_meetings = @graetzl.meetings.past
+    @upcoming_meetings = @graetzl.meetings.basic.upcoming
+    @past_meetings = @graetzl.meetings.basic.past
   end
 
   def show
@@ -63,8 +63,9 @@ class MeetingsController < ApplicationController
   end
 
   def destroy
-    graetzl = @meeting.destroy.graetzl
-    redirect_to graetzl, notice: 'Dein Treffen wurde abgesagt.'
+    @meeting.cancelled!
+    @meeting.create_activity :cancel, owner: current_user
+    redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
   end
 
   private
@@ -115,7 +116,9 @@ class MeetingsController < ApplicationController
     end
 
     def check_permission!
-      unless @meeting.going_tos.initiator.find_by_user_id(current_user)
+      if @meeting.cancelled?
+        redirect_to @meeting.graetzl, notice: 'Abgesagte Treffen können nicht mehr bearbeitet werden.'
+      elsif !@meeting.going_tos.initiator.find_by_user_id(current_user)
         flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
         redirect_to [@meeting.graetzl, @meeting]
       end

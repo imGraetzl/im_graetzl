@@ -20,7 +20,8 @@ APP.controllers.users = (function() {
             "update_of_meeting",
             "user_comments_users_meeting",
             "attendee_left",
-            "new_wall_comment"
+            "new_wall_comment",
+            "cancel_of_meeting"
         ];
         jQuery.each(notfication_types, function(index, notification_type) {
             $('#toggle_' + notification_type).click(function() {

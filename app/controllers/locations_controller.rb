@@ -52,7 +52,7 @@ class LocationsController < ApplicationController
 
   def show
     verify_graetzl_child(@location)
-    @meetings = @location.meetings.upcoming
+    @meetings = @location.meetings.basic.upcoming
   end
 
   private

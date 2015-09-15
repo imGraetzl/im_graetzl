@@ -40,8 +40,8 @@
 
   <div class='tabs-ctrl'>
     <ul class="tabs-nav">
-      <li><a href="#tab-1"><%= @user.meetings.initiated.count %> Treffen erstellt</a></li>
-      <li><a href="#tab-2">An <%= @user.meetings.attended.count %> Treffen teilgenommen</a></li>
+      <li><a href="#tab-1"><%= @user.meetings.basic.initiated.count %> Treffen erstellt</a></li>
+      <li><a href="#tab-2">An <%= @user.meetings.basic.attended.count %> Treffen teilgenommen</a></li>
     </ul>
     <div id='tab-1'>
       <!-- own meetings -->

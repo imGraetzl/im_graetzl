@@ -1,16 +1,15 @@
 class Location < ActiveRecord::Base
-  has_paper_trail
-  
   extend FriendlyId
-  friendly_id :name
-  attachment :avatar, type: :image
-  attachment :cover_photo, type: :image
 
   # scopes
   scope :available, -> { where(state: [states[:basic], states[:managed]]) }
 
-  # states
+  # macros
+  has_paper_trail  
+  friendly_id :name
   enum state: { basic: 0, pending: 1, managed: 2 }
+  attachment :avatar, type: :image
+  attachment :cover_photo, type: :image  
 
   # associations
   belongs_to :graetzl

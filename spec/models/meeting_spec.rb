@@ -38,6 +38,11 @@ RSpec.describe Meeting, type: :model do
     it 'has friendly_id' do
       expect(meeting).to respond_to(:friendly_id)
     end
+
+    it 'has state (default :basic)' do
+      expect(meeting).to respond_to(:state)
+      expect(meeting.basic?).to be_truthy
+    end
   end
 
   describe 'associations' do
@@ -140,6 +145,11 @@ RSpec.describe Meeting, type: :model do
         m_after_tomorrow.update(created_at: Date.yesterday)
         expect(meetings.to_a).to eq [m_yesterday, m_today, m_tomorrow, m_after_tomorrow, m_nil]
       end
+
+      it 'includes cancelled meetings' do
+        m_today.cancelled!
+        expect(meetings).to include(m_today)
+      end
     end
 
     describe 'upcoming' do
@@ -158,6 +168,11 @@ RSpec.describe Meeting, type: :model do
         m_after_tomorrow.update(created_at: Date.yesterday)
 
         expect(meetings.to_a).to eq [m_today, m_tomorrow, m_after_tomorrow, m_nil]
+      end
+
+      it 'includes cancelled meetings' do
+        m_today.cancelled!
+        expect(meetings).to include(m_today)
       end
     end
 
@@ -190,6 +205,12 @@ RSpec.describe Meeting, type: :model do
 
       it 'orders starts_at_date: :desc (anti default_scope)' do
         expect(meetings).to eq [m_yesterday, m_1_before_yesterday, m_2_before_yesterday]
+      end
+
+      it 'includes cancelled meetings' do
+        m_yesterday.state = Meeting.states[:cancelled]
+        m_yesterday.save(validate: false)
+        expect(meetings).to include(m_yesterday)
       end
     end
 
