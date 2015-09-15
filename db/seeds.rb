@@ -7,4 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Rake::Task['db:import_districts'].invoke
-Rake::Task['db:import_graetzl'].invoke
+Rake::Task['db:import_graetzls'].invoke
