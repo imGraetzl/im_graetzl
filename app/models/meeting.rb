@@ -17,6 +17,7 @@ class Meeting < ActiveRecord::Base
   # macros
   friendly_id :name
   attachment :cover_photo, type: :image
+  enum state: { basic: 0, cancelled: 1 }
 
   # associations
   belongs_to :graetzl

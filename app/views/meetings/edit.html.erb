@@ -8,6 +8,6 @@
 
   <%= link_to 'Treffen absagen', @meeting,
     method: :delete,
-    data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich absagen?" } %>
+    data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich absagen?" }  if @meeting.basic? %>
   
 </section>

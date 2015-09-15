@@ -87,11 +87,17 @@ RSpec.describe MeetingsController, type: :controller do
   describe 'GET new' do
     # Shared Examples
     shared_examples :a_successful_new_request do
+
       it 'assigns @meeting with address and graetzl' do
         expect(assigns(:meeting)).to be_a_new(Meeting)
         expect(assigns(:meeting).address).to be_a_new(Address)
         expect(assigns(:meeting).graetzl).to be_present
       end
+
+      it 'assigns basic meeting' do
+        expect(assigns(:meeting).basic?).to be_truthy
+      end
+
       it 'renders #new' do        
         expect(response).to render_template(:new)
       end
@@ -354,6 +360,19 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when logged in' do
       before { sign_in user }
+
+      context 'when cancelled meeting' do
+        before do
+          meeting.cancelled!
+          get :edit, id: meeting
+        end
+
+        it 'redirect_to graetzl with notice' do
+          expect(response).to redirect_to(graetzl)
+          expect(flash[:notice]).to be_present
+        end
+      end
+
       context 'when not initiator' do
         before { get :edit, id: meeting }
         include_examples :an_unauthorized_request
@@ -392,6 +411,18 @@ RSpec.describe MeetingsController, type: :controller do
       let(:user) { create(:user) }
       before { sign_in user }
 
+      context 'when cancelled meeting' do
+        before do
+          meeting.cancelled!
+          get :edit, id: meeting
+        end
+
+        it 'redirect_to graetzl with notice' do
+          expect(response).to redirect_to(graetzl)
+          expect(flash[:notice]).to be_present
+        end
+      end
+
       context 'when not going' do
         before { put :update, params }
         include_examples :an_unauthorized_request
@@ -410,8 +441,11 @@ RSpec.describe MeetingsController, type: :controller do
           create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator])
           put :update, params
         end
-
-        include_examples :a_successful_meeting_request
+      
+        it 'assigns @meeting' do
+          put :update, params
+          expect(assigns(:meeting)).to eq(meeting)
+        end
 
         it 'updates name and description' do
           params[:meeting].merge!(name: 'New name', description: 'New description')
@@ -498,10 +532,11 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         describe 'remove address' do
-          let(:old_address) { create(:address, description: 'blabla') }
+          let!(:old_address) { create(:address, description: 'blabla', addressable: meeting) }
 
           before do
             meeting.address = old_address
+            meeting.save(validate: false)
             params[:meeting].merge!({ address_attributes: { description: old_address.description } })
           end
 
@@ -553,54 +588,57 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-  # describe 'DELETE destroy' do
-  #   let(:meeting) { create(:meeting, graetzl: graetzl) }
+  describe 'DELETE destroy' do
+    let(:meeting) { create(:meeting, graetzl: graetzl) }
 
-  #   context 'when logged out' do
-  #     before { delete :destroy, id: meeting }
-  #     include_examples :an_unauthenticated_request
-  #   end
+    context 'when logged out' do
+      before { delete :destroy, id: meeting }
+      include_examples :an_unauthenticated_request
+    end
 
-  #   context 'when logged in' do
-  #     let(:user) { create(:user) }
-  #     before { sign_in user }
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before { sign_in user }
 
-  #     context 'when attendee' do
-  #       before do
-  #         create(:going_to, user: user, meeting: meeting)
-  #         delete :destroy, id: meeting
-  #       end
-  #       include_examples :an_unauthorized_request
-  #     end
+      context 'when cancelled meeting' do
+        before do
+          meeting.cancelled!
+          get :edit, id: meeting
+        end
 
-  #     context 'when initiator' do
-  #       let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator]) }
-  #       describe 'general' do
-  #         before { delete :destroy, id: meeting }
+        it 'redirect_to graetzl with notice' do
+          expect(response).to redirect_to(graetzl)
+          expect(flash[:notice]).to be_present
+        end
+      end
 
-  #         include_examples :a_successful_meeting_request
+      context 'when attendee' do
+        before do
+          create(:going_to, user: user, meeting: meeting)
+          delete :destroy, id: meeting
+        end
 
-  #         it 'redirects to graetzl_path' do
-  #           expect(response).to redirect_to(graetzl)
-  #         end
+        include_examples :an_unauthorized_request
+      end
+      context 'when initiator' do
+        before do
+          create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator])
+          delete :destroy, id: meeting
+        end
 
-  #         it 'has flash[:notice]' do
-  #           expect(flash[:notice]).to be_present
-  #         end
-  #       end
+        it 'sets meeting as :cancelled' do
+          expect{
+            delete :destroy, id: meeting
+            meeting.reload
+          }.to change{meeting.state}.from('basic').to('cancelled')
+        end
 
-  #       it 'deletes record' do
-  #         expect {
-  #           delete :destroy, graetzl_id: graetzl, id: meeting
-  #         }.to change(Meeting, :count).by(-1)
-  #       end
-
-  #       it 'deletes going_tos' do
-  #         expect {
-  #           delete :destroy, graetzl_id: graetzl, id: meeting
-  #         }.to change(GoingTo, :count).by(-1)
-  #       end
-  #     end
-  #   end
-  # end
+        it 'redirect_to graetzl with notice' do
+          delete :destroy, id: meeting
+          expect(response).to redirect_to(graetzl)
+          expect(flash[:notice]).not_to be nil
+        end
+      end
+    end
+  end
 end

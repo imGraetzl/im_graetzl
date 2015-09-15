@@ -8,65 +8,72 @@
       <div class="wrp">
         <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
         <h1><%= @meeting.name %></h1>
+        <% if @meeting.cancelled? %>
+          <h2>ABGESAGT</h2>
+        <% end %>
       </div>
       <div class="card"></div>
     </div>
     <%= cover_photo_for(@meeting, fill: [980, 370], class: 'titleImg') %>
   </div>
 
-  <div class="entryDescription">
-    <div class="dateTime">
-      <div class="iconCalendarTextual">
-        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+  <% if @meeting.basic? %>
+
+    <div class="entryDescription">
+      <div class="dateTime">
+        <div class="iconCalendarTextual">
+          <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+        </div>
+
+        <div class="dayYearTimes">
+          <% if @meeting.starts_at_date %>
+              <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
+          <% else %>
+              Tag steht noch nicht fest...
+          <% end %>
+          <br>
+          <span class="begin">Beginn: <%= localize_time(@meeting.starts_at_time, '%H:%M') %></span>
+          <span class="end">Ende: <%= localize_time(@meeting.ends_at_time, '%H:%M') %></span>
+        </div>
       </div>
 
-      <div class="dayYearTimes">
-        <% if @meeting.starts_at_date %>
-            <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
+      <div class="location">
+        <% if @meeting.address.coordinates %>
+          <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
+            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+            Karte
+          <% end %>
         <% else %>
-            Tag steht noch nicht fest...
+          <div class="iconMapLink">
+            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+          </div>
         <% end %>
-        <br>
-        <span class="begin">Beginn: <%= localize_time(@meeting.starts_at_time, '%H:%M') %></span>
-        <span class="end">Ende: <%= localize_time(@meeting.ends_at_time, '%H:%M') %></span>
-      </div>
-    </div>
 
-    <div class="location">
-      <% if @meeting.address.coordinates %>
-        <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
-          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-          Karte
-        <% end %>
-      <% else %>
-        <div class="iconMapLink">
-          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        <div class="address">
+          <% if location = @meeting.location %>
+            <%= link_to location.name, [location.graetzl, location] %><br>
+          <% else %>
+            <%= address_description(@meeting.address) %>
+          <% end %>
+          <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
+          <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
+        </div>
+      </div>
+
+      <% if (initiator = @meeting.initiator) %>
+        <div class="userPortraitName">
+          <%= avatar_for initiator %>
+          Erstellt von <%= link_to initiator.username, initiator %></a>
         </div>
       <% end %>
 
-      <div class="address">
-        <% if location = @meeting.location %>
-          <%= link_to location.name, [location.graetzl, location] %><br>
-        <% else %>
-          <%= address_description(@meeting.address) %>
-        <% end %>
-        <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
-        <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
-      </div>
+      <div class="txt"><%= @meeting.description %></div>
+
     </div>
 
-    <% if (initiator = @meeting.initiator) %>
-      <div class="userPortraitName">
-        <%= avatar_for initiator %>
-        Erstellt von <%= link_to initiator.username, initiator %></a>
-      </div>
-    <% end %>
+    <%= render 'going_tos/participation', meeting: @meeting %>
 
-    <div class="txt"><%= @meeting.description %></div>
+    <%= render 'stream', graetzl: @graetzl if user_signed_in? %>
 
-  </div>
-
-  <%= render 'going_tos/participation', meeting: @meeting %>
-
-  <%= render 'stream', graetzl: @graetzl if user_signed_in? %>
+  <% end %>
 </section>
