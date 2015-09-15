@@ -81,6 +81,21 @@
 
   <div class="settingSlice">
     <div class="col1">
+      Ein Treffen abgesagt wird
+    </div>
+    <div class="col2">
+      <div class="input-switch">
+        <input id="toggle_cancel_of_meeting" type="checkbox" <% if current_user.enabled_website_notification?(:cancel_of_meeting) %>checked <% end %>>
+        <label for="toggle_cancel_of_meeting"></label>
+      </div>
+    </div>
+    <div class="col3">
+      <%= render 'notification_settings/mail_settings', type: "cancel_of_meeting" %>
+    </div>
+  </div>
+
+  <div class="settingSlice">
+    <div class="col1">
       Ein Veranstalter das Treffen kommentiert
     </div>
     <div class="col2">

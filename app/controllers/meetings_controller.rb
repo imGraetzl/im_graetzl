@@ -64,6 +64,7 @@ class MeetingsController < ApplicationController
 
   def destroy
     @meeting.cancelled!
+    @meeting.create_activity :cancel, owner: current_user
     redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
   end
 

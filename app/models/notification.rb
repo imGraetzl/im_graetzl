@@ -50,7 +50,12 @@ class Notification < ActiveRecord::Base
       bitmask: 256,
       receivers: ->(activity) { User.where(["id = ?", activity.trackable.id]) },
       condition: ->(activity) { activity.owner.present? && activity.recipient.present? }
-    }
+    },
+    cancel_of_meeting: {
+      triggered_by_activity_with_key: 'meeting.cancel',
+      bitmask: 512,
+      receivers: ->(activity) { activity.trackable.users }
+    },
   }
   
   belongs_to :user

@@ -414,7 +414,7 @@ RSpec.describe MeetingsController, type: :controller do
       context 'when cancelled meeting' do
         before do
           meeting.cancelled!
-          get :edit, id: meeting
+          put :update, params
         end
 
         it 'redirect_to graetzl with notice' do
@@ -603,7 +603,7 @@ RSpec.describe MeetingsController, type: :controller do
       context 'when cancelled meeting' do
         before do
           meeting.cancelled!
-          get :edit, id: meeting
+          delete :destroy, id: meeting
         end
 
         it 'redirect_to graetzl with notice' do
@@ -623,7 +623,6 @@ RSpec.describe MeetingsController, type: :controller do
       context 'when initiator' do
         before do
           create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator])
-          delete :destroy, id: meeting
         end
 
         it 'sets meeting as :cancelled' do
@@ -637,6 +636,14 @@ RSpec.describe MeetingsController, type: :controller do
           delete :destroy, id: meeting
           expect(response).to redirect_to(graetzl)
           expect(flash[:notice]).not_to be nil
+        end
+
+        it 'logs meeting.cancel activity' do
+          PublicActivity.with_tracking do
+            delete :destroy, id: meeting
+            meeting.reload
+            expect(meeting.activities.last.key).to eq 'meeting.cancel'
+          end
         end
       end
     end
