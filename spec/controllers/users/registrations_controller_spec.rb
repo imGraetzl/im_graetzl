@@ -269,4 +269,28 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE destroy' do
+    context 'when logged out' do
+      it 'redirects to login' do
+        delete :destroy
+        expect(response).to render_template(session[:new])
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before { sign_in user }
+
+      it 'deletes user record' do
+        expect{
+          delete :destroy
+        }.to change(User, :count).by(-1)
+      end
+
+      it 'redirects to root' do
+        delete :destroy
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 end

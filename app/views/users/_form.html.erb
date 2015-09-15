@@ -117,4 +117,7 @@
   </div>
   <%= f.submit 'Speichern', class: 'btn-primary' %>
 <% end %>
-<button class="del-Account">Account löschen</button>
+<%= button_to 'Account läschen', registration_path,
+              data: { confirm: 'Bist du dir sicher?' },
+              method: :delete,
+              class: 'del-Account' %>

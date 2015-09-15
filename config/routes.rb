@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       controller: 'users/confirmations',
       path_names: { new: 'neu' }
     resource :registration,
-      only: [:new, :create],
+      only: [:new, :create, :destroy],
       path: 'users',
       controller: 'users/registrations',
       path_names: { new: 'registrierung' } do

@@ -15,14 +15,14 @@ class User < ActiveRecord::Base
   # associations
   belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
-  has_many :going_tos
+  has_many :going_tos, dependent: :destroy
   has_many :meetings, through: :going_tos
-  has_many :posts
-  has_many :comments
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :location_ownerships
+  has_many :location_ownerships, dependent: :destroy
   has_many :locations, through: :location_ownerships
-  has_many :wall_comments, as: :commentable, class_name: Comment
+  has_many :wall_comments, as: :commentable, class_name: Comment, dependent: :destroy
   accepts_nested_attributes_for :address
 
   # validations
@@ -31,6 +31,9 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :terms_and_conditions, acceptance: true
+
+  # callbacks
+  before_destroy :destroy_activity_and_notifications, prepend: true
 
   # class methods
   # overwrite devise authentication method to allow username OR email
@@ -100,5 +103,15 @@ class User < ActiveRecord::Base
     notifications.where(["bitmask & ? > 0", weekly_mail_notifications]).
                       where("created_at >= NOW() - interval '168 hours'").
                       where(sent: false)
+  end
+
+
+  private
+
+  def destroy_activity_and_notifications
+    activity = PublicActivity::Activity.where(owner: self)
+    notifications = Notification.where(activity: activity)
+    notifications.destroy_all
+    activity.destroy_all
   end
 end

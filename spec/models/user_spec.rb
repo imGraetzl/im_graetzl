@@ -29,6 +29,29 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'callbacks' do
+    let(:user) { create(:user) }
+
+    describe 'before_destroy' do
+      before do
+        3.times do
+          activity = create(:activity, trackable: create(:meeting), owner: user, key: 'meeting.go_to')
+          3.times{ create(:notification, activity: activity) }
+        end
+      end
+
+      it 'destroys associated activity and notifications' do
+        expect(PublicActivity::Activity.count).to eq 3
+        expect(Notification.count).to eq 9
+
+        user.destroy
+
+        expect(Notification.count).to eq 0
+        expect(PublicActivity::Activity.count).to eq 0
+      end
+    end
+  end
+
   describe 'macros' do
     let(:user) { build_stubbed(:user) }
 
@@ -131,16 +154,137 @@ RSpec.describe User, type: :model do
     end
 
     describe 'destroy associated records' do
-      before { user.create_address(attributes_for(:address)) }
+      describe 'address' do
+        before { user.create_address(attributes_for(:address)) }
 
-      it 'has address' do
-        expect(user.address).not_to be_nil
+        it 'has address' do
+          expect(user.address).not_to be_nil
+        end
+
+        it 'destroys address with user' do
+          address = user.address
+          expect(Address.find(address.id)).not_to be_nil
+          user.destroy
+          expect(Address.find_by_id(address.id)).to be_nil
+        end
       end
 
-      it 'destroys address with user' do
-        address = user.address
-        user.destroy
-        expect(Address.find_by_id(address.id)).to be_nil
+      describe 'going_tos' do
+        before { 3.times{create(:going_to, user: user, meeting: create(:meeting))} }
+
+        it 'has going_tos' do
+          expect(user.going_tos).not_to be_empty
+        end
+
+        it 'destroys going_tos' do
+          going_tos = user.going_tos
+          going_tos.each do |going_to|
+            expect(GoingTo.find(going_to.id)).not_to be_nil
+          end
+          user.destroy
+          going_tos.each do |going_to|
+            expect(GoingTo.find_by_id(going_to.id)).to be_nil
+          end
+        end
+      end
+
+      describe 'notifications' do
+        before do
+          3.times{create(:notification,
+                          user: user,
+                          activity: build_stubbed(:activity))}
+        end
+
+        it 'has notifications' do
+          expect(user.notifications).not_to be_empty
+        end
+
+        it 'destroys notifications' do
+          notifications = user.notifications
+          notifications.each do |n|
+            expect(Notification.find(n.id)).not_to be_nil
+          end
+          user.destroy
+          notifications.each do |n|
+            expect(Notification.find_by_id(n.id)).to be_nil
+          end
+        end
+      end
+
+      describe 'posts' do
+        before { 3.times{create(:post, user: user)} }
+
+        it 'has posts' do
+          expect(user.posts).not_to be_empty
+        end
+
+        it 'destroys posts' do
+          posts = user.posts
+          posts.each do |p|
+            expect(Post.find(p.id)).not_to be_nil
+          end
+          user.destroy
+          posts.each do |p|
+            expect(Post.find_by_id(p.id)).to be_nil
+          end
+        end
+      end
+
+      describe 'comments' do
+        before { 3.times{create(:comment, user: user)} }
+
+        it 'has comments' do
+          expect(user.comments).not_to be_empty
+        end
+
+        it 'destroys comments' do
+          comments = user.comments
+          comments.each do |comment|
+            expect(Comment.find(comment.id)).not_to be_nil
+          end
+          user.destroy
+          comments.each do |comment|
+            expect(Comment.find_by_id(comment.id)).to be_nil
+          end
+        end
+      end
+
+      describe 'location_ownerships' do
+        before { 3.times{create(:location_ownership, user: user)} }
+
+        it 'has location_ownerships' do
+          expect(user.location_ownerships).not_to be_empty
+        end
+
+        it 'destroys location_ownerships' do
+          location_ownerships = user.location_ownerships
+          location_ownerships.each do |ownership|
+            expect(LocationOwnership.find(ownership.id)).not_to be_nil
+          end
+          user.destroy
+          location_ownerships.each do |ownership|
+            expect(LocationOwnership.find_by_id(ownership.id)).to be_nil
+          end
+        end
+      end
+
+      describe 'wall_comments' do
+        before { 3.times{create(:comment, commentable: user)} }
+
+        it 'has wall_comments' do
+          expect(user.wall_comments).not_to be_empty
+        end
+
+        it 'destroys wall_comments' do
+          wall_comments = user.wall_comments
+          wall_comments.each do |comment|
+            expect(Comment.find(comment.id)).not_to be_nil
+          end
+          user.destroy
+          wall_comments.each do |comment|
+            expect(Comment.find_by_id(comment.id)).to be_nil
+          end
+        end
       end
     end
   end
