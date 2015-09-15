@@ -38,6 +38,9 @@ class Meeting < ActiveRecord::Base
   validate :starts_at_date_cannot_be_in_the_past
   validate :ends_at_time_cannot_be_before_starts_at_time
 
+  # callbacks
+  before_destroy :destroy_activity_and_notifications, prepend: true
+
   # instance methods
   def upcoming?
     if starts_at_date
@@ -60,16 +63,23 @@ class Meeting < ActiveRecord::Base
 
   private
 
-    def starts_at_date_cannot_be_in_the_past
-      if starts_at_date && starts_at_date < Date.today
-        errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
-      end
+  def starts_at_date_cannot_be_in_the_past
+    if starts_at_date && starts_at_date < Date.today
+      errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
     end
+  end
 
-    def ends_at_time_cannot_be_before_starts_at_time
-      if starts_at_time && ends_at_time && ends_at_time < starts_at_time
-        errors.add(:ends_at, 'kann nicht vor Beginn liegen')
-      end
+  def ends_at_time_cannot_be_before_starts_at_time
+    if starts_at_time && ends_at_time && ends_at_time < starts_at_time
+      errors.add(:ends_at, 'kann nicht vor Beginn liegen')
     end
+  end 
+
+  def destroy_activity_and_notifications
+    activity = PublicActivity::Activity.where(trackable: self)
+    notifications = Notification.where(activity: activity)
+    notifications.destroy_all
+    activity.destroy_all
+  end
 
 end

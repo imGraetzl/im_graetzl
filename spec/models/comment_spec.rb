@@ -58,24 +58,24 @@ RSpec.describe Comment, type: :model do
   end
 
   describe 'callbacks' do
-    let(:commentable) { create(:user) }
-    let(:comment) { create(:comment, commentable: commentable) }
+    let(:comment) { create(:comment) }
 
     describe 'before_destroy' do
-      before { commentable.enable_website_notification :new_wall_comment }
+      before do
+        3.times do
+          activity = create(:activity, recipient: comment, key: 'user.comment')
+          3.times{ create(:notification, activity: activity) }
+        end
+      end
 
       it 'destroys associated activity and notifications' do
-        PublicActivity.with_tracking do
-          expect(commentable.notifications).to be_empty
-          commentable.create_activity :comment, owner: create(:user), recipient: comment
-          expect(commentable.reload.notifications).not_to be_empty
-          expect(PublicActivity::Activity.count).to eq 1
+        expect(PublicActivity::Activity.count).to eq 3
+        expect(Notification.count).to eq 9
 
-          comment.destroy
+        comment.destroy
 
-          expect(commentable.reload.notifications).to be_empty
-          expect(PublicActivity::Activity.count).to eq 0
-        end
+        expect(Notification.count).to eq 0
+        expect(PublicActivity::Activity.count).to eq 0
       end
     end
   end

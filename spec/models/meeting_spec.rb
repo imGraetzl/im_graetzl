@@ -228,6 +228,29 @@ RSpec.describe Meeting, type: :model do
     end
   end
 
+  describe 'callbacks' do
+    let(:meeting) { create(:meeting) }
+
+    describe 'before_destroy' do
+      before do
+        3.times do
+          activity = create(:activity, trackable: meeting)
+          3.times{ create(:notification, activity: activity) }
+        end
+      end
+
+      it 'destroys associated activity and notifications' do
+        expect(PublicActivity::Activity.count).to eq 3
+        expect(Notification.count).to eq 9
+
+        meeting.destroy
+
+        expect(Notification.count).to eq 0
+        expect(PublicActivity::Activity.count).to eq 0
+      end
+    end
+  end
+
   describe '#upcoming?' do
     let(:meeting) { build_stubbed(:meeting) }
 
