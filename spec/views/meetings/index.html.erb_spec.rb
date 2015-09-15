@@ -51,7 +51,7 @@ RSpec.describe 'meetings/index', type: :view do
     include_examples :special_box_on_3rd
 
     it 'displays headline for upcoming meetings' do
-      expect(rendered).to have_selector('h1', text: "Kommende Treffen im #{graetzl.name}")
+      expect(rendered).to have_selector('h1', text: 'Komm doch dazu - aktuelleTreffen, Events & Veranstaltungen')
     end
 
     it 'displays upcoming meetings' do
@@ -83,7 +83,7 @@ RSpec.describe 'meetings/index', type: :view do
     include_examples :special_box_on_3rd
 
     it 'displays headline for upcoming meetings' do
-      expect(rendered).to have_selector('h1', text: "Kommende Treffen im #{graetzl.name}")
+      expect(rendered).to have_selector('h1', text: 'Komm doch dazu - aktuelleTreffen, Events & Veranstaltungen')
     end
 
     it 'displays upcoming meetings' do
@@ -104,7 +104,7 @@ RSpec.describe 'meetings/index', type: :view do
     include_examples :display_action_button
 
     it 'displays headline for upcoming meetings' do
-      expect(rendered).to have_selector('h1', text: "Kommende Treffen im #{graetzl.name}")
+      expect(rendered).to have_selector('h1', text: 'Komm doch dazu - aktuelleTreffen, Events & Veranstaltungen')
     end
 
     it 'displays no meetings' do
