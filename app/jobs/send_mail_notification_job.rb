@@ -12,10 +12,10 @@ class SendMailNotificationJob < ActiveJob::Base
       template_name = "summary-notification"
     when "daily"
       notifications = user.notifications_of_the_day
-      template_name = "summary-notification"
+      template_name = "weekly-daily-mandrill-notifications"
     when "weekly"
       notifications = user.notifications_of_the_week
-      template_name = "summary-notification"
+      template_name = "weekly-daily-mandrill-notifications"
     else
       notifications = []
       template_name = "summary-notification"
