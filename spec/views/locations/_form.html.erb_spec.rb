@@ -70,12 +70,12 @@ RSpec.describe 'locations/_form', type: :view do
       expect(rendered).to have_field(:location_address_attributes_street_number)
     end
 
-    it 'has field for :address_zip' do
-      expect(rendered).to have_field(:location_address_attributes_zip)
+    it 'has readonly field for :address_zip' do
+      expect(rendered).to have_xpath("//input[@name='location[address_attributes][zip]'][@readonly='readonly']")
     end
 
     it 'has field for :address_city' do
-      expect(rendered).to have_field(:location_address_attributes_city)
+      expect(rendered).to have_xpath("//input[@name='location[address_attributes][city]'][@readonly='readonly']")
     end
 
     it 'has hidden field for :address_coordinates' do
