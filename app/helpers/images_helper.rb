@@ -21,16 +21,11 @@ module ImagesHelper
     end
 
     def stock_photo(opt)
-
-=begin
       alpha_img = "cover_photo/#{opt[:fill].join('x')}.png"
       if Rails.application.assets.find_asset(alpha_img).blank?
-        return
+        return "https://placeimg.com/#{opt[:fill].join('/')}/nature/grayscale"
       end
       alpha_img
-=end
-
-      "https://placeimg.com/#{opt[:fill].join('/')}/nature/grayscale"
     end
 
     def avatar_defaults
