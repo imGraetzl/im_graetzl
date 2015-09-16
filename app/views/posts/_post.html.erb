@@ -1,4 +1,4 @@
-<% if current_user == post.user %>
+<% if (current_user == post.user) || current_user.admin? %>
   <div class="editControls">
     <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
   </div>

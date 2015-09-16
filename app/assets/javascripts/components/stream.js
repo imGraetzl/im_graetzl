@@ -67,6 +67,7 @@ APP.components.stream = (function() {
                 var commentContent = $txt.text();
                 $.ajax({
                     url: url,
+                    dataType: 'script',
                     type: 'DELETE',
                     beforeSend: function() {
                         $txt.html('löschen...');
