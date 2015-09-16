@@ -16,9 +16,8 @@ APP.components.stream = (function() {
         $(".stream").on("click", ".entryUserComment .btn-edit, .entryInitialContent .btn-edit", function() {
 
             var $parent = $(this).closest(".entryUserComment, .entryInitialContent");
-            var $txt = $parent.find(".txt");
-            var commentID = $txt.attr('id');
-            var sendURL = "/comments/"+commentID;
+            var $txt = $parent.find(".txt");          
+            var sendURL = $txt.attr('send-url');
 
             if (!$parent.attr("data-inlineEditInitialized")) {
                 initInlineEdit(sendURL);
@@ -56,12 +55,11 @@ APP.components.stream = (function() {
 
         $(".stream").on("click", ".entryUserComment .btn-delete, .entryInitialContent .btn-delete", function() {
 
-            var $parent = $(this).closest(".entryUserComment, .entryInitialContent");
+            var $parent = $(this).closest(".entryUserComment, .streamElement");
             var $txt = $parent.find(".txt");
-            var commentID = $txt.attr('id');
-            var sendURL = "/comments/"+commentID;
+            var sendURL = $txt.attr('send-url');
 
-            if (confirm("Kommentar wirklich löschen?")) {
+            if (confirm("Beitrag wirklich löschen?")) {
                 inlineDelete(sendURL)
             }
 
@@ -80,7 +78,7 @@ APP.components.stream = (function() {
                     },
                     error: function(jqXHR, textStatus,errorThrown) {
                         $txt.html(commentContent);
-                        alert("Dein Kommentar konnte nicht gelöscht werden. Bitte versuche es später nochmal");
+                        alert("Dein Beitrag konnte nicht gelöscht werden. Bitte versuche es später nochmal");
                     }
                 });
             }

@@ -1,5 +1,11 @@
+<% if current_user == post.user %>
+  <div class="editControls">
+    <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+  </div>
+<% end %>
+
 <%= link_to [post.graetzl, post], class: 'linkToPost' do %>
-  <div class="txt"><%= post.content %></div>
+  <div send-url="<%= post_path(post) %>" class="txt"><%= post.content %></div>
 <% end %>
 
 <% unless post.images.empty? %>

@@ -20,9 +20,22 @@ class Post < ActiveRecord::Base
   validates :graetzl, presence: true
   validates :user, presence: true
 
+  # callbacks
+  before_destroy :destroy_activity_and_notifications, prepend: true
+
   # instance methods
   def date_and_snippet
     time = created_at || Time.now
     "#{time.strftime('%m')} #{time.strftime('%Y')} #{content[0..20]}..."
+  end
+
+
+  private
+
+  def destroy_activity_and_notifications
+    activity = PublicActivity::Activity.where(trackable: self)
+    notifications = Notification.where(activity: activity)
+    notifications.destroy_all
+    activity.destroy_all
   end
 end

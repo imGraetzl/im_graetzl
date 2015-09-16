@@ -10,6 +10,13 @@ RSpec.describe PostsController, type: :routing do
         action: 'create')
     end
 
+    it 'routes DELETE /posts/post-slug to posts#destroy' do
+      expect(delete: '/posts/post-slug').to route_to(
+        controller: 'posts',
+        action: 'destroy',
+        id: 'post-slug')
+    end
+
     it 'routes GET /graetzl-slug/posts/post-slug to posts#show' do
       expect(get: '/graetzl-slug/posts/post-slug').to route_to(
         controller: 'posts',
@@ -25,6 +32,13 @@ RSpec.describe PostsController, type: :routing do
       expect(post: posts_path).to route_to(
         controller: 'posts',
         action: 'create')
+    end
+
+    it 'routes DELETE post_path(post-slug) to post#destroy' do
+      expect(delete: post_path(id: 'post-slug')).to route_to(
+        controller: 'posts',
+        action: 'destroy',
+        id: 'post-slug')
     end
 
     it 'routes GET graetzl_post_path(graetzl-slug, post-slug) to post#slug' do

@@ -74,7 +74,7 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:update, :destroy]
   
-  resources :posts, only: [:create] do
+  resources :posts, only: [:create, :destroy] do
     resource :comments, module: :posts, only: [:create]
   end
 

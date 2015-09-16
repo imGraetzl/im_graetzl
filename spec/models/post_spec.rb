@@ -125,4 +125,27 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe 'callbacks' do
+    let(:post) { create(:post) }
+
+    describe 'before_destroy' do
+      before do
+        3.times do
+          activity = create(:activity, trackable: post, key: 'post.something')
+          3.times{ create(:notification, activity: activity) }
+        end
+      end
+
+      it 'destroys associated activity and notifications' do
+        expect(PublicActivity::Activity.count).to eq 3
+        expect(Notification.count).to eq 9
+
+        post.destroy
+
+        expect(Notification.count).to eq 0
+        expect(PublicActivity::Activity.count).to eq 0
+      end
+    end
+  end
 end

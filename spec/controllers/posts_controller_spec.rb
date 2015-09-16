@@ -50,4 +50,57 @@ RSpec.describe PostsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE destroy' do
+    let!(:graetzl) { create(:graetzl) }
+    let!(:post) { create(:post, graetzl: graetzl) }
+
+    context 'when logged out' do
+      context 'when ajax request' do
+
+        it 'redirects to login_page' do
+          xhr :delete, :destroy, id: post
+          expect(response).to render_template(session[:new])
+        end
+      end
+      context 'when html request' do
+
+        it 'redirects to login_page' do
+          delete :destroy, id: post
+          expect(response).to render_template(session[:new])
+        end
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before { sign_in user }
+
+      context 'when ajax request' do
+        it 'deletes record' do
+          expect {
+            xhr :delete, :destroy, id: post
+          }.to change(Post, :count).by(-1)
+        end
+
+        it 'renders empty success response' do
+          xhr :delete, :destroy, id: post
+          expect(response.body).to be_empty
+          expect(response).to have_http_status(:success)
+        end
+      end
+      context 'when html request' do
+
+        it 'deletes post record' do
+          expect{
+            delete :destroy, id: post
+          }.to change{Post.count}.by(-1)
+        end
+
+        it 'redirects to graetzl page' do
+          delete :destroy, id: post
+          expect(response).to redirect_to graetzl
+        end
+      end
+    end
+  end
 end

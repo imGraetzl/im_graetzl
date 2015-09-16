@@ -71,7 +71,6 @@ class Notification < ActiveRecord::Base
   end
 
   def self.broadcast(activity)
-    puts "CALL BROADCAST CALL BROADCAST CALL BROADCAST CALL BROADCAST"
     triggered_types = TYPES.select { |k, v| v[:triggered_by_activity_with_key] == activity.key }
     ids_notified_users =  []
     #sort by bitmask, so that lower order bitmask types are sent first, because

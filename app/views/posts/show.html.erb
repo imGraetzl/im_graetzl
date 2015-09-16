@@ -17,6 +17,10 @@
     <% end %>
   <% end %>
 </section>
+<%= button_to 'Beitrag löschen', post_path(@post),
+              data: { confirm: 'Bist du dir sicher?' },
+              method: :delete,
+              class: 'btn-secondary -small' %>
 
 <div class="stream">
 
