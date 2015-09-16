@@ -1,9 +1,9 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :authorize_user!, except: [:index, :show]
+  before_action :set_location, except: [:index, :new, :create]
+  before_action :check_permission!, except: [:index, :show]
   include AddressBeforeNew
   include GraetzlChild
-  before_action :set_location, only: [:show, :edit, :update]
 
   def new
     render :adopt and return if adopt?
@@ -55,52 +55,62 @@ class LocationsController < ApplicationController
     @meetings = @location.meetings.basic.upcoming
   end
 
+  def destroy
+    if @location.users.include?(current_user) && @location.destroy
+      flash[:notice] = 'Location entfernt'
+    else
+      flash[:error] = 'Nur Betreiber können Locations löschen'
+    end
+    redirect_to :back
+  end
+
+
   private
 
-    def set_location
-      @location = Location.find(params[:id])
-    end
+  def set_location
+    @location = Location.find(params[:id])
+  end
 
-    def authorize_user!      
-      unless current_user.business?
-        flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben.'
-        redirect_to root_url
-      end
+  def check_permission!      
+    unless current_user.business?
+      flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben'
+      redirect_to :back
     end
+  end
 
-    def enqueue_and_redirect
-      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-      redirect_to root_url
-    end
+  def enqueue_and_redirect
+    flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+    redirect_to root_url
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def location_params
-      params.
-        require(:location).
-        permit(:name,
-          :graetzl_id,
-          :slogan,
-          :description,
-          :avatar, :remove_avatar,
-          :cover_photo, :remove_cover_photo,
-          contact_attributes: [
-            :website,
-            :email,
-            :phone],
-          address_attributes: [
-            :street_name,
-            :street_number,
-            :zip,
-            :city,
-            :coordinates],
-          category_ids: []).
-        merge(user_ids: [current_user.id])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def location_params
+    params.
+      require(:location).
+      permit(:name,
+        :graetzl_id,
+        :slogan,
+        :description,
+        :avatar, :remove_avatar,
+        :cover_photo, :remove_cover_photo,
+        contact_attributes: [
+          :website,
+          :email,
+          :phone],
+        address_attributes: [
+          :street_name,
+          :street_number,
+          :zip,
+          :city,
+          :coordinates],
+        category_ids: []).
+      merge(user_ids: [current_user.id])
+  end
 
-    def adopt?
-      if request.post?
-        @locations = @address.available_locations
-        return @locations.present?
-      end
+  def adopt?
+    if request.post?
+      @locations = @address.available_locations
+      return @locations.present?
     end
+  end
 end
