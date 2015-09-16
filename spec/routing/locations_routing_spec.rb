@@ -47,6 +47,13 @@ RSpec.describe LocationsController, type: :routing do
         action: 'update',
         id: 'location-slug')
     end
+
+    it 'routes DELETE /locations/location-slug to #destroy' do
+      expect(delete: '/locations/location-slug').to route_to(
+        controller: 'locations',
+        action: 'destroy',
+        id: 'location-slug')
+    end
   end
 
   describe 'named routing' do
@@ -89,6 +96,13 @@ RSpec.describe LocationsController, type: :routing do
       expect(put: location_path(id: 'location-slug')).to route_to(
         controller: 'locations',
         action: 'update',
+        id: 'location-slug')
+    end
+
+    it 'routes DESTROY location to #destroy' do
+      expect(delete: location_path(id: 'location-slug')).to route_to(
+        controller: 'locations',
+        action: 'destroy',
         id: 'location-slug')
     end
   end

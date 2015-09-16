@@ -3,6 +3,9 @@ include GeojsonSupport
 
 RSpec.describe LocationsController, type: :controller do
   let(:graetzl) { create(:graetzl) }
+  before(:each) do
+    request.env['HTTP_REFERER'] = 'where_i_came_from'
+  end
 
   # Shared Examples:
   shared_examples :an_unauthenticated_request do
@@ -12,8 +15,8 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   shared_examples :an_unauthorized_request do
-    it 'redirects to root' do
-      expect(response).to redirect_to root_url
+    it 'redirects back to previous page' do
+      expect(response).to redirect_to 'where_i_came_from'
     end
 
     it 'shows flash[:error]' do
@@ -48,7 +51,7 @@ RSpec.describe LocationsController, type: :controller do
         sign_in user
         get :new
       end
-      include_examples :an_unauthenticated_request
+      include_examples :an_unauthorized_request
     end
 
     context 'when business user' do
@@ -558,6 +561,49 @@ RSpec.describe LocationsController, type: :controller do
           expect{
             put :update, params
           }.not_to change{location.state}
+        end
+      end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    let!(:location) { create(:location) }
+
+    context 'when logged out' do
+      before { delete :destroy, id: location }
+
+      include_examples :an_unauthenticated_request
+    end
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before { sign_in user }
+
+      context 'when non business user' do
+        before { delete :destroy, id: location }
+
+        include_examples :an_unauthenticated_request
+      end
+      context 'when business user' do
+        before { user.business! }
+
+        context 'when no location_ownership' do
+          before { delete :destroy, id: location }
+
+          include_examples :an_unauthenticated_request
+        end
+        context 'when location owner' do
+          before { create(:location_ownership, user: user, location: location) }
+
+          it 'deletes location record' do
+            expect{
+              delete :destroy, id: location
+            }.to change{Location.count}.by(-1)
+          end
+
+          it 'redirects back to previous page' do
+            delete :destroy, id: location
+            expect(response).to redirect_to 'where_i_came_from'
+          end
         end
       end
     end

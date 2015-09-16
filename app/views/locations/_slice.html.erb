@@ -22,8 +22,10 @@
     <% else %>
       <div class="btnCollection">
         <%= link_to 'Bearbeiten', edit_location_path(location), class: 'btn-secondary -small' %>
-        <div class="btn-secondary -small">Besitzer hinzufügen</div>
-        <div class="btn-secondary -small">Location entfernen</div>
+        <%= button_to 'Location entfernen', location_path(location),
+                      data: { confirm: 'Bist du dir sicher?' },
+                      method: :delete,
+                      class: 'btn-secondary -small' %>
       </div>
     <% end %>
   </div>
