@@ -39,7 +39,6 @@
 @import "components/medalBadge";
 @import "components/meetingBoxes";
 @import "components/zuckerlBox";
-@import "components/graetzlMapWidget";
 @import "components/ownMeetingBox";
 @import "components/commonTypograpy";
 @import "components/link-more";
@@ -72,6 +71,7 @@
 @import "controllers/homeOut";
 @import "controllers/graetzls";
 @import "controllers/districts";
+@import "controllers/_zuckerlOverview";
 @import "controllers/location";
 
 //---------------------------------------------------------------------------------------------*\
