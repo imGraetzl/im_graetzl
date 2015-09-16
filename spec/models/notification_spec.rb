@@ -281,6 +281,21 @@ RSpec.describe Notification, type: :model do
     end
   end
 
+  describe "admin approves location" do
+    let!(:location) { create(:location) }
+    before do
+      user.enable_website_notification :approve_of_location
+      create(:location_ownership, user: user, location: location)
+    end
+
+    it "user is notified" do
+      expect(user.notifications.to_a).to be_empty
+      location.create_activity :approve
+      user.notifications.reload
+      expect(user.notifications.to_a).to_not be_empty
+    end
+  end
+
   describe "mail notifications" do
     before { user.enable_mail_notification(:new_meeting_in_graetzl, interval) }
     let(:user) { create(:user, graetzl: meeting.graetzl) }

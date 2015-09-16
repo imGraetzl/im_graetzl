@@ -56,6 +56,11 @@ class Notification < ActiveRecord::Base
       bitmask: 512,
       receivers: ->(activity) { activity.trackable.users }
     },
+    approve_of_location: {
+      triggered_by_activity_with_key: 'location.approve',
+      bitmask: 1024,
+      receivers: ->(activity) { activity.trackable.users }
+    }
   }
   
   belongs_to :user
@@ -66,6 +71,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.broadcast(activity)
+    puts "CALL BROADCAST CALL BROADCAST CALL BROADCAST CALL BROADCAST"
     triggered_types = TYPES.select { |k, v| v[:triggered_by_activity_with_key] == activity.key }
     ids_notified_users =  []
     #sort by bitmask, so that lower order bitmask types are sent first, because
@@ -77,7 +83,7 @@ class Notification < ActiveRecord::Base
         users = v[:receivers].call(activity)
         #users = users.merge(User.where(["enabled_website_notifications & ? > 0", v[:bitmask]]))
         users.each do |u|
-          unless ids_notified_users.include?(u.id) || u.id == activity.owner.id
+          unless ids_notified_users.include?(u.id) || (u.id == activity.owner.id if activity.owner)
             n = u.notifications.create(activity: activity, bitmask: v[:bitmask])
             if u.immediate_mail_notifications & v[:bitmask] > 0
               SendMailNotificationJob.perform_later(u.id, "immediate", n.id)
