@@ -33,7 +33,7 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe 'attributes' do
+  describe 'macros' do
     let(:location) { create(:location) }
 
     it 'has friendly_id' do
@@ -62,77 +62,95 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
-    describe 'address' do
-      it 'has address' do
-        expect(location).to respond_to(:address)
-      end
-
-      describe 'destroy association' do
-        before { create(:address, addressable: location) }
-
-        it 'had address before' do
-          expect(location.address).not_to be_nil
-        end
-
-        it 'destroys address' do
-          address = location.address
-          location.destroy
-          expect(Address.find_by_id(address.id)).to be_nil
-        end
-      end
+    it 'has address' do
+      expect(location).to respond_to(:address)
     end
 
-    describe 'users' do
-      it 'has users' do
-        expect(location).to respond_to(:users)
-      end
-
-      describe 'destroys association' do
-        before do
-          3.times { create(:location_ownership, location: location) }
-        end
-
-        it 'had location_ownerships and users before' do
-          expect(location.location_ownerships.count).to eq 3
-          expect(location.users.count).to eq 3
-        end
-
-        it 'destroys location_ownerships' do
-          location_ownerships = location.location_ownerships
-          location.destroy
-          location_ownerships.each do |location_ownership|
-            expect(LocationOwnerships.find_by_id(location_ownership.id)).to be_nil
-          end
-        end
-      end
+    it 'has users' do
+      expect(location).to respond_to(:users)
     end
 
     it 'has categories' do
       expect(location).to respond_to(:categories)
     end
 
-    describe 'contact' do
-      it 'has contact' do
-        expect(location).to respond_to(:contact)
-      end
-
-      describe 'destroy association' do
-        before { create(:contact, location: location) }
-
-        it 'had contact before' do
-          expect(location.contact).not_to be_nil
-        end
-
-        it 'destroys contact' do
-          contact = location.contact
-          location.destroy
-          expect(Contact.find_by_id(contact.id)).to be_nil
-        end
-      end
+    it 'has contact' do
+      expect(location).to respond_to(:contact)
     end
 
     it 'has meetings' do
       expect(location).to respond_to(:meetings)
+    end
+
+    it 'has activities' do
+      expect(location).to respond_to(:activities)
+    end
+
+    describe 'destroy callbacks' do
+      describe 'address' do
+        let!(:address) { create(:address, addressable: location) }
+        before do
+          location.address = address
+          location.save
+        end
+
+        it 'destroys address' do
+          expect(Address.find(address.id)).not_to be_nil
+          location.destroy
+          expect(Address.find_by_id(address.id)).to be_nil
+        end
+      end
+
+      describe 'users / location_onwerships' do
+        before do
+          3.times { create(:location_ownership, location: location) }
+        end
+
+        it 'destroys location_ownerships' do
+          location_ownerships = location.location_ownerships
+          location_ownerships.each do |location_ownership|
+            expect(LocationOwnership.find(location_ownership.id)).to be_present
+          end
+          location.destroy
+          location_ownerships.each do |location_ownership|
+            expect(LocationOwnership.find_by_id(location_ownership.id)).to be_nil
+          end
+        end
+      end
+
+      describe 'contact' do
+        let!(:contact) { create(:contact, location: location) }
+        before do
+          location.contact = contact
+          location.save
+        end
+
+        it 'destroys contact' do
+          contact = location.contact
+          expect(Contact.find(contact.id)).to be_present
+          location.destroy
+          expect(Contact.find_by_id(contact.id)).to be_nil
+        end
+      end
+
+      describe 'notifications and activity' do
+        before do
+          3.times do
+            activity = create(:activity, trackable: location, key: 'location.something')
+            3.times{ create(:notification, activity: activity) }
+          end
+        end
+
+        it 'destroys associated activity and notifications' do
+          expect(PublicActivity::Activity.count).to eq 3
+          expect(Notification.count).to eq 9
+
+          location.destroy
+
+          expect(Notification.count).to eq 0
+          expect(PublicActivity::Activity.count).to eq 0
+        end
+      end
     end
   end
 
@@ -187,6 +205,16 @@ RSpec.describe Location, type: :model do
 
       it 'returns true' do
         expect(location.approve).to be_truthy
+      end
+
+      it 'logs :approve activity' do
+        PublicActivity.with_tracking do
+          expect(location.activities).to be_empty
+          location.approve
+          location.reload
+          expect(location.activities).not_to be_empty
+          expect(location.activities.last.key).to eq 'location.approve'
+        end
       end
 
       it 'updates ownerships' do

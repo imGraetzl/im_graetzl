@@ -1,4 +1,5 @@
 class Location < ActiveRecord::Base
+  include PublicActivity::Common
   extend FriendlyId
 
   # scopes
@@ -29,6 +30,9 @@ class Location < ActiveRecord::Base
   validates :name, presence: true
   validates :graetzl, presence: true
 
+  # callbacks
+  before_destroy :destroy_activity_and_notifications, prepend: true
+
   # class methods
   def self.reset_or_destroy(location)
     if location.previous_version
@@ -48,7 +52,7 @@ class Location < ActiveRecord::Base
 
   def approve
     if pending? && managed!
-      # update users
+      self.create_activity :approve
       return true
     end
     false
@@ -67,7 +71,15 @@ class Location < ActiveRecord::Base
     location_ownerships.basic.find_by_user_id(user)
   end
 
+
   private
+
+  def destroy_activity_and_notifications
+    activity = PublicActivity::Activity.where(trackable: self)
+    notifications = Notification.where(activity: activity)
+    notifications.destroy_all
+    activity.destroy_all
+  end
 
     # def update_ownerships
     #   location_ownerships.pending.each do |ownership|

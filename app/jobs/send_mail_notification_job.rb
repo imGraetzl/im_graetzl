@@ -131,6 +131,12 @@ class SendMailNotificationJob < ActiveJob::Base
           "owner_name": activity.owner.username,
           "owner_url": user_url(activity.owner, default_url_options)
         }
+      when "approve_of_location"
+        notification_vars << {
+          "type": "approve_of_location",
+          "location_name": activity.trackable.name,
+          "location_url": graetzl_location_url(activity.trackable.graetzl, activity.trackable, default_url_options),
+        }
       end
     end
 
