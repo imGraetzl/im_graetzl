@@ -13,7 +13,6 @@
 // Styles for the main sections and the layout (header, footer, grid, forms, typography).
 //---------------------------------------------------------------------------------------------*/
 
-//@import "layout/normalize";
 @import "layout/base";
 @import "layout/icons";
 
@@ -37,7 +36,7 @@
 @import "components/badge";
 @import "components/tabs-ctrl";
 @import "components/medalBadge";
-@import "components/meetingBoxes";
+@import "components/cardBox";
 @import "components/zuckerlBox";
 @import "components/commonTypograpy";
 @import "components/link-more";
@@ -68,7 +67,7 @@
 @import "controllers/userprofile";
 @import "controllers/usersettings";
 @import "controllers/homeOut";
-@import "controllers/zuckerlOverview";
+@import "controllers/graetzlZuckerl";
 @import "controllers/graetzls";
 @import "controllers/districts";
 @import "controllers/location";

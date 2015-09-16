@@ -1,5 +1,6 @@
 
 .badge {
+  position: relative;
   @include font-size-secondaryFont('base');
   width: 90px;
   height: 90px;
@@ -23,6 +24,7 @@
     width: 110px;
     height: 110px;
     padding-top: 25px;
+
   }
   @include respond-to(">=large") {
     width: 130px;
@@ -72,5 +74,4 @@
       }
     }
   }
-
 }

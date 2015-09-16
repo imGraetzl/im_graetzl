@@ -64,8 +64,8 @@
     display: table;
     margin-top: 10px;
     @include respond-to(">=medium") {
-    margin-left: auto;
-    margin-right: 10px;
+      margin-left: auto;
+      margin-right: 10px;
     }
   }
 }
@@ -121,8 +121,25 @@
   p {
     margin-bottom: 10px;
   }
-
 }
+
+
+.cardBox[class*=-illu] {
+  background-repeat: no-repeat;
+  background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
+  background-position: center top 15px;
+}
+
+//TODO: make a small variant for 4column views
+.cardBox.-illuteaser {
+  padding-top: 188px;
+  background-size: auto 180px;
+}
+.cardBox.-illuteasersmall {
+  padding-top: 177px;
+  background-size: auto 170px;
+}
+
 
 
 .meetingBoxHeader, .cardBoxHeader {
