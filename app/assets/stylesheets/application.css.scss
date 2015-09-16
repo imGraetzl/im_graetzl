@@ -35,7 +35,7 @@
 @import "components/dateTimeLocation";
 @import "components/sideFlag";
 @import "components/badge";
-@import "components/_tabs-ctrl";
+@import "components/tabs-ctrl";
 @import "components/medalBadge";
 @import "components/meetingBoxes";
 @import "components/zuckerlBox";
@@ -50,7 +50,7 @@
 @import "components/addressSearchAutocomplete";
 @import "components/fileUploads";
 @import "components/titleHeadline";
-@import "components/_imgHeader";
+@import "components/imgHeader";
 @import "components/notificationsValidation";
 @import "components/shame";
 
@@ -68,6 +68,7 @@
 @import "controllers/userprofile";
 @import "controllers/usersettings";
 @import "controllers/homeOut";
+@import "controllers/zuckerlOverview";
 @import "controllers/graetzls";
 @import "controllers/districts";
 @import "controllers/location";

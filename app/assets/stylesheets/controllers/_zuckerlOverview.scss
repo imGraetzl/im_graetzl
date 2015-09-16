@@ -88,7 +88,6 @@ section.zuckerlOverview {
   }
 
   .ownZuckerl {
-    @include paperCard($rotation: -2, $string: 2);
     padding: 95px 30px 30px 30px;
     margin-top: 60px;
     @include respond-to(">=medium") {
