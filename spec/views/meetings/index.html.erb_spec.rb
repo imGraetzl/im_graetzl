@@ -6,7 +6,7 @@ RSpec.describe 'meetings/index', type: :view do
   shared_examples :display_action_button do
 
     it 'displays special box' do
-      expect(rendered).to have_selector('div.ownMeetingBox')
+      expect(rendered).to have_selector('div.paperCard')
     end
     
     it 'displays link to start meeting' do
@@ -17,7 +17,7 @@ RSpec.describe 'meetings/index', type: :view do
 
   shared_examples :special_box_on_3rd do 
     it 'displays special box on 3rd position' do
-      expect(rendered).to have_xpath('(//div[@class="meetingBox"])[2]/following-sibling::div[@class="ownMeetingBox"][1]')
+      expect(rendered).to have_xpath('(//div[@class="meetingBox"])[2]/following-sibling::div[@class="paperCard"][1]')
     end
   end
 

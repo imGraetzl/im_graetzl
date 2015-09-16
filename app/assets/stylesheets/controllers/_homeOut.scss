@@ -1,48 +1,20 @@
 section.homeOut {
 
-  .teaserBlock {
+  .hl-subtext {
+    margin-bottom: 60px;
+  }
+
+  .meetings-block {
     @include cf();
     margin-bottom: 40px;
-    border-bottom: 1px dotted $color-ambient-mint-light;
-    padding-bottom: 3rem;
     @include respond-to(">=medium") {
-      margin-bottom: 70px;
+      margin-bottom: 60px;
     }
 
-    .meetingBoxes {
-      > * {
-        @include respond-to(">=large") {
-          margin-bottom: 0;
-        }
-      }
-    }
-    h2 {
-      @include font-size-secondaryFont('large');
-      text-align: center;
-      color: $color-ambient-rosa;
-      margin-bottom: 10px;
-      + p {
-        @include font-size-primaryFont('larger');
-        text-align: center;
-        margin-bottom: 30px;
-        @include respond-to(">=large") {
-          margin-bottom: 50px;
-        }
-      }
+    .paperCard .card {
+      transform: rotate(-1deg);
     }
 
-    .link-more {
-      @include font-size-primaryFont('large');
-      margin: 0 auto;
-      display: table;
-      z-index: 3;
-      position: relative;
-      @include respond-to(">=large") {
-        float: right;
-        margin-right: 10px;
-        display: block;
-      }
-    }
   }
 }
 
@@ -134,9 +106,9 @@ section.homeOut {
     @include font-size-secondaryFont('large');
     text-align: center;
     color: $color-ambient-rosa;
-    margin-bottom: 2.0rem;
+    margin-bottom: 20px;
     @include respond-to(">=medium") {
-      margin-bottom: 3.0rem;
+      margin-bottom: 80px;
     }
   }
 
@@ -172,22 +144,46 @@ section.homeOut {
 
 
 .aboutGraetzl [class^=graetzl-] {
-  display: flex;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  @include respond-to(">=medium") {
+    display: flex;
+    margin-bottom: 60px;
+  }
+  .paperCard, .illuZuckerl {
+    width: 280px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    @include respond-to(">=medium") {
+      width: auto;
+      flex: 0 0 280px;
+      margin-bottom: 0;
+    }
+    @include respond-to(">=large") {
+      transform: translate(0,-20px);
+    }
+  }
   .paperCard {
-    flex: 0 0 280px;
     height: 240px;
-
   }
   &:nth-child(even) {
     .paperCard {
-      margin-right: 70px;
+      @include respond-to(">=medium") {
+        margin-right: 70px;
+      }
+      .card {
+        transform: rotate(-2deg);
+      }
     }
   }
   &:nth-child(odd) {
     .paperCard {
-      margin-left: 70px;
-      order: 2;
+      @include respond-to(">=medium") {
+        margin-left: 70px;
+        order: 2;
+      }
+      .card {
+        transform: rotate(2deg);
+      }
     }
   }
 }
@@ -212,7 +208,11 @@ section.homeOut {
       background-image: url(image_path('illu/illu-wirtschaft-straight@2x.png'));
     }
   }
-  .graetzl-zuckerl {
-
+  .illuZuckerl {
+    background-image: url(image_path('graetzlzuckerl.png'));
+    background-size: 70% auto;
+    background-position: 30px 20px;
+    background-repeat: no-repeat;
+    height: 150px;
   }
 }

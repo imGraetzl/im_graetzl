@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'static_pages/meetingDetail'
   get 'static_pages/homeOut'
   get 'static_pages/userprofile'
+  get 'static_pages/zuckerlOverview'
   get 'static_pages/location'
   root 'static_pages#home'
 

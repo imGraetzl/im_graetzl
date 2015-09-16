@@ -57,24 +57,6 @@ section.graetzls {
 
   }
 
-  .ownMeetingBox {
-    transform: translate(-20px, 8px);
-    &:hover {
-      transform: translate(-16px, 13px);
-    }
-    .wrp {
-      background-position: -7px 23px;
-    }
-    .card {
-      background-image: none;
-      background-color: #fff;
-    }
-    .card::before {
-      transform: scale(0.7);
-      top: -60px;
-    }
-  }
-
   .textEditor:before {
     left: 21px;
     top: -15px;
@@ -82,26 +64,24 @@ section.graetzls {
     transform: rotate(90deg);
   }
 
-  .teaserBlock {
+  .block-overview {
     @include cf();
     margin-bottom: 40px;
     @include respond-to(">=medium") {
       margin-bottom: 50px;
     }
-
-    .meetingBoxes {
-      > * {
-        @include respond-to(">=large") {
-          margin-bottom: 0;
-        }
+    .paperCard {
+      .wrp {
+        padding-top: 122px;
+        background-size: auto 150px;
       }
     }
-
   }
 
   .sideflag {
     display: none;
   }
+
 
   .cardBox {
     .icontxt {
@@ -239,11 +219,6 @@ section.graetzls {
     margin-bottom: 10px;
     transform: translate(6px, 0);
   }
-  .link-more {
-    margin-left: auto;
-    display: table;
-    margin-right: 10px;
-  }
 }
 
 .block-meetings {
@@ -255,8 +230,6 @@ section.graetzls {
   .paperCard {
     .wrp {
       background-image: url(image_path('illu/illu-card-wirtschaft-plain@2x.png'));
-      background-position: left 60px top 10px;
-      background-size: 70% auto;
     }
     .card {
       transform: rotate(1deg);

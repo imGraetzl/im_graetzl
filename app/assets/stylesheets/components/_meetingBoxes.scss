@@ -1,6 +1,5 @@
 
-.meetingBoxCollection, .cardBoxCollection,
-.meetingBoxes, .cardCollection {
+.meetingBoxCollection, .cardBoxCollection {
   @include cf();
   @include respond-to(">=large") {
     margin-left: -25px;
@@ -53,12 +52,21 @@
   }
 }
 
-.wrp-cardBox {
+.wrp-cardBox, .cardbox-wrp {
   h2:first-child {
     @include font-size-secondaryFont('small');
     color: $color-ambient-mint-dark;
     margin-left: 12px;
     margin-bottom: 4px;
+  }
+  .link-more {
+    margin: 0 auto;
+    display: table;
+    margin-top: 10px;
+    @include respond-to(">=medium") {
+    margin-left: auto;
+    margin-right: 10px;
+    }
   }
 }
 

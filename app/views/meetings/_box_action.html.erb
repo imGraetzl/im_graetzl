@@ -1,13 +1,13 @@
-<div class="ownMeetingBox">
-  <%= link_to new_graetzl_meeting_path(@graetzl), class: 'wrp' do %>
+<div class="paperCard -illuteaser">
+  <div class="wrp">
     <% if user_signed_in? %>
-      <div class="user">
-        <%= avatar_for current_user %>
-        <span><%= current_user.username %></span>
-      </div>
+        <div class="user">
+          <%= avatar_for current_user %>
+          <span><%= current_user.username %></span>
+        </div>
     <% end %>
     <h3>Starte Dein<br/>eigenes Treffen</h3>
-    <button class="btn-primary -rose">Treffen anlegen</button>
-  <% end %>
+    <%= link_to 'Treffen anlegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary -rose' %>
+  </div>
   <div class="card"></div>
 </div>

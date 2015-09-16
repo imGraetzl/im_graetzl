@@ -66,6 +66,8 @@ class Notification < ActiveRecord::Base
   end
 
   def self.broadcast(activity)
+
+=begin
     triggered_types = TYPES.select { |k, v| v[:triggered_by_activity_with_key] == activity.key }
     ids_notified_users =  []
     #sort by bitmask, so that lower order bitmask types are sent first, because
@@ -87,6 +89,9 @@ class Notification < ActiveRecord::Base
         end
       end
     end
+=end
+    
+
   end
 
   PublicActivity::Activity.after_create do |activity|
