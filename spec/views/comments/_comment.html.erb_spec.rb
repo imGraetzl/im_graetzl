@@ -5,7 +5,8 @@ RSpec.describe 'comments/_comment', type: :view do
   let(:comment) { build_stubbed(:comment) }
 
   before do
-    allow(view).to receive(:current_user) { user } }
+    allow(view).to receive(:current_user) { user }
+  end
 
   describe 'edit controls' do
     context 'when comment by user' do
