@@ -232,3 +232,34 @@ section.graetzls {
   }
 
 }
+
+.block-locations, .block-meetings {
+  margin-bottom: 60px;
+  .paperCard {
+    margin-bottom: 10px;
+    transform: translate(6px, 0);
+  }
+  .link-more {
+    margin-left: auto;
+    display: table;
+    margin-right: 10px;
+  }
+}
+
+.block-meetings {
+  .paperCard .card {
+    transform: rotate(-2deg);
+  }
+}
+.block-locations {
+  .paperCard {
+    .wrp {
+      background-image: url(image_path('illu/illu-card-wirtschaft-plain@2x.png'));
+      background-position: left 60px top 10px;
+      background-size: 70% auto;
+    }
+    .card {
+      transform: rotate(1deg);
+    }
+  }
+}

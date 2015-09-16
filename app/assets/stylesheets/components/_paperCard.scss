@@ -86,5 +86,145 @@
   }
 }
 
+//TODO: refactor papercards sitewide / remove complicated mixin above
+
+.paperCard {
+  position: relative;
+  .wrp {
+    min-height: 50px;
+    z-index: 2;
+    position: relative;
+    display: block;
+  }
+  .card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+    display: block;
+    z-index: 1;
+    border-radius: 2px;
+    background-color: #fff;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 10px;
+      top: 100%;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center top, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+    }
+  }
+}
 
 
+.paperCard[class*=-cord] {
+  .card {
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 6;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+
+.paperCard[class*=-cord1] {
+  .card {
+    &::before {
+      top: -65px;
+      height: 95px;
+      width: 68px;
+      background-image: url(image_path('svg/card-string2-fakehole.svg'));
+    }
+  }
+  &.-cordsmall {
+    .card {
+      &::before {
+        top: -61px;
+      }
+    }
+  }
+}
+
+
+.paperCard.-cord1RT {
+  .card {
+    &::before {
+      right: -38px;
+    }
+  }
+  &.-cordsmall {
+    .card {
+      &::before {
+        transform: scale(0.7);
+      }
+    }
+  }
+}
+
+
+.paperCard.-cord1LT {
+  .card {
+    &::before {
+      left: -38px;
+    }
+  }
+  &.-cordsmall {
+    .card {
+      &::before {
+        transform: scale(-0.7, 0.7);
+      }
+    }
+  }
+}
+
+
+.paperCard[class*=-illu] {
+  .wrp {
+    background-repeat: no-repeat;
+    background-size: 90% auto;
+    background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
+  }
+}
+
+
+.paperCard.-illuteaser {
+  .wrp  {
+    background-position: center top 15px;
+    padding: 160px 30px 30px 30px;
+  }
+  button {
+    width: 100%;
+  }
+  .user {
+    img {
+      vertical-align: bottom;
+    }
+    span {
+      color: $color-ambient-mint-dark;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      vertical-align: bottom;
+    }
+  }
+  h3 {
+    @include font-size-primaryFont('larger');
+    line-height: 1.4;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    color: $color-ambient-mint-dark;
+  }
+}
+
+
+.paperCard.-illuonly {
+  .wrp  {
+    height: 100%;
+    background-position: center;
+  }
+}
