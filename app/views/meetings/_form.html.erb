@@ -102,7 +102,7 @@
     </div>
   </div>
   <div class="meet-how">
-    <p>Beschreibe dein Treffen, bzw. Veranstaltung mit <span>Bild & Thema</span>.</p>
+    <p>Beschreibe dein Treffen, bzw. Veranstaltung mit einem <span>Bild</span>.</p>
 
     <!--
     <div class="input-field">
@@ -131,14 +131,6 @@
       <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
       <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
       <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
-    </div>
-
-    <div class="input-select">
-      <%= f.label :category_ids do %>
-        <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-        <span>Kategorien</span>
-      <% end %>
-      <%= f.collection_select(:category_ids, Category.recreation, :id, :name, {}, {multiple: true, class: 'categories'}) %>
     </div>
   </div>
 
