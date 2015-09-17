@@ -27,6 +27,14 @@
   }
 }
 
+main [id^=error_] {
+  padding: 25px;
+  margin-top: 20px;
+  ul {
+    padding-left: 28px;
+  }
+}
+
 #error_explanation, #flash {
   background-color: #FEF6DF;
   color: #cd891b;
