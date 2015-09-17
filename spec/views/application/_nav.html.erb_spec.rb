@@ -10,6 +10,11 @@ RSpec.describe 'application/_nav', type: :view do
     it 'displays link to district overview' do
       expect(rendered).to have_link('Wien Übersicht', href: districts_path)
     end
+
+    it 'displays link to zuckerls#index in 1020' do
+      expect(rendered).to have_link("Grätzlzuckerl im #{l(Date.today, format: '%B')}",
+        href: zuckerl_district_path(district))
+    end
   end
 
   shared_examples :nav_main_graetzl do
@@ -42,6 +47,11 @@ RSpec.describe 'application/_nav', type: :view do
 
   # Scenarios
   let(:graetzl) { create(:graetzl, state: Graetzl.states[:open]) }
+  let(:district) { create(:district) }
+  before do
+    allow(view).to receive(:default_district) { district }
+  end
+
 
   context 'when logged out' do
     describe 'nav/main' do
