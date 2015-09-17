@@ -1,4 +1,4 @@
-<% card ||= false %>
+<% small ||= false %>
 <div class="cardBox">
   <div class="cardBoxHeader">
     <%= link_to [meeting.graetzl, meeting] do %>
@@ -29,16 +29,10 @@
   </div>
   <h3><%= meeting.name %></h3>
 
-  <% unless card %>
+  <% unless small %>
     <div class="txt"><%= truncate(meeting.description, length: 140) %></div>
   <% end %>
 
   <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
 
 </div>
-
-<% if card %>
-    <%= link_to graetzl_meetings_path(meeting.graetzl), class: 'link-more' do %>
-        Alle Treffen & Events
-    <% end %>
-<% end %>

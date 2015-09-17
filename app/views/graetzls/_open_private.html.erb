@@ -1,119 +1,53 @@
-<!-- has NO content view -->
-
-  <div class="block-overview">
-    <div class="cardBoxCollection -quart">
-
-      <div class="wrp-cardBox">
-        <h2>Treffen & Events</h2>
+<div class="block-overview">
+  <div class="cardBoxCollection -quart">
+    <div class="wrp-cardBox">
+      <h2>Treffen & Events</h2>
+      <% unless @meetings.empty? %>
+        <%= render @meetings.first %>
+      <% else %>
         <div class="cardBox meetBox -illuteasersmall">
           <div class="txt">
             <p>Lege ein Treffen für gemeinsame Aktivitäten an oder trage ein Event ein.</p>
           </div>
-          <a class="btn-primary -rose" href="#">Treffen anlegen</a>
+          <%= link_to 'Treffen anlegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary' %>
         </div>
-      </div>
+      <% end %>
+    </div>
 
-      <div class="wrp-cardBox">
-        <h2>Initiativen</h2>
-        <div class="cardBox initiativeBox -illuteasersmall">
-          <div class="txt">
-            <p>Gartenprojekt, Flohmarkt, oder Spendenaktion? Finde Mitorganisatoren.</p>
-          </div>
-          <a class="btn-primary -disabled" href="#" title="An dieser Funktion arbeiten wir noch...">In Kürze verfügbar</a>
+    <div class="wrp-cardBox">
+      <h2>Initiativen</h2>
+      <div class="cardBox initiativeBox -illuteasersmall">
+        <div class="txt">
+          <p>Gartenprojekt, Flohmarkt, oder Spendenaktion? Finde Mitorganisatoren.</p>
         </div>
+        <a class="btn-primary -disabled" href="#" title="An dieser Funktion arbeiten wir noch...">In Kürze verfügbar</a>
       </div>
+    </div>
 
-      <div class="wrp-cardBox">
-        <h2>Betreiber & Locations</h2>
+    <div class="wrp-cardBox">
+      <h2>Betreiber & Locations</h2>
+      <% unless @locations.empty? %>
+        <%= render @locations.first %>
+      <% else %>
         <div class="cardBox locationBox -illuteasersmall">
           <div class="txt">
             <p>Unternehmerisch oder kreativ im Grätzl tätig? Zeig, was du machst.</p>
           </div>
-          <a class="btn-primary -mint" href="#">Betreiber eintragen</a>
+          <%= link_to 'Betreiber eintragen', new_location_path, class: 'btn-primary -ming' %>
         </div>
-      </div>
+      <% end %>
+    </div>
 
-      <div class="wrp-cardBox">
-        <h2>Besondere Angebote</h2>
-        <div class="cardBox candyBox -illuteasersmall">
-          <div class="txt">
-            <p>Entdecke einzigartige Anbieter und Angebote in deinem Grätzl.</p>
-          </div>
-          <a class="btn-primary -mint" href="#">Zum Grätzlzuckerl</a>
+    <div class="wrp-cardBox">
+      <h2>Besondere Angebote</h2>
+      <div class="cardBox candyBox -illuteasersmall">
+        <div class="txt">
+          <p>Entdecke einzigartige Anbieter und Angebote in deinem Grätzl.</p>
         </div>
+        <a class="btn-primary -mint" href="#">Zum Grätzlzuckerl</a>
       </div>
-
     </div>
   </div>
+</div>
 
-
-
-
-  <!-- HAS content view -->
-
-  <div class="block-overview">
-    <div class="cardBoxCollection -quart">
-
-      <div class="wrp-cardBox">
-        <h2>Treffen & Events</h2>
-        <div class="cardBox meetBox">
-          <div class="cardBoxHeader">
-            <img class="coverImg" src="https://placeimg.com/300/180/nature?9" alt="">
-            <div class="calendarSheet">
-              <div class="day">22</div>
-              <div class="month">Okt</div>
-            </div>
-            <div class="sideflag -R">Stuwerviertel</div>
-            <div class="initiator">
-              <img class="img-round" src="https://placeimg.com/40/40/people?3" alt="">
-              <span>Inge</span>
-            </div>
-          </div>
-          <h3>Lorem ipsum dolor sit amet, consectetur.</h3>
-
-
-          <a class="btn-primary -mint" href="#">Mitmachen</a>
-        </div>
-      </div>
-
-
-      <div class="wrp-cardBox">
-        <h2>Initiativen</h2>
-        <div class="cardBox initiativeBox -illuteasersmall">
-          <div class="txt">
-            <p>Gartenprojekt, Flohmarkt, oder Spendenaktion? Finde Mitorganisatoren.</p>
-          </div>
-          <a class="btn-primary -disabled" href="#" title="An dieser Funktion arbeiten wir noch...">In Kürze verfügbar</a>
-        </div>
-      </div>
-
-      <div class="wrp-cardBox">
-        <h2>Betreiber & Locations</h2>
-        <div class="cardBox locationBox">
-          <div class="cardBoxHeader">
-            <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
-            <div class="medalBadge">
-              <img class="img-round" src="/assets/images/dummy/palette.jpg" alt="">
-            </div>
-            <div class="initiator">
-              <img class="img-round" src="https://placeimg.com/40/40/people?6" alt="">
-              <span>Inge</span>
-            </div>
-          </div>
-          <h3>Lorem ipsum dolor.</h3>
-          <a class="btn-primary -mint" href="#">Location ansehen</a>
-        </div>
-      </div>
-
-      <div class="wrp-cardBox">
-        <h2>Besondere Angebote</h2>
-        <div class="cardBox candyBox -illuteasersmall">
-          <div class="txt">
-            <p>Entdecke einzigartige Anbieter und Angebote in deinem Grätzl.</p>
-          </div>
-          <a class="btn-primary -mint" href="#">Zum Grätzlzuckerl</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<%= render 'stream' %>
