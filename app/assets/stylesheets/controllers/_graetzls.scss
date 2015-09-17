@@ -11,6 +11,21 @@ section.graetzls {
   .sideflag {
     display: none;
   }
+
+  .cardBoxCollection {
+    .cardbox-wrp:only-child {
+      margin: 0 auto;
+      float: none;
+      .paperCard .card::before {
+      }
+    }
+  }
+
+  .hl-subtext {
+    position: relative;
+    z-index: 2;
+  }
+
 }
 
 .illuDistrict {
@@ -74,6 +89,7 @@ section.graetzls {
   border-radius: 8px;
   .zuckerlCollection {
     overflow: hidden;
+    margin-bottom: 20px;
     > * {
       float: left;
     }
@@ -82,6 +98,9 @@ section.graetzls {
     margin-left: auto;
     display: table;
     margin-top: -10px;
+  }
+  .singleZuckerl {
+    margin-bottom: 0;
   }
 }
 
@@ -92,6 +111,14 @@ section.graetzls {
   margin-bottom: 40px;
   @include respond-to(">=medium") {
     margin-bottom: 50px;
+  }
+  .cardBoxCollection {
+    .cardBox {
+      margin-bottom: 0;
+    }
+    .link-more {
+      margin-top: 0;
+    }
   }
   .meetBox {
     &.-illuteasersmall {

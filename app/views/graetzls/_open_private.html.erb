@@ -4,6 +4,7 @@
       <h2>Treffen & Events</h2>
       <% unless @meetings.empty? %>
         <%= render @meetings.first %>
+        <%= link_to 'Alle Treffen & Events', graetzl_meetings_path(@graetzl), class: 'link-more -small' %>
       <% else %>
         <div class="cardBox meetBox -illuteasersmall">
           <div class="txt">
@@ -28,6 +29,7 @@
       <h2>Betreiber & Locations</h2>
       <% unless @locations.empty? %>
         <%= render @locations.first %>
+        <%= link_to 'Alle Treffpunkte', graetzl_locations_path(@graetzl), class: 'link-more -small' %>
       <% else %>
         <div class="cardBox locationBox -illuteasersmall">
           <div class="txt">

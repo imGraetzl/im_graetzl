@@ -1,8 +1,8 @@
 [id^=error_], #flash {
-  @include font-size-primaryFont('base');
+  @include font-size-primaryFont('large');
   margin: -30px auto 40px auto;
   background-color: #ffffff;
-  padding: 15px 25px 18px 78px;
+  padding: 47px 25px 18px 78px;
   font-style: italic;
   width: 100%;
   max-width: 980px;
@@ -29,7 +29,7 @@
 
 #error_explanation, #flash {
   background-color: #FEF6DF;
-  color: #ae872f;
+  color: #cd891b;
 }
 
 #flash:not(:empty) + main .mapImgBlock,
