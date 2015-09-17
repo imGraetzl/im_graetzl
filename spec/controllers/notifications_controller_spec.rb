@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe NotificationsController, type: :controller do
-  let(:user) { create(:user, enabled_website_notifications: 9999999) }
+  let(:user) do
+    all_on = Notification::TYPES.keys.inject(0) { |sum, k| Notification::TYPES[k][:bitmask] | sum }
+    create(:user, enabled_website_notifications: all_on)
+  end
+
   describe 'GET index' do
     context 'when no current_user' do
       it 'redirects to login' do
