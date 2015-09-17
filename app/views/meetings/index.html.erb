@@ -3,14 +3,14 @@
 <section class="meetings-overview">
   <h1 class="hl-main">Komm doch dazu - aktuelle<br><span>Treffen, Events & Veranstaltungen</span></h1>
   <div class="cardBoxCollection -tripple">
-    <%= render partial: 'box', collection: @upcoming_meetings.first(2), as: 'meeting' %>
-    <%= render 'box_action' %>
-    <%= render partial: 'box', collection: @upcoming_meetings.offset(2), as: 'meeting' %>
+    <%= render @upcoming_meetings.first(2) %>
+    <%= render 'action_card', graetzl: @graetzl, more: false %>
+    <%= render @upcoming_meetings.offset(2) %>
   </div>
   <% if @past_meetings.present? %>
     <h1 class="hl-main">Vergangene Treffen im <span><%= @graetzl.name %></span></h1>
     <div class="cardBoxCollection -tripple">
-      <%= render partial: 'meetings/box', collection: @past_meetings, as: 'meeting' %>
+      <%= render @past_meetings %>
     </div>
   <% end %>
 </section>

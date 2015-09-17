@@ -1,4 +1,3 @@
-<% small ||= false %>
 <div class="cardBox">
   <div class="cardBoxHeader">
     <%= link_to [meeting.graetzl, meeting] do %>
@@ -28,11 +27,6 @@
     <% end %>
   </div>
   <h3><%= meeting.name %></h3>
-
-  <% unless small %>
-    <div class="txt"><%= truncate(meeting.description, length: 140) %></div>
-  <% end %>
-
+  <div class="txt"><%= truncate(meeting.description, length: 100) %></div>
   <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
-
 </div>

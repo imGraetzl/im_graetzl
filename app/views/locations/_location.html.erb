@@ -1,4 +1,3 @@
-<% small ||= false %>
 <div class="cardBox">
   <div class="cardBoxHeader">
     <%= link_to [location.graetzl, location] do %>
@@ -10,9 +9,6 @@
     </div>
   </div>
   <h3><%= location.name %></h3>
-  <% if small %>
-    <div class="txt"><%= location.description %></div>
-  <% else %>
-    <%= link_to 'Location ansehen', [location.graetzl, location], class: 'btn-primary -mint' %>
-  <% end %>
+  <div class="txt"><%= truncate(location.description, length: 100) %></div>
+  <%= link_to 'Location ansehen', [location.graetzl, location], class: 'btn-primary -mint' %>
 </div>
