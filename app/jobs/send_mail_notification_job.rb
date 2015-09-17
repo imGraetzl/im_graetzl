@@ -42,7 +42,8 @@ class SendMailNotificationJob < ActiveJob::Base
         notification_vars << {
           "type": "new_post_in_graetzl",
           "post_content": activity.trackable.content,
-          "created_by": activity.owner.username,
+          "owner_name": activity.owner.username,
+          "owner_url": user_url(activity.owner, default_url_options),
           "post_url": graetzl_url(activity.trackable.graetzl, default_url_options) + "#post-#{activity.trackable.id}",
           "graetzl_name": activity.trackable.graetzl.name,
           "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
@@ -51,7 +52,8 @@ class SendMailNotificationJob < ActiveJob::Base
         notification_vars << {
           "type": "another_attendee",
           "meeting_name": activity.trackable.name,
-          "attendee": activity.owner.username,
+          "owner_name": activity.owner.username,
+          "owner_url": user_url(activity.owner, default_url_options),
           "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
           "graetzl_name": activity.trackable.graetzl.name,
           "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
@@ -60,7 +62,8 @@ class SendMailNotificationJob < ActiveJob::Base
         notification_vars << {
           "type": "attendee_left",
           "meeting_name": activity.trackable.name,
-          "attendee": activity.owner.username,
+          "owner_name": activity.owner.username,
+          "owner_url": user_url(activity.owner, default_url_options),
           "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
           "graetzl_name": activity.trackable.graetzl.name,
           "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
