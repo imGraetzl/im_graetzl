@@ -9,3 +9,15 @@
     color: $color-ambient-rosa;
   }
 }
+
+.hl-subtext {
+  margin-bottom: 40px;
+  h1 {
+    @extend .hl-main;
+    margin-bottom: 10px;
+  }
+  p {
+    @include font-size-primaryFont('larger');
+    text-align: center;
+  }
+}

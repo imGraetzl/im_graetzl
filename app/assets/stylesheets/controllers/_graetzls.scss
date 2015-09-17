@@ -1,210 +1,16 @@
 section.graetzls {
-
   .mapImgBlock {
     margin-bottom: 50px;
-    @include respond-to(">=large") {
-      padding-bottom: 0;
-      &::after {
-        width: 500px;
-        left: 240px;
-      }
-    }
-
-    .activeArea {
-      @include respond-to(">=large") {
-        width: 55%;
-      }
-    }
-
-    .wrp-headline {
-      display: table;
-      margin: 0 auto;
-      z-index: 10;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      @include respond-to(">=large") {
-        position: absolute;
-        left: 350px;
-        top: 76px;
-        display: table;
-        margin: 0;
-        transform: translate(0, 0);
-      }
-      span {
-        float: right;
-        font-size: 1.4rem;
-        border-radius: 4px;
-        background-color: rgba(245,245,240,0.9);
-        padding: 1px 5px;
-        margin-right: 5px;
-        a:not(:last-child) {
-          display: inline-block;
-          border-right: 1px dotted $color-ambient-mint-dark;
-          padding-right: 5px;
-          margin-right: 3px;
-        }
-      }
-    }
-
-    h1 {
-      @include font-size-secondaryFont('large');
-      @include headlineBarbapapa;
-      @include textShadowHard($color-ambient-rosa-dark);
-      margin-bottom: 0;
-    }
-
   }
-
-  .ownMeetingBox {
-    transform: translate(-20px, 8px);
-    &:hover {
-      transform: translate(-16px, 13px);
-    }
-    .wrp {
-      background-position: -7px 23px;
-    }
-    .card {
-      background-image: none;
-      background-color: #fff;
-    }
-    .card::before {
-      transform: scale(0.7);
-      top: -60px;
-    }
-  }
-
   .textEditor:before {
     left: 21px;
     top: -15px;
     position: absolute;
     transform: rotate(90deg);
   }
-
-  .teaserBlock {
-    @include cf();
-    margin-bottom: 40px;
-    @include respond-to(">=medium") {
-      margin-bottom: 50px;
-    }
-
-    .meetingBoxes {
-      > * {
-        @include respond-to(">=large") {
-          margin-bottom: 0;
-        }
-      }
-    }
-
-  }
-
   .sideflag {
     display: none;
   }
-
-  .cardBox {
-    .icontxt {
-      margin-left: auto;
-      margin-right: -7px;
-      display: table;
-      [class^=icon-] {
-        vertical-align: middle;
-        display: inline-block;
-        margin-right: 0;
-      }
-    }
-
-  }
-
-
-  .wrp-cardBox {
-    h2:first-child {
-      height: 35px;
-      margin-bottom: 0;
-    }
-  }
-
-  .candyBox {
-    margin-top: 35px;
-    position: relative;
-    &::before {
-      content: '';
-      position: absolute;
-      top: -45px;
-      left: 123px;
-      width: 130px;
-      height: 71px;
-      background-image: url(image_path('graetzlzuckerl.png'));
-      background-position: 0 0;
-      background-size: 130px 71px;
-      background-repeat: no-repeat;
-    }
-
-  }
-
-  .meetBox {
-    .btn-primary {
-      margin-bottom: 20px;
-    }
-  }
-
-  .initiativeBox {
-    [class^=icon-] {
-      width: 50px;
-      height: 50px;
-      float: left;
-      margin-left: -10px;
-    }
-  }
-
-  .locationBox {
-    [class^=icon-] {
-      width: 45px;
-      height: 45px;
-      float: left;
-      margin-left: -10px;
-      margin-right: 5px;
-    }
-    h3 {
-      margin-right: -15px;
-    }
-  }
-
-  .locationUserSlice {
-    margin-bottom: 20px;
-    display: block;
-    text-decoration: none;
-    color: $color-font-primary;
-
-    &:hover {
-      .locationName {
-        color: $color-ambient-rosa;
-      }
-    }
-    .wrp-user {
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      margin-bottom: 5px;
-      .img-round {
-        flex: 0 0 auto;
-        margin-right: 10px;
-      }
-      .col {
-        font-size: 1.4rem;
-        line-height: 1.3;
-      }
-    }
-    .username {
-      color: $color-ambient-mint-dark;
-    }
-    .locationName {
-      @include font-size-primaryFont('base');
-      font-weight: bold;
-    }
-  }
-
 }
 
 .illuDistrict {
@@ -230,5 +36,81 @@ section.graetzls {
   @include respond-to('retina2x') {
     background-image: url(image_path('illu/illu-stuwerviertel@2x.png'));
   }
+}
 
+// ---------------------------------------------------------------------- blocks for logged in
+
+.block-locations, .block-meetings {
+  margin-bottom: 60px;
+  .paperCard {
+    margin-bottom: 10px;
+    transform: translate(6px, 0);
+  }
+}
+
+.block-meetings {
+  .paperCard {
+    .card {
+      transform: rotate(-2deg);
+    }
+  }
+}
+
+.block-locations {
+  .paperCard {
+    .wrp {
+      background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
+    }
+    .card {
+      transform: rotate(1deg);
+    }
+  }
+}
+
+.block-zuckerl {
+  /*  border: 1px solid $color-ambient-grey-light;
+    background-color: #ffffff;
+    padding: 8px;*/
+  border-radius: 8px;
+  .zuckerlCollection {
+    overflow: hidden;
+    > * {
+      float: left;
+    }
+  }
+  .link-more {
+    margin-left: auto;
+    display: table;
+    margin-top: -10px;
+  }
+}
+
+// ---------------------------------------------------------------------- blocks for logged out
+
+.block-overview {
+  @include cf();
+  margin-bottom: 40px;
+  @include respond-to(">=medium") {
+    margin-bottom: 50px;
+  }
+  .meetBox {
+    &.-illuteasersmall {
+      background-image: url(image_path('illu/illu-painter-straight@2x.png'));
+    }
+  }
+  .initiativeBox {
+    &.-illuteasersmall {
+      background-image: url(image_path('illu/illu-flohmarkt-straight@2x.png'));
+    }
+  }
+  .locationBox {
+    &.-illuteasersmall {
+      background-image: url(image_path('illu/illu-wirtschaft-straight@2x.png'));
+    }
+  }
+  .candyBox {
+    &.-illuteasersmall {
+      background-image: url(image_path('illu/illu-zuckerl-straight@2x.png'));
+    }
+  }
 }

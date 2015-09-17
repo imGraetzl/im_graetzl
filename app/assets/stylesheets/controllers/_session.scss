@@ -12,16 +12,19 @@ section.loginPage {
     text-align: center;
   }
 
-  .loginForm, .ownMeetingBox {
+  .loginForm, .paperCard {
     @include respond-to(">=medium") {
       @include column(1/2, $gutter: 8);
     }
   }
 
-  .ownMeetingBox {
+  .paperCard {
     max-width: 320px;
+    .card {
+      transform: rotate(1deg);
+    }
     .wrp {
-      padding-top: 185px;
+      padding-top: 190px;
     }
   }
 

@@ -6,31 +6,31 @@
   <div class="loginForm">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-      <div class="input-field">
-        <%= f.label :login do %>
-          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-          <span>Username</span>
-        <% end %>
-        <%= f.text_field :login, autofocus: true, placeholder: "Username oder E-Mail" %>
-      </div>
+        <div class="input-field">
+          <%= f.label :login do %>
+              <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+              <span>Username</span>
+          <% end %>
+          <%= f.text_field :login, autofocus: true, placeholder: "Username oder E-Mail" %>
+        </div>
 
-      <div class="input-field">
-        <%= f.label :password do %>
-          <svg class="icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
-          <span>Passwort</span>
-        <% end %>
-        <%= f.password_field :password, autocomplete: "off", placeholder: "Passwort" %>
-      </div>
+        <div class="input-field">
+          <%= f.label :password do %>
+              <svg class="icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
+              <span>Passwort</span>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off", placeholder: "Passwort" %>
+        </div>
 
-      <div class="wrp">
-        <% if devise_mapping.rememberable? %>
-          <div class="input-checkbox">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
-          </div>
-        <% end %>
-        <%= f.button 'Anmelden', class: 'btn-primary' %>
-      </div>
+        <div class="wrp">
+          <% if devise_mapping.rememberable? %>
+              <div class="input-checkbox">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+          <% end %>
+          <%= f.button 'Anmelden', class: 'btn-primary' %>
+        </div>
     <% end %>
 
     <div class="sharedLinks">
@@ -38,11 +38,11 @@
     </div>
   </div>
 
-  <div class="ownMeetingBox">
-    <%= link_to new_registration_path, class: 'wrp' do %>
-        <h3>Noch nicht bei imGrätzl angemeldet?</h3>
-        <button class="btn-primary -rose">Hier kostenlos registrieren</button>
-    <% end %>
+  <div class="paperCard -illuteaser -cord1RT">
+    <div class="wrp">
+      <h3>Noch nicht bei imGrätzl angemeldet?</h3>
+      <%= link_to 'Hier kostenlos registrieren', new_registration_path, class: 'btn-primary -rose' %>
+    </div>
     <div class="card"></div>
   </div>
 

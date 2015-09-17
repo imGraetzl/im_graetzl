@@ -35,9 +35,10 @@
 
   <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
 
-  <% if card %>
-    <%= link_to graetzl_meetings_path(meeting.graetzl), class: 'icontxt' do %>
-      Alle Treffen & Events<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-    <% end %>
-  <% end %>
 </div>
+
+<% if card %>
+    <%= link_to graetzl_meetings_path(meeting.graetzl), class: 'link-more' do %>
+        Alle Treffen & Events
+    <% end %>
+<% end %>

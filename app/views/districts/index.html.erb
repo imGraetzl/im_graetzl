@@ -21,7 +21,7 @@
   <% if @meetings.present? %>
       <div class="teaserBlock">
         <h2>Aktuelle Treffen in ganz Wien</h2>
-        <div class="meetingBoxes">
+        <div class="cardBoxCollection -tripple">
           <% @meetings.each do |meeting| %>
               <%= render 'meetings/box', meeting: meeting %>
           <% end %>

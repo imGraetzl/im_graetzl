@@ -1,9 +1,9 @@
 .titleHeadline {
+  position: relative;
   margin-bottom: 2.0rem;
   padding-left: 10px;
   padding-right: 10px;
   @include respond-to(">=medium") {
-    @include paperCard($rotation: -4, $texture: true, $fakehole: false);
     padding: 25px 30px 20px 42px;
     position: absolute;
     bottom: 70px;
@@ -12,6 +12,54 @@
     @include respond-to(">=large") {
       bottom: 105px;
     }
+  }
+
+  .wrp {
+    @include respond-to(">=medium") {
+      min-height: 50px;
+      z-index: 2;
+      position: relative;
+      display: block;
+    }
+  }
+  .card {
+    @include respond-to(">=medium") {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
+      display: block;
+      z-index: 1;
+      border-radius: 2px;
+      transform: rotate(-2deg) translate3d(0,0,0);
+      background-image: $texture-stoff2, url(image_path('svg/card-holes.svg'));
+      background-position: left top, top right;
+      //shadow bottom
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 10px;
+        top: 100%;
+        left: 0;
+        background-image: radial-gradient(ellipse farthest-side at center top, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 100%);
+        pointer-events: none;
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: 6;
+        background-repeat: no-repeat;
+        top: 3px;
+        right: -51px;
+        height: 60px;
+        width: 81px;
+        background-image: url(image_path('svg/card-string1.svg'));
+      }
+    }
+
   }
 
   a {
@@ -80,5 +128,9 @@
       height: 120px;
     }
   }
+
+}
+
+.paperCard {
 
 }
