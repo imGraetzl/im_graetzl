@@ -1,11 +1,13 @@
-<%= link_to [@graetzl, location], class: 'cardBox' do %>
-  <div class="cardHeader">
-    <%= cover_photo_for(location) %>
-    <div class="locationAvatar">
-      <%= image_tag static_map_url(location.address.coordinates), class: 'locationMap' %>
-      <%= avatar_for(location, fill: [85, 85]) %>
+<div class="cardBox">
+  <%= link_to [@graetzl, location] do %>
+    <div class="cardBoxHeader">
+      <%= cover_photo_for(location) %>
+      <div class="locationAvatar">
+        <%= image_tag static_map_url(location.address.coordinates), class: 'locationMap' %>
+        <%= avatar_for(location, fill: [85, 85]) %>
+      </div>
     </div>
-  </div>
-  <h3><%= location.name %></h3>
-  <div class="txt"><%= location.description %></div>
-<% end %>
+    <h3><%= location.name %></h3>
+    <div class="txt"><%= location.description %></div>
+  <% end %>
+</div>
