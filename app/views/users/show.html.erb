@@ -48,7 +48,7 @@
     <div id='tab-1'>
       <!-- own meetings -->
       <div class="meetingBoxCollection -tripple" data-tabID="one">
-        <%= render partial: 'meetings/box', collection: @user.meetings.initiated, as: 'meeting' %>
+        <%= render @user.meetings.initiated %>
       </div>
       <!-- own meetings end -->
     </div>
@@ -56,7 +56,7 @@
 
       <!-- other meetings -->
       <div class="meetingBoxCollection -tripple" data-tabID="two">
-        <%= render partial: 'meetings/box', collection: @user.meetings.attended, as: 'meeting' %>
+        <%= render @user.meetings.attended %>
       </div>
       <!-- other meetings end -->
     </div>
