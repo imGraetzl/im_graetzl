@@ -62,14 +62,7 @@
       color: $color-ambient-rosa;
     }
   }
-
-  .timeago {
-    padding-left: 10px;
-    margin-left: 10px;
-    border-left: 1px dotted $color-ambient-grey-light;
-  }
 }
-
 
 .entryCreate {
   max-width: 650px;
@@ -459,7 +452,35 @@
   }
 }
 
+// ---------------------------------------------------------------------- plain entry page
 
+section.justEntry {
+  max-width: 709px;
+  margin: 0 auto 30px auto;
+  .userCreateInfo {
+    @include font-size-primaryFont('base');
+    img  {
+      width: 80px;
+      height: 80px;
+      margin-right: 10px;
+    }
+  }
+  .theEntry {
+    padding-left: 90px;
+    padding-right: 30px;
+    .postImgs {
+      margin-bottom: 20px;
+    }
+    .txt {
+      @include font-size-primaryFont('large');
+      margin-bottom: 20px;
+    }
+    .btn-destroy {
+      margin-left: auto;
+      display: table;
+    }
+  }
+}
 
 
 

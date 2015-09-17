@@ -1,43 +1,37 @@
-<section class="pink">
-  <!-- link to user profile later -->
-  <%= link_to '#' do %>
-    <%= avatar_for @post.user %>
-    <span><%= @post.user.username %></span>
-  <% end %>
-  <p><%= l(@post.created_at, format:'%A, %d. %B %Y') %></p>
-</section>
+<section class="justEntry">
 
-<section class="blue">
-  <div class="txt">
-    <%= @post.content %>
+  <div class="userCreateInfo">
+    <%= avatar_for @post.user %>
+    <span class="userAndType">
+    Beitrag von <a href="#"><%= @post.user.username %></a>
+    <span class="timeago"> am <%= l(@post.created_at, format:'%A, %d. %B %Y') %></span>
+  </span>
   </div>
-  <% unless @post.images.empty? %>
-    <% @post.images.each do |image| %>
-      <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
+
+  <div class="theEntry">
+    <div class="txt">
+      <%= @post.content %>
+    </div>
+
+    <% unless @post.images.empty? %>
+        <div class="postImgs">
+          <% @post.images.each do |image| %>
+              <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
+          <% end %>
+        </div>
     <% end %>
-  <% end %>
+
+    <%= button_to 'Beitrag löschen', post_path(@post),
+                  data: { confirm: 'Bist du dir sicher?' },
+                  method: :delete,
+                  class: 'btn-destroy' %>
+  </div>
+
 </section>
-<%= button_to 'Beitrag löschen', post_path(@post),
-              data: { confirm: 'Bist du dir sicher?' },
-              method: :delete,
-              class: 'btn-secondary -small' %>
 
 <div class="stream">
-
   <div id="stream-form">
     <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @post } %>
   </div>
   <%= render partial: 'comments/comment', collection: @post.comments, layout: 'layouts/stream/element' %>
-
 </div>
-
-
-<!-- 90s I'm so yeah -->
-<style type="text/css">
-  section.pink {
-    background: lightpink;
-  }
-  section.blue {
-    background: lightsteelblue;
-  }
-</style>
