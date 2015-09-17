@@ -1,7 +1,7 @@
 APP.components.stream = (function() {
 
     function init() {
-        APP.components.imgUploadPreview();
+
         inlineEditor();
         createEntry();
 
@@ -114,8 +114,10 @@ APP.components.stream = (function() {
                     });
 
             } else if (event.type === 'focusout') {
+                        console.log($parent);
                 if (!$(this).val().length) {
                     if(!$parent.hasClass('entryCreate')) {
+                        console.log("dreck");
                         $parent.removeClass("is-focused");
                     }
                 }
