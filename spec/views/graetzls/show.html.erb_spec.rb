@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'graetzls/show', type: :view do
 
   # Setup data
-  let(:graetzl) { create(:graetzl) }
+  let(:graetzl) { create(:graetzl, state: Graetzl.states[:open]) }
   before do
     assign(:graetzl, graetzl)
     assign(:meetings, 2.times{create(:meeting, graetzl: graetzl)})

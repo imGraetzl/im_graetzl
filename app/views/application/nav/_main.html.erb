@@ -11,8 +11,17 @@
     <div class="jq-dropdown-panel nav-graetzl">
       <% if current_graetzl %>
         <%= link_to current_graetzl.name, graetzl_path(current_graetzl) %>
-        <%= link_to 'Treffen & Events im Grätzl', graetzl_meetings_path(current_graetzl) %>
-        <%= link_to 'Treffpunkte & Anbieter', graetzl_locations_path(current_graetzl) %>
+
+        <!-- normal links -->
+        <% if current_graetzl.open? %>  
+          <%= link_to 'Treffen & Events im Grätzl', graetzl_meetings_path(current_graetzl) %>
+          <%= link_to 'Treffpunkte & Anbieter', graetzl_locations_path(current_graetzl) %>
+        <% else %>
+          <!-- disabled links -->
+          <a>Treffen & Events im Grätzl</a>
+          <a>Treffpunkte & Anbieter</a>
+        <% end %>
+
         <a href="">Grätzlzuckerl im <%= l(Date.today, format: "%B") %></a>
       <% end %>
       <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>

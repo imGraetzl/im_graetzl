@@ -1,9 +1,14 @@
 <% if user_signed_in? %>
 
   <div class="personalNav">
-    <%= link_to new_meeting_path, class: 'createMeeting' do %>
-      <span>Treffen anlegen</span>
+
+    <!-- remove treffen anlegen link for closed graetzl users -->
+    <% if current_user.graetzl.open? %>
+      <%= link_to new_meeting_path, class: 'createMeeting' do %>
+        <span>Treffen anlegen</span>
+      <% end %>
     <% end %>
+
     <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications">
       <div class="iconWithBadge">
         <%- notifications_count = current_user.new_website_notifications_count %>
@@ -51,11 +56,7 @@
 <% else %>
 
   <div class="personalNav">
-    <% if user_signed_in? %>
-        <%= link_to content_tag(:span, 'Treffen anlegen'), new_meeting_path, class: 'createMeeting' %>
-    <% else %>
-        <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
-    <% end %>
+    <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
     <%= link_to 'Anmelden', new_user_session_path, class: 'loginlink' %>
   </div>
 

@@ -19,71 +19,10 @@
     </div>
   </div>
 
-  <div class="teaserBlock">
-    <div class="meetingBoxes -quart">
+  <% if @graetzl.open? %>
+    <%= render "open#{'_private' if user_signed_in?}" %>
+  <% else %>
+    <%= render "closed#{'_private' if user_signed_in?}" %>
+  <% end %>
 
-      <div class="wrp-cardBox">
-        <h2>Treffen & Events</h2>
-        <% if @meeting %>
-            <%= render @meeting, card: true %>
-        <% else %>
-            <%= render 'meetings/box_action' %>
-        <% end %>
-      </div>
-
-      <div class="wrp-cardBox">
-        <h2>Initiativen</h2>
-        <div class="cardBox initiativeBox">
-          <h3><svg class="icon-lightbulb"><use xlink:href="#icon-lightbulb"></use></svg>Du hast eine Idee für dein Grätzl?</h3>
-          <div class="txt">
-            <p>Ein Community-Gartenprojekt, ein Flohmarkt, eine Charityaktion?</p>
-            <p><strong>Wir arbeiten an dieser Funktion!</strong> Bald kannst du deine Idee hier eintragen und Mitorganisatoren bzw. Unterstützer finden.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="wrp-cardBox">
-        <h2>Locations</h2>
-        <div class="cardBox locationBox">
-          <% if @locations.present? %>
-
-              <% @locations.each do |location| %>
-                  <%= link_to [location.graetzl, location], class: 'locationUserSlice' do %>
-                      <div class="wrp-user">
-                        <%= avatar_for (user = location.users.first) %>
-                        <div class="col">
-                          <span class="username"><%= user.username %></span><br>
-                          betreibt
-                        </div>
-                      </div>
-                      <div class="locationName"><%= location.name %></div>
-                  <% end %>
-              <% end %>
-              <%= link_to graetzl_locations_path(@graetzl), class: 'icontxt' do %>
-                  Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-              <% end %>
-
-          <% else %>
-              <h3> <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>Bist du wirtschaftlich im Grätzl tätig?</h3>
-              <p>Es wurden noch keine Locations im Grätzl angelegt. Du kannst dir <%= link_to 'hier', new_location_path %> deine eigene Location anlegen.</p>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="wrp-cardBox">
-        <div class="cardBox candyBox">
-          <h3>Entdecke<br>einzigartiges im Grätzl!</h3>
-          <div class="txt">
-            <p>Stöbere durch besondere Angebote von grätzlansässigen Kreativen, Selbständigen und kleinen Unternehmen im Viertel.</p>
-            <p>Jeder erste Mittwoch des Monats ist Grätzlzuckerltag und es erscheinen neue Angebote!</p>
-          </div>
-          <a href="#" class="icontxt">
-            Zu den Grätzlzuckerl<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <%= render 'stream' if user_signed_in? %>
 </section>

@@ -76,6 +76,19 @@ RSpec.describe Graetzl, type: :model do
     end
   end
 
+  describe 'macros' do
+    let(:graetzl) { create(:graetzl) }
+
+    it 'has friendly_id' do
+      expect(graetzl).to respond_to(:slug)
+    end
+
+    it 'has state (default :closed)' do
+      expect(graetzl).to respond_to(:state)
+      expect(graetzl.closed?).to be_truthy
+    end
+  end
+
   describe '#districts' do
     let(:graetzl) { create(:graetzl,
       area: 'POLYGON ((1.0 1.0, 1.0 5.0, 5.0 5.0, 5.0 1.0, 1.0 1.0))') }

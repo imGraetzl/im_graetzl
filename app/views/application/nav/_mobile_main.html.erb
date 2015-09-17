@@ -1,13 +1,28 @@
 <div class="mobileMainNav">
-  <% if user_signed_in? %>
-    <%= link_to content_tag(:span, 'Treffen anlegen'), new_meeting_path, class: 'createMeeting' %>
+  <% if user_signed_in?  %>
+
+    <!-- remove link if closed graetzl -->
+    <% if current_user.graetzl.open? %>
+      <%= link_to content_tag(:span, 'Treffen anlegen'), new_meeting_path, class: 'createMeeting' %>
+    <% end %>
+    <!-- end -->
+    
   <% else %>
-    <%= link_to content_tag(:span, 'Treffen anlegen'), new_user_session_path, class: 'createMeeting' %>
+    <%= link_to content_tag(:span, 'Anmelden'), new_user_session_path, class: 'createMeeting' %>
   <% end %>
   <% if current_graetzl %>
     <%= link_to current_graetzl.name, graetzl_path(current_graetzl) %>
-    <%= link_to 'Treffen & Events im Grätzl', graetzl_meetings_path(current_graetzl) %>
-    <%= link_to 'Treffpunkte & Anbieter', graetzl_locations_path(current_graetzl) %>
+
+    <!-- normal links -->
+    <% if current_graetzl.open? %>  
+      <%= link_to 'Treffen & Events im Grätzl', graetzl_meetings_path(current_graetzl) %>
+      <%= link_to 'Treffpunkte & Anbieter', graetzl_locations_path(current_graetzl) %>
+    <% else %>
+      <!-- disabled links -->
+      <a>Treffen & Events im Grätzl</a>
+      <a>Treffpunkte & Anbieter</a>
+    <% end %>
+    
     <a href="">Grätzlzuckerl im <%= l(Date.today, format: "%B") %></a>
   <% end %>
   <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>

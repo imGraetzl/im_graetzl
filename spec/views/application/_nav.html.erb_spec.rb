@@ -41,7 +41,7 @@ RSpec.describe 'application/_nav', type: :view do
 
 
   # Scenarios
-  let(:graetzl) { create(:graetzl) }
+  let(:graetzl) { create(:graetzl, state: Graetzl.states[:open]) }
 
   context 'when logged out' do
     describe 'nav/main' do
@@ -88,7 +88,7 @@ RSpec.describe 'application/_nav', type: :view do
     end
   end
   context 'when logged in' do
-    let(:user_graetzl) { create(:graetzl) }
+    let(:user_graetzl) { create(:graetzl, state: Graetzl.states[:open]) }
     let(:user) { create(:user, graetzl: user_graetzl) }
     before { sign_in user }
     describe 'nav/main' do

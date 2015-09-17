@@ -1,0 +1,17 @@
+<h1>Noch ein wenig Geduld <%= current_user.username %>!</h1>
+
+<h2>
+  <%= @graetzl.users.count %> Bewohner haben sich schon in diesem Grätzl angemeldet.<br>
+  Ab 30 Anmeldungen gehts auch im Grätzl <%= @graetzl.name %> los!
+</h2>
+
+<p>Wir schicken Dir natürlich eine Email wenn es soweit ist!</p>
+<p>
+  Schon blöd dass jetzt hier noch ein paar Anmeldungen fehlen...<br>
+  Also, wenn Du Leute aus dem Grätzl <%= @graetzl.name %> kennst, gib ihnen gleich Bescheid, damit wir noch schneller auf die 30 kommen...
+</p>
+
+<h3>In folgenden Grätzln tut sich schon was, schau mal rein:</h3>
+<% Graetzl.open.find_each do |g| %>
+  <h2><%= link_to g.name, g %> <%= g.districts.first.zip %> Wien</h2>
+<% end %>

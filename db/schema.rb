@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916150710) do
+ActiveRecord::Schema.define(version: 20150916224938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20150916150710) do
     t.datetime "updated_at"
     t.geometry "area",       limit: {:srid=>0, :type=>"polygon"}
     t.string   "slug",       limit: 255
+    t.integer  "state",                                           default: 0
   end
 
   add_index "graetzls", ["slug"], name: "index_graetzls_on_slug", using: :btree
