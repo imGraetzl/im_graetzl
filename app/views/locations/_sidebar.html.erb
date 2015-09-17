@@ -1,7 +1,7 @@
 <aside class="sideBar">
   <% unless @location.users.empty? %>
     <div class="sideBarbox staff">
-      <h4 class="sideflag -L">Arbeiten hier</h4>
+      <h4 class="sideflag -L">Betreiber</h4>
       <% @location.users.each do |u| %>
         <%= link_to(u){ avatar_for u, fill: [40, 40] } %>
       <% end %>
