@@ -74,6 +74,7 @@ section.zuckerlOverview {
 .zuckerlCollection {
   position: relative;
   z-index: 2;
+
   > * {
     padding: 0 20px;
     width: 100%;
@@ -83,6 +84,20 @@ section.zuckerlOverview {
     }
     @include respond-to(">=large") {
       width: 25%;
+    }
+  }
+
+  .singleZuckerl {
+    position: relative;
+    a {
+      @include ellipsis;
+      color: $color-ambient-mint-dark;
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -124,20 +139,6 @@ section.zuckerlOverview {
   }
 }
 
-.singleZuckerl {
-  position: relative;
-  a {
-    @include ellipsis;
-    color: $color-ambient-mint-dark;
-    text-decoration: none;
-    display: block;
-    width: 100%;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
 .singleZuckerlHeader {
   background-image: url(image_path('svg/kringel.svg'));
   background-size: 80px auto;
@@ -146,6 +147,7 @@ section.zuckerlOverview {
   align-items: flex-end;
   padding: 5px 0 9px 5px;
   height: 87px;
+  border-radius: 4px;
   margin-bottom: 16px;
   margin-left: -10px;
   .img-round  {
