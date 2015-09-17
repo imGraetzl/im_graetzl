@@ -1,0 +1,41 @@
+section[class^=closedGraetzl-] {
+  margin-bottom: 40px;
+  @include cf;
+  .hl-subtext {
+    margin-bottom: 60px;
+  }
+  .usercount {
+    color: $color-ambient-rosa;
+  }
+  .block-graetzlList {
+    @include respond-to(">=medium") {
+      display: flex;
+    }
+  }
+  .col1 {
+    @include respond-to(">=medium") {
+      padding-right: 80px;
+    }
+    @include font-size-primaryFont('large');
+  }
+  .txt-wrp {
+    margin-bottom: 30px;
+  }
+  h3 {
+    margin-bottom: 5px;
+  }
+  .paperCard {
+    @include respond-to(">=medium") {
+      flex: 0 0 300px;
+    }
+    .card {
+      transform: rotate(2deg);
+    }
+  }
+}
+
+section.closedGraetzl-public {
+  .paperCard .wrp {
+    padding-top: 170px;
+  }
+}

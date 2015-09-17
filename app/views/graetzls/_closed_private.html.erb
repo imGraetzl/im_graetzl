@@ -1,17 +1,32 @@
-<h1>Noch ein wenig Geduld <%= current_user.username %>!</h1>
+<section class="closedGraetzl-private">
 
-<h2>
-  <%= @graetzl.users.count %> Bewohner haben sich schon in diesem Grätzl angemeldet.<br>
-  Ab 30 Anmeldungen gehts auch im Grätzl <%= @graetzl.name %> los!
-</h2>
+  <div class="hl-subtext">
+    <h1>Noch ein wenig Geduld <span><%= current_user.username %>!</span></h1>
+    <p>
+      <strong class="usercount"><%= @graetzl.users.count %> Bewohner</strong> haben sich in diesem Grätzl angemeldet.<br>
+      <strong>Ab 30 Anmeldungen</strong> geht es im Grätzl <%= @graetzl.name %> los.<br>
+      Wir schicken dir natürlich eine E-Mail wenn es soweit ist!
+    </p>
+  </div>
 
-<p>Wir schicken Dir natürlich eine Email wenn es soweit ist!</p>
-<p>
-  Schon blöd dass jetzt hier noch ein paar Anmeldungen fehlen...<br>
-  Also, wenn Du Leute aus dem Grätzl <%= @graetzl.name %> kennst, gib ihnen gleich Bescheid, damit wir noch schneller auf die 30 kommen...
-</p>
+  <div class="block-graetzlList">
+    <div class="col1">
+      <div class="txt-wrp">
+        <p>Wenn du aktive Bewohner, oder Initiativen aus dem Grätzl <%= @graetzl.name %> kennst, dann erzähl ihnen von imGrätzl.</p>
+      </div>
+      <div class="txt-wrp">
+        <h3>In folgenden Grätzln tut sich schon was, schau mal rein:</h3>
+        <% Graetzl.open.find_each do |g| %>
+            <%= link_to g.name, g %> <%= g.districts.first.zip %> Wien
+        <% end %>
+      </div>
+    </div>
 
-<h3>In folgenden Grätzln tut sich schon was, schau mal rein:</h3>
-<% Graetzl.open.find_each do |g| %>
-  <h2><%= link_to g.name, g %> <%= g.districts.first.zip %> Wien</h2>
-<% end %>
+    <div class="paperCard -illuonly -cord1RT">
+      <div class="wrp"></div>
+      <div class="card"></div>
+    </div>
+
+  </div>
+
+</section>
