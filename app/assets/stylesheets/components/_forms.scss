@@ -45,61 +45,60 @@ input, select, textarea {
   }
 }
 
+%label {
+  display: flex;
+  font-style: italic;
+  line-height: 1.2;
+  color: $color-ambient-mint-dark;
+  background-color: #ffffff;
+  border-top: solid 1px $color-ambient-mint-light;
+  border-right: solid 1px $color-ambient-mint-light;
+  border-left: solid 1px $color-ambient-mint-light;
+  padding: 5px;
+  border-radius: 4px 4px 0 0;
+  align-items: center;
+  font-size: 1.6rem;
+  [class^=icon] {
+    fill: currentcolor;
+    flex: 0 0 auto;
+  }
+  [class^=icon] + span {
+    //min-width: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+%input {
+  @extend .input-plain;
+  width: 100%;
+  flex-grow: 1;
+  &:last-of-type {
+    border-radius: 0 0 4px 4px;
+  }
+  &[disabled], &[readonly] {
+    background-color: $color-ambient-grey-light;
+    color: $color-ambient-grey !important;
+  }
+}
+
 %field {
-
-
   &.disabled, &.readonly {
     > label {
       color: $color-ambient-grey;
       border-color: $color-ambient-grey-light;
     }
   }
-
   > label {
-    display: flex;
-    font-style: italic;
-    line-height: 1.2;
-    color: $color-ambient-mint-dark;
-    background-color: #ffffff;
-    border-top: solid 1px $color-ambient-mint-light;
-    border-right: solid 1px $color-ambient-mint-light;
-    border-left: solid 1px $color-ambient-mint-light;
-    padding: 5px;
-    border-radius: 4px 4px 0 0;
-    align-items: center;
-    font-size: 1.6rem;
-
-    [class^=icon] {
-      fill: currentcolor;
-      flex: 0 0 auto;
-    }
-
-    [class^=icon] + span {
-      //min-width: 100px;
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
+    @extend %label;
   }
-
   input, select, textarea {
-    @extend .input-plain;
-    width: 100%;
-    flex-grow: 1;
-    &:last-of-type {
-      border-radius: 0 0 4px 4px;
-    }
-    &[disabled], &[readonly] {
-      background-color: $color-ambient-grey-light;
-      color: $color-ambient-grey !important;
-    }
+    @extend %input;
   }
-
   button:last-of-type {
     width: 100%;
     margin-top: 20px;
   }
-
   @include respond-to(">=medium") {
     @include field-HorizontalLayout;
   }
@@ -290,8 +289,8 @@ input, select, textarea {
 }
 
 
-
 // ---------------------------------------------------------------------- Upload Fields
+
 
 .file-group, %file-group {
   position: relative;
@@ -335,6 +334,38 @@ input, select, textarea {
     display: inline-block;
   }
 }
+
+
+
+.upload-oldschool {
+  > label {
+    @extend %label;
+  }
+  .field-wrp {
+    @extend %input;
+  }
+  .input-checkbox {
+    label::before {
+      background-color: #fff;
+    }
+  }
+  .preview-wrp {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: $color-ambient-mint-dark;
+    font-size: 14px;
+    font-style: italic;
+    img {
+      margin-right: 10px;
+      flex: 0 0 auto;
+    }
+  }
+  @include respond-to(">=medium") {
+    @include field-HorizontalLayout;
+  }
+}
+
 
 
 // ---------------------------------------------------------------------- misc

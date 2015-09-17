@@ -79,33 +79,23 @@
             <%= f.text_field :last_name %>
           </div>
 
-          <!--
-          <div class="input-field">
-            <label for="cover_photo">
-              <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
-              <span>Profilbild hochladen</span>
-            </label>
-            <%= f.text_field :first_name, placeholder: 'Zeige uns dein Lächeln' %>
-          </div>
-          -->
-
-          <div class="upload-image js-imgUpld">
-            <% if resource.avatar %>
-                <div class="imgCrop"><%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %></div>
-                <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-                Profilbild hochladen
-                <div class="checkbox-group">
-                  <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
-                  <%= f.label :remove_avatar, 'Löschen' %>
-                </div>
-            <% else %>
-                <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-                Profilbild hochladen
+          <div class="upload-oldschool">
+            <%= f.label :avatar do %>
+                <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+                <span>Profilbild</span>
             <% end %>
-
-            <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-            <%= f.attachment_field :avatar, direct: true, presigned: true %>
-            <%= f.check_box :remove_avatar, { class: 'deleteCheckbox', style: 'display: none;' } %>
+            <div class="field-wrp">
+              <% if resource.avatar %>
+                  <div class="preview-wrp">
+                    <img src="https://placeimg.com/100/100/people?3" alt="" class="img-round">
+                    <div class="input-checkbox">
+                      <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
+                      <%= f.label :remove_avatar, 'Löschen' %>
+                    </div>
+                  </div>
+              <% end %>
+              <%= f.attachment_field :avatar, direct: true, presigned: true %>
+            </div>
           </div>
 
           <div class="input-checkbox">
@@ -128,7 +118,6 @@
       </div>
 
       <%= f.button "Jetzt registrieren!", class: 'btn-primary' %>
-
 
   <% end %>
 

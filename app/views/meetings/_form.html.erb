@@ -104,34 +104,25 @@
   <div class="meet-how">
     <p>Lade ein <span>Bild</span> für dein Treffen hoch</p>
 
-    <!--
-    <div class="input-field">
-      <label for="cover_photo">
-        <svg class="icon-image"><use xlink:href="#icon-image"></use></svg>
-        <span>Coverfoto</span>
-      </label>
-      <%= text_field_tag :dummy, address_value(f.object.address), placeholder: 'Bild hochladen' %>
-    </div>
-    -->
-
-    <div class="upload-image js-imgUpld">
-      <% if f.object.cover_photo %>
-        <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
-        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-        Foto ändern
-        <div class="checkbox-group">
-          <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-          <%= f.label :remove_cover_photo, 'Foto Löschen' %>
-        </div>
-      <% else %>
-        <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-          Bild hochladen
+    <div class="upload-oldschool">
+      <%= f.label :cover_photo do %>
+          <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+          <span>Bild hochladen</span>
       <% end %>
-
-      <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-      <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
-      <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
+      <div class="field-wrp">
+        <% if f.object.cover_photo %>
+            <div class="preview-wrp">
+              <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+              <div class="input-checkbox">
+                <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+                <%= f.label :remove_cover_photo, 'Löschen' %>
+              </div>
+            </div>
+        <% end %>
+        <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+      </div>
     </div>
+
   </div>
 
   <%= f.button class: 'btn-primary' %>

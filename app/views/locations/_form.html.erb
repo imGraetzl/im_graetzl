@@ -22,7 +22,7 @@
               <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
               <span>Name</span>
           <% end %>
-          <%= f.text_field :name, placeholder: 'z.B.: Horsts Tattoo Horst' %>
+          <%= f.text_field :name, placeholder: 'Der Name deiner Location/Geschäft' %>
         </div>
 
         <div class="input-field">
@@ -30,7 +30,7 @@
               <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
               <span>Slogan</span>
           <% end %>
-          <%= f.text_field :slogan, placeholder: 'z.B.: Geht ur unter die Haut!' %>
+          <%= f.text_field :slogan, placeholder: 'Kurz und bündig' %>
         </div>
 
         <div class="input-textarea">
@@ -42,42 +42,42 @@
         </div>
       </div>
 
-      <div class="upload-image js-imgUpld">
-        <% if f.object.cover_photo %>
-            <div class="imgCrop"><%= image_tag attachment_url(f.object, :cover_photo, :fill, 980, 370) %></div>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Coverphoto
-            <div class="checkbox-group">
-              <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-              <%= f.label :remove_cover_photo, 'Löschen' %>
-            </div>
-        <% else %>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Coverphoto
+      <div class="upload-oldschool">
+        <%= f.label :cover_photo do %>
+            <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+            <span>Coverphoto</span>
         <% end %>
-
-        <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-        <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
-        <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox', style: 'display: none;' } %>
+        <div class="field-wrp">
+          <% if f.object.cover_photo %>
+              <div class="preview-wrp">
+                <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+                <div class="input-checkbox">
+                  <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+                  <%= f.label :remove_cover_photo, 'Löschen' %>
+                </div>
+              </div>
+          <% end %>
+          <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+        </div>
       </div>
 
-      <div class="upload-image js-imgUpld">
-        <% if f.object.avatar %>
-            <div class="imgCrop"><%= image_tag attachment_url(f.object, :avatar, :fill, 100, 100) %></div>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Profilbild
-            <div class="checkbox-group">
-              <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
-              <%= f.label :remove_avatar, 'Löschen' %>
-            </div>
-        <% else %>
-            <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-            Profilbild
+      <div class="upload-oldschool">
+        <%= f.label :avatar do %>
+            <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+            <span>Profilbild</span>
         <% end %>
-
-        <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
-        <%= f.attachment_field :avatar, direct: true, presigned: true %>
-        <%= f.check_box :remove_avatar, { class: 'deleteCheckbox', style: 'display: none;' } %>
+        <div class="field-wrp">
+          <% if f.object.avatar %>
+              <div class="preview-wrp">
+                <%= image_tag attachment_url(f.object, :avatar, :fill, 100, 100) %>
+                <div class="input-checkbox">
+                  <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
+                  <%= f.label :remove_avatar, 'Löschen' %>
+                </div>
+              </div>
+          <% end %>
+          <%= f.attachment_field :avatar, direct: true, presigned: true %>
+        </div>
       </div>
 
       <%= f.fields_for :contact do |contact_fields| %>
