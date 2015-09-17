@@ -26,6 +26,7 @@ class MeetingsController < ApplicationController
   end
 
   def create
+    @parent = parent_context
     @meeting = Meeting.new(meeting_params)
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
     @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
@@ -110,8 +111,9 @@ class MeetingsController < ApplicationController
     end
 
     def parent_context
-      context = Location.find(params[:location_id]) if params[:location_id].present?
-      context ||= Graetzl.find(params[:graetzl_id]) if params[:graetzl_id].present?
+      base = (params[:meeting] if params[:meeting].present?) || params
+      context = Location.find(base[:location_id]) if base[:location_id].present?
+      context ||= Graetzl.find(base[:graetzl_id]) if base[:graetzl_id].present?
       context || current_user.graetzl
     end
 

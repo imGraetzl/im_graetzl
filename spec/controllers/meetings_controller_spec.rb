@@ -94,8 +94,12 @@ RSpec.describe MeetingsController, type: :controller do
         expect(assigns(:meeting).graetzl).to be_present
       end
 
-      it 'assigns basic meeting' do
+      it 'assigns basic @meeting' do
         expect(assigns(:meeting).basic?).to be_truthy
+      end
+
+      it 'assigns @parent' do
+        expect(assigns(:parent)).not_to be_nil
       end
 
       it 'renders #new' do        
@@ -189,6 +193,11 @@ RSpec.describe MeetingsController, type: :controller do
         expect {
           post :create, params
         }.to change(GoingTo, :count).by(1)
+      end
+
+      it 'assigns @parent' do
+        post :create, params
+        expect(assigns(:parent)).not_to be_nil
       end
 
       it 'redirects_to meeting in graetzl' do
