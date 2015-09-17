@@ -22,7 +22,7 @@
               <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
               <span>Name</span>
           <% end %>
-          <%= f.text_field :name, placeholder: 'Der Name deiner Location/Geschäft' %>
+          <%= f.text_field :name, placeholder: 'Benenne deine Tätigkeit' %>
         </div>
 
         <div class="input-field">
@@ -30,7 +30,7 @@
               <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
               <span>Slogan</span>
           <% end %>
-          <%= f.text_field :slogan, placeholder: 'Kurz und bündig' %>
+          <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
         </div>
 
         <div class="input-textarea">
@@ -38,7 +38,7 @@
               <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
               <span>Beschreibung</span>
           <% end %>
-          <%= f.text_area :description, placeholder: 'Beschreibe die Location' %>
+          <%= f.text_area :description, placeholder: 'Hier kannst du etwas mehr sagen' %>
         </div>
       </div>
 
@@ -89,7 +89,7 @@
                   <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
                   <span>Website</span>
               <% end %>
-              <%= contact_fields.url_field :website, placeholder: 'http://www.horst-tattoo.at' %>
+              <%= contact_fields.url_field :website, placeholder: 'http://www.' %>
             </div>
 
             <div class="input-field">
