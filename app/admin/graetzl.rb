@@ -1,5 +1,19 @@
 ActiveAdmin.register Graetzl do
 
+  # scopes
+  scope :all, default: true
+  scope :open
+  scope :closed
+
+  # index
+  index do
+    render 'index', context: self
+  end
+
+  # show
+  show do
+    render 'show', context: self
+  end
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -15,15 +29,9 @@ ActiveAdmin.register Graetzl do
   # end
 
   # index
-  index do
-    selectable_column
-    id_column
-    column :name
-    column :created_at
-    column :updated_at
-    column :slug
-    actions
-  end
+
+
+
 
 
 end

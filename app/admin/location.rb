@@ -38,14 +38,12 @@ ActiveAdmin.register Location do
       :category_id,
       :_destroy]
 
-
+  # index
   index do
     selectable_column
     column :name
     column(:graetzl)
-    column('Status') do |location|
-      status_tag(location.state)
-    end
+    column(:state){ |l| status_tag(l.state) }
     column('User') do |location|
       location.users.each do |user|
         a user.username, href: admin_user_path(user)
@@ -56,7 +54,7 @@ ActiveAdmin.register Location do
     actions
   end
 
-
+  # show
   show do
     columns do
       column do
