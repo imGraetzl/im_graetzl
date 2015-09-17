@@ -18,15 +18,12 @@
     </div>
   </div>
 
-  <% if @meetings.present? %>
-      <div class="teaserBlock">
-        <h2>Aktuelle Treffen in ganz Wien</h2>
-        <div class="cardBoxCollection -tripple">
-          <% @meetings.each do |meeting| %>
-              <%= render 'meetings/box', meeting: meeting %>
-          <% end %>
-        </div>
+  <% if !@meetings.empty? %>
+    <div class="teaserBlock">
+      <h2>Aktuelle Treffen in ganz Wien</h2>
+      <div class="cardBoxCollection -tripple">
+        <%= render @meetings %>
       </div>
+    </div>
   <% end %>
-
 </section>

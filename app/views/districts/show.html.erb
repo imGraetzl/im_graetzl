@@ -1,6 +1,5 @@
 <% title(@district.name) %>
 
-<!-- <section class="districts" data-mapvisible='{"districts":["2"]}'> -->
 <section class="districts" data-mapdata="<%= @map_data %>">
 
   <div class="mapImgBlock">
@@ -20,16 +19,12 @@
     </div>
   </div>
 
-  <% if @meetings.present? %>
-      <div class="teaserBlock">
-        <h2>Aktuelle Treffen in <%= @district.zip %> <%= @district.name %></h2>
-        <div class="cardBoxCollection -tripple">
-          <% @meetings.each do |meeting| %>
-              <%= render 'meetings/box', meeting: meeting %>
-          <% end %>
-        </div>
+  <% if !@meetings.empty? %>
+    <div class="teaserBlock">
+      <h2>Aktuelle Treffen in <%= @district.zip %> <%= @district.name %></h2>
+      <div class="cardBoxCollection -tripple">
+        <%= render @meetings %>
       </div>
+    </div>
   <% end %>
-
-
 </section>

@@ -6,24 +6,8 @@
 
   <div class="cardBoxCollection -tripple">
     <%= render @meetings if @meetings %>
-
-    <!-- could be partial (action card) -->
-    <div class="cardbox-wrp">
-      <div class="paperCard -cord1RT -illuteaser">
-        <div class="wrp">
-          <div class="user">
-            <img class="img-round" src="https://placeimg.com/40/40/people?6" alt="">
-            <span>Dein Name</span>
-          </div>
-          <h3>Starte ein Treffen im Grätzl <%= @graetzl.name %></h3>
-          <%= link_to 'Jetzt loslegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary' %>
-        </div>
-        <div class="card"></div>
-      </div>
-      <%= link_to 'Alle Treffen & Events', graetzl_meetings_path(@graetzl), class: 'link-more' %>
-    </div>
+    <%= render 'meetings/action_card', graetzl: @graetzl, more: true %>
   </div>
-  <!-- end action card -->
 
 </div>
 
