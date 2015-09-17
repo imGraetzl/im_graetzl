@@ -18,7 +18,7 @@ RSpec.describe NotificationsController, type: :controller do
       before do
         stub_const("NotificationsController::NOTIFICATIONS_PER_PAGE", 3)
         (NotificationsController::NOTIFICATIONS_PER_PAGE + 3).times do
-          create(:notification, user: user) 
+          create(:notification, user: user, display_on_website: true) 
         end
 
         sign_in user

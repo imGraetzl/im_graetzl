@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def website_notifications
-    notifications.where(["bitmask & ? > 0", enabled_website_notifications])
+    notifications.where(["bitmask & ? > 0", enabled_website_notifications]).where(display_on_website: true)
   end
 
   def mail_notifications(interval)
