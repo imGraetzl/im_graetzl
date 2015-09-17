@@ -1,7 +1,7 @@
 <% if !disable_fields && current_user.business? %>
   <div class="input-checkbox">
     <%= check_box_tag 'location', 1, f.object.location %>
-    <%= label_tag 'location', 'hat mit meiner wirtschaftlichen Tätigkeit im Grätzl zu tun' %>
+    <%= label_tag 'location', 'Hat mit meiner wirtschaftlichen oder kreativen Tätigkeit zu tun.' %>
   </div>
 
   <div id="meeting-location-field" class="input-select" <% unless f.object.location %> style="display:none;" <% end %>>

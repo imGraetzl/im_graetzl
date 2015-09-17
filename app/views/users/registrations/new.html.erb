@@ -39,7 +39,7 @@
                 <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
                 <span>Username</span>
             <% end %>
-            <%= f.text_field :username, placeholder: "z.B.: GrätzlLover" %>
+            <%= f.text_field :username, placeholder: "Nickname wählen" %>
           </div>
 
           <div class="input-field">
@@ -83,7 +83,7 @@
           <div class="input-field">
             <label for="cover_photo">
               <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
-              <span>Portraitfoto</span>
+              <span>Profilbild hochladen</span>
             </label>
             <%= f.text_field :first_name, placeholder: 'Zeige uns dein Lächeln' %>
           </div>
@@ -93,14 +93,14 @@
             <% if resource.avatar %>
                 <div class="imgCrop"><%= image_tag attachment_url(resource, :avatar, :fill, 100, 100) %></div>
                 <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-                Portrait ändern
+                Profilbild hochladen
                 <div class="checkbox-group">
                   <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
                   <%= f.label :remove_avatar, 'Löschen' %>
                 </div>
             <% else %>
                 <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-                Portrait hochladen
+                Profilbild hochladen
             <% end %>
 
             <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>

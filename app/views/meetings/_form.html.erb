@@ -21,7 +21,7 @@
         <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
         <span>Titel</span>
       <% end %>
-      <%= f.text_field :name, placeholder: 'Gib deinem Treffen oder Veranstaltung einen kurzen Namen'  %>
+      <%= f.text_field :name, placeholder: 'Gib deinem Treffen oder Veranstaltung einen kurzen Namen.'  %>
     </div>
 
     <div class="input-textarea">
@@ -29,7 +29,7 @@
         <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
         <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :description, placeholder: 'Beschreibe in wenigen Sätzen um was es bei deinem Treffen geht' %>
+      <%= f.text_area :description, placeholder: 'Beschreibe kurz, um was es bei deinem Treffen geht.' %>
     </div>
   </div>
 
@@ -42,7 +42,7 @@
         <span>Adresse</span>
       <% end %>
       <%= text_field_tag :address, address_value(f.object.address),
-                        placeholder: 'Strasse und Hausnummer',
+                        placeholder: 'Straße und Hausnummer',
                         readonly: disable_fields %>
       <%= hidden_field_tag :feature %>
     </div>
@@ -102,7 +102,7 @@
     </div>
   </div>
   <div class="meet-how">
-    <p>Beschreibe dein Treffen, bzw. Veranstaltung mit einem <span>Bild</span>.</p>
+    <p>Lade ein <span>Bild</span> für dein Treffen hoch</p>
 
     <!--
     <div class="input-field">
@@ -110,7 +110,7 @@
         <svg class="icon-image"><use xlink:href="#icon-image"></use></svg>
         <span>Coverfoto</span>
       </label>
-      <%= text_field_tag :dummy, address_value(f.object.address), placeholder: 'Beschreibe dein Treffen mit einem Bild' %>
+      <%= text_field_tag :dummy, address_value(f.object.address), placeholder: 'Bild hochladen' %>
     </div>
     -->
 
@@ -125,7 +125,7 @@
         </div>
       <% else %>
         <svg class="icon-camera"><use xlink:href="#icon-camera"></use></svg>
-        Foto hochladen
+          Bild hochladen
       <% end %>
 
       <svg class="icon-delete-circle"><use xlink:href="#icon-delete-circle"></use></svg>
