@@ -10,11 +10,6 @@ RSpec.describe 'application/_nav', type: :view do
     it 'displays link to district overview' do
       expect(rendered).to have_link('Wien Übersicht', href: districts_path)
     end
-
-    it 'displays link to zuckerls#index in 1020' do
-      expect(rendered).to have_link("Grätzlzuckerl im #{l(Date.today, format: '%B')}",
-        href: zuckerl_district_path(district))
-    end
   end
 
   shared_examples :nav_main_graetzl do
@@ -37,6 +32,11 @@ RSpec.describe 'application/_nav', type: :view do
 
     it 'displays link to graetzl_locations' do
       expect(rendered).to have_link('Treffpunkte & Anbieter', href: graetzl_locations_path(current_graetzl))
+    end
+
+    it 'displays link to zuckerls#index in 1020' do
+      expect(rendered).to have_link("Grätzlzuckerl im #{l(Date.today, format: '%B')}",
+        href: zuckerl_district_path(district))
     end
 
     # it 'displays link to home graetzl' do
