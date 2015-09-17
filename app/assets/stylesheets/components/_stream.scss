@@ -11,6 +11,7 @@
   }
 }
 
+
 .streamEntryNav {
   display: flex;
   margin: 0 auto;
@@ -44,6 +45,7 @@
   }
 }
 
+
 .stream {
   clear: both;
   margin-bottom: 100px;
@@ -68,24 +70,20 @@
   }
 }
 
+
 .entryCreate {
   max-width: 650px;
-  //background: #ffffff $texture-secondary;
   margin: 0 auto 80px auto;
   position: relative;
   @include respond-to(">=medium") {
     align-items: flex-start;
     display: flex;
   }
-
   button {
     @extend .btn-primary;
     @extend .btn-primary.-rose;
-    margin-top: 1rem;
-    display: none;
     width: 100%;
   }
-
   .img-round {
     margin-right: 1rem;
     display: none;
@@ -94,14 +92,36 @@
       display: block;
     }
   }
+}
 
+
+.hide-wrp {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity:0;
+  transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 }
 .entryCreate.is-focused {
-  button, .upload-image {
-    display: block;
+  .hide-wrp {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
   }
-  textarea {
-    border-radius: 5px 5px 0 0;
+}
+
+.upload-streamImgs {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  color: $color-font-primary;
+  font-size: 14px;
+  [class^=icon-] {
+    margin-right: 8px;
+  }
+  input {
+    margin-left: 8px;
   }
 }
 
@@ -122,31 +142,13 @@
     @include textarea-plain($bgColor: $color-ambient-mint-light);
     width: 100%;
     color: $color-ambient-mint-dark;
-    height: 80px;
+    height: 120px;
     display: block;
     border: none;
     padding: 0.8rem 1.4rem;
     border-radius: 5px;
   }
-  .upload-image {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    font-size: 1.2rem;
-    display: none;
-    background-color: #ffffff;
-    border-radius: 0 0 5px 5px;
-    border-left: 1px solid $color-ambient-mint-light;
-    border-right: 1px solid $color-ambient-mint-light;
-    border-bottom: 1px solid $color-ambient-mint-light;
-  }
-  [class*=icon-camera] {
-    width: 20px;
-    height: 20px;
-    margin-right: 0.5rem !important;
-  }
 }
-
-
 
 .streamElement {
   max-width: 650px;
@@ -363,13 +365,6 @@
 
 }
 
-
-
-
-
-
-
-
 .editControls {
   display: table;
   position: absolute;
@@ -458,7 +453,6 @@
     border-color: transparent;
     color: $color-ambient-grey;
   }
-
 }
 
 

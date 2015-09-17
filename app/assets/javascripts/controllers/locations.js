@@ -3,7 +3,6 @@ APP.controllers.locations = (function() {
     function init() {
 
         APP.components.addressSearchAutocomplete();
-        APP.components.imgUploadPreview();        
 
         $('select.categories').SumoSelect({
             placeholder: 'Wähle einen oder mehreren Kategorien',

@@ -16,7 +16,7 @@ APP.components.stream = (function() {
         $(".stream").on("click", ".entryUserComment .btn-edit, .entryInitialContent .btn-edit", function() {
 
             var $parent = $(this).closest(".entryUserComment, .entryInitialContent");
-            var $txt = $parent.find(".txt");          
+            var $txt = $parent.find(".txt");
             var sendURL = $txt.attr('send-url');
 
             if (!$parent.attr("data-inlineEditInitialized")) {
@@ -29,7 +29,7 @@ APP.components.stream = (function() {
                 $txt.editable(url, {
                     method    : 'PUT',
                     name      : 'content',
-                    indicator : 'verarbeit...',
+                    indicator : 'verarbeite...',
                     type      : 'autogrow',
                     cancel    : 'Abbrechen',
                     submit    : 'Ändern'
@@ -115,7 +115,9 @@ APP.components.stream = (function() {
 
             } else if (event.type === 'focusout') {
                 if (!$(this).val().length) {
-                    $parent.removeClass("is-focused");
+                    if(!$parent.hasClass('entryCreate')) {
+                        $parent.removeClass("is-focused");
+                    }
                 }
             }
 
