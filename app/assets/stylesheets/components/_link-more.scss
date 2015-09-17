@@ -12,6 +12,9 @@
     background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
     background-position: 6px center;
   }
+  &.-small {
+    font-size: 1.6rem;
+  }
 }
 
 .link-subtle {
