@@ -390,6 +390,10 @@
     padding: 5px;
   }
 }
+.touch .editControls {
+  display: block;
+  opacity: 1 !important;
+}
 
 .entryUserComment,
 .entryInitialContent {
