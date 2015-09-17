@@ -1,13 +1,17 @@
 [id^=error_], #flash {
   @include font-size-primaryFont('base');
-  display: table;
-  margin: 0 auto 40px auto;
-  border-width: 1px;
-  border-style: dotted;
+  margin: -30px auto 40px auto;
   background-color: #ffffff;
-  padding: 30px;
-  border-radius: 6px;
+  padding: 15px 25px 18px 78px;
   font-style: italic;
+  width: 100%;
+  max-width: 980px;
+  @include respond-to(">=medium") {
+    margin-top: -50px;
+  }
+  @include respond-to(">=large") {
+    margin-top: -80px;
+  }
   h2 {
     @include font-size-secondaryFont('small');
     margin-bottom: 20px;
@@ -15,14 +19,7 @@
     font-style: normal;
   }
   ul {
-    padding-left: 0;
-    margin: 0;
-    list-style: none;
-  }
-  [class^=icon-] {
-    margin-right: 10px;
-    vertical-align: middle;
-    display: inline-block;
+    list-style: circle;
   }
   > div {
     display: inline-block;
@@ -31,6 +28,11 @@
 }
 
 #error_explanation, #flash {
-  border-color: #ffab22;
-  color: #ffab22;
+  background-color: #FEF6DF;
+  color: #ae872f;
+}
+
+#flash:not(:empty) + main .mapImgBlock,
+#flash:not(:empty) + main .imgHeader {
+  margin-top: -39px !important;
 }
