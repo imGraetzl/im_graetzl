@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
   end
 
   def disable_mail_notification(type, interval)
-    mask = 999999999999 ^ Notification::TYPES[type][:bitmask] 
+    mask = "11111111111111".to_i(2) ^ Notification::TYPES[type][:bitmask] 
     new_setting = send("#{interval}_mail_notifications".to_sym) & mask
     update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
   end
