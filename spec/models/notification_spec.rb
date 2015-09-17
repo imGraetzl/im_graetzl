@@ -335,4 +335,18 @@ RSpec.describe Notification, type: :model do
       end
     end
   end 
+  
+  context "a website notification type is enabled after notification creation" do
+    let(:user) { create(:user, graetzl: meeting.graetzl) }
+
+    it "does not create a notification record" do
+      expect(user.enabled_website_notification?(:new_meeting_in_graetzl)).to be_falsy
+      expect(user.website_notifications.to_a).to be_empty
+      meeting.create_activity :create, owner: create(:user)
+      expect(user.website_notifications.to_a).to be_empty
+      user.enable_website_notification(:new_meeting_in_graetzl)
+      user.notifications.reload
+      expect(user.website_notifications.to_a).to be_empty
+    end
+  end
 end

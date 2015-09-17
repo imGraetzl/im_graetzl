@@ -381,7 +381,7 @@ RSpec.describe User, type: :model do
     before do
       Notification::TYPES.keys.each do |type|
         bitmask = Notification::TYPES[type][:bitmask]
-        create(:notification, user: user, bitmask: bitmask)
+        create(:notification, user: user, bitmask: bitmask, display_on_website: true)
       end
     end
 
