@@ -1,67 +1,111 @@
-<div class="teaserBlock">
-  <div class="meetingBoxes -quart">
+<div class="block-meetings">
+  <div class="hl-subtext">
+    <h1>Mach mit - <span>Treffen & Events</span> im Grätzl <%= @graetzl.name %></h1>
+    <p>Lerne dabei nette Menschen aus deiner Nähe kennen</p>
+  </div>
 
-    <div class="wrp-cardBox">
-      <h2>Treffen & Events</h2>
-      <% if @meeting %>
-          <%= render @meeting, card: true %>
-      <% else %>
-          <%= render 'meetings/box_action' %>
-      <% end %>
-    </div>
+  <div class="cardBoxCollection -tripple">
+    <%= render @meetings if @meetings %>
 
-    <div class="wrp-cardBox">
-      <h2>Initiativen</h2>
-      <div class="cardBox initiativeBox">
-        <h3><svg class="icon-lightbulb"><use xlink:href="#icon-lightbulb"></use></svg>Du hast eine Idee für dein Grätzl?</h3>
-        <div class="txt">
-          <p>Ein Community-Gartenprojekt, ein Flohmarkt, eine Charityaktion?</p>
-          <p><strong>Wir arbeiten an dieser Funktion!</strong> Bald kannst du deine Idee hier eintragen und Mitorganisatoren bzw. Unterstützer finden.</p>
+    <!-- could be partial (action card) -->
+    <div class="cardbox-wrp">
+      <div class="paperCard -cord1RT -illuteaser">
+        <div class="wrp">
+          <div class="user">
+            <img class="img-round" src="https://placeimg.com/40/40/people?6" alt="">
+            <span>Dein Name</span>
+          </div>
+          <h3>Starte ein Treffen im Grätzl <%= @graetzl.name %></h3>
+          <%= link_to 'Jetzt loslegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary' %>
         </div>
+        <div class="card"></div>
       </div>
+      <%= link_to 'Alle Treffen & Events', graetzl_meetings_path(@graetzl), class: 'link-more' %>
     </div>
+  </div>
+  <!-- end action card -->
 
-    <div class="wrp-cardBox">
-      <h2>Locations</h2>
-      <div class="cardBox locationBox">
-        <% if @locations.present? %>
+</div>
 
-            <% @locations.each do |location| %>
-                <%= link_to [location.graetzl, location], class: 'locationUserSlice' do %>
-                    <div class="wrp-user">
-                      <%= avatar_for (user = location.users.first) %>
-                      <div class="col">
-                        <span class="username"><%= user.username %></span><br>
-                        betreibt
-                      </div>
-                    </div>
-                    <div class="locationName"><%= location.name %></div>
-                <% end %>
-            <% end %>
-            <%= link_to graetzl_locations_path(@graetzl), class: 'icontxt' do %>
-                Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-            <% end %>
+<div class="block-locations">
+  <div class="hl-subtext">
+    <h1>Entdecke <span>Anbieter & Treffpunkte</span> im Grätzl</h1>
+    <p>Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte</p>
+  </div>
+  <div class="cardBoxCollection -tripple">
+    <%= render @locations if @locations %>
 
-        <% else %>
-            <h3> <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>Bist du wirtschaftlich im Grätzl tätig?</h3>
-            <p>Es wurden noch keine Locations im Grätzl angelegt. Du kannst dir <%= link_to 'hier', new_location_path %> deine eigene Location anlegen.</p>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="wrp-cardBox">
-      <div class="cardBox candyBox">
-        <h3>Entdecke<br>einzigartiges im Grätzl!</h3>
-        <div class="txt">
-          <p>Stöbere durch besondere Angebote von grätzlansässigen Kreativen, Selbständigen und kleinen Unternehmen im Viertel.</p>
-          <p>Jeder erste Mittwoch des Monats ist Grätzlzuckerltag und es erscheinen neue Angebote!</p>
+    <!-- could be partial (action card) -->
+    <div class="cardbox-wrp">
+      <div class="paperCard -cord1RT -illuteaser">
+        <div class="wrp">
+          <div class="user">
+            <img class="img-round" src="https://placeimg.com/40/40/people?6" alt="">
+            <span>Dein Name</span>
+          </div>
+          <h3>Du bist unternehmerisch oder kreativ im Grätzl <%= @graetzl.name %> tätig?</h3>
+          <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
         </div>
-        <a href="#" class="icontxt">
-          Zu den Grätzlzuckerl<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-        </a>
+        <div class="card"></div>
       </div>
+      <%= link_to 'Alle Treffpunkte & Anbieter', graetzl_locations_path(@graetzl), class: 'link-more' %>
     </div>
+  <!-- end action card -->
+
   </div>
 </div>
 
-<%= render 'stream' if user_signed_in? %>
+<div class="block-zuckerl">
+  <div class="zuckerlHeader">
+    <h1>Entdecke Einzigartiges im Grätzl</h1>
+    <h2>Besondere Angebote, Aktionen & Workshops</h2>
+  </div>
+  <div class="zuckerlCollection">
+
+    <div class="singleZuckerl">
+      <div class="singleZuckerlHeader">
+        <img src="/assets/images/dummy/zuckerl/mikle.jpg" alt="" class="img-round">
+        <div class="datelocation">
+          <div class="location">Stuwerviertel</div>
+        </div>
+      </div>
+      <div class="txt"><strong>Mikle Hager-Adam</strong> eröffnet ihre Grinberg Praxis im Stuwerviertel. Mit dem Kennwort ‚Wohlbefinden‘ gibt es 50% Ermäßigung auf die erste Grinberg Anwendung.</div>
+      <a href="http://www.mikle-hager-adam.at/" target="_blank">www.mikle-hager-adam.at</a>
+    </div>
+
+    <div class="singleZuckerl">
+      <div class="singleZuckerlHeader">
+        <img src="/assets/images/dummy/zuckerl/contentessa.jpg" alt="" class="img-round">
+        <div class="datelocation">
+          <div class="location">Stuwerviertel</div>
+        </div>
+      </div>
+      <div class="txt"><strong>3 Gratis-Webseiten-Checks von Contentessa.</strong> Erfahre, ob deine Seite zeitgemäß, ansprechend & nutzerfreundlich ist. Die ersten 3 Personen, die sich bei ihr melden, bekommen einen kostenlosen Check!</div>
+      <a href="http://www.contentessa.at/" target="_blank">www.contentessa.at</a>
+    </div>
+
+    <div class="singleZuckerl">
+      <div class="singleZuckerlHeader">
+        <img src="/assets/images/dummy/zuckerl/omega-cbu.jpg" alt="" class="img-round">
+        <div class="datelocation">
+          <div class="location">Stuwerviertel</div>
+        </div>
+      </div>
+      <div class="txt">Die hochwertigen T-Shirts mit den Designs des Street-Art Künstlers <strong>omega cbu</strong> gibt es mit dem Kennwort ‚Street-Art‘ zum Vorzugspreis von 23 €. Nur solange der Vorrat reicht.</div>
+      <a href="http://www.omega-cbu.com/" target="_blank">www.omega-cbu.com</a>
+    </div>
+
+    <div class="singleZuckerl">
+      <div class="singleZuckerlHeader">
+        <img src="/assets/images/dummy/zuckerl/kant.jpg" alt="" class="img-round">
+        <div class="datelocation">
+          <div class="location">Stuwerviertel</div>
+        </div>
+      </div>
+      <div class="txt">Ka:nt innen — Kunst für drunter! Die Künstlerin <strong>Ka:nt</strong> hat neue Zensurpanti es im Programm:</div>
+      <a href="http://www.etsy.com/shop/vaKant/" target="_blank">www.etsy.com/shop/vaKant</a>
+    </div>
+
+  </div>
+  <a class="link-more" href="/wien">Alle Grätzl Zuckerl</a>
+</div>

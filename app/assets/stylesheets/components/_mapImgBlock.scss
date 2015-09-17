@@ -2,7 +2,7 @@
 
   position: relative;
   z-index: 1;
-  margin-top: -3rem;
+  margin-top: -30px;
   margin-left: -18px;
   margin-right: -18px;
   &::after {
@@ -16,13 +16,35 @@
     pointer-events: none;
     z-index: 9;
   }
+
   @include respond-to(">=medium") {
-    margin-top: -5rem;
+    margin-top: -50px;
     margin-left: -25px;
     margin-right: -25px;
   }
   @include respond-to(">=large") {
-    margin-top: -8rem;
+    margin-top: -80px;
+  }
+
+  #graetzlMapWidget {
+    width: 100%;
+    background-color: transparent;
+    position: relative;
+    cursor: default;
+    display: block;
+    &::before {
+      @include respond-to(">=medium") {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: linear-gradient(to right, rgba(252,252,252,1) 50%,rgba(252,252,252,0) 100%);
+        pointer-events: none;
+        z-index: 1;
+        height: 100%;
+        width: 400px;
+      }
+    }
   }
 
   .navBlock {
@@ -108,6 +130,80 @@
 }
 
 
+
+.mapImgBlock.singleGraetzl {
+  margin-bottom: 30px;
+  @include respond-to(">=large") {
+    padding-bottom: 0;
+    &::after {
+      width: 500px;
+      left: 240px;
+    }
+  }
+
+  .activeArea {
+    @include respond-to(">=large") {
+      width: 55%;
+    }
+  }
+
+  .wrp-headline {
+    display: table;
+    margin: 0 auto;
+    z-index: 10;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    @include respond-to(">=large") {
+      position: absolute;
+      left: 350px;
+      top: 76px;
+      display: table;
+      margin: 0;
+      transform: translate(0, 0);
+    }
+    span {
+      float: right;
+      font-size: 1.4rem;
+      border-radius: 4px;
+      background-color: rgba(245,245,240,0.9);
+      padding: 1px 5px;
+      margin-right: 5px;
+      a:not(:last-child) {
+        display: inline-block;
+        border-right: 1px dotted $color-ambient-mint-dark;
+        padding-right: 5px;
+        margin-right: 3px;
+      }
+    }
+  }
+  h1 {
+    @include font-size-secondaryFont('large');
+    @include headlineBarbapapa;
+    @include textShadowHard($color-ambient-rosa-dark);
+    margin-bottom: 0;
+  }
+
+  #graetzlMapWidget {
+    height: 150px;
+    @include respond-to(">=medium") {
+      height: 200px;
+      &::before {
+        width: 50%;
+      }
+    }
+    @include respond-to(">=large") {
+      height: 200px;
+      &::before {
+        width: 650px;
+      }
+
+    }
+  }
+
+}
+
 .leaflet-tile-pane {
   -webkit-filter: hue-rotate(-1100deg) saturate(50%);
   opacity: 0.8;
@@ -125,7 +221,6 @@
   top: 0;
   right: 0;
   pointer-events: none;
-
 }
 
 

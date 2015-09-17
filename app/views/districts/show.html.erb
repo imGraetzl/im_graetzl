@@ -7,7 +7,7 @@
     <div id="graetzlMapWidget"></div>
     <div class="activeArea"></div>
     <div class="navBlock">
-      <h1><%= @district.name %> | <%= @district.zip %></h1>
+      <h1>Stuwerviertel</h1>
       <div class="links">
         <a class="toVienna" href="/wien"><svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg> Wien Übersicht</a>
         <% @district.graetzls.each do |graetzl| %>
@@ -23,7 +23,7 @@
   <% if @meetings.present? %>
       <div class="teaserBlock">
         <h2>Aktuelle Treffen in <%= @district.zip %> <%= @district.name %></h2>
-        <div class="meetingBoxes">
+        <div class="cardBoxCollection -tripple">
           <% @meetings.each do |meeting| %>
               <%= render 'meetings/box', meeting: meeting %>
           <% end %>

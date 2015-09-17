@@ -1,11 +1,18 @@
-<%= link_to [@graetzl, location], class: 'cardBox' do %>
-  <div class="cardHeader">
-    <%= cover_photo_for(location) %>
+<% small ||= false %>
+<div class="cardBox">
+  <div class="cardBoxHeader">
+    <%= link_to [location.graetzl, location] do %>
+      <%= cover_photo_for(location) %>
+    <% end %>
     <div class="locationAvatar">
       <%= image_tag static_map_url(location.address.coordinates), class: 'locationMap' %>
       <%= avatar_for(location, fill: [85, 85]) %>
     </div>
   </div>
   <h3><%= location.name %></h3>
-  <div class="txt"><%= location.description %></div>
-<% end %>
+  <% if small %>
+    <div class="txt"><%= location.description %></div>
+  <% else %>
+    <%= link_to 'Location ansehen', [location.graetzl, location], class: 'btn-primary -mint' %>
+  <% end %>
+</div>

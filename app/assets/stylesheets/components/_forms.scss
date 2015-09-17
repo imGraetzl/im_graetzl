@@ -151,10 +151,6 @@ input, select, textarea {
         color: $color-ambient-grey;
         font-style: italic;
       }
-      &:first-child {
-        color: $color-ambient-mint !important;
-        font-style: italic;
-      }
     }
   }
   select[disabled] {

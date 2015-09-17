@@ -1,27 +1,31 @@
-.wrp-cardBox {
-  h2:first-child {
-    @include font-size-secondaryFont('small');
-    color: $color-ambient-mint-dark;
-    margin-left: 12px;
-    margin-bottom: 4px;
-  }
-}
 
-
-.meetingBoxes, .cardCollection {
+.meetingBoxCollection, .cardBoxCollection {
   @include cf();
   @include respond-to(">=large") {
     margin-left: -25px;
     margin-right: -25px;
   }
-  > * {
+  .meetingBox, .cardBox {
     display: block;
-    margin-bottom: 35px;
-    @include respond-to(">=medium") {
-      @include col(1/2, $cycle: 2, $gutter: 1.5);
+    margin-bottom: 25px;
+  }
+
+  &.-double {
+    > * {
+      @include respond-to(">=large") {
+        @include col(1/2, $gutter: 2, $cycle: 2);
+      }
     }
-    @include respond-to(">=large") {
-      @include col(1/3, $cycle: 3, $uncycle: 2, $gutter: 1.5);
+  }
+
+  &.-tripple {
+    > * {
+      @include respond-to(">=medium") {
+        @include col(1/2, $cycle: 2, $gutter: 1.5);
+      }
+      @include respond-to(">=large") {
+        @include col(1/3, $cycle: 3, $uncycle: 2, $gutter: 1.5);
+      }
     }
   }
 
@@ -46,7 +50,24 @@
       }
     }
   }
+}
 
+.wrp-cardBox, .cardbox-wrp {
+  h2:first-child {
+    @include font-size-secondaryFont('small');
+    color: $color-ambient-mint-dark;
+    margin-left: 12px;
+    margin-bottom: 4px;
+  }
+  .link-more {
+    margin: 0 auto;
+    display: table;
+    margin-top: 10px;
+    @include respond-to(">=medium") {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+  }
 }
 
 .meetingBox, .cardBox {
@@ -100,8 +121,25 @@
   p {
     margin-bottom: 10px;
   }
-
 }
+
+
+.cardBox[class*=-illu] {
+  background-repeat: no-repeat;
+  background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
+  background-position: center top 15px;
+}
+
+//TODO: make a small variant for 4column views
+.cardBox.-illuteaser {
+  padding-top: 188px;
+  background-size: auto 180px;
+}
+.cardBox.-illuteasersmall {
+  padding-top: 177px;
+  background-size: auto 170px;
+}
+
 
 
 .meetingBoxHeader, .cardBoxHeader {
@@ -141,38 +179,4 @@
     top: 5px;
     left: 5px;
   }
-}
-
-
-.meetingBoxCollection, .cardBoxCollection {
-  @include cf();
-
-  .meetingBox, .cardBox {
-    display: block;
-    margin-bottom: 25px;
-  }
-
-  &.-double {
-    .meetingBox, .cardBox {
-      @include respond-to(">=large") {
-        @include col(1/2, $gutter: 2, $cycle: 2);
-      }
-    }
-  }
-
-  &.-tripple {
-    @include respond-to(">=large") {
-      margin-left: -25px;
-      margin-right: -25px;
-    }
-    .meetingBox, .cardBox {
-      @include respond-to(">=medium") {
-        @include col(1/2, $cycle: 2, $gutter: 1.5);
-      }
-      @include respond-to(">=large") {
-        @include col(1/3, $cycle: 3, $uncycle: 2, $gutter: 1.5);
-      }
-    }
-  }
-
 }

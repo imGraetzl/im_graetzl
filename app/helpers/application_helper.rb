@@ -4,8 +4,11 @@ module ApplicationHelper
   end
 
   def current_graetzl
-    #current_graetzl ||= @graetzl || (current_user.graetzl if user_signed_in?)
     @graetzl || (current_user.graetzl if user_signed_in?)
+  end
+  
+  def default_district
+    District.find_by_zip('1020')
   end
 
   def activity_description(user, entity)

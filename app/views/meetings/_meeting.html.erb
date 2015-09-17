@@ -1,6 +1,6 @@
-<% card ||= false %>
-<div class="<%= card ? 'cardBox meetBox' : 'meetingBox' %>">
-  <div class="<%= card ? 'cardBoxHeader' : 'meetingBoxHeader' %>">
+<% small ||= false %>
+<div class="cardBox">
+  <div class="cardBoxHeader">
     <%= link_to [meeting.graetzl, meeting] do %>
       <%= cover_photo_for(meeting) %>
     <% end %>
@@ -29,15 +29,10 @@
   </div>
   <h3><%= meeting.name %></h3>
 
-  <% unless card %>
+  <% unless small %>
     <div class="txt"><%= truncate(meeting.description, length: 140) %></div>
   <% end %>
 
   <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
 
-  <% if card %>
-    <%= link_to graetzl_meetings_path(meeting.graetzl), class: 'icontxt' do %>
-      Alle Treffen & Events<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-    <% end %>
-  <% end %>
 </div>

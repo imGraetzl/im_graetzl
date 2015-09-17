@@ -1,0 +1,173 @@
+section.zuckerlOverview {
+
+  .placeholderIllu {
+    background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
+    background-repeat: no-repeat;
+    height: 200px;
+    background-size: 200px auto;
+    background-position: center top;
+    .badge {
+      width: 70px;
+      height: 70px;
+      padding: 10px 10px;
+      font-size: 24px;
+      padding-top: 13px;
+      line-height: 0.8;
+      position: absolute;
+      left: 92px;
+      bottom: -20px;
+    }
+  }
+
+}
+
+.zuckerlHeader {
+  font-family: $font-secondary;
+  text-align: center;
+  background-image: url(image_path('illu/illu-zuckerl-head.png'));
+  background-repeat: no-repeat;
+  background-size: 600px auto;
+  padding-top: 110px;
+  padding-bottom: 120px;
+  max-height: none;
+  @include respond-to(">=medium") {
+    background-size: 100% auto;
+  }
+  @include respond-to(">=large") {
+    padding-top: 142px;
+    padding-bottom: 140px;
+  }
+  h1, h2 {
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+  }
+  h1 {
+    @include font-size-secondaryFont('base');
+    transform: rotate(-3deg);
+    color: $color-ambient-mint;
+    margin-bottom: 10px;
+    background-image: url(image_path('svg/underline-mint.svg'));
+    background-size: 100px 5px;
+    @include respond-to(">=medium") {
+    background-size: 300px 5px;
+    }
+  }
+  h2 {
+    @include font-size-secondaryFont('large');
+    transform: rotate(-1deg);
+    color: $color-ambient-rosa;
+    background-image: url(image_path('svg/underline-rose.svg'));
+    background-size: 150px 5px;
+    @include respond-to(">=medium") {
+    background-size: 450px 5px;
+    }
+  }
+}
+
+.zuckerlHeader + .zuckerlCollection {
+  margin-top: -80px;
+}
+
+.zuckerlCollection {
+  position: relative;
+  z-index: 2;
+
+  > * {
+    padding: 0 20px;
+    width: 100%;
+    margin-bottom: 50px;
+    @include respond-to(">=medium") {
+      width: 50%;
+    }
+    @include respond-to(">=large") {
+      width: 25%;
+    }
+  }
+
+  .singleZuckerl {
+    position: relative;
+    a {
+      @include ellipsis;
+      color: $color-ambient-mint-dark;
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .paperCard {
+    padding: 0;
+    transform:  translate(10px, 0);
+    @include respond-to(">=medium", "<large") {
+      width: 43%;
+    }
+    .wrp {
+      padding-top: 140px;
+      background-image: url(image_path('illu/illu-cylce2-plain@2x.png'));
+      background-size: auto 132px;
+      background-position: -20px 20px;
+    }
+    .card {
+      transform: rotate(-2deg);
+    }
+    h3 {
+      font-size: 2.0rem;
+      margin-bottom: 5px;
+    }
+    a {
+      margin-top: 10px;
+      display: block;
+    }
+    &::before {
+      content: '';
+      width: 40px;
+      height: 40px;
+      background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
+      position: absolute;
+      left: 145px;
+      top: 100px;
+      background-repeat: no-repeat;
+      z-index: 10;
+      transform: rotate(110deg);
+    }
+  }
+}
+
+.singleZuckerlHeader {
+  background-image: url(image_path('svg/kringel.svg'));
+  background-size: 80px auto;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: 5px 0 9px 5px;
+  height: 87px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  margin-left: -10px;
+  .img-round  {
+    flex: 0 0 auto;
+    width: 70px;
+    height: 70px;
+    display: block;
+    border-color: transparent;
+    margin-right: 12px;
+  }
+  .datelocation {
+    font-family: $font-secondary;
+    line-height: 1;
+    color: $color-ambient-mint-dark;
+    .date {
+      font-size: 24px;
+    }
+    .location {
+      @include ellipsis;
+      font-size: 20px;
+    }
+  }
+}

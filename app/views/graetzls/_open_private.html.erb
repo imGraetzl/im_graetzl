@@ -1,67 +1,53 @@
-<div class="teaserBlock">
-  <div class="meetingBoxes -quart">
-
+<div class="block-overview">
+  <div class="cardBoxCollection -quart">
     <div class="wrp-cardBox">
       <h2>Treffen & Events</h2>
-      <% if @meeting %>
-          <%= render @meeting, card: true %>
+      <% unless @meetings.empty? %>
+        <%= render @meetings.first %>
       <% else %>
-          <%= render 'meetings/box_action' %>
+        <div class="cardBox meetBox -illuteasersmall">
+          <div class="txt">
+            <p>Lege ein Treffen für gemeinsame Aktivitäten an oder trage ein Event ein.</p>
+          </div>
+          <%= link_to 'Treffen anlegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary' %>
+        </div>
       <% end %>
     </div>
 
     <div class="wrp-cardBox">
       <h2>Initiativen</h2>
-      <div class="cardBox initiativeBox">
-        <h3><svg class="icon-lightbulb"><use xlink:href="#icon-lightbulb"></use></svg>Du hast eine Idee für dein Grätzl?</h3>
+      <div class="cardBox initiativeBox -illuteasersmall">
         <div class="txt">
-          <p>Ein Community-Gartenprojekt, ein Flohmarkt, eine Charityaktion?</p>
-          <p><strong>Wir arbeiten an dieser Funktion!</strong> Bald kannst du deine Idee hier eintragen und Mitorganisatoren bzw. Unterstützer finden.</p>
+          <p>Gartenprojekt, Flohmarkt, oder Spendenaktion? Finde Mitorganisatoren.</p>
         </div>
+        <a class="btn-primary -disabled" href="#" title="An dieser Funktion arbeiten wir noch...">In Kürze verfügbar</a>
       </div>
     </div>
 
     <div class="wrp-cardBox">
-      <h2>Locations</h2>
-      <div class="cardBox locationBox">
-        <% if @locations.present? %>
-
-            <% @locations.each do |location| %>
-                <%= link_to [location.graetzl, location], class: 'locationUserSlice' do %>
-                    <div class="wrp-user">
-                      <%= avatar_for (user = location.users.first) %>
-                      <div class="col">
-                        <span class="username"><%= user.username %></span><br>
-                        betreibt
-                      </div>
-                    </div>
-                    <div class="locationName"><%= location.name %></div>
-                <% end %>
-            <% end %>
-            <%= link_to graetzl_locations_path(@graetzl), class: 'icontxt' do %>
-                Alle Locations<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-            <% end %>
-
-        <% else %>
-            <h3> <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>Bist du wirtschaftlich im Grätzl tätig?</h3>
-            <p>Es wurden noch keine Locations im Grätzl angelegt. Du kannst dir <%= link_to 'hier', new_location_path %> deine eigene Location anlegen.</p>
-        <% end %>
-      </div>
+      <h2>Betreiber & Locations</h2>
+      <% unless @locations.empty? %>
+        <%= render @locations.first %>
+      <% else %>
+        <div class="cardBox locationBox -illuteasersmall">
+          <div class="txt">
+            <p>Unternehmerisch oder kreativ im Grätzl tätig? Zeig, was du machst.</p>
+          </div>
+          <%= link_to 'Betreiber eintragen', new_location_path, class: 'btn-primary -ming' %>
+        </div>
+      <% end %>
     </div>
 
     <div class="wrp-cardBox">
-      <div class="cardBox candyBox">
-        <h3>Entdecke<br>einzigartiges im Grätzl!</h3>
+      <h2>Besondere Angebote</h2>
+      <div class="cardBox candyBox -illuteasersmall">
         <div class="txt">
-          <p>Stöbere durch besondere Angebote von grätzlansässigen Kreativen, Selbständigen und kleinen Unternehmen im Viertel.</p>
-          <p>Jeder erste Mittwoch des Monats ist Grätzlzuckerltag und es erscheinen neue Angebote!</p>
+          <p>Entdecke einzigartige Anbieter und Angebote in deinem Grätzl.</p>
         </div>
-        <a href="#" class="icontxt">
-          Zu den Grätzlzuckerl<svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
-        </a>
+        <a class="btn-primary -mint" href="#">Zum Grätzlzuckerl</a>
       </div>
     </div>
   </div>
 </div>
 
-<%= render 'stream' if user_signed_in? %>
+<%= render 'stream' %>

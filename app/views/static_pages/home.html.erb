@@ -11,29 +11,33 @@
     <% end %>
   </div>
 
-  <div class="teaserBlock">
-    <h2>Mach mit — Treffen, Events & Initiativen im Grätzl</h2>
-    <p>Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen</p>
+  <div class="meetings-block">
+    <div class="hl-subtext">
+      <h1>Mach mit — <span>Treffen, Events & Initiativen</span> im Grätzl</h1>
+      <p>Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen</p>
+    </div>
 
 
-    <div class="meetingBoxes">
+    <div class="cardBoxCollection -tripple">
       <%= render partial: 'meetings/box', collection: @meetings, as: 'meeting' %>
 
-      <div class="ownMeetingBox">
-        <%= link_to new_user_session_path, class: 'wrp' do %>
+      <div class="cardbox-wrp">
+
+        <div class="paperCard -illuteaser -cord1RT">
+          <div class="wrp">
             <div class="user">
               <%= image_tag('avatar/small_default.png', class: 'img-round') %>
               <span>Dein Name</span>
             </div>
             <h3>Starte dein eigenes Treffen, trage ein<br>Event & Initatitive ein.</h3>
-            <button class="btn-primary -rose">Jetzt loslegen</button>
-        <% end %>
-        <div class="card"></div>
+            <%= link_to 'Jetzt loslegen', new_user_session_path, class: 'btn-primary -rose' %>
+          </div>
+          <div class="card"></div>
+        </div>
+        <%= link_to 'Alle Treffen', districts_path, class: 'link-more' %>
       </div>
 
     </div>
-
-    <%= link_to 'Alle Treffen', districts_path, class: 'link-more' %>
 
   </div>
 
@@ -42,28 +46,55 @@
     <h2>Worum geht es bei „im Grätzl“</h2>
 
     <div class="graetzl-meeting">
-      <h3><span>Treffen</span> im Grätzl</h3>
-      <p>Trage Treffen ein für die Dinge, die du gerne machen möchtest. Auf imGrätzl.at findest du nette Menschen und Gleichgesinnte aus deiner Nähe z. B. für spontane Laufrunden, zum Ausgehen, für kreative DIY-Bastelsessions oder für einen Eltern-Kind-Treff.</p>
+      <div class="paperCard -cord1LTsmall -illuonly">
+        <div class="wrp"></div>
+        <div class="card"></div>
+      </div>
+      <div class="wrp-txt">
+        <h3><span>Treffen</span> im Grätzl</h3>
+        <p>Trage Treffen ein für die Dinge, die du gerne machen möchtest. Auf imGrätzl.at findest du nette Menschen und Gleichgesinnte aus deiner Nähe z. B. für spontane Laufrunden, zum Ausgehen, für kreative DIY-Bastelsessions oder für einen Eltern-Kind-Treff.</p>
+      </div>
     </div>
 
     <div class="graetzl-events">
-      <h3><span>Event</span> im Grätzl</h3>
-      <p>Entdecke auf einen Blick, welche Veranstaltungen und Aktionen bei dir ums Eck stattfinden. Planst du ein Konzert, einen Workshop, ein Nachbarschaftsfest? Dann veröffentliche sie auf imGrätzl.at.</p>
+      <div class="paperCard -cord1RTsmall -illuonly">
+        <div class="wrp"></div>
+        <div class="card"></div>
+      </div>
+      <div class="wrp-txt">
+        <h3><span>Event</span> im Grätzl</h3>
+        <p>Entdecke auf einen Blick, welche Veranstaltungen und Aktionen bei dir ums Eck stattfinden. Planst du ein Konzert, einen Workshop, ein Nachbarschaftsfest? Dann veröffentliche sie auf imGrätzl.at.</p>
+      </div>
     </div>
 
     <div class="graetzl-initiative">
-      <h3><span>Initiative</span> im Grätzl</h3>
-      <p>Du hast eine Idee für dein Viertel? Ein Community-Gartenprojekt, ein Flohmarkt, eine Charityaktion? Dann trage deine Idee ein und finde Mitorganisatoren und Unterstützer für die Umsetzung. </p>
+      <div class="paperCard -cord1LTsmall -illuonly">
+        <div class="wrp"></div>
+        <div class="card"></div>
+      </div>
+      <div class="wrp-txt">
+        <h3><span>Initiative</span> im Grätzl</h3>
+        <p>Du hast eine Idee für dein Viertel? Ein Community-Gartenprojekt, ein Flohmarkt, eine Charityaktion? Dann trage deine Idee ein und finde Mitorganisatoren und Unterstützer für die Umsetzung. </p>
+      </div>
     </div>
 
     <div class="graetzl-economy">
-      <h3>Du bist <span>kreativ</span> im Grätzl tätig?<br>Du <span>wirtschaftest</span> im Grätzl?</h3>
-      <p>Stell dich auf einer eigenen Seite den Bewohnern vor. Du kannst deine Veranstaltungen und Events kostenlos veröffentlichen. Damit bekommst du Sichtbarkeit und die Bewohner die Chance dich persönlich kennenzulernen.</p>
+      <div class="paperCard -cord1RTsmall -illuonly">
+        <div class="wrp"></div>
+        <div class="card"></div>
+      </div>
+      <div class="wrp-txt">
+        <h3>Du bist <span>kreativ</span> im Grätzl tätig?<br>Du <span>wirtschaftest</span> im Grätzl?</h3>
+        <p>Stell dich auf einer eigenen Seite den Bewohnern vor. Du kannst deine Veranstaltungen und Events kostenlos veröffentlichen. Damit bekommst du Sichtbarkeit und die Bewohner die Chance dich persönlich kennenzulernen.</p>
+      </div>
     </div>
 
     <div class="graetzl-zuckerl">
-      <h3>Das <span>Grätzlzuckerl</span></h3>
-      <p>Einzigartiges aus dem Viertel entdecken. Einmal im Monat gibt es das neue Grätzlzuckerl. Das sind ganz besondere Angebote, die mit viel Liebe von den grätzlansässigen Kreativen und Unternehmen für die Bewohner geschnürt werden. Das Grätzlzuckerl ist speziell für die Selbstständigen und kleinen Unternehmen ums Eck konzipiert.</p>
+      <div class="illuZuckerl"></div>
+      <div class="wrp-txt">
+        <h3>Das <span>Grätzlzuckerl</span></h3>
+        <p>Einzigartiges aus dem Viertel entdecken. Einmal im Monat gibt es das neue Grätzlzuckerl. Das sind ganz besondere Angebote, die mit viel Liebe von den grätzlansässigen Kreativen und Unternehmen für die Bewohner geschnürt werden. Das Grätzlzuckerl ist speziell für die Selbstständigen und kleinen Unternehmen ums Eck konzipiert.</p>
+      </div>
     </div>
 
     <%= link_to 'Jetzt loslegen', new_user_session_path, class: 'btn-primary -rose -large -shadow' %>

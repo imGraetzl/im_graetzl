@@ -44,42 +44,47 @@ RSpec.describe GraetzlsController, type: :controller do
       expect(assigns(:map_data)).to be_truthy
     end
 
-    describe '@meeting' do
-      let!(:meeting) { create(:meeting, graetzl: graetzl, starts_at_date: Date.tomorrow) }
-
+    describe '@meetings' do
       context 'with upcoming meetings' do
-        before { get :show, id: graetzl }
+        before do
+          3.times{ create(:meeting, graetzl: graetzl, starts_at_date: Date.tomorrow) }
+          get :show, id: graetzl
+        end
 
-        it 'assigns next meeting' do
-          expect(assigns(:meeting)).to eq meeting
+        it 'assigns 2 upcoming meetings' do
+          expect(assigns(:meetings).count).to eq 2
         end
       end
       context 'without upcoming meetings' do
         before do
-          meeting.starts_at_date = Date.yesterday
-          meeting.save(validate: false)
+          3.times do
+            meeting = build(:meeting, graetzl: graetzl, starts_at_date: Date.yesterday)
+            meeting.save(validate: false)
+          end
           get :show, id: graetzl
         end
 
-        it 'assigns nil' do
-          expect(assigns(:meeting)).to eq nil
+        it 'returns empty collection' do
+          expect(assigns(:meetings)).to be_empty
         end
       end
     end
 
     describe '@locations' do
       context 'with managed locations' do
-        let!(:location_1) { create(:location_managed, graetzl: graetzl) }
-        before { get :show, id: graetzl }
+        before do
+          3.times{ create(:location_managed, graetzl: graetzl) }
+          get :show, id: graetzl
+        end
 
-        it 'contains locations' do
-          expect(assigns(:locations)).to include(location_1)
+        it 'assigns 2 locations' do
+          expect(assigns(:locations).count).to eq 2
         end
       end
       context 'without managed locations' do
-        before { get :show, id: graetzl }
 
         it 'is empty' do
+          get :show, id: graetzl
           expect(assigns(:locations)).to be_empty
         end
       end

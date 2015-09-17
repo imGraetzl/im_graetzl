@@ -5,7 +5,7 @@
 
       <ul>
         <% user.errors.full_messages.each do |message| %>
-          <li><svg class="icon-arrow-down"><use xlink:href="#icon-arrow-down"></use></svg><%= message %></li>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>

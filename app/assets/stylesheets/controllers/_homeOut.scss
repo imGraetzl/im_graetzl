@@ -1,48 +1,20 @@
 section.homeOut {
 
-  .teaserBlock {
+  .hl-subtext {
+    margin-bottom: 60px;
+  }
+
+  .meetings-block {
     @include cf();
     margin-bottom: 40px;
-    border-bottom: 1px dotted $color-ambient-mint-light;
-    padding-bottom: 3rem;
     @include respond-to(">=medium") {
-      margin-bottom: 70px;
+      margin-bottom: 60px;
     }
 
-    .meetingBoxes {
-      > * {
-        @include respond-to(">=large") {
-          margin-bottom: 0;
-        }
-      }
-    }
-    h2 {
-      @include font-size-secondaryFont('large');
-      text-align: center;
-      color: $color-ambient-rosa;
-      margin-bottom: 10px;
-      + p {
-        @include font-size-primaryFont('larger');
-        text-align: center;
-        margin-bottom: 30px;
-        @include respond-to(">=large") {
-          margin-bottom: 50px;
-        }
-      }
+    .paperCard .card {
+      transform: rotate(-1deg);
     }
 
-    .link-more {
-      @include font-size-primaryFont('large');
-      margin: 0 auto;
-      display: table;
-      z-index: 3;
-      position: relative;
-      @include respond-to(">=large") {
-        float: right;
-        margin-right: 10px;
-        display: block;
-      }
-    }
   }
 }
 
@@ -134,9 +106,9 @@ section.homeOut {
     @include font-size-secondaryFont('large');
     text-align: center;
     color: $color-ambient-rosa;
-    margin-bottom: 2.0rem;
+    margin-bottom: 20px;
     @include respond-to(">=medium") {
-      margin-bottom: 3.0rem;
+      margin-bottom: 80px;
     }
   }
 
@@ -170,80 +142,77 @@ section.homeOut {
 
 }
 
-.aboutGraetzl [class^=graetzl-] {
-  margin-bottom: 3.0rem;
-  position: relative;
-  background-repeat: no-repeat;
-  padding-bottom: 310px;
-  margin-left: -18px;
-  margin-right: -18px;
-  padding-left: 18px;
-  padding-right: 18px;
-  background-position: center bottom;
-  @include respond-to(">=medium") {
-    min-height: 340px;
-    padding-top: 5.0rem;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    padding-right: 0;
-  }
-  @include respond-to(">=large") {
-    margin-bottom: -2.0rem;
-  }
 
-  &:nth-child(even) {
+.aboutGraetzl [class^=graetzl-] {
+  margin-bottom: 40px;
+  @include respond-to(">=medium") {
+    display: flex;
+    margin-bottom: 60px;
+  }
+  .paperCard, .illuZuckerl {
+    width: 280px;
+    margin: 0 auto;
+    margin-bottom: 30px;
     @include respond-to(">=medium") {
-      padding-left: 350px;
-      background-position: left top;
+      width: auto;
+      flex: 0 0 280px;
+      margin-bottom: 0;
+    }
+    @include respond-to(">=large") {
+      transform: translate(0,-20px);
     }
   }
-
+  .paperCard {
+    height: 240px;
+  }
+  &:nth-child(even) {
+    .paperCard {
+      @include respond-to(">=medium") {
+        margin-right: 70px;
+      }
+      .card {
+        transform: rotate(-2deg);
+      }
+    }
+  }
   &:nth-child(odd) {
-    @include respond-to(">=medium") {
-      padding-right: 370px;
-      background-position: right top;
+    .paperCard {
+      @include respond-to(">=medium") {
+        margin-left: 70px;
+        order: 2;
+      }
+      .card {
+        transform: rotate(2deg);
+      }
     }
   }
 }
+
 .aboutGraetzl {
 
   .graetzl-meeting {
-    background-image: url(image_path('illu/illu-card-cylce.png'));
-    background-size: 293px 316px;
-    @include respond-to('retina2x') {
-      background-image: url(image_path('illu/illu-card-cylce@2x.png'));
-    }
+
   }
   .graetzl-events {
-    background-image: url(image_path('illu/illu-card-painter.png'));
-    background-size: 325px 285px;
-    @include respond-to('retina2x') {
-      background-image: url(image_path('illu/illu-card-painter@2x.png'));
+    .wrp {
+      background-image: url(image_path('illu/illu-painter-straight@2x.png'));
     }
   }
   .graetzl-initiative {
-    background-image: url(image_path('illu/illu-card-flohmarkt.png'));
-    background-size: 293px 316px;
-    @include respond-to('retina2x') {
-      background-image: url(image_path('illu/illu-card-flohmarkt@2x.png'));
+    .wrp  {
+      background-image: url(image_path('illu/illu-flohmarkt-straight@2x.png'));
     }
   }
   .graetzl-economy {
-    background-image: url(image_path('illu/illu-card-wirtschaft.png'));
-    background-size: 325px 285px;
-    @include respond-to('retina2x') {
-      background-image: url(image_path('illu/illu-card-wirtschaft@2x.png'));
+    .wrp {
+      background-image: url(image_path('illu/illu-wirtschaft-straight@2x.png'));
     }
   }
-  .graetzl-zuckerl {
+  .illuZuckerl {
     background-image: url(image_path('graetzlzuckerl.png'));
-    background-size: 220px 139px;
-    padding-bottom: 170px;
-    @include respond-to(">=medium") {
-      background-position: 90px 50px !important;
-      padding-bottom: 0;
-    }
+    background-size: 70% auto;
+    background-position: 30px 20px;
+    background-repeat: no-repeat;
+    height: 150px;
   }
 }

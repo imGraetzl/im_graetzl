@@ -28,6 +28,7 @@
 //= require jquery.dropdown
 //= require typeahead.bundle
 //= require jquery.noty.packaged
+//= require masonry.pkgd.min
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require modernizr.custom

@@ -2,8 +2,8 @@
 
 <section class="graetzls" data-mapdata="<%= @map_data %>">
 
-  <div class="mapImgBlock">
-    <div id="graetzlMapWidget" class="singleGraetzlHeader" data-mapvisible='{"graetzls":["0205"]}'></div>
+  <div class="mapImgBlock singleGraetzl">
+    <div id="graetzlMapWidget" data-mapvisible='{"graetzls":["0205"]}'></div>
     <div class="activeArea"></div>
     <div class="illuDistrict"></div>
     <div class="mapInfoText"></div>
@@ -24,5 +24,5 @@
   <% else %>
     <%= render "closed#{'_private' if user_signed_in?}" %>
   <% end %>
-
+  
 </section>

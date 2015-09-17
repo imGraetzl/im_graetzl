@@ -1,47 +1,26 @@
-@mixin paperCard($corner: "RT", $rotation: 0, $texture: false, $fakehole: true, $string: 1) {
-
+.paperCard {
   position: relative;
-
-  > * {
+  .wrp {
+    min-height: 50px;
     z-index: 2;
     position: relative;
+    display: block;
   }
-
-  .wrp {
-    text-decoration: none;
-  }
-
   .card {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 4px rgba(0,0,0,0.12);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.12);
     display: block;
     z-index: 1;
     border-radius: 2px;
-    transform: rotate(#{$rotation}deg) translate3d(0,0,0);
-
-    @if $texture == true {
-      background-image: $texture-stoff2, url(image_path('svg/card-holes.svg'));
-      @if $corner == "RT" {
-        background-position: left top, top right;
-      }
-    } @else {
-      background-image: url(image_path('svg/card-holes.svg'));
-      @if $corner == "RT" {
-        background-position: top right;
-      }
-    }
-
-    &::after, &::before {
-      content: '';
-      position: absolute;
-    }
-
+    background-color: #fff;
     //shadow bottom
     &::after {
+      content: '';
+      position: absolute;
       width: 100%;
       height: 10px;
       top: 100%;
@@ -49,42 +28,117 @@
       background-image: radial-gradient(ellipse farthest-side at center top, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 100%);
       pointer-events: none;
     }
-
-    //string
-    &::before {
-      z-index: 6;
-      background-repeat: no-repeat;
-      @if $corner == "RT" {
-
-        @if $string == 1 {
-          top: 3px;
-          right: -51px;
-          height: 60px;
-          width: 81px;
-          @if $fakehole == false {
-            background-image: url(image_path('svg/card-string1.svg'));
-          } @else {
-            background-image: url(image_path('svg/card-string1-fakehole.svg'));
-          }
-        }
-
-        @if $string == 2 {
-          top: -65px;
-          right: -38px;
-          height: 95px;
-          width: 68px;
-          @if $fakehole == false {
-            background-image: url(image_path('svg/card-string2.svg'));
-          } @else {
-            background-image: url(image_path('svg/card-string2-fakehole.svg'));
-          }
-        }
-
-      }
-    }
-
   }
 }
 
 
+.paperCard[class*=-cord] {
+  .card {
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 6;
+      background-repeat: no-repeat;
+    }
+  }
+}
 
+
+.paperCard[class*=-cord1] {
+  .card {
+    &::before {
+      top: -65px;
+      height: 95px;
+      width: 68px;
+      background-image: url(image_path('svg/card-string2-fakehole.svg'));
+    }
+  }
+  &[class*=small] {
+    .card {
+      &::before {
+        top: -59px;
+      }
+    }
+  }
+}
+
+
+.paperCard.-cord1RT {
+  .card {
+    &::before {
+      right: -38px;
+    }
+  }
+}
+.paperCard.-cord1RTsmall {
+  .card {
+    &::before {
+      right: -38px;
+      transform: scale(0.75);
+    }
+  }
+}
+
+
+.paperCard.-cord1LT {
+  .card {
+    &::before {
+      left: -38px;
+    }
+  }
+}
+.paperCard.-cord1LTsmall {
+  .card {
+    &::before {
+      left: -38px;
+      transform: scale(-0.75, 0.75);
+    }
+  }
+}
+
+
+.paperCard[class*=-illu] {
+  .wrp {
+    background-repeat: no-repeat;
+    background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
+  }
+}
+
+//TODO: make a small variant for 4column views
+.paperCard.-illuteaser {
+  .wrp  {
+    padding: 160px 30px 30px 30px;
+    background-position: center top 15px;
+    background-size: auto 180px;
+  }
+  button {
+    width: 100%;
+  }
+  .user {
+    img {
+      vertical-align: bottom;
+    }
+    span {
+      color: $color-ambient-mint-dark;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      vertical-align: bottom;
+    }
+  }
+  h3 {
+    @include font-size-primaryFont('larger');
+    line-height: 1.4;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    color: $color-ambient-mint-dark;
+  }
+}
+
+
+.paperCard.-illuonly {
+  .wrp  {
+    height: 100%;
+    background-position: center;
+    background-size: 90% auto;
+  }
+}

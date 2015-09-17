@@ -22,7 +22,7 @@ section.userprofile {
   .titleHeadline {
     @include respond-to(">=medium") {
       color: $color-ambient-mint;
-      bottom: -22px;
+      bottom: -42px;
       left: 200px;
       z-index: 11;
       margin-bottom: 0;

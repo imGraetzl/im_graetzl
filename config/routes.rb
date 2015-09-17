@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :districts, path: 'wien', only: [:index, :show]
+  resources :districts, path: 'wien', only: [:index, :show] do
+    get :graetzlzuckerl, on: :member, to: 'zuckerls#index', as: 'zuckerl'
+  end
 
   ActiveAdmin.routes(self)
 
