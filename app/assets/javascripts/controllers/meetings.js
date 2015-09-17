@@ -4,7 +4,6 @@ APP.controllers.meetings = (function() {
 
         APP.components.inputTextareaMovingLabel();
         APP.components.addressSearchAutocomplete();
-        APP.components.imgUploadPreview();
 
         $(".meet-what textarea").autogrow();
 

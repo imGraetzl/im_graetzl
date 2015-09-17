@@ -1,7 +1,7 @@
 APP.components.stream = (function() {
 
     function init() {
-        APP.components.imgUploadPreview();
+
         inlineEditor();
         createEntry();
 
