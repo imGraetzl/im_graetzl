@@ -55,11 +55,13 @@ Rails.application.routes.draw do
   get 'static_pages/homeOut'
   get 'static_pages/userprofile'
   get 'static_pages/location'
-  get 'static_pages/agb'
-  get 'static_pages/datenschutz'
-  get 'static_pages/impressum'
-  get 'static_pages/zuckerl'
-  get 'static_pages/faq'
+
+  get 'info/agb' to: 'static_pages#agb'
+  get 'info/datenschutz' to: 'static_pages#datenschutz'
+  get 'info/impressum' to: 'static_pages#impressum'
+  get 'info/infos-zum-graetzlzuckerl' to: 'static_pages#zuckerl'
+  get 'info/fragen-und-antworten' to: 'static_pages#faq'
+
   root 'static_pages#home'
 
   resources :notifications, only: [ :index ]
