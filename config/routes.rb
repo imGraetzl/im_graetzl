@@ -50,12 +50,6 @@ Rails.application.routes.draw do
     post 'users/notification_settings/mark_as_seen', to: 'notification_settings#mark_as_seen', as: :user_notifications_mark_as_seen
   end
 
-  get 'static_pages/meetingCreate'
-  get 'static_pages/meetingDetail'
-  get 'static_pages/homeOut'
-  get 'static_pages/userprofile'
-  get 'static_pages/location'
-
   get 'info/agb', to: 'static_pages#agb'
   get 'info/datenschutz', to: 'static_pages#datenschutz'
   get 'info/impressum', to: 'static_pages#impressum'
