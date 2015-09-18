@@ -112,7 +112,7 @@
           </div>
           <div class="input-checkbox">
             <%= f.check_box(:terms_and_conditions )%>
-            <%= f.label :terms_and_conditions, "Ich stimme den #{link_to 'AGBs', '#'} zu".html_safe %>
+            <%= f.label :terms_and_conditions, "Ich stimme den #{link_to 'AGBs', info_agb_path, target: '_blank'} zu".html_safe %>
           </div>
         </div>
       </div>
