@@ -8,7 +8,7 @@
   <div class="block-txt">
     <p>Mit deiner Nutzung von imGrätzl.at erklärst du dich mit unseren Allgemeinen Geschäftsbedingungen (AGB)
       einverstanden. Betrieben wird imGrätzl.at von der Firma morgenjungs GmbH, Ausstellungsstraße 9/9 in 1020 Wien.
-      Bitte beachte auch unsere <a href="#">Hinweise zum Datenschutz</a>.</p>
+      Bitte beachte auch unsere <%= link_to 'Datenschutzhinweise', info_datenschutz_path %>.</p>
 
     <ol class="list-formal">
 
@@ -40,7 +40,7 @@
           </li>
           <li>Bitte halte dein Passwort geheim und gib es nicht an Dritte weiter.</li>
           <li>Andere Mitglieder von imGrätzl.at dürfen von dir nicht absichtlich getäuscht oder belästigt werden.</li>
-          <li>Bitte achte auch auf unsere <a href="#">Datenschutzhinweise</a>.</li>
+          <li>Bitte achte auch auf unsere <%= link_to 'Datenschutzhinweise', info_datenschutz_path %>.</li>
         </ol>
       </li>
 
@@ -186,8 +186,7 @@
       <li>
         <strong>Datenschutz</strong>
         <ol>
-          <li>Es gelten folgenden Datenschutzbestimmungen, die du jederzeit hier abrufen kannst: <a href="#">Hinweise zum
-            Datenschutz</a>
+          <li>Es gelten folgenden Datenschutzbestimmungen, die du jederzeit <%= link_to 'hier', info_datenschutz_path %>.
           </li>
         </ol>
       </li>
