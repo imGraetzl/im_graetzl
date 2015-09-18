@@ -101,20 +101,21 @@
     display: table;
     position: absolute;
     left: 7px;
-    bottom: -38px;
+    bottom: -30px;
     .locationMap {
       border-radius: 4px 4px 0 0;
       background-color: #fff;
-      padding: 4px 4px 0 4px;
-      height: 100px;
+      padding: 2px 2px 0 2px;
+      height: auto;
+      width: 78px;
       display: block;
       margin: 0 auto;
     }
     .img-round {
-      width: 85px;
-      height: 85px;
+      width: 80px;
+      height: 80px;
       display: block;
-      margin-top: -25px;
+      margin-top: -36px;
     }
   }
 
