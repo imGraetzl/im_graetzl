@@ -10,6 +10,7 @@ section[class^=closedGraetzl-] {
   .block-graetzlList {
     @include respond-to(">=medium") {
       display: flex;
+      align-items: flex-start;
     }
   }
   .col1 {
