@@ -25,7 +25,7 @@ class SendMailNotificationJob < ActiveJob::Base
     default_url_options = Rails.application.config.action_mailer.default_url_options
     vars = [
       { name: "username", content: user.username },
-      { name: "edit_user_url", content: edit_user_url(user, default_url_options) }
+      { name: "edit_user_url", content: edit_user_url(user, default_url_options) },
       { name: "first_name", content: user.first_name},
       { name: "last_name", content: user.last_name},
       { name: "graetzl_name", content: user.graetzl.name },
