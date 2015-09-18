@@ -16,9 +16,11 @@
       </div>
       <div class="txt-wrp">
         <h3>In folgenden Grätzln tut sich schon was, schau mal rein:</h3>
-        <% Graetzl.open.find_each do |g| %>
-            <%= link_to g.name, g %> <%= g.districts.first.zip %> Wien
-        <% end %>
+        <ul>
+          <% Graetzl.open.find_each do |g| %>
+              <li><%= link_to g.name, g %> <%= g.districts.first.zip %> Wien</li>
+          <% end %>
+        </ul>
       </div>
     </div>
 

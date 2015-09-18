@@ -1,7 +1,7 @@
 <section class="closedGraetzl-public">
 
   <div class="hl-subtext">
-    <h1>Melde dich an & <span>helfe mit</span> das Grätzl zu eröfnnen!</h1>
+    <h1>Melde dich an & <span>helfe mit</span> das Grätzl zu eröffnen!</h1>
     <p>
       <strong class="usercount"><%= @graetzl.users.count %> Bewohner</strong> haben sich in diesem Grätzl angemeldet.<br>
       <strong>Ab 30 Anmeldungen</strong> geht es im Grätzl <%= @graetzl.name %> los.<br>
@@ -15,9 +15,11 @@
       </div>
       <div class="txt-wrp">
         <h3>In folgenden Grätzln tut sich schon was, schau mal rein:</h3>
-        <% Graetzl.open.find_each do |g| %>
-            <%= link_to g.name, g %> <%= g.districts.first.zip %> Wien
-        <% end %>
+        <ul>
+          <% Graetzl.open.find_each do |g| %>
+              <li><%= link_to g.name, g %> <%= g.districts.first.zip %> Wien</li>
+          <% end %>
+        </ul>
       </div>
     </div>
 
