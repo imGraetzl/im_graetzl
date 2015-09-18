@@ -4,7 +4,7 @@ section.impressum,
 section.zuckerl,
 section.faq {
   .hl-subtext {
-    margin-bottom: 80px;
+    margin-bottom: 60px;
   }
   .block-txt {
     @include respond-to(">=large") {
