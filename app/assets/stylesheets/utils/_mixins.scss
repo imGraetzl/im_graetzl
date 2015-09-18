@@ -57,14 +57,3 @@
 }
 
 
-@mixin ResponsiveText($s:1.6, $m: $s+0.2, $l: $m+0.2) {
-  font-size: #{$s}rem;
-  @include respond-to(">=medium") {
-    font-size: #{$m}rem;
-  }
-  @include respond-to(">=large") {
-    font-size: #{$l}rem;
-  }
-}
-
-
