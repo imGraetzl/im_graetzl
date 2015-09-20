@@ -1,136 +1,183 @@
 require 'rails_helper'
 
 RSpec.feature 'Registration', type: :feature do
-  # let!(:district_1) { create(:district) }
-  # let!(:district_2) { create(:district,
-  #   area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))')
-  # }
-  # let!(:graetzl_1) { create(:graetzl) }
-  # let!(:graetzl_2) { create(:graetzl,
-  #   area: 'POLYGON ((25.0 25.0, 25.0 26.0, 27.0 27.0, 25.0 25.0))')
-  # }
+  let(:user) { build(:user) }
 
-  # before { visit user_registration_address_path }
+  before do
+    create(:district, zip: '1020')
+    visit new_registration_path
+  end
 
-  # context 'address matches single graetzl' do
-  #   let!(:graetzl) { create(:naschmarkt) }
-  #   let(:address) { build(:esterhazygasse) }
+  feature 'address matches single graetzl' do
+    let!(:graetzl) { create(:naschmarkt) }
+    let!(:address) { build(:esterhazygasse) }
+    # data for graetzl step
+    let!(:district_1) { create(:district) }
+    let!(:district_2) { create(:district,
+      area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))')
+    }
+    let!(:graetzl_1) { create(:graetzl) }
+    let!(:graetzl_2) { create(:graetzl,
+      area: 'POLYGON ((25.0 25.0, 25.0 26.0, 27.0 27.0, 25.0 25.0))')
+    }
 
-  #   scenario 'enter valid userdata', js: true do
-  #     fill_in :address, with: "#{address.street_name} #{address.street_number}"
-  #     sleep 2
-  #     click_button 'Weiter'
+    scenario 'user registers in suggested graetzl', js: true do
+      fill_in_address(address)
+      click_button 'Weiter'
 
-  #     expect(page).to have_text("Willkommen im Grätzl #{graetzl.name}")
-  #     expect(page).to have_link('Nicht dein Grätzl?', href: user_registration_graetzl_path)
+      expect(page).to have_text("Willkommen im Grätzl #{graetzl.name}")
 
-  #     fill_in_user_data
-  #     click_button 'Jetzt registrieren'
-  #   end
+      fill_in_user_form(user)
+      click_button 'Jetzt registrieren'
 
-  #   scenario 'change graetzl manually', js: true do
-  #     fill_in :address, with: "#{address.street_name} #{address.street_number}"
-  #     sleep 2
-  #     click_button 'Weiter'
+      expect(page).to have_content("Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.")
 
-  #     click_link 'Nicht dein Grätzl?'
+      email = ActionMailer::Base.deliveries.last
+      expect(email.to).to include(user.email)
+      expect(email.subject).to eq('Bitte aktiviere deinen Account')
+      expect(email.body.encoded).to match("willkommen im Grätzl #{graetzl.name}!")
+    end
 
-  #     select "#{district_2.zip}", from: :district_id
-  #     sleep 2
-  #     select "#{graetzl_2.name}", from: :graetzl
-  #     click_button 'Weiter'
+    scenario 'user changes graetzl manually', js: true do
+      fill_in_address(address)
+      click_button 'Weiter'
 
-  #     expect(page).to have_text("Willkommen im Grätzl #{graetzl_2.name}")
-  #     expect(page).to have_link('Nicht dein Grätzl?', href: user_registration_graetzl_path)  
+      expect(page).to have_text("Willkommen im Grätzl #{graetzl.name}")
 
-  #     fill_in_user_data
-  #     click_button 'Jetzt registrieren'
-  #   end
-  # end
+      click_link 'Nicht dein Grätzl?'
 
-  # context 'address matches multiple graetzls' do
-  #   let!(:seestadt_aspern) { create(:seestadt_aspern) }
-  #   let!(:aspern) { create(:aspern) }
-  #   let(:address) { build(:seestadt) }
-  #   let!(:naschmarkt) { create(:naschmarkt) }
-  #   let(:esterhazygasse) { build(:esterhazygasse) }
+      expect(page).to have_text('Wähle dein Heimatgrätzl')
+      expect(page).to have_text('Bitte wähle dein Grätzl manuell.')
 
-  #   scenario 'enter valid userdata', js: true do
-  #     fill_in :address, with: "#{address.street_name}"
-  #     sleep 2
-  #     click_button 'Weiter'
+      select "#{district_2.zip}", from: :district_id
+      sleep 1
+      select "#{graetzl_2.name}", from: :graetzl
+      click_button 'Weiter'
 
-  #     expect(page).to have_text("Unter #{address.street_name} konnten wir 2 Grätzl finden.")
-  #     expect(page).to have_field('graetzl', type: 'radio', count: 2, visible: false)
+      expect(page).to have_text("Willkommen im Grätzl #{graetzl_2.name}")
 
-  #     find("label[for=graetzl_#{seestadt_aspern.id}]").click
-  #     click_button 'Weiter'
+      fill_in_user_form(user)
+      click_button 'Jetzt registrieren'
 
-  #     expect(page).to have_text("Willkommen im Grätzl #{seestadt_aspern.name}")
-  #     expect(page).to have_link('Nicht dein Grätzl?', href: user_registration_graetzl_path)
+      expect(page).to have_content("Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.")
 
-  #     fill_in_user_data
-  #     click_button 'Jetzt registrieren'
-  #   end
+      email = ActionMailer::Base.deliveries.last
+      expect(email.to).to include(user.email)
+      expect(email.subject).to eq('Bitte aktiviere deinen Account')
+      expect(email.body.encoded).to match("willkommen im Grätzl #{graetzl_2.name}!")
+    end
+  end
 
-  #   scenario 'use back button to enter address again', js: true do
-  #     fill_in :address, with: "#{address.street_name}"
-  #     sleep 2
-  #     click_button 'Weiter'
+  feature 'address matches multiple graetzls' do
+    let!(:seestadt_aspern) { create(:seestadt_aspern) }
+    let!(:aspern) { create(:aspern) }
+    let(:address) { build(:seestadt) }
+    let!(:naschmarkt) { create(:naschmarkt) }
+    let!(:esterhazygasse) { build(:esterhazygasse) }
 
-  #     click_link 'Zurück'
+    scenario 'user selects graetzl from list', js: true do
+      fill_in :address, with: "#{address.street_name}"
+      sleep 1
+      click_button 'Weiter'
 
-  #     expect(page).to have_text('Lass uns zu Beginn dein Heimatgrätzl finden...')
+      expect(page).to have_text("Unter #{address.street_name} konnten wir 2 Grätzl finden.")
+      expect(page).to have_field('graetzl', type: 'radio', count: 2, visible: false)
 
-  #     fill_in :address, with: "#{esterhazygasse.street_name} #{esterhazygasse.street_number}"
-  #     sleep 2
-  #     click_button 'Weiter'
+      find("label[for=graetzl_#{seestadt_aspern.id}]").click
+      click_button 'Weiter'
 
-  #     expect(page).to have_text("Willkommen im Grätzl #{naschmarkt.name}")
-  #     expect(page).to have_link('Nicht dein Grätzl?', href: user_registration_graetzl_path)
+      expect(page).to have_text("Willkommen im Grätzl #{seestadt_aspern.name}")
 
-  #     fill_in_user_data
-  #     click_button 'Jetzt registrieren'
-  #   end
-  # end
+      fill_in_user_form(user)
+      click_button 'Jetzt registrieren'
 
-  # context 'address matches no graetzl' do
+      expect(page).to have_content("Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.")
 
-  #   scenario 'enter valid userdata', js: true do
-  #     fill_in :address, with: 'qwertzuiopü'
-  #     sleep 2
-  #     click_button 'Weiter'
+      email = ActionMailer::Base.deliveries.last
+      expect(email.to).to include(user.email)
+      expect(email.subject).to eq('Bitte aktiviere deinen Account')
+      expect(email.body.encoded).to match("willkommen im Grätzl #{seestadt_aspern.name}!")
+    end
 
-  #     expect(page).to have_text('Unter qwertzuiopü konnten wir leider kein Grätzl finden.')
+    scenario 'user uses back back button to enter address again', js: true do
+      pending('not implemented yet')
+      fail
+      # fill_in :address, with: "#{address.street_name}"
+      # sleep 2
+      # click_button 'Weiter'
 
-  #     select "#{district_2.zip}", from: :district_id
-  #     sleep 2
-  #     select "#{graetzl_2.name}", from: :graetzl
-  #     click_button 'Weiter'
+      # expect(page).to have_text("Unter #{address.street_name} konnten wir 2 Grätzl finden.")
+      # expect(page).to have_field('graetzl', type: 'radio', count: 2, visible: false)
 
-  #     expect(page).to have_text("Willkommen im Grätzl #{graetzl_2.name}")
-  #     expect(page).to have_link('Nicht dein Grätzl?', href: user_registration_graetzl_path)  
+      # click_link 'Zurück'
 
-  #     fill_in_user_data
-  #     click_button 'Jetzt registrieren' 
-  #   end
-  # end
+      # expect(page).to have_text('Lass uns zu Beginn dein Heimatgrätzl finden...')
 
-  # private
+      # fill_in_address(esterhazygasse)
+      # click_button 'Weiter'
 
-  #   # def fill_in_address(address)
-  #   #   fill_in :address, with: "#{address.street_name} #{address.street_number}"
-  #   #   sleep 2
-  #   # end
+      # expect(page).to have_text("Willkommen im Grätzl #{naschmarkt.name}")
 
-  #   def fill_in_user_data
-  #     fill_in :user_username, with: 'newuser'
-  #     fill_in :user_email, with: 'newuser@example.com'
-  #     fill_in :user_password, with: 'supersecret'
+      # fill_in_user_data
+      # click_button 'Jetzt registrieren'
 
-  #     fill_in :user_first_name, with: 'newuserfirstname'
-  #     fill_in :user_last_name, with: 'newuserlastname'
+      # email = ActionMailer::Base.deliveries.last
+      # expect(email.to).to include(user.email)
+      # expect(email.subject).to eq('Bitte aktiviere deinen Account')
+      # expect(email.body.encoded).to match("willkommen im Grätzl #{naschmarkt.name}!")
+    end
+  end
 
-  #     find('label', text: 'Ich stimme den AGBs zu').click      
-  #   end
+  feature 'address matches no graetzl' do
+    # data for graetzl step
+    let!(:district_1) { create(:district) }
+    let!(:district_2) { create(:district,
+      area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))')
+    }
+    let!(:graetzl_1) { create(:graetzl) }
+    let!(:graetzl_2) { create(:graetzl,
+      area: 'POLYGON ((25.0 25.0, 25.0 26.0, 27.0 27.0, 25.0 25.0))')
+    }
+
+    scenario 'enter valid userdata', js: true do
+      fill_in :address, with: 'qwertzuiopü'
+      sleep 1
+      click_button 'Weiter'
+
+      expect(page).to have_text('Unter qwertzuiopü konnten wir leider kein Grätzl finden.')
+
+      select "#{district_2.zip}", from: :district_id
+      sleep 2
+      select "#{graetzl_2.name}", from: :graetzl
+      click_button 'Weiter'
+
+      expect(page).to have_text("Willkommen im Grätzl #{graetzl_2.name}")
+
+      fill_in_user_form(user)
+      click_button 'Jetzt registrieren'
+
+      email = ActionMailer::Base.deliveries.last
+      expect(email.to).to include(user.email)
+      expect(email.subject).to eq('Bitte aktiviere deinen Account')
+      expect(email.body.encoded).to match("willkommen im Grätzl #{graetzl_2.name}!")
+    end
+  end
+
+  private
+
+    def fill_in_address(address)
+      fill_in :address, with: "#{address.street_name} #{address.street_number}"
+      sleep 1
+    end
+
+  def fill_in_user_form(user)
+    fill_in :user_username, with: user.username
+    fill_in :user_email, with: user.email
+    fill_in :user_password, with: 'secret'
+
+    fill_in :user_first_name, with: user.first_name
+    fill_in :user_last_name, with: user.last_name
+
+    find('label', text: 'Ich stimme den AGBs zu').click      
+  end
 end
