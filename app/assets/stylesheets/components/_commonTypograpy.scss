@@ -12,7 +12,9 @@
 
 .hl-subtext {
   margin-bottom: 40px;
-  h1 {
+  position: relative;
+  z-index: 2;
+  h1, h2 {
     @extend .hl-main;
     margin-bottom: 10px;
   }
@@ -20,4 +22,13 @@
     @include font-size-primaryFont('larger');
     text-align: center;
   }
+  &.-small {
+    h1, h2 {
+      @include font-size-secondaryFont('base');
+    }
+    p {
+      @include font-size-primaryFont('base');
+    }
+  }
+
 }

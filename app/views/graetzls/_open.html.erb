@@ -24,7 +24,7 @@
       <div class="paperCard -cord1RT -illuteaser">
         <div class="wrp">
           <div class="user">
-            <img class="img-round" src="https://placeimg.com/40/40/people?6" alt="">
+            <%= image_tag('avatar/user/default.png', class: 'img-round') %>
             <span>Dein Name</span>
           </div>
           <h3>Du bist unternehmerisch oder kreativ im Grätzl <%= @graetzl.name %> tätig?</h3>
@@ -91,5 +91,5 @@
     </div>
 
   </div>
-  <a class="link-more" href="/wien">Alle Grätzl Zuckerl</a>
+  <%= link_to 'Alle Grätzl Zuckerl', zuckerl_district_path(default_district), class: 'link-more' %>
 </div>

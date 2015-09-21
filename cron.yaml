@@ -1,0 +1,11 @@
+version: 1
+cron:
+ - name: "daily mail"          # required - unique across all entries in this file
+   url: "/worker/daily_mail"   # required - does not need to be unique
+   schedule: "*/5 * * * *"    # required - does not need to be unique
+ - name: "weekly mail"          # required - unique across all entries in this file
+   url: "/worker/weekly_mail"   # required - does not need to be unique
+   schedule: "*/30 * * * *"    # required - does not need to be unique
+ - name: "backup"          # required - unique across all entries in this file
+   url: "/worker/backup"   # required - does not need to be unique
+   schedule: "0 0 * * *"    # required - does not need to be unique

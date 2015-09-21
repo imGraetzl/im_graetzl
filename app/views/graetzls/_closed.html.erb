@@ -1,23 +1,36 @@
-<h1>Noch ein wenig Geduld!</h1>
+<section class="closedGraetzl-public">
 
-<h2>
-  <%= @graetzl.users.count %> Bewohner haben sich schon in diesem Grätzl angemeldet.<br>
-  Ab 30 Anmeldungen gehts auch im Grätzl <%= @graetzl.name %> los!
-</h2>
+  <div class="hl-subtext">
+    <h1>Melde dich an & <span>helfe mit</span> das Grätzl zu eröffnen!</h1>
+    <p>
+      <strong class="usercount"><%= @graetzl.users.count %> Bewohner</strong> haben sich in diesem Grätzl angemeldet.<br>
+      <strong>Ab 30 Anmeldungen</strong> geht es im Grätzl <%= @graetzl.name %> los.<br>
+    </p>
+  </div>
 
-<p>Gleich anmelden und gemeinsam das Grätzl öffnen!</p>
-<p>Und wenn du noch weitere Bewohner aus dem Grätzl <%= @graetzl.name %> kennst, gib ihnen gleich Bescheid, damit wir noch schneller auf die 30 kommen...</p>
+  <div class="block-graetzlList">
+    <div class="col1">
+      <div class="txt-wrp">
+        <p>Wenn du aktive Bewohner, oder Initiativen aus dem Grätzl <%= @graetzl.name %> kennst, dann erzähl ihnen von imGrätzl.</p>
+      </div>
+      <div class="txt-wrp">
+        <h3>In folgenden Grätzln tut sich schon was, schau mal rein:</h3>
+        <ul>
+          <% Graetzl.open.find_each do |g| %>
+              <li><%= link_to g.name, g %> <%= g.districts.first.zip %> Wien</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
 
-<h3>In folgenden Grätzln tut sich schon was, schau mal rein:</h3>
-<% Graetzl.open.find_each do |g| %>
-  <h2><%= link_to g.name, g %> <%= g.districts.first.zip %> Wien</h2>
-<% end %>
+    <div class="paperCard -illuteaser -cord1RT">
+      <div class="wrp">
+        <h3>Sei am Anfang dabei im Grätzl <%= @graetzl.name %></h3>
+        <%= link_to 'Hier vorab anmelden', new_registration_path, class: 'btn-primary -rose' %>
+      </div>
+      <div class="card"></div>
+    </div>
 
+  </div>
 
-<div class="ownMeetingBox">
-  <%= link_to new_registration_path, class: 'wrp' do %>
-      <h3>Sei am Anfang dabei im Grätzl <%= @graetzl.name %></h3>
-      <button class="btn-primary -rose">Hier vorab anmelden</button>
-  <% end %>
-  <div class="card"></div>
-</div>
+</section>

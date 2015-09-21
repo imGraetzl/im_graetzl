@@ -36,7 +36,7 @@
       @include respond-to(">=medium") {
         content: '';
         position: absolute;
-        left: 0;
+        left: -2px;
         top: 0;
         background: linear-gradient(to right, rgba(252,252,252,1) 50%,rgba(252,252,252,0) 100%);
         pointer-events: none;

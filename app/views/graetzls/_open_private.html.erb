@@ -35,7 +35,7 @@
           <div class="txt">
             <p>Unternehmerisch oder kreativ im Grätzl tätig? Zeig, was du machst.</p>
           </div>
-          <%= link_to 'Betreiber eintragen', new_location_path, class: 'btn-primary -ming' %>
+          <%= link_to 'Betreiber eintragen', new_location_path, class: 'btn-primary -mint' %>
         </div>
       <% end %>
     </div>
@@ -46,7 +46,7 @@
         <div class="txt">
           <p>Entdecke einzigartige Anbieter und Angebote in deinem Grätzl.</p>
         </div>
-        <a class="btn-primary -mint" href="#">Zum Grätzlzuckerl</a>
+        <%= link_to 'Zum Grätzlzuckerl', zuckerl_district_path(default_district), class: 'btn-primary -mint' %>
       </div>
     </div>
   </div>

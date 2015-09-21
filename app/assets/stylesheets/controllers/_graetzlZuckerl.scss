@@ -52,7 +52,7 @@ section.zuckerlOverview {
     background-image: url(image_path('svg/underline-mint.svg'));
     background-size: 100px 5px;
     @include respond-to(">=medium") {
-    background-size: 300px 5px;
+      background-size: 300px 5px;
     }
   }
   h2 {
@@ -62,7 +62,7 @@ section.zuckerlOverview {
     background-image: url(image_path('svg/underline-rose.svg'));
     background-size: 150px 5px;
     @include respond-to(">=medium") {
-    background-size: 450px 5px;
+      background-size: 450px 5px;
     }
   }
 }
@@ -89,12 +89,14 @@ section.zuckerlOverview {
 
   .singleZuckerl {
     position: relative;
-    a {
+    a[href*=http] {
       @include ellipsis;
+      width: 100%;
+      display: block;
+    }
+    a {
       color: $color-ambient-mint-dark;
       text-decoration: none;
-      display: block;
-      width: 100%;
       &:hover {
         text-decoration: underline;
       }

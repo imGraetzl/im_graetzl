@@ -42,6 +42,7 @@
 @import "components/link-more";
 @import "components/userCreateInfo";
 @import "components/calendarSheet";
+@import "components/lists";
 @import "components/stream";
 @import "components/mapImgBlock";
 @import "components/mainNav";
@@ -65,10 +66,12 @@
 @import "controllers/meetings";
 @import "controllers/session";
 @import "controllers/userprofile";
+@import "controllers/footerTextHeavyPages";
 @import "controllers/usersettings";
 @import "controllers/homeOut";
 @import "controllers/graetzlZuckerl";
 @import "controllers/graetzls";
+@import "controllers/closedGraetzl";
 @import "controllers/districts";
 @import "controllers/location";
 

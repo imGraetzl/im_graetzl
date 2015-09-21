@@ -5,22 +5,31 @@ class SendMailNotificationJob < ActiveJob::Base
   def perform(user_id, interval, notification_id = nil)
     user = User.find user_id
     notifications = []
+    template_name = nil
     case interval
     when "immediate"
       notifications = [ Notification.find(notification_id) ]
+      template_name = "summary-notification"
     when "daily"
       notifications = user.notifications_of_the_day
+      template_name = "weekly-daily-mandrill-notifications"
     when "weekly"
       notifications = user.notifications_of_the_week
+      template_name = "weekly-daily-mandrill-notifications"
     else
       notifications = []
+      template_name = "summary-notification"
     end
-    template_name = "summary-notification"
+    return if notifications.empty?
     template_content = []
     default_url_options = Rails.application.config.action_mailer.default_url_options
     vars = [
       { name: "username", content: user.username },
-      { name: "edit_user_url", content: edit_user_url(user, default_url_options) }
+      { name: "edit_user_url", content: edit_user_url(user, default_url_options) },
+      { name: "first_name", content: user.first_name},
+      { name: "last_name", content: user.last_name},
+      { name: "graetzl_name", content: user.graetzl.name },
+      { name: "interval", content: interval }
     ]
 
     notification_vars = [ ]

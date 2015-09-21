@@ -1,5 +1,66 @@
 footer {
-  height: 180px;
   background-color: #ffffff;
-  border-top: 1px solid #DEEAE6;
+  border-top: 1px solid $color-ambient-mint-light-lowsaturation;
+  border-bottom: 1px solid $color-ambient-mint-light-lowsaturation;
+  padding-top: 50px;
+  padding-bottom: 60px;
+
+  .inner {
+    @include respond-to(">=large") {
+      display: flex;
+    }
+  }
+
+  .col {
+    @include respond-to(">=large") {
+      border-right: 1px solid $color-ambient-grey-light;
+      margin-right: 50px;
+      padding-right: 50px;
+      flex: 0 0 auto;
+    }
+    > a {
+      display: table;
+      padding: 5px 0;
+      font-size: 14px;
+      text-decoration: none;
+      color: $color-ambient-grey;
+      &:hover {
+        color: $color-ambient-rosa;
+      }
+    }
+    &:last-child {
+      border-right: none;
+      margin-right: 0;
+    }
+    .facebook {
+      position: relative;
+      margin-right: 20px;
+      &:hover {
+        color: $color-ambient-facebook;
+      }
+      [class^=icon-] {
+        position: absolute;
+        right: -26px;
+        top: 0;
+      }
+    }
+  }
+  .logo-wa {
+    align-self: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #565759;
+    @include respond-to(">=large") {
+      flex: 0 0 auto;
+      margin-top: 0;
+    }
+    img  {
+      width: 130px;
+      margin-bottom: 5px;
+    }
+    div {
+      font-style: italic;
+    }
+  }
+
 }

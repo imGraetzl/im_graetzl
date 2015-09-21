@@ -1,7 +1,6 @@
 .paperCard {
   position: relative;
   .wrp {
-    min-height: 50px;
     z-index: 2;
     position: relative;
     display: block;
@@ -137,6 +136,8 @@
 
 .paperCard.-illuonly {
   .wrp  {
+    min-height: 240px;
+    min-width: 240px;
     height: 100%;
     background-position: center;
     background-size: 90% auto;

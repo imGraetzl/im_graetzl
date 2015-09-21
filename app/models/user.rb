@@ -95,13 +95,13 @@ class User < ActiveRecord::Base
 
   def notifications_of_the_day
     notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
-                      where("created_at >= NOW() - interval '24 hours'").
+                      where("created_at >= NOW() - interval '5 minutes'").
                       where(sent: false)
   end
 
   def notifications_of_the_week
     notifications.where(["bitmask & ? > 0", weekly_mail_notifications]).
-                      where("created_at >= NOW() - interval '168 hours'").
+                      where("created_at >= NOW() - interval '30 minutes'").
                       where(sent: false)
   end
 

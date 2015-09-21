@@ -1,0 +1,23 @@
+ol.list-formal {
+  padding-left: 20px;
+  list-style: decimal;
+  li strong:first-child {
+    margin-bottom: 10px;
+    display: block;
+  }
+  > li {
+    margin-bottom: 40px;
+  }
+  > li > ol {
+    padding-left: 20px;
+    list-style: lower-latin;
+  }
+  > li > ul {
+    padding-left: 20px;
+    list-style: disc;
+    margin-bottom: 10px;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+}

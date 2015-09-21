@@ -1,0 +1,29 @@
+section.agb,
+section.datenschutz,
+section.impressum,
+section.zuckerl,
+section.faq {
+  .hl-subtext {
+    margin-bottom: 60px;
+  }
+  .block-txt {
+    @include respond-to(">=large") {
+      padding-right: 50px;
+    }
+    > p:first-child {
+      margin-bottom: 40px;
+    }
+    .wrp {
+      margin-bottom: 60px;
+      h3 {
+        margin-bottom: 10px;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+      ol {
+        padding-left: 20px;
+      }
+    }
+  }
+}
