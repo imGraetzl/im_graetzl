@@ -3,7 +3,7 @@ class Graetzl < ActiveRecord::Base
 
   # macros
   friendly_id :name
-  enum state: { closed: 0, open: 1 }
+  enum state: { open: 0, closed: 1 }
   STREAM_ACTIVITY_KEYS = [
     'meeting.comment', 'meeting.create', 'meeting.go_to',
     'post.comment', 'post.create'
