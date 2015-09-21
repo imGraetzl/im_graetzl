@@ -1,6 +1,6 @@
 ActiveAdmin.register Location do
   include SharedAdmin
-  menu priority: 2
+  menu priority: 3
 
   scope 'Alle', :all, default: true
   scope :basic

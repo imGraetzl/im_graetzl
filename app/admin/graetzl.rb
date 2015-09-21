@@ -1,4 +1,5 @@
 ActiveAdmin.register Graetzl do
+  menu priority: 2
 
   # scopes
   scope :all, default: true
