@@ -7,33 +7,6 @@ ActiveAdmin.register Location do
   scope :pending
   scope :managed
 
-  permit_params :graetzl_id,
-    :state,
-    :name,
-    :slug,
-    :slogan,
-    :description,
-    :avatar, :remove_avatar,
-    :cover_photo, :remove_cover_photo,
-    contact_attributes: [
-      :id,
-      :website,
-      :email,
-      :phone],
-    address_attributes: [
-      :id,
-      :street_name,
-      :street_number,
-      :zip,
-      :city,
-      :coordinates,
-      :description],
-    location_ownerships_attributes: [
-      :id,
-      :user_id,
-      :state,
-      :_destroy]
-
   # index
   index do
     render 'index', context: self
