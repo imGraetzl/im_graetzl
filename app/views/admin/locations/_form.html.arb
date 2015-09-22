@@ -1,0 +1,48 @@
+active_admin_form_for [:admin, resource] do |f|
+  columns do
+    column do
+      semantic_errors
+      inputs 'Basic Info' do
+        input :graetzl
+        input :name
+        input :state, as: :select, collection: Location.states.keys, include_blank: false
+        input :slug unless f.object.new_record?
+        input :slogan
+        input :description
+        input :cover_photo, as: :file,
+          hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
+        input :remove_cover_photo, as: :boolean if f.object.cover_photo
+        input :avatar, as: :file,
+          hint: image_tag(attachment_url(f.object, :avatar, :fill, 100, 100))
+        input :remove_avatar, as: :boolean if f.object.avatar
+      end
+      inputs 'Contact', for: [:contact, (f.object.contact || f.object.build_contact)] do |c|
+        c.input :website, as: :url
+        c.input :email, as: :email
+        c.input :phone
+      end
+      inputs 'Address', for: [:address, (f.object.address || f.object.build_address)] do |a|
+        a.input :street_name
+        a.input :street_number
+        a.input :description
+        a.input :zip
+        a.input :city
+        a.input :coordinates, as: :string,
+          placeholder: 'POINT (16.345169051785824 48.19314778332606)',
+          hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
+      end
+      actions
+    end
+    column do
+      inputs 'Users' do
+        has_many :location_ownerships,
+                  allow_destroy: true,
+                  heading: false,
+                  new_record: 'User Hinzufügen' do |o|
+          o.input :user
+          o.input :state, as: :select, collection: LocationOwnership.states.keys, include_blank: false
+        end
+      end
+    end
+  end
+end

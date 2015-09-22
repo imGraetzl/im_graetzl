@@ -1,5 +1,4 @@
 ActiveAdmin.register Category do
-  menu priority: 3
 
   scope 'Alle', :all, default: true
   scope :recreation
