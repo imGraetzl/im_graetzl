@@ -11,6 +11,13 @@ ActiveAdmin.register Graetzl do
     render 'index', context: self
   end
 
+  # filter
+  filter :name
+  filter :state, as: :select, collection: Graetzl.states.keys
+  filter :users
+  filter :created_at
+  filter :updated_at
+
   # show
   show do
     render 'show', context: self
@@ -21,16 +28,4 @@ ActiveAdmin.register Graetzl do
 
   # strong params
   permit_params :name, :state, :slug, :area
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
 end
