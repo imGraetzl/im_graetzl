@@ -1,4 +1,5 @@
 ActiveAdmin.register Graetzl do
+  include ViewInApp
   menu priority: 2
 
   # scopes

@@ -1,5 +1,5 @@
 ActiveAdmin.register Meeting do
-  include SharedAdmin
+  include ViewInApp
 
   scope :all, default: true
   scope :upcoming
