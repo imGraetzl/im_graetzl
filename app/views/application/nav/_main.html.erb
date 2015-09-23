@@ -21,7 +21,7 @@
           <a>Treffen & Events im Grätzl</a>
           <a>Treffpunkte & Anbieter</a>
         <% end %>
-        <%= link_to "Grätzlzuckerl im #{l(Date.today, format: '%B')}", zuckerl_district_path(default_district) %>
+        <%= link_to "Grätzlzuckerl im #{l(Date.today, format: '%B')}", zuckerl_districts_path %>
       <% end %>
       <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
     </div>

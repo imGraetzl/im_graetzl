@@ -1,29 +1,32 @@
 ActiveAdmin.register Graetzl do
+  include ViewInApp
+  menu priority: 2
 
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
+  # scopes
+  scope :all, default: true
+  scope :open
+  scope :closed
 
   # index
   index do
-    selectable_column
-    id_column
-    column :name
-    column :created_at
-    column :updated_at
-    column :slug
-    actions
+    render 'index', context: self
   end
 
+  # filter
+  filter :name
+  filter :state, as: :select, collection: Graetzl.states.keys
+  filter :users
+  filter :created_at
+  filter :updated_at
 
+  # show
+  show do
+    render 'show', context: self
+  end
+
+  # form
+  form partial: 'form'
+
+  # strong params
+  permit_params :name, :state, :slug, :area
 end

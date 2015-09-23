@@ -1,0 +1,33 @@
+active_admin_form_for [:admin, resource] do |f|
+  semantic_errors
+  inputs do
+    input :graetzl
+    input :username
+    input :slug unless f.object.new_record?
+    input :first_name
+    input :last_name
+    input :email
+    input :password if f.object.new_record?
+    input :role, as: :select, collection: User.roles.keys
+    input :bio
+    input :website
+    input :cover_photo, as: :file,
+      hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
+    input :remove_cover_photo, as: :boolean if f.object.cover_photo
+    input :avatar, as: :file,
+      hint: image_tag(attachment_url(f.object, :avatar, :fill, 100, 100))
+    input :remove_avatar, as: :boolean if f.object.avatar
+    input :newsletter
+  end
+  inputs 'Address', for: [:address, (f.object.address || f.object.build_address)] do |a|
+    a.input :street_name
+    a.input :street_number
+    a.input :description
+    a.input :zip
+    a.input :city
+    a.input :coordinates, as: :string,
+      placeholder: 'POINT (16.345169051785824 48.19314778332606)',
+      hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
+  end
+  actions
+end

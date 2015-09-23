@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    graetzl_path(resource.graetzl)
+    stored_location_for(resource) || graetzl_path(resource.graetzl)
   end
 
   def authenticate_admin_user!

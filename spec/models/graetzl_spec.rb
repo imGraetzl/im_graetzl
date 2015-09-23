@@ -83,9 +83,9 @@ RSpec.describe Graetzl, type: :model do
       expect(graetzl).to respond_to(:slug)
     end
 
-    it 'has state (default :closed)' do
+    it 'has state (default :open)' do
       expect(graetzl).to respond_to(:state)
-      expect(graetzl.closed?).to be_truthy
+      expect(graetzl.open?).to be_truthy
     end
   end
 
