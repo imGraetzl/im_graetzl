@@ -1,58 +1,54 @@
 ActiveAdmin.register User do
+  include ViewInApp
+  menu priority: 3
 
-  # permit which attributes may be changed
-  permit_params :username, :first_name, :last_name, :email, :birthday, :gender, :newsletter, :admin, :avatar,
-      address_attributes: [:id, :street_name, :street_number, :zip, :city, :description, :coordinates]
 
-  # customize views
+  scope :all, default: true
+  scope :business
+  scope :admin
 
   # index
   index do
-    selectable_column
-    id_column
-    column :username
-    column :email
-    column :first_name
-    column :last_name
-    column :graetzl do |user|
-      user.graetzl.name
-    end
-    actions
+    render 'index', context: self
+  end
+
+  # filter
+  filter :graetzl
+  filter :username
+  filter :first_name
+  filter :last_name
+  filter :email
+  filter :role, as: :select, collection: User.roles.keys
+  filter :created_at
+  filter :updated_at
+
+  # show
+  show do
+    render 'show', context: self
   end
 
   # form
-  form do |f|
-    f.semantic_errors # shows errors on :base
-    f.inputs          # builds an input field for every attribute
+  form partial: 'form'
 
-    f.inputs 'Addresse' do
-      f.fields_for [:address, (f.object.address || f.object.build_address)] do |a|
-        #a.inputs
-        a.input :street_name
-        a.input :street_number
-        a.input :zip
-        a.input :city
-        a.input :description
-        a.input :coordinates, as: :string
-      end
-    end
-    f.actions
-  end
-
-
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
+  # strong parameters (maybe something missing)
+  permit_params :graetzl_id,
+    :username,
+    :first_name,
+    :last_name,
+    :email,
+    :password,
+    :newsletter,
+    :bio,
+    :website,
+    :avatar,
+    address_attributes: [
+      :id,
+      :street_name,
+      :street_number,
+      :zip,
+      :city,
+      :description,
+      :coordinates]
 
 
 end
