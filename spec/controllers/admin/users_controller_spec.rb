@@ -98,6 +98,12 @@ RSpec.describe Admin::UsersController, type: :controller do
           website: user.website,
           newsletter: user.newsletter)
       end
+
+      it 'redirects_to new user page' do
+        post :create, params
+        new_user = User.last
+        expect(response).to redirect_to(admin_user_path(new_user))
+      end
     end
 
     context 'with address' do
