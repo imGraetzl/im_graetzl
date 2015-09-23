@@ -30,7 +30,7 @@ RSpec.feature 'Registration', type: :feature do
       fill_in_user_form(user)
       click_button 'Jetzt registrieren'
 
-      expect(page).to have_content("Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.")
+      expect(page).to have_content("Super, du bist nun registriert! Damit wir deine Anmeldung abschließen können, müsstest du bitte noch deinen Account bestätigen. Klicke dazu auf den Link, den wir dir soeben per E-Mail zugeschickt haben.")
 
       email = ActionMailer::Base.deliveries.last
       expect(email.to).to include(user.email)
@@ -59,7 +59,7 @@ RSpec.feature 'Registration', type: :feature do
       fill_in_user_form(user)
       click_button 'Jetzt registrieren'
 
-      expect(page).to have_content("Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.")
+      expect(page).to have_content("Super, du bist nun registriert! Damit wir deine Anmeldung abschließen können, müsstest du bitte noch deinen Account bestätigen. Klicke dazu auf den Link, den wir dir soeben per E-Mail zugeschickt haben.")
 
       email = ActionMailer::Base.deliveries.last
       expect(email.to).to include(user.email)
@@ -91,7 +91,7 @@ RSpec.feature 'Registration', type: :feature do
       fill_in_user_form(user)
       click_button 'Jetzt registrieren'
 
-      expect(page).to have_content("Du hast Dich erfolgreich registriert. Wir konnten Dich noch nicht anmelden, da Dein Account noch nicht bestätigt ist. Du erhältst in Kürze eine E-Mail mit der Anleitung, wie Du Deinen Account freischalten kannst.")
+      expect(page).to have_content("Super, du bist nun registriert! Damit wir deine Anmeldung abschließen können, müsstest du bitte noch deinen Account bestätigen. Klicke dazu auf den Link, den wir dir soeben per E-Mail zugeschickt haben.")
 
       email = ActionMailer::Base.deliveries.last
       expect(email.to).to include(user.email)
