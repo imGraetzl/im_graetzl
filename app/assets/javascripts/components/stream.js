@@ -89,39 +89,35 @@ APP.components.stream = (function() {
 
     // tmp solution for better ux with ajax comments/posts
     function createEntry() {
-        $(".stream").on("focusin focusout", ".entryCommentForm textarea, .entryCreate textarea", function(event){
+        $(".stream").on("focusout", ".entryCommentForm textarea, .entryCreate textarea", function(event){
+            console.log('FOCUS OUT');
             var $parent = $(this).parents(".entryCommentForm, .entryCreate");
-            var buttonText = $parent.find('button').text();
-
-            if (event.type === 'focusin') {
-                $parent.addClass("is-focused");
-
-                // temporary solution for better UX on ajax requests (only inline comments so far)               
-                var $button = $parent.find('button');
-                $parent
-                    .on("ajax:beforeSend", function() {
-                        console.log('BEFORE SEND');
-                        $button.html('sendet...').prop('disabled', true);
-                    })
-                    .on("ajax:complete", function(event, xhr) {
-                        console.log('COMPLETE');
-                        if (xhr.status != 200 || !xhr.responseText) {
-                            alert('Es gab ein Problem, bitte versuch es später nochmal.');
-                        } else {
-                            injectContent(xhr.responseText);
-                            cleanup($parent.find('form.textEditor'));
-                        }
-                    });
-
-            } else if (event.type === 'focusout') {
-                        console.log($parent);
-                if (!$(this).val().length) {
-                    if(!$parent.hasClass('entryCreate')) {
-                        console.log("dreck");
-                        $parent.removeClass("is-focused");
-                    }
-                }
+            if (!$(this).val().length) {
+                $parent.removeClass("is-focused");
             }
+        });
+
+        $(".stream").on("focusin", ".entryCommentForm textarea, .entryCreate textarea", function(event){
+            var $parent = $(this).parents(".entryCommentForm, .entryCreate");
+            var $button = $parent.find('button');
+            var buttonText = $button.text();
+
+            $parent.addClass("is-focused");
+            
+            $parent
+                .on("ajax:before", function() {
+                    console.log('BEFORE');
+                    $button.html('sendet...').prop('disabled', true);
+                })
+                .on("ajax:complete", function(event, xhr) {
+                    console.log('COMPLETE');
+                    if (xhr.status != 200 || !xhr.responseText) {
+                        alert('Es gab ein Problem, bitte versuch es später nochmal.');
+                    } else {
+                        injectContent(xhr.responseText);
+                        cleanup($parent.find('form.textEditor'));
+                    }
+                });
 
 
             // inject new content in page
@@ -137,9 +133,8 @@ APP.components.stream = (function() {
 
             function cleanup(form) {
                 $parent.removeClass("is-focused");
-                $parent.off("ajax:beforeSend");
+                $parent.off("ajax:before");
                 $parent.off("ajax:complete");
-                $parent.removeClass("is-focused");
                 $button.html(buttonText).prop('disabled', false);
 
                 if (form.length == 0) form = $parent;

@@ -39,19 +39,6 @@ APP.controllers.meetings = (function() {
             }
         });
 
-        // refile
-        $(document).on("upload:start", "form", function(e) {
-            console.log('Start upload');
-            $(this).find("input[type=submit]").attr("disabled", true)
-        });
-
-        $(document).on("upload:complete", "form", function(e) {
-            if(!$(this).find("input.uploading").length) {
-                console.log('upload complete');
-                $(this).find("input[type=submit]").removeAttr("disabled")
-            }
-        });
-
         // location field
         $('input:checkbox#location').on('change', function() {
             if(!this.checked) {
