@@ -6,12 +6,6 @@
     <%= link_to 'Nicht dein Grätzl?', graetzls_registration_path, class: 'link-subtle' %>
   </div>
 
-  <p class="h2">
-    <% if resource.graetzl.users.count > 5 %>
-        <span class="numberUsers"><%= resource.graetzl.users.count %></span> Nachbarn warten bereits auf dich.<br>
-    <% end %>
-  </p>
-
   <%= form_for(resource, as: resource_name, url: registration_path, html: {}) do |f| %>
       <%= devise_error_messages! %>
 
