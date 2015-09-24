@@ -6,5 +6,5 @@
   </label>
   
   <%= hidden_field_tag :inline, true %>
-  <%= f.button 'Antwort senden' %>
+  <%= f.button 'Antwort senden', data: { disable_with: 'speichert...' } %>
 <% end %>

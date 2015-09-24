@@ -99,25 +99,17 @@ APP.components.stream = (function() {
 
         $(".stream").on("focusin", ".entryCommentForm textarea, .entryCreate textarea", function(event){
             var $parent = $(this).parents(".entryCommentForm, .entryCreate");
-            var $button = $parent.find('button');
-            var buttonText = $button.text();
-
             $parent.addClass("is-focused");
             
-            $parent
-                .on("ajax:before", function() {
-                    console.log('BEFORE');
-                    $button.html('sendet...').prop('disabled', true);
-                })
-                .on("ajax:complete", function(event, xhr) {
-                    console.log('COMPLETE');
-                    if (xhr.status != 200 || !xhr.responseText) {
-                        alert('Es gab ein Problem, bitte versuch es später nochmal.');
-                    } else {
-                        injectContent(xhr.responseText);
-                        cleanup($parent.find('form.textEditor'));
-                    }
-                });
+            $parent.on("ajax:complete", function(event, xhr) {
+                console.log('COMPLETE');
+                if (xhr.status != 200 || !xhr.responseText) {
+                    alert('Es gab ein Problem, bitte versuch es später nochmal.');
+                } else {
+                    injectContent(xhr.responseText);
+                    cleanup($parent.find('form.textEditor'));
+                }
+            });
 
 
             // inject new content in page
@@ -133,9 +125,7 @@ APP.components.stream = (function() {
 
             function cleanup(form) {
                 $parent.removeClass("is-focused");
-                $parent.off("ajax:before");
                 $parent.off("ajax:complete");
-                $button.html(buttonText).prop('disabled', false);
 
                 if (form.length == 0) form = $parent;
 

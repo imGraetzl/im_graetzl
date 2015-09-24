@@ -7,6 +7,6 @@
         Bilder anhängen
         <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
       </div>
-      <%= f.button 'Beitrag senden' %>
+      <%= f.button 'Beitrag senden', data: { disable_with: 'speichert...' } %>
     </div>
 <% end %>
