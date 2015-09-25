@@ -74,7 +74,7 @@ gem 'httparty'
 # use devise for authentication
 gem 'devise'
 # refile
-gem 'refile', require: ['refile/rails'], github: 'refile/refile'
+gem 'refile', require: ['refile/rails']
 gem 'refile-mini_magick'
 gem 'refile-s3'
 gem 'aws-sdk'
