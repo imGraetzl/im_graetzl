@@ -103,6 +103,8 @@ APP.components.stream = (function() {
             
             $parent.on("ajax:complete", function(event, xhr) {
                 console.log('COMPLETE');
+                console.log('CONTENT');
+                console.log(xhr.responseText);
                 if (xhr.status != 200 || !xhr.responseText) {
                     alert('Es gab ein Problem, bitte versuch es später nochmal.');
                 } else {
