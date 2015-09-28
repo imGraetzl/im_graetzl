@@ -12,7 +12,7 @@ RSpec.describe 'meetings/edit', type: :view do
     before { render }
 
     it 'displays link to cancel meeting' do
-      expect(rendered).to have_link('Treffen absagen')
+      expect(rendered).to have_button('Treffen absagen')
     end
   end
   context 'when cancelled meeting' do
@@ -22,7 +22,7 @@ RSpec.describe 'meetings/edit', type: :view do
     end
 
     it 'does not display link to cancel meeting' do
-      expect(rendered).not_to have_link('Treffen absagen')
+      expect(rendered).not_to have_button('Treffen absagen')
     end
   end
 end
