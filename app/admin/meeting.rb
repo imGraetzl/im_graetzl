@@ -37,6 +37,7 @@ ActiveAdmin.register Meeting do
   permit_params :graetzl_id,
     :name,
     :slug,
+    :state,
     :description,
     :cover_photo, :remove_cover_photo,
     :starts_at_date, :starts_at_time,

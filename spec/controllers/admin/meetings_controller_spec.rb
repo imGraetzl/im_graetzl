@@ -189,7 +189,10 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
   describe 'PUT update' do
     let!(:meeting) { create(:meeting) }
-    let(:new_meeting) { build(:meeting, graetzl: create(:graetzl), location: create(:location)) }
+    let(:new_meeting) { build(:meeting,
+                      graetzl: create(:graetzl),
+                      location: create(:location),
+                      state: Meeting.states[:cancelled]) }
     let(:params) {
       {
         id: meeting,
@@ -216,7 +219,7 @@ RSpec.describe Admin::MeetingsController, type: :controller do
         expect(meeting).to have_attributes(
           graetzl_id: new_meeting.graetzl.id,
           name: new_meeting.name,
-          state: new_meeting.state,
+          state: 'cancelled',
           description: new_meeting.description,
           location: new_meeting.location)
       end
