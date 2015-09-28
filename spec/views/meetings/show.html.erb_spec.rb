@@ -2,31 +2,63 @@ require 'rails_helper'
 
 RSpec.describe 'meetings/show', type: :view do
   let(:graetzl) { create(:graetzl) }
+  let(:meeting) { create(:meeting, graetzl: graetzl) }
 
-  describe 'stream' do
+  before do
+    assign(:meeting, meeting)
+    assign(:graetzl, graetzl)
+    assign(:comments, [])
+  end
+
+  context 'when logged out' do
+    before { render }
+
+    it 'does not display stream' do
+      expect(rendered).not_to have_selector('div.stream')
+    end
+  end
+
+  context 'when logged in' do
     before do
-      assign(:graetzl, graetzl)
-      assign(:meeting, build_stubbed(:meeting, graetzl: graetzl))
-      assign(:comments, [])
+      sign_in create(:user)
+      render
     end
 
-    context 'when logged out' do
-      before { render }
+    it 'displays stream' do
+      expect(rendered).to have_selector('div.stream')
+    end
+  end
 
-      it 'does not display stream' do
-        expect(rendered).not_to have_selector('div.stream')
-      end
+  context 'when initiator' do
+    let(:user) { create(:user) }
+    before do
+      sign_in user
+      create(:going_to, meeting: meeting, user: user, role: GoingTo.roles[:initiator])
     end
 
-    context 'when logged in' do
-      let(:user) { create(:user) }
+    context 'when basic meeting' do
       before do
-        sign_in user
+        allow(meeting).to receive(:basic?) { true }
         render
       end
 
-      it 'displays stream' do
-        expect(rendered).to have_selector('div.stream')
+      it 'displays button to edit meeting' do
+        expect(rendered).to have_button('Treffen bearbeiten')
+      end
+    end
+
+    context 'when basic meeting' do
+      before do
+        meeting.cancelled!
+        render
+      end
+
+      it 'does not display button to edit meeting' do
+        expect(rendered).not_to have_button('Treffen bearbeiten')
+      end
+
+      it 'displays button to reactivate meeting' do
+        expect(rendered).to have_button('Treffen reaktivieren')
       end
     end
   end
