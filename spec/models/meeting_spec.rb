@@ -133,25 +133,6 @@ RSpec.describe Meeting, type: :model do
     let(:m_yesterday) { build(:meeting, starts_at_date: Date.yesterday) }
     before { m_yesterday.save(validate: false) }
 
-    describe 'default scope (starts_at_date: :asc)' do
-      subject(:meetings) { Meeting.all }
-
-      it 'retrieves earliest first, nil last' do
-        expect(meetings.to_a).to eq [m_yesterday, m_today, m_tomorrow, m_after_tomorrow, m_nil]
-      end
-
-      it 'ignores :created_at order' do
-        m_today.update(created_at: Date.yesterday-1)
-        m_after_tomorrow.update(created_at: Date.yesterday)
-        expect(meetings.to_a).to eq [m_yesterday, m_today, m_tomorrow, m_after_tomorrow, m_nil]
-      end
-
-      it 'includes cancelled meetings' do
-        m_today.cancelled!
-        expect(meetings).to include(m_today)
-      end
-    end
-
     describe 'upcoming' do
       subject(:meetings) { Meeting.upcoming }
 
