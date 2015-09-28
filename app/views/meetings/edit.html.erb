@@ -6,8 +6,8 @@
 
   <%= render 'form', disable_fields: @meeting.location && !@meeting.location.users.include?(current_user) %>
 
-  <%= link_to 'Treffen absagen', @meeting,
-    method: :delete,
-    data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich absagen?" }  if @meeting.basic? %>
-  
+  <%= button_to 'Treffen absagen', @meeting,
+                method: :delete,
+                data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich absagen?" },
+                class: 'btn-destroy'  if @meeting.basic? %>  
 </section>

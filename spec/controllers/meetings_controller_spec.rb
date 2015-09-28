@@ -5,12 +5,6 @@ RSpec.describe MeetingsController, type: :controller do
   let!(:graetzl) { create(:graetzl) }
 
   # Shared examples
-  shared_examples :a_successful_meeting_request do
-    it 'assigns @meeting' do
-      expect(assigns(:meeting)).to eq(meeting)
-    end
-  end
-
   shared_examples :an_unauthenticated_request do
     it 'redirects to login' do
       expect(response).to render_template(session[:new])
@@ -34,7 +28,9 @@ RSpec.describe MeetingsController, type: :controller do
 
     before { get :show, {graetzl_id: graetzl, id: meeting} }
 
-    include_examples :a_successful_meeting_request
+    it 'assigns @meeting' do
+      expect(assigns(:meeting)).to eq meeting
+    end
 
     it 'assigns @graetzl' do
       expect(assigns(:graetzl)).to eq(graetzl)
@@ -370,31 +366,49 @@ RSpec.describe MeetingsController, type: :controller do
     context 'when logged in' do
       before { sign_in user }
 
-      context 'when cancelled meeting' do
-        before do
-          meeting.cancelled!
-          get :edit, id: meeting
-        end
-
-        it 'redirect_to graetzl with notice' do
-          expect(response).to redirect_to(graetzl)
-          expect(flash[:notice]).to be_present
-        end
-      end
-
       context 'when not initiator' do
         before { get :edit, id: meeting }
-        include_examples :an_unauthorized_request
+
+        it 'redirects to meeting_page' do          
+          expect(response).to redirect_to([meeting.graetzl, meeting])
+        end
+
+        it 'shows flash[:error]' do
+          expect(flash[:error]).to be_present
+        end
       end
 
-      context 'when initator' do
-        let!(:going_to) { create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator]) }
-        before { get :edit, id: meeting }
+      context 'when initator' do        
+        let!(:going_to) { create(:going_to,
+                          user: user,
+                          meeting: meeting,
+                          role: GoingTo.roles[:initiator]) }
 
-        include_examples :a_successful_meeting_request
+        context 'when basic meeting' do
+          before { get :edit, id: meeting }
 
-        it 'renders #edit' do        
-          expect(response).to render_template(:edit)
+          it 'assigns @meeting' do
+            expect(assigns(:meeting)).to eq(meeting)
+          end
+
+          it 'renders :edit' do
+            expect(response).to render_template(:edit)
+          end
+        end
+
+        context 'when cancelled meeting' do
+          before do
+            meeting.cancelled!
+            get :edit, id: meeting
+          end
+
+          it 'assigns @meeting' do
+            expect(assigns(:meeting)).to eq(meeting)
+          end
+
+          it 'renders :edit' do
+            expect(response).to render_template(:edit)
+          end
         end
       end
     end
@@ -420,18 +434,6 @@ RSpec.describe MeetingsController, type: :controller do
       let(:user) { create(:user) }
       before { sign_in user }
 
-      context 'when cancelled meeting' do
-        before do
-          meeting.cancelled!
-          put :update, params
-        end
-
-        it 'redirect_to graetzl with notice' do
-          expect(response).to redirect_to(graetzl)
-          expect(flash[:notice]).to be_present
-        end
-      end
-
       context 'when not going' do
         before { put :update, params }
         include_examples :an_unauthorized_request
@@ -447,8 +449,10 @@ RSpec.describe MeetingsController, type: :controller do
 
       context 'when initiator' do
         before do
-          create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator])
-          put :update, params
+          create(:going_to,
+                  user: user,
+                  meeting: meeting,
+                  role: GoingTo.roles[:initiator])
         end
       
         it 'assigns @meeting' do
@@ -456,16 +460,62 @@ RSpec.describe MeetingsController, type: :controller do
           expect(assigns(:meeting)).to eq(meeting)
         end
 
-        it 'updates name and description' do
-          params[:meeting].merge!(name: 'New name', description: 'New description')
-          put :update, params
-          meeting.reload
-          expect(meeting).to have_attributes(
-            name: 'New name',
-            description: 'New description')
+        describe 'basic attributes' do
+          let(:new_meeting) { build(:meeting,
+            name: 'name',
+            description: 'description') }
+          before do
+            params[:meeting].merge!(
+              name: new_meeting.name,
+              description: new_meeting.description)
+            put :update, params
+            meeting.reload
+          end
+
+          it 'updates meeting attributes' do
+            expect(meeting).to have_attributes(
+              graetzl_id: graetzl.id,
+              name: new_meeting.name,
+              description: new_meeting.description)
+          end
+
+          it 'redirect_to meeting page' do
+            expect(response).to redirect_to [meeting.graetzl, meeting]
+          end
         end
 
-        describe 'update time attributes' do
+        describe 'state' do
+          context 'when basic meeting' do
+            before do
+              meeting.basic!
+              params[:meeting].merge!(state: Meeting.states[:cancelled])
+            end
+
+            it 'does not change state' do
+              expect{
+                put :update, params
+                meeting.reload
+              }.not_to change{meeting.state}
+            end
+
+            it 'redirect_to meeting page' do
+              put :update, params
+              expect(response).to redirect_to [meeting.graetzl, meeting]
+            end
+          end
+          context 'when cancelled meeting' do
+            before { meeting.cancelled! }
+
+            it 'automatically changes state to basic' do
+              expect{
+                put :update, params
+                meeting.reload
+              }.to change{meeting.state}.to 'basic'
+            end
+          end
+        end
+
+        describe 'time attributes' do
           before do
             params[:meeting].merge!(starts_at_date: '2020-01-01',
                                     starts_at_time: '18:00',
@@ -491,18 +541,18 @@ RSpec.describe MeetingsController, type: :controller do
           end
         end
 
-        describe 'categories' do
-          before do
-            5.times { create(:category, context: Category.contexts[:recreation]) }
-            params[:meeting].merge!(category_ids: Category.all.map(&:id))
-          end
+        # describe 'categories' do
+        #   before do
+        #     5.times { create(:category, context: Category.contexts[:recreation]) }
+        #     params[:meeting].merge!(category_ids: Category.all.map(&:id))
+        #   end
 
-          it 'updates categories' do
-            put :update, params
-            meeting.reload
-            expect(meeting.categories.size).to eq(5)
-          end
-        end
+        #   it 'updates categories' do
+        #     put :update, params
+        #     meeting.reload
+        #     expect(meeting.categories.size).to eq(5)
+        #   end
+        # end
 
         describe 'address' do
           let!(:new_graetzl) { create(:graetzl,
@@ -608,18 +658,6 @@ RSpec.describe MeetingsController, type: :controller do
     context 'when logged in' do
       let(:user) { create(:user) }
       before { sign_in user }
-
-      context 'when cancelled meeting' do
-        before do
-          meeting.cancelled!
-          delete :destroy, id: meeting
-        end
-
-        it 'redirect_to graetzl with notice' do
-          expect(response).to redirect_to(graetzl)
-          expect(flash[:notice]).to be_present
-        end
-      end
 
       context 'when attendee' do
         before do
