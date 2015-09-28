@@ -75,5 +75,11 @@
 
     <%= render 'stream', graetzl: @graetzl if user_signed_in? %>
 
+  <% else %>
+    <div class="entryParticipate">
+      <%= button_to 'Treffen reaktivieren', edit_meeting_path(@meeting),
+                    method: :get,
+                    class: 'btn-destroy' if user_signed_in? && (current_user == @meeting.initiator) %>
+    </div>
   <% end %>
 </section>

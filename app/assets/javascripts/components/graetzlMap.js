@@ -45,6 +45,18 @@ APP.components.graetzlMap = (function() {
     }
 
 
+    function highlightMapNav(k) {
+        $(".navBlock .links").find('a[href*="'+ k + '"]').addClass('is-highlighted');
+    }
+    function unhighlightMapNav(k) {
+        $(".navBlock .links").find('a[href*="'+ k + '"]').removeClass('is-highlighted');
+    }
+    function handlehighlightMapPoly(layer, k) {
+        $(".navBlock .links").find('a[href*="'+  k + '"]')
+            .on("mouseover", function() { layer.setStyle(styles.over) })
+            .on("mouseout", function() { layer.setStyle(styles.rose) })
+    }
+
     function showMapDistrict(districts, options) {
         var config = $.extend({}, defaults, options);
         var districtMap = L.geoJson(districts, {
@@ -52,18 +64,18 @@ APP.components.graetzlMap = (function() {
                 return config.style
             },
             onEachFeature: function (feature, layer) {
+                handlehighlightMapPoly(layer, feature.properties.targetURL);
                 if (config.interactive) {
                     layer.on('click', function () {
-                        console.log(feature.properties.targetURL);
                         window.location.href = feature.properties.targetURL;
                     });
                     layer.on('mouseover', function () {
                         this.setStyle(styles.over);
-                        $('.mapInfoText').html('<div class="districtNumber">' + feature.properties.zip + ' . Bezirk</div> <div class="districtName">' + feature.properties.name + '</div>');
+                        highlightMapNav(feature.properties.targetURL);
                     });
                     layer.on('mouseout', function () {
                         districtMap.resetStyle(layer);
-                        $('.mapInfoText').empty();
+                        unhighlightMapNav(feature.properties.targetURL);
                     });
                 }
             }
@@ -76,7 +88,6 @@ APP.components.graetzlMap = (function() {
         return this;
     }
 
-
     function showMapGraetzl(graetzls, options) { // Array or String
         var config = $.extend({}, defaults, options);
         var graetzlMap = L.geoJson(graetzls, {
@@ -84,17 +95,19 @@ APP.components.graetzlMap = (function() {
                 return config.style;
             },
             onEachFeature: function (feature, layer) {
+                handlehighlightMapPoly(layer, feature.properties.targetURL);
                 if (config.interactive) {
                     layer.on('click', function () {
                         window.location.href = feature.properties.targetURL;
                     });
                     layer.on('mouseover', function () {
                         this.setStyle(styles.over);
-                        $('.mapInfoText').html('<div class="graetzlName">' + feature.properties.name + '</div>');
+                        highlightMapNav(feature.properties.targetURL);
                     });
                     layer.on('mouseout', function () {
                         graetzlMap.resetStyle(layer);
-                        $('.mapInfoText').empty();
+                        unhighlightMapNav(feature.properties.targetURL);
+
                     });
                 }
             }
@@ -118,14 +131,14 @@ APP.components.graetzlMap = (function() {
     function showSingleGraetzlHeader() {
         var mapvisible= $('#graetzlMapWidget').data('mapvisible');
         init(function() {
-                    showMapGraetzl(mapvisible.graetzls, null, {
-                        style: $.extend(styles.rose, {
-                            weight: 4,
-                            fillOpacity: 0.2
-                        })
-                    });
+                showMapGraetzl(mapvisible.graetzls, null, {
+                    style: $.extend(styles.rose, {
+                        weight: 4,
+                        fillOpacity: 0.2
+                    })
+                });
 
-                }
+            }
         );
     }
 

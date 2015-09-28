@@ -3,11 +3,11 @@ class Meeting < ActiveRecord::Base
   extend FriendlyId
 
   # scopes
-  default_scope { order :starts_at_date }
   scope :upcoming, -> { where(arel_table[:starts_at_date].eq(nil)
-                        .or(arel_table[:starts_at_date].gt(Date.yesterday))) }
+                        .or(arel_table[:starts_at_date].gt(Date.yesterday)))
+                        .order(:starts_at_date) }
   scope :past, -> { where(arel_table[:starts_at_date].lt(Date.today))
-                    .reverse_order }
+                    .order(starts_at_date: :desc) }
   # scopes primarily used for users
   scope :initiated, -> { includes(:going_tos)
                         .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos) }
@@ -36,7 +36,7 @@ class Meeting < ActiveRecord::Base
   # validations
   validates :name, presence: true
   validates :graetzl, presence: true
-  validate :starts_at_date_cannot_be_in_the_past
+  validate :starts_at_date_cannot_be_in_the_past, on: :create
   validate :ends_at_time_cannot_be_before_starts_at_time
 
   # callbacks

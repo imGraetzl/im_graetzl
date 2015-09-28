@@ -167,7 +167,7 @@ RSpec.feature 'Registration', type: :feature do
 
     def fill_in_address(address)
       fill_in :address, with: "#{address.street_name} #{address.street_number}"
-      sleep 1
+      sleep 1.5
     end
 
   def fill_in_user_form(user)

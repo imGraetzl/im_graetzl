@@ -5,142 +5,233 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
   before { sign_in admin }
 
-  describe 'PUT update' do
+  describe 'GET index' do
+    before { get :index }
+
+    it 'returns success' do
+      expect(response).to have_http_status(200)
+    end
+
+    it 'assigns @meetings' do
+      expect(assigns(:meetings)).not_to be_nil
+    end
+
+    it 'renders :index' do
+      expect(response).to render_template(:index)
+    end
+  end
+
+  describe 'GET show' do
     let(:meeting) { create(:meeting) }
+    before { get :show, id: meeting }
+
+    it 'returns success' do
+      expect(response).to have_http_status(200)
+    end
+
+    it 'assigns @meeting' do
+      expect(assigns(:meeting)).to eq meeting
+    end
+
+    it 'renders :show' do
+      expect(response).to render_template(:show)
+    end
+  end
+
+  describe 'GET new' do
+    before { get :new }
+
+    it 'returns success' do
+      expect(response).to have_http_status(200)
+    end
+
+    it 'assigns @meeting' do
+      expect(assigns(:meeting)).to be_a_new(Meeting)
+    end
+
+    it 'renders :new' do
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe 'POST create' do
+    let(:graetzl) { create(:graetzl) }
+    let(:location) { create(:location) }
+    let(:meeting) { build(:meeting,
+      graetzl: graetzl,
+      name: 'name',
+      description: 'description',
+      location: location) }
     let(:params) {
       {
-        id: meeting,
-        meeting: meeting.attributes
+        meeting: {
+          graetzl_id: meeting.graetzl.id,
+          name: meeting.name,
+          description: meeting.description,
+          location_id: location.id
+        }
       }
     }
 
-    it 'changes graetzl' do
-      params[:meeting].merge!({ graetzl_id: create(:graetzl).id })
-      expect{
-        put :update, params
-      }.to change{meeting.reload.graetzl}
-    end      
+    context 'with basic attributes' do
 
-    it 'changes name and description' do
-      params[:meeting].merge!({ name: 'new name', description: 'new description' })
-      put :update, params
-      meeting.reload
-      expect(meeting.name).to eq 'new name'
-      expect(meeting.description).to eq 'new description'
+      it 'creates new meeting record' do
+        expect{
+          post :create, params
+        }.to change{Meeting.count}.by(1)
+      end
+
+      it 'assigns attributes to meeting' do
+        post :create, params
+        m = Meeting.last
+        expect(m).to have_attributes(
+          graetzl_id: graetzl.id,
+          name: meeting.name,
+          description: meeting.description,
+          location_id: location.id)
+      end
+
+      it 'redirects_to new meeting page' do
+        post :create, params
+        new_meeting = Meeting.last
+        expect(response).to redirect_to(admin_meeting_path(new_meeting))
+      end
     end
 
-    describe 'slug' do
+    context 'with address and going_tos' do
+      let(:address) { build(:address) }
+      let(:going_to_1) { build(:going_to, user: create(:user)) }
+      let(:going_to_2) { build(:going_to, user: create(:user)) }
       before do
-        params[:meeting].merge!({ slug: 'new-slug' })
+        params[:meeting].merge!(address_attributes: {
+          street_name: address.street_name,
+          street_number: address.street_number,
+          zip: address.zip,
+          city: address.city,
+          coordinates: address.coordinates
+          })
+        params[:meeting].merge!(going_tos_attributes: {
+          '0' => {
+              user_id: going_to_1.user_id,
+              role: going_to_1.role
+            },
+          '1' => {
+              user_id: going_to_2.user_id,
+              role: going_to_2.role
+            },
+          })
       end
 
-      it 'changes slug' do
+      it 'creates new meeting record' do
         expect{
-          put :update, params
-        }.to change{meeting.reload.slug}.to 'new-slug'
+          post :create, params
+        }.to change{Meeting.count}.by(1)
+      end
+
+      it 'creates new address record' do
+        expect{
+          post :create, params
+        }.to change{Address.count}.by(1)
+      end
+
+      it 'creates new going_to records' do
+        expect{
+          post :create, params
+        }.to change{GoingTo.count}.by(2)
+      end
+
+      it 'redirects_to new meeting page' do
+        post :create, params
+        new_meeting = Meeting.unscoped.last
+        expect(response).to redirect_to(admin_meeting_path(new_meeting))
+      end
+
+      describe 'new meeting' do
+        before { post :create, params }
+        subject(:new_meeting) { Meeting.unscoped.last }
+
+        it 'is has address' do
+          expect(new_meeting.address).not_to be_nil
+        end
+
+        it 'assigns address_attributes' do
+          expect(Address.last).to have_attributes(
+            street_name: address.street_name,
+            street_number: address.street_number,
+            zip: address.zip,
+            city: address.city,
+            coordinates: address.coordinates)
+        end
+
+        it 'has users' do
+          expect(new_meeting.users.count).to eq 2
+        end
       end
     end
+  end
 
-    describe 'location' do
-      let(:location) { create(:location) }
+  describe 'GET edit' do
+    let(:meeting) { create(:meeting) }
+    before { get :edit, id: meeting }
 
-      it 'adds location' do
-        params[:meeting].merge!({ location_id: location.id })
-        expect{
-          put :update, params
-        }.to change{meeting.reload.location}.to location
-      end
-
-      it 'removes location' do
-        params[:meeting].merge!({ location_id: '' })
-        meeting.update(location_id: location.id)
-        expect{
-          put :update, params
-        }.to change{meeting.reload.location}.from(location).to nil
-      end
+    it 'returns success' do
+      expect(response).to have_http_status(200)
     end
 
-    describe 'time' do
-      it 'changes start time and date' do
-        params[:meeting].merge!({ starts_at_date: Date.tomorrow,
-                                  starts_at_time: '18:00' })
-        put :update, params
-        meeting.reload
-        expect(meeting.starts_at_date).to eq Date.tomorrow
-        expect(meeting.starts_at_time.strftime('%H:%M')).to eq '18:00'
-      end
-
-      it 'removes starts_at_date' do
-        params[:meeting].merge!({ starts_at_date: '' })
-        meeting.update(starts_at_date: Date.tomorrow)
-        expect{
-          put :update, params
-        }.to change{meeting.reload.starts_at_date}.from(Date.tomorrow).to nil
-      end
-
-      it 'removes starts_at_time' do
-        params[:meeting].merge!({ starts_at_time: '' })
-        meeting.update(starts_at_time: '18:00')
-        expect{
-          put :update, params
-        }.to change{meeting.reload.starts_at_time}.to nil
-      end
-
-      it 'changes end time and date' do
-        params[:meeting].merge!({ ends_at_date: Date.tomorrow,
-                                  ends_at_time: '18:00' })
-        put :update, params
-        meeting.reload
-        expect(meeting.ends_at_date).to eq Date.tomorrow
-        expect(meeting.ends_at_time.strftime('%H:%M')).to eq '18:00'
-      end
-
-      it 'removes ends_at_date' do
-        params[:meeting].merge!({ ends_at_date: '' })
-        meeting.update(ends_at_date: Date.tomorrow)
-        expect{
-          put :update, params
-        }.to change{meeting.reload.ends_at_date}.from(Date.tomorrow).to nil
-      end
-
-      it 'removes ends_at_time' do
-        params[:meeting].merge!({ ends_at_time: '' })
-        meeting.update(ends_at_time: '18:00')
-        expect{
-          put :update, params
-        }.to change{meeting.reload.ends_at_time}.to nil
-      end
+    it 'assigns @meeting' do
+      expect(assigns(:meeting)).to eq meeting
     end
 
-    describe 'address' do
-      let(:new_address) { create(:address) }
+    it 'renders :edit' do
+      expect(response).to render_template(:edit)
+    end
+  end
 
+  describe 'PUT update' do
+    let!(:meeting) { create(:meeting) }
+    let(:new_meeting) { build(:meeting,
+                      graetzl: create(:graetzl),
+                      location: create(:location),
+                      state: Meeting.states[:cancelled]) }
+    let(:params) {
+      {
+        id: meeting,
+        meeting: {
+          graetzl_id: new_meeting.graetzl.id,
+          name: new_meeting.name,
+          state: new_meeting.state,
+          description: new_meeting.description,
+          location_id: new_meeting.location.id}
+      }
+    }
+
+    context 'with basic attributes' do
       before do
-        params[:meeting].merge!({ address_attributes: new_address.attributes.except('id') })
         put :update, params
         meeting.reload
       end
 
-      it 'does not change address id' do
-        expect(meeting.address.id).not_to eq new_address.id
+      it 'redirects to meeting page' do
+        expect(response).to redirect_to(admin_meeting_path(meeting))
       end
 
-      it 'changes attributes' do
-        expect(meeting.address).to have_attributes(
-          street_name: new_address.street_name,
-          street_number: new_address.street_number,
-          zip: new_address.zip,
-          city: new_address.city,
-          coordinates: new_address.coordinates)
+      it 'updates meeting attributes' do
+        expect(meeting).to have_attributes(
+          graetzl_id: new_meeting.graetzl.id,
+          name: new_meeting.name,
+          state: 'cancelled',
+          description: new_meeting.description,
+          location: new_meeting.location)
       end
     end
 
-    describe 'going_tos' do
-      let!(:new_user) { create(:user) }
-
-      context 'add user' do
+    context 'with going_tos' do
+      describe 'add user' do
+        let!(:user) { create(:user) }
         before do
-          params[:meeting].merge!({ going_tos_attributes: {'0' => { user_id: new_user.id }}})
+          params[:meeting].merge!(going_tos_attributes: {
+            '0' => { user_id: user.id }
+            })
         end
 
         it 'creates new going_to record' do
@@ -151,31 +242,47 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
         it 'adds user to meeting' do
           put :update, params
-          meeting.reload
-          expect(meeting.users).to include(new_user)
+          expect(meeting.reload.users).to include(user)
         end
       end
 
-      context 'remove user' do
-        let!(:going_to) { create(:going_to, user: new_user, meeting: meeting) }
-
+      describe 'remove user' do
+        let!(:going_to) { create(:going_to, meeting: meeting) }
         before do
-          params[:meeting].merge!({ going_tos_attributes:
-            { '0' => { id: going_to.id, user_id: new_user.id, _destroy: 1 } } })
-        end
+          params[:meeting].merge!(going_tos_attributes: {
+            '0' => { id: going_to.id, _destroy: 1 }
+            })
 
-        it 'deletes going_to record' do
-          expect{
+          it 'destroys going_to record' do
+            expect(GoingTo.count).to eq 1
+            expect{
+              put :update, params
+            }.to change(GoingTo, :count).by(-1)
+          end
+
+          it 'removes user from meeting' do
+            expect(meeting.users). to include(new_user)
             put :update, params
-          }.to change(GoingTo, :count).by(-1)
-        end
-
-        it 'removes user from meeting' do
-          expect(meeting.users). to include(new_user)
-          put :update, params
-          expect(meeting.reload.users).not_to include(new_user)
+            meeting.reload
+            expect(meeting.users).not_to include(new_user)
+          end
         end
       end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    let!(:meeting) { create(:meeting) }
+
+    it 'deletes meeting record' do
+      expect{
+        delete :destroy, id: meeting
+      }.to change{Meeting.count}.by(-1)
+    end
+
+    it 'redirects_to index page' do
+      delete :destroy, id: meeting
+      expect(response).to redirect_to(admin_meetings_path)
     end
   end
 end

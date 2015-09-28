@@ -98,10 +98,11 @@
         margin-left: 2px;
         margin-right: 2px;
         width: calc(50% - 4px);
+        transition: background-color 0.2s;
         @include respond-to(">=medium") {
           width: 147px;
         }
-        &:hover {
+        &:hover, &.is-highlighted {
           background-color: $color-ambient-rosa;
           color: #ffffff;
         }

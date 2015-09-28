@@ -275,20 +275,20 @@ RSpec.describe Admin::LocationsController, type: :controller do
         end
       end
     end
+  end
 
-    describe 'DELETE destroy' do
-      let!(:location) { create(:location) }
+  describe 'DELETE destroy' do
+    let!(:location) { create(:location) }
 
-      it 'deletes location record' do
-        expect{
-          delete :destroy, id: location
-        }.to change{Location.count}.by(-1)
-      end
-
-      it 'redirects_to index page' do
+    it 'deletes location record' do
+      expect{
         delete :destroy, id: location
-        expect(response).to redirect_to(admin_locations_path)
-      end
+      }.to change{Location.count}.by(-1)
+    end
+
+    it 'redirects_to index page' do
+      delete :destroy, id: location
+      expect(response).to redirect_to(admin_locations_path)
     end
   end
 

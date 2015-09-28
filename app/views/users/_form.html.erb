@@ -135,7 +135,7 @@
         </div>
       </div>
     </div>
-    <%= f.submit 'Speichern', class: 'btn-primary' %>
+    <%= f.submit 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>
 <%= button_to 'Account löschen', registration_path,
               data: { confirm: 'Bist du dir sicher?' },

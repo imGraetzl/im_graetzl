@@ -18,7 +18,7 @@
   &.closed {
     background: red;
   }
-  &.pending {
+  &.pending, &.cancelled {
     background: orange;
   }
   &.managed, &.open {
