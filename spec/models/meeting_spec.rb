@@ -15,8 +15,18 @@ RSpec.describe Meeting, type: :model do
       expect(build(:meeting, graetzl: nil)).not_to be_valid
     end
 
-    it 'invalid with starts_at_date in past' do
+    it 'invalid when created with starts_at_date in past' do
+      expect{
+        create(:meeting, starts_at_date: 1.day.ago)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       expect(build(:meeting, starts_at_date: 1.day.ago)).not_to be_valid
+    end
+
+    it 'not invalid when updated with starts_at_date in past' do
+      meeting = create(:meeting)
+      expect{
+        meeting.update(starts_at_date: 1.day.ago)
+        }.not_to raise_error
     end
 
     it 'invalid with ends_at_time before_starts_at_time' do

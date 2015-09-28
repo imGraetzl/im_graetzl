@@ -36,7 +36,7 @@ class Meeting < ActiveRecord::Base
   # validations
   validates :name, presence: true
   validates :graetzl, presence: true
-  validate :starts_at_date_cannot_be_in_the_past
+  validate :starts_at_date_cannot_be_in_the_past, on: :create
   validate :ends_at_time_cannot_be_before_starts_at_time
 
   # callbacks
