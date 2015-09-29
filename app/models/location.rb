@@ -2,11 +2,7 @@ class Location < ActiveRecord::Base
   include PublicActivity::Common
   extend FriendlyId
 
-  # scopes
-  scope :available, -> { where(state: [states[:basic], states[:managed]]) }
-
   # macros
-  has_paper_trail  
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
   attachment :avatar, type: :image

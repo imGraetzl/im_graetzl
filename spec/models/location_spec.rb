@@ -6,23 +6,6 @@ RSpec.describe Location, type: :model do
     expect(build_stubbed(:location)).to be_valid
   end
 
-  describe 'scope' do
-    describe ':available' do
-      let!(:basic_location) { create(:location_basic) }
-      let!(:pending_location) { create(:location_pending) }
-      let!(:managed_location) { create(:location_managed) }
-      let!(:nil_location) { create(:location) }
-
-      it 'includes basic and managed locations' do
-        expect(Location.available).to include(basic_location, managed_location)
-      end
-
-      it 'does not include nil and pending locations' do
-        expect(Location.available).not_to include(nil_location, pending_location)
-      end
-    end
-  end
-
   describe 'validations' do
     it 'is invalid without name' do
       expect(build(:location, name: '')).not_to be_valid
@@ -42,6 +25,10 @@ RSpec.describe Location, type: :model do
 
     it 'has state' do
       expect(location).to respond_to(:state)
+    end
+
+    it 'has default state :pending' do
+      expect(location.pending?).to be true
     end
 
     it 'has avatar with content_type' do
