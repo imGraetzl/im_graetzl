@@ -4,7 +4,9 @@
       <%= cover_photo_for(location) %>
     <% end %>
     <div class="locationAvatar">
-      <%= image_tag static_map_url(location.address.coordinates), class: 'locationMap' %>
+      <% if location.address && location.address.coordinates %>
+        <%= image_tag static_map_url(location.address.coordinates), class: 'locationMap' %>
+      <% end %>
       <%= avatar_for(location, fill: [85, 85]) %>
     </div>
   </div>
