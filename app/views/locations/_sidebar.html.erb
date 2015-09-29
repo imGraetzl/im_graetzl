@@ -35,14 +35,16 @@
       <% end %>
     <% end %>
 
-    <div class="address">
-      <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
-      <%= "#{@location.address.zip} #{@location.address.city}" %>
-      <% if @location.address.coordinates %>
-        <%= link_to google_map_url(@location.address) do %>
-          <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,250]) %>
+    <% if @location.address.present? %>
+      <div class="address">
+        <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
+        <%= "#{@location.address.zip} #{@location.address.city}" %>
+        <% if @location.address.coordinates %>
+          <%= link_to google_map_url(@location.address) do %>
+            <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,250]) %>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </aside>
