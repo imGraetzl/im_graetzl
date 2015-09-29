@@ -8,7 +8,7 @@ class Location < ActiveRecord::Base
   # macros
   has_paper_trail  
   friendly_id :name
-  enum state: { basic: 0, pending: 1, managed: 2 }
+  enum state: { pending: 0, approved: 1 }
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image  
 

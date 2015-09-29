@@ -3,9 +3,9 @@ ActiveAdmin.register Location do
   menu priority: 4
 
   scope :all, default: true
-  scope :basic
-  scope :pending
-  scope :managed
+#  scope :basic
+ # scope :pending
+  #scope :managed
 
   # index
   index do
