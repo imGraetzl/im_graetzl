@@ -41,185 +41,184 @@ RSpec.describe LocationsController, type: :controller do
   # Controller methods
   describe 'GET new' do
     context 'when logged out' do
-      before { get :new }
-      include_examples :an_unauthenticated_request
+      it 'redirects to login with flash' do
+        get :new
+        expect(response).to render_template(session[:new])
+      end
     end
 
-    context 'when non-business' do
+    context 'when logged in' do
       let(:user) { create(:user) }
+
       before do
         sign_in user
         get :new
       end
-      include_examples :an_unauthorized_request
-    end
 
-    context 'when business user' do
-      let(:user) { create(:user_business) }
-      before { sign_in user }
-
-      context 'without address and graetzl in session' do
-        before { get :new }
-
-        it 'assigns no graetzl' do
-          expect(assigns(:graetzl)).not_to be
-        end
-
-        it 'renders :address_form' do
-          expect(response).to render_template(:address_form)
-        end
+      it 'assigns no graetzl' do
+        expect(assigns(:graetzl)).not_to be
       end
 
-      context 'with address and graetzl in session' do
-        let(:address) { build(:address, addressable_type: 'Location') }
-        before do
-          session[:address] = address.attributes
-          session[:graetzl] = graetzl.id
-          get :new
-        end
-
-        include_examples :graetzl_context
-
-        it 'assigns @location with address' do
-          expect(assigns(:location)).to be_an_instance_of(Location)
-          expect(assigns(:location).address.attributes).to eq address.attributes
-        end
-
-        it 'renders :new' do
-          expect(response).to render_template(:new)
-        end
-      end
-    end
-
-    describe 'POST new' do
-      context 'when logged out' do
-        before { post :new }
-        include_examples :an_unauthenticated_request
-      end
-
-      context 'when non-business' do
-        let(:user) { create(:user) }
-        before do
-          sign_in user
-          post :new
-        end
-        include_examples :an_unauthenticated_request
-      end
-
-      context 'when business user' do
-        let(:user) { create(:user_business) }
-        let(:params) { {} }
-        before { sign_in user }
-
-        describe 'without :address parameter' do
-          before { post :new, params }
-          it 'renders :address_form' do
-            expect(response).to render_template(:address_form)
-          end
-        end
-
-        describe 'without :feature parameter' do
-          before do
-            params.merge!(address: 'something')
-            post :new, params
-          end
-
-          it 'assigns @graetzl with user.graetzl' do
-            expect(assigns(:graetzl)).to eq user.graetzl
-          end
-
-          it 'assigns @location with empty address' do
-            expect(assigns(:location)).to be_an_instance_of(Location)
-            expect(assigns(:location).address).to have_attributes(
-              street_name: nil,
-              street_number: nil,
-              zip: nil,
-              city: nil,
-              coordinates: nil)
-          end
-
-          it 'renders :new' do
-            expect(response).to render_template(:new)
-          end
-        end
-
-        describe 'with :feature parameter' do
-          let!(:new_graetzl) { create(:graetzl,
-            area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))') }
-          let(:feature) { feature_hash(25,25) }
-          before do
-            params.merge!({ address: 'something', feature: feature.to_json })
-            post :new, params
-          end
-
-          it 'assigns new @graetzl' do
-            expect(assigns(:graetzl)).to eq new_graetzl
-          end
-
-          it 'assigns @location with address from feature' do
-            a = Address.attributes_from_feature(feature.to_json)
-            expect(assigns(:location)).to be_an_instance_of(Location)
-            expect(assigns(:location).address).to have_attributes(
-              street_name: a[:street_name],
-              street_number: a[:street_number],
-              zip: a[:zip],
-              city: a[:city],
-              coordinates: a[:coordinates])
-          end
-
-          it 'assigns @location to new_graetzl' do
-            expect(assigns(:location).graetzl).to eq new_graetzl
-          end
-
-          it 'renders :new' do
-            expect(response).to render_template(:new)
-          end
-
-          it 'empties session' do
-            expect(session[:address]).to be nil
-            expect(session[:graetzl]).to be nil
-          end
-        end
-
-        describe 'with locations nearby' do
-          let!(:new_graetzl) { create(:graetzl,
-            area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))') }
-          let!(:l_managed) { create(:location_managed,
-            address: build(:address, coordinates: 'POINT (25.00 25.00)')) }
-          let!(:l_basic) { create(:location_basic,
-            address: build(:address, coordinates: 'POINT (25.00 25.00)')) }
-          let(:feature) { feature_hash(25.00,25.00) }
-          before do
-            params.merge!({ address: 'something', feature: feature.to_json })
-            post :new, params
-          end
-
-          it 'assigns @address with address from feature' do
-            a = Address.attributes_from_feature(feature.to_json)
-            expect(assigns(:address)).to have_attributes(
-              street_name: a[:street_name],
-              street_number: a[:street_number],
-              zip: a[:zip],
-              city: a[:city],
-              coordinates: a[:coordinates])
-          end
-
-          it 'assigns @locations' do
-            expect(assigns(:locations)).to contain_exactly(l_managed, l_basic)
-          end
-
-          it 'stores address and graetzl in session' do
-            expect(session[:address]).to eq assigns(:address).attributes
-            expect(session[:graetzl]).to eq new_graetzl.id
-          end
-
-          it 'renders :adopt' do
-            expect(response).to render_template(:adopt)
-          end
-        end
+      it 'renders :graetzl_form' do
+        expect(response).to render_template(:graetzl_form)
       end
     end
   end
+
+  describe 'POST new' do
+    context 'when logged out' do
+      it 'redirects to login with flash' do
+        post :new
+        expect(response).to render_template(session[:new])
+      end
+    end
+
+    context 'when logged in' do
+      let(:graetzl) { create(:graetzl) }
+      let(:user) { create(:user) }
+
+      before do
+        sign_in user
+        post :new, graetzl_id: graetzl.id
+      end
+
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq graetzl
+      end
+
+      it 'assigns @location' do
+        expect(assigns(:location)).to be_a_new(Location)
+      end
+
+      it 'renders :new' do
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  #     context 'when non-business' do
+  #       let(:user) { create(:user) }
+  #       before do
+  #         sign_in user
+  #         post :new
+  #       end
+  #       include_examples :an_unauthenticated_request
+  #     end
+
+  #     context 'when business user' do
+  #       let(:user) { create(:user_business) }
+  #       let(:params) { {} }
+  #       before { sign_in user }
+
+  #       describe 'without :address parameter' do
+  #         before { post :new, params }
+  #         it 'renders :address_form' do
+  #           expect(response).to render_template(:address_form)
+  #         end
+  #       end
+
+  #       describe 'without :feature parameter' do
+  #         before do
+  #           params.merge!(address: 'something')
+  #           post :new, params
+  #         end
+
+  #         it 'assigns @graetzl with user.graetzl' do
+  #           expect(assigns(:graetzl)).to eq user.graetzl
+  #         end
+
+  #         it 'assigns @location with empty address' do
+  #           expect(assigns(:location)).to be_an_instance_of(Location)
+  #           expect(assigns(:location).address).to have_attributes(
+  #             street_name: nil,
+  #             street_number: nil,
+  #             zip: nil,
+  #             city: nil,
+  #             coordinates: nil)
+  #         end
+
+  #         it 'renders :new' do
+  #           expect(response).to render_template(:new)
+  #         end
+  #       end
+
+  #       describe 'with :feature parameter' do
+  #         let!(:new_graetzl) { create(:graetzl,
+  #           area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))') }
+  #         let(:feature) { feature_hash(25,25) }
+  #         before do
+  #           params.merge!({ address: 'something', feature: feature.to_json })
+  #           post :new, params
+  #         end
+
+  #         it 'assigns new @graetzl' do
+  #           expect(assigns(:graetzl)).to eq new_graetzl
+  #         end
+
+  #         it 'assigns @location with address from feature' do
+  #           a = Address.attributes_from_feature(feature.to_json)
+  #           expect(assigns(:location)).to be_an_instance_of(Location)
+  #           expect(assigns(:location).address).to have_attributes(
+  #             street_name: a[:street_name],
+  #             street_number: a[:street_number],
+  #             zip: a[:zip],
+  #             city: a[:city],
+  #             coordinates: a[:coordinates])
+  #         end
+
+  #         it 'assigns @location to new_graetzl' do
+  #           expect(assigns(:location).graetzl).to eq new_graetzl
+  #         end
+
+  #         it 'renders :new' do
+  #           expect(response).to render_template(:new)
+  #         end
+
+  #         it 'empties session' do
+  #           expect(session[:address]).to be nil
+  #           expect(session[:graetzl]).to be nil
+  #         end
+  #       end
+
+  #       describe 'with locations nearby' do
+  #         let!(:new_graetzl) { create(:graetzl,
+  #           area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))') }
+  #         let!(:l_managed) { create(:location_managed,
+  #           address: build(:address, coordinates: 'POINT (25.00 25.00)')) }
+  #         let!(:l_basic) { create(:location_basic,
+  #           address: build(:address, coordinates: 'POINT (25.00 25.00)')) }
+  #         let(:feature) { feature_hash(25.00,25.00) }
+  #         before do
+  #           params.merge!({ address: 'something', feature: feature.to_json })
+  #           post :new, params
+  #         end
+
+  #         it 'assigns @address with address from feature' do
+  #           a = Address.attributes_from_feature(feature.to_json)
+  #           expect(assigns(:address)).to have_attributes(
+  #             street_name: a[:street_name],
+  #             street_number: a[:street_number],
+  #             zip: a[:zip],
+  #             city: a[:city],
+  #             coordinates: a[:coordinates])
+  #         end
+
+  #         it 'assigns @locations' do
+  #           expect(assigns(:locations)).to contain_exactly(l_managed, l_basic)
+  #         end
+
+  #         it 'stores address and graetzl in session' do
+  #           expect(session[:address]).to eq assigns(:address).attributes
+  #           expect(session[:graetzl]).to eq new_graetzl.id
+  #         end
+
+  #         it 'renders :adopt' do
+  #           expect(response).to render_template(:adopt)
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
   describe 'GET index' do
     let!(:location_basic) { create(:location_basic, graetzl: graetzl) }

@@ -11,4 +11,9 @@ class DistrictsController < ApplicationController
     @meetings = Meeting.basic.upcoming.where(graetzl: @graetzls).limit(60)
     @map_data = GeoJSONService.call(districts: @district, graetzls: @graetzls)
   end
+
+  def graetzls
+    district = District.find(params[:id])
+    render json: district.graetzls.to_json(only: [:id, :name])
+  end
 end

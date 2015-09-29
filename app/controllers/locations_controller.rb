@@ -1,16 +1,18 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_location, except: [:index, :new, :create]
-  before_action :check_permission!, except: [:index, :show]
-  include AddressBeforeNew
+  #include GraetzlBeforeNew
   include GraetzlChild
 
   def new
-    render :adopt and return if adopt?
-    @graetzl ||= Graetzl.find(session[:graetzl])
-    @location = @graetzl.locations.build(address_attributes: session[:address])
-    @location.build_contact
-    empty_session
+    if request.get?
+      render :graetzl_form
+    else
+      @graetzl = Graetzl.find(params[:graetzl_id])
+      #@location = @graetzl.locations.build(address_attributes: session[:address])
+      @location = @graetzl.locations.build
+      @location.build_contact
+    end
   end
 
   def create
@@ -69,13 +71,6 @@ class LocationsController < ApplicationController
 
   def set_location
     @location = Location.find(params[:id])
-  end
-
-  def check_permission!      
-    unless current_user.business?
-      flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben'
-      redirect_to :back
-    end
   end
 
   def enqueue_and_redirect

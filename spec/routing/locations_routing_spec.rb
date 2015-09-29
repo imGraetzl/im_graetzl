@@ -2,8 +2,6 @@ require 'rails_helper'
 require 'routing/shared/address_before_new'
 
 RSpec.describe LocationsController, type: :routing do
-
-  include_examples :address_before_new, 'location'
   
   describe 'routing' do
 
@@ -24,6 +22,12 @@ RSpec.describe LocationsController, type: :routing do
 
     it 'routes GET /locations/new to #new' do
       expect(get: '/locations/new').to route_to(
+        controller: 'locations',
+        action: 'new')
+    end
+
+    it 'routes POST /locations/new to #new' do
+      expect(post: '/locations/new').to route_to(
         controller: 'locations',
         action: 'new')
     end
@@ -75,6 +79,12 @@ RSpec.describe LocationsController, type: :routing do
 
     it 'routes GET new_location to #new' do
       expect(get: new_location_path).to route_to(
+        controller: 'locations',
+        action: 'new')
+    end
+
+    it 'routes POST before_new_locations_path to #new' do
+      expect(post: before_new_locations_path).to route_to(
         controller: 'locations',
         action: 'new')
     end

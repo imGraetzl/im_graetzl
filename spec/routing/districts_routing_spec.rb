@@ -12,6 +12,13 @@ RSpec.describe DistrictsController, type: :routing do
       expect(get: '/wien/district-slug').to route_to('districts#show', id: 'district-slug')
     end
 
+    it 'routes GET /wien/district-slug/graetzls to districts#graetzls' do      
+      expect(get: '/wien/district-slug/graetzls').to route_to(
+        controller: 'districts',
+        action: 'graetzls',
+        id: 'district-slug')
+    end
+
     it 'routes GET /wien/leopoldstadt-1020/graetzlzuckerl to zuckerls#index' do      
       expect(get: '/wien/leopoldstadt-1020/graetzlzuckerl').to route_to(
         controller: 'zuckerls',
@@ -32,6 +39,13 @@ RSpec.describe DistrictsController, type: :routing do
       expect(get: district_path('district-slug')).to route_to(
         controller: 'districts',
         action: 'show',
+        id: 'district-slug')
+    end
+
+    it 'routes GET graetzls_district_path(district-slug) to districts#graetzls' do
+      expect(get: graetzls_district_path('district-slug')).to route_to(
+        controller: 'districts',
+        action: 'graetzls',
         id: 'district-slug')
     end
 

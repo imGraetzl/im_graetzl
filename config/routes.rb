@@ -4,14 +4,15 @@ Rails.application.routes.draw do
   post 'worker/weekly_mail', to: 'worker#weekly_mail'
   post 'worker/backup', to: 'worker#backup'
   # routing concerns
-  concern :address_before_new do
+  concern :graetzl_before_new do
     collection do
-      post 'new', as: :address
+      post 'new', as: :before_new
     end
   end
 
   resources :districts, path: 'wien', only: [:index, :show] do
     get '/leopoldstadt-1020/graetzlzuckerl', on: :collection, to: 'zuckerls#index', as: 'zuckerl'
+    get :graetzls, on: :member
   end
 
   ActiveAdmin.routes(self)
@@ -71,7 +72,7 @@ Rails.application.routes.draw do
   resources :going_tos, only: [:create, :destroy]
 
   resources :locations, except: [:index, :show] do
-    concerns :address_before_new
+    concerns :graetzl_before_new
   end
 
   resources :meetings, path: 'treffen', except: [:index, :show] do
