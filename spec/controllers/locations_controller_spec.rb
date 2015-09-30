@@ -364,6 +364,50 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
+  describe 'DELETE destroy' do
+    let(:location) { create(:location) }
+
+    context 'when logged out' do
+      it 'redirects to login with flash' do
+        delete :destroy, id: 1
+        expect(response).to render_template(session[:new])
+      end
+    end
+
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      before { sign_in user }
+
+      context 'when no location_ownership' do
+        it 'redirects back to previous page with flash' do
+          delete :destroy, id: location
+          expect(response).to redirect_to 'where_i_came_from'
+          expect(flash[:error]).to be_present
+        end
+      end
+
+      context 'when location owner' do
+        before { create(:location_ownership, user: user, location: location) }
+
+        it 'assigns @location' do
+          delete :destroy, id: location
+          expect(assigns(:location)).to eq location
+        end
+
+        it 'deletes location record' do
+          expect{
+            delete :destroy, id: location
+          }.to change{Location.count}.by(-1)
+        end
+
+        it 'redirects back to previous page' do
+          delete :destroy, id: location
+          expect(response).to redirect_to 'where_i_came_from'
+        end
+      end
+    end
+  end
+
 
   # describe 'GET index' do
   #   let!(:location_basic) { create(:location_basic, graetzl: graetzl) }
@@ -497,46 +541,5 @@ RSpec.describe LocationsController, type: :controller do
 
 
 
-  # describe 'DELETE destroy' do
-  #   let!(:location) { create(:location) }
 
-  #   context 'when logged out' do
-  #     before { delete :destroy, id: location }
-
-  #     include_examples :an_unauthenticated_request
-  #   end
-  #   context 'when logged in' do
-  #     let(:user) { create(:user) }
-  #     before { sign_in user }
-
-  #     context 'when non business user' do
-  #       before { delete :destroy, id: location }
-
-  #       include_examples :an_unauthenticated_request
-  #     end
-  #     context 'when business user' do
-  #       before { user.business! }
-
-  #       context 'when no location_ownership' do
-  #         before { delete :destroy, id: location }
-
-  #         include_examples :an_unauthenticated_request
-  #       end
-  #       context 'when location owner' do
-  #         before { create(:location_ownership, user: user, location: location) }
-
-  #         it 'deletes location record' do
-  #           expect{
-  #             delete :destroy, id: location
-  #           }.to change{Location.count}.by(-1)
-  #         end
-
-  #         it 'redirects back to previous page' do
-  #           delete :destroy, id: location
-  #           expect(response).to redirect_to 'where_i_came_from'
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
 end
