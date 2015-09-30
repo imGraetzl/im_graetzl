@@ -6,6 +6,8 @@ class LocationsController < ApplicationController
 
   def new
     if request.get?
+      @graetzl = Graetzl.find(params[:graetzl_id] || current_user.graetzl_id)
+      @district = @graetzl.districts.first
       render :graetzl_form
     else
       @graetzl = Graetzl.find(params[:graetzl_id])

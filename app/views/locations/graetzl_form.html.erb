@@ -13,8 +13,7 @@
             <span>Bezirk</span>
           </label>
           <%= select_tag :district_id,
-                options_from_collection_for_select(District.all, :id, :zip),
-                prompt: 'wählen'
+                options_from_collection_for_select(District.all, :id, :zip, @district.id)
           %>
         </div>
 
@@ -24,8 +23,8 @@
             <span>Grätzl</span>
           </label>
           <%= select_tag :graetzl_id,
-                options_from_collection_for_select(Graetzl.all, 'id', 'name', current_user.graetzl.id),
-                { prompt: 'wählen', required: true } %>
+                options_from_collection_for_select(@district.graetzls, 'id', 'name', @graetzl.id),
+                { required: true } %>
         </div>
       </div>    
 
