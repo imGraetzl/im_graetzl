@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_location, except: [:index, :show, :new, :create]
+  before_action :set_location, except: [:index, :show, :edit, :new, :create]
   include GraetzlChild
 
   def new
@@ -25,23 +25,13 @@ class LocationsController < ApplicationController
   end
 
   def edit
-    if @location.managed? && !@location.owned_by(current_user)
-      @location.request_ownership(current_user)
-      enqueue_and_redirect
-    end
+    @location = Location.find(params[:id])
   end
 
   def update
-    @location.attributes = location_params
-    begin
-      if !@location.managed? && @location.pending!
-        enqueue_and_redirect
-      elsif @location.managed? && @location.save
-        redirect_to [@location.graetzl, @location]
-      else
-        render :edit
-      end
-    rescue ActiveRecord::RecordInvalid => invalid
+    if @location.update(location_params)
+      redirect_to [@location.graetzl, @location]
+    else
       render :edit
     end
   end
@@ -89,10 +79,12 @@ class LocationsController < ApplicationController
         :cover_photo, :remove_cover_photo,
         :allow_meetings,
         contact_attributes: [
+          :id,
           :website,
           :email,
           :phone],
         address_attributes: [
+          :id,
           :street_name,
           :street_number,
           :zip,
