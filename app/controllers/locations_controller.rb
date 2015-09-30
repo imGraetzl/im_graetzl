@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_location, except: [:index, :new, :create]
+  before_action :set_location, except: [:index, :show, :new, :create]
   include GraetzlChild
 
   def new
@@ -10,7 +10,6 @@ class LocationsController < ApplicationController
       render :graetzl_form
     else
       @graetzl = Graetzl.find(params[:graetzl_id])
-      #@location = @graetzl.locations.build(address_attributes: session[:address])
       @location = @graetzl.locations.build
       @location.build_contact
     end
@@ -48,11 +47,11 @@ class LocationsController < ApplicationController
   end
 
   def index
-    #@locations = @graetzl.locations.available
-    @locations = @graetzl.locations.managed.includes(:address)
+    @locations = @graetzl.locations.approved.includes(:address)
   end
 
   def show
+    @location = Location.includes(:address, :contact, :location_ownerships, :meetings).find(params[:id])
     verify_graetzl_child(@location)
     @meetings = @location.meetings.basic.upcoming
   end

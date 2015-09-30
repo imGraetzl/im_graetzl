@@ -3,6 +3,7 @@
 <section class="locations-overview">
   <h1><span><%= @graetzl.name %>:</span> Entdecke gute Treffpunkte & Anbieter, Lokale & Geschäfte</h1>
   <div class="cardBoxCollection -tripple">
+    <%= render 'locations/action_card', graetzl: @graetzl %>
     <%= render @locations %>
   </div>
 </section>

@@ -35,7 +35,7 @@
       <% end %>
     <% end %>
 
-    <% if @location.address.present? %>
+    <% if @location.address %>
       <div class="address">
         <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
         <%= "#{@location.address.zip} #{@location.address.city}" %>

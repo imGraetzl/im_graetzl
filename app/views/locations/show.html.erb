@@ -1,9 +1,3 @@
-<% if Rails.env.development? %>
-  <%= debug @location %>
-  <%= debug @location.contact %>
-  <%= debug @location.address if @location.address %>
-<% else %>
-
 <% title("#{@location.name}") %>
 
 <section class="locationPage">
@@ -25,6 +19,8 @@
       <h3><%= @location.slogan %></h3>
       <p><%= @location.description %></p>
     </div>
+
+    <% if @location.allow_meetings %>
     <div class="meetingsBlock">
       <div class="wrp-hl">
         <h2>Treffen</h2>
@@ -44,8 +40,8 @@
         <%= render @meetings %>
       </div>
     </div>
+    <% end %>
+    
   </div>
   <%= render 'sidebar' %>
 </section>
-
-<% end %>
