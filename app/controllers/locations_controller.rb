@@ -18,7 +18,7 @@ class LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
     if @location.save
-      enqueue_and_redirect
+      enqueue_and_redirect(root_url)
     else
       render :new
     end
@@ -38,8 +38,7 @@ class LocationsController < ApplicationController
 
   def show
     if @location.pending?
-      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-      redirect_to :back
+      enqueue_and_redirect(:back)
     else
       verify_graetzl_child(@location)
       @meetings = @location.meetings.basic.upcoming
@@ -62,9 +61,9 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
   end
 
-  def enqueue_and_redirect
+  def enqueue_and_redirect(url)
     flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-    redirect_to root_url
+    redirect_to url
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

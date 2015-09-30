@@ -29,25 +29,8 @@ class Location < ActiveRecord::Base
   # callbacks
   before_destroy :destroy_activity_and_notifications, prepend: true
 
-  # class methods
-  def self.reset_or_destroy(location)
-    if location.previous_version
-      location = location.previous_version
-      location.save
-    else
-      location.destroy
-    end
-  end
-
-  # instance methods
-  def request_ownership(user)
-    if user.business? && (pending? || managed?) && !users.include?(user)
-      location_ownerships.create(user: user, state: LocationOwnership.states[:pending])
-    end
-  end
-
   def approve
-    if pending? && managed!
+    if pending? && approved!
       self.create_activity :approve
       return true
     end
@@ -55,9 +38,7 @@ class Location < ActiveRecord::Base
   end
 
   def reject
-    if pending?
-      Location.reset_or_destroy(self)
-      # update users
+    if pending? && destroy
       return true
     end
     false
@@ -76,22 +57,4 @@ class Location < ActiveRecord::Base
     notifications.destroy_all
     activity.destroy_all
   end
-
-    # def update_ownerships
-    #   location_ownerships.pending.each do |ownership|
-    #     ownership.approve!
-    #   end
-    # end
-
-    # def reset_attributes
-    #   previous_changes.slice(:name, :slogan, :description, :cover_photo_id, :cover_photo_content_type, :avatar_id, :avatar_photo_content_type).each do |key, value|
-    #     self[key.to_sym] = value.first
-    #   end
-    #   address.previous_changes.slice(:street_name, :street_number, :zip, :city, :coordinates).each do |key, value|
-    #     self.address[key.to_sym] = value.first
-    #   end
-    #   contact.previous_changes.slice(:website, :email, :phone).each do |key, value|
-    #     self.contact[key.to_sym] = value.first
-    #   end
-    # end
 end
