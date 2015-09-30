@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_location, except: [:index, :show, :edit, :new, :create]
+  before_action :set_location, except: [:index, :new, :create]
   include GraetzlChild
 
   def new
@@ -24,10 +24,6 @@ class LocationsController < ApplicationController
     end
   end
 
-  def edit
-    @location = Location.find(params[:id])
-  end
-
   def update
     if @location.update(location_params)
       redirect_to [@location.graetzl, @location]
@@ -41,9 +37,13 @@ class LocationsController < ApplicationController
   end
 
   def show
-    @location = Location.includes(:address, :contact, :location_ownerships, :meetings).find(params[:id])
-    verify_graetzl_child(@location)
-    @meetings = @location.meetings.basic.upcoming
+    if @location.pending?
+      flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+      redirect_to :back
+    else
+      verify_graetzl_child(@location)
+      @meetings = @location.meetings.basic.upcoming
+    end
   end
 
   def destroy
@@ -93,12 +93,5 @@ class LocationsController < ApplicationController
           :_destroy],
         category_ids: []).
       merge(user_ids: [current_user.id])
-  end
-
-  def adopt?
-    if request.post?
-      @locations = @address.available_locations
-      return @locations.present?
-    end
   end
 end

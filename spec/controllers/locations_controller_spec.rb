@@ -7,37 +7,6 @@ RSpec.describe LocationsController, type: :controller do
     request.env['HTTP_REFERER'] = 'where_i_came_from'
   end
 
-  # Shared Examples:
-  shared_examples :an_unauthenticated_request do
-    it 'redirects to login' do
-      expect(response).to render_template(session[:new])
-    end
-  end
-
-  shared_examples :an_unauthorized_request do
-    it 'redirects back to previous page' do
-      expect(response).to redirect_to 'where_i_came_from'
-    end
-
-    it 'shows flash[:error]' do
-      expect(flash[:error]).to be_present
-    end
-  end
-
-  shared_examples :graetzl_context do
-    it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq graetzl
-    end
-  end
-
-  shared_examples :a_successfull_location_request do
-
-    it 'assigns @location' do
-      expect(assigns(:location)).to eq location
-    end
-  end
-
-
   # Controller methods
   describe 'GET new' do
     context 'when logged out' do
@@ -408,138 +377,68 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
+  describe 'GET show' do
+    let(:graetzl) { create(:graetzl) }
 
-  # describe 'GET index' do
-  #   let!(:location_basic) { create(:location_basic, graetzl: graetzl) }
-  #   let!(:location_managed) { create(:location_managed, graetzl: graetzl) }
-  #   let!(:location_pending) { create(:location_pending, graetzl: graetzl) }
-  #   let!(:other_location) { create(:location, graetzl: create(:graetzl)) }
+    context 'when pending location' do
+      let(:location) { create(:location, graetzl: graetzl) }
 
-  #   shared_examples :a_successfull_index_request do
+      it 'redirects back with notice' do
+        get :show, graetzl_id: graetzl, id: location
+        expect(response).to redirect_to 'where_i_came_from'
+        expect(flash[:notice]).to be_present
+      end
+    end
 
-  #     it 'renders :index' do
-  #       expect(response).to render_template(:index)
-  #     end
+    context 'when approved location' do
+      let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
+      before { 3.times{ create(:meeting, location: location) } }
 
-  #     it 'assigns @locations' do
-  #       expect(assigns(:locations)).to be
-  #     end
+      context 'when right graetzl' do
+        before { get :show, graetzl_id: graetzl, id: location }
 
-  #     describe '@locations' do
+        it 'assigns @graetzl' do
+          expect(assigns(:graetzl)).to eq graetzl
+        end
 
-  #       # it 'contains basic and managed' do
-  #       #   expect(assigns(:locations)).to include(location_basic, location_managed)
-  #       # end
+        it 'assigns @location' do
+          expect(assigns(:location)).to eq location
+        end
 
-  #       it 'contains only managed' do
-  #         expect(assigns(:locations)).to include(location_managed)
-  #       end
+        it 'assigns @meetings' do
+          expect(assigns(:meetings)).to be_present
+        end
 
-  #       it 'does not contain pending' do
-  #         expect(assigns(:locations)).not_to include(location_pending)
-  #       end
+        it 'renders :show' do
+          expect(response).to render_template(:show)
+        end
+      end
 
-  #       it 'does not contain other locations' do
-  #         expect(assigns(:locations)).not_to include(other_location)
-  #       end
-  #     end
-  #   end
+      context 'when wrong graetzl' do
+        let(:other_graetzl) { create(:graetzl) }
+        before { get :show, graetzl_id: other_graetzl, id: location }
 
-  #   context 'when logged out' do    
-  #     before { get :index, graetzl_id: graetzl }
-  #     include_examples :a_successfull_index_request
-  #   end
+        it 'redirect_to location in right graetzl' do
+          expect(response).to redirect_to [graetzl, location]
+        end
+      end
+    end
+  end
 
-  #   context 'when business user' do
-  #     let(:user) { create(:user_business) }
-  #     before do
-  #       sign_in user
-  #       get :index, graetzl_id: graetzl
-  #     end
-  #     include_examples :a_successfull_index_request
-  #   end
+  describe 'GET index' do
+    let(:graetzl) { create(:graetzl) }
+    let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
+    let(:pending_location) { create(:location, graetzl: graetzl, state: Location.states[:pending]) }
 
-  #   context 'when non business user' do
-  #     let(:user) { create(:user) }
-  #     before do
-  #       sign_in user
-  #       get :index, graetzl_id: graetzl
-  #     end
-  #     include_examples :a_successfull_index_request
-  #   end
-  # end
+    before { get :index, graetzl_id: graetzl }
 
-  # describe 'GET show' do    
-  #   let(:location) { create(:location, graetzl: graetzl) }
-  #   let(:location_meeting) { create(:meeting, location: location) }
-  #   let(:location_meeting_past) { build(:meeting, location: location, starts_at_date: Date.yesterday) }
-  #   before { location_meeting_past.save(validate: false) }
+    it 'assigns @graetzl' do
+      expect(assigns(:graetzl)).to eq graetzl
+    end
 
-  #   shared_examples :a_successfull_show_request do
-
-  #     it 'renders :show' do
-  #       expect(response).to render_template(:show)
-  #     end
-
-  #     it 'assigns @location' do
-  #       expect(assigns(:location)).to eq location
-  #     end
-
-  #     it 'assigns @meetings' do
-  #       expect(assigns(:meetings)).to be
-  #     end
-
-  #     describe '@meetings' do
-  #       subject(:meetings) { assigns(:meetings) }
-
-  #       it 'includes upcoming location meetings' do
-  #         expect(meetings).to include(location_meeting)
-  #       end
-
-  #       it 'excludes past location meetings' do
-  #         expect(assigns(:meetings)).not_to include(location_meeting_past)
-  #       end
-  #     end
-  #   end
-
-  #   context 'when logged out' do
-  #     before { get :show, graetzl_id: graetzl, id: location }
-  #     include_examples :a_successfull_show_request
-  #   end
-
-  #   context 'when business user' do
-  #     let(:user) { create(:user) }
-  #     before do
-  #       sign_in user
-  #       get :show, graetzl_id: graetzl, id: location
-  #     end
-  #     include_examples :a_successfull_show_request
-  #   end
-
-  #   context 'when non business user' do
-  #     let(:user) { create(:user_business) }
-  #     before do
-  #       sign_in user
-  #       get :show, graetzl_id: graetzl, id: location
-  #     end
-  #     include_examples :a_successfull_show_request
-  #   end
-
-  #   context 'when wrong graetzl' do
-  #     before do
-  #       get :show, graetzl_id: create(:graetzl).slug, id: location
-  #     end
-
-  #     it 'redirects to right graetzl' do
-  #       expect(response).to redirect_to [graetzl, location]
-  #     end
-  #   end
-  # end
-
-
-
-
-
-
-
+    it 'assigns @locations with approved' do
+      expect(assigns(:locations)).to include(location)
+      expect(assigns(:locations)).not_to include(pending_location)
+    end
+  end
 end
