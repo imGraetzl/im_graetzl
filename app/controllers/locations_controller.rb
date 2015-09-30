@@ -1,7 +1,6 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_location, except: [:index, :new, :create]
-  #include GraetzlBeforeNew
   include GraetzlChild
 
   def new
@@ -19,10 +18,9 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
-    begin
-      @location.pending!
+    if @location.save
       enqueue_and_redirect
-    rescue ActiveRecord::RecordInvalid => invalid
+    else
       render :new
     end
   end
@@ -90,6 +88,7 @@ class LocationsController < ApplicationController
         :description,
         :avatar, :remove_avatar,
         :cover_photo, :remove_cover_photo,
+        :allow_meetings,
         contact_attributes: [
           :website,
           :email,
@@ -99,7 +98,8 @@ class LocationsController < ApplicationController
           :street_number,
           :zip,
           :city,
-          :coordinates],
+          :coordinates,
+          :_destroy],
         category_ids: []).
       merge(user_ids: [current_user.id])
   end

@@ -1,3 +1,9 @@
+<% if Rails.env.development? %>
+  <%= debug @location %>
+  <%= debug @location.contact %>
+  <%= debug @location.address if @location.address %>
+<% else %>
+
 <% title("#{@location.name}") %>
 
 <section class="locationPage">
@@ -41,3 +47,5 @@
   </div>
   <%= render 'sidebar' %>
 </section>
+
+<% end %>

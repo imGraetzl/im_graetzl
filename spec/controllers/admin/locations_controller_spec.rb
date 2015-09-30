@@ -106,7 +106,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
           zip: address.zip,
           city: address.city,
           coordinates: address.coordinates
-          })        
+          })
         params[:location].merge!(contact_attributes: {
           website: contact.website,
           email: contact.email,

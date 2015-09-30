@@ -122,6 +122,163 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
+  describe 'POST create' do
+    context 'when logged out' do
+      it 'redirects to login with flash' do
+        post :create
+        expect(response).to render_template(session[:new])
+      end
+    end
+
+    context 'when logged in' do
+      let(:graetzl) { create(:graetzl) }
+      let(:user) { create(:user) }
+      let(:attrs) { attributes_for(:location) }
+      let(:params) {
+        {
+          location: {
+            graetzl_id: graetzl.id,
+            name: attrs[:name],
+            slogan: attrs[:slogan],
+            description: attrs[:description]
+          }
+        }
+      }
+
+      before { sign_in user }
+
+      describe 'with basic attributes' do
+
+        it 'creates new location record' do
+          expect{
+            post :create, params
+          }.to change{Location.count}.by(1)
+        end        
+
+        it 'creates new location_ownership record' do
+          expect{
+            post :create, params
+          }.to change{LocationOwnership.count}.by(1)
+        end
+
+        it 'redirects to root with notice' do
+          post :create, params
+          expect(response).to redirect_to root_url
+          expect(flash[:notice]).to be_present
+        end
+
+        describe 'new location' do
+          before { post :create, params }
+          subject(:new_location) { Location.last }
+
+          it 'has attributes' do
+            expect(new_location).to have_attributes(
+              graetzl: graetzl,
+              name: attrs[:name],
+              slogan: attrs[:slogan],
+              description: attrs[:description]
+            )
+          end
+
+          it 'is pending' do
+            expect(new_location.pending?).to eq true
+          end
+
+          it 'has current_user associated' do
+            expect(new_location.users).to include(user)
+          end
+        end
+      end
+
+      describe 'with contact and address' do
+        let(:address) { build(:address) }
+        let(:contact) { build(:contact) }
+
+        before do
+          params[:location].merge!(contact_attributes: {
+            website: contact.website,
+            email: contact.email,
+            phone: contact.phone })
+          params[:location].merge!(address_attributes: {
+            street_name: address.street_name,
+            street_number: address.street_number,
+            zip: address.zip,
+            city: address.city,
+            coordinates: address.coordinates })
+        end
+
+        it 'creates new location record' do
+          expect{
+            post :create, params
+          }.to change{Location.count}.by(1)
+        end
+
+        it 'creates new address record' do
+          expect{
+            post :create, params
+          }.to change{Address.count}.by(1)
+        end
+
+        it 'creates new contact record' do
+          expect{
+            post :create, params
+          }.to change{Contact.count}.by(1)
+        end
+      end
+    end
+  end
+
+    # describe 'POST create' do
+  #   let(:user) { create(:user_business) }
+  #   before { sign_in user }
+
+  #   context 'with valid attributes' do
+  #     let(:params) {
+  #       {
+  #         location: attributes_for(:location).
+  #           merge(graetzl_id: graetzl.id).
+  #           merge({ contact_attributes: attributes_for(:contact) }).
+  #           merge({ address_attributes: attributes_for(:address) })
+  #       }
+  #     }
+
+  #     it 'creates new location record' do
+  #       expect{
+  #         post :create, params
+  #       }.to change(Location, :count).by(1)
+  #     end
+
+  #     describe 'location' do
+  #       before { post :create, params }
+  #       subject(:new_location) { Location.last }
+
+  #       it 'has graetzl' do
+  #         expect(new_location.graetzl).to eq graetzl
+  #       end
+
+  #       it 'is pending' do
+  #         expect(new_location.pending?).to be_truthy
+  #       end
+
+  #       it 'has current_user associated' do
+  #         expect(new_location.users).to include(user)
+  #       end
+  #     end
+
+  #     it 'creates location_ownership' do
+  #       expect{
+  #         post :create, params
+  #       }.to change(LocationOwnership, :count).by(1)        
+  #     end
+
+  #     it 'redirects to root with notice' do
+  #       post :create, params
+  #       expect(response).to redirect_to root_url
+  #       expect(flash[:notice]).to be_present
+  #     end
+  #   end
+  # end
+
   #     context 'when non-business' do
   #       let(:user) { create(:user) }
   #       before do

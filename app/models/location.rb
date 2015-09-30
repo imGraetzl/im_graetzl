@@ -11,7 +11,7 @@ class Location < ActiveRecord::Base
   # associations
   belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :address, allow_destroy: true
   has_one :contact, dependent: :destroy
   accepts_nested_attributes_for :contact
   has_many :location_ownerships, dependent: :destroy

@@ -11,4 +11,11 @@ module LocationsHelper
       end
     end   
   end
+
+  def link_to_add_address_fields(name, f)
+    new_address = f.object.build_address
+    fields = render('address_fields', f: f)
+    link_to(name, '#', class: 'add_address_fields btn-secondary',
+            data: { fields: fields.gsub('\n','') })
+  end
 end
