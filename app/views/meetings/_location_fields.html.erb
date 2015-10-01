@@ -1,4 +1,4 @@
-<% if !disable_fields && current_user.business? %>
+<% if !disable_fields %>
   <div class="input-checkbox">
     <%= check_box_tag 'location', 1, f.object.location %>
     <%= label_tag 'location', 'Hat mit meiner wirtschaftlichen oder kreativen Tätigkeit zu tun.' %>
@@ -10,7 +10,7 @@
         <span>Location</span>
     <% end %>
     <%= f.select(:location_id,
-                current_user.locations.managed.collect {|l| [l.name, l.id] },
+                current_user.locations.fit_for_meeting.collect {|l| [l.name, l.id] },
                 {include_blank: 'wähle deine Location'}) %>
   </div>
 <% else %>

@@ -2,6 +2,9 @@ class Location < ActiveRecord::Base
   include PublicActivity::Common
   extend FriendlyId
 
+  # scopes
+  scope :fit_for_meeting, -> { where(state: states[:approved], allow_meetings: true) }
+
   # macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }

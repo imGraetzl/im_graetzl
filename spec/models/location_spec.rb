@@ -6,6 +6,37 @@ RSpec.describe Location, type: :model do
     expect(build_stubbed(:location)).to be_valid
   end
 
+  describe 'scopes' do
+    describe ':fit_for_meeting' do
+      let!(:approved_and_meetings) { create(:location,
+                                    state: Location.states[:approved],
+                                    allow_meetings: true) }
+      let!(:approved_and_no_meetings) { create(:location,
+                                    state: Location.states[:approved],
+                                    allow_meetings: false) }
+      let!(:pending_and_meetings) { create(:location,
+                                    state: Location.states[:pending],
+                                    allow_meetings: true) }
+      let!(:pending_and_no_meetings) { create(:location,
+                                    state: Location.states[:pending],
+                                    allow_meetings: false) }
+
+      subject(:locations) { Location.fit_for_meeting }
+
+      it 'returns only approved an allow_meetings location' do
+        expect(locations).to include(approved_and_meetings)
+      end
+
+      it 'ignores pending' do
+        expect(locations).not_to include(pending_and_meetings, pending_and_no_meetings)
+      end
+
+      it 'ignores where allow_meetings false' do
+        expect(locations).not_to include(approved_and_no_meetings)
+      end
+    end
+  end
+
   describe 'validations' do
     it 'is invalid without name' do
       expect(build(:location, name: '')).not_to be_valid
