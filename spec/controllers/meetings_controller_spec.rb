@@ -144,7 +144,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       context 'within location' do
-        let(:location) { create(:location_managed) }
+        let(:location) { create(:location, state: Location.states[:approved]) }
         before { get :new, location_id: location.id }
 
         include_examples :a_successful_new_request
@@ -211,7 +211,6 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when logged in' do
       let(:user) { create(:user) }
-      #let(:location) { create(:location_managed) }
       let(:params) {
         {
           meeting: { name: 'new_meeting', graetzl_id: graetzl.id, address_attributes: {} },
@@ -311,7 +310,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
       context 'with full address and location' do
         let(:address) { build(:address) }
-        let!(:location) { create(:location_managed) }
+        let!(:location) { create(:location, state: Location.states[:approved]) }
         before do
           params.merge!(address: 'something')
           params[:meeting].merge!({
@@ -621,26 +620,22 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         describe 'location' do
-          let(:location) { create(:location_managed) }
+          let(:location) { create(:location, state: Location.states[:approved]) }
 
-          context 'when business user' do
-            before { user.business! }
+          it 'links location' do
+            params[:meeting].merge!(location_id: location.id)
+            put :update, params
+            meeting.reload
+            expect(meeting.location).to eq location
+          end
 
-            it 'links location' do
-              params[:meeting].merge!(location_id: location.id)
+          it 'removes location' do
+            meeting.update(location_id: location.id)
+            params[:meeting].merge!(location_id: '')
+            expect{
               put :update, params
               meeting.reload
-              expect(meeting.location).to eq location
-            end
-
-            it 'removes location' do
-              meeting.update(location_id: location.id)
-              params[:meeting].merge!(location_id: '')
-              expect{
-                put :update, params
-                meeting.reload
-              }.to change{meeting.location}.from(location).to nil
-            end
+            }.to change{meeting.location}.from(location).to nil
           end
         end
       end

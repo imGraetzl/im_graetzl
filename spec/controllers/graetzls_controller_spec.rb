@@ -71,9 +71,9 @@ RSpec.describe GraetzlsController, type: :controller do
     end
 
     describe '@locations' do
-      context 'with managed locations' do
+      context 'with approved locations' do
         before do
-          3.times{ create(:location_managed, graetzl: graetzl) }
+          3.times{ create(:location, graetzl: graetzl, state: Location.states[:approved]) }
           get :show, id: graetzl
         end
 
@@ -81,10 +81,13 @@ RSpec.describe GraetzlsController, type: :controller do
           expect(assigns(:locations).count).to eq 2
         end
       end
-      context 'without managed locations' do
-
-        it 'is empty' do
+      context 'without approved locations' do
+        before do
+          3.times{ create(:location, graetzl: graetzl) }
           get :show, id: graetzl
+        end
+
+        it 'is empty' do          
           expect(assigns(:locations)).to be_empty
         end
       end
