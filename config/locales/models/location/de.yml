@@ -1,0 +1,5 @@
+de:
+  activerecord:
+    attributes:
+      location:
+        allow_meetings: 'Treffen möglich'

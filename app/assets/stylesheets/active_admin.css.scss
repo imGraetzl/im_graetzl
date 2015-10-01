@@ -18,10 +18,10 @@
   &.closed {
     background: red;
   }
-  &.pending, &.cancelled {
+  &.pending, &.cancelled, &.nein {
     background: orange;
   }
-  &.managed, &.open {
+  &.approved, &.open, &.ja {
     background: green;
   }
   &.recreation {

@@ -9,6 +9,7 @@ active_admin_form_for [:admin, resource] do |f|
         input :slug unless f.object.new_record?
         input :slogan
         input :description
+        input :allow_meetings, as: :boolean
         input :cover_photo, as: :file,
           hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
         input :remove_cover_photo, as: :boolean if f.object.cover_photo

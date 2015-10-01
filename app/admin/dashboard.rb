@@ -46,11 +46,11 @@ ActiveAdmin.register_page "Dashboard" do
       #   end
       end
 
-      column do
-        panel 'Neue Adressen' do
-          render 'admin/locations/candidates_table', compact: true
-        end
-      end
+      # column do
+      #   panel 'Neue Adressen' do
+      #     render 'admin/locations/candidates_table', compact: true
+      #   end
+      # end
     end
   end
 end

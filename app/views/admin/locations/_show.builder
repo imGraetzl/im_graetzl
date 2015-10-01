@@ -12,6 +12,9 @@ context.instance_eval do
           row :graetzl
           row :slogan
           row :description
+          row :allow_meetings do |l|
+            l.allow_meetings ? status_tag('ja') : status_tag('nein')
+          end
           row :cover_photo do |l|
             l.cover_photo ? cover_photo_for(l, fill: [200,100]) : nil
           end
@@ -28,13 +31,15 @@ context.instance_eval do
           row :phone
         end
       end
-      panel 'Address Details' do
-        attributes_table_for location.address do
-          row :id
-          row :description
-          row(:street){|a| "#{a.street_name}, #{a.street_number}"}
-          row(:place){|a| "#{a.zip}, #{a.city}"}
-          row :coordinates
+      if location.address
+        panel 'Address Details' do
+          attributes_table_for location.address do
+            row :id
+            row :description
+            row(:street){|a| "#{a.street_name}, #{a.street_number}"}
+            row(:place){|a| "#{a.zip}, #{a.city}"}
+            row :coordinates
+          end
         end
       end
     end
