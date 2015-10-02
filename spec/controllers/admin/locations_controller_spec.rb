@@ -235,6 +235,27 @@ RSpec.describe Admin::LocationsController, type: :controller do
       end
     end
 
+    context 'destroy address' do
+      before do
+        params[:location].merge!(address_attributes: {
+          id: location.address.id,
+          _destroy: 1})
+      end
+
+      it 'removes address from location' do
+        expect(location.address).to be_present
+        put :update, params
+        location.reload
+        expect(location.address).not_to be_present
+      end
+
+      it 'deletes address record' do
+        expect{
+          put :update, params
+        }.to change{Address.count}.by(-1)
+      end
+    end
+
     context 'with ownerships' do
       describe 'add ownership' do
         let!(:user) { create(:user) }

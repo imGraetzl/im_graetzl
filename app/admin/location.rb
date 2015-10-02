@@ -110,6 +110,7 @@ ActiveAdmin.register Location do
       :phone],
     address_attributes: [
       :id,
+      :_destroy,
       :street_name,
       :street_number,
       :zip,
