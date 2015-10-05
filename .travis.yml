@@ -9,12 +9,10 @@ addons:
   apt:
     packages:
       - libgeos-dev
-      - libgeos
       - libproj-dev
 before_script:
   - psql -U postgres -c "create extension postgis"
   - bundle exec rake db:create db:schema:load RAILS_ENV=test
-cache: bundler
 notifications:
   email:
     recipients:
