@@ -51,6 +51,16 @@ Rails.application.routes.draw do
     post 'users/notification_settings/mark_as_seen', to: 'notification_settings#mark_as_seen', as: :user_notifications_mark_as_seen
   end
 
+  resources :users, only: [:show, :update] do
+    resource :comments, module: :users, only: [:create]
+  end
+
+  resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
+    member do
+      get :locations
+    end
+  end
+
   get 'info/agb', to: 'static_pages#agb'
   get 'info/datenschutz', to: 'static_pages#datenschutz'
   get 'info/impressum', to: 'static_pages#impressum'
@@ -84,12 +94,6 @@ Rails.application.routes.draw do
   resources :posts, only: [:create, :destroy] do
     resource :comments, module: :posts, only: [:create]
   end
-
-  resources :users, only: [:show, :update] do
-    resource :comments, module: :users, only: [:create]
-  end
-
-  resource :user, only: [:edit], path_names: { edit: 'einstellungen' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

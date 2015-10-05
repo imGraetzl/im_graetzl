@@ -1,13 +1,12 @@
+<% title("#{@user.username} Einstellungen") %>
+
 <section class="user-settings">
 
   <div class='tabs-ctrl'>
     <ul class="tabs-nav">
       <li><a href="#tab-1">Persönliche Daten</a></li>
       <li><a href="#tab-2">Benachrichtigungen</a></li>
-      <li><a href="#tab-3">Meine Locations</a></li>
     </ul>
-
-
 
     <div id='tab-1' class="personal-settings">
       <%= render 'form', user: @user %>
@@ -15,26 +14,6 @@
 
     <div id='tab-2' class="notification-settings">
       <%= render 'notification_settings/index' %>
-    </div>
-
-    <div id='tab-3'>
-
-      <div class="location-settings">
-        <div class="introtext">
-          <div class="tease">
-            Du bespielst im Viertel einen öffentlichen Raum?<br>
-            Du möchtest dir dein Schaufenster im Grätzl einrichten?<br>
-            Bei dir im Laden finden Events statt?
-          </div>
-          <strong>Um eine Location hinzuzufügen:</strong> Aktiviere zunächst in den <span class="toPersonal">Einstellungen für deine persönlichen Daten</span> den Haken <strong>'Ich bin wirtschaftlich und/oder kreativ im Grätzl tätig'</strong>.
-          Wenn du deine Location hinzugefügt hast, bekommst du hier die Nachricht angezeigt, ob sie freigeschaltet wurde.
-        </div>
-
-        <%= render partial: 'locations/slice', collection: @user.locations, as: 'location' %>
-
-        <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-primary' %>
-      </div>
-
     </div>
   </div>
 

@@ -31,6 +31,12 @@ RSpec.describe UsersController, type: :routing do
         controller: 'users',
         action: 'edit')
     end
+    
+    it 'routes GET /user/locations to users#locations' do
+      expect(get: '/user/locations').to route_to(
+        controller: 'users',
+        action: 'locations')
+    end
 
     it 'routes PUT /users/user-slug to users#update' do
       expect(put: '/users/user-slug').to route_to(
@@ -61,6 +67,12 @@ RSpec.describe UsersController, type: :routing do
       expect(get: edit_user_path).to route_to(
         controller: 'users',
         action: 'edit')
+    end
+
+    it 'routes GET locations_user_path to users#locations' do
+      expect(get: locations_user_path).to route_to(
+        controller: 'users',
+        action: 'locations')
     end
   end
 end

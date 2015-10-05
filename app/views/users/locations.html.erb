@@ -1,0 +1,17 @@
+<% title("#{current_user.username} Locations") %>
+
+<section class="user-settings">
+  <div class="location-settings">
+    <div class="introtext">
+      <div class="tease">
+        Du bespielst im Viertel einen öffentlichen Raum?<br>
+        Du möchtest dir dein Schaufenster im Grätzl einrichten?<br>
+        Bei dir im Laden finden Events statt?
+      </div>
+    </div>
+
+    <%= render partial: 'locations/slice', collection: @locations, as: 'location' %>
+
+    <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-primary' %>
+  </div>
+</section>
