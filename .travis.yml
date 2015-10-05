@@ -1,16 +1,19 @@
+sudo: false
 language: ruby
 rvm:
  - '2.1.0'
  - '2.2.0'
  - '2.2.2'
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install libgeos-dev libproj-dev
 addons:
   postgresql: '9.4'
+  apt:
+    packages:
+      - libgeos-dev
+      - libproj-dev
 before_script:
   - psql -U postgres -c "create extension postgis"
   - bundle exec rake db:create db:schema:load RAILS_ENV=test
+cache: bundler
 notifications:
   email:
     recipients:
