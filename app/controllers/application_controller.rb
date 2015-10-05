@@ -20,10 +20,4 @@ class ApplicationController < ActionController::Base
   def set_admin_locale
     I18n.locale = :en
   end
-
-  def authenticate
-    authenticate_or_request_with_http_basic('Administration') do |username, password|
-      username == 'admin' && password == 'password'
-    end
-  end
 end
