@@ -4,6 +4,7 @@ RSpec.feature 'Registration', type: :feature do
   let(:user) { build(:user) }
 
   before do
+    WebMock.allow_net_connect!
     create(:district, zip: '1020')
     visit new_registration_path
   end

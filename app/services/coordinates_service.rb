@@ -7,26 +7,19 @@ class CoordinatesService
     @street = address.street_name
     @house = address.street_number
     @district = zip_to_numeric(address.zip)
-    @best_feature = {}
-    #trysome
-  end
-
-  def trysome
-    features = query_api(uri_params)
-    puts features.first['properties'][DISTRICT_NR] 
   end
 
   def coordinates
     if features = query_api(uri_params)
-      puts 'go in'
-      find_best_feature(features)
-      RGeo::GeoJSON.decode(@best_feature['geometry'], :json_parser => :json)
-    end    
+      RGeo::GeoJSON.decode(find_best_feature(features)['geometry'], json_parser: :json)
+    else
+      nil
+    end
   end
   
   private
 
-  #attr_reader :street, :house, :district, :best_feature
+  attr_reader :street, :house, :district
 
   def zip_to_numeric(zip)
     zip.slice(1..2).sub(%r{^0},"") if zip.present?
@@ -39,7 +32,6 @@ class CoordinatesService
   def query_api(params)
     HTTParty.get(BASE_URI, query: params)['features']
   rescue
-    puts 'PROBLEM QUERY API'
     nil
   end
 

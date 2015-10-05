@@ -55,6 +55,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'webmock'
 end
 
 # Use ActiveModel has_secure_password
