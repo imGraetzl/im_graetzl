@@ -19,7 +19,11 @@ class MeetingsController < ApplicationController
     @meeting = @parent.meetings.build()
     if location = @meeting.location
       @meeting.graetzl = location.graetzl
-      @meeting.build_address(location.address.attributes.merge(description: location.name))
+      if location.address
+        @meeting.build_address(location.address.attributes.merge(description: location.name))
+      else
+        @meeting.build_address(description: location.name)
+      end
     else
       @meeting.build_address
     end

@@ -237,6 +237,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
     context 'destroy address' do
       before do
+        location.address = create(:address)
         params[:location].merge!(address_attributes: {
           id: location.address.id,
           _destroy: 1})

@@ -144,7 +144,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       context 'within location' do
-        let(:location) { create(:location, state: Location.states[:approved]) }
+        let(:location) { create(:location, state: Location.states[:approved], address: build(:address)) }
         before { get :new, location_id: location.id }
 
         include_examples :a_successful_new_request

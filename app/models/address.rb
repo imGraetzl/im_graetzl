@@ -1,9 +1,10 @@
 class Address < ActiveRecord::Base
+
   # associations
   belongs_to :addressable, polymorphic: true
 
-  # attributes
-  LOCATION_RADIUS = 0.001
+  # callbacks
+  before_save :get_coordinates unless Rails.env.test?
 
   # class methods
   def self.attributes_from_feature(feature)
@@ -16,7 +17,6 @@ class Address < ActiveRecord::Base
         city: feature['properties']['Municipality']
       }
     rescue JSON::ParserError => e
-      #something? or just nothing?
       nil
     end
   end
@@ -39,25 +39,11 @@ class Address < ActiveRecord::Base
     graetzls.first
   end
 
-  def locations
-    Location.joins(:address)
-      .where("ST_DWithin(addresses.coordinates, :point, #{LOCATION_RADIUS})", point: coordinates)
-  end
-
-  def available_locations
-    locations.where(state: [Location.states[:basic], Location.states[:managed]])
-  end
-
-
   private
 
-    def self.query_address_service(address_string)
-      query = "http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?Address=#{address_string}&crs=EPSG:4326"
-      uri = URI.parse(URI.encode(query))
-      begin
-        HTTParty.get(uri)
-      rescue
-        nil
-      end
+  def get_coordinates
+    if (addressable_type == 'Location') && street_name
+      coordinates = CoordinatesService.new(self).coordinates
     end
+  end
 end

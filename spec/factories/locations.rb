@@ -3,7 +3,6 @@ FactoryGirl.define do
     name { Faker::Company.name }
     slogan { Faker::Company.catch_phrase }
     description { Faker::Lorem.paragraph }
-    address
     contact
     graetzl
   end
