@@ -3,9 +3,7 @@
   <div id="stream-form">
     <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @meeting } %>
   </div>
-
-  <% @comments.each do |comment| %>
-    <%= render partial: comment, layout: 'layouts/stream/element' %>
-  <% end %>
+  <%= render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @comments %>
 
 </div>
+<%= view_more_link @comments %>

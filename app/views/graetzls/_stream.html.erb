@@ -10,6 +10,6 @@
   <div id="stream-form">
     <%= render partial: 'posts/form', layout: 'layouts/stream/form' %>
   </div>
-
   <%= render_activities @activities %>
 </div>
+<%= view_more_link @activities %>

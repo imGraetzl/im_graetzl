@@ -13,6 +13,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(:images, :user, comments: [:user, :images]).find(params[:id])
+    @comments = @post.comments.page(params[:page]).per(10)
   end
 
   def destroy
@@ -33,10 +34,10 @@ class PostsController < ApplicationController
 
   private
 
-    def post_params
-      params.
-        require(:post).
-        permit(:graetzl_id, :content, images_files: []).
-        merge(user_id: current_user.id)
-    end
+  def post_params
+    params.
+      require(:post).
+      permit(:graetzl_id, :content, images_files: []).
+      merge(user_id: current_user.id)
+  end
 end

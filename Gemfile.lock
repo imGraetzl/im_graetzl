@@ -343,6 +343,7 @@ DEPENDENCIES
   httparty
   jbuilder
   jquery-rails
+  kaminari
   letter_opener
   mandrill-api (~> 1.0.53)
   pg
