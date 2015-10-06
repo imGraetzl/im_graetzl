@@ -7,7 +7,7 @@ RSpec.describe 'meetings/show', type: :view do
   before do
     assign(:meeting, meeting)
     assign(:graetzl, graetzl)
-    assign(:comments, [])
+    assign(:comments, meeting.comments.page(params[:page]).per(10))
   end
 
   context 'when logged out' do
