@@ -20,16 +20,30 @@ class Graetzl < ActiveRecord::Base
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
   end
 
+  # def activity
+  #   a = PublicActivity::Activity.arel_table
+  #   PublicActivity::Activity
+  #     .select('DISTINCT ON(trackable_id, trackable_type) *')
+  #     .where(a[:key].in(STREAM_ACTIVITY_KEYS))
+  #     .where(
+  #       a[:owner_id].in(users.pluck(:id)).or(
+  #         a[:trackable_id].in(meetings.pluck(:id)).and(a[:trackable_type].eq('Meeting'))).or(
+  #         a[:trackable_id].in(posts.pluck(:id)).and(a[:trackable_type].eq('Post'))))
+  #     .order(:trackable_id, :trackable_type, created_at: :desc)
+  #     .sort_by(&:created_at).reverse
+  # end
+
   def activity
-    a = PublicActivity::Activity.arel_table
     PublicActivity::Activity
+      .includes(:trackable, :owner) 
       .select('DISTINCT ON(trackable_id, trackable_type) *')
-      .where(a[:key].in(STREAM_ACTIVITY_KEYS))
-      .where(
-        a[:owner_id].in(users.pluck(:id)).or(
-          a[:trackable_id].in(meetings.pluck(:id)).and(a[:trackable_type].eq('Meeting'))).or(
-          a[:trackable_id].in(posts.pluck(:id)).and(a[:trackable_type].eq('Post'))))
-      .order(:trackable_id, :trackable_type, created_at: :desc)
-      .sort_by(&:created_at).reverse
+      .where(key: STREAM_ACTIVITY_KEYS)
+      .where("(owner_id IN (?))
+        OR
+        (trackable_id IN (?) AND trackable_type = 'Meeting')
+        OR
+        (trackable_id IN (?) AND trackable_type = 'Post')", users.pluck(:id), meetings.pluck(:id), posts.pluck(:id))
+      .order(:trackable_id, :trackable_type)
+      .order(:created_at).reverse_order
   end
 end

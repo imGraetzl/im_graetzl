@@ -87,3 +87,5 @@ gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'public_activity', github: 'pokonski/public_activity'
 # submit multipart forms with ajax
 gem 'remotipart'
+# pagination
+gem 'kaminari'

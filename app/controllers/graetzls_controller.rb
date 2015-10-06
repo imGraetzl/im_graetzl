@@ -5,7 +5,7 @@ class GraetzlsController < ApplicationController
   
   def show
     @graetzl = Graetzl.includes(:meetings, :locations).find(params[:id])
-    @activities = @graetzl.activity
+    @activities = @graetzl.activity.page(params[:page])
     @meetings = @graetzl.meetings.basic.upcoming.first(2)
     @locations = @graetzl.locations.approved.order("RANDOM()").first(2)
     @map_data = GeoJSONService.call(graetzls: @graetzl)
