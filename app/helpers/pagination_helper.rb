@@ -1,8 +1,8 @@
 module PaginationHelper
   def view_more_link(resource)
-    link_to_next_page resource, 'Mehr',
+    link_to_next_page resource, 'Mehr anzeigen',
       remote: true,
-      data: { disable_with: "<i class='fa fa-spinner fa-spin'></i> lädt..." },
+      data: { disable_with: 'lädt...' },
       class: 'btn-primary view-more'    
   end
 end

@@ -25,32 +25,48 @@ RSpec.describe MeetingsController, type: :controller do
   # Controller methods
   describe 'GET show' do
     let!(:meeting) { create(:meeting, graetzl: graetzl) }
+    
+    context 'when html request' do
+      before { get :show, {graetzl_id: graetzl, id: meeting} }
 
-    before { get :show, {graetzl_id: graetzl, id: meeting} }
-
-    it 'assigns @meeting' do
-      expect(assigns(:meeting)).to eq meeting
-    end
-
-    it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq(graetzl)
-    end
-
-    it 'renders #show' do
-      expect(response).to render_template(:show)
-    end
-
-    it 'assigns @comments' do
-      expect(assigns(:comments)).to eq(meeting.comments)
-    end
-
-    context 'when wrong graetzl' do
-      before do
-        get :show, graetzl_id: create(:graetzl).slug, id: meeting
+      it 'assigns @meeting' do
+        expect(assigns(:meeting)).to eq meeting
       end
 
-      it 'redirects to right graetzl' do
-        expect(response).to redirect_to [graetzl, meeting]
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq(graetzl)
+      end
+
+      it 'renders show.html' do
+        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns @comments' do
+        expect(assigns(:comments)).to eq(meeting.comments)
+      end
+
+      context 'when wrong graetzl' do
+        before do
+          get :show, graetzl_id: create(:graetzl).slug, id: meeting
+        end
+
+        it 'redirects to right graetzl' do
+          expect(response).to redirect_to [graetzl, meeting]
+        end
+      end
+    end
+
+    context 'when js request' do
+      before { xhr :get, :show, {graetzl_id: graetzl, id: meeting} }
+
+      it 'renders show.js' do        
+        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns @comments' do
+        expect(assigns(:comments)).to eq(meeting.comments)
       end
     end
   end
