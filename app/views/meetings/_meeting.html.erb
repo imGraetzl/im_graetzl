@@ -11,13 +11,7 @@
       </div>
     <% end %>
 
-    <% if meeting.location && meeting.location.users.include?(meeting.initiator) %>
-      <div class="medalBadge">
-        <%= avatar_for meeting.location %>
-      </div>
-    <% else %>
-      <div class="sideflag -R"><%= meeting.graetzl.name %></div>
-    <% end %>
+    <div class="sideflag -R"><%= meeting.graetzl.name %></div>
 
     <% if initiator = meeting.initiator %>  
       <div class="initiator">
