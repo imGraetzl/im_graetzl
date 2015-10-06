@@ -89,3 +89,5 @@ gem 'public_activity', github: 'pokonski/public_activity'
 gem 'remotipart'
 # pagination
 gem 'kaminari'
+# icon font
+gem 'font-awesome-rails'
