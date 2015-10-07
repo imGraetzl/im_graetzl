@@ -1,0 +1,25 @@
+<% graetzl ||= nil %>
+<% district ||= nil %>
+
+<div class="wrp-selects">
+  <div class="input-select">
+    <label>
+      <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+      <span>Bezirk</span>
+    </label>
+    <%= select_tag :district_id,
+          options_from_collection_for_select(District.all, :id, :zip, (district ? district.id : district)),
+          prompt: 'wählen'
+    %>
+  </div>
+
+  <div class="input-select" id="graetzl-select">
+    <label>
+      <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>
+      <span>Grätzl</span>
+    </label>
+    <%= select_tag :graetzl_id,
+          options_from_collection_for_select((district ? district.graetzls : Graetzl.all), 'id', 'name', (graetzl ? graetzl.id : graetzl)),
+          { prompt: 'wählen', required: true } %>
+  </div>
+</div>

@@ -5,29 +5,7 @@
   <h1>In welchem <span>Grätzl</span> befindet sich die Location?</h1>
 
     <%= form_tag(before_new_locations_path) do %>
-
-      <div class="wrp-selects">
-        <div class="input-select">
-          <label>
-            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-            <span>Bezirk</span>
-          </label>
-          <%= select_tag :district_id,
-                options_from_collection_for_select(District.all, :id, :zip, @district.id)
-          %>
-        </div>
-
-        <div class="input-select" id="graetzl-select">
-          <label>
-            <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>
-            <span>Grätzl</span>
-          </label>
-          <%= select_tag :graetzl_id,
-                options_from_collection_for_select(@district.graetzls, 'id', 'name', @graetzl.id),
-                { required: true } %>
-        </div>
-      </div>    
-
+      <%= render 'shared/graetzl_select', district: @district, graetzl: @graetzl %>
       <div class="nav-btnBar">
         <%= link_to 'Zurück', 'javascript:history.back();', class: 'btn-secondary' %>
         <%= button_tag 'Weiter', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>

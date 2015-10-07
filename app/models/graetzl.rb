@@ -20,6 +20,10 @@ class Graetzl < ActiveRecord::Base
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
   end
 
+  def district
+    districts.first
+  end
+
   # def activity
   #   a = PublicActivity::Activity.arel_table
   #   PublicActivity::Activity

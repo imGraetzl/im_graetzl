@@ -52,7 +52,7 @@ RSpec.feature 'Registration', type: :feature do
 
       select "#{district_2.zip}", from: :district_id
       sleep 1
-      select "#{graetzl_2.name}", from: :graetzl
+      select "#{graetzl_2.name}", from: :graetzl_id
       click_button 'Weiter'
 
       expect(page).to have_text("Willkommen im Grätzl #{graetzl_2.name}")
@@ -82,9 +82,9 @@ RSpec.feature 'Registration', type: :feature do
       click_button 'Weiter'
 
       expect(page).to have_text("Unter #{address.street_name} konnten wir 2 Grätzl finden.")
-      expect(page).to have_field('graetzl', type: 'radio', count: 2, visible: false)
+      expect(page).to have_field('graetzl_id', type: 'radio', count: 2, visible: false)
 
-      find("label[for=graetzl_#{seestadt_aspern.id}]").click
+      find("label[for=graetzl_id_#{seestadt_aspern.id}]").click
       click_button 'Weiter'
 
       expect(page).to have_text("Willkommen im Grätzl #{seestadt_aspern.name}")
@@ -149,7 +149,7 @@ RSpec.feature 'Registration', type: :feature do
 
       select "#{district_2.zip}", from: :district_id
       sleep 2
-      select "#{graetzl_2.name}", from: :graetzl
+      select "#{graetzl_2.name}", from: :graetzl_id
       click_button 'Weiter'
 
       expect(page).to have_text("Willkommen im Grätzl #{graetzl_2.name}")
