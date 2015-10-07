@@ -42,6 +42,8 @@ group :development do
   gem 'letter_opener'
   # for debug in rails 4.2
   gem 'web-console', '~> 2.0'
+  # debug kill N+1 queries and unused eager loading
+  gem 'bullet'
 end
 
 # use rspec and factory for tests

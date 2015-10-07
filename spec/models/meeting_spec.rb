@@ -154,12 +154,12 @@ RSpec.describe Meeting, type: :model do
         expect(meetings).not_to include(m_yesterday)
       end
 
-      it 'ignores :created_at order' do
-        m_today.update(created_at: Date.yesterday-1)
-        m_after_tomorrow.update(created_at: Date.yesterday)
+      # it 'ignores :created_at order' do
+      #   m_today.update(created_at: Date.yesterday-1)
+      #   m_after_tomorrow.update(created_at: Date.yesterday)
 
-        expect(meetings.to_a).to eq [m_today, m_tomorrow, m_after_tomorrow, m_nil]
-      end
+      #   expect(meetings.to_a).to eq [m_today, m_tomorrow, m_after_tomorrow, m_nil]
+      # end
 
       it 'includes cancelled meetings' do
         m_today.cancelled!
