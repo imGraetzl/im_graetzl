@@ -6,37 +6,6 @@ RSpec.describe Location, type: :model do
     expect(build_stubbed(:location)).to be_valid
   end
 
-  describe 'scopes' do
-    describe ':fit_for_meeting' do
-      let!(:approved_and_meetings) { create(:location,
-                                    state: Location.states[:approved],
-                                    allow_meetings: true) }
-      let!(:approved_and_no_meetings) { create(:location,
-                                    state: Location.states[:approved],
-                                    allow_meetings: false) }
-      let!(:pending_and_meetings) { create(:location,
-                                    state: Location.states[:pending],
-                                    allow_meetings: true) }
-      let!(:pending_and_no_meetings) { create(:location,
-                                    state: Location.states[:pending],
-                                    allow_meetings: false) }
-
-      subject(:locations) { Location.fit_for_meeting }
-
-      it 'returns only approved an allow_meetings location' do
-        expect(locations).to include(approved_and_meetings)
-      end
-
-      it 'ignores pending' do
-        expect(locations).not_to include(pending_and_meetings, pending_and_no_meetings)
-      end
-
-      it 'ignores where allow_meetings false' do
-        expect(locations).not_to include(approved_and_no_meetings)
-      end
-    end
-  end
-
   describe 'validations' do
     it 'is invalid without name' do
       expect(build(:location, name: '')).not_to be_valid
@@ -68,6 +37,14 @@ RSpec.describe Location, type: :model do
 
     it 'has default location_type :business' do
       expect(location.business?).to be true
+    end
+
+    it 'has meeting_permission' do
+      expect(location).to respond_to(:meeting_permission)
+    end
+
+    it 'has default meeting_permission :meetable' do
+      expect(location.meetable?).to be true
     end
 
     it 'has avatar with content_type' do
@@ -196,6 +173,61 @@ RSpec.describe Location, type: :model do
         ['Kreativ / Unternehmerisch', 'business'],
         ['Öffentlicher Raum', 'public_space'],
         ['Leerstand', 'vacancy'])
+    end
+  end
+
+  describe '.meeting_permissions_for_select' do
+    subject(:array_for_select) { Location.meeting_permissions_for_select }
+
+    it 'returns multi dimensional array' do
+      expect(array_for_select).to be_a(Array)
+    end
+
+    it 'contains one array for each type' do
+      expect(array_for_select.size).to eq Location.meeting_permissions.size
+    end
+
+    it 'contains key and trainslation' do
+      expect(array_for_select).to contain_exactly(
+        ['jeder', 'meetable'],
+        ['nur ich', 'owner_meetable'],
+        ['niemand', 'non_meetable'])
+    end
+  end
+
+  describe '#show_meeting_button' do
+    let!(:location) { create(:location) }
+
+    context 'when meeting_permission meetable' do
+      before { location.meetable! }
+
+      it 'returns true for any user' do
+        expect(location.show_meeting_button(build(:user))).to eq true
+      end
+    end
+
+    context 'when meeting_permission owner_meetable' do
+      let(:owner) { create(:user) }
+      before do
+        location.owner_meetable!
+        create(:location_ownership, location: location, user: owner)
+      end
+
+      it 'returns false for random user' do
+        expect(location.show_meeting_button(build(:user))).to eq false
+      end
+
+      it 'returns true for owner' do         
+        expect(location.show_meeting_button(owner)).to eq true
+      end
+    end
+
+    context 'when meeting_permission non_meetable' do
+      before { location.non_meetable! }
+
+      it 'returns false for any user' do
+        expect(location.show_meeting_button(build(:user))).to eq false
+      end
     end
   end
 

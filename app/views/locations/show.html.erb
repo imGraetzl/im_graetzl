@@ -20,11 +20,11 @@
       <p><%= @location.description %></p>
     </div>
 
-    <% if @location.allow_meetings %>
+    <% if @location.meetable? || @location.owner_meetable? %>
     <div class="meetingsBlock">
       <div class="wrp-hl">
         <h2>Treffen</h2>
-        <% if user_signed_in? %>
+        <% if user_signed_in? && @location.show_meeting_button(current_user) %>
           <%= link_to new_meeting_path(location_id: @location.id), class: "btn-userCallToAction" do %>
             <span>
               <%= avatar_for current_user %>

@@ -2,13 +2,11 @@ class Location < ActiveRecord::Base
   include PublicActivity::Common
   extend FriendlyId
 
-  # scopes
-  scope :fit_for_meeting, -> { where(state: states[:approved], allow_meetings: true) }
-
   # macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
   enum location_type: { business: 0, public_space: 1, vacancy: 2 }
+  enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image  
 
@@ -38,6 +36,12 @@ class Location < ActiveRecord::Base
     location_types.map do |t|
       [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :location_types]), t[0]]
     end
+  end
+
+  def self.meeting_permissions_for_select
+    meeting_permissions.map do |t|
+      [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :meeting_permissions]), t[0]]
+    end
   end 
 
   def approve
@@ -55,8 +59,8 @@ class Location < ActiveRecord::Base
     false
   end
 
-  def owned_by(user)
-    location_ownerships.basic.find_by_user_id(user)
+  def show_meeting_button(user)
+    self.meetable? || (self.owner_meetable? && users.include?(user))    
   end
 
 

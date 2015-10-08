@@ -13,6 +13,7 @@ ActiveAdmin.register Location do
 
   # filter
   filter :graetzl
+  filter :location_type, as: :select, collection: Location.location_types.keys
   filter :name
   filter :slogan
   filter :description
@@ -104,6 +105,7 @@ ActiveAdmin.register Location do
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
     :location_type,
+    :meeting_permission,
     contact_attributes: [
       :id,
       :website,

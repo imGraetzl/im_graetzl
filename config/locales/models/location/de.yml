@@ -2,8 +2,12 @@ de:
   activerecord:
     attributes:
       location:
-        allow_meetings: 'Treffen möglich'
         location_types:
-          business: 'Kreativ / Unternehmerisch'
-          public_space: 'Öffentlicher Raum'
-          vacancy: 'Leerstand'
+          business: Kreativ / Unternehmerisch
+          public_space: Öffentlicher Raum
+          vacancy: Leerstand
+        meeting_permission: Treffen Erstellen
+        meeting_permissions:
+          meetable: jeder
+          owner_meetable: nur ich
+          non_meetable: niemand

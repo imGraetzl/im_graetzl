@@ -94,9 +94,12 @@
 
       <div class="user-personal">
         <p class="txt">Weitere Infos</p>
-        <div class="input-checkbox">
-          <%= f.check_box :allow_meetings %>
-          <%= f.label :allow_meetings, 'Treffen hier möglich' %>
+        <div class="input-select">
+          <%= f.label :meeting_permission do %>
+              <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
+              <span>Treffen hier erstellen</span>
+          <% end %>
+          <%= f.select :meeting_permission, options_for_select(Location.meeting_permissions_for_select) %>
         </div>
       </div>
 

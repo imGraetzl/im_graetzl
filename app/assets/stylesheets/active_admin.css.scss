@@ -15,20 +15,23 @@
 // For example, to change the default status-tag color:
 //
 .status_tag {
-  &.closed {
+  &.closed, &.non_meetable {
     background: red;
   }
-  &.pending, &.cancelled, &.nein {
+  &.pending, &.cancelled, &.nein, &.owner_meetable {
     background: orange;
   }
-  &.approved, &.open, &.ja {
+  &.approved, &.open, &.ja, &.meetable {
     background: green;
   }
-  &.recreation {
+  &.recreation, &.public_space {
     background: LightCoral; 
   }
   &.business {
     background: LightBlue; 
+  }
+  &.vacancy {
+    background: LightSeaGreen;
   }
 }
 

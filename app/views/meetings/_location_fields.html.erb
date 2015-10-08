@@ -10,7 +10,7 @@
         <span>Location</span>
     <% end %>
     <%= f.select(:location_id,
-                current_user.locations.fit_for_meeting.collect {|l| [l.name, l.id] },
+                current_user.locations.collect {|l| [l.name, l.id] },
                 {include_blank: 'wähle deine Location'}) %>
   </div>
 <% else %>

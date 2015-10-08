@@ -239,17 +239,19 @@ RSpec.describe LocationsController, type: :controller do
       let(:location) { create(:location,
                       contact: create(:contact),
                       address: create(:address)) }
-      let(:attrs) { attributes_for(:location) }
-      let(:location_type) { 'public_space' }
+      let(:attrs) { attributes_for(:location,
+                    location_type: 'public_space',
+                    meeting_permission: 'non_meetable') }
       let(:user) { create(:user) }
       let(:params) {
         {
           id: location,
           location: {
             name: attrs[:name],
-            location_type: location_type,
+            location_type: attrs[:location_type],
             slogan: attrs[:slogan],
-            description: attrs[:description]
+            description: attrs[:description],
+            meeting_permission: attrs[:meeting_permission]
           }
         }
       }
@@ -269,9 +271,10 @@ RSpec.describe LocationsController, type: :controller do
         it 'updates attributes' do
           expect(location).to have_attributes(
             name: attrs[:name],
-            location_type: location_type,
+            location_type: attrs[:location_type],
             slogan: attrs[:slogan],
-            description: attrs[:description])
+            description: attrs[:description],
+            meeting_permission: attrs[:meeting_permission])
         end
 
         it 'redirect_to location in graetzl' do

@@ -5,12 +5,12 @@ active_admin_form_for [:admin, resource] do |f|
       inputs 'Basic Info' do
         input :graetzl
         input :name
-        input :location_type, as: :select, collection: Location.location_types_for_select, include_blank: false
+        input :location_type, as: :select, collection: Location.location_types.keys, include_blank: false
         input :state, as: :select, collection: Location.states.keys, include_blank: false
         input :slug unless f.object.new_record?
         input :slogan
         input :description
-        input :allow_meetings, as: :boolean
+        input :meeting_permission, as: :select, collection: Location.meeting_permissions_for_select, include_blank: false
         input :cover_photo, as: :file,
           hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
         input :remove_cover_photo, as: :boolean if f.object.cover_photo
