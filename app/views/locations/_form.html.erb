@@ -25,6 +25,14 @@
           <%= f.text_field :name, placeholder: 'Benenne deine Tätigkeit' %>
         </div>
 
+        <div class="input-select">
+          <%= f.label :location_type do %>
+              <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
+              <span>Um was gehts</span>
+          <% end %>
+          <%= f.select :location_type, options_for_select(Location.location_types_for_select) %>
+        </div>
+
         <div class="input-field">
           <%= f.label :slogan do %>
               <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>

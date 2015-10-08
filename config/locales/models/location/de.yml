@@ -3,3 +3,7 @@ de:
     attributes:
       location:
         allow_meetings: 'Treffen möglich'
+        location_types:
+          business: 'Kreativ / Unternehmerisch'
+          public_space: 'Öffentlicher Raum'
+          vacancy: 'Leerstand'

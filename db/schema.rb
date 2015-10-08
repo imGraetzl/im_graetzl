@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930095435) do
+ActiveRecord::Schema.define(version: 20151008094426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 20150930095435) do
     t.string   "cover_photo_content_type"
     t.integer  "state",                    default: 0
     t.boolean  "allow_meetings",           default: true, null: false
+    t.integer  "location_type",            default: 0,    null: false
   end
 
   add_index "locations", ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree

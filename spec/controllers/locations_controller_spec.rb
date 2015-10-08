@@ -102,12 +102,14 @@ RSpec.describe LocationsController, type: :controller do
     context 'when logged in' do
       let(:graetzl) { create(:graetzl) }
       let(:user) { create(:user) }
-      let(:attrs) { attributes_for(:location) }
+      let(:attrs) { attributes_for(:location,
+                    location_type: 'public_space') }
       let(:params) {
         {
           location: {
             graetzl_id: graetzl.id,
             name: attrs[:name],
+            location_type: attrs[:location_type],
             slogan: attrs[:slogan],
             description: attrs[:description]
           }
@@ -144,6 +146,7 @@ RSpec.describe LocationsController, type: :controller do
             expect(new_location).to have_attributes(
               graetzl: graetzl,
               name: attrs[:name],
+              location_type: attrs[:location_type],
               slogan: attrs[:slogan],
               description: attrs[:description]
             )
@@ -236,13 +239,15 @@ RSpec.describe LocationsController, type: :controller do
       let(:location) { create(:location,
                       contact: create(:contact),
                       address: create(:address)) }
-      let(:attrs) { attributes_for(:location) } 
+      let(:attrs) { attributes_for(:location) }
+      let(:location_type) { 'public_space' }
       let(:user) { create(:user) }
       let(:params) {
         {
           id: location,
           location: {
             name: attrs[:name],
+            location_type: location_type,
             slogan: attrs[:slogan],
             description: attrs[:description]
           }
@@ -264,6 +269,7 @@ RSpec.describe LocationsController, type: :controller do
         it 'updates attributes' do
           expect(location).to have_attributes(
             name: attrs[:name],
+            location_type: location_type,
             slogan: attrs[:slogan],
             description: attrs[:description])
         end

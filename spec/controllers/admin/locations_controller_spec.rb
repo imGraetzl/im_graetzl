@@ -55,12 +55,15 @@ RSpec.describe Admin::LocationsController, type: :controller do
   end
 
   describe 'POST create' do
-    let(:location) { build(:location, graetzl: create(:graetzl)) }
+    let(:location) { build(:location,
+                      graetzl: create(:graetzl),
+                      location_type: Location.location_types[:public_space]) }
     let(:params) {
       {
         location: {
           graetzl_id: location.graetzl.id,
           name: location.name,
+          location_type: location.location_type,
           slogan: location.slogan,
           description: location.description,
           state: location.state
@@ -82,6 +85,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
         expect(l).to have_attributes(
           graetzl_id: location.graetzl.id,
           name: location.name,
+          location_type: location.location_type,
           slogan: location.slogan,
           description: location.description,
           state: location.state)

@@ -76,6 +76,7 @@ class LocationsController < ApplicationController
         :description,
         :avatar, :remove_avatar,
         :cover_photo, :remove_cover_photo,
+        :location_type,
         :allow_meetings,
         contact_attributes: [
           :id,

@@ -8,6 +8,7 @@ class Location < ActiveRecord::Base
   # macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
+  enum location_type: { business: 0, public_space: 1, vacancy: 2 }
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image  
 
@@ -31,6 +32,13 @@ class Location < ActiveRecord::Base
 
   # callbacks
   before_destroy :destroy_activity_and_notifications, prepend: true
+
+  # class methods
+  def self.location_types_for_select
+    location_types.map do |t|
+      [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :location_types]), t[0]]
+    end
+  end 
 
   def approve
     if pending? && approved!

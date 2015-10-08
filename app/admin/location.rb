@@ -103,6 +103,7 @@ ActiveAdmin.register Location do
     :allow_meetings,
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
+    :location_type,
     contact_attributes: [
       :id,
       :website,
