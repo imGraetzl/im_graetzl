@@ -2,19 +2,19 @@ namespace :db do
   desc 'Erase and fill db with sample data'
   task populate: :environment do
 
+    # remove old data
     puts 'remove old data'
+    [User, Meeting, Location, Post, Category, PublicActivity::Activity].each(&:destroy_all)
 
-    [User, Meeting, Location, Category, Post, PublicActivity::Activity].each(&:destroy_all)
-
+    # check for seed data
     puts 'check for graetzl and districts'
-
     if Graetzl.all.empty? || District.all.empty?
       puts 'invoke db:seed'
       Rake::Task['db:seed'].invoke
     end
 
+    # add users
     puts 'add users'
-
     users = ['malano', 'mirjam', 'jack', 'peter', 'jeanine', 'max', 'tawan']
     users.each do |user|
       new_user = User.new(
@@ -46,25 +46,58 @@ namespace :db do
     end
     user_1.save(validate: false)
 
-    puts 'add categories'
-
-    meeting_categories = [
-      'Essen & Trinken',
-      'Leute kennenlernen',
-      'Neu in der Stadt',
-      'Musik machen',
-      'Gemeinsam Sport machen',
-      'Ausgehen',
-      'Kultur',
-      'Kinder',
-      'Malen und Zeichnen',
-      'Swingerclubs',
-      'Modelbau',
-      'Aquaristik',
-      'Kunst und Forschung']
-
-    meeting_categories.each do |c|
-      Category.create(name: c)
+    # add locations
+    puts 'add locations'
+    users = User.all
+    2.times do
+      users.each do |u|
+        u.locations.create(
+          graetzl: u.graetzl,
+          name: Faker::Company.name,
+          slogan: Faker::Company.catch_phrase,
+          description: Faker::Lorem.paragraph(10),
+          state: 'approved',
+          contact_attributes: {
+            website: Faker::Internet.url,
+            email: Faker::Internet.email,
+            phone: Faker::PhoneNumber.cell_phone
+          })
+      end
     end
-  end  
+
+    # add meetings
+    puts 'add meetings'
+    users = User.all
+    4.times do
+      users.each do |u|
+        meeting = u.graetzl.meetings.create(
+          name: Faker::Lorem.sentence(3),
+          description: Faker::Lorem.paragraph(6),
+          starts_at_date: Faker::Date.forward(20),
+          address_attributes: {
+            street_name: Faker::Address.street_name,
+            street_number: Faker::Address.building_number,
+            zip: Faker::Address.zip,
+            description: Faker::Lorem.sentence(2),
+            coordinates: 'POINT (16.353172456228375 48.194235057984216)'
+          })
+        meeting.going_tos.create(user: u, role: 'initiator')
+        meeting.create_activity :create, owner: u
+      end
+    end
+
+    # add posts
+    puts 'add posts'
+    users = User.all
+    posts = []
+    10.times do
+      users.each do |u|
+        posts << u.posts.build(content: Faker::Lorem.paragraph(3), graetzl: u.graetzl)
+      end
+    end
+    posts.shuffle.each do |p|
+      p.save
+      p.create_activity :create, owner: p.user
+    end
+  end
 end
