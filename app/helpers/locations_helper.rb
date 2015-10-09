@@ -18,4 +18,10 @@ module LocationsHelper
     link_to(name, '#', class: 'add_address_fields btn-secondary',
             data: { fields: fields.gsub('\n','') })
   end
+
+  def link_to_add_graetzl_fields(name, object)
+    fields = render('shared/graetzl_select', object: object)
+    link_to(name, '#', class: 'add_graetzl_fields link-subtle',
+            data: { fields: fields.gsub('\n','') })
+  end
 end

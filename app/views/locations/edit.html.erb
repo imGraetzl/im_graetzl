@@ -2,10 +2,8 @@
 
 <section class="register-personalInfo">
   <div class="wrp">
-
-  <div class="wrp">
     <h1><span><%= @location.name %></span> im <%= @location.graetzl.name %></h1>
-    <%= link_to 'Grätzl ändern?', '#', class: 'link-subtle' %>
+    <%= link_to_add_graetzl_fields('Grätzl ändern', @location) %>
   </div>
 
   <%= render 'form' %>

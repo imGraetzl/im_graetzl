@@ -23,6 +23,15 @@ APP.controllers.locations = (function() {
             event.preventDefault();
         });
 
+        // TODO: change name of wrapper class
+        $('.register-personalInfo').on('click', '.add_graetzl_fields', function(event) {
+            var fields = $(this).data('fields');
+            $('input#location_graetzl_id').replaceWith(fields)
+            $(this).hide();
+            APP.components.graetzlSelect();
+            event.preventDefault();
+        });
+
     }
 
 
