@@ -339,6 +339,19 @@ RSpec.describe LocationsController, type: :controller do
           }.to change{Address.count}.by(-1)
         end
       end
+
+      describe 'change graetzl' do
+        let(:new_graetzl) { create(:graetzl) }
+        before do
+          params[:location].merge!(graetzl_id: new_graetzl.id)
+          put :update, params
+          location.reload
+        end
+
+        it 'updates graetzl' do
+          expect(location.graetzl).to eq new_graetzl
+        end
+      end
     end
   end
 

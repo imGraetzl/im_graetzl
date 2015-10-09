@@ -1,5 +1,6 @@
 <% graetzl ||= nil %>
 <% district ||= nil %>
+<% object ||= nil %>
 
 <div class="wrp-selects">
   <div class="input-select">
@@ -18,8 +19,8 @@
       <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>
       <span>Grätzl</span>
     </label>
-    <%= select_tag :graetzl_id,
-          options_from_collection_for_select((district ? district.graetzls : Graetzl.all), 'id', 'name', (graetzl ? graetzl.id : graetzl)),
-          { prompt: 'wählen', required: true } %>
+    <%= select_tag object ? "#{object.model_name.singular}[graetzl_id]" : 'graetzl_id',
+        options_from_collection_for_select((district ? district.graetzls : Graetzl.all), 'id', 'name', (graetzl ? graetzl.id : graetzl)),
+        { prompt: 'wählen', required: true, class: 'graetzl_id' } %>
   </div>
 </div>
