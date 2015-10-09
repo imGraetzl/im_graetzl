@@ -3,6 +3,12 @@
 
 Ruby on Rails social network app Vienna.
 
+### Table of Contents
+1. [Getting Started](#getting-started)
+2. [Development with Vagrant](#development-with-vagrant)
+3. [Development Notes](#development-notes)
+3. [Deployment](#deployment)
+
 
 ## Getting Started
 
@@ -131,6 +137,19 @@ vagrant suspend
 
 Next time running `vagrant up`, the database will be in the same state you left it.
 
+## Development Notes
+
+### Activity Feed (avoid N+1 queries)
+
+The activity feed uses chaps-io's [public activity](https://github.com/chaps-io/public_activity) gem. In order to be able to eager load different associations for the polymorphic 'trackable' association, the models must be added as an additional 'belongs_to' association to the 'PublicActivity::Activity' model. The definition goes into:
+
+`config/initializers/public_activity.rb`
+
+Afterwards, different associations can be eager loaded using `.includes`:
+
+```ruby
+PublicActivity::Activity.includes(post: [:user, :images], meeting: [:address])
+```
 
 ## Deployment
 

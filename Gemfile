@@ -42,6 +42,8 @@ group :development do
   gem 'letter_opener'
   # for debug in rails 4.2
   gem 'web-console', '~> 2.0'
+  # debug kill N+1 queries and unused eager loading
+  gem 'bullet'
 end
 
 # use rspec and factory for tests
@@ -55,6 +57,7 @@ group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'webmock'
 end
 
 # Use ActiveModel has_secure_password
@@ -81,10 +84,10 @@ gem 'aws-sdk'
 # use seo-friendly urls
 gem 'friendly_id'
 # activeadmin for admin interface (pre version)
-gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'activeadmin', '~> 1.0.0.pre2'
 #activity tracking for active record models
 gem 'public_activity', github: 'pokonski/public_activity'
 # submit multipart forms with ajax
 gem 'remotipart'
-# track changes to model data
-gem 'paper_trail'
+# pagination
+gem 'kaminari'

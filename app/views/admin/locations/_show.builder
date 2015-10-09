@@ -5,6 +5,7 @@ context.instance_eval do
         attributes_table_for location do
           row :id
           row :name
+          row(:location_type){|l| status_tag(l.location_type)}
           row(:state){|l| status_tag(l.state)}
           row :slug
           row :created_at
@@ -12,6 +13,7 @@ context.instance_eval do
           row :graetzl
           row :slogan
           row :description
+          row(:meeting_permission){|l| status_tag(l.meeting_permission)}
           row :cover_photo do |l|
             l.cover_photo ? cover_photo_for(l, fill: [200,100]) : nil
           end
@@ -28,13 +30,15 @@ context.instance_eval do
           row :phone
         end
       end
-      panel 'Address Details' do
-        attributes_table_for location.address do
-          row :id
-          row :description
-          row(:street){|a| "#{a.street_name}, #{a.street_number}"}
-          row(:place){|a| "#{a.zip}, #{a.city}"}
-          row :coordinates
+      if location.address
+        panel 'Address Details' do
+          attributes_table_for location.address do
+            row :id
+            row :description
+            row(:street){|a| "#{a.street_name}, #{a.street_number}"}
+            row(:place){|a| "#{a.zip}, #{a.city}"}
+            row :coordinates
+          end
         end
       end
     end

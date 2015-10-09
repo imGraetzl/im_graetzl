@@ -25,32 +25,48 @@ RSpec.describe MeetingsController, type: :controller do
   # Controller methods
   describe 'GET show' do
     let!(:meeting) { create(:meeting, graetzl: graetzl) }
+    
+    context 'when html request' do
+      before { get :show, {graetzl_id: graetzl, id: meeting} }
 
-    before { get :show, {graetzl_id: graetzl, id: meeting} }
-
-    it 'assigns @meeting' do
-      expect(assigns(:meeting)).to eq meeting
-    end
-
-    it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq(graetzl)
-    end
-
-    it 'renders #show' do
-      expect(response).to render_template(:show)
-    end
-
-    it 'assigns @comments' do
-      expect(assigns(:comments)).to eq(meeting.comments)
-    end
-
-    context 'when wrong graetzl' do
-      before do
-        get :show, graetzl_id: create(:graetzl).slug, id: meeting
+      it 'assigns @meeting' do
+        expect(assigns(:meeting)).to eq meeting
       end
 
-      it 'redirects to right graetzl' do
-        expect(response).to redirect_to [graetzl, meeting]
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq(graetzl)
+      end
+
+      it 'renders show.html' do
+        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns @comments' do
+        expect(assigns(:comments)).to eq(meeting.comments)
+      end
+
+      context 'when wrong graetzl' do
+        before do
+          get :show, graetzl_id: create(:graetzl).slug, id: meeting
+        end
+
+        it 'redirects to right graetzl' do
+          expect(response).to redirect_to [graetzl, meeting]
+        end
+      end
+    end
+
+    context 'when js request' do
+      before { xhr :get, :show, {graetzl_id: graetzl, id: meeting} }
+
+      it 'renders show.js' do        
+        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response).to render_template(:show)
+      end
+
+      it 'assigns @comments' do
+        expect(assigns(:comments)).to eq(meeting.comments)
       end
     end
   end
@@ -144,7 +160,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       context 'within location' do
-        let(:location) { create(:location_managed) }
+        let(:location) { create(:location, state: Location.states[:approved], address: build(:address)) }
         before { get :new, location_id: location.id }
 
         include_examples :a_successful_new_request
@@ -211,7 +227,6 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when logged in' do
       let(:user) { create(:user) }
-      #let(:location) { create(:location_managed) }
       let(:params) {
         {
           meeting: { name: 'new_meeting', graetzl_id: graetzl.id, address_attributes: {} },
@@ -311,7 +326,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
       context 'with full address and location' do
         let(:address) { build(:address) }
-        let!(:location) { create(:location_managed) }
+        let!(:location) { create(:location, state: Location.states[:approved]) }
         before do
           params.merge!(address: 'something')
           params[:meeting].merge!({
@@ -621,26 +636,22 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         describe 'location' do
-          let(:location) { create(:location_managed) }
+          let(:location) { create(:location, state: Location.states[:approved]) }
 
-          context 'when business user' do
-            before { user.business! }
+          it 'links location' do
+            params[:meeting].merge!(location_id: location.id)
+            put :update, params
+            meeting.reload
+            expect(meeting.location).to eq location
+          end
 
-            it 'links location' do
-              params[:meeting].merge!(location_id: location.id)
+          it 'removes location' do
+            meeting.update(location_id: location.id)
+            params[:meeting].merge!(location_id: '')
+            expect{
               put :update, params
               meeting.reload
-              expect(meeting.location).to eq location
-            end
-
-            it 'removes location' do
-              meeting.update(location_id: location.id)
-              params[:meeting].merge!(location_id: '')
-              expect{
-                put :update, params
-                meeting.reload
-              }.to change{meeting.location}.from(location).to nil
-            end
+            }.to change{meeting.location}.from(location).to nil
           end
         end
       end

@@ -5,10 +5,12 @@ active_admin_form_for [:admin, resource] do |f|
       inputs 'Basic Info' do
         input :graetzl
         input :name
+        input :location_type, as: :select, collection: Location.location_types.keys, include_blank: false
         input :state, as: :select, collection: Location.states.keys, include_blank: false
         input :slug unless f.object.new_record?
         input :slogan
         input :description
+        input :meeting_permission, as: :select, collection: Location.meeting_permissions_for_select, include_blank: false
         input :cover_photo, as: :file,
           hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
         input :remove_cover_photo, as: :boolean if f.object.cover_photo
@@ -21,15 +23,31 @@ active_admin_form_for [:admin, resource] do |f|
         c.input :email, as: :email
         c.input :phone
       end
-      inputs 'Address', for: [:address, (f.object.address || f.object.build_address)] do |a|
-        a.input :street_name
-        a.input :street_number
-        a.input :description
-        a.input :zip
-        a.input :city
-        a.input :coordinates, as: :string,
-          placeholder: 'POINT (16.345169051785824 48.19314778332606)',
-          hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
+      if f.object.address
+        inputs 'Address', for: [:address, (f.object.address)] do |a|
+          a.input :street_name
+          a.input :street_number
+          a.input :description
+          a.input :zip
+          a.input :city
+          a.input :coordinates, as: :string,
+            placeholder: 'POINT (16.345169051785824 48.19314778332606)',
+            hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
+          a.input :_destroy, as: :boolean, label: 'Adresse Löschen'
+        end
+      else
+        inputs 'Address' do
+          has_many :address, heading: false do |a|
+            a.input :street_name
+            a.input :street_number
+            a.input :description
+            a.input :zip
+            a.input :city
+            a.input :coordinates, as: :string,
+              placeholder: 'POINT (16.345169051785824 48.19314778332606)',
+              hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
+          end
+        end
       end
       actions
     end

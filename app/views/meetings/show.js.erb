@@ -1,0 +1,2 @@
+$('div.stream').append("<%= j render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @comments %>");
+$('a.view-more').replaceWith("<%= j view_more_link @comments %>")

@@ -10,8 +10,8 @@ class MeetingsController < ApplicationController
   end
 
   def show
-    verify_graetzl_child(@meeting)
-    @comments = @meeting.comments
+    verify_graetzl_child(@meeting) unless request.xhr?
+    @comments = @meeting.comments.page(params[:page]).per(10)
   end
 
   def new
@@ -19,7 +19,11 @@ class MeetingsController < ApplicationController
     @meeting = @parent.meetings.build()
     if location = @meeting.location
       @meeting.graetzl = location.graetzl
-      @meeting.build_address(location.address.attributes.merge(description: location.name))
+      if location.address
+        @meeting.build_address(location.address.attributes.merge(description: location.name))
+      else
+        @meeting.build_address(description: location.name)
+      end
     else
       @meeting.build_address
     end

@@ -3,12 +3,17 @@ class UsersController < ApplicationController
   before_action :set_graetzl, only: [:show]
 
   def show
-    @user = User.includes(:comments, meetings: [:going_tos]).find(params[:id])
+    @user = User.includes(wall_comments: [:images], meetings: [:going_tos]).find(params[:id])
+    @wall_comments = @user.wall_comments.page(params[:page]).per(10)
     redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
   end
 
   def edit
-    @user = User.includes(locations: [:location_ownerships, :users]).find(current_user.id)
+    @user = current_user
+  end
+
+  def locations
+    @locations = current_user.locations.includes(:location_ownerships)
   end
 
   def update

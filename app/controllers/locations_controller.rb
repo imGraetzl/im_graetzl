@@ -1,58 +1,48 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_location, except: [:index, :new, :create]
-  before_action :check_permission!, except: [:index, :show]
-  include AddressBeforeNew
   include GraetzlChild
 
   def new
-    render :adopt and return if adopt?
-    @graetzl ||= Graetzl.find(session[:graetzl])
-    @location = @graetzl.locations.build(address_attributes: session[:address])
-    @location.build_contact
-    empty_session
+    if request.get?
+      @graetzl = Graetzl.find(params[:graetzl_id] || current_user.graetzl_id)
+      @district = @graetzl.districts.first
+      render :graetzl_form
+    else
+      @graetzl = Graetzl.find(params[:graetzl_id])
+      @location = @graetzl.locations.build
+      @location.build_contact
+    end
   end
 
   def create
     @location = Location.new(location_params)
-    begin
-      @location.pending!
-      enqueue_and_redirect
-    rescue ActiveRecord::RecordInvalid => invalid
+    if @location.save
+      enqueue_and_redirect(root_url)
+    else
       render :new
     end
   end
 
-  def edit
-    if @location.managed? && !@location.owned_by(current_user)
-      @location.request_ownership(current_user)
-      enqueue_and_redirect
-    end
-  end
-
   def update
-    @location.attributes = location_params
-    begin
-      if !@location.managed? && @location.pending!
-        enqueue_and_redirect
-      elsif @location.managed? && @location.save
-        redirect_to [@location.graetzl, @location]
-      else
-        render :edit
-      end
-    rescue ActiveRecord::RecordInvalid => invalid
+    if @location.update(location_params)
+      redirect_to [@location.graetzl, @location]
+    else
       render :edit
     end
   end
 
   def index
-    #@locations = @graetzl.locations.available
-    @locations = @graetzl.locations.managed.includes(:address)
+    @locations = @graetzl.locations.approved.includes(:address)
   end
 
   def show
-    verify_graetzl_child(@location)
-    @meetings = @location.meetings.basic.upcoming
+    if @location.pending?
+      enqueue_and_redirect(:back)
+    else
+      verify_graetzl_child(@location)
+      @meetings = @location.meetings.basic.upcoming
+    end
   end
 
   def destroy
@@ -71,16 +61,9 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
   end
 
-  def check_permission!      
-    unless current_user.business?
-      flash[:error] = 'Nur wirtschaftstreibende User können Locations betreiben'
-      redirect_to :back
-    end
-  end
-
-  def enqueue_and_redirect
+  def enqueue_and_redirect(url)
     flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-    redirect_to root_url
+    redirect_to url
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -93,24 +76,22 @@ class LocationsController < ApplicationController
         :description,
         :avatar, :remove_avatar,
         :cover_photo, :remove_cover_photo,
+        :location_type,
+        :meeting_permission,
         contact_attributes: [
+          :id,
           :website,
           :email,
           :phone],
         address_attributes: [
+          :id,
           :street_name,
           :street_number,
           :zip,
           :city,
-          :coordinates],
+          :coordinates,
+          :_destroy],
         category_ids: []).
       merge(user_ids: [current_user.id])
-  end
-
-  def adopt?
-    if request.post?
-      @locations = @address.available_locations
-      return @locations.present?
-    end
   end
 end

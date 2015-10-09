@@ -6,23 +6,6 @@ RSpec.describe Location, type: :model do
     expect(build_stubbed(:location)).to be_valid
   end
 
-  describe 'scope' do
-    describe ':available' do
-      let!(:basic_location) { create(:location_basic) }
-      let!(:pending_location) { create(:location_pending) }
-      let!(:managed_location) { create(:location_managed) }
-      let!(:nil_location) { create(:location) }
-
-      it 'includes basic and managed locations' do
-        expect(Location.available).to include(basic_location, managed_location)
-      end
-
-      it 'does not include nil and pending locations' do
-        expect(Location.available).not_to include(nil_location, pending_location)
-      end
-    end
-  end
-
   describe 'validations' do
     it 'is invalid without name' do
       expect(build(:location, name: '')).not_to be_valid
@@ -42,6 +25,26 @@ RSpec.describe Location, type: :model do
 
     it 'has state' do
       expect(location).to respond_to(:state)
+    end
+
+    it 'has default state :pending' do
+      expect(location.pending?).to be true
+    end
+
+    it 'has location_type' do
+      expect(location).to respond_to(:location_type)
+    end
+
+    it 'has default location_type :business' do
+      expect(location.business?).to be true
+    end
+
+    it 'has meeting_permission' do
+      expect(location).to respond_to(:meeting_permission)
+    end
+
+    it 'has default meeting_permission :meetable' do
+      expect(location.meetable?).to be true
     end
 
     it 'has avatar with content_type' do
@@ -154,53 +157,88 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '.reset_or_destroy' do
-    context 'when previous version' do
-      let!(:location) { create(:location_basic, name: 'basic_name') }
+  describe '.location_types_for_select' do
+    subject(:array_for_select) { Location.location_types_for_select }
 
-      before do
-        location.name = 'pending_name'
-        location.pending!
-      end
+    it 'returns multi dimensional array' do
+      expect(array_for_select).to be_a(Array)
+    end
 
-      it 'resets attributes to previous version' do
-        Location.reset_or_destroy(location)
-        expect(location.reload.name).to eq 'basic_name'
-        expect(location.reload.state).to eq 'basic'
-      end
+    it 'contains one array for each type' do
+      expect(array_for_select.size).to eq Location.location_types.size
+    end
 
-      it 'adds new version' do
-        expect{
-          Location.reset_or_destroy(location)
-        }.to change(location.versions, :count).by(1)
+    it 'contains key and trainslation' do
+      expect(array_for_select).to contain_exactly(
+        ['Kreativ / Unternehmerisch', 'business'],
+        ['Öffentlicher Raum', 'public_space'],
+        ['Leerstand', 'vacancy'])
+    end
+  end
+
+  describe '.meeting_permissions_for_select' do
+    subject(:array_for_select) { Location.meeting_permissions_for_select }
+
+    it 'returns multi dimensional array' do
+      expect(array_for_select).to be_a(Array)
+    end
+
+    it 'contains one array for each type' do
+      expect(array_for_select.size).to eq Location.meeting_permissions.size
+    end
+
+    it 'contains key and trainslation' do
+      expect(array_for_select).to contain_exactly(
+        ['jeder', 'meetable'],
+        ['nur ich', 'owner_meetable'],
+        ['niemand', 'non_meetable'])
+    end
+  end
+
+  describe '#show_meeting_button' do
+    let!(:location) { create(:location) }
+
+    context 'when meeting_permission meetable' do
+      before { location.meetable! }
+
+      it 'returns true for any user' do
+        expect(location.show_meeting_button(build(:user))).to eq true
       end
     end
 
-    context 'when no previous version' do
-      let!(:location) { create(:location_pending) }
+    context 'when meeting_permission owner_meetable' do
+      let(:owner) { create(:user) }
+      before do
+        location.owner_meetable!
+        create(:location_ownership, location: location, user: owner)
+      end
 
-        it 'destroys record' do
-          expect{
-            Location.reset_or_destroy(location)
-          }.to change(Location, :count).by(-1)
-        end
+      it 'returns false for random user' do
+        expect(location.show_meeting_button(build(:user))).to eq false
+      end
 
-      it 'adds new version' do
-        expect{
-          Location.reset_or_destroy(location)
-        }.to change(location.versions, :count).by(1)
+      it 'returns true for owner' do         
+        expect(location.show_meeting_button(owner)).to eq true
+      end
+    end
+
+    context 'when meeting_permission non_meetable' do
+      before { location.non_meetable! }
+
+      it 'returns false for any user' do
+        expect(location.show_meeting_button(build(:user))).to eq false
       end
     end
   end
 
   describe '#approve' do
     context 'when location pending' do
-      let(:location) { create(:location_pending) }
+      let(:location) { create(:location, state: Location.states[:pending]) }
 
-      it 'sets state to managed' do
+      it 'changes state to approved' do
         expect{
           location.approve
-        }.to change{location.state}.to 'managed'
+        }.to change{location.state}.to 'approved'
       end
 
       it 'returns true' do
@@ -216,15 +254,10 @@ RSpec.describe Location, type: :model do
           expect(location.activities.last.key).to eq 'location.approve'
         end
       end
-
-      it 'updates ownerships' do
-        pending('not implemented yet')
-        fail
-      end
     end
 
     context 'when location not pending' do
-      let(:location) { create(:location_basic) }
+      let(:location) { create(:location, state: Location.states[:approved]) }
 
       it 'keeps state' do
         expect{
@@ -240,53 +273,21 @@ RSpec.describe Location, type: :model do
 
   describe '#reject' do
     context 'when location pending' do
-      context 'when previous version exists' do
-        let!(:location) { create(:location_basic, name: 'basic_name') }
+      let!(:location) { create(:location, state: Location.states[:pending]) }
 
-        before do
-          location.name = 'pending_name'
-          location.pending!
-        end
-
-        it 'returns true' do
-          expect(location.reject).to eq true
-        end
-
-        it 'resets attributes' do
-          expect{
-            location.reject
-          }.to change{ location.reload.name }.from('pending_name').to('basic_name')
-        end
-
-        it 'resets state' do
-          expect{
-            location.reject
-          }.to change{ location.reload.state }.to 'basic'
-        end
+      it 'returns true' do
+        expect(location.reject).to eq true
       end
 
-      context 'when no previous version exists' do
-        let!(:location) { create(:location_pending) }
-
-        it 'returns true' do
-          expect(location.reject).to eq true
-        end
-
-        it 'destroys record' do
-          expect{
-            location.reject
-          }.to change(Location, :count).by(-1)
-        end
-
-        it 'marks location as destroyed' do
+      it 'destroys record' do
+        expect{
           location.reject
-          expect(location.version.event).to eq 'destroy'
-        end
+        }.to change(Location, :count).by(-1)
       end
     end
 
-    context 'when location not pending' do
-      let(:location) { create(:location_managed) }
+    context 'when location approved' do
+      let(:location) { create(:location, state: Location.states[:approved]) }
 
       it 'keeps state' do
         expect{
@@ -297,92 +298,6 @@ RSpec.describe Location, type: :model do
       it 'returns false' do
         expect(location.reject).to eq false
       end
-    end
-  end
-
-  describe '#request_ownership' do
-
-    shared_examples :a_successfull_ownership_request do
-
-      it 'creates new location_onwership record' do
-        expect{
-          location.request_ownership(user)
-        }.to change(LocationOwnership, :count).by 1
-      end
-
-      describe 'location' do
-        before { location.request_ownership(user) }
-
-        it 'has user' do
-          expect(location.reload.users).to include(user)
-        end
-      end
-
-      describe 'location_ownership' do
-        subject(:location_ownership) { location.request_ownership(user) }
-
-        it 'is location_ownership object' do
-          expect(location_ownership).to be_instance_of(LocationOwnership)
-        end
-
-        it 'has state :pending' do
-          expect(location_ownership.pending?).to be true
-        end
-      end
-    end
-
-    shared_examples :an_unsuccessfull_ownership_request do
-
-      it 'does not create location_onwership record' do
-        expect{
-          location.request_ownership(user)
-        }.not_to change{LocationOwnership.count}
-      end
-
-      it 'returns nothing' do
-        expect(location.request_ownership(user)).to be nil
-      end
-    end
-
-    context 'when business user' do
-      let(:user) { create(:user_business) }
-
-      context 'when location pending' do
-        let(:location) { create(:location_pending) }
-        it_behaves_like :a_successfull_ownership_request
-
-        context 'with existing ownership' do
-          before { location.users << user }
-          it_behaves_like :an_unsuccessfull_ownership_request
-        end
-      end
-
-      context 'when location managed' do
-        let(:location) { create(:location_managed) }
-        it_behaves_like :a_successfull_ownership_request
-        
-        context 'with existing ownership' do
-          before { location.users << user }
-          it_behaves_like :an_unsuccessfull_ownership_request
-        end
-      end
-
-      context 'when location basic' do
-        let(:location) { create(:location_basic) }
-        it_behaves_like :an_unsuccessfull_ownership_request
-
-        context 'with existing ownership' do
-          before { location.users << user }
-          it_behaves_like :an_unsuccessfull_ownership_request
-        end
-      end
-    end
-
-    context 'when non business user' do
-      let(:user) { create(:user) }
-      let(:location) { create(:location_managed) }
-
-      it_behaves_like :an_unsuccessfull_ownership_request
     end
   end
 end

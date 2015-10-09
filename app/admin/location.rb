@@ -3,9 +3,8 @@ ActiveAdmin.register Location do
   menu priority: 4
 
   scope :all, default: true
-  scope :basic
   scope :pending
-  scope :managed
+  scope :approved
 
   # index
   index do
@@ -14,10 +13,12 @@ ActiveAdmin.register Location do
 
   # filter
   filter :graetzl
+  filter :location_type, as: :select, collection: Location.location_types.keys
   filter :name
   filter :slogan
   filter :description
   filter :state, as: :select, collection: Location.states.keys
+  filter :allow_meetings
   filter :users
   filter :created_at
   filter :updated_at
@@ -34,7 +35,7 @@ ActiveAdmin.register Location do
   collection_action :new_from_address, method: :post do
     address = Address.find(params[:address])
     @location = Location.new(name: address.description,
-      state: 'basic',
+      state: 'approved',
       graetzl: address.graetzl,
       contact: Contact.new)
     @location.build_address(street_name: address.street_name,
@@ -100,8 +101,11 @@ ActiveAdmin.register Location do
     :slug,
     :slogan,
     :description,
+    :allow_meetings,
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
+    :location_type,
+    :meeting_permission,
     contact_attributes: [
       :id,
       :website,
@@ -109,6 +113,7 @@ ActiveAdmin.register Location do
       :phone],
     address_attributes: [
       :id,
+      :_destroy,
       :street_name,
       :street_number,
       :zip,

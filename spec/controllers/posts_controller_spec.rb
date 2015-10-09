@@ -2,7 +2,56 @@ require 'rails_helper'
 
 RSpec.describe PostsController, type: :controller do
   let(:graetzl) { create(:graetzl) }
-  let(:user) { create(:user, graetzl: graetzl) }  
+  let(:user) { create(:user, graetzl: graetzl) }
+
+  describe 'GET show' do
+    let!(:post) { create(:post) }
+
+    context 'when logged out' do
+      it 'redirects to login_page' do
+        get :show, graetzl_id: post.graetzl, id: post
+        expect(response).to render_template(session[:new])
+      end
+    end
+
+    context 'when logged in' do
+      before { sign_in create(:user) }
+
+      context 'when html request' do
+        before { get :show, graetzl_id: post.graetzl, id: post }
+
+        it 'assigns @post' do
+          expect(assigns(:post)).to eq post
+        end
+
+        it 'assigns @comments' do
+          expect(assigns(:comments)).to be
+        end
+
+        it 'renders show.html' do
+          expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+          expect(response).to render_template(:show)
+        end
+      end
+
+      context 'when js request' do
+        before { xhr :get, :show, graetzl_id: post.graetzl, id: post }
+
+        it 'assigns @post' do
+          expect(assigns(:post)).to eq post
+        end
+
+        it 'assigns @comments' do
+          expect(assigns(:comments)).to be
+        end
+
+        it 'renders show.js' do
+          expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+          expect(response).to render_template(:show)
+        end
+      end
+    end
+  end
 
   describe 'POST create' do
     context 'when logged out' do

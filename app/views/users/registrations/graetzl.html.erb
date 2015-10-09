@@ -1,4 +1,4 @@
-<% title('Registrierung') %>
+<% title('Registrierung Grätzl') %>
 
 <section class="register-selectGraetzl">
 
@@ -6,60 +6,32 @@
 
   <div class="txt">
     <% if @search_input %>
-
       <p>
-        Unter <span class="address"><%= @search_input %></span> konnten wir <%= count_graetzl(@graetzls) %> Grätzl finden.<br>
+        Unter <span class="address"><%= @search_input %></span> konnten wir <%= (@graetzls && @graetzls.count > 0) ? @graetzls.count : 'leider kein' %> Grätzl finden.<br>
         Wo fühlst du dich denn zuhause?
       </p>
-
     <% else %>
-
       <p>
         Bitte wähle dein Grätzl manuell.<br>
         <span class="txt-hint">(Du kannst deine Auswahl später noch ändern)</span>
       </p>
-
     <% end %>
   </div>
 
 
   <%= form_tag(graetzl_registration_path) do %>
 
-    <% if @graetzls.empty? %>
-
-      <div class="wrp-selects">
-
-        <div class="input-select">
-          <label for="last_name">
-            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-            <span>Bezirk</span>
-          </label>
-          <%= select_tag :district_id, options_from_collection_for_select(District.all, :id, :zip),
-            prompt: 'wählen',
-            data: { remote: true, url: url_for(action: :graetzl) }
-            %>
-        </div>
-        <div class="input-select" id="graetzl-select">
-          <label for="last_name">
-            <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>
-            <span>Grätzl</span>
-          </label>
-          <%= select_tag :graetzl, options_from_collection_for_select(Graetzl.all, 'id', 'name'),
-            { prompt: 'wählen', required: true } %>
-        </div>
-      </div>
-
-    <% else %>
-
+    <% if (@graetzls && !@graetzls.empty?) %>
       <div class="wrp-radios">
         <% @graetzls.each do |g| %>
-            <div class="input-radio">
-              <%= radio_button_tag :graetzl, g.id, required: true %>
-              <%= label_tag "#{:graetzl}_#{g.id}", g.name %>
-            </div>
+          <div class="input-radio">
+            <%= radio_button_tag :graetzl_id, g.id, required: true %>
+            <%= label_tag "#{:graetzl_id}_#{g.id}", g.name %>
+          </div>
         <% end %>
       </div>
-
+    <% else %>
+      <%= render 'shared/graetzl_select' %>
     <% end %>
 
     <div class="nav-btnBar">

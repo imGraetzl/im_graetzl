@@ -180,12 +180,14 @@ ActiveRecord::Schema.define(version: 20151008203055) do
     t.string   "avatar_id"
     t.string   "cover_photo_id"
     t.string   "slug"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "graetzl_id"
     t.string   "avatar_content_type"
     t.string   "cover_photo_content_type"
-    t.integer  "state"
+    t.integer  "state",                    default: 0
+    t.integer  "location_type",            default: 0, null: false
+    t.integer  "meeting_permission",       default: 0, null: false
   end
 
   add_index "locations", ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree
@@ -279,16 +281,5 @@ ActiveRecord::Schema.define(version: 20151008203055) do
   add_index "users", ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
-
-  create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

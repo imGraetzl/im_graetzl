@@ -8,6 +8,7 @@ require 'factory_girl_rails'
 require 'database_cleaner'
 require 'capybara/poltergeist'
 require 'public_activity/testing'
+require 'webmock/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # require all spec support files

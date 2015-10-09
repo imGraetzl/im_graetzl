@@ -156,33 +156,16 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   end
 
   describe 'GET graetzl' do
-    describe 'html request' do
-      before { get :graetzl }
 
-      it 'assigns @graetzls' do
-        expect(assigns(:graetzls)).to eq []
-      end
-
-      it 'renders :graetzl' do
-        expect(response).to render_template(:graetzl)
-      end
-    end
-    describe 'ajax request' do
-      let(:district) { create(:district) }
-      let(:graetzl_1) { create(:graetzl) }
-      let(:graetzl_2) { create(:graetzl) }
-      let(:params) {{ district_id: district }}
-      before { xhr :get, :graetzl, params  }
-
-      it 'assigns @graetzl with graetzls' do
-        expect(assigns(:graetzls)).to include(graetzl_1, graetzl_2)
-      end
+    it 'renders :graetzl when html request' do
+      get :graetzl
+      expect(response).to render_template(:graetzl)
     end
   end
 
   describe 'POST graetzl' do
     let!(:graetzl) { create(:graetzl) }
-    before { post :graetzl, graetzl: graetzl }
+    before { post :graetzl, graetzl_id: graetzl }
 
     it 'clears session' do
       expect(session[:address]).to be nil

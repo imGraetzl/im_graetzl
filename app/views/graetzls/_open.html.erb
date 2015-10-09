@@ -19,22 +19,7 @@
   <div class="cardBoxCollection -tripple">
     <%= render @locations if @locations %>
 
-    <!-- could be partial (action card) -->
-    <div class="cardbox-wrp">
-      <div class="paperCard -cord1RT -illuteaser">
-        <div class="wrp">
-          <div class="user">
-            <%= image_tag('avatar/user/default.png', class: 'img-round') %>
-            <span>Dein Name</span>
-          </div>
-          <h3>Du bist unternehmerisch oder kreativ im Grätzl <%= @graetzl.name %> tätig?</h3>
-          <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
-        </div>
-        <div class="card"></div>
-      </div>
-      <%= link_to 'Alle Treffpunkte & Anbieter', graetzl_locations_path(@graetzl), class: 'link-more' %>
-    </div>
-  <!-- end action card -->
+    <%= render 'locations/action_card', graetzl: @graetzl, more: true %>
 
   </div>
 </div>

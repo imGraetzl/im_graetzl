@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::GraetzlsController, type: :controller do
-  let(:admin) { create(:user_admin) }
+  let(:admin) { create(:user, role: User.roles[:admin]) }
 
   before { sign_in admin }
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'locations/_location', type: :view do
-  let(:location) { build_stubbed(:location) }
+  let(:location) { build_stubbed(:location, address: build(:address)) }
 
   describe 'map' do
     context 'without address' do

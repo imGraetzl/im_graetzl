@@ -11,13 +11,5 @@ FactoryGirl.define do
     confirmed_at Date.today
     enabled_website_notifications 0
     immediate_mail_notifications 0
-
-    factory :user_business do
-      role User.roles[:business]
-    end
-
-    factory :user_admin do
-      role User.roles[:admin]
-    end
   end
 end

@@ -1,12 +1,12 @@
 module GeojsonSupport
-  def feature_hash(x = 10, y = 10)
+  def feature_hash(x = 10, y = 10, bez = '7', zip = '1070')
     {"type"=>"Feature",
         "geometry"=>{
           "type"=>"Point",
           "coordinates"=>[x, y]},
           "bbox"=>[y, x, x, y],
           "properties"=>{
-            "Bezirk"=>"7",
+            "Bezirk"=>bez,
             "Adresse"=>"Mariahilfer Straße 10",
             "CountryCode"=>"AT",
             "StreetName"=>"Mariahilfer Straße",
@@ -18,7 +18,7 @@ module GeojsonSupport
             "Zaehlbezirk"=>"0702",
             "Zaehlgebiet"=>"07023",
             "Ranking"=>0.0,
-            "PostalCode"=>"1070"}}
+            "PostalCode"=>zip}}
   end
 
   def esterhazygasse_hash

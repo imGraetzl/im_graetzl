@@ -1,7 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include AddressBeforeNew
   before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
 
   # GET /users/registrierung
   def new
@@ -19,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def graetzl
     # TODO: improve that...
     if request.post?
-      graetzl = Graetzl.find(params[:graetzl])
+      graetzl = Graetzl.find(params[:graetzl_id])
 
       # build resources
       build_resource({})
@@ -27,12 +26,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       self.resource.graetzl = graetzl
       empty_session
       render :new
-    else
-      @graetzls = []
-      if request.xhr?  
-        district = District.find(params[:district_id])
-        @graetzls = district.graetzls
-      end
     end
   end
 
@@ -87,33 +80,33 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-    def configure_sign_up_params
-      devise_parameter_sanitizer.for(:sign_up) do |u|
-        u.permit(
-          :username,
-          :gender,
-          :birthday,
-          :first_name, :last_name,
-          :email,
-          :password,
-          :terms_and_conditions,
-          :newsletter,
-          :role,
-          :avatar, :remove_avatar,
-          :graetzl_id,
-          address_attributes: [
-            :street_name,
-            :street_number,
-            :zip,
-            :city,
-            :coordinates])
-      end
+  def configure_sign_up_params
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(
+        :username,
+        :gender,
+        :birthday,
+        :first_name, :last_name,
+        :email,
+        :password,
+        :terms_and_conditions,
+        :newsletter,
+        :role,
+        :avatar, :remove_avatar,
+        :graetzl_id,
+        address_attributes: [
+          :street_name,
+          :street_number,
+          :zip,
+          :city,
+          :coordinates])
     end
+  end
 
-    def multiple_graetzl?
-      if request.post?
-        @graetzls = @address.graetzls
-        return @graetzls.size != 1
-      end
+  def multiple_graetzl?
+    if request.post?
+      @graetzls = @address.graetzls
+      return @graetzls.size != 1
     end
+  end
 end

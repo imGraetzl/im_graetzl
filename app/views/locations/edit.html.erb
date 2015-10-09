@@ -2,7 +2,10 @@
 
 <section class="register-personalInfo">
   <div class="wrp">
-    <h1>Location <span><%= @location.name %></span> <%= edit_status @location %></h1>
+
+  <div class="wrp">
+    <h1><span><%= @location.name %></span> im <%= @location.graetzl.name %></h1>
+    <%= link_to 'Grätzl ändern?', '#', class: 'link-subtle' %>
   </div>
 
   <%= render 'form' %>

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::LocationsController, type: :controller do
-  let(:admin) { create(:user_admin) }
+  let(:admin) { create(:user, role: User.roles[:admin]) }
 
   before { sign_in admin }
 
@@ -55,12 +55,17 @@ RSpec.describe Admin::LocationsController, type: :controller do
   end
 
   describe 'POST create' do
-    let(:location) { build(:location, graetzl: create(:graetzl)) }
+    let(:location) { build(:location,
+                      graetzl: create(:graetzl),
+                      location_type: Location.location_types[:public_space],
+                      meeting_permission: Location.meeting_permissions[:non_meetable]) }
     let(:params) {
       {
         location: {
           graetzl_id: location.graetzl.id,
           name: location.name,
+          location_type: location.location_type,
+          meeting_permission: location.meeting_permission,
           slogan: location.slogan,
           description: location.description,
           state: location.state
@@ -82,6 +87,8 @@ RSpec.describe Admin::LocationsController, type: :controller do
         expect(l).to have_attributes(
           graetzl_id: location.graetzl.id,
           name: location.name,
+          location_type: location.location_type,
+          meeting_permission: location.meeting_permission,
           slogan: location.slogan,
           description: location.description,
           state: location.state)
@@ -106,7 +113,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
           zip: address.zip,
           city: address.city,
           coordinates: address.coordinates
-          })        
+          })
         params[:location].merge!(contact_attributes: {
           website: contact.website,
           email: contact.email,
@@ -198,7 +205,10 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
   describe 'PUT update' do
     let!(:location) { create(:location) }
-    let(:new_location) { build(:location, graetzl: create(:graetzl)) }
+    let(:new_location) { build(:location,
+                        graetzl: create(:graetzl),
+                        location_type: Location.location_types[:vacancy],
+                        meeting_permission: Location.meeting_permissions[:non_meetable]) }
     let(:params) {
       {
         id: location,
@@ -207,6 +217,8 @@ RSpec.describe Admin::LocationsController, type: :controller do
           name: new_location.name,
           state: new_location.state,
           slogan: new_location.slogan,
+          location_type: new_location.location_type,
+          meeting_permission: new_location.meeting_permission,
           description: new_location.description}
       }
     }
@@ -227,7 +239,31 @@ RSpec.describe Admin::LocationsController, type: :controller do
           name: new_location.name,
           state: new_location.state,
           slogan: new_location.slogan,
+          location_type: new_location.location_type,
+          meeting_permission: new_location.meeting_permission,
           description: new_location.description)
+      end
+    end
+
+    context 'destroy address' do
+      before do
+        location.address = create(:address)
+        params[:location].merge!(address_attributes: {
+          id: location.address.id,
+          _destroy: 1})
+      end
+
+      it 'removes address from location' do
+        expect(location.address).to be_present
+        put :update, params
+        location.reload
+        expect(location.address).not_to be_present
+      end
+
+      it 'deletes address record' do
+        expect{
+          put :update, params
+        }.to change{Address.count}.by(-1)
       end
     end
 
@@ -294,13 +330,13 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
   describe 'PUT approve' do
     context 'when pending location' do
-      let!(:location) { create(:location_pending) }
+      let!(:location) { create(:location, state: Location.states[:pending]) }
 
-      it 'changes state to managed' do
+      it 'changes state to approved' do
         expect{
           put :approve, id: location
           location.reload
-        }.to change{location.state}.from('pending').to('managed')
+        }.to change{location.state}.from('pending').to('approved')
       end
 
       it 'redirects to index with flash[:success]' do
@@ -310,25 +346,8 @@ RSpec.describe Admin::LocationsController, type: :controller do
       end
     end
 
-    context 'when basic location' do
-      let!(:location) { create(:location_basic) }
-
-      it 'does not change state' do
-        expect{
-          put :approve, id: location
-          location.reload
-        }.not_to change(location, :state)
-      end
-
-      it 'redirects to location page with flash[:error]' do
-        put :approve, id: location
-        expect(response).to redirect_to admin_location_path(location)
-        expect(flash[:error]).to be_present
-      end
-    end
-
-    context 'when managed location' do
-      let!(:location) { create(:location_managed) }
+    context 'when approved location' do
+      let!(:location) { create(:location, state: Location.states[:approved]) }
 
       it 'does not change state' do
         expect{
@@ -347,54 +366,23 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
   describe 'PUT reject' do
     context 'when pending location' do
-      context 'with previous versions' do
-        let(:location) { create(:location_basic, name: 'basic_name') }
+      let!(:location) { create(:location) }
 
-        before do
-          location.name = 'pending_name'
-          location.pending!
-        end
-
-        it 'changes state to previous' do
-          expect{
-            put :reject, id: location
-            location.reload
-          }.to change{ location.state }.to 'basic'
-        end
-
-        it 'changes attributes to previous' do
-          expect{
-            put :reject, id: location
-            location.reload
-          }.to change{ location.name }.to 'basic_name'
-        end
-
-        it 'redirects to admin_locations with flash[:notice]' do
+      it 'destroys record' do
+        expect{
           put :reject, id: location
-          expect(response).to redirect_to admin_locations_path
-          expect(flash[:notice]).to be_present
-        end
+        }.to change(Location, :count).by(-1)
       end
 
-      context 'without previous versions' do
-        let!(:location) { create(:location_pending) }
-
-        it 'destroys record' do
-          expect{
-            put :reject, id: location
-          }.to change(Location, :count).by(-1)
-        end
-
-        it 'redirects to admin_locations with flash[:notice]' do
-          put :reject, id: location
-          expect(response).to redirect_to admin_locations_path
-          expect(flash[:notice]).to be_present
-        end
+      it 'redirects to admin_locations with flash[:notice]' do
+        put :reject, id: location
+        expect(response).to redirect_to admin_locations_path
+        expect(flash[:notice]).to be_present
       end
     end
 
-    context 'when non pending location' do
-      let!(:location) { create(:location_basic) }
+    context 'when approved location' do
+      let!(:location) { create(:location, state: Location.states[:approved]) }
 
       it 'does not change state' do
         expect{
@@ -433,8 +421,8 @@ RSpec.describe Admin::LocationsController, type: :controller do
         expect(location.graetzl).to eq graetzl
       end
 
-      it 'is basic' do
-        expect(location.basic?).to eq true
+      it 'is approved' do
+        expect(location.approved?).to eq true
       end
 
       it 'has contact' do

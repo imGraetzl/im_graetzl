@@ -2,14 +2,14 @@
     <%= f.hidden_field :graetzl_id %>
 
     <% if @location.errors.any? %>
-        <div id="error_explanation">
-          <h2>Location konnte nicht erstellt werden: <%= @location.errors.count %> Fehler.</h2>
-          <ul>
-            <% @location.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
+      <div id="error_explanation">
+        <h2>Location konnte nicht erstellt werden: <%= @location.errors.count %> Fehler.</h2>
+        <ul>
+          <% @location.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
 
     <div class="form-register">
@@ -23,6 +23,14 @@
               <span>Name</span>
           <% end %>
           <%= f.text_field :name, placeholder: 'Benenne deine Tätigkeit' %>
+        </div>
+
+        <div class="input-select">
+          <%= f.label :location_type do %>
+              <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
+              <span>Um was gehts</span>
+          <% end %>
+          <%= f.select :location_type, options_for_select(Location.location_types_for_select) %>
         </div>
 
         <div class="input-field">
@@ -80,77 +88,22 @@
         </div>
       </div>
 
-      <%= f.fields_for :contact do |contact_fields| %>
-          <div class="user-personal">
-            <p class="txt">Kontakt</p>
+      <%= render 'contact_fields', f: f %>
 
-            <div class="input-field">
-              <%= contact_fields.label :website do %>
-                  <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
-                  <span>Website</span>
-              <% end %>
-              <%= contact_fields.url_field :website, placeholder: 'http://www.' %>
-            </div>
+      <%= f.object.address ? render('address_fields', f: f) : link_to_add_address_fields('Addresse hinzufügen', f) %>
 
-            <div class="input-field">
-              <%= contact_fields.label :email do %>
-                  <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-                  <span>Email</span>
-              <% end %>
-              <%= contact_fields.email_field :email, placeholder: 'E-Mail' %>
-            </div>
+      <div class="user-personal">
+        <p class="txt">Weitere Infos</p>
+        <div class="input-select">
+          <%= f.label :meeting_permission do %>
+              <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
+              <span>Treffen hier erstellen</span>
+          <% end %>
+          <%= f.select :meeting_permission, options_for_select(Location.meeting_permissions_for_select) %>
+        </div>
+      </div>
 
-            <div class="input-field">
-              <%= contact_fields.label :phone do %>
-                  <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
-                  <span>Telefon</span>
-              <% end %>
-              <%= contact_fields.telephone_field :phone, placeholder: '+43 xxx xxxxxxx' %>
-            </div>
-          </div>
-      <% end %>
-
-      <%= f.fields_for :address do |address_fields| %>
-          <div class="user-personal">
-            <p class="txt">Adresse</p>
-
-            <div class="input-field">
-              <%= address_fields.label :street_name do %>
-                  <span>Straße</span>
-              <% end %>
-              <%= address_fields.text_field :street_name %>
-            </div>
-
-            <div class="input-field">
-              <%= address_fields.label :street_number do %>
-                  <span>Hausnummer</span>
-              <% end %>
-              <%= address_fields.text_field :street_number %>
-            </div>
-
-            <div class="input-field">
-              <%= address_fields.label :zip do %>
-                  <span>Postleitzahl</span>
-              <% end %>
-              <%= address_fields.text_field :zip, readonly: true %>
-            </div>
-
-            <div class="input-field">
-              <%= address_fields.label :city do %>
-                  <span>Ort</span>
-              <% end %>
-              <%= address_fields.text_field :city, readonly: true %>
-            </div>
-
-            <div class="field">
-              <%= address_fields.hidden_field :coordinates %>
-            </div>
-          </div>
-      <% end %>
-
-      <%= f.button "Location #{edit_status(@location)}",
-                    data: { disable_with: 'speichert...' },
-                    class: 'btn-primary' %>
+      <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
     </div>
 
 <% end %>

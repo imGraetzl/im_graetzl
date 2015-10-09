@@ -64,14 +64,11 @@
 
   <div class="stream">
     <h3>Persönliche <span>Pinnwand</span> von <%= @user.username %></h3>
-
     <div id="stream-form">
       <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @user } %>
     </div>
-
-    <% @user.wall_comments.each do |comment| %>
-      <%= render partial: comment, layout: 'layouts/stream/element' %>
-    <% end %>
+    <%= render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @wall_comments %>
   </div>
+  <%= view_more_link @wall_comments %>
 
 </section>
