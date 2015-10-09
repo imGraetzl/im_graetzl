@@ -27,8 +27,12 @@
     @include font-size-secondaryFont('small');
     margin-bottom: 20px;
   }
-  [class^=icon-] {
-    fill: $color-ambient-mint;
+
+  .icontxt {
+    width: 90%;
+    [class^=icon-] {
+      fill: $color-ambient-mint;
+    }
   }
   a {
     color: $color-ambient-mint;

@@ -25,6 +25,9 @@ section.locationPage {
     h3 {
       margin-bottom: 20px;
     }
+    .txt {
+      white-space: pre-wrap;
+    }
     @include font-size-primaryFont('large');
     margin-bottom: 40px;
     @include respond-to(">=medium") {

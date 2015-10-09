@@ -21,5 +21,9 @@
   align-items: center;
   [class^=icon-] {
     margin-right: 12px;
+    flex: 0 0 auto;
+  }
+  span {
+    @include ellipsis;
   }
 }
