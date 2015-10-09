@@ -170,9 +170,9 @@ RSpec.describe Location, type: :model do
 
     it 'contains key and trainslation' do
       expect(array_for_select).to contain_exactly(
-        ['Kreativ / Unternehmerisch', 'business'],
-        ['Öffentlicher Raum', 'public_space'],
-        ['Leerstand', 'vacancy'])
+        [I18n.t('business', scope: [:activerecord, :attributes, :location, :location_types]), 'business'],
+        [I18n.t('public_space', scope: [:activerecord, :attributes, :location, :location_types]), 'public_space'],
+        [I18n.t('vacancy', scope: [:activerecord, :attributes, :location, :location_types]), 'vacancy'])
     end
   end
 
@@ -189,9 +189,9 @@ RSpec.describe Location, type: :model do
 
     it 'contains key and trainslation' do
       expect(array_for_select).to contain_exactly(
-        ['jeder', 'meetable'],
-        ['nur ich', 'owner_meetable'],
-        ['niemand', 'non_meetable'])
+        [I18n.t('meetable', scope: [:activerecord, :attributes, :location, :meeting_permissions]), 'meetable'],
+        [I18n.t('owner_meetable', scope: [:activerecord, :attributes, :location, :meeting_permissions]), 'owner_meetable'],
+        [I18n.t('non_meetable', scope: [:activerecord, :attributes, :location, :meeting_permissions]), 'non_meetable'])
     end
   end
 

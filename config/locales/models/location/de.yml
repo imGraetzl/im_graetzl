@@ -2,12 +2,13 @@ de:
   activerecord:
     attributes:
       location:
+        location_type: Um was gehts
         location_types:
-          business: Kreativ / Unternehmerisch
-          public_space: Öffentlicher Raum
+          business: Kreativ oder unternehmerisch tätig
+          public_space: Öffentlicher Raum oder Treffpunkt
           vacancy: Leerstand
-        meeting_permission: Treffen Erstellen
+        meeting_permission: Treffen hier ermöglichen
         meeting_permissions:
-          meetable: jeder
-          owner_meetable: nur ich
-          non_meetable: niemand
+          meetable: Jeder kann Treffen hier starten
+          owner_meetable: Nur ich kann Treffen hier starten
+          non_meetable: Hier können keine Treffen stattfinden
