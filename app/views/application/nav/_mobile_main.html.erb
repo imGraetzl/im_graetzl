@@ -11,21 +11,32 @@
     <%= link_to content_tag(:span, 'Anmelden'), new_user_session_path, class: 'createMeeting' %>
   <% end %>
   <% if current_graetzl %>
-    <%= link_to current_graetzl.name, graetzl_path(current_graetzl) %>
+      <%= link_to graetzl_path(current_graetzl) do %>
+          <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= current_graetzl.name %>
+      <% end %>
+      <!-- normal links -->
+      <% if current_graetzl.open? %>
+          <%= link_to graetzl_meetings_path(current_graetzl) do %>
+              <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events im Grätzl
+          <% end %>
 
-    <!-- normal links -->
-    <% if current_graetzl.open? %>  
-      <%= link_to 'Treffen & Events im Grätzl', graetzl_meetings_path(current_graetzl) %>
-      <%= link_to 'Treffpunkte & Anbieter', graetzl_locations_path(current_graetzl) %>
-    <% else %>
-      <!-- disabled links -->
-      <a>Treffen & Events im Grätzl</a>
-      <a>Treffpunkte & Anbieter</a>
-    <% end %>
-    
-    <%= link_to "Grätzlzuckerl im #{l(Date.today, format: '%B')}", zuckerl_districts_path %>
-    
+          <%= link_to graetzl_locations_path(current_graetzl) do %>
+              <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Treffpunkte & Anbieter
+          <% end %>
+
+      <% else %>
+          <!-- disabled links -->
+          <span class="linkdisabled"><svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events im Grätzl</span>
+          <span class="linkdisabled"><svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Treffpunkte & Anbieter</span>
+      <% end %>
+
+      <%= link_to zuckerl_districts_path do %>
+          <svg class="icon-zuckerl"><use xlink:href="#icon-zuckerl"></use></svg><%= l(Date.today, format: 'Grätzlzuckerl im %B') %>
+      <% end %>
+
   <% end %>
-  <%= link_to 'Wien Übersicht', districts_path, class: 'discover' %>
-  <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank">Blog</a>
+  <%= link_to  districts_path, class: 'discover' do %>
+      <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
+  <% end %>
+  <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank"><svg class="icon-coffee"><use xlink:href="#icon-coffee"></use></svg>Blog</a>
 </div>

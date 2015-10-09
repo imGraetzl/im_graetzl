@@ -83,14 +83,23 @@
   }
 
 
-  .mobileMainNav {
-
-  }
-  .mobileUserSettings {
-
-  }
-  .mobileNotifications {
-
+  .createMeeting {
+    padding-left: 20px;
+    padding-right: 20px;
+    border-right: 1px dotted lighten($color-ambient-mint, 20);
+    color: $color-ambient-mint-dark;
+    font-family: $font-tertiary;
+    font-size: 2.2rem;
+    &:hover, >*:active {
+      color: $color-ambient-rosa;
+    }
+    span {
+      background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
+      background-position: right center, left center;
+      background-repeat: no-repeat;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   }
 
 }
