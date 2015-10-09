@@ -2,52 +2,49 @@
     <%= f.hidden_field :graetzl_id %>
 
     <% if @location.errors.any? %>
-      <div id="error_explanation">
-        <h2>Location konnte nicht erstellt werden: <%= @location.errors.count %> Fehler.</h2>
-        <ul>
-          <% @location.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
+        <div id="error_explanation">
+          <h2>Location konnte nicht erstellt werden: <%= @location.errors.count %> Fehler.</h2>
+          <ul>
+            <% @location.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
     <% end %>
 
-    <div class="form-register">
+    <div class="form-block">
+      <p class="txt"><span>Details</span> zu deiner Location</p>
 
-      <div class="user-personal">
-        <p class="txt">Basic Info</p>
+      <div class="input-field">
+        <%= f.label :name do %>
+            <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
+            <span>Name</span>
+        <% end %>
+        <%= f.text_field :name, placeholder: 'Benenne deine Tätigkeit' %>
+      </div>
 
-        <div class="input-field">
-          <%= f.label :name do %>
-              <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
-              <span>Name</span>
-          <% end %>
-          <%= f.text_field :name, placeholder: 'Benenne deine Tätigkeit' %>
-        </div>
+      <div class="input-select">
+        <%= f.label :location_type do %>
+            <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+            <span><%= Location.human_attribute_name(:location_type) %></span>
+        <% end %>
+        <%= f.select :location_type, options_for_select(Location.location_types_for_select) %>
+      </div>
 
-        <div class="input-select">
-          <%= f.label :location_type do %>
-              <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
-              <span><%= Location.human_attribute_name(:location_type) %></span>
-          <% end %>
-          <%= f.select :location_type, options_for_select(Location.location_types_for_select) %>
-        </div>
+      <div class="input-field">
+        <%= f.label :slogan do %>
+            <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
+            <span>Slogan</span>
+        <% end %>
+        <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
+      </div>
 
-        <div class="input-field">
-          <%= f.label :slogan do %>
-              <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
-              <span>Slogan</span>
-          <% end %>
-          <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
-        </div>
-
-        <div class="input-textarea">
-          <%= f.label :description do %>
-              <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
-              <span>Beschreibung</span>
-          <% end %>
-          <%= f.text_area :description, placeholder: 'Hier kannst du etwas mehr sagen' %>
-        </div>
+      <div class="input-textarea">
+        <%= f.label :description do %>
+            <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+            <span>Beschreibung</span>
+        <% end %>
+        <%= f.text_area :description, placeholder: 'Hier kannst du etwas mehr sagen' %>
       </div>
 
       <div class="upload-oldschool">
@@ -87,23 +84,29 @@
           <%= f.attachment_field :avatar, direct: true, presigned: true %>
         </div>
       </div>
+    </div>
 
-      <%= render 'contact_fields', f: f %>
 
+
+    <%= render 'contact_fields', f: f %>
+
+
+    <div class="form-block">
       <%= f.object.address ? render('address_fields', f: f) : link_to_add_address_fields('Addresse hinzufügen', f) %>
+    </div>
 
-      <div class="user-personal">
-        <p class="txt">Weitere Infos</p>
-        <div class="input-select">
-          <%= f.label :meeting_permission do %>
-              <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
-              <span><%= Location.human_attribute_name(:meeting_permission) %></span>
-          <% end %>
-          <%= f.select :meeting_permission, options_for_select(Location.meeting_permissions_for_select) %>
-        </div>
+    <div class="form-block">
+      <p class="txt">Zusätzliche <span>Einstellungen</span></p>
+      <div class="input-select">
+        <%= f.label :meeting_permission do %>
+            <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+            <span><%= Location.human_attribute_name(:meeting_permission) %></span>
+        <% end %>
+        <%= f.select :meeting_permission, options_for_select(Location.meeting_permissions_for_select) %>
       </div>
+    </div>
 
-      <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
     </div>
 
 <% end %>

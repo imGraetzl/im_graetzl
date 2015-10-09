@@ -1,0 +1,55 @@
+section.location-form {
+  @include cf;
+  max-width: 700px;
+  margin: 0 auto;
+  .wrp {
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  .link-subtle {
+    text-align: center;
+    display: block;
+    margin-top: -10px;
+
+  }
+
+  .btn-primary {
+    float: right;
+  }
+
+  .form-block {
+    label {
+      min-width: 200px;
+    }
+  }
+
+  .ctrl-graetzlselect {
+    margin-bottom: 30px;
+  }
+
+}
+
+.form-block {
+  margin-bottom: 50px;
+  .txt:first-child {
+    @include font-size-secondaryFont('base');
+    margin-bottom: 20px;
+    text-align: center;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+
+  .input-field,
+  .input-textarea,
+  .input-select,
+  .upload-oldschool {
+    margin-bottom: 2.0rem;
+  }
+
+}
+

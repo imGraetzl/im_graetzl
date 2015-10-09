@@ -7,7 +7,7 @@ de:
           business: Kreativ oder unternehmerisch tätig
           public_space: Öffentlicher Raum oder Treffpunkt
           vacancy: Leerstand
-        meeting_permission: Treffen hier ermöglichen
+        meeting_permission: Treffen ermöglichen
         meeting_permissions:
           meetable: Jeder kann Treffen hier starten
           owner_meetable: Nur ich kann Treffen hier starten

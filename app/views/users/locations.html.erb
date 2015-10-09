@@ -2,16 +2,17 @@
 
 <section class="user-settings">
   <div class="location-settings">
-    <div class="introtext">
-      <div class="tease">
-        Du bespielst im Viertel einen öffentlichen Raum?<br>
-        Du möchtest dir dein Schaufenster im Grätzl einrichten?<br>
-        Bei dir im Laden finden Events statt?
-      </div>
+    <div class="hl-main">
+      Du bespielst im Viertel einen <span>öffentlichen Raum</span>?<br>
+      Du möchtest dir <span>dein Schaufenster</span> im Grätzl einrichten?<br>
+      Bei dir im Laden finden <span>Events</span> statt?
     </div>
 
     <%= render partial: 'locations/slice', collection: @locations, as: 'location' %>
 
-    <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-primary' %>
+    <%= link_to new_location_path, class: 'btn-primary addlocation' do %>
+        Location hinzufügen<svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
+    <% end %>
+
   </div>
 </section>

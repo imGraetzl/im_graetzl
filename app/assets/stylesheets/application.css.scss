@@ -53,7 +53,7 @@
 @import "components/imgHeader";
 @import "components/notificationsValidation";
 @import "components/shame";
-@import "components/graetzlSelect";
+@import "components/ctrl-graetzlselect";
 
 //---------------------------------------------------------------------------------------------*\
 // PAGES
@@ -75,6 +75,8 @@
 @import "controllers/closedGraetzl";
 @import "controllers/districts";
 @import "controllers/location";
+@import "controllers/location-form";
+@import "controllers/selectGraetzl";
 
 //---------------------------------------------------------------------------------------------*\
 // VENDOR

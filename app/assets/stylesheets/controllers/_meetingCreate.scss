@@ -17,7 +17,7 @@
 
   [class^=meet-] {
     > p:first-child {
-      @include font-size-secondaryFont('small');
+      @include font-size-secondaryFont('base');
       text-align: center;
       margin-bottom: 20px;
       span {

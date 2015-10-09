@@ -51,36 +51,14 @@ section.register-selectGraetzl {
   }
   .txt {
     text-align: center;
+    margin-bottom: 30px;
   }
   .wrp-radios {
     margin: 20px auto 35px auto;
     display: table;
   }
-  .wrp-selects {
-    margin: 20px auto 35px auto;
-  }
-  .input-select {
-    &:first-of-type {
-      margin-bottom: 1.2rem;
-    }
-  }
-
-
-  @include respond-to(">=medium") {
-    .wrp-selects {
-      @include cf();
-    }
-    .input-select {
-      width: 49%;
-      margin-right: 2%;
-      float: left;
-      &:first-of-type {
-        margin-bottom: 0;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-    }
+  .ctrl-graetzlselect {
+    margin-bottom: 30px;
   }
 }
 
@@ -105,7 +83,7 @@ section.register-personalInfo, section.register-locationInfo  {
 
   }
   .txt {
-    @include font-size-secondaryFont('small');
+    @include font-size-secondaryFont('base');
     margin-bottom: 20px;
     text-align: center;
     span {

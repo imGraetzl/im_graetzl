@@ -168,18 +168,11 @@ div.notification-settings {
 
 div.location-settings {
   overflow: hidden;
-  .introtext {
-    margin-bottom: 40px;
-    padding: 0 100px;
-  }
-  .tease {
+  .hl-main {
     @include font-size-secondaryFont('base');
-    font-family: $font-secondary;
-    font-weight: bold;
-    text-align: center;
-    color: $color-ambient-rosa;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
+
   .toPersonal {
     color: $color-ambient-rosa;
     text-decoration: underline;
@@ -189,14 +182,25 @@ div.location-settings {
     }
   }
   .locationSlice {
-    display: flex;
-    margin-bottom: 40px;
+    margin: 0 auto 40px auto;
+    display: table;
+    @include respond-to(">=medium") {
+      display: flex;
+      width: 690px;
+    }
   }
   .col1 {
-    flex: 0 0 350px;
+    margin-bottom: 30px;
+    @include respond-to(">=medium") {
+      margin-bottom: 0;
+      flex: 0 0 350px;
+    }
   }
   .col2 {
-    padding-top: 18px;
+    @include respond-to(">=medium") {
+      padding-top: 18px;
+
+    }
     .txt {
       font-style: italic;
     }
@@ -229,8 +233,15 @@ div.location-settings {
       padding: 2px;
     }
   }
-  .btn-primary {
-    float: right;
+  .addlocation {
+    display: table;
+    margin: 0 auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    [class^=icon-] {
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 
 }

@@ -19,19 +19,29 @@ APP.controllers.locations = (function() {
 
         $('form').on('click', '.remove_address_fields', function(event) {
             $(this).prev('input[type=hidden]').val('1');
-            $(this).closest('div.user-personal').hide();
+            $(this).closest('div.form-block').hide();
             event.preventDefault();
         });
 
         // TODO: change name of wrapper class
-        $('.register-personalInfo').on('click', '.add_graetzl_fields', function(event) {
+        $('section.location-form').on('click', '.add_graetzl_fields', function(event) {
             var fields = $(this).data('fields');
-            $('input#location_graetzl_id').replaceWith(fields)
+            $('input#location_graetzl_id').replaceWith(fields);
             $(this).hide();
             APP.components.graetzlSelect();
             event.preventDefault();
         });
 
+        if($("section.location-form").exists) {
+            initLocationForm();
+        }
+
+
+    }
+
+    function initLocationForm() {
+        $("#location_description").autogrow();
+        console.log("druan");
     }
 
 

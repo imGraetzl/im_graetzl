@@ -1,6 +1,6 @@
 <%= f.fields_for :address do |address_fields| %>
-  <div class="user-personal">
-    <p class="txt">Adresse</p>
+
+    <p class="txt">Wie <span>findet</span> man dich</p>
 
     <div class="input-field">
       <%= address_fields.label :street_name do %>
@@ -32,5 +32,5 @@
 
     <%= address_fields.hidden_field :_destroy %>
     <%= link_to 'Adresse entfernen', '#', class: 'remove_address_fields btn-secondary'%>
-  </div>
+
 <% end %>
