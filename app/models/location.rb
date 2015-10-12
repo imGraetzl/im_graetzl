@@ -19,25 +19,23 @@ class Location < ActiveRecord::Base
   has_many :location_ownerships, dependent: :destroy
   accepts_nested_attributes_for :location_ownerships, allow_destroy: true
   has_many :users, through: :location_ownerships
-  has_many :categorizations, as: :categorizable
-  accepts_nested_attributes_for :categorizations, allow_destroy: true
-  has_many :categories, through: :categorizations
+  belongs_to :category
   has_many :meetings
+
+  # has_many :categorizations, as: :categorizable
+  # accepts_nested_attributes_for :categorizations, allow_destroy: true
+  # has_many :categories, through: :categorizations
+  
 
   # validations
   validates :name, presence: true
   validates :graetzl, presence: true
+  validates :category, presence: true
 
   # callbacks
   before_destroy :destroy_activity_and_notifications, prepend: true
 
   # class methods
-  def self.location_types_for_select
-    location_types.map do |t|
-      [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :location_types]), t[0]]
-    end
-  end
-
   def self.meeting_permissions_for_select
     meeting_permissions.map do |t|
       [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :meeting_permissions]), t[0]]

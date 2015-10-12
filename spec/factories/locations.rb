@@ -5,5 +5,6 @@ FactoryGirl.define do
     description { Faker::Lorem.paragraph }
     contact
     graetzl
+    category
   end
 end

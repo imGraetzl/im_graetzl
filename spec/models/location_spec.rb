@@ -14,6 +14,10 @@ RSpec.describe Location, type: :model do
     it 'is invalid without graetzl' do
       expect(build(:location, graetzl: nil)).not_to be_valid
     end
+
+    it 'is invalid without category' do
+      expect(build(:location, category: nil)).not_to be_valid
+    end
   end
 
   describe 'macros' do
@@ -29,14 +33,6 @@ RSpec.describe Location, type: :model do
 
     it 'has default state :pending' do
       expect(location.pending?).to be true
-    end
-
-    it 'has location_type' do
-      expect(location).to respond_to(:location_type)
-    end
-
-    it 'has default location_type :business' do
-      expect(location.business?).to be true
     end
 
     it 'has meeting_permission' do
@@ -73,8 +69,8 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:users)
     end
 
-    it 'has categories' do
-      expect(location).to respond_to(:categories)
+    it 'has category' do
+      expect(location).to respond_to(:category)
     end
 
     it 'has contact' do
@@ -154,44 +150,6 @@ RSpec.describe Location, type: :model do
           expect(PublicActivity::Activity.count).to eq 0
         end
       end
-    end
-  end
-
-  describe '.location_types_for_select' do
-    subject(:array_for_select) { Location.location_types_for_select }
-
-    it 'returns multi dimensional array' do
-      expect(array_for_select).to be_a(Array)
-    end
-
-    it 'contains one array for each type' do
-      expect(array_for_select.size).to eq Location.location_types.size
-    end
-
-    it 'contains key and trainslation' do
-      expect(array_for_select).to contain_exactly(
-        [I18n.t('business', scope: [:activerecord, :attributes, :location, :location_types]), 'business'],
-        [I18n.t('public_space', scope: [:activerecord, :attributes, :location, :location_types]), 'public_space'],
-        [I18n.t('vacancy', scope: [:activerecord, :attributes, :location, :location_types]), 'vacancy'])
-    end
-  end
-
-  describe '.meeting_permissions_for_select' do
-    subject(:array_for_select) { Location.meeting_permissions_for_select }
-
-    it 'returns multi dimensional array' do
-      expect(array_for_select).to be_a(Array)
-    end
-
-    it 'contains one array for each type' do
-      expect(array_for_select.size).to eq Location.meeting_permissions.size
-    end
-
-    it 'contains key and trainslation' do
-      expect(array_for_select).to contain_exactly(
-        [I18n.t('meetable', scope: [:activerecord, :attributes, :location, :meeting_permissions]), 'meetable'],
-        [I18n.t('owner_meetable', scope: [:activerecord, :attributes, :location, :meeting_permissions]), 'owner_meetable'],
-        [I18n.t('non_meetable', scope: [:activerecord, :attributes, :location, :meeting_permissions]), 'non_meetable'])
     end
   end
 

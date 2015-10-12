@@ -16,6 +16,7 @@ class LocationsController < ApplicationController
   end
 
   def create
+    #puts params
     @location = Location.new(location_params)
     if @location.save
       enqueue_and_redirect(root_url)
@@ -76,7 +77,7 @@ class LocationsController < ApplicationController
         :description,
         :avatar, :remove_avatar,
         :cover_photo, :remove_cover_photo,
-        :location_type,
+        :category_id,
         :meeting_permission,
         contact_attributes: [
           :id,
@@ -90,8 +91,7 @@ class LocationsController < ApplicationController
           :zip,
           :city,
           :coordinates,
-          :_destroy],
-        category_ids: []).
+          :_destroy]).
       merge(user_ids: [current_user.id])
   end
 end

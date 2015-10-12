@@ -101,9 +101,9 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when logged in' do
       let(:graetzl) { create(:graetzl) }
+      let!(:category) { create(:category, context: Category.contexts[:business]) }
       let(:user) { create(:user) }
-      let(:attrs) { attributes_for(:location,
-                    location_type: 'public_space') }
+      let(:attrs) { attributes_for(:location) }
       let(:params) {
         {
           location: {
@@ -111,7 +111,8 @@ RSpec.describe LocationsController, type: :controller do
             name: attrs[:name],
             location_type: attrs[:location_type],
             slogan: attrs[:slogan],
-            description: attrs[:description]
+            description: attrs[:description],
+            category_id: category.id
           }
         }
       }
@@ -121,15 +122,22 @@ RSpec.describe LocationsController, type: :controller do
       describe 'with basic attributes' do
 
         it 'creates new location record' do
+          puts attrs
           expect{
             post :create, params
           }.to change{Location.count}.by(1)
-        end        
+        end
 
         it 'creates new location_ownership record' do
           expect{
             post :create, params
           }.to change{LocationOwnership.count}.by(1)
+        end
+
+        it 'does not create new category record' do
+          expect{
+            post :create, params
+          }.not_to change{Category.count}
         end
 
         it 'redirects to root with notice' do
@@ -146,7 +154,7 @@ RSpec.describe LocationsController, type: :controller do
             expect(new_location).to have_attributes(
               graetzl: graetzl,
               name: attrs[:name],
-              location_type: attrs[:location_type],
+              category: category,
               slogan: attrs[:slogan],
               description: attrs[:description]
             )
@@ -238,9 +246,9 @@ RSpec.describe LocationsController, type: :controller do
     context 'when logged in' do
       let(:location) { create(:location,
                       contact: create(:contact),
-                      address: create(:address)) }
+                      address: create(:address),
+                      category: create(:category)) }
       let(:attrs) { attributes_for(:location,
-                    location_type: 'public_space',
                     meeting_permission: 'non_meetable') }
       let(:user) { create(:user) }
       let(:params) {
@@ -248,7 +256,6 @@ RSpec.describe LocationsController, type: :controller do
           id: location,
           location: {
             name: attrs[:name],
-            location_type: attrs[:location_type],
             slogan: attrs[:slogan],
             description: attrs[:description],
             meeting_permission: attrs[:meeting_permission]
@@ -271,7 +278,6 @@ RSpec.describe LocationsController, type: :controller do
         it 'updates attributes' do
           expect(location).to have_attributes(
             name: attrs[:name],
-            location_type: attrs[:location_type],
             slogan: attrs[:slogan],
             description: attrs[:description],
             meeting_permission: attrs[:meeting_permission])
@@ -282,11 +288,13 @@ RSpec.describe LocationsController, type: :controller do
         end
       end
 
-      describe 'update contact and address' do
+      describe 'update contact, category and address' do
         let(:address) { build(:address) }
         let(:contact) { build(:contact) }
+        let(:category) { create(:category) }
 
         before do
+          params[:location].merge!(category_id: category.id)
           params[:location].merge!(contact_attributes: {
             id: location.contact.id,
             website: contact.website,
@@ -316,6 +324,10 @@ RSpec.describe LocationsController, type: :controller do
             street_number: address.street_number,
             zip: address.zip,
             city: address.city)
+        end
+
+        it 'updates category' do
+          expect(location.category).to eq category
         end
       end
 

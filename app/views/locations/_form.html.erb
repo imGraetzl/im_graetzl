@@ -24,11 +24,13 @@
       </div>
 
       <div class="input-select">
-        <%= f.label :location_type do %>
+        <%= f.label :category_id do %>
             <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
-            <span><%= Location.human_attribute_name(:location_type) %></span>
+            <span><%= Location.human_attribute_name(:category) %></span>
         <% end %>
-        <%= f.select :location_type, options_for_select(Location.location_types_for_select) %>
+        <%= f.collection_select :category_id,
+                                Category.business.all, :id, :name,
+                                { prompt: 'Wähle aus um welche Art von Location es sich handelt...' } %>
       </div>
 
       <div class="input-field">
