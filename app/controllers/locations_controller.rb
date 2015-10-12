@@ -90,7 +90,6 @@ class LocationsController < ApplicationController
           :street_number,
           :zip,
           :city,
-          :coordinates,
           :_destroy]).
       merge(user_ids: [current_user.id])
   end

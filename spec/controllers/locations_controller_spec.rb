@@ -170,7 +170,7 @@ RSpec.describe LocationsController, type: :controller do
         end
       end
 
-      describe 'with contact and address' do
+      describe 'with valid contact and address' do
         let(:address) { build(:address) }
         let(:contact) { build(:contact) }
 
@@ -183,8 +183,7 @@ RSpec.describe LocationsController, type: :controller do
             street_name: address.street_name,
             street_number: address.street_number,
             zip: address.zip,
-            city: address.city,
-            coordinates: address.coordinates })
+            city: address.city})
         end
 
         it 'creates new location record' do
@@ -200,6 +199,38 @@ RSpec.describe LocationsController, type: :controller do
         end
 
         it 'creates new contact record' do
+          expect{
+            post :create, params
+          }.to change{Contact.count}.by(1)
+        end
+      end
+
+      describe 'with empty contact and address' do
+        before do
+          params[:location].merge!(contact_attributes: {
+            website: '',
+            email: '',
+            phone: '' })
+          params[:location].merge!(address_attributes: {
+            street_name: '',
+            street_number: '',
+            zip: '',
+            city: ''})
+        end
+
+        it 'creates new location record' do
+          expect{
+            post :create, params
+          }.to change{Location.count}.by(1)
+        end
+
+        it 'does not create new address record' do
+          expect{
+            post :create, params
+          }.not_to change{Address.count}
+        end
+
+        it 'creates empty contact record' do
           expect{
             post :create, params
           }.to change{Contact.count}.by(1)

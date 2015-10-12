@@ -88,10 +88,7 @@
       </div>
     </div>
 
-
-
     <%= render 'contact_fields', f: f %>
-
 
     <div class="form-block">
       <%= f.object.address ? render('address_fields', f: f) : link_to_add_address_fields('Addresse hinzufügen', f) %>
