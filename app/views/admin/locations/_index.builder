@@ -3,7 +3,7 @@ context.instance_eval do
   id_column
   column :name
   column(:state){ |l| status_tag(l.state) }
-  column(:location_type){ |l| status_tag(l.location_type) }
+  column :category
   column :slug
   column :graetzl
   column('User') do |location|

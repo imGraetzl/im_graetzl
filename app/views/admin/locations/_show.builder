@@ -5,7 +5,7 @@ context.instance_eval do
         attributes_table_for location do
           row :id
           row :name
-          row(:location_type){|l| status_tag(l.location_type)}
+          row :category
           row(:state){|l| status_tag(l.state)}
           row :slug
           row :created_at

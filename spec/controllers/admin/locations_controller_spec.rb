@@ -57,14 +57,14 @@ RSpec.describe Admin::LocationsController, type: :controller do
   describe 'POST create' do
     let(:location) { build(:location,
                       graetzl: create(:graetzl),
-                      location_type: Location.location_types[:public_space],
+                      category: create(:category, context: Category.contexts[:business]),
                       meeting_permission: Location.meeting_permissions[:non_meetable]) }
     let(:params) {
       {
         location: {
           graetzl_id: location.graetzl.id,
           name: location.name,
-          location_type: location.location_type,
+          category_id: location.category_id,
           meeting_permission: location.meeting_permission,
           slogan: location.slogan,
           description: location.description,
@@ -87,7 +87,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
         expect(l).to have_attributes(
           graetzl_id: location.graetzl.id,
           name: location.name,
-          location_type: location.location_type,
+          category_id: location.category.id,
           meeting_permission: location.meeting_permission,
           slogan: location.slogan,
           description: location.description,
@@ -207,7 +207,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
     let!(:location) { create(:location) }
     let(:new_location) { build(:location,
                         graetzl: create(:graetzl),
-                        location_type: Location.location_types[:vacancy],
+                        category: create(:category, context: Category.contexts[:business]),
                         meeting_permission: Location.meeting_permissions[:non_meetable]) }
     let(:params) {
       {
@@ -217,7 +217,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
           name: new_location.name,
           state: new_location.state,
           slogan: new_location.slogan,
-          location_type: new_location.location_type,
+          category_id: new_location.category.id,
           meeting_permission: new_location.meeting_permission,
           description: new_location.description}
       }
@@ -239,7 +239,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
           name: new_location.name,
           state: new_location.state,
           slogan: new_location.slogan,
-          location_type: new_location.location_type,
+          category_id: new_location.category.id,
           meeting_permission: new_location.meeting_permission,
           description: new_location.description)
       end
