@@ -44,11 +44,28 @@ namespace :db do
     File.open(Rails.root+'public/avatars/user_1.jpg', 'rb') do |file|
       user_1.avatar = file
     end
-    user_1.save(validate: false)
+    user_1.save(validate: false)    
+
+    # add categories
+    puts 'add categories'
+    location_categories = [
+      'Kreativwirtschaft / Handwerk',
+      'Wohlbefinden & Gesundheit',
+      'Unternehmen & Start-ups',
+      'Geschäft / Ladenlokal im Grätzl',
+      'Gastronomie',
+      'Lokaler Dienstleister',
+      'Öffentlicher Raum / Sozialer Treffpunkt',
+      'Leerstand',
+      'Sonstige Tätigkeit']
+    location_categories.each do |c|
+      Category.create(name: c, context: Category.contexts[:business])
+    end
 
     # add locations
     puts 'add locations'
     users = User.all
+    category = Category.business.first
     2.times do
       users.each do |u|
         u.locations.create(
@@ -57,6 +74,7 @@ namespace :db do
           slogan: Faker::Company.catch_phrase,
           description: Faker::Lorem.paragraph(10),
           state: 'approved',
+          category: category,
           contact_attributes: {
             website: Faker::Internet.url,
             email: Faker::Internet.email,
@@ -98,22 +116,6 @@ namespace :db do
     posts.shuffle.each do |p|
       p.save
       p.create_activity :create, owner: p.user
-    end
-
-    # add categories
-    puts 'add categories'
-    location_categories = [
-      'Kreativwirtschaft / Handwerk',
-      'Wohlbefinden & Gesundheit',
-      'Unternehmen & Start-ups',
-      'Geschäft / Ladenlokal im Grätzl',
-      'Gastronomie',
-      'Lokaler Dienstleister',
-      'Öffentlicher Raum / Sozialer Treffpunkt',
-      'Leerstand',
-      'Sonstige Tätigkeit']
-    location_categories.each do |c|
-      Category.create(name: c, context: Category.contexts[:business])
     end
   end
 end
