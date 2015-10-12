@@ -17,7 +17,7 @@ class AddSeedCategories < ActiveRecord::Migration
     end
 
     say_with_time 'Updating existing locations without category...' do
-      default_category = Category.first
+      default_category = Category.business.first
       Location.where(category: nil).each do |l|
         l.update(category: default_category)
       end
