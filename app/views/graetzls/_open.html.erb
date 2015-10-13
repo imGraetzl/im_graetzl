@@ -5,7 +5,8 @@
   </div>
 
   <div class="cardBoxCollection -tripple">
-    <%= render @meetings if @meetings %>
+    <% meetings = @graetzl.meetings.basic.upcoming.first(2) %>
+    <%= render meetings if meetings %>
     <%= render 'meetings/action_card', graetzl: @graetzl, more: true %>
   </div>
 
@@ -17,10 +18,9 @@
     <p>Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte</p>
   </div>
   <div class="cardBoxCollection -tripple">
-    <%= render @locations if @locations %>
-
+    <% locations = @graetzl.locations.approved.order("RANDOM()").first(2) %>
+    <%= render locations if locations %>
     <%= render 'locations/action_card', graetzl: @graetzl, more: true %>
-
   </div>
 </div>
 
