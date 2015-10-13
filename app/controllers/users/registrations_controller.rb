@@ -84,8 +84,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(
         :username,
-        :gender,
-        :birthday,
         :first_name, :last_name,
         :email,
         :password,

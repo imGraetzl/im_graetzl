@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
 
   # macros
   attr_accessor :login # virtual attribute to login with username or email
-  GENDER_TYPES = { weiblich: 1, männlich: 2, anders: 3 }
   friendly_id :username
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
