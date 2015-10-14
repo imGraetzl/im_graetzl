@@ -6,7 +6,7 @@
 
   <div class="entryNewParticipants">
     <strong>neuer Teilnehmer</strong>
-    <%= link_to '', class: 'userPortraitName' do %>
+    <%= link_to user_path(activity.owner), class: 'userPortraitName' do %>
       <%= avatar_for activity.owner %>
       <span><%= activity.owner.username if activity.owner %></span>
     <% end %>
