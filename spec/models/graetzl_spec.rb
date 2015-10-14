@@ -120,131 +120,93 @@ RSpec.describe Graetzl, type: :model do
 
   describe '#activity' do
     let(:graetzl) { create(:graetzl) }
-    let(:random_user) { create(:user) }
 
-    it 'is empty when no activity' do
-      expect(graetzl.activity).to be_empty
+    context 'when no activity in graetzl' do
+      it 'returns empty array' do
+        expect(graetzl.activity).to be_empty
+        expect(graetzl.activity).to be_kind_of(Array)
+      end
     end
 
-    context 'with activity on artifacts in graetzl' do
-      let(:meeting) { create(:meeting, graetzl: graetzl) }
-      let(:post) { create(:post, graetzl: graetzl) }
+    context 'when activity on trackables in graetzl' do
+      let!(:meeting) { create(:meeting, graetzl: graetzl) }
+      let!(:post) { create(:post, graetzl: graetzl) }
 
-      it 'has activities oldest first' do
+      it 'includes most recent activity per trackable, most recent first' do
         PublicActivity.with_tracking do
-          old_activity = post.create_activity :create
-          new_activity = meeting.create_activity :create
-          latest_activity = create(:meeting, graetzl: graetzl).create_activity :create
+          create_post = post.create_activity :create
+          comment_on_post = post.create_activity :comment
+          create_meeting = meeting.create_activity :create
+          comment_on_meeting = meeting.create_activity :comment
+          create_other_meeting = create(:meeting, graetzl: graetzl).create_activity :create
 
-          expect(graetzl.activity).to contain_exactly(old_activity, new_activity, latest_activity)
+          expect(graetzl.activity).to eq [create_other_meeting, comment_on_meeting, comment_on_post]
+          expect(graetzl.activity).not_to include(create_post)
         end
       end
 
-      it 'has meeting:create activity' do
+      it 'includes meeting:create activity' do
         PublicActivity.with_tracking do
-          activity = meeting.create_activity :create, owner: meeting.initiator
-
+          activity = meeting.create_activity :create
           expect(graetzl.activity).to include(activity)
         end
       end
 
-      it 'has meeting:comment activity' do
+      it 'includes meeting:comment activity' do
         PublicActivity.with_tracking do
-          activity = meeting.create_activity :comment, owner: random_user
-
+          activity = meeting.create_activity :comment
           expect(graetzl.activity).to include(activity)
         end
       end
 
-      it 'has meeting:go_to activity' do
+      it 'includes meeting:go_to activity' do
         PublicActivity.with_tracking do
-          activity = meeting.create_activity :go_to, owner: random_user
-
+          activity = meeting.create_activity :go_to
           expect(graetzl.activity).to include(activity)
         end
       end
 
       it 'does not have meeting:update activity' do
         PublicActivity.with_tracking do
-          activity = meeting.create_activity :update, owner: random_user
-
+          activity = meeting.create_activity :update
           expect(graetzl.activity).not_to include(activity)
         end
       end
 
-      it 'has only latest activity on meeting' do
+      it 'includes post:create activity' do
         PublicActivity.with_tracking do
-          create_activity = meeting.create_activity :create, owner: meeting.initiator
-          comment_activity = meeting.create_activity :comment, owner: random_user
-          last_activity = meeting.create_activity :go_to, owner: random_user
-          
-          expect(graetzl.activity).to include(last_activity)
-          expect(graetzl.activity).not_to include(create_activity, comment_activity)
-        end
-      end
-
-      it 'has post:create activity' do
-        PublicActivity.with_tracking do
-          activity = post.create_activity :create, owner: random_user
-
+          activity = post.create_activity :create
           expect(graetzl.activity).to include(activity)
         end
       end
 
-      it 'has post:comment activity' do
+      it 'includes post:comment activity' do
         PublicActivity.with_tracking do
-          activity = post.create_activity :comment, owner: random_user
-
+          activity = post.create_activity :comment
           expect(graetzl.activity).to include(activity)
-        end
-      end
-
-      it 'has only latest activity on post' do
-        PublicActivity.with_tracking do
-          create_activity = post.create_activity :create, owner: post.user
-          comment_activity = post.create_activity :comment, owner: random_user
-          last_activity = post.create_activity :comment, owner: random_user
-          
-          expect(graetzl.activity).to include(last_activity)
-          expect(graetzl.activity).not_to include(create_activity, comment_activity)
-        end
-      end
-
-      it 'has post and meeting activity' do
-        PublicActivity.with_tracking do
-          old_activity_1 = post.create_activity :create, owner: post.user
-          old_activity_2 = post.create_activity :comment, owner: random_user
-          post_activity = post.create_activity :comment, owner: random_user
-          old_activity_3 = meeting.create_activity :create, owner: random_user
-          meeting_activity = meeting.create_activity :comment, owner: random_user
-          
-          expect(graetzl.activity).to include(meeting_activity, post_activity)
-          expect(graetzl.activity).not_to include(old_activity_1, old_activity_2, old_activity_3)
         end
       end
     end
 
     context 'with activity on artifacts outside graetzl' do
       let(:other_graetzl) { create(:graetzl) }
-      let(:meeting) { create(:meeting, graetzl: other_graetzl) }
+      let!(:meeting) { create(:meeting, graetzl: other_graetzl) }
 
       context 'when owner not from graetzl' do
         it 'does not have activity' do
           PublicActivity.with_tracking do
-            activity = meeting.create_activity :comment, owner: random_user
-
+            activity = meeting.create_activity :comment, owner: create(:user, graetzl: other_graetzl)
             expect(graetzl.activity).not_to include(activity)
           end
         end
       end
 
       context 'when activity owner from graetzl' do
-        let(:user_from_graetzl) { create(:user, graetzl: graetzl) }
+        let(:user) { create(:user, graetzl: graetzl) }
 
         it 'has activity in both graetzls' do
           PublicActivity.with_tracking do
-            activity = meeting.create_activity :comment, owner: user_from_graetzl
-            
+            activity = meeting.create_activity :comment, owner: user            
             expect(graetzl.activity).to include(activity)
             expect(other_graetzl.activity).to include(activity)
           end
