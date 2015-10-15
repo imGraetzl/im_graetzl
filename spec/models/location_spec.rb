@@ -258,4 +258,44 @@ RSpec.describe Location, type: :model do
       end
     end
   end
+
+  describe '#meta_description' do
+    let(:address) { create(:address,
+                            street_name: 'street',
+                            street_number: '2',
+                            zip: '1050',
+                            city: 'Wien') }
+
+    context 'when address and description' do
+      let(:location) { build(:location, address: address) }
+
+      subject(:meta) { location.meta_description }
+
+      it 'includes address' do
+        expect(meta).to include(address.street_name, address.street_number, address.zip, address.city)
+      end
+
+      it 'is not longer than 155 chars' do
+        expect(meta.size).to be <= 155
+      end
+
+      it 'contains part of the description' do
+        expect(meta).to include(location.description[0..50])
+      end
+    end
+
+    context 'without address' do
+      let(:location) { build(:location, address: nil) }
+
+      subject(:meta) { location.meta_description }
+
+      it 'is not longer than 155 chars' do
+        expect(meta.size).to be <= 155
+      end
+
+      it 'contains part of the description' do
+        expect(meta).to include(location.description[0..50])
+      end
+    end
+  end
 end

@@ -61,6 +61,12 @@ class Location < ActiveRecord::Base
     self.meetable? || (self.owner_meetable? && users.include?(user))    
   end
 
+  def meta_description
+    desc = ''
+    desc << "#{address.street_name} #{address.street_number}, #{address.zip} #{address.city} " if address
+    desc << description
+    desc[0..154]
+  end
 
   private
 
