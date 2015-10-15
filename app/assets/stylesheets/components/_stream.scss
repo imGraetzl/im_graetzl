@@ -451,6 +451,13 @@
   }
 }
 
+.stream + .view-more {
+  @include respond-to(">=large") {
+    width: 590px;
+    margin-left: 200px;
+  }
+}
+
 // ---------------------------------------------------------------------- plain entry page
 
 section.justEntry {
