@@ -402,7 +402,6 @@
     text-decoration: none;
     color: inherit;
     &:hover {
-      text-decoration: underline;
       color: $color-ambient-rosa;
     }
   }
@@ -449,6 +448,13 @@
   button[type=cancel] {
     border-color: transparent;
     color: $color-ambient-grey;
+  }
+}
+
+.stream + .view-more {
+  @include respond-to(">=large") {
+    width: 590px;
+    margin-left: 200px;
   }
 }
 

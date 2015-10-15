@@ -1,4 +1,6 @@
-<% title("#{@user.username} aus dem Grätzl Stuwerviertel") %>
+<% title t('.title', name: @user.username, graetzl: @user.graetzl.name) %>
+<% meta_tag :description, t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric) %>
+<% meta_tag :robots, 'noindex, follow' %>
 
 <section class="userprofile">
   <div class="imgHeader -shadowed">

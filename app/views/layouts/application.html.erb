@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield(:title) %>imGrätzl.at</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-  <meta name="msapplication-tap-highlight" content="no" />
-  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= render 'shared/meta_tags' %>
+  <%= csrf_meta_tags %>
   <!-- fonts -->
   <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic&subset=latin,latin-ext' %>
   <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Loved+by+the+King' %>
+  <!-- css -->
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <!-- icons -->
   <%= javascript_include_tag "https://fontastic.s3.amazonaws.com/P7x6EJva372RfDgNFpjLYd/icons.js" %>
-  <%= csrf_meta_tags %>
   <!-- favicon -->
   <%= favicon_link_tag 'favicon.ico' %>
+  <!-- js -->
   <%= javascript_include_tag 'application' %>
 </head>
 

@@ -1,4 +1,6 @@
-<% title(@meeting.name) %>
+<% title t('.title', name: @meeting.name) %>
+<% meta_tag :description, t('.description', desc: @meeting.description[0...154]) %>
+<% meta_tag :robots, 'index, follow' %>
 
 <section class="meeting">
 

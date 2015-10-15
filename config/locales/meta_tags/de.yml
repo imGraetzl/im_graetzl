@@ -1,0 +1,41 @@
+de:
+  static_pages:
+    home:
+      title: 'Mach mit - Treffen, Events & Initiativen im Grätzl'
+      description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+  districts:
+    index:
+      title: 'Bezirke, Stadtviertel & Grätzl in Wien'
+      description: 'Kaum zu glauben: Wien hat über 160 Grätzln. In welchem bist Du zuhause oder öfters anzutreffen? Durchstöbere die Bezirke und entdecke dein Grätzl in Wien ...'
+    show:
+      title: 'Grätzln im %{numeric}. Bezirk (%{name}) in Wien'
+      description: 'Es gibt %{num} Grätzl in Wien %{name}! In welchem bist du zuhause oder öfters anzutreffen? Entdecke die Vielfalt der Grätzln im %{numeric}. Bezirk, es gibt spannendes zu entdecken'
+  graetzls:
+    show:
+      title: '%{name} im %{numeric}. Bezirk in Wien'
+      description: 'Triff Grätzlbewohner zu gemeinsamen Unternehmungen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events im Grätzl %{name}.'
+  meetings:
+    index:
+      title: '%{graetzl}: Treffen, Veranstaltungen & Events'
+      description: 'Leute treffen sich im Grätzl %{graetzl}. Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
+    show:
+      title: '%{name}'
+      description: '%{desc}'
+  locations:
+    index:
+      title: '%{graetzl}: Entdecke Treffpunkte, Lokale & Geschäfte'
+      description: 'Durchstöbere das Grätzl %{graetzl} in Wien und entdecke die Vielfalt die es hier gibt! Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte.'
+    show:
+      title: '%{name} - %{slogan}'
+      description: '%{desc}'
+  users:
+    show:
+      title: '%{name} aus dem Grätzl %{graetzl}'
+      description: '%{name}s Heimatgrätzl in Wien ist das Grätzl: %{graetzl} im %{numeric}. Bezirk.'
+  posts:
+    show:
+      title: '%{content}'
+  zuckerls:
+    index:
+      title: 'Das Grätzlzuckerl - Entdecke einzigartiges im %{numeric}. Bezirk'
+      description: 'Das Grätzlzuckerl %{district} erscheint einmal im Monat und enthält besondere Angebote von Kreativen, Selbständigen und kleinen Unternehmen im Viertel.'

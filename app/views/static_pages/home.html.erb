@@ -1,9 +1,10 @@
+<% title t('.title') %>
+<% meta_tag :description, t('.description') %>
+<% meta_tag :robots, 'index, follow' %>
+
 <section class="homeOut">
-
-
   <div class="buehne">
     <h1><span>Nette Leute Bei Treffen </span><span>im Grätzl Kennenlernen</span></h1>
-
     <div class="illu1"></div>
     <div class="illuMap"></div>
     <%= link_to new_user_session_path, class: 'badge -arrow' do %>
@@ -16,13 +17,9 @@
       <h1>Mach mit — <span>Treffen, Events & Initiativen</span> im Grätzl</h1>
       <p>Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen</p>
     </div>
-
-
     <div class="cardBoxCollection -tripple">
       <%= render @meetings %>
-
       <div class="cardbox-wrp">
-
         <div class="paperCard -illuteaser -cord1RT">
           <div class="wrp">
             <div class="user">
@@ -36,15 +33,11 @@
         </div>
         <%= link_to 'Alle Treffen', districts_path, class: 'link-more' %>
       </div>
-
     </div>
-
   </div>
-
 
   <div class="aboutGraetzl">
     <h2>Worum geht es bei „im Grätzl“</h2>
-
     <div class="graetzl-meeting">
       <div class="paperCard -cord1LTsmall -illuonly">
         <div class="wrp"></div>
@@ -100,7 +93,4 @@
     <%= link_to 'Jetzt loslegen', new_user_session_path, class: 'btn-primary -rose -large -shadow' %>
 
   </div>
-
-
 </section>
-

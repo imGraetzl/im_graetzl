@@ -1,4 +1,6 @@
-<% title(@graetzl.name) %>
+<% title t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric) %>
+<% meta_tag :description, t('.description', name: @graetzl.name) %>
+<% meta_tag :robots, 'index, follow' %>
 
 <section class="graetzls" data-mapdata="<%= @map_data %>">
 
@@ -11,10 +13,10 @@
     <div class="wrp-headline">
       <h1><%= @graetzl.name %></h1>
       <%= content_tag :span do %>
-          in
-          <% @graetzl.districts.each do |district| %>
-              <%= link_to district.zip, district %>
-          <% end %>
+        in
+        <% @graetzl.districts.each do |district| %>
+          <%= link_to district.zip, district %>
+        <% end %>
       <% end %>
     </div>
   </div>
