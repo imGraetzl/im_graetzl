@@ -1,8 +1,4 @@
-module ApplicationHelper
-  def title(page_title)
-    content_for(:title) { "#{page_title} | "}    
-  end
-
+module ApplicationHelper  
   def current_graetzl
     @graetzl || (current_user.graetzl if user_signed_in?)
   end
