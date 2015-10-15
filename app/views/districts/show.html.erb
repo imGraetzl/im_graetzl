@@ -1,4 +1,6 @@
-<% title(@district.name) %>
+<% title t('.title', numeric: @district.numeric, name: @district.name) %>
+<% meta_tag :description, t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric) %>
+<% meta_tag :robots, 'index, follow' %>
 
 <section class="districts" data-mapdata="<%= @map_data %>">
 

@@ -1,4 +1,6 @@
-<% title("#{@location.name}") %>
+<% title t('.title', name: @location.name, slogan: @location.slogan) %>
+<% meta_tag :description, t('.description', desc: @location.description[0..154]) %>
+<% meta_tag :robots, 'index, follow' %>
 
 <section class="locationPage">
   <div class="imgHeader -cloudy">

@@ -12,4 +12,8 @@ class District < ActiveRecord::Base
   def long_name
     "#{name}-#{zip}"
   end
+
+  def numeric
+    zip.slice(1..2).sub(%r{^0},"") if zip.present?
+  end
 end

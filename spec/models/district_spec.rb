@@ -54,4 +54,22 @@ RSpec.describe District, type: :model do
       expect(named_district.long_name).to eq('district-1234')
     end
   end
+
+  describe 'numberic' do
+    context 'when single number district' do
+      let(:district) { create(:district, zip: '1070') }
+
+      it 'returns single digit' do
+        expect(district.numeric).to eq '7'
+      end
+    end
+
+    context 'when double number district' do      
+      let(:district) { create(:district, zip: '1160') }
+
+      it 'returns single digit' do
+        expect(district.numeric).to eq '16'
+      end
+    end
+  end
 end

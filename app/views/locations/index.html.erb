@@ -1,4 +1,6 @@
-<% title("#{@graetzl.name}: Entdecke Treffpunkte, Lokale & Geschäfte") %>
+<% title t('.title', graetzl: @graetzl.name) %>
+<% meta_tag :description, t('.description', graetzl: @graetzl.name) %>
+<% meta_tag :robots, @graetzl.open? ? 'index, follow' : 'noindex, follow' %>
 
 <section class="locations-overview" data-mapdata="<%= @map_data %>">
 
