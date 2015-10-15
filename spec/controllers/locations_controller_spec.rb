@@ -501,6 +501,10 @@ RSpec.describe LocationsController, type: :controller do
       expect(assigns(:graetzl)).to eq graetzl
     end
 
+    it 'assigns @map_data' do
+      expect(assigns(:map_data)).to be_present
+    end
+
     it 'assigns @locations with approved' do
       expect(assigns(:locations)).to include(location)
       expect(assigns(:locations)).not_to include(pending_location)
