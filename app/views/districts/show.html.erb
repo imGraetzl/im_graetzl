@@ -1,5 +1,5 @@
-<% title "Grätzln im #{@district.numeric}. Bezirk (#{@district.name}) in Wien" %>
-<% meta_tag :description, "Es gibt #{@district.graetzls.size} Grätzl in Wien #{@district.name}! In welchem bist du zuhause oder öfters anzutreffen? Entdecke die Vielfalt der Grätzln im #{@district.numeric}. Bezirk, es gibt spannendes zu entdecken" %>
+<% title t('.title', numeric: @district.numeric, name: @district.name) %>
+<% meta_tag :description, t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric) %>
 <% meta_tag :robots, 'index, follow' %>
 
 <section class="districts" data-mapdata="<%= @map_data %>">

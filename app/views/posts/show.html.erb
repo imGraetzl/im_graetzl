@@ -1,5 +1,7 @@
-<section class="justEntry">
+<% title t('.title', content: @post.content[0..154]) %>
+<% meta_tag :robots, 'noindex, follow' %>
 
+<section class="justEntry">
   <div class="userCreateInfo">
     <%= avatar_for @post.user %>
     <span class="userAndType">
@@ -14,11 +16,11 @@
     </div>
 
     <% unless @post.images.empty? %>
-        <div class="postImgs">
-          <% @post.images.each do |image| %>
-              <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
-          <% end %>
-        </div>
+      <div class="postImgs">
+        <% @post.images.each do |image| %>
+          <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
+        <% end %>
+      </div>
     <% end %>
 
     <%= button_to 'Beitrag löschen', post_path(@post),
