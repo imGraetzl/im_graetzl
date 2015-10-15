@@ -1,4 +1,6 @@
-<% title(@graetzl.name) %>
+<% title "#{@graetzl.name} im #{@graetzl.district.numeric}. Bezirk in Wien" %>
+<% meta_tag :description, "Triff Grätzlbewohner zu gemeinsamen Unternehmungen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events im Grätzl #{@graetzl.name}." %>
+<% meta_tag :robots, 'index, follow' %>
 
 <section class="graetzls" data-mapdata="<%= @map_data %>">
 
@@ -11,10 +13,10 @@
     <div class="wrp-headline">
       <h1><%= @graetzl.name %></h1>
       <%= content_tag :span do %>
-          in
-          <% @graetzl.districts.each do |district| %>
-              <%= link_to district.zip, district %>
-          <% end %>
+        in
+        <% @graetzl.districts.each do |district| %>
+          <%= link_to district.zip, district %>
+        <% end %>
       <% end %>
     </div>
   </div>
