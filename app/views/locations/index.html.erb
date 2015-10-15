@@ -1,9 +1,23 @@
 <% title("#{@graetzl.name}: Entdecke Treffpunkte, Lokale & Geschäfte") %>
 
-<section class="locations-overview">
-  <h1><span><%= @graetzl.name %>:</span> Entdecke gute Treffpunkte & Anbieter, Lokale & Geschäfte</h1>
+<section class="locations-overview" data-mapdata="<%= @map_data %>">
+
+  <div class="mapImgBlock singleGraetzl">
+    <div id="graetzlMapWidget"></div>
+    <div class="activeArea"></div>
+    <div class="illuDistrict"></div>
+
+    <div class="wrp-headline">
+      <h1><%= @graetzl.name %></h1>
+    </div>
+  </div>
+
+  <h1 class="hl-main">Entdecke gute Treffpunkte & Anbieter, Lokale & Geschäfte</h1>
   <div class="cardBoxCollection -tripple">
     <%= render 'locations/action_card', graetzl: @graetzl %>
     <%= render @locations %>
   </div>
+
 </section>
+
+

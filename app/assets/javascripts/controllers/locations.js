@@ -32,7 +32,15 @@ APP.controllers.locations = (function() {
             event.preventDefault();
         });
 
-        if($("section.location-form").exists) {
+
+
+
+
+        if($("section.locations-overview").exists()) {
+            initLocationOverview();
+        }
+
+        if($("section.location-form").exists()) {
             initLocationForm();
         }
 
@@ -41,9 +49,22 @@ APP.controllers.locations = (function() {
 
     function initLocationForm() {
         $("#location_description").autogrow();
-        console.log("druan");
     }
 
+    function initLocationOverview() {
+        var map =  APP.components.graetzlMap;
+        var mapdata = jQuery('.locations-overview').data('mapdata');
+        map.init(function() {
+                map.showMapGraetzl(mapdata.graetzls, {
+                    style: $.extend(map.styles.rose, {
+                        weight: 4,
+                        fillOpacity: 0.2
+                    })
+                });
+
+            }
+        );
+    }
 
 // ---------------------------------------------------------------------- Public
 
