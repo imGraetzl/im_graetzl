@@ -82,6 +82,13 @@
     }
   }
 
+  .linkdisabled {
+    display: flex;
+    color: $color-ambient-grey;
+    padding: 15px;
+    border-top: 1px solid #DBEFEC;
+    cursor: not-allowed;
+  }
 
   .createMeeting {
     padding-left: 20px;
