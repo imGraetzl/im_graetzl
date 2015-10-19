@@ -153,7 +153,7 @@ PublicActivity::Activity.includes(post: [:user, :images], meeting: [:address])
 
 
 ### Server
-The app in runing [puma](https://github.com/puma/puma) in all environments.
+The app uses [puma](https://github.com/puma/puma) in all environments.
 
 ## Deployment
 
