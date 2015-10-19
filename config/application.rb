@@ -41,8 +41,8 @@ module ImGraetzl
     end
 
     # Rack middleware to redirect urls with trailing slash
-    # config.middleware.insert_before(0, Rack::Rewrite) do
-    #   r301 %r{^/(.*)/$}, '/$1'
-    # end
+    config.middleware.insert_before(0, Rack::Rewrite) do
+      r301 %r{^/(.*)/$}, '/$1'
+    end
   end
 end
