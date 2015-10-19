@@ -193,9 +193,11 @@ GEM
       websocket-driver (>= 0.2.0)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
+    puma (2.14.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rack-rewrite (1.5.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -359,6 +361,8 @@ DEPENDENCIES
   pg
   poltergeist
   public_activity!
+  puma
+  rack-rewrite
   rails (~> 4.2.1)
   refile
   refile-mini_magick
