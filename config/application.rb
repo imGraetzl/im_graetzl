@@ -39,5 +39,10 @@ module ImGraetzl
     ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
       html_tag.html_safe
     end
+
+    # Rack middleware to redirect urls with trailing slash
+    config.middleware.insert_before(0, Rack::Rewrite) do
+      r301 %r{^/(.*)/$}, '/$1'
+    end
   end
 end

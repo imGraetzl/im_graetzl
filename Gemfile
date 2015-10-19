@@ -53,7 +53,7 @@ group :development, :test do
   gem 'factory_girl_rails'
 end
 
-group :test do  
+group :test do
   gem 'faker'
   gem 'capybara'
   gem 'poltergeist'
@@ -92,3 +92,5 @@ gem 'public_activity', github: 'pokonski/public_activity'
 gem 'remotipart'
 # pagination
 gem 'kaminari'
+# rack middleware for enforcing rewrite rules
+gem 'rack-rewrite'

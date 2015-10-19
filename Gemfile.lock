@@ -197,6 +197,7 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rack-rewrite (1.5.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -361,6 +362,7 @@ DEPENDENCIES
   poltergeist
   public_activity!
   puma
+  rack-rewrite
   rails (~> 4.2.1)
   refile
   refile-mini_magick
