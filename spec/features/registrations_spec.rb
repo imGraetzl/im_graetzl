@@ -51,7 +51,7 @@ RSpec.feature 'Registration', type: :feature do
       expect(page).to have_text('Bitte wähle dein Grätzl manuell.')
 
       select "#{district_2.zip}", from: :district_id
-      sleep 1
+      sleep 2
       select "#{graetzl_2.name}", from: :graetzl_id
       click_button 'Weiter'
 
@@ -78,7 +78,7 @@ RSpec.feature 'Registration', type: :feature do
 
     scenario 'user selects graetzl from list', js: true do
       fill_in :address, with: "#{address.street_name}"
-      sleep 1
+      sleep 2
       click_button 'Weiter'
 
       expect(page).to have_text("Unter #{address.street_name} konnten wir 2 Grätzl finden.")
@@ -142,7 +142,7 @@ RSpec.feature 'Registration', type: :feature do
 
     scenario 'enter valid userdata', js: true do
       fill_in :address, with: 'qwertzuiopü'
-      sleep 1
+      sleep 2
       click_button 'Weiter'
 
       expect(page).to have_text('Unter qwertzuiopü konnten wir leider kein Grätzl finden.')
@@ -168,7 +168,7 @@ RSpec.feature 'Registration', type: :feature do
 
     def fill_in_address(address)
       fill_in :address, with: "#{address.street_name} #{address.street_number}"
-      sleep 1.5
+      sleep 2
     end
 
   def fill_in_user_form(user)
@@ -179,6 +179,6 @@ RSpec.feature 'Registration', type: :feature do
     fill_in :user_first_name, with: user.first_name
     fill_in :user_last_name, with: user.last_name
 
-    find('label', text: 'Ich stimme den AGBs zu').click      
+    find('label', text: 'Ich stimme den AGBs zu').click
   end
 end
