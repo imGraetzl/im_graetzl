@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  
+
   it 'has a valid factory' do
     expect(build_stubbed(:user)).to be_valid
   end
@@ -48,6 +48,27 @@ RSpec.describe User, type: :model do
 
         expect(Notification.count).to eq 0
         expect(PublicActivity::Activity.count).to eq 0
+      end
+    end
+
+    describe 'before_validation' do
+      context 'when username one word' do
+        let(:user) { build(:user, username: ' name ') }
+
+        it 'strips whitespaces on beginning and end' do
+          expect{
+            user.save
+          }.to change{user.username.length}.from(6).to(4)
+        end
+      end
+      context 'when username more words' do
+        let(:user) { build(:user, username: ' first  second ') }
+
+        it 'strips any double whitespaces' do
+          expect{
+            user.save
+          }.to change{user.username}.from(' first  second ').to('first second')
+        end
       end
     end
   end
@@ -354,25 +375,25 @@ RSpec.describe User, type: :model do
       let(:type) { :new_meeting_in_graetzl }
 
       it "can be enabled for a specific type" do
-        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey  
+        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey
         user.enable_mail_notification(type, :daily)
         expect(user.enabled_mail_notification?(type, :daily)).to be_truthy
-        expect(user.enabled_mail_notification?(type, :weekly)).to be_falsey  
+        expect(user.enabled_mail_notification?(type, :weekly)).to be_falsey
         user.enable_mail_notification(type, :weekly)
         expect(user.enabled_mail_notification?(type, :weekly)).to be_truthy
-        expect(user.enabled_mail_notification?(type, :immediate)).to be_falsey  
+        expect(user.enabled_mail_notification?(type, :immediate)).to be_falsey
         user.enable_mail_notification(type, :immediate)
         expect(user.enabled_mail_notification?(type, :immediate)).to be_truthy
       end
 
       it "can only be set to either immediate, daily, or weekly" do
-        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey  
+        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey
         user.enable_mail_notification(type, :daily)
         expect(user.enabled_mail_notification?(type, :daily)).to be_truthy
         user.enable_mail_notification(type, :weekly)
         expect(user.enabled_mail_notification?(type, :weekly)).to be_truthy
-        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey  
-      end 
+        expect(user.enabled_mail_notification?(type, :daily)).to be_falsey
+      end
     end
   end
 
@@ -388,7 +409,7 @@ RSpec.describe User, type: :model do
     describe "enabling" do
       it "can be enabled for a specific type" do
         type = :new_meeting_in_graetzl
-        expect(user.enabled_website_notification?(type)).to be_falsey  
+        expect(user.enabled_website_notification?(type)).to be_falsey
         user.enable_website_notification(type)
         expect(user.enabled_website_notification?(type)).to be_truthy
       end
@@ -409,11 +430,11 @@ RSpec.describe User, type: :model do
 
     it "can be toggled for a specific type" do
       type = :new_meeting_in_graetzl
-      expect(user.enabled_website_notification?(type)).to be_falsey  
+      expect(user.enabled_website_notification?(type)).to be_falsey
       user.toggle_website_notification(type)
       expect(user.enabled_website_notification?(type)).to be_truthy
       user.toggle_website_notification(type)
-      expect(user.enabled_website_notification?(type)).to be_falsey  
+      expect(user.enabled_website_notification?(type)).to be_falsey
     end
   end
 end
