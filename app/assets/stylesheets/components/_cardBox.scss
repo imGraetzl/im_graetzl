@@ -31,11 +31,13 @@
 
   &.-quart {
     > * {
+      margin-bottom: 30px;
       @include respond-to(">=medium") {
         @include col(1/2, $cycle: 2);
       }
       @include respond-to(">=large") {
         @include col(1/4, $gutter: 1, $uncycle: 2);
+        margin-bottom: 0;
       }
     }
 
@@ -58,11 +60,19 @@
 }
 
 .wrp-cardBox, .cardbox-wrp {
+  position: relative;
   h2:first-child {
     @include font-size-secondaryFont('small');
     color: $color-ambient-mint-dark;
     margin-left: 12px;
     margin-bottom: 4px;
+    a {
+      text-decoration: none;
+      color: inherit;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   .link-more {
     margin: 0 auto;
@@ -71,6 +81,20 @@
     @include respond-to(">=medium") {
       margin-left: auto;
       margin-right: 10px;
+    }
+  }
+  .linkoverview {
+    position: absolute;
+    right: 15px;
+    top: 6px;
+    font-size: 13px;
+    color: $color-ambient-mint;
+    border-left: 1px dotted $color-ambient-mint;
+    padding-left: 8px;
+    cursor: pointer;
+    &:hover {
+      color: $color-ambient-rosa;
+      text-decoration: underline;
     }
   }
 }
@@ -95,28 +119,6 @@
     position: absolute;
     bottom: -25px;
     right: 7px;
-  }
-
-  .locationAvatar {
-    display: table;
-    position: absolute;
-    left: 7px;
-    bottom: -30px;
-    .locationMap {
-      border-radius: 4px 4px 0 0;
-      background-color: #fff;
-      padding: 2px 2px 0 2px;
-      height: auto;
-      width: 78px;
-      display: block;
-      margin: 0 auto;
-    }
-    .img-round {
-      width: 80px;
-      height: 80px;
-      display: block;
-      margin-top: -36px;
-    }
   }
 
   > :last-child {
@@ -183,5 +185,66 @@
     position: absolute;
     top: 5px;
     left: 5px;
+  }
+}
+
+.cardBox.-location {
+
+  .cardBoxHeader {
+    margin-bottom: 20px;
+  }
+
+  .sideflag {
+    bottom: auto;
+    top: 20px;
+  }
+
+  .location-shortfacts {
+    z-index: 8;
+    background-color: rgba(255,255,255,0.80);
+    margin-top: -60px;
+  }
+
+  .slogan {
+    margin-bottom: 15px;
+    font-style: italic;
+    padding-left: 15px;
+    border-left: 1px dotted $color-ambient-grey;
+  }
+
+  .category {
+    margin-bottom: 13px;
+  }
+
+}
+
+.cardBox.-location.-small {
+
+  .location-shortfacts {
+    background-color: transparent;
+    margin-top: -36px;
+  }
+
+  .cardBoxHeader {
+    margin-bottom: 4px;
+  }
+
+  .slogan {
+    border-left: none;
+    padding-left: 0;
+    font-style: normal;
+  }
+
+}
+
+.avatar-square {
+  width: 80px;
+  height: 80px;
+  padding: 3px;
+  border: 1px solid $color-ambient-mint;
+  background-color: #fff;
+  border-radius: 4px;
+  img {
+    display: block;
   }
 }

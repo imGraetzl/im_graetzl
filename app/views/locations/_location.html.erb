@@ -1,16 +1,18 @@
-<div class="cardBox">
+<div class="cardBox -location">
   <div class="cardBoxHeader">
-    <%= link_to [location.graetzl, location] do %>
-      <%= cover_photo_for(location) %>
-    <% end %>
-    <div class="locationAvatar">
-      <% if location.address && location.address.coordinates %>
-        <%= image_tag static_map_url(location.address.coordinates), class: 'locationMap' %>
-      <% end %>
-      <%= avatar_for(location, fill: [85, 85]) %>
+    <%= cover_photo_for(location) %>
+    <div class="location-shortfacts">
+      <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
+      <a href="#" class="name"><%= location.name %></a>
+      <div class="category">Öffentlicher Raum</div>
+      <div class="address"><svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Morriatigasse 3</div>
     </div>
+    <div class="sideflag -R"><a href="#">Stuwerviertel</a></div>
   </div>
-  <h3><%= location.name %></h3>
+  <div class="slogan">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
   <div class="txt"><%= truncate(location.description, length: 100) %></div>
-  <%= link_to 'Location ansehen', [location.graetzl, location], class: 'btn-primary -mint' %>
+  <div class="event-teaser-box">
+    <div class="date"><svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>12. August 2015</div>
+    <a href="#" class="title">Bauernschnapsen im Wald</a>
+  </div>
 </div>
