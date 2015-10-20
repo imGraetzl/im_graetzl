@@ -38,7 +38,7 @@ section.graetzls {
     width: 180px;
     height: 159px;
     background-size: 180px 159px;
-    background-image: url(image_path('illu/illu-stuwerviertel.png'));
+    background-image: url(image_path('illu/illu-stuwerviertel@2x.png'));
     background-position: center center;
     z-index: 9;
   }
@@ -47,9 +47,6 @@ section.graetzls {
     width: 233px;
     height: 206px;
     background-size: 233px 206px;
-  }
-  @include respond-to('retina2x') {
-    background-image: url(image_path('illu/illu-stuwerviertel@2x.png'));
   }
 }
 
