@@ -34,9 +34,11 @@
             <div class="cardBoxHeader">
               <!-- <%= cover_photo_for(location) %> -->
               <img class="coverImg" src="https://placeimg.com/300/180/any" alt="">
-              <div class="location-shortfacts -stacked">
-                <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
-                <a href="#" class="name"><%= location.name %></a>
+              <div class="location-shortfacts -small">
+                <a href="">
+                  <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
+                  <div href="#" class="name"><%= location.name %></div>
+                </a>
                 <div class="category">Öffentlicher Raum</div>
                 <div class="address"><svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Morriatigasse 3</div>
               </div>
