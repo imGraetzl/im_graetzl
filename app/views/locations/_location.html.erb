@@ -3,8 +3,10 @@
   <div class="cardBoxHeader">
     <%= cover_photo_for(location) %>
     <div class="location-shortfacts">
-      <%= link_to avatar_for(location, fill: [200, 200], class: nil), [location.graetzl, location] %>
-      <%= link_to location.name, [location.graetzl, location], class: 'name' %>
+      <%= link_to [location.graetzl, location] do %>
+          <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
+          <div class="name"><%= location.name %></div>
+      <% end %>
       <div class="category"><%= location.category.name %></div>
       <% if location.address %>
         <div class="address">

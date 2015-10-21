@@ -4,12 +4,12 @@
   background-color: olive;
   min-height: 88px;
 
-  > .avatar-square {
+  > a .avatar-square {
     position: absolute;
     top: 8px;
     left: 8px;
   }
-  > .name,
+  > a .name,
   > .category, {
     @include ellipsis;
     width: 100%;
@@ -17,9 +17,9 @@
     line-height: 1.1;
   }
 
-  > .name {
+  > a .name {
     @include font-size-primaryFont('large');
-    margin-bottom: 0;
+    margin-bottom: 2px;
   }
   > .category {
     margin-bottom: 5px;
@@ -44,9 +44,9 @@
 
 }
 
-.location-shortfacts.-stacked {
+.location-shortfacts.-small {
   padding-left: 8px;
-  > .avatar-square {
+  > a .avatar-square {
     position: relative;
     top: auto;
     left: auto;
@@ -63,7 +63,7 @@
   > .category {
     margin-bottom: 0;
   }
-  > .name,
+  > a .name,
   > .category, {
     overflow: visible;
     text-overflow: clip;
