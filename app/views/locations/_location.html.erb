@@ -2,21 +2,21 @@
   <div class="cardBoxHeader">
     <%= cover_photo_for(location) %>
     <div class="location-shortfacts">
-
-      <%= link_to [location.graetzl, location] do %>
-          <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
-          <div class="name"><%= location.name %></div>
+      <%= link_to avatar_for(location, fill: [200, 200], class: nil), [location.graetzl, location] %>
+      <%= link_to location.name, [location.graetzl, location], class: 'name' %>
+      <div class="category"><%= location.category.name %></div>
+      <% if location.address %>
+        <div class="address">
+          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+          <%= "#{location.address.street_name} #{location.address.street_number}" %>
+        </div>
       <% end %>
-
-      <div class="category">Öffentlicher Raum</div>
-      <div class="address"><svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Morriatigasse 3</div>
     </div>
-    <div class="sideflag -R"><a href="#">Stuwerviertel</a></div>
+    <div class="sideflag -R"><%= link_to location.graetzl.name, location.graetzl %></div>
   </div>
-  <div class="slogan">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+  <div class="slogan"><%= location.slogan %></div>
   <div class="txt"><%= truncate(location.description, length: 100) %></div>
-  <div class="event-teaser-box">
-    <div class="date"><svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>12. August 2015</div>
-    <a href="#" class="title">Bauernschnapsen im Wald</a>
-  </div>
+  <% if next_meeting = location.meetings.upcoming.first %>
+    <%= render 'meeting_teaser', meeting: next_meeting %>
+  <% end %>
 </div>
