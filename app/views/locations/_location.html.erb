@@ -2,8 +2,8 @@
   <div class="cardBoxHeader">
     <%= cover_photo_for(location) %>
     <div class="location-shortfacts">
-      <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
-      <a href="#" class="name"><%= location.name %></a>
+      <%= link_to avatar_for(location, fill: [200, 200], class: 'avatar-square'), [location.graetzl, location] %>
+      <%= link_to location.name, [location.graetzl, location], class: 'name' %>
       <div class="category">Öffentlicher Raum</div>
       <div class="address"><svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Morriatigasse 3</div>
     </div>
