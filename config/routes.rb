@@ -71,7 +71,6 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [ :index ]
 
-  resources :graetzls, only: [:index]
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: 'treffen', only: [:index, :show, :new]
     resources :locations, only: [:index, :show]
@@ -90,7 +89,7 @@ Rails.application.routes.draw do
   end
 
   resources :comments, only: [:update, :destroy]
-  
+
   resources :posts, only: [:create, :destroy] do
     resource :comments, module: :posts, only: [:create]
   end
