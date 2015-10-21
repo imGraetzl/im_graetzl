@@ -2,7 +2,7 @@
   <div class="cardBoxCollection -quart">
     <div class="wrp-cardBox">
       <h2>Treffen & Events</h2>
-      <a class="linkoverview">Alle</a>
+      <%= link_to 'Alle', graetzl_meetings_path(@graetzl), class: 'linkoverview' %>
       <% if meeting = @graetzl.meetings.basic.upcoming.first %>
         <%= render meeting %>
       <% else %>
@@ -27,7 +27,7 @@
 
     <div class="wrp-cardBox">
       <h2>Anbieter & Locations</h2>
-      <a class="linkoverview">Alle</a>
+      <%= link_to 'Alle', graetzl_locations_path(@graetzl), class: 'linkoverview' %>
       <% if location = @graetzl.locations.approved.order("RANDOM()").first %>
         <%= render location, small: true %>
       <% else %>
