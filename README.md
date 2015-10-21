@@ -151,6 +151,10 @@ Afterwards, different associations can be eager loaded using `.includes`:
 PublicActivity::Activity.includes(post: [:user, :images], meeting: [:address])
 ```
 
+
+### Server
+The app uses [puma](https://github.com/puma/puma) in all environments.
+
 ## Deployment
 
 The app is hosted on [Amazon Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) (instance running Ruby 2.2.2, Puma, Nginx). Config in .ebextensions folder. Files are executed in alphabetical order:
