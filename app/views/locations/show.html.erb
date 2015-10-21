@@ -1,6 +1,12 @@
-<% title t('.title', name: @location.name, slogan: @location.slogan) %>
-<% meta_tag :description, t('.description', desc: @location.meta_description) %>
-<% meta_tag :robots, 'index, follow' %>
+<%
+  meta({
+    title: t('.title', name: @location.name, slogan: @location.slogan),
+    description: t('.description', desc: @location.meta_description),
+    robots: 'index, follow',
+    og_title: t('.title', name: @location.name, slogan: @location.slogan),
+    og_description: t('.description', desc: @location.meta_description)
+  })
+%>
 
 <section class="locationPage">
   <div class="imgHeader -cloudy">
@@ -43,7 +49,7 @@
       </div>
     </div>
     <% end %>
-    
+
   </div>
   <%= render 'sidebar' %>
 </section>

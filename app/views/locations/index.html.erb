@@ -1,6 +1,12 @@
-<% title t('.title', graetzl: @graetzl.name) %>
-<% meta_tag :description, t('.description', graetzl: @graetzl.name) %>
-<% meta_tag :robots, @graetzl.open? ? 'index, follow' : 'noindex, follow' %>
+<%
+  meta({
+    title: t('.title', graetzl: @graetzl.name),
+    description: t('.description', graetzl: @graetzl.name),
+    robots: @graetzl.open? ? 'index, follow' : 'noindex, follow',
+    og_title: t('.title', graetzl: @graetzl.name),
+    og_description: t('.description', graetzl: @graetzl.name),
+  })
+%>
 
 <section class="locations-overview" data-mapdata="<%= @map_data %>">
 
@@ -21,5 +27,3 @@
   </div>
 
 </section>
-
-

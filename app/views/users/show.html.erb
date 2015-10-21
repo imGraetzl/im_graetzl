@@ -1,6 +1,12 @@
-<% title t('.title', name: @user.username, graetzl: @user.graetzl.name) %>
-<% meta_tag :description, t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric) %>
-<% meta_tag :robots, 'noindex, follow' %>
+<%
+  meta({
+    title: t('.title', name: @user.username, graetzl: @user.graetzl.name),
+    description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric),
+    robots: 'noindex, follow',
+    og_title: t('.title', name: @user.username, graetzl: @user.graetzl.name),
+    og_description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric)
+  })
+%>
 
 <section class="userprofile">
   <div class="imgHeader -shadowed">

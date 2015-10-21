@@ -4,22 +4,6 @@ RSpec.describe GraetzlsController, type: :controller do
   let(:user) { create(:user) }
   let(:graetzl) { create(:graetzl) }
 
-  describe 'GET index' do
-    before { get :index }
-
-    it 'returns a 200 status' do
-      expect(response).to be_success
-    end
-
-    it 'assigns @graetzls' do
-      expect(assigns(:graetzls)).to eq Graetzl.all
-    end
-
-    it 'renders index' do
-      expect(response).to render_template(:index)
-    end
-  end
-
   describe 'GET show' do
     context 'when html request' do
       before { get :show, id: graetzl }
@@ -85,7 +69,7 @@ RSpec.describe GraetzlsController, type: :controller do
       #       get :show, id: graetzl
       #     end
 
-      #     it 'is empty' do          
+      #     it 'is empty' do
       #       expect(assigns(:locations)).to be_empty
       #     end
       #   end
