@@ -8,6 +8,10 @@
   display: table;
   line-height: 1;
   padding: 4px 15px 6px 15px;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
   &.-R, &.-L {
     &:after {
       content: '';

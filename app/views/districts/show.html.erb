@@ -23,7 +23,7 @@
 
   <% if !@meetings.empty? %>
     <div class="teaserBlock">
-      <h2>Aktuelle Treffen in <%= @district.zip %> <%= @district.name %></h2>
+      <h1 class="hl-main">Aktuelle Treffen in <span><%= @district.zip %> <%= @district.name %></span></h1>
       <div class="cardBoxCollection -tripple">
         <%= render @meetings %>
       </div>

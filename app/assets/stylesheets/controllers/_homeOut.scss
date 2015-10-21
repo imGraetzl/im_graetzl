@@ -20,7 +20,7 @@ section.homeOut {
 
 .buehne {
   overflow: hidden;
-  background-image: url(image_path('illu/illu-sitzendeAmTisch.png')), url(image_path('illu/illu-karte.jpg'));
+  background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
   background-repeat: no-repeat;
   background-size: 270px auto, 700px auto;
   background-position: 15% 125px, center center;
@@ -32,9 +32,7 @@ section.homeOut {
     padding-left: 18px;
     padding-right: 18px;
   }
-  @include respond-to("retina2x") {
-    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
-  }
+
   @include respond-to(">=medium") {
     min-height: 530px;
     background-size: 400px auto, 800px auto;

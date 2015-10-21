@@ -59,7 +59,7 @@
 
   .homelink {
     padding-right: 20px;
-    margin-right: 20px;
+    margin-right: 16px;
     border-right: 1px dotted lighten($color-ambient-mint, 20);
   }
 
@@ -90,6 +90,14 @@
 
   .loginlink {
     margin-left: 20px;
+  }
+
+  .linkdisabled {
+    display: flex;
+    color: $color-ambient-grey;
+    padding: 15px;
+    border-bottom: 1px solid #DBEFEC;
+    cursor: not-allowed;
   }
 
   .registerlink {
@@ -124,9 +132,9 @@
 
 
   .graetzlTrigger {
-    margin-right: 16px;
+    margin-right: 20px;
     [class^=icon-] {
-      margin-left: 8px;
+      margin-right: 8px;
     }
     .txt {
       @include ellipsis;
