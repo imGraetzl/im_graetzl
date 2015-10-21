@@ -1,4 +1,5 @@
-<div class="cardBox -location">
+<% small ||= false %>
+<div class="cardBox -location <%= '-small' if small %>">
   <div class="cardBoxHeader">
     <%= cover_photo_for(location) %>
     <div class="location-shortfacts">
