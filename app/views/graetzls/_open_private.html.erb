@@ -4,14 +4,14 @@
       <h2>Treffen & Events</h2>
       <a class="linkoverview">Alle</a>
       <% if meeting = @graetzl.meetings.basic.upcoming.first %>
-          <%= render meeting %>
+        <%= render meeting %>
       <% else %>
-          <div class="cardBox meetBox -illuteasersmall">
-            <div class="txt">
-              <p>Lege ein Treffen für gemeinsame Aktivitäten an oder trage ein Event ein.</p>
-            </div>
-            <%= link_to 'Treffen anlegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary' %>
+        <div class="cardBox meetBox -illuteasersmall">
+          <div class="txt">
+            <p>Lege ein Treffen für gemeinsame Aktivitäten an oder trage ein Event ein.</p>
           </div>
+          <%= link_to 'Treffen anlegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary' %>
+        </div>
       <% end %>
     </div>
 
@@ -29,35 +29,14 @@
       <h2>Anbieter & Locations</h2>
       <a class="linkoverview">Alle</a>
       <% if location = @graetzl.locations.approved.order("RANDOM()").first %>
-
-          <div class="cardBox -location -small">
-            <div class="cardBoxHeader">
-              <!-- <%= cover_photo_for(location) %> -->
-              <img class="coverImg" src="https://placeimg.com/300/180/any" alt="">
-              <div class="location-shortfacts -small">
-                <a href="">
-                  <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
-                  <div href="#" class="name"><%= location.name %></div>
-                </a>
-                <div class="category">Öffentlicher Raum</div>
-                <div class="address"><svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Morriatigasse 3</div>
-              </div>
-            </div>
-            <div class="slogan">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-            <div class="event-teaser-box">
-              <div class="date"><svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>12. August 2015</div>
-              <a href="#" class="title">Bauernschnapsen im Wald</a>
-            </div>
-          </div>
-
-          <!--<%= render location %>-->
+        <%= render location, small: true %>
       <% else %>
-          <div class="cardBox locationBox -illuteasersmall">
-            <div class="txt">
-              <p>Unternehmerisch oder kreativ im Grätzl tätig? Zeig, was du machst.</p>
-            </div>
-            <%= link_to 'Betreiber eintragen', new_location_path, class: 'btn-primary -mint' %>
+        <div class="cardBox locationBox -illuteasersmall">
+          <div class="txt">
+            <p>Unternehmerisch oder kreativ im Grätzl tätig? Zeig, was du machst.</p>
           </div>
+          <%= link_to 'Betreiber eintragen', new_location_path, class: 'btn-primary -mint' %>
+        </div>
       <% end %>
     </div>
 
