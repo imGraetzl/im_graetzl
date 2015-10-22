@@ -1,15 +1,20 @@
 APP.controllers.locations = (function() {
 
     function init() {
+        if($("section.selectGraetzl").exists()) initSelectGraetzl();
+        if($("section.location-form").exists()) initLocationForm();
+        if($("section.locations-overview").exists()) initLocationOverview();
+    }
 
-        APP.components.addressSearchAutocomplete();
+
+
+    function initSelectGraetzl() {
         APP.components.graetzlSelect();
+    }
 
-        $('select.categories').SumoSelect({
-            placeholder: 'Wähle einen oder mehreren Kategorien',
-            csvDispCount: 5,
-            captionFormat: '{0} Kategorien ausgewählt'
-        });
+
+    function initLocationForm() {
+        $("#location_description").autogrow();
 
         $('form').on('click', '.add_address_fields', function(event) {
             var fields = $(this).data('fields');
@@ -31,19 +36,27 @@ APP.controllers.locations = (function() {
             APP.components.graetzlSelect();
             event.preventDefault();
         });
-
-        if($("section.location-form").exists) {
-            initLocationForm();
-        }
-
-
     }
 
-    function initLocationForm() {
-        $("#location_description").autogrow();
-        console.log("druan");
-    }
 
+    function initLocationOverview() {
+        var numBoxes = $(".cardBoxCollection .cardBox").length;
+        var map =  APP.components.graetzlMap;
+        var mapdata = jQuery('.locations-overview').data('mapdata');
+
+        map.init(function() {
+                map.showMapGraetzl(mapdata.graetzls, {
+                    style: $.extend(map.styles.rose, {
+                        weight: 4,
+                        fillOpacity: 0.2
+                    })
+                });
+
+            }
+        );
+
+        if (numBoxes > 0) $(".cardBox:nth-child(3)").after($(".cardbox-wrp"));
+    }
 
 // ---------------------------------------------------------------------- Public
 

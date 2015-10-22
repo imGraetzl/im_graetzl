@@ -300,12 +300,15 @@ section.locations-overview {
       color: $color-ambient-rosa;
     }
   }
+  .sideflag {
+    display: none;
+  }
   .cardBox {
     text-decoration: none;
     color: inherit;
-    &:hover {
-      color: $color-ambient-rosa;
-    }
+  }
+  .paperCard {
+    margin-bottom: 30px;
   }
 }
 

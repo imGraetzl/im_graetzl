@@ -2,9 +2,9 @@
   <div class="cardBoxCollection -quart">
     <div class="wrp-cardBox">
       <h2>Treffen & Events</h2>
+      <%= link_to 'Alle', graetzl_meetings_path(@graetzl), class: 'linkoverview' %>
       <% if meeting = @graetzl.meetings.basic.upcoming.first %>
         <%= render meeting %>
-        <%= link_to 'Alle Treffen & Events', graetzl_meetings_path(@graetzl), class: 'link-more -small' %>
       <% else %>
         <div class="cardBox meetBox -illuteasersmall">
           <div class="txt">
@@ -19,17 +19,17 @@
       <h2>Initiativen</h2>
       <div class="cardBox initiativeBox -illuteasersmall">
         <div class="txt">
-          <p>Gartenprojekt, Flohmarkt, oder Spendenaktion? Finde Mitorganisatoren.</p>
+          <p>Neue Ideen für dein Grätzl? Gartenprojekt, Flohmarkt, oder Spendenaktion? Finde Mitorganisatoren.</p>
         </div>
         <a class="btn-primary -disabled" href="#" title="An dieser Funktion arbeiten wir noch...">In Kürze verfügbar</a>
       </div>
     </div>
 
     <div class="wrp-cardBox">
-      <h2>Betreiber & Locations</h2>
+      <h2>Anbieter & Locations</h2>
+      <%= link_to 'Alle', graetzl_locations_path(@graetzl), class: 'linkoverview' %>
       <% if location = @graetzl.locations.approved.order("RANDOM()").first %>
-        <%= render location %>
-        <%= link_to 'Alle Treffpunkte', graetzl_locations_path(@graetzl), class: 'link-more -small' %>
+        <%= render location, small: true %>
       <% else %>
         <div class="cardBox locationBox -illuteasersmall">
           <div class="txt">
@@ -49,6 +49,7 @@
         <%= link_to 'Zum Grätzlzuckerl', zuckerl_districts_path, class: 'btn-primary -mint' %>
       </div>
     </div>
+
   </div>
 </div>
 

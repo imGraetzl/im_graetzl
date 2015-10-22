@@ -33,38 +33,7 @@
     </div>
   </div>
 
-  <div class="meet-where">
-    <p><span>Wo</span> soll dein Treffen oder Veranstaltung stattfinden?</p>
-
-    <div id="addressSearchAutocomplete" class="input-field">
-      <%= label_tag :address do %>
-        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-        <span>Adresse</span>
-      <% end %>
-      <%= text_field_tag :address, address_value(f.object.address),
-                        placeholder: 'Straße und Hausnummer',
-                        readonly: disable_fields %>
-      <%= hidden_field_tag :feature %>
-    </div>
-
-    <%= f.fields_for :address do |address_fields| %>
-      <div class="input-field">
-        <%= address_fields.label :description do %>
-            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
-            <span>Ortsbeschreibung</span>
-        <% end %>
-        <%= address_fields.text_field :description,
-                                      placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.',
-                                      readonly: disable_fields %>
-        <%= address_fields.hidden_field :street_name %>
-        <%= address_fields.hidden_field :street_number %>
-        <%= address_fields.hidden_field :zip %>
-        <%= address_fields.hidden_field :city %>
-        <%= address_fields.hidden_field :coordinates %>
-      </div>
-    <% end %>
-    <%= render 'location_fields', f: f, disable_fields: disable_fields %>
-  </div>
+  <%= render "address_fields#{'_hidden' if disable_fields}", f: f %>
 
   <div class="meet-when">
     <p><span>Wann</span> planst du dein Treffen, deine Veranstaltung?</p>

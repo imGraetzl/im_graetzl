@@ -1,6 +1,13 @@
-<% title t('.title', name: @meeting.name) %>
-<% meta_tag :description, t('.description', desc: @meeting.description[0...154]) %>
-<% meta_tag :robots, 'index, follow' %>
+<%
+  meta({
+    title: t('.title', name: @meeting.name),
+    description: t('.description', desc: @meeting.description[0...154]),
+    robots: 'index, follow',
+    og_title: t('.title', name: @meeting.name),
+    og_description: t('.description', desc: @meeting.description[0...154]),
+    og_image: attachment_url(@meeting, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+  })
+%>
 
 <section class="meeting">
 

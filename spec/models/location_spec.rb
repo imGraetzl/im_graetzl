@@ -53,7 +53,7 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:cover_photo_content_type)
     end
   end
-  
+
   describe 'associations' do
     let(:location) { create(:location) }
 
@@ -175,7 +175,7 @@ RSpec.describe Location, type: :model do
         expect(location.show_meeting_button(build(:user))).to eq false
       end
 
-      it 'returns true for owner' do         
+      it 'returns true for owner' do
         expect(location.show_meeting_button(owner)).to eq true
       end
     end
@@ -262,7 +262,7 @@ RSpec.describe Location, type: :model do
   describe '#meta_description' do
     let(:address) { create(:address,
                             street_name: 'street',
-                            street_number: '2',
+                            street_number: '2/2/2',
                             zip: '1050',
                             city: 'Wien') }
 
@@ -271,8 +271,13 @@ RSpec.describe Location, type: :model do
 
       subject(:meta) { location.meta_description }
 
-      it 'includes address' do
-        expect(meta).to include(address.street_name, address.street_number, address.zip, address.city)
+      it 'includes street_name, zip and city' do
+        expect(meta).to include(address.street_name, address.zip, address.city)
+      end
+
+      it 'includes first part of street_number' do
+        expect(meta).to include("#{address.street_name} 2")
+        expect(meta).not_to include('/')
       end
 
       it 'is not longer than 155 chars' do

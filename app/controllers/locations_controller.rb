@@ -34,7 +34,7 @@ class LocationsController < ApplicationController
   end
 
   def index
-    @locations = @graetzl.locations.approved.includes(:address)
+    @locations = @graetzl.locations.approved.includes(:address, :category)
     @map_data = GeoJSONService.call(graetzls: @graetzl)
   end
 

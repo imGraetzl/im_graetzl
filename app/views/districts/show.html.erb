@@ -1,6 +1,13 @@
-<% title t('.title', numeric: @district.numeric, name: @district.name) %>
-<% meta_tag :description, t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric) %>
-<% meta_tag :robots, 'index, follow' %>
+<%
+  meta({
+    title: t('.title', numeric: @district.numeric, name: @district.name),
+    description: t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric),
+    robots: 'index, follow',
+    og_title: t('.title', numeric: @district.numeric, name: @district.name),
+    og_description: t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
 
 <section class="districts" data-mapdata="<%= @map_data %>">
 
@@ -23,7 +30,7 @@
 
   <% if !@meetings.empty? %>
     <div class="teaserBlock">
-      <h2>Aktuelle Treffen in <%= @district.zip %> <%= @district.name %></h2>
+      <h1 class="hl-main">Aktuelle Treffen in <span><%= @district.zip %> <%= @district.name %></span></h1>
       <div class="cardBoxCollection -tripple">
         <%= render @meetings %>
       </div>

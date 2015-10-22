@@ -1,4 +1,8 @@
 de:
+  application:
+      meta_tags:
+        site_name: imGrätzl.at
+        locale: de_DE
   static_pages:
     home:
       title: 'Mach mit - Treffen, Events & Initiativen im Grätzl'

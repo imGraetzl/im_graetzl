@@ -1,11 +1,36 @@
-<% title t('.title', graetzl: @graetzl.name) %>
-<% meta_tag :description, t('.description', graetzl: @graetzl.name) %>
-<% meta_tag :robots, @graetzl.open? ? 'index, follow' : 'noindex, follow' %>
+<%
+  meta({
+    title: t('.title', graetzl: @graetzl.name),
+    description: t('.description', graetzl: @graetzl.name),
+    robots: @graetzl.open? ? 'index, follow' : 'noindex, follow',
+    og_title: t('.title', graetzl: @graetzl.name),
+    og_description: t('.description', graetzl: @graetzl.name),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
 
-<section class="locations-overview">
-  <h1><span><%= @graetzl.name %>:</span> Entdecke gute Treffpunkte & Anbieter, Lokale & Geschäfte</h1>
+<section class="locations-overview" data-mapdata="<%= @map_data %>">
+
+  <div class="mapImgBlock singleGraetzl">
+    <div id="graetzlMapWidget"></div>
+    <div class="activeArea"></div>
+    <div class="illuDistrict"></div>
+
+    <div class="wrp-headline">
+      <h1><%= @graetzl.name %></h1>
+      <%= content_tag :span do %>
+          in
+          <% @graetzl.districts.each do |district| %>
+              <%= link_to district.zip, district %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
   <div class="cardBoxCollection -tripple">
     <%= render 'locations/action_card', graetzl: @graetzl %>
     <%= render @locations %>
   </div>
+
 </section>
