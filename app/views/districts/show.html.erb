@@ -4,7 +4,8 @@
     description: t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric),
     robots: 'index, follow',
     og_title: t('.title', numeric: @district.numeric, name: @district.name),
-    og_description: t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric)
+    og_description: t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric),
+    og_image: image_url('meta/og_logo.png')
   })
 %>
 
