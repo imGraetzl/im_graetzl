@@ -1,6 +1,12 @@
-<% title t('.title') %>
-<% meta_tag :description, t('.description') %>
-<% meta_tag :robots, 'index, follow' %>
+<%
+  meta({
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description')
+  })
+%>
 
 <section class="vienna" data-mapdata="<%= @map_data %>">
 

@@ -39,7 +39,7 @@ class Graetzl < ActiveRecord::Base
 
   def activity
     PublicActivity::Activity
-      .includes(:owner, :trackable, post: [:user, :images, :graetzl], meeting: [:address, :graetzl])
+      .includes(:owner, :trackable, post: [:user, :images, :graetzl, :comments], meeting: [:address, :graetzl, :comments])
       .select('DISTINCT ON(trackable_id, trackable_type) *')
       .where(key: STREAM_ACTIVITY_KEYS)
       .where("(owner_id IN (?))

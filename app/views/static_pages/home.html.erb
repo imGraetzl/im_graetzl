@@ -1,6 +1,12 @@
-<% title t('.title') %>
-<% meta_tag :description, t('.description') %>
-<% meta_tag :robots, 'index, follow' %>
+<%
+  meta({
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'noindex, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+  })
+%>
 
 <section class="homeOut">
   <div class="buehne">

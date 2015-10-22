@@ -4,7 +4,7 @@ module ImagesHelper
     attachment_image_tag(model, :cover_photo,
                                 :fill, options[:fill][0], options[:fill][1],
                                 fallback: stock_photo(options),
-                                class: options[:class])
+                                class: (options[:class] if options[:class]))
   end
 
   def avatar_for(model, options={})
@@ -12,7 +12,7 @@ module ImagesHelper
     attachment_image_tag(model, :avatar,
                                 :fill, options[:fill][0], options[:fill][1],
                                 fallback: stock_avatar(model, options),
-                                class: options[:class])    
+                                class: (options[:class] if options[:class]))
   end
 
 

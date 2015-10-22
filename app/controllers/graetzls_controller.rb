@@ -1,8 +1,4 @@
 class GraetzlsController < ApplicationController
-  def index
-    @graetzls = Graetzl.all
-  end
-
   def show
     @graetzl = Graetzl.find(params[:id])
     @activities = Kaminari.paginate_array(@graetzl.activity).page(params[:page]).per(10)

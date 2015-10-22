@@ -1,7 +1,12 @@
-<% title t('.title', numeric: 2) %>
-<% meta_tag :description, t('.description', district: 'Leopoldstadt') %>
-<% meta_tag :robots, 'index, follow' %>
-
+<%
+  meta({
+    title: t('.title', numeric: 2),
+    description: t('.description', district: 'Leopoldstadt'),
+    robots: 'noindex, follow',
+    og_title: t('.title', numeric: 2),
+    og_description: t('.description', district: 'Leopoldstadt')
+  })
+%>
 
 <section class="zuckerlOverview">
 

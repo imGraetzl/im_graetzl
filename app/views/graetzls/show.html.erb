@@ -1,6 +1,12 @@
-<% title t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric) %>
-<% meta_tag :description, t('.description', name: @graetzl.name) %>
-<% meta_tag :robots, 'index, follow' %>
+<%
+  meta({
+    title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric),
+    description: t('.description', name: @graetzl.name),
+    robots: 'index, follow',
+    og_title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric),
+    og_description: t('.description', name: @graetzl.name)
+  })
+%>
 
 <section class="graetzls" data-mapdata="<%= @map_data %>">
 
@@ -26,5 +32,5 @@
   <% else %>
     <%= render "closed#{'_private' if user_signed_in?}" %>
   <% end %>
-  
+
 </section>

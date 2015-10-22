@@ -1,5 +1,10 @@
-<% title t('.title', content: @post.content[0..154]) %>
-<% meta_tag :robots, 'noindex, follow' %>
+<%
+  meta({
+    title: t('.title', content: @post.content[0..154]),
+    robots: 'noindex, follow',
+    og_title: t('.title', content: @post.content[0..154])
+  })
+%>
 
 <section class="justEntry">
   <div class="userCreateInfo">

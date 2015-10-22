@@ -1,6 +1,12 @@
-<% title t('.title', graetzl: @graetzl.name) %>
-<% meta_tag :description, t('.description', graetzl: @graetzl.name) %>
-<% meta_tag :robots, @graetzl.open? ? 'index, follow' : 'noindex, follow' %>
+<%
+  meta({
+    title: t('.title', graetzl: @graetzl.name),
+    description: t('.description', graetzl: @graetzl.name),
+    robots: @graetzl.open? ? 'index, follow' : 'noindex, follow',
+    og_title: t('.title', graetzl: @graetzl.name),
+    og_description: t('.description', graetzl: @graetzl.name),
+  })
+%>
 
 <section class="locations-overview" data-mapdata="<%= @map_data %>">
 
@@ -14,12 +20,10 @@
     </div>
   </div>
 
-  <h1 class="hl-main">Entdecke gute Treffpunkte & Anbieter, Lokale & Geschäfte</h1>
+  <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
   <div class="cardBoxCollection -tripple">
     <%= render 'locations/action_card', graetzl: @graetzl %>
     <%= render @locations %>
   </div>
 
 </section>
-
-
