@@ -301,11 +301,14 @@ section.locations-overview {
     }
   }
   .sideflag {
-  //  display: none;
+    display: none;
   }
   .cardBox {
     text-decoration: none;
     color: inherit;
+  }
+  .paperCard {
+    margin-bottom: 30px;
   }
 }
 

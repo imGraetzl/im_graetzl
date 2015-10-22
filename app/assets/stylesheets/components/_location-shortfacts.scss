@@ -63,8 +63,7 @@
   > .category {
     margin-bottom: 0;
   }
-  > a .name,
-  > .category, {
+  > a .name {
     overflow: visible;
     text-overflow: clip;
     white-space: normal;

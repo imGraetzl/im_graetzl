@@ -17,6 +17,12 @@
 
     <div class="wrp-headline">
       <h1><%= @graetzl.name %></h1>
+      <%= content_tag :span do %>
+          in
+          <% @graetzl.districts.each do |district| %>
+              <%= link_to district.zip, district %>
+          <% end %>
+      <% end %>
     </div>
   </div>
 
