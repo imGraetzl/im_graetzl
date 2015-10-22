@@ -4,7 +4,8 @@
     description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric),
     robots: 'noindex, follow',
     og_title: t('.title', name: @user.username, graetzl: @user.graetzl.name),
-    og_description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric)
+    og_description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric),
+    og_image: attachment_url(@user, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
   })
 %>
 
