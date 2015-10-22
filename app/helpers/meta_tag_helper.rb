@@ -6,6 +6,10 @@ module MetaTagHelper
     content_for(:title) { "#{page_title} | "}
   end
 
+  def canonical_tag
+    tag(:link, rel: 'canonical', href: "http://#{request.host + request.fullpath}")    
+  end
+
   def meta(tags_hash, type=:meta)
     tags_hash.each do |tag, content|
       case
