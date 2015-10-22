@@ -8,7 +8,7 @@ class Location < ActiveRecord::Base
   enum location_type: { business: 0, public_space: 1, vacancy: 2 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
   attachment :avatar, type: :image
-  attachment :cover_photo, type: :image  
+  attachment :cover_photo, type: :image
 
   # associations
   belongs_to :graetzl
@@ -25,7 +25,7 @@ class Location < ActiveRecord::Base
   # has_many :categorizations, as: :categorizable
   # accepts_nested_attributes_for :categorizations, allow_destroy: true
   # has_many :categories, through: :categorizations
-  
+
 
   # validations
   validates :name, presence: true
@@ -40,7 +40,7 @@ class Location < ActiveRecord::Base
     meeting_permissions.map do |t|
       [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :meeting_permissions]), t[0]]
     end
-  end 
+  end
 
   def approve
     if pending? && approved!
@@ -58,12 +58,12 @@ class Location < ActiveRecord::Base
   end
 
   def show_meeting_button(user)
-    self.meetable? || (self.owner_meetable? && users.include?(user))    
+    self.meetable? || (self.owner_meetable? && users.include?(user))
   end
 
   def meta_description
     desc = ''
-    desc << "#{address.street_name} #{address.street_number}, #{address.zip} #{address.city} " if address
+    desc << "#{address.street_name} #{address.street_number.split(%r{/}).first}, #{address.zip} #{address.city} " if address
     desc << description
     desc[0..154]
   end
