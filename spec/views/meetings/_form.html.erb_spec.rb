@@ -36,17 +36,25 @@ RSpec.describe 'meetings/_form', type: :view do
     context 'with disable_fields param' do
       before { render 'meetings/form', disable_fields: true }
 
-      it 'has readonly :address field' do
-        expect(rendered).to have_xpath("//input[@name='address'][@readonly='readonly']")
+      # it 'has readonly :address field' do
+      #   expect(rendered).to have_xpath("//input[@name='address'][@readonly='readonly']")
+      # end
+
+      it 'displays no :address field' do
+        expect(rendered).not_to have_field(:address)
       end
 
-      it 'has readonly :address_description field' do
-        expect(rendered).to have_xpath("//input[@name='meeting[address_attributes][description]'][@readonly='readonly']")
+      # it 'displays readonly :address_description field' do
+      #   expect(rendered).to have_xpath("//input[@name='meeting[address_attributes][description]'][@readonly='readonly']")
+      # end
+
+      it 'displays hidden address_description field' do
+        expect(rendered).to have_selector('#meeting_address_attributes_description', visible: false)
       end
 
       it 'has hidden :feature field' do
         expect(rendered).to have_selector('#feature', visible: false)
-      end  
+      end
 
       it 'has hidden :location_id field' do
         expect(rendered).to have_selector('#meeting_location_id', visible: false)
