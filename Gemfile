@@ -94,3 +94,5 @@ gem 'remotipart'
 gem 'kaminari'
 # rack middleware for enforcing rewrite rules
 gem 'rack-rewrite'
+# active job backend
+gem 'sucker_punch'
