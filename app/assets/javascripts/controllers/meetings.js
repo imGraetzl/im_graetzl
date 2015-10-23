@@ -55,7 +55,7 @@ APP.controllers.meetings = (function() {
 
 
     function initMeetingsOverview() {
-        var numBoxes = $(".cardBoxCollection .cardBox").length;
+        var numBoxes = $(".cardBoxCollection:eq(0) .cardBox").length;
         var map =  APP.components.graetzlMap;
         var mapdata = jQuery('.meetings-overview').data('mapdata');
 
@@ -70,7 +70,7 @@ APP.controllers.meetings = (function() {
             }
         );
 
-        if (numBoxes > 0) $(".cardBox:nth-child(3)").after($(".cardbox-wrp"));
+        if (numBoxes > 0) $(".cardBoxCollection:eq(0) .cardBox:nth-child(3)").after($(".cardbox-wrp"));
     }
 
 
