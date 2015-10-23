@@ -20,6 +20,9 @@ Capybara.javascript_driver = :poltergeist
 # disable activity tracking on tests
 PublicActivity.enabled = false
 
+# Use synchronus backend for active job
+Rails.application.config.active_job.queue_adapter = :inline
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -49,19 +52,19 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
- 
+
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
- 
+
   config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
- 
+
   config.before(:each) do
     DatabaseCleaner.start
   end
- 
+
   config.after(:each) do
     DatabaseCleaner.clean
   end
