@@ -108,6 +108,10 @@
   h3 {
     @include font-size-primaryFont('larger');
     margin-bottom: 15px;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
   }
   .txt {
     @include font-size-primaryFont('base');
@@ -185,6 +189,12 @@
     position: absolute;
     top: 5px;
     left: 5px;
+  }
+  .participantsCountSmall {
+    position: absolute;
+    top: -4px;
+    padding-right: 4px;
+    right: 0;
   }
 }
 

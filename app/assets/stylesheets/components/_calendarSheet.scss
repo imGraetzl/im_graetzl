@@ -1,37 +1,37 @@
 .calendarSheet {
-  background-color: $color-ambient-mint-light;
-  color: $color-ambient-mint-dark;
+  background-color: $color-ambient-rosa-light;
+  color: $color-ambient-rosa-dark;
   border-radius: 4px;
   text-align: center;
   overflow: hidden;
   line-height: 1;
-  padding: 17px 0 4px 0;
+  padding: 14px 0 4px 0;
   width: 50px;
   position: relative;
   .day {
     width: 100%;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 600;
   }
   .month {
     width: 100%;
     text-transform: uppercase;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 300;
   }
   &:before, &:after {
     content: '';
-    height: 13px;
+    height: 10px;
     width: 50%;
     position: absolute;
     top: 0;
   }
   &:before {
-    background-color: lighten($color-ambient-mint-dark, 15);
+    background-color: $color-ambient-rosa;
     left: 0;
   }
   &:after {
-    background-color: $color-ambient-mint-dark;
+    background-color: $color-ambient-rosa-dark;
     right: 0;
   }
 }
