@@ -16,7 +16,6 @@ class LocationsController < ApplicationController
   end
 
   def create
-    #puts params
     @location = Location.new(location_params)
     if @location.save
       enqueue_and_redirect(root_url)
@@ -35,7 +34,6 @@ class LocationsController < ApplicationController
 
   def index
     @locations = @graetzl.locations.approved.includes(:address, :category)
-    @map_data = GeoJSONService.call(graetzls: @graetzl)
   end
 
   def show

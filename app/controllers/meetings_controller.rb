@@ -34,7 +34,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
     @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
-    
+
     if @meeting.save
       @meeting.create_activity :create, owner: current_user
       redirect_to [@meeting.graetzl, @meeting]
@@ -75,57 +75,57 @@ class MeetingsController < ApplicationController
 
   private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def meeting_params
-      if params[:address].present? && params[:feature].blank?
-        meeting_params_basic
-      else
-        meeting_params_basic.deep_merge(address_attributes: address_attr)
-      end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def meeting_params
+    if params[:address].present? && params[:feature].blank?
+      meeting_params_basic
+    else
+      meeting_params_basic.deep_merge(address_attributes: address_attr)
     end
+  end
 
-    def meeting_params_basic
-      params.
-        require(:meeting).
-        permit(:graetzl_id,
-          :name,
+  def meeting_params_basic
+    params.
+      require(:meeting).
+      permit(:graetzl_id,
+        :name,
+        :description,
+        :starts_at_date, :starts_at_time,
+        :ends_at_time,
+        :cover_photo,
+        :remove_cover_photo,
+        :location_id,
+        category_ids: [],
+        address_attributes: [
+          :id,
           :description,
-          :starts_at_date, :starts_at_time,
-          :ends_at_time,
-          :cover_photo,
-          :remove_cover_photo,
-          :location_id,
-          category_ids: [],
-          address_attributes: [
-            :id,
-            :description,
-            :street_name,
-            :street_number,
-            :zip,
-            :city,
-            :coordinates]).
-        merge(state: Meeting.states[:basic])
-    end
+          :street_name,
+          :street_number,
+          :zip,
+          :city,
+          :coordinates]).
+      merge(state: Meeting.states[:basic])
+  end
 
-    def address_attr
-      Address.attributes_from_feature(params[:feature]) || Address.attributes_to_reset_location
-    end
+  def address_attr
+    Address.attributes_from_feature(params[:feature]) || Address.attributes_to_reset_location
+  end
 
-    def set_meeting
-      @meeting = Meeting.find(params[:id])
-    end
+  def set_meeting
+    @meeting = Meeting.find(params[:id])
+  end
 
-    def parent_context
-      base = (params[:meeting] if params[:meeting].present?) || params
-      context = Location.find(base[:location_id]) if base[:location_id].present?
-      context ||= Graetzl.find(base[:graetzl_id]) if base[:graetzl_id].present?
-      context || current_user.graetzl
-    end
+  def parent_context
+    base = (params[:meeting] if params[:meeting].present?) || params
+    context = Location.find(base[:location_id]) if base[:location_id].present?
+    context ||= Graetzl.find(base[:graetzl_id]) if base[:graetzl_id].present?
+    context || current_user.graetzl
+  end
 
-    def check_permission!
-      if !@meeting.going_tos.initiator.find_by_user_id(current_user)
-        flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
-        redirect_to [@meeting.graetzl, @meeting]
-      end
+  def check_permission!
+    if !@meeting.going_tos.initiator.find_by_user_id(current_user)
+      flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
+      redirect_to [@meeting.graetzl, @meeting]
     end
+  end
 end
