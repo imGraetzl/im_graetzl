@@ -11,7 +11,7 @@
       </div>
     <% end %>
 
-    <div class="sideflag -R"><%= meeting.graetzl.name %></div>
+    <div class="sideflag -R"><%= link_to meeting.graetzl.name, meeting.graetzl %></div>
 
     <% if initiator = meeting.initiator %>  
       <div class="initiator">
@@ -19,8 +19,15 @@
         <span><%= initiator.username %></span>
       </div>
     <% end %>
+
+    <div class="participantsCountSmall">
+      <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+      <%= meeting.users.count %>
+    </div>
+
   </div>
-  <h3><%= meeting.name %></h3>
+
+  <h3><%= link_to meeting.name, [meeting.graetzl, meeting] %></h3>
   <div class="txt"><%= truncate(meeting.description, length: 100) %></div>
   <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
 </div>
