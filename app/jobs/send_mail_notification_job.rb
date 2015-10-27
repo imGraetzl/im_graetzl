@@ -72,10 +72,11 @@ class SendMailNotificationJob < ActiveJob::Base
             "meeting_name": activity.trackable.name,
             "owner_name": activity.owner.username,
             "owner_url": user_url(activity.owner, default_url_options),
-            "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options)
+            "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
+            "graetzl_name": activity.trackable.graetzl.name
           }
         when "attendee_left"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
+          subject = 'Absage eines Teilnehmers an deinem Treffen'
           template_name ||= 'summary-notification-dev'
           notification_vars << {
             "type": "attendee_left",
@@ -84,7 +85,6 @@ class SendMailNotificationJob < ActiveJob::Base
             "owner_url": user_url(activity.owner, default_url_options),
             "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
             "graetzl_name": activity.trackable.graetzl.name,
-            "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
           }
         when "another_user_comments"
           subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
