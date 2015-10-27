@@ -104,6 +104,14 @@ a.iconMapLink:hover [class^=icon] {
 }
 
 .participantsCountSmall {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  font-size: 1.4rem;
+  background-color: #ffffff;
+  padding: 3px 20px 3px 6px;
+  display: flex;
+  border-radius: 5px 0 0 5px;
   color: $color-ambient-mint-dark;
   [class^=icon] {
     fill: $color-ambient-mint-dark;

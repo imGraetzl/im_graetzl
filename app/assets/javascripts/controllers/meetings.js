@@ -2,6 +2,8 @@ APP.controllers.meetings = (function() {
 
     function init() {
 
+        if($("section.meetings-overview").exists()) initMeetingsOverview();
+
         APP.components.inputTextareaMovingLabel();
         APP.components.addressSearchAutocomplete();
 
@@ -48,6 +50,27 @@ APP.controllers.meetings = (function() {
             $('div#meeting-location-field').toggle();
         });
 
+    }
+
+
+
+    function initMeetingsOverview() {
+        var numBoxes = $(".cardBoxCollection:eq(0) .cardBox").length;
+        var map =  APP.components.graetzlMap;
+        var mapdata = jQuery('.meetings-overview').data('mapdata');
+
+        map.init(function() {
+                map.showMapGraetzl(mapdata.graetzls, {
+                    style: $.extend(map.styles.rose, {
+                        weight: 4,
+                        fillOpacity: 0.2
+                    })
+                });
+
+            }
+        );
+
+        if (numBoxes > 0) $(".cardBoxCollection:eq(0) .cardBox:nth-child(3)").after($(".cardbox-wrp"));
     }
 
 
