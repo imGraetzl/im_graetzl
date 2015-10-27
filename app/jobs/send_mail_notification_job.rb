@@ -11,7 +11,7 @@ class SendMailNotificationJob < ActiveJob::Base
       case interval
       when "immediate"
         notifications = [ Notification.find(notification_id) ]
-        template_name = "summary-notification"
+        #template_name = "summary-notification"
       when "daily"
         notifications = user.notifications_of_the_day
         template_name = "weekly-daily-mandrill-notifications"
@@ -41,7 +41,7 @@ class SendMailNotificationJob < ActiveJob::Base
       notifications.each do |notification|
         activity = PublicActivity::Activity.find notification.activity_id
         type = Notification::TYPES.select { |k,v| v[:bitmask] == notification.bitmask }.first[0].to_s
-        template_name ||= "notification-#{type}"
+        template_name ||= "notification-#{type.gsub(/_/, '-')}"
         case type
         when "new_meeting_in_graetzl"
           subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
@@ -56,19 +56,16 @@ class SendMailNotificationJob < ActiveJob::Base
             "meeting_description": activity.trackable.description.truncate(300, separator: ' ')
           }
         when "new_post_in_graetzl"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
-          template_name ||= 'summary-notification-dev'
+          subject = "Neuer Beitrag im #{activity.trackable.graetzl.name}"
           notification_vars << {
             "type": "new_post_in_graetzl",
-            "post_content": activity.trackable.content,
+            "post_content": activity.trackable.content.truncate(300, separator: ' '),
             "owner_name": activity.owner.username,
             "owner_url": user_url(activity.owner, default_url_options),
-            "post_url": graetzl_url(activity.trackable.graetzl, default_url_options) + "#post-#{activity.trackable.id}",
-            "graetzl_name": activity.trackable.graetzl.name,
-            "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
+            "post_url": graetzl_post_url(activity.trackable.graetzl, activity.trackable, default_url_options)
           }
         when "another_attendee"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
+          subject = "Neuer Beitrag im #{activity.trackable.graetzl.name}"
           template_name ||= 'summary-notification-dev'
           notification_vars << {
             "type": "another_attendee",
