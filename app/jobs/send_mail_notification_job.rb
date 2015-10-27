@@ -65,16 +65,14 @@ class SendMailNotificationJob < ActiveJob::Base
             "post_url": graetzl_post_url(activity.trackable.graetzl, activity.trackable, default_url_options)
           }
         when "another_attendee"
-          subject = "Neuer Beitrag im #{activity.trackable.graetzl.name}"
+          subject = 'Neuer Teilnehmer an deinem Treffen'
           template_name ||= 'summary-notification-dev'
           notification_vars << {
             "type": "another_attendee",
             "meeting_name": activity.trackable.name,
             "owner_name": activity.owner.username,
             "owner_url": user_url(activity.owner, default_url_options),
-            "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
-            "graetzl_name": activity.trackable.graetzl.name,
-            "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
+            "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options)
           }
         when "attendee_left"
           subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
