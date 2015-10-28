@@ -97,8 +97,7 @@ class SendMailNotificationJob < ActiveJob::Base
             "graetzl_name": activity.trackable.graetzl.name
           }
         when "user_comments_users_meeting"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
-          template_name = 'summary-notification-dev'
+          subject = 'Neuer Kommentar in deinem Treffen'
           notification_vars << {
             "type": "user_comments_users_meeting",
             "meeting_name": activity.trackable.name,
@@ -108,7 +107,6 @@ class SendMailNotificationJob < ActiveJob::Base
             "owner_url": user_url(activity.owner, default_url_options),
             "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
             "graetzl_name": activity.trackable.graetzl.name,
-            "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
           }
         when "initiator_comments"
           subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
