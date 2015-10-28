@@ -56,7 +56,7 @@ class MeetingsController < ApplicationController
         changed_attributes = changed_attributes.merge({ address_attributes: old_address_id })
       end
       changed_attribute_keys = changed_attributes.keys.collect(&:to_sym)
-      if changed_attribute_keys.any? { |a| [ :address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :ends_at_date, :description ].include?(a) }
+      if changed_attribute_keys.any? { |a| [ :address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description ].include?(a) }
         @meeting.create_activity :update,
           owner: current_user,
           parameters: { changed_attributes: changed_attribute_keys }

@@ -90,7 +90,7 @@ class SendMailNotificationJob < ActiveJob::Base
             "type": "another_user_comments",
             "meeting_name": activity.trackable.name,
             "comment_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options) + "#comment-#{activity.recipient.id}",
-            "comment_content": activity.recipient.content,
+            "comment_content": activity.recipient.content.truncate(300, separator: ' '),
             "owner_name": activity.owner.username,
             "owner_url": user_url(activity.owner, default_url_options),
             "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
@@ -102,7 +102,7 @@ class SendMailNotificationJob < ActiveJob::Base
             "type": "user_comments_users_meeting",
             "meeting_name": activity.trackable.name,
             "comment_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options) + "#comment-#{activity.recipient.id}",
-            "comment_content": activity.recipient.content,
+            "comment_content": activity.recipient.content.truncate(300, separator: ' '),
             "owner_name": activity.owner.username,
             "owner_url": user_url(activity.owner, default_url_options),
             "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
@@ -114,22 +114,20 @@ class SendMailNotificationJob < ActiveJob::Base
             "type": "initiator_comments",
             "meeting_name": activity.trackable.name,
             "comment_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options) + "#comment-#{activity.recipient.id}",
-            "comment_content": activity.recipient.content,
+            "comment_content": activity.recipient.content.truncate(300, separator: ' '),
             "owner_name": activity.owner.username,
             "owner_url": user_url(activity.owner, default_url_options),
             "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
             "graetzl_name": activity.trackable.graetzl.name,
           }
         when "update_of_meeting"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
-          template_name ||= 'summary-notification-dev'
+          subject = 'Änderungen in einem Treffen an dem du teilnimmst'
           translation = {
             :address => "Ort",
             :adress_attributes => "Ort",
             :starts_at_date => "Datum",
-            :ends_at_date => "Datum",
             :starts_at_time => "Uhrzeit",
-            :ends_at_time => nil,
+            :ends_at_time => "Uhrzeit",
             :description => "Beschreibung"
           }
 
@@ -142,7 +140,6 @@ class SendMailNotificationJob < ActiveJob::Base
             "owner_url": user_url(activity.owner, default_url_options),
             "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
             "graetzl_name": activity.trackable.graetzl.name,
-            "graetzl_url": graetzl_url(activity.trackable.graetzl, default_url_options)
           }
         when "new_wall_comment"
           subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
