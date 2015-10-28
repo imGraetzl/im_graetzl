@@ -151,15 +151,14 @@ class SendMailNotificationJob < ActiveJob::Base
             "owner_url": user_url(activity.owner, default_url_options)
           }
         when "cancel_of_meeting"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
-          template_name ||= 'summary-notification-dev'
+          subject = 'Absage eines Treffens an dem du teilnimmst'
           notification_vars << {
             "type": "cancel_of_meeting",
             "meeting_name": activity.trackable.name,
             "meeting_url": graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, default_url_options),
-            "meeting_url": activity.recipient.content,
             "owner_name": activity.owner.username,
-            "owner_url": user_url(activity.owner, default_url_options)
+            "owner_url": user_url(activity.owner, default_url_options),
+            "graetzl_name": activity.trackable.graetzl.name
           }
         when "approve_of_location"
           subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
