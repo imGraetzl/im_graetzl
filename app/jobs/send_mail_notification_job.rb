@@ -11,7 +11,6 @@ class SendMailNotificationJob < ActiveJob::Base
       case interval
       when "immediate"
         notifications = [ Notification.find(notification_id) ]
-        #template_name = "summary-notification"
       when "daily"
         notifications = user.notifications_of_the_day
         template_name = "weekly-daily-mandrill-notifications"
@@ -20,8 +19,7 @@ class SendMailNotificationJob < ActiveJob::Base
         template_name = "weekly-daily-mandrill-notifications"
       else
         notifications = []
-        #template_name ||= "notification-#{type}"
-        #template_name = "summary-notification-dev"
+        template_name = "summary-notification-dev"
       end
       return if notifications.empty?
       template_content = []
@@ -161,12 +159,12 @@ class SendMailNotificationJob < ActiveJob::Base
             "graetzl_name": activity.trackable.graetzl.name
           }
         when "approve_of_location"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
-          template_name ||= 'summary-notification-dev'
+          subject = 'Deine Location wurde geprüft'
           notification_vars << {
             "type": "approve_of_location",
             "location_name": activity.trackable.name,
             "location_url": graetzl_location_url(activity.trackable.graetzl, activity.trackable, default_url_options),
+            "graetzl_name": activity.trackable.graetzl.name
           }
         end
       end
