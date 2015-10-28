@@ -142,12 +142,11 @@ class SendMailNotificationJob < ActiveJob::Base
             "graetzl_name": activity.trackable.graetzl.name,
           }
         when "new_wall_comment"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
-          template_name ||= 'summary-notification-dev'
+          subject = 'Neuer Kommentar auf deiner Pinnwand'
           notification_vars << {
             "type": "new_wall_comment",
             "comment_url": graetzl_user_url(activity.trackable.graetzl, activity.trackable, default_url_options) + "#comment-#{activity.recipient.id}",
-            "comment_content": activity.recipient.content,
+            "comment_content": activity.recipient.content.truncate(300, separator: ' '),
             "owner_name": activity.owner.username,
             "owner_url": user_url(activity.owner, default_url_options)
           }
