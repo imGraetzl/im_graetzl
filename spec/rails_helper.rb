@@ -9,6 +9,7 @@ require 'database_cleaner'
 require 'capybara/poltergeist'
 require 'public_activity/testing'
 require 'webmock/rspec'
+require 'sucker_punch/testing/inline'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # require all spec support files
@@ -21,7 +22,7 @@ Capybara.javascript_driver = :poltergeist
 PublicActivity.enabled = false
 
 # Use synchronus backend for active job
-Rails.application.config.active_job.queue_adapter = :inline
+#Rails.application.config.active_job.queue_adapter = :inline
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -58,6 +59,11 @@ RSpec.configure do |config|
   end
 
   config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  # Clean up all jobs specs with truncation
+  config.before(:each, job: true) do
     DatabaseCleaner.strategy = :truncation
   end
 

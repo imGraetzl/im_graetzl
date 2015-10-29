@@ -310,7 +310,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "mail notifications" do
+  describe "mail notifications", job: true do
     let(:user) { create(:user, :graetzl => create(:graetzl)) }
     let(:meeting) { create(:meeting, graetzl: user.graetzl) }
     let(:type) { :new_meeting_in_graetzl }

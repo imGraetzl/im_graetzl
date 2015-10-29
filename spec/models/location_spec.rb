@@ -132,7 +132,7 @@ RSpec.describe Location, type: :model do
         end
       end
 
-      describe 'notifications and activity' do
+      describe 'notifications and activity', job: true do
         before do
           3.times do
             activity = create(:activity, trackable: location, key: 'location.something')
@@ -189,7 +189,7 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#approve' do
+  describe '#approve', job: true do
     context 'when location pending' do
       let(:location) { create(:location, state: Location.states[:pending]) }
 
