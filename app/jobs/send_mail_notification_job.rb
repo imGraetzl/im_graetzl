@@ -1,9 +1,12 @@
-class SendMailNotificationJob < ActiveJob::Base
-  queue_as :default
+# class SendMailNotificationJob < ActiveJob::Base
+#   queue_as :default
+class SendMailNotificationJob
+  include SuckerPunch::Job
   include Rails.application.routes.url_helpers
 
   def perform(user_id, interval, notification_id = nil)
-    #ActiveRecord::Base.connection_pool.with_connection do
+    SuckerPunch.logger.info ('Perform SendMailNotificationJob')
+    ActiveRecord::Base.connection_pool.with_connection do
       user = User.find user_id
       notifications = []
       template_name = nil
@@ -189,5 +192,5 @@ class SendMailNotificationJob < ActiveJob::Base
         message
       )
     end
-  #end
+  end
 end
