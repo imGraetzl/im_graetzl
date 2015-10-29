@@ -46,7 +46,7 @@ class SendMailNotificationJob
         template_name ||= "notification-#{type.gsub(/_/, '-')}"
         case type
         when "new_meeting_in_graetzl"
-          subject = "Neues Treffen im #{activity.trackable.graetzl.name}"
+          subject = "Neues Treffen im Grätzl #{activity.trackable.graetzl.name}"
           notification_vars << {
             "type": "new_meeting_in_graetzl",
             "owner_name": activity.owner.username,
@@ -58,7 +58,7 @@ class SendMailNotificationJob
             "meeting_description": activity.trackable.description.truncate(300, separator: ' ')
           }
         when "new_post_in_graetzl"
-          subject = "Neuer Beitrag im #{activity.trackable.graetzl.name}"
+          subject = "Neuer Beitrag im Grätzl #{activity.trackable.graetzl.name}"
           notification_vars << {
             "type": "new_post_in_graetzl",
             "post_content": activity.trackable.content.truncate(300, separator: ' '),
@@ -87,7 +87,7 @@ class SendMailNotificationJob
             "graetzl_name": activity.trackable.graetzl.name,
           }
         when "another_user_comments"
-          subject = 'Neuer Kommentar in einem Treffen'
+          subject = 'Ein Treffen an dem du teilnimmst wurde kommentiert'
           notification_vars << {
             "type": "another_user_comments",
             "meeting_name": activity.trackable.name,
@@ -99,7 +99,7 @@ class SendMailNotificationJob
             "graetzl_name": activity.trackable.graetzl.name
           }
         when "user_comments_users_meeting"
-          subject = 'Neuer Kommentar in deinem Treffen'
+          subject = 'Dein Treffen wurde kommentiert'
           notification_vars << {
             "type": "user_comments_users_meeting",
             "meeting_name": activity.trackable.name,
@@ -111,7 +111,7 @@ class SendMailNotificationJob
             "graetzl_name": activity.trackable.graetzl.name,
           }
         when "initiator_comments"
-          subject = 'Neuer Kommentar vom Veranstalter in einem Treffen'
+          subject = 'Ein Treffen an dem du teilnimmst wurde vom Veranstalter kommentiert'
           notification_vars << {
             "type": "initiator_comments",
             "meeting_name": activity.trackable.name,
@@ -123,7 +123,7 @@ class SendMailNotificationJob
             "graetzl_name": activity.trackable.graetzl.name,
           }
         when "update_of_meeting"
-          subject = 'Änderungen in einem Treffen an dem du teilnimmst'
+          subject = 'Es gibt Änderungen in einem Treffen an dem du teilnimmst'
           translation = {
             :address => "Ort",
             :adress_attributes => "Ort",
