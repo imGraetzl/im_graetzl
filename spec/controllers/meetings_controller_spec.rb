@@ -12,7 +12,7 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
   shared_examples :an_unauthorized_request do
-    it 'redirects to meeting_page' do          
+    it 'redirects to meeting_page' do
       expect(response).to redirect_to([meeting.graetzl, meeting])
     end
 
@@ -25,7 +25,7 @@ RSpec.describe MeetingsController, type: :controller do
   # Controller methods
   describe 'GET show' do
     let!(:meeting) { create(:meeting, graetzl: graetzl) }
-    
+
     context 'when html request' do
       before { get :show, {graetzl_id: graetzl, id: meeting} }
 
@@ -60,7 +60,7 @@ RSpec.describe MeetingsController, type: :controller do
     context 'when js request' do
       before { xhr :get, :show, {graetzl_id: graetzl, id: meeting} }
 
-      it 'renders show.js' do        
+      it 'renders show.js' do
         expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
         expect(response).to render_template(:show)
       end
@@ -114,13 +114,13 @@ RSpec.describe MeetingsController, type: :controller do
         expect(assigns(:parent)).not_to be_nil
       end
 
-      it 'renders #new' do        
+      it 'renders #new' do
         expect(response).to render_template(:new)
       end
     end
 
     # Scenarios
-    context 'when logged out' do      
+    context 'when logged out' do
       include_examples :an_unauthenticated_request do
         before { get :new }
       end
@@ -384,7 +384,7 @@ RSpec.describe MeetingsController, type: :controller do
       context 'when not initiator' do
         before { get :edit, id: meeting }
 
-        it 'redirects to meeting_page' do          
+        it 'redirects to meeting_page' do
           expect(response).to redirect_to([meeting.graetzl, meeting])
         end
 
@@ -393,7 +393,7 @@ RSpec.describe MeetingsController, type: :controller do
         end
       end
 
-      context 'when initator' do        
+      context 'when initator' do
         let!(:going_to) { create(:going_to,
                           user: user,
                           meeting: meeting,
@@ -429,7 +429,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-  describe 'PUT update' do
+  describe 'PUT update', job: true do
     let(:meeting) { create(:meeting, graetzl: graetzl) }
     let(:params) {
       {
@@ -469,7 +469,7 @@ RSpec.describe MeetingsController, type: :controller do
                   meeting: meeting,
                   role: GoingTo.roles[:initiator])
         end
-      
+
         it 'assigns @meeting' do
           put :update, params
           expect(assigns(:meeting)).to eq(meeting)
@@ -530,7 +530,7 @@ RSpec.describe MeetingsController, type: :controller do
           end
         end
 
-        describe 'time attributes' do
+        describe 'time attributes', job: true do
           before do
             params[:meeting].merge!(starts_at_date: '2020-01-01',
                                     starts_at_time: '18:00',
@@ -569,7 +569,7 @@ RSpec.describe MeetingsController, type: :controller do
         #   end
         # end
 
-        describe 'address' do
+        describe 'address', job: true do
           let!(:new_graetzl) { create(:graetzl,
             area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
           let(:address_feature) { feature_hash(16.0, 16.0) }
@@ -696,7 +696,7 @@ RSpec.describe MeetingsController, type: :controller do
           expect(flash[:notice]).not_to be nil
         end
 
-        it 'logs meeting.cancel activity' do
+        it 'logs meeting.cancel activity', job: true do
           PublicActivity.with_tracking do
             delete :destroy, id: meeting
             meeting.reload

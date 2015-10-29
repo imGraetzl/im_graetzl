@@ -34,7 +34,7 @@ RSpec.describe Users::CommentsController, type: :controller do
           end
         end
       end
-      describe 'comment on own wall' do
+      describe 'comment on own wall', job: true do
         render_views
         before { params.merge!(user_id: user) }
 
@@ -50,7 +50,7 @@ RSpec.describe Users::CommentsController, type: :controller do
           }.not_to change{PublicActivity::Activity.count}
         end
 
-        describe 'request' do
+        describe 'request', job: true do
           before { PublicActivity.with_tracking { xhr :post, :create, params } }
 
           it 'assigns @commentable' do
@@ -84,7 +84,7 @@ RSpec.describe Users::CommentsController, type: :controller do
           it 'does not render stream layout' do
             xhr :post, :create, params
             expect(response.body).to have_selector('div.streamElement')
-          end          
+          end
         end
       end
     end
