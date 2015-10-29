@@ -37,7 +37,7 @@ RSpec.shared_examples :create_records do
     }.to change(Comment, :count).by(1)
   end
 
-  it 'creates new activity record' do
+  it 'creates new activity record', job: true do
     expect {
       PublicActivity.with_tracking { xhr :post, :create, params }
     }.to change(PublicActivity::Activity, :count).by(1)
@@ -49,7 +49,7 @@ RSpec.shared_examples :inline_comment do
 
   include_examples :create_records
 
-  describe 'request' do
+  describe 'request', job: true do
     xhr_request_with_views
 
     include_examples :a_successfull_create_request
@@ -64,7 +64,7 @@ RSpec.shared_examples :stream_comment do
 
   include_examples :create_records
 
-  describe 'request' do
+  describe 'request', job: true do
     xhr_request_with_views
 
     include_examples :a_successfull_create_request
@@ -79,5 +79,5 @@ end
 # helper methods
 def xhr_request_with_views
   render_views
-  before { PublicActivity.with_tracking { xhr :post, :create, params } }  
+  before { PublicActivity.with_tracking { xhr :post, :create, params } }
 end

@@ -65,7 +65,7 @@ RSpec.describe PostsController, type: :controller do
       let(:params) { {
         post: { graetzl_id: graetzl.id, content: 'post_content' } }
       }
-      before { sign_in user }     
+      before { sign_in user }
 
       it 'creates new post' do
         expect {
@@ -73,7 +73,7 @@ RSpec.describe PostsController, type: :controller do
         }.to change(Post, :count).by(1)
       end
 
-      describe 'request' do
+      describe 'request', job: true do
         before do
           PublicActivity.with_tracking do
             xhr :post, :create, params

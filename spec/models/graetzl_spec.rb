@@ -14,15 +14,15 @@ RSpec.describe Graetzl, type: :model do
     end
 
     it 'has meetings' do
-      expect(graetzl).to respond_to(:meetings)      
+      expect(graetzl).to respond_to(:meetings)
     end
 
     it 'has posts' do
-      expect(graetzl).to respond_to(:posts)      
+      expect(graetzl).to respond_to(:posts)
     end
 
     it 'has locations' do
-      expect(graetzl).to respond_to(:locations)      
+      expect(graetzl).to respond_to(:locations)
     end
 
     describe 'destroy associated records' do
@@ -118,7 +118,7 @@ RSpec.describe Graetzl, type: :model do
     end
   end
 
-  describe '#activity' do
+  describe '#activity', job: true do
     let(:graetzl) { create(:graetzl) }
 
     context 'when no activity in graetzl' do
@@ -206,7 +206,7 @@ RSpec.describe Graetzl, type: :model do
 
         it 'has activity in both graetzls' do
           PublicActivity.with_tracking do
-            activity = meeting.create_activity :comment, owner: user            
+            activity = meeting.create_activity :comment, owner: user
             expect(graetzl.activity).to include(activity)
             expect(other_graetzl.activity).to include(activity)
           end

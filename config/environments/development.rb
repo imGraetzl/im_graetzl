@@ -40,12 +40,16 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # email config
+  config.action_mailer.default_options = {
+    from: 'Team imGrätzl <no-reply@development.imgraetzl.at>',
+    reply_to: 'Team imGrätzl <wir@development.imgraetzl.at>'
+  }
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :letter_opener
 
   # bullet config
   config.after_initialize do
-    Bullet.enable = true
+    #Bullet.enable = true
     # Bullet.alert = true
     # Bullet.bullet_logger = true
     # Bullet.console = true
