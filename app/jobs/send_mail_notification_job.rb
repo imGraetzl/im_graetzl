@@ -37,7 +37,8 @@ class SendMailNotificationJob < ActiveJob::Base
       notification_vars = [ ]
       message_vars = [ ]
       notifications.each do |notification|
-        activity = PublicActivity::Activity.find notification.activity_id
+        #activity = PublicActivity::Activity.find notification.activity_id
+        activity = notification.activity
         type = Notification::TYPES.select { |k,v| v[:bitmask] == notification.bitmask }.first[0].to_s
         template_name ||= "notification-#{type.gsub(/_/, '-')}"
         case type
