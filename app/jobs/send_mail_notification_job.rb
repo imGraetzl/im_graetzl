@@ -19,7 +19,7 @@ class SendMailNotificationJob < ActiveJob::Base
         template_name = "weekly-daily-mandrill-notifications"
       else
         notifications = []
-        template_name = "summary-notification-dev"
+        template_name = "summary-notification"
       end
       return if notifications.empty?
       template_content = []
