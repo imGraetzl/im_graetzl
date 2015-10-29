@@ -155,6 +155,15 @@ PublicActivity::Activity.includes(post: [:user, :images], meeting: [:address])
 ### Server
 The app uses [puma](https://github.com/puma/puma) in all environments.
 
+
+### Tests
+Within the tests, all jobs (run via the awesome [Sucker Punch](https://github.com/brandonhilkert/sucker_punch)) are run inline, but in a separate thread. This requires to utilize Database Cleaners `:truncate` strategy for all specs logging activity or creating jobs. Mark them with:
+
+```ruby
+job: true
+```
+
+
 ## Deployment
 
 The app is hosted on [Amazon Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) (instance running Ruby 2.2.2, Puma, Nginx). Config in .ebextensions folder. Files are executed in alphabetical order:
