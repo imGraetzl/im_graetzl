@@ -67,8 +67,7 @@ class Notification < ActiveRecord::Base
   belongs_to :activity, :class => PublicActivity::Activity
 
   def self.receive_new_activity(activity)
-    #CreateWebsiteNotificationsJob.perform_later(activity.id)
-    CreateWebsiteNotificationsJob.new.async.later(30, activity.id)
+    CreateWebsiteNotificationsJob.perform_later(activity.id)
   end
 
   def self.broadcast(activity)
