@@ -7,8 +7,4 @@ class CreateWebsiteNotificationsJob < ActiveJob::Base
       Notification.broadcast(activity)
     end
   end
-
-  def later(sec, data)
-    after(sec) { perform(data) }
-  end
 end

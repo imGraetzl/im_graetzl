@@ -3,7 +3,7 @@ class SendMailNotificationJob < ActiveJob::Base
   include Rails.application.routes.url_helpers
 
   def perform(user_id, interval, notification_id = nil)
-    ActiveRecord::Base.connection_pool.with_connection do
+    #ActiveRecord::Base.connection_pool.with_connection do
       user = User.find user_id
       notifications = []
       template_name = nil
@@ -188,9 +188,5 @@ class SendMailNotificationJob < ActiveJob::Base
         message
       )
     end
-  end
-
-  def later(sec, data)
-    after(sec) { perform(data) }
-  end
+  #end
 end

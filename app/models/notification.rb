@@ -68,7 +68,7 @@ class Notification < ActiveRecord::Base
 
   def self.receive_new_activity(activity)
     #CreateWebsiteNotificationsJob.perform_later(activity.id)
-    CreateWebsiteNotificationsJob.later(30, activity.id)
+    CreateWebsiteNotificationsJob.set(wait: 60.seconds).perform_later(activity.id)
   end
 
   def self.broadcast(activity)
