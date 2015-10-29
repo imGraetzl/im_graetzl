@@ -68,7 +68,7 @@ class Notification < ActiveRecord::Base
 
   def self.receive_new_activity(activity)
     #CreateWebsiteNotificationsJob.perform_later(activity.id)
-    CreateWebsiteNotificationsJob.async.later(30, activity.id)
+    CreateWebsiteNotificationsJob.set(wait: 30.seconds).perform_later(activity.id)
   end
 
   def self.broadcast(activity)
@@ -89,7 +89,7 @@ class Notification < ActiveRecord::Base
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & v[:bitmask] > 0)
               #SendMailNotificationJob.perform_later(u.id, "immediate", n.id)
-              SendMailNotificationJob.async.later(30, u.id, "immediate", n.id)
+              SendMailNotificationJob.set(wait: 30.seconds).perform_later(u.id, "immediate", n.id)
               ids_notified_users << u.id
             end
           end
