@@ -189,4 +189,8 @@ class SendMailNotificationJob < ActiveJob::Base
       )
     end
   end
+
+  def later(sec, data)
+    after(sec) { perform(data) }
+  end
 end
