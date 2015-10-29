@@ -96,7 +96,7 @@ class Notification < ActiveRecord::Base
     end
   end
 
-  PublicActivity::Activity.after_create do |activity|
+  PublicActivity::Activity.after_save do |activity|
     Notification.receive_new_activity(activity)
   end
 end
