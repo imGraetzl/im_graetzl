@@ -62,7 +62,7 @@ class Notification < ActiveRecord::Base
       receivers: ->(activity) { activity.trackable.users }
     }
   }
-  
+
   belongs_to :user
   belongs_to :activity, :class => PublicActivity::Activity
 

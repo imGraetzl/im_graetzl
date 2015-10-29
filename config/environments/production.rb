@@ -64,7 +64,11 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
 
-  # Mandrill config
+  # Mailer config
+  config.action_mailer.default_options = {
+    from: 'Team imGrätzl <no-reply@imgraetzl.at>',
+    reply_to: 'Team imGrätzl <wir@imgraetzl.at>'
+  }
   config.action_mailer.default_url_options = { host: ENV['HOST'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default charset: 'utf-8'
@@ -76,6 +80,10 @@ Rails.application.configure do
     password: ENV['MANDRILL_KEY'],
     authentication: :login
   }
+
+  # mandrill config
+  config.x.mandril_from_name = 'Team imGrätzl'
+  config.x.mandril_from_email = 'no-reply@imgraetzl.at'
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
