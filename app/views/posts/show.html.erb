@@ -11,7 +11,7 @@
     <%= avatar_for @post.user %>
     <span class="userAndType">
     Beitrag von <a href="#"><%= @post.user.username %></a>
-    <span class="timeago"> am <%= l(@post.created_at, format:'%A, %d. %B %Y') %></span>
+    <span> am <%= l(@post.created_at, format:'%A, %d. %B %Y') %></span>
   </span>
   </div>
 
