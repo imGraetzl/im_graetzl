@@ -149,7 +149,7 @@
 }
 
 .entryInitialContent {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   position: relative;
   .txt {
     margin-bottom: 1rem;
@@ -167,7 +167,7 @@
 }
 
 .entryUserComment {
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
   @include respond-to(">=medium") {
     padding-left: 60px;
   }
@@ -191,29 +191,33 @@
 
 
 .entryNewParticipants {
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
   @include respond-to(">=medium") {
     padding-left: 60px;
   }
-  strong {
-    margin-bottom: 10px;
-    display: block;
-    font-size: 1.8rem;
+  .singleParticipant {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    font-style: italic;
+    color: $color-ambient-grey;
   }
   .userPortraitName {
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    &:hover span {
-      text-decoration: underline;
+    display: flex;
+    align-items: center;
+      img {
+      width: 40px;
+      height: 40px;
+      flex: none;
     }
-    img {
-      width: 30px;
-      height: 30px;
-    }
-    span {
-      font-size: 1.2rem;
-      font-style: italic;
+    a {
+      margin-right: 5px;
+      margin-left: 5px;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -312,7 +316,7 @@
       padding-right: 5px;
       width: 100%;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
     }
   }
@@ -322,7 +326,9 @@
     font-size: 2.4rem;
     color: $color-ambient-rosa;
     margin-bottom: 1rem;
+    line-height: 1;
     @include respond-to(">=medium") {
+      padding-right: 30px;
       text-align: left;
       margin-bottom: 0;
       font-size: 3.2rem;
@@ -343,6 +349,7 @@
   .dateTimeIconSmall, .locationIconSmall {
     margin-top: 4px;
     margin-bottom: 4px;
+    align-items: flex-start;
   }
 
 }

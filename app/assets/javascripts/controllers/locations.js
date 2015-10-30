@@ -14,7 +14,9 @@ APP.controllers.locations = (function() {
 
 
     function initLocationForm() {
-        $("#location_description").autogrow();
+        $("#location_description").autogrow({
+            onInitialize: true
+        });
 
         $('form').on('click', '.add_address_fields', function(event) {
             var fields = $(this).data('fields');

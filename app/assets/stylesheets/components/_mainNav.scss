@@ -161,13 +161,26 @@
   }
 
   .usersettingsTrigger {
-    .img-user {
+    .img-round {
+      position: relative;
+      z-index: 2;
       @include img-round(35px);
       display: block;
       @include respond-to(">=medium") {
         width: 45px;
         height: 45px;
       }
+    }
+    .wrp {
+      position: relative;
+      background-color: $color-ambient-mint-light;
+      border-radius: 0 17px 17px 0;
+      padding: 2px 2px 2px 15px;
+      z-index: 1;
+      margin-left: -14px;
+    }
+    [class^=icon-] {
+
     }
     .username {
       display: none;

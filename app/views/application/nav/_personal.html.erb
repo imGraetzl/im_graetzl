@@ -20,7 +20,9 @@
     <div class="usersettingsTrigger dropdownTrigger" data-horizontal-offset="2" data-mobileNavID="usersettings">
       <%= avatar_for current_user %>
       <span class="username txt"><%= current_user.username %></span>
-      <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
+      <div class="wrp">
+        <svg class="icon-gear"><use xlink:href="#icon-gear"></use></svg>
+      </div>
     </div>
 
     <!-- dropDowns -->
