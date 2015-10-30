@@ -5,11 +5,15 @@
   </div>
 
   <div class="entryNewParticipants">
-    <strong>neuer Teilnehmer</strong>
-    <%= link_to user_path(activity.owner), class: 'userPortraitName' do %>
-      <%= avatar_for activity.owner %>
-      <span><%= activity.owner.username if activity.owner %></span>
-    <% end %>
+    <div class="singleParticipant">
+      <div class="userPortraitName">
+        <%= avatar_for activity.owner %>
+        <%= link_to user_path(activity.owner), class: 'userPortraitName' do %>
+          <%= activity.owner.username if activity.owner %>
+        <% end %>
+      </div>
+      nimmt an diesem Treffen teil
+    </div>
   </div>
 
   <%= render 'comments/form_inline', commentable: activity.trackable %>
