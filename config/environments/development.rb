@@ -41,8 +41,8 @@ Rails.application.configure do
 
   # email config
   config.action_mailer.default_options = {
-    from: 'Team imGrätzl <no-reply@development.imgraetzl.at>',
-    reply_to: 'Team imGrätzl <wir@development.imgraetzl.at>'
+    from: 'imGrätzl.at <no-reply@development.imgraetzl.at>',
+    reply_to: 'imGrätzl.at <wir@development.imgraetzl.at>'
   }
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :letter_opener

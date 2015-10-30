@@ -66,8 +66,8 @@ Rails.application.configure do
 
   # Mailer config
   config.action_mailer.default_options = {
-    from: 'Team imGrätzl <no-reply@imgraetzl.at>',
-    reply_to: 'Team imGrätzl <wir@imgraetzl.at>'
+    from: 'imGrätzl.at <no-reply@imgraetzl.at>',
+    reply_to: 'imGrätzl.at <wir@imgraetzl.at>'
   }
   config.action_mailer.default_url_options = { host: ENV['HOST'] }
   config.action_mailer.delivery_method = :smtp
@@ -82,7 +82,7 @@ Rails.application.configure do
   }
 
   # mandrill config
-  config.x.mandril_from_name = 'Team imGrätzl'
+  config.x.mandril_from_name = 'imGrätzl.at'
   config.x.mandril_from_email = 'no-reply@imgraetzl.at'
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
