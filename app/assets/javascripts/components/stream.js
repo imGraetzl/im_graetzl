@@ -5,7 +5,9 @@ APP.components.stream = (function() {
         inlineEditor();
         createEntry();
 
-        $(".entryCommentForm textarea, .entryCreate textarea").autogrow();
+        $(".entryCommentForm textarea, .entryCreate textarea").autogrow({
+            onInitialize: true
+        });
     }
 
 

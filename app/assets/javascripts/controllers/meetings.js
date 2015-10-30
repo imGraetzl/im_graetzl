@@ -7,7 +7,9 @@ APP.controllers.meetings = (function() {
         APP.components.inputTextareaMovingLabel();
         APP.components.addressSearchAutocomplete();
 
-        $(".meet-what textarea").autogrow();
+        $(".meet-what textarea").autogrow({
+            onInitialize: true
+        });
 
         $('.datepicker').pickadate({
             formatSubmit: 'yyyy-mm-dd',
