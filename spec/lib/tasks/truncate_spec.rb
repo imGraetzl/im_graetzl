@@ -3,10 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Tasks' do
 
   describe 'db:truncate' do
-    before do
-      ImGraetzl::Application.load_tasks
-      allow(PublicActivity::Activity).to receive(:after_create)
-    end
+    before { ImGraetzl::Application.load_tasks }
     subject(:task) { Rake::Task['db:truncate'] }
     before(:example) { task.reenable }
 
@@ -37,16 +34,16 @@ RSpec.describe 'Tasks' do
 
     context 'when activity older than 6 weeks' do
       before do
-        3.times{create(:activity, created_at: 7.weeks.ago)}
-        2.times{create(:activity)}
+        3.times{create(:activity, created_at: 7.weeks.ago, key: nil)}
+        2.times{create(:activity, key: nil)}
       end
 
-      it 'has old and new activity records in db' do
+      it 'has old and new activity records in db', job: true do
         expect(PublicActivity::Activity.count).to eq 5
         expect(PublicActivity::Activity.where('created_at < ?', 7.weeks.ago).count).to eq 3
       end
 
-      it 'removes records older than 6 weeks' do
+      it 'removes records older than 6 weeks', job: true do
         expect{
           task.invoke
         }.to change{PublicActivity::Activity.count}.from(5).to(2)
