@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post 'worker/daily_mail', to: 'worker#daily_mail'
   post 'worker/weekly_mail', to: 'worker#weekly_mail'
   post 'worker/backup', to: 'worker#backup'
+  post 'worker/truncate_db', to: 'worker#truncate_db'
   # routing concerns
   concern :graetzl_before_new do
     collection do

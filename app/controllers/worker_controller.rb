@@ -1,10 +1,11 @@
 require 'tempfile'
+require 'rake'
 
 class WorkerController < ApplicationController
   protect_from_forgery except: [ :daily_mail, :weekly_mail ]
 
   def daily_mail
-    if ENV["ALLOW_WORKER"] == 'true' 
+    if ENV["ALLOW_WORKER"] == 'true'
       User.where("daily_mail_notifications > 0").each do |u|
         SendMailNotificationJob.perform_later(u.id, 'daily')
       end
@@ -16,7 +17,7 @@ class WorkerController < ApplicationController
   end
 
   def weekly_mail
-    if ENV["ALLOW_WORKER"] == 'true' 
+    if ENV["ALLOW_WORKER"] == 'true'
       User.where("weekly_mail_notifications > 0").each do |u|
         SendMailNotificationJob.perform_later(u.id, 'weekly')
       end
@@ -28,7 +29,7 @@ class WorkerController < ApplicationController
   end
 
   def backup
-    if ENV["ALLOW_WORKER"] == 'true' 
+    if ENV["ALLOW_WORKER"] == 'true'
 
       dump = Tempfile.new('dump')
       dump_cmd = "PGPASSWORD=#{ENV['DB_PASSWORD']} pg_dumpall -h #{ENV['DB_HOST']} -U #{ENV['DB_USERNAME']} -p #{ENV['DB_PORT']} > #{dump.path}"
@@ -41,6 +42,16 @@ class WorkerController < ApplicationController
       render nothing: true, status: :ok
     else
       render body: "not allowed", status: :forbidden
+    end
+  end
+
+  def truncate_db
+    ImGraetzl::Application.load_tasks
+    if ENV['ALLOW_WORKER'] == 'true'
+      Rake::Task['db:truncate'].invoke
+      render nothing: true, status: :ok
+    else
+      render body: 'not allowed', status: :forbidden
     end
   end
 end
