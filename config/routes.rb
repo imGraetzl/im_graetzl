@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post 'worker/weekly_mail', to: 'worker#weekly_mail'
   post 'worker/backup', to: 'worker#backup'
   post 'worker/truncate_db', to: 'worker#truncate_db'
+  post 'worker/truncate_eb', to: 'worker#truncate_eb'
   # routing concerns
   concern :graetzl_before_new do
     collection do

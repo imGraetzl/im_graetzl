@@ -46,9 +46,19 @@ class WorkerController < ApplicationController
   end
 
   def truncate_db
-    ImGraetzl::Application.load_tasks
     if ENV['ALLOW_WORKER'] == 'true'
+      ImGraetzl::Application.load_tasks
       Rake::Task['db:truncate'].invoke
+      render nothing: true, status: :ok
+    else
+      render body: 'not allowed', status: :forbidden
+    end
+  end
+
+  def truncate_eb
+    if (ENV['ALLOW_WORKER'] == 'true') && Rails.env.staging?
+      ImGraetzl::Application.load_tasks
+      Rake::Task['eb:truncate'].invoke
       render nothing: true, status: :ok
     else
       render body: 'not allowed', status: :forbidden
