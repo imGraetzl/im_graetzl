@@ -19,12 +19,13 @@ module MapsHelper
   end
 
   private
-    def static_map_defaults
-      {
-        zoom: 15,
-        size: [79,100],
-        scale: 2,
-        marker: 'small'
-      }
-    end
+  
+  def static_map_defaults
+    {
+      zoom: 15,
+      size: [79,100],
+      scale: 2,
+      marker: 'small'
+    }
+  end
 end
