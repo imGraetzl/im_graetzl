@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :districts, path: 'wien', only: [:index, :show] do
     get '/leopoldstadt-1020/graetzlzuckerl', on: :collection, to: 'zuckerls#index', as: 'zuckerl'
     get :graetzls, on: :member
+    resources :locations, module: :districts, only: [:index]
   end
 
   ActiveAdmin.routes(self)
@@ -54,7 +55,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :update] do
-    resource :comments, module: :users, only: [:create]
+    resources :comments, module: :users, only: [:create]
   end
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
@@ -87,12 +88,12 @@ Rails.application.routes.draw do
   end
 
   resources :meetings, path: 'treffen', except: [:index, :show] do
-    resource :comments, module: :meetings, only: [:create]
+    resources :comments, module: :meetings, only: [:create]
   end
 
   resources :comments, only: [:update, :destroy]
 
   resources :posts, only: [:create, :destroy] do
-    resource :comments, module: :posts, only: [:create]
+    resources :comments, module: :posts, only: [:create]
   end
 end
