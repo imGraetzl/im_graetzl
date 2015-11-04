@@ -25,7 +25,7 @@ namespace :eb do
 
       # remove versions
       versions_to_remove.each do |v|
-        client.delete_application_version({
+        eb.delete_application_version({
           application_name: 'im_graetzl', # required
           version_label: v.version_label, # required
           delete_source_bundle: true,
