@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get '/leopoldstadt-1020/graetzlzuckerl', on: :collection, to: 'zuckerls#index', as: 'zuckerl'
     get :graetzls, on: :member
     resources :locations, module: :districts, only: [:index]
+    resources :meetings, path: :treffen, module: :districts, only: [:index]
   end
 
   ActiveAdmin.routes(self)
@@ -75,7 +76,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [ :index ]
 
   resources :graetzls, path: '', only: [:show] do
-    resources :meetings, path: 'treffen', only: [:index, :show, :new]
+    resources :meetings, path: :treffen, only: [:index, :show, :new]
     resources :locations, only: [:index, :show]
     resources :users, only: [:index, :show]
     resources :posts, only: [:show]
@@ -87,7 +88,7 @@ Rails.application.routes.draw do
     concerns :graetzl_before_new
   end
 
-  resources :meetings, path: 'treffen', except: [:index, :show] do
+  resources :meetings, path: :treffen, except: [:index, :show] do
     resources :comments, module: :meetings, only: [:create]
   end
 
