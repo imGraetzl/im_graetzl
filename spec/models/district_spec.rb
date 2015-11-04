@@ -64,12 +64,37 @@ RSpec.describe District, type: :model do
       end
     end
 
-    context 'when double number district' do      
+    context 'when double number district' do
       let(:district) { create(:district, zip: '1160') }
 
       it 'returns single digit' do
         expect(district.numeric).to eq '16'
       end
+    end
+  end
+
+  describe '#locations' do
+    let(:district) { create(:district) }
+    let(:graetzl_1) { create(:graetzl) }
+    let(:graetzl_2) { create(:graetzl) }
+    let(:other_graetzl) { create(:graetzl) }
+    let(:location_1) { create(:location, graetzl: graetzl_1) }
+    let(:location_2) { create(:location, graetzl: graetzl_1) }
+    let(:location_3) { create(:location, graetzl: graetzl_2) }
+    let(:location_4) { create(:location, graetzl: other_graetzl) }
+
+    before do
+      allow_any_instance_of(District).to receive(:graetzls).and_return([graetzl_1, graetzl_2])
+    end
+
+    subject(:locations) { district.locations }
+
+    it 'returns locations from graetzls' do
+      expect(locations).to include(location_1, location_2, location_3)
+    end
+
+    it 'excludes locations from other graetzls' do
+      expect(locations).not_to include(location_4)
     end
   end
 end
