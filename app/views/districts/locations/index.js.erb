@@ -1,0 +1,3 @@
+console.log('yeah');
+$('#locations').html("<%= j(render partial: 'locations/location', collection: @locations) %>");
+$('nav.pagination').replaceWith('<%= j(paginate @locations, remote: true) %>');
