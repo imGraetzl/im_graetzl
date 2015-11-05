@@ -1,0 +1,19 @@
+<section class="districts" data-mapdata="<%= map_data %>">
+
+  <div class="mapImgBlock">
+    <div id="graetzlMapWidget"></div>
+    <div class="activeArea"></div>
+    <div class="navBlock">
+      <h1><%= @district.name %></h1>
+      <div class="links">
+        <a class="toVienna" href="/wien"><svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg> Wien Übersicht</a>
+        <% @district.graetzls.each do |graetzl| %>
+            <%= link_to graetzl.name, graetzl %>
+        <% end %>
+      </div>
+      <select class="mobileSelectMenu">
+        <option disabled>Grätzl wählen</option>
+      </select>
+    </div>
+  </div>
+</section>

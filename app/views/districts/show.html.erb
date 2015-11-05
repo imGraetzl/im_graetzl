@@ -9,31 +9,13 @@
   })
 %>
 
-<section class="districts" data-mapdata="<%= @map_data %>">
+<%= render 'map', map_data: @map_data %>
 
-  <div class="mapImgBlock">
-    <div id="graetzlMapWidget"></div>
-    <div class="activeArea"></div>
-    <div class="navBlock">
-      <h1><%= @district.name %></h1>
-      <div class="links">
-        <a class="toVienna" href="/wien"><svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg> Wien Übersicht</a>
-        <% @district.graetzls.each do |graetzl| %>
-            <%= link_to graetzl.name, graetzl %>
-        <% end %>
-      </div>
-      <select class="mobileSelectMenu">
-        <option disabled>Grätzl wählen</option>
-      </select>
+<% if !@meetings.empty? %>
+  <div class="teaserBlock">
+    <h1 class="hl-main">Aktuelle Treffen in <span><%= @district.zip %> <%= @district.name %></span></h1>
+    <div class="cardBoxCollection -tripple">
+      <%= render @meetings %>
     </div>
   </div>
-
-  <% if !@meetings.empty? %>
-    <div class="teaserBlock">
-      <h1 class="hl-main">Aktuelle Treffen in <span><%= @district.zip %> <%= @district.name %></span></h1>
-      <div class="cardBoxCollection -tripple">
-        <%= render @meetings %>
-      </div>
-    </div>
-  <% end %>
-</section>
+<% end %>
