@@ -1,3 +1,14 @@
+<%
+  meta({
+    title: t('.title', numeric: @district.numeric),
+    description: t('.description', numeric: @district.numeric, name: @district.name),
+    robots: 'index, follow',
+    og_title: t('.title', numeric: @district.numeric),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
+
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
 
