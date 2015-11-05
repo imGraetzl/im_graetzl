@@ -17,5 +17,3 @@ cache: bundler
 notifications:
   slack:
     secure: Zg3iPakWnLUMaxWemK4DfdRMyUSiOvflR2lo1yP64MY+arZjJd4cUB0uAGj1xAx2ThXsdDJwbfwISxhGDpvUtiDbS8QA/4oGDTFFsWY9NK2rWvzR33X/z1XO/AnyYW1hIPvw0nr/GI4syvlYlckeGp7NhrSgpKp0eFKCQ+yCxIw=
-    on_success: always
-    on_failure: always
