@@ -9,10 +9,10 @@
   })
 %>
 
-<section class="locations-overview" data-mapdata="<%= @map_data %>">
+<section class="locations-overview">
 
   <div class="mapImgBlock singleGraetzl">
-    <div id="graetzlMapWidget"></div>
+    <div id="graetzlMapWidget" data-mapdata="<%= @map_data %>"></div>
     <div class="activeArea"></div>
     <div class="illuDistrict"></div>
 

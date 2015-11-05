@@ -3,7 +3,7 @@ APP.controllers.graetzls = (function() {
     var map =  APP.components.graetzlMap;
 
     function init() {
-        var mapdata = jQuery('section.graetzls').data('mapdata');
+        var mapdata = $('#graetzlMapWidget').data('mapdata');
         map.init(function() {
                 map.showMapGraetzl(mapdata.graetzls, {
                     style: $.extend(map.styles.rose, {
