@@ -1,10 +1,22 @@
+<%
+  meta({
+    title: t('.title', numeric: @district.numeric),
+    description: t('.description', numeric: @district.numeric, name: @district.name),
+    robots: 'index, follow',
+    og_title: t('.title', numeric: @district.numeric),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@locations)) %>
+
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
 
   <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
-  <div class="cardBoxCollection -tripple">
+  <div id="locations" class="cardBoxCollection -tripple">
     <!-- render action card -->
     <%= render partial: 'locations/location', collection: @locations %>
   </div>
-  <%= paginate @locations %>
+  <%= paginate @locations, remote: true %>
 </section>
