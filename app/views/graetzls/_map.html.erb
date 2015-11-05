@@ -1,0 +1,16 @@
+<div class="mapImgBlock singleGraetzl">
+  <div id="graetzlMapWidget" data-mapdata="<%= map_data %>"></div>
+  <div class="activeArea"></div>
+  <div class="illuDistrict"></div>
+  <div class="mapInfoText"></div>
+
+  <div class="wrp-headline">
+    <h1><%= @graetzl.name %></h1>
+    <%= content_tag :span do %>
+      in
+      <% @graetzl.districts.each do |district| %>
+        <%= link_to district.zip, district %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

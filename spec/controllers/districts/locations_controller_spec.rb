@@ -14,8 +14,8 @@ RSpec.describe Districts::LocationsController, type: :controller do
       expect(assigns(:district)).to eq district
     end
 
-    it 'assigns @locations' do
-      expect(assigns(:locations)).to eq district.locations
+    it 'assigns @locations (approved)' do
+      expect(assigns(:locations)).to be
     end
 
     it 'renders /districts/locations/index' do
