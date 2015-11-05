@@ -2,7 +2,7 @@ section.vienna {
   .navBlock {
     .links {
       @include respond-to(">=medium") {
-        width: 350px;
+        width: 400px;
       }
     }
   }
@@ -17,10 +17,7 @@ section.districts {
       }
     }
   }
-
 }
-
-
 
 section.vienna,
 section.districts {
@@ -44,8 +41,6 @@ section.districts {
       }
     }
   }
-
-
 
   .activeArea {
     @include respond-to(">=medium") {
