@@ -20,4 +20,8 @@ class District < ActiveRecord::Base
   def locations
     Location.where(graetzl: graetzls)
   end
+
+  def meetings
+    Meeting.where(graetzl: graetzls)
+  end
 end

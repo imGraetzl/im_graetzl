@@ -97,4 +97,29 @@ RSpec.describe District, type: :model do
       expect(locations).not_to include(location_4)
     end
   end
+
+  describe '#meetings' do
+    let(:district) { create(:district) }
+    let(:graetzl_1) { create(:graetzl) }
+    let(:graetzl_2) { create(:graetzl) }
+    let(:other_graetzl) { create(:graetzl) }
+    let(:meeting_1) { create(:meeting, graetzl: graetzl_1) }
+    let(:meeting_2) { create(:meeting, graetzl: graetzl_1) }
+    let(:meeting_3) { create(:meeting, graetzl: graetzl_2) }
+    let(:meeting_4) { create(:meeting, graetzl: other_graetzl) }
+
+    before do
+      allow_any_instance_of(District).to receive(:graetzls).and_return([graetzl_1, graetzl_2])
+    end
+
+    subject(:meetings) { district.meetings }
+
+    it 'returns meetings from graetzls' do
+      expect(meetings).to include(meeting_1, meeting_2, meeting_3)
+    end
+
+    it 'excludes meetings from other graetzls' do
+      expect(meetings).not_to include(meeting_4)
+    end
+  end
 end
