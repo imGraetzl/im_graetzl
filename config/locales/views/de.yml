@@ -1,0 +1,8 @@
+de:
+  views:
+    pagination:
+      first: « Start
+      last: Ende »
+      next: Weiter »
+      previous: '&lsaquo; Zurück'
+      truncate: '&hellip;'
