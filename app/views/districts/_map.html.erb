@@ -4,9 +4,9 @@
   <div class="navBlock">
     <h1><%= @district.name %></h1>
     <div class="links">
-      <a class="toOverview" href="/wien"><svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg> Wien Übersicht</a>
+      <a class="toOverview" href="/wien"><svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg>Wien</a>
       <% @district.graetzls.each do |graetzl| %>
-          <%= link_to graetzl.name, graetzl %>
+        <%= link_to graetzl.name, graetzl %>
       <% end %>
     </div>
     <select class="mobileSelectMenu">

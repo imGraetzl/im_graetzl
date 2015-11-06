@@ -125,12 +125,6 @@
         }
       }
 
-      &.-notaligned {
-        a {
-          width: auto;
-        }
-      }
-
     }
   }
 }
@@ -182,7 +176,7 @@
 }
 
 .leaflet-tile-pane {
-  -webkit-filter: hue-rotate(-1100deg) saturate(50%);
+  filter: hue-rotate(-1100deg) saturate(50%);
   opacity: 0.8;
 }
 
