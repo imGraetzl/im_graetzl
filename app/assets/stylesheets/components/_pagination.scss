@@ -1,20 +1,16 @@
 .pagination {
 
   border-radius: 3px;
-  overflow: hidden;
-  padding: 4px;
-  display: table;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
 
-  .page {
-
-  }
-
-  a, .page.current {
+  .page a, .page.current {
     display: block;
-    float: left;
     background-color: $color-ambient-bright;
     border-width: 1px;
+    margin-bottom: 3px;
     text-decoration: none;
     border-style: solid;
     border-color: $color-ambient-rosa;
@@ -26,39 +22,39 @@
     margin-right: 2px;
     transition: background-color 0.2s;
     &.current {
-      background-color: $color-ambient-rosa;
+      border-color: $color-ambient-mint;
+      background-color: $color-ambient-mint;
       color: white;
     }
     &:hover:not(.current) {
-      background-color: rgba($color-ambient-rosa, 0.5);
+      border-color: $color-ambient-mint;
+      background-color: rgba($color-ambient-mint, 0.5);
       color: white;
     }
   }
 
   .next a, .prev a, .last a, .first a  {
-    border-color: $color-ambient-mint-dark;
-    color: $color-ambient-mint-dark;
+    color: $color-ambient-rosa;
     position: relative;
-    text-decoration: none;
+    display: flex;
     [class^=icon-] {
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      top: 4px;
+      flex: none;
     }
   }
-  .next a:hover, .prev a:hover, .last a:hover, .first a:hover  {
-    background-color: $color-ambient-mint-dark;
-    color: #ffffff;
-  }
-/*
-  .next a {
-    padding-right: 25px;
-    [class^=icon-] {
-      right: 1px;
-    }
-  }
-*/
 
+  .last a {
+    [class^=icon-] + [class^=icon-] {
+      transform: translate(-18px, 0);
+    }
+  }
+  .first a {
+    [class^=icon-]:first-child {
+      transform: translate(18px, 0);
+    }
+  }
+
+  .next a:hover, .prev a:hover, .last a:hover, .first a:hover  {
+    color: $color-ambient-mint;
+  }
 
 }
