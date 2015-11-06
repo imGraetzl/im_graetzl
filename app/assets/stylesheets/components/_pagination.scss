@@ -1,0 +1,64 @@
+.pagination {
+
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 4px;
+  display: table;
+  margin: 0 auto;
+
+  .page {
+
+  }
+
+  a, .page.current {
+    display: block;
+    float: left;
+    background-color: $color-ambient-bright;
+    border-width: 1px;
+    text-decoration: none;
+    border-style: solid;
+    border-color: $color-ambient-rosa;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: $color-ambient-rosa;
+    font-size: 14px;
+    margin-left: 2px;
+    margin-right: 2px;
+    transition: background-color 0.2s;
+    &.current {
+      background-color: $color-ambient-rosa;
+      color: white;
+    }
+    &:hover:not(.current) {
+      background-color: rgba($color-ambient-rosa, 0.5);
+      color: white;
+    }
+  }
+
+  .next a, .prev a, .last a, .first a  {
+    border-color: $color-ambient-mint-dark;
+    color: $color-ambient-mint-dark;
+    position: relative;
+    text-decoration: none;
+    [class^=icon-] {
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 4px;
+    }
+  }
+  .next a:hover, .prev a:hover, .last a:hover, .first a:hover  {
+    background-color: $color-ambient-mint-dark;
+    color: #ffffff;
+  }
+/*
+  .next a {
+    padding-right: 25px;
+    [class^=icon-] {
+      right: 1px;
+    }
+  }
+*/
+
+
+}
