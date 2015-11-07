@@ -1,8 +1,8 @@
 de:
   views:
     pagination:
-      first: « Start
-      last: Ende »
-      next: Weiter »
-      previous: '&lsaquo; Zurück'
+      first: <svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg><svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg>
+      last: <svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg><svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
+      next: <svg class="icon-arrow-right-2"><use xlink:href="#icon-arrow-right-2"></use></svg>
+      previous: <svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg>
       truncate: '&hellip;'
