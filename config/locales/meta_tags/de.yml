@@ -18,6 +18,10 @@ de:
       index:
         title: 'Lokale, Geschäfte & Treffpunkte im %{numeric}. Bezirk'
         description: 'Durchstöbere den %{numeric}. Bezirk in Wien. Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte und spannende Plätze im Bezirk %{name}.'
+    meetings:
+      index:
+        title: 'Treffen, Veranstaltungen & Events im %{numeric}. Bezirk'
+        description: 'Leute treffen sich im %{numeric}. Bezirk (%{name}). Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
   graetzls:
     show:
       title: '%{name} im %{numeric}. Bezirk in Wien'

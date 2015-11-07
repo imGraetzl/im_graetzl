@@ -8,6 +8,8 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming)) %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@past)) %>
 
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
