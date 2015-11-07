@@ -13,7 +13,7 @@
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
 
-  <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
+  <h1 class="hl-main">Entdecke <span>Treffpunkte & Anbieter</span> im <%= @district.numeric %>. Bezirk</h1>
   <div id="locations" class="cardBoxCollection -tripple">
     <!-- render action card -->
     <%= render partial: 'locations/location', collection: @locations %>

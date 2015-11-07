@@ -8,12 +8,11 @@ class Districts::MeetingsController < ApplicationController
   def index
     @district = District.find(params[:district_id])
     if request.xhr?
-      @page_param = params.keys.select { |k| k.to_s.match(/page_/) }.first #:past_page
-      @scope = @page_param.gsub 'page_', ''
+      @scope = params[:scope]
       @meetings = @district.meetings.
                             basic.
                             send(@scope).
-                            page(params[@page_param]).
+                            page(params[:page]).
                             per(@scope == 'past' ? 3 : 6)
     else
       @upcoming = @district.meetings.basic.upcoming.page(params[:page_upcoming]).per(6)
