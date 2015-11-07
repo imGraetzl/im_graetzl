@@ -15,10 +15,10 @@ RSpec.describe DistrictsController, type: :controller do
     end
 
     it 'assigns @districts' do
-      expect(assigns(:districts)).to be_truthy 
+      expect(assigns(:districts)).to be_truthy
     end
 
-    describe 'assigns @meetings' do      
+    describe 'assigns @meetings' do
       it 'is present' do
         expect(assigns(:meetings)).to be_truthy
       end
@@ -65,24 +65,12 @@ RSpec.describe DistrictsController, type: :controller do
       expect(assigns(:district)).to eq district
     end
 
-    describe 'assings @meetings' do
-      it 'is present' do
-        expect(assigns(:meetings)).to be_truthy
-      end
+    it 'assigns @meetings' do
+      expect(assigns(:meetings)).to be
+    end
 
-      context 'with meetings' do
-        let!(:meeting_in_graetzl) { create(:meeting, graetzl: graetzl) }
-        let!(:meeting_outside_graetzl) { create(:meeting, graetzl: wrong_graetzl) }
-
-
-        it 'contains meetings from area' do
-          expect(assigns(:meetings)).to include(meeting_in_graetzl)
-        end
-
-        it 'excludes meetings from outside area' do
-          expect(assigns(:meetings)).not_to include(meeting_outside_graetzl)
-        end
-      end
+    it 'assigns @locations' do
+      expect(assigns(:locations)).to be
     end
   end
 

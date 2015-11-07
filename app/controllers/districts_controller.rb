@@ -8,7 +8,8 @@ class DistrictsController < ApplicationController
   def show
     @district = District.find(params[:id])
     @graetzls = @district.graetzls
-    @meetings = Meeting.basic.upcoming.where(graetzl: @graetzls).limit(60).includes([:graetzl])
+    @meetings = @district.meetings.basic.upcoming.first(2)
+    @locations = @district.locations.approved.order("RANDOM()").first(2)
     @map_data = GeoJSONService.call(districts: @district, graetzls: @graetzls)
   end
 
