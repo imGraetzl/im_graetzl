@@ -13,9 +13,9 @@ class Districts::MeetingsController < ApplicationController
                             basic.
                             send(@scope).
                             page(params[:page]).
-                            per(@scope == 'past' ? 3 : 6)
+                            per(@scope == 'past' ? 3 : 5)
     else
-      @upcoming = @district.meetings.basic.upcoming.page(params[:page_upcoming]).per(6)
+      @upcoming = @district.meetings.basic.upcoming.page(params[:page_upcoming]).per(5)
       @past = @district.meetings.basic.past.page(params[:page_past]).per(3)
       @map_data = GeoJSONService.call(districts: @district, graetzls: @district.graetzls)
     end

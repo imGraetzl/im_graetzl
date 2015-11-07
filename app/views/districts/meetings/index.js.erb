@@ -1,3 +1,4 @@
 console.log('yeah');
-$('#<%= @scope %>').html("<%= j(render partial: 'meetings/meeting', collection: @meetings) %>");
+$('#<%= @scope %>').html("<%= j(render 'action_card', district: @district) if @scope == 'upcoming' %>" +
+                    "<%= j(render partial: 'meetings/meeting', collection: @meetings) %>");
 $('div#paginate-<%= @scope %>').html('<%= j(paginate @meetings, remote: true, params: { scope: @scope.to_sym }) %>');
