@@ -30,12 +30,11 @@ class WorkerController < ApplicationController
 
   def backup
     if ENV["ALLOW_WORKER"] == 'true'
-
       dump = Tempfile.new('dump')
       dump_cmd = "PGPASSWORD=#{ENV['DB_PASSWORD']} pg_dumpall -h #{ENV['DB_HOST']} -U #{ENV['DB_USERNAME']} -p #{ENV['DB_PORT']} > #{dump.path}"
       Rails.logger.info dump_cmd
       Rails.logger.info `#{dump_cmd}`
-      Aws.config[:credentials] = Aws::Credentials.new(ENV['S3_ACCESS_KEY'], ENV['S3_SECRET_ACCESS_KEY'])
+      Aws.config[:credentials] = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_KEY'])
       Aws.config[:region] = 'eu-central-1'
       s3 = Aws::S3::Resource.new
       s3.bucket('im-graetzl-db-backups').object("#{ENV['DB_NAME']}_#{Time.now.strftime("%d-%m-%Y-%H:%M")}").upload_file(dump.path)
