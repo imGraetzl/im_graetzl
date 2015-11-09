@@ -10,6 +10,11 @@
     margin-bottom: 25px;
   }
 
+  .cardbox-wrp:only-child {
+    margin: 0 auto;
+    float: none;
+  }
+
   &.-double {
     > * {
       @include respond-to(">=large") {

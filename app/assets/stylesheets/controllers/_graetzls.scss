@@ -12,15 +12,6 @@ section.graetzls {
     display: none;
   }
 
-  .cardBoxCollection {
-    .cardbox-wrp:only-child {
-      margin: 0 auto;
-      float: none;
-      .paperCard .card::before {
-      }
-    }
-  }
-
   .hl-subtext {
     position: relative;
     z-index: 2;
