@@ -7,7 +7,7 @@ class Districts::LocationsController < ApplicationController
 
   def index
     @district = District.find(params[:district_id])
-    @locations = @district.locations.approved.page(params[:page]).per(5)
+    @locations = @district.locations.approved.page(params[:page]).per(19)
     @map_data = GeoJSONService.call(districts: @district, graetzls: @district.graetzls) unless request.xhr?
   end
 end
