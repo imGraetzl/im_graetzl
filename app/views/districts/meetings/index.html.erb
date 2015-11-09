@@ -2,7 +2,7 @@
   meta({
     title: t('.title', numeric: @district.numeric),
     description: t('.description', numeric: @district.numeric, name: @district.name),
-    robots: params[:past].present? ? 'noindex, follow' : 'index, follow',
+    robots: (params[:past].present? || (@upcoming.empty? && @past.empty?)) ? 'noindex, follow' : 'index, follow',
     og_title: t('.title', numeric: @district.numeric),
     og_description: t('.description', numeric: @district.numeric, name: @district.name),
     og_image: image_url('meta/og_logo.png')
