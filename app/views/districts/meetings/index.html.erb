@@ -2,14 +2,13 @@
   meta({
     title: t('.title', numeric: @district.numeric),
     description: t('.description', numeric: @district.numeric, name: @district.name),
-    robots: 'index, follow',
+    robots: params[:past].present? ? 'noindex, follow' : 'index, follow',
     og_title: t('.title', numeric: @district.numeric),
     og_description: t('.description', numeric: @district.numeric, name: @district.name),
     og_image: image_url('meta/og_logo.png')
   })
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming, param_name: :upcoming )) %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@past, param_name: :past)) %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming, param_name: :upcoming )) unless params[:past].present? %>
 
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
