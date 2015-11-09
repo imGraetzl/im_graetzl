@@ -2,12 +2,15 @@
   <div class="inner">
     <%= render 'nav' %>
 
-    <div class="baumler-stoerer">
-      <a href="http://blog.imgraetzl.at/schaufenster-poesie-adventkalender-im-zweiten/" target="_blank" class="wrap">
-        <div class="link">Zum Kalender</div>
-      </a>
-      <svg class="icon-cross close"><use xlink:href="#icon-cross"></use></svg>
-    </div>
+    <% unless session[:advent] %>
+      <% session[:advent] = :seen %>
+      <div class="baumler-stoerer">
+        <a href="http://blog.imgraetzl.at/schaufenster-poesie-adventkalender-im-zweiten/" target="_blank" class="wrap">
+          <div class="link">Zum Kalender</div>
+        </a>
+        <svg class="icon-cross close"><use xlink:href="#icon-cross"></use></svg>
+      </div>
+    <% end %>
 
   </div>
 
