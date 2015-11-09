@@ -60,21 +60,10 @@ section.graetzls {
   }
 }
 
-.block-meetings {
-  .paperCard {
-    .card {
-      transform: rotate(-2deg);
-    }
-  }
-}
-
 .block-locations {
   .paperCard {
     .wrp {
       background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
-    }
-    .card {
-      transform: rotate(1deg);
     }
   }
 }

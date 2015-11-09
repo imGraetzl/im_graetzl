@@ -14,7 +14,7 @@
   <%= render 'districts/map', map_data: @map_data %>
 
   <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
-  <div id="locations" class="cardBoxCollection -tripple">
+  <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd">
     <%= render 'action_card', district: @district %>
     <%= render partial: 'locations/location', collection: @locations %>
   </div>

@@ -13,21 +13,28 @@
 
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
-  <h1 class="hl-main">Komm doch dazu - <span>Treffen, Events & Veranstaltungen</span></h1>
-  <div id="upcoming" class="cardBoxCollection -tripple">
-    <%= render 'action_card', district: @district %>
-    <%= render partial: 'meetings/meeting', collection: @upcoming %>
+
+  <div class="meeting-block">
+    <h1 class="hl-main">Komm doch dazu - <span>Treffen, Events & Veranstaltungen</span></h1>
+    <div id="upcoming" class="cardBoxCollection -tripple js-moveActionCard3rd">
+      <%= render 'action_card', district: @district %>
+      <%= render partial: 'meetings/meeting', collection: @upcoming %>
+    </div>
+    <div id='paginate-upcoming'>
+      <%= paginate @upcoming, remote: true, params: { scope: :upcoming } %>
+    </div>
   </div>
-  <div id='paginate-upcoming'>
-    <%= paginate @upcoming, remote: true, params: { scope: :upcoming } %>
-  </div>
+
   <% unless @past.empty? %>
-    <h1 class="hl-main">Vergangene Treffen in <span> im <%= @district.numeric %>. Bezirk</span></h1>
-    <div id="past" class="cardBoxCollection -tripple">
-      <%= render partial: 'meetings/meeting', collection: @past %>
-    </div>
-    <div id='paginate-past'>
-      <%= paginate @past, remote: true, params: { scope: :past } %>
-    </div>
+      <div class="meeting-block">
+        <h1 class="hl-main">Vergangene Treffen in <span> im <%= @district.numeric %>. Bezirk</span></h1>
+        <div id="past" class="cardBoxCollection -tripple">
+          <%= render partial: 'meetings/meeting', collection: @past %>
+        </div>
+        <div id='paginate-past'>
+          <%= paginate @past, remote: true, params: { scope: :past } %>
+        </div>
+      </div>
   <% end %>
+
 </section>

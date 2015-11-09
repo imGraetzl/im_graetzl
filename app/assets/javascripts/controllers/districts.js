@@ -48,7 +48,10 @@ APP.controllers.districts = (function() {
                     zoomAfterRender: false
                 });
             }
-        )
+        );
+
+        APP.components.cardBox.moveActionCard3rd();
+
     }
 
     // ---------------------------------------------------------------------- public

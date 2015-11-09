@@ -10,11 +10,6 @@ section.homeOut {
     @include respond-to(">=medium") {
       margin-bottom: 60px;
     }
-
-    .paperCard .card {
-      transform: rotate(-1deg);
-    }
-
   }
 }
 
@@ -168,9 +163,6 @@ section.homeOut {
       @include respond-to(">=medium") {
         margin-right: 70px;
       }
-      .card {
-        transform: rotate(-2deg);
-      }
     }
   }
   &:nth-child(odd) {
@@ -178,9 +170,6 @@ section.homeOut {
       @include respond-to(">=medium") {
         margin-left: 70px;
         order: 2;
-      }
-      .card {
-        transform: rotate(2deg);
       }
     }
   }

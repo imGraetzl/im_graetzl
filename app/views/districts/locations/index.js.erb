@@ -1,4 +1,4 @@
-console.log('yeah');
 $('#locations').html("<%= j(render 'action_card', district: @district) %>" +
                     "<%= j(render partial: 'locations/location', collection: @locations) %>");
 $('nav.pagination').replaceWith('<%= j(paginate @locations, remote: true) %>');
+APP.components.cardBox.moveActionCard3rd();

@@ -16,6 +16,7 @@
     z-index: 1;
     border-radius: 2px;
     background-color: #fff;
+    transform: rotate(1deg);
     //shadow bottom
     &::after {
       content: '';
@@ -28,6 +29,7 @@
       pointer-events: none;
     }
   }
+
 }
 
 

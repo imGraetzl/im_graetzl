@@ -34,9 +34,6 @@ section[class^=closedGraetzl-] {
     @include respond-to(">=medium") {
       flex: 0 0 300px;
     }
-    .card {
-      transform: rotate(2deg);
-    }
   }
 }
 
