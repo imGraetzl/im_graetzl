@@ -8,8 +8,8 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming)) %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@past)) %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming, param_name: :upcoming )) %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@past, param_name: :past)) %>
 
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
@@ -21,20 +21,20 @@
       <%= render partial: 'meetings/meeting', collection: @upcoming %>
     </div>
     <div id='paginate-upcoming'>
-      <%= paginate @upcoming, remote: true, params: { scope: :upcoming } %>
+      <%= paginate @upcoming, remote: true, param_name: :upcoming, params: { scope: :upcoming } %>
     </div>
   </div>
 
   <% unless @past.empty? %>
-      <div class="meeting-block">
-        <h1 class="hl-main">Vergangene Treffen in <span> im <%= @district.numeric %>. Bezirk</span></h1>
-        <div id="past" class="cardBoxCollection -tripple">
-          <%= render partial: 'meetings/meeting', collection: @past %>
-        </div>
-        <div id='paginate-past'>
-          <%= paginate @past, remote: true, params: { scope: :past } %>
-        </div>
+    <div class="meeting-block">
+      <h1 class="hl-main">Vergangene Treffen in <span> im <%= @district.numeric %>. Bezirk</span></h1>
+      <div id="past" class="cardBoxCollection -tripple">
+        <%= render partial: 'meetings/meeting', collection: @past %>
       </div>
+      <div id='paginate-past'>
+        <%= paginate @past, remote: true, param_name: :past, params: { scope: :past } %>
+      </div>
+    </div>
   <% end %>
 
 </section>
