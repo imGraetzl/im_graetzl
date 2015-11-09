@@ -3,42 +3,65 @@ require 'rails_helper'
 RSpec.describe DistrictsController, type: :controller do
 
   describe 'GET index' do
-    before { get :index }
+    context 'when html request' do
+      before { get :index }
 
-    it 'returns a 200 OK status' do
-      get :index
-      expect(response).to be_success
-    end
-
-    it 'renders #index' do
-      expect(response).to render_template(:index)
-    end
-
-    it 'assigns @districts' do
-      expect(assigns(:districts)).to be_truthy
-    end
-
-    describe 'assigns @meetings' do
-      it 'is present' do
-        expect(assigns(:meetings)).to be_truthy
+      it 'renders index.html' do
+        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response).to render_template(:index)
       end
 
-      context 'with meetings' do
-        let!(:meeting) { create(:meeting) }
-        let(:past) { build(:meeting, starts_at_date: Date.yesterday) }
+      it 'assigns @districts' do
+        expect(assigns(:districts)).to be_truthy
+      end
 
-        before do
-          past.save(validate: false)
-          get :index
+      it 'assigns @map_data' do
+        expect(assigns(:map_data)).to be_truthy
+      end
+
+      describe 'assigns @meetings' do
+        it 'is present' do
+          expect(assigns(:meetings)).to be_truthy
         end
 
-        it 'contains upcoming/unset meetings' do
-          expect(assigns(:meetings)).to include(meeting)
-        end
+        context 'with meetings' do
+          let!(:meeting) { create(:meeting) }
+          let(:past) { build(:meeting, starts_at_date: Date.yesterday) }
 
-        it 'excludes past meetings' do
-          expect(assigns(:meetings)).not_to include(past)
+          before do
+            past.save(validate: false)
+            get :index
+          end
+
+          it 'contains upcoming/unset meetings' do
+            expect(assigns(:meetings)).to include(meeting)
+          end
+
+          it 'excludes past meetings' do
+            expect(assigns(:meetings)).not_to include(past)
+          end
         end
+      end
+    end
+
+    context 'when js request' do
+      before { xhr :get, :index }
+
+      it 'does not assign @districts' do
+        expect(assigns(:districts)).not_to be
+      end
+
+      it 'does not assign @map_data' do
+        expect(assigns(:map_data)).not_to be
+      end
+
+      it 'assigns @meetings' do
+        expect(assigns(:meetings)).to be
+      end
+
+      it 'renders index.js' do
+        expect(response.header['Content-Type']).to include('text/javascript')
+        expect(response).to render_template(:index)
       end
     end
   end
