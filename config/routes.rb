@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :districts, path: 'wien', only: [:index, :show] do
     get '/leopoldstadt-1020/graetzlzuckerl', on: :collection, to: 'zuckerls#index', as: 'zuckerl'
     get :graetzls, on: :member
+    resources :locations, module: :districts, only: [:index]
+    resources :meetings, path: :treffen, module: :districts, only: [:index]
   end
 
   ActiveAdmin.routes(self)
@@ -54,7 +56,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show, :update] do
-    resource :comments, module: :users, only: [:create]
+    resources :comments, module: :users, only: [:create]
   end
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
@@ -74,7 +76,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [ :index ]
 
   resources :graetzls, path: '', only: [:show] do
-    resources :meetings, path: 'treffen', only: [:index, :show, :new]
+    resources :meetings, path: :treffen, only: [:index, :show, :new]
     resources :locations, only: [:index, :show]
     resources :users, only: [:index, :show]
     resources :posts, only: [:show]
@@ -86,13 +88,13 @@ Rails.application.routes.draw do
     concerns :graetzl_before_new
   end
 
-  resources :meetings, path: 'treffen', except: [:index, :show] do
-    resource :comments, module: :meetings, only: [:create]
+  resources :meetings, path: :treffen, except: [:index, :show] do
+    resources :comments, module: :meetings, only: [:create]
   end
 
   resources :comments, only: [:update, :destroy]
 
   resources :posts, only: [:create, :destroy] do
-    resource :comments, module: :posts, only: [:create]
+    resources :comments, module: :posts, only: [:create]
   end
 end

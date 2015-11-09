@@ -1,14 +1,15 @@
 class DistrictsController < ApplicationController
   def index
-    @districts = District.all()
-    @meetings = Meeting.basic.upcoming.limit(60).includes([:graetzl])
-    @map_data = GeoJSONService.call(districts: @districts)
+    @districts = District.all() unless request.xhr?
+    @meetings = Meeting.basic.upcoming.includes([:graetzl]).page(params[:page]).per(15)
+    @map_data = GeoJSONService.call(districts: @districts) unless request.xhr?
   end
 
   def show
     @district = District.find(params[:id])
     @graetzls = @district.graetzls
-    @meetings = Meeting.basic.upcoming.where(graetzl: @graetzls).limit(60).includes([:graetzl])
+    @meetings = @district.meetings.basic.upcoming.first(2)
+    @locations = @district.locations.approved.order("RANDOM()").first(2)
     @map_data = GeoJSONService.call(districts: @district, graetzls: @graetzls)
   end
 

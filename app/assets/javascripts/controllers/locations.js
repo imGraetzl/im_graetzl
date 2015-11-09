@@ -44,7 +44,7 @@ APP.controllers.locations = (function() {
     function initLocationOverview() {
         var numBoxes = $(".cardBoxCollection .cardBox").length;
         var map =  APP.components.graetzlMap;
-        var mapdata = jQuery('.locations-overview').data('mapdata');
+        var mapdata = jQuery('#graetzlMapWidget').data('mapdata');
 
         map.init(function() {
                 map.showMapGraetzl(mapdata.graetzls, {

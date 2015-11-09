@@ -8,11 +8,12 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@meetings)) %>
 
-<section class="vienna" data-mapdata="<%= @map_data %>">
+<section class="vienna">
 
   <div class="mapImgBlock">
-    <div id="graetzlMapWidget"></div>
+    <div id="graetzlMapWidget" data-mapdata="<%= @map_data %>"></div>
     <div class="activeArea"></div>
     <div class="navBlock">
       <h1>Wien</h1>
@@ -27,12 +28,13 @@
     </div>
   </div>
 
-  <% if !@meetings.empty? %>
+  <% unless @meetings.empty? %>
     <div class="teaserBlock">
       <h1 class="hl-main">Aktuelle Treffen in ganz <span>Wien</span></h1>
-      <div class="cardBoxCollection -tripple">
+      <div id="meetings" class="cardBoxCollection -tripple">
         <%= render @meetings %>
       </div>
     </div>
+    <%= paginate @meetings, remote: true %>
   <% end %>
 </section>

@@ -13,7 +13,15 @@ de:
       description: 'Kaum zu glauben: Wien hat über 160 Grätzln. In welchem bist Du zuhause oder öfters anzutreffen? Durchstöbere die Bezirke und entdecke dein Grätzl in Wien ...'
     show:
       title: 'Grätzln im %{numeric}. Bezirk (%{name}) in Wien'
-      description: 'Es gibt %{num} Grätzl in Wien %{name}! In welchem bist du zuhause oder öfters anzutreffen? Entdecke die Vielfalt der Grätzln im %{numeric}. Bezirk, es gibt spannendes zu entdecken'
+      description: 'Es gibt %{num} Grätzl in Wien %{name}! Triff Bewohner des Bezirks zu gemeinsamen Unternehmungen oder entdecke spannende Workshops & Events im %{numeric}. Bezirk'
+    locations:
+      index:
+        title: 'Lokale, Geschäfte & Treffpunkte im %{numeric}. Bezirk'
+        description: 'Durchstöbere den %{numeric}. Bezirk in Wien. Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte und spannende Plätze im Bezirk %{name}.'
+    meetings:
+      index:
+        title: 'Treffen, Veranstaltungen & Events im %{numeric}. Bezirk'
+        description: 'Leute treffen sich im %{numeric}. Bezirk (%{name}). Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
   graetzls:
     show:
       title: '%{name} im %{numeric}. Bezirk in Wien'

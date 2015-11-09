@@ -9,24 +9,8 @@
   })
 %>
 
-<section class="locations-overview" data-mapdata="<%= @map_data %>">
-
-  <div class="mapImgBlock singleGraetzl">
-    <div id="graetzlMapWidget"></div>
-    <div class="activeArea"></div>
-    <div class="illuDistrict"></div>
-
-    <div class="wrp-headline">
-      <h1><%= @graetzl.name %></h1>
-      <%= content_tag :span do %>
-          in
-          <% @graetzl.districts.each do |district| %>
-              <%= link_to district.zip, district %>
-          <% end %>
-      <% end %>
-    </div>
-  </div>
-
+<section class="locations-overview">
+  <%= render 'graetzls/map', map_data: @map_data %>
   <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
   <div class="cardBoxCollection -tripple">
     <%= render 'locations/action_card', graetzl: @graetzl %>

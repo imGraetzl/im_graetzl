@@ -59,7 +59,7 @@ APP.controllers.meetings = (function() {
     function initMeetingsOverview() {
         var numBoxes = $(".cardBoxCollection:eq(0) .cardBox").length;
         var map =  APP.components.graetzlMap;
-        var mapdata = jQuery('.meetings-overview').data('mapdata');
+        var mapdata = $('#graetzlMapWidget').data('mapdata');
 
         map.init(function() {
                 map.showMapGraetzl(mapdata.graetzls, {

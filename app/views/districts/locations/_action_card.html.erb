@@ -1,0 +1,17 @@
+<% more ||= false %>
+<div class="cardbox-wrp">
+  <div class="paperCard -cord1RT -illuteaser">
+    <div class="wrp">
+      <div class="user">
+        <%= image_tag('avatar/user/default.png', class: 'img-round') %>
+        <span>Dein Name</span>
+      </div>
+      <h3>Du bist unternehmerisch oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
+      <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
+    </div>
+    <div class="card"></div>
+  </div>
+  <% if more %>
+    <%= link_to 'Alle Treffpunkte & Anbieter', district_locations_path(district), class: 'link-more' %>
+  <% end %>
+</div>

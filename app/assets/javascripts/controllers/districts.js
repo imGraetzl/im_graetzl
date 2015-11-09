@@ -2,6 +2,7 @@ APP.controllers.districts = (function() {
 
     var map =  APP.components.graetzlMap;
 
+
     function init() {
 
         var $select = $(".mapImgBlock .mobileSelectMenu");
@@ -15,39 +16,45 @@ APP.controllers.districts = (function() {
             window.location.href = $(this).val();
         });
 
+        if($("section.vienna").exists()) initVienna();
+        if($("section.districts").exists()) initDistrict();
 
-        if($('section.vienna').exists()){
-            var mapdata = jQuery('section.vienna').data('mapdata');
-            map.init(function() {
+    }
+
+    // ---------------------------------------------------------------------- section inits
+
+    function initVienna() {
+        var mapdata = $('#graetzlMapWidget').data('mapdata');
+        map.init(function() {
                 console.log(mapdata.districts);
                 map.showMapDistrict(mapdata.districts, {
                     interactive: true
                 });
-                }
-            );
-        }
+            }
+        );
+    }
 
+    function initDistrict() {
+        var mapdata = $('#graetzlMapWidget').data('mapdata');
+        map.init(function() {
+                map.showMapDistrict(mapdata.districts, {
+                    style: $.extend(map.styles.mint, {
+                        weight: 0,
+                        fillOpacity: 0.5
+                    })
+                });
+                map.showMapGraetzl(mapdata.graetzls, {
+                    interactive: true,
+                    zoomAfterRender: false
+                });
+            }
+        );
 
-        if($('section.districts').exists()){
-            var mapdata = jQuery('section.districts').data('mapdata');
-            map.init(function() {
-                    map.showMapDistrict(mapdata.districts, {
-                        style: $.extend(map.styles.mint, {
-                            weight: 0,
-                            fillOpacity: 0.5
-                        })
-                    });
-                    map.showMapGraetzl(mapdata.graetzls, {
-                        interactive: true,
-                        zoomAfterRender: false
-                    });
-                }
-            )
-        }
-
-
+        APP.components.cardBox.moveActionCard3rd();
 
     }
+
+    // ---------------------------------------------------------------------- public
 
     return {
         init: init
