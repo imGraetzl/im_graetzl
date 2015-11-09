@@ -2,3 +2,8 @@ $('#<%= @scope %>').html("<%= j(render 'action_card', district: @district) if @s
                     "<%= j(render partial: 'meetings/meeting', collection: @meetings) %>");
 $('div#paginate-<%= @scope %>').html('<%= j(paginate @meetings, remote: true, param_name: @scope.to_sym, params: { scope: @scope.to_sym }) %>');
 APP.components.cardBox.moveActionCard3rd();
+
+// scroll to headline above box container
+$('html,body').animate({
+  scrollTop: $('#<%= @scope %>').prev().offset().top
+}, 1000);
