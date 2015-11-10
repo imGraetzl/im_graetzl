@@ -12,15 +12,6 @@ section.graetzls {
     display: none;
   }
 
-  .cardBoxCollection {
-    .cardbox-wrp:only-child {
-      margin: 0 auto;
-      float: none;
-      .paperCard .card::before {
-      }
-    }
-  }
-
   .hl-subtext {
     position: relative;
     z-index: 2;
@@ -60,21 +51,10 @@ section.graetzls {
   }
 }
 
-.block-meetings {
-  .paperCard {
-    .card {
-      transform: rotate(-2deg);
-    }
-  }
-}
-
 .block-locations {
   .paperCard {
     .wrp {
       background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
-    }
-    .card {
-      transform: rotate(1deg);
     }
   }
 }

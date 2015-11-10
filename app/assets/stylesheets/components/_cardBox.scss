@@ -5,9 +5,14 @@
     margin-left: -25px;
     margin-right: -25px;
   }
-  .meetingBox, .cardBox {
+  .meetingBox, .cardBox, .paperCard {
     display: block;
     margin-bottom: 25px;
+  }
+
+  .cardbox-wrp:only-child {
+    margin: 0 auto;
+    float: none;
   }
 
   &.-double {

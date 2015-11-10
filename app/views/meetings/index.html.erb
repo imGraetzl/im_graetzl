@@ -9,24 +9,8 @@
   })
 %>
 
-<section class="meetings-overview" data-mapdata="<%= @map_data %>">
-
-  <div class="mapImgBlock singleGraetzl">
-    <div id="graetzlMapWidget"></div>
-    <div class="activeArea"></div>
-    <div class="illuDistrict"></div>
-
-    <div class="wrp-headline">
-      <h1><%= @graetzl.name %></h1>
-      <%= content_tag :span do %>
-          in
-          <% @graetzl.districts.each do |district| %>
-              <%= link_to district.zip, district %>
-          <% end %>
-      <% end %>
-    </div>
-  </div>
-
+<section class="meetings-overview">
+  <%= render 'graetzls/map', map_data: @map_data %>
   <h1 class="hl-main">Komm doch dazu - <span>Treffen, Events & Veranstaltungen</span></h1>
   <div class="cardBoxCollection -tripple">
     <%= render 'action_card', graetzl: @graetzl %>

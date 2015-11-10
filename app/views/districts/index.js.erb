@@ -1,0 +1,7 @@
+$('#meetings').html("<%= j(render @meetings) %>");
+$('nav.pagination').replaceWith('<%= j(paginate @meetings, remote: true) %>');
+
+// scroll to headline above box container
+$('html,body').animate({
+  scrollTop: $('#meetings').prev().offset().top
+}, 500);

@@ -18,5 +18,9 @@ RSpec.describe WorkerController, type: :routing do
     it 'routes /worker/truncate_db to #truncate_db' do
       expect(post: '/worker/truncate_db').to route_to('worker#truncate_db')
     end
+
+    it 'routes /worker/truncate_eb to #truncate_eb' do
+      expect(post: '/worker/truncate_eb').to route_to('worker#truncate_eb')
+    end
   end
 end

@@ -1,0 +1,18 @@
+<div class="mapImgBlock -hasillu">
+  <div id="graetzlMapWidget" data-mapdata="<%= map_data %>"></div>
+  <div class="activeArea"></div>
+  <div class="illuDistrict"></div>
+  <div class="mapInfoText"></div>
+
+  <div class="navBlock">
+    <h1><%= @graetzl.name %></h1>
+    <div class="links">
+      <% @graetzl.districts.each do |district| %>
+        <%= link_to district, class: 'toOverview' do %>
+          <svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg><%= district.name %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

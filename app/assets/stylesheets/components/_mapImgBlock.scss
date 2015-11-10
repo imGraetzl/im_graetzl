@@ -54,8 +54,8 @@
     left: 50%;
     transform: translate(-50%, 50%);
     @include respond-to(">=medium") {
-      bottom: 20px;
-      left: 10px;
+      bottom: 40px;
+      left: 40px;
       transform: translate(0,0);
     }
 
@@ -63,11 +63,10 @@
       @include headlineBarbapapa();
       @include font-size-secondaryFont('large');
       @include textShadowHard($color-ambient-rosa-dark);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       margin-left: auto;
       margin-right: auto;
       @include respond-to(">=medium") {
-        margin-bottom: 20px;
         margin-left: 0;
       }
     }
@@ -80,6 +79,9 @@
     }
     .links {
       overflow: hidden;
+      @include respond-to(">=medium") {
+        margin-left: 15px;
+      }
 
       a {
         @include ellipsis();
@@ -93,21 +95,17 @@
         border-radius: 3px;
         text-decoration: none;
         color: $color-ambient-rosa;
-        font-size: 12px;
+        font-size: 14px;
         margin-bottom: 4px;
         margin-left: 2px;
         margin-right: 2px;
-        width: calc(50% - 4px);
         transition: background-color 0.2s;
-        @include respond-to(">=medium") {
-          width: 147px;
-        }
         &:hover, &.is-highlighted {
           background-color: $color-ambient-rosa;
           color: #ffffff;
         }
       }
-      a.toVienna {
+      a.toOverview {
         border-color: $color-ambient-mint-dark;
         color: $color-ambient-mint-dark;
         position: relative;
@@ -117,30 +115,21 @@
           height: 20px;
           position: absolute;
           left: 1px;
-          top: 2px;
+          top: 4px;
         }
       }
-      a.toVienna:hover {
+      a.toOverview:hover {
         background-color: $color-ambient-mint-dark;
         color: #ffffff;
-        [class^=icon-] {
-        }
       }
+
     }
   }
 }
 
 
 
-.mapImgBlock.singleGraetzl {
-  margin-bottom: 30px;
-  @include respond-to(">=large") {
-    padding-bottom: 0;
-    &::after {
-      width: 500px;
-      left: 240px;
-    }
-  }
+.mapImgBlock.-hasillu {
 
   .activeArea {
     @include respond-to(">=large") {
@@ -148,7 +137,7 @@
     }
   }
 
-  .wrp-headline {
+  .navBlock {
     display: table;
     margin: 0 auto;
     z-index: 10;
@@ -159,31 +148,10 @@
     @include respond-to(">=large") {
       position: absolute;
       left: 350px;
-      top: 76px;
-      display: table;
+      top: 70px;
       margin: 0;
       transform: translate(0, 0);
     }
-    span {
-      float: right;
-      font-size: 1.4rem;
-      border-radius: 4px;
-      background-color: rgba(245,245,240,0.9);
-      padding: 1px 5px;
-      margin-right: 5px;
-      a:not(:last-child) {
-        display: inline-block;
-        border-right: 1px dotted $color-ambient-mint-dark;
-        padding-right: 5px;
-        margin-right: 3px;
-      }
-    }
-  }
-  h1 {
-    @include font-size-secondaryFont('large');
-    @include headlineBarbapapa;
-    @include textShadowHard($color-ambient-rosa-dark);
-    margin-bottom: 0;
   }
 
   #graetzlMapWidget {
@@ -206,7 +174,7 @@
 }
 
 .leaflet-tile-pane {
-  -webkit-filter: hue-rotate(-1100deg) saturate(50%);
+  filter: hue-rotate(-1100deg) saturate(50%);
   opacity: 0.8;
 }
 

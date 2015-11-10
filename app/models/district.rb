@@ -1,4 +1,4 @@
-class District < ActiveRecord::Base  
+class District < ActiveRecord::Base
   default_scope { order(zip: :asc) }
 
   extend FriendlyId
@@ -15,5 +15,13 @@ class District < ActiveRecord::Base
 
   def numeric
     zip.slice(1..2).sub(%r{^0},"") if zip.present?
+  end
+
+  def locations
+    Location.where(graetzl: graetzls)
+  end
+
+  def meetings
+    Meeting.where(graetzl: graetzls)
   end
 end

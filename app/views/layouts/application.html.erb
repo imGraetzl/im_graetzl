@@ -33,32 +33,7 @@
   <%= yield %>
 </main>
 
-<footer>
-  <div class="inner">
-
-    <div class="col">
-      <%= link_to 'Fragen & Antworten', info_fragen_und_antworten_path %>
-      <%= link_to 'Infos zum Grätzlzuckerl', info_infos_zum_graetzlzuckerl_path %>
-      <a href="http://blog.imgraetzl.at/" target="_blank">Blog</a>
-      <a href="https://www.facebook.com/imGraetzl" target="_blank" class="facebook">imGrätzl auf Facebook<svg class="icon-social-facebook"><use xlink:href="#icon-social-facebook"></use></svg></a>
-    </div>
-
-    <div class="col">
-      <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
-      <%= link_to 'Impressum', info_impressum_path %>
-      <%= link_to 'AGB', info_agb_path %>
-    </div>
-
-    <div class="col logo-wa">
-      <%= link_to(image_tag('logo-wa.png'), 'https://wirtschaftsagentur.at/', target: '_blank') %>
-      <div>Gefördert durch die Wirtschaftsagentur Wien.<br>
-        Ein Fonds der Stadt Wien.</div>
-    </div>
-
-  </div>
-
-  </div>
-</footer>
+<%= render 'footer' %>
 
 </body>
 </html>

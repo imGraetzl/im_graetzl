@@ -9,31 +9,27 @@
   })
 %>
 
-<section class="districts" data-mapdata="<%= @map_data %>">
-
-  <div class="mapImgBlock">
-    <div id="graetzlMapWidget"></div>
-    <div class="activeArea"></div>
-    <div class="navBlock">
-      <h1><%= @district.name %></h1>
-      <div class="links">
-        <a class="toVienna" href="/wien"><svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg> Wien Übersicht</a>
-        <% @district.graetzls.each do |graetzl| %>
-            <%= link_to graetzl.name, graetzl %>
-        <% end %>
-      </div>
-      <select class="mobileSelectMenu">
-        <option disabled>Grätzl wählen</option>
-      </select>
+<section class="districts">
+  <%= render 'map', map_data: @map_data %>
+  <div class="block-meetings">
+    <div class="hl-subtext">
+      <h1>Mach mit - <span>Treffen & Events</span> im <%= @district.numeric %>. Bezirk</h1>
+      <p>Lerne dabei nette Menschen aus dem Bezirk <%= @district.name %> kennen</p>
+    </div>
+    <div class="cardBoxCollection -tripple">
+      <%= render partial: 'meetings/meeting', collection: @meetings %>
+      <%= render 'districts/meetings/action_card', district: @district, more: true %>
     </div>
   </div>
 
-  <% if !@meetings.empty? %>
-    <div class="teaserBlock">
-      <h1 class="hl-main">Aktuelle Treffen in <span><%= @district.zip %> <%= @district.name %></span></h1>
-      <div class="cardBoxCollection -tripple">
-        <%= render @meetings %>
-      </div>
+  <div class="block-locations">
+    <div class="hl-subtext">
+      <h1>Entdecke <span>Anbieter & Treffpunkte</span> im <%= @district.numeric %>. Bezirk</h1>
+      <p>Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte</p>
     </div>
-  <% end %>
+    <div class="cardBoxCollection -tripple">
+      <%= render partial: 'locations/location', collection: @locations %>
+      <%= render 'districts/locations/action_card', district: @district, more: true %>
+    </div>
+  </div>
 </section>
