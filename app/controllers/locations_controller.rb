@@ -33,7 +33,9 @@ class LocationsController < ApplicationController
   end
 
   def index
-    @locations = @graetzl.locations.approved.includes(:address, :category)
+    @locations = @graetzl.locations.approved.
+                                    includes(:address, :category)
+                                    .page(params[:page]).per(14)
   end
 
   def show

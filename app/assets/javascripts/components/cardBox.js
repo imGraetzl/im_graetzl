@@ -2,6 +2,7 @@ APP.components.cardBox = (function() {
 
 
     function moveActionCard3rd() {
+      console.log('here');
         $(".cardBoxCollection.js-moveActionCard3rd").each(function() {
             var numBoxes = $(this).find(".cardBox").length;
             if (numBoxes > 0) $(this).find(".cardBox:nth-child(3)").after($(".cardbox-wrp"));
@@ -14,5 +15,3 @@ APP.components.cardBox = (function() {
     }
 
 })();
-
-
