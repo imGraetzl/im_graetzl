@@ -5,8 +5,16 @@ class MeetingsController < ApplicationController
   before_action :check_permission!, only: [:edit, :update, :destroy]
 
   def index
-    @upcoming_meetings = @graetzl.meetings.basic.upcoming
-    @past_meetings = @graetzl.meetings.basic.past
+    if request.xhr?
+      @scope = params[:scope]
+      @meetings = @graetzl.meetings.basic.
+                                    send(@scope).
+                                    page(params[@scope.to_sym]).
+                                    per(@scope == 'past' ? 6 : 8)
+    else
+      @upcoming = @graetzl.meetings.basic.upcoming.page(params[:upcoming]).per(8)
+      @past = @graetzl.meetings.basic.past.page(params[:past]).per(6)
+    end
   end
 
   def show

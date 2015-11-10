@@ -4,7 +4,7 @@ module GraetzlChild
 
   included do
     before_action :set_graetzl, only: [:index, :show]
-    before_action :set_map_data, only: [:index]
+    before_action :set_map_data, only: [:index], unless: :format_js?
   end
 
   def verify_graetzl_child(child)
@@ -19,5 +19,9 @@ module GraetzlChild
 
   def set_map_data
     @map_data = GeoJSONService.call(graetzls: @graetzl)
+  end
+
+  def format_js?
+     request.xhr?
   end
 end

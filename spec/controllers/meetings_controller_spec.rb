@@ -72,27 +72,62 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
   describe 'GET index' do
-    before do
-      2.times{create(:meeting, graetzl: graetzl)}
-      2.times{create(:meeting)}
-      get :index, graetzl_id: graetzl
+    context 'when html request' do
+      before { get :index, graetzl_id: graetzl }
+
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq graetzl
+      end
+
+      it 'assigns @map_data' do
+        expect(assigns(:map_data)).to be
+      end
+
+      it 'assigns @upcoming' do
+        expect(assigns(:upcoming)).to be
+      end
+
+      it 'assigns @past' do
+        expect(assigns(:past)).to be
+      end
+
+      it 'renders index.html' do
+        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response).to render_template(:index)
+      end
     end
 
-    it 'renders #index' do
-      expect(response).to render_template(:index)
-    end
+    context 'when js request' do
+      before { xhr :get, :index, { graetzl_id: graetzl, scope: 'upcoming' } }
 
-    it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq(graetzl)
-    end
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq graetzl
+      end
 
-    it 'assigns @upcoming_meetings' do
-      expect(assigns(:upcoming_meetings)).to eq(graetzl.meetings.upcoming)
-      expect(assigns(:upcoming_meetings).count).to eq 2
-    end
+      it 'does not assign @map_data' do
+        expect(assigns(:map_data)).not_to be
+      end
 
-    it 'assigns @past_meetings' do
-      expect(assigns(:past_meetings)).to eq(graetzl.meetings.past)
+      it 'does not assign @upcoming' do
+        expect(assigns(:upcoming)).not_to be
+      end
+
+      it 'does not assign @past' do
+        expect(assigns(:past)).not_to be
+      end
+
+      it 'assigns @scope' do
+        expect(assigns(:scope)).to eq 'upcoming'
+      end
+
+      it 'assigns @meetings' do
+        expect(assigns(:meetings)).to be
+      end
+
+      it 'renders index.js' do
+        expect(response['Content-Type']).to include('text/javascript')
+        expect(response).to render_template(:index)
+      end
     end
   end
 
