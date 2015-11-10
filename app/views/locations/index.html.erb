@@ -12,9 +12,9 @@
 <section class="locations-overview">
   <%= render 'graetzls/map', map_data: @map_data %>
   <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
-  <div class="cardBoxCollection -tripple">
+  <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd">
     <%= render 'locations/action_card', graetzl: @graetzl %>
     <%= render @locations %>
   </div>
-
+  <%= paginate @locations, remote: true %>
 </section>

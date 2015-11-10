@@ -495,19 +495,48 @@ RSpec.describe LocationsController, type: :controller do
     let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
     let(:pending_location) { create(:location, graetzl: graetzl, state: Location.states[:pending]) }
 
-    before { get :index, graetzl_id: graetzl }
+    context 'when html request' do
+      before { get :index, graetzl_id: graetzl }
 
-    it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq graetzl
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq graetzl
+      end
+
+      it 'assigns @map_data' do
+        expect(assigns(:map_data)).to be_present
+      end
+
+      it 'assigns @locations with approved' do
+        expect(assigns(:locations)).to include(location)
+        expect(assigns(:locations)).not_to include(pending_location)
+      end
+
+      it 'renders index.html' do
+        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response).to render_template :index
+      end
     end
 
-    it 'assigns @map_data' do
-      expect(assigns(:map_data)).to be_present
-    end
+    context 'when js request' do
+      before { xhr :get, :index, graetzl_id: graetzl }
 
-    it 'assigns @locations with approved' do
-      expect(assigns(:locations)).to include(location)
-      expect(assigns(:locations)).not_to include(pending_location)
+      it 'assigns @graetzl' do
+        expect(assigns(:graetzl)).to eq graetzl
+      end
+
+      it 'does not assign @map_data' do
+        expect(assigns(:map_data)).not_to be
+      end
+
+      it 'assigns @locations with approved' do
+        expect(assigns(:locations)).to include(location)
+        expect(assigns(:locations)).not_to include(pending_location)
+      end
+
+      it 'renders index.js' do
+        expect(response['Content-Type']).to include 'text/javascript'
+        expect(response).to render_template :index
+      end
     end
   end
 end
