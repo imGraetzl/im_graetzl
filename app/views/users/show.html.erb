@@ -49,35 +49,8 @@
     <div class="col2"><%= @user.bio %></div>
   </div>
 
-  <div class='tabs-ctrl'>
-    <ul class="tabs-nav">
-      <li><a href="#tab-1"><%= @user.meetings.basic.initiated.count %> Treffen erstellt</a></li>
-      <li><a href="#tab-2">An <%= @user.meetings.basic.attended.count %> Treffen teilgenommen</a></li>
-    </ul>
-    <div id='tab-1'>
-      <!-- own meetings -->
-      <div class="meetingBoxCollection -tripple" data-tabID="one">
-        <%= render @user.meetings.initiated %>
-      </div>
-      <!-- own meetings end -->
-    </div>
-    <div id='tab-2'>
-
-      <!-- other meetings -->
-      <div class="meetingBoxCollection -tripple" data-tabID="two">
-        <%= render @user.meetings.attended %>
-      </div>
-      <!-- other meetings end -->
-    </div>
-  </div>
-
-  <div class="stream">
-    <h3>Persönliche <span>Pinnwand</span> von <%= @user.username %></h3>
-    <div id="stream-form">
-      <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @user } %>
-    </div>
-    <%= render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @wall_comments %>
-  </div>
-  <%= view_more_link @wall_comments %>
+  <%= render 'meetings' %>
+  
+  <%= render 'stream' %>
 
 </section>

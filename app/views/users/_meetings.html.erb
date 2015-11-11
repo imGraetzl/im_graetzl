@@ -1,0 +1,22 @@
+<div class="tabs-ctrl">
+  <ul class="tabs-nav">
+    <li><a href="#tab-1"><%= @meetings.initiated.count %> Treffen erstellt</a></li>
+    <li><a href="#tab-2">An <%= @meetings.attended.count %> Treffen teilgenommen</a></li>
+  </ul>
+  <div id="tab-1">
+    <div id="meetings-initiated" class="meetingBoxCollection -tripple" data-tabID="one">
+      <%= render @meetings.initiated.page(1).per(6) %>
+    </div>
+    <div id="paginate-initiated">
+      <%= paginate @meetings.initiated.page(1).per(6), remote: true, params: { scope: :initiated } %>
+    </div>
+  </div>
+  <div id="tab-2">
+    <div id="meetings-attended" class="meetingBoxCollection -tripple" data-tabID="two">
+      <%= render @meetings.attended.page(1).per(6) %>
+    </div>
+    <div id="paginate-attended">
+      <%= paginate @meetings.attended.page(1).per(6), remote: true, params: { scope: :attended } %>
+    </div>
+  </div>
+</div>
