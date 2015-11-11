@@ -4,8 +4,18 @@ class UsersController < ApplicationController
 
   def show
     @user = User.includes(wall_comments: [:images], meetings: [:going_tos]).find(params[:id])
-    @wall_comments = @user.wall_comments.page(params[:page]).per(10)
-    redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
+    if request.xhr?
+      case @scope = params[:scope].to_sym
+      when :wall_comments
+        @wall_comments = @user.wall_comments.page(params[:page]).per(10)
+      else
+        @meetings = @user.meetings.basic.send(@scope).page(params[:page]).per(6)
+      end
+    else
+      @meetings = @user.meetings.basic
+      @wall_comments = @user.wall_comments.page(1).per(10)
+      redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
+    end
   end
 
   def edit
@@ -26,7 +36,7 @@ class UsersController < ApplicationController
     end
   end
 
-  private  
+  private
 
   def set_graetzl
     @graetzl = Graetzl.find_by_slug(params[:graetzl_id])

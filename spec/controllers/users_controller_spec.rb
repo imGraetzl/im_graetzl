@@ -19,7 +19,7 @@ RSpec.describe UsersController, type: :controller do
       context 'when html request' do
         context 'with right graetzl' do
           before { get :show, graetzl_id: graetzl, id: user }
-          
+
           it 'assigns @graetzl' do
             expect(assigns(:graetzl)).to eq graetzl
           end
@@ -32,6 +32,10 @@ RSpec.describe UsersController, type: :controller do
             expect(assigns(:wall_comments)).to be
           end
 
+          it 'assigns @meetings' do
+            expect(assigns(:meetings)).to eq user.meetings.basic
+          end
+
           it 'renders show.html' do
             expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
             expect(response).to render_template(:show)
@@ -40,7 +44,7 @@ RSpec.describe UsersController, type: :controller do
         context 'with wrong graetzl' do
           let(:wrong_graetzl) { create(:graetzl) }
           before { get :show, graetzl_id: wrong_graetzl, id: user }
-          
+
           it 'assigns @graetzl' do
             expect(assigns(:graetzl)).to eq wrong_graetzl
           end
@@ -51,6 +55,10 @@ RSpec.describe UsersController, type: :controller do
 
           it 'assigns @wall_comments' do
             expect(assigns(:wall_comments)).to be
+          end
+
+          it 'assigns @meetings' do
+            expect(assigns(:meetings)).to eq user.meetings.basic
           end
 
           it '301 redirects to user in right graetzl' do
@@ -81,19 +89,46 @@ RSpec.describe UsersController, type: :controller do
       end
 
       context 'when js request' do
-        before { xhr :get, :show, graetzl_id: graetzl, id: user }
+        context 'when scope :wall_comments' do
+          before { xhr :get, :show, graetzl_id: graetzl, id: user, scope: 'wall_comments' }
 
-        it 'assigns @user' do
-          expect(assigns(:user)).to eq user
+          it 'assigns @user' do
+            expect(assigns(:user)).to eq user
+          end
+
+          it 'assigns @wall_comments' do
+            expect(assigns(:wall_comments)).to be
+          end
+
+          it 'does not assign @meetings' do
+            expect(assigns(:meetings)).not_to be
+          end
+
+          it 'renders show.js' do
+            expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+            expect(response).to render_template(:show)
+          end
         end
 
-        it 'assigns @wall_comments' do
-          expect(assigns(:wall_comments)).to be
-        end
+        context 'when meeting scope' do
+          before { xhr :get, :show, graetzl_id: graetzl, id: user, scope: 'initiated' }
 
-        it 'renders show.js' do
-          expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
-          expect(response).to render_template(:show)
+          it 'assigns @user' do
+            expect(assigns(:user)).to eq user
+          end
+
+          it 'does not assign @wall_comments' do
+            expect(assigns(:wall_comments)).not_to be
+          end
+
+          it 'assigns @meetings' do
+            expect(assigns(:meetings)).to be
+          end
+
+          it 'renders show.js' do
+            expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+            expect(response).to render_template(:show)
+          end
         end
       end
     end
@@ -140,7 +175,7 @@ RSpec.describe UsersController, type: :controller do
         }
       }
       before { sign_in user }
-      
+
       describe 'change attributes' do
 
         it 'updates user record' do

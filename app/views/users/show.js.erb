@@ -1,2 +1,12 @@
-$('div.stream').append("<%= j render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @wall_comments %>");
-$('a.view-more').replaceWith("<%= j view_more_link @wall_comments %>")
+<% if @scope.to_sym == :wall_comments %>
+  $('div.stream').append("<%= j render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @wall_comments %>");
+  $('a.view-more').replaceWith("<%= j view_more_link @wall_comments, params: { scope: @scope } %>")
+<% else %>
+  $('#meetings-<%= @scope %>').html("<%= j(render @meetings) %>");
+  $('div#paginate-<%= @scope %>').html('<%= j(paginate @meetings, remote: true, params: { scope: @scope.to_sym }) %>');
+
+  // scroll to top of container container
+  $('html,body').animate({
+    scrollTop: $('#meetings-<%= @scope %>').offset().top
+  }, 500);
+<% end %>
