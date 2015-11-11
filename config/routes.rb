@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: :treffen, only: [:index, :show, :new]
     resources :locations, only: [:index, :show]
-    resources :users, only: [:index, :show]
+    resources :users, only: [:show]
     resources :posts, only: [:show]
   end
 
