@@ -15,8 +15,9 @@
 /log/*.log
 /tmp
 
-# Ignore uploaded images
+# Ignore uploaded images and sitemap
 public/uploads
+public/sitemap.xml*
 
 # Ignore idea folder (jetbrains)
 /.idea
