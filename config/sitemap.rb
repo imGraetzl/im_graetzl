@@ -31,7 +31,7 @@ SitemapGenerator::Sitemap.create do
     unless meetings.empty?
       add graetzl_meetings_path(graetzl)
       meetings.find_each do |meeting|
-        add graetzl_meetings_path(graetzl, meeting)
+        add graetzl_meeting_path(graetzl, meeting)
       end
     end
   end
