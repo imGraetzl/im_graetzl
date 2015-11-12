@@ -3,3 +3,12 @@ section.meetings-overview, section.meeting {
     display: none;
   }
 }
+
+section.meetings-overview {
+  .mapImgBlock {
+    margin-bottom: 50px;
+  }
+  #paginate-upcoming {
+    margin-bottom: 80px;
+  }
+}
