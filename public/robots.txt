@@ -3,3 +3,4 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
 # Disallow: /
+Sitemap: http://www.imgraetzl.at/sitemap.xml.gz
