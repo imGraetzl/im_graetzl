@@ -55,7 +55,7 @@
   }
 
   h3 {
-    @include font-size-secondaryFont('base');
+    @include font-size-secondaryFont('large');
     text-align: center;
     margin-bottom: 40px;
     span {
@@ -228,7 +228,7 @@
   img {
     float: left;
     display: block;
-    max-width: 110px;
+    max-width: 285px;
     margin-right: 1rem;
     margin-bottom: 1rem;
     padding: 0.4rem;

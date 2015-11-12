@@ -1,5 +1,9 @@
 .tabs-ctrl {
-
+  .defaultText {
+    @include font-size-primaryFont('base');
+    color: $color-ambient-grey;
+    font-style: italic;
+  }
 }
 
 .tabs-nav {

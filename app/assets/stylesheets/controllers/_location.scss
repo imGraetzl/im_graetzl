@@ -10,6 +10,9 @@ section.locationPage {
     @include respond-to(">=medium") {
       margin-bottom: -40px;
     }
+    @include respond-to(">=large") {
+      min-height: 370px;
+    }
   }
 
   .sideBar, .mainContent {
@@ -47,6 +50,16 @@ section.locationPage {
     @include respond-to(">=medium") {
       margin-bottom: 0;
     }
+    h2 {
+      @include font-size-secondaryFont('large');
+      text-align: center;
+      color: $color-ambient-rosa;
+      margin-bottom: 20px;
+      @include respond-to(">=medium") {
+        text-align: left;
+        margin-bottom: 0;
+      }
+    }
   }
 
   .staff {
@@ -55,6 +68,22 @@ section.locationPage {
       height: 40px;
       margin-left: 3px;
       margin-right: 3px;
+    }
+  }
+
+  .category-block {
+    .category {
+
+    }
+    .tag-list {
+
+    }
+  }
+
+  .btn-userCallToAction {
+    @include respond-to(">=medium") {
+      display: table;
+      margin-left: auto;
     }
   }
 
@@ -172,7 +201,7 @@ section.locationPage {
   }
 }
 
-.meetingsBlock {
+.meetingBlock {
 
   .wrp-hl {
     margin-bottom: 30px;
@@ -180,23 +209,6 @@ section.locationPage {
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-  }
-  h2 {
-    @include font-size-secondaryFont('large');
-    text-align: center;
-    color: $color-ambient-rosa;
-    margin-bottom: 20px;
-    @include respond-to(">=medium") {
-      text-align: left;
-      margin-bottom: 0;
-    }
-  }
-
-  .btn-userCallToAction {
-    margin: 0 auto;
-    @include respond-to(">=medium") {
-      margin: 0;
     }
   }
 

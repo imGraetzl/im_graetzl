@@ -1,10 +1,7 @@
 APP.controllers.users = (function() {
 
     function init() {
-        $('.tabs-ctrl').tabslet({
-            animation: true,
-            deeplinking: true
-        });
+        APP.components.tabs.initTabs(".tabs-ctrl");
 
         $('.toPersonal').on('click', function() {
             $('.tabs-nav [href=#tab-1]').trigger('click');
