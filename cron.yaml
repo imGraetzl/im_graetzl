@@ -9,3 +9,6 @@ cron:
  - name: "truncate_eb"          # required - unique across all entries in this file
    url: "/worker/truncate_eb"   # required - does not need to be unique
    schedule: "0 2 * * *"    # required - does not need to be unique
+ - name: "sitemap"          # required - unique across all entries in this file
+   url: "/worker/sitemap"   # required - does not need to be unique
+   schedule: "0 3 * * *"    # required - does not need to be unique

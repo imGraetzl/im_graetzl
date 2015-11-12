@@ -96,3 +96,5 @@ gem 'kaminari'
 gem 'rack-rewrite'
 # active job backend
 gem 'sucker_punch'
+# sitemap
+gem 'sitemap_generator'
