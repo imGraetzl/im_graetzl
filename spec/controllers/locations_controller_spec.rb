@@ -457,7 +457,10 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when approved location' do
       let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
-      before { 3.times{ create(:meeting, location: location) } }
+      before do
+        create_list(:meeting, 20, location: location)
+        create_list(:meeting_skip_validate, 20, location: location, starts_at_date: Date.yesterday-1)
+      end
 
       context 'when right graetzl' do
         context 'when html request' do
@@ -471,8 +474,14 @@ RSpec.describe LocationsController, type: :controller do
             expect(assigns(:location)).to eq location
           end
 
-          it 'assigns @meetings' do
-            expect(assigns(:meetings)).to be
+          it 'assigns @meetings_upcoming with max 2' do
+            expect(assigns(:meetings_upcoming)).to be
+            expect(assigns(:meetings_upcoming).size).to eq 2
+          end
+
+          it 'assigns @meetings_past with max 2' do
+            expect(assigns(:meetings_past)).to be
+            expect(assigns(:meetings_past).size).to eq 2
           end
 
           it 'renders show.html' do
@@ -499,6 +508,10 @@ RSpec.describe LocationsController, type: :controller do
 
             it 'assigns @meetings' do
               expect(assigns(:meetings)).to be
+            end
+
+            describe 'meetings' do
+
             end
 
             it 'renders show.js' do

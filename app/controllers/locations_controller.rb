@@ -48,7 +48,8 @@ class LocationsController < ApplicationController
         enqueue_and_redirect(:back)
       else
         verify_graetzl_child(@location)
-        @meetings = @location.meetings.basic
+        @meetings_upcoming = @location.meetings.basic.upcoming.includes(:graetzl).page(1).per(2)
+        @meetings_past = @location.meetings.basic.past.includes(:graetzl).page(1).per(2)
       end
     end
   end

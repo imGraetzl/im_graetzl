@@ -48,28 +48,28 @@
 
         <div class="tabs-ctrl">
           <ul class="tabs-nav">
-            <li><a href="#tab-1"><%= @meetings.upcoming.size %> geplante Treffen</a></li>
-            <li><a href="#tab-2"><%= @meetings.past.size %> vergangene Treffen</a></li>
+            <li><a href="#tab-1"><%= @location.meetings.basic.upcoming.size %> geplante Treffen</a></li>
+            <li><a href="#tab-2"><%= @location.meetings.basic.past.size %> vergangene Treffen</a></li>
           </ul>
           <div id="tab-1">
-            <% if @meetings.upcoming.empty? %>
+            <% if @meetings_upcoming.empty? %>
               <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
             <% else %>
               <div id="meetings-upcoming" class="meetingBoxCollection -double" data-tabID="one">
-                <%= render @meetings.upcoming.upcoming.page(1).per(2) %>
+                <%= render @meetings_upcoming %>
               </div>
-              <%= view_more_link(@meetings.upcoming.page(1).per(2), params: { scope: :upcoming }) %>
+              <%= view_more_link(@meetings_upcoming, params: { scope: :upcoming }) %>
             <% end %>
           </div>
 
           <div id="tab-2">
-            <% if @meetings.past.empty? %>
+            <% if @meetings_past.empty? %>
               <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
             <% else %>
               <div id="meetings-past" class="meetingBoxCollection -double" data-tabID="two">
-                <%= render @meetings.past.page(1).per(2) %>
+                <%= render @meetings_past %>
               </div>
-              <%= view_more_link(@meetings.past.page(1).per(2), params: { scope: :past }) %>
+              <%= view_more_link(@meetings_past, params: { scope: :past }) %>
             <% end %>
           </div>
         </div>
