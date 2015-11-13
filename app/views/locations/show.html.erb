@@ -29,11 +29,11 @@
       <div class="txt"><%= @location.description %></div>
     </div>
 
-    <div class="meetingBlock">
-
-      <div class="wrp-hl">
-        <h2>Treffen</h2>
-        <% if user_signed_in? && @location.show_meeting_button(current_user) %>
+    <% unless @location.non_meetable? %>
+      <div class="meetingBlock">
+        <div class="wrp-hl">
+          <h2>Treffen</h2>
+          <% if user_signed_in? && @location.show_meeting_button(current_user) %>
             <%= link_to new_meeting_path(location_id: @location.id), class: "btn-userCallToAction" do %>
             <span>
               <%= avatar_for current_user %>
@@ -43,164 +43,38 @@
               </svg>
             </span>
             <% end %>
-        <% end %>
-      </div>
-
-      <div class="tabs-ctrl">
-        <ul class="tabs-nav">
-          <li><a href="#tab-1">2 geplante Treffen</a></li>
-          <li><a href="#tab-2">22 vergangene Treffen</a></li>
-        </ul>
-        <div id="tab-1">
-
-          <!-- Dies als defaulttext nehmen -->
-          <!-- <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div> -->
-
-          <% if @location.meetable? || @location.owner_meetable? %>
-              <div id="meetings-initiated" class="meetingBoxCollection -double" data-tabID="one">
-
-                <div class="cardBox">
-                  <div class="cardBoxHeader">
-                    <a href="#">
-                      <img class="coverImg" src="https://placeimg.com/300/180/any?3" alt="">
-                    </a>
-                    <div class="calendarSheet">
-                      <div class="day">27</div>
-                      <div class="month">Nov</div>
-                    </div>
-                    <div class="sideflag -R"><a href="#">Afrikaner- &amp; Rotensternviertel</a></div>
-                    <div class="initiator">
-                      <img class="img-round" src="https://placeimg.com/100/100/people" alt="Avatar">
-                      <span>RoRo</span>
-                    </div>
-                    <div class="participantsCountSmall">
-                      <svg class="icon-users"><use xlink:href="#icon-users"></use></svg> 3
-                    </div>
-                  </div>
-                  <h3><a href="#">SCHMU. Schmuckes zum Schmusen°</a></h3>
-                  <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem culpa deleniti dolor eligendi impedit nam quod quos vero, voluptatum.</div>
-                  <a class="btn-primary -mint" href="#">Mitmachen</a>
-                </div>
-
-                <div class="cardBox">
-                  <div class="cardBoxHeader">
-                    <a href="#">
-                      <img class="coverImg" src="https://placeimg.com/300/180/any?9" alt="">
-                    </a>
-                    <div class="calendarSheet">
-                      <div class="day">27</div>
-                      <div class="month">Nov</div>
-                    </div>
-                    <div class="sideflag -R"><a href="#">Afrikaner- &amp; Rotensternviertel</a></div>
-                    <div class="initiator">
-                      <img class="img-round" src="https://placeimg.com/100/100/people" alt="Avatar">
-                      <span>RoRo</span>
-                    </div>
-                    <div class="participantsCountSmall">
-                      <svg class="icon-users"><use xlink:href="#icon-users"></use></svg> 3
-                    </div>
-                  </div>
-                  <h3><a href="#">SCHMU. Schmuckes zum Schmusen°</a></h3>
-                  <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem culpa deleniti dolor eligendi impedit nam quod quos vero, voluptatum.</div>
-                  <a class="btn-primary -mint" href="#">Mitmachen</a>
-                </div>
-
-                <%= render @meetings %>
-              </div>
-
           <% end %>
         </div>
 
-        <div id="tab-2">
-
-          <!-- Dies als defaulttext nehmen -->
-         <!-- <div class="defaultText">Es wurden noch keine Treffen initiert.</div> -->
-
-
-          <div id="meetings-attended" class="meetingBoxCollection -double" data-tabID="two">
-            <div class="cardBox">
-              <div class="cardBoxHeader">
-                <a href="#">
-                  <img class="coverImg" src="https://placeimg.com/300/180/any?2" alt="">
-                </a>
-                <div class="calendarSheet">
-                  <div class="day">27</div>
-                  <div class="month">Nov</div>
-                </div>
-                <div class="sideflag -R"><a href="#">Afrikaner- &amp; Rotensternviertel</a></div>
-                <div class="initiator">
-                  <img class="img-round" src="https://placeimg.com/100/100/people" alt="Avatar">
-                  <span>RoRo</span>
-                </div>
-                <div class="participantsCountSmall">
-                  <svg class="icon-users"><use xlink:href="#icon-users"></use></svg> 3
-                </div>
+        <div class="tabs-ctrl">
+          <ul class="tabs-nav">
+            <li><a href="#tab-1"><%= @meetings.upcoming.size %> geplante Treffen</a></li>
+            <li><a href="#tab-2"><%= @meetings.past.size %> vergangene Treffen</a></li>
+          </ul>
+          <div id="tab-1">
+            <% if @meetings.upcoming.empty? %>
+              <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
+            <% else %>
+              <div id="meetings-upcoming" class="meetingBoxCollection -double" data-tabID="one">
+                <%= render @meetings.upcoming.upcoming.page(1).per(2) %>
               </div>
-              <h3><a href="#">SCHMU. Schmuckes zum Schmusen°</a></h3>
-              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem culpa deleniti dolor eligendi impedit nam quod quos vero, voluptatum.</div>
-              <a class="btn-primary -mint" href="#">Mitmachen</a>
-            </div>
-
-            <div class="cardBox">
-              <div class="cardBoxHeader">
-                <a href="#">
-                  <img class="coverImg" src="https://placeimg.com/300/180/any?11" alt="">
-                </a>
-                <div class="calendarSheet">
-                  <div class="day">27</div>
-                  <div class="month">Nov</div>
-                </div>
-                <div class="sideflag -R"><a href="#">Afrikaner- &amp; Rotensternviertel</a></div>
-                <div class="initiator">
-                  <img class="img-round" src="https://placeimg.com/100/100/people" alt="Avatar">
-                  <span>RoRo</span>
-                </div>
-                <div class="participantsCountSmall">
-                  <svg class="icon-users"><use xlink:href="#icon-users"></use></svg> 3
-                </div>
-              </div>
-              <h3><a href="#">SCHMU. Schmuckes zum Schmusen°</a></h3>
-              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At autem culpa deleniti dolor eligendi impedit nam quod quos vero, voluptatum.</div>
-              <a class="btn-primary -mint" href="#">Mitmachen</a>
-            </div>
+              <%= view_more_link(@meetings.upcoming.page(1).per(2), params: { scope: :upcoming }) %>
+            <% end %>
           </div>
 
-          <!-- Hier kommt die paginierung, den Schrott unten hab ich direkt aus den devtools übernommen, deswegen wurden SVG schon inline gerendert -->
-          <nav class="pagination">
-        <span class="page current"> 1
-</span>
-
-        <span class="page">
-  <a rel="next" data-remote="true" href="/stuwerviertel/locations?page=2">2</a>
-</span>
-
-        <span class="page">
-  <a data-remote="true" href="/stuwerviertel/locations?page=3">3</a>
-</span>
-
-    <span class="next">
-  <a rel="next" data-remote="true" href="/stuwerviertel/locations?page=2"><svg class="icon-arrow-right-2" viewBox="0 0 512 512">
-    <path d="m359 247c-3-9-10-15-16-21c-6-7-13-13-18-21c-13-12-25-25-36-40c-12-13-22-29-35-41c0-6-7-6-7-12c-4-2-7-5-10-9c-6-7-11-15-21-18l-9 0c-2 0-4 2-6 2c-5 4-8 11-14 14c-3 7-11 8-14 16c-3 1-1 7-4 9c-3 2-3 6-4 10c1 7 7 9 8 15c5 4 10 7 12 13c9 7 16 16 23 25c9 7 16 17 24 25c5 3 7 8 12 11c1 3 5 4 6 7c0 4 6 2 5 7c-9 11-14 25-25 34c-3 8-10 11-12 18c-6 4-7 14-13 18c0 5-5 6-5 10c-3 2-3 7-7 9c-3 7-9 11-13 18c-4 5-10 9-14 16c-4 5-12 8-13 17c4 12 15 19 25 26c9 8 16 19 31 21c4-2 8-4 10-8c3-4 4-8 9-10c6-6 11-14 18-19c0-6 6-6 7-12c4-1 5-7 9-9c6-7 11-15 18-20c12-12 25-24 38-36c12-13 22-27 34-40c1-4-1-12 3-12c2-4 5-7 4-13z m-140-90c-3-3-7-5-8-10c3-6 6-12 10-18c4 3 7 7 9 13c-4 4-10 6-11 15z m104 89c1 0-1 1-1 1c-1-1 1-2 1-1z m-18-17c6 2 0 4-1 7c-4-2 1-5 1-7z m-51-35c0-1 2-1 3-1c0 1-2 1-3 1z m-42 195c-2-1-1-4-1-6c-4-8-10-14-14-21c1-2 3 0 4 0c5 7 10 13 20 14c-1 6-6 8-9 13z m20-25c-4 0-4-3-4-6c-6-5-12-9-14-17c1-1 2-2 2-4c3 3 6 6 7 10c5 4 16 10 9 17z m19-24c-5-1-8-6-11-10c-2-4-8-6-8-12c4 2 6 7 9 11c2 2 4 4 6 5c0 4 5 2 4 6z m15-17c-5-1-7-6-11-9c-2-4-6-7-8-11c0-3 2-3 1-6l5 0c2 5 6 8 9 13c3 3 9 3 10 9c-3 1-3 4-6 4z m17-65c-1 0-2 0-1-1c-2 0-1-2 0 0c1 0 1 0 1 1c1 0 2 0 1 2c2 0 3 1 3 4c-2-1-3-2-3-4c0-1-1-1-1-2z m7 45c-4 1-3-3-6-3c1-3 7-1 6 3z m-1-81c-5-2-9-4-14-5c-1-4 0-6 2-6c-1-4 3-3 3-6c6 2 8 6 11 10c1 4-2 4-2 7z m36 39c-2 3-4 5-6 8c-4 5-9 9-12 16c-4-3-5-8-10-10c5-5 14-7 17-15c6-1 12-1 15-6c4 2-3 6-4 7z"></path>
-  </svg></a></span>
-
-    <span class="last">
-  <a data-remote="true" href="/stuwerviertel/locations?page=3"><svg class="icon-arrow-right-2" viewBox="0 0 512 512">
-    <path d="m359 247c-3-9-10-15-16-21c-6-7-13-13-18-21c-13-12-25-25-36-40c-12-13-22-29-35-41c0-6-7-6-7-12c-4-2-7-5-10-9c-6-7-11-15-21-18l-9 0c-2 0-4 2-6 2c-5 4-8 11-14 14c-3 7-11 8-14 16c-3 1-1 7-4 9c-3 2-3 6-4 10c1 7 7 9 8 15c5 4 10 7 12 13c9 7 16 16 23 25c9 7 16 17 24 25c5 3 7 8 12 11c1 3 5 4 6 7c0 4 6 2 5 7c-9 11-14 25-25 34c-3 8-10 11-12 18c-6 4-7 14-13 18c0 5-5 6-5 10c-3 2-3 7-7 9c-3 7-9 11-13 18c-4 5-10 9-14 16c-4 5-12 8-13 17c4 12 15 19 25 26c9 8 16 19 31 21c4-2 8-4 10-8c3-4 4-8 9-10c6-6 11-14 18-19c0-6 6-6 7-12c4-1 5-7 9-9c6-7 11-15 18-20c12-12 25-24 38-36c12-13 22-27 34-40c1-4-1-12 3-12c2-4 5-7 4-13z m-140-90c-3-3-7-5-8-10c3-6 6-12 10-18c4 3 7 7 9 13c-4 4-10 6-11 15z m104 89c1 0-1 1-1 1c-1-1 1-2 1-1z m-18-17c6 2 0 4-1 7c-4-2 1-5 1-7z m-51-35c0-1 2-1 3-1c0 1-2 1-3 1z m-42 195c-2-1-1-4-1-6c-4-8-10-14-14-21c1-2 3 0 4 0c5 7 10 13 20 14c-1 6-6 8-9 13z m20-25c-4 0-4-3-4-6c-6-5-12-9-14-17c1-1 2-2 2-4c3 3 6 6 7 10c5 4 16 10 9 17z m19-24c-5-1-8-6-11-10c-2-4-8-6-8-12c4 2 6 7 9 11c2 2 4 4 6 5c0 4 5 2 4 6z m15-17c-5-1-7-6-11-9c-2-4-6-7-8-11c0-3 2-3 1-6l5 0c2 5 6 8 9 13c3 3 9 3 10 9c-3 1-3 4-6 4z m17-65c-1 0-2 0-1-1c-2 0-1-2 0 0c1 0 1 0 1 1c1 0 2 0 1 2c2 0 3 1 3 4c-2-1-3-2-3-4c0-1-1-1-1-2z m7 45c-4 1-3-3-6-3c1-3 7-1 6 3z m-1-81c-5-2-9-4-14-5c-1-4 0-6 2-6c-1-4 3-3 3-6c6 2 8 6 11 10c1 4-2 4-2 7z m36 39c-2 3-4 5-6 8c-4 5-9 9-12 16c-4-3-5-8-10-10c5-5 14-7 17-15c6-1 12-1 15-6c4 2-3 6-4 7z"></path>
-  </svg><svg class="icon-arrow-right-2" viewBox="0 0 512 512">
-    <path d="m359 247c-3-9-10-15-16-21c-6-7-13-13-18-21c-13-12-25-25-36-40c-12-13-22-29-35-41c0-6-7-6-7-12c-4-2-7-5-10-9c-6-7-11-15-21-18l-9 0c-2 0-4 2-6 2c-5 4-8 11-14 14c-3 7-11 8-14 16c-3 1-1 7-4 9c-3 2-3 6-4 10c1 7 7 9 8 15c5 4 10 7 12 13c9 7 16 16 23 25c9 7 16 17 24 25c5 3 7 8 12 11c1 3 5 4 6 7c0 4 6 2 5 7c-9 11-14 25-25 34c-3 8-10 11-12 18c-6 4-7 14-13 18c0 5-5 6-5 10c-3 2-3 7-7 9c-3 7-9 11-13 18c-4 5-10 9-14 16c-4 5-12 8-13 17c4 12 15 19 25 26c9 8 16 19 31 21c4-2 8-4 10-8c3-4 4-8 9-10c6-6 11-14 18-19c0-6 6-6 7-12c4-1 5-7 9-9c6-7 11-15 18-20c12-12 25-24 38-36c12-13 22-27 34-40c1-4-1-12 3-12c2-4 5-7 4-13z m-140-90c-3-3-7-5-8-10c3-6 6-12 10-18c4 3 7 7 9 13c-4 4-10 6-11 15z m104 89c1 0-1 1-1 1c-1-1 1-2 1-1z m-18-17c6 2 0 4-1 7c-4-2 1-5 1-7z m-51-35c0-1 2-1 3-1c0 1-2 1-3 1z m-42 195c-2-1-1-4-1-6c-4-8-10-14-14-21c1-2 3 0 4 0c5 7 10 13 20 14c-1 6-6 8-9 13z m20-25c-4 0-4-3-4-6c-6-5-12-9-14-17c1-1 2-2 2-4c3 3 6 6 7 10c5 4 16 10 9 17z m19-24c-5-1-8-6-11-10c-2-4-8-6-8-12c4 2 6 7 9 11c2 2 4 4 6 5c0 4 5 2 4 6z m15-17c-5-1-7-6-11-9c-2-4-6-7-8-11c0-3 2-3 1-6l5 0c2 5 6 8 9 13c3 3 9 3 10 9c-3 1-3 4-6 4z m17-65c-1 0-2 0-1-1c-2 0-1-2 0 0c1 0 1 0 1 1c1 0 2 0 1 2c2 0 3 1 3 4c-2-1-3-2-3-4c0-1-1-1-1-2z m7 45c-4 1-3-3-6-3c1-3 7-1 6 3z m-1-81c-5-2-9-4-14-5c-1-4 0-6 2-6c-1-4 3-3 3-6c6 2 8 6 11 10c1 4-2 4-2 7z m36 39c-2 3-4 5-6 8c-4 5-9 9-12 16c-4-3-5-8-10-10c5-5 14-7 17-15c6-1 12-1 15-6c4 2-3 6-4 7z"></path>
-  </svg></a>
-</span>
-
-          </nav>
-
-
-
+          <div id="tab-2">
+            <% if @meetings.past.empty? %>
+              <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
+            <% else %>
+              <div id="meetings-past" class="meetingBoxCollection -double" data-tabID="two">
+                <%= render @meetings.past.page(1).per(2) %>
+              </div>
+              <%= view_more_link(@meetings.past.page(1).per(2), params: { scope: :past }) %>
+            <% end %>
+          </div>
         </div>
-
       </div>
-
-    </div>
-
+    <% end %>
   </div>
   <%= render 'sidebar' %>
 </section>

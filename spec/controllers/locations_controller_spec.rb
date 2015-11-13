@@ -460,22 +460,52 @@ RSpec.describe LocationsController, type: :controller do
       before { 3.times{ create(:meeting, location: location) } }
 
       context 'when right graetzl' do
-        before { get :show, graetzl_id: graetzl, id: location }
+        context 'when html request' do
+          before { get :show, graetzl_id: graetzl, id: location }
 
-        it 'assigns @graetzl' do
-          expect(assigns(:graetzl)).to eq graetzl
+          it 'assigns @graetzl' do
+            expect(assigns(:graetzl)).to eq graetzl
+          end
+
+          it 'assigns @location' do
+            expect(assigns(:location)).to eq location
+          end
+
+          it 'assigns @meetings' do
+            expect(assigns(:meetings)).to be
+          end
+
+          it 'renders show.html' do
+            expect(response['Content-Type']).to include 'text/html;'
+            expect(response).to render_template(:show)
+          end
         end
 
-        it 'assigns @location' do
-          expect(assigns(:location)).to eq location
-        end
+        context 'when js request' do
+          context 'when scope :upcoming' do
+            before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :past }
 
-        it 'assigns @meetings' do
-          expect(assigns(:meetings)).to be_present
-        end
+            it 'assigns @graetzl' do
+              expect(assigns(:graetzl)).to eq graetzl
+            end
 
-        it 'renders :show' do
-          expect(response).to render_template(:show)
+            it 'assigns @location' do
+              expect(assigns(:location)).to eq location
+            end
+
+            it 'assigns @scope' do
+              expect(assigns(:scope)).to be
+            end
+
+            it 'assigns @meetings' do
+              expect(assigns(:meetings)).to be
+            end
+
+            it 'renders show.js' do
+              expect(response['Content-Type']).to include 'text/javascript;'
+              expect(response).to render_template(:show)
+            end
+          end
         end
       end
 
