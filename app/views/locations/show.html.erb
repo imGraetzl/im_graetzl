@@ -58,7 +58,9 @@
               <div id="meetings-upcoming" class="meetingBoxCollection -double" data-tabID="one">
                 <%= render @meetings_upcoming %>
               </div>
-              <%= view_more_link(@meetings_upcoming, params: { scope: :upcoming }) %>
+              <div id="paginate-upcoming">
+                <%= view_more_link(@meetings_upcoming, params: { scope: :upcoming }) %>
+              </div>
             <% end %>
           </div>
 
@@ -69,7 +71,9 @@
               <div id="meetings-past" class="meetingBoxCollection -double" data-tabID="two">
                 <%= render @meetings_past %>
               </div>
-              <%= view_more_link(@meetings_past, params: { scope: :past }) %>
+              <div id="paginate-past">
+                <%= view_more_link(@meetings_past, params: { scope: :past }) %>
+              </div>
             <% end %>
           </div>
         </div>

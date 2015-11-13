@@ -2,5 +2,5 @@
   // for future usage..
 <% else %>
   $('div#meetings-<%= @scope %>').append("<%= j(render @meetings) %>");
-  $('a.view-more').replaceWith("<%= j view_more_link(@meetings, params: { scope: @scope.to_sym }) %>")
+  $('div#paginate-<%= @scope %>').html("<%= j view_more_link(@meetings, params: { scope: @scope.to_sym }) %>")
 <% end %>
