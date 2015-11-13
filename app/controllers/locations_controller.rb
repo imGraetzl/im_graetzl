@@ -33,17 +33,24 @@ class LocationsController < ApplicationController
   end
 
   def index
-    @locations = @graetzl.locations.approved.
-                                    includes(:address, :category)
-                                    .page(params[:page]).per(14)
+    @locations = @graetzl.locations
+                          .approved
+                          .includes(:address, :category)
+                          .page(params[:page]).per(14)
   end
 
+  # TODO refactor this into separate methods
   def show
-    if @location.pending?
-      enqueue_and_redirect(:back)
+    if request.xhr?
+      paginate_ajax(@location)
     else
-      verify_graetzl_child(@location)
-      @meetings = @location.meetings.basic.upcoming
+      if @location.pending?
+        enqueue_and_redirect(:back)
+      else
+        verify_graetzl_child(@location)
+        @meetings_upcoming = @location.meetings.basic.upcoming.includes(:graetzl).page(1).per(2)
+        @meetings_past = @location.meetings.basic.past.includes(:graetzl).page(1).per(2)
+      end
     end
   end
 
@@ -56,8 +63,17 @@ class LocationsController < ApplicationController
     redirect_to :back
   end
 
-
   private
+
+  # TODO: extract into concern
+  def paginate_ajax(parent)
+    case @scope = params[:scope].to_sym
+    when :wall_comments
+      #@wall_comments = @user.wall_comments.page(params[:page]).per(10)
+    else
+      @meetings = parent.meetings.basic.send(@scope).page(params[:page]).per(2)
+    end
+  end
 
   def set_location
     @location = Location.find(params[:id])

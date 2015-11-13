@@ -1,0 +1,6 @@
+<% if @scope.to_sym == :wall_comments %>
+  // for future usage..
+<% else %>
+  $('div#meetings-<%= @scope %>').append("<%= j(render @meetings) %>");
+  $('div#paginate-<%= @scope %>').html("<%= j view_more_link(@meetings, params: { scope: @scope.to_sym }) %>")
+<% end %>
