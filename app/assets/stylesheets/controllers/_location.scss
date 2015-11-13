@@ -33,9 +33,6 @@ section.locationPage {
     }
     @include font-size-primaryFont('large');
     margin-bottom: 40px;
-    @include respond-to(">=medium") {
-      margin-bottom: 60px;
-    }
   }
 
   .sideBar {
@@ -117,6 +114,21 @@ section.locationPage {
       }
     }
   }
+
+  .entryCreate {
+    .hide-wrp {
+      height: auto;
+      visibility: visible;
+      opacity: 1;
+      transition-delay: 0s;
+    }
+  }
+
+  .link-load {
+    display: table;
+    margin: 0 auto;
+  }
+
 }
 
 
