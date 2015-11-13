@@ -1,13 +1,14 @@
 <%
    meta({
-                title: t('.title', name: @location.name, slogan: @location.slogan),
-                description: t('.description', desc: @location.meta_description),
-                robots: 'index, follow',
-                og_title: t('.title', name: @location.name, slogan: @location.slogan),
-                og_description: t('.description', desc: @location.meta_description),
-                og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-        })
+      title: t('.title', name: @location.name, slogan: @location.slogan),
+      description: t('.description', desc: @location.meta_description),
+      robots: 'index, follow',
+      og_title: t('.title', name: @location.name, slogan: @location.slogan),
+      og_description: t('.description', desc: @location.meta_description),
+      og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+    })
 %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@meetings_upcoming, params: { scope: :upcoming } )) unless params[:past].present? %>
 
 <section class="locationPage">
   <div class="imgHeader -cloudy">
@@ -81,10 +82,4 @@
     <% end %>
   </div>
   <%= render 'sidebar' %>
-
-
-
-
-
-
 </section>
