@@ -98,3 +98,5 @@ gem 'rack-rewrite'
 gem 'sucker_punch'
 # sitemap
 gem 'sitemap_generator'
+# schedule cron jobs
+gem 'whenever', require: false
