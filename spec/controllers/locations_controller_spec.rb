@@ -457,25 +457,68 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when approved location' do
       let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
-      before { 3.times{ create(:meeting, location: location) } }
+      before do
+        create_list(:meeting, 20, location: location)
+        create_list(:meeting_skip_validate, 20, location: location, starts_at_date: Date.yesterday-1)
+      end
 
       context 'when right graetzl' do
-        before { get :show, graetzl_id: graetzl, id: location }
+        context 'when html request' do
+          before { get :show, graetzl_id: graetzl, id: location }
 
-        it 'assigns @graetzl' do
-          expect(assigns(:graetzl)).to eq graetzl
+          it 'assigns @graetzl' do
+            expect(assigns(:graetzl)).to eq graetzl
+          end
+
+          it 'assigns @location' do
+            expect(assigns(:location)).to eq location
+          end
+
+          it 'assigns @meetings_upcoming with max 2' do
+            expect(assigns(:meetings_upcoming)).to be
+            expect(assigns(:meetings_upcoming).size).to eq 2
+          end
+
+          it 'assigns @meetings_past with max 2' do
+            expect(assigns(:meetings_past)).to be
+            expect(assigns(:meetings_past).size).to eq 2
+          end
+
+          it 'renders show.html' do
+            expect(response['Content-Type']).to include 'text/html;'
+            expect(response).to render_template(:show)
+          end
         end
 
-        it 'assigns @location' do
-          expect(assigns(:location)).to eq location
-        end
+        context 'when js request' do
+          context 'when scope :upcoming' do
+            before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :past }
 
-        it 'assigns @meetings' do
-          expect(assigns(:meetings)).to be_present
-        end
+            it 'assigns @graetzl' do
+              expect(assigns(:graetzl)).to eq graetzl
+            end
 
-        it 'renders :show' do
-          expect(response).to render_template(:show)
+            it 'assigns @location' do
+              expect(assigns(:location)).to eq location
+            end
+
+            it 'assigns @scope' do
+              expect(assigns(:scope)).to be
+            end
+
+            it 'assigns @meetings' do
+              expect(assigns(:meetings)).to be
+            end
+
+            describe 'meetings' do
+
+            end
+
+            it 'renders show.js' do
+              expect(response['Content-Type']).to include 'text/javascript;'
+              expect(response).to render_template(:show)
+            end
+          end
         end
       end
 

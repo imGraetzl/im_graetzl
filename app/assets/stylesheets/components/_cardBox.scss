@@ -46,6 +46,12 @@
       }
     }
 
+    .coverImg {
+      @include respond-to(">=large") {
+        min-height: 132px;
+      }
+    }
+
     .meetingBox, .cardBox {
       padding-bottom: 15px;
       h3 {
@@ -167,6 +173,9 @@
     width: 100%;
     border-radius: 4px;
     display: block;
+    @include respond-to(">=large") {
+      min-height: 180px;
+    }
   }
   .sideflag {
     position: absolute;

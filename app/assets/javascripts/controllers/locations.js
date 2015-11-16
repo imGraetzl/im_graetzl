@@ -4,6 +4,7 @@ APP.controllers.locations = (function() {
         if($("section.selectGraetzl").exists()) initSelectGraetzl();
         if($("section.location-form").exists()) initLocationForm();
         if($("section.locations-overview").exists()) initLocationOverview();
+        if($("section.locationPage").exists()) initLocationPage();
     }
 
 
@@ -11,7 +12,6 @@ APP.controllers.locations = (function() {
     function initSelectGraetzl() {
         APP.components.graetzlSelect();
     }
-
 
     function initLocationForm() {
         $("#location_description").autogrow({
@@ -59,6 +59,14 @@ APP.controllers.locations = (function() {
 
         if (numBoxes > 0) $(".cardBox:nth-child(3)").after($(".cardbox-wrp"));
     }
+
+
+    function initLocationPage() {
+        APP.components.tabs.initTabs(".tabs-ctrl");
+    }
+
+
+
 
 // ---------------------------------------------------------------------- Public
 

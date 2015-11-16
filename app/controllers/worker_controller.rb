@@ -63,4 +63,15 @@ class WorkerController < ApplicationController
       render body: 'not allowed', status: :forbidden
     end
   end
+
+  def sitemap
+    if ENV['ALLOW_WORKER'] == 'true'
+      ImGraetzl::Application.load_tasks
+      Rake::Task['sitemap:refresh:no_ping'].invoke if Rails.env.staging?
+      Rake::Task['sitemap:refresh'].invoke if Rails.env.production?
+      render nothing: true, status: :ok
+    else
+      render body: 'not allowed', status: :forbidden
+    end
+  end
 end
