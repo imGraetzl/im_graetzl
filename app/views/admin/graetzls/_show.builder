@@ -1,14 +1,25 @@
 context.instance_eval do
   columns do
     column do
-      attributes_table do
-        row :id
-        row :name
-        row(:state){|g| status_tag(g.state)}
-        row :slug
-        row :created_at
-        row :updated_at
-        row :area
+      panel 'Basic Details' do
+        attributes_table_for graetzl do
+          row :id
+          row :name
+          row(:state){|g| status_tag(g.state)}
+          row :slug
+          row :created_at
+          row :updated_at
+          row :area
+        end
+      end
+      if graetzl.curator
+        panel 'Grätzlbotschafter' do
+          attributes_table_for graetzl.curator do
+            row :id
+            row :user
+            row :created_at
+          end
+        end
       end
     end
     column span: 2 do
