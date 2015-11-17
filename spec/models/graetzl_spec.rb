@@ -9,6 +9,10 @@ RSpec.describe Graetzl, type: :model do
   describe 'associations' do
     let(:graetzl) { create(:graetzl) }
 
+    it 'has curator' do
+      expect(graetzl).to respond_to(:curator)
+    end
+
     it 'has users' do
       expect(graetzl).to respond_to(:users)
     end
