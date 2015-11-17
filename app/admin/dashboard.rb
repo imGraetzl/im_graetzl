@@ -46,11 +46,15 @@ ActiveAdmin.register_page "Dashboard" do
       #   end
       end
 
-      # column do
-      #   panel 'Neue Adressen' do
-      #     render 'admin/locations/candidates_table', compact: true
-      #   end
-      # end
+      column do
+        panel 'Aktuelle Grätzlbotschafter' do
+          table_for Curator.order(:id).limit(10) do
+            column('Botschafter') { |c| link_to c.id, admin_curator_path(c) }
+            column :user
+            column :graetzl
+          end
+        end
+      end
     end
   end
 end

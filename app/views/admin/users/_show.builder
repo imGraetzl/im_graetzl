@@ -12,7 +12,7 @@ context.instance_eval do
           row :email
           row(:role){|u| status_tag(u.role)}
           row :bio
-          row :website        
+          row :website
           row :cover_photo do |u|
             u.cover_photo ? cover_photo_for(u, fill: [200,100]) : nil
           end
@@ -37,11 +37,20 @@ context.instance_eval do
           end
         end
       end
+      if user.curator
+        panel 'Grätzlbotschafter' do
+          attributes_table_for user.curator do
+            row :id
+            row :graetzl
+            row :created_at
+          end
+        end
+      end
     end
     column span: 2 do
       panel 'Associations' do
         tabs do
-          tab 'Pinnwand' do            
+          tab 'Pinnwand' do
             table_for user.wall_comments do
               column :id
               column :user
