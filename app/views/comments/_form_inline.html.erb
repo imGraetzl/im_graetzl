@@ -2,7 +2,7 @@
   html: { class: 'entryCommentForm', remote: true } do |f| %>
   <label>
     <%= avatar_for current_user %>
-    <%= f.text_area :content, cols: 60, rows: 2, placeholder: 'Kommentieren' %>
+    <%= f.text_area :content, placeholder: ' Kommentieren' %>
   </label>
   
   <%= hidden_field_tag :inline, true %>

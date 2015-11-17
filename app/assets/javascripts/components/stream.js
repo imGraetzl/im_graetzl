@@ -1,19 +1,72 @@
+
 APP.components.stream = (function() {
 
     function init() {
 
-        inlineEditor();
-        createEntry();
+        initEntryCreateForm();
+        initCommentForm();
+        initImgGallery();
+        initInlineEditor();
 
-        $(".entryCommentForm textarea, .entryCreate textarea").autogrow({
-            onInitialize: true
-        });
     }
+
+    function initEntryCreateForm() {
+
+        var $parent = $('.entryCreate:not(.js-initialized)'),
+            numchars = 5;
+
+        if($parent.find('.postTitle').exists()) {
+            $parent
+                .addClass('js-initialized')
+                .find('.postTitle')
+                .on("keyup keypress", checkinput)
+                .end()
+                .find('textarea')
+                .autogrow();
+        } else {
+            initSingleTextarea($parent);
+        }
+
+        function checkinput(e) {
+            var code = e.keyCode || e.which;
+            (code == 13) && e.preventDefault(); //disable <Enter> key to prevent sending of form
+            ($(this).val().length > numchars) ? $parent.addClass("is-focused") : $parent.removeClass("is-focused");
+        }
+
+    }
+
+    function initCommentForm() {
+        $('.entryCommentForm:not(.js-initialized)').each(function() {
+            var $parent = $(this);
+            initSingleTextarea($parent);
+        })
+    }
+
+    function initImgGallery() {
+        $('.entryImgUploads:not(.js-initialized)').featherlightGallery({
+            openSpeed: 300
+        }).addClass('js-initialized');
+    }
+
+    function initSingleTextarea($parent, numchars) {
+        numchars = numchars || 1;
+        $parent
+            .addClass('js-initialized')
+            .find('textarea')
+            .autogrow()
+            .on("keyup", function(){
+                ($(this).val().length > numchars) ? $parent.addClass("is-focused") : $parent.removeClass("is-focused");
+            });
+    }
+
+
+
+
 
 
     //we use this plugin for inline edits
     //http://www.appelsiini.net/projects/jeditable
-    function inlineEditor() {
+    function initInlineEditor() {
 
         $(".stream").on("click", ".entryUserComment .btn-edit, .entryInitialContent .btn-edit", function() {
 
@@ -89,20 +142,17 @@ APP.components.stream = (function() {
     }
 
 
+
+
+
+
     // tmp solution for better ux with ajax comments/posts
-    function createEntry() {
-        $(".stream").on("focusout", ".entryCommentForm textarea, .entryCreate textarea", function(event){
-            console.log('FOCUS OUT');
-            var $parent = $(this).parents(".entryCommentForm, .entryCreate");
-            if (!$(this).val().length) {
-                $parent.removeClass("is-focused");
-            }
-        });
+    function _DONT_entryCreate() {
 
         $(".stream").on("focusin", ".entryCommentForm textarea, .entryCreate textarea", function(event){
             var $parent = $(this).parents(".entryCommentForm, .entryCreate");
             $parent.addClass("is-focused");
-            
+
             $parent.on("ajax:complete", function(event, xhr) {
                 console.log('COMPLETE');
                 if (xhr.status != 200 || !xhr.responseText) {
@@ -142,7 +192,10 @@ APP.components.stream = (function() {
 
 
     return {
-        init : init
+        init : init,
+        initEntryCreateForm : initEntryCreateForm,
+        initCommentForm : initCommentForm,
+        initImgGallery : initImgGallery
     }
 
 })();
