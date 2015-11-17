@@ -2,13 +2,16 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    post = Post.new(post_params)
-    if post.save
-      @activity = post.create_activity :create, owner: current_user
-      render partial: 'public_activity/post/create', layout: 'stream/element', locals: { activity: @activity } and return
-    else
-      render nothing: true, status: :internal_server_error
+    @post = Post.new(post_params)
+    if @post.save
+      @activity = @post.create_activity :create, owner: current_user
     end
+    # if post.save
+    #   @activity = post.create_activity :create, owner: current_user
+    #   render partial: 'public_activity/post/create', layout: 'stream/element', locals: { activity: @activity } and return
+    # else
+    #   render nothing: true, status: :internal_server_error
+    # end
   end
 
   def show
@@ -24,7 +27,7 @@ class PostsController < ApplicationController
         format.html { redirect_to graetzl, notice: 'Beitrag gelöscht' }
         format.js { render nothing: true, status: :ok }
       end
-    else      
+    else
       respond_to do |format|
         format.html { redirect_to :back, notice: 'Konnte Beitrag nicht löschen' }
         format.js { render nothing: true, status: :internal_server_error }

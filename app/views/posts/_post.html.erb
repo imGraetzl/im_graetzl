@@ -9,9 +9,9 @@
 <% end %>
 
 <% unless post.images.empty? %>
-  <div class="entryImgUploads">
+  <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
     <% post.images.each do |image| %>
-      <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
+      <%= link_to attachment_image_tag(image, :file, :fill, 400, 400), attachment_url(image, :file) %>
     <% end %>
   </div>
 <% end %>

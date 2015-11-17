@@ -7,7 +7,7 @@
   </div>
 
   <div id="stream-form">
-    <%= render partial: 'posts/form', layout: 'layouts/stream/form' %>
+    <%= render 'posts/form', graetzl: @graetzl %>
   </div>
   <%= render_activities @activities %>
 </div>
