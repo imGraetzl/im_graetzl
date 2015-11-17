@@ -17,8 +17,8 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-# Learn more: http://github.com/javan/whenever
+set :output, 'log/cron.log'
+
 every 1.day, at: '3:00 am' do
-  #rake 'sitemap:refresh:no_ping', environment: ENV['RACK_ENV']
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake sitemap:refresh:no_ping"
 end
