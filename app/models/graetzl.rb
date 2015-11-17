@@ -10,7 +10,7 @@ class Graetzl < ActiveRecord::Base
   ]
 
   # associations
-  has_one :curator
+  has_one :curator, dependent: :destroy
   has_many :users
   has_many :meetings, dependent: :destroy
   has_many :posts, dependent: :destroy

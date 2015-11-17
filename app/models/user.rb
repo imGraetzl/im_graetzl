@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   # associations
   belongs_to :graetzl
+  has_one :curator, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   has_many :going_tos, dependent: :destroy
   has_many :meetings, through: :going_tos

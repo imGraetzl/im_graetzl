@@ -77,6 +77,20 @@ RSpec.describe Graetzl, type: :model do
           end
         end
       end
+
+      describe 'curator' do
+        before { create(:curator, graetzl: graetzl) }
+
+        it 'has curator' do
+          expect(graetzl.curator).to be
+        end
+
+        it 'destroys curator' do
+          expect{
+            graetzl.destroy
+          }.to change(Curator, :count).by(-1)
+        end
+      end
     end
   end
 

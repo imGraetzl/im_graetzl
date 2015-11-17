@@ -3,6 +3,6 @@ FactoryGirl.define do
     graetzl
     user
     website { Faker::Internet.url }
-    desciption { Faker::Hipster.sentence }
+    description { Faker::Lorem.sentence }
   end
 end

@@ -174,6 +174,10 @@ RSpec.describe User, type: :model do
       expect(user).to respond_to(:wall_comments)
     end
 
+    it 'has curator' do
+      expect(user).to respond_to(:curator)
+    end
+
     describe 'destroy associated records' do
       describe 'address' do
         before { user.create_address(attributes_for(:address)) }
@@ -305,6 +309,20 @@ RSpec.describe User, type: :model do
           wall_comments.each do |comment|
             expect(Comment.find_by_id(comment.id)).to be_nil
           end
+        end
+      end
+
+      describe 'curator' do
+        before { create(:curator, user: user) }
+
+        it 'has curator' do
+          expect(user.curator).to be
+        end
+
+        it 'destroys curator' do
+          expect{
+            user.destroy
+          }.to change(Curator, :count).by(-1)
         end
       end
     end
