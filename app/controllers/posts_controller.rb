@@ -2,10 +2,18 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @post = Post.new(post_params)
+    @post = @author.posts.new post_params
+    puts 'HERE HERE HERE HERE HERE HERE HERE HERE'
+    puts @post.attributes
+    puts @post.valid?
+    puts @post.errors
     if @post.save
-      @activity = @post.create_activity :create, owner: current_user
+      puts 'POST SAVED POST SAVED POST SAVED POST SAVED'
     end
+    # @post = Post.new(post_params)
+    # if @post.save
+    #   @activity = @post.create_activity :create, owner: current_user
+    # end
     # if post.save
     #   @activity = post.create_activity :create, owner: current_user
     #   render partial: 'public_activity/post/create', layout: 'stream/element', locals: { activity: @activity } and return
@@ -40,7 +48,16 @@ class PostsController < ApplicationController
   def post_params
     params.
       require(:post).
-      permit(:graetzl_id, :content, images_files: []).
-      merge(user_id: current_user.id)
+      permit(:graetzl_id,
+              :title,
+              :content,
+              images_files: [])
   end
+
+  # def post_params
+  #   params.
+  #     require(:post).
+  #     permit(:graetzl_id, :content, images_files: []).
+  #     merge(user_id: current_user.id)
+  # end
 end

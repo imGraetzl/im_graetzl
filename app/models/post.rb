@@ -29,6 +29,10 @@ class Post < ActiveRecord::Base
     "#{time.strftime('%m')} #{time.strftime('%Y')} #{content[0..20]}..."
   end
 
+  def edit_permission?(user)
+    (author == user) || (author.is_a?(Location) && author.users.include?(user))
+  end
+
 
   private
 

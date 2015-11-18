@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :update] do
     resources :comments, module: :users, only: [:create]
+    resources :posts, module: :users, only: [:create]
   end
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
@@ -86,6 +87,7 @@ Rails.application.routes.draw do
 
   resources :locations, except: [:index, :show] do
     concerns :graetzl_before_new
+    resources :posts, module: :locations, only: [:create]
   end
 
   resources :meetings, path: :treffen, except: [:index, :show] do
@@ -94,7 +96,5 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:update, :destroy]
 
-  resources :posts, only: [:create, :destroy] do
-    resources :comments, module: :posts, only: [:create]
-  end
+  resources :posts, only: [:destroy]
 end

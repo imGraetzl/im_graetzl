@@ -126,6 +126,35 @@ RSpec.describe Post, type: :model do
     end
   end
 
+  describe '#edit_permission?' do
+    let(:user) { create(:user) }
+    context 'when author user' do
+      let(:post) { create(:post, author: user) }
+
+      it 'returs true for author' do
+        expect(post.edit_permission?(user)).to be_truthy
+      end
+
+      it 'returns false for other user' do
+        expect(post.edit_permission?(create(:user))).to be_falsey
+      end
+    end
+
+    context 'when author location' do
+      let(:location) { create(:location) }
+      let(:post) { create(:post, author: location) }
+      before { create(:location_ownership, user: user, location: location) }
+
+      it 'returs true for location owner' do
+        expect(post.edit_permission?(user)).to be_truthy
+      end
+
+      it 'returns false for other user' do
+        expect(post.edit_permission?(create(:user))).to be_falsey
+      end
+    end
+  end
+
   describe 'callbacks' do
     let(:post) { create(:post) }
 

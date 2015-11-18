@@ -1,0 +1,24 @@
+<div class="streamElement">
+  <div class="entryInitialContent">
+    <% if (current_user && post.edit_permission?(current_user)) %>
+      <div class="editControls">
+        <%= link_to post_path(post), { method: :delete, remote: true, data: { disable_with: 'lädt...' } } do %>
+          <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="userCreateInfo">
+      <%= avatar_for post.author %>
+      <span class="userAndType">Nachricht von <%= link_to post.author.name, [post.author.graetzl, post.author] %> <span>vor <%= time_ago_in_words(post.created_at) %></span></span>
+    </div>
+    <div class="headline"><%= post.title %></div>
+    <div class="txt"><%= post.content %></div>
+    <% unless post.images.empty? %>
+      <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
+        <% post.images.each do |image| %>
+          <%= link_to attachment_image_tag(image, :file, :fill, 400, 400), attachment_url(image, :file) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

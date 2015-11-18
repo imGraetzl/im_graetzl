@@ -89,25 +89,11 @@
 
 
   <div class="stream">
-    <h3>Neuigkeiten von <span>Shopname</span></h3>
+    <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
     <div id="stream-form">
-
-      <div class="entryCreate">
-        <img class="img-round" src="https://placeimg.com/100/100/people?4" alt="">
-        <form class="textEditor">
-          <input class="input-plain postTitle" type="text" placeholder="Titel">
-          <div class="hideBlock">
-            <textarea placeholder="Kommentar abgeben" class="input-plain"></textarea>
-            <div class="upload-streamImgs">
-              <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
-              <input multiple="multiple" accept="image/jpeg,image/gif,image/png" type="file">
-            </div>
-            <button name="button" class="btn-secondary" type="submit">Nachricht senden</button>
-          </div>
-        </form>
-      </div>
-
+      <%= render 'posts/form', author: @location %>
     </div>
+    <%= render partial: 'locations/posts/post', collection: @location.posts %>
 
     <div class="streamElement">
       <div class="entryInitialContent">
