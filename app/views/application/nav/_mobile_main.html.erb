@@ -7,8 +7,6 @@
     <% end %>
     <!-- end -->
     
-  <% else %>
-    <%= link_to content_tag(:span, 'Anmelden'), new_user_session_path, class: 'createMeeting' %>
   <% end %>
   <% if current_graetzl %>
       <%= link_to graetzl_path(current_graetzl) do %>
