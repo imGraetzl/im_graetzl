@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020143228) do
+ActiveRecord::Schema.define(version: 20151118093136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,18 @@ ActiveRecord::Schema.define(version: 20151020143228) do
   end
 
   add_index "contacts", ["location_id"], name: "index_contacts_on_location_id", using: :btree
+
+  create_table "curators", force: :cascade do |t|
+    t.integer  "graetzl_id"
+    t.integer  "user_id"
+    t.string   "website"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "curators", ["graetzl_id"], name: "index_curators_on_graetzl_id", using: :btree
+  add_index "curators", ["user_id"], name: "index_curators_on_user_id", using: :btree
 
   create_table "districts", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -228,15 +240,17 @@ ActiveRecord::Schema.define(version: 20151020143228) do
   create_table "posts", force: :cascade do |t|
     t.text     "content"
     t.integer  "graetzl_id"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "slug"
+    t.string   "title"
+    t.integer  "author_id"
+    t.string   "author_type"
   end
 
+  add_index "posts", ["author_type", "author_id"], name: "index_posts_on_author_type_and_author_id", using: :btree
   add_index "posts", ["graetzl_id"], name: "index_posts_on_graetzl_id", using: :btree
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                         limit: 255, default: "",    null: false
