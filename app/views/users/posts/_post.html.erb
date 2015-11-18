@@ -11,7 +11,9 @@
       <%= link_to avatar_for(post.author), [post.author.graetzl, post.author] %>
       <span class="userAndType">Neuer Beitrag von <%= link_to post.author.username, [post.author.graetzl, post.author] %> <span>vor <%= time_ago_in_words(post.created_at) %></span></span>
     </div>
-    <div class="txt"><%= post.content %></div>
+    <%= link_to [post.graetzl, post], class: 'linkToPost' do %>
+      <div class="txt"><%= post.content %></div>
+    <% end %>
     <% unless post.images.empty? %>
       <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
         <% post.images.each do |image| %>
