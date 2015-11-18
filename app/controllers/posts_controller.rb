@@ -29,18 +29,32 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
+    @element_id = "post_#{@post.id}"
     graetzl = @post.graetzl
     if @post.destroy
       respond_to do |format|
         format.html { redirect_to graetzl, notice: 'Beitrag gelöscht' }
-        format.js { render nothing: true, status: :ok }
+        format.js
       end
     else
       respond_to do |format|
         format.html { redirect_to :back, notice: 'Konnte Beitrag nicht löschen' }
-        format.js { render nothing: true, status: :internal_server_error }
+        format.js
       end
     end
+    # @post = Post.find(params[:id])
+    # graetzl = @post.graetzl
+    # if @post.destroy
+    #   respond_to do |format|
+    #     format.html { redirect_to graetzl, notice: 'Beitrag gelöscht' }
+    #     format.js { render nothing: true, status: :ok }
+    #   end
+    # else
+    #   respond_to do |format|
+    #     format.html { redirect_to :back, notice: 'Konnte Beitrag nicht löschen' }
+    #     format.js { render nothing: true, status: :internal_server_error }
+    #   end
+    # end
   end
 
   private

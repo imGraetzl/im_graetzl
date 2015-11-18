@@ -90,9 +90,11 @@
 
   <div class="stream">
     <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
-    <div id="stream-form">
-      <%= render 'posts/form', author: @location %>
-    </div>
+    <% if (current_user && @location.users.include?(current_user)) %>
+      <div id="stream-form">
+        <%= render 'posts/form', author: @location %>
+      </div>
+    <% end %>
     <%= render partial: 'locations/posts/post', collection: @location.posts %>
 
     <div class="streamElement">

@@ -1,8 +1,8 @@
-<div class="streamElement">
+<%= div_for(post, class: 'streamElement') do %>
   <div class="entryInitialContent">
     <% if (current_user && post.edit_permission?(current_user)) %>
       <div class="editControls">
-        <%= link_to post_path(post), { method: :delete, remote: true, data: { disable_with: 'lädt...' } } do %>
+        <%= link_to post, { method: :delete, remote: true, data: { disable_with: 'lädt...' } } do %>
           <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
         <% end %>
       </div>
@@ -21,4 +21,4 @@
       </div>
     <% end %>
   </div>
-</div>
+<% end %>
