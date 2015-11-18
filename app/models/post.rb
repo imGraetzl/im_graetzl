@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
 
   # associations
   belongs_to :graetzl
-  belongs_to :user
+  belongs_to :author, polymorphic: true
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :images, as: :imageable, dependent: :destroy
   accepts_attachments_for :images, attachment: :file
@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
   # validations
   validates :content, presence: true
   validates :graetzl, presence: true
-  validates :user, presence: true
+  validates :author, presence: true
 
   # callbacks
   before_destroy :destroy_activity_and_notifications, prepend: true

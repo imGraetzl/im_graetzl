@@ -233,7 +233,7 @@ RSpec.describe User, type: :model do
       end
 
       describe 'posts' do
-        before { 3.times{create(:post, user: user)} }
+        before { 3.times{create(:post, author: user)} }
 
         it 'has posts' do
           expect(user.posts).not_to be_empty

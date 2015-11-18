@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_one :address, as: :addressable, dependent: :destroy
   has_many :going_tos, dependent: :destroy
   has_many :meetings, through: :going_tos
-  has_many :posts, dependent: :destroy
+  has_many :posts, as: :author, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :location_ownerships, dependent: :destroy

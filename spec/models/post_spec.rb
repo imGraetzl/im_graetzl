@@ -17,20 +17,20 @@ RSpec.describe Post, type: :model do
   describe 'associations' do
     let(:post) { create(:post) }
 
-    it 'has user' do
-      expect(post).to respond_to(:user)      
+    it 'has author' do
+      expect(post).to respond_to(:author)
     end
 
     it 'has graetzl' do
-      expect(post).to respond_to(:graetzl)      
+      expect(post).to respond_to(:graetzl)
     end
 
     it 'has comments' do
-      expect(post).to respond_to(:comments)      
+      expect(post).to respond_to(:comments)
     end
 
     it 'has images' do
-      expect(post).to respond_to(:images)      
+      expect(post).to respond_to(:images)
     end
 
     describe 'destroy associated records' do
@@ -82,8 +82,8 @@ RSpec.describe Post, type: :model do
       expect(build(:post, content: '')).not_to be_valid
     end
 
-    it 'is invalid without user' do
-      expect(build(:post, user: nil)).not_to be_valid
+    it 'is invalid without author' do
+      expect(build(:post, author: nil)).not_to be_valid
     end
 
     it 'is invalid without graetzl' do
