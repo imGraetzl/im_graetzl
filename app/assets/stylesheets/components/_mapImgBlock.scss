@@ -26,6 +26,14 @@
     margin-top: -80px;
   }
 
+  .graetzl-ambassador {
+    @include respond-to(">=medium") {
+      position: absolute;
+      right: 0;
+      bottom: -25px;
+    }
+  }
+
   #graetzlMapWidget {
     width: 100%;
     background-color: transparent;
