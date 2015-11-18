@@ -1,10 +1,1 @@
-<div class="streamElement">
-  <div class="entryInitialContent">
-    <a name="post-<%= activity.trackable.id -%>"></a>
-    <%= render 'public_activity/info', user: activity.owner, entity: activity %>
-
-    <%= render activity.trackable %>
-  </div>
-
-  <%= render 'comments/form_inline', commentable: activity.trackable %>
-</div>
+<%= render "#{ActiveModel::Naming.plural(activity.trackable.author)}/posts/post", post: activity.trackable %>

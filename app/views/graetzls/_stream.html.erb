@@ -7,7 +7,7 @@
   </div>
 
   <div id="stream-form">
-    <%= render 'posts/form', graetzl: @graetzl %>
+    <%= render 'posts/form', author: current_user %>
   </div>
   <%= render_activities @activities %>
 </div>

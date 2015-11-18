@@ -30,7 +30,7 @@ class Post < ActiveRecord::Base
   end
 
   def edit_permission?(user)
-    (author == user) || (author.is_a?(Location) && author.users.include?(user))
+    user.admin? || (author == user) || (author.is_a?(Location) && author.users.include?(user))
   end
 
 

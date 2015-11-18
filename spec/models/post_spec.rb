@@ -153,6 +153,20 @@ RSpec.describe Post, type: :model do
         expect(post.edit_permission?(create(:user))).to be_falsey
       end
     end
+
+    context 'when user admin' do
+      let(:admin) { create(:admin) }
+
+      it 'returs true when author location' do
+        post = create(:post, author: create(:location))
+        expect(post.edit_permission?(admin)).to be_truthy
+      end
+
+      it 'returns true when author user' do
+        post = create(:post, author: create(:user))
+        expect(post.edit_permission?(admin)).to be_truthy
+      end
+    end
   end
 
   describe 'callbacks' do

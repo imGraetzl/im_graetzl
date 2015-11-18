@@ -9,9 +9,8 @@
     <% end %>
     <div class="userCreateInfo">
       <%= link_to avatar_for(post.author), [post.author.graetzl, post.author] %>
-      <span class="userAndType">Nachricht von <%= link_to post.author.name, [post.author.graetzl, post.author] %> <span>vor <%= time_ago_in_words(post.created_at) %></span></span>
+      <span class="userAndType">Neuer Beitrag von <%= link_to post.author.username, [post.author.graetzl, post.author] %> <span>vor <%= time_ago_in_words(post.created_at) %></span></span>
     </div>
-    <div class="headline"><%= post.title %></div>
     <div class="txt"><%= post.content %></div>
     <% unless post.images.empty? %>
       <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
@@ -21,4 +20,5 @@
       </div>
     <% end %>
   </div>
+  <%= render 'comments/form_inline', commentable: post %>
 <% end %>

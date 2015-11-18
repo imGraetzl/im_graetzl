@@ -3,23 +3,9 @@ class PostsController < ApplicationController
 
   def create
     @post = @author.posts.new post_params
-    puts 'HERE HERE HERE HERE HERE HERE HERE HERE'
-    puts @post.attributes
-    puts @post.valid?
-    puts @post.errors
     if @post.save
-      puts 'POST SAVED POST SAVED POST SAVED POST SAVED'
+      @activity = @post.create_activity :create, owner: @author
     end
-    # @post = Post.new(post_params)
-    # if @post.save
-    #   @activity = @post.create_activity :create, owner: current_user
-    # end
-    # if post.save
-    #   @activity = post.create_activity :create, owner: current_user
-    #   render partial: 'public_activity/post/create', layout: 'stream/element', locals: { activity: @activity } and return
-    # else
-    #   render nothing: true, status: :internal_server_error
-    # end
   end
 
   def show

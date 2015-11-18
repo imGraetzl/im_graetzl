@@ -41,13 +41,7 @@ RSpec.describe PostsController, type: :routing do
   end
 
   describe 'named routes' do
-
-    it 'does not route POST posts_path to post#create' do
-      expect(post: posts_path).not_to route_to(
-        controller: 'posts',
-        action: 'create')
-    end
-
+    
     it 'routes POST location_posts_path(location-slug) to locations/post#create' do
       expect(post: location_posts_path('location-slug')).to route_to(
         controller: 'locations/posts',

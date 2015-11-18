@@ -1,1 +1,1 @@
-$('div#<%= @element_id %>').fadeOut();
+$('div#<%= @element_id %>').fadeOut('slow');

@@ -92,7 +92,7 @@
     <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
     <% if (current_user && @location.users.include?(current_user)) %>
       <div id="stream-form">
-        <%= render 'posts/form', author: @location %>
+        <%= render 'locations/posts/form', author: @location %>
       </div>
     <% end %>
     <%= render partial: 'locations/posts/post', collection: @location.posts %>
