@@ -1,90 +1,89 @@
 require 'rails_helper'
-require 'controllers/shared/commentable'
 
 RSpec.describe Users::CommentsController, type: :controller do
-  let(:commentable_user) { create(:user) }
 
   describe 'POST create' do
-    let(:params) {
-      { comment: { content: 'comment_text' }, user_id: commentable_user }
-    }
+    let(:commentable_user) { create(:user) }
+    let(:params) { { comment: { content: 'comment-content'}, user_id: commentable_user } }
 
     context 'when logged out' do
-      it 'redirects to login_page' do
+      it 'redirects to login' do
         xhr :post, :create, params
         expect(response).to render_template(session[:new])
       end
     end
 
-    context 'when logged in' do
+    context 'comment on other wall' do
       let(:user) { create(:user) }
       before { sign_in user }
 
-      describe 'comment on other wall' do
-        context 'without inline param' do
+      it 'creates new comment record' do
+        expect {
+          xhr :post, :create, params
+        }.to change(Comment, :count).by(1)
+      end
 
-          include_examples :stream_comment do
-            let(:resource) { commentable_user }
-          end
+      it 'creates new activity record', job: true do
+        expect {
+          PublicActivity.with_tracking { xhr :post, :create, params }
+        }.to change(PublicActivity::Activity, :count).by(1)
+      end
+
+      describe 'request' do
+        before { xhr :post, :create, params }
+
+        it 'assigns @commentable' do
+          expect(assigns(:commentable)).to eq commentable_user
         end
-        context 'with inline param true' do
 
-          include_examples :inline_comment do
-            let(:resource) { commentable_user }
-          end
+        it 'assigns @comment' do
+          expect(assigns(:comment)).to be_truthy
+          expect(assigns(:comment)).to have_attributes(
+            user: user,
+            commentable: commentable_user,
+            content: 'comment-content')
+        end
+
+        it 'renders create.js' do
+          expect(response['Content-Type']).to include('text/javascript')
+          expect(response).to render_template('comments/create')
         end
       end
-      describe 'comment on own wall', job: true do
-        render_views
-        before { params.merge!(user_id: user) }
+    end
 
-        it 'creates new comment' do
-          expect {
-            xhr :post, :create, params
-          }.to change(Comment, :count).by(1)
+    context 'comment on own wall' do
+      before { sign_in commentable_user }
+
+      it 'creates new comment record' do
+        expect {
+          xhr :post, :create, params
+        }.to change(Comment, :count).by(1)
+      end
+
+      it 'does not create new activity record', job: true do
+        expect {
+          PublicActivity.with_tracking { xhr :post, :create, params }
+        }.not_to change(PublicActivity::Activity, :count)
+      end
+
+      describe 'request' do
+        before { xhr :post, :create, params }
+
+        it 'assigns @commentable' do
+          expect(assigns(:commentable)).to eq commentable_user
         end
 
-        it 'does not create activity record' do
-          expect {
-            PublicActivity.with_tracking { xhr :post, :create, params }
-          }.not_to change{PublicActivity::Activity.count}
+        it 'assigns @comment' do
+          expect(assigns(:comment)).to be_truthy
+          expect(assigns(:comment)).to have_attributes(
+            user: commentable_user,
+            commentable: commentable_user,
+            content: 'comment-content')
         end
 
-        describe 'request', job: true do
-          before { PublicActivity.with_tracking { xhr :post, :create, params } }
-
-          it 'assigns @commentable' do
-            expect(assigns(:commentable)).to eq(user)
-          end
-
-          it 'renders comment partial' do
-            expect(response).to render_template(partial: 'comments/_comment')
-          end
-          describe 'new comment' do
-            subject(:new_comment) { Comment.last }
-
-            it 'has user as commentable' do
-              expect(new_comment.commentable).to eq user
-            end
-
-            it 'has current_user as user' do
-              expect(new_comment.user).to eq user
-            end
-          end
-        end
-        context 'without inline param' do
-
-          it 'renders stream layout' do
-            xhr :post, :create, params
-            expect(response.body).to have_selector('div.streamElement')
-          end
-        end
-        context 'with inline param true' do
-
-          it 'does not render stream layout' do
-            xhr :post, :create, params
-            expect(response.body).to have_selector('div.streamElement')
-          end
+        it 'renders create.js' do
+          expect(response['Content-Type']).to include('text/javascript')
+          expect(response).to render_template('comments/create')
         end
       end
     end
