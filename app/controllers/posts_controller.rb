@@ -9,7 +9,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.includes(:images, :user, comments: [:user, :images]).find(params[:id])
+    @post = Post.includes(:images, :author, comments: [:user, :images]).find(params[:id])
+    redirect_to :back, notice: 'Diese Seite existiert leider nicht.' if @post.author.is_a?(Location)
     @comments = @post.comments.page(params[:page]).per(10)
   end
 
@@ -46,18 +47,9 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.
-      require(:post).
-      permit(:graetzl_id,
-              :title,
-              :content,
-              images_files: [])
+    params.require(:post).permit(:graetzl_id,
+                                  :title,
+                                  :content,
+                                  images_files: [])
   end
-
-  # def post_params
-  #   params.
-  #     require(:post).
-  #     permit(:graetzl_id, :content, images_files: []).
-  #     merge(user_id: current_user.id)
-  # end
 end
