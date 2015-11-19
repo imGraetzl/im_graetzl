@@ -23,11 +23,8 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    if @comment.destroy
-      render nothing: true, status: :ok
-    else
-      render nothing: true, status: :internal_server_error
-    end
+    @element_id = "comment_#{@comment.id}"
+    @comment.destroy
   end
 
   private

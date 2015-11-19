@@ -10,15 +10,15 @@ RSpec.describe Comment, type: :model do
     let(:comment) { create(:comment) }
 
     it 'has user' do
-      expect(comment).to respond_to(:user)      
+      expect(comment).to respond_to(:user)
     end
 
     it 'has commentables' do
-      expect(comment).to respond_to(:commentable)      
+      expect(comment).to respond_to(:commentable)
     end
 
     it 'has images' do
-      expect(comment).to respond_to(:images)      
+      expect(comment).to respond_to(:images)
     end
 
     describe 'destroy associated records' do
@@ -76,6 +76,46 @@ RSpec.describe Comment, type: :model do
 
         expect(Notification.count).to eq 0
         expect(PublicActivity::Activity.count).to eq 0
+      end
+    end
+  end
+
+  describe '#edit_permission?' do
+    let(:user) { create(:user) }
+    context 'when comment by user' do
+      let(:comment) { create(:comment, user: user) }
+
+      it 'returs true for user' do
+        expect(comment.edit_permission?(user)).to be_truthy
+      end
+
+      it 'returs true for admin' do
+        expect(comment.edit_permission?(create(:admin))).to be_truthy
+      end
+
+      it 'returns false for other user' do
+        expect(comment.edit_permission?(create(:user))).to be_falsey
+      end
+    end
+
+    context 'when user commentable' do
+      let(:other_user) { create(:user) }
+      let(:comment) { create(:comment, commentable: user, user: other_user) }
+
+      it 'returs true for commentable user' do
+        expect(comment.edit_permission?(user)).to be_truthy
+      end
+
+      it 'returs true for comment user' do
+        expect(comment.edit_permission?(other_user)).to be_truthy
+      end
+
+      it 'returs true for admin' do
+        expect(comment.edit_permission?(create(:admin))).to be_truthy
+      end
+
+      it 'returns false for random user' do
+        expect(comment.edit_permission?(create(:user))).to be_falsey
       end
     end
   end
