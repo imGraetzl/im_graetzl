@@ -1,0 +1,7 @@
+<% if @comment %>
+  $('div#stream-form').after("<%= j render 'comments/comment', comment: @comment %>");
+<% else %>
+  alert('Es gab ein Problem, bitte versuche es später nochmal.');
+<% end %>
+$('div#stream-form').html("<%= j render 'comments/form', commentable: @comment.commentable %>")
+APP.components.stream.init()

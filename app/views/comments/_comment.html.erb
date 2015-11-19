@@ -1,32 +1,34 @@
-<div class="<%= (comment_inline ||= false) ? 'entryUserComment' : 'entryInitialContent' %>">
-  <% if current_user == comment.user %>
-    <div class="editControls">
-      <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
-      <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
-    </div>
-  <% elsif (current_user == comment.commentable) || current_user.admin? %>
-    <div class="editControls">
-      <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
-    </div>
-  <% end %>
+<div class="streamElement">
+  <div class="<%= (comment_inline ||= false) ? 'entryUserComment' : 'entryInitialContent' %>">
+    <% if current_user == comment.user %>
+      <div class="editControls">
+        <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+        <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
+      </div>
+    <% elsif (current_user == comment.commentable) || current_user.admin? %>
+      <div class="editControls">
+        <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+      </div>
+    <% end %>
 
-  <a name="comment-<%= comment.id -%>"></a>
-  <div class="userCreateInfo">
-    <%= avatar_for comment.user %>
+    <a name="comment-<%= comment.id -%>"></a>
+    <div class="userCreateInfo">
+      <%= link_to avatar_for(comment.user), [comment.user.graetzl, comment.user] %>
 
-    <span class="userAndType">
-      Kommentar von <%= link_to comment.user.username, comment.user %>
-      <span>vor <%= time_ago_in_words(comment.created_at) %></span>
-    </span>
+      <span class="userAndType">
+        Kommentar von <%= link_to comment.user.username, [comment.user.graetzl, comment.user] %>
+        <span>vor <%= time_ago_in_words(comment.created_at) %></span>
+      </span>
+    </div>
+
+    <div send-url="<%= comment_path(comment) %>" class="txt"><%= comment.content %></div>
+
+    <% unless comment.images.empty? %>
+      <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
+        <% comment.images.each do |image| %>
+          <%= link_to attachment_image_tag(image, :file, :fill, 400, 400), attachment_url(image, :file) %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-
-  <div send-url="<%= comment_path(comment) %>" class="txt"><%= comment.content %></div>
-
-  <% unless comment.images.empty? %>
-    <div class="entryImgUploads">
-      <% comment.images.each do |image| %>
-        <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
-      <% end %>
-    </div>
-  <% end %>
 </div>
