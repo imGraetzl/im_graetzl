@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
   accepts_attachments_for :images, attachment: :file
 
   # validations
-  validates :content, presence: true
+  validates :content, presence: true, if: :author_user?
   validates :graetzl, presence: true
   validates :author, presence: true
 
@@ -41,5 +41,9 @@ class Post < ActiveRecord::Base
     notifications = Notification.where(activity: activity)
     notifications.destroy_all
     activity.destroy_all
+  end
+
+  def author_user?
+    author.is_a?(User)
   end
 end

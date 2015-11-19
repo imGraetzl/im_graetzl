@@ -78,8 +78,12 @@ RSpec.describe Post, type: :model do
 
   describe 'validations' do
 
-    it 'is invalid without content' do
-      expect(build(:post, content: '')).not_to be_valid
+    it 'is invalid without content if author user' do
+      expect(build(:post, author: build(:user), content: '')).not_to be_valid
+    end
+
+    it 'valid without content if author location' do
+      expect(build(:post, author: build(:location), content: '')).to be_valid
     end
 
     it 'is invalid without author' do
