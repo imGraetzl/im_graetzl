@@ -70,14 +70,14 @@ section.homeOut {
     }
     span:nth-child(2) {
       @include respond-to(">=medium") {
-        margin-left: 90px;
+        margin-left: 50px;
         margin-top: 5px;
       }
     }
 
   }
 
-  .badge {
+  .badgeregister {
     position: absolute;
     right: 20%;
     bottom: 30px;
@@ -85,9 +85,19 @@ section.homeOut {
     @include respond-to(">=medium") {
       bottom: 50px;
       right: 25%;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 90px;
+        height: 86px;
+        background-image: url(image_path('svg/arrow-dashed-bend2.svg'));
+        transform: rotate(-40deg);
+        bottom: -50px;
+        left: -60px;
+      }
     }
     @include respond-to(">=large") {
-      right: 180px;
+      right: 150px;
       bottom: 65px;
     }
   }

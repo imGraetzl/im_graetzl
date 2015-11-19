@@ -11,18 +11,16 @@
 
 <section class="homeOut">
   <div class="buehne">
-    <h1><span>Nette Leute Bei Treffen </span><span>im Grätzl Kennenlernen</span></h1>
+    <h1><span>Was ist los im Grätzl?</span><span>Treffen, Aktionen & schöne Ideen</span></h1>
     <div class="illu1"></div>
     <div class="illuMap"></div>
-    <%= link_to new_user_session_path, class: 'badge -arrow' do %>
-        Mit-<br/>machen
-    <% end %>
+    <%= link_to '', new_registration_path, class: 'badgeregister' %>
   </div>
 
   <div class="meetings-block">
     <div class="hl-subtext">
-      <h1>Mach mit — <span>Treffen, Events & Initiativen</span> im Grätzl</h1>
-      <p>Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen</p>
+      <h1>Entdecke  — <span>Treffen, Aktionen &amp; gute Ideen</span> im Grätzl</h1>
+      <p>Wunderbares ums Eck von Bewohnern, Kreativen, Initiativen &amp; grätzlansässigen UnternehmerInnen</p>
     </div>
     <div class="cardBoxCollection -tripple">
       <%= render @meetings %>

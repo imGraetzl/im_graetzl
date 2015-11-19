@@ -69,20 +69,24 @@
     border-left: 1px dotted lighten($color-ambient-mint, 20);
   }
 
-  .createMeeting {
+  .createMeeting, .registerlink {
     padding-left: 20px;
     padding-right: 20px;
     border-right: 1px dotted lighten($color-ambient-mint, 20);
-    display: none;
     span {
       background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
       background-position: right center, left center;
       background-repeat: no-repeat;
       padding-left: 20px;
+      background-size: 10px 20px;
       padding-right: 20px;
       margin: 0 auto;
       display: table;
     }
+  }
+
+  .createMeeting {
+    display: none;
     @include respond-to(">=large") {
       display: block;
     }
@@ -99,37 +103,6 @@
     border-bottom: 1px solid #DBEFEC;
     cursor: not-allowed;
   }
-
-  .registerlink {
-    margin-right: 10px;
-    padding-right: 10px;
-    border-right: 1px dotted lighten($color-ambient-mint, 20);
-    @include respond-to(">=large") {
-      margin-right: 20px;
-      padding-right: 20px;
-    }
-
-    span:first-child {
-      display: none;
-      @include respond-to(">=medium") {
-        display: inline;
-      }
-      @include respond-to(">=large") {
-        background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
-        background-repeat: no-repeat;
-        padding-left: 38px;
-        background-position: left center;
-      }
-    }
-    span:nth-child(2) {
-      text-transform: capitalize;
-      @include respond-to(">=medium") {
-        text-transform: none;
-      }
-    }
-
-  }
-
 
   .graetzlTrigger {
     margin-right: 20px;

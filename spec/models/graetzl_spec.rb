@@ -9,6 +9,10 @@ RSpec.describe Graetzl, type: :model do
   describe 'associations' do
     let(:graetzl) { create(:graetzl) }
 
+    it 'has curator' do
+      expect(graetzl).to respond_to(:curator)
+    end
+
     it 'has users' do
       expect(graetzl).to respond_to(:users)
     end
@@ -71,6 +75,20 @@ RSpec.describe Graetzl, type: :model do
           locations.each do |location|
             expect(Location.find_by_id(location.id)).to be_nil
           end
+        end
+      end
+
+      describe 'curator' do
+        before { create(:curator, graetzl: graetzl) }
+
+        it 'has curator' do
+          expect(graetzl.curator).to be
+        end
+
+        it 'destroys curator' do
+          expect{
+            graetzl.destroy
+          }.to change(Curator, :count).by(-1)
         end
       end
     end
