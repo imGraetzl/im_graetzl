@@ -83,8 +83,8 @@ RSpec.describe 'application/_nav', type: :view do
     describe 'nav/personal' do
       before { render }
 
-      it 'displays link to start meeting pointing to login' do
-        expect(rendered).to have_link('Treffen anlegen', href: new_user_session_path)
+      it 'displays link to registration' do
+        expect(rendered).to have_link('Kostenlos registrieren', href: new_registration_path)
       end
 
       it 'displays link to login' do
@@ -113,7 +113,7 @@ RSpec.describe 'application/_nav', type: :view do
         before { render }
 
         include_examples :nav_main_basic
-        
+
         include_examples :nav_main_graetzl do
           let(:current_graetzl) { user_graetzl }
         end
