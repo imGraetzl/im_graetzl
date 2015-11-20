@@ -1,5 +1,5 @@
 <% if @scope.to_sym == :wall_comments %>
-  $('div.stream').append("<%= j render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @wall_comments %>");
+  $('div.stream').append("<%= j render @wall_comments %>");
   $('a.link-load').replaceWith("<%= j view_more_link @wall_comments, params: { scope: @scope } %>")
 <% else %>
   $('#meetings-<%= @scope %>').html("<%= j(render @meetings) %>");
