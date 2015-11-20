@@ -19,5 +19,5 @@ ActiveAdmin.register Curator do
   form partial: 'form'
 
   # strong params
-  permit_params :graetzl_id, :user_id, :website, :description
+  permit_params :graetzl_id, :user_id, :website, :name
 end

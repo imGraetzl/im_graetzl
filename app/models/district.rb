@@ -24,4 +24,8 @@ class District < ActiveRecord::Base
   def meetings
     Meeting.where(graetzl: graetzls)
   end
+
+  def curators
+    Curator.where(graetzl: graetzls)
+  end
 end

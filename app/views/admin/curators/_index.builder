@@ -4,7 +4,7 @@ context.instance_eval do
   column :user
   column :graetzl
   column :website
-  column :description
+  column :name
   column :created_at
   actions
 end

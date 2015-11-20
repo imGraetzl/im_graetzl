@@ -59,14 +59,14 @@ RSpec.describe Admin::CuratorsController, type: :controller do
       graetzl: create(:graetzl),
       user: create(:user),
       website: 'http://google.de',
-      description: 'lorem') }
+      name: 'lorem') }
     let(:params) {
       {
         curator: {
           graetzl_id: curator.graetzl.id,
           user_id: curator.user.id,
           website: curator.website,
-          description: curator.description
+          name: curator.name
         }
       }
     }
@@ -86,7 +86,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
           graetzl: curator.graetzl,
           user: curator.user,
           website: curator.website,
-          description: curator.description)
+          name: curator.name)
       end
 
       it 'redirects_to new curator page' do
@@ -120,7 +120,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
       graetzl: create(:graetzl),
       user: create(:user),
       website: 'http://google.de',
-      description: 'lorem') }
+      name: 'lorem') }
     let(:params) {
       {
         id: curator,
@@ -128,7 +128,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
           graetzl_id: new_curator.graetzl.id,
           user_id: new_curator.user.id,
           website: new_curator.website,
-          description: new_curator.description
+          name: new_curator.name
         }
       }
     }
@@ -148,7 +148,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
           graetzl_id: new_curator.graetzl.id,
           user_id: new_curator.user.id,
           website: new_curator.website,
-          description: new_curator.description)
+          name: new_curator.name)
       end
     end
   end

@@ -122,4 +122,29 @@ RSpec.describe District, type: :model do
       expect(meetings).not_to include(meeting_4)
     end
   end
+
+  describe '#curators' do
+    let(:district) { create(:district) }
+    let(:graetzl_1) { create(:graetzl) }
+    let(:graetzl_2) { create(:graetzl) }
+    let(:other_graetzl) { create(:graetzl) }
+    let(:curator_1) { create(:curator, graetzl: graetzl_1) }
+    let(:curator_2) { create(:curator, graetzl: graetzl_1) }
+    let(:curator_3) { create(:curator, graetzl: graetzl_2) }
+    let(:curator_4) { create(:curator, graetzl: other_graetzl) }
+
+    before do
+      allow_any_instance_of(District).to receive(:graetzls).and_return([graetzl_1, graetzl_2])
+    end
+
+    subject(:curators) { district.curators }
+
+    it 'returns curators from graetzls' do
+      expect(curators).to include(curator_1, curator_2, curator_3)
+    end
+
+    it 'excludes curators from other graetzls' do
+      expect(curators).not_to include(curator_4)
+    end
+  end
 end
