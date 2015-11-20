@@ -13,8 +13,9 @@ RSpec.shared_examples :a_successfull_create_request do
     expect(resource.reload.activities.last.key).to eq key
   end
 
-  it 'renders comment partial' do
-    expect(response).to render_template(partial: 'comments/_comment')
+  it 'renders create.js' do
+    expect(response['Content-Type']).to include('text/javascript')
+    expect(response).to render_template(:create)
   end
 
   describe 'new comment' do
@@ -50,34 +51,32 @@ RSpec.shared_examples :inline_comment do
   include_examples :create_records
 
   describe 'request', job: true do
-    xhr_request_with_views
+    before do
+      PublicActivity.with_tracking { xhr :post, :create, params }
+    end
+
+    it 'assigns @inline true' do
+      expect(assigns(:inline)).to eq true
+    end
 
     include_examples :a_successfull_create_request
-
-    it 'does not render stream layout' do
-      expect(response.body).not_to have_selector('div.streamElement')
-    end
   end
 end
 
 RSpec.shared_examples :stream_comment do
+  before { params.merge!(inline: 'false') }
 
   include_examples :create_records
 
   describe 'request', job: true do
-    xhr_request_with_views
+    before do
+      PublicActivity.with_tracking { xhr :post, :create, params }
+    end
+
+    it 'assigns @inline false' do
+      expect(assigns(:inline)).to eq false
+    end
 
     include_examples :a_successfull_create_request
-
-    it 'renders stream layout' do
-      expect(response.body).to have_selector('div.streamElement')
-    end
   end
-end
-
-
-# helper methods
-def xhr_request_with_views
-  render_views
-  before { PublicActivity.with_tracking { xhr :post, :create, params } }
 end

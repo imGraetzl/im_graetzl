@@ -6,10 +6,6 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new comment_params
     if @comment.save
       @commentable.create_activity :comment, owner: current_user, recipient: @comment
-      #render partial: 'comment', locals: { comment: @comment, comment_inline: true } and return if inline?
-      #render partial: 'comment', layout: 'layouts/stream/element', locals: { comment: @comment } and return
-    else
-      #render nothing: true, status: :internal_server_error
     end
   end
 
