@@ -4,7 +4,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :graetzl
     input :user
     input :website
-    input :description
+    input :name
   end
   actions
 end

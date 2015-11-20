@@ -7,7 +7,7 @@ context.instance_eval do
           row :graetzl
           row :user
           row :website
-          row :description
+          row :name
           row :created_at
           row :updated_at
         end
