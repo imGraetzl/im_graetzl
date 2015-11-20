@@ -16,6 +16,10 @@ RSpec.describe Curator, type: :model do
       expect(build(:curator, user: nil)).not_to be_valid
     end
 
+    it 'is invalid without name' do
+      expect(build(:curator, name: nil)).not_to be_valid
+    end
+
     it 'is invalid without website' do
       expect(build(:curator, website: nil)).not_to be_valid
     end

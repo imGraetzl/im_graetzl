@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117095446) do
+ActiveRecord::Schema.define(version: 20151120103316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,9 +109,9 @@ ActiveRecord::Schema.define(version: 20151117095446) do
     t.integer  "graetzl_id"
     t.integer  "user_id"
     t.string   "website"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   add_index "curators", ["graetzl_id"], name: "index_curators_on_graetzl_id", using: :btree
