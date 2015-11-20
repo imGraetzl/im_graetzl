@@ -95,52 +95,9 @@
         <%= render 'locations/posts/form', author: @location %>
       </div>
     <% end %>
-    <%= render partial: 'locations/posts/post', collection: @location.posts %>
-
-    <div class="streamElement">
-      <div class="entryInitialContent">
-        <div class="editControls">
-          <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
-          <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
-        </div>
-        <div class="userCreateInfo">
-          <img class="img-round" src="https://placeimg.com/100/100/people?4" alt="">
-          <span class="userAndType">Nachricht von <a href="#">Shopname</a> <span>vor weniger als eine Minute</span></span>
-        </div>
-        <div class="headline">Coole neue Schuhe eingetroffen!</div>
-        <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus ex nemo nobis nulla officia perspiciatis provident quae quisquam rem rerum. Aspernatur debitis dolorum earum itaque nostrum perferendis quas! Atque dolor dolore dolores esse fugiat, ipsam repudiandae rerum voluptatem! Aliquam, natus.</div>
-
-        <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
-          <a href="/assets/shoedummys/shoe1.jpg"><img src="/assets/shoedummys/shoe1kl.jpg"></a>
-          <a href="/assets/shoedummys/shoe2.jpg"><img src="/assets/shoedummys/shoe2kl.jpg"></a>
-          <a href="/assets/shoedummys/shoe3.jpg"><img src="/assets/shoedummys/shoe3kl.jpg"></a>
-          <a href="/assets/shoedummys/shoe4.jpg"><img src="/assets/shoedummys/shoe4kl.jpg"></a>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="streamElement">
-      <div class="entryInitialContent">
-        <div class="editControls">
-          <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
-          <div class="btn-edit"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg></div>
-        </div>
-        <div class="userCreateInfo">
-          <img class="img-round" src="https://placeimg.com/100/100/people?4" alt="">
-          <span class="userAndType">Nachricht von <a href="#">Shopname</a> <span>vor 5 Tagen</span></span>
-        </div>
-        <div class="headline">Sexy auf den Zahn gefühlt!</div>
-        <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consequuntur debitis deleniti dolorem nesciunt, nihil, numquam obcaecati placeat quisquam repellendus suscipit totam ullam?</div>
-        <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
-          <a href="/assets/shoedummys/shoe5.jpg"><img src="/assets/shoedummys/shoe5kl.jpg"></a>
-          <a href="/assets/shoedummys/shoe6.jpg"><img src="/assets/shoedummys/shoe6kl.jpg"></a>
-          <a href="/assets/shoedummys/shoe7.jpg"><img src="/assets/shoedummys/shoe7kl.jpg"></a>
-        </div>
-      </div>
-    </div>
-
+    <%= render partial: 'locations/posts/post', collection: @posts %>
   </div>
+  <%= view_more_link @posts, params: { scope: :posts } %>
 
 
 </section>

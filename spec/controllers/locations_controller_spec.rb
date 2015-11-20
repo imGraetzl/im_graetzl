@@ -491,7 +491,7 @@ RSpec.describe LocationsController, type: :controller do
         end
 
         context 'when js request' do
-          context 'when scope :upcoming' do
+          context 'when scope :past' do
             before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :past }
 
             it 'assigns @graetzl' do
@@ -503,15 +503,36 @@ RSpec.describe LocationsController, type: :controller do
             end
 
             it 'assigns @scope' do
-              expect(assigns(:scope)).to be
+              expect(assigns(:scope)).to eq :past
             end
 
             it 'assigns @meetings' do
               expect(assigns(:meetings)).to be
             end
 
-            describe 'meetings' do
+            it 'renders show.js' do
+              expect(response['Content-Type']).to include 'text/javascript;'
+              expect(response).to render_template(:show)
+            end
+          end
 
+          context 'when scope :posts' do
+            before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :posts }
+
+            it 'assigns @graetzl' do
+              expect(assigns(:graetzl)).to eq graetzl
+            end
+
+            it 'assigns @location' do
+              expect(assigns(:location)).to eq location
+            end
+
+            it 'assigns @scope' do
+              expect(assigns(:scope)).to eq :posts
+            end
+
+            it 'assigns @posts' do
+              expect(assigns(:posts)).to be
             end
 
             it 'renders show.js' do
