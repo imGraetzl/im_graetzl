@@ -1,5 +1,5 @@
 ActiveAdmin.register Post do
-  actions :index, :show, :update, :edit
+  actions :index, :show, :update, :edit, :destroy
 
   # index
   index do
@@ -21,7 +21,6 @@ ActiveAdmin.register Post do
   # form
   form partial: 'form'
 
-  # strong parameters (maybe something missing)
   permit_params :graetzl_id,
     :author_id,
     :author_type,
