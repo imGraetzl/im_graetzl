@@ -59,25 +59,16 @@ class SendMailNotificationJob
           }
         when "new_post_in_graetzl"
           subject = "Neuer Beitrag im Grätzl #{activity.trackable.graetzl.name}"
-          author = activity.trackable.author
+          #author = activity.trackable.author
           #template_name += "-#{author.model_name.singular}"
-          if author.is_a?(User)
-            notification_vars << {
-              "type": "new_post_in_graetzl",
-              "post_content": activity.trackable.content.truncate(300, separator: ' '),
-              "owner_name": author.username,
-              "owner_url": user_url(activity.owner, default_url_options),
-              "post_url": graetzl_post_url(activity.trackable.graetzl, activity.trackable, default_url_options)
-            }
-          else
-            notification_vars << {
-              "type": "new_post_in_graetzl",
-              "post_content": activity.trackable.title,
-              "owner_name": author.name,
-              "owner_url": url_for([author.graetzl, author], default_url_options),
-              "post_url": url_for([author.graetzl, author], default_url_options),
-            }
-          end
+          by_location = activity.trackable.author.is_a?(User)
+          notification_vars << {
+            "type": "new_post_in_graetzl",
+            "post_content": by_location ? activity.trackable.title : activity.trackable.content.truncate(300, separator: ' '),
+            "owner_name": by_location ? activity.trackable.author.name : activity.trackable.author.username,
+            "owner_url": by_location ? url_for([author.graetzl, author], default_url_options) : user_url(activity.owner, default_url_options),
+            "post_url": by_location ? url_for([author.graetzl, author], default_url_options) : graetzl_post_url(activity.trackable.graetzl, activity.trackable, default_url_options)
+          }
         when "another_attendee"
           subject = 'Neuer Teilnehmer an deinem Treffen'
           notification_vars << {
