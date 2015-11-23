@@ -109,9 +109,9 @@ ActiveRecord::Schema.define(version: 20151120103316) do
     t.integer  "graetzl_id"
     t.integer  "user_id"
     t.string   "website"
-    t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   add_index "curators", ["graetzl_id"], name: "index_curators_on_graetzl_id", using: :btree
