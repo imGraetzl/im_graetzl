@@ -67,7 +67,7 @@ context.instance_eval do
               column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
             end
           end
-          tab 'Beiträge' do
+          tab 'Posts' do
             table_for user.posts do
               column :id
               column(:content){|p| truncate(p.content, length: 20)}
