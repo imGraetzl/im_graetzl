@@ -69,7 +69,7 @@ class SendMailNotificationJob
               "post_url": graetzl_post_url(activity.trackable.graetzl, activity.trackable, default_url_options)
             }
           else
-            notification_vars << {,
+            notification_vars << {
               "post_content": activity.trackable.title,
               "owner_name": author.name,
               "owner_url": url_for([author.graetzl, author], default_url_options),
