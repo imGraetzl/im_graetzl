@@ -1,12 +1,12 @@
 <%
    meta({
-      title: t('.title', name: @location.name, slogan: @location.slogan),
-      description: t('.description', desc: @location.meta_description),
-      robots: 'index, follow',
-      og_title: t('.title', name: @location.name, slogan: @location.slogan),
-      og_description: t('.description', desc: @location.meta_description),
-      og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-    })
+          title: t('.title', name: @location.name, slogan: @location.slogan),
+          description: t('.description', desc: @location.meta_description),
+          robots: 'index, follow',
+          og_title: t('.title', name: @location.name, slogan: @location.slogan),
+          og_description: t('.description', desc: @location.meta_description),
+          og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+        })
 %>
 <% content_for(:rel_next_prev, rel_next_prev_link_tags(@meetings_upcoming, params: { scope: :upcoming } )) unless params[:past].present? %>
 
@@ -33,7 +33,9 @@
     <% unless @location.non_meetable? %>
       <div class="meetingBlock">
         <div class="wrp-hl">
-          <h2>Treffen</h2>
+          <% unless @location.meetings.empty? %>
+            <h2>Treffen</h2>
+          <% end %>
           <% if user_signed_in? && @location.show_meeting_button(current_user) %>
             <%= link_to new_meeting_path(location_id: @location.id), class: "btn-userCallToAction" do %>
             <span>
@@ -47,39 +49,55 @@
           <% end %>
         </div>
 
-        <div class="tabs-ctrl">
-          <ul class="tabs-nav">
-            <li><a href="#tab-1"><%= @location.meetings.basic.upcoming.size %> geplante Treffen</a></li>
-            <li><a href="#tab-2"><%= @location.meetings.basic.past.size %> vergangene Treffen</a></li>
-          </ul>
-          <div id="tab-1">
-            <% if @meetings_upcoming.empty? %>
-              <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
-            <% else %>
-              <div id="meetings-upcoming" class="meetingBoxCollection -double" data-tabID="one">
-                <%= render @meetings_upcoming %>
-              </div>
-              <div id="paginate-upcoming">
-                <%= view_more_link(@meetings_upcoming, params: { scope: :upcoming }) %>
-              </div>
-            <% end %>
-          </div>
+        <% unless @location.meetings.empty? %>
+          <div class="tabs-ctrl">
+            <ul class="tabs-nav">
+              <li><a href="#tab-1"><%= @location.meetings.basic.upcoming.size %> geplante Treffen</a></li>
+              <li><a href="#tab-2"><%= @location.meetings.basic.past.size %> vergangene Treffen</a></li>
+            </ul>
+            <div id="tab-1">
+              <% if @meetings_upcoming.empty? %>
+                <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
+              <% else %>
+                <div id="meetings-upcoming" class="meetingBoxCollection -double" data-tabID="one">
+                  <%= render @meetings_upcoming %>
+                </div>
+                <div id="paginate-upcoming">
+                  <%= view_more_link(@meetings_upcoming, params: { scope: :upcoming }) %>
+                </div>
+              <% end %>
+            </div>
 
-          <div id="tab-2">
-            <% if @meetings_past.empty? %>
-              <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
-            <% else %>
-              <div id="meetings-past" class="meetingBoxCollection -double" data-tabID="two">
-                <%= render @meetings_past %>
-              </div>
-              <div id="paginate-past">
-                <%= view_more_link(@meetings_past, params: { scope: :past }) %>
-              </div>
-            <% end %>
+            <div id="tab-2">
+              <% if @meetings_past.empty? %>
+                <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
+              <% else %>
+                <div id="meetings-past" class="meetingBoxCollection -double" data-tabID="two">
+                  <%= render @meetings_past %>
+                </div>
+                <div id="paginate-past">
+                  <%= view_more_link(@meetings_past, params: { scope: :past }) %>
+                </div>
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
     <% end %>
   </div>
   <%= render 'sidebar' %>
+
+
+  <div class="stream">
+    <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
+    <% if (current_user && @location.users.include?(current_user)) %>
+      <div id="stream-form">
+        <%= render 'locations/posts/form', author: @location %>
+      </div>
+    <% end %>
+    <%= render partial: 'locations/posts/post', collection: @posts %>
+  </div>
+  <%= view_more_link @posts, params: { scope: :posts } %>
+
+
 </section>

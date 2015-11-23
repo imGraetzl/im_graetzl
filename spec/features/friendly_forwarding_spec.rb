@@ -25,6 +25,6 @@ RSpec.feature 'FriendlyForwarding', type: :feature do
     fill_in :user_password, with: user.password
     click_button 'Anmelden'
 
-    expect(page).to have_selector('h2', text: "Neues im #{user.graetzl.name} Stream")
+    expect(page).to have_selector('h3', text: "Neues im #{user.graetzl.name} Stream")
   end
 end

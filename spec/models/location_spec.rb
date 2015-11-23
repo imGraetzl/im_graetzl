@@ -85,6 +85,10 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:activities)
     end
 
+    it 'has posts' do
+      expect(location).to respond_to(:posts)
+    end
+
     describe 'destroy callbacks' do
       describe 'address' do
         let!(:address) { create(:address, addressable: location) }
@@ -148,6 +152,16 @@ RSpec.describe Location, type: :model do
 
           expect(Notification.count).to eq 0
           expect(PublicActivity::Activity.count).to eq 0
+        end
+      end
+
+      describe 'posts' do
+        before{ create_list(:post, 3, author: location) }
+
+        it 'destroys posts' do
+          expect{
+            location.destroy
+          }.to change(Post, :count).by(-3)
         end
       end
     end

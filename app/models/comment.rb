@@ -16,6 +16,11 @@ class Comment < ActiveRecord::Base
   # callbacks
   before_destroy :destroy_activity_and_notifications, prepend: true
 
+
+  def edit_permission?(user)
+    user.admin? || (self.user == user) || (commentable.is_a?(User) && (commentable == user))
+  end
+
   private
 
   def destroy_activity_and_notifications

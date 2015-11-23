@@ -1,0 +1,7 @@
+<% if @activity %>
+  $('div#stream-form').after("<%= j render_activity @activity %>");
+<% else %>
+  alert('Es gab ein Problem, bitte versuche es später nochmal.');
+<% end %>
+$('div#stream-form').html("<%= j render 'posts/form', author: @author %>")
+APP.components.stream.init()

@@ -39,17 +39,14 @@
   height: $imgDimensions;
 }
 
-@mixin textarea-plain($bgColor: #ffffff, $borderColor: $color-ambient-mint) {
-  background-color: $bgColor;
-  border: 1px solid $borderColor;
-  color: $color-font-primary;
-  outline: none;
-  font-family: $font-primary;
-  padding: 1rem;
+
+@mixin img-square($imgDimensions: 50px) {
   border-radius: 4px;
-  font-size: 1.6rem;
-  resize: none;
-  line-height: 1.4;
+  border: 1px solid $color-ambient-mint;
+  background-color: #ffffff;
+  padding: 2px;
+  width: $imgDimensions;
+  height: $imgDimensions;
 }
 
 @mixin textShadowHard($color: #ffffff) {

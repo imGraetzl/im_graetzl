@@ -10,15 +10,15 @@ class Post < ActiveRecord::Base
 
   # associations
   belongs_to :graetzl
-  belongs_to :user
+  belongs_to :author, polymorphic: true
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :images, as: :imageable, dependent: :destroy
   accepts_attachments_for :images, attachment: :file
 
   # validations
-  validates :content, presence: true
+  validates :content, presence: true, if: :author_user?
   validates :graetzl, presence: true
-  validates :user, presence: true
+  validates :author, presence: true
 
   # callbacks
   before_destroy :destroy_activity_and_notifications, prepend: true
@@ -29,6 +29,10 @@ class Post < ActiveRecord::Base
     "#{time.strftime('%m')} #{time.strftime('%Y')} #{content[0..20]}..."
   end
 
+  def edit_permission?(user)
+    user.admin? || (author == user) || (author.is_a?(Location) && author.users.include?(user))
+  end
+
 
   private
 
@@ -37,5 +41,9 @@ class Post < ActiveRecord::Base
     notifications = Notification.where(activity: activity)
     notifications.destroy_all
     activity.destroy_all
+  end
+
+  def author_user?
+    author.is_a?(User)
   end
 end

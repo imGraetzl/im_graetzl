@@ -50,6 +50,7 @@ class LocationsController < ApplicationController
         verify_graetzl_child(@location)
         @meetings_upcoming = @location.meetings.basic.upcoming.includes(:graetzl).page(1).per(2)
         @meetings_past = @location.meetings.basic.past.includes(:graetzl).page(1).per(2)
+        @posts = @location.posts.page(1).per(10)
       end
     end
   end
@@ -68,8 +69,8 @@ class LocationsController < ApplicationController
   # TODO: extract into concern
   def paginate_ajax(parent)
     case @scope = params[:scope].to_sym
-    when :wall_comments
-      #@wall_comments = @user.wall_comments.page(params[:page]).per(10)
+    when :posts
+      @posts = @location.posts.page(params[:page]).per(10)
     else
       @meetings = parent.meetings.basic.send(@scope).page(params[:page]).per(2)
     end

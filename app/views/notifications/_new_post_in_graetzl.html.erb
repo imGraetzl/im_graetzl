@@ -1,7 +1,16 @@
 <%- post = notification.activity.trackable %>
-<li>
-<%= link_to(url_for(post.graetzl) + "#post-#{post.id}") do %>
-  <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-  Neuer Beitrag im Grätzl <%= post.graetzl.name %> von <%= notification.activity.owner.username %>: <%= post.content %>
+<% if post.author.is_a?(User) %>
+  <li>
+    <%= link_to [post.graetzl, post] do %>
+      <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+      Neuer Beitrag im Grätzl <%= post.graetzl.name %> von <%= post.author.username %>: <%= post.content %>
+    <% end %>
+  </li>
+<% else %>
+  <li>
+    <%= link_to [post.graetzl, post.author] do %>
+      <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+      Neuer Beitrag im Grätzl <%= post.graetzl.name %> von <%= post.author.name %>: <%= post.title %>
+    <% end %>
+  </li>
 <% end %>
-</li>

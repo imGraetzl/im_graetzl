@@ -19,9 +19,9 @@ RSpec.describe 'comments/_comment', type: :view do
         expect(rendered).to have_selector('div.editControls')
       end
 
-      it 'displays edit button' do
-        expect(rendered).to have_selector('div.editControls div.btn-edit')
-      end
+      # it 'displays edit button' do
+      #   expect(rendered).to have_selector('div.editControls div.btn-edit')
+      # end
 
       it 'displays delete button' do
         expect(rendered).to have_selector('div.editControls div.btn-delete')
@@ -46,9 +46,9 @@ RSpec.describe 'comments/_comment', type: :view do
         expect(rendered).to have_selector('div.editControls')
       end
 
-      it 'does not display edit button' do
-        expect(rendered).not_to have_selector('div.editControls div.btn-edit')
-      end
+      # it 'does not display edit button' do
+      #   expect(rendered).not_to have_selector('div.editControls div.btn-edit')
+      # end
 
       it 'displays delete button' do
         expect(rendered).to have_selector('div.editControls div.btn-delete')
@@ -65,9 +65,9 @@ RSpec.describe 'comments/_comment', type: :view do
         expect(rendered).to have_selector('div.editControls')
       end
 
-      it 'does not display edit button' do
-        expect(rendered).not_to have_selector('div.editControls div.btn-edit')
-      end
+      # it 'does not display edit button' do
+      #   expect(rendered).not_to have_selector('div.editControls div.btn-edit')
+      # end
 
       it 'displays delete button' do
         expect(rendered).to have_selector('div.editControls div.btn-delete')
@@ -78,6 +78,10 @@ RSpec.describe 'comments/_comment', type: :view do
   describe 'wrapper class' do
     context 'without additional parameter' do
       before { render 'comments/comment', comment: comment }
+
+      it 'has stream element wrapper class' do
+        expect(rendered).to have_selector('div.streamElement')
+      end
 
       it 'has stream wrapper class' do
         expect(rendered).to have_selector('div.entryInitialContent')
@@ -93,6 +97,10 @@ RSpec.describe 'comments/_comment', type: :view do
 
       it 'does not have stream wrapper class' do
         expect(rendered).not_to have_selector('div.entryInitialContent')
+      end
+
+      it 'does not have stream element wrapper class' do
+        expect(rendered).not_to have_selector('div.streamElement')
       end
 
       it 'has inline comment' do

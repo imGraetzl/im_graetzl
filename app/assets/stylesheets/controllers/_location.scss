@@ -38,6 +38,9 @@ section.locationPage {
   .sideBar {
     position: relative;
     z-index: 8;
+    @include respond-to(">=medium") {
+      margin-bottom: 60px;
+    }
   }
 
   .mainContent {
@@ -45,7 +48,7 @@ section.locationPage {
     z-index: 8;
     margin-bottom: 30px;
     @include respond-to(">=medium") {
-      margin-bottom: 0;
+      margin-bottom: 60px;
     }
     h2 {
       @include font-size-secondaryFont('large');
@@ -112,15 +115,6 @@ section.locationPage {
           max-width: 250px;
         }
       }
-    }
-  }
-
-  .entryCreate {
-    .hide-wrp {
-      height: auto;
-      visibility: visible;
-      opacity: 1;
-      transition-delay: 0s;
     }
   }
 

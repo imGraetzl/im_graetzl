@@ -17,20 +17,20 @@ RSpec.describe Post, type: :model do
   describe 'associations' do
     let(:post) { create(:post) }
 
-    it 'has user' do
-      expect(post).to respond_to(:user)      
+    it 'has author' do
+      expect(post).to respond_to(:author)
     end
 
     it 'has graetzl' do
-      expect(post).to respond_to(:graetzl)      
+      expect(post).to respond_to(:graetzl)
     end
 
     it 'has comments' do
-      expect(post).to respond_to(:comments)      
+      expect(post).to respond_to(:comments)
     end
 
     it 'has images' do
-      expect(post).to respond_to(:images)      
+      expect(post).to respond_to(:images)
     end
 
     describe 'destroy associated records' do
@@ -78,12 +78,16 @@ RSpec.describe Post, type: :model do
 
   describe 'validations' do
 
-    it 'is invalid without content' do
-      expect(build(:post, content: '')).not_to be_valid
+    it 'is invalid without content if author user' do
+      expect(build(:post, author: build(:user), content: '')).not_to be_valid
     end
 
-    it 'is invalid without user' do
-      expect(build(:post, user: nil)).not_to be_valid
+    it 'valid without content if author location' do
+      expect(build(:post, author: build(:location), content: '')).to be_valid
+    end
+
+    it 'is invalid without author' do
+      expect(build(:post, author: nil)).not_to be_valid
     end
 
     it 'is invalid without graetzl' do
@@ -122,6 +126,49 @@ RSpec.describe Post, type: :model do
 
       it 'includes 20 chars of content' do
         expect(post.date_and_snippet).to include(post.content[0..20])
+      end
+    end
+  end
+
+  describe '#edit_permission?' do
+    let(:user) { create(:user) }
+    context 'when author user' do
+      let(:post) { create(:post, author: user) }
+
+      it 'returs true for author' do
+        expect(post.edit_permission?(user)).to be_truthy
+      end
+
+      it 'returns false for other user' do
+        expect(post.edit_permission?(create(:user))).to be_falsey
+      end
+    end
+
+    context 'when author location' do
+      let(:location) { create(:location) }
+      let(:post) { create(:post, author: location) }
+      before { create(:location_ownership, user: user, location: location) }
+
+      it 'returs true for location owner' do
+        expect(post.edit_permission?(user)).to be_truthy
+      end
+
+      it 'returns false for other user' do
+        expect(post.edit_permission?(create(:user))).to be_falsey
+      end
+    end
+
+    context 'when user admin' do
+      let(:admin) { create(:admin) }
+
+      it 'returs true when author location' do
+        post = create(:post, author: create(:location))
+        expect(post.edit_permission?(admin)).to be_truthy
+      end
+
+      it 'returns true when author user' do
+        post = create(:post, author: create(:user))
+        expect(post.edit_permission?(admin)).to be_truthy
       end
     end
   end
