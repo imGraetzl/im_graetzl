@@ -63,6 +63,7 @@ class SendMailNotificationJob
           #template_name += "-#{author.model_name.singular}"
           if author.is_a?(User)
             notification_vars << {
+              "type": "new_post_in_graetzl",
               "post_content": activity.trackable.content.truncate(300, separator: ' '),
               "owner_name": author.username,
               "owner_url": user_url(activity.owner, default_url_options),
@@ -70,6 +71,7 @@ class SendMailNotificationJob
             }
           else
             notification_vars << {
+              "type": "new_post_in_graetzl",
               "post_content": activity.trackable.title,
               "owner_name": author.name,
               "owner_url": url_for([author.graetzl, author], default_url_options),
