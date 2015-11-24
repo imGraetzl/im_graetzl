@@ -87,13 +87,14 @@
   </div>
   <%= render 'sidebar' %>
 
-
   <div class="stream">
-    <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
     <% if (current_user && @location.users.include?(current_user)) %>
+      <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
       <div id="stream-form">
         <%= render 'locations/posts/form', author: @location %>
       </div>
+    <% elsif !@posts.empty? %>
+      <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
     <% end %>
     <%= render partial: 'locations/posts/post', collection: @posts %>
   </div>
