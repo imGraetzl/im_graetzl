@@ -1,5 +1,5 @@
 ActiveAdmin.register Location do
-  #include ViewInApp
+  include ViewInApp
   menu priority: 4
 
   scope :all, default: true
