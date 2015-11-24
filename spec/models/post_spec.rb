@@ -82,6 +82,10 @@ RSpec.describe Post, type: :model do
       expect(build(:post, author: build(:user), content: '')).not_to be_valid
     end
 
+    it 'is invalid without title if author location' do
+      expect(build(:post, author: build(:location), title: '')).not_to be_valid
+    end
+
     it 'valid without content if author location' do
       expect(build(:post, author: build(:location), content: '')).to be_valid
     end
