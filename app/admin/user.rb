@@ -1,5 +1,5 @@
 ActiveAdmin.register User do
-  #include ViewInApp
+  include ViewInApp
   menu priority: 3
 
 
