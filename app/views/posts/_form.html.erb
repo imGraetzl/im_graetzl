@@ -8,7 +8,7 @@
           <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
           <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
         </div>
-        <%= f.button 'Beitrag senden', data: { disable_with: 'speichert...' }, class: 'btn-secondary' %>
+        <%= f.button 'Beitrag senden', data: { disable_with: 'sendet...' }, class: 'btn-secondary' %>
       </div>
   <% end %>
 </div>

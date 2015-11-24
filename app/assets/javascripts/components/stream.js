@@ -13,7 +13,7 @@ APP.components.stream = (function() {
     function initEntryCreateForm() {
 
         var $parent = $('.entryCreate:not(.js-initialized)'),
-            numchars = 5;
+            numchars = 0;
 
         if($parent.find('.postTitle').exists()) {
             $parent
@@ -49,7 +49,7 @@ APP.components.stream = (function() {
     }
 
     function initSingleTextarea($parent, numchars) {
-        numchars = numchars || 1;
+        numchars = numchars || 0;
         $parent
             .addClass('js-initialized')
             .find('textarea')
@@ -140,57 +140,6 @@ APP.components.stream = (function() {
     //         }
     //     });
     // }
-
-
-
-
-
-
-    // tmp solution for better ux with ajax comments/posts
-    // function _DONT_entryCreate() {
-    //
-    //     $(".stream").on("focusin", ".entryCommentForm textarea, .entryCreate textarea", function(event){
-    //       console.log('SOMETHING');
-    //         var $parent = $(this).parents(".entryCommentForm, .entryCreate");
-    //         $parent.addClass("is-focused");
-    //
-    //         $parent.on("ajax:complete", function(event, xhr) {
-    //             console.log('COMPLETE');
-    //             if (xhr.status != 200 || !xhr.responseText) {
-    //                 alert('Es gab ein Problem, bitte versuch es später nochmal.');
-    //             } else {
-    //                 injectContent(xhr.responseText);
-    //                 cleanup($parent.find('form.textEditor'));
-    //             }
-    //         });
-    //
-    //
-    //         // inject new content in page
-    //         function injectContent(content) {
-    //             var inline = $parent.hasClass('entryCommentForm');
-    //             if (inline) {
-    //                 $parent.before(content)
-    //             } else {
-    //                 $('div#stream-form').after(content);
-    //             }
-    //         }
-    //
-    //
-    //         function cleanup(form) {
-    //             $parent.removeClass("is-focused");
-    //             $parent.off("ajax:complete");
-    //
-    //             if (form.length == 0) form = $parent;
-    //
-    //             form.trigger('reset');
-    //
-    //             form.find('.imgCrop').remove().end();
-    //             $("input[name$='[images_files][]']").val('');
-    //         }
-    //     });
-    // }
-
-
 
     return {
         init : init,

@@ -1,5 +1,5 @@
 ActiveAdmin.register Meeting do
-  include ViewInApp
+  #include ViewInApp
   menu priority: 5
 
   scope :all, default: true

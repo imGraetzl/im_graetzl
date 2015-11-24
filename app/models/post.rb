@@ -17,6 +17,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   # validations
+  validates :title, presence: true, if: :author_location?
   validates :content, presence: true, if: :author_user?
   validates :graetzl, presence: true
   validates :author, presence: true
@@ -46,5 +47,9 @@ class Post < ActiveRecord::Base
 
   def author_user?
     author.is_a?(User)
+  end
+
+  def author_location?
+    author.is_a?(Location)
   end
 end
