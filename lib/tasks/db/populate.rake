@@ -26,7 +26,7 @@ namespace :db do
         role: :admin,
         graetzl: Graetzl.find_by_name('Stuwerviertel'),
         confirmed_at: Time.now)
-      File.open(Rails.root+"public/avatars/#{user}.gif", 'rb') do |file|
+      File.open(Rails.root+"lib/assets/avatars/#{user}.gif", 'rb') do |file|
         new_user.avatar = file
       end
       new_user.save(validate: false)
@@ -41,10 +41,10 @@ namespace :db do
       role: :business,
       graetzl: Graetzl.find_by_name('Stuwerviertel'),
       confirmed_at: Time.now)
-    File.open(Rails.root+'public/avatars/user_1.jpg', 'rb') do |file|
+    File.open(Rails.root+'lib/assets/avatars/user_1.jpg', 'rb') do |file|
       user_1.avatar = file
     end
-    user_1.save(validate: false)    
+    user_1.save(validate: false)
 
     # add categories
     puts 'add categories'
@@ -115,7 +115,7 @@ namespace :db do
     end
     posts.shuffle.each do |p|
       p.save
-      p.create_activity :create, owner: p.user
+      p.create_activity :create, owner: p.author
     end
   end
 end
