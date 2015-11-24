@@ -1,7 +1,7 @@
 section.homeOut {
 
   .hl-subtext {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
 
   .meetings-block {
@@ -207,5 +207,33 @@ section.homeOut {
     background-position: 30px 20px;
     background-repeat: no-repeat;
     height: 150px;
+  }
+}
+
+.banner-block {
+  overflow: hidden;
+  margin-bottom: 60px;
+  a {
+    display: block;
+    padding: 3px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid $color-ambient-grey-light;
+    margin-bottom: 20px;
+    @include respond-to(">=medium") {
+      margin-bottom: 0;
+      width: 48%;
+      float: left;
+    }
+    &:first-of-type {
+      @include respond-to(">=medium") {
+        margin-right: 4%;
+      }
+    }
+    img {
+      border-radius: 6px;
+      width: 100%;
+      display: block;
+    }
   }
 }
