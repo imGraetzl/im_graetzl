@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :post do
-    content { Faker::Lorem.paragraph }
+    title { Faker::Hipster.sentence(3) }
+    content { Faker::Hipster.paragraph }
     graetzl
-    user
+    association :author, factory: :user
   end
 end

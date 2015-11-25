@@ -55,6 +55,15 @@ context.instance_eval do
               column(''){|o| link_to 'Anfrage Anzeigen', admin_location_ownership_path(o) }
             end
           end
+          tab 'Posts' do
+            table_for location.posts do
+              column :id
+              column(:title){|p| truncate(p.title, length: 20)}
+              column :slug
+              column :created_at
+              column(''){|p| link_to 'Anzeigen', admin_post_path(p) }
+            end
+          end
           tab 'Treffen' do
             table_for location.meetings do
               column :id

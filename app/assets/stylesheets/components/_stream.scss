@@ -1,22 +1,8 @@
-.wrp-stream {
-  padding-top: 40px;
-  border-top: 1px dotted $color-ambient-mint-light;
-  h2 {
-    @include font-size-secondaryFont('large');
-    text-align: center;
-    margin-bottom: 50px;
-    span {
-      color: $color-ambient-rosa;
-    }
-  }
-}
-
-
 .streamEntryNav {
   display: flex;
   margin: 0 auto;
   width: 510px;
-  margin-bottom: -15px;
+  margin-bottom: 10px;
   > * {
     flex: 0 0 auto;
     text-decoration: none;
@@ -47,9 +33,10 @@
 
 
 .stream {
+  padding-top: 60px;
+  border-top: 1px solid $color-ambient-mint-light-lowsaturation;
   clear: both;
   margin-bottom: 100px;
-  padding-top: 30px;
   @include respond-to(">=large") {
     margin: 0 auto;
   }
@@ -72,13 +59,9 @@
     align-items: flex-start;
     display: flex;
   }
-  button {
-    @extend .btn-primary;
-    @extend .btn-primary.-rose;
-    width: 100%;
-  }
-  .img-round {
+  .img-round, .img-square {
     margin-right: 1rem;
+    margin-top: 5px;
     display: none;
     @include respond-to(">=medium") {
       flex: 0 0 auto;
@@ -87,16 +70,42 @@
   }
 }
 
-
-.hide-wrp {
-  height: 0;
+.hideBlock {
   overflow: hidden;
-  visibility: hidden;
-  opacity:0;
-  transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+
+  [class^=icon-] {
+    margin-right: 5px;
+  }
+  .upload-streamImgs {
+    color: $color-font-primary;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 15px;
+    @include respond-to(">=medium") {
+      margin-bottom: 0;
+      float: left;
+    }
+  }
+  button {
+    width: 100%;
+    @include respond-to(">=medium") {
+      width: auto;
+      float: right;
+    }
+  }
+
+}
+
+.hideBlock {
+   height: 0;
+   overflow: hidden;
+   visibility: hidden;
+   opacity:0;
+   transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 }
 .entryCreate.is-focused {
-  .hide-wrp {
+  .hideBlock {
     height: auto;
     visibility: visible;
     opacity: 1;
@@ -104,43 +113,34 @@
   }
 }
 
-.upload-streamImgs {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  color: $color-font-primary;
-  font-size: 14px;
-  [class^=icon-] {
-    margin-right: 8px;
-  }
-  input {
-    margin-left: 8px;
-  }
-}
 
 .textEditor {
   position: relative;
   width: 100%;
   @include respond-to(">=medium") {
     &:before {
-      @include triangleSingle($direction: "left", $color: $color-ambient-mint-light, $size: 10px);
+      @include triangleSingle($direction: "left", $color: $color-ambient-mint-light, $size: 8px);
       content: '';
-      left: -9px;
-      top: 15px;
+      left: -8px;
+      top: 22px;
       position: absolute;
     }
   }
 
-  textarea {
-    @include textarea-plain($bgColor: $color-ambient-mint-light);
+  textarea, input[type=text] {
     width: 100%;
-    color: $color-ambient-mint-dark;
-    height: 120px;
     display: block;
-    border: none;
-    padding: 0.8rem 1.4rem;
     border-radius: 5px;
   }
+  input[type=text] {
+    margin-bottom: 8px;
+  }
+  textarea {
+    min-height: 120px;
+    margin-bottom: 10px;
+    resize: vertical;
+  }
+
 }
 
 .streamElement {
@@ -151,13 +151,19 @@
 .entryInitialContent {
   margin-bottom: 24px;
   position: relative;
-  .txt {
-    margin-bottom: 1rem;
+  .headline, .txt {
     @include respond-to(">=medium") {
       margin-left: 60px;
       position: relative;
       z-index: 5;
     }
+  }
+  .headline {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .txt {
+    margin-bottom: 1rem;
   }
   .entryImgUploads {
     @include respond-to(">=medium") {
@@ -206,7 +212,7 @@
   .userPortraitName {
     display: flex;
     align-items: center;
-      img {
+    img {
       width: 40px;
       height: 40px;
       flex: none;
@@ -225,6 +231,7 @@
 .entryImgUploads {
   @include cf;
   margin-bottom: 2rem;
+  margin-top: 20px;
   img {
     float: left;
     display: block;
@@ -243,7 +250,14 @@
     padding-left: 60px;
   }
   textarea {
-    @include textarea-plain($borderColor: $color-ambient-grey-light);
+    background-color: #ffffff;
+    border: 1px solid $color-ambient-grey-light;
+    outline: none;
+    font-family: $font-primary;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    resize: none;
+    line-height: 1.4;
     width: 100%;
     display: block;
     color: $color-ambient-grey;
@@ -257,7 +271,7 @@
     display: flex;
     align-items: flex-start;
   }
-  .img-round {
+  .img-round, .img-square {
     width: 40px;
     height: 40px;
     flex: 0 0 auto;

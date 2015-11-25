@@ -1,0 +1,18 @@
+<% if @inline %>
+  <% if @comment %>
+    var $form = $('div#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %> .entryCommentForm')
+    $form.before("<%= j render 'comments/comment', comment: @comment, comment_inline: true %>")
+    $form.replaceWith("<%= j render 'comments/form_inline', commentable: @comment.commentable %>")
+  <% else %>
+    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+  <% end %>
+<% else %>
+  <% if @comment %>
+    $('div#stream-form').after("<%= j render 'comments/comment', comment: @comment %>");
+    $('div#stream-form').html("<%= j render 'comments/form', commentable: @comment.commentable %>")
+  <% else %>
+    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+  <% end %>
+<% end %>
+
+APP.components.stream.init()

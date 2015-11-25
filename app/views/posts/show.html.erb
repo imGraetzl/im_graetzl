@@ -8,9 +8,9 @@
 
 <section class="justEntry">
   <div class="userCreateInfo">
-    <%= avatar_for @post.user %>
+    <%= link_to avatar_for(@post.author), [@post.author.graetzl, @post.author] %>
     <span class="userAndType">
-    Beitrag von <a href="#"><%= @post.user.username %></a>
+    Beitrag von <%= link_to @post.author.username, [@post.author.graetzl, @post.author] %></a>
     <span> am <%= l(@post.created_at, format:'%A, %d. %B %Y') %></span>
   </span>
   </div>
@@ -19,16 +19,13 @@
     <div class="txt">
       <%= @post.content %>
     </div>
+    <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
+      <% @post.images.each do |image| %>
+        <%= link_to attachment_image_tag(image, :file, :fill, 200, 200), attachment_url(image, :file, :limit, 800, 800) %>
+      <% end %>
+    </div>
 
-    <% unless @post.images.empty? %>
-      <div class="postImgs">
-        <% @post.images.each do |image| %>
-          <%= attachment_image_tag(image, :file, :fill, 400, 200) %>
-        <% end %>
-      </div>
-    <% end %>
-
-    <%= button_to 'Beitrag löschen', post_path(@post),
+    <%= button_to 'Beitrag löschen', @post,
                   data: { confirm: 'Bist du dir sicher?' },
                   method: :delete,
                   class: 'btn-destroy' %>
@@ -38,8 +35,8 @@
 
 <div class="stream">
   <div id="stream-form">
-    <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @post } %>
+    <%= render 'comments/form', commentable: @post %>
   </div>
-  <%= render partial: 'comments/comment', collection: @comments, layout: 'layouts/stream/element' %>
+  <%= render @comments %>
 </div>
 <%= view_more_link @comments %>

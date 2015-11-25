@@ -24,17 +24,17 @@ section.zuckerlOverview {
 .zuckerlHeader {
   font-family: $font-secondary;
   text-align: center;
-  background-image: url(image_path('illu/illu-zuckerl-head.png'));
+  background-image: url(image_path('illu/zuckerl-header.jpg'));
   background-repeat: no-repeat;
-  background-size: 600px auto;
-  padding-top: 110px;
+  padding-top: 150px;
   padding-bottom: 120px;
   max-height: none;
   @include respond-to(">=medium") {
+    padding-top: 110px;
     background-size: 100% auto;
   }
   @include respond-to(">=large") {
-    padding-top: 142px;
+    padding-top: 125px;
     padding-bottom: 140px;
   }
   h1, h2 {
@@ -89,10 +89,15 @@ section.zuckerlOverview {
 
   .singleZuckerl {
     position: relative;
+
+    .address {
+      color: $color-ambient-grey;
+    }
     a[href*=http] {
       @include ellipsis;
       width: 100%;
       display: block;
+      @include ellipsis;
     }
     a {
       color: $color-ambient-mint-dark;
@@ -168,5 +173,8 @@ section.zuckerlOverview {
       @include ellipsis;
       font-size: 20px;
     }
+  }
+  &.-noimg {
+    background-image: none;
   }
 }

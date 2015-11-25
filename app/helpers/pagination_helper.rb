@@ -5,6 +5,6 @@ module PaginationHelper
       remote: true,
       data: { disable_with: 'lädt...' },
       params: params,
-      class: 'btn-primary view-more'
+      class: 'link-load'
   end
 end

@@ -1,5 +1,6 @@
-<% if @scope.to_sym == :wall_comments %>
-  // for future usage..
+<% if @scope.to_sym == :posts %>
+  $('div.stream').append("<%= j render partial: 'locations/posts/post', collection: @posts %>");
+  $('a.link-load').replaceWith("<%= j view_more_link @posts, params: { scope: @scope } %>")
 <% else %>
   $('div#meetings-<%= @scope %>').append("<%= j(render @meetings) %>");
   $('div#paginate-<%= @scope %>').html("<%= j view_more_link(@meetings, params: { scope: @scope.to_sym }) %>")

@@ -54,5 +54,6 @@ ActiveAdmin.register Meeting do
     going_tos_attributes: [
       :id,
       :user_id,
+      :role,
       :_destroy]
 end

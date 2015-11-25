@@ -20,7 +20,7 @@ RSpec.describe Meetings::CommentsController, type: :controller do
     context 'when logged in' do
       before { sign_in user }
 
-      context 'without inline param' do
+      context 'with inline false' do
         include_examples :stream_comment do
           let(:resource) { meeting }
         end

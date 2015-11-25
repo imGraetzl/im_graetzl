@@ -44,12 +44,13 @@ context.instance_eval do
               column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
             end
           end
-          tab 'Beiträge' do
+          tab 'Posts' do
             table_for graetzl.posts do
               column :id
+              column(:title){|p| truncate(p.title, length: 20)}
               column(:content){|p| truncate(p.content, length: 20)}
+              column :author
               column :slug
-              column :user
               column :created_at
               column(''){|p| link_to 'Anzeigen', admin_post_path(p) }
             end

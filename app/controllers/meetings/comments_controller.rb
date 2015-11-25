@@ -3,7 +3,7 @@ class Meetings::CommentsController < CommentsController
 
   private
 
-    def set_commentable
-      @commentable = Meeting.find(params[:meeting_id])
-    end
+  def set_commentable
+    @commentable = Meeting.find(params[:meeting_id])
+  end
 end

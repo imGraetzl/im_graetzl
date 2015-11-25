@@ -1,9 +1,7 @@
 <div class="stream">
-
   <div id="stream-form">
-    <%= render partial: 'comments/form', layout: 'layouts/stream/form', locals: { commentable: @meeting } %>
+    <%= render 'comments/form', commentable: @meeting %>
   </div>
-  <%= render partial: 'comments/comment', layout: 'layouts/stream/element', collection: @comments %>
-
+  <%= render @comments %>
 </div>
 <%= view_more_link @comments %>

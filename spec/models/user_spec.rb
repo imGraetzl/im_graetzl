@@ -2,8 +2,13 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  it 'has a valid factory' do
+  it 'has a valid factory for normal users' do
     expect(build_stubbed(:user)).to be_valid
+  end
+
+  it 'has a valid factory for admins' do
+    expect(build_stubbed(:admin)).to be_valid
+    expect(build_stubbed(:admin).admin?).to be_truthy
   end
 
   describe 'validations' do
@@ -237,7 +242,7 @@ RSpec.describe User, type: :model do
       end
 
       describe 'posts' do
-        before { 3.times{create(:post, user: user)} }
+        before { 3.times{create(:post, author: user)} }
 
         it 'has posts' do
           expect(user.posts).not_to be_empty

@@ -21,6 +21,8 @@
 //= require leaflet
 //= require leaflet-providers
 //= require leaflet.activearea
+//= require featherlight
+//= require featherlight.gallery
 //= require enquire
 //= require jquery.sumoselect
 //= require jquery.jeditable

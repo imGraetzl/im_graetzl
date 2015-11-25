@@ -1,13 +1,29 @@
-<div class="streamElement">
+<%= div_for(activity.trackable, class: 'streamElement') do %>
   <div class="entryInitialContent">
-    <%= render 'public_activity/info', user: activity.trackable.user, entity: activity.trackable %>
-
-    <%= render activity.trackable %>
+    <% if (current_user && activity.trackable.edit_permission?(current_user)) %>
+      <div class="editControls">
+        <%= link_to activity.trackable, { method: :delete, remote: true, data: { confirm: 'Beitrag wirklich löschen?', disable_with: 'lädt...' } } do %>
+          <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="userCreateInfo">
+      <%= link_to avatar_for(activity.trackable.author), [activity.trackable.author.graetzl, activity.trackable.author] %>
+      <span class="userAndType">Beitrag von <%= link_to activity.trackable.author.username, [activity.trackable.author.graetzl, activity.trackable.author] %> <span>vor <%= time_ago_in_words(activity.trackable.created_at) %></span></span>
+    </div>
+    <%= link_to [activity.trackable.graetzl, activity.trackable], class: 'linkToPost' do %>
+      <div class="txt"><%= activity.trackable.content %></div>
+    <% end %>
+    <% unless activity.trackable.images.empty? %>
+      <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
+        <% activity.trackable.images.each do |image| %>
+          <%= link_to attachment_image_tag(image, :file, :fill, 400, 400), attachment_url(image, :file, :limit, 800, 800) %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-
-  <% unless activity.trackable.comments.empty? %>    
+  <% unless activity.trackable.comments.empty? %>
     <%= render 'comments/comment', comment: activity.trackable.comments.first, comment_inline: true %>
   <% end %>
-
   <%= render 'comments/form_inline', commentable: activity.trackable %>
-</div>
+<% end %>

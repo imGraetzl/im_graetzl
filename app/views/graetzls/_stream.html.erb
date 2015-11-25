@@ -1,14 +1,13 @@
-<div class="wrp-stream">
-  <h2>Neues im <span><%= @graetzl.name %></span> Stream</h2>
+<div class="stream">
+
+  <h3>Neues im <span><%= @graetzl.name %></span> Stream</h3>
   <div class="streamEntryNav">
     <span class="createEntry icontxt"><svg class="icon-speech-bubble"><use xlink:href="#icon-speech-bubble"></use></svg>Beitrag</span>
     <%= link_to 'Treffen anlegen', new_graetzl_meeting_path(@graetzl), class: 'createMeeting' %>
   </div>
-</div>
 
-<div class="stream">
   <div id="stream-form">
-    <%= render partial: 'posts/form', layout: 'layouts/stream/form' %>
+    <%= render 'posts/form', author: current_user %>
   </div>
   <%= render_activities @activities %>
 </div>
