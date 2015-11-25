@@ -47,7 +47,6 @@ group :development do
   gem 'bullet'
 end
 
-# use rspec and factory for tests
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'

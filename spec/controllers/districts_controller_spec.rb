@@ -119,6 +119,7 @@ RSpec.describe DistrictsController, type: :controller do
     end
 
     it 'responds with id and name of graetzl' do
+      #TODO: refactor this to not use first and last
       graetzls = JSON.parse(response.body)
       expect(graetzls.first.size).to eq 2
       expect(graetzls.last.size).to eq 2
