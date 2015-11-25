@@ -2,6 +2,8 @@ require 'rails_helper'
 include GeojsonSupport
 
 RSpec.describe LocationsController, type: :controller do
+  render_views false
+  
   let(:graetzl) { create(:graetzl) }
   before(:each) do
     request.env['HTTP_REFERER'] = 'where_i_came_from'

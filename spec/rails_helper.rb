@@ -49,6 +49,9 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
 
+  # render views by default
+  config.render_views
+
   # configure database_cleaner (thoughtbot tutorial)
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

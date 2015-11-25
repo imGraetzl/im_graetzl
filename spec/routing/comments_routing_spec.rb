@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CommentsController, type: :routing do
-  
+
   describe 'routes' do
 
     it 'routes POST /treffen/meeting-slug/comments to meetings/comments#create' do
@@ -25,11 +25,8 @@ RSpec.describe CommentsController, type: :routing do
         user_id: 'user-slug')
     end
 
-    it 'routes PUT /comments/:id to comments#update' do
-      expect(put: '/comments/id').to route_to(
-        controller: 'comments',
-        action: 'update',
-        id: 'id')
+    it 'does not routes PUT /comments/:id to comments#update' do
+      expect(put: '/comments/id').not_to be_routable
     end
 
     it 'routes DELETE /comments/:id to comments#destroy' do
@@ -61,13 +58,6 @@ RSpec.describe CommentsController, type: :routing do
           controller: 'users/comments',
           action: 'create',
           user_id: 'user-slug')
-    end
-
-    it 'routes PUT comment to comments#update' do
-      expect(put: comment_path('id')).to route_to(
-        controller: 'comments',
-        action: 'update',
-        id: 'id')
     end
 
     it 'routes DELETE /comments/:id to comments#destroy' do

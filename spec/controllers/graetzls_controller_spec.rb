@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GraetzlsController, type: :controller do
+  render_views false
   let(:user) { create(:user) }
   let(:graetzl) { create(:graetzl) }
 

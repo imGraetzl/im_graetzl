@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe NotificationsController, type: :controller do
+  render_views false
+  
   let(:user) do
     all_on = Notification::TYPES.keys.inject(0) { |sum, k| Notification::TYPES[k][:bitmask] | sum }
     create(:user, enabled_website_notifications: all_on)
@@ -18,7 +20,7 @@ RSpec.describe NotificationsController, type: :controller do
       before do
         stub_const("NotificationsController::NOTIFICATIONS_PER_PAGE", 3)
         (NotificationsController::NOTIFICATIONS_PER_PAGE + 3).times do
-          create(:notification, user: user, display_on_website: true) 
+          create(:notification, user: user, display_on_website: true)
         end
 
         sign_in user

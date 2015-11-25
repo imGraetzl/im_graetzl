@@ -95,7 +95,7 @@ Rails.application.routes.draw do
     resources :comments, module: :meetings, only: [:create]
   end
 
-  resources :comments, only: [:update, :destroy]
+  resources :comments, only: [:destroy]
 
   resources :posts, only: [:destroy] do
     resources :comments, module: :posts, only: [:create]
