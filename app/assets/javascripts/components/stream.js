@@ -12,25 +12,22 @@ APP.components.stream = (function() {
 
     function initEntryCreateForm() {
 
-        var $parent = $('.entryCreate:not(.js-initialized)'),
-            numchars = 0;
+        var $parent = $('.entryCreate:not(.js-initialized)');
 
         if($parent.find('.postTitle').exists()) {
-            $parent
-                .addClass('js-initialized')
-                .find('.postTitle')
-                .on("keyup keypress", checkinput)
-                .end()
-                .find('textarea')
-                .autogrow();
+        //$parent.find('.postMessage').autogrow();
+            $parent.addClass('js-initialized')
+                .find('.postTitle, .postMessage')
+                .on("focusin", function() {
+                    $parent.addClass("is-focused");
+                })
+                .on("focusout", function() {
+                    if(!$('.postTitle').val().length && !$('.postMessage').val().length ) {
+                        $parent.removeClass("is-focused");
+                    }
+                });
         } else {
             initSingleTextarea($parent);
-        }
-
-        function checkinput(e) {
-            var code = e.keyCode || e.which;
-            (code == 13) && e.preventDefault(); //disable <Enter> key to prevent sending of form
-            ($(this).val().length > numchars) ? $parent.addClass("is-focused") : $parent.removeClass("is-focused");
         }
 
     }
@@ -48,14 +45,16 @@ APP.components.stream = (function() {
         }).addClass('js-initialized');
     }
 
-    function initSingleTextarea($parent, numchars) {
-        numchars = numchars || 0;
+    function initSingleTextarea($parent) {
         $parent
             .addClass('js-initialized')
             .find('textarea')
             .autogrow()
-            .on("keyup", function(){
-                ($(this).val().length > numchars) ? $parent.addClass("is-focused") : $parent.removeClass("is-focused");
+            .on("focusin", function(){
+                $parent.addClass("is-focused");
+            })
+            .on("focusout", function() {
+                (!$(this).val().length) && $parent.removeClass("is-focused");
             });
     }
 

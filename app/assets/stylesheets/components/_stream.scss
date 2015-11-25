@@ -136,8 +136,9 @@
     margin-bottom: 8px;
   }
   textarea {
-    height: 120px;
+    min-height: 120px;
     margin-bottom: 10px;
+    resize: vertical;
   }
 
 }
