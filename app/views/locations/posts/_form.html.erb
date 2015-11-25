@@ -3,7 +3,7 @@
   <%= form_for([author, author.graetzl.posts.new], html: { class: 'textEditor' }, remote: true) do |f| %>
       <%= f.hidden_field :graetzl_id %>
       <%= f.text_field :title, placeholder: 'Neuigkeit (Titel)', class: 'input-plain postTitle' %>
-      <%= f.text_area :content, placeholder: 'Beitrag verfassen', class: 'input-plain postMessage' %>
+      <%= f.text_area :content, placeholder: 'Beschreibung', class: 'input-plain postMessage' %>
       <div class="hideBlock">
         <div class="upload-streamImgs">
           <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
