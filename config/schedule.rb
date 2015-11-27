@@ -19,6 +19,10 @@
 
 set :output, 'log/cron.log'
 
+every 1.day, at: '1:00 am' do
+  command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake db:truncate"
+end
+
 every 1.day, at: '3:00 am' do
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake sitemap:refresh:no_ping"
 end
