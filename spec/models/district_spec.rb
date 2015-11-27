@@ -89,8 +89,8 @@ RSpec.describe District, type: :model do
 
     subject(:locations) { district.locations }
 
-    it 'returns locations from graetzls' do
-      expect(locations).to include(location_1, location_2, location_3)
+    it 'returns locations from graetzls ordered by :created_at' do
+      expect(locations).to eq [location_1, location_2, location_3]
     end
 
     it 'excludes locations from other graetzls' do
