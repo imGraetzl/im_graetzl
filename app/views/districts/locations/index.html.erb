@@ -8,15 +8,13 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@locations)) %>
 
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
-
   <h1 class="hl-main">Treffpunkte & Anbieter, Lokale & Geschäfte <span>im <%= @district.numeric %>. Bezirk</span></h1>
   <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd">
     <%= render 'action_card', district: @district %>
     <%= render partial: 'locations/location', collection: @locations %>
   </div>
-  <%= paginate @locations, remote: true %>
+  <%= view_more_link @locations, style: ' -big' %>
 </section>
