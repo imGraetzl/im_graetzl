@@ -52,8 +52,11 @@ group :development, :test do
   gem 'factory_girl_rails'
 end
 
-group :test do
+group :development, :test, :staging do
   gem 'faker'
+end
+
+group :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
