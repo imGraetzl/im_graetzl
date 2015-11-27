@@ -47,12 +47,11 @@
     <% end %>
   </div>
 
-  <div class="sideBarbox openinghours">
-    <h4 class="sideflag -L">Öffnungszeiten</h4>
-    <div class="txt">
-      MO-DO | 10:00-17:00
-      FR | 10:00-13:00
-      SA, SO | geschlossen</div>
-  </div>
+  <% if @location.contact.hours.present? %>
+    <div class="sideBarbox openinghours">
+      <h4 class="sideflag -L">Öffnungszeiten</h4>
+      <div class="txt"><%= @location.contact.hours %></div>
+    </div>
+  <% end %>
 
 </aside>

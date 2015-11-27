@@ -5,7 +5,7 @@
     <div class="input-field">
       <%= contact_fields.label :website do %>
           <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
-          <span>Website</span>
+          <span><%= Contact.human_attribute_name(:website) %></span>
       <% end %>
       <%= contact_fields.url_field :website, placeholder: 'http://www.' %>
     </div>
@@ -13,7 +13,7 @@
     <div class="input-field">
       <%= contact_fields.label :email do %>
           <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-          <span>Email</span>
+          <span><%= Contact.human_attribute_name(:email) %></span>
       <% end %>
       <%= contact_fields.email_field :email, placeholder: 'E-Mail' %>
     </div>
@@ -21,20 +21,17 @@
     <div class="input-field">
       <%= contact_fields.label :phone do %>
           <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
-          <span>Telefon</span>
+          <span><%= Contact.human_attribute_name(:phone) %></span>
       <% end %>
       <%= contact_fields.telephone_field :phone, placeholder: '+43 xxx xxxxxxx' %>
     </div>
 
     <div class="input-textarea">
-      <label for="opening_hours">
+      <%= contact_fields.label :hours do %>
         <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
-        <span>Öffnungszeiten</span>
-      </label>
-      <textarea placeholder="Wann bist du vor Ort anzutreffen" id="opening_hours"></textarea>
+        <span><%= Contact.human_attribute_name(:hours) %></span>
+      <% end %>
+      <%= contact_fields.text_field :hours, placeholder: 'Wann bist du vor Ort anzutreffen' %>
     </div>
-
-
-
   </div>
 <% end %>

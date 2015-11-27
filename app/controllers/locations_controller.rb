@@ -101,7 +101,8 @@ class LocationsController < ApplicationController
           :id,
           :website,
           :email,
-          :phone],
+          :phone,
+          :hours],
         address_attributes: [
           :id,
           :street_name,
