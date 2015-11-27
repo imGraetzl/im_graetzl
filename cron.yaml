@@ -6,6 +6,3 @@ cron:
  - name: "truncate_db"          # required - unique across all entries in this file
    url: "/worker/truncate_db"   # required - does not need to be unique
    schedule: "0 1 * * *"    # required - does not need to be unique
- - name: "truncate_eb"          # required - unique across all entries in this file
-   url: "/worker/truncate_eb"   # required - does not need to be unique
-   schedule: "0 2 * * *"    # required - does not need to be unique
