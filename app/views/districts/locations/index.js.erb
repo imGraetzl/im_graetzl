@@ -1,2 +1,2 @@
 $('#locations').append("<%= j(render partial: 'locations/location', collection: @locations) %>")
-$('a.link-load').replaceWith("<%= j view_more_link(@locations, style: ' -big') %>")
+$('a.link-load').replaceWith("<%= j view_more_link(@locations, style: :big) %>")
