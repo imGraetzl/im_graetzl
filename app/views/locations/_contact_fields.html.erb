@@ -31,7 +31,7 @@
         <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
         <span><%= Contact.human_attribute_name(:hours) %></span>
       <% end %>
-      <%= contact_fields.text_field :hours, placeholder: 'Wann bist du vor Ort anzutreffen' %>
+      <%= contact_fields.text_area :hours, placeholder: 'Wann bist du vor Ort anzutreffen' %>
     </div>
   </div>
 <% end %>
