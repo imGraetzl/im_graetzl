@@ -1,5 +1,6 @@
 class DistrictsController < ApplicationController
   before_action :set_district, except: [:index]
+  
   def index
     @districts = District.all() unless request.xhr?
     @meetings = Meeting.basic.upcoming.includes([:graetzl]).page(params[:page]).per(15)
