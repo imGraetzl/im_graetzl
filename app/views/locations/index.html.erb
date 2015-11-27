@@ -8,7 +8,6 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@locations)) %>
 
 <section class="locations-overview">
   <%= render 'graetzls/map', map_data: @map_data %>
@@ -17,5 +16,5 @@
     <%= render 'locations/action_card', graetzl: @graetzl %>
     <%= render @locations %>
   </div>
-  <%= paginate @locations, remote: true %>
+  <%= view_more_link(@locations, style: ' -big') %>
 </section>
