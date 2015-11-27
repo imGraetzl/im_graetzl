@@ -18,7 +18,7 @@ class District < ActiveRecord::Base
   end
 
   def locations
-    Location.where(graetzl: graetzls)
+    Location.where(graetzl: graetzls).order(:created_at)
   end
 
   def meetings
