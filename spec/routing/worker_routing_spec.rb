@@ -15,16 +15,16 @@ RSpec.describe WorkerController, type: :routing do
       expect(post: '/worker/backup').to route_to('worker#backup')
     end
 
-    it 'routes /worker/truncate_db to #truncate_db' do
-      expect(post: '/worker/truncate_db').to route_to('worker#truncate_db')
-    end
-
-    it 'routes /worker/truncate_eb to #truncate_eb' do
-      expect(post: '/worker/truncate_eb').to route_to('worker#truncate_eb')
-    end
-
-    it 'routes /worker/sitemap to #sitemap' do
-      expect(post: '/worker/sitemap').to route_to('worker#sitemap')
-    end
+    # it 'routes /worker/truncate_db to #truncate_db' do
+    #   expect(post: '/worker/truncate_db').to route_to('worker#truncate_db')
+    # end
+    #
+    # it 'routes /worker/truncate_eb to #truncate_eb' do
+    #   expect(post: '/worker/truncate_eb').to route_to('worker#truncate_eb')
+    # end
+    #
+    # it 'routes /worker/sitemap to #sitemap' do
+    #   expect(post: '/worker/sitemap').to route_to('worker#sitemap')
+    # end
   end
 end
