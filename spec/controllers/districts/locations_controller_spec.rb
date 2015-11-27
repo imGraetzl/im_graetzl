@@ -2,10 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Districts::LocationsController, type: :controller do
 
+  # stub GeoJSONService calls
+  before { allow_any_instance_of(GeoJSONService).to receive(:map_data).and_return({}.to_json) }
+
   describe 'GET index' do
     let(:district) { create(:district) }
     let(:graetzl) { create(:graetzl) }
-    let!(:pending_location) { create(:location, graetzl: graetzl, state: Location.states[:pending]) }
+    before { allow_any_instance_of(District).to receive(:graetzls).and_return([graetzl]) }
 
     context 'when html request' do
       before { get :index, district_id: district }
@@ -26,13 +29,8 @@ RSpec.describe Districts::LocationsController, type: :controller do
         expect(assigns(:locations)).to be
       end
 
-      it 'returns only approved locations' do
-        expect(district.graetzls).to include graetzl
-        expect(assigns(:locations)).not_to include pending_location
-      end
-
       it 'renders /districts/locations/index.html' do
-        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response.content_type).to eq 'text/html'
         expect(response).to render_template('districts/locations/index')
       end
     end
@@ -52,16 +50,10 @@ RSpec.describe Districts::LocationsController, type: :controller do
         expect(assigns(:locations)).to be
       end
 
-      it 'returns only approved locations' do
-        expect(district.graetzls).to include graetzl
-        expect(assigns(:locations)).not_to include pending_location
-      end
-
       it 'renders /districts/locations/index' do
         expect(response.header['Content-Type']).to include('text/javascript')
         expect(response).to render_template('districts/locations/index')
       end
-
     end
   end
 end
