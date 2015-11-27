@@ -110,7 +110,8 @@ ActiveAdmin.register Location do
       :id,
       :website,
       :email,
-      :phone],
+      :phone,
+      :hours],
     address_attributes: [
       :id,
       :_destroy,

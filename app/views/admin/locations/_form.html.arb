@@ -22,6 +22,7 @@ active_admin_form_for [:admin, resource] do |f|
         c.input :website, as: :url
         c.input :email, as: :email
         c.input :phone
+        c.input :hours
       end
       if f.object.address
         inputs 'Address', for: [:address, (f.object.address)] do |a|
