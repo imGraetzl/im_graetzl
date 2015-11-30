@@ -1,0 +1,54 @@
+<div class="personalNav">
+  <% if user.graetzl.open? %>
+    <%= link_to new_meeting_path, class: 'createMeeting' do %>
+      <span>Treffen anlegen</span>
+    <% end %>
+  <% end %>
+
+  <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications">
+    <div class="iconWithBadge">
+      <%- notifications_count = user.new_website_notifications_count %>
+      <div <%- if notifications_count == 0 %> style="display: none;" <%- end %> class="badgeNumber" id="notificationsCount"><%= notifications_count %></div>
+      <svg class="icon-bell"><use xlink:href="#icon-bell"></use></svg>
+    </div>
+  </div>
+
+  <div class="usersettingsTrigger dropdownTrigger" data-horizontal-offset="2" data-mobileNavID="usersettings">
+    <%= avatar_for user %>
+    <span class="username txt"><%= user.username %></span>
+    <div class="wrp">
+      <svg class="icon-gear"><use xlink:href="#icon-gear"></use></svg>
+    </div>
+  </div>
+
+  <!-- dropDowns -->
+  <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
+    <div class="jq-dropdown-panel nav-notifications">
+      <ul class="notifications">
+        <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="usersettingsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative dropDownContainer">
+    <div class="jq-dropdown-panel nav-usersettings">
+      <%= link_to user_path(user) do %>
+        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>Profil
+      <% end %>
+      <%= link_to locations_user_path do %>
+        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Locations
+      <% end %>
+      <%= link_to edit_user_path do %>
+        <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Einstellungen
+      <% end %>
+      <% if user.admin? %>
+        <%= link_to admin_root_path do %>
+          <svg class="icon-magic-wand"><use xlink:href="#icon-magic-wand"></use></svg>Admin
+        <% end %>
+      <% end %>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <svg class="icon-power"><use xlink:href="#icon-power"></use></svg>Abmelden
+      <% end %>
+    </div>
+  </div>
+</div>

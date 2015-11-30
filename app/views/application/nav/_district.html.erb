@@ -1,0 +1,34 @@
+<div class="mainNav">
+  <%= link_to 'Home', root_path, class: 'homelink' %>
+  <div class="graetzlTrigger dropdownTrigger" data-horizontal-offset="0" data-mobileNavID="graetzl">
+    <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
+    <span class="txt"><%= target.name %></span>
+  </div>
+  <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank">Blog</a>
+
+  <!-- dropDown -->
+  <div class="graetzlContainer jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-left dropDownContainer">
+    <div class="jq-dropdown-panel nav-graetzl">
+      <%= link_to district_path(target) do %>
+        <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= target.name %>
+      <% end %>
+      <%= link_to district_meetings_path(target) do %>
+        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events im <%= target.numeric %>. Bezirk
+      <% end %>
+      <%= link_to district_locations_path(target) do %>
+        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Treffpunkte & Anbieter im <%= target.numeric %>. Bezirk
+      <% end %>
+      <%= link_to zuckerl_districts_path do %>
+        <svg class="icon-zuckerl"><use xlink:href="#icon-zuckerl"></use></svg><%= l(Date.today, format: 'Grätzlzuckerl im %B') %>
+      <% end %>
+      <%= link_to  districts_path, class: 'discover' do %>
+        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="logoGraetzl">
+  <%= link_to(image_tag('svg/logo.svg'), root_path, class: 'logo_main') %>
+  <%= link_to(image_tag('svg/logo_reduced.svg'), root_path, class: 'logo_reduced') %>
+</div>
