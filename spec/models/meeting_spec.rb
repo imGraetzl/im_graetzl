@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Meeting, type: :model do
-  
+
   it 'has a valid factory' do
     expect(build_stubbed(:meeting)).to be_valid
   end
@@ -60,14 +60,14 @@ RSpec.describe Meeting, type: :model do
 
     it 'has graetzl' do
       expect(meeting).to respond_to(:graetzl)
-    end    
+    end
 
     it 'has location' do
       expect(meeting).to respond_to(:location)
     end
 
     it 'has address' do
-      expect(meeting).to respond_to(:address)      
+      expect(meeting).to respond_to(:address)
     end
 
     it 'has going_tos' do
@@ -75,15 +75,15 @@ RSpec.describe Meeting, type: :model do
     end
 
     it 'has users' do
-      expect(meeting).to respond_to(:users)      
+      expect(meeting).to respond_to(:users)
     end
 
     it 'has comments' do
-      expect(meeting).to respond_to(:comments)      
+      expect(meeting).to respond_to(:comments)
     end
 
     it 'has categories' do
-      expect(meeting).to respond_to(:categories)      
+      expect(meeting).to respond_to(:categories)
     end
 
     describe 'destroy associated records' do
@@ -154,13 +154,6 @@ RSpec.describe Meeting, type: :model do
         expect(meetings).not_to include(m_yesterday)
       end
 
-      # it 'ignores :created_at order' do
-      #   m_today.update(created_at: Date.yesterday-1)
-      #   m_after_tomorrow.update(created_at: Date.yesterday)
-
-      #   expect(meetings.to_a).to eq [m_today, m_tomorrow, m_after_tomorrow, m_nil]
-      # end
-
       it 'includes cancelled meetings' do
         m_today.cancelled!
         expect(meetings).to include(m_today)
@@ -181,11 +174,11 @@ RSpec.describe Meeting, type: :model do
       end
 
       it 'excludes upcoming' do
-        expect(meetings).not_to include(m_today, m_tomorrow, m_after_tomorrow)        
+        expect(meetings).not_to include(m_today, m_tomorrow, m_after_tomorrow)
       end
 
       it 'excludes nil' do
-        expect(meetings).not_to include(m_nil)        
+        expect(meetings).not_to include(m_nil)
       end
 
       it 'ignores :created_at order' do
@@ -279,7 +272,7 @@ RSpec.describe Meeting, type: :model do
 
     context 'with starts_at_date in future' do
       before { meeting.starts_at_date = Date.tomorrow }
-      
+
       it 'has starts_at_date' do
         expect(meeting.starts_at_date).to be_truthy
       end
@@ -291,7 +284,7 @@ RSpec.describe Meeting, type: :model do
 
     context 'with starts_at_date in past' do
       before { meeting.starts_at_date = Date.yesterday }
-      
+
       it 'has starts_at_date' do
         expect(meeting.starts_at_date).to be_truthy
       end
@@ -301,7 +294,7 @@ RSpec.describe Meeting, type: :model do
       end
     end
   end
-  
+
 
   describe '#past?' do
     let(:meeting) { build_stubbed(:meeting) }
@@ -319,7 +312,7 @@ RSpec.describe Meeting, type: :model do
 
     context 'with starts_at_date in future' do
       before { meeting.starts_at_date = Date.tomorrow }
-      
+
       it 'has starts_at_date' do
         expect(meeting.starts_at_date).to be_truthy
       end
@@ -331,7 +324,7 @@ RSpec.describe Meeting, type: :model do
 
     context 'with starts_at_date in past' do
       before { meeting.starts_at_date = Date.yesterday }
-      
+
       it 'has starts_at_date' do
         expect(meeting.starts_at_date).to be_truthy
       end
