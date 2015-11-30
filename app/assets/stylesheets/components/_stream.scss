@@ -461,7 +461,8 @@
   }
 }
 
-.stream + .view-more {
+.stream + .link-load {
+  @extend .btn-secondary;
   @include respond-to(">=large") {
     width: 590px;
     margin-left: 200px;

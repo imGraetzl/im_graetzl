@@ -9,15 +9,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  def update
-    @comment = Comment.find(params[:id])
-    if @comment.update(content: params[:content])
-      render text: @comment.content
-    else
-      render text: 'Es gab ein Problem...'
-    end
-  end
-
   def destroy
     @comment = Comment.find(params[:id])
     @element_id = "comment_#{@comment.id}"

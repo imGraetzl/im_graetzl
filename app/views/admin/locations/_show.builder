@@ -28,6 +28,7 @@ context.instance_eval do
           row :website
           row :email
           row :phone
+          row :hours
         end
       end
       if location.address

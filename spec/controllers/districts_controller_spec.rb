@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DistrictsController, type: :controller do
+  render_views
 
   describe 'GET index' do
     context 'when html request' do
@@ -19,28 +20,8 @@ RSpec.describe DistrictsController, type: :controller do
         expect(assigns(:map_data)).to be_truthy
       end
 
-      describe 'assigns @meetings' do
-        it 'is present' do
-          expect(assigns(:meetings)).to be_truthy
-        end
-
-        context 'with meetings' do
-          let!(:meeting) { create(:meeting) }
-          let(:past) { build(:meeting, starts_at_date: Date.yesterday) }
-
-          before do
-            past.save(validate: false)
-            get :index
-          end
-
-          it 'contains upcoming/unset meetings' do
-            expect(assigns(:meetings)).to include(meeting)
-          end
-
-          it 'excludes past meetings' do
-            expect(assigns(:meetings)).not_to include(past)
-          end
-        end
+      it 'assigns @meetings' do
+        expect(assigns(:meetings)).to be_truthy
       end
     end
 
@@ -76,16 +57,12 @@ RSpec.describe DistrictsController, type: :controller do
 
     before { get :show, id: district }
 
-    it 'returns a 200 OK status' do
-      expect(response).to be_success
-    end
-
-    it 'renders #show' do
-      expect(response).to render_template(:show)
-    end
-
     it 'assigns @district' do
       expect(assigns(:district)).to eq district
+    end
+
+    it 'assigns @map_data' do
+      expect(assigns(:map_data)).to be
     end
 
     it 'assigns @meetings' do
@@ -94,6 +71,10 @@ RSpec.describe DistrictsController, type: :controller do
 
     it 'assigns @locations' do
       expect(assigns(:locations)).to be
+    end
+
+    it 'renders #show' do
+      expect(response).to render_template(:show)
     end
   end
 
@@ -105,27 +86,20 @@ RSpec.describe DistrictsController, type: :controller do
     let!(:graetzl_2) { create(:graetzl,
       area: 'POLYGON ((5.0 5.0, 5.0 6.0, 6.0 6.0, 6.0 5.0, 5.0 5.0))') }
 
-    before do
-      get :graetzls, id: district.id, format: :json
+    before { get :graetzls, id: district, format: :json }
+
+    it 'assigns @district' do
+      expect(assigns(:district)).to eq district
     end
 
     it 'responds with json' do
       expect(response.content_type).to eq('application/json')
     end
 
-    it 'responds with 2 graetzls' do
+    it 'returns id and name of each graetzl' do
       graetzls = JSON.parse(response.body)
-      expect(graetzls.count).to eq 2
-    end
-
-    it 'responds with id and name of graetzl' do
-      graetzls = JSON.parse(response.body)
-      expect(graetzls.first.size).to eq 2
-      expect(graetzls.last.size).to eq 2
-      expect(graetzls.first['id']).to eq graetzl_1.id
-      expect(graetzls.last['id']).to eq graetzl_2.id
-      expect(graetzls.first['name']).to eq graetzl_1.name
-      expect(graetzls.last['name']).to eq graetzl_2.name
+      expect(graetzls).to include({'id' => graetzl_1.id, 'name' => graetzl_1.name},
+                                  {'id' => graetzl_2.id, 'name' => graetzl_2.name})
     end
   end
 end

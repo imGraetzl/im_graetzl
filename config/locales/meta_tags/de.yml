@@ -49,5 +49,5 @@ de:
       title: '%{content}'
   zuckerls:
     index:
-      title: 'Das Grätzlzuckerl - Entdecke einzigartiges im %{numeric}. Bezirk'
+      title: 'Das Grätzlzuckerl - Entdecke Einzigartiges im %{numeric}. Bezirk'
       description: 'Das Grätzlzuckerl %{district} erscheint einmal im Monat und enthält besondere Angebote von Kreativen, Selbständigen und kleinen Unternehmen im Viertel.'

@@ -27,3 +27,16 @@
     color: $color-ambient-rosa;
   }
 }
+
+.link-load {
+  display: table;
+  margin: 0 auto;
+  &.-big {
+    @extend .btn-secondary;
+    @include respond-to(">=large") {
+      width: 590px;
+      margin-left: 200px;
+      margin-top: 20px;
+    }
+  }
+}

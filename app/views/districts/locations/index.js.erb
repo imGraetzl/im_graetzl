@@ -1,9 +1,2 @@
-$('#locations').html("<%= j(render 'action_card', district: @district) %>" +
-                    "<%= j(render partial: 'locations/location', collection: @locations) %>");
-$('nav.pagination').replaceWith('<%= j(paginate @locations, remote: true) %>');
-APP.components.cardBox.moveActionCard3rd();
-
-// scroll to headline above box container
-$('html,body').animate({
-  scrollTop: $('#locations').prev().offset().top
-}, 500);
+$('#locations').append("<%= j(render partial: 'locations/location', collection: @locations) %>")
+$('a.link-load').replaceWith("<%= j view_more_link(@locations, style: :big) %>")

@@ -20,8 +20,8 @@ namespace :eb do
         end
       end
 
-      # keep last 5 versions
-      versions_to_remove = versions_to_remove.drop(5)
+      # keep last 10 versions
+      versions_to_remove = versions_to_remove.drop(10)
 
       # remove versions
       versions_to_remove.each do |v|

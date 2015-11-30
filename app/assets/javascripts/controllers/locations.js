@@ -14,7 +14,7 @@ APP.controllers.locations = (function() {
     }
 
     function initLocationForm() {
-        $("#location_description").autogrow({
+        $("#location_description, #location_contact_attributes_hours").autogrow({
             onInitialize: true
         });
 

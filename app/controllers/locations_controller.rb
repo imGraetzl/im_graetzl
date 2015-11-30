@@ -3,6 +3,13 @@ class LocationsController < ApplicationController
   before_action :set_location, except: [:index, :new, :create]
   include GraetzlChild
 
+  def index
+    @locations = @graetzl.locations
+                          .approved
+                          .includes(:address, :category)
+                          .page(params[:page]).per(14)
+  end
+
   def new
     if request.get?
       @graetzl = Graetzl.find(params[:graetzl_id] || current_user.graetzl_id)
@@ -30,13 +37,6 @@ class LocationsController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def index
-    @locations = @graetzl.locations
-                          .approved
-                          .includes(:address, :category)
-                          .page(params[:page]).per(14)
   end
 
   # TODO refactor this into separate methods
@@ -101,7 +101,8 @@ class LocationsController < ApplicationController
           :id,
           :website,
           :email,
-          :phone],
+          :phone,
+          :hours],
         address_attributes: [
           :id,
           :street_name,
