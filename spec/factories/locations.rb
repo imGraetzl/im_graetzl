@@ -6,5 +6,9 @@ FactoryGirl.define do
     contact
     graetzl
     category
+
+    factory :approved_location do
+      state Location.states[:approved]
+    end
   end
 end
