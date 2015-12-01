@@ -3,11 +3,13 @@ class Meeting < ActiveRecord::Base
   extend FriendlyId
 
   # scopes
-  scope :upcoming, -> { where(arel_table[:starts_at_date].eq(nil)
-                        .or(arel_table[:starts_at_date].gt(Date.yesterday)))
+  scope :upcoming, -> { where("(starts_at_date > ?)
+                              OR
+                              (starts_at_date IS NULL)", Date.yesterday)
                         .order(:starts_at_date) }
-  scope :past, -> { where(arel_table[:starts_at_date].lt(Date.today))
-                    .order(starts_at_date: :desc) }
+  scope :past, -> { where('starts_at_date < ?', Date.today).
+                    order(starts_at_date: :desc) }
+
   # scopes primarily used for users
   scope :initiated, -> { includes(:going_tos)
                         .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos) }
@@ -54,7 +56,7 @@ class Meeting < ActiveRecord::Base
     if starts_at_date
       return starts_at_date < Date.today
     end
-    false    
+    false
   end
 
   def initiator
@@ -74,7 +76,7 @@ class Meeting < ActiveRecord::Base
     if starts_at_time && ends_at_time && ends_at_time < starts_at_time
       errors.add(:ends_at, 'kann nicht vor Beginn liegen')
     end
-  end 
+  end
 
   def destroy_activity_and_notifications
     activity = PublicActivity::Activity.where(trackable: self)

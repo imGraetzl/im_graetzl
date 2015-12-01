@@ -1,7 +1,7 @@
 namespace :eb do
   desc 'Housekeeping for obsolete App versions'
   task truncate: :environment do
-    Rails.logger.info 'AWS Delete old app versions'
+    puts 'AWS Delete old app versions'
     Aws.config[:credentials] = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_KEY'])
     Aws.config[:region] = 'eu-central-1'
 
@@ -25,7 +25,7 @@ namespace :eb do
 
       # remove versions
       versions_to_remove.each do |v|
-        Rails.logger.info "Delete version #{v.version_label}"
+        puts "Delete version #{v.version_label}"
         begin
           eb.delete_application_version({
             application_name: 'im_graetzl',
@@ -33,14 +33,14 @@ namespace :eb do
             delete_source_bundle: true,
           })
         rescue Aws::ElasticBeanstalk::Errors::ServiceError => e
-          Rails.logger.error e.message
+          puts e.message
           puts e.message
         end
       end
     rescue Aws::ElasticBeanstalk::Errors::ServiceError => e
       # rescues all errors returned by AWS Elastic Beanstalk
-      Rails.logger.error 'Error in AWS Elastic Beanstalk API'
-      Rails.logger.error e.message
+      puts 'Error in AWS Elastic Beanstalk API'
+      puts e.message
     end
   end
 end

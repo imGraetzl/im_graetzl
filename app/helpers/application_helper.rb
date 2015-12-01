@@ -1,6 +1,14 @@
-module ApplicationHelper  
+module ApplicationHelper
   def current_graetzl
     @graetzl || (current_user.graetzl if user_signed_in?)
+  end
+
+  def nav_context
+    @district || @graetzl || (current_user.graetzl if user_signed_in?) || GuestUser.new
+  end
+
+  def nav_user
+    current_user || GuestUser.new
   end
 
   def activity_description(user, entity)
@@ -22,6 +30,6 @@ module ApplicationHelper
     when 'comment'
       "Kommentar von #{link_to user.username, user}".html_safe
     else
-    end    
+    end
   end
 end

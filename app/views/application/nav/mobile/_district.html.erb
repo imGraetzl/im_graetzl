@@ -1,0 +1,21 @@
+<div class="mobileMainNav">
+  <% if current_user && current_user.graetzl.open?  %>
+    <%= link_to content_tag(:span, 'Treffen anlegen'), new_meeting_path, class: 'createMeeting' %>
+  <% end %>
+  <%= link_to district_path(target) do %>
+    <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= target.name %>
+  <% end %>
+  <%= link_to district_meetings_path(target) do %>
+    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events im <%= target.numeric %>. Bezirk
+  <% end %>
+  <%= link_to district_locations_path(target) do %>
+    <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Treffpunkte & Anbieter im <%= target.numeric %>. Bezirk
+  <% end %>
+  <%= link_to zuckerl_districts_path do %>
+    <svg class="icon-zuckerl"><use xlink:href="#icon-zuckerl"></use></svg><%= l(Date.today, format: 'Grätzlzuckerl im %B') %>
+  <% end %>
+  <%= link_to  districts_path, class: 'discover' do %>
+    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
+  <% end %>
+  <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank"><svg class="icon-coffee"><use xlink:href="#icon-coffee"></use></svg>Blog</a>
+</div>

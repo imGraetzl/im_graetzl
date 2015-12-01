@@ -5,11 +5,11 @@
     <span>Navigation</span>
   </div>
 
-  <%= render 'application/nav/main' %>
-  <%= render 'application/nav/personal' %>
+  <%= render "application/nav/#{nav_context.class.to_s.underscore}", target: nav_context %>
+  <%= render "application/nav/personal_#{nav_user.class.to_s.underscore}", user: nav_user %>
 </div>
 
 <div class="mobileNavHolder">
-  <%= render 'application/nav/mobile_main' %>
-  <%= render 'application/nav/mobile_personal' if user_signed_in? %>
+  <%= render "application/nav/mobile/#{nav_context.class.to_s.underscore}", target: nav_context %>
+  <%= render 'application/nav/mobile/personal' if user_signed_in? %>
 </div>
