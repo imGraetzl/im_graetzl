@@ -8,7 +8,6 @@
           og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
         })
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@meetings_upcoming, params: { scope: :upcoming } )) unless params[:past].present? %>
 
 <section class="locationPage">
   <div class="imgHeader -cloudy">
@@ -49,39 +48,7 @@
           <% end %>
         </div>
 
-        <% unless @location.meetings.empty? %>
-          <div class="tabs-ctrl">
-            <ul class="tabs-nav">
-              <li><a href="#tab-1"><%= @location.meetings.basic.upcoming.size %> geplante Treffen</a></li>
-              <li><a href="#tab-2"><%= @location.meetings.basic.past.size %> vergangene Treffen</a></li>
-            </ul>
-            <div id="tab-1">
-              <% if @meetings_upcoming.empty? %>
-                <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
-              <% else %>
-                <div id="meetings-upcoming" class="meetingBoxCollection -double" data-tabID="one">
-                  <%= render @meetings_upcoming %>
-                </div>
-                <div id="paginate-upcoming">
-                  <%= view_more_link(@meetings_upcoming, params: { scope: :upcoming }) %>
-                </div>
-              <% end %>
-            </div>
-
-            <div id="tab-2">
-              <% if @meetings_past.empty? %>
-                <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
-              <% else %>
-                <div id="meetings-past" class="meetingBoxCollection -double" data-tabID="two">
-                  <%= render @meetings_past %>
-                </div>
-                <div id="paginate-past">
-                  <%= view_more_link(@meetings_past, params: { scope: :past }) %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
+        <%= render 'meetings' unless @location.meetings.empty? %>
       </div>
     <% end %>
   </div>

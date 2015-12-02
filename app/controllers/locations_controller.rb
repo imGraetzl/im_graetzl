@@ -39,18 +39,17 @@ class LocationsController < ApplicationController
     end
   end
 
-  # TODO refactor this into separate methods
   def show
     if request.xhr?
-      paginate_ajax(@location)
+      @new_content = paginate_show(@scope = params[:scope].to_sym)
     else
       if @location.pending?
         enqueue_and_redirect(:back)
       else
         verify_graetzl_child(@location)
-        @meetings_upcoming = @location.meetings.basic.upcoming.includes(:graetzl).page(1).per(2)
-        @meetings_past = @location.meetings.basic.past.includes(:graetzl).page(1).per(2)
-        @posts = @location.posts.page(1).per(10)
+        @upcoming = @location.meetings.basic.upcoming.includes(:graetzl).page(params[:upcoming]).per(2)
+        @past = @location.meetings.basic.past.includes(:graetzl).page(params[:past]).per(2)
+        @posts = @location.posts.includes(:graetzl, :images, :author).page(params[:page]).per(10)
       end
     end
   end
@@ -66,13 +65,14 @@ class LocationsController < ApplicationController
 
   private
 
-  # TODO: extract into concern
-  def paginate_ajax(parent)
-    case @scope = params[:scope].to_sym
+  def paginate_show(scope)
+    case scope
     when :posts
-      @posts = @location.posts.page(params[:page]).per(10)
-    else
-      @meetings = parent.meetings.basic.send(@scope).page(params[:page]).per(2)
+      @location.posts.includes(:graetzl, :images, :author).page(params[:page]).per(10)
+    when :upcoming
+      @location.meetings.basic.upcoming.includes(:graetzl).page(params[scope]).per(2)
+    when :past
+      @location.meetings.basic.past.includes(:graetzl).page(params[scope]).per(2)
     end
   end
 

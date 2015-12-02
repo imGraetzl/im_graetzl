@@ -3,6 +3,9 @@ include GeojsonSupport
 
 RSpec.describe LocationsController, type: :controller do
   render_views false
+  before(:each) do
+    request.env['HTTP_REFERER'] = 'where_i_came_from'
+  end
 
   describe 'GET index' do
     let(:graetzl) { create(:graetzl) }
@@ -54,12 +57,6 @@ RSpec.describe LocationsController, type: :controller do
     end
   end
 
-  let(:graetzl) { create(:graetzl) }
-  before(:each) do
-    request.env['HTTP_REFERER'] = 'where_i_came_from'
-  end
-
-  # Controller methods
   describe 'GET new' do
     context 'when logged out' do
       it 'redirects to login with flash' do
@@ -507,16 +504,67 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
 
+    context 'when wrong graetzl' do
+      let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
+
+      it 'redirect_to location in right graetzl' do
+        get :show, graetzl_id: create(:graetzl), id: location
+        expect(response).to redirect_to [graetzl, location]
+      end
+    end
+
     context 'when approved location' do
       let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
-      before do
-        create_list(:meeting, 20, location: location)
-        create_list(:meeting_skip_validate, 20, location: location, starts_at_date: Date.yesterday-1)
+
+      context 'when html request' do
+        before { get :show, graetzl_id: graetzl, id: location }
+
+        it 'assigns @graetzl and @location' do
+          expect(assigns(:graetzl)).to eq graetzl
+          expect(assigns(:location)).to eq location
+        end
+
+        it 'assigns @upcoming' do
+          expect(assigns(:upcoming)).to be
+        end
+
+        it 'assigns @past' do
+          expect(assigns(:past)).to be
+        end
+
+        it 'renders show.html' do
+          expect(response['Content-Type']).to include 'text/html;'
+          expect(response).to render_template(:show)
+        end
       end
 
-      context 'when right graetzl' do
-        context 'when html request' do
-          before { get :show, graetzl_id: graetzl, id: location }
+      context 'when js request' do
+        context 'when scope :posts' do
+          let!(:posts) { create_list(:post, 10, author: location) }
+          before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :posts }
+
+          it 'assigns @graetzl and @location' do
+            expect(assigns(:graetzl)).to eq graetzl
+            expect(assigns(:location)).to eq location
+          end
+
+          it 'assigns @scope' do
+            expect(assigns(:scope)).to eq :posts
+          end
+
+          it 'assigns @new_content with posts' do
+            expect(assigns(:new_content).to_a).to match_array posts
+          end
+
+          it 'renders show.js' do
+            expect(response['Content-Type']).to include 'text/javascript;'
+            expect(response).to render_template(:show)
+          end
+        end
+
+        context 'when scope :upcoming' do
+          let!(:meetings) { create_list(:meeting, 2, location: location) }
+          before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :upcoming }
 
           it 'assigns @graetzl' do
             expect(assigns(:graetzl)).to eq graetzl
@@ -526,81 +574,18 @@ RSpec.describe LocationsController, type: :controller do
             expect(assigns(:location)).to eq location
           end
 
-          it 'assigns @meetings_upcoming with max 2' do
-            expect(assigns(:meetings_upcoming)).to be
-            expect(assigns(:meetings_upcoming).size).to eq 2
+          it 'assigns @scope' do
+            expect(assigns(:scope)).to eq :upcoming
           end
 
-          it 'assigns @meetings_past with max 2' do
-            expect(assigns(:meetings_past)).to be
-            expect(assigns(:meetings_past).size).to eq 2
+          it 'assigns @new_content with meetings' do
+            expect(assigns(:new_content).to_a).to match_array meetings
           end
 
-          it 'renders show.html' do
-            expect(response['Content-Type']).to include 'text/html;'
+          it 'renders show.js' do
+            expect(response['Content-Type']).to include 'text/javascript;'
             expect(response).to render_template(:show)
           end
-        end
-
-        context 'when js request' do
-          context 'when scope :past' do
-            before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :past }
-
-            it 'assigns @graetzl' do
-              expect(assigns(:graetzl)).to eq graetzl
-            end
-
-            it 'assigns @location' do
-              expect(assigns(:location)).to eq location
-            end
-
-            it 'assigns @scope' do
-              expect(assigns(:scope)).to eq :past
-            end
-
-            it 'assigns @meetings' do
-              expect(assigns(:meetings)).to be
-            end
-
-            it 'renders show.js' do
-              expect(response['Content-Type']).to include 'text/javascript;'
-              expect(response).to render_template(:show)
-            end
-          end
-
-          context 'when scope :posts' do
-            before { xhr :get, :show, graetzl_id: graetzl, id: location, scope: :posts }
-
-            it 'assigns @graetzl' do
-              expect(assigns(:graetzl)).to eq graetzl
-            end
-
-            it 'assigns @location' do
-              expect(assigns(:location)).to eq location
-            end
-
-            it 'assigns @scope' do
-              expect(assigns(:scope)).to eq :posts
-            end
-
-            it 'assigns @posts' do
-              expect(assigns(:posts)).to be
-            end
-
-            it 'renders show.js' do
-              expect(response['Content-Type']).to include 'text/javascript;'
-              expect(response).to render_template(:show)
-            end
-          end
-        end
-      end
-
-      context 'when wrong graetzl' do
-        let(:other_graetzl) { create(:graetzl) }
-        before { get :show, graetzl_id: other_graetzl, id: location }
-
-        it 'redirect_to location in right graetzl' do
-          expect(response).to redirect_to [graetzl, location]
         end
       end
     end
