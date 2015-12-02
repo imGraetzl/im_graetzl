@@ -5,7 +5,6 @@ module PaginationHelper
       remote: true,
       data: { disable_with: 'lädt...' },
       params: params,
-      param_name: :past,
       class: 'link-load' + ' -' + style.to_s
   end
 
