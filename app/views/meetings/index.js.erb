@@ -1,9 +1,2 @@
-$('#<%= @scope %>').html("<%= j(render 'action_card', graetzl: @graetzl) if @scope == 'upcoming' %>" +
-                    "<%= j(render @meetings) %>");
-$('div#paginate-<%= @scope %>').html('<%= j(paginate @meetings, remote: true, param_name: @scope.to_sym, params: { scope: @scope.to_sym }) %>');
-APP.components.cardBox.moveActionCard3rd();
-
-// scroll to headline above box container
-$('html,body').animate({
-  scrollTop: $('#<%= @scope %>').prev().offset().top
-}, 500);
+$('#<%= @scope %>').append("<%= j(render @meetings) %>")
+$('a.link-load#link-load-<%= @scope %>').replaceWith("<%= j view_more_scoped(@meetings, @scope, style: :big) %>")
