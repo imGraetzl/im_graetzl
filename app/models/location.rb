@@ -2,6 +2,13 @@ class Location < ActiveRecord::Base
   include PublicActivity::Common
   extend FriendlyId
 
+  # scopes
+  scope :paginate_index, ->(page) { order(id: :desc)
+                                      .page(page)
+                                      .per(page == 1 ? 14 : 15)
+                                      .padding(page == 1 ? 0 : -1) }
+
+
   # macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
@@ -42,6 +49,8 @@ class Location < ActiveRecord::Base
       [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :meeting_permissions]), t[0]]
     end
   end
+
+  # instance methods
 
   def approve
     if pending? && approved!

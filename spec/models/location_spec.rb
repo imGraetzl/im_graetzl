@@ -4,6 +4,7 @@ RSpec.describe Location, type: :model do
 
   it 'has a valid factory' do
     expect(build_stubbed(:location)).to be_valid
+    expect(build_stubbed(:approved_location)).to be_valid
   end
 
   describe 'validations' do
@@ -65,8 +66,22 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:address)
     end
 
+    it 'destroys address when destroy' do
+      create(:address, addressable: location)
+      expect{
+        location.destroy
+      }.to change(Address, :count).by(-1)
+    end
+
     it 'has users' do
       expect(location).to respond_to(:users)
+    end
+
+    it 'destroys location_onwerships when destroy' do
+      create_list(:location_ownership, 3, location: location)
+      expect{
+        location.destroy
+      }.to change(LocationOwnership, :count).by(-3)
     end
 
     it 'has category' do
@@ -77,6 +92,13 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:contact)
     end
 
+    it 'destroys contact when destroy' do
+      create(:contact, location: location)
+      expect{
+        location.destroy
+      }.to change(Contact, :count).by(-1)
+    end
+
     it 'has meetings' do
       expect(location).to respond_to(:meetings)
     end
@@ -85,83 +107,52 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:activities)
     end
 
+    describe 'activities and notifications', job: true do
+      before do
+        3.times do
+          activity = create(:activity, trackable: location, key: 'location.something')
+          create_list(:notification, 3, activity: activity)
+        end
+      end
+
+      it 'destroys activity and notifications when destroy' do
+        expect(PublicActivity::Activity.count).to eq 3
+        expect(Notification.count).to eq 9
+        location.destroy
+        expect(Notification.count).to eq 0
+        expect(PublicActivity::Activity.count).to eq 0
+      end
+    end
+
     it 'has posts' do
       expect(location).to respond_to(:posts)
     end
 
-    describe 'destroy callbacks' do
-      describe 'address' do
-        let!(:address) { create(:address, addressable: location) }
-        before do
-          location.address = address
-          location.save
-        end
+    it 'destroys posts when destroy' do
+      create_list(:post, 3, author: location)
+      expect{
+        location.destroy
+      }.to change(Post, :count).by(-3)
+    end
+  end
 
-        it 'destroys address' do
-          expect(Address.find(address.id)).not_to be_nil
-          location.destroy
-          expect(Address.find_by_id(address.id)).to be_nil
-        end
-      end
+  describe 'scopes' do
+    describe 'paginate_index' do
+      before { create_list(:location, 60) }
+      
+      context 'with page param = 1' do
+        subject(:locations) { Location.paginate_index(1) }
 
-      describe 'users / location_onwerships' do
-        before do
-          3.times { create(:location_ownership, location: location) }
-        end
-
-        it 'destroys location_ownerships' do
-          location_ownerships = location.location_ownerships
-          location_ownerships.each do |location_ownership|
-            expect(LocationOwnership.find(location_ownership.id)).to be_present
-          end
-          location.destroy
-          location_ownerships.each do |location_ownership|
-            expect(LocationOwnership.find_by_id(location_ownership.id)).to be_nil
-          end
+        it 'returns newest 14' do
+          expect(locations).to eq Location.order(id: :desc).first(14)
         end
       end
 
-      describe 'contact' do
-        let!(:contact) { create(:contact, location: location) }
-        before do
-          location.contact = contact
-          location.save
-        end
+      context 'with page param = 2' do
+        subject(:locations) { Location.paginate_index(2) }
 
-        it 'destroys contact' do
-          contact = location.contact
-          expect(Contact.find(contact.id)).to be_present
-          location.destroy
-          expect(Contact.find_by_id(contact.id)).to be_nil
-        end
-      end
-
-      describe 'notifications and activity', job: true do
-        before do
-          3.times do
-            activity = create(:activity, trackable: location, key: 'location.something')
-            3.times{ create(:notification, activity: activity) }
-          end
-        end
-
-        it 'destroys associated activity and notifications' do
-          expect(PublicActivity::Activity.count).to eq 3
-          expect(Notification.count).to eq 9
-
-          location.destroy
-
-          expect(Notification.count).to eq 0
-          expect(PublicActivity::Activity.count).to eq 0
-        end
-      end
-
-      describe 'posts' do
-        before{ create_list(:post, 3, author: location) }
-
-        it 'destroys posts' do
-          expect{
-            location.destroy
-          }.to change(Post, :count).by(-3)
+        it 'returns newest 15 with offset 14' do
+          expect(locations).to eq Location.order(id: :desc).offset(14).first(15)
         end
       end
     end

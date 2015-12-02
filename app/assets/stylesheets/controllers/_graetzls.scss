@@ -17,6 +17,11 @@ section.graetzls {
     z-index: 2;
   }
 
+  .graetzl-ambassador {
+    margin-top: -20px;
+    margin-bottom: 40px;
+  }
+
 }
 
 .illuDistrict {
@@ -126,4 +131,5 @@ section.graetzls {
       background-image: url(image_path('illu/illu-zuckerl-straight@2x.png'));
     }
   }
+
 }

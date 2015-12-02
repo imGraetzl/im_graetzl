@@ -7,7 +7,7 @@ class LocationsController < ApplicationController
     @locations = @graetzl.locations
                           .approved
                           .includes(:address, :category)
-                          .page(params[:page]).per(14)
+                          .paginate_index(params[:page] || 1)
   end
 
   def new

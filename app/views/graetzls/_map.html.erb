@@ -14,10 +14,10 @@
       <% end %>
     </div>
   </div>
-
-  <% if @graetzl.curator %>
-    <div class="graetzl-ambassador">
-      Kuratiert mit<svg class="icon-love"><use xlink:href="#icon-love"></use></svg>von <%= link_to @graetzl.curator.name, @graetzl.curator.website, target: '_blank' %>
-    </div>
-  <% end %>
 </div>
+
+<% if @graetzl.curator %>
+  <div class="graetzl-ambassador">
+    Kuratiert mit<svg class="icon-love"><use xlink:href="#icon-love"></use></svg>von <%= link_to @graetzl.curator.name, @graetzl.curator.website, target: '_blank' %>
+  </div>
+<% end %>
