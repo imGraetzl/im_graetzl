@@ -3,17 +3,13 @@ class UsersController < ApplicationController
   before_action :set_graetzl, only: [:show]
 
   def show
-    @user = User.includes(wall_comments: [:images], meetings: [:going_tos]).find(params[:id])
+    @user = User.includes(wall_comments: [:images]).find(params[:id])
     if request.xhr?
-      case @scope = params[:scope].to_sym
-      when :wall_comments
-        @wall_comments = @user.wall_comments.page(params[:page]).per(10)
-      else
-        @meetings = @user.meetings.basic.send(@scope).page(params[:page]).per(6)
-      end
+      @new_content = paginate_show(@scope = params[:scope].to_sym)
     else
-      @meetings = @user.meetings.basic
-      @wall_comments = @user.wall_comments.page(1).per(10)
+      @initiated = @user.meetings.initiated.page(params[:initiated]).per(3)
+      @attended = @user.meetings.attended.page(params[:attended]).per(3)
+      @wall_comments = @user.wall_comments.page(params[:page]).per(10)
       redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
     end
   end
@@ -60,5 +56,16 @@ class UsersController < ApplicationController
         :role,
         :avatar, :remove_avatar,
         :cover_photo, :remove_cover_photo)
+  end
+
+  def paginate_show(scope)
+    case scope
+    when :wall_comments
+      @user.wall_comments.page(params[:page]).per(10)
+    when :initiated
+      @user.meetings.basic.initiated.page(params[scope]).per(3)
+    when :attended
+      @user.meetings.basic.attended.page(params[scope]).per(3)
+    end
   end
 end

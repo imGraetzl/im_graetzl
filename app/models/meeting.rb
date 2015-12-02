@@ -14,10 +14,12 @@ class Meeting < ActiveRecord::Base
                                             .padding(page == 1 ? 0 : -1) }
 
   # scopes primarily used for users
-  scope :initiated, -> { includes(:going_tos)
-                        .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos) }
-  scope :attended, -> { includes(:going_tos)
-                        .where('going_tos.role = ?', GoingTo::roles[:attendee]).references(:going_tos) }
+  scope :initiated, -> { includes(:going_tos, :graetzl)
+                        .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos)
+                        .order(starts_at_date: :desc) }
+  scope :attended, -> { includes(:going_tos, :graetzl)
+                        .where('going_tos.role = ?', GoingTo::roles[:attendee]).references(:going_tos)
+                        .order(starts_at_date: :desc) }
 
   # macros
   friendly_id :name
