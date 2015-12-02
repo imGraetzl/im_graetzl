@@ -2,8 +2,6 @@
 
 <section class="create-meeting">
 
-  <h2>Treffen <span><%= @meeting.name %></span> bearbeiten</h2>
-
   <%= render 'form', disable_fields: @meeting.location && !@meeting.location.users.include?(current_user) %>
 
   <%= button_to 'Treffen absagen', @meeting,
