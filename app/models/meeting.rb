@@ -9,6 +9,9 @@ class Meeting < ActiveRecord::Base
                         .order(:starts_at_date) }
   scope :past, -> { where('starts_at_date < ?', Date.today).
                     order(starts_at_date: :desc) }
+  scope :paginate_with_padding, ->(page) { page(page)
+                                            .per(page == 1 ? 8 : 9)
+                                            .padding(page == 1 ? 0 : -1) }
 
   # scopes primarily used for users
   scope :initiated, -> { includes(:going_tos)
@@ -45,20 +48,6 @@ class Meeting < ActiveRecord::Base
   before_destroy :destroy_activity_and_notifications, prepend: true
 
   # instance methods
-  def upcoming?
-    if starts_at_date
-      return starts_at_date > Date.yesterday
-    end
-    true
-  end
-
-  def past?
-    if starts_at_date
-      return starts_at_date < Date.today
-    end
-    false
-  end
-
   def initiator
     going_to = going_tos.initiator.last
     going_to.user if going_to
