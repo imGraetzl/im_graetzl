@@ -8,20 +8,17 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming, param_name: :upcoming, params: { scope: 'upcoming' } )) unless params[:past].present? %>
+<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming, param_name: :upcoming, params: { scope: :upcoming } )) unless params[:past].present? %>
 
 <section class="districts">
   <%= render 'districts/map', map_data: @map_data %>
-
   <div class="meeting-block">
     <h1 class="hl-main">Treffen, Events & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span></h1>
     <div id="upcoming" class="cardBoxCollection -tripple js-moveActionCard3rd">
       <%= render 'action_card', district: @district %>
       <%= render partial: 'meetings/meeting', collection: @upcoming %>
     </div>
-    <div id='paginate-upcoming'>
-      <%= paginate @upcoming, remote: true, param_name: :upcoming, params: { scope: :upcoming } %>
-    </div>
+    <%= view_more_scoped(@upcoming, :upcoming, style: :big) %>
   </div>
 
   <% unless @past.empty? %>
@@ -30,10 +27,7 @@
       <div id="past" class="cardBoxCollection -tripple">
         <%= render partial: 'meetings/meeting', collection: @past %>
       </div>
-      <div id='paginate-past'>
-        <%= paginate @past, remote: true, param_name: :past, params: { scope: :past } %>
-      </div>
+      <%= view_more_scoped(@past, :past, style: :big) %>
     </div>
   <% end %>
-
 </section>
