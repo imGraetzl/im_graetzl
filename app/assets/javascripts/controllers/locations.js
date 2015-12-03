@@ -63,6 +63,9 @@ APP.controllers.locations = (function() {
 
     function initLocationPage() {
         APP.components.tabs.initTabs(".tabs-ctrl");
+        $('.introtxt .txt').linkify({
+            target: "_blank"
+        });
     }
 
 

@@ -98,7 +98,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
 
     context 'when js request' do
-      before { xhr :get, :index, { graetzl_id: graetzl, scope: 'upcoming' } }
+      before { xhr :get, :index, { graetzl_id: graetzl, scope: :upcoming } }
 
       it 'assigns @graetzl' do
         expect(assigns(:graetzl)).to eq graetzl
@@ -117,7 +117,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       it 'assigns @scope' do
-        expect(assigns(:scope)).to eq 'upcoming'
+        expect(assigns(:scope)).to eq :upcoming
       end
 
       it 'assigns @meetings' do

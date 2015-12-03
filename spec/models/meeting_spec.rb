@@ -37,11 +37,8 @@ RSpec.describe Meeting, type: :model do
   describe 'macros' do
     let(:meeting) { create(:meeting) }
 
-    it 'has cover_photo' do
+    it 'has cover_photo with content_type' do
       expect(meeting).to respond_to(:cover_photo)
-    end
-
-    it 'has cover_photo_content_type' do
       expect(meeting).to respond_to(:cover_photo_content_type)
     end
 
@@ -70,8 +67,18 @@ RSpec.describe Meeting, type: :model do
       expect(meeting).to respond_to(:address)
     end
 
+    it 'destroys address when destroy' do
+      create(:address, addressable: meeting)
+      expect{meeting.destroy}.to change(Address, :count).by(-1)
+    end
+
     it 'has going_tos' do
       expect(meeting).to respond_to(:going_tos)
+    end
+
+    it 'destroys going_tos when destroy' do
+      create_list(:going_to, 3, meeting: meeting)
+      expect{meeting.destroy}.to change(GoingTo, :count).by(-3)
     end
 
     it 'has users' do
@@ -86,64 +93,40 @@ RSpec.describe Meeting, type: :model do
       expect(meeting).to respond_to(:categories)
     end
 
-    describe 'destroy associated records' do
-      describe 'comments' do
-        before { 3.times { create(:comment, commentable: meeting) } }
-
-        it 'has comments' do
-          expect(meeting.comments.count).to eq(3)
-        end
-
-        it 'destroys comments' do
-          comments = meeting.comments
-          meeting.destroy
-          comments.each do |comment|
-            expect(Comment.find_by_id(comment.id)).to be_nil
-          end
-        end
-      end
-
-      describe 'going_tos' do
-        before { 3.times { create(:going_to, meeting: meeting) } }
-
-        it 'has going_tos' do
-          expect(meeting.going_tos.count).to eq(3)
-        end
-
-        it 'destroys going_tos' do
-          going_tos = meeting.going_tos
-          meeting.destroy
-          going_tos.each do |going_to|
-            expect(GoingTo.find_by_id(going_to.id)).to be_nil
-          end
-        end
-      end
-
-      describe 'address' do
-        before { create(:address, addressable: meeting) }
-
-        it 'has address' do
-          expect(meeting.address).not_to be_nil
-        end
-
-        it 'destroys address' do
-          address = meeting.address
-          meeting.destroy
-          expect(Address.find_by_id(address.id)).to be_nil
-        end
-      end
+    it 'destroys comments when destroy' do
+      create_list(:comment, 3, commentable: meeting)
+      expect{meeting.destroy}.to change(Comment, :count).by(-3)
     end
   end
 
   describe 'scopes' do
-    let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
-    let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
-    let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1) }
-    let!(:m_nil) { create(:meeting, starts_at_date: nil) }
-    let(:m_yesterday) { build(:meeting, starts_at_date: Date.yesterday) }
-    before { m_yesterday.save(validate: false) }
+    describe '.paginate_with_padding' do
+      before { create_list(:meeting, 30) }
 
-    describe 'upcoming' do
+      context 'with page = 1' do
+        subject(:meetings) { Meeting.paginate_with_padding 1 }
+
+        it 'returns first 8 meetings' do
+          expect(meetings).to eq Meeting.first(8)
+        end
+      end
+
+      context 'with page = 2' do
+        subject(:meetings) { Meeting.paginate_with_padding 2 }
+
+        it 'returns first 9 with offset 8' do
+          expect(meetings).to eq Meeting.offset(8).limit(9)
+        end
+      end
+    end
+
+    describe '.upcoming' do
+      let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
+      let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
+      let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1) }
+      let!(:m_nil) { create(:meeting, starts_at_date: nil) }
+      let!(:m_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday) }
+
       subject(:meetings) { Meeting.upcoming }
 
       it 'retrieves nearest first, nil last' do
@@ -153,82 +136,54 @@ RSpec.describe Meeting, type: :model do
       it 'excludes past' do
         expect(meetings).not_to include(m_yesterday)
       end
-
-      it 'includes cancelled meetings' do
-        m_today.cancelled!
-        expect(meetings).to include(m_today)
-      end
     end
 
-    describe 'past' do
-      let(:m_1_before_yesterday) { build(:meeting, starts_at_date: Date.yesterday-1) }
-      let(:m_2_before_yesterday) { build(:meeting, starts_at_date: Date.yesterday-2) }
-      before do
-        m_1_before_yesterday.save(validate: false)
-        m_2_before_yesterday.save(validate: false)
-      end
+    describe '.past' do
+      let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
+      let!(:m_nil) { create(:meeting, starts_at_date: nil) }
+      let!(:m_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday) }
+      let!(:m_1_before_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday-1) }
+      let!(:m_2_before_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday-2) }
+
       subject(:meetings) { Meeting.past }
 
-      it 'retrieves past' do
-        expect(meetings).to include(m_yesterday, m_1_before_yesterday, m_2_before_yesterday)
-      end
-
-      it 'excludes upcoming' do
-        expect(meetings).not_to include(m_today, m_tomorrow, m_after_tomorrow)
-      end
-
-      it 'excludes nil' do
-        expect(meetings).not_to include(m_nil)
-      end
-
-      it 'ignores :created_at order' do
-        m_yesterday.update(created_at: Date.yesterday)
-        m_1_before_yesterday.update(created_at: Date.today)
+      it 'retrieves past nearest first' do
         expect(meetings.to_a).to eq [m_yesterday, m_1_before_yesterday, m_2_before_yesterday]
       end
 
-      it 'orders starts_at_date: :desc (anti default_scope)' do
-        expect(meetings).to eq [m_yesterday, m_1_before_yesterday, m_2_before_yesterday]
-      end
-
-      it 'includes cancelled meetings' do
-        m_yesterday.state = Meeting.states[:cancelled]
-        m_yesterday.save(validate: false)
-        expect(meetings).to include(m_yesterday)
+      it 'excludes nil and upcoming' do
+        expect(meetings).not_to include(m_today)
+        expect(meetings).not_to include(m_nil)
       end
     end
 
-    describe 'initiated' do
-      let(:m_initiated) { create(:meeting,
-        going_tos: [create(:going_to, role: GoingTo::roles[:initiator])]) }
-      let(:m_attended) { create(:meeting,
-        going_tos: [create(:going_to, role: GoingTo::roles[:attendee])]) }
+    describe '.initiated' do
+      let(:initiated_meetings) { create_list(:meeting, 5) }
+      let(:attended_meetings) { create_list(:meeting, 5) }
+      before do
+        initiated_meetings.each {|m| create(:going_to, meeting: m, role: GoingTo::roles[:initiator])}
+        attended_meetings.each {|m| create(:going_to, meeting: m, role: GoingTo::roles[:attendee])}
+      end
 
       subject(:meetings) { Meeting.initiated }
 
-      it 'returns meetings with initator going_tos' do
-        expect(meetings).to include(m_initiated)
-      end
-
-      it 'excludes meetings without initator going_tos' do
-        expect(meetings).not_to include(m_attended)
+      it 'returns meetings with initiator going_tos' do
+        expect(meetings.to_a).to match_array(initiated_meetings)
       end
     end
 
-    describe 'attended' do
-      let(:m_initiated) { create(:meeting,
-        going_tos: [create(:going_to, role: GoingTo::roles[:initiator])]) }
-      let(:m_attended) { create(:meeting,
-        going_tos: [create(:going_to, role: GoingTo::roles[:attendee])]) }
+    describe '.attended' do
+      let(:initiated_meetings) { create_list(:meeting, 5) }
+      let(:attended_meetings) { create_list(:meeting, 5) }
+      before do
+        initiated_meetings.each {|m| create(:going_to, meeting: m, role: GoingTo::roles[:initiator])}
+        attended_meetings.each {|m| create(:going_to, meeting: m, role: GoingTo::roles[:attendee])}
+      end
 
       subject(:meetings) { Meeting.attended }
 
-      it 'returns meetings with only attendee going_tos' do
-        expect(meetings).to include(m_attended)
-      end
-
-      it 'excludes meetings without attendee going_tos' do
-        expect(meetings).not_to include(m_initiated)
+      it 'returns meetings with attendee going_tos' do
+        expect(meetings.to_a).to match_array(attended_meetings)
       end
     end
   end
@@ -236,11 +191,11 @@ RSpec.describe Meeting, type: :model do
   describe 'callbacks' do
     let(:meeting) { create(:meeting) }
 
-    describe 'before_destroy' do
+    describe '#before_destroy' do
       before do
         3.times do
           activity = create(:activity, trackable: meeting)
-          3.times{ create(:notification, activity: activity) }
+          create_list(:notification, 3, activity: activity)
         end
       end
 
@@ -252,85 +207,6 @@ RSpec.describe Meeting, type: :model do
 
         expect(Notification.count).to eq 0
         expect(PublicActivity::Activity.count).to eq 0
-      end
-    end
-  end
-
-  describe '#upcoming?' do
-    let(:meeting) { build_stubbed(:meeting) }
-
-    context 'without starts_at_date' do
-
-      it 'has no starts_at_date' do
-        expect(meeting.starts_at_date).to be_falsey
-      end
-
-      it 'returns true' do
-        expect(meeting.upcoming?).to be_truthy
-      end
-    end
-
-    context 'with starts_at_date in future' do
-      before { meeting.starts_at_date = Date.tomorrow }
-
-      it 'has starts_at_date' do
-        expect(meeting.starts_at_date).to be_truthy
-      end
-
-      it 'returns true' do
-        expect(meeting.upcoming?).to be_truthy
-      end
-    end
-
-    context 'with starts_at_date in past' do
-      before { meeting.starts_at_date = Date.yesterday }
-
-      it 'has starts_at_date' do
-        expect(meeting.starts_at_date).to be_truthy
-      end
-
-      it 'returns true' do
-        expect(meeting.upcoming?).to be_falsey
-      end
-    end
-  end
-
-
-  describe '#past?' do
-    let(:meeting) { build_stubbed(:meeting) }
-
-    context 'without starts_at_date' do
-
-      it 'has no starts_at_date' do
-        expect(meeting.starts_at_date).to be_falsey
-      end
-
-      it 'returns true' do
-        expect(meeting.past?).to be_falsey
-      end
-    end
-
-    context 'with starts_at_date in future' do
-      before { meeting.starts_at_date = Date.tomorrow }
-
-      it 'has starts_at_date' do
-        expect(meeting.starts_at_date).to be_truthy
-      end
-
-      it 'returns true' do
-        expect(meeting.past?).to be_falsey
-      end
-    end
-
-    context 'with starts_at_date in past' do
-      before { meeting.starts_at_date = Date.yesterday }
-
-      it 'has starts_at_date' do
-        expect(meeting.starts_at_date).to be_truthy
-      end
-
-      it 'returns true' do
-        expect(meeting.past?).to be_truthy
       end
     end
   end

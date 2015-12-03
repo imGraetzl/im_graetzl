@@ -17,16 +17,13 @@
     <%= render 'action_card', graetzl: @graetzl %>
     <%= render @upcoming %>
   </div>
-  <div id='paginate-upcoming'>
-    <%= paginate @upcoming, remote: true, param_name: :upcoming, params: { scope: :upcoming } %>
+    <%= view_more_scoped(@upcoming, :upcoming, style: :big) %>
   </div>
-  <% if @past.present? %>
+  <% if @past %>
     <h1 class="hl-main">Vergangene Treffen im <span><%= @graetzl.name %></span></h1>
     <div id="past" class="cardBoxCollection -tripple">
       <%= render @past %>
     </div>
-    <div id='paginate-past'>
-      <%= paginate @past, remote: true, param_name: :past, params: { scope: :past } %>
-    </div>
+    <%= view_more_scoped(@past, :past, style: :big) %>
   <% end %>
 </section>

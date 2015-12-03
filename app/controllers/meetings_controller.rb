@@ -6,13 +6,10 @@ class MeetingsController < ApplicationController
 
   def index
     if request.xhr?
-      @scope = params[:scope]
-      @meetings = @graetzl.meetings.basic.
-                                    send(@scope).
-                                    page(params[@scope.to_sym]).
-                                    per(@scope == 'past' ? 6 : 8)
+      @scope = params[:scope].to_sym
+      @meetings = paginate_index @scope
     else
-      @upcoming = @graetzl.meetings.basic.upcoming.page(params[:upcoming]).per(8)
+      @upcoming = @graetzl.meetings.basic.upcoming.paginate_with_padding(params[:upcoming] || 1)
       @past = @graetzl.meetings.basic.past.page(params[:past]).per(6)
     end
   end
@@ -134,6 +131,15 @@ class MeetingsController < ApplicationController
     if !@meeting.going_tos.initiator.find_by_user_id(current_user)
       flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
       redirect_to [@meeting.graetzl, @meeting]
+    end
+  end
+
+  def paginate_index(scope)
+    case scope
+    when :upcoming
+      @graetzl.meetings.basic.upcoming.paginate_with_padding(params[scope] || 1)
+    when :past
+      @graetzl.meetings.basic.past.page(params[scope]).per(6)
     end
   end
 end

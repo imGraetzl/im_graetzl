@@ -3,8 +3,43 @@ APP.controllers.meetings = (function() {
     function init() {
 
         if($("section.meetings-overview").exists()) initMeetingsOverview();
+        if($("section.meeting").exists()) initMeetingDetail();
+        if($("section.create-meeting").exists()) initCreateMeeting();
 
-        APP.components.inputTextareaMovingLabel();
+    }
+
+
+
+    function initMeetingsOverview() {
+        var numBoxes = $(".cardBoxCollection:eq(0) .cardBox").length;
+        var map =  APP.components.graetzlMap;
+        var mapdata = $('#graetzlMapWidget').data('mapdata');
+
+        map.init(function() {
+                map.showMapGraetzl(mapdata.graetzls, {
+                    style: $.extend(map.styles.rose, {
+                        weight: 4,
+                        fillOpacity: 0.2
+                    })
+                });
+
+            }
+        );
+        if (numBoxes > 0) $(".cardBoxCollection:eq(0) .cardBox:nth-child(3)").after($(".cardbox-wrp"));
+    }
+
+
+
+    function initMeetingDetail() {
+        $('.entryDescription .txt').linkify({
+            target: "_blank"
+        });
+    }
+
+
+
+    function initCreateMeeting() {
+
         APP.components.addressSearchAutocomplete();
 
         $(".meet-what textarea").autogrow({
@@ -29,50 +64,15 @@ APP.controllers.meetings = (function() {
             captionFormat: '{0} Kategorien ausgewählt'
         });
 
-        // titleImg
-        $(".titleImg").css("opacity", 1);
-
-        $(".stream").on("focusin focusout", "textarea", function(event){
-            var $parent = $(this).parents(".entryCommentForm, .entryCreate");
-            if (event.type === 'focusin') {
-                $parent.addClass("is-focused");
-            } else if (event.type === 'focusout') {
-                if (!$(this).val().length) {
-                    $parent.removeClass("is-focused");
-                }
-            }
-        });
-
         // location field
         $('input:checkbox#location').on('change', function() {
             if(!this.checked) {
-                console.log('reset location field');
-                $('#meeting_location_id').val('');    
+                $('#meeting_location_id').val('');
             }
             $('div#meeting-location-field').toggle();
         });
 
-    }
 
-
-
-    function initMeetingsOverview() {
-        var numBoxes = $(".cardBoxCollection:eq(0) .cardBox").length;
-        var map =  APP.components.graetzlMap;
-        var mapdata = $('#graetzlMapWidget').data('mapdata');
-
-        map.init(function() {
-                map.showMapGraetzl(mapdata.graetzls, {
-                    style: $.extend(map.styles.rose, {
-                        weight: 4,
-                        fillOpacity: 0.2
-                    })
-                });
-
-            }
-        );
-
-        if (numBoxes > 0) $(".cardBoxCollection:eq(0) .cardBox:nth-child(3)").after($(".cardbox-wrp"));
     }
 
 

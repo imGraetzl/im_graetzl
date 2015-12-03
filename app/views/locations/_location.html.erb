@@ -4,7 +4,7 @@
     <%= cover_photo_for(location) %>
     <div class="location-shortfacts <%= '-small' if small %>">
       <%= link_to [location.graetzl, location] do %>
-        <%= avatar_for(location, fill: [200, 200], class: 'avatar-square') %>
+        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
         <div class="name"><%= location.name %></div>
       <% end %>
       <div class="category"><%= location.category.name %></div>

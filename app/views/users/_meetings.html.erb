@@ -1,26 +1,22 @@
 <div class="tabs-ctrl">
   <ul class="tabs-nav">
-    <li><a href="#tab-1"><%= @meetings.initiated.count %> Treffen erstellt</a></li>
-    <li><a href="#tab-2">An <%= @meetings.attended.count %> Treffen teilgenommen</a></li>
+    <li><a href="#tab-1"><%= @initiated.total_count %> Treffen erstellt</a></li>
+    <li><a href="#tab-2">An <%= @attended.total_count %> Treffen teilgenommen</a></li>
   </ul>
   <div id="tab-1">
     <!-- Dies als defaulttext nehmen -->
     <!-- <div class="defaultText">Im Moment sind keine Treffen geplant.</div> -->
-    <div id="meetings-initiated" class="meetingBoxCollection -tripple" data-tabID="one">
-      <%= render @meetings.initiated.page(1).per(6) %>
+    <div id="initiated" class="meetingBoxCollection -tripple" data-tabID="one">
+      <%= render @initiated %>
     </div>
-    <div id="paginate-initiated">
-      <%= paginate @meetings.initiated.page(1).per(6), remote: true, params: { scope: :initiated } %>
-    </div>
+    <%= view_more_scoped(@initiated, :initiated) %>
   </div>
   <div id="tab-2">
     <!-- Dies als defaulttext nehmen -->
     <!-- <div class="defaultText">Der User hat an noch keinen Treffen teilgenommen..</div> -->
-    <div id="meetings-attended" class="meetingBoxCollection -tripple" data-tabID="two">
-      <%= render @meetings.attended.page(1).per(6) %>
+    <div id="attended" class="meetingBoxCollection -tripple" data-tabID="two">
+      <%= render @attended %>
     </div>
-    <div id="paginate-attended">
-      <%= paginate @meetings.attended.page(1).per(6), remote: true, params: { scope: :attended } %>
-    </div>
+    <%= view_more_scoped(@attended, :attended) %>
   </div>
 </div>

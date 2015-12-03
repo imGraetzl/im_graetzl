@@ -1,12 +1,7 @@
-<% if @scope.to_sym == :wall_comments %>
-  $('div.stream').append("<%= j render @wall_comments %>");
-  $('a.link-load').replaceWith("<%= j view_more_link @wall_comments, params: { scope: @scope } %>")
+<% if @scope == :wall_comments %>
+  $('div.stream').append("<%= j render @new_content %>");
+  $('a.link-load').replaceWith("<%= j view_more_link @new_content, params: { scope: @scope } %>")
 <% else %>
-  $('#meetings-<%= @scope %>').html("<%= j(render @meetings) %>");
-  $('div#paginate-<%= @scope %>').html('<%= j(paginate @meetings, remote: true, params: { scope: @scope.to_sym }) %>');
-
-  // scroll to top of container container
-  $('html,body').animate({
-    scrollTop: $('#meetings-<%= @scope %>').offset().top
-  }, 500);
+  $('#<%= @scope %>').append("<%= j(render @new_content) %>")
+  $('a.link-load#link-load-<%= @scope %>').replaceWith("<%= j view_more_scoped(@new_content, @scope) %>")
 <% end %>

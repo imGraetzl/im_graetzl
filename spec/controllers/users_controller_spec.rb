@@ -33,8 +33,12 @@ RSpec.describe UsersController, type: :controller do
             expect(assigns(:wall_comments)).to be
           end
 
-          it 'assigns @meetings' do
-            expect(assigns(:meetings)).to eq user.meetings.basic
+          it 'assigns @initiated' do
+            expect(assigns(:initiated)).to be
+          end
+
+          it 'assigns @attended' do
+            expect(assigns(:attended)).to be
           end
 
           it 'renders show.html' do
@@ -58,8 +62,12 @@ RSpec.describe UsersController, type: :controller do
             expect(assigns(:wall_comments)).to be
           end
 
-          it 'assigns @meetings' do
-            expect(assigns(:meetings)).to eq user.meetings.basic
+          it 'assigns @initiated' do
+            expect(assigns(:initiated)).to be
+          end
+
+          it 'assigns @attended' do
+            expect(assigns(:attended)).to be
           end
 
           it '301 redirects to user in right graetzl' do
@@ -82,6 +90,14 @@ RSpec.describe UsersController, type: :controller do
             expect(assigns(:wall_comments)).to be
           end
 
+          it 'assigns @initiated' do
+            expect(assigns(:initiated)).to be
+          end
+
+          it 'assigns @attended' do
+            expect(assigns(:attended)).to be
+          end
+
           it '301 redirects to user in right graetzl' do
             expect(response).to have_http_status(301)
             expect(response).to redirect_to [graetzl, user]
@@ -90,19 +106,37 @@ RSpec.describe UsersController, type: :controller do
       end
 
       context 'when js request' do
-        context 'when scope :wall_comments' do
-          before { xhr :get, :show, graetzl_id: graetzl, id: user, scope: 'wall_comments' }
+        context 'with scope :wall_comments' do
+          let!(:wall_comments) { create_list(:comment, 10, commentable: user) }
+          before { xhr :get, :show, graetzl_id: graetzl, id: user, scope: :wall_comments }
 
           it 'assigns @user' do
             expect(assigns(:user)).to eq user
           end
 
-          it 'assigns @wall_comments' do
-            expect(assigns(:wall_comments)).to be
+          it 'assigns @new_content' do
+            expect(assigns(:new_content).to_a).to match_array wall_comments
           end
 
-          it 'does not assign @meetings' do
-            expect(assigns(:meetings)).not_to be
+          it 'renders show.js' do
+            expect(response.content_type).to include 'text/javascript'
+            expect(response).to render_template(:show)
+          end
+        end
+
+        context 'with scope :initiated' do
+          let(:meetings) { create_list(:meeting, 3) }
+          before do
+            meetings.each{|m| create(:going_to, meeting: m, user: user, role: GoingTo::roles[:initiator])}
+            xhr :get, :show, graetzl_id: graetzl, id: user, scope: :initiated
+          end
+
+          it 'assigns @user' do
+            expect(assigns(:user)).to eq user
+          end
+
+          it 'assigns @new_content' do
+            expect(assigns(:new_content).to_a).to match_array meetings
           end
 
           it 'renders show.js' do
@@ -111,19 +145,19 @@ RSpec.describe UsersController, type: :controller do
           end
         end
 
-        context 'when meeting scope' do
-          before { xhr :get, :show, graetzl_id: graetzl, id: user, scope: 'initiated' }
+        context 'with scope :attended' do
+          let(:meetings) { create_list(:meeting, 3) }
+          before do
+            meetings.each{|m| create(:going_to, meeting: m, user: user, role: GoingTo::roles[:attendee])}
+            xhr :get, :show, graetzl_id: graetzl, id: user, scope: :attended
+          end
 
           it 'assigns @user' do
             expect(assigns(:user)).to eq user
           end
 
-          it 'does not assign @wall_comments' do
-            expect(assigns(:wall_comments)).not_to be
-          end
-
-          it 'assigns @meetings' do
-            expect(assigns(:meetings)).to be
+          it 'assigns @new_content' do
+            expect(assigns(:new_content).to_a).to match_array meetings
           end
 
           it 'renders show.js' do

@@ -9,12 +9,17 @@ class Meeting < ActiveRecord::Base
                         .order(:starts_at_date) }
   scope :past, -> { where('starts_at_date < ?', Date.today).
                     order(starts_at_date: :desc) }
+  scope :paginate_with_padding, ->(page) { page(page)
+                                            .per(page == 1 ? 8 : 9)
+                                            .padding(page == 1 ? 0 : -1) }
 
   # scopes primarily used for users
-  scope :initiated, -> { includes(:going_tos)
-                        .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos) }
-  scope :attended, -> { includes(:going_tos)
-                        .where('going_tos.role = ?', GoingTo::roles[:attendee]).references(:going_tos) }
+  scope :initiated, -> { includes(:going_tos, :graetzl)
+                        .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos)
+                        .order(starts_at_date: :desc) }
+  scope :attended, -> { includes(:going_tos, :graetzl)
+                        .where('going_tos.role = ?', GoingTo::roles[:attendee]).references(:going_tos)
+                        .order(starts_at_date: :desc) }
 
   # macros
   friendly_id :name
@@ -45,20 +50,6 @@ class Meeting < ActiveRecord::Base
   before_destroy :destroy_activity_and_notifications, prepend: true
 
   # instance methods
-  def upcoming?
-    if starts_at_date
-      return starts_at_date > Date.yesterday
-    end
-    true
-  end
-
-  def past?
-    if starts_at_date
-      return starts_at_date < Date.today
-    end
-    false
-  end
-
   def initiator
     going_to = going_tos.initiator.last
     going_to.user if going_to

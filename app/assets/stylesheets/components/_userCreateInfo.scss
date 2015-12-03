@@ -12,12 +12,14 @@
     flex: 0 0 auto;
     margin-right: 10px;
   }
-  a {
-    margin-left: 3px;
-    margin-right: 3px;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
+  .userAndType {
+    a {
+      margin-left: 3px;
+      margin-right: 3px;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   .timeago {

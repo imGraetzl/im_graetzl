@@ -240,6 +240,15 @@
     margin-bottom: 13px;
   }
 
+  .img-square {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    img {
+      display: block;
+    }
+  }
+
 }
 
 .cardBox.-location.-small {
@@ -261,14 +270,4 @@
 
 }
 
-.avatar-square {
-  width: 80px;
-  height: 80px;
-  padding: 3px;
-  border: 1px solid $color-ambient-mint;
-  background-color: #fff;
-  border-radius: 4px;
-  img {
-    display: block;
-  }
-}
+

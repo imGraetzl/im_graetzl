@@ -1,0 +1,27 @@
+<div class="tabs-ctrl">
+  <ul class="tabs-nav">
+    <li><a href="#tab-1"><%= @upcoming.total_count %> geplante Treffen</a></li>
+    <li><a href="#tab-2"><%= @past.total_count %> vergangene Treffen</a></li>
+  </ul>
+  <div id="tab-1">
+    <% if @upcoming.empty? %>
+      <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
+    <% else %>
+      <div id="upcoming" class="meetingBoxCollection -double" data-tabID="one">
+        <%= render @upcoming %>
+      </div>
+      <%= view_more_scoped(@upcoming, :upcoming) %>
+    <% end %>
+  </div>
+
+  <div id="tab-2">
+    <% if @past.empty? %>
+      <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
+    <% else %>
+      <div id="past" class="meetingBoxCollection -double" data-tabID="two">
+        <%= render @past %>
+      </div>
+      <%= view_more_scoped(@past, :past) %>
+    <% end %>
+  </div>
+</div>
