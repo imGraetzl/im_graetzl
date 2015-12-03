@@ -117,7 +117,9 @@
 .entryCommentForm {
   .hideBlock {
     padding-top: 10px;
-    padding-left: 60px;
+    @include respond-to(">=large") {
+      padding-left: 48px;
+    }
   }
 }
 
