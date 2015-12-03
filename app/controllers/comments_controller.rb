@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :inline?, only: [:create]
 
   def create
     @comment = @commentable.comments.new comment_params
@@ -17,11 +16,11 @@ class CommentsController < ApplicationController
 
   private
 
-  def inline?
-    @inline = params[:inline] == 'true'
+  def render_inline?
+    params[:inline] == 'true'
   end
 
   def comment_params
-    params.require(:comment).permit(:content, images_files: []).merge(user_id: current_user.id)
+    params.require(:comment).permit(:content, images_files: []).merge(user_id: current_user.id, inline: render_inline?)
   end
 end
