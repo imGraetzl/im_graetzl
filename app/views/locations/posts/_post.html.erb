@@ -8,7 +8,7 @@
       </div>
     <% end %>
     <div class="userCreateInfo">
-      <%= link_to avatar_for(post.author), [post.author.graetzl, post.author] %>
+      <%= link_to avatar_for(post.author, class: 'img-square'), [post.author.graetzl, post.author] %>
       <span class="userAndType">Nachricht von <%= link_to post.author.name, [post.author.graetzl, post.author] %> <span>vor <%= time_ago_in_words(post.created_at) %></span></span>
     </div>
     <%= link_to post.title, [post.graetzl, post.author], class: 'headline' %>
