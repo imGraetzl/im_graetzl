@@ -98,18 +98,26 @@
 }
 
 .hideBlock {
-   height: 0;
-   overflow: hidden;
-   visibility: hidden;
-   opacity:0;
-   transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity:0;
+  transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 }
-.entryCreate.is-focused {
+.entryCreate.is-focused,
+.entryCommentForm.is-focused {
   .hideBlock {
     height: auto;
     visibility: visible;
     opacity: 1;
     transition-delay: 0s;
+  }
+}
+
+.entryCommentForm {
+  .hideBlock {
+    padding-top: 10px;
+    padding-left: 60px;
   }
 }
 
@@ -282,8 +290,6 @@
     @extend .btn-primary;
     @extend .btn-primary.-small;
     background-color: $color-ambient-grey;
-    margin-top: 10px;
-    display: none;
     float: right;
   }
 }
@@ -292,9 +298,6 @@
     @include respond-to(">=medium") {
       display: block;
     }
-  }
-  button {
-    display: block;
   }
 }
 
