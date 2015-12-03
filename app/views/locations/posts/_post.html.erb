@@ -22,7 +22,7 @@
     <% end %>
   </div>
   <% unless post.comments.empty? %>
-    <%= link_to 'all', '#' %>
+    <%= link_to 'frühere Kommentare zeigen', '#' %>
     <%= render_inline_comment(post.comments.first) %>
   <% end %>
   <%= render 'comments/form_inline', commentable: post %>

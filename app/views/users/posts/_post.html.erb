@@ -9,7 +9,7 @@
     <% end %>
     <div class="userCreateInfo">
       <%= link_to avatar_for(post.author), [post.author.graetzl, post.author] %>
-      <span class="userAndType">Neuer Beitrag von <%= link_to post.author.username, [post.author.graetzl, post.author] %> <span>vor <%= time_ago_in_words(post.created_at) %></span></span>
+      <span class="userAndType">Beitrag von <%= link_to post.author.username, [post.author.graetzl, post.author] %> <span>vor <%= time_ago_in_words(post.created_at) %></span></span>
     </div>
     <%= link_to [post.graetzl, post], class: 'linkToPost' do %>
       <div class="txt"><%= post.content %></div>
@@ -22,5 +22,9 @@
       </div>
     <% end %>
   </div>
+  <% unless post.comments.empty? %>
+    <%= link_to 'frühere Kommentare zeigen', '#' %>
+    <%= render_inline_comment(post.comments.first) %>
+  <% end %>
   <%= render 'comments/form_inline', commentable: post %>
 <% end %>
