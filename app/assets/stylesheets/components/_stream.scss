@@ -49,6 +49,19 @@
       color: $color-ambient-rosa;
     }
   }
+
+
+  .link-loadcomments {
+    font-size: 12px;
+    color: #69a8a7;
+    display: block;
+    text-decoration: none;
+    margin-bottom: 10px;
+    @include respond-to(">=medium") {
+      margin-left: 60px;
+    }
+  }
+
 }
 
 .entryCreate {

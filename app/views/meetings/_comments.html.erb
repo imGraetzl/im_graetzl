@@ -1,6 +1,6 @@
 <% unless meeting.comments.empty? %>
   <%= content_tag_for(:div, meeting, :comments) do %>
-    <%= link_to 'alle Kommentare zeigen', meeting_comments_path(meeting), remote: true, data: { disable_with: 'lädt...' } %>
+    <%= link_to 'Ältere Kommentare zeigen', meeting_comments_path(meeting), remote: true, data: { disable_with: 'lädt...' }, class: 'link-loadcomments' %>
     <%= render_inline_comment(meeting.comments.first) %>
   <% end %>
 <% end %>
