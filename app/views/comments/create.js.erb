@@ -1,5 +1,6 @@
 <% if @comment %>
   <% if @comment.inline %>
+    console.log('inline');
     var $form = $('div#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %> .entryCommentForm')
     $form.before("<%= j render 'comments/comment', comment: @comment, comment_inline: true %>")
     $form.replaceWith("<%= j render 'comments/form_inline', commentable: @comment.commentable %>")
