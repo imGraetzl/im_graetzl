@@ -1,0 +1,7 @@
+<% unless post.comments.empty? %>
+  <%= content_tag_for(:div, post, :comments) do %>
+    <%= link_to 'alle Kommentare zeigen', post_comments_path(post), remote: true, data: { disable_with: 'lädt...' } %>
+    <%= render_inline_comment(post.comments.first) %>
+  <% end %>
+<% end %>
+<%= render 'comments/form_inline', commentable: post %>

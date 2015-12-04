@@ -1,6 +1,11 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @comments = @commentable.comments.reorder(:created_at)
+    @comments.map{|c| c.inline = true}
+  end
+
   def create
     @comment = @commentable.comments.new comment_params
     if @comment.save
