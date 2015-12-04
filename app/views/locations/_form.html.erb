@@ -23,9 +23,25 @@
         <%= f.text_field :name, placeholder: 'Benenne deine Tätigkeit' %>
       </div>
 
+      <div class="input-field">
+        <%= f.label :slogan do %>
+          <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
+          <span>Slogan</span>
+        <% end %>
+        <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
+      </div>
+
+      <div class="input-textarea">
+        <%= f.label :description do %>
+          <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+          <span>Beschreibung</span>
+        <% end %>
+        <%= f.text_area :description, placeholder: 'Hier kannst du etwas mehr sagen' %>
+      </div>
+
       <div class="input-select">
         <%= f.label :category_id do %>
-            <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+          <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
             <span><%= Location.human_attribute_name(:category) %></span>
         <% end %>
         <%= f.collection_select :category_id,
@@ -33,20 +49,12 @@
                                 { prompt: 'Wähle aus um welche Art von Location es sich handelt...' } %>
       </div>
 
-      <div class="input-field">
-        <%= f.label :slogan do %>
-            <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
-            <span>Slogan</span>
-        <% end %>
-        <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
-      </div>
-
-      <div class="input-textarea">
-        <%= f.label :description do %>
-            <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
-            <span>Beschreibung</span>
-        <% end %>
-        <%= f.text_area :description, placeholder: 'Hier kannst du etwas mehr sagen' %>
+      <div class="input-tags">
+        <label for="">
+          <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+          <span>Kategorien<br/><small>(mit Komma getrennt)</small></span>
+        </label>
+        <input name="keywords" id="keywords" value="foo,bar,baz" />
       </div>
 
       <div class="upload-oldschool">

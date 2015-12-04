@@ -1,5 +1,17 @@
 .tag-list {
 
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
 
+  li {
+    float: left;
+    border: 1px solid $color-ambient-mint-dark;
+    color: $color-ambient-mint-dark;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
 
 }

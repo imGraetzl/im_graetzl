@@ -32,6 +32,7 @@
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min
 //= require jquery_ujs
+//= require jquery.tagsinput
 //= require linkify.min
 //= require linkify-jquery.min
 //= require jquery.remotipart

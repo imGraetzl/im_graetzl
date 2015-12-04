@@ -92,7 +92,7 @@ input, select, textarea {
   > label {
     @extend %label;
   }
-  input, select, textarea {
+  > input, select, textarea, .fakefield {
     @extend %input;
   }
   button:last-of-type {
@@ -144,6 +144,7 @@ input, select, textarea {
 
   select {
     -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    color: $color-ambient-mint-dark;
     option {
       color: $color-ambient-mint-dark;
       &:disabled {
@@ -368,6 +369,44 @@ input, select, textarea {
 
 
 
+
+
+.input-tags {
+  @extend %field;
+  .tagsinput {
+    @extend %input;
+    width: auto !important;
+    min-height: 100px !important;
+    height: 100% !important;
+    border: none;
+    overflow-y: auto;
+
+
+    span.tag {
+      background-color: $color-ambient-bright;
+      border-color: $color-ambient-mint-dark;
+      color: $color-ambient-mint-dark;
+      font-family: $font-primary;
+    }
+    span.tag a {
+      color: $color-ambient-rosa;
+      font-size: 14px;
+      margin-left: 5px;
+      margin-top: -3px;
+    }
+    input {
+      color: $color-ambient-mint !important;
+      font-style: italic;
+      font-size: 16px;
+      width: auto !important;
+      font-family: $font-primary;
+    }
+
+  }
+}
+
+
+
 // ---------------------------------------------------------------------- misc
 
 
@@ -393,4 +432,28 @@ input:-webkit-autofill {
 :-ms-input-placeholder { /* Internet Explorer 10+ */
   color: $color-ambient-mint;
   font-style: italic;
+}
+
+
+// ---------------------------------------------------------------------- collection of form elements
+
+.form-block {
+  margin-bottom: 50px;
+  .txt:first-child {
+    @include font-size-secondaryFont('base');
+    margin-bottom: 20px;
+    text-align: center;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+
+  .input-field,
+  .input-textarea,
+  .input-select,
+  .upload-oldschool,
+  .input-tags {
+    margin-bottom: 2.0rem;
+  }
+
 }

@@ -24,9 +24,21 @@
   </div>
 
   <div class="mainContent">
+
     <div class="introtxt">
       <h3><%= @location.slogan %></h3>
       <div class="txt"><%= @location.description %></div>
+    </div>
+
+    <div class="category-tags">
+      <h3 class="category"><svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>Gastronomie</h3>
+      <ul class="tag-list">
+        <li>Käse</li>
+        <li>Wurst- & Fleischwaren</li>
+        <li>Josef Brot</li>
+        <li>Verhackerts vom Lamm</li>
+        <li>Bioseife</li>
+      </ul>
     </div>
 
     <% unless @location.non_meetable? %>
