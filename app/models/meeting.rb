@@ -44,7 +44,6 @@ class Meeting < ActiveRecord::Base
   validates :name, presence: true
   validates :graetzl, presence: true
   validate :starts_at_date_cannot_be_in_the_past, on: :create
-  validate :ends_at_time_cannot_be_before_starts_at_time
 
   # callbacks
   before_destroy :destroy_activity_and_notifications, prepend: true
@@ -60,12 +59,6 @@ class Meeting < ActiveRecord::Base
   def starts_at_date_cannot_be_in_the_past
     if starts_at_date && starts_at_date < Date.today
       errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
-    end
-  end
-
-  def ends_at_time_cannot_be_before_starts_at_time
-    if starts_at_time && ends_at_time && ends_at_time < starts_at_time
-      errors.add(:ends_at, 'kann nicht vor Beginn liegen')
     end
   end
 

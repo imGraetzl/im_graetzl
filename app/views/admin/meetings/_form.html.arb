@@ -13,9 +13,8 @@ active_admin_form_for [:admin, resource] do |f|
           hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
         input :remove_cover_photo, as: :boolean if f.object.cover_photo
         input :starts_at_date
-        input :starts_at_time
-        input :ends_at_date
-        input :ends_at_time
+        input :starts_at_time, ignore_date: true
+        input :ends_at_time, ignore_date: true
       end
       inputs 'Address', for: [:address, (f.object.address || f.object.build_address)] do |a|
         a.input :street_name

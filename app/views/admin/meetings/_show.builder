@@ -17,9 +17,8 @@ context.instance_eval do
             m.cover_photo ? cover_photo_for(m, fill: [200,100]) : nil
           end
           row :starts_at_date
-          row :starts_at_time
-          row :ends_at_date
-          row :ends_at_time
+          row(:starts_at_time){|m| m.starts_at_time ? m.starts_at_time.strftime('%H:%M') : nil}
+          row(:ends_at_time){|m| m.ends_at_time ? m.ends_at_time.strftime('%H:%M') : nil}
         end
       end
       panel 'Address Details' do

@@ -28,10 +28,6 @@ RSpec.describe Meeting, type: :model do
         meeting.update(starts_at_date: 1.day.ago)
         }.not_to raise_error
     end
-
-    it 'invalid with ends_at_time before_starts_at_time' do
-      expect(build(:meeting, starts_at_date: Date.today, starts_at_time: Time.now + 1.hour, ends_at_time: Time.now)).not_to be_valid
-    end
   end
 
   describe 'macros' do
