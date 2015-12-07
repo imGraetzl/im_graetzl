@@ -21,7 +21,7 @@
   <% unless small %>
     <div class="txt"><%= truncate(location.description, length: 100) %></div>
   <% end %>
-  <% if next_meeting = location.meetings.upcoming.first %>
+  <% if next_meeting = location.meetings.basic.upcoming.first %>
     <%= render 'locations/meeting_teaser', meeting: next_meeting %>
   <% end %>
 </div>
