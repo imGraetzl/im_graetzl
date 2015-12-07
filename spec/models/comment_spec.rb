@@ -6,8 +6,16 @@ RSpec.describe Comment, type: :model do
     expect(build_stubbed(:comment)).to be_valid
   end
 
+  describe 'attributes' do
+    let(:comment) { build_stubbed :comment }
+
+    it 'has inline' do
+      expect(comment).to respond_to :inline
+    end
+  end
+
   describe 'associations' do
-    let(:comment) { create(:comment) }
+    let(:comment) { create :comment }
 
     it 'has user' do
       expect(comment).to respond_to(:user)

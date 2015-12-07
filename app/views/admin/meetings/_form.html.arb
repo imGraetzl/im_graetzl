@@ -3,7 +3,7 @@ active_admin_form_for [:admin, resource] do |f|
     column do
       f.semantic_errors *f.object.errors.keys
       inputs 'Basic Info' do
-        input :graetzl
+        input :graetzl, include_blank: false
         input :name
         input :state, as: :select, collection: Meeting.states.keys, include_blank: false
         input :slug unless f.object.new_record?
@@ -13,9 +13,8 @@ active_admin_form_for [:admin, resource] do |f|
           hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
         input :remove_cover_photo, as: :boolean if f.object.cover_photo
         input :starts_at_date
-        input :starts_at_time
-        input :ends_at_date
-        input :ends_at_time
+        input :starts_at_time, ignore_date: true
+        input :ends_at_time, ignore_date: true
       end
       inputs 'Address', for: [:address, (f.object.address || f.object.build_address)] do |a|
         a.input :street_name
@@ -35,7 +34,7 @@ active_admin_form_for [:admin, resource] do |f|
                   allow_destroy: true,
                   heading: false,
                   new_record: 'User Hinzufügen' do |o|
-          o.input :user
+          o.input :user, include_blank: false
           o.input :role, as: :select, collection: GoingTo.roles.keys, include_blank: false
         end
       end

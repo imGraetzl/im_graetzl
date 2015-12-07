@@ -13,12 +13,9 @@
     </div>
     <%= link_to post.title, [post.graetzl, post.author], class: 'headline' %>
     <div class="txt"><%= post.content %></div>
-    <% unless post.images.empty? %>
-      <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
-        <% post.images.each do |image| %>
-          <%= link_to attachment_image_tag(image, :file, :fill, 400, 400), attachment_url(image, :file, :limit, 800, 800) %>
-        <% end %>
-      </div>
-    <% end %>
+
+    <%= render 'shared/images', imageable: post unless post.images.empty? %>
+
   </div>
+  <%= render 'posts/comments', post: post %>
 <% end %>

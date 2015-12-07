@@ -15,6 +15,14 @@ module ImagesHelper
                                 class: (options[:class] if options[:class]))
   end
 
+  def thumbnail_for(imageable, image)
+    if imageable.respond_to?(:inline) && imageable.inline
+      attachment_image_tag(image, :file, :fill, 200, 200)
+    else
+      attachment_image_tag(image, :file, :fill, 400, 400)
+    end
+  end
+
 
   private
 

@@ -35,6 +35,6 @@
         <%= render @meetings %>
       </div>
     </div>
-    <%= paginate @meetings, remote: true %>
+    <%= view_more_link @meetings %>
   <% end %>
 </section>

@@ -55,8 +55,8 @@ RSpec.shared_examples :inline_comment do
       PublicActivity.with_tracking { xhr :post, :create, params }
     end
 
-    it 'assigns @inline true' do
-      expect(assigns(:inline)).to eq true
+    it 'assigns comment.inline true' do
+      expect(assigns(:comment).inline).to eq true
     end
 
     include_examples :a_successfull_create_request
@@ -73,8 +73,8 @@ RSpec.shared_examples :stream_comment do
       PublicActivity.with_tracking { xhr :post, :create, params }
     end
 
-    it 'assigns @inline false' do
-      expect(assigns(:inline)).to eq false
+    it 'assigns comment.inline false' do
+      expect(assigns(:comment).inline).to eq false
     end
 
     include_examples :a_successfull_create_request

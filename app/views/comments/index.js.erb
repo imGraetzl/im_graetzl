@@ -1,0 +1,2 @@
+var $comments = $('#<%= dom_id(@commentable, :comments) %>');
+$comments.replaceWith("<%= j(render partial: 'comments/comment', collection: @comments) %>");

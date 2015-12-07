@@ -1,4 +1,4 @@
-<div class="streamElement">
+<%= div_for(activity.trackable, class: 'streamElement') do %>
   <div class="entryInitialContent">
     <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
     <%= render 'meetings/teaser', meeting: activity.trackable %>
@@ -15,6 +15,5 @@
       nimmt an diesem Treffen teil
     </div>
   </div>
-
-  <%= render 'comments/form_inline', commentable: activity.trackable %>
-</div>
+  <%= render 'meetings/comments', meeting: activity.trackable %>
+<% end %>

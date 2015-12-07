@@ -93,7 +93,10 @@ RSpec.describe 'comments/_comment', type: :view do
     end
 
     context 'with additional parameter' do
-      before { render 'comments/comment', comment: comment, comment_inline: true }
+      before do
+        allow(comment).to receive(:inline) { true }
+        render 'comments/comment', comment: comment
+      end
 
       it 'does not have stream wrapper class' do
         expect(rendered).not_to have_selector('div.entryInitialContent')

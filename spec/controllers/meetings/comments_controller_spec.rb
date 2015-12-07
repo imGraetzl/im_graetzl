@@ -5,6 +5,28 @@ RSpec.describe Meetings::CommentsController, type: :controller do
   let(:user) { create(:user) }
   let(:meeting) { create(:meeting) }
 
+  describe 'GET index' do
+    let!(:comments) { create_list(:comment, 10, commentable: meeting) }
+    before do
+      sign_in user
+      xhr :get, :index, meeting_id: meeting
+    end
+
+    it 'assigns @commentable' do
+      expect(assigns :commentable).to eq meeting
+    end
+
+    it 'assigns @comments with inline = true' do
+      expect(assigns(:comments).to_a).to match_array comments
+      expect(assigns(:comments).map(&:inline)).to all(be_truthy)
+    end
+
+    it 'renders index.js' do
+      expect(response.content_type).to eq 'text/javascript'
+      expect(response).to render_template(:index)
+    end
+  end
+
   describe 'POST create' do
     let(:params) {
       { comment: { content: 'comment_text' }, meeting_id: meeting }

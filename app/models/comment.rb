@@ -3,6 +3,9 @@ class Comment < ActiveRecord::Base
 
   default_scope { order(created_at: :desc) }
 
+  # macros
+  attr_accessor :inline
+
   # associations
   belongs_to :user
   belongs_to :commentable, polymorphic: true

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   #post 'worker/truncate_db', to: 'worker#truncate_db'
   #post 'worker/truncate_eb', to: 'worker#truncate_eb'
   #post 'worker/sitemap', to: 'worker#sitemap'
+
   # routing concerns
   concern :graetzl_before_new do
     collection do
@@ -92,12 +93,12 @@ Rails.application.routes.draw do
   end
 
   resources :meetings, path: :treffen, except: [:index, :show] do
-    resources :comments, module: :meetings, only: [:create]
+    resources :comments, module: :meetings, only: [:index, :create]
   end
 
   resources :comments, only: [:destroy]
 
   resources :posts, only: [:destroy] do
-    resources :comments, module: :posts, only: [:create]
+    resources :comments, module: :posts, only: [:index, :create]
   end
 end
