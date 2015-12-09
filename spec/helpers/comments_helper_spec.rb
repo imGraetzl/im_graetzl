@@ -43,4 +43,19 @@ RSpec.describe CommentsHelper, type: :helper do
       expect(helper.render_inline_comment comment).to eq (render comment)
     end
   end
+
+  describe '#link_to_load_comments' do
+    context 'when commentable is post' do
+      let(:post) { build_stubbed(:post) }
+      subject(:link) { helper.link_to_load_comments(post) }
+
+      it 'renders link to post_comments_path' do
+        expect(link).to include("href=\"#{post_comments_path post}\"")
+      end
+
+      it 'has rel=nofollow attribute' do
+        expect(link).to include("rel=\"nofollow\"")
+      end
+    end
+  end
 end

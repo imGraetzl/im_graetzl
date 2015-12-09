@@ -7,10 +7,7 @@ RSpec.describe Posts::CommentsController, type: :controller do
 
   describe 'GET index' do
     let!(:comments) { create_list(:comment, 10, commentable: commentable_post) }
-    before do
-      sign_in user
-      xhr :get, :index, post_id: commentable_post
-    end
+    before { xhr :get, :index, post_id: commentable_post }
 
     it 'assigns @commentable' do
       expect(assigns :commentable).to eq commentable_post
