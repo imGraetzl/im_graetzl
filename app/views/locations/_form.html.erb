@@ -41,7 +41,7 @@
 
       <div class="input-select">
         <%= f.label :category_id do %>
-          <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+          <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
             <span><%= Location.human_attribute_name(:category) %></span>
         <% end %>
         <%= f.collection_select :category_id,
@@ -52,7 +52,7 @@
       <div class="input-tags">
         <label for="">
           <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-          <span>Kategorien<br/><small>(mit Komma getrennt)</small></span>
+          <span>Produktgruppen<br/><small>(mit Komma getrennt)</small></span>
         </label>
         <input name="keywords" id="keywords" value="foo,bar,baz" />
       </div>
