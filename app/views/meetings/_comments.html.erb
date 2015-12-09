@@ -1,10 +1,6 @@
 <% unless meeting.comments.empty? %>
   <%= content_tag_for(:div, meeting, :comments) do %>
-    <%= link_to 'Ältere Kommentare zeigen', meeting_comments_path(meeting),
-                                            remote: true,
-                                            data: { disable_with: 'lädt...' },
-                                            rel: 'nofollow',
-                                            class: 'link-loadcomments' %>
+    <%= link_to_load_comments(meeting) unless meeting.comments.size < 2 %>
     <%= render_inline_comment(meeting.comments.first) %>
   <% end %>
 <% end %>

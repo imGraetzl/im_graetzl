@@ -1,10 +1,6 @@
 <% unless post.comments.empty? %>
   <%= content_tag_for(:div, post, :comments) do %>
-    <%= link_to 'Ältere Kommentare zeigen', post_comments_path(post),
-                                            remote: true,
-                                            data: { disable_with: 'lädt...' },
-                                            rel: 'nofollow',
-                                            class: 'link-loadcomments' %>
+    <%= link_to_load_comments(post) unless post.comments.size < 2 %>
     <%= render_inline_comment(post.comments.first) %>
   <% end %>
 <% end %>
