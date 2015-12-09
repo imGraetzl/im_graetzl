@@ -50,11 +50,11 @@
       </div>
 
       <div class="input-tags">
-        <label for="">
+        <%= f.label :product_list do %>
           <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
           <span>Produktgruppen<br/><small>(mit Komma getrennt)</small></span>
-        </label>
-        <input name="keywords" id="keywords" value="foo,bar,baz" />
+        <% end %>
+        <%= f.text_field :product_list, value: @location.product_list.to_s %>
       </div>
 
       <div class="upload-oldschool">

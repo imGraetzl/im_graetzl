@@ -97,6 +97,7 @@ class LocationsController < ApplicationController
         :cover_photo, :remove_cover_photo,
         :category_id,
         :meeting_permission,
+        :product_list,
         contact_attributes: [
           :id,
           :website,

@@ -30,8 +30,8 @@ APP.controllers.locations = (function() {
             event.preventDefault();
         });
 
-        $('#keywords').tagsInput({
-            'defaultText':'Kategorie hinzufügen'
+        $('#location_product_list').tagsInput({
+            'defaultText':'Tags'
         });
 
         // TODO: change name of wrapper class
