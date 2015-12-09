@@ -49,7 +49,7 @@ class LocationsController < ApplicationController
         verify_graetzl_child(@location)
         @upcoming = @location.meetings.basic.upcoming.includes(:graetzl).page(params[:upcoming]).per(2)
         @past = @location.meetings.basic.past.includes(:graetzl).page(params[:past]).per(2)
-        @posts = @location.posts.includes(:graetzl, :images, :author).page(params[:page]).per(10)
+        @posts = @location.posts.includes(:graetzl, :images, :author, comments: [:images, :user]).page(params[:page]).per(10)
       end
     end
   end
