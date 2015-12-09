@@ -4,4 +4,4 @@
     <%= render_inline_comment(post.comments.first) %>
   <% end %>
 <% end %>
-<%= render 'comments/form_inline', commentable: post %>
+<%= render 'comments/form_inline', commentable: post if current_user %>

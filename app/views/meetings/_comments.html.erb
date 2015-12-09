@@ -4,4 +4,4 @@
     <%= render_inline_comment(meeting.comments.first) %>
   <% end %>
 <% end %>
-<%= render 'comments/form_inline', commentable: meeting %>
+<%= render 'comments/form_inline', commentable: meeting if current_user %>
