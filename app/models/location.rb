@@ -16,6 +16,7 @@ class Location < ActiveRecord::Base
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
+  acts_as_taggable_on :products
 
   # associations
   belongs_to :graetzl

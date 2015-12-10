@@ -24,9 +24,19 @@
   </div>
 
   <div class="mainContent">
+
     <div class="introtxt">
       <h3><%= @location.slogan %></h3>
       <div class="txt"><%= @location.description %></div>
+    </div>
+
+    <div class="category-tags">
+      <h3 class="category"><svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg><%= @location.category.name %></h3>
+      <ul class="tag-list">
+        <% @location.product_list.each do |product| %>
+          <li><%= product %></li>
+        <% end %>
+      </ul>
     </div>
 
     <% unless @location.non_meetable? %>

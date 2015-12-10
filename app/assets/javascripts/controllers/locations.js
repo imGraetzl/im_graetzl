@@ -30,6 +30,10 @@ APP.controllers.locations = (function() {
             event.preventDefault();
         });
 
+        $('#location_product_list').tagsInput({
+            'defaultText':'Tags'
+        });
+
         // TODO: change name of wrapper class
         $('section.location-form').on('click', '.add_graetzl_fields', function(event) {
             var fields = $(this).data('fields');

@@ -33,23 +33,3 @@ section.location-form {
 
 }
 
-.form-block {
-  margin-bottom: 50px;
-  .txt:first-child {
-    @include font-size-secondaryFont('base');
-    margin-bottom: 20px;
-    text-align: center;
-    span {
-      color: $color-ambient-rosa;
-    }
-  }
-
-  .input-field,
-  .input-textarea,
-  .input-select,
-  .upload-oldschool {
-    margin-bottom: 2.0rem;
-  }
-
-}
-
