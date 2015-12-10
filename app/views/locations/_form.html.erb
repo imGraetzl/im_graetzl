@@ -52,7 +52,7 @@
       <div class="input-tags">
         <%= f.label :product_list do %>
           <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-          <span>Produktgruppen<br/><small>(mit Komma getrennt)</small></span>
+          <span><%= Location.human_attribute_name(:product_list) %><br/><small>(mit Komma getrennt)</small></span>
         <% end %>
         <%= f.text_field :product_list, value: @location.product_list.to_s %>
       </div>

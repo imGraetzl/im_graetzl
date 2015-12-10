@@ -3,6 +3,7 @@ de:
     attributes:
       location:
         category: Kategorie
+        product_list: Produktgruppen
         meeting_permission: Treffen ermöglichen
         meeting_permissions:
           meetable: Jeder kann Treffen hier starten

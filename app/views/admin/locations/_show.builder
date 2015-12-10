@@ -6,6 +6,7 @@ context.instance_eval do
           row :id
           row :name
           row :category
+          row :product_list
           row(:state){|l| status_tag(l.state)}
           row :slug
           row :created_at
