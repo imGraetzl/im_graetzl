@@ -31,13 +31,11 @@
     </div>
 
     <div class="category-tags">
-      <h3 class="category"><svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>Gastronomie</h3>
+      <h3 class="category"><svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg><%= @location.category.name %></h3>
       <ul class="tag-list">
-        <li>Käse</li>
-        <li>Wurst- & Fleischwaren</li>
-        <li>Josef Brot</li>
-        <li>Verhackerts vom Lamm</li>
-        <li>Bioseife</li>
+        <% @location.product_list.each do |product| %>
+          <li><%= product %></li>
+        <% end %>
       </ul>
     </div>
 
