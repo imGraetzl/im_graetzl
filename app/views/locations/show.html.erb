@@ -32,11 +32,13 @@
 
     <div class="category-tags">
       <h3 class="category"><svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg><%= @location.category.name %></h3>
-      <ul class="tag-list">
-        <% @location.product_list.each do |product| %>
-          <li><%= product %></li>
-        <% end %>
-      </ul>
+      <% unless @location.products.empty? %>
+        <ul class="tag-list">
+          <% @location.product_list.each do |product| %>
+            <li><%= product %></li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
 
     <% unless @location.non_meetable? %>
