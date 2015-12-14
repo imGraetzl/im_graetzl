@@ -14,6 +14,8 @@ ActiveAdmin.register Location do
   # filter
   filter :graetzl
   filter :category
+  #filter :products
+  filter :products, as: :check_boxes, collection: proc { Location.product_counts.map{|p| p.name} }
   filter :name
   filter :slogan
   filter :description

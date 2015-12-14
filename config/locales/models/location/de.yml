@@ -4,6 +4,7 @@ de:
       location:
         category: Kategorie
         product_list: Produktgruppen
+        products: Produkte
         meeting_permission: Treffen ermöglichen
         meeting_permissions:
           meetable: Jeder kann Treffen hier starten
