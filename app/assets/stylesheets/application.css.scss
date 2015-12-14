@@ -59,6 +59,8 @@
 @import "components/event-teaser-slice";
 @import "components/baumler-stoerer";
 @import "components/graetzl-ambassador";
+@import "components/tag-list";
+@import "components/category-tags";
 
 
 //---------------------------------------------------------------------------------------------*\
@@ -97,3 +99,4 @@
 @import "leaflet";
 @import "featherlight";
 @import "featherlight.gallery";
+@import "jquery.tagsinput";

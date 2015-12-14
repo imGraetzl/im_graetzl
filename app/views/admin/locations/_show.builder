@@ -6,6 +6,12 @@ context.instance_eval do
           row :id
           row :name
           row :category
+          row :products do |l|
+            l.products.each do |p|
+              a p.name, href: admin_tag_path(p)
+              text_node ', '.html_safe
+            end
+          end
           row(:state){|l| status_tag(l.state)}
           row :slug
           row :created_at

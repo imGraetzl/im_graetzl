@@ -53,6 +53,10 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:cover_photo)
       expect(location).to respond_to(:cover_photo_content_type)
     end
+
+    it 'has product_list' do
+      expect(location).to respond_to :product_list
+    end
   end
 
   describe 'associations' do
@@ -139,7 +143,7 @@ RSpec.describe Location, type: :model do
   describe 'scopes' do
     describe 'paginate_index' do
       before { create_list(:location, 60) }
-      
+
       context 'with page param = 1' do
         subject(:locations) { Location.paginate_index(1) }
 

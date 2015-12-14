@@ -23,9 +23,25 @@
         <%= f.text_field :name, placeholder: 'Benenne deine Tätigkeit' %>
       </div>
 
+      <div class="input-field">
+        <%= f.label :slogan do %>
+          <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
+          <span>Slogan</span>
+        <% end %>
+        <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
+      </div>
+
+      <div class="input-textarea">
+        <%= f.label :description do %>
+          <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+          <span>Beschreibung</span>
+        <% end %>
+        <%= f.text_area :description, placeholder: 'Hier kannst du etwas mehr sagen' %>
+      </div>
+
       <div class="input-select">
         <%= f.label :category_id do %>
-            <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+          <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
             <span><%= Location.human_attribute_name(:category) %></span>
         <% end %>
         <%= f.collection_select :category_id,
@@ -33,20 +49,12 @@
                                 { prompt: 'Wähle aus um welche Art von Location es sich handelt...' } %>
       </div>
 
-      <div class="input-field">
-        <%= f.label :slogan do %>
-            <svg class="icon-quotes"><use xlink:href="#icon-quotes"></use></svg>
-            <span>Slogan</span>
+      <div class="input-tags">
+        <%= f.label :product_list do %>
+          <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+          <span><%= Location.human_attribute_name(:product_list) %><br/><small>(mit Komma getrennt)</small></span>
         <% end %>
-        <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
-      </div>
-
-      <div class="input-textarea">
-        <%= f.label :description do %>
-            <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
-            <span>Beschreibung</span>
-        <% end %>
-        <%= f.text_area :description, placeholder: 'Hier kannst du etwas mehr sagen' %>
+        <%= f.text_field :product_list, value: @location.product_list.to_s %>
       </div>
 
       <div class="upload-oldschool">

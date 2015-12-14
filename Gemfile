@@ -102,3 +102,5 @@ gem 'sucker_punch'
 gem 'sitemap_generator'
 # schedule cron jobs
 gem 'whenever', require: false
+# tagging
+gem 'acts-as-taggable-on'
