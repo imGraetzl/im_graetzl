@@ -10,7 +10,7 @@ Ruby on Rails social network app Vienna.
 3. [Deployment](#deployment)
 
 
-## Getting Started - hallo
+## Getting Started
 
 ### Dependencies
 
