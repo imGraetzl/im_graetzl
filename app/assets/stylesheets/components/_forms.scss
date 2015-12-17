@@ -92,7 +92,8 @@ input, select, textarea {
   > label {
     @extend %label;
   }
-  > input, select, textarea, .fakefield {
+  > input, select, textarea, .fakefield,
+  .tt-input, .tt-hint {
     @extend %input;
   }
   button:last-of-type {
