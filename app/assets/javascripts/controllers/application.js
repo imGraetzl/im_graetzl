@@ -13,10 +13,11 @@ APP.controllers.application = (function() {
             jQuery('#notifications_more').trigger('click');
         });
 
-        showStoerer();
+       // showStoerer();
 
     }
 
+    /*
 
     function showStoerer() {
         var $stoerer = $(".baumler-stoerer");
@@ -29,6 +30,8 @@ APP.controllers.application = (function() {
             });
         }
     }
+
+    */
 
 
 
