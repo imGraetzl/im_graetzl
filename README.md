@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/klappradla/im_graetzl.svg?branch=master)](https://travis-ci.org/klappradla/im_graetzl)
+[![Code Climate](https://codeclimate.com/github/klappradla/im_graetzl/badges/gpa.svg)](https://codeclimate.com/github/klappradla/im_graetzl)
 # imGrätzl
 
 Ruby on Rails social network app Vienna.
