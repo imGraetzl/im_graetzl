@@ -11,12 +11,10 @@ APP.controllers.users = (function() {
         var notfication_types = [
             "new_meeting_in_graetzl",
             "new_post_in_graetzl",
-            "initiator_comments",
             "another_user_comments",
             "another_attendee",
             "update_of_meeting",
             "user_comments_users_meeting",
-            "attendee_left",
             "new_wall_comment",
             "cancel_of_meeting"
         ];

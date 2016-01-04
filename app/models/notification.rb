@@ -16,45 +16,49 @@ class Notification < ActiveRecord::Base
       bitmask: 4,
       receivers: ->(activity) { activity.trackable.users }
     },
-    initiator_comments: {
-      bitmask: 8,
-      triggered_by_activity_with_key: 'meeting.comment',
-      receivers: ->(activity) { activity.trackable.users },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id == activity.owner_id }
-    },
     user_comments_users_meeting: {
       triggered_by_activity_with_key: 'meeting.comment',
-      bitmask: 16,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
+      bitmask: 8,
+      receivers: ->(activity) { User.where(id: activity.trackable.initiator.id) },
       condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
     },
-    another_user_comments: {
+    user_comments_users_post: {
+      triggered_by_activity_with_key: 'post.comment',
+      bitmask: 16,
+      receivers: ->(activity) { User.where(id: activity.trackable.author_id) },
+      condition: ->(activity) { activity.trackable.author.present? && activity.trackable.author_id != activity.owner_id }
+    },
+    another_user_comments_post: {
+      triggered_by_activity_with_key: 'post.comment',
+      bitmask: 32,
+      receivers: ->(activity) { User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id]) }
+    },
+    another_user_comments_meeting: {
       triggered_by_activity_with_key: 'meeting.comment',
       bitmask: 32,
+      receivers: ->(activity) { User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id]) }
+    },
+    comment_in_meeting: {
+      triggered_by_activity_with_key: 'meeting.comment',
+      bitmask: 64,
+      receivers: ->(activity) { activity.trackable.users }
+    },
+    cancel_of_meeting: {
+      triggered_by_activity_with_key: 'meeting.cancel',
+      bitmask: 128,
       receivers: ->(activity) { activity.trackable.users }
     },
     another_attendee: {
       triggered_by_activity_with_key: 'meeting.go_to',
-      bitmask: 64,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
-    },
-    attendee_left: {
-      triggered_by_activity_with_key: 'meeting.left',
-      bitmask: 128,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
+      bitmask: 256,
+      receivers: ->(activity) { User.where(id: activity.trackable.initiator.id) },
       condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
     },
     new_wall_comment: {
       triggered_by_activity_with_key: 'user.comment',
-      bitmask: 256,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.id]) },
-      condition: ->(activity) { activity.owner.present? && activity.recipient.present? }
-    },
-    cancel_of_meeting: {
-      triggered_by_activity_with_key: 'meeting.cancel',
       bitmask: 512,
-      receivers: ->(activity) { activity.trackable.users }
+      receivers: ->(activity) { User.where(id: activity.trackable.id) },
+      condition: ->(activity) { activity.owner.present? && activity.recipient.present? }
     },
     approve_of_location: {
       triggered_by_activity_with_key: 'location.approve',

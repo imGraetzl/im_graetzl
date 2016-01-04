@@ -30,6 +30,7 @@ RSpec.describe Notification, type: :model, job: true do
     before { user.enable_website_notification :new_meeting_in_graetzl }
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: meeting.graetzl) }
+
       it "user is notified" do
         expect(user.notifications.to_a).to be_empty
         meeting.create_activity :create, owner: create(:user)
@@ -63,7 +64,6 @@ RSpec.describe Notification, type: :model, job: true do
         user.notifications.reload
         expect(user.notifications.to_a).to_not be_empty
       end
-
     end
 
     context "when user does not attend meeting" do
@@ -83,6 +83,7 @@ RSpec.describe Notification, type: :model, job: true do
                                user: user,
                                meeting: meeting,
                                role: GoingTo.roles[:attendee]) }
+
       it "user is notified" do
         expect(user.notifications.to_a).to be_empty
         meeting.create_activity :cancel, owner: create(:user)
@@ -127,45 +128,20 @@ RSpec.describe Notification, type: :model, job: true do
   describe "new comment" do
     let(:commenter) { create(:user) }
 
-    before do
-      user.enable_website_notification :user_comments_users_meeting
-      user.enable_website_notification :another_user_comments
-      user.enable_website_notification :initiator_comments
-    end
-
     describe "on meeting" do
+      before do
+        user.enable_website_notification :user_comments_users_meeting
+        user.enable_website_notification :another_user_comments_meeting
+        user.enable_website_notification :comment_in_meeting
+      end
+
       let(:comment) { create(:comment,
                         commentable: meeting,
                         user: commenter) }
 
-
-      context "when commenter is initiator" do
-        before do
-          create(:going_to,
-                 meeting: meeting,
-                 user: commenter,
-                 role: GoingTo.roles[:initiator])
-          create(:going_to,
-                 user: user,
-                 meeting: meeting,
-                 role: GoingTo.roles[:attendee])
-        end
-
-        it "user is notified" do
-          expect(user.notifications.to_a).to be_empty
-          meeting.create_activity :comment, owner: commenter
-          user.notifications.reload
-          expect(user.notifications.to_a).to_not be_empty
-        end
-      end
-
       context "when user is initiator" do
         before do
           create(:going_to,
-                 meeting: meeting,
-                 user: commenter,
-                 role: GoingTo.roles[:attendee])
-          create(:going_to,
                  user: user,
                  meeting: meeting,
                  role: GoingTo.roles[:initiator])
@@ -179,12 +155,8 @@ RSpec.describe Notification, type: :model, job: true do
         end
       end
 
-      context "when user is another attendee" do
+      context "when user is attendee" do
         before do
-          create(:going_to,
-                 meeting: meeting,
-                 user: commenter,
-                 role: GoingTo.roles[:attendee])
           create(:going_to,
                  user: user,
                  meeting: meeting,
@@ -197,6 +169,75 @@ RSpec.describe Notification, type: :model, job: true do
           user.notifications.reload
           expect(user.notifications.to_a).to_not be_empty
         end
+      end
+
+      context "when user commented before" do
+        before { create(:comment, commentable: meeting, user: user) }
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+      end
+    end
+
+    describe "on post" do
+      let(:post) { create(:post) }
+      let(:comment) { create(:comment,
+                        commentable: post,
+                        user: commenter) }
+      before do
+        user.enable_website_notification :user_comments_users_post
+        user.enable_website_notification :another_user_comments_post
+      end
+
+      context "when user post author" do
+        before do
+          post.author = user
+          post.save
+        end
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+      end
+
+      context "when user owns locations" do
+        it "is not implemented yet" do
+          pending("not implemented yet")
+          fail
+        end
+      end
+
+      context "when user commented before" do
+        before { create(:comment, commentable: post, user: user) }
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+      end
+    end
+
+    describe "on user" do
+      let(:comment) { create(:comment,
+                        commentable: user,
+                        user: commenter) }
+
+      before { user.enable_website_notification :new_wall_comment }
+
+      it "user is notified" do
+        expect(user.notifications.to_a).to be_empty
+        user.create_activity :comment, owner: commenter, recipient: comment
+        user.notifications.reload
+        expect(user.notifications.to_a).to_not be_empty
       end
     end
   end
@@ -209,9 +250,7 @@ RSpec.describe Notification, type: :model, job: true do
                             role: GoingTo.roles[:attendee])
     }
 
-    before do
-      user.enable_website_notification :another_attendee
-    end
+    before { user.enable_website_notification :another_attendee }
 
     context "when user is initiator of meeting" do
       before do
@@ -230,59 +269,9 @@ RSpec.describe Notification, type: :model, job: true do
     end
   end
 
-  describe "attendee left meeting" do
-    before do
-      user.enable_website_notification :attendee_left
-    end
-
-    let(:attendee) { create(:user) }
-    let(:going_to) { create(:going_to,
-                            meeting: meeting,
-                            user: attendee,
-                            role: GoingTo.roles[:attendee])
-    }
-
-    context "when user is initiator of meeting" do
-      before do
-        create(:going_to,
-               user: user,
-               meeting: meeting,
-               role: GoingTo.roles[:initiator])
-      end
-
-      it "user is notified" do
-        expect(user.notifications.to_a).to be_empty
-        meeting.create_activity :left, owner: attendee
-        user.notifications.reload
-        expect(user.notifications.to_a).to_not be_empty
-      end
-    end
-  end
-
-  describe "new wall comment for user" do
-    before do
-      user.enable_website_notification :new_wall_comment
-    end
-
-    let(:commenter) { create(:user) }
-    let(:wall_comment) { create(:comment,
-                                commentable: user,
-                                user: commenter)
-    }
-
-    context "when commenter and comment present" do
-
-      it "user is notified" do
-        expect(user.notifications.to_a).to be_empty
-        user.create_activity :comment, owner: commenter, recipient: wall_comment
-        user.notifications.reload
-        expect(user.notifications.to_a).to_not be_empty
-      end
-    end
-  end
-
   describe "admin approves location" do
-    let!(:location) { create(:location) }
+    let(:location) { create(:location) }
+    
     before do
       user.enable_website_notification :approve_of_location
       create(:location_ownership, user: user, location: location)

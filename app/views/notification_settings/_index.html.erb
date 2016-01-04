@@ -96,31 +96,16 @@
 
   <div class="settingSlice">
     <div class="col1">
-      Ein Veranstalter das Treffen kommentiert
-    </div>
-    <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_initiator_comments" type="checkbox" <% if current_user.enabled_website_notification?(:initiator_comments) %>checked <% end %>>
-        <label for="toggle_initiator_comments"></label>
-      </div>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "initiator_comments" %>
-    </div>
-  </div>
-
-  <div class="settingSlice">
-    <div class="col1">
       Ein User das Treffen kommentiert
     </div>
     <div class="col2">
       <div class="input-switch">
-        <input id="toggle_another_user_comments" type="checkbox" <% if current_user.enabled_website_notification?(:another_user_comments) %>checked <% end %>>
-        <label for="toggle_another_user_comments"></label>
+        <input id="toggle_comment_in_meeting" type="checkbox" <% if current_user.enabled_website_notification?(:comment_in_meeting) %>checked <% end %>>
+        <label for="toggle_comment_in_meeting"></label>
       </div>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "another_user_comments" %>
+      <%= render 'notification_settings/mail_settings', type: "comment_in_meeting" %>
     </div>
   </div>
 </div>
@@ -158,21 +143,6 @@
     </div>
     <div class="col3">
       <%= render 'notification_settings/mail_settings', type: "user_comments_users_meeting" %>
-    </div>
-  </div>
-
-  <div class="settingSlice">
-    <div class="col1">
-      Ein Teilnehmer wieder absagt
-    </div>
-    <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_attendee_left" type="checkbox" <% if current_user.enabled_website_notification?(:attendee_left) %>checked <% end %>>
-        <label for="toggle_attendee_left"></label>
-      </div>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "attendee_left" %>
     </div>
   </div>
 </div>
