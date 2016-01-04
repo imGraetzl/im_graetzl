@@ -58,6 +58,7 @@ RSpec.describe Notification, type: :model, job: true do
                                user: user,
                                meeting: meeting,
                                role: GoingTo.roles[:attendee]) }
+
       it "user is notified" do
         expect(user.notifications.to_a).to be_empty
         meeting.create_activity :update, owner: create(:user)
@@ -107,6 +108,7 @@ RSpec.describe Notification, type: :model, job: true do
 
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: post.graetzl) }
+
       it "user is notified" do
         expect(user.notifications.to_a).to be_empty
         post.create_activity :create, owner: create(:user)
@@ -153,6 +155,13 @@ RSpec.describe Notification, type: :model, job: true do
           user.notifications.reload
           expect(user.notifications.to_a).to_not be_empty
         end
+
+        it "notification has key :user_comments_users_meeting" do
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          keys = user.notifications.pluck(:key).map(&:to_sym)
+          expect(keys).to eq [:user_comments_users_meeting]
+        end
       end
 
       context "when user is attendee" do
@@ -169,6 +178,13 @@ RSpec.describe Notification, type: :model, job: true do
           user.notifications.reload
           expect(user.notifications.to_a).to_not be_empty
         end
+
+        it "notification has key :comment_in_meeting" do
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          keys = user.notifications.pluck(:key).map(&:to_sym)
+          expect(keys).to eq [:comment_in_meeting]
+        end
       end
 
       context "when user commented before" do
@@ -179,6 +195,13 @@ RSpec.describe Notification, type: :model, job: true do
           meeting.create_activity :comment, owner: commenter
           user.notifications.reload
           expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has key :another_user_comments_meeting" do
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          keys = user.notifications.pluck(:key).map(&:to_sym)
+          expect(keys).to eq [:another_user_comments_meeting]
         end
       end
     end
@@ -205,6 +228,13 @@ RSpec.describe Notification, type: :model, job: true do
           user.notifications.reload
           expect(user.notifications.to_a).to_not be_empty
         end
+
+        it "notification has key :user_comments_users_post" do
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          keys = user.notifications.pluck(:key).map(&:to_sym)
+          expect(keys).to eq [:user_comments_users_post]
+        end
       end
 
       context "when user's location author" do
@@ -221,6 +251,13 @@ RSpec.describe Notification, type: :model, job: true do
           user.notifications.reload
           expect(user.notifications.to_a).to_not be_empty
         end
+
+        it "notification has key :user_comments_locations_post" do
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          keys = user.notifications.pluck(:key).map(&:to_sym)
+          expect(keys).to eq [:user_comments_locations_post]
+        end
       end
 
       context "when user commented before" do
@@ -231,6 +268,13 @@ RSpec.describe Notification, type: :model, job: true do
           post.create_activity :comment, owner: commenter
           user.notifications.reload
           expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has key :another_user_comments_post" do
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          keys = user.notifications.pluck(:key).map(&:to_sym)
+          expect(keys).to eq [:another_user_comments_post]
         end
       end
     end
@@ -334,7 +378,7 @@ RSpec.describe Notification, type: :model, job: true do
     end
   end
 
-  context "a website notification type is enabled after notification creation" do
+  describe "a website notification type is enabled after notification creation" do
     let(:user) { create(:user, graetzl: meeting.graetzl) }
 
     it "does not create a notification record" do

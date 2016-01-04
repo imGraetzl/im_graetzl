@@ -95,7 +95,8 @@ class Notification < ActiveRecord::Base
         users.each do |u|
           unless ids_notified_users.include?(u.id) || (u.id == activity.owner.id if activity.owner)
             display_on_website = u.enabled_website_notifications & v[:bitmask] > 0
-            n = u.notifications.create(activity: activity, bitmask: v[:bitmask], display_on_website: display_on_website)
+            #n = u.notifications.create(activity: activity, bitmask: v[:bitmask], display_on_website: display_on_website)
+            n = u.notifications.create(activity: activity, bitmask: v[:bitmask], key: k, display_on_website: display_on_website)
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & v[:bitmask] > 0)
               #SendMailNotificationJob.perform_later(u.id, "immediate", n.id)

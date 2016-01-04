@@ -3,5 +3,6 @@ FactoryGirl.define do
     user
     seen false
     bitmask 1
+    key 'something'
   end
 end
