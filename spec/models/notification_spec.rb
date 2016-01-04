@@ -207,10 +207,19 @@ RSpec.describe Notification, type: :model, job: true do
         end
       end
 
-      context "when user owns locations" do
-        it "is not implemented yet" do
-          pending("not implemented yet")
-          fail
+      context "when user's location author" do
+        let(:location) { create(:approved_location) }
+        before do
+          create(:location_ownership, location: location, user: user)
+          post.author = location
+          post.save
+        end
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
         end
       end
 
@@ -271,7 +280,7 @@ RSpec.describe Notification, type: :model, job: true do
 
   describe "admin approves location" do
     let(:location) { create(:location) }
-    
+
     before do
       user.enable_website_notification :approve_of_location
       create(:location_ownership, user: user, location: location)

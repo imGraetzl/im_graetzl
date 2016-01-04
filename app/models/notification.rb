@@ -26,7 +26,13 @@ class Notification < ActiveRecord::Base
       triggered_by_activity_with_key: 'post.comment',
       bitmask: 16,
       receivers: ->(activity) { User.where(id: activity.trackable.author_id) },
-      condition: ->(activity) { activity.trackable.author.present? && activity.trackable.author_id != activity.owner_id }
+      condition: ->(activity) { activity.trackable.author_type == 'User' && activity.trackable.author.present? && activity.trackable.author_id != activity.owner_id}
+    },
+    user_comments_locations_post: {
+      triggered_by_activity_with_key: 'post.comment',
+      bitmask: 16,
+      receivers: ->(activity) { activity.trackable.author.users },
+      condition: ->(activity) { activity.trackable.author.present? && activity.trackable.author_type == "Location" && activity.trackable.author.users.exclude?(activity.owner) }
     },
     another_user_comments_post: {
       triggered_by_activity_with_key: 'post.comment',
