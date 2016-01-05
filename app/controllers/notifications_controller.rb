@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
-  NOTIFICATIONS_PER_PAGE = 2
+  NOTIFICATIONS_PER_PAGE = 10
 
   def index
     page = params.permit(:page)[:page] || "1"

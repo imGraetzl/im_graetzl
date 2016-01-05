@@ -44,8 +44,5 @@ module ImGraetzl
     config.middleware.insert_before(0, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
-
-    # Active Job backend
-    config.active_job.queue_adapter = :sucker_punch
   end
 end
