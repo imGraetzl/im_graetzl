@@ -391,4 +391,12 @@ RSpec.describe Notification, type: :model, job: true do
       expect(user.website_notifications.to_a).to be_empty
     end
   end
+
+  describe "#to_partial_path" do
+    let(:notification) { build_stubbed(:notification, activity: build(:activity)) }
+
+    it "returns path for notification type" do
+      expect(notification.to_partial_path).to include('notification', notification.key)
+    end
+  end
 end

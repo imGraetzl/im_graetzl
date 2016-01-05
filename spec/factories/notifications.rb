@@ -3,6 +3,6 @@ FactoryGirl.define do
     user
     seen false
     bitmask 1
-    key 'something'
+    key { Notification::TYPES.keys.sample }
   end
 end

@@ -109,6 +109,10 @@ class Notification < ActiveRecord::Base
     end
   end
 
+  def to_partial_path
+    "notifications/#{key.to_sym}"
+  end
+
   PublicActivity::Activity.after_create do |activity|
     Notification.receive_new_activity(activity)
   end
