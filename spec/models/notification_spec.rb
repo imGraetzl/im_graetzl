@@ -393,9 +393,9 @@ RSpec.describe Notification, type: :model, job: true do
   end
 
   describe "#to_partial_path" do
-    let(:notification) { build_stubbed(:notification, activity: build(:activity)) }
+    let(:notification) { build(:notification) }
 
-    it "returns path for notification type" do
+    it "returns partial path for notification type" do
       expect(notification.to_partial_path).to include('notification', notification.key)
     end
   end
