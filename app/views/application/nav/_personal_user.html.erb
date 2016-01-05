@@ -23,10 +23,9 @@
 
   <!-- dropDowns -->
   <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
+    <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
     <div class="jq-dropdown-panel nav-notifications">
-      <ul class="notifications">
-        <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
-      </ul>
+      <ul class="notifications"></ul>
     </div>
   </div>
 
