@@ -5,10 +5,10 @@
     <% end %>
   <% end %>
 
-  <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications">
+  <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications" data-behavior="notifications-trigger">
     <div class="iconWithBadge">
       <%- notifications_count = user.new_website_notifications_count %>
-      <div <%- if notifications_count == 0 %> style="display: none;" <%- end %> class="badgeNumber" id="notificationsCount"><%= notifications_count %></div>
+      <div id="notificationsCount" class="badgeNumber" data-behavior="notifications-count" style="display: none;"></div>
       <svg class="icon-bell"><use xlink:href="#icon-bell"></use></svg>
     </div>
   </div>
@@ -22,10 +22,10 @@
   </div>
 
   <!-- dropDowns -->
-  <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative">
+  <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative" data-behavior="notifications-container">
     <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
     <div class="jq-dropdown-panel nav-notifications">
-      <ul class="notifications"></ul>
+      <ul class="notifications" data-behavior="notifications"></ul>
     </div>
   </div>
 

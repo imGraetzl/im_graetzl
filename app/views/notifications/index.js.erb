@@ -1,14 +1,25 @@
-console.log('render notifications');
-$('ul.notifications').html('<%= j render partial: @notifications, as: :notification %>');
-<% if @less_notifications -%>
-  $('ul.notifications').append('<li><%= escape_javascript(link_to 'zurück..', notifications_path(params: { page: (@current_page - 1) }), remote: true ) -%></li>');
-<% end -%>
-<% if @more_notifications -%>
-  $('ul.notifications').append('<li><%= escape_javascript(link_to 'mehr..', notifications_path(params: { page: (@current_page + 1) }), remote: true ) -%></li>');
-<% end -%>
-<%- notifications_count = current_user.new_website_notifications_count %>
-<%- if notifications_count == 0 -%>
-  jQuery('#notificationsCount').hide();
-<%- else -%>
-  jQuery('#notificationsCount').html('<%= notifications_count %>');
-<%- end -%>
+(function () {
+  var $notificationsCount = $("[data-behavior='notifications-count']");
+  var $notifications = $("[data-behavior='notifications']");
+
+  function initialState() {
+    $notifications.html('<%= j render partial: @notifications, as: :notification %>');
+    setCount();
+  }
+
+  function setCount() {
+    var count = '<%= current_user.new_website_notifications_count %>';
+    if (count == 0) {
+      $notificationsCount.hide();
+    } else {
+      $notificationsCount.text(count);
+      $notificationsCount.show();
+    }
+  }
+
+  initialState();
+
+
+  console.log('render notifications');
+
+}());
