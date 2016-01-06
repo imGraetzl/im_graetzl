@@ -1,11 +1,11 @@
 APP.components.notificatonCenter = (function() {
+    const DROPDOWN_OPEN = 'jq-dropdown-open';
     var $notificationsContainer;
     var $notificationsTrigger;
 
     function init() {
         console.log("INIT NOTIFICATION CENTER");
         $(window).load(function() {
-          console.log("WINDOW FUNCTION");
           $notificationsContainer = $("[data-behavior='notifications-container']");
           $notificationsTrigger = $("[data-behavior='notifications-trigger']");
           if ($notificationsContainer.length > 0) setup()
@@ -13,17 +13,28 @@ APP.components.notificatonCenter = (function() {
     }
 
     function setup() {
-        console.log("CALL SETUP");
         $notificationsTrigger.click(markAsSeen);
-        getInitialData();
+        update();
     }
 
-    function getInitialData() {
+    function update() {
+        setTimeout(function() {
+          if (notificationCenterOpen()) {
+            console.log("CLOSED");
+              update();
+          } else {
+              pollServer();
+          }
+        }, 3000);
+    }
+
+    function pollServer() {
         $.ajax({
             url: "/notifications",
             dataType: "script",
             type: "GET",
             success: function() {
+                update();
                 console.log("SUCCESSFULL GET DATA REQUEST")
             }
         });
@@ -50,6 +61,10 @@ APP.components.notificatonCenter = (function() {
             return obj['id'].replace('notification_', '');
         });
         return JSON.stringify(notificationIds);
+    }
+
+    function notificationCenterOpen() {
+        return $notificationsTrigger.hasClass(DROPDOWN_OPEN);
     }
 
     return {
