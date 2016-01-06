@@ -16,7 +16,6 @@ APP.components.notificatonCenter = (function() {
         console.log("CALL SETUP");
         $notificationsTrigger.click(markAsSeen);
         getInitialData();
-
     }
 
     function getInitialData() {
@@ -25,13 +24,32 @@ APP.components.notificatonCenter = (function() {
             dataType: "script",
             type: "GET",
             success: function() {
-                console.log("SUCCESSFULL JS REQUEST")
+                console.log("SUCCESSFULL GET DATA REQUEST")
             }
         });
     }
 
     function markAsSeen() {
-      console.log("CLICK NOTIFICATIONSTRIGGER");
+        $.ajax({
+            url: "/notifications/mark_as_seen",
+            dataType: "script",
+            type: "POST",
+            data: {ids: currentNotificationIds()},
+            success: function() {
+                console.log("SUCCESSFULL MARK AS SEEN REQUEST")
+            },
+            error: function() {
+                console.log("UNSUCCESSFULL MARK AS SEEN REQUEST")
+            }
+        });
+    }
+
+    function currentNotificationIds() {
+        var $notificationItems = $("[data-behavior='notifications-item']");
+        var notificationIds = [].map.call($notificationItems, function(obj) {
+            return obj['id'].replace('notification_', '');
+        });
+        return JSON.stringify(notificationIds);
     }
 
     return {

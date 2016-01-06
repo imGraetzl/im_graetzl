@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe NotificationsController, type: :controller do
   render_views false
-  
+
   let(:user) do
     all_on = Notification::TYPES.keys.inject(0) { |sum, k| Notification::TYPES[k][:bitmask] | sum }
     create(:user, enabled_website_notifications: all_on)
@@ -62,6 +62,31 @@ RSpec.describe NotificationsController, type: :controller do
 
       it 'returns a 200 OK status' do
         expect(response).to be_success
+      end
+    end
+  end
+
+  describe 'POST mark_as_seen' do
+    let!(:notifications) { create_list(:notification, 10) }
+    let(:params) {
+      { ids: notifications.map(&:id).to_json }
+    }
+
+    before { sign_in create(:user) }
+
+    it 'marks notifications as seen' do
+      expect(notifications.map(&:seen)).to all(be false)
+      xhr :post, :mark_as_seen, params
+      notifications.map!{|n| n.reload}
+      expect(notifications.map(&:seen)).to all(be true)
+    end
+
+    describe 'request' do
+      before { xhr :post, :mark_as_seen, params }
+
+      it 'renders mark_as_seen.js' do
+        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response).to render_template(:mark_as_seen)
       end
     end
   end
