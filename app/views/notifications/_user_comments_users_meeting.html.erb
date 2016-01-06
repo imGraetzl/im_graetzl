@@ -1,8 +1,8 @@
 <%- meeting = notification.activity.trackable %>
 <%- comment = notification.activity.recipient %>
-<li>
-<%= link_to(url_for([meeting.graetzl, meeting]) + "#comment-#{comment.id if comment}") do %>
-  <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-  <%= notification.activity.owner.username %> hat dein Treffen <%= link_to meeting.name, [meeting.graetzl, meeting] %> kommentiert.
+<%= content_tag_for(:li, notification, data: { behavior: 'notifications-item' }) do %>
+  <%= link_to(url_for([meeting.graetzl, meeting]) + "#comment-#{comment.id if comment}") do %>
+    <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+    <%= notification.activity.owner.username %> hat dein Treffen <%= link_to meeting.name, [meeting.graetzl, meeting] %> kommentiert.
+  <% end %>
 <% end %>
-</li>

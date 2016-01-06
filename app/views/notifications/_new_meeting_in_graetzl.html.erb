@@ -1,7 +1,7 @@
 <%- meeting = notification.activity.trackable %>
-<li>
+<%= content_tag_for(:li, notification, data: { behavior: 'notifications-item' }) do %>
   <%= link_to [meeting.graetzl, meeting] do %>
-      <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-      Neues Treffen <%= meeting.name %> von <%= notification.activity.owner.username %> im Grätzl <%= meeting.graetzl.name %>
+    <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+    Neues Treffen <%= meeting.name %> von <%= notification.activity.owner.username %> im Grätzl <%= meeting.graetzl.name %>
   <% end %>
-</li>
+<% end %>

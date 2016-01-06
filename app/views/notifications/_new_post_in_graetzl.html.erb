@@ -1,16 +1,16 @@
 <%- post = notification.activity.trackable %>
 <% if post.author.is_a?(User) %>
-  <li>
+  <%= content_tag_for(:li, notification, data: { behavior: 'notifications-item' }) do %>
     <%= link_to [post.graetzl, post] do %>
       <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
       Neuer Beitrag im Grätzl <%= post.graetzl.name %> von <%= post.author.username %>: <%= post.content %>
     <% end %>
-  </li>
+  <% end %>
 <% else %>
-  <li>
+  <%= content_tag_for(:li, notification, data: { behavior: 'notifications-item' }) do %>
     <%= link_to [post.graetzl, post.author] do %>
       <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
       Neuer Beitrag im Grätzl <%= post.graetzl.name %> von <%= post.author.name %>: <%= post.title %>
     <% end %>
-  </li>
+  <% end %>
 <% end %>
