@@ -78,6 +78,7 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [ :index ] do
     post :mark_as_seen, on: :collection
+    get :paginate, on: :collection
   end
 
   resources :graetzls, path: '', only: [:show] do

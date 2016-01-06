@@ -2,9 +2,23 @@
   var $notificationsCount = $("[data-behavior='notifications-count']");
   var $notifications = $("[data-behavior='notifications']");
 
-  function initialState() {
-    $notifications.html('<%= j render partial: @notifications, as: :notification %>');
+  function updateComponent() {
+    <% if @page > 1 %>
+      paginate();
+    <% else %>
+      setInitialState();
+    <% end %>
     setCount();
+    addPagination();
+  }
+
+  function setInitialState() {
+    $notifications.html('<%= j render partial: @notifications, as: :notification %>');
+  }
+
+  function paginate() {
+    $("[data-behavior='notifications-paginate']").remove();
+    $notifications.append('<%= j render partial: @notifications, as: :notification %>');
   }
 
   function setCount() {
@@ -17,8 +31,16 @@
     }
   }
 
-  initialState();
+  function addPagination() {
+    <% if @more_notifications %>
+      $notifications
+        .append('<li data-behavior="notifications-paginate">' +
+                  '<%= j(link_to "mehr..", notifications_path(page: @page + 1), remote: true) %>' +
+                '</li>');
+    <% end %>
+  }
 
+  updateComponent();
 
   console.log('render notifications');
 
