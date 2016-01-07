@@ -13,28 +13,34 @@ APP.components.notificatonCenter = (function() {
     }
 
     function setup() {
-        $notificationsTrigger.click(markAsSeen);
-        update();
+        $notificationsTrigger.click(handleClick);
+        updateLoop();
     }
 
-    function update() {
+    function updateLoop() {
         setTimeout(function() {
           if (notificationCenterOpen()) {
             console.log("CLOSED");
-              update();
+              updateLoop();
           } else {
-              pollServer();
+              pollServer(updateLoop);
           }
         }, 3000);
     }
 
-    function pollServer() {
+    function handleClick() {
+        if (!notificationCenterOpen()) {
+            pollServer(markAsSeen)
+        }
+    }
+
+    function pollServer(onSuccessCallback) {
         $.ajax({
             url: "/notifications",
             dataType: "script",
             type: "GET",
             success: function() {
-                update();
+                onSuccessCallback();
                 console.log("SUCCESSFULL GET DATA REQUEST")
             }
         });
