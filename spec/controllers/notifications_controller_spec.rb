@@ -16,7 +16,7 @@ RSpec.describe NotificationsController, type: :controller do
       end
     end
 
-    context 'signed in' do
+    context 'when signed in' do
       before do
         stub_const("NotificationsController::NOTIFICATIONS_PER_PAGE", 3)
         (NotificationsController::NOTIFICATIONS_PER_PAGE + 3).times do
