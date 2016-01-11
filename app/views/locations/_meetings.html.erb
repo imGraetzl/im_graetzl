@@ -7,7 +7,7 @@
     <% if @upcoming.empty? %>
       <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
     <% else %>
-      <div id="upcoming" class="meetingBoxCollection -double" data-tabID="one">
+      <div id="upcoming" class="meetingBoxCollection -double" data-tabID="one" data-behavior="meetings-upcoming-container">
         <%= render @upcoming %>
       </div>
       <%= view_more_scoped(@upcoming, :upcoming) %>
@@ -18,7 +18,7 @@
     <% if @past.empty? %>
       <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
     <% else %>
-      <div id="past" class="meetingBoxCollection -double" data-tabID="two">
+      <div id="past" class="meetingBoxCollection -double" data-tabID="two" data-behavior="meetings-past-container">
         <%= render @past %>
       </div>
       <%= view_more_scoped(@past, :past) %>
