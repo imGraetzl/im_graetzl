@@ -1,4 +1,3 @@
-
 APP.components.stream = (function() {
 
     function init() {
