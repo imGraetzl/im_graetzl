@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
     @page = (params[:page] || '1').to_i
     scope = current_user.website_notifications.order("created_at DESC")
     @notifications = scope.page(@page).per(NOTIFICATIONS_PER_PAGE)
-    @notifications.update_all(seen: true) if @page > 1
+    Notification.where(id: @notifications.pluck(:id)).update_all(seen: true) if @page > 1
     @more_notifications = @page < @notifications.total_pages
   end
 
