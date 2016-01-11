@@ -1,5 +1,5 @@
 <%- location = notification.activity.trackable %>
-<%= content_tag_for(:li, notification, data: { behavior: 'notifications-item' }) do %>
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
   <%= link_to [location.graetzl, location] do %>
     <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
     Deine Location <%= link_to location.name, [location.graetzl, location] %> wurde freigeschalten.

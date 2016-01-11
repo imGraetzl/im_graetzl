@@ -1,4 +1,6 @@
 <!--TODO: yet to implement -->
-<%= content_tag_for(:li, notification, data: { behavior: 'notifications-item' }) do %>
-  placeholder user_comments_users_post
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
+  <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+  placeholder user_comments_users_post<br>
+  activity: <%= notification.activity_id %>
 <% end %>

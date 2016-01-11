@@ -62,7 +62,7 @@ APP.components.notificatonCenter = (function() {
     }
 
     function currentNotificationIds() {
-        var $notificationItems = $("[data-behavior='notifications-item']");
+        var $notificationItems = $("[data-behavior='notification-item']");
         var notificationIds = [].map.call($notificationItems, function(obj) {
             return obj['id'].replace('notification_', '');
         });

@@ -11,7 +11,7 @@
 
   translated_changes = notification.activity.parameters[:changed_attributes].collect { |a| translation[a] }.uniq.compact
 %>
-<%= content_tag_for(:li, notification, data: { behavior: 'notifications-item' }) do %>
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
   <%= link_to [meeting.graetzl, meeting] do %>
   <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
   <%= notification.activity.owner.username %> hat <%= translated_changes.to_sentence(two_words_connector: " und ", last_word_connector: ", und ") %> im Treffen <%=meeting.name -%> geändert.
