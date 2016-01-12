@@ -278,24 +278,30 @@ RSpec.describe Notification, type: :model, job: true do
         end
       end
     end
+
+    describe "on user" do
+      let(:comment) { create(:comment,
+                        commentable: user,
+                        user: commenter) }
+
+      before { user.enable_website_notification :new_wall_comment }
+
+      it "wall user is notified" do
+        expect(user.notifications.to_a).to be_empty
+        user.create_activity :comment, owner: commenter, recipient: comment
+        user.notifications.reload
+        expect(user.notifications.to_a).to_not be_empty
+      end
+
+      it "notification has type 'Notifications::NewWallComment'" do
+        user.create_activity :comment, owner: commenter, recipient: comment
+        user.notifications.reload
+        types = user.notifications.pluck(:type)
+        expect(types).to eq ['Notifications::NewWallComment']
+      end
+    end
   end
 end
-#
-#     describe "on user" do
-#       let(:comment) { create(:comment,
-#                         commentable: user,
-#                         user: commenter) }
-#
-#       before { user.enable_website_notification :new_wall_comment }
-#
-#       it "user is notified" do
-#         expect(user.notifications.to_a).to be_empty
-#         user.create_activity :comment, owner: commenter, recipient: comment
-#         user.notifications.reload
-#         expect(user.notifications.to_a).to_not be_empty
-#       end
-#     end
-#   end
 #
 #   describe "new attendee" do
 #     let(:attendee) { create(:user) }
