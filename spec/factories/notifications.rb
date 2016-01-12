@@ -4,5 +4,6 @@ FactoryGirl.define do
     seen false
     bitmask 1
     key { Notification::TYPES.keys.sample }
+    type 'Notifications::NewMeeting'
   end
 end

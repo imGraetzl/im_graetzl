@@ -1,5 +1,7 @@
 class Notification < ActiveRecord::Base
 
+  @@var = "hello you"
+
   TYPES = {
     new_meeting_in_graetzl: {
       bitmask: 1,
@@ -82,14 +84,17 @@ class Notification < ActiveRecord::Base
   end
 
   def self.broadcast(activity)
+    # TODO use is_triggered_by?(activity) here
     triggered_types = TYPES.select { |k, v| v[:triggered_by_activity_with_key] == activity.key }
     ids_notified_users =  []
     #sort by bitmask, so that lower order bitmask types are sent first, because
     #higher order bitmask types might not needed to be sent at all, when a user
     #has been already notified via a lower order type.
+    # TODO sort by bitmask as class constant here
     triggered_types.keys.sort { |a,b| triggered_types[a][:bitmask] <=> triggered_types[b][:bitmask] }.each do |k|
       v = triggered_types[k]
       if v[:condition].nil? || v[:condition].call(activity)
+        # TODO receivers as class method
         users = v[:receivers].call(activity)
         #users = users.merge(User.where(["enabled_website_notifications & ? > 0", v[:bitmask]]))
         users.each do |u|
