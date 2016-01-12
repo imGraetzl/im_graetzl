@@ -14,9 +14,9 @@ class Notifications::NewWallComment < Notification
   #
   #
   #
-  # def self.receivers(activity)
-  #   User.where(graetzl_id: activity.trackable.graetzl_id)
-  # end
+  def self.receivers(activity)
+    User.where(id: activity.trackable.id)
+  end
   #
   #
   # def self.condition(activity)

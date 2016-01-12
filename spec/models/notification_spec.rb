@@ -205,81 +205,81 @@ RSpec.describe Notification, type: :model, job: true do
         end
       end
     end
+
+    describe "on post" do
+      let(:post) { create(:post) }
+      let(:comment) { create(:comment,
+                        commentable: post,
+                        user: commenter) }
+      before do
+        user.enable_website_notification :user_comments_users_post
+        user.enable_website_notification :another_user_comments_post
+      end
+
+      context "when user post author" do
+        before do
+          post.author = user
+          post.save
+        end
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has type 'Notifications::CommentOnUsersPost'" do
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          types = user.notifications.pluck(:type)
+          expect(types).to eq ['Notifications::CommentOnUsersPost']
+        end
+      end
+
+      context "when user's location author" do
+        let(:location) { create(:approved_location) }
+        before do
+          create(:location_ownership, location: location, user: user)
+          post.author = location
+          post.save
+        end
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has key 'Notifications::CommentOnLocationsPost'" do
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          types = user.notifications.pluck(:type)
+          expect(types).to eq ['Notifications::CommentOnLocationsPost']
+        end
+      end
+
+      context "when user commented before" do
+        before { create(:comment, commentable: post, user: user) }
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has type 'Notifications::AlsoCommentedPost'" do
+          post.create_activity :comment, owner: commenter
+          user.notifications.reload
+          types = user.notifications.pluck(:type)
+          expect(types).to eq ['Notifications::AlsoCommentedPost']
+        end
+      end
+    end
   end
 end
-#
-#     describe "on post" do
-#       let(:post) { create(:post) }
-#       let(:comment) { create(:comment,
-#                         commentable: post,
-#                         user: commenter) }
-#       before do
-#         user.enable_website_notification :user_comments_users_post
-#         user.enable_website_notification :another_user_comments_post
-#       end
-#
-#       context "when user post author" do
-#         before do
-#           post.author = user
-#           post.save
-#         end
-#
-#         it "user is notified" do
-#           expect(user.notifications.to_a).to be_empty
-#           post.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           expect(user.notifications.to_a).to_not be_empty
-#         end
-#
-#         it "notification has key :user_comments_users_post" do
-#           post.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           keys = user.notifications.pluck(:key).map(&:to_sym)
-#           expect(keys).to eq [:user_comments_users_post]
-#         end
-#       end
-#
-#       context "when user's location author" do
-#         let(:location) { create(:approved_location) }
-#         before do
-#           create(:location_ownership, location: location, user: user)
-#           post.author = location
-#           post.save
-#         end
-#
-#         it "user is notified" do
-#           expect(user.notifications.to_a).to be_empty
-#           post.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           expect(user.notifications.to_a).to_not be_empty
-#         end
-#
-#         it "notification has key :user_comments_locations_post" do
-#           post.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           keys = user.notifications.pluck(:key).map(&:to_sym)
-#           expect(keys).to eq [:user_comments_locations_post]
-#         end
-#       end
-#
-#       context "when user commented before" do
-#         before { create(:comment, commentable: post, user: user) }
-#
-#         it "user is notified" do
-#           expect(user.notifications.to_a).to be_empty
-#           post.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           expect(user.notifications.to_a).to_not be_empty
-#         end
-#
-#         it "notification has key :another_user_comments_post" do
-#           post.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           keys = user.notifications.pluck(:key).map(&:to_sym)
-#           expect(keys).to eq [:another_user_comments_post]
-#         end
-#       end
-#     end
 #
 #     describe "on user" do
 #       let(:comment) { create(:comment,
