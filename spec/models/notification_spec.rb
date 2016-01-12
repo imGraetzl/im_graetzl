@@ -301,50 +301,57 @@ RSpec.describe Notification, type: :model, job: true do
       end
     end
   end
+
+  describe "new attendee" do
+    let(:attendee) { create(:user) }
+    let(:going_to) { create(:going_to,
+                            meeting: meeting,
+                            user: attendee,
+                            role: GoingTo.roles[:attendee])
+    }
+
+    before { user.enable_website_notification :another_attendee }
+
+    context "when user is initiator of meeting" do
+      before do
+        create(:going_to,
+               user: user,
+               meeting: meeting,
+               role: GoingTo.roles[:initiator])
+      end
+
+      it "user is notified" do
+        expect(user.notifications.to_a).to be_empty
+        meeting.create_activity :go_to, owner: attendee
+        user.notifications.reload
+        expect(user.notifications.to_a).to_not be_empty
+      end
+
+      it "notification has type 'Notifications::AttendeeInUsersMeeting'" do
+        meeting.create_activity :go_to, owner: attendee
+        user.notifications.reload
+        types = user.notifications.pluck(:type)
+        expect(types).to eq ['Notifications::AttendeeInUsersMeeting']
+      end
+    end
+  end
+
+  describe "admin approves location" do
+    let(:location) { create(:location) }
+
+    before do
+      user.enable_website_notification :approve_of_location
+      create(:location_ownership, user: user, location: location)
+    end
+
+    it "user is notified" do
+      expect(user.notifications.to_a).to be_empty
+      location.create_activity :approve
+      user.notifications.reload
+      expect(user.notifications.to_a).to_not be_empty
+    end
+  end
 end
-#
-#   describe "new attendee" do
-#     let(:attendee) { create(:user) }
-#     let(:going_to) { create(:going_to,
-#                             meeting: meeting,
-#                             user: attendee,
-#                             role: GoingTo.roles[:attendee])
-#     }
-#
-#     before { user.enable_website_notification :another_attendee }
-#
-#     context "when user is initiator of meeting" do
-#       before do
-#         create(:going_to,
-#                user: user,
-#                meeting: meeting,
-#                role: GoingTo.roles[:initiator])
-#       end
-#
-#       it "user is notified" do
-#         expect(user.notifications.to_a).to be_empty
-#         meeting.create_activity :go_to, owner: attendee
-#         user.notifications.reload
-#         expect(user.notifications.to_a).to_not be_empty
-#       end
-#     end
-#   end
-#
-#   describe "admin approves location" do
-#     let(:location) { create(:location) }
-#
-#     before do
-#       user.enable_website_notification :approve_of_location
-#       create(:location_ownership, user: user, location: location)
-#     end
-#
-#     it "user is notified" do
-#       expect(user.notifications.to_a).to be_empty
-#       location.create_activity :approve
-#       user.notifications.reload
-#       expect(user.notifications.to_a).to_not be_empty
-#     end
-#   end
 #
 #   describe "mail notifications" do
 #     before { user.enable_mail_notification(:new_meeting_in_graetzl, interval) }
