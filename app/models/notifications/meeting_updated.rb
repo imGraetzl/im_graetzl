@@ -13,9 +13,9 @@ class Notifications::MeetingUpdated < Notification
   #
   #
   #
-  # def self.receivers(activity)
-  #   User.where(graetzl_id: activity.trackable.graetzl_id)
-  # end
+  def self.receivers(activity)
+    activity.trackable.users
+  end
   #
   #
   # def self.condition(activity)

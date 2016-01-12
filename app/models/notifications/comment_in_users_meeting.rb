@@ -2,6 +2,10 @@ class Notifications::CommentInUsersMeeting < Notification
 
   TRIGGER_KEY = 'meeting.comment'
   BITMASK = 8
+
+  def self.receivers(activity)
+    User.where(id: activity.trackable.initiator.id)
+  end
   # user_comments_users_meeting: {
   #   triggered_by_activity_with_key: 'meeting.comment',
   #   bitmask: 8,
@@ -19,7 +23,7 @@ class Notifications::CommentInUsersMeeting < Notification
   # end
   #
   #
-  # def self.condition(activity)
-  #   true
-  # end
+  def self.condition(activity)
+    activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id
+  end
 end

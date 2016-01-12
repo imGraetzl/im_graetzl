@@ -13,12 +13,9 @@ class Notifications::MeetingCancelled < Notification
   #
   #
   #
-  # def self.receivers(activity)
-  #   User.where(graetzl_id: activity.trackable.graetzl_id)
-  # end
-  #
-  #
-  # def self.condition(activity)
-  #   true
-  # end
+  def self.receivers(activity)
+    activity.trackable.users
+  end
+
+  #TODO add condition (user must still exist...)
 end

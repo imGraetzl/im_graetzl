@@ -13,12 +13,7 @@ class Notifications::NewPost < Notification
   # },
   #
   #
-  # def self.receivers(activity)
-  #   User.where(graetzl_id: activity.trackable.graetzl_id)
-  # end
-  #
-  #
-  # def self.condition(activity)
-  #   true
-  # end
+  def self.receivers(activity)
+    User.where(graetzl_id: activity.trackable.graetzl_id)
+  end
 end
