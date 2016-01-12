@@ -126,86 +126,87 @@ RSpec.describe Notification, type: :model, job: true do
       end
     end
   end
+
+  describe "new comment" do
+    let(:commenter) { create(:user) }
+
+    describe "on meeting" do
+      before do
+        user.enable_website_notification :user_comments_users_meeting
+        user.enable_website_notification :another_user_comments_meeting
+        user.enable_website_notification :comment_in_meeting
+      end
+
+      let(:comment) { create(:comment,
+                        commentable: meeting,
+                        user: commenter) }
+
+      context "when user is initiator" do
+        before do
+          create(:going_to,
+                 user: user,
+                 meeting: meeting,
+                 role: GoingTo.roles[:initiator])
+        end
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has type 'CommentInUsersMeeting'" do
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          types = user.notifications.pluck(:type)
+          expect(types).to eq ['Notifications::CommentInUsersMeeting']
+        end
+      end
+
+      context "when user is attendee" do
+        before do
+          create(:going_to,
+                 user: user,
+                 meeting: meeting,
+                 role: GoingTo.roles[:attendee])
+        end
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has type 'CommentInMeeting'" do
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          types = user.notifications.pluck(:type)
+          expect(types).to eq ['Notifications::CommentInMeeting']
+        end
+      end
+
+      context "when user commented before" do
+        before { create(:comment, commentable: meeting, user: user) }
+
+        it "user is notified" do
+          expect(user.notifications.to_a).to be_empty
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          expect(user.notifications.to_a).to_not be_empty
+        end
+
+        it "notification has type 'AlsoCommentedMeeting'" do
+          meeting.create_activity :comment, owner: commenter
+          user.notifications.reload
+          types = user.notifications.pluck(:type)
+          expect(types).to eq ['Notifications::AlsoCommentedMeeting']
+        end
+      end
+    end
+  end
 end
-#
-#   describe "new comment" do
-#     let(:commenter) { create(:user) }
-#
-#     describe "on meeting" do
-#       before do
-#         user.enable_website_notification :user_comments_users_meeting
-#         user.enable_website_notification :another_user_comments_meeting
-#         user.enable_website_notification :comment_in_meeting
-#       end
-#
-#       let(:comment) { create(:comment,
-#                         commentable: meeting,
-#                         user: commenter) }
-#
-#       context "when user is initiator" do
-#         before do
-#           create(:going_to,
-#                  user: user,
-#                  meeting: meeting,
-#                  role: GoingTo.roles[:initiator])
-#         end
-#
-#         it "user is notified" do
-#           expect(user.notifications.to_a).to be_empty
-#           meeting.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           expect(user.notifications.to_a).to_not be_empty
-#         end
-#
-#         it "notification has key :user_comments_users_meeting" do
-#           meeting.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           keys = user.notifications.pluck(:key).map(&:to_sym)
-#           expect(keys).to eq [:user_comments_users_meeting]
-#         end
-#       end
-#
-#       context "when user is attendee" do
-#         before do
-#           create(:going_to,
-#                  user: user,
-#                  meeting: meeting,
-#                  role: GoingTo.roles[:attendee])
-#         end
-#
-#         it "user is notified" do
-#           expect(user.notifications.to_a).to be_empty
-#           meeting.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           expect(user.notifications.to_a).to_not be_empty
-#         end
-#
-#         it "notification has key :comment_in_meeting" do
-#           meeting.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           keys = user.notifications.pluck(:key).map(&:to_sym)
-#           expect(keys).to eq [:comment_in_meeting]
-#         end
-#       end
-#
-#       context "when user commented before" do
-#         before { create(:comment, commentable: meeting, user: user) }
-#
-#         it "user is notified" do
-#           expect(user.notifications.to_a).to be_empty
-#           meeting.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           expect(user.notifications.to_a).to_not be_empty
-#         end
-#
-#         it "notification has key :another_user_comments_meeting" do
-#           meeting.create_activity :comment, owner: commenter
-#           user.notifications.reload
-#           keys = user.notifications.pluck(:key).map(&:to_sym)
-#           expect(keys).to eq [:another_user_comments_meeting]
-#         end
-#       end
-#     end
 #
 #     describe "on post" do
 #       let(:post) { create(:post) }

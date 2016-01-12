@@ -82,7 +82,6 @@ class Notification < ActiveRecord::Base
   end
 
   def self.triggered_by?(activity)
-    puts self
     activity.key == self::TRIGGER_KEY
   end
 
