@@ -48,32 +48,34 @@ RSpec.describe Notification, type: :model, job: true do
       end
     end
   end
-
-  describe "update of meeting" do
-    let(:user) { create(:user, graetzl: meeting.graetzl) }
-    before { user.enable_website_notification :update_of_meeting }
-
-    context "when user attends the meeting" do
-      let!(:going_to) { create(:going_to,
-                               user: user,
-                               meeting: meeting,
-                               role: GoingTo.roles[:attendee]) }
-
-      it "user is notified" do
-        expect(user.notifications.to_a).to be_empty
-        meeting.create_activity :update, owner: create(:user)
-        user.notifications.reload
-        expect(user.notifications.to_a).to_not be_empty
-      end
-    end
-
-    context "when user does not attend meeting" do
-      it "user is NOT notified" do
-        meeting.create_activity :update, owner: create(:user)
-        expect(user.notifications.to_a).to be_empty
-      end
-    end
-  end
+end
+#   end
+#
+#   describe "update of meeting" do
+#     let(:user) { create(:user, graetzl: meeting.graetzl) }
+#     before { user.enable_website_notification :update_of_meeting }
+#
+#     context "when user attends the meeting" do
+#       let!(:going_to) { create(:going_to,
+#                                user: user,
+#                                meeting: meeting,
+#                                role: GoingTo.roles[:attendee]) }
+#
+#       it "user is notified" do
+#         expect(user.notifications.to_a).to be_empty
+#         meeting.create_activity :update, owner: create(:user)
+#         user.notifications.reload
+#         expect(user.notifications.to_a).to_not be_empty
+#       end
+#     end
+#
+#     context "when user does not attend meeting" do
+#       it "user is NOT notified" do
+#         meeting.create_activity :update, owner: create(:user)
+#         expect(user.notifications.to_a).to be_empty
+#       end
+#     end
+#   end
 #
 #   describe "cancel of meeting" do
 #     let(:user) { create(:user, graetzl: meeting.graetzl) }

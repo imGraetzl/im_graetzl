@@ -81,6 +81,10 @@ class Notification < ActiveRecord::Base
     CreateWebsiteNotificationsJob.new.async.perform(activity)
   end
 
+  def self.triggered_by?(activity)
+    activity.key == self::TRIGGER_KEY
+  end
+
   def self.broadcast(activity)
     # TODO use is_triggered_by?(activity) here
     triggered_types = Notification.subclasses.select{ |klass| klass.triggered_by? activity }
