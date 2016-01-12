@@ -1,4 +1,7 @@
 class Notifications::AlsoCommentedPost < Notification
+
+  TRIGGER_KEY = 'post.comment'
+  BITMASK = 32
   # another_user_comments_post: {
   #   triggered_by_activity_with_key: 'post.comment',
   #   bitmask: 32,
@@ -14,9 +17,9 @@ class Notifications::AlsoCommentedPost < Notification
   #   User.where(graetzl_id: activity.trackable.graetzl_id)
   # end
   #
-  # def self.triggered_by?(activity)
-  #   activity.key == TRIGGER_KEY
-  # end
+  def self.triggered_by?(activity)
+    activity.key == TRIGGER_KEY
+  end
   #
   # def self.condition(activity)
   #   true

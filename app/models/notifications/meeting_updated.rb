@@ -1,4 +1,7 @@
 class Notifications::MeetingUpdated < Notification
+
+  TRIGGER_KEY = 'meeting.update'
+  BITMASK = 4
   # update_of_meeting: {
   #   triggered_by_activity_with_key: 'meeting.update',
   #   bitmask: 4,
@@ -14,9 +17,9 @@ class Notifications::MeetingUpdated < Notification
   #   User.where(graetzl_id: activity.trackable.graetzl_id)
   # end
   #
-  # def self.triggered_by?(activity)
-  #   activity.key == TRIGGER_KEY
-  # end
+  def self.triggered_by?(activity)
+    activity.key == TRIGGER_KEY
+  end
   #
   # def self.condition(activity)
   #   true

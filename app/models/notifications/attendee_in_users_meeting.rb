@@ -1,4 +1,7 @@
 class Notifications::AttendeeInUsersMeeting < Notification
+
+  TRIGGER_KEY = 'meeting.go_to'
+  BITMASK = 256
   # another_attendee: {
   #   triggered_by_activity_with_key: 'meeting.go_to',
   #   bitmask: 256,
@@ -15,9 +18,9 @@ class Notifications::AttendeeInUsersMeeting < Notification
   #   User.where(graetzl_id: activity.trackable.graetzl_id)
   # end
   #
-  # def self.triggered_by?(activity)
-  #   activity.key == TRIGGER_KEY
-  # end
+  def self.triggered_by?(activity)
+    activity.key == TRIGGER_KEY
+  end
   #
   # def self.condition(activity)
   #   true

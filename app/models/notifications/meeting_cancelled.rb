@@ -1,4 +1,7 @@
 class Notifications::MeetingCancelled < Notification
+
+  TRIGGER_KEY = 'meeting.cancel'
+  BITMASK = 128
   # cancel_of_meeting: {
   #   triggered_by_activity_with_key: 'meeting.cancel',
   #   bitmask: 128,
@@ -14,9 +17,9 @@ class Notifications::MeetingCancelled < Notification
   #   User.where(graetzl_id: activity.trackable.graetzl_id)
   # end
   #
-  # def self.triggered_by?(activity)
-  #   activity.key == TRIGGER_KEY
-  # end
+  def self.triggered_by?(activity)
+    activity.key == TRIGGER_KEY
+  end
   #
   # def self.condition(activity)
   #   true

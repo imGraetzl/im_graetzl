@@ -1,4 +1,7 @@
 class Notifications::AlsoCommentedMeeting < Notification
+
+  TRIGGER_KEY = 'meeting.comment'
+  BITMASK = 32
   # another_user_comments_meeting: {
   #   triggered_by_activity_with_key: 'meeting.comment',
   #   bitmask: 32,
@@ -14,9 +17,9 @@ class Notifications::AlsoCommentedMeeting < Notification
   #   User.where(graetzl_id: activity.trackable.graetzl_id)
   # end
   #
-  # def self.triggered_by?(activity)
-  #   activity.key == TRIGGER_KEY
-  # end
+  def self.triggered_by?(activity)
+    activity.key == TRIGGER_KEY
+  end
   #
   # def self.condition(activity)
   #   true

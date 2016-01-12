@@ -1,4 +1,7 @@
 class Notifications::NewWallComment < Notification
+
+  TRIGGER_KEY = 'user.comment'
+  BITMASK = 512
   # new_wall_comment: {
   #   triggered_by_activity_with_key: 'user.comment',
   #   bitmask: 512,
@@ -15,9 +18,9 @@ class Notifications::NewWallComment < Notification
   #   User.where(graetzl_id: activity.trackable.graetzl_id)
   # end
   #
-  # def self.triggered_by?(activity)
-  #   activity.key == TRIGGER_KEY
-  # end
+  def self.triggered_by?(activity)
+    activity.key == TRIGGER_KEY
+  end
   #
   # def self.condition(activity)
   #   true

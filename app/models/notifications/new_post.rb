@@ -1,5 +1,8 @@
 class Notifications::NewPost < Notification
 
+  TRIGGER_KEY = 'post.create'
+  BITMASK = 2
+
   # TRIGGER_KEY = 'meeting.create'
   # BITMASK = 1 #TODO autosave right bitmask attribute for new records...
   #
@@ -14,9 +17,9 @@ class Notifications::NewPost < Notification
   #   User.where(graetzl_id: activity.trackable.graetzl_id)
   # end
   #
-  # def self.triggered_by?(activity)
-  #   activity.key == TRIGGER_KEY
-  # end
+  def self.triggered_by?(activity)
+    activity.key == TRIGGER_KEY
+  end
   #
   # def self.condition(activity)
   #   true
