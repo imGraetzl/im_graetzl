@@ -350,6 +350,13 @@ RSpec.describe Notification, type: :model, job: true do
       user.notifications.reload
       expect(user.notifications.to_a).to_not be_empty
     end
+
+    it "notification has type 'Notifications::LocationApproved'" do
+      location.create_activity :approve
+      user.notifications.reload
+      types = user.notifications.pluck(:type)
+      expect(types).to eq ['Notifications::LocationApproved']
+    end
   end
 end
 #
