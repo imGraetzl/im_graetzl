@@ -2,9 +2,8 @@
 <%- comment = notification.activity.recipient %>
 <% if user && comment %>
   <%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
-    <%= link_to(url_for([user.graetzl, user]) + "#comment-#{comment.id}") do %>
-      <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-      Neuer Beitrag von <%= notification.activity.owner.username %> an deiner Pinnwand
-    <% end %>
+    <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+    placeholder new_wall_comment<br>
+    activity: <%= notification.activity_id %>
   <% end %>
 <% end %>

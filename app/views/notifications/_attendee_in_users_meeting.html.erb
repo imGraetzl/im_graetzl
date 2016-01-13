@@ -1,0 +1,6 @@
+<%- meeting = notification.activity.trackable %>
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
+  <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
+  placeholder attendee_in_users_meeting<br>
+  activity: <%= notification.activity_id %>
+<% end %>

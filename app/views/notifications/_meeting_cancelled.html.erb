@@ -1,0 +1,5 @@
+<%- meeting = notification.activity.trackable %>
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
+  placeholder meeting_cancelled<br>
+  activity: <%= notification.activity_id %>
+<% end %>

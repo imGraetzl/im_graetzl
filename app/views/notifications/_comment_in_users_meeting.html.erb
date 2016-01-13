@@ -1,6 +1,7 @@
-<!--TODO: yet to implement -->
+<%- meeting = notification.activity.trackable %>
+<%- comment = notification.activity.recipient %>
 <%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
   <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-  placeholder user_comments_locations_post<br>
+  placeholder comment_in_users_meeting<br>
   activity: <%= notification.activity_id %>
 <% end %>
