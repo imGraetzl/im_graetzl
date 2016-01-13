@@ -4,6 +4,9 @@ class Notification < ActiveRecord::Base
   belongs_to :activity, :class => PublicActivity::Activity
 
   # class methods
+  def self.types
+    self.subclasses.map{|s| s.name}
+  end
   def self.receive_new_activity(activity)
     CreateWebsiteNotificationsJob.new.async.perform(activity)
   end

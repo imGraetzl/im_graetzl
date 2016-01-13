@@ -9,14 +9,14 @@ APP.controllers.users = (function() {
 
         // notification settings
         var notfication_types = [
-            "new_meeting_in_graetzl",
-            "new_post_in_graetzl",
-            "another_user_comments",
-            "another_attendee",
-            "update_of_meeting",
-            "user_comments_users_meeting",
-            "new_wall_comment",
-            "cancel_of_meeting"
+            "Notifications::NewMeeting",
+            "Notifications::NewPost",
+            "Notifications::AlsoCommentedPost",
+            "Notifications::AttendeeInUsersMeeting",
+            "Notifications::MeetingUpdated",
+            "Notifications::CommentInUsersMeeting",
+            "Notifications::NewWallComment",
+            "Notifications::MeetingCancelled"
         ];
         jQuery.each(notfication_types, function(index, notification_type) {
             $('#toggle_' + notification_type).click(function() {

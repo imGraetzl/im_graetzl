@@ -4,7 +4,7 @@ RSpec.describe NotificationsController, type: :controller do
   render_views false
 
   let(:user) do
-    all_on = Notification::TYPES.keys.inject(0) { |sum, k| Notification::TYPES[k][:bitmask] | sum }
+    all_on = Notification.subclasses.inject(0) { |sum, k|k::BITMASK | sum }
     create(:user, enabled_website_notifications: all_on)
   end
 
