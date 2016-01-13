@@ -27,7 +27,7 @@ RSpec.describe Notification, type: :model, job: true do
   end
 
   describe "a new meeting in graetzl" do
-    before { user.enable_website_notification :new_meeting_in_graetzl }
+    before { user.enable_website_notification Notifications::NewMeeting }
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: meeting.graetzl) }
 
@@ -51,7 +51,7 @@ RSpec.describe Notification, type: :model, job: true do
 
   describe "update of meeting" do
     let(:user) { create(:user, graetzl: meeting.graetzl) }
-    before { user.enable_website_notification :update_of_meeting }
+    before { user.enable_website_notification Notifications::MeetingUpdated }
 
     context "when user attends the meeting" do
       let!(:going_to) { create(:going_to,
@@ -77,7 +77,7 @@ RSpec.describe Notification, type: :model, job: true do
 
   describe "cancel of meeting" do
     let(:user) { create(:user, graetzl: meeting.graetzl) }
-    before { user.enable_website_notification :cancel_of_meeting }
+    before { user.enable_website_notification Notifications::MeetingCancelled }
 
     context "when user attends the meeting" do
       let!(:going_to) { create(:going_to,
@@ -104,7 +104,7 @@ RSpec.describe Notification, type: :model, job: true do
   describe "a new post in graetzl" do
     let(:post) { create(:post) }
 
-    before { user.enable_website_notification :new_post_in_graetzl }
+    before { user.enable_website_notification Notifications::NewPost }
 
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: post.graetzl) }
@@ -132,9 +132,9 @@ RSpec.describe Notification, type: :model, job: true do
 
     describe "on meeting" do
       before do
-        user.enable_website_notification :user_comments_users_meeting
-        user.enable_website_notification :another_user_comments_meeting
-        user.enable_website_notification :comment_in_meeting
+        user.enable_website_notification Notifications::CommentInUsersMeeting
+        user.enable_website_notification Notifications::AlsoCommentedMeeting
+        user.enable_website_notification Notifications::CommentInMeeting
       end
 
       let(:comment) { create(:comment,
@@ -212,8 +212,8 @@ RSpec.describe Notification, type: :model, job: true do
                         commentable: post,
                         user: commenter) }
       before do
-        user.enable_website_notification :user_comments_users_post
-        user.enable_website_notification :another_user_comments_post
+        user.enable_website_notification Notifications::CommentOnUsersPost
+        user.enable_website_notification Notifications::AlsoCommentedPost
       end
 
       context "when user post author" do
@@ -284,7 +284,7 @@ RSpec.describe Notification, type: :model, job: true do
                         commentable: user,
                         user: commenter) }
 
-      before { user.enable_website_notification :new_wall_comment }
+      before { user.enable_website_notification Notifications::NewWallComment }
 
       it "wall user is notified" do
         expect(user.notifications.to_a).to be_empty
@@ -310,7 +310,7 @@ RSpec.describe Notification, type: :model, job: true do
                             role: GoingTo.roles[:attendee])
     }
 
-    before { user.enable_website_notification :another_attendee }
+    before { user.enable_website_notification Notifications::AttendeeInUsersMeeting }
 
     context "when user is initiator of meeting" do
       before do
@@ -340,7 +340,7 @@ RSpec.describe Notification, type: :model, job: true do
     let(:location) { create(:location) }
 
     before do
-      user.enable_website_notification :approve_of_location
+      user.enable_website_notification Notifications::LocationApproved
       create(:location_ownership, user: user, location: location)
     end
 

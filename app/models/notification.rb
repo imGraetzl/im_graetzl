@@ -1,81 +1,9 @@
 class Notification < ActiveRecord::Base
-
-  TYPES = {
-    new_meeting_in_graetzl: {
-      bitmask: 1,
-      triggered_by_activity_with_key: 'meeting.create',
-      receivers: ->(activity) { User.where(graetzl_id: activity.trackable.graetzl_id) }
-    },
-    new_post_in_graetzl: {
-      bitmask: 2,
-      triggered_by_activity_with_key: 'post.create',
-      receivers: ->(activity) { User.where(graetzl_id: activity.trackable.graetzl_id) }
-    },
-    update_of_meeting: {
-      triggered_by_activity_with_key: 'meeting.update',
-      bitmask: 4,
-      receivers: ->(activity) { activity.trackable.users }
-    },
-    user_comments_users_meeting: {
-      triggered_by_activity_with_key: 'meeting.comment',
-      bitmask: 8,
-      receivers: ->(activity) { User.where(id: activity.trackable.initiator.id) },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
-    },
-    user_comments_users_post: {
-      triggered_by_activity_with_key: 'post.comment',
-      bitmask: 16,
-      receivers: ->(activity) { User.where(id: activity.trackable.author_id) },
-      condition: ->(activity) { activity.trackable.author_type == 'User' && activity.trackable.author.present? && activity.trackable.author_id != activity.owner_id}
-    },
-    user_comments_locations_post: {
-      triggered_by_activity_with_key: 'post.comment',
-      bitmask: 16,
-      receivers: ->(activity) { activity.trackable.author.users },
-      condition: ->(activity) { activity.trackable.author.present? && activity.trackable.author_type == "Location" && activity.trackable.author.users.exclude?(activity.owner) }
-    },
-    another_user_comments_post: {
-      triggered_by_activity_with_key: 'post.comment',
-      bitmask: 32,
-      receivers: ->(activity) { User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id]) }
-    },
-    another_user_comments_meeting: {
-      triggered_by_activity_with_key: 'meeting.comment',
-      bitmask: 32,
-      receivers: ->(activity) { User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id]) }
-    },
-    comment_in_meeting: {
-      triggered_by_activity_with_key: 'meeting.comment',
-      bitmask: 64,
-      receivers: ->(activity) { activity.trackable.users }
-    },
-    cancel_of_meeting: {
-      triggered_by_activity_with_key: 'meeting.cancel',
-      bitmask: 128,
-      receivers: ->(activity) { activity.trackable.users }
-    },
-    another_attendee: {
-      triggered_by_activity_with_key: 'meeting.go_to',
-      bitmask: 256,
-      receivers: ->(activity) { User.where(id: activity.trackable.initiator.id) },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
-    },
-    new_wall_comment: {
-      triggered_by_activity_with_key: 'user.comment',
-      bitmask: 512,
-      receivers: ->(activity) { User.where(id: activity.trackable.id) },
-      condition: ->(activity) { activity.owner.present? && activity.recipient.present? }
-    },
-    approve_of_location: {
-      triggered_by_activity_with_key: 'location.approve',
-      bitmask: 1024,
-      receivers: ->(activity) { activity.trackable.users }
-    }
-  }
-
+  # macros
   belongs_to :user
   belongs_to :activity, :class => PublicActivity::Activity
 
+  # class methods
   def self.receive_new_activity(activity)
     #CreateWebsiteNotificationsJob.perform_later(activity.id)
     CreateWebsiteNotificationsJob.new.async.perform(activity)
@@ -111,7 +39,7 @@ class Notification < ActiveRecord::Base
         #users = users.merge(User.where(["enabled_website_notifications & ? > 0", v[:bitmask]]))
         users.each do |u|
           unless ids_notified_users.include?(u.id) || (u.id == activity.owner.id if activity.owner)
-            # TODO add support for checking if notification enabled
+            # TODO add new support for checking if notification enabled
             display_on_website = u.enabled_website_notifications & klass::BITMASK > 0
             #display_on_website = u.enabled_website_notifications & v[:bitmask] > 0
             #n = u.notifications.create(activity: activity, bitmask: v[:bitmask], display_on_website: display_on_website)

@@ -49,12 +49,16 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  # website notifications ->
+
   def enabled_website_notification?(type)
     enabled_website_notifications & Notification::TYPES[type][:bitmask] > 0
   end
 
+  # TODO only used in specs -> not necessary?
   def enable_website_notification(type)
-    new_setting = enabled_website_notifications | Notification::TYPES[type][:bitmask]
+    new_setting = enabled_website_notifications | type::BITMASK
     update_attribute(:enabled_website_notifications, new_setting)
   end
 
@@ -67,12 +71,15 @@ class User < ActiveRecord::Base
     notifications.where(["bitmask & ? > 0", enabled_website_notifications]).where(display_on_website: true)
   end
 
-  def mail_notifications(interval)
-    notifications.where(["bitmask & ? > 0", send("#{interval}_mail_notifications".to_sym)])
-  end
-
   def new_website_notifications_count
     website_notifications.where(seen: false).count
+  end
+
+
+  # mail notifications ->
+
+  def mail_notifications(interval)
+    notifications.where(["bitmask & ? > 0", send("#{interval}_mail_notifications".to_sym)])
   end
 
   def enabled_mail_notification?(type, interval)
@@ -93,6 +100,9 @@ class User < ActiveRecord::Base
     new_setting = send("#{interval}_mail_notifications".to_sym) & mask
     update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
   end
+
+
+  # digest mails ->
 
   def notifications_of_the_day
     notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
