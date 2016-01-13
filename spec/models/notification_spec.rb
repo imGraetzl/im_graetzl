@@ -418,11 +418,11 @@ RSpec.describe Notification, type: :model, job: true do
     end
   end
 
-  # describe "#to_partial_path" do
-  #   let(:notification) { build(:notification) }
-  #
-  #   it "returns partial path for notification type" do
-  #     expect(notification.to_partial_path).to include('notification', notification.key)
-  #   end
-  # end
+  describe "#to_partial_path" do
+    let(:notification) { build(:notification, type: "Notifications::SomethingNew") }
+
+    it "returns partial path for notification type" do
+      expect(notification.to_partial_path).to include('notification', 'something_new')
+    end
+  end
 end

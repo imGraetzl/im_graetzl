@@ -46,8 +46,7 @@ class Notification < ActiveRecord::Base
   end
 
   def to_partial_path
-    # TODO change this according to behavior
-    "notifications/#{key.to_sym}"
+    "notifications/#{type.demodulize.underscore}"
   end
 
   PublicActivity::Activity.after_create do |activity|
