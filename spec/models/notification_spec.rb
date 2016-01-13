@@ -358,67 +358,71 @@ RSpec.describe Notification, type: :model, job: true do
       expect(types).to eq ['Notifications::LocationApproved']
     end
   end
+
+  describe "mail notifications" do
+    before { user.enable_mail_notification(Notifications::NewMeeting, interval) }
+    let(:user) { create(:user, graetzl: meeting.graetzl) }
+
+    # context "when immediate notification is enabled" do
+    #   let(:interval) { :immediate }
+    #
+    #   it "the notification is sent per mail immediatly" do
+    #     spy = class_double("SendMailNotificationJob").as_stubbed_const
+    #     #spy = class_double("SendMailNotificationJob")
+    #     #allow(spy).to receive_messages(new: true, asyn: true, perform: true)
+    #     #allow(spy).to receive_messages(:new, :async, :perform)
+    #     allow_any_instance_of(spy).to receive(:perform)
+    #     #allow(spy).to receive_message_chain(:new, :async, :perform)
+    #     expect(user.mail_notifications(interval).to_a).to be_empty
+    #     activity = meeting.create_activity :create, owner: create(:user)
+    #     user.mail_notifications(interval).reload
+    #     expect(user.mail_notifications(interval).to_a).not_to be_empty
+    #     expect(spy).to have_received(:perform).with(user.id, "immediate", user.notifications.last.id)
+    #   end
+    # end
+
+    context "when daily notification is enabled" do
+      let(:interval) { :daily }
+
+      it "the notification is sent at the end of day" do
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+      end
+    end
+
+    context "when weekly notification is enabled" do
+      let(:interval) { :weekly }
+
+      it "the notification is sent at the end of day" do
+        expect(user.mail_notifications(interval).to_a).to be_empty
+        meeting.create_activity :create, owner: create(:user)
+        user.mail_notifications(interval).reload
+        expect(user.mail_notifications(interval).to_a).not_to be_empty
+      end
+    end
+  end
+
+  describe "a website notification type is enabled after notification creation" do
+    let(:user) { create(:user, graetzl: meeting.graetzl) }
+
+    it "does not create a notification record" do
+      expect(user.enabled_website_notification?(Notifications::NewMeeting)).to be_falsy
+      expect(user.website_notifications.to_a).to be_empty
+      meeting.create_activity :create, owner: create(:user)
+      expect(user.website_notifications.to_a).to be_empty
+      user.enable_website_notification(Notifications::NewMeeting)
+      user.notifications.reload
+      expect(user.website_notifications.to_a).to be_empty
+    end
+  end
+
+  # describe "#to_partial_path" do
+  #   let(:notification) { build(:notification) }
+  #
+  #   it "returns partial path for notification type" do
+  #     expect(notification.to_partial_path).to include('notification', notification.key)
+  #   end
+  # end
 end
-#
-#   describe "mail notifications" do
-#     before { user.enable_mail_notification(:new_meeting_in_graetzl, interval) }
-#     let(:user) { create(:user, graetzl: meeting.graetzl) }
-#
-#     context "when immediate notification is enabled" do
-#       let(:interval) { :immediate }
-#
-#       it "the notification is sent per mail immediatly" do
-#         # spy = class_double("SendMailNotificationJob", perform_later: nil).as_stubbed_const
-#         # expect(user.mail_notifications(interval).to_a).to be_empty
-#         # activity = meeting.create_activity :create, owner: create(:user)
-#         # user.mail_notifications(interval).reload
-#         # expect(user.mail_notifications(interval).to_a).not_to be_empty
-#         # expect(spy).to have_received(:perform_later).with(user.id, "immediate", user.notifications.last.id)
-#       end
-#     end
-#
-#     context "when daily notification is enabled" do
-#       let(:interval) { :daily }
-#
-#       it "the notification is sent at the end of day" do
-#         expect(user.mail_notifications(interval).to_a).to be_empty
-#         meeting.create_activity :create, owner: create(:user)
-#         user.mail_notifications(interval).reload
-#         expect(user.mail_notifications(interval).to_a).not_to be_empty
-#       end
-#     end
-#
-#     context "when weekly notification is enabled" do
-#       let(:interval) { :weekly }
-#
-#       it "the notification is sent at the end of day" do
-#         expect(user.mail_notifications(interval).to_a).to be_empty
-#         meeting.create_activity :create, owner: create(:user)
-#         user.mail_notifications(interval).reload
-#         expect(user.mail_notifications(interval).to_a).not_to be_empty
-#       end
-#     end
-#   end
-#
-#   describe "a website notification type is enabled after notification creation" do
-#     let(:user) { create(:user, graetzl: meeting.graetzl) }
-#
-#     it "does not create a notification record" do
-#       expect(user.enabled_website_notification?(:new_meeting_in_graetzl)).to be_falsy
-#       expect(user.website_notifications.to_a).to be_empty
-#       meeting.create_activity :create, owner: create(:user)
-#       expect(user.website_notifications.to_a).to be_empty
-#       user.enable_website_notification(:new_meeting_in_graetzl)
-#       user.notifications.reload
-#       expect(user.website_notifications.to_a).to be_empty
-#     end
-#   end
-#
-#   describe "#to_partial_path" do
-#     let(:notification) { build(:notification) }
-#
-#     it "returns partial path for notification type" do
-#       expect(notification.to_partial_path).to include('notification', notification.key)
-#     end
-#   end
-# end

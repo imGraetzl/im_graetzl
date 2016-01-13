@@ -336,7 +336,7 @@ RSpec.describe User, type: :model do
   describe "mail notifications", job: true do
     let(:user) { create(:user, :graetzl => create(:graetzl)) }
     let(:meeting) { create(:meeting, graetzl: user.graetzl) }
-    let(:type) { :new_meeting_in_graetzl }
+    let(:type) { Notifications::NewMeeting }
 
     around(:each) do |example|
       PublicActivity.with_tracking do
@@ -344,49 +344,49 @@ RSpec.describe User, type: :model do
       end
     end
 
-  #   describe "daily summary" do
-  #     before {  user.enable_mail_notification(type, :daily) }
-  #
-  #     it "creates a send notification mail job" do
-  #       activity = meeting.create_activity :create, owner: create(:user)
-  #       user.notifications.reload
-  #       expect(user.notifications_of_the_day.collect(&:id)).to include(user.notifications.last.id)
-  #     end
-  #
-  #     context "when notification is older than a day" do
-  #       it "it is not sent" do
-  #         spy = class_double("SendMailNotificationJob", perform_later: nil).as_stubbed_const
-  #         activity = meeting.create_activity :create, owner: create(:user)
-  #         n = user.notifications.last
-  #         n.created_at = 2.days.ago
-  #         n.save!
-  #         user.notifications.reload
-  #         expect(user.notifications_of_the_day.collect(&:id)).not_to include(user.notifications.last.id)
-  #       end
-  #     end
-  #   end
-  #
-  #   describe "weekly summary" do
-  #     before {  user.enable_mail_notification(type, :weekly) }
-  #
-  #     it "creates a send notification mail job" do
-  #       activity = meeting.create_activity :create, owner: create(:user)
-  #       user.notifications.reload
-  #       expect(user.notifications_of_the_week.collect(&:id)).to include(user.notifications.last.id)
-  #     end
-  #
-  #     context "when notification is older than a week" do
-  #       it "it is not passed to the daily notification mail job" do
-  #         spy = class_double("SendMailNotificationJob", perform_later: nil).as_stubbed_const
-  #         activity = meeting.create_activity :create, owner: create(:user)
-  #         n = user.notifications.last
-  #         n.created_at = 8.days.ago
-  #         n.save!
-  #         user.notifications.reload
-  #       expect(user.notifications_of_the_week.collect(&:id)).not_to include(user.notifications.last.id)
-  #       end
-  #     end
-  #   end
+    # describe "daily summary" do
+    #   before {  user.enable_mail_notification(type, :daily) }
+    #
+    #   it "creates a send notification mail job" do
+    #     activity = meeting.create_activity :create, owner: create(:user)
+    #     user.notifications.reload
+    #     expect(user.notifications_of_the_day).to include(user.notifications.last)
+    #   end
+    #
+    #   context "when notification is older than a day" do
+    #     it "it is not sent" do
+    #       spy = class_double("SendMailNotificationJob", perform_later: nil).as_stubbed_const
+    #       activity = meeting.create_activity :create, owner: create(:user)
+    #       n = user.notifications.last
+    #       n.created_at = 2.days.ago
+    #       n.save!
+    #       user.notifications.reload
+    #       expect(user.notifications_of_the_day.collect(&:id)).not_to include(user.notifications.last.id)
+    #     end
+    #   end
+    # end
+    #
+    # describe "weekly summary" do
+    #   before {  user.enable_mail_notification(type, :weekly) }
+    #
+    #   it "creates a send notification mail job" do
+    #     activity = meeting.create_activity :create, owner: create(:user)
+    #     user.notifications.reload
+    #     expect(user.notifications_of_the_week.collect(&:id)).to include(user.notifications.last.id)
+    #   end
+    #
+    #   context "when notification is older than a week" do
+    #     it "it is not passed to the daily notification mail job" do
+    #       spy = class_double("SendMailNotificationJob", perform_later: nil).as_stubbed_const
+    #       activity = meeting.create_activity :create, owner: create(:user)
+    #       n = user.notifications.last
+    #       n.created_at = 8.days.ago
+    #       n.save!
+    #       user.notifications.reload
+    #     expect(user.notifications_of_the_week.collect(&:id)).not_to include(user.notifications.last.id)
+    #     end
+    #   end
+    # end
 
     describe "enabling" do
       before do
