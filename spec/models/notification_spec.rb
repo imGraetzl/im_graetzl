@@ -418,6 +418,14 @@ RSpec.describe Notification, type: :model, job: true do
     end
   end
 
+  describe '.dasherized' do
+    let(:notification_subclass) { Notifications::NewMeeting }
+
+    it 'returns dasherized subclass name' do
+      expect(notification_subclass.dasherized).to eq 'new-meeting'
+    end
+  end
+
   describe "#to_partial_path" do
     let(:notification) { build(:notification, type: "Notifications::SomethingNew") }
 

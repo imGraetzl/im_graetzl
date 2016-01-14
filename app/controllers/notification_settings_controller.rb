@@ -8,8 +8,7 @@ class NotificationSettingsController < ApplicationController
       return
     end
     current_user.toggle_website_notification(type.constantize)
-
-    render nothing: true
+    render json: :ok
   end
 
   def change_mail_notification
@@ -26,6 +25,6 @@ class NotificationSettingsController < ApplicationController
     else
       current_user.enable_mail_notification(type.constantize, params[:interval].to_sym)
     end
-    render nothing: true
+    render json: :ok
   end
 end

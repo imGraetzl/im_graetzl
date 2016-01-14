@@ -7,6 +7,7 @@ class Notification < ActiveRecord::Base
   def self.types
     self.subclasses.map{|s| s.name}
   end
+
   def self.receive_new_activity(activity)
     CreateWebsiteNotificationsJob.new.async.perform(activity)
   end
@@ -17,6 +18,10 @@ class Notification < ActiveRecord::Base
 
   def self.condition(activity)
     true
+  end
+
+  def self.dasherized
+    self.name.demodulize.underscore.dasherize
   end
 
   def self.broadcast(activity)

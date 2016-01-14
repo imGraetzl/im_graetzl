@@ -17,13 +17,10 @@
       Ein neues Treffen wurde in meinem Grätzl erstellt
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_new_meeting_in_graetzl" type="checkbox" <% if current_user.enabled_website_notification?(:new_meeting_in_graetzl) %>checked <% end %>>
-        <label for="toggle_new_meeting_in_graetzl"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::NewMeeting %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "new_meeting_in_graetzl" %>
+      <%= render 'notification_settings/mail', type: Notifications::NewMeeting %>
     </div>
   </div>
 
@@ -32,13 +29,10 @@
       Ein neuer Beitrag wurde in meinem Grätzl erstellt
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_new_post_in_graetzl" type="checkbox" <% if current_user.enabled_website_notification?(:new_post_in_graetzl) %>checked <% end %>>
-        <label for="toggle_new_post_in_graetzl"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::NewPost %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "new_post_in_graetzl" %>
+      <%= render 'notification_settings/mail', type: Notifications::NewPost %>
     </div>
   </div>
 
@@ -47,13 +41,10 @@
       Ein neuer Kommentar wurde in an meiner Pinnwand gepostet
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_new_wall_comment" type="checkbox" <% if current_user.enabled_website_notification?(:new_wall_comment) %>checked <% end %>>
-        <label for="toggle_new_wall_comment"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::NewWallComment %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "new_wall_comment" %>
+      <%= render 'notification_settings/mail', type: Notifications::NewWallComment %>
     </div>
   </div>
 </div>
@@ -69,13 +60,10 @@
       Ein Treffen geändert wird
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_update_of_meeting" type="checkbox" <% if current_user.enabled_website_notification?(:update_of_meeting) %>checked <% end %>>
-        <label for="toggle_update_of_meeting"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::MeetingUpdated %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "update_of_meeting" %>
+      <%= render 'notification_settings/mail', type: Notifications::MeetingUpdated %>
     </div>
   </div>
 
@@ -84,13 +72,10 @@
       Ein Treffen abgesagt wird
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_cancel_of_meeting" type="checkbox" <% if current_user.enabled_website_notification?(:cancel_of_meeting) %>checked <% end %>>
-        <label for="toggle_cancel_of_meeting"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::MeetingCancelled %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "cancel_of_meeting" %>
+      <%= render 'notification_settings/mail', type: Notifications::MeetingCancelled %>
     </div>
   </div>
 
@@ -99,13 +84,10 @@
       Ein User das Treffen kommentiert
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_comment_in_meeting" type="checkbox" <% if current_user.enabled_website_notification?(:comment_in_meeting) %>checked <% end %>>
-        <label for="toggle_comment_in_meeting"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::CommentInMeeting %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "comment_in_meeting" %>
+      <%= render 'notification_settings/mail', type: Notifications::CommentInMeeting %>
     </div>
   </div>
 </div>
@@ -121,13 +103,10 @@
       Jemand Neuer am Treffen teilnimmt
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_another_attendee" type="checkbox" <% if current_user.enabled_website_notification?(:another_attendee) %>checked <% end %>>
-        <label for="toggle_another_attendee"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::AttendeeInUsersMeeting %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "another_attendee" %>
+      <%= render 'notification_settings/mail', type: Notifications::AttendeeInUsersMeeting %>
     </div>
   </div>
 
@@ -136,13 +115,10 @@
       Ein User das Treffen kommentiert
     </div>
     <div class="col2">
-      <div class="input-switch">
-        <input id="toggle_user_comments_users_meeting" type="checkbox" <% if current_user.enabled_website_notification?(:user_comments_users_meeting) %>checked <% end %>>
-        <label for="toggle_user_comments_users_meeting"></label>
-      </div>
+      <%= render 'notification_settings/website', type: Notifications::CommentInUsersMeeting %>
     </div>
     <div class="col3">
-      <%= render 'notification_settings/mail_settings', type: "user_comments_users_meeting" %>
+      <%= render 'notification_settings/mail', type: Notifications::CommentInUsersMeeting %>
     </div>
   </div>
 </div>

@@ -7,37 +7,51 @@ APP.controllers.users = (function() {
             $('.tabs-nav [href=#tab-1]').trigger('click');
         });
 
-        // notification settings
-        var notfication_types = [
-            "Notifications::NewMeeting",
-            "Notifications::NewPost",
-            "Notifications::AlsoCommentedPost",
-            "Notifications::AttendeeInUsersMeeting",
-            "Notifications::MeetingUpdated",
-            "Notifications::CommentInUsersMeeting",
-            "Notifications::NewWallComment",
-            "Notifications::MeetingCancelled"
-        ];
-        jQuery.each(notfication_types, function(index, notification_type) {
-            $('#toggle_' + notification_type).click(function() {
-                jQuery.post("/users/notification_settings/toggle_website_notification", {
-                    type: notification_type }).
-                    done(function(response) {
-                    })
-                    .fail(function() {
-                        alert("Etwas ist schief gegangen!");
-                    });
-            });
+        init_notification_toggles();
+    }
 
-            $('#mail_notification_settings_' + notification_type).change(function() {
-                jQuery.post("/users/notification_settings/change_mail_notification", {
-                    type: notification_type, interval: $(this).find("option:selected")[0].value }).
-                    done(function(response) {
-                    })
-                    .fail(function() {
-                        alert("Etwas ist schief gegangen!");
-                    });
-            });
+    function init_notification_toggles() {
+      $("[data-behavior='website-notification-toggle']").each(function() {
+          var $toggle = $(this);
+          $toggle.click(function() {
+              toggle_website_notification($toggle);
+          });
+      });
+      $("[data-behavior='mail-notification-toggle']").each(function() {
+          var $toggle = $(this);
+          $toggle.change(function() {
+              change_mail_notification($toggle);
+          });
+      });
+    }
+
+    function toggle_website_notification(toggle) {
+        $.ajax({
+            url: "/users/notification_settings/toggle_website_notification",
+            dataType: "json",
+            type: "POST",
+            data: { type: toggle.data('type') },
+            success: function() {
+                console.log("SUCCESSFULL TOGGLE WEBSITE NOTIFICATION REQUEST")
+            },
+            error: function() {
+                console.log("UNSUCCESSFULL TOGGLE WEBSITE NOTIFICATION REQUEST")
+            }
+        });
+    }
+
+    function change_mail_notification(toggle) {
+        $.ajax({
+            url: "/users/notification_settings/change_mail_notification",
+            dataType: "json",
+            type: "POST",
+            data: { type: toggle.data('type'), interval: toggle.find("option:selected")[0].value },
+            success: function() {
+                console.log("SUCCESSFULL CHANGE MAIL NOTIFICATION REQUEST")
+            },
+            error: function() {
+                console.log("UNSUCCESSFULL CHANGE MAIL NOTIFICATION REQUEST")
+            }
         });
     }
 
