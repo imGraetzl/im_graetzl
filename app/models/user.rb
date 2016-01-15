@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   include PublicActivity::Common
+  include User::WebsiteNotifications
+  include User::MailNotifications
+  include User::SummaryNotifications
   extend FriendlyId
 
   # macros
@@ -48,74 +51,6 @@ class User < ActiveRecord::Base
       where(conditions.to_h).first
     end
   end
-
-
-  # website notifications ->
-
-  def enabled_website_notification?(type)
-    enabled_website_notifications & type::BITMASK > 0
-  end
-
-  # TODO only used in specs -> not necessary?
-  def enable_website_notification(type)
-    new_setting = enabled_website_notifications | type::BITMASK
-    update_attribute(:enabled_website_notifications, new_setting)
-  end
-
-  def toggle_website_notification(type)
-    new_setting = enabled_website_notifications ^ type::BITMASK
-    update_attribute(:enabled_website_notifications, new_setting)
-  end
-
-  def website_notifications
-    notifications.where(["bitmask & ? > 0", enabled_website_notifications]).where(display_on_website: true)
-  end
-
-  def new_website_notifications_count
-    website_notifications.where(seen: false).count
-  end
-
-
-  # mail notifications ->
-
-  def mail_notifications(interval)
-    notifications.where(["bitmask & ? > 0", send("#{interval}_mail_notifications".to_sym)])
-  end
-
-  def enabled_mail_notification?(type, interval)
-    send("#{interval}_mail_notifications".to_sym) & type::BITMASK > 0
-  end
-
-  def enable_mail_notification(type, interval)
-    [ :immediate, :daily, :weekly ].each do |i|
-      disable_mail_notification(type, i)
-    end
-
-    new_setting = send("#{interval}_mail_notifications".to_sym) | type::BITMASK
-    update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
-  end
-
-  def disable_mail_notification(type, interval)
-    mask = "11111111111111".to_i(2) ^ type::BITMASK
-    new_setting = send("#{interval}_mail_notifications".to_sym) & mask
-    update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
-  end
-
-
-  # digest mails ->
-
-  def notifications_of_the_day
-    notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
-                      where("created_at >= NOW() - interval '5 minutes'").
-                      where(sent: false)
-  end
-
-  def notifications_of_the_week
-    notifications.where(["bitmask & ? > 0", weekly_mail_notifications]).
-                      where("created_at >= NOW() - interval '30 minutes'").
-                      where(sent: false)
-  end
-
 
   private
 
