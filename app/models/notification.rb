@@ -1,4 +1,9 @@
 class Notification < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
+  # constants
+  DEFAULT_URL_OPTIONS = Rails.application.config.action_mailer.default_url_options
+
   # macros
   belongs_to :user
   belongs_to :activity, :class => PublicActivity::Activity
@@ -41,6 +46,7 @@ class Notification < ActiveRecord::Base
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
               # TODO enable mail job (when refactored)
+              # generate immediate mail notification with service, then pass to sendjob
               #SendMailNotificationJob.new.async.perform(u.id, "immediate", n.id)
               ids_notified_users << u.id
             end
@@ -52,6 +58,10 @@ class Notification < ActiveRecord::Base
 
   def to_partial_path
     "notifications/#{type.demodulize.underscore}"
+  end
+
+  def mail_template
+    "notification-#{type.demodulize.underscore.dasherize}"
   end
 
   PublicActivity::Activity.after_create do |activity|

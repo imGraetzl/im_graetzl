@@ -433,4 +433,12 @@ RSpec.describe Notification, type: :model, job: true do
       expect(notification.to_partial_path).to include('notification', 'something_new')
     end
   end
+
+  describe '#mail_template' do
+    let(:notification) { build(:notification, type: "Notification::SomethingNew") }
+
+    it 'returns mandrill template slug' do
+      expect(notification.mail_template).to eq 'notification-something-new'
+    end
+  end
 end
