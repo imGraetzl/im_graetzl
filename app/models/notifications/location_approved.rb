@@ -9,11 +9,11 @@ class Notifications::LocationApproved < Notification
 
   def mail_vars
     {
-      "owner_name": activity.owner.username,
-      "owner_url": user_url(activity.owner, DEFAULT_URL_OPTIONS),
-      "owner_avatar_url": ApplicationController.helpers.attachment_url(activity.owner, :avatar, :fill, 40, 40, fallback: "avatar/user/40x40.png", host: "http://#{DEFAULT_URL_OPTIONS[:host]}"),
-      "location_name": activity.trackable.name,
-      "location_url": graetzl_location_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS)
+      owner_name: activity.owner.username,
+      owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),
+      owner_avatar_url: ApplicationController.helpers.attachment_url(activity.owner, :avatar, :fill, 40, 40, fallback: "avatar/user/40x40.png", host: "http://#{DEFAULT_URL_OPTIONS[:host]}"),
+      location_name: activity.trackable.name,
+      location_url: graetzl_location_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS)
     }
   end
 
