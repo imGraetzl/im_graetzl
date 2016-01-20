@@ -44,8 +44,5 @@ module ImGraetzl
     config.middleware.insert_before(0, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
-
-    # Logger for background jobs
-    SuckerPunch.logger = Logger.new("#{Rails.root}/log/sucker_punch.log")
   end
 end
