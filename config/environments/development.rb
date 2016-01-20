@@ -11,8 +11,10 @@ Rails.application.configure do
 
   # Eager load STI classes in order to use '.subclasses' method
   config.eager_load_paths += Dir["#{Rails.root}/app/models/notifications/*.rb"]
+  config.eager_load_paths += Dir["#{Rails.root}/app/services/notifications/*.rb"]
   ActionDispatch::Reloader.to_prepare do
     Dir["#{Rails.root}/app/models/notifications/*.rb"].each {|file| require_dependency file}
+    Dir["#{Rails.root}/app/services/notifications/*.rb"].each {|file| require_dependency file}
   end
 
   # Show full error reports and disable caching.
@@ -50,7 +52,7 @@ Rails.application.configure do
     from: 'imGrätzl.at <no-reply@development.imgraetzl.at>',
     reply_to: 'imGrätzl.at <wir@development.imgraetzl.at>'
   }
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :letter_opener
 
   # bullet config

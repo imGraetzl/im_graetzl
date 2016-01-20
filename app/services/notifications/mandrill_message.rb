@@ -12,11 +12,21 @@ class Notifications::MandrillMessage
   def basic_message_vars
     [
       { name: "username", content: @user.username },
-      { name: "edit_user_url", content: edit_user_url(@default_url_options) },
-      { name: "first_name", content: @user.first_name},
-      { name: "last_name", content: @user.last_name},
-      { name: "graetzl_name", content: @user.graetzl.name },
-      { name: "graetzl_url", content: graetzl_url(@user.graetzl, @default_url_options) },
+      { name: "edit_user_url", content: edit_user_url(@default_url_options) }
     ]
+  end
+
+  def send
+    mandrill_client.messages.send_template(
+      @template_name,
+      @template_content,
+      @message
+    )
+  end
+
+  private
+
+  def mandrill_client
+    @mandrill_client ||= Mandrill::API.new MANDRILL_API_KEY
   end
 end

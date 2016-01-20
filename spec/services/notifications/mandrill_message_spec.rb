@@ -37,15 +37,5 @@ RSpec.describe Notifications::MandrillMessage do
     it 'contains edit_user_url' do
       expect(vars).to include({name: 'edit_user_url', content: 'http://test.yourhost.com/user/einstellungen'})
     end
-
-    it 'contains first and last name' do
-      expect(vars).to include({name: 'first_name', content: user.first_name})
-      expect(vars).to include({name: 'last_name', content: user.last_name})
-    end
-
-    it 'contains graetzl name and url' do
-      expect(vars).to include({name: 'graetzl_name', content: user.graetzl.name})
-      expect(vars).to include({name: 'graetzl_url', content: "http://test.yourhost.com/#{user.graetzl.name.downcase}"})
-    end
   end
 end

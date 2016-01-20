@@ -437,8 +437,8 @@ RSpec.describe Notification, type: :model, job: true do
   describe '#mail_template' do
     let(:notification) { build(:notification, type: "Notification::SomethingNew") }
 
-    it 'returns mandrill template slug' do
-      expect(notification.mail_template).to eq 'notification-something-new'
+    it 'returns mandrill template slug with staging prefix' do
+      expect(notification.mail_template).to eq 'staging-notification-something-new'
     end
   end
 end

@@ -40,14 +40,11 @@ class Notification < ActiveRecord::Base
         users = klass.receivers(activity)
         users.each do |u|
           unless ids_notified_users.include?(u.id) || (u.id == activity.owner.id if activity.owner)
-            # TODO add new support for checking if notification enabled
             display_on_website = u.enabled_website_notifications & klass::BITMASK > 0
             n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
-              # TODO enable mail job (when refactored)
-              # generate immediate mail notification with service, then pass to sendjob
-              #SendMailNotificationJob.new.async.perform(u.id, "immediate", n.id)
+              SendMailNotificationJob.new.async.perform(n)
               ids_notified_users << u.id
             end
           end
@@ -61,7 +58,14 @@ class Notification < ActiveRecord::Base
   end
 
   def mail_template
-    "notification-#{type.demodulize.underscore.dasherize}"
+    "staging-notification-#{type.demodulize.underscore.dasherize}"
+  end
+
+  def basic_mail_vars
+    [
+      { name: "graetzl_name", content: activity.trackable.graetzl.name },
+      { name: "graetzl_url", content: graetzl_url(activity.trackable.graetzl, DEFAULT_URL_OPTIONS) },
+    ]
   end
 
   PublicActivity::Activity.after_create do |activity|

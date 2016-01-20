@@ -13,9 +13,10 @@ class Notifications::ImmediateMail < Notifications::MandrillMessage
       from_email: Rails.configuration.x.mandril_from_email,
       from_name: Rails.configuration.x.mandril_from_name,
       subject: @notification.mail_subject,
+      global_merge_vars: basic_message_vars,
       merge_vars: [
         rcpt: @user.email,
-        vars: basic_message_vars + [
+        vars: @notification.basic_mail_vars + [
           { name: 'notification', content: @notification.mail_vars }
         ]
       ]
