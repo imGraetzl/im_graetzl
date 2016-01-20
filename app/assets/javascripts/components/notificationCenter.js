@@ -1,14 +1,14 @@
 APP.components.notificatonCenter = (function() {
-    const DROPDOWN_OPEN = 'jq-dropdown-open';
+    var DROPDOWN_OPEN = 'jq-dropdown-open';
     var $notificationsContainer;
     var $notificationsTrigger;
 
     function init() {
         console.log("INIT NOTIFICATION CENTER");
         $(window).load(function() {
-          $notificationsContainer = $("[data-behavior='notifications-container']");
-          $notificationsTrigger = $("[data-behavior='notifications-trigger']");
-          if ($notificationsContainer.length > 0) setup()
+            $notificationsContainer = $("[data-behavior='notifications-container']");
+            $notificationsTrigger = $("[data-behavior='notifications-trigger']");
+            if ($notificationsContainer.length > 0) setup();
         });
     }
 
@@ -19,12 +19,12 @@ APP.components.notificatonCenter = (function() {
 
     function updateLoop() {
         setTimeout(function() {
-          if (notificationCenterOpen()) {
-            console.log("CLOSED");
-              updateLoop();
-          } else {
-              pollServer(updateLoop);
-          }
+            if (notificationCenterOpen()) {
+                console.log("CLOSED");
+                updateLoop();
+            } else {
+                pollServer(updateLoop);
+            }
         }, 3000);
     }
 
