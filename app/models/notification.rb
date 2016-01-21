@@ -30,7 +30,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.broadcast(activity)
-    triggered_types = Notification.subclasses.select{ |klass| klass.triggered_by? activity }
+    triggered_types = ::Notification.subclasses.select{ |klass| klass.triggered_by? activity }
     ids_notified_users =  []
     #sort by bitmask, so that lower order bitmask types are sent first, because
     #higher order bitmask types might not needed to be sent at all, when a user
@@ -44,7 +44,7 @@ class Notification < ActiveRecord::Base
             n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
-              SendMailNotificationJob.new.perform(n)
+              SendMailNotificationJob.new.async.perform(n)
               ids_notified_users << u.id
             end
           end
