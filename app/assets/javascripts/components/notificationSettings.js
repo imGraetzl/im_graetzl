@@ -8,7 +8,7 @@ APP.components.notificationSettings = (function() {
         console.log("INIT NOTIFICATION SETTINGS");
         $webToggles = $("[data-behavior='website-notification-toggle']");
         $mailToggles = $("[data-behavior='mail-notification-toggle']");
-        if (($webToggles.length > 0) && ($mailToggles.length > 0)) setup();
+        if (($webToggles.exists()) && ($mailToggles.exists())) setup();
     }
 
     function setup() {
