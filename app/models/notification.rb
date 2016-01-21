@@ -44,7 +44,7 @@ class Notification < ActiveRecord::Base
             n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
-              SendMailNotificationJob.new.async.perform(n)
+              SendMailNotificationJob.new.perform(n)
               ids_notified_users << u.id
             end
           end
