@@ -1,0 +1,50 @@
+.nav-notifications {
+  width: 100%;
+  @include respond-to(">=medium") {
+    width: 400px;
+  }
+  .notifications {
+    list-style: none;
+    @include respond-to(">=medium") {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  }
+}
+
+.notifications_new_post {
+  border-bottom: 1px solid $color-ambient-mint-light;
+  padding: 15px;
+  color: $color-font-primary;
+  a {
+    color: $color-font-primary;
+    display: block;
+    text-decoration: none;
+    margin: -15px;
+    padding: 15px;
+    display: flex;
+  }
+  .img-round {
+    flex: none;
+    margin-right: 10px;
+  }
+  .msg {
+    font-size: 13px;
+  }
+  .timeago {
+    font-style: italic;
+    color: $color-ambient-grey;
+    display: block;
+  }
+  .username, .matter {
+    font-weight: 600;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+  &:hover {
+    background-color: $color-ambient-mint-light;
+  }
+
+}

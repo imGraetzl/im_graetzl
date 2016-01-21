@@ -1,8 +1,8 @@
 APP.components.notificationSettings = (function() {
-    var WEB_URL = '/users/notification_settings/toggle_website_notification';
-    var MAIL_URL = '/users/notification_settings/change_mail_notification';
-    var $webToggles;
-    var $mailToggles;
+    var WEB_URL = '/users/notification_settings/toggle_website_notification',
+        MAIL_URL = '/users/notification_settings/change_mail_notification',
+        $webToggles,
+        $mailToggles;
 
     function init() {
         console.log("INIT NOTIFICATION SETTINGS");

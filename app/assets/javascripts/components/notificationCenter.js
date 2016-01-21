@@ -1,7 +1,7 @@
 APP.components.notificatonCenter = (function() {
-    var DROPDOWN_OPEN = 'jq-dropdown-open';
-    var $notificationsContainer;
-    var $notificationsTrigger;
+    var DROPDOWN_OPEN = '.jq-dropdown-open, .is-open',
+        $notificationsContainer,
+        $notificationsTrigger;
 
     function init() {
         console.log("INIT NOTIFICATION CENTER");
@@ -70,7 +70,7 @@ APP.components.notificatonCenter = (function() {
     }
 
     function notificationCenterOpen() {
-        return $notificationsTrigger.hasClass(DROPDOWN_OPEN);
+        return $notificationsTrigger.is(DROPDOWN_OPEN);
     }
 
     return {
