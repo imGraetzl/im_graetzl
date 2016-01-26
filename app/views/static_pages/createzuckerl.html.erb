@@ -1,0 +1,135 @@
+<script>
+
+  $(document).ready(function () {
+    APP.components.createzuckerl.init();
+  })
+
+</script>
+
+
+<section class="createzuckerl">
+
+  <div class="preview-block">
+
+    <div class="form-block">
+
+      <p class="txt">Neues <span>Grätzlzuckerl</span> von Superlocation</p>
+
+      <div class="input-field">
+        <label for="zuckerl_title">
+          <svg class="icon-record">
+            <use xlink:href="#icon-record"></use>
+          </svg>
+          <span>Titel</span>
+        </label>
+        <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title">
+      </div>
+
+      <div class="input-textarea">
+        <label for="zuckerl_description">
+          <svg class="icon-layout-document">
+            <use xlink:href="#icon-layout-document"></use>
+          </svg>
+          <span>Beschreibung</span>
+        </label>
+        <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description"></textarea>
+      </div>
+
+      <div class="upload-oldschool">
+        <label for="zuckerl_photo">
+          <svg class="icon-photo-camera">
+            <use xlink:href="#icon-photo-camera"></use>
+          </svg>
+          <span>Bild hochladen</span>
+        </label>
+
+        <div class="field-wrp">
+          <input type="file" id="zuckerl_photo">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cardBox -location ">
+      <div class="cardBoxHeader">
+        <img class="coverImg" src="https://placeimg.com/300/180/arch" alt="">
+        <div class="location-shortfacts">
+          <a href="#">
+            <img class="img-square" src="https://placeimg.com/200/200/tech" alt="Avatar">
+            <div class="name">Superlocation</div>
+          </a>
+          <div class="category">Unternehmen &amp; Start-ups</div>
+          <div class="address">
+            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+            Am Graben 1
+          </div>
+        </div>
+        <div class="categoryicon"><svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg></div>
+      </div>
+      <div class="zuckerl-teaser-box">
+        <div class="title">Grätzlzuckerl: Käseverkostung -25% von Fr - Sa, 28. und 29. Feb</div>
+        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, officiis?</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="booking-block">
+
+    <div class="form-block">
+
+      <div class="input-select">
+        <label for="zuckerl_support">
+          <svg class="icon-love">
+            <use xlink:href="#icon-love"></use>
+          </svg>
+          <span>Mit dem Zuckerl unterstütze ich</span>
+        </label>
+        <select id="zuckerl_support">
+          <option>Initiative 1</option>
+          <option>Initiative 2</option>
+          <option>Initiative 3</option>
+        </select>
+      </div>
+
+
+      <div class="input-labledcheckbox">
+        <label for="zuckerl_flyer">
+          <svg class="icon-open-book">
+            <use xlink:href="#icon-open-book"></use>
+          </svg>
+          <span>Grätzlzuckerl Flyer</span>
+        </label>
+
+        <div class="field-wrp">
+          <div class="input-checkbox">
+            <input type="checkbox" id="zuckerl_flyer" value="1">
+            <label for="zuckerl_flyer">
+              Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
+              <small>
+                Wir kontaktieren dich sobald die nächste Print-Ausgabe für den 2. Bezirk produziert wird. Du
+                bezahlst & buchst nur das Online Zuckerl.
+              </small>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-primary">Weiter zur Buchung</div>
+
+    </div>
+
+
+    <div class="basicdata">
+      <div class="headline">Eckdaten</div>
+      <ul class="facts">
+        <li><strong>Laufzeit:</strong> März 2016</li>
+        <li><strong>Grätzl:</strong> Karmeliterviertel & 2. Bezirk</li>
+        <li><strong>Preis:</strong> 15€</li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>

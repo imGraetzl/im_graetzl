@@ -1,0 +1,87 @@
+section.createzuckerl {
+
+  .preview-block,
+  .booking-block {
+    @include respond-to(">=large") {
+      display: flex;
+      align-items: flex-start;
+      margin-right: -20px;
+    }
+    .form-block {
+      @include respond-to(">=large") {
+        flex: 1;
+        margin-right: 30px;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .cardBox, .basicdata {
+    @include respond-to(">=large") {
+      width: (100%/3);
+      flex: none;
+
+    }
+  }
+
+  .cardBox {
+    margin-top: -20px;
+    @include respond-to(">=large") {
+      margin-top: 0;
+    }
+  }
+
+  .preview-block {
+    margin-bottom: 20px;
+    @include respond-to(">=large") {
+      border-bottom: 1px solid $color-ambient-mint-light;
+      padding-bottom: 50px;
+      margin-bottom: 50px;
+    }
+    .form-block .txt {
+      margin-bottom: 30px;
+    }
+    label {
+      @include respond-to(">=large") {
+        width: 155px;
+      }
+    }
+  }
+
+  .booking-block {
+    display: flex;
+    flex-direction: column-reverse;
+    @include respond-to(">=large") {
+      flex-direction: row;
+    }
+  }
+
+  .booking-block .btn-primary {
+    @include respond-to(">=large") {
+      display: table;
+      margin-left: auto;
+    }
+  }
+
+  .basicdata {
+    margin-bottom: 20px;
+    .headline {
+      @include font-size-secondaryFont('base');
+      font-family: $font-secondary;
+      color: $color-ambient-rosa;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .facts {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        padding-left: 10px;
+        font-style: italic;
+        border-left: 1px dotted $color-ambient-grey;
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+}
