@@ -28,6 +28,10 @@ section.createzuckerl {
     @include respond-to(">=large") {
       margin-top: 0;
     }
+    .placeholder {
+      opacity: 0.7;
+      font-style: italic;
+    }
   }
 
   .preview-block {
@@ -45,6 +49,9 @@ section.createzuckerl {
         width: 155px;
       }
     }
+    .description {
+      white-space: pre-wrap;
+    }
   }
 
   .booking-block {
@@ -52,6 +59,23 @@ section.createzuckerl {
     flex-direction: column-reverse;
     @include respond-to(">=large") {
       flex-direction: row;
+    }
+  }
+
+  .imgpreview {
+    min-height: 185px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: lighten($color-ambient-rosa-light, 10) repeating-linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0) 10px,
+                    rgba(0, 0, 0, 0.1) 10px,
+                    rgba(0, 0, 0, 0.1) 20px
+    );
+    canvas {
+      width: 100%;
+      display: block;
     }
   }
 

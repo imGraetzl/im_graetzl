@@ -40,6 +40,8 @@
 //= require fastclick
 //= require autogrow
 //= require refile
+//= require FileAPI.core
+//= require FileAPI.Image
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers

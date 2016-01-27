@@ -22,7 +22,7 @@
           </svg>
           <span>Titel</span>
         </label>
-        <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title">
+        <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title" maxlength="80" data-behavior="titleinput">
       </div>
 
       <div class="input-textarea">
@@ -32,7 +32,7 @@
           </svg>
           <span>Beschreibung</span>
         </label>
-        <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description"></textarea>
+        <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description" data-behavior="descriptioninput"></textarea>
       </div>
 
       <div class="upload-oldschool">
@@ -44,7 +44,7 @@
         </label>
 
         <div class="field-wrp">
-          <input type="file" id="zuckerl_photo">
+          <input type="file" id="zuckerl_photo" data-behavior="imageinput">
         </div>
       </div>
 
@@ -52,10 +52,11 @@
 
     <div class="cardBox -location ">
       <div class="cardBoxHeader">
-        <img class="coverImg" src="https://placeimg.com/300/180/arch" alt="">
+        <!--<img class="coverImg" src="https://placeimg.com/300/180/arch" alt="">-->
+        <div class="imgpreview" data-behavior="imagepreview"></div>
         <div class="location-shortfacts">
           <a href="#">
-            <img class="img-square" src="https://placeimg.com/200/200/tech" alt="Avatar">
+            <img class="img-square" src="http://www.imgraetzl.at/attachments/25da7aa39f57ba4685438e18199b4c93e36ff34a/store/fill/200/200/2ef1a113e444791a6780e3ad9808d67d0144ccaafbc74edbf918c29e032b/avatar.jpeg" alt="Avatar">
             <div class="name">Superlocation</div>
           </a>
           <div class="category">Unternehmen &amp; Start-ups</div>
@@ -67,8 +68,8 @@
         <div class="categoryicon"><svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg></div>
       </div>
       <div class="zuckerl-teaser-box">
-        <div class="title">Grätzlzuckerl: Käseverkostung -25% von Fr - Sa, 28. und 29. Feb</div>
-        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, officiis?</div>
+        <div class="title" data-behavior="titlepreview">Grätzlzuckerl: Käseverkostung -25% von Fr - Sa, 28. und 29. Feb</div>
+        <div class="description" data-behavior="descriptionpreview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, officiis?</div>
       </div>
     </div>
 
