@@ -11,6 +11,10 @@ class Notifications::CommentInUsersMeeting < Notification
     activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id
   end
 
+  def self.description
+    "Mein erstelltes Treffen wurde kommentiert"
+  end
+
   def mail_vars
     {
       meeting_name: activity.trackable.name,

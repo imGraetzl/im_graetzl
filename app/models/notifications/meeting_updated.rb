@@ -7,6 +7,10 @@ class Notifications::MeetingUpdated < Notification
     activity.trackable.users
   end
 
+  def self.description
+    "Änderungen eines Treffens an dem ich teilnehme"
+  end
+
   def mail_vars
     {
       owner_name: activity.owner.username,

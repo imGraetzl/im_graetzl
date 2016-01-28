@@ -12,41 +12,9 @@
     </div>
   </div>
 
-  <div class="settingSlice">
-    <div class="col1">
-      Ein neues Treffen wurde in meinem Grätzl erstellt
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::NewMeeting %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::NewMeeting %>
-    </div>
-  </div>
-
-  <div class="settingSlice">
-    <div class="col1">
-      Ein neuer Beitrag wurde in meinem Grätzl erstellt
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::NewLocationPost %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::NewLocationPost %>
-    </div>
-  </div>
-
-  <div class="settingSlice">
-    <div class="col1">
-      Ein neuer Kommentar wurde in an meiner Pinnwand gepostet
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::NewWallComment %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::NewWallComment %>
-    </div>
-  </div>
+  <%= render 'notification_settings/slice', type: Notifications::NewMeeting %>
+  <%= render 'notification_settings/slice', type: Notifications::NewLocationPost %>
+  <%= render 'notification_settings/slice', type: Notifications::NewUserPost %>
 </div>
 
 <div class="block-settings">
@@ -55,70 +23,23 @@
       <h2>Treffen an denen <span>ich teilnehme</span></h2>
     </div>
   </div>
-  <div class="settingSlice">
-    <div class="col1">
-      Ein Treffen geändert wird
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::MeetingUpdated %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::MeetingUpdated %>
-    </div>
-  </div>
 
-  <div class="settingSlice">
-    <div class="col1">
-      Ein Treffen abgesagt wird
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::MeetingCancelled %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::MeetingCancelled %>
-    </div>
-  </div>
-
-  <div class="settingSlice">
-    <div class="col1">
-      Ein User das Treffen kommentiert
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::CommentInMeeting %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::CommentInMeeting %>
-    </div>
-  </div>
+  <%= render 'notification_settings/slice', type: Notifications::CommentInMeeting %>
+  <%= render 'notification_settings/slice', type: Notifications::MeetingUpdated %>
+  <%= render 'notification_settings/slice', type: Notifications::MeetingCancelled %>
 </div>
 
 <div class="block-settings">
   <div class="settingHead">
     <div class="col1">
-      <h2>Treffen die <span>ich erstellt</span> habe</h2>
-    </div>
-  </div>
-  <div class="settingSlice">
-    <div class="col1">
-      Jemand Neuer am Treffen teilnimmt
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::AttendeeInUsersMeeting %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::AttendeeInUsersMeeting %>
+      <h2>Betrifft <span>mich</span></h2>
     </div>
   </div>
 
-  <div class="settingSlice">
-    <div class="col1">
-      Ein User das Treffen kommentiert
-    </div>
-    <div class="col2">
-      <%= render 'notification_settings/website', type: Notifications::CommentInUsersMeeting %>
-    </div>
-    <div class="col3">
-      <%= render 'notification_settings/mail', type: Notifications::CommentInUsersMeeting %>
-    </div>
-  </div>
+  <%= render 'notification_settings/slice', type: Notifications::AlsoCommentedPost %>
+  <%= render 'notification_settings/slice', type: Notifications::AttendeeInUsersMeeting %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentInUsersMeeting %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentOnLocationsPost %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentOnUsersPost %>
+  <%= render 'notification_settings/slice', type: Notifications::NewWallComment %>
 </div>

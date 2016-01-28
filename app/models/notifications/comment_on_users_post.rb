@@ -11,6 +11,10 @@ class Notifications::CommentOnUsersPost < Notification
     activity.trackable.author_type == 'User' && activity.trackable.author.present? && activity.trackable.author_id != activity.owner_id
   end
 
+  def self.description
+    "Mein erstellter Beitrag wurde kommentiert"
+  end
+
   def mail_vars
     {
       post_title: activity.trackable.content.truncate(50, separator: ' '),

@@ -7,6 +7,10 @@ class Notifications::CommentInMeeting < Notification
     activity.trackable.users
   end
 
+  def self.description
+    "Neuer Kommentar bei einem Treffen an dem ich teilnehme"    
+  end
+
   def mail_vars
     {
       meeting_name: activity.trackable.name,

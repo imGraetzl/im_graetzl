@@ -11,6 +11,10 @@ class Notifications::CommentOnLocationsPost < Notification
     activity.trackable.author.present? && activity.trackable.author_type == "Location" && activity.trackable.author.users.exclude?(activity.owner)
   end
 
+  def self.description
+    "Eine Neuigkeit meiner Location wurden kommentiert"
+  end
+
   def mail_vars
     {
       post_title: activity.trackable.title,

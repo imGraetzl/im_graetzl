@@ -11,6 +11,10 @@ class Notifications::NewUserPost < Notification
     activity.trackable.author.is_a?(User)
   end
 
+  def self.description
+    "Ein User hat einen neuen Beitrag im Grätzl erstellt"
+  end
+
   def mail_vars
     {
       post_content: activity.trackable.content.truncate(300, separator: ' '),

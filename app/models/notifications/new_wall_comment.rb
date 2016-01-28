@@ -11,6 +11,10 @@ class Notifications::NewWallComment < Notification
     activity.owner.present? && activity.recipient.present?
   end
 
+  def self.description
+    "Die Pinnwand auf meinem Profil hat einen neuen Kommentar"
+  end
+
   def mail_vars
     {
       comment_url: graetzl_user_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS) + "#comment-#{activity.recipient.id}",

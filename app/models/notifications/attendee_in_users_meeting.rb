@@ -11,6 +11,10 @@ class Notifications::AttendeeInUsersMeeting < Notification
     activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id
   end
 
+  def self.description
+    "Mein erstelltes Treffen hat einen neuen Teilnehmer"
+  end
+
   def mail_vars
     {
       meeting_name: activity.trackable.name,

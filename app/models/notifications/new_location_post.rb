@@ -11,6 +11,10 @@ class Notifications::NewLocationPost < Notification
     activity.trackable.author.is_a?(Location)
   end
 
+  def self.description
+    "Eine Location aus meinem Grätzl hat eine Neuigkeit erstellt"
+  end
+
   def mail_vars
     {
       post_content: activity.trackable.content.truncate(300, separator: ' '),

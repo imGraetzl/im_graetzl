@@ -7,6 +7,10 @@ class Notifications::NewMeeting < Notification
     User.where(graetzl_id: activity.trackable.graetzl_id)
   end
 
+  def self.description
+    "Ein neues Treffen wurde im Grätzl erstellt"
+  end
+
   def mail_vars
     {
       owner_name: activity.owner.username,

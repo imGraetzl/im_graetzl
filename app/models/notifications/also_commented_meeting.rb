@@ -7,6 +7,10 @@ class Notifications::AlsoCommentedMeeting < Notification
     User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id])
   end
 
+  def self.description
+    "Es gibt neue Antworten auf Inhalte die ich auch kommentiert habe"
+  end
+
   def mail_vars
     {
       meeting_name: activity.trackable.name,
