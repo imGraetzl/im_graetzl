@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128101206) do
+ActiveRecord::Schema.define(version: 20160128115238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,7 +305,7 @@ ActiveRecord::Schema.define(version: 20160128101206) do
     t.string   "website"
     t.integer  "weekly_mail_notifications",                 default: 0
     t.integer  "daily_mail_notifications",                  default: 0
-    t.integer  "immediate_mail_notifications",              default: 2013
+    t.integer  "immediate_mail_notifications"
     t.integer  "enabled_website_notifications"
     t.boolean  "newsletter",                                default: false, null: false
   end
