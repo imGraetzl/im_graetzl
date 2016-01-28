@@ -39,7 +39,7 @@ RSpec.describe NotificationsController, type: :controller do
         end
 
         it 'does not mark notifications as seen' do
-          expect(assigns(:notifications).pluck :seen).to all(be_falsy)
+          expect(assigns(:notifications).map(&:seen)).to all(be_falsy)
         end
 
         it "assigns not more than #{NotificationsController::NOTIFICATIONS_PER_PAGE} notifications" do
@@ -74,7 +74,8 @@ RSpec.describe NotificationsController, type: :controller do
         end
 
         it 'marks @notifications as seen' do
-          expect(assigns(:notifications).pluck :seen).to all(be_truthy)
+          puts assigns(:notifications).map(&:seen)
+          expect(assigns(:notifications).map(&:seen)).to all(be_truthy)
         end
 
         it "assigns @more_notifications to false" do

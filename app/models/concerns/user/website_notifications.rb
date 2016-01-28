@@ -17,7 +17,9 @@ module User::WebsiteNotifications
   end
 
   def website_notifications
-    notifications.where(["bitmask & ? > 0", enabled_website_notifications]).where(display_on_website: true)
+    notifications.includes(activity: [:owner, :trackable]).
+                  where(["bitmask & ? > 0", enabled_website_notifications]).
+                  where(display_on_website: true)
   end
 
   def new_website_notifications_count

@@ -5,9 +5,9 @@ class NotificationsController < ApplicationController
 
   def index
     @page = (params[:page] || '1').to_i
-    scope = current_user.website_notifications.order("created_at DESC")
+    scope = current_user.website_notifications.order("notifications.created_at DESC")
     @notifications = scope.page(@page).per(NOTIFICATIONS_PER_PAGE)
-    Notification.where(id: @notifications.pluck(:id)).update_all(seen: true) if @page > 1
+    @notifications.map{|n| n.update_attributes(seen: true)} if @page > 1
     @more_notifications = @page < @notifications.total_pages
   end
 
