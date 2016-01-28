@@ -1,18 +1,11 @@
 <%- meeting = notification.activity.trackable %>
-<%-
-  translation = {
-    :address => "Ort",
-    :adress_attributes => "Ort",
-    :starts_at_date => "Datum",
-    :starts_at_time => "Beginn",
-    :ends_at_time => "Ende",
-    :description => "Beschreibung"
-  }
 
-  translated_changes = notification.activity.parameters[:changed_attributes].collect { |a| translation[a] }.uniq.compact
-%>
-<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
-  <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-  placeholder meeting_updated<br>
-  activity: <%= notification.activity_id %>
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to [meeting.graetzl, meeting] do %>
+    <%= avatar_for notification.activity.owner, fill: [40,40] %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
+      <span class="username"><%= notification.activity.owner.username %></span> hat das Treffen <span class="matter"><%= meeting.name %></span> geändert
+    </div>
+  <% end %>
 <% end %>

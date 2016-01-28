@@ -1,6 +1,11 @@
-<!--TODO: yet to implement -->
-<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
-  <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-  placeholder comment_on_locations_post<br>
-  activity: <%= notification.activity_id %>
+<%- post = notification.activity.trackable %>
+
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to [post.graetzl, post.author] do %>
+    <%= avatar_for notification.activity.owner, fill: [40,40] %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
+      <span class="username"><%= notification.activity.owner.username %></span> hat deinen Beitrag von <span class="matter"><%= post.author.name %></span> kommentiert
+    </div>
+  <% end %>
 <% end %>

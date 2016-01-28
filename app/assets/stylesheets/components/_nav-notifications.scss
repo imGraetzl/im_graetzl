@@ -12,7 +12,7 @@
   }
 }
 
-.notifications_new_post {
+.notification-item {
   border-bottom: 1px solid $color-ambient-mint-light;
   padding: 15px;
   color: $color-font-primary;
@@ -24,7 +24,7 @@
     padding: 15px;
     display: flex;
   }
-  .img-round {
+  .img-round, .img-square {
     flex: none;
     margin-right: 10px;
   }
@@ -46,5 +46,4 @@
   &:hover {
     background-color: $color-ambient-mint-light;
   }
-
 }
