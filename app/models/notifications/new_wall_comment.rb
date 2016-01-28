@@ -1,7 +1,7 @@
 class Notifications::NewWallComment < Notification
 
   TRIGGER_KEY = 'user.comment'
-  BITMASK = 512
+  BITMASK = 1024
 
   def self.receivers(activity)
     User.where(id: activity.trackable.id)

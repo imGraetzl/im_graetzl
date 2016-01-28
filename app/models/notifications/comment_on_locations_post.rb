@@ -1,7 +1,7 @@
 class Notifications::CommentOnLocationsPost < Notification
 
   TRIGGER_KEY = 'post.comment'
-  BITMASK = 16
+  BITMASK = 32
 
   def self.receivers(activity)
     activity.trackable.author.users

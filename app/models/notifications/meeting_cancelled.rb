@@ -1,7 +1,7 @@
 class Notifications::MeetingCancelled < Notification
 
   TRIGGER_KEY = 'meeting.cancel'
-  BITMASK = 128
+  BITMASK = 256
 
   def self.receivers(activity)
     activity.trackable.users

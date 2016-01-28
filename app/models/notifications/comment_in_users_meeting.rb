@@ -1,7 +1,7 @@
 class Notifications::CommentInUsersMeeting < Notification
 
   TRIGGER_KEY = 'meeting.comment'
-  BITMASK = 8
+  BITMASK = 16
 
   def self.receivers(activity)
     User.where(id: activity.trackable.initiator.id)

@@ -1,7 +1,7 @@
-class Notifications::NewPost < Notification
+class Notifications::NewUserPost < Notification
 
   TRIGGER_KEY = 'post.create'
-  BITMASK = 2
+  BITMASK = 4
 
   def self.receivers(activity)
     User.where(graetzl_id: activity.trackable.graetzl_id)

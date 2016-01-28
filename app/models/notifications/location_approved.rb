@@ -1,7 +1,7 @@
 class Notifications::LocationApproved < Notification
 
   TRIGGER_KEY = 'location.approve'
-  BITMASK = 1024
+  BITMASK = 2048
 
   def self.receivers(activity)
     activity.trackable.users
