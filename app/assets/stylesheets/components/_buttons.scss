@@ -48,7 +48,7 @@
     }
   }
 
-  &.-disabled {
+  &.-disabled, &[disabled] {
     background-color: lighten($color-ambient-grey,10);
     cursor: none;
     pointer-events: none;

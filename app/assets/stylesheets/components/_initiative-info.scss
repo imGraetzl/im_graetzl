@@ -1,0 +1,24 @@
+
+.initiative-info {
+  padding-left: 15px;
+  .defaulttext {
+font-weight: 600;
+  }
+
+  .name {
+    @include font-size-primaryFont('base');
+    font-weight: 600;
+  }
+  .description {
+    @include font-size-primaryFont('small');
+  }
+  .homepage {
+
+  }
+  .logo {
+    max-width: 100px;
+    float: right;
+    margin-left: 10px;
+  }
+
+}

@@ -9,128 +9,163 @@
 
 <section class="createzuckerl">
 
-  <div class="preview-block">
+  <form action="">
 
-    <div class="form-block">
+    <div class="preview-block">
 
-      <p class="txt">Neues <span>Grätzlzuckerl</span> von Superlocation</p>
-
-      <div class="input-field">
-        <label for="zuckerl_title">
-          <svg class="icon-record">
-            <use xlink:href="#icon-record"></use>
-          </svg>
-          <span>Titel</span>
-        </label>
-        <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title" maxlength="80" data-behavior="titleinput">
-      </div>
-
-      <div class="input-textarea">
-        <label for="zuckerl_description">
-          <svg class="icon-layout-document">
-            <use xlink:href="#icon-layout-document"></use>
-          </svg>
-          <span>Beschreibung</span>
-        </label>
-        <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description" data-behavior="descriptioninput"></textarea>
-      </div>
-
-      <div class="upload-oldschool">
-        <label for="zuckerl_photo">
-          <svg class="icon-photo-camera">
-            <use xlink:href="#icon-photo-camera"></use>
-          </svg>
-          <span>Bild hochladen</span>
-        </label>
-
-        <div class="field-wrp">
-          <input type="file" id="zuckerl_photo" data-behavior="imageinput">
-        </div>
-      </div>
-
-    </div>
-
-    <div class="cardBox -location ">
-      <div class="cardBoxHeader">
-        <!--<img class="coverImg" src="https://placeimg.com/300/180/arch" alt="">-->
-        <div class="imgpreview" data-behavior="imagepreview"></div>
-        <div class="location-shortfacts">
-          <a href="#">
-            <img class="img-square" src="http://www.imgraetzl.at/attachments/25da7aa39f57ba4685438e18199b4c93e36ff34a/store/fill/200/200/2ef1a113e444791a6780e3ad9808d67d0144ccaafbc74edbf918c29e032b/avatar.jpeg" alt="Avatar">
-            <div class="name">Superlocation</div>
-          </a>
-          <div class="category">Unternehmen &amp; Start-ups</div>
-          <div class="address">
-            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
-            Am Graben 1
-          </div>
-        </div>
-        <div class="categoryicon"><svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg></div>
-      </div>
-      <div class="zuckerl-teaser-box">
-        <div class="title" data-behavior="titlepreview">Grätzlzuckerl: Käseverkostung -25% von Fr - Sa, 28. und 29. Feb</div>
-        <div class="description" data-behavior="descriptionpreview">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, officiis?</div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div class="booking-block">
-
-    <div class="form-block">
-
-      <div class="input-select">
-        <label for="zuckerl_support">
-          <svg class="icon-love">
-            <use xlink:href="#icon-love"></use>
-          </svg>
-          <span>Mit dem Zuckerl unterstütze ich</span>
-        </label>
-        <select id="zuckerl_support">
-          <option>Initiative 1</option>
-          <option>Initiative 2</option>
-          <option>Initiative 3</option>
-        </select>
-      </div>
-
-
-      <div class="input-labledcheckbox">
-        <label for="zuckerl_flyer">
-          <svg class="icon-open-book">
-            <use xlink:href="#icon-open-book"></use>
-          </svg>
-          <span>Grätzlzuckerl Flyer</span>
-        </label>
-
-        <div class="field-wrp">
-          <div class="input-checkbox">
-            <input type="checkbox" id="zuckerl_flyer" value="1">
-            <label for="zuckerl_flyer">
-              Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
-              <small>
-                Wir kontaktieren dich sobald die nächste Print-Ausgabe für den 2. Bezirk produziert wird. Du
-                bezahlst & buchst nur das Online Zuckerl.
-              </small>
+      <div class="col-l">
+        <div class="form-block">
+          <p class="txt">Neues <span>Grätzlzuckerl</span> von Superlocation</p>
+          <div class="input-field">
+            <label for="zuckerl_title">
+              <svg class="icon-record">
+                <use xlink:href="#icon-record"></use>
+              </svg>
+              <span>Titel</span>
             </label>
+            <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title" maxlength="80" data-behavior="titleinput">
+          </div>
+          <div class="input-textarea">
+            <label for="zuckerl_description">
+              <svg class="icon-layout-document">
+                <use xlink:href="#icon-layout-document"></use>
+              </svg>
+              <span>Beschreibung</span>
+            </label>
+            <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description" maxlength="160" data-behavior="descriptioninput"></textarea>
+          </div>
+          <div class="upload-oldschool">
+            <label for="zuckerl_photo">
+              <svg class="icon-photo-camera">
+                <use xlink:href="#icon-photo-camera"></use>
+              </svg>
+              <span>Bild hochladen</span>
+            </label>
+            <div class="field-wrp">
+              <input type="file" id="zuckerl_photo" data-behavior="imageinput">
+            </div>
+          </div>
+        </div>
+        <div class="confirmation-block">
+          <div class="headline">Du <span>wollen</span> das echt?</div>
+          <p class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <div class="btn-group">
+            <button class="btn-primary" type="submit">Jetzt buchen</button>
+            <div class="link-subtle" data-behavior="stepbackbtn">Schritt zurück</div>
           </div>
         </div>
       </div>
 
-      <div class="btn-primary">Weiter zur Buchung</div>
+      <div class="col-r">
+        <div class="cardBox -location ">
+          <div class="cardBoxHeader">
+            <!--<img class="coverImg" src="https://placeimg.com/300/180/arch" alt="">-->
+            <div class="imgpreview" data-behavior="imagepreview"></div>
+            <div class="location-shortfacts">
+              <a href="#">
+                <img class="img-square" src="http://www.imgraetzl.at/attachments/25da7aa39f57ba4685438e18199b4c93e36ff34a/store/fill/200/200/2ef1a113e444791a6780e3ad9808d67d0144ccaafbc74edbf918c29e032b/avatar.jpeg" alt="Avatar">
+                <div class="name">Superlocation</div>
+              </a>
+              <div class="category">Unternehmen &amp; Start-ups</div>
+              <div class="address">
+                <svg class="icon-location">
+                  <use xlink:href="#icon-location"></use>
+                </svg>
+                Am Graben 1
+              </div>
+            </div>
+            <div class="categoryicon">
+              <svg class="icon-shopping-bag">
+                <use xlink:href="#icon-shopping-bag"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="zuckerl-teaser-box">
+            <div class="title" data-behavior="titlepreview"></div>
+            <div class="description" data-behavior="descriptionpreview"></div>
+          </div>
+        </div>
+      </div>
 
     </div>
 
 
-    <div class="basicdata">
-      <div class="headline">Eckdaten</div>
-      <ul class="facts">
-        <li><strong>Laufzeit:</strong> März 2016</li>
-        <li><strong>Grätzl:</strong> Karmeliterviertel & 2. Bezirk</li>
-        <li><strong>Preis:</strong> 15€</li>
-      </ul>
+    <div class="booking-block">
+
+      <div class="col-l">
+        <div class="form-block">
+          <div class="input-select">
+            <label for="zuckerl_support">
+              <svg class="icon-love">
+                <use xlink:href="#icon-love"></use>
+              </svg>
+              <span>Mit dem Zuckerl unterstütze ich</span>
+            </label>
+            <select id="zuckerl_support" data-behavior="initiativeselect">
+              <option>Alle Initiativen im Grätzl</option>
+              <option>lebensviertel.stuwerviertel</option>
+              <option>neuner haus</option>
+            </select>
+          </div>
+          <div class="input-labledcheckbox">
+            <label for="zuckerl_flyer">
+              <svg class="icon-open-book">
+                <use xlink:href="#icon-open-book"></use>
+              </svg>
+              <span>Grätzlzuckerl Flyer</span>
+            </label>
+            <div class="field-wrp">
+              <div class="input-checkbox">
+                <input type="checkbox" id="zuckerl_flyer" value="1">
+                <label for="zuckerl_flyer">
+                  Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
+                  <small>
+                    Wir kontaktieren dich sobald die nächste Print-Ausgabe für den 2. Bezirk produziert wird. Du
+                    bezahlst & buchst nur das Online Zuckerl.
+                  </small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="button-wrapper">
+            <div class="basicdata">
+              <div class="headline">Eckdaten</div>
+              <ul class="facts">
+                <li><strong>Laufzeit:</strong> März 2016</li>
+                <li><strong>Grätzl:</strong> Karmeliterviertel & 2. Bezirk</li>
+                <li><strong>Preis:</strong> 15€</li>
+              </ul>
+            </div>
+            <div class="btn-primary -disabled" data-behavior="step1btn">Weiter zur Buchung</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-r">
+        <div class="initiative-info">
+          <p class="defaulttext">Mit deiner Buchung kannst du gezielt Initiativen aus dem Grätzl unterstützen. Wählst du eine Initiative, so
+            gehen 50% deiner Buchung gezielt an diese. Wählst du "Alle", werden die 50% gleichmäßig an alle verteilt.
+          </p>
+          <div>
+            <div class="name">lebensviertel.stuwerviertel</div>
+            <p class="description">
+              <img class="logo" src="/assets/img/logo-stuwerviertel.jpg" alt="">
+              ist eine gemeinsame Initiative des "Vereins der Freunde des Vorgartenmarktes" und des Einkaufsstraßenvereins "Die 1. im 2ten - Einkaufen im Stuwerviertel“. Unter „lebensviertel.stuwerviertel“ wollen die beiden Vereine in Kooperation mit der Gebietsbetreuung GB*2/20 – das Stuwerviertel zu einem der fünf lebenswertesten Wohn- und Geschäftsviertel in Wien machen.</p>
+            <a class="homepage" href="http://www.stuwerviertel.at" target="_blank">www.stuwerviertel.at</a>
+          </div>
+          <div>
+            <div class="name">neuner haus</div>
+            <p class="description">
+              <img class="logo" src="/assets/img/logo-neunerhaus.jpg" alt="">
+              Das neunerhaus gibt Obdach. Und mehr. Wir bieten Wohnraum, sozialarbeiterische sowie medizinische Betreuung und ermöglichen obdachlosen Menschen ein selbst bestimmtes und menschenwürdiges Wohnen.</p>
+            <a class="homepage" href="http://www.neunerhaus.at" target="_blank">www.neunerhaus.at</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-  </div>
+  </form>
 
 </section>
