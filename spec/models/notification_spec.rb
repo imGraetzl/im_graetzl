@@ -104,7 +104,10 @@ RSpec.describe Notification, type: :model, job: true do
   describe "a new post in graetzl" do
     let(:post) { create(:post) }
 
-    before { user.enable_website_notification Notifications::NewPost }
+    before do
+      user.enable_website_notification Notifications::NewUserPost
+      user.enable_website_notification Notifications::NewLocationPost
+    end
 
     context "when user is from the same graetzl" do
       let(:user) { create(:user, graetzl: post.graetzl) }

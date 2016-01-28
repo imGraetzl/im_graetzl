@@ -1,0 +1,6 @@
+<%- post = notification.activity.trackable %>
+
+<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }) do %>
+  placeholder new_post (User)<br>
+  activity: <%= notification.activity_id %>
+<% end %>
