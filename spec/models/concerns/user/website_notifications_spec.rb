@@ -22,7 +22,7 @@ RSpec.describe User::WebsiteNotifications do
       expect(user.new_website_notifications_count).to eq(0)
       user.enable_website_notification Notifications::NewMeeting
       expect(user.new_website_notifications_count).to eq(1)
-      user.enable_website_notification Notifications::NewPost
+      user.enable_website_notification Notifications::NewLocationPost
       expect(user.new_website_notifications_count).to eq(2)
       user.enable_website_notification Notifications::AttendeeInUsersMeeting
       user.toggle_website_notification Notifications::NewMeeting
