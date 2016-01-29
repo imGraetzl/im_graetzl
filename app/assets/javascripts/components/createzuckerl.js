@@ -75,7 +75,7 @@ APP.components.createzuckerl = (function() {
                 $(".booking-block, .preview-block .form-block").show();
                 $(".confirmation-block").hide();
             }
-
+            $('body').scrollTop(0);
         }
     }
 

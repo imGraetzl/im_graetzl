@@ -40,9 +40,16 @@ section.createzuckerl {
       padding-bottom: 50px;
       margin-bottom: 50px;
     }
+    .col-l {
+      margin-bottom: 40px;
+      @include respond-to(">=large") {
+        margin-bottom: 0;
+      }
+    }
     .form-block {
       margin-bottom: 0;
     }
+
     .form-block .txt {
       margin-bottom: 30px;
     }
@@ -100,8 +107,11 @@ section.createzuckerl {
   .basicdata {
     margin-bottom: 20px;
     margin-left: 10px;
+    font-size: 13px;
+    @include respond-to(">=large") {
+      font-size: 16px;
+    }
     .headline {
-      @include font-size-primaryFont('large');
       color: $color-ambient-rosa;
       margin-bottom: 10px;
     }
@@ -120,6 +130,10 @@ section.createzuckerl {
   }
 
   .initiative-info {
+    margin-bottom: 20px;
+    @include respond-to(">=large") {
+      margin-bottom: 0;
+    }
     > * {
       display: none;
     }
@@ -127,6 +141,10 @@ section.createzuckerl {
 
   .confirmation-block {
     display: none;
+    margin-bottom: 60px;
+    @include respond-to(">=large") {
+      margin-bottom: 0;
+    }
     .headline {
       @include font-size-secondaryFont('base');
       text-align: center;
@@ -142,11 +160,12 @@ section.createzuckerl {
     }
 
     .btn-group {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      margin: 0 auto;
-      > *:not(:last-child) > {
-        margin-right: 35px;
+      justify-content: center;
+      .link-subtle {
+        margin-right: 20px;
+        cursor: pointer;
       }
     }
 
