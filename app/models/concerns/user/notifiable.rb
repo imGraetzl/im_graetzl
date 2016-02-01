@@ -57,6 +57,12 @@ module User::Notifiable
     update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
   end
 
+  def notifications_of_the_day
+    notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
+                      where("created_at <= NOW() - interval '5 minutes'").
+                      where(sent: false)
+  end
+
   private
 
   def destroy_activity_and_notifications

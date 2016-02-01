@@ -73,13 +73,13 @@ RSpec.describe User::Notifiable do
   end
 
   describe 'mail notifications' do
-    before do
-      Notification.subclasses.each do |klass|
-        create(:notification, user: user, bitmask: klass::BITMASK)
+    describe 'enabling / disabling' do
+      before do
+        Notification.subclasses.each do |klass|
+          create(:notification, user: user, bitmask: klass::BITMASK)
+        end
       end
-    end
 
-    describe 'enabling' do
       let(:type) { Notifications::NewMeeting }
 
       it "can be enabled for a specific type" do
@@ -101,6 +101,38 @@ RSpec.describe User::Notifiable do
         user.enable_mail_notification(type, :weekly)
         expect(user.enabled_mail_notification?(type, :weekly)).to be_truthy
         expect(user.enabled_mail_notification?(type, :daily)).to be_falsey
+      end
+    end
+
+    describe '#notifications_of_the_day' do
+      let(:type) { Notifications::NewMeeting }
+      let!(:sent_notification) { create(:notification,
+        user: user,
+        bitmask: type::BITMASK,
+        sent: true) }
+      let(:new_notifications) { create_list(:notification, 3,
+        user: user,
+        bitmask: type::BITMASK,
+        sent: false) }
+
+      before do
+        user.enable_mail_notification type, :daily
+        new_notifications.each{|n| n.update(created_at: (Time.now - 6.minutes)) }
+      end
+
+      it 'returns all new notifications (more than 5 minutes old)' do
+        expect(user.notifications_of_the_day.ids).to match_array new_notifications.map(&:id)
+      end
+
+      it 'excludes sent notifications' do
+        expect(user.notifications_of_the_day).not_to include sent_notification
+      end
+
+      it 'excludes too new notifications' do
+        new_notification = new_notifications.last
+        new_notification.update(created_at: Time.now)
+        new_ids = new_notifications.map(&:id) - [new_notification.id]
+        expect(user.notifications_of_the_day.ids).to match_array(new_ids)
       end
     end
   end
