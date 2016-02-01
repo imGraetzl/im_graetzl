@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
   include PublicActivity::Common
-  include User::WebsiteNotifications
-  include User::MailNotifications
-  include User::SummaryNotifications
+  include User::Notifiable
   extend FriendlyId
 
   # macros
@@ -22,7 +20,6 @@ class User < ActiveRecord::Base
   has_many :meetings, through: :going_tos
   has_many :posts, as: :author, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :notifications, dependent: :destroy
   has_many :location_ownerships, dependent: :destroy
   has_many :locations, through: :location_ownerships
   has_many :wall_comments, as: :commentable, class_name: Comment, dependent: :destroy
@@ -36,7 +33,6 @@ class User < ActiveRecord::Base
   validates :terms_and_conditions, acceptance: true
 
   # callbacks
-  before_destroy :destroy_activity_and_notifications, prepend: true
   before_validation { self.username.squish! if self.username }
 
   # class methods
@@ -50,14 +46,5 @@ class User < ActiveRecord::Base
     else
       where(conditions.to_h).first
     end
-  end
-
-  private
-
-  def destroy_activity_and_notifications
-    activity = PublicActivity::Activity.where(owner: self)
-    notifications = Notification.where(activity: activity)
-    notifications.destroy_all
-    activity.destroy_all
   end
 end
