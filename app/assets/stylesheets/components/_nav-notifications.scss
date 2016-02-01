@@ -10,6 +10,16 @@
       overflow-y: auto;
     }
   }
+  .btn-paginate a {
+    border: solid 1px $color-ambient-grey;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 4px;
+    color: $color-ambient-grey;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
 }
 
 .notification-item {

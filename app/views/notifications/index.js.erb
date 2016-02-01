@@ -34,8 +34,8 @@
   function addPagination() {
     <% if @more_notifications %>
       $notifications
-        .append('<li data-behavior="notifications-paginate">' +
-                  '<%= j(link_to "mehr..", notifications_path(page: @page + 1), remote: true) %>' +
+        .append('<li class="btn-paginate" data-behavior="notifications-paginate">' +
+                  '<%= j(link_to "mehr...", notifications_path(page: @page + 1), remote: true) %>' +
                 '</li>');
     <% end %>
   }
