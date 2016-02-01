@@ -6,6 +6,6 @@ class SendMailNotificationJob
   def perform(notification)
     SuckerPunch.logger.info ('Perform SendMailNotificationJob')
     mandrill_message = ::Notifications::ImmediateMail.new(notification)
-    mandrill_message.send
+    mandrill_message.deliver
   end
 end

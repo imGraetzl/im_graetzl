@@ -16,7 +16,7 @@ class Notifications::MandrillMessage
     ]
   end
 
-  def send
+  def deliver
     mandrill_client.messages.send_template(
       @template_name,
       @template_content,
