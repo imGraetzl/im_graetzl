@@ -1,5 +1,3 @@
-# class SendMailNotificationJob < ActiveJob::Base
-#   queue_as :default
 class SendMailNotificationJob
   include SuckerPunch::Job
 

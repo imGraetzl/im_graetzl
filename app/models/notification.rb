@@ -14,7 +14,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.receive_new_activity(activity)
-    CreateWebsiteNotificationsJob.new.async.perform(activity)
+    CreateNotificationsJob.new.async.perform(activity)
   end
 
   def self.triggered_by?(activity)
