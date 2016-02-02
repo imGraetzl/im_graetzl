@@ -61,4 +61,56 @@ RSpec.describe Notifications::DailyMail do
       end
     end
   end
+
+  describe '#_build_message' do
+    let(:service) { Notifications::DailyMail.new(user) }
+    subject(:message_hash) { service.send(:build_message) }
+
+    context 'when notification_blocks available' do
+      before { allow(service).to receive(:notification_blocks){['content']} }
+
+      it 'has keys for mandrill' do
+        expect(message_hash.keys).to contain_exactly(:to,
+                                              :from_email,
+                                              :from_name,
+                                              :subject,
+                                              :global_merge_vars,
+                                              :merge_vars)
+      end
+
+      it 'has keys for daily mail' do
+        expect(message_hash[:merge_vars]).to be_a(Array)
+        expect(message_hash[:merge_vars][0]).to be_a(Hash)
+        expect(message_hash[:merge_vars][0][:vars]).not_to be_empty
+      end
+    end
+
+    context 'when no notification_blocks available' do
+      before { allow(service).to receive(:notification_blocks){Array.new} }
+
+      it 'returns empty hash' do
+        expect(message_hash).to eq nil
+      end
+    end
+  end
+
+  describe '#deliver' do
+    let(:service) { Notifications::DailyMail.new(user) }
+
+    context 'when message available' do
+      before { allow(service).to receive(:build_message){[{name: 'something'}]} }
+
+      it 'calls mandrill api (raise error without key)' do
+        expect{
+          service.deliver
+        }.to raise_error(Mandrill::Error)
+      end
+    end
+
+    context 'when no message available' do
+      it 'does nothing' do
+        expect(service.deliver).to eq nil
+      end
+    end
+  end
 end
