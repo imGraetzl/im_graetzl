@@ -17,6 +17,7 @@ class Notifications::NewLocationPost < Notification
 
   def mail_vars
     {
+      type: type.demodulize.underscore,
       post_content: activity.trackable.content.truncate(300, separator: ' '),
       owner_name: activity.trackable.author.name,
       owner_avatar_url: ApplicationController.helpers.attachment_url(activity.trackable.author, :avatar, :fill, 40, 40, fallback: "avatar/location/40x40.png", host: "http://#{DEFAULT_URL_OPTIONS[:host]}"),

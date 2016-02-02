@@ -17,6 +17,7 @@ class Notifications::NewUserPost < Notification
 
   def mail_vars
     {
+      type: type.demodulize.underscore,
       post_content: activity.trackable.content.truncate(300, separator: ' '),
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),

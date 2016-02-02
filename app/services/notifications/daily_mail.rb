@@ -1,5 +1,5 @@
 class Notifications::DailyMail < Notifications::MandrillMessage
-  MANDRILL_TEMPLATE = "notification-daily-mail"
+  MANDRILL_TEMPLATE = 'daily-notifications'
   BLOCKS = [
     {
       name: 'Neues von Locations aus dem Grätzl',
@@ -23,7 +23,7 @@ class Notifications::DailyMail < Notifications::MandrillMessage
 
   def deliver
     @message = build_message
-    super
+    @notifications.update_all(sent: true) if super
   end
 
   private
@@ -39,6 +39,7 @@ class Notifications::DailyMail < Notifications::MandrillMessage
     unless notifications.empty?
       {
         name: name,
+        size: notifications.length,
         notifications: notifications.collect{|n| n.mail_vars}
       }
     end
