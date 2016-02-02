@@ -22,13 +22,8 @@ class Notifications::DailyMail < Notifications::MandrillMessage
   end
 
   def deliver
-    if message = build_message
-      mandrill_client.messages.send_template(
-        @template_name,
-        @template_content,
-        message
-      )
-    end
+    @message = build_message
+    super
   end
 
   private

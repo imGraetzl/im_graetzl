@@ -6,6 +6,8 @@ FactoryGirl.define do
     type 'Notifications::NewMeeting'
 
     factory :notification_new_meeting, class: 'Notifications::NewMeeting' do
+      bitmask Notifications::NewMeeting::BITMASK
+      type Notifications::NewMeeting
     end
 
     factory :notification_also_commented_meeting, class: 'Notifications::NewMeeting' do
