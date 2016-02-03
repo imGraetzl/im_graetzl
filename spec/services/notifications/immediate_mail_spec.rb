@@ -7,6 +7,12 @@ RSpec.describe Notifications::ImmediateMail do
   let(:notification) { build_stubbed(:notification_new_meeting,
     activity: activity) }
 
+  before do
+    stub_const('MANDRILL_API_KEY', 'somestring')
+    stub_request(:post, "https://mandrillapp.com/api/1.0/messages/send-template.json").
+         to_return(:status => 200,:body => '{"some":"thing"}', :headers => {"Content-Type"=> "application/json"})
+  end
+
   describe '_#build_message' do
     let(:service) { Notifications::ImmediateMail.new notification }
 
@@ -34,17 +40,22 @@ RSpec.describe Notifications::ImmediateMail do
     context 'when message available' do
       before { allow(service).to receive(:build_message){[{name: 'something'}]} }
 
-      it 'calls mandrill api (raise error without key)' do
-        expect{
-          service.deliver
-        }.to raise_error(Mandrill::Error)
+      it 'calls mandrill api' do
+        service.deliver
+        expect(WebMock).to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
     end
 
     context 'when no message available' do
       before { allow(service).to receive(:build_message) }
+
       it 'does nothing' do
         expect(service.deliver).to eq nil
+      end
+
+      it 'does not call mandrill api' do
+        service.deliver
+        expect(WebMock).not_to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')        
       end
     end
   end

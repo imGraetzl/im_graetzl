@@ -28,7 +28,7 @@ class Notifications::DailyMail < Notifications::MandrillMessage
 
   private
 
-  attr_reader :notifications
+  attr_accessor :notifications
 
   def notification_blocks
     BLOCKS.collect{|b| notification_block(b[:name], b[:types])}.compact

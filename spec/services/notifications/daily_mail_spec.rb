@@ -4,6 +4,9 @@ RSpec.describe Notifications::DailyMail do
   let!(:user) { create :user }
   before do
     allow_any_instance_of(Notifications::NewMeeting).to receive(:mail_vars).and_return({})
+    stub_const('MANDRILL_API_KEY', 'somestring')
+    stub_request(:post, "https://mandrillapp.com/api/1.0/messages/send-template.json").
+         to_return(:status => 200,:body => '{"some":"thing"}', :headers => {"Content-Type"=> "application/json"})
   end
 
   describe '_#notification_block' do
@@ -96,20 +99,38 @@ RSpec.describe Notifications::DailyMail do
 
   describe '#deliver' do
     let(:service) { Notifications::DailyMail.new(user) }
-
+    
     context 'when message available' do
-      before { allow(service).to receive(:build_message){[{name: 'something'}]} }
+      let(:type) { Notifications::NewMeeting }
+      let(:notification) { create(:notification, user: user, sent: false, type: type, bitmask: type::BITMASK) }
 
-      it 'calls mandrill api (raise error without key)' do
+      before do
+        user.enable_mail_notification(type, :daily)
+        notification.update(created_at: Date.yesterday)
+        allow(service).to receive(:build_message){[{name: 'something'}]}
+      end
+
+      it 'calls mandrill api' do
+        service.deliver
+        expect(WebMock).to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
+      end
+
+      it 'updates :sent for all sent notifications' do
         expect{
           service.deliver
-        }.to raise_error(Mandrill::Error)
+          notification.reload
+        }.to change{notification.sent}.from(false).to(true)
       end
     end
 
     context 'when no message available' do
       it 'does nothing' do
         expect(service.deliver).to eq nil
+      end
+
+      it 'does not call mandrill api' do
+        service.deliver
+        expect(WebMock).not_to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
     end
   end

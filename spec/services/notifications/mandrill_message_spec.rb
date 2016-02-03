@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe Notifications::MandrillMessage do
   let(:user) { create :user }
 
+  before do
+    stub_const('MANDRILL_API_KEY', 'somestring')
+    stub_request(:post, "https://mandrillapp.com/api/1.0/messages/send-template.json").
+      to_return(:status => 200,:body => '{"some":"thing"}', :headers => {"Content-Type"=> "application/json"})
+  end
+
   describe '_#basic_message_vars' do
     let(:mandrill_message) { Notifications::MandrillMessage.new user }
 
@@ -25,18 +31,21 @@ RSpec.describe Notifications::MandrillMessage do
     let(:service) { Notifications::MandrillMessage.new user }
 
     context 'without message or template' do
-      it 'does nothing' do
-        expect(service.deliver).to eq nil
+      it 'does not call mandril api' do
+        service.deliver
+        expect(WebMock).not_to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
 
       it 'does nothing with message' do
         service.instance_variable_set(:@message, 'something')
-        expect(service.deliver).to eq nil
+        service.deliver
+        expect(WebMock).not_to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
 
       it 'does nothing with template_name' do
         service.instance_variable_set(:@template_name, 'something')
-        expect(service.deliver).to eq nil
+        service.deliver
+        expect(WebMock).not_to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
     end
 
@@ -47,9 +56,8 @@ RSpec.describe Notifications::MandrillMessage do
       end
 
       it 'calls mandrill api (raise error without key)' do
-        expect{
-          service.deliver
-        }.to raise_error(Mandrill::Error)
+        service.deliver
+        expect(WebMock).to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
     end
   end
