@@ -6,7 +6,7 @@ class Notification < ActiveRecord::Base
 
   # macros
   belongs_to :user
-  belongs_to :activity, :class => PublicActivity::Activity
+  belongs_to :activity, class_name: PublicActivity::Activity
 
   # class methods
   def self.types
@@ -14,7 +14,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.receive_new_activity(activity)
-    CreateWebsiteNotificationsJob.new.async.perform(activity)
+    CreateWebsiteNotificationsJob.perform_async(activity)
   end
 
   def self.triggered_by?(activity)
@@ -44,7 +44,7 @@ class Notification < ActiveRecord::Base
             n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
-              SendMailNotificationJob.new.async.perform(n)
+              SendMailNotificationJob.perform_async(n)
               ids_notified_users << u.id
             end
           end
