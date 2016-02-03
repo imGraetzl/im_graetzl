@@ -8,7 +8,7 @@
   <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications" data-behavior="notifications-trigger">
     <div class="iconWithBadge">
       <%- notifications_count = user.new_website_notifications_count %>
-      <div id="notificationsCount" class="badgeNumber" data-behavior="notifications-count" style="display: none;"></div>
+      <div id="notificationsCount" class="badgeNumber" data-behavior="notifications-count" <% if notifications_count < 1 %> style="display: none;" <% end %>><%= notifications_count %></div>
       <svg class="icon-bell"><use xlink:href="#icon-bell"></use></svg>
     </div>
   </div>
