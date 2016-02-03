@@ -1,6 +1,6 @@
 APP.components.mainNavigation = (function() {
 
-    var $mobileNavTrigger, $mainNavHolder, $mobileNavHolder, $mobileMainNav, $dropdownTriggers;
+    var $mobileNavTrigger, $mainNavHolder, $mobileNavHolder, $mobileMainNav, $dropdownTriggers, $notificationList;
 
     function init() {
 
@@ -8,6 +8,7 @@ APP.components.mainNavigation = (function() {
         $mainNavHolder =  $(".mainNavHolder");
         $mobileNavHolder = $(".mobileNavHolder");
         $dropdownTriggers = $(".graetzlTrigger, .dropdownTrigger, .usersettingsTrigger ");
+        $notificationList = $(".nav-notifications .notifications");
 
         enquire
             .register("screen and (max-width:" + APP.config.majorBreakpoints.large + "px)", {
@@ -28,6 +29,7 @@ APP.components.mainNavigation = (function() {
                 },
                 match : function() {
                     bindMobileEvents();
+                    $mobileNavHolder.find(".nav-notifications").append($notificationList);
                 },
                 unmatch: function() {
                     unbindMobileEvents();
@@ -44,6 +46,7 @@ APP.components.mainNavigation = (function() {
                 },
                 match : function() {
                     $dropdownTriggers.jqDropdown('enable');
+                    $mainNavHolder.find(".nav-notifications").append($notificationList);
                 },
                 unmatch: function() {
                     $dropdownTriggers.jqDropdown('disable');
@@ -59,18 +62,15 @@ APP.components.mainNavigation = (function() {
     function createMobileNav() {
         $mobileMainNav = $mobileNavHolder.find(".mobileMainNav");
         $mobileNavTrigger.on("click", function() {
-            if ($mobileMainNav.hasClass("is-open")) {
-                closeMobileNav();
-            } else {
-                openMobileNav();
-            }
+            if ($mobileMainNav.hasClass("is-open")) closeMobileNav();
+            else openMobileNav();
         });
     }
 
     function openMobileNav() {
         $(document).trigger('closeAllTopnav');
         $mobileNavTrigger.addClass("is-open");
-        $mobileMainNav.addClass("is-open")
+        $mobileMainNav.addClass("is-open");
     }
 
     function closeMobileNav() {

@@ -12,18 +12,18 @@ RSpec.describe NotificationSettingsController, type: :controller do
 
     context 'signed in' do
       let(:user) { create(:user) }
-      let(:type) { :new_meeting_in_graetzl }
+      let(:type) { Notifications::NewMeeting }
 
       before { sign_in user }
 
       it 'toggles a single website notification setting' do
-        expect(user.enabled_website_notification?(type)).to be_falsey  
+        expect(user.enabled_website_notification?(type)).to be_falsey
         post :toggle_website_notification, :type => type
         user.reload
         expect(user.enabled_website_notification?(type)).to be_truthy
         post :toggle_website_notification, :type => type
         user.reload
-        expect(user.enabled_website_notification?(type)).to be_falsey  
+        expect(user.enabled_website_notification?(type)).to be_falsey
       end
 
       context 'when submitted type is invalid' do
@@ -47,13 +47,13 @@ RSpec.describe NotificationSettingsController, type: :controller do
 
     context 'signed in' do
       let(:user) { create(:user) }
-      let(:type) { :new_meeting_in_graetzl }
+      let(:type) { Notifications::NewMeeting }
       let(:interval) { :daily }
 
       before { sign_in user }
 
       it 'changes a single mail notification setting' do
-        expect(user.enabled_mail_notification?(type, interval)).to be_falsey  
+        expect(user.enabled_mail_notification?(type, interval)).to be_falsey
         post :change_mail_notification, type: type, interval: interval
         user.reload
         expect(user.enabled_mail_notification?(type, interval)).to be_truthy

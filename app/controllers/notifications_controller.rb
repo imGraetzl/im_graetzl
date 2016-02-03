@@ -1,17 +1,20 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
-  NOTIFICATIONS_PER_PAGE = 2
+  NOTIFICATIONS_PER_PAGE = 6
 
   def index
-    page = params.permit(:page)[:page] || "1"
-    @current_page = page.to_i
-    scope = current_user.website_notifications.order("created_at DESC")
-    total_count = scope.count
-    offset = (@current_page - 1) * NOTIFICATIONS_PER_PAGE
-    @notifications = scope.offset(offset).limit(NOTIFICATIONS_PER_PAGE)
-    Notification.where(user_id: current_user.id, id: @notifications.collect(&:id)).update_all(seen: true)
-    @more_notifications = NOTIFICATIONS_PER_PAGE * @current_page < total_count
-    @less_notifications = @current_page > 1
+    @page = (params[:page] || '1').to_i
+    scope = current_user.website_notifications.order("notifications.created_at DESC")
+    @notifications = scope.page(@page).per(NOTIFICATIONS_PER_PAGE)
+    @notifications.map{|n| n.update_attributes(seen: true)} if @page > 1
+    @more_notifications = @page < @notifications.total_pages
+  end
+
+  def mark_as_seen
+    ids = JSON.parse params[:ids]
+    unless Notification.where(id: ids).update_all(seen: true)
+      render json: {error: true}
+    end
   end
 end

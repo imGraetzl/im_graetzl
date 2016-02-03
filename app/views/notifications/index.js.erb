@@ -1,14 +1,47 @@
-console.log('render notifications');
-$('ul.notifications').html('<%= escape_javascript(raw(@notifications.inject("") { |sum, n| sum << (render partial: "/notifications/#{Notification::TYPES.select { |k, v| v[:bitmask] == n.bitmask }.first[0].to_s}", locals: { notification: n }); sum })) %>');
-<% if @less_notifications -%>
-  $('ul.notifications').append('<li><%= escape_javascript(link_to 'zurück..', notifications_path(params: { page: (@current_page - 1) }), remote: true ) -%></li>');
-<% end -%>
-<% if @more_notifications -%>
-  $('ul.notifications').append('<li><%= escape_javascript(link_to 'mehr..', notifications_path(params: { page: (@current_page + 1) }), remote: true ) -%></li>');
-<% end -%>
-<%- notifications_count = current_user.new_website_notifications_count %>
-<%- if notifications_count == 0 -%>
-  jQuery('#notificationsCount').hide();
-<%- else -%>
-  jQuery('#notificationsCount').html('<%= notifications_count %>');
-<%- end -%>
+(function () {
+  var $notificationsCount = $("[data-behavior='notifications-count']");
+  var $notifications = $("[data-behavior='notifications']");
+
+  function updateComponent() {
+    <% if @page > 1 %>
+      paginate();
+    <% else %>
+      setInitialState();
+    <% end %>
+    setCount();
+    addPagination();
+  }
+
+  function setInitialState() {
+    $notifications.html('<%= j render partial: @notifications, as: :notification %>');
+  }
+
+  function paginate() {
+    $("[data-behavior='notifications-paginate']").remove();
+    $notifications.append('<%= j render partial: @notifications, as: :notification %>');
+  }
+
+  function setCount() {
+    var count = '<%= current_user.new_website_notifications_count %>';
+    if (count == 0) {
+      $notificationsCount.hide();
+    } else {
+      $notificationsCount.text(count);
+      $notificationsCount.show();
+    }
+  }
+
+  function addPagination() {
+    <% if @more_notifications %>
+      $notifications
+        .append('<li class="btn-paginate" data-behavior="notifications-paginate">' +
+                  '<%= j(link_to "mehr...", notifications_path(page: @page + 1), remote: true) %>' +
+                '</li>');
+    <% end %>
+  }
+
+  updateComponent();
+
+  console.log('render notifications');
+
+}());

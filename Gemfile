@@ -45,6 +45,8 @@ group :development do
   gem 'web-console', '~> 2.0'
   # debug kill N+1 queries and unused eager loading
   gem 'bullet'
+  # debug controllers
+  gem 'byebug'
 end
 
 group :development, :test do

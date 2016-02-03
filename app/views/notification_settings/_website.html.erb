@@ -1,0 +1,4 @@
+<div class="input-switch">
+  <input id="<%= type.dasherized %>" data-behavior="website-notification-toggle" data-type="<%= type %>" type="checkbox" <% if current_user.enabled_website_notification?(type) %>checked <% end %>>
+  <label for="<%= type.dasherized %>"></label>
+</div>

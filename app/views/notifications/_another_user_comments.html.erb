@@ -1,8 +1,0 @@
-<%- meeting = notification.activity.trackable %>
-<%- comment = notification.activity.recipient %>
-<li>
-<%= link_to(url_for([meeting.graetzl, meeting]) + "#comment-#{comment.id}") do %>
-      <span class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></span>
-      Neues Kommentar von <%= notification.activity.owner.username %> im Treffen <%= meeting.name %>.
-  <% end %>
-</li>

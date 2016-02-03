@@ -33,6 +33,9 @@ public/sitemap.xml*
 # Ignore rvm .ruby-gemset files
 .ruby-gemset
 
+# Ignore byebug log
+.byebug_history
+
 # Vagrant stuff
 /.vagrant
 

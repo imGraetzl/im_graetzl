@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209125635) do
+ActiveRecord::Schema.define(version: 20160128115238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(version: 20151209125635) do
     t.datetime "updated_at"
     t.boolean  "sent",               default: false
     t.boolean  "display_on_website", default: false
+    t.string   "type"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -293,20 +294,20 @@ ActiveRecord::Schema.define(version: 20151209125635) do
     t.string   "username",                      limit: 255
     t.string   "first_name",                    limit: 255
     t.string   "last_name",                     limit: 255
-    t.boolean  "newsletter",                                default: false, null: false
     t.integer  "graetzl_id"
     t.string   "avatar_id"
-    t.integer  "enabled_website_notifications",             default: 2047
     t.integer  "role"
     t.string   "avatar_content_type"
-    t.integer  "immediate_mail_notifications",              default: 2013
-    t.integer  "daily_mail_notifications",                  default: 0
-    t.integer  "weekly_mail_notifications",                 default: 0
     t.string   "slug"
     t.string   "cover_photo_id"
     t.string   "cover_photo_content_type"
     t.text     "bio"
     t.string   "website"
+    t.integer  "weekly_mail_notifications",                 default: 0
+    t.integer  "daily_mail_notifications",                  default: 0
+    t.integer  "immediate_mail_notifications"
+    t.integer  "enabled_website_notifications"
+    t.boolean  "newsletter",                                default: false, null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
