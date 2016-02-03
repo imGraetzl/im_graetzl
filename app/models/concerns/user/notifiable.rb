@@ -59,8 +59,8 @@ module User::Notifiable
 
   def notifications_of_the_day
     notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
-                      where("created_at <= NOW() - interval '5 minutes'").
-                      where(sent: false)
+      where("created_at >= NOW() - interval '2 days' AND created_at <= NOW() - interval '5 minutes'").
+      where(sent: false)
   end
 
   private
