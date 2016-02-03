@@ -17,7 +17,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
-# set :output, 'log/cron.log'
+set :output, 'log/cron.log'
 #
 # every 1.day, at: '0:00 am' do
 #   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake db:truncate"
@@ -41,4 +41,8 @@ end
 
 every 1.day, at: '2:00 am' do
   rake "db:backup"
+end
+
+every 1.hours do
+  rake "daily_mail"
 end
