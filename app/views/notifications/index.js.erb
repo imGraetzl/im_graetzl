@@ -5,6 +5,8 @@
   function updateComponent() {
     <% if @page > 1 %>
       paginate();
+    <% elsif @notifications.empty? %>
+      setEmptyState();
     <% else %>
       setInitialState();
     <% end %>
@@ -14,6 +16,10 @@
 
   function setInitialState() {
     $notifications.html('<%= j render partial: @notifications, as: :notification %>');
+  }
+
+  function setEmptyState() {
+    $notifications.html('<li class="notification-empty">Aktuell gibt es keine Neuigkeiten für dich</li>');
   }
 
   function paginate() {
