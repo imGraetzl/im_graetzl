@@ -36,7 +36,7 @@ module ImagesHelper
 
   def stock_photo(opt)
     alpha_img = "cover_photo/#{opt[:fill].join('x')}.png"
-    if Rails.application.assets_manifest.assets[alpha_img].blank?
+    if Rails.application.assets[alpha_img].blank?
       return "https://placeimg.com/#{opt[:fill].join('/')}/nature/grayscale"
     end
     alpha_img
@@ -45,7 +45,7 @@ module ImagesHelper
   def stock_avatar(model, opt)
     type = model.model_name.human.downcase
     default_img = "avatar/#{type}/#{opt[:fill].join('x')}.png"
-    if Rails.application.assets_manifest.assets[default_img].blank?
+    if Rails.application.assets[default_img].blank?
       return "avatar/#{type}/default.png"
     end
     default_img
