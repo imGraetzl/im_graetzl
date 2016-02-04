@@ -18,6 +18,7 @@
 # end
 
 set :output, 'log/cron.log'
+set :environment, ENV['RACK_ENV']
 #
 # every 1.day, at: '0:00 am' do
 #   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake db:truncate"
