@@ -2,11 +2,11 @@ class Notifications::DailyMail < Notifications::MandrillMessage
   MANDRILL_TEMPLATE = 'daily-notifications'
   BLOCKS = [
     {
-      name: 'Neues von Locations aus dem Grätzl',
+      name: 'Neue Locations Updates',
       types: [Notifications::NewLocationPost]
     },
     {
-      name: 'Neue Treffen im Grätzl',
+      name: 'Neue Treffen',
       types: [Notifications::NewMeeting]
     },
     {
@@ -52,7 +52,7 @@ class Notifications::DailyMail < Notifications::MandrillMessage
         to: [ { email: @user.email } ],
         from_email: Rails.configuration.x.mandril_from_email,
         from_name: Rails.configuration.x.mandril_from_name,
-        subject: 'daily mail...?',
+        subject: "Neues aus dem Grätzl #{@user.graetzl.name}",
         global_merge_vars: basic_message_vars,
         merge_vars: [
           rcpt: @user.email,
