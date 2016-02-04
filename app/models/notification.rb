@@ -14,7 +14,7 @@ class Notification < ActiveRecord::Base
   end
 
   def self.receive_new_activity(activity)
-    CreateNotificationsJob.perform_async(activity)
+    CreateNotificationsJob.perform_async(activity.id)
   end
 
   def self.triggered_by?(activity)
@@ -44,7 +44,7 @@ class Notification < ActiveRecord::Base
             n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
             ids_notified_users << u.id if display_on_website
             if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
-              SendMailNotificationJob.perform_async(n)
+              SendMailNotificationJob.perform_async(n.id)
               ids_notified_users << u.id
             end
           end
