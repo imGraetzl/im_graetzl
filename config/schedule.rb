@@ -44,6 +44,6 @@ every 1.day, at: '2:00 am' do
   rake "db:backup"
 end
 
-every 1.hours do
+every 1.day, at: '6:15 am' do
   rake "daily_mail"
 end
