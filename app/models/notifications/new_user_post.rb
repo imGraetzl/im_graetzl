@@ -21,7 +21,7 @@ class Notifications::NewUserPost < Notification
       post_content: activity.trackable.content.truncate(255, separator: ' '),
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),
-      owner_avatar_url: ApplicationController.helpers.attachment_url(activity.trackable.author, :avatar, :fill, 40, 40, format: 'png', fallback: "avatar/user/40x40.png", host: "http://#{DEFAULT_URL_OPTIONS[:host]}"),
+      owner_avatar_url: ApplicationController.helpers.attachment_url(activity.trackable.author, :avatar, :fill, 40, 40, host: "http://#{DEFAULT_URL_OPTIONS[:host]}") || ApplicationController.helpers.image_url('avatar/user/40x40.png', host: "http://#{DEFAULT_URL_OPTIONS[:host]}"),
       post_url: graetzl_post_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS)
     }
   end

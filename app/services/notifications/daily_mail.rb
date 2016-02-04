@@ -2,7 +2,7 @@ class Notifications::DailyMail < Notifications::MandrillMessage
   MANDRILL_TEMPLATE = 'daily-notifications'
   BLOCKS = [
     {
-      name: 'Neue Locations Updates',
+      name: 'Neue Location Updates',
       types: [Notifications::NewLocationPost]
     },
     {
