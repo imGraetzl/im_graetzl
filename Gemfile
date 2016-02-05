@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.1'
+gem 'rails', '~> 4.2.5.1'
 # Use puma as default webserver
 gem 'puma'
 # Use postgresql as the database for Active Record
@@ -45,6 +45,8 @@ group :development do
   gem 'web-console', '~> 2.0'
   # debug kill N+1 queries and unused eager loading
   gem 'bullet'
+  # debug controllers
+  gem 'byebug'
 end
 
 group :development, :test do

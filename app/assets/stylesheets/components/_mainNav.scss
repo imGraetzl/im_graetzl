@@ -203,43 +203,6 @@
   }
 }
 
-.nav-notifications {
-  width: 100%;
-  @include respond-to(">=medium") {
-    width: 400px;
-  }
-  ul {
-    list-style: none;
-  }
-
-  ul li {
-    border-bottom: 1px solid $color-ambient-mint-light;
-    padding: 15px;
-    color: $color-font-primary;
-    &:last-child {
-      border-bottom: none;
-    }
-    &:hover {
-      background-color: $color-ambient-mint-light;
-    }
-  }
-
-  ul li > a:first-child {
-    color: $color-font-primary;
-    display: block;
-    text-decoration: none;
-    margin: -15px;
-    padding: 15px;
-  }
-
-  .timeago {
-    font-style: italic;
-    color: $color-ambient-grey;
-    display: block;
-  }
-}
-
-
 .logoGraetzl {
   width: 45px;
   margin-right: auto;

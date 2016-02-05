@@ -11,6 +11,8 @@ FactoryGirl.define do
     confirmed_at Date.today
     enabled_website_notifications 0
     immediate_mail_notifications 0
+    daily_mail_notifications 0
+    weekly_mail_notifications 0
 
     factory :admin do
       role User.roles[:admin]
