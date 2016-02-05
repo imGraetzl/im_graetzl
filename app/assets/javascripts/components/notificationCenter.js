@@ -5,9 +5,9 @@ APP.components.notificatonCenter = (function() {
 
     function init() {
         console.log("INIT NOTIFICATION CENTER");
+        $notificationsContainer = $("[data-behavior='notifications-container']");
+        $notificationsTrigger = $("[data-behavior='notifications-trigger']");
         $(window).load(function() {
-            $notificationsContainer = $("[data-behavior='notifications-container']");
-            $notificationsTrigger = $("[data-behavior='notifications-trigger']");
             if ($notificationsContainer.exists()) setup();
         });
     }
