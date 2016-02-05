@@ -1,0 +1,14 @@
+section.startloggedin {
+
+  .mapImgBlock {
+    margin-bottom: 20px;
+    @include respond-to(">=large") {
+      margin-bottom: 50px;
+    }
+  }
+
+  .createmenu {
+    transform: translate(-20px,0);
+  }
+
+}

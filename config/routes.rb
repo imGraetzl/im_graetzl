@@ -74,6 +74,8 @@ Rails.application.routes.draw do
   get 'info/infos-zum-graetzlzuckerl', to: 'static_pages#zuckerl'
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
 
+  get 'startnew_in', to: 'static_pages#startnew_in'
+
   root 'static_pages#home'
 
   resources :notifications, only: [ :index ] do

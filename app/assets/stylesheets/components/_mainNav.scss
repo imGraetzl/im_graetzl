@@ -181,28 +181,6 @@
   }
 }
 
-.dropDownContainer {
-  [class^=jq-dropdown-] {
-    > div, a {
-      border-bottom: 1px solid $color-ambient-mint-light;
-      padding: 15px;
-      text-decoration: none;
-      color: $color-font-primary;
-      display: flex;
-      align-items: center;
-      &:hover, &:active {
-        background-color: $color-ambient-mint-light;
-      }
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-    [class^=icon-] {
-      margin-right: 10px;
-    }
-  }
-}
-
 .logoGraetzl {
   width: 45px;
   margin-right: auto;
