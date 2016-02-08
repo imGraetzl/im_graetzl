@@ -36,7 +36,12 @@ general:
 for local development:
 
 * `$ rake db:populate` to populate DB with sample data
-
+* to use upload files directyl to S3, put a `.env` file in the root directory defining:
+  ```
+  AWS_ACCESS_KEY_ID=...
+  AWS_SECRET_KEY=...
+  S3_BUCKET=...
+  ```
 
 ## Development with Vagrant
 
