@@ -7,11 +7,15 @@ APP.controllers.application = (function() {
         APP.components.mainNavigation.init();
         APP.components.stream.init();
 
+        // test some stuff
+        APP.components.notificatonCenter.init();
+        console.log("AFTER INIT");
+
         FastClick.attach(document.body);
 
-        jQuery('.notificationsTrigger').click(function() {
-            jQuery('#notifications_more').trigger('click');
-        });
+        // jQuery('.notificationsTrigger').click(function() {
+        //     jQuery('#notifications_more').trigger('click');
+        // });
 
        // showStoerer();
 

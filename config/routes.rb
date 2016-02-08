@@ -77,7 +77,9 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  resources :notifications, only: [ :index ]
+  resources :notifications, only: [ :index ] do
+    post :mark_as_seen, on: :collection
+  end
 
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: :treffen, only: [:index, :show, :new]

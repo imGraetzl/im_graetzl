@@ -1,101 +1,71 @@
 class Notification < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
 
-  TYPES = {
-    new_meeting_in_graetzl: {
-      bitmask: 1,
-      triggered_by_activity_with_key: 'meeting.create',
-      receivers: ->(activity) { User.where(graetzl_id: activity.trackable.graetzl_id) }
-    },
-    new_post_in_graetzl: {
-      bitmask: 2,
-      triggered_by_activity_with_key: 'post.create',
-      receivers: ->(activity) { User.where(graetzl_id: activity.trackable.graetzl_id) }
-    },
-    update_of_meeting: {
-      triggered_by_activity_with_key: 'meeting.update',
-      bitmask: 4,
-      receivers: ->(activity) { activity.trackable.users }
-    },
-    initiator_comments: {
-      bitmask: 8,
-      triggered_by_activity_with_key: 'meeting.comment',
-      receivers: ->(activity) { activity.trackable.users },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id == activity.owner_id }
-    },
-    user_comments_users_meeting: {
-      triggered_by_activity_with_key: 'meeting.comment',
-      bitmask: 16,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
-    },
-    another_user_comments: {
-      triggered_by_activity_with_key: 'meeting.comment',
-      bitmask: 32,
-      receivers: ->(activity) { activity.trackable.users }
-    },
-    another_attendee: {
-      triggered_by_activity_with_key: 'meeting.go_to',
-      bitmask: 64,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
-    },
-    attendee_left: {
-      triggered_by_activity_with_key: 'meeting.left',
-      bitmask: 128,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.initiator.id]) },
-      condition: ->(activity) { activity.trackable.initiator.present? && activity.trackable.initiator.id != activity.owner_id }
-    },
-    new_wall_comment: {
-      triggered_by_activity_with_key: 'user.comment',
-      bitmask: 256,
-      receivers: ->(activity) { User.where(["id = ?", activity.trackable.id]) },
-      condition: ->(activity) { activity.owner.present? && activity.recipient.present? }
-    },
-    cancel_of_meeting: {
-      triggered_by_activity_with_key: 'meeting.cancel',
-      bitmask: 512,
-      receivers: ->(activity) { activity.trackable.users }
-    },
-    approve_of_location: {
-      triggered_by_activity_with_key: 'location.approve',
-      bitmask: 1024,
-      receivers: ->(activity) { activity.trackable.users }
-    }
-  }
+  # constants
+  DEFAULT_URL_OPTIONS = Rails.application.config.action_mailer.default_url_options
 
+  # macros
   belongs_to :user
-  belongs_to :activity, :class => PublicActivity::Activity
+  belongs_to :activity, class_name: PublicActivity::Activity
+
+  # class methods
+  def self.types
+    self.subclasses.map{|s| s.name}
+  end
 
   def self.receive_new_activity(activity)
-    #CreateWebsiteNotificationsJob.perform_later(activity.id)
-    CreateWebsiteNotificationsJob.new.async.perform(activity)
+    CreateNotificationsJob.perform_async(activity.id)
+  end
+
+  def self.triggered_by?(activity)
+    activity.key == self::TRIGGER_KEY
+  end
+
+  def self.condition(activity)
+    true
+  end
+
+  def self.dasherized
+    self.name.demodulize.underscore.dasherize
   end
 
   def self.broadcast(activity)
-    triggered_types = TYPES.select { |k, v| v[:triggered_by_activity_with_key] == activity.key }
+    triggered_types = ::Notification.subclasses.select{ |klass| klass.triggered_by? activity }
     ids_notified_users =  []
     #sort by bitmask, so that lower order bitmask types are sent first, because
     #higher order bitmask types might not needed to be sent at all, when a user
     #has been already notified via a lower order type.
-    triggered_types.keys.sort { |a,b| triggered_types[a][:bitmask] <=> triggered_types[b][:bitmask] }.each do |k|
-      v = triggered_types[k]
-      if v[:condition].nil? || v[:condition].call(activity)
-        users = v[:receivers].call(activity)
-        #users = users.merge(User.where(["enabled_website_notifications & ? > 0", v[:bitmask]]))
+    triggered_types.sort{|a,b| a::BITMASK <=> b::BITMASK}.each do |klass|
+      if klass.condition(activity)
+        users = klass.receivers(activity)
         users.each do |u|
           unless ids_notified_users.include?(u.id) || (u.id == activity.owner.id if activity.owner)
-            display_on_website = u.enabled_website_notifications & v[:bitmask] > 0
-            n = u.notifications.create(activity: activity, bitmask: v[:bitmask], display_on_website: display_on_website)
+            display_on_website = u.enabled_website_notifications & klass::BITMASK > 0
+            n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
             ids_notified_users << u.id if display_on_website
-            if !Rails.env.development? && (u.immediate_mail_notifications & v[:bitmask] > 0)
-              #SendMailNotificationJob.perform_later(u.id, "immediate", n.id)
-              SendMailNotificationJob.new.async.perform(u.id, "immediate", n.id)
+            if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
+              SendMailNotificationJob.perform_async(n.id)
               ids_notified_users << u.id
             end
           end
         end
       end
     end
+  end
+
+  def to_partial_path
+    "notifications/#{type.demodulize.underscore}"
+  end
+
+  def mail_template
+    "staging-notification-#{type.demodulize.underscore.dasherize}"
+  end
+
+  def basic_mail_vars
+    [
+      { name: "graetzl_name", content: activity.trackable.graetzl.name },
+      { name: "graetzl_url", content: graetzl_url(activity.trackable.graetzl, DEFAULT_URL_OPTIONS) },
+    ]
   end
 
   PublicActivity::Activity.after_create do |activity|

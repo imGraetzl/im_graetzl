@@ -36,10 +36,16 @@
 .paperCard[class*=-cord] {
   .card {
     &::before {
+      display: none;
       content: '';
       position: absolute;
       z-index: 6;
       background-repeat: no-repeat;
+    }
+    @include respond-to(">=medium") {
+      &::before {
+        display: block;
+      }
     }
   }
 }
