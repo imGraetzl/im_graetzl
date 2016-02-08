@@ -1,8 +1,6 @@
 require 'refile/s3'
 
-ENV['S3_BUCKET'] ||= nil
-
-if Rails.env.production? || Rails.env.staging? || ENV['S3_BUCKET']
+if Rails.env.production? || Rails.env.staging?
 
   aws = {
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
