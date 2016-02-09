@@ -21,26 +21,20 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe 'macros' do
+  describe 'attr macros' do
     let(:location) { create(:location) }
 
     it 'has friendly_id' do
       expect(location).to respond_to(:slug)
     end
 
-    it 'has state' do
+    it 'has state default :pending' do
       expect(location).to respond_to(:state)
-    end
-
-    it 'has default state :pending' do
       expect(location.pending?).to be true
     end
 
-    it 'has meeting_permission' do
+    it 'has meeting_permission, default :meetable' do
       expect(location).to respond_to(:meeting_permission)
-    end
-
-    it 'has default meeting_permission :meetable' do
       expect(location.meetable?).to be true
     end
 
@@ -54,7 +48,7 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:cover_photo_content_type)
     end
 
-    it 'has product_list' do
+    it 'has product_list (tags)' do
       expect(location).to respond_to :product_list
     end
   end
@@ -66,60 +60,63 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
-    it 'has address' do
-      expect(location).to respond_to(:address)
+    describe 'address' do
+      it 'has address' do
+        expect(location).to respond_to(:address)
+      end
+
+      it 'is destroyed with location' do
+        create :address, addressable: location
+        expect{
+          location.destroy
+        }.to change(Address, :count).by -1
+      end
     end
 
-    it 'destroys address when destroy' do
-      create(:address, addressable: location)
-      expect{
-        location.destroy
-      }.to change(Address, :count).by(-1)
-    end
+    describe 'users' do
+      it 'has users' do
+        expect(location).to respond_to(:users)
+      end
 
-    it 'has users' do
-      expect(location).to respond_to(:users)
-    end
-
-    it 'destroys location_onwerships when destroy' do
-      create_list(:location_ownership, 3, location: location)
-      expect{
-        location.destroy
-      }.to change(LocationOwnership, :count).by(-3)
+      it 'destroys ownerships with location' do
+        create_list :location_ownership, 3, location: location
+        expect{
+          location.destroy
+        }.to change(LocationOwnership, :count).by -3
+      end
     end
 
     it 'has category' do
       expect(location).to respond_to(:category)
     end
 
-    it 'has contact' do
-      expect(location).to respond_to(:contact)
-    end
+    describe 'contact' do
+      it 'has contact' do
+        expect(location).to respond_to(:contact)
+      end
 
-    it 'destroys contact when destroy' do
-      create(:contact, location: location)
-      expect{
-        location.destroy
-      }.to change(Contact, :count).by(-1)
+      it 'is destroyed with location' do
+        create :contact, location: location
+        expect{
+          location.destroy
+        }.to change(Contact, :count).by -1
+      end
     end
 
     it 'has meetings' do
       expect(location).to respond_to(:meetings)
     end
 
-    it 'has activities' do
-      expect(location).to respond_to(:activities)
-    end
+    describe 'activities' do
+      it 'has activities' do
+        expect(location).to respond_to(:activities)
+      end
 
-    describe 'activities and notifications', job: true do
-      before do
+      it 'destroys activities and notifications with location', job: true do
         3.times do
           activity = create(:activity, trackable: location, key: 'location.something')
           create_list(:notification, 3, activity: activity)
         end
-      end
-
-      it 'destroys activity and notifications when destroy' do
         expect(PublicActivity::Activity.count).to eq 3
         expect(Notification.count).to eq 9
         location.destroy
@@ -128,15 +125,17 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    it 'has posts' do
-      expect(location).to respond_to(:posts)
-    end
+    describe 'posts' do
+      it 'has posts' do
+        expect(location).to respond_to(:posts)
+      end
 
-    it 'destroys posts when destroy' do
-      create_list(:post, 3, author: location)
-      expect{
-        location.destroy
-      }.to change(Post, :count).by(-3)
+      it 'destroys posts with location' do
+        create_list(:post, 3, author: location)
+        expect{
+          location.destroy
+        }.to change(Post, :count).by -3
+      end
     end
   end
 

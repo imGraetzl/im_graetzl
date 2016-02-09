@@ -108,3 +108,5 @@ gem 'whenever', require: false
 gem 'acts-as-taggable-on'
 # obfuscate email addresses
 gem 'actionview-encoded_mail_to'
+# state machine
+gem 'aasm'

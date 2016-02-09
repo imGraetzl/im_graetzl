@@ -11,6 +11,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.8.0)
     actionmailer (4.2.5.1)
       actionpack (= 4.2.5.1)
       actionview (= 4.2.5.1)
@@ -358,6 +359,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  aasm
   actionview-encoded_mail_to
   activeadmin (~> 1.0.0.pre2)
   activerecord-postgis-adapter

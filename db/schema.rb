@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205092317) do
+ActiveRecord::Schema.define(version: 20160209135955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -315,5 +315,20 @@ ActiveRecord::Schema.define(version: 20160205092317) do
   add_index "users", ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+
+  create_table "zuckerls", force: :cascade do |t|
+    t.integer  "location_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "image_id"
+    t.string   "image_content_type"
+    t.boolean  "flyer",              default: false
+    t.string   "aasm_state"
+    t.datetime "paid_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "zuckerls", ["location_id"], name: "index_zuckerls_on_location_id", using: :btree
 
 end

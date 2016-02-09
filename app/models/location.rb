@@ -9,7 +9,7 @@ class Location < ActiveRecord::Base
                                       .padding(page == 1 ? 0 : -1) }
 
 
-  # macros
+  # attr macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
   enum location_type: { business: 0, public_space: 1, vacancy: 2 }
@@ -18,7 +18,7 @@ class Location < ActiveRecord::Base
   attachment :cover_photo, type: :image
   acts_as_taggable_on :products
 
-  # associations
+  # associations macros
   belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
   has_many :posts, as: :author, dependent: :destroy
@@ -30,6 +30,7 @@ class Location < ActiveRecord::Base
   has_many :users, through: :location_ownerships
   belongs_to :category
   has_many :meetings
+  has_many :zuckerls
 
   # has_many :categorizations, as: :categorizable
   # accepts_nested_attributes_for :categorizations, allow_destroy: true
