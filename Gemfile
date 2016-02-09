@@ -106,3 +106,5 @@ gem 'sitemap_generator'
 gem 'whenever', require: false
 # tagging
 gem 'acts-as-taggable-on'
+# obfuscate email addresses
+gem 'actionview-encoded_mail_to'

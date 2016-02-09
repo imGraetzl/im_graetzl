@@ -30,6 +30,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview-encoded_mail_to (1.0.7)
+      rails
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
       bourbon
@@ -356,6 +358,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  actionview-encoded_mail_to
   activeadmin (~> 1.0.0.pre2)
   activerecord-postgis-adapter
   acts-as-taggable-on
