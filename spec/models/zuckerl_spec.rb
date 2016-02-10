@@ -6,6 +6,14 @@ RSpec.describe Zuckerl, type: :model do
     expect(build_stubbed :zuckerl).to be_valid
   end
 
+  describe 'attributes' do
+    let(:zuckerl) { build_stubbed :zuckerl }
+
+    it 'has virtual attribute for admin event request' do
+      expect(zuckerl).to respond_to :active_admin_requested_event
+    end
+  end
+
   describe '#aasm' do
     let(:zuckerl) { create :zuckerl }
 

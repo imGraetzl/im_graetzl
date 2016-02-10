@@ -21,14 +21,14 @@
   &.pending, &.cancelled, &.nein, &.owner_meetable {
     background: orange;
   }
-  &.approved, &.open, &.ja, &.meetable {
+  &.approved, &.open, &.ja, &.meetable, &.paid {
     background: green;
   }
   &.recreation, &.public_space {
-    background: LightCoral; 
+    background: LightCoral;
   }
   &.business {
-    background: LightBlue; 
+    background: LightBlue;
   }
   &.vacancy {
     background: LightSeaGreen;

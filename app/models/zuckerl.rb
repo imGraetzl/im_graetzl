@@ -11,6 +11,7 @@ class Zuckerl < ActiveRecord::Base
   # end
 
   attachment :image, type: :image
+  attr_accessor :active_admin_requested_event
 
   belongs_to :location
 
