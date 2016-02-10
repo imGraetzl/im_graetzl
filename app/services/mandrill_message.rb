@@ -1,11 +1,11 @@
-class Notifications::MandrillMessage
+class MandrillMessage
   include Rails.application.routes.url_helpers
 
-  def initialize(user)
+  def initialize(user, message=nil)
     @user = user
     @default_url_options = Rails.application.config.action_mailer.default_url_options
     @template_content = []
-    @message = nil
+    @message = message
   end
 
   def deliver

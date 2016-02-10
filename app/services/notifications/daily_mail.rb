@@ -1,4 +1,4 @@
-class Notifications::DailyMail < Notifications::MandrillMessage
+class Notifications::DailyMail < MandrillMessage
   MANDRILL_TEMPLATE = 'daily-notifications'
   BLOCKS = [
     {

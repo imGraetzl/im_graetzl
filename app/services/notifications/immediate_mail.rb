@@ -1,4 +1,4 @@
-class Notifications::ImmediateMail < Notifications::MandrillMessage
+class Notifications::ImmediateMail < MandrillMessage
 
   def initialize(notification)
     @notification = notification

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Notifications::MandrillMessage do
+RSpec.describe MandrillMessage do
   let(:user) { create :user }
 
   before do
@@ -10,7 +10,7 @@ RSpec.describe Notifications::MandrillMessage do
   end
 
   describe '_#basic_message_vars' do
-    let(:mandrill_message) { Notifications::MandrillMessage.new user }
+    let(:mandrill_message) { MandrillMessage.new user }
 
     subject(:vars) { mandrill_message.send(:basic_message_vars) }
 
@@ -28,7 +28,7 @@ RSpec.describe Notifications::MandrillMessage do
   end
 
   describe '#deliver' do
-    let(:service) { Notifications::MandrillMessage.new user }
+    let(:service) { MandrillMessage.new user }
 
     context 'without message or template' do
       it 'does not call mandril api' do
