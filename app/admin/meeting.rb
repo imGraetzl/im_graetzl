@@ -1,6 +1,7 @@
 ActiveAdmin.register Meeting do
   include ViewInApp
   menu priority: 5
+  includes :graetzl, :location
 
   scope :all, default: true
   scope :basic
@@ -8,12 +9,6 @@ ActiveAdmin.register Meeting do
   scope :upcoming
   scope :past
 
-  # index
-  index do
-    render 'index', context: self
-  end
-
-  # filter
   filter :graetzl
   filter :users
   filter :location
@@ -24,15 +19,10 @@ ActiveAdmin.register Meeting do
   filter :updated_at
   filter :starts_at_date
 
-  # show
-  show do
-    render 'show', context: self
-  end
-
-  # form
+  index { render 'index', context: self }
+  show { render 'show', context: self }
   form partial: 'form'
 
-  # strong parameters
   permit_params :graetzl_id,
     :name,
     :slug,

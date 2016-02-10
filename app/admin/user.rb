@@ -1,18 +1,12 @@
 ActiveAdmin.register User do
   include ViewInApp
   menu priority: 3
-
+  includes :graetzl, :wall_comments, :posts, :meetings, :locations
 
   scope :all, default: true
   scope :business
   scope :admin
 
-  # index
-  index do
-    render 'index', context: self
-  end
-
-  # filter
   filter :graetzl
   filter :username
   filter :first_name
@@ -22,15 +16,10 @@ ActiveAdmin.register User do
   filter :created_at
   filter :updated_at
 
-  # show
-  show do
-    render 'show', context: self
-  end
-
-  # form
+  index { render 'index', context: self }
+  show { render 'show', context: self }
   form partial: 'form'
 
-  # strong parameters (maybe something missing)
   permit_params :graetzl_id,
     :username,
     :first_name,
@@ -49,6 +38,4 @@ ActiveAdmin.register User do
       :city,
       :description,
       :coordinates]
-
-
 end
