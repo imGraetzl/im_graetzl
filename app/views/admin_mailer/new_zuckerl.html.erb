@@ -1,0 +1,16 @@
+<h1>Buchung Grätzlzuckerl <%= I18n.localize Time.now, format: '%B' %></h1>
+<table>
+  <tr>
+    <td>Location:</td>
+    <td><%= @location.name %></td>
+  </tr>
+  <tr>
+    <td>Zuckerl:</td>
+    <td><%= @zuckerl.title %></td>
+  </tr>
+  <tr>
+    <td>Zahlungsreferenz:</td>
+    <td><%= @zuckerl.payment_reference %></td>
+  </tr>
+</table>
+<p><%= link_to 'Zuckerl Ansehen', admin_zuckerl_url(@zuckerl) %></p>

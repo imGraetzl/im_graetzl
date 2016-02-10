@@ -15,6 +15,8 @@ class Zuckerl < ActiveRecord::Base
 
   belongs_to :location
 
+  after_create :send_booking_information
+
   aasm do
     state :pending, initial: true
     state :paid
@@ -39,5 +41,13 @@ class Zuckerl < ActiveRecord::Base
     event :cancel do
       transitions to: :cancelled
     end
+  end
+
+  def payment_reference
+    "#{model_name.singular}_#{id}_#{created_at.strftime('%y%m')}"
+  end
+
+  def send_booking_information
+    AdminMailer.new_zuckerl(self).deliver_later
   end
 end

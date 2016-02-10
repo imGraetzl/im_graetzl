@@ -98,4 +98,8 @@ RSpec.describe Zuckerl, type: :model do
       end
     end
   end
+
+  describe '#payment_reference' do
+    it "is a pending example"
+  end
 end
