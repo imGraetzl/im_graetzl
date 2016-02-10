@@ -12,21 +12,23 @@
 
 <section class="vienna">
 
-  <div class="mapImgBlock">
-    <div id="graetzlMapWidget" data-mapdata="<%= @map_data %>"></div>
-    <div class="activeArea"></div>
-    <div class="navBlock">
-      <h1>Wien</h1>
-      <div class="links">
-        <% @districts.each do |district| %>
-            <%= link_to "#{district.zip} - #{district.name}", district %>
-        <% end %>
+  <%= cache 'districtsmap', expires_in: 2.months do %>
+    <div class="mapImgBlock">
+      <div id="graetzlMapWidget" data-mapdata="<%= @map_data %>"></div>
+      <div class="activeArea"></div>
+      <div class="navBlock">
+        <h1>Wien</h1>
+        <div class="links">
+          <% @districts.each do |district| %>
+              <%= link_to "#{district.zip} - #{district.name}", district %>
+          <% end %>
+        </div>
+        <select class="mobileSelectMenu">
+          <option disabled>Bezirk wählen</option>
+        </select>
       </div>
-      <select class="mobileSelectMenu">
-        <option disabled>Bezirk wählen</option>
-      </select>
     </div>
-  </div>
+  <% end %>
 
   <% unless @meetings.empty? %>
     <div class="teaserBlock">
