@@ -32,11 +32,6 @@ class Location < ActiveRecord::Base
   has_many :meetings
   has_many :zuckerls
 
-  # has_many :categorizations, as: :categorizable
-  # accepts_nested_attributes_for :categorizations, allow_destroy: true
-  # has_many :categories, through: :categorizations
-
-
   # validations
   validates :name, presence: true
   validates :graetzl, presence: true

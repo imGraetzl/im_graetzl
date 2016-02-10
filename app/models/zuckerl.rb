@@ -20,9 +20,10 @@ class Zuckerl < ActiveRecord::Base
     state :live
     state :cancelled
 
-    event :mark_as_paid do
+    event :mark_as_paid, guard: lambda { paid_at.blank? } do
       # transitions from: :pending, to: :paid, after: lambda { NotifierThing.new(self).call }
       transitions from: :pending, to: :paid
+      transitions from: :live, to: :live
     end
 
     event :put_live do

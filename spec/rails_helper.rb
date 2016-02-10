@@ -10,6 +10,7 @@ require 'capybara/poltergeist'
 require 'public_activity/testing'
 require 'webmock/rspec'
 require 'sucker_punch/testing/inline'
+require 'aasm/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # require all spec support files
