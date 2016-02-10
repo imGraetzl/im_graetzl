@@ -75,10 +75,16 @@ context.instance_eval do
             table_for location.meetings do
               column :id
               column :name
-              column :slug
-              column :initiator
               column :created_at
               column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
+            end
+          end
+          tab 'Zuckerl' do
+            table_for location.zuckerls do
+              column :id
+              column :title
+              column(:aasm_state){|z| status_tag(z.aasm_state)}
+              column(''){|z| link_to 'Anzeigen', admin_zuckerl_path(z) }
             end
           end
         end

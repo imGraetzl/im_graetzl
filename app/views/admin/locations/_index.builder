@@ -6,12 +6,6 @@ context.instance_eval do
   column :category
   column :slug
   column :graetzl
-  column('User') do |location|
-    location.users.each do |user|
-      a user.username, href: admin_user_path(user)
-      text_node '|'.html_safe
-    end
-  end
   column :updated_at
   actions
 end

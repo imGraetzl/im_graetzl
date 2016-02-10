@@ -1,20 +1,14 @@
 ActiveAdmin.register Location do
   include ViewInApp
   menu priority: 4
+  includes :graetzl, :category, :posts, :meetings, :zuckers
 
   scope :all, default: true
   scope :pending
   scope :approved
 
-  # index
-  index do
-    render 'index', context: self
-  end
-
-  # filter
   filter :graetzl
   filter :category
-  #filter :products
   filter :products, as: :check_boxes, collection: proc { Location.product_counts.map{|p| p.name} }
   filter :name
   filter :slogan
@@ -25,12 +19,8 @@ ActiveAdmin.register Location do
   filter :created_at
   filter :updated_at
 
-  # show
-  show do
-    render 'show', context: self
-  end
-
-  # form
+  index { render 'index', context: self }
+  show { render 'show', context: self }
   form partial: 'form'
 
   # controller actions
@@ -47,7 +37,6 @@ ActiveAdmin.register Location do
       coordinates: address.coordinates)
   end
 
-
   # batch actions
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |location|
@@ -63,7 +52,6 @@ ActiveAdmin.register Location do
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden abgelehnt.'
   end
 
-
   # action buttons
   action_item :approve, only: :show, if: proc{ location.pending? } do
     link_to 'Location Freischalten', approve_admin_location_path(location), { method: :put }
@@ -72,7 +60,6 @@ ActiveAdmin.register Location do
   action_item :reject, only: :show, if: proc{ location.pending? } do
     link_to 'Location Ablehnen', reject_admin_location_path(location), { method: :put }
   end
-
 
   # member actions
   member_action :approve, method: :put do
