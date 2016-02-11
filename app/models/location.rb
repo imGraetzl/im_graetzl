@@ -30,7 +30,9 @@ class Location < ActiveRecord::Base
   has_many :users, through: :location_ownerships
   belongs_to :category
   has_many :meetings
-  has_many :zuckerls
+  has_many :zuckerls, dependent: :destroy
+  has_one :billing_address, dependent: :destroy
+  accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
   # validations
   validates :name, presence: true

@@ -48,6 +48,20 @@ context.instance_eval do
           end
         end
       end
+      if location.billing_address
+        panel 'Billing Address Details' do
+          attributes_table_for location.billing_address do
+            row :id
+            row :first_name
+            row :last_name
+            row :company
+            row :street
+            row :zip
+            row :city
+            row :country
+          end
+        end
+      end
     end
     column span: 2 do
       panel 'Associations' do

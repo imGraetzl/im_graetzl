@@ -137,6 +137,10 @@ RSpec.describe Location, type: :model do
         }.to change(Post, :count).by -3
       end
     end
+
+    it 'has billing_address' do
+      expect(location).to respond_to :billing_address
+    end
   end
 
   describe 'scopes' do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209135955) do
+ActiveRecord::Schema.define(version: 20160211122609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,21 @@ ActiveRecord::Schema.define(version: 20160209135955) do
   end
 
   add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
+
+  create_table "billing_addresses", force: :cascade do |t|
+    t.integer  "location_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "company"
+    t.string   "street"
+    t.string   "zip"
+    t.string   "city"
+    t.string   "country"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "billing_addresses", ["location_id"], name: "index_billing_addresses_on_location_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255

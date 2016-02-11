@@ -1,7 +1,7 @@
 ActiveAdmin.register Location do
   include ViewInApp
   menu priority: 4
-  includes :graetzl, :category, :posts, :meetings, :zuckers
+  includes :graetzl, :category, :posts, :meetings, :zuckerls, :billing_address
 
   scope :all, default: true
   scope :pending
@@ -115,5 +115,15 @@ ActiveAdmin.register Location do
       :id,
       :user_id,
       :state,
-      :_destroy]
+      :_destroy],
+    billing_address_attributes: [
+      :id,
+      :_destroy,
+      :first_name,
+      :last_name,
+      :company,
+      :street,
+      :zip,
+      :city,
+      :country]
 end
