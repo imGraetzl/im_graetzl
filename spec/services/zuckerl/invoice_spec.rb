@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Zuckerl::BookingConfirmation do
+RSpec.describe Zuckerl::Invoice do
   before do
     allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation).and_return true
   end
-  
+
   let(:location) { create :location }
   let(:zuckerl) { create :zuckerl, location: location }
 
@@ -16,8 +16,7 @@ RSpec.describe Zuckerl::BookingConfirmation do
   end
 
   describe '_#build_message' do
-    let(:service) { Zuckerl::BookingConfirmation.new zuckerl }
-
+    let(:service) { Zuckerl::Invoice.new zuckerl }
     subject(:message_hash) { service.send(:build_message) }
 
     it 'has keys for mandrill' do
@@ -35,8 +34,26 @@ RSpec.describe Zuckerl::BookingConfirmation do
     end
   end
 
+  describe '_#billing_address_vars' do
+    let(:service) { Zuckerl::Invoice.new zuckerl }
+    subject(:message_hash) { service.send(:billing_address_vars) }
+
+    context 'when location has billing_address' do
+      before { create :billing_address, location: location }
+
+      it 'returns var hash' do
+        expect(message_hash).not_to be_nil
+      end
+    end
+    context 'when location has no billing_address' do
+      it 'returns nil' do
+        expect(message_hash).to eq nil
+      end
+    end
+  end
+
   describe '#deliver' do
-    let(:service) { Zuckerl::BookingConfirmation.new zuckerl }
+    let(:service) { Zuckerl::Invoice.new zuckerl }
 
     context 'with message' do
       before { allow(service).to receive(:build_message){{to: 'user@example.com'}} }

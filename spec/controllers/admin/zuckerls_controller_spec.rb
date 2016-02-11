@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Admin::ZuckerlsController, type: :controller do
   before do
     allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation).and_return true
+    ActiveJob::Base.queue_adapter = :test
     sign_in create(:admin)
   end
 
@@ -20,6 +21,12 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
           patch :update, params
           zuckerl.reload
         }.to change{zuckerl.aasm_state}.from('pending').to('paid')
+      end
+
+      it 'enqueues InvoiceJob' do
+        expect{
+          patch :update, params
+        }.to have_enqueued_job(Zuckerl::InvoiceJob)
       end
     end
   end

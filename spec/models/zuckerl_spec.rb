@@ -21,11 +21,13 @@ RSpec.describe Zuckerl, type: :model do
     let(:zuckerl) { create :zuckerl }
 
     describe ':pending' do
+
       it 'is the initial state' do
         expect(zuckerl).to be_pending
       end
 
       it 'can transition to :paid, :live, :cancelled' do
+        allow(zuckerl).to receive(:send_invoice)
         expect(zuckerl).to transition_from(:pending).to(:paid).on_event(:mark_as_paid)
         expect(zuckerl).to transition_from(:pending).to(:live).on_event(:put_live)
         expect(zuckerl).to transition_from(:pending).to(:cancelled).on_event(:cancel)
@@ -33,6 +35,13 @@ RSpec.describe Zuckerl, type: :model do
 
       it 'cannot expire' do
         expect(zuckerl).not_to allow_event :expire
+      end
+
+      it 'triggers InvoiceJob on mark_as_paid' do
+        ActiveJob::Base.queue_adapter = :test
+        expect{
+          zuckerl.mark_as_paid!
+        }.to have_enqueued_job(Zuckerl::InvoiceJob)
       end
     end
 

@@ -23,8 +23,7 @@ class Zuckerl < ActiveRecord::Base
     state :live
     state :cancelled
 
-    event :mark_as_paid, guard: lambda { paid_at.blank? } do
-      # transitions from: :pending, to: :paid, after: lambda { NotifierThing.new(self).call }
+    event :mark_as_paid, guard: lambda { paid_at.blank? }, after: :send_invoice do
       transitions from: :pending, to: :paid
       transitions from: :live, to: :live
     end
@@ -52,5 +51,9 @@ class Zuckerl < ActiveRecord::Base
   def send_booking_confirmation
     AdminMailer.new_zuckerl(self).deliver_later
     Zuckerl::BookingConfirmationJob.perform_later self
+  end
+
+  def send_invoice
+    Zuckerl::InvoiceJob.perform_later self
   end
 end
