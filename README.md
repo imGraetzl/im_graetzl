@@ -164,14 +164,6 @@ The app uses [puma](https://github.com/puma/puma) in all environments.
 
 ### Tests
 
-#### Database Cleaner
-
-Within the tests, all jobs (run via the awesome [Sucker Punch](https://github.com/brandonhilkert/sucker_punch)) are run inline, but in a separate thread. This requires to utilize Database Cleaners `:truncate` strategy for all specs logging activity or creating jobs. Mark them with:
-
-```ruby
-job: true
-```
-
 #### Views
 
 Rspec's `render_views` toggle is set to true by default, rendering views in controller specs. To disable this behavior for certain controller (e.g. if the views are tested separately), just set `render_views` to false in these files:

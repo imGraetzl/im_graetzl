@@ -112,7 +112,7 @@ RSpec.describe Location, type: :model do
         expect(location).to respond_to(:activities)
       end
 
-      it 'destroys activities and notifications with location', job: true do
+      it 'destroys activities and notifications with location' do
         3.times do
           activity = create(:activity, trackable: location, key: 'location.something')
           create_list(:notification, 3, activity: activity)
@@ -201,7 +201,7 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#approve', job: true do
+  describe '#approve' do
     context 'when location pending' do
       let(:location) { create(:location, state: Location.states[:pending]) }
 

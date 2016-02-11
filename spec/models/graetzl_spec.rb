@@ -136,7 +136,7 @@ RSpec.describe Graetzl, type: :model do
     end
   end
 
-  describe '#activity', job: true do
+  describe '#activity' do
     let(:graetzl) { create(:graetzl) }
 
     context 'when no activity in graetzl' do

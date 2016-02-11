@@ -1,10 +1,8 @@
-class CreateNotificationsJob
-  include SuckerPunch::Job
+class CreateNotificationsJob < ActiveJob::Base
 
-  def perform(activity_id)
+  def perform(activity)
     SuckerPunch.logger.info ("CreateWebsiteNotificationsJob start at: #{Time.now}")
     ActiveRecord::Base.connection_pool.with_connection do
-      activity = PublicActivity::Activity.find activity_id
       Notification.broadcast(activity)
     end
   end

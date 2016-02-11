@@ -1,5 +1,4 @@
-class SendDigestNotificationsJob
-  include SuckerPunch::Job
+class SendDigestNotificationsJob < ActiveJob::Base
 
   def perform
     SuckerPunch.logger.info "DigestNotificationJob start at: #{Time.now}"

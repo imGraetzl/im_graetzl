@@ -1,9 +1,7 @@
-class SendMailNotificationJob
-  include SuckerPunch::Job
+class SendMailNotificationJob < ActiveJob::Base
 
-  def perform(notification_id)
+  def perform(notification)
     SuckerPunch.logger.info "SendMailNotificationJob start at: #{Time.now}"
-    notification = Notification.find notification_id
     Notifications::ImmediateMail.new(notification).deliver
   end
 end

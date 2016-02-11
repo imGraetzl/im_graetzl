@@ -464,7 +464,7 @@ RSpec.describe MeetingsController, type: :controller do
     end
   end
 
-  describe 'PUT update', job: true do
+  describe 'PUT update' do
     let(:meeting) { create(:meeting, graetzl: graetzl) }
     let(:params) {
       {
@@ -565,7 +565,7 @@ RSpec.describe MeetingsController, type: :controller do
           end
         end
 
-        describe 'time attributes', job: true do
+        describe 'time attributes' do
           before do
             params[:meeting].merge!(starts_at_date: '2020-01-01',
                                     starts_at_time: '18:00',
@@ -604,7 +604,7 @@ RSpec.describe MeetingsController, type: :controller do
         #   end
         # end
 
-        describe 'address', job: true do
+        describe 'address' do
           let!(:new_graetzl) { create(:graetzl,
             area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
           let(:address_feature) { feature_hash(16.0, 16.0) }
@@ -731,7 +731,7 @@ RSpec.describe MeetingsController, type: :controller do
           expect(flash[:notice]).not_to be nil
         end
 
-        it 'logs meeting.cancel activity', job: true do
+        it 'logs meeting.cancel activity' do
           PublicActivity.with_tracking do
             delete :destroy, id: meeting
             meeting.reload
