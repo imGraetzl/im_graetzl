@@ -16,9 +16,8 @@ class Notifications::DailyMail < MandrillMessage
   ]
 
   def initialize(user)
-    super(user)
+    super(user, template: MANDRILL_TEMPLATE)
     @notifications = @user.notifications_of_the_day
-    @template_name = MANDRILL_TEMPLATE
   end
 
   def deliver

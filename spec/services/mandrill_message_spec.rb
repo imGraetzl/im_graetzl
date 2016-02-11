@@ -42,17 +42,17 @@ RSpec.describe MandrillMessage do
         expect(WebMock).not_to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
 
-      it 'does nothing with template_name' do
-        service.instance_variable_set(:@template_name, 'something')
+      it 'does nothing with template' do
+        service.instance_variable_set(:@template, 'something')
         service.deliver
         expect(WebMock).not_to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end
     end
 
-    context 'with message and template_name' do
+    context 'with message and template' do
       before do
         service.instance_variable_set(:@message, 'something')
-        service.instance_variable_set(:@template_name, 'something')
+        service.instance_variable_set(:@template, 'something')
       end
 
       it 'calls mandrill api (raise error without key)' do
