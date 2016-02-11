@@ -15,6 +15,9 @@ RSpec.describe Zuckerl, type: :model do
   end
 
   describe '#aasm' do
+    before do
+      allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation).and_return true
+    end
     let(:zuckerl) { create :zuckerl }
 
     describe ':pending' do
@@ -101,5 +104,23 @@ RSpec.describe Zuckerl, type: :model do
 
   describe '#payment_reference' do
     it "is a pending example"
+  end
+
+  describe 'callbacks' do
+    describe 'after_create' do
+      it 'calls BookingConfirmationJob' do
+        ActiveJob::Base.queue_adapter = :test
+        expect{
+          create :zuckerl
+        }.to have_enqueued_job(Zuckerl::BookingConfirmationJob)
+      end
+
+      it 'calls AdminMailer' do
+        message_delivery = instance_double(ActionMailer::MessageDelivery)
+        expect(AdminMailer).to receive(:new_zuckerl).and_return(message_delivery)
+        expect(message_delivery).to receive(:deliver_later)
+        create :zuckerl
+      end
+    end
   end
 end

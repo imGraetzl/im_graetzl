@@ -75,6 +75,10 @@ class Location < ActiveRecord::Base
     desc[0..154]
   end
 
+  def boss
+    location_ownerships.order(:created_at).first.user
+  end
+
   private
 
   def destroy_activity_and_notifications

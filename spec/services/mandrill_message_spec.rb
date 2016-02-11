@@ -55,7 +55,7 @@ RSpec.describe MandrillMessage do
         service.instance_variable_set(:@template, 'something')
       end
 
-      it 'calls mandrill api (raise error without key)' do
+      it 'calls mandrill api' do
         service.deliver
         expect(WebMock).to have_requested(:post, 'https://mandrillapp.com/api/1.0/messages/send-template.json')
       end

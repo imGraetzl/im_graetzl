@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Admin::ZuckerlsController, type: :controller do
-  before { sign_in create(:admin) }
+  before do
+    allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation).and_return true
+    sign_in create(:admin)
+  end
 
   describe 'PATCH update' do
     let(:zuckerl) { create :zuckerl }

@@ -15,7 +15,7 @@ class Zuckerl < ActiveRecord::Base
 
   belongs_to :location
 
-  after_create :send_booking_information
+  after_create :send_booking_confirmation
 
   aasm do
     state :pending, initial: true
@@ -47,7 +47,10 @@ class Zuckerl < ActiveRecord::Base
     "#{model_name.singular}_#{id}_#{created_at.strftime('%y%m')}"
   end
 
-  def send_booking_information
+  private
+
+  def send_booking_confirmation
     AdminMailer.new_zuckerl(self).deliver_later
+    Zuckerl::BookingConfirmationJob.perform_later self
   end
 end

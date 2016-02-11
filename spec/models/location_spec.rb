@@ -311,4 +311,18 @@ RSpec.describe Location, type: :model do
       end
     end
   end
+
+  describe '#boss' do
+    let(:location) { create :location }
+    let(:owner) { create :user }
+    before do
+      create(:location_ownership, user: owner, location: location)
+      create_list(:location_ownership, 3, location: location)
+    end
+
+    it 'returs first user' do
+      expect(location.users.count).to eq 4
+      expect(location.boss).to eq owner
+    end
+  end
 end
