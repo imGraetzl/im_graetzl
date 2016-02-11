@@ -26,7 +26,7 @@ class Zuckerl::BookingConfirmation
         rcpt: @user.email,
         vars: [
           { name: 'username', content: @user.username },
-          { name: 'zuckerl_start', content: I18n.localize(@zuckerl.created_at, format: '%d.%m.%Y') },
+          { name: 'zuckerl_start', content: I18n.localize(Time.now.end_of_month+1.day, format: '%d.%m.%Y') },
           { name: 'payment_reference', content: @zuckerl.payment_reference },
           { name: 'location_name', content: @location.name },
           { name: 'zuckerl_url', content: '#' }

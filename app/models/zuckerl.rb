@@ -15,7 +15,7 @@ class Zuckerl < ActiveRecord::Base
 
   belongs_to :location
 
-  after_create :send_booking_confirmation
+  after_commit :send_booking_confirmation, on: :create
 
   aasm do
     state :pending, initial: true

@@ -27,6 +27,7 @@ class Zuckerl::LiveInformation
         vars: [
           { name: 'username', content: @user.username },
           { name: 'zuckerl_title', content: @zuckerl.title },
+          { name: 'zuckerl_period', content: I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%B %Y') },
           { name: 'zuckerl_url', content: '#' },
           { name: 'district_zuckerl_url', content: '#' },
           { name: 'location_zuckerl_url', content: '#' },

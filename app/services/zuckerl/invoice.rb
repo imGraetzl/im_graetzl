@@ -30,7 +30,7 @@ class Zuckerl::Invoice
           { name: 'location_name', content: @location.name },
           { name: 'location_url', content: '#' },
           { name: 'zuckerl_url', content: '#' },
-          { name: 'zuckerl_period', content: I18n.localize(@zuckerl.created_at, format: '%B %Y') },
+          { name: 'zuckerl_period', content: I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%B %Y') },
           { name: 'billing_address', content: billing_address_vars },
         ]
       ]
