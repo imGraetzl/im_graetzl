@@ -63,6 +63,7 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'webmock'
+  gem 'test_after_commit'
 end
 
 # Use ActiveModel has_secure_password
