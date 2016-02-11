@@ -28,7 +28,7 @@ class Zuckerl < ActiveRecord::Base
       transitions from: :live, to: :live
     end
 
-    event :put_live do
+    event :put_live, after: :send_live_information do
       transitions from: [:pending, :paid], to: :live
     end
 
@@ -55,5 +55,9 @@ class Zuckerl < ActiveRecord::Base
 
   def send_invoice
     Zuckerl::InvoiceJob.perform_later self
+  end
+
+  def send_live_information
+    Zuckerl::LiveInformationJob.perform_later self
   end
 end

@@ -17,6 +17,7 @@ RSpec.describe Zuckerl, type: :model do
   describe '#aasm' do
     before do
       allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation).and_return true
+      ActiveJob::Base.queue_adapter = :test
     end
     let(:zuckerl) { create :zuckerl }
 
@@ -27,7 +28,6 @@ RSpec.describe Zuckerl, type: :model do
       end
 
       it 'can transition to :paid, :live, :cancelled' do
-        allow(zuckerl).to receive(:send_invoice)
         expect(zuckerl).to transition_from(:pending).to(:paid).on_event(:mark_as_paid)
         expect(zuckerl).to transition_from(:pending).to(:live).on_event(:put_live)
         expect(zuckerl).to transition_from(:pending).to(:cancelled).on_event(:cancel)
@@ -37,8 +37,13 @@ RSpec.describe Zuckerl, type: :model do
         expect(zuckerl).not_to allow_event :expire
       end
 
+      it 'triggers LiveInformationJob on put_live' do
+        expect{
+          zuckerl.put_live!
+        }.to have_enqueued_job(Zuckerl::LiveInformationJob)
+      end
+
       it 'triggers InvoiceJob on mark_as_paid' do
-        ActiveJob::Base.queue_adapter = :test
         expect{
           zuckerl.mark_as_paid!
         }.to have_enqueued_job(Zuckerl::InvoiceJob)
