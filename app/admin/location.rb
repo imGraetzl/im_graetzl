@@ -23,20 +23,6 @@ ActiveAdmin.register Location do
   show { render 'show', context: self }
   form partial: 'form'
 
-  # controller actions
-  collection_action :new_from_address, method: :post do
-    address = Address.find(params[:address])
-    @location = Location.new(name: address.description,
-      state: 'approved',
-      graetzl: address.graetzl,
-      contact: Contact.new)
-    @location.build_address(street_name: address.street_name,
-      street_number: address.street_number,
-      zip: address.zip,
-      city: address.city,
-      coordinates: address.coordinates)
-  end
-
   # batch actions
   batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |location|

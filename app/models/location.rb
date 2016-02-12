@@ -12,7 +12,6 @@ class Location < ActiveRecord::Base
   # attr macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
-  enum location_type: { business: 0, public_space: 1, vacancy: 2 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
