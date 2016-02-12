@@ -1,31 +1,74 @@
 section.createzuckerl {
+  overflow: hidden;
 
-  .preview-block,
-  .booking-block {
+  .col-l {
     @include respond-to(">=large") {
-      display: flex;
-      align-items: flex-start;
-      margin-right: -20px;
+      padding-top: 30px;
+      float: left;
+      width: 65%;
+      margin-right: 2%;
     }
-    .col-l {
-      @include respond-to(">=large") {
-        flex: 1;
-        margin-right: 30px;
+  }
+
+  .col-r {
+    @include respond-to(">=large") {
+      width: (33%);
+      float: right;
+    }
+  }
+
+
+  .booking-block {
+    .btn-primary {
+      margin-left: auto;
+      display: table;
+    }
+  }
+
+
+  .confirm-block {
+
+    .hl {
+      @include font-size-secondaryFont();
+      text-align: center;
+      margin-bottom: 20px;
+      span {
+        color: $color-ambient-rosa;
+      }
+    }
+    .txt {
+      padding-right: 40px;
+      border-bottom: 1px dotted $color-ambient-mint;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .txt p {
+      margin-bottom: 20px;
+    }
+
+    .bookingdetails {
+      padding-left: 20px;
+      border-left: 1px dotted $color-ambient-grey;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      p:last-child {
         margin-bottom: 0;
       }
     }
-  }
-  .col-r {
-    @include respond-to(">=large") {
-      width: (100%/3);
-      flex: none;
+
+    .zuckerlID {
+      color: $color-ambient-mint-dark;
+      font-weight: bold;
     }
   }
 
+
   .cardBox {
     margin-top: -20px;
+    margin-bottom: 20px;
     @include respond-to(">=large") {
       margin-top: 0;
+      max-width: 317px;
     }
     .placeholder {
       opacity: 0.7;
@@ -33,81 +76,16 @@ section.createzuckerl {
     }
   }
 
-  .preview-block {
-    margin-bottom: 20px;
+  label {
     @include respond-to(">=large") {
-      border-bottom: 1px solid $color-ambient-mint-light;
-      padding-bottom: 50px;
-      margin-bottom: 50px;
-    }
-    .col-l {
-      margin-bottom: 40px;
-      @include respond-to(">=large") {
-        margin-bottom: 0;
-      }
-    }
-    .form-block {
-      margin-bottom: 0;
-    }
-
-    .form-block .txt {
-      margin-bottom: 30px;
-    }
-    label {
-      @include respond-to(">=large") {
-        width: 155px;
-      }
-    }
-    .description {
-      white-space: pre-wrap;
-    }
-  }
-
-  .booking-block {
-    display: flex;
-    flex-direction: column-reverse;
-    @include respond-to(">=large") {
-      flex-direction: row;
-    }
-  }
-
-  .imgpreview {
-    min-height: 185px;
-    border-radius: 4px;
-    overflow: hidden;
-    background: lighten($color-ambient-rosa-light, 10) repeating-linear-gradient(
-                    45deg,
-                    rgba(0, 0, 0, 0),
-                    rgba(0, 0, 0, 0) 10px,
-                    rgba(0, 0, 0, 0.1) 10px,
-                    rgba(0, 0, 0, 0.1) 20px
-    );
-    canvas {
-      width: 100%;
-      display: block;
-    }
-  }
-
-  .booking-block .btn-primary {
-    @include respond-to(">=large") {
-      display: table;
-      margin-left: auto;
-    }
-  }
-
-  .button-wrapper {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    .btn-primary {
-      flex: none;
+      min-width: 155px;
     }
   }
 
   .basicdata {
-    margin-bottom: 20px;
-    margin-left: 10px;
+    margin-left: 20px;
     font-size: 13px;
+    margin-bottom: 20px;
     @include respond-to(">=large") {
       font-size: 16px;
     }
@@ -129,47 +107,115 @@ section.createzuckerl {
     }
   }
 
-  .initiative-info {
-    margin-bottom: 20px;
-    @include respond-to(">=large") {
-      margin-bottom: 0;
+
+  .initiative-container {
+    padding-left: 20px;
+    > p:first-child {
+      color: $color-ambient-rosa;
+      margin-bottom: 10px;
     }
+  }
+
+  .initiative-info {
     > * {
       display: none;
     }
   }
 
-  .confirmation-block {
-    display: none;
-    margin-bottom: 60px;
-    @include respond-to(">=large") {
-      margin-bottom: 0;
+  .imgpreview {
+    min-height: 185px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: lighten($color-ambient-rosa-light, 10) repeating-linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0) 10px,
+                    rgba(0, 0, 0, 0.1) 10px,
+                    rgba(0, 0, 0, 0.1) 20px
+    );
+    canvas {
+      width: 100%;
+      display: block;
     }
-    .headline {
-      @include font-size-secondaryFont('base');
-      text-align: center;
-      margin-bottom: 20px;
-      span {
-        color: $color-ambient-rosa;
-      }
-    }
-
-    .txt {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .btn-group {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .link-subtle {
-        margin-right: 20px;
-        cursor: pointer;
-      }
-    }
-
-
   }
 
+
+
+.zuckerledit {
+  color: $color-ambient-rosa;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+
+
+
+  .confirm-block, .result-block, .billing-block {
+    display: none;
+  }
+
+  .collapsiblecontainer {
+    display: none;
+    p {
+      margin-bottom: 20px;
+    }
+    .btn-primary {
+      margin-left: auto;
+    }
+  }
+
+  .collapsibletrigger {
+    display: flex;
+    cursor: pointer;
+    color: $color-ambient-mint-dark;
+    font-style: italic;
+    margin: 0 auto;
+  }
+
+
+}
+
+
+
+.loader {
+  margin: 60px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 1.1em solid $color-ambient-mint-light;
+  border-right: 1.1em solid $color-ambient-mint-light;
+  border-bottom: 1.1em solid $color-ambient-mint-light;
+  border-left: 1.1em solid $color-ambient-mint;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

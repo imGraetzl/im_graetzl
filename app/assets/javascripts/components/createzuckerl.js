@@ -13,7 +13,6 @@ APP.components.createzuckerl = (function() {
         $descriptionpreview = $("[data-behavior=descriptionpreview]");
         $imagepreview = $("[data-behavior=imagepreview]");
         $initiativeselect = $("[data-behavior=initiativeselect]");
-        $step1btn = $("[data-behavior=step1btn]");
 
         $descriptioninput.autogrow({ onInitialize: true });
 
@@ -21,7 +20,30 @@ APP.components.createzuckerl = (function() {
         updatetitle();
         updatedescription();
         showinitiative();
-        handlebuttonmode();
+
+
+        //temp spaghetti
+        $("[data-behavior=step1] .btn-primary").on("click", function() {
+
+            $(".createzuckerl .col-l").append("<div class='loader'></div>")
+            $("[data-behavior=step1]").hide();
+            setTimeout(function() {
+                $("[data-behavior=step2]").fadeIn();
+                $(".loader").remove();
+            },1200)
+
+
+        });
+        $(".zuckerledit").on("click", function() {
+            $("[data-behavior=step1]").show();
+            $("[data-behavior=step2]").hide();
+        });
+
+
+        $(".collapsibletrigger").on("click", function() {
+            $(this).next().slideDown();
+            $(this).remove();
+        })
 
     }
 
@@ -30,10 +52,6 @@ APP.components.createzuckerl = (function() {
         $descriptioninput.on("keyup change", updatedescription);
         $imageinput.on("change", updateimage);
         $initiativeselect.on("change", showinitiative);
-        $titleinput.add($descriptioninput).add($imageinput).on("keyup change", handlebuttonmode);
-        $step1btn.on("click", confirmbooking("step2"));
-        $("[data-behavior=stepbackbtn]").on("click", confirmbooking("step1"));
-
     }
 
     function updatetitle() {
@@ -56,29 +74,6 @@ APP.components.createzuckerl = (function() {
         var index = $initiativeselect.prop('selectedIndex');
         $(".initiative-info").children().hide().eq(index).fadeIn();
     }
-
-    function handlebuttonmode() {
-        if(validatefields()) $step1btn.removeClass('-disabled');
-        else $step1btn.addClass('-disabled', true);
-    }
-
-    function validatefields() {
-        return ($titleinput.val() && $descriptioninput.val() && $imageinput.val());
-    }
-
-    function confirmbooking(mode) {
-        return function() {
-            if(mode == "step2") {
-                $(".booking-block, .preview-block .form-block").hide();
-                $(".confirmation-block").fadeIn();
-            } else if(mode == "step1") {
-                $(".booking-block, .preview-block .form-block").show();
-                $(".confirmation-block").hide();
-            }
-            $('body').scrollTop(0);
-        }
-    }
-
 
     return {
         init: init
