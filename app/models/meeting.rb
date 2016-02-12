@@ -68,5 +68,4 @@ class Meeting < ActiveRecord::Base
     notifications.destroy_all
     activity.destroy_all
   end
-
 end
