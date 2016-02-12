@@ -50,7 +50,7 @@ RSpec.shared_examples :inline_comment do
 
   include_examples :create_records
 
-  describe 'request' do
+  describe 'request', job: true do
     before do
       PublicActivity.with_tracking { xhr :post, :create, params }
     end
@@ -68,7 +68,7 @@ RSpec.shared_examples :stream_comment do
 
   include_examples :create_records
 
-  describe 'request' do
+  describe 'request', job: true do
     before do
       PublicActivity.with_tracking { xhr :post, :create, params }
     end

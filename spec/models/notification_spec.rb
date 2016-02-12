@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Notification, type: :model do
+RSpec.describe Notification, type: :model, job: true do
   before do
     ActiveJob::Base.queue_adapter = :inline
   end

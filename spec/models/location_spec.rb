@@ -107,7 +107,7 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:meetings)
     end
 
-    describe 'activities' do
+    describe 'activities', job: true do
       it 'has activities' do
         expect(location).to respond_to(:activities)
       end

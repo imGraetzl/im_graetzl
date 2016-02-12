@@ -10,6 +10,7 @@ require 'capybara/poltergeist'
 require 'public_activity/testing'
 require 'webmock/rspec'
 require 'aasm/rspec'
+require 'sucker_punch/testing/inline'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # require all spec support files
@@ -51,7 +52,7 @@ RSpec.configure do |config|
 
   # render views by default
   config.render_views
-  
+
   # configure database_cleaner (thoughtbot tutorial)
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
@@ -62,6 +63,10 @@ RSpec.configure do |config|
   end
 
   config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each, job: true) do
     DatabaseCleaner.strategy = :truncation
   end
 
