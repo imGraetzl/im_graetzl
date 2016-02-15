@@ -1,0 +1,187 @@
+section.createzuckerl {
+  overflow: hidden;
+
+  .col-l {
+    @include respond-to(">=large") {
+      padding-top: 30px;
+      float: left;
+      width: 65%;
+      margin-right: 2%;
+    }
+  }
+
+  .col-r {
+    @include respond-to(">=large") {
+      width: (33%);
+      float: right;
+    }
+  }
+
+  label {
+    @include respond-to(">=large") {
+      min-width: 155px;
+    }
+  }
+
+
+  // --------------------------------------------------- zuckerl form
+
+  .booking-block {
+    .btn-container {
+      opacity: 0;
+      margin-left: auto;
+      .btn-primary {
+        flex: 0 0 auto;
+      }
+      &.is-visible {
+        opacity: 1;
+        transition: opacity 0.3s;
+        display: table;
+        @include respond-to(">=large") {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+        }
+      }
+      span {
+        margin-bottom: 10px;
+        flex: 0 0 auto;
+        font-weight: bold;
+        font-style: italic;
+        margin-right: 20px;
+        display: block;
+        @include respond-to(">=large") {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .btn-secondary {
+      margin-left: auto;
+    }
+  }
+
+  // --------------------------------------------------- billing form
+
+  .billing-block {
+    display: none;
+    .hl {
+      @include font-size-secondaryFont();
+      text-align: center;
+      margin-bottom: 20px;
+      span {
+        color: $color-ambient-rosa;
+      }
+    }
+    .txt {
+      padding-right: 40px;
+      border-bottom: 1px dotted $color-ambient-mint;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .txt p {
+      margin-bottom: 20px;
+    }
+    .bookingdetails {
+      padding-left: 20px;
+      border-left: 1px dotted $color-ambient-grey;
+      margin-bottom: 20px;
+      @include respond-to(">=large") {
+        margin-left: 20px;
+      }
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .zuckerlID {
+      color: $color-ambient-mint-dark;
+      font-weight: bold;
+    }
+  }
+
+
+  // --------------------------------------------------- sidebar
+
+  .cardBox {
+    margin-top: -20px;
+    margin-bottom: 20px;
+    @include respond-to(">=large") {
+      margin-top: 0;
+      max-width: 317px;
+    }
+    .placeholder {
+      opacity: 0.7;
+      font-style: italic;
+    }
+  }
+
+  .basicdata {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    .headline {
+      color: $color-ambient-rosa;
+      margin-bottom: 10px;
+    }
+
+    .facts {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        padding-left: 10px;
+        font-style: italic;
+        border-left: 1px dotted $color-ambient-grey;
+        margin-bottom: 5px;
+      }
+    }
+  }
+  .initiative-container {
+    padding-left: 20px;
+    > p:first-child {
+      color: $color-ambient-rosa;
+      margin-bottom: 10px;
+    }
+  }
+  .initiative-info {
+    > * {
+      display: none;
+    }
+  }
+  .imgpreview {
+    min-height: 185px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: lighten($color-ambient-rosa-light, 10) repeating-linear-gradient(
+                    45deg,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0) 10px,
+                    rgba(0, 0, 0, 0.1) 10px,
+                    rgba(0, 0, 0, 0.1) 20px
+    );
+    canvas {
+      width: 100%;
+      display: block;
+    }
+  }
+
+}
+
+
+
+
+.collapsiblecontainer {
+  display: none;
+  p {
+    margin-bottom: 20px;
+  }
+  .btn-primary {
+    margin-left: auto;
+  }
+}
+
+.collapsibletrigger {
+  display: flex;
+  cursor: pointer;
+  color: $color-ambient-mint-dark;
+  font-style: italic;
+  margin: 0 auto;
+}

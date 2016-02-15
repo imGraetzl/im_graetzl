@@ -143,6 +143,7 @@
   p {
     margin-bottom: 10px;
   }
+
 }
 
 
@@ -209,7 +210,19 @@
     top: -4px;
     padding-right: 4px;
     right: 0;
+    color: $color-ambient-rosa;
   }
+
+  .categoryicon {
+    position: absolute;
+    top: -4px;
+    right: 0;
+    background-color: #ffffff;
+    padding: 6px 6px;
+    border-radius: 0 0 0 5px;
+    color: $color-ambient-rosa;
+  }
+
 }
 
 .cardBox.-location {

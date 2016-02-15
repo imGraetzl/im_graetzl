@@ -57,11 +57,13 @@
 @import "components/shame";
 @import "components/ctrl-graetzlselect";
 @import "components/location-shortfacts";
-@import "components/event-teaser-slice";
+@import "components/event-teaser-box";
+@import "components/zuckerl-teaser-box";
 @import "components/baumler-stoerer";
 @import "components/graetzl-ambassador";
 @import "components/tag-list";
 @import "components/category-tags";
+@import "components/initiative-info";
 
 
 //---------------------------------------------------------------------------------------------*\
@@ -79,6 +81,7 @@
 @import "controllers/footerTextHeavyPages";
 @import "controllers/usersettings";
 @import "controllers/homeOut";
+@import "controllers/createzuckerl";
 @import "controllers/graetzlZuckerl";
 @import "controllers/graetzls";
 @import "controllers/closedGraetzl";

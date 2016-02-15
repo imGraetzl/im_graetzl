@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   get 'info/impressum', to: 'static_pages#impressum'
   get 'info/infos-zum-graetzlzuckerl', to: 'static_pages#zuckerl'
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
+  get 'createzuckerl', to: 'static_pages#createzuckerl'
 
   root 'static_pages#home'
 
