@@ -24,6 +24,6 @@ class Notifications::CommentInMeeting < Notification
   end
 
   def mail_subject
-    "Neuer Kommentar in einem Treffen"
+    "Neuer Kommentar bei einem Treffen"
   end
 end
