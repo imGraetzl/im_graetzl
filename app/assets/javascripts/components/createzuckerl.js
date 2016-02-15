@@ -2,7 +2,7 @@ APP.components.createzuckerl = (function() {
 
     var $titleinput, $descriptioninput, $imageinput, $titlepreview,
         $descriptionpreview, $imagepreview, $initiativeselect,
-        $step1btn;
+        $btnconfirm, $btnsend;
 
     function init() {
 
@@ -13,6 +13,8 @@ APP.components.createzuckerl = (function() {
         $descriptionpreview = $("[data-behavior=descriptionpreview]");
         $imagepreview = $("[data-behavior=imagepreview]");
         $initiativeselect = $("[data-behavior=initiativeselect]");
+        $btnconfirm = $("[data-behavior=btn-confirm]");
+        $btnsend = $("[data-behavior=btn-send]");
 
         $descriptioninput.autogrow({ onInitialize: true });
 
@@ -20,30 +22,7 @@ APP.components.createzuckerl = (function() {
         updatetitle();
         updatedescription();
         showinitiative();
-
-
-        //temp spaghetti
-        $("[data-behavior=step1] .btn-primary").on("click", function() {
-
-            $(".createzuckerl .col-l").append("<div class='loader'></div>")
-            $("[data-behavior=step1]").hide();
-            setTimeout(function() {
-                $("[data-behavior=step2]").fadeIn();
-                $(".loader").remove();
-            },1200)
-
-
-        });
-        $(".zuckerledit").on("click", function() {
-            $("[data-behavior=step1]").show();
-            $("[data-behavior=step2]").hide();
-        });
-
-
-        $(".collapsibletrigger").on("click", function() {
-            $(this).next().slideDown();
-            $(this).remove();
-        })
+        btnclickability();
 
     }
 
@@ -52,6 +31,13 @@ APP.components.createzuckerl = (function() {
         $descriptioninput.on("keyup change", updatedescription);
         $imageinput.on("change", updateimage);
         $initiativeselect.on("change", showinitiative);
+        $btnconfirm.on("click", btnstate);
+        $("[data-behavior=zuckerlform]").on("submit", submitzuckerlform);
+        $(".collapsibletrigger").on("click", showbillingform);
+        $titleinput.add($descriptioninput).add($imageinput).on("keyup change", function() {
+            btnclickability();
+            btnstate("reset");
+        });
     }
 
     function updatetitle() {
@@ -74,6 +60,42 @@ APP.components.createzuckerl = (function() {
         var index = $initiativeselect.prop('selectedIndex');
         $(".initiative-info").children().hide().eq(index).fadeIn();
     }
+
+    function validatefields() {
+        return ($titleinput.val().length > 0 && $descriptioninput.val().length > 0 && $imageinput.val().length > 0);
+    }
+
+    function btnclickability() {
+        if(validatefields()) $btnconfirm.removeClass('-disabled');
+        else $btnconfirm.addClass('-disabled', true);
+    }
+
+    function submitzuckerlform(e) {
+        if(!$btnsend.hasClass("is-visible")) {
+            e.preventDefault();
+        } else {
+            //TODO: temporary to simulate 2nd step, we can remove this in final version ----------------------------------------------<
+            $(".billing-block").fadeIn();
+            $(".booking-block").hide();
+            e.preventDefault();
+        }
+    }
+
+    function showbillingform() {
+        $(this).next().slideDown();
+        $(this).remove();
+    }
+
+    function btnstate(mode) {
+        if(mode === "reset") {
+            $btnconfirm.show();
+            $btnsend.removeClass("is-visible");
+        } else {
+            $btnconfirm.hide();
+            $btnsend.addClass("is-visible");
+        }
+    }
+
 
     return {
         init: init

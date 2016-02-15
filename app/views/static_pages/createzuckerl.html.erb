@@ -13,77 +13,84 @@
   <div class="col-l">
 
     <!-- booking -->
-    <div class="booking-block" data-behavior="step1">
-      <div class="form-block">
-        <p class="txt">Neues <span>Grätzlzuckerl</span> von Superlocation</p>
-        <div class="input-field">
-          <label for="zuckerl_title">
-            <svg class="icon-record">
-              <use xlink:href="#icon-record"></use>
-            </svg>
-            <span>Titel</span>
-          </label>
-          <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title" maxlength="80" data-behavior="titleinput">
-        </div>
-        <div class="input-textarea">
-          <label for="zuckerl_description">
-            <svg class="icon-layout-document">
-              <use xlink:href="#icon-layout-document"></use>
-            </svg>
-            <span>Beschreibung</span>
-          </label>
-          <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description" maxlength="160" data-behavior="descriptioninput"></textarea>
-        </div>
-        <div class="upload-oldschool">
-          <label for="zuckerl_photo">
-            <svg class="icon-photo-camera">
-              <use xlink:href="#icon-photo-camera"></use>
-            </svg>
-            <span>Bild hochladen</span>
-          </label>
-          <div class="field-wrp">
-            <input type="file" id="zuckerl_photo" data-behavior="imageinput">
+    <form action="" data-behavior="zuckerlform">
+      <div class="booking-block">
+        <div class="form-block">
+          <p class="txt">Neues <span>Grätzlzuckerl</span> von Superlocation</p>
+          <div class="input-field">
+            <label for="zuckerl_title">
+              <svg class="icon-record">
+                <use xlink:href="#icon-record"></use>
+              </svg>
+              <span>Titel</span>
+            </label>
+            <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title" maxlength="80" data-behavior="titleinput">
           </div>
-        </div>
-        <div class="input-select">
-          <label for="zuckerl_support">
-            <svg class="icon-love">
-              <use xlink:href="#icon-love"></use>
-            </svg>
-            <span>Mit dem Zuckerl unterstütze ich</span>
-          </label>
-          <select id="zuckerl_support" data-behavior="initiativeselect">
-            <option>Alle Initiativen im Grätzl</option>
-            <option>lebensviertel.stuwerviertel</option>
-            <option>neuner haus</option>
-          </select>
-        </div>
-        <div class="input-labledcheckbox">
-          <label for="zuckerl_flyer">
-            <svg class="icon-open-book">
-              <use xlink:href="#icon-open-book"></use>
-            </svg>
-            <span>Grätzlzuckerl Flyer</span>
-          </label>
-          <div class="field-wrp">
-            <div class="input-checkbox">
-              <input type="checkbox" id="zuckerl_flyer" value="1">
-              <label for="zuckerl_flyer">
-                Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
-                <small>
-                  Wir kontaktieren dich sobald die nächste Print-Ausgabe für den 2. Bezirk produziert wird. Du
-                  bezahlst & buchst nur das Online Zuckerl.
-                </small>
-              </label>
+          <div class="input-textarea">
+            <label for="zuckerl_description">
+              <svg class="icon-layout-document">
+                <use xlink:href="#icon-layout-document"></use>
+              </svg>
+              <span>Beschreibung</span>
+            </label>
+            <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description" maxlength="160" data-behavior="descriptioninput"></textarea>
+          </div>
+          <div class="upload-oldschool">
+            <label for="zuckerl_photo">
+              <svg class="icon-photo-camera">
+                <use xlink:href="#icon-photo-camera"></use>
+              </svg>
+              <span>Bild hochladen</span>
+            </label>
+            <div class="field-wrp">
+              <input type="file" id="zuckerl_photo" data-behavior="imageinput">
             </div>
           </div>
+          <div class="input-select">
+            <label for="zuckerl_support">
+              <svg class="icon-love">
+                <use xlink:href="#icon-love"></use>
+              </svg>
+              <span>Mit dem Zuckerl unterstütze ich</span>
+            </label>
+            <select id="zuckerl_support" data-behavior="initiativeselect">
+              <option>Alle Initiativen im Grätzl</option>
+              <option>lebensviertel.stuwerviertel</option>
+              <option>neuner haus</option>
+            </select>
+          </div>
+          <div class="input-labledcheckbox">
+            <label for="zuckerl_flyer">
+              <svg class="icon-open-book">
+                <use xlink:href="#icon-open-book"></use>
+              </svg>
+              <span>Grätzlzuckerl Flyer</span>
+            </label>
+            <div class="field-wrp">
+              <div class="input-checkbox">
+                <input type="checkbox" id="zuckerl_flyer" value="1">
+                <label for="zuckerl_flyer">
+                  Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
+                  <small>
+                    Wir kontaktieren dich sobald die nächste Print-Ausgabe für den 2. Bezirk produziert wird. Du
+                    bezahlst & buchst nur das Online Zuckerl.
+                  </small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <button class="btn-secondary" data-behavior="btn-confirm" type="button">Weiter</button>
+          <div class="btn-container" data-behavior="btn-send">
+            <span>Stimmen deine Angaben?</span>
+            <button class="btn-primary" type="submit">Ja, Zuckerl jetzt Buchen</button>
+          </div>
         </div>
-        <button class="btn-primary">Jetzt Buchen</button>
       </div>
-    </div>
+    </form>
+
 
     <!-- billing -->
-    <div class="confirm-block" data-behavior="step2">
+    <div class="billing-block" data-behavior="step2">
       <div class="hl"><span>Vielen Dank</span> für die Buchung deines Grätzlzuckerls</div>
       <div class="txt">
         <p>Um deine Buchung erfolgreich abschließen und dein Grätzlzuckerl zeitgerecht am 01.03.2016 schalten zu können,
@@ -96,7 +103,6 @@
             BIC: GIBAATWWXXX<br/></p>
           <p>Bitte gib folgenden <strong>Verwendungszweck</strong> bei deiner Überweisung an:<br/><i class="zuckerlID">Grätzlzuckerl 2016-03-ID</i></p>
         </div>
-        <p>Bis zum erfolgten Zahlungseingang kannst du dein Zuckerl noch <span class="zuckerledit">ändern</span>. Du kannst dies auch über deine Einstellungen auf der Locationseite machen.</p>
         <p>Nach erfolgreichem Zahlungseingang senden wir dir erneut eine Bestätigung für die Schaltung deines
           Grätzlzuckerls und eine Rechnung an folgende E-Mailadresse zu: <a href="">horst.tischler@thepervert.com</a></p>
         <p>Solltest du Fragen zu deiner Buchung haben, sende uns ein E-Mail an <a href="">wir@imgraetzl.at</a></p>
@@ -106,34 +112,36 @@
           Du brauchst die Rechnung an eine bestimmte Adresse?
         </div>
         <div class="form-block collapsiblecontainer">
-          <p class="introtxt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque distinctio ea earum explicabo
-            facilis harum hic in inventore iure labore neque nobis officia perferendis, porro quam ratione rem
-            reprehenderit sequi.</p>
-          <div class="input-field">
-            <label for="user_name">
-              <span>Vorname / Nachname</span>
-            </label>
-            <input type="text" id="user_name">
-          </div>
-          <div class="input-field">
-            <label for="company">
-              <span>Firma</span>
-            </label>
-            <input type="text" id="company">
-          </div>
-          <div class="input-field">
-            <label for="adress">
-              <span>Adresse</span>
-            </label>
-            <input type="text" id="adress">
-          </div>
-          <div class="input-field">
-            <label for="plz_ort">
-              <span>PLZ / Ort</span>
-            </label>
-            <input type="text" id="plz_ort">
-          </div>
-          <button class="btn-primary" type="submit">Rechnungsdaten senden</button>
+          <form action="">
+            <p class="introtxt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque distinctio ea earum explicabo
+              facilis harum hic in inventore iure labore neque nobis officia perferendis, porro quam ratione rem
+              reprehenderit sequi.</p>
+            <div class="input-field">
+              <label for="user_name">
+                <span>Vorname / Nachname</span>
+              </label>
+              <input type="text" id="user_name">
+            </div>
+            <div class="input-field">
+              <label for="company">
+                <span>Firma</span>
+              </label>
+              <input type="text" id="company">
+            </div>
+            <div class="input-field">
+              <label for="adress">
+                <span>Adresse</span>
+              </label>
+              <input type="text" id="adress">
+            </div>
+            <div class="input-field">
+              <label for="plz_ort">
+                <span>PLZ / Ort</span>
+              </label>
+              <input type="text" id="plz_ort">
+            </div>
+            <button class="btn-primary" type="submit">Rechnungsdaten senden</button>
+          </form>
         </div>
       </div>
     </div>
@@ -145,7 +153,6 @@
 
     <div class="cardBox -location ">
       <div class="cardBoxHeader">
-        <!--<img class="coverImg" src="https://placeimg.com/300/180/arch" alt="">-->
         <div class="imgpreview" data-behavior="imagepreview"></div>
         <div class="location-shortfacts">
           <a href="#">

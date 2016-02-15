@@ -82,6 +82,11 @@
     border-color: $color-ambient-mint;
     color: $color-ambient-mint;
   }
+  &.-disabled, &[disabled] {
+    border-color: lighten($color-ambient-grey,10);
+    color: lighten($color-ambient-grey,10);
+    background-color: transparent;
+  }
 }
 
 
