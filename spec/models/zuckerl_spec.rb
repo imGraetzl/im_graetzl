@@ -14,6 +14,19 @@ RSpec.describe Zuckerl, type: :model do
     end
   end
 
+  describe 'associations' do
+    before { allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation) }
+    let(:zuckerl) { create :zuckerl }
+
+    it 'has location' do
+      expect(zuckerl).to respond_to :location
+    end
+
+    it 'has initiative' do
+      expect(zuckerl).to respond_to :initiative
+    end
+  end
+
   describe '#aasm' do
     before do
       allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation).and_return true

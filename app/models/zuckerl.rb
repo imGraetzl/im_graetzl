@@ -14,6 +14,7 @@ class Zuckerl < ActiveRecord::Base
   attr_accessor :active_admin_requested_event
 
   belongs_to :location
+  belongs_to :initiative
 
   after_commit :send_booking_confirmation, on: :create
 

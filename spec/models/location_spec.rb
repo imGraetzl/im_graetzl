@@ -60,12 +60,24 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
+    it 'has category' do
+      expect(location).to respond_to(:category)
+    end
+
+    it 'has meetings' do
+      expect(location).to respond_to(:meetings)
+    end
+
+    it 'has billing_address' do
+      expect(location).to respond_to :billing_address
+    end
+
     describe 'address' do
       it 'has address' do
         expect(location).to respond_to(:address)
       end
 
-      it 'is destroyed with location' do
+      it 'destroys address with location' do
         create :address, addressable: location
         expect{
           location.destroy
@@ -86,25 +98,17 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    it 'has category' do
-      expect(location).to respond_to(:category)
-    end
-
     describe 'contact' do
       it 'has contact' do
         expect(location).to respond_to(:contact)
       end
 
-      it 'is destroyed with location' do
+      it 'destroys contact with location' do
         create :contact, location: location
         expect{
           location.destroy
         }.to change(Contact, :count).by -1
       end
-    end
-
-    it 'has meetings' do
-      expect(location).to respond_to(:meetings)
     end
 
     describe 'activities', job: true do
@@ -138,8 +142,18 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    it 'has billing_address' do
-      expect(location).to respond_to :billing_address
+    describe 'zuckerl' do
+      before { allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation) }
+      it 'has zuckerls' do
+        expect(location).to respond_to :zuckerls
+      end
+
+      it 'destroys zuckerls with location' do
+        create_list :zuckerl, 3, location: location
+        expect{
+          location.destroy
+        }.to change(Zuckerl, :count).by -3
+      end
     end
   end
 
