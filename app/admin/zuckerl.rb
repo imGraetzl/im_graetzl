@@ -30,5 +30,6 @@ ActiveAdmin.register Zuckerl do
                 :flyer,
                 :active_admin_requested_event,
                 :paid_at,
-                :image, :remove_image
+                :image, :remove_image,
+                :initiative_id
 end

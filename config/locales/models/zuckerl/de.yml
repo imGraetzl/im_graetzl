@@ -1,0 +1,11 @@
+de:
+  activerecord:
+    models:
+      zuckerl:
+        one: Zuckerl
+        other: Zuckerl
+    attributes:
+      zuckerl:
+        description: Beschreibung
+        image: Bild
+        paid_at: Bezahlt

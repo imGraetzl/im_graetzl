@@ -7,9 +7,10 @@ active_admin_form_for [:admin, resource] do |f|
     input :image, as: :file, hint: image_tag(attachment_url(f.object, :image, :fill, 100, 100))
     input :remove_image, as: :boolean if f.object.image
     input :flyer
-    input :aasm_state, input_html: { disabled: true }, label: 'Current state'
-    input :active_admin_requested_event, label: 'Update state', as: :select, collection: f.object.aasm.events(permitted: true).map(&:name)
-    input :paid_at, as: :datepicker
+    input :initiative
+    input :aasm_state, input_html: { disabled: true }, label: 'Aktueller Status'
+    input :active_admin_requested_event, label: 'Status ändern', as: :select, collection: f.object.aasm.events(permitted: true).map(&:name)
+    input :paid_at, as: :datepicker, input_html: { size: 10 }
   end
   actions
 end

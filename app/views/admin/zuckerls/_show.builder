@@ -10,6 +10,7 @@ context.instance_eval do
     row :flyer
     row(:aasm_state){|z| status_tag(z.aasm_state)}
     row :paid_at
+    row :initiative
     row :created_at
     row :updated_at
   end
