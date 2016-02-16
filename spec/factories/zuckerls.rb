@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :zuckerl do
     location
-    title { Faker::Company.catch_phrase }
+    title { Faker::Lorem.characters(80) }
     description { Faker::Lorem.paragraph }
   end
 end

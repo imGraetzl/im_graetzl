@@ -1,4 +1,5 @@
 class Zuckerl < ActiveRecord::Base
+  extend FriendlyId
   include AASM
   # class NotifierThing
   #   def initialize(zuckerl)
@@ -11,12 +12,15 @@ class Zuckerl < ActiveRecord::Base
   # end
 
   attachment :image, type: :image
+  friendly_id :title
   attr_accessor :active_admin_requested_event
 
   belongs_to :location
   belongs_to :initiative
 
   after_commit :send_booking_confirmation, on: :create
+
+  validates :title, presence: true, length: { in: 4..80 }
 
   aasm do
     state :pending, initial: true

@@ -12,6 +12,10 @@ RSpec.describe Zuckerl, type: :model do
     it 'has virtual attribute for admin event request' do
       expect(zuckerl).to respond_to :active_admin_requested_event
     end
+
+    it 'has friendly_id' do
+      expect(zuckerl).to respond_to :slug
+    end
   end
 
   describe 'associations' do
@@ -24,6 +28,20 @@ RSpec.describe Zuckerl, type: :model do
 
     it 'has initiative' do
       expect(zuckerl).to respond_to :initiative
+    end
+  end
+
+  describe 'validations' do
+    it 'is invalid without title' do
+      expect(build :zuckerl, title: '').not_to be_valid
+    end
+
+    it 'is invalid with title < 4' do
+      expect(build :zuckerl, title: Faker::Lorem.characters(3)).not_to be_valid
+    end
+
+    it 'is invalid with title > 80' do
+      expect(build :zuckerl, title: Faker::Lorem.characters(100)).not_to be_valid
     end
   end
 
