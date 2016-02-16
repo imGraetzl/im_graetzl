@@ -25,7 +25,8 @@ namespace :db do
         password: 'secret',
         role: :admin,
         graetzl: Graetzl.find_by_name('Stuwerviertel'),
-        confirmed_at: Time.now)
+        confirmed_at: Time.now,
+        slug: user)
       File.open(Rails.root+"lib/assets/avatars/#{user}.gif", 'rb') do |file|
         new_user.avatar = file
       end
@@ -40,7 +41,8 @@ namespace :db do
       password: 'secret',
       role: :business,
       graetzl: Graetzl.find_by_name('Stuwerviertel'),
-      confirmed_at: Time.now)
+      confirmed_at: Time.now,
+      slug: user)
     File.open(Rails.root+'lib/assets/avatars/user_1.jpg', 'rb') do |file|
       user_1.avatar = file
     end
