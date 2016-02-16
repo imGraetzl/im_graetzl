@@ -86,11 +86,14 @@ Rails.application.routes.draw do
   resources :locations, except: [:index, :show] do
     concerns :graetzl_before_new
     resources :posts, module: :locations, only: [:create]
+    resources :zuckerls, except: [:index, :show]
   end
 
   resources :meetings, path: :treffen, except: [:index, :show] do
     resources :comments, module: :meetings, only: [:index, :create]
   end
+
+  resources :zuckerls, only: [:new]
 
   resources :comments, only: [:destroy]
 
