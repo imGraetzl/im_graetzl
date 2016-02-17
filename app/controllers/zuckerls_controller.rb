@@ -3,7 +3,7 @@ class ZuckerlsController < ApplicationController
 
   def new
     set_location or return
-
+    @zuckerl = @location.zuckerls.build
   end
 
   def index

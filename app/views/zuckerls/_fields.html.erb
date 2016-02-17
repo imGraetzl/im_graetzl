@@ -1,0 +1,73 @@
+<div class="input-field">
+  <%= f.label :title do %>
+    <svg class="icon-record">
+      <use xlink:href="#icon-record"></use>
+    </svg>
+    <span><%= Zuckerl.human_attribute_name :title %></span>
+  <% end %>
+  <%= f.text_field :title,
+    placeholder: 'Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)',
+    id: 'zuckerl_title',
+    maxlength: 80,
+    data: { behavior: 'titleinput' } %>
+</div>
+
+<div class="input-textarea">
+  <%= f.label :description do %>
+    <svg class="icon-layout-document">
+      <use xlink:href="#icon-layout-document"></use>
+    </svg>
+    <span><%= Zuckerl.human_attribute_name :description %></span>
+  <% end %>
+  <%= f.text_area :description,
+    placeholder: 'Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)',
+    id: 'zuckerl_description',
+    maxlength: 160,
+    data: { behavior: 'descriptioninput'} %>
+</div>
+
+<div class="upload-oldschool">
+  <label for="zuckerl_photo">
+    <svg class="icon-photo-camera">
+      <use xlink:href="#icon-photo-camera"></use>
+    </svg>
+    <span>Bild hochladen</span>
+  </label>
+  <div class="field-wrp">
+    <input type="file" id="zuckerl_photo" data-behavior="imageinput">
+  </div>
+</div>
+
+<div class="input-select">
+  <%= f.label :initiative_id do %>
+    <svg class="icon-love">
+      <use xlink:href="#icon-love"></use>
+    </svg>
+    <span>Mit dem Zuckerl unterstütze ich</span>
+  <% end %>
+  <%= f.select :initiative_id,
+    options_from_collection_for_select(f.object.location.graetzl.initiatives, :id, :name),
+    data: { behavior: 'initiativeselect' },
+    id: 'zuckerl_support' %>
+</div>
+
+<div class="input-labledcheckbox">
+  <%= f.label :flyer do %>
+    <svg class="icon-open-book">
+      <use xlink:href="#icon-open-book"></use>
+    </svg>
+    <span>Grätzlzuckerl Flyer</span>
+  <% end %>
+  <div class="field-wrp">
+    <div class="input-checkbox">
+      <%= f.check_box :flyer %>
+      <%= f.label :flyer do %>
+        Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
+        <small>
+          Wir kontaktieren dich sobald die nächste Print-Ausgabe für deinen Bezirk produziert wird. Du
+          bezahlst & buchst nur das Online Zuckerl.
+        </small>
+      <% end %>
+    </div>
+  </div>
+</div>
