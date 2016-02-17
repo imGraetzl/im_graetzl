@@ -11,4 +11,14 @@ section.startloggedin {
     transform: translate(-20px,0);
   }
 
+  .filter-stream {
+    margin-bottom: 40px;
+  }
+
+  .cards-container {
+    .cardBox {
+      max-width: 320px;
+    }
+  }
+
 }

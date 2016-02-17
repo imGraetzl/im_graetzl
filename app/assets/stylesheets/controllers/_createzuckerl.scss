@@ -8,13 +8,6 @@ section.createzuckerl {
       width: 65%;
       margin-right: 2%;
     }
-
-    .cardBox {
-      @include respond-to(">=medium") {
-        @include cardBox-horizontal();
-      }
-    }
-
   }
 
   .col-r {
