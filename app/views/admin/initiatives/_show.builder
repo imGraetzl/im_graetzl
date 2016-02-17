@@ -6,7 +6,7 @@ context.instance_eval do
         row :name
         row :description
         row :image do |i|
-          i.image ? attachement_image_tag(i, :image, :fill, 100, 100) : nil
+          i.image ? attachment_image_tag(i, :image, :fit, 100, 100) : nil
         end
         row :website
         row :graetzls
