@@ -3,7 +3,7 @@
     <div class="imgpreview" data-behavior="imagepreview"></div>
     <div class="location-shortfacts">
       <%= link_to [location.graetzl, location] do %>
-        <img class="img-square" src="http://www.imgraetzl.at/attachments/25da7aa39f57ba4685438e18199b4c93e36ff34a/store/fill/200/200/2ef1a113e444791a6780e3ad9808d67d0144ccaafbc74edbf918c29e032b/avatar.jpeg" alt="Avatar">
+        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
         <div class="name"><%= location.name %></div>
       <% end %>
 
@@ -46,23 +46,15 @@
       gehen 50% deiner Buchung gezielt an diese. Wählst du "Alle", werden die 50% gleichmäßig an alle verteilt.
     </p>
 
-    <div>
-      <div class="name">lebensviertel.stuwerviertel</div>
-      <p class="description">
-        <img class="logo" src="/assets/img/logo-stuwerviertel.jpg" alt="">
-        ist eine gemeinsame Initiative des "Vereins der Freunde des Vorgartenmarktes" und des
-        Einkaufsstraßenvereins "Die 1. im 2ten - Einkaufen im Stuwerviertel“. Unter „lebensviertel.stuwerviertel“
-        wollen die beiden Vereine in Kooperation mit der Gebietsbetreuung GB*2/20 – das Stuwerviertel zu einem der
-        fünf lebenswertesten Wohn- und Geschäftsviertel in Wien machen.</p>
-      <a class="homepage" href="http://www.stuwerviertel.at" target="_blank">www.stuwerviertel.at</a>
-    </div>
-    <div>
-      <div class="name">neuner haus</div>
-      <p class="description">
-        <img class="logo" src="/assets/img/logo-neunerhaus.jpg" alt="">
-        Das neunerhaus gibt Obdach. Und mehr. Wir bieten Wohnraum, sozialarbeiterische sowie medizinische
-        Betreuung und ermöglichen obdachlosen Menschen ein selbst bestimmtes und menschenwürdiges Wohnen.</p>
-      <a class="homepage" href="http://www.neunerhaus.at" target="_blank">www.neunerhaus.at</a>
-    </div>
+    <% location.graetzl.initiatives.each do |initiative| %>
+      <div>
+        <div class="name"><%= initiative.name %></div>
+        <p class="description">
+          <%= attachment_image_tag(initiative, :image, :fit, 100, 200, class: 'logo') if initiative.image %>
+          <%= initiative.description %>
+        </p>
+        <%= link_to initiative.website.sub(/^https?\:\/\//,''), initiative.website, target: '_blank' %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -47,6 +47,7 @@
   <% end %>
   <%= f.select :initiative_id,
     options_from_collection_for_select(f.object.location.graetzl.initiatives, :id, :name),
+    {include_blank: 'Alle'},
     data: { behavior: 'initiativeselect' },
     id: 'zuckerl_support' %>
 </div>
