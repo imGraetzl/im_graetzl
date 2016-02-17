@@ -1,5 +1,14 @@
 module LocationsHelper
 
+  def location_meta(location)
+    desc = ''
+    if address = location.address
+      desc << "#{address.street_name} #{address.street_number.split(%r{/}).first}, #{address.zip} #{address.city} "
+    end
+    desc << location.description
+    desc[0..154]
+  end
+
   def edit_status(location)
     if location.new_record?
       'Anlegen'
@@ -9,7 +18,7 @@ module LocationsHelper
       else
         'Übernehmen'
       end
-    end   
+    end
   end
 
   def link_to_add_address_fields(name, f)

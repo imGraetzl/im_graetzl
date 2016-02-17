@@ -21,26 +21,20 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe 'macros' do
+  describe 'attr macros' do
     let(:location) { create(:location) }
 
     it 'has friendly_id' do
       expect(location).to respond_to(:slug)
     end
 
-    it 'has state' do
+    it 'has state default :pending' do
       expect(location).to respond_to(:state)
-    end
-
-    it 'has default state :pending' do
       expect(location.pending?).to be true
     end
 
-    it 'has meeting_permission' do
+    it 'has meeting_permission, default :meetable' do
       expect(location).to respond_to(:meeting_permission)
-    end
-
-    it 'has default meeting_permission :meetable' do
       expect(location.meetable?).to be true
     end
 
@@ -54,7 +48,7 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:cover_photo_content_type)
     end
 
-    it 'has product_list' do
+    it 'has product_list (tags)' do
       expect(location).to respond_to :product_list
     end
   end
@@ -66,60 +60,67 @@ RSpec.describe Location, type: :model do
       expect(location).to respond_to(:graetzl)
     end
 
-    it 'has address' do
-      expect(location).to respond_to(:address)
-    end
-
-    it 'destroys address when destroy' do
-      create(:address, addressable: location)
-      expect{
-        location.destroy
-      }.to change(Address, :count).by(-1)
-    end
-
-    it 'has users' do
-      expect(location).to respond_to(:users)
-    end
-
-    it 'destroys location_onwerships when destroy' do
-      create_list(:location_ownership, 3, location: location)
-      expect{
-        location.destroy
-      }.to change(LocationOwnership, :count).by(-3)
-    end
-
     it 'has category' do
       expect(location).to respond_to(:category)
-    end
-
-    it 'has contact' do
-      expect(location).to respond_to(:contact)
-    end
-
-    it 'destroys contact when destroy' do
-      create(:contact, location: location)
-      expect{
-        location.destroy
-      }.to change(Contact, :count).by(-1)
     end
 
     it 'has meetings' do
       expect(location).to respond_to(:meetings)
     end
 
-    it 'has activities' do
-      expect(location).to respond_to(:activities)
+    it 'has billing_address' do
+      expect(location).to respond_to :billing_address
     end
 
-    describe 'activities and notifications', job: true do
-      before do
+    describe 'address' do
+      it 'has address' do
+        expect(location).to respond_to(:address)
+      end
+
+      it 'destroys address with location' do
+        create :address, addressable: location
+        expect{
+          location.destroy
+        }.to change(Address, :count).by -1
+      end
+    end
+
+    describe 'users' do
+      it 'has users' do
+        expect(location).to respond_to(:users)
+      end
+
+      it 'destroys ownerships with location' do
+        create_list :location_ownership, 3, location: location
+        expect{
+          location.destroy
+        }.to change(LocationOwnership, :count).by -3
+      end
+    end
+
+    describe 'contact' do
+      it 'has contact' do
+        expect(location).to respond_to(:contact)
+      end
+
+      it 'destroys contact with location' do
+        create :contact, location: location
+        expect{
+          location.destroy
+        }.to change(Contact, :count).by -1
+      end
+    end
+
+    describe 'activities', job: true do
+      it 'has activities' do
+        expect(location).to respond_to(:activities)
+      end
+
+      it 'destroys activities and notifications with location' do
         3.times do
           activity = create(:activity, trackable: location, key: 'location.something')
           create_list(:notification, 3, activity: activity)
         end
-      end
-
-      it 'destroys activity and notifications when destroy' do
         expect(PublicActivity::Activity.count).to eq 3
         expect(Notification.count).to eq 9
         location.destroy
@@ -128,15 +129,31 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    it 'has posts' do
-      expect(location).to respond_to(:posts)
+    describe 'posts' do
+      it 'has posts' do
+        expect(location).to respond_to(:posts)
+      end
+
+      it 'destroys posts with location' do
+        create_list(:post, 3, author: location)
+        expect{
+          location.destroy
+        }.to change(Post, :count).by -3
+      end
     end
 
-    it 'destroys posts when destroy' do
-      create_list(:post, 3, author: location)
-      expect{
-        location.destroy
-      }.to change(Post, :count).by(-3)
+    describe 'zuckerl' do
+      before { allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation) }
+      it 'has zuckerls' do
+        expect(location).to respond_to :zuckerls
+      end
+
+      it 'destroys zuckerls with location' do
+        create_list :zuckerl, 3, location: location
+        expect{
+          location.destroy
+        }.to change(Zuckerl, :count).by -3
+      end
     end
   end
 
@@ -198,7 +215,7 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#approve', job: true do
+  describe '#approve' do
     context 'when location pending' do
       let(:location) { create(:location, state: Location.states[:pending]) }
 
@@ -268,48 +285,17 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#meta_description' do
-    let(:address) { create(:address,
-                            street_name: 'street',
-                            street_number: '2/2/2',
-                            zip: '1050',
-                            city: 'Wien') }
-
-    context 'when address and description' do
-      let(:location) { build(:location, address: address) }
-
-      subject(:meta) { location.meta_description }
-
-      it 'includes street_name, zip and city' do
-        expect(meta).to include(address.street_name, address.zip, address.city)
-      end
-
-      it 'includes first part of street_number' do
-        expect(meta).to include("#{address.street_name} 2")
-        expect(meta).not_to include('/')
-      end
-
-      it 'is not longer than 155 chars' do
-        expect(meta.size).to be <= 155
-      end
-
-      it 'contains part of the description' do
-        expect(meta).to include(location.description[0..50])
-      end
+  describe '#boss' do
+    let(:location) { create :location }
+    let(:owner) { create :user }
+    before do
+      create(:location_ownership, user: owner, location: location)
+      create_list(:location_ownership, 3, location: location)
     end
 
-    context 'without address' do
-      let(:location) { build(:location, address: nil) }
-
-      subject(:meta) { location.meta_description }
-
-      it 'is not longer than 155 chars' do
-        expect(meta.size).to be <= 155
-      end
-
-      it 'contains part of the description' do
-        expect(meta).to include(location.description[0..50])
-      end
+    it 'returs first user' do
+      expect(location.users.count).to eq 4
+      expect(location.boss).to eq owner
     end
   end
 end

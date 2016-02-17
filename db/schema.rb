@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128115238) do
+ActiveRecord::Schema.define(version: 20160216101726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,21 @@ ActiveRecord::Schema.define(version: 20160128115238) do
   end
 
   add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
+
+  create_table "billing_addresses", force: :cascade do |t|
+    t.integer  "location_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "company"
+    t.string   "street"
+    t.string   "zip"
+    t.string   "city"
+    t.string   "country"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "billing_addresses", ["location_id"], name: "index_billing_addresses_on_location_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -175,6 +190,16 @@ ActiveRecord::Schema.define(version: 20160128115238) do
 
   add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
+  create_table "initiatives", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "image_id"
+    t.string   "image_content_type"
+    t.string   "website"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "location_ownerships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "location_id"
@@ -238,6 +263,16 @@ ActiveRecord::Schema.define(version: 20160128115238) do
     t.boolean  "display_on_website", default: false
     t.string   "type"
   end
+
+  create_table "operating_ranges", force: :cascade do |t|
+    t.integer  "graetzl_id"
+    t.integer  "initiative_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "operating_ranges", ["graetzl_id"], name: "index_operating_ranges_on_graetzl_id", using: :btree
+  add_index "operating_ranges", ["initiative_id"], name: "index_operating_ranges_on_initiative_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.text     "content"
@@ -304,9 +339,9 @@ ActiveRecord::Schema.define(version: 20160128115238) do
     t.text     "bio"
     t.string   "website"
     t.integer  "weekly_mail_notifications",                 default: 0
-    t.integer  "daily_mail_notifications",                  default: 0
-    t.integer  "immediate_mail_notifications"
-    t.integer  "enabled_website_notifications"
+    t.integer  "daily_mail_notifications",                  default: 7
+    t.integer  "immediate_mail_notifications",              default: 4088
+    t.integer  "enabled_website_notifications",             default: 4088
     t.boolean  "newsletter",                                default: false, null: false
   end
 
@@ -315,5 +350,24 @@ ActiveRecord::Schema.define(version: 20160128115238) do
   add_index "users", ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
+
+  create_table "zuckerls", force: :cascade do |t|
+    t.integer  "location_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "image_id"
+    t.string   "image_content_type"
+    t.boolean  "flyer",              default: false
+    t.string   "aasm_state"
+    t.datetime "paid_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "initiative_id"
+    t.string   "slug"
+  end
+
+  add_index "zuckerls", ["initiative_id"], name: "index_zuckerls_on_initiative_id", using: :btree
+  add_index "zuckerls", ["location_id"], name: "index_zuckerls_on_location_id", using: :btree
+  add_index "zuckerls", ["slug"], name: "index_zuckerls_on_slug", using: :btree
 
 end

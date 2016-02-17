@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/klappradla/im_graetzl.svg?branch=master)](https://travis-ci.org/klappradla/im_graetzl)
-[![Code Climate](https://codeclimate.com/github/klappradla/im_graetzl/badges/gpa.svg)](https://codeclimate.com/github/klappradla/im_graetzl)
 # imGrätzl
 
 Ruby on Rails social network app Vienna.
@@ -36,7 +35,6 @@ general:
 for local development:
 
 * `$ rake db:populate` to populate DB with sample data
-
 
 ## Development with Vagrant
 
@@ -158,14 +156,6 @@ The app uses [puma](https://github.com/puma/puma) in all environments.
 
 
 ### Tests
-
-#### Database Cleaner
-
-Within the tests, all jobs (run via the awesome [Sucker Punch](https://github.com/brandonhilkert/sucker_punch)) are run inline, but in a separate thread. This requires to utilize Database Cleaners `:truncate` strategy for all specs logging activity or creating jobs. Mark them with:
-
-```ruby
-job: true
-```
 
 #### Views
 

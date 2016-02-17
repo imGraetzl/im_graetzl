@@ -10,7 +10,9 @@
 %>
 
 <section class="districts">
-  <%= render 'map', map_data: @map_data %>
+  <%= cache [@district, 'map'], expires_in: 2.months do %>
+    <%= render 'map', map_data: @map_data %>
+  <% end %>
   <div class="block-meetings">
     <div class="hl-subtext">
       <h1>Mach mit - <span>Treffen & Events</span> im <%= @district.numeric %>. Bezirk</h1>

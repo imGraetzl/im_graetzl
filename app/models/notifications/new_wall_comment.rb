@@ -12,7 +12,7 @@ class Notifications::NewWallComment < Notification
   end
 
   def self.description
-    "Die Pinnwand auf meinem Profil hat einen neuen Kommentar"
+    'Die Pinnwand auf meinem Profil hat einen neuen Kommentar'
   end
 
   def mail_vars
@@ -26,6 +26,6 @@ class Notifications::NewWallComment < Notification
   end
 
   def mail_subject
-    "Neuer Beitrag an deiner Pinnwand"
+    'Neuer Beitrag an deiner Pinnwand'
   end
 end

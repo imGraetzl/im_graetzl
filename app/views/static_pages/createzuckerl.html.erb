@@ -1,0 +1,332 @@
+<script>
+
+  $(document).ready(function () {
+    APP.components.createzuckerl.init();
+  })
+
+</script>
+
+
+<section class="createzuckerl">
+
+
+  <div class="col-l">
+
+
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+
+        <div class="categoryicon">
+          <svg class="icon-shopping-bag">
+            <use xlink:href="#icon-shopping-bag"></use>
+          </svg>
+        </div>
+      </div>
+
+
+      <div class="cardBoxContent">
+        <div class="zuckerlteasertxt">
+          <div class="title">Grätzlzuckerl: -10% auf alle Kuchen von 01. bis 15. Feb</div>
+          <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, soluta.</div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <!-- booking -->
+    <form action="" data-behavior="zuckerlform">
+      <div class="booking-block">
+        <div class="form-block">
+          <p class="txt">Neues <span>Grätzlzuckerl</span> von Superlocation</p>
+          <div class="input-field">
+            <label for="zuckerl_title">
+              <svg class="icon-record">
+                <use xlink:href="#icon-record"></use>
+              </svg>
+              <span>Titel</span>
+            </label>
+            <input placeholder="Gib deinem Angebot einen knackigen Titel ... (80 Zeichen)" type="text" id="zuckerl_title" maxlength="80" data-behavior="titleinput">
+          </div>
+          <div class="input-textarea">
+            <label for="zuckerl_description">
+              <svg class="icon-layout-document">
+                <use xlink:href="#icon-layout-document"></use>
+              </svg>
+              <span>Beschreibung</span>
+            </label>
+            <textarea placeholder="Beschreibe dein Angebot in 1-2 Sätzen ... (160 Zeichen)" id="zuckerl_description" maxlength="160" data-behavior="descriptioninput"></textarea>
+          </div>
+          <div class="upload-oldschool">
+            <label for="zuckerl_photo">
+              <svg class="icon-photo-camera">
+                <use xlink:href="#icon-photo-camera"></use>
+              </svg>
+              <span>Bild hochladen</span>
+            </label>
+            <div class="field-wrp">
+              <input type="file" id="zuckerl_photo" data-behavior="imageinput">
+            </div>
+          </div>
+          <div class="input-select">
+            <label for="zuckerl_support">
+              <svg class="icon-love">
+                <use xlink:href="#icon-love"></use>
+              </svg>
+              <span>Mit dem Zuckerl unterstütze ich</span>
+            </label>
+            <select id="zuckerl_support" data-behavior="initiativeselect">
+              <option>Alle Initiativen im Grätzl</option>
+              <option>lebensviertel.stuwerviertel</option>
+              <option>neuner haus</option>
+            </select>
+          </div>
+          <div class="input-labledcheckbox">
+            <label for="zuckerl_flyer">
+              <svg class="icon-open-book">
+                <use xlink:href="#icon-open-book"></use>
+              </svg>
+              <span>Grätzlzuckerl Flyer</span>
+            </label>
+            <div class="field-wrp">
+              <div class="input-checkbox">
+                <input type="checkbox" id="zuckerl_flyer" value="1">
+                <label for="zuckerl_flyer">
+                  Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
+                  <small>
+                    Wir kontaktieren dich sobald die nächste Print-Ausgabe für den 2. Bezirk produziert wird. Du
+                    bezahlst & buchst nur das Online Zuckerl.
+                  </small>
+                </label>
+              </div>
+            </div>
+          </div>
+          <button class="btn-secondary" data-behavior="btn-confirm" type="button">Weiter</button>
+          <div class="btn-container" data-behavior="btn-send">
+            <span>Stimmen deine Angaben?</span>
+            <button class="btn-primary" type="submit">Ja, Zuckerl jetzt Buchen</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+    <!-- billing -->
+    <div class="billing-block" data-behavior="step2">
+      <div class="hl"><span>Vielen Dank</span> für die Buchung deines Grätzlzuckerls</div>
+      <div class="txt">
+        <p>Um deine Buchung erfolgreich abschließen und dein Grätzlzuckerl zeitgerecht am 01.03.2016 schalten zu können,
+          überweise bitte den noch offenen Betrag an folgende Kontoverbindung.</p>
+        <div class="bookingdetails">
+          <p><strong>Gesamtbetrag: 18,00 €</strong> (inkl. 20% Mwst.)</p>
+          <p><strong>Kontoverbindung:</strong><br/>
+            morgenjungs GmbH<br/>
+            IBAN: AT03 2011 1826 6988 6500<br/>
+            BIC: GIBAATWWXXX<br/></p>
+          <p>Bitte gib folgenden <strong>Verwendungszweck</strong> bei deiner Überweisung an:<br/><i class="zuckerlID">Grätzlzuckerl 2016-03-ID</i></p>
+        </div>
+        <p>Nach erfolgreichem Zahlungseingang senden wir dir erneut eine Bestätigung für die Schaltung deines
+          Grätzlzuckerls und eine Rechnung an folgende E-Mailadresse zu: <a href="">horst.tischler@thepervert.com</a></p>
+        <p>Solltest du Fragen zu deiner Buchung haben, sende uns ein E-Mail an <a href="">wir@imgraetzl.at</a></p>
+      </div>
+      <div class="collapsible">
+        <div class="collapsibletrigger">
+          Du brauchst die Rechnung an eine bestimmte Adresse?
+        </div>
+        <div class="form-block collapsiblecontainer">
+          <form action="">
+            <p class="introtxt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque distinctio ea earum explicabo
+              facilis harum hic in inventore iure labore neque nobis officia perferendis, porro quam ratione rem
+              reprehenderit sequi.</p>
+            <div class="input-field">
+              <label for="user_name">
+                <span>Vorname / Nachname</span>
+              </label>
+              <input type="text" id="user_name">
+            </div>
+            <div class="input-field">
+              <label for="company">
+                <span>Firma</span>
+              </label>
+              <input type="text" id="company">
+            </div>
+            <div class="input-field">
+              <label for="adress">
+                <span>Adresse</span>
+              </label>
+              <input type="text" id="adress">
+            </div>
+            <div class="input-field">
+              <label for="plz_ort">
+                <span>PLZ / Ort</span>
+              </label>
+              <input type="text" id="plz_ort">
+            </div>
+            <button class="btn-primary" type="submit">Rechnungsdaten senden</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="col-r">
+
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+
+        <!--
+        <div class="imgpreview" data-behavior="imagepreview"></div>
+        -->
+
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+
+        <div class="calendarSheet">
+          <div class="day">17</div>
+          <div class="month">Feb</div>
+        </div>
+
+
+        <!--
+        <div class="sideflag -R"><a href="#">Stuwerviertel</a></div>
+        -->
+
+
+        <div class="categoryicon">
+          <svg class="icon-shopping-bag">
+            <use xlink:href="#icon-shopping-bag"></use>
+          </svg>
+        </div>
+      </div>
+
+
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people" alt="">
+          <span>Merti67</span>
+        </div>
+
+        <!--
+        <div class="location-shortfacts">
+          <a href="#" class="locationlogo">
+            <img class="img-square" src="https://placeimg.com/200/200/people" alt="Avatar">
+          </a>
+          <div class="locationtxt">
+            <a href="">
+              <div class="name">Superlocation</div>
+            </a>
+            <div class="category">Unternehmen &amp; Start-ups</div>
+            <div class="address">
+              <svg class="icon-location">
+                <use xlink:href="#icon-location"></use>
+              </svg>
+              Am Graben 1
+            </div>
+          </div>
+        </div>
+  -->
+
+        <div class="slogan">Lorem ipsum dolor sit.</div>
+
+        <div class="zuckerlteasertxt">
+          <div class="title" data-behavior="titlepreview"></div>
+          <div class="description" data-behavior="descriptionpreview"></div>
+        </div>
+
+        <div class="event-teaser-box">
+          <div class="date">
+            <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+            12.12.2016
+          </div>
+          <div class="title">Lorem ipsum.</div>
+        </div>
+
+
+        <div class="txt">
+          <h3><a href="">Das ist ein Titel</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, ratione.</p>
+        </div>
+
+        <a class="btn-primary -mint" href="#">Mitmachen</a>
+
+
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people" alt=""></a>
+              <span class="userAndType">Beitrag von <a href="#">jack</a> <span>vor etwa 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores consequatur ea, sit soluta voluptate.</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?2" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+
+    <div class="basicdata">
+      <div class="headline">Eckdaten</div>
+      <ul class="facts">
+        <li><strong>Laufzeit:</strong> März 2016</li>
+        <li><strong>Grätzl:</strong> Karmeliterviertel & 2. Bezirk</li>
+        <li><strong>Preis:</strong> 18€ (inkl. 3€ MwSt.)</li>
+      </ul>
+    </div>
+
+    <div class="initiative-container">
+      <p>Mit deinem Zuckerl unterstützt du:</p>
+      <div class="initiative-info">
+        <p class="defaulttext">Mit deiner Buchung kannst du gezielt Initiativen aus dem Grätzl unterstützen. Wählst du
+          eine Initiative, so
+          gehen 50% deiner Buchung gezielt an diese. Wählst du "Alle", werden die 50% gleichmäßig an alle verteilt.
+        </p>
+
+        <div>
+          <div class="name">lebensviertel.stuwerviertel</div>
+          <p class="description">
+            <img class="logo" src="/assets/img/logo-stuwerviertel.jpg" alt="">
+            ist eine gemeinsame Initiative des "Vereins der Freunde des Vorgartenmarktes" und des
+            Einkaufsstraßenvereins "Die 1. im 2ten - Einkaufen im Stuwerviertel“. Unter „lebensviertel.stuwerviertel“
+            wollen die beiden Vereine in Kooperation mit der Gebietsbetreuung GB*2/20 – das Stuwerviertel zu einem der
+            fünf lebenswertesten Wohn- und Geschäftsviertel in Wien machen.</p>
+          <a class="homepage" href="http://www.stuwerviertel.at" target="_blank">www.stuwerviertel.at</a>
+        </div>
+        <div>
+          <div class="name">neuner haus</div>
+          <p class="description">
+            <img class="logo" src="/assets/img/logo-neunerhaus.jpg" alt="">
+            Das neunerhaus gibt Obdach. Und mehr. Wir bieten Wohnraum, sozialarbeiterische sowie medizinische
+            Betreuung und ermöglichen obdachlosen Menschen ein selbst bestimmtes und menschenwürdiges Wohnen.</p>
+          <a class="homepage" href="http://www.neunerhaus.at" target="_blank">www.neunerhaus.at</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</section>

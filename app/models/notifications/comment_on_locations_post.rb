@@ -28,6 +28,6 @@ class Notifications::CommentOnLocationsPost < Notification
   end
 
   def mail_subject
-    "Neuer Kommentar auf deinen Beitrag"
+    'Neuer Kommentar auf deinen Beitrag'
   end
 end

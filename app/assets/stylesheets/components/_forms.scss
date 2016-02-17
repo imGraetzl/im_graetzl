@@ -33,7 +33,7 @@ input, select, textarea {
   }
   input, select, textarea {
     &:last-of-type {
-      border-radius: 0 4px 4px 0;
+      //     border-radius: 0 4px 4px 0;
     }
   }
 
@@ -73,9 +73,6 @@ input, select, textarea {
   @extend .input-plain;
   width: 100%;
   flex-grow: 1;
-  &:last-of-type {
-    border-radius: 0 0 4px 4px;
-  }
   &[disabled], &[readonly] {
     background-color: $color-ambient-grey-light;
     color: $color-ambient-grey !important;
@@ -206,8 +203,8 @@ input, select, textarea {
       display: block;
       position: absolute;
       left: 0;
-      top: 50%;
-      transform: translate(0, -50%);
+      // top: 50%;
+      // transform: translate(0, -50%);
       width: 20px;
       height: 20px;
       background-color: $color-ambient-mint-light;
@@ -234,6 +231,39 @@ input, select, textarea {
     }
   }
 }
+
+
+.input-labledcheckbox {
+
+  > label {
+    @extend %label;
+  }
+  .field-wrp {
+    @extend %input;
+    background-color: #ffffff;
+    box-shadow: none;
+    border: 1px solid $color-ambient-mint-light;
+    label {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  @include respond-to(">=medium") {
+    @include field-HorizontalLayout;
+    > label {
+      padding-top: 20px;
+      align-items: flex-start;
+      [class^=icon-] {
+        margin-top: -5px;
+      }
+    }
+  }
+
+}
+
+
+
 
 .input-radio {
   @extend %checks;
@@ -453,6 +483,7 @@ input:-webkit-autofill {
   .input-textarea,
   .input-select,
   .upload-oldschool,
+  .input-labledcheckbox,
   .input-tags {
     margin-bottom: 2.0rem;
   }

@@ -11,6 +11,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.8.0)
     actionmailer (4.2.5.1)
       actionpack (= 4.2.5.1)
       actionview (= 4.2.5.1)
@@ -30,6 +31,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionview-encoded_mail_to (1.0.7)
+      rails
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
       bourbon
@@ -313,6 +316,8 @@ GEM
       sprockets (>= 3.0.0)
     sucker_punch (2.0.0)
       concurrent-ruby (~> 1.0.0)
+    test_after_commit (0.4.2)
+      activerecord (>= 3.2)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -356,6 +361,8 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  aasm
+  actionview-encoded_mail_to
   activeadmin (~> 1.0.0.pre2)
   activerecord-postgis-adapter
   acts-as-taggable-on
@@ -394,6 +401,7 @@ DEPENDENCIES
   sitemap_generator
   spring
   sucker_punch
+  test_after_commit
   therubyracer
   tzinfo-data
   uglifier

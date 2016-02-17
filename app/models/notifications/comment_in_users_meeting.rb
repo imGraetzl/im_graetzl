@@ -12,7 +12,7 @@ class Notifications::CommentInUsersMeeting < Notification
   end
 
   def self.description
-    "Mein erstelltes Treffen wurde kommentiert"
+    'Mein erstelltes Treffen wurde kommentiert'
   end
 
   def mail_vars
@@ -28,6 +28,6 @@ class Notifications::CommentInUsersMeeting < Notification
   end
 
   def mail_subject
-    "Neuer Kommentar in deinem Treffen"
+    'Neuer Kommentar bei deinem Treffen'
   end
 end

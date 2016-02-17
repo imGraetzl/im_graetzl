@@ -12,7 +12,7 @@ class Notifications::CommentOnUsersPost < Notification
   end
 
   def self.description
-    "Mein erstellter Beitrag wurde kommentiert"
+    'Mein erstellter Beitrag wurde kommentiert'
   end
 
   def mail_vars
@@ -28,6 +28,6 @@ class Notifications::CommentOnUsersPost < Notification
   end
 
   def mail_subject
-    "Neuer Kommentar auf deinen Beitrag"
+    'Neuer Kommentar auf deinen Beitrag'
   end
 end

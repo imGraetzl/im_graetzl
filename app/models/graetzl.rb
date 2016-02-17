@@ -15,6 +15,8 @@ class Graetzl < ActiveRecord::Base
   has_many :meetings, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :locations, dependent: :destroy
+  has_many :operating_ranges
+  has_many :initiatives, through: :operating_ranges
 
   # instance methods
   def districts

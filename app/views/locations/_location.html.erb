@@ -1,27 +1,38 @@
 <% small ||= false %>
-<div class="cardBox -location <%= '-small' if small %>">
+<div class="cardBox">
   <div class="cardBoxHeader">
     <%= cover_photo_for(location) %>
-    <div class="location-shortfacts <%= '-small' if small %>">
-      <%= link_to [location.graetzl, location] do %>
-        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
-        <div class="name"><%= location.name %></div>
-      <% end %>
-      <div class="category"><%= location.category.name %></div>
-      <% if location.address %>
-        <div class="address">
-          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
-          <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
-        </div>
-      <% end %>
-    </div>
     <div class="sideflag -R"><%= link_to location.graetzl.name, location.graetzl %></div>
   </div>
-  <div class="slogan"><%= location.slogan %></div>
-  <% unless small %>
-    <div class="txt"><%= truncate(location.description, length: 100) %></div>
-  <% end %>
-  <% if next_meeting = location.meetings.basic.upcoming.first %>
-    <%= render 'locations/meeting_teaser', meeting: next_meeting %>
-  <% end %>
+
+  <div class="cardBoxContent">
+    <div class="location-shortfacts">
+      <%= link_to [location.graetzl, location], class: 'locationlogo' do %>
+        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
+      <% end %>
+      <div class="locationtxt">
+        <%= link_to [location.graetzl, location] do %>
+          <div class="name"><%= location.name %></div>
+        <% end %>
+        <div class="category"><%= location.category.name %></div>
+        <% if location.address %>
+          <div class="address">
+            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+            <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="slogan"><%= location.slogan %></div>
+    <% unless small %>
+      <div class="txt"><%= truncate(location.description, length: 100) %></div>
+    <% end %>
+    <% if next_meeting = location.meetings.basic.upcoming.first %>
+      <%= render 'locations/meeting_teaser', meeting: next_meeting %>
+    <% end %>
+
+  </div>
+
 </div>

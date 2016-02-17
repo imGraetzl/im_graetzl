@@ -12,7 +12,7 @@ class Notifications::AttendeeInUsersMeeting < Notification
   end
 
   def self.description
-    "Mein erstelltes Treffen hat einen neuen Teilnehmer"
+    'Mein erstelltes Treffen hat einen neuen Teilnehmer'
   end
 
   def mail_vars

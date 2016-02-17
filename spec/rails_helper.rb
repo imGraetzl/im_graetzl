@@ -9,6 +9,7 @@ require 'database_cleaner'
 require 'capybara/poltergeist'
 require 'public_activity/testing'
 require 'webmock/rspec'
+require 'aasm/rspec'
 require 'sucker_punch/testing/inline'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -65,7 +66,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
   end
 
-  # Clean up all jobs specs with truncation
   config.before(:each, job: true) do
     DatabaseCleaner.strategy = :truncation
   end

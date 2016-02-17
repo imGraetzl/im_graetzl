@@ -9,87 +9,64 @@ RSpec.describe Graetzl, type: :model do
   describe 'associations' do
     let(:graetzl) { create(:graetzl) }
 
-    it 'has curator' do
-      expect(graetzl).to respond_to(:curator)
-    end
-
     it 'has users' do
       expect(graetzl).to respond_to(:users)
     end
 
-    it 'has meetings' do
-      expect(graetzl).to respond_to(:meetings)
+    it 'has initiatives' do
+      expect(graetzl).to respond_to :initiatives
+      expect(graetzl).to respond_to :operating_ranges
     end
 
-    it 'has posts' do
-      expect(graetzl).to respond_to(:posts)
+    describe 'meetings' do
+      it 'has meetings' do
+        expect(graetzl).to respond_to(:meetings)
+      end
+
+      it 'destroys meetings' do
+        create_list :meeting, 3, graetzl: graetzl
+        expect{
+          graetzl.destroy
+        }.to change(Meeting, :count).by -3
+      end
     end
 
-    it 'has locations' do
-      expect(graetzl).to respond_to(:locations)
+    describe 'posts' do
+      it 'has posts' do
+        expect(graetzl).to respond_to :posts
+      end
+
+      it 'destroys posts' do
+        create_list :post, 3, graetzl: graetzl
+        expect{
+          graetzl.destroy
+        }.to change(Post, :count).by -3
+      end
     end
 
-    describe 'destroy associated records' do
-      describe 'meetings' do
-        before { 3.times { create(:meeting, graetzl: graetzl) } }
-
-        it 'has meetings' do
-          expect(graetzl.meetings.count).to eq(3)
-        end
-
-        it 'destroys meetings' do
-          meetings = graetzl.meetings
-          graetzl.destroy
-          meetings.each do |meeting|
-            expect(Meeting.find_by_id(meeting.id)).to be_nil
-          end
-        end
+    describe 'locations' do
+      it 'has locations' do
+        expect(graetzl).to respond_to(:locations)
       end
 
-      describe 'posts' do
-        before { 3.times { create(:post, graetzl: graetzl) } }
-
-        it 'has posts' do
-          expect(graetzl.posts.count).to eq(3)
-        end
-
-        it 'destroys posts' do
-          posts = graetzl.posts
+      it 'destroys locations' do
+        create_list :location, 3, graetzl: graetzl
+        expect{
           graetzl.destroy
-          posts.each do |post|
-            expect(Post.find_by_id(post.id)).to be_nil
-          end
-        end
+        }.to change(Location, :count).by -3
+      end
+    end
+
+    describe 'curator' do
+      it 'has curator' do
+        expect(graetzl).to respond_to :curator
       end
 
-      describe 'locations' do
-        before { 3.times { create(:location, graetzl: graetzl) } }
-
-        it 'has locations' do
-          expect(graetzl.locations.count).to eq(3)
-        end
-
-        it 'destroys locations' do
-          locations = graetzl.locations
+      it 'destroys curator' do
+        create :curator, graetzl: graetzl
+        expect{
           graetzl.destroy
-          locations.each do |location|
-            expect(Location.find_by_id(location.id)).to be_nil
-          end
-        end
-      end
-
-      describe 'curator' do
-        before { create(:curator, graetzl: graetzl) }
-
-        it 'has curator' do
-          expect(graetzl.curator).to be
-        end
-
-        it 'destroys curator' do
-          expect{
-            graetzl.destroy
-          }.to change(Curator, :count).by(-1)
-        end
+        }.to change(Curator, :count).by(-1)
       end
     end
   end
@@ -136,7 +113,7 @@ RSpec.describe Graetzl, type: :model do
     end
   end
 
-  describe '#activity', job: true do
+  describe '#activity' do
     let(:graetzl) { create(:graetzl) }
 
     context 'when no activity in graetzl' do

@@ -8,7 +8,7 @@ class Notifications::AlsoCommentedPost < Notification
   end
 
   def self.description
-    "Es gibt neue Antworten auf Inhalte die ich auch kommentiert habe"
+    'Es gibt neue Antworten auf Inhalte die ich auch kommentiert habe'
   end
 
   def mail_vars
@@ -24,6 +24,6 @@ class Notifications::AlsoCommentedPost < Notification
   end
 
   def mail_subject
-    "Neue Antwort bei Beitrag"
+    'Neue Antwort bei Beitrag'
   end
 end

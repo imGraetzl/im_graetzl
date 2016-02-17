@@ -1,9 +1,8 @@
-class Notifications::ImmediateMail < Notifications::MandrillMessage
+class Notifications::ImmediateMail < MandrillMessage
 
   def initialize(notification)
     @notification = notification
-    super(@notification.user)
-    @template_name = @notification.mail_template
+    super(@notification.user, template: @notification.mail_template)
   end
 
   def deliver

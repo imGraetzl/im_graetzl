@@ -1,4 +1,4 @@
-class Notifications::DailyMail < Notifications::MandrillMessage
+class Notifications::DailyMail < MandrillMessage
   MANDRILL_TEMPLATE = 'daily-notifications'
   BLOCKS = [
     {
@@ -16,9 +16,8 @@ class Notifications::DailyMail < Notifications::MandrillMessage
   ]
 
   def initialize(user)
-    super(user)
+    super(user, template: MANDRILL_TEMPLATE)
     @notifications = @user.notifications_of_the_day
-    @template_name = MANDRILL_TEMPLATE
   end
 
   def deliver

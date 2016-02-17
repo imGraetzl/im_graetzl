@@ -38,7 +38,7 @@ RSpec.shared_examples :create_records do
     }.to change(Comment, :count).by(1)
   end
 
-  it 'creates new activity record', job: true do
+  it 'creates new activity record' do
     expect {
       PublicActivity.with_tracking { xhr :post, :create, params }
     }.to change(PublicActivity::Activity, :count).by(1)

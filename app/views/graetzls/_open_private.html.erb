@@ -1,6 +1,6 @@
 <div class="block-overview">
   <div class="cardBoxCollection -quart">
-    <div class="wrp-cardBox">
+    <div class="cardbox-wrp">
       <h2>Treffen & Events</h2>
       <%= link_to 'Alle', graetzl_meetings_path(@graetzl), class: 'linkoverview' %>
       <% if meeting = @graetzl.meetings.basic.upcoming.first %>
@@ -15,7 +15,7 @@
       <% end %>
     </div>
 
-    <div class="wrp-cardBox">
+    <div class="cardbox-wrp">
       <h2>Initiativen</h2>
       <div class="cardBox initiativeBox -illuteasersmall">
         <div class="txt">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <div class="wrp-cardBox">
+    <div class="cardbox-wrp">
       <h2>Anbieter & Locations</h2>
       <%= link_to 'Alle', graetzl_locations_path(@graetzl), class: 'linkoverview' %>
       <% if location = @graetzl.locations.approved.order("RANDOM()").first %>
@@ -40,7 +40,7 @@
       <% end %>
     </div>
 
-    <div class="wrp-cardBox">
+    <div class="cardbox-wrp">
       <h2>Besondere Angebote</h2>
       <div class="cardBox candyBox -illuteasersmall">
         <div class="txt">

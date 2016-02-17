@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
 
-  post 'worker/daily_mail', to: 'worker#daily_mail'
-  post 'worker/weekly_mail', to: 'worker#weekly_mail'
-  #post 'worker/backup', to: 'worker#backup'
-  #post 'worker/truncate_db', to: 'worker#truncate_db'
-  #post 'worker/truncate_eb', to: 'worker#truncate_eb'
-  #post 'worker/sitemap', to: 'worker#sitemap'
-
   # routing concerns
   concern :graetzl_before_new do
     collection do
@@ -73,6 +66,7 @@ Rails.application.routes.draw do
   get 'info/impressum', to: 'static_pages#impressum'
   get 'info/infos-zum-graetzlzuckerl', to: 'static_pages#zuckerl'
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
+  get 'createzuckerl', to: 'static_pages#createzuckerl'
 
   get 'startnew_in', to: 'static_pages#startnew_in'
 

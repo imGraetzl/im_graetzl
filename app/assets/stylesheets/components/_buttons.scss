@@ -48,7 +48,7 @@
     }
   }
 
-  &.-disabled {
+  &.-disabled, &[disabled] {
     background-color: lighten($color-ambient-grey,10);
     cursor: none;
     pointer-events: none;
@@ -81,6 +81,11 @@
   &.-mint {
     border-color: $color-ambient-mint;
     color: $color-ambient-mint;
+  }
+  &.-disabled, &[disabled] {
+    border-color: lighten($color-ambient-grey,10);
+    color: lighten($color-ambient-grey,10);
+    background-color: transparent;
   }
 }
 

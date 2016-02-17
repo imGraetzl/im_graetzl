@@ -1,6 +1,6 @@
 ActiveAdmin.register ActsAsTaggableOn::Tag, as: 'Tag' do
   actions :index, :show, :update, :edit, :destroy
-  menu parent: 'Locations'
+  menu parent: :locations
 
   # index
   index do

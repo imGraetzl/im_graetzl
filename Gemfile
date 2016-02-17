@@ -63,6 +63,7 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'webmock'
+  gem 'test_after_commit'
 end
 
 # Use ActiveModel has_secure_password
@@ -106,3 +107,7 @@ gem 'sitemap_generator'
 gem 'whenever', require: false
 # tagging
 gem 'acts-as-taggable-on'
+# obfuscate email addresses
+gem 'actionview-encoded_mail_to'
+# state machine
+gem 'aasm'

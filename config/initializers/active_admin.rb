@@ -3,7 +3,7 @@ ActiveAdmin.setup do |config|
   # config for formtastic
   Formtastic::FormBuilder.action_class_finder = Formtastic::ActionClassFinder
   Formtastic::FormBuilder.input_class_finder = Formtastic::InputClassFinder
-  
+
   # == Site Title
   #
   # Set the title that is displayed on the main layout
@@ -142,8 +142,6 @@ ActiveAdmin.setup do |config|
   #
   # You can add before, after and around filters to all of your
   # Active Admin resources and pages from here.
-  #
-  #config.before_filter :set_admin_locale
 
   # == Setting a Favicon
   #

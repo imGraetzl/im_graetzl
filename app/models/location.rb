@@ -9,16 +9,15 @@ class Location < ActiveRecord::Base
                                       .padding(page == 1 ? 0 : -1) }
 
 
-  # macros
+  # attr macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
-  enum location_type: { business: 0, public_space: 1, vacancy: 2 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
   acts_as_taggable_on :products
 
-  # associations
+  # associations macros
   belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
   has_many :posts, as: :author, dependent: :destroy
@@ -30,11 +29,9 @@ class Location < ActiveRecord::Base
   has_many :users, through: :location_ownerships
   belongs_to :category
   has_many :meetings
-
-  # has_many :categorizations, as: :categorizable
-  # accepts_nested_attributes_for :categorizations, allow_destroy: true
-  # has_many :categories, through: :categorizations
-
+  has_many :zuckerls, dependent: :destroy
+  has_one :billing_address, dependent: :destroy
+  accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
   # validations
   validates :name, presence: true
@@ -72,11 +69,8 @@ class Location < ActiveRecord::Base
     self.meetable? || (self.owner_meetable? && users.include?(user))
   end
 
-  def meta_description
-    desc = ''
-    desc << "#{address.street_name} #{address.street_number.split(%r{/}).first}, #{address.zip} #{address.city} " if address
-    desc << description
-    desc[0..154]
+  def boss
+    location_ownerships.order(:created_at).first.user
   end
 
   private

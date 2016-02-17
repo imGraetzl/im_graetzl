@@ -8,7 +8,7 @@ class Notifications::NewMeeting < Notification
   end
 
   def self.description
-    "Ein neues Treffen wurde im Grätzl erstellt"
+    'Ein neues Treffen wurde im Grätzl erstellt'
   end
 
   def mail_vars

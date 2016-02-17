@@ -1,20 +1,14 @@
 ActiveAdmin.register Location do
   include ViewInApp
   menu priority: 4
+  includes :graetzl, :category, :posts, :meetings, :zuckerls, :billing_address
 
   scope :all, default: true
   scope :pending
   scope :approved
 
-  # index
-  index do
-    render 'index', context: self
-  end
-
-  # filter
   filter :graetzl
   filter :category
-  #filter :products
   filter :products, as: :check_boxes, collection: proc { Location.product_counts.map{|p| p.name} }
   filter :name
   filter :slogan
@@ -25,28 +19,9 @@ ActiveAdmin.register Location do
   filter :created_at
   filter :updated_at
 
-  # show
-  show do
-    render 'show', context: self
-  end
-
-  # form
+  index { render 'index', context: self }
+  show { render 'show', context: self }
   form partial: 'form'
-
-  # controller actions
-  collection_action :new_from_address, method: :post do
-    address = Address.find(params[:address])
-    @location = Location.new(name: address.description,
-      state: 'approved',
-      graetzl: address.graetzl,
-      contact: Contact.new)
-    @location.build_address(street_name: address.street_name,
-      street_number: address.street_number,
-      zip: address.zip,
-      city: address.city,
-      coordinates: address.coordinates)
-  end
-
 
   # batch actions
   batch_action :approve do |ids|
@@ -63,7 +38,6 @@ ActiveAdmin.register Location do
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden abgelehnt.'
   end
 
-
   # action buttons
   action_item :approve, only: :show, if: proc{ location.pending? } do
     link_to 'Location Freischalten', approve_admin_location_path(location), { method: :put }
@@ -72,7 +46,6 @@ ActiveAdmin.register Location do
   action_item :reject, only: :show, if: proc{ location.pending? } do
     link_to 'Location Ablehnen', reject_admin_location_path(location), { method: :put }
   end
-
 
   # member actions
   member_action :approve, method: :put do
@@ -128,5 +101,15 @@ ActiveAdmin.register Location do
       :id,
       :user_id,
       :state,
-      :_destroy]
+      :_destroy],
+    billing_address_attributes: [
+      :id,
+      :_destroy,
+      :first_name,
+      :last_name,
+      :company,
+      :street,
+      :zip,
+      :city,
+      :country]
 end

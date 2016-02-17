@@ -11,7 +11,9 @@
 <% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming, param_name: :upcoming, params: { scope: :upcoming } )) unless params[:past].present? %>
 
 <section class="districts">
-  <%= render 'districts/map', map_data: @map_data %>
+  <%= cache [@district, 'meetingsmap'], expires_in: 2.months do %>
+    <%= render 'districts/map', map_data: @map_data %>
+  <% end %>
   <div class="meeting-block">
     <h1 class="hl-main">Treffen, Events & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span></h1>
     <div id="upcoming" class="cardBoxCollection -tripple js-moveActionCard3rd">

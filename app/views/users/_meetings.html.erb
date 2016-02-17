@@ -6,7 +6,7 @@
   <div id="tab-1">
     <!-- Dies als defaulttext nehmen -->
     <!-- <div class="defaultText">Im Moment sind keine Treffen geplant.</div> -->
-    <div id="initiated" class="meetingBoxCollection -tripple" data-tabID="one">
+    <div id="initiated" class="cardBoxCollection -tripple" data-tabID="one">
       <%= render @initiated %>
     </div>
     <%= view_more_scoped(@initiated, :initiated) %>
@@ -14,7 +14,7 @@
   <div id="tab-2">
     <!-- Dies als defaulttext nehmen -->
     <!-- <div class="defaultText">Der User hat an noch keinen Treffen teilgenommen..</div> -->
-    <div id="attended" class="meetingBoxCollection -tripple" data-tabID="two">
+    <div id="attended" class="cardBoxCollection -tripple" data-tabID="two">
       <%= render @attended %>
     </div>
     <%= view_more_scoped(@attended, :attended) %>

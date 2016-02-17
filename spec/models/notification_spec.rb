@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model, job: true do
+  before do
+    ActiveJob::Base.queue_adapter = :inline
+  end
   around(:each) do |example|
     PublicActivity.with_tracking do
       example.run
