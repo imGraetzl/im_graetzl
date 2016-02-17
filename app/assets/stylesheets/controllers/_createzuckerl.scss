@@ -8,6 +8,13 @@ section.createzuckerl {
       width: 65%;
       margin-right: 2%;
     }
+
+    .cardBox {
+      @include respond-to(">=medium") {
+        @include cardBox-horizontal();
+      }
+    }
+
   }
 
   .col-r {
@@ -102,11 +109,10 @@ section.createzuckerl {
   // --------------------------------------------------- sidebar
 
   .cardBox {
-    margin-top: -20px;
+   // margin-top: -20px;
     margin-bottom: 20px;
     @include respond-to(">=large") {
       margin-top: 0;
-      max-width: 317px;
     }
     .placeholder {
       opacity: 0.7;

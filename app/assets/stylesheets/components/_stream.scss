@@ -1,3 +1,4 @@
+
 .streamEntryNav {
   display: flex;
   margin-bottom: 8px;
@@ -44,7 +45,6 @@
   @include respond-to(">=large") {
     margin: 0 auto;
   }
-
   h3 {
     @include font-size-secondaryFont('large');
     text-align: center;
@@ -53,8 +53,6 @@
       color: $color-ambient-rosa;
     }
   }
-
-
   .link-loadcomments {
     font-size: 12px;
     color: #69a8a7;
@@ -65,7 +63,6 @@
       margin-left: 60px;
     }
   }
-
 }
 
 .entryCreate {
@@ -170,6 +167,8 @@
 
 }
 
+
+
 .streamElement {
   max-width: 650px;
   margin: 0 auto 80px auto;
@@ -178,13 +177,6 @@
 .entryInitialContent {
   margin-bottom: 24px;
   position: relative;
-  .headline, .txt {
-    @include respond-to(">=medium") {
-      margin-left: 60px;
-      position: relative;
-      z-index: 5;
-    }
-  }
   .headline {
     font-weight: 600;
     margin-bottom: 5px;
@@ -192,35 +184,35 @@
   .txt {
     margin-bottom: 1rem;
   }
-  .entryImgUploads {
-    @include respond-to(">=medium") {
-      padding-left: 60px;
-    }
-  }
 }
 
 .entryUserComment {
   margin-bottom: 20px;
-  @include respond-to(">=medium") {
-    padding-left: 60px;
-  }
   .txt {
     margin-bottom: 1rem;
-    @include respond-to(">=medium") {
-      padding-left: 50px;
-    }
   }
   .img-round {
     width: 40px;
     height: 40px;
   }
-  .entryImgUploads {
-    @include respond-to(">=medium") {
-      padding-left: 50px;
+}
+.stream .streamElement {
+  @include respond-to(">=medium") {
+    .headline, .txt {
+      margin-left: 60px;
+      position: relative;
+      z-index: 5;
+    }
+    .entryImgUploads { padding-left: 60px; }
+    .entryUserComment { padding-left: 60px; }
+    .entryUserComment .txt { padding-left: 50px; }
+    .entryUserComment { padding-left: 60px; }
+    .entryCommentForm { padding-left: 60px; }
+    .entryCommentForm.is-focused {
+      .img-round { display: block; }
     }
   }
 }
-
 
 
 .entryNewParticipants {
@@ -273,9 +265,6 @@
 }
 
 .entryCommentForm {
-  @include respond-to(">=medium") {
-    padding-left: 60px;
-  }
   textarea {
     background-color: #ffffff;
     border: 1px solid $color-ambient-grey-light;
@@ -306,19 +295,13 @@
     margin-right: 8px;
   }
   button {
-    @extend .btn-primary;
-    @extend .btn-primary.-small;
-    background-color: $color-ambient-grey;
+    @extend .btn-secondary;
+    @extend .btn-secondary.-small;
+    @extend .btn-secondary.-rose;
     float: right;
   }
 }
-.entryCommentForm.is-focused {
-  .img-round {
-    @include respond-to(">=medium") {
-      display: block;
-    }
-  }
-}
+
 
 
 .meetingTeaser {

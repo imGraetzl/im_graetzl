@@ -13,21 +13,28 @@
 
     <div class="sideflag -R"><%= link_to meeting.graetzl.name, meeting.graetzl %></div>
 
-    <% if initiator = meeting.initiator %>  
+    <div class="categoryicon">
+      <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+      <div class="count"><%= meeting.users.count %></div>
+    </div>
+
+  </div>
+
+  <div class="cardBoxContent">
+    <% if initiator = meeting.initiator %>
       <div class="initiator">
         <%= avatar_for initiator %>
         <span><%= initiator.username %></span>
       </div>
     <% end %>
 
-    <div class="participantsCountSmall">
-      <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
-      <%= meeting.users.count %>
+    <div class="txt">
+      <h3><%= link_to meeting.name, [meeting.graetzl, meeting] %></h3>
+      <p><%= truncate(meeting.description, length: 100) %></p>
     </div>
 
+    <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
   </div>
 
-  <h3><%= link_to meeting.name, [meeting.graetzl, meeting] %></h3>
-  <div class="txt"><%= truncate(meeting.description, length: 100) %></div>
-  <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
+
 </div>

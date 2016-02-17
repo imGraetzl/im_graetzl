@@ -1,175 +1,36 @@
-
-.meetingBoxCollection, .cardBoxCollection {
-  @include cf();
-  @include respond-to(">=large") {
-    margin-left: -25px;
-    margin-right: -25px;
+@mixin cardBox-horizontal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  .cardBoxHeader {
+    flex: 0 0 49%;
+    margin: 0;
   }
-  .meetingBox, .cardBox, .paperCard {
-    display: block;
-    margin-bottom: 25px;
+  .cardBoxContent {
+    flex: 0 0 49%;
+    margin: 0;
   }
-
-  .cardbox-wrp:only-child {
-    margin: 0 auto;
-    float: none;
+  .location-shortfacts {
+    margin-top: 0;
   }
-
-  &.-double {
-    > * {
-      @include respond-to(">=large") {
-        @include col(1/2, $gutter: 2, $cycle: 2);
-      }
-    }
-  }
-
-  &.-tripple {
-    > * {
-      @include respond-to(">=medium") {
-        @include col(1/2, $cycle: 2, $gutter: 1.5);
-      }
-      @include respond-to(">=large") {
-        @include col(1/3, $cycle: 3, $uncycle: 2, $gutter: 1.5);
-      }
-    }
-  }
-
-  &.-quart {
-    > * {
-      margin-bottom: 30px;
-      @include respond-to(">=medium") {
-        @include col(1/2, $cycle: 2);
-      }
-      @include respond-to(">=large") {
-        @include col(1/4, $gutter: 1, $uncycle: 2);
-        margin-bottom: 0;
-      }
-    }
-
-    .coverImg {
-      @include respond-to(">=large") {
-        min-height: 132px;
-      }
-    }
-
-    .meetingBox, .cardBox {
-      padding-bottom: 15px;
-      h3 {
-        @include font-size-primaryFont('large');
-        &:first-child {
-          margin-top: 5px;
-          margin-bottom: 10px;
-        }
-      }
-    }
-
-    h3 + .txt {
-      display: none;
-    }
-
+  .zuckerlteasertxt .title {
+    border-radius: 0 4px 4px 0;
   }
 }
 
-.wrp-cardBox, .cardbox-wrp {
-  position: relative;
-  h2:first-child {
-    @include font-size-secondaryFont('small');
-    color: $color-ambient-mint-dark;
-    margin-left: 12px;
-    margin-bottom: 4px;
-    a {
-      text-decoration: none;
-      color: inherit;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-  .link-more {
-    margin: 0 auto;
-    display: table;
-    margin-top: 10px;
-    @include respond-to(">=medium") {
-      margin-left: auto;
-      margin-right: 10px;
-    }
-  }
-  .linkoverview {
-    position: absolute;
-    right: 15px;
-    top: 6px;
-    font-size: 13px;
-    color: $color-ambient-mint;
-    border-left: 1px dotted $color-ambient-mint;
-    padding-left: 8px;
-    cursor: pointer;
-    &:hover {
-      color: $color-ambient-rosa;
-      text-decoration: underline;
-    }
-  }
-}
 
-.meetingBox, .cardBox {
+.cardBox {
   border: 1px solid $color-ambient-grey-light;
   background-color: #ffffff;
-  padding: 8px 16px 20px 16px;
+  padding: 14px;
   border-radius: 8px;
   position: relative;
-  h3 {
-    @include font-size-primaryFont('larger');
-    margin-bottom: 15px;
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-  }
-  .txt {
-    @include font-size-primaryFont('base');
-    margin-bottom: 15px;
-    position: relative;
-  }
-
-  .medalBadge {
-    position: absolute;
-    bottom: -25px;
-    right: 7px;
-  }
-
-  > :last-child {
-    margin-bottom: 0;
-  }
-
-  p {
-    margin-bottom: 10px;
-  }
-
 }
 
 
-.cardBox[class*=-illu] {
-  background-repeat: no-repeat;
-  background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
-  background-position: center top 15px;
-}
-
-//TODO: make a small variant for 4column views
-.cardBox.-illuteaser {
-  padding-top: 188px;
-  background-size: auto 180px;
-}
-.cardBox.-illuteasersmall {
-  padding-top: 177px;
-  background-size: auto 170px;
-}
-
-
-
-.meetingBoxHeader, .cardBoxHeader {
+.cardBoxHeader {
   position: relative;
-  margin-left: -8px;
-  margin-right: -8px;
-  margin-bottom: 3.5rem;
+  margin: -6px -6px 20px;
   .coverImg {
     width: 100%;
     border-radius: 4px;
@@ -183,23 +44,6 @@
     bottom: -10px;
     right: -20px;
   }
-  .initiator {
-    position: absolute;
-    bottom: -22px;
-    left: 5px;
-    img {
-      vertical-align: bottom;
-      position: relative;
-      bottom: 0;
-      left: 0;
-    }
-    span {
-      color: $color-ambient-mint-dark;
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-      vertical-align: bottom;
-    }
-  }
   .calendarSheet {
     position: absolute;
     top: 5px;
@@ -212,36 +56,73 @@
     right: 0;
     color: $color-ambient-rosa;
   }
-
   .categoryicon {
     position: absolute;
     top: -4px;
-    right: 0;
+    right: -4px;
     background-color: #ffffff;
     padding: 6px 6px;
     border-radius: 0 0 0 5px;
-    color: $color-ambient-rosa;
+    color: $color-ambient-mint;
+    [class*=icon-shop] {
+      color: $color-ambient-rosa;
+    }
+    .count {
+      text-align: center;
+      font-size: 13px;
+    }
   }
-
 }
 
-.cardBox.-location {
 
-  .cardBoxHeader {
+.cardBoxContent {
+  .zuckerlteasertxt {
     margin-bottom: 20px;
+    color: $color-ambient-rosa-dark;
+    > .title {
+      border-left: 1px dotted $color-ambient-rosa-dark;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background-color: $color-ambient-rosa-light;
+      font-weight: 600;
+    }
   }
-
-  .sideflag {
-    bottom: auto;
-    top: 20px;
+  .event-teaser-box {
+    margin-bottom: 20px;
+    background-color: $color-ambient-mint-light;
+    border-left: 1px dotted $color-ambient-mint-dark;
+    color: $color-ambient-mint-dark;
+    padding: 15px;
+    > .date {
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      margin-bottom: 7px;
+      font-size: 13px;
+      [class^=icon-] {
+        margin-right: 6px;
+      }
+    }
+    > .title {
+      font-weight: 600;
+    }
   }
-
-  .location-shortfacts {
-    z-index: 8;
-    background-color: rgba(255,255,255,0.80);
-    margin-top: -60px;
+  .txt {
+    margin-bottom: 20px;
+    h3 a {
+      @include font-size-primaryFont('larger');
+      margin-bottom: 10px;
+      color: inherit;
+      text-decoration: none;
+    }
+    p {
+      @include font-size-primaryFont('base');
+      margin-bottom: 15px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
-
   .slogan {
     margin-bottom: 15px;
     font-style: italic;
@@ -249,38 +130,107 @@
     border-left: 1px dotted $color-ambient-grey;
   }
 
-  .category {
-    margin-bottom: 13px;
+  .userCreateInfo .img-round {
+    width: 35px;
+    height: 35px;
+    padding: 1px;
   }
 
+  > .btn-primary {
+    margin-bottom: 20px;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+  p {
+    margin-bottom: 10px;
+  }
+}
+.cardBoxContent .initiator {
+  margin: -47px 0 20px 0;
+  img {
+    vertical-align: bottom;
+    position: relative;
+    bottom: 0;
+    left: 0;
+  }
+  span {
+    color: $color-ambient-mint-dark;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    vertical-align: bottom;
+  }
+}
+.cardBoxContent .location-shortfacts {
+  z-index: 8;
+  position: relative;
+  background-color: rgba(255,255,255,0.80);
+  display: flex;
+  align-items: flex-start;
+  margin: -81px -10px 15px -10px;
+  padding: 10px 10px 0 10px;
+  .locationlogo {
+    display: block;
+    flex: 0 0 auto;
+    margin-right: 10px;
+  }
+  .locationtxt {
+    min-width: 0;
+  }
   .img-square {
     width: 80px;
     height: 80px;
-    border-radius: 4px;
-    img {
-      display: block;
+    display: block;
+  }
+  .name {
+    @include ellipsis();
+  }
+  .category {
+    @include ellipsis();
+    margin-bottom: 12px;
+  }
+  .address {
+    @include ellipsis();
+    font-size: 13px;
+    margin-left: -3px;
+    color: $color-ambient-mint-dark;
+    span {
+      color: $color-ambient-rosa;
+      border-left: 1px dotted $color-ambient-grey;
+      padding-left: 8px;
+      margin-left: 8px;
+    }
+    [class^=icon-] {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-top: -2px;
     }
   }
-
 }
 
-.cardBox.-location.-small {
 
-  .location-shortfacts {
-    background-color: transparent;
-    margin-top: -36px;
-  }
 
-  .cardBoxHeader {
-    margin-bottom: 4px;
-  }
 
-  .slogan {
-    border-left: none;
-    padding-left: 0;
-    font-style: normal;
-  }
 
+// TODO: we should not need this -illustuff after new versions of startpages
+.cardBox[class*=-illu] {
+  background-repeat: no-repeat;
+  background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
+  background-position: center top 15px;
 }
+
+.cardBox.-illuteaser {
+  padding-top: 188px;
+  background-size: auto 180px;
+}
+.cardBox.-illuteasersmall {
+  padding-top: 177px;
+  background-size: auto 170px;
+}
+
+
 
 

@@ -1,0 +1,110 @@
+.cardBoxCollection {
+  @include cf();
+  @include respond-to(">=large") {
+    margin-left: -25px;
+    margin-right: -25px;
+  }
+  .cardBox, .paperCard {
+    display: block;
+    margin-bottom: 25px;
+  }
+
+  .cardbox-wrp:only-child {
+    margin: 0 auto;
+    float: none;
+  }
+
+  &.-double {
+    > * {
+      @include respond-to(">=large") {
+        @include col(1/2, $gutter: 2, $cycle: 2);
+      }
+    }
+  }
+
+  &.-tripple {
+    > * {
+      @include respond-to(">=medium") {
+        @include col(1/2, $cycle: 2, $gutter: 1.5);
+      }
+      @include respond-to(">=large") {
+        @include col(1/3, $cycle: 3, $uncycle: 2, $gutter: 1.5);
+      }
+    }
+  }
+
+  &.-quart {
+    > * {
+      margin-bottom: 30px;
+      @include respond-to(">=medium") {
+        @include col(1/2, $cycle: 2);
+      }
+      @include respond-to(">=large") {
+        @include col(1/4, $gutter: 1, $uncycle: 2);
+        margin-bottom: 0;
+      }
+    }
+
+    .coverImg {
+      @include respond-to(">=large") {
+        min-height: 132px;
+      }
+    }
+
+    .cardBox {
+      padding-bottom: 15px;
+      h3 {
+        @include font-size-primaryFont('large');
+        &:first-child {
+          margin-top: 5px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    h3 + .txt {
+      display: none;
+    }
+
+  }
+}
+
+.cardbox-wrp {
+  position: relative;
+  h2:first-child {
+    @include font-size-secondaryFont('small');
+    color: $color-ambient-mint-dark;
+    margin-left: 12px;
+    margin-bottom: 4px;
+    a {
+      text-decoration: none;
+      color: inherit;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .link-more {
+    margin: 0 auto;
+    display: table;
+    margin-top: 10px;
+    @include respond-to(">=medium") {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+  }
+  .linkoverview {
+    position: absolute;
+    right: 15px;
+    top: 6px;
+    font-size: 13px;
+    color: $color-ambient-mint;
+    border-left: 1px dotted $color-ambient-mint;
+    padding-left: 8px;
+    cursor: pointer;
+    &:hover {
+      color: $color-ambient-rosa;
+      text-decoration: underline;
+    }
+  }
+}
