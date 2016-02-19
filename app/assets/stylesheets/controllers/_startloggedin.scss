@@ -16,8 +16,20 @@ section.startloggedin {
   }
 
   .cards-container {
+    @include cf();
+    margin-left: -20px;
+    margin-right: -40px;
     .cardBox {
-      max-width: 320px;
+      max-width: 315px;
+      margin-bottom: 20px;
+      float: left;
+      margin-right: 12px;
+    }
+    .cardBox:nth-child(3n) {
+      margin-right: 0;
+    }
+    .cardBox:nth-child(3n+4) {
+      clear: both;
     }
   }
 

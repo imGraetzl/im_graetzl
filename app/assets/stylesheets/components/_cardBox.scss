@@ -31,6 +31,7 @@
 .cardBoxHeader {
   position: relative;
   margin: -6px -6px 20px;
+  min-height: 40px;
   .coverImg {
     width: 100%;
     border-radius: 4px;
@@ -64,7 +65,7 @@
     padding: 6px 6px;
     border-radius: 0 0 0 5px;
     color: $color-ambient-mint;
-    [class*=icon-shop] {
+    [class*=icon-shop], [class*=icon-zuckerl] {
       color: $color-ambient-rosa;
     }
     .count {
@@ -76,24 +77,14 @@
 
 
 .cardBoxContent {
-  .zuckerlteasertxt {
+  .updateteaser, .zuckerlteasertxt, .event-teaser-box {
+    display: block;
+    padding: 10px 15px;
     margin-bottom: 20px;
-    color: $color-ambient-rosa-dark;
-    > .title {
-      border-left: 1px dotted $color-ambient-rosa-dark;
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      background-color: $color-ambient-rosa-light;
-      font-weight: 600;
-    }
-  }
-  .event-teaser-box {
-    margin-bottom: 20px;
-    background-color: $color-ambient-mint-light;
-    border-left: 1px dotted $color-ambient-mint-dark;
-    color: $color-ambient-mint-dark;
-    padding: 15px;
-    > .date {
+    border-left-width: 1px;
+    border-left-style: dotted;
+    text-decoration: none;
+    > .hl, > .date {
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -104,10 +95,36 @@
       }
     }
     > .title {
+      margin-bottom: 10px;
       font-weight: 600;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &:hover {
+      text-decoration: underline;
     }
   }
-  .txt {
+
+  .updateteaser {
+    border-color: $color-font-primary;
+    background-color: $color-ambient-grey-light;
+    color: $color-font-primary;
+
+  }
+  .zuckerlteasertxt {
+    border-color: $color-ambient-rosa-dark;
+    background-color: $color-ambient-rosa-light;
+    color: $color-ambient-rosa-dark;
+  }
+  .event-teaser-box {
+    border-color: $color-ambient-mint-dark;
+    background-color: $color-ambient-mint-light;
+    color: $color-ambient-mint-dark;
+  }
+
+
+  > .txt {
     margin-bottom: 20px;
     h3 a {
       @include font-size-primaryFont('larger');
@@ -148,7 +165,7 @@
   }
 }
 .cardBoxContent .initiator {
-  margin: -47px 0 20px 0;
+  margin: -47px 0 15px 0;
   img {
     vertical-align: bottom;
     position: relative;

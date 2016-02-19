@@ -1,7 +1,7 @@
 <script>
-$(document).ready(function() {
-  APP.components.startpageFilter.init();
-});
+  $(document).ready(function() {
+    APP.components.startpageFilter.init();
+  });
 </script>
 
 <section class="startloggedin">
@@ -42,7 +42,7 @@ $(document).ready(function() {
     </div>
     <!-- END mobile select menu -->
 
-    <div class="iconfilter">
+    <div class="iconfilter active">
       <img class="mapthumb" src="assets/mapthumbs/stuwerviertel.jpg" alt="">
       <div class="txt">Grätzl<br/>Stream</div>
     </div>
@@ -101,45 +101,183 @@ $(document).ready(function() {
 
 
   <div class="cards-container">
+
+    <!-- meeting -->
     <div class="cardBox">
       <div class="cardBoxHeader">
-
-        <!--
-        <div class="imgpreview" data-behavior="imagepreview"></div>
-        -->
-
         <a href="#">
           <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
         </a>
-
         <div class="calendarSheet">
           <div class="day">17</div>
           <div class="month">Feb</div>
         </div>
-
-
-        <!--
-        <div class="sideflag -R"><a href="#">Stuwerviertel</a></div>
-        -->
-
-
         <div class="categoryicon">
-          <svg class="icon-shopping-bag">
-            <use xlink:href="#icon-shopping-bag"></use>
-          </svg>
+          <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+          <div class="count">1</div>
         </div>
       </div>
-
-
       <div class="cardBoxContent">
-
-        <!--
         <div class="initiator">
           <img class="img-round" src="https://placeimg.com/200/200/people" alt="">
           <span>Merti67</span>
         </div>
-        -->
+        <div class="txt">
+          <h3><a href="">Wir treffen uns, juhu!</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, ratione.</p>
+        </div>
+        <a class="btn-primary -mint" href="#">Mitmachen</a>
+      </div>
+    </div>
 
+
+    <!-- location update -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/350/arch" alt="">
+        </a>
+        <div class="categoryicon">
+          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="location-shortfacts">
+          <a href="#" class="locationlogo">
+            <img class="img-square" src="https://placeimg.com/200/200/people?4" alt="Avatar">
+          </a>
+          <div class="locationtxt">
+            <a href="">
+              <div class="name">Superlocation</div>
+            </a>
+            <div class="category">Unternehmen &amp; Start-ups</div>
+            <div class="address">
+              <svg class="icon-location">
+                <use xlink:href="#icon-location"></use>
+              </svg>
+              Am Graben 1
+            </div>
+          </div>
+        </div>
+        <div class="txt">
+          <h3><a href="#">Neue Kekse eingetroffen</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis dolorum est magnam molestiae obcaecati, quasi quis saepe sunt suscipit ullam.</p>
+        </div>
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?2" alt=""></a>
+              <span class="userAndType"><a href="#">jack</a> <span>vor 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores consequatur ea, sit soluta voluptate.</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?3" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- zuckerl -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature?7" alt="">
+        </a>
+        <div class="categoryicon">
+          <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="location-shortfacts">
+          <a href="#" class="locationlogo">
+            <img class="img-square" src="https://placeimg.com/200/200/tech?7" alt="Avatar">
+          </a>
+          <div class="locationtxt">
+            <a href="">
+              <div class="name">Superlocation</div>
+            </a>
+            <div class="category">Unternehmen &amp; Start-ups</div>
+            <div class="address">
+              <svg class="icon-location">
+                <use xlink:href="#icon-location"></use>
+              </svg>
+              Am Graben 1
+            </div>
+          </div>
+        </div>
+        <div class="zuckerlteasertxt">
+          <div class="hl">
+            <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+            Grätzlzuckerl im März
+          </div>
+          <div class="title">-50% auf alle Käsesorten und Blunze gibt es gratis!</div>
+          <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet cum facilis quis.</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- idee, normal post -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <div class="categoryicon">
+          <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people?4" alt="">
+          <span>Fredl</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Es braucht einen Zebrastreifen auf der Franzensbrückenstraße</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus laboriosam nesciunt quasi repellat saepe. Animi dolor dolorem eaque quam quasi!</p>
+        </div>
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
+              <span class="userAndType">Beitrag von <a href="#">jack</a> <span>vor etwa 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Ich gebe dir absolut recht. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, ut</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?2" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- location profil -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+        <div class="categoryicon">
+          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
         <div class="location-shortfacts">
           <a href="#" class="locationlogo">
             <img class="img-square" src="https://placeimg.com/200/200/people" alt="Avatar">
@@ -157,39 +295,70 @@ $(document).ready(function() {
             </div>
           </div>
         </div>
-
-        <div class="slogan">Lorem ipsum dolor sit.</div>
-
-        <div class="zuckerlteasertxt">
-          <div class="title">Lorem ipsum.</div>
-          <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, qui, ratione.</div>
+        <div class="slogan">Medidation ist die Quelle der Weisheit und des Ruhmes.</div>
+        <div class="txt">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis deserunt dolorum exercitationem laboriosam natus omnis optio qui quibusdam quos saepe?</p>
         </div>
-
-        <div class="event-teaser-box">
+        <a href="#" class="updateteaser">
+          <div class="hl">
+            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+            vor 49 Minuten
+          </div>
+          <div class="title">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia?
+          </div>
+        </a>
+        <a href="#" class="zuckerlteasertxt">
+          <div class="hl">
+            <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+           Grätzlzuckerl im März
+          </div>
+          <div class="title">-50% auf alle Käsesorten und Blunze gibt es gratis!</div>
+        </a>
+        <a href="#" class="event-teaser-box">
           <div class="date">
             <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-            12.12.2016
+            12. Dezember 2016
           </div>
-          <div class="title">Lorem ipsum.</div>
+          <div class="title">Livekonzert mit Mikl Leitner & ihren Hardlinerockers</div>
+        </a>
+      </div>
+    </div>
+
+
+    <!-- meeting with comment -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+        <div class="calendarSheet">
+          <div class="day">17</div>
+          <div class="month">Feb</div>
         </div>
-
-
+        <div class="categoryicon">
+          <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+          <div class="count">4</div>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people" alt="">
+          <span>Merti67</span>
+        </div>
         <div class="txt">
-          <h3><a href="">Das ist ein Titel</a></h3>
+          <h3><a href="">Saufmeditation in der Venediger Au</a></h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, ratione.</p>
         </div>
-
         <a class="btn-primary -mint" href="#">Mitmachen</a>
-
-
         <div class="streamElement">
           <div class="entryInitialContent">
             <div class="userCreateInfo">
-              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people" alt=""></a>
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
               <span class="userAndType">Beitrag von <a href="#">jack</a> <span>vor etwa 2 Stunden</span></span>
             </div>
             <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
-              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores consequatur ea, sit soluta voluptate.</div>
+              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
             </a>
           </div>
           <form class="entryCommentForm">
@@ -201,15 +370,437 @@ $(document).ready(function() {
               <button name="button" type="submit">Kommentar senden</button>
             </div>
           </form>
-
         </div>
-
       </div>
-
-
-
-
     </div>
+
+
+    <!-- idee, normal post with img -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <img class="coverImg" src="https://placeimg.com/300/250/tech?2" alt="">
+        <div class="categoryicon">
+          <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people?4" alt="">
+          <span>Fredl</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Mehr Bäume in der Venediger Au</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
+              <span class="userAndType">Beitrag von <a href="#">jack</a> <span>vor etwa 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Lorem ipsum dolor sit amet, consectetur.</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?2" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- meeting with participant -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+        <div class="calendarSheet">
+          <div class="day">17</div>
+          <div class="month">Feb</div>
+        </div>
+        <div class="categoryicon">
+          <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+          <div class="count">4</div>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people" alt="">
+          <span>Merti67</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Ich suche nach Mitspielern für ne flotte Soccersession</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, ratione.</p>
+        </div>
+        <a class="btn-primary -mint" href="#">Mitmachen</a>
+        <div class="userCreateInfo">
+          <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
+          <span class="userAndType"><a href="#">Horst</a> <span>nimmt am Treffen teil</span></span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- meeting -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+        <div class="calendarSheet">
+          <div class="day">17</div>
+          <div class="month">Feb</div>
+        </div>
+        <div class="categoryicon">
+          <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+          <div class="count">1</div>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people" alt="">
+          <span>Merti67</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Wir treffen uns, juhu!</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, ratione.</p>
+        </div>
+        <a class="btn-primary -mint" href="#">Mitmachen</a>
+      </div>
+    </div>
+
+
+    <!-- location update -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/350/arch" alt="">
+        </a>
+        <div class="categoryicon">
+          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="location-shortfacts">
+          <a href="#" class="locationlogo">
+            <img class="img-square" src="https://placeimg.com/200/200/people?4" alt="Avatar">
+          </a>
+          <div class="locationtxt">
+            <a href="">
+              <div class="name">Superlocation</div>
+            </a>
+            <div class="category">Unternehmen &amp; Start-ups</div>
+            <div class="address">
+              <svg class="icon-location">
+                <use xlink:href="#icon-location"></use>
+              </svg>
+              Am Graben 1
+            </div>
+          </div>
+        </div>
+        <div class="txt">
+          <h3><a href="#">Neue Kekse eingetroffen</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis dolorum est magnam molestiae obcaecati, quasi quis saepe sunt suscipit ullam.</p>
+        </div>
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?2" alt=""></a>
+              <span class="userAndType"><a href="#">jack</a> <span>vor 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet asperiores consequatur ea, sit soluta voluptate.</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?3" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- zuckerl -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature?7" alt="">
+        </a>
+        <div class="categoryicon">
+          <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="location-shortfacts">
+          <a href="#" class="locationlogo">
+            <img class="img-square" src="https://placeimg.com/200/200/tech?7" alt="Avatar">
+          </a>
+          <div class="locationtxt">
+            <a href="">
+              <div class="name">Superlocation</div>
+            </a>
+            <div class="category">Unternehmen &amp; Start-ups</div>
+            <div class="address">
+              <svg class="icon-location">
+                <use xlink:href="#icon-location"></use>
+              </svg>
+              Am Graben 1
+            </div>
+          </div>
+        </div>
+        <div class="zuckerlteasertxt">
+          <div class="hl">
+            <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+            Grätzlzuckerl im März
+          </div>
+          <div class="title">-50% auf alle Käsesorten und Blunze gibt es gratis!</div>
+          <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet cum facilis quis.</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- idee, normal post -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <div class="categoryicon">
+          <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people?4" alt="">
+          <span>Fredl</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Es braucht einen Zebrastreifen auf der Franzensbrückenstraße</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus laboriosam nesciunt quasi repellat saepe. Animi dolor dolorem eaque quam quasi!</p>
+        </div>
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
+              <span class="userAndType">Beitrag von <a href="#">jack</a> <span>vor etwa 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Ich gebe dir absolut recht. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, ut</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?2" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- location profil -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+        <div class="categoryicon">
+          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="location-shortfacts">
+          <a href="#" class="locationlogo">
+            <img class="img-square" src="https://placeimg.com/200/200/people" alt="Avatar">
+          </a>
+          <div class="locationtxt">
+            <a href="">
+              <div class="name">Superlocation</div>
+            </a>
+            <div class="category">Unternehmen &amp; Start-ups</div>
+            <div class="address">
+              <svg class="icon-location">
+                <use xlink:href="#icon-location"></use>
+              </svg>
+              Am Graben 1
+            </div>
+          </div>
+        </div>
+        <div class="slogan">Medidation ist die Quelle der Weisheit und des Ruhmes.</div>
+        <div class="txt">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis deserunt dolorum exercitationem laboriosam natus omnis optio qui quibusdam quos saepe?</p>
+        </div>
+        <a href="#" class="updateteaser">
+          <div class="hl">
+            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+            vor 49 Minuten
+          </div>
+          <div class="title">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia?
+          </div>
+        </a>
+        <a href="#" class="zuckerlteasertxt">
+          <div class="hl">
+            <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+            Grätzlzuckerl im März
+          </div>
+          <div class="title">-50% auf alle Käsesorten und Blunze gibt es gratis!</div>
+        </a>
+        <a href="#" class="event-teaser-box">
+          <div class="date">
+            <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+            12. Dezember 2016
+          </div>
+          <div class="title">Livekonzert mit Mikl Leitner & ihren Hardlinerockers</div>
+        </a>
+      </div>
+    </div>
+
+
+    <!-- meeting with comment -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+        <div class="calendarSheet">
+          <div class="day">17</div>
+          <div class="month">Feb</div>
+        </div>
+        <div class="categoryicon">
+          <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+          <div class="count">4</div>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people" alt="">
+          <span>Merti67</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Saufmeditation in der Venediger Au</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, ratione.</p>
+        </div>
+        <a class="btn-primary -mint" href="#">Mitmachen</a>
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
+              <span class="userAndType">Beitrag von <a href="#">jack</a> <span>vor etwa 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?2" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- idee, normal post with img -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <img class="coverImg" src="https://placeimg.com/300/250/tech?2" alt="">
+        <div class="categoryicon">
+          <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people?4" alt="">
+          <span>Fredl</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Mehr Bäume in der Venediger Au</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div class="streamElement">
+          <div class="entryInitialContent">
+            <div class="userCreateInfo">
+              <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
+              <span class="userAndType">Beitrag von <a href="#">jack</a> <span>vor etwa 2 Stunden</span></span>
+            </div>
+            <a class="linkToPost" href="/stuwerviertel/posts/02-2016-voluptates-reprehende">
+              <div class="txt">Lorem ipsum dolor sit amet, consectetur.</div>
+            </a>
+          </div>
+          <form class="entryCommentForm">
+            <label>
+              <img class="img-round" src="https://placeimg.com/100/100/people?2" alt="Avatar">
+              <textarea placeholder="Kommentieren"></textarea>
+            </label>
+            <div class="hideBlock">
+              <button name="button" type="submit">Kommentar senden</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- meeting with participant -->
+    <div class="cardBox">
+      <div class="cardBoxHeader">
+        <a href="#">
+          <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
+        </a>
+        <div class="calendarSheet">
+          <div class="day">17</div>
+          <div class="month">Feb</div>
+        </div>
+        <div class="categoryicon">
+          <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+          <div class="count">4</div>
+        </div>
+      </div>
+      <div class="cardBoxContent">
+        <div class="initiator">
+          <img class="img-round" src="https://placeimg.com/200/200/people" alt="">
+          <span>Merti67</span>
+        </div>
+        <div class="txt">
+          <h3><a href="">Ich suche nach Mitspielern für ne flotte Soccersession</a></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, ratione.</p>
+        </div>
+        <a class="btn-primary -mint" href="#">Mitmachen</a>
+        <div class="userCreateInfo">
+          <a href="#"><img class="img-round" src="https://placeimg.com/100/100/people?8" alt=""></a>
+          <span class="userAndType"><a href="#">Horst</a> <span>nimmt am Treffen teil</span></span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
   </div>
 
 
