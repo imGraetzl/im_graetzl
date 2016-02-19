@@ -6,6 +6,17 @@ class ZuckerlsController < ApplicationController
     @zuckerl = @location.zuckerls.build
   end
 
+  def create
+    @location = Location.find(params[:location_id])
+    @zuckerl = @location.zuckerls.new zuckerl_params
+    if @zuckerl.save
+      # redirect to location for now
+      redirect_to [@location.graetzl, @location]
+    else
+      render :new
+    end
+  end
+
   def index
   end
 
@@ -21,5 +32,15 @@ class ZuckerlsController < ApplicationController
       @locations = current_user.locations.approved
       render :new_location and return
     end
+  end
+
+  def zuckerl_params
+    params.require(:zuckerl).permit(
+      :title,
+      :description,
+      :image,
+      :remove_image,
+      :initiative_id,
+      :flyer)
   end
 end

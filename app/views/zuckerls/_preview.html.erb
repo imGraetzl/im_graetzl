@@ -1,6 +1,8 @@
 <div class="cardBox -location ">
   <div class="cardBoxHeader">
-    <div class="imgpreview" data-behavior="imagepreview"></div>
+    <div class="imgpreview" data-behavior="imagepreview">
+      <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180) if zuckerl.image_id %>
+    </div>
     <div class="location-shortfacts">
       <%= link_to [location.graetzl, location] do %>
         <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>

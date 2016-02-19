@@ -1,3 +1,5 @@
+<%= f.hidden_field :location_id %>
+
 <div class="input-field">
   <%= f.label :title do %>
     <svg class="icon-record">
@@ -27,14 +29,14 @@
 </div>
 
 <div class="upload-oldschool">
-  <label for="zuckerl_photo">
+  <%= f.label :image do %>
     <svg class="icon-photo-camera">
       <use xlink:href="#icon-photo-camera"></use>
     </svg>
     <span>Bild hochladen</span>
-  </label>
+  <% end %>
   <div class="field-wrp">
-    <input type="file" id="zuckerl_photo" data-behavior="imageinput">
+    <%= f.attachment_field :image, direct: true, presigned: true, data: { behavior: 'imageinput' } %>
   </div>
 </div>
 

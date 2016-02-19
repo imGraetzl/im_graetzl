@@ -1,7 +1,7 @@
 <section class="createzuckerl">
   <div class="col-l">
     <!-- booking -->
-    <%= form_for @zuckerl, data: { behavior: 'zuckerlform' } do |f| %>
+    <%= form_for [@location, @zuckerl], data: { behavior: 'zuckerlform' } do |f| %>
       <div class="booking-block">
         <div class="form-block">
           <p class="txt">Neues <span>Grätzlzuckerl</span> von <%= @zuckerl.location.name %></p>
@@ -9,7 +9,7 @@
           <button class="btn-secondary" data-behavior="btn-confirm" type="button">Weiter</button>
           <div class="btn-container" data-behavior="btn-send">
             <span>Stimmen deine Angaben?</span>
-            <button class="btn-primary" type="submit">Ja, Zuckerl jetzt Buchen</button>
+            <%= f.button 'Ja, Zuckerl jetzt Buchen', class: 'btn-primary' %>
           </div>
         </div>
       </div>
