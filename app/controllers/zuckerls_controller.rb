@@ -10,14 +10,10 @@ class ZuckerlsController < ApplicationController
     @location = Location.find(params[:location_id])
     @zuckerl = @location.zuckerls.new zuckerl_params
     if @zuckerl.save
-      # redirect to location for now
-      redirect_to [@location.graetzl, @location]
+      redirect_to zuckerl_billing_address_path @zuckerl
     else
       render :new
     end
-  end
-
-  def index
   end
 
   private

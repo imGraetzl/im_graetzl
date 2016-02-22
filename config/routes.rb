@@ -93,7 +93,9 @@ Rails.application.routes.draw do
     resources :comments, module: :meetings, only: [:index, :create]
   end
 
-  resources :zuckerls, only: [:new]
+  resources :zuckerls, only: [:new] do
+    resource :billing_address, only: [:show, :create, :update]
+  end
 
   resources :comments, only: [:destroy]
 

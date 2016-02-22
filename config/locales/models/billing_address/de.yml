@@ -1,0 +1,10 @@
+de:
+  activerecord:
+    models:
+      billing_address: Rechnungsadresse
+    attributes:
+      billing_address:
+        full_name: Vorname Nachname
+        full_city: PLZ Ort
+        street: Adresse
+        company: Firma

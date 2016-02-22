@@ -14,67 +14,7 @@
         </div>
       </div>
     <% end %>
-
-
-    <!-- billing -->
-    <div class="billing-block" data-behavior="step2">
-      <div class="hl"><span>Vielen Dank</span> für die Buchung deines Grätzlzuckerls</div>
-      <div class="txt">
-        <p>Um deine Buchung erfolgreich abschließen und dein Grätzlzuckerl zeitgerecht am 01.03.2016 schalten zu können,
-          überweise bitte den noch offenen Betrag an folgende Kontoverbindung.</p>
-        <div class="bookingdetails">
-          <p><strong>Gesamtbetrag: 18,00 €</strong> (inkl. 20% Mwst.)</p>
-          <p><strong>Kontoverbindung:</strong><br/>
-            morgenjungs GmbH<br/>
-            IBAN: AT03 2011 1826 6988 6500<br/>
-            BIC: GIBAATWWXXX<br/></p>
-          <p>Bitte gib folgenden <strong>Verwendungszweck</strong> bei deiner Überweisung an:<br/><i class="zuckerlID">Grätzlzuckerl 2016-03-ID</i></p>
-        </div>
-        <p>Nach erfolgreichem Zahlungseingang senden wir dir erneut eine Bestätigung für die Schaltung deines
-          Grätzlzuckerls und eine Rechnung an folgende E-Mailadresse zu: <a href="">horst.tischler@thepervert.com</a></p>
-        <p>Solltest du Fragen zu deiner Buchung haben, sende uns ein E-Mail an <a href="">wir@imgraetzl.at</a></p>
-      </div>
-      <div class="collapsible">
-        <div class="collapsibletrigger">
-          Du brauchst die Rechnung an eine bestimmte Adresse?
-        </div>
-        <div class="form-block collapsiblecontainer">
-          <form action="">
-            <p class="introtxt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque distinctio ea earum explicabo
-              facilis harum hic in inventore iure labore neque nobis officia perferendis, porro quam ratione rem
-              reprehenderit sequi.</p>
-            <div class="input-field">
-              <label for="user_name">
-                <span>Vorname / Nachname</span>
-              </label>
-              <input type="text" id="user_name">
-            </div>
-            <div class="input-field">
-              <label for="company">
-                <span>Firma</span>
-              </label>
-              <input type="text" id="company">
-            </div>
-            <div class="input-field">
-              <label for="adress">
-                <span>Adresse</span>
-              </label>
-              <input type="text" id="adress">
-            </div>
-            <div class="input-field">
-              <label for="plz_ort">
-                <span>PLZ / Ort</span>
-              </label>
-              <input type="text" id="plz_ort">
-            </div>
-            <button class="btn-primary" type="submit">Rechnungsdaten senden</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
   </div>
-
   <div class="col-r">
     <%= render 'preview', location: @location, zuckerl: @zuckerl %>
   </div>

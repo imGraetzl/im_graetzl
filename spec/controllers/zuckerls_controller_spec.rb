@@ -85,7 +85,10 @@ RSpec.describe ZuckerlsController, type: :controller do
         }.to change{Zuckerl.count}.by 1
       end
 
-      it 'renders booking_address form' do
+      it 'redirects_to booking_address form' do
+        post :create, params
+        zuckerl = Zuckerl.last
+        expect(response).to redirect_to zuckerl_billing_address_path(zuckerl)
       end
     end
     context 'with invalid params' do
