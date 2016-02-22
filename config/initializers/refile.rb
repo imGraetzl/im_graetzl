@@ -10,5 +10,6 @@ if Rails.env.production? || Rails.env.staging?
   }
   Refile.cache = Refile::S3.new(prefix: 'refile/cache', **aws)
   Refile.store = Refile::S3.new(prefix: 'refile/store', **aws)
+  Refile.ASSET_HOST = ENV['ASSET_HOST']
 
 end
