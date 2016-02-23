@@ -60,7 +60,7 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.action_controller.asset_host = proc {|source|
     if File.extname(source) =~ /\.(svg|woff|woff2|ttf|otf|eot)/
-      "https://staging.imgraetzl.at"
+      "http://staging.imgraetzl.at"
     else
       ENV['ASSET_HOST']
     end
