@@ -44,6 +44,12 @@ module ImGraetzl
     config.middleware.insert_before(0, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
     end
+    config.middleware.insert_before(0, Rack::Cors) do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :head, :options]
+      end
+    end
 
     config.active_job.queue_adapter = :sucker_punch
   end
