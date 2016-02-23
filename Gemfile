@@ -111,3 +111,4 @@ gem 'acts-as-taggable-on'
 gem 'actionview-encoded_mail_to'
 # state machine
 gem 'aasm'
+gem 'font_assets'
