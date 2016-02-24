@@ -1,9 +1,9 @@
 <section class="createzuckerl">
   <div class="col-l">
     <div class="billing-block">
-      <div class="hl"><span>Vielen Dank</span> für die Buchung deines Grätzlzuckerls</div>
+      <div class="hl"><span>Vielen Dank</span> für deine Buchung</div>
       <div class="txt">
-        <p>Um deine Buchung erfolgreich abschließen und dein Grätzlzuckerl zeitgerecht am <%= I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%d.%m.%Y') %> schalten zu können,
+        <p>Um dein Grätzlzuckerl zeitgerecht am <%= I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%d.%m.%Y') %> schalten zu können,
           überweise bitte den noch offenen Betrag an folgende Kontoverbindung.</p>
         <div class="bookingdetails">
           <p><strong>Gesamtbetrag: 18,00 €</strong> (inkl. 20% Mwst.)</p>
@@ -13,14 +13,13 @@
             BIC: GIBAATWWXXX<br/></p>
           <p>Bitte gib folgenden <strong>Verwendungszweck</strong> bei deiner Überweisung an:<br/><i class="zuckerlID"><%= @zuckerl.payment_reference %></i></p>
         </div>
-        <p>Nach erfolgreichem Zahlungseingang senden wir dir erneut eine Bestätigung für die Schaltung deines
-          Grätzlzuckerls und eine Rechnung an folgende E-Mailadresse zu: <%= mail_to current_user.email, nil, encode: 'hex' %></p>
+        <p>Nach Zahlungseingang senden wir dir erneut eine Bestätigung (inkl. Rechnung) an folgende E-Mailadresse zu: <%= mail_to current_user.email, nil, encode: 'hex' %></p>
         <p>Solltest du Fragen zu deiner Buchung haben, sende uns ein E-Mail an <%= mail_to 'wir@imgraetzl.at', nil, encode: 'hex' %></p>
         <%= link_to 'Fertig', root_path, class: 'btn-primary' %>
       </div>
       <div class="collapsible">
-        <div class="collapsibletrigger">
-          Du brauchst die Rechnung an eine bestimmte Adresse?
+        <div class="collapsibletrigger" data-collapsed="<%= @billing_address.errors.any? ? false : true %>">
+          Du brauchst eine spezielle Anschrift auf deiner Rechnung?
         </div>
         <div class="form-block collapsiblecontainer">
           <%= render 'form' %>

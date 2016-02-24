@@ -34,18 +34,19 @@
 <div class="basicdata">
   <div class="headline">Eckdaten</div>
   <ul class="facts">
-    <li><strong>Laufzeit:</strong> <%= zuckerl_month(zuckerl) %></li>
-    <li><strong>Grätzl:</strong> <%= location.graetzl.name %></li>
-    <li><strong>Preis:</strong> 18€ (inkl. 3€ MwSt.)</li>
+    <li><strong>Laufzeit:</strong> <%= zuckerl_month_and_year(zuckerl) %></li>
+    <li><strong>Grätzl:</strong> <%= location.graetzl.name %> und gesamter Bezirk</li>
+    <li><strong>Preis:</strong> 18€ (inkl. MwSt.)</li>
   </ul>
 </div>
 
 <div class="initiative-container">
   <p>Mit deinem Zuckerl unterstützt du:</p>
   <div class="initiative-info">
-    <p class="defaulttext">Mit deiner Buchung kannst du gezielt Initiativen aus dem Grätzl unterstützen. Wählst du
-      eine Initiative, so
-      gehen 50% deiner Buchung gezielt an diese. Wählst du "Alle", werden die 50% gleichmäßig an alle verteilt.
+    <p class="defaulttext">Mit deiner Buchung kannst du gezielt Initiativen aus dem Grätzl unterstützen.
+      Wählst du eine Initiative, so gehen 50% deiner Buchung gezielt an diese.
+      Wählst du "Alle Initiativen im Grätzl", werden die 50% gleichmäßig verteilt.
+      Falls in deinem Grätzl noch keine Initiativen zur Auswahl stehen, so unterstützt du die Plattform imGrätzl.at
     </p>
 
     <% location.graetzl.initiatives.each do |initiative| %>

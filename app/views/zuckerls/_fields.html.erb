@@ -49,7 +49,7 @@
   <% end %>
   <%= f.select :initiative_id,
     options_from_collection_for_select(f.object.location.graetzl.initiatives, :id, :name),
-    {include_blank: 'Alle'},
+    {include_blank: 'Alle Initiativen im Grätzl'},
     data: { behavior: 'initiativeselect' },
     id: 'zuckerl_support' %>
 </div>
@@ -65,10 +65,9 @@
     <div class="input-checkbox">
       <%= f.check_box :flyer %>
       <%= f.label :flyer do %>
-        Ich möchte im Grätzlzuckerl Flyer erscheinen.<br/>
+        Ich möchte auch im Grätzlzuckerl Flyer erscheinen.<br/>
         <small>
-          Wir kontaktieren dich sobald die nächste Print-Ausgabe für deinen Bezirk produziert wird. Du
-          bezahlst & buchst nur das Online Zuckerl.
+          Wir kontaktieren dich sobald die nächste Print-Ausgabe für deinen Bezirk geplant ist. Du bezahlst & buchst jetzt nur das Online Zuckerl.
         </small>
       <% end %>
     </div>

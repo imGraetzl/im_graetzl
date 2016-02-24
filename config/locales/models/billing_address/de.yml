@@ -8,6 +8,8 @@ de:
         last_name: Nachname
         full_name: Vorname Nachname
         full_city: PLZ Ort
-        street: Adresse
+        street: Straße
         company: Firma
         country: Land
+        city: Stadt
+        zip: Postleitzahl
