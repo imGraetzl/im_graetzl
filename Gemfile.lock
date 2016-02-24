@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/pokonski/public_activity.git
-  revision: aa2a77aaee435e68870484572eb93862a9b638de
-  specs:
-    public_activity (2.0)
-      actionpack (>= 3.0.0)
-      activerecord (>= 3.0)
-      i18n (>= 0.5.0)
-      railties (>= 3.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -74,12 +64,12 @@ GEM
     autoprefixer-rails (6.3.1)
       execjs
       json
-    aws-sdk (2.2.14)
-      aws-sdk-resources (= 2.2.14)
-    aws-sdk-core (2.2.14)
+    aws-sdk (2.2.18)
+      aws-sdk-resources (= 2.2.18)
+    aws-sdk-core (2.2.18)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.2.14)
-      aws-sdk-core (= 2.2.14)
+    aws-sdk-resources (2.2.18)
+      aws-sdk-core (= 2.2.18)
     bcrypt (3.1.10)
     bcrypt (3.1.10-x86-mingw32)
     binding_of_caller (0.7.2)
@@ -183,7 +173,7 @@ GEM
       excon (>= 0.16.0, < 1.0)
       json (>= 1.7.7, < 2.0)
     mime-types (2.99)
-    mini_magick (4.3.6)
+    mini_magick (4.4.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -203,6 +193,11 @@ GEM
       websocket-driver (>= 0.2.0)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
+    public_activity (1.4.2)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
     puma (2.16.0)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -385,7 +380,7 @@ DEPENDENCIES
   mandrill-api (~> 1.0.53)
   pg
   poltergeist
-  public_activity!
+  public_activity
   puma
   rack-rewrite
   rails (~> 4.2.5.1)
