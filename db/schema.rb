@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216101726) do
+ActiveRecord::Schema.define(version: 20160224145926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,9 +72,9 @@ ActiveRecord::Schema.define(version: 20160216101726) do
     t.string   "street"
     t.string   "zip"
     t.string   "city"
-    t.string   "country"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "country",     default: "Austria"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "billing_addresses", ["location_id"], name: "index_billing_addresses_on_location_id", using: :btree
