@@ -1,4 +1,15 @@
 <%= form_for @billing_address, url: zuckerl_billing_address_path(@zuckerl) do |f| %>
+  <% if @billing_address.errors.any? %>
+      <div id="error_explanation">
+        <h2>Adresse konnte nicht erstellt werden: <%= @billing_address.errors.count %> Fehler.</h2>
+        <ul>
+          <% @billing_address.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
   <p class="introtxt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque distinctio ea earum explicabo
     facilis harum hic in inventore iure labore neque nobis officia perferendis, porro quam ratione rem
     reprehenderit sequi.</p>

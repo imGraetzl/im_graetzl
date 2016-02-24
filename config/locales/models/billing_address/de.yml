@@ -4,7 +4,10 @@ de:
       billing_address: Rechnungsadresse
     attributes:
       billing_address:
+        first_name: Vorname
+        last_name: Nachname
         full_name: Vorname Nachname
         full_city: PLZ Ort
         street: Adresse
         company: Firma
+        country: Land

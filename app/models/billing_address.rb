@@ -15,13 +15,13 @@ class BillingAddress < ActiveRecord::Base
 
   def full_name=(value)
     split = value.split(' ')
-    self.last_name = split.pop
+    self.last_name = split.pop || ''
     self.first_name = split.join(' ')
   end
 
   def full_city=(value)
     split = value.split(' ')
     self.zip = split.shift
-    self.first_name = split.join(' ')
+    self.city = split.join(' ')
   end
 end
