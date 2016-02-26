@@ -21,7 +21,7 @@ class Notifications::NewLocationPost < Notification
       post_title: activity.trackable.title,
       post_content: activity.trackable.content.truncate(255, separator: ' '),
       owner_name: activity.trackable.author.name,
-      owner_avatar_url: ApplicationController.helpers.attachment_url(activity.trackable.author, :avatar, :fill, 40, 40, host: "http://#{DEFAULT_URL_OPTIONS[:host]}") || ApplicationController.helpers.image_url('avatar/location/40x40.png', host: "http://#{DEFAULT_URL_OPTIONS[:host]}"),
+      owner_avatar_url: Notifications::AvatarService.new(activity.trackable.author).call,
       owner_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, DEFAULT_URL_OPTIONS),
       post_url: graetzl_location_url(activity.trackable.graetzl, activity.trackable.author, DEFAULT_URL_OPTIONS),
     }
