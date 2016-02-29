@@ -175,7 +175,7 @@
 }
 
 .entryInitialContent {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   position: relative;
   .headline {
     font-weight: 600;
@@ -183,6 +183,9 @@
   }
   .txt {
     margin-bottom: 1rem;
+  }
+  > .txt:last-child {
+    margin-bottom: 0;
   }
 }
 

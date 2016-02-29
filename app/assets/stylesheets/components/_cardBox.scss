@@ -153,6 +153,19 @@
     padding: 1px;
   }
 
+
+
+  .commentslink {
+    color: $color-ambient-rosa;
+    font-size: 13px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    display: block;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   > .btn-primary {
     margin-bottom: 20px;
   }
@@ -163,6 +176,7 @@
   p {
     margin-bottom: 10px;
   }
+
 }
 .cardBoxContent .initiator {
   margin: -47px 0 15px 0;
@@ -194,6 +208,12 @@
   }
   .locationtxt {
     min-width: 0;
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   .img-square {
     width: 80px;
