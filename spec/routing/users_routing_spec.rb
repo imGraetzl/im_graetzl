@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :routing do
-  
+
   describe 'routes ' do
 
     it 'routes GET /users/user-slug to users#show' do
@@ -19,23 +19,16 @@ RSpec.describe UsersController, type: :routing do
         id: 'user-slug')
     end
 
-    # it 'routes GET /users/user-slug/einstellungen to users#edit' do
-    #   expect(get: '/users/user-slug/einstellungen').to route_to(
-    #     controller: 'users',
-    #     action: 'edit',
-    #     id: 'user-slug')
-    # end
-    
     it 'routes GET /user/einstellungen to users#edit' do
       expect(get: '/user/einstellungen').to route_to(
         controller: 'users',
         action: 'edit')
     end
-    
-    it 'routes GET /user/locations to users#locations' do
+
+    it 'routes GET /user/locations to users/locations#index' do
       expect(get: '/user/locations').to route_to(
-        controller: 'users',
-        action: 'locations')
+        controller: 'users/locations',
+        action: 'index')
     end
 
     it 'routes PUT /users/user-slug to users#update' do
@@ -69,10 +62,10 @@ RSpec.describe UsersController, type: :routing do
         action: 'edit')
     end
 
-    it 'routes GET locations_user_path to users#locations' do
-      expect(get: locations_user_path).to route_to(
-        controller: 'users',
-        action: 'locations')
+    it 'routes GET user_locations to users/locations#index' do
+      expect(get: user_locations_path).to route_to(
+        controller: 'users/locations',
+        action: 'index')
     end
   end
 end

@@ -9,7 +9,7 @@ RSpec.shared_examples :nav_personal_user do
   end
 
   it 'displays link to locations' do
-    expect(rendered).to have_link('Locations', href: locations_user_path)
+    expect(rendered).to have_link('Locations', href: user_locations_path)
   end
 
   it 'does not display link to admin' do

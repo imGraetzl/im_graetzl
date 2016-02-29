@@ -18,10 +18,6 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def locations
-    @locations = current_user.locations.includes(:location_ownerships)
-  end
-
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
