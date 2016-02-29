@@ -56,9 +56,8 @@ Rails.application.routes.draw do
   end
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
-    member do
-      get :locations
-    end
+    resources :locations, module: :users, only: [:index]
+    resources :zuckerls, module: :users, only: [:index]
   end
 
   get 'info/agb', to: 'static_pages#agb'
@@ -66,7 +65,6 @@ Rails.application.routes.draw do
   get 'info/impressum', to: 'static_pages#impressum'
   get 'info/infos-zum-graetzlzuckerl', to: 'static_pages#zuckerl'
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
-  get 'createzuckerl', to: 'static_pages#createzuckerl'
 
   get 'startnew_in', to: 'static_pages#startnew_in'
 
@@ -88,10 +86,15 @@ Rails.application.routes.draw do
   resources :locations, except: [:index, :show] do
     concerns :graetzl_before_new
     resources :posts, module: :locations, only: [:create]
+    resources :zuckerls, except: [:index, :show]
   end
 
   resources :meetings, path: :treffen, except: [:index, :show] do
     resources :comments, module: :meetings, only: [:index, :create]
+  end
+
+  resources :zuckerls, only: [:new] do
+    resource :billing_address, only: [:show, :create, :update]
   end
 
   resources :comments, only: [:destroy]

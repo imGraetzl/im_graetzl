@@ -19,7 +19,7 @@
       <% end %>
     <% end %>
     <% if @location.contact.email.present? %>
-      <%= mail_to @location.contact.email, encode: 'hex', class: 'icontxt' do %>
+      <%= mail_to @location.contact.email, nil, encode: 'hex', class: 'icontxt' do %>
         <svg class="icon-at-symbol">
           <use xlink:href="#icon-at-symbol"></use>
         </svg>

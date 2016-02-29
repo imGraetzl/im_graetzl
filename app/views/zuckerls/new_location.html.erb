@@ -1,0 +1,17 @@
+<% if @locations.empty? %>
+  <p>Du brauchst eine bestätigte Location um Zuckerl buchen zu können</p>
+  <%= link_to 'Location eintragen', new_location_path, class: 'btn-primary' %>
+<% else %>
+  <p>Für welche deiner Locations möchtest Du das Zuckerln buchen?</p>
+  <div class="input-select">
+    <label>
+      <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+      <span>Location</span>
+    </label>
+    <%= select_tag :location_id,
+      options_for_select(@locations.map{|location| [location.name, new_location_zuckerl_path(location)]}),
+      prompt: 'wählen',
+      onchange: 'location.href = $(this).val()'
+    %>
+  </div>
+<% end %>

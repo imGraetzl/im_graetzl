@@ -29,11 +29,10 @@ APP.components.createzuckerl = (function() {
     function bindevents() {
         $titleinput.on("keyup change", updatetitle);
         $descriptioninput.on("keyup change", updatedescription);
-        $imageinput.on("change", updateimage);
+        $imageinput.on("upload:complete", updateimage);
         $initiativeselect.on("change", showinitiative);
         $btnconfirm.on("click", btnstate);
         $("[data-behavior=zuckerlform]").on("submit", submitzuckerlform);
-        $(".collapsibletrigger").on("click", showbillingform);
         $titleinput.add($descriptioninput).add($imageinput).on("keyup change", function() {
             btnclickability();
             btnstate("reset");
@@ -73,17 +72,7 @@ APP.components.createzuckerl = (function() {
     function submitzuckerlform(e) {
         if(!$btnsend.hasClass("is-visible")) {
             e.preventDefault();
-        } else {
-            //TODO: temporary to simulate 2nd step, we can remove this in final version ----------------------------------------------<
-            $(".billing-block").fadeIn();
-            $(".booking-block").hide();
-            e.preventDefault();
         }
-    }
-
-    function showbillingform() {
-        $(this).next().slideDown();
-        $(this).remove();
     }
 
     function btnstate(mode) {

@@ -245,31 +245,4 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
-
-  describe 'GET locations' do
-    context 'when logged out' do
-      it 'redirects to login with flash' do
-        get :locations
-        expect(response).to render_template(session[:new])
-        expect(flash[:alert]).to be_present
-      end
-    end
-    context 'when logged in' do
-      let!(:user) { create(:user) }
-      before do
-        sign_in user
-        3.times { location = create(:location, users: [user]) }
-        get :locations
-      end
-
-      it 'assigns @locations' do
-        expect(assigns(:locations)).to be_present
-        expect(assigns(:locations).size).to eq 3
-      end
-
-      it 'renders :locations' do
-        expect(response).to render_template(:locations)
-      end
-    end
-  end
 end

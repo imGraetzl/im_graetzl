@@ -1,0 +1,63 @@
+<div class="cardBox -location ">
+  <div class="cardBoxHeader">
+    <div class="imgpreview" data-behavior="imagepreview">
+      <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180) if zuckerl.image_id %>
+    </div>
+    <div class="location-shortfacts">
+      <%= link_to [location.graetzl, location] do %>
+        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
+        <div class="name"><%= location.name %></div>
+      <% end %>
+
+      <div class="category"><%= location.category.name %></div>
+      <% if address = location.address %>
+        <div class="address">
+          <svg class="icon-location">
+            <use xlink:href="#icon-location"></use>
+          </svg>
+          <%= location.address.street_name %> <%= location.address.street_number %>
+        </div>
+      <% end %>
+    </div>
+    <div class="categoryicon">
+      <svg class="icon-shopping-bag">
+        <use xlink:href="#icon-shopping-bag"></use>
+      </svg>
+    </div>
+  </div>
+  <div class="zuckerl-teaser-box">
+    <div class="title" data-behavior="titlepreview"></div>
+    <div class="description" data-behavior="descriptionpreview"></div>
+  </div>
+</div>
+
+<div class="basicdata">
+  <div class="headline">Eckdaten</div>
+  <ul class="facts">
+    <li><strong>Laufzeit:</strong> <%= zuckerl_month_and_year(zuckerl) %></li>
+    <li><strong>Grätzl:</strong> <%= location.graetzl.name %> und gesamter Bezirk</li>
+    <li><strong>Preis:</strong> 18€ (inkl. MwSt.)</li>
+  </ul>
+</div>
+
+<div class="initiative-container">
+  <p>Mit deinem Zuckerl unterstützt du:</p>
+  <div class="initiative-info">
+    <p class="defaulttext">Mit deiner Buchung kannst du gezielt Initiativen aus dem Grätzl unterstützen.
+      Wählst du eine Initiative, so gehen 50% deiner Buchung gezielt an diese.
+      Wählst du "Alle Initiativen im Grätzl", werden die 50% gleichmäßig verteilt.
+      Falls in deinem Grätzl noch keine Initiativen zur Auswahl stehen, so unterstützt du die Plattform imGrätzl.at
+    </p>
+
+    <% location.graetzl.initiatives.each do |initiative| %>
+      <div>
+        <div class="name"><%= initiative.name %></div>
+        <p class="description">
+          <%= attachment_image_tag(initiative, :image, :fit, 100, 200, class: 'logo') if initiative.image %>
+          <%= initiative.description %>
+        </p>
+        <%= link_to initiative.website.sub(/^https?\:\/\//,''), initiative.website, target: '_blank' %>
+      </div>
+    <% end %>
+  </div>
+</div>
