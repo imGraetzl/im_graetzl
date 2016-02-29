@@ -12,6 +12,10 @@ RSpec.shared_examples :nav_personal_user do
     expect(rendered).to have_link('Locations', href: user_locations_path)
   end
 
+  it 'displays link to zuckerls' do
+    expect(rendered).to have_link('Grätzlzuckerl', href: user_zuckerls_path)
+  end
+
   it 'does not display link to admin' do
     expect(rendered).not_to have_link('Admin')
   end

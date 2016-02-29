@@ -31,6 +31,12 @@ RSpec.describe UsersController, type: :routing do
         action: 'index')
     end
 
+    it 'routes GET /user/zuckerls to users/zuckerls#index' do
+      expect(get: '/user/zuckerls').to route_to(
+        controller: 'users/zuckerls',
+        action: 'index')
+    end
+
     it 'routes PUT /users/user-slug to users#update' do
       expect(put: '/users/user-slug').to route_to(
         controller: 'users',

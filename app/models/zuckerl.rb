@@ -1,15 +1,6 @@
 class Zuckerl < ActiveRecord::Base
   extend FriendlyId
   include AASM
-  # class NotifierThing
-  #   def initialize(zuckerl)
-  #     @zuckerl = zuckerl
-  #   end
-  #
-  #   def call
-  #     puts "#{@zuckerl} HELLO HELLO HELLO"
-  #   end
-  # end
 
   attachment :image, type: :image
   friendly_id :title

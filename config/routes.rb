@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     resources :locations, module: :users, only: [:index]
+    resources :zuckerls, module: :users, only: [:index]
   end
 
   get 'info/agb', to: 'static_pages#agb'
