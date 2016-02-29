@@ -9,7 +9,7 @@
   })
 %>
 
-<section class="graetzls">
+<section class="startpage">
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
     <%= render 'map', map_data: @map_data %>
   <% end %>
