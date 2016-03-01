@@ -113,98 +113,96 @@ RSpec.describe Graetzl, type: :model do
     end
   end
 
-  describe '#activity' do
-    let(:graetzl) { create(:graetzl) }
+  describe '_#activity' do
+    let(:graetzl) { create :graetzl }
+    subject(:activity) { graetzl.send(:activity) }
 
-    context 'when no activity in graetzl' do
-      it 'returns empty array' do
-        expect(graetzl.activity).to be_empty
-        expect(graetzl.activity).to be_kind_of(Array)
+    context 'without activity' do
+      it 'returns empty collection' do
+        expect(activity).to be_empty
       end
     end
+    context 'with activity in graetzl' do
+      let!(:meeting_1) { create :meeting, graetzl: graetzl }
+      let!(:meeting_2) { create :meeting, graetzl: graetzl }
+      let!(:post_1) { create :post, graetzl: graetzl }
+      let!(:post_2) { create :post, graetzl: graetzl }
 
-    context 'when activity on trackables in graetzl' do
-      let!(:meeting) { create(:meeting, graetzl: graetzl) }
-      let!(:post) { create(:post, graetzl: graetzl) }
-
-      it 'includes most recent activity per trackable, most recent first' do
+      it 'includes most recent activity per trackable' do
         PublicActivity.with_tracking do
-          create_post = post.create_activity :create
-          comment_on_post = post.create_activity :comment
-          create_meeting = meeting.create_activity :create
-          comment_on_meeting = meeting.create_activity :comment
-          create_other_meeting = create(:meeting, graetzl: graetzl).create_activity :create
+          create_post_1 = post_1.create_activity :create, graetzl_id: graetzl.id
+          create_post_2 = post_2.create_activity :create, graetzl_id: graetzl.id
+          create_meeting_1 = meeting_1.create_activity :create, graetzl_id: graetzl.id
+          create_meeting_2 = meeting_2.create_activity :create, graetzl_id: graetzl.id
+          comment_post_1 = post_1.create_activity :comment, graetzl_id: graetzl.id
+          comment_meeting_1 = meeting_1.create_activity :comment, graetzl_id: graetzl.id
 
-          expect(graetzl.activity).to eq [create_other_meeting, comment_on_meeting, comment_on_post]
-          expect(graetzl.activity).not_to include(create_post)
-        end
-      end
-
-      it 'includes meeting:create activity' do
-        PublicActivity.with_tracking do
-          activity = meeting.create_activity :create
-          expect(graetzl.activity).to include(activity)
-        end
-      end
-
-      it 'includes meeting:comment activity' do
-        PublicActivity.with_tracking do
-          activity = meeting.create_activity :comment
-          expect(graetzl.activity).to include(activity)
-        end
-      end
-
-      it 'includes meeting:go_to activity' do
-        PublicActivity.with_tracking do
-          activity = meeting.create_activity :go_to
-          expect(graetzl.activity).to include(activity)
-        end
-      end
-
-      it 'does not have meeting:update activity' do
-        PublicActivity.with_tracking do
-          activity = meeting.create_activity :update
-          expect(graetzl.activity).not_to include(activity)
-        end
-      end
-
-      it 'includes post:create activity' do
-        PublicActivity.with_tracking do
-          activity = post.create_activity :create
-          expect(graetzl.activity).to include(activity)
-        end
-      end
-
-      it 'includes post:comment activity' do
-        PublicActivity.with_tracking do
-          activity = post.create_activity :comment
-          expect(graetzl.activity).to include(activity)
+          expect(activity.map(&:id)).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2].map(&:id)
         end
       end
     end
+  end
 
-    context 'with activity on artifacts outside graetzl' do
-      let(:other_graetzl) { create(:graetzl) }
-      let!(:meeting) { create(:meeting, graetzl: other_graetzl) }
+  describe '#feed_items' do
+    before do
+      allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation)
+    end
+    let(:graetzl) { create :graetzl }
 
-      context 'when owner not from graetzl' do
-        it 'does not have activity' do
-          PublicActivity.with_tracking do
-            activity = meeting.create_activity :comment, owner: create(:user, graetzl: other_graetzl)
-            expect(graetzl.activity).not_to include(activity)
+    context 'for page 1' do
+      let(:posts) { create_list :post, 6, graetzl: graetzl }
+      let(:meetings) { create_list :post, 6, graetzl: graetzl }
+      let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
+      let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
+
+      it 'includes zuckerl and activity' do
+        PublicActivity.with_tracking do
+          activites = []
+          posts.each do |post|
+            activites << post.create_activity(:create, graetzl_id: graetzl.id)
           end
+          meetings.each do |meeting|
+            activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
+          end
+
+          zuckerls = []
+          zuckerls << zuckerl_1
+          zuckerls << zuckerl_2
+
+          items = graetzl.feed_items(1)
+
+          puts items.size
+          puts activites.size
+
+          expect(items).to include(*activites)
+          expect(items).to include(*zuckerls)
         end
       end
+    end
+    context 'for page 2' do
+      let(:posts) { create_list :post, 12, graetzl: graetzl }
+      let(:meetings) { create_list :post, 12, graetzl: graetzl }
+      let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
+      let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
 
-      context 'when activity owner from graetzl' do
-        let(:user) { create(:user, graetzl: graetzl) }
-
-        it 'has activity in both graetzls' do
-          PublicActivity.with_tracking do
-            activity = meeting.create_activity :comment, owner: user
-            expect(graetzl.activity).to include(activity)
-            expect(other_graetzl.activity).to include(activity)
+      it 'includes only activity' do
+        PublicActivity.with_tracking do
+          activites = []
+          posts.each do |post|
+            activites << post.create_activity(:create, graetzl_id: graetzl.id)
           end
+          meetings.each do |meeting|
+            activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
+          end
+          zuckerls = []
+          zuckerls << zuckerl_1
+          zuckerls << zuckerl_2
+
+          items = graetzl.feed_items(2)
+
+          expect(items).to include(*activites.last(12))
+          expect(items).not_to include(*activites.first(12))
+          expect(items).not_to include(*zuckerls)
         end
       end
     end

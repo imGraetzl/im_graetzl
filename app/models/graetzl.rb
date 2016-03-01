@@ -27,30 +27,34 @@ class Graetzl < ActiveRecord::Base
     districts.first
   end
 
-  # def activity_old
-  #   a = PublicActivity::Activity.arel_table
-  #   PublicActivity::Activity
-  #     .select('DISTINCT ON(trackable_id, trackable_type) *')
-  #     .where(a[:key].in(STREAM_ACTIVITY_KEYS))
-  #     .where(
-  #       a[:owner_id].in(users.pluck(:id)).or(
-  #         a[:trackable_id].in(meetings.pluck(:id)).and(a[:trackable_type].eq('Meeting'))).or(
-  #         a[:trackable_id].in(posts.pluck(:id)).and(a[:trackable_type].eq('Post'))))
-  #     .order(:trackable_id, :trackable_type, created_at: :desc)
-  #     .sort_by(&:created_at).reverse
-  # end
+  def feed_items(page)
+    items = activity.page(page).per(12)
+    if page < 2
+      zuckerls = zuckerl_samples(items.size * 0.2).to_a
+      items = merge_items(items, zuckerls)
+    end
+    items
+  end
+
+  private
+
+  def zuckerl_samples(limit)
+    # TODO: extend on district level
+    Zuckerl.live.where(location: self.locations).limit(limit).order("RANDOM()")
+  end
 
   def activity
     PublicActivity::Activity
       .includes(:owner, :trackable, post: [:author, :images, :graetzl, :comments], meeting: [:address, :graetzl, :comments])
       .select('DISTINCT ON(trackable_id, trackable_type) *')
-      .where(key: STREAM_ACTIVITY_KEYS)
-      .where("(owner_id IN (?) AND owner_type = 'User')
-        OR
-        (trackable_id IN (?) AND trackable_type = 'Meeting')
-        OR
-        (trackable_id IN (?) AND trackable_type = 'Post')", users.pluck(:id), meetings.pluck(:id), posts.pluck(:id))
-      .order(:trackable_id, :trackable_type, created_at: :desc)
-      .sort_by(&:created_at).reverse
+      .where(graetzl_id: self.id, key: STREAM_ACTIVITY_KEYS)
+      .order(:trackable_id, :trackable_type)
+      .order(created_at: :desc)
+  end
+
+  def merge_items(a, b)
+    a.zip(
+      (b + [nil] * (a.size - b.size)).shuffle
+    ).flatten.compact
   end
 end
