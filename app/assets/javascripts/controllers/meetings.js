@@ -48,7 +48,7 @@ APP.controllers.meetings = (function() {
 
         $('.datepicker').pickadate({
             formatSubmit: 'yyyy-mm-dd',
-            hiddenSuffix: ''
+            hiddenName: true
         });
 
         $('.timepicker').pickatime({
