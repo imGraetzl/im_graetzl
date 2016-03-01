@@ -5,7 +5,7 @@ class Users::CommentsController < CommentsController
   def create
     @comment = @commentable.wall_comments.new comment_params
     if @comment.save
-      @commentable.create_activity :comment, owner: current_user, recipient: @comment if log_activity?
+      @commentable.create_activity :comment, owner: current_user, graetzl_id: @commentable.graetzl_id, recipient: @comment if log_activity?
     end
   end
 

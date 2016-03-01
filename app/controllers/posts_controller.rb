@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   def create
     @post = @author.posts.new post_params
     if @post.save
-      @activity = @post.create_activity :create, owner: current_user
+      @activity = @post.create_activity :create, owner: current_user, graetzl_id: @post.graetzl_id
     end
   end
 

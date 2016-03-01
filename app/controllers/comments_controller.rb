@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new comment_params
     if @comment.save
-      @commentable.create_activity :comment, owner: current_user, recipient: @comment
+      @commentable.create_activity :comment, owner: current_user, recipient: @comment, graetzl_id: @commentable.graetzl_id
     end
   end
 
