@@ -113,99 +113,90 @@ RSpec.describe Graetzl, type: :model do
     end
   end
 
-  # describe '_#activity' do
-  #   let(:graetzl) { create :graetzl }
-  #   subject(:activity) { graetzl.send(:activity) }
-  #
-  #   context 'without activity' do
-  #     it 'returns empty collection' do
-  #       expect(activity).to be_empty
-  #     end
-  #   end
-  #   context 'with activity in graetzl' do
-  #     let!(:meeting_1) { create :meeting, graetzl: graetzl }
-  #     let!(:meeting_2) { create :meeting, graetzl: graetzl }
-  #     let!(:post_1) { create :post, graetzl: graetzl }
-  #     let!(:post_2) { create :post, graetzl: graetzl }
-  #
-  #     it 'includes most recent activity per trackable' do
-  #       create_post_1 = post_1.create_activity :create, graetzl_id: graetzl.id
-  #       create_post_2 = post_2.create_activity :create, graetzl_id: graetzl.id
-  #       create_meeting_1 = meeting_1.create_activity :create, graetzl_id: graetzl.id
-  #       create_meeting_2 = meeting_2.create_activity :create, graetzl_id: graetzl.id
-  #       comment_post_1 = post_1.create_activity :comment, graetzl_id: graetzl.id
-  #       comment_meeting_1 = meeting_1.create_activity :comment, graetzl_id: graetzl.id
-  #
-  #       expect(activity.map(&:id)).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2].map(&:id)
-  #     end
-  #   end
-  # end
+  describe '_#activity' do
+    let(:graetzl) { create :graetzl }
+    subject(:activity) { graetzl.send(:activity) }
 
-  # describe '#feed_items' do
-  #   before do
-  #     allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation)
-  #   end
-  #   let(:graetzl) { create :graetzl }
-  #
-  #   context 'for page 1' do
-  #     let(:posts) { create_list :post, 6, graetzl: graetzl }
-  #     let(:meetings) { create_list :post, 6, graetzl: graetzl }
-  #     let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
-  #     let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
-  #
-  #     it 'includes zuckerl and activity' do
-  #       activites = []
-  #       posts.each do |post|
-  #         activites << post.create_activity(:create, graetzl_id: graetzl.id)
-  #       end
-  #       meetings.each do |meeting|
-  #         activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
-  #       end
-  #
-  #       zuckerls = []
-  #       zuckerls << zuckerl_1
-  #       zuckerls << zuckerl_2
-  #
-  #       items = graetzl.feed_items(1)
-  #
-  #       puts items.size
-  #       puts activites.size
-  #
-  #       expect(items).to include(*activites)
-  #       expect(items).to include(*zuckerls)
-  #     end
-  #   end
+    context 'without activity' do
+      it 'returns empty collection' do
+        expect(activity).to be_empty
+      end
+    end
+    context 'with activity in graetzl' do
+      let!(:meeting_1) { create :meeting, graetzl: graetzl }
+      let!(:meeting_2) { create :meeting, graetzl: graetzl }
+      let!(:post_1) { create :post, graetzl: graetzl }
+      let!(:post_2) { create :post, graetzl: graetzl }
+
+      it 'includes most recent activity per trackable' do
+        create_post_1 = post_1.create_activity :create
+        create_post_2 = post_2.create_activity :create
+        create_meeting_1 = meeting_1.create_activity :create
+        create_meeting_2 = meeting_2.create_activity :create
+        comment_post_1 = post_1.create_activity :comment
+        comment_meeting_1 = meeting_1.create_activity :comment
+
+        expect(activity.ids).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2].map(&:id)
+      end
+    end
+  end
+
+  describe '#feed_items' do
+    before { allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation) }
+    let(:graetzl) { create :graetzl }
+
+    context 'for page 1' do
+      let(:posts) { create_list :post, 6, graetzl: graetzl }
+      let(:meetings) { create_list :meeting, 6, graetzl: graetzl }
+      let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
+      let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
+
+      it 'includes zuckerl and activity' do
+        activites = []
+        posts.each do |post|
+          activites << post.create_activity(:create, graetzl_id: graetzl.id)
+        end
+        meetings.each do |meeting|
+          activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
+        end
+
+        zuckerls = []
+        zuckerls << zuckerl_1
+        zuckerls << zuckerl_2
+
+        items = graetzl.feed_items(1)
+
+        expect(items).to include(*activites)
+        expect(items).to include(*zuckerls)
+      end
+    end
     # context 'for page 2' do
     #   let(:posts) { create_list :post, 12, graetzl: graetzl }
-    #   let(:meetings) { create_list :post, 12, graetzl: graetzl }
+    #   let(:meetings) { create_list :meeting, 12, graetzl: graetzl }
     #   let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
     #   let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
     #
     #   it 'includes only activity' do
-    #     PublicActivity.with_tracking do
-    #       old_activites = []
-    #       new_activites = []
-    #       posts.first(6).each do |post|
-    #         old_activites << post.create_activity(:create, graetzl_id: graetzl.id)
-    #       end
-    #       posts.last(6).each do |post|
-    #         new_activites << post.create_activity(:create, graetzl_id: graetzl.id)
-    #       end
-    #       meetings.first(6).each do |meeting|
-    #         old_activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
-    #       end
-    #       meetings.last(6).each do |meeting|
-    #         new_activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
-    #       end
-    #       zuckerls = []
-    #       zuckerls << zuckerl_1
-    #       zuckerls << zuckerl_2
-    #
-    #       items = graetzl.feed_items(2)
-    #
-    #       expect(items).not_to include(*new_activites)
-    #       expect(items).to include(*old_activites)
-    #       expect(items).not_to include(*zuckerls)
+    #     activites = []
+    #     posts.each do |post|
+    #       activites << post.create_activity(:create, graetzl_id: graetzl.id)
     #     end
+    #     meetings.each do |meeting|
+    #       activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
+    #     end
+    #     zuckerls = []
+    #     zuckerls << zuckerl_1
+    #     zuckerls << zuckerl_2
+    #
+    #     items = graetzl.feed_items(2)
+    #     puts Activity.first(12).map(&:id)
+    #     first_activities = activites.first(12)
+    #     # last_activities = activites.first(12).map(&:id)
+    #
+    #     expect(items).not_to include(*first_activities)
+    #     # expect(items).to include(*(activites.last(12)))
+    #     expect(items).not_to include(*zuckerls)
     #   end
+    # end
+  end
 end

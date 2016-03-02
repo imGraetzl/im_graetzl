@@ -27,14 +27,14 @@ class Graetzl < ActiveRecord::Base
     districts.first
   end
 
-  # def feed_items(page)
-  #   items = activity.page(page).per(12)
-  #   if page < 2
-  #     zuckerls = zuckerl_samples(items.size * 0.2).to_a
-  #     items = merge_items(items, zuckerls)
-  #   end
-  #   items
-  # end
+  def feed_items(page)
+    items = activity.page(page).per(12)
+    if page < 2
+      zuckerls = zuckerl_samples(items.size * 0.2).to_a
+      items = merge_items(items, zuckerls)
+    end
+    items
+  end
 
   private
 
@@ -43,15 +43,17 @@ class Graetzl < ActiveRecord::Base
     Zuckerl.live.where(location: self.locations).limit(limit).order("RANDOM()")
   end
 
-  # def activity
-  #   PublicActivity::Activity
-  #     .includes(:owner, :trackable, post: [:author, :images, :graetzl, :comments], meeting: [:address, :graetzl, :comments])
-  #     .where(id:
-  #       PublicActivity::Activity.select('DISTINCT ON(trackable_id, trackable_type) id')
-  #       .where(graetzl_id: self.id, key: STREAM_ACTIVITY_KEYS)
-  #       .order(:trackable_id, :trackable_type, id: :desc)
-  #     ).order(id: :desc)
-  # end
+  def activity
+    Activity
+      .where(id:
+        Activity.select('DISTINCT ON(trackable_id, trackable_type) id')
+        .where(key: STREAM_ACTIVITY_KEYS)
+        .where("(trackable_id IN (?) AND trackable_type = 'Meeting')
+                OR
+                (trackable_id IN (?) AND trackable_type = 'Post')", meetings.pluck(:id), posts.pluck(:id))
+        .order(:trackable_id, :trackable_type, id: :desc)
+      ).order(id: :desc)
+  end
 
   def merge_items(a, b)
     a.zip(
