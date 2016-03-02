@@ -46,13 +46,13 @@ RSpec.describe User, type: :model do
       end
 
       it 'destroys associated activity and notifications' do
-        expect(PublicActivity::Activity.count).to eq 3
+        expect(Activity.count).to eq 3
         expect(Notification.count).to eq 9
 
         user.destroy
 
         expect(Notification.count).to eq 0
-        expect(PublicActivity::Activity.count).to eq 0
+        expect(Activity.count).to eq 0
       end
     end
 

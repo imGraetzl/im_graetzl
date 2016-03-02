@@ -570,10 +570,8 @@ RSpec.describe MeetingsController, type: :controller do
             params[:meeting].merge!(starts_at_date: '2020-01-01',
                                     starts_at_time: '18:00',
                                     ends_at_time: '20:00')
-            PublicActivity.with_tracking do
-              put :update, params
-              meeting.reload
-            end
+            put :update, params
+            meeting.reload
           end
 
           it 'updates time' do
@@ -614,10 +612,8 @@ RSpec.describe MeetingsController, type: :controller do
             params.merge!(feature: address_feature.to_json)
             params.merge!(address: 'new address input')
 
-            PublicActivity.with_tracking do
-              put :update, params
-              meeting.reload
-            end
+            put :update, params
+            meeting.reload
           end
 
           it 'updates address attributes' do
@@ -732,11 +728,9 @@ RSpec.describe MeetingsController, type: :controller do
         end
 
         it 'logs meeting.cancel activity' do
-          PublicActivity.with_tracking do
-            delete :destroy, id: meeting
-            meeting.reload
-            expect(meeting.activities.last.key).to eq 'meeting.cancel'
-          end
+          delete :destroy, id: meeting
+          meeting.reload
+          expect(meeting.activities.last.key).to eq 'meeting.cancel'
         end
       end
     end

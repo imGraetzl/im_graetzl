@@ -4,11 +4,6 @@ RSpec.describe Notification, type: :model, job: true do
   before do
     ActiveJob::Base.queue_adapter = :inline
   end
-  around(:each) do |example|
-    PublicActivity.with_tracking do
-      example.run
-    end
-  end
 
   let(:user) { create(:user) }
   let(:meeting) { create(:meeting) }

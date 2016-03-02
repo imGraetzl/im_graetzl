@@ -6,7 +6,7 @@ class Notification < ActiveRecord::Base
 
   # macros
   belongs_to :user
-  belongs_to :activity, class_name: PublicActivity::Activity
+  belongs_to :activity
 
   # class methods
   def self.types
@@ -66,9 +66,5 @@ class Notification < ActiveRecord::Base
       { name: "graetzl_name", content: activity.trackable.graetzl.name },
       { name: "graetzl_url", content: graetzl_url(activity.trackable.graetzl, DEFAULT_URL_OPTIONS) },
     ]
-  end
-
-  PublicActivity::Activity.after_commit on: :create do |activity|
-    Notification.receive_new_activity(activity)
   end
 end

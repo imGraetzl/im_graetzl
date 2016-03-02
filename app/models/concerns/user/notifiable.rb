@@ -66,7 +66,7 @@ module User::Notifiable
   private
 
   def destroy_activity_and_notifications
-    activity = PublicActivity::Activity.where(owner: self)
+    activity = Activity.where(owner: self)
     notifications = Notification.where(activity: activity)
     notifications.destroy_all
     activity.destroy_all

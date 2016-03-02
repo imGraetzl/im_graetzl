@@ -1,5 +1,5 @@
 class Meeting < ActiveRecord::Base
-  include PublicActivity::Common
+  include Trackable
   extend FriendlyId
 
   # scopes
@@ -36,7 +36,6 @@ class Meeting < ActiveRecord::Base
   has_many :categorizations, as: :categorizable
   accepts_nested_attributes_for :categorizations, allow_destroy: true
   has_many :categories, through: :categorizations
-  has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   belongs_to :location
 
@@ -63,7 +62,7 @@ class Meeting < ActiveRecord::Base
   end
 
   def destroy_activity_and_notifications
-    activity = PublicActivity::Activity.where(trackable: self)
+    activity = Activity.where(trackable: self)
     notifications = Notification.where(activity: activity)
     notifications.destroy_all
     activity.destroy_all

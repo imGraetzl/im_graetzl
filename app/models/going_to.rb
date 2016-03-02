@@ -1,5 +1,5 @@
 class GoingTo < ActiveRecord::Base
-  include PublicActivity::Common
+  include Trackable
 
   belongs_to :user
   belongs_to :meeting

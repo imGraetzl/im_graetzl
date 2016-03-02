@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include PublicActivity::Common
+  include Trackable
   include User::Notifiable
   extend FriendlyId
 

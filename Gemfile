@@ -91,8 +91,6 @@ gem 'aws-sdk'
 gem 'friendly_id'
 # activeadmin for admin interface (pre version)
 gem 'activeadmin', '~> 1.0.0.pre2'
-#activity tracking for active record models
-gem 'public_activity'
 # submit multipart forms with ajax
 gem 'remotipart'
 # pagination

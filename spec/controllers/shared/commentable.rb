@@ -40,8 +40,8 @@ RSpec.shared_examples :create_records do
 
   it 'creates new activity record' do
     expect {
-      PublicActivity.with_tracking { xhr :post, :create, params }
-    }.to change(PublicActivity::Activity, :count).by(1)
+      xhr :post, :create, params
+    }.to change(Activity, :count).by(1)
   end
 end
 
@@ -52,7 +52,7 @@ RSpec.shared_examples :inline_comment do
 
   describe 'request', job: true do
     before do
-      PublicActivity.with_tracking { xhr :post, :create, params }
+      xhr :post, :create, params
     end
 
     it 'assigns comment.inline true' do
@@ -70,7 +70,7 @@ RSpec.shared_examples :stream_comment do
 
   describe 'request', job: true do
     before do
-      PublicActivity.with_tracking { xhr :post, :create, params }
+      xhr :post, :create, params
     end
 
     it 'assigns comment.inline false' do

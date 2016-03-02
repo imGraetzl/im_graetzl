@@ -7,7 +7,6 @@ require 'capybara/rspec'
 require 'factory_girl_rails'
 require 'database_cleaner'
 require 'capybara/poltergeist'
-require 'public_activity/testing'
 require 'webmock/rspec'
 require 'aasm/rspec'
 require 'sucker_punch/testing/inline'
@@ -18,9 +17,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # use poltergeist for feature requests using js
 Capybara.javascript_driver = :poltergeist
-
-# disable activity tracking on tests
-PublicActivity.enabled = false
 
 # Use synchronus backend for active job
 #Rails.application.config.active_job.queue_adapter = :inline

@@ -1,5 +1,5 @@
 class Location < ActiveRecord::Base
-  include PublicActivity::Common
+  include Trackable
   extend FriendlyId
 
   # scopes
@@ -76,7 +76,7 @@ class Location < ActiveRecord::Base
   private
 
   def destroy_activity_and_notifications
-    activity = PublicActivity::Activity.where(trackable: self)
+    activity = Activity.where(trackable: self)
     notifications = Notification.where(activity: activity)
     notifications.destroy_all
     activity.destroy_all

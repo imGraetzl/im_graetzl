@@ -121,11 +121,11 @@ RSpec.describe Location, type: :model do
           activity = create(:activity, trackable: location, key: 'location.something')
           create_list(:notification, 3, activity: activity)
         end
-        expect(PublicActivity::Activity.count).to eq 3
+        expect(Activity.count).to eq 3
         expect(Notification.count).to eq 9
         location.destroy
         expect(Notification.count).to eq 0
-        expect(PublicActivity::Activity.count).to eq 0
+        expect(Activity.count).to eq 0
       end
     end
 
@@ -230,13 +230,11 @@ RSpec.describe Location, type: :model do
       end
 
       it 'logs :approve activity' do
-        PublicActivity.with_tracking do
-          expect(location.activities).to be_empty
-          location.approve
-          location.reload
-          expect(location.activities).not_to be_empty
-          expect(location.activities.last.key).to eq 'location.approve'
-        end
+        expect(location.activities).to be_empty
+        location.approve
+        location.reload
+        expect(location.activities).not_to be_empty
+        expect(location.activities.last.key).to eq 'location.approve'
       end
     end
 

@@ -25,8 +25,8 @@ RSpec.describe Users::CommentsController, type: :controller do
 
       it 'creates new activity record', job: true do
         expect {
-          PublicActivity.with_tracking { xhr :post, :create, params }
-        }.to change(PublicActivity::Activity, :count).by(1)
+          xhr :post, :create, params
+        }.to change(Activity, :count).by(1)
       end
 
       describe 'request' do
@@ -62,8 +62,8 @@ RSpec.describe Users::CommentsController, type: :controller do
 
       it 'does not create new activity record', job: true do
         expect {
-          PublicActivity.with_tracking { xhr :post, :create, params }
-        }.not_to change(PublicActivity::Activity, :count)
+          xhr :post, :create, params
+        }.not_to change(Activity, :count)
       end
 
       describe 'request' do
