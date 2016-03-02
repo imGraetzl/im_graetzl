@@ -7,8 +7,4 @@ class Activity < ActiveRecord::Base
   after_commit on: :create do |activity|
     Notification.receive_new_activity(activity)
   end
-
-  # def self.create_activity(trackable, options)
-  #   trackable.activities.create options
-  # end
 end

@@ -102,7 +102,7 @@ namespace :db do
             coordinates: 'POINT (16.353172456228375 48.194235057984216)'
           })
         meeting.going_tos.create(user: u, role: 'initiator')
-        meeting.create_activity :create, owner: u, graetzl_id: meeting.graetzl_id
+        meeting.create_activity :create, owner: u
       end
     end
 
@@ -117,7 +117,7 @@ namespace :db do
     end
     posts.shuffle.each do |p|
       p.save
-      p.create_activity :create, owner: p.author, graetzl_id: p.graetzl_id
+      p.create_activity :create, owner: p.author
     end
   end
 end

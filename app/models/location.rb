@@ -52,7 +52,7 @@ class Location < ActiveRecord::Base
 
   def approve
     if pending? && approved!
-      self.create_activity :approve, graetzl_id: self.graetzl_id
+      self.create_activity :approve
       return true
     end
     false

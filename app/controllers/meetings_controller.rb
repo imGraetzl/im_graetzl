@@ -41,7 +41,7 @@ class MeetingsController < ApplicationController
     @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
 
     if @meeting.save
-      @meeting.create_activity :create, owner: current_user, graetzl_id: @meeting.graetzl_id
+      @meeting.create_activity :create, owner: current_user
       redirect_to [@meeting.graetzl, @meeting]
     else
       render :new
@@ -63,7 +63,6 @@ class MeetingsController < ApplicationController
       changed_attribute_keys = changed_attributes.keys.collect(&:to_sym)
       if changed_attribute_keys.any? { |a| [ :address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description ].include?(a) }
         @meeting.create_activity :update,
-          graetzl_id: @meeting.graetzl_id,
           owner: current_user,
           parameters: { changed_attributes: changed_attribute_keys }
       end
@@ -75,7 +74,7 @@ class MeetingsController < ApplicationController
 
   def destroy
     @meeting.cancelled!
-    @meeting.create_activity :cancel, owner: current_user, graetzl_id: @meeting.graetzl_id
+    @meeting.create_activity :cancel, owner: current_user
     redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
   end
 
