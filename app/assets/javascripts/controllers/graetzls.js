@@ -1,8 +1,10 @@
 APP.controllers.graetzls = (function() {
-    
+
     var map =  APP.components.graetzlMap;
+    var filter = APP.components.startpageFilter;
 
     function init() {
+        filter.init();
         var mapdata = $('#graetzlMapWidget').data('mapdata');
         map.init(function() {
                 map.showMapGraetzl(mapdata.graetzls, {

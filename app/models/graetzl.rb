@@ -39,17 +39,18 @@ class Graetzl < ActiveRecord::Base
   private
 
   def zuckerl_samples(limit)
-    # TODO: extend on district level
+    # TODO: extend on districts level
     Zuckerl.live.where(location: self.locations).limit(limit).order("RANDOM()")
   end
 
   def activity
     PublicActivity::Activity
       .includes(:owner, :trackable, post: [:author, :images, :graetzl, :comments], meeting: [:address, :graetzl, :comments])
-      .select('DISTINCT ON(trackable_id, trackable_type) *')
-      .where(graetzl_id: self.id, key: STREAM_ACTIVITY_KEYS)
-      .order(:trackable_id, :trackable_type)
-      .order(created_at: :desc)
+      .where(id:
+        PublicActivity::Activity.select('DISTINCT ON(trackable_id, trackable_type) id')
+        .where(graetzl_id: self.id, key: STREAM_ACTIVITY_KEYS)
+        .order(:trackable_id, :trackable_type, id: :desc)
+      ).order(id: :desc)
   end
 
   def merge_items(a, b)

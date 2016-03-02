@@ -1,0 +1,56 @@
+<div class="block-overview">
+  <div class="cardBoxCollection -quart">
+    <div class="cardbox-wrp">
+      <h2>Treffen & Events</h2>
+      <%= link_to 'Alle', graetzl_meetings_path(@graetzl), class: 'linkoverview' %>
+      <% if meeting = @graetzl.meetings.basic.upcoming.first %>
+        <%= render meeting %>
+      <% else %>
+        <div class="cardBox meetBox -illuteasersmall">
+          <div class="txt">
+            <p>Lege ein Treffen für gemeinsame Aktivitäten an oder trage ein Event ein.</p>
+          </div>
+          <%= link_to 'Treffen anlegen', new_graetzl_meeting_path(@graetzl), class: 'btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="cardbox-wrp">
+      <h2>Initiativen</h2>
+      <div class="cardBox initiativeBox -illuteasersmall">
+        <div class="txt">
+          <p>Neue Ideen für dein Grätzl? Gartenprojekt, Flohmarkt, oder Spendenaktion? Finde Mitorganisatoren.</p>
+        </div>
+        <a class="btn-primary -disabled" href="#" title="An dieser Funktion arbeiten wir noch...">In Kürze verfügbar</a>
+      </div>
+    </div>
+
+    <div class="cardbox-wrp">
+      <h2>Anbieter & Locations</h2>
+      <%= link_to 'Alle', graetzl_locations_path(@graetzl), class: 'linkoverview' %>
+      <% if location = @graetzl.locations.approved.order("RANDOM()").first %>
+        <%= render location, small: true %>
+      <% else %>
+        <div class="cardBox locationBox -illuteasersmall">
+          <div class="txt">
+            <p>Unternehmerisch oder kreativ im Grätzl tätig? Zeig, was du machst.</p>
+          </div>
+          <%= link_to 'Betreiber eintragen', new_location_path, class: 'btn-primary -mint' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="cardbox-wrp">
+      <h2>Besondere Angebote</h2>
+      <div class="cardBox candyBox -illuteasersmall">
+        <div class="txt">
+          <p>Entdecke einzigartige Anbieter und Angebote in deinem Grätzl.</p>
+        </div>
+        <%= link_to 'Zum Grätzlzuckerl', zuckerl_districts_path, class: 'btn-primary -mint' %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<%= render 'stream' %>
