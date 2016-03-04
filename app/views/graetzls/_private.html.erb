@@ -1,0 +1,79 @@
+<div class="filter-stream">
+
+  <!-- for mobile we use a select menu -->
+  <div class="input-select">
+    <label for="filter">
+      <svg class="icon-funnel-filter"><use xlink:href="#icon-funnel-filter"></use></svg>
+      <span>Filter</span>
+    </label>
+    <select id="filter">
+      <option>Grätzl Stream</option>
+      <option>Treffen & Events</option>
+      <option>Anbieter & Locations</option>
+      <option>Zuckerl & Angebote</option>
+      <option>Wünsche & Ideen</option>
+    </select>
+  </div>
+  <!-- END mobile select menu -->
+
+  <%= link_to '#', class: 'iconfilter active' do %>
+    <img class="mapthumb" src="assets/mapthumbs/stuwerviertel.jpg" alt="">
+    <div class="txt">Grätzl<br/>Stream</div>
+  <% end %>
+
+  <%= link_to '#', class: 'iconfilter' do %>
+    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+    <div class="txt">Treffen<br/>& Events</div>
+  <% end %>
+
+  <%= link_to '#', class: 'iconfilter' do %>
+    <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
+    <div class="txt">Anbieter<br/>& Locations</div>
+  <% end %>
+
+  <%= link_to '#', class: 'iconfilter' do %>
+    <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+    <div class="txt">Zuckerl<br/>& Angebote</div>
+  <% end %>
+
+  <%= link_to '#', class: 'iconfilter' do %>
+    <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+    <div class="txt">Wünsche<br/>& Ideen</div>
+  <% end %>
+
+  <%= link_to '#', class: 'iconfilter createentry', data: { behavior: 'createTrigger' } do %>
+    <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+  <% end %>
+
+</div>
+
+<!-- dropDown -->
+<div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
+  <div class="jq-dropdown-panel">
+
+    <a href="#">
+      <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+      <div class="icontxt">Neues Treffen</div>
+    </a>
+    <a href="#">
+      <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+      <div class="icontxt"> Neuer Wunsch oder Idee</div>
+    </a>
+    <a href="#">
+      <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+      <div class="icontxt">Neuigkeit meiner Location</div>
+      <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
+    </a>
+    <a href="#">
+      <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+      <div class="icontxt">Grätzlzuckerl meiner Location</div>
+      <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
+    </a>
+
+  </div>
+</div>
+
+
+<div class="cards-container">
+  <%= render @feed_items %>
+</div>
