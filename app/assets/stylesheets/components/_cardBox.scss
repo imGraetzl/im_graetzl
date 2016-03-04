@@ -83,7 +83,6 @@
     margin-bottom: 20px;
     border-left-width: 1px;
     border-left-style: dotted;
-    text-decoration: none;
     > .hl, > .date {
       margin: 0 auto;
       display: flex;
@@ -101,6 +100,9 @@
         margin-bottom: 0;
       }
     }
+  }
+  a.updateteaser, a.zuckerlteasertxt, a.event-teaser-box {
+    text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
@@ -116,6 +118,9 @@
     border-color: $color-ambient-rosa-dark;
     background-color: $color-ambient-rosa-light;
     color: $color-ambient-rosa-dark;
+    .description {
+      white-space: pre;
+    }
   }
   .event-teaser-box {
     border-color: $color-ambient-mint-dark;
@@ -222,6 +227,7 @@
   }
   .name {
     @include ellipsis();
+    color: $color-ambient-rosa;
   }
   .category {
     @include ellipsis();

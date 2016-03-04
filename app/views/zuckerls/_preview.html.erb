@@ -1,23 +1,7 @@
-<div class="cardBox -location ">
+<div class="cardBox">
   <div class="cardBoxHeader">
     <div class="imgpreview" data-behavior="imagepreview">
       <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180) if zuckerl.image_id %>
-    </div>
-    <div class="location-shortfacts">
-      <%= link_to [location.graetzl, location] do %>
-        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
-        <div class="name"><%= location.name %></div>
-      <% end %>
-
-      <div class="category"><%= location.category.name %></div>
-      <% if address = location.address %>
-        <div class="address">
-          <svg class="icon-location">
-            <use xlink:href="#icon-location"></use>
-          </svg>
-          <%= location.address.street_name %> <%= location.address.street_number %>
-        </div>
-      <% end %>
     </div>
     <div class="categoryicon">
       <svg class="icon-shopping-bag">
@@ -25,9 +9,30 @@
       </svg>
     </div>
   </div>
-  <div class="zuckerl-teaser-box">
-    <div class="title" data-behavior="titlepreview"></div>
-    <div class="description" data-behavior="descriptionpreview"></div>
+  <div class="cardBoxContent">
+    <div class="location-shortfacts">
+      <%= link_to [location.graetzl, location], class: 'locationlogo' do %>
+        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
+      <% end %>
+      <div class="locationtxt">
+        <%= link_to [location.graetzl, location] do %>
+          <div class="name"><%= location.name %></div>
+        <% end %>
+        <div class="category"><%= location.category.name %></div>
+        <% if address = location.address %>
+          <div class="address">
+            <svg class="icon-location">
+              <use xlink:href="#icon-location"></use>
+            </svg>
+            <%= location.address.street_name %> <%= location.address.street_number %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="zuckerlteasertxt">
+      <div class="title" data-behavior="titlepreview"></div>
+      <div class="description" data-behavior="descriptionpreview"></div>
+    </div>
   </div>
 </div>
 
