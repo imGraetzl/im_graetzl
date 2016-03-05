@@ -7,4 +7,12 @@ class Activity < ActiveRecord::Base
   after_commit on: :create do |activity|
     Notification.receive_new_activity(activity)
   end
+
+  before_destroy :destroy_notifications, prepend: true
+
+  private
+
+  def destroy_notifications
+    Notification.where(activity: self).destroy_all
+  end
 end

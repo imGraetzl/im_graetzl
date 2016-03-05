@@ -1,0 +1,2 @@
+class AdminPost < Post
+end

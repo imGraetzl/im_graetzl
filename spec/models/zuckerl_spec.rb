@@ -152,7 +152,7 @@ RSpec.describe Zuckerl, type: :model do
   end
 
   describe 'callbacks' do
-    describe 'after_create' do
+    describe 'after_commit' do
       it 'calls BookingConfirmationJob' do
         ActiveJob::Base.queue_adapter = :test
         expect{
