@@ -37,10 +37,11 @@ RSpec.describe Graetzl, type: :model do
       end
 
       it 'destroys posts' do
-        create_list :post, 3, graetzl: graetzl
+        create_list :user_post, 3, graetzl: graetzl
+        create_list :location_post, 3, graetzl: graetzl
         expect{
           graetzl.destroy
-        }.to change(Post, :count).by -3
+        }.to change(Post, :count).by -6
       end
     end
 
@@ -125,15 +126,15 @@ RSpec.describe Graetzl, type: :model do
     context 'with activity in graetzl' do
       let!(:meeting_1) { create :meeting, graetzl: graetzl }
       let!(:meeting_2) { create :meeting, graetzl: graetzl }
-      let!(:post_1) { create :post, graetzl: graetzl }
-      let!(:post_2) { create :post, graetzl: graetzl }
+      let!(:user_post) { create :user_post, graetzl: graetzl }
+      let!(:location_post) { create :location_post, graetzl: graetzl }
 
       it 'includes most recent activity per trackable' do
-        create_post_1 = post_1.create_activity :create
-        create_post_2 = post_2.create_activity :create
+        create_post_1 = user_post.create_activity :create
+        create_post_2 = location_post.create_activity :create
         create_meeting_1 = meeting_1.create_activity :create
         create_meeting_2 = meeting_2.create_activity :create
-        comment_post_1 = post_1.create_activity :comment
+        comment_post_1 = user_post.create_activity :comment
         comment_meeting_1 = meeting_1.create_activity :comment
 
         expect(activity.ids).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2].map(&:id)
@@ -146,18 +147,19 @@ RSpec.describe Graetzl, type: :model do
     let(:graetzl) { create :graetzl }
 
     context 'for page 1' do
-      let(:posts) { create_list :post, 6, graetzl: graetzl }
+      let(:user_posts) { create_list :user_post, 3, graetzl: graetzl }
+      let(:location_posts) { create_list :location_post, 3, graetzl: graetzl }
       let(:meetings) { create_list :meeting, 6, graetzl: graetzl }
       let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
       let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
 
       it 'includes zuckerl and activity' do
         activites = []
-        posts.each do |post|
-          activites << post.create_activity(:create, graetzl_id: graetzl.id)
+        (user_posts + location_posts).each do |post|
+          activites << post.create_activity(:create)
         end
         meetings.each do |meeting|
-          activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
+          activites << meeting.create_activity(:create)
         end
 
         zuckerls = []

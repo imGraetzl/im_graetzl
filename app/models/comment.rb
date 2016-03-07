@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   include Trackable
 
-  default_scope { order(created_at: :desc) }
+  # default_scope { order(created_at: :desc) }
 
   # macros
   attr_accessor :inline

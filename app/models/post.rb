@@ -2,7 +2,7 @@ class Post < ActiveRecord::Base
   include Trackable
   extend FriendlyId
 
-  default_scope { order(created_at: :desc) }
+  # default_scope { order(created_at: :desc) }
 
   friendly_id :title
 

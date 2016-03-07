@@ -1,0 +1,54 @@
+<% location = location_post.author %>
+<div class="cardBox">
+  <div class="cardBoxHeader">
+    <%= link_to '#' do %>
+      <% if image = location_post.images.first %>
+        <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
+      <% else %>
+        <%= attachment_image_tag location, :cover_photo, :fill, 300, 180, fallback: 'cover_photo/300x180.png', class: 'coverImg' %>
+      <% end %>
+    <% end %>
+    <div class="categoryicon">
+      <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+    </div>
+  </div>
+  <div class="cardBoxContent">
+    <div class="location-shortfacts">
+      <%= link_to [location.graetzl, location], class: 'locationlogo' do %>
+        <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
+      <% end %>
+      <div class="locationtxt">
+        <%= link_to [location.graetzl, location] do %>
+          <div class="name"><%= location.name %></div>
+        <% end %>
+        <div class="category"><%= location.category.name %></div>
+        <% if location.address %>
+          <div class="address">
+            <svg class="icon-location">
+              <use xlink:href="#icon-location"></use>
+            </svg>
+            <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="txt">
+      <h3><%= link_to location_post.title, [location.graetzl, location] %></h3>
+      <p><%= truncate location_post.content, length: 100 %></p>
+    </div>
+
+    <!-- comment -->
+    <% if defined? comment %>
+      <div class="streamElement">
+        <div class="entryInitialContent">
+          <div class="userCreateInfo">
+            <%= avatar_for comment.user %>
+            <span class="userAndType">Kommentar von <%= link_to comment.user.username, [comment.user] %> <span>vor etwa 2 Stunden</span></span>
+          </div>
+          <div class="txt"><%= truncate comment.content, length: 100 %></div>
+        </div>
+        <a href="#" class="commentslink">Alle 12 Kommentare ansehen</a>
+      </div>
+    <% end %>
+  </div>
+</div>

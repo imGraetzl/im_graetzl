@@ -6,7 +6,8 @@ class Graetzl < ActiveRecord::Base
   enum state: { open: 0, closed: 1 }
   STREAM_ACTIVITY_KEYS = [
     'meeting.comment', 'meeting.create', 'meeting.go_to',
-    'post.comment', 'post.create'
+    'user_post.comment', 'user_post.create',
+    'location_post.comment', 'location_post.create'
   ]
 
   # associations
@@ -50,7 +51,7 @@ class Graetzl < ActiveRecord::Base
         .where(key: STREAM_ACTIVITY_KEYS)
         .where("(trackable_id IN (?) AND trackable_type = 'Meeting')
                 OR
-                (trackable_id IN (?) AND trackable_type = 'Post')", meetings.pluck(:id), posts.pluck(:id))
+                (trackable_id IN (?) AND trackable_type LIKE '%Post')", meetings.ids, posts.ids)
         .order(:trackable_id, :trackable_type, id: :desc)
       ).order(id: :desc)
   end
