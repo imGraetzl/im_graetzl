@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'models/shared/trackable'
 
 RSpec.describe Location, type: :model do
+  it_behaves_like :a_trackable
 
   it 'has a valid factory' do
     expect(build_stubbed(:location)).to be_valid
@@ -81,7 +83,7 @@ RSpec.describe Location, type: :model do
         create :address, addressable: location
         expect{
           location.destroy
-        }.to change(Address, :count).by -1
+        }.to change{Address.count}.by -1
       end
     end
 
@@ -94,7 +96,7 @@ RSpec.describe Location, type: :model do
         create_list :location_ownership, 3, location: location
         expect{
           location.destroy
-        }.to change(LocationOwnership, :count).by -3
+        }.to change{LocationOwnership.count}.by -3
       end
     end
 
@@ -111,34 +113,16 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    describe 'activities', job: true do
-      it 'has activities' do
-        expect(location).to respond_to(:activities)
-      end
-
-      it 'destroys activities and notifications with location' do
-        3.times do
-          activity = create(:activity, trackable: location, key: 'location.something')
-          create_list(:notification, 3, activity: activity)
-        end
-        expect(Activity.count).to eq 3
-        expect(Notification.count).to eq 9
-        location.destroy
-        expect(Notification.count).to eq 0
-        expect(Activity.count).to eq 0
-      end
-    end
-
     describe 'posts' do
       it 'has posts' do
         expect(location).to respond_to(:posts)
       end
 
       it 'destroys posts with location' do
-        create_list(:post, 3, author: location)
+        create_list(:location_post, 3, author: location)
         expect{
           location.destroy
-        }.to change(Post, :count).by -3
+        }.to change{Post.count}.by -3
       end
     end
 

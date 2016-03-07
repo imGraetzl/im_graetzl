@@ -1,7 +1,6 @@
 class Graetzl < ActiveRecord::Base
   extend FriendlyId
 
-  # macros
   friendly_id :name
   enum state: { open: 0, closed: 1 }
   STREAM_ACTIVITY_KEYS = [
@@ -10,7 +9,6 @@ class Graetzl < ActiveRecord::Base
     'location_post.comment', 'location_post.create'
   ]
 
-  # associations
   has_one :curator, dependent: :destroy
   has_many :users
   has_many :meetings, dependent: :destroy
@@ -19,7 +17,6 @@ class Graetzl < ActiveRecord::Base
   has_many :operating_ranges
   has_many :initiatives, through: :operating_ranges
 
-  # instance methods
   def districts
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
   end

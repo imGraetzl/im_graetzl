@@ -1,14 +1,12 @@
 require 'rails_helper'
+require 'models/shared/trackable'
 
 RSpec.describe User, type: :model do
+  it_behaves_like :a_trackable
 
-  it 'has a valid factory for normal users' do
-    expect(build_stubbed(:user)).to be_valid
-  end
-
-  it 'has a valid factory for admins' do
-    expect(build_stubbed(:admin)).to be_valid
-    expect(build_stubbed(:admin).admin?).to be_truthy
+  it 'has a valid factory' do
+    expect(build_stubbed :user).to be_valid
+    expect(build_stubbed :admin).to be_valid
   end
 
   describe 'validations' do
@@ -36,25 +34,6 @@ RSpec.describe User, type: :model do
 
   describe 'callbacks' do
     let(:user) { create(:user) }
-
-    describe 'before_destroy' do
-      before do
-        3.times do
-          activity = create(:activity, trackable: create(:meeting), owner: user, key: 'meeting.go_to')
-          3.times{ create(:notification, activity: activity) }
-        end
-      end
-
-      it 'destroys associated activity and notifications' do
-        expect(Activity.count).to eq 3
-        expect(Notification.count).to eq 9
-
-        user.destroy
-
-        expect(Notification.count).to eq 0
-        expect(Activity.count).to eq 0
-      end
-    end
 
     describe 'before_validation' do
       context 'when username one word' do
@@ -136,24 +115,8 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'attributes' do
-    let(:user) { build(:user) }
-
-    it 'has bio' do
-      expect(user).to respond_to(:bio)
-    end
-
-    it 'has website' do
-      expect(user).to respond_to(:website)
-    end
-  end
-
   describe 'associations' do
     let(:user) { create(:user) }
-
-    it 'has address' do
-      expect(user).to respond_to(:address)
-    end
 
     it 'has graetzl' do
       expect(user).to respond_to(:graetzl)
@@ -163,172 +126,111 @@ RSpec.describe User, type: :model do
       expect(user).to respond_to(:meetings)
     end
 
-    it 'has posts' do
-      expect(user).to respond_to(:posts)
-    end
-
     it 'has locations' do
       expect(user).to respond_to(:locations)
     end
 
-    it 'has comments' do
-      expect(user).to respond_to(:comments)
+    describe 'address' do
+      it 'has address' do
+        expect(user).to respond_to(:address)
+      end
+
+      it 'destroys address' do
+        create :address, addressable: user
+        expect{
+          user.destroy
+        }.to change{Address.count}.by -1
+      end
     end
 
-    it 'has wall_comments' do
-      expect(user).to respond_to(:wall_comments)
+    describe 'going_tos' do
+      it 'has going_tos' do
+        expect(user).to respond_to :going_tos
+      end
+
+      it 'destroys going_tos' do
+        create_list :going_to, 3, user: user
+        expect{
+          user.destroy
+        }.to change{GoingTo.count}.by -3
+      end
     end
 
-    it 'has curator' do
-      expect(user).to respond_to(:curator)
+    describe 'notifications' do
+      it 'has notifications' do
+        expect(user).to respond_to :notifications
+      end
+
+      it 'destroys notifications' do
+        create_list :notification, 3, user: user
+        expect{
+          user.destroy
+        }.to change{Notification.count}.by -3
+      end
     end
 
-    describe 'destroy associated records' do
-      describe 'address' do
-        before { user.create_address(attributes_for(:address)) }
-
-        it 'has address' do
-          expect(user.address).not_to be_nil
-        end
-
-        it 'destroys address with user' do
-          address = user.address
-          expect(Address.find(address.id)).not_to be_nil
-          user.destroy
-          expect(Address.find_by_id(address.id)).to be_nil
-        end
+    describe 'posts' do
+      it 'has posts' do
+        expect(user).to respond_to :posts
       end
 
-      describe 'going_tos' do
-        before { 3.times{create(:going_to, user: user, meeting: create(:meeting))} }
-
-        it 'has going_tos' do
-          expect(user.going_tos).not_to be_empty
-        end
-
-        it 'destroys going_tos' do
-          going_tos = user.going_tos
-          going_tos.each do |going_to|
-            expect(GoingTo.find(going_to.id)).not_to be_nil
-          end
+      it 'destroys posts' do
+        create_list :user_post, 3, author: user
+        expect{
           user.destroy
-          going_tos.each do |going_to|
-            expect(GoingTo.find_by_id(going_to.id)).to be_nil
-          end
-        end
+        }.to change{Post.count}.by -3
+      end
+    end
+
+    describe 'comments' do
+      it 'has comments' do
+        expect(user).to respond_to :comments
       end
 
-      describe 'notifications' do
-        before do
-          3.times{create(:notification,
-                          user: user,
-                          activity: build_stubbed(:activity))}
-        end
-
-        it 'has notifications' do
-          expect(user.notifications).not_to be_empty
-        end
-
-        it 'destroys notifications' do
-          notifications = user.notifications
-          notifications.each do |n|
-            expect(Notification.find(n.id)).not_to be_nil
-          end
+      it 'destroys comments' do
+        create_list :comment, 3, user: user
+        expect{
           user.destroy
-          notifications.each do |n|
-            expect(Notification.find_by_id(n.id)).to be_nil
-          end
-        end
+        }.to change{Comment.count}.by -3
+      end
+    end
+
+    describe 'location_ownerships' do
+      it 'has location_ownerships' do
+        expect(user).to respond_to :location_ownerships
       end
 
-      describe 'posts' do
-        before { 3.times{create(:post, author: user)} }
-
-        it 'has posts' do
-          expect(user.posts).not_to be_empty
-        end
-
-        it 'destroys posts' do
-          posts = user.posts
-          posts.each do |p|
-            expect(Post.find(p.id)).not_to be_nil
-          end
+      it 'destroys location_ownerships' do
+        create_list :location_ownership, 3, user: user
+        expect{
           user.destroy
-          posts.each do |p|
-            expect(Post.find_by_id(p.id)).to be_nil
-          end
-        end
+        }.to change{LocationOwnership.count}.by -3
+      end
+    end
+
+    describe 'wall_comments' do
+      it 'has wall_comments' do
+        expect(user).to respond_to :wall_comments
       end
 
-      describe 'comments' do
-        before { 3.times{create(:comment, user: user)} }
-
-        it 'has comments' do
-          expect(user.comments).not_to be_empty
-        end
-
-        it 'destroys comments' do
-          comments = user.comments
-          comments.each do |comment|
-            expect(Comment.find(comment.id)).not_to be_nil
-          end
+      it 'destroys wall_comments' do
+        create_list :comment, 3, commentable: user
+        expect{
           user.destroy
-          comments.each do |comment|
-            expect(Comment.find_by_id(comment.id)).to be_nil
-          end
-        end
+        }.to change{Comment.count}.by -3
+      end
+    end
+
+    describe 'curator' do
+      it 'has curator' do
+        expect(user).to respond_to :curator
       end
 
-      describe 'location_ownerships' do
-        before { 3.times{create(:location_ownership, user: user)} }
-
-        it 'has location_ownerships' do
-          expect(user.location_ownerships).not_to be_empty
-        end
-
-        it 'destroys location_ownerships' do
-          location_ownerships = user.location_ownerships
-          location_ownerships.each do |ownership|
-            expect(LocationOwnership.find(ownership.id)).not_to be_nil
-          end
+      it 'destroys curator' do
+        create :curator, user: user
+        expect{
           user.destroy
-          location_ownerships.each do |ownership|
-            expect(LocationOwnership.find_by_id(ownership.id)).to be_nil
-          end
-        end
-      end
-
-      describe 'wall_comments' do
-        before { 3.times{create(:comment, commentable: user)} }
-
-        it 'has wall_comments' do
-          expect(user.wall_comments).not_to be_empty
-        end
-
-        it 'destroys wall_comments' do
-          wall_comments = user.wall_comments
-          wall_comments.each do |comment|
-            expect(Comment.find(comment.id)).not_to be_nil
-          end
-          user.destroy
-          wall_comments.each do |comment|
-            expect(Comment.find_by_id(comment.id)).to be_nil
-          end
-        end
-      end
-
-      describe 'curator' do
-        before { create(:curator, user: user) }
-
-        it 'has curator' do
-          expect(user.curator).to be
-        end
-
-        it 'destroys curator' do
-          expect{
-            user.destroy
-          }.to change(Curator, :count).by(-1)
-        end
+        }.to change{Curator.count}.by -1
       end
     end
   end

@@ -1,12 +1,8 @@
 class Address < ActiveRecord::Base
-
-  # associations
   belongs_to :addressable, polymorphic: true
 
-  # callbacks
   before_save :get_coordinates unless Rails.env.test?
 
-  # class methods
   def self.attributes_from_feature(feature)
     begin
       feature = JSON.parse(feature)
@@ -30,7 +26,6 @@ class Address < ActiveRecord::Base
     }
   end
 
-  # instance methods
   def graetzls
     Graetzl.where('ST_CONTAINS(area, :point)', point: coordinates)
   end

@@ -2,7 +2,6 @@ class Meeting < ActiveRecord::Base
   include Trackable
   extend FriendlyId
 
-  # scopes
   scope :upcoming, -> { where("(starts_at_date > ?)
                               OR
                               (starts_at_date IS NULL)", Date.yesterday)
@@ -21,12 +20,10 @@ class Meeting < ActiveRecord::Base
                         .where('going_tos.role = ?', GoingTo::roles[:attendee]).references(:going_tos)
                         .order(starts_at_date: :desc) }
 
-  # macros
   friendly_id :name
   attachment :cover_photo, type: :image
   enum state: { basic: 0, cancelled: 1 }
 
-  # associations
   belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
@@ -39,15 +36,10 @@ class Meeting < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   belongs_to :location
 
-  # validations
   validates :name, presence: true
   validates :graetzl, presence: true
   validate :starts_at_date_cannot_be_in_the_past, on: :create
 
-  # callbacks
-  before_destroy :destroy_activity_and_notifications, prepend: true
-
-  # instance methods
   def initiator
     going_to = going_tos.initiator.last
     going_to.user if going_to
@@ -59,12 +51,5 @@ class Meeting < ActiveRecord::Base
     if starts_at_date && starts_at_date < Date.today
       errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
     end
-  end
-
-  def destroy_activity_and_notifications
-    activity = Activity.where(trackable: self)
-    notifications = Notification.where(activity: activity)
-    notifications.destroy_all
-    activity.destroy_all
   end
 end

@@ -4,7 +4,6 @@ class District < ActiveRecord::Base
   extend FriendlyId
   friendly_id :long_name
 
-  # instance methods
   def graetzls
     Rails.cache.fetch(['graetzls', self], expires_in: 48.hours) do
       Graetzl.where('ST_INTERSECTS(area, :district)', district: self.area)

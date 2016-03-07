@@ -2,14 +2,12 @@ class Location < ActiveRecord::Base
   include Trackable
   extend FriendlyId
 
-  # scopes
   scope :paginate_index, ->(page) { order(id: :desc)
                                       .page(page)
                                       .per(page == 1 ? 14 : 15)
                                       .padding(page == 1 ? 0 : -1) }
 
 
-  # attr macros
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
@@ -17,10 +15,9 @@ class Location < ActiveRecord::Base
   attachment :cover_photo, type: :image
   acts_as_taggable_on :products
 
-  # associations macros
   belongs_to :graetzl
   has_one :address, as: :addressable, dependent: :destroy
-  has_many :posts, as: :author, dependent: :destroy
+  has_many :posts, as: :author, dependent: :destroy, class_name: 'LocationPost'
   accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
   has_one :contact, dependent: :destroy
   accepts_nested_attributes_for :contact
@@ -33,22 +30,15 @@ class Location < ActiveRecord::Base
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
-  # validations
   validates :name, presence: true
   validates :graetzl, presence: true
   validates :category, presence: true
 
-  # callbacks
-  before_destroy :destroy_activity_and_notifications, prepend: true
-
-  # class methods
   def self.meeting_permissions_for_select
     meeting_permissions.map do |t|
       [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :meeting_permissions]), t[0]]
     end
   end
-
-  # instance methods
 
   def approve
     if pending? && approved!
@@ -71,14 +61,5 @@ class Location < ActiveRecord::Base
 
   def boss
     location_ownerships.order(:created_at).first.user
-  end
-
-  private
-
-  def destroy_activity_and_notifications
-    activity = Activity.where(trackable: self)
-    notifications = Notification.where(activity: activity)
-    notifications.destroy_all
-    activity.destroy_all
   end
 end

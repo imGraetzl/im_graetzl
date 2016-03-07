@@ -1,14 +1,11 @@
 class Notification < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
-  # constants
   DEFAULT_URL_OPTIONS = Rails.application.config.action_mailer.default_url_options
 
-  # macros
   belongs_to :user
   belongs_to :activity
 
-  # class methods
   def self.types
     self.subclasses.map{|s| s.name}
   end

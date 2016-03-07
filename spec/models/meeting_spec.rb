@@ -1,6 +1,8 @@
 require 'rails_helper'
+require 'models/shared/trackable'
 
 RSpec.describe Meeting, type: :model do
+  it_behaves_like :a_trackable
 
   it 'has a valid factory' do
     expect(build_stubbed(:meeting)).to be_valid
@@ -59,39 +61,45 @@ RSpec.describe Meeting, type: :model do
       expect(meeting).to respond_to(:location)
     end
 
-    it 'has address' do
-      expect(meeting).to respond_to(:address)
+    describe 'address' do
+      it 'has address' do
+        expect(meeting).to respond_to(:address)
+      end
+
+      it 'destroys address when destroy' do
+        create(:address, addressable: meeting)
+        expect{meeting.destroy}.to change{Address.count}.by -1
+      end
     end
 
-    it 'destroys address when destroy' do
-      create(:address, addressable: meeting)
-      expect{meeting.destroy}.to change(Address, :count).by(-1)
-    end
+    describe 'going_tos' do
+      it 'has going_tos' do
+        expect(meeting).to respond_to(:going_tos)
+      end
 
-    it 'has going_tos' do
-      expect(meeting).to respond_to(:going_tos)
-    end
-
-    it 'destroys going_tos when destroy' do
-      create_list(:going_to, 3, meeting: meeting)
-      expect{meeting.destroy}.to change(GoingTo, :count).by(-3)
+      it 'destroys going_tos when destroy' do
+        create_list(:going_to, 3, meeting: meeting)
+        expect{meeting.destroy}.to change{GoingTo.count}.by -3
+      end
     end
 
     it 'has users' do
       expect(meeting).to respond_to(:users)
     end
 
-    it 'has comments' do
-      expect(meeting).to respond_to(:comments)
+    describe 'comments' do
+      it 'has comments' do
+        expect(meeting).to respond_to(:comments)
+      end
+
+      it 'destroys comments when destroy' do
+        create_list(:comment, 3, commentable: meeting)
+        expect{meeting.destroy}.to change{Comment.count}.by -3
+      end
     end
 
     it 'has categories' do
       expect(meeting).to respond_to(:categories)
-    end
-
-    it 'destroys comments when destroy' do
-      create_list(:comment, 3, commentable: meeting)
-      expect{meeting.destroy}.to change(Comment, :count).by(-3)
     end
   end
 
@@ -183,61 +191,4 @@ RSpec.describe Meeting, type: :model do
       end
     end
   end
-
-  describe 'callbacks' do
-    let(:meeting) { create(:meeting) }
-
-    describe '#before_destroy' do
-      before do
-        3.times do
-          activity = create(:activity, trackable: meeting)
-          create_list(:notification, 3, activity: activity)
-        end
-      end
-
-      it 'destroys associated activity and notifications' do
-        expect(Activity.count).to eq 3
-        expect(Notification.count).to eq 9
-
-        meeting.destroy
-
-        expect(Notification.count).to eq 0
-        expect(Activity.count).to eq 0
-      end
-    end
-  end
-
-  # describe '#initator' do
-  #   let(:meeting) { create(:meeting) }
-  #   let(:initiator) { create(:user) }
-
-  #   context 'when present' do
-  #     before { create(:going_to, meeting: meeting, user: initiator, role: GoingTo.roles[:initiator]) }
-
-  #     it 'returns user' do
-  #       expect(meeting.initiator).to eq initiator
-  #     end
-  #   end
-
-  #   context 'when multiple present' do
-  #     before do
-  #       create(:going_to, meeting: meeting, role: GoingTo.role[:initiator])
-  #       create(:going_to, meeting: meeting, user: initiator, role: GoingTo.roles[:initiator])
-  #     end
-
-  #     it 'returns last user' do
-  #       expect(meeting.initiator).to eq initiator
-  #     end
-  #   end
-
-  #   context 'when not present' do
-  #     before do
-  #       create(:going_to, meeting: meeting)
-  #     end
-
-  #     it 'returns nil' do
-  #       expect(meeting.initiator).to be_nil
-  #     end
-  #   end
-  # end
 end
