@@ -142,63 +142,29 @@ RSpec.describe Graetzl, type: :model do
     end
   end
 
-  describe '#feed_items' do
-    before { allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation) }
+  describe '#decorate_activity' do
     let(:graetzl) { create :graetzl }
+    let(:activites) { create_list :activity, 10 }
+    before do
+      allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation)
+    end
+    subject(:decorate_activity) { graetzl.decorate_activity activites }
 
-    context 'for page 1' do
-      let(:user_posts) { create_list :user_post, 3, graetzl: graetzl }
-      let(:location_posts) { create_list :location_post, 3, graetzl: graetzl }
-      let(:meetings) { create_list :meeting, 6, graetzl: graetzl }
-      let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
-      let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
-
-      it 'includes zuckerl and activity' do
-        activites = []
-        (user_posts + location_posts).each do |post|
-          activites << post.create_activity(:create)
-        end
-        meetings.each do |meeting|
-          activites << meeting.create_activity(:create)
-        end
-
-        zuckerls = []
-        zuckerls << zuckerl_1
-        zuckerls << zuckerl_2
-
-        items = graetzl.feed_items(1)
-
-        expect(items).to include(*activites)
-        expect(items).to include(*zuckerls)
+    context 'when no live zuckerl available' do
+      it 'returns only activity' do
+        expect(decorate_activity).to match_array activites
       end
     end
-    # context 'for page 2' do
-    #   let(:posts) { create_list :post, 12, graetzl: graetzl }
-    #   let(:meetings) { create_list :meeting, 12, graetzl: graetzl }
-    #   let!(:zuckerl_1) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
-    #   let!(:zuckerl_2) { create :zuckerl, aasm_state: 'live', location: create(:location, graetzl: graetzl) }
-    #
-    #   it 'includes only activity' do
-    #     activites = []
-    #     posts.each do |post|
-    #       activites << post.create_activity(:create, graetzl_id: graetzl.id)
-    #     end
-    #     meetings.each do |meeting|
-    #       activites << meeting.create_activity(:create, graetzl_id: graetzl.id)
-    #     end
-    #     zuckerls = []
-    #     zuckerls << zuckerl_1
-    #     zuckerls << zuckerl_2
-    #
-    #     items = graetzl.feed_items(2)
-    #     puts Activity.first(12).map(&:id)
-    #     first_activities = activites.first(12)
-    #     # last_activities = activites.first(12).map(&:id)
-    #
-    #     expect(items).not_to include(*first_activities)
-    #     # expect(items).to include(*(activites.last(12)))
-    #     expect(items).not_to include(*zuckerls)
-    #   end
-    # end
+    context 'when live zuckerl available' do
+      let!(:zuckerls) { create_list :live_zuckerl, 2, location: create(:location, graetzl: graetzl) }
+
+      it 'contains activity' do
+        expect(decorate_activity).to include *activites
+      end
+
+      it 'contains zuckerls' do
+        expect(decorate_activity).to include *zuckerls
+      end
+    end
   end
 end

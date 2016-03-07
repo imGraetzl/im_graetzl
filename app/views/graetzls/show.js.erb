@@ -3,9 +3,8 @@
   var $paginateLink = $("[data-behavior='paginate-link']");
 
   function updateComponent() {
-    $streamContainer.append("<%= j render_activities @activities %>");
-    $paginateLink.replaceWith("<%= j view_more_link @activities %>");
-    APP.components.stream.init();
+    $streamContainer.append("<%= j render @activity %>");
+    $paginateLink.replaceWith("<%= j view_more_link @activity %>");
   }
 
   updateComponent();

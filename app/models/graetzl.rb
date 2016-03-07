@@ -25,22 +25,6 @@ class Graetzl < ActiveRecord::Base
     districts.first
   end
 
-  def feed_items(page)
-    items = activity.page(page).per(12)
-    if page < 2
-      zuckerls = zuckerl_samples(items.size * 0.2).to_a
-      items = merge_items(items, zuckerls)
-    end
-    items
-  end
-
-  private
-
-  def zuckerl_samples(limit)
-    # TODO: extend on districts level
-    Zuckerl.live.where(location: self.locations).limit(limit).order("RANDOM()")
-  end
-
   def activity
     Activity
       .where(id:
@@ -51,6 +35,18 @@ class Graetzl < ActiveRecord::Base
                 (trackable_id IN (?) AND trackable_type LIKE '%Post')", meetings.ids, posts.ids)
         .order(:trackable_id, :trackable_type, id: :desc)
       ).order(id: :desc)
+  end
+
+  def decorate_activity(activity_items)
+    zuckerl_items = zuckerl_samples(activity_items.count * 0.2).to_a
+    merge_items(activity_items, zuckerl_items)
+  end
+
+  private
+
+  def zuckerl_samples(limit)
+    # TODO: extend on districts level
+    Zuckerl.live.where(location: self.locations).limit(limit).order("RANDOM()")
   end
 
   def merge_items(a, b)
