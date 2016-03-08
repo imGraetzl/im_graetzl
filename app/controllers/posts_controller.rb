@@ -1,4 +1,10 @@
 class PostsController < ApplicationController
+  include GraetzlChild
+
+  def index
+    @posts = UserPost.order(created_at: :desc).
+      page(params[:page]).per(15)
+  end
   # before_action :authenticate_user!
   #
   # def create

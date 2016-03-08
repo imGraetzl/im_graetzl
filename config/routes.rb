@@ -79,7 +79,7 @@ Rails.application.routes.draw do
     resources :locations, only: [:index, :show]
     resources :zuckerls, only: [:index]
     resources :users, only: [:show]
-    resources :posts, only: [:show]
+    resources :posts, only: [:index, :show]
   end
 
   resources :going_tos, only: [:create, :destroy]

@@ -36,7 +36,7 @@
     <div class="txt">Zuckerl<br/>& Angebote</div>
   <% end %>
 
-  <%= link_to '#', class: 'iconfilter' do %>
+  <%= link_to graetzl_posts_path(graetzl), class: "iconfilter #{active?(graetzl_posts_path(graetzl))}" do %>
     <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
     <div class="txt">Wünsche<br/>& Ideen</div>
   <% end %>
