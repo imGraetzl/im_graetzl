@@ -51,24 +51,25 @@
 <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
   <div class="jq-dropdown-panel">
 
-    <a href="#">
+    <%= link_to new_graetzl_meeting_path(graetzl) do %>
       <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
       <div class="icontxt">Neues Treffen</div>
-    </a>
+    <% end %>
     <a href="#">
       <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
       <div class="icontxt"> Neuer Wunsch oder Idee</div>
     </a>
-    <a href="#">
-      <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
-      <div class="icontxt">Neuigkeit meiner Location</div>
-      <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
-    </a>
-    <a href="#">
-      <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
-      <div class="icontxt">Grätzlzuckerl meiner Location</div>
-      <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
-    </a>
-
+    <% current_user.locations.approved.each do |location| %>
+      <%= link_to graetzl_location_path(location.graetzl, location) do %>
+        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+        <div class="icontxt">Neuigkeit meiner Location</div>
+        <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+      <% end %>
+      <%= link_to new_location_zuckerl_path(location) do %>
+        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+        <div class="icontxt">Grätzlzuckerl meiner Location</div>
+        <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+      <% end %>
+    <% end %>
   </div>
 </div>
