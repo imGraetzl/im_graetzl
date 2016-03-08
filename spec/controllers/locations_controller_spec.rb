@@ -2,30 +2,26 @@ require 'rails_helper'
 include GeojsonSupport
 
 RSpec.describe LocationsController, type: :controller do
-  render_views false
   before(:each) do
     request.env['HTTP_REFERER'] = 'where_i_came_from'
   end
 
   describe 'GET index' do
-    let(:graetzl) { create(:graetzl) }
-    let(:location) { create(:location, graetzl: graetzl, state: Location.states[:approved]) }
-    let(:pending_location) { create(:location, graetzl: graetzl, state: Location.states[:pending]) }
+    let(:graetzl) { create :graetzl }
 
     context 'when html request' do
       before { get :index, graetzl_id: graetzl }
 
       it 'assigns @graetzl' do
-        expect(assigns(:graetzl)).to eq graetzl
+        expect(assigns :graetzl).to eq graetzl
       end
 
       it 'assigns @map_data' do
-        expect(assigns(:map_data)).to be_present
+        expect(assigns :map_data).to be_present
       end
 
-      it 'assigns @locations with approved' do
-        expect(assigns(:locations)).to include(location)
-        expect(assigns(:locations)).not_to include(pending_location)
+      it 'assigns @locations' do
+        expect(assigns :locations).to be
       end
 
       it 'renders index.html' do
@@ -35,19 +31,18 @@ RSpec.describe LocationsController, type: :controller do
     end
 
     context 'when js request' do
-      before { xhr :get, :index, graetzl_id: graetzl }
+      before { xhr :get, :index, graetzl_id: graetzl, page: 2 }
 
       it 'assigns @graetzl' do
-        expect(assigns(:graetzl)).to eq graetzl
+        expect(assigns :graetzl).to eq graetzl
       end
 
       it 'does not assign @map_data' do
-        expect(assigns(:map_data)).not_to be
+        expect(assigns :map_data).not_to be
       end
 
-      it 'assigns @locations with approved' do
-        expect(assigns(:locations)).to include(location)
-        expect(assigns(:locations)).not_to include(pending_location)
+      it 'assigns @locations' do
+        expect(assigns :locations).to be
       end
 
       it 'renders index.js' do

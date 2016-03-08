@@ -2,12 +2,14 @@ class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_location, except: [:index, :new, :create]
   include GraetzlChild
-
+  
   def index
-    @locations = @graetzl.locations
-                          .approved
-                          .includes(:address, :category)
-                          .paginate_index(params[:page] || 1)
+    @locations = Kaminari.paginate_array(
+      @graetzl.locations.approved.includes(:posts, :meetings).
+        order('posts.created_at DESC NULLS LAST').
+        order('meetings.created_at DESC NULLS LAST').
+        order(created_at: :desc)
+      ).page(params[:page]).per(15)
   end
 
   def new

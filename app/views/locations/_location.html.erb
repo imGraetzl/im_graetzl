@@ -1,14 +1,16 @@
-<% small ||= false %>
 <div class="cardBox">
   <div class="cardBoxHeader">
-    <%= cover_photo_for(location) %>
-    <div class="sideflag -R"><%= link_to location.graetzl.name, location.graetzl %></div>
+    <%= link_to [location.graetzl, location] do %>
+      <%= attachment_image_tag location, :cover_photo, :fill, 300, 180, fallback: 'cover_photo/300x180.png', class: 'coverImg' %>
+    <% end %>
+    <div class="categoryicon">
+      <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+    </div>
   </div>
-
   <div class="cardBoxContent">
     <div class="location-shortfacts">
       <%= link_to [location.graetzl, location], class: 'locationlogo' do %>
-        <%= avatar_for(location, fill: [200, 200], class: 'img-square') %>
+        <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
       <% end %>
       <div class="locationtxt">
         <%= link_to [location.graetzl, location] do %>
@@ -17,22 +19,48 @@
         <div class="category"><%= location.category.name %></div>
         <% if location.address %>
           <div class="address">
-            <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+            <svg class="icon-location">
+              <use xlink:href="#icon-location"></use>
+            </svg>
             <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
           </div>
         <% end %>
       </div>
     </div>
-
-
     <div class="slogan"><%= location.slogan %></div>
-    <% unless small %>
-      <div class="txt"><%= truncate(location.description, length: 100) %></div>
+    <div class="txt">
+      <p><%= truncate location.description, length: 100 %></p>
+    </div>
+    <% if location_post = location.posts.last %>
+      <%= link_to '#', class: 'updateteaser' do %>
+        <div class="hl">
+          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+          vor <%= time_ago_in_words(location_post.created_at) %>
+        </div>
+        <div class="title">
+          <%= location_post.title %>
+        </div>
+      <% end %>
     <% end %>
-    <% if next_meeting = location.meetings.basic.upcoming.first %>
-      <%= render 'locations/meeting_teaser', meeting: next_meeting %>
+    <% if zuckerl = location.zuckerls.live.last %>
+      <%= link_to '#', class: 'zuckerlteasertxt' do %>
+        <div class="hl">
+          <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+          Grätzlzuckerl im <%= zuckerl_month zuckerl %>
+        </div>
+        <div class="title"><%= zuckerl.title %></div>
+      <% end %>
     <% end %>
-
+    <% if meeting = location.meetings.basic.last %>
+      <%= link_to '#', class: 'event-teaser-box' do %>
+        <% if meeting.starts_at_date %>
+          <div class="date">
+            <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+            <%= I18n.localize(meeting.starts_at_date, format:'%d. %B %Y') %>
+          </div>
+        <% end %>
+        <div class="title">>%= meeting.name %></div>
+      <% end %>
+    <% end %>
   </div>
-
 </div>

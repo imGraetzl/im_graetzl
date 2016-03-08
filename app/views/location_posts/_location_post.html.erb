@@ -43,7 +43,7 @@
         <div class="entryInitialContent">
           <div class="userCreateInfo">
             <%= avatar_for comment.user %>
-            <span class="userAndType">Kommentar von <%= link_to comment.user.username, [comment.user] %> <span>vor etwa 2 Stunden</span></span>
+            <span class="userAndType">Kommentar von <%= link_to comment.user.username, [comment.user] %> <span>vor <%= time_ago_in_words(comment.created_at) %></span></span>
           </div>
           <div class="txt"><%= truncate comment.content, length: 100 %></div>
         </div>

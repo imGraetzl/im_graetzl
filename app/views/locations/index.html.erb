@@ -8,13 +8,16 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
+<section class="startpage">
 
-<section class="locations-overview">
-  <%= render 'graetzls/map', map_data: @map_data %>
-  <h1 class="hl-main">Entdecke gute <span>Treffpunkte & Anbieter, Lokale & Geschäfte</span></h1>
-  <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd">
-    <%= render 'locations/action_card', graetzl: @graetzl %>
+  <!-- TODO improve that... -->
+  <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
+    <%= render 'graetzls/map', map_data: @map_data %>
+  <% end %>
+
+  <%= render 'graetzls/filters', graetzl: @graetzl %>
+  <div class="cards-container" data-behavior="stream-container">
     <%= render @locations %>
   </div>
-  <%= view_more_link(@locations, style: :big) %>
+  <%= view_more_link @locations %>
 </section>

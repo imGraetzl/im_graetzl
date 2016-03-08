@@ -26,7 +26,7 @@
     <div class="txt">Treffen<br/>& Events</div>
   <% end %>
 
-  <%= link_to '#', class: 'iconfilter' do %>
+  <%= link_to graetzl_locations_path(graetzl), class: "iconfilter #{active?(graetzl_locations_path(graetzl))}" do %>
     <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
     <div class="txt">Anbieter<br/>& Locations</div>
   <% end %>

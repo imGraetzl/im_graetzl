@@ -1,2 +1,11 @@
-$('#locations').append("<%= j(render @locations) %>")
-$('a.link-load').replaceWith("<%= j view_more_link(@locations, style: :big) %>")
+(function() {
+  var $streamContainer = $("[data-behavior='stream-container']");
+  var $paginateLink = $("[data-behavior='paginate-link']");
+
+  function updateComponent() {
+    $streamContainer.append("<%= j render @locations %>");
+    $paginateLink.replaceWith("<%= j view_more_link @locations %>");
+  }
+
+  updateComponent();
+})();
