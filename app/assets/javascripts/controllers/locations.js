@@ -3,7 +3,7 @@ APP.controllers.locations = (function() {
     function init() {
         if($("section.selectGraetzl").exists()) initSelectGraetzl();
         if($("section.location-form").exists()) initLocationForm();
-        if($("section.locations-overview").exists()) initLocationOverview();
+        if($("section.startpage").exists()) initLocationOverview();
         if($("section.locationPage").exists()) initLocationPage();
     }
 
@@ -46,10 +46,11 @@ APP.controllers.locations = (function() {
 
 
     function initLocationOverview() {
-        var numBoxes = $(".cardBoxCollection .cardBox").length;
         var map =  APP.components.graetzlMap;
-        var mapdata = jQuery('#graetzlMapWidget').data('mapdata');
+        var filter = APP.components.startpageFilter;
+        var mapdata = $('#graetzlMapWidget').data('mapdata');
 
+        filter.init();
         map.init(function() {
                 map.showMapGraetzl(mapdata.graetzls, {
                     style: $.extend(map.styles.rose, {
@@ -60,8 +61,6 @@ APP.controllers.locations = (function() {
 
             }
         );
-
-        if (numBoxes > 0) $(".cardBox:nth-child(3)").after($(".cardbox-wrp"));
     }
 
 

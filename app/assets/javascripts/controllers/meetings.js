@@ -1,9 +1,9 @@
 APP.controllers.meetings = (function() {
-  var filter = APP.components.startpageFilter;
+    var filter = APP.components.startpageFilter;
 
     function init() {
 
-        if($("section.meetings-overview").exists()) initMeetingsOverview();
+        if($("section.startpage").exists()) initMeetingsOverview();
         if($("section.meeting").exists()) initMeetingDetail();
         if($("section.create-meeting").exists()) initCreateMeeting();
 
@@ -12,10 +12,11 @@ APP.controllers.meetings = (function() {
 
 
     function initMeetingsOverview() {
-        var numBoxes = $(".cardBoxCollection:eq(0) .cardBox").length;
+        var filter = APP.components.startpageFilter;
         var map =  APP.components.graetzlMap;
         var mapdata = $('#graetzlMapWidget').data('mapdata');
 
+        filter.init();
         map.init(function() {
                 map.showMapGraetzl(mapdata.graetzls, {
                     style: $.extend(map.styles.rose, {
@@ -26,7 +27,6 @@ APP.controllers.meetings = (function() {
 
             }
         );
-        if (numBoxes > 0) $(".cardBoxCollection:eq(0) .cardBox:nth-child(3)").after($(".cardbox-wrp"));
     }
 
 
