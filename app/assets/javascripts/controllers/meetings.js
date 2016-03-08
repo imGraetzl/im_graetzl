@@ -1,5 +1,4 @@
 APP.controllers.meetings = (function() {
-    var filter = APP.components.startpageFilter;
 
     function init() {
 

@@ -5,6 +5,13 @@ RSpec.describe ZuckerlsController, type: :routing do
 
   describe 'routing' do
 
+    it 'routes GET /graetzl-slug/zuckerls to #index' do
+      expect(get: '/graetzl-slug/zuckerls').to route_to(
+        controller: 'zuckerls',
+        action: 'index',
+        graetzl_id: 'graetzl-slug')
+    end
+
     it 'routes GET /locations/location-slug/zuckerls/new to #new' do
       expect(get: '/locations/location-slug/zuckerls/new').to route_to(
         controller: 'zuckerls',

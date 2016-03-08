@@ -42,11 +42,19 @@ class Graetzl < ActiveRecord::Base
     merge_items(activity_items, zuckerl_items)
   end
 
+  def zuckerls
+    Zuckerl.live.where(location_id:
+      Location.select(:id).where(graetzl_id:
+        Graetzl.select(:id).where("ST_INTERSECTS(area,
+          (SELECT ST_UNION(districts.area)
+          FROM districts
+          WHERE ST_INTERSECTS(districts.area, ?)))", self.area)))
+  end
+
   private
 
   def zuckerl_samples(limit)
-    # TODO: extend on districts level
-    Zuckerl.live.where(location: self.locations).limit(limit).order("RANDOM()")
+    zuckerls.limit(limit).order("RANDOM()")
   end
 
   def merge_items(a, b)

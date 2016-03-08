@@ -143,7 +143,8 @@ RSpec.describe Graetzl, type: :model do
   end
 
   describe '#decorate_activity' do
-    let(:graetzl) { create :graetzl }
+    let(:graetzl) { create :graetzl, area: 'POLYGON ((0.0 0.0, 0.0 5.0, 5.0 5.0, 0.0 0.0))'}
+    let!(:district) { create :district, area: 'POLYGON ((0.0 0.0, 0.0 10.0, 10.0 10.0, 10.0 0.0, 0.0 0.0))' }
     let(:activites) { create_list :activity, 10 }
     before do
       allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation)
@@ -166,5 +167,9 @@ RSpec.describe Graetzl, type: :model do
         expect(decorate_activity).to include *zuckerls
       end
     end
+  end
+
+  describe '#zuckerls' do
+    it "is a pending example"
   end
 end

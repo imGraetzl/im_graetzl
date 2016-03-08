@@ -31,7 +31,7 @@
     <div class="txt">Anbieter<br/>& Locations</div>
   <% end %>
 
-  <%= link_to '#', class: 'iconfilter' do %>
+  <%= link_to graetzl_zuckerls_path(graetzl), class: "iconfilter #{active?(graetzl_zuckerls_path(graetzl))}" do %>
     <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
     <div class="txt">Zuckerl<br/>& Angebote</div>
   <% end %>

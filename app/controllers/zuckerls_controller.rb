@@ -1,5 +1,12 @@
 class ZuckerlsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  include GraetzlChild
+
+  def index
+    @zuckerls = @graetzl.zuckerls.
+      page(params[:page]).per(15).
+      order("RANDOM()")
+  end
 
   def new
     set_location or return
