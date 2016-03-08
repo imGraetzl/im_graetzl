@@ -17,7 +17,7 @@
   <!-- END mobile select menu -->
 
   <%= link_to graetzl_path(graetzl), class: "iconfilter #{active?(graetzl_path(graetzl))}" do %>
-    <img class="mapthumb" src="assets/mapthumbs/stuwerviertel.jpg" alt="">
+    <%= image_tag 'mapthumbs/stuwerviertel.jpg', class: 'mapthumb' %>
     <div class="txt">Grätzl<br/>Stream</div>
   <% end %>
 
