@@ -22,7 +22,6 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
 
-  # Controller methods
   describe 'GET show' do
     let!(:meeting) { create(:meeting, graetzl: graetzl) }
 
@@ -76,19 +75,15 @@ RSpec.describe MeetingsController, type: :controller do
       before { get :index, graetzl_id: graetzl }
 
       it 'assigns @graetzl' do
-        expect(assigns(:graetzl)).to eq graetzl
+        expect(assigns :graetzl).to eq graetzl
       end
 
       it 'assigns @map_data' do
-        expect(assigns(:map_data)).to be
+        expect(assigns :map_data).to be
       end
 
-      it 'assigns @upcoming' do
-        expect(assigns(:upcoming)).to be
-      end
-
-      it 'assigns @past' do
-        expect(assigns(:past)).to be
+      it 'assigns @meetings' do
+        expect(assigns :meetings).to be
       end
 
       it 'renders index.html' do
@@ -96,32 +91,19 @@ RSpec.describe MeetingsController, type: :controller do
         expect(response).to render_template(:index)
       end
     end
-
     context 'when js request' do
-      before { xhr :get, :index, { graetzl_id: graetzl, scope: :upcoming } }
+      before { xhr :get, :index, graetzl_id: graetzl, page: 2 }
 
       it 'assigns @graetzl' do
-        expect(assigns(:graetzl)).to eq graetzl
+        expect(assigns :graetzl).to eq graetzl
       end
 
       it 'does not assign @map_data' do
-        expect(assigns(:map_data)).not_to be
-      end
-
-      it 'does not assign @upcoming' do
-        expect(assigns(:upcoming)).not_to be
-      end
-
-      it 'does not assign @past' do
-        expect(assigns(:past)).not_to be
-      end
-
-      it 'assigns @scope' do
-        expect(assigns(:scope)).to eq :upcoming
+        expect(assigns :map_data).not_to be
       end
 
       it 'assigns @meetings' do
-        expect(assigns(:meetings)).to be
+        expect(assigns :meetings).to be
       end
 
       it 'renders index.js' do

@@ -8,22 +8,16 @@
     og_image: image_url('meta/og_logo.png')
   })
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@upcoming, param_name: :upcoming, params: { scope: :upcoming } )) unless params[:past].present? %>
+<section class="startpage">
 
-<section class="meetings-overview">
-  <%= render 'graetzls/map', map_data: @map_data %>
-  <h1 class="hl-main">Komm doch dazu - <span>Treffen, Events & Veranstaltungen</span></h1>
-  <div id="upcoming" class="cardBoxCollection -tripple js-moveActionCard3rd">
-    <%= render 'action_card', graetzl: @graetzl %>
-    <%= render @upcoming %>
-  </div>
-    <%= view_more_scoped(@upcoming, :upcoming, style: :big) %>
-  </div>
-  <% if @past %>
-    <h1 class="hl-main">Vergangene Treffen im <span><%= @graetzl.name %></span></h1>
-    <div id="past" class="cardBoxCollection -tripple">
-      <%= render @past %>
-    </div>
-    <%= view_more_scoped(@past, :past, style: :big) %>
+  <!-- TODO improve that... -->
+  <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
+    <%= render 'graetzls/map', map_data: @map_data %>
   <% end %>
+
+  <%= render 'graetzls/filters', graetzl: @graetzl %>
+  <div class="cards-container" data-behavior="stream-container">
+    <%= render @meetings %>
+  </div>
+  <%= view_more_link @meetings %>
 </section>

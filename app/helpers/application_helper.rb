@@ -11,25 +11,7 @@ module ApplicationHelper
     current_user || GuestUser.new
   end
 
-  def activity_description(user, entity)
-    case entity.class.name.demodulize.downcase
-    when 'activity'
-      case entity.key
-      when 'post.create'
-        "Neuer Post von #{link_to user.username, user}".html_safe
-      when 'meeting.create'
-        "#{link_to user.username, user} hat ein Treffen erstellt".html_safe
-      when 'meeting.go_to'
-        "Treffen von #{link_to user.username, user} hat neue Teilnehmer".html_safe
-      else
-      end
-    when 'post'
-      "Post von #{link_to user.username, user}".html_safe
-    when 'meeting'
-      "Treffen von #{link_to user.username, user}".html_safe
-    when 'comment'
-      "Kommentar von #{link_to user.username, user}".html_safe
-    else
-    end
+  def active?(path)
+    current_page?(path) ? 'active' : ''
   end
 end

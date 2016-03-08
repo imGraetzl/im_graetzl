@@ -5,13 +5,10 @@ class MeetingsController < ApplicationController
   before_action :check_permission!, only: [:edit, :update, :destroy]
 
   def index
-    if request.xhr?
-      @scope = params[:scope].to_sym
-      @meetings = paginate_index @scope
-    else
-      @upcoming = @graetzl.meetings.basic.upcoming.paginate_with_padding(params[:upcoming] || 1)
-      @past = @graetzl.meetings.basic.past.page(params[:past]).per(6)
-    end
+    @meetings = @graetzl.meetings.basic.
+      order('CASE WHEN starts_at_date > now() THEN 0 WHEN starts_at_date IS NULL THEN 1 ELSE 2 END').
+      order(starts_at_date: :desc).
+      page(params[:page]).per(15)
   end
 
   def show
