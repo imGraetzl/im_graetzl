@@ -44,9 +44,6 @@ de:
     show:
       title: '%{name} aus dem Grätzl %{graetzl}'
       description: '%{name}s Heimatgrätzl in Wien ist das Grätzl: %{graetzl} im %{numeric}. Bezirk.'
-  posts:
-    show:
-      title: '%{content}'
   zuckerls:
     index:
       title: 'Das Grätzlzuckerl - Entdecke Einzigartiges im %{numeric}. Bezirk'

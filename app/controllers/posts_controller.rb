@@ -5,6 +5,10 @@ class PostsController < ApplicationController
     @posts = UserPost.order(created_at: :desc).
       page(params[:page]).per(15)
   end
+
+  def show
+    @post = Post.find(params[:id])
+  end
   # before_action :authenticate_user!
   #
   # def create

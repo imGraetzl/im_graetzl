@@ -52,7 +52,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :update] do
     resources :comments, module: :users, only: [:create]
-    resources :posts, module: :users, only: [:create]
   end
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
@@ -80,13 +79,13 @@ Rails.application.routes.draw do
     resources :zuckerls, only: [:index]
     resources :users, only: [:show]
     resources :posts, only: [:index, :show]
+    resources :user_posts, only: [:new, :create]
   end
 
   resources :going_tos, only: [:create, :destroy]
 
   resources :locations, except: [:index, :show] do
     concerns :graetzl_before_new
-    resources :posts, module: :locations, only: [:create]
     resources :zuckerls, except: [:index, :show]
   end
 

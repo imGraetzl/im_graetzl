@@ -1,60 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, type: :routing do
-
   describe 'routes ' do
-
-    it 'does not route POST /posts to posts#create' do
-      expect(post: '/posts').not_to route_to(
-        controller: 'posts',
-        action: 'create')
+    it 'does not route POST graetzl-slug/posts' do
+      expect(post: 'graetzl-slug/posts').not_to route_to('posts#create')
     end
 
-    it 'routes POST locations/location-slug/posts to locations/posts#create' do
-      expect(post: 'locations/location-slug/posts').to route_to(
-        controller: 'locations/posts',
-        action: 'create',
-        location_id: 'location-slug')
+    it 'does not route GET graetzl-slug/posts/new' do
+      expect(get: 'graetzl-slug/posts/new').not_to route_to('posts#new')
     end
 
-    it 'routes POST users/user-slug/posts to users/posts#create' do
-      expect(post: 'users/user-slug/posts').to route_to(
-        controller: 'users/posts',
-        action: 'create',
-        user_id: 'user-slug')
+    it 'routes GET graetzl-slug/posts to posts#index' do
+      expect(get: 'graetzl-slug/posts').to route_to('posts#index', graetzl_id: 'graetzl-slug')
+    end
+
+    it 'routes GET graetzl-slug/posts/post-slug to posts#show' do
+      expect(get: 'graetzl-slug/posts/post-slug').to route_to('posts#show', graetzl_id: 'graetzl-slug', id: 'post-slug')
+    end
+
+    it 'routes GET graetzl-slug/user_posts/new to user_posts#new' do
+      expect(get: 'graetzl-slug/user_posts/new').to route_to('user_posts#new', graetzl_id: 'graetzl-slug')
+    end
+
+    it 'routes POST graetzl-slug/user_posts to user_posts#create' do
+      expect(post: 'graetzl-slug/user_posts').to route_to('user_posts#create', graetzl_id: 'graetzl-slug')
     end
 
     it 'routes DELETE /posts/post-slug to posts#destroy' do
-      expect(delete: '/posts/post-slug').to route_to(
-        controller: 'posts',
-        action: 'destroy',
-        id: 'post-slug')
-    end
-
-    it 'routes GET /graetzl-slug/posts/post-slug to posts#show' do
-      expect(get: '/graetzl-slug/posts/post-slug').to route_to(
-        controller: 'posts',
-        action: 'show',
-        graetzl_id: 'graetzl-slug',
-        id: 'post-slug')
+      expect(delete: '/posts/post-slug').to route_to('posts#destroy', id: 'post-slug')
     end
   end
 
   describe 'named routes' do
-    
-    it 'routes POST location_posts_path(location-slug) to locations/post#create' do
-      expect(post: location_posts_path('location-slug')).to route_to(
-        controller: 'locations/posts',
-        action: 'create',
-        location_id: 'location-slug')
-    end
-
-    it 'routes POST user_posts_path(user-slug) to users/post#create' do
-      expect(post: user_posts_path('user-slug')).to route_to(
-        controller: 'users/posts',
-        action: 'create',
-        user_id: 'user-slug')
-    end
 
     it 'routes DELETE post_path(post-slug) to post#destroy' do
       expect(delete: post_path(id: 'post-slug')).to route_to(

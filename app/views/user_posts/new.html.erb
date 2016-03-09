@@ -1,0 +1,30 @@
+<% title('Neuer Wunsch oder Idee') %>
+
+<section>
+  <%= form_for [@graetzl, @user_post] do |f| %>
+    <%= f.hidden_field :graetzl_id %>
+    <% if @user_post.errors.any? %>
+      <div id="error_explanation">
+        <h2>Wunsch oder Idee konnte nicht erstellt werden!<br><%= @user_post.errors.count %> Fehler:</h2>
+        <ul>
+          <% @user_post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="input-field">
+      <%= f.label :title %>
+      <%= f.text_field :title, placeholder: 'Placeholder Title'  %>
+    </div>
+    <div class="input-field">
+      <%= f.label :content %>
+      <%= f.text_area :content, placeholder: 'Placeholder Title'  %>
+    </div>
+    <div >
+      <%= f.label :images %>
+      <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+    </div>
+    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+  <% end %>
+</section>
