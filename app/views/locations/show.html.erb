@@ -69,13 +69,11 @@
   <div class="stream" data-behavior="stream-container">
     <% if (current_user && @location.users.include?(current_user)) %>
       <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
-      <div id="stream-form">
-        <%= render 'locations/posts/form', author: @location %>
-      </div>
+      <%= render 'location_posts/form', location: @location %>
     <% elsif !@posts.empty? %>
       <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
     <% end %>
-    <%= render partial: 'locations/posts/post', collection: @posts %>
+    <%= render partial: 'location_posts/stream_post', collection: @posts, as: 'post' %>
   </div>
   <%= view_more_link @posts, params: { scope: :posts } %>
 

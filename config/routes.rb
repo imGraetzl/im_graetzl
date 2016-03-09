@@ -102,4 +102,5 @@ Rails.application.routes.draw do
   resources :posts, only: [:destroy] do
     resources :comments, module: :posts, only: [:index, :create]
   end
+  resources :location_posts, only: [:create]
 end
