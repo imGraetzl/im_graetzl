@@ -4,9 +4,9 @@ class Activity < ActiveRecord::Base
   belongs_to :recipient, polymorphic: true
   serialize :parameters, Hash
 
-  after_commit on: :create do |activity|
-    Notification.receive_new_activity(activity)
-  end
+  # after_commit on: :create do |activity|
+  #   Notification.receive_new_activity(activity)
+  # end
 
   before_destroy :destroy_notifications, prepend: true
 
