@@ -10,10 +10,10 @@ APP.components.stream = (function() {
 
     function initEntryCreateForm() {
 
-        var $parent = $('.entryCreate:not(.js-initialized)');
+        var $parent = $('.entryCreate').not('.js-initialized');
 
         if($parent.find('.postTitle').exists()) {
-        //$parent.find('.postMessage').autogrow(); //TODO: autogrow does not work, find bug
+            $parent.find('.postMessage').autogrow();
             $parent.addClass('js-initialized')
                 .find('.postTitle, .postMessage')
                 .on("focusin", function() {
@@ -28,17 +28,21 @@ APP.components.stream = (function() {
             initSingleTextarea($parent);
         }
 
+        $parent.find('.postMessage').on('autogrow:grow', function() {
+            console.log("sdsasffssd");
+        })
+
     }
 
     function initCommentForm() {
-        $('.entryCommentForm:not(.js-initialized)').each(function() {
+        $('.entryCreate').not('.js-initialized').each(function() {
             var $parent = $(this);
             initSingleTextarea($parent);
         })
     }
 
     function initImgGallery() {
-        $('.entryImgUploads:not(.js-initialized)').featherlightGallery({
+        $('.entryCreate').not('.js-initialized').featherlightGallery({
             openSpeed: 300
         }).addClass('js-initialized');
     }
