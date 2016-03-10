@@ -14,6 +14,6 @@ class Post < ActiveRecord::Base
   validates :author, presence: true
 
   def edit_permission?(user)
-    user.admin?
+    user && user.admin?
   end
 end

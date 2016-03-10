@@ -1,1 +1,2 @@
-$('div#<%= @element_id %>').fadeOut('slow');
+var postElement = $("#<%= dom_id @post %>");
+postElement.fadeOut('slow');

@@ -10,7 +10,7 @@ class UserPostsController < ApplicationController
     set_graetzl
     @user_post = current_user.posts.new user_post_params
     if @user_post.save
-      # @user_post.create_activity :create, owner: current_user
+      @user_post.create_activity :create, owner: current_user
       redirect_to graetzl_post_path(@graetzl, @user_post)
     else
       render :new
