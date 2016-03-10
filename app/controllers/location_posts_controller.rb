@@ -5,7 +5,7 @@ class LocationPostsController < ApplicationController
   def create
     @location_post = LocationPost.new location_post_params
     if @location_post.save
-      # @activity = @post.create_activity :create, owner: current_user
+      @location_post.create_activity :create, owner: current_user
     end
   end
 
