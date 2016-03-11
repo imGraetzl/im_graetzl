@@ -52,7 +52,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :update] do
     resources :comments, module: :users, only: [:create]
-    resources :posts, module: :users, only: [:create]
   end
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
@@ -79,14 +78,14 @@ Rails.application.routes.draw do
     resources :locations, only: [:index, :show]
     resources :zuckerls, only: [:index]
     resources :users, only: [:show]
-    resources :posts, only: [:index, :show]
+    resources :posts, only: [:index]
+    resources :user_posts, only: [:new, :create, :show]
   end
 
   resources :going_tos, only: [:create, :destroy]
 
   resources :locations, except: [:index, :show] do
     concerns :graetzl_before_new
-    resources :posts, module: :locations, only: [:create]
     resources :zuckerls, except: [:index, :show]
   end
 
@@ -98,9 +97,10 @@ Rails.application.routes.draw do
     resource :billing_address, only: [:show, :create, :update]
   end
 
-  resources :comments, only: [:destroy]
+  resources :comments, only: [:create, :destroy]
 
   resources :posts, only: [:destroy] do
     resources :comments, module: :posts, only: [:index, :create]
   end
+  resources :location_posts, only: [:create]
 end

@@ -1,8 +1,0 @@
-<div class="stream">
-  <h3>Persönliche <span>Pinnwand</span> von <%= @user.username %></h3>
-  <div id="stream-form">
-    <%= render 'comments/form', commentable: @user %>
-  </div>
-  <%= render partial: 'comments/comment', collection: @wall_comments %>
-</div>
-<%= view_more_link @wall_comments, params: { scope: :wall_comments } %>

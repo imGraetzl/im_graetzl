@@ -55,10 +55,10 @@
       <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
       <div class="icontxt">Neues Treffen</div>
     <% end %>
-    <a href="#">
+    <%= link_to new_graetzl_user_post_path(graetzl) do %>
       <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
       <div class="icontxt"> Neuer Wunsch oder Idee</div>
-    </a>
+    <% end %>
     <% current_user.locations.approved.each do |location| %>
       <%= link_to graetzl_location_path(location.graetzl, location) do %>
         <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>

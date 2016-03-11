@@ -8,7 +8,7 @@ APP.components.notificatonCenter = (function() {
         $notificationsContainer = $("[data-behavior='notifications-container']");
         $notificationsTrigger = $("[data-behavior='notifications-trigger']");
         $(window).load(function() {
-            if ($notificationsContainer.exists()) setup();
+            // if ($notificationsContainer.exists()) setup();
         });
     }
 

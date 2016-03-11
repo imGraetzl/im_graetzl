@@ -9,7 +9,9 @@ class UsersController < ApplicationController
     else
       @initiated = @user.meetings.initiated.page(params[:initiated]).per(3)
       @attended = @user.meetings.attended.page(params[:attended]).per(3)
-      @wall_comments = @user.wall_comments.page(params[:page]).per(10)
+      @wall_comments = @user.wall_comments.
+        order(created_at: :desc).
+        page(params[:page]).per(10)
       redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
     end
   end
@@ -57,7 +59,7 @@ class UsersController < ApplicationController
   def paginate_show(scope)
     case scope
     when :wall_comments
-      @user.wall_comments.page(params[:page]).per(10)
+      @user.wall_comments.order(created_at: :desc).page(params[:page]).per(10)
     when :initiated
       @user.meetings.basic.initiated.page(params[scope]).per(3)
     when :attended

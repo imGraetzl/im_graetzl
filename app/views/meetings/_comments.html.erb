@@ -1,7 +1,0 @@
-<% unless meeting.comments.empty? %>
-  <%= content_tag_for(:div, meeting, :comments) do %>
-    <%= link_to_load_comments(meeting) unless meeting.comments.size < 2 %>
-    <%= render_inline_comment(meeting.comments.first) %>
-  <% end %>
-<% end %>
-<%= render 'comments/form_inline', commentable: meeting if current_user %>

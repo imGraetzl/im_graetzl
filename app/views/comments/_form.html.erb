@@ -1,13 +1,14 @@
-<div class="entryCreate">
-  <%= avatar_for current_user %>
-  <%= form_for [commentable, Comment.new], html: { class: 'textEditor', remote: true } do |f| %>
+<div class="entryCreate" data-behavior="stream-form">
+  <%= attachment_image_tag current_user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+  <%= form_for Comment.new(commentable: commentable), html: { class: 'textEditor', remote: true } do |f| %>
+    <%= f.hidden_field :commentable_id %>
+    <%= f.hidden_field :commentable_type %>
     <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben', class: 'input-plain' %>
       <div class="hideBlock">
         <div class="upload-streamImgs">
           <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
           <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
         </div>
-        <%= hidden_field_tag :inline, false %>
         <%= f.button 'Kommentar senden', data: { disable_with: 'sendet...' }, class: 'btn-secondary' %>
       </div>
   <% end %>

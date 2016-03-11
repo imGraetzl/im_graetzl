@@ -1,7 +1,0 @@
-<% unless post.comments.empty? %>
-  <%= content_tag_for(:div, post, :comments) do %>
-    <%= link_to_load_comments(post) unless post.comments.size < 2 %>
-    <%= render_inline_comment(post.comments.first) %>
-  <% end %>
-<% end %>
-<%= render 'comments/form_inline', commentable: post if current_user %>

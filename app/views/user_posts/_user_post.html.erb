@@ -1,7 +1,7 @@
-<div class="cardBox">
+#<div class="cardBox">
   <div class="cardBoxHeader">
     <% if image = user_post.images.first %>
-      <%= link_to attachment_image_tag(:image, :file, :fill, 300, 250), '#' %>
+      <%= link_to attachment_image_tag(image, :file, :fill, 300, 250), [user_post.graetzl, user_post] %>
     <% end %>
     <div class="categoryicon">
       <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
@@ -13,7 +13,7 @@
       <span><%= user_post.author.username %></span>
     <% end %>
     <div class="txt">
-      <h3><%= link_to user_post.title, '#' %></h3>
+      <h3><%= link_to user_post.title, [user_post.graetzl, user_post] %></h3>
       <p><%= truncate user_post.content, length: 100 %></p>
     </div>
     <!-- comment -->
@@ -21,7 +21,7 @@
       <div class="streamElement">
         <div class="entryInitialContent">
           <div class="userCreateInfo">
-            <%= avatar_for comment.user %>
+            <%= attachment_image_tag comment.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
             <span class="userAndType">Kommentar von <%= link_to comment.user.username, [comment.user] %> <span>vor etwa 2 Stunden</span></span>
           </div>
           <div class="txt"><%= truncate comment.content, length: 100 %></div>

@@ -10,9 +10,7 @@
 %>
 
 <section class="meeting">
-
   <div class="imgHeader -cloudy">
-
     <div class="titleHeadline">
       <div class="wrp">
         <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
@@ -23,17 +21,14 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= cover_photo_for(@meeting, fill: [980, 370], class: 'titleImg') %>
+    <%= attachment_image_tag @meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
   </div>
-
   <% if @meeting.basic? %>
-
     <div class="entryDescription">
       <div class="dateTime">
         <div class="iconCalendarTextual">
           <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
         </div>
-
         <div class="dayYearTimes">
           <% if @meeting.starts_at_date %>
               <%= I18n.localize(@meeting.starts_at_date, format:'%A, %d. %B %Y') %>
@@ -45,7 +40,6 @@
           <span class="end">Ende: <%= localize_time(@meeting.ends_at_time, '%H:%M') %></span>
         </div>
       </div>
-
       <div class="location">
         <% if @meeting.address.coordinates %>
           <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
@@ -57,7 +51,6 @@
             <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
           </div>
         <% end %>
-
         <div class="address">
           <% if location = @meeting.location %>
             <%= link_to location.name, [location.graetzl, location] %><br>
@@ -68,21 +61,22 @@
           <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
         </div>
       </div>
-
       <% if (initiator = @meeting.initiator) %>
         <div class="userPortraitName">
-          <%= avatar_for initiator %>
+          <%= attachment_image_tag initiator, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
           Erstellt von <%= link_to initiator.username, initiator %></a>
         </div>
       <% end %>
-
       <div class="txt"><%= @meeting.description %></div>
-
     </div>
 
     <%= render 'going_tos/participation', meeting: @meeting %>
 
-    <%= render 'stream', graetzl: @graetzl if user_signed_in? %>
+    <div class="stream" data-behavior="stream-container">
+      <%= render 'comments/form', commentable: @meeting %>
+      <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+    </div>
+    <%= view_more_link @comments %>
 
   <% else %>
     <div class="entryParticipate">

@@ -5,6 +5,14 @@ class PostsController < ApplicationController
     @posts = UserPost.order(created_at: :desc).
       page(params[:page]).per(15)
   end
+
+  def destroy
+    @post = Post.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to @post.graetzl, notice: 'Beitrag gelöscht' }
+      format.js
+    end
+  end
   # before_action :authenticate_user!
   #
   # def create

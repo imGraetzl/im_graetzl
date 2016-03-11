@@ -40,5 +40,9 @@ RSpec.describe UserPost, type: :model do
       other_user = create :user
       expect(post.edit_permission? other_user).to eq false
     end
+
+    it 'returns false if user nil' do
+      expect(post.edit_permission? nil).to eq false
+    end
   end
 end
