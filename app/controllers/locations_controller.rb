@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
 
   def index
     @locations = Kaminari.paginate_array(
-      @graetzl.locations.approved.includes(:posts, :meetings).
+      @graetzl.locations.approved.includes(:graetzl, :posts, :meetings, :address, :category).
         order('posts.created_at DESC NULLS LAST').
         order('meetings.created_at DESC NULLS LAST').
         order(created_at: :desc)
