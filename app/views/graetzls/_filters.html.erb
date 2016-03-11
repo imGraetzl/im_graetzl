@@ -41,35 +41,37 @@
     <div class="txt">Wünsche<br/>& Ideen</div>
   <% end %>
 
-  <%= link_to '#', class: 'iconfilter createentry', data: { behavior: 'createTrigger' } do %>
-    <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+  <% if current_user %>
+    <%= link_to '#', class: 'iconfilter createentry', data: { behavior: 'createTrigger' } do %>
+      <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+    <% end %>
   <% end %>
-
 </div>
 
-<!-- dropDown -->
-<div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
-  <div class="jq-dropdown-panel">
+<% if current_user %>
+  <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
+    <div class="jq-dropdown-panel">
 
-    <%= link_to new_graetzl_meeting_path(graetzl) do %>
-      <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-      <div class="icontxt">Neues Treffen</div>
-    <% end %>
-    <%= link_to new_graetzl_user_post_path(graetzl) do %>
-      <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
-      <div class="icontxt"> Neuer Wunsch oder Idee</div>
-    <% end %>
-    <% current_user.locations.approved.each do |location| %>
-      <%= link_to graetzl_location_path(location.graetzl, location) do %>
-        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
-        <div class="icontxt">Neuigkeit meiner Location</div>
-        <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+      <%= link_to new_graetzl_meeting_path(graetzl) do %>
+        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+        <div class="icontxt">Neues Treffen</div>
       <% end %>
-      <%= link_to new_location_zuckerl_path(location) do %>
-        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
-        <div class="icontxt">Grätzlzuckerl meiner Location</div>
-        <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+      <%= link_to new_graetzl_user_post_path(graetzl) do %>
+        <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+        <div class="icontxt"> Neuer Wunsch oder Idee</div>
       <% end %>
-    <% end %>
+      <% current_user.locations.approved.each do |location| %>
+        <%= link_to graetzl_location_path(location.graetzl, location) do %>
+          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+          <div class="icontxt">Neuigkeit meiner Location</div>
+          <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+        <% end %>
+        <%= link_to new_location_zuckerl_path(location) do %>
+          <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+          <div class="icontxt">Grätzlzuckerl meiner Location</div>
+          <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
