@@ -1,5 +1,11 @@
 class UserPostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
+
+  def show
+    set_graetzl
+    @post = @graetzl.posts.find(params[:id])
+    @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(10)
+  end
 
   def new
     set_graetzl

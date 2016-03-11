@@ -1,7 +1,0 @@
-<%= div_for(activity.trackable, class: 'streamElement') do %>
-  <div class="entryInitialContent">
-    <%= render 'public_activity/info', user: activity.trackable.initiator, entity: activity.trackable %>
-    <%= render 'meetings/teaser', meeting: activity.trackable %>
-  </div>
-  <%= render 'meetings/comments', meeting: activity.trackable %>
-<% end %>

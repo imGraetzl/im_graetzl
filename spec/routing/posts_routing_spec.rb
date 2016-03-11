@@ -14,8 +14,8 @@ RSpec.describe PostsController, type: :routing do
       expect(get: 'graetzl-slug/posts').to route_to('posts#index', graetzl_id: 'graetzl-slug')
     end
 
-    it 'routes GET graetzl-slug/posts/post-slug to posts#show' do
-      expect(get: 'graetzl-slug/posts/post-slug').to route_to('posts#show', graetzl_id: 'graetzl-slug', id: 'post-slug')
+    it 'routes GET graetzl-slug/user_posts/post-slug to user_posts#show' do
+      expect(get: 'graetzl-slug/user_posts/post-slug').to route_to('user_posts#show', graetzl_id: 'graetzl-slug', id: 'post-slug')
     end
 
     it 'routes GET graetzl-slug/user_posts/new to user_posts#new' do
@@ -40,9 +40,9 @@ RSpec.describe PostsController, type: :routing do
       expect(get: graetzl_posts_path('graetzl-slug')).to route_to('posts#index', graetzl_id: 'graetzl-slug')
     end
 
-    it 'routes GET graetzl_post to posts#show' do
-      expect(get: graetzl_post_path(graetzl_id: 'graetzl-slug', id: 'post-slug')).
-        to route_to('posts#show', graetzl_id: 'graetzl-slug', id: 'post-slug')
+    it 'routes GET graetzl_user_post to user_posts#show' do
+      expect(get: graetzl_user_post_path(graetzl_id: 'graetzl-slug', id: 'post-slug')).
+        to route_to('user_posts#show', graetzl_id: 'graetzl-slug', id: 'post-slug')
     end
 
     it 'routes GET new_graetzl_user_post to user_posts#new' do

@@ -78,8 +78,8 @@ Rails.application.routes.draw do
     resources :locations, only: [:index, :show]
     resources :zuckerls, only: [:index]
     resources :users, only: [:show]
-    resources :posts, only: [:index, :show]
-    resources :user_posts, only: [:new, :create]
+    resources :posts, only: [:index]
+    resources :user_posts, only: [:new, :create, :show]
   end
 
   resources :going_tos, only: [:create, :destroy]
@@ -97,7 +97,7 @@ Rails.application.routes.draw do
     resource :billing_address, only: [:show, :create, :update]
   end
 
-  resources :comments, only: [:destroy]
+  resources :comments, only: [:create, :destroy]
 
   resources :posts, only: [:destroy] do
     resources :comments, module: :posts, only: [:index, :create]

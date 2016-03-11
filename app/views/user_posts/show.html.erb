@@ -34,3 +34,8 @@
     <% end %>
   </div>
 </section>
+<div class="stream" data-behavior="stream-container">
+  <%= render 'comments/form', commentable: @post %>
+  <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+</div>
+<%= view_more_link @comments %>

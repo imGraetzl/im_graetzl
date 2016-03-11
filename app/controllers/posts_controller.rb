@@ -6,10 +6,6 @@ class PostsController < ApplicationController
       page(params[:page]).per(15)
   end
 
-  def show
-    @post = Post.find(params[:id])
-  end
-
   def destroy
     @post = Post.find(params[:id]).destroy
     respond_to do |format|

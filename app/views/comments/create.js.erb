@@ -1,15 +1,20 @@
-<% if @comment %>
-  <% if @comment.inline %>
-    console.log('inline');
-    var $form = $('div#<%= @comment.commentable_type.downcase %>_<%= @comment.commentable_id %> .entryCommentForm')
-    $form.before("<%= j render 'comments/comment', comment: @comment, comment_inline: true %>")
-    $form.replaceWith("<%= j render 'comments/form_inline', commentable: @comment.commentable %>")
-  <% else %>
-    $('div#stream-form').after("<%= j render 'comments/comment', comment: @comment %>");
-    $('div#stream-form').html("<%= j render 'comments/form', commentable: @comment.commentable %>")
-  <% end %>
-<% else %>
-  alert('Es gab ein Problem, bitte versuche es später nochmal.');
-<% end %>
+(function() {
+  var persisted = <%= @comment.persisted? %>
+  var $streamForm = $("[data-behavior='stream-form']");
 
-APP.components.stream.init()
+  function renderComment() {
+    $streamForm.after("<%= j render 'comments/stream_comment', comment: @comment %>")
+  }
+
+  function renderError() {
+    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+  }
+
+  function updateComponent() {
+    persisted ? renderComment() : renderError();
+    $streamForm.replaceWith("<%= j render 'form', commentable: @comment.commentable %>");
+    APP.components.stream.init();
+  }
+
+  updateComponent();
+})();

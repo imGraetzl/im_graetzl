@@ -7,16 +7,14 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @commentable.comments.new comment_params
+    @comment = Comment.new comment_params
     if @comment.save
-      @commentable.create_activity :comment, owner: current_user, recipient: @comment
+      # @comment.commentable.create_activity :comment, owner: current_user, recipient: @comment
     end
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @element_id = "comment_#{@comment.id}"
-    @comment.destroy
+    @comment = Comment.find(params[:id]).destroy
   end
 
   private
@@ -26,6 +24,10 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content, images_files: []).merge(user_id: current_user.id, inline: render_inline?)
+    params.require(:comment).permit(
+      :commentable_id,
+      :commentable_type,
+      :content,
+      images_files: []).merge(user_id: current_user.id)
   end
 end

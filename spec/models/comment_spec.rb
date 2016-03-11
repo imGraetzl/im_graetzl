@@ -84,6 +84,10 @@ RSpec.describe Comment, type: :model do
       it 'returns false for other user' do
         expect(comment.edit_permission?(create(:user))).to be_falsey
       end
+
+      it 'returns false for nil user' do
+        expect(comment.edit_permission? nil).to be_falsey
+      end
     end
 
     context 'when user commentable' do
