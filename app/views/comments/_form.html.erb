@@ -1,6 +1,6 @@
 <div class="entryCreate" data-behavior="stream-form">
   <%= attachment_image_tag current_user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
-  <%= form_for [commentable.comments.build], html: { class: 'textEditor', remote: true } do |f| %>
+  <%= form_for Comment.new(commentable: commentable), html: { class: 'textEditor', remote: true } do |f| %>
     <%= f.hidden_field :commentable_id %>
     <%= f.hidden_field :commentable_type %>
     <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben', class: 'input-plain' %>

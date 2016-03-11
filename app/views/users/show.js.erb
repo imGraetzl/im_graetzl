@@ -1,6 +1,8 @@
 <% if @scope == :wall_comments %>
-  $('div.stream').append("<%= j render @new_content %>");
-  $('a.link-load').replaceWith("<%= j view_more_link @new_content, params: { scope: @scope } %>")
+  var $streamContainer = $("[data-behavior='stream-container']");
+  var $paginateLink = $("[data-behavior='paginate-link']");
+  $streamContainer.append("<%= j render partial: 'comments/stream_comment', collection: @new_content, as: 'comment' %>");
+  $paginateLink.replaceWith("<%= j view_more_link @new_content, params: { scope: @scope } %>");
 <% else %>
   $('#<%= @scope %>').append("<%= j(render @new_content) %>")
   $('a.link-load#link-load-<%= @scope %>').replaceWith("<%= j view_more_scoped(@new_content, @scope) %>")

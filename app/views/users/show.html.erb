@@ -50,7 +50,12 @@
   </div>
 
   <%= render 'meetings' %>
-  
-  <%= render 'stream' %>
+
+  <div class="stream" data-behavior="stream-container">
+    <h3>Persönliche <span>Pinnwand</span> von <%= @user.username %></h3>
+    <%= render 'comments/form', commentable: @user %>
+    <%= render partial: 'comments/stream_comment', collection: @wall_comments, as: 'comment' %>
+  </div>
+  <%= view_more_link @wall_comments, params: { scope: :wall_comments } %>
 
 </section>
