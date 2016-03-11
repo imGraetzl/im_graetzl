@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
 
   before_validation { self.username.squish! if self.username }
 
-  # class methods
   # overwrite devise authentication method to allow username OR email
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

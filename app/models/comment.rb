@@ -1,6 +1,4 @@
 class Comment < ActiveRecord::Base
-  attr_accessor :inline
-
   belongs_to :user
   belongs_to :commentable, polymorphic: true
   has_many :images, as: :imageable, dependent: :destroy
