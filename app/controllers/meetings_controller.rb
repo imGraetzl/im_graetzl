@@ -13,7 +13,9 @@ class MeetingsController < ApplicationController
 
   def show
     verify_graetzl_child(@meeting) unless request.xhr?
-    @comments = @meeting.comments.page(params[:page]).per(10)
+    @comments = @meeting.comments.
+      order(created_at: :desc).
+      page(params[:page]).per(10)
   end
 
   def new
