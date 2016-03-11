@@ -1,7 +1,7 @@
 <% location = location_post.author %>
 <div class="cardBox">
   <div class="cardBoxHeader">
-    <%= link_to '#' do %>
+    <%= link_to [location.graetzl, location] do %>
       <% if image = location_post.images.first %>
         <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
       <% else %>
