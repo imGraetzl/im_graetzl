@@ -29,23 +29,36 @@ RSpec.describe PostsController, type: :routing do
     it 'routes DELETE /posts/post-slug to posts#destroy' do
       expect(delete: '/posts/post-slug').to route_to('posts#destroy', id: 'post-slug')
     end
+
+    it 'routes POST /location_posts to location_posts#create' do
+      expect(post: '/location_posts').to route_to('location_posts#create')
+    end
   end
 
   describe 'named routes' do
-
-    it 'routes DELETE post_path(post-slug) to post#destroy' do
-      expect(delete: post_path(id: 'post-slug')).to route_to(
-        controller: 'posts',
-        action: 'destroy',
-        id: 'post-slug')
+    it 'routes GET graetzl_posts to posts#index' do
+      expect(get: graetzl_posts_path('graetzl-slug')).to route_to('posts#index', graetzl_id: 'graetzl-slug')
     end
 
-    it 'routes GET graetzl_post_path(graetzl-slug, post-slug) to post#slug' do
-      expect(get: graetzl_post_path('graetzl-slug', 'post-slug')).to route_to(
-        controller: 'posts',
-        action: 'show',
-        graetzl_id: 'graetzl-slug',
-        id: 'post-slug')
+    it 'routes GET graetzl_post to posts#show' do
+      expect(get: graetzl_post_path(graetzl_id: 'graetzl-slug', id: 'post-slug')).
+        to route_to('posts#show', graetzl_id: 'graetzl-slug', id: 'post-slug')
+    end
+
+    it 'routes GET new_graetzl_user_post to user_posts#new' do
+      expect(get: new_graetzl_user_post_path('graetzl-slug')).to route_to('user_posts#new', graetzl_id: 'graetzl-slug')
+    end
+
+    it 'routes POST graetzl_user_posts to user_posts#create' do
+      expect(post: graetzl_user_posts_path('graetzl-slug')).to route_to('user_posts#create', graetzl_id: 'graetzl-slug')
+    end
+
+    it 'routes DELETE post_path(post-slug) to post#destroy' do
+      expect(delete: post_path('post-slug')).to route_to('posts#destroy', id: 'post-slug')
+    end
+
+    it 'routes POST location_posts_path to location_posts#create' do
+      expect(post: location_posts_path).to route_to('location_posts#create')
     end
   end
 end
