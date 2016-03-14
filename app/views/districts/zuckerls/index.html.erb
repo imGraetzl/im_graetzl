@@ -1,0 +1,9 @@
+<section class="districts">
+  <%= cache [@district, 'locationsmap'], expires_in: 2.months do %>
+    <%= render 'districts/map', map_data: @map_data %>
+  <% end %>
+  <h1 class="hl-main">Grätzlzuckerl <span>im <%= @district.numeric %>. Bezirk</span></h1>
+  <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd">
+    <%= render partial: 'zuckerls/zuckerl', collection: @zuckerls %>
+  </div>
+</section>

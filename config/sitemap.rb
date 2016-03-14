@@ -10,9 +10,6 @@ SitemapGenerator::Sitemap.create do
     add district_meetings_path(district) unless district.meetings.empty?
   end
 
-  # Zuckerl
-  add zuckerl_districts_path, changefreq: 'monthly'
-
   # Graetzls
   Graetzl.find_each do |graetzl|
     add graetzl_path(graetzl), changefreq: 'always', priority: 0.7

@@ -147,4 +147,29 @@ RSpec.describe District, type: :model do
       expect(curators).not_to include(curator_4)
     end
   end
+
+  describe '#zuckerls' do
+    let(:district) { create :district, area: 'POLYGON ((0.0 0.0, 0.0 5.0, 5.0 5.0, 5.0 0.0, 0.0 0.0))' }
+    let(:graetzl_1) { create :graetzl, area: 'POLYGON ((0.0 0.0, 0.0 1.0, 1.0 1.0, 0.0 0.0))' }
+    let(:graetzl_2) { create :graetzl, area: 'POLYGON ((2.0 2.0, 2.0 6.0, 6.0 6.0, 2.0 2.0))' }
+    let(:other_graetzl) { create :graetzl, area: 'POLYGON ((6.0 6.0, 6.0 7.0, 7.0 7.0, 7.0 6.0, 6.0 6.0))' }
+
+    subject(:zuckerls) { district.zuckerls }
+
+    before { allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation) }
+
+    it 'returns live zuckerl from graetzl locations' do
+      zuckerl_records = create_list(:zuckerl, 5,
+        location: create(:location, graetzl: [graetzl_1, graetzl_2].sample),
+        aasm_state: 'live')
+      expect(zuckerls).to match_array zuckerl_records
+    end
+
+    it 'does not include zuckerls from other graetzls' do
+      zuckerl_record = create(:zuckerl,
+        location: create(:location, graetzl: other_graetzl),
+        aasm_state: 'live')
+      expect(zuckerls).not_to include(zuckerl_record)
+    end
+  end
 end

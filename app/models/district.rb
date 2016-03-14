@@ -29,4 +29,10 @@ class District < ActiveRecord::Base
   def curators
     Curator.where(graetzl: graetzls)
   end
+
+  def zuckerls
+    Zuckerl.live.where(location_id:
+      Location.select(:id).where(graetzl_id:
+        Graetzl.select(:id).where('ST_INTERSECTS(area, ?)', self.area)))
+  end
 end

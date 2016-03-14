@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   end
 
   resources :districts, path: 'wien', only: [:index, :show] do
-    get '/leopoldstadt-1020/graetzlzuckerl', on: :collection, to: 'zuckerls#index', as: 'zuckerl'
     get :graetzls, on: :member
     resources :locations, module: :districts, only: [:index]
     resources :meetings, path: :treffen, module: :districts, only: [:index]
+    resources :zuckerls, path: :graetzlzuckerl, module: :districts, only: [:index]
   end
 
   ActiveAdmin.routes(self)

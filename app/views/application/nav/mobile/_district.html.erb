@@ -11,7 +11,7 @@
   <%= link_to district_locations_path(target) do %>
     <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Treffpunkte & Anbieter im <%= target.numeric %>. Bezirk
   <% end %>
-  <%= link_to zuckerl_districts_path do %>
+  <%= link_to district_locations_path(target) do %>
     <svg class="icon-zuckerl"><use xlink:href="#icon-zuckerl"></use></svg><%= l(Date.today, format: 'Grätzlzuckerl im %B') %>
   <% end %>
   <%= link_to  districts_path, class: 'discover' do %>
