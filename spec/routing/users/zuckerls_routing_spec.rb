@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Users::SessionsController, type: :routing do
+RSpec.describe Users::ZuckerlsController, type: :routing do
 
   describe 'routes' do
     it 'routes GET /user/zuckerls to users/zuckerls#index' do
