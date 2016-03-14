@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'routing/shared/address_before_new'
 
 RSpec.describe LocationsController, type: :routing do
   describe 'routes' do

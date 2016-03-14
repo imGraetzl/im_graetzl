@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'routing/shared/address_before_new'
 
 RSpec.describe BillingAddressesController, type: :routing do
 
