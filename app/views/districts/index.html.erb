@@ -33,7 +33,7 @@
   <% unless @meetings.empty? %>
     <div class="teaserBlock">
       <h1 class="hl-main">Aktuelle Treffen in ganz <span>Wien</span></h1>
-      <div id="meetings" class="cardBoxCollection -tripple">
+      <div id="meetings" class="cardBoxCollection -tripple" data-behavior="stream-container">
         <%= render @meetings %>
       </div>
     </div>

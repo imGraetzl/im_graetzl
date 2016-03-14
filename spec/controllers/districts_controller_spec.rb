@@ -13,31 +13,30 @@ RSpec.describe DistrictsController, type: :controller do
       end
 
       it 'assigns @districts' do
-        expect(assigns(:districts)).to be_truthy
+        expect(assigns :districts).to be_truthy
       end
 
       it 'assigns @map_data' do
-        expect(assigns(:map_data)).to be_truthy
+        expect(assigns :map_data).to be_truthy
       end
 
       it 'assigns @meetings' do
-        expect(assigns(:meetings)).to be_truthy
+        expect(assigns :meetings).to be_truthy
       end
     end
-
     context 'when js request' do
-      before { xhr :get, :index }
+      before { xhr :get, :index, page: 2 }
 
       it 'does not assign @districts' do
-        expect(assigns(:districts)).not_to be
+        expect(assigns :districts).not_to be
       end
 
       it 'does not assign @map_data' do
-        expect(assigns(:map_data)).not_to be
+        expect(assigns :map_data).not_to be
       end
 
       it 'assigns @meetings' do
-        expect(assigns(:meetings)).to be
+        expect(assigns :meetings).to be
       end
 
       it 'renders index.js' do
@@ -48,29 +47,24 @@ RSpec.describe DistrictsController, type: :controller do
   end
 
   describe 'GET show' do
-    let(:district) { create(:district,
-      area: 'POLYGON ((0.0 0.0, 0.0 10.0, 10.0 10.0, 10.0 0.0, 0.0 0.0))') }
-    let!(:graetzl) { create(:graetzl,
-      area: 'POLYGON ((0.0 0.0, 0.0 6.0, 6.0 5.0, 5.0 0.0, 0.0 0.0))') }
-    let!(:wrong_graetzl) { create(:graetzl,
-      area: 'POLYGON ((20.0 20.0, 20.0 40.0, 40.0 40.0, 40.0 2.0, 20.0 20.0))') }
+    let(:district) { create :district }
 
     before { get :show, id: district }
 
     it 'assigns @district' do
-      expect(assigns(:district)).to eq district
+      expect(assigns :district).to eq district
     end
 
     it 'assigns @map_data' do
-      expect(assigns(:map_data)).to be
+      expect(assigns :map_data).to be
     end
 
     it 'assigns @meetings' do
-      expect(assigns(:meetings)).to be
+      expect(assigns :meetings).to be
     end
 
     it 'assigns @locations' do
-      expect(assigns(:locations)).to be
+      expect(assigns :locations).to be
     end
 
     it 'renders #show' do

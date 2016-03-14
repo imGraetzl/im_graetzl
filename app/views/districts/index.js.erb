@@ -1,2 +1,11 @@
-$('#meetings').append("<%= j(render @meetings) %>");
-$('a.link-load').replaceWith("<%= j view_more_link @meetings %>")
+(function() {
+  var $streamContainer = $("[data-behavior='stream-container']");
+  var $paginateLink = $("[data-behavior='paginate-link']");
+
+  function updateComponent() {
+    $streamContainer.append("<%= j render @meetings %>");
+    $paginateLink.replaceWith("<%= j view_more_link @meetings %>");
+  }
+
+  updateComponent();
+})();
