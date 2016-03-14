@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :routing do
-
   describe 'routes ' do
     it 'routes GET /users/user-slug to #show' do
       expect(get: '/users/user-slug').to route_to('users#show', id: 'user-slug')
@@ -23,7 +22,6 @@ RSpec.describe UsersController, type: :routing do
       expect(put: '/users/user-slug').to route_to('users#update', id: 'user-slug')
     end
   end
-
   describe 'named routes' do
     it 'routes GET user_path to #show' do
       expect(get: user_path('user-slug')).to route_to('users#show', id: 'user-slug')
