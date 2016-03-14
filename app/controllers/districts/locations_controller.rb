@@ -1,9 +1,5 @@
 class Districts::LocationsController < ApplicationController
-
-  # Overwrite to match needed js
-  def self.controller_name
-    'districts'
-  end
+  include DistrictContext
 
   def index
     @district = District.find(params[:district_id])
