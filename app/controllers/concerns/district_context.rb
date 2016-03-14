@@ -6,4 +6,14 @@ module DistrictContext
       'districts'
     end
   end
+
+  private
+
+  def set_district
+    @district = District.find(params[:district_id])
+  end
+
+  def set_map_data
+    @map_data = GeoJSONService.call(districts: @district, graetzls: @district.graetzls)
+  end
 end

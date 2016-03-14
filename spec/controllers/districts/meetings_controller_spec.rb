@@ -1,29 +1,29 @@
 require 'rails_helper'
+require 'controllers/shared/district_context'
 
 RSpec.describe Districts::MeetingsController, type: :controller do
 
+  it_behaves_like :a_district_controller
+
   describe 'GET index' do
-    let(:district) { create(:district) }
+    let(:district) { create(:district, area: 'POLYGON ((0.0 0.0, 0.0 1.0, 1.0 1.0, 1.0 0.0, 0.0 0.0))') }
+    let(:graetzl) { create(:graetzl, area: 'POLYGON ((0.5 0.5, 0.5 0.7, 0.7 0.7, 0.5 0.5))') }
+
+    before { create_list :meeting, 30, graetzl: graetzl }
 
     context 'when html request' do
-      let(:graetzl) { create(:graetzl) }
-      let!(:cancelled_upcoming) { create(:meeting, graetzl: graetzl, state: Meeting.states[:cancelled]) }
-      let(:cancelled_past) { create(:meeting_skip_validate, graetzl: graetzl, state: Meeting.states[:cancelled], starts_at_date: Date.yesterday ) }
-
       before { get :index, district_id: district }
 
       it 'assigns @district' do
-        expect(assigns(:district)).to eq district
+        expect(assigns :district).to eq district
       end
 
-      it 'assigns @upcoming' do
-        expect(assigns(:upcoming)).to be
-        expect(assigns(:upcoming)).not_to include(cancelled_past, cancelled_upcoming)
+      it 'assigns @map_data' do
+        expect(assigns :map_data).to be
       end
 
-      it 'assigns @past' do
-        expect(assigns(:past)).to be
-        expect(assigns(:past)).not_to include(cancelled_past, cancelled_upcoming)
+      it 'assigns 14 @meetings' do
+        expect(assigns(:meetings).size).to eq 14
       end
 
       it 'renders /districts/meetings/index.html' do
@@ -32,15 +32,15 @@ RSpec.describe Districts::MeetingsController, type: :controller do
       end
     end
 
-    context 'when js request' do
-      before { xhr :get, :index, { district_id: district, scope: :upcoming } }
+    context 'when js request with page param' do
+      before { xhr :get, :index, district_id: district, page: 2 }
 
-      it 'assigns @scope' do
-        expect(assigns(:scope)).to eq :upcoming
+      it 'assigns @district' do
+        expect(assigns :district).to eq district
       end
 
-      it 'assigns @meetings' do
-        expect(assigns(:meetings)).to be
+      it 'assigns 15 @meetings' do
+        expect(assigns(:meetings).size).to eq 15
       end
 
       it 'does not assign @map_data' do

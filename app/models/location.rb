@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
 
   scope :paginate_index, ->(page) { order(id: :desc)
                                       .page(page)
-                                      .per(page == 1 ? 1 : 15)
+                                      .per(page == 1 ? 15 : 15)
                                       .padding(page == 1 ? 0 : -1) }
 
 

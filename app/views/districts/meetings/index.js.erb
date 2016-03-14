@@ -1,2 +1,11 @@
-$('#<%= @scope %>').append("<%= j(render partial: 'meetings/meeting', collection: @meetings) %>")
-$('a.link-load#link-load-<%= @scope %>').replaceWith("<%= j view_more_scoped(@meetings, @scope, style: :big) %>")
+(function() {
+  var $streamContainer = $("[data-behavior='stream-container']");
+  var $paginateLink = $("[data-behavior='paginate-link']");
+
+  function updateComponent() {
+    $streamContainer.append("<%= j render partial: 'meetings/meeting', collection: @meetings %>");
+    $paginateLink.replaceWith("<%= j view_more_link @meetings, style: :big %>");
+  }
+
+  updateComponent();
+})();
