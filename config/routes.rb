@@ -86,9 +86,7 @@ Rails.application.routes.draw do
     resources :zuckerls, except: [:index, :show]
   end
 
-  resources :meetings, path: :treffen, except: [:index, :show] do
-    resources :comments, module: :meetings, only: [:index, :create]
-  end
+  resources :meetings, path: :treffen, except: [:index, :show]
 
   resources :zuckerls, only: [:new] do
     resource :billing_address, only: [:show, :create, :update]
