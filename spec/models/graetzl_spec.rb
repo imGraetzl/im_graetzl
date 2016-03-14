@@ -157,7 +157,7 @@ RSpec.describe Graetzl, type: :model do
       end
     end
     context 'when live zuckerl available' do
-      let!(:zuckerls) { create_list :live_zuckerl, 2, location: create(:location, graetzl: graetzl) }
+      let!(:zuckerls) { create_list :zuckerl, 2, :live, location: create(:location, graetzl: graetzl) }
 
       it 'contains activity' do
         expect(decorate_activity).to include *activites

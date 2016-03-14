@@ -3,7 +3,8 @@
     <%= render 'districts/map', map_data: @map_data %>
   <% end %>
   <h1 class="hl-main">Grätzlzuckerl <span>im <%= @district.numeric %>. Bezirk</span></h1>
-  <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd">
+  <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
     <%= render partial: 'zuckerls/zuckerl', collection: @zuckerls %>
   </div>
+  <%= view_more_link @zuckerls, style: :big %>
 </section>

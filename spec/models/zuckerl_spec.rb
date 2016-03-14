@@ -4,7 +4,7 @@ RSpec.describe Zuckerl, type: :model do
 
   it 'has a valid factory' do
     expect(build_stubbed :zuckerl).to be_valid
-    expect(build_stubbed :live_zuckerl).to be_valid
+    expect(build_stubbed :zuckerl, :live).to be_valid
   end
 
   describe 'attributes' do

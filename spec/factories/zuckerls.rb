@@ -4,7 +4,7 @@ FactoryGirl.define do
     title { Faker::Lorem.characters(80) }
     description { Faker::Lorem.paragraph }
 
-    factory :live_zuckerl do
+    trait :live do
       aasm_state { 'live' }
     end
   end
