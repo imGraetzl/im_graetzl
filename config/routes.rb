@@ -50,9 +50,7 @@ Rails.application.routes.draw do
     post 'users/notification_settings/mark_as_seen', to: 'notification_settings#mark_as_seen', as: :user_notifications_mark_as_seen
   end
 
-  resources :users, only: [:show, :update] do
-    resources :comments, module: :users, only: [:create]
-  end
+  resources :users, only: [:show, :update]
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     resources :locations, module: :users, only: [:index]
