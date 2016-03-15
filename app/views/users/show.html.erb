@@ -56,6 +56,6 @@
     <%= render 'comments/form', commentable: @user %>
     <%= render partial: 'comments/stream_comment', collection: @wall_comments, as: 'comment' %>
   </div>
-  <%= view_more_link @wall_comments, params: { scope: :wall_comments } %>
+  <%= view_more_link @wall_comments %>
 
 </section>

@@ -6,17 +6,17 @@
   <div id="tab-1">
     <!-- Dies als defaulttext nehmen -->
     <!-- <div class="defaultText">Im Moment sind keine Treffen geplant.</div> -->
-    <div id="initiated" class="cardBoxCollection -tripple" data-tabID="one">
+    <div id="initiated" class="cardBoxCollection -tripple" data-tabID="one" data-behavior="initiated-container">
       <%= render @initiated %>
     </div>
-    <%= view_more_scoped(@initiated, :initiated) %>
+    <%= view_more_of @initiated, 'initiated' %>
   </div>
   <div id="tab-2">
     <!-- Dies als defaulttext nehmen -->
     <!-- <div class="defaultText">Der User hat an noch keinen Treffen teilgenommen..</div> -->
-    <div id="attended" class="cardBoxCollection -tripple" data-tabID="two">
+    <div id="attended" class="cardBoxCollection -tripple" data-tabID="two" data-behavior="attended-container">
       <%= render @attended %>
     </div>
-    <%= view_more_scoped(@attended, :attended) %>
+    <%= view_more_of @attended, 'attended' %>
   </div>
 </div>

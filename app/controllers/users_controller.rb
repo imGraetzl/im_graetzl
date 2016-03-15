@@ -1,18 +1,15 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_graetzl, only: [:show]
 
   def show
-    @user = User.includes(wall_comments: [:images]).find(params[:id])
     if request.xhr?
-      @new_content = paginate_show(@scope = params[:scope].to_sym)
+      @user = User.find(params[:id])
+      paginate_content
     else
+      set_user_and_graetzl
+      @wall_comments = @user.wall_comments.order(created_at: :desc).page(params[:page]).per(10)
       @initiated = @user.meetings.initiated.page(params[:initiated]).per(3)
       @attended = @user.meetings.attended.page(params[:attended]).per(3)
-      @wall_comments = @user.wall_comments.
-        order(created_at: :desc).
-        page(params[:page]).per(10)
-      redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
     end
   end
 
@@ -32,12 +29,25 @@ class UsersController < ApplicationController
 
   private
 
-  def set_graetzl
+  def set_user_and_graetzl
+    @user = User.includes(wall_comments: [:images]).find(params[:id])
     @graetzl = Graetzl.find_by_slug(params[:graetzl_id])
+    redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
   end
 
   def wrong_graetzl?
     !@graetzl || (@graetzl != @user.graetzl)
+  end
+
+  def paginate_content
+    case
+    when params[:page]
+      @wall_comments = @user.wall_comments.order(created_at: :desc).page(params[:page]).per(10)
+    when params[:initiated]
+      @initiated = @user.meetings.initiated.page(params[:initiated]).per(3)
+    when params[:attended]
+      @attended = @user.meetings.attended.page(params[:attended]).per(3)
+    end
   end
 
   def user_params
@@ -54,16 +64,5 @@ class UsersController < ApplicationController
         :role,
         :avatar, :remove_avatar,
         :cover_photo, :remove_cover_photo)
-  end
-
-  def paginate_show(scope)
-    case scope
-    when :wall_comments
-      @user.wall_comments.order(created_at: :desc).page(params[:page]).per(10)
-    when :initiated
-      @user.meetings.basic.initiated.page(params[scope]).per(3)
-    when :attended
-      @user.meetings.basic.attended.page(params[scope]).per(3)
-    end
   end
 end

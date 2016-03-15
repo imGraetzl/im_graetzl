@@ -1,9 +1,24 @@
-<% if @scope == :wall_comments %>
-  var $streamContainer = $("[data-behavior='stream-container']");
-  var $paginateLink = $("[data-behavior='paginate-link']");
-  $streamContainer.append("<%= j render partial: 'comments/stream_comment', collection: @new_content, as: 'comment' %>");
-  $paginateLink.replaceWith("<%= j view_more_link @new_content, params: { scope: @scope } %>");
-<% else %>
-  $('#<%= @scope %>').append("<%= j(render @new_content) %>")
-  $('a.link-load#link-load-<%= @scope %>').replaceWith("<%= j view_more_scoped(@new_content, @scope) %>")
-<% end %>
+(function() {
+  var $container;
+  var $paginateLink;
+
+  function updateComponent() {
+    <% if @wall_comments.present? %>
+      $container = $("[data-behavior='stream-container']");
+      $paginateLink = $("[data-behavior='paginate-link']");
+      $container.append("<%= j render partial: 'comments/stream_comment', collection: @wall_comments, as: 'comment' %>");
+      $paginateLink.replaceWith("<%= j view_more_link @wall_comments %>");
+    <% elsif @initiated.present? %>
+      $container = $("[data-behavior='initiated-container']");
+      $paginateLink = $("[data-behavior='paginate-initiated']");
+      $container.append("<%= j(render @initiated) %>");
+      $paginateLink.replaceWith("<%= j view_more_of @initiated, 'initiated' %>");
+    <% elsif @attended.present? %>
+      $container = $("[data-behavior='attended-container']");
+      $paginateLink = $("[data-behavior='paginate-attended']");
+      $container.append("<%= j(render @attended) %>");
+      $paginateLink.replaceWith("<%= j view_more_of @attended, 'attended' %>");
+    <% end %>
+  }
+  updateComponent();
+})();

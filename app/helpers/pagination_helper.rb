@@ -11,6 +11,17 @@ module PaginationHelper
       class: 'link-load' + ' -' + style.to_s
   end
 
+  def view_more_of(resource, param)
+    link_to_next_page resource, 'Mehr anzeigen',
+      remote: true,
+      data: {
+        disable_with: 'lädt...',
+        behavior: "paginate-#{param}"
+      },
+      param_name: param,
+      class: 'link-load'
+  end
+
   def view_more_scoped(resource, scope, style: :'')
     link_to_next_page resource, 'Mehr anzeigen',
       remote: true,
