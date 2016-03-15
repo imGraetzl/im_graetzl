@@ -2,12 +2,6 @@ class Location < ActiveRecord::Base
   include Trackable
   extend FriendlyId
 
-  scope :paginate_index, ->(page) { order(id: :desc)
-                                      .page(page)
-                                      .per(page == 1 ? 15 : 15)
-                                      .padding(page == 1 ? 0 : -1) }
-
-
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }

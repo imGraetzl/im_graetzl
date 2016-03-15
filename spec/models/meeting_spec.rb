@@ -104,26 +104,6 @@ RSpec.describe Meeting, type: :model do
   end
 
   describe 'scopes' do
-    describe '.paginate_with_padding' do
-      before { create_list(:meeting, 30) }
-
-      context 'with page = 1' do
-        subject(:meetings) { Meeting.paginate_with_padding 1 }
-
-        it 'returns first 8 meetings' do
-          expect(meetings).to eq Meeting.first(8)
-        end
-      end
-
-      context 'with page = 2' do
-        subject(:meetings) { Meeting.paginate_with_padding 2 }
-
-        it 'returns first 9 with offset 8' do
-          expect(meetings).to eq Meeting.offset(8).limit(9)
-        end
-      end
-    end
-
     describe '.upcoming' do
       let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
       let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }

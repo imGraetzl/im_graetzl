@@ -132,13 +132,4 @@ class MeetingsController < ApplicationController
       redirect_to [@meeting.graetzl, @meeting]
     end
   end
-
-  def paginate_index(scope)
-    case scope
-    when :upcoming
-      @graetzl.meetings.basic.upcoming.paginate_with_padding(params[scope] || 1)
-    when :past
-      @graetzl.meetings.basic.past.page(params[scope]).per(6)
-    end
-  end
 end

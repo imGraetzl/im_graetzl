@@ -8,9 +8,6 @@ class Meeting < ActiveRecord::Base
                         .order(:starts_at_date) }
   scope :past, -> { where('starts_at_date < ?', Date.today).
                     order(starts_at_date: :desc) }
-  scope :paginate_with_padding, ->(page) { page(page)
-                                            .per(page == 1 ? 8 : 9)
-                                            .padding(page == 1 ? 0 : -1) }
 
   # scopes primarily used for users
   scope :initiated, -> { includes(:going_tos, :graetzl)

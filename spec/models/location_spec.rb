@@ -141,28 +141,6 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe 'scopes' do
-    describe 'paginate_index' do
-      before { create_list(:location, 60) }
-
-      context 'with page param = 1' do
-        subject(:locations) { Location.paginate_index(1) }
-
-        it 'returns newest 14' do
-          expect(locations).to eq Location.order(id: :desc).first(14)
-        end
-      end
-
-      context 'with page param = 2' do
-        subject(:locations) { Location.paginate_index(2) }
-
-        it 'returns newest 15 with offset 14' do
-          expect(locations).to eq Location.order(id: :desc).offset(14).first(15)
-        end
-      end
-    end
-  end
-
   describe '#show_meeting_button' do
     let!(:location) { create(:location) }
 
