@@ -1,4 +1,9 @@
-console.log('no longer attending');
-var meetingID = "<%= j(@meeting.id.to_s) %>"
+(function() {
+  var $container = $("[data-behavior='participants-container']");
 
-$('div.entryParticipate').replaceWith("<%= escape_javascript(render 'going_tos/participation', meeting: @meeting) %>");
+  function updateComponent() {
+    $container.replaceWith("<%= j render 'going_tos/participation', meeting: @meeting %>");
+  }
+
+  updateComponent();
+})();

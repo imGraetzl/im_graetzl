@@ -1,4 +1,4 @@
-<div class="entryParticipate">
+<div class="entryParticipate" data-behavior="participants-container">
   <% if user_signed_in? %>
     <%= render 'going_tos/button', going_to: meeting.going_tos.find_by_user_id(current_user), meeting: meeting %>
   <% else %>
