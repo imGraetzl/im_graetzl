@@ -5,34 +5,25 @@ RSpec.describe Users::ZuckerlsController, type: :controller do
 
   describe 'GET index' do
     context 'when logged out' do
-      before { get :index }
-
-      it 'returns a 302 found status' do
-        expect(response).to have_http_status 302
-      end
-
       it 'redirects to login' do
-        expect(response).to render_template(session[:new])
+        get :index
+        expect(response).to redirect_to new_user_session_path
         expect(flash[:alert]).to be_present
       end
     end
     context 'when logged in' do
       let(:user) { create :user }
-      let(:location) { create :location, state: Location.states[:approved] }
+      let(:location) { create :location, :approved }
       let!(:ownership) { create :location_ownership, user: user, location: location }
-      let!(:zuckerls) { create_list(:zuckerl, 3, location: location) }
+      let!(:zuckerls) { create_list :zuckerl, 3, location: location }
 
       before do
         sign_in user
         get :index
       end
 
-      it 'returns a 200 ok status' do
-        expect(response).to have_http_status 200
-      end
-
       it 'assigns @zuckerls' do
-        expect(assigns(:zuckerls).pluck(:id)).to match_array zuckerls.map(&:id)
+        expect(assigns :zuckerls).to match_array zuckerls
       end
 
       it 'renders :index' do

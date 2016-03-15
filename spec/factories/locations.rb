@@ -7,6 +7,10 @@ FactoryGirl.define do
     graetzl
     category
 
+    trait :approved do
+      state Location.states[:approved]
+    end
+
     factory :approved_location do
       state Location.states[:approved]
     end
