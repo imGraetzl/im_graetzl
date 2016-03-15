@@ -3,7 +3,7 @@ class UserPostsController < ApplicationController
 
   def show
     set_graetzl
-    @post = @graetzl.posts.find(params[:id])
+    @post = @graetzl.posts.where(type: UserPost).find(params[:id])
     @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(10)
   end
 
@@ -15,9 +15,10 @@ class UserPostsController < ApplicationController
   def create
     set_graetzl
     @user_post = current_user.posts.new user_post_params
+    @user_post.graetzl = @graetzl
     if @user_post.save
       @user_post.create_activity :create, owner: current_user
-      redirect_to graetzl_post_path(@graetzl, @user_post)
+      redirect_to [@graetzl, @user_post]
     else
       render :new
     end
@@ -31,7 +32,6 @@ class UserPostsController < ApplicationController
 
   def user_post_params
     params.require(:user_post).permit(
-      :graetzl_id,
       :title,
       :content,
       images_files: [])

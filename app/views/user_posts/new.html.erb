@@ -6,7 +6,6 @@
 
   <div class="form-block">
     <%= form_for [@graetzl, @user_post] do |f| %>
-      <%= f.hidden_field :graetzl_id %>
       <% if @user_post.errors.any? %>
         <div id="error_explanation">
           <h2>Wunsch oder Idee konnte nicht erstellt werden!<br><%= @user_post.errors.count %> Fehler:</h2>
