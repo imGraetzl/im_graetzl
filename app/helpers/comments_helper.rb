@@ -7,11 +7,6 @@ module CommentsHelper
     comment.inline ? 'entryUserComment' : 'entryInitialContent'
   end
 
-  def render_inline_comment(comment)
-    comment.inline = true
-    render comment
-  end
-
   def link_to_load_comments(commentable)
     link_to 'Ältere Kommentare zeigen', [commentable, :comments],
                                       remote: true,

@@ -28,22 +28,6 @@ RSpec.describe CommentsHelper, type: :helper do
     end
   end
 
-  describe '#render_inline_comment' do
-    let(:comment) { build_stubbed :comment }
-
-    before { allow(view).to receive(:current_user) { create(:user) }}
-
-    it 'assigns inline to true' do
-      expect{
-        helper.render_inline_comment comment
-      }.to change{comment.inline}.to(true)
-    end
-
-    it 'renders comment' do
-      expect(helper.render_inline_comment comment).to eq (render comment)
-    end
-  end
-
   describe '#link_to_load_comments' do
     context 'when commentable is post' do
       let(:post) { build_stubbed(:post) }
