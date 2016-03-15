@@ -3,7 +3,7 @@ APP.controllers.locations = (function() {
     function init() {
         if($("section.selectGraetzl").exists()) initSelectGraetzl();
         if($("section.location-form").exists()) initLocationForm();
-        if($("section.startpage").exists()) initLocationOverview();
+        if($("section.masonryFilterGrid").exists()) initLocationOverview();
         if($("section.locationPage").exists()) initLocationPage();
     }
 

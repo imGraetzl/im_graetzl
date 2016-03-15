@@ -2,7 +2,7 @@ APP.controllers.meetings = (function() {
 
     function init() {
 
-        if($("section.startpage").exists()) initMeetingsOverview();
+        if($("section.masonryFilterGrid").exists()) initMeetingsOverview();
         if($("section.meeting").exists()) initMeetingDetail();
         if($("section.create-meeting").exists()) initCreateMeeting();
 

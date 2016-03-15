@@ -5,6 +5,7 @@
   function updateComponent() {
     $streamContainer.append("<%= j render partial: 'meetings/meeting', collection: @meetings %>");
     $paginateLink.replaceWith("<%= j view_more_link @meetings, style: :big %>");
+    APP.components.masonryFilterGrid.adjustNewCards();
   }
 
   updateComponent();

@@ -5,6 +5,7 @@
   function updateComponent() {
     $streamContainer.append("<%= j render partial: 'locations/location', collection: @locations %>");
     $paginateLink.replaceWith("<%= j view_more_link @locations, style: :big %>");
+    APP.components.masonryFilterGrid.adjustNewCards();
   }
 
   updateComponent();

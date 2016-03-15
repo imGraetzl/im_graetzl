@@ -5,6 +5,7 @@
   function updateComponent() {
     $streamContainer.append("<%= j render @activity %>");
     $paginateLink.replaceWith("<%= j view_more_link @activity %>");
+    APP.components.masonryFilterGrid.adjustNewCards();
   }
 
   updateComponent();
