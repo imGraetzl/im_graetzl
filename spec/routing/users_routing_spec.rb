@@ -6,10 +6,6 @@ RSpec.describe UsersController, type: :routing do
       expect(get: '/users/user-slug').to route_to('users#show', id: 'user-slug')
     end
 
-    it 'routes PUT /users/user-slug to #update' do
-      expect(put: '/users/user-slug').to route_to('users#update', id: 'user-slug')
-    end
-
     it 'routes GET graetzl-slug/users/user-slug to #show' do
       expect(get: 'graetzl-slug/users/user-slug').to route_to('users#show', graetzl_id: 'graetzl-slug', id: 'user-slug')
     end
@@ -25,10 +21,6 @@ RSpec.describe UsersController, type: :routing do
   describe 'named routes' do
     it 'routes GET user_path to #show' do
       expect(get: user_path('user-slug')).to route_to('users#show', id: 'user-slug')
-    end
-
-    it 'routes PUT user_path to #put' do
-      expect(put: user_path('user-slug')).to route_to('users#update', id: 'user-slug')
     end
 
     it 'routes GET graetzl_user_path to #show' do
