@@ -11,7 +11,7 @@ APP.controllers.meetings = (function() {
 
 
     function initMeetingsOverview() {
-        var filter = APP.components.startpageFilter;
+        var filter = APP.components.masonryFilterGrid;
         var map =  APP.components.graetzlMap;
         var mapdata = $('#graetzlMapWidget').data('mapdata');
 

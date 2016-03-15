@@ -47,7 +47,7 @@ APP.controllers.locations = (function() {
 
     function initLocationOverview() {
         var map =  APP.components.graetzlMap;
-        var filter = APP.components.startpageFilter;
+        var filter = APP.components.masonryFilterGrid;
         var mapdata = $('#graetzlMapWidget').data('mapdata');
 
         filter.init();

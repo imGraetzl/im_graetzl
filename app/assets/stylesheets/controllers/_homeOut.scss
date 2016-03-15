@@ -11,6 +11,26 @@ section.homeOut {
       margin-bottom: 60px;
     }
   }
+
+
+  .cardBox.-sponsor {
+    max-width: 320px;
+    margin: 100px auto 0 auto;
+    @include respond-to(">=large") {
+      @include cardBox-horizontal();
+      max-width: none;
+      width: 700px;
+      .cardBoxContent {
+        padding-top: 70px;
+      }
+      .sideflag {
+        right: -368px;
+      }
+
+    }
+  }
+
+
 }
 
 .buehne {
@@ -238,19 +258,3 @@ section.homeOut {
   }
 }
 
-.cardBox.-sponsor {
-  max-width: 320px;
-  margin: 100px auto 0 auto;
-  @include respond-to(">=large") {
-    @include cardBox-horizontal();
-    max-width: none;
-    width: 700px;
-    .cardBoxContent {
-      padding-top: 70px;
-    }
-    .sideflag {
-      right: -368px;
-    }
-
-  }
-}
