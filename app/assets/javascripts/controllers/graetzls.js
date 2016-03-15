@@ -1,7 +1,7 @@
 APP.controllers.graetzls = (function() {
 
     var map =  APP.components.graetzlMap;
-    var filter = APP.components.startpageFilter;
+    var filter = APP.components.masonryFilterGrid;
 
     function init() {
         filter.init();

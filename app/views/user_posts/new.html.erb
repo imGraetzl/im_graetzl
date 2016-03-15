@@ -1,30 +1,54 @@
 <% title('Neuer Wunsch oder Idee') %>
 
-<section>
-  <%= form_for [@graetzl, @user_post] do |f| %>
-    <%= f.hidden_field :graetzl_id %>
-    <% if @user_post.errors.any? %>
-      <div id="error_explanation">
-        <h2>Wunsch oder Idee konnte nicht erstellt werden!<br><%= @user_post.errors.count %> Fehler:</h2>
-        <ul>
-          <% @user_post.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
+<section class="userPostForm">
+
+  <h1 class="hl-main">Du hast <span>Wünsche & Ideen</span> für dein Grätzl?</h1>
+
+  <div class="form-block">
+    <%= form_for [@graetzl, @user_post] do |f| %>
+      <%= f.hidden_field :graetzl_id %>
+      <% if @user_post.errors.any? %>
+        <div id="error_explanation">
+          <h2>Wunsch oder Idee konnte nicht erstellt werden!<br><%= @user_post.errors.count %> Fehler:</h2>
+          <ul>
+            <% @user_post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="input-field">
+        <%= f.label :title do %>
+          <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+          <span>Titel</span>
+        <% end %>
+        <%= f.text_field :title, placeholder: 'In aller Kürze...'  %>
       </div>
+
+      <div class="input-textarea">
+        <%= f.label :content do %>
+          <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+          <span>Dein Wunsch<br/>Deine Idee</span>
+        <% end %>
+        <%= f.text_area :content, placeholder: '...und ausführlich.'  %>
+      </div>
+
+      <div class="upload-oldschool">
+        <%= f.label :images do %>
+          <svg class="icon-photo-camera">
+            <use xlink:href="#icon-photo-camera"></use>
+          </svg>
+          <span>Bild hochladen</span>
+        <% end %>
+        <div class="field-wrp">
+          <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+        </div>
+      </div>
+
+      <%= f.button 'Senden', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+
     <% end %>
-    <div class="input-field">
-      <%= f.label :title %>
-      <%= f.text_field :title, placeholder: 'Placeholder Title'  %>
-    </div>
-    <div class="input-field">
-      <%= f.label :content %>
-      <%= f.text_area :content, placeholder: 'Placeholder Title'  %>
-    </div>
-    <div >
-      <%= f.label :images %>
-      <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
-    </div>
-    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
-  <% end %>
+  </div>
+
 </section>
