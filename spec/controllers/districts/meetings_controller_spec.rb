@@ -27,7 +27,7 @@ RSpec.describe Districts::MeetingsController, type: :controller do
       end
 
       it 'renders /districts/meetings/index.html' do
-        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response.content_type).to eq 'text/html'
         expect(response).to render_template('districts/meetings/index')
       end
     end
@@ -48,7 +48,7 @@ RSpec.describe Districts::MeetingsController, type: :controller do
       end
 
       it 'renders /districts/meetings/index.js' do
-        expect(response.header['Content-Type']).to include('text/javascript')
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template('districts/meetings/index')
       end
     end

@@ -1,6 +1,5 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_location, except: [:index, :new, :create]
   include GraetzlChild
 
   def index
@@ -10,6 +9,12 @@ class LocationsController < ApplicationController
         order('meetings.created_at DESC NULLS LAST').
         order(created_at: :desc)
       ).page(params[:page]).per(15)
+  end
+
+  def show
+    set_location
+    @posts = @location.posts.order(created_at: :desc).
+      page(params[:page]).per(10)
   end
 
   def new
@@ -27,39 +32,24 @@ class LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
     if @location.save
-      enqueue_and_redirect(root_url)
+      redirect_to root_url, notice: 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
     else
       render :new
     end
   end
 
+  def edit
+    set_location
+  end
+
   def update
+    set_location
     if @location.update(location_params)
       redirect_to [@location.graetzl, @location]
     else
       render :edit
     end
   end
-
-  def show
-    @posts = @location.posts.order(created_at: :desc).
-      page(params[:page]).per(10)
-  end
-
-  # def show
-  #   if request.xhr?
-  #     @new_content = paginate_show(@scope = params[:scope].to_sym)
-  #   else
-  #     if @location.pending?
-  #       enqueue_and_redirect(:back)
-  #     else
-  #       verify_graetzl_child(@location)
-  #       @upcoming = @location.meetings.basic.upcoming.includes(:graetzl).page(params[:upcoming]).per(2)
-  #       @past = @location.meetings.basic.past.includes(:graetzl).page(params[:past]).per(2)
-  #       @posts = @location.posts.includes(:graetzl, :images, :author, comments: [:images, :user]).page(params[:page]).per(10)
-  #     end
-  #   end
-  # end
 
   def destroy
     if @location.users.include?(current_user) && @location.destroy
@@ -72,24 +62,19 @@ class LocationsController < ApplicationController
 
   private
 
-  def paginate_show(scope)
-    case scope
-    when :posts
-      @location.posts.includes(:graetzl, :images, :author).page(params[:page]).per(10)
-    when :upcoming
-      @location.meetings.basic.upcoming.includes(:graetzl).page(params[scope]).per(2)
-    when :past
-      @location.meetings.basic.past.includes(:graetzl).page(params[scope]).per(2)
-    end
-  end
+  # def paginate_show(scope)
+  #   case scope
+  #   when :posts
+  #     @location.posts.includes(:graetzl, :images, :author).page(params[:page]).per(10)
+  #   when :upcoming
+  #     @location.meetings.basic.upcoming.includes(:graetzl).page(params[scope]).per(2)
+  #   when :past
+  #     @location.meetings.basic.past.includes(:graetzl).page(params[scope]).per(2)
+  #   end
+  # end
 
   def set_location
-    @location = Location.find(params[:id])
-  end
-
-  def enqueue_and_redirect(url)
-    flash[:notice] = 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
-    redirect_to url
+    @location = Location.approved.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

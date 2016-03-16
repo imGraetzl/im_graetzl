@@ -8,7 +8,7 @@ RSpec.describe DistrictsController, type: :controller do
       before { get :index }
 
       it 'renders index.html' do
-        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response.content_type).to eq 'text/html'
         expect(response).to render_template(:index)
       end
 
@@ -40,7 +40,7 @@ RSpec.describe DistrictsController, type: :controller do
       end
 
       it 'renders index.js' do
-        expect(response.header['Content-Type']).to include('text/javascript')
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template(:index)
       end
     end

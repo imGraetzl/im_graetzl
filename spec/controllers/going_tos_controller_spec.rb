@@ -36,7 +36,7 @@ RSpec.describe GoingTosController, type: :controller do
 
       it 'renders create.js' do
         xhr :post, :create, meeting_id: meeting
-        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :create
       end
     end
@@ -69,7 +69,7 @@ RSpec.describe GoingTosController, type: :controller do
 
       it 'renders destroy.js' do
         xhr :delete, :destroy, id: going_to
-        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :destroy
       end
     end

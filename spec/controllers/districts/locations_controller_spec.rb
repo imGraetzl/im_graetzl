@@ -4,7 +4,7 @@ require 'controllers/shared/district_context'
 RSpec.describe Districts::LocationsController, type: :controller do
 
   it_behaves_like :a_district_controller
-  
+
   describe 'GET index' do
     let(:district) { create(:district) }
 
@@ -45,7 +45,7 @@ RSpec.describe Districts::LocationsController, type: :controller do
       end
 
       it 'renders /districts/locations/index' do
-        expect(response.header['Content-Type']).to include('text/javascript')
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template('districts/locations/index')
       end
     end

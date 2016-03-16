@@ -56,7 +56,7 @@ RSpec.describe NotificationsController, type: :controller do
         end
 
         it 'renders index.js' do
-          expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+          expect(response.content_type).to eq 'text/javascript'
           expect(response).to render_template(:index)
         end
       end
@@ -102,7 +102,7 @@ RSpec.describe NotificationsController, type: :controller do
 
     it 'renders mark_as_seen.js' do
       xhr :post, :mark_as_seen, params
-      expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+      expect(response.content_type).to eq 'text/javascript'
       expect(response).to render_template(:mark_as_seen)
     end
   end

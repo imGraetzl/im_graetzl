@@ -37,7 +37,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       it 'renders show.html' do
-        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response.content_type).to eq 'text/html'
         expect(response).to render_template(:show)
       end
 
@@ -60,7 +60,7 @@ RSpec.describe MeetingsController, type: :controller do
       before { xhr :get, :show, {graetzl_id: graetzl, id: meeting} }
 
       it 'renders show.js' do
-        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template(:show)
       end
 
@@ -87,7 +87,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       it 'renders index.html' do
-        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response.content_type).to eq 'text/html'
         expect(response).to render_template(:index)
       end
     end
@@ -107,7 +107,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
 
       it 'renders index.js' do
-        expect(response['Content-Type']).to include('text/javascript')
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template(:index)
       end
     end

@@ -32,7 +32,7 @@ RSpec.describe Districts::ZuckerlsController, type: :controller do
       end
 
       it 'renders /districts/zuckerls/index.html' do
-        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response.content_type).to eq 'text/html'
         expect(response).to render_template('districts/zuckerls/index')
       end
     end
@@ -52,7 +52,7 @@ RSpec.describe Districts::ZuckerlsController, type: :controller do
       end
 
       it 'renders /districts/zuckerls/index.js' do
-        expect(response.header['Content-Type']).to include('text/javascript')
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template('districts/zuckerls/index')
       end
     end

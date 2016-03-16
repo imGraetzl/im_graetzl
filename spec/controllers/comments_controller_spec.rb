@@ -37,7 +37,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'renders create.js' do
         xhr :post, :create, params
-        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :create
       end
     end

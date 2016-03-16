@@ -25,7 +25,7 @@ RSpec.describe GraetzlsController, type: :controller do
       end
 
       it 'renders show.html' do
-        expect(response['Content-Type']).to eq 'text/html; charset=utf-8'
+        expect(response.content_type).to eq 'text/html'
         expect(response).to render_template(:show)
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe GraetzlsController, type: :controller do
       end
 
       it 'renders show.js' do
-        expect(response['Content-Type']).to eq 'text/javascript; charset=utf-8'
+        expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template(:show)
       end
     end
