@@ -13,8 +13,8 @@ RSpec.describe 'meetings/show', type: :view do
   context 'when logged out' do
     before { render }
 
-    it 'does not display stream' do
-      expect(rendered).not_to have_selector('div.stream')
+    it 'displays stream' do
+      expect(rendered).to have_selector('div.stream')
     end
   end
 

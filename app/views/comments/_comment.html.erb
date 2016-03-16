@@ -1,5 +1,5 @@
-<%= div_for(comment, class: comment_outer_wrapper(comment)) do %>
-  <div class="<%= comment_wrapper(comment) %>">
+<%= div_for(comment) do %>
+  <div class="entryUserComment">
     <% if (current_user && comment.edit_permission?(current_user)) %>
       <div class="editControls">
         <%= link_to comment, { method: :delete, remote: true, data: { confirm: 'Kommentar wirklich löschen?', disable_with: 'lädt...' } } do %>
