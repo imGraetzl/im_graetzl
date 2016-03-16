@@ -1,54 +1,161 @@
 section.locationPage {
   @include cf;
-  .titleHeadline .wrp {
-    @include respond-to(">=medium") {
-      padding-right: 40px;
-    }
+
+  main {
+    padding-bottom: 0;
   }
 
   .imgHeader {
-    @include respond-to(">=medium") {
-      margin-bottom: -40px;
-    }
+    position: relative;
+    z-index: 10;
+    overflow: visible;
     @include respond-to(">=large") {
       min-height: 370px;
     }
+
+    h1 {
+
+      @include font-size-secondaryFont('large');
+      text-align: center;
+      margin-bottom: 30px;
+      color: $color-ambient-mint;
+      @include respond-to(">=medium") {
+        margin-bottom: 0;
+        padding-top: 6px;
+        padding-left: 320px;
+        padding-bottom: 6px;
+        text-align: left;
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba($color-ambient-mint-dark, 0.75);
+      }
+      @include respond-to(">=large") {
+        padding-left: 295px;
+      }
+    }
+
+    .dropdown-container {
+      z-index: 600;
+      transform: translate(-20px, 0);
+      width: 270px;
+      @include respond-to(">=medium") {
+        display: none;
+      }
+    }
+
+    .locationAvatar {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      width: 80px;
+      border-radius: 4px;
+      padding: 2px;
+      background-color: #fff;
+      border: 1px solid $color-ambient-mint;
+      @include respond-to(">=medium") {
+        bottom: -50px;
+        left: 38px;
+        width: 245px;
+        border-radius: 12px;
+        padding: 5px;
+      }
+      @include respond-to(">=large") {
+        bottom: -90px;
+        width: 245px;
+        left: 25px;
+      }
+    }
+
+    .createentry {
+      background-image: none;
+      background-color: rgba($color-ambient-mint-dark, 0.75);
+      color: #fff;
+      cursor: pointer;
+      position: absolute;
+      right: -30px;
+      bottom: 0;
+      z-index: 2;
+      width: 40px;
+      height: 40px;
+      @include respond-to(">=medium") {
+        display: none;
+      }
+      [class^=icon-] {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
   }
 
-  .sideBar, .mainContent {
-    @include respond-to(">=medium") {
-      padding-top: 30px;
-    }
-    @include respond-to(">=large") {
-      padding-top: 20px;
-    }
-  }
+
 
   .introtxt {
     margin-bottom: 30px;
     h3 {
-      margin-bottom: 20px;
+      @include font-size-secondaryFont('base');
+      margin-bottom: 15px;
     }
     .txt {
       white-space: pre-wrap;
     }
   }
+  .iconlist {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 
   .sideBar {
     position: relative;
     z-index: 8;
+    margin: 0 auto 40px auto;
     @include respond-to(">=medium") {
-      margin-bottom: 60px;
+      padding-top: 80px;
+    }
+    @include respond-to(">=large") {
+      margin: 0 0 60px -25px;
+      padding-top: 110px;
+    }
+    .cardBox.-zuckerl {
+      margin-bottom: 40px;
+    }
+
+  }
+
+  .action-container {
+    padding-left: 25px;
+    margin-bottom: 20px;
+    display: none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
+    a {
+      text-decoration: none;
+      margin-bottom: 5px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .sideBar .sideflag {
+    text-decoration: none;
+    margin-left: -12px;
+    margin-top: -17px;
+  }
+
+  .bigicontext-element {
+    .txt {
+      font-size: 1.2em;
     }
   }
 
   .mainContent {
     position: relative;
     z-index: 8;
-    margin-bottom: 30px;
-    @include respond-to(">=medium") {
-      margin-bottom: 60px;
-    }
+    margin-bottom: 0;
     h2 {
       @include font-size-secondaryFont('large');
       text-align: center;
@@ -59,10 +166,22 @@ section.locationPage {
         margin-bottom: 0;
       }
     }
+
+    @include respond-to(">=medium") {
+      padding-top: 30px;
+      width: calc(100% - 295px);
+    }
+    @include respond-to(">=large") {
+      padding-top: 20px;
+      width: calc(100% - 270px);
+    }
   }
 
   .category-tags {
     margin-bottom: 50px;
+    .bigicontext-element {
+      margin-bottom: 20px;
+    }
   }
 
   .staff {
@@ -83,20 +202,19 @@ section.locationPage {
     }
   }
 
-  .btn-userCallToAction {
-    @include respond-to(">=medium") {
-      display: table;
-      margin-left: auto;
-    }
-  }
-
   .openinghours {
     .txt {
       white-space: pre-wrap;
     }
+    .bigicontext-element {
+      margin-bottom: 15px;
+    }
   }
 
   .contact {
+    border: 1px solid $color-ambient-grey-light;
+    background-color: #ffffff;
+    border-radius: 8px;
     a {
       color: $color-ambient-mint;
       text-decoration: none;
@@ -106,21 +224,30 @@ section.locationPage {
       }
     }
     .address {
-      margin-top: 20px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .gmap {
       img {
         display: block;
         width: 100%;
-        max-width: 300px;
-        margin-top: 10px;
-        @include respond-to(">=medium") {
-          max-width: 250px;
-        }
       }
     }
+
+
+
+    .user-wrp {
+      display: flex;
+      align-items: center;
+      .img-round {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+
+    }
   }
-
-
-
 }
 
 .imgCollection {
@@ -188,14 +315,33 @@ section.locationPage {
 }
 
 .meetingBlock {
+  margin-bottom: 40px;
 
   .wrp-hl {
     margin-bottom: 30px;
+
     @include respond-to(">=medium") {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      @include cf();
     }
+
+    .bigicontext-element {
+      margin-bottom: 20px;
+      @include respond-to(">=medium") {
+        float: left;
+      }
+    }
+
+    .btn-userCallToAction {
+      display: table;
+      @include respond-to(">=medium") {
+        float: right;
+      }
+    }
+  }
+
+  .cardBoxCollection {
+    margin-left: 0;
+    margin-right: 0;
   }
 
 }

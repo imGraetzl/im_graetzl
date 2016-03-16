@@ -1,22 +1,14 @@
 .mainContent {
   @include respond-to(">=medium") {
     float: right;
-    width: 60%;
-  }
-  @include respond-to(">=large") {
-    margin-right: -25px;
-    width: 66%;
-    width: calc(66% + 26px);
+    width: calc(100% - 270px);
   }
 }
 
 .sideBar {
   @include respond-to(">=medium") {
     float: left;
-    width: 38%;
-  }
-  @include respond-to(">=large") {
-    width: 33%;
+    width: 270px;
   }
 
 }
