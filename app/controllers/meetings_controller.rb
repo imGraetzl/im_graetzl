@@ -5,9 +5,8 @@ class MeetingsController < ApplicationController
   before_action :check_permission!, only: [:edit, :update, :destroy]
 
   def index
-    @meetings = @graetzl.meetings.basic.
-      order('CASE WHEN starts_at_date > now() THEN 0 WHEN starts_at_date IS NULL THEN 1 ELSE 2 END').
-      order(starts_at_date: :desc).
+    @meetings = @graetzl.meetings.
+      by_currentness.
       page(params[:page]).per(15)
   end
 
