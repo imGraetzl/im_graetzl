@@ -17,8 +17,10 @@ section.masonryFilterGrid {
 
   .cards-container {
     @include cf();
-    margin-left: -20px;
-    margin-right: -40px;
+    @include respond-to(">=large") {
+      margin-left: -20px;
+      margin-right: -40px;
+    }
     .cardBox {
       width: 315px;
       margin-bottom: 20px;
