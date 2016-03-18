@@ -2,6 +2,13 @@ class Meeting < ActiveRecord::Base
   include Trackable
   extend FriendlyId
 
+  scope :by_currentness, -> {
+    basic.
+    order('CASE WHEN starts_at_date > now() THEN 0 WHEN starts_at_date IS NULL THEN 1 ELSE 2 END').
+    order('(CASE WHEN starts_at_date >= now() THEN starts_at_date END) ASC,
+            (CASE WHEN starts_at_date < now() THEN starts_at_date END) DESC')
+  }
+
   scope :upcoming, -> { where("(starts_at_date > ?)
                               OR
                               (starts_at_date IS NULL)", Date.yesterday)

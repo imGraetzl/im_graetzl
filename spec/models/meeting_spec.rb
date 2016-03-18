@@ -104,6 +104,19 @@ RSpec.describe Meeting, type: :model do
   end
 
   describe 'scopes' do
+    describe 'by_currentness' do
+      let!(:m_yesterday) { create :meeting_skip_validate, starts_at_date: Date.yesterday }
+      let!(:m_tomorrow) { create :meeting, starts_at_date: Date.tomorrow+1.day }
+      let!(:m_today) { create :meeting, starts_at_date: Date.tomorrow }
+      let!(:m_nil) { create :meeting, starts_at_date: nil }
+
+      subject(:by_currentness) { Meeting.by_currentness }
+
+      it 'returns upcomig asc, nil, past desc' do
+        expect(by_currentness).to eq [m_today, m_tomorrow, m_nil, m_yesterday]
+      end
+    end
+
     describe '.upcoming' do
       let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
       let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
