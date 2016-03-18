@@ -16,6 +16,6 @@
       <h3><%= link_to user_post.title, [user_post.graetzl, user_post] %></h3>
       <p><%= truncate user_post.content, length: 100 %></p>
     </div>
-    <%= render 'activities/appendix', appendix: appendix, parent: location_post if defined? appendix %>
+    <%= render 'activities/appendix', appendix: appendix, parent: user_post if defined? appendix %>
   </div>
 </div>
