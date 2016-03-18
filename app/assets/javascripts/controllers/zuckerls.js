@@ -1,8 +1,8 @@
 APP.controllers.zuckerls = (function() {
 
     function init() {
+        if($("section.masonryFilterGrid").exists()) initZuckerlsOverview();
         APP.components.createzuckerl.init();
-        if($("section.startpage").exists()) initZuckerlsOverview();
     }
 
     function initZuckerlsOverview() {
