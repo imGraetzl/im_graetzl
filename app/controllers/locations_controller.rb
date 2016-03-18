@@ -12,9 +12,20 @@ class LocationsController < ApplicationController
   end
 
   def show
-    set_location
-    @posts = @location.posts.order(created_at: :desc).
-      page(params[:page]).per(10)
+    if request.xhr?
+      set_location
+      paginate_content
+    else
+      @location = Location.approved.
+        includes(:graetzl, posts: [:author, :images]).
+        find(params[:id])
+      @posts = @location.posts.order(created_at: :desc).
+        page(params[:page]).per(10)
+      @meetings = @location.meetings.by_currentness.
+        includes(:graetzl).
+        page(params[:meetings]).per(2)
+      @zuckerls = @location.zuckerls.live
+    end
   end
 
   def new
@@ -62,22 +73,19 @@ class LocationsController < ApplicationController
 
   private
 
-  # def paginate_show(scope)
-  #   case scope
-  #   when :posts
-  #     @location.posts.includes(:graetzl, :images, :author).page(params[:page]).per(10)
-  #   when :upcoming
-  #     @location.meetings.basic.upcoming.includes(:graetzl).page(params[scope]).per(2)
-  #   when :past
-  #     @location.meetings.basic.past.includes(:graetzl).page(params[scope]).per(2)
-  #   end
-  # end
-
   def set_location
     @location = Location.approved.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  def paginate_content
+    case
+    when params[:page]
+      @posts = @location.posts.order(created_at: :desc).page(params[:page]).per(10)
+    when params[:meetings]
+      @meetings = @location.meetings.by_currentness.includes(:graetzl).page(params[:meetings]).per(2)
+    end
+  end
+
   def location_params
     params.
       require(:location).

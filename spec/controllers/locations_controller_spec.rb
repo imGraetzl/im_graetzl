@@ -55,6 +55,8 @@ RSpec.describe LocationsController, type: :controller do
       let(:location) { create :location, :approved, graetzl: graetzl }
       let!(:old_location_posts) { create_list :location_post, 10, author: location, graetzl: graetzl }
       let!(:new_location_posts) { create_list :location_post, 10, author: location, graetzl: graetzl }
+      let!(:new_meetings) { create_list :meeting, 2, location: location, starts_at_date: Date.tomorrow }
+      let!(:old_meetings) { create_list :meeting, 2, location: location, starts_at_date: nil }
 
       context 'when html request' do
         before { get :show, graetzl_id: graetzl, id: location }
@@ -71,17 +73,21 @@ RSpec.describe LocationsController, type: :controller do
           expect(assigns :posts).to match_array new_location_posts
         end
 
+        it 'assigns 2 new @meetings' do
+          expect(assigns :meetings).to match_array new_meetings
+        end
+
+        it 'assigns @zuckerls' do
+          expect(assigns :zuckerls).to be
+        end
+
         it 'renders show.html' do
           expect(response.content_type).to eq 'text/html'
           expect(response).to render_template(:show)
         end
       end
-      context 'when js request' do
+      context 'when js request for posts' do
         before { xhr :get, :show, graetzl_id: graetzl, id: location, page: 2 }
-
-        it 'assigns @graetzl' do
-          expect(assigns :graetzl).to eq graetzl
-        end
 
         it 'assigns @location' do
           expect(assigns :location).to eq location
@@ -89,6 +95,26 @@ RSpec.describe LocationsController, type: :controller do
 
         it 'assigns 10 older @posts' do
           expect(assigns :posts).to match_array old_location_posts
+        end
+
+        it 'does not assign @meetings' do
+          expect(assigns :meetings).not_to be
+        end
+
+        it 'renders show.js' do
+          expect(response.content_type).to eq 'text/javascript'
+          expect(response).to render_template(:show)
+        end
+      end
+      context 'when js request for meetings' do
+        before { xhr :get, :show, graetzl_id: graetzl, id: location, meetings: 2 }
+
+        it 'does not assign @posts' do
+          expect(assigns :posts).not_to be
+        end
+
+        it 'assigns 2 older @meetings' do
+          expect(assigns :meetings).to match_array old_meetings
         end
 
         it 'renders show.js' do
@@ -472,7 +498,7 @@ RSpec.describe LocationsController, type: :controller do
         end
         describe 'change graetzl' do
           let(:new_graetzl) { create(:graetzl) }
-          
+
           before { params[:location].merge!(graetzl_id: new_graetzl.id) }
 
           it 'updates graetzl' do

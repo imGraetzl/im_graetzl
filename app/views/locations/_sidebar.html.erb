@@ -1,57 +1,74 @@
 <aside class="sideBar">
-  <% unless @location.users.empty? %>
-    <div class="sideBarbox staff">
-      <h4 class="sideflag -L">Betreiber</h4>
-      <% @location.users.each do |u| %>
-        <%= link_to(u){ avatar_for u, fill: [40, 40] } %>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="action-container">
+    <%= link_to edit_location_path(@location), class: 'icontxt' do %>
+      <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>Location bearbeiten
+    <% end %>
+    <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
+      <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl einbuchen
+    <% end %>
+  </div>
+
+  <%= render partial: 'locations/zuckerl', collection: @zuckerls %>
 
   <div class="sideBarbox contact">
-    <h4 class="sideflag -L">Kontakt</h4>
-    <% if @location.contact.website.present? %>
-      <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
-        <svg class="icon-globe">
-          <use xlink:href="#icon-globe"></use>
-        </svg>
-        <span><%= @location.contact.website.sub(/^https?\:\/\//,'') %></span>
-      <% end %>
-    <% end %>
-    <% if @location.contact.email.present? %>
-      <%= mail_to @location.contact.email, nil, encode: 'hex', class: 'icontxt' do %>
-        <svg class="icon-at-symbol">
-          <use xlink:href="#icon-at-symbol"></use>
-        </svg>
-        <%= @location.contact.email %>
-      <% end %>
-    <% end %>
-    <% if @location.contact.phone.present? %>
-      <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
-        <svg class="icon-mobile">
-          <use xlink:href="#icon-mobile"></use>
-        </svg>
-        <%= @location.contact.phone %>
-      <% end %>
-    <% end %>
-    <% if @location.address %>
-      <div class="address">
-        <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
-        <%= "#{@location.address.zip} #{@location.address.city}" %>
-        <% if @location.address.coordinates %>
-          <%= link_to google_map_url(@location.address) do %>
-            <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,250]) %>
+    <%= link_to content_tag(:h3, @graetzl.name, class: 'sideflag -L'), @graetzl %>
+
+    <div class="iconlist">
+      <% unless @location.users.empty? %>
+        <% @location.users.each do |user| %>
+          <%= link_to user, class: 'user-wrp', target: '_blank' do %>
+            <%= avatar_for user %>
+            <div class="name"><%= user.username %></div>
           <% end %>
         <% end %>
-      </div>
+      <% end %>
+
+      <% if @location.contact.website.present? %>
+        <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
+          <svg class="icon-globe">
+            <use xlink:href="#icon-globe"></use>
+          </svg>
+          <span><%= @location.contact.website.sub(/^https?\:\/\//,'') %></span>
+        <% end %>
+      <% end %>
+      <% if @location.contact.email.present? %>
+        <%= mail_to @location.contact.email, nil, encode: 'hex', class: 'icontxt' do %>
+          <svg class="icon-at-symbol">
+            <use xlink:href="#icon-at-symbol"></use>
+          </svg>
+          <%= @location.contact.email %>
+        <% end %>
+      <% end %>
+      <% if @location.contact.phone.present? %>
+        <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
+          <svg class="icon-mobile">
+            <use xlink:href="#icon-mobile"></use>
+          </svg>
+          <%= @location.contact.phone %>
+        <% end %>
+      <% end %>
+      <% if @location.address %>
+        <div class="address icontxt">
+          <svg class="icon-address-directions"><use xlink:href="#icon-address-directions"></use></svg>
+          <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
+          <%= "#{@location.address.zip} #{@location.address.city}" %>
+        </div>
+      <% end %>
+    </div>
+    <% if @location.address.try(:coordinates) %>
+      <%= link_to google_map_url(@location.address), class: 'gmap' do %>
+        <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,150]) %>
+      <% end %>
     <% end %>
   </div>
 
   <% if @location.contact.hours.present? %>
     <div class="sideBarbox openinghours">
-      <h4 class="sideflag -L">Öffnungszeiten</h4>
+      <div class="bigicontext-element" href="/stuwerviertel/locations">
+        <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
+        <div class="txt">Öffnungszeiten</div>
+      </div>
       <div class="txt"><%= @location.contact.hours %></div>
     </div>
   <% end %>
-
 </aside>

@@ -1,9 +1,0 @@
-<div class="event-teaser-box">
-  <% if meeting.starts_at_date %>
-    <div class="date">
-      <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-      <%= I18n.localize(meeting.starts_at_date, format:'%d. %B %Y') %>
-    </div>
-  <% end %>
-  <%= link_to meeting.name, [meeting.graetzl, meeting], class: 'title' %>
-</div>

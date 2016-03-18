@@ -3,24 +3,7 @@
   align-items: center;
 
   .iconfilter {
-    display: flex;
-    height: 75px;
-    min-width: 75px;
-    background-size: 75px 75px;
-    background-image: url(image_path('svg/kringel-rosa.svg'));
-    background-repeat: no-repeat;
-    color: $color-ambient-mint-dark;
-    align-items: center;
-    font-size: 20px;
-    text-decoration: none;
-    margin-right: 20px;
-    [class^=icon-], .mapthumb {
-      width: 50px;
-      height: 50px;
-      flex: none;
-      margin-left: 12px;
-      display: block;
-    }
+    @extend .bigicontext-element;
     &:hover {
       color: $color-ambient-mint;
     }
@@ -28,13 +11,7 @@
       color: $color-ambient-rosa;
     }
   }
-  .txt {
-    font-family: $font-tertiary;
-    margin-left: 18px;
-  }
-  .icon-shopping-bag {
-    margin-top: -7px;
-  }
+
   .iconfilter:not(.createentry) {
     display: none;
     @include respond-to(">=large") {

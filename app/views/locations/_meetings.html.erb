@@ -1,27 +1,23 @@
-<div class="tabs-ctrl">
-  <ul class="tabs-nav">
-    <li><a href="#tab-1"><%= @upcoming.total_count %> geplante Treffen</a></li>
-    <li><a href="#tab-2"><%= @past.total_count %> vergangene Treffen</a></li>
-  </ul>
-  <div id="tab-1">
-    <% if @upcoming.empty? %>
-      <div class="defaultText">Im Moment sind noch keine Treffen geplant.</div>
-    <% else %>
-      <div id="upcoming" class="cardBoxCollection -double" data-tabID="one" data-behavior="meetings-upcoming-container">
-        <%= render @upcoming %>
-      </div>
-      <%= view_more_scoped(@upcoming, :upcoming) %>
+<div class="meetingBlock">
+  <div class="wrp-hl">
+    <div class="bigicontext-element" href="/stuwerviertel/locations">
+      <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+      <div class="txt">Treffen & Termine</div>
+    </div>
+    <% if user_signed_in? && @location.show_meeting_button(current_user) %>
+      <%= link_to new_meeting_path(location_id: @location.id), class: 'btn-userCallToAction' do %>
+      <span>
+        <%= avatar_for current_user %>
+        Treffen hier starten
+        <svg class="icon-plus">
+          <use xlink:href="#icon-plus"></use>
+        </svg>
+      </span>
+      <% end %>
     <% end %>
   </div>
-
-  <div id="tab-2">
-    <% if @past.empty? %>
-      <div class="defaultText">Es wurden noch keine Treffen initiert.</div>
-    <% else %>
-      <div id="past" class="cardBoxCollection -double" data-tabID="two" data-behavior="meetings-past-container">
-        <%= render @past %>
-      </div>
-      <%= view_more_scoped(@past, :past) %>
-    <% end %>
+  <div class="cardBoxCollection -double" data-tabID="one" data-behavior="meetings-container">
+    <%= render @meetings %>
   </div>
+  <%= view_more_of @meetings, 'meetings' %>
 </div>

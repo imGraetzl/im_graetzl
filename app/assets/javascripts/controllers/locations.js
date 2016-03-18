@@ -69,6 +69,24 @@ APP.controllers.locations = (function() {
         $('.introtxt .txt').linkify({
             target: "_blank"
         });
+        $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
+
+
+        enquire
+            //mobile mode
+            .register("screen and (max-width:" + APP.config.majorBreakpoints.large + "px)", {
+                match : function() {
+                    $('.stream').insertAfter('.sideBar');
+                }
+            })
+            //desktop mode
+            .register("screen and (min-width:" + APP.config.majorBreakpoints.large + "px)", {
+                match : function() {
+                    $('.stream').appendTo('.mainContent');
+                }
+            });
+
+
     }
 
 
