@@ -1,5 +1,4 @@
 <% more ||= false %>
-
 <div class="cardbox-wrp">
   <div class="paperCard -cord1RT -illuteaser">
     <div class="wrp">
@@ -12,8 +11,8 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <h3>Starte ein Treffen im Grätzl <%= graetzl.name %></h3>
-      <%= link_to 'Jetzt loslegen', new_graetzl_meeting_path(graetzl), class: 'btn-primary' %>
+      <h3>Starte ein Treffen im Grätzl <%= graetzl.name %> oder gib dein Event bekannt</h3>
+      <%= link_to 'Treffen eintragen', new_graetzl_meeting_path(graetzl), class: 'btn-primary' %>
     </div>
     <div class="card"></div>
   </div>

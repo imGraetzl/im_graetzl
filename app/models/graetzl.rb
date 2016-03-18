@@ -27,7 +27,7 @@ class Graetzl < ActiveRecord::Base
 
   def activity
     Activity.
-      includes(:trackable, :owner).
+      includes(:owner, trackable: [:graetzl]).
       where(id:
         Activity.select('DISTINCT ON(trackable_id, trackable_type) id').
         where(key: STREAM_ACTIVITY_KEYS).

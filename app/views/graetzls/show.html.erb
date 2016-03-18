@@ -13,9 +13,6 @@
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
     <%= render 'map', map_data: @map_data %>
   <% end %>
-  <%= render 'filters', graetzl: @graetzl %>
-  <div class="cards-container" data-behavior="stream-container">
-    <%= render @activity_decorated || @activity %>
-  </div>
-  <%= view_more_link @activity %>
+  <%= filters_for current_user, @graetzl %>
+  <%= graetzl_stream_for current_user %>
 </section>

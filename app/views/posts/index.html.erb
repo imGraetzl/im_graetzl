@@ -4,8 +4,7 @@
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
     <%= render 'graetzls/map', map_data: @map_data %>
   <% end %>
-
-  <%= render 'graetzls/filters', graetzl: @graetzl %>
+  <%= filters_for current_user, @graetzl %>
   <div class="cards-container" data-behavior="stream-container">
     <%= render @posts %>
   </div>

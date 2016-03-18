@@ -6,12 +6,12 @@
         <%= image_tag('avatar/user/default.png', class: 'img-round') %>
         <span>Dein Name</span>
       </div>
-      <h3>Du bist unternehmerisch oder kreativ im Grätzl <%= graetzl.name %> tätig?</h3>
-      <%= link_to 'Deine Location einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
+      <h3>Deine Idee im Grätzl - Finde Gleichgesinnte & Unterstützer</h3>
+      <%= link_to 'Meine Idee im Grätzl', new_graetzl_user_post_path(graetzl), class: 'btn-primary' %>
     </div>
     <div class="card"></div>
   </div>
   <% if more %>
-    <%= link_to 'Alle Treffpunkte & Anbieter', graetzl_locations_path(graetzl), class: 'link-more' %>
+    <%= link_to 'Alle Ideen', graetzl_posts_path(graetzl), class: 'link-more' %>
   <% end %>
 </div>
