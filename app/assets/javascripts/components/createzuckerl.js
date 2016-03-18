@@ -50,7 +50,7 @@ APP.components.createzuckerl = (function() {
     }
 
     function updateimage() {
-        FileAPI.Image(this.files[0]).preview(300, 180).get(function (err, img){
+        FileAPI.Image(this.files[0]).preview(300, 185).get(function (err, img){
             $imagepreview.empty().append(img);
         });
     }

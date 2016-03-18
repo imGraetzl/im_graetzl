@@ -1,35 +1,39 @@
-<div class="cardBox -location ">
+<div class="cardBox">
   <div class="cardBoxHeader">
-    <div class="imgpreview">
+    <div class="imgpreview" data-behavior="imagepreview">
       <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180) if zuckerl.image_id %>
     </div>
-    <div class="location-shortfacts">
-      <%= link_to [zuckerl.location.graetzl, zuckerl.location] do %>
-        <%= avatar_for(zuckerl.location, fill: [200, 200], class: 'img-square') %>
-        <div class="name"><%= zuckerl.location.name %></div>
-      <% end %>
 
-      <div class="category"><%= zuckerl.location.category.name %></div>
-      <% if address = zuckerl.location.address %>
-        <div class="address">
-          <svg class="icon-location">
-            <use xlink:href="#icon-location"></use>
-          </svg>
-          <%= zuckerl.location.address.street_name %> <%= zuckerl.location.address.street_number %>
-        </div>
-      <% end %>
-    </div>
     <div class="categoryicon">
       <svg class="icon-shopping-bag">
         <use xlink:href="#icon-shopping-bag"></use>
       </svg>
     </div>
   </div>
-  <div class="zuckerl-teaser-box">
-    <div class="title"><%= zuckerl.title %></div>
-    <div class="description"><%= zuckerl.description %></div>
+  <div class="cardBoxContent">
+    <div class="location-shortfacts">
+      <div class="locationlogo"><%= avatar_for(zuckerl.location, fill: [200, 200], class: 'img-square') %>
+      </div>
+      <div class="locationtxt">
+        <div class="name"><%= zuckerl.location.name %></div>
+        <div class="category"><%= zuckerl.location.category.name %></div>
+        <% if address = zuckerl.location.address %>
+          <div class="address">
+            <svg class="icon-location">
+              <use xlink:href="#icon-location"></use>
+            </svg>
+            <%= zuckerl.location.address.street_name %> <%= zuckerl.location.address.street_number %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="zuckerlteasertxt">
+      <div class="title"><%= zuckerl.title %></div>
+      <div class="description"><%= zuckerl.description %></div>
+    </div>
   </div>
 </div>
+
 
 <div class="basicdata">
   <div class="headline">Eckdaten</div>

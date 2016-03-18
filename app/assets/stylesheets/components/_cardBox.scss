@@ -16,9 +16,6 @@
   .zuckerlteasertxt .title {
     border-radius: 0 4px 4px 0;
   }
-
-
-
 }
 
 
@@ -104,8 +101,9 @@
         margin-bottom: 0;
       }
     }
-    &:hover {
-      text-decoration: underline;
+    &:hover, &:active {
+      opacity: 0.95;
+      cursor: pointer;
     }
   }
 
@@ -119,6 +117,9 @@
     border-color: $color-ambient-rosa-dark;
     background-color: $color-ambient-rosa-light;
     color: $color-ambient-rosa-dark;
+    .description {
+      white-space: pre-wrap;
+    }
   }
   .event-teaser-box {
     border-color: $color-ambient-mint-dark;
@@ -184,6 +185,7 @@
 .cardBoxContent .initiator {
   margin: -47px 0 15px 0;
   text-decoration: none;
+  display: table;
   img {
     vertical-align: bottom;
     position: relative;
@@ -205,6 +207,10 @@
   align-items: flex-start;
   margin: -81px -10px 15px -10px;
   padding: 10px 10px 0 10px;
+  .name {
+    font-weight: 600;
+    color: $color-ambient-rosa;
+  }
   .locationlogo {
     display: block;
     flex: 0 0 auto;
