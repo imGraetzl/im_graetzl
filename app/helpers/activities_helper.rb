@@ -1,12 +1,12 @@
 module ActivitiesHelper
   def render_activity(activity)
-    options = {}
-    # case activity.key
-    # when /\w*\.comment/
-    #   options[:comment] = activity.trackable.comments.last
-    # when /\w*\.go_to/
-    #   options[:participant] = activity.owner
-    # end
-    render activity.trackable, *options
+    appendix = {}
+    case activity.key
+    when /\w*\.comment/
+      appendix[:comment] = activity.trackable.comments.last
+    when /\w*\.go_to/
+      appendix[:participant] = activity.owner
+    end
+    render activity.trackable, appendix: appendix
   end
 end

@@ -1,0 +1,22 @@
+<% if comment = appendix[:comment] %>
+  <div class="streamElement">
+    <div class="entryInitialContent">
+      <div class="userCreateInfo">
+        <%= attachment_image_tag comment.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+        <span class="userAndType">Kommentar von <%= link_to comment.user.username, comment.user %> <span>vor <%= time_ago_in_words comment.created_at %></span></span>
+      </div>
+      <div class="txt"><%= truncate comment.content, length: 100 %></div>
+    </div>
+    <% if parent.comments.count > 1 %>
+      <%= link_to "Alle #{parent.comments.count} Kommentare ansehen", [parent.graetzl, parent], class: 'commentslink' %>
+    <% end %>
+  </div>
+<% end %>
+<% if participant = appendix[:participant] %>
+  <div class="userCreateInfo">
+    <%= link_to participant do %>
+      <%= attachment_image_tag participant, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+    <% end %>
+    <span class="userAndType"><%= link_to participant.username, participant %> <span>nimmt am Treffen teil</span></span>
+  </div>
+<% end %>

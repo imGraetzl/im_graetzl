@@ -26,25 +26,6 @@
       <p><%= truncate(meeting.description, length: 100) %></p>
     </div>
     <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
-
-    <!-- comment -->
-    <% if defined? comment %>
-      <div class="streamElement">
-        <div class="entryInitialContent">
-          <div class="userCreateInfo">
-            <%= avatar_for comment.user %>
-            <span class="userAndType">Kommentar von <%= link_to comment.user.username, [comment.user] %> <span>vor etwa 2 Stunden</span></span>
-          </div>
-          <div class="txt"><%= truncate comment.content, length: 100 %></div>
-        </div>
-        <a href="#" class="commentslink">Alle 12 Kommentare ansehen</a>
-      </div>
-    <% end %>
-    <% if defined? participant %>
-      <div class="userCreateInfo">
-        <%= link_to avatar_for participant, participant %>
-        <span class="userAndType"><%= link_to participant.username, participant %> <span>nimmt am Treffen teil</span></span>
-      </div>
-    <% end %>
+    <%= render 'activities/appendix', appendix: appendix, parent: meeting if defined? appendix %>
   </div>
 </div>

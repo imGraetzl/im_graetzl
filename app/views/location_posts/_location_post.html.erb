@@ -36,19 +36,6 @@
       <h3><%= link_to location_post.title, [location.graetzl, location] %></h3>
       <p><%= truncate location_post.content, length: 100 %></p>
     </div>
-
-    <!-- comment -->
-    <% if defined? comment %>
-      <div class="streamElement">
-        <div class="entryInitialContent">
-          <div class="userCreateInfo">
-            <%= avatar_for comment.user %>
-            <span class="userAndType">Kommentar von <%= link_to comment.user.username, [comment.user] %> <span>vor <%= time_ago_in_words(comment.created_at) %></span></span>
-          </div>
-          <div class="txt"><%= truncate comment.content, length: 100 %></div>
-        </div>
-        <a href="#" class="commentslink">Alle 12 Kommentare ansehen</a>
-      </div>
-    <% end %>
+    <%= render 'activities/appendix', appendix: appendix, parent: location_post if defined? appendix %>
   </div>
 </div>

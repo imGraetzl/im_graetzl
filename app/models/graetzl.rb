@@ -26,14 +26,15 @@ class Graetzl < ActiveRecord::Base
   end
 
   def activity
-    Activity
-      .where(id:
-        Activity.select('DISTINCT ON(trackable_id, trackable_type) id')
-        .where(key: STREAM_ACTIVITY_KEYS)
-        .where("(trackable_id IN (?) AND trackable_type = 'Meeting')
+    Activity.
+      includes(:trackable, :owner).
+      where(id:
+        Activity.select('DISTINCT ON(trackable_id, trackable_type) id').
+        where(key: STREAM_ACTIVITY_KEYS).
+        where("(trackable_id IN (?) AND trackable_type = 'Meeting')
                 OR
-                (trackable_id IN (?) AND trackable_type LIKE '%Post')", meetings.ids, posts.ids)
-        .order(:trackable_id, :trackable_type, id: :desc)
+                (trackable_id IN (?) AND trackable_type LIKE '%Post')", meetings.ids, posts.ids).
+        order(:trackable_id, :trackable_type, id: :desc)
       ).order(id: :desc)
   end
 
@@ -43,12 +44,14 @@ class Graetzl < ActiveRecord::Base
   end
 
   def zuckerls
-    Zuckerl.live.where(location_id:
-      Location.select(:id).where(graetzl_id:
-        Graetzl.select(:id).where("ST_INTERSECTS(area,
-          (SELECT ST_UNION(districts.area)
-          FROM districts
-          WHERE ST_INTERSECTS(districts.area, ?)))", self.area)))
+    Zuckerl.live.
+      includes(location: [:address, :category]).
+      where(location_id:
+        Location.select(:id).where(graetzl_id:
+          Graetzl.select(:id).where("ST_INTERSECTS(area,
+            (SELECT ST_UNION(districts.area)
+            FROM districts
+            WHERE ST_INTERSECTS(districts.area, ?)))", self.area)))
   end
 
   private
