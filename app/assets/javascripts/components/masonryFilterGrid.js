@@ -7,11 +7,7 @@ APP.components.masonryFilterGrid = (function() {
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
 
         $(window).on("load", function() {
-            $grid.masonry();/*
-            setInterval(function() {
-                adjustNewCards();
-            }, 500);
-            */
+            $grid.masonry();
         });
     }
 

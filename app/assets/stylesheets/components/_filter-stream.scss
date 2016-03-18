@@ -4,6 +4,8 @@
 
   .iconfilter {
     @extend .bigicontext-element;
+    flex: 0 0 auto;
+    margin-right: 15px;
     &:hover {
       color: $color-ambient-mint;
     }
@@ -12,18 +14,18 @@
     }
   }
 
-  .iconfilter:not(.createentry) {
+  .iconfilter:not(.createentry):not(.loginlink)  {
     display: none;
     @include respond-to(">=large") {
       display: flex;
     }
   }
 
-  .createentry {
+  .createentry, .loginlink {
     color: $color-ambient-rosa;
-    margin-left: 5%;
-    flex: none;
+    flex: 0 0 auto;
     margin-right: 0;
+    margin-left: 5%;
     &.jq-dropdown-open, &:hover {
       color: $color-ambient-rosa-dark;
     }
@@ -31,6 +33,40 @@
       margin-left: auto;
     }
   }
+
+  .loginlink {
+    position: relative;
+    [class^=icon-] {
+      fill: white;
+      position: relative;
+      z-index: 2;
+    }
+    .txt {
+      color: $color-ambient-rosa;
+    }
+    &::after {
+      content: '';
+      width: 60px;
+      height: 60px;
+      top: 8px;
+      left: 9px;
+      position: absolute;
+      border-radius: 50%;
+      z-index: 1;
+      background-image: url(image_path('texture-alpha-noise.png'));
+      background-color: $color-ambient-rosa;
+    }
+    &:hover {
+      .txt {
+        color: $color-ambient-mint;
+      }
+      &::after {
+        background-color: $color-ambient-mint;
+      }
+    }
+  }
+
+
 
   .mapthumb {
     border-radius: 50%;
