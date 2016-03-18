@@ -1,38 +1,24 @@
 <aside class="sideBar">
-
   <div class="action-container">
-    <a href="#" class="icontxt"><svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>Location bearbeiten</a>
-    <a href="#" class="icontxt"><svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl einbuchen</a>
+    <%= link_to edit_location_path(@location), class: 'icontxt' do %>
+      <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>Location bearbeiten
+    <% end %>
+    <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
+      <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl einbuchen
+    <% end %>
   </div>
 
-  <div class="cardBox -zuckerl">
-    <div class="cardBoxHeader">
-      <a href="#">
-        <img class="coverImg" src="https://placeimg.com/300/180/nature?7" alt="">
-      </a>
-      <div class="categoryicon">
-        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
-      </div>
-    </div>
-    <div class="cardBoxContent">
-
-      <a href="#" class="zuckerlteasertxt">
-        <div class="title">-50% auf alle Käsesorten und Blunze gibt es gratis!</div>
-        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet cum facilis quis.</div>
-      </a>
-    </div>
-  </div>
-
+  <%= render partial: 'locations/zuckerl', collection: @zuckerls %>
 
   <div class="sideBarbox contact">
     <%= link_to content_tag(:h3, @graetzl.name, class: 'sideflag -L'), @graetzl %>
 
     <div class="iconlist">
       <% unless @location.users.empty? %>
-        <% @location.users.each do |u| %>
-          <%= link_to u, class: 'user-wrp', target: '_blank' do %>
-            <%= avatar_for u %>
-            <div class="name">Magdalena</div>
+        <% @location.users.each do |user| %>
+          <%= link_to user, class: 'user-wrp', target: '_blank' do %>
+            <%= avatar_for user %>
+            <div class="name"><%= user.username %></div>
           <% end %>
         <% end %>
       <% end %>
@@ -69,7 +55,7 @@
         </div>
       <% end %>
     </div>
-    <% if @location.address.coordinates %>
+    <% if @location.address.try(:coordinates) %>
       <%= link_to google_map_url(@location.address), class: 'gmap' do %>
         <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,150]) %>
       <% end %>
@@ -85,5 +71,4 @@
       <div class="txt"><%= @location.contact.hours %></div>
     </div>
   <% end %>
-
 </aside>

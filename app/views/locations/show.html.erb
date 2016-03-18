@@ -10,46 +10,33 @@
 %>
 
 <section class="locationPage">
-
   <div class="imgHeader">
     <h1><%= @location.name %></h1>
-    <!--<%= avatar_for(@location, fill: [100, 100], class: 'locationAvatar') %>-->
-    <img src="https://placeimg.com/200/200/animals" class="locationAvatar" alt="">
-    <img src="https://placeimg.com/980/370/nature" class="titleImg" alt="">
-    <!-- <%= cover_photo_for(@location, fill: [980, 370], class: 'titleImg') %> -->
-
+    <%= attachment_image_tag @location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'locationAvatar' %>
+    <%= attachment_image_tag @location, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
     <div class="bigicontext-element createentry" data-behavior="createTrigger">
       <svg class="icon-dot-3"><use xlink:href="#icon-dot-3"></use></svg>
     </div>
-
-
     <!-- dropDown -->
     <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
       <div class="jq-dropdown-panel">
-
-        <a href="#">
+        <%= link_to edit_location_path(@location) do %>
           <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
           <div class="icontxt">Location bearbeiten</div>
-        </a>
-        <a href="#">
+        <% end %>
+        <%= link_to new_location_zuckerl_path(@location) do %>
           <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
           <div class="icontxt">Zuckerl einbuchen</div>
-        </a>
-
+        <% end %>
       </div>
     </div>
-
   </div>
-
   <div class="mainContent">
-
     <div class="introtxt">
       <h3 class="locationType"><%= @location.slogan %></h3>
       <div class="txt"><%= @location.description %></div>
     </div>
-
     <div class="category-tags">
-
       <div class="bigicontext-element" href="/stuwerviertel/locations">
         <svg class="icon-painting-palette"><use xlink:href="#icon-painting-palette"></use></svg>
         <div class="txt"><%= @location.category.name %></div>
@@ -62,32 +49,7 @@
         </ul>
       <% end %>
     </div>
-
-    <% unless @location.non_meetable? %>
-      <div class="meetingBlock">
-        <div class="wrp-hl">
-          <% unless @location.meetings.empty? %>
-            <div class="bigicontext-element" href="/stuwerviertel/locations">
-              <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-              <div class="txt">Treffen & Termine</div>
-            </div>
-          <% end %>
-          <% if user_signed_in? && @location.show_meeting_button(current_user) %>
-            <%= link_to new_meeting_path(location_id: @location.id), class: "btn-userCallToAction" do %>
-            <span>
-              <%= avatar_for current_user %>
-              Treffen hier starten
-              <svg class="icon-plus">
-                <use xlink:href="#icon-plus"></use>
-              </svg>
-            </span>
-            <% end %>
-          <% end %>
-        </div>
-
-        <%= render 'meetings' unless @location.meetings.empty? %>
-      </div>
-    <% end %>
+    <%= render 'meetings' unless @location.non_meetable? %>
   </div>
 
   <%= render 'sidebar' %>
@@ -102,6 +64,4 @@
     <%= render partial: 'location_posts/stream_post', collection: @posts, as: 'post' %>
   </div>
   <%= view_more_link @posts %>
-
-
 </section>
