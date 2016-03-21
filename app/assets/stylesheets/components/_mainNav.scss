@@ -80,16 +80,14 @@
   .createMeeting, .registerlink {
     padding-left: 20px;
     padding-right: 20px;
-  }
-
-  .createMeeting {
     text-decoration: none;
     background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
     background-position: right center, left center;
     background-repeat: no-repeat;
-    padding-left: 20px;
     background-size: 10px 20px;
-    padding-right: 20px;
+  }
+
+  .createMeeting {
     .txt {
       display: none;
       @include respond-to(">=medium") {
