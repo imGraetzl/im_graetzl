@@ -6,35 +6,29 @@
       <svg class="icon-funnel-filter"><use xlink:href="#icon-funnel-filter"></use></svg>
       <span>Filter</span>
     </label>
-    <select id="filter">
-      <option>Grätzl Stream</option>
-      <option>Treffen & Events</option>
-      <option>Anbieter & Locations</option>
-      <option>Zuckerl & Angebote</option>
-      <option>Ideen im Grätzl</option>
-    </select>
+    <select id="filter"><!-- generate links from desktop view via JS --></select>
   </div>
   <!-- END mobile select menu -->
 
   <%= link_to graetzl_path(graetzl), class: "iconfilter #{active?(graetzl_path(graetzl))}" do %>
     <%= image_tag 'mapthumbs/stuwerviertel.jpg', class: 'mapthumb' %>
-    <div class="txt">Grätzl<br/>Stream</div>
+    <div class="txt">Grätzl <br/>Stream</div>
   <% end %>
   <%= link_to graetzl_meetings_path(graetzl), class: "iconfilter #{active?(graetzl_meetings_path(graetzl))}" do %>
     <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-    <div class="txt">Treffen<br/>& Events</div>
+    <div class="txt">Treffen <br/>& Events</div>
   <% end %>
   <%= link_to graetzl_locations_path(graetzl), class: "iconfilter #{active?(graetzl_locations_path(graetzl))}" do %>
     <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
-    <div class="txt">Anbieter<br/>& Locations</div>
+    <div class="txt">Anbieter <br/>& Locations</div>
   <% end %>
   <%= link_to graetzl_zuckerls_path(graetzl), class: "iconfilter #{active?(graetzl_zuckerls_path(graetzl))}" do %>
     <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
-    <div class="txt">Zuckerl<br/>& Angebote</div>
+    <div class="txt">Zuckerl <br/>& Angebote</div>
   <% end %>
   <%= link_to graetzl_posts_path(graetzl), class: "iconfilter #{active?(graetzl_posts_path(graetzl))}" do %>
     <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
-    <div class="txt">Ideen<br/>im Grätzl</div>
+    <div class="txt">Ideen <br/>im Grätzl</div>
   <% end %>
   <%= link_to '#', class: 'iconfilter createentry', data: { behavior: 'createTrigger' } do %>
     <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
