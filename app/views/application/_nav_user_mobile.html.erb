@@ -1,34 +1,34 @@
 <div class="mobileCreateContent" data-mobileNavID="createContent">
-
   <div class="createContainer">
-      <a href="#">
-        <svg class="icon-calendar-2">
-          <use xlink:href="#icon-calendar-2"></use>
-        </svg>
-        <div class="icontxt">Neues Treffen</div>
-      </a>
-      <a href="#">
-        <svg class="icon-head-idea-lightbulb">
-          <use xlink:href="#icon-head-idea-lightbulb"></use>
-        </svg>
-        <div class="icontxt">Neuer Wunsch oder Idee</div>
-      </a>
-      <a href="#">
+    <%= link_to new_graetzl_meeting_path(current_user.graetzl) do %>
+      <svg class="icon-calendar-2">
+        <use xlink:href="#icon-calendar-2"></use>
+      </svg>
+      <div class="icontxt">Neues Treffen</div>
+    <% end %>
+    <%= link_to new_graetzl_user_post_path(current_user.graetzl) do %>
+      <svg class="icon-head-idea-lightbulb">
+        <use xlink:href="#icon-head-idea-lightbulb"></use>
+      </svg>
+      <div class="icontxt">Neuer Wunsch oder Idee</div>
+    <% end %>
+    <% current_user.locations.approved.each do |location| %>
+      <%= link_to graetzl_location_path(location.graetzl, location) do %>
         <svg class="icon-location">
           <use xlink:href="#icon-location"></use>
         </svg>
         <div class="icontxt">Neuigkeit meiner Location</div>
-        <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
-      </a>
-      <a href="#">
+        <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+      <% end %>
+      <%= link_to new_location_zuckerl_path(location) do %>
         <svg class="icon-shopping-bag">
           <use xlink:href="#icon-shopping-bag"></use>
         </svg>
         <div class="icontxt">Grätzlzuckerl meiner Location</div>
-        <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
-      </a>
+        <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+      <% end %>
+    <% end %>
   </div>
-
 </div>
 
 <div class="mobileNotifications nav-notifications" data-mobileNavID="notifications"></div>

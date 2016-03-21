@@ -1,15 +1,18 @@
-<div class="mainNavHolder">
-
-  <div class="mobileNavToggle">
-    <svg class="icon-layout-text"><use xlink:href="#icon-layout-text"></use></svg>
-    <span>Navigation</span>
+<div class="inner">
+  <div class="mainNavHolder">
+    <div class="mobileNavToggle">
+      <svg class="icon-layout-text"><use xlink:href="#icon-layout-text"></use></svg>
+      <span>Navigation</span>
+    </div>
+    <%= main_navigation %>
+    <div class="logoGraetzl">
+      <%= link_to(image_tag('svg/logo.svg'), root_path, class: 'logo_main') %>
+      <%= link_to(image_tag('svg/logo_reduced.svg'), root_path, class: 'logo_reduced') %>
+    </div>
+    <%= personal_navigation_for current_user %>
   </div>
-
-  <%= render "application/nav/#{nav_context.class.to_s.underscore}", target: nav_context %>
-  <%= render "application/nav/personal_#{nav_user.class.to_s.underscore}", user: nav_user %>
-</div>
-
-<div class="mobileNavHolder">
-  <%= render "application/nav/mobile/#{nav_context.class.to_s.underscore}", target: nav_context %>
-  <%= render 'application/nav/mobile/personal' if user_signed_in? %>
+  <div class="mobileNavHolder">
+    <%= main_navigation :mobile %>
+    <%= render 'nav_user_mobile' if current_user %>
+  </div>
 </div>

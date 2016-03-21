@@ -1,0 +1,29 @@
+<div class="mainNav">
+  <%= link_to 'Home', root_path, class: 'homelink' %>
+  <div class="graetzlTrigger dropdownTrigger" data-horizontal-offset="0" data-mobileNavID="graetzl">
+    <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
+    <span class="txt"><%= district.name %></span>
+  </div>
+  <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank">Blog</a>
+
+  <!-- dropDown -->
+  <div class="graetzlContainer jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-left dropdown-container">
+    <div class="jq-dropdown-panel nav-graetzl">
+      <%= link_to district_path(district) do %>
+        <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= district.name %> (<%= district.zip %>)
+      <% end %>
+      <%= link_to district_meetings_path(district) do %>
+        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events im <%= district.numeric %>. Bezirk
+      <% end %>
+      <%= link_to district_locations_path(district) do %>
+        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations im <%= district.numeric %>. Bezirk
+      <% end %>
+      <%= link_to district_locations_path(district) do %>
+        <svg class="icon-zuckerl"><use xlink:href="#icon-zuckerl"></use></svg>Zuckerln & Angebote im <%= district.numeric %>. Bezirk
+      <% end %>
+      <%= link_to districts_path, class: 'discover' do %>
+        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
+      <% end %>
+    </div>
+  </div>
+</div>
