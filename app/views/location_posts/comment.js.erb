@@ -13,6 +13,7 @@
   function updateComponent() {
     persisted ? renderComment() : renderError();
     $commentForm.replaceWith("<%= j render 'comment_form', location_post: @location_post %>");
+    APP.components.stream.initCommentForm();
   }
 
   updateComponent();
