@@ -3,12 +3,13 @@ class LocationsController < ApplicationController
   include GraetzlChild
 
   def index
-    @locations = Kaminari.paginate_array(
-      @graetzl.locations.approved.includes(:graetzl, :posts, :meetings, :address, :category).
-        order('posts.created_at DESC NULLS LAST').
-        order('meetings.created_at DESC NULLS LAST').
-        order(created_at: :desc)
-      ).page(params[:page]).per(15)
+    # @locations = @graetzl.locations.by_activity.page(params[:page]).per(15)
+    @locations = Kaminari.paginate_array(@graetzl.locations.by_activity).page(params[:page]).per(15)
+    #   @graetzl.locations.approved.includes(:graetzl, :posts, :meetings, :address, :category).
+    #     order('posts.created_at DESC NULLS LAST').
+    #     order('meetings.created_at DESC NULLS LAST').
+    #     order(created_at: :desc)
+    #   ).page(params[:page]).per(15)
   end
 
   def show

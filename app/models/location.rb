@@ -2,6 +2,14 @@ class Location < ActiveRecord::Base
   include Trackable
   extend FriendlyId
 
+  scope :by_activity, -> {
+    approved.
+    includes(:graetzl, :posts, :meetings, :address, :category).
+    order('posts.created_at DESC NULLS LAST').
+    order('meetings.created_at DESC NULLS LAST').
+    order(created_at: :desc)
+  }
+
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }

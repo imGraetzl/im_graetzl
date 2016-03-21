@@ -16,9 +16,9 @@ class GraetzlsController < ApplicationController
 
   def guest_content
     @meetings = @graetzl.meetings.by_currentness.first(2)
-    @locations = @graetzl.locations.approved.order("RANDOM()").first(2)
+    @locations= @graetzl.locations.by_activity.to_a.first(2)
     @zuckerls = @graetzl.zuckerls.order("RANDOM()").first(2)
-    @posts = @graetzl.posts.order("RANDOM()").first(2)
+    @posts = @graetzl.posts.where(type: UserPost).order(created_at: :desc).first(2)
     @map_data = GeoJSONService.call(graetzls: @graetzl)
   end
 end
