@@ -115,6 +115,7 @@ RSpec.describe Graetzl, type: :model do
   end
 
   describe '_#activity' do
+    let!(:user) { create :user }
     let(:graetzl) { create :graetzl }
     subject(:activity) { graetzl.send(:activity) }
 
@@ -137,7 +138,7 @@ RSpec.describe Graetzl, type: :model do
         comment_post_1 = user_post.create_activity :comment
         comment_meeting_1 = meeting_1.create_activity :comment
 
-        expect(activity.ids).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2].map(&:id)
+        expect(activity).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2]
       end
     end
   end

@@ -1,0 +1,21 @@
+<div class="mobileMainNav">
+  <%= link_to graetzl_path(graetzl) do %>
+    <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= graetzl.name %>
+  <% end %>
+  <%= link_to graetzl_meetings_path(graetzl) do %>
+    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events
+  <% end %>
+  <%= link_to graetzl_locations_path(graetzl) do %>
+    <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations
+  <% end %>
+  <%= link_to graetzl_zuckerls_path(graetzl) do %>
+    <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl & Angebote
+  <% end %>
+  <%= link_to graetzl_posts_path(graetzl) do %>
+    <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>Ideen im Grätzl
+  <% end %>
+  <%= link_to districts_path, class: 'discover' do %>
+    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
+  <% end %>
+  <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank"><svg class="icon-coffee"><use xlink:href="#icon-coffee"></use></svg>Blog</a>
+</div>

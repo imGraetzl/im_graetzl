@@ -1,66 +1,58 @@
-
-
 <div class="personalNav">
-
-  <% if user.graetzl.open? %>
-    <div class="createTrigger dropdownTrigger createMeeting" data-mobileNavID="createContent">
-      <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-      <span class="txt">Neu erstellen</span>
-    </div>
-  <% end %>
+  <div class="createTrigger dropdownTrigger createMeeting" data-mobileNavID="createContent">
+    <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+    <span class="txt">Neu erstellen</span>
+  </div>
 
   <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications" data-behavior="notifications-trigger">
     <div class="iconWithBadge">
-      <%- notifications_count = user.new_website_notifications_count %>
+      <%- notifications_count = current_user.new_website_notifications_count %>
       <div id="notificationsCount" class="badgeNumber" data-behavior="notifications-count" <% if notifications_count < 1 %> style="display: none;" <% end %>><%= notifications_count %></div>
       <svg class="icon-bell"><use xlink:href="#icon-bell"></use></svg>
     </div>
   </div>
 
   <div class="usersettingsTrigger dropdownTrigger" data-horizontal-offset="2" data-mobileNavID="usersettings">
-    <%= avatar_for user %>
-    <span class="username txt"><%= user.username %></span>
+    <%= avatar_for current_user %>
+    <span class="username txt"><%= current_user.username %></span>
     <div class="wrp">
       <svg class="icon-gear"><use xlink:href="#icon-gear"></use></svg>
     </div>
   </div>
 
   <!-- dropDowns -->
-
-  <% if user.graetzl.open? %>
-    <div class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative createContainer dropdown-container">
-      <div class="jq-dropdown-panel">
-        <a href="#">
-          <svg class="icon-calendar-2">
-            <use xlink:href="#icon-calendar-2"></use>
-          </svg>
-          <div class="icontxt">Neues Treffen</div>
-        </a>
-        <a href="#">
-          <svg class="icon-head-idea-lightbulb">
-            <use xlink:href="#icon-head-idea-lightbulb"></use>
-          </svg>
-          <div class="icontxt">Neuer Wunsch oder Idee</div>
-        </a>
-        <a href="#">
+  <div class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative createContainer dropdown-container">
+    <div class="jq-dropdown-panel">
+      <%= link_to new_graetzl_meeting_path(current_user.graetzl) do %>
+        <svg class="icon-calendar-2">
+          <use xlink:href="#icon-calendar-2"></use>
+        </svg>
+        <div class="icontxt">Neues Treffen</div>
+      <% end %>
+      <%= link_to new_graetzl_user_post_path(current_user.graetzl) do %>
+        <svg class="icon-head-idea-lightbulb">
+          <use xlink:href="#icon-head-idea-lightbulb"></use>
+        </svg>
+        <div class="icontxt">Neuer Wunsch oder Idee</div>
+      <% end %>
+      <% current_user.locations.approved.each do |location| %>
+        <%= link_to graetzl_location_path(location.graetzl, location) do %>
           <svg class="icon-location">
             <use xlink:href="#icon-location"></use>
           </svg>
           <div class="icontxt">Neuigkeit meiner Location</div>
-          <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
-        </a>
-        <a href="#">
+          <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+        <% end %>
+        <%= link_to new_location_zuckerl_path(location) do %>
           <svg class="icon-shopping-bag">
             <use xlink:href="#icon-shopping-bag"></use>
           </svg>
           <div class="icontxt">Grätzlzuckerl meiner Location</div>
-          <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
-        </a>
-      </div>
+          <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
-
-
+  </div>
 
   <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative" data-behavior="notifications-container">
     <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
@@ -71,7 +63,7 @@
 
   <div class="usersettingsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative dropdown-container">
     <div class="jq-dropdown-panel nav-usersettings">
-      <%= link_to user_path(user) do %>
+      <%= link_to user_path(current_user) do %>
         <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>Profil
       <% end %>
       <%= link_to user_locations_path do %>
@@ -83,7 +75,7 @@
       <%= link_to edit_user_path do %>
         <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Einstellungen
       <% end %>
-      <% if user.admin? %>
+      <% if current_user.admin? %>
         <%= link_to admin_root_path do %>
           <svg class="icon-magic-wand"><use xlink:href="#icon-magic-wand"></use></svg>Admin
         <% end %>
@@ -93,5 +85,4 @@
       <% end %>
     </div>
   </div>
-
 </div>
