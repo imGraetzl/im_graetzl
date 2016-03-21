@@ -15,7 +15,7 @@ APP.components.masonryFilterGrid = (function() {
 
     function createMobileNav() {
         var $dropdown = $(".filter-stream .input-select select");
-        $(".filter-stream .iconfilter").not('.createentry').each(function() {
+        $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
             var $this = $(this),
                 link = $this.prop('href'),
                 txt = $this.find('.txt').text();
