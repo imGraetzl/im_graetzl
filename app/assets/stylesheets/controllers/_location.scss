@@ -74,7 +74,7 @@ section.locationPage {
       color: #fff;
       cursor: pointer;
       position: absolute;
-      right: -30px;
+      right: 30px;
       bottom: 0;
       z-index: 2;
       width: 40px;
@@ -82,10 +82,7 @@ section.locationPage {
       @include respond-to(">=medium") {
         display: none;
       }
-      [class^=icon-] {
-        width: 40px;
-        height: 40px;
-      }
+
     }
 
   }
@@ -138,6 +135,10 @@ section.locationPage {
         text-decoration: underline;
       }
     }
+  }
+
+  .action-container + .sideBarbox.contact {
+    margin-top: 20px;
   }
 
   .sideBar .sideflag {
