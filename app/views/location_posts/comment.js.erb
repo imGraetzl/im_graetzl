@@ -1,0 +1,19 @@
+(function() {
+  var persisted = <%= @comment.persisted? %>
+  var $commentForm = $("[data-behavior='comment-form-<%= @location_post.id %>']");
+
+  function renderComment() {
+    $commentForm.before("<%= j render @comment %>")
+  }
+
+  function renderError() {
+    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+  }
+
+  function updateComponent() {
+    persisted ? renderComment() : renderError();
+    $commentForm.replaceWith("<%= j render 'comment_form', location_post: @location_post %>");
+  }
+
+  updateComponent();
+})();

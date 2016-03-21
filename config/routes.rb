@@ -95,6 +95,9 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy]
 
   resources :posts, only: [:destroy]
-  
-  resources :location_posts, only: [:create]
+
+  resources :location_posts, only: [:create] do
+    post :comments, to: :comment
+    get :comments
+  end
 end

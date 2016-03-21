@@ -45,4 +45,69 @@ RSpec.describe LocationPostsController, type: :controller do
       end
     end
   end
+
+  describe 'POST comment' do
+    let(:location_post) { create :location_post }
+
+    context 'when logged out' do
+      it 'returns 401 unauthorized' do
+        xhr :post, :comment, location_post_id: location_post.id
+        expect(response).to have_http_status 401
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      it 'creates new comment record' do
+        expect{
+          xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        }.to change{Comment.count}.by 1
+      end
+
+      it 'logs activity' do
+        expect{
+          xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        }.to change{Activity.count}.by 1
+      end
+
+      it 'assigns @location_post' do
+        xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        expect(assigns :location_post).to eq location_post
+      end
+
+      it 'assigns @comment' do
+        xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        expect(assigns :comment).to have_attributes(
+          user: user,
+          commentable: location_post,
+          content: 'hello')
+      end
+
+      it 'renders comment.js' do
+        xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        expect(response.content_type).to eq 'text/javascript'
+        expect(response).to render_template :comment
+      end
+    end
+  end
+
+  describe 'GET comments' do
+    let(:location_post) { create :location_post }
+    let!(:comments) { create_list :comment, 10, commentable: location_post }
+    before { xhr :get, :comments, location_post_id: location_post.id }
+
+    it 'assigns @location_post' do
+      expect(assigns :location_post).to eq location_post
+    end
+
+    it 'assigns @comments' do
+      expect(assigns :comments).to match_array comments
+    end
+
+    it 'renders comments.js' do
+      expect(response.content_type).to eq 'text/javascript'
+      expect(response).to render_template :comments
+    end
+  end
 end

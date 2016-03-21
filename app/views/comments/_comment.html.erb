@@ -1,26 +1,27 @@
-<%= div_for(comment) do %>
+<%= div_for comment do %>
   <div class="entryUserComment">
-    <% if (current_user && comment.edit_permission?(current_user)) %>
+    <% if comment.edit_permission?(current_user) %>
       <div class="editControls">
         <%= link_to comment, { method: :delete, remote: true, data: { confirm: 'Kommentar wirklich löschen?', disable_with: 'lädt...' } } do %>
           <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
         <% end %>
       </div>
     <% end %>
-
     <a name="comment-<%= comment.id -%>"></a>
     <div class="userCreateInfo">
-      <%= link_to avatar_for(comment.user), [comment.user.graetzl, comment.user] %>
-
+      <%= attachment_image_tag comment.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
       <span class="userAndType">
         Kommentar von <%= link_to comment.user.username, [comment.user.graetzl, comment.user] %>
         <span>vor <%= time_ago_in_words(comment.created_at) %></span>
       </span>
     </div>
-
     <div class="txt"><%= comment.content %></div>
-
-    <%= render 'shared/images', imageable: comment unless comment.images.empty? %>
-
+    <% unless comment.images.empty? %>
+      <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
+        <% comment.images.each do |image| %>
+          <%= link_to attachment_image_tag(image, :file, :fill, 200, 200), attachment_url(image, :file, :limit, 800, 800) %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 <% end %>

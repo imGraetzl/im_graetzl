@@ -8,7 +8,7 @@
       <div class="txt"><%= truncate comment.content, length: 100 %></div>
     </div>
     <% if parent.comments.count > 1 %>
-      <%= link_to "Alle #{parent.comments.count} Kommentare ansehen", [parent.graetzl, parent], class: 'commentslink' %>
+      <%= link_to "Alle #{parent.comments.count} Kommentare ansehen", appendix_path_for(parent), class: 'commentslink' %>
     <% end %>
   </div>
 <% end %>

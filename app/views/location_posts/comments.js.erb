@@ -1,0 +1,9 @@
+(function() {
+  var $commentsLink = $("[data-behavior='comments-link-<%= @location_post.id %>']");
+
+  function updateComponent() {
+    $commentsLink.replaceWith("<%= j render @comments %>");
+  }
+
+  updateComponent();
+})();

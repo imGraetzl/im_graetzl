@@ -1,12 +1,24 @@
 class LocationPostsController < ApplicationController
-  # TODO authenticate user belongs to location...
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:comments]
 
   def create
     @location_post = LocationPost.new location_post_params
     if @location_post.save
       @location_post.create_activity :create, owner: current_user
     end
+  end
+
+  def comment
+    set_location_post
+    @comment = @location_post.comments.new comment_params
+    if @comment.save
+      @location_post.create_activity :comment, owner: current_user, recipient: @comment
+    end
+  end
+
+  def comments
+    set_location_post
+    @comments = @location_post.comments.order(:created_at).includes(:user, :images)
   end
 
   private
@@ -19,5 +31,15 @@ class LocationPostsController < ApplicationController
       :title,
       :content,
       images_files: [])
+  end
+
+  def comment_params
+    params.require(:comment).permit(
+      :content,
+      images_files: []).merge(user_id: current_user.id)
+  end
+
+  def set_location_post
+    @location_post = LocationPost.find params[:location_post_id]
   end
 end
