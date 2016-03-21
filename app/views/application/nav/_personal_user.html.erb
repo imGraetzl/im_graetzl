@@ -1,8 +1,12 @@
+
+
 <div class="personalNav">
+
   <% if user.graetzl.open? %>
-    <%= link_to new_meeting_path, class: 'createMeeting' do %>
-      <span>Treffen anlegen</span>
-    <% end %>
+    <div class="createTrigger dropdownTrigger createMeeting" data-mobileNavID="createContent">
+      <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+      <span class="txt">Neu erstellen</span>
+    </div>
   <% end %>
 
   <div class="notificationsTrigger dropdownTrigger" data-horizontal-offset="-14" data-mobileNavID="notifications" data-behavior="notifications-trigger">
@@ -22,10 +26,46 @@
   </div>
 
   <!-- dropDowns -->
+
+  <% if user.graetzl.open? %>
+    <div class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative createContainer dropdown-container">
+      <div class="jq-dropdown-panel">
+        <a href="#">
+          <svg class="icon-calendar-2">
+            <use xlink:href="#icon-calendar-2"></use>
+          </svg>
+          <div class="icontxt">Neues Treffen</div>
+        </a>
+        <a href="#">
+          <svg class="icon-head-idea-lightbulb">
+            <use xlink:href="#icon-head-idea-lightbulb"></use>
+          </svg>
+          <div class="icontxt">Neuer Wunsch oder Idee</div>
+        </a>
+        <a href="#">
+          <svg class="icon-location">
+            <use xlink:href="#icon-location"></use>
+          </svg>
+          <div class="icontxt">Neuigkeit meiner Location</div>
+          <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
+        </a>
+        <a href="#">
+          <svg class="icon-shopping-bag">
+            <use xlink:href="#icon-shopping-bag"></use>
+          </svg>
+          <div class="icontxt">Grätzlzuckerl meiner Location</div>
+          <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
+        </a>
+      </div>
+    </div>
+  <% end %>
+
+
+
   <div class="notificationsContainer jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative" data-behavior="notifications-container">
     <%= link_to 'lädt..', :notifications, remote: true, id: "notifications_more", style: "display: none;" %>
     <div class="jq-dropdown-panel nav-notifications">
-     <ul class="notifications" data-behavior="notifications"></ul>
+      <ul class="notifications" data-behavior="notifications"></ul>
     </div>
   </div>
 
@@ -53,4 +93,5 @@
       <% end %>
     </div>
   </div>
+
 </div>

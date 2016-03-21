@@ -1,3 +1,38 @@
+<div class="mobileCreateContent" data-mobileNavID="createContent">
+
+  <div class="createContainer">
+      <a href="#">
+        <svg class="icon-calendar-2">
+          <use xlink:href="#icon-calendar-2"></use>
+        </svg>
+        <div class="icontxt">Neues Treffen</div>
+      </a>
+      <a href="#">
+        <svg class="icon-head-idea-lightbulb">
+          <use xlink:href="#icon-head-idea-lightbulb"></use>
+        </svg>
+        <div class="icontxt">Neuer Wunsch oder Idee</div>
+      </a>
+      <a href="#">
+        <svg class="icon-location">
+          <use xlink:href="#icon-location"></use>
+        </svg>
+        <div class="icontxt">Neuigkeit meiner Location</div>
+        <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
+      </a>
+      <a href="#">
+        <svg class="icon-shopping-bag">
+          <use xlink:href="#icon-shopping-bag"></use>
+        </svg>
+        <div class="icontxt">Grätzlzuckerl meiner Location</div>
+        <img class="img-square" src="https://placeimg.com/35/35/arch" alt="">
+      </a>
+  </div>
+
+</div>
+
+<div class="mobileNotifications nav-notifications" data-mobileNavID="notifications"></div>
+
 <div class="mobileUserSettings" data-mobileNavID="usersettings">
   <div class="nav-usersettings">
     <%= link_to user_path(current_user) do %>
@@ -21,7 +56,4 @@
       <svg class="icon-power"><use xlink:href="#icon-power"></use></svg>Abmelden
     <% end %>
   </div>
-</div>
-
-<div class="mobileNotifications nav-notifications" data-mobileNavID="notifications">
 </div>
