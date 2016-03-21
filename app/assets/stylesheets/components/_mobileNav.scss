@@ -66,11 +66,13 @@
     }
     [class^=icon-] {
       margin-right: 20px;
+      color: $color-ambient-rosa;
     }
   }
 
   .mobileMainNav,
   .mobileUserSettings,
+  .mobileCreateContent,
   .mobileNotifications {
     border-top: 1px solid $color-ambient-mint-light;
     @include respond-to(">=large") {
@@ -106,6 +108,15 @@
       background-repeat: no-repeat;
       padding-left: 20px;
       padding-right: 20px;
+    }
+  }
+
+  .createContainer {
+    .img-square {
+      margin-left: auto;
+      width: 30px;
+      height: 30px;
+      padding: 1px;
     }
   }
 

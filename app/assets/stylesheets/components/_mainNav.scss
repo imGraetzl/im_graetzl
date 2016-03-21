@@ -31,9 +31,18 @@
     }
   }
 
-  .personalNav {
-    justify-content: flex-end;
+  .personalNav .createContainer {
+    position: absolute;
+    @include respond-to(">=medium") {
+      left: auto !important;
+      right: 160px !important;
+    }
+    @include respond-to(">=large") {
+      left: 440px !important;
+      right: auto !important;
+    }
   }
+
 
   .homelink,
   .bloglink,
@@ -45,17 +54,16 @@
   .usersettingsTrigger {
     color: $color-ambient-mint-dark;
     font-family: $font-tertiary;
-    font-size: 1.6rem;
+    font-size: 2.0rem;
     &:hover, >*:active {
       color: $color-ambient-rosa;
-    }
-    @include respond-to(">=medium") {
-      font-size: 2.0rem;
     }
     @include respond-to(">=large") {
       font-size: 2.2rem;
     }
   }
+
+
 
   .homelink {
     padding-right: 20px;
@@ -72,23 +80,27 @@
   .createMeeting, .registerlink {
     padding-left: 20px;
     padding-right: 20px;
-    border-right: 1px dotted lighten($color-ambient-mint, 20);
-    span {
-      background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
-      background-position: right center, left center;
-      background-repeat: no-repeat;
-      padding-left: 20px;
-      background-size: 10px 20px;
-      padding-right: 20px;
-      margin: 0 auto;
-      display: table;
-    }
+    text-decoration: none;
+    background-image: url(image_path('svg/icon-right-blinky.svg')), url(image_path('svg/icon-left-blinky.svg'));
+    background-position: right center, left center;
+    background-repeat: no-repeat;
+    background-size: 10px 20px;
   }
 
   .createMeeting {
-    display: none;
-    @include respond-to(">=large") {
+    .txt {
+      display: none;
+      @include respond-to(">=medium") {
+        display: block;
+      }
+    }
+    .icon-pencil {
       display: block;
+      width: 30px;
+      height: 30px;
+      @include respond-to(">=medium") {
+        margin-right: 9px;
+      }
     }
   }
 
@@ -162,24 +174,25 @@
       @include respond-to(">450px") {
         margin-left: 10px;
       }
+    }
+  }
 
+  .dropdownTrigger {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &.jq-dropdown-open, &.is-open {
+      color: $color-ambient-rosa;
+      .img-user {
+        border-color: $color-ambient-rosa;
+      }
     }
   }
 
 }
 
-.dropdownTrigger {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  &.jq-dropdown-open, &.is-open {
-    color: $color-ambient-rosa;
-    .img-user {
-      border-color: $color-ambient-rosa;
-    }
-  }
-}
+
 
 .logoGraetzl {
   width: 45px;

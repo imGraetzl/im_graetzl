@@ -49,7 +49,7 @@
     <% end %>
     <%= link_to new_graetzl_user_post_path(graetzl) do %>
       <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
-      <div class="icontxt">Neue Idee im Grätzl <%= graetzl.name %></div>
+      <div class="icontxt">Neue Idee im Grätzl</div>
     <% end %>
     <% current_user.locations.approved.each do |location| %>
       <%= link_to graetzl_location_path(location.graetzl, location) do %>

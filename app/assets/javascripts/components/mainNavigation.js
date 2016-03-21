@@ -7,7 +7,7 @@ APP.components.mainNavigation = (function() {
         $mobileNavTrigger =  $('.mobileNavToggle');
         $mainNavHolder =  $(".mainNavHolder");
         $mobileNavHolder = $(".mobileNavHolder");
-        $dropdownTriggers = $(".graetzlTrigger, .dropdownTrigger, .usersettingsTrigger ");
+        $dropdownTriggers = $(".graetzlTrigger, .dropdownTrigger, .usersettingsTrigger");
         $notificationList = $(".nav-notifications .notifications");
 
         enquire
@@ -43,6 +43,7 @@ APP.components.mainNavigation = (function() {
                     $(".graetzlTrigger").jqDropdown('attach', '.graetzlContainer');
                     $(".notificationsTrigger").jqDropdown('attach', '.notificationsContainer');
                     $(".usersettingsTrigger").jqDropdown('attach', '.usersettingsContainer');
+                    $(".createTrigger").jqDropdown('attach', '.createContainer');
                 },
                 match : function() {
                     $dropdownTriggers.jqDropdown('enable');
