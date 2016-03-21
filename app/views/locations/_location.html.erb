@@ -31,7 +31,7 @@
     <div class="txt">
       <p><%= truncate location.description, length: 100 %></p>
     </div>
-    <% if location_post = location.posts.last %>
+    <% if location_post = location.posts.order(:id).last %>
       <%= link_to '#', class: 'updateteaser' do %>
         <div class="hl">
           <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
