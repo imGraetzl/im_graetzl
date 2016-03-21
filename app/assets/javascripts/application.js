@@ -40,6 +40,7 @@
 //= require fastclick
 //= require autogrow
 //= require refile
+//= require cookieconsent
 //= require FileAPI.core
 //= require FileAPI.Image
 //= require_directory ./utils

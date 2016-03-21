@@ -13,6 +13,15 @@ APP.controllers.application = (function() {
 
         FastClick.attach(document.body);
 
+        window.cookieconsent_options = {
+            "message":"Diese Website verwendet Cookies. Indem Sie weiter auf dieser Website navigieren, stimmen Sie unserer Verwendung von Cookies zu.",
+            "dismiss":"OK!","learnMore":"Mehr Information",
+            "link":"http://www.imgraetzl.at/info/datenschutz",
+            "theme": false
+        };
+
+
+
         // jQuery('.notificationsTrigger').click(function() {
         //     jQuery('#notifications_more').trigger('click');
         // });
