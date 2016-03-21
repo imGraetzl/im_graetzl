@@ -27,15 +27,10 @@ APP.components.stream = (function() {
         } else {
             initSingleTextarea($parent);
         }
-
-        $parent.find('.postMessage').on('autogrow:grow', function() {
-            console.log("sdsasffssd");
-        })
-
     }
 
     function initCommentForm() {
-        $('.entryCreate').not('.js-initialized').each(function() {
+        $('.entryCommentForm').not('.js-initialized').each(function() {
             var $parent = $(this);
             initSingleTextarea($parent);
         })
