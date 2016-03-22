@@ -10,8 +10,8 @@ RSpec.describe PostsController, type: :routing do
       expect(get: '/graetzl-slug/posts/new').not_to route_to('posts#new')
     end
 
-    it 'routes GET graetzl-slug/posts to #index' do
-      expect(get: 'graetzl-slug/posts').to route_to('posts#index', graetzl_id: 'graetzl-slug')
+    it 'routes GET graetzl-slug/ideen to #index' do
+      expect(get: 'graetzl-slug/ideen').to route_to('posts#index', graetzl_id: 'graetzl-slug')
     end
 
     it 'routes DELETE /posts/post-slug to posts#destroy' do
