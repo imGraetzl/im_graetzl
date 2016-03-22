@@ -13,6 +13,7 @@
       <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
       <div class="count"><%= meeting.users.count %></div>
     </div>
+    <%= graetzl_flag(meeting.graetzl) %>
   </div>
   <div class="cardBoxContent">
     <% if initiator = meeting.initiator %>
