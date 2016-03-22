@@ -32,7 +32,7 @@
       <p><%= truncate location.description, length: 100 %></p>
     </div>
     <% if location_post = location.posts.order(:id).last %>
-      <%= link_to '#', class: 'updateteaser' do %>
+      <%= link_to [location.graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
         <div class="hl">
           <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
           vor <%= time_ago_in_words(location_post.created_at) %>
@@ -43,7 +43,7 @@
       <% end %>
     <% end %>
     <% if zuckerl = location.zuckerls.live.last %>
-      <%= link_to '#', class: 'zuckerlteasertxt' do %>
+      <%= link_to [location.graetzl, location, anchor: dom_id(zuckerl)], class: 'zuckerlteasertxt' do %>
         <div class="hl">
           <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
           Grätzlzuckerl im <%= zuckerl_month zuckerl %>
@@ -52,7 +52,7 @@
       <% end %>
     <% end %>
     <% if meeting = location.meetings.basic.last %>
-      <%= link_to '#', class: 'event-teaser-box' do %>
+      <%= link_to [meeting.graetzl, meeting], class: 'event-teaser-box' do %>
         <% if meeting.starts_at_date %>
           <div class="date">
             <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
