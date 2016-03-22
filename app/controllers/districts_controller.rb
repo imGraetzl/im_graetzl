@@ -12,8 +12,9 @@ class DistrictsController < ApplicationController
   def show
     set_district
     graetzls = @district.graetzls
-    @meetings = @district.meetings.basic.upcoming.first(2)
-    @locations = @district.locations.approved.order("RANDOM()").first(2)
+    @meetings = @district.meetings.by_currentness.first(2)
+    @locations = @district.locations.by_activity.to_a.first(2)
+    @zuckerls = @district.zuckerls.order("RANDOM()").first(2)
     @map_data = GeoJSONService.call(districts: @district, graetzls: graetzls)
   end
 
