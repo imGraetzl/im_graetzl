@@ -13,24 +13,6 @@ section.homeOut {
   }
 
 
-  .cardBox.-sponsor {
-    max-width: 320px;
-    margin: 100px auto 0 auto;
-    @include respond-to(">=large") {
-      @include cardBox-horizontal();
-      max-width: none;
-      width: 700px;
-      .cardBoxContent {
-        padding-top: 70px;
-      }
-      .sideflag {
-        right: -368px;
-      }
-
-    }
-  }
-
-
 }
 
 .buehne {
@@ -97,164 +79,111 @@ section.homeOut {
 
   }
 
-  .badgeregister {
-    position: absolute;
-    right: 20%;
-    bottom: 30px;
-
-    @include respond-to(">=medium") {
-      bottom: 50px;
-      right: 25%;
-      &::after {
-        content: '';
-        position: absolute;
-        width: 90px;
-        height: 86px;
-        background-image: url(image_path('svg/arrow-dashed-bend2.svg'));
-        transform: rotate(-40deg);
-        bottom: -50px;
-        left: -60px;
-      }
-    }
-    @include respond-to(">=large") {
-      right: 150px;
-      bottom: 65px;
-    }
+  .btn-primary {
+    display: table;
+    margin-top: 40px;
   }
+
+  .icons {
+    border: solid 1px blue;
+  }
+
+  .singleicon {
+    text-align: center;
+    color: $color-ambient-mint-dark;
+    position: relative;
+    width: 100px;
+    &::before {
+      content: '';
+      width: 70px;
+      height: 70px;
+      background-size: 70px 70px;
+      margin: 0 auto;
+      display: block;
+      background-image: url(image_path('svg/kringel-mint-solid.svg'));
+      background-repeat: no-repeat;
+    }
+    [class^=icon-] {
+      position: absolute;
+      top: 9px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+    }
+    .txt {
+      font-family: $font-secondary;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+
+  }
+
+
 }
 
 .aboutGraetzl {
   padding-bottom: 3.0rem;
-  h2 {
-    @include font-size-secondaryFont('large');
-    text-align: center;
-    color: $color-ambient-rosa;
-    margin-bottom: 20px;
-    @include respond-to(">=medium") {
-      margin-bottom: 80px;
+  h1 {
+    [class^=icon-] {
+      width: 45px;
+      height: 45px;
+      margin-right: 15px;
+      margin-left: 15px;
+      display: inline;
     }
   }
 
-  h3 {
+  .grid {
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    @include respond-to(">=large") {
+      margin-right: -25px;
+      margin-left: -25px;
+      display: flex;
+    }
+    > [class*=-block] {
+      padding: 140px 20px 20px 20px;
+      border-right: 1px dotted #f0f0f0;
+      @include respond-to(">=large") {
+        flex-basis: 33.33%;
+      }
+      &:last-child {
+        border-right: none;
+      }
+    }
+    .txt p:not(:last-child){
+      margin-bottom: 15px;
+    }
+  }
+
+
+
+  h4 {
+    text-align: center;
+    margin-bottom: 30px;
     @include font-size-secondaryFont('base');
-    text-align: center;
-    font-family: $font-secondary;
-    color: $color-ambient-mint;
-    margin-bottom: 1rem;
-    @include respond-to(">=medium") {
-      text-align: left;
+    span {
+      color: $color-ambient-rosa;
     }
   }
 
-  span {
-    color: $color-ambient-rosa;
-  }
 
-  p {
-    @include font-size-primaryFont('large');
-  }
 
   .btn-primary {
     width: 100%;
     margin: 0 auto;
     @include respond-to(">=medium") {
       margin-top: 3.0rem;
-      width: 70%;
+      width: 50%;
     }
   }
 
 }
 
 
-.aboutGraetzl [class^=graetzl-] {
-  margin-bottom: 40px;
-  @include respond-to(">=medium") {
-    display: flex;
-    margin-bottom: 60px;
-  }
-  .paperCard, .illuZuckerl {
-    width: 280px;
-    margin: 0 auto;
-    margin-bottom: 30px;
-    @include respond-to(">=medium") {
-      width: auto;
-      flex: 0 0 280px;
-      margin-bottom: 0;
-    }
-    @include respond-to(">=large") {
-      transform: translate(0,-20px);
-    }
-  }
-  .paperCard {
-    height: 240px;
-  }
-  &:nth-child(even) {
-    .paperCard {
-      @include respond-to(">=medium") {
-        margin-right: 70px;
-      }
-    }
-  }
-  &:nth-child(odd) {
-    .paperCard {
-      @include respond-to(">=medium") {
-        margin-left: 70px;
-        order: 2;
-      }
-    }
-  }
-}
 
-.aboutGraetzl {
-  .graetzl-events {
-    .wrp {
-      background-image: url(image_path('illu/illu-painter-straight@2x.png'));
-    }
-  }
-  .graetzl-initiative {
-    .wrp  {
-      background-image: url(image_path('illu/illu-flohmarkt-straight@2x.png'));
-    }
-  }
-  .graetzl-economy {
-    .wrp {
-      background-image: url(image_path('illu/illu-wirtschaft-straight@2x.png'));
-    }
-  }
-  .illuZuckerl {
-    background-image: url(image_path('graetzlzuckerl.png'));
-    background-size: 70% auto;
-    background-position: 30px 20px;
-    background-repeat: no-repeat;
-    height: 150px;
-  }
-}
 
-.banner-block {
-  overflow: hidden;
-  margin-bottom: 60px;
-  a {
-    display: block;
-    padding: 3px;
-    background-color: white;
-    border-radius: 8px;
-    border: 1px solid $color-ambient-grey-light;
-    margin-bottom: 20px;
-    @include respond-to(">=medium") {
-      margin-bottom: 0;
-      width: 48%;
-      float: left;
-    }
-    &:first-of-type {
-      @include respond-to(">=medium") {
-        margin-right: 4%;
-      }
-    }
-    img {
-      border-radius: 6px;
-      width: 100%;
-      display: block;
-    }
-  }
-}
 

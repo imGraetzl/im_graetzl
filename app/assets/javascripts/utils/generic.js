@@ -1,6 +1,29 @@
 APP.utils = (function() {
 
+    /**
+     * @return {boolean}
+     */
+    function URLcontains(find) {
+        return document.URL.indexOf(find) !== -1;
+    }
 
+    /**
+     * @return {boolean}
+     */
+    function URLendsWith(suffix) {
+        var str = document.URL;
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+
+    function isLoggedIn() {
+        return $(".mainNavHolder .notificationsTrigger").exists();
+    }
+
+    return {
+        URLcontains: URLcontains,
+        URLendsWith: URLendsWith,
+        isLoggedIn: isLoggedIn
+    }
 
 })();
 

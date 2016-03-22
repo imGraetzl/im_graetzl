@@ -292,6 +292,48 @@
   background-size: auto 170px;
 }
 
+// temp sponsorcard should come from DB, remove after proper implementation
+.sponsorstuwerviertel {
+  .cardBoxContent {
+
+    .txt {
+      float: left;
+      width: calc(100% - 130px);
+      p {
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+    .eks {
+      float: left;
+      display: block;
+      margin-right: 10px;
+    }
+    .wko {
+      display: block;
+      clear: both;
+    }
+  }
+}
+
+main > .sponsorstuwerviertel {
+  max-width: 320px;
+  margin: 70px auto 0 auto;
+  @include respond-to(">=large") {
+    @include cardBox-horizontal();
+    max-width: none;
+    width: 700px;
+    .cardBoxContent {
+      padding-top: 70px;
+    }
+    .sideflag {
+      right: -368px;
+    }
+  }
+}
 
 
 

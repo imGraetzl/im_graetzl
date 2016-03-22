@@ -2,7 +2,7 @@ APP.controllers.zuckerls = (function() {
 
     function init() {
         if($("section.masonryFilterGrid").exists()) initZuckerlsOverview();
-        APP.components.createzuckerl.init();
+        if($("section.createzuckerl").exists()) APP.components.createzuckerl.init();
     }
 
     function initZuckerlsOverview() {
