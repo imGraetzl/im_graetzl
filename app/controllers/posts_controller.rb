@@ -4,6 +4,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = @graetzl.posts.where(type: UserPost)
+      .includes(:graetzl, author: [:graetzl])
       .order(created_at: :desc).
       page(params[:page]).per(15)
   end
