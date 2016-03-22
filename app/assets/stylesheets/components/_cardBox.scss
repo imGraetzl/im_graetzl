@@ -80,7 +80,6 @@
   .updateteaser, .zuckerlteasertxt, .event-teaser-box {
     display: block;
     padding: 10px 15px;
-    margin-bottom: 20px;
     border-left-width: 1px;
     border-left-style: dotted;
     text-decoration: none;
@@ -102,14 +101,13 @@
       }
     }
     &:hover, &:active {
-      opacity: 0.95;
+      opacity: 0.90;
       cursor: pointer;
     }
   }
 
   .updateteaser {
     border-color: $color-font-primary;
-    background-color: $color-ambient-grey-light;
     color: $color-font-primary;
 
   }
@@ -125,6 +123,10 @@
     border-color: $color-ambient-mint-dark;
     background-color: $color-ambient-mint-light;
     color: $color-ambient-mint-dark;
+  }
+
+  [class*=teaser]+[class*=teaser] {
+
   }
 
 

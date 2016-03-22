@@ -46,10 +46,13 @@ section.graetzls {
   }
 }
 
-// ---------------------------------------------------------------------- blocks for logged in
+// ---------------------------------------------------------------------- blocks for logged categories
 
-.block-locations, .block-meetings {
+.block-locations, .block-meetings, .block-zuckerls, .block-ideas {
   margin-bottom: 60px;
+  @include respond-to(">=large") {
+    margin-bottom: 80px;
+  }
   .paperCard {
     margin-bottom: 10px;
     transform: translate(6px, 0);
@@ -60,6 +63,22 @@ section.graetzls {
   .paperCard {
     .wrp {
       background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
+    }
+  }
+}
+
+.block-zuckerls {
+  .paperCard {
+    .wrp {
+      background-image: url(image_path('illu/illu-zuckerl-transparent.png'));
+    }
+  }
+}
+
+.block-ideas {
+  .paperCard {
+    .wrp {
+      background-image: url(image_path('illu/illu-ideen-weissbg.png'));
     }
   }
 }
