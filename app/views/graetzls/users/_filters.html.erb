@@ -46,7 +46,7 @@
       <div class="icontxt">Neue Idee im Grätzl</div>
     <% end %>
     <% current_user.locations.approved.each do |location| %>
-      <%= link_to graetzl_location_path(location.graetzl, location) do %>
+      <%= link_to graetzl_location_path(location.graetzl, location, anchor: 'location-post-form') do %>
         <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
         <div class="icontxt">Neuigkeit meiner Location</div>
         <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
