@@ -1,12 +1,13 @@
 <% location = zuckerl.location %>
 <div class="cardBox">
   <div class="cardBoxHeader">
-    <%= link_to [location.graetzl, location] do %>
+    <%= link_to [location.graetzl, location, anchor: dom_id(zuckerl)] do %>
       <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
     <% end %>
     <div class="categoryicon">
       <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
     </div>
+    <%= graetzl_flag(location.graetzl) %>
   </div>
   <div class="cardBoxContent">
     <div class="location-shortfacts">
@@ -28,7 +29,7 @@
         <% end %>
       </div>
     </div>
-    <%= link_to [location.graetzl, location], class: 'zuckerlteasertxt' do %>
+    <%= link_to [location.graetzl, location, anchor: dom_id(zuckerl)], class: 'zuckerlteasertxt' do %>
       <div class="hl">
         <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
         Grätzlzuckerl im <%= zuckerl_month zuckerl %>

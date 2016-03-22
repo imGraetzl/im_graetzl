@@ -1,7 +1,7 @@
 <% location = location_post.author %>
 <div class="cardBox">
   <div class="cardBoxHeader">
-    <%= link_to [location.graetzl, location] do %>
+    <%= link_to [location.graetzl, location, anchor: dom_id(location_post)] do %>
       <% if image = location_post.images.first %>
         <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
       <% else %>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="txt">
-      <h3><%= link_to location_post.title, [location.graetzl, location] %></h3>
+      <h3><%= link_to location_post.title, [location.graetzl, location, anchor: dom_id(location_post)] %></h3>
       <p><%= truncate location_post.content, length: 100 %></p>
     </div>
     <%= render 'activities/appendix', appendix: appendix, parent: location_post if defined? appendix %>

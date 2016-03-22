@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get :graetzls, on: :member
     resources :locations, module: :districts, only: [:index]
     resources :meetings, path: :treffen, module: :districts, only: [:index]
-    resources :zuckerls, path: :graetzlzuckerl, module: :districts, only: [:index]
+    resources :zuckerls, path: :zuckerl, module: :districts, only: [:index]
   end
 
   ActiveAdmin.routes(self)
@@ -73,10 +73,10 @@ Rails.application.routes.draw do
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: :treffen, only: [:index, :show, :new]
     resources :locations, only: [:index, :show]
-    resources :zuckerls, only: [:index]
+    resources :zuckerls, path: :zuckerl, only: [:index]
     resources :users, only: [:show]
-    resources :posts, only: [:index]
-    resources :user_posts, only: [:new, :create, :show]
+    resources :posts, path: :ideen, only: [:index]
+    resources :user_posts, path: :ideen, only: [:new, :create, :show]
   end
 
   resources :going_tos, only: [:create, :destroy]

@@ -1,4 +1,4 @@
-<div class="cardBox -zuckerl">
+<%= div_for zuckerl, class: 'cardBox -zuckerl' do %>
   <div class="cardBoxHeader">
     <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
     <div class="categoryicon">
@@ -11,4 +11,4 @@
       <div class="description"><%= zuckerl.description %></div>
     </div>
   </div>
-</div>
+<% end %>

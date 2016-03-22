@@ -10,12 +10,12 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <h3>Starte ein Treffen, einen Workshop oder ein Event im <%= district.numeric %>. Bezirk</h3>
-      <%= link_to 'Jetzt loslegen', new_meeting_path, class: 'btn-primary' %>
+      <h3>Mit dem Grätzlzuckerl kannst Du Werbung für dein Angebot im <%= district.numeric %>. Bezirk schalten.</h3>
+      <%= link_to 'Mein Grätzlzuckerl', new_zuckerl_path, class: 'btn-primary' %>
     </div>
     <div class="card"></div>
   </div>
   <% if defined? view_all %>
-    <%= link_to 'Alle Treffen & Events', district_meetings_path(district), class: 'link-more' %>
+    <%= link_to 'Alle Angebote', district_zuckerls_path(district), class: 'link-more' %>
   <% end %>
 </div>

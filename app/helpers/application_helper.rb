@@ -25,4 +25,8 @@ module ApplicationHelper
   def active?(path)
     current_page?(path) ? 'active' : ''
   end
+
+  def graetzl_flag(graetzl)
+    content_tag(:div, link_to(graetzl.name, [graetzl]), class: 'sideflag -R') if controller_name == 'districts'
+  end
 end
