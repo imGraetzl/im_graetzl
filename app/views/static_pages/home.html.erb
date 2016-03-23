@@ -13,12 +13,12 @@
   <div class="buehne">
     <h1><span>Was ist los </span><span>in deinem Grätzl?</span></h1>
 
-    <a href="/users/registrierung" class="registerlink bigicontext-element">
+    <%= link_to new_registration_path, class: 'registerlink bigicontext-element' do %>
       <svg class="icon-login-signin">
         <use xlink:href="#icon-login-signin"></use>
       </svg>
       <div class="txt">Kostenlos <br/>registrieren</div>
-    </a>
+    <% end %>
 
     <div class="icons">
       <div class="singleicon meetings">
@@ -39,7 +39,6 @@
         </svg>
         <div class="txt">Anbieter & <br/>Local Makers</div>
       </div>
-
       <div class="singleicon initiatives">
         <svg class="icon-head-idea-lightbulb">
           <use xlink:href="#icon-head-idea-lightbulb"></use>
@@ -52,25 +51,31 @@
   <div class="meetings-block">
     <div class="hl-subtext">
       <h1>Entdecke — <span>Treffen, Aktionen &amp; gute Ideen</span> im Grätzl</h1>
-
       <p>Wunderbares ums Eck von Bewohnern, Kreativen, Initiativen &amp; grätzlansässigen UnternehmerInnen</p>
     </div>
     <div class="cardBoxCollection -tripple">
       <%= render @meetings %>
-      <div class="cardbox-wrp">
-        <div class="paperCard -illuteaser -cord1RT">
-          <div class="wrp">
-            <div class="user">
-              <%= image_tag('avatar/user/default.png', class: 'img-round') %>
-              <span>Dein Name</span>
-            </div>
-            <h3>Starte dein eigenes Treffen, trage ein<br>Event & Initatitive ein.</h3>
-            <%= link_to 'Jetzt loslegen', new_user_session_path, class: 'btn-primary -rose' %>
-          </div>
-          <div class="card"></div>
-        </div>
-        <%= link_to 'Alle Treffen', districts_path, class: 'link-more' %>
-      </div>
+      <%= render 'meetings/action_card' %>
+    </div>
+  </div>
+  <div class="locations-block">
+    <div class="hl-subtext">
+      <h1>Entdecke — <span>Anbieter &amp; Local Makers</span> im den Grätzln</h1>
+      <p>Finde grätzlansässige Lokal Makers, Sebstständige &amp; Kreative, Lokale &amp; Geschäfte</p>
+    </div>
+    <div class="cardBoxCollection -tripple">
+      <%= render @locations %>
+      <%= render 'locations/action_card' %>
+    </div>
+  </div>
+  <div class="zuckerls-block">
+    <div class="hl-subtext">
+      <h1>Jeden Monat Neu - <span>Zuckerln & Angebote</span></h1>
+      <p>Gutscheine & Rabattaktionen von Kreativen, Selbständigen, kleinen Unternehmen, Lokalen & Geschäften</p>
+    </div>
+    <div class="cardBoxCollection -tripple">
+      <%= render @zuckerls %>
+      <%= render 'zuckerls/action_card' %>
     </div>
   </div>
 

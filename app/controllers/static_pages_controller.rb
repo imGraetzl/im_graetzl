@@ -1,16 +1,12 @@
 class StaticPagesController < ApplicationController
 
   def home
-    if user_signed_in?
+    if current_user
       redirect_to current_user.graetzl
+    else
+      @meetings = Meeting.by_currentness.first(2)
+      @locations = Location.by_activity.to_a.first(2)
+      @zuckerls = Zuckerl.order("RANDOM()").first(2)
     end
-    @meetings = Meeting.upcoming.includes(:graetzl).order("RANDOM()").first(2)
   end
-
-  def meetingCreate
-  end
-
-  def homeOut
-  end
-
 end
