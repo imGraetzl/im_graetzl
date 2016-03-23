@@ -1,6 +1,5 @@
 class Notifications::NewUserPost < Notification
-
-  TRIGGER_KEY = 'post.create'
+  TRIGGER_KEY = 'user_post.create'
   BITMASK = 4
 
   def self.receivers(activity)

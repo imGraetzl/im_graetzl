@@ -1,6 +1,5 @@
 class Notifications::NewLocationPost < Notification
-
-  TRIGGER_KEY = 'post.create'
+  TRIGGER_KEY = 'location_post.create'
   BITMASK = 2
 
   def self.receivers(activity)
@@ -23,7 +22,7 @@ class Notifications::NewLocationPost < Notification
       owner_name: activity.trackable.author.name,
       owner_avatar_url: Notifications::AvatarService.new(activity.trackable.author).call,
       owner_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, DEFAULT_URL_OPTIONS),
-      post_url: graetzl_location_url(activity.trackable.graetzl, activity.trackable.author, DEFAULT_URL_OPTIONS),
+      post_url: graetzl_location_url(activity.trackable.graetzl, activity.trackable.author, anchor: dom_id(activity.trackable)),
     }
   end
 

@@ -1,5 +1,4 @@
 class Notifications::NewMeeting < Notification
-
   TRIGGER_KEY = 'meeting.create'
   BITMASK = 1
 

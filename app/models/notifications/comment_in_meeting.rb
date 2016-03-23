@@ -1,5 +1,4 @@
 class Notifications::CommentInMeeting < Notification
-
   TRIGGER_KEY = 'meeting.comment'
   BITMASK = 128
 

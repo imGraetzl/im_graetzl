@@ -3,7 +3,7 @@ class NotificationSettingsController < ApplicationController
 
   def toggle_website_notification
     type = params[:type]
-    unless Notification.types.include?(type)
+    unless valid_notification_type?(type)
       render body: "unrecognized type: #{type} in order to toggle website_notification", status: :forbidden
       return
     end
@@ -13,8 +13,8 @@ class NotificationSettingsController < ApplicationController
 
   def change_mail_notification
     type = params[:type]
-    unless Notification.types.include?(type)
-      render body: "unrecognized type: #{type} in order to toggle website_notification", status: :forbidden
+    unless valid_notification_type?(type)
+      render body: "unrecognized type: #{type} in order to change mail_notification", status: :forbidden
       return
     end
 
@@ -26,5 +26,11 @@ class NotificationSettingsController < ApplicationController
       current_user.enable_mail_notification(type.constantize, params[:interval].to_sym)
     end
     render json: :ok
+  end
+
+  private
+
+  def valid_notification_type?(type)
+    Notification.subclasses.map{|s| s.name}.include?(type)
   end
 end

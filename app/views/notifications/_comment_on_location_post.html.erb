@@ -1,11 +1,11 @@
-<%- meeting = notification.activity.trackable %>
+<%- post = notification.activity.trackable %>
 
 <%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }, class: 'notification-item') do %>
-  <%= link_to [meeting.graetzl, meeting] do %>
+  <%= link_to [post.graetzl, post.author, anchor: dom_id(post)] do %>
     <%= attachment_image_tag notification.activity.owner, :avatar, :fill, 40, 40, fallback: 'avatar/user/40x40.png', class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
-      <span class="username"><%= notification.activity.owner.username %></span> hat ein neues Treffen im Grätzl <span class="matter"><%= meeting.graetzl.name %></span> erstellt
+      <span class="username"><%= notification.activity.owner.username %></span> hat deinen Beitrag von <span class="matter"><%= post.author.name %></span> kommentiert
     </div>
   <% end %>
 <% end %>

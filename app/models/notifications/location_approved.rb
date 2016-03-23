@@ -1,5 +1,4 @@
 class Notifications::LocationApproved < Notification
-
   TRIGGER_KEY = 'location.approve'
   BITMASK = 2048
 

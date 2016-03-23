@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Notifications::CommentInUsersMeeting, type: :model do
-
   describe '.triggered_by?(activity)' do
-    let(:activity) { build_stubbed(:activity, key: 'meeting.comment') }
-    let(:other_activity) { build_stubbed(:activity, key: 'meeting.create') }
+    let(:activity) { build :activity, key: 'meeting.comment' }
+    let(:other_activity) { build :activity, key: 'meeting.create' }
 
     it 'returns true if activity.key matches TRIGGER_KEY' do
       expect(Notifications::CommentInUsersMeeting.triggered_by?(activity)).to eq true
@@ -16,13 +15,13 @@ RSpec.describe Notifications::CommentInUsersMeeting, type: :model do
   end
 
   describe '.receivers(activity)' do
-    let!(:meeting) { create(:meeting) }
-    let!(:user) { create(:user) }
-    let!(:activity) { create(:activity, trackable: meeting) }
+    let!(:meeting) { create :meeting }
+    let!(:user) { create :user }
+    let!(:activity) { create :activity, trackable: meeting }
 
     before do
-      create(:going_to, user: user, meeting: meeting, role: GoingTo::roles[:initiator])
-      create_list(:going_to, 5, meeting: meeting, role: GoingTo::roles[:attendee])
+      create(:going_to, :initiator, user: user, meeting: meeting)
+      create_list(:going_to, 5, :attendee, meeting: meeting)
     end
 
     subject(:receivers) { Notifications::CommentInUsersMeeting.receivers(activity) }
@@ -33,9 +32,9 @@ RSpec.describe Notifications::CommentInUsersMeeting, type: :model do
   end
 
   describe '.condition(activity)' do
-    let!(:meeting) { create(:meeting) }
-    let!(:user) { create(:user) }
-    let!(:activity) { create(:activity, trackable: meeting, owner: user) }
+    let!(:meeting) { create :meeting }
+    let!(:user) { create :user }
+    let!(:activity) { create :activity, trackable: meeting, owner: user }
 
     subject(:condition) { Notifications::CommentInUsersMeeting.condition activity }
 

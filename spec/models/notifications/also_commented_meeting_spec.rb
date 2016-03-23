@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Notifications::AlsoCommentedMeeting, type: :model do
 
   it 'has a valid factory' do
-    expect(build_stubbed(:notification_also_commented_meeting)).to be_valid
+    expect(build :notification_also_commented_meeting).to be_valid
   end
 
   describe '.triggered_by?(activity)' do
-    let(:activity) { build_stubbed(:activity, key: 'meeting.comment') }
-    let(:other_activity) { build_stubbed(:activity, key: 'meeting.create') }
+    let(:activity) { build_stubbed :activity, key: 'meeting.comment' }
+    let(:other_activity) { build_stubbed :activity, key: 'meeting.create' }
 
     it 'returns true if activity.key matches TRIGGER_KEY' do
       expect(Notifications::AlsoCommentedMeeting.triggered_by?(activity)).to eq true
@@ -20,9 +20,9 @@ RSpec.describe Notifications::AlsoCommentedMeeting, type: :model do
   end
 
   describe '.receivers(activity)' do
-    let!(:meeting) { create(:meeting) }
-    let!(:users) { create_list(:user, 5) }
-    let!(:owner) { create(:user) }
+    let!(:meeting) { create :meeting }
+    let!(:users) { create_list :user, 5 }
+    let!(:owner) { create :user }
     let!(:activity) { create(:activity, trackable: meeting, owner: owner) }
 
     before do
@@ -33,11 +33,11 @@ RSpec.describe Notifications::AlsoCommentedMeeting, type: :model do
     subject(:receivers) { Notifications::AlsoCommentedMeeting.receivers(activity) }
 
     it 'returns all previous commenters' do
-      expect(receivers.map(&:id)).to match_array(users.map(&:id))
+      expect(receivers).to match_array users
     end
 
     it 'excludes owner of activity' do
-      expect(receivers.map(&:id)).not_to include(owner.id)
+      expect(receivers).not_to include owner
     end
   end
 
@@ -54,11 +54,7 @@ RSpec.describe Notifications::AlsoCommentedMeeting, type: :model do
   describe '#mail_vars' do
     let(:activity) { build_stubbed(:activity, trackable: build_stubbed(:meeting), owner: build_stubbed(:user)) }
     let(:notification) { build_stubbed(:notification_also_commented_meeting, activity: activity) }
-
-    it 'implements #mail_vars' do
-      expect(notification).to respond_to :mail_vars
-    end
-
+    
     it 'contains owner and meeting vars' do
       expect(notification.mail_vars.keys).to include(:owner_name,
                                                       :owner_url,

@@ -2,7 +2,7 @@
 
 <%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to [location.graetzl, location] do %>
-    <%= avatar_for location, fill: [40,40], class: 'img-square' %>
+    <%= attachment_image_tag location, :avatar, :fill, 40, 40, fallback: 'avatar/location/40x40.png', class: 'img-square' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       Deine Location <span class="matter"><%= location.name %></span> wurde freigeschalten

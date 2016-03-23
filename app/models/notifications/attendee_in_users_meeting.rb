@@ -1,5 +1,4 @@
 class Notifications::AttendeeInUsersMeeting < Notification
-
   TRIGGER_KEY = 'meeting.go_to'
   BITMASK = 512
 

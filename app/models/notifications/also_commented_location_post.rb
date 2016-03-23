@@ -1,5 +1,5 @@
-class Notifications::AlsoCommentedMeeting < Notification
-  TRIGGER_KEY = 'meeting.comment'
+class Notifications::AlsoCommentedLocationPost < Notification
+  TRIGGER_KEY = 'location_post.comment'
   BITMASK = 64
 
   def self.receivers(activity)
@@ -12,9 +12,9 @@ class Notifications::AlsoCommentedMeeting < Notification
 
   def mail_vars
     {
-      meeting_name: activity.trackable.name,
-      meeting_url: graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS),
-      comment_url: graetzl_meeting_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS),
+      post_title: activity.trackable.title,
+      post_url: graetzl_location_url(activity.trackable.graetzl, activity.trackable.author, anchor: dom_id(activity.trackable)),
+      comment_url: graetzl_location_url(activity.trackable.graetzl, activity.trackable.author, anchor: dom_id(activity.trackable)),
       comment_content: activity.recipient.content.truncate(300, separator: ' '),
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),
@@ -23,6 +23,6 @@ class Notifications::AlsoCommentedMeeting < Notification
   end
 
   def mail_subject
-    'Neue Antwort bei einem Treffen'
+    'Neue Antwort bei Beitrag'
   end
 end
