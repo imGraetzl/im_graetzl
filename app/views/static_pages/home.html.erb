@@ -11,24 +11,42 @@
 
 <section class="homeOut">
   <div class="buehne">
-    <h1><span>Was ist los im Grätzl?</span><span>Treffen, Aktionen & schöne Ideen</span></h1>
+    <h1><span>Was ist los </span><span>in deinem Grätzl?</span></h1>
 
-    <div class="illu1"></div>
-    <div class="illuMap"></div>
-    <%= link_to 'Jetzt kostenlos registrieren', new_registration_path, class: 'btn-primary -mint -large -shadow' %>
-
+    <a href="/users/registrierung" class="registerlink bigicontext-element">
+      <svg class="icon-login-signin">
+        <use xlink:href="#icon-login-signin"></use>
+      </svg>
+      <div class="txt">Kostenlos <br/>registrieren</div>
+    </a>
 
     <div class="icons">
-
-      <div class="singleicon">
+      <div class="singleicon meetings">
         <svg class="icon-calendar-2">
           <use xlink:href="#icon-calendar-2"></use>
         </svg>
         <div class="txt">Treffen & <br/>Events</div>
       </div>
+      <div class="singleicon candies">
+        <svg class="icon-shopping-bag">
+          <use xlink:href="#icon-shopping-bag"></use>
+        </svg>
+        <div class="txt">Zuckerl & <br/>Gutscheine</div>
+      </div>
+      <div class="singleicon makers">
+        <svg class="icon-location">
+          <use xlink:href="#icon-location"></use>
+        </svg>
+        <div class="txt">Anbieter & <br/>Local Makers</div>
+      </div>
 
+      <div class="singleicon initiatives">
+        <svg class="icon-head-idea-lightbulb">
+          <use xlink:href="#icon-head-idea-lightbulb"></use>
+        </svg>
+        <div class="txt">Initiativen, <br/>Wünsche & Ideen</div>
+      </div>
     </div>
-
   </div>
 
   <div class="meetings-block">
@@ -72,29 +90,33 @@
       <div class="resident-block">
         <h4>Für <span>Bewohner</span></h4>
         <div class="txt">
-          <p>Die spannenden Dinge liegen oft gleich ums Eck! Bei imGrätzl findest du die besonderen Geschäfte,
-            Dienstleister & Kreative, dazu aktuelle Aktionen, Veranstaltungen und Initiativen in deinem Viertel.
-            Melde dich bei imGrätzl an und bleibe auf dem Laufenden!</p>
+          <p>Die spannenden Dinge liegen oft gleich ums Eck! Entdecke lokale Angebote, Ideen fürs Grätzl, besondere
+            Geschäfte und tolle DienstleisterInnen, dazu aktuelle Aktionen und Veranstaltungen in deinem Stadtteil.
+            Werde selber aktiv und belebe mit deinen Ideen dein Grätzl. Melde dich bei imGrätzl.at an und bleib auf dem
+            Laufenden, was ums Eck geplant ist!</p>
         </div>
       </div>
 
       <div class="maker-block">
         <h4>Für <span>Local Makers</span></h4>
         <div class="txt">
-          <p>Du hast ein Geschäft, eine Dienstleistung, ein kreatives Projekt, eine Veranstaltung, einen Pop-up Store,
-            oder übst ein Handwerk aus? Dich wollen wir sichtbar machen!</p>
-          <p>Richte dir deine eigene Seite ein und veröffentliche deine Neuigkeiten, Veranstaltungen & Aktionen. Damit
-            erfahren die Bewohner, was es Besonderes bei dir gibt. We love local! </p>
+          <p>Du hast ein Geschäft, bietest eine Dienstleistung an, oder arbeitest an einem kreativen Projekt? Du planst
+            eine Veranstaltung, Workshop, oder übst ein Handwerk aus? Dich wollen wir sichtbar machen und dich mit den
+            BewohnerInnen in deinem Einzugsgebiet vernetzen.</p>
+          <p>Richte dir deine eigene kostenlose Seite ein und veröffentliche dort deine Neuigkeiten und Veranstaltungen.
+            Deine Angebote und Gutscheine kannst du als Grätzlzuckerl sichtbar machen.</p>
         </div>
       </div>
 
       <div class="shaper-block">
         <h4>Für <span>Grätzlgestalter</span></h4>
         <div class="txt">
-          <p>Du bist in deinem Stadtteil aktiv? Dann richte dir für deine Initiative eine Seite ein und mache deine
-            Aktionen & Ideen sichtbar, finde darüber Gleichgesinnte und Unterstützer.</p>
-          <p>Du möchtest dich gerne in deinem Stadtteil stärker vernetzen, dann werde ein Botschafter für dein Grätzl
-            und melde dich bei uns.</p>
+          <p>Du bist in deinem Stadtteil bereits belebend aktiv? Dann ist die Grätzlmarie etwas für dich. Die
+            Grätzlmarie ist ins Leben gerufen worden, um Aktive und Initiaitiven, die das Grätzl beleben, finanziell
+            unter die Arme zu greifen. Zur Grätzlmarie. Außerdem bekommst du für deine Ideen in deinem Stadtteil
+            Sichtbarkeit und kannst Gleichgesinnte zur Umsetzung deiner Aktionen finden.</p>
+          <p>Du möchtest dich gerne in deinem Stadtteil stärker verankern, dann werde eine GrätzlbotschafterIn für dein
+            Grätzl und melde dich bei uns.</p>
         </div>
       </div>
 

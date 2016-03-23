@@ -20,8 +20,7 @@ section.homeOut {
   background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
   background-repeat: no-repeat;
   background-size: 270px auto, 700px auto;
-  background-position: 15% 125px, center center;
-  min-height: 400px;
+  background-position: center 75px, -140px -90px;
   position: relative;
   @include respond-to("<medium") {
     margin-left: -18px;
@@ -31,16 +30,16 @@ section.homeOut {
   }
 
   @include respond-to(">=medium") {
-    min-height: 530px;
-    background-size: 400px auto, 800px auto;
-    background-position: 10% 180px, center center;
+    background-size: 400px auto, 1010px auto;
+    background-position: 40px 75px, -140px -150px;
+    margin-bottom: 40px;
   }
   @include respond-to(">=large") {
     background-size: 507px auto, 936px auto;
-    background-position: 10px 168px, 110px 29px;
-    min-height: 580px;
-    margin-top: 10.0rem;
-    margin-bottom: 3.0rem;
+    background-position: 10px 88px, 90px -31px;
+    min-height: 560px;
+    margin-top: -8.0rem;
+    margin-bottom: 4.0rem;
   }
 
   h1 {
@@ -56,36 +55,120 @@ section.homeOut {
     }
 
     @include respond-to(">=medium") {
-      text-align: left;
-      max-width: none;
-      margin-left: 18%;
+      transform: translate(80px, 0);
     }
     @include respond-to(">=large") {
-      margin-left: 310px;
+      position: absolute;
+      left: 340px;
+      top: 100px;
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
     }
 
     span {
-      display: table;
       @include respond-to(">=medium") {
+        display: table;
         @include headlineBarbapapa();
       }
     }
-    span:nth-child(2) {
+    span:first-child {
       @include respond-to(">=medium") {
-        margin-left: 50px;
-        margin-top: 5px;
+        margin-left: 35px;
+        margin-bottom: 5px;
       }
     }
 
   }
 
-  .btn-primary {
-    display: table;
-    margin-top: 40px;
+
+  .registerlink {
+    position: relative;
+    height: 90px;
+    background-size: 90px 90px;
+    display: inline-flex;
+    left: 50%;
+    width: 230px;
+    transform: translate(-50%, 0);
+    margin-top: 180px;
+    margin-bottom: 40px;
+    @include respond-to(">=medium") {
+      transform: translate(0, 0);
+      left: 360px;
+      position: absolute;
+      top: 190px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    @include respond-to(">=large") {
+      position: absolute;
+      top: 310px;
+      left: auto;
+      right: 160px;
+      margin-bottom: 0;
+    }
+    [class^=icon-] {
+      fill: white;
+      position: relative;
+      z-index: 2;
+      width: 65px;
+      height: 65px;
+      margin-left: 9px;
+    }
+    .txt {
+      color: $color-ambient-rosa;
+      font-size: 30px;
+      line-height: 1;
+      margin-left: 26px;
+    }
+    &::after {
+      content: '';
+      width: 75px;
+      height: 75px;
+      top: 8px;
+      left: 7px;
+      position: absolute;
+      border-radius: 50%;
+      z-index: 1;
+      background-image: url(image_path('texture-alpha-noise.png'));
+      background-color: $color-ambient-rosa;
+    }
+    &:hover {
+      .txt {
+        color: $color-ambient-mint;
+      }
+      &::after {
+        background-color: $color-ambient-mint;
+      }
+    }
+
+    @include respond-to(">=medium") {
+      &::before {
+        content: '';
+        width: 80px;
+        height: 80px;
+        background-size: 80px 80px;
+        background-image: url(image_path('svg/arrow-dashed-bend2.svg'));
+        background-repeat: no-repeat;
+        position: absolute;
+        bottom: -70px;
+        left: 51px;
+        transform: rotate(-65deg);
+      }
+    }
   }
 
   .icons {
-    border: solid 1px blue;
+    overflow: hidden;
+    @include respond-to(">=medium") {
+      margin-top: 175px;
+      .candies { margin-top: 60px; }
+      .makers { margin-top: 48px; }
+      .initiatives { margin-top: 11px; }
+    }
+    @include respond-to(">=large") {
+      margin-top: 365px;
+    }
   }
 
   .singleicon {
@@ -93,11 +176,17 @@ section.homeOut {
     color: $color-ambient-mint-dark;
     position: relative;
     width: 100px;
+    float: left;
+    margin-right: 30px;
+    display: none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
     &::before {
       content: '';
-      width: 70px;
-      height: 70px;
-      background-size: 70px 70px;
+      width: 65px;
+      height: 65px;
+      background-size: 65px 65px;
       margin: 0 auto;
       display: block;
       background-image: url(image_path('svg/kringel-mint-solid.svg'));
@@ -105,10 +194,10 @@ section.homeOut {
     }
     [class^=icon-] {
       position: absolute;
-      top: 9px;
-      left: 25px;
-      width: 50px;
-      height: 50px;
+      top: 8px;
+      left: 28px;
+      width: 45px;
+      height: 45px;
     }
     .txt {
       font-family: $font-secondary;
@@ -116,8 +205,11 @@ section.homeOut {
       line-height: 1.2;
     }
 
-
   }
+
+
+
+
 
 
 }
@@ -139,14 +231,17 @@ section.homeOut {
     border: 1px solid #f0f0f0;
     background-color: #ffffff;
     border-radius: 8px;
+    margin-bottom: 30px;
     @include respond-to(">=large") {
       margin-right: -25px;
       margin-left: -25px;
       display: flex;
     }
     > [class*=-block] {
-      padding: 140px 20px 20px 20px;
+      background-repeat: no-repeat;
+      padding: 200px 20px 20px 20px;
       border-right: 1px dotted #f0f0f0;
+      background-position: center 20px;
       @include respond-to(">=large") {
         flex-basis: 33.33%;
       }
@@ -157,7 +252,32 @@ section.homeOut {
     .txt p:not(:last-child){
       margin-bottom: 15px;
     }
+
+
+    .resident-block {
+      background-image: url(image_path('illu/biker-plain.jpg'));
+      background-size: 240px auto;
+      @include respond-to(">=large") {
+        background-position: 40px 23px;
+      }
+    }
+    .maker-block {
+      background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
+      background-size: 181px auto;
+      @include respond-to(">=large") {
+        background-position: 60px 10px;
+      }
+    }
+    .shaper-block {
+      background-image: url(image_path('illu/illu-ideen-weissbg.png'));
+      background-size: 180px auto;
+      @include respond-to(">=large") {
+        background-position: 50px 38px;
+      }
+    }
   }
+
+
 
 
 
