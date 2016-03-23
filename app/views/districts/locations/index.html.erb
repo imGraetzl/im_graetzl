@@ -15,7 +15,7 @@
   <% end %>
   <h1 class="hl-main">Treffpunkte & Anbieter, Lokale & Geschäfte <span>im <%= @district.numeric %>. Bezirk</span></h1>
   <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
-    <%= render 'action_card', district: @district %>
+    <%= render 'locations/action_card', district: @district %>
     <%= render partial: 'locations/location', collection: @locations %>
   </div>
   <%= view_more_link @locations, style: :big %>
