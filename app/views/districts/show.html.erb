@@ -20,7 +20,7 @@
     </div>
     <div class="cardBoxCollection -tripple">
       <%= render @meetings %>
-      <%= render 'districts/meetings/action_card', district: @district, view_all: true %>
+      <%= render 'meetings/action_card', district: @district, view_all: true %>
     </div>
   </div>
   <div class="block-locations">
@@ -30,7 +30,7 @@
     </div>
     <div class="cardBoxCollection -tripple">
       <%= render @locations %>
-      <%= render 'districts/locations/action_card', district: @district, view_all: true %>
+      <%= render 'locations/action_card', district: @district, view_all: true %>
     </div>
   </div>
   <div class="block-zuckerls">
@@ -40,7 +40,7 @@
     </div>
     <div class="cardBoxCollection -tripple">
       <%= render @zuckerls %>
-      <%= render 'districts/zuckerls/action_card', district: @district, view_all: true %>
+      <%= render 'zuckerls/action_card', district: @district, view_all: true %>
     </div>
   </div>
 </section>

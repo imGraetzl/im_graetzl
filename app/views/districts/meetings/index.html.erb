@@ -16,7 +16,7 @@
   <div class="meeting-block">
     <h1 class="hl-main">Treffen, Events & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span></h1>
     <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
-      <%= render 'action_card', district: @district %>
+      <%= render 'meetings/action_card', district: @district %>
       <%= render partial: 'meetings/meeting', collection: @meetings %>
     </div>
     <%= view_more_link @meetings, style: :big %>

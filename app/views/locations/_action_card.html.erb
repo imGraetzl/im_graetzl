@@ -2,13 +2,30 @@
   <div class="paperCard -cord1RT -illuteaser">
     <div class="wrp">
       <div class="user">
-        <%= image_tag('avatar/user/default.png', class: 'img-round') %>
-        <span>Dein Name</span>
+        <% if current_user %>
+          <%= attachment_image_tag current_user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+          <span><%= current_user.username %></span>
+        <% else %>
+          <%= image_tag('avatar/user/default.png', class: 'img-round') %>
+          <span>Dein Name</span>
+        <% end %>
       </div>
-      <h3>Du bist unternehmerisch oder kreativ im Grätzl <%= graetzl.name %> tätig?</h3>
-      <%= link_to 'Deine Location einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
+      <% if defined? graetzl %>
+        <h3>Du bist unternehmerisch oder kreativ im Grätzl <%= graetzl.name %> tätig?</h3>
+        <%= link_to 'Deine Location einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
+      <% elsif defined? district %>
+        <h3>Du bist unternehmerisch oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
+        <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
+      <% else %>
+        <h3>Du bist ein "Local Maker" bzw. unternehmerisch oder kreativ im Grätzl tätig?</h3>
+        <%= link_to 'Deine Location Eintragen', new_user_session_path, class: 'btn-primary -rose' %>
+      <% end %>
     </div>
     <div class="card"></div>
   </div>
-  <%= link_to 'Alle Treffpunkte & Anbieter', graetzl_locations_path(graetzl), class: 'link-more' %>
+  <% if defined? view_all %>
+    <%= link_to 'Alle Treffpunkte & Anbieter', district_locations_path(district), class: 'link-more' %>
+  <% elsif defined? graetzl %>
+    <%= link_to 'Alle Treffpunkte & Anbieter', graetzl_locations_path(graetzl), class: 'link-more' %>
+  <% end %>
 </div>
