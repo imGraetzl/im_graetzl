@@ -1,5 +1,4 @@
 class Notifications::MeetingCancelled < Notification
-
   TRIGGER_KEY = 'meeting.cancel'
   BITMASK = 256
 

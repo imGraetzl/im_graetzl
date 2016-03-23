@@ -1,5 +1,4 @@
 class Notifications::MeetingUpdated < Notification
-
   TRIGGER_KEY = 'meeting.update'
   BITMASK = 8
 

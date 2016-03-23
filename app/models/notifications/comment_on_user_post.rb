@@ -1,14 +1,17 @@
-class Notifications::AlsoCommentedPost < Notification
-
-  TRIGGER_KEY = 'post.comment'
-  BITMASK = 64
+class Notifications::CommentOnUserPost < Notification
+  TRIGGER_KEY = 'user_post.comment'
+  BITMASK = 32
 
   def self.receivers(activity)
-    User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id])
+    User.where(id: activity.trackable.author_id)
+  end
+
+  def self.condition(activity)
+    activity.trackable.author_type == 'User' && activity.trackable.author.present? && activity.trackable.author_id != activity.owner_id
   end
 
   def self.description
-    'Es gibt neue Antworten auf Inhalte die ich auch kommentiert habe'
+    'Mein erstellter Beitrag wurde kommentiert'
   end
 
   def mail_vars
@@ -24,6 +27,6 @@ class Notifications::AlsoCommentedPost < Notification
   end
 
   def mail_subject
-    'Neue Antwort bei Beitrag'
+    'Neuer Kommentar auf deinen Beitrag'
   end
 end

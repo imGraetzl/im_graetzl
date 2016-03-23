@@ -1,6 +1,5 @@
-class Notifications::CommentOnLocationsPost < Notification
-
-  TRIGGER_KEY = 'post.comment'
+class Notifications::CommentOnLocationPost < Notification
+  TRIGGER_KEY = 'location_post.comment'
   BITMASK = 32
 
   def self.receivers(activity)
@@ -18,8 +17,8 @@ class Notifications::CommentOnLocationsPost < Notification
   def mail_vars
     {
       post_title: activity.trackable.title,
-      post_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, DEFAULT_URL_OPTIONS),
-      comment_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, DEFAULT_URL_OPTIONS),
+      post_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, anchor: dom_id(activity.trackable)),
+      comment_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, anchor: dom_id(activity.trackable)),
       comment_content: activity.recipient.content.truncate(300, separator: ' '),
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),

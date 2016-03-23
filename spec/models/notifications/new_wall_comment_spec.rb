@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Notifications::NewWallComment, type: :model do
-
   describe '.triggered_by?(activity)' do
-    let(:activity) { build_stubbed(:activity, key: 'user.comment') }
-    let(:other_activity) { build_stubbed(:activity, key: 'user.create') }
+    let(:activity) { build :activity, key: 'user.comment' }
+    let(:other_activity) { build :activity, key: 'user.create' }
 
     it 'returns true if activity.key matches TRIGGER_KEY' do
       expect(Notifications::NewWallComment.triggered_by?(activity)).to eq true
@@ -18,18 +17,18 @@ RSpec.describe Notifications::NewWallComment, type: :model do
   describe '.receivers(activity)' do
     let!(:user) { create :user }
     let!(:commenter) { create :user }
-    let!(:comment) { create(:comment, user: commenter, commentable: user) }
-    let!(:activity) { create(:activity, trackable: user, owner: commenter, recipient: comment) }
+    let!(:comment) { create :comment, user: commenter, commentable: user }
+    let!(:activity) { create :activity, trackable: user, owner: commenter, recipient: comment }
 
-    subject(:receivers) { Notifications::NewWallComment.receivers(activity) }
+    subject(:receivers) { Notifications::NewWallComment.receivers activity }
 
     it 'returns all wall user' do
-      expect(receivers.to_a).to match_array [user]
+      expect(receivers).to match_array [user]
     end
   end
 
   describe '.condition(activity)' do
-    let(:activity) { build_stubbed(:activity, owner: create(:user), recipient: create(:user)) }
+    let(:activity) { build :activity, owner: build(:user), recipient: build(:user) }
 
     subject(:condition) { Notifications::NewWallComment.condition activity }
 

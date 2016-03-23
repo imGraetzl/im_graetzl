@@ -1,23 +1,18 @@
-class Notifications::CommentOnUsersPost < Notification
-
-  TRIGGER_KEY = 'post.comment'
-  BITMASK = 32
+class Notifications::AlsoCommentedUserPost < Notification
+  TRIGGER_KEY = 'user_post.comment'
+  BITMASK = 64
 
   def self.receivers(activity)
-    User.where(id: activity.trackable.author_id)
-  end
-
-  def self.condition(activity)
-    activity.trackable.author_type == 'User' && activity.trackable.author.present? && activity.trackable.author_id != activity.owner_id
+    User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id])
   end
 
   def self.description
-    'Mein erstellter Beitrag wurde kommentiert'
+    'Es gibt neue Antworten auf Inhalte die ich auch kommentiert habe'
   end
 
   def mail_vars
     {
-      post_title: activity.trackable.content.truncate(50, separator: ' '),
+      post_title: activity.trackable.title,
       post_url: graetzl_post_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS),
       comment_url: graetzl_post_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS),
       comment_content: activity.recipient.content.truncate(300, separator: ' '),
@@ -28,6 +23,6 @@ class Notifications::CommentOnUsersPost < Notification
   end
 
   def mail_subject
-    'Neuer Kommentar auf deinen Beitrag'
+    'Neue Antwort bei Beitrag'
   end
 end

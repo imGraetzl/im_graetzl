@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Notifications::AttendeeInUsersMeeting, type: :model do
 
   describe '.triggered_by?(activity)' do
-    let(:activity) { build_stubbed(:activity, key: 'meeting.go_to') }
-    let(:other_activity) { build_stubbed(:activity, key: 'meeting.create') }
+    let(:activity) { build :activity, key: 'meeting.go_to' }
+    let(:other_activity) { build :activity, key: 'meeting.create' }
 
     it 'returns true if activity.key matches TRIGGER_KEY' do
       expect(Notifications::AttendeeInUsersMeeting.triggered_by?(activity)).to eq true
@@ -21,7 +21,7 @@ RSpec.describe Notifications::AttendeeInUsersMeeting, type: :model do
     let!(:user) { create :user }
     let!(:activity) { create(:activity, trackable: meeting, owner: user) }
 
-    before { create(:going_to, user: initiator, meeting: meeting, role: GoingTo::roles[:initiator]) }
+    before { create(:going_to, :initiator, meeting: meeting, user: initiator) }
 
     subject(:receivers) { Notifications::AttendeeInUsersMeeting.receivers(activity) }
 
@@ -39,7 +39,7 @@ RSpec.describe Notifications::AttendeeInUsersMeeting, type: :model do
     subject(:condition) { Notifications::AttendeeInUsersMeeting.condition activity }
 
     it 'returns false if user initiator' do
-      create(:going_to, user: initiator, meeting: meeting, role: GoingTo::roles[:initiator])
+      create(:going_to, :initiator, user: initiator, meeting: meeting)
       allow(activity).to receive(:owner_id) { initiator.id }
       expect(condition).to eq false
     end

@@ -36,10 +36,10 @@
     </div>
   </div>
 
-  <%= render 'notification_settings/slice', type: Notifications::AlsoCommentedPost %>
+  <%= render 'notification_settings/slice', type: Notifications::AlsoCommentedLocationPost %>
   <%= render 'notification_settings/slice', type: Notifications::AttendeeInUsersMeeting %>
   <%= render 'notification_settings/slice', type: Notifications::CommentInUsersMeeting %>
-  <%= render 'notification_settings/slice', type: Notifications::CommentOnLocationsPost %>
-  <%= render 'notification_settings/slice', type: Notifications::CommentOnUsersPost %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentOnLocationPost %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentOnUserPost %>
   <%= render 'notification_settings/slice', type: Notifications::NewWallComment %>
 </div>

@@ -1,5 +1,4 @@
 class Notifications::NewWallComment < Notification
-
   TRIGGER_KEY = 'user.comment'
   BITMASK = 1024
 

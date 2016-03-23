@@ -6,20 +6,24 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :activity
 
-  def self.types
-    self.subclasses.map{|s| s.name}
-  end
-
   def self.receive_new_activity(activity)
     CreateNotificationsJob.perform_later activity
   end
 
-  def self.triggered_by?(activity)
-    activity.key == self::TRIGGER_KEY
+  def self.receivers(activity)
+    raise NotImplementedError, "receivers method not implemented for #{self.class}"
+  end
+
+  def self.description(activity)
+    raise NotImplementedError, "description method not implemented for #{self.class}"
   end
 
   def self.condition(activity)
     true
+  end
+
+  def self.triggered_by?(activity)
+    activity.key == self::TRIGGER_KEY
   end
 
   def self.dasherized
@@ -55,7 +59,7 @@ class Notification < ActiveRecord::Base
   end
 
   def mail_template
-    "staging-notification-#{type.demodulize.underscore.dasherize}"
+    "notification-#{type.demodulize.underscore.dasherize}"
   end
 
   def basic_mail_vars
@@ -63,5 +67,13 @@ class Notification < ActiveRecord::Base
       { name: "graetzl_name", content: activity.trackable.graetzl.name },
       { name: "graetzl_url", content: graetzl_url(activity.trackable.graetzl, DEFAULT_URL_OPTIONS) },
     ]
+  end
+
+  def mail_vars
+    raise NotImplementedError, "mail_vars method not implemented for #{self.class}"
+  end
+
+  def mail_subject
+    raise NotImplementedError, "mail_subject method not implemented for #{self.class}"
   end
 end
