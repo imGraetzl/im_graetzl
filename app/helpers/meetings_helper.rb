@@ -1,4 +1,7 @@
 module MeetingsHelper
+  def meeting_past_flag(meeting)
+    meeting.try(:starts_at_date).try(:past?) ? '-past' : ''
+  end
 
   def address_value(address)
     if address.street_name.blank?
@@ -29,10 +32,10 @@ module MeetingsHelper
       address.description
     elsif address.street_name
      "#{address.street_name} #{address.street_number}"
-    end    
+    end
   end
 
   def disable_fields
-    disable_fields ||= false    
-  end  
+    disable_fields ||= false
+  end
 end

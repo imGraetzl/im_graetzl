@@ -1,4 +1,4 @@
-<div class="cardBox -meeting">
+<div class="cardBox -meeting <%= meeting_past_flag(meeting) %>">
   <div class="cardBoxHeader">
     <%= link_to [meeting.graetzl, meeting] do %>
       <%= attachment_image_tag(meeting, :cover_photo, :fill, 300, 180, fallback: 'cover_photo/300x180.png', class: 'coverImg') %>
