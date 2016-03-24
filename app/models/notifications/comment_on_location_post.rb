@@ -17,8 +17,8 @@ class Notifications::CommentOnLocationPost < Notification
   def mail_vars
     {
       post_title: activity.trackable.title,
-      post_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, anchor: dom_id(activity.trackable)),
-      comment_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, anchor: dom_id(activity.trackable)),
+      post_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, anchor: ApplicationController.helpers.dom_id(activity.trackable)),
+      comment_url: graetzl_location_url(activity.trackable.author.graetzl, activity.trackable.author, anchor: ApplicationController.helpers.dom_id(activity.trackable)),
       comment_content: activity.recipient.content.truncate(300, separator: ' '),
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),

@@ -21,7 +21,7 @@ class Notifications::NewUserPost < Notification
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),
       owner_avatar_url: Notifications::AvatarService.new(activity.trackable.author).call,
-      post_url: graetzl_post_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS)
+      post_url: graetzl_user_post_url(activity.trackable.graetzl, activity.trackable, DEFAULT_URL_OPTIONS)
     }
   end
 
