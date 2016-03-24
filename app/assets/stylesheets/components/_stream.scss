@@ -486,13 +486,21 @@ section.justEntry {
     }
   }
   .theEntry {
-    padding-left: 90px;
-    padding-right: 30px;
+    @include respond-to(">=medium") {
+      padding-right: 30px;
+      padding-left: 90px;
+    }
+    .title {
+      @include font-size-secondaryFont('base');
+      font-family: $font-secondary;
+      color: $color-ambient-mint-dark;
+      margin-bottom: 10px;
+    }
     .postImgs {
       margin-bottom: 20px;
     }
     .txt {
-      @include font-size-primaryFont('large');
+      @include font-size-primaryFont('base');
       margin-bottom: 20px;
     }
     .btn-destroy {

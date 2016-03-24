@@ -1,9 +1,9 @@
 <%
-  meta({
-    title: @post.title,
-    robots: 'noindex, follow',
-    og_title: @post.title
-  })
+   meta({
+          title: @post.title,
+          robots: 'noindex, follow',
+          og_title: @post.title
+        })
 %>
 
 <section class="justEntry">
@@ -17,7 +17,7 @@
     </span>
   </div>
   <div class="theEntry">
-    <h2><%= @post.title %>
+    <div class="title"><%= @post.title %></div>
     <div class="txt">
       <%= @post.content %>
     </div>
@@ -28,9 +28,9 @@
     </div>
     <% if @post.edit_permission?(current_user) %>
       <%= button_to 'Beitrag löschen', post_path(@post),
-          data: { confirm: 'Bist du dir sicher?' },
-          method: :delete,
-          class: 'btn-destroy' %>
+                    data: { confirm: 'Bist du dir sicher?' },
+                    method: :delete,
+                    class: 'btn-destroy' %>
     <% end %>
   </div>
 </section>
