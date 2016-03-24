@@ -4,15 +4,6 @@ section.homeOut {
     margin-bottom: 40px;
   }
 
-  .meetings-block {
-    @include cf();
-    margin-bottom: 40px;
-    @include respond-to(">=medium") {
-      margin-bottom: 60px;
-    }
-  }
-
-
 }
 
 .buehne {
@@ -194,8 +185,8 @@ section.homeOut {
     }
     [class^=icon-] {
       position: absolute;
-      top: 8px;
-      left: 28px;
+      top: 9px;
+      left: 26px;
       width: 45px;
       height: 45px;
     }
