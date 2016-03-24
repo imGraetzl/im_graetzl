@@ -18,6 +18,7 @@ class Zuckerl < ActiveRecord::Base
     state :paid
     state :live
     state :cancelled
+    state :expired
 
     event :mark_as_paid, guard: lambda { paid_at.blank? }, after: :send_invoice do
       transitions from: :pending, to: :paid
@@ -29,7 +30,7 @@ class Zuckerl < ActiveRecord::Base
     end
 
     event :expire do
-      transitions from: :live, to: :paid, guard: lambda { paid_at.present? }
+      transitions from: :live, to: :expired, guard: lambda { paid_at.present? }
       transitions from: :live, to: :pending
     end
 

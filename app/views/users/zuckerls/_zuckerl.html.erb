@@ -1,0 +1,40 @@
+<% location = zuckerl.location %>
+<div class="cardBox -zuckerl">
+  <div class="cardBoxHeader">
+    <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
+    <div class="categoryicon">
+      <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+    </div>
+  </div>
+  <div class="cardBoxContent">
+    <div class="location-shortfacts">
+      <div class="locationlogo">
+        <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
+      </div>
+      <div class="locationtxt">
+        <div class="name"><%= location.name %></div>
+        <div class="category"><%= location.category.name %></div>
+        <% if location.address %>
+          <div class="address">
+            <svg class="icon-location">
+              <use xlink:href="#icon-location"></use>
+            </svg>
+            <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="zuckerlteasertxt">
+      <div class="title"><%= zuckerl.title %></div>
+      <div class="description"><%= zuckerl.description %></div>
+    </div>
+    <div class="locationstate">
+      <%= zuckerl_state_for(zuckerl) %>
+    </div>
+    <div class="btn-group">
+      <a href="#" class="btn-secondary -mint -small">Bearbeiten</a>
+
+      <div class="btn-secondary -mint -small">Löschen</div>
+    </div>
+  </div>
+</div>

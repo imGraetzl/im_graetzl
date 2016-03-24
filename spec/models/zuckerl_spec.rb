@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Zuckerl, type: :model do
 
   it 'has a valid factory' do
-    expect(build_stubbed :zuckerl).to be_valid
-    expect(build_stubbed :zuckerl, :live).to be_valid
+    expect(build :zuckerl).to be_valid
+    expect(build :zuckerl, :live).to be_valid
   end
 
   describe 'attributes' do
@@ -54,7 +54,6 @@ RSpec.describe Zuckerl, type: :model do
     let(:zuckerl) { create :zuckerl }
 
     describe ':pending' do
-
       it 'is the initial state' do
         expect(zuckerl).to be_pending
       end
@@ -120,8 +119,8 @@ RSpec.describe Zuckerl, type: :model do
           expect(zuckerl).not_to allow_event :mark_as_paid
         end
 
-        it 'changes to paid on expire' do
-          expect(zuckerl).to transition_from(:live).to(:paid).on_event(:expire)
+        it 'changes to expired on expire' do
+          expect(zuckerl).to transition_from(:live).to(:expired).on_event(:expire)
         end
       end
 
