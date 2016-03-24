@@ -135,25 +135,6 @@ RSpec.describe Meeting, type: :model do
       end
     end
 
-    describe '.past' do
-      let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
-      let!(:m_nil) { create(:meeting, starts_at_date: nil) }
-      let!(:m_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday) }
-      let!(:m_1_before_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday-1) }
-      let!(:m_2_before_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday-2) }
-
-      subject(:meetings) { Meeting.past }
-
-      it 'retrieves past nearest first' do
-        expect(meetings.to_a).to eq [m_yesterday, m_1_before_yesterday, m_2_before_yesterday]
-      end
-
-      it 'excludes nil and upcoming' do
-        expect(meetings).not_to include(m_today)
-        expect(meetings).not_to include(m_nil)
-      end
-    end
-
     describe '.initiated' do
       let(:initiated_meetings) { create_list(:meeting, 5) }
       let(:attended_meetings) { create_list(:meeting, 5) }

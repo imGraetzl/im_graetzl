@@ -7,7 +7,6 @@ ActiveAdmin.register Meeting do
   scope :basic
   scope :cancelled
   scope :upcoming
-  scope :past
 
   filter :graetzl
   filter :users
