@@ -1,6 +1,6 @@
 module MeetingsHelper
   def meeting_past_flag(meeting)
-    meeting.try(:starts_at_date).try(:past?) ? '-past' : ''
+    '-past' if meeting.try(:starts_at_date).try(:past?)
   end
 
   def address_value(address)
