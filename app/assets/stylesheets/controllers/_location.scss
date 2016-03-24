@@ -13,29 +13,6 @@ section.locationPage {
       min-height: 370px;
     }
 
-    h1 {
-
-      @include font-size-secondaryFont('large');
-      text-align: center;
-      margin-bottom: 30px;
-      color: $color-ambient-mint;
-      @include respond-to(">=medium") {
-        margin-bottom: 0;
-        padding-top: 6px;
-        padding-left: 320px;
-        padding-bottom: 6px;
-        text-align: left;
-        color: #fff;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        background-color: rgba($color-ambient-mint-dark, 0.75);
-      }
-      @include respond-to(">=large") {
-        padding-left: 295px;
-      }
-    }
-
     .dropdown-container {
       z-index: 600;
       transform: translate(-20px, 0);
@@ -91,8 +68,18 @@ section.locationPage {
 
   .introtxt {
     margin-bottom: 30px;
+
+    h1 {
+      @include font-size-secondaryFont('large');
+      text-align: center;
+      margin-bottom: 30px;
+      color: $color-ambient-mint-dark;
+      @include respond-to(">=medium") {
+        text-align: left;
+      }
+    }
     h3 {
-      @include font-size-secondaryFont('base');
+      @include font-size-primaryFont('larger');
       margin-bottom: 15px;
     }
     .txt {
@@ -169,11 +156,12 @@ section.locationPage {
     }
 
     @include respond-to(">=medium") {
-      padding-top: 30px;
+      margin-top: -58px;
       width: calc(100% - 295px);
+      z-index: 10;
     }
     @include respond-to(">=large") {
-      padding-top: 20px;
+      margin-top: -65px;
       width: calc(100% - 270px);
     }
   }

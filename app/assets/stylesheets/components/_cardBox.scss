@@ -125,10 +125,35 @@
     color: $color-ambient-mint-dark;
   }
 
-  [class*=teaser]+[class*=teaser] {
-
+  .locationstate {
+    .state {
+      font-weight: 600;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+    .txt {
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
   }
 
+  .btn-group {
+    display: flex;
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    .btn-secondary {
+      flex-basis: 49%;
+      margin-bottom: 5px;
+      &:first-child:not(:only-child) {
+        margin-right: 5px;
+      }
+    }
+    .btn-primary {
+      float: left;
+      flex-basis: 100%;
+    }
+  }
 
   > .txt {
     margin-bottom: 20px;
