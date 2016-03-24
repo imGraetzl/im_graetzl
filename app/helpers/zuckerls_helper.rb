@@ -17,6 +17,7 @@ module ZuckerlsHelper
       content_tag(:div, "Dein Zuckerl ist im Monat #{zuckerl_month zuckerl} 2016 gelaufen.", class: 'txt')
     end
   end
+  
   def zuckerl_month(zuckerl)
     time = zuckerl.created_at || Time.now
     I18n.localize time.end_of_month+1.day, format: '%B'

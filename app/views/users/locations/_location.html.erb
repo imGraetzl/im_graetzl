@@ -1,0 +1,47 @@
+<div class="cardBox">
+  <div class="cardBoxHeader">
+    <%= link_to [location.graetzl, location] do %>
+      <%= attachment_image_tag location, :cover_photo, :fill, 300, 180, fallback: 'cover_photo/300x180.png', class: 'coverImg' %>
+    <% end %>
+    <div class="categoryicon">
+      <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+    </div>
+  </div>
+  <div class="cardBoxContent">
+    <div class="location-shortfacts">
+      <%= link_to [location.graetzl, location], class: 'locationlogo' do %>
+        <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
+      <% end %>
+      <div class="locationtxt">
+        <%= link_to [location.graetzl, location] do %>
+          <div class="name"><%= location.name %></div>
+        <% end %>
+        <div class="category"><%= location.category.name %></div>
+        <% if location.address %>
+          <div class="address">
+            <svg class="icon-location">
+              <use xlink:href="#icon-location"></use>
+            </svg>
+            <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <% if location.pending? %>
+      <div class="locationstate">
+        <div class="state">Deine Location wird noch geprüft...</div>
+        <div class="txt">Wir schicken dir ein E-Mail, sobald deine Location freigeschalten wurde.</div>
+      </div>
+      <div class="btn-group">
+        <a href="#" class="btn-secondary -mint -small">Bearbeiten</a>
+        <a href"=#" class="btn-secondary -mint -small">Löschen</a>
+      </div>
+    <% else %>
+    <div class="btn-group">
+      <a href="#" class="btn-secondary -mint -small">Bearbeiten</a>
+      <a href"=#" class="btn-secondary -mint -small">Löschen</a>
+      <a href="#" class="btn-primary -small">Grätzzuckerl einbuchen</a>
+    </div>
+    <% end %>
+  </div>
+</div>

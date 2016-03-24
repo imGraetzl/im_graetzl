@@ -1,5 +1,4 @@
 module LocationsHelper
-
   def location_meta(location)
     desc = ''
     if address = location.address
