@@ -367,4 +367,11 @@ main > .sponsorstuwerviertel {
   z-index: 10;
 }
 
+.cardBox.-meeting.-past {
+  .calendarSheet {
+    filter: grayscale(1);
+    opacity: 0.5;
+  }
+}
+
 
