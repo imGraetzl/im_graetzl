@@ -10,8 +10,7 @@
 %>
 
 <section class="locationPage">
-  <div class="imgHeader">
-    <h1><%= @location.name %></h1>
+  <div class="imgHeader -cloudy2">
     <%= attachment_image_tag @location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'locationAvatar' %>
     <%= attachment_image_tag @location, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
     <div class="bigicontext-element createentry" data-behavior="createTrigger">
@@ -33,7 +32,8 @@
   </div>
   <div class="mainContent">
     <div class="introtxt">
-      <h3 class="locationType"><%= @location.slogan %></h3>
+      <h1><%= @location.name %></h1>
+      <h3><%= @location.slogan %></h3>
       <div class="txt"><%= @location.description %></div>
     </div>
     <div class="category-tags">
