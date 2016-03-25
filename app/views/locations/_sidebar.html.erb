@@ -1,10 +1,12 @@
 <aside class="sideBar">
   <div class="action-container">
-    <%= link_to edit_location_path(@location), class: 'icontxt' do %>
-      <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>Location bearbeiten
-    <% end %>
-    <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
-      <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl einbuchen
+    <% if can? :crud, @location %>
+      <%= link_to edit_location_path(@location), class: 'icontxt' do %>
+        <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>Location bearbeiten
+      <% end %>
+      <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
+        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl einbuchen
+      <% end %>
     <% end %>
   </div>
 

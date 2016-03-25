@@ -32,16 +32,14 @@
         <div class="state">Deine Location wird noch geprüft...</div>
         <div class="txt">Wir schicken dir ein E-Mail, sobald deine Location freigeschalten wurde.</div>
       </div>
-      <div class="btn-group">
-        <a href="#" class="btn-secondary -mint -small">Bearbeiten</a>
-        <a href"=#" class="btn-secondary -mint -small">Löschen</a>
-      </div>
-    <% else %>
-    <div class="btn-group">
-      <a href="#" class="btn-secondary -mint -small">Bearbeiten</a>
-      <a href"=#" class="btn-secondary -mint -small">Löschen</a>
-      <a href="#" class="btn-primary -small">Grätzzuckerl einbuchen</a>
-    </div>
     <% end %>
+    <div class="btn-group">
+      <%= link_to 'Bearbeiten', edit_location_path(location), class: 'btn-secondary -mint -small' %>
+      <%= link_to 'Löschen', location_path(location),
+        data: { confirm: 'Bist du dir sicher?' },
+        method: :delete,
+        class: 'btn-secondary -mint -small' %>
+      <%= link_to('Grätzlzuckler einbuchen', new_location_zuckerl_path(location), class: 'btn-primary -small') unless location.pending? %>
+    </div>
   </div>
 </div>
