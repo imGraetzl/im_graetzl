@@ -42,7 +42,7 @@ namespace :db do
       role: :business,
       graetzl: Graetzl.find_by_name('Stuwerviertel'),
       confirmed_at: Time.now,
-      slug: user)
+      slug: 'user_1')
     File.open(Rails.root+'lib/assets/avatars/user_1.jpg', 'rb') do |file|
       user_1.avatar = file
     end
@@ -107,17 +107,20 @@ namespace :db do
     end
 
     # add posts
-    puts 'add posts'
-    users = User.all
-    posts = []
-    10.times do
-      users.each do |u|
-        posts << u.posts.build(content: Faker::Lorem.paragraph(3), graetzl: u.graetzl)
-      end
-    end
-    posts.shuffle.each do |p|
-      p.save
-      p.create_activity :create, owner: p.author
-    end
+    # puts 'add posts'
+    # users = User.all
+    # posts = []
+    # 10.times do
+    #   users.each do |u|
+    #     posts << u.posts.build(content: Faker::Lorem.paragraph(3), graetzl: u.graetzl)
+    #   end
+    # end
+    # posts.shuffle.each do |p|
+    #   p.save
+    #   p.create_activity :create, owner: p.author
+    # end
+
+    # save slugs
+    User.find_each(&:save)
   end
 end
