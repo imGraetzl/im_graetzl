@@ -59,7 +59,7 @@ APP.controllers.application = (function() {
         if(APP.utils.URLendsWith('/stuwerviertel/locations')) {
             $('.cards-container .cardBox').eq(2).after($markup);
         }
-        if($('section.homeOut').exists()) {
+        if(APP.utils.URLendsWith('/leopoldstadt-1020')) {
             $('main').append($markup);
         }
 
