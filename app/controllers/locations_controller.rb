@@ -3,18 +3,13 @@ class LocationsController < ApplicationController
   include GraetzlChild
 
   def index
-    # @locations = @graetzl.locations.by_activity.page(params[:page]).per(15)
-    @locations = Kaminari.paginate_array(@graetzl.locations.by_activity).page(params[:page]).per(15)
-    #   @graetzl.locations.approved.includes(:graetzl, :posts, :meetings, :address, :category).
-    #     order('posts.created_at DESC NULLS LAST').
-    #     order('meetings.created_at DESC NULLS LAST').
-    #     order(created_at: :desc)
-    #   ).page(params[:page]).per(15)
+    @locations = Kaminari.paginate_array(@graetzl.locations.by_activity).
+      page(params[:page]).per(15)
   end
 
   def show
     if request.xhr?
-      set_location
+      @location = Location.approved.find(params[:id])
       paginate_content
     else
       @location = Location.approved.
@@ -52,10 +47,12 @@ class LocationsController < ApplicationController
 
   def edit
     set_location
+    authorize! :edit, @location
   end
 
   def update
     set_location
+    authorize! :update, @location
     if @location.update(location_params)
       redirect_to [@location.graetzl, @location]
     else
@@ -64,18 +61,16 @@ class LocationsController < ApplicationController
   end
 
   def destroy
-    if @location.users.include?(current_user) && @location.destroy
-      flash[:notice] = 'Location entfernt'
-    else
-      flash[:error] = 'Nur Betreiber können Locations löschen'
-    end
-    redirect_to :back
+    set_location
+    authorize! :destroy, @location
+    @location.destroy
+    redirect_to user_locations_path, notice: 'Location entfernt'
   end
 
   private
 
   def set_location
-    @location = Location.approved.find(params[:id])
+    @location = Location.find(params[:id])
   end
 
   def paginate_content

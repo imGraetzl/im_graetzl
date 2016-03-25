@@ -109,3 +109,5 @@ gem 'acts-as-taggable-on'
 gem 'actionview-encoded_mail_to'
 # state machine
 gem 'aasm'
+# authorization
+gem 'cancancan'

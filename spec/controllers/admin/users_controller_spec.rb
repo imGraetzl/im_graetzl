@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::UsersController, type: :controller do
-  let(:admin) { create(:user, role: User.roles[:admin]) }
+  let(:admin) { create(:user, :admin) }
 
   before { sign_in admin }
 

@@ -14,7 +14,7 @@ FactoryGirl.define do
     end
 
     factory :admin_post, class: 'AdminPost' do
-      association :author, factory: :admin
+      association :author, factory: [:user, :admin]
     end
   end
 end

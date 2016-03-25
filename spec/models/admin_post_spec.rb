@@ -14,7 +14,7 @@ RSpec.describe AdminPost, type: :model do
     let(:post) { create :admin_post }
 
     it 'returns true if user admin' do
-      admin = create :admin
+      admin = create :user, :admin
       expect(post.edit_permission? admin).to eq true
     end
 
