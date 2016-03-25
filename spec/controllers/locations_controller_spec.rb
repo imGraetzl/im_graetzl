@@ -291,12 +291,6 @@ RSpec.describe LocationsController, type: :controller do
             city: address.city})
         end
 
-        it 'creates new location record' do
-          expect{
-            post :create, params
-          }.to change{Location.count}.by 1
-        end
-
         it 'creates new address record' do
           expect{
             post :create, params
@@ -323,12 +317,6 @@ RSpec.describe LocationsController, type: :controller do
             city: ''})
         end
 
-        it 'creates new location record' do
-          expect{
-            post :create, params
-          }.to change{Location.count}.by 1
-        end
-
         it 'does not create new address record' do
           expect{
             post :create, params
@@ -345,6 +333,8 @@ RSpec.describe LocationsController, type: :controller do
   end
 
   describe 'GET edit' do
+    let(:location) { create :location }
+
     context 'when logged out' do
       it 'redirects to login with flash' do
         get :edit, id: 1
@@ -354,13 +344,13 @@ RSpec.describe LocationsController, type: :controller do
     end
     context 'when logged in' do
       let(:user) { create(:user) }
-
       before { sign_in user }
 
-      context 'when approved location' do
-        let(:location) { create(:location, :approved) }
-
-        before { get :edit, id: location }
+      context 'when owner of location' do
+        before do
+          create :location_ownership, user: user, location: location
+          get :edit, id: location
+        end
 
         it 'assigns @location' do
           expect(assigns :location).to eq location
@@ -370,51 +360,46 @@ RSpec.describe LocationsController, type: :controller do
           expect(response).to render_template :edit
         end
       end
-      context 'when not approved' do
-        let(:location) { create :location, :pending }
-
-        it 'returns 404' do
+      context 'when not owner' do
+        it 'throws AccessDenied exception' do
           expect{
             get :edit, id: location
-          }.to raise_error(ActiveRecord::RecordNotFound)
+          }.to raise_error(CanCan::AccessDenied)
         end
       end
     end
   end
 
   describe 'PUT update' do
-    context 'when logged out' do
-      let(:location) { create :location, :approved }
+    let(:location) { create :location, contact: create(:contact), address: create(:address), category: create(:category) }
 
-      it 'redirects to login with flash' do
+    context 'when logged out' do
+      it 'redirects to login' do
         put :update, id: location
         expect(response).to redirect_to new_user_session_path
-        expect(flash[:alert]).to be_present
       end
     end
     context 'when logged in' do
-      before { sign_in create :user }
+      let(:user) { create :user }
+      let(:attrs) { attributes_for :location, meeting_permission: 'non_meetable' }
+      let(:params) {{ id: location, location: {
+        name: attrs[:name],
+        slogan: attrs[:slogan],
+        description: attrs[:description],
+        meeting_permission: attrs[:meeting_permission] }}}
 
-      context 'when not approved' do
-        let(:location) { create :location, :pending }
+      before { sign_in user }
 
-        it 'returns 404' do
+      context 'when not owner' do
+        it 'throws AccessDenied exception' do
           expect{
-            put :update, id: location
-          }.to raise_error(ActiveRecord::RecordNotFound)
+            put :update, params
+          }.to raise_error(CanCan::AccessDenied)
         end
       end
-      context 'when approved' do
-        let(:location) { create(:location, :approved,
-          contact: create(:contact),
-          address: create(:address),
-          category: create(:category)) }
-        let(:attrs) { attributes_for :location, meeting_permission: 'non_meetable' }
-        let(:params) {{ id: location, location: {
-          name: attrs[:name],
-          slogan: attrs[:slogan],
-          description: attrs[:description],
-          meeting_permission: attrs[:meeting_permission] }}}
+
+      context 'when owner' do
+        before { create :location_ownership, user: user, location: location }
 
         describe 'change basic attributes' do
           before do
@@ -511,48 +496,46 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
   end
-  #
-  # describe 'DELETE destroy' do
-  #   let(:location) { create(:location) }
-  #
-  #   context 'when logged out' do
-  #     it 'redirects to login with flash' do
-  #       delete :destroy, id: 1
-  #       expect(response).to render_template(session[:new])
-  #     end
-  #   end
-  #
-  #   context 'when logged in' do
-  #     let(:user) { create(:user) }
-  #     before { sign_in user }
-  #
-  #     context 'when no location_ownership' do
-  #       it 'redirects back to previous page with flash' do
-  #         delete :destroy, id: location
-  #         expect(response).to redirect_to 'where_i_came_from'
-  #         expect(flash[:error]).to be_present
-  #       end
-  #     end
-  #
-  #     context 'when location owner' do
-  #       before { create(:location_ownership, user: user, location: location) }
-  #
-  #       it 'assigns @location' do
-  #         delete :destroy, id: location
-  #         expect(assigns(:location)).to eq location
-  #       end
-  #
-  #       it 'deletes location record' do
-  #         expect{
-  #           delete :destroy, id: location
-  #         }.to change{Location.count}.by(-1)
-  #       end
-  #
-  #       it 'redirects back to previous page' do
-  #         delete :destroy, id: location
-  #         expect(response).to redirect_to 'where_i_came_from'
-  #       end
-  #     end
-  #   end
-  # end
+
+  describe 'DELETE destroy' do
+    let(:location) { create :location }
+
+    context 'when logged out' do
+      it 'redirects to login' do
+        delete :destroy, id: location
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      context 'when not owner' do
+        it 'throws AccessDenied exception' do
+          expect{
+            delete :destroy, id: location
+          }.to raise_error(CanCan::AccessDenied)
+        end
+      end
+      context 'when owner' do
+        before { create :location_ownership, user: user, location: location }
+
+        it 'assigns @location' do
+          delete :destroy, id: location
+          expect(assigns :location).to eq location
+        end
+
+        it 'deletes location record' do
+          expect{
+            delete :destroy, id: location
+          }.to change{Location.count}.by -1
+        end
+
+        it 'redirects to user_locations_path' do
+          delete :destroy, id: location
+          expect(response).to redirect_to user_locations_path
+        end
+      end
+    end
+  end
 end

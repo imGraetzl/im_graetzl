@@ -60,7 +60,7 @@ RSpec.describe Comment, type: :model do
       end
 
       it 'returs true for admin' do
-        expect(comment.edit_permission?(create(:admin))).to be_truthy
+        expect(comment.edit_permission?(create(:user, :admin))).to be_truthy
       end
 
       it 'returns false for other user' do
@@ -85,7 +85,7 @@ RSpec.describe Comment, type: :model do
       end
 
       it 'returs true for admin' do
-        expect(comment.edit_permission?(create(:admin))).to be_truthy
+        expect(comment.edit_permission?(create(:user, :admin))).to be_truthy
       end
 
       it 'returns false for random user' do

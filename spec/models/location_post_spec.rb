@@ -31,7 +31,7 @@ RSpec.describe LocationPost, type: :model do
     before { create :location_ownership, user: user, location: location }
 
     it 'returns true if user admin' do
-      admin = create :admin
+      admin = create :user, :admin
       expect(post.edit_permission? admin).to eq true
     end
 
