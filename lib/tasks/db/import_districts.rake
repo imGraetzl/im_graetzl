@@ -17,7 +17,7 @@ namespace :db do
     def parse_features(geojson)
       geojson['features'].each do |feature|
         polygon = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
-        area = area.simplify(0.0001)
+        polygon = polygon.simplify(0.0001)
         name = feature['properties']['NAMEK']
         zip = feature['properties']['DISTRICT_CODE']
         District.find_or_create_by(name: name, zip: zip.to_s, area: polygon)
