@@ -12,9 +12,9 @@ class LocationsController < ApplicationController
       @location = Location.approved.find(params[:id])
       paginate_content
     else
-      @location = Location.approved.
-        includes(:graetzl, posts: [:author, :images]).
+      @location = Location.includes(:graetzl, posts: [:author, :images]).
         find(params[:id])
+      redirect_enqueued if @location.pending?
       @posts = @location.posts.order(created_at: :desc).
         page(params[:page]).per(10)
       @meetings = @location.meetings.by_currentness.
@@ -37,9 +37,9 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = Location.new(location_params)
+    @location = Location.new create_location_params
     if @location.save
-      redirect_to root_url, notice: 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+      redirect_enqueued
     else
       render :new
     end
@@ -47,13 +47,11 @@ class LocationsController < ApplicationController
 
   def edit
     set_location
-    authorize! :edit, @location
   end
 
   def update
     set_location
-    authorize! :update, @location
-    if @location.update(location_params)
+    if @location.update location_params
       redirect_to [@location.graetzl, @location]
     else
       render :edit
@@ -62,7 +60,6 @@ class LocationsController < ApplicationController
 
   def destroy
     set_location
-    authorize! :destroy, @location
     @location.destroy
     redirect_to user_locations_path, notice: 'Location entfernt'
   end
@@ -70,7 +67,7 @@ class LocationsController < ApplicationController
   private
 
   def set_location
-    @location = Location.find(params[:id])
+    @location = current_user.locations.find params[:id]
   end
 
   def paginate_content
@@ -80,6 +77,10 @@ class LocationsController < ApplicationController
     when params[:meetings]
       @meetings = @location.meetings.by_currentness.includes(:graetzl).page(params[:meetings]).per(2)
     end
+  end
+
+  def redirect_enqueued
+    redirect_to root_url, notice: 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
   end
 
   def location_params
@@ -106,7 +107,10 @@ class LocationsController < ApplicationController
           :street_number,
           :zip,
           :city,
-          :_destroy]).
-      merge(user_ids: [current_user.id])
+          :_destroy])
+  end
+
+  def create_location_params
+    location_params.merge(user_ids: [current_user.id])
   end
 end

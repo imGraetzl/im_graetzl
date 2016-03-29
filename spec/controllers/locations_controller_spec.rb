@@ -126,10 +126,9 @@ RSpec.describe LocationsController, type: :controller do
     context 'when location not approved' do
       let(:location) { create :location, :pending, graetzl: graetzl }
 
-      it 'returns 404' do
-        expect{
-          get :show, graetzl_id: graetzl, id: location
-        }.to raise_error(ActiveRecord::RecordNotFound)
+      it 'redirect_to root' do
+        get :show, graetzl_id: graetzl, id: location
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -216,117 +215,99 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'POST create' do
     context 'when logged out' do
-      it 'redirects to login with flash' do
+      it 'redirects to login' do
         post :create
         expect(response).to redirect_to new_user_session_path
-        expect(flash[:alert]).to be_present
       end
     end
     context 'when logged in' do
-      let(:user) { create(:user) }
-      let(:graetzl) { create(:graetzl) }
-      let!(:category) { create(:category, context: Category.contexts[:business]) }
-      let(:attrs) { attributes_for(:location) }
-      let(:params) { { location: {
-        graetzl_id: graetzl.id,
-        name: attrs[:name],
-        location_type: attrs[:location_type],
-        slogan: attrs[:slogan],
-        description: attrs[:description],
-        category_id: category.id }}}
+      let(:user) { create :user }
+      let(:graetzl) { create :graetzl }
 
       before { sign_in user }
 
-      context 'with basic attributes' do
-        it 'creates location record' do
-          expect{
+      context 'with valid attributes' do
+        let!(:category) { create :category, context: Category.contexts[:business] }
+        let(:attrs) { attributes_for :location }
+        let(:params) { { location: {
+          graetzl_id: graetzl.id,
+          name: attrs[:name],
+          location_type: attrs[:location_type],
+          slogan: attrs[:slogan],
+          description: attrs[:description],
+          category_id: category.id }}}
+
+        context 'with basic attributes' do
+          it 'creates location record' do
+            expect{
+              post :create, params
+            }.to change{Location.count}.by 1
+          end
+
+          it 'creates location_ownership record' do
+            expect{
+              post :create, params
+            }.to change{LocationOwnership.count}.by 1
+          end
+
+          it 'does not create category record' do
+            expect{
+              post :create, params
+            }.not_to change{Category.count}
+          end
+
+          it 'assigns @location' do
             post :create, params
-          }.to change{Location.count}.by 1
-        end
+            expect(assigns :location).to have_attributes(
+              state: 'pending',
+              graetzl: graetzl,
+              name: attrs[:name],
+              category: category,
+              slogan: attrs[:slogan],
+              description: attrs[:description],
+              user_ids: [user.id])
+          end
 
-        it 'creates location_ownership record' do
-          expect{
+          it 'redirects to root with notice' do
             post :create, params
-          }.to change{LocationOwnership.count}.by 1
+            expect(response).to redirect_to root_url
+            expect(flash[:notice]).to be_present
+          end
         end
 
-        it 'does not create category record' do
-          expect{
-            post :create, params
-          }.not_to change{Category.count}
-        end
+        describe 'with contact and address' do
+          let(:address) { build(:address) }
+          let(:contact) { build(:contact) }
 
-        it 'assigns @location' do
-          post :create, params
-          expect(assigns :location).to have_attributes(
-            state: 'pending',
-            graetzl: graetzl,
-            name: attrs[:name],
-            category: category,
-            slogan: attrs[:slogan],
-            description: attrs[:description]
-          )
-        end
+          before do
+            params[:location].merge!(contact_attributes: {
+              website: contact.website,
+              email: contact.email,
+              phone: contact.phone })
+            params[:location].merge!(address_attributes: {
+              street_name: address.street_name,
+              street_number: address.street_number,
+              zip: address.zip,
+              city: address.city})
+          end
 
-        it 'redirects to root with notice' do
-          post :create, params
-          expect(response).to redirect_to root_url
-          expect(flash[:notice]).to be_present
+          it 'creates new address record' do
+            expect{
+              post :create, params
+            }.to change{Address.count}.by 1
+          end
+
+          it 'creates new contact record' do
+            expect{
+              post :create, params
+            }.to change{Contact.count}.by 1
+          end
         end
       end
-
-      describe 'with contact and address' do
-        let(:address) { build(:address) }
-        let(:contact) { build(:contact) }
-
-        before do
-          params[:location].merge!(contact_attributes: {
-            website: contact.website,
-            email: contact.email,
-            phone: contact.phone })
-          params[:location].merge!(address_attributes: {
-            street_name: address.street_name,
-            street_number: address.street_number,
-            zip: address.zip,
-            city: address.city})
-        end
-
-        it 'creates new address record' do
-          expect{
-            post :create, params
-          }.to change{Address.count}.by 1
-        end
-
-        it 'creates new contact record' do
-          expect{
-            post :create, params
-          }.to change{Contact.count}.by 1
-        end
-      end
-
-      describe 'with empty contact and address' do
-        before do
-          params[:location].merge!(contact_attributes: {
-            website: '',
-            email: '',
-            phone: '' })
-          params[:location].merge!(address_attributes: {
-            street_name: '',
-            street_number: '',
-            zip: '',
-            city: ''})
-        end
-
-        it 'does not create new address record' do
-          expect{
-            post :create, params
-          }.not_to change{Address.count}
-        end
-
-        it 'creates empty contact record' do
-          expect{
-            post :create, params
-          }.to change{Contact.count}.by 1
+      context 'with invalid attributes' do
+        it 'renders :new' do
+          post :create, location: { graetzl_id: graetzl.id }
+          expect(response).to render_template :new
         end
       end
     end
@@ -337,7 +318,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login with flash' do
-        get :edit, id: 1
+        get :edit, id: location
         expect(response).to redirect_to new_user_session_path
         expect(flash[:alert]).to be_present
       end
@@ -361,10 +342,10 @@ RSpec.describe LocationsController, type: :controller do
         end
       end
       context 'when not owner' do
-        it 'throws AccessDenied exception' do
+        it 'returns 404' do
           expect{
             get :edit, id: location
-          }.to raise_error(CanCan::AccessDenied)
+          }.to raise_error ActiveRecord::RecordNotFound
         end
       end
     end
@@ -391,10 +372,10 @@ RSpec.describe LocationsController, type: :controller do
       before { sign_in user }
 
       context 'when not owner' do
-        it 'throws AccessDenied exception' do
+        it 'returns 404' do
           expect{
             put :update, params
-          }.to raise_error(CanCan::AccessDenied)
+          }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
@@ -511,10 +492,10 @@ RSpec.describe LocationsController, type: :controller do
       before { sign_in user }
 
       context 'when not owner' do
-        it 'throws AccessDenied exception' do
+        it 'returns 404' do
           expect{
             delete :destroy, id: location
-          }.to raise_error(CanCan::AccessDenied)
+          }.to raise_error ActiveRecord::RecordNotFound
         end
       end
       context 'when owner' do
