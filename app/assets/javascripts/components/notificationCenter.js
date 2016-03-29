@@ -4,7 +4,6 @@ APP.components.notificatonCenter = (function() {
         $notificationsTrigger;
 
     function init() {
-        console.log("INIT NOTIFICATION CENTER");
         $notificationsContainer = $("[data-behavior='notifications-container']");
         $notificationsTrigger = $("[data-behavior='notifications-trigger']");
         $(window).load(function() {
@@ -20,7 +19,6 @@ APP.components.notificatonCenter = (function() {
     function updateLoop() {
         setTimeout(function() {
             if (notificationCenterOpen()) {
-                console.log("CLOSED");
                 updateLoop();
             } else {
                 pollServer(updateLoop);
@@ -41,7 +39,6 @@ APP.components.notificatonCenter = (function() {
             type: "GET",
             success: function() {
                 onSuccessCallback();
-                console.log("SUCCESSFULL GET DATA REQUEST")
             }
         });
     }
@@ -51,13 +48,7 @@ APP.components.notificatonCenter = (function() {
             url: "/notifications/mark_as_seen",
             dataType: "script",
             type: "POST",
-            data: {ids: currentNotificationIds()},
-            success: function() {
-                console.log("SUCCESSFULL MARK AS SEEN REQUEST")
-            },
-            error: function() {
-                console.log("UNSUCCESSFULL MARK AS SEEN REQUEST")
-            }
+            data: {ids: currentNotificationIds()}
         });
     }
 
