@@ -54,9 +54,9 @@ APP.components.stream = (function() {
 
     function injectFormBlocker($container) {
         var $markup = $('<div class="formBlocker">' +
-            '<h5>Um einen Kommentar zu verfassen musst du eingeloggt sein.</h5>' +
+            '<h5>Um einen Kommentar zu verfassen musst du angemeldet sein!</h5>' +
             '<div class="ctrl">' +
-            '<a href="/users/login" class="btn-secondary -rose -small">Einloggen</a>' +
+            '<a href="/users/login" class="btn-secondary -rose -small">Anmelden</a>' +
             '<span class="btn-secondary -small close">OK</span>' +
             '</div>' +
             '</div>');
