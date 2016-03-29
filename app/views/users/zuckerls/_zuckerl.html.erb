@@ -36,7 +36,7 @@
       <%= zuckerl_state_for(zuckerl) %>
     </div>
     <div class="btn-group">
-      <a href="#" class="btn-secondary -mint -small">Bearbeiten</a>
+      <%= link_to 'Bearbeiten', edit_location_zuckerl_path(location, zuckerl), class: 'btn-secondary -mint -small' %>
 
       <div class="btn-secondary -mint -small">Löschen</div>
     </div>

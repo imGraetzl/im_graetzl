@@ -53,7 +53,7 @@ Rails.application.routes.draw do
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     resources :locations, module: :users, only: [:index]
-    resources :zuckerls, module: :users, only: [:index]
+    resources :zuckerls, path: 'zuckerl', module: :users, only: [:index]
   end
 
   get 'info/agb', to: 'static_pages#agb'
@@ -81,12 +81,12 @@ Rails.application.routes.draw do
 
   resources :locations, except: [:index, :show] do
     concerns :graetzl_before_new
-    resources :zuckerls, only: [:new, :create]
+    resources :zuckerls, path: 'zuckerl', except: [:index, :show]
   end
 
   resources :meetings, path: :treffen, except: [:index, :show]
 
-  resources :zuckerls, only: [:new] do
+  resources :zuckerls, path: 'zuckerl', only: [:new] do
     resource :billing_address, only: [:show, :create, :update]
   end
 
