@@ -48,11 +48,28 @@ APP.components.stream = (function() {
             .find('textarea')
             .autogrow()
             .on("focusin", function(){
-                $parent.addClass("is-focused");
-            })
-            .on("focusout", function() {
-                (!$(this).val().length) && $parent.removeClass("is-focused");
+                (APP.utils.isLoggedIn()) ? $parent.addClass("is-focused") : injectFormBlocker($parent);
             });
+    }
+
+    function injectFormBlocker($container) {
+        var $markup = $('<div class="formBlocker">' +
+            '<h5>Um einen Kommentar zu verfassen musst du eingeloggt sein.</h5>' +
+            '<div class="ctrl">' +
+            '<a href="/users/login" class="btn-secondary -rose -small">Einloggen</a>' +
+            '<span class="btn-secondary -small close">OK</span>' +
+            '</div>' +
+            '</div>');
+
+        $container.find('textarea').prop('disabled', true);
+        $container.append($markup);
+        $markup.hide().fadeIn();
+        $markup.on('click', function(e) { e.stopPropagation(); });
+        $(document).add($container.find('.close')).on('click.hideblock', function(e) {
+            $markup.remove();
+            $container.find('textarea').prop('disabled', false);
+            $(document).off('click.hideblock');
+        });
     }
 
     return {
