@@ -1,7 +1,9 @@
 <% location = zuckerl.location %>
 <div class="cardBox -zuckerl">
   <div class="cardBoxHeader">
-    <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
+    <%= link_to [location.graetzl, location] do %>
+      <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
+    <% end %>
     <div class="categoryicon">
       <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
     </div>
@@ -9,10 +11,12 @@
   <div class="cardBoxContent">
     <div class="location-shortfacts">
       <div class="locationlogo">
-        <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
+        <%= link_to [location.graetzl, location] do %>
+          <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
+        <% end %>
       </div>
       <div class="locationtxt">
-        <div class="name"><%= location.name %></div>
+        <%= link_to location.name, [location.graetzl, location], class: 'name' %>
         <div class="category"><%= location.category.name %></div>
         <% if location.address %>
           <div class="address">
