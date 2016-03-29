@@ -1,6 +1,6 @@
 <aside class="sideBar">
   <div class="action-container">
-    <% if can? :crud, @location %>
+    <% if @location.editable_by? current_user %>
       <%= link_to edit_location_path(@location), class: 'icontxt' do %>
         <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>Location bearbeiten
       <% end %>

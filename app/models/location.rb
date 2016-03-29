@@ -64,4 +64,8 @@ class Location < ActiveRecord::Base
   def boss
     location_ownerships.order(:created_at).first.user
   end
+
+  def editable_by?(user)
+    user && user_ids.include?(user.id)
+  end
 end

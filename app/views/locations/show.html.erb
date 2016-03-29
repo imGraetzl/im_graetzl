@@ -13,7 +13,7 @@
   <div class="imgHeader -cloudy2">
     <%= attachment_image_tag @location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'locationAvatar' %>
     <%= attachment_image_tag @location, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
-    <% if can? :crud, @location %>
+    <% if @location.editable_by? current_user %>
       <div class="bigicontext-element createentry" data-behavior="createTrigger">
         <svg class="icon-dot-3"><use xlink:href="#icon-dot-3"></use></svg>
       </div>
@@ -57,7 +57,7 @@
   <%= render 'sidebar' %>
 
   <div class="stream" data-behavior="stream-container">
-    <% if can? :crud, @location %>
+    <% if @location.editable_by? current_user %>
       <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
       <%= render 'location_posts/form', location: @location %>
      <% elsif !@posts.empty? %>
