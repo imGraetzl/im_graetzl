@@ -119,7 +119,23 @@ section.userzuckerls {
 
   }
 
+  .addlocation {
+    display: table;
+    @include respond-to(">=large") {
+      margin-left: -25px;
+    }
+  }
 
+  .selectlocation {
+    h2 {
+      @include font-size-secondaryFont('base');
+    }
+    .input-select {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
 
 }
+
 

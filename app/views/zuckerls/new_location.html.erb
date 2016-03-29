@@ -1,17 +1,48 @@
-<% if @locations.empty? %>
-  <p>Du brauchst eine bestätigte Location um Zuckerl buchen zu können</p>
-  <%= link_to 'Location eintragen', new_location_path, class: 'btn-primary' %>
-<% else %>
-  <p>Für welche deiner Locations möchtest Du das Zuckerln buchen?</p>
-  <div class="input-select">
-    <label>
-      <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-      <span>Location</span>
-    </label>
-    <%= select_tag :location_id,
-      options_for_select(@locations.map{|location| [location.name, new_location_zuckerl_path(location)]}),
-      prompt: 'wählen',
-      onchange: 'location.href = $(this).val()'
-    %>
-  </div>
-<% end %>
+<section class="userzuckerls">
+  <% if @locations.empty? %>
+    <div class="introcontainer -location">
+      <div class="introtxt">
+        <div class="step-element">
+          <h2><span class="number">1.</span> Richte dir zuerst deine Location ein</h2>
+
+          <div class="text">Um ein Grätzlzuckerl zu buchen, musst du dir zuerst eine Location-Seite einrichten. Die
+            Location ist dein persönliches Schaufenster im Grätzl - Und: sie ist kostenlos!</strong>
+            <%= link_to 'Location einrichten', new_location_path, class: 'btn-primary' %>
+          </div>
+        </div>
+        <div class="step-element">
+          <h2><span class="number">2.</span> Schalte dein Grätzlzuckerl</h2>
+
+          <div class="text">Sobald du deine Locationseite hast, kannst du mit nur wenigen Klicks dein Grätzlzuckerl
+            buchen. -- Werde sichtbar in deinem Grätzl und bei BewohnerInnen in deinem Einzugsgebiet, richte dir jetzt
+            deine Location-Seite ein.
+          </div>
+        </div>
+      </div>
+      <div class="paperCard -illuteaser -cord1RT">
+        <div class="wrp">
+          <h3>Werde sichtbar in deinem Grätzl und richte dir jetzt deine Location-Seite ein.</h3>
+        </div>
+        <div class="card"></div>
+      </div>
+    </div>
+  <% else %>
+    <div class="selectlocation">
+      <h2 class="hl-main">Für <span>welche deiner Locations</span> möchtest Du ein Grätzlzuckerl buchen?</h2>
+      <div class="input-select">
+        <label>
+          <svg class="icon-label-tag">
+            <use xlink:href="#icon-label-tag"></use>
+          </svg>
+          <span>Location</span>
+        </label>
+        <%= select_tag :location_id,
+                       options_for_select(@locations.map { |location| [location.name, new_location_zuckerl_path(location)] }),
+                       prompt: 'wählen',
+                       onchange: 'location.href = $(this).val()'
+        %>
+      </div>
+    </div>
+
+  <% end %>
+</section>

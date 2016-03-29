@@ -4,15 +4,19 @@
       <div class="introtxt">
         <div class="step-element">
           <h2><span class="number">1.</span> Richte dir deine Location ein</h2>
-          <div class="text">Um eine Neuigkeit als Location zu posten, musst du dir zuerst deine Location-Seite einrichten.
-            Die Location ist dein persönliches Schaufenster im Grätzl - Und sie ist kostenlos!
+
+          <div class="text">Du hast ein Projekt im Grätzl, du bist kreativ, oder wirtschaftlich im Grätzl tätig? Egal,
+            ob aus dem Home-Office, mit oder ohne Geschäftslokal - Mach dich und deine Tätigkeit für die Bewohner in
+            deinem Grätzl sichtbar! <strong>Deine Location ist dein persönliches Schaufenster im Grätzl - Und sie ist kostenlos!</strong>
             <%= link_to 'Location einrichten', new_location_path, class: 'btn-primary' %>
           </div>
         </div>
         <div class="step-element">
           <h2><span class="number">2.</span> Wenn du deine Location hast&hellip;</h2>
-          <div class="text">&hellip;kannst du über diese ganz einfach Updates, Aktionen oder Termine veröffentlichen -
-            Somit erfahren die Bewohner in deinem Grätzl, was es bei dir Neues & Besonderes gibt.
+          <div class="text">&hellip;kannst du Neuigkeiten, Aktionen oder Termine auf dieser veröffentlichen - Diese
+            landen nicht nur im Grätzl-Stream, sondern auch im dailyGrätzl Mail. Damit erfahren die Bewohner in deinem
+            Grätzl, was es bei dir Neues & Besonderes gibt. Darüber hinaus ist die Locationseite die Voraussetzung für
+            das Grätzlzuckerl.
           </div>
         </div>
       </div>
@@ -24,28 +28,10 @@
       </div>
     </div>
   <% else %>
-  <div class="introcontainer -location">
-    <div class="introtxt">
-      <h1 class="hl-main">Deine <span>Location</span> einrichten</h1>
-      <p>Du hast ein Projekt im Grätzl, du bist kreativ, oder wirtschaftlich im Grätzl tätig? Egal, ob aus dem
-        Home-Office, mit oder ohne Geschäftslokal - Mach dich und deine Tätigkeit und das, was du anbietest für die
-        Bewohner in deinem Grätzl sichtbar!</p>
-      <p><strong>Deine Location ist dein persönliches Schaufenster im Grätzl -
-        Und sie ist kostenlos!</strong></p>
-      <p>Mit deiner Seite kannst du Neuigkeiten, Aktionen oder Termine veröffentlichen - Somit erfahren die Bewohner in
-        deinem Grätzl, was es bei dir Neues & Besonderes gibt.<br/>
-        We love local!</p>
+    <h2 class="hl-main">Location<span>verwalten</span></h2>
+    <div class="cardBoxCollection -tripple">
+      <%= render @locations %>
     </div>
-    <div class="paperCard -illuteaser -cord1RT">
-      <div class="wrp">
-        <h3>Schalte jetzt dein Grätzlzuckerl für den Monat April.</h3>
-        <%= link_to 'Location einrichten', new_location_path, class: 'btn-primary' %>
-      </div>
-      <div class="card"></div>
-    </div>
-  </div>
-  <div class="cardBoxCollection -tripple">
-    <%= render @locations %>
-  </div>
+    <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-secondary -grey -small addlocation' %>
   <% end %>
 </section>

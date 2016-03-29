@@ -47,6 +47,14 @@
       }
     }
   }
+  &.-grey {
+    &.-shadow {
+      box-shadow: 2px 2px $color-ambient-grey;
+      &:hover {
+        box-shadow: 5px 5px $color-ambient-grey;
+      }
+    }
+  }
 
   &.-disabled, &[disabled] {
     background-color: lighten($color-ambient-grey,10);
@@ -81,6 +89,10 @@
   &.-mint {
     border-color: $color-ambient-mint;
     color: $color-ambient-mint;
+  }
+  &.-grey {
+    border-color: $color-ambient-grey;
+    color: $color-ambient-grey;
   }
   &.-disabled, &[disabled] {
     border-color: lighten($color-ambient-grey,10);

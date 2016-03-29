@@ -1,30 +1,26 @@
 <section class="userzuckerls">
   <div class="introcontainer -zuckerl">
     <div class="introtxt">
-      <h1><span>Grätzlzuckerl</span> Buchen & Verwalten</h1>
-
-      <p>Mit einem Grätzlzuckerl hast du die Möglichkeit günstig, einfach und schnell,
-        <strong>Werbung für dein spezielles Angebot in deinem Grätzl und Bezirk </strong>zu schalten.</p>
-
-      <p>Als Grätzlzuckerl eignen sich besondere Angebote, Gutscheine oder Rabattaktionen, welche du bei den Bewohnern
-        in deinem Umfeld bekannt geben möchtest.</p>
-
-      <p>Um deinem Grätzlzuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint dieses nicht nur auf
-        der Plattform in deinem eigenen Grätzl, sondern sogar <strong>im ganzen zugehörigen Bezirk!</strong> (also auch
-        allen umliegenden Grätzln.</p>
-
-      <p>Darüber hinaus landet dein Zuckerl natürlich auch im <strong>monatlichen Grätzlzuckerl Newsletter</strong>,
-        welcher an die Bewohner im Bezirk gesendet wird.</p>
-
-      <p><strong>Aber das Schönste daran:</strong> Mit den Einnahmen aus den Grätzluckerln werden gezielt Ideen &
-        Initiativen aus deinem Stadtteil gefördert.</p>
+      <h1>Dein <span>Grätzlzuckerl</span></h1>
+      <p>Mit einem Grätzlzuckerl hast du die Möglichkeit günstig, einfach und unkompliziert <strong>Werbung für dein spezielles
+        Angebot in deinem Grätzl und Bezirk</strong> zu schalten.</p>
+      <p>Als Grätzlzuckerl eignen sich besondere <strong>Angebote, Gutscheine oder Rabattaktionen, aber auch Werbung für deine
+        Produkte</strong>.</p>
+      <p>Grätzlzuckerl können immer für den kommenden Monat gebucht werden und laufen dann einen vollen Monat. Ein
+        Online Zuckerl kostet dich 15,00 € (exkl. Ust.)</p>
+      <p>Um deinem Zuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint es nicht nur in deinem
+        eigenen Grätzl, sondern sogar <strong>im ganzen zugehörigen Bezirk!</strong></p>
+      <p>Darüber hinaus landet dein Zuckerl auch im <strong>Grätzlzuckerl Newsletter</strong>, der immer am 1. des Monats an die Bewohner
+        im Bezirk gesendet wird.</p>
+      <p><strong>Aber das Schönste daran:</strong> Mit den Einnahmen aus den Grätzlzuckerln werden die Initiativen & Aktiven in deinem
+        Stadtteil finanziell unterstützt und du entscheidest welche.</p>
     </div>
     <div class="paperCard -illuteaser -cord1RT">
       <div class="wrp">
         <h3>Schalte jetzt dein Grätzlzuckerl für den Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B' %>.</h3>
         <%= link_to 'Grätzlzuckerl buchen', new_zuckerl_path, class: 'btn-primary' %>
         <div class="zuckerlfaqlink">Du hast Fragen zum Grätzlzuckerl?
-          <%= link_to 'Hier gibts Antworten', info_infos_zum_graetzlzuckerl_path %>
+          <%= link_to 'Hier gibts Antworten.', info_infos_zum_graetzlzuckerl_path %>
         </div>
       </div>
       <div class="card"></div>
