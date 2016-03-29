@@ -1,62 +1,36 @@
 <section class="userzuckerls">
-  <% if @zuckerls.empty? %>
-    <div class="introcontainer -zuckerl">
-      <div class="introtxt">
-        <div class="step-element">
-          <h2><span class="number">1.</span> Richte dir deine Location ein</h2>
-          <div class="text">Um ein Grätzlzuckerl einzubuchen, musst du dir zuerst deine Location-Seite einrichten. Die
-            Location ist dein persönliches Schaufenster im Grätzl - Und sie ist kostenlos!
-            <%= link_to 'Location einrichten', new_location_path, class: 'btn-primary' %>
-          </div>
-        </div>
-        <div class="step-element">
-          <h2><span class="number">2.</span> Schalte dein Grätzlzuckerl</h2>
-          <div class="text">Sobald du deine Locationseite hast, kannst du mit nur wenigen Klicks dein Grätzlzuckerl
-            schalten.
-          </div>
-        </div>
-      </div>
-      <div class="paperCard -illuteaser -cord1RT">
-        <div class="wrp">
-          <h3>Werde sichtbar in deinem Grätzl und richte dir jetzt deine Location-Seite ein.</h3>
-        </div>
-        <div class="card"></div>
-      </div>
+  <div class="introcontainer -zuckerl">
+    <div class="introtxt">
+      <h1><span>Grätzlzuckerl</span> Buchen & Verwalten</h1>
+
+      <p>Mit einem Grätzlzuckerl hast du die Möglichkeit günstig, einfach und schnell,
+        <strong>Werbung für dein spezielles Angebot in deinem Grätzl und Bezirk </strong>zu schalten.</p>
+
+      <p>Als Grätzlzuckerl eignen sich besondere Angebote, Gutscheine oder Rabattaktionen, welche du bei den Bewohnern
+        in deinem Umfeld bekannt geben möchtest.</p>
+
+      <p>Um deinem Grätzlzuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint dieses nicht nur auf
+        der Plattform in deinem eigenen Grätzl, sondern sogar <strong>im ganzen zugehörigen Bezirk!</strong> (also auch
+        allen umliegenden Grätzln.</p>
+
+      <p>Darüber hinaus landet dein Zuckerl natürlich auch im <strong>monatlichen Grätzlzuckerl Newsletter</strong>,
+        welcher an die Bewohner im Bezirk gesendet wird.</p>
+
+      <p><strong>Aber das Schönste daran:</strong> Mit den Einnahmen aus den Grätzluckerln werden gezielt Ideen &
+        Initiativen aus deinem Stadtteil gefördert.</p>
     </div>
-  <% else %>
-    <div class="introcontainer -zuckerl">
-      <div class="introtxt">
-        <h1><span>Grätzlzuckerl</span> Buchen & Verwalten</h1>
-
-        <p>Mit einem Grätzlzuckerl hast du die Möglichkeit günstig, einfach und schnell,
-          <strong>Werbung für dein spezielles Angebot in deinem Grätzl und Bezirk </strong>zu schalten.</p>
-
-        <p>Als Grätzlzuckerl eignen sich besondere Angebote, Gutscheine oder Rabattaktionen, welche du bei den Bewohnern
-          in deinem Umfeld bekannt geben möchtest.</p>
-
-        <p>Um deinem Grätzlzuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint dieses nicht nur auf
-          der Plattform in deinem eigenen Grätzl, sondern sogar <strong>im ganzen zugehörigen Bezirk!</strong> (also auch
-          allen umliegenden Grätzln.</p>
-
-        <p>Darüber hinaus landet dein Zuckerl natürlich auch im <strong>monatlichen Grätzlzuckerl Newsletter</strong>,
-          welcher an die Bewohner im Bezirk gesendet wird.</p>
-
-        <p><strong>Aber das Schönste daran:</strong> Mit den Einnahmen aus den Grätzluckerln werden gezielt Ideen &
-          Initiativen aus deinem Stadtteil gefördert.</p>
-      </div>
-      <div class="paperCard -illuteaser -cord1RT">
-        <div class="wrp">
-          <h3>Schalte jetzt dein Grätzlzuckerl für den Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B' %>.</h3>
-          <%= link_to 'Grätzlzuckerl buchen', new_zuckerl_path, class: 'btn-primary' %>
-          <div class="zuckerlfaqlink">Du hast Fragen zum Grätzlzuckerl?
-            <a href="#">Hier gibts Antworten.</a>
-          </div>
+    <div class="paperCard -illuteaser -cord1RT">
+      <div class="wrp">
+        <h3>Schalte jetzt dein Grätzlzuckerl für den Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B' %>.</h3>
+        <%= link_to 'Grätzlzuckerl buchen', new_zuckerl_path, class: 'btn-primary' %>
+        <div class="zuckerlfaqlink">Du hast Fragen zum Grätzlzuckerl?
+          <%= link_to 'Hier gibts Antworten', info_infos_zum_graetzlzuckerl_path %>
         </div>
-        <div class="card"></div>
       </div>
+      <div class="card"></div>
     </div>
-    <div class="cardBoxCollection -tripple">
-      <%= render @zuckerls %>
-    </div>
-  <% end %>
+  </div>
+  <div class="cardBoxCollection -tripple">
+    <%= render @zuckerls %>
+  </div>
 </section>
