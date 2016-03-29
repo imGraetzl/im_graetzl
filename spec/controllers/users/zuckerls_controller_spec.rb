@@ -16,6 +16,7 @@ RSpec.describe Users::ZuckerlsController, type: :controller do
       let(:location) { create :location, :approved }
       let!(:ownership) { create :location_ownership, user: user, location: location }
       let!(:zuckerls) { create_list :zuckerl, 3, location: location }
+      let!(:cancelled_zuckerl) { create :zuckerl, :cancelled, location: location }
 
       before do
         sign_in user
@@ -24,6 +25,10 @@ RSpec.describe Users::ZuckerlsController, type: :controller do
 
       it 'assigns @zuckerls' do
         expect(assigns :zuckerls).to match_array zuckerls
+      end
+
+      it 'ignores cancelled zuckerls' do
+        expect(assigns :zuckerls).not_to include cancelled_zuckerl
       end
 
       it 'renders :index' do

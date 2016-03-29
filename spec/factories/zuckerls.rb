@@ -7,5 +7,9 @@ FactoryGirl.define do
     trait :live do
       aasm_state { 'live' }
     end
+
+    trait :cancelled do
+      aasm_state { 'cancelled' }
+    end
   end
 end

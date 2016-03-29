@@ -108,4 +108,140 @@ RSpec.describe ZuckerlsController, type: :controller do
       end
     end
   end
+
+  describe 'GET edit' do
+    let(:location) { create :location }
+    let(:zuckerl) { create :zuckerl, location: location }
+
+    context 'when logged out' do
+      it 'redirects to login' do
+        get :edit, location_id: location, id: zuckerl
+        expect(response).to render_template(session[:new])
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create :user }
+
+      before { sign_in user }
+
+      context 'when not owner of location' do
+        it 'returns 404' do
+          expect{
+            get :edit, location_id: location, id: zuckerl
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+      context 'when owner of location' do
+        before { create :location_ownership, user: user, location: location }
+
+        context 'when zuckerl :live' do
+          let(:zuckerl) { create :zuckerl, :live }
+
+          it 'redirects to user_zuckerls_path with alert' do
+            get :edit, location_id: location, id: zuckerl
+            expect(response).to redirect_to user_zuckerls_path
+            expect(flash[:alert]).to be_present
+          end
+        end
+        context 'when zuckerl :pending' do
+          before { get :edit, location_id: location, id: zuckerl }
+
+          it 'assigns @location' do
+            expect(assigns :location).to eq location
+          end
+
+          it 'assigns @zuckerl' do
+            expect(assigns :zuckerl).to eq zuckerl
+          end
+
+          it 'renders :edit' do
+            expect(response).to render_template :edit
+          end
+        end
+      end
+    end
+  end
+
+  describe 'PUT update' do
+    let(:location) { create :location }
+    let(:zuckerl) { create :zuckerl, location: location }
+
+    context 'when logged in' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      context 'when owner of location' do
+        before { create :location_ownership, user: user, location: location }
+
+        context 'with valid params' do
+          let(:params) { { location_id: location, id: zuckerl, zuckerl: { title: 'new_title' } } }
+
+          it 'updates attributes' do
+            expect{
+              put :update, params
+              zuckerl.reload
+            }.to change{zuckerl.title}.to 'new_title'
+          end
+
+          it 'redirects to user_zuckerls_path with notice' do
+            put :update, params
+            expect(response).to redirect_to user_zuckerls_path
+            expect(flash[:notice]).to be_present
+          end
+        end
+        context 'with invalid params' do
+          let(:params) { { location_id: location, id: zuckerl, zuckerl: { title: '' } } }
+
+          it 'does not update attributes' do
+            expect{
+              put :update, params
+              zuckerl.reload
+            }.not_to change{zuckerl.title}
+          end
+
+          it 'renders :edit' do
+            put :update, params
+            expect(response).to render_template :edit
+          end
+        end
+        context 'when zuckerl live' do
+          let(:zuckerl) { create :zuckerl, :live }
+
+          it 'redirects to user_zuckerls_path with alert' do
+            put :update, location_id: location, id: zuckerl
+            expect(response).to redirect_to user_zuckerls_path
+            expect(flash[:alert]).to be_present
+          end
+        end
+      end
+      context 'when not owner of location' do
+        it 'returns 404' do
+          expect{
+            put :update, location_id: location, id: zuckerl
+          }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    let(:location) { create :location }
+    let(:zuckerl) { create :zuckerl, location: location }
+
+    context 'when logged in' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      context 'when owner of location' do
+        before { create :location_ownership, user: user, location: location }
+
+        it 'changes zuckerl to :cancelled' do
+          expect{
+            delete :destroy, location_id: location, id: zuckerl
+            zuckerl.reload
+          }.to change{zuckerl.aasm.current_state}.to :cancelled
+        end
+      end
+    end
+  end
 end

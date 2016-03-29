@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Users::ZuckerlsController, type: :routing do
 
   describe 'routes' do
-    it 'routes GET /user/zuckerls to #index' do
-      expect(get: '/user/zuckerls').to route_to('users/zuckerls#index')
+    it 'routes GET /user/zuckerl to #index' do
+      expect(get: '/user/zuckerl').to route_to('users/zuckerls#index')
     end
   end
 

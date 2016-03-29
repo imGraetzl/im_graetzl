@@ -10,16 +10,16 @@ RSpec.describe BillingAddressesController, type: :routing do
       expect(get: '/locations/location-slug/billing_address/edit').not_to be_routable
     end
 
-    it 'routes GET /zuckerls/zuckerl-slug/billing_address to #show' do
-      expect(get: '/zuckerls/zuckerl-slug/billing_address').to route_to('billing_addresses#show', zuckerl_id: 'zuckerl-slug')
+    it 'routes GET /zuckerl/zuckerl-slug/billing_address to #show' do
+      expect(get: '/zuckerl/zuckerl-slug/billing_address').to route_to('billing_addresses#show', zuckerl_id: 'zuckerl-slug')
     end
 
-    it 'routes POST /zuckerls/zuckerl-slug/billing_address to #create' do
-      expect(post: '/zuckerls/zuckerl-slug/billing_address').to route_to('billing_addresses#create', zuckerl_id: 'zuckerl-slug')
+    it 'routes POST /zuckerl/zuckerl-slug/billing_address to #create' do
+      expect(post: '/zuckerl/zuckerl-slug/billing_address').to route_to('billing_addresses#create', zuckerl_id: 'zuckerl-slug')
     end
 
-    it 'routes PUT /zuckerls/zuckerl-slug/billing_address to #update' do
-      expect(put: '/zuckerls/zuckerl-slug/billing_address').to route_to('billing_addresses#update', zuckerl_id: 'zuckerl-slug')
+    it 'routes PUT /zuckerl/zuckerl-slug/billing_address to #update' do
+      expect(put: '/zuckerl/zuckerl-slug/billing_address').to route_to('billing_addresses#update', zuckerl_id: 'zuckerl-slug')
     end
   end
   describe 'named routes' do
