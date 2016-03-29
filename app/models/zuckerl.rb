@@ -11,7 +11,7 @@ class Zuckerl < ActiveRecord::Base
 
   after_commit :send_booking_confirmation, on: :create
 
-  validates :title, presence: true, length: { in: 4..80 }
+  validates :title, length: { in: 4..80 }
 
   aasm do
     state :pending, initial: true
