@@ -70,7 +70,7 @@ APP.components.createzuckerl = (function() {
     }
 
     function submitzuckerlform(e) {
-        if(!$btnsend.hasClass("is-visible")) {
+        if($btnsend.exists() && !$btnsend.hasClass("is-visible")) {
             e.preventDefault();
         }
     }
