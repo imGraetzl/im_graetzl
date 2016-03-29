@@ -3,6 +3,10 @@ module MeetingsHelper
     '-past' if meeting.try(:starts_at_date).try(:past?)
   end
 
+  def meeting_link_text(meeting)
+    meeting.try(:starts_at_date).try(:past?) ? 'Ansehen' : 'Mitmachen'
+  end
+
   def address_value(address)
     if address.street_name.blank?
       nil

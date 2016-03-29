@@ -26,7 +26,7 @@
       <h3><%= link_to meeting.name, [meeting.graetzl, meeting] %></h3>
       <p><%= truncate(meeting.description, length: 100) %></p>
     </div>
-    <%= link_to 'Mitmachen', [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
+    <%= link_to meeting_link_text(meeting), [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
     <%= render 'activities/appendix', appendix: appendix, parent: meeting if defined? appendix %>
   </div>
 </div>
