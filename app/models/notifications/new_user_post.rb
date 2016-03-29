@@ -17,6 +17,7 @@ class Notifications::NewUserPost < Notification
   def mail_vars
     {
       type: type.demodulize.underscore,
+      post_title: activity.trackable.title,
       post_content: activity.trackable.content.truncate(255, separator: ' '),
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),
@@ -26,6 +27,6 @@ class Notifications::NewUserPost < Notification
   end
 
   def mail_subject
-    "Neuer Beitrag im Grätzl #{activity.trackable.graetzl.name}"
+    "Neue Idee im Grätzl #{activity.trackable.graetzl.name}"
   end
 end

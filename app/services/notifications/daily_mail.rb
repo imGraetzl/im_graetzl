@@ -10,7 +10,7 @@ class Notifications::DailyMail < MandrillMessage
       types: [Notifications::NewMeeting]
     },
     {
-      name: 'Neue Beiträge im Grätzl',
+      name: 'Neue Ideen im Grätzl',
       types: [Notifications::NewUserPost]
     }
   ]

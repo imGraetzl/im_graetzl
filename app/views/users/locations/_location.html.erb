@@ -13,9 +13,7 @@
         <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
       <% end %>
       <div class="locationtxt">
-        <%= link_to [location.graetzl, location] do %>
-          <div class="name"><%= location.name %></div>
-        <% end %>
+        <%= link_to location.name, [location.graetzl, location], class: 'name' %>
         <div class="category"><%= location.category.name %></div>
         <% if location.address %>
           <div class="address">
