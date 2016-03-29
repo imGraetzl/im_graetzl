@@ -258,4 +258,20 @@ RSpec.describe Location, type: :model do
       expect(location.boss).to eq owner
     end
   end
+
+  describe '#editable_by' do
+    let(:location) { create :location }
+    let(:user) { create :user }
+
+    subject(:edit_state) { location.editable_by?(user) }
+
+    it 'returns true for owners' do
+      create :location_ownership, user: user, location: location
+      expect(edit_state).to eq true
+    end
+
+    it 'returns false for other users' do
+      expect(edit_state).to eq false
+    end
+  end
 end
