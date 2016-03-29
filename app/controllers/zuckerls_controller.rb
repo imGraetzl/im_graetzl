@@ -38,6 +38,12 @@ class ZuckerlsController < ApplicationController
     end
   end
 
+  def destroy
+    set_location
+    @location.zuckerls.find(params[:id]).cancel!
+    redirect_to user_zuckerls_path, notice: 'Zuckerl wurde gelöscht'
+  end
+
   private
 
   def set_location_for_new

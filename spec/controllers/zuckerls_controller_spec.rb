@@ -223,4 +223,25 @@ RSpec.describe ZuckerlsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE destroy' do
+    let(:location) { create :location }
+    let(:zuckerl) { create :zuckerl, location: location }
+
+    context 'when logged in' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      context 'when owner of location' do
+        before { create :location_ownership, user: user, location: location }
+
+        it 'changes zuckerl to :cancelled' do
+          expect{
+            delete :destroy, location_id: location, id: zuckerl
+            zuckerl.reload
+          }.to change{zuckerl.aasm.current_state}.to :cancelled
+        end
+      end
+    end
+  end
 end
