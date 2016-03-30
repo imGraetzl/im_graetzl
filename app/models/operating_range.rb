@@ -1,4 +1,4 @@
 class OperatingRange < ActiveRecord::Base
   belongs_to :graetzl
-  belongs_to :initiative
+  belongs_to :operator, polymorphic: true
 end
