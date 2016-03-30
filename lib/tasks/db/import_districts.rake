@@ -7,26 +7,24 @@ namespace :db do
     def query_api
       query = 'http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json'
       uri = URI.parse(URI.encode(query))
-      begin
-        HTTParty.get(uri)
-      rescue
-        nil
-      end
+      HTTParty.get uri
+    rescue HTTParty::Error
+      nil
     end
 
     def parse_features(geojson)
       geojson['features'].each do |feature|
-        polygon = RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json)
-        polygon = polygon.simplify(0.0001)
+        area = RGeo::GeoJSON.decode(feature['geometry'], json_parser: :json)
+        area = area.simplify(0.0001)
         name = feature['properties']['NAMEK']
         zip = feature['properties']['DISTRICT_CODE']
-        District.find_or_create_by(name: name, zip: zip.to_s, area: polygon)
+        District.find_or_create_by(name: name, zip: zip.to_s, area: area)
       end
     end
 
     api_response = query_api
     if api_response
-      parse_features(api_response)
+      parse_features api_response
     else
       puts 'Cannot import districts from api'
     end
