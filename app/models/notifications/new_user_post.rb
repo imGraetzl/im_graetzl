@@ -11,7 +11,7 @@ class Notifications::NewUserPost < Notification
   end
 
   def self.description
-    'Ein User hat einen neuen Beitrag im Grätzl erstellt'
+    'Es gibt eine neue Idee im Grätzl'
   end
 
   def mail_vars

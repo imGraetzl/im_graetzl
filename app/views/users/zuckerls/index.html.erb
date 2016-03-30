@@ -26,7 +26,10 @@
       <div class="card"></div>
     </div>
   </div>
-  <div class="cardBoxCollection -tripple">
-    <%= render @zuckerls %>
-  </div>
+  <% unless @zuckerls.empty? %>
+    <h2 class="hl-main">Deine <span>gebuchten Grätzlzuckerl</span> verwalten</h2>
+    <div class="cardBoxCollection -tripple">
+      <%= render @zuckerls %>
+    </div>
+  <% end %>
 </section>

@@ -4,8 +4,18 @@
   <% end %>
   <%= render 'graetzls/curator' if @graetzl.curator %>
   <%= filters_for current_user, @graetzl %>
-  <div class="cards-container" data-behavior="stream-container">
-    <%= render(@posts) || render('empty_message') %>
-  </div>
+  <% unless current_user %>
+    <div class="hl-subtext">
+      <h1>Gestaltet euer Grätzl mit - <span>Ideen & Wünsche</span></h1>
+      <p>Entdecke, was sich BewohnerInnen fürs Grätzl <%= @graetzl.name %> wünschen und welche Ideen im Raum stehen.</p>
+    </div>
+  <% end %>
+  <% unless @posts.empty? %>
+    <div class="cards-container" data-behavior="stream-container">
+      <%= render(@posts) %>
+    </div>
+  <% else %>
+    <%=render('empty_message') %>
+  <% end %>
   <%= view_more_link @posts %>
 </section>

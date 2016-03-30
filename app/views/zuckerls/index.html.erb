@@ -14,8 +14,18 @@
   <% end %>
   <%= render 'graetzls/curator' if @graetzl.curator %>
   <%= filters_for current_user, @graetzl %>
-  <div class="cards-container" data-behavior="stream-container">
-    <%= render(@zuckerls) || render('empty_message') %>
-  </div>
+  <% unless current_user %>
+    <div class="hl-subtext">
+      <h1>Die schönsten <span>Angebote im <%= I18n.localize Time.now.end_of_month+1.day, format: '%B' %></span> im Grätzl</h1>
+      <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck</p>
+    </div>
+  <% end %>
+  <% unless @zuckerls.empty? %>
+    <div class="cards-container" data-behavior="stream-container">
+      <%= render(@zuckerls) %>
+    </div>
+  <% else %>
+    <%=render('empty_message') %>
+  <% end %>
   <%= view_more_link @zuckerls %>
 </section>

@@ -1,4 +1,8 @@
-<div class="cards-container" data-behavior="stream-container">
-  <%= render(@activity_decorated || @activity) || render('empty_message') %>
-</div>
+<% unless @activity_decorated.empty? || @activity.empty?  %>
+  <div class="cards-container" data-behavior="stream-container">
+    <%=render(@activity_decorated || @activity) %>
+  </div>
+<% else %>
+  <%=render('empty_message') %>
+<% end %>
 <%= view_more_link @activity %>

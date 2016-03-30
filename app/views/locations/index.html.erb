@@ -1,12 +1,12 @@
 <%
-  meta({
-    title: t('.title', graetzl: @graetzl.name),
-    description: t('.description', graetzl: @graetzl.name),
-    robots: @graetzl.open? ? 'index, follow' : 'noindex, follow',
-    og_title: t('.title', graetzl: @graetzl.name),
-    og_description: t('.description', graetzl: @graetzl.name),
-    og_image: image_url('meta/og_logo.png')
-  })
+   meta({
+          title: t('.title', graetzl: @graetzl.name),
+          description: t('.description', graetzl: @graetzl.name),
+          robots: @graetzl.open? ? 'index, follow' : 'noindex, follow',
+          og_title: t('.title', graetzl: @graetzl.name),
+          og_description: t('.description', graetzl: @graetzl.name),
+          og_image: image_url('meta/og_logo.png')
+        })
 %>
 <section class="masonryFilterGrid">
 
@@ -15,8 +15,18 @@
   <% end %>
   <%= render 'graetzls/curator' if @graetzl.curator %>
   <%= filters_for current_user, @graetzl %>
-  <div class="cards-container" data-behavior="stream-container">
-    <%= render(@locations) || render('empty_message') %>
-  </div>
+  <% unless current_user %>
+    <div class="hl-subtext">
+      <h1>Entdecke - richtig gute <span>Anbieter, Lokale & Geschäfte</span></h1>
+      <p>Finde grätzlansässige local Makers, Selbständige & Unternehmen im Grätzl <%= @graetzl.name %></p>
+    </div>
+  <% end %>
+  <% unless @locations.empty? %>
+    <div class="cards-container" data-behavior="stream-container">
+      <%= render(@locations) %>
+    </div>
+  <% else %>
+    <%=render('empty_message') %>
+  <% end %>
   <%= view_more_link @locations %>
 </section>

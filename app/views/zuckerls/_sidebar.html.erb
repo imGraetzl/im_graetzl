@@ -45,22 +45,17 @@
 </div>
 
 <div class="initiative-container">
-  <p>Mit deinem Zuckerl unterstützt du:</p>
-  <div class="initiative-info">
-    <% if initiative = zuckerl.initiative %>
+  <% if initiative = zuckerl.initiative %>
+    <p>Mit deinem Zuckerl unterstützt du:</p>
+    <div class="initiative-info">
       <div>
         <div class="name"><%= initiative.name %></div>
         <p class="description">
           <%= attachment_image_tag(initiative, :image, :fit, 100, 200, class: 'logo') if initiative.image %>
           <%= initiative.description %>
         </p>
-        <%= link_to initiative.website.sub(/^https?\:\/\//,''), initiative.website, target: '_blank' %>
+        <%= link_to initiative.website.sub(/^https?\:\/\//, ''), initiative.website, target: '_blank' %>
       </div>
-    <% else %>
-      <p class="defaulttext">Mit deiner Buchung kannst du gezielt Initiativen aus dem Grätzl unterstützen. Wählst du
-        eine Initiative, so
-        gehen 50% deiner Buchung gezielt an diese. Wählst du "Alle", werden die 50% gleichmäßig an alle verteilt.
-      </p>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

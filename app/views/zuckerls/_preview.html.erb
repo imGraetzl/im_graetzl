@@ -44,11 +44,12 @@
 
 <div class="initiative-container">
   <p>Mit deinem Zuckerl unterstützt du:</p>
+
   <div class="initiative-info">
-    <p class="defaulttext">Mit deiner Buchung kannst du gezielt Initiativen aus dem Grätzl unterstützen.
-      Wählst du eine Initiative, so gehen 50% deiner Buchung gezielt an diese.
-      Wählst du "Alle Initiativen im Grätzl", werden die 50% gleichmäßig verteilt.
-      Falls in deinem Grätzl noch keine Initiativen zur Auswahl stehen, so unterstützt du die Plattform imGrätzl.at
+    <p class="defaulttext"><strong>Mit deiner Buchung kannst du gezielt Initiativen aus deinem Grätzl unterstützen.</strong> Wählst du
+      eine Initiative, so gehen 50% der Einnahmen (nach Abzug der Kosten) durch deine Buchung gezielt an diese. Wählst
+      du "Alle Initiativen im Grätzl", werden die 50% gleichmäßig verteilt. Falls in deinem Grätzl noch keine
+      Initiativen zur Auswahl stehen, so unterstützt du die Weiterentwicklung von imGrätzl.at
     </p>
 
     <% location.graetzl.initiatives.each do |initiative| %>
@@ -58,7 +59,7 @@
           <%= attachment_image_tag(initiative, :image, :fit, 100, 200, class: 'logo') if initiative.image %>
           <%= initiative.description %>
         </p>
-        <%= link_to initiative.website.sub(/^https?\:\/\//,''), initiative.website, target: '_blank' %>
+        <%= link_to initiative.website.sub(/^https?\:\/\//, ''), initiative.website, target: '_blank' %>
       </div>
     <% end %>
   </div>

@@ -95,13 +95,19 @@ section.createzuckerl {
       color: $color-ambient-mint-dark;
       font-weight: bold;
     }
+    .btn-primary {
+      @include respond-to(">=medium") {
+        display: table;
+        margin-left: auto;
+      }
+    }
   }
 
 
   // --------------------------------------------------- sidebar
 
   .cardBox {
-   // margin-top: -20px;
+    // margin-top: -20px;
     margin-bottom: 20px;
     @include respond-to(">=large") {
       margin-top: 0;

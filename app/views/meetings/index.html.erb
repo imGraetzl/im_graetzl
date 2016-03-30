@@ -14,8 +14,18 @@
   <% end %>
   <%= render 'graetzls/curator' if @graetzl.curator %>
   <%= filters_for current_user, @graetzl %>
-  <div class="cards-container" data-behavior="stream-container">
-    <%= render(@meetings) || render('empty_message') %>
-  </div>
+  <% unless current_user %>
+    <div class="hl-subtext">
+      <h1><span>Treffen & Events</span> im Grätzl <%= @graetzl.name %></h1>
+      <p>Motto: Runter vom Sofa & mitten rein ins Grätzlleben</p>
+    </div>
+  <% end %>
+  <% unless @meetings.empty? %>
+    <div class="cards-container" data-behavior="stream-container">
+      <%= render(@meetings) %>
+    </div>
+  <% else %>
+    <%=render('empty_message') %>
+  <% end %>
   <%= view_more_link @meetings %>
 </section>

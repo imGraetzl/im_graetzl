@@ -11,21 +11,21 @@
         <% end %>
       </div>
       <% if defined? graetzl %>
-        <h3>Du bist unternehmerisch oder kreativ im Grätzl <%= graetzl.name %> tätig?</h3>
+        <h3>Du bist unternehmerisch, sozial oder kreativ im Grätzl <%= graetzl.name %> tätig?</h3>
         <%= link_to 'Deine Location einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
       <% elsif defined? district %>
-        <h3>Du bist unternehmerisch oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
+        <h3>Du bist unternehmerisch, sozial oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
         <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Du bist ein "Local Maker" bzw. unternehmerisch oder kreativ im Grätzl tätig?</h3>
+        <h3>Du bist ein "Local Maker" bzw. unternehmerisch, sozial oder kreativ im Grätzl tätig?</h3>
         <%= link_to 'Deine Location Eintragen', new_user_session_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>
   </div>
   <% if defined? view_all %>
-    <%= link_to 'Alle Treffpunkte & Anbieter', district_locations_path(district), class: 'link-more' %>
+    <%= link_to 'Alle Anbieter & local Makers', district_locations_path(district), class: 'link-more' %>
   <% elsif defined? graetzl %>
-    <%= link_to 'Alle Treffpunkte & Anbieter', graetzl_locations_path(graetzl), class: 'link-more' %>
+    <%= link_to 'Alle Anbieter & local Makers', graetzl_locations_path(graetzl), class: 'link-more' %>
   <% end %>
 </div>
