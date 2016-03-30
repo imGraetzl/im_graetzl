@@ -10,6 +10,18 @@ RSpec.describe AdminPost, type: :model do
     expect(build_stubbed :admin_post).to be_valid
   end
 
+  describe 'own associations' do
+    let(:admin_post) { create :admin_post }
+
+    it 'does not have graetzl' do
+      expect(admin_post).not_to respond_to :graetzl
+    end
+
+    it 'has graetzls' do
+      expect(admin_post).to respond_to :graetzls
+    end
+  end
+
   describe '#edit_permission?' do
     let(:post) { create :admin_post }
 
