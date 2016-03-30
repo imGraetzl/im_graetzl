@@ -5,7 +5,7 @@
   <%= render 'graetzls/curator' if @graetzl.curator %>
   <%= filters_for current_user, @graetzl %>
   <div class="cards-container" data-behavior="stream-container">
-    <%= render @posts %>
+    <%= render(@posts) || render('empty_message') %>
   </div>
   <%= view_more_link @posts %>
 </section>
