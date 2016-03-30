@@ -29,13 +29,15 @@ class Zuckerl::Invoice
         vars: [
           { name: 'username', content: @user.username },
           { name: 'payment_reference', content: @zuckerl.payment_reference },
+          { name: 'payment_date', content: Date.today.strftime('%d.%m.%Y') },
           { name: 'location_name', content: @location.name },
           { name: 'location_url', content: graetzl_location_url(@location.graetzl, @location, url_options) },
           { name: 'zuckerl_url', content: user_zuckerls_url(url_options) },
           { name: 'zuckerl_period', content: I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%B %Y') },
           { name: 'billing_address', content: billing_address_vars },
         ]
-      ]
+      ],
+      bcc_address: 'rechnung@imgraetzl.at'
     }
   end
 

@@ -20,17 +20,23 @@ RSpec.describe Zuckerl::Invoice do
     subject(:message_hash) { service.send(:build_message) }
 
     it 'has keys for mandrill' do
-      expect(message_hash.keys).to contain_exactly(:to,
-                                            :from_email,
-                                            :from_name,
-                                            :subject,
-                                            :merge_vars)
+      expect(message_hash.keys).to contain_exactly(
+        :to,
+        :from_email,
+        :from_name,
+        :subject,
+        :merge_vars,
+        :bcc_address)
     end
 
     it 'has merge_vars' do
       expect(message_hash[:merge_vars]).to be_a(Array)
       expect(message_hash[:merge_vars][0]).to be_a(Hash)
       expect(message_hash[:merge_vars][0][:vars]).not_to be_empty
+    end
+
+    it 'has bcc_address' do
+      expect(message_hash[:bcc_address]).to eq 'rechnung@imgraetzl.at'
     end
   end
 
