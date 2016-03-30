@@ -1,0 +1,72 @@
+de:
+  activerecord:
+    models:
+      address: Adresse
+      billing_address: Rechnungsadresse
+      category:
+        one: Kategorie
+        other: Kategorien
+      contact: Kontakt
+      curator:
+        one: Grätzlbotschafter
+        other: Grätzlbotschafter
+      initiative:
+        one: Initiative
+        other: Initiativen
+      meeting: Treffen
+      zuckerl:
+        one: Zuckerl
+        other: Zuckerl
+    attributes:
+      address:
+        street_name: Straße
+        street_number: Hausnummer
+        zip: Postleitzahl
+        city: Stadt
+        coordinates: Koordinaten
+        description: Beschreibung
+      billing_address:
+        first_name: Vorname
+        last_name: Nachname
+        full_name: Vorname Nachname
+        full_city: PLZ Ort
+        street: Straße
+        company: Firma
+        country: Land
+        city: Stadt
+        zip: Postleitzahl
+      category:
+        context: Kontext
+      contact:
+        phone: Telefon
+        hours: Öffnungszeiten
+      initiative:
+        description: Beschreibung
+        image: Bild
+      location:
+        category: Kategorie
+        product_list: Produktgruppen
+        products: Produkte
+        meeting_permission: Treffen ermöglichen
+        meeting_permissions:
+          meetable: Jeder kann Treffen hier starten
+          owner_meetable: Nur ich kann Treffen hier starten
+          non_meetable: Hier können keine Treffen stattfinden
+      meeting:
+        description: Beschreibung
+        starts_at: Beginn
+        ends_at: Ende
+      user:
+        first_name: Vorname
+        last_name: Nachname
+        password: Passwort
+        password_confirmation: Passwort bestätigen
+        terms_and_conditions: AGBs
+        avatar: Profilbild
+        login: Username oder Email
+        remember_me: Angemeldet bleiben
+      zuckerl:
+        title: Titel
+        description: Beschreibung
+        image: Bild
+        paid_at: Bezahlt
