@@ -6,8 +6,8 @@ namespace :db do
 
     def query_api
       access_token = 'pk.eyJ1IjoicGVja29taW5nbyIsImEiOiJoVHNQM29zIn0.AVmpyDYApR5mryMCJB1ryw'
-      # map_id = 'peckomingo.pgi7pcmh'
-      map_id = 'peckomingo.neninlfj'
+      map_id = 'peckomingo.pgi7pcmh'
+      # map_id = 'peckomingo.neninlfj'
       query = "http://api.tiles.mapbox.com/v4/#{map_id}/features.json?access_token=#{access_token}"
       uri = URI.parse(URI.encode(query))
       HTTParty.get uri
