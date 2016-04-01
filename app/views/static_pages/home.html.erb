@@ -48,6 +48,18 @@
     </div>
   </div>
 
+  <div class="input-select graetzljump">
+    <label for="select">
+      <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+      <span>Zu deinem Grätzl</span>
+    </label>
+    <select id="select" onchange="location.href = $(this).val()">
+      <option value="">Bezirk wählen</option>
+      <option value="/wien/innere-stadt-1010">1010 - Innere Stadt</option>
+      <option value="/wien/leopoldstadt-1020">1020 - Leopoldstadt</option>
+    </select>
+  </div>
+
   <div class="block-meetings">
     <div class="hl-subtext">
       <h1>Entdecke — <span>Treffen &amp; Events</span> im Grätzl</h1>
