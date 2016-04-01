@@ -62,6 +62,7 @@ de:
       post:
         title: Titel
         content: Text
+        created_at: Erstellt am
       user:
         first_name: Vorname
         last_name: Nachname
