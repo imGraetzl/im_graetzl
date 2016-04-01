@@ -1,9 +1,0 @@
-de:
-  activerecord:
-    models:
-      meeting: 'Treffen'
-    attributes:
-      meeting:
-        description: 'Beschreibung'
-        starts_at: 'Beginn'
-        ends_at: 'Ende'

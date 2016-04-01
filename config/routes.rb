@@ -99,4 +99,5 @@ Rails.application.routes.draw do
     post :comments, action: :comment
     get :comments
   end
+  resources :admin_posts, path: :ideen, only: [:show]
 end

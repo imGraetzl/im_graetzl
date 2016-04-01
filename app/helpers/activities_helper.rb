@@ -15,6 +15,8 @@ module ActivitiesHelper
     when LocationPost.to_s
       location = parent.author
       [location.graetzl, location]
+    when AdminPost.to_s
+      parent
     else
       [parent.graetzl, parent]
     end

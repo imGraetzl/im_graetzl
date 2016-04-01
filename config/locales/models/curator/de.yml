@@ -1,6 +1,0 @@
-de:
-  activerecord:
-    models:
-      curator:
-        one: 'Grätzlbotschafter'
-        other: 'Grätzlbotschafter'

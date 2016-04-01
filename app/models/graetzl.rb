@@ -6,6 +6,7 @@ class Graetzl < ActiveRecord::Base
   STREAM_ACTIVITY_KEYS = [
     'meeting.comment', 'meeting.create', 'meeting.go_to',
     'user_post.comment', 'user_post.create',
+    'admin_post.comment', 'admin_post.create',
     'location_post.comment', 'location_post.create'
   ]
 
@@ -15,7 +16,8 @@ class Graetzl < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :locations, dependent: :destroy
   has_many :operating_ranges
-  has_many :initiatives, through: :operating_ranges
+  has_many :initiatives, through: :operating_ranges, source: :operator, source_type: 'Initiative'
+  has_many :admin_posts, through: :operating_ranges, source: :operator, source_type: 'Post'
 
   def districts
     District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
@@ -27,13 +29,15 @@ class Graetzl < ActiveRecord::Base
 
   def activity
     Activity.
-      includes(:owner, trackable: [:graetzl]).
+      includes(:owner, :trackable).
       where(id:
         Activity.select('DISTINCT ON(trackable_id, trackable_type) id').
         where(key: STREAM_ACTIVITY_KEYS).
         where("(trackable_id IN (?) AND trackable_type = 'Meeting')
                 OR
-                (trackable_id IN (?) AND trackable_type LIKE '%Post')", meetings.ids, posts.ids).
+                (trackable_id IN (?) AND trackable_type LIKE '%Post')
+                OR
+                (trackable_id IN (?) AND trackable_type = 'Post')", meetings.ids, posts.ids, admin_posts.ids).
         order(:trackable_id, :trackable_type, id: :desc)
       ).order(id: :desc)
   end

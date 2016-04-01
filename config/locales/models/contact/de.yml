@@ -1,8 +1,0 @@
-de:
-  activerecord:
-    models:
-      contact: Kontakt
-    attributes:
-      contact:
-        phone: Telefon
-        hours: Öffnungszeiten

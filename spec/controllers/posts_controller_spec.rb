@@ -5,7 +5,9 @@ RSpec.describe PostsController, type: :controller do
 
   describe 'GET index' do
     let!(:old_user_posts) { create_list :user_post, 15, graetzl: graetzl }
-    let!(:new_user_posts) { create_list :user_post, 15, graetzl: graetzl }
+    let!(:new_user_posts) { create_list :user_post, 14, graetzl: graetzl }
+    let!(:admin_post) { create :admin_post }
+    before { create :operating_range, operator: admin_post, graetzl: graetzl }
 
     context 'when html request' do
       before { get :index, graetzl_id: graetzl }
@@ -19,7 +21,7 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'assigns newest @posts' do
-        expect(assigns :posts).to match_array new_user_posts
+        expect(assigns :posts).to match_array (new_user_posts << admin_post)
       end
 
       it 'renders index.html' do

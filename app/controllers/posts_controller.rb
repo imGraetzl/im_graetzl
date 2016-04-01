@@ -3,9 +3,11 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:destroy]
 
   def index
-    @posts = @graetzl.posts.where(type: UserPost)
-      .includes(:graetzl, author: [:graetzl])
-      .order(created_at: :desc).
+    @posts = Post.includes(:author).
+      where("(id IN (?)) OR (id IN (?))",
+      @graetzl.posts.where(type: 'UserPost').ids,
+      @graetzl.admin_posts.ids).
+      order(created_at: :desc).
       page(params[:page]).per(15)
   end
 
