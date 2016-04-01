@@ -39,6 +39,7 @@ SitemapGenerator::Sitemap.create do
   add info_impressum_path, changefreq: 'never', priority: 0.3
   add info_infos_zum_graetzlzuckerl_path, changefreq: 'never', priority: 0.3
   add info_fragen_und_antworten_path, changefreq: 'never', priority: 0.3
+  add info_zur_graetzlmarie_path, changefreq: 'never', priority: 0.3
 
   # Registration (only get paths)
   add new_user_session_path, changefreq: 'never', priority: 0.3
