@@ -20,6 +20,10 @@ RSpec.describe AdminPost, type: :model do
     it 'has graetzls' do
       expect(admin_post).to respond_to :graetzls
     end
+
+    it 'has graetzls' do
+      expect(admin_post).to respond_to :operating_ranges
+    end
   end
 
   describe '#edit_permission?' do

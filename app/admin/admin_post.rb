@@ -3,6 +3,9 @@ ActiveAdmin.register AdminPost do
   before_create do |admin_post|
     admin_post.author = current_user
   end
+  after_create do |admin_post|
+    admin_post.create_activity :create, owner: current_user
+  end
 
   filter :author, as: :select, collection: User.admin
   filter :title

@@ -20,5 +20,11 @@ RSpec.describe Admin::AdminPostsController, type: :controller do
         post :create, params
       }.to change{AdminPost.count}.by 1
     end
+
+    it 'creates activity record' do
+      expect{
+        post :create, params
+      }.to change{Activity.count}.by 1
+    end
   end
 end

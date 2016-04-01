@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :operating_range do
     graetzl
-    initiative
+    association :operator
   end
 end
