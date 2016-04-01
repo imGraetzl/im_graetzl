@@ -60,7 +60,7 @@
     <% if @location.editable_by? current_user %>
       <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
       <%= render 'location_posts/form', location: @location %>
-     <% elsif !@posts.empty? %>
+    <% elsif !@posts.empty? %>
       <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
     <% end %>
     <%= render partial: 'location_posts/stream_post', collection: @posts, as: 'post' %>

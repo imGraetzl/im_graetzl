@@ -23,7 +23,7 @@
     margin-right: 12px;
     flex: 0 0 auto;
   }
-  span {
+  span, {
     @include ellipsis;
   }
 }

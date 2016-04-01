@@ -20,7 +20,7 @@
         <% @location.users.each do |user| %>
           <%= link_to user, class: 'user-wrp', target: '_blank' do %>
             <%= avatar_for user %>
-            <div class="name"><%= user.username %></div>
+            <span class="name"><%= user.username %></span>
           <% end %>
         <% end %>
       <% end %>
@@ -38,7 +38,7 @@
           <svg class="icon-at-symbol">
             <use xlink:href="#icon-at-symbol"></use>
           </svg>
-          <%= @location.contact.email %>
+          <span><%= @location.contact.email %></span>
         <% end %>
       <% end %>
       <% if @location.contact.phone.present? %>
