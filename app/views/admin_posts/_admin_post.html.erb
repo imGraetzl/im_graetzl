@@ -1,7 +1,7 @@
 <div class="cardBox">
   <div class="cardBoxHeader">
     <% if image = admin_post.images.first %>
-      <%= link_to attachment_image_tag(image, :file, :fill, 300, 250), '#' %>
+      <%= link_to attachment_image_tag(image, :file, :fill, 300, 250), admin_post %>
     <% end %>
     <div class="categoryicon">
       <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
@@ -13,7 +13,7 @@
       <span><%= admin_post.author.username %></span>
     <% end %>
     <div class="txt">
-      <h3><%= link_to admin_post.title, '#' %></h3>
+      <h3><%= link_to admin_post.title, admin_post %></h3>
       <p><%= truncate admin_post.content, length: 100 %></p>
     </div>
     <%= render 'activities/appendix', appendix: appendix, parent: admin_post if defined? appendix %>

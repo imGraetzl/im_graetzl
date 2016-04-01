@@ -1,0 +1,11 @@
+(function() {
+  var $streamContainer = $("[data-behavior='stream-container']");
+  var $paginateLink = $("[data-behavior='paginate-link']");
+
+  function updateComponent() {
+    $streamContainer.append("<%= j render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>");
+    $paginateLink.replaceWith("<%= j view_more_link @comments %>");
+  }
+
+  updateComponent();
+})();
