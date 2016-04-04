@@ -39,8 +39,8 @@
       <div class="txt"><%= @location.description %></div>
     </div>
     <div class="category-tags">
-      <div class="bigicontext-element" href="/stuwerviertel/locations">
-        <svg class="icon-painting-palette"><use xlink:href="#icon-painting-palette"></use></svg>
+      <div class="bigicontext-element">
+        <%= category_icon @location.category %>
         <div class="txt"><%= @location.category.name %></div>
       </div>
       <% unless @location.products.empty? %>
