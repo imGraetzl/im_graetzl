@@ -26,20 +26,4 @@ RSpec.describe Notifications::NewUserPost, type: :model do
       expect(receivers).to match_array users
     end
   end
-
-  describe '.condition(activity)' do
-    let!(:user_post) { create :user_post, author: create(:user) }
-    let!(:activity) { create :activity, trackable: user_post }
-
-    subject(:condition) { Notifications::NewUserPost.condition activity }
-
-    it 'returns false if author != user' do
-      allow(user_post).to receive(:author) { build :location, :approved }
-      expect(condition).to eq false
-    end
-
-    it 'returns true if author user' do
-      expect(condition).to eq true
-    end
-  end
 end

@@ -26,21 +26,4 @@ RSpec.describe Notifications::NewLocationPost, type: :model do
       expect(receivers).to match_array users
     end
   end
-
-  describe '.condition(activity)' do
-    let!(:location) { create :approved_location }
-    let!(:location_post) { create :location_post, author: location }
-    let!(:activity) { create :activity, trackable: location_post }
-
-    subject(:condition) { Notifications::NewLocationPost.condition activity }
-
-    it 'returns false if author != location' do
-      allow(location_post).to receive(:author) { build :user }
-      expect(condition).to eq false
-    end
-
-    it 'returns true if author location' do
-      expect(condition).to eq true
-    end
-  end
 end

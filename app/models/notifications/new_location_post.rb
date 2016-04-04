@@ -6,10 +6,6 @@ class Notifications::NewLocationPost < Notification
     User.where(graetzl_id: activity.trackable.graetzl_id)
   end
 
-  def self.condition(activity)
-    activity.trackable.author.is_a?(Location)
-  end
-
   def self.description
     'Eine Location aus meinem Grätzl hat eine Neuigkeit erstellt'
   end
