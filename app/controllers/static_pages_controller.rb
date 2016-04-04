@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
     else
       @meetings = Meeting.by_currentness.first(2)
       @locations = Location.by_activity.to_a.first(2)
-      @zuckerls = Zuckerl.order("RANDOM()").first(2)
+      @zuckerls = Zuckerl.live.order("RANDOM()").first(2)
     end
   end
 end
