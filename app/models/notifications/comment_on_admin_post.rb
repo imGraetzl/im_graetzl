@@ -10,6 +10,13 @@ class Notifications::CommentOnAdminPost < Notification
     activity.trackable.author_id != activity.owner_id
   end
 
+  def basic_mail_vars
+    [
+      { name: 'graetzl_name', content: user.graetzl.name },
+      { name: 'graetzl_url', content: graetzl_url(user.graetzl, DEFAULT_URL_OPTIONS) }
+    ]
+  end
+
   def self.description
     'Mein erstellter Beitrag wurde kommentiert'
   end

@@ -42,4 +42,16 @@ RSpec.describe Notifications::CommentOnAdminPost, type: :model do
       expect(condition).to eq true
     end
   end
+
+  describe '#basic_mail_vars' do
+    let(:graetzl) { create :graetzl, name: 'this_graetzl' }
+    let(:user) { create :user, graetzl: graetzl }
+    let(:notification) { Notifications::CommentOnAdminPost.new(user: user, activity: create(:activity, trackable: create(:admin_post))) }
+
+    subject(:mail_vars) { notification.basic_mail_vars }
+
+    it 'returns user graetzl' do
+      expect(mail_vars).to include({ name: 'graetzl_name', content: 'this_graetzl' })
+    end
+  end
 end

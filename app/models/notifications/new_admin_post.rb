@@ -10,6 +10,13 @@ class Notifications::NewAdminPost < Notification
     'Es gibt einen neuen Admin Beitrag im Grätzl'
   end
 
+  def basic_mail_vars
+    [
+      { name: 'graetzl_name', content: user.graetzl.name },
+      { name: 'graetzl_url', content: graetzl_url(user.graetzl, DEFAULT_URL_OPTIONS) }
+    ]
+  end
+
   def mail_vars
     {
       type: type.demodulize.underscore,
