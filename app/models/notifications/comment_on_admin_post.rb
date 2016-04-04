@@ -1,0 +1,32 @@
+class Notifications::CommentOnAdminPost < Notification
+  TRIGGER_KEY = 'admin_post.comment'
+  BITMASK = 32
+
+  def self.receivers(activity)
+    User.where(id: activity.trackable.author_id)
+  end
+
+  def self.condition(activity)
+    activity.trackable.author_id != activity.owner_id
+  end
+
+  def self.description
+    'Mein erstellter Beitrag wurde kommentiert'
+  end
+
+  def mail_vars
+    {
+      post_title: activity.trackable.content.truncate(50, separator: ' '),
+      post_url: admin_post_url(activity.trackable, DEFAULT_URL_OPTIONS),
+      comment_url: admin_post_url(activity.trackable, DEFAULT_URL_OPTIONS),
+      comment_content: activity.recipient.content.truncate(300, separator: ' '),
+      owner_name: activity.owner.username,
+      owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),
+      owner_avatar_url: Notifications::AvatarService.new(activity.owner).call
+    }
+  end
+
+  def mail_subject
+    'Neuer Kommentar auf deinen Beitrag'
+  end
+end
