@@ -1,7 +1,7 @@
 ActiveAdmin.register Location do
   include ViewInApp
   menu priority: 4
-  includes :graetzl, :category, :posts, :meetings, :zuckerls, :billing_address
+  includes :graetzl, :category
 
   scope :all, default: true
   scope :pending
@@ -9,7 +9,6 @@ ActiveAdmin.register Location do
 
   filter :graetzl
   filter :category
-  filter :products, as: :check_boxes, collection: proc { Location.product_counts.map{|p| p.name} }
   filter :name
   filter :slogan
   filter :description

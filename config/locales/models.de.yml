@@ -10,6 +10,9 @@ de:
       curator:
         one: Grätzlbotschafter
         other: Grätzlbotschafter
+      graetzl:
+        one: Graetzl
+        other: Graetzl
       image:
         one: Bild
         other: Bilder
@@ -17,6 +20,9 @@ de:
         one: Initiative
         other: Initiativen
       meeting: Treffen
+      user:
+        one: User
+        other: User
       user_post:
         one: Idee
         other: Ideen
@@ -54,6 +60,7 @@ de:
         image: Bild
       location:
         category: Kategorie
+        description: Beschreibung
         product_list: Produktgruppen
         products: Produkte
         meeting_permission: Treffen ermöglichen
@@ -61,6 +68,9 @@ de:
           meetable: Jeder kann Treffen hier starten
           owner_meetable: Nur ich kann Treffen hier starten
           non_meetable: Hier können keine Treffen stattfinden
+        state: Status
+        created_at: Erstellt am
+        updated_at: Aktualisiert am
       meeting:
         description: Beschreibung
         starts_at: Beginn
@@ -70,6 +80,7 @@ de:
         content: Text
         created_at: Erstellt am
       user:
+        created_at: Erstellt am
         first_name: Vorname
         last_name: Nachname
         password: Passwort
@@ -77,6 +88,7 @@ de:
         terms_and_conditions: AGBs
         avatar: Profilbild
         login: Username oder Email
+        last_sign_in_at: Zuletzt online am
         remember_me: Angemeldet bleiben
       zuckerl:
         title: Titel
