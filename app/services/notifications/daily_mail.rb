@@ -11,7 +11,7 @@ class Notifications::DailyMail < MandrillMessage
     },
     {
       name: 'Neue Ideen im Grätzl',
-      types: [Notifications::NewUserPost]
+      types: [Notifications::NewUserPost, Notifications::NewAdminPost]
     }
   ]
 
