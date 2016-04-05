@@ -80,6 +80,7 @@ de:
         content: Text
         created_at: Erstellt am
       user:
+        confirmed_at: Bestätigt am
         created_at: Erstellt am
         first_name: Vorname
         last_name: Nachname
