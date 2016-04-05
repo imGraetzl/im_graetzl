@@ -78,11 +78,6 @@ RSpec.describe Graetzl, type: :model do
     it 'has friendly_id' do
       expect(graetzl).to respond_to(:slug)
     end
-
-    it 'has state (default :open)' do
-      expect(graetzl).to respond_to(:state)
-      expect(graetzl.open?).to be_truthy
-    end
   end
 
   describe '#districts' do
