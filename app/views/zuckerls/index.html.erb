@@ -20,12 +20,8 @@
       <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck</p>
     </div>
   <% end %>
-  <% unless @zuckerls.empty? %>
-    <div class="cards-container" data-behavior="stream-container">
-      <%= render(@zuckerls) %>
-    </div>
-  <% else %>
-    <%=render('empty_message') %>
-  <% end %>
+  <div class="cards-container" data-behavior="stream-container">
+    <%= render(@zuckerls) || render('empty_message') %>
+  </div>
   <%= view_more_link @zuckerls %>
 </section>

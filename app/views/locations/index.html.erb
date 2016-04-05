@@ -21,12 +21,8 @@
       <p>Finde grätzlansässige local Makers, Selbständige & Unternehmen im Grätzl <%= @graetzl.name %></p>
     </div>
   <% end %>
-  <% unless @locations.empty? %>
-    <div class="cards-container" data-behavior="stream-container">
-      <%= render(@locations) %>
-    </div>
-  <% else %>
-    <%=render('empty_message') %>
-  <% end %>
+  <div class="cards-container" data-behavior="stream-container">
+    <%= render(@locations) || render('empty_message') %>
+  </div>
   <%= view_more_link @locations %>
 </section>

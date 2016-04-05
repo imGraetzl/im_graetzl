@@ -20,12 +20,8 @@
       <p>Motto: Runter vom Sofa & mitten rein ins Grätzlleben</p>
     </div>
   <% end %>
-  <% unless @meetings.empty? %>
-    <div class="cards-container" data-behavior="stream-container">
-      <%= render(@meetings) %>
-    </div>
-  <% else %>
-    <%=render('empty_message') %>
-  <% end %>
+  <div class="cards-container" data-behavior="stream-container">
+    <%= render(@meetings) || render('empty_message')%>
+  </div>
   <%= view_more_link @meetings %>
 </section>
