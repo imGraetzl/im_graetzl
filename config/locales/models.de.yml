@@ -17,6 +17,12 @@ de:
         one: Initiative
         other: Initiativen
       meeting: Treffen
+      user_post:
+        one: Idee
+        other: Ideen
+      location_post:
+        one: LocationUpdate
+        other: LocationUpdates
       zuckerl:
         one: Zuckerl
         other: Zuckerl
