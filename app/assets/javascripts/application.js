@@ -32,7 +32,6 @@
 //= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min
-//= require turbolinks
 //= require jquery.tagsinput
 //= require linkify.min
 //= require linkify-jquery.min
@@ -50,7 +49,7 @@
 
 
 
-$(document).on('page:change', function(event) {
+$(document).on('ready', function(event) {
     console.log("DOCUMENT READY");
     APP.init();
 });

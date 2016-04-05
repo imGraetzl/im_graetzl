@@ -5,7 +5,7 @@ APP.components.masonryFilterGrid = (function() {
     function init() {
         $grid =  $('.cards-container');
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
-        $(window).on("load page:change", function() { $grid.masonry(); });
+        $(window).on("load", function() { $grid.masonry(); });
         createMobileNav();
     }
 
