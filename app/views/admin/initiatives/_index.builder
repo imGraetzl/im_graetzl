@@ -3,6 +3,5 @@ context.instance_eval do
   id_column
   column :name
   column :website
-  column :created_at
   actions
 end

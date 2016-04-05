@@ -56,6 +56,7 @@ de:
         phone: Telefon
         hours: Öffnungszeiten
       initiative:
+        created_at: Erstellt am
         description: Beschreibung
         image: Bild
       location:
@@ -92,7 +93,9 @@ de:
         last_sign_in_at: Zuletzt online am
         remember_me: Angemeldet bleiben
       zuckerl:
+        aasm_state: Status
+        created_at: Erstellt am
         title: Titel
         description: Beschreibung
         image: Bild
-        paid_at: Bezahlt
+        paid_at: Bezahlt am

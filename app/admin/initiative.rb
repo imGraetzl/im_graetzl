@@ -12,8 +12,8 @@ ActiveAdmin.register Initiative do
   filter :website
 
   permit_params :name,
-                :description,
-                :website,
-                :image, :remove_image,
-                graetzl_ids: []
+    :description,
+    :website,
+    :image, :remove_image,
+    graetzl_ids: []
 end
