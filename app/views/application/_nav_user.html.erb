@@ -76,7 +76,7 @@
         <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Einstellungen
       <% end %>
       <% if current_user.admin? %>
-        <%= link_to admin_root_path do %>
+        <%= link_to admin_root_path, data: { no_turbolink: true } do %>
           <svg class="icon-magic-wand"><use xlink:href="#icon-magic-wand"></use></svg>Admin
         <% end %>
       <% end %>

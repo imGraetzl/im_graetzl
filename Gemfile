@@ -24,6 +24,8 @@ gem 'coffee-rails'
 gem 'therubyracer',  platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# turbolinks
+gem 'turbolinks'
 # js helper utilities
 gem 'underscore-rails'
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website

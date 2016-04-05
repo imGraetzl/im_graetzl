@@ -32,6 +32,7 @@
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min
 //= require jquery_ujs
+//= require turbolinks
 //= require jquery.tagsinput
 //= require linkify.min
 //= require linkify-jquery.min
@@ -49,7 +50,7 @@
 
 
 
-$(document).ready(function(event) {
+$(document).on('page:change', function(event) {
     console.log("DOCUMENT READY");
     APP.init();
 });
