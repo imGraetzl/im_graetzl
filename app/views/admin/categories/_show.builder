@@ -4,6 +4,7 @@ context.instance_eval do
       attributes_table do
         row :id
         row :name
+        row :icon
         row(:context){|c| status_tag(c.context)}
         row :created_at
         row :updated_at

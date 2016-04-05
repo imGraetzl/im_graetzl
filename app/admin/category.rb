@@ -5,19 +5,9 @@ ActiveAdmin.register Category do
   scope :business
   scope :recreation
 
-  # index
-  index do
-    render 'index', context: self
-  end
-
-  # show
-  show do
-    render 'show', context: self
-  end
-
-  # form
+  index { render 'index', context: self }
+  show { render 'show', context: self }
   form partial: 'form'
-
-  # permit which attributes may be changed
-  permit_params :name, :context  
+  
+  permit_params :name, :icon, :context
 end
