@@ -8,7 +8,6 @@ context.instance_eval do
           row(:state){|m| status_tag(m.state)}
           row :slug
           row :created_at
-          row :updated_at
           row :graetzl
           row :location
           row :initiator
@@ -25,13 +24,15 @@ context.instance_eval do
         attributes_table_for meeting.address do
           row :id
           row :description
-          row(:street){|a| "#{a.street_name}, #{a.street_number}"}
-          row(:place){|a| "#{a.zip}, #{a.city}"}
+          row :street_name
+          row :street_number
+          row :zip
+          row :city
           row :coordinates
         end
       end
     end
-    column span: 2 do
+    column do
       panel 'Associations' do
         tabs do
           tab 'User' do
@@ -39,7 +40,6 @@ context.instance_eval do
               column(:id){|g| g.user.id}
               column(:username){|g| g.user.username}
               column(:role){|g| status_tag(g.role)}
-              column :created_at
               column(''){|m| link_to 'User Anzeigen', admin_user_path(m.user) }
             end
           end

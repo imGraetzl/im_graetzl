@@ -1,56 +1,43 @@
 require 'rails_helper'
 
 RSpec.describe Admin::GraetzlsController, type: :controller do
-  let(:admin) { create(:user, :admin) }
+  let(:admin) { create :user, :admin }
 
   before { sign_in admin }
 
   describe 'GET index' do
     before { get :index }
 
-    it 'returns success' do
-      expect(response).to have_http_status(200)
-    end
-
     it 'assigns @graetzls' do
-      expect(assigns(:graetzls)).not_to be_nil
+      expect(assigns :graetzls).not_to be_nil
     end
 
     it 'renders :index' do
-      expect(response).to render_template(:index)
+      expect(response).to render_template :index
     end
   end
 
   describe 'GET show' do
-    let!(:graetzl) { create(:graetzl) }
+    let!(:graetzl) { create :graetzl }
     before { get :show, id: graetzl }
-
-    it 'returns success' do
-      expect(response).to have_http_status(200)
-    end
-
     it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq graetzl
+      expect(assigns :graetzl).to eq graetzl
     end
 
     it 'renders :show' do
-      expect(response).to render_template(:show)
+      expect(response).to render_template :show
     end
   end
 
   describe 'GET new' do
     before { get :new }
 
-    it 'returns success' do
-      expect(response).to have_http_status(200)
-    end
-
     it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to be_a_new(Graetzl)
+      expect(assigns :graetzl).to be_a_new Graetzl
     end
 
     it 'renders :new' do
-      expect(response).to render_template(:new)
+      expect(response).to render_template :new
     end
   end
 
@@ -60,7 +47,6 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
       {
         graetzl: {
           name: graetzl.name,
-          state: graetzl.state,
           area: graetzl.area
         }
       }
@@ -69,7 +55,7 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
     it 'creates new graetzl record' do
       expect{
         post :create, params
-      }.to change{Graetzl.count}.by(1)
+      }.to change{Graetzl.count}.by 1
     end
 
     it 'assigns attributes to graetzl' do
@@ -77,7 +63,6 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
       g = Graetzl.last
       expect(g).to have_attributes(
         name: graetzl.name,
-        state: graetzl.state,
         area: graetzl.area)
     end
 
@@ -89,31 +74,26 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
   end
 
   describe 'GET edit' do
-    let(:graetzl) { create(:graetzl) }
+    let(:graetzl) { create :graetzl }
     before { get :edit, id: graetzl }
 
-    it 'returns success' do
-      expect(response).to have_http_status(200)
-    end
-
     it 'assigns @graetzl' do
-      expect(assigns(:graetzl)).to eq graetzl
+      expect(assigns :graetzl).to eq graetzl
     end
 
     it 'renders :edit' do
-      expect(response).to render_template(:edit)
+      expect(response).to render_template :edit
     end
   end
 
   describe 'PATCH update' do
-    let(:graetzl) { create(:graetzl) }
-    let(:new_graetzl) { build(:graetzl) }
+    let(:graetzl) { create :graetzl }
+    let(:new_graetzl) { build :graetzl }
     let(:params) {
       {
         id: graetzl,
         graetzl: {
           name: new_graetzl.name,
-          state: new_graetzl.state,
           area: new_graetzl.area
         }
       }
@@ -131,18 +111,17 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
     it 'updates graetzl attributes' do
       expect(graetzl).to have_attributes(
         name: new_graetzl.name,
-        state: new_graetzl.state,
         area: new_graetzl.area)
     end
   end
 
   describe 'DELETE destroy' do
-    let!(:graetzl) { create(:graetzl) }
+    let!(:graetzl) { create :graetzl }
 
     it 'deletes graetzl record' do
       expect{
         delete :destroy, id: graetzl
-      }.to change{Graetzl.count}.by(-1)
+      }.to change{Graetzl.count}.by -1
     end
 
     it 'redirects_to index page' do

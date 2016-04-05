@@ -10,13 +10,21 @@ de:
       curator:
         one: Grätzlbotschafter
         other: Grätzlbotschafter
+      graetzl:
+        one: Graetzl
+        other: Graetzl
       image:
         one: Bild
         other: Bilder
       initiative:
         one: Initiative
         other: Initiativen
-      meeting: Treffen
+      meeting:
+        one: Treffen
+        other: Treffen
+      user:
+        one: User
+        other: User
       user_post:
         one: Idee
         other: Ideen
@@ -46,14 +54,19 @@ de:
         zip: Postleitzahl
       category:
         context: Kontext
+        created_at: Erstellt am
       contact:
         phone: Telefon
         hours: Öffnungszeiten
+      curator:
+        created_at: Erstellt am
       initiative:
+        created_at: Erstellt am
         description: Beschreibung
         image: Bild
       location:
         category: Kategorie
+        description: Beschreibung
         product_list: Produktgruppen
         products: Produkte
         meeting_permission: Treffen ermöglichen
@@ -61,15 +74,24 @@ de:
           meetable: Jeder kann Treffen hier starten
           owner_meetable: Nur ich kann Treffen hier starten
           non_meetable: Hier können keine Treffen stattfinden
+        state: Status
+        created_at: Erstellt am
+        updated_at: Aktualisiert am
       meeting:
+        created_at: Erstellt am
         description: Beschreibung
-        starts_at: Beginn
-        ends_at: Ende
+        state: Status
+        starts_at_date: Beginn (Datum)
+        ends_at_date: Ende (Datum)
+        starts_at_time: Beginn (Zeit)
+        ends_at_time: Ende (Zeit)
       post:
         title: Titel
         content: Text
         created_at: Erstellt am
       user:
+        confirmed_at: Bestätigt am
+        created_at: Erstellt am
         first_name: Vorname
         last_name: Nachname
         password: Passwort
@@ -77,9 +99,12 @@ de:
         terms_and_conditions: AGBs
         avatar: Profilbild
         login: Username oder Email
+        last_sign_in_at: Zuletzt online am
         remember_me: Angemeldet bleiben
       zuckerl:
+        aasm_state: Status
+        created_at: Erstellt am
         title: Titel
         description: Beschreibung
         image: Bild
-        paid_at: Bezahlt
+        paid_at: Bezahlt am

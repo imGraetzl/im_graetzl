@@ -3,6 +3,5 @@ context.instance_eval do
   id_column
   column :name
   column(:context){|c| status_tag(c.context) }
-  column :updated_at
   actions
 end

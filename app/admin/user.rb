@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
   include ViewInApp
   menu priority: 3
-  includes :graetzl, :wall_comments, :posts, :meetings, :locations
+  includes :graetzl
 
   scope :all, default: true
   scope :business
@@ -14,7 +14,6 @@ ActiveAdmin.register User do
   filter :email
   filter :role, as: :select, collection: User.roles.keys
   filter :created_at
-  filter :updated_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }

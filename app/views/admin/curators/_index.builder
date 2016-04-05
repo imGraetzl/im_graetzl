@@ -5,6 +5,5 @@ context.instance_eval do
   column :graetzl
   column :website
   column :name
-  column :created_at
   actions
 end

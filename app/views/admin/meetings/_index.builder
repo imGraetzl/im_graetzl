@@ -5,7 +5,5 @@ context.instance_eval do
   column(:state){ |m| status_tag(m.state) }
   column :graetzl
   column :initiator
-  column :location
-  column :updated_at
   actions
 end

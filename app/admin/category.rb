@@ -8,6 +8,6 @@ ActiveAdmin.register Category do
   index { render 'index', context: self }
   show { render 'show', context: self }
   form partial: 'form'
-  
+
   permit_params :name, :icon, :context
 end

@@ -2,7 +2,6 @@ class Graetzl < ActiveRecord::Base
   extend FriendlyId
 
   friendly_id :name
-  enum state: { open: 0, closed: 1 }
   STREAM_ACTIVITY_KEYS = [
     'meeting.comment', 'meeting.create', 'meeting.go_to',
     'user_post.comment', 'user_post.create',

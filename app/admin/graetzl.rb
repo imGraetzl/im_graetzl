@@ -3,12 +3,7 @@ ActiveAdmin.register Graetzl do
   menu priority: 2
   includes :users, :posts, :meetings, :locations
 
-  scope :all, default: true
-  scope :open
-  scope :closed
-
   filter :name
-  filter :state, as: :select, collection: Graetzl.states.keys
   filter :users
   filter :created_at
   filter :updated_at
@@ -17,5 +12,5 @@ ActiveAdmin.register Graetzl do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :name, :state, :slug, :area
+  permit_params :name, :slug, :area
 end

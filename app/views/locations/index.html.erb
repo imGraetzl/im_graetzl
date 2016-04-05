@@ -2,7 +2,7 @@
    meta({
           title: t('.title', graetzl: @graetzl.name),
           description: t('.description', graetzl: @graetzl.name),
-          robots: @graetzl.open? ? 'index, follow' : 'noindex, follow',
+          robots: 'index, follow',
           og_title: t('.title', graetzl: @graetzl.name),
           og_description: t('.description', graetzl: @graetzl.name),
           og_image: image_url('meta/og_logo.png')
