@@ -5,7 +5,13 @@ APP.components.masonryFilterGrid = (function() {
     function init() {
         $grid =  $('.cards-container');
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
-        $(window).on("load", function() { $grid.masonry(); });
+        $(window).on("load", function() {
+            $grid.masonry({
+                itemSelector: '.cardBox',
+                fitWidth : true,
+                gutter: 24
+            });
+        });
         createMobileNav();
     }
 

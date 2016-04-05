@@ -10,8 +10,10 @@
       <p>Entdecke, was sich BewohnerInnen fürs Grätzl <%= @graetzl.name %> wünschen und welche Ideen im Raum stehen.</p>
     </div>
   <% end %>
-  <div class="cards-container" data-behavior="stream-container">
-    <%= render(@posts) || render('empty_message')%>
+  <div class="masonry-wrapper">
+    <div class="cards-container" data-behavior="stream-container">
+      <%= render(@posts) || render('empty_message')%>
+    </div>
+    <%= view_more_link @posts %>
   </div>
-  <%= view_more_link @posts %>
 </section>

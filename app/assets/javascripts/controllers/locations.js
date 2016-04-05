@@ -65,10 +65,7 @@ APP.controllers.locations = (function() {
 
 
     function initLocationPage() {
-        APP.components.tabs.initTabs(".tabs-ctrl");
-        $('.introtxt .txt').linkify({
-            target: "_blank"
-        });
+        $('.introtxt .txt').linkify({ target: "_blank"});
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
 
 

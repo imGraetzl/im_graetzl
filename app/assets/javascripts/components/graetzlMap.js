@@ -1,8 +1,6 @@
 APP.components.graetzlMap = (function() {
     var map,
-        geoVienna,
-        geoGraetzl,
-    // mainLayer =  L.tileLayer.provider('Stamen.Watercolor'),
+        //mainLayer =  L.tileLayer.provider('Stamen.Watercolor'),
         mainLayer = L.tileLayer.provider('MapBox', { id: 'peckomingo.lb8m2cga', accessToken: 'pk.eyJ1IjoicGVja29taW5nbyIsImEiOiJoVHNQM29zIn0.AVmpyDYApR5mryMCJB1ryw'}),
 
         styles = {

@@ -1,4 +1,6 @@
-<div class="cards-container" data-behavior="stream-container">
-  <%= render(@activity_decorated || @activity) || render('empty_message') %>
+<div class="masonry-wrapper">
+  <div class="cards-container" data-behavior="stream-container">
+    <%= render(@activity_decorated || @activity) || render('empty_message') %>
+  </div>
+  <%= view_more_link @activity %>
 </div>
-<%= view_more_link @activity %>

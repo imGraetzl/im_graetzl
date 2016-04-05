@@ -5,6 +5,7 @@ APP.components.stream = (function() {
         initEntryCreateForm();
         initCommentForm();
         initImgGallery();
+        initLinkify();
 
     }
 
@@ -27,6 +28,10 @@ APP.components.stream = (function() {
         } else {
             initSingleTextarea($parent);
         }
+    }
+
+    function initLinkify() {
+        $('.stream .entryInitialContent .txt').linkify({ target: "_blank"});
     }
 
     function initCommentForm() {
@@ -53,6 +58,8 @@ APP.components.stream = (function() {
     }
 
     function injectFormBlocker($container) {
+        $('.stream .formBlocker').remove();
+
         var $markup = $('<div class="formBlocker">' +
             '<h5>Um einen Kommentar zu verfassen musst du angemeldet sein!</h5>' +
             '<div class="ctrl">' +
@@ -76,7 +83,8 @@ APP.components.stream = (function() {
         init : init,
         initEntryCreateForm : initEntryCreateForm,
         initCommentForm : initCommentForm,
-        initImgGallery : initImgGallery
+        initImgGallery : initImgGallery,
+        initLinkify: initLinkify
     }
 
 })();

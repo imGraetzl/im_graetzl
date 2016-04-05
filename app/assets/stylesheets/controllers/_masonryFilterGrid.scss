@@ -15,23 +15,19 @@ section.masonryFilterGrid {
     margin-bottom: 60px;
   }
 
-  .cards-container {
-    @include cf();
+  .masonry-wrapper {
     @include respond-to(">=large") {
-      margin-left: -20px;
-      margin-right: -40px;
+      margin-left: -25px;
+      margin-right: -25px;
     }
+  }
+  .cards-container {
+    min-height: 150px;
+    margin: 0 auto;
+
     .cardBox {
-      width: 315px;
-      margin-bottom: 20px;
-      float: left;
-      margin-right: 12px;
-    }
-    .cardBox:nth-child(3n) {
-      margin-right: 0;
-    }
-    .cardBox:nth-child(3n+4) {
-      clear: both;
+      width: 310px;
+      margin-bottom: 24px;
     }
   }
 

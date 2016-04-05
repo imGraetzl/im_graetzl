@@ -155,6 +155,12 @@
     }
   }
 
+  .streamElement .txt {
+    @include respond-to(">=large") {
+      margin-left: 45px;
+    }
+  }
+
   > .txt {
     margin-bottom: 20px;
     h3 a {
@@ -258,6 +264,7 @@
     display: block;
   }
   .name {
+    display: block;
     @include ellipsis();
   }
   .category {

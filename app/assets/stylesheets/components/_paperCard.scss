@@ -111,7 +111,6 @@
   }
 }
 
-//TODO: make a small variant for 4column views
 .paperCard.-illuteaser {
   .wrp  {
     padding: 160px 30px 30px 30px;
@@ -142,12 +141,16 @@
 }
 
 
-.paperCard.-illuonly {
-  .wrp  {
-    min-height: 240px;
-    min-width: 240px;
-    height: 100%;
-    background-position: center;
-    background-size: 90% auto;
-  }
+.paperCard.-meeting .wrp {
+  background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
 }
+.paperCard.-zuckerl .wrp {
+  background-image: url(image_path('illu/illu-zuckerl-transparent.png'));
+}
+.paperCard.-idea .wrp {
+  background-image: url(image_path('illu/illu-ideen-weissbg.png'));
+}
+.paperCard.-location .wrp {
+  background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
+}
+

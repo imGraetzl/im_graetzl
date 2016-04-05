@@ -4,6 +4,7 @@
   <% end %>
   <h1 class="hl-main">Jeden Monat neu - Zuckerl &amp; Angebote <span>im <%= @district.numeric %>. Bezirk</span></h1>
   <div id="locations" class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
+    <%= render 'zuckerls/action_card', district: @district %>
     <%= render partial: 'zuckerls/zuckerl', collection: @zuckerls %>
   </div>
   <%= view_more_link @zuckerls, style: :big %>

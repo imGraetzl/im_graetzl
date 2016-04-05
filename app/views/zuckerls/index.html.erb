@@ -16,12 +16,14 @@
   <%= filters_for current_user, @graetzl %>
   <% unless current_user %>
     <div class="hl-subtext">
-      <h1>Die schönsten <span>Angebote im <%= I18n.localize Time.now.end_of_month+1.day, format: '%B' %></span> im Grätzl</h1>
+      <h1>Die schönsten <span>Angebote im <%= I18n.localize Time.now.end_of_month, format: '%B' %></span> im Grätzl</h1>
       <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck</p>
     </div>
   <% end %>
-  <div class="cards-container" data-behavior="stream-container">
-    <%= render(@zuckerls) || render('empty_message') %>
+  <div class="masonry-wrapper">
+    <div class="cards-container" data-behavior="stream-container">
+      <%= render(@zuckerls) || render('empty_message') %>
+    </div>
+    <%= view_more_link @zuckerls %>
   </div>
-  <%= view_more_link @zuckerls %>
 </section>

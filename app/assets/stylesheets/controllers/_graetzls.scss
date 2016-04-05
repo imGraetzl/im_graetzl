@@ -59,29 +59,6 @@ section.graetzls {
   }
 }
 
-.block-locations {
-  .paperCard {
-    .wrp {
-      background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
-    }
-  }
-}
-
-.block-zuckerls {
-  .paperCard {
-    .wrp {
-      background-image: url(image_path('illu/illu-zuckerl-transparent.png'));
-    }
-  }
-}
-
-.block-ideas {
-  .paperCard {
-    .wrp {
-      background-image: url(image_path('illu/illu-ideen-weissbg.png'));
-    }
-  }
-}
 
 .block-zuckerl {
   border-radius: 8px;
@@ -130,25 +107,4 @@ section.graetzls {
       margin-top: 0;
     }
   }
-  .meetBox {
-    &.-illuteasersmall {
-      background-image: url(image_path('illu/illu-painter-straight@2x.png'));
-    }
-  }
-  .initiativeBox {
-    &.-illuteasersmall {
-      background-image: url(image_path('illu/illu-garteln@2x.png'));
-    }
-  }
-  .locationBox {
-    &.-illuteasersmall {
-      background-image: url(image_path('illu/illu-wirtschaft-straight@2x.png'));
-    }
-  }
-  .candyBox {
-    &.-illuteasersmall {
-      background-image: url(image_path('illu/illu-zuckerl-straight@2x.png'));
-    }
-  }
-
 }
