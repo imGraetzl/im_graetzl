@@ -39,8 +39,7 @@
         <%= select_tag :location_id,
                        options_for_select(@locations.map { |location| [location.name, new_location_zuckerl_path(location)] }),
                        prompt: 'wählen',
-                       onchange: 'location.href = $(this).val()'
-        %>
+                       onchange: 'location.href = $(this).val()' %>
       </div>
     </div>
 
