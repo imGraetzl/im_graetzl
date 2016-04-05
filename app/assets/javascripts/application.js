@@ -12,6 +12,7 @@
 //
 //= require underscore
 //= require jquery
+//= require jquery_ujs
 //= require jquery.mask
 //= require picker
 //= require jquery.tabslet.min
@@ -31,7 +32,6 @@
 //= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min
-//= require jquery_ujs
 //= require turbolinks
 //= require jquery.tagsinput
 //= require linkify.min
