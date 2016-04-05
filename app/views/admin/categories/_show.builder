@@ -7,7 +7,6 @@ context.instance_eval do
         row :icon
         row(:context){|c| status_tag(c.context)}
         row :created_at
-        row :updated_at
       end
     end
     column span: 2 do
@@ -18,8 +17,6 @@ context.instance_eval do
               column :id
               column :name
               column(:state){|l| status_tag(l.state)}
-              column :slug
-              column :created_at
               column(''){|l| link_to 'Anzeigen', admin_location_path(l) }
             end
           end

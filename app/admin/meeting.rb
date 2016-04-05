@@ -15,7 +15,6 @@ ActiveAdmin.register Meeting do
   filter :description
   filter :state, as: :select, collection: Meeting.states.keys
   filter :created_at
-  filter :updated_at
   filter :starts_at_date
 
   index { render 'index', context: self }

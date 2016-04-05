@@ -19,7 +19,9 @@ de:
       initiative:
         one: Initiative
         other: Initiativen
-      meeting: Treffen
+      meeting:
+        one: Treffen
+        other: Treffen
       user:
         one: User
         other: User
@@ -52,9 +54,12 @@ de:
         zip: Postleitzahl
       category:
         context: Kontext
+        created_at: Erstellt am
       contact:
         phone: Telefon
         hours: Öffnungszeiten
+      curator:
+        created_at: Erstellt am
       initiative:
         created_at: Erstellt am
         description: Beschreibung
@@ -73,9 +78,13 @@ de:
         created_at: Erstellt am
         updated_at: Aktualisiert am
       meeting:
+        created_at: Erstellt am
         description: Beschreibung
-        starts_at: Beginn
-        ends_at: Ende
+        state: Status
+        starts_at_date: Beginn (Datum)
+        ends_at_date: Ende (Datum)
+        starts_at_time: Beginn (Zeit)
+        ends_at_time: Ende (Zeit)
       post:
         title: Titel
         content: Text
