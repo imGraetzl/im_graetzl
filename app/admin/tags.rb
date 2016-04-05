@@ -1,14 +1,10 @@
 ActiveAdmin.register ActsAsTaggableOn::Tag, as: 'Tag' do
   actions :index, :show, :update, :edit, :destroy
   menu parent: :locations
+  config.filters = false
 
-  # index
-  index do
-    render 'index', context: self
-  end
+  index { render 'index', context: self }
+  show { render 'show', context: self }
 
-  # show
-  show do
-    render 'show', context: self
-  end
+  permit_params :name
 end
