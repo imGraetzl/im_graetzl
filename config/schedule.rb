@@ -6,8 +6,12 @@ every 1.day, at: '0:00 am' do
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake db:truncate"
 end
 
-every 1.day, at: '1:00 am' do
+every 1.day, at: '0:30 am' do
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake sitemap:refresh:no_ping"
+end
+
+every 1.month, at: 'start of the month at 1am'
+  command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake update_zuckerl"
 end
 
 every 1.day, at: '2:00 am' do

@@ -1,9 +1,13 @@
 require 'rails_helper'
+require 'rake'
 
 RSpec.describe 'Tasks' do
 
   describe 'db:truncate' do
-    before { ImGraetzl::Application.load_tasks }
+    before do
+      Rake.application.rake_require 'tasks/db/truncate'
+      Rake::Task.define_task(:environment)
+    end
     subject(:task) { Rake::Task['db:truncate'] }
     before(:example) { task.reenable }
 

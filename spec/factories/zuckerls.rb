@@ -8,6 +8,14 @@ FactoryGirl.define do
       aasm_state { 'draft' }
     end
 
+    trait :paid do
+      aasm_state { 'paid' }
+    end
+    
+    trait :pending do
+      aasm_state { 'pending' }
+    end
+
     trait :live do
       aasm_state { 'live' }
     end
