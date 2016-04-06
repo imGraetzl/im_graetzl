@@ -4,7 +4,6 @@ class Zuckerl < ActiveRecord::Base
 
   attachment :image, type: :image
   friendly_id :title
-  attr_accessor :active_admin_requested_event
 
   belongs_to :location
   belongs_to :initiative
@@ -51,6 +50,7 @@ class Zuckerl < ActiveRecord::Base
   end
 
   def send_invoice
+    update paid_at: Time.now
     Zuckerl::InvoiceJob.perform_later self
   end
 
