@@ -30,7 +30,7 @@ class Zuckerl::LiveInformation
           { name: 'username', content: @user.username },
           { name: 'graetzl_name', content: @location.graetzl.name },
           { name: 'zuckerl_title', content: @zuckerl.title },
-          { name: 'zuckerl_period', content: I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%B %Y') },
+          { name: 'zuckerl_period', content: I18n.localize(Date.today, format: '%B %Y') },
           { name: 'zuckerl_url', content: user_zuckerls_url(url_options) },
           { name: 'graetzl_zuckerls_url', content: graetzl_zuckerls_url(@location.graetzl, url_options) },
           { name: 'location_zuckerl_url', content: graetzl_location_url(@location.graetzl, @location, url_options) },
