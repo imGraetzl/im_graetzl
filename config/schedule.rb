@@ -10,7 +10,7 @@ every 1.day, at: '0:30 am' do
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake sitemap:refresh:no_ping"
 end
 
-every 1.month, at: 'start of the month at 1am'
+every 1.month, at: 'start of the month at 1am' do
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake update_zuckerl"
 end
 
