@@ -1,6 +1,10 @@
 ActiveAdmin.register Zuckerl do
   menu parent: :locations
-  
+  after_save do |zuckerl|
+    event = params[:zuckerl][:active_admin_requested_event]
+    zuckerl.send("#{event}!") unless event.blank?
+  end
+
   filter :location
   filter :title
   filter :description
@@ -49,6 +53,7 @@ ActiveAdmin.register Zuckerl do
                 :description,
                 :flyer,
                 :aasm_state,
+                :active_admin_requested_event,
                 :paid_at,
                 :image, :remove_image,
                 :initiative_id

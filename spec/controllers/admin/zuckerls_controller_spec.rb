@@ -7,13 +7,40 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
     sign_in create(:user, :admin)
   end
 
+  describe 'POST create' do
+    let(:location) { create :location }
+    let(:params) {{  zuckerl: {
+        title: 'some', description: 'some more',
+        location_id: location.id,
+        aasm_state: 'draft' }}}
+
+    it 'creates new zuckerl record' do
+      expect{
+        post :create, params
+      }.to change{Zuckerl.count}.by 1
+    end
+
+    it 'does not enqueue InvoiceJob' do
+      expect{
+        post :create, params
+      }.not_to have_enqueued_job(Zuckerl::InvoiceJob)
+    end
+
+    it 'assigns @zuckerl' do
+      post :create, params
+      expect(assigns :zuckerl).to have_attributes(
+        aasm_state: 'draft',
+        location: location)
+    end
+  end
+
   describe 'PATCH update' do
     let(:zuckerl) { create :zuckerl }
 
-    describe 'set aasm_state by hand' do
+    describe 'trigger aasm event' do
       let(:event) { 'mark_as_paid' }
       let(:params) {
-        { id: zuckerl, zuckerl: { aasm_state: 'paid' } }
+        { id: zuckerl, zuckerl: { active_admin_requested_event: event } }
       }
 
       it 'updates aasm_state' do
@@ -23,10 +50,10 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
         }.to change{zuckerl.aasm_state}.from('pending').to('paid')
       end
 
-      it 'does not enqueue InvoiceJob' do
+      it 'enqueues InvoiceJob' do
         expect{
           patch :update, params
-        }.not_to have_enqueued_job(Zuckerl::InvoiceJob)
+        }.to have_enqueued_job(Zuckerl::InvoiceJob)
       end
     end
   end

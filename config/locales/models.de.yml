@@ -1,5 +1,11 @@
 de:
   activerecord:
+    events:
+      zuckerl:
+        mark_as_paid: Als bezahlt markieren
+        put_live: Live stellen
+        expire: Als abgelaufen markieren
+        cancel: Als gelöscht markieren
     models:
       address: Adresse
       billing_address: Rechnungsadresse
@@ -102,7 +108,12 @@ de:
         last_sign_in_at: Zuletzt online am
         remember_me: Angemeldet bleiben
       zuckerl:
+        active_admin_requested_event: Status ändern
         aasm_state: Status
+        aasm_state/pending: Unbezahlt
+        aasm_state/paid: Bezahlt
+        aasm_state/expired: Abgelaufen
+        aasm_state/cancelled: Gelöscht
         created_at: Erstellt am
         title: Titel
         description: Beschreibung

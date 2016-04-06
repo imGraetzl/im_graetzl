@@ -4,16 +4,18 @@ class Zuckerl < ActiveRecord::Base
 
   attachment :image, type: :image
   friendly_id :title
+  attr_accessor :active_admin_requested_event
 
   belongs_to :location
   belongs_to :initiative
 
-  after_commit :send_booking_confirmation, on: :create
+  after_commit :send_booking_confirmation, on: :create, if: proc {|zuckerl| zuckerl.pending?}
 
   validates :title, length: { in: 4..80 }
 
   aasm do
     state :pending, initial: true
+    state :draft
     state :paid
     state :live
     state :cancelled
@@ -25,12 +27,11 @@ class Zuckerl < ActiveRecord::Base
     end
 
     event :put_live, after: :send_live_information do
-      transitions from: [:pending, :paid], to: :live
+      transitions from: [:pending, :draft, :paid], to: :live
     end
 
     event :expire do
-      transitions from: :live, to: :expired, guard: lambda { paid_at.present? }
-      transitions from: :live, to: :pending
+      transitions from: :live, to: :expired
     end
 
     event :cancel do

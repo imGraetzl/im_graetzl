@@ -83,6 +83,29 @@ RSpec.describe Zuckerl, type: :model do
       end
     end
 
+    describe ':draft' do
+      before { zuckerl.update_attribute(:aasm_state, 'draft') }
+
+      it 'can transition to :live, :cancelled' do
+        expect(zuckerl).to transition_from(:draft).to(:live).on_event(:put_live)
+        expect(zuckerl).to transition_from(:draft).to(:cancelled).on_event(:cancel)
+      end
+
+      it 'cannot expire' do
+        expect(zuckerl).not_to allow_event :expire
+      end
+
+      it 'cannot be marked_as_paid' do
+        expect(zuckerl).not_to allow_event :marked_as_paid
+      end
+
+      it 'triggers LiveInformationJob on put_live' do
+        expect{
+          zuckerl.put_live!
+        }.to have_enqueued_job(Zuckerl::LiveInformationJob)
+      end
+    end
+
     describe ':paid' do
       before do
         zuckerl.update_attribute(:aasm_state, 'paid')
@@ -106,24 +129,9 @@ RSpec.describe Zuckerl, type: :model do
     describe ':live' do
       before { zuckerl.update_attribute(:aasm_state, 'live') }
 
-      it 'can transition to :cancelled' do
+      it 'can transition to :cancelled and :expired' do
         expect(zuckerl).to transition_from(:live).to(:cancelled).on_event(:cancel)
-      end
-
-      it 'can expire' do
-        expect(zuckerl).to allow_event :expire
-      end
-
-      context 'if already paid' do
-        before { zuckerl.update_attribute(:paid_at, Time.now) }
-
-        it 'cannot be marked as paid' do
-          expect(zuckerl).not_to allow_event :mark_as_paid
-        end
-
-        it 'changes to expired on expire' do
-          expect(zuckerl).to transition_from(:live).to(:expired).on_event(:expire)
-        end
+        expect(zuckerl).to transition_from(:live).to(:expired).on_event(:expire)
       end
 
       context 'if not paid' do
@@ -131,8 +139,8 @@ RSpec.describe Zuckerl, type: :model do
           expect(zuckerl).to allow_event :mark_as_paid
         end
 
-        it 'changes to pending on expire' do
-          expect(zuckerl).to transition_from(:live).to(:pending).on_event(:expire)
+        it 'stays live on mark_as_paid' do
+          expect(zuckerl).to transition_from(:live).to(:live).on_event(:mark_as_paid)
         end
       end
     end
@@ -155,18 +163,35 @@ RSpec.describe Zuckerl, type: :model do
 
   describe 'callbacks' do
     describe 'after_commit' do
-      it 'calls BookingConfirmationJob' do
-        ActiveJob::Base.queue_adapter = :test
-        expect{
-          create :zuckerl
-        }.to have_enqueued_job(Zuckerl::BookingConfirmationJob)
-      end
+      context 'when state :pending' do
+        it 'calls BookingConfirmationJob' do
+          ActiveJob::Base.queue_adapter = :test
+          expect{
+            create :zuckerl
+          }.to have_enqueued_job(Zuckerl::BookingConfirmationJob)
+        end
 
-      it 'calls AdminMailer' do
-        message_delivery = instance_double(ActionMailer::MessageDelivery)
-        expect(AdminMailer).to receive(:new_zuckerl).and_return(message_delivery)
-        expect(message_delivery).to receive(:deliver_later)
-        create :zuckerl
+        it 'calls AdminMailer' do
+          message_delivery = instance_double(ActionMailer::MessageDelivery)
+          expect(AdminMailer).to receive(:new_zuckerl).and_return(message_delivery)
+          expect(message_delivery).to receive(:deliver_later)
+          create :zuckerl
+        end
+      end
+      context 'when state not pending' do
+        it 'does not call BookingConfirmationJob' do
+          ActiveJob::Base.queue_adapter = :test
+          expect{
+            create :zuckerl, :draft
+          }.not_to have_enqueued_job(Zuckerl::BookingConfirmationJob)
+        end
+
+        it 'does not call AdminMailer' do
+          message_delivery = instance_double(ActionMailer::MessageDelivery)
+          expect(AdminMailer).not_to receive(:new_zuckerl)
+          expect(message_delivery).not_to receive(:deliver_later)
+          create :zuckerl, :draft
+        end
       end
     end
   end
