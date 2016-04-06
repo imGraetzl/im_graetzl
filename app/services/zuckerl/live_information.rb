@@ -23,7 +23,7 @@ class Zuckerl::LiveInformation
       to: [ { email: @user.email } ],
       from_email: Rails.configuration.x.mandril_from_email,
       from_name: Rails.configuration.x.mandril_from_name,
-      subject: 'Zuckerl booking...?',
+      subject: 'Dein Grätzlzuckerl ist jetzt online',
       merge_vars: [
         rcpt: @user.email,
         vars: [
@@ -32,7 +32,7 @@ class Zuckerl::LiveInformation
           { name: 'zuckerl_title', content: @zuckerl.title },
           { name: 'zuckerl_period', content: I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%B %Y') },
           { name: 'zuckerl_url', content: user_zuckerls_url(url_options) },
-          { name: 'graetzl_zuckerl_url', content: graetzl_zuckerls_url(@location.graetzl, url_options) },
+          { name: 'graetzl_zuckerls_url', content: graetzl_zuckerls_url(@location.graetzl, url_options) },
           { name: 'location_zuckerl_url', content: graetzl_location_url(@location.graetzl, @location, url_options) },
         ]
       ]
