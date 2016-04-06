@@ -10,10 +10,6 @@ RSpec.describe Zuckerl, type: :model do
   describe 'attributes' do
     let(:zuckerl) { build_stubbed :zuckerl }
 
-    it 'has virtual attribute for admin event request' do
-      expect(zuckerl).to respond_to :active_admin_requested_event
-    end
-
     it 'has friendly_id' do
       expect(zuckerl).to respond_to :slug
     end
@@ -78,6 +74,12 @@ RSpec.describe Zuckerl, type: :model do
         expect{
           zuckerl.mark_as_paid!
         }.to have_enqueued_job(Zuckerl::InvoiceJob)
+      end
+
+      it 'sets paid_at on mark_as_paid' do
+        expect{
+          zuckerl.mark_as_paid!
+        }.to change{zuckerl.paid_at}
       end
     end
 

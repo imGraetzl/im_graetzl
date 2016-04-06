@@ -10,10 +10,10 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
   describe 'PATCH update' do
     let(:zuckerl) { create :zuckerl }
 
-    describe 'trigger aasm event' do
+    describe 'set aasm_state by hand' do
       let(:event) { 'mark_as_paid' }
       let(:params) {
-        { id: zuckerl, zuckerl: { active_admin_requested_event: event } }
+        { id: zuckerl, zuckerl: { aasm_state: 'paid' } }
       }
 
       it 'updates aasm_state' do
@@ -23,10 +23,10 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
         }.to change{zuckerl.aasm_state}.from('pending').to('paid')
       end
 
-      it 'enqueues InvoiceJob' do
+      it 'does not enqueue InvoiceJob' do
         expect{
           patch :update, params
-        }.to have_enqueued_job(Zuckerl::InvoiceJob)
+        }.not_to have_enqueued_job(Zuckerl::InvoiceJob)
       end
     end
   end
