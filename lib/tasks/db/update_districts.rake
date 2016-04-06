@@ -1,8 +1,8 @@
 require 'httparty'
 
 namespace :db do
-  desc 'import districts from open gv api'
-  task import_districts: :environment do
+  desc 'update districts from open gv api'
+  task update_districts: :environment do
 
     def query_api
       query = 'http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json'
@@ -16,9 +16,9 @@ namespace :db do
       geojson['features'].each do |feature|
         area = RGeo::GeoJSON.decode(feature['geometry'], json_parser: :json)
         area = area.simplify(0.0001)
-        name = feature['properties']['NAMEK']
         zip = feature['properties']['DISTRICT_CODE']
-        District.find_or_create_by(name: name, zip: zip.to_s, area: area)
+        district = District.find_by_zip zip
+        district.update(area: area) if district
       end
     end
 

@@ -1,13 +1,12 @@
 require 'httparty'
 
 namespace :db do
-  desc 'import graetzls from mapbox api'
-  task import_graetzls: :environment do
+  desc 'update graetzl data from mapbox api'
+  task update_graetzls: :environment do
 
     def query_api
       access_token = 'pk.eyJ1IjoicGVja29taW5nbyIsImEiOiJoVHNQM29zIn0.AVmpyDYApR5mryMCJB1ryw'
       map_id = 'peckomingo.pgi7pcmh'
-      # map_id = 'peckomingo.neninlfj'
       query = "http://api.tiles.mapbox.com/v4/#{map_id}/features.json?access_token=#{access_token}"
       uri = URI.parse(URI.encode(query))
       HTTParty.get uri
@@ -21,7 +20,8 @@ namespace :db do
         if feature['geometry'].present?
           area = RGeo::GeoJSON.decode(feature['geometry'], json_parser: :json)
           name = feature['properties']['title']
-          graetzl = Graetzl.find_or_create_by(name: name, area: area)
+          graetzl = Graetzl.find_or_create_by(name: name)
+          graetzl.update(area: area) if graetzl
         end
       end
     end
