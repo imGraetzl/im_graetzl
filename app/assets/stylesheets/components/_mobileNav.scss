@@ -112,11 +112,15 @@
   }
 
   .createContainer {
+    .icontxt {
+      margin-right: 6px;
+    }
     .img-square {
       margin-left: auto;
       width: 30px;
       height: 30px;
       padding: 1px;
+      flex: 0 0 auto;
     }
   }
 

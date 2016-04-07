@@ -8,7 +8,14 @@ section.masonryFilterGrid {
   }
 
   .createmenu {
-    transform: translate(-20px,0);
+    max-width: 400px;
+    width: 90%;
+    width: calc(100% - 20px);
+    @include respond-to(">=medium") {
+      transform: translate(-20px,0);
+      width: 75%;
+      width: calc(100% - 200px);
+    }
   }
 
   .filter-stream {
