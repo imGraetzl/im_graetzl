@@ -53,11 +53,15 @@ de:
     show:
       title: '%{name} - %{slogan}'
       description: '%{desc}'
+  posts:
+    index:
+      title: '%{graetzl}: Ideen & Initiativen im Grätzl'
+      description: 'Entdecke, was sich BewohnerInnen fürs Grätzl %{graetzl} wünschen und welche Ideen im Raum stehen. Gestaltet euer Grätzl mit: Wünsche, Ideen & Initiativen!'
   users:
     show:
       title: '%{name} aus dem Grätzl %{graetzl}'
       description: '%{name}s Heimatgrätzl in Wien ist das Grätzl: %{graetzl} im %{numeric}. Bezirk.'
   zuckerls:
     index:
-      title: 'Das Grätzlzuckerl - Entdecke Einzigartiges im %{numeric}. Bezirk'
-      description: 'Das Grätzlzuckerl %{district} erscheint einmal im Monat und enthält besondere Angebote von Kreativen, Selbständigen und kleinen Unternehmen im Viertel.'
+      title: '%{graetzl}: Zuckerl & Angebote - Jeden Monat neu'
+      description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'
