@@ -1,6 +1,6 @@
 class DistrictsController < ApplicationController
   def index
-    @meetings = Meeting.basic.upcoming.
+    @meetings = Meeting.upcoming.
       includes([:graetzl]).
       page(params[:page]).per(15)
     unless request.xhr?

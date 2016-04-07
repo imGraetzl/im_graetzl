@@ -52,7 +52,7 @@
         <div class="title"><%= zuckerl.title %></div>
       <% end %>
     <% end %>
-    <% if meeting = location.meetings.basic.last %>
+    <% if meeting = location.meetings.upcoming.last %>
       <%= link_to [meeting.graetzl, meeting], class: 'event-teaser-box' do %>
         <% if meeting.starts_at_date %>
           <div class="date">
