@@ -36,9 +36,6 @@
     width: 100%;
     border-radius: 4px;
     display: block;
-    @include respond-to(">=large") {
-      min-height: 180px;
-    }
   }
   .sideflag {
     position: absolute;
