@@ -1,7 +1,9 @@
 <div class="cardBox">
   <div class="cardBoxHeader">
     <% if image = admin_post.images.first %>
-      <%= link_to attachment_image_tag(image, :file, :fill, 300, 250), admin_post %>
+      <%= link_to [admin_post] do %>
+        <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
+      <% end %>
     <% end %>
     <div class="categoryicon">
       <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
