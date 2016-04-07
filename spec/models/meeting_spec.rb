@@ -112,17 +112,18 @@ RSpec.describe Meeting, type: :model do
 
       subject(:by_currentness) { Meeting.by_currentness }
 
-      it 'returns upcomig asc, nil, past desc' do
+      it 'returns upcoming asc, nil, past desc' do
         expect(by_currentness).to eq [m_today, m_tomorrow, m_nil, m_yesterday]
       end
     end
 
     describe '.upcoming' do
-      let!(:m_today) { create(:meeting, starts_at_date: Date.today) }
-      let!(:m_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow) }
-      let!(:m_after_tomorrow) { create(:meeting, starts_at_date: Date.tomorrow+1) }
-      let!(:m_nil) { create(:meeting, starts_at_date: nil) }
-      let!(:m_yesterday) { create(:meeting_skip_validate, starts_at_date: Date.yesterday) }
+      let!(:m_today) { create :meeting, starts_at_date: Date.today }
+      let!(:m_tomorrow) { create :meeting, starts_at_date: Date.tomorrow }
+      let!(:m_after_tomorrow) { create :meeting, starts_at_date: Date.tomorrow+1 }
+      let!(:m_nil) { create :meeting, starts_at_date: nil }
+      let!(:m_yesterday) { create :meeting_skip_validate, starts_at_date: Date.yesterday }
+      let!(:m_cancelled) { create :meeting, :cancelled, starts_at_date: Date.today }
 
       subject(:meetings) { Meeting.upcoming }
 
@@ -132,6 +133,10 @@ RSpec.describe Meeting, type: :model do
 
       it 'excludes past' do
         expect(meetings).not_to include(m_yesterday)
+      end
+
+      it 'excludes cancelled' do
+        expect(meetings).not_to include m_cancelled
       end
     end
 
