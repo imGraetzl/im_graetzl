@@ -1,3 +1,13 @@
+<% meta({
+    title: t('.title', graetzl: @graetzl.name),
+    description: t('.description', graetzl: @graetzl.name),
+    robots: @posts.empty? ? 'noindex, follow' : 'index, follow',
+    og_title: t('.title', graetzl: @graetzl.name),
+    og_description: t('.description', graetzl: @graetzl.name),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
+
 <section class="masonryFilterGrid">
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
     <%= render 'graetzls/map', map_data: @map_data %>
