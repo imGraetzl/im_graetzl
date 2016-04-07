@@ -50,6 +50,5 @@
 
 
 $(document).on('ready', function(event) {
-    console.log("DOCUMENT READY");
     APP.init();
 });
