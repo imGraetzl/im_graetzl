@@ -2,15 +2,18 @@
   @include font-size-primaryFont('large');
   margin: -30px auto 40px auto;
   background-color: #ffffff;
-  padding: 47px 25px 18px 78px;
+  padding: 30px;
   font-style: italic;
   width: 100%;
   max-width: 980px;
+  position: relative;
+  z-index: 1;
   @include respond-to(">=medium") {
     margin-top: -50px;
   }
   @include respond-to(">=large") {
     margin-top: -80px;
+    padding: 47px 50px 30px 78px;
   }
   h2 {
     @include font-size-secondaryFont('small');
