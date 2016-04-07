@@ -18,9 +18,7 @@
   </div>
   <div class="theEntry">
     <div class="title"><%= @post.title %></div>
-    <div class="txt">
-      <%= @post.content %>
-    </div>
+    <div class="txt"><%= @post.content %></div>
     <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
       <% @post.images.each do |image| %>
         <%= link_to attachment_image_tag(image, :file, :fill, 200, 200), attachment_url(image, :file, :limit, 800, 800) %>

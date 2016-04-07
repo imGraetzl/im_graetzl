@@ -528,6 +528,7 @@ section.justEntry {
     .txt {
       @include font-size-primaryFont('base');
       margin-bottom: 20px;
+      white-space: pre-wrap;
     }
     .btn-destroy {
       margin-left: auto;

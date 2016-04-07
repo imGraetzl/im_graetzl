@@ -87,6 +87,13 @@
     background-size: 10px 20px;
   }
 
+  .registerlink {
+    @include respond-to("<410px") {
+      flex: 0;
+      margin-left: auto;
+    }
+  }
+
   .createMeeting {
     .txt {
       display: none;
@@ -218,7 +225,10 @@
     }
   }
   .logo_reduced {
-    display: block;
+    display: none;
+    @include respond-to(">=360px") {
+      display: block;
+    }
     @include respond-to(">=medium") {
       display: none;
     }

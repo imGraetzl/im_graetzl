@@ -1,18 +1,24 @@
 APP.components.masonryFilterGrid = (function() {
 
-    var $grid;
+    var $masonryWrapper, $grid;
 
     function init() {
+        $masonryWrapper = $('.masonry-wrapper');
         $grid =  $('.cards-container');
-        $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
+
+        $masonryWrapper.hide();
         $(window).on("load", function() {
+            $masonryWrapper.fadeIn();
             $grid.masonry({
                 itemSelector: '.cardBox',
                 fitWidth : true,
                 gutter: 24
             });
         });
+
+
         createMobileNav();
+        $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
     }
 
     function adjustNewCards() {

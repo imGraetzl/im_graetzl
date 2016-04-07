@@ -18,17 +18,20 @@ section.homeOut {
   background-size: 270px auto, 700px auto;
   background-position: center 75px, -140px -90px;
   position: relative;
-  @include respond-to("<medium") {
-    margin-left: -18px;
-    margin-right: -18px;
-    padding-left: 18px;
-    padding-right: 18px;
-  }
+  margin-left: -18px;
+  margin-right: -18px;
+  padding-left: 18px;
+  padding-right: 18px;
+
 
   @include respond-to(">=medium") {
     background-size: 400px auto, 1010px auto;
     background-position: 40px 75px, -140px -150px;
     margin-bottom: 40px;
+    margin-left: -25px;
+    margin-right: -25px;
+    padding-left: 25px;
+    padding-right: 25px;
   }
   @include respond-to(">=large") {
     background-size: 507px auto, 936px auto;
@@ -36,6 +39,10 @@ section.homeOut {
     min-height: 560px;
     margin-top: -8.0rem;
     margin-bottom: 4.0rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   h1 {
