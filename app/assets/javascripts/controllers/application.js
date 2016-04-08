@@ -34,16 +34,16 @@ APP.controllers.application = (function() {
 
         var $markup = $('<div class="cardBox -sponsor sponsorstuwerviertel">' +
             '<div class="cardBoxHeader">' +
-            '<img src="/assets/img/stuwerlogo.png" alt="">' +
+            '<img src="/assets/img/stuwerlogo.png" width="248" height="315" alt="">' +
             '<div class="sideflag -R">Partner von imGrätzl</div>' +
             '</div>' +
             '<div class="cardBoxContent">' +
-            '<img class="eks" src="/assets/img/ek_strassen_logo.jpg" alt="">' +
+            '<img class="eks" src="/assets/img/ek_strassen_logo.jpg" width="118" height="125" alt="">' +
             '<div class="txt">' +
             '<p>Die Wiener Einkaufsstraßen sind eine Aktion der Wirtschaftskammer Wien.</p>' +
             '<p>Gefördert aus den Mitteln der Stadt Wien durch die Wirtschaftsagentur Wien. Ein Fonds der Stadt Wien.</p>' +
             '</div>' +
-            '<img class="wko" src="/assets/img/wko_wa_logo.jpg" alt="">' +
+            '<img class="wko" src="/assets/img/wko_wa_logo.jpg" width="253" height="65" alt="">' +
             '</div>' +
             '</div>');
 
