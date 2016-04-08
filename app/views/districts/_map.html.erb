@@ -17,6 +17,6 @@
 
 <% unless @district.curators.empty? %>
   <div class="graetzl-ambassador">
-    Kuratiert mit<svg class="icon-love"><use xlink:href="#icon-love"></use></svg>von <%= @district.curators.collect{ |c| link_to(c.name, c.website, target: '_blank') }.to_sentence.html_safe %>
+    Grätzlbotschafter<svg class="icon-love"><use xlink:href="#icon-love"></use></svg><%= @district.curators.collect{ |c| link_to(c.name, c.website, target: '_blank') }.to_sentence.html_safe %>
   </div>
 <% end %>
