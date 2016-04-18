@@ -14,18 +14,29 @@ Ruby on Rails social network app Vienna.
 
 ### Dependencies
 
-* PostgreSQL with PostGIS extension for spatial data
-* ImageMagick
+* [PostgreSQL](http://www.postgresql.org/) 9.4 with [PostGIS](http://postgis.net/) extension for spatial data
+* [ImageMagick](http://www.imagemagick.org/)
 * Ruby >= 2.1.0 (required by refile)
-* GEOS and [Proj](https://github.com/OSGeo/proj.4) for some spatial calculations
-
+* [GEOS](https://trac.osgeo.org/geos/) and [Proj](https://github.com/OSGeo/proj.4) for some spatial calculations
 
 #### Test dependencies
 
 * [PhantomJS](http://phantomjs.org/)
 
+#### Setup on OSX
 
-### Setup
+*Assuming you have a working ruby installation*  
+Use [Homebrew](http://brew.sh/) to install the required dependencies:
+
+```sh
+$ brew install postgresql
+# follow the install instructions
+$ brew install postgis
+# follow instructions to enable postgis extension
+$ brew install geos proj phantomjs imagemagick
+```
+
+### Database Setup
 
 Setup Postgis database and seed data (districts and graetzl):
 
@@ -34,6 +45,7 @@ Setup Postgis database and seed data (districts and graetzl):
 Populate database with sample data:
 
     $ rake db:populate
+
 
 ## Deployment
 
