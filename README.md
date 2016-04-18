@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/klappradla/im_graetzl.svg?branch=master)](https://travis-ci.org/klappradla/im_graetzl)
+[![Dependency Status](https://gemnasium.com/badges/github.com/imGraetzl/im_graetzl.svg)](https://gemnasium.com/github.com/imGraetzl/im_graetzl)
+
 # imGrätzl
 
 Ruby on Rails social network app Vienna.
