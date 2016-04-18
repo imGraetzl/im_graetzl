@@ -17,7 +17,7 @@ Ruby on Rails social network app Vienna.
 * PostgreSQL with PostGIS extension for spatial data
 * ImageMagick
 * Ruby >= 2.1.0 (required by refile)
-* GEOS and Proj for some spatial calculations
+* GEOS and [Proj](https://github.com/OSGeo/proj.4) for some spatial calculations
 
 
 #### Test dependencies
