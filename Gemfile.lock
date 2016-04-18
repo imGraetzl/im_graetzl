@@ -99,7 +99,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.2)
-    debug_inspector (0.0.2)
     devise (3.5.6)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -327,10 +326,6 @@ GEM
     uniform_notifier (1.9.0)
     warden (1.2.6)
       rack (>= 1.0)
-    web-console (3.1.1)
-      activemodel (>= 4.2)
-      debug_inspector
-      railties (>= 4.2)
     webmock (1.24.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -392,7 +387,6 @@ DEPENDENCIES
   tzinfo-data
   uglifier
   underscore-rails
-  web-console
   webmock
   whenever
 

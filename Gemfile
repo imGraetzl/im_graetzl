@@ -41,8 +41,6 @@ group :development do
   gem 'spring'
   # open mail in browser
   gem 'letter_opener'
-  # for debug in rails 4.2
-  gem 'web-console'
   # debug kill N+1 queries and unused eager loading
   gem 'bullet'
   # debug controllers
