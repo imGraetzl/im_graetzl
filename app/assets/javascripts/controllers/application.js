@@ -2,72 +2,78 @@ APP.controllers.application = (function() {
 
 
 
-    function init() {
+  function init() {
 
-        APP.components.mainNavigation.init();
-        APP.components.stream.init();
-        APP.components.notificatonCenter.init();
+    APP.components.mainNavigation.init();
+    APP.components.stream.init();
+    APP.components.notificatonCenter.init();
 
-        FastClick.attach(document.body);
+    FastClick.attach(document.body);
 
-        window.cookieconsent_options = {
-            "message":"Diese Website verwendet Cookies. Indem Sie weiter auf dieser Website navigieren, stimmen Sie unserer Verwendung von Cookies zu.",
-            "dismiss":"OK!","learnMore":"Mehr Information",
-            "link":"http://www.imgraetzl.at/info/datenschutz",
-            "theme": false
-        };
+    window.cookieconsent_options = {
+      "message":"Diese Website verwendet Cookies. Indem Sie weiter auf dieser Website navigieren, stimmen Sie unserer Verwendung von Cookies zu.",
+      "dismiss":"OK!","learnMore":"Mehr Information",
+      "link":"http://www.imgraetzl.at/info/datenschutz",
+      "theme": false
+    };
 
-        injectSponsorCard();
+    injectSponsorCard();
+    showStoerer();
+
+  }
+
+  function showStoerer() {
+    var $stoerer = $(".baumler-stoerer");
+    if($stoerer.exists()) {
+      setTimeout(function () {
+        $stoerer.css('visibility', 'visible').animate({opacity: 1.0}, 1700).addClass("doAnimation");
+      }, 1600);
+      $stoerer.find(".close").one("click", function () {
+        $stoerer.remove();
+      });
+    }
+  }
 
 
-        // jQuery('.notificationsTrigger').click(function() {
-        //     jQuery('#notifications_more').trigger('click');
-        // });
+  // TODO: this is a hack! stuff should come from DB
+  function injectSponsorCard() {
 
-        // showStoerer();
+    var $markup = $('<div class="cardBox -sponsor sponsorstuwerviertel">' +
+      '<div class="cardBoxHeader">' +
+      '<img src="/assets/img/stuwerlogo.png" width="248" height="315" alt="">' +
+      '<div class="sideflag -R">Partner von imGrätzl</div>' +
+      '</div>' +
+      '<div class="cardBoxContent">' +
+      '<img class="eks" src="/assets/img/ek_strassen_logo.jpg" width="118" height="125" alt="">' +
+      '<div class="txt">' +
+      '<p>Die Wiener Einkaufsstraßen sind eine Aktion der Wirtschaftskammer Wien.</p>' +
+      '<p>Gefördert aus den Mitteln der Stadt Wien durch die Wirtschaftsagentur Wien. Ein Fonds der Stadt Wien.</p>' +
+      '</div>' +
+      '<img class="wko" src="/assets/img/wko_wa_logo.jpg" width="253" height="65" alt="">' +
+      '</div>' +
+      '</div>');
 
+    if(APP.utils.URLendsWith('/stuwerviertel') && APP.utils.isLoggedIn()) {
+      $('.cards-container .cardBox').eq(2).after($markup);
+    }
+    if(APP.utils.URLendsWith('/stuwerviertel') && !APP.utils.isLoggedIn()) {
+      $('main').append($markup);
+    }
+    if(APP.utils.URLendsWith('/stuwerviertel/locations')) {
+      $('.cards-container .cardBox').eq(2).after($markup);
+    }
+    if(APP.utils.URLendsWith('/leopoldstadt-1020')) {
+      $('main').append($markup);
     }
 
-
-    // TODO: this is a hack! stuff should come from DB
-    function injectSponsorCard() {
-
-        var $markup = $('<div class="cardBox -sponsor sponsorstuwerviertel">' +
-            '<div class="cardBoxHeader">' +
-            '<img src="/assets/img/stuwerlogo.png" width="248" height="315" alt="">' +
-            '<div class="sideflag -R">Partner von imGrätzl</div>' +
-            '</div>' +
-            '<div class="cardBoxContent">' +
-            '<img class="eks" src="/assets/img/ek_strassen_logo.jpg" width="118" height="125" alt="">' +
-            '<div class="txt">' +
-            '<p>Die Wiener Einkaufsstraßen sind eine Aktion der Wirtschaftskammer Wien.</p>' +
-            '<p>Gefördert aus den Mitteln der Stadt Wien durch die Wirtschaftsagentur Wien. Ein Fonds der Stadt Wien.</p>' +
-            '</div>' +
-            '<img class="wko" src="/assets/img/wko_wa_logo.jpg" width="253" height="65" alt="">' +
-            '</div>' +
-            '</div>');
-
-        if(APP.utils.URLendsWith('/stuwerviertel') && APP.utils.isLoggedIn()) {
-            $('.cards-container .cardBox').eq(2).after($markup);
-        }
-        if(APP.utils.URLendsWith('/stuwerviertel') && !APP.utils.isLoggedIn()) {
-            $('main').append($markup);
-        }
-        if(APP.utils.URLendsWith('/stuwerviertel/locations')) {
-            $('.cards-container .cardBox').eq(2).after($markup);
-        }
-        if(APP.utils.URLendsWith('/leopoldstadt-1020')) {
-            $('main').append($markup);
-        }
-
-    }
+  }
 
 
 
-    // ---------------------------------------------------------------------- Returns
+  // ---------------------------------------------------------------------- Returns
 
-    return {
-        init: init
-    }
+  return {
+    init: init
+  }
 
 })();

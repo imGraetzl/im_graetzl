@@ -1,7 +1,7 @@
 .baumler-stoerer {
 
   width: 377px;
-  height: 284px;
+  height: 320px;
   position: absolute;
   left: -39px;
   top: 52px;
@@ -11,40 +11,19 @@
   z-index: 4;
 
   .wrap {
-    background: url(image_path('stoereradvent.png')) no-repeat 7px -59px;
+    background: url(image_path('stoererfeelgood.png')) no-repeat 7px -59px;
     text-align: center;
     width: 277px;
     left: 80px;
-    height: 265px;
+    height: 300px;
     padding: 65px 40px 0 40px;
     position: absolute;
     top: 13px;
-
-    &::after {
-      content: '';
-      width:40px;
-      height: 40px;
-      position: absolute;
-      bottom: 60px;
-      right: 40px;
-      display: block;
-      background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
-      background-repeat: no-repeat;
-      background-position: center center;
-      transform: rotate(-220deg);
-      transition: bottom 0.2s, right 0.2s;
-    }
 
     &:hover {
       .link {
         color: $color-ambient-rosa;
         text-decoration: underline;
-      }
-
-      &::after {
-        bottom: 50px;
-        right: 50px;
-
       }
     }
 
@@ -57,9 +36,9 @@
     opacity: 0;
     height: 30px;
     position: absolute;
-    right: 48px;
+    right: 55px;
     border-radius: 50%;
-    bottom: 215px;
+    top: 25px;
     background-color: #fcfcfc;
     z-index: 1;
     fill: $color-font-primary;
@@ -80,7 +59,7 @@
   &::before {
     height: 62px;
     width: 50px;
-    background: url(image_path('stoereradvent.png')) -99px 12px;
+    background: url(image_path('stoererfeelgood.png')) -99px 12px;
     content: '';
     display: block;
     z-index: 2;
