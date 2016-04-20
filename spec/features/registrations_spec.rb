@@ -24,7 +24,7 @@ RSpec.feature 'Registration', type: :feature do
 
     scenario 'user registers in suggested graetzl', js: true do
       fill_in_address(address)
-      click_button 'Weiter'
+      find_button('Weiter').trigger('click')
 
       expect(page).to have_text("Willkommen im Grätzl #{graetzl.name}")
 
@@ -41,7 +41,7 @@ RSpec.feature 'Registration', type: :feature do
 
     scenario 'user changes graetzl manually', js: true do
       fill_in_address(address)
-      click_button 'Weiter'
+      find_button('Weiter').trigger('click')
 
       expect(page).to have_text("Willkommen im Grätzl #{graetzl.name}")
 
@@ -79,7 +79,7 @@ RSpec.feature 'Registration', type: :feature do
     scenario 'user selects graetzl from list', js: true do
       fill_in :address, with: "#{address.street_name}"
       sleep 3
-      click_button 'Weiter'
+      find_button('Weiter').trigger('click')
 
       expect(page).to have_text("Unter #{address.street_name} konnten wir 2 Grätzl finden.")
       expect(page).to have_field('graetzl_id', type: 'radio', count: 2, visible: false)
@@ -143,7 +143,7 @@ RSpec.feature 'Registration', type: :feature do
     scenario 'enter valid userdata', js: true do
       fill_in :address, with: 'qwertzuiopü'
       sleep 3
-      click_button 'Weiter'
+      find_button('Weiter').trigger('click')
 
       expect(page).to have_text('Unter qwertzuiopü konnten wir leider kein Grätzl finden.')
 
