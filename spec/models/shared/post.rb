@@ -1,17 +1,18 @@
 RSpec.shared_examples :a_post do
+  let(:post_class) { described_class.name.underscore.to_sym }
 
   describe 'validations' do
     it 'is invalid without title' do
-      expect(build(described_class, title: nil))
+      expect(build post_class, title: nil)
     end
 
     it 'is invalid without author' do
-      expect(build(described_class, author: nil))
+      expect(build post_class, author: nil)
     end
   end
 
   describe 'associations' do
-    let(:post) { create(described_class) }
+    let(:post) { create post_class }
 
     it 'has author' do
       expect(post).to respond_to(:author)

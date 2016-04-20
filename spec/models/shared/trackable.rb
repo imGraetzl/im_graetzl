@@ -1,7 +1,8 @@
 RSpec.shared_examples :a_trackable do
+  let(:trackable_class) { described_class.name.underscore.to_sym }
 
   describe 'associations' do
-    let(:trackable) { create described_class }
+    let(:trackable) { create trackable_class }
 
     describe 'activities' do
       it 'has activities' do
@@ -16,7 +17,7 @@ RSpec.shared_examples :a_trackable do
   end
 
   describe '#create_activity' do
-    let(:trackable) { create described_class }
+    let(:trackable) { create trackable_class }
     let(:owner) { create :user }
     let(:recipient) { create :user }
 
