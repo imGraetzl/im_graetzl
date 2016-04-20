@@ -23,7 +23,7 @@ before_filter :configure_sign_in_params, only: [:create]
     # end
 
     def configure_sign_in_params
-      devise_parameter_sanitizer.for(:sign_in) do |u|
+      devise_parameter_sanitizer.permit(:sign_in) do |u|
           u.permit(:login, :username, :email, :password, :remember_me)
         end
     end
