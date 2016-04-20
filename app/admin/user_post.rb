@@ -1,5 +1,6 @@
 ActiveAdmin.register UserPost do
   menu parent: 'Posts'
+  actions :all, except: [:new, :create]
 
   filter :author, as: :select, collection: -> { User.all }
   filter :title
