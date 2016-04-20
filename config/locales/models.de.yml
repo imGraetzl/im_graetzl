@@ -35,8 +35,8 @@ de:
         one: Idee
         other: Ideen
       location_post:
-        one: LocationUpdate
-        other: LocationUpdates
+        one: Location Update
+        other: Location Updates
       zuckerl:
         one: Zuckerl
         other: Zuckerl
