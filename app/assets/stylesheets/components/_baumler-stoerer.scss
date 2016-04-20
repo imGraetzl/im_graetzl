@@ -3,12 +3,16 @@
   width: 377px;
   height: 320px;
   position: absolute;
-  left: -39px;
+  left: -20px;
   top: 52px;
   overflow: hidden;
   visibility: hidden;
   opacity: 0;
   z-index: 4;
+  @include respond-to(">large") {
+    left: auto;
+    right: -30px;
+  }
 
   .wrap {
     background: url(image_path('stoererfeelgood.png')) no-repeat 7px -59px;
