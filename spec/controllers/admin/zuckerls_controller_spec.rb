@@ -7,6 +7,41 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
     sign_in create(:user, :admin)
   end
 
+  describe 'GET index' do
+    let!(:zuckerls) { create_list :zuckerl, 30 }
+    before { get :index }
+
+    it 'assigns first 30 zuckerls' do
+      expect(assigns :zuckerls).to match_array zuckerls
+    end
+
+    it 'renders index' do
+      expect(response).to render_template 'admin/zuckerls/_index'
+    end
+  end
+  describe 'GET show' do
+    let(:zuckerl) { create :zuckerl }
+    before { get :show, id: zuckerl }
+
+    it 'assigns @zuckerl' do
+      expect(assigns :zuckerl).to eq zuckerl
+    end
+
+    it 'renders show' do
+      expect(response).to render_template 'admin/zuckerls/_show'
+    end
+  end
+  describe 'GET new' do
+    before { get :new }
+
+    it 'assigns @zuckerl' do
+      expect(assigns :zuckerl).to be_a_new Zuckerl
+    end
+
+    it 'renders form' do
+      expect(response).to render_template 'admin/zuckerls/_form'
+    end
+  end
   describe 'POST create' do
     let(:location) { create :location }
     let(:params) {{  zuckerl: {
@@ -33,11 +68,22 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
         location: location)
     end
   end
+  describe 'GET edit' do
+    let(:zuckerl) { create :zuckerl }
+    before { get :edit, id: zuckerl }
 
-  describe 'PATCH update' do
+    it 'assigns @zuckerl' do
+      expect(assigns :zuckerl).to eq zuckerl
+    end
+
+    it 'renders form' do
+      expect(response).to render_template 'admin/zuckerls/_form'
+    end
+  end
+  describe 'PUT update' do
     let(:zuckerl) { create :zuckerl }
 
-    describe 'trigger aasm event' do
+    context 'trigger aasm event' do
       let(:event) { 'mark_as_paid' }
       let(:params) {
         { id: zuckerl, zuckerl: { active_admin_requested_event: event } }
@@ -45,16 +91,42 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
 
       it 'updates aasm_state' do
         expect{
-          patch :update, params
+          put :update, params
           zuckerl.reload
         }.to change{zuckerl.aasm_state}.from('pending').to('paid')
       end
 
       it 'enqueues InvoiceJob' do
         expect{
-          patch :update, params
+          put :update, params
         }.to have_enqueued_job(Zuckerl::InvoiceJob)
       end
+    end
+    context 'not trigger aasm event' do
+      let!(:location) { create :location }
+      let(:params) { { id: zuckerl, zuckerl: { title: 'new title', location_id: location.id } } }
+
+      it 'does not change state' do
+        expect{
+          put :update, params
+          zuckerl.reload
+        }.not_to change{zuckerl.aasm_state}
+      end
+
+      it 'updates attributes' do
+        put :update, params
+        zuckerl.reload
+        expect(zuckerl).to have_attributes(title: 'new title', location: location)
+      end
+    end
+  end
+  describe 'DELETE destroy' do
+    let!(:zuckerl) { create :zuckerl }
+
+    it 'deletes zuckerl record' do
+      expect{
+        delete :destroy, id: zuckerl
+      }.to change{Zuckerl.count}.by -1
     end
   end
 end

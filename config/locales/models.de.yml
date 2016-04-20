@@ -119,3 +119,4 @@ de:
         description: Beschreibung
         image: Bild
         paid_at: Bezahlt am
+        payment_reference: Zahlungsreferenz
