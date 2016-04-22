@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405135717) do
+ActiveRecord::Schema.define(version: 20160422115418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,11 +170,12 @@ ActiveRecord::Schema.define(version: 20160405135717) do
   add_index "going_tos", ["user_id"], name: "index_going_tos_on_user_id", using: :btree
 
   create_table "graetzls", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.geometry "area",       limit: {:srid=>0, :type=>"polygon"}
-    t.string   "slug",       limit: 255
+    t.geometry "area",        limit: {:srid=>0, :type=>"polygon"}
+    t.string   "slug",        limit: 255
+    t.integer  "users_count",                                      default: 0
   end
 
   add_index "graetzls", ["slug"], name: "index_graetzls_on_slug", using: :btree

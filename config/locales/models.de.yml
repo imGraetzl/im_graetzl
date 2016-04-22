@@ -68,6 +68,11 @@ de:
         hours: Öffnungszeiten
       curator:
         created_at: Erstellt am
+      graetzl:
+        created_at: Erstellt am
+        updated_at: Aktualisiert am
+        users_count: Anzahl User
+        area: Fläche
       initiative:
         created_at: Erstellt am
         description: Beschreibung

@@ -3,6 +3,6 @@ context.instance_eval do
   id_column
   column :name
   column :slug
-  column('#Users'){ |g| g.users.count }
+  column :users_count
   actions
 end

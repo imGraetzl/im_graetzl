@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   attachment :cover_photo, type: :image
   enum role: { admin: 0, business: 1, guest: 2 }
 
-  belongs_to :graetzl
+  belongs_to :graetzl, counter_cache: true
   has_one :curator, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   has_many :going_tos, dependent: :destroy
