@@ -8,10 +8,11 @@ active_admin_form_for [:admin, resource] do |f|
     end
   end
   inputs 'Graetzl' do
+    input :select_all_districts, as: :boolean, input_html: { data: { behavior: 'all-districts-checkbox' } }
     tabs do
       District.order(:zip).each do |district|
         tab district.zip do
-          input :district,
+          input :select_district,
             label: false,
             hidden_fields: false,
             as: :check_boxes,

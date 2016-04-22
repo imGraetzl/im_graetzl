@@ -9,13 +9,33 @@
       }
     }
 
-    function handleDistrictCheck() {
-      var $graetzlCheckBoxes = getGraetzlCheckboxes($(this));
-      if($graetzlCheckBoxes.prop('checked')) {
-        $graetzlCheckBoxes.prop('checked', false);
-      } else {
-        $graetzlCheckBoxes.prop('checked', true);
+    function initAllDistrictsCheckbox() {
+      var $allDistrictsCheckbox = $('[data-behavior=all-districts-checkbox]');
+      var $districtCheckboxes = $('[data-behavior=district-checkbox]');
+      var $checked = $districtCheckboxes.filter(':checked');
+      if ($allDistrictsCheckbox.length) {
+        if($checked.length == $districtCheckboxes.length) {
+          $allDistrictsCheckbox.prop('checked', true)
+        } else {
+          $allDistrictsCheckbox.prop('checked', false)
+        }
+        $allDistrictsCheckbox.on('change', handleAllDistrictsCheck);
       }
+    }
+
+    function handleDistrictCheck() {
+      var checked = $(this).prop('checked')
+      var $graetzlCheckBoxes = getGraetzlCheckboxes($(this))
+      $graetzlCheckBoxes.prop('checked', checked)
+    }
+
+    function handleAllDistrictsCheck() {
+      var checked = $(this).prop('checked');
+      var $districtCheckboxes = $('[data-behavior=district-checkbox]');
+      $districtCheckboxes.prop('checked', function() {
+        getGraetzlCheckboxes($(this)).prop('checked', checked);
+        return checked;
+      });
     }
 
     function setInitialState(districtCheckboxes) {
@@ -37,5 +57,6 @@
     }
 
     initDistrictCheckboxes();
+    initAllDistrictsCheckbox();
   });
 })();
