@@ -28,7 +28,8 @@ ActiveAdmin.register User do
     :newsletter,
     :bio,
     :website,
-    :avatar,
+    :avatar, :remove_avatar,
+    :cover_photo, :remove_cover_photo,
     address_attributes: [
       :id,
       :street_name,
