@@ -1,26 +1,30 @@
 (function() {
   $(document).ready(function() {
+    var $districtCheckboxes = $('[data-behavior=district-checkbox]')
+    var $allDistrictsCheckbox = $('[data-behavior=all-districts-checkbox]')
 
-    function initDistrictCheckboxes() {
-      var $districtCheckboxes = $('[data-behavior=district-checkbox]');
-      if($districtCheckboxes.length) {
-        setInitialState($districtCheckboxes);
-        $districtCheckboxes.on('change', handleDistrictCheck);
+    function initCheckboxes() {
+      if ($districtCheckboxes.length && $allDistrictsCheckbox.length) {
+        initDistrictCheckboxes()
+        initAllDistrictsCheckbox()
       }
     }
 
+    function initDistrictCheckboxes() {
+      $districtCheckboxes.each(function() {
+        var $checkBoxes = getGraetzlCheckboxes($(this))
+        var $checked = $checkBoxes.filter(':checked')
+        var allChecked = ($checked.length == $checkBoxes.length)
+        $(this).prop('checked', allChecked)
+      });
+      $districtCheckboxes.on('change', handleDistrictCheck)
+    }
+
     function initAllDistrictsCheckbox() {
-      var $allDistrictsCheckbox = $('[data-behavior=all-districts-checkbox]');
-      var $districtCheckboxes = $('[data-behavior=district-checkbox]');
-      var $checked = $districtCheckboxes.filter(':checked');
-      if ($allDistrictsCheckbox.length) {
-        if($checked.length == $districtCheckboxes.length) {
-          $allDistrictsCheckbox.prop('checked', true)
-        } else {
-          $allDistrictsCheckbox.prop('checked', false)
-        }
-        $allDistrictsCheckbox.on('change', handleAllDistrictsCheck);
-      }
+      var $checked = $districtCheckboxes.filter(':checked')
+      var allChecked = ($checked.length == $districtCheckboxes.length)
+      $allDistrictsCheckbox.prop('checked', allChecked)
+      $allDistrictsCheckbox.on('change', handleAllDistrictsCheck)
     }
 
     function handleDistrictCheck() {
@@ -30,33 +34,19 @@
     }
 
     function handleAllDistrictsCheck() {
-      var checked = $(this).prop('checked');
-      var $districtCheckboxes = $('[data-behavior=district-checkbox]');
+      var checked = $(this).prop('checked')
       $districtCheckboxes.prop('checked', function() {
-        getGraetzlCheckboxes($(this)).prop('checked', checked);
-        return checked;
-      });
-    }
-
-    function setInitialState(districtCheckboxes) {
-      districtCheckboxes.each(function() {
-        var $checkBoxes = getGraetzlCheckboxes($(this));
-        var $checked = $checkBoxes.filter(':checked');
-        if ($checked.length == $checkBoxes.length) {
-          $(this).prop('checked', true);
-        } else {
-          $(this).prop('checked', false);
-        }
+        getGraetzlCheckboxes($(this)).prop('checked', checked)
+        return checked
       });
     }
 
     function getGraetzlCheckboxes(districtCheckbox) {
-      var district = districtCheckbox.data('district');
-      var selectorString = '[data-behavior=graetzl-checkbox][data-district=' + district + ']';
-      return $(selectorString);
+      var district = districtCheckbox.data('district')
+      var selectorString = '[data-behavior=graetzl-checkbox][data-district=' + district + ']'
+      return $(selectorString)
     }
 
-    initDistrictCheckboxes();
-    initAllDistrictsCheckbox();
+    initCheckboxes()
   });
 })();

@@ -43,3 +43,12 @@ a.btn-light {
 a.btn-dark {
   @include dark-button;
 }
+
+#admin_post_select_all_districts_input {
+  margin-bottom: 1em;
+
+  label[for="admin_post_select_all_districts"] {
+    padding-left: 0 !important;
+    font-weight: bold !important;
+  }
+}

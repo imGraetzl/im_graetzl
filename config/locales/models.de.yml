@@ -48,6 +48,8 @@ de:
         city: Stadt
         coordinates: Koordinaten
         description: Beschreibung
+      admin_post:
+        select_all_districts: Alle Bezirke
       billing_address:
         first_name: Vorname
         last_name: Nachname
