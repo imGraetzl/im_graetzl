@@ -38,4 +38,27 @@ ActiveAdmin.register User do
       :city,
       :description,
       :coordinates]
+
+    csv do
+      column :id
+      column :email
+      column :username
+      column :first_name
+      column :last_name
+      column(:graetzl) { |user| user.graetzl.name }
+      column :last_sign_in_at
+      column :created_at
+      column :confirmed_at
+      column :role
+      column :slug
+      column :bio
+      column :website
+      column :newsletter
+      column(:bezirk_1) { |user| user.graetzl.districts.first.try(:zip) }
+      column(:bezirk_2) { |user| user.graetzl.districts.second.try(:zip) }
+      column(:bezirk_3) { |user| user.graetzl.districts.third.try(:zip) }
+      column(:location_1) { |user| user.locations.first.try(:name) }
+      column(:location_2) { |user| user.locations.second.try(:name) }
+      column(:location_3) { |user| user.locations.third.try(:name) }
+    end
 end
