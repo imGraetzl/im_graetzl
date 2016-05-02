@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
-  enum role: { admin: 0, business: 1, guest: 2 }
+  enum role: { admin: 0, business: 1 }
 
   belongs_to :graetzl, counter_cache: true
   has_one :curator, dependent: :destroy

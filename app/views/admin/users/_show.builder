@@ -23,7 +23,7 @@ context.instance_eval do
           row :confirmed_at
           row :updated_at
           row :last_sign_in_at
-          row :newsletter
+          row (:newsletter){|u| status_tag(u.newsletter)}
         end
       end
       if user.address

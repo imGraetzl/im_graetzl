@@ -111,9 +111,11 @@ de:
         password_confirmation: Passwort bestätigen
         terms_and_conditions: AGBs
         avatar: Profilbild
+        remove_avatar: Profilbild Löschen
         login: Username oder Email
         last_sign_in_at: Zuletzt online am
         remember_me: Angemeldet bleiben
+        role: Rolle
       zuckerl:
         active_admin_requested_event: Status ändern
         aasm_state: Status

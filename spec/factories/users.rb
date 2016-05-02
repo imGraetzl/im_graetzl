@@ -17,9 +17,5 @@ FactoryGirl.define do
     trait :admin do
       role User.roles[:admin]
     end
-
-    trait :guest do
-      role User.roles[:guest]
-    end
   end
 end
