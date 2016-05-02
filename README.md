@@ -49,7 +49,7 @@ Populate database with sample data:
 
 ## Deployment
 
-The app is hosted on [Amazon Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) (instance running Ruby 2.2, Puma, Nginx). Config in .ebextensions folder. Files are executed in alphabetical order, e.g.:
+The app is hosted on [Amazon Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) (single instance type running Ruby 2.3, Puma, Nginx). Config in .ebextensions folder. Files are executed in alphabetical order, e.g.:
 
 * 01options.config
 * 02packages.config - *install yum packages*
