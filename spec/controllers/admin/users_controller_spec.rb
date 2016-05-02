@@ -173,7 +173,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     end
   end
 
-  describe 'PATCH update' do
+  describe 'PUT update' do
     let(:user) { create(:user) }
     let(:new_user) { build(:user,
       graetzl: create(:graetzl),
@@ -189,7 +189,6 @@ RSpec.describe Admin::UsersController, type: :controller do
           first_name: new_user.first_name,
           last_name: new_user.last_name,
           email: new_user.email,
-          role: new_user.role,
           bio: new_user.bio,
           website: new_user.website,
           newsletter: new_user.newsletter
@@ -199,7 +198,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context 'with basic attributes' do
       before do
-        patch :update, params
+        put :update, params
         user.reload
       end
 
@@ -214,13 +213,21 @@ RSpec.describe Admin::UsersController, type: :controller do
           first_name: new_user.first_name,
           last_name: new_user.last_name,
           email: new_user.email,
-          role: new_user.role,
           bio: new_user.bio,
           website: new_user.website,
           newsletter: new_user.newsletter)
       end
     end
+    context 'with role' do
+      before { params[:user].merge!(role: 'admin') }
 
+      it 'changes user role to :admin' do
+        expect{
+          put :update, params
+          user.reload
+        }.to change{user.role}.from(nil).to('admin')
+      end
+    end
     context 'with address' do
       let(:address) { build(:address) }
       before do
@@ -231,7 +238,7 @@ RSpec.describe Admin::UsersController, type: :controller do
           city: address.city,
           coordinates: address.coordinates
           })
-        patch :update, params
+        put :update, params
         user.reload
       end
 

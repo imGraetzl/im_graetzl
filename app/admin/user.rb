@@ -30,6 +30,7 @@ ActiveAdmin.register User do
     :website,
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
+    :role,
     address_attributes: [
       :id,
       :street_name,
