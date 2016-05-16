@@ -14,10 +14,10 @@ context.instance_eval do
           row :bio
           row :website
           row :cover_photo do |u|
-            u.cover_photo ? cover_photo_for(u, fill: [200,100]) : nil
+            u.cover_photo ? attachment_image_tag(u, :cover_photo, :fill, 200, 70) : nil
           end
           row :avatar do |u|
-            u.avatar ? avatar_for(u, fill: [100,100]) : nil
+            u.avatar ? attachment_image_tag(u, :avatar, :fill, 200, 200) : nil
           end
           row :created_at
           row :confirmed_at

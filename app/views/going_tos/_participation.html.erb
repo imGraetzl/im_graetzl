@@ -9,7 +9,7 @@
     <p class="userCount"><span><%= meeting.going_tos.count %></span> Teilnehmer</p>
     <div class="portraitCollection">
       <% meeting.going_tos.each do |g| %>
-        <%= link_to(g.user){ avatar_for g.user } %>
+        <%= link_to(g.user){ attachment_image_tag g.user, :avatar, :fill, 200, 200, class: 'img-round', fallback: 'avatar/user/200x200.png' } %>
       <% end %>
     </div>
   </div>

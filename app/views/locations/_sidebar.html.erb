@@ -19,7 +19,7 @@
       <% unless @location.users.empty? %>
         <% @location.users.each do |user| %>
           <%= link_to user, class: 'user-wrp', target: '_blank' do %>
-            <%= avatar_for user %>
+            <%= attachment_image_tag user, :avatar, :fill, 200, 200, class: 'img-round', fallback: 'avatar/user/200x200.png' %>
             <span class="name"><%= user.username %></span>
           <% end %>
         <% end %>

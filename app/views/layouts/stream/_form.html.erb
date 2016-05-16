@@ -1,5 +1,4 @@
 <div class="entryCreate">
-  <%= avatar_for current_user %>
-
+  <%= attachment_image_tag current_user, :avatar, :fill, 200, 200, class: 'img-round', fallback: 'avatar/user/200x200.png' %>
   <%= yield %>
 </div>

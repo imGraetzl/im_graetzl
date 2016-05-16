@@ -13,7 +13,7 @@
   </div>
 
   <div class="usersettingsTrigger dropdownTrigger" data-horizontal-offset="2" data-mobileNavID="usersettings">
-    <%= avatar_for current_user %>
+    <%= attachment_image_tag(current_user, :avatar, :fill, 200, 200, class: 'img-round', fallback: 'avatar/user/200x200.png') %>
     <span class="username txt"><%= current_user.username %></span>
     <div class="wrp">
       <svg class="icon-gear"><use xlink:href="#icon-gear"></use></svg>

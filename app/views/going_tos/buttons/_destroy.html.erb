@@ -1,3 +1,6 @@
 <%= button_to going_to_path(going_to), method: :delete, remote: true, class: 'btn-userCallToAction' do %>
-  <span><%= avatar_for current_user %> Nicht mehr teilnehmen</span>
+  <span>
+    <%= attachment_image_tag current_user, :avatar, :fill, 200, 200, class: 'img-round', fallback: 'avatar/user/200x200.png' %>
+    Nicht mehr teilnehmen
+  </span>
 <% end %>

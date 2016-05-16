@@ -22,7 +22,7 @@
 
   <div class="userContent">
     <div class="col1">
-      <%= avatar_for(@user, fill: [400,400], class: 'img-round -largest') %>
+      <%= attachment_image_tag(@user, :avatar, :fill, 400 ,400, class: 'img-round -largest', fallback: 'avatar/user/400x400.png') %>
       <div class="sideBarbox">
         <% if @user.website %>
           <%= link_to @user.website, class: 'icontxt', target: '_blank' do %>
