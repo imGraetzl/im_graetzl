@@ -1,4 +1,3 @@
-# Sets graetzl for nested route calls
 module GraetzlChild
   extend ActiveSupport::Concern
 
@@ -22,6 +21,6 @@ module GraetzlChild
   end
 
   def format_js?
-     request.xhr?
+    request.xhr?
   end
 end
