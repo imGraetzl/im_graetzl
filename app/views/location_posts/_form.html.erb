@@ -1,5 +1,5 @@
 <div id="location-post-form" class="entryCreate" data-behavior="stream-form">
-  <%= avatar_for location, class:'img-square' %>
+  <%= attachment_image_tag location, :avatar, :fill, 200, 200, class:'img-square', fallback: 'avatar/location/200x200.png'%>
   <%= form_for(location.posts.new, html: { class: 'textEditor' }, remote: true) do |f| %>
     <%= f.hidden_field :graetzl_id, value: location.graetzl.id %>
     <%= f.hidden_field :author_id %>

@@ -12,7 +12,8 @@
   </div>
   <div class="cardBoxContent">
     <div class="location-shortfacts">
-      <div class="locationlogo"><%= avatar_for(zuckerl.location, fill: [200, 200], class: 'img-square') %>
+      <div class="locationlogo">
+        <%= attachment_image_tag(zuckerl.location, :avatar, :fill, 200, 200, class: 'img-square', fallback: 'avatar/location/200x200.png') %>
       </div>
       <div class="locationtxt">
         <div class="name"><%= zuckerl.location.name %></div>

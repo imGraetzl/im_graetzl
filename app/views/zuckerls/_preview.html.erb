@@ -12,7 +12,9 @@
   </div>
   <div class="cardBoxContent">
     <div class="location-shortfacts">
-      <div class="locationlogo"><%= avatar_for(location, fill: [200, 200], class: 'img-square') %></div>
+      <div class="locationlogo">
+        <%= attachment_image_tag(location, :avatar, :fill, 200, 200, class: 'img-square', fallback: 'avatar/location/200x200.png') %>
+      </div>
       <div class="locationtxt">
         <div class="name"><%= location.name %></div>
         <div class="category"><%= location.category.name %></div>
