@@ -15,7 +15,7 @@
   <div class="cardBoxContent">
     <div class="location-shortfacts">
       <%= link_to [location.graetzl, location], class: 'locationlogo' do %>
-        <%= attachment_image_tag location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'img-square' %>
+        <%= avatar_for location %>
       <% end %>
       <div class="locationtxt">
         <%= link_to [location.graetzl, location] do %>

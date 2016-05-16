@@ -1,4 +1,12 @@
 module ImagesHelper
+  def avatar_for(resource)
+    css_class = resource.is_a?(User) ? 'img-round' : 'img-square'
+    fallback = "avatar/#{resource.model_name.human.downcase}/200x200.png"
+    attachment_image_tag(resource, :avatar,
+                                  :fill, 200, 200,
+                                  class: css_class,
+                                  fallback: fallback)
+  end
   # def cover_photo_for(model, options={})
   #   options = cover_photo_defaults.merge(options)
   #   attachment_image_tag(model, :cover_photo,

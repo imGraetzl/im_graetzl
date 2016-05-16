@@ -7,7 +7,7 @@
     <% if user_signed_in? && @location.show_meeting_button(current_user) %>
       <%= link_to new_meeting_path(location_id: @location.id), class: 'btn-userCallToAction' do %>
       <span>
-        <%= attachment_image_tag current_user, :avatar, :fill, 200, 200, class: 'img-round', fallback: 'avatar/user/200x200.png' %>
+        <%= avatar_for current_user %>
         Treffen hier starten
         <svg class="icon-plus">
           <use xlink:href="#icon-plus"></use>
