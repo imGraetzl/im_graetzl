@@ -11,7 +11,7 @@
 
 <section class="locationPage">
   <div class="imgHeader -cloudy2">
-    <%= attachment_image_tag @location, :avatar, :fill, 200, 200, fallback: 'avatar/location/200x200.png', class: 'locationAvatar' %>
+    <%= attachment_image_tag @location, :avatar, :fill, 400, 400, fallback: 'avatar/location/400x400.png', class: 'locationAvatar' %>
     <%= attachment_image_tag @location, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
     <% if @location.editable_by? current_user %>
       <div class="bigicontext-element createentry" data-behavior="createTrigger">
