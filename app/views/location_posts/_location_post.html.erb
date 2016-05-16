@@ -5,7 +5,7 @@
       <% if image = location_post.images.first %>
         <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
       <% else %>
-        <%= attachment_image_tag location, :cover_photo, :fill, 300, 180, fallback: 'cover_photo/300x180.png', class: 'coverImg' %>
+        <%= cover_photo_for location %>
       <% end %>
     <% end %>
     <div class="categoryicon">

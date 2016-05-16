@@ -1,7 +1,7 @@
 <div class="cardBox -meeting <%= meeting_past_flag(meeting) %>">
   <div class="cardBoxHeader">
     <%= link_to [meeting.graetzl, meeting] do %>
-      <%= attachment_image_tag(meeting, :cover_photo, :fill, 300, 180, fallback: 'cover_photo/300x180.png', class: 'coverImg') %>
+      <%= cover_photo_for meeting %>
     <% end %>
     <% if meeting.starts_at_date %>
       <div class="calendarSheet">
@@ -18,7 +18,7 @@
   <div class="cardBoxContent">
     <% if initiator = meeting.initiator %>
       <%= link_to [initiator.graetzl, initiator], class: 'initiator' do %>
-        <%= attachment_image_tag initiator, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+        <%= avatar_for initiator %>
         <span><%= initiator.username %></span>
       <% end %>
     <% end %>
