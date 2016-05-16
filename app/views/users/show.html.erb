@@ -17,7 +17,7 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= cover_photo_for(@user, fill: [980,200], class: 'titleImg') %>
+    <%= attachment_image_tag(@user, :cover_photo, :fill, 980, 200, class: 'titleImg', fallback: 'cover_photo/980x370.png') %>
   </div>
 
   <div class="userContent">

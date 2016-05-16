@@ -13,7 +13,7 @@ context.instance_eval do
           row :initiator
           row :description
           row :cover_photo do |m|
-            m.cover_photo ? cover_photo_for(m, fill: [200,100]) : nil
+            m.cover_photo ? attachment_image_tag(m, :cover_photo, :fill, 200, 70) : nil
           end
           row :starts_at_date
           row(:starts_at_time){|m| m.starts_at_time ? m.starts_at_time.strftime('%H:%M') : nil}

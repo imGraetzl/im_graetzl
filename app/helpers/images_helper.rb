@@ -1,27 +1,27 @@
 module ImagesHelper
-  def cover_photo_for(model, options={})
-    options = cover_photo_defaults.merge(options)
-    attachment_image_tag(model, :cover_photo,
-                                :fill, options[:fill][0], options[:fill][1],
-                                fallback: stock_photo(options),
-                                class: (options[:class] if options[:class]))
-  end
+  # def cover_photo_for(model, options={})
+  #   options = cover_photo_defaults.merge(options)
+  #   attachment_image_tag(model, :cover_photo,
+  #                               :fill, options[:fill][0], options[:fill][1],
+  #                               fallback: stock_photo(options),
+  #                               class: (options[:class] if options[:class]))
+  # end
 
-  def avatar_for(model, options={})
-    options = avatar_defaults.merge(options)
-    attachment_image_tag(model, :avatar,
-                                :fill, options[:fill][0], options[:fill][1],
-                                fallback: stock_avatar(model, options),
-                                class: (options[:class] if options[:class]))
-  end
+  # def avatar_for(model, options={})
+  #   options = avatar_defaults.merge(options)
+  #   attachment_image_tag(model, :avatar,
+  #                               :fill, options[:fill][0], options[:fill][1],
+  #                               fallback: stock_avatar(model, options),
+  #                               class: (options[:class] if options[:class]))
+  # end
 
-  def thumbnail_for(imageable, image)
-    if imageable.respond_to?(:inline) && imageable.inline
-      attachment_image_tag(image, :file, :fill, 200, 200)
-    else
-      attachment_image_tag(image, :file, :fill, 400, 400)
-    end
-  end
+  # def thumbnail_for(imageable, image)
+  #   if imageable.respond_to?(:inline) && imageable.inline
+  #     attachment_image_tag(image, :file, :fill, 200, 200)
+  #   else
+  #     attachment_image_tag(image, :file, :fill, 400, 400)
+  #   end
+  # end
 
 
   private
