@@ -31,14 +31,6 @@ module MeetingsHelper
     end
   end
 
-  def address_for_teaser(address)
-    if address.description.present?
-      address.description
-    elsif address.street_name
-     "#{address.street_name} #{address.street_number}"
-    end
-  end
-
   def disable_fields
     disable_fields ||= false
   end
