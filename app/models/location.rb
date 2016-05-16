@@ -51,10 +51,7 @@ class Location < ActiveRecord::Base
   end
 
   def reject
-    if pending? && destroy
-      return true
-    end
-    false
+    pending? && destroy
   end
 
   def show_meeting_button(user)

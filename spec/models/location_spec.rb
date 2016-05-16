@@ -219,8 +219,8 @@ RSpec.describe Location, type: :model do
     context 'when location pending' do
       let!(:location) { create(:location, state: Location.states[:pending]) }
 
-      it 'returns true' do
-        expect(location.reject).to eq true
+      it 'returns location' do
+        expect(location.reject).to eq location
       end
 
       it 'destroys record' do
