@@ -24,16 +24,12 @@ ActiveAdmin.register Location do
 
   # batch actions
   batch_action :approve do |ids|
-    batch_action_collection.find(ids).each do |location|
-      location.approve
-    end
+    batch_action_collection.find(ids).map(&:approve)
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden freigeschalten.'
   end
 
   batch_action :reject, confirm: 'Wirklich alle ablehnen?' do |ids|
-    batch_action_collection.find(ids).each do |location|
-      location.reject
-    end
+    batch_action_collection.find(ids).map(&:reject)
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden abgelehnt.'
   end
 

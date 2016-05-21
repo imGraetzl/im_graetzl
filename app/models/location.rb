@@ -44,14 +44,12 @@ class Location < ActiveRecord::Base
 
   def approve
     if pending? && approved!
-      self.create_activity :approve
-      return true
+      create_activity(:approve)
     end
-    false
   end
 
   def reject
-    pending? && destroy
+    (pending? && destroy) || nil
   end
 
   def show_meeting_button(user)

@@ -187,7 +187,7 @@ RSpec.describe Location, type: :model do
         }.to change{location.state}.to 'approved'
       end
 
-      it 'returns true' do
+      it 'returns activity' do
         expect(location.approve).to be_truthy
       end
 
@@ -210,7 +210,7 @@ RSpec.describe Location, type: :model do
       end
 
       it 'returns false' do
-        expect(location.approve).to eq false
+        expect(location.approve).to eq nil
       end
     end
   end
@@ -240,7 +240,7 @@ RSpec.describe Location, type: :model do
       end
 
       it 'returns false' do
-        expect(location.reject).to eq false
+        expect(location.reject).to eq nil
       end
     end
   end
