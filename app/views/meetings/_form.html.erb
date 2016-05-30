@@ -1,4 +1,4 @@
-<%= form_for @meeting do |f| %>
+<%= form_for [@parent, @meeting] do |f| %>
   <%= f.hidden_field :graetzl_id %>
 
   <% if @meeting.errors.any? %>

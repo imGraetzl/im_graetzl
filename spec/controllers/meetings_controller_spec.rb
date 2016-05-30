@@ -114,6 +114,20 @@ RSpec.describe MeetingsController, type: :controller do
   end
 
   describe 'GET new' do
+    context 'when loggged out' do
+      it 'redirects to login' do
+        get :new
+        expect(response).to render_template(session[:new])
+      end
+      context 'when logged in' do
+        let(:user) { create :user }
+        before { sign_in user }
+
+        context 'when parent is graetzl' do
+
+        end
+      end
+    end
     # Shared Examples
     shared_examples :a_successful_new_request do
 

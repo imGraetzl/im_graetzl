@@ -1,12 +1,3 @@
 <div>
-  <%= hidden_field_tag :feature %>
   <%= f.hidden_field :location_id %>
-  <%= f.fields_for :address do |address_fields| %>
-    <%= address_fields.hidden_field :description %>
-    <%= address_fields.hidden_field :street_name %>
-    <%= address_fields.hidden_field :street_number %>
-    <%= address_fields.hidden_field :zip %>
-    <%= address_fields.hidden_field :city %>
-    <%= address_fields.hidden_field :coordinates %>
-  <% end %>
 </div>

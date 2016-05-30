@@ -19,25 +19,16 @@ class MeetingsController < ApplicationController
 
   def new
     @parent = parent_context
-    @meeting = @parent.meetings.build()
-    if location = @meeting.location
-      @meeting.graetzl = location.graetzl
-      if location.address
-        @meeting.build_address(location.address.attributes.merge(description: location.name))
-      else
-        @meeting.build_address(description: location.name)
-      end
-    else
-      @meeting.build_address
-    end
+    @meeting = @parent.meetings.build
   end
 
   def create
-    @parent = parent_context
-    @meeting = Meeting.new(meeting_params)
-    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
-    @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
+    @parent ||= current_user.graetzl
+    @meeting = @parent.meetings.new meeting_params
 
+    # set different graetzl if address in different graetzl:
+    @meeting.graetzl = @meeting.address.try(:graetzl) || @meeting.graetzl
+    @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
     if @meeting.save
       @meeting.create_activity :create, owner: current_user
       redirect_to [@meeting.graetzl, @meeting]
@@ -45,6 +36,24 @@ class MeetingsController < ApplicationController
       render :new
     end
   end
+
+  # def create
+  #   @parent = parent_context
+  #   @meeting = @parent.meetings.new meeting_params
+  #   # @meeting = Meeting.new(meeting_params)
+  #
+  #   # set different graetzl if address in different graetzl:
+  #   @meeting.graetzl = @meeting.address.try(:graetzl) || @meeting.graetzl
+  #   # @meeting.graetzl = @meeting.address.graetzl if @meeting.address
+  #   @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
+  #
+  #   if @meeting.save
+  #     @meeting.create_activity :create, owner: current_user
+  #     redirect_to [@meeting.graetzl, @meeting]
+  #   else
+  #     render :new
+  #   end
+  # end
 
   def update
     old_address_id = @meeting.address.try(:id)
@@ -80,7 +89,9 @@ class MeetingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
-    if params[:address].present? && params[:feature].blank?
+    if params[:address].nil? && params[:feature].nil?
+      meeting_params_basic
+    elsif params[:address].present? && params[:feature].blank?
       meeting_params_basic
     else
       meeting_params_basic.deep_merge(address_attributes: address_attr)
