@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   end
 
   resources :graetzls, path: '', only: [:show] do
-    resources :meetings, path: :treffen, only: [:index, :show, :new]
+    resources :meetings, path: :treffen, module: :graetzls, except: [:edit, :update, :destroy]
     resources :locations, only: [:index, :show]
     resources :zuckerls, path: :zuckerl, only: [:index]
     resources :users, only: [:show]

@@ -18,13 +18,13 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    @parent = parent_context
-    @meeting = @parent.meetings.build
+    parent = current_user.graetzl
+    @meeting = parent.meetings.build
   end
 
   def create
     @parent ||= current_user.graetzl
-    @meeting = @parent.meetings.new meeting_params
+    @meeting = @parent.meetings.build meeting_params
 
     # set different graetzl if address in different graetzl:
     @meeting.graetzl = @meeting.address.try(:graetzl) || @meeting.graetzl
