@@ -23,7 +23,7 @@ APP.components.notificatonCenter = (function() {
             } else {
                 pollServer(updateLoop);
             }
-        }, 3000);
+        }, APP.config.notificationPollInterval);
     }
 
     function handleClick() {
