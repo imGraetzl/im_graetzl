@@ -41,32 +41,9 @@
         </div>
       </div>
       <div class="location">
-        <% if @meeting.address.coordinates %>
-          <%= link_to map_link(@meeting.address.coordinates), target: '_blank', class: 'iconMapLink' do %>
-            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-            Karte
-          <% end %>
-        <% else %>
-          <div class="iconMapLink">
-            <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-          </div>
-        <% end %>
-        <div class="address">
-          <% if location = @meeting.location %>
-            <%= link_to location.name, [location.graetzl, location] %><br>
-          <% else %>
-            <%= address_description(@meeting.address) %>
-          <% end %>
-          <%= "#{@meeting.address.street_name} #{@meeting.address.street_number}" %><br>
-          <%= "#{@meeting.address.zip} #{@meeting.address.city}" %>
-        </div>
+        <%= meeting_location @meeting %>
       </div>
-      <% if (initiator = @meeting.initiator) %>
-        <div class="userPortraitName">
-          <%= attachment_image_tag initiator, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
-          Erstellt von <%= link_to initiator.username, initiator %></a>
-        </div>
-      <% end %>
+      <%= meeting_initiator @meeting %>
       <div class="txt"><%= @meeting.description %></div>
     </div>
 

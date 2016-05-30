@@ -44,6 +44,10 @@ class Meeting < ActiveRecord::Base
     going_to.user if going_to
   end
 
+  def responsible_user_or_location
+    location && location.users.include?(initiator) ? location : initiator
+  end
+
   private
 
   def starts_at_date_cannot_be_in_the_past

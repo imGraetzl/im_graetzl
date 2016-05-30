@@ -1,8 +1,4 @@
 module MapsHelper
-  def map_link(coords)
-    "http://www.openstreetmap.org/?mlat=#{coords.y}&mlon=#{coords.x}&zoom=18"
-  end
-
   def google_map_url(address)
     "http://maps.google.com?"\
     "q=#{address.street_name}+#{address.street_number}"
@@ -19,7 +15,7 @@ module MapsHelper
   end
 
   private
-  
+
   def static_map_defaults
     {
       zoom: 15,

@@ -1,12 +1,11 @@
-<%
-   meta({
-          title: t('.title', name: @location.name, slogan: @location.slogan),
-          description: t('.description', desc: location_meta(@location)),
-          robots: 'index, follow',
-          og_title: t('.title', name: @location.name, slogan: @location.slogan),
-          og_description: t('.description', desc: location_meta(@location)),
-          og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-        })
+<% meta({
+    title: t('.title', name: @location.name, slogan: @location.slogan),
+    description: t('.description', desc: location_meta(@location)),
+    robots: 'index, follow',
+    og_title: t('.title', name: @location.name, slogan: @location.slogan),
+    og_description: t('.description', desc: location_meta(@location)),
+    og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+  })
 %>
 
 <section class="locationPage">

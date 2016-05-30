@@ -1,9 +1,9 @@
 module AttachmentsHelper
-  def avatar_for(resource)
+  def avatar_for(resource, size=200)
     css_class = resource.is_a?(User) ? 'img-round' : 'img-square'
     fallback = "avatar/#{resource.model_name.human.downcase}/200x200.png"
     attachment_image_tag(resource, :avatar,
-                                  :fill, 200, 200,
+                                  :fill, size, size,
                                   class: css_class,
                                   fallback: fallback)
   end
