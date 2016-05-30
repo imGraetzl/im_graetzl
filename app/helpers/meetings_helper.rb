@@ -8,11 +8,7 @@ module MeetingsHelper
   end
 
   def address_value(address)
-    if address.street_name.blank?
-      nil
-    else
-      "#{address.street_name} #{address.street_number}"
-    end
+    "#{address.try(:street_name)} #{address.try(:street_number)}"
   end
 
   def localize_time(time, format)
@@ -78,6 +74,17 @@ module MeetingsHelper
       concat "#{meeting.address.street_name} #{meeting.address.street_number}"
       concat tag(:br)
       concat "#{meeting.address.zip} #{meeting.address.city}"
+    end
+  end
+
+  def meeting_new_headline(parent)
+    case
+    when parent.is_a?(Location)
+      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} bei #{content_tag(:span, parent.name)}!".html_safe }
+    when parent.is_a?(Graetzl)
+      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} im #{content_tag(:span, parent.name)}!".html_safe }
+    else
+      content_tag(:h1, 'Ein neues Treffen, wie schön!')
     end
   end
 end

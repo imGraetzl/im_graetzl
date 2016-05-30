@@ -13,18 +13,18 @@ class Graetzls::MeetingsController < MeetingsController
   end
 
   def new
-    @parent = get_graetzl
+    @parent = find_graetzl
     @meeting = @parent.meetings.build
   end
 
   def create
-    @parent = get_graetzl
+    @parent = find_graetzl
     super
   end
 
   private
 
-  def get_graetzl
+  def find_graetzl
     Graetzl.find params[:graetzl_id]
   end
 end

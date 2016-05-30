@@ -63,4 +63,10 @@ class Location < ActiveRecord::Base
   def editable_by?(user)
     user && user_ids.include?(user.id)
   end
+
+  def build_meeting_for(user)
+    meeting = meetings.build(graetzl_id: graetzl_id)
+    meeting.build_address(address.try :attributes) if editable_by?(user)
+    meeting
+  end
 end

@@ -1,13 +1,6 @@
 <% title('Neues Treffen') %>
 
 <section class="create-meeting">
- 
-  <% if (request.fullpath.include? @parent.slug) ||( @parent.model_name.human == Location.name) %>
-    <h1>Ein <span>neues Treffen</span> im <span><%= @parent.name %></span>!</h1>
-  <% else %>
-    <h1>Ein <span>neues Treffen</span>, wie schön!</h1>
-  <% end %>
-
-  <%= render 'form', disable_fields: @parent.model_name.human == Location.name %>
-  
+  <%= meeting_new_headline @parent %>
+  <%= render 'form', disable_fields: @meeting.address.blank? %>
 </section>
