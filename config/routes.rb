@@ -82,6 +82,7 @@ Rails.application.routes.draw do
 
   resources :locations, except: [:index, :show] do
     concerns :graetzl_before_new
+    resources :meetings, module: :locations, path: :treffen, only: [:new]
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
   end
 
