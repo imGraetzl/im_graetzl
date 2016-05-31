@@ -172,4 +172,18 @@ RSpec.describe Graetzl, type: :model do
   describe '#zuckerls' do
     it "is a pending example"
   end
+
+  describe '#build_meeting' do
+    let(:graetzl) { create :graetzl }
+    subject(:meeting) { graetzl.build_meeting }
+
+    it 'returns new meeting in graetzl' do
+      expect(meeting).to be_a Meeting
+      expect(meeting).to have_attributes(graetzl: graetzl)
+    end
+
+    it 'adds address' do
+      expect(meeting.address).not_to be_nil
+    end
+  end
 end

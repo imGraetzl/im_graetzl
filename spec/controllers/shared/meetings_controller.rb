@@ -1,9 +1,18 @@
 shared_examples :meetings_new do
+  it 'assign @meeting in user graetzl' do
+    expect(assigns :meeting).to have_attributes(graetzl: graetzl)
+  end
+
   it 'renders meetings/new' do
     expect(response).to render_template 'meetings/new'
   end
 end
 shared_examples :meetings_create do
+  it 'assigns new @meeting' do
+    post :create, params
+    expect(assigns :meeting).to be_a Meeting
+  end
+
   it 'creates new meeting' do
     expect{
       post :create, params
@@ -21,7 +30,7 @@ shared_examples :meetings_create do
       post :create, params
     }.to change{GoingTo.count}.by 1
   end
-  
+
   it 'redirects to meeting in graetzl' do
     post :create, params
     expect(response).to redirect_to [graetzl, Meeting.last]

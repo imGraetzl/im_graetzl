@@ -27,7 +27,12 @@ module MeetingsHelper
     end
   end
 
-  def disable_fields
+  def meeting_no_address_fields?(meeting)
+    meeting.address.blank?
+  end
+
+  #TODO remove this
+  def meeting_disable_fields
     disable_fields ||= false
   end
 

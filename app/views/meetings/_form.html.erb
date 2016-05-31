@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <%= render "address_fields#{'_hidden' if disable_fields}", f: f %>
+  <%= render "address_fields#{'_hidden' if meeting_no_address_fields?(@meeting)}", f: f %>
 
   <div class="meet-when">
     <p><span>Wann</span> planst du dein Treffen, deine Veranstaltung?</p>

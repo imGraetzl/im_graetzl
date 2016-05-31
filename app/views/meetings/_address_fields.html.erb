@@ -26,5 +26,18 @@
       <%= address_fields.hidden_field :coordinates %>
     </div>
   <% end %>
-  <%= render 'location_fields', f: f %>
+  <div class="input-checkbox">
+    <%= check_box_tag 'location', 1, f.object.location %>
+    <%= label_tag 'location', 'Hat mit meiner wirtschaftlichen oder kreativen Tätigkeit zu tun.' %>
+  </div>
+
+  <div id="meeting-location-field" class="input-select" <% unless f.object.location %> style="display:none;" <% end %>>
+    <%= f.label :location_id do %>
+        <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+        <span>Location</span>
+    <% end %>
+    <%= f.select(:location_id,
+                current_user.locations.collect {|l| [l.name, l.id] },
+                {include_blank: 'wähle deine Location'}) %>
+  </div>
 </div>

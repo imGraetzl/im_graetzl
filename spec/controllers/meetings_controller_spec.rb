@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'controllers/shared/meetings_controller'
+include GeojsonSupport
 
 RSpec.describe MeetingsController, type: :controller do
   describe 'GET new' do
@@ -21,7 +22,79 @@ RSpec.describe MeetingsController, type: :controller do
 
       it_behaves_like :meetings_new
 
+      it 'does not assign @parent' do
+        expect(assigns :parent).not_to be
+      end
 
+      it 'assign @meeting with address' do
+        address = assigns(:meeting).address
+        expect(address).not_to be_nil
+      end
+    end
+  end
+  describe 'POST create' do
+    context 'when logged out' do
+      it 'redirects to login' do
+        post :create
+        expect(response).to render_template(session[:new])
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      context 'without feature' do
+        let(:graetzl) { create :graetzl }
+        let(:params) {
+          { meeting: attributes_for(:meeting,
+            graetzl_id: graetzl.id,
+            address_attributes: attributes_for(:address)) }}
+
+        it_behaves_like :meetings_create
+
+        it 'assigns @parent to user graetzl' do
+          post :create, params
+          expect(assigns :parent).to eq user.graetzl
+        end
+
+        it 'creates new address' do
+          expect{
+            post :create, params
+          }.to change{Address.count}.by 1
+        end
+      end
+      context 'with feature' do
+        let(:original_graetzl) { create :graetzl }
+        let!(:graetzl) { create(:graetzl,
+          area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
+        let(:feature) { feature_hash(16.0, 16.0) }
+        let(:params) {
+          { meeting: attributes_for(:meeting,
+            graetzl_id: original_graetzl.id,
+            address_attributes: { description: 'hello' }),
+            feature: feature.to_json }}
+
+        it_behaves_like :meetings_create
+
+        it 'assigns @parent to user graetzl' do
+          post :create, params
+          expect(assigns :parent).to eq user.graetzl
+        end
+
+        it 'creates new address' do
+          expect{
+            post :create, params
+          }.to change{Address.count}.by 1
+        end
+
+        it 'has address and graetzl from feature' do
+          post :create, params
+          meeting = Meeting.last
+          expect(meeting.address.street_name).to eq(feature['properties']['StreetName'])
+          expect(meeting.address.description).to eq 'hello'
+          expect(meeting.graetzl).to eq graetzl
+        end
+      end
     end
   end
   # let!(:graetzl) { create(:graetzl) }

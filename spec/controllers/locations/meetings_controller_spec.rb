@@ -14,23 +14,48 @@ RSpec.describe Locations::MeetingsController, type: :controller do
     end
     context 'when logged in' do
       let(:user) { create :user }
-      before do
-        sign_in user
-        get :new, location_id: location
-      end
+      before { sign_in user }
 
-      it 'assigns @parent with location' do
-        expect(assigns :parent).to eq location
-      end
+      context 'when owner of location' do
+        before do
+          create :location_ownership, user: user, location: location
+          get :new, location_id: location
+        end
 
-      it 'assigns @meeting without adddress' do
-        expect(assigns :meeting).to have_attributes(
-          graetzl_id: graetzl.id,
-          location_id: location.id,
-          address: nil)
-      end
+        it_behaves_like :meetings_new
 
-      it_behaves_like :meetings_new
+        it 'assigns @parent with location' do
+          expect(assigns :parent).to eq location
+        end
+
+        it 'assigns @meeting' do
+          expect(assigns :meeting).to have_attributes(
+            graetzl_id: graetzl.id,
+            location_id: location.id)
+        end
+
+        it 'assigns @meeting with empty address' do
+          address = assigns(:meeting).address
+          expect(address.street_name).to be_nil
+          expect(address.street_number).to be_nil
+        end
+      end
+      context 'when not owner of location' do
+        before { get :new, location_id: location }
+
+        it_behaves_like :meetings_new
+
+        it 'assigns @parent with location' do
+          expect(assigns :parent).to eq location
+        end
+
+        it 'assigns @meeting without address' do
+          expect(assigns :meeting).to have_attributes(
+            graetzl_id: graetzl.id,
+            location_id: location.id,
+            address: nil)
+        end
+      end
     end
   end
   describe 'POST create' do
@@ -43,13 +68,16 @@ RSpec.describe Locations::MeetingsController, type: :controller do
     context 'when logged in' do
       let(:user) { create :user }
       let(:graetzl) { create :graetzl }
+      let(:location) { create :location, :approved, graetzl: graetzl }
+
       before { sign_in user }
 
-      context 'when owner of location' do
-      end
-      context 'when not owner of location' do
-        let(:location) { create :location,  :approved, graetzl: graetzl }
-        let(:params) {{ location_id: location, meeting: attributes_for(:meeting, graetzl_id: graetzl.id) }}
+      context 'with address' do
+        let(:params) {
+          { location_id: location,
+            meeting: attributes_for(:meeting,
+              graetzl_id: graetzl.id,
+              address_attributes: attributes_for(:address)) }}
 
         it_behaves_like :meetings_create
 
@@ -58,9 +86,28 @@ RSpec.describe Locations::MeetingsController, type: :controller do
           expect(assigns :parent).to eq location
         end
 
-        it 'assigns new @meeting' do
+        it 'creates new address' do
+          expect{
+            post :create, params
+          }.to change{Address.count}.by 1
+        end
+      end
+      context 'without address' do
+        let(:params) {
+          { location_id: location,
+            meeting: attributes_for(:meeting, graetzl_id: graetzl.id) }}
+
+        it_behaves_like :meetings_create
+
+        it 'assigns @parent to location' do
           post :create, params
-          expect(assigns :meeting).to be_a Meeting
+          expect(assigns :parent).to eq location
+        end
+
+        it 'does not create address' do
+          expect{
+            post :create, params
+          }.not_to change{Address.count}
         end
       end
     end

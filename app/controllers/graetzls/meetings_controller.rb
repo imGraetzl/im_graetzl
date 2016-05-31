@@ -14,7 +14,7 @@ class Graetzls::MeetingsController < MeetingsController
 
   def new
     @parent = find_graetzl
-    @meeting = @parent.meetings.build
+    @meeting = @parent.build_meeting
   end
 
   def create

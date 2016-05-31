@@ -57,6 +57,10 @@ class Graetzl < ActiveRecord::Base
             WHERE ST_INTERSECTS(districts.area, ?)))", self.area)))
   end
 
+  def build_meeting
+    meetings.build(address: Address.new)
+  end
+
   private
 
   def zuckerl_samples(limit)

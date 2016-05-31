@@ -18,18 +18,23 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
         get :new, graetzl_id: graetzl
       end
 
+      it_behaves_like :meetings_new
+
       it 'assigns @parent with graetzl' do
         expect(assigns :parent).to eq graetzl
       end
 
-      it 'assigns @meeting without adddress' do
+      it 'assigns @meeting' do
         expect(assigns :meeting).to have_attributes(
           graetzl_id: graetzl.id,
-          location_id: nil,
-          address: nil)
+          location_id: nil)
       end
 
-      it_behaves_like :meetings_new
+      it 'assigns @meeting with emtpy address' do
+        address = assigns(:meeting).address
+        expect(address.street_name).to be_nil
+        expect(address.street_number).to be_nil
+      end
     end
   end
   describe 'POST create' do
@@ -52,11 +57,6 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       it 'assigns @parent to graetzl' do
         post :create, params
         expect(assigns :parent).to eq graetzl
-      end
-
-      it 'assigns new @meeting' do
-        post :create, params
-        expect(assigns :meeting).to be_a Meeting
       end
     end
   end
