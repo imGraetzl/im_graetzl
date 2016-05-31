@@ -8,6 +8,7 @@ class Graetzls::MeetingsController < MeetingsController
 
   def show
     # @graetzl = find_graetzl
+    @meeting = find_meeting
     verify_graetzl_child(@meeting) unless request.xhr?
     @comments = @meeting.comments.
       order(created_at: :desc).

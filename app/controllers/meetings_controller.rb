@@ -1,7 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   include GraetzlChild
-  before_action :set_meeting, except: [:index, :new, :create, :edit, :destroy, :update]
 
   def new
     graetzl = current_user.graetzl
@@ -23,11 +22,11 @@ class MeetingsController < ApplicationController
   end
 
   def edit
-    @meeting = current_user.meetings.initiated.find params[:id]
+    @meeting = find_user_meeting
   end
 
   def update
-    @meeting = current_user.meetings.initiated.find params[:id]
+    @meeting = find_user_meeting
     old_address_id = @meeting.address.try(:id)
     @meeting.attributes = update_meeting_params
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
@@ -52,9 +51,8 @@ class MeetingsController < ApplicationController
   end
 
   def destroy
-    @meeting = current_user.meetings.initiated.find params[:id]
-    @meeting.cancelled!
-    @meeting.create_activity :cancel, owner: current_user
+    @meeting = find_user_meeting
+    @meeting.create_activity(:cancel, owner: current_user) if @meeting.cancelled!
     redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
   end
 
@@ -110,7 +108,11 @@ class MeetingsController < ApplicationController
     { 0 => { user_id: current_user.id, role: GoingTo.roles[:initiator] } }
   end
 
-  def set_meeting
-    @meeting = Meeting.find(params[:id])
+  def find_meeting
+    Meeting.find(params[:id])
+  end
+
+  def find_user_meeting
+    current_user.meetings.initiated.find params[:id]
   end
 end
