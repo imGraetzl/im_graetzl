@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe 'meetings/_form', type: :view do
 
   describe 'editable fields' do
-    let(:meeting) { create(:meeting) }
     before do
       sign_in create(:user)
       assign(:meeting, meeting)
     end
 
-    context 'without disable_fields param' do
+    context 'when meeting has address' do
+      let(:meeting) { create :meeting, address: create(:address) }
       before { render }
 
       it 'displays editable :address field' do
@@ -33,27 +33,12 @@ RSpec.describe 'meetings/_form', type: :view do
       end
     end
 
-    context 'with disable_fields param' do
-      before { render 'meetings/form', disable_fields: true }
-
-      # it 'has readonly :address field' do
-      #   expect(rendered).to have_xpath("//input[@name='address'][@readonly='readonly']")
-      # end
+    context 'when meeting has no address' do
+      let(:meeting) { create :meeting, address: nil }
+      before { render }
 
       it 'displays no :address field' do
         expect(rendered).not_to have_field(:address)
-      end
-
-      # it 'displays readonly :address_description field' do
-      #   expect(rendered).to have_xpath("//input[@name='meeting[address_attributes][description]'][@readonly='readonly']")
-      # end
-
-      it 'displays hidden address_description field' do
-        expect(rendered).to have_selector('#meeting_address_attributes_description', visible: false)
-      end
-
-      it 'has hidden :feature field' do
-        expect(rendered).to have_selector('#feature', visible: false)
       end
 
       it 'has hidden :location_id field' do

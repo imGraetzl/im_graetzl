@@ -97,336 +97,225 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
   end
-  #
-  # describe 'GET edit' do
-  #   let(:user) { create(:user)}
-  #   let(:meeting) { create(:meeting, graetzl: graetzl) }
-  #
-  #   context 'when logged out' do
-  #     before { get :edit, id: meeting }
-  #     include_examples :an_unauthenticated_request
-  #   end
-  #
-  #   context 'when logged in' do
-  #     before { sign_in user }
-  #
-  #     context 'when not initiator' do
-  #       before { get :edit, id: meeting }
-  #
-  #       it 'redirects to meeting_page' do
-  #         expect(response).to redirect_to([meeting.graetzl, meeting])
-  #       end
-  #
-  #       it 'shows flash[:error]' do
-  #         expect(flash[:error]).to be_present
-  #       end
-  #     end
-  #
-  #     context 'when initator' do
-  #       let!(:going_to) { create(:going_to,
-  #                         user: user,
-  #                         meeting: meeting,
-  #                         role: GoingTo.roles[:initiator]) }
-  #
-  #       context 'when basic meeting' do
-  #         before { get :edit, id: meeting }
-  #
-  #         it 'assigns @meeting' do
-  #           expect(assigns(:meeting)).to eq(meeting)
-  #         end
-  #
-  #         it 'renders :edit' do
-  #           expect(response).to render_template(:edit)
-  #         end
-  #       end
-  #
-  #       context 'when cancelled meeting' do
-  #         before do
-  #           meeting.cancelled!
-  #           get :edit, id: meeting
-  #         end
-  #
-  #         it 'assigns @meeting' do
-  #           expect(assigns(:meeting)).to eq(meeting)
-  #         end
-  #
-  #         it 'renders :edit' do
-  #           expect(response).to render_template(:edit)
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
-  #
-  # describe 'PUT update' do
-  #   let(:meeting) { create(:meeting, graetzl: graetzl) }
-  #   let(:params) {
-  #     {
-  #       id: meeting,
-  #       meeting: { address_attributes: { } },
-  #       feature: '',
-  #       address: ''
-  #     }
-  #   }
-  #
-  #   context 'when logged out' do
-  #     before { put :update, params }
-  #     include_examples :an_unauthenticated_request
-  #   end
-  #
-  #   context 'when logged in' do
-  #     let(:user) { create(:user) }
-  #     before { sign_in user }
-  #
-  #     context 'when not going' do
-  #       before { put :update, params }
-  #       include_examples :an_unauthorized_request
-  #     end
-  #
-  #     context 'when attendee' do
-  #       before do
-  #         create(:going_to, user: user, meeting: meeting)
-  #         put :update, params
-  #       end
-  #       include_examples :an_unauthorized_request
-  #     end
-  #
-  #     context 'when initiator' do
-  #       before do
-  #         create(:going_to,
-  #                 user: user,
-  #                 meeting: meeting,
-  #                 role: GoingTo.roles[:initiator])
-  #       end
-  #
-  #       it 'assigns @meeting' do
-  #         put :update, params
-  #         expect(assigns(:meeting)).to eq(meeting)
-  #       end
-  #
-  #       describe 'basic attributes' do
-  #         let(:new_meeting) { build(:meeting,
-  #           name: 'name',
-  #           description: 'description') }
-  #         before do
-  #           params[:meeting].merge!(
-  #             name: new_meeting.name,
-  #             description: new_meeting.description)
-  #           put :update, params
-  #           meeting.reload
-  #         end
-  #
-  #         it 'updates meeting attributes' do
-  #           expect(meeting).to have_attributes(
-  #             graetzl_id: graetzl.id,
-  #             name: new_meeting.name,
-  #             description: new_meeting.description)
-  #         end
-  #
-  #         it 'redirect_to meeting page' do
-  #           expect(response).to redirect_to [meeting.graetzl, meeting]
-  #         end
-  #       end
-  #
-  #       describe 'state' do
-  #         context 'when basic meeting' do
-  #           before do
-  #             meeting.basic!
-  #             params[:meeting].merge!(state: Meeting.states[:cancelled])
-  #           end
-  #
-  #           it 'does not change state' do
-  #             expect{
-  #               put :update, params
-  #               meeting.reload
-  #             }.not_to change{meeting.state}
-  #           end
-  #
-  #           it 'redirect_to meeting page' do
-  #             put :update, params
-  #             expect(response).to redirect_to [meeting.graetzl, meeting]
-  #           end
-  #         end
-  #         context 'when cancelled meeting' do
-  #           before { meeting.cancelled! }
-  #
-  #           it 'automatically changes state to basic' do
-  #             expect{
-  #               put :update, params
-  #               meeting.reload
-  #             }.to change{meeting.state}.to 'basic'
-  #           end
-  #         end
-  #       end
-  #
-  #       describe 'time attributes' do
-  #         before do
-  #           params[:meeting].merge!(starts_at_date: '2020-01-01',
-  #                                   starts_at_time: '18:00',
-  #                                   ends_at_time: '20:00')
-  #           put :update, params
-  #           meeting.reload
-  #         end
-  #
-  #         it 'updates time' do
-  #           expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
-  #           expect(meeting.ends_at_date).to be_falsy
-  #           expect(meeting.starts_at_time.strftime('%H:%M')).to eq ('18:00')
-  #           expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
-  #         end
-  #
-  #         it "adds changed time attributes to activity parameters hash" do
-  #           activity = meeting.activities.last
-  #           expect(activity.parameters[:changed_attributes]).to include(:starts_at_date)
-  #           expect(activity.parameters[:changed_attributes]).to include(:starts_at_time)
-  #           expect(activity.parameters[:changed_attributes]).to include(:ends_at_time)
-  #         end
-  #       end
-  #
-  #       # describe 'categories' do
-  #       #   before do
-  #       #     5.times { create(:category, context: Category.contexts[:recreation]) }
-  #       #     params[:meeting].merge!(category_ids: Category.all.map(&:id))
-  #       #   end
-  #
-  #       #   it 'updates categories' do
-  #       #     put :update, params
-  #       #     meeting.reload
-  #       #     expect(meeting.categories.size).to eq(5)
-  #       #   end
-  #       # end
-  #
-  #       describe 'address' do
-  #         let!(:new_graetzl) { create(:graetzl,
-  #           area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
-  #         let(:address_feature) { feature_hash(16.0, 16.0) }
-  #
-  #         before do
-  #           params[:meeting].deep_merge!(address_attributes: { description: 'New address_description' })
-  #           params.merge!(feature: address_feature.to_json)
-  #           params.merge!(address: 'new address input')
-  #
-  #           put :update, params
-  #           meeting.reload
-  #         end
-  #
-  #         it 'updates address attributes' do
-  #           expect(meeting.address).to have_attributes(
-  #             street_name: address_feature['properties']['StreetName'],
-  #             description: 'New address_description')
-  #         end
-  #
-  #         it "adds address to activity parameters" do
-  #           activity = meeting.activities.last
-  #           expect(activity.parameters[:changed_attributes]).to include(:address)
-  #         end
-  #
-  #         it 'updates graetzl' do
-  #           expect(meeting.graetzl).to eq(new_graetzl)
-  #         end
-  #
-  #         it 'redirects_to meeting in new graetzl' do
-  #           expect(response).to redirect_to([new_graetzl, meeting])
-  #         end
-  #       end
-  #
-  #       describe 'remove address' do
-  #         let!(:old_address) { create(:address, description: 'blabla', addressable: meeting) }
-  #
-  #         before do
-  #           meeting.address = old_address
-  #           meeting.save(validate: false)
-  #           params[:meeting].merge!({ address_attributes: { description: old_address.description } })
-  #         end
-  #
-  #         it 'removes street_name' do
-  #           expect{
-  #             put :update, params
-  #             meeting.reload
-  #           }.to change{meeting.address.street_name}.from(old_address.street_name).to(nil)
-  #         end
-  #
-  #         it 'removes coordinates' do
-  #           expect{
-  #             put :update, params
-  #             meeting.reload
-  #           }.to change{meeting.address.coordinates}.from(old_address.coordinates).to(nil)
-  #         end
-  #
-  #         it 'keeps description' do
-  #           expect{
-  #             put :update, params
-  #           }.to_not change{meeting.address.description}
-  #         end
-  #       end
-  #
-  #       describe 'location' do
-  #         let(:location) { create(:location, state: Location.states[:approved]) }
-  #
-  #         it 'links location' do
-  #           params[:meeting].merge!(location_id: location.id)
-  #           put :update, params
-  #           meeting.reload
-  #           expect(meeting.location).to eq location
-  #         end
-  #
-  #         it 'removes location' do
-  #           meeting.update(location_id: location.id)
-  #           params[:meeting].merge!(location_id: '')
-  #           expect{
-  #             put :update, params
-  #             meeting.reload
-  #           }.to change{meeting.location}.from(location).to nil
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
-  #
-  # describe 'DELETE destroy' do
-  #   let(:meeting) { create(:meeting, graetzl: graetzl) }
-  #
-  #   context 'when logged out' do
-  #     before { delete :destroy, id: meeting }
-  #     include_examples :an_unauthenticated_request
-  #   end
-  #
-  #   context 'when logged in' do
-  #     let(:user) { create(:user) }
-  #     before { sign_in user }
-  #
-  #     context 'when attendee' do
-  #       before do
-  #         create(:going_to, user: user, meeting: meeting)
-  #         delete :destroy, id: meeting
-  #       end
-  #
-  #       include_examples :an_unauthorized_request
-  #     end
-  #     context 'when initiator' do
-  #       before do
-  #         create(:going_to, user: user, meeting: meeting, role: GoingTo.roles[:initiator])
-  #       end
-  #
-  #       it 'sets meeting as :cancelled' do
-  #         expect{
-  #           delete :destroy, id: meeting
-  #           meeting.reload
-  #         }.to change{meeting.state}.from('basic').to('cancelled')
-  #       end
-  #
-  #       it 'redirect_to graetzl with notice' do
-  #         delete :destroy, id: meeting
-  #         expect(response).to redirect_to(graetzl)
-  #         expect(flash[:notice]).not_to be nil
-  #       end
-  #
-  #       it 'logs meeting.cancel activity' do
-  #         delete :destroy, id: meeting
-  #         meeting.reload
-  #         expect(meeting.activities.last.key).to eq 'meeting.cancel'
-  #       end
-  #     end
-  #   end
-  # end
+  describe 'GET edit' do
+    let(:meeting) { create :meeting }
+
+    context 'when logged out' do
+      it 'redirects to login' do
+        get :edit, id: meeting
+        expect(response).to render_template(session[:new])
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      context 'when user initiator of meeting' do
+        before do
+          create :going_to, :initiator, user: user, meeting: meeting
+          get :edit, id: meeting
+        end
+
+        it 'assigns @meeting' do
+          expect(assigns :meeting).to eq meeting
+        end
+
+        it 'renders edit' do
+          expect(response).to render_template :edit
+        end
+      end
+
+      it 'raises record not found when user not initiator' do
+        expect{
+          get :edit, id: meeting
+        }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+
+      it 'raises record not found when user only attendee' do
+        expect{
+          create :going_to, :attendee, user: user, meeting: meeting
+          meeting.reload
+          get :edit, id: meeting
+        }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+  describe 'DELETE destroy' do
+    let(:graetzl) { create :graetzl }
+    let(:meeting) { create :meeting, graetzl: graetzl }
+
+    it 'redirects to login when logged out' do
+      delete :destroy, id: meeting
+      expect(response).to render_template(session[:new])
+    end
+    context 'when current_user' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      it 'raises record not found when user not initiator' do
+        expect{
+          delete :destroy, id: meeting
+        }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+
+      it 'raises record not found when user only attendee' do
+        expect{
+          create :going_to, :attendee, user: user, meeting: meeting
+          meeting.reload
+          delete :destroy, id: meeting
+        }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+      context 'when user initiator' do
+        before { create :going_to, :initiator, user: user, meeting: meeting }
+
+        it 'flags meeting as :cancelled' do
+          expect{
+            delete :destroy, id: meeting
+            meeting.reload
+          }.to change{meeting.state}.from('basic').to('cancelled')
+        end
+
+        it 'redirect_to graetzl with notice' do
+          delete :destroy, id: meeting
+          expect(response).to redirect_to graetzl
+          expect(flash[:notice]).not_to be nil
+        end
+
+        it 'logs meeting.cancel activity' do
+          expect{
+            delete :destroy, id: meeting
+          }.to change{Activity.count}.by 1
+        end
+      end
+    end
+  end
+  describe 'PUT update' do
+    let(:graetzl) { create :graetzl }
+    let(:meeting) { create :meeting, graetzl: graetzl }
+
+    it 'redirects to login when logged out' do
+      delete :destroy, id: meeting
+      expect(response).to render_template(session[:new])
+    end
+    context 'when current_user' do
+      let(:user) { create :user }
+      before { sign_in user }
+
+      it 'raises record not found when user not initiator' do
+        expect{
+          put :update, id: meeting
+        }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+
+      it 'raises record not found when user only attendee' do
+        expect{
+          create :going_to, :attendee, user: user, meeting: meeting
+          meeting.reload
+          put :update, id: meeting
+        }.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+      context 'when user initiator' do
+        before { create :going_to, :initiator, user: user, meeting: meeting }
+
+        let(:params) {{ id: meeting, meeting: attributes_for(:meeting) }}
+
+        it 'assigns @meeting' do
+          put :update, params
+          expect(assigns :meeting).to eq meeting
+        end
+
+        it 'redirect_to meeting in graetzl' do
+          put :update, params
+          expect(response).to redirect_to [graetzl, meeting]
+        end
+
+        it 'automatically changes state to basic' do
+          meeting.cancelled!
+          meeting.reload
+          expect{
+            put :update, params
+            meeting.reload
+          }.to change{meeting.state}.to 'basic'
+        end
+        context 'time attributes' do
+          let(:params) {
+            { id: meeting,
+              meeting: attributes_for(:meeting,
+              starts_at_date: '2020-01-01',
+              starts_at_time: '18:00',
+              ends_at_time: '20:00') }}
+
+          it 'updates time' do
+            put :update, params
+            meeting.reload
+            expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
+            expect(meeting.ends_at_date).to be_falsy
+            expect(meeting.starts_at_time.strftime('%H:%M')).to eq ('18:00')
+            expect(meeting.ends_at_time.strftime('%H:%M')).to eq ('20:00')
+          end
+
+          it 'adds changed time attributes to activity parameters hash' do
+            put :update, params
+            activity = meeting.activities.last
+            expect(activity.parameters[:changed_attributes]).to include(:starts_at_date)
+            expect(activity.parameters[:changed_attributes]).to include(:starts_at_time)
+            expect(activity.parameters[:changed_attributes]).to include(:ends_at_time)
+          end
+        end
+        context 'update address' do
+          let!(:new_graetzl) { create(:graetzl,
+            area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
+          let(:feature) { feature_hash(16.0, 16.0) }
+          let(:params) {
+            { id: meeting,
+              meeting: attributes_for(:meeting, address_attributes: { description: 'hallo' }),
+              address: 'hello',
+              feature: feature.to_json }}
+
+          it 'updates address and graetzl' do
+            put :update, params
+            meeting.reload
+            expect(meeting.graetzl).to eq new_graetzl
+            expect(meeting.address).to have_attributes(
+              street_name: feature['properties']['StreetName'],
+              description: 'hallo')
+          end
+
+          it "adds address to activity parameters" do
+            put :update, params
+            activity = meeting.activities.last
+            expect(activity.parameters[:changed_attributes]).to include(:address)
+          end
+
+          it 'redirects_to meeting in new graetzl' do
+            put :update, params
+            expect(response).to redirect_to [new_graetzl, meeting]
+          end
+        end
+        context 'remove address' do
+          let(:address) { create :address }
+          let(:meeting) { create :meeting, graetzl: graetzl, address: address }
+          let(:params) {
+            { id: meeting,
+              meeting: attributes_for(:meeting,
+                address_attributes: { description: '' }),
+                address: '', feature: '' }}
+
+          it 'removes street_name' do
+            expect{
+              put :update, params
+              meeting.reload
+            }.to change{meeting.address.street_name}.from(address.street_name).to(nil)
+          end
+
+          it 'removes coordinates' do
+            expect{
+              put :update, params
+              meeting.reload
+            }.to change{meeting.address.coordinates}.from(address.coordinates).to(nil)
+          end
+        end
+      end
+    end
+  end
 end

@@ -67,6 +67,7 @@ module MeetingsHelper
     content_tag(:div, class: 'address') do
       if location = meeting.location
         concat link_to(location.name, [location.graetzl, location])
+        concat tag(:br)
       end
       if address = meeting.display_address
         concat content_tag(:strong, address.description)

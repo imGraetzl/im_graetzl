@@ -1,8 +1,7 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   include GraetzlChild
-  before_action :set_meeting, except: [:index, :new, :create]
-  before_action :check_permission!, only: [:edit, :update, :destroy]
+  before_action :set_meeting, except: [:index, :new, :create, :edit, :destroy, :update]
 
   def new
     graetzl = current_user.graetzl
@@ -23,38 +22,41 @@ class MeetingsController < ApplicationController
     end
   end
 
-  def edit    
+  def edit
+    @meeting = current_user.meetings.initiated.find params[:id]
   end
 
-  # def update
-  #   old_address_id = @meeting.address.try(:id)
-  #   @meeting.attributes = meeting_params
-  #   @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
-  #   changed_attributes = @meeting.changed_attributes
-  #   if @meeting.address.present? && !@meeting.address.changed_attributes.blank?
-  #     changed_attributes = changed_attributes.merge({ address: @meeting.address.changed_attributes })
-  #   end
-  #   if @meeting.save
-  #     if @meeting.address.try(:id) != old_address_id
-  #       changed_attributes = changed_attributes.merge({ address_attributes: old_address_id })
-  #     end
-  #     changed_attribute_keys = changed_attributes.keys.collect(&:to_sym)
-  #     if changed_attribute_keys.any? { |a| [ :address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description ].include?(a) }
-  #       @meeting.create_activity :update,
-  #         owner: current_user,
-  #         parameters: { changed_attributes: changed_attribute_keys }
-  #     end
-  #     redirect_to [@meeting.graetzl, @meeting]
-  #   else
-  #     render :edit
-  #   end
-  # end
-  #
-  # def destroy
-  #   @meeting.cancelled!
-  #   @meeting.create_activity :cancel, owner: current_user
-  #   redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
-  # end
+  def update
+    @meeting = current_user.meetings.initiated.find params[:id]
+    old_address_id = @meeting.address.try(:id)
+    @meeting.attributes = update_meeting_params
+    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
+    changed_attributes = @meeting.changed_attributes
+    if @meeting.address.present? && !@meeting.address.changed_attributes.blank?
+      changed_attributes = changed_attributes.merge({ address: @meeting.address.changed_attributes })
+    end
+    if @meeting.basic!
+      if @meeting.address.try(:id) != old_address_id
+        changed_attributes = changed_attributes.merge({ address_attributes: old_address_id })
+      end
+      changed_attribute_keys = changed_attributes.keys.collect(&:to_sym)
+      if changed_attribute_keys.any? { |a| [ :address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description ].include?(a) }
+        @meeting.create_activity :update,
+          owner: current_user,
+          parameters: { changed_attributes: changed_attribute_keys }
+      end
+      redirect_to [@meeting.graetzl, @meeting]
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @meeting = current_user.meetings.initiated.find params[:id]
+    @meeting.cancelled!
+    @meeting.create_activity :cancel, owner: current_user
+    redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
+  end
 
   private
 
@@ -68,16 +70,15 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  # def meeting_params
-  #   if params[:address].nil? && params[:feature].nil?
-  #     meeting_params_basic
-  #   elsif params[:address].present? && params[:feature].blank?
-  #     meeting_params_basic
-  #   else
-  #     meeting_params_basic.deep_merge(address_attributes: address_attr)
-  #   end
-  # end
+  def update_meeting_params
+    if params[:address].nil? && params[:feature].nil?
+      meeting_params
+    elsif params[:address].present? && params[:feature].blank?
+      meeting_params
+    else
+      meeting_params.deep_merge(address_attributes: address_attr)
+    end
+  end
 
   def meeting_params
     params.
@@ -111,19 +112,5 @@ class MeetingsController < ApplicationController
 
   def set_meeting
     @meeting = Meeting.find(params[:id])
-  end
-
-  def parent_context
-    base = (params[:meeting] if params[:meeting].present?) || params
-    context = Location.find(base[:location_id]) if base[:location_id].present?
-    context ||= Graetzl.find(base[:graetzl_id]) if base[:graetzl_id].present?
-    context || current_user.graetzl
-  end
-
-  def check_permission!
-    if !@meeting.going_tos.initiator.find_by_user_id(current_user)
-      flash[:error] = 'Nur Initiatoren können Treffen bearbeiten.'
-      redirect_to [@meeting.graetzl, @meeting]
-    end
   end
 end
