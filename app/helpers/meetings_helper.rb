@@ -37,8 +37,7 @@ module MeetingsHelper
   end
 
   def meeting_location(meeting)
-    concat meeting_map(meeting)
-    concat meeting_address(meeting)
+    meeting_map(meeting) + meeting_address(meeting)
   end
 
   def meeting_initiator(meeting)
