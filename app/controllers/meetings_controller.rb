@@ -23,23 +23,8 @@ class MeetingsController < ApplicationController
     end
   end
 
-  # def create
-  #   @parent = parent_context
-  #   @meeting = @parent.meetings.new meeting_params
-  #   # @meeting = Meeting.new(meeting_params)
-  #
-  #   # set different graetzl if address in different graetzl:
-  #   @meeting.graetzl = @meeting.address.try(:graetzl) || @meeting.graetzl
-  #   # @meeting.graetzl = @meeting.address.graetzl if @meeting.address
-  #   @meeting.going_tos.build(user: current_user, role: GoingTo.roles[:initiator])
-  #
-  #   if @meeting.save
-  #     @meeting.create_activity :create, owner: current_user
-  #     redirect_to [@meeting.graetzl, @meeting]
-  #   else
-  #     render :new
-  #   end
-  # end
+  def edit    
+  end
 
   # def update
   #   old_address_id = @meeting.address.try(:id)

@@ -19,21 +19,8 @@ module MeetingsHelper
     end
   end
 
-  def address_description(address)
-    if address.description.present?
-      content_tag(:strong, address.description) + tag(:br)
-    elsif address.coordinates.blank?
-      content_tag(:strong, 'Ort steht noch nicht fest...')
-    end
-  end
-
   def meeting_no_address_fields?(meeting)
     meeting.address.blank?
-  end
-
-  #TODO remove this
-  def meeting_disable_fields
-    disable_fields ||= false
   end
 
   def meeting_location(meeting)
@@ -67,7 +54,7 @@ module MeetingsHelper
   end
 
   def meeting_map(meeting)
-    if coords = meeting.try(:address).try(:coordinates)
+    if coords = meeting.display_address.try(:coordinates)
       link_to map_link(coords), target: '_blank', class: 'iconMapLink' do
         meeting_map_icon + 'Karte'
       end
@@ -78,10 +65,18 @@ module MeetingsHelper
 
   def meeting_address(meeting)
     content_tag(:div, class: 'address') do
-      concat address_description(meeting.address)
-      concat "#{meeting.address.street_name} #{meeting.address.street_number}"
-      concat tag(:br)
-      concat "#{meeting.address.zip} #{meeting.address.city}"
+      if location = meeting.location
+        concat link_to(location.name, [location.graetzl, location])
+      end
+      if address = meeting.display_address
+        concat content_tag(:strong, address.description)
+        concat tag(:br)
+        concat "#{address.street_name} #{address.street_number}"
+        concat tag(:br)
+        concat "#{address.zip} #{address.city}"
+      else
+        content_tag(:strong, 'Ort steht noch nicht fest...')
+      end
     end
   end
 

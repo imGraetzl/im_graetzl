@@ -48,6 +48,10 @@ class Meeting < ActiveRecord::Base
     location && location.users.include?(initiator) ? location : initiator
   end
 
+  def display_address
+    address || location.try(:address)
+  end
+
   private
 
   def starts_at_date_cannot_be_in_the_past

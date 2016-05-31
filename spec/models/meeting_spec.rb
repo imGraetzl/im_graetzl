@@ -170,4 +170,57 @@ RSpec.describe Meeting, type: :model do
       end
     end
   end
+
+  describe '#responsible_user_or_location' do
+    let(:meeting) { create :meeting }
+    let(:user) { create :user }
+
+    before { create :going_to, :initiator, user: user, meeting: meeting }
+
+    subject(:responsible) { meeting.responsible_user_or_location }
+
+    context 'when location' do
+      let(:location) { create :location }
+
+      before { meeting.update location: location }
+
+      it 'returns location if user owner' do
+        create(:location_ownership, user: user, location: location)
+        expect(responsible).to eq location
+      end
+
+      it 'returns user if not owner' do
+        expect(responsible).to eq user
+      end
+    end
+    context 'without location' do
+      it 'returns initiator' do
+        expect(responsible).to eq user
+      end
+    end
+  end
+  describe '#display_address' do
+    let(:meeting) { create :meeting, address: nil }
+
+    context 'when location' do
+      let(:location) { create :location }
+
+      before { meeting.update location: location }
+
+      it 'returns address if own address' do
+        address = create :address, addressable: meeting
+        meeting.reload
+        expect(meeting.display_address).to eq address
+      end
+
+      it 'returns location address if no own address' do
+        address = create :address, addressable: location
+        expect(meeting.display_address).to eq address
+      end
+
+      it 'returns nil if no address available' do
+        expect(meeting.display_address).to be_nil
+      end
+    end
+  end
 end
