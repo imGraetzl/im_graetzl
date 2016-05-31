@@ -50,6 +50,10 @@ module MeetingsHelper
     end
   end
 
+  def meeting_name(meeting)
+    meeting.basic? ? content_tag(:h1, meeting.name) : content_tag(:h2, 'ABGESAGT')
+  end
+
   private
 
   def meeting_map_icon

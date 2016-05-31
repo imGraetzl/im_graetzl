@@ -4,19 +4,6 @@ class MeetingsController < ApplicationController
   before_action :set_meeting, except: [:index, :new, :create]
   before_action :check_permission!, only: [:edit, :update, :destroy]
 
-  def index
-    @meetings = @graetzl.meetings.
-      by_currentness.
-      page(params[:page]).per(15)
-  end
-
-  def show
-    verify_graetzl_child(@meeting) unless request.xhr?
-    @comments = @meeting.comments.
-      order(created_at: :desc).
-      page(params[:page]).per(10)
-  end
-
   def new
     graetzl = current_user.graetzl
     @meeting = graetzl.build_meeting

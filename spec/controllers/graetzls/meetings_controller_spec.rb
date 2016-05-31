@@ -60,4 +60,85 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       end
     end
   end
+  describe 'GET show' do
+    let(:graetzl) { create :graetzl }
+    let(:meeting) { create(:meeting, graetzl: graetzl) }
+
+    context 'when html request' do
+      before { get :show, graetzl_id: graetzl, id: meeting }
+
+      it 'assigns @meeting' do
+        expect(assigns :meeting).to eq meeting
+      end
+
+      it 'assigns @graetzl' do
+        expect(assigns :graetzl).to eq graetzl
+      end
+
+      it 'renders show.html' do
+        expect(response.content_type).to eq 'text/html'
+        expect(response).to render_template :show
+      end
+
+      it 'assigns @comments' do
+        expect(assigns :comments).to eq meeting.comments
+      end
+    end
+    context 'when js request' do
+      before { xhr :get, :show, graetzl_id: graetzl, id: meeting }
+
+      it 'renders show.js' do
+        expect(response.content_type).to eq 'text/javascript'
+        expect(response).to render_template :show
+      end
+
+      it 'assigns @comments' do
+        expect(assigns :comments ).to eq meeting.comments
+      end
+    end
+  end
+  describe 'GET index' do
+    let(:graetzl) { create :graetzl }
+
+    context 'when html request' do
+      before { get :index, graetzl_id: graetzl }
+
+      it 'assigns @graetzl' do
+        expect(assigns :graetzl).to eq graetzl
+      end
+
+      it 'assigns @map_data' do
+        expect(assigns :map_data).to be
+      end
+
+      it 'assigns @meetings' do
+        expect(assigns :meetings).to be
+      end
+
+      it 'renders index.html' do
+        expect(response.content_type).to eq 'text/html'
+        expect(response).to render_template(:index)
+      end
+    end
+    context 'when js request' do
+      before { xhr :get, :index, graetzl_id: graetzl, page: 2 }
+
+      it 'assigns @graetzl' do
+        expect(assigns :graetzl).to eq graetzl
+      end
+
+      it 'does not assign @map_data' do
+        expect(assigns :map_data).not_to be
+      end
+
+      it 'assigns @meetings' do
+        expect(assigns :meetings).to be
+      end
+
+      it 'renders index.js' do
+        expect(response.content_type).to eq 'text/javascript'
+        expect(response).to render_template :index
+      end
+    end
+  end
 end

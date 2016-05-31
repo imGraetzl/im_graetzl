@@ -14,10 +14,7 @@
     <div class="titleHeadline">
       <div class="wrp">
         <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
-        <h1><%= @meeting.name %></h1>
-        <% if @meeting.cancelled? %>
-          <h2>ABGESAGT</h2>
-        <% end %>
+        <%= meeting_name @meeting %>
       </div>
       <div class="card"></div>
     </div>

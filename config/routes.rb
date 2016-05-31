@@ -69,6 +69,8 @@ Rails.application.routes.draw do
     post :mark_as_seen, on: :collection
   end
 
+  resources :meetings, path: :treffen, except: [:index, :show]
+
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: :treffen, module: :graetzls, except: [:edit, :update, :destroy]
     resources :locations, only: [:index, :show]
@@ -85,8 +87,6 @@ Rails.application.routes.draw do
     resources :meetings, module: :locations, path: :treffen, only: [:new, :create]
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
   end
-
-  resources :meetings, path: :treffen, except: [:index, :show]
 
   resources :zuckerls, path: 'zuckerl', only: [:new] do
     resource :billing_address, only: [:show, :create, :update]
