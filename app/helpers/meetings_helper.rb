@@ -65,16 +65,20 @@ module MeetingsHelper
 
   def meeting_address(meeting)
     content_tag(:div, class: 'address') do
-      if location = meeting.location
-        concat link_to(location.name, [location.graetzl, location])
-        concat tag(:br)
-      end
-      if address = meeting.display_address
-        concat content_tag(:strong, address.description)
+      location = meeting.location
+      case
+      when (address = meeting.display_address)
+        if address.description.present?
+          concat content_tag(:strong, address.description)
+        elsif location
+          concat link_to(location.name, [location.graetzl, location])
+        end
         concat tag(:br)
         concat "#{address.street_name} #{address.street_number}"
         concat tag(:br)
         concat "#{address.zip} #{address.city}"
+      when location
+        concat link_to(location.name, [location.graetzl, location])
       else
         content_tag(:strong, 'Ort steht noch nicht fest...')
       end
