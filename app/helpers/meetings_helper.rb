@@ -32,7 +32,7 @@ module MeetingsHelper
       content_tag(:div, class: 'userPortraitName') do
         concat avatar_for(initiator, 100)
         concat "Erstellt von "
-        concat link_to(initiator.try(:username) || initiator.name, '#')
+        concat link_to(initiator.try(:username) || initiator.name, [initiator.graetzl, initiator])
       end
     end
   end
