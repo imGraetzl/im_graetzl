@@ -13,48 +13,22 @@ RSpec.describe Locations::MeetingsController, type: :controller do
       end
     end
     context 'when logged in' do
-      let(:user) { create :user }
-      before { sign_in user }
-
-      context 'when owner of location' do
-        before do
-          create :location_ownership, user: user, location: location
-          get :new, location_id: location
-        end
-
-        it_behaves_like :meetings_new
-
-        it 'assigns @parent with location' do
-          expect(assigns :parent).to eq location
-        end
-
-        it 'assigns @meeting' do
-          expect(assigns :meeting).to have_attributes(
-            graetzl_id: graetzl.id,
-            location_id: location.id)
-        end
-
-        it 'assigns @meeting with empty address' do
-          address = assigns(:meeting).address
-          expect(address.street_name).to be_nil
-          expect(address.street_number).to be_nil
-        end
+      before do
+        sign_in create(:user)
+        get :new, location_id: location
       end
-      context 'when not owner of location' do
-        before { get :new, location_id: location }
 
-        it_behaves_like :meetings_new
+      it_behaves_like :meetings_new
 
-        it 'assigns @parent with location' do
-          expect(assigns :parent).to eq location
-        end
+      it 'assigns @parent with location' do
+        expect(assigns :parent).to eq location
+      end
 
-        it 'assigns @meeting without address' do
-          expect(assigns :meeting).to have_attributes(
-            graetzl_id: graetzl.id,
-            location_id: location.id,
-            address: nil)
-        end
+      it 'assigns @meeting without address' do
+        expect(assigns :meeting).to have_attributes(
+          graetzl_id: graetzl.id,
+          location_id: location.id,
+          address: nil)
       end
     end
   end

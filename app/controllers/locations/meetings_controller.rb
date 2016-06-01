@@ -1,7 +1,7 @@
 class Locations::MeetingsController < MeetingsController
   def new
     @parent = find_location
-    @meeting = @parent.build_meeting_for current_user
+    @meeting = @parent.build_meeting
   end
 
   def create

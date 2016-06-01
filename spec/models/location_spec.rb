@@ -275,45 +275,18 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#build_meeting_for' do
+  describe '#build_meeting' do
     let(:graetzl) { create :graetzl }
     let(:location) { create :location, :approved, graetzl: graetzl }
-    let(:user) { create :user }
 
-    subject(:meeting) { location.build_meeting_for user }
+    subject(:meeting) { location.build_meeting }
 
-    context 'when user owner of location' do
-      before { create :location_ownership, user: user, location: location }
-
-      context 'when location does not have address' do
-        it 'returns meeting in location graetzl' do
-          expect(meeting).to have_attributes(location: location, graetzl: graetzl)
-        end
-
-        it 'returns meeting with empty address' do
-          expect(meeting.address).to have_attributes(street_name: nil, street_number: nil)
-        end
-      end
-      context 'when location has address' do
-        before { create :address, addressable: location }
-
-        it 'returns meeting in location graetzl' do
-          expect(meeting).to have_attributes(location: location, graetzl: graetzl)
-        end
-
-        it 'returns meeting with location address' do
-          expect(meeting.address).not_to have_attributes(street_name: nil, street_number: nil)
-        end
-      end
+    it 'builds meeting in location graetzl' do
+      expect(meeting).to have_attributes(location: location, graetzl: graetzl)
     end
-    context 'when user not owner of location' do
-      it 'returns meeting in location graetzl' do
-        expect(meeting).to have_attributes(location: location, graetzl: graetzl)
-      end
 
-      it 'returns meeting without address' do
-        expect(meeting.address).to be_nil
-      end
+    it 'builds meeting without address' do
+      expect(meeting.address).to be_nil
     end
   end
 end
