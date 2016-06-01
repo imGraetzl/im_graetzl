@@ -21,3 +21,7 @@ end
 every 1.day, at: '5:15 am' do
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake daily_mail"
 end
+
+every 10.minutes do
+  rake 'admin:cleanup', output: 'log/schedule.log'
+end
