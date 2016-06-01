@@ -3,7 +3,7 @@
   var $paginateLink = $("[data-behavior='paginate-link']");
 
   function updateComponent() {
-    $streamContainer.append("<%= j render @meetings %>");
+    $streamContainer.append("<%= j render partial: 'meetings/meeting', collection: @meetings %>");
     $paginateLink.replaceWith("<%= j view_more_link @meetings %>");
     APP.components.masonryFilterGrid.adjustNewCards();
   }
