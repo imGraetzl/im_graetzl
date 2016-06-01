@@ -23,5 +23,5 @@ every 1.day, at: '5:15 am' do
 end
 
 every 10.minutes do
-  rake 'admin:cleanup', output: 'log/schedule.log'
+  rake 'admin:cleanup', output: "log/#{ENV['RACK_ENV']}.log"
 end
