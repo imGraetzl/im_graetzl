@@ -18,7 +18,7 @@ RSpec.describe MeetingsHelper, type: :helper do
 
       context 'when location with address' do
         let(:address) { build_stubbed :address, description: '' }
-        let(:location) { build_stubbed :location, address: address }
+        let(:location) { build_stubbed :location, name: 'powerlocation', address: address }
 
         it 'returns location name' do
           expect(place).to include location.name
@@ -30,7 +30,7 @@ RSpec.describe MeetingsHelper, type: :helper do
         end
       end
       context 'when location without address' do
-        let(:location) { build_stubbed :location, address: nil }
+        let(:location) { build_stubbed :location, name: 'powerlocation', address: nil }
 
         it 'returns location.name' do
           expect(place).to include location.name
@@ -38,7 +38,7 @@ RSpec.describe MeetingsHelper, type: :helper do
       end
     end
     context 'with only address' do
-      let(:meeting) { build_stubbed :meeting, address: address }
+      let(:meeting) { build_stubbed :meeting, address: address, location: nil }
 
       context 'when empty address' do
         let(:address) { build_stubbed :address, street_name: '', description: '' }
@@ -56,7 +56,7 @@ RSpec.describe MeetingsHelper, type: :helper do
       end
     end
     context 'with address and location' do
-      let(:location) { build_stubbed :location }
+      let(:location) { build_stubbed :location, name: 'powerlocation' }
       let(:meeting) { build_stubbed :meeting, address: address, location: location }
 
       context 'with address description' do
