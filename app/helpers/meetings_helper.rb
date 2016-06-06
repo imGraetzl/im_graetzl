@@ -23,7 +23,7 @@ module MeetingsHelper
     meeting.address.blank?
   end
 
-  def meeting_location(meeting)
+  def meeting_place(meeting)
     meeting_map(meeting) + meeting_address(meeting)
   end
 
@@ -66,24 +66,50 @@ module MeetingsHelper
   def meeting_address(meeting)
     content_tag(:div, class: 'address') do
       location = meeting.location
+      address = meeting.display_address
       case
-      when (address = meeting.display_address)
-        if address.description.present?
-          concat content_tag(:strong, address.description)
-        elsif location
-          concat link_to(location.name, [location.graetzl, location])
+      when address
+        concat case
+        when address.description.present?
+          content_tag(:strong, address.description)
+        when location
+          link_to(location.name, [location.graetzl, location])
+        when address.street_name.blank?
+          content_tag(:strong, 'Ort steht noch nicht fest...')
         end
         concat tag(:br)
         concat "#{address.street_name} #{address.street_number}"
         concat tag(:br)
         concat "#{address.zip} #{address.city}"
       when location
-        concat link_to(location.name, [location.graetzl, location])
+        link_to(location.name, [location.graetzl, location])
       else
         content_tag(:strong, 'Ort steht noch nicht fest...')
       end
     end
   end
+
+  # def meeting_address(meeting)
+  #   content_tag(:div, class: 'address') do
+  #     location = meeting.location
+  #     case
+  #     when (address = meeting.display_address)
+  #       if address.description.present?
+  #         concat content_tag(:strong, address.description)
+  #       elsif location
+  #         concat link_to(location.name, [location.graetzl, location])
+  #       end
+  #       concat tag(:br)
+  #       concat "#{address.street_name} #{address.street_number}"
+  #       concat tag(:br)
+  #       concat "#{address.zip} #{address.city}"
+  #     when location
+  #       concat link_to(location.name, [location.graetzl, location])
+  #     else
+  #       content_tag(:strong, 'Ort steht noch nicht fest...')
+  #     end
+  #   end
+  # end
 
   def meeting_new_headline(parent)
     case
