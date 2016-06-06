@@ -43,7 +43,7 @@ section.meeting {
     }
   }
 
-  .location {
+  .place {
     margin-bottom: 2rem;
     @include respond-to(">=medium") {
       text-shadow: 1px 1px $color-ambient-bright;
