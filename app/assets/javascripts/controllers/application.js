@@ -18,20 +18,7 @@ APP.controllers.application = (function() {
     };
 
     injectSponsorCard();
-    showStoerer();
 
-  }
-
-  function showStoerer() {
-    var $stoerer = $(".baumler-stoerer");
-    if($stoerer.exists()) {
-      setTimeout(function () {
-        $stoerer.css('visibility', 'visible').animate({opacity: 1.0}, 1700).addClass("doAnimation");
-      }, 1600);
-      $stoerer.find(".close").one("click", function () {
-        $stoerer.remove();
-      });
-    }
   }
 
 

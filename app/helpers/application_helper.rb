@@ -29,12 +29,4 @@ module ApplicationHelper
   def graetzl_flag(graetzl)
     content_tag(:div, link_to(graetzl.name, [graetzl]), class: 'sideflag -R') if controller_name == 'districts'
   end
-
-  def baumler_add
-    if current_page?(root_url) && !current_user
-      render 'baumler'
-    else
-      render 'baumler' unless session[:baumler]
-    end
-  end
 end
