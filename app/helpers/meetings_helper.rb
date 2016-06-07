@@ -29,6 +29,15 @@ module MeetingsHelper
 
   def meeting_initiator(meeting)
     if initiator = meeting.responsible_user_or_location
+      link_to [initiator.graetzl, initiator], class: 'initiator' do
+        concat avatar_for(initiator)
+        concat content_tag(:span, initiator.try(:username) || initiator.name)
+      end
+    end    
+  end
+
+  def meeting_initiator_row(meeting)
+    if initiator = meeting.responsible_user_or_location
       content_tag(:div, class: 'userPortraitName') do
         concat avatar_for(initiator, 100)
         concat "Erstellt von "
@@ -88,28 +97,6 @@ module MeetingsHelper
       end
     end
   end
-
-  # def meeting_address(meeting)
-  #   content_tag(:div, class: 'address') do
-  #     location = meeting.location
-  #     case
-  #     when (address = meeting.display_address)
-  #       if address.description.present?
-  #         concat content_tag(:strong, address.description)
-  #       elsif location
-  #         concat link_to(location.name, [location.graetzl, location])
-  #       end
-  #       concat tag(:br)
-  #       concat "#{address.street_name} #{address.street_number}"
-  #       concat tag(:br)
-  #       concat "#{address.zip} #{address.city}"
-  #     when location
-  #       concat link_to(location.name, [location.graetzl, location])
-  #     else
-  #       content_tag(:strong, 'Ort steht noch nicht fest...')
-  #     end
-  #   end
-  # end
 
   def meeting_new_headline(parent)
     case

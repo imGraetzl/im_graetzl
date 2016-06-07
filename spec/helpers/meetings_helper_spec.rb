@@ -1,6 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe MeetingsHelper, type: :helper do
+  describe '#meeting_initiator' do
+    let(:meeting) { build_stubbed :meeting }
+
+    subject(:initiator) { helper.meeting_initiator meeting }
+
+    it 'returns nil when no initiator' do
+      expect(initiator).to be_nil
+    end
+
+    it 'returns location avatar and name when location initiator' do
+      location = build_stubbed :location, name: 'powerlocation'
+      allow(meeting).to receive(:responsible_user_or_location){ location }
+      expect(initiator).to include(location.name, 'location')
+    end
+
+    it 'returns user avatar and username when user initiator' do
+      user = build_stubbed :user, username: 'poweruser'
+      allow(meeting).to receive(:responsible_user_or_location){ user }
+      expect(initiator).to include(user.username, 'user')
+    end
+  end
   describe '#meeting_place' do
     let(:placeholder) { "<strong>Ort steht noch nicht fest...</strong>" }
 
