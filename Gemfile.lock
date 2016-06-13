@@ -393,7 +393,7 @@ DEPENDENCIES
   uglifier
   underscore-rails
   webmock
-  whenever (~> 0.9.4)
+  whenever
 
 BUNDLED WITH
    1.11.2
