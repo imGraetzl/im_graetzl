@@ -262,6 +262,8 @@ GEM
       rgeo (~> 0.3)
     rgeo-geojson (0.4.3)
       rgeo (~> 0.5)
+    rollbar (2.11.5)
+      multi_json
     rspec-core (3.4.4)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -378,6 +380,7 @@ DEPENDENCIES
   remotipart
   rgeo
   rgeo-geojson
+  rollbar
   rspec-rails
   sass-rails
   sdoc
@@ -390,7 +393,7 @@ DEPENDENCIES
   uglifier
   underscore-rails
   webmock
-  whenever
+  whenever (~> 0.9.4)
 
 BUNDLED WITH
    1.11.2

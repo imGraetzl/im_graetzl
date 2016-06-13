@@ -107,3 +107,5 @@ gem 'acts-as-taggable-on'
 gem 'actionview-encoded_mail_to'
 # state machine
 gem 'aasm'
+# error reports
+gem 'rollbar'
