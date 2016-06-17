@@ -5,7 +5,7 @@ RSpec.describe Address, type: :model do
 
   it 'has a valid factory' do
     expect(build_stubbed(:address)).to be_valid
-    expect(build_stubbed(:esterhazygasse)).to be_valid
+    expect(build_stubbed(:address, :esterhazygasse)).to be_valid
   end
 
   describe 'associations' do
