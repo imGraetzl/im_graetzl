@@ -1,0 +1,8 @@
+<div id="error_explanation">
+  <h2><%= subject.model_name.human %> konnte nicht erstellt werden!<br><%= subject.errors.count %> Fehler:</h2>
+  <ul>
+    <% subject.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>

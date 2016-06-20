@@ -1,17 +1,7 @@
 <%= form_for [@parent, @meeting] do |f| %>
   <%= f.hidden_field :graetzl_id %>
 
-  <% if @meeting.errors.any? %>
-    <div id="error_explanation">
-      <h2>Treffen konnte nicht erstellt werden!<br><%= @meeting.errors.count %> Fehler:</h2>
-
-      <ul>
-        <% @meeting.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render('errors', subject: @meeting) if @meeting.errors.any? %>
 
   <div class="meet-what">
     <p><span>Was</span> für ein Treffen oder Veranstaltung planst du genau?</p>
