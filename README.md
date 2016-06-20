@@ -3,7 +3,7 @@
 
 # imGrätzl
 
-Ruby on Rails social network app Vienna.
+Geo-data backed Ruby on Rails social network app Vienna.
 
 ### Table of Contents
 1. [Getting Started](#getting-started)
@@ -49,8 +49,14 @@ Populate database with sample data:
 
 ## Deployment
 
-The app is hosted on [Amazon Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) (single instance type running Ruby 2.3, Puma, Nginx). Config in .ebextensions folder. Files are executed in alphabetical order, e.g.:
+The app is hosted on [Amazon Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) (single instance type running Ruby 2.3, Puma, Nginx). Config in .ebextensions folder. Files are executed in alphabetical order:
 
-* 01options.config
-* 02packages.config - *install yum packages*
-* 03nginx.conf
+* 01options.config         - *Set Rails specific Elastic Beanstalk variables*
+* 02packages.config        - *Install yum packages*
+* 03nginx.config           - *Configure webserver*
+* 04cron.config            - *Load automated tasks in crontab*
+* 05eb_housekeeping.config - *Remove old application versions*
+* 06permissions.config     - *Set file permissions*
+* 07sitemap.config         - *Refresh sitemap*
+
+See the [wiki](https://github.com/imGraetzl/im_graetzl/wiki) for further instructions and tutorials.
