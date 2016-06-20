@@ -2,6 +2,20 @@ de:
   activerecord:
     errors:
       models:
+        image:
+          attributes:
+            file:
+              invalid_content_type: hat nicht unterstütztes Dateiformat
+        initiative:
+          attributes:
+            image:
+              invalid_content_type: hat nicht unterstütztes Dateiformat
+        location:
+          attributes:
+            avatar:
+              invalid_content_type: hat nicht unterstütztes Dateiformat
+            cover_photo:
+              invalid_content_type: hat nicht unterstütztes Dateiformat
         meeting:
           attributes:
             cover_photo:
@@ -79,12 +93,16 @@ de:
         updated_at: Aktualisiert am
         users_count: Anzahl User
         area: Fläche
+      images:
+        file: Bilddatei
       initiative:
         created_at: Erstellt am
         description: Beschreibung
         image: Bild
       location:
+        avatar: Profilbild
         category: Kategorie
+        cover_photo: Coverphoto
         description: Beschreibung
         product_list: Produktgruppen
         products: Produkte
