@@ -1,15 +1,10 @@
 de:
   active_admin:
     batch_actions:
+      action_label: 'Ausgewählte %{title} '
       button_label: Stapelverarbeitung
       default_confirmation: "Bist du sicher, dass Sie dies tun wollen?"
       delete_confirmation: "Sind Sie sicher dass sie diese %{plural_model} löschen wollen?"
-      succesfully_destroyed:
-        one: "Erfolgreich 1 %{model} gelöscht"
-        other: "Erfolgreich %{count} %{plural_model} gelöscht"
-      selection_toggle_explanation: (Auswahl umschalten)
-      link: erstellen
-      action_label: 'Ausgewählte %{title} '
       labels:
         approve: Freischalten
         reject: Ablehnen
@@ -18,3 +13,8 @@ de:
         put_live: Live stellen
         expire: Als abgelaufen markieren
         cancel: Als gelöscht markieren
+      link: erstellen
+      succesfully_destroyed:
+        one: "Erfolgreich 1 %{model} gelöscht"
+        other: "Erfolgreich %{count} %{plural_model} gelöscht"
+      selection_toggle_explanation: (Auswahl umschalten)
