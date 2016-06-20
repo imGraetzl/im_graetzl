@@ -20,6 +20,12 @@ de:
           attributes:
             cover_photo:
               invalid_content_type: hat nicht unterstütztes Dateiformat
+        user:
+          attributes:
+            avatar:
+              invalid_content_type: hat nicht unterstütztes Dateiformat
+            cover_photo:
+              invalid_content_type: hat nicht unterstütztes Dateiformat
     events:
       zuckerl:
         mark_as_paid: Als bezahlt markieren
@@ -102,7 +108,7 @@ de:
       location:
         avatar: Profilbild
         category: Kategorie
-        cover_photo: Coverphoto
+        cover_photo: Headerbild
         description: Beschreibung
         product_list: Produktgruppen
         products: Produkte
@@ -116,7 +122,7 @@ de:
         updated_at: Aktualisiert am
       meeting:
         created_at: Erstellt am
-        cover_photo: Bild
+        cover_photo: Headerbild
         description: Beschreibung
         state: Status
         starts_at_date: Beginn (Datum)
@@ -128,7 +134,9 @@ de:
         content: Text
         created_at: Erstellt am
       user:
+        avatar: Profilbild
         confirmed_at: Bestätigt am
+        cover_photo: Headerbild
         created_at: Erstellt am
         first_name: Vorname
         last_name: Nachname

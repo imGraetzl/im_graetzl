@@ -1,141 +1,138 @@
 <%= form_for user do |f| %>
-    <% if user.errors.any? %>
-        <div id="error_explanation">
-          <h2>Dein Profil konnte nicht gespeichert werden!<br><%= user.errors.count %> Fehler:</h2>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2>Dein Profil konnte nicht gespeichert werden!<br><%= user.errors.count %> Fehler:</h2>
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-          <ul>
-            <% user.errors.full_messages.each do |message| %>
-                <li><svg class="icon-arrow-down"><use xlink:href="#icon-arrow-down"></use></svg><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+  <div class="formBlock">
+    <h2><span>Zugangsdaten</span> für deinen Account</h2>
+    <div class="formRow -double">
+      <div class="input-field">
+        <%= f.label :email do %>
+          <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+          <span>E-Mail</span>
+        <% end %>
+        <%= f.email_field :email %>
+      </div>
+      <div class="input-field">
+        <%= f.label :password do %>
+          <svg class="icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
+          <span>Passwort</span>
+        <% end %>
+        <%= f.password_field :password %>
+      </div>
+    </div>
+  </div>
 
-    <div class="formBlock">
-      <h2><span>Zugangsdaten</span> für deinen Account</h2>
-      <div class="formRow -double">
-        <div class="input-field">
-          <%= f.label :email do %>
-              <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-              <span>E-Mail</span>
-          <% end %>
-          <%= f.email_field :email %>
-        </div>
-        <div class="input-field">
-          <%= f.label :password do %>
-              <svg class="icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
-              <span>Passwort</span>
-          <% end %>
-          <%= f.password_field :password %>
-        </div>
+  <div class="formBlock">
+    <h2>Informationen <span>über dich</span></h2>
+    <div class="formRow -double">
+      <div class="input-field disabled">
+        <%= f.label :username do %>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <span>Username</span>
+        <% end %>
+        <%= f.text_field :username, disabled: true %>
       </div>
     </div>
 
-    <div class="formBlock">
-      <h2>Informationen <span>über dich</span></h2>
-      <div class="formRow -double">
-        <div class="input-field disabled">
-          <%= f.label :username do %>
-              <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-              <span>Username</span>
-          <% end %>
-          <%= f.text_field :username, disabled: true %>
-        </div>
+    <div class="formRow -double">
+      <div class="input-field">
+        <%= f.label :first_name do %>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <span>Vorname</span>
+        <% end %>
+        <%= f.text_field :first_name %>
+      </div>
+      <div class="input-field">
+        <%= f.label :last_name do %>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <span>Nachname</span>
+        <% end %>
+        <%= f.text_field :last_name %>
+      </div>
+    </div>
+
+    <div class="formRow -double">
+      <div class="input-textarea">
+        <%= f.label :bio do %>
+          <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+          <span>Über mich</span>
+        <% end %>
+        <%= f.text_area :bio, size: '30x10', placeholder: 'Ein paar Infos über dich' %>
       </div>
 
-      <div class="formRow -double">
-        <div class="input-field">
-          <%= f.label :first_name do %>
-              <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-              <span>Vorname</span>
+      <div class="upload-oldschool">
+        <%= f.label :avatar do %>
+          <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+          <span><%= User.human_attribute_name(:avatar) %></span>
+        <% end %>
+        <div class="field-wrp">
+          <% if f.object.avatar %>
+            <div class="preview-wrp">
+              <%= image_tag attachment_url(f.object, :avatar, :fill, 100, 100), class: 'img-round' %>
+              <div class="input-checkbox">
+                <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
+                <%= f.label :remove_avatar, 'Löschen' %>
+              </div>
+            </div>
           <% end %>
-          <%= f.text_field :first_name %>
-        </div>
-        <div class="input-field">
-          <%= f.label :last_name do %>
-              <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-              <span>Nachname</span>
-          <% end %>
-          <%= f.text_field :last_name %>
+          <%= f.attachment_field :avatar, direct: true, presigned: true %>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="formRow -double">
-        <div class="input-textarea">
-          <%= f.label :bio do %>
-              <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
-              <span>Über mich</span>
+  <div class="formBlock profileSection">
+    <h2>Ergänzungen zur <span>Profilseite</span></h2>
+    <div class="formRow -double">
+      <div class="col1">
+        <div class="input-field">
+          <%= f.label :website do %>
+            <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
+            <span>Web/Blog</span>
           <% end %>
-          <%= f.text_area :bio, size: '30x10', placeholder: 'Ein paar Infos über dich' %>
+          <%= f.text_field :website, placeholder: 'Deine Web-, FB- oder Blog Url eintragen' %>
         </div>
 
         <div class="upload-oldschool">
-          <%= f.label :avatar do %>
-              <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
-              <span>Profilbild</span>
+          <%= f.label :cover_photo do %>
+            <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+            <span><%= User.human_attribute_name(:cover_photo) %></span>
           <% end %>
           <div class="field-wrp">
-            <% if f.object.avatar %>
-                <div class="preview-wrp">
-                  <%= image_tag attachment_url(f.object, :avatar, :fill, 100, 100), class: 'img-round' %>
-                  <div class="input-checkbox">
-                    <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
-                    <%= f.label :remove_avatar, 'Löschen' %>
-                  </div>
+            <% if f.object.cover_photo %>
+              <div class="preview-wrp">
+                <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+                <div class="input-checkbox">
+                  <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+                  <%= f.label :remove_cover_photo, 'Löschen' %>
                 </div>
+              </div>
             <% end %>
-            <%= f.attachment_field :avatar, direct: true, presigned: true %>
+            <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
           </div>
         </div>
       </div>
-
-    </div>
-
-    <div class="formBlock profileSection">
-      <h2>Ergänzungen zur <span>Profilseite</span></h2>
-      <div class="formRow -double">
-        <div class="col1">
-          <div class="input-field">
-            <%= f.label :website do %>
-                <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
-                <span>Web/Blog</span>
-            <% end %>
-            <%= f.text_field :website, placeholder: 'Deine Web-, FB- oder Blog Url eintragen' %>
-          </div>
-
-          <div class="upload-oldschool">
-            <%= f.label :cover_photo do %>
-                <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
-                <span>Bild hochladen</span>
-            <% end %>
-            <div class="field-wrp">
-              <% if f.object.cover_photo %>
-                  <div class="preview-wrp">
-                    <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
-                    <div class="input-checkbox">
-                      <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-                      <%= f.label :remove_cover_photo, 'Löschen' %>
-                    </div>
-                  </div>
-              <% end %>
-              <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
-            </div>
-          </div>
-
+      <div class="col2">
+        <div class="input-checkbox">
+          <%= f.check_box :role, { checked: f.object.business? }, :business, nil %>
+          <%= f.label :role, 'Ich bin wirtschaftlich und/oder kreativ tätig' %>
         </div>
-        <div class="col2">
-          <div class="input-checkbox">
-            <%= f.check_box :role, { checked: f.object.business? }, :business, nil %>
-            <%= f.label :role, 'Ich bin wirtschaftlich und/oder kreativ tätig' %>
-          </div>
-          <div class="input-checkbox">
-            <%= f.check_box :newsletter %>
-            <%= f.label :newsletter, 'Newsletter abonnieren' %>
-          </div>
+        <div class="input-checkbox">
+          <%= f.check_box :newsletter %>
+          <%= f.label :newsletter, 'Newsletter abonnieren' %>
         </div>
       </div>
     </div>
-    <%= f.submit 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+  </div>
+  <%= f.submit 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>
 <%= button_to 'Account löschen', registration_path,
               data: { confirm: 'Bist du dir sicher?' },
