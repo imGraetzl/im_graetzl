@@ -1,14 +1,4 @@
-<% if f.object.errors.any? %>
-  <div id="error_explanation">
-    <h2>Zuckerl konnte nicht gespeichert werden!</h2>
-    <ul>
-      <% f.object.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
+<%= form_errors_for f.object %>
 <%= f.hidden_field :location_id %>
 
 <div class="input-field">

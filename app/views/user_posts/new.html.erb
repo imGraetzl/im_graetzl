@@ -6,16 +6,7 @@
 
   <div class="form-block">
     <%= form_for [@graetzl, @user_post] do |f| %>
-      <% if @user_post.errors.any? %>
-        <div id="error_explanation">
-          <h2>Wunsch oder Idee konnte nicht erstellt werden!<br><%= @user_post.errors.count %> Fehler:</h2>
-          <ul>
-            <% @user_post.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= form_errors_for @user_post %>
 
       <div class="input-field">
         <%= f.label :title do %>

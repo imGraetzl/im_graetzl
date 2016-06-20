@@ -1,14 +1,5 @@
 <%= form_for user do |f| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2>Dein Profil konnte nicht gespeichert werden!<br><%= user.errors.count %> Fehler:</h2>
-      <ul>
-        <% user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form_errors_for user, 'Dein Profil' %>
 
   <div class="formBlock">
     <h2><span>Zugangsdaten</span> für deinen Account</h2>

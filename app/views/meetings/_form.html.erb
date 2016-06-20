@@ -1,7 +1,7 @@
 <%= form_for [@parent, @meeting] do |f| %>
   <%= f.hidden_field :graetzl_id %>
 
-  <%= render('errors', subject: @meeting) if @meeting.errors.any? %>
+  <%= form_errors_for @meeting %>
 
   <div class="meet-what">
     <p><span>Was</span> für ein Treffen oder Veranstaltung planst du genau?</p>
