@@ -6,7 +6,7 @@ RSpec.describe Location, type: :model do
 
   it 'has a valid factory' do
     expect(build_stubbed(:location)).to be_valid
-    expect(build_stubbed(:approved_location)).to be_valid
+    expect(build_stubbed(:location, :approved)).to be_valid
   end
 
   describe 'validations' do

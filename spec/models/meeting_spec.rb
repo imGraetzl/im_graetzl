@@ -105,7 +105,7 @@ RSpec.describe Meeting, type: :model do
 
   describe 'scopes' do
     describe 'by_currentness' do
-      let!(:m_yesterday) { create :meeting_skip_validate, starts_at_date: Date.yesterday }
+      let!(:m_yesterday) { create :meeting, :skip_validate, starts_at_date: Date.yesterday }
       let!(:m_tomorrow) { create :meeting, starts_at_date: Date.tomorrow+1.day }
       let!(:m_today) { create :meeting, starts_at_date: Date.tomorrow }
       let!(:m_nil) { create :meeting, starts_at_date: nil }
@@ -122,7 +122,7 @@ RSpec.describe Meeting, type: :model do
       let!(:m_tomorrow) { create :meeting, starts_at_date: Date.tomorrow }
       let!(:m_after_tomorrow) { create :meeting, starts_at_date: Date.tomorrow+1 }
       let!(:m_nil) { create :meeting, starts_at_date: nil }
-      let!(:m_yesterday) { create :meeting_skip_validate, starts_at_date: Date.yesterday }
+      let!(:m_yesterday) { create :meeting, :skip_validate, starts_at_date: Date.yesterday }
       let!(:m_cancelled) { create :meeting, :cancelled, starts_at_date: Date.today }
 
       subject(:meetings) { Meeting.upcoming }

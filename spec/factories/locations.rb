@@ -14,9 +14,5 @@ FactoryGirl.define do
     trait :approved do
       state Location.states[:approved]
     end
-
-    factory :approved_location do
-      state Location.states[:approved]
-    end
   end
 end
