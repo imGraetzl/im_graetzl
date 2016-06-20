@@ -26,6 +26,10 @@ de:
               invalid_content_type: hat nicht unterstütztes Dateiformat
             cover_photo:
               invalid_content_type: hat nicht unterstütztes Dateiformat
+        zuckerl:
+          attributes:
+            image:
+              invalid_content_type: hat nicht unterstütztes Dateiformat
     events:
       zuckerl:
         mark_as_paid: Als bezahlt markieren
