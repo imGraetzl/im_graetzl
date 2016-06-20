@@ -100,7 +100,7 @@ gem 'sucker_punch'
 # sitemap
 gem 'sitemap_generator'
 # schedule cron jobs
-gem 'whenever', '0.9.4', require: false
+gem 'whenever', require: false
 # tagging
 gem 'acts-as-taggable-on'
 # obfuscate email addresses
