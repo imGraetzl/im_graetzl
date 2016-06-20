@@ -10,7 +10,7 @@ RSpec.feature 'Registration', type: :feature do
   end
 
   feature 'address matches single graetzl' do
-    let!(:graetzl) { create(:naschmarkt) }
+    let!(:graetzl) { create(:graetzl, :naschmarkt) }
     let!(:address) { build(:address, :esterhazygasse) }
     # data for graetzl step
     let!(:district_1) { create(:district) }
@@ -70,10 +70,10 @@ RSpec.feature 'Registration', type: :feature do
   end
 
   feature 'address matches multiple graetzls' do
-    let!(:seestadt_aspern) { create(:seestadt_aspern) }
-    let!(:aspern) { create(:aspern) }
+    let!(:seestadt_aspern) { create(:graetzl, :seestadt_aspern) }
+    let!(:aspern) { create(:graetzl, :aspern) }
     let(:address) { build(:address, :seestadt) }
-    let!(:naschmarkt) { create(:naschmarkt) }
+    let!(:naschmarkt) { create(:graetzl, :naschmarkt) }
     let!(:esterhazygasse) { build(:address, :esterhazygasse) }
 
     scenario 'user selects graetzl from list', js: true do
