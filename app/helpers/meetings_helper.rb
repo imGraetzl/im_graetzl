@@ -33,7 +33,7 @@ module MeetingsHelper
         concat avatar_for(initiator)
         concat content_tag(:span, initiator.try(:username) || initiator.name)
       end
-    end    
+    end
   end
 
   def meeting_initiator_row(meeting)
@@ -48,6 +48,17 @@ module MeetingsHelper
 
   def meeting_name(meeting)
     meeting.basic? ? content_tag(:h1, meeting.name) : content_tag(:h2, 'ABGESAGT')
+  end
+
+  def meeting_new_headline(parent)
+    case
+    when parent.is_a?(Location)
+      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} bei #{content_tag(:span, parent.name)}!".html_safe }
+    when parent.is_a?(Graetzl)
+      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} im #{content_tag(:span, parent.name)}!".html_safe }
+    else
+      content_tag(:h1, 'Ein neues Treffen, wie schön!')
+    end
   end
 
   private
@@ -95,17 +106,6 @@ module MeetingsHelper
       else
         content_tag(:strong, 'Ort steht noch nicht fest...')
       end
-    end
-  end
-
-  def meeting_new_headline(parent)
-    case
-    when parent.is_a?(Location)
-      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} bei #{content_tag(:span, parent.name)}!".html_safe }
-    when parent.is_a?(Graetzl)
-      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} im #{content_tag(:span, parent.name)}!".html_safe }
-    else
-      content_tag(:h1, 'Ein neues Treffen, wie schön!')
     end
   end
 end
