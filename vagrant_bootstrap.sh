@@ -39,6 +39,13 @@ sudo -u postgres psql << EOF
 EOF
 install 'ExecJS runtime' nodejs
 
+echo installing PhantomJS
+sudo wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 -P /usr/local/share --quiet
+sudo tar xjf /usr/local/share/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C /usr/local/share
+sudo ln -s /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/share/phantomjs
+sudo ln -s /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs
+sudo ln -s /usr/local/share/phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/phantomjs
+
 # Needed for docs generation.
 update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
