@@ -7,6 +7,7 @@ Geo-data backed Ruby on Rails social network app Vienna.
 
 ### Table of Contents
 1. [Getting Started](#getting-started)
+1. [Development](#development)
 3. [Deployment](#deployment)
 
 
@@ -19,11 +20,13 @@ Geo-data backed Ruby on Rails social network app Vienna.
 * Ruby >= 2.3.0 *is what we run in production*
 * [GEOS](https://trac.osgeo.org/geos/) and [Proj](https://github.com/OSGeo/proj.4) for some spatial calculations
 
-#### Test dependencies
+### Test dependencies
 
-* [PhantomJS](http://phantomjs.org/)
+* [PhantomJS](http://phantomjs.org/) for a headless browser
 
-#### Setup on OSX
+## Development
+
+### Setup on OSX
 
 *Assuming you have a working ruby installation*  
 Use [Homebrew](http://brew.sh/) to install the required dependencies:
@@ -34,6 +37,57 @@ $ brew install postgresql
 $ brew install postgis
 # follow instructions to enable postgis extension
 $ brew install geos proj phantomjs imagemagick
+```
+
+### Setup with Vagrant
+
+#### Prerequisites
+
+1. Install the latest version of [VirtualBox](https://www.virtualbox.org/) for your OS
+2. Install the latest version of [Vagrant](https://www.vagrantup.com/) for your OS
+
+#### Setup VM
+
+In the project directory, run:
+
+    $ vagrant up
+
+This will spin up a new VM and install all required dependencies.
+
+Once the VM is ready, in the project directory run:
+
+```shell
+$ vagrant ssh   # to ssh into your VM
+$ cd /vagrant   # to change into the mounted project directory within the VM
+```
+
+Once you are there and it is your first time spinning up the VM, set up and eventually populate the database as described in [Database Setup](#database-setup).
+
+#### Run the application
+
+To run the server:
+
+```sh
+$ rails server -b 0.0.0.0   # this makes the application available on http://localhost:3000
+```
+Use `CTRL` + `c` to shut down the server again.
+
+#### Run the tests
+
+To run the tests:
+
+    $ rspec spec
+
+#### Shut down VM
+
+To exit your ssh session in the VM, simply run:
+
+    $ exit
+
+To shut down the VM, run:
+
+```sh
+$ vagrant halt   # $ vagrant up will continue at the state you left the VM
 ```
 
 ### Database Setup
