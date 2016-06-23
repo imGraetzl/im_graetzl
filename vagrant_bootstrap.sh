@@ -31,6 +31,7 @@ install Memcached memcached
 install Curl curl libcurl4-openssl-dev
 install zlib1g zlib1g-dev
 install libssl libssl-dev
+install Imagemagick imagemagick --fix-missing
 install Postgres postgresql-9.4-postgis-2.1 postgresql-contrib-9.4 libpq-dev
 sudo -u postgres createuser --superuser vagrant
 sudo -u postgres psql << EOF
