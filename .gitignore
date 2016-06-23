@@ -44,3 +44,5 @@ public/sitemap.xml*
 
 # Chef stuff
 cookbooks/
+
+.DS_Store
