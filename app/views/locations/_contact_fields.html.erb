@@ -7,7 +7,7 @@
           <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
           <span><%= Contact.human_attribute_name(:website) %></span>
       <% end %>
-      <%= contact_fields.url_field :website, placeholder: 'http://www.' %>
+      <%= contact_fields.url_field :website, type: 'url', placeholder: 'http:// oder https://' %>
     </div>
 
     <div class="input-field">
