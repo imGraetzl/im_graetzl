@@ -1,35 +1,9 @@
 de:
   activerecord:
     errors:
-      models:
-        image:
-          attributes:
-            file:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
-        initiative:
-          attributes:
-            image:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
-        location:
-          attributes:
-            avatar:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
-            cover_photo:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
-        meeting:
-          attributes:
-            cover_photo:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
-        user:
-          attributes:
-            avatar:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
-            cover_photo:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
-        zuckerl:
-          attributes:
-            image:
-              invalid_content_type: hat nicht unterstütztes Dateiformat
+      messages:
+        bad_url: ungültige url
+        invalid_content_type: hat nicht unterstütztes Dateiformat
     events:
       zuckerl:
         mark_as_paid: Als bezahlt markieren

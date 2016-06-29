@@ -10,24 +10,23 @@ RSpec.describe User, type: :model do
 
   describe 'validations' do
     it 'invalid without username' do
-      expect(build(:user, username: nil)).not_to be_valid
+      expect(build :user, username: nil).not_to be_valid
     end
-
     it 'invalid with dublicate username' do
-      first_user = create(:user)
-      expect(build(:user, username: first_user.username)).not_to be_valid
+      first_user = create :user
+      expect(build :user, username: first_user.username).not_to be_valid
     end
-
     it 'invalid without first_name' do
-      expect(build(:user, first_name: nil)).not_to be_valid
+      expect(build :user, first_name: nil).not_to be_valid
     end
-
     it 'invalid without last_name' do
-      expect(build(:user, last_name: nil)).not_to be_valid
+      expect(build :user, last_name: nil).not_to be_valid
     end
-
     it 'invalid without graetzl' do
-      expect(build(:user, graetzl: nil)).not_to be_valid
+      expect(build :user, graetzl: nil).not_to be_valid
+    end
+    it 'invalid with invalid website url' do
+      expect(build :user, website: 'google.de').not_to be_valid
     end
   end
 

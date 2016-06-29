@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    errors:
+      messages:
+        bad_url: invalid url
+        invalid_content_type: has no supported file format

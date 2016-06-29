@@ -6,5 +6,5 @@ class Curator < ActiveRecord::Base
   validates :user, presence: true
   validates :name, presence: true
   validates :website, presence: true
-  validates_format_of :website, with: URI::regexp(%w(http https))
+  validates :website, url: true, allow_blank: true
 end

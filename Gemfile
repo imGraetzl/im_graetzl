@@ -43,13 +43,12 @@ group :development do
   gem 'letter_opener'
   # debug kill N+1 queries and unused eager loading
   gem 'bullet'
-  # debug controllers
-  gem 'byebug'
 end
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'byebug'
 end
 
 group :development, :test, :staging do

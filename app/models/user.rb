@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :terms_and_conditions, acceptance: true
+  validates :website, url: true, allow_blank: true
 
   before_validation { self.username.squish! if self.username }
 
