@@ -10,7 +10,7 @@ class GraetzlsController < ApplicationController
     @activity = @graetzl.activity.page(params[:page]).per(12)
     unless request.xhr?
       @activity_decorated = @graetzl.decorate_activity @activity
-      @map_data = GeoJSONService.call(graetzls: @graetzl)
+      @map_data = MapData.call graetzl: @graetzl
     end
   end
 
@@ -19,6 +19,6 @@ class GraetzlsController < ApplicationController
     @locations= @graetzl.locations.by_activity.to_a.first(2)
     @zuckerls = @graetzl.zuckerls.order("RANDOM()").first(2)
     @posts = @graetzl.posts.where(type: UserPost).order(created_at: :desc).first(2)
-    @map_data = GeoJSONService.call(graetzls: @graetzl)
+    @map_data = MapData.call graetzl: @graetzl
   end
 end

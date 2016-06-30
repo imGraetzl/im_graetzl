@@ -17,7 +17,7 @@ module GraetzlChild
   end
 
   def set_map_data
-    @map_data = GeoJSONService.call(graetzls: @graetzl)
+    @map_data = MapData.call graetzl: @graetzl
   end
 
   def format_js?

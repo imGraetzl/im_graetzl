@@ -5,7 +5,7 @@ class DistrictsController < ApplicationController
       page(params[:page]).per(15)
     unless request.xhr?
       @districts = District.all()
-      @map_data = GeoJSONService.call(districts: @districts)
+      @map_data = MapData.call districts: @districts
     end
   end
 
@@ -15,7 +15,7 @@ class DistrictsController < ApplicationController
     @meetings = @district.meetings.by_currentness.first(2)
     @locations = @district.locations.by_activity.to_a.first(2)
     @zuckerls = @district.zuckerls.order("RANDOM()").first(2)
-    @map_data = GeoJSONService.call(districts: @district, graetzls: graetzls)
+    @map_data = MapData.call district: @district, graetzls: graetzls
   end
 
   def graetzls

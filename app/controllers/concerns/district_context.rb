@@ -14,6 +14,6 @@ module DistrictContext
   end
 
   def set_map_data
-    @map_data = GeoJSONService.call(districts: @district, graetzls: @district.graetzls)
+    @map_data = MapData.call district: @district, graetzls: @district.graetzls
   end
 end
