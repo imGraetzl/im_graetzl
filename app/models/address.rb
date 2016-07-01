@@ -42,7 +42,7 @@ class Address < ActiveRecord::Base
 
   def get_coordinates
     if (addressable_type == 'Location') && self.street_name
-      self.coordinates = CoordinatesService.new(self).coordinates
+      self.coordinates = Coordinates.call self
     end
   end
 end
