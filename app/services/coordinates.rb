@@ -39,6 +39,8 @@ class Coordinates < BaseService
     else
       nil
     end
+  rescue JSON::ParserError
+    nil
   end
 
   def best_match(features)
