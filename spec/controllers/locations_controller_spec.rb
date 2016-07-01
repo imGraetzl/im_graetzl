@@ -2,6 +2,8 @@ require 'rails_helper'
 include GeojsonSupport
 
 RSpec.describe LocationsController, type: :controller do
+  before { stub_address_api! }
+
   describe 'GET index' do
     let!(:graetzl) { create :graetzl }
     let!(:old_locations) { create_list :location, 15, :approved, graetzl: graetzl }
@@ -13,15 +15,12 @@ RSpec.describe LocationsController, type: :controller do
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
       end
-
       it 'assigns @map_data' do
         expect(assigns :map_data).to be_present
       end
-
       it 'assigns 15 @locations' do
         expect(assigns :locations).to match_array new_locations
       end
-
       it 'renders index.html' do
         expect(response.content_type).to eq 'text/html'
         expect(response).to render_template :index
@@ -33,15 +32,12 @@ RSpec.describe LocationsController, type: :controller do
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
       end
-
       it 'does not assign @map_data' do
         expect(assigns :map_data).not_to be
       end
-
       it 'assigns older 15 @locations' do
         expect(assigns :locations).to match_array old_locations
       end
-
       it 'renders index.js' do
         expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :index
@@ -64,23 +60,18 @@ RSpec.describe LocationsController, type: :controller do
         it 'assigns @graetzl' do
           expect(assigns :graetzl).to eq graetzl
         end
-
         it 'assigns @location' do
           expect(assigns :location).to eq location
         end
-
         it 'assigns 10 new @posts' do
           expect(assigns :posts).to match_array new_location_posts
         end
-
         it 'assigns 2 new @meetings' do
           expect(assigns :meetings).to match_array new_meetings
         end
-
         it 'assigns @zuckerls' do
           expect(assigns :zuckerls).to be
         end
-
         it 'renders show.html' do
           expect(response.content_type).to eq 'text/html'
           expect(response).to render_template(:show)
@@ -92,15 +83,12 @@ RSpec.describe LocationsController, type: :controller do
         it 'assigns @location' do
           expect(assigns :location).to eq location
         end
-
         it 'assigns 10 older @posts' do
           expect(assigns :posts).to match_array old_location_posts
         end
-
         it 'does not assign @meetings' do
           expect(assigns :meetings).not_to be
         end
-
         it 'renders show.js' do
           expect(response.content_type).to eq 'text/javascript'
           expect(response).to render_template(:show)
@@ -112,11 +100,9 @@ RSpec.describe LocationsController, type: :controller do
         it 'does not assign @posts' do
           expect(assigns :posts).not_to be
         end
-
         it 'assigns 2 older @meetings' do
           expect(assigns :meetings).to match_array old_meetings
         end
-
         it 'renders show.js' do
           expect(response.content_type).to eq 'text/javascript'
           expect(response).to render_template(:show)
@@ -154,11 +140,9 @@ RSpec.describe LocationsController, type: :controller do
         it 'assigns @graetzl with user.graetzl' do
           expect(assigns :graetzl).to eq graetzl
         end
-
         it 'assigns @district' do
           expect(assigns :district).to eq district
         end
-
         it 'renders :graetzl_form' do
           expect(response).to render_template :graetzl_form
         end
@@ -170,11 +154,9 @@ RSpec.describe LocationsController, type: :controller do
         it 'assigns @graetzl with other_graetzl' do
           expect(assigns :graetzl).to eq other_graetzl
         end
-
         it 'assigns @district' do
           expect(assigns :district).to eq district
         end
-
         it 'renders :graetzl_form' do
           expect(response).to render_template :graetzl_form
         end
@@ -202,11 +184,9 @@ RSpec.describe LocationsController, type: :controller do
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
       end
-
       it 'assigns @location' do
         expect(assigns :location).to be_a_new Location
       end
-
       it 'renders :new' do
         expect(response).to render_template :new
       end
@@ -296,7 +276,6 @@ RSpec.describe LocationsController, type: :controller do
               post :create, params
             }.to change{Address.count}.by 1
           end
-
           it 'creates new contact record' do
             expect{
               post :create, params
@@ -336,7 +315,6 @@ RSpec.describe LocationsController, type: :controller do
         it 'assigns @location' do
           expect(assigns :location).to eq location
         end
-
         it 'renders :edit' do
           expect(response).to render_template :edit
         end
@@ -391,7 +369,6 @@ RSpec.describe LocationsController, type: :controller do
           it 'assigns @location' do
             expect(assigns :location).to eq location
           end
-
           it 'updates attributes' do
             expect(location).to have_attributes(
               name: attrs[:name],
@@ -399,7 +376,6 @@ RSpec.describe LocationsController, type: :controller do
               description: attrs[:description],
               meeting_permission: attrs[:meeting_permission])
           end
-
           it 'redirect_to location in graetzl' do
             expect(response).to redirect_to [location.graetzl, location]
           end
@@ -433,7 +409,6 @@ RSpec.describe LocationsController, type: :controller do
               email: contact.email,
               phone: contact.phone)
           end
-
           it 'updates address' do
             expect(location.address).to have_attributes(
               street_name: address.street_name,
@@ -441,7 +416,6 @@ RSpec.describe LocationsController, type: :controller do
               zip: address.zip,
               city: address.city)
           end
-
           it 'updates category' do
             expect(location.category).to eq category
           end
@@ -455,7 +429,6 @@ RSpec.describe LocationsController, type: :controller do
               location.reload
             }.to change{location.address}.to nil
           end
-
           it 'deletes address record' do
             expect{
               put :update, params
@@ -505,13 +478,11 @@ RSpec.describe LocationsController, type: :controller do
           delete :destroy, id: location
           expect(assigns :location).to eq location
         end
-
         it 'deletes location record' do
           expect{
             delete :destroy, id: location
           }.to change{Location.count}.by -1
         end
-
         it 'redirects to user_locations_path' do
           delete :destroy, id: location
           expect(response).to redirect_to user_locations_path
