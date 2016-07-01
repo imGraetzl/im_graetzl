@@ -1,6 +1,4 @@
 class MapData < BaseService
-  # TODO: set path...
-
   def initialize(districts:nil, district:nil, graetzls:nil, graetzl:nil)
     districts = [districts, district].flatten.compact
     graetzls = [graetzls, graetzl].flatten.compact

@@ -4,15 +4,32 @@ include GeojsonSupport
 RSpec.describe Address, type: :model do
 
   it 'has a valid factory' do
-    expect(build_stubbed(:address)).to be_valid
-    expect(build_stubbed(:address, :esterhazygasse)).to be_valid
+    expect(build :address).to be_valid
+    expect(build :address, :esterhazygasse).to be_valid
   end
 
   describe 'associations' do
-    let(:address) { create(:address) }
-
     it 'has addressable' do
-      expect(address).to respond_to(:addressable)
+      expect(build :address).to respond_to :addressable
+    end
+  end
+
+  describe '#district_nr' do
+    subject { address.district_nr }
+
+    context 'when zip present' do
+      let(:address) { build :address, zip: 1070 }
+
+      it 'returns district number as string' do
+        expect(subject).to eq '7'
+      end
+    end
+    context 'when no zip' do
+      let(:address) { build :address, zip: nil }
+
+      it 'returns nil' do
+        expect(subject).to be_nil
+      end
     end
   end
 

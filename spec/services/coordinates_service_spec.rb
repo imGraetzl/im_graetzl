@@ -26,7 +26,7 @@ RSpec.describe CoordinatesService do
     subject(:coords) { service.coordinates }
 
     context 'when api data available' do
-      let(:api_response_body) { File.read(File.join('spec', 'support', 'assets', 'address_service_response.json')) }
+      let(:api_response_body) { File.read(File.join('spec', 'support', 'assets', 'address_service_resp.json')) }
 
       before do
         stub_request(:get, /.*data.wien.gv.at.*/).to_return(
@@ -141,7 +141,7 @@ RSpec.describe CoordinatesService do
     let(:service) { CoordinatesService.new(build(:address)) }
 
     context 'when successful request' do
-      let(:api_response_body) { File.read(File.join('spec', 'support', 'assets', 'address_service_response.json')) }
+      let(:api_response_body) { File.read(File.join('spec', 'support', 'assets', 'address_service_resp.json')) }
 
       before do
         stub_request(:get, CoordinatesService::BASE_URI).to_return(

@@ -34,6 +34,10 @@ class Address < ActiveRecord::Base
     graetzls.first
   end
 
+  def district_nr
+    zip.slice(1..2).sub(%r{^0},"") unless zip.blank?
+  end
+
   private
 
   def get_coordinates
