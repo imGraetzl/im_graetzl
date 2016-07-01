@@ -98,7 +98,7 @@ RSpec.describe MeetingsHelper, type: :helper do
   end
   describe '#meeting_new_headline' do
     it 'contains location name when parent location' do
-      location = build(:location)
+      location = build :location, name: 'location1'
       expect(helper.meeting_new_headline location).to include location.name
     end
     it 'contains graetzl name when parent graetzl' do
