@@ -161,7 +161,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
             street_number: address.street_number,
             zip: address.zip,
             city: address.city,
-            coordinates: address.coordinates)
+            coordinates: nil)
         end
         it 'assigns contact_attributes to location' do
           expect(Contact.last).to have_attributes(

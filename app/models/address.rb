@@ -1,7 +1,7 @@
 class Address < ActiveRecord::Base
   belongs_to :addressable, polymorphic: true
 
-  before_save :get_coordinates, if: proc {|address| address.street_name }
+  before_save :get_coordinates
 
   def self.attributes_from_feature(feature)
     begin
@@ -41,8 +41,8 @@ class Address < ActiveRecord::Base
   private
 
   def get_coordinates
-    if addressable_type == 'Location'
-      coordinates = Coordinates.call self
+    if (street_name && addressable_type == 'Location')
+      self.coordinates = Coordinates.call(self)
     end
   end
 end
