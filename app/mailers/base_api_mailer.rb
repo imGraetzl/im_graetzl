@@ -1,5 +1,5 @@
 class BaseApiMailer
-  def self.call(*args)
+  def self.deliver(*args)
     new(*args).deliver
   end
 

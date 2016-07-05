@@ -10,7 +10,7 @@ class Zuckerl::Invoice
 
   def deliver
     message = build_message
-    MandrillMessage.new(@user, template: MAIL_TEMPLATE, message: message).deliver
+    MandrillMailer.deliver template: MAIL_TEMPLATE, message: message
   end
 
   private

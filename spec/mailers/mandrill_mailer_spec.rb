@@ -64,9 +64,9 @@ RSpec.describe MandrillMailer do
     end
   end
 
-  describe '.call' do
+  describe '.deliver' do
     it 'initializes new Mailer and calls mandrill api' do
-      described_class.call template: 'template-slug', message: {}
+      described_class.deliver template: 'template-slug', message: {}
       expect(WebMock).to have_requested :post, mandrill_url
     end
   end
