@@ -87,7 +87,7 @@ gem 'aws-sdk'
 # use seo-friendly urls
 gem 'friendly_id'
 # activeadmin for admin interface (pre version)
-gem 'activeadmin', '~> 1.0.0.pre2'
+gem 'activeadmin', '~> 1.0.0.pre4'
 # submit multipart forms with ajax
 gem 'remotipart'
 # pagination

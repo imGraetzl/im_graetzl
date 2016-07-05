@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      sign_in @user, bypass: true
+      bypass_sign_in @user
       redirect_to [@user.graetzl, @user], notice: 'Profil gespeichert!'
     else
       render :edit
