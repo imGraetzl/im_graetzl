@@ -1,5 +1,6 @@
 require 'rails_helper'
 include GeojsonSupport
+include Stubs::AddressApi
 
 RSpec.describe LocationsController, type: :controller do
   before { stub_address_api! }

@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'models/shared/trackable'
+include Stubs::AddressApi
 
 RSpec.describe Meeting, type: :model do
   before { stub_address_api! }
