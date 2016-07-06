@@ -6,8 +6,8 @@ context.instance_eval do
         row :title
         row :content
         row :images do
-          admin_post.images.each do |image|
-            div { attachment_image_tag(image, :file, :limit, 600, 300) }
+          admin_post.images.map do |image|
+            attachment_image_tag image, :file, :limit, 600, 300
           end
         end
       end
