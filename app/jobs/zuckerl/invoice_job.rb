@@ -4,7 +4,7 @@ class Zuckerl::InvoiceJob < ActiveJob::Base
   def perform(zuckerl)
     Rails.logger.info "InvoiceJob start at: #{Time.now}"
     ActiveRecord::Base.connection_pool.with_connection do
-      Zuckerl::Invoice.new(zuckerl).deliver
+      Zuckerl::Invoice.deliver zuckerl
     end
   end
 end
