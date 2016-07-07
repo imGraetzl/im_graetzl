@@ -19,8 +19,7 @@ class Zuckerl::Invoice < MandrillMailer
       from_email: FROM_EMAIL,
       from_name: FROM_NAME,
       subject: SUBJECT,
-      merge_vars: [rcpt: @user.email, vars: message_vars],
-      bcc_address: 'rechnung@imgraetzl.at'
+      merge_vars: [rcpt: @user.email, vars: message_vars]
     }
   end
 
