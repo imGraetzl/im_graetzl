@@ -11,7 +11,7 @@ FactoryGirl.define do
     trait :paid do
       aasm_state { 'paid' }
     end
-    
+
     trait :pending do
       aasm_state { 'pending' }
     end

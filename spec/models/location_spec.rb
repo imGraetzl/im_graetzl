@@ -1,9 +1,10 @@
 require 'rails_helper'
 require 'models/shared/trackable'
+include Stubs::AddressApi
 
 RSpec.describe Location, type: :model do
   before { stub_address_api! }
-  
+
   it_behaves_like :a_trackable
 
   it 'has a valid factory' do

@@ -1,4 +1,5 @@
 require 'rails_helper'
+include Stubs::AddressApi
 
 RSpec.describe Admin::LocationsController, type: :controller do
   before { stub_address_api! }
