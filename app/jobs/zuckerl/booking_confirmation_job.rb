@@ -4,7 +4,8 @@ class Zuckerl::BookingConfirmationJob < ActiveJob::Base
   def perform(zuckerl)
     Rails.logger.info "BookingConfirmationJob start at: #{Time.now}"
     ActiveRecord::Base.connection_pool.with_connection do
-      Zuckerl::BookingConfirmation.deliver zuckerl
+      mandrill_mail = Zuckerl::BookingConfirmationMail.new zucker
+      mandrill_mail.deliver
     end
   end
 end

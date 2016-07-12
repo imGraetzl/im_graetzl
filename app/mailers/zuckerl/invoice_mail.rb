@@ -1,19 +1,14 @@
-class Zuckerl::Invoice < MandrillMailer
+class Zuckerl::InvoiceMail < Zuckerl::BaseMail
   MAIL_TEMPLATE = 'zuckerl-successfully-paid-and-invoice'
   SUBJECT = 'Zahlungsbestätigung deines Grätzlzuckerls'
 
-  def initialize(zuckerl)
-    @zuckerl = zuckerl
-    @location = zuckerl.location
-    @user = @location.boss
-    super template: MAIL_TEMPLATE, message: build_message
-  end
-
   private
 
-  attr_reader :zuckerl, :location, :user
+  def template
+    MAIL_TEMPLATE
+  end
 
-  def build_message
+  def message
     {
       to: [ { email: @user.email } ],
       from_email: FROM_EMAIL,

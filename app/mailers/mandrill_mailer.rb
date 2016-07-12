@@ -1,6 +1,5 @@
 class MandrillMailer < BaseApiMailer
-  FROM_EMAIL = Rails.configuration.x.mandril_from_email
-  FROM_NAME = Rails.configuration.x.mandril_from_name
+  include MailUtils
 
   def initialize(template:nil, message:nil)
     @template = template

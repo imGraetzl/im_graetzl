@@ -1,19 +1,14 @@
-class Zuckerl::LiveInformation < MandrillMailer
+class Zuckerl::LiveInformationMail < Zuckerl::BaseMail
   MAIL_TEMPLATE = 'zuckerl-live'
   SUBJECT = 'Dein Grätzlzuckerl ist jetzt online'
 
-  def initialize(zuckerl)
-    @zuckerl = zuckerl
-    @location = zuckerl.location
-    @user = @location.boss
-    super template: MAIL_TEMPLATE, message: build_message
-  end
-
   private
 
-  attr_reader :zuckerl, :location, :user
+  def template
+    MAIL_TEMPLATE
+  end
 
-  def build_message
+  def message
     {
       to: [ { email: @user.email } ],
       from_email: FROM_EMAIL,

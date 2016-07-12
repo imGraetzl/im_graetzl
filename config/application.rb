@@ -31,6 +31,9 @@ module ImGraetzl
     # Set path for nested translation files
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
+    # add mailer concerns
+    config.autoload_paths += %W(#{config.root}/app/mailers/concerns)
+
     # No longer suppress Active Record errors within after_rollback or after_commit
     # (behavior added in Rails 4.2)
     config.active_record.raise_in_transactional_callbacks = true
