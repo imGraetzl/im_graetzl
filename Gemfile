@@ -9,7 +9,7 @@ gem 'puma'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # postgis adapter
-gem 'activerecord-postgis-adapter'
+gem 'activerecord-postgis-adapter', '~> 3.1'
 # ruby lib for geospatial data
 gem 'rgeo'
 # rgeo geojson module for encode/decode
