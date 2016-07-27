@@ -5,6 +5,10 @@ FactoryGirl.define do
     bitmask 1
     type 'Notifications::NewMeeting'
 
+    trait :with_activity do
+      activity
+    end
+
     factory :notification_new_meeting, class: 'Notifications::NewMeeting' do
       bitmask Notifications::NewMeeting::BITMASK
       type Notifications::NewMeeting

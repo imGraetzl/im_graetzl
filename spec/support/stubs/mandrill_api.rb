@@ -8,6 +8,10 @@ module Stubs
         body: {}.to_json)
     end
 
+    def mandrill_url
+      'https://mandrillapp.com/api/1.0/messages/send-template.json'
+    end
+
     private
 
     def mandrill_api_url
