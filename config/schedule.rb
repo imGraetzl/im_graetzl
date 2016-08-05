@@ -25,3 +25,7 @@ end
 every 10.minutes do
   rake 'admin:cleanup', output: "log/#{ENV['RACK_ENV']}.log"
 end
+
+every 2.hours do
+  rake 'admin:renew_permissions', output: "log/#{ENV['RACK_ENV']}.log"
+end
