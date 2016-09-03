@@ -14,6 +14,16 @@ module ApplicationHelper
     render user ? 'nav_user' : 'nav_guest'
   end
 
+  def link_to_more_info
+    blog_url = 'http://blog.imgraetzl.at/services/'
+    icon = 'icon-lightbulb'
+    use = content_tag(:use, nil, { 'xlink:href' => "##{icon}" })
+    link_to blog_url, target: '_blank' do
+      concat content_tag(:svg, use, class: icon)
+      concat "Mehr Infos"
+    end
+  end
+
   def filters_for(user, graetzl)
     render "graetzls/#{user ? 'users' : 'guests'}/filters", graetzl: graetzl
   end
