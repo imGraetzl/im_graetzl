@@ -15,7 +15,7 @@ Geo-data backed Ruby on Rails social network app Vienna.
 
 ### Dependencies
 
-* [PostgreSQL](http://www.postgresql.org/) 9.4 with [PostGIS](http://postgis.net/) extension for spatial data
+* [PostgreSQL](http://www.postgresql.org/) >= 9.4 with [PostGIS](http://postgis.net/) extension for spatial data
 * [ImageMagick](http://www.imagemagick.org/)
 * Ruby >= 2.3.0 *is what we run in production*
 * [GEOS](https://trac.osgeo.org/geos/) and [Proj](https://github.com/OSGeo/proj.4) for some spatial calculations
@@ -28,15 +28,25 @@ Geo-data backed Ruby on Rails social network app Vienna.
 
 ### Setup on OSX
 
-*Assuming you have a working ruby installation*  
-Use [Homebrew](http://brew.sh/) to install the required dependencies:
-
+*Assuming you are on the correct Ruby version*
 ```sh
-$ brew install postgresql
-# follow the install instructions
-$ brew install postgis
-# follow instructions to enable postgis extension
-$ brew install geos proj phantomjs imagemagick
+# install dependencies with homebrew
+$ brew install geos proj posgres postgis phantomjs imagemagick
+
+# make sure postgres is running
+$ brew services start postgresql
+
+# create postgres user (if not existing)
+$ createuser postgres
+
+# install gems
+$ bundle install
+
+# setup database
+$ rake db:setup
+
+# populate database with sample data
+$ rake db:populate
 ```
 
 ### Setup with Vagrant
@@ -56,12 +66,17 @@ This will spin up a new VM and install all required dependencies.
 
 Once the VM is ready, in the project directory run:
 
-```shell
-$ vagrant ssh   # to ssh into your VM
-$ cd /vagrant   # to change into the mounted project directory within the VM
-```
+```sh
+# ssh into the VM and change to the mounted project directory
+$ vagrant ssh
+$ cd /vagrant
 
-Once you are there and it is your first time spinning up the VM, set up and eventually populate the database as described in [Database Setup](#database-setup).
+# set up the database
+$ rake db:setup
+
+# populate the database with sample data
+$ rake db:populate
+```
 
 #### Run the application
 
@@ -89,16 +104,6 @@ To shut down the VM, run:
 ```sh
 $ vagrant halt   # $ vagrant up will continue at the state you left the VM
 ```
-
-### Database Setup
-
-Setup Postgis database and seed data (districts and graetzl):
-
-    $ rake db:setup
-
-Populate database with sample data:
-
-    $ rake db:populate
 
 
 ## Deployment
