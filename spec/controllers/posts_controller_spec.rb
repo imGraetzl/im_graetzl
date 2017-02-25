@@ -10,7 +10,7 @@ RSpec.describe PostsController, type: :controller do
     before { create :operating_range, operator: admin_post, graetzl: graetzl }
 
     context 'when html request' do
-      before { get :index, graetzl_id: graetzl }
+      before { get :index, params: { graetzl_id: graetzl } }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
@@ -30,7 +30,7 @@ RSpec.describe PostsController, type: :controller do
       end
     end
     context 'when js request' do
-      before { xhr :get, :index, graetzl_id: graetzl, page: 2 }
+      before { get :index, params: { graetzl_id: graetzl, page: 2 }, xhr: true }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
@@ -55,7 +55,7 @@ RSpec.describe PostsController, type: :controller do
 
       context 'when logged out' do
         it 'redirects to login with flash' do
-          delete :destroy, id: post
+          delete :destroy, params: { id: post }
           expect(response).to redirect_to new_user_session_path
           expect(flash[:alert]).to be_present
         end
@@ -67,24 +67,24 @@ RSpec.describe PostsController, type: :controller do
         context 'when html request' do
           it 'deletes record' do
             expect{
-              delete :destroy, id: post
+              delete :destroy, params: { id: post }
             }.to change{Post.count}.by -1
           end
 
           it 'redirects to graetzl' do
-            delete :destroy, id: post
+            delete :destroy, params: { id: post }
             expect(response).to redirect_to graetzl
           end
         end
         context 'when js request' do
           it 'deletes record' do
             expect{
-              xhr :delete, :destroy, id: post
+              delete :destroy, params: { id: post }, xhr: true
             }.to change{Post.count}.by -1
           end
 
           it 'render destroy.js' do
-            xhr :delete, :destroy, id: post
+            delete :destroy, params: { id: post }, xhr: true
             expect(response).to render_template :destroy
           end
         end

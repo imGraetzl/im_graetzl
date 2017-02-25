@@ -20,7 +20,7 @@ RSpec.describe Admin::UserPostsController, type: :controller do
   describe 'GET show' do
     let(:user_post) { create :user_post }
 
-    before { get :show, id: user_post }
+    before { get :show, params: { id: user_post } }
 
     it 'assigns @user_post' do
       expect(assigns :user_post).to eq user_post
@@ -32,7 +32,7 @@ RSpec.describe Admin::UserPostsController, type: :controller do
   end
   describe 'GET edit' do
     let(:user_post) { create :user_post }
-    before { get :edit, id: user_post }
+    before { get :edit, params: { id: user_post } }
 
     it 'assigns @user_post' do
       expect(assigns :user_post).to eq user_post
@@ -50,7 +50,7 @@ RSpec.describe Admin::UserPostsController, type: :controller do
       graetzl_id: graetzl.id, author_id: new_user.id, author_type: 'User' }}}
 
     before do
-      put :update, params
+      put :update, params: params
       user_post.reload
     end
 
@@ -67,12 +67,12 @@ RSpec.describe Admin::UserPostsController, type: :controller do
 
     it 'deletes record' do
       expect{
-        delete :destroy, id: user_post
+        delete :destroy, params: { id: user_post }
       }.to change{UserPost.count}.by -1
     end
 
     it 'redirect_to user_post index' do
-      delete :destroy, id: user_post
+      delete :destroy, params: { id: user_post }
       expect(response).to redirect_to [:admin, UserPost]
     end
   end

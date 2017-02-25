@@ -20,7 +20,7 @@ RSpec.describe Admin::LocationPostsController, type: :controller do
   describe 'GET show' do
     let(:location_post) { create :location_post }
 
-    before { get :show, id: location_post }
+    before { get :show, params: { id: location_post } }
 
     it 'assigns @location_post' do
       expect(assigns :location_post).to eq location_post
@@ -32,7 +32,7 @@ RSpec.describe Admin::LocationPostsController, type: :controller do
   end
   describe 'GET edit' do
     let(:location_post) { create :location_post }
-    before { get :edit, id: location_post }
+    before { get :edit, params: { id: location_post } }
 
     it 'assigns @location_post' do
       expect(assigns :location_post).to eq location_post
@@ -47,7 +47,7 @@ RSpec.describe Admin::LocationPostsController, type: :controller do
     let(:params) {{ id: location_post, location_post: { title: 'hello', content: 'world' }}}
 
     before do
-      put :update, params
+      put :update, params: params
       location_post.reload
     end
 
@@ -64,12 +64,12 @@ RSpec.describe Admin::LocationPostsController, type: :controller do
 
     it 'deletes record' do
       expect{
-        delete :destroy, id: location_post
+        delete :destroy, params: { id: location_post }
       }.to change{LocationPost.count}.by -1
     end
 
     it 'redirect_to location_post index' do
-      delete :destroy, id: location_post
+      delete :destroy, params: { id: location_post }
       expect(response).to redirect_to [:admin, LocationPost]
     end
   end

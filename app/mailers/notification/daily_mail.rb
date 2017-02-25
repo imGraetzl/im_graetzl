@@ -60,7 +60,7 @@ class Notification::DailyMail
   end
 
   def build_block(name, types)
-    notifications = @notifications.where(type: types)
+    notifications = @notifications.where(type: types.map(&:to_s))
     unless notifications.empty?
       {
         name: name,

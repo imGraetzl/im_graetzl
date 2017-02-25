@@ -1,4 +1,4 @@
-class BillingAddress < ActiveRecord::Base
+class BillingAddress < ApplicationRecord
   belongs_to :location
 
   validates :location, presence: true

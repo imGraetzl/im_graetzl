@@ -1,13 +1,10 @@
 class Graetzls::MeetingsController < MeetingsController
   def index
-    # @graetzl = find_graetzl
-    @meetings = @graetzl.meetings.
-      by_currentness.
-      page(params[:page]).per(15)
+    @meetings = @graetzl.meetings.by_currentness.includes(:graetzl, :location)
+    @meetings = @meetings.page(params[:page]).per(15)
   end
 
   def show
-    # @graetzl = find_graetzl
     @meeting = find_meeting
     verify_graetzl_child(@meeting) unless request.xhr?
     @comments = @meeting.comments.

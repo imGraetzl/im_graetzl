@@ -11,10 +11,10 @@ active_admin_form_for [:admin, resource] do |f|
     input :role, as: :select, collection: User.roles.keys
     input :bio
     input :website
-    f.input :cover_photo, as: :file, hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
+    f.input :cover_photo, as: :file, hint: (image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100)) if f.object.cover_photo)
     input :remove_cover_photo, as: :boolean if f.object.cover_photo
     input :avatar, as: :file,
-      hint: image_tag(attachment_url(f.object, :avatar, :fill, 100, 100))
+      hint: (image_tag(attachment_url(f.object, :avatar, :fill, 100, 100)) if f.object.avatar)
     input :remove_avatar, as: :boolean if f.object.avatar
     input :newsletter
   end

@@ -60,11 +60,11 @@ class MeetingsController < ApplicationController
 
   def create_meeting_params
     if params[:feature].present?
-      meeting_params.deep_merge(
+      meeting_params.to_h.deep_merge(
         address_attributes: address_attr,
         going_tos_attributes: user_attr)
     else
-      meeting_params.deep_merge(going_tos_attributes: user_attr)
+      meeting_params.to_h.deep_merge(going_tos_attributes: user_attr)
     end
   end
 
@@ -74,7 +74,7 @@ class MeetingsController < ApplicationController
     elsif params[:address].present? && params[:feature].blank?
       meeting_params
     else
-      meeting_params.deep_merge(address_attributes: address_attr)
+      meeting_params.to_h.deep_merge(address_attributes: address_attr)
     end
   end
 

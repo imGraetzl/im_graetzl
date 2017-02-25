@@ -1,4 +1,4 @@
-class Zuckerl::InvoiceJob < ActiveJob::Base
+class Zuckerl::InvoiceJob < ApplicationJob
   queue_as :default
 
   def perform(zuckerl)

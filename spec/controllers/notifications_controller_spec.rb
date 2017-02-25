@@ -25,7 +25,7 @@ RSpec.describe NotificationsController, type: :controller do
         sign_in user
       end
       describe 'initial request' do
-        before { xhr :get, :index }
+        before { get :index, xhr: true }
 
         it 'assigns @page to 1' do
           expect(assigns :page).to eq 1
@@ -53,7 +53,7 @@ RSpec.describe NotificationsController, type: :controller do
         end
       end
       describe 'pagination request' do
-        before { xhr :get, :index, page: '2' }
+        before { get :index, params: { page: '2' }, xhr: true }
 
         it 'assigns @page = 2' do
           expect(assigns :page).to eq 2
@@ -81,12 +81,12 @@ RSpec.describe NotificationsController, type: :controller do
 
     it 'marks notifications as seen' do
       expect(notifications.map(&:seen)).to all(be false)
-      xhr :post, :mark_as_seen, params
+      post :mark_as_seen, params: params, xhr: true
       notifications.map{|n| n.reload}
       expect(notifications.map(&:seen)).to all(be true)
     end
     it 'renders mark_as_seen.js' do
-      xhr :post, :mark_as_seen, params
+      post :mark_as_seen, params: params, xhr: true
       expect(response.content_type).to eq 'text/javascript'
       expect(response).to render_template(:mark_as_seen)
     end

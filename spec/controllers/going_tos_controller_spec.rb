@@ -8,7 +8,7 @@ RSpec.describe GoingTosController, type: :controller do
 
     context 'when logged out' do
       it 'returns 401 unauthorized' do
-        xhr :post, :create, meeting_id: meeting
+        post :create, params: { meeting_id: meeting }, xhr: true
         expect(response).to have_http_status 401
       end
     end
@@ -18,24 +18,24 @@ RSpec.describe GoingTosController, type: :controller do
       before { sign_in user }
 
       it 'assigns @meeting' do
-        xhr :post, :create, meeting_id: meeting
+        post :create, params: { meeting_id: meeting }, xhr: true
         expect(assigns :meeting).to eq meeting
       end
 
       it 'creates new going_to record' do
         expect {
-          xhr :post, :create, meeting_id: meeting
+          post :create, params: { meeting_id: meeting }, xhr: true
         }.to change{GoingTo.count}.by 1
       end
 
       it 'logs activity' do
         expect{
-          xhr :post, :create, meeting_id: meeting
+          post :create, params: { meeting_id: meeting }, xhr: true
         }.to change{Activity.count}.by 1
       end
 
       it 'renders create.js' do
-        xhr :post, :create, meeting_id: meeting
+        post :create, params: { meeting_id: meeting }, xhr: true
         expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :create
       end
@@ -49,7 +49,7 @@ RSpec.describe GoingTosController, type: :controller do
 
     context 'when logged out' do
       it 'returns 401 unauthorized' do
-        xhr :delete, :destroy, id: going_to
+        delete :destroy, params: { id: going_to }, xhr: true
         expect(response).to have_http_status 401
       end
     end
@@ -58,17 +58,17 @@ RSpec.describe GoingTosController, type: :controller do
 
       it 'deletes going to record' do
         expect{
-          xhr :delete, :destroy, id: going_to
+          delete :destroy, params: { id: going_to }, xhr: true
         }.to change{GoingTo.count}.by -1
       end
 
       it 'assigns @meeting' do
-        xhr :delete, :destroy, id: going_to
+        delete :destroy, params: { id: going_to }, xhr: true
         expect(assigns :meeting).to eq meeting
       end
 
       it 'renders destroy.js' do
-        xhr :delete, :destroy, id: going_to
+        delete :destroy, params: { id: going_to }, xhr: true
         expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :destroy
       end

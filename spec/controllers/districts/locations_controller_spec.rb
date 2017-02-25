@@ -9,7 +9,7 @@ RSpec.describe Districts::LocationsController, type: :controller do
     let(:district) { create(:district) }
 
     context 'when html request' do
-      before { get :index, district_id: district }
+      before { get :index, params: { district_id: district } }
 
       it 'assigns @district' do
         expect(assigns :district).to eq district
@@ -30,7 +30,7 @@ RSpec.describe Districts::LocationsController, type: :controller do
     end
 
     context 'when js request' do
-      before { xhr :get, :index, district_id: district, page: 2 }
+      before { get :index, params: { district_id: district, page: 2 }, xhr: true }
 
       it 'assigns @district' do
         expect(assigns :district).to eq district

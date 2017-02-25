@@ -20,7 +20,7 @@ RSpec.describe ZuckerlsController, type: :controller do
         let(:location) { create :location, state: Location::states[:approved] }
         before do
           create(:location_ownership, user: user, location: location)
-          get :new, location_id: location
+          get :new, params: { location_id: location }
         end
 
         it 'assigns @location' do
@@ -81,12 +81,12 @@ RSpec.describe ZuckerlsController, type: :controller do
 
       it 'creates new zuckerl record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Zuckerl.count}.by 1
       end
 
       it 'redirects_to booking_address form' do
-        post :create, params
+        post :create, params: params
         zuckerl = Zuckerl.last
         expect(response).to redirect_to zuckerl_billing_address_path(zuckerl)
       end
@@ -98,12 +98,12 @@ RSpec.describe ZuckerlsController, type: :controller do
 
       it 'does not create new zuckerl record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.not_to change{Zuckerl.count}
       end
 
       it 'renders :new' do
-        post :create, params
+        post :create, params: params
         expect(response).to render_template :new
       end
     end
@@ -115,7 +115,7 @@ RSpec.describe ZuckerlsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        get :edit, location_id: location, id: zuckerl
+        get :edit, params: { location_id: location, id: zuckerl }
         expect(response).to render_template(session[:new])
       end
     end
@@ -127,7 +127,7 @@ RSpec.describe ZuckerlsController, type: :controller do
       context 'when not owner of location' do
         it 'returns 404' do
           expect{
-            get :edit, location_id: location, id: zuckerl
+            get :edit, params: { location_id: location, id: zuckerl }
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -138,13 +138,13 @@ RSpec.describe ZuckerlsController, type: :controller do
           let(:zuckerl) { create :zuckerl, :live }
 
           it 'redirects to user_zuckerls_path with alert' do
-            get :edit, location_id: location, id: zuckerl
+            get :edit, params: { location_id: location, id: zuckerl }
             expect(response).to redirect_to user_zuckerls_path
             expect(flash[:alert]).to be_present
           end
         end
         context 'when zuckerl :pending' do
-          before { get :edit, location_id: location, id: zuckerl }
+          before { get :edit, params: { location_id: location, id: zuckerl } }
 
           it 'assigns @location' do
             expect(assigns :location).to eq location
@@ -178,13 +178,13 @@ RSpec.describe ZuckerlsController, type: :controller do
 
           it 'updates attributes' do
             expect{
-              put :update, params
+              put :update, params: params
               zuckerl.reload
             }.to change{zuckerl.title}.to 'new_title'
           end
 
           it 'redirects to user_zuckerls_path with notice' do
-            put :update, params
+            put :update, params: params
             expect(response).to redirect_to user_zuckerls_path
             expect(flash[:notice]).to be_present
           end
@@ -194,13 +194,13 @@ RSpec.describe ZuckerlsController, type: :controller do
 
           it 'does not update attributes' do
             expect{
-              put :update, params
+              put :update, params: params
               zuckerl.reload
             }.not_to change{zuckerl.title}
           end
 
           it 'renders :edit' do
-            put :update, params
+            put :update, params: params
             expect(response).to render_template :edit
           end
         end
@@ -208,7 +208,7 @@ RSpec.describe ZuckerlsController, type: :controller do
           let(:zuckerl) { create :zuckerl, :live }
 
           it 'redirects to user_zuckerls_path with alert' do
-            put :update, location_id: location, id: zuckerl
+            put :update, params: { location_id: location, id: zuckerl }
             expect(response).to redirect_to user_zuckerls_path
             expect(flash[:alert]).to be_present
           end
@@ -217,7 +217,7 @@ RSpec.describe ZuckerlsController, type: :controller do
       context 'when not owner of location' do
         it 'returns 404' do
           expect{
-            put :update, location_id: location, id: zuckerl
+            put :update, params: { location_id: location, id: zuckerl }
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -237,7 +237,7 @@ RSpec.describe ZuckerlsController, type: :controller do
 
         it 'changes zuckerl to :cancelled' do
           expect{
-            delete :destroy, location_id: location, id: zuckerl
+            delete :destroy, params: { location_id: location, id: zuckerl }
             zuckerl.reload
           }.to change{zuckerl.aasm.current_state}.to :cancelled
         end

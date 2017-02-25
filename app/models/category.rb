@@ -1,4 +1,4 @@
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
   enum context: { recreation: 0, business: 1 }
 
   has_many :categorizations

@@ -24,7 +24,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
   describe 'GET show' do
     let(:location) { create(:location) }
-    before { get :show, id: location }
+    before { get :show, params: { id: location } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -73,11 +73,11 @@ RSpec.describe Admin::LocationsController, type: :controller do
     context 'with basic attributes' do
       it 'creates new location record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Location.count}.by(1)
       end
       it 'assigns attributes to location' do
-        post :create, params
+        post :create, params: params
         l = Location.last
         expect(l).to have_attributes(
           graetzl_id: location.graetzl.id,
@@ -89,7 +89,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
           state: location.state)
       end
       it 'redirects_to new location page' do
-        post :create, params
+        post :create, params: params
         new_location = Location.last
         expect(response).to redirect_to(admin_location_path(new_location))
       end
@@ -127,27 +127,27 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
       it 'creates new location record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Location.count}.by(1)
       end
       it 'creates new address record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Address.count}.by(1)
       end
       it 'creates new contact record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Contact.count}.by(1)
       end
 
       it 'creates new ownership record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{LocationOwnership.count}.by(2)
       end
       describe 'new location' do
-        before { post :create, params }
+        before { post :create, params: params }
         subject(:new_location) { Location.last }
 
         it 'is has address' do
@@ -176,7 +176,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
   describe 'GET edit' do
     let(:location) { create(:location) }
-    before { get :edit, id: location }
+    before { get :edit, params: { id: location } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -211,7 +211,7 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
     context 'with basic attributes' do
       before do
-        put :update, params
+        put :update, params: params
         location.reload
       end
 
@@ -240,13 +240,13 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
       it 'removes address from location' do
         expect(location.address).to be_present
-        put :update, params
+        put :update, params: params
         location.reload
         expect(location.address).not_to be_present
       end
       it 'deletes address record' do
         expect{
-          put :update, params
+          put :update, params: params
         }.to change{Address.count}.by(-1)
       end
     end
@@ -261,11 +261,11 @@ RSpec.describe Admin::LocationsController, type: :controller do
         end
         it 'creates new ownership record' do
           expect{
-            put :update, params
+            put :update, params: params
           }.to change(LocationOwnership, :count).by(1)
         end
         it 'adds user to location' do
-          put :update, params
+          put :update, params: params
           expect(location.reload.users).to include(user)
         end
       end
@@ -281,12 +281,12 @@ RSpec.describe Admin::LocationsController, type: :controller do
         it 'destroys ownership record' do
           expect(LocationOwnership.count).to eq 1
           expect{
-            put :update, params
+            put :update, params: params
           }.to change(LocationOwnership, :count).by(-1)
         end
         it 'removes user from location' do
           expect(location.users). to include(new_user)
-          put :update, params
+          put :update, params: params
           location.reload
           expect(location.users).not_to include(new_user)
         end
@@ -299,11 +299,11 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
     it 'deletes location record' do
       expect{
-        delete :destroy, id: location
+        delete :destroy, params: { id: location }
       }.to change{Location.count}.by(-1)
     end
     it 'redirects_to index page' do
-      delete :destroy, id: location
+      delete :destroy, params: { id: location }
       expect(response).to redirect_to(admin_locations_path)
     end
   end
@@ -314,12 +314,12 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
       it 'changes state to approved' do
         expect{
-          put :approve, id: location
+          put :approve, params: { id: location }
           location.reload
         }.to change{location.state}.from('pending').to('approved')
       end
       it 'redirects to index with flash[:success]' do
-        put :approve, id: location
+        put :approve, params: { id: location }
         expect(response).to redirect_to admin_locations_path
         expect(flash[:success]).to be_present
       end
@@ -330,12 +330,12 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
       it 'does not change state' do
         expect{
-          put :approve, id: location
+          put :approve, params: { id: location }
           location.reload
         }.not_to change(location, :state)
       end
       it 'redirects to location page with flash[:error]' do
-        put :approve, id: location
+        put :approve, params: { id: location }
         expect(response).to redirect_to admin_location_path(location)
         expect(flash[:error]).to be_present
       end
@@ -348,11 +348,11 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
       it 'destroys record' do
         expect{
-          put :reject, id: location
+          put :reject, params: { id: location }
         }.to change(Location, :count).by(-1)
       end
       it 'redirects to admin_locations with flash[:notice]' do
-        put :reject, id: location
+        put :reject, params: { id: location }
         expect(response).to redirect_to admin_locations_path
         expect(flash[:notice]).to be_present
       end
@@ -362,12 +362,12 @@ RSpec.describe Admin::LocationsController, type: :controller do
 
       it 'does not change state' do
         expect{
-          put :reject, id: location
+          put :reject, params: { id: location }
           location.reload
         }.not_to change(location, :state)
       end
       it 'redirects to admin_location with flash[:error]' do
-        put :reject, id: location
+        put :reject, params: { id: location }
         expect(response).to redirect_to admin_location_path(location)
         expect(flash[:error]).to be_present
       end

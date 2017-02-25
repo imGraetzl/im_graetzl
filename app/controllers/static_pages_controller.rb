@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
     if current_user
       redirect_to current_user.graetzl
     else
-      @meetings = Meeting.by_currentness.first(2)
+      @meetings = Meeting.includes(:graetzl, :location).by_currentness.first(2)
       @locations = Location.by_activity.to_a.first(2)
       @zuckerls = Zuckerl.live.order("RANDOM()").first(2)
     end

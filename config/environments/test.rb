@@ -14,13 +14,15 @@ Rails.application.configure do
 
   # Eager load STI classes in order to use '.subclasses' method
   config.eager_load_paths += Dir["#{Rails.root}/app/models/notifications/*.rb"]
-  ActionDispatch::Reloader.to_prepare do
+  ActiveSupport::Reloader.to_prepare do
     Dir["#{Rails.root}/app/models/notifications/*.rb"].each {|file| require_dependency file}
   end
 
   # Configure static file server for tests with Cache-Control for performance.
-  config.serve_static_files  = true
-  config.static_cache_control = 'public, max-age=3600'
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = {
+    'Cache-Control' => 'public, max-age=3600'
+  }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -37,6 +39,7 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_url_options = { host: 'test.yourhost.com' }
+  config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

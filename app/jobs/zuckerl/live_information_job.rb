@@ -1,4 +1,4 @@
-class Zuckerl::LiveInformationJob < ActiveJob::Base
+class Zuckerl::LiveInformationJob < ApplicationJob
   queue_as :default
 
   def perform(zuckerl)

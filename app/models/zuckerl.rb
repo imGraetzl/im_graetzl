@@ -1,4 +1,4 @@
-class Zuckerl < ActiveRecord::Base
+class Zuckerl < ApplicationRecord
   extend FriendlyId
   include AASM
 

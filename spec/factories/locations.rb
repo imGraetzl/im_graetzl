@@ -7,6 +7,7 @@ FactoryGirl.define do
     graetzl
     category
 
+
     trait :pending do
       state Location.states[:pending]
     end

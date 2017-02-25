@@ -3,13 +3,13 @@ source 'https://rubygems.org'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.7.1'
+gem 'rails', '~> 5.0'
 # Use puma as default webserver
 gem 'puma'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # postgis adapter
-gem 'activerecord-postgis-adapter', '~> 3.1'
+gem 'activerecord-postgis-adapter', '~> 4.0'
 # ruby lib for geospatial data
 gem 'rgeo'
 # rgeo geojson module for encode/decode
@@ -46,6 +46,9 @@ group :development do
 end
 
 group :development, :test do
+  gem 'listen', '~> 3.0.5'
+  # Helpers don't work if required, https://github.com/rspec/rspec-rails/issues/1525
+  gem 'rails-controller-testing', require: false
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'byebug'
@@ -60,7 +63,6 @@ group :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'webmock'
-  gem 'test_after_commit'
 end
 
 # Use ActiveModel has_secure_password
@@ -72,22 +74,25 @@ end
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
 # to query json apis
 gem 'httparty'
 # use devise for authentication
 gem 'devise'
+
 # refile
-gem 'refile', require: ['refile/rails']
-gem 'refile-mini_magick'
+gem 'refile', github: 'refile/refile', require: 'refile/rails'
+gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
+gem 'sinatra', github: 'sinatra/sinatra', ref: "88a1ba7bfb2262b68391d2490dbb440184b9f838"
 gem 'refile-s3'
 gem 'aws-sdk'
+
 # use seo-friendly urls
 gem 'friendly_id'
 # activeadmin for admin interface (pre version)
+
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'jquery-ui-rails', '5.0.0'
+
 # submit multipart forms with ajax
 gem 'remotipart'
 # pagination

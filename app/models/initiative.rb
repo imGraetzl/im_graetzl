@@ -1,4 +1,4 @@
-class Initiative < ActiveRecord::Base
+class Initiative < ApplicationRecord
   attachment :image, type: :image
 
   has_many :operating_ranges, as: :operator

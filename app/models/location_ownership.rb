@@ -1,4 +1,4 @@
-class LocationOwnership < ActiveRecord::Base
+class LocationOwnership < ApplicationRecord
   belongs_to :user
   belongs_to :location
 

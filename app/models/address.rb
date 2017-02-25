@@ -1,4 +1,4 @@
-class Address < ActiveRecord::Base
+class Address < ApplicationRecord
   belongs_to :addressable, polymorphic: true
 
   before_save :get_coordinates

@@ -9,7 +9,7 @@ RSpec.describe UserPostsController, type: :controller do
     let!(:new_comments) { create_list :comment, 10, commentable: post }
 
     context 'when html request' do
-      before { get :show, graetzl_id: graetzl, id: post }
+      before { get :show, params: { graetzl_id: graetzl, id: post } }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
@@ -29,7 +29,7 @@ RSpec.describe UserPostsController, type: :controller do
       end
     end
     context 'when js request for next comments' do
-      before { xhr :get, :show, graetzl_id: graetzl, id: post, page: 2 }
+      before { get :show, params: { graetzl_id: graetzl, id: post, page: 2 }, xhr: true }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
@@ -54,7 +54,7 @@ RSpec.describe UserPostsController, type: :controller do
 
       it 'raises record not found exception' do
         expect{
-          get :show, graetzl_id: graetzl, id: post
+          get :show, params: { graetzl_id: graetzl, id: post }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
     end
@@ -63,7 +63,7 @@ RSpec.describe UserPostsController, type: :controller do
   describe 'GET new' do
     context 'when logged out' do
       it 'redirects to login with flash' do
-        get :new, graetzl_id: graetzl
+        get :new, params: { graetzl_id: graetzl }
         expect(response).to redirect_to new_user_session_path
         expect(flash[:alert]).to be_present
       end
@@ -73,7 +73,7 @@ RSpec.describe UserPostsController, type: :controller do
 
       before do
         sign_in user
-        get :new, graetzl_id: graetzl
+        get :new, params: { graetzl_id: graetzl }
       end
 
       it 'assigns @graetzl' do
@@ -94,7 +94,7 @@ RSpec.describe UserPostsController, type: :controller do
   describe 'POST create' do
     context 'when logged out' do
       it 'redirects to login with flash' do
-        post :create, graetzl_id: graetzl, user_post: {}
+        post :create, params: { graetzl_id: graetzl, user_post: {} }
         expect(response).to redirect_to new_user_session_path
         expect(flash[:alert]).to be_present
       end
@@ -111,29 +111,29 @@ RSpec.describe UserPostsController, type: :controller do
 
         it 'creates new user post record' do
           expect{
-            post :create, params
+            post :create, params: params
           }.to change{UserPost.count}.by 1
         end
 
         it 'assigns @graetzl' do
-          post :create, params
+          post :create, params: params
           expect(assigns :graetzl).to eq graetzl
         end
 
         it 'assigns @user_post for user' do
-          post :create, params
+          post :create, params: params
           expect(assigns :user_post).to have_attributes(author: user, graetzl: graetzl)
         end
 
         it 'redirects to post in graetzl' do
-          post :create, params
+          post :create, params: params
           expect(response).to redirect_to [graetzl, UserPost.last]
         end
       end
       context 'with invalid attributes' do
         let(:params) {{ graetzl_id: graetzl, user_post: { content: 'something else' } }}
 
-        before { post :create, params }
+        before { post :create, params: params }
 
         it 'renders :new' do
           expect(response).to render_template :new

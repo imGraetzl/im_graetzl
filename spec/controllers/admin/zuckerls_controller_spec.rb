@@ -21,7 +21,7 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
   end
   describe 'GET show' do
     let(:zuckerl) { create :zuckerl }
-    before { get :show, id: zuckerl }
+    before { get :show, params: { id: zuckerl } }
 
     it 'assigns @zuckerl' do
       expect(assigns :zuckerl).to eq zuckerl
@@ -51,18 +51,18 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
 
     it 'creates new zuckerl record' do
       expect{
-        post :create, params
+        post :create, params: params
       }.to change{Zuckerl.count}.by 1
     end
 
     it 'does not enqueue InvoiceJob' do
       expect{
-        post :create, params
+        post :create, params: params
       }.not_to have_enqueued_job(Zuckerl::InvoiceJob)
     end
 
     it 'assigns @zuckerl' do
-      post :create, params
+      post :create, params: params
       expect(assigns :zuckerl).to have_attributes(
         aasm_state: 'draft',
         location: location)
@@ -70,7 +70,7 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
   end
   describe 'GET edit' do
     let(:zuckerl) { create :zuckerl }
-    before { get :edit, id: zuckerl }
+    before { get :edit, params: { id: zuckerl } }
 
     it 'assigns @zuckerl' do
       expect(assigns :zuckerl).to eq zuckerl
@@ -91,14 +91,14 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
 
       it 'updates aasm_state' do
         expect{
-          put :update, params
+          put :update, params: params
           zuckerl.reload
         }.to change{zuckerl.aasm_state}.from('pending').to('paid')
       end
 
       it 'enqueues InvoiceJob' do
         expect{
-          put :update, params
+          put :update, params: params
         }.to have_enqueued_job(Zuckerl::InvoiceJob)
       end
     end
@@ -108,13 +108,13 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
 
       it 'does not change state' do
         expect{
-          put :update, params
+          put :update, params: params
           zuckerl.reload
         }.not_to change{zuckerl.aasm_state}
       end
 
       it 'updates attributes' do
-        put :update, params
+        put :update, params: params
         zuckerl.reload
         expect(zuckerl).to have_attributes(title: 'new title', location: location)
       end
@@ -125,7 +125,7 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
 
     it 'deletes zuckerl record' do
       expect{
-        delete :destroy, id: zuckerl
+        delete :destroy, params: { id: zuckerl }
       }.to change{Zuckerl.count}.by -1
     end
   end

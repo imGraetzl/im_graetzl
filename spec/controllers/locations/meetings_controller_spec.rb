@@ -8,14 +8,14 @@ RSpec.describe Locations::MeetingsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        get :new, location_id: location
+        get :new, params: { location_id: location }
         expect(response).to render_template(session[:new])
       end
     end
     context 'when logged in' do
       before do
         sign_in create(:user)
-        get :new, location_id: location
+        get :new, params: { location_id: location }
       end
 
       it_behaves_like :meetings_new
@@ -35,7 +35,7 @@ RSpec.describe Locations::MeetingsController, type: :controller do
   describe 'POST create' do
     context 'when logged out' do
       it 'redirects to login' do
-        post :create, location_id: 1
+        post :create, params: { location_id: 1 }
         expect(response).to render_template(session[:new])
       end
     end
@@ -56,13 +56,13 @@ RSpec.describe Locations::MeetingsController, type: :controller do
         it_behaves_like :meetings_create
 
         it 'assigns @parent to location' do
-          post :create, params
+          post :create, params: params
           expect(assigns :parent).to eq location
         end
 
         it 'creates new address' do
           expect{
-            post :create, params
+            post :create, params: params
           }.to change{Address.count}.by 1
         end
       end
@@ -74,13 +74,13 @@ RSpec.describe Locations::MeetingsController, type: :controller do
         it_behaves_like :meetings_create
 
         it 'assigns @parent to location' do
-          post :create, params
+          post :create, params: params
           expect(assigns :parent).to eq location
         end
 
         it 'does not create address' do
           expect{
-            post :create, params
+            post :create, params: params
           }.not_to change{Address.count}
         end
       end

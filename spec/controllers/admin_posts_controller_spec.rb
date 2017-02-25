@@ -7,7 +7,7 @@ RSpec.describe AdminPostsController, type: :controller do
     let!(:new_comments) { create_list :comment, 10, commentable: post }
 
     context 'when html request' do
-      before { get :show, id: post }
+      before { get :show, params: { id: post.id } }
 
       it 'assigns @post' do
         expect(assigns :post).to eq post
@@ -23,7 +23,7 @@ RSpec.describe AdminPostsController, type: :controller do
       end
     end
     context 'when js request for next comments' do
-      before { xhr :get, :show, id: post, page: 2 }
+      before { get :show, params: { id: post.id, page: 2 }, xhr: true }
 
       it 'assigns @post' do
         expect(assigns :post).to eq post
@@ -44,7 +44,7 @@ RSpec.describe AdminPostsController, type: :controller do
 
       it 'raises record not found exception' do
         expect{
-          get :show, id: post
+          get :show, params: { id: post }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
     end

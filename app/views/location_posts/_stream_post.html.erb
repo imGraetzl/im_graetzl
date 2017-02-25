@@ -1,4 +1,4 @@
-<%= div_for post, class: 'streamElement' do %>
+<div id="post_<%= post.id %>" class="post streamElement">
   <div class="entryInitialContent">
     <% if post.edit_permission?(current_user) %>
       <div class="editControls">
@@ -28,4 +28,4 @@
     <% end %>
     <%= render 'location_posts/comment_form', location_post: post %>
   </div>
-<% end %>
+</div>

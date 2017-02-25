@@ -1,4 +1,4 @@
-<%= div_for(comment, class: 'streamElement') do %>
+<div id="comment_<%= comment.id%>" class="comment streamElement">
   <div class="entryInitialContent">
     <% if comment.edit_permission?(current_user) %>
       <div class="editControls">
@@ -24,4 +24,4 @@
       </div>
     <% end %>
   </div>
-<% end %>
+</div>

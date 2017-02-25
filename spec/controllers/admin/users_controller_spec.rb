@@ -23,7 +23,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe 'GET show' do
     let(:user) { create(:user) }
-    before { get :show, id: user }
+    before { get :show, params: { id: user } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -81,12 +81,12 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       it 'creates new user record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{User.count}.by(1)
       end
 
       it 'assigns attributes to user' do
-        post :create, params
+        post :create, params: params
         u = User.last
         expect(u).to have_attributes(
           username: user.username,
@@ -100,7 +100,7 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
 
       it 'redirects_to new user page' do
-        post :create, params
+        post :create, params: params
         new_user = User.last
         expect(response).to redirect_to(admin_user_path(new_user))
       end
@@ -120,24 +120,24 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       it 'creates new user record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{User.count}.by(1)
       end
 
       it 'creates new address record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Address.count}.by(1)
       end
 
       it 'redirects_to new user page' do
-        post :create, params
+        post :create, params: params
         new_user = User.last
         expect(response).to redirect_to(admin_user_path(new_user))
       end
 
       describe 'new user' do
-        before { post :create, params }
+        before { post :create, params: params }
         subject(:new_user) { User.last }
 
         it 'is has address' do
@@ -158,7 +158,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
   describe 'GET edit' do
     let(:user) { create(:user) }
-    before { get :edit, id: user }
+    before { get :edit, params: { id: user } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -198,7 +198,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     context 'with basic attributes' do
       before do
-        put :update, params
+        put :update, params: params
         user.reload
       end
 
@@ -223,7 +223,7 @@ RSpec.describe Admin::UsersController, type: :controller do
 
       it 'changes user role to :admin' do
         expect{
-          put :update, params
+          put :update, params: params
           user.reload
         }.to change{user.role}.from(nil).to('admin')
       end
@@ -238,7 +238,7 @@ RSpec.describe Admin::UsersController, type: :controller do
           city: address.city,
           coordinates: address.coordinates
           })
-        put :update, params
+        put :update, params: params
         user.reload
       end
 
@@ -258,12 +258,12 @@ RSpec.describe Admin::UsersController, type: :controller do
 
     it 'deletes user record' do
       expect{
-        delete :destroy, id: user
+        delete :destroy, params: { id: user }
       }.to change{User.count}.by(-1)
     end
 
     it 'redirects_to index page' do
-      delete :destroy, id: user
+      delete :destroy, params: { id: user }
       expect(response).to redirect_to(admin_users_path)
     end
   end

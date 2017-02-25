@@ -12,17 +12,36 @@ Rails.application.configure do
   # Eager load STI classes in order to use '.subclasses' method
   config.eager_load_paths += Dir["#{Rails.root}/app/models/notifications/*.rb"]
   config.eager_load_paths += Dir["#{Rails.root}/app/services/notifications/*.rb"]
-  ActionDispatch::Reloader.to_prepare do
+  ActiveSupport::Reloader.to_prepare do
     Dir["#{Rails.root}/app/models/notifications/*.rb"].each {|file| require_dependency file}
     Dir["#{Rails.root}/app/services/notifications/*.rb"].each {|file| require_dependency file}
   end
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+
+  # Enable/disable caching. By default caching is disabled.
+  if Rails.root.join('tmp/caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      'Cache-Control' => 'public, max-age=172800'
+    }
+  else
+    config.action_controller.perform_caching = false
+
+    config.cache_store = :null_store
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {
+    from: 'imGrätzl.at <no-reply@development.imgraetzl.at>',
+    reply_to: 'imGrätzl.at <wir@development.imgraetzl.at>'
+  }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :letter_opener
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -47,13 +66,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # email config
-  config.action_mailer.default_options = {
-    from: 'imGrätzl.at <no-reply@development.imgraetzl.at>',
-    reply_to: 'imGrätzl.at <wir@development.imgraetzl.at>'
-  }
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.action_mailer.delivery_method = :letter_opener
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # bullet config
   config.after_initialize do

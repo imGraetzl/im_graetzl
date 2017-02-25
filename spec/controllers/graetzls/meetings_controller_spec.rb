@@ -7,7 +7,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        get :new, graetzl_id: graetzl
+        get :new, params: { graetzl_id: graetzl }
         expect(response).to render_template(session[:new])
       end
     end
@@ -15,7 +15,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       let(:user) { create :user }
       before do
         sign_in user
-        get :new, graetzl_id: graetzl
+        get :new, params: { graetzl_id: graetzl }
       end
 
       it_behaves_like :meetings_new
@@ -42,7 +42,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        post :create, graetzl_id: graetzl
+        post :create, params: { graetzl_id: graetzl }
         expect(response).to render_template(session[:new])
       end
     end
@@ -55,7 +55,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       it_behaves_like :meetings_create
 
       it 'assigns @parent to graetzl' do
-        post :create, params
+        post :create, params: params
         expect(assigns :parent).to eq graetzl
       end
     end
@@ -65,7 +65,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
     let(:meeting) { create(:meeting, graetzl: graetzl) }
 
     context 'when html request' do
-      before { get :show, graetzl_id: graetzl, id: meeting }
+      before { get :show, params: { graetzl_id: graetzl, id: meeting } }
 
       it 'assigns @meeting' do
         expect(assigns :meeting).to eq meeting
@@ -85,7 +85,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       end
     end
     context 'when js request' do
-      before { xhr :get, :show, graetzl_id: graetzl, id: meeting }
+      before { get :show, params: { graetzl_id: graetzl, id: meeting }, xhr: true }
 
       it 'renders show.js' do
         expect(response.content_type).to eq 'text/javascript'
@@ -101,7 +101,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
     let(:graetzl) { create :graetzl }
 
     context 'when html request' do
-      before { get :index, graetzl_id: graetzl }
+      before { get :index, params: { graetzl_id: graetzl } }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
@@ -121,7 +121,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       end
     end
     context 'when js request' do
-      before { xhr :get, :index, graetzl_id: graetzl, page: 2 }
+      before { get :index, params: { graetzl_id: graetzl, page: 2 }, xhr: true }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl

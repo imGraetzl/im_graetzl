@@ -23,7 +23,7 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
   describe 'GET show' do
     let(:meeting) { create(:meeting) }
-    before { get :show, id: meeting }
+    before { get :show, params: { id: meeting } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -77,12 +77,12 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
       it 'creates new meeting record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Meeting.count}.by(1)
       end
 
       it 'assigns attributes to meeting' do
-        post :create, params
+        post :create, params: params
         m = Meeting.last
         expect(m).to have_attributes(
           graetzl_id: graetzl.id,
@@ -92,7 +92,7 @@ RSpec.describe Admin::MeetingsController, type: :controller do
       end
 
       it 'redirects_to new meeting page' do
-        post :create, params
+        post :create, params: params
         new_meeting = Meeting.last
         expect(response).to redirect_to(admin_meeting_path(new_meeting))
       end
@@ -124,30 +124,30 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
       it 'creates new meeting record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Meeting.count}.by(1)
       end
 
       it 'creates new address record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Address.count}.by(1)
       end
 
       it 'creates new going_to records' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{GoingTo.count}.by(2)
       end
 
       it 'redirects_to new meeting page' do
-        post :create, params
+        post :create, params: params
         new_meeting = Meeting.unscoped.last
         expect(response).to redirect_to(admin_meeting_path(new_meeting))
       end
 
       describe 'new meeting' do
-        before { post :create, params }
+        before { post :create, params: params }
         subject(:new_meeting) { Meeting.unscoped.last }
 
         it 'is has address' do
@@ -172,7 +172,7 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
   describe 'GET edit' do
     let(:meeting) { create(:meeting) }
-    before { get :edit, id: meeting }
+    before { get :edit, params: { id: meeting } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -207,7 +207,7 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
     context 'with basic attributes' do
       before do
-        put :update, params
+        put :update, params: params
         meeting.reload
       end
 
@@ -236,12 +236,12 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
         it 'creates new going_to record' do
           expect{
-            put :update, params
+            put :update, params: params
           }.to change(GoingTo, :count).by(1)
         end
 
         it 'adds user to meeting' do
-          put :update, params
+          put :update, params: params
           expect(meeting.reload.users).to include(user)
         end
       end
@@ -256,7 +256,7 @@ RSpec.describe Admin::MeetingsController, type: :controller do
           it 'destroys going_to record' do
             expect(GoingTo.count).to eq 1
             expect{
-              put :update, params
+              put :update, params: params
             }.to change(GoingTo, :count).by(-1)
           end
 
@@ -276,12 +276,12 @@ RSpec.describe Admin::MeetingsController, type: :controller do
 
     it 'deletes meeting record' do
       expect{
-        delete :destroy, id: meeting
+        delete :destroy, params: { id: meeting }
       }.to change{Meeting.count}.by(-1)
     end
 
     it 'redirects_to index page' do
-      delete :destroy, id: meeting
+      delete :destroy, params: { id: meeting }
       expect(response).to redirect_to(admin_meetings_path)
     end
   end

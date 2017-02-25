@@ -1,4 +1,4 @@
-class District < ActiveRecord::Base
+class District < ApplicationRecord
   default_scope { order(zip: :asc) }
 
   extend FriendlyId

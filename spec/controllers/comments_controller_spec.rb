@@ -4,7 +4,7 @@ RSpec.describe CommentsController, type: :controller do
   describe 'POST create' do
     context 'when logged out' do
       it 'returns 401 unauthorized' do
-        xhr :post, :create, comment: {}
+        post :create, params: { comment: {} }, xhr: true
         expect(response).to have_http_status 401
       end
     end
@@ -20,23 +20,23 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'creates new comment record' do
         expect{
-          xhr :post, :create, params
+          post :create, params: params, xhr: true
         }.to change{Comment.count}.by 1
       end
 
       it 'logs activity' do
         expect{
-          xhr :post, :create, params
+          post :create, params: params, xhr: true
         }.to change{Activity.count}.by 1
       end
 
       it 'assigns @comment with attributes' do
-        xhr :post, :create, params
+        post :create, params: params, xhr: true
         expect(assigns :comment).to have_attributes(user: user, commentable: commentable)
       end
 
       it 'renders create.js' do
-        xhr :post, :create, params
+        post :create, params: params, xhr: true
         expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :create
       end
@@ -48,7 +48,7 @@ RSpec.describe CommentsController, type: :controller do
 
     context 'when logged out' do
       it 'returns 401 unauthorized' do
-        xhr :delete, :destroy, id: comment
+        delete :destroy, params: { id: comment }, xhr: true
         expect(response).to have_http_status 401
       end
     end
@@ -58,17 +58,17 @@ RSpec.describe CommentsController, type: :controller do
 
       it 'removes comment' do
         expect{
-          xhr :delete, :destroy, id: comment
+          delete :destroy, params: { id: comment }, xhr: true
         }.to change{Comment.count}.by -1
       end
 
       it 'assigns @comment' do
-        xhr :delete, :destroy, id: comment
+        delete :destroy, params: { id: comment }, xhr: true
         expect(assigns(:comment)).to eq comment
       end
 
       it 'renders destroy.js' do
-        xhr :delete, :destroy, id: comment
+        delete :destroy, params: { id: comment }, xhr: true
         expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template(:destroy)
       end

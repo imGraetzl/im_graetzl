@@ -17,7 +17,7 @@ RSpec.describe Districts::ZuckerlsController, type: :controller do
     end
 
     context 'when html request' do
-      before { get :index, district_id: district }
+      before { get :index, params: { district_id: district } }
 
       it 'assigns @district' do
         expect(assigns :district).to eq district
@@ -37,7 +37,7 @@ RSpec.describe Districts::ZuckerlsController, type: :controller do
       end
     end
     context 'when js request with page param' do
-      before { xhr :get, :index, district_id: district, page: 2 }
+      before { get :index, params: { district_id: district, page: 2 }, xhr: true }
 
       it 'assigns @district' do
         expect(assigns :district).to eq district

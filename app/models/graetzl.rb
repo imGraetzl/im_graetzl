@@ -1,4 +1,4 @@
-class Graetzl < ActiveRecord::Base
+class Graetzl < ApplicationRecord
   extend FriendlyId
 
   friendly_id :name

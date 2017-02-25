@@ -18,10 +18,10 @@ RSpec.describe NotificationSettingsController, type: :controller do
 
       it 'toggles a single website notification setting' do
         expect(user.enabled_website_notification?(type)).to be_falsey
-        post :toggle_website_notification, :type => type
+        post :toggle_website_notification, params: { type: type }
         user.reload
         expect(user.enabled_website_notification?(type)).to be_truthy
-        post :toggle_website_notification, :type => type
+        post :toggle_website_notification, params: { type: type }
         user.reload
         expect(user.enabled_website_notification?(type)).to be_falsey
       end
@@ -30,7 +30,7 @@ RSpec.describe NotificationSettingsController, type: :controller do
         let(:type) { 'blabla' }
 
         it 'returns 500' do
-          post :toggle_website_notification, :type => type
+          post :toggle_website_notification, params: { type: type }
           expect(response).to have_http_status(:forbidden)
         end
       end
@@ -54,7 +54,7 @@ RSpec.describe NotificationSettingsController, type: :controller do
 
       it 'changes a single mail notification setting' do
         expect(user.enabled_mail_notification?(type, interval)).to be_falsey
-        post :change_mail_notification, type: type, interval: interval
+        post :change_mail_notification, params: { type: type, interval: interval }
         user.reload
         expect(user.enabled_mail_notification?(type, interval)).to be_truthy
       end
@@ -62,7 +62,7 @@ RSpec.describe NotificationSettingsController, type: :controller do
       it "turns off a single mail notification" do
         user.enable_mail_notification(type, interval)
         expect(user.enabled_mail_notification?(type, interval)).to be_truthy
-        post :change_mail_notification, type: type, interval: "off"
+        post :change_mail_notification, params: { type: type, interval: "off" }
         user.reload
         expect(user.enabled_mail_notification?(type, interval)).to be_falsey
 
@@ -72,7 +72,7 @@ RSpec.describe NotificationSettingsController, type: :controller do
         let(:type) { 'blabla' }
 
         it 'returns 500' do
-          post :toggle_website_notification, :type => type
+          post :toggle_website_notification, params: { type: type }
           expect(response).to have_http_status(:forbidden)
         end
       end

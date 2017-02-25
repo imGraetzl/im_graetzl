@@ -1,4 +1,4 @@
-class Zuckerl::BookingConfirmationJob < ActiveJob::Base
+class Zuckerl::BookingConfirmationJob < ApplicationJob
   queue_as :default
 
   def perform(zuckerl)

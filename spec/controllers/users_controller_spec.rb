@@ -10,7 +10,7 @@ RSpec.describe UsersController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login with flash' do
-        get :show, id: user
+        get :show, params: { id: user }
         expect(response).to redirect_to new_user_session_path
         expect(flash[:alert]).to be_present
       end
@@ -20,7 +20,7 @@ RSpec.describe UsersController, type: :controller do
 
       context 'when html request with without graetzl' do
         it '301 redirects to user in right graetzl' do
-          get :show, id: user
+          get :show, params: { id: user }
           expect(response).to have_http_status 301
           expect(response).to redirect_to [graetzl, user]
         end
@@ -29,7 +29,7 @@ RSpec.describe UsersController, type: :controller do
         let!(:other_graetzl) { create :graetzl }
 
         it '301 redirects to user in right graetzl' do
-          get :show, graetzl_id: other_graetzl, id: user
+          get :show, params: { graetzl_id: other_graetzl, id: user }
           expect(response).to have_http_status 301
           expect(response).to redirect_to [graetzl, user]
         end
@@ -37,7 +37,7 @@ RSpec.describe UsersController, type: :controller do
       context 'when html request with right graetzl' do
         let!(:wall_comments) { create_list :comment, 10, commentable: user }
 
-        before { get :show, graetzl_id: graetzl, id: user }
+        before { get :show, params: { graetzl_id: graetzl, id: user } }
 
         it 'assigns @user' do
           expect(assigns :user).to eq user
@@ -65,7 +65,7 @@ RSpec.describe UsersController, type: :controller do
         let!(:old_wall_comments) { create_list :comment, 10, commentable: user }
         let!(:new_wall_comments) { create_list :comment, 10, commentable: user }
 
-        before { xhr :get, :show, id: user, page: 2 }
+        before { get :show, params: { id: user, page: 2 }, xhr: true }
 
         it 'assigns @user' do
           expect(assigns :user).to eq user
@@ -92,7 +92,7 @@ RSpec.describe UsersController, type: :controller do
         before do
           old_meetings.each{|m| create(:going_to, :initiator, user: user, meeting: m)}
           new_meetings.each{|m| create(:going_to, :initiator, user: user, meeting: m)}
-          xhr :get, :show, id: user, initiated: 2
+          get :show, params: { id: user, initiated: 2 }, xhr: true
         end
 
         it 'assigns @user' do
@@ -119,7 +119,7 @@ RSpec.describe UsersController, type: :controller do
         before do
           old_meetings.each{|m| create(:going_to, :attendee, user: user, meeting: m)}
           new_meetings.each{|m| create(:going_to, :attendee, user: user, meeting: m)}
-          xhr :get, :show, id: user, attended: 2
+          get :show, params: { id: user, attended: 2 }, xhr: true
         end
 
         it 'assigns @user' do
@@ -172,7 +172,7 @@ RSpec.describe UsersController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        put :update, id: user
+        put :update, params: { id: user }
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -183,12 +183,12 @@ RSpec.describe UsersController, type: :controller do
 
       it 'updates user record' do
         expect{
-          put :update, params
+          put :update, params: params
           user.reload
         }.to change{user.email}.to 'new@email.de'
       end
       it 'redirect_to to current_user with notice' do
-        put :update, params
+        put :update, params: params
         expect(response).to redirect_to([user.graetzl, user])
         expect(flash[:notice]).to be_present
       end

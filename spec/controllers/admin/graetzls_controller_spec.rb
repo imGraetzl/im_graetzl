@@ -19,7 +19,7 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
 
   describe 'GET show' do
     let!(:graetzl) { create :graetzl }
-    before { get :show, id: graetzl }
+    before { get :show, params: { id: graetzl } }
     it 'assigns @graetzl' do
       expect(assigns :graetzl).to eq graetzl
     end
@@ -54,12 +54,12 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
 
     it 'creates new graetzl record' do
       expect{
-        post :create, params
+        post :create, params: params
       }.to change{Graetzl.count}.by 1
     end
 
     it 'assigns attributes to graetzl' do
-      post :create, params
+      post :create, params: params
       g = Graetzl.last
       expect(g).to have_attributes(
         name: graetzl.name,
@@ -67,7 +67,7 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
     end
 
     it 'redirects_to new graetzl page' do
-      post :create, params
+      post :create, params: params
       new_graetzl = Graetzl.last
       expect(response).to redirect_to(admin_graetzl_path(new_graetzl))
     end
@@ -75,7 +75,7 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
 
   describe 'GET edit' do
     let(:graetzl) { create :graetzl }
-    before { get :edit, id: graetzl }
+    before { get :edit, params: { id: graetzl } }
 
     it 'assigns @graetzl' do
       expect(assigns :graetzl).to eq graetzl
@@ -100,7 +100,7 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
     }
 
     before do
-      patch :update, params
+      patch :update, params: params
       graetzl.reload
     end
 
@@ -120,12 +120,12 @@ RSpec.describe Admin::GraetzlsController, type: :controller do
 
     it 'deletes graetzl record' do
       expect{
-        delete :destroy, id: graetzl
+        delete :destroy, params: { id: graetzl }
       }.to change{Graetzl.count}.by -1
     end
 
     it 'redirects_to index page' do
-      delete :destroy, id: graetzl
+      delete :destroy, params: { id: graetzl }
       expect(response).to redirect_to(admin_graetzls_path)
     end
   end

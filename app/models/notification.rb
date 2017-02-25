@@ -1,4 +1,4 @@
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   DEFAULT_URL_OPTIONS = Rails.application.config.action_mailer.default_url_options

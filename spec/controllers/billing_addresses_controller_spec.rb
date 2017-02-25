@@ -8,7 +8,7 @@ RSpec.describe BillingAddressesController, type: :controller do
   describe 'GET show' do
     context 'when logged out' do
       it 'redirects to login' do
-        get :show, zuckerl_id: create(:zuckerl)
+        get :show, params: { zuckerl_id: create(:zuckerl) }
         expect(response).to render_template(session[:new])
       end
     end
@@ -23,7 +23,7 @@ RSpec.describe BillingAddressesController, type: :controller do
       end
 
       context 'when no billing_address' do
-        before { get :show, zuckerl_id: zuckerl }
+        before { get :show, params: { zuckerl_id: zuckerl } }
 
         it 'assigns @zuckerl' do
           expect(assigns :zuckerl).to eq zuckerl
@@ -43,7 +43,7 @@ RSpec.describe BillingAddressesController, type: :controller do
       end
       context 'with billing_address' do
         let!(:billing_address) { create :billing_address, location: location }
-        before { get :show, zuckerl_id: zuckerl }
+        before { get :show, params: { zuckerl_id: zuckerl } }
 
         it 'assigns @zuckerl' do
           expect(assigns :zuckerl).to eq zuckerl
@@ -67,7 +67,7 @@ RSpec.describe BillingAddressesController, type: :controller do
   describe 'POST create' do
     context 'when logged out' do
       it 'redirects to login' do
-        post :create, billing_address: attributes_for(:billing_address), zuckerl_id: create(:zuckerl)
+        post :create, params: { billing_address: attributes_for(:billing_address), zuckerl_id: create(:zuckerl) }
         expect(response).to render_template(session[:new])
       end
     end
@@ -89,19 +89,19 @@ RSpec.describe BillingAddressesController, type: :controller do
 
         it 'creates new billing_address' do
           expect{
-            post :create, params
+            post :create, params: params
           }.to change{BillingAddress.count}.by 1
         end
 
         it 'assigns @location, @zuckerl and @billing_address' do
-          post :create, params
+          post :create, params: params
           expect(assigns :location).to eq location
           expect(assigns :zuckerl).to eq zuckerl
           expect(assigns :billing_address).to be_a(BillingAddress)
         end
 
         it 'redirects to @billing_address with notice' do
-          post :create, params
+          post :create, params: params
           expect(response).to redirect_to zuckerl_billing_address_path(zuckerl_id: zuckerl)
           expect(flash[:notice]).to be_present
         end
@@ -115,19 +115,19 @@ RSpec.describe BillingAddressesController, type: :controller do
 
         it 'does not create a new billing_address' do
           expect{
-            post :create, params
+            post :create, params: params
           }.not_to change{BillingAddress.count}
         end
 
         it 'assigns @location, @zuckerl and @billing_address' do
-          post :create, params
+          post :create, params: params
           expect(assigns :location).to eq location
           expect(assigns :zuckerl).to eq zuckerl
           expect(assigns :billing_address).to be_a(BillingAddress)
         end
 
         it 'renders :show' do
-          post :create, params
+          post :create, params: params
           expect(response).to render_template :show
         end
       end
@@ -137,7 +137,7 @@ RSpec.describe BillingAddressesController, type: :controller do
   describe 'PUT update' do
     context 'when logged out' do
       it 'redirects to login' do
-        put :update, billing_address: attributes_for(:billing_address), zuckerl_id: create(:zuckerl)
+        put :update, params: { billing_address: attributes_for(:billing_address), zuckerl_id: create(:zuckerl) }
         expect(response).to render_template(session[:new])
       end
     end
@@ -157,20 +157,20 @@ RSpec.describe BillingAddressesController, type: :controller do
 
         it 'updates new billing_address' do
           expect{
-            put :update, params
+            put :update, params: params
             billing_address.reload
           }.to change{billing_address.attributes}
         end
 
         it 'assigns @location, @zuckerl and @billing_address' do
-          put :update, params
+          put :update, params: params
           expect(assigns :location).to eq location
           expect(assigns :zuckerl).to eq zuckerl
           expect(assigns :billing_address).to eq billing_address
         end
 
         it 'redirects to @billing_address with notice' do
-          put :update, params
+          put :update, params: params
           expect(response).to redirect_to zuckerl_billing_address_path(zuckerl_id: zuckerl)
           expect(flash[:notice]).to be_present
         end

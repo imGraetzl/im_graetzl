@@ -11,7 +11,7 @@ RSpec.describe LocationsController, type: :controller do
     let!(:new_locations) { create_list :location, 15, :approved, graetzl: graetzl }
 
     context 'when html request' do
-      before { get :index, graetzl_id: graetzl }
+      before { get :index, params: { graetzl_id: graetzl } }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
@@ -28,7 +28,7 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
     context 'when js request for more locations' do
-      before { xhr :get, :index, graetzl_id: graetzl, page: 2 }
+      before { get :index, params: { graetzl_id: graetzl, page: 2 }, xhr: true }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl
@@ -56,7 +56,7 @@ RSpec.describe LocationsController, type: :controller do
       let!(:old_meetings) { create_list :meeting, 2, location: location, starts_at_date: nil }
 
       context 'when html request' do
-        before { get :show, graetzl_id: graetzl, id: location }
+        before { get :show, params: { graetzl_id: graetzl, id: location } }
 
         it 'assigns @graetzl' do
           expect(assigns :graetzl).to eq graetzl
@@ -79,7 +79,7 @@ RSpec.describe LocationsController, type: :controller do
         end
       end
       context 'when js request for posts' do
-        before { xhr :get, :show, graetzl_id: graetzl, id: location, page: 2 }
+        before { get :show, params: { graetzl_id: graetzl, id: location, page: 2 }, xhr: true }
 
         it 'assigns @location' do
           expect(assigns :location).to eq location
@@ -96,7 +96,7 @@ RSpec.describe LocationsController, type: :controller do
         end
       end
       context 'when js request for meetings' do
-        before { xhr :get, :show, graetzl_id: graetzl, id: location, meetings: 2 }
+        before { get :show, params: { graetzl_id: graetzl, id: location, meetings: 2 }, xhr: true }
 
         it 'does not assign @posts' do
           expect(assigns :posts).not_to be
@@ -114,7 +114,7 @@ RSpec.describe LocationsController, type: :controller do
       let(:location) { create :location, :pending, graetzl: graetzl }
 
       it 'redirect_to root' do
-        get :show, graetzl_id: graetzl, id: location
+        get :show, params: { graetzl_id: graetzl, id: location }
         expect(response).to redirect_to root_path
       end
     end
@@ -150,7 +150,7 @@ RSpec.describe LocationsController, type: :controller do
       end
       context 'with graetzl_id param' do
         let(:other_graetzl) { create :graetzl, area: 'POLYGON ((0.1 0.1, 0.1 0.5, 0.5 0.5, 0.1 0.1))' }
-        before { get :new, graetzl_id: other_graetzl.id }
+        before { get :new, params: { graetzl_id: other_graetzl.id } }
 
         it 'assigns @graetzl with other_graetzl' do
           expect(assigns :graetzl).to eq other_graetzl
@@ -179,7 +179,7 @@ RSpec.describe LocationsController, type: :controller do
 
       before do
         sign_in user
-        post :new, graetzl_id: graetzl.id
+        post :new, params: { graetzl_id: graetzl.id }
       end
 
       it 'assigns @graetzl' do
@@ -221,24 +221,24 @@ RSpec.describe LocationsController, type: :controller do
         context 'with basic attributes' do
           it 'creates location record' do
             expect{
-              post :create, params
+              post :create, params: params
             }.to change{Location.count}.by 1
           end
 
           it 'creates location_ownership record' do
             expect{
-              post :create, params
+              post :create, params: params
             }.to change{LocationOwnership.count}.by 1
           end
 
           it 'does not create category record' do
             expect{
-              post :create, params
+              post :create, params: params
             }.not_to change{Category.count}
           end
 
           it 'assigns @location' do
-            post :create, params
+            post :create, params: params
             expect(assigns :location).to have_attributes(
               state: 'pending',
               graetzl: graetzl,
@@ -250,7 +250,7 @@ RSpec.describe LocationsController, type: :controller do
           end
 
           it 'redirects to root with notice' do
-            post :create, params
+            post :create, params: params
             expect(response).to redirect_to root_url
             expect(flash[:notice]).to be_present
           end
@@ -274,19 +274,19 @@ RSpec.describe LocationsController, type: :controller do
 
           it 'creates new address record' do
             expect{
-              post :create, params
+              post :create, params: params
             }.to change{Address.count}.by 1
           end
           it 'creates new contact record' do
             expect{
-              post :create, params
+              post :create, params: params
             }.to change{Contact.count}.by 1
           end
         end
       end
       context 'with invalid attributes' do
         it 'renders :new' do
-          post :create, location: { graetzl_id: graetzl.id }
+          post :create, params: { location: { graetzl_id: graetzl.id } }
           expect(response).to render_template :new
         end
       end
@@ -298,7 +298,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login with flash' do
-        get :edit, id: location
+        get :edit, params: { id: location }
         expect(response).to redirect_to new_user_session_path
         expect(flash[:alert]).to be_present
       end
@@ -310,7 +310,7 @@ RSpec.describe LocationsController, type: :controller do
       context 'when owner of location' do
         before do
           create :location_ownership, user: user, location: location
-          get :edit, id: location
+          get :edit, params: { id: location }
         end
 
         it 'assigns @location' do
@@ -323,7 +323,7 @@ RSpec.describe LocationsController, type: :controller do
       context 'when not owner' do
         it 'returns 404' do
           expect{
-            get :edit, id: location
+            get :edit, params: { id: location }
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -335,7 +335,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        put :update, id: location
+        put :update, params: { id: location }
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -353,7 +353,7 @@ RSpec.describe LocationsController, type: :controller do
       context 'when not owner' do
         it 'returns 404' do
           expect{
-            put :update, params
+            put :update, params: params
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -363,7 +363,7 @@ RSpec.describe LocationsController, type: :controller do
 
         describe 'change basic attributes' do
           before do
-            put :update, params
+            put :update, params: params
             location.reload
           end
 
@@ -400,7 +400,7 @@ RSpec.describe LocationsController, type: :controller do
               zip: address.zip,
               city: address.city,
               coordinates: address.coordinates })
-            put :update, params
+            put :update, params: params
             location.reload
           end
 
@@ -426,13 +426,13 @@ RSpec.describe LocationsController, type: :controller do
 
           it 'removes address from location' do
             expect{
-              put :update, params
+              put :update, params: params
               location.reload
             }.to change{location.address}.to nil
           end
           it 'deletes address record' do
             expect{
-              put :update, params
+              put :update, params: params
             }.to change{Address.count}.by -1
           end
         end
@@ -443,7 +443,7 @@ RSpec.describe LocationsController, type: :controller do
 
           it 'updates graetzl' do
             expect{
-              put :update, params
+              put :update, params: params
               location.reload
             }.to change{location.graetzl}.to new_graetzl
           end
@@ -457,7 +457,7 @@ RSpec.describe LocationsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        delete :destroy, id: location
+        delete :destroy, params: { id: location }
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -468,7 +468,7 @@ RSpec.describe LocationsController, type: :controller do
       context 'when not owner' do
         it 'returns 404' do
           expect{
-            delete :destroy, id: location
+            delete :destroy, params: { id: location }
           }.to raise_error ActiveRecord::RecordNotFound
         end
       end
@@ -476,16 +476,16 @@ RSpec.describe LocationsController, type: :controller do
         before { create :location_ownership, user: user, location: location }
 
         it 'assigns @location' do
-          delete :destroy, id: location
+          delete :destroy, params: { id: location }
           expect(assigns :location).to eq location
         end
         it 'deletes location record' do
           expect{
-            delete :destroy, id: location
+            delete :destroy, params: { id: location }
           }.to change{Location.count}.by -1
         end
         it 'redirects to user_locations_path' do
-          delete :destroy, id: location
+          delete :destroy, params: { id: location }
           expect(response).to redirect_to user_locations_path
         end
       end

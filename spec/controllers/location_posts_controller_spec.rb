@@ -7,7 +7,7 @@ RSpec.describe LocationPostsController, type: :controller do
 
     context 'when logged out' do
       it 'returns 401 unauthorized' do
-        xhr :post, :create, location_post: {}
+        post :create, params: { location_post: {} }, xhr: true
         expect(response).to have_http_status 401
       end
     end
@@ -24,23 +24,23 @@ RSpec.describe LocationPostsController, type: :controller do
 
       it 'creates new location_post record' do
         expect{
-          xhr :post, :create, params
+          post :create, params: params, xhr: true
         }.to change{LocationPost.count}.by 1
       end
 
       it 'logs activity' do
         expect{
-          xhr :post, :create, params
+          post :create, params: params, xhr: true
         }.to change{Activity.count}.by 1
       end
 
       it 'assigns @location_post with attributes' do
-        xhr :post, :create, params
+        post :create, params: params, xhr: true
         expect(assigns :location_post).to have_attributes(author: location, graetzl: graetzl)
       end
 
       it 'renders create.js' do
-        xhr :post, :create, params
+        post :create, params: params, xhr: true
         expect(response).to render_template :create
       end
     end
@@ -51,7 +51,7 @@ RSpec.describe LocationPostsController, type: :controller do
 
     context 'when logged out' do
       it 'returns 401 unauthorized' do
-        xhr :post, :comment, location_post_id: location_post.id
+        post :comment, params: { location_post_id: location_post.id }, xhr: true
         expect(response).to have_http_status 401
       end
     end
@@ -61,23 +61,23 @@ RSpec.describe LocationPostsController, type: :controller do
 
       it 'creates new comment record' do
         expect{
-          xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+          post :comment, params: { location_post_id: location_post.id, comment: { content: 'hello' } }, xhr: true
         }.to change{Comment.count}.by 1
       end
 
       it 'logs activity' do
         expect{
-          xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+          post :comment, params: { location_post_id: location_post.id, comment: { content: 'hello' } }, xhr: true
         }.to change{Activity.count}.by 1
       end
 
       it 'assigns @location_post' do
-        xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        post :comment, params: { location_post_id: location_post.id, comment: { content: 'hello' } }, xhr: true
         expect(assigns :location_post).to eq location_post
       end
 
       it 'assigns @comment' do
-        xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        post :comment, params: { location_post_id: location_post.id, comment: { content: 'hello' } }, xhr: true
         expect(assigns :comment).to have_attributes(
           user: user,
           commentable: location_post,
@@ -85,7 +85,7 @@ RSpec.describe LocationPostsController, type: :controller do
       end
 
       it 'renders comment.js' do
-        xhr :post, :comment, location_post_id: location_post.id, comment: { content: 'hello' }
+        post :comment, params: { location_post_id: location_post.id, comment: { content: 'hello' } }, xhr: true
         expect(response.content_type).to eq 'text/javascript'
         expect(response).to render_template :comment
       end
@@ -95,7 +95,7 @@ RSpec.describe LocationPostsController, type: :controller do
   describe 'GET comments' do
     let(:location_post) { create :location_post }
     let!(:comments) { create_list :comment, 10, commentable: location_post }
-    before { xhr :get, :comments, location_post_id: location_post.id }
+    before { get :comments, params: { location_post_id: location_post.id }, xhr: true }
 
     it 'assigns @location_post' do
       expect(assigns :location_post).to eq location_post

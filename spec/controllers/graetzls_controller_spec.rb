@@ -9,7 +9,7 @@ RSpec.describe GraetzlsController, type: :controller do
       before { sign_in create(:user) }
 
       context 'when html request' do
-        before { get :show, id: graetzl, page: 2 }
+        before { get :show, params: { id: graetzl, page: 2 } }
 
         it 'assigns @graetzl' do
           expect(assigns :graetzl).to eq graetzl
@@ -33,7 +33,7 @@ RSpec.describe GraetzlsController, type: :controller do
         end
       end
       context 'when js request' do
-        before { xhr :get, :show, id: graetzl, page: 2 }
+        before { get :show, params: { id: graetzl, page: 2 }, xhr: true }
 
         it 'assigns @graetzl' do
           expect(assigns :graetzl).to eq graetzl
@@ -58,7 +58,7 @@ RSpec.describe GraetzlsController, type: :controller do
       end
     end
     context 'when logged out' do
-      before { get :show, id: graetzl }
+      before { get :show, params: { id: graetzl } }
 
       it 'assigns @graetzl' do
         expect(assigns :graetzl).to eq graetzl

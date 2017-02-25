@@ -10,7 +10,7 @@ active_admin_form_for [:admin, resource] do |f|
         input :location
         input :description
         input :cover_photo, as: :file,
-          hint: image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100))
+          hint: (image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100)) if f.object.cover_photo)
         input :remove_cover_photo, as: :boolean if f.object.cover_photo
         input :starts_at_date
         input :starts_at_time, ignore_date: true

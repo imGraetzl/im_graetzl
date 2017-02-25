@@ -18,13 +18,13 @@ RSpec.describe Admin::InitiativesController, type: :controller do
 
       it 'creates operating_range records' do
         expect{
-          patch :update, params
+          patch :update, params: params
         }.to change(OperatingRange, :count).by 3
       end
 
       it 'associates graetzls' do
         expect(initiative.graetzls).to be_empty
-        patch :update, params
+        patch :update, params: params
         initiative.reload
         expect(initiative.graetzl_ids).to match_array graetzls.map(&:id)
       end
@@ -41,13 +41,13 @@ RSpec.describe Admin::InitiativesController, type: :controller do
 
       it 'destroys operating_range records' do
         expect{
-          patch :update, params
+          patch :update, params: params
         }.to change(OperatingRange, :count).from(3).to(1)
       end
 
       it 'removes associated graetzls' do
         expect(initiative.graetzl_ids).to match_array graetzls.map(&:id)
-        patch :update, params
+        patch :update, params: params
         initiative.reload
         expect(initiative.graetzl_ids).to contain_exactly graetzls.first.id
       end

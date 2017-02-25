@@ -25,7 +25,7 @@ RSpec.describe DistrictsController, type: :controller do
       end
     end
     context 'when js request' do
-      before { xhr :get, :index, page: 2 }
+      before { get :index, params: { page: 2 }, xhr: true }
 
       it 'does not assign @districts' do
         expect(assigns :districts).not_to be
@@ -49,7 +49,7 @@ RSpec.describe DistrictsController, type: :controller do
   describe 'GET show' do
     let(:district) { create :district }
 
-    before { get :show, id: district }
+    before { get :show, params: { id: district } }
 
     it 'assigns @district' do
       expect(assigns :district).to eq district
@@ -80,7 +80,7 @@ RSpec.describe DistrictsController, type: :controller do
     let!(:graetzl_2) { create(:graetzl,
       area: 'POLYGON ((5.0 5.0, 5.0 6.0, 6.0 6.0, 6.0 5.0, 5.0 5.0))') }
 
-    before { get :graetzls, id: district, format: :json }
+    before { get :graetzls, params: { id: district, format: :json } }
 
     it 'assigns @district' do
       expect(assigns(:district)).to eq district

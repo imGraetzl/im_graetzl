@@ -41,7 +41,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
         describe '@user' do
           subject(:user) { assigns(:user) }
-          
+
           it 'gets assigned' do
             expect(user).not_to be_nil
           end
@@ -61,7 +61,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   describe 'POST new' do
     let(:params) { { address: 'address_param' } }
     context 'without feature param' do
-      before { post :new, params }
+      before { post :new, params: params }
 
       it 'assigns @search_input with address_param' do
         expect(assigns(:search_input)).to eq 'address_param'
@@ -98,7 +98,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       before { params.merge!({ feature: feature.to_json }) }
 
       context 'when address matches single graetzl' do
-        before { post :new, params }
+        before { post :new, params: params }
 
         it 'assigns @graetzl' do
           expect(assigns(:graetzl)).to eq graetzl
@@ -115,7 +115,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
         describe '@user' do
           subject(:user) { assigns(:user) }
-          
+
           it 'gets assigned' do
             expect(user).not_to be_nil
           end
@@ -137,7 +137,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       context 'when address matches multiple graetzl' do
         let!(:graetzl_1) { create(:graetzl) }
         let!(:graetzl_2) { create(:graetzl) }
-        before { post :new, params }
+        before { post :new, params: params }
 
         # it 'has right address from feature in session' do
         #   addr_attr = Address.attributes_from_feature(feature.to_json)
@@ -165,7 +165,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
   describe 'POST graetzl' do
     let!(:graetzl) { create(:graetzl) }
-    before { post :graetzl, graetzl_id: graetzl }
+    before { post :graetzl, params: { graetzl_id: graetzl } }
 
     it 'clears session' do
       expect(session[:address]).to be nil
@@ -178,7 +178,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
     describe '@user' do
       subject(:user) { assigns(:user) }
-      
+
       it 'gets assigned' do
         expect(user).not_to be_nil
       end
@@ -210,13 +210,13 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
       it 'creates new user' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change(User, :count).by(1)
       end
 
       describe 'new user' do
         subject(:new_user) { User.last }
-        before { post :create, params }
+        before { post :create, params: params }
 
         it 'has graetzl' do
           expect(new_user.graetzl).to eq graetzl
@@ -234,7 +234,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         end
 
         it 'has no role' do
-          expect(new_user.role).to eq nil        
+          expect(new_user.role).to eq nil
         end
       end
     end
@@ -244,7 +244,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
       describe 'new user' do
         subject(:new_user) { User.last }
-        before { post :create, params }
+        before { post :create, params: params }
 
         it 'has role business' do
           expect(new_user.business?).to eq true

@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -22,6 +22,7 @@ module ImGraetzl
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
+    config.active_record.time_zone_aware_types = [:datetime, :time]
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     #config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
@@ -32,11 +33,7 @@ module ImGraetzl
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
     # add mailer concerns
-    config.autoload_paths += %W(#{config.root}/app/mailers/concerns)
-
-    # No longer suppress Active Record errors within after_rollback or after_commit
-    # (behavior added in Rails 4.2)
-    config.active_record.raise_in_transactional_callbacks = true
+    config.eager_load_paths += %W(#{config.root}/app/mailers/concerns)
 
     # Disable Rails field_with_errors
     ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|

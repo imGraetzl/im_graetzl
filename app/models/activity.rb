@@ -1,4 +1,4 @@
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
   belongs_to :trackable, polymorphic: true
   belongs_to :owner, polymorphic: true
   belongs_to :recipient, polymorphic: true

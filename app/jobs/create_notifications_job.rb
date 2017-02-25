@@ -1,4 +1,4 @@
-class CreateNotificationsJob < ActiveJob::Base
+class CreateNotificationsJob < ApplicationJob
 
   def perform(activity)
     SuckerPunch.logger.info ("CreateWebsiteNotificationsJob start at: #{Time.now}")

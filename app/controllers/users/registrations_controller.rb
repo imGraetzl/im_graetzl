@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include AddressBeforeNew
-  before_filter :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: [:create]
 
   # GET /users/registrierung
   def new

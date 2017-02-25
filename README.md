@@ -31,7 +31,7 @@ Geo-data backed Ruby on Rails social network app Vienna.
 *Assuming you are on the correct Ruby version*
 ```sh
 # install dependencies with homebrew
-$ brew install geos proj posgres postgis phantomjs imagemagick
+$ brew install geos proj postgres postgis phantomjs imagemagick
 
 # make sure postgres is running
 $ brew services start postgresql

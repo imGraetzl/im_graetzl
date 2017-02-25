@@ -23,7 +23,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
 
   describe 'GET show' do
     let(:curator) { create(:curator) }
-    before { get :show, id: curator }
+    before { get :show, params: { id: curator } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -75,12 +75,12 @@ RSpec.describe Admin::CuratorsController, type: :controller do
 
       it 'creates new curator record' do
         expect{
-          post :create, params
+          post :create, params: params
         }.to change{Curator.count}.by(1)
       end
 
       it 'assigns attributes to curator' do
-        post :create, params
+        post :create, params: params
         c = Curator.last
         expect(c).to have_attributes(
           graetzl: curator.graetzl,
@@ -90,7 +90,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
       end
 
       it 'redirects_to new curator page' do
-        post :create, params
+        post :create, params: params
         new_curator = Curator.last
         expect(response).to redirect_to(admin_curator_path(new_curator))
       end
@@ -99,7 +99,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
 
   describe 'GET edit' do
     let(:curator) { create(:curator) }
-    before { get :edit, id: curator }
+    before { get :edit, params: { id: curator } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -135,7 +135,7 @@ RSpec.describe Admin::CuratorsController, type: :controller do
 
     context 'with basic attributes' do
       before do
-        patch :update, params
+        patch :update, params: params
         curator.reload
       end
 
@@ -158,12 +158,12 @@ RSpec.describe Admin::CuratorsController, type: :controller do
 
     it 'deletes curator record' do
       expect{
-        delete :destroy, id: curator
+        delete :destroy, params: { id: curator }
       }.to change{Curator.count}.by(-1)
     end
 
     it 'redirects_to index page' do
-      delete :destroy, id: curator
+      delete :destroy, params: { id: curator }
       expect(response).to redirect_to(admin_curators_path)
     end
   end

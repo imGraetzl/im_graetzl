@@ -1,4 +1,4 @@
-class SendMailNotificationJob < ActiveJob::Base
+class SendMailNotificationJob < ApplicationJob
 
   def perform(notification)
     SuckerPunch.logger.info "SendMailNotificationJob start at: #{Time.now}"

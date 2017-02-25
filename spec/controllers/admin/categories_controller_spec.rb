@@ -23,7 +23,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
   describe 'GET show' do
     let!(:category) { create(:category) }
-    before { get :show, id: category }
+    before { get :show, params: { id: category } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -67,12 +67,12 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
     it 'creates new category record' do
       expect{
-        post :create, params
+        post :create, params: params
       }.to change{Category.count}.by(1)
     end
 
     it 'assigns attributes to graetzl' do
-      post :create, params
+      post :create, params: params
       c = Category.last
       expect(c).to have_attributes(
         name: category.name,
@@ -80,7 +80,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
     end
 
     it 'redirects_to new category page' do
-      post :create, params
+      post :create, params: params
       new_category = Category.last
       expect(response).to redirect_to(admin_category_path(new_category))
     end
@@ -88,7 +88,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
   describe 'GET edit' do
     let(:category) { create(:category) }
-    before { get :edit, id: category }
+    before { get :edit, params: { id: category } }
 
     it 'returns success' do
       expect(response).to have_http_status(200)
@@ -117,7 +117,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
     }
 
     before do
-      patch :update, params
+      patch :update, params: params
       category.reload
     end
 
@@ -137,12 +137,12 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
     it 'deletes category record' do
       expect{
-        delete :destroy, id: category
+        delete :destroy, params: { id: category }
       }.to change{Category.count}.by(-1)
     end
 
     it 'redirects_to index page' do
-      delete :destroy, id: category
+      delete :destroy, params: { id: category }
       expect(response).to redirect_to(admin_categories_path)
     end
   end

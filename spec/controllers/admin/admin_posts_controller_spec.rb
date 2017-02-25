@@ -20,7 +20,7 @@ RSpec.describe Admin::AdminPostsController, type: :controller do
   describe 'GET show' do
     let(:admin_post) { create :admin_post }
 
-    before { get :show, id: admin_post }
+    before { get :show, params: { id: admin_post } }
 
     it 'assigns @admin_post' do
       expect(assigns :admin_post).to eq admin_post
@@ -45,34 +45,27 @@ RSpec.describe Admin::AdminPostsController, type: :controller do
     let(:graetzls) { create_list :graetzl, 3 }
     let(:params) {{ admin_post: { title: 'hello', content: 'world', graetzl_ids: graetzls.map(&:id) }}}
 
-    it 'assigns @admin_post' do
-      post :create, params
-      expect(assigns :admin_post).to have_attributes(
-        author: admin,
-        title: 'hello', content: 'world', graetzl_ids: graetzls.map(&:id))
-    end
-
     it 'creates admin_post record' do
       expect{
-        post :create, params
+        post :create, params: params
       }.to change{AdminPost.count}.by 1
     end
 
     it 'creates activity record' do
       expect{
-        post :create, params
+        post :create, params: params
       }.to change{Activity.count}.by 1
     end
 
     it 'redirects to new admin_post' do
-      post :create, params
+      post :create, params: params
       admin_post = AdminPost.last
       expect(response).to redirect_to [:admin, admin_post]
     end
   end
   describe 'GET edit' do
     let(:admin_post) { create :admin_post }
-    before { get :edit, id: admin_post }
+    before { get :edit, params: { id: admin_post } }
 
     it 'assigns @admin_post' do
       expect(assigns :admin_post).to eq admin_post
@@ -88,7 +81,7 @@ RSpec.describe Admin::AdminPostsController, type: :controller do
     let(:params) {{ id: admin_post, admin_post: { title: 'hello', content: 'world', graetzl_ids: graetzls.map(&:id) }}}
 
     before do
-      put :update, params
+      put :update, params: params
       admin_post.reload
     end
 
@@ -109,12 +102,12 @@ RSpec.describe Admin::AdminPostsController, type: :controller do
 
     it 'deletes record' do
       expect{
-        delete :destroy, id: admin_post
+        delete :destroy, params: { id: admin_post }
       }.to change{AdminPost.count}.by -1
     end
 
     it 'redirect_to admin_post index' do
-      delete :destroy, id: admin_post
+      delete :destroy, params: { id: admin_post }
       expect(response).to redirect_to [:admin, AdminPost]
     end
   end

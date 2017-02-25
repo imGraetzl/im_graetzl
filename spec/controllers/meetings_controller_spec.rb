@@ -53,13 +53,13 @@ RSpec.describe MeetingsController, type: :controller do
         it_behaves_like :meetings_create
 
         it 'assigns @parent to user graetzl' do
-          post :create, params
+          post :create, params: params
           expect(assigns :parent).to eq user.graetzl
         end
 
         it 'creates new address' do
           expect{
-            post :create, params
+            post :create, params: params
           }.to change{Address.count}.by 1
         end
       end
@@ -77,18 +77,18 @@ RSpec.describe MeetingsController, type: :controller do
         it_behaves_like :meetings_create
 
         it 'assigns @parent to user graetzl' do
-          post :create, params
+          post :create, params: params
           expect(assigns :parent).to eq user.graetzl
         end
 
         it 'creates new address' do
           expect{
-            post :create, params
+            post :create, params: params
           }.to change{Address.count}.by 1
         end
 
         it 'has address and graetzl from feature' do
-          post :create, params
+          post :create, params: params
           meeting = Meeting.last
           expect(meeting.address.street_name).to eq(feature['properties']['StreetName'])
           expect(meeting.address.description).to eq 'hello'
@@ -102,7 +102,7 @@ RSpec.describe MeetingsController, type: :controller do
 
     context 'when logged out' do
       it 'redirects to login' do
-        get :edit, id: meeting
+        get :edit, params: { id: meeting }
         expect(response).to render_template(session[:new])
       end
     end
@@ -113,7 +113,7 @@ RSpec.describe MeetingsController, type: :controller do
       context 'when user initiator of meeting' do
         before do
           create :going_to, :initiator, user: user, meeting: meeting
-          get :edit, id: meeting
+          get :edit, params: { id: meeting }
         end
 
         it 'assigns @meeting' do
@@ -127,7 +127,7 @@ RSpec.describe MeetingsController, type: :controller do
 
       it 'raises record not found when user not initiator' do
         expect{
-          get :edit, id: meeting
+          get :edit, params: { id: meeting }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
 
@@ -135,7 +135,7 @@ RSpec.describe MeetingsController, type: :controller do
         expect{
           create :going_to, :attendee, user: user, meeting: meeting
           meeting.reload
-          get :edit, id: meeting
+          get :edit, params: { id: meeting }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
     end
@@ -145,7 +145,7 @@ RSpec.describe MeetingsController, type: :controller do
     let(:meeting) { create :meeting, graetzl: graetzl }
 
     it 'redirects to login when logged out' do
-      delete :destroy, id: meeting
+      delete :destroy, params: { id: meeting }
       expect(response).to render_template(session[:new])
     end
     context 'when current_user' do
@@ -154,7 +154,7 @@ RSpec.describe MeetingsController, type: :controller do
 
       it 'raises record not found when user not initiator' do
         expect{
-          delete :destroy, id: meeting
+          delete :destroy, params: { id: meeting }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
 
@@ -162,7 +162,7 @@ RSpec.describe MeetingsController, type: :controller do
         expect{
           create :going_to, :attendee, user: user, meeting: meeting
           meeting.reload
-          delete :destroy, id: meeting
+          delete :destroy, params: { id: meeting }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
       context 'when user initiator' do
@@ -170,20 +170,20 @@ RSpec.describe MeetingsController, type: :controller do
 
         it 'flags meeting as :cancelled' do
           expect{
-            delete :destroy, id: meeting
+            delete :destroy, params: { id: meeting }
             meeting.reload
           }.to change{meeting.state}.from('basic').to('cancelled')
         end
 
         it 'redirect_to graetzl with notice' do
-          delete :destroy, id: meeting
+          delete :destroy, params: { id: meeting }
           expect(response).to redirect_to graetzl
           expect(flash[:notice]).not_to be nil
         end
 
         it 'logs meeting.cancel activity' do
           expect{
-            delete :destroy, id: meeting
+            delete :destroy, params: { id: meeting }
           }.to change{Activity.count}.by 1
         end
       end
@@ -194,7 +194,7 @@ RSpec.describe MeetingsController, type: :controller do
     let(:meeting) { create :meeting, graetzl: graetzl }
 
     it 'redirects to login when logged out' do
-      delete :destroy, id: meeting
+      delete :destroy, params: { id: meeting }
       expect(response).to render_template(session[:new])
     end
     context 'when current_user' do
@@ -203,7 +203,7 @@ RSpec.describe MeetingsController, type: :controller do
 
       it 'raises record not found when user not initiator' do
         expect{
-          put :update, id: meeting
+          put :update, params: { id: meeting }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
 
@@ -211,7 +211,7 @@ RSpec.describe MeetingsController, type: :controller do
         expect{
           create :going_to, :attendee, user: user, meeting: meeting
           meeting.reload
-          put :update, id: meeting
+          put :update, params: { id: meeting }
         }.to raise_exception(ActiveRecord::RecordNotFound)
       end
       context 'when user initiator' do
@@ -220,12 +220,12 @@ RSpec.describe MeetingsController, type: :controller do
         let(:params) {{ id: meeting, meeting: attributes_for(:meeting) }}
 
         it 'assigns @meeting' do
-          put :update, params
+          put :update, params: params
           expect(assigns :meeting).to eq meeting
         end
 
         it 'redirect_to meeting in graetzl' do
-          put :update, params
+          put :update, params: params
           expect(response).to redirect_to [graetzl, meeting]
         end
 
@@ -233,7 +233,7 @@ RSpec.describe MeetingsController, type: :controller do
           meeting.cancelled!
           meeting.reload
           expect{
-            put :update, params
+            put :update, params: params
             meeting.reload
           }.to change{meeting.state}.to 'basic'
         end
@@ -246,7 +246,7 @@ RSpec.describe MeetingsController, type: :controller do
               ends_at_time: '20:00') }}
 
           it 'updates time' do
-            put :update, params
+            put :update, params: params
             meeting.reload
             expect(meeting.starts_at_date.strftime('%Y-%m-%d')).to eq ('2020-01-01')
             expect(meeting.ends_at_date).to be_falsy
@@ -255,7 +255,7 @@ RSpec.describe MeetingsController, type: :controller do
           end
 
           it 'adds changed time attributes to activity parameters hash' do
-            put :update, params
+            put :update, params: params
             activity = meeting.activities.last
             expect(activity.parameters[:changed_attributes]).to include(:starts_at_date)
             expect(activity.parameters[:changed_attributes]).to include(:starts_at_time)
@@ -273,7 +273,7 @@ RSpec.describe MeetingsController, type: :controller do
               feature: feature.to_json }}
 
           it 'updates address and graetzl' do
-            put :update, params
+            put :update, params: params
             meeting.reload
             expect(meeting.graetzl).to eq new_graetzl
             expect(meeting.address).to have_attributes(
@@ -282,13 +282,13 @@ RSpec.describe MeetingsController, type: :controller do
           end
 
           it "adds address to activity parameters" do
-            put :update, params
+            put :update, params: params
             activity = meeting.activities.last
             expect(activity.parameters[:changed_attributes]).to include(:address)
           end
 
           it 'redirects_to meeting in new graetzl' do
-            put :update, params
+            put :update, params: params
             expect(response).to redirect_to [new_graetzl, meeting]
           end
         end
@@ -303,14 +303,14 @@ RSpec.describe MeetingsController, type: :controller do
 
           it 'removes street_name' do
             expect{
-              put :update, params
+              put :update, params: params
               meeting.reload
             }.to change{meeting.address.street_name}.from(address.street_name).to(nil)
           end
 
           it 'removes coordinates' do
             expect{
-              put :update, params
+              put :update, params: params
               meeting.reload
             }.to change{meeting.address.coordinates}.from(address.coordinates).to(nil)
           end

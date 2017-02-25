@@ -1,4 +1,4 @@
-class Curator < ActiveRecord::Base
+class Curator < ApplicationRecord
   belongs_to :graetzl
   belongs_to :user
 
