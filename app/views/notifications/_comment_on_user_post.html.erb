@@ -1,6 +1,6 @@
 <%- post = notification.activity.trackable %>
 
-<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+<%= content_tag :li, id: "notification_#{notification.id}", data: { behavior: 'notification-item' }, class: 'notification-item') %>
   <%= link_to [post.graetzl, post] do %>
     <%= attachment_image_tag notification.activity.owner, :avatar, :fill, 40, 40, fallback: 'avatar/user/40x40.png', class: 'img-round' %>
     <div class="msg">

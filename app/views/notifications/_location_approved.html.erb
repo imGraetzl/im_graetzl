@@ -1,6 +1,6 @@
 <%- location = notification.activity.trackable %>
 
-<%= content_tag_for(:li, notification, data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+<%= content_tag(:li, id: "notification_#{notification.id}", data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to [location.graetzl, location] do %>
     <%= attachment_image_tag location, :avatar, :fill, 40, 40, fallback: 'avatar/location/40x40.png', class: 'img-square' %>
     <div class="msg">
