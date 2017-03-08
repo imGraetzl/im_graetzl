@@ -1,4 +1,4 @@
-<div id="zuckerl_<%= zuckerl.id %>" class="zuckerl cardBox -zuckerl">
+<div id="<%= dom_id(zuckerl) %>" class="zuckerl cardBox -zuckerl">
   <div class="cardBoxHeader">
     <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
     <div class="categoryicon">

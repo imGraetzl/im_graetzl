@@ -1,4 +1,4 @@
-<div id="post_<%= post.id %>" class="post streamElement">
+<div id="<%= dom_id(post) %>" class="post streamElement">
   <div class="entryInitialContent">
     <% if post.edit_permission?(current_user) %>
       <div class="editControls">
@@ -21,7 +21,7 @@
       </div>
     <% end %>
     <% unless post.comments.empty? %>
-      <%= content_tag(:div, id: "comments_post_#{post.id}", class: "comments_post") do %>
+      <%= content_tag(:div, id: dom_id(post), class: "comments_post") do %>
         <%= load_more_comments_link(post) if post.comments.count > 1 %>
         <%= render post.comments.last %>
       <% end %>

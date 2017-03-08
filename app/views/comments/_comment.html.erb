@@ -1,4 +1,4 @@
-<div id="comment_<%= comment.id%>" class="comment">
+<div id="<%= dom_id(comment) %>" class="comment">
   <div class="entryUserComment">
     <% if comment.edit_permission?(current_user) %>
       <div class="editControls">
