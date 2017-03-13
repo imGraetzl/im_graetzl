@@ -47,6 +47,8 @@ ActiveAdmin.register User do
       column :first_name
       column :last_name
       column(:graetzl) { |user| user.graetzl.name }
+      column(:graetzl_url) { |user| Rails.application.routes.url_helpers.graetzl_url(user.graetzl) }
+      column(:post_count) { |user| user.posts.count }
       column :last_sign_in_at
       column :created_at
       column :confirmed_at
