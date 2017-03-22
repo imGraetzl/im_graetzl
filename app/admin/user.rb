@@ -44,24 +44,38 @@ ActiveAdmin.register User do
       column :id
       column :email
       column :username
+      column(:profile_url) { |user| Rails.application.routes.url_helpers.user_path(user) }
       column :first_name
       column :last_name
       column(:graetzl) { |user| user.graetzl.name }
-      column(:graetzl_url) { |user| Rails.application.routes.url_helpers.graetzl_url(user.graetzl) }
+      column(:graetzl_url) { |user| Rails.application.routes.url_helpers.graetzl_path(user.graetzl) }
       column(:post_count) { |user| user.posts.count }
       column :last_sign_in_at
       column :created_at
       column :confirmed_at
       column :role
       column :slug
-      column :bio
       column :website
       column :newsletter
       column(:bezirk_1) { |user| user.graetzl.districts.first.try(:zip) }
       column(:bezirk_2) { |user| user.graetzl.districts.second.try(:zip) }
-      column(:bezirk_3) { |user| user.graetzl.districts.third.try(:zip) }
       column(:location_1) { |user| user.locations.first.try(:name) }
-      column(:location_2) { |user| user.locations.second.try(:name) }
-      column(:location_3) { |user| user.locations.third.try(:name) }
+      column(:location_1_url) { |user| Rails.application.routes.url_helpers.graetzl_path(user.locations.first.try(:name)) }
+      column(:location_1_bezirk) { |user|
+        location = user.locations.first
+        location.graetzl.districts.first.try(:zip)
+      }
+      column(:location_1_graetzl) { |user|
+        location = user.locations.first
+        location.graetzl.name
+      }
+      column(:location_1_graetzl_url) { |user|
+        location = user.locations.first
+        Rails.application.routes.url_helpers.graetzl_path(location.graetzl)
+      }
+      column(:location_1_category) { |user|
+        location = user.locations.first
+        location.category.name
+      }
     end
 end
