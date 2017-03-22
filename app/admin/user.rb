@@ -77,5 +77,7 @@ ActiveAdmin.register User do
         location = user.locations.first
         location.category.name
       }
+      column(:meetings_initiated) { |user| user.going_tos.initiator.count }
+      column(:location_posts) { |user| user.location_posts.count }
     end
 end

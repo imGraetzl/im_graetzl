@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :location_ownerships, dependent: :destroy
   has_many :locations, through: :location_ownerships
+  has_many :location_posts, through: :locations, source: :posts
   has_many :wall_comments, as: :commentable, class_name: Comment, dependent: :destroy
   accepts_nested_attributes_for :address
 
