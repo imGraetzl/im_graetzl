@@ -44,4 +44,8 @@ class User < ApplicationRecord
       where(conditions.to_h).first
     end
   end
+
+  def primary_location
+    self.locations.first
+  end
 end
