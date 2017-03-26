@@ -61,23 +61,19 @@ ActiveAdmin.register User do
       column(:bezirk_2) { |user| user.graetzl.districts.second.try(:zip) }
       column(:location_1) { |user| user.primary_location.try(:name) }
       column(:location_1_url) { |user|
-        Rails.application.routes.url_helpers.location_path(user.primary_location) if user.locations.present?
+        Rails.application.routes.url_helpers.location_path(user.primary_location) if user.primary_location
       }
       column(:location_1_bezirk) { |user|
-        location = user.primary_location
-        location.graetzl.districts.first.try(:zip)
+        user.primary_location.graetzl.districts.first.try(:zip) if user.primary_location
       }
       column(:location_1_graetzl) { |user|
-        location = user.primary_location
-        location.graetzl.name
+        user.primary_location.graetzl.name if user.primary_location
       }
       column(:location_1_graetzl_url) { |user|
-        location = user.primary_location
-        Rails.application.routes.url_helpers.graetzl_path(location.graetzl)
+        Rails.application.routes.url_helpers.graetzl_path(user.primary_location.graetzl) if user.primary_location
       }
       column(:location_1_category) { |user|
-        location = user.primary_location
-        location.category.name
+        user.primary_location.category.name if user.primary_location
       }
       column(:meetings_initiated) { |user| user.going_tos.initiator.count }
       column(:location_posts) { |user| user.location_posts.count }
