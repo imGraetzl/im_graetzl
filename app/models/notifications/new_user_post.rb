@@ -10,6 +10,10 @@ class Notifications::NewUserPost < Notification
     'Es gibt eine neue Idee im Grätzl'
   end
 
+  def self.notify_owner?
+    true
+  end
+
   def mail_vars
     {
       type: type.demodulize.underscore,
