@@ -29,7 +29,7 @@ class MeetingsController < ApplicationController
     @meeting = find_user_meeting
     old_address_id = @meeting.address.try(:id)
     @meeting.attributes = update_meeting_params
-    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.graetzl
+    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.try(:graetzl)
     changed_attributes = @meeting.changed_attributes
     if @meeting.address.present? && !@meeting.address.changed_attributes.blank?
       changed_attributes = changed_attributes.merge({ address: @meeting.address.changed_attributes })
