@@ -10,6 +10,10 @@ class Notifications::NewMeeting < Notification
     'Ein neues Treffen wurde im Grätzl erstellt'
   end
 
+  def self.notify_owner?
+    true
+  end
+
   def mail_vars
     {
       type: type.demodulize.underscore,

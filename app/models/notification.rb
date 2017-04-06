@@ -22,6 +22,10 @@ class Notification < ApplicationRecord
     true
   end
 
+  def self.notify_owner?
+    false
+  end
+
   def self.triggered_by?(activity)
     activity.key == self::TRIGGER_KEY
   end
@@ -32,7 +36,7 @@ class Notification < ApplicationRecord
 
   def self.broadcast(activity)
     triggered_types = ::Notification.subclasses.select{ |klass| klass.triggered_by? activity }
-    ids_notified_users =  []
+    ids_notified_users = []
     #sort by bitmask, so that lower order bitmask types are sent first, because
     #higher order bitmask types might not needed to be sent at all, when a user
     #has been already notified via a lower order type.
@@ -40,14 +44,15 @@ class Notification < ApplicationRecord
       if klass.condition(activity)
         users = klass.receivers(activity)
         users.each do |u|
-          unless ids_notified_users.include?(u.id) || (u.id == activity.owner.id if activity.owner)
-            display_on_website = u.enabled_website_notifications & klass::BITMASK > 0
-            n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
-            ids_notified_users << u.id if display_on_website
-            if !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
-              SendMailNotificationJob.perform_later n
-              ids_notified_users << u.id
-            end
+          next if ids_notified_users.include?(u.id)
+          next if u == activity.owner && !klass.notify_owner?
+          display_on_website = u.enabled_website_notification?(klass) && u != activity.owner
+          n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
+          if display_on_website
+            ids_notified_users << u.id
+          elsif !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
+            SendMailNotificationJob.perform_later n
+            ids_notified_users << u.id
           end
         end
       end

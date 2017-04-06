@@ -10,6 +10,10 @@ class Notifications::NewLocationPost < Notification
     'Eine Location aus meinem Grätzl hat eine Neuigkeit erstellt'
   end
 
+  def self.notify_owner?
+    true
+  end
+
   def mail_vars
     {
       type: type.demodulize.underscore,
