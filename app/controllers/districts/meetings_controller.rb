@@ -7,7 +7,13 @@ class Districts::MeetingsController < ApplicationController
     @meetings = @district.meetings.
       by_currentness.
       includes(:graetzl).
-      page(params[:page]).per(params[:page].blank? ? 14 : 15).
-      padding(params[:page].blank? ? 0 : -1)
+      page(current_page).per(current_page == 1 ? 14 : 15).
+      padding(current_page == 1 ? 0 : -1)
+  end
+
+  private
+
+  def current_page
+    params[:page] || 1
   end
 end
