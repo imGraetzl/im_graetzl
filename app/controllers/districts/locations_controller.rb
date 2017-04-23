@@ -4,9 +4,15 @@ class Districts::LocationsController < ApplicationController
   def index
     set_district
     @locations = @district.locations.approved.includes(:address, :category, :graetzl).
-      page(params[:page]).
-      per(params[:page].blank? ? 14 : 15).
-      padding(params[:page].blank? ? 0 : -1)
+      page(current_page).per(current_page == 1 ? 14 : 15).
+      padding(current_page == 1 ? 0 : -1)
     set_map_data unless request.xhr?
   end
+
+  private
+
+  def current_page
+    params[:page] || 1
+  end
+
 end
