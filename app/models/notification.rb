@@ -36,7 +36,7 @@ class Notification < ApplicationRecord
 
   def self.broadcast(activity)
     triggered_types = ::Notification.subclasses.select{ |klass| klass.triggered_by? activity }
-    ids_notified_users = []
+    notified_user_ids = {}
     #sort by bitmask, so that lower order bitmask types are sent first, because
     #higher order bitmask types might not needed to be sent at all, when a user
     #has been already notified via a lower order type.
@@ -44,16 +44,14 @@ class Notification < ApplicationRecord
       if klass.condition(activity)
         users = klass.receivers(activity)
         users.each do |u|
-          next if ids_notified_users.include?(u.id)
+          next if notified_user_ids[u.id].present?
           next if u == activity.owner && !klass.notify_owner?
           display_on_website = u.enabled_website_notification?(klass) && u != activity.owner
+          send_email = u.immediate_mail_notifications & klass::BITMASK > 0
           n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
-          if display_on_website
-            ids_notified_users << u.id
-          elsif !Rails.env.development? && (u.immediate_mail_notifications & klass::BITMASK > 0)
-            SendMailNotificationJob.perform_later n
-            ids_notified_users << u.id
-          end
+
+          SendMailNotificationJob.perform_later(n) if send_email
+          notified_user_ids[u.id] = true if display_on_website || send_email
         end
       end
     end
