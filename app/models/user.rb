@@ -45,7 +45,12 @@ class User < ApplicationRecord
     end
   end
 
+  def after_confirmation
+    UsersMailer.new.send_welcome_email(self)
+  end
+
   def primary_location
     self.locations.first
   end
+
 end
