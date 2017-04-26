@@ -12,6 +12,9 @@ class UsersMailer
       to: [ { email: user.email } ],
       global_merge_vars: [
         { name: 'username', content: user.username },
+        { name: 'first_name', content: user.first_name },
+        { name: 'last_name', content: user.last_name },
+        { name: 'user_type', content: user.business? ? 'business' : 'normal' },
         { name: 'graetzl_name', content: user.graetzl.name },
         { name: 'graetzl_url', content: graetzl_url(user.graetzl, URL_OPTIONS) }
       ]
