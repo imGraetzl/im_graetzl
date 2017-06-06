@@ -47,6 +47,8 @@ class User < ApplicationRecord
 
   def after_confirmation
     UsersMailer.new.send_welcome_email(self)
+    # register email with Mailchimp
+    SubscribeJob.perform_later(self) if self.newsletter
   end
 
   def primary_location

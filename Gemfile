@@ -113,3 +113,5 @@ gem 'actionview-encoded_mail_to'
 gem 'aasm'
 # error reports
 gem 'rollbar'
+# Mailchimp API integration
+gem 'gibbon', '~> 3.0', '>= 3.0.2'
