@@ -12,9 +12,11 @@ class SubscribeJob < ApplicationJob
           LNAME: user.last_name,
           USERROLE: user.role,
           GRAETZL: user.graetzl.name,
+          GR_URL: Rails.application.routes.url_helpers.graetzl_path(user.graetzl),
           PLZ: user.graetzl.districts.first.try(:zip),
           USERNAME: user.username,
           PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
+          NEWSLETTER: user.newsletter.to_s
         }
       })
     rescue Gibbon::MailChimpError => mce
