@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422115418) do
+ActiveRecord::Schema.define(version: 20170817212056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,11 +25,10 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
   end
-
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -43,11 +41,10 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "recipient_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
   end
-
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_name",      limit: 255
@@ -60,9 +57,8 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.integer  "addressable_id"
     t.string   "addressable_type", limit: 255
     t.string   "description",      limit: 255
+    t.index ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
   end
-
-  add_index "addresses", ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
 
   create_table "billing_addresses", force: :cascade do |t|
     t.integer  "location_id"
@@ -75,9 +71,8 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "country",     default: "Austria"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.index ["location_id"], name: "index_billing_addresses_on_location_id", using: :btree
   end
-
-  add_index "billing_addresses", ["location_id"], name: "index_billing_addresses_on_location_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -93,10 +88,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "categorizable_type"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.index ["categorizable_type", "categorizable_id"], name: "idx_categorizations_on_categorizable", using: :btree
+    t.index ["category_id"], name: "index_categorizations_on_category_id", using: :btree
   end
-
-  add_index "categorizations", ["categorizable_type", "categorizable_id"], name: "idx_categorizations_on_categorizable", using: :btree
-  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -105,10 +99,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "commentable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
-
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.string   "website"
@@ -118,9 +111,8 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "hours"
+    t.index ["location_id"], name: "index_contacts_on_location_id", using: :btree
   end
-
-  add_index "contacts", ["location_id"], name: "index_contacts_on_location_id", using: :btree
 
   create_table "curators", force: :cascade do |t|
     t.integer  "graetzl_id"
@@ -129,10 +121,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+    t.index ["graetzl_id"], name: "index_curators_on_graetzl_id", using: :btree
+    t.index ["user_id"], name: "index_curators_on_user_id", using: :btree
   end
-
-  add_index "curators", ["graetzl_id"], name: "index_curators_on_graetzl_id", using: :btree
-  add_index "curators", ["user_id"], name: "index_curators_on_user_id", using: :btree
 
   create_table "districts", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -141,9 +132,8 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.datetime "updated_at"
     t.geometry "area",       limit: {:srid=>0, :type=>"polygon"}
     t.string   "slug",       limit: 255
+    t.index ["slug"], name: "index_districts_on_slug", using: :btree
   end
-
-  add_index "districts", ["slug"], name: "index_districts_on_slug", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",           limit: 255, null: false
@@ -151,12 +141,11 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "sluggable_type", limit: 50
     t.string   "scope",          limit: 255
     t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+    t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+    t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
   end
-
-  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
-  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
-  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "going_tos", force: :cascade do |t|
     t.integer  "user_id"
@@ -164,10 +153,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.integer  "role",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["meeting_id"], name: "index_going_tos_on_meeting_id", using: :btree
+    t.index ["user_id"], name: "index_going_tos_on_user_id", using: :btree
   end
-
-  add_index "going_tos", ["meeting_id"], name: "index_going_tos_on_meeting_id", using: :btree
-  add_index "going_tos", ["user_id"], name: "index_going_tos_on_user_id", using: :btree
 
   create_table "graetzls", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -176,9 +164,8 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.geometry "area",        limit: {:srid=>0, :type=>"polygon"}
     t.string   "slug",        limit: 255
     t.integer  "users_count",                                      default: 0
+    t.index ["slug"], name: "index_graetzls_on_slug", using: :btree
   end
-
-  add_index "graetzls", ["slug"], name: "index_graetzls_on_slug", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.string   "file_id"
@@ -187,9 +174,8 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "file_content_type"
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
   end
-
-  add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
   create_table "initiatives", force: :cascade do |t|
     t.string   "name"
@@ -207,10 +193,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "state",       default: 0
+    t.index ["location_id"], name: "index_location_ownerships_on_location_id", using: :btree
+    t.index ["user_id"], name: "index_location_ownerships_on_user_id", using: :btree
   end
-
-  add_index "location_ownerships", ["location_id"], name: "index_location_ownerships_on_location_id", using: :btree
-  add_index "location_ownerships", ["user_id"], name: "index_location_ownerships_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -227,10 +212,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.integer  "state",                    default: 0
     t.integer  "meeting_permission",       default: 0, null: false
     t.integer  "category_id"
+    t.index ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree
+    t.index ["slug"], name: "index_locations_on_slug", using: :btree
   end
-
-  add_index "locations", ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree
-  add_index "locations", ["slug"], name: "index_locations_on_slug", using: :btree
 
   create_table "meetings", force: :cascade do |t|
     t.string   "name",                     limit: 255
@@ -247,11 +231,11 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "cover_photo_content_type"
     t.integer  "location_id"
     t.integer  "state",                                default: 0
+    t.boolean  "approved_for_api",                     default: false
+    t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id", using: :btree
+    t.index ["location_id"], name: "index_meetings_on_location_id", using: :btree
+    t.index ["slug"], name: "index_meetings_on_slug", using: :btree
   end
-
-  add_index "meetings", ["graetzl_id"], name: "index_meetings_on_graetzl_id", using: :btree
-  add_index "meetings", ["location_id"], name: "index_meetings_on_location_id", using: :btree
-  add_index "meetings", ["slug"], name: "index_meetings_on_slug", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -271,10 +255,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "operator_type"
+    t.index ["graetzl_id"], name: "index_operating_ranges_on_graetzl_id", using: :btree
+    t.index ["operator_id", "operator_type"], name: "index_operating_ranges_on_operator_id_and_operator_type", using: :btree
   end
-
-  add_index "operating_ranges", ["graetzl_id"], name: "index_operating_ranges_on_graetzl_id", using: :btree
-  add_index "operating_ranges", ["operator_id", "operator_type"], name: "index_operating_ranges_on_operator_id_and_operator_type", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.text     "content"
@@ -286,11 +269,10 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.integer  "author_id"
     t.string   "author_type"
     t.string   "type"
+    t.index ["author_type", "author_id"], name: "index_posts_on_author_type_and_author_id", using: :btree
+    t.index ["graetzl_id"], name: "index_posts_on_graetzl_id", using: :btree
+    t.index ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
   end
-
-  add_index "posts", ["author_type", "author_id"], name: "index_posts_on_author_type_and_author_id", using: :btree
-  add_index "posts", ["graetzl_id"], name: "index_posts_on_graetzl_id", using: :btree
-  add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -300,17 +282,15 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.string   "tagger_type"
     t.string   "context",       limit: 128
     t.datetime "created_at"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
   end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
   end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                         limit: 255, default: "",    null: false
@@ -346,13 +326,14 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.integer  "immediate_mail_notifications",              default: 4088
     t.integer  "enabled_website_notifications",             default: 4088
     t.boolean  "newsletter",                                default: false, null: false
+    t.string   "api_key"
+    t.index ["api_key"], name: "index_users_on_api_key", using: :btree
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   end
-
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
   create_table "zuckerls", force: :cascade do |t|
     t.integer  "location_id"
@@ -367,10 +348,9 @@ ActiveRecord::Schema.define(version: 20160422115418) do
     t.datetime "updated_at",                         null: false
     t.integer  "initiative_id"
     t.string   "slug"
+    t.index ["initiative_id"], name: "index_zuckerls_on_initiative_id", using: :btree
+    t.index ["location_id"], name: "index_zuckerls_on_location_id", using: :btree
+    t.index ["slug"], name: "index_zuckerls_on_slug", using: :btree
   end
-
-  add_index "zuckerls", ["initiative_id"], name: "index_zuckerls_on_initiative_id", using: :btree
-  add_index "zuckerls", ["location_id"], name: "index_zuckerls_on_location_id", using: :btree
-  add_index "zuckerls", ["slug"], name: "index_zuckerls_on_slug", using: :btree
 
 end

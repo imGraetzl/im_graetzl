@@ -24,6 +24,7 @@ class Meeting < ApplicationRecord
   enum state: { basic: 0, cancelled: 1 }
 
   belongs_to :graetzl
+  belongs_to :location
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
   has_many :going_tos, dependent: :destroy
@@ -33,7 +34,6 @@ class Meeting < ApplicationRecord
   accepts_nested_attributes_for :categorizations, allow_destroy: true
   has_many :categories, through: :categorizations
   has_many :comments, as: :commentable, dependent: :destroy
-  belongs_to :location
 
   validates :name, presence: true
   validates :graetzl, presence: true
