@@ -27,7 +27,7 @@ class MeetingsSerializer
 
   def location_fields(location)
     location.slice(:id, :name).merge(
-      url: Rails.application.routes.url_helpers.location_url(meeting.location),
+      url: Rails.application.routes.url_helpers.location_url(location),
     ) if location
   end
 
