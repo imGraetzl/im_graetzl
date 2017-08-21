@@ -32,6 +32,6 @@ class MeetingsSerializer
   end
 
   def address_fields(address)
-    address.slice(:street_name, :street_number, :zip, :city)
+    address.slice(:street_name, :street_number, :zip, :city) if address
   end
 end
