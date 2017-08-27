@@ -17,7 +17,7 @@ class MeetingsSerializer
         :ends_at_time,
       ).merge(
         url: Rails.application.routes.url_helpers.meeting_url(meeting),
-        cover_photo_url: meeting.cover_photo.try(:url),
+        cover_photo_url: Refile.attachment_url(meeting, :cover_photo),
         graetzl: meeting.graetzl.name,
         location: location_fields(meeting.location),
         address: address_fields(meeting.address)
