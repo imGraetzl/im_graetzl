@@ -3,7 +3,7 @@
 set :environment, ENV['RACK_ENV']
 
 every 1.day, at: '0:00 am' do
-  command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake db:truncate"
+  command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake db:cleanup"
 end
 
 every 1.day, at: '0:30 am' do
@@ -20,12 +20,4 @@ end
 
 every 1.day, at: '5:15 am' do
   command "cd #{path} && #{environment_variable}=#{ENV['RACK_ENV']} #{bundle_command} rake daily_mail"
-end
-
-every 10.minutes do
-  rake 'admin:cleanup', output: "log/#{ENV['RACK_ENV']}.log"
-end
-
-every 2.hours do
-  rake 'admin:renew_permissions', output: "log/#{ENV['RACK_ENV']}.log"
 end
