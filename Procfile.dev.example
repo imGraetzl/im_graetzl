@@ -1,0 +1,3 @@
+web: bundle exec puma -C config/puma.rb
+guard: bundle exec guard
+pg: postgres -D tmp/postgres -p 5432
