@@ -32,6 +32,14 @@ class MeetingsSerializer
   end
 
   def address_fields(address)
-    address.slice(:street_name, :street_number, :zip, :city, :coordinates) if address
+    address.slice(
+      :street_name, :street_number, :zip, :city
+    ).merge(
+      coordinates: coordinates_fields(address.coordinates)
+    ) if address
+  end
+
+  def coordinates_fields(coordinates)
+    {lat: coordinates.y, long: coordinates.x} if coordinates
   end
 end
