@@ -22,7 +22,7 @@ class SubscribeJob < ApplicationJob
     rescue Gibbon::MailChimpError => mce
       SuckerPunch.logger.error("subscribe failed: due to #{mce.message}")
       raise mce
-    rescue Exception => e
+    rescue => e
       SuckerPunch.logger.error("subscribe failed: due to #{e.message}")
       raise e
     end

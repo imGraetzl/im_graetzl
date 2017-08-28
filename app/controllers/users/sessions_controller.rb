@@ -24,7 +24,7 @@ before_action :configure_sign_in_params, only: [:create]
 
     def configure_sign_in_params
       devise_parameter_sanitizer.permit(:sign_in) do |u|
-          u.permit(:login, :username, :email, :password, :remember_me)
-        end
+        u.permit(:login, :username, :email, :password, :remember_me)
+      end
     end
 end
