@@ -16,3 +16,11 @@ cache: bundler
 notifications:
   slack:
     secure: Zg3iPakWnLUMaxWemK4DfdRMyUSiOvflR2lo1yP64MY+arZjJd4cUB0uAGj1xAx2ThXsdDJwbfwISxhGDpvUtiDbS8QA/4oGDTFFsWY9NK2rWvzR33X/z1XO/AnyYW1hIPvw0nr/GI4syvlYlckeGp7NhrSgpKp0eFKCQ+yCxIw=
+deploy:
+  provider: heroku
+  api_key:
+    secure: lSgbnXMKnL/HWbSy+Rq7Gpmuyen8SdE15h9UGHYgtbZ5Vxpz1Cjvxjx6Tzzh28AlUsVbh4voijw4uy61OtzABCcZ0JBDVwYQrQbmiWk6fgFd4eBR8ULD+jhri+ZwgWaavBhp+Jg895Hg9iQ+Ff2P3/Qy4wVhDwoOnKVc6FuffcY=
+  app:
+    master: imgraetzl
+    staging: imgraetzl-staging
+  # run: "rake db:migrate"
