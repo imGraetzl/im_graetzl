@@ -1,9 +1,9 @@
 desc 'Update live zuckerl'
-task update_zuckerl: :environment do
-  puts "Rake update_zuckerl start at #{Time.now}"
-  last_month = Date.today.last_month
-  Zuckerl.live.find_each{|zuckerl| zuckerl.expire!}
-  Zuckerl.where('created_at BETWEEN ? AND ?', last_month.beginning_of_month, last_month.end_of_month).find_each do |zuckerl|
-    zuckerl.put_live! if zuckerl.may_put_live?
+task monthly_zuckerl_update: :environment do
+  if Date.today.day == 1
+    puts "Rake monthly_zuckerl_update start at #{Time.now}"
+    last_month = Date.today.last_month
+    ZuckerlPublisher.new.expire_published
+    ZuckerlPublisher.new.publish_drafted(last_month.beginning_of_month..last_month.end_of_month)
   end
 end
