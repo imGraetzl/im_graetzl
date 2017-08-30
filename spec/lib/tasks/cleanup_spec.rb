@@ -3,12 +3,12 @@ require 'rake'
 
 RSpec.describe 'Tasks' do
 
-  describe 'db:truncate' do
+  describe 'db:cleanup' do
     before do
-      Rake.application.rake_require 'tasks/db/truncate'
+      Rake.application.rake_require 'tasks/db/cleanup'
       Rake::Task.define_task(:environment)
     end
-    subject(:task) { Rake::Task['db:truncate'] }
+    subject(:task) { Rake::Task['db:cleanup'] }
     before(:example) { task.reenable }
 
     it 'does not raise exception' do
