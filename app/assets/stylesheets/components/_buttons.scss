@@ -104,8 +104,11 @@
 
 .btn-userCallToAction {
   @extend .btn-primary;
-  @extend .btn-primary.-rose;
-  @extend .btn-primary.-shadow;
+
+  transition: box-shadow 0.1s;
+  background-color: $color-ambient-rosa;
+  box-shadow: 2px 2px $color-ambient-rosa-dark;
+
   font-style: italic;
   text-shadow: 1px 1px $color-font-primary;
   span {
@@ -174,8 +177,3 @@
   padding: 8px;
   border: 1px solid $color-ambient-grey-light;
 }
-
-
-
-
-

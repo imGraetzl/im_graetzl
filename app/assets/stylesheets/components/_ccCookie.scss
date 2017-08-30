@@ -35,6 +35,7 @@
 }
 .cc_btn {
   @extend .btn-secondary;
-  @extend .btn-secondary.-small;
+  padding: 1.2rem 1.8rem;
+  font-size: 1.4rem;
   float: right;
 }

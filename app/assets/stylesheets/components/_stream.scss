@@ -298,8 +298,10 @@
   }
   button {
     @extend .btn-secondary;
-    @extend .btn-secondary.-small;
-    @extend .btn-secondary.-rose;
+    padding: 1.2rem 1.8rem;
+    font-size: 1.4rem;
+    border-color: $color-ambient-rosa;
+    color: $color-ambient-rosa;
     float: right;
   }
 }
@@ -454,8 +456,10 @@
   }
   button {
     @extend .btn-secondary;
-    @extend .btn-secondary.-mint;
-    @extend .btn-secondary.-small;
+    padding: 1.2rem 1.8rem;
+    font-size: 1.4rem;
+    border-color: $color-ambient-mint;
+    color: $color-ambient-mint;
     float: right;
   }
   button[type=cancel] {
@@ -536,6 +540,3 @@ section.justEntry {
     }
   }
 }
-
-
-
