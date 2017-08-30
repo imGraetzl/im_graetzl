@@ -11,7 +11,7 @@ gem 'rgeo-geojson'
 gem 'sucker_punch'
 
 gem 'rack-rewrite'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 
 gem 'aasm'
 gem 'acts-as-taggable-on'
