@@ -147,6 +147,7 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.2.5)
+    eventmachine (1.2.5-x86-mingw32)
     excon (0.55.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
@@ -159,6 +160,7 @@ GEM
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.17)
+    ffi (1.9.17-x86-mingw32)
     foreman (0.78.0)
       thor (~> 0.19.1)
     formatador (0.2.5)
@@ -247,6 +249,8 @@ GEM
     netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.7.1)
+      mini_portile2 (~> 2.1.0)
+    nokogiri (1.7.1-x86-mingw32)
       mini_portile2 (~> 2.1.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -461,4 +465,4 @@ RUBY VERSION
    ruby 2.3.4p301
 
 BUNDLED WITH
-   1.15.3
+   1.14.6

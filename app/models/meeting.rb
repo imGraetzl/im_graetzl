@@ -52,6 +52,20 @@ class Meeting < ApplicationRecord
     address || location.try(:address)
   end
 
+  def approve_for_api
+    if !approved_for_api?
+      update approved_for_api: true
+      create_activity(:approve_for_api)
+    end
+  end
+
+  def disapprove_for_api
+    if approved_for_api?
+      update approved_for_api: false
+      create_activity(:disapprove_for_api)
+    end
+  end
+
   private
 
   def starts_at_date_cannot_be_in_the_past

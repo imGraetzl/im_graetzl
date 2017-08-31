@@ -21,6 +21,47 @@ ActiveAdmin.register Meeting do
   show { render 'show', context: self }
   form partial: 'form'
 
+  # batch actions
+  batch_action :approve_for_api do |ids|
+    batch_action_collection.find(ids).map(&:approve_for_api)
+    redirect_to collection_path, alert: 'Die ausgewählten Treffen wurden für die API genehmigt.'
+  end
+
+  batch_action :disapprove_for_api, confirm: 'Wirklich aus API entfernen?' do |ids|
+    batch_action_collection.find(ids).map(&:disapprove_for_api)
+    redirect_to collection_path, alert: 'Die gewählten Treffen werden für die API nicht mehr genehmigt.'
+  end
+
+  # action buttons
+  action_item :approve_for_api, only: :show, if: proc{ !meeting.approved_for_api? } do
+    link_to 'Treffen für API genehmigen', approve_for_api_admin_meeting_path(meeting), { method: :put }
+  end
+
+  action_item :disapprove_for_api, only: :show, if: proc{ meeting.approved_for_api? } do
+    link_to 'Treffen für API nicht genehmigen', disapprove_for_api_admin_meeting_path(meeting), { method: :put }
+  end
+
+  # member actions
+  member_action :approve_for_api, method: :put do
+    if resource.approve_for_api
+      flash[:success] = 'Das Treffen wurde für die API genehmigt.'
+      redirect_to admin_meetings_path
+    else
+      flash[:error] = 'Das Treffen kan für die API nicht genehmigt werden.'
+      redirect_to resource_path
+    end
+  end
+
+  member_action :disapprove_for_api, method: :put do
+    if resource.disapprove_for_api
+      flash[:notice] = 'Das Treffen ist nicht mehr für die API genehmigt.'
+      redirect_to admin_meetings_path
+    else
+      flash[:error] = 'Das Treffen kann nicht für die API abgelehnt werden.'
+      redirect_to resource_path
+    end
+  end
+
   permit_params :graetzl_id,
     :name,
     :slug,
