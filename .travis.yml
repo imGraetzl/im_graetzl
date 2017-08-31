@@ -1,8 +1,7 @@
 sudo: false
 language: ruby
 rvm:
-- 2.3.0
-- 2.3.1
+- 2.3.4
 addons:
   postgresql: '9.4'
   apt:
