@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = 'http://www.imgraetzl.at'
+SitemapGenerator::Sitemap.default_host = 'https://www.imgraetzl.at'
 
 SitemapGenerator::Sitemap.create do
   # Districts
