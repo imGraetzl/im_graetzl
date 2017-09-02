@@ -247,6 +247,7 @@ GEM
       tool (~> 0.2)
     nenv (0.3.0)
     netrc (0.11.0)
+    newrelic_rpm (4.3.0.335)
     nio4r (1.2.1)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
@@ -436,6 +437,7 @@ DEPENDENCIES
   letter_opener
   listen (~> 3.0.5)
   mandrill-api (~> 1.0.53)
+  newrelic_rpm
   pg
   poltergeist
   puma

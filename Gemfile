@@ -25,9 +25,10 @@ gem 'kaminari'
 gem 'remotipart'
 gem 'sitemap_generator'
 
-gem 'rollbar'
 gem 'mandrill-api', '~> 1.0.53', require: "mandrill"
 gem 'gibbon', '~> 3.0', '>= 3.0.2'
+gem 'newrelic_rpm'
+gem 'rollbar'
 
 gem 'refile', github: 'refile/refile', require: 'refile/rails'
 gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
