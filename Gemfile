@@ -32,7 +32,7 @@ gem 'refile', github: 'refile/refile', require: 'refile/rails'
 gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
 gem 'sinatra', github: 'sinatra/sinatra', ref: "88a1ba7bfb2262b68391d2490dbb440184b9f838"
 gem 'refile-s3'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 2.7'
 
 gem 'sass-rails'
 gem 'uglifier'

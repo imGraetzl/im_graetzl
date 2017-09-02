@@ -5,7 +5,7 @@ if Rails.env.production? || Rails.env.staging?
   aws = {
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
     secret_access_key: ENV['AWS_SECRET_KEY'],
-    region: 'eu-central-1',
+    region: ENV['AWS_REGION'],
     bucket: ENV['UPLOADS_BUCKET']
   }
   Refile.cache = Refile::S3.new(prefix: 'refile/cache', **aws)

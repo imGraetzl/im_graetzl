@@ -101,4 +101,6 @@ Rails.application.routes.draw do
     get :comments
   end
   resources :admin_posts, path: :ideen, only: [:show]
+
+  get '/robots.txt' => 'static_pages#robots'
 end
