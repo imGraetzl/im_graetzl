@@ -9,4 +9,5 @@ class StaticPagesController < ApplicationController
       @zuckerls = Zuckerl.live.order("RANDOM()").first(2)
     end
   end
+
 end

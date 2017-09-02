@@ -410,7 +410,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (~> 4.0)
   acts-as-taggable-on
   autoprefixer-rails
-  aws-sdk
+  aws-sdk (~> 2.7)
   bullet
   byebug
   capybara
