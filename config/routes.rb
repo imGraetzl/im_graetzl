@@ -105,4 +105,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :meetings, only: [:index]
   end
+
+  get '/robots.txt' => 'static_pages#robots'
 end
