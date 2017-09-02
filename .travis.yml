@@ -13,7 +13,7 @@ addons:
 
 before_script:
 - psql -U postgres -c "create extension postgis"
-- bundle exec rake db:create db:schema:load RAILS_ENV=test
+- RAILS_ENV=test bundle exec rails db:create db:schema:load
 cache: bundler
 notifications:
   slack:
