@@ -40,6 +40,8 @@ module ImGraetzl
       html_tag.html_safe
     end
 
+    config.middleware.use Rack::Attack
+
     # Rack middleware to redirect urls with trailing slash
     config.middleware.insert_before(0, Rack::Rewrite) do
       r301 %r{^/(.*)/$}, '/$1'
