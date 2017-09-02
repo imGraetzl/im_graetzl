@@ -10,8 +10,9 @@ gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'sucker_punch'
 
-gem 'rack-rewrite'
+gem 'rack-attack'
 gem 'rack-cors', require: 'rack/cors'
+gem 'rack-rewrite'
 
 gem 'aasm'
 gem 'acts-as-taggable-on'

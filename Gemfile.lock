@@ -270,6 +270,8 @@ GEM
     public_suffix (2.0.5)
     puma (3.7.0)
     rack (2.0.1)
+    rack-attack (5.0.1)
+      rack
     rack-cors (0.4.1)
     rack-protection (1.5.3)
       rack
@@ -437,6 +439,7 @@ DEPENDENCIES
   pg
   poltergeist
   puma
+  rack-attack
   rack-cors
   rack-rewrite
   rails (~> 5.0)
