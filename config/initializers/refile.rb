@@ -4,7 +4,7 @@ if Rails.env.production? || Rails.env.staging?
 
   aws = {
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    secret_access_key: ENV['AWS_SECRET_KEY'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
     region: ENV['AWS_REGION'],
     bucket: ENV['UPLOADS_BUCKET']
   }
