@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   # hide staging app from public
   http_basic_authenticate_with name: 'user', password: 'secret' if Rails.env.staging? && !(ENV["ALLOW_WORKER"] == 'true')
 
+  force_ssl
+
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || graetzl_path(resource.graetzl)
   end
