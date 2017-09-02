@@ -5,14 +5,12 @@ rvm:
 - 2.3.1
 addons:
   postgresql: '9.4'
-    apt:
-    packages:
-      - postgresql-9.4-postgis-2.3
-
   apt:
     packages:
     - libgeos-dev
     - libproj-dev
+    - postgresql-9.4-postgis-2.3
+
 before_script:
 - psql -U postgres -c "create extension postgis"
 - bundle exec rake db:create db:schema:load RAILS_ENV=test
