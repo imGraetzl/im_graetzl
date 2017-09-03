@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817212056) do
+ActiveRecord::Schema.define(version: 20170903134231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 20170817212056) do
     t.string   "addressable_type", limit: 255
     t.string   "description",      limit: 255
     t.index ["addressable_id", "addressable_type"], name: "index_addresses_on_addressable_id_and_addressable_type", using: :btree
+  end
+
+  create_table "api_accounts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "api_key"
+    t.boolean  "enabled",    default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "billing_addresses", force: :cascade do |t|
