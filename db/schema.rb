@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903134231) do
+ActiveRecord::Schema.define(version: 20170903140811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -334,8 +334,6 @@ ActiveRecord::Schema.define(version: 20170903134231) do
     t.integer  "immediate_mail_notifications",              default: 4088
     t.integer  "enabled_website_notifications",             default: 4088
     t.boolean  "newsletter",                                default: false, null: false
-    t.string   "api_key"
-    t.index ["api_key"], name: "index_users_on_api_key", using: :btree
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
