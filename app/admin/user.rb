@@ -31,7 +31,6 @@ ActiveAdmin.register User do
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
     :role,
-    :api_key,
     address_attributes: [
       :id,
       :street_name,

@@ -5,7 +5,7 @@ class Api::ApiController < ApplicationController
 
   def check_api_key
     api_key = params[:api_key] || request.headers['ImGraetzl-Api-Key']
-    head :unauthorized unless api_key.present? && User.exists?(api_key: api_key)
+    head :unauthorized unless api_key.present? && ApiAccount.exists?(api_key: api_key)
   end
 
 end
