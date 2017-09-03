@@ -1,0 +1,3 @@
+class ApiAccount < ApplicationRecord
+
+end
