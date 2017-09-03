@@ -7,6 +7,8 @@ de:
       delete_confirmation: "Sind Sie sicher dass sie diese %{plural_model} löschen wollen?"
       labels:
         approve: Freischalten
+        approve_for_api: für API freischalten
+        disapprove_for_api: für API ablehnen
         reject: Ablehnen
         destroy: Löschen
         mark_as_paid: Als bezahlt markieren

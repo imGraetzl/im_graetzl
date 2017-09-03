@@ -103,4 +103,8 @@ Rails.application.routes.draw do
     get :comments
   end
   resources :admin_posts, path: :ideen, only: [:show]
+
+  namespace :api do
+    resources :meetings, only: [:index]
+  end
 end
