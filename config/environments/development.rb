@@ -67,16 +67,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  # bullet config
-  config.after_initialize do
-    Bullet.enable = true
-    # Bullet.alert = true
-    # Bullet.bullet_logger = true
-    # Bullet.console = true
-    Bullet.rails_logger = true
-    # Bullet.add_footer = true
-    # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
-    Rails.application.routes.default_url_options[:host] = 'localhost:3000'
-  end
 end

@@ -3,23 +3,18 @@ class LocationsController < ApplicationController
   include GraetzlChild
 
   def index
-    @locations = Kaminari.paginate_array(@graetzl.locations.by_activity).
-      page(params[:page]).per(15)
+    @locations = @graetzl.locations.by_activity.page(params[:page]).per(15)
   end
 
   def show
     if request.xhr?
-      @location = Location.approved.find(params[:id])
+      @location = @graetzl.locations.approved.find(params[:id])
       paginate_content
     else
-      @location = Location.includes(:graetzl, posts: [:author, :images]).
-        find(params[:id])
+      @location = @graetzl.locations.find(params[:id])
       redirect_enqueued if @location.pending?
-      @posts = @location.posts.order(created_at: :desc).
-        page(params[:page]).per(10)
-      @meetings = @location.meetings.by_currentness.
-        includes(:graetzl).
-        page(params[:meetings]).per(2)
+      @meetings = @location.meetings.by_currentness.include_for_box.page(params[:meetings]).per(2)
+      @posts = @location.posts.includes(:images, :comments).order(created_at: :desc).page(params[:page]).per(10)
       @zuckerls = @location.zuckerls.live
     end
   end

@@ -5,11 +5,10 @@ class Graetzls::MeetingsController < MeetingsController
   end
 
   def show
-    @meeting = find_meeting
+    @meeting = @graetzl.meetings.includes(going_tos: :user).find(params[:id])
     verify_graetzl_child(@meeting) unless request.xhr?
-    @comments = @meeting.comments.
-      order(created_at: :desc).
-      page(params[:page]).per(10)
+    @comments = @meeting.comments.includes(:user, :images).order(created_at: :desc)
+      .page(params[:page]).per(10)
   end
 
   def new

@@ -109,9 +109,6 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.3)
-    bullet (5.5.0)
-      activesupport (>= 3.0.0)
-      uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     capybara (2.12.1)
       addressable
@@ -147,7 +144,10 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.2.5)
+<<<<<<< HEAD
     eventmachine (1.2.5-x86-mingw32)
+=======
+>>>>>>> performance-improvements
     excon (0.55.0)
     execjs (2.7.0)
     factory_girl (4.8.0)
@@ -160,7 +160,10 @@ GEM
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.17)
+<<<<<<< HEAD
     ffi (1.9.17-x86-mingw32)
+=======
+>>>>>>> performance-improvements
     foreman (0.78.0)
       thor (~> 0.19.1)
     formatador (0.2.5)
@@ -394,7 +397,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    uniform_notifier (1.10.0)
     warden (1.2.7)
       rack (>= 1.0)
     webmock (2.3.2)
@@ -418,7 +420,6 @@ DEPENDENCIES
   acts-as-taggable-on
   autoprefixer-rails
   aws-sdk (~> 2.7)
-  bullet
   byebug
   capybara
   database_cleaner

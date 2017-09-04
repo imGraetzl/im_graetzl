@@ -39,13 +39,21 @@ class Meeting < ApplicationRecord
   validates :graetzl, presence: true
   validate :starts_at_date_cannot_be_in_the_past, on: :create
 
+  def self.include_for_box
+    includes(:graetzl, :going_tos, :users, location: :users)
+  end
+
   def initiator
-    going_to = going_tos.initiator.last
-    going_to.user if going_to
+    going_tos.find{ |gt| gt.initiator? }.try(:user)
   end
 
   def responsible_user_or_location
-    location && location.users.include?(initiator) ? location : initiator
+    initiator_user = initiator
+    if location && location.users.include?(initiator_user)
+      location
+    else
+      initiator_user
+    end
   end
 
   def display_address

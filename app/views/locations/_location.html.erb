@@ -6,7 +6,7 @@
     <div class="categoryicon">
       <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
     </div>
-    <%= graetzl_flag(location.graetzl) %>
+    <%= graetzl_flag(location.graetzl) if controller_name == 'districts' %>
   </div>
   <div class="cardBoxContent">
     <div class="location-shortfacts">
@@ -32,7 +32,7 @@
     <div class="txt">
       <p><%= truncate location.description, length: 100 %></p>
     </div>
-    <% if location_post = location.posts.order(:id).last %>
+    <% if location_post = location.posts.last %>
       <%= link_to [location.graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
         <div class="hl">
           <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
@@ -43,7 +43,7 @@
         </div>
       <% end %>
     <% end %>
-    <% if zuckerl = location.zuckerls.live.last %>
+    <% if zuckerl = location.live_zuckerls.last %>
       <%= link_to [location.graetzl, location, anchor: dom_id(zuckerl)], class: 'zuckerlteasertxt' do %>
         <div class="hl">
           <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
@@ -52,7 +52,7 @@
         <div class="title"><%= zuckerl.title %></div>
       <% end %>
     <% end %>
-    <% if meeting = location.meetings.upcoming.last %>
+    <% if meeting = location.upcoming_meetings.last %>
       <%= link_to [meeting.graetzl, meeting], class: 'event-teaser-box' do %>
         <% if meeting.starts_at_date %>
           <div class="date">
