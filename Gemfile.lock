@@ -109,9 +109,6 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     builder (3.2.3)
-    bullet (5.5.0)
-      activesupport (>= 3.0.0)
-      uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     capybara (2.12.1)
       addressable
@@ -392,7 +389,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    uniform_notifier (1.10.0)
     warden (1.2.7)
       rack (>= 1.0)
     webmock (2.3.2)
@@ -416,7 +412,6 @@ DEPENDENCIES
   acts-as-taggable-on
   autoprefixer-rails
   aws-sdk (~> 2.7)
-  bullet
   byebug
   capybara
   database_cleaner

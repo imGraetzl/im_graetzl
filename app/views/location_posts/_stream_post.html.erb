@@ -22,7 +22,7 @@
     <% end %>
     <% unless post.comments.empty? %>
       <%= content_tag(:div, id: dom_id(post), class: "comments_post") do %>
-        <%= load_more_comments_link(post) if post.comments.count > 1 %>
+        <%= load_more_comments_link(post) if post.comments.size > 1 %>
         <%= render post.comments.last %>
       <% end %>
     <% end %>

@@ -54,7 +54,7 @@
       <span>Zu deinem Grätzl</span>
     </label>
     <%= select_tag :select,
-       options_for_select(District.all.map { |district| ["#{district.zip} - #{district.name}", district_path(district)] }),
+       options_for_select(selectable_districts.map { |district_id, name, zip| ["#{zip} - #{name}", district_path(district_id)] }),
        prompt: 'Bezirk wählen',
        onchange: 'location.href = $(this).val()' %>
   </div>

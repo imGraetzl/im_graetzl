@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903140811) do
+ActiveRecord::Schema.define(version: 20170904203257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,6 +220,7 @@ ActiveRecord::Schema.define(version: 20170903140811) do
     t.integer  "state",                    default: 0
     t.integer  "meeting_permission",       default: 0, null: false
     t.integer  "category_id"
+    t.index ["created_at"], name: "index_locations_on_created_at", using: :btree
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree
     t.index ["slug"], name: "index_locations_on_slug", using: :btree
   end
@@ -240,6 +241,7 @@ ActiveRecord::Schema.define(version: 20170903140811) do
     t.integer  "location_id"
     t.integer  "state",                                default: 0
     t.boolean  "approved_for_api",                     default: false
+    t.index ["created_at"], name: "index_meetings_on_created_at", using: :btree
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id", using: :btree
     t.index ["location_id"], name: "index_meetings_on_location_id", using: :btree
     t.index ["slug"], name: "index_meetings_on_slug", using: :btree
@@ -278,6 +280,7 @@ ActiveRecord::Schema.define(version: 20170903140811) do
     t.string   "author_type"
     t.string   "type"
     t.index ["author_type", "author_id"], name: "index_posts_on_author_type_and_author_id", using: :btree
+    t.index ["created_at"], name: "index_posts_on_created_at", using: :btree
     t.index ["graetzl_id"], name: "index_posts_on_graetzl_id", using: :btree
     t.index ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
   end

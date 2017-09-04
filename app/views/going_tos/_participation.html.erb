@@ -1,12 +1,12 @@
 <div class="entryParticipate" data-behavior="participants-container">
   <% if user_signed_in? %>
-    <%= render 'going_tos/button', going_to: meeting.going_tos.find_by_user_id(current_user), meeting: meeting %>
+    <%= render 'going_tos/button', going_to: meeting.going_tos.find{ |gt| gt.user == current_user }, meeting: meeting %>
   <% else %>
     <%= render 'going_tos/buttons/dummy' %>
   <% end %>
 
   <div class="participants">
-    <p class="userCount"><span><%= meeting.going_tos.count %></span> Teilnehmer</p>
+    <p class="userCount"><span><%= meeting.going_tos.size %></span> Teilnehmer</p>
     <div class="portraitCollection">
       <% meeting.going_tos.each do |g| %>
         <%= link_to(g.user){ avatar_for g.user } %>

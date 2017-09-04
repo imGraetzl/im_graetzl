@@ -54,7 +54,6 @@ end
 group :development do
   gem 'spring'
   gem 'letter_opener'
-  gem 'bullet'
 end
 
 group :development, :test do

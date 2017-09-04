@@ -8,7 +8,7 @@ namespace :db do
 
     # check for seed data
     puts 'check for graetzl and districts'
-    if Graetzl.all.empty? || District.all.empty?
+    if Graetzl.none? || District.none?
       puts 'invoke db:seed'
       Rake::Task['db:seed'].invoke
     end

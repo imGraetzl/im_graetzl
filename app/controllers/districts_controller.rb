@@ -13,7 +13,7 @@ class DistrictsController < ApplicationController
     set_district
     graetzls = @district.graetzls
     @meetings = @district.meetings.by_currentness.first(2)
-    @locations = @district.locations.by_activity.to_a.first(2)
+    @locations = @district.locations.by_activity.first(2)
     @zuckerls = @district.zuckerls.order("RANDOM()").first(2)
     @map_data = MapData.call district: @district, graetzls: graetzls
   end

@@ -5,8 +5,7 @@ class Districts::MeetingsController < ApplicationController
     set_district
     set_map_data unless request.xhr?
     @meetings = @district.meetings.
-      by_currentness.
-      includes(:graetzl).
+      by_currentness.include_for_box.
       page(current_page).per(current_page == 1 ? 14 : 15).
       padding(current_page == 1 ? 0 : -1)
   end

@@ -108,10 +108,6 @@ class MeetingsController < ApplicationController
     { 0 => { user_id: current_user.id, role: GoingTo.roles[:initiator] } }
   end
 
-  def find_meeting
-    Meeting.find(params[:id])
-  end
-
   def find_user_meeting
     current_user.meetings.initiated.find params[:id]
   end

@@ -19,20 +19,18 @@ class District < ApplicationRecord
   end
 
   def locations
-    Location.where(graetzl: graetzls)
+    @locations ||= Location.where(graetzl: graetzls.map(&:id))
   end
 
   def meetings
-    Meeting.where(graetzl: graetzls)
+    @meetings ||= Meeting.where(graetzl: graetzls.map(&:id))
   end
 
   def curators
-    Curator.where(graetzl: graetzls)
+    @curators ||= Curator.where(graetzl: graetzls.map(&:id))
   end
 
   def zuckerls
-    Zuckerl.live.where(location_id:
-      Location.select(:id).where(graetzl_id:
-        Graetzl.select(:id).where('ST_INTERSECTS(area, ?)', self.area)))
+    @zuckerls ||= Zuckerl.live.where(location_id: locations.map(&:id))
   end
 end

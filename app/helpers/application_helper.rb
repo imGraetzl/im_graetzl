@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def graetzl_flag(graetzl)
-    content_tag(:div, link_to(graetzl.name, [graetzl]), class: 'sideflag -R') if controller_name == 'districts'
+    content_tag(:div, link_to(graetzl.name, [graetzl]), class: 'sideflag -R')
   end
 
   def form_errors_for(target, name=nil)

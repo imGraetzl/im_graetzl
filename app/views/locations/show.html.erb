@@ -53,7 +53,7 @@
     <%= render 'meetings' unless @location.non_meetable? %>
   </div>
 
-  <%= render 'sidebar' %>
+  <%= render 'sidebar', zuckerls: @zuckerls %>
 
   <div class="stream" data-behavior="stream-container">
     <% if @location.editable_by? current_user %>
