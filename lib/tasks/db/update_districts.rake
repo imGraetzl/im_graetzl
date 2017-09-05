@@ -5,7 +5,7 @@ namespace :db do
   task update_districts: :environment do
 
     def query_api
-      query = 'http://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json'
+      query = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json'
       uri = URI.parse(URI.encode(query))
       HTTParty.get uri
     rescue HTTParty::Error
