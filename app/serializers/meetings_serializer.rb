@@ -1,7 +1,8 @@
 class MeetingsSerializer
 
-  def initialize(meetings)
+  def initialize(meetings, request)
     @meetings = meetings
+    @request = request
   end
 
   def as_json(options = {})
@@ -16,18 +17,18 @@ class MeetingsSerializer
         :ends_at_date,
         :ends_at_time,
       ).merge(
-        url: Rails.application.routes.url_helpers.meeting_url(meeting),
-        cover_photo_url: Refile.attachment_url(meeting, :cover_photo),
+        url: site_url(:graetzl_meeting_url, meeting.graetzl, meeting),
+        cover_photo_url: asset_url(meeting, :cover_photo),
         graetzl: meeting.graetzl.name,
         location: location_fields(meeting.location),
-        address: address_fields(meeting.address)
+        address: address_fields(meeting.address || meeting.location.address)
       )
     end
   end
 
   def location_fields(location)
     location.slice(:id, :name).merge(
-      url: Rails.application.routes.url_helpers.location_url(location),
+      url: site_url(:graetzl_location_url, location.graetzl, location),
     ) if location
   end
 
@@ -41,5 +42,15 @@ class MeetingsSerializer
 
   def coordinates_fields(coordinates)
     {lat: coordinates.y, long: coordinates.x} if coordinates
+  end
+
+  def site_url(helper_name, *args)
+    Rails.application.routes.url_helpers.public_send(helper_name, *args,
+      protocol: @request.protocol, host: @request.host, port: @request.port )
+  end
+
+  def asset_url(resource, asset_name)
+    host = "https://#{Refile.cdn_host || @request.host}"
+    Refile.attachment_url(resource, asset_name, host: host)
   end
 end

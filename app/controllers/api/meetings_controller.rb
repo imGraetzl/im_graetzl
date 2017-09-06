@@ -10,9 +10,9 @@ class Api::MeetingsController < Api::ApiController
       @meetings = @meetings.upcoming
     end
 
-    @meetings = @meetings.includes(:graetzl, :location, :address)
+    @meetings = @meetings.includes(:graetzl, :address, location: [:address, :graetzl])
 
-    render json: MeetingsSerializer.new(@meetings)
+    render json: MeetingsSerializer.new(@meetings, request)
   end
 
   private
