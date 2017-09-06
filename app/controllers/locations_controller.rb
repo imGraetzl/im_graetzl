@@ -3,12 +3,12 @@ class LocationsController < ApplicationController
   include GraetzlChild
 
   def index
-    @locations = @graetzl.locations.by_activity.page(params[:page]).per(15)
+    @locations = @graetzl.locations.approved.include_for_box.by_activity.page(params[:page]).per(15)
   end
 
   def show
     if request.xhr?
-      @location = @graetzl.locations.approved.find(params[:id])
+      @location = @graetzl.locations.approved.include_for_box.find(params[:id])
       paginate_content
     else
       @location = @graetzl.locations.find(params[:id])
@@ -70,7 +70,7 @@ class LocationsController < ApplicationController
     when params[:page]
       @posts = @location.posts.order(created_at: :desc).page(params[:page]).per(10)
     when params[:meetings]
-      @meetings = @location.meetings.by_currentness.includes(:graetzl).page(params[:meetings]).per(2)
+      @meetings = @location.meetings.include_for_box.by_currentness.page(params[:meetings]).per(2)
     end
   end
 

@@ -18,7 +18,7 @@ class LocationPostsController < ApplicationController
 
   def comments
     set_location_post
-    @comments = @location_post.comments.order(:created_at).includes(:user, :images)
+    @comments = @location_post.comments.includes(:user, :images).order(:created_at)
   end
 
   private

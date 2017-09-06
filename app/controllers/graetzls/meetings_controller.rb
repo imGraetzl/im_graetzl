@@ -1,6 +1,6 @@
 class Graetzls::MeetingsController < MeetingsController
   def index
-    @meetings = @graetzl.meetings.by_currentness.includes(:graetzl, :location)
+    @meetings = @graetzl.meetings.include_for_box.by_currentness
     @meetings = @meetings.page(params[:page]).per(15)
   end
 
