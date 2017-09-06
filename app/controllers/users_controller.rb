@@ -2,14 +2,17 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    if request.xhr?
-      @user = User.find(params[:id])
-      paginate_content
+    @user = User.find(params[:id])
+    if !request.xhr?
+      @graetzl = Graetzl.find_by_slug(params[:graetzl_id])
+      redirect_to([@user.graetzl, @user], status: 301) and return if wrong_graetzl?(@user, @graetzl)
+      @wall_comments = load_comments(params[:page])
+      @initiated = load_initiated_meetings(params[:initiated])
+      @attended = load_attended_meetings(params[:attended])
     else
-      set_user_and_graetzl
-      @wall_comments = @user.wall_comments.order(created_at: :desc).page(params[:page]).per(10)
-      @initiated = @user.meetings.initiated.page(params[:initiated]).per(3)
-      @attended = @user.meetings.attended.page(params[:attended]).per(3)
+      @wall_comments = load_comments(params[:page]) if params[:page]
+      @initiated = load_initiated_meetings(params[:initiated]) if params[:initiated]
+      @attended = load_attended_meetings(params[:attended]) if params[:attended]
     end
   end
 
@@ -29,25 +32,20 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user_and_graetzl
-    @user = User.includes(wall_comments: [:images]).find(params[:id])
-    @graetzl = Graetzl.find_by_slug(params[:graetzl_id])
-    redirect_to([@user.graetzl, @user], status: 301) if wrong_graetzl?
+  def wrong_graetzl?(user, graetzl)
+    graetzl.nil? || user.graetzl != graetzl
   end
 
-  def wrong_graetzl?
-    !@graetzl || (@graetzl != @user.graetzl)
+  def load_comments(page)
+    @user.wall_comments.includes(:user, :images).order(created_at: :desc).page(page).per(10)
   end
 
-  def paginate_content
-    case
-    when params[:page]
-      @wall_comments = @user.wall_comments.order(created_at: :desc).page(params[:page]).per(10)
-    when params[:initiated]
-      @initiated = @user.meetings.initiated.page(params[:initiated]).per(3)
-    when params[:attended]
-      @attended = @user.meetings.attended.page(params[:attended]).per(3)
-    end
+  def load_initiated_meetings(page)
+    @user.meetings.initiated.include_for_box.page(page).per(3)
+  end
+
+  def load_attended_meetings(page)
+    @user.meetings.attended.include_for_box.page(page).per(3)
   end
 
   def user_params

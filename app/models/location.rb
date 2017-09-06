@@ -3,8 +3,6 @@ class Location < ApplicationRecord
   extend FriendlyId
 
   scope :by_activity, -> {
-    approved.
-    includes(:graetzl, :posts, :live_zuckerls, :upcoming_meetings, :address, :category).
     order('posts.created_at DESC').
     order('meetings.created_at DESC').
     order(created_at: :desc)
@@ -37,6 +35,10 @@ class Location < ApplicationRecord
   validates :name, presence: true
   validates :graetzl, presence: true
   validates :category, presence: true
+
+  def self.include_for_box
+    includes(:graetzl, :posts, :live_zuckerls, :upcoming_meetings, :address, :category)
+  end
 
   def self.meeting_permissions_for_select
     meeting_permissions.map do |t|

@@ -39,6 +39,10 @@ class Zuckerl < ApplicationRecord
     end
   end
 
+  def self.include_for_box
+    includes(location: [:graetzl, :category, :address])
+  end
+
   def payment_reference
     "#{model_name.singular}_#{id}_#{created_at.strftime('%y%m')}"
   end

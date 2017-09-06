@@ -3,7 +3,7 @@ class Districts::LocationsController < ApplicationController
 
   def index
     set_district
-    @locations = @district.locations.approved.includes(:address, :category, :graetzl).
+    @locations = @district.locations.approved.include_for_box.
       page(current_page).per(current_page == 1 ? 14 : 15).
       padding(current_page == 1 ? 0 : -1)
     set_map_data unless request.xhr?
