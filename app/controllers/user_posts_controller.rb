@@ -4,7 +4,7 @@ class UserPostsController < ApplicationController
   def show
     set_graetzl
     @post = @graetzl.posts.where(type: 'UserPost').find(params[:id])
-    @comments = @post.comments.order(created_at: :desc).page(params[:page]).per(10)
+    @comments = @post.comments.includes(:user, :images).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def new
