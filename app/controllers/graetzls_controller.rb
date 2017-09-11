@@ -17,7 +17,7 @@ class GraetzlsController < ApplicationController
   def guest_content
     @meetings = @graetzl.meetings.include_for_box.by_currentness.first(2)
     @locations= @graetzl.locations.approved.include_for_box.by_activity.first(2)
-    @zuckerls = @graetzl.zuckerls.order("RANDOM()").first(2)
+    @zuckerls = @graetzl.zuckerls.include_for_box.order("RANDOM()").first(2)
     @posts = @graetzl.posts.where(type: "UserPost").order(created_at: :desc).first(2)
     @map_data = MapData.call graetzl: @graetzl
   end

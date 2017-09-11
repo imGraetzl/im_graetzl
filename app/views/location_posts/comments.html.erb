@@ -1,0 +1,4 @@
+<% # Added to prevent crawler causing exceptions %>
+<%= content_tag(:div, id: dom_id(post), class: "comments_post") do %>
+  <%= render @comments %>
+<% end %>
