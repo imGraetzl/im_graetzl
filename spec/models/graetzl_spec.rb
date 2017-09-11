@@ -145,22 +145,22 @@ RSpec.describe Graetzl, type: :model do
   describe '#decorate_activity' do
     let(:graetzl) { create :graetzl, area: 'POLYGON ((0.0 0.0, 0.0 5.0, 5.0 5.0, 0.0 0.0))'}
     let!(:district) { create :district, area: 'POLYGON ((0.0 0.0, 0.0 10.0, 10.0 10.0, 10.0 0.0, 0.0 0.0))' }
-    let(:activites) { create_list :activity, 10 }
+    let(:activities) { create_list :activity, 10 }
     before do
       allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation)
     end
-    subject(:decorate_activity) { graetzl.decorate_activity activites }
+    subject(:decorate_activity) { graetzl.decorate_activity activities }
 
     context 'when no live zuckerl available' do
       it 'returns only activity' do
-        expect(decorate_activity).to match_array activites
+        expect(decorate_activity).to match_array activities
       end
     end
     context 'when live zuckerl available' do
       let!(:zuckerls) { create_list :zuckerl, 2, :live, location: create(:location, graetzl: graetzl) }
 
       it 'contains activity' do
-        expect(decorate_activity).to include *activites
+        expect(decorate_activity).to include *activities
       end
 
       it 'contains zuckerls' do

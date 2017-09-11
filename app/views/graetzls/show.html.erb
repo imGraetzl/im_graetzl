@@ -15,5 +15,10 @@
   <% end %>
   <%= render 'curator' if @graetzl.curator %>
   <%= filters_for current_user, @graetzl %>
-  <%= graetzl_stream_for current_user %>
+
+  <% if user_signed_in? %>
+    <%= render "graetzls/users/stream" %>
+  <% else %>
+    <%= render "graetzls/guests/stream" %>
+  <% end %>
 </section>
