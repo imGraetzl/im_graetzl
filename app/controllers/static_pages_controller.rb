@@ -10,4 +10,8 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def robots
+    render 'robots.text'
+  end
+
 end
