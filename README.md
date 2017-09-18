@@ -54,7 +54,7 @@ Adapt your *Procfile.dev* based on your local database settings
 auto-reloading using:
 
 ```sh
-bundle exec foreman -f Procfile.dev
+bundle exec foreman start -f Procfile.dev
 ```
 
 ### Setup with Vagrant
