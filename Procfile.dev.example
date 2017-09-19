@@ -1,3 +1,4 @@
-web: bundle exec puma -C config/puma.rb
+# web: bundle exec puma -C config/puma.rb
+web: bundle exec rails s
 guard: bundle exec guard
 pg: postgres -D tmp/postgres -p 5432

@@ -49,6 +49,9 @@ $ rake db:setup
 $ rake db:populate
 ```
 
+Create your *.env* file (an example can be found in *.env.example*) and modify
+to your liking.
+
 Adapt your *Procfile.dev* based on your local database settings
 (see *Procfile.dev.example*) and you can start the development server with
 auto-reloading using:
