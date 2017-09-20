@@ -20,6 +20,7 @@ class MeetingsSerializer
         url: site_url(:graetzl_meeting_url, meeting.graetzl, meeting),
         cover_photo_url: asset_url(meeting, :cover_photo),
         graetzl: meeting.graetzl.name,
+        graetzl_url: site_url(:graetzl_url, meeting.graetzl),
         location: location_fields(meeting.location),
         address: address_fields(meeting.address || meeting.location.address)
       )
