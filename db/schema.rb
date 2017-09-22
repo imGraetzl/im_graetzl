@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170904203257) do
+ActiveRecord::Schema.define(version: 20170919160529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,6 +285,41 @@ ActiveRecord::Schema.define(version: 20170904203257) do
     t.index ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
   end
 
+  create_table "room_demands", force: :cascade do |t|
+    t.boolean  "seeking_roommate"
+    t.string   "slogan"
+    t.decimal  "needed_area",          precision: 10, scale: 2
+    t.boolean  "daily_rent"
+    t.boolean  "longterm_rent"
+    t.text     "demand_description"
+    t.text     "personal_description"
+    t.boolean  "wants_collaboration"
+    t.string   "slug"
+    t.integer  "user_id"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.index ["user_id"], name: "index_room_demands_on_user_id", using: :btree
+  end
+
+  create_table "room_offers", force: :cascade do |t|
+    t.string   "slogan"
+    t.text     "room_description"
+    t.decimal  "total_area",          precision: 10, scale: 2
+    t.decimal  "rented_area",         precision: 10, scale: 2
+    t.boolean  "daily_rent"
+    t.boolean  "longterm_rent"
+    t.text     "owner_description"
+    t.text     "tenant_description"
+    t.boolean  "wants_collaboration"
+    t.string   "slug"
+    t.integer  "user_id"
+    t.integer  "location_id"
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.index ["location_id"], name: "index_room_offers_on_location_id", using: :btree
+    t.index ["user_id"], name: "index_room_offers_on_user_id", using: :btree
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -362,4 +397,7 @@ ActiveRecord::Schema.define(version: 20170904203257) do
     t.index ["slug"], name: "index_zuckerls_on_slug", using: :btree
   end
 
+  add_foreign_key "room_demands", "users"
+  add_foreign_key "room_offers", "locations"
+  add_foreign_key "room_offers", "users"
 end
