@@ -10,7 +10,7 @@ class CreateRoomDemands < ActiveRecord::Migration[5.0]
       t.text :personal_description
       t.boolean :wants_collaboration
       t.string :slug
-      t.belongs_to :user, foreign_key: true
+      t.belongs_to :user, foreign_key: true, index: true
 
       t.timestamps
     end

@@ -11,8 +11,8 @@ class CreateRoomOffers < ActiveRecord::Migration[5.0]
       t.text :tenant_description
       t.boolean :wants_collaboration
       t.string :slug
-      t.belongs_to :user, foreign_key: true
-      t.belongs_to :location, foreign_key: true
+      t.belongs_to :user, foreign_key: true, index: true
+      t.belongs_to :location, foreign_key: true, index: true
 
       t.timestamps
     end
