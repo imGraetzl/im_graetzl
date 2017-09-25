@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919160529) do
+ActiveRecord::Schema.define(version: 20170925221036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,6 +285,33 @@ ActiveRecord::Schema.define(version: 20170919160529) do
     t.index ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
   end
 
+  create_table "room_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "room_demand_categories", force: :cascade do |t|
+    t.integer "room_category_id"
+    t.integer "room_demand_id"
+    t.index ["room_category_id"], name: "index_room_demand_categories_on_room_category_id", using: :btree
+    t.index ["room_demand_id"], name: "index_room_demand_categories_on_room_demand_id", using: :btree
+  end
+
+  create_table "room_demand_districts", force: :cascade do |t|
+    t.integer "district_id"
+    t.integer "room_demand_id"
+    t.index ["district_id"], name: "index_room_demand_districts_on_district_id", using: :btree
+    t.index ["room_demand_id"], name: "index_room_demand_districts_on_room_demand_id", using: :btree
+  end
+
+  create_table "room_demand_graetzls", force: :cascade do |t|
+    t.integer "graetzl_id"
+    t.integer "room_demand_id"
+    t.index ["graetzl_id"], name: "index_room_demand_graetzls_on_graetzl_id", using: :btree
+    t.index ["room_demand_id"], name: "index_room_demand_graetzls_on_room_demand_id", using: :btree
+  end
+
   create_table "room_demands", force: :cascade do |t|
     t.boolean  "seeking_roommate"
     t.string   "slogan"
@@ -301,11 +328,18 @@ ActiveRecord::Schema.define(version: 20170919160529) do
     t.index ["user_id"], name: "index_room_demands_on_user_id", using: :btree
   end
 
+  create_table "room_offer_categories", force: :cascade do |t|
+    t.integer "room_category_id"
+    t.integer "room_demand_id"
+    t.index ["room_category_id"], name: "index_room_offer_categories_on_room_category_id", using: :btree
+    t.index ["room_demand_id"], name: "index_room_offer_categories_on_room_demand_id", using: :btree
+  end
+
   create_table "room_offers", force: :cascade do |t|
     t.string   "slogan"
     t.text     "room_description"
-    t.decimal  "total_area",          precision: 10, scale: 2
-    t.decimal  "rented_area",         precision: 10, scale: 2
+    t.decimal  "total_area",              precision: 10, scale: 2
+    t.decimal  "rented_area",             precision: 10, scale: 2
     t.boolean  "daily_rent"
     t.boolean  "longterm_rent"
     t.text     "owner_description"
@@ -314,8 +348,14 @@ ActiveRecord::Schema.define(version: 20170919160529) do
     t.string   "slug"
     t.integer  "user_id"
     t.integer  "location_id"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "graetzl_id"
+    t.integer  "district_id"
+    t.string   "main_image_id"
+    t.string   "main_image_content_type"
+    t.index ["district_id"], name: "index_room_offers_on_district_id", using: :btree
+    t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id", using: :btree
     t.index ["location_id"], name: "index_room_offers_on_location_id", using: :btree
     t.index ["user_id"], name: "index_room_offers_on_user_id", using: :btree
   end
@@ -358,20 +398,20 @@ ActiveRecord::Schema.define(version: 20170919160529) do
     t.string   "username",                      limit: 255
     t.string   "first_name",                    limit: 255
     t.string   "last_name",                     limit: 255
+    t.boolean  "newsletter",                                default: false, null: false
     t.integer  "graetzl_id"
     t.string   "avatar_id"
+    t.integer  "enabled_website_notifications",             default: 4088
     t.integer  "role"
     t.string   "avatar_content_type"
+    t.integer  "immediate_mail_notifications",              default: 4088
+    t.integer  "daily_mail_notifications",                  default: 7
+    t.integer  "weekly_mail_notifications",                 default: 0
     t.string   "slug"
     t.string   "cover_photo_id"
     t.string   "cover_photo_content_type"
     t.text     "bio"
     t.string   "website"
-    t.integer  "weekly_mail_notifications",                 default: 0
-    t.integer  "daily_mail_notifications",                  default: 7
-    t.integer  "immediate_mail_notifications",              default: 4088
-    t.integer  "enabled_website_notifications",             default: 4088
-    t.boolean  "newsletter",                                default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
@@ -397,7 +437,17 @@ ActiveRecord::Schema.define(version: 20170919160529) do
     t.index ["slug"], name: "index_zuckerls_on_slug", using: :btree
   end
 
+  add_foreign_key "room_demand_categories", "room_categories"
+  add_foreign_key "room_demand_categories", "room_demands"
+  add_foreign_key "room_demand_districts", "districts"
+  add_foreign_key "room_demand_districts", "room_demands"
+  add_foreign_key "room_demand_graetzls", "graetzls"
+  add_foreign_key "room_demand_graetzls", "room_demands"
   add_foreign_key "room_demands", "users"
+  add_foreign_key "room_offer_categories", "room_categories"
+  add_foreign_key "room_offer_categories", "room_demands"
+  add_foreign_key "room_offers", "districts"
+  add_foreign_key "room_offers", "graetzls"
   add_foreign_key "room_offers", "locations"
   add_foreign_key "room_offers", "users"
 end
