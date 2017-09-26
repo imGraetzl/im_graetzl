@@ -215,7 +215,12 @@
 .cardBoxContent .initiator {
   margin: -47px 0 15px 0;
   text-decoration: none;
-  display: table;
+  // display: table;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $color-ambient-mint-dark;
+  white-space: nowrap;
   img {
     vertical-align: bottom;
     position: relative;
