@@ -16,6 +16,9 @@ de:
     graetzlmarie:
       title: 'Infos zur Grätzlmarie'
       description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+    help:
+      title: 'Hilfe'
+      description: 'Hilfe zu imGrätzl.at'
   districts:
     index:
       title: 'Bezirke, Stadtviertel & Grätzl in Wien'

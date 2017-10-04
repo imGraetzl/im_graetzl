@@ -1,0 +1,49 @@
+section.help {
+  aside {
+    float:left;
+    display:none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
+  }
+  article {
+    display:table;
+    clear:both;
+    margin-bottom: 50px;
+    div.img {
+      float:none;
+      @include respond-to(">=large") {
+        float: right;
+        width:40%;
+      }
+      img {
+        max-width:100%;
+        height:auto;
+      }
+    }
+    div.txt {
+      @include respond-to(">=large") {
+        float: left;
+        width: 60%;
+      }
+    }
+  }
+  h2 {
+    font-family: $font-tertiary;
+    color: $color-ambient-rosa;
+    margin-bottom: 10px;
+    font-size: 28px;
+    @include respond-to(">=medium") {
+      font-size: 34px;
+    }
+  }
+  #help_nav {margin-top: 10px;
+    a {
+      margin-bottom:15px;
+    }
+  }
+  .paperCard {margin-bottom:40px;}
+  .paperCard .wrp {
+    padding:30px;
+  }
+}
