@@ -8,6 +8,7 @@ class RoomOffer < ApplicationRecord
   has_many :room_offer_categories
   has_many :room_categories, through: :room_offer_categories
 
+  enum offer_type: { one_to_one: 0, hub: 1, coworking_space: 2 }
   acts_as_taggable_on :keywords
 
   attachment :main_image, type: :image

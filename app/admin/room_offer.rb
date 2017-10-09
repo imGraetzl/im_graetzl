@@ -1,6 +1,5 @@
 ActiveAdmin.register RoomOffer do
-  include ViewInApp
-  menu priority: 7
+  menu parent: 'Rooms'
   includes :location
 
   scope :all, default: true
@@ -8,8 +7,8 @@ ActiveAdmin.register RoomOffer do
   filter :graetzl
   filter :district
   filter :daily_rent
+  filter :offer_type
   filter :longterm_rent
-  filter :seeking_roommate
   filter :wants_collaboration
   filter :created_at
   filter :updated_at

@@ -1,6 +1,5 @@
 ActiveAdmin.register RoomDemand do
-  include ViewInApp
-  menu priority: 8
+  menu parent: 'Rooms'
   includes :location
 
   scope :all, default: true
@@ -9,7 +8,7 @@ ActiveAdmin.register RoomDemand do
   filter :districts
   filter :daily_rent
   filter :longterm_rent
-  filter :seeking_roommate
+  filter :demand_type
   filter :wants_collaboration
   filter :created_at
   filter :updated_at

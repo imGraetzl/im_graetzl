@@ -1,0 +1,2 @@
+class RoomSuggestedTag < ApplicationRecord
+end
