@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925221036) do
+ActiveRecord::Schema.define(version: 20171009210553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -313,7 +313,6 @@ ActiveRecord::Schema.define(version: 20170925221036) do
   end
 
   create_table "room_demands", force: :cascade do |t|
-    t.boolean  "seeking_roommate"
     t.string   "slogan"
     t.decimal  "needed_area",          precision: 10, scale: 2
     t.boolean  "daily_rent"
@@ -323,8 +322,9 @@ ActiveRecord::Schema.define(version: 20170925221036) do
     t.boolean  "wants_collaboration"
     t.string   "slug"
     t.integer  "user_id"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.integer  "demand_type",                                   default: 0
     t.index ["user_id"], name: "index_room_demands_on_user_id", using: :btree
   end
 
@@ -348,16 +348,23 @@ ActiveRecord::Schema.define(version: 20170925221036) do
     t.string   "slug"
     t.integer  "user_id"
     t.integer  "location_id"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "graetzl_id"
     t.integer  "district_id"
     t.string   "main_image_id"
     t.string   "main_image_content_type"
+    t.integer  "offer_type",                                       default: 0
     t.index ["district_id"], name: "index_room_offers_on_district_id", using: :btree
     t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id", using: :btree
     t.index ["location_id"], name: "index_room_offers_on_location_id", using: :btree
     t.index ["user_id"], name: "index_room_offers_on_user_id", using: :btree
+  end
+
+  create_table "room_suggested_tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", force: :cascade do |t|

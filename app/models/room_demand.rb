@@ -9,6 +9,7 @@ class RoomDemand < ApplicationRecord
   has_many :graetzls, through: :room_demand_graetzls
   has_many :districts, through: :room_demand_districts
 
+  enum demand_type: { seeking_room: 0, seeking_roommate: 1 }
   acts_as_taggable_on :keywords
 
 end

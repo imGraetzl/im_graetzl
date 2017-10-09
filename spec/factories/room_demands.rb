@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :room_demand do
-    seeking_roommate false
     slogan "MyString"
     needed_area "9.99"
     daily_rent false
