@@ -13,4 +13,7 @@ ActiveAdmin.register RoomDemand do
   filter :created_at
   filter :updated_at
 
+  permit_params :user_id, :slogan, :needed_area, :daily_rent, :longterm_rent, :demand_description,
+    :personal_description, :wants_collaboration, :demand_type, :slug
+
 end
