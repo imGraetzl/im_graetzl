@@ -90,6 +90,8 @@ Rails.application.routes.draw do
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
   end
 
+  resources :room_offers
+
   resources :zuckerls, path: 'zuckerl', only: [:new] do
     resource :billing_address, only: [:show, :create, :update]
   end
