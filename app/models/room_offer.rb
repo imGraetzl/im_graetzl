@@ -4,6 +4,7 @@ class RoomOffer < ApplicationRecord
   belongs_to :district
   belongs_to :location, optional: true
   has_one :address, as: :addressable, dependent: :destroy
+  accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
 
   has_many :room_offer_categories
   has_many :room_categories, through: :room_offer_categories
