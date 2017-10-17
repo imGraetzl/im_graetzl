@@ -111,6 +111,11 @@ de:
         title: Titel
         content: Text
         created_at: Erstellt am
+      room_offer:
+        offer_types:
+          one_to_one: One-to-One Raumteiler
+          hub: Raumteiler Hub
+          coworking_space: Coworking space
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am

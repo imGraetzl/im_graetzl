@@ -46,7 +46,7 @@ class RoomOffersController < ApplicationController
 
   private
     def room_offer_params
-      params.require(:room_offer).permit(:slogan, :oom_description, :total_area)
+      params.require(:room_offer).permit(:slogan, :room_description, :total_area)
     end
 
 end

@@ -1,8 +1,28 @@
 <%= form_for(@room_offer) do |f| %>
   <%= form_errors_for @room_offer %>
   <div class="form-block">
-    <p class="txt"><span>Details</span> zu deiner RaumTeiler</p>
+    <h2>Dein Raumteiler ist ein</h2>
+    <div class="wrp-radios">
+      <% RoomOffer.offer_types.each do |name, value| %>
+        <div class="input-radio">
+          <%= radio_button_tag :offer_type, name, false, required: true %>
+          <%= label_tag "offer_type_#{name}", t("activerecord.attributes.room_offer.offer_types.#{name}") %>
+        </div>
+      <% end %>
+    </div>
 
+    <h2>Raum Kategorie - Welche trifft fur dich zu?</h3>
+    <div class="wrp-checkboxes">
+    <% RoomCategory.all.each do |room_category| %>
+      <div class="input-checkbox">
+        <%= f.check_box :"room_categories" %>
+        <%= f.label :"room_categories[]", room_category.name %>
+      </div>
+      <% end %>
+    </div>
+
+
+    <p class="txt"><span>Details</span> zu deiner RaumTeiler</p>
 
     <div class="input-field">
       <%= f.label :slogan do %>
