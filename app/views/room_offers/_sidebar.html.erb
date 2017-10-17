@@ -1,0 +1,19 @@
+<aside class="sideBar">
+
+  <div class="sideBarbox contact">
+    <div class="iconlist">
+      <% if @room_offer.address %>
+        <div class="address icontxt">
+          <svg class="icon-address-directions"><use xlink:href="#icon-address-directions"></use></svg>
+          <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
+          <%= "#{@location.address.zip} #{@location.address.city}" %>
+        </div>
+      <% end %>
+    </div>
+    <% if @room_offer.address.try(:coordinates) %>
+      <%= link_to google_map_url(@room_offer.address), class: 'gmap' do %>
+        <%= image_tag static_map_url(@room_offer.address.coordinates, zoom: 16, size: [250,150]) %>
+      <% end %>
+    <% end %>
+  </div>
+</aside>

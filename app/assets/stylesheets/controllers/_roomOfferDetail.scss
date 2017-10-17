@@ -1,0 +1,449 @@
+section.roomOfferDetail {
+  @include cf;
+
+  main {
+    padding-bottom: 0;
+  }
+
+  .imgHeader {
+    position: relative;
+    z-index: 10;
+    overflow: visible;
+    @include respond-to(">=large") {
+      min-height: 370px;
+    }
+
+    .dropdown-container {
+      z-index: 600;
+      transform: translate(-20px, 0);
+      width: 270px;
+      @include respond-to(">=medium") {
+        display: none;
+      }
+    }
+
+    .locationAvatar {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      width: 80px;
+      border-radius: 4px;
+      padding: 2px;
+      background-color: #fff;
+      border: 1px solid $color-ambient-mint;
+      @include respond-to(">=medium") {
+        bottom: -50px;
+        left: 38px;
+        width: 245px;
+        border-radius: 12px;
+        padding: 5px;
+      }
+      @include respond-to(">=large") {
+        bottom: -90px;
+        width: 245px;
+        left: 25px;
+      }
+    }
+
+    .createentry {
+      background-image: none;
+      background-color: rgba($color-ambient-mint-dark, 0.75);
+      color: #fff;
+      cursor: pointer;
+      position: absolute;
+      right: 30px;
+      bottom: 0;
+      z-index: 2;
+      width: 40px;
+      height: 40px;
+      @include respond-to(">=medium") {
+        display: none;
+      }
+
+    }
+
+  }
+
+
+
+  .introtxt {
+    margin-bottom: 30px;
+
+    h1 {
+      @include font-size-secondaryFont('large');
+      text-align: center;
+      margin-bottom: 30px;
+      color: $color-ambient-mint-dark;
+      @include respond-to(">=medium") {
+        text-align: left;
+      }
+    }
+    h3 {
+      @include font-size-primaryFont('larger');
+      margin-bottom: 15px;
+    }
+    .txt {
+      white-space: pre-wrap;
+    }
+  }
+  .iconlist {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .sideBar {
+    position: relative;
+    z-index: 8;
+    margin: 0 auto 40px auto;
+    @include respond-to(">=medium") {
+      padding-top: 80px;
+    }
+    @include respond-to(">=large") {
+      margin: 0 0 60px -25px;
+      padding-top: 110px;
+    }
+    .cardBox.-zuckerl {
+      margin-bottom: 40px;
+    }
+
+  }
+
+  .action-container {
+    padding-left: 25px;
+    margin-bottom: 20px;
+    display: none;
+    @include respond-to(">=medium") {
+      display: block;
+    }
+    a {
+      text-decoration: none;
+      margin-bottom: 5px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .action-container + .sideBarbox.contact {
+    margin-top: 40px;
+  }
+
+  .sideBar .sideflag {
+    text-decoration: none;
+    margin-left: -12px;
+    margin-top: -17px;
+  }
+
+  .bigicontext-element {
+    .txt {
+      font-size: 1.2em;
+    }
+  }
+
+  .mainContent {
+    position: relative;
+    z-index: 8;
+    margin-bottom: 0;
+    h2 {
+      @include font-size-secondaryFont('large');
+      text-align: center;
+      color: $color-ambient-rosa;
+      margin-bottom: 20px;
+      @include respond-to(">=medium") {
+        text-align: left;
+        margin-bottom: 0;
+      }
+    }
+
+    @include respond-to(">=medium") {
+      margin-top: -58px;
+      width: calc(100% - 295px);
+      z-index: 10;
+    }
+    @include respond-to(">=large") {
+      margin-top: -65px;
+      width: calc(100% - 270px);
+    }
+  }
+
+  .category-tags {
+    margin-bottom: 50px;
+    .bigicontext-element {
+      margin-bottom: 20px;
+    }
+  }
+
+  .staff {
+    img {
+      width: 40px;
+      height: 40px;
+      margin-left: 3px;
+      margin-right: 3px;
+    }
+  }
+
+  .category-block {
+    .category {
+
+    }
+    .tag-list {
+
+    }
+  }
+
+  .openinghours {
+    .txt {
+      white-space: pre-wrap;
+    }
+    .bigicontext-element {
+      margin-bottom: 15px;
+    }
+  }
+
+  .contact {
+    border: 1px solid $color-ambient-grey-light;
+    background-color: #ffffff;
+    border-radius: 8px;
+    a {
+      color: $color-ambient-mint;
+      text-decoration: none;
+      margin-bottom: 10px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .address {
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .gmap {
+      img {
+        display: block;
+        width: 100%;
+      }
+    }
+
+
+
+    .user-wrp {
+      display: flex;
+      align-items: center;
+      .img-round {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+
+    }
+  }
+}
+
+.imgCollection {
+  overflow: hidden;
+  max-width: 300px;
+  @include respond-to(">=medium") {
+    max-width: 250px;
+  }
+  img {
+    display: block;
+    margin-bottom: 8px;
+    @include col(1/2, $cycle: 2);
+  }
+}
+
+.zuckerlBlock {
+  margin-bottom: 70px;
+  @include respond-to(">=large") {
+    margin-bottom: 120px;
+  }
+  h2 {
+    @include font-size-secondaryFont('large');
+    color: $color-ambient-rosa;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+    display: table;
+    &::before {
+      content: '';
+      position: relative;
+      display:inline-block;
+      background-image: url(image_path('graetzlzuckerl.png'));
+      background-position: 0 0;
+      background-size: 100px 63px;
+      background-repeat: no-repeat;
+      width: 100px;
+      height: 63px;
+      vertical-align: middle;
+      margin-right: 10px;
+      @include respond-to(">=medium") {
+        position: absolute;
+        top: -9px;
+        left: -16px;
+        width: 220px;
+        height: 120px;
+        background-image: url(image_path('graetzlzuckerl.png')), url(image_path('svg/arrow-dashed-bend.svg'));
+        background-position: 0 0, 88px 1px;
+        background-size: 166px 105px, 114px 57px;
+
+      }
+    }
+    @include respond-to(">=medium") {
+      padding-left: 196px;
+      display: block;
+      margin-left: 0;
+    }
+  }
+  .zuckerlCollection {
+    .zuckerlBox {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.meetingBlock {
+  margin-bottom: 40px;
+
+  .wrp-hl {
+    margin-bottom: 30px;
+
+    @include respond-to(">=medium") {
+      @include cf();
+    }
+
+    .bigicontext-element {
+      margin-bottom: 20px;
+      @include respond-to(">=medium") {
+        float: left;
+      }
+    }
+
+    .btn-userCallToAction {
+      display: table;
+      @include respond-to(">=medium") {
+        float: right;
+      }
+    }
+  }
+
+  .cardBoxCollection {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+}
+
+
+
+section.adoptLocation {
+  overflow: hidden;
+
+  h1 {
+    @include font-size-secondaryFont('large');
+    text-align: center;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+  h1 + p {
+    text-align: center;
+    margin-bottom: 30px;
+    span {
+      color: $color-ambient-rosa;
+      font-style: italic;
+    }
+  }
+
+  .suggestedlocations {
+    margin-bottom: 30px;
+  }
+
+  .singlelocation {
+    padding: 8px 8px 8px 20px;
+    @include respond-to(">=medium") {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &:hover {
+      opacity: 0.9;
+    }
+    [class^=btn-] {
+      flex: 0 0 auto;
+      &:hover {
+        color: $color-ambient-mint-dark;
+        border-color: $color-ambient-mint-dark;
+      }
+    }
+    &:nth-child(odd) {
+      background-color: $color-ambient-grey-light;
+    }
+    &:nth-child(even) {
+      background-color: darken($color-ambient-grey-light, 5)
+    }
+  }
+  .locationname {
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    @include respond-to(">=medium") {
+      flex: 0 0 300px;
+    }
+  }
+  .locationaddress {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    @include respond-to(">=medium") {
+      flex: 0 1 100%;
+      padding-right: 20px;
+      margin-bottom: 0;
+    }
+  }
+
+  .newlocation {
+    @include respond-to(">=medium") {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    span {
+      display: block;
+      margin-bottom: 8px;
+      text-align: center;
+      font-weight: bold;
+      font-style: italic;
+      font-size: 1.8rem;
+      @include respond-to(">=medium") {
+        margin-right: 20px;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+section.locations-overview {
+  h1 {
+    @include font-size-secondaryFont('large');
+    text-align: center;
+    margin-bottom: 40px;
+    span {
+      color: $color-ambient-rosa;
+    }
+  }
+  .mapImgBlock {
+    margin-bottom: 50px;
+  }
+  .sideflag {
+    display: none;
+  }
+  .cardBox {
+    text-decoration: none;
+    color: inherit;
+  }
+  .paperCard {
+    margin-bottom: 30px;
+  }
+}
