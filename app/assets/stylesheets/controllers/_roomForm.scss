@@ -1,6 +1,18 @@
-section.roomForm {
+section.room-form {
 
   h2 {
+    font-size: 3rem;
+    margin: 10px 0 20px;
+    text-align: center;
+  }
 
+  .input-radio {
+    display: inline-block;
+    margin-right: 30px;
+  }
+
+  .room-categories .input-checkbox {
+    display: inline-block;
+    margin-right: 30px;
   }
 }

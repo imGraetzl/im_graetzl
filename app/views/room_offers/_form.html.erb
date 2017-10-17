@@ -11,19 +11,49 @@
       <% end %>
     </div>
 
-    <h2>Raum Kategorie - Welche trifft fur dich zu?</h3>
-    <div class="wrp-checkboxes">
-    <% RoomCategory.all.each do |room_category| %>
-      <div class="input-checkbox">
-        <%= f.check_box :"room_categories" %>
-        <%= f.label :"room_categories[]", room_category.name %>
-      </div>
+    <h2><span>Wo befindet</span> sich dein Raum</h2>
+
+    <div class="input-field">
+      <%= f.label :address do %>
+        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        <span>Wo wohnst du?</span>
+      <% end %>
+      <%= f.text_field :address, required: true, placeholder: "Straße und Hausnummer" %>
+    </div>
+
+    <h2>Raum Kategorie - Welche trifft fur dich zu?</h2>
+    <div class="room-categories">
+      <% RoomCategory.all.each do |room_category| %>
+        <div class="input-checkbox">
+          <%= f.check_box :"room_category_ids", value: room_category.id, id: "room_offer_room_category_#{room_category.id}" %>
+          <%= f.label "room_category_#{room_category.id}", room_category.name %>
+        </div>
       <% end %>
     </div>
 
+    <h2>Ausstattung - Kurz das wichtigste</h2>
+    <div class="wrp-checkboxes">
+      <% RoomSuggestedTag.all.each do |tag| %>
+        <div class="input-checkbox">
+          <%= f.check_box :"keywords", value: tag.name %>
+          <%= f.label :"keywords", tag.name %>
+        </div>
+      <% end %>
+    </div>
 
-    <p class="txt"><span>Details</span> zu deiner RaumTeiler</p>
+    <div class="input-field">
+      <%= text_field_tag :custom_keywords, nil, placeholder: "Weitere wichtige Ausstattungsmerkmale… (max 5)" %>
+    </div>
 
+    <h2>Raumgröße</h2>
+    <div class="input-field">
+      <%= f.text_field :rented_area, placeholder: 'Raumgröße die du vermietet in m2' %>
+      <%= f.text_field :total_area, placeholder: 'Größe des gesamten Objektes in m2' %>
+    </div>
+
+    <!-- <h2>Meine Preisvorstellungen</h2> -->
+
+    <h2><span>Kurzer Titel</span> Dein Raumteiler in einem Satz:</h2>
     <div class="input-field">
       <%= f.label :slogan do %>
         <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
@@ -31,6 +61,22 @@
       <% end %>
       <%= f.text_field :slogan, placeholder: 'z.B. Vermiete zur Mitbenutzung schönen und ruhigen Praxisraum im 9. Bezirk…' %>
     </div>
+
+    <h2>Ein paar Worte uber dich / uber euch:</h2>
+    <div class="input-field">
+      <%= f.text_area :owner_description, placeholder: 'Ein paar Worte uber dich' %>
+    </div>
+
+    <h2>Dein idealer Raumpartner:</h2>
+    <div class="input-field">
+      <%= f.text_area :tenant_description, placeholder: 'Wer wurde ideal zu dir…' %>
+    </div>
+
+    <div class="input-checkbox">
+      <%= f.check_box :wants_collaboration %>
+      <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
+    </div>
+  </div>
 
   <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>
