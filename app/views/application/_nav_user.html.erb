@@ -29,6 +29,12 @@
         </svg>
         <div class="icontxt">Neues Treffen</div>
       <% end %>
+      <%= link_to new_room_offer_path do %>
+        <svg class="icon-home">
+          <use xlink:href="#icon-home"></use>
+        </svg>
+        <div class="icontxt">Neuer Raumteiler</div>
+      <% end %>
       <%= link_to new_graetzl_user_post_path(current_user.graetzl) do %>
         <svg class="icon-head-idea-lightbulb">
           <use xlink:href="#icon-head-idea-lightbulb"></use>
