@@ -7,7 +7,7 @@
   <div class="txt">
     <% if @search_input %>
       <p>
-        Unter <span class="address"><%= @search_input %></span> konnten wir <%= (@graetzls && @graetzls.count > 0) ? @graetzls.count : 'leider kein' %> Grätzl finden.<br>
+        Unter <span class="address"><%= @search_input %></span> konnten wir <%= (@graetzls.size > 0) ? @graetzls.size : 'leider kein' %> Grätzl finden.<br>
         Wo fühlst du dich denn zuhause?
       </p>
     <% else %>
@@ -19,9 +19,8 @@
   </div>
 
 
-  <%= form_tag(graetzl_registration_path) do %>
-
-    <% if (@graetzls && !@graetzls.empty?) %>
+  <%= form_tag new_registration_path, method: :get do %>
+    <% if @graetzls.present? %>
       <div class="wrp-radios">
         <% @graetzls.each do |g| %>
           <div class="input-radio">

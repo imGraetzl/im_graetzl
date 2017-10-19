@@ -101,7 +101,7 @@ class MeetingsController < ApplicationController
   end
 
   def address_attr
-    Address.attributes_from_feature(params[:feature]) || Address.attributes_to_reset_location
+    (Address.from_feature(params[:feature]) || Address.reset_location).attributes
   end
 
   def user_attr

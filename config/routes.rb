@@ -40,9 +40,8 @@ Rails.application.routes.draw do
       path: 'users',
       controller: 'users/registrations',
       path_names: { new: 'registrierung' } do
-        post :registrierung, as: :address, action: :new
-        post :graetzl, as: :graetzl, action: :graetzl
-        get :graetzl, as: :graetzls, action: :graetzl
+        post :set_address
+        get :graetzls
       end
 
     post 'users/notification_settings/toggle_website_notification', to: 'notification_settings#toggle_website_notification', as: :user_toggle_website_notification

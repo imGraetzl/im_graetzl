@@ -13,7 +13,7 @@ APP.components.notificatonCenter = (function() {
 
     function setup() {
         $notificationsTrigger.click(handleClick);
-        updateLoop();
+        //updateLoop();
     }
 
     function updateLoop() {

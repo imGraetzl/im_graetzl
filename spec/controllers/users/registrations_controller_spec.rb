@@ -129,20 +129,11 @@ RSpec.describe Users::RegistrationsController, type: :controller do
           end
         end
 
-        # it 'has right address from feature in session' do
-        #   add_attr = Address.attributes_from_feature(feature.to_json)
-        #   expect(session[:address]).to eq addr_attr
-        # end
       end
       context 'when address matches multiple graetzl' do
         let!(:graetzl_1) { create(:graetzl) }
         let!(:graetzl_2) { create(:graetzl) }
         before { post :new, params: params }
-
-        # it 'has right address from feature in session' do
-        #   addr_attr = Address.attributes_from_feature(feature.to_json)
-        #   expect(session[:address]).to eq addr_attr.stringify_keys
-        # end
 
         it 'assigns @graetzls with all matching' do
           expect(assigns(:graetzls)).to include(graetzl, graetzl_1, graetzl_2)

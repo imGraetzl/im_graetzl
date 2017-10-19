@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009210553) do
+ActiveRecord::Schema.define(version: 20171018214122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -330,9 +330,9 @@ ActiveRecord::Schema.define(version: 20171009210553) do
 
   create_table "room_offer_categories", force: :cascade do |t|
     t.integer "room_category_id"
-    t.integer "room_demand_id"
+    t.integer "room_offer_id"
     t.index ["room_category_id"], name: "index_room_offer_categories_on_room_category_id", using: :btree
-    t.index ["room_demand_id"], name: "index_room_offer_categories_on_room_demand_id", using: :btree
+    t.index ["room_offer_id"], name: "index_room_offer_categories_on_room_offer_id", using: :btree
   end
 
   create_table "room_offers", force: :cascade do |t|
@@ -405,20 +405,20 @@ ActiveRecord::Schema.define(version: 20171009210553) do
     t.string   "username",                      limit: 255
     t.string   "first_name",                    limit: 255
     t.string   "last_name",                     limit: 255
+    t.boolean  "newsletter",                                default: false, null: false
     t.integer  "graetzl_id"
     t.string   "avatar_id"
+    t.integer  "enabled_website_notifications",             default: 4088
     t.integer  "role"
     t.string   "avatar_content_type"
+    t.integer  "immediate_mail_notifications",              default: 4088
+    t.integer  "daily_mail_notifications",                  default: 7
+    t.integer  "weekly_mail_notifications",                 default: 0
     t.string   "slug"
     t.string   "cover_photo_id"
     t.string   "cover_photo_content_type"
     t.text     "bio"
     t.string   "website"
-    t.integer  "weekly_mail_notifications",                 default: 0
-    t.integer  "daily_mail_notifications",                  default: 7
-    t.integer  "immediate_mail_notifications",              default: 4088
-    t.integer  "enabled_website_notifications",             default: 4088
-    t.boolean  "newsletter",                                default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
@@ -452,7 +452,7 @@ ActiveRecord::Schema.define(version: 20171009210553) do
   add_foreign_key "room_demand_graetzls", "room_demands"
   add_foreign_key "room_demands", "users"
   add_foreign_key "room_offer_categories", "room_categories"
-  add_foreign_key "room_offer_categories", "room_demands"
+  add_foreign_key "room_offer_categories", "room_offers"
   add_foreign_key "room_offers", "districts"
   add_foreign_key "room_offers", "graetzls"
   add_foreign_key "room_offers", "locations"

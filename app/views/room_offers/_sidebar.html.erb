@@ -11,10 +11,17 @@
           <%= "#{@room_offer.address.zip} #{@room_offer.address.city}" %><br>
         </div>
       <% end %>
-      <% if @room_offer.rented_area %>
-        <div class="address icontxt">
-          <svg class="icon-address-directions"><use xlink:href="#icon-address-directions"></use></svg>
+      <% if @room_offer.rented_area.present? %>
+        <div class="rented-area icontxt">
+          <svg class="icon-resize-maximize"><use xlink:href="#icon-resize-maximize"></use></svg>
           <%= @room_offer.rented_area %> m2 zu vermieten<br>
+        </div>
+      <% end %>
+
+      <% if @room_offer.wants_collaboration? %>
+        <div class="collaboration icontxt">
+          <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+          Auch an Kooperationen interessiert.
         </div>
       <% end %>
     </div>

@@ -3,27 +3,30 @@ class Address < ApplicationRecord
 
   before_save :get_coordinates
 
-  def self.attributes_from_feature(feature)
+  def self.from_feature(feature)
+    return nil if feature.blank?
     begin
       feature = JSON.parse(feature)
-      a = { coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
+      new(
+        coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
         street_name: feature['properties']['StreetName'],
         street_number: feature['properties']['StreetNumber'],
         zip: feature['properties']['PostalCode'],
         city: feature['properties']['Municipality']
-      }
+      )
     rescue JSON::ParserError => e
       nil
     end
   end
 
-  def self.attributes_to_reset_location
-    a = { coordinates: nil,
+  def self.reset_location
+    new(
+      coordinates: nil,
       street_name: nil,
       street_number: nil,
       zip: nil,
       city: nil
-    }
+    )
   end
 
   def graetzls
