@@ -7,7 +7,7 @@
   </div>
   <div class="mainContent">
     <div class="introtxt">
-      <h1><%= @room_offer.offer_type %> Raumteiler</h1>
+      <h1><%= @room_offer.offer_type_text %></h1>
       <h3><%= @room_offer.slogan %></h3>
     </div>
     <div class="txt"><%= @room_offer.room_description %></div>
@@ -22,11 +22,32 @@
       <% end %>
     </div>
 
-    <h3>Mein idealer Raumpartner</h3>
+    <div class="bigicontext-element">
+      <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+      <div class="txt">Mein idealer Raumpartner</div>
+    </div>
     <div class="txt"><%= @room_offer.tenant_description %></div>
 
-    <h3>Über mich</h3>
-    owner_description
+    <section>
+      <div class="bigicontext-element">
+        <% if not @room_offer.user.nil? %>
+          <%= avatar_for(@room_offer.user, 200) %>
+        <% else %>
+        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+        <% end %>
+        <div class="txt">Über mich</div>
+      </div>
+      <div class="txt"><%= @room_offer.owner_description %></div>
+    </section>
+
+    <section>
+      <% if @room_offer.wants_collaboration? %>
+        <div class="bigicontext-element">
+        <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+        <div class="txt">Auch an Kooperationen interessiert.</div>
+      <% end %>
+    </section>
+
   </div>
 
   <%= render 'sidebar' %>

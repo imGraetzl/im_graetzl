@@ -63,6 +63,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'byebug'
+  gem 'dotenv-rails'
   gem 'guard-livereload'
   gem 'foreman', require: false
 end
