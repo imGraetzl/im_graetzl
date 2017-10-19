@@ -5,6 +5,14 @@ section.roomOfferDetail {
     padding-bottom: 0;
   }
 
+  section {
+    margin: 3em 0;
+  }
+
+  .bigicontext-element {
+    margin-bottom: 1em;
+  }
+
   .imgHeader {
     position: relative;
     z-index: 10;
@@ -73,7 +81,7 @@ section.roomOfferDetail {
       @include font-size-secondaryFont('large');
       text-align: center;
       margin-bottom: 30px;
-      color: $color-ambient-mint-dark;
+      color: $color-font-primary;
       @include respond-to(">=medium") {
         text-align: left;
       }
@@ -87,8 +95,10 @@ section.roomOfferDetail {
     }
   }
   .iconlist {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 15px;
+    > * {
+      margin-bottom: 20px;
+    }
   }
 
   .sideBar {

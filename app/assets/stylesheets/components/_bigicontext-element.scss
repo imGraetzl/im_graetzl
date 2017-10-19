@@ -16,6 +16,14 @@
     margin-left: 12px;
     display: block;
   }
+  img {
+    width: 62px;
+    height: 62px;
+    margin-left: 7px;
+  }
+  .img-round {
+    border: 0;
+  }
   .txt {
     font-family: $font-tertiary;
     margin-left: 16px;
