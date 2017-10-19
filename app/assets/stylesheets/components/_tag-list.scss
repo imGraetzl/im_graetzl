@@ -14,4 +14,11 @@
     color: $color-ambient-mint-dark;
   }
 
+  &.-mint {
+    li {
+      background-color: #5D9798;
+      color: white;
+    }
+  }
+
 }

@@ -9,13 +9,24 @@
       <h1><%= @room_offer.offer_type_text %></h1>
       <h3><%= @room_offer.slogan %></h3>
     </div>
-    <div class="txt"><%= @room_offer.room_description %></div>
 
     <div class="category-tags">
       <% unless @room_offer.room_categories.empty? %>
-        <ul class="tag-list">
+        <ul class="tag-list -mint">
           <% @room_offer.room_categories.each do |category| %>
             <li><%= category.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div class="txt"><%= @room_offer.room_description %></div>
+
+    <div class="category-tags">
+      <% unless @room_offer.keyword_list.empty? %>
+        <ul class="tag-list">
+          <% @room_offer.keyword_list.each do |keyword| %>
+            <li><%= keyword %></li>
           <% end %>
         </ul>
       <% end %>
