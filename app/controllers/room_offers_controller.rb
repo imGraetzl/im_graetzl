@@ -46,8 +46,9 @@ class RoomOffersController < ApplicationController
   private
 
   def room_offer_params
-    params.require(:room_offer).permit(:slogan, :room_description,
-      :owner_description, :tenant_description, :rented_area, :total_area, :wants_collaboration,
+    params.require(:room_offer).permit(:slogan, :rented_area, :total_area,
+      :room_description, :owner_description, :tenant_description, :wants_collaboration,
+      :cover_photo, :remove_cover_photo,
       address_attributes: [:id, :street_name, :street_number, :zip, :city],
       room_category_ids: []
     ).merge(

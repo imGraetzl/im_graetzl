@@ -89,6 +89,28 @@
     </div>
   </div>
 
+  <h2> Foto Upload </h2>
+
+  <div class="upload-oldschool">
+    <%= f.label :cover_photo do %>
+      <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+      <span>Coverphoto</span>
+    <% end %>
+    <div class="field-wrp">
+      <% if f.object.cover_photo %>
+        <div class="preview-wrp">
+          <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+          <div class="input-checkbox">
+            <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+            <%= f.label :remove_cover_photo, 'Löschen' %>
+          </div>
+        </div>
+      <% end %>
+      <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+    </div>
+  </div>
+
+
   <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>
 
