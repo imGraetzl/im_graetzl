@@ -93,14 +93,11 @@ section.roomOfferDetail {
 
   .sideBar {
     position: relative;
-    z-index: 8;
+    z-index: 10;
     margin: 0 auto 40px auto;
-    @include respond-to(">=medium") {
-      padding-top: 80px;
-    }
+
     @include respond-to(">=large") {
       margin: 0 0 60px -25px;
-      padding-top: 110px;
     }
     .cardBox.-zuckerl {
       margin-bottom: 40px;
@@ -143,7 +140,7 @@ section.roomOfferDetail {
   .mainContent {
     position: relative;
     z-index: 8;
-    margin-bottom: 0;
+    margin-bottom: 3em;
     h2 {
       @include font-size-secondaryFont('large');
       text-align: center;
@@ -156,12 +153,12 @@ section.roomOfferDetail {
     }
 
     @include respond-to(">=medium") {
-      margin-top: -58px;
+      margin-top: -28px;
+      margin-bottom: 0;
       width: calc(100% - 295px);
       z-index: 10;
     }
     @include respond-to(">=large") {
-      margin-top: -65px;
       width: calc(100% - 270px);
     }
   }

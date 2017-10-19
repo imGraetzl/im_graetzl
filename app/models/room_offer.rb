@@ -17,4 +17,13 @@ class RoomOffer < ApplicationRecord
   accepts_attachments_for :images, attachment: :file
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
+  validates_presence_of :address
+  before_create :set_graetzl_and_district
+
+  private
+
+  def set_graetzl_and_district
+    self.graetzl = address.graetzl if address
+    self.district = graetzl.district if graetzl
+  end
 end

@@ -1,12 +1,12 @@
 module MapsHelper
   def google_map_url(address)
-    "http://maps.google.com?"\
+    "https://maps.google.com?"\
     "q=#{address.street_name}+#{address.street_number}"
   end
 
   def static_map_url(coords, options={})
     options = static_map_defaults.merge(options)
-    "http://maps.google.com/maps/api/staticmap?"\
+    "https://maps.google.com/maps/api/staticmap?"\
     "center=#{coords.y},#{coords.x}&"\
     "zoom=#{options[:zoom]}&"\
     "size=#{options[:size].join('x')}&"\

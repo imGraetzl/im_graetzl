@@ -33,10 +33,10 @@ RSpec.describe Address, type: :model do
     end
   end
 
-  describe '.attributes_from_feature' do
+  describe '.from_feature' do
     let(:feature) { feature_hash }
 
-    subject(:address) { Address.new(Address.attributes_from_feature(feature.to_json)) }
+    subject(:address) { Address.from_feature(feature.to_json) }
 
     it 'returns new address' do
       expect(address).to be_a_new(Address)
@@ -59,7 +59,7 @@ RSpec.describe Address, type: :model do
     end
 
     context 'with invalid json' do
-      subject(:address) { Address.attributes_from_feature('invalid') }
+      subject(:address) { Address.from_feature('invalid') }
 
       it 'returns nil' do
         expect(address).to be_nil
@@ -75,9 +75,9 @@ RSpec.describe Address, type: :model do
     end
   end
 
-  describe '.attributes_to_reset_location' do
+  describe '.reset_location' do
     let(:geo_attributes) { [:coordinates, :street_name, :street_number, :city, :zip] }
-    subject { Address.attributes_to_reset_location }
+    subject { Address.reset_location.attributes }
 
     it 'returns nil for geo attributes' do
       expect(subject.values).to all(be_nil)

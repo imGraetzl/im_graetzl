@@ -33,8 +33,8 @@ RSpec.describe Users::RegistrationsController, type: :routing do
       expect(get: new_registration_path).to route_to('users/registrations#new')
     end
 
-    it 'routes POST address_registration_path to #new' do
-      expect(post: address_registration_path).to route_to('users/registrations#new')
+    it 'routes POST set_address_registration_path to #new' do
+      expect(post: set_address_registration_path).to route_to('users/registrations#set_address')
     end
 
     it 'routes POST registration_path to #create' do
@@ -42,11 +42,7 @@ RSpec.describe Users::RegistrationsController, type: :routing do
     end
 
     it 'routes GET graetzls_registration_path to #graetzl' do
-      expect(get: graetzls_registration_path).to route_to('users/registrations#graetzl')
-    end
-
-    it 'routes POST graetzls_registration_path to #graetzl' do
-      expect(post: graetzls_registration_path).to route_to('users/registrations#graetzl')
+      expect(get: graetzls_registration_path).to route_to('users/registrations#graetzls')
     end
 
     it 'routes DELETE registration_path to #destroy' do

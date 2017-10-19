@@ -19,7 +19,7 @@ class RoomOffersController < ApplicationController
 
   def create
     @room_offer = RoomOffer.new(room_offer_params)
-
+    @room_offer.address = Address.from_feature(params[:feature])
     if @room_offer.save
       redirect_to @room_offer
     else
@@ -29,7 +29,6 @@ class RoomOffersController < ApplicationController
 
   def update
     @room_offer = RoomOffer.find(params[:id])
-
     if @room_offer.update(room_offer_params)
       redirect_to @room_offer
     else
@@ -45,8 +44,14 @@ class RoomOffersController < ApplicationController
   end
 
   private
-    def room_offer_params
-      params.require(:room_offer).permit(:slogan, :room_description, :total_area)
-    end
 
+  def room_offer_params
+    params.require(:room_offer).permit(:slogan, :room_description,
+      :owner_description, :tenant_description, :rented_area, :total_area, :wants_collaboration,
+      address_attributes: [:id, :street_name, :street_number, :zip, :city],
+      room_category_ids: []
+    ).merge(
+      keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")
+    )
+  end
 end

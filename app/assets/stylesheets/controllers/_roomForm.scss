@@ -2,17 +2,37 @@ section.room-form {
 
   h2 {
     font-size: 3rem;
-    margin: 10px 0 20px;
+    margin: 40px 0 15px;
     text-align: center;
   }
 
-  .input-radio {
-    display: inline-block;
-    margin-right: 30px;
+  .room-offer-type-selection {
+    text-align: center;
+    .input-radio {
+      display: inline-block;
+      margin: 0 30px;
+    }
   }
 
-  .room-categories .input-checkbox {
-    display: inline-block;
-    margin-right: 30px;
+  .room-categories {
+    overflow: hidden;
+    .input-checkbox {
+      float: left;
+      width: 25%;
+    }
+  }
+
+  .room-tags {
+    overflow: hidden;
+    .input-checkbox {
+      float: left;
+      width: 25%;
+    }
+  }
+
+  .room-size {
+    overflow: hidden;
+    .column-left { float: left; width: 50%; padding-right: 10px; }
+    .column-right { float: right; width: 50%; padding-right: 10px; }
   }
 }

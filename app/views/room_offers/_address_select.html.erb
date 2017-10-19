@@ -1,0 +1,8 @@
+<div class="input-field" id="addressSearchAutocomplete">
+  <%= f.label :address do %>
+    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+    <span>Wo wohnst du?</span>
+  <% end %>
+  <%= text_field_tag :address, nil, required: true, placeholder: "Straße und Hausnummer" %>
+  <%= hidden_field_tag :feature %>
+</div>
