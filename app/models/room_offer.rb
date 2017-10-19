@@ -12,7 +12,7 @@ class RoomOffer < ApplicationRecord
   enum offer_type: { one_to_one: 0, hub: 1, coworking_space: 2 }
   acts_as_taggable_on :keywords
 
-  attachment :main_image, type: :image
+  attachment :cover_photo, type: :image
   has_many :images, as: :imageable, dependent: :destroy
   accepts_attachments_for :images, attachment: :file
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank

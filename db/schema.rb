@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018214122) do
+ActiveRecord::Schema.define(version: 20171019182550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -338,8 +338,8 @@ ActiveRecord::Schema.define(version: 20171018214122) do
   create_table "room_offers", force: :cascade do |t|
     t.string   "slogan"
     t.text     "room_description"
-    t.decimal  "total_area",              precision: 10, scale: 2
-    t.decimal  "rented_area",             precision: 10, scale: 2
+    t.decimal  "total_area",               precision: 10, scale: 2
+    t.decimal  "rented_area",              precision: 10, scale: 2
     t.boolean  "daily_rent"
     t.boolean  "longterm_rent"
     t.text     "owner_description"
@@ -348,13 +348,13 @@ ActiveRecord::Schema.define(version: 20171018214122) do
     t.string   "slug"
     t.integer  "user_id"
     t.integer  "location_id"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "graetzl_id"
     t.integer  "district_id"
-    t.string   "main_image_id"
-    t.string   "main_image_content_type"
-    t.integer  "offer_type",                                       default: 0
+    t.string   "cover_photo_id"
+    t.string   "cover_photo_content_type"
+    t.integer  "offer_type",                                        default: 0
     t.index ["district_id"], name: "index_room_offers_on_district_id", using: :btree
     t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id", using: :btree
     t.index ["location_id"], name: "index_room_offers_on_location_id", using: :btree

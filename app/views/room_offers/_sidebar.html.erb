@@ -31,5 +31,10 @@
         <%= image_tag static_map_url(@room_offer.address.coordinates, zoom: 16, size: [250,150]) %>
       <% end %>
     <% end %>
+
   </div>
+
+  <%= mail_to @room_offer.user.email, "Anbieter kontaktieren", class: 'btn-primary -mint', subject: "Raumteiler Kontakt" %>
+
+  <%= link_to "Alle Raumteiler", room_offers_path, class: 'btn-primary -mint' %>
 </aside>
