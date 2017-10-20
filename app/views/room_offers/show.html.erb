@@ -6,7 +6,7 @@
   </div>
   <div class="mainContent">
     <div class="introtxt">
-      <h1><%= @room_offer.offer_type_text %></h1>
+      <h1><%= t("activerecord.attributes.room_offer.offer_types.#{@room_offer.offer_type}") %></h1>
       <h3><%= @room_offer.slogan %></h3>
     </div>
 

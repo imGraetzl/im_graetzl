@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019182550) do
+ActiveRecord::Schema.define(version: 20171020003226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,6 +335,15 @@ ActiveRecord::Schema.define(version: 20171019182550) do
     t.index ["room_offer_id"], name: "index_room_offer_categories_on_room_offer_id", using: :btree
   end
 
+  create_table "room_offer_prices", force: :cascade do |t|
+    t.integer  "room_offer_id"
+    t.string   "name"
+    t.decimal  "amount",        precision: 10, scale: 2
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["room_offer_id"], name: "index_room_offer_prices_on_room_offer_id", using: :btree
+  end
+
   create_table "room_offers", force: :cascade do |t|
     t.string   "slogan"
     t.text     "room_description"
@@ -453,6 +462,7 @@ ActiveRecord::Schema.define(version: 20171019182550) do
   add_foreign_key "room_demands", "users"
   add_foreign_key "room_offer_categories", "room_categories"
   add_foreign_key "room_offer_categories", "room_offers"
+  add_foreign_key "room_offer_prices", "room_offers"
   add_foreign_key "room_offers", "districts"
   add_foreign_key "room_offers", "graetzls"
   add_foreign_key "room_offers", "locations"

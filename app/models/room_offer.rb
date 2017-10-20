@@ -8,6 +8,8 @@ class RoomOffer < ApplicationRecord
 
   has_many :room_offer_categories
   has_many :room_categories, through: :room_offer_categories
+  has_many :room_offer_prices, inverse_of: :room_offer
+  accepts_nested_attributes_for :room_offer_prices, allow_destroy: true, reject_if: :all_blank
 
   enum offer_type: { one_to_one: 0, hub: 1, coworking_space: 2 }
   acts_as_taggable_on :keywords
@@ -19,12 +21,6 @@ class RoomOffer < ApplicationRecord
 
   validates_presence_of :address
   before_create :set_graetzl_and_district
-
-  def offer_type_text # TODO: write this properly
-    offer_type_names = { one_to_one: "One-to-One Raumteiler", hub: "Raumteiler Hub", coworking_space: "Coworking Space"}
-    offer_type_names = offer_type_names.stringify_keys
-    offer_type_names[self.offer_type]
-  end
 
   private
 

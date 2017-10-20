@@ -3,35 +3,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /users/registrierung
   def new
-    if session[:address].blank?
-      render "address_form" and return
+    if params[:graetzl_id].present?
+      build_resource({})
+      self.resource.graetzl = Graetzl.find(params[:graetzl_id])
+      self.resource.address = Address.from_feature(params[:feature])
+      respond_with self.resource
+    else
+      render "address_form"
     end
-
-    build_resource({})
-    self.resource.build_address(session.delete(:address) || {})
-    self.resource.graetzl = Graetzl.find(params[:graetzl_id])
-    respond_with self.resource
   end
 
   def set_address
     @address = Address.from_feature(params[:feature])
-    session[:address] = @address.attributes
+    @graetzls = @address ? @address.graetzls : []
 
-    if @address.graetzls.size == 1
-      redirect_to new_registration_url(graetzl_id: @address.graetzls.first.id)
+    if @graetzls.size == 1
+      redirect_to new_registration_url(graetzl_id: @graetzls.first.id, feature: params[:feature])
     else
-      redirect_to graetzls_registration_url(address: params[:address], feature: params[:feature])
+      render "graetzls"
     end
   end
 
   def graetzls
-    @search_input = params[:address]
-    address = Address.from_feature(params[:feature])
-    @graetzls = address.graetzls
-  end
-
-  def set_graetzl
-    redirect_to new_registration_url(graetzl_id: params[:graetzl_id])
   end
 
   protected

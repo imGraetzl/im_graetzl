@@ -35,4 +35,20 @@ section.room-form {
     .column-left { float: left; width: 50%; padding-right: 10px; }
     .column-right { float: right; width: 50%; padding-right: 10px; }
   }
+
+  .room-prices {
+    .input-field {
+      float: left;
+      margin-right: 30px;
+    }
+    .input-field.price {
+      label { min-width: 50px; }
+      min-width: 200px;
+    }
+    .input-field.name {
+      min-width: 500px;
+    }
+    .room-prices-links { clear: left; }
+    .nested-fields { overflow: hidden; }
+  }
 }
