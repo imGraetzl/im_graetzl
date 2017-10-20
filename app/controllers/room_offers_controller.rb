@@ -2,7 +2,7 @@ class RoomOffersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @room_offers = RoomOffer.all.page(params[:page]).per(15)
+    @room_offers = RoomOffer.all#.page(params[:page]).per(15)
   end
 
   def show

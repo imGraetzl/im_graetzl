@@ -74,6 +74,15 @@
 
 
 .cardBoxContent {
+  &.-roomoffer{
+    margin: 20px 0 0 0;
+    .collaboration {
+      color: $color-ambient-brown;
+      margin: -5px;
+      padding: 5px;
+      background-color: $color-ambient-pink;
+    }
+  }
   .updateteaser, .zuckerlteasertxt, .event-teaser-box {
     display: block;
     padding: 10px 15px;
@@ -293,6 +302,13 @@
       display: inline-block;
       vertical-align: middle;
       margin-top: -2px;
+    }
+  }
+  &.roomoffer-shortfacts {
+    background: none;
+    .name {
+      margin-top: 53px;
+      color: $color-ambient-mint;
     }
   }
 }

@@ -1,0 +1,36 @@
+<div class="cardBox -location">
+  <div class="cardBoxHeader">
+    <%= link_to room_offer do %>
+      <%= cover_photo_for room_offer %>
+    <% end %>
+    <% if not room_offer.graetzl.nil? %>
+      <div class="categoryicon">
+        <%= "#{room_offer.district.zip}, #{room_offer.graetzl.name}" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="cardBoxContent -roomoffer">
+    <div class="location-shortfacts roomoffer-shortfacts">
+      <%= link_to room_offer.user, class: 'locationlogo' do %>
+        <%= avatar_for room_offer.user, 200, 'img-square' %>
+      <% end %>
+      <div class="locationtxt">
+        <% if not room_offer.user.nil? %>
+          <%= link_to room_offer.user do %>
+            <div class="name"><%= "#{room_offer.user.first_name} #{room_offer.user.last_name}" %></div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="slogan"><%= room_offer.slogan %></div>
+    <div class="txt">
+      <p><%= truncate room_offer.room_description, length: 100 %></p>
+    </div>
+    <% if room_offer.wants_collaboration? %>
+      <div class="collaboration icontxt">
+        <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+        Interesse an gem. Kooperationen.
+      </div>
+    <% end %>
+  </div>
+</div>
