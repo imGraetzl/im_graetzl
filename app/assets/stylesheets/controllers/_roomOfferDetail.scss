@@ -106,6 +106,10 @@ section.roomOfferDetail {
     z-index: 10;
     margin: 0 auto 40px auto;
 
+    & > * {
+      margin-bottom: 40px;
+    }
+
     @include respond-to(">=large") {
       margin: 0 0 60px -25px;
     }
@@ -144,6 +148,7 @@ section.roomOfferDetail {
   .bigicontext-element {
     .txt {
       font-size: 1.2em;
+      margin-left: 24px;
     }
   }
 
@@ -169,12 +174,12 @@ section.roomOfferDetail {
       z-index: 10;
     }
     @include respond-to(">=large") {
-      width: calc(100% - 270px);
+      width: calc(100% - 280px);
     }
   }
 
   .category-tags {
-    margin-bottom: 50px;
+    margin: 20px -5px 40px;
     .bigicontext-element {
       margin-bottom: 20px;
     }

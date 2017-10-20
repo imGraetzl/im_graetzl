@@ -20,6 +20,7 @@ class RoomOffersController < ApplicationController
   def create
     @room_offer = current_user.room_offers.new(room_offer_params)
     @room_offer.address = Address.from_feature(params[:feature])
+    @room_offer.user = current_user
     if @room_offer.save
       redirect_to @room_offer
     else
