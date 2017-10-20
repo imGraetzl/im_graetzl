@@ -39,6 +39,7 @@
 //= require modernizr.custom
 //= require fastclick
 //= require autogrow
+//= require cocoon
 //= require refile
 //= require cookieconsent
 //= require FileAPI.core

@@ -30,7 +30,6 @@
     </div>
 
     <h2>Ausstattung - Kurz das wichtigste</h2>
-
     <div class="room-tags">
       <%= collection_check_boxes nil, :suggested_keywords, RoomSuggestedTag.pluck(:name), :downcase, :to_s do |b| %>
         <div class="input-checkbox">
@@ -50,7 +49,6 @@
 
 
     <h2>Raumgröße</h2>
-
     <div class="room-size">
       <div class="input-field column-left">
         <%= f.label :rented_area, 'Raumgröße die du vermietet in m2' %>
@@ -62,7 +60,16 @@
       </div>
     </div>
 
-    <!-- <h2>Meine Preisvorstellungen</h2> -->
+    <h2>Meine Preisvorstellungen</h2>
+    <div class="room-prices">
+      <%= f.fields_for :room_offer_prices do |price_form| %>
+        <%= render 'room_offer_price_fields', f: price_form %>
+        <div class="room-prices-links">
+          <%= link_to_add_association 'Witere Preisangaben hinzufugen', f, :room_offer_prices %>
+        </div>
+      <% end %>
+    </div>
+
 
     <h2><span>Kurzer Titel</span> Dein Raumteiler in einem Satz:</h2>
     <div class="input-field">

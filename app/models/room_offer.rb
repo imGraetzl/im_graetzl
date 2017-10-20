@@ -8,6 +8,8 @@ class RoomOffer < ApplicationRecord
 
   has_many :room_offer_categories
   has_many :room_categories, through: :room_offer_categories
+  has_many :room_offer_prices, inverse_of: :room_offer
+  accepts_nested_attributes_for :room_offer_prices, allow_destroy: true, reject_if: :all_blank
 
   enum offer_type: { one_to_one: 0, hub: 1, coworking_space: 2 }
   acts_as_taggable_on :keywords

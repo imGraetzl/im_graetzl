@@ -11,6 +11,7 @@ class RoomOffersController < ApplicationController
 
   def new
     @room_offer = current_user.room_offers.new
+    @room_offer.room_offer_prices.build
   end
 
   def edit
@@ -20,7 +21,6 @@ class RoomOffersController < ApplicationController
   def create
     @room_offer = current_user.room_offers.new(room_offer_params)
     @room_offer.address = Address.from_feature(params[:feature])
-    @room_offer.user = current_user
     if @room_offer.save
       redirect_to @room_offer
     else
@@ -51,6 +51,7 @@ class RoomOffersController < ApplicationController
       :room_description, :owner_description, :tenant_description, :wants_collaboration,
       :cover_photo, :remove_cover_photo,
       address_attributes: [:id, :street_name, :street_number, :zip, :city],
+      room_offer_prices_attributes: [:id, :name, :amount, :_destroy],
       room_category_ids: []
     ).merge(
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")

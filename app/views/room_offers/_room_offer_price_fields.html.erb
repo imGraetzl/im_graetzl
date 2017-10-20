@@ -1,0 +1,13 @@
+<div class="nested-fields">
+  <div class="input-field price">
+    <%= f.label :amount, '€'  %>
+    <%= f.text_field :amount, placeholder: "0.00" %>
+  </div>
+  <div class="input-field name">
+    <%= f.label :name, 'Beschreibung' %>
+    <%= f.text_field :name, placeholder: "z.B: pro Monat fur 2 Tage die Woche" %>
+  </div>
+  <%= link_to_remove_association f do %>
+    <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+  <% end %>
+</div>
