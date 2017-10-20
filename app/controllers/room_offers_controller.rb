@@ -10,15 +10,15 @@ class RoomOffersController < ApplicationController
   end
 
   def new
-    @room_offer = RoomOffer.new
+    @room_offer = current_user.room_offers.new
   end
 
   def edit
-    @room_offer = RoomOffer.find(params[:id])
+    @room_offer = current_user.room_offers.find(params[:id])
   end
 
   def create
-    @room_offer = RoomOffer.new(room_offer_params)
+    @room_offer = current_user.room_offers.new(room_offer_params)
     @room_offer.address = Address.from_feature(params[:feature])
     if @room_offer.save
       redirect_to @room_offer
@@ -28,7 +28,7 @@ class RoomOffersController < ApplicationController
   end
 
   def update
-    @room_offer = RoomOffer.find(params[:id])
+    @room_offer = current_user.room_offers.find(params[:id])
     if @room_offer.update(room_offer_params)
       redirect_to @room_offer
     else
@@ -37,7 +37,7 @@ class RoomOffersController < ApplicationController
   end
 
   def destroy
-    @room_offer = RoomOffer.find(params[:id])
+    @room_offer = current_user.room_offers.find(params[:id])
     @room_offer.destroy
 
     redirect_to room_offers_path

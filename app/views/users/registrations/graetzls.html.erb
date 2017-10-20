@@ -5,9 +5,9 @@
   <h1>Wähle dein <span>Heimatgrätzl</span></h1>
 
   <div class="txt">
-    <% if @search_input %>
+    <% if params[:address] %>
       <p>
-        Unter <span class="address"><%= @search_input %></span> konnten wir <%= (@graetzls.size > 0) ? @graetzls.size : 'leider kein' %> Grätzl finden.<br>
+        Unter <span class="address"><%= params[:address] %></span> konnten wir <%= (@graetzls.size > 0) ? @graetzls.size : 'leider kein' %> Grätzl finden.<br>
         Wo fühlst du dich denn zuhause?
       </p>
     <% else %>
@@ -20,6 +20,7 @@
 
 
   <%= form_tag new_registration_path, method: :get do %>
+    <%= hidden_field_tag :feature, params[:feature] %>
     <% if @graetzls.present? %>
       <div class="wrp-radios">
         <% @graetzls.each do |g| %>

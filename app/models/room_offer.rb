@@ -20,12 +20,6 @@ class RoomOffer < ApplicationRecord
   validates_presence_of :address
   before_create :set_graetzl_and_district
 
-  def offer_type_text # TODO: write this properly
-    offer_type_names = { one_to_one: "One-to-One Raumteiler", hub: "Raumteiler Hub", coworking_space: "Coworking Space"}
-    offer_type_names = offer_type_names.stringify_keys
-    offer_type_names[self.offer_type]
-  end
-
   private
 
   def set_graetzl_and_district

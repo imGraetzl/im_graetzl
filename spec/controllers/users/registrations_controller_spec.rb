@@ -6,37 +6,20 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
   describe 'GET new' do
     context 'when logged out' do
-      context 'without address in session' do
+      context 'without feature param' do
         before { get :new }
-
-        it 'assigns no graetzl' do
-          expect(assigns(:graetzl)).not_to be_present
-        end
 
         it 'renders :address_form' do
           expect(response).to render_template(:address_form)
         end
       end
-      context 'with address and graetzl in session' do
-        let(:address) { build(:address) }
-        let!(:graetzl) { create(:graetzl) }
-        before do
-          session[:address] = address.attributes
-          session[:graetzl] = graetzl.id
-          get :new
-        end
 
-        it 'assigns @graetzl' do
-          expect(assigns(:graetzl)).to eq graetzl
-        end
+      context 'with feature and graetzl_id param' do
+        let!(:graetzl) { create(:graetzl) }
+        before { get :new, params: { feature: esterhazygasse_hash.to_json, graetzl_id: graetzl.id } }
 
         it 'renders :new' do
           expect(response).to render_template(:new)
-        end
-
-        it 'clears session' do
-          expect(session[:address]).to be nil
-          expect(session[:graetzl]).to be nil
         end
 
         describe '@user' do
@@ -55,131 +38,49 @@ RSpec.describe Users::RegistrationsController, type: :controller do
           end
         end
       end
+
     end
   end
 
-  describe 'POST new' do
+  describe 'POST set_address' do
     let(:params) { { address: 'address_param' } }
     context 'without feature param' do
-      before { post :new, params: params }
+      before { post :set_address, params: params }
 
-      it 'assigns @search_input with address_param' do
-        expect(assigns(:search_input)).to eq 'address_param'
+      it 'assigns @address with nil' do
+        expect(assigns(:address)).to be_nil
       end
 
-      it 'assigns @address with nil attributes' do
-        expect(assigns(:address)).to have_attributes(
-          street_name: nil,
-          street_number: nil,
-          zip: nil,
-          city: nil,
-          coordinates: nil)
-      end
-
-      it 'puts address in session' do
-        expect(session[:address]).to be_present
-      end
-
-      it 'assigns @graetzl with nil' do
-        expect(assigns(:graetzl)).to eq nil
-      end
-
-      it 'assigns empty @graetzls' do
-        expect(assigns(:graetzls)).to be_empty
-      end
-
-      it 'renders :graetzl' do
-        expect(response).to render_template(:graetzl)
+      it 'render :graetzls' do
+        expect(response).to render_template(:graetzls)
       end
     end
+
     context 'with feature param' do
       let!(:graetzl) { create(:graetzl) }
       let(:feature) { feature_hash(5,5) }
       before { params.merge!({ feature: feature.to_json }) }
 
       context 'when address matches single graetzl' do
-        before { post :new, params: params }
+        before { post :set_address, params: params }
 
-        it 'assigns @graetzl' do
-          expect(assigns(:graetzl)).to eq graetzl
+        it 'redirects to new' do
+          expect(response).to redirect_to(new_registration_url(feature: params[:feature], graetzl_id: graetzl.id))
         end
-
-        it 'renders new' do
-          expect(response).to render_template(:new)
-        end
-
-        it 'clears session' do
-          expect(session[:address]).to be nil
-          expect(session[:graetzl]).to be nil
-        end
-
-        describe '@user' do
-          subject(:user) { assigns(:user) }
-
-          it 'gets assigned' do
-            expect(user).not_to be_nil
-          end
-
-          it 'has address' do
-            expect(user.address).to be_present
-          end
-
-          it 'has graetzl' do
-            expect(user.graetzl).to eq graetzl
-          end
-        end
-
       end
+
       context 'when address matches multiple graetzl' do
         let!(:graetzl_1) { create(:graetzl) }
         let!(:graetzl_2) { create(:graetzl) }
-        before { post :new, params: params }
+        before { post :set_address, params: params }
 
         it 'assigns @graetzls with all matching' do
           expect(assigns(:graetzls)).to include(graetzl, graetzl_1, graetzl_2)
         end
 
         it 'renders :graetzl' do
-          expect(response).to render_template(:graetzl)
+          expect(response).to render_template(:graetzls)
         end
-      end
-    end
-  end
-
-  describe 'GET graetzl' do
-
-    it 'renders :graetzl when html request' do
-      get :graetzl
-      expect(response).to render_template(:graetzl)
-    end
-  end
-
-  describe 'POST graetzl' do
-    let!(:graetzl) { create(:graetzl) }
-    before { post :graetzl, params: { graetzl_id: graetzl } }
-
-    it 'clears session' do
-      expect(session[:address]).to be nil
-      expect(session[:graetzl]).to be nil
-    end
-
-    it 'renders :new' do
-      expect(response).to render_template(:new)
-    end
-
-    describe '@user' do
-      subject(:user) { assigns(:user) }
-
-      it 'gets assigned' do
-        expect(user).not_to be_nil
-      end
-
-      it 'has address' do
-        expect(user.address).to be_present
-      end
-
-      it 'has graetzl' do
-        expect(user.graetzl).to eq graetzl
       end
     end
   end

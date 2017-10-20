@@ -8,7 +8,7 @@ class Address < ApplicationRecord
     begin
       feature = JSON.parse(feature)
       new(
-        coordinates: RGeo::GeoJSON.decode(feature['geometry'], :json_parser => :json),
+        coordinates: RGeo::GeoJSON.decode(feature['geometry'], json_parser: :json),
         street_name: feature['properties']['StreetName'],
         street_number: feature['properties']['StreetNumber'],
         zip: feature['properties']['PostalCode'],
@@ -17,16 +17,6 @@ class Address < ApplicationRecord
     rescue JSON::ParserError => e
       nil
     end
-  end
-
-  def self.reset_location
-    new(
-      coordinates: nil,
-      street_name: nil,
-      street_number: nil,
-      zip: nil,
-      city: nil
-    )
   end
 
   def graetzls

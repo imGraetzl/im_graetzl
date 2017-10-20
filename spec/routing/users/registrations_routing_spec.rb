@@ -7,20 +7,16 @@ RSpec.describe Users::RegistrationsController, type: :routing do
       expect(get: '/users/registrierung').to route_to('users/registrations#new')
     end
 
-    it 'routes POST /users/registrierung to #new' do
-      expect(post: '/users/registrierung').to route_to('users/registrations#new')
+    it 'routes POST /users/set_address to #set_address' do
+      expect(post: '/users/set_address').to route_to('users/registrations#set_address')
     end
 
     it 'routes POST /users to #create' do
       expect(post: '/users').to route_to('users/registrations#create')
     end
 
-    it 'routes GET /users/graetzl to #graetzl' do
-      expect(get: '/users/graetzl').to route_to('users/registrations#graetzl')
-    end
-
-    it 'routes POST /users/graetzl to #graetzl' do
-      expect(post: '/users/graetzl').to route_to('users/registrations#graetzl')
+    it 'routes GET /users/graetzls to #graetzls' do
+      expect(get: '/users/graetzls').to route_to('users/registrations#graetzls')
     end
 
     it 'routes DELETE /users to #destroy' do

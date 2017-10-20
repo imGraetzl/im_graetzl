@@ -75,31 +75,6 @@ RSpec.describe Address, type: :model do
     end
   end
 
-  describe '.reset_location' do
-    let(:geo_attributes) { [:coordinates, :street_name, :street_number, :city, :zip] }
-    subject { Address.reset_location.attributes }
-
-    it 'returns nil for geo attributes' do
-      expect(subject.values).to all(be_nil)
-    end
-
-    it 'includes geo attributes' do
-      expect(subject.keys).to match_array(geo_attributes)
-    end
-
-    it 'does not include :id' do
-      expect(subject.has_key?(:id)).to eq(false)
-    end
-
-    it 'does not include :description' do
-      expect(subject.has_key?(:description)).to eq(false)
-    end
-
-    it 'does not include :addressable' do
-      expect(subject.keys).not_to include(:addressable_id, :addressable_type)
-    end
-  end
-
   describe '#graetzls' do
     let(:address) { build(:address, coordinates: 'POINT (1.00 1.00)') }
 

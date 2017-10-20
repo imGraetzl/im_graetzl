@@ -45,7 +45,7 @@
         <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
         <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
       <% end %>
-      <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', ') %>
+      <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
     </div>
 
 
@@ -109,7 +109,6 @@
       <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
     </div>
   </div>
-
 
   <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>

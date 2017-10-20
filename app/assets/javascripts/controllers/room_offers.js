@@ -6,6 +6,11 @@ APP.controllers.room_offers = (function() {
 
     function initRoomForm() {
         APP.components.addressSearchAutocomplete();
+
+        $('#custom-keywords').tagsInput({
+            'defaultText':'Tags'
+        });
+
     }
 
     return {
