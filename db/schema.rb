@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020003226) do
+ActiveRecord::Schema.define(version: 20171024094715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -461,8 +461,8 @@ ActiveRecord::Schema.define(version: 20171020003226) do
   add_foreign_key "room_demand_graetzls", "room_demands"
   add_foreign_key "room_demands", "users"
   add_foreign_key "room_offer_categories", "room_categories"
-  add_foreign_key "room_offer_categories", "room_offers"
-  add_foreign_key "room_offer_prices", "room_offers"
+  add_foreign_key "room_offer_categories", "room_offers", on_delete: :cascade
+  add_foreign_key "room_offer_prices", "room_offers", on_delete: :cascade
   add_foreign_key "room_offers", "districts"
   add_foreign_key "room_offers", "graetzls"
   add_foreign_key "room_offers", "locations"
