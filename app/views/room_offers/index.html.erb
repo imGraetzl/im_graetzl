@@ -3,5 +3,6 @@
     <div class="cards-container" data-behavior="stream-container">
       <%= render(@room_offers) || render('empty_message') %>
     </div>
+    <%= view_more_link @room_offers %>
   </div>
 </section>
