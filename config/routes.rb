@@ -74,6 +74,8 @@ Rails.application.routes.draw do
 
   resources :room_offers
 
+  resources :room_demands
+
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: :treffen, module: :graetzls, except: [:edit, :update, :destroy]
     resources :locations, only: [:index, :show]
