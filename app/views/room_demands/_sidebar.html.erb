@@ -1,0 +1,6 @@
+<aside class="sideBar">
+
+  <%= mail_to @room_demand.user.email, "Anbieter kontaktieren", class: 'btn-primary -mint', subject: "Raumteiler Kontakt" %>
+
+  <%= link_to "Alle Raumteiler", room_offers_path, class: 'btn-primary -mint' %>
+</aside>
