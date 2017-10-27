@@ -30,5 +30,19 @@
       @include font-size-primaryFont('base');
     }
   }
+}
 
+.cards-filter {
+  text-align: center;
+  font-style: italic;
+  position: relative;
+  top: -30px;
+  @include font-size-primaryFont('larger');
+  a {
+    text-decoration: none;
+    color: $color-ambient-mint-dark;
+    background-color: $color-ambient-grey-light;
+    border-radius: 20px;
+    padding: 0 10px;
+  }
 }

@@ -22,6 +22,10 @@
     <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
     <div class="txt">Anbieter <br/>& Locations</div>
   <% end %>
+  <%= link_to graetzl_rooms_path(graetzl), class: "iconfilter #{active?(graetzl_rooms_path(graetzl))}" do %>
+    <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>
+    <div class="txt">Raum <br/> Teiler</div>
+  <% end %>
   <%= link_to graetzl_zuckerls_path(graetzl), class: "iconfilter #{active?(graetzl_zuckerls_path(graetzl))}" do %>
     <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
     <div class="txt">Zuckerl <br/>& Angebote</div>
