@@ -34,6 +34,18 @@
 
     <div class="bigicontext-element">
       <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+      <div class="txt">Kosten</div>
+    </div>
+    <% unless @room_offer.room_offer_prices.empty? %>
+      <ul class="tag-list">
+        <% @room_offer.room_offer_prices.each do |price| %>
+          <p><li><%= price.amount %></li> <%= price.name %></p>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <div class="bigicontext-element">
+      <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
       <div class="txt">Mein idealer Raumpartner</div>
     </div>
     <div class="txt"><%= @room_offer.tenant_description %></div>
