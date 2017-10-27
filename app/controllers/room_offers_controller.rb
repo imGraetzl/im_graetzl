@@ -14,6 +14,9 @@ class RoomOffersController < ApplicationController
     @room_offer.room_offer_prices.build
   end
 
+  def select
+  end
+
   def edit
     @room_offer = current_user.room_offers.find(params[:id])
   end
