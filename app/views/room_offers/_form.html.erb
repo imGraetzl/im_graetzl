@@ -64,10 +64,10 @@
     <div class="room-prices">
       <%= f.fields_for :room_offer_prices do |price_form| %>
         <%= render 'room_offer_price_fields', f: price_form %>
-        <div class="room-prices-links">
-          <%= link_to_add_association 'Witere Preisangaben hinzufugen', f, :room_offer_prices %>
-        </div>
       <% end %>
+      <div class="room-prices-links">
+        <%= link_to_add_association 'Witere Preisangaben hinzufugen', f, :room_offer_prices %>
+      </div>
     </div>
 
 

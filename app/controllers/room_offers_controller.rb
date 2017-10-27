@@ -2,7 +2,7 @@ class RoomOffersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @room_offers = RoomOffer.all#.page(params[:page]).per(15)
+    @room_offers = RoomOffer.page(params[:page]).per(15)
   end
 
   def show
@@ -47,12 +47,25 @@ class RoomOffersController < ApplicationController
   private
 
   def room_offer_params
-    params.require(:room_offer).permit(:slogan, :rented_area, :total_area,
-      :room_description, :owner_description, :tenant_description, :wants_collaboration,
-      :cover_photo, :remove_cover_photo,
-      address_attributes: [:id, :street_name, :street_number, :zip, :city],
-      room_offer_prices_attributes: [:id, :name, :amount, :_destroy],
-      room_category_ids: []
+    params
+      .require(:room_offer)
+      .permit(
+        :slogan,
+        :rented_area,
+        :total_area,
+        :room_description,
+        :owner_description,
+        :tenant_description,
+        :wants_collaboration,
+        :cover_photo,
+        :remove_cover_photo,
+        address_attributes: [
+          :id, :street_name, :street_number, :zip, :city
+        ],
+        room_offer_prices_attributes: [
+          :id, :name, :amount, :_destroy
+        ],
+        room_category_ids: []
     ).merge(
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")
     )

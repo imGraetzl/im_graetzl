@@ -56,6 +56,10 @@ de:
     show:
       title: '%{name} - %{slogan}'
       description: '%{desc}'
+  rooms:
+    index:
+      title: '%{graetzl}: Raumteiler TODO'
+      description: 'TODO'
   posts:
     index:
       title: '%{graetzl}: Ideen & Initiativen im Grätzl'

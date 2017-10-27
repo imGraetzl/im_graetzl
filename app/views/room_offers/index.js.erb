@@ -1,0 +1,12 @@
+(function() {
+  var $streamContainer = $("[data-behavior='stream-container']");
+  var $paginateLink = $("[data-behavior='paginate-link']");
+
+  function updateComponent() {
+    $streamContainer.append("<%= j render partial: 'room_offers/room_offer', collection: @room_offers %>");
+    $paginateLink.replaceWith("<%= j view_more_link @room_offers, style: :big %>");
+    APP.components.masonryFilterGrid.adjustNewCards();
+  }
+
+  updateComponent();
+})();

@@ -75,9 +75,12 @@ Rails.application.routes.draw do
 
   resources :room_offers
 
+  resources :room_demands
+
   resources :graetzls, path: '', only: [:show] do
     resources :meetings, path: :treffen, module: :graetzls, except: [:edit, :update, :destroy]
     resources :locations, only: [:index, :show]
+    resources :rooms, path: 'raumteiler', only: [:index]
     resources :zuckerls, path: :zuckerl, only: [:index]
     resources :users, only: [:show]
     resources :posts, path: :ideen, only: [:index]
