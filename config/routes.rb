@@ -72,7 +72,9 @@ Rails.application.routes.draw do
 
   resources :meetings, path: :treffen, except: [:index, :show]
 
-  resources :room_offers
+  resources :room_offers do
+    get 'select', on: :collection
+  end
 
   resources :room_demands
 
