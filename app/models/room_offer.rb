@@ -11,7 +11,7 @@ class RoomOffer < ApplicationRecord
   has_many :room_offer_prices
   accepts_nested_attributes_for :room_offer_prices, allow_destroy: true, reject_if: :all_blank
 
-  enum offer_type: { one_to_one: 0, hub: 1, coworking_space: 2 }
+  enum offer_type: { offering_room: 0, seeking_roommate: 1 }
   acts_as_taggable_on :keywords
 
   attachment :cover_photo, type: :image
