@@ -6,8 +6,8 @@
   <div class="room-offer-type-selection">
     <% RoomOffer.offer_types.each_with_index do |(name, value), i| %>
     <div class="input-radio">
-      <%= radio_button_tag :offer_type, name, i == 0, required: true %>
-      <%= label_tag "offer_type_#{name}", t("activerecord.attributes.room_offer.offer_types.#{name}") %>
+      <%= f.radio_button :offer_type, name, required: true %>
+      <%= f.label "offer_type_#{name}", t("activerecord.attributes.room_offer.offer_types.#{name}") %>
     </div>
     <% end %>
   </div>

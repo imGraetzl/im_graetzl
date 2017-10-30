@@ -3,16 +3,22 @@
   var $paginateLink = $(".view-more-container");
 
   function updateComponent() {
-    <% if params[:page].blank? && @zuckerls.empty? %>
-      $streamContainer.append("<%= j render 'empty_message' %>")
+    <% if params[:page].blank? %>
+      <% if @zuckerls.empty? %>
+        $streamContainer.html("<%= j render 'empty_message' %>");
+      <% else %>
+        $streamContainer.html("<%= j render @zuckerls %>");
+        APP.components.masonryFilterGrid.adjustNewCards();
+      <% end %>
     <% else %>
       $streamContainer.append("<%= j render @zuckerls %>");
-      <% if @zuckerls.next_page.present? %>
-        $paginateLink.html("<%= j next_page_link %>");
-      <% else %>
-        $paginateLink.hide();
-      <% end %>
       APP.components.masonryFilterGrid.adjustNewCards();
+    <% end %>
+
+    <% if @zuckerls.next_page.present? %>
+      $paginateLink.html("<%= j next_page_link %>");
+    <% else %>
+      $paginateLink.hide();
     <% end %>
   }
 

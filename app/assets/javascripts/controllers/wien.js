@@ -47,7 +47,6 @@ APP.controllers.wien = (function() {
       $('.autosubmit-filter').submit();
     }
 
-
     return {
         init: init
     }

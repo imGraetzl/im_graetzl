@@ -2,19 +2,21 @@
   var $streamContainer = $("[data-behavior='stream-container']");
   var $paginateLink = $(".view-more-container");
 
-  function updateComponent() {
-    <% if params[:page].blank? && @meetings.empty? %>
-      $streamContainer.append("<%= j render 'empty_message' %>")
+  <% if params[:page].blank? %>
+    <% if @meetings.empty? %>
+      $streamContainer.html("<%= j render 'empty_message' %>")
     <% else %>
-      $streamContainer.append("<%= j render @meetings %>");
-      <% if @meetings.next_page.present? %>
-        $paginateLink.html("<%= j next_page_link %>");
-      <% else %>
-        $paginateLink.hide();
-      <% end %>
+      $streamContainer.html("<%= j render @meetings %>")
       APP.components.masonryFilterGrid.adjustNewCards();
     <% end %>
-  }
+  <% else %>
+    $streamContainer.append("<%= j render @meetings %>");
+    APP.components.masonryFilterGrid.adjustNewCards();
+  <% end %>
 
-  updateComponent();
+  <% if @meetings.next_page.present? %>
+    $paginateLink.html("<%= j next_page_link %>");
+  <% else %>
+    $paginateLink.hide();
+  <% end %>
 })();
