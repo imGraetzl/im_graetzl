@@ -466,6 +466,14 @@ input:-webkit-autofill {
   font-style: italic;
 }
 
+// remove arrows next to number inputs in Chrome
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 
 // ---------------------------------------------------------------------- collection of form elements
 
@@ -486,7 +494,7 @@ input:-webkit-autofill {
   .upload-oldschool,
   .input-labledcheckbox,
   .input-tags {
-    margin-bottom: 2.0rem;
+    margin-bottom: 2rem;
   }
 
 }
