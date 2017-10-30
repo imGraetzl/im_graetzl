@@ -10,7 +10,6 @@ APP.controllers.room_offers = (function() {
         $('#custom-keywords').tagsInput({
             'defaultText':'Tags'
         });
-
     }
 
     return {

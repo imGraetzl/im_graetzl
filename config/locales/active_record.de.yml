@@ -113,9 +113,8 @@ de:
         created_at: Erstellt am
       room_offer:
         offer_types:
-          one_to_one: One-to-One Raumteiler
-          hub: Raumteiler Hub
-          coworking_space: Coworking space
+          offering_room: Raum zur Untervermietung
+          seeking_roommate: Raum zur gemeinsamen Neuanmietung
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am

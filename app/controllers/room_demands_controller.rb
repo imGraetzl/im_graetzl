@@ -48,14 +48,15 @@ class RoomDemandsController < ApplicationController
     params
       .require(:room_demand)
       .permit(
+        :demand_type,
         :slogan,
-        :rented_area,
-        :total_area,
-        :room_description,
-        :owner_description,
+        :needed_area,
+        :demand_description,
+        :personal_description,
         :tenant_description,
         :wants_collaboration,
-        room_category_ids: []
+        room_category_ids: [],
+        district_ids: [],
     ).merge(
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")
     )

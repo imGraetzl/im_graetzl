@@ -17,6 +17,16 @@
       <% end %>
     </div>
 
+    <div class="category-tags">
+      <% unless @room_demand.districts.empty? %>
+        <ul class="tag-list -mint">
+          <% @room_demand.districts.each do |district| %>
+            <li><%= district.zip %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
     <div class="txt"><%= @room_demand.demand_description %></div>
 
     <div class="category-tags">
