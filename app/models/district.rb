@@ -14,6 +14,10 @@ class District < ApplicationRecord
     "#{name}-#{zip}"
   end
 
+  def zip_name
+    "#{zip} – #{name}"
+  end
+
   def numeric
     zip.slice(1..2).sub(%r{^0},"") if zip.present?
   end
