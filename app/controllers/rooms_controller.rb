@@ -1,13 +1,15 @@
 class RoomsController < ApplicationController
 
   def index
-    @room_offers = room_offers_scope.includes(:user, :graetzl)
-    @room_offers = filter_offers(@room_offers)
-    @room_offers = @room_offers.page(params[:page]).per(15)
+    room_offers = room_offers_scope.includes(:user, :graetzl)
+    room_offers = filter_offers(room_offers)
+    room_offers = room_offers.page(params[:page]).per(15)
 
-    @room_demands = room_demands_scope.includes(:user)
-    @room_demands = filter_demands(@room_demands)
-    @room_demands = @room_demands.page(params[:page]).per(15)
+    room_demands = room_demands_scope.includes(:user)
+    room_demands = filter_demands(room_demands)
+    room_demands = room_demands.page(params[:page]).per(15)
+
+    @rooms = room_offers + room_demands
   end
 
   private
@@ -49,11 +51,11 @@ class RoomsController < ApplicationController
 
   def filter_demands(demands)
     if filter_params[:room_type].present?
-      action_type, demands_type = filter_params[:room_type].split("-")
+      action_type, demand_type = filter_params[:room_type].split("-")
       if action_type == 'offer'
         return RoomDemand.none
-      elsif demands_type.present?
-        demands = demands.where(offer_type: demands_type)
+      elsif demand_type.present?
+        demands = demands.where(demand_type: demand_type)
       end
     end
 

@@ -16,6 +16,7 @@ section.room-form {
 
   .room-categories {
     overflow: hidden;
+    margin: 2rem 0 2rem;
     .input-checkbox {
       float: left;
       width: 25%;
@@ -23,6 +24,7 @@ section.room-form {
   }
 
   .room-tags {
+    margin: 2rem 0 2rem;
     overflow: hidden;
     .input-checkbox {
       float: left;

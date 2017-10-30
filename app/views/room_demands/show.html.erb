@@ -21,7 +21,10 @@
       <% unless @room_demand.districts.empty? %>
         <ul class="tag-list -mint">
           <% @room_demand.districts.each do |district| %>
-            <li><%= district.zip %></li>
+            <li><%= district.zip_name %></li>
+          <% end %>
+          <% @room_demand.graetzls.each do |graetzl| %>
+            <li><%= graetzl.name %></li>
           <% end %>
         </ul>
       <% end %>

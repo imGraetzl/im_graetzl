@@ -56,6 +56,7 @@ class RoomDemandsController < ApplicationController
         :tenant_description,
         :wants_collaboration,
         room_category_ids: [],
+        graetzl_ids: [],
         district_ids: [],
     ).merge(
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")
