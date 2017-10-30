@@ -23,12 +23,10 @@
   <% end %>
 
 
-  <%= form_tag rooms_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'autosubmit-filter' do %>
-    <div class="cards-filter">
-      Zeige mir <%= link_to room_type_filter_selection, url_for(room_offer_type: 1) %>
-      , aus <%= link_to 'allen Kategorien', '#' %>,
-      in <%= link_to @graetzl.name, '#' %>
-    </div>
+  <%= form_tag rooms_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
+    Zeige mir <%= link_to room_type_filter_selection, url_for(room_offer_type: 1) %>
+    , aus <%= link_to 'allen Kategorien', '#' %>,
+    in <%= link_to @graetzl.name, '#' %>
   <% end %>
 
   <div class="masonry-wrapper">

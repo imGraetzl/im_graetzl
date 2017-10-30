@@ -1,12 +1,12 @@
 <%
-  meta({
+  meta(
     title: t('.title'),
     description: t('.description'),
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
     og_image: image_url('meta/og_logo.png')
-  })
+  )
 %>
 
 <section class="wien masonryFilterGrid">
@@ -17,7 +17,31 @@
     <p>Weg vom Einzelkämpfertum - Gemeinsam die monatlichen Kosten senken bzw. teilen.</p>
   </div>
 
-  <%= form_tag rooms_path, method: :get, remote: true, class: 'autosubmit-filter' do %>
+  <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
+    Zeige mir <%= link_to 'allen Raumteiler', '#filter-modal-type' %>
+    , aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
+    in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+
+    <div id="filter-modal-type" class="filter-modal">
+      <div class="input-select">
+        <%= select :room_filter, :room_type, options_for_select(filter_room_types), { include_blank: 'Allen Raumteiler' }, { class: 'filter-input' } %>
+      </div>
+      <%= button_tag "Confirm", class: 'btn-primary filter-button' %>
+    </div>
+
+    <div id="filter-modal-categories" class="filter-modal">
+      <%= collection_check_boxes :room_filter, :room_category_ids, RoomCategory.all, :id, :name do |b| %>
+        <div class="input-checkbox filter-input">
+          <%= b.check_box("data-label": b.text) %>
+          <%= b.label %>
+        </div>
+      <% end %>
+      <%= button_tag "Confirm", class: 'btn-primary filter-button' %>
+    </div>
+
+    <div id="filter-modal-bezirk" class="filter-modal">
+      (TODO)
+    </div>
   <% end %>
 
   <div class="masonry-wrapper">
