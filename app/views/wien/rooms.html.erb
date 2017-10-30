@@ -24,7 +24,7 @@
 
     <div id="filter-modal-type" class="filter-modal">
       <div class="input-select">
-        <%= select :room_filter, :room_type, options_for_select(filter_room_types), { include_blank: 'Allen Raumteiler' }, { class: 'filter-input' } %>
+        <%= select :room_filter, :room_type, options_for_select(filter_room_types), {}, { class: 'filter-input' } %>
       </div>
       <%= button_tag "Confirm", class: 'btn-primary filter-button' %>
     </div>

@@ -2,6 +2,7 @@ module RoomsHelper
 
   def filter_room_types
     [
+      ['Allen Raumteiler', '', 'data-label' => 'Allen Raumteiler'],
       ['Alle Räume', 'offer', 'data-label' => 'Alle Räume'],
       ['Räume zum Einmieten', 'offer-0', 'data-label' => 'Räume zum Einmieten'],
       ['Räume zum Neuanmieten', 'offer-1', 'data-label' => 'Räume zum Neuanmieten'],
