@@ -1,0 +1,27 @@
+<%
+  meta({
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
+
+<section class="wien masonryFilterGrid">
+  <%= render 'header' %>
+
+  <div class="hl-subtext">
+    <h1><em>RaumTeiler</em> - Bilde deine Raumpartnerschaft!</h1>
+    <p>Weg vom Einzelkämpfertum - Gemeinsam die monatlichen Kosten senken bzw. teilen.</p>
+  </div>
+
+  <%= form_tag rooms_path, method: :get, remote: true, class: 'autosubmit-filter' do %>
+  <% end %>
+
+  <div class="masonry-wrapper">
+    <div class="cards-container" data-behavior="stream-container"></div>
+    <div class="view-more-container"></div>
+  </div>
+</section>

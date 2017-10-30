@@ -1,14 +1,10 @@
-section.districts {
+section.wien {
   .navBlock {
     .links {
       @include respond-to(">=medium") {
-        width: 460px;
+        width: 400px;
       }
     }
-  }
-  
-  .meeting-block {
-    margin-bottom: 80px;
   }
 
   #graetzlMapWidget {
@@ -50,19 +46,5 @@ section.districts {
       margin-bottom: 30px;
     }
   }
-}
 
-
-.mobileSelectMenu {
-  margin: 0 auto;
-  padding: 10px;
-  display: table;
-  color: $color-ambient-mint-dark;
-  border: 1px solid $color-ambient-mint;
-  font-family: $font-primary;
-  font-size: 1.6rem;
-  max-width: 90%;
-  @include respond-to(">=medium") {
-    display: none;
-  }
 }

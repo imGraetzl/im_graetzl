@@ -1,11 +1,4 @@
 class DistrictsController < ApplicationController
-  def index
-    @meetings = Meeting.upcoming.include_for_box.page(params[:page]).per(15)
-    unless request.xhr?
-      @districts = District.all
-      @map_data = MapData.call districts: @districts
-    end
-  end
 
   def show
     set_district

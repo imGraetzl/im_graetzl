@@ -16,10 +16,11 @@ de:
     graetzlmarie:
       title: 'Infos zur Grätzlmarie'
       description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
-  districts:
-    index:
+  wien:
+    show:
       title: 'Bezirke, Stadtviertel & Grätzl in Wien'
       description: 'Kaum zu glauben: Wien hat über 160 Grätzln. In welchem bist Du zuhause oder öfters anzutreffen? Durchstöbere die Bezirke und entdecke dein Grätzl in Wien ...'
+  districts:
     show:
       title: 'Grätzln im %{numeric}. Bezirk (%{name}) in Wien'
       description: 'Es gibt %{num} Grätzl in Wien %{name}! Triff Bewohner des Bezirks zu gemeinsamen Unternehmungen oder entdecke spannende Workshops & Events im %{numeric}. Bezirk'
@@ -39,33 +40,31 @@ de:
     show:
       title: '%{name} im %{numeric}. Bezirk in Wien'
       description: 'Triff Grätzlbewohner zu gemeinsamen Unternehmungen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events im Grätzl %{name}.'
-  meetings:
-    index:
+    meetings:
       title: '%{graetzl}: Treffen, Veranstaltungen & Events'
       description: 'Leute treffen sich im Grätzl %{graetzl}. Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
+    locations:
+      title: '%{graetzl}: Entdecke Treffpunkte, Lokale & Geschäfte'
+      description: 'Durchstöbere das Grätzl %{graetzl} in Wien und entdecke die Vielfalt die es hier gibt! Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte.'
+    posts:
+      title: '%{graetzl}: Ideen & Initiativen im Grätzl'
+      description: 'Entdecke, was sich BewohnerInnen fürs Grätzl %{graetzl} wünschen und welche Ideen im Raum stehen. Gestaltet euer Grätzl mit: Wünsche, Ideen & Initiativen!'
+    rooms:
+      title: '%{graetzl}: Raumteiler TODO'
+      description: 'TODO'
+    zuckerls:
+      title: '%{graetzl}: Zuckerl & Angebote - Jeden Monat neu'
+      description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'
+
+  meetings:
     show:
       title: '%{name}'
       description: '%{desc}'
   locations:
-    index:
-      title: '%{graetzl}: Entdecke Treffpunkte, Lokale & Geschäfte'
-      description: 'Durchstöbere das Grätzl %{graetzl} in Wien und entdecke die Vielfalt die es hier gibt! Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte.'
     show:
       title: '%{name} - %{slogan}'
       description: '%{desc}'
-  rooms:
-    index:
-      title: '%{graetzl}: Raumteiler TODO'
-      description: 'TODO'
-  posts:
-    index:
-      title: '%{graetzl}: Ideen & Initiativen im Grätzl'
-      description: 'Entdecke, was sich BewohnerInnen fürs Grätzl %{graetzl} wünschen und welche Ideen im Raum stehen. Gestaltet euer Grätzl mit: Wünsche, Ideen & Initiativen!'
   users:
     show:
       title: '%{name} aus dem Grätzl %{graetzl}'
       description: '%{name}s Heimatgrätzl in Wien ist das Grätzl: %{graetzl} im %{numeric}. Bezirk.'
-  zuckerls:
-    index:
-      title: '%{graetzl}: Zuckerl & Angebote - Jeden Monat neu'
-      description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'

@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe ZuckerlsController, type: :routing do
   describe 'routes' do
-    it 'routes GET /graetzl-slug/zuckerl to #index' do
-      expect(get: '/graetzl-slug/zuckerl').to route_to('zuckerls#index', graetzl_id: 'graetzl-slug')
-    end
-
     it 'does not route /graetzl-slug/zuckerl-slug to #show' do
       expect(get: '/graetzl-slug/zuckerl-slug').not_to be_routable
     end
@@ -35,10 +31,6 @@ RSpec.describe ZuckerlsController, type: :routing do
     end
   end
   describe 'named routes' do
-    it 'routes GET graetzl_zuckerls_path to #index' do
-      expect(get: graetzl_zuckerls_path('graetzl-slug')).to route_to('zuckerls#index', graetzl_id: 'graetzl-slug')
-    end
-
     it 'routes GET new_location_zuckerl_path to #new' do
       expect(get: new_location_zuckerl_path('location-slug')).to route_to('zuckerls#new', location_id: 'location-slug')
     end

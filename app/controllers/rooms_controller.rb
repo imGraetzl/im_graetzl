@@ -1,21 +1,30 @@
 class RoomsController < ApplicationController
 
   def index
-    @graetzl = Graetzl.find(params[:graetzl_id])
-    @map_data = MapData.call graetzl: @graetzl
-    @rooms = collect_room_offers + collect_room_demands
+    @room_offers = room_offers_scope.includes(:user, :graetzl)
+    @room_offers = @room_offers.page(params[:page]).per(15)
+
+    @room_demands = room_demands_scope.includes(:user)
+    @room_demands = @room_demands.page(params[:page]).per(15)
   end
 
   private
 
-  def collect_room_offers
-    room_offers = @graetzl.room_offers
-    room_offers.where!(offer_type: params[:room_offer_type]) if params[:room_offer_type].present?
-    room_offers.page(params[:page]).per(15)
+  def room_offers_scope
+    if params[:graetzl_id]
+      graetzl = Graetzl.find(params[:graetzl_id])
+      graetzl.room_offers
+    else
+      RoomOffer.all
+    end
   end
 
-  def collect_room_demands
-    room_demands = @graetzl.room_demands
-    room_demands.page(params[:page]).per(15)
+  def room_demands_scope
+    if params[:graetzl_id]
+      graetzl = Graetzl.find(params[:graetzl_id])
+      graetzl.room_demands
+    else
+      RoomDemand.all
+    end
   end
 end

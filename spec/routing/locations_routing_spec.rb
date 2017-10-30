@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe LocationsController, type: :routing do
   describe 'routes' do
-    it 'routes GET /graetzl-slug/locations to #index' do
-      expect(get: '/graetzl-slug/locations').to route_to('locations#index', graetzl_id: 'graetzl-slug')
-    end
-
     it 'routes GET /graetzl-slug/locations/location-slug to #show' do
       expect(get: '/graetzl-slug/locations/location-slug').to route_to('locations#show', graetzl_id: 'graetzl-slug', id: 'location-slug')
     end
@@ -36,10 +32,6 @@ RSpec.describe LocationsController, type: :routing do
   end
 
   describe 'named routing' do
-    it 'routes GET graetzl_locations_path to #index' do
-      expect(get: graetzl_locations_path('graetzl-slug')).to route_to('locations#index', graetzl_id: 'graetzl-slug')
-    end
-
     it 'routes GET graetzl_location_path to #show' do
       expect(get: graetzl_location_path('graetzl-slug', 'location-slug')).to route_to('locations#show', graetzl_id: 'graetzl-slug', id: 'location-slug')
     end

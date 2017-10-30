@@ -1,6 +1,12 @@
 module PaginationHelper
+
+  def next_page_link
+    url_params = params.permit!.merge(page: (params[:page] || 1).to_i + 1)
+    link_to('Mehr anzeigen', url_params, remote: true, class: 'link-load',
+      data: { disable_with: 'lädt...', behavior: 'paginate-link'})
+  end
+
   def view_more_link(resource, params: {}, style: :'')
-    content_for(:rel_next_prev, rel_next_prev_link_tags(resource))
     link_to_next_page resource, 'Mehr anzeigen',
       remote: true,
       data: {

@@ -3,49 +3,6 @@ require 'rails_helper'
 RSpec.describe DistrictsController, type: :controller do
   render_views
 
-  describe 'GET index' do
-    context 'when html request' do
-      before { get :index }
-
-      it 'renders index.html' do
-        expect(response.content_type).to eq 'text/html'
-        expect(response).to render_template(:index)
-      end
-
-      it 'assigns @districts' do
-        expect(assigns :districts).to be_truthy
-      end
-
-      it 'assigns @map_data' do
-        expect(assigns :map_data).to be_truthy
-      end
-
-      it 'assigns @meetings' do
-        expect(assigns :meetings).to be_truthy
-      end
-    end
-    context 'when js request' do
-      before { get :index, params: { page: 2 }, xhr: true }
-
-      it 'does not assign @districts' do
-        expect(assigns :districts).not_to be
-      end
-
-      it 'does not assign @map_data' do
-        expect(assigns :map_data).not_to be
-      end
-
-      it 'assigns @meetings' do
-        expect(assigns :meetings).to be
-      end
-
-      it 'renders index.js' do
-        expect(response.content_type).to eq 'text/javascript'
-        expect(response).to render_template(:index)
-      end
-    end
-  end
-
   describe 'GET show' do
     let(:district) { create :district }
 

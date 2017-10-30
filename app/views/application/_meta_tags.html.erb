@@ -1,5 +1,4 @@
 <title><%= yield(:title) %>imGrätzl.at</title>
-<%= yield :rel_next_prev %>
 <%= canonical_tag %>
 <% MetaTagHelper::META_TAGS.each do |tag| %>
   <%= yield("meta_#{tag}".to_sym) %>

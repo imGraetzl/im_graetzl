@@ -26,6 +26,6 @@
   <% if defined? view_all %>
     <%= link_to 'Alle Anbieter & local Makers', district_locations_path(district), class: 'link-more' %>
   <% elsif defined? graetzl %>
-    <%= link_to 'Alle Anbieter & local Makers', graetzl_locations_path(graetzl), class: 'link-more' %>
+    <%= link_to 'Alle Anbieter & local Makers', locations_graetzl_path(graetzl), class: 'link-more' %>
   <% end %>
 </div>

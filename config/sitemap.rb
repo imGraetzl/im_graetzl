@@ -7,7 +7,7 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV['UPL
 
 SitemapGenerator::Sitemap.create do
   # Districts
-  add districts_path, changefreq: 'always', priority: 0.7
+  add wien_path, changefreq: 'always', priority: 0.7
   District.find_each do |district|
     add district_path(district), changefreq: 'always', priority: 0.7
     add district_locations_path(district) unless district.locations.empty?
@@ -21,7 +21,7 @@ SitemapGenerator::Sitemap.create do
     # Locations
     locations = graetzl.locations.approved
     unless locations.empty?
-      add graetzl_locations_path(graetzl)
+      add locations_graetzl_path(graetzl)
       locations.find_each do |location|
         add graetzl_location_path(graetzl, location), priority: 0.7
       end

@@ -9,36 +9,8 @@ RSpec.describe PostsController, type: :controller do
     let!(:admin_post) { create :admin_post }
     before { create :operating_range, operator: admin_post, graetzl: graetzl }
 
-    context 'when html request' do
-      before { get :index, params: { graetzl_id: graetzl } }
-
-      it 'assigns @graetzl' do
-        expect(assigns :graetzl).to eq graetzl
-      end
-
-      it 'assigns @map_data' do
-        expect(assigns :map_data).to be
-      end
-
-      it 'assigns newest @posts' do
-        expect(assigns :posts).to match_array (new_user_posts << admin_post)
-      end
-
-      it 'renders index.html' do
-        expect(response.content_type).to eq 'text/html'
-        expect(response).to render_template :index
-      end
-    end
     context 'when js request' do
       before { get :index, params: { graetzl_id: graetzl, page: 2 }, xhr: true }
-
-      it 'assigns @graetzl' do
-        expect(assigns :graetzl).to eq graetzl
-      end
-
-      it 'does not assign @map_data' do
-        expect(assigns :map_data).not_to be
-      end
 
       it 'assigns older @posts' do
         expect(assigns :posts).to match_array old_user_posts

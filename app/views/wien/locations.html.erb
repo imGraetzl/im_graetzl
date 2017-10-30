@@ -1,0 +1,28 @@
+<%
+  meta({
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
+
+<section class="wien masonryFilterGrid">
+  <%= render 'header' %>
+
+  <div class="hl-subtext">
+    <h1><em>Lokale Anbieter</em></h1>
+    <p>Finde grätzlansässige local Makers, Selbständige & lokale Unternehmen im deinem Grätzl</p>
+  </div>
+
+  <%= form_tag locations_path, method: :get, remote: true, class: 'autosubmit-filter' do %>
+    
+  <% end %>
+
+  <div class="masonry-wrapper">
+    <div class="cards-container" data-behavior="stream-container"></div>
+    <div class="view-more-container"></div>
+  </div>
+</section>

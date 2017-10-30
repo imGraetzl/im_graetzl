@@ -1,11 +1,9 @@
 class ZuckerlsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  include GraetzlChild
+  before_action :authenticate_user!, except: [:index]
 
   def index
-    @zuckerls = @graetzl.zuckerls.
-      page(params[:page]).per(15).
-      order("RANDOM()")
+    @zuckerls = collection_scope
+    @zuckerls = @zuckerls.page(params[:page]).per(15).order("RANDOM()")
   end
 
   def new
@@ -45,6 +43,15 @@ class ZuckerlsController < ApplicationController
   end
 
   private
+
+  def collection_scope
+    if params[:graetzl_id].present?
+      graetzl = Graetzl.find(params[:graetzl_id])
+      graetzl.zuckerls
+    else
+      Zuckerl.live
+    end
+  end
 
   def set_location_for_new
     case

@@ -25,7 +25,7 @@ class Zuckerl::LiveInformationMail < Zuckerl::BaseMail
       { name: 'zuckerl_title', content: @zuckerl.title },
       { name: 'zuckerl_period', content: start_time },
       { name: 'zuckerl_url', content: user_zuckerls_url(URL_OPTIONS) },
-      { name: 'graetzl_zuckerls_url', content: graetzl_zuckerls_url(@location.graetzl, URL_OPTIONS) },
+      { name: 'graetzl_zuckerls_url', content: zuckerls_graetzl_url(@location.graetzl, URL_OPTIONS) },
       { name: 'location_zuckerl_url', content: graetzl_location_url(@location.graetzl, @location, URL_OPTIONS) },
     ]
   end

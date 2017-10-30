@@ -1,0 +1,26 @@
+<div class="cardBox -location">
+  <div class="cardBoxContent -roomdemand">
+    <div class="location-shortfacts roomdemand-shortfacts">
+      <%= link_to room_demand.user, class: 'locationlogo' do %>
+        <%= avatar_for room_demand.user, 200, 'img-square' %>
+      <% end %>
+      <div class="locationtxt">
+        <% if room_demand.user %>
+          <%= link_to room_demand.user do %>
+            <div class="name"><%= "#{room_demand.user.first_name} #{room_demand.user.last_name}" %></div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="slogan"><%= room_demand.slogan %></div>
+    <div class="txt">
+      <p><%= truncate room_demand.demand_description, length: 100 %></p>
+    </div>
+    <% if room_demand.wants_collaboration? %>
+      <div class="collaboration icontxt">
+        <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+        Interesse an gem. Kooperationen.
+      </div>
+    <% end %>
+  </div>
+</div>

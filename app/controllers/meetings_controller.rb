@@ -1,6 +1,10 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
-  include GraetzlChild
+
+  def index
+    @meetings = collection_scope.include_for_box
+    @meetings = @meetings.by_currentness.page(params[:page]).per(15)
+  end
 
   def new
     graetzl = current_user.graetzl
@@ -53,12 +57,21 @@ class MeetingsController < ApplicationController
 
   private
 
+  def collection_scope
+    if params[:graetzl_id].present?
+      graetzl = Graetzl.find(params[:graetzl_id])
+      Meeting.where(graetzl: graetzl)
+    else
+      Meeting.all
+    end
+  end
+
   def meeting_params
     result = params.require(:meeting).permit(:graetzl_id, :name, :description, :starts_at_date, :starts_at_time,
       :ends_at_time, :cover_photo, :remove_cover_photo, :location_id, category_ids: [],
       address_attributes: [:id, :description, :street_name, :street_number, :zip, :city, :coordinates]
     )
-    
+
     feature_address = Address.from_feature(params[:feature]) if params[:feature]
     result[:address_attributes].merge!(feature_address.attributes.symbolize_keys.compact) if feature_address
     result
