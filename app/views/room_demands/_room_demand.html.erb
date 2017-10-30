@@ -1,9 +1,16 @@
 <div class="cardBox -location">
+  <div class="cardBoxHeader -roomdemand">
+    <%= link_to room_demand do %>
+      <%= avatar_for room_demand.user, 300, 'userimg-header' %>
+    <% end %>
+    <% unless room_demand.districts.empty? %>
+      <div class="categoryicon">
+        <%= "#{room_demand.districts.first.zip}" %>
+      </div>
+    <% end %>
+  </div>
   <div class="cardBoxContent -roomdemand">
     <div class="location-shortfacts roomdemand-shortfacts">
-      <%= link_to room_demand.user, class: 'locationlogo' do %>
-        <%= avatar_for room_demand.user, 200, 'img-square' %>
-      <% end %>
       <div class="locationtxt">
         <% if room_demand.user %>
           <%= link_to room_demand.user do %>
