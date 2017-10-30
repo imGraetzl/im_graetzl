@@ -2,10 +2,15 @@
   var $streamContainer = $("[data-behavior='stream-container']");
   var $paginateLink = $(".view-more-container");
 
-  function updateComponent() {
-    <% if params[:page].blank? && @room_offers.empty? && @room_demands.empty? %>
-      $streamContainer.append("<%= j render 'empty_message' %>")
-    <% elsif @room_offers.empty? && @room_demands.empty? %>
+  <% if params[:page].blank? %>
+    <% if @room_offers.empty? && @room_demands.empty? %>
+      $streamContainer.html("<%= j render 'empty_message' %>");
+    <% else %>
+      $streamContainer.html("<%= j render @room_offers %>" + "<%= j render @room_demands %>");
+      APP.components.masonryFilterGrid.adjustNewCards();
+    <% end %>
+  <% else %>
+    <% if @room_offers.empty? && @room_demands.empty? %>
       $paginateLink.hide();
     <% else %>
       $streamContainer.append("<%= j render @room_offers %>");
@@ -13,7 +18,5 @@
       $paginateLink.html("<%= j next_page_link %>");
       APP.components.masonryFilterGrid.adjustNewCards();
     <% end %>
-  }
-
-  updateComponent();
+  <% end %>
 })();

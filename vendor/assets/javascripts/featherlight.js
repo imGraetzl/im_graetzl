@@ -1,8 +1,8 @@
 /**
  * Featherlight - ultra slim jQuery lightbox
- * Version 1.3.4 - http://noelboss.github.io/featherlight/
+ * Version 1.7.9 - http://noelboss.github.io/featherlight/
  *
- * Copyright 2015, Noël Raoul Bossart (http://www.noelboss.com)
+ * Copyright 2017, Noël Raoul Bossart (http://www.noelboss.com)
  * MIT Licensed.
 **/
 (function($) {
@@ -54,20 +54,38 @@
 			return opened;
 		};
 
-	// structure({iframeMinHeight: 44, foo: 0}, 'iframe')
-	//   #=> {min-height: 44}
-	var structure = function(obj, prefix) {
-		var result = {},
+	// Removes keys of `set` from `obj` and returns the removed key/values.
+	function slice(obj, set) {
+		var r = {};
+		for (var key in obj) {
+			if (key in set) {
+				r[key] = obj[key];
+				delete obj[key];
+			}
+		}
+		return r;
+	}
+
+	// NOTE: List of available [iframe attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe).
+	var iFrameAttributeSet = {
+		allowfullscreen: 1, frameborder: 1, height: 1, longdesc: 1, marginheight: 1, marginwidth: 1,
+		name: 1, referrerpolicy: 1, scrolling: 1, sandbox: 1, src: 1, srcdoc: 1, width: 1
+	};
+
+	// Converts camelCased attributes to dasherized versions for given prefix:
+	//   parseAttrs({hello: 1, hellFrozeOver: 2}, 'hell') => {froze-over: 2}
+	function parseAttrs(obj, prefix) {
+		var attrs = {},
 			regex = new RegExp('^' + prefix + '([A-Z])(.*)');
 		for (var key in obj) {
 			var match = key.match(regex);
 			if (match) {
 				var dasherized = (match[1] + match[2].replace(/([A-Z])/g, '-$1')).toLowerCase();
-				result[dasherized] = obj[key];
+				attrs[dasherized] = obj[key];
 			}
 		}
-		return result;
-	};
+		return attrs;
+	}
 
 	/* document wide key handler */
 	var eventMap = { keyup: 'onKeyUp', resize: 'onResize' };
@@ -94,32 +112,32 @@
 		constructor: Featherlight,
 		/*** defaults ***/
 		/* extend featherlight with defaults and methods */
-		namespace:    'featherlight',         /* Name of the events and css class prefix */
-		targetAttr:   'data-featherlight',    /* Attribute of the triggered element that contains the selector to the lightbox content */
-		variant:      null,                   /* Class that will be added to change look of the lightbox */
-		resetCss:     false,                  /* Reset all css */
-		background:   null,                   /* Custom DOM for the background, wrapper and the closebutton */
-		openTrigger:  'click',                /* Event that triggers the lightbox */
-		closeTrigger: 'click',                /* Event that triggers the closing of the lightbox */
-		filter:       null,                   /* Selector to filter events. Think $(...).on('click', filter, eventHandler) */
-		root:         'body',                 /* Where to append featherlights */
-		openSpeed:    250,                    /* Duration of opening animation */
-		closeSpeed:   250,                    /* Duration of closing animation */
-		closeOnClick: 'background',           /* Close lightbox on click ('background', 'anywhere' or false) */
-		closeOnEsc:   true,                   /* Close lightbox when pressing esc */
-		closeIcon:    '&#10005;',             /* Close icon */
-		loading:      '',                     /* Content to show while initial content is loading */
-		persist:      false,									/* If set, the content persist and will be shown again when opened again. 'shared' is a special value when binding multiple elements for them to share the same content */
-		otherClose:   null,                   /* Selector for alternate close buttons (e.g. "a.close") */
-		beforeOpen:   $.noop,                 /* Called before open. can return false to prevent opening of lightbox. Gets event as parameter, this contains all data */
-		beforeContent: $.noop,                /* Called when content is loaded. Gets event as parameter, this contains all data */
-		beforeClose:  $.noop,                 /* Called before close. can return false to prevent opening of lightbox. Gets event as parameter, this contains all data */
-		afterOpen:    $.noop,                 /* Called after open. Gets event as parameter, this contains all data */
-		afterContent: $.noop,                 /* Called after content is ready and has been set. Gets event as parameter, this contains all data */
-		afterClose:   $.noop,                 /* Called after close. Gets event as parameter, this contains all data */
-		onKeyUp:      $.noop,                 /* Called on key down for the frontmost featherlight */
-		onResize:     $.noop,                 /* Called after new content and when a window is resized */
-		type:         null,                   /* Specify type of lightbox. If unset, it will check for the targetAttrs value. */
+		namespace:      'featherlight',        /* Name of the events and css class prefix */
+		targetAttr:     'data-featherlight',   /* Attribute of the triggered element that contains the selector to the lightbox content */
+		variant:        null,                  /* Class that will be added to change look of the lightbox */
+		resetCss:       false,                 /* Reset all css */
+		background:     null,                  /* Custom DOM for the background, wrapper and the closebutton */
+		openTrigger:    'click',               /* Event that triggers the lightbox */
+		closeTrigger:   'click',               /* Event that triggers the closing of the lightbox */
+		filter:         null,                  /* Selector to filter events. Think $(...).on('click', filter, eventHandler) */
+		root:           'body',                /* Where to append featherlights */
+		openSpeed:      250,                   /* Duration of opening animation */
+		closeSpeed:     250,                   /* Duration of closing animation */
+		closeOnClick:   'background',          /* Close lightbox on click ('background', 'anywhere' or false) */
+		closeOnEsc:     true,                  /* Close lightbox when pressing esc */
+		closeIcon:      '&#10005;',            /* Close icon */
+		loading:        '',                    /* Content to show while initial content is loading */
+		persist:        false,                 /* If set, the content will persist and will be shown again when opened again. 'shared' is a special value when binding multiple elements for them to share the same content */
+		otherClose:     null,                  /* Selector for alternate close buttons (e.g. "a.close") */
+		beforeOpen:     $.noop,                /* Called before open. can return false to prevent opening of lightbox. Gets event as parameter, this contains all data */
+		beforeContent:  $.noop,                /* Called when content is loaded. Gets event as parameter, this contains all data */
+		beforeClose:    $.noop,                /* Called before close. can return false to prevent opening of lightbox. Gets event as parameter, this contains all data */
+		afterOpen:      $.noop,                /* Called after open. Gets event as parameter, this contains all data */
+		afterContent:   $.noop,                /* Called after content is ready and has been set. Gets event as parameter, this contains all data */
+		afterClose:     $.noop,                /* Called after close. Gets event as parameter, this contains all data */
+		onKeyUp:        $.noop,                /* Called on key up for the frontmost featherlight */
+		onResize:       $.noop,                /* Called after new content and when a window is resized */
+		type:           null,                  /* Specify type of lightbox. If unset, it will check for the targetAttrs value. */
 		contentFilters: ['jquery', 'image', 'html', 'ajax', 'iframe', 'text'], /* List of content filters to use to determine the content */
 
 		/*** methods ***/
@@ -136,9 +154,9 @@
 				$background = $(self.background || [
 					'<div class="'+css+'-loading '+css+'">',
 						'<div class="'+css+'-content">',
-							'<span class="'+css+'-close-icon '+ self.namespace + '-close">',
+							'<button class="'+css+'-close-icon '+ self.namespace + '-close" aria-label="Close">',
 								self.closeIcon,
-							'</span>',
+							'</button>',
 							'<div class="'+self.namespace+'-inner">' + self.loading + '</div>',
 						'</div>',
 					'</div>'].join('')),
@@ -152,8 +170,8 @@
 				if( ('background' === self.closeOnClick  && $target.is('.'+self.namespace))
 					|| 'anywhere' === self.closeOnClick
 					|| $target.closest(closeButtonSelector).length ){
+					self.close(event);
 					event.preventDefault();
-					self.close();
 				}
 			});
 
@@ -218,7 +236,7 @@
 		setContent: function($content){
 			var self = this;
 			/* we need a special class for the iframe */
-			if($content.is('iframe') || $('iframe', $content).length > 0){
+			if($content.is('iframe')) {
 				self.$instance.addClass(self.namespace+'-iframe');
 			}
 
@@ -229,7 +247,7 @@
 				 position to any other items added to featherlight-content */
 			self.$instance.find('.'+self.namespace+'-inner')
 				.not($content)                /* excluded new content, important if persisted */
-				.slice(1).remove().end()			/* In the unexpected event where there are many inner elements, remove all but the first one */
+				.slice(1).remove().end()      /* In the unexpected event where there are many inner elements, remove all but the first one */
 				.replaceWith($.contains(self.$instance[0], $content[0]) ? '' : $content);
 
 			self.$content = $content.addClass(self.namespace+'-inner');
@@ -296,6 +314,27 @@
 			return deferred.promise();
 		},
 
+		/* resizes the content so it fits in visible area and keeps the same aspect ratio.
+				Does nothing if either the width or the height is not specified.
+				Called automatically on window resize.
+				Override if you want different behavior. */
+		resize: function(w, h) {
+			if (w && h) {
+				/* Reset apparent image size first so container grows */
+				this.$content.css('width', '').css('height', '');
+				/* Calculate the worst ratio so that dimensions fit */
+				 /* Note: -1 to avoid rounding errors */
+				var ratio = Math.max(
+					w  / (this.$content.parent().width()-1),
+					h / (this.$content.parent().height()-1));
+				/* Resize content */
+				if (ratio > 1) {
+					ratio = h / Math.floor(h / ratio); /* Round ratio down so height calc works */
+					this.$content.css('width', '' + w / ratio + 'px').css('height', '' + h / ratio + 'px');
+				}
+			}
+		},
+
 		/* Utility function to chain callbacks
 		   [Warning: guru-level]
 		   Used be extensions that want to let users specify callbacks but
@@ -360,10 +399,13 @@
 			iframe: {
 				process: function(url) {
 					var deferred = new $.Deferred();
-					var $content = $('<iframe/>')
-						.hide()
+					var $content = $('<iframe/>');
+					var css = parseAttrs(this, 'iframe');
+					var attrs = slice(css, iFrameAttributeSet);
+					$content.hide()
 						.attr('src', url)
-						.css(structure(this, 'iframe'))
+						.attr(attrs)
+						.css(css)
 						.on('load', function() { deferred.resolve($content.show()); })
 						// We can't move an <iframe> and avoid reloading it,
 						// so let's put it in place ourselves right now:
@@ -393,7 +435,7 @@
 						if ($.inArray(name, Klass.functionAttributes) >= 0) {  /* jshint -W054 */
 							val = new Function(val);                           /* jshint +W054 */
 						} else {
-							try { val = $.parseJSON(val); }
+							try { val = JSON.parse(val); }
 							catch(e) {}
 						}
 						config[name] = val;
@@ -438,24 +480,29 @@
 			var namespace = config.namespace || Klass.defaults.namespace,
 				tempConfig = $.extend({}, Klass.defaults, Klass.readElementConfig($source[0], namespace), config),
 				sharedPersist;
-
-			$source.on(tempConfig.openTrigger+'.'+tempConfig.namespace, tempConfig.filter, function(event) {
+			var handler = function(event) {
+				var $target = $(event.currentTarget);
 				/* ... since we might as well compute the config on the actual target */
 				var elemConfig = $.extend(
-					{$source: $source, $currentTarget: $(this)},
+					{$source: $source, $currentTarget: $target},
 					Klass.readElementConfig($source[0], tempConfig.namespace),
-					Klass.readElementConfig(this, tempConfig.namespace),
+					Klass.readElementConfig(event.currentTarget, tempConfig.namespace),
 					config);
-				var fl = sharedPersist || $(this).data('featherlight-persisted') || new Klass($content, elemConfig);
+				var fl = sharedPersist || $target.data('featherlight-persisted') || new Klass($content, elemConfig);
 				if(fl.persist === 'shared') {
 					sharedPersist = fl;
 				} else if(fl.persist !== false) {
-					$(this).data('featherlight-persisted', fl);
+					$target.data('featherlight-persisted', fl);
 				}
-				elemConfig.$currentTarget.blur(); // Otherwise 'enter' key might trigger the dialog again
+				if (elemConfig.$currentTarget.blur) {
+					elemConfig.$currentTarget.blur(); // Otherwise 'enter' key might trigger the dialog again
+				}
 				fl.open(event);
-			});
-			return $source;
+			};
+
+			$source.on(tempConfig.openTrigger+'.'+tempConfig.namespace, tempConfig.filter, handler);
+
+			return handler;
 		},
 
 		current: function() {
@@ -469,9 +516,9 @@
 			return $.grep(opened, function(fl) { return fl instanceof klass; } );
 		},
 
-		close: function() {
+		close: function(event) {
 			var cur = this.current();
-			if(cur) { return cur.close(); }
+			if(cur) { return cur.close(event); }
 		},
 
 		/* Does the auto binding on startup.
@@ -489,11 +536,10 @@
 					if (evt.isDefaultPrevented()) {
 						return;
 					}
-					evt.preventDefault();
 					/* Bind featherlight */
-					Klass.attach($(evt.currentTarget));
-					/* Click again; this time our binding will catch it */
-					$(evt.target).click();
+					var handler = Klass.attach($(evt.currentTarget));
+					/* Dispatch event directly */
+					handler(evt);
 				});
 			}
 		},
@@ -505,7 +551,7 @@
 			onKeyUp: function(_super, event){
 				if(27 === event.keyCode) {
 					if (this.closeOnEsc) {
-						this.$instance.find('.'+this.namespace+'-close:first').click();
+						$.featherlight.close(event);
 					}
 					return false;
 				} else {
@@ -513,25 +559,56 @@
 				}
 			},
 
-			onResize: function(_super, event){
-				if (this.$content.naturalWidth) {
-					var w = this.$content.naturalWidth, h = this.$content.naturalHeight;
-					/* Reset apparent image size first so container grows */
-					this.$content.css('width', '').css('height', '');
-					/* Calculate the worst ratio so that dimensions fit */
-					var ratio = Math.max(
-						w  / parseInt(this.$content.parent().css('width'),10),
-						h / parseInt(this.$content.parent().css('height'),10));
-					/* Resize content */
-					if (ratio > 1) {
-						this.$content.css('width', '' + w / ratio + 'px').css('height', '' + h / ratio + 'px');
-					}
+			beforeOpen: function(_super, event) {
+				// Used to disable scrolling
+				$(document.documentElement).addClass('with-featherlight');
+
+				// Remember focus:
+				this._previouslyActive = document.activeElement;
+
+				// Disable tabbing:
+				// See http://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
+				this._$previouslyTabbable = $("a, input, select, textarea, iframe, button, iframe, [contentEditable=true]")
+					.not('[tabindex]')
+					.not(this.$instance.find('button'));
+
+				this._$previouslyWithTabIndex = $('[tabindex]').not('[tabindex="-1"]');
+				this._previousWithTabIndices = this._$previouslyWithTabIndex.map(function(_i, elem) {
+					return $(elem).attr('tabindex');
+				});
+
+				this._$previouslyWithTabIndex.add(this._$previouslyTabbable).attr('tabindex', -1);
+
+				if (document.activeElement.blur) {
+					document.activeElement.blur();
 				}
+				return _super(event);
+			},
+
+			afterClose: function(_super, event) {
+				var r = _super(event);
+				// Restore focus
+				var self = this;
+				this._$previouslyTabbable.removeAttr('tabindex');
+				this._$previouslyWithTabIndex.each(function(i, elem) {
+					$(elem).attr('tabindex', self._previousWithTabIndices[i]);
+				});
+				this._previouslyActive.focus();
+				// Restore scroll
+				if(Featherlight.opened().length === 0) {
+					$(document.documentElement).removeClass('with-featherlight');
+				}
+				return r;
+			},
+
+			onResize: function(_super, event){
+				this.resize(this.$content.naturalWidth, this.$content.naturalHeight);
 				return _super(event);
 			},
 
 			afterContent: function(_super, event){
 				var r = _super(event);
+				this.$instance.find('[autofocus]:not([disabled])').focus();
 				this.onResize(event);
 				return r;
 			}
@@ -542,7 +619,8 @@
 
 	/* bind jQuery elements to trigger featherlight */
 	$.fn.featherlight = function($content, config) {
-		return Featherlight.attach(this, $content, config);
+		Featherlight.attach(this, $content, config);
+		return this;
 	};
 
 	/* bind featherlight on ready if config autoBind is set */

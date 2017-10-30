@@ -51,4 +51,10 @@ section.room-form {
     .room-prices-links { clear: left; }
     .nested-fields { overflow: hidden; }
   }
+
+  .bezirk-graetzl-select {
+    input[type=checkbox]:not(:checked) + label {
+      display: none;
+    }
+  }
 }

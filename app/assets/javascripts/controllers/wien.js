@@ -19,10 +19,9 @@ APP.controllers.wien = (function() {
           initMap();
         }
 
-        $('.autosubmit-filter').submit();
+        initFilter();
     }
 
-    // ---------------------------------------------------------------------- section inits
 
     function initMap() {
         var mapdata = $('#graetzlMapWidget').data('mapdata');
@@ -33,7 +32,21 @@ APP.controllers.wien = (function() {
         });
     }
 
-    // ---------------------------------------------------------------------- public
+    function initFilter() {
+      $(".cards-filter a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
+
+      $(".cards-filter").on("click", ".filter-button", function() {
+        var currentModal = $.featherlight.current();
+        var selectedInputs = currentModal.$content.find(".filter-input :selected, .filter-input :checked");
+        var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
+        $('.cards-filter a[href="' + currentModal.$content.selector + '"]').text(label);
+        $('.autosubmit-filter').submit();
+        currentModal.close();
+      });
+
+      $('.autosubmit-filter').submit();
+    }
+
 
     return {
         init: init

@@ -11,6 +11,7 @@ APP.components.graetzlSelectFilter = function() {
     select.on('change', function() {
         var districtID = $(this).val();
         console.log('DISTRICT SELECT', districtID);
+        $('input#room_demand_district_ids_' + districtID).attr('checked', true);
         // var url = '/wien/' + districtID + '/graetzls';
         // //var graetzlSelect = $('select#graetzl_id');
         // var graetzlSelect = $('select.graetzl_id');

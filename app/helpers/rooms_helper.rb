@@ -1,23 +1,14 @@
 module RoomsHelper
 
-  def room_type_filter_selection
-    if params[:room_offer_type].blank? && params[:room_demand_type].blank?
-      return "Alle Raumteiler"
-    end
-
-    if params[:room_offer_type].present?
-      room_offer_type = {'0' => 'Räume zum Einmieten', '1' => 'Räume zum Neuanmieten'}[params[:room_offer_type]]
-    else
-      room_offer_type = 'Alle Räume'
-    end
-
-    if params[:room_demand_type].present?
-      room_demand_type = {'0' => 'Raumsuchende zum Einmieten', '1' => 'Raumsuchende zur gemeinsamen Neuanmietung'}[params[:room_demand_type]]
-    else
-      room_demand_type = 'Alle Raumsuchende'
-    end
-
-    [room_offer_type, room_demand_type].join(', ')
+  def filter_room_types
+    [
+      ['Alle Räume', 'offer', 'data-label' => 'Alle Räume'],
+      ['Räume zum Einmieten', 'offer-0', 'data-label' => 'Räume zum Einmieten'],
+      ['Räume zum Neuanmieten', 'offer-1', 'data-label' => 'Räume zum Neuanmieten'],
+      ['Alle Raumsuchende', 'demand', 'data-label' => 'Alle Raumsuchende'],
+      ['Raumsuchende zum Einmieten', 'demand-0', 'data-label' => 'Raumsuchende zum Einmieten'],
+      ['Raumsuchende zur gemeinsamen Neuanmietung', 'demand-1', 'data-label' => 'Raumsuchende zur gemeinsamen Neuanmietung'],
+    ]
   end
 
 end
