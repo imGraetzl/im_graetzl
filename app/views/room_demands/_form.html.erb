@@ -22,7 +22,19 @@
       <% end %>
     </div>
 
-    <h2><span>Wo suchst du</span> einen Raum?</h2>
+    <h2><span>Wo möchtest du</span> idealerweise anmieten?</h2>
+    <div class="bezirk-graetzl-select">
+      <%= collection_select nil, nil, District.all, :id, :zip, {:include_blank => true}, {:class => 'district-graetzl-filter'}  %>
+    </div>
+    <div class="bezirk-graetzl-select room-categories">
+      <%= f.collection_check_boxes :district_ids, District.all, :id, :zip do |b| %>
+        <div class="input-checkbox">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    </div>
+
 
     <h2>Ausstattung</h2>
     <div class="room-tags">
