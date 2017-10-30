@@ -5,8 +5,12 @@
   @include respond-to(">=medium") {
     margin-bottom: 40px;
   }
-  span {
-    color: $color-ambient-rosa;
+  span { color: $color-ambient-rosa; }
+  em {
+    @include headlineBarbapapa();
+    @include textShadowHard($color-ambient-rosa-dark);
+    font-style: inherit;
+    display: inline-table;
   }
 }
 
@@ -29,6 +33,12 @@
     p {
       @include font-size-primaryFont('base');
     }
+  }
+  em {
+    @include headlineBarbapapa();
+    @include textShadowHard($color-ambient-rosa-dark);
+    font-style: inherit;
+    display: inline-table;
   }
 }
 

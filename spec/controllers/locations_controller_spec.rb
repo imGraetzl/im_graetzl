@@ -10,32 +10,9 @@ RSpec.describe LocationsController, type: :controller do
     let!(:old_locations) { create_list :location, 15, :approved, graetzl: graetzl }
     let!(:new_locations) { create_list :location, 15, :approved, graetzl: graetzl }
 
-    context 'when html request' do
-      before { get :index, params: { graetzl_id: graetzl } }
-
-      it 'assigns @graetzl' do
-        expect(assigns :graetzl).to eq graetzl
-      end
-      it 'assigns @map_data' do
-        expect(assigns :map_data).to be_present
-      end
-      it 'assigns 15 @locations' do
-        expect(assigns :locations).to match_array new_locations
-      end
-      it 'renders index.html' do
-        expect(response.content_type).to eq 'text/html'
-        expect(response).to render_template :index
-      end
-    end
     context 'when js request for more locations' do
       before { get :index, params: { graetzl_id: graetzl, page: 2 }, xhr: true }
 
-      it 'assigns @graetzl' do
-        expect(assigns :graetzl).to eq graetzl
-      end
-      it 'does not assign @map_data' do
-        expect(assigns :map_data).not_to be
-      end
       it 'assigns older 15 @locations' do
         expect(assigns :locations).to match_array old_locations
       end

@@ -22,8 +22,9 @@ APP.components.masonryFilterGrid = (function() {
         });
     }
 
-    function adjustNewCards() {
-        $grid.masonry('appended', $(".cardBox").not('[style]'));
+    function adjustNewCards(x) {
+      adjustMasonry();
+      $grid.masonry('appended', $(".cardBox").not('[style]'));
     }
 
     function createMobileNav() {

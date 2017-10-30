@@ -1,12 +1,12 @@
 <%
-  meta({
+  meta(
     title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric),
     description: t('.description', name: @graetzl.name),
     robots: 'index, follow',
     og_title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric),
     og_description: t('.description', name: @graetzl.name),
     og_image: image_url('meta/og_logo.png')
-  })
+  )
 %>
 
 <section class="masonryFilterGrid">
@@ -14,11 +14,18 @@
     <%= render 'map', map_data: @map_data %>
   <% end %>
   <%= render 'curator' if @graetzl.curator %>
-  <%= filters_for current_user, @graetzl %>
+  <%= render 'menu' %>
 
   <% if user_signed_in? %>
-    <%= render "graetzls/users/stream" %>
+    <%= form_tag activities_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'autosubmit-filter' do %>
+    <% end %>
+
+    <div class="masonry-wrapper">
+      <div class="cards-container" data-behavior="stream-container"></div>
+      <div class="view-more-container"></div>
+    </div>
   <% else %>
-    <%= render "graetzls/guests/stream" %>
+    <%= render "activity_sample" %>
   <% end %>
+
 </section>

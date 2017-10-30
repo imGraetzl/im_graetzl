@@ -1,0 +1,32 @@
+<%
+  meta(
+    title: t('.title', graetzl: @graetzl.name),
+    description: t('.description', graetzl: @graetzl.name),
+    robots: 'index, follow',
+    og_title: t('.title', graetzl: @graetzl.name),
+    og_description: t('.description', graetzl: @graetzl.name),
+    og_image: image_url('meta/og_logo.png')
+  )
+%>
+<section class="masonryFilterGrid">
+  <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
+    <%= render 'map', map_data: @map_data %>
+  <% end %>
+  <%= render 'curator' if @graetzl.curator %>
+  <%= render 'menu' %>
+
+  <% if !user_signed_in? %>
+    <div class="hl-subtext">
+      <h1>Entdecke - richtig gute <span>Anbieter, Lokale & Geschäfte</span></h1>
+      <p>Finde grätzlansässige local Makers, Selbständige & Unternehmen im Grätzl <%= @graetzl.name %></p>
+    </div>
+  <% end %>
+
+  <%= form_tag locations_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'autosubmit-filter' do %>
+  <% end %>
+
+  <div class="masonry-wrapper">
+    <div class="cards-container" data-behavior="stream-container"></div>
+    <div class="view-more-container"></div>
+  </div>
+</section>

@@ -1,12 +1,13 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  include GraetzlChild
 
   def index
-    @locations = @graetzl.locations.approved.include_for_box.by_activity.page(params[:page]).per(15)
+    @locations = collection_scope.approved.include_for_box
+    @locations = @locations.by_activity.page(params[:page]).per(15)
   end
 
   def show
+    @graetzl = Graetzl.find(params[:graetzl_id])
     if request.xhr?
       @location = @graetzl.locations.approved.include_for_box.find(params[:id])
       paginate_content
@@ -60,6 +61,15 @@ class LocationsController < ApplicationController
   end
 
   private
+
+  def collection_scope
+    if params[:graetzl_id].present?
+      graetzl = Graetzl.find(params[:graetzl_id])
+      Location.where(graetzl: graetzl)
+    else
+      Location.all
+    end
+  end
 
   def set_location
     @location = current_user.locations.find params[:id]

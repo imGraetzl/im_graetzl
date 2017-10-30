@@ -1,29 +1,33 @@
-<% meta({
+<%
+  meta(
     title: t('.title', graetzl: @graetzl.name),
     description: t('.description', graetzl: @graetzl.name),
-    robots: @posts.empty? ? 'noindex, follow' : 'index, follow',
+    robots: 'index, follow',
     og_title: t('.title', graetzl: @graetzl.name),
     og_description: t('.description', graetzl: @graetzl.name),
     og_image: image_url('meta/og_logo.png')
-  })
+  )
 %>
 
 <section class="masonryFilterGrid">
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
-    <%= render 'graetzls/map', map_data: @map_data %>
+    <%= render 'map', map_data: @map_data %>
   <% end %>
-  <%= render 'graetzls/curator' if @graetzl.curator %>
-  <%= filters_for current_user, @graetzl %>
-  <% unless current_user %>
+  <%= render 'curator' if @graetzl.curator %>
+  <%= render 'menu' %>
+
+  <% if !user_signed_in? %>
     <div class="hl-subtext">
       <h1>Gestaltet euer Grätzl mit - <span>Ideen & Wünsche</span></h1>
       <p>Entdecke, was sich BewohnerInnen fürs Grätzl <%= @graetzl.name %> wünschen und welche Ideen im Raum stehen.</p>
     </div>
   <% end %>
+
+  <%= form_tag posts_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'autosubmit-filter' do %>
+  <% end %>
+
   <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="stream-container">
-      <%= render(@posts) || render('empty_message')%>
-    </div>
-    <%= view_more_link @posts %>
+    <div class="cards-container" data-behavior="stream-container"></div>
+    <div class="view-more-container"></div>
   </div>
 </section>

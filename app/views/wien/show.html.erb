@@ -1,16 +1,15 @@
 <%
-  meta({
+  meta(
     title: t('.title'),
     description: t('.description'),
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
     og_image: image_url('meta/og_logo.png')
-  })
+  )
 %>
-<% content_for(:rel_next_prev, rel_next_prev_link_tags(@meetings)) %>
 
-<section class="vienna">
+<section class="wien">
 
   <%= cache 'districtsmap', expires_in: 2.months do %>
     <div class="mapImgBlock">
@@ -30,13 +29,19 @@
     </div>
   <% end %>
 
-  <% unless @meetings.empty? %>
-    <div class="teaserBlock">
-      <h1 class="hl-main">Aktuelle Treffen in ganz <span>Wien</span></h1>
-      <div id="meetings" class="cardBoxCollection -tripple" data-behavior="stream-container">
-        <%= render @meetings %>
+  <div class="address-block">
+    <h1 class="hl-main">Lass uns dein <em>Heimatgrätzl</em> Finden</h1>
+    <%= form_tag visit_graetzl_wien_path, method: :get do %>
+      <div class="input-field" id="addressSearchAutocomplete">
+        <%= label_tag :address do %>
+          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+          <span>Wo wohnst du?</span>
+        <% end %>
+        <%= text_field_tag :address, nil, required: true, placeholder: "Straße und Hausnummer" %>
+        <%= hidden_field_tag :feature %>
+        <button class="btn-primary">Weiter</button>
       </div>
-    </div>
-    <%= view_more_link @meetings %>
-  <% end %>
+    <% end %>
+  <div>
+
 </section>

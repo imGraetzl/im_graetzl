@@ -53,6 +53,7 @@ class RoomOffersController < ApplicationController
     params
       .require(:room_offer)
       .permit(
+        :offer_type,
         :slogan,
         :rented_area,
         :total_area,

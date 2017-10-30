@@ -3,14 +3,12 @@ APP.controllers.locations = (function() {
     function init() {
         if($("section.selectGraetzl").exists()) initSelectGraetzl();
         if($("section.location-form").exists()) initLocationForm();
-        if($("section.masonryFilterGrid").exists()) initLocationOverview();
         if($("section.locationPage").exists()) initLocationPage();
     }
 
 
-
     function initSelectGraetzl() {
-        APP.components.graetzlSelect();
+      APP.components.graetzlSelect();
     }
 
     function initLocationForm() {
@@ -43,26 +41,6 @@ APP.controllers.locations = (function() {
             event.preventDefault();
         });
     }
-
-
-    function initLocationOverview() {
-        var map =  APP.components.graetzlMap;
-        var filter = APP.components.masonryFilterGrid;
-        var mapdata = $('#graetzlMapWidget').data('mapdata');
-
-        filter.init();
-        map.init(function() {
-                map.showMapGraetzl(mapdata.graetzls, {
-                    style: $.extend(map.styles.rose, {
-                        weight: 4,
-                        fillOpacity: 0.2
-                    })
-                });
-
-            }
-        );
-    }
-
 
     function initLocationPage() {
         $('.introtxt .txt').linkify({ target: "_blank"});

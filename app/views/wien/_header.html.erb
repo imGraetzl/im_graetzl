@@ -1,0 +1,43 @@
+<div class="filter-stream">
+
+  <!-- for mobile we use a select menu -->
+  <div class="input-select">
+    <label for="filter">
+      <svg class="icon-funnel-filter"><use xlink:href="#icon-funnel-filter"></use></svg>
+      <span>Filter</span>
+    </label>
+    <select id="filter"><!-- generate links from desktop view via JS --></select>
+  </div>
+  <!-- END mobile select menu -->
+
+  <%= link_to locations_wien_path, class: "iconfilter #{active?(locations_wien_path)}" do %>
+    <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
+    <div class="txt">Lokale <br/>Anbieter</div>
+  <% end %>
+  <%= link_to meetings_wien_path, class: "iconfilter #{active?(meetings_wien_path)}" do %>
+    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+    <div class="txt">Treffen <br/>& Workshops</div>
+  <% end %>
+  <%= link_to rooms_wien_path, class: "iconfilter #{active?(rooms_wien_path)}" do %>
+    <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>
+    <div class="txt">Raum <br/> Teiler</div>
+  <% end %>
+  <%= link_to zuckerls_wien_path, class: "iconfilter #{active?(zuckerls_wien_path)}" do %>
+    <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+    <div class="txt">Zuckerl <br/>& Gutscheine</div>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to '#', class: 'iconfilter createentry', data: { behavior: 'createTrigger' } do %>
+      <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+    <% end %>
+  <% end %>
+</div>
+
+<% if user_signed_in? %>
+  <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
+    <div class="jq-dropdown-panel">
+
+    </div>
+  </div>
+<% end %>

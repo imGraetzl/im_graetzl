@@ -1,29 +1,5 @@
 Rails.application.routes.draw do
-
-  # routing concerns
-  concern :graetzl_before_new do
-    collection do
-      post 'new', as: :before_new
-    end
-  end
-
-  resources :districts, path: 'wien', only: [:index, :show] do
-    get :graetzls, on: :member
-    resources :locations, module: :districts, only: [:index]
-    resources :meetings, path: :treffen, module: :districts, only: [:index]
-    resources :zuckerls, path: :zuckerl, module: :districts, only: [:index]
-  end
-
   ActiveAdmin.routes(self)
-
-  devise_for :users, skip: [:passwords, :confirmations, :registrations],
-    controllers: {
-      sessions: 'users/sessions',
-    },
-    path_names: {
-      sign_in: 'login',
-      sign_out: 'logout',
-    }
 
   devise_scope :user do
     resource :password,
@@ -48,11 +24,52 @@ Rails.application.routes.draw do
     post 'users/notification_settings/change_mail_notification', to: 'notification_settings#change_mail_notification', as: :user_change_mail_notification
   end
 
+  devise_for :users, skip: [:passwords, :confirmations, :registrations],
+    controllers: {
+      sessions: 'users/sessions',
+    },
+    path_names: {
+      sign_in: 'login',
+      sign_out: 'logout',
+    }
+
   resources :users, only: [:show, :update]
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     resources :locations, module: :users, only: [:index]
     resources :zuckerls, path: 'zuckerl', module: :users, only: [:index]
+  end
+
+  concern :graetzl_before_new do
+    collection do
+      post 'new', as: :before_new
+    end
+  end
+
+  resources :activities, only: [:index]
+  resources :meetings, path: :treffen, except: [:show]
+  resources :zuckerls, only: [:index]
+  resources :rooms, only: [:index]
+  resources :posts, only: [:index]
+  resources :locations do
+    concerns :graetzl_before_new
+    resources :meetings, module: :locations, path: :treffen, only: [:new, :create]
+    resources :zuckerls, path: 'zuckerl', except: [:index, :show]
+  end
+
+  resource :wien, controller: 'wien', only: [:show] do
+    get 'visit_graetzl'
+    get 'treffen', action: 'meetings', as: 'meetings'
+    get 'locations'
+    get 'raumteiler', action: 'rooms', as: 'rooms'
+    get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
+  end
+
+  resources :districts, path: 'wien', only: [:show] do
+    get :graetzls, on: :member
+    resources :locations, module: :districts, only: [:index]
+    resources :meetings, path: :treffen, module: :districts, only: [:index]
+    resources :zuckerls, path: :zuckerl, module: :districts, only: [:index]
   end
 
   get 'info/agb', to: 'static_pages#agb'
@@ -71,31 +88,13 @@ Rails.application.routes.draw do
     post :mark_as_seen, on: :collection
   end
 
-  resources :meetings, path: :treffen, except: [:index, :show]
-
   resources :room_offers do
     get 'select', on: :collection
   end
 
   resources :room_demands
 
-  resources :graetzls, path: '', only: [:show] do
-    resources :meetings, path: :treffen, module: :graetzls, except: [:edit, :update, :destroy]
-    resources :locations, only: [:index, :show]
-    resources :rooms, path: 'raumteiler', only: [:index]
-    resources :zuckerls, path: :zuckerl, only: [:index]
-    resources :users, only: [:show]
-    resources :posts, path: :ideen, only: [:index]
-    resources :user_posts, path: :ideen, only: [:new, :create, :show]
-  end
-
   resources :going_tos, only: [:create, :destroy]
-
-  resources :locations, except: [:index, :show] do
-    concerns :graetzl_before_new
-    resources :meetings, module: :locations, path: :treffen, only: [:new, :create]
-    resources :zuckerls, path: 'zuckerl', except: [:index, :show]
-  end
 
   resources :zuckerls, path: 'zuckerl', only: [:new] do
     resource :billing_address, only: [:show, :create, :update]
@@ -114,4 +113,17 @@ Rails.application.routes.draw do
   namespace :api do
     resources :meetings, only: [:index]
   end
+
+  resources :graetzls, path: '', only: [:show] do
+    get 'treffen', action: 'meetings', as: 'meetings', on: :member
+    get 'locations', on: :member
+    get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
+    get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
+    get 'ideen', action: 'posts', as: 'posts', on: :member
+    resources :meetings, path: :treffen, module: :graetzls, except: [:index, :edit, :update, :destroy]
+    resources :locations, only: [:show]
+    resources :users, only: [:show]
+    resources :user_posts, path: :ideen, only: [:new, :create, :show]
+  end
+
 end

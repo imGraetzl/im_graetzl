@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'controllers/shared/meetings_controller'
 
 RSpec.describe Graetzls::MeetingsController, type: :controller do
+
   describe 'GET new' do
     let(:graetzl) { create :graetzl }
 
@@ -11,6 +12,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
         expect(response).to render_template(session[:new])
       end
     end
+
     context 'when logged in' do
       let(:user) { create :user }
       before do
@@ -37,6 +39,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       end
     end
   end
+
   describe 'POST create' do
     let(:graetzl) { create :graetzl }
 
@@ -46,6 +49,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
         expect(response).to render_template(session[:new])
       end
     end
+
     context 'when logged in' do
       let(:user) { create :user }
       let(:params) {{ graetzl_id: graetzl, meeting: attributes_for(:meeting, graetzl_id: graetzl.id) }}
@@ -60,6 +64,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       end
     end
   end
+
   describe 'GET show' do
     let(:graetzl) { create :graetzl }
     let(:meeting) { create(:meeting, graetzl: graetzl) }
@@ -84,6 +89,7 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
         expect(assigns :comments).to eq meeting.comments
       end
     end
+
     context 'when js request' do
       before { get :show, params: { graetzl_id: graetzl, id: meeting }, xhr: true }
 
@@ -97,48 +103,5 @@ RSpec.describe Graetzls::MeetingsController, type: :controller do
       end
     end
   end
-  describe 'GET index' do
-    let(:graetzl) { create :graetzl }
 
-    context 'when html request' do
-      before { get :index, params: { graetzl_id: graetzl } }
-
-      it 'assigns @graetzl' do
-        expect(assigns :graetzl).to eq graetzl
-      end
-
-      it 'assigns @map_data' do
-        expect(assigns :map_data).to be
-      end
-
-      it 'assigns @meetings' do
-        expect(assigns :meetings).to be
-      end
-
-      it 'renders index.html' do
-        expect(response.content_type).to eq 'text/html'
-        expect(response).to render_template(:index)
-      end
-    end
-    context 'when js request' do
-      before { get :index, params: { graetzl_id: graetzl, page: 2 }, xhr: true }
-
-      it 'assigns @graetzl' do
-        expect(assigns :graetzl).to eq graetzl
-      end
-
-      it 'does not assign @map_data' do
-        expect(assigns :map_data).not_to be
-      end
-
-      it 'assigns @meetings' do
-        expect(assigns :meetings).to be
-      end
-
-      it 'renders index.js' do
-        expect(response.content_type).to eq 'text/javascript'
-        expect(response).to render_template :index
-      end
-    end
-  end
 end

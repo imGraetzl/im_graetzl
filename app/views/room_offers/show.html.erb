@@ -11,7 +11,7 @@
     </div>
 
     <div class="category-tags">
-      <% unless @room_offer.room_categories.empty? %>
+      <% if @room_offer.room_categories.present? %>
         <ul class="tag-list -mint">
           <% @room_offer.room_categories.each do |category| %>
             <li><%= category.name %></li>
@@ -23,7 +23,7 @@
     <div class="txt"><%= @room_offer.room_description %></div>
 
     <div class="category-tags">
-      <% unless @room_offer.keyword_list.empty? %>
+      <% if @room_offer.keyword_list.present? %>
         <ul class="tag-list">
           <% @room_offer.keyword_list.each do |keyword| %>
             <li><%= keyword %></li>
@@ -36,7 +36,7 @@
       <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
       <div class="txt">Kosten</div>
     </div>
-    <% unless @room_offer.room_offer_prices.empty? %>
+    <% if @room_offer.room_offer_prices.present? %>
       <ul class="tag-list">
         <% @room_offer.room_offer_prices.each do |price| %>
           <p><li><%= price.amount %></li> <%= price.name %></p>
@@ -52,10 +52,10 @@
 
     <section>
       <div class="bigicontext-element">
-        <% if not @room_offer.user.nil? %>
+        <% if @room_offer.user %>
           <%= avatar_for(@room_offer.user, 200) %>
         <% else %>
-        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
         <% end %>
         <div class="txt">Über mich</div>
       </div>

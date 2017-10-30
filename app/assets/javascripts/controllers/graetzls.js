@@ -4,22 +4,26 @@ APP.controllers.graetzls = (function() {
     var filter = APP.components.masonryFilterGrid;
 
     function init() {
-        filter.init();
-        var mapdata = $('#graetzlMapWidget').data('mapdata');
-        map.init(function() {
-                map.showMapGraetzl(mapdata.graetzls, {
-                    style: $.extend(map.styles.rose, {
-                        weight: 4,
-                        fillOpacity: 0.2
-                    })
-                });
+      initMap();
+      initContentStream();
+    }
 
-            }
-        );
+    function initMap() {
+      var mapdata = $('#graetzlMapWidget').data('mapdata');
+      map.init(function() {
+        map.showMapGraetzl(mapdata.graetzls, {
+          style: $.extend(map.styles.rose, { weight: 4, fillOpacity: 0.2 })
+        });
+      });
+    }
+
+    function initContentStream() {
+      filter.init();
+      $('.autosubmit-filter').submit();
     }
 
     return {
-        init: init
-    }
+      init: init
+    };
 
 })();

@@ -3,7 +3,7 @@
     <%= link_to room_offer do %>
       <%= cover_photo_for room_offer %>
     <% end %>
-    <% if not room_offer.graetzl.nil? %>
+    <% if room_offer.graetzl %>
       <div class="categoryicon">
         <%= "#{room_offer.district.zip}, #{room_offer.graetzl.name}" %>
       </div>
@@ -15,7 +15,7 @@
         <%= avatar_for room_offer.user, 200, 'img-square' %>
       <% end %>
       <div class="locationtxt">
-        <% if not room_offer.user.nil? %>
+        <% if room_offer.user %>
           <%= link_to room_offer.user do %>
             <div class="name"><%= "#{room_offer.user.first_name} #{room_offer.user.last_name}" %></div>
           <% end %>

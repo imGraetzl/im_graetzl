@@ -1,0 +1,18 @@
+(function() {
+  var $streamContainer = $("[data-behavior='stream-container']");
+  var $paginateLink = $(".view-more-container");
+
+  function updateComponent() {
+    <% if params[:page].blank? && @activity.empty? %>
+    $streamContainer.append("<%= j render 'empty_message' %>")
+    <% else %>
+      $streamContainer.append("<%= j render @decorated_activity || @activity %>");
+      <% if @activity.next_page.present? %>
+        $paginateLink.html("<%= j next_page_link %>");
+      <% end %>
+      APP.components.masonryFilterGrid.adjustNewCards();
+    <% end %>
+  }
+
+  updateComponent();
+})();

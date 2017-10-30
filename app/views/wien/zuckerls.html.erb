@@ -1,0 +1,27 @@
+<%
+  meta({
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
+
+<section class="wien masonryFilterGrid">
+  <%= render 'header' %>
+
+  <div class="hl-subtext">
+    <h1>Die schönsten <span>Angebote im <%= I18n.localize Time.now.end_of_month, format: '%B' %></span></h1>
+    <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck</p>
+  </div>
+
+  <%= form_tag zuckerls_path, method: :get, remote: true, class: 'autosubmit-filter' do %>
+  <% end %>
+
+  <div class="masonry-wrapper">
+    <div class="cards-container" data-behavior="stream-container"></div>
+    <div class="view-more-container"></div>
+  </div>
+</section>

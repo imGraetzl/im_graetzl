@@ -1,5 +1,5 @@
 APP.components.graetzlSelect = function() {
-    
+
     $('select#district_id').on('change', function() {
         console.log('DISTRICT SELECT');
         var districtID = $(this).val();

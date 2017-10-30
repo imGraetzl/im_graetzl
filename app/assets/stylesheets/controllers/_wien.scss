@@ -1,0 +1,50 @@
+section.wien {
+  .navBlock {
+    .links {
+      @include respond-to(">=medium") {
+        width: 400px;
+      }
+    }
+  }
+
+  #graetzlMapWidget {
+    height: 150px;
+    @include respond-to(">=medium") {
+      height: 500px;
+    }
+  }
+
+  .mapImgBlock {
+    margin-bottom: 35px;
+  }
+
+  .navBlock {
+    .links {
+      display: none;
+      @include respond-to(">=medium") {
+        display: block;
+      }
+    }
+  }
+
+  .activeArea {
+    @include respond-to(">=medium") {
+      width: 80%;
+      height: 100%;
+    }
+    @include respond-to(">=large") {
+      width: 60%;
+      height: 100%;
+    }
+  }
+
+
+  .teaserBlock {
+    h2 {
+      @include font-size-secondaryFont('base');
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  }
+
+}

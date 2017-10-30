@@ -26,6 +26,6 @@
   <% if defined? view_all %>
     <%= link_to 'Alle Angebote', district_zuckerls_path(district), class: 'link-more' %>
   <% elsif defined? graetzl %>
-    <%= link_to 'Alle Angebote', graetzl_zuckerls_path(graetzl), class: 'link-more' %>
+    <%= link_to 'Alle Angebote', zuckerls_graetzl_path(graetzl), class: 'link-more' %>
   <% end %>
 </div>

@@ -1,28 +1,33 @@
-<% meta({
+<%
+  meta(
     title: t('.title', graetzl: @graetzl.name),
     description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
     robots: 'index, follow',
     og_title: t('.title', graetzl: @graetzl.name),
     og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
     og_image: image_url('meta/og_logo.png')
-  })
+  )
 %>
+
 <section class="masonryFilterGrid">
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
-    <%= render 'graetzls/map', map_data: @map_data %>
+    <%= render 'map', map_data: @map_data %>
   <% end %>
-  <%= render 'graetzls/curator' if @graetzl.curator %>
-  <%= filters_for current_user, @graetzl %>
-  <% unless current_user %>
+  <%= render 'curator' if @graetzl.curator %>
+  <%= render 'menu' %>
+
+  <% if !user_signed_in? %>
     <div class="hl-subtext">
       <h1>Die schönsten <span>Angebote im <%= I18n.localize Time.now.end_of_month, format: '%B' %></span> im Grätzl</h1>
       <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck</p>
     </div>
   <% end %>
+
+  <%= form_tag zuckerls_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'autosubmit-filter' do %>
+  <% end %>
+
   <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="stream-container">
-      <%= render(@zuckerls) || render('empty_message') %>
-    </div>
-    <%= view_more_link @zuckerls %>
+    <div class="cards-container" data-behavior="stream-container"></div>
+    <div class="view-more-container"></div>
   </div>
 </section>

@@ -3,6 +3,23 @@ require 'controllers/shared/meetings_controller'
 include GeojsonSupport
 
 RSpec.describe MeetingsController, type: :controller do
+  describe 'GET index' do
+    let(:graetzl) { create :graetzl }
+
+    context 'when js request' do
+      before { get :index, params: { graetzl_id: graetzl, page: 2 }, xhr: true }
+
+      it 'assigns @meetings' do
+        expect(assigns :meetings).to be
+      end
+
+      it 'renders index.js' do
+        expect(response.content_type).to eq 'text/javascript'
+        expect(response).to render_template :index
+      end
+    end
+  end
+
   describe 'GET new' do
     let(:graetzl) { create :graetzl }
 
