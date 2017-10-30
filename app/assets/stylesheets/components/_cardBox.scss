@@ -32,6 +32,11 @@
   position: relative;
   margin: -6px -6px 20px;
   min-height: 40px;
+  &.-roomdemand {
+    max-height: 180px;
+    overflow: hidden;
+    margin: -6px -6px 49px;
+  };
   .coverImg {
     width: 100%;
     border-radius: 4px;

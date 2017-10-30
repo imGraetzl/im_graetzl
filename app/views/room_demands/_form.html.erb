@@ -86,11 +86,12 @@
       <%= f.check_box :wants_collaboration %>
       <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
     </div>
+
+    <h2> Dein Profilbild </h2>
+
+    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+    
   </div>
-
-  <h2> Dein Profilbild </h2>
-
-  <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>
 
 <!-- 'Weitere wichtige Ausstattungsmerkmale … Benenne deine Tätigkeit' -->

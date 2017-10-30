@@ -1,128 +1,128 @@
 <%= form_for(@room_offer) do |f| %>
-  <%= form_errors_for @room_offer %>
-  <div class="form-block">
+<%= form_errors_for @room_offer %>
+<div class="form-block">
 
-    <h2>Dein Raumteiler ist ein</h2>
-    <div class="room-offer-type-selection">
-      <% RoomOffer.offer_types.each_with_index do |(name, value), i| %>
-        <div class="input-radio">
-          <%= radio_button_tag :offer_type, name, i == 0, required: true %>
-          <%= label_tag "offer_type_#{name}", t("activerecord.attributes.room_offer.offer_types.#{name}") %>
-        </div>
-      <% end %>
+  <h2>Dein Raumteiler ist ein</h2>
+  <div class="room-offer-type-selection">
+    <% RoomOffer.offer_types.each_with_index do |(name, value), i| %>
+    <div class="input-radio">
+      <%= radio_button_tag :offer_type, name, i == 0, required: true %>
+      <%= label_tag "offer_type_#{name}", t("activerecord.attributes.room_offer.offer_types.#{name}") %>
     </div>
-
-    <h2><span>Wo befindet</span> sich dein Raum</h2>
-    <% if f.object.address.nil? %>
-      <%= render 'room_offers/address_select', f: f %>
-    <% else %>
-      <%= render 'room_offers/address_fields', f: f %>
     <% end %>
+  </div>
 
-    <h2>Raum Kategorie - Welche trifft fur dich zu?</h2>
-    <div class="room-categories">
-      <%= f.collection_check_boxes :room_category_ids, RoomCategory.all, :id, :name do |b| %>
-        <div class="input-checkbox">
-        <%= b.check_box %>
-        <%= b.label %>
-        </div>
-      <% end %>
-    </div>
+  <h2><span>Wo befindet</span> sich dein Raum</h2>
+  <% if f.object.address.nil? %>
+  <%= render 'room_offers/address_select', f: f %>
+  <% else %>
+  <%= render 'room_offers/address_fields', f: f %>
+  <% end %>
 
-    <h2>Ausstattung - Kurz das wichtigste</h2>
-    <div class="room-tags">
-      <%= collection_check_boxes nil, :suggested_keywords, RoomSuggestedTag.pluck(:name), :downcase, :to_s do |b| %>
-        <div class="input-checkbox">
-        <%= b.check_box(checked: f.object.keyword_list.include?(b.value)) %>
-        <%= b.label %>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="input-tags">
-      <%= label_tag :custom_keywords do %>
-        <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-        <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
-      <% end %>
-      <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
-    </div>
-
-
-    <h2>Raumgröße</h2>
-    <div class="room-size">
-      <div class="input-field column-left">
-        <%= f.label :rented_area, 'Raumgröße die du vermietet in m2' %>
-        <%= f.number_field :rented_area %>
-      </div>
-      <div class="input-field column-right">
-        <%= f.label :total_area, 'Größe des gesamten Objektes in m2' %>
-        <%= f.number_field :total_area %>
-      </div>
-    </div>
-
-    <h2>Meine Preisvorstellungen</h2>
-    <div class="room-prices">
-      <%= f.fields_for :room_offer_prices do |price_form| %>
-        <%= render 'room_offer_price_fields', f: price_form %>
-      <% end %>
-      <div class="room-prices-links">
-        <%= link_to_add_association 'Witere Preisangaben hinzufugen', f, :room_offer_prices %>
-      </div>
-    </div>
-
-
-    <h2><span>Kurzer Titel</span> Dein Raumteiler in einem Satz:</h2>
-    <div class="input-field">
-      <%= f.label :slogan do %>
-        <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
-        <span>Kurzer Titel</span>
-      <% end %>
-      <%= f.text_field :slogan, placeholder: 'z.B. Vermiete zur Mitbenutzung schönen und ruhigen Praxisraum im 9. Bezirk…' %>
-    </div>
-
-    <h2>Beschreibe deinen Raum genauer:</h2>
-    <div class="input-field">
-      <%= f.text_area :room_description, placeholder: 'Detelierte Beschreibung – Hier kannst du deinen Raum ausführlicher beschreiben …' %>
-    </div>
-
-    <h2>Ein paar Worte uber dich / uber euch:</h2>
-    <div class="input-field">
-      <%= f.text_area :owner_description, placeholder: 'Ein paar Worte uber dich' %>
-    </div>
-
-    <h2>Dein idealer Raumpartner:</h2>
-    <div class="input-field">
-      <%= f.text_area :tenant_description, placeholder: 'Wer wurde ideal zu dir…' %>
-    </div>
-
+  <h2>Raum Kategorie - Welche trifft fur dich zu?</h2>
+  <div class="room-categories">
+    <%= f.collection_check_boxes :room_category_ids, RoomCategory.all, :id, :name do |b| %>
     <div class="input-checkbox">
-      <%= f.check_box :wants_collaboration %>
-      <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
+      <%= b.check_box %>
+      <%= b.label %>
     </div>
+    <% end %>
+  </div>
+
+  <h2>Ausstattung - Kurz das wichtigste</h2>
+  <div class="room-tags">
+    <%= collection_check_boxes nil, :suggested_keywords, RoomSuggestedTag.pluck(:name), :downcase, :to_s do |b| %>
+    <div class="input-checkbox">
+      <%= b.check_box(checked: f.object.keyword_list.include?(b.value)) %>
+      <%= b.label %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="input-tags">
+    <%= label_tag :custom_keywords do %>
+    <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+    <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
+    <% end %>
+    <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
+  </div>
+
+
+  <h2>Raumgröße</h2>
+  <div class="room-size">
+    <div class="input-field column-left">
+      <%= f.label :rented_area, 'Raumgröße die du vermietet in m2' %>
+      <%= f.number_field :rented_area %>
+    </div>
+    <div class="input-field column-right">
+      <%= f.label :total_area, 'Größe des gesamten Objektes in m2' %>
+      <%= f.number_field :total_area %>
+    </div>
+  </div>
+
+  <h2>Meine Preisvorstellungen</h2>
+  <div class="room-prices">
+    <%= f.fields_for :room_offer_prices do |price_form| %>
+    <%= render 'room_offer_price_fields', f: price_form %>
+    <% end %>
+    <div class="room-prices-links">
+      <%= link_to_add_association 'Witere Preisangaben hinzufugen', f, :room_offer_prices %>
+    </div>
+  </div>
+
+
+  <h2><span>Kurzer Titel</span> Dein Raumteiler in einem Satz:</h2>
+  <div class="input-field">
+    <%= f.label :slogan do %>
+    <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
+    <span>Kurzer Titel</span>
+    <% end %>
+    <%= f.text_field :slogan, placeholder: 'z.B. Vermiete zur Mitbenutzung schönen und ruhigen Praxisraum im 9. Bezirk…' %>
+  </div>
+
+  <h2>Beschreibe deinen Raum genauer:</h2>
+  <div class="input-field">
+    <%= f.text_area :room_description, placeholder: 'Detelierte Beschreibung – Hier kannst du deinen Raum ausführlicher beschreiben …' %>
+  </div>
+
+  <h2>Ein paar Worte uber dich / uber euch:</h2>
+  <div class="input-field">
+    <%= f.text_area :owner_description, placeholder: 'Ein paar Worte uber dich' %>
+  </div>
+
+  <h2>Dein idealer Raumpartner:</h2>
+  <div class="input-field">
+    <%= f.text_area :tenant_description, placeholder: 'Wer wurde ideal zu dir…' %>
+  </div>
+
+  <div class="input-checkbox">
+    <%= f.check_box :wants_collaboration %>
+    <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
   </div>
 
   <h2> Foto Upload </h2>
 
   <div class="upload-oldschool">
     <%= f.label :cover_photo do %>
-      <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
-      <span>Coverphoto</span>
+    <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+    <span>Coverphoto</span>
     <% end %>
     <div class="field-wrp">
       <% if f.object.cover_photo %>
-        <div class="preview-wrp">
-          <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
-          <div class="input-checkbox">
-            <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-            <%= f.label :remove_cover_photo, 'Löschen' %>
-          </div>
+      <div class="preview-wrp">
+        <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+        <div class="input-checkbox">
+          <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+          <%= f.label :remove_cover_photo, 'Löschen' %>
         </div>
+      </div>
       <% end %>
       <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
     </div>
   </div>
 
   <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+</div>
 <% end %>
 
 <!-- 'Weitere wichtige Ausstattungsmerkmale … Benenne deine Tätigkeit' -->
