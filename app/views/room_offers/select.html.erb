@@ -1,1 +1,20 @@
-Create <%= link_to 'new room offer', new_room_offer_path %> offer or <%= link_to 'new room demand', new_room_demand_path %>.
+<% title('Neuer Raumteiler') %>
+
+<section class="room-form">
+
+<div class="hl-subtext">
+      <h1><span>Neuen Raumteiler</span> anlegen</h1>
+      <p>Hast du einen Raum / oder suchst du einen Raum?</p>
+
+      <div class="button-switch">
+        <%= link_to new_room_offer_path, :class => 'btn-primary' do %>
+          Ich <span>habe</span> einen Raum
+        <% end %>
+
+        <%= link_to new_room_demand_path, :class => 'btn-primary' do %>
+          Ich <span>suche</span> einen Raum
+        <% end %>
+      </div>
+</div>
+
+</section>
