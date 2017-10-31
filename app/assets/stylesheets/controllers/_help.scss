@@ -1,4 +1,5 @@
 section.help {
+
   aside {
     float:left;
     display:none;
@@ -45,5 +46,14 @@ section.help {
   .paperCard {margin-bottom:40px;}
   .paperCard .wrp {
     padding:30px;
+  }
+  .float_nav {
+    position:fixed !important;
+    top:0 !important;
+  }
+  .fix_nav {
+    position:absolute !important;
+    top:auto !important;
+    bottom:0 !important;
   }
 }
