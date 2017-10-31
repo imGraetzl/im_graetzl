@@ -8,7 +8,7 @@
   <%= link_to district_locations_path(district) do %>
     <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations im <%= district.numeric %>. Bezirk
   <% end %>
-  <%= link_to district_locations_path(district) do %>
+  <%= link_to district_zuckerls_path(district) do %>
     <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerln & Angebote im <%= district.numeric %>. Bezirk
   <% end %>
   <%= link_to wien_path, class: 'discover' do %>
