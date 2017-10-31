@@ -59,4 +59,14 @@ section.room-form {
       display: none;
     }
   }
+  
+  .button-switch {
+    text-align: center;
+    margin-top: 10px;
+    .btn-primary {
+      display:inline-table;
+      span {text-decoration: underline; font-weight: bold;}
+      margin: 10px;
+    }
+  }
 }
