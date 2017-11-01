@@ -113,7 +113,7 @@ de:
         created_at: Erstellt am
       room_offer:
         offer_types:
-          offering_room: Raum zur Untervermietung
+          offering_room: Raum zum Einmieten
           seeking_roommate: Raum zur gemeinsamen Neuanmietung
       user:
         avatar: Profilbild

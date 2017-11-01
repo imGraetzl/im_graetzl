@@ -52,8 +52,12 @@
     text-decoration: none;
     color: $color-ambient-mint-dark;
     background-color: $color-ambient-grey-light;
-    border-radius: 20px;
+    border-radius: 20px 14px 20px 14px;
     padding: 0 10px;
+  }
+  a:hover {
+    color: $color-ambient-grey-light;
+    background-color: $color-ambient-rosa;
   }
 
   .filter-modal {

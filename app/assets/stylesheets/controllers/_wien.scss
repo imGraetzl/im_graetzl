@@ -48,3 +48,29 @@ section.wien {
   }
 
 }
+
+// Navigation Buttons on Vienna Overview Pages beside Illustration
+section.wien.-overview-pages {
+  .mapImgBlock {
+    @include respond-to(">=small") {
+      height:150px;
+      .filter-stream {
+        margin-bottom: 0px;
+      }
+    }
+    @include respond-to(">=medium") {
+      background-image: url(image_path('illu/illu-karte-transparent@2x.jpg'));
+      background-repeat: no-repeat;
+      background-size: 700px;
+      background-position: right, center;
+      .filter-stream {
+        margin-left:40px;
+      }
+    }
+    @include respond-to(">=large") {
+      height:200px;
+    }
+    margin-bottom:50px;
+    margin-left: -30px;
+  }
+}
