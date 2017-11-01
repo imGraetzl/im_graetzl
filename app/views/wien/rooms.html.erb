@@ -9,7 +9,7 @@
   )
 %>
 
-<section class="wien masonryFilterGrid">
+<section class="wien -overview-pages masonryFilterGrid">
   <%= render 'header' %>
 
   <div class="hl-subtext">
@@ -18,15 +18,15 @@
   </div>
 
   <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
-    Zeige mir <%= link_to 'allen Raumteiler', '#filter-modal-type' %>
-    , aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
+    Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
+    aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
     in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
 
     <div id="filter-modal-type" class="filter-modal">
       <div class="input-select">
         <%= select :room_filter, :room_type, options_for_select(filter_room_types), {}, { class: 'filter-input' } %>
       </div>
-      <%= button_tag "Confirm", class: 'btn-primary filter-button' %>
+      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
     </div>
 
     <div id="filter-modal-categories" class="filter-modal">
@@ -36,7 +36,7 @@
           <%= b.label %>
         </div>
       <% end %>
-      <%= button_tag "Confirm", class: 'btn-primary filter-button' %>
+      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
     </div>
 
     <div id="filter-modal-bezirk" class="filter-modal">
