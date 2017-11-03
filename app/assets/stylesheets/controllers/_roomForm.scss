@@ -1,7 +1,11 @@
 section.room-form {
+  max-width: 775px;
+  margin: 0 auto;
+  label {min-width:175px;}
+  textarea {min-height:150px;}
 
   h2 {
-    font-size: 3rem;
+    @include font-size-secondaryFont;
     margin: 40px 0 15px;
     text-align: center;
   }
@@ -10,32 +14,36 @@ section.room-form {
     text-align: center;
     .input-radio {
       display: inline-block;
-      margin: 0 30px;
+      margin: 0 10px;
+      label {
+        @include font-size-primaryFont('larger');
+        padding-bottom:5px;
+      }
     }
   }
 
-  .room-categories {
+  .room-categories, .room-tags {
     overflow: hidden;
     margin: 2rem 0 2rem;
     .input-checkbox {
       float: left;
-      width: 25%;
-    }
-  }
-
-  .room-tags {
-    margin: 2rem 0 2rem;
-    overflow: hidden;
-    .input-checkbox {
-      float: left;
-      width: 25%;
+      width: 100%;
+      @include respond-to(">=small") {
+        width: 50%;
+      }
+      @include respond-to(">=medium") {
+        width: 33%;
+      }
+      @include respond-to(">=large") {
+        width: 25%;
+      }
     }
   }
 
   .room-size {
     overflow: hidden;
-    .column-left { float: left; width: 50%; padding-right: 10px; }
-    .column-right { float: right; width: 50%; padding-right: 10px; }
+    .column-left { float: left; width: 50%; padding-right:10px;}
+    .column-right { float: right; width: 50%;}
   }
 
   .room-prices {
@@ -43,15 +51,19 @@ section.room-form {
       float: left;
       margin-right: 30px;
     }
+    label {min-width:10px;}
     .input-field.price {
-      label { min-width: 50px; }
-      min-width: 200px;
+      max-width:20%;
     }
     .input-field.name {
-      min-width: 500px;
+      width: 60%;
     }
     .room-prices-links { clear: left; }
     .nested-fields { overflow: hidden; }
+    .btn-delete {
+      float: right;
+      margin-top:12px
+    }
   }
 
   .bezirk-graetzl-select {
@@ -59,7 +71,7 @@ section.room-form {
       display: none;
     }
   }
-  
+
   .button-switch {
     text-align: center;
     margin-top: 10px;

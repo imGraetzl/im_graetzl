@@ -2,7 +2,6 @@
 <%= form_errors_for @room_offer %>
 <div class="form-block">
 
-  <h2>Dein Raumteiler ist ein</h2>
   <div class="room-offer-type-selection">
     <% RoomOffer.offer_types.each_with_index do |(name, value), i| %>
     <div class="input-radio">
@@ -12,14 +11,31 @@
     <% end %>
   </div>
 
-  <h2><span>Wo befindet</span> sich dein Raum</h2>
+  <h2 class="hl-main"><span>Wo</span> befindet sich dein Raum?</h2>
   <% if f.object.address.nil? %>
   <%= render 'room_offers/address_select', f: f %>
   <% else %>
   <%= render 'room_offers/address_fields', f: f %>
   <% end %>
 
-  <h2>Raum Kategorie - Welche trifft fur dich zu?</h2>
+  <h2 class="hl-main"><span>Raumtitel</span> und <span>Beschreibung</span></h2>
+  <div class="input-field">
+    <%= f.label :slogan do %>
+    <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+    <span>Kurzer Titel</span>
+    <% end %>
+    <%= f.text_field :slogan, placeholder: 'z.B. Vermiete zur Mitbenutzung ruhigen Praxisraum im 9. Bezirk…' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :room_description do %>
+    <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+    <span>Beschreibung</span>
+    <% end %>
+    <%= f.text_area :room_description, placeholder: 'Detaillierte Beschreibung – Hier kannst du deinen Raum ausführlicher beschreiben …' %>
+  </div>
+
+  <h2 class="hl-main"><span>Raumkategorie</span> - Welche trifft fur dich zu?</h2>
   <div class="room-categories">
     <%= f.collection_check_boxes :room_category_ids, RoomCategory.all, :id, :name do |b| %>
     <div class="input-checkbox">
@@ -29,7 +45,7 @@
     <% end %>
   </div>
 
-  <h2>Ausstattung - Kurz das wichtigste</h2>
+  <h2 class="hl-main"><span>Ausstattung</span> - Kurz das wichtigste</h2>
   <div class="room-tags">
     <%= collection_check_boxes nil, :suggested_keywords, RoomSuggestedTag.pluck(:name), :downcase, :to_s do |b| %>
     <div class="input-checkbox">
@@ -48,51 +64,52 @@
   </div>
 
 
-  <h2>Raumgröße</h2>
+  <h2 class="hl-main">Raum<span>größe</span></h2>
+
   <div class="room-size">
     <div class="input-field column-left">
-      <%= f.label :rented_area, 'Raumgröße die du vermietet in m2' %>
-      <%= f.number_field :rented_area %>
+      <%= f.label :rented_area do %>
+      <svg class="icon-resize-maximize"><use xlink:href="#icon-resize-maximize"></use></svg>
+       <span>Fläche die du vermietest</span>
+      <% end %>
+      <%= f.number_field :rented_area, placeholder: 'm2' %>
     </div>
     <div class="input-field column-right">
-      <%= f.label :total_area, 'Größe des gesamten Objektes in m2' %>
-      <%= f.number_field :total_area %>
+      <%= f.label :total_area do %>
+      <svg class="icon-resize-maximize"><use xlink:href="#icon-resize-maximize"></use></svg>
+       <span>Größe des gesamten Objektes</span>
+      <% end %>
+      <%= f.number_field :total_area, placeholder: 'm2' %>
     </div>
   </div>
 
-  <h2>Meine Preisvorstellungen</h2>
+  <h2 class="hl-main">Meine <span>Preis</span>vorstellungen</h2>
   <div class="room-prices">
     <%= f.fields_for :room_offer_prices do |price_form| %>
     <%= render 'room_offer_price_fields', f: price_form %>
     <% end %>
     <div class="room-prices-links">
-      <%= link_to_add_association 'Witere Preisangaben hinzufugen', f, :room_offer_prices %>
+      <%= link_to_add_association 'Weitere Preisangaben hinzufügen', f, :room_offer_prices %>
     </div>
   </div>
 
 
-  <h2><span>Kurzer Titel</span> Dein Raumteiler in einem Satz:</h2>
+  <h2 class="hl-main">Ein paar Worte <span>über dich</span> / über euch</h2>
   <div class="input-field">
-    <%= f.label :slogan do %>
-    <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
-    <span>Kurzer Titel</span>
+    <%= f.label :owner_description do %>
+    <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+    <span>Über mich</span>
     <% end %>
-    <%= f.text_field :slogan, placeholder: 'z.B. Vermiete zur Mitbenutzung schönen und ruhigen Praxisraum im 9. Bezirk…' %>
+    <%= f.text_area :owner_description, placeholder: 'Ein paar Worte uber dich / euch. In welchem Bereich bist du tätig?' %>
   </div>
 
-  <h2>Beschreibe deinen Raum genauer:</h2>
+  <h2 class="hl-main">Dein idealer <span>Raumpartner</span></h2>
   <div class="input-field">
-    <%= f.text_area :room_description, placeholder: 'Detelierte Beschreibung – Hier kannst du deinen Raum ausführlicher beschreiben …' %>
-  </div>
-
-  <h2>Ein paar Worte uber dich / uber euch:</h2>
-  <div class="input-field">
-    <%= f.text_area :owner_description, placeholder: 'Ein paar Worte uber dich' %>
-  </div>
-
-  <h2>Dein idealer Raumpartner:</h2>
-  <div class="input-field">
-    <%= f.text_area :tenant_description, placeholder: 'Wer wurde ideal zu dir…' %>
+    <%= f.label :tenant_description do %>
+    <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+    <span>Wen suchst du?</span>
+    <% end %>
+    <%= f.text_area :tenant_description, placeholder: 'Wer wurde ideal zu dir bzw. zu euch passen? Welche Tätigkeitsbereiche wären ergänzend zu deinen?' %>
   </div>
 
   <div class="input-checkbox">
@@ -100,7 +117,7 @@
     <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
   </div>
 
-  <h2> Foto Upload </h2>
+  <h2 class="hl-main"><span>Foto</span> Upload</h2>
 
   <div class="upload-oldschool">
     <%= f.label :cover_photo do %>
@@ -121,7 +138,7 @@
     </div>
   </div>
 
-  <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+  <%= f.button 'Raumteiler erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 </div>
 <% end %>
 
