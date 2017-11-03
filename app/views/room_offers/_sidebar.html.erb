@@ -24,6 +24,11 @@
           Auch an Kooperationen interessiert.
         </div>
       <% end %>
+
+      <div class="btn-group">
+        <%= link_to 'Bearbeiten', edit_room_offer_path(@room_offer),
+          class: 'btn-secondary -mint -small' if user_signed_in? && (current_user == @room_offer.user) %>
+      </div>
     </div>
 
     <% if @room_offer.address.try(:coordinates) %>
