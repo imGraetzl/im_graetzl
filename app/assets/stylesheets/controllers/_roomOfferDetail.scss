@@ -9,6 +9,19 @@ section.roomOfferDetail {
     margin: 3em 0;
   }
 
+  section.owner .wrapper {
+    display: flex;
+
+    aside.location {
+      margin-left: 1em;
+      width: 100%;
+      @include respond-to(">=medium") {
+        float: right;
+        width: 320px;
+      }
+    }
+  }
+
   .bigicontext-element {
     margin-bottom: 1em;
   }

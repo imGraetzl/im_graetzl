@@ -39,11 +39,11 @@
     </section>
 
     <section>
-      <div class="bigicontext-element">
-        <svg class="icon-currency-euro"><use xlink:href="#icon-currency-euro"></use></svg>
-        <div class="txt">Kosten</div>
-      </div>
       <% if @room_offer.room_offer_prices.present? %>
+        <div class="bigicontext-element">
+          <svg class="icon-currency-euro"><use xlink:href="#icon-currency-euro"></use></svg>
+          <div class="txt">Kosten</div>
+        </div>
         <ul class="tag-list-newline">
           <% @room_offer.room_offer_prices.each do |price| %>
             <li><span><%= price.amount %></span> <%= price.name %></li>
@@ -60,7 +60,8 @@
       <div class="txt"><%= @room_offer.tenant_description %></div>
     </section>
 
-    <section>
+
+    <section class="owner">
       <div class="bigicontext-element">
         <% if @room_offer.user %>
           <%= avatar_for(@room_offer.user, 200) %>
@@ -69,7 +70,14 @@
         <% end %>
         <div class="txt">Über mich</div>
       </div>
-      <div class="txt"><%= @room_offer.owner_description %></div>
+      <div class="wrapper">
+        <div class="txt"><%= @room_offer.owner_description %></div>
+        <% unless @location.nil? %>
+        <aside class="location">
+          <%= render @location %>
+        </aside>
+        <% end %>
+      </div>
     </section>
 
     <section>

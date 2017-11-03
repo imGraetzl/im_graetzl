@@ -14,7 +14,7 @@
       <% if @room_offer.rented_area.present? %>
         <div class="rented-area icontxt">
           <svg class="icon-resize-maximize"><use xlink:href="#icon-resize-maximize"></use></svg>
-          <%= @room_offer.rented_area %> m² zu vermieten<br>
+          <%= "%g" % (@room_offer.rented_area) %> m² zu vermieten<br>
         </div>
       <% end %>
 
