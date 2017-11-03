@@ -34,9 +34,6 @@ section.room-form {
       @include respond-to(">=medium") {
         width: 33%;
       }
-      @include respond-to(">=large") {
-        width: 25%;
-      }
     }
   }
 
