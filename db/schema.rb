@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024094715) do
+ActiveRecord::Schema.define(version: 20171102233738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,13 @@ ActiveRecord::Schema.define(version: 20171024094715) do
     t.string   "name"
     t.index ["graetzl_id"], name: "index_curators_on_graetzl_id", using: :btree
     t.index ["user_id"], name: "index_curators_on_user_id", using: :btree
+  end
+
+  create_table "district_graetzls", force: :cascade do |t|
+    t.integer "district_id"
+    t.integer "graetzl_id"
+    t.index ["district_id"], name: "index_district_graetzls_on_district_id", using: :btree
+    t.index ["graetzl_id"], name: "index_district_graetzls_on_graetzl_id", using: :btree
   end
 
   create_table "districts", force: :cascade do |t|
@@ -453,6 +460,8 @@ ActiveRecord::Schema.define(version: 20171024094715) do
     t.index ["slug"], name: "index_zuckerls_on_slug", using: :btree
   end
 
+  add_foreign_key "district_graetzls", "districts"
+  add_foreign_key "district_graetzls", "graetzls"
   add_foreign_key "room_demand_categories", "room_categories"
   add_foreign_key "room_demand_categories", "room_demands"
   add_foreign_key "room_demand_districts", "districts"

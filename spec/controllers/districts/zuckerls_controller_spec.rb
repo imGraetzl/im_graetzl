@@ -6,9 +6,9 @@ RSpec.describe Districts::ZuckerlsController, type: :controller do
   it_behaves_like :a_district_controller
 
   describe 'GET index' do
-    let(:district) { create(:district, area: 'POLYGON ((0.0 0.0, 0.0 1.0, 1.0 1.0, 1.0 0.0, 0.0 0.0))') }
-    let(:graetzl_1) { create(:graetzl, area: 'POLYGON ((0.5 0.5, 0.5 0.7, 0.7 0.7, 0.5 0.5))') }
-    let(:graetzl_2) { create(:graetzl, area: 'POLYGON ((0.8 0.8, 0.8 1.1, 0.8 1.1, 0.8 0.8))') }
+    let(:graetzl_1) { create(:graetzl) }
+    let(:graetzl_2) { create(:graetzl) }
+    let(:district) { create(:district, graetzls: [graetzl_1, graetzl_2]) }
 
     before do
       allow_any_instance_of(Zuckerl).to receive(:send_booking_confirmation)

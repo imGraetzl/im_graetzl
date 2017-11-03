@@ -4,11 +4,8 @@ class District < ApplicationRecord
   extend FriendlyId
   friendly_id :long_name
 
-  def graetzls
-    Rails.cache.fetch(['graetzls', self], expires_in: 48.hours) do
-      Graetzl.where('ST_INTERSECTS(area, :district)', district: self.area)
-    end
-  end
+  has_many :district_graetzls
+  has_many :graetzls, through: :district_graetzls
 
   def long_name
     "#{name}-#{zip}"

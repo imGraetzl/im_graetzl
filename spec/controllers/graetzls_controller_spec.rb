@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GraetzlsController, type: :controller do
   let(:graetzl) { create :graetzl }
-  let!(:district) { create :district }
+  let!(:district) { create(:district, graetzls: [graetzl]) }
 
   describe 'GET show' do
     context 'when logged in' do

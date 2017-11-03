@@ -42,8 +42,13 @@ class RoomsController < ApplicationController
       end
     end
 
-    if filter_params[:room_category_ids].any?(&:present?)
+
+    if filter_params[:room_category_ids] && filter_params[:room_category_ids].any?(&:present?)
       offers = offers.joins(:room_categories).where(room_categories: {id: filter_params[:room_category_ids]})
+    end
+
+    if filter_params[:district_ids] && filter_params[:district_ids].any?(&:present?)
+      offers = offers.where(district_id: filter_params[:district_ids])
     end
 
     offers
@@ -59,7 +64,7 @@ class RoomsController < ApplicationController
       end
     end
 
-    if filter_params[:room_category_ids].any?(&:present?)
+    if filter_params[:room_category_ids] && filter_params[:room_category_ids].any?(&:present?)
       demands = demands.joins(:room_categories).where(room_categories: {id: filter_params[:room_category_ids]})
     end
 

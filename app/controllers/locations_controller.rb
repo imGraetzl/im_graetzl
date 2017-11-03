@@ -3,6 +3,7 @@ class LocationsController < ApplicationController
 
   def index
     @locations = collection_scope.approved.include_for_box
+    @locations = filter_collections(@locations)
     @locations = @locations.by_activity.page(params[:page]).per(15)
   end
 
@@ -69,6 +70,14 @@ class LocationsController < ApplicationController
     else
       Location.all
     end
+  end
+
+  def filter_collections(locations)
+    district_ids = params.dig(:filter, :district_ids)
+    if district_ids.present? && district_ids.any?(&:present?)
+      locations = locations.joins(:districts).where(districts: {id: district_ids})
+    end
+    locations
   end
 
   def set_location

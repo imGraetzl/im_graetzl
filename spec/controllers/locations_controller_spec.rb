@@ -106,8 +106,9 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
     context 'when logged in' do
-      let!(:district) { create :district, area: 'POLYGON ((0.0 0.0, 0.0 1.0, 1.0 1.0, 0.0 0.0))' }
-      let(:graetzl) { create :graetzl, area: 'POLYGON ((0.1 0.1, 0.1 0.5, 0.5 0.5, 0.1 0.1))' }
+      let(:graetzl) { create :graetzl }
+      let(:other_graetzl) { create :graetzl }
+      let!(:district) { create :district, graetzls: [graetzl, other_graetzl] }
       let(:user) { create :user, graetzl: graetzl }
 
       before { sign_in user }
@@ -126,7 +127,6 @@ RSpec.describe LocationsController, type: :controller do
         end
       end
       context 'with graetzl_id param' do
-        let(:other_graetzl) { create :graetzl, area: 'POLYGON ((0.1 0.1, 0.1 0.5, 0.5 0.5, 0.1 0.1))' }
         before { get :new, params: { graetzl_id: other_graetzl.id } }
 
         it 'assigns @graetzl with other_graetzl' do

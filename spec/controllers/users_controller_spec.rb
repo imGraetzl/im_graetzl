@@ -6,7 +6,7 @@ RSpec.describe UsersController, type: :controller do
     let(:graetzl) { create :graetzl }
     let(:user) { create :user, graetzl: graetzl }
 
-    before { create :district }
+    before { create(:district, graetzls: [graetzl]) }
 
     context 'when logged out' do
       it 'redirects to login with flash' do

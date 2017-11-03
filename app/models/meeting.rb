@@ -24,6 +24,7 @@ class Meeting < ApplicationRecord
   enum state: { basic: 0, cancelled: 1 }
 
   belongs_to :graetzl
+  has_many :districts, through: :graetzl
   belongs_to :location
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
