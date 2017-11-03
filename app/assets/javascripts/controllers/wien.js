@@ -44,6 +44,14 @@ APP.controllers.wien = (function() {
         currentModal.close();
       });
 
+      $('.district-select').SumoSelect({
+          search: true,
+          searchText: 'Suche nach Bezirk.',
+          placeholder: 'Bezirk auswählen',
+          csvDispCount: 5,
+          captionFormat: '{0} Bezirk ausgewählt'
+      });
+
       $('.autosubmit-filter').submit();
     }
 

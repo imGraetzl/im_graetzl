@@ -13,14 +13,10 @@ RSpec.feature 'Registration', type: :feature do
     let!(:graetzl) { create(:graetzl, :naschmarkt) }
     let!(:address) { build(:address, :esterhazygasse) }
     # data for graetzl step
-    let!(:district_1) { create(:district) }
-    let!(:district_2) { create(:district,
-      area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))')
-    }
     let!(:graetzl_1) { create(:graetzl) }
-    let!(:graetzl_2) { create(:graetzl,
-      area: 'POLYGON ((25.0 25.0, 25.0 26.0, 27.0 27.0, 25.0 25.0))')
-    }
+    let!(:graetzl_2) { create(:graetzl) }
+    let!(:district_1) { create(:district) }
+    let!(:district_2) { create(:district, graetzls: [graetzl_2]) }
 
     scenario 'user registers in suggested graetzl', js: true do
       fill_in_address(address)
@@ -131,14 +127,11 @@ RSpec.feature 'Registration', type: :feature do
 
   feature 'address matches no graetzl' do
     # data for graetzl step
-    let!(:district_1) { create(:district) }
-    let!(:district_2) { create(:district,
-      area: 'POLYGON ((20.0 20.0, 20.0 30.0, 30.0 30.0, 30.0 20.0, 20.0 20.0))')
-    }
     let!(:graetzl_1) { create(:graetzl) }
-    let!(:graetzl_2) { create(:graetzl,
-      area: 'POLYGON ((25.0 25.0, 25.0 26.0, 27.0 27.0, 25.0 25.0))')
-    }
+    let!(:graetzl_2) { create(:graetzl) }
+
+    let!(:district_1) { create(:district) }
+    let!(:district_2) { create(:district, graetzls: [graetzl_2]) }
 
     scenario 'enter valid userdata', js: true do
       fill_in :address, with: 'qwertzuiopü'

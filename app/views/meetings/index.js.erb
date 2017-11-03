@@ -7,15 +7,13 @@
       $streamContainer.html("<%= j render 'empty_message' %>")
     <% else %>
       $streamContainer.html("<%= j render @meetings %>")
-      APP.components.masonryFilterGrid.adjustNewCards();
     <% end %>
   <% else %>
     $streamContainer.append("<%= j render @meetings %>");
-    APP.components.masonryFilterGrid.adjustNewCards();
   <% end %>
 
   <% if @meetings.next_page.present? %>
-    $paginateLink.html("<%= j next_page_link %>");
+    $paginateLink.html("<%= j next_page_link %>").show();
   <% else %>
     $paginateLink.hide();
   <% end %>

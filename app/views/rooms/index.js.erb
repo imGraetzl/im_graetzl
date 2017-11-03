@@ -7,16 +7,14 @@
       $streamContainer.html("<%= j render 'empty_message' %>");
     <% else %>
       $streamContainer.html("<%= j render @rooms %>");
-      APP.components.masonryFilterGrid.adjustNewCards();
     <% end %>
   <% else %>
     $streamContainer.append("<%= j render @rooms %>");
-    APP.components.masonryFilterGrid.adjustNewCards();
   <% end %>
 
   <% if @rooms.empty? %>
     $paginateLink.hide();
   <% else %>
-    $paginateLink.html("<%= j next_page_link %>");
+    $paginateLink.html("<%= j next_page_link %>").show();
   <% end %>
 })();

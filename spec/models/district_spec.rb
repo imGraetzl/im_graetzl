@@ -12,41 +12,6 @@ RSpec.describe District, type: :model do
     end
   end
 
-  describe '#graetzls' do
-    let(:district) { create(:district) }
-
-    let!(:g_covering) { create(:graetzl) }
-    let!(:g_within) { create(:graetzl,
-      area: 'POLYGON ((1.0 1.0, 1.0 2.0, 2.0 2.0, 2.0 1.0, 1.0 1.0))') }
-    let!(:g_overlapping) { create(:graetzl,
-      area: 'POLYGON ((1.0 1.0, 1.0 15.0, 15.0 15.0, 15.0 1.0, 1.0 1.0))') }
-    let!(:g_outside) { create(:graetzl,
-      area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 15.0 15.0))') }
-
-    subject(:graetzls) { district.graetzls }
-
-    it 'returns covering/overlapping areas' do
-      expect(graetzls.size).to eq 3
-    end
-
-    it 'includes areas fully covering' do
-      expect(graetzls).to include g_covering
-    end
-
-    it 'includes areas within' do
-      expect(graetzls).to include g_within
-    end
-
-    it 'includes areas overlapping' do
-      expect(graetzls).to include g_overlapping
-    end
-
-    it 'excludes areas outside' do
-      expect(graetzls).not_to include g_outside
-    end
-
-  end
-
   describe '#long_name' do
     let(:named_district) { build(:district, name: 'district', zip: '1234') }
 
@@ -55,7 +20,7 @@ RSpec.describe District, type: :model do
     end
   end
 
-  describe 'numberic' do
+  describe 'numeric' do
     context 'when single number district' do
       let(:district) { create(:district, zip: '1070') }
 
@@ -88,10 +53,6 @@ RSpec.describe District, type: :model do
     end
 
     subject(:locations) { district.locations }
-
-    it 'returns locations from graetzls ordered by :created_at' do
-      expect(locations).to eq [location_1, location_2, location_3]
-    end
 
     it 'excludes locations from other graetzls' do
       expect(locations).not_to include(location_4)
@@ -149,10 +110,10 @@ RSpec.describe District, type: :model do
   end
 
   describe '#zuckerls' do
-    let(:district) { create :district, area: 'POLYGON ((0.0 0.0, 0.0 5.0, 5.0 5.0, 5.0 0.0, 0.0 0.0))' }
-    let(:graetzl_1) { create :graetzl, area: 'POLYGON ((0.0 0.0, 0.0 1.0, 1.0 1.0, 0.0 0.0))' }
-    let(:graetzl_2) { create :graetzl, area: 'POLYGON ((2.0 2.0, 2.0 6.0, 6.0 6.0, 2.0 2.0))' }
-    let(:other_graetzl) { create :graetzl, area: 'POLYGON ((6.0 6.0, 6.0 7.0, 7.0 7.0, 7.0 6.0, 6.0 6.0))' }
+    let(:graetzl_1) { create :graetzl }
+    let(:graetzl_2) { create :graetzl }
+    let(:other_graetzl) { create :graetzl }
+    let(:district) { create :district, graetzls: [graetzl_1, graetzl_2] }
 
     subject(:zuckerls) { district.zuckerls }
 

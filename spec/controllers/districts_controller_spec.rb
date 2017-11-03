@@ -30,12 +30,9 @@ RSpec.describe DistrictsController, type: :controller do
   end
 
   describe 'GET graetzls' do
-    let(:district) { create(:district,
-      area: 'POLYGON ((0.0 0.0, 0.0 10.0, 10.0 10.0, 10.0 0.0, 0.0 0.0))')}
-    let!(:graetzl_1) { create(:graetzl,
-      area: 'POLYGON ((1.0 1.0, 1.0 5.0, 5.0 5.0, 5.0 1.0, 1.0 1.0))') }
-    let!(:graetzl_2) { create(:graetzl,
-      area: 'POLYGON ((5.0 5.0, 5.0 6.0, 6.0 6.0, 6.0 5.0, 5.0 5.0))') }
+    let!(:graetzl_1) { create(:graetzl) }
+    let!(:graetzl_2) { create(:graetzl) }
+    let(:district) { create(:district, graetzls: [graetzl_1, graetzl_2])}
 
     before { get :graetzls, params: { id: district, format: :json } }
 

@@ -16,6 +16,7 @@ class Location < ApplicationRecord
   acts_as_taggable_on :products
 
   belongs_to :graetzl
+  has_many :districts, through: :graetzl
   has_one :address, as: :addressable, dependent: :destroy
   has_many :posts, as: :author, dependent: :destroy, class_name: 'LocationPost'
   accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank

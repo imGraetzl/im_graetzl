@@ -3,6 +3,7 @@ class MeetingsController < ApplicationController
 
   def index
     @meetings = collection_scope.include_for_box
+    @meetings = filter_collection(@meetings)
     @meetings = @meetings.by_currentness.page(params[:page]).per(15)
   end
 
@@ -64,6 +65,14 @@ class MeetingsController < ApplicationController
     else
       Meeting.all
     end
+  end
+
+  def filter_collection(meetings)
+    district_ids = params.dig(:filter, :district_ids)
+    if district_ids.present? && district_ids.any?(&:present?)
+      meetings = meetings.joins(:districts).where(districts: {id: district_ids})
+    end
+    meetings
   end
 
   def meeting_params

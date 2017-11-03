@@ -39,8 +39,9 @@
       <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
     </div>
 
-    <div id="filter-modal-bezirk" class="filter-modal">
-      (TODO)
+    <div id="filter-modal-bezirk" class="filter-modal filter-modal-large">
+      <%= select :room_filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select filter-input' } %>
+      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
     </div>
   <% end %>
 

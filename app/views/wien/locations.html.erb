@@ -17,7 +17,13 @@
     <p>Finde grätzlansässige local Makers, Selbständige & lokale Unternehmen im deinem Grätzl</p>
   </div>
 
-  <%= form_tag locations_path, method: :get, remote: true, class: 'autosubmit-filter' do %>
+  <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
+    Zeige mir in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+
+    <div id="filter-modal-bezirk" class="filter-modal filter-modal-large">
+      <%= select :filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select filter-input' } %>
+      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+    </div>
   <% end %>
 
   <div class="masonry-wrapper">

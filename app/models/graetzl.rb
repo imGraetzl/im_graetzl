@@ -21,9 +21,8 @@ class Graetzl < ApplicationRecord
   has_many :initiatives, through: :operating_ranges, source: :operator, source_type: 'Initiative'
   has_many :admin_posts, through: :operating_ranges, source: :operator, source_type: 'Post'
 
-  def districts
-    District.where('ST_INTERSECTS(area, :graetzl)', graetzl: self.area)
-  end
+  has_many :district_graetzls
+  has_many :districts, through: :district_graetzls
 
   def district
     districts.first
@@ -50,14 +49,9 @@ class Graetzl < ApplicationRecord
   end
 
   def zuckerls
-    Zuckerl.live.
-      includes(location: [:address, :category]).
-      where(location_id:
-        Location.select(:id).where(graetzl_id:
-          Graetzl.select(:id).where("ST_INTERSECTS(area,
-            (SELECT ST_UNION(districts.area)
-            FROM districts
-            WHERE ST_INTERSECTS(districts.area, ?)))", self.area)))
+    related_graetzl_ids = districts.map(&:graetzl_ids).flatten
+    Zuckerl.live.includes(location: [:address, :category]).
+      joins(:graetzl).where(graetzls: { id: related_graetzl_ids})
   end
 
   def build_meeting
