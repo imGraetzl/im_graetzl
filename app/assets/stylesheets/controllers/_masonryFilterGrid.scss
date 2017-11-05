@@ -1,5 +1,20 @@
 section.masonryFilterGrid {
 
+  // the alternate flexbox-based layout
+  .cards-layout-wrapper > .cards-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    @include respond-to(">=large") {
+      margin-left: -25px;
+      margin-right: -60px;
+    }
+    .cardBox {
+      margin: 10px;
+      width: 300px;
+    }
+  }
+
   .mapImgBlock {
     margin-bottom: 20px;
     @include respond-to(">=large") {
