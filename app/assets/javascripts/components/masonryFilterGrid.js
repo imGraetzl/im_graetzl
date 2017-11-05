@@ -4,7 +4,7 @@ APP.components.masonryFilterGrid = (function() {
 
     function init() {
         $masonryWrapper = $('.masonry-wrapper');
-        $grid =  $('.cards-container');
+        $grid =  $('.masonry-wrapper .cards-container');
 
         //this is a little hacky, we have to do it on ready and load because of unknown image sizes
         adjustMasonry();
