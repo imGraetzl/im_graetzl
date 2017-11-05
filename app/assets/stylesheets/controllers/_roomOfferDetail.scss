@@ -11,13 +11,24 @@ section.roomOfferDetail {
 
   section.owner .wrapper {
     display: flex;
+    flex-direction: column;
+
+    @include respond-to(">=medium") {
+      flex-direction: row;
+    }
 
     aside.location {
-      margin-left: 1em;
+      margin-top: 1em;
       width: 100%;
       @include respond-to(">=medium") {
+        margin-top: 0;
+        margin-left: 1em;
         float: right;
         width: 320px;
+      }
+
+      .txt {
+        display: none;
       }
     }
   }
