@@ -1,6 +1,7 @@
 APP.controllers.wien = (function() {
 
     var map = APP.components.graetzlMap;
+    var filter = APP.components.masonryFilterGrid;
 
     function init() {
         var $select = $(".mapImgBlock .mobileSelectMenu");
@@ -20,6 +21,7 @@ APP.controllers.wien = (function() {
         }
 
         initFilter();
+        initContentStream();
     }
 
 
@@ -53,6 +55,10 @@ APP.controllers.wien = (function() {
       });
 
       $('.autosubmit-filter').submit();
+    }
+
+    function initContentStream() {
+      filter.init();
     }
 
     return {
