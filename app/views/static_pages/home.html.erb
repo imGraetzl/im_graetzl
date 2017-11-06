@@ -13,6 +13,7 @@
   <div class="buehne">
     <h1><span>Was ist los </span><span>in deinem Grätzl?</span></h1>
 
+    <% render 'wien/menu' %>
     <%= link_to new_registration_path, class: 'registerlink bigicontext-element' do %>
       <svg class="icon-login-signin">
         <use xlink:href="#icon-login-signin"></use>
@@ -22,28 +23,36 @@
 
     <div class="icons">
       <div class="singleicon meetings">
-        <svg class="icon-calendar-2">
-          <use xlink:href="#icon-calendar-2"></use>
-        </svg>
-        <div class="txt">Treffen & <br/>Events</div>
+        <%= link_to meetings_wien_path, class: "iconfilter" do %>
+          <svg class="icon-calendar-2">
+            <use xlink:href="#icon-calendar-2"></use>
+          </svg>
+          <div class="txt">Treffen & <br/>Events</div>
+        <% end %>
       </div>
       <div class="singleicon candies">
-        <svg class="icon-shopping-bag">
-          <use xlink:href="#icon-shopping-bag"></use>
-        </svg>
-        <div class="txt">Zuckerl & <br/>Gutscheine</div>
+        <%= link_to zuckerls_wien_path, class: "iconfilter" do %>
+          <svg class="icon-shopping-bag">
+            <use xlink:href="#icon-shopping-bag"></use>
+          </svg>
+          <div class="txt">Zuckerl & <br/>Gutscheine</div>
+        <% end %>
       </div>
       <div class="singleicon makers">
-        <svg class="icon-location">
-          <use xlink:href="#icon-location"></use>
-        </svg>
-        <div class="txt">Anbieter & <br/>Local Makers</div>
+        <%= link_to locations_wien_path, class: "iconfilter" do %>
+          <svg class="icon-location">
+            <use xlink:href="#icon-location"></use>
+          </svg>
+          <div class="txt">Anbieter & <br/>Local Makers</div>
+        <% end %>
       </div>
       <div class="singleicon initiatives">
-        <svg class="icon-head-idea-lightbulb">
-          <use xlink:href="#icon-head-idea-lightbulb"></use>
-        </svg>
-        <div class="txt">Initiativen, <br/>Wünsche & Ideen</div>
+        <%= link_to rooms_wien_path, class: "iconfilter" do %>
+          <svg class="icon-raumteiler">
+            <use xlink:href="#icon-raumteiler"></use>
+          </svg>
+          <div class="txt">Raum Teiler</div>
+        <% end %>
       </div>
     </div>
   </div>

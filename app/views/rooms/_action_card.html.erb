@@ -11,13 +11,13 @@
         <% end %>
       </div>
       <% if defined? graetzl %>
-        <h3>Du möchtest eine Raum im <%= graetzl.name %> teilen?</h3>
+        <h3>Möchtest du eine Raum im <%= graetzl.name %> teilen?</h3>
         <%= link_to 'Teile deine Raum', select_room_offers_path, class: 'btn-primary' %>
       <% elsif defined? district %>
-        <h3>Du möchtest eine Raum im <%= district.numeric %>. Bezirk teilen?</h3>
+        <h3>Möchtest du eine Raum im <%= district.numeric %>. Bezirk teilen?</h3>
         <%= link_to 'Teile deine Raum', select_room_offers_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Du möchtest eine Raum im Grätzl teilen?</h3>
+        <h3>Möchtest du eine Raum im Grätzl teilen?</h3>
         <%= link_to 'Teile deine Raum', select_room_offers_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
