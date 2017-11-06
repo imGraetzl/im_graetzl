@@ -4,6 +4,9 @@
     <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
     <span class="txt"><%= district.name %></span>
   </div>
+  <%= link_to wien_path, class: 'bloglink' do %>
+    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg><div class="txt">Wien</div>
+  <% end %>
   <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank">Blog</a>
 
   <!-- dropDown -->
@@ -18,11 +21,11 @@
       <%= link_to district_locations_path(district) do %>
         <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations im <%= district.numeric %>. Bezirk
       <% end %>
+      <%= link_to rooms_district_path(district) do %>
+        <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>Raum Teiler im <%= district.numeric %>. Bezirk
+      <% end %>
       <%= link_to district_zuckerls_path(district) do %>
         <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerln & Angebote im <%= district.numeric %>. Bezirk
-      <% end %>
-      <%= link_to wien_path, class: 'discover' do %>
-        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
       <% end %>
       <%= link_to_more_info %>
     </div>

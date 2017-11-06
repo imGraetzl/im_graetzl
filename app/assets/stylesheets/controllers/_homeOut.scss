@@ -207,6 +207,19 @@ section.homeOut {
       font-size: 22px;
       line-height: 1.2;
     }
+    a.iconfilter {
+      text-decoration: none;
+      color: $color-ambient-mint-dark;
+      &:hover {
+        .txt {
+          color: $color-ambient-rosa;
+        }
+        &:hover {
+          color: $color-ambient-rosa;
+          background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+        }
+      }
+    }
 
   }
 
@@ -296,8 +309,3 @@ section.homeOut {
   }
 
 }
-
-
-
-
-

@@ -33,6 +33,16 @@
       <%= render 'locations/action_card', district: @district, view_all: true %>
     </div>
   </div>
+  <div class="block-locations">
+    <div class="hl-subtext">
+      <h1><span>Raum Teiler</span> im <%= @district.numeric %>. Bezirk</h1>
+      <p>Finde grätzlansässige local Makers, Selbständige &amp; Kreative, Lokale &amp; Geschäfte</p>
+    </div>
+    <div class="cardBoxCollection -tripple">
+      <%= render @rooms %>
+      <%= render 'rooms/action_card', district: @district, view_all: true %>
+    </div>
+  </div>
   <div class="block-zuckerls">
     <div class="hl-subtext">
       <h1>Jeden Monat neu - <span>Zuckerl &amp; Angebote</span> im <%= @district.numeric %>. Bezirk</h1>

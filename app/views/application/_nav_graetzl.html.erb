@@ -4,6 +4,9 @@
     <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
     <span class="txt"><%= graetzl.name %></span>
   </div>
+  <%= link_to wien_path, class: 'bloglink' do %>
+    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg><div class="txt">Wien</div>
+  <% end %>
   <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank">Blog</a>
 
   <!-- dropDown -->
@@ -18,14 +21,14 @@
       <%= link_to locations_graetzl_path(graetzl) do %>
         <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations
       <% end %>
+      <%= link_to rooms_graetzl_path(graetzl) do %>
+        <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>Raum Teiler
+      <% end %>
       <%= link_to zuckerls_graetzl_path(graetzl) do %>
         <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl & Angebote
       <% end %>
       <%= link_to posts_graetzl_path(graetzl) do %>
         <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>Ideen im Grätzl
-      <% end %>
-      <%= link_to wien_path, class: 'discover' do %>
-        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
       <% end %>
       <%= link_to_more_info %>
     </div>
