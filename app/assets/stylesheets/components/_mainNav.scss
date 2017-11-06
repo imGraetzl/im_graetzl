@@ -61,6 +61,12 @@
     @include respond-to(">=large") {
       font-size: 2.2rem;
     }
+    [class^="icon-"], [class*=" icon-"] {
+      display: inline-block;
+      float: left;
+      margin-right: 0.5em;
+    }
+    .txt { float: right; }
   }
 
 
@@ -254,13 +260,3 @@
   font-size: 1.0rem;
   padding: 1px 3px;
 }
-
-
-
-
-
-
-
-
-
-

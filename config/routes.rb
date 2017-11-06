@@ -67,6 +67,7 @@ Rails.application.routes.draw do
 
   resources :districts, path: 'wien', only: [:show] do
     get :graetzls, on: :member
+    get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
     resources :locations, module: :districts, only: [:index]
     resources :meetings, path: :treffen, module: :districts, only: [:index]
     resources :zuckerls, path: :zuckerl, module: :districts, only: [:index]
