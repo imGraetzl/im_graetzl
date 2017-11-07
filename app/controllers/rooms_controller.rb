@@ -10,6 +10,7 @@ class RoomsController < ApplicationController
     room_demands = room_demands.page(params[:page]).per(15)
 
     @rooms = room_offers + room_demands
+    @next_page = room_offers.next_page.present? || room_demands.next_page.present?
   end
 
   private
@@ -42,13 +43,12 @@ class RoomsController < ApplicationController
       end
     end
 
-
     if filter_params[:room_category_ids] && filter_params[:room_category_ids].any?(&:present?)
       offers = offers.joins(:room_categories).where(room_categories: {id: filter_params[:room_category_ids]})
     end
 
-    if filter_params[:district_ids] && filter_params[:district_ids].any?(&:present?)
-      offers = offers.where(district_id: filter_params[:district_ids])
+    if filter_params[:graetzl_ids] && filter_params[:graetzl_ids].any?(&:present?)
+      offers = offers.where(graetzl_id: filter_params[:graetzl_ids])
     end
 
     offers
@@ -68,9 +68,12 @@ class RoomsController < ApplicationController
       demands = demands.joins(:room_categories).where(room_categories: {id: filter_params[:room_category_ids]})
     end
 
+    if filter_params[:graetzl_ids] && filter_params[:graetzl_ids].any?(&:present?)
+      demands = demands.includes(:graetzls).where(graetzls: {id: filter_params[:graetzl_ids]})
+    end
+
     demands
   end
-
 
   def filter_params
     params.require(:room_filter)

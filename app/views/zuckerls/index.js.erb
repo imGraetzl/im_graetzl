@@ -1,6 +1,6 @@
 (function() {
   var $streamContainer = $("[data-behavior='stream-container']");
-  var $paginateLink = $(".view-more-container");
+  var $paginateLink = $("[data-behavior='paginate-link']");
 
   function updateComponent() {
     <% if params[:page].blank? %>
@@ -8,15 +8,13 @@
         $streamContainer.html("<%= j render 'empty_message' %>");
       <% else %>
         $streamContainer.html("<%= j render @zuckerls %>");
-        APP.components.masonryFilterGrid.adjustNewCards();
       <% end %>
     <% else %>
       $streamContainer.append("<%= j render @zuckerls %>");
-      APP.components.masonryFilterGrid.adjustNewCards();
     <% end %>
 
     <% if @zuckerls.next_page.present? %>
-      $paginateLink.html("<%= j next_page_link %>");
+      $paginateLink.attr('href', "<%= j next_page_url %>").show();
     <% else %>
       $paginateLink.hide();
     <% end %>

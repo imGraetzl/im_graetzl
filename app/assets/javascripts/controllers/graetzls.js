@@ -1,11 +1,10 @@
 APP.controllers.graetzls = (function() {
 
     var map =  APP.components.graetzlMap;
-    var filter = APP.components.masonryFilterGrid;
+    var grid = APP.components.masonryFilterGrid;
 
     function init() {
       initMap();
-      initContentStream();
       initFilter();
     }
 
@@ -19,7 +18,7 @@ APP.controllers.graetzls = (function() {
     }
 
     function initFilter() {
-      $(".cards-filter a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
+      $(".filter-selection-text a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
 
       $(".cards-filter").on("click", ".filter-button", function() {
         var currentModal = $.featherlight.current();
@@ -38,11 +37,14 @@ APP.controllers.graetzls = (function() {
           captionFormat: '{0} Bezirk ausgewählt'
       });
 
-      $('.autosubmit-filter').submit();
-    }
+      $('.autosubmit-filter').on('ajax:success', function() {
+        grid.init();
+      });
 
-    function initContentStream() {
-      filter.init();
+      $('.link-load').on('ajax:success', function() {
+        grid.adjustNewCards();
+      });
+
       $('.autosubmit-filter').submit();
     }
 

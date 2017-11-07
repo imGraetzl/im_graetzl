@@ -24,9 +24,11 @@
 
 
   <%= form_tag rooms_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
-    Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
-    aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
-    in <%= link_to @graetzl.name, '#filter-modal-bezirk' %>
+    <div class="filter-selection-text">
+      Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
+      aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
+      in <%= link_to @graetzl.name, '#filter-modal-bezirk' %>
+    </div>
 
     <div id="filter-modal-type" class="filter-modal">
       <div class="input-select">
@@ -53,6 +55,6 @@
 
   <div class="cards-layout-wrapper">
     <div class="cards-container" data-behavior="stream-container"></div>
-    <div class="view-more-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
   </div>
 </section>

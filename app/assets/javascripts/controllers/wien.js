@@ -1,6 +1,7 @@
 APP.controllers.wien = (function() {
 
     var map = APP.components.graetzlMap;
+    var grid = APP.components.masonryFilterGrid;
 
     function init() {
         var $select = $(".mapImgBlock .mobileSelectMenu");
@@ -33,7 +34,7 @@ APP.controllers.wien = (function() {
     }
 
     function initFilter() {
-      $(".cards-filter a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
+      $(".filter-selection-text a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
 
       $(".cards-filter").on("click", ".filter-button", function() {
         var currentModal = $.featherlight.current();
@@ -44,19 +45,21 @@ APP.controllers.wien = (function() {
         currentModal.close();
       });
 
-      $('.district-select').SumoSelect({
-          search: true,
-          searchText: 'Suche nach Bezirk.',
-          placeholder: 'Bezirk auswählen',
-          csvDispCount: 5,
-          captionFormat: '{0} Bezirk ausgewählt'
+      APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
+
+      $('.autosubmit-filter').on('ajax:success', function() {
+        grid.init();
+      });
+
+      $('.link-load').on('ajax:success', function() {
+        grid.adjustNewCards();
       });
 
       $('.autosubmit-filter').submit();
     }
 
     return {
-        init: init
-    }
+      init: init
+    };
 
 })();

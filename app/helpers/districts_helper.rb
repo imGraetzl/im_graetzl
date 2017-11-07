@@ -12,11 +12,11 @@ module DistrictsHelper
     end
   end
 
-  def district_graetzl_select_options
-    Rails.cache.fetch('district-graetzls-options') do
-      districts = District.includes(:graetzls)
-      option_groups_from_collection_for_select(districts, :graetzls, :zip_name, :id, :name)
-    end
+  def graetzl_select_options
+    graetzl_options = District.includes(:graetzls).map do |district|
+      district.graetzls.map{|g| ["#{district.zip} - #{g.name}", g.id, 'data-district-id' => district.id] }
+    end.flatten(1)
+    options_for_select(graetzl_options)
   end
 
 end

@@ -1,6 +1,6 @@
 (function() {
   var $streamContainer = $("[data-behavior='stream-container']");
-  var $paginateLink = $(".view-more-container");
+  var $paginateLink = $("[data-behavior='paginate-link']");
 
   <% if params[:page].blank? %>
     <% if @posts.empty? %>
@@ -13,7 +13,7 @@
   <% end %>
 
   <% if @posts.next_page.present? %>
-    $paginateLink.html("<%= j next_page_link %>").show();
+    $paginateLink.attr('href', "<%= j next_page_url %>").show();
   <% else %>
     $paginateLink.hide();
   <% end %>

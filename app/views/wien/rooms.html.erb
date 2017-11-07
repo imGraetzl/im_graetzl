@@ -18,9 +18,11 @@
   </div>
 
   <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
-    Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
-    aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
-    in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+    <div class="filter-selection-text">
+      Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
+      aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
+      in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+    </div>
 
     <div id="filter-modal-type" class="filter-modal">
       <div class="input-select">
@@ -39,14 +41,19 @@
       <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
     </div>
 
-    <div id="filter-modal-bezirk" class="filter-modal filter-modal-large">
-      <%= select :room_filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select filter-input' } %>
+    <div id="filter-modal-bezirk" class="filter-modal filter-modal-tall">
+      <div class="filter-input">
+        <%= select :room_filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
+      </div>
+      <div class="secondary-input">
+        <%= select :room_filter, :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
+      </div>
       <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
     </div>
   <% end %>
 
   <div class="cards-layout-wrapper">
     <div class="cards-container" data-behavior="stream-container"></div>
-    <div class="view-more-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
   </div>
 </section>

@@ -73,9 +73,9 @@ class LocationsController < ApplicationController
   end
 
   def filter_collections(locations)
-    district_ids = params.dig(:filter, :district_ids)
-    if district_ids.present? && district_ids.any?(&:present?)
-      locations = locations.joins(:districts).where(districts: {id: district_ids})
+    graetzl_ids = params.dig(:filter, :graetzl_ids)
+    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
+      locations = locations.where(graetzl_ids: graetzl_ids)
     end
     locations
   end

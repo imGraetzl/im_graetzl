@@ -27,6 +27,6 @@
 
   <div class="masonry-wrapper">
     <div class="cards-container" data-behavior="stream-container"></div>
-    <div class="view-more-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
   </div>
 </section>

@@ -1,15 +1,12 @@
 APP.components.masonryFilterGrid = (function() {
 
-    var $masonryWrapper, $grid;
+    var $grid;
 
     function init() {
-        $masonryWrapper = $('.masonry-wrapper');
         $grid =  $('.masonry-wrapper .cards-container');
 
-        //this is a little hacky, we have to do it on ready and load because of unknown image sizes
         adjustMasonry();
         $(window).on("load", adjustMasonry);
-        setInterval(adjustNewCards, 500);
 
         createMobileNav();
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
@@ -22,8 +19,7 @@ APP.components.masonryFilterGrid = (function() {
         });
     }
 
-    function adjustNewCards(x) {
-      adjustMasonry();
+    function adjustNewCards() {
       $grid.masonry('appended', $(".cardBox").not('[style]'));
     }
 

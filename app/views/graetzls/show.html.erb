@@ -17,12 +17,11 @@
   <%= render 'menu' %>
 
   <% if user_signed_in? %>
-    <%= form_tag activities_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'autosubmit-filter' do %>
-    <% end %>
+    <%= form_tag activities_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'autosubmit-filter' %>
 
     <div class="masonry-wrapper">
       <div class="cards-container" data-behavior="stream-container"></div>
-      <div class="view-more-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
     </div>
   <% else %>
     <%= render "activity_sample" %>
