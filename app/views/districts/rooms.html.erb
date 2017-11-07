@@ -1,0 +1,24 @@
+<%
+  meta({
+    title: t('.title', numeric: @district.numeric),
+    description: t('.description', numeric: @district.numeric, name: @district.name),
+    robots: @meetings.present? ? 'noindex, follow' : 'index, follow',
+    og_title: t('.title', numeric: @district.numeric),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name),
+    og_image: image_url('meta/og_logo.png')
+  })
+%>
+
+<section class="districts">
+  <%= cache [@district, 'meetingsmap'], expires_in: 2.months do %>
+    <%= render 'districts/map', map_data: @map_data %>
+  <% end %>
+  <div class="meeting-block">
+    <h1 class="hl-main">Raum Teiler <span>im <%= @district.numeric %>. Bezirk</span></h1>
+    <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
+      <%= render 'meetings/action_card', district: @district %>
+      <%= render(@rooms) || render('empty_message') %>
+    </div>
+    <%= view_more_link @rooms, style: :big %>
+  </div>
+</section>
