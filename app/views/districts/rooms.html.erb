@@ -13,7 +13,7 @@
     <%= render 'districts/map', map_data: @map_data %>
   <% end %>
   <div class="meeting-block">
-    <h1 class="hl-main">Raum Teiler <span>im <%= @district.numeric %>. Bezirk</span></h1>
+    <h1 class="hl-main">Raumteiler <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
     <%= form_tag rooms_path(district_id: @district.id), method: :get, remote: true, class: 'autosubmit-filter' %>
     <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">

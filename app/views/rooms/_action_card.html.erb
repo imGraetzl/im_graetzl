@@ -11,21 +11,21 @@
         <% end %>
       </div>
       <% if defined? graetzl %>
-        <h3>Möchtest du eine Raum im <%= graetzl.name %> teilen?</h3>
-        <%= link_to 'Teile deine Raum', select_room_offers_path, class: 'btn-primary' %>
+        <h3>Hast du Raum, suchst du Raum im <%= graetzl.name %>?</h3>
+        <%= link_to 'Raumteiler erstellen', select_room_offers_path, class: 'btn-primary' %>
       <% elsif defined? district %>
-        <h3>Möchtest du eine Raum im <%= district.numeric %>. Bezirk teilen?</h3>
-        <%= link_to 'Teile deine Raum', select_room_offers_path, class: 'btn-primary' %>
+        <h3>Hast du Raum, suchst du Raum im <%= district.numeric %>. Bezirk?</h3>
+        <%= link_to 'Raumteiler erstellen', select_room_offers_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Möchtest du eine Raum im Grätzl teilen?</h3>
-        <%= link_to 'Teile deine Raum', select_room_offers_path, class: 'btn-primary -rose' %>
+        <h3>Hast du Raum, suchst du Raum?</h3>
+        <%= link_to 'Raumteiler erstellen', select_room_offers_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>
   </div>
   <% if defined? view_all %>
-    <%= link_to 'Alle Raum Teiler', rooms_district_path(district), class: 'link-more' %>
+    <%= link_to 'Alle Raumteiler', rooms_district_path(district), class: 'link-more' %>
   <% elsif defined? graetzl %>
-    <%= link_to 'Alle Raum Teiler', rooms_graetzl_path(graetzl), class: 'link-more' %>
+    <%= link_to 'Alle Raumteiler', rooms_graetzl_path(graetzl), class: 'link-more' %>
   <% end %>
 </div>
