@@ -1,6 +1,5 @@
 APP.components.cardBox = (function() {
 
-
     function moveActionCard3rd() {
         $(".cardBoxCollection.js-moveActionCard3rd").each(function() {
             var numBoxes = $(this).find(".cardBox").length;

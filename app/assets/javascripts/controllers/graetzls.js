@@ -1,16 +1,14 @@
 APP.controllers.graetzls = (function() {
 
-    var map =  APP.components.graetzlMap;
-    var filter = APP.components.masonryFilterGrid;
-
     function init() {
       initMap();
-      initContentStream();
       initFilter();
+      initMobileNav();
     }
 
     function initMap() {
       var mapdata = $('#graetzlMapWidget').data('mapdata');
+      var map =  APP.components.graetzlMap;
       map.init(function() {
         map.showMapGraetzl(mapdata.graetzls, {
           style: $.extend(map.styles.rose, { weight: 4, fillOpacity: 0.2 })
@@ -19,7 +17,7 @@ APP.controllers.graetzls = (function() {
     }
 
     function initFilter() {
-      $(".cards-filter a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
+      $(".filter-selection-text a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
 
       $(".cards-filter").on("click", ".filter-button", function() {
         var currentModal = $.featherlight.current();
@@ -30,20 +28,41 @@ APP.controllers.graetzls = (function() {
         currentModal.close();
       });
 
-      $('.district-select').SumoSelect({
-          search: true,
-          searchText: 'Suche nach Bezirk.',
-          placeholder: 'Bezirk auswählen',
-          csvDispCount: 5,
-          captionFormat: '{0} Bezirk ausgewählt'
+      APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
+
+      var grid = APP.components.masonryFilterGrid;
+
+      $('.autosubmit-filter').on('ajax:success', function() {
+        grid.initGrid();
+      });
+
+      $('.link-load').on('ajax:success', function() {
+        grid.adjustNewCards();
       });
 
       $('.autosubmit-filter').submit();
     }
 
-    function initContentStream() {
-      filter.init();
-      $('.autosubmit-filter').submit();
+    function initMobileNav() {
+      var $dropdown = $(".filter-stream .input-select select");
+      $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
+          var $this = $(this),
+              link = $this.prop('href'),
+              txt = $this.find('.txt').text();
+
+          $dropdown.append(getOption());
+          $dropdown.on('change', function() {
+              document.location.href = $dropdown.val();
+          });
+
+          function getOption() {
+              if($this.hasClass('active'))
+                  return '<option selected value="'+ link +'">'+ txt +'</option>';
+              return '<option value="'+ link +'">'+ txt +'</option>';
+          }
+
+      });
+      $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
     }
 
     return {

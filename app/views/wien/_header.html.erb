@@ -14,19 +14,19 @@
       </div>
       <!-- END mobile select menu -->
 
-      <%= link_to locations_wien_path, class: "iconfilter #{active?(locations_wien_path)}" do %>
+      <%= active_link_to locations_wien_path, class: "iconfilter" do %>
         <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
         <div class="txt">Lokale <br/>Anbieter</div>
       <% end %>
-      <%= link_to meetings_wien_path, class: "iconfilter #{active?(meetings_wien_path)}" do %>
+      <%= active_link_to meetings_wien_path, class: "iconfilter" do %>
         <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
         <div class="txt">Treffen &<br/>Workshops</div>
       <% end %>
-      <%= link_to rooms_wien_path, class: "iconfilter #{active?(rooms_wien_path)}" do %>
+      <%= active_link_to rooms_wien_path, class: "iconfilter" do %>
         <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>
         <div class="txt">Raum <br/> Teiler</div>
       <% end %>
-      <%= link_to zuckerls_wien_path, class: "iconfilter #{active?(zuckerls_wien_path)}" do %>
+      <%= active_link_to zuckerls_wien_path, class: "iconfilter" do %>
         <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
         <div class="txt">Zuckerl &<br/>Gutscheine</div>
       <% end %>

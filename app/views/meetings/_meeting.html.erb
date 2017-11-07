@@ -13,7 +13,7 @@
       <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
       <div class="count"><%= meeting.users.size %></div>
     </div>
-    <%= graetzl_flag(meeting.graetzl) if controller_name == 'districts' %>
+    <%= graetzl_flag(meeting.graetzl) %>
   </div>
   <div class="cardBoxContent">
     <%= meeting_initiator meeting %>

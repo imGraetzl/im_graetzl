@@ -1,19 +1,20 @@
 (function() {
   var $streamContainer = $("[data-behavior='stream-container']");
-  var $paginateLink = $(".view-more-container");
+  var $paginateLink = $("[data-behavior='paginate-link']");
 
   <% if params[:page].blank? %>
     <% if @locations.empty? %>
       $streamContainer.html("<%= j render 'empty_message' %>")
     <% else %>
-      $streamContainer.html("<%= j render @locations %>")
+      $streamContainer.find(".cardBox").remove();
+      $streamContainer.append("<%= j render @locations %>")
     <% end %>
   <% else %>
     $streamContainer.append("<%= j render @locations %>");
   <% end %>
 
   <% if @locations.next_page.present? %>
-    $paginateLink.html("<%= j next_page_link %>").show();
+    $paginateLink.attr('href', "<%= j next_page_url %>").show();
   <% else %>
     $paginateLink.hide();
   <% end %>

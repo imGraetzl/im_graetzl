@@ -59,18 +59,18 @@ class MeetingsController < ApplicationController
   private
 
   def collection_scope
-    if params[:graetzl_id].present?
-      graetzl = Graetzl.find(params[:graetzl_id])
-      Meeting.where(graetzl: graetzl)
+    if params[:district_id].present?
+      district = District.find(params[:district_id])
+      Meeting.where(graetzl_id: district.graetzl_ids)
     else
       Meeting.all
     end
   end
 
   def filter_collection(meetings)
-    district_ids = params.dig(:filter, :district_ids)
-    if district_ids.present? && district_ids.any?(&:present?)
-      meetings = meetings.joins(:districts).where(districts: {id: district_ids})
+    graetzl_ids = params.dig(:filter, :graetzl_ids)
+    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
+      meetings = meetings.where(graetzl_id: graetzl_ids)
     end
     meetings
   end

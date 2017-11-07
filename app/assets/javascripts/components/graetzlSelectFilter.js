@@ -1,30 +1,40 @@
-APP.components.graetzlSelectFilter = function() {
+APP.components.graetzlSelectFilter = (function() {
 
-    var select = $("select.district-graetzl-filter")
-    select.SumoSelect({
-        search: true,
-        searchText: 'Suche nach Bezirk.',
-        placeholder: 'Bezirk auswählen',
-        csvDispCount: 5,
-        captionFormat: '{0} Bezirk ausgewählt'
-    });
-    select.on('change', function() {
-        var districtID = $(this).val();
-        console.log('DISTRICT SELECT', districtID);
-        $('input#room_demand_district_ids_' + districtID).attr('checked', true);
+  var selectedDistrictIds = [];
+
+  function init($districtSelect, $graetzlSelect) {
+    $districtSelect.SumoSelect({
+      search: true,
+      searchText: 'Suche nach Bezirk.',
+      placeholder: 'Bezirk auswählen',
+      csvDispCount: 3,
+      captionFormat: '{0} Bezirk ausgewählt'
     });
 
-    var select2 = $("select.graetzl-filter")
-    select2.SumoSelect({
-        search: true,
-        searchText: 'Suche nach Grätzln.',
-        placeholder: 'Grätzln auswählen',
-        csvDispCount: 5,
-        captionFormat: '{0} Grätzln ausgewählt'
+    $graetzlSelect.SumoSelect({
+      search: true,
+      searchText: 'Suche nach Grätzln.',
+      placeholder: 'Grätzln auswählen',
+      csvDispCount:   3,
+      captionFormat: '{0} Grätzln ausgewählt'
     });
-    select2.on('change', function() {
-        var graetzlID = $(this).val();
-        console.log('GRAETZL SELECT', graetzlID);
-        $('input#room_demand_graetzl_ids_' + graetzlID).attr('checked', true);
+
+    $districtSelect.on('change', function() {
+      var districtIds = $districtSelect.val();
+      var newSelection = $(districtIds).not(selectedDistrictIds).get()[0];
+      selectedDistrictIds = districtIds;
+
+      $graetzlSelect.find('option').each(function() {
+        var inSelectedDistrict = districtIds && districtIds.indexOf($(this).data('districtId').toString()) > -1;
+        $(this).prop('disabled', !inSelectedDistrict);
+        if (newSelection == $(this).data('districtId')) $(this).prop("selected", true);
+        if (!inSelectedDistrict) $(this).prop("selected", false);
+      });
+      $graetzlSelect[0].sumo.reload();
     });
-};
+  }
+
+  return {
+    init: init
+  };
+})();

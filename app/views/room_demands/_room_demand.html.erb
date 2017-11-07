@@ -3,7 +3,7 @@
     <%= link_to room_demand do %>
       <%= avatar_for room_demand.user, 300, 'userimg-header' %>
     <% end %>
-    <% unless room_demand.districts.empty? %>
+    <% if room_demand.districts.present? %>
       <div class="categoryicon">
         <%= "#{room_demand.districts.first.zip}" %>
       </div>

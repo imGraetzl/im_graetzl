@@ -18,6 +18,16 @@
     <%= render 'locations/action_card', graetzl: @graetzl %>
   </div>
 </div>
+<div class="block-locations">
+  <div class="hl-subtext">
+    <h1><span>Raum Teiler</span> im im Grätzl</h1>
+    <p>Erfahre Neuigkeiten von grätzlansässigen Selbstständigen &amp; Kreativen, Lokalen &amp; Geschäften</p>
+  </div>
+  <div class="cardBoxCollection -tripple">
+    <%= render @rooms %>
+    <%= render 'rooms/action_card', graetzl: @graetzl %>
+  </div>
+</div>
 <div class="block-zuckerls">
   <div class="hl-subtext">
     <h1>Jeden Monat neu - <span>Zuckerl &amp; Angebote</span> im Grätzl</h1>

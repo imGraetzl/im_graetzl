@@ -2,7 +2,7 @@
   meta({
     title: t('.title', numeric: @district.numeric),
     description: t('.description', numeric: @district.numeric, name: @district.name),
-    robots: @meetings.present? ? 'noindex, follow' : 'index, follow',
+    robots: 'index, follow',
     og_title: t('.title', numeric: @district.numeric),
     og_description: t('.description', numeric: @district.numeric, name: @district.name),
     og_image: image_url('meta/og_logo.png')
@@ -15,10 +15,12 @@
   <% end %>
   <div class="meeting-block">
     <h1 class="hl-main">Treffen, Events & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span></h1>
+
+    <%= form_tag meetings_path(district_id: @district.id), method: :get, remote: true, class: 'autosubmit-filter' %>
+
     <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
       <%= render 'meetings/action_card', district: @district %>
-      <%= render partial: 'meetings/meeting', collection: @meetings %>
     </div>
-    <%= view_more_link @meetings, style: :big %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
   </div>
 </section>

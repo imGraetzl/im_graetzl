@@ -1,12 +1,12 @@
 <%
-  meta({
+  meta(
     title: t('.title'),
     description: t('.description'),
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
     og_image: image_url('meta/og_logo.png')
-  })
+  )
 %>
 
 <section class="wien -overview-pages masonryFilterGrid">
@@ -18,16 +18,23 @@
   </div>
 
   <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
-    Zeige mir in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+    <div class="filter-selection-text">
+      Zeige mir in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+    </div>
 
-    <div id="filter-modal-bezirk" class="filter-modal filter-modal-large">
-      <%= select :filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select filter-input' } %>
-      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+    <div id="filter-modal-bezirk" class="filter-modal filter-modal-tall">
+      <div class="filter-input">
+        <%= select :filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
+      </div>
+      <div class="secondary-input">
+        <%= select :filter, :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
+      </div>
+      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
     </div>
   <% end %>
 
   <div class="masonry-wrapper">
     <div class="cards-container" data-behavior="stream-container"></div>
-    <div class="view-more-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
   </div>
 </section>
