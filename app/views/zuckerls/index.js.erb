@@ -7,7 +7,8 @@
       <% if @zuckerls.empty? %>
         $streamContainer.html("<%= j render 'empty_message' %>");
       <% else %>
-        $streamContainer.html("<%= j render @zuckerls %>");
+        $streamContainer.find(".cardBox").remove();
+        $streamContainer.append("<%= j render @zuckerls %>");
       <% end %>
     <% else %>
       $streamContainer.append("<%= j render @zuckerls %>");

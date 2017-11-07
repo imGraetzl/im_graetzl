@@ -6,7 +6,8 @@
     <% if @meetings.empty? %>
       $streamContainer.html("<%= j render 'empty_message' %>")
     <% else %>
-      $streamContainer.html("<%= j render @meetings %>")
+      $streamContainer.find(".cardBox").remove();
+      $streamContainer.append("<%= j render @meetings %>")
     <% end %>
   <% else %>
     $streamContainer.append("<%= j render @meetings %>");

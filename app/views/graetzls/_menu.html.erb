@@ -10,32 +10,32 @@
   </div>
   <!-- END mobile select menu -->
 
-  <%= link_to graetzl_path(@graetzl), class: "iconfilter #{active?(graetzl_path(@graetzl))}" do %>
+  <%= active_link_to graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= image_tag 'mapthumbs/stuwerviertel.jpg', class: 'mapthumb' %>
     <div class="txt">Grätzl <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
   <% end %>
 
-  <%= link_to graetzl_meetings_path(@graetzl), class: "iconfilter #{active?(graetzl_meetings_path(@graetzl))}" do %>
+  <%= active_link_to graetzl_meetings_path(@graetzl), class: "iconfilter" do %>
     <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
     <div class="txt">Treffen <br/>& Events</div>
   <% end %>
 
-  <%= link_to locations_graetzl_path(@graetzl), class: "iconfilter #{active?(locations_graetzl_path(@graetzl))}" do %>
+  <%= active_link_to locations_graetzl_path(@graetzl), class: "iconfilter" do %>
     <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
     <div class="txt">Anbieter <br/>& Locations</div>
   <% end %>
 
-  <%= link_to rooms_graetzl_path(@graetzl), class: "iconfilter #{active?(rooms_graetzl_path(@graetzl))}" do %>
+  <%= active_link_to rooms_graetzl_path(@graetzl), class: "iconfilter" do %>
     <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>
     <div class="txt">Raum <br/> Teiler</div>
   <% end %>
 
-  <%= link_to zuckerls_graetzl_path(@graetzl), class: "iconfilter #{active?(zuckerls_graetzl_path(@graetzl))}" do %>
+  <%= active_link_to zuckerls_graetzl_path(@graetzl), class: "iconfilter" do %>
     <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
     <div class="txt">Zuckerl <br/>& Angebote</div>
   <% end %>
 
-  <%= link_to posts_graetzl_path(@graetzl), class: "iconfilter #{active?(posts_graetzl_path(@graetzl))}" do %>
+  <%= active_link_to posts_graetzl_path(@graetzl), class: "iconfilter" do %>
     <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
     <div class="txt">Ideen <br/>im Grätzl</div>
   <% end %>

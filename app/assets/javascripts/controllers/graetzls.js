@@ -1,15 +1,14 @@
 APP.controllers.graetzls = (function() {
 
-    var map =  APP.components.graetzlMap;
-    var grid = APP.components.masonryFilterGrid;
-
     function init() {
       initMap();
       initFilter();
+      initMobileNav();
     }
 
     function initMap() {
       var mapdata = $('#graetzlMapWidget').data('mapdata');
+      var map =  APP.components.graetzlMap;
       map.init(function() {
         map.showMapGraetzl(mapdata.graetzls, {
           style: $.extend(map.styles.rose, { weight: 4, fillOpacity: 0.2 })
@@ -29,16 +28,12 @@ APP.controllers.graetzls = (function() {
         currentModal.close();
       });
 
-      $('.district-select').SumoSelect({
-          search: true,
-          searchText: 'Suche nach Bezirk.',
-          placeholder: 'Bezirk auswählen',
-          csvDispCount: 5,
-          captionFormat: '{0} Bezirk ausgewählt'
-      });
+      APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
+
+      var grid = APP.components.masonryFilterGrid;
 
       $('.autosubmit-filter').on('ajax:success', function() {
-        grid.init();
+        grid.initGrid();
       });
 
       $('.link-load').on('ajax:success', function() {
@@ -46,6 +41,28 @@ APP.controllers.graetzls = (function() {
       });
 
       $('.autosubmit-filter').submit();
+    }
+
+    function initMobileNav() {
+      var $dropdown = $(".filter-stream .input-select select");
+      $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
+          var $this = $(this),
+              link = $this.prop('href'),
+              txt = $this.find('.txt').text();
+
+          $dropdown.append(getOption());
+          $dropdown.on('change', function() {
+              document.location.href = $dropdown.val();
+          });
+
+          function getOption() {
+              if($this.hasClass('active'))
+                  return '<option selected value="'+ link +'">'+ txt +'</option>';
+              return '<option value="'+ link +'">'+ txt +'</option>';
+          }
+
+      });
+      $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
     }
 
     return {

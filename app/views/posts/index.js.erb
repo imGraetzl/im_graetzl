@@ -6,7 +6,8 @@
     <% if @posts.empty? %>
       $streamContainer.html("<%= j render 'empty_message' %>")
     <% else %>
-      $streamContainer.html("<%= j render @posts %>")
+      $streamContainer.find(".cardBox").remove();
+      $streamContainer.append("<%= j render @posts %>")
     <% end %>
   <% else %>
     $streamContainer.append("<%= j render @posts %>");

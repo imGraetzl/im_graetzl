@@ -6,7 +6,8 @@
     <% if @rooms.empty? %>
       $streamContainer.html("<%= j render 'empty_message' %>");
     <% else %>
-      $streamContainer.html("<%= j render @rooms %>");
+      $streamContainer.find(".cardBox").remove();
+      $streamContainer.append("<%= j render @rooms %>");
     <% end %>
   <% else %>
     $streamContainer.append("<%= j render @rooms %>");

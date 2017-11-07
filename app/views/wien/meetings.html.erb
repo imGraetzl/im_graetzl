@@ -1,12 +1,12 @@
 <%
-  meta({
+  meta(
     title: t('.title'),
     description: t('.description'),
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
     og_image: image_url('meta/og_logo.png')
-  })
+  )
 %>
 
 <section class="wien -overview-pages masonryFilterGrid">
@@ -24,17 +24,17 @@
 
     <div id="filter-modal-bezirk" class="filter-modal filter-modal-tall">
       <div class="filter-input">
-        <%= select :room_filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
+        <%= select :filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
       </div>
       <div class="secondary-input">
-        <%= select :room_filter, :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
+        <%= select :filter, :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
       </div>
-      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
     </div>
   <% end %>
 
   <div class="masonry-wrapper">
     <div class="cards-container" data-behavior="stream-container"></div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
   </div>
 </section>

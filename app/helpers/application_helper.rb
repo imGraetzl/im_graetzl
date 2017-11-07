@@ -24,8 +24,20 @@ module ApplicationHelper
     end
   end
 
-  def active?(path)
-    current_page?(path) ? 'active' : ''
+  def active_link_to(*args, &block)
+    if block_given?
+      name = capture(&block)
+      options = args[0] || {}
+      html_options = args[1] || {}
+    else
+      name = args[0]
+      options = args[1] || {}
+      html_options = args[2] || {}
+    end
+
+    url = url_for(options)
+    html_options[:class] = ['active', html_options[:class]] if current_page?(url)
+    link_to(name, url, html_options)
   end
 
   def graetzl_flag(graetzl)

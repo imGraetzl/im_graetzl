@@ -1,4 +1,5 @@
 class GraetzlsController < ApplicationController
+
   def show
     @graetzl = Graetzl.find(params[:id])
     @map_data = MapData.call(graetzl: @graetzl)

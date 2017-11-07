@@ -21,8 +21,8 @@ APP.controllers.wien = (function() {
         }
 
         initFilter();
+        initMobileNav();
     }
-
 
     function initMap() {
         var mapdata = $('#graetzlMapWidget').data('mapdata');
@@ -48,7 +48,7 @@ APP.controllers.wien = (function() {
       APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
 
       $('.autosubmit-filter').on('ajax:success', function() {
-        grid.init();
+        grid.initGrid();
       });
 
       $('.link-load').on('ajax:success', function() {
@@ -56,6 +56,28 @@ APP.controllers.wien = (function() {
       });
 
       $('.autosubmit-filter').submit();
+    }
+
+    function initMobileNav() {
+      var $dropdown = $(".filter-stream .input-select select");
+      $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
+          var $this = $(this),
+              link = $this.prop('href'),
+              txt = $this.find('.txt').text();
+
+          $dropdown.append(getOption());
+          $dropdown.on('change', function() {
+              document.location.href = $dropdown.val();
+          });
+
+          function getOption() {
+              if($this.hasClass('active'))
+                  return '<option selected value="'+ link +'">'+ txt +'</option>';
+              return '<option value="'+ link +'">'+ txt +'</option>';
+          }
+
+      });
+      $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
     }
 
     return {

@@ -24,8 +24,8 @@
     <div class="card"></div>
   </div>
   <% if defined? view_all %>
-    <%= link_to 'Alle Treffen & Events', district_meetings_path(district), class: 'link-more' %>
+    <%= link_to 'Alle Treffen & Events', meetings_district_path(district), class: 'link-more' %>
   <% elsif defined? graetzl %>
-    <%= link_to 'Alle Treffen & Events', graetzl_meetings_path(graetzl), class: 'link-more' %>
+    <%= link_to 'Alle Treffen & Events', meetings_graetzl_path(graetzl), class: 'link-more' %>
   <% end %>
 </div>
