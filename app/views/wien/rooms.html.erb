@@ -18,35 +18,42 @@
   </div>
 
   <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
-    Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
-    aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
-    in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+    <div class="filter-selection-text">
+      Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
+      aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
+      in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+    </div>
 
     <div id="filter-modal-type" class="filter-modal">
       <div class="input-select">
-        <%= select :room_filter, :room_type, options_for_select(filter_room_types), {}, { class: 'filter-input' } %>
+        <%= select :filter, :room_type, options_for_select(filter_room_types), {}, { class: 'filter-input' } %>
       </div>
-      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
     </div>
 
     <div id="filter-modal-categories" class="filter-modal">
-      <%= collection_check_boxes :room_filter, :room_category_ids, RoomCategory.all, :id, :name do |b| %>
+      <%= collection_check_boxes :filter, :room_category_ids, RoomCategory.all, :id, :name do |b| %>
         <div class="input-checkbox filter-input">
           <%= b.check_box("data-label": b.text) %>
           <%= b.label %>
         </div>
       <% end %>
-      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
     </div>
 
-    <div id="filter-modal-bezirk" class="filter-modal filter-modal-large">
-      <%= select :room_filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select filter-input' } %>
-      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+    <div id="filter-modal-bezirk" class="filter-modal filter-modal-tall">
+      <div class="filter-input">
+        <%= select :filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
+      </div>
+      <div class="secondary-input">
+        <%= select :filter, :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
+      </div>
+      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
     </div>
   <% end %>
 
-  <div class="cards-layout-wrapper">
+  <div class="masonry-wrapper">
     <div class="cards-container" data-behavior="stream-container"></div>
-    <div class="view-more-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
   </div>
 </section>

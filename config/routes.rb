@@ -66,11 +66,11 @@ Rails.application.routes.draw do
   end
 
   resources :districts, path: 'wien', only: [:show] do
-    get :graetzls, on: :member
+    get 'graetzls', on: :member
+    get 'treffen', action: 'meetings', as: 'meetings', on: :member
+    get 'locations', on: :member
     get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
-    resources :locations, module: :districts, only: [:index]
-    resources :meetings, path: :treffen, module: :districts, only: [:index]
-    resources :zuckerls, path: :zuckerl, module: :districts, only: [:index]
+    get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
   end
 
   get 'info/agb', to: 'static_pages#agb'

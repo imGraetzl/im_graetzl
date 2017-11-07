@@ -23,22 +23,34 @@ de:
     show:
       title: 'Bezirke, Stadtviertel & Grätzl in Wien'
       description: 'Kaum zu glauben: Wien hat über 160 Grätzln. In welchem bist Du zuhause oder öfters anzutreffen? Durchstöbere die Bezirke und entdecke dein Grätzl in Wien ...'
+    locations:
+      title: 'Lokale, Geschäfte & Treffpunkte in Wien'
+      description: 'Durchstöbere in Wien. Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte und spannende Plätze aus dem Wien.'
+    meetings:
+      title: 'Treffen, Veranstaltungen & Events in Wien'
+      description: 'Leute treffen sich in Wien. Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
+    rooms:
+      title: '%{graetzl}: Raumteiler TODO'
+      description: 'TODO'
+    zuckerls:
+      title: 'Jeden Monat neu - Zuckerl & Angebote in Wien'
+      description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Wien.'
   districts:
     show:
       title: 'Grätzln im %{numeric}. Bezirk (%{name}) in Wien'
       description: 'Es gibt %{num} Grätzl in Wien %{name}! Triff Bewohner des Bezirks zu gemeinsamen Unternehmungen oder entdecke spannende Workshops & Events im %{numeric}. Bezirk'
     locations:
-      index:
-        title: 'Lokale, Geschäfte & Treffpunkte im %{numeric}. Bezirk'
-        description: 'Durchstöbere den %{numeric}. Bezirk in Wien. Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte und spannende Plätze im Bezirk %{name}.'
+      title: 'Lokale, Geschäfte & Treffpunkte im %{numeric}. Bezirk'
+      description: 'Durchstöbere den %{numeric}. Bezirk in Wien. Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte und spannende Plätze im Bezirk %{name}.'
     meetings:
-      index:
-        title: 'Treffen, Veranstaltungen & Events im %{numeric}. Bezirk'
-        description: 'Leute treffen sich im %{numeric}. Bezirk (%{name}). Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
+      title: 'Treffen, Veranstaltungen & Events im %{numeric}. Bezirk'
+      description: 'Leute treffen sich im %{numeric}. Bezirk (%{name}). Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
+    rooms:
+      title: '%{graetzl}: Raumteiler TODO'
+      description: 'TODO'
     zuckerls:
-      index:
-        title: 'Jeden Monat neu - Zuckerl & Angebote im %{numeric}. Bezirk'
-        description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem %{numeric}. Bezirk %{name}.'
+      title: 'Jeden Monat neu - Zuckerl & Angebote im %{numeric}. Bezirk'
+      description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem %{numeric}. Bezirk %{name}.'
   graetzls:
     show:
       title: '%{name} im %{numeric}. Bezirk in Wien'

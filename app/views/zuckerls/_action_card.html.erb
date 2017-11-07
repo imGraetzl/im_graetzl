@@ -24,7 +24,7 @@
     <div class="card"></div>
   </div>
   <% if defined? view_all %>
-    <%= link_to 'Alle Angebote', district_zuckerls_path(district), class: 'link-more' %>
+    <%= link_to 'Alle Angebote', zuckerls_district_path(district), class: 'link-more' %>
   <% elsif defined? graetzl %>
     <%= link_to 'Alle Angebote', zuckerls_graetzl_path(graetzl), class: 'link-more' %>
   <% end %>

@@ -7,6 +7,10 @@ section.wien {
     }
   }
 
+  .sideflag {
+    display: none;
+  }
+
   #graetzlMapWidget {
     height: 150px;
     @include respond-to(">=medium") {

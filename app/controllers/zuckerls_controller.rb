@@ -48,6 +48,9 @@ class ZuckerlsController < ApplicationController
     if params[:graetzl_id].present?
       graetzl = Graetzl.find(params[:graetzl_id])
       graetzl.zuckerls
+    elsif params[:district_id].present?
+      district = District.find(params[:district_id])
+      district.zuckerls
     else
       Zuckerl.live
     end

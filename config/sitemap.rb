@@ -10,8 +10,8 @@ SitemapGenerator::Sitemap.create do
   add wien_path, changefreq: 'always', priority: 0.7
   District.find_each do |district|
     add district_path(district), changefreq: 'always', priority: 0.7
-    add district_locations_path(district) unless district.locations.empty?
-    add district_meetings_path(district) unless district.meetings.empty?
+    add locations_district_path(district) unless district.locations.empty?
+    add meetings_district_path(district) unless district.meetings.empty?
   end
 
   # Graetzls
