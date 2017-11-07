@@ -12,6 +12,7 @@
   <%= cache [@district, 'locationsmap'], expires_in: 2.months do %>
     <%= render 'districts/map', map_data: @map_data %>
   <% end %>
+  <%= render 'menu' %>
   <h1 class="hl-main">Jeden Monat neu - Zuckerl &amp; Angebote <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
   <%= form_tag zuckerls_path(district_id: @district.id), method: :get, remote: true, class: 'autosubmit-filter' %>

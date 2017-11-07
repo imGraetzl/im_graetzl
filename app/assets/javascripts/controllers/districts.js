@@ -4,6 +4,7 @@ APP.controllers.districts = (function() {
     initMenu();
     initMap();
     initFilter();
+    initMobileNav();
   }
 
   function initMenu() {
@@ -43,6 +44,28 @@ APP.controllers.districts = (function() {
     });
 
     $('.autosubmit-filter').submit();
+  }
+
+  function initMobileNav() {
+    var $dropdown = $(".filter-stream .input-select select");
+    $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
+        var $this = $(this),
+            link = $this.prop('href'),
+            txt = $this.find('.txt').text();
+
+        $dropdown.append(getOption());
+        $dropdown.on('change', function() {
+            document.location.href = $dropdown.val();
+        });
+
+        function getOption() {
+            if($this.hasClass('active'))
+                return '<option selected value="'+ link +'">'+ txt +'</option>';
+            return '<option value="'+ link +'">'+ txt +'</option>';
+        }
+
+    });
+    $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
   }
 
   return {

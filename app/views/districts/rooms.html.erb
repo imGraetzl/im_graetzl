@@ -12,6 +12,7 @@
   <%= cache [@district, 'meetingsmap'], expires_in: 2.months do %>
     <%= render 'districts/map', map_data: @map_data %>
   <% end %>
+  <%= render 'menu' %>
   <div class="meeting-block">
     <h1 class="hl-main">Raumteiler <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
