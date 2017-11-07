@@ -12,6 +12,7 @@
   <%= cache [@district, 'map'], expires_in: 2.months do %>
     <%= render 'map', map_data: @map_data %>
   <% end %>
+  <%= render 'menu' %>
   <div class="block-meetings">
     <div class="hl-subtext">
       <h1>Mach mit - <span>Treffen &amp; Events</span> im <%= @district.numeric %>. Bezirk</h1>
@@ -34,8 +35,8 @@
   </div>
   <div class="block-locations">
     <div class="hl-subtext">
-      <h1><span>Raum Teiler</span> im <%= @district.numeric %>. Bezirk</h1>
-      <p>Finde grätzlansässige local Makers, Selbständige &amp; Kreative, Lokale &amp; Geschäfte</p>
+      <h1><span>Raumteiler</span> im <%= @district.numeric %>. Bezirk</h1>
+      <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
     </div>
     <div class="cardBoxCollection -tripple">
       <%= render @rooms %>
