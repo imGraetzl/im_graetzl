@@ -27,7 +27,7 @@ de:
       title: 'Treffen, Veranstaltungen & Events in Wien'
       description: 'Leute treffen sich in Wien. Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
     rooms:
-      title: '%{graetzl}: Raumteiler TODO'
+      title: 'Raumteiler in Wien'
       description: 'TODO'
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote in Wien'
@@ -43,7 +43,7 @@ de:
       title: 'Treffen, Veranstaltungen & Events im %{numeric}. Bezirk'
       description: 'Leute treffen sich im %{numeric}. Bezirk (%{name}). Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
     rooms:
-      title: '%{graetzl}: Raumteiler TODO'
+      title: 'Raumteiler im %{numeric}. Bezirk'
       description: 'TODO'
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote im %{numeric}. Bezirk'
