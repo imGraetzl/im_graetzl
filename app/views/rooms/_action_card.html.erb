@@ -26,6 +26,6 @@
   <% if defined? view_all %>
     <%= link_to 'Alle Raum Teiler', rooms_district_path(district), class: 'link-more' %>
   <% elsif defined? graetzl %>
-    <%= link_to 'Alle Raum Teiler', rooms_path(graetzl), class: 'link-more' %>
+    <%= link_to 'Alle Raum Teiler', rooms_graetzl_path(graetzl), class: 'link-more' %>
   <% end %>
 </div>
