@@ -1,5 +1,6 @@
 class RoomDemand < ApplicationRecord
   belongs_to :user
+  belongs_to :location, optional: true
 
   has_many :room_demand_categories
   has_many :room_categories, through: :room_demand_categories

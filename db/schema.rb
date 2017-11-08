@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102233738) do
+ActiveRecord::Schema.define(version: 20171108115122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -332,6 +332,13 @@ ActiveRecord::Schema.define(version: 20171102233738) do
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
     t.integer  "demand_type",                                   default: 0
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "website"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "location_id"
+    t.index ["location_id"], name: "index_room_demands_on_location_id", using: :btree
     t.index ["user_id"], name: "index_room_demands_on_user_id", using: :btree
   end
 
@@ -371,6 +378,11 @@ ActiveRecord::Schema.define(version: 20171102233738) do
     t.string   "cover_photo_id"
     t.string   "cover_photo_content_type"
     t.integer  "offer_type",                                        default: 0
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "website"
+    t.string   "email"
+    t.string   "phone"
     t.index ["district_id"], name: "index_room_offers_on_district_id", using: :btree
     t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id", using: :btree
     t.index ["location_id"], name: "index_room_offers_on_location_id", using: :btree
@@ -468,6 +480,7 @@ ActiveRecord::Schema.define(version: 20171102233738) do
   add_foreign_key "room_demand_districts", "room_demands"
   add_foreign_key "room_demand_graetzls", "graetzls"
   add_foreign_key "room_demand_graetzls", "room_demands"
+  add_foreign_key "room_demands", "locations"
   add_foreign_key "room_demands", "users"
   add_foreign_key "room_offer_categories", "room_categories"
   add_foreign_key "room_offer_categories", "room_offers", on_delete: :cascade
