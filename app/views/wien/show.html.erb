@@ -29,6 +29,8 @@
     </div>
   <% end %>
 
+  <%= render "menu" %>
+
   <div class="address-block">
     <h1 class="hl-main">Lass uns dein <em>Heimatgrätzl</em> Finden</h1>
     <%= form_tag visit_graetzl_wien_path, method: :get do %>
@@ -43,7 +45,4 @@
       </div>
     <% end %>
   <div>
-
-  <%= render "menu" %>
-
 </section>
