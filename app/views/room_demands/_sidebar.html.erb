@@ -1,6 +1,32 @@
 <aside class="sideBar">
 
+  <div class="sideBarbox contact">
+    <div class='sideflag -L'>Was mir wichtig ist …</div>
+
+    <div class="iconlist">
+      <% if @room_demand.needed_area.present? %>
+        <div class="rented-area icontxt">
+          <svg class="icon-resize-maximize"><use xlink:href="#icon-resize-maximize"></use></svg>
+          <%= "%g" % (@room_demand.needed_area) %> m² zu vermieten<br>
+        </div>
+      <% end %>
+
+      <% if @room_demand.wants_collaboration? %>
+        <div class="collaboration icontxt">
+          <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+          Auch an Kooperationen interessiert.
+        </div>
+      <% end %>
+
+      <div class="btn-group">
+        <%= link_to 'Bearbeiten', edit_room_demand_path(@room_demand),
+          class: 'btn-secondary -mint -small' if user_signed_in? && (current_user == @room_demand.user) %>
+      </div>
+    </div>
+
+  </div>
+
   <%= mail_to @room_demand.user.email, "Anbieter kontaktieren", class: 'btn-primary -mint', subject: "Raumteiler Kontakt" %>
 
-  <%= link_to "Alle Raumteiler", room_offers_path, class: 'btn-primary -mint' %>
+  <%= link_to "Alle Raumteiler", room_demands_path, class: 'btn-primary -mint' %>
 </aside>

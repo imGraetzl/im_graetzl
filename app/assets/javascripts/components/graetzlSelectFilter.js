@@ -11,7 +11,7 @@ APP.components.graetzlSelectFilter = (function() {
       captionFormat: '{0} Bezirk ausgewählt'
     });
 
-    if ($districtSelect.val().length > 0) {
+    if ($('.district-select').val() && $districtSelect.val().length > 0) {
       showDistrictGraetzls($districtSelect.val());
     }
 
