@@ -15,7 +15,7 @@
             </ul>
           <% end %>
         </div>
-        
+
       </div>
       <div class="card"></div>
     </div>
@@ -23,7 +23,7 @@
 
   <div class="userContent">
     <div class="col1">
-      <%= attachment_image_tag(@user, :avatar, :fill, 400 ,400, class: 'img-round -largest', fallback: 'avatar/user/400x400.png') %>
+      <%= attachment_image_tag(@room_demand.user, :avatar, :fill, 400 ,400, class: 'img-round -largest', fallback: 'avatar/user/400x400.png') %>
       <div class="sideBarbox">
 
       </div>
@@ -40,32 +40,9 @@
 
 
 
-    <div class="category-tags">
-      <% unless @room_demand.districts.empty? %>
-        <ul class="tag-list -mint">
-          <% @room_demand.districts.each do |district| %>
-            <li><%= district.zip_name %></li>
-          <% end %>
-          <% @room_demand.graetzls.each do |graetzl| %>
-            <li><%= graetzl.name %></li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-
     <div class="txt"><%= @room_demand.demand_description %></div>
 
-    <div class="category-tags">
-      <% unless @room_demand.keyword_list.empty? %>
-        <ul class="tag-list">
-          <% @room_demand.keyword_list.each do |keyword| %>
-            <li><%= keyword %></li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-
-    <section>
+    <section class="owner">
       <div class="bigicontext-element">
         <% if not @room_demand.user.nil? %>
           <%= avatar_for(@room_demand.user, 200) %>
@@ -74,7 +51,45 @@
         <% end %>
         <div class="txt">Über mich</div>
       </div>
-      <div class="txt"><%= @room_demand.personal_description %></div>
+      <div class="wrapper">
+        <div class="txt"><%= @room_demand.personal_description %></div>
+        <% unless @room_demand.location.nil? %>
+        <aside class="location">
+          <%= render @room_demand.location %>
+        </aside>
+        <% end %>
+      </div>
+    </section>
+
+    <section>
+      <div class="bigicontext-element">
+        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+        <div class="txt">Kontakt-Infos</div>
+      </div>
+      <div class="icontxt">
+        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+        <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
+      </div>
+      <% if @room_demand.email %>
+      <div class="icontxt">
+        <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+        <div class="txt"><%= @room_demand.email %></div>
+      </div>
+      <% end %>
+      <% if @room_demand.website %>
+        <%= link_to @room_demand.website, class: 'icontxt', target: '_blank' do %>
+        <svg class="icon-globe">
+          <use xlink:href="#icon-globe"></use>
+        </svg>
+        <%= @room_demand.website.sub(/^https?\:\/\//,'') %>
+        <% end %>
+      <% end %>
+      <% if @room_demand.phone %>
+      <div class="icontxt">
+        <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
+        <div class="txt"><%= @room_demand.phone %></div>
+      </div>
+      <% end %>
     </section>
 
     <section>
@@ -83,6 +98,25 @@
         <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
         <div class="txt">Auch an Kooperationen interessiert.</div>
       <% end %>
+    </section>
+
+    <section>
+      <div class="bigicontext-element">
+        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        <div class="txt">Wunschbezirke</div>
+      </div>
+      <div class="category-tags">
+        <% unless @room_demand.districts.empty? %>
+          <ul class="tag-list">
+            <% @room_demand.districts.each do |district| %>
+              <li><%= district.zip_name %></li>
+            <% end %>
+            <% @room_demand.graetzls.each do |graetzl| %>
+              <li><%= graetzl.name %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
     </section>
 
   </div>

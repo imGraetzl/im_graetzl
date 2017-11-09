@@ -7,9 +7,6 @@ class RoomOffersController < ApplicationController
 
   def show
     @room_offer = RoomOffer.find(params[:id])
-    unless @room_offer.user.locations.empty?
-      @location = @room_offer.user.locations.first
-    end
   end
 
   def new

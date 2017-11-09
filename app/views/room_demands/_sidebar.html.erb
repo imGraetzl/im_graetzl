@@ -18,6 +18,16 @@
         </div>
       <% end %>
 
+      <div class="category-tags">
+        <% unless @room_demand.keyword_list.empty? %>
+          <ul class="tag-list">
+            <% @room_demand.keyword_list.each do |keyword| %>
+              <li><%= keyword %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
       <div class="btn-group">
         <%= link_to 'Bearbeiten', edit_room_demand_path(@room_demand),
           class: 'btn-secondary -mint -small' if user_signed_in? && (current_user == @room_demand.user) %>
