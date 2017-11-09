@@ -1,6 +1,4 @@
-
-<!-- <section class="roomOfferPage"> -->
-<section class="roomOfferDetail">
+<section class="roomDetail -Offer">
   <div class="imgHeader -cloudy2">
     <%= attachment_image_tag @room_offer, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
   </div>
@@ -46,7 +44,7 @@
         </div>
         <ul class="tag-list-newline">
           <% @room_offer.room_offer_prices.each do |price| %>
-            <li><span><%= price.amount %></span> <%= price.name %></li>
+            <li><span><%= "%g €" % price.amount %></span> <%= price.name %></li>
           <% end %>
         </ul>
       <% end %>
@@ -72,9 +70,9 @@
       </div>
       <div class="wrapper">
         <div class="txt"><%= @room_offer.owner_description %></div>
-        <% unless @location.nil? %>
+        <% unless @room_offer.location.nil? %>
         <aside class="location">
-          <%= render @location %>
+          <%= render @room_offer.location %>
         </aside>
         <% end %>
       </div>

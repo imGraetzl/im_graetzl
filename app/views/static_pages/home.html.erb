@@ -94,7 +94,9 @@
       <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
     </div>
     <div class="cardBoxCollection -tripple">
-      <%= render @rooms %>
+      <% unless @rooms.nil? %>
+        <%= render @rooms %>
+      <% end %>
       <%= render 'rooms/action_card' %>
     </div>
   </div>
