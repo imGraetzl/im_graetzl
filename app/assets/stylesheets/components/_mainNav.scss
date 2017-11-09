@@ -136,7 +136,7 @@
     }
     .txt {
       @include ellipsis;
-      max-width: 185px;
+      max-width: 150px;
     }
   }
 
@@ -173,7 +173,7 @@
       position: relative;
       background-color: $color-ambient-mint-light;
       border-radius: 0 17px 17px 0;
-      padding: 2px 2px 2px 15px;
+      padding: 2px 0px 2px 15px;
       z-index: 1;
       margin-left: -14px;
     }

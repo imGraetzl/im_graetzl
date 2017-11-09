@@ -27,7 +27,7 @@
 
   <%= active_link_to rooms_graetzl_path(@graetzl), class: "iconfilter" do %>
     <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>
-    <div class="txt">Raumteiler</div>
+    <div class="txt">Raum-<br>teiler</div>
   <% end %>
 
   <%= active_link_to zuckerls_graetzl_path(@graetzl), class: "iconfilter" do %>
@@ -45,10 +45,12 @@
       <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
       <% end %>
   <% else %>
+    <!--
     <%= link_to new_user_session_path, class: 'iconfilter loginlink' do %>
       <svg class="icon-login-signin"><use xlink:href="#icon-login-signin"></use></svg>
       <div class="txt">Registrieren<br/>& Login</div>
     <% end %>
+    -->
   <% end %>
 </div>
 
