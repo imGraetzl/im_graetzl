@@ -162,13 +162,22 @@ input, select, textarea {
 
 .input-select .SumoSelect {
   width: 100%;
-  .SlectBox {
+  .SelectBox {
     @extend .input-plain;
   }
 
   .placeholder {
     color: $color-ambient-mint;
     font-style: italic;
+  }
+
+  .search-txt {
+    height: 100%;
+    font-size: 1.6rem;
+  }
+
+  &.open > .optWrapper {
+    top: 60px;
   }
 
   label {

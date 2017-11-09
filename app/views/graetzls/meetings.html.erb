@@ -24,17 +24,11 @@
 
   <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
     <div class="filter-selection-text">
-      Zeige mir in <%= link_to @graetzl.name, '#filter-modal-bezirk' %>
+      Zeige mir in <%= link_to @graetzl.name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
     </div>
 
-    <div id="filter-modal-bezirk" class="filter-modal filter-modal-tall">
-      <div class="filter-input">
-        <%= select :filter, :district_ids, district_select_options(@graetzl.district.id), {}, { multiple: true, class: 'district-select' } %>
-      </div>
-      <div class="secondary-input">
-        <%= select :filter, :graetzl_ids, graetzl_select_options(@graetzl.id), {}, { multiple: true, class: 'graetzl-select' } %>
-      </div>
-      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
+    <div id="filter-modal-bezirk" class="filter-modal">
+      <%= render 'filters/district_graetzl', graetzl: @graetzl %>
     </div>
   <% end %>
 

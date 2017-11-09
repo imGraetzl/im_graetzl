@@ -1,0 +1,7 @@
+<% filter_room_types.each do |label, value| %>
+  <div class="input-radio filter-input">
+    <%= radio_button :filter, :room_type, value, data: { label: label } %>
+    <%= label_tag "filter_room_type_#{value}", label %>
+  </div>
+<% end %>
+<%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>

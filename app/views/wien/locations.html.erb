@@ -14,22 +14,16 @@
 
   <div class="hl-subtext">
     <h1><em>Lokale Anbieter</em></h1>
-    <p>Finde grätzlansässige local Makers, Selbständige & lokale Unternehmen im deinem Grätzl</p>
+    <p>Entdecke Selbständige & lokale Unternehmen, Vereine & Projekte </p>
   </div>
 
   <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
     <div class="filter-selection-text">
-      Zeige mir in <%= link_to 'allen Bezirken', '#filter-modal-bezirk' %>
+      Zeige mir aus <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
     </div>
 
-    <div id="filter-modal-bezirk" class="filter-modal filter-modal-tall">
-      <div class="filter-input">
-        <%= select :filter, :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
-      </div>
-      <div class="secondary-input">
-        <%= select :filter, :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
-      </div>
-      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
+    <div id="filter-modal-bezirk" class="filter-modal">
+      <%= render 'filters/district_graetzl' %>
     </div>
   <% end %>
 

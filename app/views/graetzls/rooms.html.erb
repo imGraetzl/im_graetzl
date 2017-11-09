@@ -23,36 +23,21 @@
 
   <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
     <div class="filter-selection-text">
-      Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type' %>,
-      aus <%= link_to 'allen Kategorien', '#filter-modal-categories' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-bezirk' %>
+      Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
+      aus <%= link_to 'allen Kategorien', '#filter-modal-categories', data: { no_filter_label: 'allen Kategorien'} %>,
+      in <%= link_to @graetzl.name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
     </div>
 
     <div id="filter-modal-type" class="filter-modal">
-      <div class="input-select">
-        <%= select :filter, :room_type, options_for_select(filter_room_types), {}, { class: 'filter-input' } %>
-      </div>
-      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+      <%= render 'filters/room_type' %>
     </div>
 
     <div id="filter-modal-categories" class="filter-modal">
-      <%= collection_check_boxes :filter, :room_category_ids, RoomCategory.all, :id, :name do |b| %>
-        <div class="input-checkbox filter-input">
-          <%= b.check_box("data-label": b.text) %>
-          <%= b.label %>
-        </div>
-      <% end %>
-      <%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>
+      <%= render 'filters/room_categories' %>
     </div>
 
-    <div id="filter-modal-bezirk" class="filter-modal filter-modal-tall">
-      <div class="filter-input">
-        <%= select :filter, :district_ids, district_select_options(@graetzl.district.id), {}, { multiple: true, class: 'district-select' } %>
-      </div>
-      <div class="secondary-input">
-        <%= select :filter, :graetzl_ids, graetzl_select_options(@graetzl.id), {}, { multiple: true, class: 'graetzl-select' } %>
-      </div>
-      <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
+    <div id="filter-modal-bezirk" class="filter-modal">
+      <%= render 'filters/district_graetzl', graetzl: @graetzl %>
     </div>
   <% end %>
 

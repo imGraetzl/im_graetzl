@@ -32,6 +32,7 @@
 //= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min
+//= require imagesloaded
 //= require jquery.tagsinput
 //= require linkify.min
 //= require linkify-jquery.min

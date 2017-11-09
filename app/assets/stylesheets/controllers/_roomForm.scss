@@ -43,6 +43,10 @@ section.room-form {
     .column-right { float: right; width: 50%;}
   }
 
+  .input-select {
+    .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
+  }
+
   .room-prices {
     .input-field {
       float: left;
@@ -60,12 +64,6 @@ section.room-form {
     .btn-delete {
       float: right;
       margin-top:12px
-    }
-  }
-
-  .bezirk-graetzl-select {
-    input[type=checkbox]:not(:checked) + label {
-      display: none;
     }
   }
 

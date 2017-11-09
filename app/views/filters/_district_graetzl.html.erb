@@ -1,0 +1,9 @@
+<% graetzl ||= nil %>
+
+<div class="filter-input district-select-input">
+  <%= select :filter, :district_ids, options_for_select(district_select_options(deselect: "Ganz Wien"), graetzl.try(:district).try(:id)), {}, { multiple: true, class: 'district-select' } %>
+</div>
+<div class="graetzl-select-input">
+  <%= select :filter, :graetzl_ids, options_for_select(graetzl_select_options, graetzl.try(:id)), {}, { multiple: true, class: 'graetzl-select' } %>
+</div>
+<%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>

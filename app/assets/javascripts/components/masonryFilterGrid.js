@@ -9,9 +9,11 @@ APP.components.masonryFilterGrid = (function() {
         $grid.masonry("destroy");
       }
 
-      $grid.masonry({
-        itemSelector: '.cardBox',
-        fitWidth : true
+      $grid.imagesLoaded(function() {
+        $grid.masonry({
+          itemSelector: '.cardBox',
+          fitWidth : true
+        });
       });
 
       masonrySetup = true;
