@@ -1,0 +1,7 @@
+<%= collection_check_boxes :filter, :room_category_ids, RoomCategory.all, :id, :name do |b| %>
+  <div class="input-checkbox filter-input">
+    <%= b.check_box("data-label": b.text) %>
+    <%= b.label %>
+  </div>
+<% end %>
+<%= button_tag "Auswahl übernehmen", class: 'btn-primary filter-button' %>

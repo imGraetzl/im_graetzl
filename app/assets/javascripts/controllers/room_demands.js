@@ -5,7 +5,7 @@ APP.controllers.room_demands = (function() {
     }
 
     function initRoomForm() {
-        APP.components.graetzlSelectFilter();
+        APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
     }
 
     return {

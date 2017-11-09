@@ -18,15 +18,20 @@ APP.controllers.graetzls = (function() {
 
     function initFilter() {
       $(".filter-selection-text a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
-
       $(".cards-filter").on("click", ".filter-button", function() {
         var currentModal = $.featherlight.current();
         var selectedInputs = currentModal.$content.find(".filter-input :selected, .filter-input :checked");
-        var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
-        $('.cards-filter a[href="' + currentModal.$content.selector + '"]').text(label);
+        var link = $('.cards-filter a[href="' + currentModal.$content.selector + '"]');
+        if (selectedInputs.length > 0) {
+          var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
+          link.text(label);
+        } else {
+          link.text(link.data("no-filter-label"));
+        }
         $('.autosubmit-filter').submit();
         currentModal.close();
       });
+
 
       APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
 

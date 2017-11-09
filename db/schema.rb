@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108115122) do
+ActiveRecord::Schema.define(version: 20171109005908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,13 +305,6 @@ ActiveRecord::Schema.define(version: 20171108115122) do
     t.index ["room_demand_id"], name: "index_room_demand_categories_on_room_demand_id", using: :btree
   end
 
-  create_table "room_demand_districts", force: :cascade do |t|
-    t.integer "district_id"
-    t.integer "room_demand_id"
-    t.index ["district_id"], name: "index_room_demand_districts_on_district_id", using: :btree
-    t.index ["room_demand_id"], name: "index_room_demand_districts_on_room_demand_id", using: :btree
-  end
-
   create_table "room_demand_graetzls", force: :cascade do |t|
     t.integer "graetzl_id"
     t.integer "room_demand_id"
@@ -476,8 +469,6 @@ ActiveRecord::Schema.define(version: 20171108115122) do
   add_foreign_key "district_graetzls", "graetzls"
   add_foreign_key "room_demand_categories", "room_categories"
   add_foreign_key "room_demand_categories", "room_demands"
-  add_foreign_key "room_demand_districts", "districts"
-  add_foreign_key "room_demand_districts", "room_demands"
   add_foreign_key "room_demand_graetzls", "graetzls"
   add_foreign_key "room_demand_graetzls", "room_demands"
   add_foreign_key "room_demands", "locations"
