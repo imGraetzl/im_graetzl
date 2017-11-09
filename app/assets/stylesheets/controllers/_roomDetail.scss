@@ -63,7 +63,12 @@ section.roomDetail {
 
   }
 
+
   &.-Demand {
+
+    .introtxt h3 {
+      margin-top:20px;
+    }
 
     .imgHeader {
       overflow: visible;
@@ -108,9 +113,12 @@ section.roomDetail {
     .userContent {
       @include cf;
       margin-bottom: 50px;
+      @include respond-to(">=medium") {
+        margin-bottom: 80px;
+      }
 
       .col1 {
-        margin-top: -50px;
+        margin-bottom: -50px;
         position: relative;
         z-index: 2;
         @include respond-to(">=medium") {
@@ -143,12 +151,11 @@ section.roomDetail {
           padding-top: 50px;
           padding-right: 40px;
         }
-
       }
-
     }
-
   }
+
+
 
   @include cf;
 
