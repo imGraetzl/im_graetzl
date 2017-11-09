@@ -1,5 +1,5 @@
 <div class="cardbox-wrp">
-  <div class="paperCard -cord1RT -illuteaser -location">
+  <div class="paperCard -cord1RT -illuteaser -rooms">
     <div class="wrp">
       <div class="user">
         <% if current_user %>
@@ -11,14 +11,14 @@
         <% end %>
       </div>
       <% if defined? graetzl %>
-        <h3>Hast du Raum, suchst du Raum im <%= graetzl.name %>?</h3>
-        <%= link_to 'Raumteiler erstellen', select_room_offers_path, class: 'btn-primary' %>
+        <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= graetzl.name %>--></h3>
+        <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
       <% elsif defined? district %>
-        <h3>Hast du Raum, suchst du Raum im <%= district.numeric %>. Bezirk?</h3>
-        <%= link_to 'Raumteiler erstellen', select_room_offers_path, class: 'btn-primary' %>
+        <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= district.numeric %>--></h3>
+        <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Hast du Raum, suchst du Raum?</h3>
-        <%= link_to 'Raumteiler erstellen', select_room_offers_path, class: 'btn-primary -rose' %>
+        <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>
+        <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>
