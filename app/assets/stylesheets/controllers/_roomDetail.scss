@@ -105,9 +105,6 @@ section.roomDetail {
 
     .sideBarbox {
       margin-bottom: 20px;
-      @include respond-to(">=medium") {
-        margin-bottom: 0;
-      }
     }
 
     .userContent {

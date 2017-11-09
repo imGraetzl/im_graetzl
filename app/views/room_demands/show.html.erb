@@ -68,10 +68,12 @@
         <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
       </div>
       <% if @room_demand.email %>
+      <%= mail_to @room_demand.email do %>
       <div class="icontxt">
         <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
         <div class="txt"><%= @room_demand.email %></div>
       </div>
+      <% end %>
       <% end %>
       <% if @room_demand.website %>
         <%= link_to @room_demand.website, class: 'icontxt', target: '_blank' do %>
