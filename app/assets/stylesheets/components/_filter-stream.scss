@@ -1,7 +1,8 @@
 .filter-stream {
   display: flex;
   align-items: center;
-  margin: 35px 0;
+  justify-content: center;
+  margin: 0px 0px 35px 0px;
 
   .iconfilter {
     @extend .bigicontext-element;

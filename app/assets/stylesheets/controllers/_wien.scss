@@ -59,7 +59,7 @@ section.wien.-overview-pages {
     @include respond-to(">=small") {
       height:150px;
       .filter-stream {
-        margin-bottom: 0px;
+        margin: 0px 0px 0px 0px;
       }
     }
     @include respond-to(">=medium") {
@@ -68,11 +68,14 @@ section.wien.-overview-pages {
       background-size: 700px;
       background-position: right, center;
       .filter-stream {
-        margin-left:40px;
+        margin: 0px 0px 0px 170px;
       }
     }
     @include respond-to(">=large") {
       height:200px;
+      .filter-stream {
+        margin: 0px 0px 0px 0px;
+      }
     }
     margin-bottom:50px;
     margin-left: -30px;
