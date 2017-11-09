@@ -7,7 +7,7 @@
       <% RoomDemand.demand_types.each_with_index do |(name, value), i| %>
         <div class="input-radio">
           <%= f.radio_button :demand_type, name, required: true %>
-          <%= f.label "demand_type_#{name}", t("activerecord.attributes.room_demand.demand_types.#{name}") %>
+          <%= f.label "demand_type_#{name}", t("activerecord.attributes.room_demand.demand_types_active.#{name}") %>
         </div>
       <% end %>
     </div>
