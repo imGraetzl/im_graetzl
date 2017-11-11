@@ -8,7 +8,7 @@ APP.controllers.room_offers = (function() {
         APP.components.addressSearchAutocomplete();
 
         $('#custom-keywords').tagsInput({
-            'defaultText':'Tags'
+            'defaultText':'Kurz in Stichworten ..'
         });
     }
 

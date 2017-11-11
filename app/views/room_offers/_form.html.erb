@@ -155,7 +155,7 @@
   </div>
   <div class="input-field">
     <%= f.label :website do %>
-    <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+    <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
     <span>Website</span>
     <% end %>
     <%= f.text_field :website, placeholder: 'https://...' %>
@@ -169,7 +169,7 @@
   </div>
   <div class="input-field">
     <%= f.label :phone do %>
-    <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+    <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
     <span>Telefonnummer</span>
     <% end %>
     <%= f.text_field :phone %>
@@ -181,9 +181,7 @@
     <% end %>
     <%= f.collection_select(:location_id, current_user.locations, :id, :name, {include_blank: true}) %>
   </div>
-  
+
   <%= f.button 'Raumteiler erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 </div>
 <% end %>
-
-<!-- 'Weitere wichtige Ausstattungsmerkmale … Benenne deine Tätigkeit' -->

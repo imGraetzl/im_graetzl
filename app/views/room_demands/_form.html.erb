@@ -2,17 +2,16 @@
   <%= form_errors_for @room_demand %>
   <div class="form-block">
 
-    <h2>Ich möchte …</h2>
     <div class="room-offer-type-selection">
       <% RoomDemand.demand_types.each_with_index do |(name, value), i| %>
         <div class="input-radio">
           <%= f.radio_button :demand_type, name, required: true %>
-          <%= f.label "demand_type_#{name}", t("activerecord.attributes.room_demand.demand_types_active.#{name}") %>
+          <%= f.label "demand_type_#{name}", t("activerecord.attributes.room_demand.demand_types.#{name}") %>
         </div>
       <% end %>
     </div>
 
-    <h2>Raumkategorie - Welche Art von Raum suchst du?</h2>
+    <h2 class="hl-main">Welche <span>Art von Raum</span> suchst du?</h2>
     <div class="room-categories">
       <%= f.collection_check_boxes :room_category_ids, RoomCategory.all, :id, :name do |b| %>
         <div class="input-checkbox">
@@ -22,7 +21,7 @@
       <% end %>
     </div>
 
-    <h2><span>Wo möchtest du</span> idealerweise anmieten?</h2>
+    <h2 class="hl-main"><span>Wo</span> möchtest du idealerweise <span>anmieten</span>?</h2>
     <div class="input-select">
       <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
     </div>
@@ -30,7 +29,7 @@
       <%= f.select :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
     </div>
 
-    <h2>Ausstattung</h2>
+    <h2 class="hl-main"><span>Ausstattung</span> - Kurz das wichtigste</h2>
     <div class="room-tags">
       <%= collection_check_boxes nil, :suggested_keywords, RoomSuggestedTag.pluck(:name), :downcase, :to_s do |b| %>
         <div class="input-checkbox">
@@ -39,40 +38,48 @@
         </div>
       <% end %>
     </div>
+
     <div class="input-tags">
       <%= label_tag :custom_keywords do %>
-        <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
-        <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
+      <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+      <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
       <% end %>
       <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
     </div>
 
 
-    <h2>Wie groß sollte der Raum mindestens sein?</h2>
+    <h2 class="hl-main"><span>Wie groß</span> sollte der Raum mindestens sein?</h2>
     <div class="room-size">
-      <div class="input-field column-left">
+      <div class="input-field">
         <%= f.label :needed_area, 'Größe die du benötigst in m2' %>
         <%= f.number_field :needed_area %>
       </div>
     </div>
 
 
-    <h2><span>Kurzer Titel</span> Dein Raumteiler in einem Satz:</h2>
+    <h2 class="hl-main"><span>Raumtitel</span> und <span>Beschreibung</span></h2>
     <div class="input-field">
       <%= f.label :slogan do %>
-        <svg class="icon-home"><use xlink:href="#icon-home"></use></svg>
+        <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
         <span>Kurzer Titel</span>
       <% end %>
       <%= f.text_field :slogan, placeholder: 'z.B. Suche einen Raum für handwerklich kreative Tätigkeiten…' %>
     </div>
 
-    <h2>Beschreibe deine Raumsuche genauer:</h2>
     <div class="input-field">
-      <%= f.text_area :demand_description, placeholder: 'Hast du speyielle Anforderungen an den Raum? Beschreibe kurz das Umfeld welches gut zu dir passen würde. Welche Leute wären für dich toll als Mitnutzer im Raum zu haben …' %>
+      <%= f.label :demand_description do %>
+        <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+        <span>Beschreibung</span>
+      <% end %>
+      <%= f.text_area :demand_description, placeholder: 'Hast du spezielle Anforderungen an den Raum? Beschreibe kurz das Umfeld welches gut zu dir passen würde. Welche Leute wären toll als Mitnutzer im Raum zu haben …' %>
     </div>
 
-    <h2>Ein paar Worte uber dich / deine Tätigkeit:</h2>
+    <h2 class="hl-main">Ein paar Worte <span>über dich & deine Tätigkeit</span></h2>
     <div class="input-field">
+      <%= f.label :personal_description do %>
+      <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+      <span>Über dich</span>
+      <% end %>
       <%= f.text_area :personal_description, placeholder: 'Beschreibe kurz deine Tätigkeit. Auch ein paar persönliche Worte über dich wären toll …' %>
     </div>
 
@@ -81,9 +88,9 @@
       <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
     </div>
 
-    <h2> Dein Profilbild </h2>
+    <h2 class="hl-main">Dein <span>Profilbild</span></h2>
 
-    <h2 class="hl-main">Deine Kontaktdaten</h2>
+    <h2 class="hl-main">Deine <span>Kontaktdaten</span></h2>
     <div class="input-field">
       <%= f.label :first_name do %>
       <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
@@ -100,7 +107,7 @@
     </div>
     <div class="input-field">
       <%= f.label :website do %>
-      <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+      <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
       <span>Website</span>
       <% end %>
       <%= f.text_field :website, placeholder: 'https://...' %>
@@ -127,9 +134,7 @@
       <%= f.collection_select(:location_id, current_user.locations, :id, :name, {include_blank: true}) %>
     </div>
 
-    <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+    <%= f.button 'Raumteiler erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 
   </div>
 <% end %>
-
-<!-- 'Weitere wichtige Ausstattungsmerkmale … Benenne deine Tätigkeit' -->
