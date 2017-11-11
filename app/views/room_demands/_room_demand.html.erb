@@ -3,7 +3,7 @@
   <% if room_demand.districts.present? %>
     <div class="categoryicon">
       <!--<%= "#{room_demand.districts.first.zip}" %>-->
-      <% unless room_demand.room_categories.empty? %>
+      <!--<% unless room_demand.room_categories.empty? %>-->
       <div class="category-tags">
           <ul class="tag-list -mint">
             <% room_demand.room_categories.first(1).each do |category| %>
@@ -11,7 +11,7 @@
             <% end %>
           </ul>
       </div>
-      <% end %>
+      <!--<% end %>-->
     </div>
   <% end %>
 
