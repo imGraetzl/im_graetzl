@@ -99,10 +99,11 @@
 
   .roomtype {
     color: $color-ambient-rosa;
-    //line-height: 1;
     font-style: italic;
     padding: 10px 0px 12px 0px;
   }
+  a.typelink {text-decoration: none !important;}
+  a.typelink:hover {text-decoration: none !important;}
 
   &.-roomoffer, &.-roomdemand {
     .slogan {
