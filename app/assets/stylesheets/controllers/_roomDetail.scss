@@ -123,6 +123,11 @@ section.roomDetail {
           margin-top: -90px;
           max-width: 240px;
         }
+        @include respond-to(">=large") {
+          @include col(1/3);
+          margin-top: -120px;
+          margin-left: -20px;
+        }
         .img-round {
           width: 100px;
           height: 100px;
@@ -133,7 +138,12 @@ section.roomDetail {
             height: 200px;
             padding: 6px;
             margin-left: 0;
-
+          }
+          @include respond-to(">=large") {
+            width: 250px;
+            height: 250px;
+            padding: 6px;
+            margin-left: 0;
           }
         }
         .icontxt {
@@ -192,9 +202,15 @@ section.roomDetail {
     margin-bottom: 1em;
   }
 
-
-
-
+  .wrp {
+    h1 {
+      @include font-size-secondaryFont('large');
+      color: $color-font-primary;
+    }
+    @include respond-to(">=large") {
+      left:30px;
+    }
+  }
 
   .introtxt {
     margin-bottom: 30px;
@@ -212,10 +228,11 @@ section.roomDetail {
       @include font-size-primaryFont('larger');
       margin-bottom: 15px;
     }
-    .txt {
-      white-space: pre-wrap;
-    }
   }
+  .txt {
+    white-space: pre-wrap;
+  }
+
   .iconlist {
     padding: 15px;
     > * {
