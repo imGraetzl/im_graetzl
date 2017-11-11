@@ -204,7 +204,7 @@ section.roomDetail {
 
   .wrp {
     h1 {
-      @include font-size-secondaryFont('large');
+      @include font-size-secondaryFont('medium');
       color: $color-font-primary;
     }
     @include respond-to(">=large") {
@@ -330,6 +330,29 @@ section.roomDetail {
       height: 40px;
       margin-left: 3px;
       margin-right: 3px;
+    }
+  }
+
+  .contact-infos {
+    a {
+      color: $color-ambient-mint;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .contact-login-msg {
+    @include font-size-primaryFont('large');
+    border: 1px solid $color-ambient-grey-light;
+    border-radius: 8px;
+    padding:20px;
+    font-style: italic;
+    background-color: #FEF6DF;
+    color: #cd891b;
+    a {
+      color: #cd891b;
     }
   }
 

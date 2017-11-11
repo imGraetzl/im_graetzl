@@ -60,39 +60,53 @@
 
     <section>
       <div class="bigicontext-element">
-        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+        <svg class="icon-profile-vcard"><use xlink:href="#icon-profile-vcard"></use></svg>
         <div class="txt">Kontakt-Infos</div>
       </div>
-      <% unless @room_demand.first_name.empty? && @room_demand.last_name.empty? %>
-      <div class="icontxt">
-        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-        <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
-      </div>
-      <% end %>
-      <% unless @room_demand.email.empty? %>
-      <%= mail_to @room_demand.email do %>
-      <div class="icontxt">
-        <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-        <div class="txt"><%= @room_demand.email %></div>
-      </div>
-      <% end %>
-      <% end %>
-      <% unless @room_demand.website.empty? %>
-        <%= link_to @room_demand.website, class: 'icontxt', target: '_blank' do %>
-        <svg class="icon-globe">
-          <use xlink:href="#icon-globe"></use>
-        </svg>
-        <%= @room_demand.website.sub(/^https?\:\/\//,'') %>
+
+      <% if current_user %>
+      <div class="contact-infos">
+        <% unless @room_demand.first_name.empty? && @room_demand.last_name.empty? %>
+        <div class="icontxt">
+          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
+        </div>
         <% end %>
-      <% end %>
-      <% unless @room_demand.phone.empty? %>
-      <div class="icontxt">
-        <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
-        <div class="txt"><%= @room_demand.phone %></div>
+        <% unless @room_demand.phone.empty? %>
+        <div class="icontxt">
+          <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
+          <div class="txt"><%= @room_demand.phone %></div>
+        </div>
+        <% end %>
+        <% unless @room_demand.email.empty? %>
+        <%= mail_to @room_demand.email do %>
+        <div class="icontxt">
+          <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+          <div class="txt"><%= @room_demand.email %></div>
+        </div>
+        <% end %>
+        <% end %>
+        <% unless @room_demand.website.empty? %>
+          <%= link_to @room_demand.website, class: 'icontxt', target: '_blank' do %>
+          <svg class="icon-globe">
+            <use xlink:href="#icon-globe"></use>
+          </svg>
+          <%= @room_demand.website.sub(/^https?\:\/\//,'') %>
+          <% end %>
+        <% end %>
       </div>
+      <% else %>
+        <div class="contact-login-msg">
+            Du musst eingeloggt sein, um die vollständigen Kontaktinformationen zu sehen.<br />
+            <%= link_to 'Zum Login', new_user_session_path %> |
+            <%= link_to 'Zur Registrierung', new_registration_path %>
+        </div>
       <% end %>
+
+
     </section>
 
+    <!--
     <section>
       <% if @room_demand.wants_collaboration? %>
         <div class="bigicontext-element">
@@ -100,6 +114,7 @@
         <div class="txt">Auch an Kooperationen interessiert.</div>
       <% end %>
     </section>
+    -->
 
     <section>
       <div class="bigicontext-element">
