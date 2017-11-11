@@ -26,7 +26,11 @@
   </div>
   <div class="cardBoxContent -roomdemand">
 
-    <div class="roomtype"><%= t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") %></div>
+    <div class="roomtype">
+      <%= link_to room_demand, class: 'typelink' do %>
+        <%= t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") %>
+      <% end %>
+    </div>
 
     <!--<div class="location-shortfacts roomdemand-shortfacts">
       <div class="locationtxt">

@@ -11,12 +11,16 @@
   </div>
   <div class="cardBoxContent -roomoffer">
     <div class="location-shortfacts roomoffer-shortfacts">
-      <%= link_to room_offer.user, class: 'locationlogo' do %>
+      <%= link_to room_offer, class: 'locationlogo' do %>
         <%= avatar_for room_offer.user, 200, 'img-square' %>
       <% end %>
+      <%= link_to room_offer, class: 'typelink' do %>
       <div class="locationtxt">
-        <div class="roomtype"><%= t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") %></div>
+        <div class="roomtype">
+            <%= t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") %>
+        </div>
       </div>
+      <% end %>
     </div>
     <div class="slogan"><%= room_offer.slogan %></div>
     <div class="txt">
