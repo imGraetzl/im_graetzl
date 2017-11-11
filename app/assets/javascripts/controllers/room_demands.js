@@ -6,6 +6,10 @@ APP.controllers.room_demands = (function() {
 
     function initRoomForm() {
         APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
+
+        $('#custom-keywords').tagsInput({
+            'defaultText':'Kurz in Stichworten ..'
+        });
     }
 
     return {

@@ -113,15 +113,18 @@ de:
         created_at: Erstellt am
       room_offer:
         offer_types:
+          offering_room: Biete Raum zum Andocken
+          seeking_roommate: Biete Raum zur gemeinsamen Neuanmietung
+        offer_types_active:
           offering_room: Raum zum Andocken
           seeking_roommate: Raum zur gemeinsamen Neuanmietung
       room_demand:
         demand_types:
           seeking_room: Suche Raum zum Andocken
-          seeking_roommate: Suche Raum zum gemeinsam neu anmieten
+          seeking_roommate: Suche Raum zur gemeinsamen Neuanmietung
         demand_types_active:
-          seeking_room: Mich in Räumlichkeiten andocken
-          seeking_roommate: Gemeinsam neu anmieten
+          seeking_room: Raum zum Andocken
+          seeking_roommate: Raum zur gemeinsamen Neuanmietung
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am
