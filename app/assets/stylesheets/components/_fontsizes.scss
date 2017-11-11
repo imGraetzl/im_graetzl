@@ -71,6 +71,16 @@
     }
   }
 
+  @if $size == 'medium' {
+    font-size: 3.6rem;
+    @include respond-to(">=medium") {
+      font-size: 5.0rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 5.0rem;
+    }
+  }
+
   @if $size == 'large' {
     font-size: 3.6rem;
     @include respond-to(">=medium") {
@@ -82,4 +92,3 @@
   }
 
 }
-
