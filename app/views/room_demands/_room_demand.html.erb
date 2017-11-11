@@ -1,16 +1,30 @@
-<div class="cardBox -location">
+<div class="cardBox -location -roomdemand">
+
+  <% if room_demand.districts.present? %>
+    <div class="categoryicon">
+      <!--<%= "#{room_demand.districts.first.zip}" %>-->
+      <% unless room_demand.room_categories.empty? %>
+      <div class="category-tags">
+          <ul class="tag-list -mint">
+            <% room_demand.room_categories.first(1).each do |category| %>
+              <li><%= category.name %></li>
+            <% end %>
+          </ul>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="cardBoxHeader -roomdemand">
     <%= link_to room_demand do %>
-      <%= avatar_for room_demand.user, 300, 'userimg-header' %>
-    <% end %>
-    <% if room_demand.districts.present? %>
-      <div class="categoryicon">
-        <%= "#{room_demand.districts.first.zip}" %>
-      </div>
+      <%= avatar_for room_demand.user, 300, class:'coverImg'  %>
     <% end %>
   </div>
   <div class="cardBoxContent -roomdemand">
-    <div class="location-shortfacts roomdemand-shortfacts">
+
+    <div class="roomtype"><%= t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") %></div>
+
+    <!--<div class="location-shortfacts roomdemand-shortfacts">
       <div class="locationtxt">
         <% if room_demand.user %>
           <%= link_to room_demand.user do %>
@@ -18,7 +32,8 @@
           <% end %>
         <% end %>
       </div>
-    </div>
+    </div>-->
+
     <div class="slogan"><%= room_demand.slogan %></div>
     <div class="txt">
       <p><%= truncate room_demand.demand_description, length: 100 %></p>
