@@ -25,6 +25,20 @@
   padding: 14px;
   border-radius: 8px;
   position: relative;
+
+  &.-roomdemand {
+    .categoryicon {
+      position: relative;
+      background:none;
+      top: -16px;
+      right: -16px;
+      z-index: 10;
+      height:50px;
+      .category-tags {
+        float: right;
+      }
+    }
+  }
 }
 
 
@@ -33,10 +47,13 @@
   margin: -6px -6px 20px;
   min-height: 40px;
   &.-roomdemand {
-    max-height: 180px;
+    top:-50px;
+    margin-bottom: -50px;
+    max-height: 200px;
     overflow: hidden;
-    margin: -6px -6px 49px;
-  };
+    //margin: -6px -6px 49px;
+  }
+
   .coverImg {
     width: 100%;
     border-radius: 4px;
@@ -79,8 +96,19 @@
 
 
 .cardBoxContent {
-  &.-roomoffer{
-    margin: 20px 0 0 0;
+
+  .roomtype {
+    color: $color-ambient-rosa;
+    //line-height: 1;
+    font-style: italic;
+    padding: 10px 0px 12px 0px;
+  }
+
+  &.-roomoffer, &.-roomdemand {
+    .slogan {
+      font-style: normal;
+      font-weight: 600;
+    }
     .collaboration {
       color: $color-ambient-brown;
       margin: -5px;
@@ -88,6 +116,13 @@
       background-color: $color-ambient-pink;
     }
   }
+  &.-roomoffer {
+    .slogan {
+      margin-top: 5px;
+    }
+  }
+
+
   .updateteaser, .zuckerlteasertxt, .event-teaser-box {
     display: block;
     padding: 10px 15px;
@@ -306,9 +341,9 @@
   }
   &.roomoffer-shortfacts {
     background: none;
-    .name {
-      margin-top: 53px;
-      color: $color-ambient-mint;
+    margin-bottom: 0px;
+    .roomtype {
+      margin-top: 47px;
     }
   }
 }

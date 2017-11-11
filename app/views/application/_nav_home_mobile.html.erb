@@ -1,4 +1,7 @@
 <div class="mobileMainNav">
+  <%= link_to wien_path, class: 'discover' do %>
+    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
+  <% end %>
   <%= link_to meetings_wien_path do %>
     <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events
   <% end %>
@@ -10,9 +13,6 @@
   <% end %>
   <%= link_to zuckerls_wien_path do %>
     <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerln & Angebote
-  <% end %>
-  <%= link_to wien_path, class: 'discover' do %>
-    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
   <% end %>
   <%= link_to_more_info %>
   <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank"><svg class="icon-coffee"><use xlink:href="#icon-coffee"></use></svg>Blog</a>
