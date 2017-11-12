@@ -36,7 +36,7 @@
 
   </div>
 
-  <% unless @room_demand.email.empty? %>
+  <% unless @room_demand.email.nil? %>
   <%= mail_to @room_demand.email, "Anbieter kontaktieren", class: 'btn-primary -mint', subject: "Raumteiler Kontakt" %>
   <% end %>
 
