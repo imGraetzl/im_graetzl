@@ -2,17 +2,17 @@
   <%= link_to district_path(district) do %>
     <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= district.name %> (<%= district.numeric %>. Bez.)
   <% end %>
-  <%= link_to meetings_district_path(district) do %>
-    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events (<%= district.numeric %>. Bez.)
-  <% end %>
   <%= link_to locations_district_path(district) do %>
     <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations (<%= district.numeric %>. Bez.)
+  <% end %>
+  <%= link_to meetings_district_path(district) do %>
+    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Events & Workshops (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to rooms_district_path(district) do %>
     <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>Raumteiler (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to zuckerls_district_path(district) do %>
-    <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerln & Angebote (<%= district.numeric %>. Bez.)
+    <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl & Angebote (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to wien_path, class: 'discover' do %>
     <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
