@@ -66,19 +66,19 @@
 
       <% if current_user %>
       <div class="contact-infos">
-        <% unless @room_demand.first_name.empty? && @room_demand.last_name.empty? %>
+        <% unless @room_demand.first_name.nil? && @room_demand.last_name.nil? %>
         <div class="icontxt">
           <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
           <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
         </div>
         <% end %>
-        <% unless @room_demand.phone.empty? %>
+        <% unless @room_demand.phone.nil? %>
         <div class="icontxt">
           <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
           <div class="txt"><%= @room_demand.phone %></div>
         </div>
         <% end %>
-        <% unless @room_demand.email.empty? %>
+        <% unless @room_demand.email.nil? %>
         <%= mail_to @room_demand.email do %>
         <div class="icontxt">
           <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
@@ -86,7 +86,7 @@
         </div>
         <% end %>
         <% end %>
-        <% unless @room_demand.website.empty? %>
+        <% unless @room_demand.website.nil? %>
           <%= link_to @room_demand.website, class: 'icontxt', target: '_blank' do %>
           <svg class="icon-globe">
             <use xlink:href="#icon-globe"></use>
