@@ -15,19 +15,19 @@
     <div class="txt"><%= @district.numeric %>. Bezirk <br/>Übersicht</div>
   <% end %>
 
-  <%= active_link_to meetings_district_path(@district), class: "iconfilter" do %>
-    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
-    <div class="txt">Treffen <br/>& Events</div>
-  <% end %>
-
   <%= active_link_to locations_district_path(@district), class: "iconfilter" do %>
     <svg class="icon-location active"><use xlink:href="#icon-location"></use></svg>
     <div class="txt">Anbieter <br/>& Locations</div>
   <% end %>
 
+  <%= active_link_to meetings_district_path(@district), class: "iconfilter" do %>
+    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+    <div class="txt">Events & <br/>Workshops</div>
+  <% end %>
+
   <%= active_link_to rooms_district_path(@district), class: "iconfilter" do %>
     <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>
-    <div class="txt">Raum-<br>teiler</div>
+    <div class="txt">Raum<br>teiler</div>
   <% end %>
 
   <%= active_link_to zuckerls_district_path(@district), class: "iconfilter" do %>
