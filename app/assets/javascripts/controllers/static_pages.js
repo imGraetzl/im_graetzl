@@ -2,9 +2,32 @@ APP.controllers.static_pages = (function() {
 
     function init() {
       if($("section.help").exists()) initHelp();
+      if($("section.help").exists()) initMobileNav();
     }
 
 // ---------------------------------------------------------------------- Public
+
+function initMobileNav() {
+  var $dropdown = $(".filter-stream .input-select select");
+  $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
+      var $this = $(this),
+          link = $this.prop('href'),
+          txt = $this.find('.txt').text();
+
+      $dropdown.append(getOption());
+      $dropdown.on('change', function() {
+          document.location.href = $dropdown.val();
+      });
+
+      function getOption() {
+          if($this.hasClass('active'))
+              return '<option selected value="'+ link +'">'+ txt +'</option>';
+          return '<option value="'+ link +'">'+ txt +'</option>';
+      }
+
+  });
+  $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
+}
 
 // Dont scroll over the Footer Element
 function checkOffset() {

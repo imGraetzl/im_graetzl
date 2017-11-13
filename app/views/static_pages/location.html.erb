@@ -1,247 +1,148 @@
-<section class="locationPage">
+<%
+   meta({
+          title: t('.title'),
+          description: t('.description'),
+          robots: 'index, follow',
+          og_title: t('.title'),
+          og_description: t('.description'),
+          og_image: image_url('meta/og_logo.png')
+        })
+%>
 
-  <div class="imgHeader -cloudy2">
-    <div class="titleHeadline">
-      <div class="wrp">
-        <a href=""><h3 class="district">Stuwerviertel</h3></a>
+<section class="help -detail">
 
-        <h1>Palette Bio & feinstes vom Land</h1>
-        <h4 class="locationType">Feinkostladen/Esslokal</h4>
-      </div>
-      <img class="locationAvatar" src="/assets/images/dummy/palette.jpg" alt="">
-
-      <div class="card"></div>
-    </div>
-    <img class="titleImg" src="/assets/images/dummy/palette_header.jpg" alt="">
+  <div class="hl-subtext">
+    <h1><em>Anbieter & Locations</em> - Hilfe</h1>
+    <p>Fragen & Antworten zur Locationseite</p>
   </div>
 
-  <div class="mainContent">
-    <div class="introtxt">
-      <h3>Die “Palette” — Bio auf dem Vorgartenmarkt</h3>
-      <p>Unser Laden bietet - wie der Name sagt - nicht “nur” zertifizierte Bio-Produkte an, sondern auch Produkte in
-        Bio-Qualität. Wir kennen diese Produzenten persönlich und wissen, wie sie arbeiten und ihre Lebensmittel
-        herstellen.</p>
+  <%= render 'help_menu' %>
+
+  <div class="paperCard -cord1RT container" id="zero">
+    <div class="wrp">
+      <p>
+        <strong>Die Locationseite</strong> ist der erste Schritt, um in deinem Stadtteil sichtbar zu werden!
+        Du kannst sie mit nur wenigen Klicks einfach und schnell einrichten,
+        sie ist mobil- und suchmaschinenoptimiert und deine Eintrittskarte um in deinen
+        Stadtteil-Newsletter zu gelangen! Und: sie ist kostenlos!
+      </p>
     </div>
-
-
-    <div class="zuckerlBlock">
-      <h2>August</h2>
-      <div class="zuckerlCollection">
-
-        <div class="zuckerlBox">
-          <div class="wrp-img">
-            <img src="https://placeimg.com/300/200/nature?3" alt="">
-          </div>
-          <div class="txt">
-            <div class="user">
-              <img class="img-round" src="/assets/images/dummy/palette.jpg" alt="">
-              <span>Palette</span>
-            </div>
-            <h3>Mittagsmenü täglich frisch gekocht - auch zum mitnehmen.</h3>
-            <p>Noch nicht probiert? Im Juli gibt es unser Mittagsmenü um nur 5,90 €</p>
-          </div>
-        </div>
-
-        <div class="zuckerlBox">
-          <div class="wrp-img">
-            <img src="https://placeimg.com/300/200/nature" alt="">
-          </div>
-          <div class="txt">
-            <div class="user">
-              <img class="img-round" src="/assets/images/dummy/palette.jpg" alt="">
-              <span>Palette</span>
-            </div>
-            <h3>Mittagsmenü täglich frisch gekocht - auch zum mitnehmen.</h3>
-            <p>Noch nicht probiert? Im Juli gibt es unser Mittagsmenü um nur 5,90 €</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-
-    <div class="meetingsBlock">
-      <div class="wrp-hl">
-        <h2>Treffen</h2>
-        <button class="btn-userCallToAction">
-        <span>
-          <img src="/assets/images/dummy/dummy-100x100-Mermaid-plain.jpg" alt="" class="img-round"/>
-          Treffen erstellen
-          <svg class="icon-plus">
-            <use xlink:href="#icon-plus"></use>
-          </svg>
-        </span>
-        </button>
-      </div>
-
-      <div class="meetingBoxCollection -double">
-
-        <div class="meetingBox">
-          <div class="meetingBoxHeader">
-            <img class="coverImg" src="https://placeimg.com/300/180/nature" alt="">
-
-            <div class="calendarSheet">
-              <div class="day">14</div>
-              <div class="month">Aug</div>
-            </div>
-
-            <div class="medalBadge">
-              <img class="img-round" src="/assets/images/dummy/palette.jpg" alt="">
-            </div>
-
-            <div class="initiator">
-              <img class="img-round" src="https://placeimg.com/40/40/people?6" alt="">
-              <span>Inge</span>
-            </div>
-          </div>
-          <h3>Verkostung: Hildegard von Bingen-Produkte</h3>
-
-          <div class="txt">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci necessitatibus perspiciatis tenetur
-              veniam voluptatem! Mollitia.</p>
-          </div>
-          <a class="btn-primary -mint" href="#">Mitmachen</a>
-        </div>
-
-        <div class="meetingBox">
-          <div class="meetingBoxHeader">
-            <img class="coverImg" src="https://placeimg.com/300/180/nature?9" alt="">
-
-            <div class="calendarSheet">
-              <div class="day">14</div>
-              <div class="month">Aug</div>
-            </div>
-
-            <div class="medalBadge">
-              <img class="img-round" src="/assets/images/dummy/palette.jpg" alt="">
-            </div>
-
-            <div class="initiator">
-              <img class="img-round" src="https://placeimg.com/40/40/people?3" alt="">
-              <span>Inge</span>
-            </div>
-          </div>
-          <h3>Verkostung: Hildegard von Bingen-Produkte</h3>
-
-          <div class="txt">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci necessitatibus perspiciatis tenetur
-              veniam voluptatem! Mollitia.</p>
-          </div>
-          <a class="btn-primary -mint" href="#">Mitmachen</a>
-        </div>
-
-        <div class="meetingBox">
-          <div class="meetingBoxHeader">
-            <img class="coverImg" src="https://placeimg.com/300/180/nature?2" alt="">
-
-            <div class="calendarSheet">
-              <div class="day">14</div>
-              <div class="month">Aug</div>
-            </div>
-
-            <div class="medalBadge">
-              <img class="img-round" src="/assets/images/dummy/palette.jpg" alt="">
-            </div>
-
-            <div class="initiator">
-              <img class="img-round" src="https://placeimg.com/40/40/people?7" alt="">
-              <span>Inge</span>
-            </div>
-          </div>
-          <h3>Verkostung: Hildegard von Bingen-Produkte</h3>
-
-          <div class="txt">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci necessitatibus perspiciatis tenetur
-              veniam voluptatem! Mollitia.</p>
-          </div>
-          <a class="btn-primary -mint" href="#">Mitmachen</a>
-        </div>
-
-      </div>
-    </div>
-
+    <div class="card"></div>
   </div>
 
-  <aside class="sideBar">
-
-    <div class="sideBarbox staff">
-      <h4 class="sideflag -L">Arbeiten hier</h4>
-      <img class="img-round" src="https://placeimg.com/40/40/people?2" alt="">
-      <img class="img-round" src="https://placeimg.com/40/40/people?3" alt="">
-      <img class="img-round" src="https://placeimg.com/40/40/people?4" alt="">
+  <aside>
+    <div id="help_nav">
+      <a href="#one" class="btn-primary -mint" id="nav-one">Location einrichten</a>
+      <a href="#two" class="btn-primary -mint" id="nav-two">Neuigkeiten posten</a>
     </div>
-
-    <div class="sideBarbox openinghours">
-      <h4 class="sideflag -L">Öffnungszeiten</h4>
-
-      <div class="icontxt">
-        <svg class="icon-time-clock">
-          <use xlink:href="#icon-time-clock"></use>
-        </svg>
-        <ul>
-          <li>Di - Fr 08:00 — 18:00</li>
-          <li>Sa 08:00 — 13:00</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="sideBarbox contact">
-      <h4 class="sideflag -L">Kontakt</h4>
-      <a href="http://www.palette.or.at" class="icontxt">
-        <svg class="icon-globe">
-          <use xlink:href="#icon-globe"></use>
-        </svg>
-        www.palette.or.at
-      </a>
-      <a href="mailto:hradecsni@gmx.at" class="icontxt">
-        <svg class="icon-at-symbol">
-          <use xlink:href="#icon-at-symbol"></use>
-        </svg>
-        hradecsni@gmx.at
-      </a>
-      <a href="tel:+436641606038" class="icontxt">
-        <svg class="icon-mobile">
-          <use xlink:href="#icon-mobile"></use>
-        </svg>
-        +43 664 1606038
-      </a>
-
-      <div class="address">
-        Vorgartenmarkt / Stand Nr.22-23<br>
-        1020 Wien
-        <a href="https://www.google.com/maps/place/vorgartenmarkt+stand+22/" target="_blank">
-          <img src="http://maps.google.com/maps/api/staticmap?center=48.221718,16.402051&zoom=16&scale=2&markers=vorgartenmarkt+stand 22&size=250x250&sensor=TRUE_OR_FALSE" alt="Google Map of vorgartenmarkt stand 22">
-        </a>
-      </div>
-    </div>
-
-    <div class="sideBarbox categories">
-      <h4 class="sideflag -L">Lebensmittel</h4>
-      <ul class="tagCollection">
-        <li>Lungauer Gunther Naynar</li>
-        <li>Helwin Hinke</li>
-        <li>Thum</li>
-        <li>Joseph</li>
-        <li>Mauracher</li>
-        <li>Schrott</li>
-        <li>Trausners Genusswerkstatt</li>
-        <li>Emils vegane Mayo</li>
-        <li>Dagmar Köstner</li>
-      </ul>
-    </div>
-
-    <div class="sideBarbox impressions">
-      <h4 class="sideflag -L">Impressionen</h4>
-
-      <div class="imgCollection">
-        <img src="/assets/images/dummy/palette_gal1.jpg" alt="">
-        <img src="/assets/images/dummy/palette_gal2.jpg" alt="">
-        <img src="/assets/images/dummy/palette_gal3.jpg" alt="">
-        <img src="/assets/images/dummy/palette_gal4.jpg" alt="">
-      </div>
-    </div>
-
   </aside>
 
-</section>
+  <div class="mainContent">
 
+    <article class="container" id="one">
+      <h2>Locationseite einrichten</h2>
+      <h3>So kommst du zu deiner Seite:</h3>
+      <p>
+        Wenn du dich auf imGrätzl.at registriert hast und eingeloggt bist,
+        dann klicke rechts oben neben deinem Profilbild auf das „Rädchen“ und
+        dann auf den Menüpunkt „<%= link_to 'Locations', user_locations_path %>“.
+        Einfach das Formular ausfüllen, wenn alles passt schalten wir dir deine
+        Seite zügig frei und es kann losgehen.
+      </p>
+
+      <h3>Nun gehts zum Einrichten - gib dir Mühe! :)</h3>
+      <p>
+        Die Locationseite ist dein Aushängeschild im Grätzl. Die größte Aufmerksamkeit bekommst du,
+        wenn du dir bewußt machst, dass du als Mensch mit anderen Menschen sprichst.
+        Und: Persönlichkeit ist der Joker!
+      </p>
+      <p>
+        <b>Also ganze Sätze schreiben. Mehr Informationen und deine Expertise einfließen lassen.
+          Gerne auch immer mal wieder etwas von dir persönlich erzählen.</b>
+      </p>
+      <p>
+        Wenn du nichts über dich erzählst, deine Spezialität nicht hervorhebst,
+        dann nützt dir auch die Seite nichts, da steht ja dann nichts drauf.
+        Solche Seiten schalten wir natürlich auch nicht frei, sondern geben in solchen
+        Fällen noch einmal individuelle Hinweise, was man verbessern könnte.
+        Wir wollen schließlich, dass alle schreien vor Glück, weil es so tolle Dinge
+        in ihrem Grätzl gibt &#x1f609;
+      </p>
+
+      <h3>Ein paar Tipps zu den einzelnen Feldern:</h3>
+
+      <p>
+        <em><strong>Name:</strong></em><br>
+        Kurz und knapp der Name, die Bezeichnung deiner Tätigkeit. Das könnte jetzt der Name deines Geschäftes sein, oder wenn du selbständig bist z.b. „Webdesign - Marianne Musterfrau“.
+      </p>
+      <p>
+        <em><strong>Slogan:</strong></em><br>
+        In einem kurzen Satz deine Expertise oder was dich ausmacht, was du anbietest.
+      </p>
+      <p>
+        <em><strong>Beschreibung:</strong></em><br>
+        Tob dich aus, sei kreativ und vor allem sei persönlich – Das ist der Platz um dich und deine Tätigkeit vorzustellen!
+      </p>
+      <p>
+        <em><strong>Produktgruppen / Tags:</strong></em><br>
+        Weniger ist mehr, übertreibs nicht! Hier geht’s weniger darum alles, was du anbietest in allen Ausführungen aufzulisten, sondern in einigen wenigen guten Oberbegriffen dein Angebot zu beschreiben – Der Vorteil: Man sieht auf einem Blick was du tust:
+        Gute Begrifflichkeiten sind z.b. Schmuck, Design, Yoga, Fotografie, Mode, Kunst, Workshops, Coaching, usw... Also einfach 4-5 gute Oberbegriffe angeben. Ganze Sätze sind hier fehl am Platz...
+      </p>
+      <p>
+        <em><strong>Bilder:</strong></em><br>
+        Tja, Bilder sind nun mal der erste Eindruck, der erste Blickfang! Daher: Schau darauf, dass diese was hermachen. Sie müssen nicht unbedingt professionell sein, aber sie sollten jedenfalls nicht zu klein sein, und natürlich sollen sie ins Format passen. Die idealen Abmessungen sind:
+      </p>
+      <p>
+        <strong>- Coverphoto</strong>: Querformat – Ideal, ca. 1.000 mal 400 Pixel<br>
+        <strong>- Profilbild</strong>: Quadratisch – Mindestens 500 mal 500 Pixel
+      </p>
+      <p>
+        Solltest du Hilfe bei den Bildern oder auch sonst beim Einrichten deiner Locationseite benötigen, schreib uns an <a href="mailto:wir@imgraetzl.at" target="_blank">wir@imgraetzl.at</a> - Gemeinsam bekommen wir deine Seite top hin!
+      </p>
+    </article>
+
+    <article class="container" id="two">
+      <h2>Neuigkeiten veröffentlichen</h2>
+
+      <h3>Treffen & Neuigkeiten auf deiner Locationseite veröffentlichen – So gehts!</h3>
+      <p>
+        Für jedes Grätzl gibt’s einen täglichen Stadtteil-Newsletter (das Daily Grätzl-Mail),
+        in diesen kommst du mit deinen Inhalten rein. Wenn du also Treffen erstellst oder
+        Neuigkeiten auf deiner Location-Seite veröffentlichst, dann landest du automatisch
+        am nächsten Tag im Daily-Grätzl Mail.
+      </p>
+      <p>
+        <em><strong>Verlockend gell? Aber jetzt kommt der Clou – Lies weiter bevor du in die Tasten haust:</strong></em><br>
+        Diese tolle Möglichkeit funktioniert nur, wenn dir bewusst ist, das am anderen Ende des Newsletters echte Menschen (Bewohner aus deinem Grätzl) sitzen, die deine Inhalte lesen.
+      </p>
+      <p>
+        <strong>Deswegen achte auf die Frequenz deiner Updates und vorallem deine Inhalte.</strong> Es bringt nichts jeden Tag irgendetwas kundzutun oder auf einmal 20 Treffen für die nächsten Monate zu erstellen. Damit schadest du dir und deinem Grätzl.
+      </p>
+      <p>
+        Mirjam hat einen tollen kurzen Beitrag dazu geschrieben: „<strong>So rückst du dich ins beste Licht … kommuniziere von Mensch zu Mensch</strong>“. <a href="http://blog.imgraetzl.at/allgemein/so-rueckst-du-dich-ins-beste-licht/" target="_blank">Lies mal rein</a>.
+      </p>
+
+      <h3>Wofür sind also nun Treffen geeignet?</h3>
+      <p>
+        Wenn du etwas veranstaltest, einen Workshop, ein Event, einen Schnupperkurs, oder sonst etwas was real im Grätzl stattfindet, dann kannst du hierfür ein Treffen erstellen.
+      </p>
+      <p>
+        Was du nicht tun solltest, wäre jetzt auf einmal all deine Termine der nächsten Monate zu veröffentlichen – Damit verschießt du dein Pulver. Niemand wird sich in 8 Wochen mehr daran erinnern, was morgen im Daily-Gräzl Mail steht.
+        <strong>Daher lieber weniger, ab und an mal etwas und dafür mit deiner persönlichen Note :)</strong>
+      </p>
+
+      <h3>Und wofür sind Neuigkeiten geeignet?</h3>
+      <p>
+        Die erste tolle Neuigkeit ist, dass es dich überhaupt gibt! Sprich: sag mal kurz “Hallo” in dein Grätzl, stell dich kurz vor.
+      </p>
+      <p>
+        <strong>Neuigkeiten sind kurze Geschichten, die man gerne liest:</strong><br>
+        Zum Beispiel, wenn du ein neues Label in dein Sortiment aufnimmst, dann kannst du hier ein paar Background Infos zum Label schreiben. Oder, wenn du auf Entspannungstechniken spezialisiert bist, dann könntest du dort passend zur Jahreszeit Tipps geben. Teile dein Wissen, das muss gar kein langer Text sein, auch kurze Beiträge bringen dich ins Gedächtnis.
+      </p>
+     </article>
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+</section>

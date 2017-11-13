@@ -1,5 +1,31 @@
 section.help {
 
+  h2 {
+    //font-family: $font-tertiary;
+    @include font-size-secondaryFont('medium');
+    color: $color-ambient-rosa;
+    margin-bottom: 10px;
+    font-size: 28px;
+    //@include respond-to(">=medium") {
+      //font-size: 34px;
+    //}
+  }
+
+  h3 {
+    @include font-size-primaryFont('larger');
+    padding: 0px 0px 15px;
+  }
+  .hl-subtext p {
+    padding-bottom:0px;
+  }
+  p {
+    padding-bottom:25px;
+  }
+
+  ol, ul {
+    margin-left:20px;
+  }
+
   aside {
     float:left;
     display:none;
@@ -7,19 +33,26 @@ section.help {
       display: block;
     }
   }
+
   article {
-    display:table;
-    clear:both;
-    margin-bottom: 50px;
-    div.img {
-      float:none;
-      @include respond-to(">=large") {
-        float: right;
-        width:40%;
-      }
-      img {
-        max-width:100%;
-        height:auto;
+    margin-bottom: 20px;
+  }
+
+  &.-about {
+    article {
+      display:table;
+      clear:both;
+      margin-bottom: 50px;
+      div.img {
+        float:none;
+        @include respond-to(">=large") {
+          float: right;
+          width:40%;
+        }
+        img {
+          max-width:100%;
+          height:auto;
+        }
       }
     }
     div.txt {
@@ -29,15 +62,13 @@ section.help {
       }
     }
   }
-  h2 {
-    font-family: $font-tertiary;
-    color: $color-ambient-rosa;
-    margin-bottom: 10px;
-    font-size: 28px;
-    @include respond-to(">=medium") {
-      font-size: 34px;
+  &.-detail {
+    h3 {
+      padding: 20px 0px 20px;
     }
   }
+
+
   #help_nav {margin-top: 10px;
     a {
       margin-bottom:15px;
@@ -45,7 +76,8 @@ section.help {
   }
   .paperCard {margin-bottom:40px;}
   .paperCard .wrp {
-    padding:30px;
+    padding:35px 50px 15px 50px;
+    @include font-size-primaryFont('large');
   }
   .float_nav {
     position:fixed !important;
