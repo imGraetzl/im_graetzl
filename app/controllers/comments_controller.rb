@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @comment = Comment.new comment_params
+    @comment = current_user.comments.new(comment_params)
     if @comment.save
       @comment.commentable.create_activity :comment, owner: current_user, recipient: @comment
     end
@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
       :commentable_id,
       :commentable_type,
       :content,
-      images_files: []).merge(user_id: current_user.id)
+      images_files: []
+    )
   end
 end

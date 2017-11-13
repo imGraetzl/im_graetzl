@@ -49,9 +49,9 @@ RSpec.describe Meeting, type: :model do
       expect(meeting).to respond_to(:friendly_id)
     end
 
-    it 'has state (default :basic)' do
+    it 'has state (default :active)' do
       expect(meeting).to respond_to(:state)
-      expect(meeting.basic?).to be_truthy
+      expect(meeting.active?).to be_truthy
     end
   end
 

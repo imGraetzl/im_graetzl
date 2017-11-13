@@ -7,5 +7,5 @@
   <%= button_to 'Treffen absagen', @meeting,
                 method: :delete,
                 data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich absagen?" },
-                class: 'btn-destroy' if @meeting.basic? %>  
+                class: 'btn-destroy' if @meeting.active? %>  
 </section>

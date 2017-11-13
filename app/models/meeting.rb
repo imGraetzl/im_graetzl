@@ -3,12 +3,12 @@ class Meeting < ApplicationRecord
   extend FriendlyId
 
   scope :by_currentness, -> {
-    basic.
+    active.
     order('CASE WHEN starts_at_date > now() THEN 0 WHEN starts_at_date IS NULL THEN 1 ELSE 2 END').
     order('(CASE WHEN starts_at_date >= now() THEN starts_at_date END) ASC,
             (CASE WHEN starts_at_date < now() THEN starts_at_date END) DESC')
   }
-  scope :upcoming, -> { basic.
+  scope :upcoming, -> { active.
     where("(starts_at_date > ?) OR (starts_at_date IS NULL)", Date.yesterday).
     order(:starts_at_date) }
   # scopes primarily used for users
@@ -21,11 +21,11 @@ class Meeting < ApplicationRecord
 
   friendly_id :name
   attachment :cover_photo, type: :image
-  enum state: { basic: 0, cancelled: 1 }
+  enum state: { active: 0, cancelled: 1 }
 
   belongs_to :graetzl
   has_many :districts, through: :graetzl
-  belongs_to :location
+  belongs_to :location, optional: true
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
   has_many :going_tos, dependent: :destroy

@@ -17,18 +17,18 @@
     <p>Entdecke Selbständige & lokale Unternehmen, Vereine & Projekte </p>
   </div>
 
-  <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
+  <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter' do %>
     <div class="filter-selection-text">
       Zeige mir aus <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
     </div>
-
-    <div id="filter-modal-bezirk" class="filter-modal">
-      <%= render 'filters/district_graetzl' %>
-    </div>
   <% end %>
 
+  <div id="filter-modal-bezirk" class="filter-modal">
+    <%= render 'filters/district_graetzl' %>
+  </div>
+
   <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="stream-container"></div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
+    <div class="cards-container" data-behavior="locations-card-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'locations-paginate-link' } %>
   </div>
 </section>

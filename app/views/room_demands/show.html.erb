@@ -6,7 +6,7 @@
         <h1><%= t("activerecord.attributes.room_demand.demand_types.#{@room_demand.demand_type}") %></h1>
 
         <div class="category-tags">
-          <% unless @room_demand.room_categories.empty? %>
+          <% if @room_demand.room_categories.present? %>
             <ul class="tag-list -mint">
               <% @room_demand.room_categories.each do |category| %>
                 <li><%= category.name %></li>
@@ -41,7 +41,7 @@
 
     <section class="owner">
       <div class="bigicontext-element">
-        <% if not @room_demand.user.nil? %>
+        <% if @room_demand.user %>
           <%= avatar_for(@room_demand.user, 200) %>
         <% else %>
         <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
@@ -50,10 +50,10 @@
       </div>
       <div class="wrapper">
         <div class="txt"><%= @room_demand.personal_description %></div>
-        <% unless @room_demand.location.nil? %>
-        <aside class="location">
-          <%= render @room_demand.location %>
-        </aside>
+        <% if @room_demand.location %>
+          <aside class="location">
+            <%= render @room_demand.location %>
+          </aside>
         <% end %>
       </div>
     </section>
@@ -65,33 +65,36 @@
       </div>
 
       <% if current_user %>
-      <div class="contact-infos">
-        <% unless @room_demand.first_name.nil? && @room_demand.last_name.nil? %>
-        <div class="icontxt">
-          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-          <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
-        </div>
-        <% end %>
-        <% unless @room_demand.phone.nil? %>
-        <div class="icontxt">
-          <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
-          <div class="txt"><%= @room_demand.phone %></div>
-        </div>
-        <% end %>
-        <% unless @room_demand.email.nil? %>
-        <%= mail_to @room_demand.email do %>
-        <div class="icontxt">
-          <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-          <div class="txt"><%= @room_demand.email %></div>
-        </div>
-        <% end %>
-        <% end %>
-        <% unless @room_demand.website.nil? %>
+        <div class="contact-infos">
+          <% if @room_demand.first_name.present? && @room_demand.last_name.present? %>
+            <div class="icontxt">
+              <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+              <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
+            </div>
+          <% end %>
+
+          <% if @room_demand.phone.present? %>
+            <div class="icontxt">
+              <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
+              <div class="txt"><%= @room_demand.phone %></div>
+            </div>
+          <% end %>
+
+          <% if @room_demand.email.present? %>
+            <%= mail_to @room_demand.email do %>
+              <div class="icontxt">
+                <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+                <div class="txt"><%= @room_demand.email %></div>
+              </div>
+            <% end %>
+          <% end %>
+
+        <% if @room_demand.website.present? %>
           <%= link_to @room_demand.website, class: 'icontxt', target: '_blank' do %>
-          <svg class="icon-globe">
-            <use xlink:href="#icon-globe"></use>
-          </svg>
-          <%= @room_demand.website.sub(/^https?\:\/\//,'') %>
+            <svg class="icon-globe">
+              <use xlink:href="#icon-globe"></use>
+            </svg>
+            <%= @room_demand.website.sub(/^https?\:\/\//,'') %>
           <% end %>
         <% end %>
       </div>
@@ -102,7 +105,6 @@
             <%= link_to 'Zur Registrierung', new_registration_path %>
         </div>
       <% end %>
-
 
     </section>
 

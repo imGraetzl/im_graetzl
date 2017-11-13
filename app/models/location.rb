@@ -57,8 +57,8 @@ class Location < ApplicationRecord
     (pending? && destroy) || nil
   end
 
-  def show_meeting_button(user)
-    self.meetable? || (self.owner_meetable? && users.include?(user))
+  def can_create_meeting?(user)
+    meetable? || (owner_meetable? && users.include?(user))
   end
 
   def boss

@@ -51,9 +51,9 @@ Rails.application.routes.draw do
   resources :zuckerls, only: [:index]
   resources :rooms, only: [:index]
   resources :posts, only: [:index]
+
   resources :locations do
     concerns :graetzl_before_new
-    resources :meetings, module: :locations, path: :treffen, only: [:new, :create]
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
   end
 
@@ -120,10 +120,10 @@ Rails.application.routes.draw do
     get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'ideen', action: 'posts', as: 'posts', on: :member
-    resources :meetings, path: :treffen, module: :graetzls, except: [:index, :edit, :update, :destroy]
+    resources :meetings, path: :treffen, only: [:show]
     resources :locations, only: [:show]
     resources :users, only: [:show]
-    resources :user_posts, path: :ideen, only: [:new, :create, :show]
+    resources :user_posts, path: :ideen, only: [:new, :show, :create]
   end
 
 end

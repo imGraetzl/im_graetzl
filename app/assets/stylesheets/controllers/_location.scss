@@ -164,6 +164,10 @@ section.locationPage {
       margin-top: -65px;
       width: calc(100% - 270px);
     }
+
+    .cardBox .sideflag {
+      display: none;
+    }
   }
 
   .category-tags {
@@ -179,15 +183,6 @@ section.locationPage {
       height: 40px;
       margin-left: 3px;
       margin-right: 3px;
-    }
-  }
-
-  .category-block {
-    .category {
-
-    }
-    .tag-list {
-
     }
   }
 
@@ -333,122 +328,8 @@ section.locationPage {
     margin-right: 0;
   }
 
-}
-
-
-
-section.adoptLocation {
-  overflow: hidden;
-
-  h1 {
-    @include font-size-secondaryFont('large');
-    text-align: center;
-    span {
-      color: $color-ambient-rosa;
-    }
-  }
-  h1 + p {
-    text-align: center;
-    margin-bottom: 30px;
-    span {
-      color: $color-ambient-rosa;
-      font-style: italic;
-    }
-  }
-
-  .suggestedlocations {
-    margin-bottom: 30px;
-  }
-
-  .singlelocation {
-    padding: 8px 8px 8px 20px;
-    @include respond-to(">=medium") {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    &:hover {
-      opacity: 0.9;
-    }
-    [class^=btn-] {
-      flex: 0 0 auto;
-      &:hover {
-        color: $color-ambient-mint-dark;
-        border-color: $color-ambient-mint-dark;
-      }
-    }
-    &:nth-child(odd) {
-      background-color: $color-ambient-grey-light;
-    }
-    &:nth-child(even) {
-      background-color: darken($color-ambient-grey-light, 5)
-    }
-  }
-  .locationname {
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    @include respond-to(">=medium") {
-      flex: 0 0 300px;
-    }
-  }
-  .locationaddress {
-    display: block;
-    text-align: center;
-    margin-bottom: 10px;
-    @include respond-to(">=medium") {
-      flex: 0 1 100%;
-      padding-right: 20px;
-      margin-bottom: 0;
-    }
-  }
-
-  .newlocation {
-    @include respond-to(">=medium") {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-    span {
-      display: block;
-      margin-bottom: 8px;
-      text-align: center;
-      font-weight: bold;
-      font-style: italic;
-      font-size: 1.8rem;
-      @include respond-to(">=medium") {
-        margin-right: 20px;
-        margin-bottom: 0;
-      }
-    }
-  }
-}
-
-section.locations-overview {
-  h1 {
-    @include font-size-secondaryFont('large');
-    text-align: center;
-    margin-bottom: 40px;
-    span {
-      color: $color-ambient-rosa;
-    }
-  }
-  .mapImgBlock {
-    margin-bottom: 50px;
-  }
-  .sideflag {
+  .msgNoStreamContent {
     display: none;
   }
-  .cardBox {
-    text-decoration: none;
-    color: inherit;
-  }
-  .paperCard {
-    margin-bottom: 30px;
-  }
+
 }
-
-
-
-
-

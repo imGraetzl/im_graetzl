@@ -12,7 +12,7 @@
       </div>
       <% if defined? graetzl %>
         <h3>Starte ein Treffen im Grätzl <%= graetzl.name %> oder gib dein Event bekannt</h3>
-        <%= link_to 'Treffen eintragen', new_graetzl_meeting_path(graetzl), class: 'btn-primary' %>
+        <%= link_to 'Treffen eintragen', new_meeting_path(graetzl_id: graetzl.id), class: 'btn-primary' %>
       <% elsif defined? district %>
         <h3>Starte ein Treffen, einen Workshop oder ein Event im <%= district.numeric %>. Bezirk</h3>
         <%= link_to 'Jetzt loslegen', new_meeting_path, class: 'btn-primary' %>

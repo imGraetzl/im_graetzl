@@ -1,22 +1,20 @@
 <div class="tabs-ctrl">
   <ul class="tabs-nav">
-    <li><a href="#tab-1"><%= @initiated.total_count %> Treffen erstellt</a></li>
-    <li><a href="#tab-2">An <%= @attended.total_count %> Treffen teilgenommen</a></li>
+    <li><a href="#tab-1"><%= @user.meetings.initiated.count %> Treffen erstellt</a></li>
+    <li><a href="#tab-2">An <%= @user.meetings.attended.count %> Treffen teilgenommen</a></li>
   </ul>
+
   <div id="tab-1">
-    <!-- Dies als defaulttext nehmen -->
-    <!-- <div class="defaultText">Im Moment sind keine Treffen geplant.</div> -->
-    <div id="initiated" class="cardBoxCollection -tripple" data-tabID="one" data-behavior="initiated-container">
-      <%= render @initiated %>
-    </div>
-    <%= view_more_of @initiated, 'initiated' %>
+    <%= form_tag meetings_path(initiated_user_id: @user.id, per_page: 6, container_namespace: "initiated"), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
+
+    <div id="initiated" class="cardBoxCollection -tripple" data-tabID="one" data-behavior="initiated-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'initiated-paginate-link' } %>
   </div>
+
   <div id="tab-2">
-    <!-- Dies als defaulttext nehmen -->
-    <!-- <div class="defaultText">Der User hat an noch keinen Treffen teilgenommen..</div> -->
-    <div id="attended" class="cardBoxCollection -tripple" data-tabID="two" data-behavior="attended-container">
-      <%= render @attended %>
-    </div>
-    <%= view_more_of @attended, 'attended' %>
+    <%= form_tag meetings_path(attended_user_id: @user.id, per_page: 6, container_namespace: "attended"), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
+
+    <div id="attended" class="cardBoxCollection -tripple" data-tabID="two" data-behavior="attended-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'attended-paginate-link' } %>
   </div>
 </div>

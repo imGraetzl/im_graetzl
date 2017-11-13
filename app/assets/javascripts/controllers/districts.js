@@ -39,11 +39,11 @@ APP.controllers.districts = (function() {
   }
 
   function initFilter() {
-    $('.autosubmit-filter').on('ajax:success', function() {
+    $('.cards-filter').on('ajax:success', function() {
       APP.components.cardBox.moveActionCard3rd();
     });
 
-    $('.autosubmit-filter').submit();
+    $('.cards-filter').submit();
   }
 
   function initMobileNav() {

@@ -28,9 +28,9 @@ SitemapGenerator::Sitemap.create do
     end
 
     # Meetings
-    meetings = graetzl.meetings.basic
+    meetings = graetzl.meetings.active
     unless meetings.empty?
-      add graetzl_meetings_path(graetzl)
+      add meetings_graetzl_path(graetzl)
       meetings.find_each do |meeting|
         add graetzl_meeting_path(graetzl, meeting), priority: 0.7
       end

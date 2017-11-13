@@ -17,28 +17,28 @@
     <p>Gewerbeflächen teilen - Kosten teilen.</p>
   </div>
 
-  <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
+  <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter' do %>
     <div class="filter-selection-text">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
       aus <%= link_to 'allen Kategorien', '#filter-modal-categories', data: { no_filter_label: 'allen Kategorien'} %>,
       in <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
     </div>
-
-    <div id="filter-modal-type" class="filter-modal">
-      <%= render 'filters/room_type' %>
-    </div>
-
-    <div id="filter-modal-categories" class="filter-modal">
-      <%= render 'filters/room_categories' %>
-    </div>
-
-    <div id="filter-modal-bezirk" class="filter-modal">
-      <%= render 'filters/district_graetzl' %>
-    </div>
   <% end %>
 
+  <div id="filter-modal-type" class="filter-modal">
+    <%= render 'filters/room_type' %>
+  </div>
+
+  <div id="filter-modal-categories" class="filter-modal">
+    <%= render 'filters/room_categories' %>
+  </div>
+
+  <div id="filter-modal-bezirk" class="filter-modal">
+    <%= render 'filters/district_graetzl' %>
+  </div>
+
   <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="stream-container"></div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
+    <div class="cards-container" data-behavior="rooms-card-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' } %>
   </div>
 </section>

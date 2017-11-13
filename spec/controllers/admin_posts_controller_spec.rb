@@ -13,31 +13,14 @@ RSpec.describe AdminPostsController, type: :controller do
         expect(assigns :post).to eq post
       end
 
-      it 'assigns newest @comments' do
-        expect(assigns :comments).to match_array new_comments
+      it 'assigns all @comments' do
+        expect(assigns :comments).to match_array(new_comments + old_comments)
       end
 
       it 'renders show.html' do
         expect(response.content_type).to eq 'text/html'
         expect(response).to render_template(:show)
       end
-    end
-    context 'when js request for next comments' do
-      before { get :show, params: { id: post.id, page: 2 }, xhr: true }
-
-      it 'assigns @post' do
-        expect(assigns :post).to eq post
-      end
-
-      it 'assigns older @comments' do
-        expect(assigns :comments).to match_array old_comments
-      end
-
-      it 'renders show.js' do
-        expect(response.content_type).to eq 'text/javascript'
-        expect(response).to render_template(:show)
-      end
-
     end
     context 'when no admin_post' do
       let(:post) { create :location_post }

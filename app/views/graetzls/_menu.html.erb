@@ -15,7 +15,7 @@
     <div class="txt">Grätzl <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
   <% end %>
 
-  <%= active_link_to graetzl_meetings_path(@graetzl), class: "iconfilter" do %>
+  <%= active_link_to meetings_graetzl_path(@graetzl), class: "iconfilter" do %>
     <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
     <div class="txt">Treffen <br/>& Events</div>
   <% end %>
@@ -58,7 +58,7 @@
   <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
     <div class="jq-dropdown-panel">
 
-      <%= link_to new_graetzl_meeting_path(@graetzl) do %>
+      <%= link_to new_meeting_path(graetzl_id: @graetzl.id) do %>
         <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
         <div class="icontxt">Neues Treffen</div>
       <% end %>

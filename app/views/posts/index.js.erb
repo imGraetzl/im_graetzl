@@ -1,16 +1,16 @@
 (function() {
-  var $streamContainer = $("[data-behavior='stream-container']");
-  var $paginateLink = $("[data-behavior='paginate-link']");
+  var $cardContainer = $("[data-behavior='posts-card-container']");
+  var $paginateLink = $("[data-behavior='posts-paginate-link']");
 
   <% if params[:page].blank? %>
     <% if @posts.empty? %>
-      $streamContainer.html("<%= j render 'empty_message' %>")
+      $cardContainer.html("<%= j render 'empty_message' %>")
     <% else %>
-      $streamContainer.find(".cardBox").remove();
-      $streamContainer.append("<%= j render @posts %>")
+      $cardContainer.find(".cardBox").remove();
+      $cardContainer.append("<%= j render @posts %>")
     <% end %>
   <% else %>
-    $streamContainer.append("<%= j render @posts %>");
+    $cardContainer.append("<%= j render @posts %>");
   <% end %>
 
   <% if @posts.next_page.present? %>

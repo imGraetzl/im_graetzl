@@ -42,10 +42,7 @@ RSpec.describe LocationsController, type: :controller do
           expect(assigns :location).to eq location
         end
         it 'assigns 10 new @posts' do
-          expect(assigns :posts).to match_array new_location_posts
-        end
-        it 'assigns 2 new @meetings' do
-          expect(assigns :meetings).to match_array new_meetings
+          expect(assigns :posts).to match_array(new_location_posts + old_location_posts)
         end
         it 'assigns @zuckerls' do
           expect(assigns :zuckerls).to be
@@ -55,38 +52,8 @@ RSpec.describe LocationsController, type: :controller do
           expect(response).to render_template(:show)
         end
       end
-      context 'when js request for posts' do
-        before { get :show, params: { graetzl_id: graetzl, id: location, page: 2 }, xhr: true }
-
-        it 'assigns @location' do
-          expect(assigns :location).to eq location
-        end
-        it 'assigns 10 older @posts' do
-          expect(assigns :posts).to match_array old_location_posts
-        end
-        it 'does not assign @meetings' do
-          expect(assigns :meetings).not_to be
-        end
-        it 'renders show.js' do
-          expect(response.content_type).to eq 'text/javascript'
-          expect(response).to render_template(:show)
-        end
-      end
-      context 'when js request for meetings' do
-        before { get :show, params: { graetzl_id: graetzl, id: location, meetings: 2 }, xhr: true }
-
-        it 'does not assign @posts' do
-          expect(assigns :posts).not_to be
-        end
-        it 'assigns 2 older @meetings' do
-          expect(assigns :meetings).to match_array old_meetings
-        end
-        it 'renders show.js' do
-          expect(response.content_type).to eq 'text/javascript'
-          expect(response).to render_template(:show)
-        end
-      end
     end
+
     context 'when location not approved' do
       let(:location) { create :location, :pending, graetzl: graetzl }
 

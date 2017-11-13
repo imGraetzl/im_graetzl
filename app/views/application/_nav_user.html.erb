@@ -23,7 +23,7 @@
   <!-- dropDowns -->
   <div class="jq-dropdown jq-dropdown-tip jq-dropdown-anchor-right jq-dropdown-relative createContainer dropdown-container">
     <div class="jq-dropdown-panel">
-      <%= link_to new_graetzl_meeting_path(current_user.graetzl) do %>
+      <%= link_to new_meeting_path(graetzl_id: current_user.graetzl_id) do %>
         <svg class="icon-calendar-2">
           <use xlink:href="#icon-calendar-2"></use>
         </svg>

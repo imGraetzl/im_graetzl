@@ -1,23 +1,23 @@
 <div class="meetingBlock">
   <div class="wrp-hl">
     <div class="bigicontext-element" href="/stuwerviertel/locations">
-      <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+      <%= icon_tag('calendar-2') %>
       <div class="txt">Treffen & Termine</div>
     </div>
-    <% if user_signed_in? && @location.show_meeting_button(current_user) %>
+
+    <% if user_signed_in? && @location.can_create_meeting?(current_user) %>
       <%= link_to new_location_meeting_path(@location), class: 'btn-userCallToAction' do %>
       <span>
         <%= avatar_for current_user %>
         Treffen hier starten
-        <svg class="icon-plus">
-          <use xlink:href="#icon-plus"></use>
-        </svg>
+        <%= icon_tag('plus') %>
       </span>
       <% end %>
     <% end %>
   </div>
-  <div class="cardBoxCollection -double" data-tabID="one" data-behavior="meetings-container">
-    <%= render @meetings %>
-  </div>
-  <%= view_more_of @meetings, 'meetings' %>
+
+  <%= form_tag meetings_path(location_id: @location.id, per_page: 4), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
+
+  <div class="cardBoxCollection -double" data-behavior="meetings-card-container"></div>
+  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' } %>
 </div>

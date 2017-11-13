@@ -1,7 +1,6 @@
 APP.controllers.wien = (function() {
 
     var map = APP.components.graetzlMap;
-    var grid = APP.components.masonryFilterGrid;
 
     function init() {
         var $select = $(".mapImgBlock .mobileSelectMenu");
@@ -20,8 +19,13 @@ APP.controllers.wien = (function() {
           initMap();
         }
 
-        initFilter();
-        initMobileNav();
+        if ($("#filter-modal-bezirk").exists()) {
+          APP.components.graetzlSelectFilter.init($("#filter-modal-bezirk"));
+        }
+
+        if ($('.cards-filter').exists()) {
+          APP.components.cardFilter.init();
+        }
     }
 
     function initMap() {
@@ -31,35 +35,6 @@ APP.controllers.wien = (function() {
                 interactive: true
             });
         });
-    }
-
-    function initFilter() {
-      $(".filter-selection-text a").featherlight({ targetAttr: 'href', persist: true, root: $(".cards-filter") });
-      $(".cards-filter").on("click", ".filter-button", function() {
-        var currentModal = $.featherlight.current();
-        var selectedInputs = currentModal.$content.find(".filter-input :selected, .filter-input :checked");
-        var link = $('.cards-filter a[href="' + currentModal.$content.selector + '"]');
-        if (selectedInputs.length > 0) {
-          var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
-          link.text(label);
-        } else {
-          link.text(link.data("no-filter-label"));
-        }
-        $('.autosubmit-filter').submit();
-        currentModal.close();
-      });
-
-      APP.components.graetzlSelectFilter.init($('.district-select'), $('.graetzl-select'));
-
-      $('.autosubmit-filter').on('ajax:success', function() {
-        grid.initGrid();
-      });
-
-      $('.link-load').on('ajax:success', function() {
-        grid.adjustNewCards();
-      });
-
-      $('.autosubmit-filter').submit();
     }
 
     function initMobileNav() {

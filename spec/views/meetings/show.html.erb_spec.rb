@@ -36,9 +36,9 @@ RSpec.describe 'meetings/show', type: :view do
       create(:going_to, meeting: meeting, user: user, role: GoingTo.roles[:initiator])
     end
 
-    context 'when basic meeting' do
+    context 'when active meeting' do
       before do
-        allow(meeting).to receive(:basic?) { true }
+        allow(meeting).to receive(:active?) { true }
         render
       end
 
@@ -47,7 +47,7 @@ RSpec.describe 'meetings/show', type: :view do
       end
     end
 
-    context 'when basic meeting' do
+    context 'when cancelled meeting' do
       before do
         meeting.cancelled!
         render

@@ -2,10 +2,10 @@
   <div class="action-container">
     <% if @location.editable_by? current_user %>
       <%= link_to edit_location_path(@location), class: 'icontxt' do %>
-        <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>Location bearbeiten
+      <%= icon_tag "pencil" %> Location bearbeiten
       <% end %>
       <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
-        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl einbuchen
+        <%= icon_tag "shopping-bag" %> Zuckerl einbuchen
       <% end %>
     <% end %>
   </div>
@@ -27,31 +27,25 @@
 
       <% if @location.contact.website.present? %>
         <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
-          <svg class="icon-globe">
-            <use xlink:href="#icon-globe"></use>
-          </svg>
+          <%= icon_tag "globe" %>
           <span><%= @location.contact.website.sub(/^https?\:\/\//,'') %></span>
         <% end %>
       <% end %>
       <% if @location.contact.email.present? %>
         <%= mail_to @location.contact.email, nil, encode: 'hex', class: 'icontxt' do %>
-          <svg class="icon-at-symbol">
-            <use xlink:href="#icon-at-symbol"></use>
-          </svg>
+          <%= icon_tag "at-symbol" %>
           <span><%= @location.contact.email %></span>
         <% end %>
       <% end %>
       <% if @location.contact.phone.present? %>
         <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
-          <svg class="icon-mobile">
-            <use xlink:href="#icon-mobile"></use>
-          </svg>
+          <%= icon_tag "mobile" %>
           <%= @location.contact.phone %>
         <% end %>
       <% end %>
       <% if @location.address %>
         <div class="address icontxt">
-          <svg class="icon-address-directions"><use xlink:href="#icon-address-directions"></use></svg>
+          <%= icon_tag "address-directions" %>
           <%= "#{@location.address.street_name} #{@location.address.street_number}" %><br>
           <%= "#{@location.address.zip} #{@location.address.city}" %>
         </div>
@@ -67,7 +61,7 @@
   <% if @location.contact.hours.present? %>
     <div class="sideBarbox openinghours">
       <div class="bigicontext-element" href="/stuwerviertel/locations">
-        <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
+        <%= icon_tag "time-clock" %>
         <div class="txt">Öffnungszeiten</div>
       </div>
       <div class="txt"><%= @location.contact.hours %></div>

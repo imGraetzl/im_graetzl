@@ -1,9 +1,5 @@
 class RoomOffersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-
-  def index
-    @room_offers = RoomOffer.page(params[:page]).per(15)
-  end
+  before_action :authenticate_user!, except: [:show]
 
   def show
     @room_offer = RoomOffer.find(params[:id])

@@ -2,7 +2,10 @@ APP.components.graetzlSelectFilter = (function() {
 
   var selectedDistrictIds = [];
 
-  function init($districtSelect, $graetzlSelect) {
+  function init(container) {
+    var $districtSelect = container.find(".district-select");
+    var $graetzlSelect = container.find(".graetzl-select");
+
     $districtSelect.SumoSelect({
       search: true,
       searchText: 'Suche nach Bezirk.',
@@ -11,7 +14,7 @@ APP.components.graetzlSelectFilter = (function() {
       captionFormat: '{0} Bezirk ausgewählt'
     });
 
-    if ($('.district-select').val() && $districtSelect.val().length > 0) {
+    if ($districtSelect.val() && $districtSelect.val().length > 0) {
       showDistrictGraetzls($districtSelect.val());
     }
 
