@@ -9,18 +9,39 @@
         })
 %>
 
-<section class="zuckerl">
+<section class="help">
 
   <div class="hl-subtext">
-    <h1>Infos zum <span>Grätzlzuckerl</span></h1>
+    <h1><span>Zuckerl & Angebote</span> - Hilfe</h1>
+    <p>Fragen & Antworten zum Grätzlzuckerl</p>
   </div>
 
-  <div class="block-txt">
+  <%= render 'help_menu' %>
 
+  <div class="paperCard -cord1RT container" id="zero">
     <div class="wrp">
-      <h3>Was ist das Grätzlzuckerl? </h3>
-      <p>Das Grätzlzuckerl erscheint jeden Monat neu und enthält besondere Angebote, Gutscheine & Rabattaktionen von grätzlansässigen Kreativen, Selbständigen und kleinen Unternehmen. Mit dem Grätzlzuckerl wollen wir besonders Angebote der lokalen Unternehmen bei den Bewohnern ins Scheinwerferlicht rücken und gleichzeitig mithelfen, die lokalen Wirtschaftskreisläufe im Grätzl zu beleben. Kurz gesagt: mit dem Grätzlzuckerl kannst du Werbung für dich und deine Angebote gezielt in deinem Bezirk schalten und die Bewohner in deinem Einzugsgebiet erreichen.</p>
+      <p>
+        <strong>Was ist das Grätzlzuckerl?</strong><br />
+        Das Grätzlzuckerl erscheint jeden Monat neu und enthält besondere Angebote,
+        Gutscheine & Rabattaktionen von grätzlansässigen Kreativen, Selbständigen und
+        kleinen Unternehmen. Mit dem Grätzlzuckerl wollen wir besonders Angebote der
+        lokalen Unternehmen bei den Bewohnern ins Scheinwerferlicht rücken und
+        gleichzeitig mithelfen, die lokalen Wirtschaftskreisläufe im Grätzl zu beleben.
+        Kurz gesagt: mit dem Grätzlzuckerl kannst du Werbung für dich und deine Angebote
+        gezielt in deinem Bezirk schalten und die Bewohner in deinem Einzugsgebiet erreichen.
+      </p>
     </div>
+    <div class="card"></div>
+  </div>
+
+  <!--<aside>
+    <div id="help_nav">
+      <a href="#one" class="btn-primary -mint" id="nav-one">Locationseite einrichten</a>
+      <a href="#two" class="btn-primary -mint" id="nav-two">Neuigkeiten veröffentlichen</a>
+    </div>
+  </aside>-->
+
+  <!--<div class="mainContent">-->
 
     <div class="wrp">
       <h3>Wo erscheint das Grätzlzuckerl?</h3>
@@ -85,6 +106,10 @@
         <%= link_to 'Noch mehr Infos zur Grätzlmarie gibts hier', info_infos_zur_graetzlmarie_path %>.</p>
     </div>
 
-  </div>
+  <!--</div>-->
+
+
+
+  <div style="clear:both;"></div>
 
 </section>

@@ -75,6 +75,8 @@ Rails.application.routes.draw do
 
   get 'info', to: 'static_pages#help'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
+  get 'info/anbieter-und-locations', to: 'static_pages#location'
+  get 'info/events-und-workshops', to: 'static_pages#meetings'
   get 'info/agb', to: 'static_pages#agb'
   get 'info/datenschutz', to: 'static_pages#datenschutz'
   get 'info/impressum', to: 'static_pages#impressum'

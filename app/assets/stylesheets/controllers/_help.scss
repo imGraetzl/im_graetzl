@@ -30,14 +30,19 @@ section.help {
     }
   }
   h2 {
-    font-family: $font-tertiary;
+    //font-family: $font-tertiary;
+    @include font-size-secondaryFont('medium');
     color: $color-ambient-rosa;
     margin-bottom: 10px;
     font-size: 28px;
-    @include respond-to(">=medium") {
-      font-size: 34px;
-    }
+    //@include respond-to(">=medium") {
+      //font-size: 34px;
+    //}
   }
+  p {
+    padding-bottom:20px;
+  }
+
   #help_nav {margin-top: 10px;
     a {
       margin-bottom:15px;
@@ -45,7 +50,8 @@ section.help {
   }
   .paperCard {margin-bottom:40px;}
   .paperCard .wrp {
-    padding:30px;
+    padding:35px 50px 15px 50px;
+    @include font-size-primaryFont('large');
   }
   .float_nav {
     position:fixed !important;
