@@ -73,13 +73,14 @@ Rails.application.routes.draw do
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
   end
 
+  get 'info', to: 'static_pages#help'
+  get 'info/raumteiler', to: 'static_pages#raumteiler'
   get 'info/agb', to: 'static_pages#agb'
   get 'info/datenschutz', to: 'static_pages#datenschutz'
   get 'info/impressum', to: 'static_pages#impressum'
   get 'info/infos-zum-graetzlzuckerl', to: 'static_pages#zuckerl'
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
   get 'info/infos-zur-graetzlmarie', to: 'static_pages#graetzlmarie'
-  get 'hilfe', to: 'static_pages#help'
   get '/robots.txt' => 'static_pages#robots'
 
   root 'static_pages#home'
