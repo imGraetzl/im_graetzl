@@ -2,11 +2,11 @@
   <%= link_to graetzl_path(graetzl) do %>
     <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= graetzl.name %>
   <% end %>
-  <%= link_to meetings_graetzl_path(graetzl) do %>
-    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events
-  <% end %>
   <%= link_to locations_graetzl_path(graetzl) do %>
     <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations
+  <% end %>
+  <%= link_to graetzl_meetings_path(graetzl) do %>
+    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Treffen & Events
   <% end %>
   <%= link_to rooms_graetzl_path(graetzl) do %>
     <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>Raumteiler
