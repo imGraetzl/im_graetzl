@@ -9,7 +9,7 @@
         })
 %>
 
-<section class="help">
+<section class="help -detail">
 
   <div class="hl-subtext">
     <h1><em>Anbieter & Locations</em> - Hilfe</h1>
@@ -21,7 +21,7 @@
   <div class="paperCard -cord1RT container" id="zero">
     <div class="wrp">
       <p>
-        Die Locationseite ist der erste Schritt, um in deinem Stadtteil sichtbar zu werden!
+        <strong>Die Locationseite</strong> ist der erste Schritt, um in deinem Stadtteil sichtbar zu werden!
         Du kannst sie mit nur wenigen Klicks einfach und schnell einrichten,
         sie ist mobil- und suchmaschinenoptimiert und deine Eintrittskarte um in deinen
         Stadtteil-Newsletter zu gelangen! Und: sie ist kostenlos!
@@ -32,38 +32,116 @@
 
   <aside>
     <div id="help_nav">
-      <a href="#one" class="btn-primary -mint" id="nav-one">Locationseite einrichten</a>
-      <a href="#two" class="btn-primary -mint" id="nav-two">Neuigkeiten veröffentlichen</a>
+      <a href="#one" class="btn-primary -mint" id="nav-one">Location einrichten</a>
+      <a href="#two" class="btn-primary -mint" id="nav-two">Neuigkeiten posten</a>
     </div>
   </aside>
 
   <div class="mainContent">
 
     <article class="container" id="one">
-      <h2>Einrichten deiner Locationseite</h2>
-      <h3>Worauf solltest du achten?</h3>
+      <h2>Locationseite einrichten</h2>
+      <h3>So kommst du zu deiner Seite:</h3>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Wenn du dich auf imGrätzl.at registriert hast und eingeloggt bist,
+        dann klicke rechts oben neben deinem Profilbild auf das „Rädchen“ und
+        dann auf den Menüpunkt „<%= link_to 'Locations', user_locations_path %>“.
+        Einfach das Formular ausfüllen, wenn alles passt schalten wir dir deine
+        Seite zügig frei und es kann losgehen.
+      </p>
+
+      <h3>Nun gehts zum Einrichten - gib dir Mühe! :)</h3>
+      <p>
+        Die Locationseite ist dein Aushängeschild im Grätzl. Die größte Aufmerksamkeit bekommst du,
+        wenn du dir bewußt machst, dass du als Mensch mit anderen Menschen sprichst.
+        Und: Persönlichkeit ist der Joker!
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        <b>Also ganze Sätze schreiben. Mehr Informationen und deine Expertise einfließen lassen.
+          Gerne auch immer mal wieder etwas von dir persönlich erzählen.</b>
+      </p>
+      <p>
+        Wenn du nichts über dich erzählst, deine Spezialität nicht hervorhebst,
+        dann nützt dir auch die Seite nichts, da steht ja dann nichts drauf.
+        Solche Seiten schalten wir natürlich auch nicht frei, sondern geben in solchen
+        Fällen noch einmal individuelle Hinweise, was man verbessern könnte.
+        Wir wollen schließlich, dass alle schreien vor Glück, weil es so tolle Dinge
+        in ihrem Grätzl gibt &#x1f609;
+      </p>
+
+      <h3>Ein paar Tipps zu den einzelnen Feldern:</h3>
+
+      <p>
+        <em><strong>Name:</strong></em><br>
+        Kurz und knapp der Name, die Bezeichnung deiner Tätigkeit. Das könnte jetzt der Name deines Geschäftes sein, oder wenn du selbständig bist z.b. „Webdesign - Marianne Musterfrau“.
+      </p>
+      <p>
+        <em><strong>Slogan:</strong></em><br>
+        In einem kurzen Satz deine Expertise oder was dich ausmacht, was du anbietest.
+      </p>
+      <p>
+        <em><strong>Beschreibung:</strong></em><br>
+        Tob dich aus, sei kreativ und vor allem sei persönlich – Das ist der Platz um dich und deine Tätigkeit vorzustellen!
+      </p>
+      <p>
+        <em><strong>Produktgruppen / Tags:</strong></em><br>
+        Weniger ist mehr, übertreibs nicht! Hier geht’s weniger darum alles, was du anbietest in allen Ausführungen aufzulisten, sondern in einigen wenigen guten Oberbegriffen dein Angebot zu beschreiben – Der Vorteil: Man sieht auf einem Blick was du tust:
+        Gute Begrifflichkeiten sind z.b. Schmuck, Design, Yoga, Fotografie, Mode, Kunst, Workshops, Coaching, usw... Also einfach 4-5 gute Oberbegriffe angeben. Ganze Sätze sind hier fehl am Platz...
+      </p>
+      <p>
+        <em><strong>Bilder:</strong></em><br>
+        Tja, Bilder sind nun mal der erste Eindruck, der erste Blickfang! Daher: Schau darauf, dass diese was hermachen. Sie müssen nicht unbedingt professionell sein, aber sie sollten jedenfalls nicht zu klein sein, und natürlich sollen sie ins Format passen. Die idealen Abmessungen sind:
+      </p>
+      <p>
+        <strong>- Coverphoto</strong>: Querformat – Ideal, ca. 1.000 mal 400 Pixel<br>
+        <strong>- Profilbild</strong>: Quadratisch – Mindestens 500 mal 500 Pixel
+      </p>
+      <p>
+        Solltest du Hilfe bei den Bildern oder auch sonst beim Einrichten deiner Locationseite benötigen, schreib uns an <a href="mailto:wir@imgraetzl.at" target="_blank">wir@imgraetzl.at</a> - Gemeinsam bekommen wir deine Seite top hin!
       </p>
     </article>
 
     <article class="container" id="two">
       <h2>Neuigkeiten veröffentlichen</h2>
+
       <h3>Treffen & Neuigkeiten auf deiner Locationseite veröffentlichen – So gehts!</h3>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Für jedes Grätzl gibt’s einen täglichen Stadtteil-Newsletter (das Daily Grätzl-Mail),
+        in diesen kommst du mit deinen Inhalten rein. Wenn du also Treffen erstellst oder
+        Neuigkeiten auf deiner Location-Seite veröffentlichst, dann landest du automatisch
+        am nächsten Tag im Daily-Grätzl Mail.
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        <em><strong>Verlockend gell? Aber jetzt kommt der Clou – Lies weiter bevor du in die Tasten haust:</strong></em><br>
+        Diese tolle Möglichkeit funktioniert nur, wenn dir bewusst ist, das am anderen Ende des Newsletters echte Menschen (Bewohner aus deinem Grätzl) sitzen, die deine Inhalte lesen.
       </p>
-    </article>
+      <p>
+        <strong>Deswegen achte auf die Frequenz deiner Updates und vorallem deine Inhalte.</strong> Es bringt nichts jeden Tag irgendetwas kundzutun oder auf einmal 20 Treffen für die nächsten Monate zu erstellen. Damit schadest du dir und deinem Grätzl.
+      </p>
+      <p>
+        Mirjam hat einen tollen kurzen Beitrag dazu geschrieben: „<strong>So rückst du dich ins beste Licht … kommuniziere von Mensch zu Mensch</strong>“. <a href="http://blog.imgraetzl.at/allgemein/so-rueckst-du-dich-ins-beste-licht/" target="_blank">Lies mal rein</a>.
+      </p>
+
+      <h3>Wofür sind also nun Treffen geeignet?</h3>
+      <p>
+        Wenn du etwas veranstaltest, einen Workshop, ein Event, einen Schnupperkurs, oder sonst etwas was real im Grätzl stattfindet, dann kannst du hierfür ein Treffen erstellen.
+      </p>
+      <p>
+        Was du nicht tun solltest, wäre jetzt auf einmal all deine Termine der nächsten Monate zu veröffentlichen – Damit verschießt du dein Pulver. Niemand wird sich in 8 Wochen mehr daran erinnern, was morgen im Daily-Gräzl Mail steht.
+        <strong>Daher lieber weniger, ab und an mal etwas und dafür mit deiner persönlichen Note :)</strong>
+      </p>
+
+      <h3>Und wofür sind Neuigkeiten geeignet?</h3>
+      <p>
+        Die erste tolle Neuigkeit ist, dass es dich überhaupt gibt! Sprich: sag mal kurz “Hallo” in dein Grätzl, stell dich kurz vor.
+      </p>
+      <p>
+        <strong>Neuigkeiten sind kurze Geschichten, die man gerne liest:</strong><br>
+        Zum Beispiel, wenn du ein neues Label in dein Sortiment aufnimmst, dann kannst du hier ein paar Background Infos zum Label schreiben. Oder, wenn du auf Entspannungstechniken spezialisiert bist, dann könntest du dort passend zur Jahreszeit Tipps geben. Teile dein Wissen, das muss gar kein langer Text sein, auch kurze Beiträge bringen dich ins Gedächtnis.
+      </p>
+     </article>
 
   </div>
-
-
 
   <div style="clear:both;"></div>
 

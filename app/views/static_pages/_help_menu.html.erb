@@ -35,6 +35,11 @@
     <div class="txt">Zuckerl <br/>& Angebote</div>
   <% end %>
 
+  <%= active_link_to info_fragen_und_antworten_path, class: "iconfilter" do %>
+    <svg class="icon-question-mark"><use xlink:href="#icon-question-mark"></use></svg>
+    <div class="txt">Fragen & <br/>Antworten</div>
+  <% end %>
+
   <% if user_signed_in? %>
     <!-- Logged In Infos -->
   <% else %>
