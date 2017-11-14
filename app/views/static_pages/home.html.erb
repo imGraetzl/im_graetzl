@@ -1,12 +1,11 @@
-<%
-   meta({
-          title: t('.title'),
-          description: t('.description'),
-          robots: 'index, follow',
-          og_title: t('.title'),
-          og_description: t('.description'),
-          og_image: image_url('meta/og_logo.png')
-        })
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/og_logo.png')
+  )
 %>
 
 <section class="homeOut">
@@ -15,42 +14,32 @@
 
     <% render 'wien/menu' %>
     <%= link_to new_registration_path, class: 'registerlink bigicontext-element' do %>
-      <svg class="icon-login-signin">
-        <use xlink:href="#icon-login-signin"></use>
-      </svg>
+      <%= icon_tag "login-signin" %>
       <div class="txt">Kostenlos <br/>registrieren</div>
     <% end %>
 
     <div class="icons">
       <div class="singleicon meetings">
         <%= link_to meetings_wien_path, class: "iconfilter" do %>
-          <svg class="icon-calendar-2">
-            <use xlink:href="#icon-calendar-2"></use>
-          </svg>
+          <%= icon_tag "calendar-2" %>
           <div class="txt">Treffen & <br/>Events</div>
         <% end %>
       </div>
       <div class="singleicon candies">
         <%= link_to zuckerls_wien_path, class: "iconfilter" do %>
-          <svg class="icon-shopping-bag">
-            <use xlink:href="#icon-shopping-bag"></use>
-          </svg>
+          <%= icon_tag "shopping-bag" %>
           <div class="txt">Zuckerl & <br/>Gutscheine</div>
         <% end %>
       </div>
       <div class="singleicon makers">
         <%= link_to locations_wien_path, class: "iconfilter" do %>
-          <svg class="icon-location">
-            <use xlink:href="#icon-location"></use>
-          </svg>
+          <%= icon_tag "location" %>
           <div class="txt">Anbieter & <br/>Local Makers</div>
         <% end %>
       </div>
       <div class="singleicon initiatives">
         <%= link_to rooms_wien_path, class: "iconfilter" do %>
-          <svg class="icon-raumteiler">
-            <use xlink:href="#icon-raumteiler"></use>
-          </svg>
+          <%= icon_tag "raumteiler" %>
           <div class="txt">Raumteiler</div>
         <% end %>
       </div>
@@ -59,7 +48,7 @@
 
   <div class="input-select graetzljump">
     <label for="select">
-      <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+      <%= icon_tag "map-location" %>
       <span>Zu deinem Grätzl</span>
     </label>
     <%= select_tag :select,

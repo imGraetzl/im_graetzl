@@ -6,14 +6,14 @@
     <div class="iconlist">
       <% if @room_demand.needed_area.present? %>
         <div class="rented-area icontxt">
-          <svg class="icon-resize-maximize"><use xlink:href="#icon-resize-maximize"></use></svg>
+          <%= icon_tag "resize-maximize" %>
           mind. <%= "%g" % (@room_demand.needed_area) %> m²<br>
         </div>
       <% end %>
 
       <% if @room_demand.wants_collaboration? %>
         <div class="collaboration icontxt">
-          <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+          <%= icon_tag "urgent-extra-notice-info-announcement" %>
           Auch an Kooperationen interessiert.
         </div>
       <% end %>

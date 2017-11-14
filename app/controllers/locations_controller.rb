@@ -9,16 +9,10 @@ class LocationsController < ApplicationController
 
   def show
     @graetzl = Graetzl.find(params[:graetzl_id])
-    if request.xhr?
-      @location = @graetzl.locations.approved.include_for_box.find(params[:id])
-      paginate_content
-    else
-      @location = @graetzl.locations.find(params[:id])
-      redirect_enqueued if @location.pending?
-      @meetings = @location.meetings.by_currentness.include_for_box.page(params[:meetings]).per(2)
-      @posts = @location.posts.includes(:images, :comments).order(created_at: :desc).page(params[:page]).per(10)
-      @zuckerls = @location.zuckerls.live
-    end
+    @location = @graetzl.locations.find(params[:id])
+    redirect_enqueued and return if @location.pending?
+    @posts = @location.posts.includes(:images, :comments).order(created_at: :desc).page(params[:page])
+    @zuckerls = @location.zuckerls.live
   end
 
   def new

@@ -5,9 +5,7 @@
     </div>
 
     <div class="categoryicon">
-      <svg class="icon-shopping-bag">
-        <use xlink:href="#icon-shopping-bag"></use>
-      </svg>
+      <%= icon_tag "shopping-bag" %>
     </div>
   </div>
   <div class="cardBoxContent">
@@ -18,9 +16,7 @@
         <div class="category"><%= location.category.name %></div>
         <% if address = location.address %>
           <div class="address">
-            <svg class="icon-location">
-              <use xlink:href="#icon-location"></use>
-            </svg>
+            <%= icon_tag "location" %>
             <%= location.address.street_name %> <%= location.address.street_number %>
           </div>
         <% end %>

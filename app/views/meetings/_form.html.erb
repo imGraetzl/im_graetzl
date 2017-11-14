@@ -1,5 +1,6 @@
-<%= form_for [@parent, @meeting] do |f| %>
-  <%= f.hidden_field :graetzl_id %>
+<%= form_for @meeting do |f| %>
+  <%= hidden_field_tag :graetzl_id, params[:graetzl_id] %>
+  <%= hidden_field_tag :location_id, params[:location_id] %>
 
   <%= form_errors_for @meeting %>
 
@@ -8,7 +9,7 @@
 
     <div class="input-field">
       <%= f.label :name do %>
-        <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+        <%= icon_tag "record" %>
         <span>Titel</span>
       <% end %>
       <%= f.text_field :name, placeholder: 'Gib deinem Treffen oder Veranstaltung einen kurzen Namen.'  %>
@@ -16,21 +17,25 @@
 
     <div class="input-textarea">
       <%= f.label :description do %>
-        <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+        <%= icon_tag "layout-document" %>
         <span>Beschreibung</span>
       <% end %>
       <%= f.text_area :description, placeholder: 'Beschreibe kurz, um was es bei deinem Treffen geht.' %>
     </div>
   </div>
 
-  <%= render "address_fields#{'_hidden' if meeting_no_address_fields?(@meeting)}", f: f %>
+  <% if @meeting.address.present? %>
+    <%= render "address_fields", f: f %>
+  <% else %>
+    <%= f.hidden_field :location_id %>
+  <% end %>
 
   <div class="meet-when">
     <p><span>Wann</span> planst du dein Treffen, deine Veranstaltung?</p>
 
     <div class="input-field">
       <%= f.label :starts_at_date do %>
-        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+        <%= icon_tag "calendar-2" %>
         <span>Datum</span>
       <% end %>
       <%= f.text_field :starts_at_date,
@@ -42,7 +47,7 @@
 
     <div class="input-field">
       <%= f.label :starts_at_time do %>
-        <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
+        <%= icon_tag "time-clock" %>
         <span>Beginn</span>
       <% end %>
       <%= f.text_field :starts_at_time,
@@ -53,7 +58,7 @@
 
     <div class="input-field">
       <%= f.label :ends_at_time do %>
-        <svg class="icon-time-clock"><use xlink:href="#icon-time-clock"></use></svg>
+        <%= icon_tag "time-clock" %>
         <span>Ende</span>
       <% end %>
       <%= f.text_field :ends_at_time, ignore_date: true,
@@ -66,7 +71,7 @@
 
     <div class="upload-oldschool">
       <%= f.label :cover_photo do %>
-          <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+        <%= icon_tag "photo-camera" %>
           <span>Bild hochladen</span>
       <% end %>
       <div class="field-wrp">

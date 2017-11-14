@@ -9,7 +9,7 @@
     <div class="links">
       <% @graetzl.districts.each do |district| %>
         <%= link_to district, class: 'toOverview' do %>
-          <svg class="icon-arrow-left-2"><use xlink:href="#icon-arrow-left-2"></use></svg><%= district.name %>
+          <%= icon_tag "arrow-left-2" %> <%= district.name %>
         <% end %>
       <% end %>
     </div>

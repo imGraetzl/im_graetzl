@@ -19,10 +19,6 @@ module MeetingsHelper
     end
   end
 
-  def meeting_no_address_fields?(meeting)
-    meeting.address.blank?
-  end
-
   def meeting_place(meeting)
     meeting_map(meeting) + meeting_address(meeting)
   end
@@ -47,27 +43,10 @@ module MeetingsHelper
   end
 
   def meeting_name(meeting)
-    meeting.basic? ? content_tag(:h1, meeting.name) : content_tag(:h2, 'ABGESAGT')
-  end
-
-  def meeting_new_headline(parent)
-    case
-    when parent.is_a?(Location)
-      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} bei #{content_tag(:span, parent.name)}!".html_safe }
-    when parent.is_a?(Graetzl)
-      content_tag(:h1){ "Ein #{content_tag(:span, 'neues Treffen')} im #{content_tag(:span, parent.name)}!".html_safe }
-    else
-      content_tag(:h1, 'Ein neues Treffen, wie schön!')
-    end
+    meeting.active? ? content_tag(:h1, meeting.name) : content_tag(:h2, 'ABGESAGT')
   end
 
   private
-
-  def meeting_map_icon
-    content_tag(:svg,
-      content_tag(:use, nil, { 'xlink:href' => '#icon-map-location' }),
-      class: 'icon-map-location')
-  end
 
   def map_link(coords)
     "http://www.openstreetmap.org/?mlat=#{coords.y}&mlon=#{coords.x}&zoom=18"
@@ -76,10 +55,10 @@ module MeetingsHelper
   def meeting_map(meeting)
     if coords = meeting.display_address.try(:coordinates)
       link_to map_link(coords), target: '_blank', class: 'iconMapLink' do
-        meeting_map_icon + 'Karte'
+        icon_tag("map-location") + 'Karte'
       end
     else
-      content_tag(:div, meeting_map_icon, class: 'iconMapLink')
+      content_tag(:div, icon_tag("map-location"), class: 'iconMapLink')
     end
   end
 

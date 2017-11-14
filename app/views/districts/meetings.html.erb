@@ -17,11 +17,11 @@
   <div class="meeting-block">
     <h1 class="hl-main">Treffen, Events & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
-    <%= form_tag meetings_path(district_id: @district.id), method: :get, remote: true, class: 'autosubmit-filter' %>
+    <%= form_tag meetings_path(district_id: @district.id), method: :get, remote: true, class: 'cards-filter' do; end %>
 
-    <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
+    <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="meetings-card-container">
       <%= render 'meetings/action_card', district: @district %>
     </div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' } %>
   </div>
 </section>

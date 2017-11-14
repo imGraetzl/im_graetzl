@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'controllers/shared/meetings_controller'
 include GeojsonSupport
 
 RSpec.describe MeetingsController, type: :controller do
@@ -22,6 +21,7 @@ RSpec.describe MeetingsController, type: :controller do
 
   describe 'GET new' do
     let(:graetzl) { create :graetzl }
+    let(:location) { create :location, :approved, graetzl: graetzl }
 
     context 'when logged out' do
       it 'redirects to login' do
@@ -37,10 +37,12 @@ RSpec.describe MeetingsController, type: :controller do
         get :new
       end
 
-      it_behaves_like :meetings_new
+      it 'assign @meeting in user graetzl' do
+        expect(assigns :meeting).to have_attributes(graetzl: graetzl)
+      end
 
-      it 'does not assign @parent' do
-        expect(assigns :parent).not_to be
+      it 'renders meetings/new' do
+        expect(response).to render_template 'meetings/new'
       end
 
       it 'assign @meeting with address' do
@@ -48,7 +50,50 @@ RSpec.describe MeetingsController, type: :controller do
         expect(address).not_to be_nil
       end
     end
+
+    context 'when logged in from graetzl' do
+      let(:user) { create :user }
+      before do
+        sign_in user
+        get :new, params: { graetzl_id: graetzl }
+      end
+
+      it 'assigns @meeting' do
+        expect(assigns :meeting).to have_attributes(
+          graetzl_id: graetzl.id,
+          location_id: nil)
+      end
+
+      it 'assigns @meeting with emtpy address' do
+        address = assigns(:meeting).address
+        expect(address.street_name).to be_nil
+        expect(address.street_number).to be_nil
+      end
+
+      it 'renders meetings/new' do
+        expect(response).to render_template 'meetings/new'
+      end
+    end
+
+    context 'when logged in from location' do
+      before do
+        sign_in create(:user)
+        get :new, params: { location_id: location }
+      end
+
+      it 'assigns @meeting without address' do
+        expect(assigns :meeting).to have_attributes(
+          graetzl_id: graetzl.id,
+          location_id: location.id,
+          address: nil)
+      end
+
+      it 'renders meetings/new' do
+        expect(response).to render_template 'meetings/new'
+      end
+    end
   end
+
   describe 'POST create' do
     context 'when logged out' do
       it 'redirects to login' do
@@ -56,6 +101,7 @@ RSpec.describe MeetingsController, type: :controller do
         expect(response).to render_template(session[:new])
       end
     end
+
     context 'when logged in' do
       let(:user) { create :user }
       before { sign_in user }
@@ -63,15 +109,36 @@ RSpec.describe MeetingsController, type: :controller do
       context 'without feature' do
         let(:graetzl) { create :graetzl }
         let(:params) {
-          { meeting: attributes_for(:meeting,
-            graetzl_id: graetzl.id,
+          { graetzl_id: graetzl.id,
+            meeting: attributes_for(:meeting,
             address_attributes: attributes_for(:address)) }}
 
-        it_behaves_like :meetings_create
-
-        it 'assigns @parent to user graetzl' do
+        it 'assigns new @meeting' do
           post :create, params: params
-          expect(assigns :parent).to eq user.graetzl
+          expect(assigns :meeting).to be_a Meeting
+        end
+
+        it 'creates new meeting' do
+          expect{
+            post :create, params: params
+          }.to change{Meeting.count}.by 1
+        end
+
+        it 'logs an activity' do
+          expect{
+            post :create, params: params
+          }.to change{Activity.count}.by 1
+        end
+
+        it 'creates a new going to' do
+          expect{
+            post :create, params: params
+          }.to change{GoingTo.count}.by 1
+        end
+
+        it 'redirects to meeting in graetzl' do
+          post :create, params: params
+          expect(response).to redirect_to [graetzl, Meeting.last]
         end
 
         it 'creates new address' do
@@ -80,23 +147,17 @@ RSpec.describe MeetingsController, type: :controller do
           }.to change{Address.count}.by 1
         end
       end
+
       context 'with feature' do
         let(:original_graetzl) { create :graetzl }
         let!(:graetzl) { create(:graetzl,
           area: 'POLYGON ((15.0 15.0, 15.0 20.0, 20.0 20.0, 20.0 15.0, 15.0 15.0))') }
         let(:feature) { feature_hash(16.0, 16.0) }
         let(:params) {
-          { meeting: attributes_for(:meeting,
-            graetzl_id: original_graetzl.id,
+          { graetzl_id: original_graetzl.id,
+            meeting: attributes_for(:meeting,
             address_attributes: { description: 'hello' }),
             feature: feature.to_json }}
-
-        it_behaves_like :meetings_create
-
-        it 'assigns @parent to user graetzl' do
-          post :create, params: params
-          expect(assigns :parent).to eq user.graetzl
-        end
 
         it 'creates new address' do
           expect{
@@ -112,8 +173,41 @@ RSpec.describe MeetingsController, type: :controller do
           expect(meeting.graetzl).to eq graetzl
         end
       end
+
+      context "with location" do
+        let(:graetzl) { create :graetzl }
+        let(:location) { create :location, :approved, graetzl: graetzl }
+        let(:params) {
+          { location_id: location,
+            meeting: attributes_for(:meeting, graetzl_id: graetzl.id) }}
+
+        it 'creates new meeting' do
+          expect{
+            post :create, params: params
+          }.to change{Meeting.count}.by 1
+        end
+
+        it 'logs an activity' do
+          expect{
+            post :create, params: params
+          }.to change{Activity.count}.by 1
+        end
+
+        it 'creates a new going to' do
+          expect{
+            post :create, params: params
+          }.to change{GoingTo.count}.by 1
+        end
+
+        it 'does not create address' do
+          expect{
+            post :create, params: params
+          }.not_to change{Address.count}
+        end
+      end
     end
   end
+
   describe 'GET edit' do
     let(:meeting) { create :meeting }
 
@@ -157,6 +251,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
   end
+
   describe 'DELETE destroy' do
     let(:graetzl) { create :graetzl }
     let(:meeting) { create :meeting, graetzl: graetzl }
@@ -189,7 +284,7 @@ RSpec.describe MeetingsController, type: :controller do
           expect{
             delete :destroy, params: { id: meeting }
             meeting.reload
-          }.to change{meeting.state}.from('basic').to('cancelled')
+          }.to change{meeting.state}.from('active').to('cancelled')
         end
 
         it 'redirect_to graetzl with notice' do
@@ -206,6 +301,7 @@ RSpec.describe MeetingsController, type: :controller do
       end
     end
   end
+
   describe 'PUT update' do
     let(:graetzl) { create :graetzl }
     let(:meeting) { create :meeting, graetzl: graetzl }
@@ -246,13 +342,13 @@ RSpec.describe MeetingsController, type: :controller do
           expect(response).to redirect_to [graetzl, meeting]
         end
 
-        it 'automatically changes state to basic' do
+        it 'automatically changes state to active' do
           meeting.cancelled!
           meeting.reload
           expect{
             put :update, params: params
             meeting.reload
-          }.to change{meeting.state}.to 'basic'
+          }.to change{meeting.state}.to 'active'
         end
         context 'time attributes' do
           let(:params) {

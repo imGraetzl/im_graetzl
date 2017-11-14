@@ -6,7 +6,7 @@
     <%= f.text_area :content, cols: 80, rows: 5, placeholder: 'Kommentar abgeben', class: 'input-plain' %>
       <div class="hideBlock">
         <div class="upload-streamImgs">
-          <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+          <%= icon_tag "photo-camera" %>
           <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
         </div>
         <%= f.button 'Kommentar senden', data: { disable_with: 'sendet...' }, class: 'btn-secondary' %>

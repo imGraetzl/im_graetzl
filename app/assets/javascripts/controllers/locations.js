@@ -46,6 +46,7 @@ APP.controllers.locations = (function() {
         $('.introtxt .txt').linkify({ target: "_blank"});
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
 
+        $('.autosubmit-stream').submit();
 
         enquire
             //mobile mode
@@ -60,17 +61,10 @@ APP.controllers.locations = (function() {
                     $('.stream').appendTo('.mainContent');
                 }
             });
-
-
     }
-
-
-
-
-// ---------------------------------------------------------------------- Public
 
     return {
-        init: init
-    }
+      init: init
+    };
 
 })();

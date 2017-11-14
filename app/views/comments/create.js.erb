@@ -1,20 +1,11 @@
 (function() {
-  var persisted = <%= @comment.persisted? %>;
-  var $streamForm = $("[data-behavior='stream-form']");
-
-  function renderComment() {
+  <% if @comment.persisted? %>
+    var $streamForm = $("[data-behavior='stream-form']");
     $streamForm.after("<%= j render 'comments/stream_comment', comment: @comment %>")
-  }
-
-  function renderError() {
-    alert('Es gab ein Problem, bitte versuche es später nochmal.');
-  }
-
-  function updateComponent() {
-    persisted ? renderComment() : renderError();
     $streamForm.replaceWith("<%= j render 'form', commentable: @comment.commentable %>");
     APP.components.stream.init();
-  }
+  <% else %>
+    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+  <% end %>
 
-  updateComponent();
 })();

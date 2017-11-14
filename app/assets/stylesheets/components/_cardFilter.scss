@@ -19,9 +19,10 @@
     }
   }
 
-  .filter-modal {
-    display: none;
-  }
+}
+
+.filter-modal {
+  display: none;
 
   .filter-button {
     margin-top: 20px;
@@ -41,4 +42,5 @@
 
   .SumoSelect { width: 400px; }
   .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
+
 }

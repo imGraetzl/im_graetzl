@@ -1,25 +1,22 @@
 (function() {
-  var $streamContainer = $("[data-behavior='stream-container']");
-  var $paginateLink = $("[data-behavior='paginate-link']");
+  var $cardContainer = $("[data-behavior='zuckerls-card-container']");
+  var $paginateLink = $("[data-behavior='zuckerls-paginate-link']");
 
-  function updateComponent() {
-    <% if params[:page].blank? %>
-      <% if @zuckerls.empty? %>
-        $streamContainer.html("<%= j render 'empty_message' %>");
-      <% else %>
-        $streamContainer.find(".cardBox").remove();
-        $streamContainer.append("<%= j render @zuckerls %>");
-      <% end %>
+  <% if params[:page].blank? %>
+    <% if @zuckerls.empty? %>
+      $cardContainer.html("<%= j render 'empty_message' %>");
     <% else %>
-      $streamContainer.append("<%= j render @zuckerls %>");
+      $cardContainer.find(".cardBox").remove();
+      $cardContainer.append("<%= j render @zuckerls %>");
     <% end %>
+  <% else %>
+    $cardContainer.append("<%= j render @zuckerls %>");
+  <% end %>
 
-    <% if @zuckerls.next_page.present? %>
-      $paginateLink.attr('href', "<%= j next_page_url %>").show();
-    <% else %>
-      $paginateLink.hide();
-    <% end %>
-  }
+  <% if @zuckerls.next_page.present? %>
+    $paginateLink.attr('href', "<%= j next_page_url %>").show();
+  <% else %>
+    $paginateLink.hide();
+  <% end %>
 
-  updateComponent();
 })();

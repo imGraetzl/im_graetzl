@@ -1,15 +1,15 @@
 (function() {
-  var $streamContainer = $("[data-behavior='stream-container']");
-  var $paginateLink = $("[data-behavior='paginate-link']");
+  var $cardContainer = $("[data-behavior='activites-card-container']");
+  var $paginateLink = $("[data-behavior='activites-paginate-link']");
 
   <% if params[:page].blank? %>
     <% if @activity.empty? %>
-      $streamContainer.html("<%= j render 'empty_message' %>")
+      $cardContainer.html("<%= j render 'empty_message' %>")
     <% else %>
-      $streamContainer.html("<%= j render @decorated_activity %>")
+      $cardContainer.html("<%= j render @decorated_activity %>")
     <% end %>
   <% else %>
-    $streamContainer.append("<%= j render @activity %>");
+    $cardContainer.append("<%= j render @activity %>");
   <% end %>
 
   <% if @activity.next_page.present? %>

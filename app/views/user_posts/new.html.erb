@@ -10,7 +10,7 @@
 
       <div class="input-field">
         <%= f.label :title do %>
-          <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+          <%= icon_tag "record" %>
           <span>Titel</span>
         <% end %>
         <%= f.text_field :title, placeholder: 'In aller Kürze...'  %>
@@ -18,7 +18,7 @@
 
       <div class="input-textarea">
         <%= f.label :content do %>
-          <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>
+          <%= icon_tag "head-idea-lightbulb" %>
           <span>Dein Wunsch<br/>Deine Idee</span>
         <% end %>
         <%= f.text_area :content, placeholder: '...und ausführlich.'  %>
@@ -26,9 +26,7 @@
 
       <div class="upload-oldschool">
         <%= f.label :images do %>
-          <svg class="icon-photo-camera">
-            <use xlink:href="#icon-photo-camera"></use>
-          </svg>
+          <%= icon_tag "photo-camera" %>
           <span>Bild hochladen</span>
         <% end %>
         <div class="field-wrp">

@@ -4,7 +4,7 @@ ActiveAdmin.register Meeting do
   includes :graetzl, :location
 
   scope :all, default: true
-  scope :basic
+  scope :active
   scope :cancelled
   scope :upcoming
 

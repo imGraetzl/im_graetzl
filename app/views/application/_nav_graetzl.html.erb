@@ -1,38 +1,43 @@
 <div class="mainNav">
   <%= link_to 'Home', root_path, class: 'homelink' %>
   <div class="graetzlTrigger dropdownTrigger" data-horizontal-offset="0" data-mobileNavID="graetzl">
-    <svg class="icon-arrow-down-2"><use xlink:href="#icon-arrow-down-2"></use></svg>
+    <%= icon_tag "arrow-down-2" %>
     <span class="txt"><%= graetzl.name %></span>
   </div>
   <%= link_to wien_path, class: 'bloglink' do %>
-    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg><div class="txt">Wien</div>
+    <%= icon_tag "map-location" %>
+    <div class="txt">Wien</div>
   <% end %>
 
   <!-- dropDown -->
   <div class="graetzlContainer jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-left dropdown-container">
     <div class="jq-dropdown-panel nav-graetzl">
       <%= link_to graetzl_path(graetzl) do %>
-        <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= graetzl.name %>
+        <%= icon_tag "home" %> <%= graetzl.name %>
       <% end %>
       <%= link_to locations_graetzl_path(graetzl) do %>
-        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations
+        <%= icon_tag "location" %> Anbieter & Locations
       <% end %>
-      <%= link_to graetzl_meetings_path(graetzl) do %>
-        <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Events & Workshops
+      <%= link_to meetings_graetzl_path(graetzl) do %>
+        <%= icon_tag "calendar-2" %> Treffen & Events
       <% end %>
       <%= link_to rooms_graetzl_path(graetzl) do %>
-        <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>Raumteiler
+        <%= icon_tag "raumteiler" %> Raumteiler
       <% end %>
       <%= link_to zuckerls_graetzl_path(graetzl) do %>
-        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl & Angebote
+        <%= icon_tag "shopping-bag" %> Zuckerl & Angebote
       <% end %>
       <%= link_to posts_graetzl_path(graetzl) do %>
-        <svg class="icon-head-idea-lightbulb"><use xlink:href="#icon-head-idea-lightbulb"></use></svg>Ideen im Grätzl
+        <%= icon_tag "head-idea-lightbulb" %> Ideen im Grätzl
       <% end %>
+
       <%= link_to info_path do %>
-        <svg class="icon-lightbulb"><use xlink:href="#icon-lightbulb"></use></svg>Mehr Infos
+        <%= icon_tag "lightbulb" %> Mehr Infos
       <% end %>
-      <a href="http://blog.imgraetzl.at/" class="discover" target="_blank"><svg class="icon-coffee"><use xlink:href="#icon-coffee"></use></svg>Blog</a>
+
+      <%= link_to "http://blog.imgraetzl.at/", class: 'discover', target: '_blank' do %>
+        <%= icon_tag "coffee" %> Blog
+      <% end %>
     </div>
   </div>
 </div>

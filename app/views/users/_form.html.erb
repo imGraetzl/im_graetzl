@@ -6,14 +6,14 @@
     <div class="formRow -double">
       <div class="input-field">
         <%= f.label :email do %>
-          <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+          <%= icon_tag "at-symbol" %>
           <span>E-Mail</span>
         <% end %>
         <%= f.email_field :email %>
       </div>
       <div class="input-field">
         <%= f.label :password do %>
-          <svg class="icon-unlocked"><use xlink:href="#icon-unlocked"></use></svg>
+          <%= icon_tag "unlocked" %>
           <span>Passwort</span>
         <% end %>
         <%= f.password_field :password %>
@@ -26,7 +26,7 @@
     <div class="formRow -double">
       <div class="input-field disabled">
         <%= f.label :username do %>
-          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <%= icon_tag "user-avatar" %>
           <span>Username</span>
         <% end %>
         <%= f.text_field :username, disabled: true %>
@@ -36,14 +36,14 @@
     <div class="formRow -double">
       <div class="input-field">
         <%= f.label :first_name do %>
-          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <%= icon_tag "user-avatar" %>
           <span>Vorname</span>
         <% end %>
         <%= f.text_field :first_name %>
       </div>
       <div class="input-field">
         <%= f.label :last_name do %>
-          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <%= icon_tag "user-avatar" %>
           <span>Nachname</span>
         <% end %>
         <%= f.text_field :last_name %>
@@ -53,7 +53,7 @@
     <div class="formRow -double">
       <div class="input-textarea">
         <%= f.label :bio do %>
-          <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+          <%= icon_tag "layout-document" %>
           <span>Über mich</span>
         <% end %>
         <%= f.text_area :bio, size: '30x10', placeholder: 'Ein paar Infos über dich' %>
@@ -61,7 +61,7 @@
 
       <div class="upload-oldschool">
         <%= f.label :avatar do %>
-          <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+          <%= icon_tag "photo-camera" %>
           <span><%= User.human_attribute_name(:avatar) %></span>
         <% end %>
         <div class="field-wrp">
@@ -86,7 +86,7 @@
       <div class="col1">
         <div class="input-field">
           <%= f.label :website do %>
-            <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
+            <%= icon_tag "globe" %>
             <span>Web/Blog</span>
           <% end %>
           <%= f.url_field :website, placeholder: 'Deine Web-, FB- oder Blog Url eintragen' %>
@@ -94,7 +94,7 @@
 
         <div class="upload-oldschool">
           <%= f.label :cover_photo do %>
-            <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+            <%= icon_tag "photo-camera" %>
             <span><%= User.human_attribute_name(:cover_photo) %></span>
           <% end %>
           <div class="field-wrp">

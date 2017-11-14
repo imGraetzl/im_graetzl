@@ -45,7 +45,7 @@ class RoomsController < ApplicationController
 
     room_category_ids = params.dig(:filter, :room_category_ids)
     if room_category_ids.present? && room_category_ids.any?(&:present?)
-      offers = offers.joins(:room_categories).where(room_categories: {id: room_category_ids})
+      offers = offers.includes(:room_categories).where(room_categories: {id: room_category_ids})
     end
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
@@ -69,7 +69,7 @@ class RoomsController < ApplicationController
 
     room_category_ids = params.dig(:filter, :room_category_ids)
     if room_category_ids.present? && room_category_ids.any?(&:present?)
-      demands = demands.joins(:room_categories).where(room_categories: {id: room_category_ids})
+      demands = demands.includes(:room_categories).where(room_categories: {id: room_category_ids})
     end
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)

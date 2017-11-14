@@ -39,7 +39,7 @@
     <section>
       <% if @room_offer.room_offer_prices.present? %>
         <div class="bigicontext-element">
-          <svg class="icon-currency-euro"><use xlink:href="#icon-currency-euro"></use></svg>
+          <%= icon_tag "currency-euro" %>
           <div class="txt">Kosten</div>
         </div>
         <ul class="tag-list-newline">
@@ -52,7 +52,7 @@
 
     <section>
       <div class="bigicontext-element">
-        <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+        <%= icon_tag "users" %>
         <div class="txt">Mein idealer Raumpartner</div>
       </div>
       <div class="txt"><%= @room_offer.tenant_description %></div>
@@ -64,7 +64,7 @@
         <% if @room_offer.user %>
           <%= avatar_for(@room_offer.user, 200) %>
         <% else %>
-          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <%= icon_tag "user-avatar" %>
         <% end %>
         <div class="txt">Über mich</div>
       </div>
@@ -81,7 +81,7 @@
 
     <section>
       <div class="bigicontext-element">
-        <svg class="icon-profile-vcard"><use xlink:href="#icon-profile-vcard"></use></svg>
+        <%= icon_tag "profile-vcard" %>
         <div class="txt">Kontakt-Infos</div>
       </div>
 
@@ -89,29 +89,27 @@
       <div class="contact-infos">
         <% unless @room_offer.first_name.nil? && @room_offer.last_name.nil? %>
         <div class="icontxt">
-          <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+          <%= icon_tag "user-avatar" %>
           <div class="txt"><%= "#{@room_offer.first_name} #{@room_offer.last_name}" %></div>
         </div>
         <% end %>
         <% unless @room_offer.phone.nil? %>
         <div class="icontxt">
-          <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
+          <%= icon_tag "phone" %>
           <div class="txt"><%= @room_offer.phone %></div>
         </div>
         <% end %>
         <% unless @room_offer.email.nil? %>
         <%= mail_to @room_offer.email do %>
         <div class="icontxt">
-          <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+          <%= icon_tag "at-symbol" %>
           <div class="txt"><%= @room_offer.email %></div>
         </div>
         <% end %>
         <% end %>
         <% unless @room_offer.website.nil? %>
           <%= link_to @room_offer.website, class: 'icontxt', target: '_blank' do %>
-          <svg class="icon-globe">
-            <use xlink:href="#icon-globe"></use>
-          </svg>
+          <%= icon_tag "globe" %>
           <%= @room_offer.website.sub(/^https?\:\/\//,'') %>
           <% end %>
         <% end %>
@@ -131,7 +129,7 @@
     <section>
       <% if @room_offer.wants_collaboration? %>
         <div class="bigicontext-element">
-        <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+        <%= icon_tag "urgent-extra-notice-info-announcement" %>
         <div class="txt">Auch an Kooperationen interessiert.</div>
       <% end %>
     </section>

@@ -1,12 +1,10 @@
 APP.components.stream = (function() {
 
     function init() {
-
         initEntryCreateForm();
         initCommentForm();
         initImgGallery();
         initLinkify();
-
     }
 
     function initEntryCreateForm() {

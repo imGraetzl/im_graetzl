@@ -1,35 +1,25 @@
 <div class="mobileCreateContent" data-mobileNavID="createContent">
   <div class="createContainer">
-    <%= link_to new_graetzl_meeting_path(current_user.graetzl) do %>
-      <svg class="icon-calendar-2">
-        <use xlink:href="#icon-calendar-2"></use>
-      </svg>
+    <%= link_to new_meeting_path(graetzl_id: current_user.graetzl_id) do %>
+      <%= icon_tag "calendar-2" %>
       <div class="icontxt">Neues Treffen</div>
     <% end %>
     <%= link_to select_room_offers_path do %>
-      <svg class="icon-raumteiler">
-        <use xlink:href="#icon-raumteiler"></use>
-      </svg>
+      <%= icon_tag "raumteiler" %>
       <div class="icontxt">Neuer Raumteiler</div>
     <% end %>
     <%= link_to new_graetzl_user_post_path(current_user.graetzl) do %>
-      <svg class="icon-head-idea-lightbulb">
-        <use xlink:href="#icon-head-idea-lightbulb"></use>
-      </svg>
+      <%= icon_tag "head-idea-lightbulb" %>
       <div class="icontxt">Neue Idee im Grätzl</div>
     <% end %>
     <% current_user.locations.approved.each do |location| %>
       <%= link_to graetzl_location_path(location.graetzl, location) do %>
-        <svg class="icon-location">
-          <use xlink:href="#icon-location"></use>
-        </svg>
+        <%= icon_tag "location" %>
         <div class="icontxt">Neuigkeit meiner Location</div>
         <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
       <% end %>
       <%= link_to new_location_zuckerl_path(location) do %>
-        <svg class="icon-shopping-bag">
-          <use xlink:href="#icon-shopping-bag"></use>
-        </svg>
+        <%= icon_tag "shopping-bag" %>
         <div class="icontxt">Grätzlzuckerl meiner Location</div>
         <%= attachment_image_tag location, :avatar, :fill, 35, 35, fallback: 'avatar/location/35x35.png', class: 'img-square' %>
       <% end %>
@@ -42,24 +32,24 @@
 <div class="mobileUserSettings" data-mobileNavID="usersettings">
   <div class="nav-usersettings">
     <%= link_to user_path(current_user) do %>
-        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>Profil
+      <%= icon_tag "user-avatar" %> Profil
     <% end %>
     <%= link_to user_locations_path do %>
-        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Locations
+      <%= icon_tag "location" %> Locations
     <% end %>
     <%= link_to user_zuckerls_path do %>
-        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Grätzlzuckerl
+      <%= icon_tag "shopping-bag" %> Grätzlzuckerl
     <% end %>
     <%= link_to edit_user_path do %>
-      <svg class="icon-gears"><use xlink:href="#icon-gears"></use></svg>Einstellungen
+      <%= icon_tag "gears" %> Einstellungen
     <% end %>
     <% if current_user.admin? %>
       <%= link_to admin_root_path do %>
-        <svg class="icon-magic-wand"><use xlink:href="#icon-magic-wand"></use></svg>Admin
+        <%= icon_tag "magic-wand" %> Admin
       <% end %>
     <% end %>
     <%= link_to destroy_user_session_path, method: :delete do %>
-      <svg class="icon-power"><use xlink:href="#icon-power"></use></svg>Abmelden
+      <%= icon_tag "power" %> Abmelden
     <% end %>
   </div>
 </div>

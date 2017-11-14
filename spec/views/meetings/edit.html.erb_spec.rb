@@ -8,7 +8,7 @@ RSpec.describe 'meetings/edit', type: :view do
     allow(meeting).to receive(:initiator) { create(:user) }
   end
 
-  context 'when basic meeting' do
+  context 'when active meeting' do
     before { render }
 
     it 'displays link to cancel meeting' do

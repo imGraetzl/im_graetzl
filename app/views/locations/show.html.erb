@@ -1,36 +1,38 @@
-<% meta({
+<% meta(
     title: t('.title', name: @location.name, slogan: @location.slogan),
     description: t('.description', desc: location_meta(@location)),
     robots: 'index, follow',
     og_title: t('.title', name: @location.name, slogan: @location.slogan),
     og_description: t('.description', desc: location_meta(@location)),
     og_image: attachment_url(@location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-  })
+  )
 %>
 
 <section class="locationPage">
+
   <div class="imgHeader -cloudy2">
     <%= attachment_image_tag @location, :avatar, :fill, 400, 400, fallback: 'avatar/location/400x400.png', class: 'locationAvatar' %>
     <%= attachment_image_tag @location, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
     <% if @location.editable_by? current_user %>
       <div class="bigicontext-element createentry" data-behavior="createTrigger">
-        <svg class="icon-dot-3"><use xlink:href="#icon-dot-3"></use></svg>
+        <%= icon_tag "dot-3" %>
       </div>
       <!-- dropDown -->
       <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer">
         <div class="jq-dropdown-panel">
           <%= link_to edit_location_path(@location) do %>
-            <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+            <%= icon_tag "pencil" %>
             <div class="icontxt">Location bearbeiten</div>
           <% end %>
           <%= link_to new_location_zuckerl_path(@location) do %>
-            <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+            <%= icon_tag "shopping-bag" %>
             <div class="icontxt">Zuckerl einbuchen</div>
           <% end %>
         </div>
       </div>
     <% end %>
   </div>
+
   <div class="mainContent">
     <div class="introtxt">
       <h1><%= @location.name %></h1>
@@ -42,7 +44,7 @@
         <%= category_icon @location.category %>
         <div class="txt"><%= @location.category.name %></div>
       </div>
-      <% unless @location.products.empty? %>
+      <% if @location.products.present? %>
         <ul class="tag-list">
           <% @location.product_list.each do |product| %>
             <li><%= product %></li>
@@ -55,14 +57,11 @@
 
   <%= render 'sidebar', zuckerls: @zuckerls %>
 
-  <div class="stream" data-behavior="stream-container">
-    <% if @location.editable_by? current_user %>
+  <div class="posts-container stream">
+    <% if @posts.present? || @location.editable_by?(current_user) %>
       <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
-      <%= render 'location_posts/form', location: @location %>
-    <% elsif @posts.present? %>
-      <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
+      <%= render 'location_posts/form', location: @location if @location.editable_by?(current_user) %>
+      <%= render partial: 'location_posts/stream_post', collection: @posts, as: 'post' %>
     <% end %>
-    <%= render partial: 'location_posts/stream_post', collection: @posts, as: 'post' %>
-    <%= view_more_link @posts %>
   </div>
 </section>

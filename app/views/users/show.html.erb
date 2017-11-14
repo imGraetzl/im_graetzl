@@ -1,12 +1,11 @@
-<%
-  meta({
+<% meta(
     title: t('.title', name: @user.username, graetzl: @user.graetzl.name),
     description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric),
     robots: 'noindex, follow',
     og_title: t('.title', name: @user.username, graetzl: @user.graetzl.name),
     og_description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric),
     og_image: attachment_url(@user, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-  })
+  )
 %>
 
 <section class="userprofile">
@@ -26,22 +25,16 @@
       <div class="sideBarbox">
         <% if @user.website %>
           <%= link_to @user.website, class: 'icontxt', target: '_blank' do %>
-            <svg class="icon-globe">
-              <use xlink:href="#icon-globe"></use>
-            </svg>
+            <%= icon_tag "globe" %>
             <%= @user.website.sub(/^https?\:\/\//,'') %>
           <% end %>
         <% end %>
         <div class="icontxt">
-          <svg class="icon-calendar-2">
-            <use xlink:href="#icon-calendar-2"></use>
-          </svg>
+          <%= icon_tag "calendar-2" %>
           Beigetreten: <%= l(@user.created_at, format: "%b, %Y") %>
         </div>
         <div class="icontxt">
-          <svg class="icon-flag-1">
-            <use xlink:href="#icon-flag-1"></use>
-          </svg>
+          <%= icon_tag "flag-1" %>
           <%= link_to @user.graetzl.name, @user.graetzl %>
         </div>
       </div>
@@ -56,6 +49,5 @@
     <%= render 'comments/form', commentable: @user %>
     <%= render partial: 'comments/stream_comment', collection: @wall_comments, as: 'comment' %>
   </div>
-  <%= view_more_link @wall_comments %>
 
 </section>

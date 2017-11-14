@@ -1,6 +1,13 @@
 <% title('Neues Treffen') %>
 
 <section class="create-meeting">
-  <%= meeting_new_headline @parent %>
+  <% if @meeting.location %>
+    <h1>Ein <span>neues Treffen</span> bei <span><%= @meeting.location.name %></span>!</h1>
+  <% elsif @meeting.graetzl %>
+    <h1>Ein <span>neues Treffen</span> im <span><%= @meeting.graetzl.name %></span>!</h1>
+  <% else %>
+    <h1>Ein neues Treffen, wie schön!</h1>
+  <% end %>
+
   <%= render 'form' %>
 </section>

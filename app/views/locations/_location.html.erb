@@ -4,7 +4,7 @@
       <%= cover_photo_for location %>
     <% end %>
     <div class="categoryicon">
-      <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+      <%= icon_tag "location" %>
     </div>
     <%= graetzl_flag(location.graetzl) %>
   </div>
@@ -20,9 +20,7 @@
         <div class="category"><%= location.category.name %></div>
         <% if location.address %>
           <div class="address">
-            <svg class="icon-location">
-              <use xlink:href="#icon-location"></use>
-            </svg>
+            <%= icon_tag "location" %>
             <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
           </div>
         <% end %>
@@ -35,7 +33,7 @@
     <% if location_post = location.posts.last %>
       <%= link_to [location.graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
         <div class="hl">
-          <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+          <%= icon_tag "location" %>
           vor <%= time_ago_in_words(location_post.created_at) %>
         </div>
         <div class="title">
@@ -46,7 +44,7 @@
     <% if zuckerl = location.live_zuckerls.last %>
       <%= link_to [location.graetzl, location, anchor: dom_id(zuckerl)], class: 'zuckerlteasertxt' do %>
         <div class="hl">
-          <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+          <%= icon_tag "shopping-bag" %>
           Grätzlzuckerl im <%= I18n.localize Time.now, format: '%B' %>
         </div>
         <div class="title"><%= zuckerl.title %></div>
@@ -56,7 +54,7 @@
       <%= link_to [meeting.graetzl, meeting], class: 'event-teaser-box' do %>
         <% if meeting.starts_at_date %>
           <div class="date">
-            <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>
+            <%= icon_tag "calendar-2" %>
             <%= I18n.localize(meeting.starts_at_date, format:'%d. %B %Y') %>
           </div>
         <% end %>

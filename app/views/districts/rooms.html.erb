@@ -13,13 +13,15 @@
     <%= render 'districts/map', map_data: @map_data %>
   <% end %>
   <%= render 'menu' %>
+
   <div class="meeting-block">
     <h1 class="hl-main">Raumteiler <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
-    <%= form_tag rooms_path(district_id: @district.id), method: :get, remote: true, class: 'autosubmit-filter' %>
-    <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="stream-container">
+    <%= form_tag rooms_path(district_id: @district.id), method: :get, remote: true, class: 'cards-filter' do; end %>
+
+    <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="rooms-card-container">
       <%= render 'rooms/action_card', district: @district %>
     </div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' } %>
   </div>
 </section>

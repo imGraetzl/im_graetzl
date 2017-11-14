@@ -10,7 +10,7 @@
       </div>
     <% end %>
     <div class="categoryicon">
-      <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+      <%= icon_tag "users" %>
       <div class="count"><%= meeting.users.size %></div>
     </div>
     <%= graetzl_flag(meeting.graetzl) %>

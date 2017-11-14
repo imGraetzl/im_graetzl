@@ -30,24 +30,24 @@
 
           <div class="input-field">
             <%= f.label :username do %>
-                <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-                <span>Username</span>
+              <%= icon_tag "user-avatar" %>
+              <span>Username</span>
             <% end %>
             <%= f.text_field :username, placeholder: "Nickname wählen" %>
           </div>
 
           <div class="input-field">
             <%= f.label :email do %>
-                <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-                <span>E-Mail</span>
+              <%= icon_tag "at-symbol" %>
+              <span>E-Mail</span>
             <% end %>
             <%= f.email_field :email, placeholder: "E-Mail" %>
           </div>
 
           <div class="input-field">
             <%= f.label :password do %>
-                <svg class="icon-lock-1"><use xlink:href="#icon-lock-1"></use></svg>
-                <span>Passwort</span>
+              <%= icon_tag "lock-1" %>
+              <span>Passwort</span>
             <% end %>
             <%= f.password_field :password, autocomplete: "off" %>
           </div>
@@ -59,24 +59,24 @@
 
           <div class="input-field">
             <%= f.label :first_name do %>
-                <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-                <span>Vorname</span>
+              <%= icon_tag "user-avatar" %>
+              <span>Vorname</span>
             <% end %>
             <%= f.text_field :first_name %>
           </div>
 
           <div class="input-field">
             <%= f.label :last_name do %>
-                <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-                <span>Nachname</span>
+              <%= icon_tag "user-avatar" %>
+              <span>Nachname</span>
             <% end %>
             <%= f.text_field :last_name %>
           </div>
 
           <div class="upload-oldschool">
             <%= f.label :avatar do %>
-                <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
-                <span>Profilbild</span>
+              <%= icon_tag "photo-camera" %>
+              <span>Profilbild</span>
             <% end %>
             <div class="field-wrp">
               <% if resource.avatar %>

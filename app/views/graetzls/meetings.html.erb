@@ -22,19 +22,19 @@
     </div>
   <% end %>
 
-  <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter autosubmit-filter' do %>
+  <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
     <div class="filter-selection-text">
       Zeige mir in <%= link_to @graetzl.name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
     </div>
-
-    <div id="filter-modal-bezirk" class="filter-modal">
-      <%= render 'filters/district_graetzl', graetzl: @graetzl %>
-    </div>
   <% end %>
 
+  <div id="filter-modal-bezirk" class="filter-modal">
+    <%= render 'filters/district_graetzl', graetzl: @graetzl %>
+  </div>
+
   <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="stream-container"></div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'paginate-link' } %>
+    <div class="cards-container" data-behavior="meetings-card-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' } %>
   </div>
 
 </section>

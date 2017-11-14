@@ -146,14 +146,14 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#show_meeting_button' do
+  describe '#can_create_meeting?' do
     let!(:location) { create(:location) }
 
     context 'when meeting_permission meetable' do
       before { location.meetable! }
 
       it 'returns true for any user' do
-        expect(location.show_meeting_button(build(:user))).to eq true
+        expect(location.can_create_meeting?(build(:user))).to eq true
       end
     end
 
@@ -165,11 +165,11 @@ RSpec.describe Location, type: :model do
       end
 
       it 'returns false for random user' do
-        expect(location.show_meeting_button(build(:user))).to eq false
+        expect(location.can_create_meeting?(build(:user))).to eq false
       end
 
       it 'returns true for owner' do
-        expect(location.show_meeting_button(owner)).to eq true
+        expect(location.can_create_meeting?(owner)).to eq true
       end
     end
 
@@ -177,7 +177,7 @@ RSpec.describe Location, type: :model do
       before { location.non_meetable! }
 
       it 'returns false for any user' do
-        expect(location.show_meeting_button(build(:user))).to eq false
+        expect(location.can_create_meeting?(build(:user))).to eq false
       end
     end
   end

@@ -5,8 +5,8 @@ FactoryGirl.define do
     address
     graetzl
 
-    trait :basic do
-      state { Meeting.states[:basic] }
+    trait :active do
+      state { Meeting.states[:active] }
     end
 
     trait :cancelled do

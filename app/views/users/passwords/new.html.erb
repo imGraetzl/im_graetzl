@@ -7,8 +7,8 @@
 
       <div class="input-field">
         <%= f.label :email do %>
-            <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-            <span>E-Mail</span>
+          <%= icon_tag "at-symbol" %>
+          <span>E-Mail</span>
         <% end %>
         <%= f.email_field :email, autofocus: true %>
       </div>
