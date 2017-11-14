@@ -3,11 +3,11 @@ class RoomsController < ApplicationController
   def index
     room_offers = room_offers_scope.includes(:user, :graetzl, :district)
     room_offers = filter_offers(room_offers)
-    room_offers = room_offers.page(params[:page]).per(15)
+    room_offers = room_offers.by_currentness.page(params[:page]).per(15)
 
     room_demands = room_demands_scope.includes(:user, :graetzls, :districts)
     room_demands = filter_demands(room_demands)
-    room_demands = room_demands.page(params[:page]).per(15)
+    room_demands = room_demands.by_currentness.page(params[:page]).per(15)
 
     @rooms = room_offers + room_demands
     @next_page = room_offers.next_page.present? || room_demands.next_page.present?

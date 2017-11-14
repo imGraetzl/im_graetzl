@@ -12,11 +12,20 @@
   <%= cache [@district, 'locationsmap'], expires_in: 2.months do %>
     <%= render 'districts/map', map_data: @map_data %>
   <% end %>
-  
+
   <%= render 'menu' %>
+
   <h1 class="hl-main">Anbieter, local Makers, Lokale &amp; Geschäfte <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
-  <%= form_tag locations_path(district_id: @district.id), method: :get, remote: true, class: 'cards-filter' do; end %>
+  <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <div class="filter-selection-text">
+      Zeige mir in <%= link_to @district.zip_name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+    </div>
+  <% end %>
+
+  <div id="filter-modal-bezirk" class="filter-modal">
+    <%= render 'filters/district_graetzl', district: @district %>
+  </div>
 
   <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="locations-card-container">
     <%= render 'locations/action_card', district: @district %>
