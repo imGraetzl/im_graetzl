@@ -9,7 +9,7 @@ class RoomsController < ApplicationController
     room_demands = filter_demands(room_demands)
     room_demands = room_demands.by_currentness.page(params[:page]).per(15)
 
-    @rooms = room_offers + room_demands
+    @rooms = (room_offers + room_demands).sort_by(&:created_at).reverse
     @next_page = room_offers.next_page.present? || room_demands.next_page.present?
   end
 
