@@ -11,40 +11,13 @@
 <section class="homeOut">
   <div class="buehne">
     <h1><span>Was ist los </span><span>in deinem Grätzl?</span></h1>
-
-    <% render 'wien/menu' %>
-    <%= link_to new_registration_path, class: 'registerlink bigicontext-element' do %>
-      <%= icon_tag "login-signin" %>
+    <%= link_to new_registration_path, class: 'registerlink iconfilter bigicontext-element' do %>
+      <%= icon_tag "pencil" %>
       <div class="txt">Kostenlos <br/>registrieren</div>
     <% end %>
-
-    <div class="icons">
-      <div class="singleicon meetings">
-        <%= link_to meetings_wien_path, class: "iconfilter" do %>
-          <%= icon_tag "calendar-2" %>
-          <div class="txt">Treffen & <br/>Events</div>
-        <% end %>
-      </div>
-      <div class="singleicon candies">
-        <%= link_to zuckerls_wien_path, class: "iconfilter" do %>
-          <%= icon_tag "shopping-bag" %>
-          <div class="txt">Zuckerl & <br/>Gutscheine</div>
-        <% end %>
-      </div>
-      <div class="singleicon makers">
-        <%= link_to locations_wien_path, class: "iconfilter" do %>
-          <%= icon_tag "location" %>
-          <div class="txt">Anbieter & <br/>Local Makers</div>
-        <% end %>
-      </div>
-      <div class="singleicon initiatives">
-        <%= link_to rooms_wien_path, class: "iconfilter" do %>
-          <%= icon_tag "raumteiler" %>
-          <div class="txt">Raumteiler</div>
-        <% end %>
-      </div>
-    </div>
   </div>
+
+  <%= render "menu" %>
 
   <div class="input-select graetzljump">
     <label for="select">
@@ -52,6 +25,30 @@
       <span>Zu deinem Grätzl</span>
     </label>
     <%= select_tag :select, options_for_select(district_url_options), prompt: 'Bezirk wählen', onchange: 'location.href = $(this).val()' %>
+  </div>
+
+  <div class="block-locations">
+    <div class="hl-subtext">
+      <h1>Entdecke — <span>Selbständige &amp; Geschäfte</span> im Grätzl</h1>
+      <p>Finde grätzlansässige local Makers &amp; Unternehmen, Lokale &amp; inhabergeführte Geschäfte</p>
+    </div>
+    <div class="cardBoxCollection -tripple">
+      <%= render @locations %>
+      <%= render 'locations/action_card' %>
+    </div>
+  </div>
+
+  <div class="block-locations">
+    <div class="hl-subtext">
+      <h1>Entdecke — <span>Raumteiler</span> im Grätzl</h1>
+      <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
+    </div>
+    <div class="cardBoxCollection -tripple">
+      <% unless @rooms.nil? %>
+        <%= render @rooms %>
+      <% end %>
+      <%= render 'rooms/action_card' %>
+    </div>
   </div>
 
   <div class="block-meetings">
@@ -64,75 +61,7 @@
       <%= render 'meetings/action_card' %>
     </div>
   </div>
-  <div class="block-locations">
-    <div class="hl-subtext">
-      <h1>Entdecke — <span>Selbständige &amp; Geschäfte</span> im Grätzl</h1>
-      <p>Finde grätzlansässige local Makers &amp; Unternehmen, Lokale &amp; inhabergeführte Geschäfte</p>
-    </div>
-    <div class="cardBoxCollection -tripple">
-      <%= render @locations %>
-      <%= render 'locations/action_card' %>
-    </div>
-  </div>
-  <div class="block-locations">
-    <div class="hl-subtext">
-      <h1><span>Raumteiler</span> im Grätzl</h1>
-      <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
-    </div>
-    <div class="cardBoxCollection -tripple">
-      <% unless @rooms.nil? %>
-        <%= render @rooms %>
-      <% end %>
-      <%= render 'rooms/action_card' %>
-    </div>
-  </div>
-  <div class="block-zuckerls">
-    <div class="hl-subtext">
-      <h1>Jeden Monat neu - <span>Zuckerl &amp; Angebote im Grätzl</span></h1>
-      <p>Gutscheine, Angebote &amp; Rabattaktionen von Selbständigen, local Makers &amp; Unternehmen, Lokalen &amp; Geschäften</p>
-    </div>
-    <div class="cardBoxCollection -tripple">
-      <%= render @zuckerls %>
-      <%= render 'zuckerls/action_card' %>
-    </div>
-  </div>
 
+  <%= link_to 'Kostenlos in deinem Grätzl registrieren', new_user_session_path, class: 'btn-primary -rose -large -shadow -register' %>
 
-  <div class="aboutGraetzl">
-    <div class="hl-subtext">
-      <h1>Willkommen auf imGrätzl.at - <span>worum geht es?</span></h1>
-      <p>imGrätzl.at richtet sich an alle, die das Besondere ums Eck entdecken möchten, die Lust haben in ihrem Stadtteil aktiv zu werden und an alle, die etwas Spannendes ums Eck anbieten! Bewohner, Local Makers & Grätzlgestalter.</p>
-    </div>
-
-
-    <div class="grid">
-
-      <div class="resident-block">
-        <h4>Für <span>Bewohnerinnen &amp; Bewohner</span></h4>
-        <div class="txt">
-          <p>Bei imGrätzl findest du die besonderen Unternehmen, Geschäfte &amp; Selbständigen mit ihren Angeboten. Dazu Ideen &amp; Initiativen fürs Grätzl, Events, Veranstaltungen &amp; Aktionen, die dich im Stadtteil verankern. Melde dich an und bleibe auf dem Laufenden was los ist in deinem Grätzl!</p>
-        </div>
-      </div>
-
-      <div class="maker-block">
-        <h4>Für <span>local Makers &amp; kleine Unternehmen</span></h4>
-        <div class="txt">
-          <p>Du bist selbständig, hast ein Geschäft, eine Dienstleistung, ein kreatives Projekt, eine Veranstaltung, oder übst ein Handwerk aus? Dich wollen wir sichtbar machen!</p>
-          <p>Richte dir deine eigene Seite ein und veröffentliche deine Neuigkeiten, Veranstaltungen &amp; Aktionen. Damit erfahren die Bewohner, was es Besonderes bei dir gibt. We love local!</p>
-        </div>
-      </div>
-
-      <div class="shaper-block">
-        <h4>Für <span>GrätzlgestalterInnen</span></h4>
-        <div class="txt">
-          <p>Du bist in deinem Stadtteil aktiv? Dann richte für deine Initiative eine Seite ein und mache deine Aktionen & Ideen bei den Bewohner sichtbar. Schau dir auch mal die Grätzlmarie an, sie könnte auch was für dich sein.</p>
-          <p>Du möchtest dich gerne in deinem Stadtteil stärker vernetzen, dann werde ein Botschafter für dein Grätzl und melde dich bei uns.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <%= link_to 'Gleich anmelden & loslegen', new_user_session_path, class: 'btn-primary -rose -large -shadow' %>
-
-  </div>
 </section>
