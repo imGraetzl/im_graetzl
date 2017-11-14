@@ -14,14 +14,30 @@
   <% end %>
   <%= render 'menu' %>
 
-  <div class="meeting-block">
-    <h1 class="hl-main">Raumteiler <span>im <%= @district.numeric %>. Bezirk</span></h1>
+  <h1 class="hl-main">Raumteiler <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
-    <%= form_tag rooms_path(district_id: @district.id), method: :get, remote: true, class: 'cards-filter' do; end %>
-
-    <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="rooms-card-container">
-      <%= render 'rooms/action_card', district: @district %>
+  <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <div class="filter-selection-text">
+      Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
+      aus <%= link_to 'allen Kategorien', '#filter-modal-categories', data: { no_filter_label: 'allen Kategorien'} %>,
+      in <%= link_to @district.zip_name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
     </div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' } %>
+  <% end %>
+
+  <div id="filter-modal-type" class="filter-modal">
+    <%= render 'filters/room_type' %>
   </div>
+
+  <div id="filter-modal-categories" class="filter-modal">
+    <%= render 'filters/room_categories' %>
+  </div>
+
+  <div id="filter-modal-bezirk" class="filter-modal">
+    <%= render 'filters/district_graetzl', district: @district %>
+  </div>
+
+  <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="rooms-card-container">
+    <%= render 'rooms/action_card', district: @district %>
+  </div>
+  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' } %>
 </section>

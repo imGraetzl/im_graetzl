@@ -20,7 +20,6 @@ APP.components.cardFilter = (function() {
 
     $(".filter-modal").each(function() {
       updateFilterInputs($(this));
-      updateFilterLabels($(this));
     });
 
     var grid = APP.components.masonryFilterGrid;

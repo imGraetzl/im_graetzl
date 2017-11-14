@@ -39,11 +39,17 @@ APP.controllers.districts = (function() {
   }
 
   function initFilter() {
+    if ($("#filter-modal-bezirk").exists()) {
+      APP.components.graetzlSelectFilter.init($("#filter-modal-bezirk"));
+    }
+
+    if ($('.cards-filter').exists()) {
+      APP.components.cardFilter.init();
+    }
+
     $('.cards-filter').on('ajax:success', function() {
       APP.components.cardBox.moveActionCard3rd();
     });
-
-    $('.cards-filter').submit();
   }
 
   function initMobileNav() {

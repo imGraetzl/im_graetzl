@@ -22,6 +22,8 @@ class RoomOffer < ApplicationRecord
   validates_presence_of :address
   before_create :set_graetzl_and_district
 
+  scope :by_currentness, -> { order(created_at: :desc) }
+
   private
 
   def set_graetzl_and_district
