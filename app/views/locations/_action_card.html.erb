@@ -18,14 +18,16 @@
         <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
       <% else %>
         <h3>Du bist ein "Local Maker" bzw. unternehmerisch, sozial oder kreativ im Grätzl tätig?</h3>
-        <%= link_to 'Deine Location Eintragen', new_user_session_path, class: 'btn-primary -rose' %>
+        <%= link_to 'Deine Location einrichten', new_user_session_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>
   </div>
-  <% if defined? view_all %>
-    <%= link_to 'Alle Anbieter & local Makers', locations_district_path(district), class: 'link-more' %>
-  <% elsif defined? graetzl %>
+  <% if defined? graetzl %>
     <%= link_to 'Alle Anbieter & local Makers', locations_graetzl_path(graetzl), class: 'link-more' %>
+  <% elsif defined? district %>
+    <%= link_to 'Alle Anbieter & local Makers', locations_district_path(district), class: 'link-more' %>
+  <% else %>
+    <%= link_to 'Alle Anbieter & local Makers', locations_wien_path, class: 'link-more' %>
   <% end %>
 </div>

@@ -8,6 +8,33 @@ section.homeOut {
     max-width: 500px;
     margin: -10px auto 60px auto;
   }
+
+  .filter-stream {
+    margin-bottom: 70px;
+    .input-select {
+      margin-left:-16px;
+      @include respond-to(">=medium") {
+        display: none;
+      }
+    }
+    .iconfilter {
+      margin-right: 25px;
+    }
+    .iconfilter:not(.createentry):not(.loginlink)  {
+      @include respond-to(">=medium") {
+        display: flex;
+      }
+    }
+  }
+
+  .btn-primary {
+    &.-register {
+      display: table;
+      margin:auto;
+    }
+
+  }
+
 }
 
 .buehne {
@@ -24,10 +51,11 @@ section.homeOut {
 
 
   @include respond-to(">=medium") {
-    background-size: 400px auto, 1010px auto;
-    background-position: 40px 75px, -140px -150px;
-    margin-bottom: 40px;
-    margin-left: -25px;
+    background-size: 400px auto, 1000px auto;
+    background-position: 40px 75px, -30px -160px;
+    min-height: 360px;
+    margin-bottom: 30px;
+    margin-left: -20px;
     margin-right: -25px;
     padding-left: 25px;
     padding-right: 25px;
@@ -35,9 +63,9 @@ section.homeOut {
   @include respond-to(">=large") {
     background-size: 507px auto, 936px auto;
     background-position: 10px 88px, 90px -31px;
-    min-height: 560px;
+    min-height: 460px;
     margin-top: -8.0rem;
-    margin-bottom: 4.0rem;
+    //margin-bottom: 4.0rem;
     margin-left: 0;
     margin-right: 0;
     padding-left: 0;
@@ -92,11 +120,11 @@ section.homeOut {
     left: 50%;
     width: 230px;
     transform: translate(-50%, 0);
-    margin-top: 180px;
+    margin-top: 200px;
     margin-bottom: 40px;
     @include respond-to(">=medium") {
       transform: translate(0, 0);
-      left: 360px;
+      left: 400px;
       position: absolute;
       top: 190px;
       margin-top: 0;
@@ -104,18 +132,18 @@ section.homeOut {
     }
     @include respond-to(">=large") {
       position: absolute;
-      top: 310px;
+      top: 300px;
       left: auto;
       right: 160px;
       margin-bottom: 0;
     }
     [class^=icon-] {
-      fill: white;
+      fill: $color-ambient-rosa;
       position: relative;
       z-index: 2;
-      width: 65px;
-      height: 65px;
-      margin-left: 9px;
+      width: 60px;
+      height: 60px;
+      margin-left: 15px;
     }
     .txt {
       color: $color-ambient-rosa;
@@ -133,7 +161,7 @@ section.homeOut {
       border-radius: 50%;
       z-index: 1;
       background-image: url(image_path('texture-alpha-noise.png'));
-      background-color: $color-ambient-rosa;
+      background-color: white;
     }
     &:hover {
       .txt {
@@ -141,6 +169,9 @@ section.homeOut {
       }
       &::after {
         background-color: $color-ambient-mint;
+      }
+      [class^=icon-] {
+        fill: white;
       }
     }
 
@@ -219,7 +250,6 @@ section.homeOut {
         }
       }
     }
-
   }
 
 
