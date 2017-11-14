@@ -6,13 +6,18 @@ section.homeOut {
 
   .graetzljump {
     max-width: 500px;
-    margin: -10px auto 60px auto;
+    //margin: -60px auto 50px auto;
+    //@include respond-to(">=medium") {
+      margin: -10px auto 60px auto;
+    //}
   }
 
   .filter-stream {
     margin-bottom: 70px;
     .input-select {
+      //display: none;
       margin-left:-16px;
+      margin-bottom:-25px;
       @include respond-to(">=medium") {
         display: none;
       }
