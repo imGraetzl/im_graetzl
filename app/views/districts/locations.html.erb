@@ -24,7 +24,7 @@
   <% end %>
 
   <div id="filter-modal-bezirk" class="filter-modal">
-    <%= render 'filters/district_graetzl', district: @district %>
+    <%= render 'filters/district_graetzl', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
   </div>
 
   <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="locations-card-container">
