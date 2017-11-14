@@ -9,6 +9,9 @@ section.help {
     //@include respond-to(">=medium") {
       //font-size: 34px;
     //}
+    span {
+      color: $color-font-primary;
+    }
   }
 
   h3 {
@@ -45,9 +48,10 @@ section.help {
       margin-bottom: 50px;
       div.img {
         float:none;
-        @include respond-to(">=large") {
+        @include respond-to(">=medium") {
           float: right;
           width:40%;
+          padding-left: 50px;
         }
         img {
           max-width:100%;
@@ -56,7 +60,7 @@ section.help {
       }
     }
     div.txt {
-      @include respond-to(">=large") {
+      @include respond-to(">=medium") {
         float: left;
         width: 60%;
       }
