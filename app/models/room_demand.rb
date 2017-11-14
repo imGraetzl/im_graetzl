@@ -1,4 +1,6 @@
 class RoomDemand < ApplicationRecord
+  include Trackable
+
   belongs_to :user
   belongs_to :location, optional: true
 

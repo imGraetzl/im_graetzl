@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  include Trackable
   include User::Notifiable
   extend FriendlyId
 

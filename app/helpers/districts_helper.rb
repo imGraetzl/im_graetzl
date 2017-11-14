@@ -1,8 +1,8 @@
 module DistrictsHelper
 
-  def selectable_districts
-    Rails.cache.fetch('selectable-districts') do
-      District.all.pluck(:id, :name, :zip)
+  def district_url_options
+    Rails.cache.fetch('district-url-options') do
+      District.all.map { |d| [d.zip_name, district_path(d)] }
     end
   end
 

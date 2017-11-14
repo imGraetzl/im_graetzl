@@ -51,10 +51,7 @@
       <%= icon_tag "map-location" %>
       <span>Zu deinem Grätzl</span>
     </label>
-    <%= select_tag :select,
-       options_for_select(selectable_districts.map { |district_id, name, zip| ["#{zip} - #{name}", district_path(district_id)] }),
-       prompt: 'Bezirk wählen',
-       onchange: 'location.href = $(this).val()' %>
+    <%= select_tag :select, options_for_select(district_url_options), prompt: 'Bezirk wählen', onchange: 'location.href = $(this).val()' %>
   </div>
 
   <div class="block-meetings">
