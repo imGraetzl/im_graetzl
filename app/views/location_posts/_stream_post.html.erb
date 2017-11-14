@@ -3,7 +3,9 @@
     <% if post.edit_permission?(current_user) %>
       <div class="editControls">
         <%= link_to post_path(post), { method: :delete, remote: true, data: { confirm: 'Beitrag wirklich löschen?', disable_with: 'lädt...' } } do %>
-          <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+          <div class="btn-delete">
+            <%= icon_tag "trash-delete-remove" %>
+          </div>
         <% end %>
       </div>
     <% end %>

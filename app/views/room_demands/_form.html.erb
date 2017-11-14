@@ -41,7 +41,7 @@
 
     <div class="input-tags">
       <%= label_tag :custom_keywords do %>
-      <svg class="icon-label-tag"><use xlink:href="#icon-label-tag"></use></svg>
+      <%= icon_tag "label-tag" %>
       <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
       <% end %>
       <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
@@ -60,7 +60,7 @@
     <h2 class="hl-main"><span>Raumtitel</span> und <span>Beschreibung</span></h2>
     <div class="input-field">
       <%= f.label :slogan do %>
-        <svg class="icon-record"><use xlink:href="#icon-record"></use></svg>
+        <%= icon_tag "record" %>
         <span>Kurzer Titel</span>
       <% end %>
       <%= f.text_field :slogan, placeholder: 'z.B. Suche einen Raum für handwerklich kreative Tätigkeiten…' %>
@@ -68,7 +68,7 @@
 
     <div class="input-field">
       <%= f.label :demand_description do %>
-        <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+        <%= icon_tag "layout-document" %>
         <span>Beschreibung</span>
       <% end %>
       <%= f.text_area :demand_description, placeholder: 'Hast du spezielle Anforderungen an den Raum? Beschreibe kurz das Umfeld welches gut zu dir passen würde. Welche Leute wären toll als Mitnutzer im Raum zu haben …' %>
@@ -77,7 +77,7 @@
     <h2 class="hl-main">Ein paar Worte <span>über dich & deine Tätigkeit</span></h2>
     <div class="input-field">
       <%= f.label :personal_description do %>
-      <svg class="icon-layout-document"><use xlink:href="#icon-layout-document"></use></svg>
+      <%= icon_tag "layout-document" %>
       <span>Über dich</span>
       <% end %>
       <%= f.text_area :personal_description, placeholder: 'Beschreibe kurz deine Tätigkeit. Auch ein paar persönliche Worte über dich wären toll …' %>
@@ -93,42 +93,42 @@
     <h2 class="hl-main">Deine <span>Kontaktdaten</span></h2>
     <div class="input-field">
       <%= f.label :first_name do %>
-      <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+      <%= icon_tag "user-avatar" %>
       <span>Vorname</span>
       <% end %>
       <%= f.text_field :first_name %>
     </div>
     <div class="input-field">
       <%= f.label :last_name do %>
-      <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+      <%= icon_tag "user-avatar" %>
       <span>Nachname</span>
       <% end %>
       <%= f.text_field :last_name %>
     </div>
     <div class="input-field">
       <%= f.label :website do %>
-      <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
+      <%= icon_tag "globe" %>
       <span>Website</span>
       <% end %>
       <%= f.text_field :website, placeholder: 'https://...' %>
     </div>
     <div class="input-field">
       <%= f.label :email do %>
-      <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+      <%= icon_tag "at-symbol" %>
       <span>Email</span>
       <% end %>
       <%= f.text_field :email %>
     </div>
     <div class="input-field">
       <%= f.label :phone do %>
-      <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
+      <%= icon_tag "phone" %>
       <span>Telefonnummer</span>
       <% end %>
       <%= f.text_field :phone %>
     </div>
     <div class="input-select">
       <%= f.label :location_id do %>
-        <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+        <%= icon_tag "location" %>
         <span>Location verknüpfen</span>
       <% end %>
       <%= f.collection_select(:location_id, current_user.locations, :id, :name, {include_blank: true}) %>

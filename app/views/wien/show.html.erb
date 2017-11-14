@@ -36,7 +36,7 @@
     <%= form_tag visit_graetzl_wien_path, method: :get do %>
       <div class="input-field" id="addressSearchAutocomplete">
         <%= label_tag :address do %>
-          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+          <%= icon_tag "map-location" %>
           <span>Wo wohnst du?</span>
         <% end %>
         <%= text_field_tag :address, nil, required: true, placeholder: "Straße und Hausnummer" %>

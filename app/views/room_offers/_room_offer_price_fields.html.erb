@@ -1,7 +1,7 @@
 <div class="nested-fields">
   <div class="input-field price">
     <%= f.label :amount do %>
-    <svg class="icon-currency-euro"><use xlink:href="#icon-currency-euro"></use></svg>
+      <%= icon_tag "currency-euro" %>
     <% end %>
     <%= f.text_field :amount, placeholder: "Preis in €" %>
   </div>
@@ -10,6 +10,8 @@
     <%= f.text_field :name, placeholder: "z.B: pro Monat für 2 Tage / Woche" %>
   </div>
   <%= link_to_remove_association f do %>
-    <div class="btn-delete"><svg class="icon-trash-delete-remove"><use xlink:href="#icon-trash-delete-remove"></use></svg></div>
+    <div class="btn-delete">
+      <%= icon_tag "trash-delete-remove" %>
+    </div>
   <% end %>
 </div>

@@ -7,7 +7,7 @@
   <%= form_tag set_address_registration_path, method: :post do %>
     <div id="addressSearchAutocomplete" class="input-field">
       <%= label_tag :address do %>
-        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        <%= icon_tag "map-location" %>
         <span>Wo wohnst du?</span>
       <% end %>
       <%= text_field_tag :address, nil, required: true, autofocus: true, placeholder: "Straße und Hausnummer" %>

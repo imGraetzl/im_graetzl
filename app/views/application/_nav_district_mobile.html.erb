@@ -1,22 +1,31 @@
 <div class="mobileMainNav">
   <%= link_to district_path(district) do %>
-    <svg class="icon-home"><use xlink:href="#icon-home"></use></svg><%= district.name %> (<%= district.numeric %>. Bez.)
+    <%= icon_tag "home" %>
+    <%= district.name %> (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to locations_district_path(district) do %>
-    <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>Anbieter & Locations (<%= district.numeric %>. Bez.)
+    <%= icon_tag "location" %>
+    Anbieter & Locations (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to meetings_district_path(district) do %>
-    <svg class="icon-calendar-2"><use xlink:href="#icon-calendar-2"></use></svg>Events & Workshops (<%= district.numeric %>. Bez.)
+    <%= icon_tag "calendar-2" %>
+    Events & Workshops (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to rooms_district_path(district) do %>
-    <svg class="icon-raumteiler"><use xlink:href="#icon-raumteiler"></use></svg>Raumteiler (<%= district.numeric %>. Bez.)
+    <%= icon_tag "raumteiler" %>
+    Raumteiler (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to zuckerls_district_path(district) do %>
-    <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>Zuckerl & Angebote (<%= district.numeric %>. Bez.)
+    <%= icon_tag "shopping-bag" %>
+    Zuckerl & Angebote (<%= district.numeric %>. Bez.)
   <% end %>
   <%= link_to wien_path, class: 'discover' do %>
-    <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>Wien Übersicht
+    <%= icon_tag "map-location" %>
+    Wien Übersicht
   <% end %>
   <%= link_to_more_info %>
-  <a href="http://blog.imgraetzl.at/" class="bloglink" target="_blank"><svg class="icon-coffee"><use xlink:href="#icon-coffee"></use></svg>Blog</a>
+  <%= link_to "http://blog.imgraetzl.at/", class: 'bloglink', target: '_blank' do %>
+    <%= icon_tag "coffee" %>
+    Blog
+  <% end %>
 </div>

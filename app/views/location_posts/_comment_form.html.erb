@@ -6,7 +6,7 @@
   </label>
   <div class="hideBlock">
     <div class="upload-streamImgs">
-      <svg class="icon-photo-camera"><use xlink:href="#icon-photo-camera"></use></svg>
+      <%= icon_tag "photo-camera" %>
       <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
     </div>
     <%= f.button 'Antwort senden', data: { disable_with: 'sendet...' } %>

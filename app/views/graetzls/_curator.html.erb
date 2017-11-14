@@ -1,3 +1,5 @@
 <div class="graetzl-ambassador">
-  Grätzlbotschafter<svg class="icon-love"><use xlink:href="#icon-love"></use></svg><%= link_to @graetzl.curator.name, @graetzl.curator.website, target: '_blank' %>
+  Grätzlbotschafter
+  <%= icon_tag "love" %>
+  <%= link_to @graetzl.curator.name, @graetzl.curator.website, target: '_blank' %>
 </div>

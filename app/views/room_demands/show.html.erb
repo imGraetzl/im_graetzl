@@ -44,7 +44,7 @@
         <% if @room_demand.user %>
           <%= avatar_for(@room_demand.user, 200) %>
         <% else %>
-        <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+        <%= icon_tag "user-avatar" %>
         <% end %>
         <div class="txt">Über mich</div>
       </div>
@@ -60,7 +60,7 @@
 
     <section>
       <div class="bigicontext-element">
-        <svg class="icon-profile-vcard"><use xlink:href="#icon-profile-vcard"></use></svg>
+        <%= icon_tag "profile-vcard" %>
         <div class="txt">Kontakt-Infos</div>
       </div>
 
@@ -68,14 +68,14 @@
         <div class="contact-infos">
           <% if @room_demand.first_name.present? && @room_demand.last_name.present? %>
             <div class="icontxt">
-              <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
+              <%= icon_tag "user-avatar" %>
               <div class="txt"><%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
             </div>
           <% end %>
 
           <% if @room_demand.phone.present? %>
             <div class="icontxt">
-              <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
+              <%= icon_tag "phone" %>
               <div class="txt"><%= @room_demand.phone %></div>
             </div>
           <% end %>
@@ -83,7 +83,7 @@
           <% if @room_demand.email.present? %>
             <%= mail_to @room_demand.email do %>
               <div class="icontxt">
-                <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
+                <%= icon_tag "at-symbol" %>
                 <div class="txt"><%= @room_demand.email %></div>
               </div>
             <% end %>
@@ -91,9 +91,7 @@
 
         <% if @room_demand.website.present? %>
           <%= link_to @room_demand.website, class: 'icontxt', target: '_blank' do %>
-            <svg class="icon-globe">
-              <use xlink:href="#icon-globe"></use>
-            </svg>
+            <%= icon_tag "globe" %>
             <%= @room_demand.website.sub(/^https?\:\/\//,'') %>
           <% end %>
         <% end %>
@@ -112,7 +110,7 @@
     <section>
       <% if @room_demand.wants_collaboration? %>
         <div class="bigicontext-element">
-        <svg class="icon-urgent-extra-notice-info-announcement"><use xlink:href="#icon-urgent-extra-notice-info-announcement"></use></svg>
+        <%= icon_tag "urgent-extra-notice-info-announcement" %>
         <div class="txt">Auch an Kooperationen interessiert.</div>
       <% end %>
     </section>
@@ -120,7 +118,7 @@
 
     <section>
       <div class="bigicontext-element">
-        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        <%= icon_tag "map-location" %>
         <div class="txt">Wunschbezirke</div>
       </div>
       <div class="category-tags">

@@ -5,7 +5,7 @@
 <div class="ctrl-graetzlselect">
   <div class="input-select">
     <label>
-      <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+      <%= icon_tag "map-location" %>
       <span>Bezirk</span>
     </label>
     <%= select_tag :district_id,
@@ -16,7 +16,7 @@
 
   <div class="input-select" id="graetzl-select">
     <label>
-      <svg class="icon-flag-1"><use xlink:href="#icon-flag-1"></use></svg>
+      <%= icon_tag "flag-1" %>
       <span>Grätzl</span>
     </label>
     <%= select_tag object ? "#{object.model_name.singular}[graetzl_id]" : 'graetzl_id',

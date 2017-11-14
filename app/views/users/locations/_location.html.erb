@@ -4,7 +4,7 @@
       <%= cover_photo_for location %>
     <% end %>
     <div class="categoryicon">
-      <svg class="icon-location"><use xlink:href="#icon-location"></use></svg>
+      <%= icon_tag "location" %>
     </div>
   </div>
   <div class="cardBoxContent">
@@ -17,9 +17,7 @@
         <div class="category"><%= location.category.name %></div>
         <% if location.address %>
           <div class="address">
-            <svg class="icon-location">
-              <use xlink:href="#icon-location"></use>
-            </svg>
+            <%= icon_tag "location" %>
             <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
           </div>
         <% end %>

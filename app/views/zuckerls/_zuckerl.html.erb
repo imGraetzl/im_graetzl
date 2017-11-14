@@ -5,7 +5,7 @@
       <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
     <% end %>
     <div class="categoryicon">
-      <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+      <%= icon_tag "shopping-bag" %>
     </div>
     <%= graetzl_flag(location.graetzl) %>
   </div>
@@ -21,9 +21,7 @@
         <div class="category"><%= location.category.name %></div>
         <% if location.address %>
           <div class="address">
-            <svg class="icon-location">
-              <use xlink:href="#icon-location"></use>
-            </svg>
+            <%= icon_tag "location" %>
             <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
           </div>
         <% end %>
@@ -31,7 +29,7 @@
     </div>
     <%= link_to [location.graetzl, location, anchor: dom_id(zuckerl)], class: 'zuckerlteasertxt' do %>
       <div class="hl">
-        <svg class="icon-shopping-bag"><use xlink:href="#icon-shopping-bag"></use></svg>
+        <%= icon_tag "shopping-bag" %>
         Grätzlzuckerl im <%= I18n.localize Time.now, format: '%B' %>
       </div>
       <div class="title"><%= zuckerl.title %></div>
