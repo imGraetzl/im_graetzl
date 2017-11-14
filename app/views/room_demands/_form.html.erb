@@ -22,11 +22,13 @@
     </div>
 
     <h2 class="hl-main"><span>Wo</span> möchtest du idealerweise <span>anmieten</span>?</h2>
-    <div class="input-select">
-      <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
-    </div>
-    <div class="input-select">
-      <%= f.select :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
+    <div id="district-graetzl-select">
+      <div class="input-select">
+        <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
+      </div>
+      <div class="input-select">
+        <%= f.select :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
+      </div>
     </div>
 
     <h2 class="hl-main"><span>Ausstattung</span> - Kurz das wichtigste</h2>
