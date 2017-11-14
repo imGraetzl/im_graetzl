@@ -1,10 +1,6 @@
 class RoomDemandsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
-  def index
-    @room_demands = RoomDemand.page(params[:page]).per(15)
-  end
-
   def show
     @room_demand = RoomDemand.find(params[:id])
   end
@@ -20,6 +16,7 @@ class RoomDemandsController < ApplicationController
   def create
     @room_demand = current_user.room_demands.new(room_demand_params)
     if @room_demand.save
+      @room_demand.create_activity(:create, owner: current_user)
       redirect_to @room_demand
     else
       render 'new'

@@ -1,4 +1,6 @@
 class RoomOffer < ApplicationRecord
+  include Trackable
+  
   belongs_to :user
   belongs_to :graetzl
   belongs_to :district

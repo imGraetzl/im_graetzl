@@ -9,25 +9,30 @@
         <% end %>
       </div>
     <% end %>
+
     <div class="userCreateInfo">
       <%= attachment_image_tag post.author, :avatar, :fill, 100, 100, fallback: 'avatar/location/100x100.png', class: 'img-square' %>
       <span>vor <%= time_ago_in_words(post.created_at) %></span>
     </div>
+
     <div class="headline"><%= post.title %></div>
+
     <div class="txt"><%= post.content %></div>
-    <% unless post.images.empty? %>
+    <% if post.images.present? %>
       <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
         <% post.images.each do |image| %>
           <%= link_to attachment_image_tag(image, :file, :fill, 400, 400), attachment_url(image, :file, :limit, 800, 800) %>
         <% end %>
       </div>
     <% end %>
-    <% unless post.comments.empty? %>
+
+    <% if post.comments.present? %>
       <%= content_tag(:div, id: dom_id(post), class: "comments_post") do %>
         <%= load_more_comments_link(post) if post.comments.size > 1 %>
         <%= render post.comments.last %>
       <% end %>
     <% end %>
+
     <%= render 'location_posts/comment_form', location_post: post %>
   </div>
 </div>

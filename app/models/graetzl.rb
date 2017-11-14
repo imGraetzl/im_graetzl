@@ -6,7 +6,8 @@ class Graetzl < ApplicationRecord
     'meeting.comment', 'meeting.create', 'meeting.go_to',
     'user_post.comment', 'user_post.create',
     'admin_post.comment', 'admin_post.create',
-    'location_post.comment', 'location_post.create'
+    'location_post.comment', 'location_post.create',
+    'room_offer.create', 'room_demand.create',
   ]
 
   has_one :curator, dependent: :destroy
@@ -34,12 +35,13 @@ class Graetzl < ApplicationRecord
       where(id:
         Activity.select('DISTINCT ON(trackable_id, trackable_type) id').
         where(key: STREAM_ACTIVITY_KEYS).
-        where("(trackable_id IN (?) AND trackable_type = 'Meeting')
-                OR
-                (trackable_id IN (?) AND trackable_type LIKE '%Post')
-                OR
-                (trackable_id IN (?) AND trackable_type = 'Post')", meetings.ids, posts.ids, admin_posts.ids).
-        order(:trackable_id, :trackable_type, id: :desc)
+        where("(trackable_id IN (?) AND trackable_type = 'Meeting') OR
+               (trackable_id IN (?) AND trackable_type LIKE '%Post') OR
+               (trackable_id IN (?) AND trackable_type = 'Post') OR
+               (trackable_id IN (?) AND trackable_type = 'RoomOffer') OR
+               (trackable_id IN (?) AND trackable_type = 'RoomDemand')",
+               meeting_ids, post_ids, admin_post_ids, room_offer_ids, room_demand_ids
+        ).order(:trackable_id, :trackable_type, id: :desc)
       ).order(id: :desc)
   end
 

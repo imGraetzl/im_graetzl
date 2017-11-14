@@ -1,6 +1,6 @@
 class Activity < ApplicationRecord
   belongs_to :trackable, polymorphic: true
-  belongs_to :owner, polymorphic: true
+  belongs_to :owner, optional: true, class_name: "User"
   belongs_to :recipient, polymorphic: true
   serialize :parameters, Hash
 
@@ -9,6 +9,16 @@ class Activity < ApplicationRecord
   end
 
   before_destroy :destroy_notifications, prepend: true
+
+  def appendix
+    if key.end_with?('.comment')
+      { comment: trackable.comments.last }
+    elsif key.end_with?('.go_to')
+      { participant:  activity.owner }
+    else
+      {}
+    end
+  end
 
   private
 
