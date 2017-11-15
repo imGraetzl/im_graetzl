@@ -6,7 +6,7 @@
     </div>
 
     <% if user_signed_in? && @location.can_create_meeting?(current_user) %>
-      <%= link_to new_location_meeting_path(@location), class: 'btn-userCallToAction' do %>
+      <%= link_to new_meeting_path(location_id: @location.id), class: 'btn-userCallToAction' do %>
       <span>
         <%= avatar_for current_user %>
         Treffen hier starten
