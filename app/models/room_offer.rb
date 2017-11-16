@@ -17,6 +17,8 @@ class RoomOffer < ApplicationRecord
   accepts_attachments_for :images, attachment: :file
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
+  has_many :comments, as: :commentable, dependent: :destroy
+
   enum offer_type: { offering_room: 0, seeking_roommate: 1 }
   acts_as_taggable_on :keywords
 
