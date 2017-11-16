@@ -32,6 +32,12 @@
         <%= link_to 'Bearbeiten', edit_room_demand_path(@room_demand),
           class: 'btn-secondary -mint -small' if user_signed_in? && (current_user == @room_demand.user) %>
       </div>
+      <div class="btn-group">
+        <%= link_to 'Löschen', room_demand_path(@room_demand),
+          data: { confirm: 'Bist du dir sicher?' },
+          method: :delete,
+          class: 'btn-secondary -mint -small' %>
+      </div>
     </div>
 
   </div>
