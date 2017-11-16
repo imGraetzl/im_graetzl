@@ -139,6 +139,18 @@
   </div>
 
   <div class="upload-oldschool">
+    <%= f.label :images do %>
+      <%= icon_tag "photo-camera" %>
+      <span>Weitere Photos</span>
+    <% end %>
+    <div class="field-wrp">
+      <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+    </div>
+  </div>
+
+  <h2 class="hl-main">Deine Kontaktdaten</h2>
+
+  <div class="upload-oldschool">
     <%= f.label :avatar do %>
       <%= icon_tag "photo-camera" %>
       <span>Profilbild</span>
@@ -156,8 +168,6 @@
       <%= f.attachment_field :avatar, direct: true, presigned: true %>
     </div>
   </div>
-
-  <h2 class="hl-main">Deine Kontaktdaten</h2>
 
   <div class="input-field">
     <%= f.label :first_name do %>
