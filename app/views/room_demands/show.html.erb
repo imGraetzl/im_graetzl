@@ -119,16 +119,13 @@
     <section>
       <div class="bigicontext-element">
         <%= icon_tag "map-location" %>
-        <div class="txt">Wunschbezirke</div>
+        <div class="txt">Wunschgrätzln</div>
       </div>
       <div class="category-tags">
         <% unless @room_demand.districts.empty? %>
           <ul class="tag-list">
-            <% @room_demand.districts.each do |district| %>
-              <li><%= district.zip_name %></li>
-            <% end %>
             <% @room_demand.graetzls.each do |graetzl| %>
-              <li><%= graetzl.name %></li>
+              <li><%= "#{graetzl.district.zip} - #{graetzl.name}" %></li>
             <% end %>
           </ul>
         <% end %>
