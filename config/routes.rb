@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     resources :locations, module: :users, only: [:index]
     resources :zuckerls, path: 'zuckerl', module: :users, only: [:index]
+    # resources :rooms, module: :users, path: 'raumteiler', only: [:index]
+    get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
   end
 
   concern :graetzl_before_new do

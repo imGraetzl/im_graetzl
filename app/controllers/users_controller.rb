@@ -22,6 +22,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def rooms
+    @user = current_user
+    @rooms = RoomOffer.where(user_id: @user) + RoomDemand.where(user_id: @user)
+  end
+
   private
 
   def wrong_graetzl?(user, graetzl)

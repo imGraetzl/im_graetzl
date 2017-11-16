@@ -32,5 +32,14 @@
         Interesse an gem. Kooperationen.
       </div>
     <% end %>
+    <% if user_signed_in? && (current_user == room_offer.user) %>
+    <div class="btn-group">
+      <%= link_to 'Bearbeiten', edit_room_offer_path(room_offer), class: 'btn-secondary -mint -small' %>
+      <%= link_to 'Löschen', room_offer_path(room_offer),
+        data: { confirm: 'Bist du dir sicher?' },
+        method: :delete,
+        class: 'btn-secondary -mint -small' %>
+    </div>
+    <% end %>
   </div>
 </div>

@@ -116,11 +116,30 @@
       padding: 5px;
       background-color: $color-ambient-pink;
     }
+
+    .btn-group {
+      display: flex;
+      margin-left: auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      .btn-secondary {
+        flex-basis: 49%;
+        margin-bottom: 5px;
+        &:first-child:not(:only-child) {
+          margin-right: 5px;
+        }
+      }
+      .btn-primary {
+        float: left;
+        flex-basis: 100%;
+      }
+    }
   }
   &.-roomoffer {
     .slogan {
       margin-top: 5px;
     }
+
   }
 
 
