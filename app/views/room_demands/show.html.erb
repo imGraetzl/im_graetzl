@@ -22,7 +22,7 @@
 
   <div class="userContent">
     <div class="col1">
-      <%= attachment_image_tag(@room_demand.user, :avatar, :fill, 400 ,400, class: 'img-round -largest', fallback: 'avatar/user/400x400.png') %>
+      <%= attachment_image_tag(@room_demand, :avatar, :fill, 400 ,400, class: 'img-round -largest', fallback: 'avatar/user/400x400.png') %>
       <div class="sideBarbox">
 
       </div>
@@ -42,7 +42,7 @@
     <section class="owner">
       <div class="bigicontext-element">
         <% if @room_demand.user %>
-          <%= avatar_for(@room_demand.user, 200) %>
+          <%= avatar_for(@room_demand, 200) %>
         <% else %>
         <%= icon_tag "user-avatar" %>
         <% end %>

@@ -80,10 +80,13 @@ $ vagrant ssh
 $ cd /vagrant
 
 # set up the database
-$ rake db:setup
+$ rails db:setup
 
 # populate the database with sample data
-$ rake db:populate
+$ rails db:populate
+
+# calculate the district-graetzl relationships
+$ rails db:connect_districts_graetzls
 ```
 
 #### Run the application

@@ -1,7 +1,7 @@
 module AttachmentsHelper
   def avatar_for(resource, size=200, form=nil)
     if form.nil?
-      css_class = resource.is_a?(User) ? 'img-round' : 'img-square'
+      css_class = resource.is_a?(User) || resource.is_a?(RoomOffer) || resource.is_a?(RoomDemand) ? 'img-round' : 'img-square'
     else
       css_class = form
     end

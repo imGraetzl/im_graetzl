@@ -1,6 +1,6 @@
 class RoomOffer < ApplicationRecord
   include Trackable
-  
+
   belongs_to :user
   belongs_to :graetzl
   belongs_to :district
@@ -17,6 +17,7 @@ class RoomOffer < ApplicationRecord
   acts_as_taggable_on :keywords
 
   attachment :cover_photo, type: :image
+  attachment :avatar, type: :image
   has_many :images, as: :imageable, dependent: :destroy
   accepts_attachments_for :images, attachment: :file
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
