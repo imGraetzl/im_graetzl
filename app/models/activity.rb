@@ -14,7 +14,7 @@ class Activity < ApplicationRecord
     if key.end_with?('.comment')
       { comment: trackable.comments.last }
     elsif key.end_with?('.go_to')
-      { participant:  activity.owner }
+      { participant: owner }
     else
       {}
     end
