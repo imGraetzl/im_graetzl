@@ -3,6 +3,7 @@ class RoomOffersController < ApplicationController
 
   def show
     @room_offer = RoomOffer.find(params[:id])
+    @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
   def new

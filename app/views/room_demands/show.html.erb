@@ -135,6 +135,17 @@
       </div>
     </section>
 
+    <section>
+      <div class="stream">
+        <div class="bigicontext-element">
+          <%= icon_tag "layout-text" %>
+          <div class="txt">Frage an <%= "#{@room_demand.first_name} #{@room_demand.last_name}" %> stellen</div>
+        </div>
+        <%= render 'comments/form', commentable: @room_demand %>
+        <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+      </div>
+    </section>
+
   </div>
 
   <%= render 'sidebar' %>

@@ -3,6 +3,7 @@ class RoomDemandsController < ApplicationController
 
   def show
     @room_demand = RoomDemand.find(params[:id])
+    @comments = @room_demand.comments.includes(:user, :images).order(created_at: :desc)
   end
 
   def new
