@@ -1,0 +1,53 @@
+<section class="userzuckerls">
+  <% if @rooms.empty? %>
+  <div class="introcontainer -rooms">
+    <div class="introtxt">
+      <h1>Deine <span>Raumtiler</span></h1>
+      <p>TODO: Mit einem Grätzlzuckerl hast du die Möglichkeit günstig, einfach und unkompliziert <strong>Werbung für dein spezielles
+        Angebot in deinem Grätzl und Bezirk</strong> zu schalten.</p>
+      <p>Als Grätzlzuckerl eignen sich besondere <strong>Angebote, Gutscheine oder Rabattaktionen, aber auch Werbung für deine
+        Produkte</strong>.</p>
+      <p>Grätzlzuckerl können immer für den kommenden Monat gebucht werden und laufen dann einen vollen Monat. Ein
+        Online Zuckerl kostet dich 15 € (inkl. USt.)</p>
+      <p>Um deinem Zuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint es nicht nur in deinem
+        eigenen Grätzl, sondern sogar <strong>im ganzen zugehörigen Bezirk!</strong></p>
+      <p>Darüber hinaus landet dein Zuckerl auch im <strong>Grätzlzuckerl Newsletter</strong>, der immer am 1. des Monats an die Bewohner
+        im Bezirk gesendet wird.</p>
+      <p><strong>Aber das Schönste daran:</strong> Mit den Einnahmen aus den Grätzlzuckerln werden die Initiativen & Aktiven in deinem
+        Stadtteil finanziell unterstützt und du entscheidest welche.</p>
+    </div>
+    <div class="paperCard -cord1RT -illuteaser -rooms">
+      <div class="wrp">
+        <div class="user">
+          <% if current_user %>
+            <%= attachment_image_tag current_user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+            <span><%= current_user.username %></span>
+          <% else %>
+            <%= image_tag('avatar/user/default.png', class: 'img-round') %>
+            <span>Dein Name</span>
+          <% end %>
+        </div>
+        <% if defined? graetzl %>
+          <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= graetzl.name %>--></h3>
+          <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
+        <% elsif defined? district %>
+          <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= district.numeric %>--></h3>
+          <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
+        <% else %>
+          <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>
+          <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary -rose' %>
+        <% end %>
+      </div>
+      <div class="card"></div>
+    </div>
+  </div>
+  <% else %>
+  <h2 class="hl-main">Deine Raumtiler<span> verwalten</span></h2>
+  <div class="cardBoxCollection -tripple">
+    <%= render @rooms %>
+  </div>
+  <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="rooms-card-container">
+    <%= render 'rooms/action_card', user: @user %>
+  </div>
+  <% end %>
+  </section>

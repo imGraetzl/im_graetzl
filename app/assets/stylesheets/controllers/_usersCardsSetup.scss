@@ -77,6 +77,13 @@ section.userzuckerls {
     }
   }
 
+  .introcontainer.-rooms {
+    .paperCard .wrp {
+      padding-top: 180px;
+      background-image: url(image_path('illu/illu-werkbank-plain.png'));
+    }
+  }
+
   .step-element {
     margin-bottom: 40px;
     h2 {
@@ -137,5 +144,3 @@ section.userzuckerls {
   }
 
 }
-
-
