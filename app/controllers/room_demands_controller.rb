@@ -52,6 +52,8 @@ class RoomDemandsController < ApplicationController
         :personal_description,
         :tenant_description,
         :wants_collaboration,
+        :avatar,
+        :remove_avatar,
         :first_name, :last_name, :website, :email, :phone, :location_id,
         room_category_ids: [],
         graetzl_ids: [],

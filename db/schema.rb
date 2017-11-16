@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109005908) do
+ActiveRecord::Schema.define(version: 20171116134031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,6 +331,8 @@ ActiveRecord::Schema.define(version: 20171109005908) do
     t.string   "email"
     t.string   "phone"
     t.integer  "location_id"
+    t.string   "avatar_id"
+    t.string   "avatar_content_type"
     t.index ["location_id"], name: "index_room_demands_on_location_id", using: :btree
     t.index ["user_id"], name: "index_room_demands_on_user_id", using: :btree
   end
@@ -376,6 +378,8 @@ ActiveRecord::Schema.define(version: 20171109005908) do
     t.string   "website"
     t.string   "email"
     t.string   "phone"
+    t.string   "avatar_id"
+    t.string   "avatar_content_type"
     t.index ["district_id"], name: "index_room_offers_on_district_id", using: :btree
     t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id", using: :btree
     t.index ["location_id"], name: "index_room_offers_on_location_id", using: :btree
@@ -426,20 +430,20 @@ ActiveRecord::Schema.define(version: 20171109005908) do
     t.string   "username",                      limit: 255
     t.string   "first_name",                    limit: 255
     t.string   "last_name",                     limit: 255
-    t.boolean  "newsletter",                                default: false, null: false
     t.integer  "graetzl_id"
     t.string   "avatar_id"
-    t.integer  "enabled_website_notifications",             default: 4088
     t.integer  "role"
     t.string   "avatar_content_type"
-    t.integer  "immediate_mail_notifications",              default: 4088
-    t.integer  "daily_mail_notifications",                  default: 7
-    t.integer  "weekly_mail_notifications",                 default: 0
     t.string   "slug"
     t.string   "cover_photo_id"
     t.string   "cover_photo_content_type"
     t.text     "bio"
     t.string   "website"
+    t.integer  "weekly_mail_notifications",                 default: 0
+    t.integer  "daily_mail_notifications",                  default: 7
+    t.integer  "immediate_mail_notifications",              default: 4088
+    t.integer  "enabled_website_notifications",             default: 4088
+    t.boolean  "newsletter",                                default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree

@@ -60,7 +60,10 @@ class RoomOffersController < ApplicationController
         :wants_collaboration,
         :cover_photo,
         :remove_cover_photo,
+        :avatar,
+        :remove_avatar,
         :first_name, :last_name, :website, :email, :phone, :location_id,
+        images_files: [],
         address_attributes: [
           :id, :street_name, :street_number, :zip, :city
         ],

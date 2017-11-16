@@ -24,6 +24,12 @@
 
     <div class="txt"><%= @room_offer.room_description %></div>
 
+    <div class="entryImgUploads" data-featherlight-gallery data-featherlight-filter="a">
+      <% @room_offer.images.each do |image| %>
+        <%= link_to attachment_image_tag(image, :file, :fill, 200, 200), attachment_url(image, :file, :limit, 800, 800) %>
+      <% end %>
+    </div>
+
     <section>
       <div class="category-tags">
         <% if @room_offer.keyword_list.present? %>
@@ -62,7 +68,7 @@
     <section class="owner">
       <div class="bigicontext-element">
         <% if @room_offer.user %>
-          <%= avatar_for(@room_offer.user, 200) %>
+          <%= avatar_for(@room_offer, 200) %>
         <% else %>
           <%= icon_tag "user-avatar" %>
         <% end %>
