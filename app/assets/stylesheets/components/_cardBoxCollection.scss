@@ -67,6 +67,11 @@
     }
 
   }
+  &.-morelink {
+    .cardbox-wrp .link-more {
+      display:table;
+    }
+  }
 }
 
 .cardbox-wrp {
@@ -85,8 +90,8 @@
     }
   }
   .link-more {
+    display: none;
     margin: 0 auto;
-    display: table;
     margin-top: 10px;
     @include respond-to(">=medium") {
       margin-left: auto;

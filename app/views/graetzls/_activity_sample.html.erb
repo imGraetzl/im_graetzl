@@ -3,7 +3,7 @@
     <h1>Mach mit - <span>Treffen &amp; Events</span> im Grätzl <%= @graetzl.name %></h1>
     <p>Die nächsten Termine ums Eck - von local Makers, BewohnerInnen &amp; Initiativen</p>
   </div>
-  <div class="cardBoxCollection -tripple">
+  <div class="cardBoxCollection -tripple -morelink">
     <%= render @meetings %>
     <%= render 'meetings/action_card', graetzl: @graetzl %>
   </div>
@@ -13,7 +13,7 @@
     <h1>Entdecke <span>Anbieter &amp; local Makers</span> im Grätzl</h1>
     <p>Erfahre Neuigkeiten von grätzlansässigen Selbstständigen &amp; Kreativen, Lokalen &amp; Geschäften</p>
   </div>
-  <div class="cardBoxCollection -tripple">
+  <div class="cardBoxCollection -tripple -morelink">
     <%= render @locations %>
     <%= render 'locations/action_card', graetzl: @graetzl %>
   </div>
@@ -23,19 +23,9 @@
     <h1><span>Raumteiler</span> im Grätzl</h1>
     <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
   </div>
-  <div class="cardBoxCollection -tripple">
+  <div class="cardBoxCollection -tripple -morelink">
     <%= render @rooms %>
     <%= render 'rooms/action_card', graetzl: @graetzl %>
-  </div>
-</div>
-<div class="block-zuckerls">
-  <div class="hl-subtext">
-    <h1>Jeden Monat neu - <span>Zuckerl &amp; Angebote</span> im Grätzl</h1>
-    <p>Gutscheine, Angebote &amp; Rabattaktionen von grätzlansässigen Kreativen, Selbständigen, Unternehmen, Lokalen &amp; Geschäften</p>
-  </div>
-  <div class="cardBoxCollection -tripple">
-    <%= render @zuckerls %>
-    <%= render 'zuckerls/action_card', graetzl: @graetzl %>
   </div>
 </div>
 <div class="block-ideas">
@@ -43,8 +33,18 @@
     <h1>Mach mit - <span>Ideen &amp; Initiativen</span> im Grätzl</h1>
     <p>Entdecke, was sich BewohnerInnen fürs Grätzl <%= @graetzl.name %> wünschen und welche Ideen im Raum stehen</p>
   </div>
-  <div class="cardBoxCollection -tripple">
+  <div class="cardBoxCollection -tripple -morelink">
     <%= render @posts %>
     <%= render 'user_posts/action_card', graetzl: @graetzl %>
+  </div>
+</div>
+<div class="block-zuckerls">
+  <div class="hl-subtext">
+    <h1>Jeden Monat neu - <span>Zuckerl &amp; Angebote</span> im Grätzl</h1>
+    <p>Gutscheine, Angebote &amp; Rabattaktionen von grätzlansässigen Kreativen, Selbständigen, Unternehmen, Lokalen &amp; Geschäften</p>
+  </div>
+  <div class="cardBoxCollection -tripple -morelink">
+    <%= render @zuckerls %>
+    <%= render 'zuckerls/action_card', graetzl: @graetzl %>
   </div>
 </div>
