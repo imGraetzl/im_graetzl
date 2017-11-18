@@ -65,6 +65,11 @@ section.wien.-overview-pages {
       .filter-stream {
         margin: 0px 0px 0px 0px;
       }
+      &::after {
+        display:none;
+      }
+      margin-bottom:10px;
+      .input-select {width:310px;}
     }
     @include respond-to(">=medium") {
       background-image: url(image_path('illu/illu-karte-transparent@2x.jpg'));
@@ -74,6 +79,11 @@ section.wien.-overview-pages {
       .filter-stream {
         margin: 0px 0px 0px 170px;
       }
+      &::after {
+        display:block;
+      }
+      margin-bottom:50px;
+      .input-select {width:350px;}
     }
     @include respond-to(">=large") {
       height:200px;
@@ -81,7 +91,6 @@ section.wien.-overview-pages {
         margin: 0px 0px 0px 0px;
       }
     }
-    margin-bottom:50px;
-    margin-left: -30px;
+    margin-left: -40px;
   }
 }

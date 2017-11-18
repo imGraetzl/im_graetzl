@@ -26,6 +26,8 @@ APP.controllers.wien = (function() {
         if ($('.cards-filter').exists()) {
           APP.components.cardFilter.init();
         }
+
+        initMobileNav();
     }
 
     function initMap() {
