@@ -39,7 +39,11 @@
     </div>
     <% end %>
 
-    <% if user_signed_in? && (current_user == room_demand.user) %>
+    <% if local_assigns[:appendix].present? %>
+      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: room_demand %>
+    <% end %>
+
+    <% if user_signed_in? && (current_user == room_demand.user) && controller.controller_name == "users" %>
     <div class="btn-group">
       <%= link_to 'Bearbeiten', edit_room_demand_path(room_demand), class: 'btn-secondary -mint -small' %>
       <%= link_to 'Löschen', room_demand_path(room_demand),
