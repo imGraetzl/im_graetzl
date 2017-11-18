@@ -1,4 +1,5 @@
 <div class="cardBox -location">
+
   <div class="cardBoxHeader">
     <%= link_to room_offer do %>
       <%= cover_photo_for room_offer %>
@@ -9,7 +10,9 @@
       </div>
     <% end %>
   </div>
+
   <div class="cardBoxContent -roomoffer">
+
     <div class="location-shortfacts roomoffer-shortfacts">
       <%= link_to room_offer, class: 'locationlogo' do %>
         <%= avatar_for room_offer, 200, 'img-square' %>
@@ -22,16 +25,22 @@
       </div>
       <% end %>
     </div>
-    <div class="slogan"><%= room_offer.slogan %></div>
+
+    <div class="slogan">
+      <%= room_offer.slogan %>
+    </div>
+
     <div class="txt">
       <p><%= truncate room_offer.room_description, length: 100 %></p>
     </div>
+
     <% if room_offer.wants_collaboration? %>
       <div class="collaboration icontxt">
         <%= icon_tag "urgent-extra-notice-info-announcement" %>
-        Interesse an gem. Kooperationen.
+        Interesse an gem. Kooperationen
       </div>
     <% end %>
+
     <% if user_signed_in? && (current_user == room_offer.user) %>
     <div class="btn-group">
       <%= link_to 'Bearbeiten', edit_room_offer_path(room_offer), class: 'btn-secondary -mint -small' %>
@@ -41,5 +50,6 @@
         class: 'btn-secondary -mint -small' %>
     </div>
     <% end %>
+    
   </div>
 </div>

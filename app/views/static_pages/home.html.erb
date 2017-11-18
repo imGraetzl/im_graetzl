@@ -32,7 +32,7 @@
       <h1>Entdecke — <span>Selbständige &amp; Geschäfte</span> im Grätzl</h1>
       <p>Finde grätzlansässige local Makers &amp; Unternehmen, Lokale &amp; inhabergeführte Geschäfte</p>
     </div>
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple -morelink">
       <%= render @locations %>
       <%= render 'locations/action_card' %>
     </div>
@@ -43,7 +43,7 @@
       <h1>Entdecke — <span>Raumteiler</span> im Grätzl</h1>
       <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
     </div>
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple -morelink">
       <% unless @rooms.nil? %>
         <%= render @rooms %>
       <% end %>
@@ -56,7 +56,7 @@
       <h1>Entdecke — <span>Treffen &amp; Events</span> im Grätzl</h1>
       <p>Wunderbares ums Eck von local Makers, Bewohnern &amp; Initiativen</p>
     </div>
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple -morelink">
       <%= render @meetings %>
       <%= render 'meetings/action_card' %>
     </div>

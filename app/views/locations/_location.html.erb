@@ -33,8 +33,7 @@
     <% if location_post = location.posts.last %>
       <%= link_to [location.graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
         <div class="hl">
-          <%= icon_tag "location" %>
-          vor <%= time_ago_in_words(location_post.created_at) %>
+          Letztes Update:
         </div>
         <div class="title">
           <%= location_post.title %>

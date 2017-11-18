@@ -110,14 +110,16 @@
       font-style: normal;
       font-weight: 600;
     }
+
     .collaboration {
       color: $color-ambient-brown;
-      margin: -5px;
+      margin: 0px -3px 0px -3px;
       padding: 5px;
       background-color: $color-ambient-pink;
     }
 
     .btn-group {
+      margin-top:15px;
       display: flex;
       margin-left: auto;
       flex-wrap: wrap;

@@ -7,6 +7,9 @@ APP.controllers.users = (function() {
         if ($("section.userprofile").exists()) {
           $('.autosubmit-stream').submit();
         }
+        if ($("section.rooms").exists()) {
+          APP.components.cardBox.moveActionCard3rd();
+        }
     }
 
     return {
