@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="graetzls masonryFilterGrid">
+<section class="graetzls">
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
     <%= render 'map', map_data: @map_data %>
   <% end %>
@@ -22,10 +22,12 @@
     </div>
   <% end %>
 
-  <%= form_tag zuckerls_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter' do; end %>
-
-  <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="zuckerls-card-container"></div>
+  <div class="card-grid-container">
+    <%= form_tag zuckerls_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter' do; end %>
+    <div class="card-grid" data-behavior="zuckerls-card-container"></div>
+    <div class="action-card-container" data-behavior="zuckerls-action-card-container">
+      <%= render 'zuckerls/action_card', graetzl: @graetzl %>
+    </div>
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'zuckerls-paginate-link' } %>
   </div>
 </section>

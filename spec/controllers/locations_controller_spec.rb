@@ -428,9 +428,9 @@ RSpec.describe LocationsController, type: :controller do
             delete :destroy, params: { id: location }
           }.to change{Location.count}.by -1
         end
-        it 'redirects to user_locations_path' do
+        it 'redirects to locations_user_path' do
           delete :destroy, params: { id: location }
-          expect(response).to redirect_to user_locations_path
+          expect(response).to redirect_to locations_user_path
         end
       end
     end

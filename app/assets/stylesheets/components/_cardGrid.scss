@@ -1,0 +1,90 @@
+.card-grid-container {
+  @include respond-to(">=large") {
+    margin-left: -25px;
+    margin-right: -60px;
+  }
+
+  .card-grid {
+    @include cf();
+    margin: auto;
+
+    .cardBox, .cardbox-wrp {
+      width: 310px;
+      margin-bottom: 24px;
+      float: left;
+      margin-right: 24px;
+    }
+
+    .coverImg {
+      min-width: 292px;
+      min-height: 176px;
+    }
+  }
+
+  .action-card-container { display: none; }
+
+  .link-load.-big {
+    display: none;
+    &.show { display: block; }
+  }
+
+  .cards-filter .filter-selection-text {
+    text-align: center;
+    font-style: italic;
+    position: relative;
+    top: -30px;
+    @include font-size-primaryFont('larger');
+
+    a {
+      text-decoration: none;
+      color: $color-ambient-mint-dark;
+      background-color: $color-ambient-grey-light;
+      border-radius: 20px 14px 20px 14px;
+      padding: 0 10px;
+    }
+
+    a:hover {
+      color: $color-ambient-grey-light;
+      background-color: $color-ambient-rosa;
+    }
+  }
+
+  .filter-modal {
+    display: none;
+
+    .filter-button { margin-top: 20px; }
+    .district-select-input { margin-bottom: 30px; }
+    .graetzl-select-input { margin-bottom: 220px; }
+
+    .search-txt { font-size: 1.6rem; }
+    .SumoSelect { width: 400px; }
+    .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
+  }
+
+}
+
+
+
+
+section.masonryFilterGrid {
+
+  .msgNoStreamContent {
+    @include font-size-primaryFont();
+    color: $color-ambient-grey;
+    display: table;
+    margin: 0 auto;
+    min-width: 204px;
+    height: 175px;
+    background-image: url(image_path('illu/schaukler-message-empty.png'));
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    padding-top: 30px;
+    text-align: center;
+    @include respond-to(">=medium") {
+      text-align: left;
+      background-position: right top;
+      padding: 40px 120px 0 0;
+    }
+  }
+
+}

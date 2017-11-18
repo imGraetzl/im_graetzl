@@ -3,20 +3,15 @@
   var $paginateLink = $("[data-behavior='zuckerls-paginate-link']");
 
   <% if params[:page].blank? %>
-    <% if @zuckerls.empty? %>
-      $cardContainer.html("<%= j render 'empty_message' %>");
-    <% else %>
-      $cardContainer.find(".cardBox").remove();
-      $cardContainer.append("<%= j render @zuckerls %>");
-    <% end %>
+    $cardContainer.html("<%= j render @zuckerls %>");
   <% else %>
     $cardContainer.append("<%= j render @zuckerls %>");
   <% end %>
 
   <% if @zuckerls.next_page.present? %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").show();
+    $paginateLink.attr('href', "<%= j next_page_url %>").addClass("show");
   <% else %>
-    $paginateLink.hide();
+    $paginateLink.removeClass("show");
   <% end %>
 
 })();

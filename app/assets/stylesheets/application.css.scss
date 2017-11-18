@@ -26,8 +26,8 @@
 @import "components/footer";
 @import "components/sidebarLayout";
 @import "components/paperCard";
-@import "components/cardFilter";
 @import "components/cardBoxCollection";
+@import "components/cardGrid";
 @import "components/buttons";
 @import "components/forms";
 @import "components/notificationsValidation";
@@ -91,7 +91,6 @@
 @import "controllers/location";
 @import "controllers/location-form";
 @import "controllers/selectGraetzl";
-@import "controllers/masonryFilterGrid";
 @import "controllers/userPostForm";
 @import "controllers/usersCardsSetup";
 @import "controllers/roomForm";

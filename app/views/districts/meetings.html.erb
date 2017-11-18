@@ -16,18 +16,21 @@
 
   <h1 class="hl-main">Treffen, Events & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
-  <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
-    <div class="filter-selection-text">
-      Zeige mir in <%= link_to @district.zip_name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+  <div class="card-grid-container">
+    <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
+      <div class="filter-selection-text">
+        Zeige mir in <%= link_to @district.zip_name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+      </div>
+    <% end %>
+
+    <div id="filter-modal-bezirk" class="filter-modal">
+      <%= render 'filters/district_graetzl', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
     </div>
-  <% end %>
 
-  <div id="filter-modal-bezirk" class="filter-modal">
-    <%= render 'filters/district_graetzl', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
+    <div class="card-grid" data-behavior="meetings-card-container"></div>
+    <div class="action-card-container" data-behavior="meetings-action-card-container">
+      <%= render 'meetings/action_card', district: @district %>
+    </div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' } %>
   </div>
-
-  <div class="cardBoxCollection -tripple js-moveActionCard3rd" data-behavior="meetings-card-container">
-    <%= render 'meetings/action_card', district: @district %>
-  </div>
-  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' } %>
 </section>

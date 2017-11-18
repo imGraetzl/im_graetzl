@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="graetzls masonryFilterGrid">
+<section class="graetzls">
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
     <%= render 'map', map_data: @map_data %>
   <% end %>
@@ -22,18 +22,21 @@
     </div>
   <% end %>
 
-  <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter' do %>
-    <div class="filter-selection-text">
-      Zeige mir in <%= link_to @graetzl.name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+  <div class="card-grid-container">
+    <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter' do %>
+      <div class="filter-selection-text">
+        Zeige mir in <%= link_to @graetzl.name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+      </div>
+    <% end %>
+
+    <div id="filter-modal-bezirk" class="filter-modal">
+      <%= render 'filters/district_graetzl', graetzl_ids: @graetzl.id, district_ids: @graetzl.district.id %>
     </div>
-  <% end %>
 
-  <div id="filter-modal-bezirk" class="filter-modal">
-    <%= render 'filters/district_graetzl', graetzl_ids: @graetzl.id, district_ids: @graetzl.district.id %>
-  </div>
-
-  <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="locations-card-container"></div>
+    <div class="card-grid" data-behavior="locations-card-container"></div>
+    <div class="action-card-container" data-behavior="locations-action-card-container">
+      <%= render 'locations/action_card', graetzl: @graetzl %>
+    </div>
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'locations-paginate-link' } %>
   </div>
 </section>

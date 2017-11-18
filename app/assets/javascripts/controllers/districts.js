@@ -46,10 +46,6 @@ APP.controllers.districts = (function() {
     if ($('.cards-filter').exists()) {
       APP.components.cardFilter.init();
     }
-
-    $('.cards-filter').on('ajax:success', function() {
-      APP.components.cardBox.moveActionCard3rd();
-    });
   }
 
   function initMobileNav() {

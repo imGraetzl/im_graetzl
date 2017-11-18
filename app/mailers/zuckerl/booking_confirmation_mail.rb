@@ -24,7 +24,7 @@ class Zuckerl::BookingConfirmationMail < Zuckerl::BaseMail
       { name: 'zuckerl_start', content: start_time },
       { name: 'payment_reference', content: @zuckerl.payment_reference },
       { name: 'location_name', content: @location.name },
-      { name: 'zuckerl_url', content: user_zuckerls_url(URL_OPTIONS) }
+      { name: 'zuckerl_url', content: zuckerls_user_url(URL_OPTIONS) }
     ]
   end
 

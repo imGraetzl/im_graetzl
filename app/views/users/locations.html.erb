@@ -1,5 +1,12 @@
 <section class="userzuckerls">
-  <% if @locations.empty? %>
+
+  <% if @locations.present? %>
+    <h2 class="hl-main">Deine Location<span> verwalten</span></h2>
+    <div class="cardBoxCollection -tripple">
+      <%= render partial: 'users/location', collection: @locations %>
+    </div>
+    <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-secondary -grey -small addlocation' %>
+  <% else %>
     <div class="introcontainer -location">
       <div class="introtxt">
         <div class="step-element">
@@ -27,11 +34,5 @@
         <div class="card"></div>
       </div>
     </div>
-  <% else %>
-    <h2 class="hl-main">Deine Location<span> verwalten</span></h2>
-    <div class="cardBoxCollection -tripple">
-      <%= render @locations %>
-    </div>
-    <%= link_to 'Location hinzufügen', new_location_path, class: 'btn-secondary -grey -small addlocation' %>
   <% end %>
 </section>

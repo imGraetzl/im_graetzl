@@ -1,5 +1,5 @@
 <% location = zuckerl.location %>
-<div class="cardBox -zuckerl">
+<div class="cardBox -zuckerl" data-behavior="masonry-card">
   <div class="cardBoxHeader">
     <%= link_to [location.graetzl, location, anchor: dom_id(zuckerl)] do %>
       <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>

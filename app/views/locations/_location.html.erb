@@ -1,4 +1,4 @@
-<div class="cardBox -location">
+<div class="cardBox -location" data-behavior="masonry-card">
   <div class="cardBoxHeader">
     <%= link_to [location.graetzl, location] do %>
       <%= cover_photo_for location %>
@@ -30,7 +30,7 @@
     <div class="txt">
       <p><%= truncate location.description, length: 100 %></p>
     </div>
-    
+
     <% if location_post = location.posts.last %>
       <%= link_to [location.graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
         <div class="hl">

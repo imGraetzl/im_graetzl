@@ -137,9 +137,9 @@ RSpec.describe ZuckerlsController, type: :controller do
         context 'when zuckerl :live' do
           let(:zuckerl) { create :zuckerl, :live }
 
-          it 'redirects to user_zuckerls_path with alert' do
+          it 'redirects to zuckerls_user_path with alert' do
             get :edit, params: { location_id: location, id: zuckerl }
-            expect(response).to redirect_to user_zuckerls_path
+            expect(response).to redirect_to zuckerls_user_path
             expect(flash[:alert]).to be_present
           end
         end
@@ -183,9 +183,9 @@ RSpec.describe ZuckerlsController, type: :controller do
             }.to change{zuckerl.title}.to 'new_title'
           end
 
-          it 'redirects to user_zuckerls_path with notice' do
+          it 'redirects to zuckerls_user_path with notice' do
             put :update, params: params
-            expect(response).to redirect_to user_zuckerls_path
+            expect(response).to redirect_to zuckerls_user_path
             expect(flash[:notice]).to be_present
           end
         end
@@ -207,9 +207,9 @@ RSpec.describe ZuckerlsController, type: :controller do
         context 'when zuckerl live' do
           let(:zuckerl) { create :zuckerl, :live }
 
-          it 'redirects to user_zuckerls_path with alert' do
+          it 'redirects to zuckerls_user_path with alert' do
             put :update, params: { location_id: location, id: zuckerl }
-            expect(response).to redirect_to user_zuckerls_path
+            expect(response).to redirect_to zuckerls_user_path
             expect(flash[:alert]).to be_present
           end
         end

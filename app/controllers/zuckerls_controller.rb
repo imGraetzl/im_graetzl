@@ -30,7 +30,7 @@ class ZuckerlsController < ApplicationController
     set_location
     set_zuckerl_or_redirect or return
     if @zuckerl.update zuckerl_params
-      redirect_to user_zuckerls_path, notice: 'Zuckerl wurde aktualisiert'
+      redirect_to zuckerls_user_path, notice: 'Zuckerl wurde aktualisiert'
     else
       render :edit
     end
@@ -39,7 +39,7 @@ class ZuckerlsController < ApplicationController
   def destroy
     set_location
     @location.zuckerls.find(params[:id]).cancel!
-    redirect_to user_zuckerls_path, notice: 'Zuckerl wurde gelöscht'
+    redirect_to zuckerls_user_path, notice: 'Zuckerl wurde gelöscht'
   end
 
   private
@@ -75,7 +75,7 @@ class ZuckerlsController < ApplicationController
   def set_zuckerl_or_redirect
     @zuckerl = @location.zuckerls.where(aasm_state: ['pending', 'paid']).find params[:id]
   rescue ActiveRecord::RecordNotFound
-    redirect_to user_zuckerls_path, alert: 'Zuckerl können leider nicht mehr bearbeitet werden wenn sie live sind.' and return
+    redirect_to zuckerls_user_path, alert: 'Zuckerl können leider nicht mehr bearbeitet werden wenn sie live sind.' and return
   end
 
   def zuckerl_params

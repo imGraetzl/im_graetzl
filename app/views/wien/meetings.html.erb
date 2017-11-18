@@ -1,5 +1,4 @@
-<%
-  meta(
+<% meta(
     title: t('.title'),
     description: t('.description'),
     robots: 'index, follow',
@@ -9,7 +8,7 @@
   )
 %>
 
-<section class="wien -overview-pages masonryFilterGrid">
+<section class="wien -overview-pages">
   <%= render 'header' %>
 
   <div class="hl-subtext">
@@ -17,18 +16,21 @@
     <p>Motto: Runter vom Sofa & mitten rein ins Grätzlleben</p>
   </div>
 
-  <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
-    <div class="filter-selection-text">
-      Zeige mir aus <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+  <div class="card-grid-container">
+    <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
+      <div class="filter-selection-text">
+        Zeige mir aus <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+      </div>
+    <% end %>
+
+    <div id="filter-modal-bezirk" class="filter-modal">
+      <%= render 'filters/district_graetzl' %>
     </div>
-  <% end %>
 
-  <div id="filter-modal-bezirk" class="filter-modal">
-    <%= render 'filters/district_graetzl' %>
-  </div>
-
-  <div class="masonry-wrapper">
-    <div class="cards-container" data-behavior="meetings-card-container"></div>
+    <div class="card-grid" data-behavior="meetings-card-container"></div>
+    <div class="action-card-container" data-behavior="meetings-action-card-container">
+      <%= render 'meetings/action_card' %>
+    </div>
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' } %>
   </div>
 </section>

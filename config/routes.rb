@@ -36,10 +36,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update]
 
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
-    resources :locations, module: :users, only: [:index]
-    resources :zuckerls, path: 'zuckerl', module: :users, only: [:index]
-    # resources :rooms, module: :users, path: 'raumteiler', only: [:index]
-    get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
+    get 'locations'
+    get 'raumteiler', action: 'rooms', as: 'rooms'
+    get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
 
   concern :graetzl_before_new do

@@ -1,4 +1,4 @@
-<div class="cardbox-wrp">
+<div class="cardbox-wrp" data-behavior="masonry-card">
   <div class="paperCard -cord1RT -illuteaser -meeting">
     <div class="wrp">
       <div class="user">
@@ -10,10 +10,11 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <% if defined? graetzl %>
+
+      <% if local_assigns[:graetzl] %>
         <h3>Starte ein Treffen im Grätzl <%= graetzl.name %> oder gib dein Event bekannt</h3>
         <%= link_to 'Treffen eintragen', new_meeting_path(graetzl_id: graetzl.id), class: 'btn-primary' %>
-      <% elsif defined? district %>
+      <% elsif local_assigns[:district] %>
         <h3>Starte ein Treffen, einen Workshop oder ein Event im <%= district.numeric %>. Bezirk</h3>
         <%= link_to 'Jetzt loslegen', new_meeting_path, class: 'btn-primary' %>
       <% else %>
@@ -23,11 +24,14 @@
     </div>
     <div class="card"></div>
   </div>
-  <% if defined? graetzl %>
-    <%= link_to 'Alle Treffen & Events', meetings_graetzl_path(graetzl), class: 'link-more' %>
-  <% elsif defined? district %>
-    <%= link_to 'Alle Treffen & Events', meetings_district_path(district), class: 'link-more' %>
-  <% else %>
-    <%= link_to 'Alle Treffen & Events', meetings_wien_path, class: 'link-more' %>
+
+  <% if local_assigns[:view_all] %>
+    <% if local_assigns[:graetzl] %>
+      <%= link_to 'Alle Treffen & Events', meetings_graetzl_path(graetzl), class: 'link-more' %>
+    <% elsif local_assigns[:district] %>
+      <%= link_to 'Alle Treffen & Events', meetings_district_path(district), class: 'link-more' %>
+    <% else %>
+      <%= link_to 'Alle Treffen & Events', meetings_wien_path, class: 'link-more' %>
+    <% end %>
   <% end %>
 </div>

@@ -26,7 +26,7 @@ class Zuckerl::InvoiceMail < Zuckerl::BaseMail
       { name: 'payment_date', content: Date.today.strftime('%d.%m.%Y') },
       { name: 'location_name', content: @location.name },
       { name: 'location_url', content: graetzl_location_url(@location.graetzl, @location, URL_OPTIONS) },
-      { name: 'zuckerl_url', content: user_zuckerls_url(URL_OPTIONS) },
+      { name: 'zuckerl_url', content: zuckerls_user_url(URL_OPTIONS) },
       { name: 'zuckerl_period', content: start_time },
       { name: 'billing_address', content: billing_address_vars },
     ]

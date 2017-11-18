@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="graetzls masonryFilterGrid">
+<section class="graetzls">
   <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
     <%= render 'map', map_data: @map_data %>
   <% end %>
@@ -16,10 +16,9 @@
   <%= render 'menu' %>
 
   <% if user_signed_in? %>
-    <%= form_tag activities_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter' do; end %>
-
-    <div class="masonry-wrapper">
-      <div class="cards-container" data-behavior="activities-card-container"></div>
+    <div class="card-grid-container">
+      <%= form_tag activities_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter' do; end %>
+      <div class="card-grid" data-behavior="activities-card-container"></div>
       <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' } %>
     </div>
   <% else %>

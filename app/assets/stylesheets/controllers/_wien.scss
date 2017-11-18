@@ -1,4 +1,12 @@
 section.wien {
+
+  .mapImgBlock {
+    margin-bottom: 20px;
+    @include respond-to(">=large") {
+      margin-bottom: 50px;
+    }
+  }
+
   .navBlock {
     .links {
       @include respond-to(">=medium") {
@@ -22,10 +30,6 @@ section.wien {
     }
   }
 
-  .mapImgBlock {
-    margin-bottom: 35px;
-  }
-
   .navBlock {
     .links {
       display: none;
@@ -33,6 +37,10 @@ section.wien {
         display: block;
       }
     }
+  }
+
+  .filter-stream {
+    margin-bottom: 60px;
   }
 
   .activeArea {

@@ -8,19 +8,14 @@
   <% end %>
 
   <% if params[:page].blank? %>
-    <% if @meetings.empty? %>
-      $cardContainer.html("<%= j render 'empty_message' %>")
-    <% else %>
-      $cardContainer.find(".cardBox").remove();
-      $cardContainer.append("<%= j render @meetings %>")
-    <% end %>
+    $cardContainer.html("<%= j render @meetings %>")
   <% else %>
     $cardContainer.append("<%= j render @meetings %>");
   <% end %>
 
   <% if @meetings.next_page.present? %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").show();
+    $paginateLink.attr('href', "<%= j next_page_url %>").addClass("show");
   <% else %>
-    $paginateLink.hide();
+    $paginateLink.removeClass("show");
   <% end %>
 })();

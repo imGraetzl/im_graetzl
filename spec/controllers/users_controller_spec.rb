@@ -59,6 +59,67 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe 'GET locations' do
+    context 'when logged out' do
+      it 'redirects to login with flash' do
+        get :locations
+        expect(response).to redirect_to new_user_session_path
+        expect(flash[:alert]).to be_present
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create(:user) }
+      let!(:locations) { create_list :location, 3, users: [user] }
+
+      before do
+        sign_in user
+        get :locations
+      end
+
+      it 'assigns @locations' do
+        expect(assigns :locations).to match_array locations
+      end
+
+      it 'renders :locations' do
+        expect(response).to render_template('locations')
+      end
+    end
+  end
+
+  describe 'GET zuckerls' do
+    context 'when logged out' do
+      it 'redirects to login' do
+        get :zuckerls
+        expect(response).to redirect_to new_user_session_path
+        expect(flash[:alert]).to be_present
+      end
+    end
+    context 'when logged in' do
+      let(:user) { create :user }
+      let(:location) { create :location, :approved }
+      let!(:ownership) { create :location_ownership, user: user, location: location }
+      let!(:zuckerls) { create_list :zuckerl, 3, location: location }
+      let!(:cancelled_zuckerl) { create :zuckerl, :cancelled, location: location }
+
+      before do
+        sign_in user
+        get :zuckerls
+      end
+
+      it 'assigns @zuckerls' do
+        expect(assigns :zuckerls).to match_array zuckerls
+      end
+
+      it 'ignores cancelled zuckerls' do
+        expect(assigns :zuckerls).not_to include cancelled_zuckerl
+      end
+
+      it 'renders :zuckerls' do
+        expect(response).to render_template('zuckerls')
+      end
+    end
+  end
+
   describe 'GET edit' do
     context 'when logged out' do
       it 'redirects to login' do

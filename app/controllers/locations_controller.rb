@@ -52,7 +52,7 @@ class LocationsController < ApplicationController
   def destroy
     set_location
     @location.destroy
-    redirect_to user_locations_path, notice: 'Location entfernt'
+    redirect_to locations_user_path, notice: 'Location entfernt'
   end
 
   private

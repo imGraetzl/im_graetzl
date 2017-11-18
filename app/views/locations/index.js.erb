@@ -3,19 +3,14 @@
   var $paginateLink = $("[data-behavior='locations-paginate-link']");
 
   <% if params[:page].blank? %>
-    <% if @locations.empty? %>
-      $cardContainer.html("<%= j render 'empty_message' %>")
-    <% else %>
-      $cardContainer.find(".cardBox").remove();
-      $cardContainer.append("<%= j render @locations %>")
-    <% end %>
+    $cardContainer.html("<%= j render @locations %>")
   <% else %>
     $cardContainer.append("<%= j render @locations %>");
   <% end %>
 
   <% if @locations.next_page.present? %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").show();
+    $paginateLink.attr('href', "<%= j next_page_url %>").addClass("show");
   <% else %>
-    $paginateLink.hide();
+    $paginateLink.removeClass("show");
   <% end %>
 })();

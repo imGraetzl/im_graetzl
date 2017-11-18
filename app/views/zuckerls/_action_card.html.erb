@@ -1,4 +1,4 @@
-<div class="cardbox-wrp">
+<div class="cardbox-wrp" data-behavior="masonry-card">
   <div class="paperCard -cord1RT -illuteaser -zuckerl">
     <div class="wrp">
       <div class="user">
@@ -10,10 +10,10 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <% if defined? graetzl %>
+      <% if local_assigns[:graetzl] %>
         <h3>Mit dem Grätzlzuckerl kannst Du Werbung für dein Angebot in deinem Grätzl & Bezirk schalten</h3>
         <%= link_to 'Mein Grätzlzuckerl', new_zuckerl_path, class: 'btn-primary' %>
-      <% elsif defined? district %>
+      <% elsif local_assigns[:district] %>
         <h3>Mit dem Grätzlzuckerl kannst Du Werbung für dein Angebot im <%= district.numeric %>. Bezirk schalten.</h3>
         <%= link_to 'Mein Grätzlzuckerl', new_zuckerl_path, class: 'btn-primary' %>
       <% else %>
@@ -23,11 +23,14 @@
     </div>
     <div class="card"></div>
   </div>
-  <% if defined? graetzl %>
-    <%= link_to 'Alle Angebote', zuckerls_graetzl_path(graetzl), class: 'link-more' %>
-  <% elsif defined? district %>
-    <%= link_to 'Alle Angebote', zuckerls_district_path(district), class: 'link-more' %>
-  <% else %>
-    <%= link_to 'Alle Angebote', zuckerls_wien_path, class: 'link-more' %>
+
+  <% if local_assigns[:view_all] %>
+    <% if local_assigns[:graetzl] %>
+      <%= link_to 'Alle Angebote', zuckerls_graetzl_path(graetzl), class: 'link-more' %>
+    <% elsif local_assigns[:district] %>
+      <%= link_to 'Alle Angebote', zuckerls_district_path(district), class: 'link-more' %>
+    <% else %>
+      <%= link_to 'Alle Angebote', zuckerls_wien_path, class: 'link-more' %>
+    <% end %>
   <% end %>
 </div>

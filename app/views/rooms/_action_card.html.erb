@@ -1,4 +1,4 @@
-<div class="cardbox-wrp">
+<div class="cardbox-wrp" data-behavior="masonry-card">
   <div class="paperCard -cord1RT -illuteaser -rooms">
     <div class="wrp">
       <div class="user">
@@ -10,10 +10,10 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <% if defined? graetzl %>
+      <% if local_assigns[:graetzl] %>
         <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= graetzl.name %>--></h3>
         <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
-      <% elsif defined? district %>
+      <% elsif local_assigns[:district] %>
         <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= district.numeric %>--></h3>
         <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
       <% else %>
@@ -23,11 +23,14 @@
     </div>
     <div class="card"></div>
   </div>
-  <% if defined? graetzl %>
-    <%= link_to 'Alle Raumteiler', rooms_graetzl_path(graetzl), class: 'link-more' %>
-  <% elsif defined? district %>
-    <%= link_to 'Alle Raumteiler', rooms_district_path(district), class: 'link-more' %>
-  <% else %>
-    <%= link_to 'Alle Raumteiler', rooms_wien_path, class: 'link-more' %>
+
+  <% if local_assigns[:view_all] %>
+    <% if local_assigns[:graetzl] %>
+      <%= link_to 'Alle Raumteiler', rooms_graetzl_path(graetzl), class: 'link-more' %>
+    <% elsif local_assigns[:district] %>
+      <%= link_to 'Alle Raumteiler', rooms_district_path(district), class: 'link-more' %>
+    <% else %>
+      <%= link_to 'Alle Raumteiler', rooms_wien_path, class: 'link-more' %>
+    <% end %>
   <% end %>
 </div>

@@ -41,13 +41,13 @@ APP.controllers.application = (function() {
       '</div>');
 
     if(APP.utils.URLendsWith('/stuwerviertel') && APP.utils.isLoggedIn()) {
-      $('.cards-container .cardBox').eq(2).after($markup);
+      $('.card-grid .cardBox').eq(2).after($markup);
     }
     if(APP.utils.URLendsWith('/stuwerviertel') && !APP.utils.isLoggedIn()) {
       $('main').append($markup);
     }
     if(APP.utils.URLendsWith('/stuwerviertel/locations')) {
-      $('.cards-container .cardBox').eq(2).after($markup);
+      $('.card-grid .cardBox').eq(2).after($markup);
     }
     if(APP.utils.URLendsWith('/leopoldstadt-1020')) {
       $('main').append($markup);

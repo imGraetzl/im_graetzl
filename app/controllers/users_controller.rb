@@ -27,6 +27,15 @@ class UsersController < ApplicationController
     @rooms = RoomOffer.where(user_id: @user) + RoomDemand.where(user_id: @user)
   end
 
+  def zuckerls
+    @zuckerls = Zuckerl.where(location: current_user.locations).
+      where.not(aasm_state: :cancelled)
+  end
+
+  def locations
+    @locations = current_user.locations.includes(:location_ownerships, :graetzl)
+  end
+
   private
 
   def wrong_graetzl?(user, graetzl)

@@ -3,19 +3,14 @@
   var $paginateLink = $("[data-behavior='rooms-paginate-link']");
 
   <% if params[:page].blank? %>
-    <% if @rooms.empty? %>
-      $cardContainer.html("<%= j render 'empty_message' %>");
-    <% else %>
-      $cardContainer.find(".cardBox").remove();
-      $cardContainer.append("<%= j render @rooms %>");
-    <% end %>
+    $cardContainer.html("<%= j render @rooms %>");
   <% else %>
     $cardContainer.append("<%= j render @rooms %>");
   <% end %>
 
   <% if @next_page %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").show();
+    $paginateLink.attr('href', "<%= j next_page_url %>").addClass("show");
   <% else %>
-    $paginateLink.hide();
+    $paginateLink.removeClass("show");
   <% end %>
 })();

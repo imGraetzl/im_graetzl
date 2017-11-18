@@ -1,4 +1,4 @@
-<div class="cardbox-wrp">
+<div class="cardbox-wrp" data-behavior="masonry-card">
   <div class="paperCard -cord1RT -illuteaser -location">
     <div class="wrp">
       <div class="user">
@@ -10,10 +10,10 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <% if defined? graetzl %>
+      <% if local_assigns[:graetzl] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ im Grätzl <%= graetzl.name %> tätig?</h3>
         <%= link_to 'Deine Location einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
-      <% elsif defined? district %>
+      <% elsif local_assigns[:district] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
         <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
       <% else %>
@@ -23,11 +23,14 @@
     </div>
     <div class="card"></div>
   </div>
-  <% if defined? graetzl %>
-    <%= link_to 'Alle Anbieter & local Makers', locations_graetzl_path(graetzl), class: 'link-more' %>
-  <% elsif defined? district %>
-    <%= link_to 'Alle Anbieter & local Makers', locations_district_path(district), class: 'link-more' %>
-  <% else %>
-    <%= link_to 'Alle Anbieter & local Makers', locations_wien_path, class: 'link-more' %>
+
+  <% if local_assigns[:view_all] %>
+    <% if local_assigns[:graetzl] %>
+      <%= link_to 'Alle Anbieter & local Makers', locations_graetzl_path(graetzl), class: 'link-more' %>
+    <% elsif local_assigns[:district] %>
+      <%= link_to 'Alle Anbieter & local Makers', locations_district_path(district), class: 'link-more' %>
+    <% else %>
+      <%= link_to 'Alle Anbieter & local Makers', locations_wien_path, class: 'link-more' %>
+    <% end %>
   <% end %>
 </div>

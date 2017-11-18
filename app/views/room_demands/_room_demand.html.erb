@@ -1,22 +1,20 @@
-<div class="cardBox -location -roomdemand">
-
-
-    <div class="categoryicon">
-      <!--
-      <% if room_demand.districts.present? %>
-      <%= "#{room_demand.districts.first.zip}" %>
-      <% end %>
-      -->
-      <!--<% unless room_demand.room_categories.empty? %>-->
-      <div class="category-tags">
-          <ul class="tag-list -mint">
-            <% room_demand.room_categories.first(1).each do |category| %>
-              <li><%= category.name %></li>
-            <% end %>
-          </ul>
-      </div>
-      <!--<% end %>-->
+<div class="cardBox -location -roomdemand" data-behavior="masonry-card">
+  <div class="categoryicon">
+    <!--
+    <% if room_demand.districts.present? %>
+    <%= "#{room_demand.districts.first.zip}" %>
+    <% end %>
+    -->
+    <!--<% unless room_demand.room_categories.empty? %>-->
+    <div class="category-tags">
+        <ul class="tag-list -mint">
+          <% room_demand.room_categories.first(1).each do |category| %>
+            <li><%= category.name %></li>
+          <% end %>
+        </ul>
     </div>
+    <!--<% end %>-->
+  </div>
 
 
   <div class="cardBoxHeader -roomdemand">

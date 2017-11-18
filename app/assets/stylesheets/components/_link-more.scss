@@ -29,6 +29,7 @@
 }
 
 .link-load {
+  display: table;
   margin: 0 auto;
   &.-big {
     @extend .btn-secondary;
