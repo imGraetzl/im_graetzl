@@ -7,6 +7,8 @@ module ActivitiesHelper
       [location.graetzl, location]
     when AdminPost.to_s
       parent
+    when RoomOffer.to_s, RoomDemand.to_s
+      parent
     else
       [parent.graetzl, parent]
     end

@@ -18,6 +18,8 @@
       <h3><%= link_to admin_post.title, admin_post %></h3>
       <p><%= truncate admin_post.content, length: 100 %></p>
     </div>
-    <%= render 'activities/appendix', appendix: appendix, parent: admin_post if defined? appendix %>
+    <% if local_assigns[:appendix].present? %>
+      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: admin_post %>
+    <% end %>
   </div>
 </div>

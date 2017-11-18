@@ -7,11 +7,12 @@
       </div>
       <div class="txt"><%= truncate comment.content, length: 100 %></div>
     </div>
-    <% if parent.comments.count > 1 %>
+    <% if parent.comments.size > 1 %>
       <%= link_to "Alle #{parent.comments.count} Kommentare ansehen", appendix_path_for(parent), class: 'commentslink' %>
     <% end %>
   </div>
 <% end %>
+
 <% if participant = appendix[:participant] %>
   <div class="userCreateInfo">
     <%= link_to participant do %>

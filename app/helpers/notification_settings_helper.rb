@@ -2,7 +2,8 @@ module NotificationSettingsHelper
   DAILY_NOTIFICATION_TYPES = [
     Notifications::NewLocationPost,
     Notifications::NewMeeting,
-    Notifications::NewUserPost
+    Notifications::NewUserPost,
+    Notifications::NewRoomOffer,
   ]
 
   def notification_settings_mail_options(notification_type)

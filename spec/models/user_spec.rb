@@ -1,8 +1,6 @@
 require 'rails_helper'
-require 'models/shared/trackable'
 
 RSpec.describe User, type: :model do
-  it_behaves_like :a_trackable
 
   it 'has a valid factory' do
     expect(build_stubbed :user).to be_valid

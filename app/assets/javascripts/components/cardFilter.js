@@ -21,7 +21,7 @@ APP.components.cardFilter = (function() {
     $(".filter-modal").each(function() {
       updateFilterInputs($(this));
     });
-
+    
     var grid = APP.components.masonryFilterGrid;
 
     filterForm.on('ajax:success', function() {

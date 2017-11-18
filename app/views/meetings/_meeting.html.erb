@@ -1,4 +1,5 @@
 <div class="cardBox -meeting <%= meeting_past_flag(meeting) %>">
+
   <div class="cardBoxHeader">
     <%= link_to [meeting.graetzl, meeting] do %>
       <%= cover_photo_for meeting %>
@@ -15,6 +16,7 @@
     </div>
     <%= graetzl_flag(meeting.graetzl) %>
   </div>
+
   <div class="cardBoxContent">
     <%= meeting_initiator meeting %>
     <div class="txt">
@@ -22,6 +24,10 @@
       <p><%= truncate(meeting.description, length: 100) %></p>
     </div>
     <%= link_to meeting_link_text(meeting), [meeting.graetzl, meeting], class: 'btn-primary -mint' %>
-    <%= render 'activities/appendix', appendix: appendix, parent: meeting if defined? appendix %>
+
+    <% if local_assigns[:appendix].present? %>
+      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: meeting %>
+    <% end %>
   </div>
+
 </div>

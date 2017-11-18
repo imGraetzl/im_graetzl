@@ -6,6 +6,8 @@ class Notification < ApplicationRecord
   belongs_to :user
   belongs_to :activity
 
+  before_create :set_bitmask
+
   def self.receive_new_activity(activity)
     CreateNotificationsJob.perform_later activity
   end
@@ -46,12 +48,12 @@ class Notification < ApplicationRecord
         users.each do |u|
           next if notified_user_ids[u.id].present?
           next if u == activity.owner && !klass.notify_owner?
-          display_on_website = u.enabled_website_notification?(klass) && u != activity.owner
-          send_email = u.immediate_mail_notifications & klass::BITMASK > 0
-          n = klass.create(activity: activity, bitmask: klass::BITMASK, display_on_website: display_on_website, user: u)
 
-          SendMailNotificationJob.perform_later(n) if send_email
-          notified_user_ids[u.id] = true if display_on_website || send_email
+          display_on_website = u.enabled_website_notification?(klass) && u != activity.owner
+          n = klass.create(activity: activity, user: u, display_on_website: display_on_website)
+          send_immediate_email = u.enabled_mail_notification?(klass, :immediate)
+          SendMailNotificationJob.perform_later(n) if send_immediate_email
+          notified_user_ids[u.id] = true if display_on_website || send_immediate_email
         end
       end
     end
@@ -78,5 +80,11 @@ class Notification < ApplicationRecord
 
   def mail_subject
     raise NotImplementedError, "mail_subject method not implemented for #{self.class}"
+  end
+
+  private
+
+  def set_bitmask
+    self.bitmask ||= self.class::BITMASK
   end
 end

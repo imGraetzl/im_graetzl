@@ -64,7 +64,6 @@
       <div class="txt"><%= @room_offer.tenant_description %></div>
     </section>
 
-
     <section class="owner">
       <div class="bigicontext-element">
         <% if @room_offer.user %>
@@ -76,10 +75,10 @@
       </div>
       <div class="wrapper">
         <div class="txt"><%= @room_offer.owner_description %></div>
-        <% unless @room_offer.location.nil? %>
-        <aside class="location">
-          <%= render @room_offer.location %>
-        </aside>
+        <% if @room_offer.location %>
+          <aside class="location">
+            <%= render @room_offer.location %>
+          </aside>
         <% end %>
       </div>
     </section>
@@ -93,30 +92,33 @@
 
       <% if current_user %>
       <div class="contact-infos">
-        <% unless @room_offer.first_name.nil? && @room_offer.last_name.nil? %>
-        <div class="icontxt">
-          <%= icon_tag "user-avatar" %>
-          <div class="txt"><%= "#{@room_offer.first_name} #{@room_offer.last_name}" %></div>
-        </div>
+        <% if @room_offer.first_name.present? || @room_offer.last_name.present? %>
+          <div class="icontxt">
+            <%= icon_tag "user-avatar" %>
+            <div class="txt"><%= "#{@room_offer.first_name} #{@room_offer.last_name}" %></div>
+          </div>
         <% end %>
-        <% unless @room_offer.phone.nil? %>
-        <div class="icontxt">
-          <%= icon_tag "phone" %>
-          <div class="txt"><%= @room_offer.phone %></div>
-        </div>
+
+        <% if @room_offer.phone.present? %>
+          <div class="icontxt">
+            <%= icon_tag "phone" %>
+            <div class="txt"><%= @room_offer.phone %></div>
+          </div>
         <% end %>
-        <% unless @room_offer.email.nil? %>
-        <%= mail_to @room_offer.email do %>
-        <div class="icontxt">
-          <%= icon_tag "at-symbol" %>
-          <div class="txt"><%= @room_offer.email %></div>
-        </div>
+
+        <% if @room_offer.email.present? %>
+          <%= mail_to @room_offer.email do %>
+            <div class="icontxt">
+              <%= icon_tag "at-symbol" %>
+              <div class="txt"><%= @room_offer.email %></div>
+            </div>
+          <% end %>
         <% end %>
-        <% end %>
-        <% unless @room_offer.website.nil? %>
+
+        <% if @room_offer.website.present? %>
           <%= link_to @room_offer.website, class: 'icontxt', target: '_blank' do %>
-          <%= icon_tag "globe" %>
-          <%= @room_offer.website.sub(/^https?\:\/\//,'') %>
+            <%= icon_tag "globe" %>
+            <%= @room_offer.website.sub(/^https?\:\/\//,'') %>
           <% end %>
         <% end %>
       </div>

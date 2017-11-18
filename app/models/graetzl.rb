@@ -2,13 +2,6 @@ class Graetzl < ApplicationRecord
   extend FriendlyId
 
   friendly_id :name
-  STREAM_ACTIVITY_KEYS = [
-    'meeting.comment', 'meeting.create', 'meeting.go_to',
-    'user_post.comment', 'user_post.create',
-    'admin_post.comment', 'admin_post.create',
-    'location_post.comment', 'location_post.create',
-    'room_offer.create', 'room_demand.create',
-  ]
 
   has_one :curator, dependent: :destroy
   has_many :users
@@ -29,27 +22,6 @@ class Graetzl < ApplicationRecord
     districts.first
   end
 
-  def activity
-    Activity.
-      includes(:owner, :trackable).
-      where(id:
-        Activity.select('DISTINCT ON(trackable_id, trackable_type) id').
-        where(key: STREAM_ACTIVITY_KEYS).
-        where("(trackable_id IN (?) AND trackable_type = 'Meeting') OR
-               (trackable_id IN (?) AND trackable_type LIKE '%Post') OR
-               (trackable_id IN (?) AND trackable_type = 'Post') OR
-               (trackable_id IN (?) AND trackable_type = 'RoomOffer') OR
-               (trackable_id IN (?) AND trackable_type = 'RoomDemand')",
-               meeting_ids, post_ids, admin_post_ids, room_offer_ids, room_demand_ids
-        ).order(:trackable_id, :trackable_type, id: :desc)
-      ).order(id: :desc)
-  end
-
-  def decorate_activity(activity_items)
-    zuckerl_items = zuckerl_samples(activity_items.count * 0.2).to_a
-    merge_items(activity_items, zuckerl_items)
-  end
-
   def zuckerls
     related_graetzl_ids = districts.map(&:graetzl_ids).flatten
     Zuckerl.live.includes(location: [:address, :category]).
@@ -60,15 +32,4 @@ class Graetzl < ApplicationRecord
     meetings.build(address: Address.new)
   end
 
-  private
-
-  def zuckerl_samples(limit)
-    zuckerls.limit(limit).order("RANDOM()")
-  end
-
-  def merge_items(a, b)
-    a.zip(
-      (b + [nil] * (a.size - b.size)).shuffle
-    ).flatten.compact
-  end
 end

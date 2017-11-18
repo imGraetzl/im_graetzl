@@ -1,12 +1,12 @@
 (function() {
-  var $cardContainer = $("[data-behavior='activites-card-container']");
-  var $paginateLink = $("[data-behavior='activites-paginate-link']");
+  var $cardContainer = $("[data-behavior='activities-card-container']");
+  var $paginateLink = $("[data-behavior='activities-paginate-link']");
 
   <% if params[:page].blank? %>
     <% if @activity.empty? %>
       $cardContainer.html("<%= j render 'empty_message' %>")
     <% else %>
-      $cardContainer.html("<%= j render @decorated_activity %>")
+      $cardContainer.html("<%= j render @activity_with_zuckerls %>")
     <% end %>
   <% else %>
     $cardContainer.append("<%= j render @activity %>");
