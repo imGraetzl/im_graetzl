@@ -1,63 +1,53 @@
 <div class="cardBox -location -roomdemand" data-behavior="masonry-card">
-  <div class="categoryicon">
-    <!--
-    <% if room_demand.districts.present? %>
-    <%= "#{room_demand.districts.first.zip}" %>
-    <% end %>
-    -->
-    <!--<% unless room_demand.room_categories.empty? %>-->
-    <div class="category-tags">
-        <ul class="tag-list -mint">
-          <% room_demand.room_categories.first(1).each do |category| %>
-            <li><%= category.name %></li>
-          <% end %>
-        </ul>
-    </div>
-    <!--<% end %>-->
-  </div>
 
+  <div class="categoryicon">
+    <div class="category-tags">
+      <ul class="tag-list -mint">
+        <% room_demand.room_categories.first(1).each do |category| %>
+        <li><%= category.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 
   <div class="cardBoxHeader -roomdemand">
     <%= link_to room_demand do %>
-      <%= avatar_for room_demand, 300, class:'coverImg'  %>
+    <%= avatar_for room_demand, 300, class:'coverImg'  %>
     <% end %>
   </div>
+
   <div class="cardBoxContent -roomdemand">
 
     <div class="roomtype">
       <%= link_to room_demand, class: 'typelink' do %>
-        <%= t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") %>
+      <%= t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") %>
       <% end %>
     </div>
 
-    <!--<div class="location-shortfacts roomdemand-shortfacts">
-      <div class="locationtxt">
-        <% if room_demand.user %>
-          <%= link_to room_demand.user do %>
-            <div class="name"><%= "#{room_demand.user.first_name} #{room_demand.user.last_name}" %></div>
-          <% end %>
-        <% end %>
-      </div>
-    </div>-->
+    <div class="slogan">
+      <%= room_demand.slogan %>
+    </div>
 
-    <div class="slogan"><%= room_demand.slogan %></div>
     <div class="txt">
       <p><%= truncate room_demand.demand_description, length: 100 %></p>
     </div>
+
     <% if room_demand.wants_collaboration? %>
-      <div class="collaboration icontxt">
-        <%= icon_tag "urgent-extra-notice-info-announcement" %>
-        Interesse an gem. Kooperationen.
-      </div>
+    <div class="collaboration icontxt">
+      <%= icon_tag "urgent-extra-notice-info-announcement" %>
+      Interesse an gem. Kooperationen
+    </div>
     <% end %>
+
     <% if user_signed_in? && (current_user == room_demand.user) %>
     <div class="btn-group">
       <%= link_to 'Bearbeiten', edit_room_demand_path(room_demand), class: 'btn-secondary -mint -small' %>
       <%= link_to 'Löschen', room_demand_path(room_demand),
-        data: { confirm: 'Bist du dir sicher?' },
-        method: :delete,
-        class: 'btn-secondary -mint -small' %>
+      data: { confirm: 'Bist du dir sicher?' },
+      method: :delete,
+      class: 'btn-secondary -mint -small' %>
     </div>
     <% end %>
+
   </div>
 </div>

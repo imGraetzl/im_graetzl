@@ -18,7 +18,7 @@
       <h1>Mach mit - <span>Treffen &amp; Events</span> im <%= @district.numeric %>. Bezirk</h1>
       <p>Lerne dabei nette Menschen aus dem Bezirk <%= @district.name %> kennen</p>
     </div>
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple -morelink">
       <%= render @meetings %>
       <%= render 'meetings/action_card', district: @district, view_all: true %>
     </div>
@@ -28,7 +28,7 @@
       <h1>Entdecke <span>Anbieter &amp; local Makers</span> im <%= @district.numeric %>. Bezirk</h1>
       <p>Finde grätzlansässige local Makers, Selbständige &amp; Kreative, Lokale &amp; Geschäfte</p>
     </div>
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple -morelink">
       <%= render @locations %>
       <%= render 'locations/action_card', district: @district, view_all: true %>
     </div>
@@ -38,7 +38,7 @@
       <h1><span>Raumteiler</span> im <%= @district.numeric %>. Bezirk</h1>
       <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
     </div>
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple -morelink">
       <%= render @rooms %>
       <%= render 'rooms/action_card', district: @district, view_all: true %>
     </div>
@@ -48,7 +48,7 @@
       <h1>Jeden Monat neu - <span>Zuckerl &amp; Angebote</span> im <%= @district.numeric %>. Bezirk</h1>
       <p>Gutscheine, Angebote &amp; Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen &amp; Geschäften aus dem Bezirk <%= @district.name %>
     </div>
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple -morelink">
       <%= render @zuckerls %>
       <%= render 'zuckerls/action_card', district: @district, view_all: true %>
     </div>

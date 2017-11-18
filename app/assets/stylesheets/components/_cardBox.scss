@@ -110,14 +110,16 @@
       font-style: normal;
       font-weight: 600;
     }
+
     .collaboration {
       color: $color-ambient-brown;
-      margin: -5px;
+      margin: 0px -3px 0px -3px;
       padding: 5px;
       background-color: $color-ambient-pink;
     }
 
     .btn-group {
+      margin-top:15px;
       display: flex;
       margin-left: auto;
       flex-wrap: wrap;
@@ -284,7 +286,12 @@
 .cardBoxContent .initiator {
   margin: -47px 0 15px 0;
   text-decoration: none;
-  display: table;
+  // display: table;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: $color-ambient-mint-dark;
+  white-space: nowrap;
   img {
     vertical-align: bottom;
     position: relative;

@@ -28,7 +28,9 @@
         <%= icon_tag "shopping-bag" %> Zuckerl & Angebote
       <% end %>
 
-      <%= link_to_more_info %>
+      <%= link_to info_path do %>
+        <%= icon_tag "lightbulb" %> Mehr Infos
+      <% end %>
 
       <%= link_to "http://blog.imgraetzl.at/", class: 'discover', target: '_blank' do %>
         <%= icon_tag "coffee" %> Blog
