@@ -113,9 +113,12 @@
 
     .collaboration {
       color: $color-ambient-brown;
-      margin: 0px -3px 0px -3px;
+      margin: 0px -3px 20px -3px;
       padding: 5px;
       background-color: $color-ambient-pink;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     .btn-group {
