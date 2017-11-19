@@ -1,6 +1,6 @@
 class Notifications::AttendeeInUsersMeeting < Notification
   TRIGGER_KEY = 'meeting.go_to'
-  BITMASK = 512
+  BITMASK = 2**9
 
   def self.receivers(activity)
     User.where(id: activity.trackable.initiator.id)

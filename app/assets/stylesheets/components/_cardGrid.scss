@@ -21,6 +21,25 @@
       min-width: 292px;
       min-height: 176px;
     }
+
+    .no-results-box {
+      @include font-size-primaryFont();
+      color: $color-ambient-grey;
+      display: table;
+      margin: 0 auto;
+      min-width: 204px;
+      height: 175px;
+      background-image: url(image_path('illu/schaukler-message-empty.png'));
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      padding-top: 30px;
+      text-align: center;
+      @include respond-to(">=medium") {
+        text-align: left;
+        background-position: right top;
+        padding: 40px 120px 0 0;
+      }
+    }
   }
 
   .action-card-container { display: none; }
@@ -62,33 +81,6 @@
     .search-txt { font-size: 1.6rem; }
     .SumoSelect { width: 400px; }
     .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
-  }
-
-}
-
-
-
-
-section.masonryFilterGrid,
-.card-grid-container {
-
-  .msgNoStreamContent {
-    @include font-size-primaryFont();
-    color: $color-ambient-grey;
-    display: table;
-    margin: 0 auto;
-    min-width: 204px;
-    height: 175px;
-    background-image: url(image_path('illu/schaukler-message-empty.png'));
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    padding-top: 30px;
-    text-align: center;
-    @include respond-to(">=medium") {
-      text-align: left;
-      background-position: right top;
-      padding: 40px 120px 0 0;
-    }
   }
 
 }

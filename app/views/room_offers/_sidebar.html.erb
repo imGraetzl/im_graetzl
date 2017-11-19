@@ -11,6 +11,7 @@
           <%= "#{@room_offer.address.zip} #{@room_offer.address.city}" %><br>
         </div>
       <% end %>
+
       <% if @room_offer.rented_area.present? %>
         <div class="rented-area icontxt">
           <%= icon_tag "resize-maximize" %>
@@ -25,17 +26,17 @@
         </div>
       <% end %>
 
-      <div class="btn-group">
-        <%= link_to 'Bearbeiten', edit_room_offer_path(@room_offer),
-          class: 'btn-secondary -mint -small' if user_signed_in? && (current_user == @room_offer.user) %>
-      </div>
+      <% if user_signed_in? && current_user == @room_offer.user %>
+        <div class="btn-group">
+          <%= link_to 'Bearbeiten', edit_room_offer_path(@room_offer),
+            class: 'btn-secondary -mint -small'  %>
+        </div>
 
-      <div class="btn-group">
-        <%= link_to 'Löschen', room_offer_path(@room_offer),
-          data: { confirm: 'Bist du dir sicher?' },
-          method: :delete,
-          class: 'btn-secondary -mint -small' %>
-      </div>
+        <div class="btn-group">
+          <%= link_to 'Löschen', room_offer_path(@room_offer), data: { confirm: 'Bist du dir sicher?' },
+            method: :delete, class: 'btn-secondary -mint -small' %>
+        </div>
+      <% end %>
     </div>
 
     <% if @room_offer.address.try(:coordinates) %>

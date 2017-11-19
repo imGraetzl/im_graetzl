@@ -1,6 +1,6 @@
 class Notifications::CommentInUsersMeeting < Notification
   TRIGGER_KEY = 'meeting.comment'
-  BITMASK = 16
+  BITMASK = 2**4
 
   def self.receivers(activity)
     User.where(id: activity.trackable.initiator.id)
@@ -11,7 +11,7 @@ class Notifications::CommentInUsersMeeting < Notification
   end
 
   def self.description
-    'Mein erstelltes Treffen wurde kommentiert'
+    'Meine erstellten Inhalten wurden kommentiert'
   end
 
   def mail_vars

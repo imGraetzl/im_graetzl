@@ -1,6 +1,6 @@
 class Notifications::NewAdminPost < Notification
   TRIGGER_KEY = 'admin_post.create'
-  BITMASK = 4
+  BITMASK = 2**2
 
   def self.receivers(activity)
     User.where(graetzl_id: activity.trackable.graetzl_ids)

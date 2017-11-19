@@ -4,6 +4,7 @@ module NotificationSettingsHelper
     Notifications::NewMeeting,
     Notifications::NewUserPost,
     Notifications::NewRoomOffer,
+    Notifications::NewRoomDemand,
   ]
 
   def notification_settings_mail_options(notification_type)

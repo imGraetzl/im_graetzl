@@ -1,6 +1,6 @@
 class Notifications::CommentOnAdminPost < Notification
   TRIGGER_KEY = 'admin_post.comment'
-  BITMASK = 32
+  BITMASK = 2**4
 
   def self.receivers(activity)
     User.where(id: activity.trackable.author_id)
@@ -18,7 +18,7 @@ class Notifications::CommentOnAdminPost < Notification
   end
 
   def self.description
-    'Mein erstellter Beitrag wurde kommentiert'
+    'Meine erstellten Inhalten wurden kommentiert'
   end
 
   def mail_vars
