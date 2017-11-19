@@ -1,31 +1,31 @@
 <div class="block-meetings">
   <div class="hl-subtext">
-    <h1>Mach mit - <span>Treffen &amp; Events</span> im Grätzl <%= @graetzl.name %></h1>
-    <p>Die nächsten Termine ums Eck - von local Makers, BewohnerInnen &amp; Initiativen</p>
+    <h1>Mach mit - <span>Events &amp; Workshops</span> im Grätzl <%= @graetzl.name %></h1>
+    <p>Die nächsten Termine ums Eck - von Anbietern, Bewohnern &amp; Initiativen</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @meetings %>
-    <%= render 'meetings/action_card', graetzl: @graetzl %>
+    <%= render 'meetings/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-locations">
   <div class="hl-subtext">
-    <h1>Entdecke <span>Anbieter &amp; local Makers</span> im Grätzl</h1>
-    <p>Erfahre Neuigkeiten von grätzlansässigen Selbstständigen &amp; Kreativen, Lokalen &amp; Geschäften</p>
+    <h1>Lerne die <span>Anbieter &amp; Locations</span> im Grätzl kennen</h1>
+    <p>Entdecke das Besondere ums Eck</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @locations %>
-    <%= render 'locations/action_card', graetzl: @graetzl %>
+    <%= render 'locations/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-locations">
   <div class="hl-subtext">
-    <h1><span>Raumteiler</span> im Grätzl</h1>
+    <h1>Entdecke <span>Raumteiler</span> im Grätzl</h1>
     <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @rooms %>
-    <%= render 'rooms/action_card', graetzl: @graetzl %>
+    <%= render 'rooms/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-ideas">
@@ -35,7 +35,7 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @posts %>
-    <%= render 'user_posts/action_card', graetzl: @graetzl %>
+    <%= render 'user_posts/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-zuckerls">
@@ -45,6 +45,6 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @zuckerls %>
-    <%= render 'zuckerls/action_card', graetzl: @graetzl %>
+    <%= render 'zuckerls/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>

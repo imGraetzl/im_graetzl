@@ -15,7 +15,7 @@
 
   <%= render 'menu' %>
 
-  <h1 class="hl-main">Anbieter, local Makers, Lokale &amp; Geschäfte <span>im <%= @district.numeric %>. Bezirk</span></h1>
+  <h1 class="hl-main">Anbieter, Locations &amp; Geschäfte <span>im <%= @district.numeric %>. Bezirk</span></h1>
 
   <div class="card-grid-container">
     <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter' do %>

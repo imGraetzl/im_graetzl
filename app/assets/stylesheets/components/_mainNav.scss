@@ -64,7 +64,7 @@
     [class^="icon-"], [class*=" icon-"] {
       display: inline-block;
       float: left;
-      margin-right: 0.5em;
+      //margin-right: 0.5em;
     }
     .txt { float: right; }
   }
@@ -81,6 +81,9 @@
     padding-right: 20px;
     padding-left: 20px;
     border-left: 1px dotted lighten($color-ambient-mint, 20);
+    svg {
+      margin-right: 10px;
+    }
   }
 
   .createMeeting, .registerlink {
@@ -173,7 +176,7 @@
       position: relative;
       background-color: $color-ambient-mint-light;
       border-radius: 0 17px 17px 0;
-      padding: 2px 0px 2px 15px;
+      padding: 2px 5px 2px 15px;
       z-index: 1;
       margin-left: -14px;
     }
