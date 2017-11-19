@@ -1,12 +1,49 @@
-<section class="rooms">
+<section class="usersetup">
 
   <% if @rooms.empty? %>
 
   <div class="introcontainer -rooms">
     <div class="introtxt">
-      <h1>Dein <span>Raumteiler</span></h1>
+      <h1>Der <span>Raumteiler</span> auf imGrätzl.at</h1>
       <p>
-        Raumteiler Beschreibungstext
+        <strong>Gewerbeflächen teilen - Kosten teilen:</strong> Der Raumteiler ist eine Art WG-Partnersuche für Gewerbeflächen.
+        <ol class="list-basic">
+          <li>Raumhabende und Raumsuchende werden zu neuen Raumpartnerschaften verbunden.</li>
+          <li>Trage deine freien Raumressourcen kostenlos ein: Büro, Geschäftslokal, Praxis, Werktstatt, oder Studio und Atelier!</li>
+          <li>Wenn du Raum zum Andocken suchst, dann veröffentliche jetzt deinen Raumwunsch!</li>
+        </ol>
+
+      </p>
+      <p>
+        <strong>Filtere Räume & Suchende nach Bezirk und Grätzl ...</strong>
+        <ul class="list-basic">
+          <li>direkter Kontakt</li>
+          <li>alle Gewerbeflächentypen</li>
+          <li>leistbare Räume</li>
+        </ul>
+      </p>
+      <p>
+        <strong>Wir Trommeln für dein Raumteilergesuch via ...</strong>
+        <ul class="list-basic">
+          <li>imGrätzl, Suchmaschinen</li>
+          <li>Newsletter & Grätzlmail</li>
+          <li>Social Media Kanäle</li>
+        </ul>
+      </p>
+      <p>
+        <strong>Raumpartnerschaften = neue Formen der Zusammenarbeit</strong>
+        <ul class="list-basic">
+          <li>Kooperationen</li>
+          <li>hin zu einem neuem WIR</li>
+          <li>gegenseitige Unterstützung</li>
+        </ul>
+      </p>
+      <p>
+        Schließt euch zusammen & aktiviert gemeinsam Raum
+
+        Flächen für Gruppen
+        Raumteiler Speed-Dating
+        Begleitung, Beratung
       </p>
     </div>
     <%= render 'rooms/action_card', user: @user %>
@@ -14,7 +51,7 @@
 
   <% else %>
 
-  <h2 class="hl-main">Raumteiler <span>verwalten</span></h2>
+  <h2 class="hl-main">Deine <span>Raumteiler</span> verwalten</h2>
 
   <div class="cardBoxCollection -tripple" data-behavior="rooms-card-container">
     <%= render @rooms %>
