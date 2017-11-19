@@ -17,7 +17,7 @@
 
   <% if !user_signed_in? %>
     <div class="hl-subtext">
-      <h1><span>Treffen & Events</span> im Grätzl <%= @graetzl.name %></h1>
+      <h1><span>Events & Workshops</span> im Grätzl <%= @graetzl.name %></h1>
       <p>Motto: Runter vom Sofa & mitten rein ins Grätzlleben</p>
     </div>
   <% end %>
@@ -25,7 +25,7 @@
   <div class="card-grid-container">
     <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
       <div class="filter-selection-text">
-        Zeige mir in <%= link_to @graetzl.name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+        Zeige mir Einträge in <%= link_to @graetzl.name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
       </div>
     <% end %>
 

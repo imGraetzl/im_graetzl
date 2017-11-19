@@ -15,9 +15,9 @@
         <%= link_to 'Deine Location einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
-        <%= link_to 'Als Betreiber eintragen', new_location_path, class: 'btn-primary' %>
+        <%= link_to 'Deine Location einrichten', new_location_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Du bist ein "Local Maker" bzw. unternehmerisch, sozial oder kreativ im Grätzl tätig?</h3>
+        <h3>Du bist unternehmerisch, sozial oder kreativ im Grätzl tätig?</h3>
         <%= link_to 'Deine Location einrichten', new_user_session_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
@@ -26,11 +26,11 @@
 
   <% if local_assigns[:view_all] %>
     <% if local_assigns[:graetzl] %>
-      <%= link_to 'Alle Anbieter & local Makers', locations_graetzl_path(graetzl), class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Locations', locations_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Anbieter & local Makers', locations_district_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Locations', locations_district_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Anbieter & local Makers', locations_wien_path, class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Locations', locations_wien_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

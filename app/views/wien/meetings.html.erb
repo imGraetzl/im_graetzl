@@ -12,14 +12,14 @@
   <%= render 'header' %>
 
   <div class="hl-subtext">
-    <h1><em>Treffen & Events</em></h1>
+    <h1><em>Events & Workshops</em></h1>
     <p>Motto: Runter vom Sofa & mitten rein ins Grätzlleben</p>
   </div>
 
   <div class="card-grid-container">
     <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
       <div class="filter-selection-text">
-        Zeige mir aus <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+        Zeige mir Einträge aus <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
       </div>
     <% end %>
 
