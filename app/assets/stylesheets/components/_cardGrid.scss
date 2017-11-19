@@ -1,12 +1,14 @@
 .card-grid-container {
+  min-height: 150px;
   @include respond-to(">=large") {
-    margin-left: -25px;
-    margin-right: -60px;
+    margin-left: -40px;
+    margin-right: -70px;
   }
 
   .card-grid {
     @include cf();
     margin: auto;
+    margin-top:10px;
 
     .cardBox, .cardbox-wrp {
       width: 310px;
@@ -33,6 +35,7 @@
     font-style: italic;
     position: relative;
     top: -30px;
+    z-index: 2;
     @include font-size-primaryFont('larger');
 
     a {
@@ -66,7 +69,8 @@
 
 
 
-section.masonryFilterGrid {
+section.masonryFilterGrid,
+.card-grid-container {
 
   .msgNoStreamContent {
     @include font-size-primaryFont();
