@@ -34,7 +34,7 @@
     </div>
     <div class="cardBoxCollection -tripple -morelink">
       <%= render @locations %>
-      <%= render 'locations/action_card' %>
+      <%= render 'locations/action_card', view_all: true %>
     </div>
   </div>
 
@@ -47,7 +47,7 @@
       <% unless @rooms.nil? %>
         <%= render @rooms %>
       <% end %>
-      <%= render 'rooms/action_card' %>
+      <%= render 'rooms/action_card', view_all: true %>
     </div>
   </div>
 
@@ -58,7 +58,7 @@
     </div>
     <div class="cardBoxCollection -tripple -morelink">
       <%= render @meetings %>
-      <%= render 'meetings/action_card' %>
+      <%= render 'meetings/action_card', view_all: true %>
     </div>
   </div>
 
