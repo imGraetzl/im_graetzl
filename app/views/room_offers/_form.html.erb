@@ -117,12 +117,12 @@
     <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
   </div>
 
-  <h2 class="hl-main"><span>Foto</span> Upload</h2>
+  <h2 class="hl-main"><span>Fotos</span> vom Raum</h2>
 
   <div class="upload-oldschool">
     <%= f.label :cover_photo do %>
       <%= icon_tag "photo-camera" %>
-      <span>Coverphoto</span>
+      <span>Coverfoto</span>
     <% end %>
     <div class="field-wrp">
       <% if f.object.cover_photo %>
@@ -141,19 +141,19 @@
   <div class="upload-oldschool">
     <%= f.label :images do %>
       <%= icon_tag "photo-camera" %>
-      <span>Weitere Photos</span>
+      <span>Weitere Fotos</span>
     <% end %>
     <div class="field-wrp">
       <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
     </div>
   </div>
 
-  <h2 class="hl-main">Deine Kontaktdaten</h2>
+  <h2 class="hl-main"><span>Kontakt</span> & Infos</h2>
 
   <div class="upload-oldschool">
     <%= f.label :avatar do %>
       <%= icon_tag "photo-camera" %>
-      <span>Profilbild</span>
+      <span>Foto von dir</span>
     <% end %>
     <div class="field-wrp">
       <% if f.object.avatar %>
