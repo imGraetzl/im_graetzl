@@ -5,7 +5,7 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @meetings %>
-    <%= render 'meetings/action_card', graetzl: @graetzl %>
+    <%= render 'meetings/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-locations">
@@ -15,7 +15,7 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @locations %>
-    <%= render 'locations/action_card', graetzl: @graetzl %>
+    <%= render 'locations/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-locations">
@@ -25,7 +25,7 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @rooms %>
-    <%= render 'rooms/action_card', graetzl: @graetzl %>
+    <%= render 'rooms/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-ideas">
@@ -35,7 +35,7 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @posts %>
-    <%= render 'user_posts/action_card', graetzl: @graetzl %>
+    <%= render 'user_posts/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
 <div class="block-zuckerls">
@@ -45,6 +45,6 @@
   </div>
   <div class="cardBoxCollection -tripple -morelink">
     <%= render @zuckerls %>
-    <%= render 'zuckerls/action_card', graetzl: @graetzl %>
+    <%= render 'zuckerls/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
