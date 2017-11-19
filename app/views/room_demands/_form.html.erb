@@ -90,11 +90,12 @@
       <%= f.label :wants_collaboration, 'Mehr als nur Raum teilen - Ich bin auch an Kooperationen interessiert!' %>
     </div>
 
-    <h2 class="hl-main">Dein <span>Profilbild</span></h2>
+    <h2 class="hl-main"><span>Kontakt</span> & Infos</h2>
+
     <div class="upload-oldschool">
       <%= f.label :avatar do %>
         <%= icon_tag "photo-camera" %>
-        <span>Profilbild</span>
+        <span>Foto von dir</span>
       <% end %>
       <div class="field-wrp">
         <% if f.object.avatar %>
@@ -110,7 +111,6 @@
       </div>
     </div>
 
-    <h2 class="hl-main">Deine <span>Kontaktdaten</span></h2>
     <div class="input-field">
       <%= f.label :first_name do %>
       <%= icon_tag "user-avatar" %>
