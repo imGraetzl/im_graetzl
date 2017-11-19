@@ -12,14 +12,14 @@
       </div>
 
       <% if local_assigns[:graetzl] %>
-        <h3>Starte ein Treffen im Grätzl <%= graetzl.name %> oder gib dein Event bekannt</h3>
-        <%= link_to 'Treffen eintragen', new_meeting_path(graetzl_id: graetzl.id), class: 'btn-primary' %>
+        <h3>Trage deinen Workshop oder dein Event im Grätzl <%= graetzl.name %> ein.</h3>
+        <%= link_to 'Jetzt eintragen', new_meeting_path(graetzl_id: graetzl.id), class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
-        <h3>Starte ein Treffen, einen Workshop oder ein Event im <%= district.numeric %>. Bezirk</h3>
-        <%= link_to 'Jetzt loslegen', new_meeting_path, class: 'btn-primary' %>
+        <h3>Trage deinen Workshop oder dein Event im <%= district.numeric %>. Bezirk ein.</h3>
+        <%= link_to 'Jetzt eintragen', new_meeting_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Starte dein eigenes Treffen, trage ein<br>Event & Initatitive ein.</h3>
-        <%= link_to 'Jetzt loslegen', new_user_session_path, class: 'btn-primary -rose' %>
+        <h3>Bietest du Workshops an? Organisierst du Events im Grätzl?</h3>
+        <%= link_to 'Jetzt eintragen', new_user_session_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>
@@ -27,11 +27,11 @@
 
   <% if local_assigns[:view_all] %>
     <% if local_assigns[:graetzl] %>
-      <%= link_to 'Alle Treffen & Events', meetings_graetzl_path(graetzl), class: 'link-more' %>
+      <%= link_to 'Alle Events & Workshops', meetings_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Treffen & Events', meetings_district_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Events & Workshops', meetings_district_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Treffen & Events', meetings_wien_path, class: 'link-more' %>
+      <%= link_to 'Alle Events & Workshops', meetings_wien_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>
