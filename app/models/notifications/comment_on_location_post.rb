@@ -1,6 +1,6 @@
 class Notifications::CommentOnLocationPost < Notification
   TRIGGER_KEY = 'location_post.comment'
-  BITMASK = 32
+  BITMASK = 2**4
 
   def self.receivers(activity)
     activity.trackable.author.users
@@ -11,7 +11,7 @@ class Notifications::CommentOnLocationPost < Notification
   end
 
   def self.description
-    "Eine Neuigkeit meiner Location wurden kommentiert"
+    "Meine erstellten Inhalten wurden kommentiert"
   end
 
   def mail_vars

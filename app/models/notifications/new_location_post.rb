@@ -1,6 +1,6 @@
 class Notifications::NewLocationPost < Notification
   TRIGGER_KEY = 'location_post.create'
-  BITMASK = 2
+  BITMASK = 2**1
 
   def self.receivers(activity)
     User.where(graetzl_id: activity.trackable.graetzl_id)

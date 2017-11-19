@@ -60,6 +60,11 @@ APP.components.cardFilter = (function() {
   function initGrid() {
     if (masonrySetup) {
       cardGrid.masonry("destroy");
+      masonrySetup = false;
+    }
+
+    if (!cardGrid.find('[data-behavior="masonry-card"]').exists()) {
+      return;
     }
 
     if ($(".action-card-container").exists()) {

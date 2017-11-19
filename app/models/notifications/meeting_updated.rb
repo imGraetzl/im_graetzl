@@ -1,6 +1,6 @@
 class Notifications::MeetingUpdated < Notification
   TRIGGER_KEY = 'meeting.update'
-  BITMASK = 8
+  BITMASK = 2**3
 
   def self.receivers(activity)
     activity.trackable.users

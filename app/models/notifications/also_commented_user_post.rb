@@ -1,6 +1,6 @@
 class Notifications::AlsoCommentedUserPost < Notification
   TRIGGER_KEY = 'user_post.comment'
-  BITMASK = 64
+  BITMASK = 2**6
 
   def self.receivers(activity)
     User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id])

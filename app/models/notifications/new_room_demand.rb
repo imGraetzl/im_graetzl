@@ -1,13 +1,13 @@
 class Notifications::NewRoomDemand < Notification
   TRIGGER_KEY = 'room_demand.create'
-  BITMASK = 4096
+  BITMASK = 2**13
 
   def self.receivers(activity)
     User.where(graetzl_id: activity.trackable.graetzl_ids)
   end
 
   def self.description
-    'Ein neuer Raumteiler wurde im Grätzl erstellt'
+    'Eine neue Raumsuche wurde im Grätzl veröffentlicht'
   end
 
   def self.notify_owner?
@@ -27,6 +27,6 @@ class Notifications::NewRoomDemand < Notification
   end
 
   def mail_subject
-    "Neue Raumteiler im Grätzl #{activity.trackable.graetzl.name}"
+    "Neue Raumsuche im deine Grätzl"
   end
 end
