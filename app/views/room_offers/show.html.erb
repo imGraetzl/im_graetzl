@@ -1,3 +1,13 @@
+<% meta(
+    title: t('.title', slogan: @room_offer.slogan[0..45].gsub(/\s\w+\s*$/,'...')),
+    description: t('.description', type: t("activerecord.attributes.room_offer.offer_types.#{@room_offer.offer_type}"), desc: @room_offer.room_description[0..160].gsub(/\n/, " ")),
+    robots: 'index, follow',
+    og_title: t('.title', slogan: @room_offer.slogan[0..80].gsub(/\s\w+\s*$/,'...')),
+    og_description: t('.description', type: t("activerecord.attributes.room_offer.offer_types.#{@room_offer.offer_type}"), desc: @room_offer.room_description[0..250].gsub(/\n/, " ")),
+    og_image: attachment_url(@room_offer, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+  )
+%>
+
 <section class="roomDetail -Offer">
   <div class="imgHeader -cloudy2">
     <%= attachment_image_tag @room_offer, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>

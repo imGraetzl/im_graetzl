@@ -27,11 +27,11 @@ de:
       title: 'Lokale, Geschäfte & Treffpunkte in Wien'
       description: 'Durchstöbere in Wien. Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte und spannende Plätze aus dem Wien.'
     meetings:
-      title: 'Treffen, Veranstaltungen & Events in Wien'
+      title: 'Workshops, Events & Veranstaltungen in Wien'
       description: 'Leute treffen sich in Wien. Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
     rooms:
-      title: 'Raumteiler in Wien'
-      description: 'TODO'
+      title: 'Raumteiler in Wien - Gewerbeflächen teilen - Kosten teilen'
+      description: 'Wir möchten Selbständige, Kreative, Vereine und kleine Unternehmen mit dem „Raumteiler“ dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote in Wien'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Wien.'
@@ -47,7 +47,7 @@ de:
       description: 'Leute treffen sich im %{numeric}. Bezirk (%{name}). Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
     rooms:
       title: 'Raumteiler im %{numeric}. Bezirk'
-      description: 'TODO'
+      description: 'Wir möchten Selbständige, Kreative, Vereine und kleine Unternehmen mit dem „Raumteiler“ dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote im %{numeric}. Bezirk'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem %{numeric}. Bezirk %{name}.'
@@ -65,8 +65,8 @@ de:
       title: '%{graetzl}: Ideen & Initiativen im Grätzl'
       description: 'Entdecke, was sich BewohnerInnen fürs Grätzl %{graetzl} wünschen und welche Ideen im Raum stehen. Gestaltet euer Grätzl mit: Wünsche, Ideen & Initiativen!'
     rooms:
-      title: '%{graetzl}: Raumteiler TODO'
-      description: 'TODO'
+      title: '%{graetzl}: Raumteiler - Gewerbeflächen teilen - Kosten teilen'
+      description: 'Wir möchten Selbständige, Kreative, Vereine und kleine Unternehmen mit dem „Raumteiler“ dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
     zuckerls:
       title: '%{graetzl}: Zuckerl & Angebote - Jeden Monat neu'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'
@@ -83,3 +83,11 @@ de:
     show:
       title: '%{name} aus dem Grätzl %{graetzl}'
       description: '%{name}s Heimatgrätzl in Wien ist das Grätzl: %{graetzl} im %{numeric}. Bezirk.'
+  room_offers:
+    show:
+      title: 'Raumteiler: %{slogan}'
+      description: '%{type}: %{desc}...'
+  room_demands:
+    show:
+      title: 'Raumteiler: %{slogan}'
+      description: '%{type}: %{desc}...'
