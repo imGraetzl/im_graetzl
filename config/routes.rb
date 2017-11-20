@@ -63,6 +63,9 @@ Rails.application.routes.draw do
     get 'select', on: :collection
   end
 
+  get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
+  get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
+
   resource :wien, controller: 'wien', only: [:show] do
     get 'visit_graetzl'
     get 'treffen', action: 'meetings', as: 'meetings'

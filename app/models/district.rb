@@ -11,7 +11,7 @@ class District < ApplicationRecord
   has_many :meetings, through: :graetzls
   has_many :curators, through: :graetzls
   has_many :room_offers, through: :graetzls
-  has_many :room_demands, through: :graetzls
+  has_many :room_demands, -> { distinct }, through: :graetzls
 
   def long_name
     "#{name}-#{zip}"
