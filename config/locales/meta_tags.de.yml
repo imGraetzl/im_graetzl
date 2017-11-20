@@ -19,6 +19,12 @@ de:
     help:
       title: 'Hilfe'
       description: 'Hilfe zu imGrätzl.at'
+    raumteiler:
+      title: 'Raumteiler – Hilfe'
+    location:
+      title: 'Anbieter & Locations – Hilfe'
+    meetings:
+      title: 'Events & Workshops – Hilfe'
   wien:
     show:
       title: 'Bezirke, Stadtviertel & Grätzl in Wien'
