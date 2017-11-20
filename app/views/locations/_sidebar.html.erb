@@ -67,4 +67,10 @@
       <div class="txt"><%= @location.contact.hours %></div>
     </div>
   <% end %>
+
+  <% if @room_offer %>
+    <div class="sideBarbox roomoffer">
+      <%= render partial: 'locations/room_offer', object: @room_offer %>
+    </div>
+  <% end %>
 </aside>
