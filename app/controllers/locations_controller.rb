@@ -13,6 +13,7 @@ class LocationsController < ApplicationController
     redirect_enqueued and return if @location.pending?
     @posts = @location.posts.includes(:images, :comments).order(created_at: :desc).page(params[:page])
     @zuckerls = @location.zuckerls.live
+    @room_offer = RoomOffer.where(location_id: @location).last
   end
 
   def new
