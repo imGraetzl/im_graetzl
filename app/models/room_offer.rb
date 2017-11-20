@@ -1,5 +1,8 @@
 class RoomOffer < ApplicationRecord
   include Trackable
+  extend FriendlyId
+
+  friendly_id :slogan
 
   belongs_to :user
   belongs_to :graetzl
@@ -28,7 +31,7 @@ class RoomOffer < ApplicationRecord
   accepts_attachments_for :images, attachment: :file
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :address
+  validates_presence_of :address, :slogan, :room_description, :owner_description
   before_create :set_graetzl_and_district
 
   scope :by_currentness, -> { order(created_at: :desc) }

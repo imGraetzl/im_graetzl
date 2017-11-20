@@ -63,10 +63,6 @@ APP.components.cardFilter = (function() {
       masonrySetup = false;
     }
 
-    if (!cardGrid.find('[data-behavior="masonry-card"]').exists()) {
-      return;
-    }
-
     if ($(".action-card-container").exists()) {
       var actionCard = $(".action-card-container").children().first().clone();
       if (cardGrid.children(":eq(1)").exists()) {

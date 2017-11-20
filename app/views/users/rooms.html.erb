@@ -54,7 +54,7 @@
   <h2 class="hl-main">Deine <span>Raumteiler</span> verwalten</h2>
 
   <div class="cardBoxCollection -tripple" data-behavior="rooms-card-container">
-    <%= render @rooms %>
+    <%= render @rooms, manage_buttons: true %>
     <%= render 'rooms/action_card', user: @user %>
   </div>
 

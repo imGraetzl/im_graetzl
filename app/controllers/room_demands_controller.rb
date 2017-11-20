@@ -37,7 +37,7 @@ class RoomDemandsController < ApplicationController
     @room_demand = current_user.room_demands.find(params[:id])
     @room_demand.destroy
 
-    redirect_to room_demands_path
+    redirect_to rooms_user_path
   end
 
   private

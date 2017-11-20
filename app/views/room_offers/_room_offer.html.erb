@@ -18,7 +18,7 @@
       <%= link_to room_offer, class: 'typelink' do %>
         <div class="locationtxt">
           <div class="roomtype">
-              <%= t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") %>
+            <%= t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") %>
           </div>
         </div>
       <% end %>
@@ -43,13 +43,11 @@
       <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: room_offer %>
     <% end %>
 
-    <% if user_signed_in? && (current_user == room_offer.user) && controller.controller_name == "users" %>
+    <% if local_assigns[:manage_buttons].present? && current_user == room_offer.user %>
       <div class="btn-group">
         <%= link_to 'Bearbeiten', edit_room_offer_path(room_offer), class: 'btn-secondary -mint -small' %>
-        <%= link_to 'Löschen', room_offer_path(room_offer),
-          data: { confirm: 'Bist du dir sicher?' },
-          method: :delete,
-          class: 'btn-secondary -mint -small' %>
+        <%= link_to 'Löschen', room_offer_path(room_offer), data: { confirm: 'Bist du dir sicher?' },
+          method: :delete, class: 'btn-secondary -mint -small' %>
       </div>
     <% end %>
 

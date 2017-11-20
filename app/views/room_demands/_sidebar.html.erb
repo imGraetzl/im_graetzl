@@ -19,7 +19,7 @@
       <% end %>
 
       <div class="category-tags">
-        <% unless @room_demand.keyword_list.empty? %>
+        <% if @room_demand.keyword_list.present? %>
           <ul class="tag-list">
             <% @room_demand.keyword_list.each do |keyword| %>
               <li><%= keyword %></li>
@@ -28,23 +28,22 @@
         <% end %>
       </div>
 
-      <div class="btn-group">
-        <%= link_to 'Bearbeiten', edit_room_demand_path(@room_demand),
-          class: 'btn-secondary -mint -small' if user_signed_in? && (current_user == @room_demand.user) %>
-      </div>
-      <div class="btn-group">
-        <%= link_to 'Löschen', room_demand_path(@room_demand),
-          data: { confirm: 'Bist du dir sicher?' },
-          method: :delete,
-          class: 'btn-secondary -mint -small' %>
-      </div>
+      <% if user_signed_in? && current_user == @room_demand.user %>
+        <div class="btn-group">
+          <%= link_to 'Bearbeiten', edit_room_demand_path(@room_demand), class: 'btn-secondary -mint -small' %>
+        </div>
+        <div class="btn-group">
+          <%= link_to 'Löschen', room_demand_path(@room_demand), data: { confirm: 'Bist du dir sicher?' },
+            method: :delete, class: 'btn-secondary -mint -small' %>
+        </div>
+      <% end %>
     </div>
 
   </div>
 
-  <% unless @room_demand.email.nil? %>
-  <%= mail_to @room_demand.email, "Anbieter kontaktieren", class: 'btn-primary -mint', subject: "Raumteiler Kontakt" %>
+  <% if @room_demand.email.present? %>
+    <%= mail_to @room_demand.email, "Anbieter kontaktieren", class: 'btn-primary -mint', subject: "Raumteiler Kontakt" %>
   <% end %>
 
-  <%= link_to "Alle Raumteiler", room_demands_path, class: 'btn-primary -mint' %>
+  <%= link_to "Alle Raumteiler", rooms_wien_path, class: 'btn-primary -mint' %>
 </aside>

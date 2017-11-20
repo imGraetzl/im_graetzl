@@ -1,5 +1,8 @@
 class RoomDemand < ApplicationRecord
   include Trackable
+  extend FriendlyId
+
+  friendly_id :slogan
 
   belongs_to :user
   belongs_to :location, optional: true
@@ -19,4 +22,5 @@ class RoomDemand < ApplicationRecord
 
   scope :by_currentness, -> { order(created_at: :desc) }
 
+  validates_presence_of :slogan
 end

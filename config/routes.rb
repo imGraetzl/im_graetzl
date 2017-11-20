@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   end
 
   resources :activities, only: [:index]
-  resources :meetings, path: :treffen, except: [:show]
+  resources :meetings, path: 'treffen', except: [:show]
   resources :zuckerls, only: [:index]
   resources :rooms, only: [:index]
   resources :posts, only: [:index]
@@ -56,6 +56,11 @@ Rails.application.routes.draw do
   resources :locations do
     concerns :graetzl_before_new
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
+  end
+
+  resources :room_demands, path: 'wien/raumteiler/raumsuche', except: [:index]
+  resources :room_offers, path: 'wien/raumteiler/raum', except: [:index] do
+    get 'select', on: :collection
   end
 
   resource :wien, controller: 'wien', only: [:show] do
@@ -88,15 +93,9 @@ Rails.application.routes.draw do
 
   root 'static_pages#home'
 
-  resources :notifications, only: [ :index ] do
+  resources :notifications, only: [:index] do
     post :mark_as_seen, on: :collection
   end
-
-  resources :room_offers do
-    get 'select', on: :collection
-  end
-
-  resources :room_demands
 
   resources :going_tos, only: [:create, :destroy]
 
@@ -124,10 +123,10 @@ Rails.application.routes.draw do
     get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'ideen', action: 'posts', as: 'posts', on: :member
-    resources :meetings, path: :treffen, only: [:show]
+    resources :meetings, path: 'treffen', only: [:show]
     resources :locations, only: [:show]
     resources :users, only: [:show]
-    resources :user_posts, path: :ideen, only: [:new, :show, :create]
+    resources :user_posts, path: 'ideen', only: [:new, :show, :create]
   end
 
 end
