@@ -14,6 +14,7 @@ class LocationsController < ApplicationController
     @posts = @location.posts.includes(:images, :comments).order(created_at: :desc).page(params[:page])
     @zuckerls = @location.zuckerls.live
     @room_offer = RoomOffer.where(location_id: @location).last
+    @room_demand = RoomDemand.where(location_id: @location).last
   end
 
   def new
