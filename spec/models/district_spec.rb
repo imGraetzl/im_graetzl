@@ -60,18 +60,14 @@ RSpec.describe District, type: :model do
   end
 
   describe '#meetings' do
-    let(:district) { create(:district) }
     let(:graetzl_1) { create(:graetzl) }
     let(:graetzl_2) { create(:graetzl) }
     let(:other_graetzl) { create(:graetzl) }
+    let(:district) { create :district, graetzls: [graetzl_1, graetzl_2] }
     let(:meeting_1) { create(:meeting, graetzl: graetzl_1) }
     let(:meeting_2) { create(:meeting, graetzl: graetzl_1) }
     let(:meeting_3) { create(:meeting, graetzl: graetzl_2) }
     let(:meeting_4) { create(:meeting, graetzl: other_graetzl) }
-
-    before do
-      allow_any_instance_of(District).to receive(:graetzls).and_return([graetzl_1, graetzl_2])
-    end
 
     subject(:meetings) { district.meetings }
 
@@ -85,18 +81,14 @@ RSpec.describe District, type: :model do
   end
 
   describe '#curators' do
-    let(:district) { create(:district) }
     let(:graetzl_1) { create(:graetzl) }
     let(:graetzl_2) { create(:graetzl) }
+    let(:district) { create(:district, graetzls: [graetzl_1, graetzl_2]) }
     let(:other_graetzl) { create(:graetzl) }
     let(:curator_1) { create(:curator, graetzl: graetzl_1) }
     let(:curator_2) { create(:curator, graetzl: graetzl_1) }
     let(:curator_3) { create(:curator, graetzl: graetzl_2) }
     let(:curator_4) { create(:curator, graetzl: other_graetzl) }
-
-    before do
-      allow_any_instance_of(District).to receive(:graetzls).and_return([graetzl_1, graetzl_2])
-    end
 
     subject(:curators) { district.curators }
 

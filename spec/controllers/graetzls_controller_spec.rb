@@ -32,20 +32,8 @@ RSpec.describe GraetzlsController, type: :controller do
         expect(assigns :graetzl).to eq graetzl
       end
 
-      it 'assigns @meetings' do
-        expect(assigns :meetings).to be
-      end
-
-      it 'assigns @locations' do
-        expect(assigns :locations).to be
-      end
-
-      it 'assigns @zuckerls' do
-        expect(assigns :zuckerls).to be
-      end
-
-      it 'assigns @posts' do
-        expect(assigns :posts).to be
+      it 'assigns @activity_sample' do
+        expect(assigns :activity_sample).to be
       end
 
       it 'assigns @map_data' do

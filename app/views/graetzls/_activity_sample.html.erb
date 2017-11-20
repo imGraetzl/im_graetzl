@@ -4,7 +4,7 @@
     <p>Die nächsten Termine ums Eck - von Anbietern, Bewohnern &amp; Initiativen</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    <%= render @meetings %>
+    <%= render @activity_sample.meetings %>
     <%= render 'meetings/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
@@ -14,7 +14,7 @@
     <p>Entdecke das Besondere ums Eck</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    <%= render @locations %>
+    <%= render @activity_sample.locations %>
     <%= render 'locations/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
@@ -24,7 +24,7 @@
     <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    <%= render @rooms %>
+    <%= render @activity_sample.rooms %>
     <%= render 'rooms/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
@@ -34,7 +34,7 @@
     <p>Entdecke, was sich BewohnerInnen fürs Grätzl <%= @graetzl.name %> wünschen und welche Ideen im Raum stehen</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    <%= render @posts %>
+    <%= render @activity_sample.posts %>
     <%= render 'user_posts/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>
@@ -44,7 +44,7 @@
     <p>Gutscheine, Angebote &amp; Rabattaktionen von grätzlansässigen Kreativen, Selbständigen, Unternehmen, Lokalen &amp; Geschäften</p>
   </div>
   <div class="cardBoxCollection -tripple -morelink">
-    <%= render @zuckerls %>
+    <%= render @activity_sample.zuckerls %>
     <%= render 'zuckerls/action_card', graetzl: @graetzl, view_all: true %>
   </div>
 </div>

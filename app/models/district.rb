@@ -7,6 +7,12 @@ class District < ApplicationRecord
   has_many :district_graetzls
   has_many :graetzls, through: :district_graetzls
 
+  has_many :locations, through: :graetzls
+  has_many :meetings, through: :graetzls
+  has_many :curators, through: :graetzls
+  has_many :room_offers, through: :graetzls
+  has_many :room_demands, through: :graetzls
+
   def long_name
     "#{name}-#{zip}"
   end
@@ -17,18 +23,6 @@ class District < ApplicationRecord
 
   def numeric
     zip.slice(1..2).sub(%r{^0},"") if zip.present?
-  end
-
-  def locations
-    @locations ||= Location.where(graetzl: graetzls.map(&:id))
-  end
-
-  def meetings
-    @meetings ||= Meeting.where(graetzl: graetzls.map(&:id))
-  end
-
-  def curators
-    @curators ||= Curator.where(graetzl: graetzls.map(&:id))
   end
 
   def zuckerls

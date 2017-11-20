@@ -16,12 +16,8 @@ RSpec.describe DistrictsController, type: :controller do
       expect(assigns :map_data).to be
     end
 
-    it 'assigns @meetings' do
-      expect(assigns :meetings).to be
-    end
-
-    it 'assigns @locations' do
-      expect(assigns :locations).to be
+    it 'assigns @activity_sample' do
+      expect(assigns :activity_sample).to be
     end
 
     it 'renders #show' do

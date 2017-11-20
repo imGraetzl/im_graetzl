@@ -33,7 +33,7 @@
       <p>Finde grätzlansässige Projekte & Selbständige, Vereine & Geschäfte</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
-      <%= render @locations %>
+      <%= render @activity_sample.locations %>
       <%= render 'locations/action_card', view_all: true %>
     </div>
   </div>
@@ -44,9 +44,7 @@
       <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
-      <% unless @rooms.nil? %>
-        <%= render @rooms %>
-      <% end %>
+      <%= render @activity_sample.rooms %>
       <%= render 'rooms/action_card', view_all: true %>
     </div>
   </div>
@@ -57,7 +55,7 @@
       <p>Organisiert von Anbietern, Bewohnern &amp; Initiativen aus dem Grätzl.</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
-      <%= render @meetings %>
+      <%= render @activity_sample.meetings %>
       <%= render 'meetings/action_card', view_all: true %>
     </div>
   </div>

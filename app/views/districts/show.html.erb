@@ -19,7 +19,7 @@
       <p>Lerne dabei nette Menschen aus dem Bezirk <%= @district.name %> kennen</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
-      <%= render @meetings %>
+      <%= render @activity_sample.meetings %>
       <%= render 'meetings/action_card', district: @district, view_all: true %>
     </div>
   </div>
@@ -29,7 +29,7 @@
       <p>Finde grätzlansässige Projekte & Selbständige, Vereine & Geschäfte</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
-      <%= render @locations %>
+      <%= render @activity_sample.locations %>
       <%= render 'locations/action_card', district: @district, view_all: true %>
     </div>
   </div>
@@ -39,7 +39,7 @@
       <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
-      <%= render @rooms %>
+      <%= render @activity_sample.rooms %>
       <%= render 'rooms/action_card', district: @district, view_all: true %>
     </div>
   </div>
@@ -49,7 +49,7 @@
       <p>Gutscheine, Angebote &amp; Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen &amp; Geschäften aus dem Bezirk <%= @district.name %>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
-      <%= render @zuckerls %>
+      <%= render @activity_sample.zuckerls %>
       <%= render 'zuckerls/action_card', district: @district, view_all: true %>
     </div>
   </div>
