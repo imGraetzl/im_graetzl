@@ -19,29 +19,6 @@ section.roomDetail {
         }
       }
 
-      .locationAvatar {
-        position: absolute;
-        left: 20px;
-        bottom: 20px;
-        width: 80px;
-        border-radius: 4px;
-        padding: 2px;
-        background-color: #fff;
-        border: 1px solid $color-ambient-mint;
-        @include respond-to(">=medium") {
-          bottom: -50px;
-          left: 38px;
-          width: 245px;
-          border-radius: 12px;
-          padding: 5px;
-        }
-        @include respond-to(">=large") {
-          bottom: -90px;
-          width: 245px;
-          left: 25px;
-        }
-      }
-
       .createentry {
         background-image: none;
         background-color: rgba($color-ambient-mint-dark, 0.75);
@@ -56,11 +33,8 @@ section.roomDetail {
         @include respond-to(">=medium") {
           display: none;
         }
-
       }
-
     }
-
   }
 
 
@@ -380,8 +354,6 @@ section.roomDetail {
       }
     }
 
-
-
     .user-wrp {
       display: flex;
       align-items: center;
@@ -391,70 +363,6 @@ section.roomDetail {
         margin-right: 10px;
       }
 
-    }
-  }
-}
-
-.imgCollection {
-  overflow: hidden;
-  max-width: 300px;
-  @include respond-to(">=medium") {
-    max-width: 250px;
-  }
-  img {
-    display: block;
-    margin-bottom: 8px;
-    @include col(1/2, $cycle: 2);
-  }
-}
-
-.zuckerlBlock {
-  margin-bottom: 70px;
-  @include respond-to(">=large") {
-    margin-bottom: 120px;
-  }
-  h2 {
-    @include font-size-secondaryFont('large');
-    color: $color-ambient-rosa;
-    margin-bottom: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    z-index: 2;
-    display: table;
-    &::before {
-      content: '';
-      position: relative;
-      display:inline-block;
-      background-image: url(image_path('graetzlzuckerl.png'));
-      background-position: 0 0;
-      background-size: 100px 63px;
-      background-repeat: no-repeat;
-      width: 100px;
-      height: 63px;
-      vertical-align: middle;
-      margin-right: 10px;
-      @include respond-to(">=medium") {
-        position: absolute;
-        top: -9px;
-        left: -16px;
-        width: 220px;
-        height: 120px;
-        background-image: url(image_path('graetzlzuckerl.png')), url(image_path('svg/arrow-dashed-bend.svg'));
-        background-position: 0 0, 88px 1px;
-        background-size: 166px 105px, 114px 57px;
-
-      }
-    }
-    @include respond-to(">=medium") {
-      padding-left: 196px;
-      display: block;
-      margin-left: 0;
-    }
-  }
-  .zuckerlCollection {
-    .zuckerlBox {
-      margin-bottom: 30px;
     }
   }
 }
