@@ -5,13 +5,15 @@ APP.components.graetzlSelectFilter = (function() {
   function init(container) {
     var $districtSelect = container.find(".district-select");
     var $graetzlSelect = container.find(".graetzl-select");
+    var $resetButton = container.find(".reset-button");
 
     $districtSelect.SumoSelect({
       search: true,
       searchText: 'Suche nach Bezirk.',
       placeholder: 'Bezirk auswählen',
       csvDispCount: 3,
-      captionFormat: '{0} Bezirk ausgewählt'
+      captionFormat: '{0} Bezirk ausgewählt',
+      okCancelInMulti: true
     });
 
     if ($districtSelect.val() && $districtSelect.val().length > 0) {
@@ -23,7 +25,8 @@ APP.components.graetzlSelectFilter = (function() {
       searchText: 'Suche nach Grätzln.',
       placeholder: 'Grätzln auswählen',
       csvDispCount: 3,
-      captionFormat: '{0} Grätzln ausgewählt'
+      captionFormat: '{0} Grätzln ausgewählt',
+      okCancelInMulti: true
     });
 
     $districtSelect.on('change', function() {
@@ -41,7 +44,13 @@ APP.components.graetzlSelectFilter = (function() {
         selectedDistrictIds = districtIds;
         $graetzlSelect[0].sumo.reload();
       }
-    } );
+    });
+
+    $resetButton.on('click', function() {
+      $districtSelect[0].sumo.unSelectAll();
+      $graetzlSelect[0].sumo.unSelectAll();
+      container.find(".filter-button").click();
+    });
 
     function showDistrictGraetzls(districtIds) {
       $graetzlSelect.find('option').each(function() {

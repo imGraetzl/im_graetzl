@@ -52,8 +52,10 @@ APP.components.cardFilter = (function() {
     if (selectedInputs.length > 0) {
       var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
       link.text(label);
+      link.addClass('filter-applied');
     } else {
       link.text(link.data("no-filter-label"));
+      link.removeClass('filter-applied');
     }
   }
 
