@@ -19,7 +19,7 @@
   <div class="card-grid-container">
     <%= form_tag meetings_path, method: :get, remote: true, class: 'cards-filter' do %>
       <div class="filter-selection-text">
-        Zeige mir Einträge in <%= link_to @district.zip_name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+        Zeige mir Einträge in <%= link_to @district.zip_name, '#filter-modal-bezirk', class: 'filter-applied', data: { no_filter_label: 'allen Bezirken'} %>
       </div>
     <% end %>
 

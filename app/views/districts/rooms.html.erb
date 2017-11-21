@@ -21,7 +21,7 @@
       <div class="filter-selection-text">
         Zeige mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
         aus <%= link_to 'allen Kategorien', '#filter-modal-categories', data: { no_filter_label: 'allen Kategorien'} %>,
-        in <%= link_to @district.zip_name, '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+        in <%= link_to @district.zip_name, '#filter-modal-bezirk', class: 'filter-applied', data: { no_filter_label: 'allen Bezirken'} %>
       </div>
     <% end %>
 

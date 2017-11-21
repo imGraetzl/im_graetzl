@@ -8,6 +8,7 @@ class RoomDemandsController < ApplicationController
 
   def new
     @room_demand = current_user.room_demands.new
+    @room_demand.assign_attributes(current_user.slice(:first_name, :last_name, :email, :website))
   end
 
   def edit

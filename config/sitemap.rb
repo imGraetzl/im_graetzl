@@ -37,6 +37,15 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
+  # Raumteiler
+  RoomOffer.find_each do |room_offer|
+    add room_offer_path(room_offer), priority: 0.7
+  end
+
+  RoomDemand.find_each do |room_demand|
+    add room_demand_path(room_demand), priority: 0.7
+  end
+
   # Info Pages
   add info_agb_path, changefreq: 'never', priority: 0.3
   add info_datenschutz_path, changefreq: 'never', priority: 0.3

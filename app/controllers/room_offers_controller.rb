@@ -9,6 +9,7 @@ class RoomOffersController < ApplicationController
   def new
     @room_offer = current_user.room_offers.new
     @room_offer.room_offer_prices.build
+    @room_offer.assign_attributes(current_user.slice(:first_name, :last_name, :email, :website))
   end
 
   def select
