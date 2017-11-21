@@ -7,6 +7,8 @@ module ViewInApp
     base.send(:action_item, :view_in_app, only: :show) do
       if resource.is_a?(RoomOffer)
         link_to 'In App ansehen', resource
+      elsif resource.is_a?(RoomDemand)
+        link_to 'In App ansehen', resource
       elsif resource.respond_to?(:graetzl)
         link_to 'In App ansehen', [resource.graetzl, resource]
       elsif resource.is_a?(Graetzl)

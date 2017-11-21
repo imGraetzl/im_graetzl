@@ -18,7 +18,9 @@
   <% if user_signed_in? %>
     <div class="card-grid-container">
       <%= form_tag activities_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter' do; end %>
-      <div class="card-grid" data-behavior="activities-card-container"></div>
+      <div class="card-grid" data-behavior="activities-card-container">
+        <%= image_tag 'svg/loading.svg', class: 'loading-spinner' %>
+      </div>
       <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' } %>
     </div>
   <% else %>
