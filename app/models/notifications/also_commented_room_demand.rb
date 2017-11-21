@@ -12,8 +12,9 @@ class Notifications::AlsoCommentedRoomDemand < Notification
 
   def mail_vars
     {
-      room_demand_title: activity.trackable.slogan,
-      room_demand_url: room_demand_url(activity.trackable, DEFAULT_URL_OPTIONS),
+      room_name: activity.trackable.slogan,
+      room_url: room_demand_url(activity.trackable, DEFAULT_URL_OPTIONS),
+      room_type: activity.trackable.demand_type,
       comment_url: room_demand_url(activity.trackable, DEFAULT_URL_OPTIONS),
       comment_content: activity.recipient.content.truncate(300, separator: ' '),
       owner_name: activity.owner.username,
