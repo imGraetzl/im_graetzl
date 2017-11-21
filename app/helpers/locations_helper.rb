@@ -1,7 +1,8 @@
 module LocationsHelper
   def location_meta(location)
+    address = location.address
     desc = ''
-    if address = location.address
+    if address
       desc << "#{address.street_name} #{address.street_number.split(%r{/}).first}, #{address.zip} #{address.city} "
     end
     desc << location.description
@@ -9,7 +10,7 @@ module LocationsHelper
   end
 
   def link_to_add_address_fields(name, f)
-    new_address = f.object.build_address
+    f.object.build_address
     fields = render('address_fields', f: f)
     link_to(name, '#', class: 'add_address_fields btn-secondary',
             data: { fields: fields.gsub('\n','') })

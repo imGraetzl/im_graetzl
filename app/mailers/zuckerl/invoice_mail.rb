@@ -37,7 +37,8 @@ class Zuckerl::InvoiceMail < Zuckerl::BaseMail
   end
 
   def billing_address_vars
-    if billing_address = @location.billing_address
+    billing_address = @location.billing_address
+    if billing_address
       {
         first_name: billing_address.first_name,
         last_name: billing_address.last_name,

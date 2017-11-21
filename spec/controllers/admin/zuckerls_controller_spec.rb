@@ -52,7 +52,7 @@ RSpec.describe Admin::ZuckerlsController, type: :controller do
     it 'creates new zuckerl record' do
       expect{
         post :create, params: params
-      }.to change{Zuckerl.count}.by 1
+      }.to change{Zuckerl.count}.by(1)
     end
 
     it 'does not enqueue InvoiceJob' do

@@ -39,14 +39,15 @@ class Notification::DailyMail
   attr_reader :notifications, :user
 
   def send_mail
-    if content = message
+    content = message
+    if content
       MandrillMailer.deliver template: MANDRILL_TEMPLATE, message: content
     end
   end
 
   def message
     blocks = notification_blocks
-    unless blocks.empty?
+    if blocks.present?
       {
         to: [ { email: @user.email } ],
         from_email: FROM_EMAIL,
@@ -69,7 +70,7 @@ class Notification::DailyMail
 
   def build_block(name, types)
     notifications = @notifications.where(type: types.map(&:to_s))
-    unless notifications.empty?
+    if notifications.present?
       {
         name: name,
         size: notifications.length,

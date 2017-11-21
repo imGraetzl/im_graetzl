@@ -2,9 +2,6 @@ APP.controllers.billing_addresses = (function() {
     var $collapsibletrigger;
 
     function init() {
-        $('.zuckerlCollection').masonry({
-            percentPosition: true
-        });
         $(".initiative-info").children().show();
         $collapsibletrigger = $(".collapsibletrigger");
         bindevents();

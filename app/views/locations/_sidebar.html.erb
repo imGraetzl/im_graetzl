@@ -73,4 +73,10 @@
       <%= render partial: 'locations/room_offer', object: @room_offer %>
     </div>
   <% end %>
+
+  <% if @room_demand %>
+    <div class="sideBarbox roomdemand">
+      <%= render partial: 'locations/room_demand', object: @room_demand %>
+    </div>
+  <% end %>
 </aside>

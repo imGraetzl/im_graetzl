@@ -24,7 +24,8 @@ module MeetingsHelper
   end
 
   def meeting_initiator(meeting)
-    if initiator = meeting.responsible_user_or_location
+    initiator = meeting.responsible_user_or_location
+    if initiator
       link_to [initiator.graetzl, initiator], class: 'initiator' do
         concat avatar_for(initiator)
         concat content_tag(:span, initiator.try(:username) || initiator.name)
@@ -33,7 +34,8 @@ module MeetingsHelper
   end
 
   def meeting_initiator_row(meeting)
-    if initiator = meeting.responsible_user_or_location
+    initiator = meeting.responsible_user_or_location
+    if initiator
       content_tag(:div, class: 'userPortraitName') do
         concat avatar_for(initiator, 100)
         concat "Erstellt von "
@@ -53,7 +55,8 @@ module MeetingsHelper
   end
 
   def meeting_map(meeting)
-    if coords = meeting.display_address.try(:coordinates)
+    coords = meeting.display_address.try(:coordinates)
+    if coords
       link_to map_link(coords), target: '_blank', class: 'iconMapLink' do
         icon_tag("map-location") + 'Karte'
       end

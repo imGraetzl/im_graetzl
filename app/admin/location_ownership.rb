@@ -2,7 +2,7 @@ ActiveAdmin.register LocationOwnership do
   #menu parent: 'Locations', label: 'Location-Inhaber'
   menu false
 
-  form do |f|
+  form do
     inputs '' do
       input :user
       input :location

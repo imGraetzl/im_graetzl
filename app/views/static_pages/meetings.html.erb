@@ -1,12 +1,8 @@
-<%
-   meta({
-          title: t('.title'),
-          description: t('.description'),
-          robots: 'index, follow',
-          og_title: t('.title'),
-          og_description: t('.description'),
-          og_image: image_url('meta/og_logo.png')
-        })
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow'
+  )
 %>
 
 <section class="help -detail">
@@ -32,6 +28,7 @@
     <div id="help_nav">
       <a href="#one" class="btn-primary -mint" id="nav-one">Woum gehts?</a>
       <a href="#two" class="btn-primary -mint" id="nav-two">Events veröffentlichen</a>
+      <a href="#three" class="btn-primary -mint" id="nav-three">Sichtbarkeit für dein Event</a>
     </div>
   </aside>
 
@@ -41,21 +38,78 @@
       <h2>Worum gehts?</h2>
       <h3>Welche Termine eignen sich besonders als Event oder Workshop?</h3>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Wenn etwas ums Eck stattfindet, ist das für die BewohnerInnen deines Viertels grundsätzlich
+        sehr interessant. Planst du einen Hausflohmarkt, eine Verkostung, oder organisierst du einen
+        Lettering-Workshop? Bereitest du ein Konzert, eine Ausstellung, oder Lesung vor? Fantastico,
+        du belebst damit dein Grätzl!
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Zur Veröffentlichung auf imGrätzl eignen sich besonders
+        die einmalig stattfindenden Events, Workshops und Aktionen. Nicht geeignet sind regelmäßig
+        stattfindende Events. Wenn du z.B. jede Woche einen Yoga-Stunde gibst, dann ist die als
+        imGrätzl Event eher ungeeignet, regelmäßig stattfindende Termine gehören in die Beschreibung
+        deiner Locationseite. Oder veröffentliche z.B. ein Update auf deiner Locationsseite,
+        wenn der Kurs startet.
+
+        <h3>Nicht geeignet als imGrätzl Event, weil wiederkehrend:</h3>
+        Eva organisiert eine Laufgruppe, die sich jeden Mittwoch, also regelmäßig einmal die Woche trifft.
+
+        <h3>Geeignet als imGrätzl Event, weil einmalig:</h3>
+        Eva organisiert einen Lauf-Schnuppersession zu der Eva alle einlädt um die Laufgruppe kennenzulernen.
+        <br><br>
+
+        Das heißt nicht, dass du nicht auch auf die offene Jamsession, die jede Woche stattfindet,
+        immer mal wieder hinweisen kannst. Aber zu häufige Wiederholungen vom immer dem selben
+        Inhalt führen zu einer Abstumpfung bei den BewohnerInnen. Wenn ihr dann mal was Besonderes habt,
+        dann bekommt das Treffen nicht mehr die Aufmerksamkeit, die es verdient.
+
+        <h3>Kostenlose vs. kostenpflichtige Events</h3>
+        Schreib unbedingt dazu, ob es sich bei deinem Event oder Workshop, um ein kostenloses
+        Event/Workshop handelt, oder nicht. Schreib auch dazu, wie viel es kostet.
       </p>
     </article>
 
     <article class="container" id="two">
       <h2>Events & Workshops veröffentlichen</h2>
-      <h3>Deine Termine veröffentlichen – Worauf solltest du achten?</h3>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        <strong>Deine Termine veröffentlichen – Worauf solltest du achten?</strong>
+        <h3>Bilder und Beschreibungen</h3>
+        Schreibe unbedingt ganze Sätze und nicht nur Stichpunkte, um dein Event oder Workshop zu beschreiben.
+        Lass die BewohnerInnen wissen, was sie erwartet, dann steigt die Wahrscheinlichkeit,
+        dass sie teilnehmen und vorbeikommen.<br>
+        Setze unbedingt ein Bild rein. Inspiration gefällig? Lese dir mal
+        <a href="https://www.basicthinking.de/blog/2017/04/25/kostenlose-bilder-kommerzielle-zwecke/" target="_blank">diesen Artikel</a> dazu durch,
+        wir fanden ihn sehr hilfreich.
+
+        <h3>Erstelle dein Event & Workshop von deiner Locationseite aus</h3>
+        Gehe dazu auf deine Locationseite und starte mit der Erstellung deines Events oder Workshops.
+        Dann wird das Event automatisch auf deiner Locationseite angezeigt und die BewohnerInnen bekommen
+        über die Events auf deiner Loationseite ein Gespür dafür, dass dein Projekt/dein Unternehmen auch
+        wirklich lebt. Es ist übrigens vollkommen egal, ob dein Event oder dein Workshop in einem ganz
+        anderen Grätzl stattfindet, als in dem deine Locationseite beheimatet ist. Das Event wird dann
+        sogar zweimal angezeigt, einmal dort wo deine Locationseite beheimatet ist und einmal in dem
+        Grätzl/Bezirk in dem das Event stattfindet.
+
+        <h3>Die Adresse ist ganz wichtig!</h3>
+        Wo findet euer Event, oder euer Workshop statt? Natürlich ist die Adresse wichtig, weil wie
+        sollten die Menschen sonst zu dir und deinem Event hinfinden. Aber genau die Adresse wird
+        gerne mal vergessen.
       </p>
+    </article>
+
+    <article class="container" id="three">
+      <h2>Sichtbarkeit für dein Event</h2>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Deine Events, Workshops und Aktionen werden in das Grätzl Mail aufgenommen und an alle
+        registrierten BewohnerInnen im Stadtteil verschickt.<br><br>
+        imGrätzl ist übrigens das einzige Angebot, dass Events stadtteilsegementiert in Wien
+        digital sichtbar macht und das auch ohne Registrierung/Anmeldung einsehbar sind.
+        Durch die Kooperation z.B. mit der Sozialbau Ag werden die imGrätzl Events und Workshops
+        nicht nur im Internet angezeigt, sondern auch auf vielen Displays in Häusern, die sie betreuen.
+        So sehen die BewohnerInnen, wie auf einem schwarzen Brett im Haus, was in ihrem Grätzl für
+        Events und Workshops geplant sind.<br><br>
+        Wir beschäftigen uns außerdem viel mit Suchmaschinen Optimierung, damit eure Events &
+        Workshops auch über die Google Suche Sichtbarkeit bekommen.
       </p>
     </article>
 

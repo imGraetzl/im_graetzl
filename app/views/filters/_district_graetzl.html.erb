@@ -7,4 +7,7 @@
 <div class="graetzl-select-input">
   <%= select :filter, :graetzl_ids, options_for_select(graetzl_select_options, graetzl_ids), {}, { multiple: true, class: 'graetzl-select' } %>
 </div>
-<%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
+<div class="filter-actions">
+  <%= button_tag "Filter zurücksetzen", type: 'button', class: 'btn-primary reset-button' %>
+  <%= button_tag "Auswahl übernehmen", type: 'button', class: 'btn-primary filter-button' %>
+</div>
