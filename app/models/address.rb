@@ -14,7 +14,7 @@ class Address < ApplicationRecord
         zip: feature['properties']['PostalCode'],
         city: feature['properties']['Municipality']
       )
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       nil
     end
   end

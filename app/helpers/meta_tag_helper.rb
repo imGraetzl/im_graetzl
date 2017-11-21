@@ -13,7 +13,7 @@ module MetaTagHelper
     tag(:link, rel: 'canonical', href: url)
   end
 
-  def meta(tags_hash, type=:meta)
+  def meta(tags_hash)
     tags_hash.each do |tag, content|
       case
       when tag == :title
