@@ -23,10 +23,18 @@
         <div>Gefördert durch die Wirtschaftsagentur Wien.<br>
           Ein Fonds der Stadt Wien.</div>
       </div>
-
-      <div class="col wrp-register">
-        <%= link_to '', new_registration_path, class: 'badgeregister' %>
+      <div class="col logo-ke">
+        <%= link_to(image_tag('logo-klimafonds.png'), 'https://www.klimafonds.gv.at', target: '_blank') %>
+        <div>
+          Der <%= link_to 'Raumteiler', rooms_wien_path %> auf imGrätzl.at ist Teil des F&amp;E Projektes Mischung: Nordbahnhof (Lead TU Wien).
+          <br><br>
+          Dieses Projekt wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen der Smart-Cities-Initiative durchgeführt.
+        </div>
       </div>
+
+      <!--<div class="col wrp-register">
+        <%= link_to '', new_registration_path, class: 'badgeregister' %>
+      </div>-->
 
     </div>
 
