@@ -31,21 +31,18 @@ class Notification::DailyMail
   end
 
   def deliver
-    @notifications.update_all(sent: true) if send_mail
+    content = generate_content
+    if content
+      MandrillMailer.deliver(template: MANDRILL_TEMPLATE, message: content)
+      @notifications.update_all(sent: true)
+    end
   end
 
   private
 
   attr_reader :notifications, :user
 
-  def send_mail
-    content = message
-    if content
-      MandrillMailer.deliver template: MANDRILL_TEMPLATE, message: content
-    end
-  end
-
-  def message
+  def generate_content
     blocks = notification_blocks
     if blocks.present?
       {

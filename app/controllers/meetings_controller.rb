@@ -42,7 +42,7 @@ class MeetingsController < ApplicationController
     @meeting.state = :active
 
     changed_attributes = @meeting.changed_attributes.keys.map(&:to_sym)
-    changed_attributes.push(:address) if @meeting.address.changed?
+    changed_attributes.push(:address) if @meeting.address.try(:changed?)
 
     if @meeting.save
       if (changed_attributes & [:address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description]).present?
