@@ -17,7 +17,7 @@ ActiveAdmin.register RoomDemand do
 
   form partial: 'form'
 
-  permit_params :user_id, :slogan, :needed_area, :daily_rent, :longterm_rent, :demand_description,
+  permit_params :user_id, :slogan, :location_id, :needed_area, :daily_rent, :longterm_rent, :demand_description,
     :personal_description, :wants_collaboration, :demand_type, :slug,
     :avatar, :first_name, :last_name, :website, :email, :phone
 

@@ -10,6 +10,7 @@
 // Active Admin's got SASS!
 @import "active_admin/mixins";
 @import "active_admin/base";
+@import "sumoselect";
 
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
@@ -51,4 +52,12 @@ a.btn-dark {
     padding-left: 0 !important;
     font-weight: bold !important;
   }
+}
+
+// fix SumoSelect
+.SumoSelect li label {
+  width: auto;
+  float: inherit;
+  font-size: inherit;
+  font-weight: inherit;
 }
