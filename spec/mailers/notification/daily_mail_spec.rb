@@ -12,10 +12,10 @@ RSpec.describe Notification::DailyMail do
 
     subject { described_class.new user }
 
-    it 'has private attribte @user' do
+    it 'has private attribute @user' do
       expect(subject.send :user).to eq user
     end
-    it 'has private attribte @notifications' do
+    it 'has private attribute @notifications' do
       expect(subject.send :notifications).to eq notifications
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe Notification::DailyMail do
 
     before { user.enable_mail_notification(type, :daily) }
 
-    subject(:message) { mailer.send :message }
+    subject(:message) { mailer.send :generate_content }
 
     context 'when notifications available' do
       let!(:notifications) do
