@@ -66,8 +66,8 @@ Rails.application.configure do
 
   # Mailer config
   config.action_mailer.default_options = {
-    from: 'imGrätzl.at <no-reply@staging.imgraetzl.at>',
-    reply_to: 'imGrätzl.at <wir@staging.imgraetzl.at>'
+    from: 'imGrätzl.at <staging-no-reply@imgraetzl.at>',
+    reply_to: 'imGrätzl.at <wir@imgraetzl.at>'
   }
   config.action_mailer.default_url_options = { host: 'staging.imgraetzl.at', protocol: 'https' }
   config.action_mailer.delivery_method = :smtp
@@ -82,8 +82,8 @@ Rails.application.configure do
   }
 
   # mandrill config
-  config.x.mandril_from_name = 'imGrätzl.at'
-  config.x.mandril_from_email = 'no-reply@staging.imgraetzl.at'
+  config.x.mandril_from_name = 'staging.imGrätzl.at'
+  config.x.mandril_from_email = 'staging-no-reply@imgraetzl.at'
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

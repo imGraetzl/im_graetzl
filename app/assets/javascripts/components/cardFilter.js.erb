@@ -26,8 +26,15 @@ APP.components.cardFilter = (function() {
       updateFilterInputs($(this));
     });
 
+    filterForm.on('ajax:beforeSend', function() {
+      clearandInitGrid();
+      showSpinner();
+    });
+
     filterForm.on('ajax:success', function() {
-      initGrid();
+      stopSpinner();
+      addActionCard();
+      adjustNewCards();
     });
 
     $('.link-load').on('ajax:success', function() {
@@ -59,12 +66,36 @@ APP.components.cardFilter = (function() {
     }
   }
 
-  function initGrid() {
+  function clearandInitGrid() {
+    var allItems = cardGrid.find('[data-behavior="masonry-card"]');
+    allItems.remove();
+    $('.link-load').removeClass("show");
+
     if (masonrySetup) {
       cardGrid.masonry("destroy");
-      masonrySetup = false;
     }
 
+    cardGrid.masonry({
+      columnWidth: 310,
+      gutter: 24,
+      itemSelector: '[data-behavior="masonry-card"]',
+      fitWidth : true
+    });
+
+    masonrySetup = true;
+  }
+
+  function showSpinner() {
+    var spinnerSrc = "<%= asset_path('svg/loading.svg') %>";
+    var spinner = $('<img class="loading-spinner" src="' + spinnerSrc + '">');
+    cardGrid.append(spinner);
+  }
+
+  function stopSpinner() {
+    cardGrid.find(".stopSpinner").remove();
+  }
+  
+  function addActionCard() {
     if ($(".action-card-container").exists()) {
       var actionCard = $(".action-card-container").children().first().clone();
       if (cardGrid.children(":eq(1)").exists()) {
@@ -73,19 +104,12 @@ APP.components.cardFilter = (function() {
         cardGrid.append(actionCard);
       }
     }
-
-    cardGrid.imagesLoaded(function() {
-      cardGrid.masonry({
-        itemSelector: '[data-behavior="masonry-card"]',
-        fitWidth : true
-      });
-    });
-
-    masonrySetup = true;
   }
 
   function adjustNewCards() {
-    cardGrid.masonry('appended', $('[data-behavior="masonry-card"]').not('[style]'));
+    var newCards = cardGrid.find('[data-behavior="masonry-card"]').not('[data-appended]');
+    cardGrid.masonry('appended', newCards);
+    newCards.attr("data-appended", true);
   }
 
   return {
