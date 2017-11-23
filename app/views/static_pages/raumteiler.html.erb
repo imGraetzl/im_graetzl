@@ -18,8 +18,8 @@
     <div class="wrp">
       <p>
         Wir möchten Selbständige, Kreative, Vereine und kleine Unternehmen mit dem „<strong>Raumteiler</strong>“
-        dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen und darin
-        unterstützen neue Räume zu eröffnen.
+        dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen und ihnen
+        ermöglichen neue Räume zu eröffnen.
       </p>
     </div>
     <div class="card"></div>
@@ -27,56 +27,84 @@
 
   <aside>
     <div id="help_nav">
-      <a href="#one" class="btn-primary -mint" id="nav-one">Worum gehts?</a>
-      <a href="#two" class="btn-primary -mint" id="nav-two">Raumteiler Guide 2018</a>
+      <a href="#worum-gehts" class="btn-primary -mint" id="nav-one">Worum gehts?</a>
+      <a href="#raumteiler-guide" class="btn-primary -mint" id="nav-two">Raumteiler Guide 2018</a>
+      <a href="#downloads" class="btn-primary -mint" id="nav-three">Donwload Vorlagen</a>
     </div>
   </aside>
 
   <div class="mainContent">
 
     <article class="container" id="one">
-      <h2>Worum gehts?</h2>
+      <h2 id="worum-gehts">Worum gehts?</h2>
       <h3>Gewerbeflächen teilen - Kosten teilen.</h3>
       <p>
-        Raumsuchende und Raumhabende werden zusammengebracht und miteinander verbunden.
-        Weg vom EinzelkämpferInnentum hin zu vielen kleinen Gemeinschaften und neuen Raumpartnerschaften.
-        Es geht um <strong>Arbeitsräume, Geschäftslokale, Werkstätten, Büroräume, Praxen, Studios, Ateliers.</strong>
-        Der Mensch steht dabei immer im Mittelpunkt.
+        Raumsuchende und Raumhabende werden via Raumteiler miteinander verbunden.
+        Weg vom EinzelkämpferInnentum hin zu vielen kleinen Gemeinschaften und neuen
+        Raumpartnerschaften. Der Raumteiler ist eine Art WG-PartnerInnen Suche für Gewerbeflächen.
+        Es geht um <strong>Arbeitsräume, Geschäftslokale, Werkstätten, Büroräume, Praxen, Studios und
+        Ateliers.</strong> Der Mensch steht dabei immer im Mittelpunkt.
 
-        <ol>
-          <li>Du findest RaumpartnerInnen für deine angemietete Gewerbefläche.</li>
+
+        <ul>
+          <li>Du findest RaumpartnerInnen für deine bereits angemietete Gewerbefläche.</li>
           <li>Du findest Raum zum Andocken.</li>
-          <li>Du findest Menschen zum gemeinsamen neu anmieten.</li>
+          <li>Du findest Menschen zur gemeinschaftlichen Neuanmietung.</li>
           <li>Du findest Bauträger, EigentümerInnen, Hausverwaltungen, die Gewerbeflächen vorstellen, die für Gruppen und kooperative Nutzungen geeignet sind.</li>
-        </ol>
+        </ul>
 
       </p>
       <p>
         Wir trommeln übrigens für eure Räume und Raumgesuche auch auf unseren social Media Kanälen,
-        sie werden aufgenommen ins Daily Grätzl Mail  und über den Raumteiler Newsletter verteilt.
-        Einen Raum mit anderen zu teilen, kann außerdem helfen Räume (z.B. Geschäftslokale)
-        zu erhalten und Leerstand zu verhindern. Der Raumteiler fördert außerdem neue Formen
-        der Zusammenarbeit im Grätzl.
+        sie werden aufgenommen in das daily Grätzl Mail und zusätzlich dazu über den Raumteiler
+        Newsletter verteilt. Einen Raum mit anderen zu teilen, kann außerdem helfen Leerstand
+        zu verhindern, oder neu zu aktivieren. Und: Der Raumteiler fördert neue Formen der
+        Zusammenarbeit im Grätzl.
       </p>
     </article>
 
     <article class="container" id="two">
-      <h2>Raumteiler Guide 2018</h2>
-      <h3>Deine Schritt für Schritt Anleitung zum Räume teilen.</h3>
+      <h2 id="raumteiler-guide">Raumteiler Guide 2018</h2>
+      <h3>Deine Schritt-für-Schritt Anleitung zum Räume teilen.</h3>
       <p>
-        Wenn du Fragen rund ums Räume teilen hast, der "Raumteiler Guide 2018" erklärt
-        Schritt für Schritt, was es beim Räume teilen und beim Andocken zu beachten gibt.
+        Wenn du Fragen rund ums Räume teilen hast, der "Raumteiler Guide 2018" erklärt Schritt
+        für Schritt, was es beim Räume teilen und beim Andocken zu beachten gibt.
         Enthalten sind außerdem Musterverträge und die wichtigsten Anlaufadresse in Wien.
       </p>
+      <br>
       <p>
-        <a href="#"><strong>Raumteiler Guide 2018 gratis downloaden</strong></a>
+        <a href="#" class="btn-secondary -grey -download">Raumteiler Guide 2018 gratis downloaden (Coming soon!)</a>
       </p>
+      <br>
       <p>
-        Wir kooperieren außerdem mit <a href="http://www.nest.agency" target="_blank">Nest</a> - der Agentur für Leerstandsmanagement.
-        Das heißt eure Raumteiler Gesuche übergeben wir auch an diesen Partner,
+        Wir kooperieren außerdem mit den <a href="https://www.kreativeraeumewien.at" target="_blank" class="partner">Kreativen Räumen Wien</a> und
+        <a href="http://www.nest.agency" target="_blank" class="partner">Nest - der Agentur für Leerstandsmanagement</a>.
+        Das heißt eure Raumteiler Gesuche übergeben wir auch an diese PartnerInnen,
         damit euer Raumwunsch vielleicht noch schneller in Erfüllung geht.
       </p>
+      <p class="partner">
+        <%= link_to(image_tag('logo-krw.png'), 'https://www.kreativeraeumewien.at', target: '_blank', :class => 'krw') %>
+        <%= link_to(image_tag('logo-nest.png'), 'http://www.nest.agency', target: '_blank', :class => 'nest') %>
+      </p>
     </article>
+
+    <article class="container" id="three">
+      <h2 id="downloads">Musterverträge zum Download</h2>
+      <h3>Zusätzlich dazu haben wir ein paar nützliche Vorlagen für dich zusammengestellt:</h3>
+      <ol>
+        <li><a href="/downloads/raumteiler/nutzungsvereinbarung-temporaer.docx">Nutzungsvereinbarung Temporär</a></li>
+        <li><a href="/downloads/raumteiler/schluessel-kaution.docx">Schlüssel Kaution</a></li>
+        <li><a href="/downloads/raumteiler/service-pauschale.xlsx">Service Pauschale</a></li>
+        <li><a href="/downloads/raumteiler/untermietvertrag-arbeitsplatz.docx">Untervermietung Arbeitsplatz</a></li>
+      </ol>
+    </article>
+
+    <div>
+      Der Raumteiler auf imGrätzl.at ist Teil des F&amp;E Projektes
+      Mischung: Nordbahnhof (Lead TU Wien).<br>
+      Dieses Projekt wird aus Mitteln des Klima- und Energiefonds gefördert
+      und im Rahmen der Smart-Cities-Initiative durchgeführt.
+    </div>
 
   </div>
 

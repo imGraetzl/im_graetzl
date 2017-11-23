@@ -17,7 +17,7 @@ APP.controllers.application = (function() {
       "theme": false
     };
 
-    injectSponsorCard();
+    //injectSponsorCard();
 
   }
 

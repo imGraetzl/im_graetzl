@@ -1,5 +1,7 @@
 section.wien {
-
+  .filter-stream {
+    a.hide {display: none !important;}
+  }
   .mapImgBlock {
     margin-bottom: 20px;
     @include respond-to(">=large") {

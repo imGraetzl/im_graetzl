@@ -92,4 +92,16 @@ section.help {
     top:auto !important;
     bottom:0 !important;
   }
+
+  .partner {
+
+    color: $color-ambient-grey;
+    img {
+      height:50px;
+      padding-right: 25px;
+    }
+    .nest img {
+      height:35px;
+    }
+  }
 }
