@@ -11,6 +11,13 @@
       <% end %>
     </div>
 
+    <% if current_user.admin? %>
+      <h2> Select User </h2>
+      <div class="input-select">
+        <%= collection_select(:admin, :user_id, User.all, :id, :email, {}, {id: 'admin-user-select'}) %>
+      </div>
+    <% end %>
+
     <h2 class="hl-main">Welche <span>Art von Raum</span> suchst du?</h2>
     <div class="room-categories">
       <%= f.collection_check_boxes :room_category_ids, RoomCategory.all, :id, :name do |b| %>

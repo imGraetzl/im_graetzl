@@ -7,22 +7,22 @@ class RoomDemandsController < ApplicationController
   end
 
   def new
-    @room_demand = current_user.room_demands.new
+    @room_demand = RoomDemand.new
     @room_demand.assign_attributes(current_user.slice(:first_name, :last_name, :email, :website))
   end
 
-  def edit
-    @room_demand = current_user.room_demands.find(params[:id])
-  end
-
   def create
-    @room_demand = current_user.room_demands.new(room_demand_params)
+    @room_demand = RoomDemand.new(room_demand_params)
     if @room_demand.save
       @room_demand.create_activity(:create, owner: current_user)
       redirect_to @room_demand
     else
       render 'new'
     end
+  end
+
+  def edit
+    @room_demand = current_user.room_demands.find(params[:id])
   end
 
   def update
@@ -60,6 +60,7 @@ class RoomDemandsController < ApplicationController
         room_category_ids: [],
         graetzl_ids: [],
     ).merge(
+      user_id: current_user.admin? ? params[:admin][:user_id] : current_user.id,
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")
     )
   end
