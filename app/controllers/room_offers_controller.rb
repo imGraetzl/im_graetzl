@@ -6,21 +6,17 @@ class RoomOffersController < ApplicationController
     @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
+  def select
+  end
+
   def new
-    @room_offer = current_user.room_offers.new
+    @room_offer = RoomOffer.new
     @room_offer.room_offer_prices.build
     @room_offer.assign_attributes(current_user.slice(:first_name, :last_name, :email, :website))
   end
 
-  def select
-  end
-
-  def edit
-    @room_offer = current_user.room_offers.find(params[:id])
-  end
-
   def create
-    @room_offer = current_user.room_offers.new(room_offer_params)
+    @room_offer = RoomOffer.new(room_offer_params)
     @room_offer.address = Address.from_feature(params[:feature])
     if @room_offer.save
       @room_offer.create_activity(:create, owner: current_user)
@@ -28,6 +24,10 @@ class RoomOffersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def edit
+    @room_offer = current_user.room_offers.find(params[:id])
   end
 
   def update
@@ -74,6 +74,7 @@ class RoomOffersController < ApplicationController
         ],
         room_category_ids: []
     ).merge(
+      user_id: current_user.admin? ? params[:admin][:user_id] : current_user.id,
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")
     )
   end
