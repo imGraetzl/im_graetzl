@@ -17,7 +17,7 @@ class RoomOffersController < ApplicationController
 
   def create
     @room_offer = RoomOffer.new(room_offer_params)
-    @room_demand.user_id = current_user.admin? ? params[:admin][:user_id] : current_user.id
+    @room_offer.user_id = current_user.admin? ? params[:admin][:user_id] : current_user.id
     @room_offer.address = Address.from_feature(params[:feature])
     if @room_offer.save
       @room_offer.create_activity(:create, owner: current_user)
