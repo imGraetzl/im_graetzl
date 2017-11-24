@@ -13,6 +13,8 @@ class RoomDemandsController < ApplicationController
 
   def create
     @room_demand = RoomDemand.new(room_demand_params)
+    @room_demand.user_id = current_user.admin? ? params[:admin][:user_id] : current_user.id
+
     if @room_demand.save
       @room_demand.create_activity(:create, owner: current_user)
       redirect_to @room_demand
@@ -60,7 +62,6 @@ class RoomDemandsController < ApplicationController
         room_category_ids: [],
         graetzl_ids: [],
     ).merge(
-      user_id: current_user.admin? ? params[:admin][:user_id] : current_user.id,
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")
     )
   end
