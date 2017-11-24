@@ -10,6 +10,11 @@ APP.controllers.room_offers = (function() {
         $('#custom-keywords').tagsInput({
             'defaultText':'Kurz in Stichworten ..'
         });
+
+        $('select#admin-user-select').SumoSelect({
+          search: true,
+          csvDispCount: 5
+        });
     }
 
     return {
