@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171116134031) do
+ActiveRecord::Schema.define(version: 20171124190552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -430,20 +430,20 @@ ActiveRecord::Schema.define(version: 20171116134031) do
     t.string   "username",                      limit: 255
     t.string   "first_name",                    limit: 255
     t.string   "last_name",                     limit: 255
+    t.boolean  "newsletter",                                default: false, null: false
     t.integer  "graetzl_id"
     t.string   "avatar_id"
+    t.integer  "enabled_website_notifications",             default: 4088
     t.integer  "role"
     t.string   "avatar_content_type"
+    t.integer  "immediate_mail_notifications",              default: 4088
+    t.integer  "daily_mail_notifications",                  default: 7
+    t.integer  "weekly_mail_notifications",                 default: 0
     t.string   "slug"
     t.string   "cover_photo_id"
     t.string   "cover_photo_content_type"
     t.text     "bio"
     t.string   "website"
-    t.integer  "weekly_mail_notifications",                 default: 0
-    t.integer  "daily_mail_notifications",                  default: 7
-    t.integer  "immediate_mail_notifications",              default: 4088
-    t.integer  "enabled_website_notifications",             default: 4088
-    t.boolean  "newsletter",                                default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
@@ -469,19 +469,19 @@ ActiveRecord::Schema.define(version: 20171116134031) do
     t.index ["slug"], name: "index_zuckerls_on_slug", using: :btree
   end
 
-  add_foreign_key "district_graetzls", "districts"
-  add_foreign_key "district_graetzls", "graetzls"
-  add_foreign_key "room_demand_categories", "room_categories"
-  add_foreign_key "room_demand_categories", "room_demands"
-  add_foreign_key "room_demand_graetzls", "graetzls"
-  add_foreign_key "room_demand_graetzls", "room_demands"
-  add_foreign_key "room_demands", "locations"
-  add_foreign_key "room_demands", "users"
-  add_foreign_key "room_offer_categories", "room_categories"
+  add_foreign_key "district_graetzls", "districts", on_delete: :cascade
+  add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "room_demand_categories", "room_categories", on_delete: :cascade
+  add_foreign_key "room_demand_categories", "room_demands", on_delete: :cascade
+  add_foreign_key "room_demand_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "room_demand_graetzls", "room_demands", on_delete: :cascade
+  add_foreign_key "room_demands", "locations", on_delete: :nullify
+  add_foreign_key "room_demands", "users", on_delete: :cascade
+  add_foreign_key "room_offer_categories", "room_categories", on_delete: :cascade
   add_foreign_key "room_offer_categories", "room_offers", on_delete: :cascade
   add_foreign_key "room_offer_prices", "room_offers", on_delete: :cascade
-  add_foreign_key "room_offers", "districts"
-  add_foreign_key "room_offers", "graetzls"
-  add_foreign_key "room_offers", "locations"
-  add_foreign_key "room_offers", "users"
+  add_foreign_key "room_offers", "districts", on_delete: :nullify
+  add_foreign_key "room_offers", "graetzls", on_delete: :nullify
+  add_foreign_key "room_offers", "locations", on_delete: :nullify
+  add_foreign_key "room_offers", "users", on_delete: :cascade
 end
