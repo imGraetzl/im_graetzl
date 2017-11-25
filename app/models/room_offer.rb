@@ -42,4 +42,8 @@ class RoomOffer < ApplicationRecord
     self.graetzl = address.graetzl if address
     self.district = graetzl.district if graetzl
   end
+
+  def send_room_online_email
+    RoomOnlineMailer.new.send_room_online_email(self)
+  end
 end
