@@ -97,11 +97,24 @@ section.help {
 
     color: $color-ambient-grey;
     img {
-      height:50px;
+      height:75px;
       padding-right: 25px;
     }
     .nest img {
-      height:35px;
+      height:55px;
+      padding-top:20px;
+    }
+  }
+  img.guide {
+    width:210px;
+    margin-bottom:20px;
+    float:left;
+  }
+  a.btn-primary {
+    &.-download {
+      align-items: center;
+      justify-content: center;
+      display:flex;
     }
   }
 }
