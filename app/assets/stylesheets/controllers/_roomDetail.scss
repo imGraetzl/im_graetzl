@@ -79,6 +79,10 @@ section.roomDetail {
 
     .sideBarbox {
       margin-bottom: 20px;
+
+      .category-tags {
+        margin: 20px 0px 20px;
+      }
     }
 
     .userContent {
@@ -318,7 +322,7 @@ section.roomDetail {
   }
 
   .category-tags {
-    margin: 20px -5px 40px;
+    margin: 20px 0px 40px;
     .bigicontext-element {
       margin-bottom: 20px;
     }
