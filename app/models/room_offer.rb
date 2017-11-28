@@ -31,7 +31,8 @@ class RoomOffer < ApplicationRecord
   accepts_attachments_for :images, attachment: :file
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :address, :slogan, :room_description, :owner_description
+  validates_presence_of :address, :slogan, :room_description, :owner_description, :tenant_description, :cover_photo, :first_name, :last_name, :email
+  validate :has_one_category_at_least
   before_create :set_graetzl_and_district
 
   after_commit :send_room_online_email
@@ -47,5 +48,11 @@ class RoomOffer < ApplicationRecord
 
   def send_room_online_email
     RoomOnlineMailer.new.send_room_online_email(self)
+  end
+
+  def has_one_category_at_least
+    if room_categories.empty?
+      errors.add(:room_categories, "braucht mindestens eine Kategorie")
+    end
   end
 end

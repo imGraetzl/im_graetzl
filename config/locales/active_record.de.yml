@@ -44,6 +44,9 @@ de:
       zuckerl:
         one: Zuckerl
         other: Zuckerl
+      room_offer:
+        one: Raumteiler
+        other: Raumteiler
     attributes:
       address:
         street_name: Straße
@@ -112,6 +115,16 @@ de:
         content: Text
         created_at: Erstellt am
       room_offer:
+        address: Adresse
+        slogan: Titel
+        room_description: Beschreibung
+        owner_description: Inhaber Beschreibung
+        room_categories: Raumkategorie
+        tenant_description: Raumpartner Beschreibung
+        cover_photo: Headerbild
+        first_name: Vorname
+        last_name: Nachname
+        email: Email
         offer_types:
           offering_room: Biete Raum zum Andocken
           seeking_roommate: Biete Raum zur gemeinsamen Neuanmietung
@@ -119,6 +132,15 @@ de:
           offering_room: Raum zum Andocken
           seeking_roommate: Raum zur gemeinsamen Neuanmietung
       room_demand:
+        slogan: Titel
+        room_categories: Raumkategorie
+        graetzl: Graetzl
+        demand_description: Beschreibung
+        personal_description: Deine Beschreibung
+        avatar: Profilbild
+        first_name: Vorname
+        last_name: Nachname
+        email: Email
         demand_types:
           seeking_room: Suche Raum zum Andocken
           seeking_roommate: Suche Raum zur gemeinsamen Neuanmietung
