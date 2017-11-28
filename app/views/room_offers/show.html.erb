@@ -41,6 +41,10 @@
     </div>
 
     <section>
+      <div class="bigicontext-element">
+        <%= icon_tag "dot-3" %>
+        <div class="txt">Ausstattung</div>
+      </div>
       <div class="category-tags">
         <% if @room_offer.keyword_list.present? %>
           <ul class="tag-list">
@@ -50,20 +54,6 @@
           </ul>
         <% end %>
       </div>
-    </section>
-
-    <section>
-      <% if @room_offer.room_offer_prices.present? %>
-        <div class="bigicontext-element">
-          <%= icon_tag "currency-euro" %>
-          <div class="txt">Kosten</div>
-        </div>
-        <ul class="tag-list-newline">
-          <% @room_offer.room_offer_prices.each do |price| %>
-            <li><span><%= "%g €" % price.amount %></span> <%= price.name %></li>
-          <% end %>
-        </ul>
-      <% end %>
     </section>
 
     <section>
@@ -83,14 +73,7 @@
         <% end %>
         <div class="txt">Über mich</div>
       </div>
-      <div class="wrapper">
-        <div class="txt"><%= @room_offer.owner_description %></div>
-        <% if @room_offer.location %>
-          <aside class="location">
-            <%= render @room_offer.location %>
-          </aside>
-        <% end %>
-      </div>
+      <div class="txt"><%= @room_offer.owner_description %></div>
     </section>
 
     <section>
@@ -140,17 +123,6 @@
       <% end %>
 
     </section>
-
-
-    <!--
-    <section>
-      <% if @room_offer.wants_collaboration? %>
-        <div class="bigicontext-element">
-        <%= icon_tag "urgent-extra-notice-info-announcement" %>
-        <div class="txt">Auch an Kooperationen interessiert.</div>
-      <% end %>
-    </section>
-    -->
 
     <section>
       <div class="stream">

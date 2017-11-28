@@ -26,6 +26,19 @@
         </div>
       <% end %>
 
+      <% if @room_offer.room_offer_prices.present? %>
+        <div class="pricing icontxt">
+          <ul class="pricing-list">
+            <% @room_offer.room_offer_prices.each do |price| %>
+              <li>
+                <div class="cost"><%= "%g €" % price.amount %></div>
+                <div class="costname"><%= price.name %></div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
       <% if user_signed_in? && current_user == @room_offer.user %>
         <div class="btn-group">
           <%= link_to 'Bearbeiten', edit_room_offer_path(@room_offer),
@@ -47,8 +60,14 @@
 
   </div>
 
+  <% if @room_offer.location %>
+    <aside class="location">
+      <%= render @room_offer.location %>
+    </aside>
+  <% end %>
+
   <% if @room_offer.email.present? && current_user %>
-    <%= mail_to @room_offer.email, "Anbieter kontaktieren", class: 'btn-primary -mint', subject: "Raumteiler Kontakt" %>
+    <%= mail_to @room_offer.email, "Anbieter kontaktieren", class: 'btn-primary -mint -contact', subject: "Raumteiler Kontakt" %>
   <% end %>
 
   <%= link_to "Alle Raumteiler", rooms_wien_path, class: 'btn-primary -mint' %>
