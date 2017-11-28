@@ -120,7 +120,7 @@ de:
       room_offer:
         address: Adresse
         slogan: Titel
-        room_description: Raum Beschreibung
+        room_description: Raum-Beschreibung
         owner_description: Über dich
         room_categories: Raumkategorie
         tenant_description: Raumpartner Beschreibung
@@ -139,7 +139,7 @@ de:
         room_categories: Raumkategorie
         graetzl: Graetzl
         demand_description: Beschreibung
-        personal_description: Deine Beschreibung
+        personal_description: Über dich
         avatar: Profilbild
         first_name: Vorname
         last_name: Nachname
