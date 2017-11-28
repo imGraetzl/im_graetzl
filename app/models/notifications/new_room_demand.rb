@@ -21,7 +21,7 @@ class Notifications::NewRoomDemand < Notification
       room_type: activity.trackable.demand_type,
       owner_name: activity.owner.username,
       owner_url: user_url(activity.owner, DEFAULT_URL_OPTIONS),
-      owner_avatar_url: Notifications::AvatarService.new(activity.trackable.author).call
+      owner_avatar_url: Notifications::AvatarService.new(activity.owner).call
     }
   end
 
