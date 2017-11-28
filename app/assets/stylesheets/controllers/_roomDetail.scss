@@ -221,7 +221,7 @@ section.roomDetail {
 
     aside.location {
       margin-bottom: 20px;
-      a.updateteaser {
+      a.updateteaser, a.event-teaser-box {
         display: none;
       }
     }
@@ -289,7 +289,10 @@ section.roomDetail {
 
   .entryImgUploads {
     img {
-      max-width: 205px;
+      max-width: 150px;
+      @include respond-to(">=large") {
+        max-width: 205px;
+      }
     }
   }
 
