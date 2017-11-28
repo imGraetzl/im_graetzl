@@ -1,13 +1,13 @@
 class RoomOnlineMailer
   include MailUtils
 
-  def send_room_online_email(room_offer)
-    MandrillMailer.deliver(template: 'notification-room-online', message: email_settings(room_offer))
+  def send_room_online_email(user)
+    MandrillMailer.deliver(template: 'notification-room-online', message: email_settings(user))
   end
 
   private
 
-  def email_settings(room_offer)
+  def email_settings(user)
     {
       to: [ { email: @user.email } ],
       global_merge_vars: [
