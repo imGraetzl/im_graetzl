@@ -13,7 +13,9 @@ APP.components.graetzlSelectFilter = (function() {
       placeholder: 'Bezirk auswählen',
       csvDispCount: 3,
       captionFormat: '{0} Bezirk ausgewählt',
-      okCancelInMulti: true
+      okCancelInMulti: true,
+      selectAll: true,
+      locale: ['OK', 'Cancel', 'Ganz Wien']
     });
 
     if ($districtSelect.val() && $districtSelect.val().length > 0) {
@@ -31,18 +33,19 @@ APP.components.graetzlSelectFilter = (function() {
 
     $districtSelect.on('change', function() {
       var districtIds = $districtSelect.val();
-      if (districtIds && districtIds.indexOf('deselect-all') > -1) {
-        $districtSelect[0].sumo.unSelectAll();
-        $districtSelect[0].sumo.hideOpts();
+      showDistrictGraetzls(districtIds);
+      deselectGraetzlsNotIn(districtIds);
+
+      var newSelection = $(districtIds).not(selectedDistrictIds).get();
+      selectAllGraetzlsIn(newSelection);
+
+      selectedDistrictIds = districtIds;
+      $graetzlSelect[0].sumo.reload();
+
+      if ($districtSelect.find("option:not(:selected)").length == 0) {
+        $districtSelect.data("select-all", true);
       } else {
-        showDistrictGraetzls(districtIds);
-        deselectGraetzlsNotIn(districtIds);
-
-        var newSelection = $(districtIds).not(selectedDistrictIds).get();
-        selectAllGraetzlsIn(newSelection);
-
-        selectedDistrictIds = districtIds;
-        $graetzlSelect[0].sumo.reload();
+        $districtSelect.data("select-all", false);
       }
     });
 

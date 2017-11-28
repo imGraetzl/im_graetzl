@@ -56,7 +56,10 @@ APP.components.cardFilter = (function() {
   function updateFilterLabels(modal) {
     var selectedInputs = modal.find(".filter-input :selected, .filter-input :checked");
     var link = filterForm.find('a[href="#' + modal.prop("id") + '"]');
-    if (selectedInputs.length > 0) {
+    if (modal.find(".filter-input select").data("select-all")) {
+      link.text(link.data("no-filter-label"));
+      link.removeClass('filter-applied');
+    } else if (selectedInputs.length > 0) {
       var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
       link.text(label);
       link.addClass('filter-applied');
@@ -94,7 +97,7 @@ APP.components.cardFilter = (function() {
   function stopSpinner() {
     cardGrid.find(".stopSpinner").remove();
   }
-  
+
   function addActionCard() {
     if ($(".action-card-container").exists()) {
       var actionCard = $(".action-card-container").children().first().clone();
