@@ -46,7 +46,7 @@ class RoomOffer < ApplicationRecord
 
   def has_one_category_at_least
     if room_categories.empty?
-      errors.add(:room_categories, "need one category at least")
+      errors.add(:room_categories, "braucht mindestens eine Kategorie")
     end
   end
 end

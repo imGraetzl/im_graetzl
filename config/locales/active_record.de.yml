@@ -132,6 +132,15 @@ de:
           offering_room: Raum zum Andocken
           seeking_roommate: Raum zur gemeinsamen Neuanmietung
       room_demand:
+        slogan: Titel
+        room_categories: Raumkategorie
+        graetzl: Graetzl
+        demand_description: Beschreibung
+        personal_description: Deine Beschreibung
+        avatar: Profilbild
+        first_name: Vorname
+        last_name: Nachname
+        email: Email
         demand_types:
           seeking_room: Suche Raum zum Andocken
           seeking_roommate: Suche Raum zur gemeinsamen Neuanmietung

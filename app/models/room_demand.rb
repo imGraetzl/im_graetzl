@@ -22,5 +22,21 @@ class RoomDemand < ApplicationRecord
 
   scope :by_currentness, -> { order(created_at: :desc) }
 
-  validates_presence_of :slogan
+  validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email
+  validate :has_one_category_at_least
+  # validate :has_one_graetzl_at_least # doesn't work for some reason
+
+  private
+
+  def has_one_category_at_least
+    if room_categories.empty?
+      errors.add(:room_categories, "braucht mindestens eine Kategorie")
+    end
+  end
+
+  def has_one_graetzl_at_least
+    if graetzl_ids.empty?
+      errors.add(:graetzls, "braucht mindestens einen Graetzl")
+    end
+  end
 end
