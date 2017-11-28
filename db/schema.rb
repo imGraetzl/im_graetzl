@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171124190552) do
+ActiveRecord::Schema.define(version: 20171128114805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -315,8 +315,6 @@ ActiveRecord::Schema.define(version: 20171124190552) do
   create_table "room_demands", force: :cascade do |t|
     t.string   "slogan"
     t.decimal  "needed_area",          precision: 10, scale: 2
-    t.boolean  "daily_rent"
-    t.boolean  "longterm_rent"
     t.text     "demand_description"
     t.text     "personal_description"
     t.boolean  "wants_collaboration"
@@ -358,8 +356,6 @@ ActiveRecord::Schema.define(version: 20171124190552) do
     t.text     "room_description"
     t.decimal  "total_area",               precision: 10, scale: 2
     t.decimal  "rented_area",              precision: 10, scale: 2
-    t.boolean  "daily_rent"
-    t.boolean  "longterm_rent"
     t.text     "owner_description"
     t.text     "tenant_description"
     t.boolean  "wants_collaboration"
