@@ -6,9 +6,7 @@ module DistrictsHelper
     end
   end
 
-  def district_select_options(deselect: false)
-    deselect_option = deselect ? [deselect, 'deselect-all', 'data-label' => deselect] : []
-    [deselect_option] +
+  def district_select_options
     Rails.cache.fetch('district-select-options') do
       District.all.map{|d| [d.zip_name, d.id, 'data-label' => d.zip] }
     end

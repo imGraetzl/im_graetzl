@@ -125,10 +125,10 @@
         <div class="txt">Wunschgrätzln</div>
       </div>
       <div class="category-tags">
-        <% unless @room_demand.districts.empty? %>
+        <% if @room_demand.graetzls.present? %>
           <ul class="tag-list">
-            <% @room_demand.graetzls.each do |graetzl| %>
-              <li><%= "#{graetzl.district.zip} - #{graetzl.name}" %></li>
+            <% compact_room_demand_graetzl_list(@room_demand).each do |item| %>
+              <li><%= item %></li>
             <% end %>
           </ul>
         <% end %>
