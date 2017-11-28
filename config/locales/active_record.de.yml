@@ -120,8 +120,8 @@ de:
       room_offer:
         address: Adresse
         slogan: Titel
-        room_description: Beschreibung
-        owner_description: Inhaber Beschreibung
+        room_description: Raum Beschreibung
+        owner_description: Über dich
         room_categories: Raumkategorie
         tenant_description: Raumpartner Beschreibung
         cover_photo: Headerbild
