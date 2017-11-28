@@ -58,14 +58,7 @@
         <% end %>
         <div class="txt">Über mich</div>
       </div>
-      <div class="wrapper">
-        <div class="txt"><%= @room_demand.personal_description %></div>
-        <% if @room_demand.location %>
-          <aside class="location">
-            <%= render @room_demand.location %>
-          </aside>
-        <% end %>
-      </div>
+      <div class="txt"><%= @room_demand.personal_description %></div>
     </section>
 
     <section>

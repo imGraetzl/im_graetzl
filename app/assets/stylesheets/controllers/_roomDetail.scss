@@ -155,21 +155,6 @@ section.roomDetail {
     @include respond-to(">=medium") {
       flex-direction: row;
     }
-
-    aside.location {
-      margin-top: 1em;
-      width: 100%;
-      @include respond-to(">=medium") {
-        margin-top: 0;
-        margin-left: 1em;
-        float: right;
-        width: 320px;
-      }
-
-      .txt {
-        display: none;
-      }
-    }
   }
 
   .bigicontext-element {
@@ -203,7 +188,7 @@ section.roomDetail {
       margin-bottom: 15px;
     }
   }
-  .txt {
+  .mainContent .txt {
     white-space: pre-wrap;
   }
 
@@ -228,6 +213,17 @@ section.roomDetail {
     }
     .cardBox.-zuckerl {
       margin-bottom: 40px;
+    }
+
+    .-contact {
+      margin-bottom: 20px
+    }
+
+    aside.location {
+      margin-bottom: 20px;
+      a.updateteaser {
+        display: none;
+      }
     }
 
   }
@@ -288,6 +284,33 @@ section.roomDetail {
     }
     @include respond-to(">=large") {
       width: calc(100% - 280px);
+    }
+  }
+
+  .entryImgUploads {
+    img {
+      max-width: 205px;
+    }
+  }
+
+  .pricing-list {
+
+    margin: 0;
+    list-style: none;
+
+    li {
+      display: flex;
+      clear:both;
+      margin-bottom: 20px;
+      div.cost {
+        display:table;
+        color: $color-ambient-mint-dark;
+        min-width: 30px;
+        white-space: nowrap;
+        margin-right:9px;
+      }
+      div.costname {
+      }
     }
   }
 
