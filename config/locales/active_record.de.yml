@@ -47,6 +47,9 @@ de:
       room_offer:
         one: Raumteiler
         other: Raumteiler
+      room_demand:
+        one: Raumteiler
+        other: Raumteiler
     attributes:
       address:
         street_name: Straße
