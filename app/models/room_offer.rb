@@ -34,8 +34,6 @@ class RoomOffer < ApplicationRecord
   validates_presence_of :address, :slogan, :room_description, :owner_description
   before_create :set_graetzl_and_district
 
-  after_commit :send_room_online_email
-
   scope :by_currentness, -> { order(created_at: :desc) }
 
   private
@@ -45,7 +43,4 @@ class RoomOffer < ApplicationRecord
     self.district = graetzl.district if graetzl
   end
 
-  def send_room_online_email
-    RoomOnlineMailer.new.send_room_online_email(self)
-  end
 end
