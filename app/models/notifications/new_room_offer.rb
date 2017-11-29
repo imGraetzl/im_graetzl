@@ -26,6 +26,6 @@ class Notifications::NewRoomOffer < Notification
   end
 
   def mail_subject
-    "Neue Raumangebot im Grätzl #{activity.trackable.graetzl.name}"
+    "Neuer Raumteiler im Grätzl #{activity.trackable.graetzl.name}"
   end
 end

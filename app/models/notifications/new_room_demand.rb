@@ -26,6 +26,6 @@ class Notifications::NewRoomDemand < Notification
   end
 
   def mail_subject
-    "Neue Raumsuche im deine Grätzl"
+    "#{activity.owner.username} sucht Räumlichkeiten im Grätzl #{activity.trackable.graetzl.name}"
   end
 end
