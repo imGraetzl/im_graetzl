@@ -17,11 +17,11 @@ class Notification::DailyMail
     },
   ] + (Rails.env.production? ? [] : [
     {
-      name: 'Neue Raumangebot',
+      name: 'Neue Räume zum Andocken',
       types: [Notifications::NewRoomOffer]
     },
     {
-      name: 'Neue Raumsuche',
+      name: 'Auf der Suche nach Raum',
       types: [Notifications::NewRoomDemand]
     }
   ])
