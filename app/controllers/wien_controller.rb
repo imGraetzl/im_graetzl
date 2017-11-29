@@ -1,7 +1,7 @@
 class WienController < ApplicationController
 
   def show
-    @districts = District.all
+    @districts = District.order(zip: :asc)
     @map_data = MapData.call(districts: @districts)
   end
 
