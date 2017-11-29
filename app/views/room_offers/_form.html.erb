@@ -14,7 +14,7 @@
   <% if f.object.new_record? && current_user.admin? %>
     <h2> Select User </h2>
     <div class="input-select">
-      <%= collection_select(:admin, :user_id, User.all, :id, :email, {}, {id: 'admin-user-select'}) %>
+      <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :email, params[:user_id] || current_user.id), id: 'admin-user-select' %>
     </div>
   <% end %>
 

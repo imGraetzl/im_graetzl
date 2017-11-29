@@ -13,10 +13,10 @@ class RoomDemandsController < ApplicationController
 
   def create
     @room_demand = RoomDemand.new(room_demand_params)
-    @room_demand.user_id = current_user.admin? ? params[:admin][:user_id] : current_user.id
+    @room_demand.user_id = current_user.admin? ? params[:user_id] : current_user.id
 
     if @room_demand.save
-      @room_demand.create_activity(:create, owner: current_user)
+      @room_demand.create_activity(:create, owner: @room_demand.user)
       redirect_to @room_demand
     else
       render 'new'

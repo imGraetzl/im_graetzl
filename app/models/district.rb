@@ -1,6 +1,4 @@
 class District < ApplicationRecord
-  default_scope { order(zip: :asc) }
-
   extend FriendlyId
   friendly_id :long_name
 

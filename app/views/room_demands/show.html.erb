@@ -109,16 +109,6 @@
 
     </section>
 
-    <!--
-    <section>
-      <% if @room_demand.wants_collaboration? %>
-        <div class="bigicontext-element">
-        <%= icon_tag "urgent-extra-notice-info-announcement" %>
-        <div class="txt">Auch an Kooperationen interessiert.</div>
-      <% end %>
-    </section>
-    -->
-
     <section>
       <div class="bigicontext-element">
         <%= icon_tag "map-location" %>
@@ -139,7 +129,7 @@
       <div class="stream">
         <div class="bigicontext-element">
           <%= icon_tag "layout-text" %>
-          <div class="txt">Frage an <%= "#{@room_demand.first_name} #{@room_demand.last_name}" %> stellen</div>
+          <div class="txt">Frage / Kommentar an <%= "#{@room_demand.first_name} #{@room_demand.last_name}" %></div>
         </div>
         <%= render 'comments/form', commentable: @room_demand %>
         <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>

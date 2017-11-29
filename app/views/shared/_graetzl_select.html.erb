@@ -9,7 +9,7 @@
       <span>Bezirk</span>
     </label>
     <%= select_tag :district_id,
-          options_from_collection_for_select(District.all, :id, :zip, (district ? district.id : district)),
+          options_from_collection_for_select(District.order(:zip), :id, :zip, (district ? district.id : district)),
           prompt: 'wählen'
     %>
   </div>
