@@ -181,6 +181,8 @@
   }
   .txt {
     margin-bottom: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   > .txt:last-child {
     margin-bottom: 0;
