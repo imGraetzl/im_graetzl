@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
   get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
   get 'raumteiler' => redirect('/wien/raumteiler')
+  get 'call' => redirect('/wien/raumteiler/raum/nordbahn-halle-macherinnen-fur-werkhalle-gesucht')
 
   resource :wien, controller: 'wien', only: [:show] do
     get 'visit_graetzl'
