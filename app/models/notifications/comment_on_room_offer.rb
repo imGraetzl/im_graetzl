@@ -12,9 +12,10 @@ class Notifications::CommentOnRoomOffer < Notification
 
   def mail_vars
     {
-      room_name: activity.trackable.slogan,
+      room_title: activity.trackable.slogan,
       room_url: room_offer_url(activity.trackable, DEFAULT_URL_OPTIONS),
-      room_type: activity.trackable.offer_type,
+      room_type: I18n.t("activerecord.models.room_offer.offer_types_active.#{activity.trackable.offer_type}"),
+      room_description: activity.trackable.room_description,
       comment_url: room_offer_url(activity.trackable, DEFAULT_URL_OPTIONS),
       comment_content: activity.recipient.content.truncate(300, separator: ' '),
       owner_name: activity.owner.username,

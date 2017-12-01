@@ -68,10 +68,14 @@ class Notification < ApplicationRecord
   end
 
   def basic_mail_vars
-    [
-      { name: 'graetzl_name', content: activity.trackable.graetzl.name },
-      { name: 'graetzl_url', content: graetzl_url(activity.trackable.graetzl, DEFAULT_URL_OPTIONS) },
-    ]
+    if activity.trackable.respond_to?(:graetzl)
+      [
+        { name: 'graetzl_name', content: activity.trackable.graetzl.name },
+        { name: 'graetzl_url', content: graetzl_url(activity.trackable.graetzl, DEFAULT_URL_OPTIONS) },
+      ]
+    else
+      []
+    end
   end
 
   def mail_vars
