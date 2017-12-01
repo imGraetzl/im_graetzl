@@ -16,6 +16,7 @@ class Notifications::NewRoomOffer < Notification
 
   def mail_vars
     {
+      type: 'new_room',
       room_title: activity.trackable.slogan,
       room_url: room_offer_url(activity.trackable, DEFAULT_URL_OPTIONS),
       room_type: I18n.t("activerecord.attributes.room_offer.offer_types_active.#{activity.trackable.offer_type}"),
