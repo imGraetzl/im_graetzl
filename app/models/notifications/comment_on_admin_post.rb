@@ -18,7 +18,7 @@ class Notifications::CommentOnAdminPost < Notification
   end
 
   def self.description
-    'Meine erstellten Inhalten wurden kommentiert'
+    'Meine erstellten Inhalte wurden kommentiert'
   end
 
   def mail_vars
