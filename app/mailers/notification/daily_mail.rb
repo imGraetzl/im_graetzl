@@ -23,7 +23,7 @@ class Notification::DailyMail
       name: 'Auf der Suche nach Raum',
       types: [Notifications::NewRoomDemand]
     }
-  ])
+  ]
 
   def initialize(user)
     @user = user
