@@ -15,7 +15,6 @@ class Notification::DailyMail
       name: 'Neue Ideen im Grätzl',
       types: [Notifications::NewUserPost, Notifications::NewAdminPost]
     },
-  ] + (Rails.env.production? ? [] : [
     {
       name: 'Neue Räume zum Andocken',
       types: [Notifications::NewRoomOffer]
