@@ -3,6 +3,11 @@ require 'rails_helper'
 RSpec.describe User::Notifiable do
   let(:user) { create(:user, :graetzl => create(:graetzl)) }
 
+  before do
+    user.enabled_website_notifications = 0
+    user.daily_mail_notifications = 0
+  end
+
   describe 'website notifications' do
     before do
       Notification.subclasses.each do |klass|

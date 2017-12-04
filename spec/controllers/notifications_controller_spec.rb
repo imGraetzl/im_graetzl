@@ -4,8 +4,7 @@ RSpec.describe NotificationsController, type: :controller do
   render_views false
 
   let(:user) do
-    all_on = Notification.subclasses.inject(0) { |sum, k|k::BITMASK | sum }
-    create(:user, enabled_website_notifications: all_on)
+    create(:user_with_enabled_website_notifications)
   end
 
   describe 'GET index' do
@@ -15,6 +14,7 @@ RSpec.describe NotificationsController, type: :controller do
         expect(response).to render_template(session[:new])
       end
     end
+
     context 'when logged in' do
       before do
         stub_const("NotificationsController::NOTIFICATIONS_PER_PAGE", 3)
