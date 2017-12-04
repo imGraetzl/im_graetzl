@@ -3,6 +3,7 @@ module User::Notifiable
 
   included do
     has_many :notifications, dependent: :destroy
+    before_create :set_default_notification_settings
     before_destroy :destroy_activity_and_notifications, prepend: true
   end
 
@@ -64,6 +65,28 @@ module User::Notifiable
   end
 
   private
+
+  def set_default_notification_settings
+    self.daily_mail_notifications = [
+      Notifications::NewMeeting,
+      Notifications::NewLocationPost,
+      Notifications::NewUserPost,
+      Notifications::NewRoomOffer,
+      Notifications::NewRoomDemand,
+    ].sum{|n| n::BITMASK }
+
+    self.immediate_mail_notifications = [
+      Notifications::MeetingUpdated,
+      Notifications::CommentInMeeting,
+      Notifications::AlsoCommentedMeeting,
+      Notifications::MeetingCancelled,
+      Notifications::AttendeeInUsersMeeting,
+      Notifications::NewWallComment,
+      Notifications::LocationApproved,
+    ].sum{|n| n::BITMASK }
+
+    self.enabled_website_notifications = immediate_mail_notifications
+  end
 
   def destroy_activity_and_notifications
     activity = Activity.where(owner: self)
