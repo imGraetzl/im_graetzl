@@ -50,7 +50,10 @@ RSpec.describe NotificationSettingsController, type: :controller do
       let(:type) { Notifications::NewMeeting }
       let(:interval) { :daily }
 
-      before { sign_in user }
+      before do
+        user.daily_mail_notifications = 0
+        sign_in user
+      end
 
       it 'changes a single mail notification setting' do
         expect(user.enabled_mail_notification?(type, interval)).to be_falsey

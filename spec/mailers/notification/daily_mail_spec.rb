@@ -21,11 +21,14 @@ RSpec.describe Notification::DailyMail do
   end
 
   describe '_#message' do
-    let(:user) { create :user }
+    let(:user) { create(:user) }
     let(:mailer) { described_class.new user }
     let(:type) { Notifications::NewMeeting }
 
-    before { user.enable_mail_notification(type, :daily) }
+    before do
+      user.daily_mail_notifications = 0
+      user.enable_mail_notification(type, :daily)
+    end
 
     subject(:message) { mailer.send :generate_content }
 
@@ -73,6 +76,10 @@ RSpec.describe Notification::DailyMail do
         :with_activity, created_at: Date.yesterday,
         user: user, type: type, bitmask: type::BITMASK)
     }
+
+    before do
+      user.daily_mail_notifications = 0
+    end
 
     context 'when message content' do
       before { user.enable_mail_notification(type, :daily) }
