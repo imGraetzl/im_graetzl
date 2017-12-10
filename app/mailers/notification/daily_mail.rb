@@ -15,7 +15,6 @@ class Notification::DailyMail
       name: 'Neue Ideen im Grätzl',
       types: [Notifications::NewUserPost, Notifications::NewAdminPost]
     },
-  ] + (Rails.env.production? ? [] : [
     {
       name: 'Neue Räume zum Andocken',
       types: [Notifications::NewRoomOffer]
@@ -24,7 +23,7 @@ class Notification::DailyMail
       name: 'Auf der Suche nach Raum',
       types: [Notifications::NewRoomDemand]
     }
-  ])
+  ]
 
   def initialize(user)
     @user = user

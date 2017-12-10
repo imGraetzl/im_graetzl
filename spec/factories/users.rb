@@ -9,13 +9,17 @@ FactoryGirl.define do
     password { Faker::Internet.password(8) }
     graetzl
     confirmed_at Date.today
-    enabled_website_notifications 0
-    immediate_mail_notifications 0
-    daily_mail_notifications 0
-    weekly_mail_notifications 0
 
     trait :admin do
       role User.roles[:admin]
     end
+
+    factory :user_with_enabled_website_notifications do
+      after(:create) do |user|
+        user.enabled_website_notifications = Notification.subclasses.inject(0) { |sum, k| k::BITMASK | sum }
+        user.save
+      end
+    end
+
   end
 end
