@@ -21,6 +21,7 @@ class RoomOffersController < ApplicationController
     @room_offer.address = Address.from_feature(params[:feature])
     if @room_offer.save
       @room_offer.create_activity(:create, owner: @room_offer.user)
+      RoomMailer.new.send_room_online_email(self)
       redirect_to @room_offer
     else
       render 'new'
