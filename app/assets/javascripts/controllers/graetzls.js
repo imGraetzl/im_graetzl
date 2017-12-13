@@ -22,7 +22,12 @@ APP.controllers.graetzls = (function() {
       }
 
       if ($('.cards-filter').exists()) {
-        APP.components.cardFilter.init();
+
+        // Load cardFilter on window load (Masonry - Margin Bottom Problem Bugfix?!)
+        $(window).on( "load", function() {
+          APP.components.cardFilter.init();
+        })
+
       }
     }
 
@@ -45,7 +50,7 @@ APP.controllers.graetzls = (function() {
           }
 
       });
-      
+
       $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
     }
 
