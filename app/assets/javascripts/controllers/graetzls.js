@@ -22,12 +22,7 @@ APP.controllers.graetzls = (function() {
       }
 
       if ($('.cards-filter').exists()) {
-
-        // Load cardFilter on window load (Masonry - Margin Bottom Problem Bugfix?!)
-        $(window).on( "load", function() {
-          APP.components.cardFilter.init();
-        })
-
+        APP.components.cardFilter.init();
       }
     }
 
