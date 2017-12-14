@@ -1,18 +1,15 @@
 <div class="cardBox -location -roomdemand" data-behavior="masonry-card">
 
-  <div class="categoryicon">
-    <div class="category-tags">
-      <ul class="tag-list -mint">
-        <% room_demand.room_categories.first(1).each do |category| %>
-        <li><%= category.name %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
   <div class="cardBoxHeader -roomdemand">
     <%= link_to room_demand do %>
-    <%= avatar_for room_demand, 300, class:'coverImg'  %>
+      <div class="category-tags">
+        <ul class="tag-list -mint">
+          <% room_demand.room_categories.first(1).each do |category| %>
+          <li><%= category.name %></li>
+          <% end %>
+        </ul>
+      </div>
+      <%= avatar_for room_demand, 300, class:'coverImg'  %>
     <% end %>
   </div>
 
