@@ -27,17 +27,17 @@
   position: relative;
 
   &.-roomdemand {
-    .categoryicon {
-      position: relative;
-      background:none;
-      top: -6px;
-      right: -11px;
-      z-index: 10;
-      height:50px;
-      .category-tags {
-        float: right;
-        margin-bottom: 0px;
+    @supports (object-fit: cover) {
+      img.room_demand {
+        //height: 176px;
+        height: 206px;
+        object-fit: cover;
       }
+    }
+    .category-tags {
+      position: absolute;
+      top:4px;
+      right:0px;
     }
   }
 }
@@ -48,11 +48,7 @@
   margin: -6px -6px 20px;
   min-height: 40px;
   &.-roomdemand {
-    top:-50px;
-    margin-bottom: -50px;
-    max-height: 200px;
-    overflow: hidden;
-    //margin: -6px -6px 49px;
+    margin-bottom:0px;
   }
 
   .coverImg {
