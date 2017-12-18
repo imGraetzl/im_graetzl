@@ -17,7 +17,7 @@ class RoomsMailer
       global_merge_vars: [
         { name: 'room_title', content: room_offer.slogan },
         { name: 'room_url', content: room_offer_url(room_offer, URL_OPTIONS) },
-        { name: 'room_type', content: I18n.t("activerecord.attributes.room_offer.offer_types_active.#{room_offer.offer_type}") },
+        { name: 'room_type', content: I18n.t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") },
         { name: 'room_description', content: room_offer.room_description },
         { name: 'room_categories', content: room_offer.room_categories.map(&:name) },
         { name: 'room_picture_url', content: asset_url(room_offer, :cover_photo) },
@@ -31,9 +31,10 @@ class RoomsMailer
       global_merge_vars: [
         { name: 'room_title', content: room_demand.slogan },
         { name: 'room_url', content: room_demand_url(room_demand, URL_OPTIONS) },
-        { name: 'room_type', content: I18n.t("activerecord.attributes.room_offer.offer_types_active.#{room_demand.demand_type}") },
+        { name: 'room_type', content: I18n.t("activerecord.attributes.room_offer.offer_types.#{room_demand.demand_type}") },
         { name: 'room_description', content: room_demand.demand_description },
         { name: 'room_categories', content: room_demand.room_categories.map(&:name) },
+        { name: 'room_picture_url', content: asset_url(room_demand, :avatar) },
       ] + user_vars(room_demand.user)
     }
   end
