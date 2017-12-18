@@ -2,12 +2,6 @@ class Location < ApplicationRecord
   include Trackable
   extend FriendlyId
 
-  scope :by_activity, -> {
-    order('posts.created_at DESC').
-    order('meetings.created_at DESC').
-    order(created_at: :desc)
-  }
-
   friendly_id :name
   enum state: { pending: 0, approved: 1 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
