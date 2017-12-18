@@ -17,11 +17,11 @@ class ActivitySample
 
   def locations
     if @graetzl
-      @graetzl.locations.approved.include_for_box.by_activity.first(2)
+      @graetzl.locations.approved.include_for_box.order("last_activity_at DESC").first(2)
     elsif @district
-      @district.locations.approved.include_for_box.by_activity.first(2)
+      @district.locations.approved.include_for_box.order("last_activity_at DESC").first(2)
     else
-      Location.approved.include_for_box.by_activity.first(2)
+      Location.approved.include_for_box.order("last_activity_at DESC").first(2)
     end
   end
 
