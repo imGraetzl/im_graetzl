@@ -40,6 +40,8 @@ class Meeting < ApplicationRecord
   validates :graetzl, presence: true
   validate :starts_at_date_cannot_be_in_the_past, on: :create
 
+  after_create :update_location_activity
+
   def self.include_for_box
     includes(:graetzl, :going_tos, :users, location: :users)
   end
@@ -81,5 +83,9 @@ class Meeting < ApplicationRecord
     if starts_at_date && starts_at_date < Date.today
       errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
     end
+  end
+
+  def update_location_activity
+    location.update(last_activity_at: created_at) if location
   end
 end
