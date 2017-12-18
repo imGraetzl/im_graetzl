@@ -38,6 +38,8 @@ class Location < ApplicationRecord
   validates :graetzl, presence: true
   validates :category, presence: true
 
+  before_create { |location| location.last_activity_at = Time.current }
+
   def self.include_for_box
     includes(:graetzl, :posts, :live_zuckerls, :upcoming_meetings, :address, :category)
   end
