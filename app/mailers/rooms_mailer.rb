@@ -19,7 +19,7 @@ class RoomsMailer
         { name: 'room_url', content: room_offer_url(room_offer, URL_OPTIONS) },
         { name: 'room_type', content: I18n.t("activerecord.attributes.room_offer.offer_types_active.#{room_offer.offer_type}") },
         { name: 'room_description', content: room_offer.room_description },
-        { name: 'room_categories', content: room_offer.room_categories.map(&:name) },
+        { name: 'room_categories', content: room_offer.room_categories.map(&:name).join(", ") },
         { name: 'room_picture_url', content: asset_url(room_offer, :cover_photo) },
       ] + user_vars(room_offer.user)
     }
@@ -33,7 +33,7 @@ class RoomsMailer
         { name: 'room_url', content: room_demand_url(room_demand, URL_OPTIONS) },
         { name: 'room_type', content: I18n.t("activerecord.attributes.room_offer.offer_types_active.#{room_demand.demand_type}") },
         { name: 'room_description', content: room_demand.demand_description },
-        { name: 'room_categories', content: room_demand.room_categories.map(&:name) },
+        { name: 'room_categories', content: room_demand.room_categories.map(&:name).join(", ") },
       ] + user_vars(room_demand.user)
     }
   end
