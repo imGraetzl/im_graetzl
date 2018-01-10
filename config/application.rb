@@ -55,5 +55,7 @@ module ImGraetzl
     end
 
     config.active_job.queue_adapter = :sucker_punch
+
+    config.exceptions_app = self.routes
   end
 end

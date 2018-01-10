@@ -31,7 +31,7 @@ class RoomsMailer
       global_merge_vars: [
         { name: 'room_title', content: room_demand.slogan },
         { name: 'room_url', content: room_demand_url(room_demand, URL_OPTIONS) },
-        { name: 'room_type', content: I18n.t("activerecord.attributes.room_offer.offer_types.#{room_demand.demand_type}") },
+        { name: 'room_type', content: I18n.t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") },
         { name: 'room_description', content: room_demand.demand_description },
         { name: 'room_categories', content: room_demand.room_categories.map(&:name).join(", ") },
         { name: 'room_picture_url', content: asset_url(room_demand, :avatar) },
