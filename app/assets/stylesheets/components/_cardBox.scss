@@ -46,13 +46,16 @@
 .cardBoxHeader {
   position: relative;
   margin: -6px -6px 20px;
-  min-height: 40px;
+  height: 220px;
+  overflow: hidden;
   &.-roomdemand {
     margin-bottom:0px;
   }
 
   .coverImg {
+    height: 100%;
     width: 100%;
+    object-fit: cover;
     border-radius: 4px;
     display: block;
   }
