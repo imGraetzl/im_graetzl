@@ -3,7 +3,9 @@
   <div class="cardBoxHeader">
     <%= link_to [location.graetzl, location, anchor: dom_id(location_post)] do %>
       <% if image = location_post.images.first %>
-        <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
+        <div class="coverImgWrapper">
+          <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
+        </div>
       <% else %>
         <%= cover_photo_for location %>
       <% end %>
