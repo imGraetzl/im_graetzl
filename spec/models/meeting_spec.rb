@@ -117,8 +117,8 @@ RSpec.describe Meeting, type: :model do
 
       subject(:by_currentness) { Meeting.by_currentness }
 
-      it 'returns upcoming asc, nil, past desc' do
-        expect(by_currentness).to eq [m_today, m_tomorrow, m_nil, m_yesterday]
+      it 'returns upcoming asc, past desc, nil' do
+        expect(by_currentness).to eq [m_today, m_tomorrow, m_yesterday, m_nil]
       end
     end
 
