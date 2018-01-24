@@ -36,22 +36,22 @@ RSpec.describe 'Tasks' do
       end
     end
 
-    context 'when activity older than 6 weeks' do
+    context 'when activity older than 12 weeks' do
       before do
-        3.times{create(:activity, created_at: 7.weeks.ago, key: nil)}
+        3.times{create(:activity, created_at: 13.weeks.ago, key: nil)}
         2.times{create(:activity, key: nil)}
       end
 
       it 'has old and new activity records in db', job: true do
         expect(Activity.count).to eq 5
-        expect(Activity.where('created_at < ?', 7.weeks.ago).count).to eq 3
+        expect(Activity.where('created_at < ?', 13.weeks.ago).count).to eq 3
       end
 
       it 'removes records older than 6 weeks', job: true do
         expect{
           task.invoke
         }.to change{Activity.count}.from(5).to(2)
-        expect(Activity.where('created_at < ?', 7.weeks.ago).count).to eq 0
+        expect(Activity.where('created_at < ?', 13.weeks.ago).count).to eq 0
       end
     end
   end
