@@ -2,7 +2,9 @@
 
   <div class="cardBoxHeader">
     <%= link_to [meeting.graetzl, meeting] do %>
-      <%= cover_photo_for meeting %>
+      <div class="coverImgWrapper">
+        <%= cover_photo_for meeting %>
+      </div>
     <% end %>
     <% if meeting.starts_at_date %>
       <div class="calendarSheet">

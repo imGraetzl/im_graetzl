@@ -2,7 +2,9 @@
 <div class="cardBox -zuckerl">
   <div class="cardBoxHeader">
     <%= link_to [location.graetzl, location] do %>
-      <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
+      <div class="coverImgWrapper">
+        <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
+      </div>
     <% end %>
     <div class="categoryicon">
       <%= icon_tag "shopping-bag" %>
