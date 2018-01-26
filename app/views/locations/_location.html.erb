@@ -1,7 +1,9 @@
 <div class="cardBox -location" data-behavior="masonry-card">
   <div class="cardBoxHeader">
     <%= link_to [location.graetzl, location] do %>
-      <%= cover_photo_for location %>
+      <div class="coverImgWrapper">
+        <%= cover_photo_for location %>
+      </div>
     <% end %>
     <div class="categoryicon">
       <%= icon_tag "location" %>

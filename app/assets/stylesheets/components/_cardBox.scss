@@ -46,12 +46,13 @@
 .cardBoxHeader {
   position: relative;
   margin: -6px -6px 20px;
-  height: 220px;
-  overflow: hidden;
+  min-height: 40px;
   &.-roomdemand {
     margin-bottom:0px;
   }
 
+  // this tag should always be around the coverImg
+  .coverImgWrapper { height: 220px; }
   .coverImg {
     height: 100%;
     width: 100%;
