@@ -1,0 +1,35 @@
+section.lp {
+
+  &.-raumteilerguide {
+
+    .paperCard {
+      padding: 10px;
+    }
+    .clear {clear:both;}
+
+    .guide {
+
+
+
+      div.form {
+        float:none;
+        @include respond-to(">=medium") {
+          float: right;
+          width:50%;
+          padding-left: 50px;
+        }
+      }
+    }
+
+    div.paperCard {
+      @include respond-to(">=medium") {
+        float: left;
+        width: 50%;
+      }
+    }
+
+
+
+  }
+
+}
