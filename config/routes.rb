@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   get 'errors/not_found'
   get 'errors/internal_server_error'
   match "/404", :to => "errors#not_found", :via => :all
@@ -90,6 +90,8 @@ Rails.application.routes.draw do
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
   end
 
+  get 'lp/raumteiler-guide', to: 'static_pages#lp_raumteilerguide'
+  get 'lp/raumteiler-guide-danke', to: 'static_pages#lp_raumteilerguide_success'
   get 'info', to: 'static_pages#help'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
   get 'info/anbieter-und-locations', to: 'static_pages#location'

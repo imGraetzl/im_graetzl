@@ -25,6 +25,12 @@ de:
       title: 'Anbieter & Locations – Hilfe'
     meetings:
       title: 'Events & Workshops – Hilfe'
+    lp_raumteilerguide:
+      title: 'Der Raumteiler Guide 2018 - Jetzt kostenlos downloaden'
+      description: 'Hol dir jetzt den kostenlosen 60 seitigen Raumteiler Guide 2018. Deine Schritt-für-Schritt Anleitung zum Räume teilen.'
+    lp_raumteilerguide_success:
+      title: 'Der Raumteiler Guide 2018 - Dein persönlicher Download-Link'
+      description: 'Dein persönlicher Download-Link'
   wien:
     show:
       title: 'Bezirke, Stadtviertel & Grätzl in Wien'

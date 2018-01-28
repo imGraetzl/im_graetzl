@@ -4,9 +4,73 @@ APP.controllers.static_pages = (function() {
       if($("section.help").exists()) initHelp();
       if($("section.help").exists()) initMobileNav();
       if($("section.homeOut").exists()) initMobileNav();
+      if($("section.-raumteilerguide").exists()) initGuideDownload();
     }
 
 // ---------------------------------------------------------------------- Public
+
+function initGuideDownload() {
+
+  $(document).ready( function () {
+    var $form = $('#mc-embedded-subscribe-form');
+
+    // E-Mail Check
+    String.prototype.isEmail = function () {
+      var validmailregex = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.([a-z][a-z]+)|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
+      return validmailregex.test(this);
+    }
+
+    $('#mc-embedded-subscribe').on('click', function( event ){
+      event.preventDefault();
+
+      var fname = $('#mce-FNAME').val();
+      var email = $('#mce-EMAIL').val();
+
+      if(fname == '' || email == '') {
+
+        $('#mce-error-response').fadeIn().html('Bitte gib deinen Vornamen und eine gültige E-Mail Adresse an.');
+
+      } else if (!email.isEmail()) {
+
+        $('#mce-error-response').fadeIn().html('Bitte gib eine gültige E-Mail Adresse an.');
+
+      }
+
+      else {
+        $('#mce-error-response').fadeOut();
+        subscribeMC($form);
+      }
+    })
+  });
+
+  var subscribeMC = function($form) {
+    $.ajax({
+        type: $form.attr('method'),
+        url: $form.attr('action'),
+        data: $form.serialize(),
+        cache       : false,
+        dataType    : 'json',
+        contentType: "application/json; charset=utf-8",
+        error       : function(err) { alert("Could not connect to the registration server. Please try again later."); },
+        success     : function(data) {
+            if (data.result != "success") {
+
+              $('#mce-error-response').fadeIn().html(data.msg);
+              console.log(data);
+
+            } else {
+              $('#mce-error-response').fadeOut();
+              $('.input-field').fadeOut();
+              $('#mc-embedded-subscribe').fadeOut();
+              $('#mce-success-response').fadeIn().html('<strong>Dein Guide ist unterwegs!</strong><br>Wir haben dir soeben eine E-Mail geschickt.<br>Bitte klicke auf den Bestätigungslink um zum Download zu gelangen..');
+            }
+        }
+    });
+  }
+
+}
+
+
 
 function initMobileNav() {
   var $dropdown = $(".filter-stream .input-select select");
