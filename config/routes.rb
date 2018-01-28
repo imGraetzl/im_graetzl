@@ -91,6 +91,7 @@ Rails.application.routes.draw do
   end
 
   get 'lp/raumteiler-guide', to: 'static_pages#lp_raumteilerguide'
+  get 'lp/raumteiler-guide-danke', to: 'static_pages#lp_raumteilerguide_success'
   get 'info', to: 'static_pages#help'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
   get 'info/anbieter-und-locations', to: 'static_pages#location'
