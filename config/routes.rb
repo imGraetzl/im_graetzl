@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   get 'info/infos-zum-graetzlzuckerl', to: 'static_pages#zuckerl'
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
   get 'info/infos-zur-graetzlmarie', to: 'static_pages#graetzlmarie'
+  get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
   get '/robots.txt' => 'static_pages#robots'
 
   root 'static_pages#home'
