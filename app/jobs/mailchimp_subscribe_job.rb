@@ -1,10 +1,13 @@
-class SubscribeJob < ApplicationJob
+class MailchimpSubscribeJob < ApplicationJob
+
   def perform(user)
-    mailchimp_list_id = Rails.application.secrets.mailchimp_list_id
+    list_id = Rails.application.secrets.mailchimp_list_id
+    member_id = mailchimp_member_id(user)
+
     begin
       g = Gibbon::Request.new
       g.timeout = 30
-      g.lists(mailchimp_list_id).members.create(body: {
+      g.lists(list_id).members(member_id).upsert(body: {
         email_address: user.email, status: "subscribed",
         merge_fields: {
           USERID: user.id,
@@ -26,5 +29,9 @@ class SubscribeJob < ApplicationJob
       SuckerPunch.logger.error("subscribe failed: due to #{e.message}")
       raise e
     end
+  end
+
+  def mailchimp_member_id(user)
+    Digest::MD5.hexdigest(user.email.downcase)
   end
 end
