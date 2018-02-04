@@ -25,7 +25,7 @@
   <div class="card-grid-container">
     <%= form_tag posts_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter' do; end %>
     <div class="card-grid" data-behavior="posts-card-container"></div>
-    
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'posts-paginate-link' } %>
+
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'posts-paginate-link' }, rel: 'nofollow' %>
   </div>
 </section>

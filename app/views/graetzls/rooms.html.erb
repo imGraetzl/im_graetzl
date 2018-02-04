@@ -47,6 +47,6 @@
     <div class="action-card-container" data-behavior="rooms-action-card-container">
       <%= render 'rooms/action_card', graetzl: @graetzl %>
     </div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' } %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' }, rel: 'nofollow' %>
   </div>
 </section>

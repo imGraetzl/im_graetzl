@@ -28,6 +28,6 @@
     <div class="action-card-container" data-behavior="zuckerls-action-card-container">
       <%= render 'zuckerls/action_card', graetzl: @graetzl %>
     </div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load -big', data: { disable_with: 'lädt...', behavior: 'zuckerls-paginate-link' } %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'zuckerls-paginate-link' }, rel: 'nofollow' %>
   </div>
 </section>
