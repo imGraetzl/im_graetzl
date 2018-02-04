@@ -72,7 +72,7 @@ APP.components.cardFilter = (function() {
   function clearandInitGrid() {
     var allItems = cardGrid.find('[data-behavior="masonry-card"]');
     allItems.remove();
-    $('.link-load').removeClass("show");
+    $('.link-load').addClass("hide");
 
     if (masonrySetup) {
       cardGrid.masonry("destroy");

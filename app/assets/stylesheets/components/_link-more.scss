@@ -30,6 +30,6 @@
 
 .link-load {
   margin: 0 auto;
-  display: none;
-  &.show { display: table; }
+  display: table;
+  &.hide { display: none; }
 }

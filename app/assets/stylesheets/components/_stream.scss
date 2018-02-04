@@ -51,7 +51,7 @@
       color: $color-ambient-rosa;
     }
   }
-  .link-loadcomments {
+  .show-all-comments-link {
     font-size: 12px;
     color: #69a8a7;
     display: block;
@@ -60,6 +60,9 @@
     @include respond-to(">=medium") {
       margin-left: 60px;
     }
+  }
+  .post-comments {
+    .comment-container.hide { display: none; }
   }
 }
 

@@ -9,15 +9,6 @@ RSpec.describe PostsController, type: :routing do
     it 'does not route GET graetzl-slug/posts/new' do
       expect(get: '/graetzl-slug/posts/new').not_to route_to('posts#new')
     end
-
-    it 'routes DELETE /posts/post-slug to posts#destroy' do
-      expect(delete: '/posts/post-slug').to route_to('posts#destroy', id: 'post-slug')
-    end
   end
 
-  describe 'named routes' do
-    it 'routes DELETE post_path to posts#destroy' do
-      expect(delete: post_path('post-slug')).to route_to('posts#destroy', id: 'post-slug')
-    end
-  end
 end

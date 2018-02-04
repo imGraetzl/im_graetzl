@@ -119,13 +119,11 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:create, :destroy]
 
-  resources :posts, only: [:destroy]
-
-  resources :location_posts, only: [:create] do
+  resources :location_posts, only: [:create, :destroy] do
     post :comments, action: :comment
     get :comments
   end
-  resources :admin_posts, path: :ideen, only: [:show]
+  resources :admin_posts, path: 'ideen', only: [:show, :destroy]
 
   namespace :api do
     resources :meetings, only: [:index]

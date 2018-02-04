@@ -92,22 +92,4 @@ RSpec.describe LocationPostsController, type: :controller do
     end
   end
 
-  describe 'GET comments' do
-    let(:location_post) { create :location_post }
-    let!(:comments) { create_list :comment, 10, commentable: location_post }
-    before { get :comments, params: { location_post_id: location_post.id }, xhr: true }
-
-    it 'assigns @location_post' do
-      expect(assigns :location_post).to eq location_post
-    end
-
-    it 'assigns @comments' do
-      expect(assigns :comments).to match_array comments
-    end
-
-    it 'renders comments.js' do
-      expect(response.content_type).to eq 'text/javascript'
-      expect(response).to render_template :comments
-    end
-  end
 end

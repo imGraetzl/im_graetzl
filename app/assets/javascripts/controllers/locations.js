@@ -3,7 +3,7 @@ APP.controllers.locations = (function() {
     function init() {
         if($("section.selectGraetzl").exists()) initSelectGraetzl();
         if($("section.location-form").exists()) initLocationForm();
-        if($("section.locationPage").exists()) initLocationPage();
+        if($("section.location-page").exists()) initLocationPage();
     }
 
 
@@ -47,6 +47,11 @@ APP.controllers.locations = (function() {
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
 
         $('.autosubmit-stream').submit();
+
+        $('.show-all-comments-link').on("click", function() {
+          $(this).parents(".post-comments").find(".comment-container").removeClass("hide");
+          $(this).hide();
+        });
 
         enquire
             //mobile mode

@@ -19,5 +19,5 @@
   <%= form_tag meetings_path(location_id: @location.id, per_page: 2), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
 
   <div class="cardBoxCollection -double" data-behavior="meetings-card-container"></div>
-  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
+  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
 </div>

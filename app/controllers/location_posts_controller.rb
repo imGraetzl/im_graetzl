@@ -16,10 +16,10 @@ class LocationPostsController < ApplicationController
     end
   end
 
-  def comments
-    set_location_post
-    @comments = @location_post.comments.includes(:user, :images).order(:created_at)
+  def destroy
+    @location_post = LocationPost.find(params[:id]).destroy
   end
+
 
   private
 

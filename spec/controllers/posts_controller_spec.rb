@@ -22,45 +22,5 @@ RSpec.describe PostsController, type: :controller do
       end
     end
 
-    describe 'DELETE destroy' do
-      let!(:post) { create :user_post, graetzl: graetzl }
-
-      context 'when logged out' do
-        it 'redirects to login with flash' do
-          delete :destroy, params: { id: post }
-          expect(response).to redirect_to new_user_session_path
-          expect(flash[:alert]).to be_present
-        end
-      end
-      context 'when logged in' do
-        let(:user) { create :user }
-        before { sign_in user }
-
-        context 'when html request' do
-          it 'deletes record' do
-            expect{
-              delete :destroy, params: { id: post }
-            }.to change{Post.count}.by -1
-          end
-
-          it 'redirects to graetzl' do
-            delete :destroy, params: { id: post }
-            expect(response).to redirect_to graetzl
-          end
-        end
-        context 'when js request' do
-          it 'deletes record' do
-            expect{
-              delete :destroy, params: { id: post }, xhr: true
-            }.to change{Post.count}.by -1
-          end
-
-          it 'render destroy.js' do
-            delete :destroy, params: { id: post }, xhr: true
-            expect(response).to render_template :destroy
-          end
-        end
-      end
-    end
   end
 end

@@ -2,7 +2,7 @@
   <div class="entryInitialContent">
     <% if post.edit_permission?(current_user) %>
       <div class="editControls">
-        <%= link_to post_path(post), { method: :delete, remote: true, data: { confirm: 'Beitrag wirklich löschen?', disable_with: 'lädt...' } } do %>
+        <%= link_to location_post_path(post), { method: :delete, remote: true, data: { confirm: 'Beitrag wirklich löschen?', disable_with: 'lädt...' } } do %>
           <div class="btn-delete">
             <%= icon_tag "trash-delete-remove" %>
           </div>
@@ -26,12 +26,14 @@
       </div>
     <% end %>
 
-    <% if post.comments.present? %>
-      <%= content_tag(:div, id: dom_id(post), class: "comments_post") do %>
-        <%= load_more_comments_link(post) if post.comments.size > 1 %>
-        <%= render post.comments.last %>
+    <div class="post-comments">
+      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments-link' %>
+      <% post.comments.each_with_index do |comment, i| %>
+        <div class="comment-container <%= post.comments.last == comment ? nil : 'hide' %>" >
+          <%= render comment %>
+        </div>
       <% end %>
-    <% end %>
+    </div>
 
     <%= render 'location_posts/comment_form', location_post: post %>
   </div>

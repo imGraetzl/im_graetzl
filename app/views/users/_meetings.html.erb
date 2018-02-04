@@ -8,13 +8,13 @@
     <%= form_tag meetings_path(initiated_user_id: @user.id, per_page: 6, container_namespace: "initiated"), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
 
     <div id="initiated" class="cardBoxCollection -tripple" data-tabID="one" data-behavior="initiated-container"></div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'initiated-paginate-link' }, rel: 'nofollow' %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'initiated-paginate-link' }, rel: 'nofollow' %>
   </div>
 
   <div id="tab-2">
     <%= form_tag meetings_path(attended_user_id: @user.id, per_page: 6, container_namespace: "attended"), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
 
     <div id="attended" class="cardBoxCollection -tripple" data-tabID="two" data-behavior="attended-container"></div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load', data: { disable_with: 'lädt...', behavior: 'attended-paginate-link' }, rel: 'nofollow' %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'attended-paginate-link' }, rel: 'nofollow' %>
   </div>
 </div>

@@ -13,9 +13,9 @@
   <% end %>
 
   <% if @activity.next_page.present? %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").addClass("show");
+    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
   <% else %>
-    $paginateLink.removeClass("show");
+    $paginateLink.addClass("hide");
   <% end %>
 
 })();
