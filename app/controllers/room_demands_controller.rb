@@ -17,6 +17,7 @@ class RoomDemandsController < ApplicationController
 
     if @room_demand.save
       RoomsMailer.new.send_new_room_demand_email(@room_demand)
+      MailchimpRoomDemandOnlineJob.perform_later(@room_demand)
       @room_demand.create_activity(:create, owner: @room_demand.user)
       redirect_to @room_demand
     else
@@ -31,6 +32,7 @@ class RoomDemandsController < ApplicationController
   def update
     @room_demand = current_user.room_demands.find(params[:id])
     if @room_demand.update(room_demand_params)
+      MailchimpRoomDemandOnlineJob.perform_later(@room_demand)
       redirect_to @room_demand
     else
       render 'edit'
