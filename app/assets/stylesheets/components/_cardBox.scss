@@ -149,7 +149,7 @@
   }
 
 
-  .updateteaser, .zuckerlteasertxt, .event-teaser-box {
+  .updateteaser, .zuckerlteasertxt, .event-teaser-box, .basic-message-box {
     display: block;
     padding: 10px 15px;
     border-left-width: 1px;
@@ -181,7 +181,10 @@
   .updateteaser {
     border-color: $color-font-primary;
     color: $color-font-primary;
-
+    /* Hide Sag Hallo wenn anderer Content vorhanden */
+    ~ a.basic-message-box {
+      display: none;
+    }
   }
   .zuckerlteasertxt {
     border-color: $color-ambient-rosa-dark;
@@ -192,6 +195,15 @@
     }
   }
   .event-teaser-box {
+    border-color: $color-ambient-mint-dark;
+    background-color: $color-ambient-mint-light;
+    color: $color-ambient-mint-dark;
+    /* Hide Sag Hallo wenn anderer Content vorhanden */
+    ~ a.basic-message-box {
+      display: none;
+    }
+  }
+  .basic-message-box {
     border-color: $color-ambient-mint-dark;
     background-color: $color-ambient-mint-light;
     color: $color-ambient-mint-dark;

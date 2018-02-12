@@ -1,11 +1,15 @@
 class Notification::DailyMail
   include MailUtils
 
-  MANDRILL_TEMPLATE = 'daily-notifications'
+  MANDRILL_TEMPLATE = Rails.env.production? ? 'daily-notifications' : 'staging-daily-notifications'
   BLOCKS = [
     {
       name: 'Neue Location Updates',
       types: [Notifications::NewLocationPost]
+    },
+    {
+      name: 'Neu auf imGrätzl - Sag Hallo',
+      types: [Notifications::NewLocation]
     },
     {
       name: 'Neue Treffen',
@@ -50,6 +54,8 @@ class Notification::DailyMail
         from_email: FROM_EMAIL,
         from_name: FROM_NAME,
         subject: "Neues aus dem Grätzl #{@user.graetzl.name}",
+        google_analytics_domains: ['staging.imgraetzl.at', 'www.imgraetzl.at'],
+        google_analytics_campaign: 'daily-mail',
         global_merge_vars: global_vars,
         merge_vars: [
           rcpt: @user.email,
