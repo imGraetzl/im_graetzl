@@ -6,7 +6,7 @@
     <%= link_to 'Nicht dein Grätzl?', graetzls_registration_path(feature: params[:feature]), class: 'link-subtle' %>
   </div>
 
-  <%= form_for(resource, as: resource_name, url: registration_path, html: {}) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path, html: { data: { graetzl: resource.graetzl.name, zip: resource.graetzl.district.try(:zip) } }) do |f| %>
       <%= devise_error_messages! %>
 
       <div class="form-register">
@@ -111,7 +111,7 @@
         </div>
       </div>
 
-      <%= f.button "Jetzt registrieren!", data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+      <%= f.button "Jetzt registrieren!", data: { disable_with: 'speichert...' }, class: 'btn-primary', id: 'btn-register' %>
 
   <% end %>
 
