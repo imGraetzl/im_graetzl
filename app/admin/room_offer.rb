@@ -1,6 +1,6 @@
 ActiveAdmin.register RoomOffer do
   include ViewInApp
-  menu parent: 'Rooms'
+  menu parent: 'Raumteiler'
   includes :graetzl, :location, :user, :comments
   actions :all, except: [:new, :create]
 

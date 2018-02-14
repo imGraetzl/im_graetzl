@@ -1,4 +1,5 @@
 ActiveAdmin.register Category do
+  menu parent: :locations
   config.filters = false
 
   scope :all, default: true

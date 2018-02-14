@@ -4,9 +4,6 @@ ActiveAdmin.register Graetzl do
   includes :users, :posts, :meetings, :locations
 
   filter :name
-  filter :users
-  filter :created_at
-  filter :updated_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }

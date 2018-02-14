@@ -1,6 +1,6 @@
 ActiveAdmin.register RoomDemand do
   include ViewInApp
-  menu parent: 'Rooms'
+  menu parent: 'Raumteiler'
   includes :location, :user, :comments
   actions :all, except: [:new, :create]
 
