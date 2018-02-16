@@ -359,6 +359,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    scout_apm (2.4.8)
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -453,6 +454,7 @@ DEPENDENCIES
   rollbar
   rspec-rails
   sass-rails
+  scout_apm
   sdoc
   sinatra!
   sitemap_generator
