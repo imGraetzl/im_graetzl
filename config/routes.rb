@@ -53,12 +53,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :activities, only: [:index], to: redirect('/')
-  resources :meetings, path: 'treffen', only: [:index], to: redirect('wien/treffen')
+  resources :activities, only: [:index]
   resources :meetings, path: 'treffen', except: [:show]
-  resources :zuckerls, only: [:index], to: redirect('wien/zuckerl')
-  resources :rooms, only: [:index], to: redirect('wien/raumteiler')
-  resources :posts, only: [:index], to: redirect('/')
+  resources :zuckerls, only: [:index]
+  resources :rooms, only: [:index]
+  resources :posts, only: [:index]
 
   resources :locations do
     concerns :graetzl_before_new
