@@ -62,6 +62,15 @@ ActiveAdmin.register Meeting do
     end
   end
 
+  # Within app/admin/resource_name.rb
+  # Controller pagination overrides
+  controller do
+      def apply_pagination(chain)
+          chain = super unless formats.include?(:json) || formats.include?(:csv)
+          chain
+      end
+  end
+
   permit_params :graetzl_id,
     :name,
     :slug,
