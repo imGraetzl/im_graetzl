@@ -29,6 +29,7 @@
 //= require jquery.jeditable
 //= require jquery.jeditable.autogrow
 //= require jquery.dropdown
+//= require jquery.dynatable
 //= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min

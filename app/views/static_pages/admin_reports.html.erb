@@ -5,6 +5,10 @@
   )
 %>
 
+<style media="screen">
+  #users-table {width:100%;}
+</style>
+
 <section class="reports">
 
   <% if user_signed_in? && current_user.admin? %>
@@ -14,9 +18,57 @@
     // BEGIN WORK AREA
 
       // Init Vars
-      var users = [];
-      var host = 'http://' + window.location.host + '/';
-      var admin_user_path = host + 'admin/users/';
+      var users = []; // Clean Users Array to work with
+      var host = 'http://' + window.location.host + '/'; // Environment Path
+      var admin_user_path = host + 'admin/users/'; // Path for Active Admin Links
+
+      // Dynatable jQuery Plugin Settings
+      $.dynatableSetup({
+        features: {
+          paginate: true,
+          sort: true,
+          pushState: true,
+          search: true,
+          recordCount: true,
+          perPageSelect: false
+        },
+        table: {
+          defaultColumnIdStyle: 'camelCase',
+          columns: null,
+          headRowSelector: 'thead tr', // or e.g. tr:first-child
+          bodyRowSelector: 'tbody tr',
+          headRowClass: null
+        },
+        inputs: {
+          recordCountPlacement: 'after',
+          paginationLinkPlacement: 'after',
+          paginationPrev: 'Zurück',
+          paginationNext: 'Weiter',
+          searchPlacement: 'after',
+          recordCountText: '',
+          processingText: 'Processing...'
+        },
+        params: {
+          dynatable: 'dynatable',
+          queries: 'queries',
+          sorts: 'Sortierung',
+          page: 'Seite',
+          perPage: 'pro Seite',
+          offset: 'offset',
+          records: '',
+          record: null,
+          queryRecordCount: 'queryRecordCount',
+          totalRecordCount: 'totalRecordCount'
+        }
+      });
+
+
+      // Date Converter
+      function formatDate(date){
+        var date = new Date(date).toISOString().substr(0, 19).replace('T', ' ');
+        return date;
+      }
+
 
       // Ajax - Get Users and Set Clean User Array
       $.ajax( {
@@ -27,7 +79,7 @@
             users.push({
               user_id: response[i].id,
               graetzl_id: response[i].graetzl_id,
-              created_at: response[i].created_at,
+              created_at: formatDate(response[i].created_at),
               username: response[i].username,
               first_name: response[i].first_name,
               last_name: response[i].last_name,
@@ -36,21 +88,41 @@
               user_path: admin_user_path + response[i].slug
             })
           }
-          users_loadad();
+          users_table();
         }
       });
 
-      // Clean Users Array
-      var users_loadad = function(){
-        console.log(users);
+
+      // Create User Table
+      var users_table = function(){
+        $('#users-table').dynatable({
+          dataset: {
+            records: users,
+            perPageDefault: 50
+          }
+        });
       }
-
-
 
 
     // END WORK AREA
     })();
     </script>
+
+    <table id="users-table">
+      <thead>
+        <tr>
+          <th data-dynatable-column="user_id">User ID</th>
+          <th data-dynatable-column="username">Username</th>
+          <th data-dynatable-column="first_name">Vorname</th>
+          <th data-dynatable-column="last_name">Nachname</th>
+          <th data-dynatable-column="email">E-Mail</th>
+          <th data-dynatable-column="created_at">Erstellt am</th>
+          <th data-dynatable-column="graetzl_id">Grätzl ID</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
 
   <!-- // ADMIN REPORT INTERFACE -->
 
