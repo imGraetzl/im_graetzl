@@ -15,10 +15,11 @@
   <!-- ADMIN REPORT INTERFACE -->
     <script>
     (function () {
-    // BEGIN WORK AREA
+    // --------------- BEGIN PROJECT JS WORKING AREA ---------------
 
       // Init Vars
       var users = []; // Clean Users Array to work with
+      var graetzls = []; // Clean Grätzl Array to work with
       var host = 'http://' + window.location.host + '/'; // Environment Path
       var admin_user_path = host + 'admin/users/'; // Path for Active Admin Links
 
@@ -31,13 +32,6 @@
           search: true,
           recordCount: true,
           perPageSelect: false
-        },
-        table: {
-          defaultColumnIdStyle: 'camelCase',
-          columns: null,
-          headRowSelector: 'thead tr', // or e.g. tr:first-child
-          bodyRowSelector: 'tbody tr',
-          headRowClass: null
         },
         inputs: {
           recordCountPlacement: 'after',
@@ -63,6 +57,8 @@
       });
 
 
+      // -------------- Helper Functions --------------
+
       // Date Converter
       function formatDate(date){
         var date = new Date(date).toISOString().substr(0, 19).replace('T', ' ');
@@ -70,25 +66,44 @@
       }
 
 
-      // Ajax - Get Users and Set Clean User Array
+      // -------------- Ajax JSON Requests --------------
+
+      // Get Users and Set Clean User Array
       $.ajax( {
         url:'/admin/users.json',
         method:'GET',
         success:function(response) {
           for( i=0; i < response.length; i++ ) {
             users.push({
-              user_id: response[i].id,
+              id: response[i].id,
               graetzl_id: response[i].graetzl_id,
               created_at: formatDate(response[i].created_at),
               username: response[i].username,
               first_name: response[i].first_name,
               last_name: response[i].last_name,
               email: response[i].email,
-              user_admin_path: host + response[i].slug,
-              user_path: admin_user_path + response[i].slug
+              user_admin_path: admin_user_path + response[i].slug,
+              user_path: host + response[i].slug
             })
           }
           users_table();
+        }
+      });
+
+      // Get Grätzl and Set Clean Grätzl Array
+      $.ajax( {
+        url:'/admin/graetzls.json',
+        method:'GET',
+        success:function(response) {
+          for( i=0; i < response.length; i++ ) {
+            graetzls.push({
+              id: response[i].id,
+              name: response[i].name,
+              graetzl_path: host + response[i].slug,
+              users_count: response[i].users_count
+            })
+          }
+          graetzls_table();
         }
       });
 
@@ -103,15 +118,26 @@
         });
       }
 
+      // Create Grätzl Table
+      var graetzls_table = function(){
+        $('#graetzl-table').dynatable({
+          dataset: {
+            records: graetzls,
+            perPageDefault: 10
+          }
+        });
+      }
 
-    // END WORK AREA
+
+    // --------------- END WORK JS WORKING AREA ---------------
     })();
     </script>
+
 
     <table id="users-table">
       <thead>
         <tr>
-          <th data-dynatable-column="user_id">User ID</th>
+          <th data-dynatable-column="id">User ID</th>
           <th data-dynatable-column="username">Username</th>
           <th data-dynatable-column="first_name">Vorname</th>
           <th data-dynatable-column="last_name">Nachname</th>
@@ -123,6 +149,22 @@
       <tbody>
       </tbody>
     </table>
+
+
+
+    <table id="graetzl-table">
+      <thead>
+        <tr>
+          <th data-dynatable-column="id">Grätzl ID</th>
+          <th data-dynatable-column="name">Grätzl</th>
+          <th data-dynatable-column="users_count">Anzahl User</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+
 
   <!-- // ADMIN REPORT INTERFACE -->
 
