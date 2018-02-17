@@ -1,0 +1,29 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'noindex, nofollow',
+  )
+%>
+
+<section class="reports">
+
+  <% if user_signed_in? && current_user.admin? %>
+  <!-- ADMIN REPORT INTERFACE -->
+    <script>
+    $.ajax( {
+      url:'/admin/meetings.json',
+      method:'GET',
+      success:function(response) {
+        console.log(response);
+      }
+    });
+    </script>
+
+  <!-- // ADMIN REPORT INTERFACE -->
+  
+  <% else %>
+  <!-- NO ADMIN RIGHTS -->
+    Keine Admin Rechte ...
+  <% end %>
+
+</section>
