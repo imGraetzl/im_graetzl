@@ -10,17 +10,50 @@
   <% if user_signed_in? && current_user.admin? %>
   <!-- ADMIN REPORT INTERFACE -->
     <script>
-    $.ajax( {
-      url:'/admin/meetings.json',
-      method:'GET',
-      success:function(response) {
-        console.log(response);
+    (function () {
+    // BEGIN WORK AREA
+
+      // Init Vars
+      var users = [];
+      var host = 'http://' + window.location.host + '/';
+      var admin_user_path = host + 'admin/users/';
+
+      // Ajax - Get Users and Set Clean User Array
+      $.ajax( {
+        url:'/admin/users.json',
+        method:'GET',
+        success:function(response) {
+          for( i=0; i < response.length; i++ ) {
+            users.push({
+              user_id: response[i].id,
+              graetzl_id: response[i].graetzl_id,
+              created_at: response[i].created_at,
+              username: response[i].username,
+              first_name: response[i].first_name,
+              last_name: response[i].last_name,
+              email: response[i].email,
+              user_admin_path: host + response[i].slug,
+              user_path: admin_user_path + response[i].slug
+            })
+          }
+          users_loadad();
+        }
+      });
+
+      // Clean Users Array
+      var users_loadad = function(){
+        console.log(users);
       }
-    });
+
+
+
+
+    // END WORK AREA
+    })();
     </script>
 
   <!-- // ADMIN REPORT INTERFACE -->
-  
+
   <% else %>
   <!-- NO ADMIN RIGHTS -->
     Keine Admin Rechte ...
