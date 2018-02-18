@@ -6,7 +6,6 @@
 %>
 
 <style media="screen">
-  #users-table {width:100%;}
 </style>
 
 <section class="reports">
@@ -64,6 +63,7 @@
         var date = new Date(date).toISOString().substr(0, 19).replace('T', ' ');
         return date;
       }
+
 
 
       // -------------- Ajax JSON Requests --------------
@@ -128,7 +128,6 @@
         });
       }
 
-
     // --------------- END WORK JS WORKING AREA ---------------
     })();
     </script>
@@ -138,11 +137,11 @@
       <thead>
         <tr>
           <th data-dynatable-column="id">User ID</th>
-          <th data-dynatable-column="username">Username</th>
-          <th data-dynatable-column="first_name">Vorname</th>
-          <th data-dynatable-column="last_name">Nachname</th>
-          <th data-dynatable-column="email">E-Mail</th>
           <th data-dynatable-column="created_at">Erstellt am</th>
+          <th data-dynatable-column="username">Username</th>
+          <!--<th data-dynatable-column="first_name">Vorname</th>-->
+          <!--<th data-dynatable-column="last_name">Nachname</th>-->
+          <!--<th data-dynatable-column="email">E-Mail</th>-->
           <th data-dynatable-column="graetzl_id">Grätzl ID</th>
         </tr>
       </thead>
