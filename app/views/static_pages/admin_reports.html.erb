@@ -4,7 +4,7 @@
     robots: 'noindex, nofollow',
   )
 %>
-
+<script src="/assets/datatables.min.js"></script>
 <style media="screen">
 </style>
 
@@ -21,6 +21,8 @@
       var graetzls = []; // Clean Grätzl Array to work with
       var host = 'http://' + window.location.host + '/'; // Environment Path
       var admin_user_path = host + 'admin/users/'; // Path for Active Admin Links
+
+/*
 
       // Dynatable jQuery Plugin Settings
       $.dynatableSetup({
@@ -55,6 +57,7 @@
         }
       });
 
+*/
 
       // -------------- Helper Functions --------------
 
@@ -86,7 +89,8 @@
               user_path: host + response[i].slug
             })
           }
-          users_table();
+          //users_table();
+
         }
       });
 
@@ -103,7 +107,8 @@
               users_count: response[i].users_count
             })
           }
-          graetzls_table();
+          //graetzls_table();
+          graetzls_datatable();
         }
       });
 
@@ -127,6 +132,19 @@
           }
         });
       }
+
+
+      var graetzls_datatable = function() {
+            $('#graetzls_datatable').DataTable( {
+                data: graetzls,
+                columns: [
+                    { data: 'id' },
+                    { data: 'name' },
+                    { data: 'users_count' }
+                ]
+            } );
+        }
+
 
     // --------------- END WORK JS WORKING AREA ---------------
     })();
@@ -163,6 +181,16 @@
       </tbody>
     </table>
 
+
+    <table id="graetzls_datatable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>users_count</th>
+            </tr>
+        </thead>
+    </table>
 
 
   <!-- // ADMIN REPORT INTERFACE -->

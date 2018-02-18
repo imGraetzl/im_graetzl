@@ -29,7 +29,6 @@
 //= require jquery.jeditable
 //= require jquery.jeditable.autogrow
 //= require jquery.dropdown
-//= require jquery.dynatable
 //= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min
@@ -41,6 +40,7 @@
 //= require modernizr.custom
 //= require fastclick
 //= require autogrow
+//= require datatables.min
 //= require cocoon
 //= require refile
 //= require cookieconsent
