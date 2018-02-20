@@ -57,8 +57,17 @@
         }
       }
 
-
-
+    // ------------- Data Table - User Detail Row --------
+    /* Formatting function for row details - modify as you need */
+      function format ( data ) {
+          // `d` is the original data object for the row
+          return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+              '<tr>'+
+                  '<td>Vorname:</td>'+
+                  '<td>'+data.first_name+'</td>'+
+              '</tr>'+
+          '</table>';
+      }
 
 
       // -------------- Ajax JSON Requests --------------
@@ -122,8 +131,13 @@
           "scrollCollapse": true,
           "paging": false,
           columns: [
+            {
+              "className": 'details-control',
+              "orderable": false,
+              "data": null,
+              "defaultContent": 'details'
+            },
             { data: 'id' },
-            { data: 'created_at' },
             { data: 'username',
               "render": function( data, type, row, meta ){
                 if ( type === 'display' ) {
@@ -132,6 +146,7 @@
                 return data;
               }
             },
+            { data: 'email' },
             { data: 'graetzl_id',
               "render": function( data, type, row, meta ) {
                 var graetzlname = fetchFromID(row['graetzl_id'], 'graetzls');
@@ -144,7 +159,8 @@
                   return data;
                 }
               }
-            }
+            },
+            { data: 'created_at' }
           ]
         });
       }
@@ -165,6 +181,27 @@
         });
       }
 
+      // -------------- Event Listener --------------
+      $(document).ready(function() {
+        // Add event listener for opening and closing detail rows
+        $('#datatable_users').on('click', 'td.details-control', function () {
+          var table = $('#datatable_users').DataTable();
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+
+          if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+          }
+          else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+          }
+        }); // Expand User Row
+        
+      });
 
     // --------------- END WORK JS WORKING AREA ---------------
     })();
@@ -173,10 +210,12 @@
     <table id="datatable_users" class="stripe hover row-border" width="100%">
       <thead>
         <tr>
-          <th>User ID</th>
-          <th>Erstellt am</th>
+          <th></th>
+          <th>ID</th>
           <th>Username</th>
+          <th>E-Mail</th>
           <th>Grätzl</th>
+          <th>Registriert</th>
         </tr>
       </thead>
     </table>
