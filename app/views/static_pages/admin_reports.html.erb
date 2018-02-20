@@ -4,8 +4,9 @@
     robots: 'noindex, nofollow',
   )
 %>
-<script src="/assets/datatables.min.js"></script>
-<style media="screen">
+
+<style>
+
 </style>
 
 <section class="reports">
@@ -22,42 +23,21 @@
       var host = 'http://' + window.location.host + '/'; // Environment Path
       var admin_user_path = host + 'admin/users/'; // Path for Active Admin Links
 
-/*
 
-      // Dynatable jQuery Plugin Settings
-      $.dynatableSetup({
-        features: {
-          paginate: true,
-          sort: true,
-          pushState: true,
-          search: true,
-          recordCount: true,
-          perPageSelect: false
-        },
-        inputs: {
-          recordCountPlacement: 'after',
-          paginationLinkPlacement: 'after',
-          paginationPrev: 'Zurück',
-          paginationNext: 'Weiter',
-          searchPlacement: 'after',
-          recordCountText: '',
-          processingText: 'Processing...'
-        },
-        params: {
-          dynatable: 'dynatable',
-          queries: 'queries',
-          sorts: 'Sortierung',
-          page: 'Seite',
-          perPage: 'pro Seite',
-          offset: 'offset',
-          records: '',
-          record: null,
-          queryRecordCount: 'queryRecordCount',
-          totalRecordCount: 'totalRecordCount'
-        }
+      $( document ).ready(function() {
+      // Load Data from Server - if all Data loaded, do something ...
+        var p1 = requestUsers();
+        var p2 = requestGraetzls();
+
+        Promise.all ([p1, p2]).then(function() {
+
+          datatable_users();
+          datatable_graetzls();
+
+        }).catch( function() {alert('Error Loading Data ...'); } )
       });
 
-*/
+
 
       // -------------- Helper Functions --------------
 
@@ -67,129 +47,147 @@
         return date;
       }
 
+      // Get Infos from other JSON Array over ID
+      var fetchFromID = function(id, type){
+        if ( type == 'graetzls' ) {
+          var result = $.grep(graetzls, function(e){ return e.id == id; });
+          var name = (result[0].name);
+          var url = (result[0].graetzl_path);
+          return [name, url];
+        }
+      }
+
+
+
 
 
       // -------------- Ajax JSON Requests --------------
 
       // Get Users and Set Clean User Array
-      $.ajax( {
-        url:'/admin/users.json',
-        method:'GET',
-        success:function(response) {
-          for( i=0; i < response.length; i++ ) {
-            users.push({
-              id: response[i].id,
-              graetzl_id: response[i].graetzl_id,
-              created_at: formatDate(response[i].created_at),
-              username: response[i].username,
-              first_name: response[i].first_name,
-              last_name: response[i].last_name,
-              email: response[i].email,
-              user_admin_path: admin_user_path + response[i].slug,
-              user_path: host + response[i].slug
-            })
-          }
-          //users_table();
-
-        }
-      });
+      var requestUsers = function(){
+        return new Promise( function(resolve, reject) {
+          $.ajax( {
+            url:'/admin/users.json',
+            method:'GET',
+            success:function(response) {
+              for( i=0; i < response.length; i++ ) {
+                users.push({
+                  id: response[i].id,
+                  graetzl_id: response[i].graetzl_id,
+                  created_at: formatDate(response[i].created_at),
+                  username: response[i].username,
+                  first_name: response[i].first_name,
+                  last_name: response[i].last_name,
+                  email: response[i].email,
+                  user_admin_path: admin_user_path + response[i].slug,
+                  user_path: host + response[i].slug
+                })
+              }
+              resolve();
+            }
+          });
+        });
+      }
 
       // Get Grätzl and Set Clean Grätzl Array
-      $.ajax( {
-        url:'/admin/graetzls.json',
-        method:'GET',
-        success:function(response) {
-          for( i=0; i < response.length; i++ ) {
-            graetzls.push({
-              id: response[i].id,
-              name: response[i].name,
-              graetzl_path: host + response[i].slug,
-              users_count: response[i].users_count
-            })
-          }
-          //graetzls_table();
-          graetzls_datatable();
-        }
-      });
+      var requestGraetzls = function(){
+        return new Promise( function(resolve, reject) {
+          $.ajax( {
+            url:'/admin/graetzls.json',
+            method:'GET',
+            success:function(response) {
+              for( i=0; i < response.length; i++ ) {
+                graetzls.push({
+                  id: response[i].id,
+                  name: response[i].name,
+                  graetzl_path: host + response[i].slug,
+                  users_count: response[i].users_count
+                })
+              }
+              resolve();
+            }
+          });
+        });
+      }
 
+      // -------------- Create Datatables (jQuery Plugin) --------------
 
       // Create User Table
-      var users_table = function(){
-        $('#users-table').dynatable({
-          dataset: {
-            records: users,
-            perPageDefault: 50
-          }
+      var datatable_users = function() {
+        $('#datatable_users').DataTable( {
+          data: users,
+          "order": [[ 0, "desc" ]],
+          "processing": true,
+          "scrollY": "400px",
+          "scrollCollapse": true,
+          "paging": false,
+          columns: [
+            { data: 'id' },
+            { data: 'created_at' },
+            { data: 'username',
+              "render": function( data, type, row, meta ){
+                if ( type === 'display' ) {
+                data = '<a href="' + row['user_admin_path'] + '">' + data + '</a>';
+              }
+                return data;
+              }
+            },
+            { data: 'graetzl_id',
+              "render": function( data, type, row, meta ) {
+                var graetzlname = fetchFromID(row['graetzl_id'], 'graetzls');
+                if ( type == "sort" || type == 'type' ) {
+                  // Use Grätzl-Name for Sorting
+                  return graetzlname[0];
+                } else {
+                  // Use Link for Output
+                  data = '<a href="' + graetzlname[1] + '">' + graetzlname[0] + '</a>';
+                  return data;
+                }
+              }
+            }
+          ]
         });
       }
 
       // Create Grätzl Table
-      var graetzls_table = function(){
-        $('#graetzl-table').dynatable({
-          dataset: {
-            records: graetzls,
-            perPageDefault: 10
-          }
+      var datatable_graetzls = function() {
+        $('#datatable_graetzls').DataTable( {
+          data: graetzls,
+          "order": [[ 1, "desc" ]],
+          "processing": true,
+          "scrollY": "400px",
+          "scrollCollapse": true,
+          "paging": false,
+          columns: [
+            { data: 'name'},
+            { data: 'users_count' }
+          ]
         });
       }
-
-
-      var graetzls_datatable = function() {
-            $('#graetzls_datatable').DataTable( {
-                data: graetzls,
-                columns: [
-                    { data: 'id' },
-                    { data: 'name' },
-                    { data: 'users_count' }
-                ]
-            } );
-        }
 
 
     // --------------- END WORK JS WORKING AREA ---------------
     })();
     </script>
 
-
-    <table id="users-table">
+    <table id="datatable_users" class="stripe hover row-border" width="100%">
       <thead>
         <tr>
-          <th data-dynatable-column="id">User ID</th>
-          <th data-dynatable-column="created_at">Erstellt am</th>
-          <th data-dynatable-column="username">Username</th>
-          <!--<th data-dynatable-column="first_name">Vorname</th>-->
-          <!--<th data-dynatable-column="last_name">Nachname</th>-->
-          <!--<th data-dynatable-column="email">E-Mail</th>-->
-          <th data-dynatable-column="graetzl_id">Grätzl ID</th>
+          <th>User ID</th>
+          <th>Erstellt am</th>
+          <th>Username</th>
+          <th>Grätzl</th>
         </tr>
       </thead>
-      <tbody>
-      </tbody>
     </table>
 
-
-
-    <table id="graetzl-table">
+    <table id="datatable_graetzls" class="stripe hover row-border" width="100%">
       <thead>
         <tr>
-          <th data-dynatable-column="id">Grätzl ID</th>
-          <th data-dynatable-column="name">Grätzl</th>
-          <th data-dynatable-column="users_count">Anzahl User</th>
+          <th>Grätzl</th>
+          <th>Anzahl User</th>
         </tr>
       </thead>
-      <tbody>
-      </tbody>
-    </table>
-
-
-    <table id="graetzls_datatable" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>users_count</th>
-            </tr>
-        </thead>
     </table>
 
 
