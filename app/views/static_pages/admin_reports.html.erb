@@ -20,6 +20,7 @@
       // Init Vars
       var users = []; // Clean Users Array to work with
       var graetzls = []; // Clean Grätzl Array to work with
+      var locations = []; // Clean Location Array to work with
       var host = 'http://' + window.location.host + '/'; // Environment Path
       var admin_user_path = host + 'admin/users/'; // Path for Active Admin Links
 
@@ -28,8 +29,9 @@
       // Load Data from Server - if all Data loaded, do something ...
         var p1 = requestUsers();
         var p2 = requestGraetzls();
+        var p3 = requestLocations();
 
-        Promise.all ([p1, p2]).then(function() {
+        Promise.all ([p1, p2, p3]).then(function() {
 
           datatable_users();
           datatable_graetzls();
@@ -60,13 +62,13 @@
     // ------------- Data Table - User Detail Row --------
     /* Formatting function for row details - modify as you need */
       function format ( data ) {
-          // `d` is the original data object for the row
-          return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-              '<tr>'+
-                  '<td>Vorname:</td>'+
-                  '<td>'+data.first_name+'</td>'+
-              '</tr>'+
-          '</table>';
+        var content =
+        '<table>'+
+          '<tr>'+
+              '<td>' + data.first_name + ' ' + data.last_name + '</td>'+
+          '</tr>'+
+        '</table>';
+        return content;
       }
 
 
@@ -96,9 +98,9 @@
             }
           });
         });
-      }
+      } // Get Users
 
-      // Get Grätzl and Set Clean Grätzl Array
+      // Get Grätzls and Set Clean Grätzl Array
       var requestGraetzls = function(){
         return new Promise( function(resolve, reject) {
           $.ajax( {
@@ -117,7 +119,29 @@
             }
           });
         });
-      }
+      } // Get Grätzls
+
+      // Get Locations and Set Clean Location Array
+      var requestLocations = function(){
+        return new Promise( function(resolve, reject) {
+          $.ajax( {
+            url:'/admin/locations.json',
+            method:'GET',
+            success:function(response) {
+              for( i=0; i < response.length; i++ ) {
+                console.log(response[i]);
+                /*locations.push({
+                  id: response[i].id,
+                  name: response[i].name,
+                  graetzl_path: host + response[i].slug,
+                  users_count: response[i].users_count
+                })*/
+              }
+              resolve();
+            }
+          });
+        });
+      } // Get Locations
 
       // -------------- Create Datatables (jQuery Plugin) --------------
 
@@ -183,6 +207,7 @@
 
       // -------------- Event Listener --------------
       $(document).ready(function() {
+
         // Add event listener for opening and closing detail rows
         $('#datatable_users').on('click', 'td.details-control', function () {
           var table = $('#datatable_users').DataTable();
@@ -200,7 +225,7 @@
             tr.addClass('shown');
           }
         }); // Expand User Row
-        
+
       });
 
     // --------------- END WORK JS WORKING AREA ---------------

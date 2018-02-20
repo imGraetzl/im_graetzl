@@ -5,5 +5,6 @@ context.instance_eval do
   column(:state){ |l| status_tag(l.state) }
   column :category
   column :graetzl
+  column(:user) { |l| l.location_ownerships.first.try(:user_id)}
   actions
 end
