@@ -1,7 +1,7 @@
 ActiveAdmin.register Location do
   include ViewInApp
   menu priority: 4
-  includes :graetzl, :category
+  includes :graetzl, :category, :users
 
   scope :all, default: true
   scope :pending
