@@ -8,7 +8,6 @@
 <style>
 
 </style>
-
 <section class="reports">
 
   <% if user_signed_in? && current_user.admin? %>
@@ -18,6 +17,17 @@
     // --------------- BEGIN PROJECT JS WORKING AREA ---------------
 
       // Init Vars
+      moment.locale('de-at');
+
+      // TimeTable Object for Charts - Including Unit & Date Range
+      var timePeriod = {
+        unit:'',
+        dates:[],
+        datesFriendly:[]
+      };
+      // Time Period Data for Charts
+      var timePeriodData = [];
+
       var users = []; // Clean Users Array to work with
       var graetzls = []; // Clean Grätzl Array to work with
       var locations = []; // Clean Location Array to work with
@@ -26,6 +36,9 @@
 
 
       $( document ).ready(function() {
+
+
+
       // Load Data from Server - if all Data loaded, do something ...
         var p1 = requestUsers();
         var p2 = requestGraetzls();
@@ -35,6 +48,7 @@
 
           datatable_users();
           datatable_graetzls();
+          charts();
 
         }).catch( function() {alert('Error Loading Data ...'); } )
       });
@@ -85,7 +99,8 @@
                 users.push({
                   id: response[i].id,
                   graetzl_id: response[i].graetzl_id,
-                  created_at: formatDate(response[i].created_at),
+                  //created_at: formatDate(response[i].created_at),
+                  created_at: new Date(response[i].created_at),
                   username: response[i].username,
                   first_name: response[i].first_name,
                   last_name: response[i].last_name,
@@ -129,7 +144,7 @@
             method:'GET',
             success:function(response) {
               for( i=0; i < response.length; i++ ) {
-                console.log(response[i]);
+                //console.log(response[i]);
                 /*locations.push({
                   id: response[i].id,
                   name: response[i].name,
@@ -172,7 +187,7 @@
             },
             { data: 'email' },
             { data: 'graetzl_id',
-              "render": function( data, type, row, meta ) {
+              render: function( data, type, row, meta ) {
                 var graetzlname = fetchFromID(row['graetzl_id'], 'graetzls');
                 if ( type == "sort" || type == 'type' ) {
                   // Use Grätzl-Name for Sorting
@@ -184,7 +199,17 @@
                 }
               }
             },
-            { data: 'created_at' }
+            { data: 'created_at',
+              render: function(data, type) {
+                if ( type == "sort" || type == 'type' ) {
+                  return data;
+                } else {
+                  // Use Friendly Format for Output
+                  return moment(data).format('lll');
+
+                }
+              }
+            }
           ]
         });
       }
@@ -226,11 +251,116 @@
           }
         }); // Expand User Row
 
+        // Charts
+        var chart = $("#chart");
+
+
       });
+
+
+      // Test with Charts ....
+      var charts = function(){
+
+        createDateChartValues('users', 30, 'days');
+
+      };
+
+
+
+      // Create Chart Arrays
+      var createDateChartValues = function( type, count, unit ) {
+
+        // Set Length of Data Array to Count
+        timePeriodData.length = count;
+        timePeriodData.fill(0); // Prefill all Values with 0
+
+        // Fill Time Period Array with Dates for Chart-View
+        var generateTimePeriod = function( count, unit ) {
+          timePeriod.unit = unit;
+          var currentDate = new Date(); // Today
+          if (unit == 'days') {
+            for ( i=0; i<count; i++ ) {
+
+              var tmpDate = new Date();
+              tmpDate.setDate(currentDate.getDate() - i);
+              tmpDate.setHours(0,0,0,0);
+              var priorDate = new Date(tmpDate);
+              var priorDateFriendly = moment(priorDate).format('ll');
+
+              //console.log(priorDateFriendly);
+              timePeriod.dates.push(priorDate);
+              timePeriod.datesFriendly.push(priorDateFriendly);
+            }
+          }
+        } // Time Period Array
+        generateTimePeriod(count, unit); // Set Time Period
+
+
+        // Loop Check all Users
+        for ( i=0; i<users.length; i++) {
+          var checkDate = new Date(users[i].created_at);
+
+          // Loop Check every single User for all Dates in Range
+          for ( d=0; d<timePeriod.dates.length; d++ ) {
+
+            var check = checkDateRange( checkDate, timePeriod.dates[d], unit );
+            if (check == true) {
+
+              //console.log('user gefunden: ' + users[i].id + ' date: ' + timePeriod.dates[d] + ' pos: ' + d);
+              // Push Sum of found Data Goals to Data Array on right Index-Postion
+              timePeriodData[d] +=1;
+              break;
+
+            }
+          } // Loop Check every single User for all Dates
+        } // Loop Check all Users
+
+        //console.log(timePeriodData);
+        //console.log(timePeriod);
+
+        // Draw User Chart
+        usersChart(timePeriod.datesFriendly.reverse(), timePeriodData.reverse());
+
+      } // Create Chart Arrays
+
+
+      // Helper Function - Check if Date is in Date-Range
+      var checkDateRange = function( checkDate, startDate, unit ) {
+
+        var tmpDate = new Date();
+        tmpDate.setDate(startDate.getDate() + 1);
+        tmpDate.setHours(0,0,0,0);
+        var endDate = new Date(tmpDate);
+
+        if (checkDate >= startDate && checkDate <= endDate ){
+          return true;
+        }
+      }
+
+
+
+      var usersChart = function(labeldata, chartdata) {
+        new Chart(chart, {
+          type: 'line',
+          data: {
+            labels: labeldata,
+            datasets: [{
+              label: 'Registrierungen',
+              data: chartdata,
+            }]
+          }
+        });
+      }
+
+
 
     // --------------- END WORK JS WORKING AREA ---------------
     })();
     </script>
+
+
+    <canvas id="chart" width="900" height="200"></canvas>
+
 
     <table id="datatable_users" class="stripe hover row-border" width="100%">
       <thead>
@@ -244,6 +374,8 @@
         </tr>
       </thead>
     </table>
+
+
 
     <table id="datatable_graetzls" class="stripe hover row-border" width="100%">
       <thead>
