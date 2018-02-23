@@ -32,7 +32,7 @@
       var graetzls = []; // Clean Grätzl Array to work with
       var locations = []; // Clean Location Array to work with
       var host = 'http://' + window.location.host + '/'; // Environment Path
-      var admin_user_path = host + 'admin/users/'; // Path for Active Admin Links
+      var admin_user_path = host + 'admin/users/'; // Active Admin Path
 
 
       $( document ).ready(function() {
@@ -57,13 +57,7 @@
 
       // -------------- Helper Functions --------------
 
-      // Date Converter
-      function formatDate(date){
-        var date = new Date(date).toISOString().substr(0, 19).replace('T', ' ');
-        return date;
-      }
-
-      // Get Infos from other JSON Array over ID
+      // Get Infos from other Array over ID
       var fetchFromID = function(id, type){
         if ( type == 'graetzls' ) {
           var result = $.grep(graetzls, function(e){ return e.id == id; });
@@ -99,7 +93,6 @@
                 users.push({
                   id: response[i].id,
                   graetzl_id: response[i].graetzl_id,
-                  //created_at: formatDate(response[i].created_at),
                   created_at: new Date(response[i].created_at),
                   username: response[i].username,
                   first_name: response[i].first_name,
@@ -315,23 +308,20 @@
           } // Loop Check every single User for all Dates
         } // Loop Check all Users
 
-        //console.log(timePeriodData);
-        //console.log(timePeriod);
 
         // Draw User Chart
         usersChart(timePeriod.datesFriendly.reverse(), timePeriodData.reverse());
+        console.log(timePeriod.datesFriendly.reverse(), timePeriodData.reverse());
 
       } // Create Chart Arrays
 
 
       // Helper Function - Check if Date is in Date-Range
       var checkDateRange = function( checkDate, startDate, unit ) {
-
         var tmpDate = new Date();
         tmpDate.setDate(startDate.getDate() + 1);
         tmpDate.setHours(0,0,0,0);
         var endDate = new Date(tmpDate);
-
         if (checkDate >= startDate && checkDate <= endDate ){
           return true;
         }
