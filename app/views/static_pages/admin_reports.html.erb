@@ -32,25 +32,27 @@
       var graetzls = []; // Clean Grätzl Array to work with
       var locations = []; // Clean Location Array to work with
       var host = 'http://' + window.location.host + '/'; // Environment Path
-      var admin_user_path = host + 'admin/users/'; // Active Admin Path
+      var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
+
+
 
 
       $( document ).ready(function() {
 
-
-
-      // Load Data from Server - if all Data loaded, do something ...
+        // Load Data from Server - if all Data loaded, do something ...
         var p1 = requestUsers();
         var p2 = requestGraetzls();
         var p3 = requestLocations();
 
-        Promise.all ([p1, p2, p3]).then(function() {
+        Promise.all([p1, p2, p3]).then(function(res) {
 
+          extend_arrays_each_other();
           datatable_users();
           datatable_graetzls();
           charts();
 
-        }).catch( function() {alert('Error Loading Data ...'); } )
+        })//.catch( function() {alert('Error Loading Data ...'); } )
+
       });
 
 
@@ -60,49 +62,62 @@
       // Get Infos from other Array over ID
       var fetchFromID = function(id, type){
         if ( type == 'graetzls' ) {
-          var result = $.grep(graetzls, function(e){ return e.id == id; });
-          var name = (result[0].name);
-          var url = (result[0].graetzl_path);
-          return [name, url];
+          var result = graetzls.filter(function(e){ return e.id == id; });
+          return result;
+        }
+        if ( type == 'locations' ) {
+          var result = locations.filter(function(e){ return e.user_ids == id; });
+          return result;
         }
       }
 
+
     // ------------- Data Table - User Detail Row --------
     /* Formatting function for row details - modify as you need */
-      function format ( data ) {
-        var content =
-        '<table>'+
-          '<tr>'+
-              '<td>' + data.first_name + ' ' + data.last_name + '</td>'+
-          '</tr>'+
-        '</table>';
-        return content;
+      function userDetails ( data ) {
+
+        var $content = $('<table id="user' + data.id + '">');
+        $($content).append('<tr><td>' + data.first_name + ' ' + data.last_name + '</td></tr>');
+
+        // Get User Locations
+        var locationinfos = fetchFromID(data.id, 'locations');
+        for ( i=0; i<locationinfos.length; i++) {
+          $($content).append('<tr><td>Location: <a href="'+locationinfos[i].location_path_admin+'">' +locationinfos[i].name+ '</td></tr>');
+        }
+
+        return $content;
       }
 
 
       // -------------- Ajax JSON Requests --------------
 
       // Get Users and Set Clean User Array
+
+
+
       var requestUsers = function(){
         return new Promise( function(resolve, reject) {
           $.ajax( {
             url:'/admin/users.json',
             method:'GET',
             success:function(response) {
+
               for( i=0; i < response.length; i++ ) {
                 users.push({
                   id: response[i].id,
                   graetzl_id: response[i].graetzl_id,
+                  graetzl_name: '',
+                  graetzl_path: '',
                   created_at: new Date(response[i].created_at),
                   username: response[i].username,
                   first_name: response[i].first_name,
                   last_name: response[i].last_name,
                   email: response[i].email,
-                  user_admin_path: admin_user_path + response[i].slug,
+                  user_path_admin: host_admin + 'users/' + response[i].slug,
                   user_path: host + response[i].slug
                 })
               }
-              resolve();
+              resolve('users');
             }
           });
         });
@@ -120,10 +135,11 @@
                   id: response[i].id,
                   name: response[i].name,
                   graetzl_path: host + response[i].slug,
+                  graetzl_path_admin: host_admin + 'graetzls/' + response[i].slug,
                   users_count: response[i].users_count
-                })
+                });
               }
-              resolve();
+              resolve('graetzls');
             }
           });
         });
@@ -138,14 +154,20 @@
             success:function(response) {
               for( i=0; i < response.length; i++ ) {
                 //console.log(response[i]);
-                /*locations.push({
+                locations.push({
                   id: response[i].id,
                   name: response[i].name,
-                  graetzl_path: host + response[i].slug,
-                  users_count: response[i].users_count
-                })*/
+                  created_at: response[i].created_at,
+                  graetzl_id: response[i].graetzl_id,
+                  graetzl_name: '',
+                  category_id: response[i].category_id,
+                  state: response[i].state,
+                  user_ids: response[i].user_ids,
+                  location_path: response[i].slug,
+                  location_path_admin: host_admin + 'locations/' + response[i].slug
+                })
               }
-              resolve();
+              resolve('locations');
             }
           });
         });
@@ -153,7 +175,7 @@
 
       // -------------- Create Datatables (jQuery Plugin) --------------
 
-      // Create User Table
+      // Create DATATABLE Users
       var datatable_users = function() {
         $('#datatable_users').DataTable( {
           data: users,
@@ -171,25 +193,20 @@
             },
             { data: 'id' },
             { data: 'username',
-              "render": function( data, type, row, meta ){
+              render: function( data, type, row, meta ){
                 if ( type === 'display' ) {
-                data = '<a href="' + row['user_admin_path'] + '">' + data + '</a>';
+                data = '<a href="' + row['user_path_admin'] + '">' + data + '</a>';
               }
                 return data;
               }
             },
             { data: 'email' },
-            { data: 'graetzl_id',
-              render: function( data, type, row, meta ) {
-                var graetzlname = fetchFromID(row['graetzl_id'], 'graetzls');
-                if ( type == "sort" || type == 'type' ) {
-                  // Use Grätzl-Name for Sorting
-                  return graetzlname[0];
-                } else {
-                  // Use Link for Output
-                  data = '<a href="' + graetzlname[1] + '">' + graetzlname[0] + '</a>';
-                  return data;
-                }
+            { data: 'graetzl_name',
+              render: function( data, type, row, meta ){
+                if ( type === 'display' ) {
+                data = '<a href="' + row['graetzl_path'] + '">' + data + '</a>';
+              }
+                return data;
               }
             },
             { data: 'created_at',
@@ -199,7 +216,6 @@
                 } else {
                   // Use Friendly Format for Output
                   return moment(data).format('lll');
-
                 }
               }
             }
@@ -207,7 +223,7 @@
         });
       }
 
-      // Create Grätzl Table
+      // Create DATATABLE Grätzl
       var datatable_graetzls = function() {
         $('#datatable_graetzls').DataTable( {
           data: graetzls,
@@ -239,7 +255,7 @@
           }
           else {
             // Open this row
-            row.child( format(row.data()) ).show();
+            row.child( userDetails(row.data()) ).show();
             tr.addClass('shown');
           }
         }); // Expand User Row
@@ -253,10 +269,36 @@
 
       // Test with Charts ....
       var charts = function(){
-
         createDateChartValues('users', 30, 'days');
-
       };
+
+
+      var extend_arrays_each_other = function() {
+
+        // Extend Location Array with Grätzl-Infos
+        for( i=0; i<locations.length; i++ ) {
+          var graetzlinfos = fetchFromID(locations[i].graetzl_id, 'graetzls');
+          for (let key in graetzlinfos) {
+            //console.log(graetzlinfos[key]);
+            locations[i].graetzl_name = graetzlinfos[key].name;
+            locations[i].location_path = graetzlinfos[key].graetzl_path;
+          }
+        }
+
+        // Extend User Array with Grätzl-Indos
+        for( i=0; i<users.length; i++ ) {
+          graetzlinfos = fetchFromID(users[i].graetzl_id, 'graetzls');
+          for (let key in graetzlinfos) {
+            //console.log(graetzlinfos[key]);
+            users[i].graetzl_name = graetzlinfos[key].name;
+            users[i].graetzl_path = graetzlinfos[key].graetzl_path;
+          }
+        }
+
+        console.log(users);
+        console.log(locations);
+      };
+
 
 
 
@@ -311,7 +353,6 @@
 
         // Draw User Chart
         usersChart(timePeriod.datesFriendly.reverse(), timePeriodData.reverse());
-        console.log(timePeriod.datesFriendly.reverse(), timePeriodData.reverse());
 
       } // Create Chart Arrays
 
