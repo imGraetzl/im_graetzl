@@ -57,6 +57,10 @@
           datatable_graetzls();
           createDateChartValues('users', 30, 'days');
 
+          //console.log(users);
+          //console.log(locations);
+          //console.log(graetzls);
+
         })//.catch( function() {alert('Error Loading Data ...'); } )
 
       });
@@ -86,7 +90,7 @@
           for (let key in graetzlinfos) {
             //console.log(graetzlinfos[key]);
             locations[i].graetzl_name = graetzlinfos[key].name;
-            locations[i].location_path = graetzlinfos[key].graetzl_path;
+            locations[i].location_path = graetzlinfos[key].graetzl_path_app;
           }
         }
 
@@ -96,11 +100,9 @@
           for (let key in graetzlinfos) {
             //console.log(graetzlinfos[key]);
             users[i].graetzl_name = graetzlinfos[key].name;
-            users[i].graetzl_path = graetzlinfos[key].graetzl_path;
+            users[i].graetzl_path_app = graetzlinfos[key].graetzl_path_app;
           }
         }
-        //console.log(users);
-        //console.log(locations);
       };
 
       // Helper - Lookup in other Array over ID
@@ -134,14 +136,14 @@
                   id: response[i].id,
                   graetzl_id: response[i].graetzl_id,
                   graetzl_name: '',
-                  graetzl_path: '',
+                  graetzl_path_app: '',
                   created_at: new Date(response[i].created_at),
                   username: response[i].username,
                   first_name: response[i].first_name,
                   last_name: response[i].last_name,
                   email: response[i].email,
                   user_path_admin: host_admin + 'users/' + response[i].slug,
-                  user_path: host + response[i].slug
+                  user_path_app: host + response[i].slug
                 })
               }
               resolve('users');
@@ -161,7 +163,7 @@
                 graetzls.push({
                   id: response[i].id,
                   name: response[i].name,
-                  graetzl_path: host + response[i].slug,
+                  graetzl_path_app: host + response[i].slug,
                   graetzl_path_admin: host_admin + 'graetzls/' + response[i].slug,
                   users_count: response[i].users_count
                 });
@@ -235,7 +237,7 @@
             { data: 'graetzl_name',
               render: function( data, type, row, meta ){
                 if ( type === 'display' ) {
-                data = '<a href="' + row['graetzl_path'] + '">' + data + '</a>';
+                data = '<a href="' + row['graetzl_path_app'] + '">' + data + '</a>';
               }
                 return data;
               }
