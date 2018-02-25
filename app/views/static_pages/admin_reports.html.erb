@@ -8,15 +8,17 @@
 <style>
 
 </style>
-<section class="reports">
 
-  <% if user_signed_in? && current_user.admin? %>
-  <!-- ADMIN REPORT INTERFACE -->
+
+<% if user_signed_in? && current_user.admin? %>
+  <!-- BEGIN ADMIN REPORT JS -->
     <script>
     (function () {
-    // --------------- BEGIN PROJECT JS WORKING AREA ---------------
+    // ----------------------- BEGIN PROJECT JS WORKING AREA ----------------------- //
 
-      // Init Vars
+      /*********************************
+          Init Vars
+      *********************************/
       moment.locale('de-at');
 
       // TimeTable Object for Charts - Including Unit & Date Range
@@ -35,9 +37,13 @@
       var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
 
 
-
-
+      /*********************************
+          Init on Document Ready
+      *********************************/
       $( document ).ready(function() {
+
+        // Init Chartareas
+        var topchart = $("#topchart");
 
         // Load Data from Server - if all Data loaded, do something ...
         var p1 = requestUsers();
@@ -46,20 +52,58 @@
 
         Promise.all([p1, p2, p3]).then(function(res) {
 
-          extend_arrays_each_other();
+          completeArrays();
           datatable_users();
           datatable_graetzls();
-          charts();
+          createDateChartValues('users', 30, 'days');
 
         })//.catch( function() {alert('Error Loading Data ...'); } )
 
       });
 
 
+      /*********************************
+          HELPER Functions
+      *********************************/
 
-      // -------------- Helper Functions --------------
+      // Helper - Check if Date is in Date-Range
+      var checkDateRange = function ( checkDate, startDate, unit ) {
+        var tmpDate = new Date();
+        tmpDate.setDate(startDate.getDate() + 1);
+        tmpDate.setHours(0,0,0,0);
+        var endDate = new Date(tmpDate);
+        if (checkDate >= startDate && checkDate <= endDate ){
+          return true;
+        }
+      }
 
-      // Get Infos from other Array over ID
+      // Helper - Complete Arrays with missing Infos from other Arrays
+      var completeArrays = function() {
+
+        // Extend Location Array with Grätzl-Infos
+        for ( i=0; i<locations.length; i++ ) {
+          var graetzlinfos = fetchFromID(locations[i].graetzl_id, 'graetzls');
+          for (let key in graetzlinfos) {
+            //console.log(graetzlinfos[key]);
+            locations[i].graetzl_name = graetzlinfos[key].name;
+            locations[i].location_path = graetzlinfos[key].graetzl_path;
+          }
+        }
+
+        // Extend User Array with Grätzl-Indos
+        for ( i=0; i<users.length; i++ ) {
+          graetzlinfos = fetchFromID(users[i].graetzl_id, 'graetzls');
+          for (let key in graetzlinfos) {
+            //console.log(graetzlinfos[key]);
+            users[i].graetzl_name = graetzlinfos[key].name;
+            users[i].graetzl_path = graetzlinfos[key].graetzl_path;
+          }
+        }
+        //console.log(users);
+        //console.log(locations);
+      };
+
+      // Helper - Lookup in other Array over ID
       var fetchFromID = function(id, type){
         if ( type == 'graetzls' ) {
           var result = graetzls.filter(function(e){ return e.id == id; });
@@ -70,31 +114,14 @@
           return result;
         }
       }
+      // Helper Functions //
 
 
-    // ------------- Data Table - User Detail Row --------
-    /* Formatting function for row details - modify as you need */
-      function userDetails ( data ) {
-
-        var $content = $('<table id="user' + data.id + '">');
-        $($content).append('<tr><td>' + data.first_name + ' ' + data.last_name + '</td></tr>');
-
-        // Get User Locations
-        var locationinfos = fetchFromID(data.id, 'locations');
-        for ( i=0; i<locationinfos.length; i++) {
-          $($content).append('<tr><td>Location: <a href="'+locationinfos[i].location_path_admin+'">' +locationinfos[i].name+ '</td></tr>');
-        }
-
-        return $content;
-      }
-
-
-      // -------------- Ajax JSON Requests --------------
+      /*********************************
+          AJAX JSON Requests
+      *********************************/
 
       // Get Users and Set Clean User Array
-
-
-
       var requestUsers = function(){
         return new Promise( function(resolve, reject) {
           $.ajax( {
@@ -153,7 +180,6 @@
             method:'GET',
             success:function(response) {
               for( i=0; i < response.length; i++ ) {
-                //console.log(response[i]);
                 locations.push({
                   id: response[i].id,
                   name: response[i].name,
@@ -172,10 +198,15 @@
           });
         });
       } // Get Locations
+      // END Ajax JSON Requests //
 
-      // -------------- Create Datatables (jQuery Plugin) --------------
 
-      // Create DATATABLE Users
+      /*********************************
+          Create DATATABLES
+          (jQuery Plugin)
+      *********************************/
+
+      // Create DATATABLE - USERS //
       var datatable_users = function() {
         $('#datatable_users').DataTable( {
           data: users,
@@ -222,8 +253,20 @@
           ]
         });
       }
+      // Data Table - User Detail Row
+      function userDetails ( data ) {
+        var $content = $('<table id="user' + data.id + '">');
+        $($content).append('<tr><td>' + data.first_name + ' ' + data.last_name + '</td></tr>');
 
-      // Create DATATABLE Grätzl
+        // Get User Locations
+        var locationinfos = fetchFromID(data.id, 'locations');
+        for ( i=0; i<locationinfos.length; i++) {
+          $($content).append('<tr><td>Location: <a href="'+locationinfos[i].location_path_admin+'">' +locationinfos[i].name+ '</td></tr>');
+        }
+        return $content;
+      }
+
+      // Create DATATABLE - GRÄTZLS //
       var datatable_graetzls = function() {
         $('#datatable_graetzls').DataTable( {
           data: graetzls,
@@ -238,79 +281,23 @@
           ]
         });
       }
-
-      // -------------- Event Listener --------------
-      $(document).ready(function() {
-
-        // Add event listener for opening and closing detail rows
-        $('#datatable_users').on('click', 'td.details-control', function () {
-          var table = $('#datatable_users').DataTable();
-          var tr = $(this).closest('tr');
-          var row = table.row( tr );
-
-          if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-          }
-          else {
-            // Open this row
-            row.child( userDetails(row.data()) ).show();
-            tr.addClass('shown');
-          }
-        }); // Expand User Row
-
-        // Charts
-        var chart = $("#chart");
+      // END Create Datatables (jQuery Plugin) //
 
 
-      });
-
-
-      // Test with Charts ....
-      var charts = function(){
-        createDateChartValues('users', 30, 'days');
-      };
-
-
-      var extend_arrays_each_other = function() {
-
-        // Extend Location Array with Grätzl-Infos
-        for( i=0; i<locations.length; i++ ) {
-          var graetzlinfos = fetchFromID(locations[i].graetzl_id, 'graetzls');
-          for (let key in graetzlinfos) {
-            //console.log(graetzlinfos[key]);
-            locations[i].graetzl_name = graetzlinfos[key].name;
-            locations[i].location_path = graetzlinfos[key].graetzl_path;
-          }
-        }
-
-        // Extend User Array with Grätzl-Indos
-        for( i=0; i<users.length; i++ ) {
-          graetzlinfos = fetchFromID(users[i].graetzl_id, 'graetzls');
-          for (let key in graetzlinfos) {
-            //console.log(graetzlinfos[key]);
-            users[i].graetzl_name = graetzlinfos[key].name;
-            users[i].graetzl_path = graetzlinfos[key].graetzl_path;
-          }
-        }
-
-        console.log(users);
-        console.log(locations);
-      };
-
-
-
+      /*********************************
+          Create CHART Arrays
+          for Visualization
+      *********************************/
 
       // Create Chart Arrays
       var createDateChartValues = function( type, count, unit ) {
 
-        // Set Length of Data Array to Count
+        // Set Length of Time Period Array to Count
         timePeriodData.length = count;
         timePeriodData.fill(0); // Prefill all Values with 0
 
-        // Fill Time Period Array with Dates for Chart-View
-        var generateTimePeriod = function( count, unit ) {
+        // Create Timeline Array with Dates
+        var generateTimeline = function( count, unit ) {
           timePeriod.unit = unit;
           var currentDate = new Date(); // Today
           if (unit == 'days') {
@@ -322,34 +309,26 @@
               var priorDate = new Date(tmpDate);
               var priorDateFriendly = moment(priorDate).format('ll');
 
-              //console.log(priorDateFriendly);
               timePeriod.dates.push(priorDate);
               timePeriod.datesFriendly.push(priorDateFriendly);
             }
           }
         } // Time Period Array
-        generateTimePeriod(count, unit); // Set Time Period
+        generateTimeline(count, unit); // Set Time Period
 
-
-        // Loop Check all Users
-        for ( i=0; i<users.length; i++) {
+        // Create Users Array within Timeperiod Dates (Lookup)
+        for ( i=0; i<users.length; i++ ) {
           var checkDate = new Date(users[i].created_at);
 
           // Loop Check every single User for all Dates in Range
           for ( d=0; d<timePeriod.dates.length; d++ ) {
-
             var check = checkDateRange( checkDate, timePeriod.dates[d], unit );
             if (check == true) {
-
-              //console.log('user gefunden: ' + users[i].id + ' date: ' + timePeriod.dates[d] + ' pos: ' + d);
-              // Push Sum of found Data Goals to Data Array on right Index-Postion
               timePeriodData[d] +=1;
               break;
-
             }
           } // Loop Check every single User for all Dates
         } // Loop Check all Users
-
 
         // Draw User Chart
         usersChart(timePeriod.datesFriendly.reverse(), timePeriodData.reverse());
@@ -357,21 +336,12 @@
       } // Create Chart Arrays
 
 
-      // Helper Function - Check if Date is in Date-Range
-      var checkDateRange = function( checkDate, startDate, unit ) {
-        var tmpDate = new Date();
-        tmpDate.setDate(startDate.getDate() + 1);
-        tmpDate.setHours(0,0,0,0);
-        var endDate = new Date(tmpDate);
-        if (checkDate >= startDate && checkDate <= endDate ){
-          return true;
-        }
-      }
-
-
+      /*********************************
+          Draw CHARTs
+      *********************************/
 
       var usersChart = function(labeldata, chartdata) {
-        new Chart(chart, {
+        new Chart(topchart, {
           type: 'line',
           data: {
             labels: labeldata,
@@ -383,16 +353,47 @@
         });
       }
 
+      /*********************************
+          Event Listeners
+      *********************************/
+      $(document).ready(function() {
+
+        // Add event listener for opening and closing detail rows
+        $('#datatable_users').on('click', 'td.details-control', function () {
+          var table = $('#datatable_users').DataTable();
+          var tr = $(this).closest('tr');
+          var row = table.row( tr );
+
+          if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+          }
+          else {
+            row.child( userDetails(row.data()) ).show();
+            tr.addClass('shown');
+          }
+        }); // Expand User Row
+
+      });
+      // END Event Listeners //
 
 
-    // --------------- END WORK JS WORKING AREA ---------------
+    // ----------------------- END PROJECT JS WORKING AREA ----------------------- //
     })();
     </script>
+<% end %>
+<!-- END ADMIN REPORT JS -->
+
+<section class="reports">
+  <% if user_signed_in? && current_user.admin? %>
+  <!-- ADMIN REPORT INTERFACE -->
 
 
-    <canvas id="chart" width="900" height="200"></canvas>
+    <!-- Top Chart -->
+    <canvas id="topchart" width="900" height="200"></canvas>
 
 
+    <!-- Users Datatable -->
     <table id="datatable_users" class="stripe hover row-border" width="100%">
       <thead>
         <tr>
@@ -407,7 +408,7 @@
     </table>
 
 
-
+    <!-- Grätzls Datatable -->
     <table id="datatable_graetzls" class="stripe hover row-border" width="100%">
       <thead>
         <tr>
@@ -419,10 +420,11 @@
 
 
   <!-- // ADMIN REPORT INTERFACE -->
-
   <% else %>
   <!-- NO ADMIN RIGHTS -->
+
     Keine Admin Rechte ...
+
   <% end %>
 
 </section>
