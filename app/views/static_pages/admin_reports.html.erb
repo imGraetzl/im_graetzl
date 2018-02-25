@@ -38,6 +38,46 @@
 
 
       /*********************************
+          Page Navigation
+      *********************************/
+
+      var page_loader = function(page) {
+
+        $('#' + page + '').show();
+        $('#report_nav button').prop("disabled",false);
+
+        if ( page == 'page_dashboard' ) {
+
+        }
+        if ( page == 'page_users' ) {
+          datatable_users();
+        }
+        if ( page == 'page_graetzls' ) {
+          datatable_graetzls();
+        }
+      }
+
+      $(document).ready(function() {
+        // Hide Pages on Load
+        $('div.page').hide();
+        $('#report_nav button').prop("disabled",true);
+
+        // Switch Pages on Button Click
+        $('#report_nav button').on( 'click', function() {
+          var page = $(this).attr('data-nav');
+
+          $('div.page').hide();
+          $('#report_nav button.-rosa').removeClass('-rosa').addClass('-mint');
+          $(this).addClass('-rosa').removeClass('-mint');
+          $('#' + page + '').show();
+          page_loader(page);
+
+        })
+      });
+      // END Page Navigation //
+
+
+      /*********************************
           Init on Document Ready
       *********************************/
       $( document ).ready(function() {
@@ -53,9 +93,8 @@
         Promise.all([p1, p2, p3]).then(function(res) {
 
           completeArrays();
-          datatable_users();
-          datatable_graetzls();
           createDateChartValues('users', 30, 'days');
+          page_loader('page_dashboard');
 
           //console.log(users);
           //console.log(locations);
@@ -214,9 +253,11 @@
           data: users,
           "order": [[ 0, "desc" ]],
           "processing": true,
-          "scrollY": "400px",
-          "scrollCollapse": true,
-          "paging": false,
+          //"scrollY": "400px",
+          //"scrollCollapse": true,
+          "paging": true,
+          "destroy": true,
+          //"responsive": true,
           columns: [
             {
               "className": 'details-control',
@@ -274,9 +315,10 @@
           data: graetzls,
           "order": [[ 1, "desc" ]],
           "processing": true,
-          "scrollY": "400px",
-          "scrollCollapse": true,
+          //"scrollY": "400px",
+          //"scrollCollapse": true,
           "paging": false,
+          "destroy": true,
           columns: [
             { data: 'name'},
             { data: 'users_count' }
@@ -380,6 +422,7 @@
       // END Event Listeners //
 
 
+
     // ----------------------- END PROJECT JS WORKING AREA ----------------------- //
     })();
     </script>
@@ -391,12 +434,21 @@
   <!-- ADMIN REPORT INTERFACE -->
 
 
-    <!-- Top Chart -->
-    <canvas id="topchart" width="900" height="200"></canvas>
+  <!-- Top Chart -->
+  <canvas id="topchart" width="900" height="200"></canvas>
 
+    <div id="report_nav">
+      <button class="btn-primary -rosa" data-nav="page_dashboard">Dashboard</button>
+      <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
+      <button class="btn-primary -mint" data-nav="page_users">User</button>
+      <button class="btn-primary -mint" data-nav="page_locatins">Locations</button>
+      <button class="btn-primary -mint" data-nav="page_rooms">Raumteiler</button>
+      <button class="btn-primary -mint" data-nav="page_meetings">Treffen</button>
+    </div>
 
+  <div id="page_users" class="page">
     <!-- Users Datatable -->
-    <table id="datatable_users" class="stripe hover row-border" width="100%">
+    <table id="datatable_users" class="stripe hover row-border" width="100%" data-page-length='100'>
       <thead>
         <tr>
           <th></th>
@@ -408,10 +460,11 @@
         </tr>
       </thead>
     </table>
+  </div>
 
-
+  <div id="page_graetzls" class="page">
     <!-- Grätzls Datatable -->
-    <table id="datatable_graetzls" class="stripe hover row-border" width="100%">
+    <table id="datatable_graetzls" class="stripe hover row-border" width="100%" data-page-length='200'>
       <thead>
         <tr>
           <th>Grätzl</th>
@@ -419,7 +472,7 @@
         </tr>
       </thead>
     </table>
-
+  </div>
 
   <!-- // ADMIN REPORT INTERFACE -->
   <% else %>
