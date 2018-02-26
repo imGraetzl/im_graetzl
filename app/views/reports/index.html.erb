@@ -96,9 +96,9 @@
           createDateChartValues('users', 30, 'days');
           page_loader('page_dashboard');
 
-          //console.log(users);
-          //console.log(locations);
-          //console.log(graetzls);
+          console.log(users);
+          console.log(locations);
+          console.log(graetzls);
 
         })//.catch( function() {alert('Error Loading Data ...'); } )
 
@@ -166,7 +166,7 @@
       var requestUsers = function(){
         return new Promise( function(resolve, reject) {
           $.ajax( {
-            url:'/admin/users.json',
+            url:'/test/users.json',
             method:'GET',
             success:function(response) {
 
@@ -439,11 +439,11 @@
 
     <div id="report_nav">
       <button class="btn-primary -rosa" data-nav="page_dashboard">Dashboard</button>
-      <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
       <button class="btn-primary -mint" data-nav="page_users">User</button>
       <button class="btn-primary -mint" data-nav="page_locatins">Locations</button>
       <button class="btn-primary -mint" data-nav="page_rooms">Raumteiler</button>
       <button class="btn-primary -mint" data-nav="page_meetings">Treffen</button>
+      <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
     </div>
 
   <div id="page_users" class="page">

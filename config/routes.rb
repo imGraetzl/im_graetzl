@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
+  # Try to send JSON to View - Michael
+  resources :reports do
+    collection do
+      get "mailchimp" # generate  get "/products/most_popular"
+    end
+  end
+
   ActiveAdmin.routes(self)
 
   devise_scope :user do
