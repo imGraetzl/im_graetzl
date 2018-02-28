@@ -6,12 +6,34 @@ class ReportsController < ApplicationController
 
   def mailchimp
 
+    @gibbon = Gibbon::Request.new
     list_id = Rails.application.secrets.mailchimp_list_id
-    gibbon = Gibbon::Request.new
 
-    members = gibbon.lists(list_id).members.retrieve
+    count = params[:count]
 
-    render json: members
+    if (params[:email])
+
+      user_email = params[:email]
+      member_id = Digest::MD5.hexdigest(user_email)
+      user_activity = params[:activity]
+      if (user_activity == 'activity')
+        useractivity = @gibbon.lists(list_id).members(member_id).activity.retrieve
+        render json: useractivity
+      else
+        user = @gibbon.lists(list_id).members(member_id).retrieve
+        render json: user
+      end
+
+    elsif (params[:type] == 'automations')
+
+      automations = @gibbon.automations.retrieve
+      render json: automations
+
+    else
+      members = @gibbon.lists(list_id).members.retrieve(params: {"count": count})
+      render json: members
+    end
+
   end
 
 end

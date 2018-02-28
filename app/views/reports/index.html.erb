@@ -7,6 +7,10 @@
 
 <style>
 
+svg.hover {color:#EC776A;}
+div#top {height:200px;}
+img.loading-spinner {padding-top:30px;}
+
 </style>
 
 
@@ -36,6 +40,7 @@
     var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
 
 
+
     /*********************************
         Page Navigation
     *********************************/
@@ -44,6 +49,8 @@
 
       $('#' + page + '').show();
       $('#report_nav button').prop("disabled",false);
+      //$('#report_nav button[data-nav=page_dashboard]').html('Dashboard');
+      stopSpinner();
 
       if ( page == 'page_dashboard' ) {
 
@@ -54,12 +61,17 @@
       if ( page == 'page_graetzls' ) {
         datatable_graetzls();
       }
+      if ( page == 'page_mailings' ) {
+        create_page('mailings');
+      }
     }
 
     $(document).ready(function() {
       // Hide Pages on Load
       $('div.page').hide();
       $('#report_nav button').prop("disabled",true);
+      //$('#report_nav button[data-nav=page_dashboard]').html('Loading..');
+      showSpinner();
 
       // Switch Pages on Button Click
       $('#report_nav button').on( 'click', function() {
@@ -88,6 +100,7 @@
       var p1 = requestUsers();
       var p2 = requestGraetzls();
       var p3 = requestLocations();
+      //var p4 = requestMailchimp();
 
       Promise.all([p1, p2, p3]).then(function(res) {
 
@@ -155,6 +168,19 @@
       }
     }
     // Helper Functions //
+
+    // Show Loading Spinner //
+    function showSpinner() {
+      var spinnerSrc = "<%= asset_path('svg/loading.svg') %>";
+      var spinner = $('<img class="loading-spinner" src="' + spinnerSrc + '">');
+      $('#topchart').hide();
+      $('#top').append(spinner);
+    }
+
+    function stopSpinner() {
+      $('#topchart').show();
+      $('#top').find(".loading-spinner").remove();
+    }
 
 
     /*********************************
@@ -238,6 +264,42 @@
         });
       });
     } // Get Locations
+
+    // Get Mailchimp User
+    var requestMailchimpUser = function(email, activity){
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          url:'/reports/mailchimp.json',
+          data: {
+            'count': 100,
+            'email' : email,
+            'activity' : activity
+          },
+          method:'GET',
+          success:function(response) {
+            resolve(response);
+          }
+        });
+      });
+    } // Get Mailchimp User
+    // Get Mailchimp Automations
+    var requestMailchimpAutomations = function(type, workflow_id){
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          url:'/reports/mailchimp.json',
+          data: {
+            'count': 100,
+            'type' : type,
+            'workflow' : workflow_id
+          },
+          method:'GET',
+          success:function(response) {
+            resolve(response);
+          }
+        });
+      });
+    } // Get Mailchimp Automations
+
     // END Ajax JSON Requests //
 
 
@@ -250,7 +312,7 @@
     var datatable_users = function() {
       $('#datatable_users').DataTable( {
         data: users,
-        "order": [[ 0, "desc" ]],
+        "order": [[ 5, "desc" ]],
         "processing": true,
         //"scrollY": "400px",
         //"scrollCollapse": true,
@@ -262,7 +324,7 @@
             "className": 'details-control',
             "orderable": false,
             "data": null,
-            "defaultContent": 'details'
+            "defaultContent": "<%= icon_tag "layout-text" %>"
           },
           { data: 'id' },
           { data: 'username',
@@ -305,6 +367,15 @@
       for ( i=0; i<locationinfos.length; i++) {
         $($content).append('<tr><td>Location: <a href="'+locationinfos[i].location_path_admin+'">' +locationinfos[i].name+ '</td></tr>');
       }
+
+      // Get User Mailchimp Activities
+      var mailchimpActivity = requestMailchimpUser(data.email, 'activity');
+      Promise.resolve(mailchimpActivity).then(function(res) {
+
+          console.log(res.body.activity);
+
+      })
+
       return $content;
     }
 
@@ -325,6 +396,25 @@
       });
     }
     // END Create Datatables (jQuery Plugin) //
+
+
+
+    /*********************************
+        Create Mailing Content
+        for Tab Mailings
+    *********************************/
+
+    var create_page = function(page) {
+      if (page == 'mailings') {
+        var mailchimpAutomations = requestMailchimpAutomations('automations');
+        Promise.resolve(mailchimpAutomations).then(function(res) {
+            console.log(res);
+            for( i=0; i<res.body.automations.length; i++ ) {
+              console.log(res.body.automations[i]);
+            }
+        });
+      }
+    }
 
 
     /*********************************
@@ -410,15 +500,20 @@
         if ( row.child.isShown() ) {
           row.child.hide();
           tr.removeClass('shown');
+          $(this).html("<%= icon_tag 'layout-text' %>");
         }
         else {
           row.child( userDetails(row.data()) ).show();
           tr.addClass('shown');
+          $(this).html("<%= icon_tag 'cross' %>");
         }
       }); // Expand User Row
 
     });
     // END Event Listeners //
+
+
+
 
 
 
@@ -429,7 +524,9 @@
 <section class="reports">
 
   <!-- Top Chart -->
-  <canvas id="topchart" width="900" height="200"></canvas>
+  <div id="top">
+    <canvas id="topchart" width="900" height="200"></canvas>
+  </div>
 
     <div id="report_nav">
       <button class="btn-primary -rosa" data-nav="page_dashboard">Dashboard</button>
@@ -438,8 +535,10 @@
       <button class="btn-primary -mint" data-nav="page_rooms">Raumteiler</button>
       <button class="btn-primary -mint" data-nav="page_meetings">Treffen</button>
       <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
+      <button class="btn-primary -mint" data-nav="page_mailings">Mailings</button>
     </div>
 
+<!-- PAGE USERS -->
   <div id="page_users" class="page">
     <!-- Users Datatable -->
     <table id="datatable_users" class="stripe hover row-border" width="100%" data-page-length='100'>
@@ -455,7 +554,33 @@
       </thead>
     </table>
   </div>
+<!-- /PAGE USERS -->
 
+<!-- PAGE MAILINGS -->
+  <div id="page_locatins" class="page">
+
+    Locations
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
+<!-- PAGE MAILINGS -->
+  <div id="page_rooms" class="page">
+
+    Raumteiler
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
+<!-- PAGE MEETINGS -->
+  <div id="page_meetings" class="page">
+
+    Treffen
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
+<!-- PAGE GRÄTZLS -->
   <div id="page_graetzls" class="page">
     <!-- Grätzls Datatable -->
     <table id="datatable_graetzls" class="stripe hover row-border" width="100%" data-page-length='200'>
@@ -467,5 +592,15 @@
       </thead>
     </table>
   </div>
+<!-- /PAGE GRÄTZLS -->
+
+<!-- PAGE MAILINGS -->
+  <div id="page_mailings" class="page">
+
+    Mailings
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
 
 </section>
