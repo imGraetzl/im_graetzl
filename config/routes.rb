@@ -94,7 +94,6 @@ Rails.application.routes.draw do
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
   end
 
-  get 'admin/reports', to: 'static_pages#admin_reports'
   get 'lp/raumteiler-guide', to: 'static_pages#lp_raumteilerguide'
   get 'lp/raumteiler-guide-danke', to: 'static_pages#lp_raumteilerguide_success'
   get 'info', to: 'static_pages#help'
