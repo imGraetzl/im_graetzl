@@ -6,11 +6,8 @@ Rails.application.routes.draw do
   match "/500", :to => "errors#internal_server_error", :via => :all
 
   # Try to send JSON to View - Michael
-  resources :reports do
-    collection do
-      get "mailchimp" # generate  get "/products/most_popular"
-    end
-  end
+  get 'reports' => 'reports#index'
+  get 'reports/mailchimp'
 
   ActiveAdmin.routes(self)
 
