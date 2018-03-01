@@ -7,9 +7,11 @@
 
 <style>
 
-svg.hover {color:#EC776A;}
-div#top {height:200px;}
-img.loading-spinner {padding-top:30px;}
+  svg.hover {color:#EC776A;}
+  div#top {height:200px;}
+  div#report_nav {padding-top:20px; padding-bottom: 30px;}
+  img.loading-spinner {padding-top:30px;}
+  th {text-align: left;}
 
 </style>
 
@@ -26,6 +28,7 @@ img.loading-spinner {padding-top:30px;}
 
     // TimeTable Object for Charts - Including Unit & Date Range
     var timePeriod = {
+      count:'',
       unit:'',
       dates:[],
       datesFriendly:[]
@@ -36,6 +39,7 @@ img.loading-spinner {padding-top:30px;}
     var users = []; // Clean Users Array to work with
     var graetzls = []; // Clean Grätzl Array to work with
     var locations = []; // Clean Location Array to work with
+    var mc_automataions = []; // Mailchimp Automation Mailings
     var host = 'http://' + window.location.host + '/'; // Environment Path
     var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
 
@@ -49,7 +53,6 @@ img.loading-spinner {padding-top:30px;}
 
       $('#' + page + '').show();
       $('#report_nav button').prop("disabled",false);
-      //$('#report_nav button[data-nav=page_dashboard]').html('Dashboard');
       stopSpinner();
 
       if ( page == 'page_dashboard' ) {
@@ -57,12 +60,13 @@ img.loading-spinner {padding-top:30px;}
       }
       if ( page == 'page_users' ) {
         datatable_users();
+        usersChart();
       }
       if ( page == 'page_graetzls' ) {
         datatable_graetzls();
       }
       if ( page == 'page_mailings' ) {
-        create_page('mailings');
+        datatable_mailchimp('automations');
       }
     }
 
@@ -70,7 +74,6 @@ img.loading-spinner {padding-top:30px;}
       // Hide Pages on Load
       $('div.page').hide();
       $('#report_nav button').prop("disabled",true);
-      //$('#report_nav button[data-nav=page_dashboard]').html('Loading..');
       showSpinner();
 
       // Switch Pages on Button Click
@@ -95,6 +98,7 @@ img.loading-spinner {padding-top:30px;}
 
       // Init Chartareas
       var topchart = $("#topchart");
+      setTimeUnit(30, 'days');
 
       // Load Data from Server - if all Data loaded, do something ...
       var p1 = requestUsers();
@@ -105,12 +109,11 @@ img.loading-spinner {padding-top:30px;}
       Promise.all([p1, p2, p3]).then(function(res) {
 
         completeArrays();
-        createDateChartValues('users', 30, 'days');
         page_loader('page_dashboard');
 
-        console.log(users);
-        console.log(locations);
-        console.log(graetzls);
+        //console.log(users);
+        //console.log(locations);
+        //console.log(graetzls);
 
       })//.catch( function() {alert('Error Loading Data ...'); } )
 
@@ -120,6 +123,16 @@ img.loading-spinner {padding-top:30px;}
     /*********************************
         HELPER Functions
     *********************************/
+
+    // Math Round for Percentage
+    function round(wert, dez) {
+      wert = parseFloat(wert);
+      if (!wert) return 0;
+      dez = parseInt(dez);
+      if (!dez) dez=0;
+      var umrechnungsfaktor = Math.pow(10,dez);
+      return Math.round(wert * umrechnungsfaktor) / umrechnungsfaktor;
+    }
 
     // Helper - Check if Date is in Date-Range
     var checkDateRange = function ( checkDate, startDate, unit ) {
@@ -282,6 +295,8 @@ img.loading-spinner {padding-top:30px;}
         });
       });
     } // Get Mailchimp User
+
+
     // Get Mailchimp Automations
     var requestMailchimpAutomations = function(type, workflow_id){
       return new Promise( function(resolve, reject) {
@@ -314,8 +329,6 @@ img.loading-spinner {padding-top:30px;}
         data: users,
         "order": [[ 5, "desc" ]],
         "processing": true,
-        //"scrollY": "400px",
-        //"scrollCollapse": true,
         "paging": true,
         "destroy": true,
         //"responsive": true,
@@ -379,6 +392,92 @@ img.loading-spinner {padding-top:30px;}
       return $content;
     }
 
+
+    // Create DATATABLE - Mailchimp Automations //
+    var datatable_mailchimp = function(page) {
+
+      // Notlösung - Datatable clear().draw(); not working.
+      // If Table exists, dotn load again.
+      if ($.fn.DataTable.isDataTable("#datatable_mailings")) {
+        return
+      }
+
+      if (page == 'automations') {
+        var mailingChartData = {
+          labels:[],
+          data:{
+            emails_sent: [],
+            unique_opens: [],
+            unique_clicks: []
+          }
+        };
+        var mailchimpAutomations = requestMailchimpAutomations('automations');
+        Promise.resolve(mailchimpAutomations).then(function(res) {
+
+          response = res.body.automations;
+          for( i=0; i<res.body.automations.length; i++ ) {
+
+            // Data for Datatable
+            mc_automataions.push({
+              id: response[i].id,
+              titel: response[i].settings.title,
+              emails_sent: response[i].emails_sent,
+              unique_opens: response[i].report_summary.unique_opens,
+              unique_clicks: response[i].report_summary.subscriber_clicks,
+              open_rate: round((response[i].report_summary.open_rate * 100), 1),
+              click_rate: round((response[i].report_summary.click_rate * 100), 1)
+            })
+
+            // Data for Chart
+            mailingChartData.labels.push(response[i].settings.title)
+            mailingChartData.data.emails_sent.push(response[i].emails_sent)
+            mailingChartData.data.unique_opens.push(response[i].report_summary.unique_opens)
+            mailingChartData.data.unique_clicks.push(response[i].report_summary.subscriber_clicks)
+          }
+
+          // Draw Chart
+          mailingChart(
+            mailingChartData.labels,
+            mailingChartData.data.emails_sent,
+            mailingChartData.data.unique_opens,
+            mailingChartData.data.unique_clicks
+          );
+
+
+          $('#datatable_mailings').DataTable( {
+            data: mc_automataions,
+            "order": [[ 1, "desc" ]],
+            "processing": true,
+            "searching": false,
+            "paging": false,
+            "destroy": true,
+            columns: [
+              { data: 'titel'},
+              { data: 'emails_sent' },
+              { data: 'unique_opens',
+                render: function( data, type, row, meta ){
+                  if ( type === 'display' ) {
+                  data = data + ' <small>(' + row['open_rate'] + '%)</small>';
+                }
+                  return data;
+                }
+              },
+              { data: 'unique_clicks',
+                render: function( data, type, row, meta ){
+                  if ( type === 'display' ) {
+                  data = data + ' <small>(' + row['click_rate'] + '%)</small>';
+                }
+                  return data;
+                }
+              }
+            ]
+          });
+        });
+      }
+    }
+
+
+
     // Create DATATABLE - GRÄTZLS //
     var datatable_graetzls = function() {
       $('#datatable_graetzls').DataTable( {
@@ -400,38 +499,16 @@ img.loading-spinner {padding-top:30px;}
 
 
     /*********************************
-        Create Mailing Content
-        for Tab Mailings
-    *********************************/
-
-    var create_page = function(page) {
-      if (page == 'mailings') {
-        var mailchimpAutomations = requestMailchimpAutomations('automations');
-        Promise.resolve(mailchimpAutomations).then(function(res) {
-            console.log(res);
-            for( i=0; i<res.body.automations.length; i++ ) {
-              console.log(res.body.automations[i]);
-            }
-        });
-      }
-    }
-
-
-    /*********************************
-        Create CHART Arrays
+        Create CHART DATE RANGE
         for Visualization
     *********************************/
 
-    // Create Chart Arrays
-    var createDateChartValues = function( type, count, unit ) {
-
-      // Set Length of Time Period Array to Count
-      timePeriodData.length = count;
-      timePeriodData.fill(0); // Prefill all Values with 0
-
       // Create Timeline Array with Dates
-      var generateTimeline = function( count, unit ) {
+      var setTimeUnit = function( count, unit ) {
+        timePeriod.count = count;
         timePeriod.unit = unit;
+        timePeriod.dates = [];
+        timePeriod.datesFriendly = [];
         var currentDate = new Date(); // Today
         if (unit == 'days') {
           for ( i=0; i<count; i++ ) {
@@ -446,16 +523,30 @@ img.loading-spinner {padding-top:30px;}
             timePeriod.datesFriendly.push(priorDateFriendly);
           }
         }
+        timePeriod.dates.reverse();
+        timePeriod.datesFriendly.reverse();
       } // Time Period Array
-      generateTimeline(count, unit); // Set Time Period
+      
+
+
+    /*********************************
+        Draw CHARTs
+    *********************************/
+
+
+    var usersChart = function() {
 
       // Create Users Array within Timeperiod Dates (Lookup)
+      // Set Length of Time Period Array to Count
+      timePeriodData.length = timePeriod.count;
+      timePeriodData.fill(0); // Prefill all Values with 0
+
       for ( i=0; i<users.length; i++ ) {
         var checkDate = new Date(users[i].created_at);
 
         // Loop Check every single User for all Dates in Range
-        for ( d=0; d<timePeriod.dates.length; d++ ) {
-          var check = checkDateRange( checkDate, timePeriod.dates[d], unit );
+        for ( d=timePeriodData.length-1; d>0; d-- ) {
+          var check = checkDateRange( checkDate, timePeriod.dates[d], timePeriod.unit );
           if (check == true) {
             timePeriodData[d] +=1;
             break;
@@ -463,17 +554,9 @@ img.loading-spinner {padding-top:30px;}
         } // Loop Check every single User for all Dates
       } // Loop Check all Users
 
-      // Draw User Chart
-      usersChart(timePeriod.datesFriendly.reverse(), timePeriodData.reverse());
+      var labeldata = timePeriod.datesFriendly;
+      var chartdata = timePeriodData;
 
-    } // Create Chart Arrays
-
-
-    /*********************************
-        Draw CHARTs
-    *********************************/
-
-    var usersChart = function(labeldata, chartdata) {
       new Chart(topchart, {
         type: 'line',
         data: {
@@ -484,7 +567,64 @@ img.loading-spinner {padding-top:30px;}
           }]
         }
       });
-    }
+    } // USers Chart
+
+
+    // Mailing Chart
+    var mailingChart = function(labeldata, sent, opens, clicks) {
+
+      for ( i=0; i<labeldata.length; i++ ) {
+        // create loop for chart balken pro mail ...
+      }
+
+    var mail1 = {
+      label: labeldata[0],
+      data: [
+        sent[0],
+        opens[0],
+        clicks[0]
+      ],
+      backgroundColor: 'rgba(0, 99, 132, 0.6)',
+      yAxisID: "mailing"
+    };
+
+    var mail2 = {
+      label: labeldata[1],
+      data: [
+        sent[1],
+        opens[1],
+        clicks[1]
+      ],
+      backgroundColor: 'rgba(90, 132, 0, 0.6)',
+      yAxisID: "mailing"
+    };
+
+    var mails = {
+      labels: ["Sent", "Opens", "Clicks"],
+      datasets: [mail1, mail2]
+    };
+
+    var chartOptions = {
+      scales: {
+        xAxes: [{}],
+        yAxes: [{
+          id: "mailing"
+        }, {
+          id: ""
+        }]
+      }
+    };
+
+    var barChart = new Chart(topchart, {
+      type: 'bar',
+      data: mails,
+      options: chartOptions
+    });
+
+
+  }
+
+
 
     /*********************************
         Event Listeners
@@ -597,7 +737,17 @@ img.loading-spinner {padding-top:30px;}
 <!-- PAGE MAILINGS -->
   <div id="page_mailings" class="page">
 
-    Mailings
+    <!-- Users Datatable -->
+    <table id="datatable_mailings" class="stripe hover row-border" width="100%" data-page-length='100'>
+      <thead>
+        <tr>
+          <th>Mailings</th>
+          <th>Sent</th>
+          <th>Opens</th>
+          <th>Clicks</th>
+        </tr>
+      </thead>
+    </table>
 
   </div>
 <!-- /PAGE MAILINGS -->
