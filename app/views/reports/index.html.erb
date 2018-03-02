@@ -103,6 +103,7 @@
     // END Page Navigation //
 
 
+
     /*********************************
         Init on Document Ready
     *********************************/
@@ -206,6 +207,7 @@
       $('#topchart').show();
       $('#top').find(".loading-spinner").remove();
     }
+
 
 
     /*********************************
@@ -356,7 +358,7 @@
           { data: 'username',
             render: function( data, type, row, meta ){
               if ( type === 'display' ) {
-              data = '<a href="' + row['user_path_admin'] + '">' + data + '</a>';
+              data = '<a class="user" data-id="userID_'+ row['id'] + '" href="'+row['user_path_admin']+'">' + data + '</a>';
             }
               return data;
             }
@@ -398,7 +400,9 @@
       var mailchimpActivity = requestMailchimpUser(data.email, 'activity');
       Promise.resolve(mailchimpActivity).then(function(res) {
 
+        if (res != 404) {
           console.log(res.body.activity);
+        }
 
       })
       return $content;
@@ -641,11 +645,37 @@
   }
 
 
+  /*********************************
+      Create SINGLE USER View
+
+  *********************************/
+
+  var singleUser = function(user_id) {
+    $('#page_users').hide();
+    $('#page_singleuser').show();
+
+    console.log(user_id);
+    console.log(users);
+  }
+
+
 
     /*********************************
         Event Listeners
     *********************************/
     $(document).ready(function() {
+
+
+      $('#users_back').on('click', function () {
+        $('#page_users').show();
+        $('#page_singleuser').hide();
+      });
+
+      // Open SingleUser Page
+      $('#datatable_users').on('click', 'a.user', function (event) {
+        event.preventDefault();
+        singleUser($(this).data('id'));
+      });
 
       // Add event listener for opening and closing detail rows
       $('#datatable_users').on('click', 'td.details-control', function () {
@@ -709,8 +739,24 @@
         </tr>
       </thead>
     </table>
+
   </div>
 <!-- /PAGE USERS -->
+
+<!-- PAGE SINGLE USERS -->
+  <div id="page_singleuser" class="page">
+
+
+    <button class="btn-primary -mint" id="users_back">Zurück</button>
+    <!-- Single User View-->
+    <div id="single_user">
+      <div id="user_name">Username</div>
+      <div id="user_email"></div>
+      <div id="user_mc_activity"></div>
+    </div>
+
+  </div>
+<!-- /PAGE SINGLE USERS -->
 
 <!-- PAGE MAILINGS -->
   <div id="page_locatins" class="page">

@@ -17,11 +17,19 @@ class ReportsController < ApplicationController
       member_id = Digest::MD5.hexdigest(user_email)
       user_activity = params[:activity]
       if (user_activity == 'activity')
-        useractivity = @gibbon.lists(list_id).members(member_id).activity.retrieve
-        render json: useractivity
+        begin
+          useractivity = @gibbon.lists(list_id).members(member_id).activity.retrieve
+          render json: useractivity
+        rescue Gibbon::MailChimpError => e
+          render json: e.status_code
+        end
       else
-        user = @gibbon.lists(list_id).members(member_id).retrieve
-        render json: user
+        begin
+          user = @gibbon.lists(list_id).members(member_id).retrieve
+          render json: user
+        rescue Gibbon::MailChimpError => e
+          render json: e.status_code
+        end
       end
 
     elsif (params[:type] == 'automations')
