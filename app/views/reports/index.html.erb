@@ -35,11 +35,22 @@
     };
     // Time Period Data for Charts
     var timePeriodData = [];
+    // Charts
+    var chartTopArea;
+
+    var mcChartData = {
+      labels:[],
+      data:{
+        emails_sent: [],
+        unique_opens: [],
+        unique_clicks: []
+      }
+    };
 
     var users = []; // Clean Users Array to work with
     var graetzls = []; // Clean Grätzl Array to work with
     var locations = []; // Clean Location Array to work with
-    var mc_automataions = []; // Mailchimp Automation Mailings
+    var mc_automations = []; // Mailchimp Automation Mailings
     var host = 'http://' + window.location.host + '/'; // Environment Path
     var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
 
@@ -66,7 +77,8 @@
         datatable_graetzls();
       }
       if ( page == 'page_mailings' ) {
-        datatable_mailchimp('automations');
+        showSpinner();
+        datatable_mailings('automations');
       }
     }
 
@@ -197,7 +209,8 @@
 
 
     /*********************************
-        AJAX JSON Requests
+        AJAX
+        JSON Requests
     *********************************/
 
     // Get Users and Set Clean User Array
@@ -298,7 +311,7 @@
 
 
     // Get Mailchimp Automations
-    var requestMailchimpAutomations = function(type, workflow_id){
+    var requestMCAutomations = function(type, workflow_id){
       return new Promise( function(resolve, reject) {
         $.ajax( {
           url:'/reports/mailchimp.json',
@@ -388,22 +401,18 @@
           console.log(res.body.activity);
 
       })
-
       return $content;
     }
 
 
     // Create DATATABLE - Mailchimp Automations //
-    var datatable_mailchimp = function(page) {
-
-      // Notlösung - Datatable clear().draw(); not working.
-      // If Table exists, dotn load again.
-      if ($.fn.DataTable.isDataTable("#datatable_mailings")) {
-        return
-      }
+    var datatable_mailings = function(page) {
 
       if (page == 'automations') {
-        var mailingChartData = {
+
+        // Clear Array Data
+        mc_automations = [];
+        mcChartData = {
           labels:[],
           data:{
             emails_sent: [],
@@ -411,14 +420,15 @@
             unique_clicks: []
           }
         };
-        var mailchimpAutomations = requestMailchimpAutomations('automations');
-        Promise.resolve(mailchimpAutomations).then(function(res) {
 
-          response = res.body.automations;
-          for( i=0; i<res.body.automations.length; i++ ) {
+        var mcAutomations = requestMCAutomations('automations');
+        Promise.resolve(mcAutomations).then(function(res) {
 
-            // Data for Datatable
-            mc_automataions.push({
+          var response = res.body.automations;
+          for( i=0; i<response.length; i++ ) {
+
+            // Data Array for Datatable
+            mc_automations.push({
               id: response[i].id,
               titel: response[i].settings.title,
               emails_sent: response[i].emails_sent,
@@ -428,54 +438,60 @@
               click_rate: round((response[i].report_summary.click_rate * 100), 1)
             })
 
-            // Data for Chart
-            mailingChartData.labels.push(response[i].settings.title)
-            mailingChartData.data.emails_sent.push(response[i].emails_sent)
-            mailingChartData.data.unique_opens.push(response[i].report_summary.unique_opens)
-            mailingChartData.data.unique_clicks.push(response[i].report_summary.subscriber_clicks)
+            // Data Array for Chart
+            mcChartData.labels.push(response[i].settings.title)
+            mcChartData.data.emails_sent.push(response[i].emails_sent)
+            mcChartData.data.unique_opens.push(response[i].report_summary.unique_opens)
+            mcChartData.data.unique_clicks.push(response[i].report_summary.subscriber_clicks)
           }
 
           // Draw Chart
           mailingChart(
-            mailingChartData.labels,
-            mailingChartData.data.emails_sent,
-            mailingChartData.data.unique_opens,
-            mailingChartData.data.unique_clicks
+            mcChartData.labels,
+            mcChartData.data.emails_sent,
+            mcChartData.data.unique_opens,
+            mcChartData.data.unique_clicks
           );
 
+          // Create Table
+          datatable_mc_automations();
+          stopSpinner();
 
-          $('#datatable_mailings').DataTable( {
-            data: mc_automataions,
-            "order": [[ 1, "desc" ]],
-            "processing": true,
-            "searching": false,
-            "paging": false,
-            "destroy": true,
-            columns: [
-              { data: 'titel'},
-              { data: 'emails_sent' },
-              { data: 'unique_opens',
-                render: function( data, type, row, meta ){
-                  if ( type === 'display' ) {
-                  data = data + ' <small>(' + row['open_rate'] + '%)</small>';
-                }
-                  return data;
-                }
-              },
-              { data: 'unique_clicks',
-                render: function( data, type, row, meta ){
-                  if ( type === 'display' ) {
-                  data = data + ' <small>(' + row['click_rate'] + '%)</small>';
-                }
-                  return data;
-                }
-              }
-            ]
-          });
         });
       }
     }
 
+    // Draw DATATABLE - Mailchim Automations //
+    var datatable_mc_automations = function() {
+      $('#datatable_mailings').DataTable( {
+        data: mc_automations,
+        "order": [[ 1, "desc" ]],
+        "processing": true,
+        "searching": false,
+        "paging": false,
+        "bDestroy": true,
+        columns: [
+          { data: 'titel'},
+          { data: 'emails_sent' },
+          { data: 'unique_opens',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = data + ' <small>(' + row['open_rate'] + '%)</small>';
+            }
+              return data;
+            }
+          },
+          { data: 'unique_clicks',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = data + ' <small>(' + row['click_rate'] + '%)</small>';
+            }
+              return data;
+            }
+          }
+        ]
+      });
+    }
 
 
     // Create DATATABLE - GRÄTZLS //
@@ -487,7 +503,7 @@
         //"scrollY": "400px",
         //"scrollCollapse": true,
         "paging": false,
-        "destroy": true,
+        "bDestroy": true,
         columns: [
           { data: 'name'},
           { data: 'users_count' }
@@ -526,7 +542,7 @@
         timePeriod.dates.reverse();
         timePeriod.datesFriendly.reverse();
       } // Time Period Array
-      
+
 
 
     /*********************************
@@ -557,7 +573,11 @@
       var labeldata = timePeriod.datesFriendly;
       var chartdata = timePeriodData;
 
-      new Chart(topchart, {
+      if (typeof chartTopArea !== 'undefined') {
+        chartTopArea.destroy();
+      }
+
+      chartTopArea = new Chart(topchart, {
         type: 'line',
         data: {
           labels: labeldata,
@@ -567,60 +587,56 @@
           }]
         }
       });
+
+
     } // USers Chart
 
 
     // Mailing Chart
     var mailingChart = function(labeldata, sent, opens, clicks) {
 
-      for ( i=0; i<labeldata.length; i++ ) {
-        // create loop for chart balken pro mail ...
+      if (typeof chartTopArea !== 'undefined') {
+        chartTopArea.destroy();
       }
 
-    var mail1 = {
-      label: labeldata[0],
-      data: [
-        sent[0],
-        opens[0],
-        clicks[0]
-      ],
-      backgroundColor: 'rgba(0, 99, 132, 0.6)',
-      yAxisID: "mailing"
-    };
-
-    var mail2 = {
-      label: labeldata[1],
-      data: [
-        sent[1],
-        opens[1],
-        clicks[1]
-      ],
-      backgroundColor: 'rgba(90, 132, 0, 0.6)',
-      yAxisID: "mailing"
-    };
-
-    var mails = {
-      labels: ["Sent", "Opens", "Clicks"],
-      datasets: [mail1, mail2]
-    };
-
-    var chartOptions = {
-      scales: {
-        xAxes: [{}],
-        yAxes: [{
-          id: "mailing"
-        }, {
-          id: ""
-        }]
-      }
-    };
-
-    var barChart = new Chart(topchart, {
-      type: 'bar',
-      data: mails,
-      options: chartOptions
-    });
-
+      var chartcolor0 = 'rgba(237, 129, 117, 0.5)';
+      var chartcolor1 = 'rgba(131, 199, 189, 0.5)';
+      chartTopArea = new Chart(topchart, {
+        type: 'bar',
+        data: {
+          labels: ["Sent", "Opens", "Clicks"],
+          datasets: [
+            {
+              label: labeldata[0],
+              data: [
+                sent[0],
+                opens[0],
+                clicks[0]
+              ],
+              backgroundColor: chartcolor0,
+              yAxisID: "mailing"
+            },
+            {
+              label: labeldata[1],
+              data: [
+                sent[1],
+                opens[1],
+                clicks[1]
+              ],
+              backgroundColor: chartcolor1,
+              yAxisID: "mailing"
+            }
+          ]
+        },
+        // Chart Options
+        options: {
+          scales: {
+            yAxes: [{
+              id: "mailing"
+            }]
+          }
+        }
+      });
 
   }
 
