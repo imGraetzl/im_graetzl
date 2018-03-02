@@ -107,5 +107,6 @@ de:
       title: 'Raumteiler: %{slogan}'
       description: '%{type}: %{desc}...'
   reports:
-    title: 'Admin Reports'
-    description: 'Reporting Tool'
+    index:
+      title: 'Admin Reports'
+      description: 'Reporting Tool'

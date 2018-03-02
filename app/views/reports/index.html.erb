@@ -126,7 +126,7 @@
 
         //console.log(users);
         //console.log(locations);
-        //console.log(graetzls);
+        console.log(graetzls);
 
       })//.catch( function() {alert('Error Loading Data ...'); } )
 
@@ -192,6 +192,10 @@
         var result = locations.filter(function(e){ return e.user_ids == id; });
         return result;
       }
+      if ( type == 'users' ) {
+        var result = users.filter(function(e){ return e.id == id; });
+        return result;
+      }
     }
     // Helper Functions //
 
@@ -223,6 +227,9 @@
           method:'GET',
           success:function(response) {
 
+            //console.log(response[15].avatar.backend.directory);
+            //console.log(response[15].avatar.id);
+
             for( i=0; i < response.length; i++ ) {
               users.push({
                 id: response[i].id,
@@ -230,12 +237,17 @@
                 graetzl_name: '',
                 graetzl_path_app: '',
                 created_at: new Date(response[i].created_at),
+                last_login: response[i].last_sign_in_at? new Date(response[i].last_sign_in_at) : '',
                 username: response[i].username,
                 first_name: response[i].first_name,
                 last_name: response[i].last_name,
                 email: response[i].email,
                 user_path_admin: host_admin + 'users/' + response[i].slug,
-                user_path_app: host + response[i].slug
+                user_path_app: host + response[i].slug,
+                role: response[i].role,
+                newsletter: response[i].newsletter,
+                website: response[i].website
+                //avatar: response[i].backend.directory + '/' + response[i].id
               })
             }
             resolve('users');
@@ -251,6 +263,7 @@
           url:'/admin/graetzls.json',
           method:'GET',
           success:function(response) {
+            console.log(response);
             for( i=0; i < response.length; i++ ) {
               graetzls.push({
                 id: response[i].id,
@@ -358,7 +371,7 @@
           { data: 'username',
             render: function( data, type, row, meta ){
               if ( type === 'display' ) {
-              data = '<a class="user" data-id="userID_'+ row['id'] + '" href="'+row['user_path_admin']+'">' + data + '</a>';
+              data = '<a class="user" data-id="'+ row['id'] + '" href="'+row['user_path_admin']+'">' + data + '</a>';
             }
               return data;
             }
@@ -650,13 +663,26 @@
 
   *********************************/
 
-  var singleUser = function(user_id) {
-    $('#page_users').hide();
-    $('#page_singleuser').show();
+    var singleUser = function(user_id) {
+      $('#page_users').hide();
+      $('#page_singleuser').show();
+      user = fetchFromID(user_id, 'users');
+      user = user[0];
 
-    console.log(user_id);
-    console.log(users);
-  }
+      $('#u_id').html(user.id);
+      $('#u_firstname').html(user.first_name);
+      $('#u_lastname').html(user.last_name);
+      $('#u_username').html(user.username);
+      $('#u_email').html(user.email);
+      $('#u_graetzl').html(user.graetzl_name);
+      $('#u_created_at').html(moment(user.created_at).format('ll'));
+      $('#u_last_login').html(user.last_login? moment(user.last_login).format('ll') : 'noch kein Login');
+      $('#u_admin').attr('href', user.user_path_admin);
+      $('#u_role').html(user.role? '| ' + user.role : '');
+
+
+
+    }
 
 
 
@@ -664,6 +690,11 @@
         Event Listeners
     *********************************/
     $(document).ready(function() {
+
+      // test for next link ...
+      $('#users_next').on('click', function() {
+        console.log('hias');
+      });
 
 
       $('#users_back').on('click', function () {
@@ -744,16 +775,48 @@
 <!-- /PAGE USERS -->
 
 <!-- PAGE SINGLE USERS -->
+  <style>
+    #user_top {display:flex; justify-content:space-between; align-items:center;}
+    #user_top img {width:150px; height:150px; margin-right: 10px;}
+    #user_top .profile {display:flex; align-items:center;}
+    #user_top .profile div.facts {margin-top: 20px;}
+    #user_top .profile div.name {font-weight: bold;}
+    #user_top .profile div.name a {font-weight: normal;}
+  </style>
+  <!-- Single User View-->
   <div id="page_singleuser" class="page">
 
+    <div id="user_top">
+      <button class="btn-secondary -small -grey" id="users_back">Zurück</button>
+        <div class="profile">
+          <img class="attachment user avatar img-round -largest" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/fad5d1e8df9b7eba405c9f2deec155f27c709f09/store/fill/400/400/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png">
+          <div>
+            <div><span id="u_id">2067</span> | <span id="u_created_at">21.02.2018</span> <span id="u_role"></span></div>
+            <div>
+              <em>Zuletzt eingeloggt: <span id="u_last_login">02.03.2018</span></em>
+            </div>
+            <div class="facts">
 
-    <button class="btn-primary -mint" id="users_back">Zurück</button>
-    <!-- Single User View-->
-    <div id="single_user">
-      <div id="user_name">Username</div>
-      <div id="user_email"></div>
-      <div id="user_mc_activity"></div>
+              <div class="name"><span id="u_username">malano</span> |
+                <span id="u_firstname">Michael</span>
+                <span id="u_lastname">Walchhütter</span>
+                <a href="#" id="u_admin" target="_blank">(edit)</a>
+              </div>
+              <div id="u_email">michael.walchhuetter@gmail.com</div>
+
+              <div>
+                <span id="u_plz">1020</span>
+                <span id="u_graetzl">Stuwerviertel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <span style="width:80px;"></span>
     </div>
+
+
+      <div id="user_mc_activity"></div>
+
 
   </div>
 <!-- /PAGE SINGLE USERS -->
