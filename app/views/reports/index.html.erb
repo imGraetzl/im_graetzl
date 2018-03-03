@@ -124,7 +124,7 @@
         completeArrays();
         page_loader('page_dashboard');
 
-        //console.log(users);
+        console.log(users);
         //console.log(locations);
         //console.log(graetzls);
 
@@ -178,6 +178,14 @@
           //console.log(graetzlinfos[key]);
           users[i].graetzl_name = graetzlinfos[key].name;
           users[i].graetzl_path_app = graetzlinfos[key].graetzl_path_app;
+          for ( d=0; d<graetzlinfos[key].districts.length; d++ ) {
+            users[i].districts.push({
+              id: graetzlinfos[key].districts[d].id,
+              name: graetzlinfos[key].districts[d].name,
+              slug: graetzlinfos[key].districts[d].slug,
+              zip: graetzlinfos[key].districts[d].zip
+            });
+          };
         }
       }
     };
@@ -247,7 +255,8 @@
                 user_path_app: host + response[i].slug,
                 role: response[i].role,
                 newsletter: response[i].newsletter,
-                website: response[i].website
+                website: response[i].website,
+                districts: []
                 //avatar: response[i].backend.directory + '/' + response[i].id
               })
             }
@@ -264,15 +273,25 @@
           url:'/admin/graetzls.json',
           method:'GET',
           success:function(response) {
-            console.log(response);
-            for( i=0; i < response.length; i++ ) {
+            //console.log(response);
+            for ( i=0; i < response.length; i++ ) {
               graetzls.push({
                 id: response[i].id,
                 name: response[i].name,
                 graetzl_path_app: host + response[i].slug,
                 graetzl_path_admin: host_admin + 'graetzls/' + response[i].slug,
-                users_count: response[i].users_count
+                users_count: response[i].users_count,
+                districts: []
               });
+              // Add Districts to Grätzl
+              for ( d=0; d<response[i].districts.length; d++ ) {
+                graetzls[i].districts.push({
+                  id: response[i].districts[d].id,
+                  name: response[i].districts[d].name,
+                  slug: response[i].districts[d].slug,
+                  zip: response[i].districts[d].zip
+                });
+              }
             }
             resolve('graetzls');
           }
@@ -681,6 +700,10 @@
       $('#u_admin').attr('href', user.user_path_admin);
       $('#u_role').html(user.role? '| ' + user.role : '');
 
+      $('#u_zip').html('');
+      for ( i=0; i<user.districts.length; i++ ) {
+        $('<span>').html(user.districts[i].zip).appendTo('#u_zip');
+      }
 
 
     }
@@ -783,6 +806,10 @@
     #user_top .profile div.facts {margin-top: 20px;}
     #user_top .profile div.name {font-weight: bold;}
     #user_top .profile div.name a {font-weight: normal;}
+
+    #u_zip span:nth-child(2n)::before {
+      content: ", ";
+    }
   </style>
   <!-- Single User View-->
   <div id="page_singleuser" class="page">
@@ -806,7 +833,7 @@
               <div id="u_email">michael.walchhuetter@gmail.com</div>
 
               <div>
-                <span id="u_plz">1020</span>
+                <span id="u_zip">1020</span>
                 <span id="u_graetzl">Stuwerviertel</span>
               </div>
             </div>
