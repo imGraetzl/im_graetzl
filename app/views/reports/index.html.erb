@@ -7,11 +7,15 @@
 
 <style>
 
-  svg.hover {color:#EC776A;}
   div#top {height:200px;}
   div#report_nav {padding-top:20px; padding-bottom: 30px;}
   img.loading-spinner {padding-top:30px;}
+
+  td.details-control svg.over {color:#EC776A; cursor: pointer;}
   th {text-align: left;}
+  #datatable_users tr.shown + tr {background-color: #fcfcfc;}
+  #datatable_users tr.odd, #datatable_users tr.even {cursor: pointer;}
+
 
 </style>
 
@@ -53,7 +57,6 @@
     var mc_automations = []; // Mailchimp Automation Mailings
     var host = 'http://' + window.location.host + '/'; // Environment Path
     var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
-
 
 
     /*********************************
@@ -124,7 +127,7 @@
         completeArrays();
         page_loader('page_dashboard');
 
-        console.log(users);
+        //console.log(users);
         //console.log(locations);
         //console.log(graetzls);
 
@@ -167,7 +170,7 @@
         for (let key in graetzlinfos) {
           //console.log(graetzlinfos[key]);
           locations[i].graetzl_name = graetzlinfos[key].name;
-          locations[i].location_path = graetzlinfos[key].graetzl_path_app;
+          locations[i].location_path = graetzlinfos[key].graetzl_path_app + '/locations/' + locations[i].location_path;
         }
       }
 
@@ -237,7 +240,7 @@
 
             //console.log(response[15].avatar.backend.directory);
             //console.log(response[15].avatar.id);
-            console.log(response);
+            //console.log(response);
 
             for( i=0; i < response.length; i++ ) {
               users.push({
@@ -396,7 +399,17 @@
               return data;
             }
           },
-          { data: 'email' },
+          { data: 'districts',
+            render: function( data, type, row, meta ){
+                if (row['districts'].length == 2){
+                  data = row['districts'][0].zip + ', ' + row['districts'][1].zip;
+                } else {
+                  data = row['districts'][0].zip;
+                }
+              return data;
+
+            }
+          },
           { data: 'graetzl_name',
             render: function( data, type, row, meta ){
               if ( type === 'display' ) {
@@ -420,24 +433,16 @@
     }
     // Data Table - User Detail Row
     function userDetails ( data ) {
-      var $content = $('<table id="user' + data.id + '">');
-      $($content).append('<tr><td>' + data.first_name + ' ' + data.last_name + '</td></tr>');
+      var $content = $('<div id="user' + data.id + '">');
+      $($content).append('<div>' + data.first_name + ' ' + data.last_name + '</div>');
+      $($content).append('<div>' + data.email + '</div>');
 
       // Get User Locations
-      var locationinfos = fetchFromID(data.id, 'locations');
+      /* var locationinfos = fetchFromID(data.id, 'locations');
       for ( i=0; i<locationinfos.length; i++) {
         $($content).append('<tr><td>Location: <a href="'+locationinfos[i].location_path_admin+'">' +locationinfos[i].name+ '</td></tr>');
-      }
+      } */
 
-      // Get User Mailchimp Activities
-      var mailchimpActivity = requestMailchimpUser(data.email, 'activity');
-      Promise.resolve(mailchimpActivity).then(function(res) {
-
-        if (res != 404) {
-          console.log(res.body.activity);
-        }
-
-      })
       return $content;
     }
 
@@ -626,7 +631,7 @@
       });
 
 
-    } // USers Chart
+    } // Users Chart
 
 
     // Mailing Chart
@@ -686,10 +691,15 @@
     var singleUser = function(user_id) {
       $('#page_users').hide();
       $('#page_singleuser').show();
+      $('html, body').animate({
+        scrollTop: $("#report_nav").offset().top
+      }, 100);
+
       user = fetchFromID(user_id, 'users');
       user = user[0];
+      console.log(user);
 
-      $('#u_id').html(user.id);
+      $('#u_id').html('Id: ' + user.id);
       $('#u_firstname').html(user.first_name);
       $('#u_lastname').html(user.last_name);
       $('#u_username').html(user.username);
@@ -699,12 +709,56 @@
       $('#u_last_login').html(user.last_login? moment(user.last_login).format('ll') : 'noch kein Login');
       $('#u_admin').attr('href', user.user_path_admin);
       $('#u_role').html(user.role? '| ' + user.role : '');
-
       $('#u_zip').html('');
       for ( i=0; i<user.districts.length; i++ ) {
         $('<span>').html(user.districts[i].zip).appendTo('#u_zip');
       }
 
+      // Reset & Clear Locations
+      $('#u_location').html('');
+      $('<em class="empty">Noch keine Locations</em>')
+      .appendTo('#u_location');
+
+      // Get User Locations
+      var user_locations = fetchFromID(user_id, 'locations');
+      console.log(user_locations);
+
+      for ( i=0; i<user_locations.length; i++ ) {
+        $('<div><a href="' + user_locations[i].location_path + '">' + user_locations[i].name + '</a></div>')
+          .appendTo('#u_location');
+        $('#u_location .empty').hide();
+      }
+
+      // Reset & Clear Mailings
+      $('#u_mc_activity').html('');
+      $('<em class="empty">Noch keine Mailings</em>')
+      .appendTo('#u_mc_activity');
+      
+      // Get User Mailchimp Activities
+      var mailchimpActivity = requestMailchimpUser(user.email, 'activity');
+      Promise.resolve(mailchimpActivity).then(function(res) {
+
+        if (res != 404) {
+          var activity = res.body.activity;
+          console.log(activity);
+          for ( i=0; i<activity.length; i++ ) {
+            $('<div>'
+              + '<span class="time">'
+              + moment(new Date(activity[i].timestamp)).format('ll')
+              + '</span>'
+              + '<span class="action">'
+              + activity[i].action
+              + '</span>'
+              + '<span class="name">'
+              + activity[i].title
+              + '</span></div>')
+              .appendTo('#u_mc_activity');
+            $('#u_mc_activity .empty').hide();
+          }
+          console.log(res.body.activity);
+        }
+
+      })
 
     }
 
@@ -733,7 +787,14 @@
       });
 
       // Add event listener for opening and closing detail rows
-      $('#datatable_users').on('click', 'td.details-control', function () {
+      $('#datatable_users').on('mouseover', 'tr.odd, tr.even', function () {
+        $(this).find('svg').addClass('over');
+      });
+      $('#datatable_users').on('mouseleave', 'tr.odd, tr.even', function () {
+        $(this).find('svg').removeClass('over');
+      });
+
+      $('#datatable_users').on('click', 'tr.odd, tr.even', function () {
         var table = $('#datatable_users').DataTable();
         var tr = $(this).closest('tr');
         var row = table.row( tr );
@@ -741,12 +802,12 @@
         if ( row.child.isShown() ) {
           row.child.hide();
           tr.removeClass('shown');
-          $(this).html("<%= icon_tag 'layout-text' %>");
+          $(this).children('td.details-control').html("<%= icon_tag 'layout-text' %>");
         }
         else {
           row.child( userDetails(row.data()) ).show();
           tr.addClass('shown');
-          $(this).html("<%= icon_tag 'cross' %>");
+          $(this).children('td.details-control').html("<%= icon_tag 'cross' %>");
         }
       }); // Expand User Row
 
@@ -788,7 +849,7 @@
           <th></th>
           <th>ID</th>
           <th>Username</th>
-          <th>E-Mail</th>
+          <th>PLZ</th>
           <th>Grätzl</th>
           <th>Registriert</th>
         </tr>
@@ -800,7 +861,7 @@
 
 <!-- PAGE SINGLE USERS -->
   <style>
-    #user_top {display:flex; justify-content:space-between; align-items:center;}
+    #user_top {display:flex; justify-content:space-between; align-items:flex-end;}
     #user_top img {width:150px; height:150px; margin-right: 10px;}
     #user_top .profile {display:flex; align-items:center;}
     #user_top .profile div.facts {margin-top: 20px;}
@@ -810,12 +871,34 @@
     #u_zip span:nth-child(2n)::before {
       content: ", ";
     }
+    #user_content {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      border-top: 1px solid #DEEAE6;
+      padding-top:30px;
+      margin-top:30px;
+    }
+    #user_content div.wrp {}
+    #user_content div.-small {width:50%;}
+    #user_content div.-wide {width:50%;}
+    #user_content .u_block svg {display: inline-block;}
+    #user_content .title {margin-bottom: 10px; display: flex; align-items: center;}
+    #user_content .title span {font-weight:bold; font-size: 2.0rem; padding-left: 8px;}
+    #user_content em.empty {color:#aaaaaa; padding-left:36px; white-space: nowrap;}
+    ul.tag-list li {
+      margin-bottom: 0px;
+      padding:3px 10px;
+      margin-left:10px;
+    }
+    #u_location div, #u_mc_activity div {margin-left: 36px; margin-bottom: 5px;}
+    #u_mc_activity .time {display: inline-block; width:110px;}
+    #u_mc_activity .action {display: inline-block; width:45px;}
+
   </style>
   <!-- Single User View-->
   <div id="page_singleuser" class="page">
 
     <div id="user_top">
-      <button class="btn-secondary -small -grey" id="users_back">Zurück</button>
+      <button class="btn-secondary -small -grey" id="users_back">Zurück zur Übersicht</button>
         <div class="profile">
           <img class="attachment user avatar img-round -largest" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/fad5d1e8df9b7eba405c9f2deec155f27c709f09/store/fill/400/400/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png">
           <div>
@@ -842,8 +925,33 @@
       <span style="width:80px;"></span>
     </div>
 
+    <div id="user_content">
 
-      <div id="user_mc_activity"></div>
+      <div class="wrp -small">
+
+        <div id="#u_locations" class="u_block">
+          <div class="title"><%= icon_tag "location" %><span>Locations</span></div>
+          <div id="u_location"></div>
+        </div>
+
+      </div>
+      <div class="wrp -wide">
+        <div id="#u_mc_activities" class="u_block">
+          <div class="title">
+            <%= icon_tag "at-symbol" %>
+            <span>Mail Activities</span>
+            <ul class="tag-list grey">
+                <li>Newsletter</li>
+            </ul>
+          </div>
+          <div id="u_mc_activity"></div>
+        </div>
+      </div>
+
+    </div>
+
+
+
 
 
   </div>
