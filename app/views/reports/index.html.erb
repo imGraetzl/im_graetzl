@@ -9,6 +9,9 @@
 
   div#top {height:200px;}
   div#report_nav {padding-top:20px; padding-bottom: 30px;}
+
+  div#page_search {}
+
   img.loading-spinner {padding-top:30px;}
 
   td.details-control svg.over {color:#EC776A; cursor: pointer;}
@@ -24,7 +27,7 @@
     margin-bottom:30px;
   }
   #user_top img {width:150px; height:150px; margin-right: 10px;}
-  #user_top .profile {display:flex; align-items:center;}
+  #user_top .profile {display:flex; align-items:center; min-width: 440px;}
   #user_top .profile div.facts {margin-top: 20px;}
   #user_top .profile div.name {font-weight: bold;}
   #user_top .profile div.name a {font-weight: normal;}
@@ -47,13 +50,23 @@
   #user_content .title span {font-weight:bold; font-size: 2.0rem; padding-left: 8px;}
   #user_content em.empty {color:#aaaaaa; padding-left:36px; white-space: nowrap;}
   ul.tag-list li {
-    margin-bottom: 0px;
+    /*margin-bottom: 0px;*/
+    margin-top:0px;
+    margin-bottom:0px;
     padding:3px 10px;
     margin-left:10px;
+    float:none;
+    display: inline-block;
   }
-  #u_location div, #u_mc_activity div {margin-left: 36px; margin-bottom: 5px;}
-  #u_mc_activity .time {display: inline-block; width:115px;}
-  #u_mc_activity .action {display: inline-block; width:55px;}
+  #u_location div, #u_mc_activity div {margin-left: 36px; margin-bottom: 7px;}
+  #u_mc_activities .title {margin-bottom: 20px;}
+  #u_mc_activity .time {display: inline-block; min-width:110px; text-align: right; white-space: nowrap;}
+  #u_mc_activity .action {display: inline-block; min-width:110px; text-align: center;}
+  #u_mc_activity .action .bounce li {background-color: red; color:white;}
+  #u_mc_activity .action .click li {background-color: #EC776A; color:white;}
+  #u_mc_activity .action .open li {background-color: #83C7BD; color:white;}
+  #u_mc_activity .action .sent li {}
+  #u_mc_activity .name {font-style: italic;}
 
 </style>
 
@@ -1003,6 +1016,8 @@
       // Request User Infos
       Promise.resolve(user.getUser()).then(function(res) {
 
+        console.log(user);
+
         $('#u_id').html('Id: ' + user.id);
         $('#u_firstname').html(user.first_name);
         $('#u_lastname').html(user.last_name);
@@ -1017,21 +1032,25 @@
         for ( i=0; i<user.districts.length; i++ ) {
           $('<span>').html(user.districts[i].zip).appendTo('#u_zip');
         }
+        user.newsletter ? $('#u_newsletter').show() : $('#u_newsletter').hide();
+
+
+
 
         // Request User Mailings when User Infos are loaded!
         Promise.resolve(user.getMailings()).then(function(res) {
 
           if (res != 404) {
             var activity = res.body.activity;
-            //console.log(activity);
+            console.log(activity);
             for ( i=0; i<activity.length; i++ ) {
               $('<div>'
                 + '<span class="time">'
                 + moment(new Date(activity[i].timestamp)).format('ll')
                 + '</span>'
-                + '<span class="action">'
-                + activity[i].action
-                + '</span>'
+                + '<span class="action"><ul class="tag-list '+ activity[i].action +'">'
+                + '<li>'+ activity[i].action +'</li>'
+                + '</ul></span>'
                 + '<span class="name">'
                 + activity[i].title
                 + '</span></div>')
@@ -1046,8 +1065,7 @@
       // Request User Locations
       Promise.resolve(user.getLocations()).then(function(res) {
         for ( i=0; i<user.locations.length; i++ ) {
-          console.log(user.locations);
-          $('<div><a href="' + user.locations[i].location_path + '">' + user.locations[i].name + '</a></div>')
+          $('<div><a href="' + user.locations[i].location_path + '" target="_blank">' + user.locations[i].name + '</a></div>')
             .appendTo('#u_location');
           $('#u_location .empty').hide();
         }
@@ -1120,18 +1138,30 @@
     <canvas id="topchart" width="900" height="200"></canvas>
   </div>
 
-    <div id="report_nav">
-      <button class="btn-primary -rosa" data-nav="page_dashboard">Dashboard</button>
-      <button class="btn-primary -mint" data-nav="page_users">User</button>
-      <button class="btn-primary -mint" data-nav="page_locations">Locations</button>
-      <button class="btn-primary -mint" data-nav="page_rooms">Raumteiler</button>
-      <button class="btn-primary -mint" data-nav="page_meetings">Treffen</button>
-      <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
-      <button class="btn-primary -mint" data-nav="page_mailings">Mailings</button>
-    </div>
+  <div id="report_nav">
+    <button class="btn-primary -rosa" data-nav="page_dashboard">Dashboard</button>
+    <button class="btn-primary -mint" data-nav="page_users">User</button>
+    <button class="btn-primary -mint" data-nav="page_locations">Locations</button>
+    <button class="btn-primary -mint" data-nav="page_rooms">Raumteiler</button>
+    <button class="btn-primary -mint" data-nav="page_meetings">Treffen</button>
+    <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
+    <button class="btn-primary -mint" data-nav="page_mailings">Mailings</button>
+    <button class="btn-primary -mint" data-nav="page_search">Suche</button>
+  </div>
+
+<!-- PAGE SEARCH -->
+  <div id="page_search" class="page input-field">
+    <label for="search">
+      <%= icon_tag "search" %>
+      <span>Suche</span>
+    </label>
+    <input placeholder="Suche nach E-Mail Adresse ..." type="text" id="search">
+    <button class="btn-primary" data-nav="page_mailings">Suchen</button>
+  </div>
 
 <!-- PAGE USERS -->
   <div id="page_users" class="page">
+
     <!-- Users Datatable -->
     <table id="datatable_users" class="stripe hover row-border" width="100%" data-page-length='100'>
       <thead>
@@ -1200,7 +1230,7 @@
     <div id="user_content">
       <div class="wrp -small">
         <div id="#u_location_updates" class="u_block">
-          <div class="title"><%= icon_tag "speech-bubble" %><span>Location Updates</span></div>
+          <div class="title"><%= icon_tag "horn-promote" %><span>Location Updates</span></div>
           <div id="u_location_update"></div>
         </div>
       </div>
@@ -1213,12 +1243,12 @@
     </div>
 
     <div id="user_content" class="-bottom">
-      <div id="#u_mc_activities" class="u_block">
+      <div id="u_mc_activities" class="u_block">
         <div class="title">
           <%= icon_tag "at-symbol" %>
           <span>Mail Activities</span>
-          <ul class="tag-list grey">
-              <li>Newsletter</li>
+          <ul id="u_newsletter" class="tag-list grey">
+            <li>Newsletter</li>
           </ul>
         </div>
         <div id="u_mc_activity"></div>
