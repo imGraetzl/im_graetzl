@@ -1,0 +1,1279 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'noindex, nofollow',
+  )
+%>
+
+<style>
+
+  div#top {height:200px;}
+  div#report_nav {padding-top:20px; padding-bottom: 30px;}
+  img.loading-spinner {padding-top:30px;}
+
+  td.details-control svg.over {color:#EC776A; cursor: pointer;}
+  th {text-align: left;}
+  #datatable_users tr.shown + tr {background-color: #fcfcfc;}
+  #datatable_users tr.odd, #datatable_users tr.even {cursor: pointer;}
+
+</style>
+
+
+<!-- BEGIN ADMIN REPORT JS -->
+<script>
+  (function () {
+  // ----------------------- BEGIN PROJECT JS WORKING AREA ----------------------- //
+
+    /*********************************
+        Init Vars
+    *********************************/
+    moment.locale('de-at');
+
+    // TimeTable Object for Charts - Including Unit & Date Range
+    var timePeriod = {
+      count: 30,
+      unit:'',
+      dates:[],
+      datesFriendly:[]
+    };
+    // Time Period Data for Charts
+    var timePeriodData = [];
+    // Charts
+    var chartTopArea;
+
+    var mcChartData = {
+      labels:[],
+      data:{
+        emails_sent: [],
+        unique_opens: [],
+        unique_clicks: []
+      }
+    };
+
+    var users = []; // Clean Users Array to work with
+    var graetzls = []; // Clean Grätzl Array to work with
+    var locations = []; // Clean Location Array to work with
+    var mc_automations = []; // Mailchimp Automation Mailings
+    var host = 'http://' + window.location.host + '/'; // Environment Path
+    var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
+
+    // Vars for Start / End Dates
+    var ajaxStartDate = '&q%5Bcreated_at_gteq_date%5D=';
+    var ajaxEndDate = '&q%5Bcreated_at_lteq_date%5D=';
+    var endDate = new Date();
+        endDate.setDate(endDate.getDate());
+        endDate.setHours(23,59,0,0);
+    var endDateStr = endDate.toISOString().slice(0, 10);
+    var startDate = new Date();
+        startDate.setDate(endDate.getDate() - timePeriod.count+1);
+        startDate.setHours(1,0,0,0);
+    var startDateStr = startDate.toISOString().slice(0, 10);
+
+
+    /*********************************
+        Page Navigation
+    *********************************/
+
+    var page_loader = function(page) {
+
+      $('#' + page + '').show();
+      $('#report_nav button').prop("disabled",false);
+      stopSpinner();
+
+      if ( page == 'page_dashboard' ) {
+        resetTopChart();
+      }
+      if ( page == 'page_users' ) {
+        resetTopChart();
+        usersChart();
+        datatable_users();
+      }
+      if ( page == 'page_locations' ) {
+        resetTopChart();
+        showSpinner();
+        datatable_locations();
+      }
+      if ( page == 'page_graetzls' ) {
+        resetTopChart();
+        datatable_graetzls();
+      }
+      if ( page == 'page_mailings' ) {
+        resetTopChart();
+        showSpinner();
+        datatable_mailings('automations');
+      }
+    }
+
+    $(document).ready(function() {
+      // Hide Pages on Load
+      $('div.page').hide();
+      $('#report_nav button').prop("disabled",true);
+      showSpinner();
+
+      // Switch Pages on Button Click
+      $('#report_nav button').on( 'click', function() {
+        var page = $(this).attr('data-nav');
+
+        $('div.page').hide();
+        $('#report_nav button.-rosa').removeClass('-rosa').addClass('-mint');
+        $(this).addClass('-rosa').removeClass('-mint');
+        $('#' + page + '').show();
+        page_loader(page);
+
+      })
+    });
+    // END Page Navigation //
+
+
+
+    /*********************************
+        Init on Document Ready
+    *********************************/
+    $( document ).ready(function() {
+
+      // Init Chartareas
+      var topchart = $("#topchart");
+      setTimeUnit('days');
+
+      // Load Data from Server - if all Data loaded, do something ...
+      var p1 = requestUsers();
+      var p2 = requestGraetzls();
+      //var p3 = requestLocations();
+      //var p4 = requestMailchimp();
+
+      Promise.all([p1, p2]).then(function(res) {
+
+        completeArrays();
+        page_loader('page_dashboard');
+
+        //console.log(users);
+        //console.log(graetzls);
+
+      })//.catch( function() {alert('Error Loading Data ...'); } )
+
+    });
+
+
+    /*********************************
+        HELPER Functions
+    *********************************/
+
+    // Math Round for Percentage
+    function round(wert, dez) {
+      wert = parseFloat(wert);
+      if (!wert) return 0;
+      dez = parseInt(dez);
+      if (!dez) dez=0;
+      var umrechnungsfaktor = Math.pow(10,dez);
+      return Math.round(wert * umrechnungsfaktor) / umrechnungsfaktor;
+    }
+
+    // Helper - Check if Date is in Date-Range
+    /*var checkDateRange = function ( checkDate, startDate, unit ) {
+      var tmpDate = new Date();
+      tmpDate.setDate(startDate.getDate() + 1);
+      tmpDate.setHours(0,0,0,0);
+      var endDate = new Date(tmpDate);
+      if (checkDate >= startDate && checkDate <= endDate ){
+        return true;
+      }
+    }
+    */
+
+    // Reset Top Chart
+    var resetTopChart = function(){
+      if (typeof chartTopArea != 'undefined') {
+        chartTopArea.destroy();
+      }
+    }
+
+    var checkDateRange = function ( checkDate, inDate, unit ) {
+      var tmpDate = new Date();
+      var inDate = new Date(inDate);
+      tmpDate.setDate(inDate.getDate() + 1);
+      tmpDate.setHours(0,0,0,0);
+      var endDate = new Date(tmpDate);
+      if (checkDate >= inDate && checkDate <= endDate ){
+        return true;
+      }
+    }
+
+    // Helper - Complete Arrays with missing Infos from other Arrays
+    var completeArrays = function() {
+
+      // Extend User Array with Grätzl-Infos
+      for ( i=0; i<users.length; i++ ) {
+        graetzlinfos = fetchFromID(users[i].graetzl_id, 'graetzls');
+        for (let key in graetzlinfos) {
+          //console.log(graetzlinfos[key]);
+          users[i].graetzl_name = graetzlinfos[key].name;
+          users[i].graetzl_path_app = graetzlinfos[key].graetzl_path_app;
+          for ( d=0; d<graetzlinfos[key].districts.length; d++ ) {
+            users[i].districts.push({
+              id: graetzlinfos[key].districts[d].id,
+              name: graetzlinfos[key].districts[d].name,
+              slug: graetzlinfos[key].districts[d].slug,
+              zip: graetzlinfos[key].districts[d].zip
+            });
+          };
+        }
+      }
+    };
+
+    // Helper - Lookup in other Array over ID
+    var fetchFromID = function(id, type){
+      if ( type == 'graetzls' ) {
+        var result = graetzls.filter(function(e){ return e.id == id; });
+        return result;
+      }
+      if ( type == 'locations' ) {
+        var result = locations.filter(function(e){ return e.user_ids == id; });
+        return result;
+      }
+      if ( type == 'users' ) {
+        var result = users.filter(function(e){ return e.id == id; });
+        return result;
+      }
+    }
+    // Helper Functions //
+
+    // Show Loading Spinner //
+    function showSpinner() {
+      var spinnerSrc = "<%= asset_path('svg/loading.svg') %>";
+      var spinner = $('<img class="loading-spinner" src="' + spinnerSrc + '">');
+      $('#topchart').hide();
+      $('#top').append(spinner);
+    }
+
+    function stopSpinner() {
+      $('#topchart').show();
+      $('#top').find(".loading-spinner").remove();
+    }
+
+
+
+    /*********************************
+        AJAX
+        JSON Requests
+    *********************************/
+
+    // Get Users and Set Clean User Array
+    var requestUsers = function(){
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          //url:'/admin/users.json',
+          url:'/admin/users.json?' + ajaxStartDate + startDateStr + ajaxEndDate + endDateStr,
+          method:'GET',
+          success:function(response) {
+            console.log(response);
+
+            for( i=0; i < response.length; i++ ) {
+              users.push({
+                id: response[i].id,
+                graetzl_id: response[i].graetzl_id,
+                graetzl_name: '',
+                graetzl_path_app: '',
+                created_at: new Date(response[i].created_at),
+                last_login: response[i].last_sign_in_at? new Date(response[i].last_sign_in_at) : '',
+                username: response[i].username,
+                first_name: response[i].first_name,
+                last_name: response[i].last_name,
+                email: response[i].email,
+                user_path_admin: host_admin + 'users/' + response[i].slug,
+                user_path_app: host + response[i].slug,
+                role: response[i].role,
+                newsletter: response[i].newsletter? response[i].newsletter : '',
+                website: response[i].website? response[i].website : '',
+                districts: [],
+                locations: []
+                //avatar: response[i].backend.directory + '/' + response[i].id
+              })
+            }
+            resolve('users');
+          }
+        });
+      });
+    } // Get Users
+
+    // Get Grätzls and Set Clean Grätzl Array
+    var requestGraetzls = function(){
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          // Reuquest Grätzl Data just with Users -> Performance
+          url:'/admin/graetzls.json?q%5Busers_count_greater_than%5D=0',
+          method:'GET',
+          success:function(response) {
+            console.log(response);
+            for ( i=0; i < response.length; i++ ) {
+              graetzls.push({
+                id: response[i].id,
+                name: response[i].name,
+                graetzl_path_app: host + response[i].slug,
+                graetzl_path_admin: host_admin + 'graetzls/' + response[i].slug,
+                users_count: response[i].users_count,
+                districts: []
+              });
+              // Add Districts to Grätzl
+              for ( d=0; d<response[i].districts.length; d++ ) {
+                graetzls[i].districts.push({
+                  id: response[i].districts[d].id,
+                  name: response[i].districts[d].name,
+                  slug: response[i].districts[d].slug,
+                  zip: response[i].districts[d].zip
+                });
+              }
+            }
+            resolve('graetzls');
+          }
+        });
+      });
+    } // Get Grätzls
+
+    // Get Locations and Set Clean Location Array
+    var requestLocations = function(){
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          url:'/admin/locations.json?' + ajaxStartDate + startDateStr + ajaxEndDate + endDateStr,
+          method:'GET',
+          success:function(response) {
+            console.log(response);
+            for( i=0; i < response.length; i++ ) {
+              locations.push({
+                id: response[i].id,
+                name: response[i].name,
+                created_at: response[i].created_at,
+                graetzl_id: response[i].graetzl_id,
+                graetzl_name: '',
+                category_id: response[i].category_id,
+                state: response[i].state,
+                user_ids: response[i].user_ids,
+                location_path: response[i].slug,
+                location_path_admin: host_admin + 'locations/' + response[i].slug
+              })
+            }
+            resolve('locations');
+          }
+        });
+      });
+    } // Get Locations
+
+
+    // Get Advanced Personal User Details
+    var requestUserDetails = function(id){
+      return new Promise( function(resolve, reject) {
+
+        user = fetchFromID(id, 'users');
+        user = user[0];
+
+        $.ajax( {
+          url:'/admin/users/'+ id +'.json',
+          method:'GET',
+          success:function(response) {
+            console.log(response);
+
+            user.last_login = response.last_sign_in_at? new Date(response.last_sign_in_at) : '';
+            user.newsletter = response.newsletter;
+            user.website = response.website;
+            user.avatar = response.avatar;
+
+            resolve('user');
+          }
+        });
+      });
+    } // Get User Details
+
+
+    // Get User Locations
+    var requestUserLocation = function(id){
+      return new Promise( function(resolve, reject) {
+
+        user = fetchFromID(id, 'users');
+        user = user[0];
+
+        // Get Locations from User and Push in Users Array (only once)
+        if ( user.locations.length == 0 ) {
+          $.ajax( {
+            url:'/admin/locations.json?q%5Blocation_ownerships_user_id_eq%5D=' + id,
+            method:'GET',
+            success:function(response) {
+              for( i=0; i < response.length; i++ ) {
+                user.locations.push({
+                  id: response[i].id,
+                  name: response[i].name,
+                  slogan: response[i].slogan,
+                  slug: response[i].slug,
+                  state: response[i].state,
+                  graetzl_id: response[i].graetzl_id,
+                  graetzl_name: '',
+                  category_id: response[i].category_id,
+                  created_at: response[i].created_at,
+                  location_path: '',
+                  location_path_admin: host_admin + 'locations/' + response[i].slug
+                })
+              }
+              resolve('user');
+            }
+        });
+        } else {
+          // locations already pushed ...
+          resolve('user');
+        }
+      });
+    } // Get User Locations
+
+    // Get Mailchimp User
+    var requestMCUser = function(email, activity){
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          url:'/reports/mailchimp.json',
+          data: {
+            'count': 100,
+            'email' : email,
+            'activity' : activity
+          },
+          method:'GET',
+          success:function(response) {
+            resolve(response);
+          }
+        });
+      });
+    } // Get Mailchimp User
+
+
+    // Get Mailchimp Automations
+    var requestMCAutomations = function(type, workflow_id){
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          url:'/reports/mailchimp.json',
+          data: {
+            'count': 100,
+            'type' : type,
+            'workflow' : workflow_id
+          },
+          method:'GET',
+          success:function(response) {
+            resolve(response);
+          }
+        });
+      });
+    } // Get Mailchimp Automations
+
+    // END Ajax JSON Requests //
+
+
+    /*********************************
+        Create DATATABLES
+        (jQuery Plugin)
+    *********************************/
+
+    // Create DATATABLE - USERS //
+    var datatable_users = function() {
+      $('#datatable_users').DataTable( {
+        data: users,
+        "order": [[ 5, "desc" ]],
+        "processing": true,
+        "paging": false,
+        "destroy": true,
+        "searching": false,
+        //"responsive": true,
+        columns: [
+          {
+            "className": 'details-control',
+            "orderable": false,
+            "data": null,
+            "defaultContent": "<%= icon_tag "layout-text" %>"
+          },
+          { data: 'id' },
+          { data: 'username',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = '<a class="user" data-id="'+ row['id'] + '" href="'+row['user_path_admin']+'">' + data + '</a>';
+            }
+              return data;
+            }
+          },
+          { data: 'email' },
+          /*
+          { data: 'districts',
+            render: function( data, type, row, meta ){
+                if (row['districts'].length == 2){
+                  data = row['districts'][0].zip + ', ' + row['districts'][1].zip;
+                } else {
+                  data = row['districts'][0].zip;
+                }
+              return data;
+
+            }
+          },*/
+          { data: 'graetzl_name',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = '<a href="' + row['graetzl_path_app'] + '">' + data + '</a>';
+            }
+              return data;
+            }
+          },
+          { data: 'created_at',
+            render: function(data, type) {
+              if ( type == "sort" || type == 'type' ) {
+                return data;
+              } else {
+                // Use Friendly Format for Output
+                return moment(data).format('lll');
+              }
+            }
+          }
+        ]
+      });
+    }
+    // Data Table - User Detail Row
+    function userDetails ( data ) {
+      var $content = $('<div id="user' + data.id + '">');
+      $($content).append('<div>' + data.first_name + ' ' + data.last_name + '</div>');
+      $($content).append('<div>' + data.email + '</div>');
+
+      // Get User Locations
+      /* var locationinfos = fetchFromID(data.id, 'locations');
+      for ( i=0; i<locationinfos.length; i++) {
+        $($content).append('<tr><td>Location: <a href="'+locationinfos[i].location_path_admin+'">' +locationinfos[i].name+ '</td></tr>');
+      } */
+
+      return $content;
+    }
+
+
+    // Create DATATABLE - Mailchimp Automations //
+    var datatable_mailings = function(page) {
+
+      if (page == 'automations') {
+
+        // Clear Array Data
+        mc_automations = [];
+        mcChartData = {
+          labels:[],
+          data:{
+            emails_sent: [],
+            unique_opens: [],
+            unique_clicks: []
+          }
+        };
+
+        var mcAutomations = requestMCAutomations('automations');
+        Promise.resolve(mcAutomations).then(function(res) {
+
+          var response = res.body.automations;
+          for( i=0; i<response.length; i++ ) {
+
+            // Data Array for Datatable
+            mc_automations.push({
+              id: response[i].id,
+              titel: response[i].settings.title,
+              emails_sent: response[i].emails_sent,
+              unique_opens: response[i].report_summary.unique_opens,
+              unique_clicks: response[i].report_summary.subscriber_clicks,
+              open_rate: round((response[i].report_summary.open_rate * 100), 1),
+              click_rate: round((response[i].report_summary.click_rate * 100), 1)
+            })
+
+            // Data Array for Chart
+            mcChartData.labels.push(response[i].settings.title)
+            mcChartData.data.emails_sent.push(response[i].emails_sent)
+            mcChartData.data.unique_opens.push(response[i].report_summary.unique_opens)
+            mcChartData.data.unique_clicks.push(response[i].report_summary.subscriber_clicks)
+          }
+
+          // Draw Chart
+          mailingChart(
+            mcChartData.labels,
+            mcChartData.data.emails_sent,
+            mcChartData.data.unique_opens,
+            mcChartData.data.unique_clicks
+          );
+
+          // Create Table
+          datatable_mc_automations();
+          stopSpinner();
+
+        });
+      }
+    }
+
+    // Draw DATATABLE - Mailchim Automations //
+    var datatable_mc_automations = function() {
+      $('#datatable_mailings').DataTable( {
+        data: mc_automations,
+        "order": [[ 1, "desc" ]],
+        "processing": true,
+        "searching": false,
+        "paging": false,
+        "bDestroy": true,
+        columns: [
+          { data: 'titel'},
+          { data: 'emails_sent' },
+          { data: 'unique_opens',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = data + ' <small>(' + row['open_rate'] + '%)</small>';
+            }
+              return data;
+            }
+          },
+          { data: 'unique_clicks',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = data + ' <small>(' + row['click_rate'] + '%)</small>';
+            }
+              return data;
+            }
+          }
+        ]
+      });
+    }
+
+
+    // Create DATATABLE - GRÄTZLS //
+    var datatable_graetzls = function() {
+      $('#datatable_graetzls').DataTable( {
+        data: graetzls,
+        "order": [[ 2, "desc" ]],
+        "processing": true,
+        "paging": false,
+        "bDestroy": true,
+        "searching": false,
+        columns: [
+          { data: 'districts',
+            render: function( data, type, row, meta ){
+                if (row['districts'].length == 2){
+                  data = row['districts'][0].zip + ', ' + row['districts'][1].zip;
+                } else {
+                  data = row['districts'][0].zip;
+                }
+              return data;
+
+            }
+          },
+          { data: 'name'},
+          { data: 'users_count' }
+        ]
+      });
+    }
+
+    // Create DATATABLE LOCATIONS
+    var datatable_locations = function() {
+
+      resetTopChart();
+
+      // Load only if Array is empty
+      if ( locations.length > 0 ) {
+
+        stopSpinner();
+        locationsChart();
+
+      } else {
+        locations = [];
+
+        // Empty - Load new Data
+        var getLocations = requestLocations();
+        Promise.resolve(getLocations).then(function(res) {
+
+
+          // Extend Location Array with Grätzl-Infos
+          for ( i=0; i<locations.length; i++ ) {
+            var graetzlinfos = fetchFromID(locations[i].graetzl_id, 'graetzls');
+            for (let key in graetzlinfos) {
+              //console.log(graetzlinfos[key]);
+              locations[i].graetzl_name = graetzlinfos[key].name;
+              locations[i].location_path = graetzlinfos[key].graetzl_path_app + '/locations/' + locations[i].location_path;
+            }
+          }
+          console.log(locations);
+
+
+          // Create table
+          $('#datatable_locations').DataTable( {
+            data: locations,
+            "order": [[ 3, "desc" ]],
+            "processing": true,
+            "paging": false,
+            "bDestroy": true,
+            "searching": false,
+            columns: [
+              { data: 'name',
+                render: function( data, type, row, meta ){
+                  if ( type === 'display' ) {
+                  data = '<a href="'+row['location_path_admin']+'">' + data + '</a>';
+                }
+                  return data;
+                }
+              },
+              { data: 'state'},
+              { data: 'graetzl_name'},
+              { data: 'created_at',
+                render: function(data, type) {
+                  if ( type == "sort" || type == 'type' ) {
+                    return data;
+                  } else {
+                    // Use Friendly Format for Output
+                    return moment(data).format('lll');
+                  }
+                }
+              }
+            ]
+          });
+
+          stopSpinner();
+          locationsChart();
+
+        });
+      }
+    }
+
+
+    // END Create Datatables (jQuery Plugin) //
+
+
+
+    /*********************************
+        Create CHART DATE RANGE
+        for Visualization
+    *********************************/
+
+      // Create Timeline Array with Dates
+        var setTimeUnit = function( unit ) {
+        timePeriod.unit = unit;
+        timePeriod.dates = [];
+        timePeriod.datesFriendly = [];
+        if (unit == 'days') {
+
+          for ( i=startDate; i<=endDate; i.setDate(i.getDate() + 1 )) {
+            var priorDate = new Date(i);
+            var priorDateFriendly = moment(i).format('ll');
+            timePeriod.dates.push(priorDate);
+            timePeriod.datesFriendly.push(priorDateFriendly);
+          }
+          console.log(timePeriod.dates.length);
+        }
+
+      } // Time Period Array
+
+      /*var setTimeUnit = function( count, unit, startDate, endDate ) {
+        timePeriod.count = count;
+        timePeriod.unit = unit;
+        timePeriod.dates = [];
+        timePeriod.datesFriendly = [];
+        var currentDate = new Date(); // Today
+        if (unit == 'days') {
+          for ( i=0; i<count; i++ ) {
+
+            var tmpDate = new Date();
+            tmpDate.setDate(currentDate.getDate() - i);
+            tmpDate.setHours(0,0,0,0);
+            var priorDate = new Date(tmpDate);
+            var priorDateFriendly = moment(priorDate).format('ll');
+
+            timePeriod.dates.push(priorDate);
+            timePeriod.datesFriendly.push(priorDateFriendly);
+          }
+        }
+        timePeriod.dates.reverse();
+        timePeriod.datesFriendly.reverse();
+      } // Time Period Array
+      */
+
+
+
+    /*********************************
+        Draw CHARTs
+    *********************************/
+
+
+    var usersChart = function() {
+
+      // Create Users Array within Timeperiod Dates (Lookup)
+      // Set Length of Time Period Array to Length of Actual Dates
+      timePeriodData.length = timePeriod.dates.length;
+      timePeriodData.fill(0); // Prefill all Values with 0
+
+      for ( i=0; i<users.length; i++ ) {
+        var checkDate = new Date(users[i].created_at);
+
+        // Loop Check every single User for all Dates in Range
+        for ( d=timePeriodData.length-1; d>0; d-- ) {
+          var check = checkDateRange( checkDate, timePeriod.dates[d], timePeriod.unit );
+          if (check == true) {
+            timePeriodData[d] +=1;
+            break;
+          }
+        } // Loop Check every single User for all Dates
+      } // Loop Check all Users
+
+      var labeldata = timePeriod.datesFriendly;
+      var chartdata = timePeriodData;
+
+
+      chartTopArea = new Chart(topchart, {
+        type: 'line',
+        data: {
+          labels: labeldata,
+          datasets: [{
+            label: 'Registrierungen',
+            data: chartdata,
+          }]
+        }
+      });
+
+
+    } // Users Chart
+
+
+
+    var locationsChart = function() {
+
+      // Create Users Array within Timeperiod Dates (Lookup)
+      // Set Length of Time Period Array to Length of Actual Dates
+      timePeriodData.length = timePeriod.dates.length;
+      timePeriodData.fill(0); // Prefill all Values with 0
+
+      for ( i=0; i<locations.length; i++ ) {
+        var checkDate = new Date(locations[i].created_at);
+
+        // Loop Check every single Location for all Dates in Range
+        for ( d=timePeriodData.length-1; d>0; d-- ) {
+          var check = checkDateRange( checkDate, timePeriod.dates[d], timePeriod.unit );
+          if (check == true) {
+            timePeriodData[d] +=1;
+            break;
+          }
+        } // Loop Check every single User for all Dates
+      } // Loop Check all Users
+
+      var labeldata = timePeriod.datesFriendly;
+      var chartdata = timePeriodData;
+
+
+      chartTopArea = new Chart(topchart, {
+        type: 'line',
+        data: {
+          labels: labeldata,
+          datasets: [{
+            label: 'Locations',
+            data: chartdata,
+          }]
+        }
+      });
+
+
+    } // Location Chart
+
+
+    // Mailing Chart
+    var mailingChart = function(labeldata, sent, opens, clicks) {
+
+
+      var chartcolor0 = 'rgba(237, 129, 117, 0.5)';
+      var chartcolor1 = 'rgba(131, 199, 189, 0.5)';
+      chartTopArea = new Chart(topchart, {
+        type: 'bar',
+        data: {
+          labels: ["Sent", "Opens", "Clicks"],
+          datasets: [
+            {
+              label: labeldata[0],
+              data: [
+                sent[0],
+                opens[0],
+                clicks[0]
+              ],
+              backgroundColor: chartcolor0,
+              yAxisID: "mailing"
+            },
+            {
+              label: labeldata[1],
+              data: [
+                sent[1],
+                opens[1],
+                clicks[1]
+              ],
+              backgroundColor: chartcolor1,
+              yAxisID: "mailing"
+            }
+          ]
+        },
+        // Chart Options
+        options: {
+          scales: {
+            yAxes: [{
+              id: "mailing"
+            }]
+          }
+        }
+      });
+
+  }
+
+
+  /*********************************
+      Create SINGLE USER View
+
+  *********************************/
+
+    var singleUser = function(user_id) {
+      $('#page_users').hide();
+      $('#page_singleuser').show();
+      $('html, body').animate({
+        scrollTop: $("#report_nav").offset().top
+      }, 100);
+
+      user = fetchFromID(user_id, 'users');
+      user = user[0];
+      console.log(user);
+
+      $('#u_id').html('Id: ' + user.id);
+      $('#u_firstname').html(user.first_name);
+      $('#u_lastname').html(user.last_name);
+      $('#u_username').html(user.username);
+      $('#u_email').html(user.email);
+      $('#u_graetzl').html(user.graetzl_name);
+      $('#u_created_at').html(moment(user.created_at).format('ll'));
+      $('#u_last_login').html('');
+      $('#u_admin').attr('href', user.user_path_admin);
+      $('#u_role').html(user.role? '| ' + user.role : '');
+      $('#u_zip').html('');
+      for ( i=0; i<user.districts.length; i++ ) {
+        $('<span>').html(user.districts[i].zip).appendTo('#u_zip');
+      }
+
+      // Reset & Clear Locations
+      $('#u_location').html('');
+      $('<em class="empty">Noch keine Locations</em>')
+      .appendTo('#u_location');
+
+      // Get User Locations
+      //var user_locations = fetchFromID(user_id, 'locations');
+      //console.log(user_locations);
+
+      // Get User Locations
+      var user_details = requestUserDetails(user.id);
+      Promise.resolve(user_details).then(function(res) {
+
+        $('#u_last_login').html(user.last_login? moment(user.last_login).format('ll') : 'noch kein Login');
+        console.log(user);
+      })
+
+
+      // Get User Locations
+      var user_locations = requestUserLocation(user.id);
+      Promise.resolve(user_locations).then(function(res) {
+
+        for ( i=0; i<user.locations.length; i++ ) {
+          user.locations[i].location_path = user.graetzl_path_app + '/locations/' + user.locations[i].slug;
+        }
+
+        for ( i=0; i<user.locations.length; i++ ) {
+          $('<div><a href="' + user.locations[i].location_path + '">' + user.locations[i].name + '</a></div>')
+            .appendTo('#u_location');
+          $('#u_location .empty').hide();
+        }
+
+      })
+
+
+
+      // Reset & Clear Mailings
+      $('#u_mc_activity').html('');
+      $('<em class="empty">Noch keine Mailings</em>')
+      .appendTo('#u_mc_activity');
+
+
+
+      // Get User Mailchimp Activities
+      var mailchimpActivity = requestMCUser(user.email, 'activity');
+      Promise.resolve(mailchimpActivity).then(function(res) {
+
+        if (res != 404) {
+          var activity = res.body.activity;
+          console.log(activity);
+          for ( i=0; i<activity.length; i++ ) {
+            $('<div>'
+              + '<span class="time">'
+              + moment(new Date(activity[i].timestamp)).format('ll')
+              + '</span>'
+              + '<span class="action">'
+              + activity[i].action
+              + '</span>'
+              + '<span class="name">'
+              + activity[i].title
+              + '</span></div>')
+              .appendTo('#u_mc_activity');
+            $('#u_mc_activity .empty').hide();
+          }
+          console.log(res.body.activity);
+        }
+
+      })
+
+    }
+
+
+
+    /*********************************
+        Event Listeners
+    *********************************/
+    $(document).ready(function() {
+
+      $('#users_back').on('click', function () {
+        $('#page_users').show();
+        $('#page_singleuser').hide();
+      });
+
+      // Open Single User Page
+      $('#datatable_users').on('click', 'a.user', function (event) {
+        event.preventDefault();
+        singleUser($(this).data('id'));
+      });
+
+      $('#datatable_users').on('mouseover', 'tr.odd, tr.even', function () {
+        $(this).find('svg').addClass('over');
+      });
+      $('#datatable_users').on('mouseleave', 'tr.odd, tr.even', function () {
+        $(this).find('svg').removeClass('over');
+      });
+
+      // Add event listener for opening and closing detail rows
+      /*
+      VORÜBERGEHEND DEAKTIVIERT ------
+
+      $('#datatable_users').on('click', 'tr.odd, tr.even', function () {
+        var table = $('#datatable_users').DataTable();
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+
+        if ( row.child.isShown() ) {
+          row.child.hide();
+          tr.removeClass('shown');
+          $(this).children('td.details-control').html("<%= icon_tag 'layout-text' %>");
+        }
+        else {
+          row.child( userDetails(row.data()) ).show();
+          tr.addClass('shown');
+          $(this).children('td.details-control').html("<%= icon_tag 'cross' %>");
+        }
+      }); // Expand User Row
+
+      ---------- */
+
+    });
+    // END Event Listeners //
+
+
+
+
+
+
+  // ----------------------- END PROJECT JS WORKING AREA ----------------------- //
+  })();
+</script>
+
+<section class="reports">
+
+  <!-- Top Chart -->
+  <div id="top">
+    <canvas id="topchart" width="900" height="200"></canvas>
+  </div>
+
+    <div id="report_nav">
+      <button class="btn-primary -rosa" data-nav="page_dashboard">Dashboard</button>
+      <button class="btn-primary -mint" data-nav="page_users">User</button>
+      <button class="btn-primary -mint" data-nav="page_locations">Locations</button>
+      <button class="btn-primary -mint" data-nav="page_rooms">Raumteiler</button>
+      <button class="btn-primary -mint" data-nav="page_meetings">Treffen</button>
+      <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
+      <button class="btn-primary -mint" data-nav="page_mailings">Mailings</button>
+    </div>
+
+<!-- PAGE USERS -->
+  <div id="page_users" class="page">
+    <!-- Users Datatable -->
+    <table id="datatable_users" class="stripe hover row-border" width="100%" data-page-length='100'>
+      <thead>
+        <tr>
+          <th></th>
+          <th>ID</th>
+          <th>Username</th>
+          <th>E-Mail</th>
+          <th>Grätzl</th>
+          <th>Registriert</th>
+        </tr>
+      </thead>
+    </table>
+
+  </div>
+<!-- /PAGE USERS -->
+
+<!-- PAGE SINGLE USERS -->
+  <style>
+    #user_top {display:flex; justify-content:space-between; align-items:flex-end;}
+    #user_top img {width:150px; height:150px; margin-right: 10px;}
+    #user_top .profile {display:flex; align-items:center;}
+    #user_top .profile div.facts {margin-top: 20px;}
+    #user_top .profile div.name {font-weight: bold;}
+    #user_top .profile div.name a {font-weight: normal;}
+
+    #u_zip span:nth-child(2n)::before {
+      content: ", ";
+    }
+    #user_content {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      border-top: 1px solid #DEEAE6;
+      padding-top:30px;
+      margin-top:30px;
+    }
+    #user_content div.wrp {}
+    #user_content div.-small {width:50%;}
+    #user_content div.-wide {width:50%;}
+    #user_content .u_block svg {display: inline-block;}
+    #user_content .title {margin-bottom: 10px; display: flex; align-items: center;}
+    #user_content .title span {font-weight:bold; font-size: 2.0rem; padding-left: 8px;}
+    #user_content em.empty {color:#aaaaaa; padding-left:36px; white-space: nowrap;}
+    ul.tag-list li {
+      margin-bottom: 0px;
+      padding:3px 10px;
+      margin-left:10px;
+    }
+    #u_location div, #u_mc_activity div {margin-left: 36px; margin-bottom: 5px;}
+    #u_mc_activity .time {display: inline-block; width:115px;}
+    #u_mc_activity .action {display: inline-block; width:55px;}
+
+  </style>
+  <!-- Single User View-->
+  <div id="page_singleuser" class="page">
+
+    <div id="user_top">
+      <button class="btn-secondary -small -grey" id="users_back">Zurück zur Übersicht</button>
+        <div class="profile">
+          <img class="attachment user avatar img-round -largest" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/fad5d1e8df9b7eba405c9f2deec155f27c709f09/store/fill/400/400/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png">
+          <div>
+            <div><span id="u_id"></span> | <span id="u_created_at"></span> <span id="u_role"></span></div>
+            <div>
+              <em>Zuletzt eingeloggt: <span id="u_last_login"></span></em>
+            </div>
+            <div class="facts">
+
+              <div class="name"><span id="u_username"></span> |
+                <span id="u_firstname"></span>
+                <span id="u_lastname"></span>
+                <a href="#" id="u_admin" target="_blank">(edit)</a>
+              </div>
+              <div id="u_email"></div>
+
+              <div>
+                <span id="u_zip"></span>
+                <span id="u_graetzl"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <span style="width:80px;"></span>
+    </div>
+
+    <div id="user_content">
+
+      <div class="wrp -small">
+
+        <div id="#u_locations" class="u_block">
+          <div class="title"><%= icon_tag "location" %><span>Locations</span></div>
+          <div id="u_location"></div>
+        </div>
+
+      </div>
+      <div class="wrp -wide">
+        <div id="#u_mc_activities" class="u_block">
+          <div class="title">
+            <%= icon_tag "at-symbol" %>
+            <span>Mail Activities</span>
+            <ul class="tag-list grey">
+                <li>Newsletter</li>
+            </ul>
+          </div>
+          <div id="u_mc_activity"></div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+  </div>
+<!-- /PAGE SINGLE USERS -->
+
+<!-- PAGE MAILINGS -->
+  <div id="page_locations" class="page">
+
+    <!-- Users Datatable -->
+    <table id="datatable_locations" class="stripe hover row-border" width="100%" data-page-length='100'>
+      <thead>
+        <tr>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Grätzl</th>
+          <th>Erstellt am</th>
+        </tr>
+      </thead>
+    </table>
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
+<!-- PAGE MAILINGS -->
+  <div id="page_rooms" class="page">
+
+    Raumteiler
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
+<!-- PAGE MEETINGS -->
+  <div id="page_meetings" class="page">
+
+    Treffen
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
+<!-- PAGE GRÄTZLS -->
+  <div id="page_graetzls" class="page">
+    <!-- Grätzls Datatable -->
+    <table id="datatable_graetzls" class="stripe hover row-border" width="100%" data-page-length='200'>
+      <thead>
+        <tr>
+          <th>PLZ</th>
+          <th>Grätzl</th>
+          <th>Anzahl User</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+<!-- /PAGE GRÄTZLS -->
+
+<!-- PAGE MAILINGS -->
+  <div id="page_mailings" class="page">
+
+    <!-- Users Datatable -->
+    <table id="datatable_mailings" class="stripe hover row-border" width="100%" data-page-length='100'>
+      <thead>
+        <tr>
+          <th>Mailings</th>
+          <th>Sent</th>
+          <th>Opens</th>
+          <th>Clicks</th>
+        </tr>
+      </thead>
+    </table>
+
+  </div>
+<!-- /PAGE MAILINGS -->
+
+
+</section>

@@ -7,13 +7,14 @@ ActiveAdmin.register User do
   scope :business
   scope :admin
 
+  filter :id
   filter :graetzl
   filter :username
   filter :first_name
   filter :last_name
   filter :email
-  filter :role, as: :select, collection: User.roles.keys
   filter :created_at
+  filter :last_sign_in_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }
@@ -39,6 +40,15 @@ ActiveAdmin.register User do
       :city,
       :description,
       :coordinates]
+
+    # Within app/admin/resource_name.rb
+    # Controller pagination overrides
+    controller do
+        def apply_pagination(chain)
+            chain = super unless formats.include?(:json) || formats.include?(:csv)
+            chain
+        end
+    end
 
     csv do
       column :id
