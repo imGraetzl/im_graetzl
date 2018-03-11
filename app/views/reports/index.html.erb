@@ -10,7 +10,7 @@
   div#top {height:200px;}
   div#report_nav {padding-top:20px; padding-bottom: 30px;}
 
-  div#page_search {}
+  div#page_search {margin-bottom:40px;}
 
   img.loading-spinner {padding-top:30px;}
 
@@ -105,6 +105,7 @@
     };
 
     var users = []; // Clean Users Array to work with
+    var usersearch = []; // User Serach Result
     var graetzls = []; // Clean Grätzl Array to work with
     var locations = []; // Clean Location Array to work with
     var mc_automations = []; // Mailchimp Automation Mailings
@@ -264,13 +265,10 @@
       $('#report_nav button').prop("disabled",false);
       stopSpinner();
 
-      if ( page == 'page_dashboard' ) {
-        resetTopChart();
-      }
       if ( page == 'page_users' ) {
         resetTopChart();
         usersChart();
-        datatable_users();
+        datatable_users(users);
       }
       if ( page == 'page_locations' ) {
         resetTopChart();
@@ -291,11 +289,11 @@
     $(document).ready(function() {
       // Hide Pages on Load
       $('div.page').hide();
-      $('#report_nav button').prop("disabled",true);
+      $('#report_nav button.pages').prop("disabled",true);
       showSpinner();
 
       // Switch Pages on Button Click
-      $('#report_nav button').on( 'click', function() {
+      $('#report_nav button.pages').on( 'click', function() {
         var page = $(this).attr('data-nav');
 
         $('div.page').hide();
@@ -305,6 +303,61 @@
         page_loader(page);
 
       })
+
+      // Toggle Search Field
+      $('#btn-search').on( 'click', function() {
+        $('#page_search').slideToggle();
+      })
+
+      // Search Form
+      $(document).on( 'submit', '#search-form', function(event) {
+      	event.preventDefault();
+        var searchParam = requestUserSearch($('#search-value').val());
+        Promise.resolve(searchParam).then(function(res) {
+          console.log(usersearch);
+          page_loader('page_users');
+          datatable_users(usersearch);
+        });
+
+      })
+
+      // Search Request for User
+      var requestUserSearch = function(email, id){
+
+        // Emtpy Search Result Array
+        usersearch = [];
+
+        return new Promise( function(resolve, reject) {
+          $.ajax( {
+            url:'/admin/users.json?q%5Bemail_contains%5D=' + email,
+            method:'GET',
+            success:function(response) {
+              for( i=0; i < response.length; i++ ) {
+                usersearch.push({
+                  id: response[i].id,
+                  graetzl_id: response[i].graetzl_id,
+                  graetzl_name: '',
+                  graetzl_app_path: '',
+                  created_at: new Date(response[i].created_at),
+                  username: response[i].username,
+                  first_name: response[i].first_name,
+                  last_name: response[i].last_name,
+                  email: response[i].email,
+                  user_path_admin: host_admin + 'users/' + response[i].slug,
+                  user_path_app: host + response[i].slug,
+                  role: response[i].role,
+                  districts: [],
+                  locations: []
+                })
+              }
+              completeUser(usersearch);
+              resolve('usersearch');
+            }
+          });
+        });
+      } // Search for User
+
+
     });
     // END Page Navigation //
 
@@ -325,8 +378,8 @@
 
       Promise.all([p1, p2]).then(function(res) {
 
-        completeArrays();
-        page_loader('page_dashboard');
+        completeUser(users);
+        page_loader('page_users');
 
         //console.log(users);
         //console.log(graetzls);
@@ -380,19 +433,18 @@
       }
     }
 
-    // Helper - Complete Arrays with missing Infos from other Arrays
-    var completeArrays = function() {
-
+    // Helper - Complete User Array with missing Infos from Grätzl Arrays
+    var completeUser = function(type) {
       // Extend User Array with Grätzl-Infos
-      for ( i=0; i<users.length; i++ ) {
-        res = fetchFromID(users[i].graetzl_id, 'graetzls');
+      for ( i=0; i<type.length; i++ ) {
+        res = fetchFromID(type[i].graetzl_id, 'graetzls');
         for (let key in res) {
           // Get Grätzl Infos
-          users[i].graetzl_name = res[key].name;
-          users[i].graetzl_app_path = res[key].graetzl_app_path;
+          type[i].graetzl_name = res[key].name;
+          type[i].graetzl_app_path = res[key].graetzl_app_path;
           // Get District Infos
           for ( d=0; d<res[key].districts.length; d++ ) {
-            users[i].districts.push({
+            type[i].districts.push({
               id: res[key].districts[d].id,
               name: res[key].districts[d].name,
               slug: res[key].districts[d].slug,
@@ -570,9 +622,9 @@
     *********************************/
 
     // Create DATATABLE - USERS //
-    var datatable_users = function() {
+    var datatable_users = function(type) {
       $('#datatable_users').DataTable( {
-        data: users,
+        data: type,
         "order": [[ 5, "desc" ]],
         "processing": true,
         "paging": false,
@@ -993,7 +1045,8 @@
 
     var singleUser = function(user_id) {
 
-      $('#page_users').hide();
+      //$('#page_users').hide();
+      $('div.page').hide();
       $('#page_singleuser').show();
       $('html, body').animate({
         scrollTop: $("#report_nav").offset().top
@@ -1139,25 +1192,27 @@
   </div>
 
   <div id="report_nav">
-    <button class="btn-primary -rosa" data-nav="page_dashboard">Dashboard</button>
-    <button class="btn-primary -mint" data-nav="page_users">User</button>
-    <button class="btn-primary -mint" data-nav="page_locations">Locations</button>
-    <button class="btn-primary -mint" data-nav="page_rooms">Raumteiler</button>
-    <button class="btn-primary -mint" data-nav="page_meetings">Treffen</button>
-    <button class="btn-primary -mint" data-nav="page_graetzls">Grätzl</button>
-    <button class="btn-primary -mint" data-nav="page_mailings">Mailings</button>
-    <button class="btn-primary -mint" data-nav="page_search">Suche</button>
+    <!--<button class="btn-primary -rosa pages" data-nav="page_dashboard">Dashboard</button>-->
+    <button class="btn-primary -rosa pages" data-nav="page_users">User</button>
+    <button class="btn-primary -mint pages" data-nav="page_locations">Locations</button>
+    <button class="btn-primary -mint pages" data-nav="page_rooms">Raumteiler</button>
+    <button class="btn-primary -mint pages" data-nav="page_meetings">Treffen</button>
+    <button class="btn-primary -mint pages" data-nav="page_graetzls">Grätzl</button>
+    <button class="btn-primary -mint pages" data-nav="page_mailings">Mailings</button>
+    <button class="btn-primary -mint" id="btn-search">Suche</button>
   </div>
 
 <!-- PAGE SEARCH -->
+  <form id="search-form">
   <div id="page_search" class="page input-field">
     <label for="search">
       <%= icon_tag "search" %>
       <span>Suche</span>
     </label>
-    <input placeholder="Suche nach E-Mail Adresse ..." type="text" id="search">
-    <button class="btn-primary" data-nav="page_mailings">Suchen</button>
+    <input placeholder="Suche nach E-Mail Adresse ..." type="text" id="search-value">
+    <button class="btn-primary" id="search-submit">Suchen</button>
   </div>
+</form>
 
 <!-- PAGE USERS -->
   <div id="page_users" class="page">
