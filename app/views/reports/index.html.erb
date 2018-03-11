@@ -1084,12 +1084,15 @@
         $('#u_admin').attr('href', user.user_path_admin);
         $('#u_role').html(user.role? '| ' + user.role : '');
         $('#u_zip').html('');
+        user.newsletter ? $('#u_newsletter').show() : $('#u_newsletter').hide();
         for ( i=0; i<user.districts.length; i++ ) {
           $('<span>').html(user.districts[i].zip).appendTo('#u_zip');
         }
-        user.newsletter ? $('#u_newsletter').show() : $('#u_newsletter').hide();
-        user.avatar ? $('#u_avatar').attr('src', user.avatar) : $('#u_avatar').attr('src', '/assets/avatar/user/400x400.png');
-
+        if (user.avatar == null) {
+          $('#u_avatar').attr('src', '/assets/avatar/user/400x400.png');
+        } else {
+          $('#u_avatar').attr('src', user.avatar);
+        }
 
 
 
