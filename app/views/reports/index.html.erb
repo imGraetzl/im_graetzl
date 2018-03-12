@@ -281,13 +281,15 @@
     var page_loader = function(page) {
 
       // Show Page and Stop Spinner
-      $('#' + page + '').show();
+      $('div.page').hide(); // Hide all Pages
+      $('#' + page + '').show(); // Show Specific Page
       $('#report_nav button').prop("disabled",false);
       stopSpinner();
 
       // Load Page Specific Content
       if ( page == 'page_users' ) {
         resetTopChart();
+        showSpinner();
         usersChart();
         datatable_users(users);
       }
@@ -791,7 +793,6 @@
       // Load only from Server if Array is empty
       if ( locations.length > 0 ) {
 
-        stopSpinner();
         locationsChart();
 
       } else {
@@ -853,6 +854,7 @@
     // Chart Users
     var usersChart = function() {
 
+      stopSpinner();
       fillTimeChartData(users);
 
       var labeldata = timeChart.datesFriendly;
@@ -873,6 +875,7 @@
     // Chart Locations
     var locationsChart = function() {
 
+      stopSpinner();
       fillTimeChartData(locations);
 
       var labeldata = timeChart.datesFriendly;
@@ -1030,16 +1033,23 @@
 
     /*********************************
 
-        Event Listeners
+        EVENT -
+        LISTENERS
 
     *********************************/
 
     $(document).ready(function() {
 
+      // Back Button User Detail-Page
+      $('#users_back').on( 'click', function() {
+        page_loader('page_users');
+      })
+
+
       // Page Navigation - Switch Pages on Button Click
       $('#report_nav button.pages').on( 'click', function() {
         var page = $(this).attr('data-nav');
-        $('div.page').hide();
+        //$('div.page').hide();
         $('#report_nav button.-rosa').removeClass('-rosa').addClass('-mint');
         $(this).addClass('-rosa').removeClass('-mint');
         page_loader(page);
