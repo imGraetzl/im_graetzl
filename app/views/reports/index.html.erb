@@ -82,17 +82,38 @@
     moment.locale('de-at');
 
     // TimeTable Object for Charts - Including Unit & Date Range
-    var timePeriod = {
-      count: 30,
-      unit:'',
-      dates:[],
-      datesFriendly:[]
+    var timeChart = {
+      period: 30,
+      unit: 'days',
+      dates: [],
+      datesFriendly: [],
+      data: []
     };
-    // Time Period Data for Charts
-    var timePeriodData = [];
 
-    // Top Chart
-    var chartTopArea;
+    // Vars for Start / End Dates
+    var endDate = new Date();
+        endDate.setDate(endDate.getDate());
+        endDate.setHours(23,59,0,0);
+    var startDate = new Date();
+        startDate.setDate(endDate.getDate() - timeChart.period+1);
+        startDate.setHours(1,0,0,0);
+
+    // Create Timeline Array with Dates
+    var setTimeUnit = function( unit ) {
+      timeChart.unit = unit;
+      timeChart.dates = []; // Clear Array
+      timeChart.datesFriendly = []; // Clear Array
+
+      if (unit == 'days') {
+        for ( i=startDate; i<=endDate; i.setDate(i.getDate() + 1 )) {
+          var priorDate = new Date(i).toISOString().slice(0,10);
+          var priorDateFriendly = moment(i).format('ll');
+          timeChart.dates.push(priorDate);
+          timeChart.datesFriendly.push(priorDateFriendly);
+        }
+        //console.log(timeChart.dates.length);
+      }
+    } // Timeline Array
 
     // Mailchimp Chart
     var mcChartData = {
@@ -104,6 +125,7 @@
       }
     };
 
+    var chartTopArea; // Top Chart Area
     var users = []; // Clean Users Array to work with
     var usersearch = []; // User Serach Result
     var graetzls = []; // Clean Grätzl Array to work with
@@ -112,22 +134,17 @@
     var host = 'http://' + window.location.host + '/'; // Environment Path
     var host_admin = 'http://' + window.location.host + '/admin/'; // Active Admin Path
 
-    // Vars for Start / End Dates
+    // Format Date Params for Ajax Requests
     var ajaxStartDate = '&q%5Bcreated_at_gteq_date%5D=';
     var ajaxEndDate = '&q%5Bcreated_at_lteq_date%5D=';
-    var endDate = new Date();
-        endDate.setDate(endDate.getDate());
-        endDate.setHours(23,59,0,0);
-    var endDateStr = endDate.toISOString().slice(0, 10);
-    var startDate = new Date();
-        startDate.setDate(endDate.getDate() - timePeriod.count+1);
-        startDate.setHours(1,0,0,0);
     var startDateStr = startDate.toISOString().slice(0, 10);
+    var endDateStr = endDate.toISOString().slice(0, 10);
 
 
     /*********************************
         USER OBJECT
     *********************************/
+
     var User = function( id ) {
 
       this.id = id,
@@ -263,10 +280,12 @@
 
     var page_loader = function(page) {
 
+      // Show Page and Stop Spinner
       $('#' + page + '').show();
       $('#report_nav button').prop("disabled",false);
       stopSpinner();
 
+      // Load Page Specific Content
       if ( page == 'page_users' ) {
         resetTopChart();
         usersChart();
@@ -288,81 +307,7 @@
       }
     }
 
-    $(document).ready(function() {
-      // Hide Pages on Load
-      $('div.page').hide();
-      $('#report_nav button.pages').prop("disabled",true);
-      showSpinner();
-
-      // Switch Pages on Button Click
-      $('#report_nav button.pages').on( 'click', function() {
-        var page = $(this).attr('data-nav');
-
-        $('div.page').hide();
-        $('#report_nav button.-rosa').removeClass('-rosa').addClass('-mint');
-        $(this).addClass('-rosa').removeClass('-mint');
-        $('#' + page + '').show();
-        page_loader(page);
-
-      })
-
-      // Toggle Search Field
-      $('#btn-search').on( 'click', function() {
-        $('#page_search').slideToggle();
-      })
-
-      // Search Form
-      $(document).on( 'submit', '#search-form', function(event) {
-      	event.preventDefault();
-        var searchParam = requestUserSearch($('#search-value').val());
-        Promise.resolve(searchParam).then(function(res) {
-          console.log(usersearch);
-          page_loader('page_users');
-          datatable_users(usersearch);
-        });
-
-      })
-
-      // Search Request for User
-      var requestUserSearch = function(email, id){
-
-        // Emtpy Search Result Array
-        usersearch = [];
-
-        return new Promise( function(resolve, reject) {
-          $.ajax( {
-            url:'/admin/users.json?q%5Bemail_contains%5D=' + email,
-            method:'GET',
-            success:function(response) {
-              for( i=0; i < response.length; i++ ) {
-                usersearch.push({
-                  id: response[i].id,
-                  graetzl_id: response[i].graetzl_id,
-                  graetzl_name: '',
-                  graetzl_app_path: '',
-                  created_at: new Date(response[i].created_at),
-                  username: response[i].username,
-                  first_name: response[i].first_name,
-                  last_name: response[i].last_name,
-                  email: response[i].email,
-                  user_path_admin: host_admin + 'users/' + response[i].slug,
-                  user_path_app: host + response[i].slug,
-                  role: response[i].role,
-                  districts: [],
-                  locations: []
-                })
-              }
-              completeUser(usersearch);
-              resolve('usersearch');
-            }
-          });
-        });
-      } // Search for User
-
-
-    });
     // END Page Navigation //
-
 
 
     /*********************************
@@ -370,9 +315,14 @@
     *********************************/
     $( document ).ready(function() {
 
-      // Init Chartareas
+      // Init Chartarea
       var topchart = $("#topchart");
       setTimeUnit('days');
+
+      // Hide Pages on Load
+      $('div.page').hide();
+      $('#report_nav button.pages').prop("disabled",true);
+      showSpinner();
 
       // Load Users and Grätzls on Pageload
       var p1 = requestUsers();
@@ -382,7 +332,6 @@
 
         completeUser(users);
         page_loader('page_users');
-
         //console.log(users);
         //console.log(graetzls);
 
@@ -405,18 +354,6 @@
       return Math.round(wert * umrechnungsfaktor) / umrechnungsfaktor;
     }
 
-    // Helper - Check if Date is in Date-Range
-    /*var checkDateRange = function ( checkDate, startDate, unit ) {
-      var tmpDate = new Date();
-      tmpDate.setDate(startDate.getDate() + 1);
-      tmpDate.setHours(0,0,0,0);
-      var endDate = new Date(tmpDate);
-      if (checkDate >= startDate && checkDate <= endDate ){
-        return true;
-      }
-    }
-    */
-
     // Reset Top Chart
     var resetTopChart = function(){
       if (typeof chartTopArea != 'undefined') {
@@ -424,14 +361,31 @@
       }
     }
 
-    var checkDateRange = function ( checkDate, inDate, unit ) {
-      var tmpDate = new Date();
-      var inDate = new Date(inDate);
-      tmpDate.setDate(inDate.getDate() + 1);
-      tmpDate.setHours(0,0,0,0);
-      var endDate = new Date(tmpDate);
-      if (checkDate >= inDate && checkDate <= endDate ){
-        return true;
+    // Show & Stop Loading Spinner //
+    function showSpinner() {
+      var spinnerSrc = "<%= asset_path('svg/loading.svg') %>";
+      var spinner = $('<img class="loading-spinner" src="' + spinnerSrc + '">');
+      $('#topchart').hide();
+      $('#top').append(spinner);
+    }
+
+    function stopSpinner() {
+      $('#topchart').show();
+      $('#top').find(".loading-spinner").remove();
+    }
+
+
+    var fillTimeChartData = function(data) {
+      // Set Length of Time Period Array to Length of Actual Dates
+      timeChart.data.length = timeChart.dates.length;
+      timeChart.data.fill(0); // Prefill all Values with 0
+
+      for ( i=0; i<data.length; i++ ) {
+        var checkDate = new Date(data[i].created_at).toISOString().slice(0,10);
+        if (checkDate >= timeChart.dates[0] && checkDate <= (timeChart.dates[timeChart.dates.length - 1]) ) {
+          var pos = timeChart.dates.indexOf(checkDate);
+          timeChart.data[pos] +=1; // Set and add Value at correct Position
+        }
       }
     }
 
@@ -472,26 +426,16 @@
         return result;
       }
     }
-    // Helper Functions //
 
-    // Show & Stop Loading Spinner //
-    function showSpinner() {
-      var spinnerSrc = "<%= asset_path('svg/loading.svg') %>";
-      var spinner = $('<img class="loading-spinner" src="' + spinnerSrc + '">');
-      $('#topchart').hide();
-      $('#top').append(spinner);
-    }
-
-    function stopSpinner() {
-      $('#topchart').show();
-      $('#top').find(".loading-spinner").remove();
-    }
+    // Helper Functions
 
 
 
     /*********************************
+
         AJAX
         JSON Requests
+
     *********************************/
 
     // Get Users and Set Clean User Array
@@ -595,8 +539,6 @@
       });
     } // Get Locations
 
-
-
     // Get Mailchimp Automations
     var requestMCAutomations = function(type, workflow_id){
       return new Promise( function(resolve, reject) {
@@ -615,12 +557,50 @@
       });
     } // Get Mailchimp Automations
 
+    // Search Request for Users
+    var requestUserSearch = function(email, id){
+
+      // Emtpy Search Result Array
+      usersearch = [];
+
+      return new Promise( function(resolve, reject) {
+        $.ajax( {
+          url:'/admin/users.json?q%5Bemail_contains%5D=' + email,
+          method:'GET',
+          success:function(response) {
+            for( i=0; i < response.length; i++ ) {
+              usersearch.push({
+                id: response[i].id,
+                graetzl_id: response[i].graetzl_id,
+                graetzl_name: '',
+                graetzl_app_path: '',
+                created_at: new Date(response[i].created_at),
+                username: response[i].username,
+                first_name: response[i].first_name,
+                last_name: response[i].last_name,
+                email: response[i].email,
+                user_path_admin: host_admin + 'users/' + response[i].slug,
+                user_path_app: host + response[i].slug,
+                role: response[i].role,
+                districts: [],
+                locations: []
+              })
+            }
+            completeUser(usersearch);
+            resolve('usersearch');
+          }
+        });
+      });
+    } // Search for User
+
     // END Ajax JSON Requests //
 
 
     /*********************************
+
         Create DATATABLES
         (jQuery Plugin)
+
     *********************************/
 
     // Create DATATABLE - USERS //
@@ -690,7 +670,6 @@
       $($content).append('<div>' + data.email + '</div>');
       return $content;
     }
-
 
     // Create DATATABLE - Mailchimp Automations //
     var datatable_mailings = function(page) {
@@ -780,7 +759,6 @@
       });
     }
 
-
     // Create DATATABLE - GRÄTZLS //
     var datatable_graetzls = function() {
       $('#datatable_graetzls').DataTable( {
@@ -806,7 +784,6 @@
         ]
       });
     }
-
 
     // Create DATATABLE LOCATIONS
     var datatable_locations = function() {
@@ -863,87 +840,23 @@
       }
     }
 
-
     // END Create Datatables (jQuery Plugin) //
 
 
 
     /*********************************
-        Create CHART DATE RANGE
-        for Visualization
-    *********************************/
 
-      // Create Timeline Array with Dates
-        var setTimeUnit = function( unit ) {
-        timePeriod.unit = unit;
-        timePeriod.dates = [];
-        timePeriod.datesFriendly = [];
-        if (unit == 'days') {
-
-          for ( i=startDate; i<=endDate; i.setDate(i.getDate() + 1 )) {
-            var priorDate = new Date(i);
-            var priorDateFriendly = moment(i).format('ll');
-            timePeriod.dates.push(priorDate);
-            timePeriod.datesFriendly.push(priorDateFriendly);
-          }
-          //console.log(timePeriod.dates.length);
-        }
-
-      } // Time Period Array
-
-      /*var setTimeUnit = function( count, unit, startDate, endDate ) {
-        timePeriod.count = count;
-        timePeriod.unit = unit;
-        timePeriod.dates = [];
-        timePeriod.datesFriendly = [];
-        var currentDate = new Date(); // Today
-        if (unit == 'days') {
-          for ( i=0; i<count; i++ ) {
-
-            var tmpDate = new Date();
-            tmpDate.setDate(currentDate.getDate() - i);
-            tmpDate.setHours(0,0,0,0);
-            var priorDate = new Date(tmpDate);
-            var priorDateFriendly = moment(priorDate).format('ll');
-
-            timePeriod.dates.push(priorDate);
-            timePeriod.datesFriendly.push(priorDateFriendly);
-          }
-        }
-        timePeriod.dates.reverse();
-        timePeriod.datesFriendly.reverse();
-      } // Time Period Array
-      */
-
-
-
-    /*********************************
         Draw CHARTs
+
     *********************************/
 
-
+    // Chart Users
     var usersChart = function() {
 
-      // Create Users Array within Timeperiod Dates (Lookup)
-      // Set Length of Time Period Array to Length of Actual Dates
-      timePeriodData.length = timePeriod.dates.length;
-      timePeriodData.fill(0); // Prefill all Values with 0
+      fillTimeChartData(users);
 
-      for ( i=0; i<users.length; i++ ) {
-        var checkDate = new Date(users[i].created_at);
-
-        // Loop Check every single User for all Dates in Range
-        for ( d=timePeriodData.length-1; d>0; d-- ) {
-          var check = checkDateRange( checkDate, timePeriod.dates[d], timePeriod.unit );
-          if (check == true) {
-            timePeriodData[d] +=1;
-            break;
-          }
-        } // Loop Check every single User for all Dates
-      } // Loop Check all Users
-
-      var labeldata = timePeriod.datesFriendly;
-      var chartdata = timePeriodData;
+      var labeldata = timeChart.datesFriendly;
+      var chartdata = timeChart.data;
 
       chartTopArea = new Chart(topchart, {
         type: 'line',
@@ -957,30 +870,13 @@
       });
     } // Users Chart
 
-
-
+    // Chart Locations
     var locationsChart = function() {
 
-      // Create Users Array within Timeperiod Dates (Lookup)
-      // Set Length of Time Period Array to Length of Actual Dates
-      timePeriodData.length = timePeriod.dates.length;
-      timePeriodData.fill(0); // Prefill all Values with 0
+      fillTimeChartData(locations);
 
-      for ( i=0; i<locations.length; i++ ) {
-        var checkDate = new Date(locations[i].created_at);
-
-        // Loop Check every single Location for all Dates in Range
-        for ( d=timePeriodData.length-1; d>0; d-- ) {
-          var check = checkDateRange( checkDate, timePeriod.dates[d], timePeriod.unit );
-          if (check == true) {
-            timePeriodData[d] +=1;
-            break;
-          }
-        } // Loop Check every single User for all Dates
-      } // Loop Check all Users
-
-      var labeldata = timePeriod.datesFriendly;
-      var chartdata = timePeriodData;
+      var labeldata = timeChart.datesFriendly;
+      var chartdata = timeChart.data;
 
       chartTopArea = new Chart(topchart, {
         type: 'line',
@@ -994,8 +890,7 @@
       });
     } // Location Chart
 
-
-    // Mailing Chart
+    // Chart Mailings
     var mailingChart = function(labeldata, sent, opens, clicks) {
 
       var chartcolor0 = 'rgba(237, 129, 117, 0.5)';
@@ -1039,11 +934,11 @@
     } // Mailing Chart
 
 
-  /*********************************
+    /*********************************
 
       Create SINGLE USER View
 
-  *********************************/
+    *********************************/
 
     var singleUser = function(user_id) {
 
@@ -1133,16 +1028,41 @@
     } // SingleUser Page
 
 
-
     /*********************************
+
         Event Listeners
+
     *********************************/
+
     $(document).ready(function() {
 
-      $('#users_back').on('click', function () {
-        $('#page_users').show();
-        $('#page_singleuser').hide();
-      });
+      // Page Navigation - Switch Pages on Button Click
+      $('#report_nav button.pages').on( 'click', function() {
+        var page = $(this).attr('data-nav');
+        $('div.page').hide();
+        $('#report_nav button.-rosa').removeClass('-rosa').addClass('-mint');
+        $(this).addClass('-rosa').removeClass('-mint');
+        page_loader(page);
+      }) // Nav
+
+
+      // Toggle Search Field
+      $('#btn-search').on( 'click', function() {
+        $('#page_search').slideToggle();
+      }) // Toogle
+
+
+      // Search Form Submit
+      $(document).on( 'submit', '#search-form', function(event) {
+        event.preventDefault();
+        var searchParam = requestUserSearch($('#search-value').val());
+        Promise.resolve(searchParam).then(function(res) {
+          console.log(usersearch);
+          page_loader('page_users');
+          datatable_users(usersearch);
+        });
+      }) // Search
+
 
       // Open Single User Page
       $('#datatable_users').on('click', 'a.user', function (event) {
@@ -1150,6 +1070,8 @@
         singleUser($(this).data('id'));
       });
 
+
+      // Hover Data-Table Row
       $('#datatable_users').on('mouseover', 'tr.odd, tr.even', function () {
         $(this).find('svg').addClass('over');
       });
