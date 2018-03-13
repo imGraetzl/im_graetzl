@@ -90,6 +90,7 @@
     var chartTopArea; // Top Chart Area
     var users = []; // Clean Users Array to work with
     var usersearch = []; // User Serach Result
+    var rooms = []; // Clean Room Array to work with
     var graetzls = []; // Clean Grätzl Array to work with
     var locations = []; // Clean Location Array to work with
     var mc_automations = []; // Mailchimp Automation Mailings
@@ -109,6 +110,13 @@
         unique_clicks: []
       }
     };
+    // Room Type Translation
+    var room_type = {
+      offering_room : 'Habe Raum',
+      offering_roommate : 'Habe Raum - Neu anmieten',
+      seeking_room : 'Suche Raum',
+      seeking_roommate : 'Suche Raum - Neu anmieten'
+    }
 
     /*********************************
 
@@ -265,6 +273,40 @@
         }.bind(this));
       } // Get Locations
 
+
+      // Get Rooms and Set Clean Rooms Array
+      this.requestRooms = function(type){
+        return new Promise( function(resolve, reject) {
+          var startDate = this.startDate().toISOString().slice(0, 10);
+          var endDate = this.endDate().toISOString().slice(0, 10);
+          $.ajax( {
+            url:'/admin/' + type + '.json?' + ajaxStartDate + startDate + ajaxEndDate + endDate,
+            method:'GET',
+            success:function(response) {
+              console.log(response);
+              for( i=0; i < response.length; i++ ) {
+                // Push to Rooms Array
+                rooms.push({
+                  id: response[i].id,
+                  name: response[i].slogan,
+                  created_at: response[i].created_at,
+                  graetzl_id: response[i].graetzl_id,
+                  user_id: response[i].user_id,
+                  room_path: response[i].slug,
+                  room_path_admin: host_admin + type + '/' + response[i].slug,
+                  category_ids: response[i].room_category_ids,
+                  type : response[i].offer_type ? response[i].offer_type : response[i].demand_type,
+                  type_friendly : response[i].offer_type ? room_type[response[i].offer_type] : room_type[response[i].demand_type], // Translate from Object room_type,
+                  district_ids: response[i].district_id ? [response[i].district_id] : response[i].district_ids
+                })
+              }
+              resolve('rooms');
+            }
+          });
+        }.bind(this));
+      } // Get Rooms
+
+
     }; // Chart Object
 
 
@@ -284,7 +326,7 @@
       this.locations = [],
       this.updates = [],
       this.meetings = [],
-      this.raumteiler = [],
+      this.rooms = [],
 
       // Get User Infos from Server
       this.getUser = function() {
@@ -437,6 +479,21 @@
           locationsChart.drawChart(locations, 'Locations');
           stopSpinner();
           datatable_locations();
+        })
+      }
+
+      if ( page == 'page_rooms' ) {
+        resetTopChart();
+        showSpinner();
+        var roomsChart = new TimeChart(initDate, initPeriod);
+        rooms = [];
+        var p1 = Promise.resolve(roomsChart.requestRooms('room_offers'));
+        var p2 = Promise.resolve(roomsChart.requestRooms('room_demands'));
+        Promise.all([p1, p2]).then(function(res) {
+          roomsChart.drawChart(rooms, 'Raumteiler');
+          stopSpinner();
+          datatable_rooms();
+          console.log(rooms);
         })
       }
 
@@ -893,6 +950,40 @@
       });
     }
 
+
+    // Create DATATABLE ROOMS
+    var datatable_rooms = function() {
+      $('#datatable_rooms').DataTable( {
+        data: rooms,
+        "order": [[ 2, "desc" ]],
+        "processing": true,
+        "paging": false,
+        "bDestroy": true,
+        "searching": false,
+        columns: [
+          { data: 'type_friendly'},
+          { data: 'name',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = '<a href="'+row['room_path_admin']+'">' + data + '</a>';
+            }
+              return data;
+            }
+          },
+          { data: 'created_at',
+            render: function(data, type) {
+              if ( type == "sort" || type == 'type' ) {
+                return data;
+              } else {
+                // Use Friendly Format for Output
+                return moment(data).format('lll');
+              }
+            }
+          }
+        ]
+      });
+    }
+
     // END Create Datatables (jQuery Plugin) //
 
 
@@ -1309,13 +1400,22 @@
   </div>
 <!-- /PAGE MAILINGS -->
 
-<!-- PAGE MAILINGS -->
+<!-- PAGE ROOMS -->
   <div id="page_rooms" class="page">
 
-    Raumteiler
+    <!-- Users Datatable -->
+    <table id="datatable_rooms" class="stripe hover row-border" width="100%" data-page-length='100'>
+      <thead>
+        <tr>
+          <th>Typ</th>
+          <th>Raumteiler</th>
+          <th>Erstellt am</th>
+        </tr>
+      </thead>
+    </table>
 
   </div>
-<!-- /PAGE MAILINGS -->
+<!-- /PAGE ROOMS -->
 
 <!-- PAGE MEETINGS -->
   <div id="page_meetings" class="page">
@@ -1323,7 +1423,7 @@
     Treffen
 
   </div>
-<!-- /PAGE MAILINGS -->
+<!-- /PAGE MEETINGS -->
 
 <!-- PAGE GRÄTZLS -->
   <div id="page_graetzls" class="page">
