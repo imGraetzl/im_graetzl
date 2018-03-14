@@ -10,10 +10,13 @@
   .nav-months {
     width: 350px;
     margin:auto;
-    margin-bottom:30px;
+    margin-bottom: 25px;
+    margin-top: -15px;
   }
 
-  div#top {height:200px;}
+  div#top {height:220px;}
+  div#topWideChart {height:220px;}
+  div#topPieChart {width:500px; height:220px; margin:auto;}
   div#report_nav {padding-top:20px; padding-bottom: 30px;}
 
   div#page_search {margin-bottom:40px;}
@@ -37,6 +40,18 @@
   #user_top .profile div.facts {margin-top: 20px;}
   #user_top .profile div.name {font-weight: bold;}
   #user_top .profile div.name a {font-weight: normal;}
+  #user_top ul.tag-list {display: inline-block; margin-left:6px;}
+  #user_top ul.tag-list li {
+    margin-top:0px;
+    margin-bottom:0px;
+    padding:3px 10px;
+    margin-right:6px;
+    float:none;
+    display: inline-block;
+  }
+  #user_top ul.tag-list li.business {background-color: #83C7BD; color:white;}
+  #user_top ul.tag-list li.admin {background-color: #EC776A; color:white;}
+
 
   #u_zip span:nth-child(2n)::before {
     content: ", ";
@@ -55,8 +70,8 @@
   #user_content .title {margin-bottom: 10px; display: flex; align-items: center;}
   #user_content .title span {font-weight:bold; font-size: 2.0rem; padding-left: 8px;}
   #user_content em.empty {color:#aaaaaa; padding-left:36px; white-space: nowrap;}
-  ul.tag-list li {
-    /*margin-bottom: 0px;*/
+
+  #user_content ul.tag-list li {
     margin-top:0px;
     margin-bottom:0px;
     padding:3px 10px;
@@ -64,8 +79,9 @@
     float:none;
     display: inline-block;
   }
+
   #u_location div, #u_mc_activity div {margin-left: 36px; margin-bottom: 7px;}
-  #u_mc_activities .title {margin-bottom: 20px;}
+  #u_mc_activities .title {margin-bottom: 10px;}
   #u_mc_activity .time {display: inline-block; min-width:110px; text-align: right; white-space: nowrap;}
   #u_mc_activity .action {display: inline-block; min-width:110px; text-align: center;}
   #u_mc_activity .action .bounce li {background-color: red; color:white;}
@@ -88,8 +104,10 @@
     moment.locale('de-at');
 
     var chartTopArea; // Top Chart Area
+    var chartGraetzlTopArea; // Top Chart Area
     var users = []; // Clean Users Array to work with
     var usersearch = []; // User Serach Result
+    var rooms = []; // Clean Room Array to work with
     var graetzls = []; // Clean Grätzl Array to work with
     var locations = []; // Clean Location Array to work with
     var mc_automations = []; // Mailchimp Automation Mailings
@@ -109,6 +127,17 @@
         unique_clicks: []
       }
     };
+
+    // Grätzl Activity Counts for Charts
+    var graetzls_count;
+
+    // Room Type Translation
+    var room_type = {
+      offering_room : 'Habe Raum',
+      offering_roommate : 'Habe Raum - Neu anmieten',
+      seeking_room : 'Suche Raum',
+      seeking_roommate : 'Suche Raum - Neu anmieten'
+    }
 
     /*********************************
 
@@ -265,6 +294,40 @@
         }.bind(this));
       } // Get Locations
 
+
+      // Get Rooms and Set Clean Rooms Array
+      this.requestRooms = function(type){
+        return new Promise( function(resolve, reject) {
+          var startDate = this.startDate().toISOString().slice(0, 10);
+          var endDate = this.endDate().toISOString().slice(0, 10);
+          $.ajax( {
+            url:'/admin/' + type + '.json?' + ajaxStartDate + startDate + ajaxEndDate + endDate,
+            method:'GET',
+            success:function(response) {
+              console.log(response);
+              for( i=0; i < response.length; i++ ) {
+                // Push to Rooms Array
+                rooms.push({
+                  id: response[i].id,
+                  name: response[i].slogan,
+                  created_at: response[i].created_at,
+                  graetzl_id: response[i].graetzl_id,
+                  user_id: response[i].user_id,
+                  room_path: response[i].slug,
+                  room_path_admin: host_admin + type + '/' + response[i].slug,
+                  category_ids: response[i].room_category_ids,
+                  type : response[i].offer_type ? response[i].offer_type : response[i].demand_type,
+                  type_friendly : response[i].offer_type ? room_type[response[i].offer_type] : room_type[response[i].demand_type], // Translate from Object room_type,
+                  district_ids: response[i].district_id ? [response[i].district_id] : response[i].district_ids
+                })
+              }
+              resolve('rooms');
+            }
+          });
+        }.bind(this));
+      } // Get Rooms
+
+
     }; // Chart Object
 
 
@@ -284,7 +347,7 @@
       this.locations = [],
       this.updates = [],
       this.meetings = [],
-      this.raumteiler = [],
+      this.rooms = [],
 
       // Get User Infos from Server
       this.getUser = function() {
@@ -299,7 +362,7 @@
               this.role = res.role;
               this.newsletter = res.newsletter;
               this.created_at = new Date(res.created_at);
-              this.last_login = res.last_sign_in_at? new Date(res.last_sign_in_at) : '';
+              this.last_login = res.updated_at? new Date(res.updated_at) : '';
               this.username = res.username;
               this.slug = res.slug;
               this.user_path_admin = host_admin + 'users/' + res.slug;
@@ -409,7 +472,7 @@
         Page Navigation
 
     *********************************/
-    var page_loader = function(page, type) {
+    var page_loader = function(page, info) {
 
       // Show Page and Stop Spinner
       $('div.page').hide(); // Hide all Pages
@@ -422,10 +485,10 @@
         showSpinner();
         var usersChart = new TimeChart(initDate, initPeriod);
         Promise.resolve(usersChart.requestUsers()).then(function(res) {
-          usersChart.drawChart(users, 'Registrierungen');
+          usersChart.drawChart(users, '' + users.length + ' Registrierungen');
           stopSpinner();
           // If Search, load Searchresult, else normal Usertable
-          type ? datatable_users(usersearch, 'users') : datatable_users(users, 'users');
+          info ? datatable_users(usersearch, 'users') : datatable_users(users, 'users');
         })
       }
 
@@ -434,15 +497,47 @@
         showSpinner();
         var locationsChart = new TimeChart(initDate, initPeriod);
         Promise.resolve(locationsChart.requestLocations()).then(function(res) {
-          locationsChart.drawChart(locations, 'Locations');
+          locationsChart.drawChart(locations, '' + locations.length + ' Locations');
           stopSpinner();
           datatable_locations();
         })
       }
 
+      if ( page == 'page_rooms' ) {
+        resetTopChart();
+        showSpinner();
+        var roomsChart = new TimeChart(initDate, initPeriod);
+        rooms = [];
+        var p1 = Promise.resolve(roomsChart.requestRooms('room_offers'));
+        var p2 = Promise.resolve(roomsChart.requestRooms('room_demands'));
+        Promise.all([p1, p2]).then(function(res) {
+          roomsChart.drawChart(rooms, '' + rooms.length + ' Raumteiler');
+          stopSpinner();
+          datatable_rooms();
+          console.log(rooms);
+        })
+      }
+
       if ( page == 'page_graetzls' ) {
         resetTopChart();
-        datatable_graetzls();
+        showSpinner();
+        if ( info == true ) {
+          var usersChart = new TimeChart(initDate, initPeriod);
+          Promise.resolve(usersChart.requestUsers()).then(function(res) {
+            completeGraetzls(users);
+            setGraetzlChartData('actual');
+            graetzlsChart('actual');
+            stopSpinner(page);
+            datatable_graetzls();
+          })
+
+        } else {
+          completeGraetzls(users);
+          setGraetzlChartData('actual');
+          graetzlsChart('actual');
+          stopSpinner(page);
+          datatable_graetzls();
+        }
       }
 
       if ( page == 'page_mailings' ) {
@@ -460,7 +555,7 @@
       $('#months').find('option').remove();
       // Set actual last 30 Days
       $('<option data-unit="days" data-day="' + actualmonth.format('YYYY-MM-DD') + '" data-period="' + initPeriod + '">Letzten ' + initPeriod + ' Tage</option>').appendTo('#months');
-      for ( i = 1; i < 13; i++ ) {
+      for ( i = 0; i < 13; i++ ) {
         var prevMonth = moment(actualmonth).subtract(i, 'months');
         var prevMonthLast = prevMonth.endOf('month').format('YYYY-MM-DD');
         $('<option data-unit="months" data-day="' + prevMonthLast + '">' + prevMonth.format('MMMM YYYY') + '</option>').appendTo('#months');
@@ -475,6 +570,7 @@
 
       // Init Chartarea
       var topchart = $("#topchart");
+      var graetzlchart = $("#graetzlchart");
 
       // Init Month Navigation Dropdown
       setTimeNav();
@@ -487,6 +583,7 @@
       // Load Grätzls on Pageload
       Promise.resolve(requestGraetzls()).then(function(res) {
         page_loader('page_users');
+        console.log(graetzls);
       })//.catch( function() {alert('Error Loading Data ...'); } )
 
     });
@@ -511,18 +608,26 @@
       if (typeof chartTopArea != 'undefined') {
         chartTopArea.destroy();
       }
+      if (typeof chartGraetzlTopArea != 'undefined') {
+        chartGraetzlTopArea.destroy();
+      }
     }
 
     // Show & Stop Loading Spinner //
     var showSpinner = function() {
       var spinnerSrc = "<%= asset_path('svg/loading.svg') %>";
       var spinner = $('<img class="loading-spinner" src="' + spinnerSrc + '">');
-      $('#topchart').hide();
+      $('#topLineChart').hide();
+      $('#topPieChart').hide();
       $('#top').append(spinner);
     }
 
-    var stopSpinner = function() {
-      $('#topchart').show();
+    var stopSpinner = function(page) {
+      if ( page == 'page_graetzls' ) {
+        $('#topPieChart').show();
+      } else {
+        $('#topLineChart').show();
+      }
       $('#top').find(".loading-spinner").remove();
     }
 
@@ -564,6 +669,80 @@
       }
     };
 
+
+    // Helper - Complete Grätzl Array with Userscount from actual Timeperiod
+    var completeGraetzls = function(type) {
+
+      //  Set users_count_actual_timeperiod of all Graetzls to 0
+      for ( i=0; i < graetzls.length; i++ ) {
+        graetzls[i].users_count_actual_timeperiod = 0;
+      }
+
+      // Extend Graetzl Array with Usercount Info
+      for ( i=0; i<type.length; i++ ) {
+        res = fetchFromID(type[i].graetzl_id, 'graetzls');
+        for (let key in res) {
+          var matchGraetzl = graetzls.find(function (matchGraetzl) { return matchGraetzl.id === type[i].graetzl_id; });
+          matchGraetzl.users_count_actual_timeperiod +=1; // Set Sum of GraetzlUsers in TimePeriod
+        }
+      }
+    };
+
+
+    // Helper Function for Filling Graetzl Chart Data
+    var setGraetzlChartData = function(type) {
+
+      // Reset Arrays
+      graetzls_count = {
+        total: {
+          sum:0,
+          //sumTopGraetzl:0,
+          data:[],
+          chartData:[],
+          chartLabel:[]
+        },
+        actual: {
+          sum:0,
+          //sumTopGraetzl:0,
+          data:[],
+          chartData:[],
+          chartLabel:[]
+        }
+      }
+
+      if ( type == 'total' ) {
+        type = graetzls_count.total;
+        for ( i=0; i < graetzls.length; i++) {
+          type.sum += graetzls[i].users_count;
+          type.data.push({
+            label: graetzls[i].name,
+            count: graetzls[i].users_count
+          });
+        }
+      } else if ( type == 'actual' ) {
+        type = graetzls_count.actual;
+        for ( i=0; i < graetzls.length; i++) {
+          type.sum += graetzls[i].users_count_actual_timeperiod;
+          type.data.push({
+            label: graetzls[i].name,
+            count: graetzls[i].users_count_actual_timeperiod
+          });
+        }
+      }
+
+      console.log(type);
+
+      // Sort Array by Count-Value
+      type.data.sort(function(a,b) {return (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0);} );
+
+      // Push Data in Chart Arrays
+      for ( i=0; i < type.data.length; i++ ) {
+        type.chartData.push(type.data[i].count);
+        type.chartLabel.push(type.data[i].label + ' (' + type.data[i].count + ')');
+      }
+    } //Graetzl Chart Data
+
+
     // Helper Functions
 
 
@@ -593,7 +772,8 @@
                 graetzl_app_path: host + response[i].slug,
                 graetzl_admin_path: host_admin + 'graetzls/' + response[i].slug,
                 users_count: response[i].users_count,
-                districts: []
+                districts: [],
+                users_count_actual_timeperiod : 0
               });
               // Add Districts to Grätzl
               for ( d=0; d<response[i].districts.length; d++ ) {
@@ -837,7 +1017,7 @@
     var datatable_graetzls = function() {
       $('#datatable_graetzls').DataTable( {
         data: graetzls,
-        "order": [[ 2, "desc" ]],
+        "order": [[ 3, "desc" ]],
         "processing": true,
         "paging": false,
         "bDestroy": true,
@@ -854,7 +1034,8 @@
             }
           },
           { data: 'name'},
-          { data: 'users_count' }
+          { data: 'users_count' },
+          { data: 'users_count_actual_timeperiod' }
         ]
       });
     }
@@ -893,6 +1074,40 @@
       });
     }
 
+
+    // Create DATATABLE ROOMS
+    var datatable_rooms = function() {
+      $('#datatable_rooms').DataTable( {
+        data: rooms,
+        "order": [[ 2, "desc" ]],
+        "processing": true,
+        "paging": false,
+        "bDestroy": true,
+        "searching": false,
+        columns: [
+          { data: 'type_friendly'},
+          { data: 'name',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = '<a href="'+row['room_path_admin']+'">' + data + '</a>';
+            }
+              return data;
+            }
+          },
+          { data: 'created_at',
+            render: function(data, type) {
+              if ( type == "sort" || type == 'type' ) {
+                return data;
+              } else {
+                // Use Friendly Format for Output
+                return moment(data).format('lll');
+              }
+            }
+          }
+        ]
+      });
+    }
+
     // END Create Datatables (jQuery Plugin) //
 
 
@@ -904,14 +1119,136 @@
     *********************************/
 
 
+    // Chart Graetzls
+    var graetzlsChart = function(type) {
+
+      var topGraetzlCount = 7;
+      var sumTopGraetzl = 0; // Reset
+      var sumRemainingGraetzl = 0; // Reset
+      var headline = '';
+      var headlineTimePeriod = '';
+      var zeroGraetzl = 0;
+
+      var chartlabel, chartdata, sum;
+      var color0 = 'rgba(237, 129, 117, 1.0)';
+      var color1 = 'rgba(237, 129, 117, 0.6)';
+      var color2 = 'rgba(237, 129, 117, 0.2)';
+      var color3 = 'rgba(131, 199, 189, 1.0)';
+      var color4 = 'rgba(131, 199, 189, 0.6)';
+      var color5 = 'rgba(131, 199, 189, 0.2)';
+
+      if ( type == 'total' ) {
+        chartdata = graetzls_count.total.chartData;
+        chartlabel = graetzls_count.total.chartLabel;
+        sum = graetzls_count.total.sum;
+      } else if ( type == 'actual' ) {
+        chartdata = graetzls_count.actual.chartData;
+        chartlabel = graetzls_count.actual.chartLabel;
+        sum = graetzls_count.actual.sum;
+      }
+
+      for ( i = 0; i < topGraetzlCount; i++ ) {
+        sumTopGraetzl += chartdata[i]; // Count Sum of Users in Top Grätzl
+      }
+
+      for ( i = topGraetzlCount; i < chartdata.length; i++ ) {
+        sumRemainingGraetzl += chartdata[i]; // Count Sum of Users in remaining Grätzls
+      }
+
+      var findZeroGraetzl = function (element) {
+        return element == 0;
+      }
+      var resultIndex = chartdata.findIndex(findZeroGraetzl); // Get Index of first Element in Grätzl Array without User
+      var sumGraetzl = chartdata.length; // Sum of all Grätzls
+      if (resultIndex != -1 ) {
+        zeroGraetzl = sumGraetzl - resultIndex; // Count of Grätzls without User
+      }
+
+      var activeGraetzls = sumGraetzl - zeroGraetzl;
+      var remainingGraetzlCount = activeGraetzls - topGraetzlCount;
+
+      console.log('Anzahl Top Grätzl :' + topGraetzlCount);
+      console.log('Anzahl Grätz ohne User :' + zeroGraetzl);
+      console.log('Anzahl Grätzl Array gesamt: ' + sumGraetzl);
+      console.log('Anzahl Grätzln mit User: ' + activeGraetzls);
+      console.log('Anzahl restlicher Grätzln mit User: ' + remainingGraetzlCount);
+      console.log('Summer User in Top Grätzl: ' + sumTopGraetzl);
+      console.log('Summe User im Zeitraum: ' + sum);
+      console.log('Summe User in restlichen Grätzln: ' + sumRemainingGraetzl);
+      console.log(chartdata);
+      console.log(chartlabel);
+      //console.log(initDate);
+      //console.log(initUnit);
+
+
+
+      // Friendly Text for Headline
+      if ( initUnit == 'days' ) {
+        headlineTimePeriod = 'in den letzten ' + initPeriod + ' Tagen';
+      } else if ( initUnit == 'months' ) {
+        actualMonth = moment(initDate);
+        actualMonth = actualMonth.format('MMMM YYYY');
+        headlineTimePeriod = 'im ' + actualMonth;
+      }
+
+      // Kürzen auf Top Grätzl
+      chartdata.splice(topGraetzlCount);
+      chartdata.push(sumRemainingGraetzl);
+      chartlabel.splice(topGraetzlCount);
+      chartlabel.push('' + remainingGraetzlCount + ' weitere Grätzl (' + sumRemainingGraetzl + ')');
+
+      if ( type == 'total' ) {
+        headline = 'Gesamt: ' + sum + ' User in ' + graetzls.length + ' Grätzln';
+      } else if ( type == 'actual' ) {
+        headline = sum + ' neue User ' + headlineTimePeriod;
+      }
+
+      var data = {
+        datasets: [{
+          data: chartdata,
+          backgroundColor: [
+						color0,
+						color1,
+            color2,
+						color3,
+            color4,
+						color5,
+					]
+        }],
+        labels: chartlabel
+      };
+
+      chartGraetzlTopArea = new Chart(graetzlchart, {
+        type: 'doughnut',
+        data: data,
+        options: {
+          responsive: true,
+          legend: {
+            position: 'right',
+          },
+            title: {
+            display: true,
+            text: headline,
+            fontSize: 18,
+            padding: 10,
+            position:'top'
+          },
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          }
+        }
+      });
+
+    } // Chart Graetzls
 
 
 
     // Chart Mailings
     var mailingChart = function(labeldata, sent, opens, clicks) {
 
-      var chartcolor0 = 'rgba(237, 129, 117, 0.5)';
-      var chartcolor1 = 'rgba(131, 199, 189, 0.5)';
+      var color0 = 'rgba(237, 129, 117, 0.5)';
+      var color1 = 'rgba(131, 199, 189, 0.5)';
       chartTopArea = new Chart(topchart, {
         type: 'bar',
         data: {
@@ -924,7 +1261,7 @@
                 opens[0],
                 clicks[0]
               ],
-              backgroundColor: chartcolor0,
+              backgroundColor: color0,
               yAxisID: "mailing"
             },
             {
@@ -934,7 +1271,7 @@
                 opens[1],
                 clicks[1]
               ],
-              backgroundColor: chartcolor1,
+              backgroundColor: color1,
               yAxisID: "mailing"
             }
           ]
@@ -948,7 +1285,7 @@
           }
         }
       });
-    } // Mailing Chart
+    } // Chart Mailing
 
 
     /*********************************
@@ -992,9 +1329,12 @@
         $('#u_created_at').html(moment(user.created_at).format('ll'));
         $('#u_last_login').html(user.last_login? moment(user.last_login).format('ll') : 'noch kein Login');
         $('#u_admin').attr('href', user.user_path_admin);
-        $('#u_role').html(user.role? '| ' + user.role : '');
+        $('#u_role').html(user.role).removeClass('admin business').addClass(user.role);
         $('#u_zip').html('');
+
         user.newsletter ? $('#u_newsletter').show() : $('#u_newsletter').hide();
+        user.role ? $('#u_role').show() : $('#u_role').hide();
+
         for ( i=0; i<user.districts.length; i++ ) {
           $('<span>').html(user.districts[i].zip).appendTo('#u_zip');
         }
@@ -1059,7 +1399,12 @@
         checkPeriod ? initPeriod = checkPeriod : initPeriod = initPeriod;
         initUnit = this.options[this.selectedIndex].getAttribute('data-unit');
         var actualPage = $("button[class*='-rosa']").attr('data-nav');
-        page_loader(actualPage);
+        if ( actualPage == 'page_graetzls') {
+          // Inform PageLoader to Load new Users for Timeperiod
+          page_loader(actualPage, true);
+        } else {
+          page_loader(actualPage);
+        }
       })
 
 
@@ -1114,6 +1459,29 @@
         $(this).find('svg').removeClass('over');
       });
 
+      // Click on Sorting Grätzl Table
+      $('#datatable_graetzls').on('click', 'th', function (event) {
+        event.preventDefault();
+        var getSorting = this.getAttribute('data-user');
+        console.log('HUI: ' + getSorting);
+
+        if ( getSorting == 'actual' ) {
+          resetTopChart();
+          showSpinner();
+          setGraetzlChartData('actual');
+          graetzlsChart('actual');
+          stopSpinner('page_graetzls');
+        } else if ( getSorting == 'total' ) {
+          resetTopChart();
+          showSpinner();
+          setGraetzlChartData('total');
+          graetzlsChart('total');
+          stopSpinner('page_graetzls');
+        }
+
+      });
+
+
       // Add event listener for opening and closing detail rows
       /*
       VORÜBERGEHEND DEAKTIVIERT ------
@@ -1161,7 +1529,12 @@
 
   <!-- Top Chart -->
   <div id="top">
-    <canvas id="topchart" width="900" height="200"></canvas>
+    <div id="topLineChart">
+      <canvas id="topchart" height="220" width="900"></canvas>
+    </div>
+    <div id="topPieChart">
+      <canvas id="graetzlchart" height="220" width="500"></canvas>
+    </div>
   </div>
 
   <div id="report_nav">
@@ -1218,7 +1591,14 @@
         <div class="profile">
           <img id="u_avatar" class="attachment user avatar img-round -largest" src="/assets/img/400x400.png">
           <div>
-            <div><span id="u_id"></span> | <span id="u_created_at"></span> <span id="u_role"></span></div>
+            <div>
+              <span id="u_id"></span> |
+              <span id="u_created_at"></span>
+              <ul class="tag-list grey">
+                <li id="u_role"></li>
+                <li id="u_newsletter">Newsletter</li>
+              </ul>
+            </div>
             <div>
               <em>Zuletzt eingeloggt: <span id="u_last_login"></span></em>
             </div>
@@ -1276,9 +1656,6 @@
         <div class="title">
           <%= icon_tag "at-symbol" %>
           <span>Mail Activities</span>
-          <ul id="u_newsletter" class="tag-list grey">
-            <li>Newsletter</li>
-          </ul>
         </div>
         <div id="u_mc_activity"></div>
       </div>
@@ -1309,13 +1686,22 @@
   </div>
 <!-- /PAGE MAILINGS -->
 
-<!-- PAGE MAILINGS -->
+<!-- PAGE ROOMS -->
   <div id="page_rooms" class="page">
 
-    Raumteiler
+    <!-- Users Datatable -->
+    <table id="datatable_rooms" class="stripe hover row-border" width="100%" data-page-length='100'>
+      <thead>
+        <tr>
+          <th>Typ</th>
+          <th>Raumteiler</th>
+          <th>Erstellt am</th>
+        </tr>
+      </thead>
+    </table>
 
   </div>
-<!-- /PAGE MAILINGS -->
+<!-- /PAGE ROOMS -->
 
 <!-- PAGE MEETINGS -->
   <div id="page_meetings" class="page">
@@ -1323,7 +1709,7 @@
     Treffen
 
   </div>
-<!-- /PAGE MAILINGS -->
+<!-- /PAGE MEETINGS -->
 
 <!-- PAGE GRÄTZLS -->
   <div id="page_graetzls" class="page">
@@ -1333,7 +1719,8 @@
         <tr>
           <th>PLZ</th>
           <th>Grätzl</th>
-          <th>Anzahl User</th>
+          <th data-user="total">User Gesamt</th>
+          <th data-user="actual">Neue User</th>
         </tr>
       </thead>
     </table>
