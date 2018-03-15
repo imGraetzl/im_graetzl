@@ -13,6 +13,22 @@
     margin-bottom: 25px;
     margin-top: -15px;
   }
+  .dtb td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width:200px;
+  }
+  .dtb th.-id {
+    width:50px;
+  }
+
+  .dtb th.-date {
+    width:150px;
+  }
+  .dtb th.-count {
+    width:100px;
+  }
 
   div#top {height:220px;}
   div#topWideChart {height:220px;}
@@ -80,7 +96,7 @@
     display: inline-block;
   }
 
-  #u_location div, #u_mc_activity div {margin-left: 36px; margin-bottom: 7px;}
+  #u_location div, #u_room div, #u_meeting div, #u_mc_activity div {margin-left: 36px; margin-bottom: 7px;}
   #u_mc_activities .title {margin-bottom: 10px;}
   #u_mc_activity .time {display: inline-block; min-width:110px; text-align: right; white-space: nowrap;}
   #u_mc_activity .action {display: inline-block; min-width:110px; text-align: center;}
@@ -108,6 +124,7 @@
     var users = []; // Clean Users Array to work with
     var usersearch = []; // User Serach Result
     var rooms = []; // Clean Room Array to work with
+    var meetings = []; // Clean Meetings Array to work with
     var graetzls = []; // Clean Grätzl Array to work with
     var locations = []; // Clean Location Array to work with
     var mc_automations = []; // Mailchimp Automation Mailings
@@ -208,6 +225,7 @@
           }
         }
         // Draw Chart
+
         chartTopArea = new Chart(topchart, {
           type: 'line',
           data: {
@@ -215,9 +233,22 @@
             datasets: [{
               label: label,
               data: this.data,
+              //backgroundColor : 'rgba(237, 129, 117, 0.2)',
+              borderWidth: 1
             }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  stepSize: 1
+                }
+              }]
+            }
           }
         });
+        //Chart.defaults.global.defaultFontSize = '10';
       }
 
       // Get Users and Set Clean User Array
@@ -293,6 +324,44 @@
           });
         }.bind(this));
       } // Get Locations
+
+
+
+      // Get Meetings and Set Clean Meeting Array
+      this.requestMeetings = function(){
+        return new Promise( function(resolve, reject) {
+          var startDate = this.startDate().toISOString().slice(0, 10);
+          var endDate = this.endDate().toISOString().slice(0, 10);
+          $.ajax( {
+            url:'/admin/meetings.json?' + ajaxStartDate + startDate + ajaxEndDate + endDate,
+            method:'GET',
+            success:function(response) {
+              meetings = [];
+              for( i=0; i < response.length; i++ ) {
+                // Push to Meetings Array
+                meetings.push({
+                  id: response[i].id,
+                  name: response[i].name,
+                  created_at: response[i].created_at,
+                  graetzl_id: response[i].graetzl_id,
+                  graetzl_name: '',
+                  user_id: response[i].user_id,
+                  meeting_path: response[i].slug,
+                  meetings_path_admin: host_admin + 'meetings/' + response[i].slug
+                })
+                // Extend Location Array with Grätzl-Infos from Grätzl Array
+                var res = fetchFromID(meetings[i].graetzl_id, 'graetzls');
+                for (let key in res) {
+                  meetings[i].graetzl_name = res[key].name;
+                  meetings[i].meetings_path = res[key].graetzl_app_path + '/treffen/' + meetings[i].meetings_path;
+                }
+              }
+              resolve('meetings');
+            }
+          });
+        }.bind(this));
+      } // Get Locations
+
 
 
       // Get Rooms and Set Clean Rooms Array
@@ -424,6 +493,79 @@
       } // get User Locations from Server
 
 
+
+      // Get User Meetings from Server
+      this.getMeetings = function() {
+        return new Promise( function(resolve, reject) {
+          // TO DO :: INITIATOR STATT GOINGTOs
+          $.ajax( {
+            url:'/admin/meetings.json?q%5Bgoing_tos_user_id_eq%5D=' + this.id,
+            method:'GET',
+            success:function(res) {
+
+              for( i=0; i < res.length; i++ ) {
+                this.meetings.push({
+                  id: res[i].id,
+                  name: res[i].name,
+                  created_at: res[i].created_at,
+                  graetzl_id: res[i].graetzl_id,
+                  graetzl_name: '',
+                  user_id: res[i].user_id,
+                  meetings_path: res[i].slug,
+                  meetings_path_admin: host_admin + 'meetings/' + res[i].slug
+                })
+              }
+
+              // Get missing Location Infos from Grätzl Array
+              for ( i=0; i < this.meetings.length; i++ ) {
+                res = fetchFromID(this.meetings[i].graetzl_id, 'graetzls');
+                for (let key in res) {
+                  this.meetings[i].graetzl_name = res[key].name;
+                  this.meetings[i].meetings_path = res[key].graetzl_app_path + '/treffen/' + this.meetings[i].meetings_path;
+                }
+              }
+
+              resolve('user_meetings');
+
+            }.bind(this)
+          });
+        }.bind(this));
+      } // get User Locations from Server
+
+
+
+      // Get User Rooms from Server
+      this.getRooms = function(type) {
+        return new Promise( function(resolve, reject) {
+          $.ajax( {
+            url:'/admin/' + type + '.json?q%5Buser_id_eq%5D=' + this.id,
+            method:'GET',
+            success:function(response) {
+              console.log(response);
+              for( i=0; i < response.length; i++ ) {
+                // Push to User Rooms Array
+                this.rooms.push({
+                  id: response[i].id,
+                  name: response[i].slogan,
+                  created_at: response[i].created_at,
+                  graetzl_id: response[i].graetzl_id,
+                  user_id: response[i].user_id,
+                  room_path: response[i].slug,
+                  room_path_admin: host_admin + type + '/' + response[i].slug,
+                  category_ids: response[i].room_category_ids,
+                  type : response[i].offer_type ? response[i].offer_type : response[i].demand_type,
+                  type_friendly : response[i].offer_type ? room_type[response[i].offer_type] : room_type[response[i].demand_type], // Translate from Object room_type,
+                  district_ids: response[i].district_id ? [response[i].district_id] : response[i].district_ids
+                })
+              }
+              resolve('user rooms');
+            }.bind(this)
+          });
+        }.bind(this));
+      } // get User Rooms from Server
+
+
+
       // Get Grätzls & District Infos for User from Grätzl-Array
       this.getGraetzlInfos = function() {
         res = fetchFromID(this.graetzl_id, 'graetzls');
@@ -500,6 +642,17 @@
           locationsChart.drawChart(locations, '' + locations.length + ' Locations');
           stopSpinner();
           datatable_locations();
+        })
+      }
+
+      if ( page == 'page_meetings' ) {
+        resetTopChart();
+        showSpinner();
+        var meetingsChart = new TimeChart(initDate, initPeriod);
+        Promise.resolve(meetingsChart.requestMeetings()).then(function(res) {
+          meetingsChart.drawChart(meetings, '' + meetings.length + ' Treffen');
+          stopSpinner();
+          datatable_meetings();
         })
       }
 
@@ -861,20 +1014,20 @@
     var datatable_users = function(type, name) {
       $('#datatable_' + name + '').DataTable( {
         data: type,
-        "order": [[ 5, "desc" ]],
+        "order": [[ 4, "desc" ]],
         "processing": true,
         "paging": false,
         "destroy": true,
         "searching": false,
         //"responsive": true,
         columns: [
+          //{ data: 'id' },
           {
             "className": 'details-control',
             "orderable": false,
             "data": null,
-            "defaultContent": "<%= icon_tag "layout-text" %>"
+            "defaultContent": "<%= icon_tag "user-info-profile-details" %>"
           },
-          { data: 'id' },
           { data: 'username',
             render: function( data, type, row, meta ){
               if ( type === 'display' ) {
@@ -899,7 +1052,7 @@
           { data: 'graetzl_name',
             render: function( data, type, row, meta ){
               if ( type === 'display' ) {
-              data = '<a href="' + row['graetzl_app_path'] + '">' + data + '</a>';
+              data = '<a href="' + row['graetzl_app_path'] + '" target="_blank">' + data + '</a>';
             }
               return data;
             }
@@ -1050,15 +1203,50 @@
         "bDestroy": true,
         "searching": false,
         columns: [
+          { data: 'id'},
           { data: 'name',
             render: function( data, type, row, meta ){
               if ( type === 'display' ) {
-              data = '<a href="'+row['location_path_admin']+'">' + data + '</a>';
+              data = '<a href="'+row['location_path_admin']+'" target="_blank">' + data + '</a>';
             }
               return data;
             }
           },
-          { data: 'state'},
+          { data: 'graetzl_name'},
+          { data: 'created_at',
+            render: function(data, type) {
+              if ( type == "sort" || type == 'type' ) {
+                return data;
+              } else {
+                // Use Friendly Format for Output
+                return moment(data).format('lll');
+              }
+            }
+          }
+        ]
+      });
+    }
+
+
+    // Create DATATABLE MEETINGS
+    var datatable_meetings = function() {
+      $('#datatable_meetings').DataTable( {
+        data: meetings,
+        "order": [[ 3, "desc" ]],
+        "processing": true,
+        "paging": false,
+        "bDestroy": true,
+        "searching": false,
+        columns: [
+          { data: 'id'},
+          { data: 'name',
+            render: function( data, type, row, meta ){
+              if ( type === 'display' ) {
+              data = '<a href="'+row['meetings_path_admin']+'" target="_blank">' + data + '</a>';
+            }
+              return data;
+            }
+          },
           { data: 'graetzl_name'},
           { data: 'created_at',
             render: function(data, type) {
@@ -1089,7 +1277,7 @@
           { data: 'name',
             render: function( data, type, row, meta ){
               if ( type === 'display' ) {
-              data = '<a href="'+row['room_path_admin']+'">' + data + '</a>';
+              data = '<a href="'+row['room_path_admin']+'" target="_blank">' + data + '</a>';
             }
               return data;
             }
@@ -1262,7 +1450,8 @@
                 clicks[0]
               ],
               backgroundColor: color0,
-              yAxisID: "mailing"
+              yAxisID: "mailing",
+              borderWidth: 1
             },
             {
               label: labeldata[1],
@@ -1272,7 +1461,8 @@
                 clicks[1]
               ],
               backgroundColor: color1,
-              yAxisID: "mailing"
+              yAxisID: "mailing",
+              borderWidth: 1
             }
           ]
         },
@@ -1312,6 +1502,21 @@
       $('#u_location').html('');
       $('<em class="empty">Noch keine Locations</em>')
       .appendTo('#u_location');
+
+      // Reset & Clear Room Output
+      $('#u_room').html('');
+      $('<em class="empty">Noch keine Raumteiler</em>')
+      .appendTo('#u_room');
+
+      // Reset & Clear Meetings Output
+      $('#u_meeting').html('');
+      $('<em class="empty">Noch keine Treffen</em>')
+      .appendTo('#u_meeting');
+
+      // Reset & Clear Updates Output
+      $('#u_update').html('');
+      $('<em class="empty">Noch keine Updates</em>')
+      .appendTo('#u_update');
 
 
       // Create new User for ID
@@ -1379,6 +1584,25 @@
           $('#u_location .empty').hide();
         }
       });
+
+      // Request User Meetings
+      Promise.resolve(user.getMeetings()).then(function(res) {
+        for ( i=0; i<user.meetings.length; i++ ) {
+          $('<div><a href="' + user.meetings[i].meetings_path + '" target="_blank">' + user.meetings[i].name + '</a></div>')
+            .appendTo('#u_meeting');
+          $('#u_meeting .empty').hide();
+        }
+      });
+
+      var r1 = Promise.resolve(user.getRooms('room_offers'));
+      var r2 = Promise.resolve(user.getRooms('room_demands'));
+      Promise.all([r1, r2]).then(function(res) {
+        for ( i=0; i<user.rooms.length; i++ ) {
+          $('<div><a href="' + user.rooms[i].room_path_admin + '" target="_blank">' + user.rooms[i].name + '</a></div>')
+            .appendTo('#u_room');
+          $('#u_room .empty').hide();
+        }
+      })
 
     } // SingleUser Page
 
@@ -1463,7 +1687,7 @@
       $('#datatable_graetzls').on('click', 'th', function (event) {
         event.preventDefault();
         var getSorting = this.getAttribute('data-user');
-        console.log('HUI: ' + getSorting);
+        //console.log('sorting: ' + getSorting);
 
         if ( getSorting == 'actual' ) {
           resetTopChart();
@@ -1564,15 +1788,14 @@
   <div id="page_users" class="page">
 
     <!-- Users Datatable -->
-    <table id="datatable_users" class="datatable_users stripe hover row-border" width="100%" data-page-length='100'>
+    <table id="datatable_users" class="datatable_users stripe hover row-border dtb" width="100%" data-page-length='100'>
       <thead>
         <tr>
           <th></th>
-          <th>ID</th>
           <th>Username</th>
           <th>E-Mail</th>
           <th>Grätzl</th>
-          <th>Registriert</th>
+          <th class="-date">Registriert</th>
         </tr>
       </thead>
     </table>
@@ -1629,18 +1852,18 @@
         </div>
       </div>
       <div class="wrp -wide">
-        <div id="#u_raumteilers" class="u_block">
+        <div id="#u_rooms" class="u_block">
           <div class="title"><%= icon_tag "raumteiler" %><span>Raumteiler</span></div>
-          <div id="u_raumteiler"></div>
+          <div id="u_room"></div>
         </div>
       </div>
     </div>
 
     <div id="user_content">
       <div class="wrp -small">
-        <div id="#u_location_updates" class="u_block">
+        <div id="#u_updates" class="u_block">
           <div class="title"><%= icon_tag "horn-promote" %><span>Location Updates</span></div>
-          <div id="u_location_update"></div>
+          <div id="u_update"></div>
         </div>
       </div>
       <div class="wrp -wide">
@@ -1672,13 +1895,13 @@
   <div id="page_locations" class="page">
 
     <!-- Users Datatable -->
-    <table id="datatable_locations" class="stripe hover row-border" width="100%" data-page-length='100'>
+    <table id="datatable_locations" class="stripe hover row-border dtb" width="100%" data-page-length='100'>
       <thead>
         <tr>
+          <th class="-id">ID</th>
           <th>Location</th>
-          <th>Status</th>
           <th>Grätzl</th>
-          <th>Erstellt am</th>
+          <th class="-date">Erstellt am</th>
         </tr>
       </thead>
     </table>
@@ -1690,12 +1913,12 @@
   <div id="page_rooms" class="page">
 
     <!-- Users Datatable -->
-    <table id="datatable_rooms" class="stripe hover row-border" width="100%" data-page-length='100'>
+    <table id="datatable_rooms" class="stripe hover row-border dtb" width="100%" data-page-length='100'>
       <thead>
         <tr>
           <th>Typ</th>
           <th>Raumteiler</th>
-          <th>Erstellt am</th>
+          <th class="-date">Erstellt am</th>
         </tr>
       </thead>
     </table>
@@ -1706,7 +1929,17 @@
 <!-- PAGE MEETINGS -->
   <div id="page_meetings" class="page">
 
-    Treffen
+    <!-- Users Datatable -->
+    <table id="datatable_meetings" class="stripe hover row-border dtb" width="100%" data-page-length='100'>
+      <thead>
+        <tr>
+          <th class="-id">ID</th>
+          <th>Treffen</th>
+          <th>Grätzl</th>
+          <th class="-date">Erstellt am</th>
+        </tr>
+      </thead>
+    </table>
 
   </div>
 <!-- /PAGE MEETINGS -->
@@ -1714,13 +1947,13 @@
 <!-- PAGE GRÄTZLS -->
   <div id="page_graetzls" class="page">
     <!-- Grätzls Datatable -->
-    <table id="datatable_graetzls" class="stripe hover row-border" width="100%" data-page-length='200'>
+    <table id="datatable_graetzls" class="stripe hover row-border dtb" width="100%" data-page-length='200'>
       <thead>
         <tr>
-          <th>PLZ</th>
+          <th class="-count">PLZ</th>
           <th>Grätzl</th>
-          <th data-user="total">User Gesamt</th>
-          <th data-user="actual">Neue User</th>
+          <th class="-count" data-user="total">User Gesamt</th>
+          <th class="-count" data-user="actual">Neue User</th>
         </tr>
       </thead>
     </table>
