@@ -32,7 +32,7 @@
 
   div#top {height:220px;}
   div#topWideChart {height:220px;}
-  div#topPieChart {width:500px; height:220px; margin:auto;}
+  div#topPieChart {width:700px; height:220px; margin:auto;}
   div#report_nav {padding-top:20px; padding-bottom: 30px;}
 
   div#page_search {margin-bottom:40px;}
@@ -105,6 +105,10 @@
   #u_mc_activity .action .open li {background-color: #83C7BD; color:white;}
   #u_mc_activity .action .sent li {}
   #u_mc_activity .name {font-style: italic;}
+
+  #user_content .-more div {display:none;}
+  #user_content .-more div:nth-child(-n+3) {display:block}
+  .showmorelink {margin-top:5px; margin-left: 36px; font-style: italic;}
 
 </style>
 
@@ -800,6 +804,14 @@
       }
     }
 
+    var showmore = function(type) {
+      event.preventDefault();
+      var dataid = type;
+      console.log(dataid)
+      var vis = $('#'+dataid+' div:visible').last().index();
+      $('#'+dataid+' div').slice(vis, vis+4).show();
+    }
+
     // Helper - Complete User Array with missing Infos from Grätzl Arrays
     var completeUser = function(type) {
       // Extend User Array with Grätzl-Infos
@@ -1310,7 +1322,7 @@
     // Chart Graetzls
     var graetzlsChart = function(type) {
 
-      var topGraetzlCount = 7;
+      var topGraetzlCount = 13;
       var sumTopGraetzl = 0; // Reset
       var sumRemainingGraetzl = 0; // Reset
       var headline = '';
@@ -1318,12 +1330,20 @@
       var zeroGraetzl = 0;
 
       var chartlabel, chartdata, sum;
-      var color0 = 'rgba(237, 129, 117, 1.0)';
-      var color1 = 'rgba(237, 129, 117, 0.6)';
-      var color2 = 'rgba(237, 129, 117, 0.2)';
-      var color3 = 'rgba(131, 199, 189, 1.0)';
-      var color4 = 'rgba(131, 199, 189, 0.6)';
-      var color5 = 'rgba(131, 199, 189, 0.2)';
+      var color0 = 'rgba(205, 137, 27, 0.9)';
+      var color1 = 'rgba(205, 137, 27, 0.6)';
+      var color2 = 'rgba(205, 137, 27, 0.4)';
+      var color3 = 'rgba(205, 137, 27, 0.2)';
+      var color4 = 'rgba(237, 129, 117, 1.0)';
+      var color5 = 'rgba(237, 129, 117, 0.7)';
+      var color6 = 'rgba(237, 129, 117, 0.5)';
+      var color7 = 'rgba(237, 129, 117, 0.2)';
+      var color8 = 'rgba(131, 199, 189, 1.0)';
+      var color9 = 'rgba(131, 199, 189, 0.7)';
+      var color10 = 'rgba(131, 199, 189, 0.5)';
+      var color11 = 'rgba(131, 199, 189, 0.3)';
+      var color12 = 'rgba(131, 199, 189, 0.1)';
+
 
       if ( type == 'total' ) {
         chartdata = graetzls_count.total.chartData;
@@ -1401,6 +1421,13 @@
 						color3,
             color4,
 						color5,
+            color6,
+            color7,
+						color8,
+            color9,
+            color10,
+						color11,
+            color12,
 					]
         }],
         labels: chartlabel
@@ -1518,6 +1545,9 @@
       $('<em class="empty">Noch keine Updates</em>')
       .appendTo('#u_update');
 
+      // Remove more Links
+      $('.showmorelink').remove();
+
 
       // Create new User for ID
       var user = new User( user_id );
@@ -1583,6 +1613,9 @@
             .appendTo('#u_location');
           $('#u_location .empty').hide();
         }
+        if (user.locations.length >= 4) {
+          $('<a href="#" data-id="u_location" class="showmorelink">Weitere anzeigen ..</a>').on('click', function(){showmore('u_location');}).appendTo('#u_locations');
+        }
       });
 
       // Request User Meetings
@@ -1591,6 +1624,9 @@
           $('<div><a href="' + user.meetings[i].meetings_path + '" target="_blank">' + user.meetings[i].name + '</a></div>')
             .appendTo('#u_meeting');
           $('#u_meeting .empty').hide();
+        }
+        if (user.meetings.length >= 4) {
+          $('<a href="#" data-id="u_meeting" class="showmorelink">Weitere anzeigen ..</a>').on('click', function(){showmore('u_meeting');}).appendTo('#u_meetings');
         }
       });
 
@@ -1601,6 +1637,9 @@
           $('<div><a href="' + user.rooms[i].room_path_admin + '" target="_blank">' + user.rooms[i].name + '</a></div>')
             .appendTo('#u_room');
           $('#u_room .empty').hide();
+        }
+        if (user.rooms.length >= 4) {
+          $('<a href="#" data-id="u_room" class="showmorelink">Weitere anzeigen ..</a>').on('click', function(){showmore('u_room');}).appendTo('#u_rooms');
         }
       })
 
@@ -1757,7 +1796,7 @@
       <canvas id="topchart" height="220" width="900"></canvas>
     </div>
     <div id="topPieChart">
-      <canvas id="graetzlchart" height="220" width="500"></canvas>
+      <canvas id="graetzlchart" height="220" width="700"></canvas>
     </div>
   </div>
 
@@ -1846,13 +1885,13 @@
 
     <div id="user_content">
       <div class="wrp -small">
-        <div id="#u_locations" class="u_block">
+        <div id="u_locations" class="u_block -more">
           <div class="title"><%= icon_tag "location" %><span>Locations</span></div>
           <div id="u_location"></div>
         </div>
       </div>
       <div class="wrp -wide">
-        <div id="#u_rooms" class="u_block">
+        <div id="u_rooms" class="u_block -more">
           <div class="title"><%= icon_tag "raumteiler" %><span>Raumteiler</span></div>
           <div id="u_room"></div>
         </div>
@@ -1861,13 +1900,13 @@
 
     <div id="user_content">
       <div class="wrp -small">
-        <div id="#u_updates" class="u_block">
+        <div id="u_updates" class="u_block -more">
           <div class="title"><%= icon_tag "horn-promote" %><span>Location Updates</span></div>
           <div id="u_update"></div>
         </div>
       </div>
       <div class="wrp -wide">
-        <div id="#u_meetings" class="u_block">
+        <div id="u_meetings" class="u_block -more">
           <div class="title"><%= icon_tag "calendar-2" %><span>Treffen</span></div>
           <div id="u_meeting"></div>
         </div>
@@ -1916,7 +1955,7 @@
     <table id="datatable_rooms" class="stripe hover row-border dtb" width="100%" data-page-length='100'>
       <thead>
         <tr>
-          <th>Typ</th>
+          <th class="-date">Typ</th>
           <th>Raumteiler</th>
           <th class="-date">Erstellt am</th>
         </tr>
