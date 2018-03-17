@@ -9,6 +9,9 @@ class RoomDemandsController < ApplicationController
   def new
     @room_demand = RoomDemand.new
     @room_demand.assign_attributes(current_user.slice(:first_name, :last_name, :email, :website))
+    if !website.start_with?('http://') && !website.start_with?('https://')
+        website.insert(0,"https://")
+    end
   end
 
   def create
