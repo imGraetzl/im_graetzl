@@ -35,9 +35,9 @@
 
   <script>
   $(document).ready(function() {
-    if ($("#flash .alert").exists()) {
-      //if ( $("#flash .alert").html().indexOf('Anmeldedaten') > 0 ){
-      if ( $("#flash .alert").html().indexOf('Dein Account ist nun freigeschaltet') > 0 ){
+    if ($("#flash .notice").exists()) {
+      //if ( $("#flash .alert").text().indexOf('Anmeldedaten') > 0 ){
+      if ( $("#flash .notice").text().indexOf('Dein Account ist nun freigeschaltet') > 0 ){
         // GA
         gtag('event', 'sign_up', {'event_category': 'Registration'});
         // G-AW
