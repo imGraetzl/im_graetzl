@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   end
   
   resources :groups, except: [:index]
+  resources :discussions, except: [:index]
 
   get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
   get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')

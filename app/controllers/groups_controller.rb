@@ -3,7 +3,11 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    # @threads = @group.threads.order(created_at: :desc)
+    @discussions = @group.discussions.order(created_at: :desc)
+    
+    # prepare an empty discussion for the new discussion form
+    @discussion = Discussion.new(group: @group)
+    @discussion.discussion_posts.build
   end
 
   def new

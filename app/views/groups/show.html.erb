@@ -1,3 +1,21 @@
-<p><%= @group.title %></p>
+<section class="groupDetail">
+  <h3><%= @group.title %> – Discussions</h3>
 
-<p><%= @group.description %></p>
+  <p><%= @group.description %></p>
+
+  <div class="discussion-box">
+    <% if current_user %>
+      <%= render 'discussions/form' %>
+    <% end %>
+  </div>
+  
+  <% @discussions.each do |discussion| %>
+    <div class="discussion-box">
+      <%= attachment_image_tag discussion.discussion_posts.first.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+      <span class="username"><%= discussion.discussion_posts.first.user.first_name %> <%= discussion.discussion_posts.first.user.last_name %></span>
+      <p>
+        <%= discussion.discussion_posts.first.content %>
+      </p>
+    </div>
+  <% end %>
+</section>
