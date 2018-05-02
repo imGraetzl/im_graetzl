@@ -19,6 +19,8 @@
           <p>
             <%= discussion.discussion_posts.first.content %>
           </p>
+        <% end %> <!-- restarting the link here in case a href in the content interrupts it -->
+        <%= link_to discussion do %>
           <p>
             <% if discussion.discussion_posts.count > 1 %>
               <span class="control">

@@ -1,4 +1,4 @@
-section.groupDetail {
+section.groupDetail, section.discussionPosts {
   // vertical rhythm
   h1, h2, h3, h4, h5, p, .discussion-box { margin-bottom: 20px; }
   .discussion-box {
@@ -19,6 +19,12 @@ section.groupDetail {
       text-decoration: inherit;
     }
     
+    .discussion-create {
+      display: flex;
+      justify-content: flex-start;
+      .avatar { margin-right: 20px; }
+    }
+    
     .control {
       font-weight: bold;
       margin-right: 5px;
@@ -31,6 +37,7 @@ section.groupDetail {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    flex-grow: 1;
     input, textarea {
       font-size: 16px;
       color: $color-font-primary;

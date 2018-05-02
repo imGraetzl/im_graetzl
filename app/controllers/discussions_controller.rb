@@ -3,7 +3,8 @@ class DiscussionsController < ApplicationController
   
   def show
     @discussion = Discussion.find(params[:id])
-    @discussion_posts = @discussion.discussion_posts.order(created_at: :desc)
+    @discussion_posts = @discussion.discussion_posts.order(created_at: :asc)
+    @discussion_post = DiscussionPost.new(discussion: @discussion)
   end
   
   def create
