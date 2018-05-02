@@ -14,7 +14,18 @@ section.groupDetail {
       margin-left: 20px;
       font-size: 18px;
     }
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+    
+    .control {
+      font-weight: bold;
+      margin-right: 5px;
+    }
   }
+  
+  .post-content { flex-grow: 1; margin-right: 20px; }
   
   form {
     display: flex;
@@ -23,6 +34,7 @@ section.groupDetail {
     input, textarea {
       font-size: 16px;
       color: $color-font-primary;
+      width: 100%;
     }
   }
   

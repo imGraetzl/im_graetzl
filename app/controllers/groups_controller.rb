@@ -3,6 +3,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
+    # TODO: eager load discussion_posts.first.user
     @discussions = @group.discussions.order(created_at: :desc)
     
     # prepare an empty discussion for the new discussion form
