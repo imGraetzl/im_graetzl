@@ -35,7 +35,7 @@ class User < ApplicationRecord
 
   before_validation { self.username.squish! if self.username }
 
-  after_destroy { MailchimpUnsubscribeJob.perform_later(self) }
+  before_destroy { MailchimpUnsubscribeJob.perform_later(self) }
   after_update { MailchimpSubscribeJob.perform_later(self) }
 
 
