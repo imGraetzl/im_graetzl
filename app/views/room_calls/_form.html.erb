@@ -238,9 +238,9 @@
           <%= icon_tag "location" %>
           <span>Location verknüpfen</span>
           <% end %>
-          <%= f.collection_select(:location_id, current_user.locations, :id, :name, {include_blank: true}) %>
+          <%= f.collection_select(:location_id, current_user.locations, :id, :name, {:include_blank => 'Location auswählen..'}) %>
         </div>
 
-        <%= f.button 'Raumteiler erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+        <%= f.button 'Call erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
       </div>
       <% end %>
