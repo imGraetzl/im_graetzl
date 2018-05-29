@@ -16,14 +16,14 @@
   <div class="input-tags">
     <%= f.label :keyword_list do %>
     <%= icon_tag "label-tag" %>
-    <span>Im Package inkludiert<br/><small>(Stichworte, Komma getrennt)</small></span>
+    <span>Leistungen<br/><small>(Komma getrennt)</small></span>
     <% end %>
-    <%= f.text_field :keyword_list, value: f.object.keyword_list.join(", ") %>
+    <%= f.text_field :keyword_list, value: f.object.keyword_list.join(", "), placeholder: "Im Package inludierte Leistungen ..." %>
   </div>
   <div class="input-field">
     <%= f.label :amount do %>
       <%= icon_tag "currency-euro" %>
-      <span>Kosten</span>
+      <span>Package Preis</span>
     <% end %>
     <%= f.text_field :amount, placeholder: "Preis in €" %>
     <%= link_to_remove_association f do %>
