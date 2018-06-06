@@ -92,10 +92,28 @@
 
       .cardBox {
         padding:0px;
+        margin-bottom:50px;
+      }
+
+      div.cardBox:nth-last-child(n+1) ~ div.cardBox:last-child{
+        margin-bottom:0px;
       }
 
       h3 {
-        padding: 20px;
+        padding: 20px 20px 10px 20px;
+        line-height: 50px;
+      }
+      h3::after {
+        content: '';
+        margin-top: 10px;
+        display: block;
+        height:10px;
+        width:100%;
+        opacity: 0.6;
+        background-image: url(image_path('svg/underline-mint.svg'));
+        background-repeat: no-repeat;
+        background-position: center left;
+        background-size: contain;
       }
 
       span.subtitle {
@@ -151,18 +169,22 @@
       }
       .room-price-amount {
 
-        clear:both;
-        //border-top: 1px solid $color-ambient-grey-light;
-        padding: 20px 20px 0px 20px;
-        background-image: url(image_path('svg/underline-mint.svg'));
-        background-repeat: no-repeat;
-        background-position: top center;
-        background-size: contain;
+        @include cf;
+        span.txt {
+          display: none;
+          @include respond-to(">=medium") {
+            display: inline;
+          }
+        }
 
-        @include font-size-secondaryFont('base');
+        clear:both;
+        border-top: 1px solid $color-ambient-grey-light;
+        padding: 0px 20px 0px 20px;
+
+
+        @include font-size-secondaryFont('small');
         line-height: 70px;
         color: $color-ambient-mint-dark;
-        margin-top:30px;
 
         .monthly-amount {
           @include font-size-secondaryFont('large');
@@ -170,12 +192,10 @@
           color: $color-ambient-mint-dark;
           float:right;
           span {
-            @include font-size-secondaryFont('base');
+            @include font-size-secondaryFont('small');
           }
         }
-
       }
-
     }
 
 
