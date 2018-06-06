@@ -35,14 +35,23 @@
     // ------------------------ Top Info Area
     &.info-section {
 
-      .description p {
-        margin-bottom: 20px;
+      .description {
+        p {
+          margin-bottom: 20px;
+        }
+        img {
+          display: none;
+        }
       }
 
       @include respond-to(">=medium") {
         div.description {
           float:left;
           width:65%;
+          img {
+            width:100%;
+            display: block;
+          }
         }
         div.cardBox {
           float:right;
@@ -51,6 +60,7 @@
       }
       .cardBox {
         padding:0px;
+        border-color: $color-ambient-rosa;
         h3, strong, p {
           padding: 0px 20px 20px 20px;
         }
@@ -95,7 +105,7 @@
         margin-bottom:50px;
       }
 
-      div.cardBox:nth-last-child(n+1) ~ div.cardBox:last-child{
+      div.cardBox:nth-last-child(n+1) ~ div.cardBox:last-child {
         margin-bottom:0px;
       }
 
@@ -198,6 +208,26 @@
       }
     }
 
+    // ------------------------ Top Info Area
+    &.photos-section {
+      .gallery {
+        display: flex;
+        justify-content:center;
+        flex-wrap: wrap;
+        img {
+          padding:10px;
+        }
+        /*img {
+          width:200px;
+          align-self:flex-start;
+        }
+        a:first-of-type {
+          //flex-grow: 1;
+          img {width:400px;}
+        }*/
+      }
+
+    }
 
   }
 
