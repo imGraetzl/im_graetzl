@@ -1,5 +1,20 @@
 .room-call-page {
 
+  .imgHeader {
+    background-color: #ebf5f4;
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height:50vh;
+    @include respond-to(">=medium") {
+      height:60vh;
+    }
+    @include respond-to(">=large") {
+      height:75vh;
+    }
+    //img {object-fit: cover;}
+  }
+
   .hl-subtext {
     top:20px;
     margin-bottom: 60px;
@@ -32,7 +47,7 @@
     margin-bottom:80px;
     @include cf;
 
-    // ------------------------ Top Info Area
+    // ------------------------ Top Info Area Section
     &.info-section {
 
       .description {
@@ -70,7 +85,7 @@
       }
     }
 
-    // ------------------------ Module Area
+    // ------------------------ Modules Area Section
     &.modules-section {
 
       div.room-module-item {
@@ -97,7 +112,7 @@
 
     }
 
-    // ------------------------ Prices Area
+    // ------------------------ Prices Area Section
     &.prices-section {
 
       .cardBox {
@@ -208,23 +223,61 @@
       }
     }
 
-    // ------------------------ Top Info Area
+    // ------------------------ Gallery Area Section
     &.photos-section {
       .gallery {
-        display: flex;
-        justify-content:center;
-        flex-wrap: wrap;
+
         img {
-          padding:10px;
+          display: block;
+          padding-bottom: 10px;
+          width: 100%;
         }
-        /*img {
-          width:200px;
-          align-self:flex-start;
+
+        column-fill:          balance;
+        -moz-column-fill:     balance;
+        -ms-column-fill:      balance;
+        -o-column-fill:       balance;
+        -webkit-column-fill:  balance;
+        column-gap:           10px;
+        -moz-column-gap:      10px;
+        -ms-column-gap:       10px;
+        -o-column-gap:        10px;
+        -webkit-column-gap:   10px;
+        width: 100%;
+
+        @include respond-to(">=small") {
+          column-count:         2;
+          -moz-column-count:    2;
+          -ms-column-count:     2;
+          -o-column-count:      2;
+          -webkit-column-count: 2;
+
+          a:first-of-type {
+            //flex-grow: 1;
+            height:361px;
+            img {
+              height:361px;
+              object-fit: cover;
+            }
+          }
         }
-        a:first-of-type {
-          //flex-grow: 1;
-          img {width:400px;}
-        }*/
+
+        @include respond-to(">=medium") {
+          column-count:         3;
+          -moz-column-count:    3;
+          -ms-column-count:     3;
+          -o-column-count:      3;
+          -webkit-column-count: 3;
+
+          a:nth-child(odd) {
+            //flex-grow: 1;
+            height:361px;
+            img {
+              height:361px;
+              object-fit: cover;
+            }
+          }
+        }
       }
 
     }
