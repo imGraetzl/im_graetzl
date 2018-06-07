@@ -282,6 +282,36 @@
 
     } // End Single Section
 
+    // ------------------------ Submission Section
+    &.submission-section {
+
+      .steps {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        align-content: center;
+
+        .step {
+          flex-grow: 1;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          text-align: center;
+
+          h3 {
+            margin:15px 0px 15px 0px;
+          }
+        }
+
+        .line {
+          flex-grow: 10;
+          img {width:100%;}
+          padding-top:20px;
+        }
+      }
+
+    } // End Single Section
+
   } // END All Sections </section>
 
 } // END Room Call Page

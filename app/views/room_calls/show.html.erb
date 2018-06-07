@@ -14,7 +14,11 @@
   <%= render 'room_calls/show/prices' %>
   <%= render 'room_calls/show/photos' %>
   <%= render 'room_calls/show/group' %>
-  <%= render 'room_calls/show/submissions' %>
+  <% if current_user %>
+    <%= render 'room_calls/show/submissions' %>
+  <% else %>
+    <%= render 'room_calls/show/login' %>
+  <% end %>
 
   <!-- Unused:
   @room_call.about_partner
