@@ -287,17 +287,17 @@
 
       .steps {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
         align-items: flex-start;
         align-content: center;
 
         .step {
           flex-grow: 1;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
+          width:24%;
           text-align: center;
-
+          .bigicontext-element {
+            display: inline-flex;
+          }
           h3 {
             margin:15px 0px 15px 0px;
           }
@@ -306,7 +306,28 @@
         .line {
           flex-grow: 10;
           img {width:100%;}
-          padding-top:20px;
+          padding-top:30px;
+          width:14%;
+        }
+      }
+
+      .loginpanel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top:50px;
+        flex-wrap: wrap;
+
+        span {
+          padding: 10px 20px;
+          text-align: center;
+          @include respond-to("<=medium") {
+            width:100%;
+          }
+        }
+
+        .btn-primary {
+          width:270px;
         }
       }
 
