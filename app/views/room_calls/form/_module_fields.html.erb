@@ -4,7 +4,7 @@
       <%= icon_tag "pie-chart" %>
       <span> Modul wählen</span>
     <% end %>
-    <%= f.select :room_module_id, options_from_collection_for_select(RoomModule.all, :id, :name) %>
+    <%= f.select :room_module_id, options_from_collection_for_select(RoomModule.all, :id, :name), {:include_blank => 'Modul Kategorie wählen ..'} %>
   </div>
   <div class="input-field column-right">
 
@@ -12,7 +12,7 @@
       <%= icon_tag "users" %>
       <span> Anzahl Plätze </span>
     <% end %>
-    <%= f.text_field :quantity %>
+    <%= f.text_field :quantity, placeholder: "Anzahl freie Plätze für dieses Modul .. (z.B: 5)" %>
 
     <%= link_to_remove_association f do %>
       <div class="btn-delete">
