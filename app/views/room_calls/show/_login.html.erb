@@ -38,7 +38,9 @@
   </div>
 
   <div class="loginpanel">
-    <%= link_to 'Mit deinem Account einloggen', new_user_session_path, class: 'btn-primary -mint' %> <span>oder</span> <%= link_to 'Neuen Account erstellen', new_registration_path, class: 'btn-primary' %>
+    <%= link_to 'Mit deinem Account einloggen', new_user_session_path(redirect: request.original_url), class: 'btn-primary -mint' %>
+    <span>oder</span>
+    <%= link_to 'Neuen Account erstellen', new_registration_path(redirect: request.original_url), class: 'btn-primary' %>
   </div>
 
 
