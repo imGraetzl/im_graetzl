@@ -11,18 +11,23 @@
     <div class="room-price-description">
       <p><%= room_price.description %></p>
       <span class="subtitle">Das Package gilt für die Module:</span>
-      <% room_price.room_modules.each do |room_module| %>
-      <div class="bigicontext-element -small">
-        <%= icon_tag room_module.icon %>
-        <span class="txt"><%= room_module.name %></span>
+      <div class="modules">
+        <% room_price.room_modules.each do |room_module| %>
+        <div class="bigicontext-element -small">
+          <%= icon_tag room_module.icon %>
+          <!--<span class="txt"><%= room_module.name %></span>-->
+        </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
 
     <ul class="room-price-features">
       <span class="subtitle">Im Package enthalten:</span>
       <% room_price.feature_list.each do |feature| %>
-      <li><%= feature %></li>
+      <li>
+        <%= icon_tag 'check' %>
+        <%= feature %>
+      </li>
       <% end %>
     </ul>
 
