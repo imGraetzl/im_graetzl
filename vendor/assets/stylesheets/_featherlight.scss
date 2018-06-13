@@ -56,7 +56,7 @@
 
 		/* dimensions: cut off images */
 		overflow: auto;
-		padding: 30px 30px 0;
+		padding: 30px 40px 0px 40px;
 		border-bottom: 25px solid transparent;
 
 		/* dimensions: handling large content */
@@ -101,8 +101,8 @@
 		cursor: pointer;
 		text-align: center;
 		//font-family: Arial, sans-serif;
-		background: #fff; /* Set the background in case it overlaps the content */
-		background: rgba(255, 255, 255, 0.3);
+		//background: #fff; /* Set the background in case it overlaps the content */
+		background-color: #DBEFEC;
 		color: $color-ambient-mint-dark;
 		font-weight:bold;
 		border: none;
