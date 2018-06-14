@@ -1,0 +1,12 @@
+<div class="discussion-section">
+
+  <div class="discussion-box">
+    <% if @group.users.include?(current_user) %>
+      <%= render 'groups/discussions/new', group_id: @group.id %>
+    <% end %>
+  </div>
+
+  <% @discussions.each do |discussion| %>
+    <%= render 'groups/discussions/discussion_preview', discussion: discussion %>
+  <% end %>
+</div>

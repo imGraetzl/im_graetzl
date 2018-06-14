@@ -1,0 +1,33 @@
+<%= form_for(@group) do |f| %>
+<%= form_errors_for @group %>
+<div class="form-block">
+
+  <%= f.hidden_field :room_offer_id %>
+  <%= f.hidden_field :room_call_id %>
+
+  <h2 class="hl-main"><span>Titel</span> und <span>Beschreibung</span></h2>
+  <div class="input-field">
+    <%= f.label :title do %>
+    <%= icon_tag "record" %>
+    <span>Titel</span>
+    <% end %>
+    <%= f.text_field :title, placeholder: 'z.B. My Cool New Group' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Description</span>
+    <% end %>
+    <%= f.text_area :description, placeholder: 'z.B. My Group is for people to discus new ideas…' %>
+  </div>
+
+  <h2> Group visibility </h2>
+  <div class="input-checkbox">
+    <%= f.check_box :private %>
+    <%= f.label :private, 'Private' %>
+  </div>
+
+  <%= f.button @group.new_record? ? 'Create Group' : 'Update', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+</div>
+<% end %>

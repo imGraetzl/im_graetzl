@@ -1,0 +1,48 @@
+.group-page {
+
+  h1, h2, h3, h4, h5, p, .discussion-box { margin-bottom: 20px; }
+
+  .discussion-box {
+    border: 1px solid #f0f0f0;
+    background-color: #ffffff;
+    padding: 14px;
+    border-radius: 8px;
+    .avatar {
+      margin-bottom: 20px;
+    }
+    .username {
+      vertical-align: top;
+      margin-left: 20px;
+      font-size: 18px;
+    }
+    a {
+      color: inherit;
+      text-decoration: inherit;
+    }
+
+    .new-post-form {
+      display: flex;
+      justify-content: flex-start;
+      .avatar { margin-right: 20px; }
+    }
+
+    .control {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+  }
+
+  // form customization
+  ::-webkit-input-placeholder {
+    @include groupsPlaceholder;
+  }
+  ::-moz-placeholder {
+    @include groupsPlaceholder;
+  }
+  :-ms-input-placeholder {
+    @include groupsPlaceholder;
+  }
+  :-moz-placeholder {
+    @include groupsPlaceholder;
+  }
+}

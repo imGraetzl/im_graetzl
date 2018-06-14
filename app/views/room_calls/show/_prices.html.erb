@@ -1,0 +1,45 @@
+<section class="prices-section">
+
+  <h2>Dein Platz im Raumteiler-Hub</h2>
+
+  <% @room_call.room_call_prices.includes(:room_modules).each do |room_price| %>
+
+  <div class="cardBox">
+
+    <h3><%= room_price.name %></h3>
+
+    <div class="room-price-description">
+      <p><%= room_price.description %></p>
+      <span class="subtitle">Das Package gilt für die Module:</span>
+      <div class="modules">
+        <% room_price.room_modules.each do |room_module| %>
+        <div class="bigicontext-element -small">
+          <%= icon_tag room_module.icon %>
+          <!--<span class="txt"><%= room_module.name %></span>-->
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+    <ul class="room-price-features">
+      <span class="subtitle">Im Package enthalten:</span>
+      <% room_price.feature_list.each do |feature| %>
+      <li>
+        <%= icon_tag 'check' %>
+        <%= feature %>
+      </li>
+      <% end %>
+    </ul>
+
+    <div class="room-price-amount">
+      <span class="txt">Unterm Strich alles zusammen:</span>
+      <div class="monthly-amount">
+        <%= room_price.amount.to_i %> €
+        <span> / Monat</span>
+      </div>
+    </div>
+
+  </div>
+
+  <% end %>
+</section>

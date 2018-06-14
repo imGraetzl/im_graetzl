@@ -164,6 +164,7 @@ input, select, textarea {
   width: 100%;
   .SelectBox {
     @extend .input-plain;
+    border:none;
   }
 
   .placeholder {
@@ -181,7 +182,7 @@ input, select, textarea {
   }
 
   label {
-    display: none;
+    //display: none;
   }
 
   p {
