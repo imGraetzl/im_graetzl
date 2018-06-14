@@ -100,6 +100,18 @@
     //.SumoSelect { width: 400px; }
     .SumoSelect .select-all { height: 40px; }
     .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
+
+    .filter-categories {
+      @include respond-to(">=medium") {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 600px;
+        .input-checkbox {
+          width:50%;
+        }
+      }
+    }
+
   }
 
 }
