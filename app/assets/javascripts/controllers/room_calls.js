@@ -13,7 +13,7 @@ APP.controllers.room_calls = (function() {
     var mapdata = $('#graetzlMapWidget').data('mapdata');
     var map =  APP.components.graetzlMap;
     map.init(function() {
-      map.showMapGraetzl(mapdata.graetzls, {
+      map.showMapGraetzl(mapdata.addresses, {
         style: $.extend(map.styles.rose, { weight: 4, fillOpacity: 0.2 })
       });
     });
