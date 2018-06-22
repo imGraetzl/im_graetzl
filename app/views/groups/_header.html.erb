@@ -20,11 +20,11 @@
 
     <div class="users">
       <% @group.admins.each do |user| %>
-      <div class="item">
+      <div class="user">
         <div class="avatar">
           <%= attachment_image_tag user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
         </div>
-        <div class="user">
+        <div class="infos">
           <div class="title">Organisiert von:</div>
           <span><%= user.full_name %></span>
         </div>
