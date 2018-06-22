@@ -26,9 +26,7 @@
 
   <% elsif @group.users.include?(current_user) %>
   <!-- Logged In Button - User is Member - Leave Group -->
-  <%= button_to '#', method: :post, class: 'btn-userCallToAction -mint' do %>
-    <span><%= avatar_for current_user %> Gruppe verlassen</span>
-  <% end %>
+  <%= link_to 'Gruppe verlassen', '#', class: 'btn-secondary -grey' %>
 
   <% end %>
 </div>

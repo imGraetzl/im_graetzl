@@ -1,8 +1,12 @@
 <div class="discussion-section">
 
-  <%= link_to "Neues Thema starten", "javascript:", class: 'btn-primary -mint btn-new-topic' %>
+  <!--<%= link_to "Neues Thema starten", "javascript:", class: 'btn-primary -mint btn-new-topic' %>-->
 
-  <div class="discussion-box"> 
+  <%= button_to "javascript:", class: 'btn-userCallToAction btn-primary -mint btn-new-topic' do %>
+    <span><%= avatar_for current_user %> Neues Thema starten</span>
+  <% end %>
+
+  <div class="discussion-box">
     <% if @group.users.include?(current_user) %>
       <%= render 'groups/discussions/new', group_id: @group.id %>
     <% end %>

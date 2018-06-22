@@ -1,5 +1,10 @@
 .group-page {
 
+  .top-area {
+    @include cf;
+    padding-top:30px;
+  }
+
   .btn-ctrl {
     float:right;
   }
@@ -104,6 +109,8 @@
       margin-bottom:15px;
     }
 
+    p.about {white-space: pre-wrap;}
+
     .top-posts {
       .btn-primary {
         display: table;
@@ -128,7 +135,7 @@
   // Discussion PAGE
   &.discussion-page {
     h2 {
-      padding-top:20px;
+      padding-top:30px;
       padding-bottom: 5px;
     }
     div.content {
@@ -145,6 +152,7 @@
 
     h3.header {
       padding-top:20px;
+      padding-bottom:20px;
     }
 
   } // END PAGE
@@ -153,8 +161,8 @@
 
   .discussion-preview, &.discussion-page {
 
-    padding-top:20px;
-    margin-bottom:25px;
+    //padding-top:20px;
+    margin-bottom:50px;
 
     .user {
       .name {
@@ -175,6 +183,8 @@
       //@include font-size-primaryFont('small');
     }
     .content {
+      p {white-space: pre-wrap;}
+      padding-top:5px;
       .ctrl {
         margin-top:10px;
         a.btn-secondary {
@@ -184,6 +194,10 @@
     }
 
   } // discussion preview
+
+  .discussion-preview:last-of-type {
+    margin-bottom:20px;
+  }
 
   .discussion-box {
     margin-top:20px;

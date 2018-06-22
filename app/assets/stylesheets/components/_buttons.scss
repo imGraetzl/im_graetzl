@@ -109,6 +109,13 @@
     background-color: $color-ambient-mint;
     box-shadow: 2px 2px $color-ambient-mint;
   }
+  &.-grey {
+    background-color: $color-ambient-grey;
+    box-shadow: 2px 2px $color-ambient-grey;
+    .img-round {
+      border-color: $color-ambient-grey;
+    }
+  }
 
   transition: box-shadow 0.1s;
   background-color: $color-ambient-rosa;

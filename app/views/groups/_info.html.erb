@@ -1,22 +1,33 @@
 <div class="info-section">
 
-  <!-- CONTENT for MEMBERS and open Groups -->
   <% if @group.readable_by?(current_user) %>
-    <div class="top-posts">
-      <% if @discussions.present? %>
+
+    <div class="top-area">
+
+      <div class="mainContent -left top-posts">
+        <% if @discussions.present? %>
         <% @discussions.first(2).each do |discussion| %>
-          <%= render 'groups/discussions/discussion_preview', discussion: discussion %>
+        <%= render 'groups/discussions/discussion_preview', discussion: discussion %>
         <% end %>
         <%= link_to "Alle Diskussionen anzeigen", "javascript:", class: 'all-discussions-link btn-primary -mint' %>
-      <% else %>
+        <% else %>
         <p> Noch keine Diskussionen in der Gruppe.. </p>
-      <% end %>
+        <% end %>
+      </div>
+
+      <div class="sideBar -right">
+        TODO - Include next Meeting Box .. 
+      </div>
+
     </div>
 
-    <h2>Mitglieder</h2>
 
-    <div class="users member-section">
-      <% @group.admins.each do |user| %>
+  <% end %>
+
+  <h2><%= @group.users.count %> Mitglieder</h2>
+
+  <div class="users member-section">
+    <% @group.admins.each do |user| %>
       <div class="user">
         <div class="avatar">
           <%= attachment_image_tag user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
@@ -36,18 +47,10 @@
           <span><%= user.first_name %><br><%= user.last_name %></span>
         </div>
       </div>
-      <% end %>
-    </div>
+    <% end %>
+  </div>
 
-    <h2>Über die Gruppe</h2>
-    <p><%= @group.description %></p>
-
-  <!-- CONTENT for closed Groups -->
-  <% else %>
-
-    <h2>Über die Gruppe</h2>
-    <p><%= @group.description %></p>
-
-  <% end %>
+  <h2>Über die Gruppe</h2>
+  <p class="about"><%= @group.description %></p>
 
 </div>

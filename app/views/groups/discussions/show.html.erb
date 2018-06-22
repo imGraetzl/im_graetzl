@@ -30,7 +30,7 @@
 
   <% @posts.each do |post| %>
 
-      <div class="user">
+      <div class="user" id="<%= post.id %>">
         <div class="avatar">
           <%= attachment_image_tag post.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
         </div>
