@@ -7,7 +7,7 @@
 
   <% elsif @group.admins.include?(current_user) %>
     <!-- Edit Button for Admins-->
-    <%= link_to edit_group_path(@group), class: 'btn-userCallToAction -mint' do %>
+    <%= link_to edit_group_path(@group), class: 'btn-userCallToAction -grey' do %>
       <span><%= avatar_for current_user %> Gruppe bearbeiten</span>
     <% end %>
 

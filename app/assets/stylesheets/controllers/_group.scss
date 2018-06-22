@@ -1,8 +1,27 @@
 .group-page {
 
+  .tabs-nav {
+    li a {
+      //color: $color-ambient-rosa;
+    }
+    li.active a {
+      color: $color-ambient-rosa;
+    }
+  }
+
+  .editControls {display: block;}
+
   .top-area {
     @include cf;
     padding-top:30px;
+
+    h3 {
+      margin-bottom: 20px;
+    }
+
+    .mainContent {
+      padding-right:20px;
+    }
   }
 
   .btn-ctrl {
@@ -99,6 +118,21 @@
         @include font-size-primaryFont('small');
       }
     }
+    div.btn-control {
+      display: none;
+      align-items: center;
+      svg {
+        margin-left: 10px;
+        color: $color-ambient-grey;
+        width:25px;
+        height:25px;
+      }
+      a.active {
+        svg {
+          color: $color-ambient-rosa;
+        }
+      }
+    }
   } // End User STYLING
 
   // START PAGE - HOME
@@ -134,15 +168,17 @@
 
   // Discussion PAGE
   &.discussion-page {
-    h2 {
-      padding-top:30px;
-      padding-bottom: 5px;
+    h2.title {
+      //padding-top:30px;
+      padding-bottom: 35px;
+      color: $color-ambient-mint-dark;
     }
     div.content {
       margin-bottom:50px;
     }
     div.discussion-infos {
-      padding-bottom:20px;
+      //padding-bottom:20px;
+      padding-top:20px;
     }
   } // END PAGE
 
@@ -183,6 +219,11 @@
       //@include font-size-primaryFont('small');
     }
     .content {
+
+      @include respond-to(">=medium") {
+        margin-left: 57px;
+      }
+
       p {white-space: pre-wrap;}
       padding-top:5px;
       .ctrl {

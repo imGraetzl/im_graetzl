@@ -5,6 +5,9 @@
     <div class="top-area">
 
       <div class="mainContent -left top-posts">
+
+        <h3>Aktuelle Diskussionen</h3>
+
         <% if @discussions.present? %>
         <% @discussions.first(2).each do |discussion| %>
         <%= render 'groups/discussions/discussion_preview', discussion: discussion %>
@@ -16,7 +19,11 @@
       </div>
 
       <div class="sideBar -right">
-        TODO - Include next Meeting Box .. 
+
+        <h3>Nächstes Treffen</h3>
+
+        <!-- TODO Insert next Group Meeting -->
+        <%= render @activity_sample.meetings.first(1) %>
       </div>
 
     </div>

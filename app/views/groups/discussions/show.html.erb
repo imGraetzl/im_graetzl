@@ -9,7 +9,7 @@
     <li><%= link_to "Die Gruppe", group_path(@group, anchor: 'tab-info') %></li>
     <% if @group.readable_by?(current_user) %>
       <li class="active"><%= link_to "Diskussionen", group_path(@group, anchor: 'tab-discussions') %></li>
-      <!-- <li><a href="#tab-meetings">Treffen</a></li> -->
+      <li><a href="#tab-meetings">Treffen</a></li>
     <% end %>
     <% if @group.admins.include?(current_user) %>
       <li><%= link_to "Mitglieder", group_path(@group, anchor: 'tab-members') %></li>
@@ -19,16 +19,20 @@
 
   <!--<%= link_to "Zurück zu allen Diskussionen", group_path(@group, anchor: 'tab-discussions'), class: 'btn-secondary -grey -back' %>-->
 
-  <h2><%= @discussion.title %></h2>
 
   <div class="discussion-infos">
-
-    <%= link_to group_path(@group, anchor: 'tab-discussions'), class: 'back-link' do %><%= icon_tag "arrow-left-2" %>Zurück zur Übersicht<% end %>
+    <%= link_to group_path(@group, anchor: 'tab-discussions'), class: 'back-link' do %><%= icon_tag "arrow-left-2" %>Alle Themen<% end %>
     <span>&nbsp;&middot;&nbsp;</span>
-    <%= @discussion.discussion_posts.size  %> <%= @discussion.discussion_posts.size > 1 ? 'Beiträge' : 'Beitrag'  %> im aktuellen Thema:
+    <%= @discussion.discussion_posts.size  %> <%= @discussion.discussion_posts.size > 1 ? 'Beiträge' : 'Beitrag'  %> im Thema:
   </div>
 
+  <h2 class="title"><%= @discussion.title %></h2>
+
+
   <% @posts.each do |post| %>
+
+
+    <div class="user-post">
 
       <div class="user" id="<%= post.id %>">
         <div class="avatar">
@@ -40,11 +44,21 @@
             <%= I18n.localize(post.created_at, format:'%a, %d. %B %Y, %H:%M') %>
           </div>
         </div>
+        <div class="btn-control">
+          <%= link_to '#', class: 'delete' do %>
+            <%= icon_tag "pencil" %>
+          <% end %>
+          <%= link_to '#', class: 'edit' do %>
+            <%= icon_tag "trash-delete-remove" %>
+          <% end %>
+        </div>
       </div>
 
       <div class="content">
         <p><%= post.content %></p>
       </div>
+
+    </div>
 
   <% end %>
 

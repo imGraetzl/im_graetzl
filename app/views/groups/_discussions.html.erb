@@ -12,7 +12,7 @@
     <% end %>
   </div>
 
-  <h3 class="header">Aktuell <%= @discussions.size %> <%= @discussions.size > 1 ? 'Themen' : 'Thema'  %> in der Gruppe:</h3>
+  <h3 class="header"><%= @discussions.size %> <%= @discussions.size > 1 ? 'Themen' : 'Thema'  %> in der Gruppe:</h3>
 
   <% @discussions.each do |discussion| %>
     <%= render 'groups/discussions/discussion_preview', discussion: discussion %>
