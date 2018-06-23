@@ -9,7 +9,7 @@
   <% elsif @group.admins.include?(current_user) %> <!-- Group Admin -->
 
     <%= link_to 'javascript:', data: { behavior: "createTrigger" }, class: 'btn-userIcons -grey' do %>
-      <span><%= avatar_for current_user %> Du bist Admin <%= icon_tag "arrow-down-2" %></span>
+      <span>Du bist Admin <%= icon_tag "arrow-down-2" %></span>
     <% end %>
 
   <% elsif !@group.users.include?(current_user) %> <!-- Join Request pending -->
@@ -17,7 +17,7 @@
     <% if @group.group_join_requests.exists?(user_id: current_user.id) %>
 
       <%= link_to 'javascript:', class: 'btn-userIcons -grey -disabled' do %>
-        <span><%= avatar_for current_user %> Beitrittsanfrage gestellt ...</span>
+        <span>Beitrittsanfrage gestellt ...</span>
       <% end %>
 
     <% else %> <!-- Join Request -->
@@ -31,7 +31,7 @@
   <% elsif @group.users.include?(current_user) %> <!-- Group Member -->
 
     <%= link_to 'javascript:', data: { behavior: "createTrigger" }, class: 'btn-userIcons -grey' do %>
-      <span><%= avatar_for current_user %> Du bist Mitglied <%= icon_tag "arrow-down-2" %></span>
+      <span>Du bist Mitglied <%= icon_tag "arrow-down-2" %></span>
     <% end %>
 
   <% end %>
@@ -60,7 +60,7 @@
           <%= icon_tag "bell" %>
           <div class="icontxt">Gruppen Benachrichtigungen</div>
         <% end %>
-        <%= link_to '#' do %>
+        <%= link_to '#' , data: {confirm: 'Bist du sicher?'} do %>
           <%= icon_tag "level-down" %>
           <div class="icontxt">Gruppe verlassen</div>
         <% end %>
