@@ -53,7 +53,7 @@
           <% end %>
 
           <% if @group.admins.include?(current_user) || post.user == current_user %>
-            <%= link_to '#', class: 'delete' do %>
+            <%= link_to '#', { method: :destroy, remote: true, data: { confirm: 'Beitrag wirklich löschen?', disable_with: 'wird gelöscht...'}, class: 'delete' } do %>
               <%= icon_tag "trash-delete-remove" %>
             <% end %>
           <% end %>
