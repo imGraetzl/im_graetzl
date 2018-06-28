@@ -22,6 +22,11 @@ APP.controllers.groups = (function() {
       // JS Action Button Dropdown
       $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
 
+      $('[data-behavior=userTrigger]').on('mouseenter', function(){
+        var user_id = $(this).attr("data-user");
+        $(this).jqDropdown('attach', '[data-behavior=userContainer-'+user_id+']');
+      });
+
     }
 
     return {

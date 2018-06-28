@@ -24,7 +24,7 @@
 
     <% if @group.readable_by?(current_user) %>
       <div id='tab-discussions'><%= render 'discussions' %></div>
-      <!-- <div id='tab-meetings'><%= render 'meetings' %></div> -->
+      <div id='tab-meetings'><%= render 'meetings' %></div>
     <% end %>
 
     <% if @group.admins.include?(current_user) %>

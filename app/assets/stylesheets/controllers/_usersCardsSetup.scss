@@ -153,9 +153,10 @@ section.usersetup {
       //padding-bottom:15px;
     }
     .users {
-      margin-bottom:15px;
+      margin-bottom:10px;
       display: flex;
       align-items: flex-end;
+      flex-wrap:wrap;
       span {
         @include font-size-primaryFont('small');
         //color: $color-ambient-grey;
@@ -163,11 +164,13 @@ section.usersetup {
       }
       img {
         margin-right:5px;
+        margin-bottom:5px;
       }
     }
 
     .btn-userIcons {
       margin-bottom:0px;
+      width:100%;
     }
 
     .jq-dropdown {

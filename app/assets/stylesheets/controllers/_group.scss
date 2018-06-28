@@ -57,8 +57,11 @@
 
   // New Discussion Topic
   .btn-new-topic {
-    display: table;
-    margin: 0 auto;
+    //display: table;
+    //margin: 0 auto;
+  }
+  .new-topic {
+    text-align: center;
   }
 
   .back-link, .follow {
@@ -149,7 +152,7 @@
   div.users {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-start;
   }
   div.user {
     display: flex;
@@ -203,19 +206,70 @@
       }
     }
 
-    .member-section {
-      .user {
-        .img-round {
-          width: 100px;
-          height: 100px;
-        }
-        .infos {
-          font-style:italic;
-        }
+  } // END PAGE
+
+  .member-section, .members-section {
+    .user {
+      .img-round {
+        width: 100px;
+        height: 100px;
+      }
+      .infos {
+        font-style:italic;
       }
     }
+  }
+  // Startpage Auszug
+  .member-section {
+    .user {
+      width:132px;
+      margin-right:0px;
+      margin-bottom:15px;
+      div.avatar {
+        width:100%;
+        text-align:center;
+        padding-right:0px;
+        img {
+          margin:0px;
+        }
+      }
+      div.infos {
+        width:100%;
+        text-align:center;
+        @include ellipsis();
+      }
+    }
+  }
 
-  } // END PAGE
+  // Members Page
+  .members-section {
+    .users {
+      align-items: stretch;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-left:-10px;
+      margin-right:-10px;
+    }
+    .user {
+      width:31%;
+      margin:10px;
+      @include respond-to("<=large") {
+        width:45%;
+      }
+      @include respond-to("<=medium") {
+        width:95%;
+      }
+    }
+    .btns {
+      margin-top:8px;
+      width:100%;
+      display: flex;
+      justify-content: space-between;
+      a {
+        width:47%;
+      }
+    }
+  }
 
   // Single Discussion PAGE
   &.discussion-page {
