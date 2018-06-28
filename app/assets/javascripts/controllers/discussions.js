@@ -2,9 +2,8 @@ APP.controllers.discussions = (function() {
 
   function init() {
     APP.controllers.groups.init();
-    if ($('.btn-control').exists()) {
-      initControls();
-    }
+    if ($('.btn-control').exists()) { initControls(); }
+    if ($('.follow').exists()) { initFollowing(); }
   }
 
   function initControls() {
@@ -13,6 +12,13 @@ APP.controllers.discussions = (function() {
     }).mouseleave(function () {
       $(this).find('.btn-control').hide();
     });
+  }
+
+  function initFollowing() {
+    $('.follow').on('click', function(){
+      $('.follow').toggleClass('-hide');
+      //console.log($(this).attr("data-topic"));
+    })
   }
 
   return {

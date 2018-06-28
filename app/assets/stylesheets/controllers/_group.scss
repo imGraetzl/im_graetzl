@@ -61,13 +61,30 @@
     margin: 0 auto;
   }
 
-  .back-link {
+  .back-link, .follow {
+    color: $color-ambient-grey;
     display: flex;
     align-items: center;
     svg, img {
       display: inline-block;
+      margin-right:5px;
+      width:20px;
+    }
+    &:hover {
+      color: $color-ambient-rosa;
     }
   }
+  .follow {
+    &.-hide {
+      display: none;
+    }
+    &.-subscribed {
+      svg {
+        color: $color-ambient-mint-dark;
+      }
+    }
+  }
+
 
   // GROUP Header Area
   .group-header {
@@ -310,6 +327,10 @@
     .settings-section {
       padding-top:20px;
       .settingSlice {
+        .col1 {
+          font-weight:bold;
+          label {font-weight: normal;}
+        }
         strong {
           color: $color-ambient-mint-dark;
         }

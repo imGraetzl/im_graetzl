@@ -7,9 +7,18 @@
   <%= render 'groups/tab_navigation' %>
 
   <div class="discussion-infos">
-    <%= link_to group_path(@group, anchor: 'tab-discussions'), class: 'back-link' do %><%= icon_tag "arrow-left-2" %>Alle Themen<% end %>
-    <span>&nbsp;&middot;&nbsp;</span>
-    <%= @discussion.discussion_posts.size  %> <%= @discussion.discussion_posts.size > 1 ? 'Beiträge' : 'Beitrag'  %> im Thema:
+    <!--<%= link_to group_path(@group, anchor: 'tab-discussions'), class: 'back-link' do %><%= icon_tag "arrow-left-2" %>Alle Diskussionen<% end %>
+    <span>&nbsp;&middot;&nbsp;</span>-->
+    <%= @discussion.discussion_posts.size  %> <%= @discussion.discussion_posts.size > 1 ? 'Beiträge' : 'Beitrag' %>
+    <span>&nbsp;&nbsp;&middot;&nbsp;&nbsp;</span>
+    <%= link_to 'javascript:', class: 'follow -unsubscribed', :data => { :topic => @discussion.id } do %>
+      <%= icon_tag "bell" %>
+      Dieser Diskussion folgen
+    <% end %>
+    <%= link_to 'javascript:', class: 'follow -hide -subscribed', :data => { :topic => @discussion.id } do %>
+      <%= icon_tag "bell" %>
+      Diskussion nicht mehr folgen
+    <% end %>
   </div>
 
   <h2 class="title"><%= @discussion.title %></h2>
