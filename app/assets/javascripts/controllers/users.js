@@ -10,6 +10,12 @@ APP.controllers.users = (function() {
         if ($("section.rooms").exists()) {
           APP.components.cardBox.moveActionCard3rd();
         }
+
+        $('[data-behavior=createTrigger]').on('click', function(){
+          var group_id = $(this).attr("data-group");
+          $(this).jqDropdown('attach', '[data-behavior=createContainer-'+group_id+']');
+        });
+
     }
 
     return {

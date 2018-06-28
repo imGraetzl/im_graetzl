@@ -19,7 +19,7 @@ APP.controllers.groups = (function() {
 
       //$('.introtxt .txt').linkify({ target: "_blank"});
 
-      // JS Action Button Dropdown 
+      // JS Action Button Dropdown
       $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
 
     }

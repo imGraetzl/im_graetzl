@@ -158,7 +158,7 @@
   @extend .btn-primary;
   //padding: 1.2rem 2.0rem;
   span {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     position: relative;
     z-index: 2;

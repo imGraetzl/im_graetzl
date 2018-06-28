@@ -143,4 +143,38 @@ section.usersetup {
     }
   }
 
+  &.-groups {
+
+    a.title {
+      font-weight: bold;
+      padding-bottom:2px;
+    }
+    p.infos {
+      //padding-bottom:15px;
+    }
+    .users {
+      margin-bottom:15px;
+      display: flex;
+      align-items: flex-end;
+      span {
+        @include font-size-primaryFont('small');
+        //color: $color-ambient-grey;
+        font-style: italic;
+      }
+      img {
+        margin-right:5px;
+      }
+    }
+
+    .btn-userIcons {
+      margin-bottom:0px;
+    }
+
+    .jq-dropdown {
+      min-width:325px;
+      //margin-top:-10px;
+    }
+
+  }
+
 }
