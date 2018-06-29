@@ -11,9 +11,9 @@ APP.controllers.users = (function() {
           APP.components.cardBox.moveActionCard3rd();
         }
 
-        $('[data-behavior=createTrigger]').on('click', function(){
-          var group_id = $(this).attr("data-group");
-          $(this).jqDropdown('attach', '[data-behavior=createContainer-'+group_id+']');
+        $('[data-behavior=actionTrigger]').on('click', function(){
+          var id = $(this).attr("data-id");
+          $(this).jqDropdown('attach', '[data-behavior=actionContainer-'+id+']');
         });
 
     }

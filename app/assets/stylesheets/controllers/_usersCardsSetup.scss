@@ -143,41 +143,18 @@ section.usersetup {
     }
   }
 
+  // Groups Cardbox Adaption
   &.-groups {
-
-    a.title {
-      font-weight: bold;
-      padding-bottom:2px;
-    }
-    p.infos {
-      //padding-bottom:15px;
-    }
-    .users {
-      margin-bottom:10px;
-      display: flex;
-      align-items: flex-end;
-      flex-wrap:wrap;
-      span {
-        @include font-size-primaryFont('small');
-        //color: $color-ambient-grey;
-        font-style: italic;
-      }
-      img {
-        margin-right:5px;
-        margin-bottom:5px;
-      }
-    }
-
     .btn-userIcons {
       margin-bottom:0px;
       width:100%;
+      &.-admin {
+        background-color: $color-ambient-mint;
+      }
     }
-
     .jq-dropdown {
       min-width:325px;
-      //margin-top:-10px;
     }
-
-  }
+  } // Groups Cardbox Adaption
 
 }

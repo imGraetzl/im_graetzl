@@ -19,8 +19,11 @@ APP.controllers.groups = (function() {
 
       //$('.introtxt .txt').linkify({ target: "_blank"});
 
-      // JS Action Button Dropdown
-      $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
+      // JS Action Button Dropdown for Groups
+      $('[data-behavior=actionTrigger]').on('click', function(){
+        var id = $(this).attr("data-id");
+        $(this).jqDropdown('attach', '[data-behavior=actionContainer-'+id+']');
+      });
 
       $('[data-behavior=userTrigger]').on('mouseenter', function(){
         var user_id = $(this).attr("data-user");

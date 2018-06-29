@@ -39,67 +39,7 @@
       <%= truncate group.description, length: 100 %>
     </div>
 
-    <% if group.admins.include?(current_user) %> <!-- Group Admin -->
-
-      <%= link_to 'javascript:', data: { behavior: "createTrigger", group: group.id }, class: 'btn-userIcons -mint' do %>
-      <span>Du bist Admin <%= icon_tag "arrow-down-2" %></span>
-      <% end %>
-
-    <% elsif group.users.include?(current_user) %> <!-- Group Member -->
-
-      <%= link_to 'javascript:', data: { behavior: "createTrigger", group: group.id }, class: 'btn-userIcons -grey' do %>
-      <span>Du bist Mitglied <%= icon_tag "arrow-down-2" %></span>
-      <% end %>
-
-    <% end %>
-
-
-    <!-- Dropdown Panel -->
-    <% if group.admins.include?(current_user) %> <!-- Group Admin -->
-
-      <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer-<%= group.id %>">
-        <div class="jq-dropdown-panel">
-          <%= link_to group do %>
-            <%= icon_tag "speech-bubble" %>
-            <div class="icontxt">Zur Gruppe</div>
-          <% end %>
-          <%= link_to settings_group_path(group) do %>
-            <%= icon_tag "bell" %>
-            <div class="icontxt">Gruppen Benachrichtigungen</div>
-          <% end %>
-          <%= link_to edit_group_path(group) do %>
-            <%= icon_tag "pencil" %>
-            <div class="icontxt">Gruppe bearbeiten</div>
-          <% end %>
-          <%= link_to group_path(group), data: { confirm: 'Bist du dir sicher?' }, method: :delete do %>
-            <%= icon_tag "trash-delete-remove" %>
-            <div class="icontxt">Gruppen löschen</div>
-          <% end %>
-        </div>
-      </div>
-
-    <% elsif group.users.include?(current_user) %> <!-- Group Member -->
-
-      <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="createContainer-<%= group.id %>">
-        <div class="jq-dropdown-panel">
-          <%= link_to group do %>
-            <%= icon_tag "speech-bubble" %>
-            <div class="icontxt">Zur Gruppe</div>
-          <% end %>
-          <%= link_to settings_group_path(group) do %>
-            <%= icon_tag "bell" %>
-            <div class="icontxt">Gruppen Benachrichtigungen</div>
-          <% end %>
-          <%= link_to '#' , data: {confirm: 'Bist du sicher?'} do %>
-            <%= icon_tag "level-down" %>
-            <div class="icontxt">Gruppe verlassen</div>
-          <% end %>
-        </div>
-      </div>
-
-    <% end %>
-    <!-- /Dropdown Panel -->
-
+    <%= render 'groups/btn_ctrl', group: group  %>
 
   </div>
 </div>
