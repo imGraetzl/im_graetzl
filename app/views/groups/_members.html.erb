@@ -1,46 +1,44 @@
 <div class="members-section">
 
-  <div class="users join-requests">
+  <div class="users">
 
-    <% @group.group_join_requests.pending.includes(:user).each do |join_request| %>
+    <!-- JOIN REQUESTS -->
+    <% if @group.admins.include?(current_user) %>
+      <% @group.group_join_requests.pending.includes(:user).each do |join_request| %>
+      <div class="user join-request cardBox">
+        <div class="avatar">
+          <%= attachment_image_tag join_request.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+        </div>
+        <div class="infos">
+          <span><%= join_request.user.first_name %> <br> <%= join_request.user.last_name.truncate(18, separator: ' ') %></span>
+          <p><%= I18n.localize(join_request.created_at, format:'%d. %B %Y') %></p>
+        </div>
+        <div class="btns">
+          <%= link_to accept_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-userIcons -small -mint' do %>
+            <%= icon_tag "check" %>
+          <% end %>
+          <%= link_to reject_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-userIcons -small -grey' do %>
+            <%= icon_tag "trash-delete-remove" %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+    <!-- /JOIN REQUESTS -->
 
+    <!-- MEMBERS -->
+    <% @group.members.each do |user| %>
     <div class="user join-request cardBox">
       <div class="avatar">
-        <%= attachment_image_tag join_request.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+        <%= attachment_image_tag user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
       </div>
       <div class="infos">
-        <span><%= join_request.user.first_name %> <br> <%= join_request.user.last_name.truncate(18, separator: ' ') %></span>
-        <p>
-          <%= I18n.localize(join_request.created_at, format:'%d. %B %Y') %>
-        </p>
-        <!--<%= link_to '#', data: { behavior: "userTrigger", user: join_request.user.id }, class: 'btn-userIcons -mint' do %>
-        <%= icon_tag "arrow-down-2" %>
-        <% end %>-->
-      </div>
-      <div class="btns">
-        <%= link_to accept_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-userIcons -small -mint' do %>
-          <%= icon_tag "check" %>
-        <% end %>
-        <%= link_to reject_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-userIcons -small -grey' do %>
-          <%= icon_tag "trash-delete-remove" %>
-        <% end %>
+        <span><%= user.first_name %> <br> <%= user.last_name.truncate(18, separator: ' ') %></span>
+        <p>Join Date..</p>
       </div>
     </div>
-
-    <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container createmenu" data-behavior="userContainer-<%= join_request.user.id %>">
-      <div class="jq-dropdown-panel">
-        <%= link_to accept_request_group_path(@group, join_request_id: join_request.id), method: :post do %>
-          <%= icon_tag "check" %>
-          <div class="icontxt">Akzeptieren</div>
-        <% end %>
-        <%= link_to reject_request_group_path(@group, join_request_id: join_request.id), method: :post do %>
-          <%= icon_tag "trash-delete-remove" %>
-          <div class="icontxt">Ablehnen</div>
-        <% end %>
-      </div>
-    </div>
-
     <% end %>
+    <!-- /MEMBERS -->
 
   </div>
 </div>
