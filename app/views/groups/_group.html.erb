@@ -24,7 +24,9 @@
           <%= attachment_image_tag user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
       <% end %>
 
-      <%= attachment_image_tag current_user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round' %>
+      <% if group.users.include?(current_user) %>
+        <%= attachment_image_tag current_user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round' %>
+      <% end %>
 
       <% group.members.first(8).each do |user| next if user == current_user %>
         <%= attachment_image_tag user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round' %>
