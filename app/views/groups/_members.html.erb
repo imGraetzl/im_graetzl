@@ -27,14 +27,14 @@
     <!-- /JOIN REQUESTS -->
 
     <!-- MEMBERS -->
-    <% @group.members.each do |user| %>
+    <% @group.group_users.member.includes(:user).each do |group_user| %>
     <div class="user join-request cardBox">
       <div class="avatar">
-        <%= attachment_image_tag user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+        <%= attachment_image_tag group_user.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
       </div>
       <div class="infos">
-        <span><%= user.first_name %> <br> <%= user.last_name.truncate(18, separator: ' ') %></span>
-        <p>Join Date..</p>
+        <span><%= group_user.user.first_name %> <br> <%= group_user.user.last_name.truncate(18, separator: ' ') %></span>
+        <p><%= I18n.localize(group_user.created_at, format:'%d. %B %Y') %></p>
       </div>
     </div>
     <% end %>
