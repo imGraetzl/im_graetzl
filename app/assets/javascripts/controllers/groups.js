@@ -7,7 +7,14 @@ APP.controllers.groups = (function() {
     }
 
     function initShow() {
-      APP.components.tabs.initTabs(".tabs-ctrl");
+      //APP.components.tabs.initTabs(".tabs-ctrl");
+
+      $(".tabs-ctrl").tabslet({
+          animation: false,
+          deeplinking: true,
+          active: 0
+      });
+
       $(".all-discussions-link").on("click", function() {
         $(".tabs-ctrl").trigger('show', '#tab-discussions');
       });
@@ -20,14 +27,23 @@ APP.controllers.groups = (function() {
       //$('.introtxt .txt').linkify({ target: "_blank"});
 
       // JS Action Button Dropdown for Groups
-      $('[data-behavior=actionTrigger]').on('click', function(){
+      $('[data-behavior=actionTrigger]').on('click', function( event ){
+        event.preventDefault();
         var id = $(this).attr("data-id");
         $(this).jqDropdown('attach', '[data-behavior=actionContainer-'+id+']');
       });
 
-      $('[data-behavior=userTrigger]').on('mouseenter', function(){
-        var user_id = $(this).attr("data-user");
-        $(this).jqDropdown('attach', '[data-behavior=userContainer-'+user_id+']');
+      $(".-action").mouseenter(function(){
+        $(this).find('.top-ico').addClass('-active');
+      });
+      $(".-action").mouseleave(function(){
+        $(this).find('.top-ico').removeClass('-active');
+      });
+
+      // Action Dot-Dot-Dot Dropdown on Members Page
+      $( "a.-action" ).on('click', function() {
+        var id = $(this).attr("data-id");
+        $(this).jqDropdown('attach', '[data-behavior=actionContainer-'+id+']');
       });
 
     }

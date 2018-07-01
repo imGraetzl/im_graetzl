@@ -153,6 +153,22 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    .top-ico {
+      display:none;
+      position: absolute;
+      top:10px;
+      right:2px;
+      svg {
+        transform: rotate(90deg);
+        color:$color-ambient-grey;
+        &:hover{
+          color:$color-ambient-rosa;
+        }
+      }
+      &.-active {
+        display:block;
+      }
+    }
   }
   div.user {
     display: flex;
@@ -160,7 +176,7 @@
     align-items: center;
     margin-right: 20px;
     div.avatar {
-      padding-right:7px;
+      padding-right:10px;
     }
     div.infos {
       .title {
@@ -210,12 +226,16 @@
 
   .member-section, .members-section {
     .user {
+      img.user {
+        margin:5px;
+      }
       .img-round {
         width: 100px;
         height: 100px;
       }
       .infos {
         font-style:italic;
+        @include ellipsis();
       }
     }
   }
@@ -236,7 +256,6 @@
       div.infos {
         width:100%;
         text-align:center;
-        @include ellipsis();
       }
     }
   }
@@ -258,6 +277,9 @@
       }
       @include respond-to("<=medium") {
         width:95%;
+      }
+      .infos {
+        width: calc(100% - 140px);
       }
     }
     .btns {
