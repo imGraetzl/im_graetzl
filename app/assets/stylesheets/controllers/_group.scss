@@ -188,21 +188,6 @@
         @include font-size-primaryFont('small');
       }
     }
-    div.btn-control {
-      display: none;
-      align-items: center;
-      svg {
-        margin-left: 10px;
-        color: $color-ambient-grey;
-        width:25px;
-        height:25px;
-      }
-      a:hover {
-        svg {
-          color: $color-ambient-rosa;
-        }
-      }
-    }
   } // End User STYLING
 
   // START PAGE - HOME
@@ -428,4 +413,41 @@
   :-moz-placeholder {
     @include groupsPlaceholder;
   }
+}
+
+.discussion-page {
+
+  .user-post {
+    .btn-control { opacity: 0; transition: opacity 0.5s; }
+    .edit-post-form { display: none; }
+    .content { display: block; }
+  }
+
+  .user-post:hover {
+    .btn-control { opacity: 1; }
+  }
+
+  .user-post.editing {
+    .edit-post-form { display: block; }
+    .content { display: none; }
+  }
+
+  .user-post .btn-control {
+    a { display: inline-block; }
+    svg {
+      margin-left: 10px;
+      color: $color-ambient-grey;
+      width: 25px;
+      height: 25px;
+    }
+    a:hover {
+      svg { color: $color-ambient-rosa; }
+    }
+  }
+
+  .user-post .edit-post-form {
+    .actions { margin: 15px 0; }
+    .actions button, .actions input { display: inline-block; margin-right: 15px; }
+  }
+
 }

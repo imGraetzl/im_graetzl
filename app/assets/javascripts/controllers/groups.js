@@ -1,9 +1,7 @@
 APP.controllers.groups = (function() {
 
     function init() {
-      if ($(".group-page").exists()) {
-        initShow();
-      }
+      if ($(".group-page").exists()) { initShow(); }
     }
 
     function initShow() {
@@ -39,7 +37,6 @@ APP.controllers.groups = (function() {
         var id = $(this).attr("data-id");
         $(this).jqDropdown('attach', '[data-behavior=actionContainer-'+id+']');
       });
-
     }
 
     return {
