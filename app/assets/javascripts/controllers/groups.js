@@ -7,13 +7,7 @@ APP.controllers.groups = (function() {
     }
 
     function initShow() {
-      //APP.components.tabs.initTabs(".tabs-ctrl");
-
-      $(".tabs-ctrl").tabslet({
-          animation: false,
-          deeplinking: true,
-          active: 0
-      });
+      APP.components.tabs.initTabs(".tabs-ctrl");
 
       $(".all-discussions-link").on("click", function() {
         $(".tabs-ctrl").trigger('show', '#tab-discussions');
