@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180704001826) do
+ActiveRecord::Schema.define(version: 20180705125543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -630,7 +630,7 @@ ActiveRecord::Schema.define(version: 20180704001826) do
 
   add_foreign_key "discussion_posts", "discussions", on_delete: :cascade
   add_foreign_key "discussion_posts", "users"
-  add_foreign_key "discussions", "groups"
+  add_foreign_key "discussions", "groups", on_delete: :cascade
   add_foreign_key "discussions", "users", on_delete: :nullify
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
