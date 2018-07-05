@@ -5,7 +5,7 @@
     <h3 class="header">Die nächsten Gruppentreffen:</h3>
 
     <% if user_signed_in? %>
-      <%= link_to new_meeting_path, class: 'btn-userIcons' do %>
+      <%= link_to new_meeting_path(group_id: @group.id), class: 'btn-userIcons' do %>
       <span class="ico-left">
         <%= icon_tag('calendar-2') %>
         Neues Gruppentreffen

@@ -1,6 +1,7 @@
 <%= form_for @meeting do |f| %>
   <%= hidden_field_tag :graetzl_id, params[:graetzl_id] %>
   <%= hidden_field_tag :location_id, params[:location_id] %>
+  <%= hidden_field_tag :group_id, params[:group_id] %>
 
   <%= form_errors_for @meeting %>
 
