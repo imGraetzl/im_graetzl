@@ -78,9 +78,9 @@ class GroupsController < ApplicationController
 
   def remove_user
     @group = Group.find(params[:id])
-    redirect_to @group and return unless @group.admins.include?(current_user)
-
     @group_user = @group.group_users.find_by(user_id: params[:user_id])
+    redirect_to @group and return unless (@group.admins.include?(current_user) || current_user.id == @group_user.user_id)
+
     @group_user.destroy
     redirect_to group_url(@group, anchor: "tab-members")
   end
@@ -90,7 +90,7 @@ class GroupsController < ApplicationController
     redirect_to @group and return unless @group.admins.include?(current_user)
 
     @group.destroy
-    redirect_to @home_path, notice: 'Gruppe gelöscht'
+    redirect_to root_path, notice: 'Gruppe gelöscht'
   end
 
   private
