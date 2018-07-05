@@ -8,11 +8,35 @@
     }
   }
 
+  .hint {
+    font-style: italic;
+    color:$color-ambient-grey;
+  }
+
   // Tabs Navigation
   .tabs-nav {
     li.active a {
       color: $color-ambient-rosa;
     }
+  }
+
+  .-page {
+    padding-top:30px;
+
+    .heading {
+      display:flex;
+      justify-content: space-between;
+      @include respond-to("<=medium") {
+        justify-content: center;
+        flex-wrap: wrap-reverse;
+      }
+      margin-bottom:20px;
+
+      .btn-userIcons {
+        svg {color: white;}
+      }
+    }
+
   }
 
   // Button Controls
@@ -27,7 +51,10 @@
 
   .join-request-modal {
     display: none;
-    .input-textarea { margin-bottom: 10px; }
+    .input-textarea {
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
   }
 
   // Button Control Dropdown
@@ -49,24 +76,14 @@
   .editControls {display: block;}
 
   // Groups Startpage 2 Columns Top Area
-  .top-area {
+  .top-section {
     @include cf;
-    padding-top:30px;
     h3 {
       margin-bottom: 20px;
     }
     .mainContent {
-      padding-right:20px;
+      padding-right:30px;
     }
-  }
-
-  // New Discussion Topic
-  .btn-new-topic {
-    //display: table;
-    //margin: 0 auto;
-  }
-  .new-topic {
-    text-align: center;
   }
 
   .back-link, .follow {
@@ -194,8 +211,12 @@
   // START PAGE - HOME
   .info-section {
 
+    .top-section, .member-section, .about-section {
+      margin-bottom: 50px;
+      @include cf;
+    }
+
     h2 {
-      padding-top:50px;
       margin-bottom:15px;
     }
 
@@ -225,6 +246,7 @@
       }
     }
   }
+
   // Startpage Auszug
   .member-section {
     .user {
@@ -284,6 +306,13 @@
     }
   }
 
+  // Meetings Page
+  .meetings-section {
+    h3 {
+      margin-bottom:20px;
+    }
+  }
+
   // Single Discussion PAGE
   &.discussion-page {
     h2.title {
@@ -293,19 +322,13 @@
     div.content {
       margin-bottom:50px;
     }
-    div.discussion-infos {
-      padding-top:20px;
-    }
   } // END PAGE
 
   // Discussion Overview Tab
   .discussion-section {
-    padding-top:20px;
-    h3.header {
-      padding-top:20px;
-      padding-bottom:20px;
+    .discussion-box {
+      margin-bottom:20px;
     }
-
   } // END PAGE
 
   // DISCUSSIONS STYLING
@@ -346,11 +369,7 @@
   } // discussion preview
 
   .discussion-preview:last-of-type {
-    margin-bottom:20px;
-  }
-
-  .discussion-box {
-    margin-top:20px;
+    margin-bottom:50px;
   }
 
   .discussion-create {
@@ -373,7 +392,7 @@
     }
   }
   #new-topic {
-    margin-top:20px;
+    padding-bottom:20px;
     display: none;
   }
 
@@ -392,7 +411,6 @@
 
   &.settings-page {
     .settings-section {
-      padding-top:20px;
       .settingSlice {
         .col1 {
           font-weight:bold;
