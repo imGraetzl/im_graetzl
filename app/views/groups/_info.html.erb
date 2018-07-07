@@ -20,6 +20,12 @@
 
       <div class="sideBar -right">
 
+        <% if @group.parent.is_a? RoomCall %>
+          <% if @group.parent.open? %>
+            <%= render 'room_calls/room_call', room_call: @group.parent %>
+          <% end %>
+        <% end %>
+
         <h3>Nächstes Treffen</h3>
 
         <% if @next_meeting.present? %>
