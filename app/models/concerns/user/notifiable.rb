@@ -58,9 +58,15 @@ module User::Notifiable
     update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
   end
 
-  def notifications_of_the_day
+  def pending_daily_notifications
     notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
-      where("created_at >= NOW() - interval '2 days' AND created_at <= NOW() - interval '5 minutes'").
+      where("notify_at BETWEEN (NOW() - interval '2 days') AND (NOW() - interval '5 minutes')").
+      where(sent: false)
+  end
+
+  def pending_weekly_notifications
+    notifications.where(["bitmask & ? > 0", weekly_mail_notifications]).
+      where("notify_at BETWEEN (NOW() - interval '8 days') AND (NOW() - interval '5 minutes')").
       where(sent: false)
   end
 

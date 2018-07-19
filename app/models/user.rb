@@ -38,9 +38,8 @@ class User < ApplicationRecord
 
   before_validation { self.username.squish! if self.username }
 
-  before_destroy { MailchimpUnsubscribeJob.perform_later(self) }
-  after_update { MailchimpSubscribeJob.perform_later(self) }
-
+  after_update :update_mailchimp, if: -> { email_changed? || first_name_changed? || last_name_changed? || newsletter_changed? }
+  before_destroy :unsubscribe_mailchimp
 
   # overwrite devise authentication method to allow username OR email
   def self.find_for_database_authentication(warden_conditions)
@@ -66,6 +65,16 @@ class User < ApplicationRecord
 
   def primary_location
     self.locations.first
+  end
+
+  private
+
+  def update_mailchimp
+    MailchimpSubscribeJob.perform_later(self)
+  end
+
+  def unsubscribe_mailchimp
+    MailchimpUnsubscribeJob.perform_later(self)
   end
 
 end

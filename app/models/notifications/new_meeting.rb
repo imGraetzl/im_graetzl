@@ -34,4 +34,16 @@ class Notifications::NewMeeting < Notification
   def mail_subject
     "Neues Treffen im Grätzl #{activity.trackable.graetzl.name}"
   end
+
+  private
+
+  def set_notify_at
+    reminder_date = activity.trackable.starts_at_date - 7.days
+    if reminder_date.past?
+      self.notify_at = Time.current
+    else
+      self.notify_at = reminder_date
+    end
+  end
+
 end
