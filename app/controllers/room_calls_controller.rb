@@ -52,7 +52,10 @@ class RoomCallsController < ApplicationController
     end
 
     if @room_call_submission.save
-      RoomCallMailer.new.send_submission_email(current_user, @room_call)
+      RoomCallMailer.new.send_submission_email(@room_call_submission)
+      if !@room_call.group.users.include?(current_user)
+        @room_call.group.group_join_requests.create(user_id: current_user.id, request_message: "A call submitter wants to join the group.")
+      end
       flash[:notice] = "Danke für deine Bewerbung - Wir haben dir soeben ein E-Mail gesendet mit ein paar weiteren Infos .."
       redirect_to @room_call
     else
