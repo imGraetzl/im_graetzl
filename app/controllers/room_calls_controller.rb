@@ -38,6 +38,11 @@ class RoomCallsController < ApplicationController
     end
   end
 
+  def submission
+    @room_call = current_user.room_calls.find(params[:id])
+    @room_call_submission = @room_call.room_call_submissions.find(params[:submission_id])
+  end
+
   def add_submission
     @room_call = RoomCall.find(params[:id])
     @room_call_submission = @room_call.room_call_submissions.build(room_call_submission_params)
