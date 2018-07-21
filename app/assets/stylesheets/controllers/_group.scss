@@ -94,7 +94,7 @@
     }
   }
 
-  .back-link, .follow {
+  .back-link {
     color: $color-ambient-grey;
     display: flex;
     align-items: center;
@@ -108,13 +108,15 @@
     }
   }
   .follow {
+    display: flex;
+    align-items: center;
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+    margin-left:-15px;
+    margin-right:-20px;
     &.-hide {
       display: none;
-    }
-    &.-subscribed {
-      svg {
-        color: $color-ambient-mint-dark;
-      }
     }
   }
 
@@ -470,7 +472,7 @@
     .content { display: none; }
   }
 
-  .user-post .btn-control {
+  .user-post .btn-control, .discussion-infos .btn-control {
     a { display: inline-block; }
     svg {
       margin-left: 10px;
@@ -480,6 +482,12 @@
     }
     a:hover {
       svg { color: $color-ambient-rosa; }
+    }
+  }
+  .discussion-infos .btn-control {
+    display:flex;
+    svg {
+      margin-left:0px;
     }
   }
 
