@@ -8,9 +8,10 @@ class Group < ApplicationRecord
   has_many :users, through: :group_users
 
   has_many :group_join_requests
+  has_many :meetings
 
   def to_s
-    name
+    title
   end
 
   def parent
@@ -25,6 +26,10 @@ class Group < ApplicationRecord
     group_users.select{|gu| gu.member? }.map(&:user)
   end
 
+  def build_meeting
+    meetings.build(address: Address.new)
+  end
+
   def readable_by?(user)
     if private?
       user && users.include?(user)
@@ -32,4 +37,9 @@ class Group < ApplicationRecord
       true
     end
   end
+
+  def room_call_readable_by?(user)
+    room_call_id? && admins.include?(user)
+  end
+
 end

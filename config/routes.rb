@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     get 'locations'
     get 'raumteiler', action: 'rooms', as: 'rooms'
+    get 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
 
@@ -76,6 +77,7 @@ Rails.application.routes.draw do
     post 'toggle', on: :member
   end
   resources :room_calls, path: 'wien/raumteiler/open-calls', except: [:index] do
+    get 'submission', on: :member
     post 'add_submission', on: :member
   end
 
@@ -83,10 +85,11 @@ Rails.application.routes.draw do
   resources :groups, except: [:index] do
     resources :discussions, only: [:show, :create, :update, :destroy]
     resources :discussion_posts, only: [:create, :update, :destroy]
-    post 'join', on: :member
+    get 'settings', :on => :member
     post 'request_join', on: :member
     post 'accept_request', on: :member
     post 'reject_request', on: :member
+    post 'remove_user', on: :member
   end
 
   get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')

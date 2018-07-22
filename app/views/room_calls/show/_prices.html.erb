@@ -4,25 +4,27 @@
 
   <% @room_call.room_call_prices.includes(:room_modules).each do |room_price| %>
 
-  <div class="cardBox">
+  <div class="paperCard -cord1RT">
 
-    <h3><%= room_price.name %></h3>
+    <div class="room-price-description wrp">
 
-    <div class="room-price-description">
-      <p><%= room_price.description %></p>
-      <span class="subtitle">Das Package gilt für die Module:</span>
-      <div class="modules">
+      <h3>
+        <%= room_price.name %>
+        <br>
+        <span>Für die Module:</span>
+        <span class="modules">
         <% room_price.room_modules.each do |room_module| %>
-        <div class="bigicontext-element -small">
-          <%= icon_tag room_module.icon %>
-          <!--<span class="txt"><%= room_module.name %></span>-->
-        </div>
+          <%= room_module.name %>,
         <% end %>
-      </div>
+        </span>
+      </h3>
+
+      <p><%= room_price.description %></p>
+
     </div>
 
-    <ul class="room-price-features">
-      <span class="subtitle">Im Package enthalten:</span>
+    <ul class="room-price-features wrp">
+      <span class="info">Im Package enthalten:</span>
       <% room_price.feature_list.each do |feature| %>
       <li>
         <%= icon_tag 'check' %>
@@ -31,13 +33,15 @@
       <% end %>
     </ul>
 
-    <div class="room-price-amount">
-      <span class="txt">Unterm Strich alles zusammen:</span>
+    <div class="room-price-amount wrp">
+      <span class="info">Unterm Strich alles zusammen:</span>
       <div class="monthly-amount">
         <%= room_price.amount.to_i %> €
         <span> / Monat</span>
       </div>
     </div>
+
+    <div class="card"></div>
 
   </div>
 

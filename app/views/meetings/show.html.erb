@@ -40,6 +40,16 @@
       <div class="place">
         <%= meeting_place @meeting %>
       </div>
+      <% if @meeting.group.present? %>
+        <div class="place">
+          <div class="iconMapLink">
+            <%= icon_tag 'speech-bubble' %>
+          </div>
+          <div>
+            <span><%= link_to @meeting.group.title, @meeting.group %></span>
+          </div>
+        </div>
+      <% end %>
       <%= meeting_initiator_row @meeting %>
       <div class="txt"><%= @meeting.description %></div>
     </div>
@@ -58,4 +68,26 @@
                     class: 'btn-destroy' if user_signed_in? && (current_user == @meeting.initiator) %>
     </div>
   <% end %>
+
+  <% if @meeting.address.try(:coordinates) %>
+  <div class="map cardBox">
+  <script>
+    function initMaps() {
+      var lat = <%= @meeting.address.try(:coordinates).y %>;
+      var lng = <%= @meeting.address.try(:coordinates).x %>;
+      var zoom = 17;
+      var icon = '<%= image_path('map-marker.png') %>';
+      var infowindow = false;
+      var popup =
+        '<div id="mapsMarker" class="infowindow">'+
+          '<p></p>'+
+        '</div>';
+      APP.components.googleMap.init(lng, lat, zoom, popup, icon, infowindow);
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= embedded_map_defaults.merge({})[:key] %>&callback=initMaps" async defer></script>
+  <div id="map"></div>
+  </div>
+  <% end %>
+
 </section>

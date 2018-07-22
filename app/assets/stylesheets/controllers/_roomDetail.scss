@@ -1,5 +1,25 @@
 section.roomDetail {
 
+  .cardBox {
+    &.-group {
+      @include respond-to(">=large") {
+        display: flex;
+        align-items: stretch;
+        .cardBoxHeader {
+          margin:0px;
+          width:40%;
+          .coverImgWrapper {
+            height:100%;
+          }
+        }
+        .cardBoxContent {
+          margin-left:25px;
+          width:60%;
+        }
+      }
+    }
+  }
+
   &.-Offer {
 
     .headContent {

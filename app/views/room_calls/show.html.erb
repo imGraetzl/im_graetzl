@@ -1,43 +1,47 @@
 <% meta(
-    title: @room_call.title[0..45].gsub(/\s\w+\s*$/,'...'),
-    description: ('Open Call: ' +  @room_call.subtitle[0..160].gsub(/\n/, '...')),
-    robots: 'index, follow',
-    og_title: @room_call.title[0..45].gsub(/\s\w+\s*$/,'...'),
-    og_description: ('Open Call: ' +  @room_call.subtitle[0..160].gsub(/\n/, '...')),
-    og_image: attachment_url(@room_call, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-  )
+  title: @room_call.title[0..45].gsub(/\s\w+\s*$/,'...'),
+  description: ('Open Call: ' +  @room_call.subtitle[0..160].gsub(/\n/, '...')),
+  robots: 'index, follow',
+  og_title: @room_call.title[0..45].gsub(/\s\w+\s*$/,'...'),
+  og_description: ('Open Call: ' +  @room_call.subtitle[0..160].gsub(/\n/, '...')),
+  og_image: attachment_url(@room_call, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+)
 %>
 
 <div class="room-call-page">
 
-  <div class="imgHeader -cloudy3 -fullwidth" style="background-image: url('<%= Refile.attachment_url(@room_call, :cover_photo, :fill, 1280, 500) %>')">
-    <!--<%= attachment_image_tag @room_call, :cover_photo, :fill, 1280, 500, fallback: 'cover_photo/980x370.png', class: 'titleImg -fullwidth' %>-->
+  <div class="imgHeader -fullwidth">
+    <%= attachment_image_tag @room_call, :cover_photo, :fill, 2560, 1000, fallback: 'cover_photo/980x370.png', class: 'titleImg -fullwidth' %>
+  </div>
+
+  <div class="bulge-wrapper">
+    <div class="bulge-container">
+      <div class="bulge -top">
+        <%= image_tag ('bulge-left.png'), class: 'bulge-left' %><%= image_tag ('bulge-middle.png'), class: 'bulge-middle' %><%= image_tag ('bulge-right.png'), class: 'bulge-right' %>
+      </div>
+      <div class="bulge -bottom">
+        <h1><%= @room_call.title %></h1>
+      </div>
+    </div>
   </div>
 
   <div class="hl-subtext">
-    <h1><%= @room_call.title %></h1>
     <p>Bewirb dich bis zum <%= I18n.localize(@room_call.ends_at, format: '%d. %B') %> für einen der <%= @room_call.total_vacancies %> freien Plätze.</p>
   </div>
 
   <%= render 'room_calls/show/info' %>
   <%= render 'room_calls/show/modules' %>
-  <%= render 'room_calls/show/prices' %>
   <%= render 'room_calls/show/photos' %>
-  <%= render 'room_calls/show/group' %>
-  <% if current_user %>
-    <%= render 'room_calls/show/submissions' %>
-  <% else %>
+  <%= render 'room_calls/show/group' if @room_call.group %>
+  <%= render 'room_calls/show/prices' %>
+  <% if !user_signed_in? %>
     <%= render 'room_calls/show/login' %>
+  <% else %>
+    <%= render 'room_calls/show/add_submission' %>
   <% end %>
-
-  <!-- Unused:
-  @room_call.about_partner
-  @room_call.first_name
-  @room_call.last_name
-  @room_call.phone
-  @room_call.email
-  @room_call.website
-  @room_call.avatar
-  -->
+  <% if @room_call.user == current_user %>
+    <%= render 'room_calls/show/submissions' %>
+  <% end %>
+  <%= render 'room_calls/show/map' %>
 
 </div>

@@ -4,8 +4,19 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     if @group.readable_by?(current_user)
+      @next_meeting = @group.meetings.where("DATE(starts_at_date) >= ?", Date.today).order(:starts_at_date, :starts_at_time).first
       @discussions = @group.discussions.includes(discussion_posts: :user).order("sticky DESC, last_post_at DESC")
+      @meetings = @group.meetings.order("starts_at_date ASC")
     end
+
+    # Just for testing ... TODO
+    @activity_sample = ActivitySample.new
+
+  end
+
+  def settings
+    @group = Group.find(params[:id])
+    render 'settings'
   end
 
   def new
@@ -42,27 +53,16 @@ class GroupsController < ApplicationController
     end
   end
 
-  def join
-    @group = Group.find(params[:id])
-    if @group.private?
-      flash[:error] = 'This group is private. Please request join.'
-      redirect_to @group and return
-    end
-
-    if !@group.users.include?(current_user)
-      @group.users << current_user
-    end
-
-    redirect_to @group
-  end
-
   def request_join
     @group = Group.find(params[:id])
-    if @group.private?
-      @group.group_join_requests.create(user_id: current_user.id)
-    else
-      @group.users << current_user
+    if !@group.group_join_requests.exists?(user: current_user)
+      join_request = @group.group_join_requests.create(
+        user: current_user,
+        request_message: params[:request_message]
+      )
+      GroupMailer.new.new_join_request(join_request)
     end
+
     redirect_to @group
   end
 
@@ -73,6 +73,7 @@ class GroupsController < ApplicationController
     @join_request = @group.group_join_requests.find(params[:join_request_id])
     @group.users << @join_request.user
     @join_request.destroy
+    GroupMailer.new.join_request_accepted(@group, @join_request.user)
     redirect_to group_url(@group, anchor: "tab-members")
   end
 
@@ -85,12 +86,21 @@ class GroupsController < ApplicationController
     redirect_to group_url(@group, anchor: "tab-members")
   end
 
+  def remove_user
+    @group = Group.find(params[:id])
+    @group_user = @group.group_users.find_by(user_id: params[:user_id])
+    redirect_to @group and return unless (@group.admins.include?(current_user) || current_user.id == @group_user.user_id)
+
+    @group_user.destroy
+    redirect_to group_url(@group, anchor: "tab-members")
+  end
+
   def destroy
-    @group = Group.find(params[:group_id])
+    @group = Group.find(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
     @group.destroy
-    redirect_to home_path
+    redirect_to root_path, notice: 'Gruppe gelöscht'
   end
 
   private

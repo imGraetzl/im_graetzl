@@ -4,7 +4,7 @@ class DiscussionsController < ApplicationController
 
   def show
     @discussion = @group.discussions.find(params[:id])
-    @posts = @discussion.discussion_posts.includes(:user).order(created_at: :asc)
+    @posts = @discussion.discussion_posts.includes(:user, :group).order(created_at: :asc)
     render 'groups/discussions/show'
   end
 
@@ -21,6 +21,16 @@ class DiscussionsController < ApplicationController
     redirect_to [@group, @discussion] if @discussion.user != current_user
     @discussion.update(discussion_params)
     redirect_to [@group, @discussion]
+  end
+
+  def destroy
+    @discussion = @group.discussions.find(params[:id])
+    if @discussion && @discussion.delete_permission?(current_user)
+      @discussion.destroy
+      redirect_to @group
+    else
+      head :ok
+    end
   end
 
   private

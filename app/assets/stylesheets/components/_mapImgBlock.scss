@@ -1,3 +1,9 @@
+#map { height: 100%; }
+.gmap img, .gmap iframe { max-width: 930px; width: 100%; }
+.infowindow {
+  padding:10px;
+}
+
 .mapImgBlock {
 
   position: relative;
@@ -171,6 +177,17 @@
     }
   }
 
+}
+
+.mapImgBlock.-location {
+  margin-top: 0;
+  @include respond-to(">=medium") {
+    padding: 0 25px;
+  }
+  .navBlock h1 {
+    @include headlineBarbapapaMint();
+    @include textShadowHard($color-ambient-mint-dark);
+  }
 }
 
 .leaflet-tile-pane {

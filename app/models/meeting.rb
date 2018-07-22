@@ -35,12 +35,25 @@ class Meeting < ApplicationRecord
   accepts_nested_attributes_for :categorizations, allow_destroy: true
   has_many :categories, through: :categorizations
   has_many :comments, as: :commentable, dependent: :destroy
+  belongs_to :group, optional: true
 
   validates :name, presence: true
   validates :graetzl, presence: true
   validate :starts_at_date_cannot_be_in_the_past, on: :create
 
   after_create :update_location_activity
+
+  def self.visible_to_all
+    where(group_id: nil)
+  end
+
+  def self.visible_to(user)
+    if user && user.group_ids.present?
+      where(group_id: nil).or(where(group_id: user.group_ids))
+    else
+      where(group_id: nil)
+    end
+  end
 
   def self.include_for_box
     includes(:graetzl, :going_tos, :users, location: :users)
