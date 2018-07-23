@@ -18,6 +18,24 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     render 'settings'
   end
+  
+  def categories
+    @group = Group.find(params[:id])
+    @group_categories = @group.group_categories
+    @new_category = GroupCategory.new(group_id: params[:id])
+    render 'categories'
+  end
+  
+  def create_category
+    @group = Group.find(params[:id])
+    group_category = GroupCategory.new(group_category_params)
+    # group_category = @group.group_categories.new(title: params[:title])
+    if group_category.save
+      redirect_to categories_group_url(@group)
+    else
+      redirect_to categories_group_url(@group), notice: 'Error creating category'
+    end
+  end
 
   def new
     @group = Group.new(
@@ -111,6 +129,12 @@ class GroupsController < ApplicationController
     top_posts << sticky_discussion.posts.first if sticky_discussion
     # top_posts <<
     top_posts
+  end
+  
+  def group_category_params
+    params
+      .require(:group_category)
+      .permit(:title, :group_id)
   end
 
   def group_params
