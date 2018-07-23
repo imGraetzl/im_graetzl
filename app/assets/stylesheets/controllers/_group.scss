@@ -44,6 +44,13 @@
         svg {color: white;}
       }
     }
+    
+    .categories-list {
+      margin-top: 5px;
+      float: right;
+      min-width: 230px;
+      li { list-style: none; margin-top: 3px; }
+    }
 
   }
 
