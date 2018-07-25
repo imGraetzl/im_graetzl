@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180720154512) do
+ActiveRecord::Schema.define(version: 20180723152605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,10 +217,7 @@ ActiveRecord::Schema.define(version: 20180720154512) do
   end
 
   create_table "group_default_categories", force: :cascade do |t|
-    t.integer "group_id"
-    t.integer "group_category_id"
-    t.index ["group_category_id"], name: "index_group_default_categories_on_group_category_id", using: :btree
-    t.index ["group_id"], name: "index_group_default_categories_on_group_id", using: :btree
+    t.string "title"
   end
 
   create_table "group_join_requests", force: :cascade do |t|
@@ -655,8 +652,6 @@ ActiveRecord::Schema.define(version: 20180720154512) do
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "group_categories", "groups"
-  add_foreign_key "group_default_categories", "group_categories"
-  add_foreign_key "group_default_categories", "groups"
   add_foreign_key "group_join_requests", "groups", on_delete: :cascade
   add_foreign_key "group_join_requests", "users", on_delete: :cascade
   add_foreign_key "groups", "room_calls", on_delete: :nullify
