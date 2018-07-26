@@ -5,6 +5,7 @@ class MeetingsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @meetings = collection_scope.include_for_box
     @meetings = filter_collection(@meetings)
+    @meetings = @meetings.visible_to(current_user)
     @meetings = @meetings.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
 
@@ -106,6 +107,9 @@ class MeetingsController < ApplicationController
     elsif params[:graetzl_id].present?
       graetzl = Graetzl.find(params[:graetzl_id])
       graetzl.build_meeting
+    elsif params[:group_id].present?
+      group = Group.find(params[:group_id])
+      group.build_meeting
     else
       graetzl = current_user.graetzl
       graetzl.build_meeting

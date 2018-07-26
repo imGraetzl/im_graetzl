@@ -6,9 +6,13 @@ class Group < ApplicationRecord
 
   has_many :group_users
   has_many :users, through: :group_users
+  accepts_nested_attributes_for :group_users, allow_destroy: true, reject_if: :all_blank
 
   has_many :group_join_requests
   has_many :meetings
+
+  has_many :group_categories
+  accepts_nested_attributes_for :group_categories, allow_destroy: true, reject_if: :all_blank
 
   def to_s
     title
@@ -26,6 +30,10 @@ class Group < ApplicationRecord
     group_users.select{|gu| gu.member? }.map(&:user)
   end
 
+  def build_meeting
+    meetings.build(address: Address.new)
+  end
+
   def readable_by?(user)
     if private?
       user && users.include?(user)
@@ -33,4 +41,9 @@ class Group < ApplicationRecord
       true
     end
   end
+
+  def room_call_readable_by?(user)
+    room_call_id? && admins.include?(user)
+  end
+
 end

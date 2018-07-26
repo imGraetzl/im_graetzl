@@ -10,7 +10,7 @@
     position: relative;
     top:-35px;
     margin-bottom:-35px;
-    z-index: 999;
+    z-index: 5;
 
     .bulge-container {
       display:inline-flex;
@@ -171,8 +171,8 @@
       }
 
       .paperCard {
-        padding:20px;
-        margin-bottom:50px;
+        padding: 30px 10px 20px 30px;
+        margin-bottom:70px;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -263,6 +263,15 @@
       }
     } // Section
 
+    //  Map Section ------------------------
+
+    &.map-section {
+      height:400px;
+      &.cardBox {
+        padding:5px;
+      }
+    }
+
     //  Gallery Section ------------------------
 
     &.photos-section {
@@ -320,9 +329,43 @@
 
       .subtitle {
         text-align: center;
-        margin-top:-20px;
+        //margin-top:-20px;
       }
       p.description {white-space: pre-wrap;}
+
+      .info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: stretch;
+        .left {
+          width:60%;
+          @include respond-to("<=large") {
+            width:100%;
+          }
+        }
+        .right {
+          width:35%;
+          @include respond-to("<=large") {
+            width:100%;
+            margin-top: 20px;
+          }
+        }
+        .contact-infos {
+          a {
+            color: $color-ambient-mint;
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+          .img-round {
+            width:28px;
+            height:28px;
+            margin-right:12px;
+          }
+        }
+      }
 
       .steps {
         margin-top:50px;
@@ -379,6 +422,19 @@
         }
       }
 
+      .info-msg {
+        @include font-size-primaryFont('large');
+        border: 1px solid $color-ambient-grey-light;
+        border-radius: 8px;
+        padding:20px;
+        font-style: italic;
+        background-color: #FEF6DF;
+        color: #cd891b;
+        a {
+          color: #cd891b;
+        }
+      }
+
       .submission_form {
         margin-top:80px;
 
@@ -399,26 +455,60 @@
 
     } // End Single Section
 
+    //  Submission Section ------------------------
+    &.submissions-section {
+      .users {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
+      .user {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-right: 10px;
+        width:31%;
+        margin:10px;
+        img.user {
+          margin:5px;
+        }
+        .img-round {
+          width: 100px;
+          height: 100px;
+        }
+        @include respond-to("<=large") {
+          width:45%;
+        }
+        @include respond-to("<=medium") {
+          width:95%;
+        }
+        .infos {
+          width: calc(100% - 140px);
+          margin-left:10px;
+          font-style:italic;
+          @include ellipsis();
+        }
+      }
+    }
+
     //  Group Section ------------------------
     &.group-section {
-      @include respond-to(">=medium") {
-        .cardBox {
-          display: flex;
-          align-items: center;
-          .cardBoxHeader {
-            margin:0px;
-          }
-          .cardBoxContent {
-            margin-left:25px;
-          }
-          .btn-ctrl {
+      .cardBox {
+        &.-group {
+          @include respond-to(">=medium") {
             display: flex;
-            justify-content: flex-end;
-          }
-          .users {
-            .img-round {
-              //width:75px;
-              //height:75px;
+            align-items: stretch;
+            .cardBoxHeader {
+              margin:0px;
+              width:40%;
+              .coverImgWrapper {
+                height:100%;
+              }
+            }
+            .cardBoxContent {
+              margin-left:25px;
+              width:60%;
             }
           }
         }
@@ -427,6 +517,37 @@
 
   }
   // ------------------------ END SECTIONS -------------------------- //
+
+
+
+  // -- CALL SUBMISSION USER PAGE -- //
+  &.-submission {
+    .user {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 20px;
+      img.user {
+        margin:5px;
+        margin-right:15px;
+      }
+      .img-round {
+        width: 100px;
+        height: 100px;
+      }
+      .infos {
+        font-style:italic;
+        @include ellipsis();
+      }
+    }
+    .user-anwsers {
+      margin-bottom:30px;
+      p {
+        white-space:pre-wrap;
+      }
+    }
+  }
+
 
 
 } // END Room Call Page

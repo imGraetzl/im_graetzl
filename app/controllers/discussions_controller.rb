@@ -1,6 +1,17 @@
 class DiscussionsController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :check_group
+
+  def index
+    @discussions = @group.discussions.order("sticky DESC, last_post_at DESC")
+    @discussions = @discussions.includes(discussion_posts: :user)
+    if params[:group_category_id].present?
+      @discussions = @discussions.where(group_category_id: params[:group_category_id])
+      @category = @group.group_categories.find(params[:group_category_id])
+    end
+
+    render 'groups/discussions/index'
+  end
 
   def show
     @discussion = @group.discussions.find(params[:id])
@@ -23,6 +34,16 @@ class DiscussionsController < ApplicationController
     redirect_to [@group, @discussion]
   end
 
+  def destroy
+    @discussion = @group.discussions.find(params[:id])
+    if @discussion && @discussion.delete_permission?(current_user)
+      @discussion.destroy
+      redirect_to @group
+    else
+      head :ok
+    end
+  end
+
   private
 
   def check_group
@@ -37,6 +58,6 @@ class DiscussionsController < ApplicationController
   end
 
   def discussion_params
-    params.require(:discussion).permit(:title, :sticky, :closed)
+    params.require(:discussion).permit(:title, :sticky, :closed, :group_category_id)
   end
 end

@@ -104,7 +104,6 @@
     </div>
   </div>
 
-
   <h2 class="hl-main">Ein paar Worte <span>über dich</span> / über euch</h2>
   <div class="input-field">
     <%= f.label :owner_description do %>
@@ -155,6 +154,15 @@
       <span>Weitere Fotos</span>
     <% end %>
     <div class="field-wrp">
+      <%= f.fields_for :images do |ff| %>
+        <div class="preview-wrp">
+          <%= image_tag attachment_url(ff.object, :file, :fill, 159, 60) %>
+          <div class="input-checkbox">
+            <%= ff.check_box :_destroy, { class: 'deleteCheckbox' } %>
+            <%= ff.label :_destroy, 'Löschen' %>
+          </div>
+        </div>
+      <% end %>
       <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
     </div>
   </div>

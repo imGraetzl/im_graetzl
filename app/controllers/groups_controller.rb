@@ -6,12 +6,8 @@ class GroupsController < ApplicationController
     if @group.readable_by?(current_user)
       @next_meeting = @group.meetings.where("DATE(starts_at_date) >= ?", Date.today).order(:starts_at_date, :starts_at_time).first
       @discussions = @group.discussions.includes(discussion_posts: :user).order("sticky DESC, last_post_at DESC")
-      @meetings = @group.meetings.order("starts_at_date DESC")
+      @meetings = @group.meetings.order("starts_at_date ASC")
     end
-
-    # Just for testing ... TODO
-    @activity_sample = ActivitySample.new
-
   end
 
   def settings
@@ -24,6 +20,9 @@ class GroupsController < ApplicationController
       room_offer_id: params[:room_offer_id],
       room_call_id: params[:room_call_id]
     )
+    GroupDefaultCategory.all.each do |category|
+      @group.group_categories.build(title: category.title)
+    end
   end
 
   def create
@@ -55,7 +54,14 @@ class GroupsController < ApplicationController
 
   def request_join
     @group = Group.find(params[:id])
-    @group.group_join_requests.create(user_id: current_user.id, request_message: params[:request_message])
+    if !@group.group_join_requests.exists?(user: current_user)
+      join_request = @group.group_join_requests.create(
+        user: current_user,
+        request_message: params[:request_message]
+      )
+      GroupMailer.new.new_join_request(join_request)
+    end
+
     redirect_to @group
   end
 
@@ -66,6 +72,7 @@ class GroupsController < ApplicationController
     @join_request = @group.group_join_requests.find(params[:join_request_id])
     @group.users << @join_request.user
     @join_request.destroy
+    GroupMailer.new.join_request_accepted(@group, @join_request.user)
     redirect_to group_url(@group, anchor: "tab-members")
   end
 
@@ -97,14 +104,6 @@ class GroupsController < ApplicationController
 
   private
 
-  def prepare_top_posts(group)
-    top_posts = []
-    sticky_discussion = group.discussions.sticky.last
-    top_posts << sticky_discussion.posts.first if sticky_discussion
-    # top_posts <<
-    top_posts
-  end
-
   def group_params
     params
       .require(:group)
@@ -113,7 +112,10 @@ class GroupsController < ApplicationController
         :description,
         :room_offer_id,
         :room_call_id,
-        :private
+        :private,
+        group_categories_attributes: [
+          :id, :title, :_destroy
+        ],
     )
   end
 end

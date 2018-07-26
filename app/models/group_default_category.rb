@@ -1,0 +1,2 @@
+class GroupDefaultCategory < ApplicationRecord
+end

@@ -77,14 +77,15 @@ Rails.application.routes.draw do
     post 'toggle', on: :member
   end
   resources :room_calls, path: 'wien/raumteiler/open-calls', except: [:index] do
+    get 'submission', on: :member
     post 'add_submission', on: :member
   end
 
 
   resources :groups, except: [:index] do
-    resources :discussions, only: [:show, :create, :update, :destroy]
+    resources :discussions, only: [:index, :show, :create, :update, :destroy]
     resources :discussion_posts, only: [:create, :update, :destroy]
-    get 'settings', :on => :member
+    get 'settings', on: :member
     post 'request_join', on: :member
     post 'accept_request', on: :member
     post 'reject_request', on: :member
@@ -94,7 +95,7 @@ Rails.application.routes.draw do
   get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
   get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
   get 'raumteiler' => redirect('/wien/raumteiler')
-  get 'call' => redirect('/wien/raumteiler/raum/nordbahn-halle-macherinnen-fur-werkhalle-gesucht')
+  get 'dieselgasse' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-dieselgasse')
   get 'raumteilerfestival', to: 'landing_pages#raumteiler_festival_2018'
   get 'raumteilerfestival/info', to: 'landing_pages#raumteiler_festival_2018_infos'
 
