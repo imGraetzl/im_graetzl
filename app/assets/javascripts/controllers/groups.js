@@ -6,6 +6,9 @@ APP.controllers.groups = (function() {
         initInfo();
         initDiscussions();
       }
+      if ($(".group-page .categories-list").exists()) {
+        initMobileNav();
+      }
     }
 
     function initHeader() {
@@ -20,7 +23,6 @@ APP.controllers.groups = (function() {
         root: '#groups-btn-ctrl',
         targetAttr: 'href'
       });
-
     }
 
     function initInfo() {
@@ -30,9 +32,35 @@ APP.controllers.groups = (function() {
     }
 
     function initDiscussions() {
-      // Toggle Button for new Topic
-      $('.btn-new-topic').on('click', function() {
+      $('#tab-discussions .btn-new-topic').on('click', function() {
         $('#new-topic').slideToggle();
+      });
+
+      $("#tab-discussions .categories-list a").on("click", function() {
+        $(this).parents("li").addClass("selected").siblings("li").removeClass("selected");
+      });
+
+      $("#tab-discussions .autoload-link").click();
+    }
+
+    function initMobileNav() {
+      var $dropdown = $(".categories-list-mobile select");
+      $(".categories-list li a").each(function() {
+              var $this = $(this),
+              link = $this.attr('href'),
+              txt = $this.text();
+
+          $dropdown.append(getOption());
+
+          function getOption() {
+              if($this.hasClass('active'))
+                  return '<option selected value="'+ link +'" data-remote="true">'+ txt +'</option>';
+              return '<option value="'+ link +'" data-remote="true">'+ txt +'</option>';
+          }
+      });
+      $dropdown.on('change', function() {
+        var getLink = $('.categories-list li a[href*="'+$dropdown.val()+'"]');
+        getLink.click();
       });
     }
 

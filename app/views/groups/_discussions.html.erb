@@ -1,20 +1,16 @@
 <div class="discussion-section -page">
 
-  <div class="heading">
-
-    <h3 class="header"><%= @discussions.size %> <%= @discussions.size > 1 ? 'Themen' : 'Thema'  %> in der Gruppe:</h3>
-
+  <div class="header">
     <% if @group.users.include?(current_user) %>
-    <div class="new-topic">
-      <%= button_to "javascript:", class: 'btn-userIcons btn-new-topic' do %>
-        <span class="ico-left">
-          <%= icon_tag('pencil') %>
-          Neues Thema eröffnen
-        </span>
-      <% end %>
-    </div>
+      <div class="new-topic">
+        <%= button_to "javascript:", class: 'btn-userIcons btn-new-topic' do %>
+          <span class="ico-left">
+            <%= icon_tag('pencil') %>
+            Neues Thema eröffnen
+          </span>
+        <% end %>
+      </div>
     <% end %>
-
   </div>
 
   <div class="discussion-box">
@@ -23,8 +19,15 @@
     <% end %>
   </div>
 
-  <% @discussions.each do |discussion| %>
-    <%= render 'groups/discussions/discussion_preview', discussion: discussion %>
-  <% end %>
+  <div class="discussions">
+
+    <div class="main discussions-container">
+    </div>
+
+    <div class="side">
+      <%= render 'groups/discussions/category_select' %>
+    </div>
+
+  </div>
 
 </div>

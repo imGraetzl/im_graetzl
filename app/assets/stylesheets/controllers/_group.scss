@@ -1,3 +1,21 @@
+.group-form-page {
+  .remove_fields {
+    margin-left: 10px;
+    margin-top:15px;
+    float: right;
+    @include respond-to("<=medium") {
+      margin-top:5px;
+    }
+  }
+  .-permission {
+    margin-bottom:30px;
+  }
+  .add {
+    display: block;
+    margin-bottom:20px;
+  }
+}
+
 .group-page {
 
   h2 {
@@ -20,15 +38,56 @@
     }
   }
 
+  .categories-list {
+    margin-top: 3px;
+    li {
+      list-style: none; margin-top: 10px;
+      display: flex;
+      svg {
+        width:30px; height:30px;
+        margin-right:10px;
+        color:$color-ambient-grey;
+      }
+      a {
+        margin-top:5px;
+        text-decoration: none;
+        width:100%;
+        color:$color-font-primary;
+      }
+    }
+    li.selected {
+      a {
+        font-weight: bold;
+        color:$color-ambient-rosa;
+      }
+      svg {
+        color:$color-ambient-rosa;
+      }
+    }
+  }
+
+  .categories-list-mobile {
+    display: none;
+  }
+  @include respond-to("<=medium") {
+    .categories-list {
+      display: none;
+    }
+    .categories-list-mobile {
+      display: block;
+    }
+  }
+
   .-page {
-    padding-top:30px;
+    padding-top:20px;
     @include respond-to("<=medium") {
       padding-top:10px;
     }
 
-    .heading {
+    .header {
       display:flex;
       justify-content: space-between;
+      align-items: center;
       @include respond-to("<=medium") {
         justify-content: center;
         flex-wrap: wrap-reverse;
@@ -41,10 +100,24 @@
       margin-bottom:20px;
 
       .btn-userIcons {
+        width:270px;
         svg {color: white;}
       }
     }
 
+    &.discussion-section {
+      .header {
+        justify-content: flex-end;
+      }
+      @include respond-to("<=medium") {
+        .header {
+          justify-content: center;
+        }
+        h3.title {
+          text-align: center;
+        }
+      }
+    }
   }
 
   // Button Controls
@@ -92,13 +165,14 @@
   .editControls {display: block;}
 
   // Groups Startpage 2 Columns Top Area
-  .top-section {
+  .top-section, .discussions {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     @include respond-to("<=medium") {
       flex-wrap: wrap;
     }
+
     .main {
       width:100%;
     }
@@ -116,8 +190,13 @@
         width:100%;
       }
     }
-
   }
+  .discussions {
+    @include respond-to("<=medium") {
+      flex-wrap: wrap-reverse;
+    }
+  }
+
   .top-section, .bottom-section {
     @include cf;
     h3 {
@@ -349,9 +428,7 @@
 
   // Meetings Page
   .meetings-section {
-    h3 {
-      margin-bottom:20px;
-    }
+
   }
 
   // Single Discussion PAGE
@@ -367,6 +444,11 @@
 
   // Discussion Overview Tab
   .discussion-section {
+
+    h3 {
+      margin-bottom: 20px;
+    }
+
     .discussion-box {
       margin-bottom:20px;
     }
@@ -389,8 +471,8 @@
       margin-bottom:10px;
       font-style: italic;
     }
-    .content {
 
+    .content {
       @include respond-to(">=medium") {
         margin-left: 60px;
       }
@@ -425,7 +507,7 @@
     textarea {
       min-height:150px;
     }
-    .input-field, .input-textarea {
+    .input-field, .input-textarea, .input-select {
       margin-bottom: 15px;
     }
     .btn-primary {

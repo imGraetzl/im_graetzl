@@ -6,9 +6,13 @@ class Group < ApplicationRecord
 
   has_many :group_users
   has_many :users, through: :group_users
+  accepts_nested_attributes_for :group_users, allow_destroy: true, reject_if: :all_blank
 
   has_many :group_join_requests
   has_many :meetings
+
+  has_many :group_categories
+  accepts_nested_attributes_for :group_categories, allow_destroy: true, reject_if: :all_blank
 
   def to_s
     title

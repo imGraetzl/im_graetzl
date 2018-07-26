@@ -8,10 +8,6 @@ class GroupsController < ApplicationController
       @discussions = @group.discussions.includes(discussion_posts: :user).order("sticky DESC, last_post_at DESC")
       @meetings = @group.meetings.order("starts_at_date ASC")
     end
-
-    # Just for testing ... TODO
-    @activity_sample = ActivitySample.new
-
   end
 
   def settings
@@ -24,6 +20,9 @@ class GroupsController < ApplicationController
       room_offer_id: params[:room_offer_id],
       room_call_id: params[:room_call_id]
     )
+    GroupDefaultCategory.all.each do |category|
+      @group.group_categories.build(title: category.title)
+    end
   end
 
   def create
@@ -105,14 +104,6 @@ class GroupsController < ApplicationController
 
   private
 
-  def prepare_top_posts(group)
-    top_posts = []
-    sticky_discussion = group.discussions.sticky.last
-    top_posts << sticky_discussion.posts.first if sticky_discussion
-    # top_posts <<
-    top_posts
-  end
-
   def group_params
     params
       .require(:group)
@@ -121,7 +112,10 @@ class GroupsController < ApplicationController
         :description,
         :room_offer_id,
         :room_call_id,
-        :private
+        :private,
+        group_categories_attributes: [
+          :id, :title, :_destroy
+        ],
     )
   end
 end
