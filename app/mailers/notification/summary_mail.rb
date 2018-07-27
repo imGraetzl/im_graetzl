@@ -86,7 +86,7 @@ class Notification::SummaryMail
       },
       {
         name: 'New Anwser in Topic I follow',
-        types: [Notifications::NewGroupComment]
+        types: [Notifications::NewGroupPost]
       }
     ]
   }

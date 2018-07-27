@@ -89,7 +89,7 @@ module User::Notifiable
       Notifications::NewGroupDiscussion,
       Notifications::NewGroupUser,
       Notifications::NewGroupMeeting,
-      Notifications::NewGroupComment,
+      Notifications::NewGroupPost,
     ].map{|n| n::BITMASK }.inject(&:|)
 
     self.immediate_mail_notifications = [

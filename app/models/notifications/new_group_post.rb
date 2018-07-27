@@ -1,4 +1,4 @@
-class Notifications::NewGroupComment < Notification
+class Notifications::NewGroupPost < Notification
   TRIGGER_KEY = 'discussion_post.create'
   BITMASK = 2**18
 

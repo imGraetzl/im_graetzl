@@ -15,7 +15,7 @@ module NotificationSettingsHelper
     Notifications::NewGroupDiscussion,
     Notifications::NewGroupUser,
     Notifications::NewGroupMeeting,
-    Notifications::NewGroupComment,
+    Notifications::NewGroupPost,
   ]
 
   def notification_settings_mail_options(notification_type)

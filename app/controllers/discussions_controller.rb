@@ -34,6 +34,7 @@ class DiscussionsController < ApplicationController
 
   def edit
     @discussion = @group.discussions.find(params[:id])
+    render 'groups/discussions/edit'
   end
 
   def update

@@ -83,7 +83,7 @@ Rails.application.routes.draw do
 
 
   resources :groups, except: [:index] do
-    resources :discussions, only: [:index, :show, :create, :update, :destroy] do
+    resources :discussions, only: [:index, :show, :create, :edit, :update, :destroy] do
       post :toggle_following, on: :member
     end
     resources :discussion_posts, only: [:create, :update, :destroy]

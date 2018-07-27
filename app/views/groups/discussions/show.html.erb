@@ -1,17 +1,17 @@
 <div class="group-page discussion-page">
 
   <%= render 'groups/header' %>
-
   <%= render 'groups/btn_ctrl', group: @group %>
-
   <%= render 'groups/tab_navigation' %>
 
   <div class="discussion-infos -page">
     <%= @discussion.discussion_posts.size %> <%= @discussion.discussion_posts.size > 1 ? 'Beiträge' : 'Beitrag' %>
+
     <% if @discussion.group_category %>
       <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
       <%= @discussion.group_category.title %>
     <% end %>
+
     <% if @group.users.include?(current_user) %>
         <% following = @discussion.followed_by?(current_user) %>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
@@ -23,6 +23,15 @@
         <%= link_to toggle_following_group_discussion_path(@group, @discussion), remote: true, method: 'post', class: ["follow", following ? '-hide' : ''] do %>
           <div class="input-switch -small"><label></label></div>
         <% end %>
+    <% end %>
+
+    <% if @discussion.edit_permission?(current_user) %>
+      <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+      <div class="btn-control">
+        <%= link_to [:edit, @group, @discussion], class: 'edit-post-link' do %>
+          <%= icon_tag "pencil" %>
+        <% end %>
+      </div>
     <% end %>
 
     <% if @discussion.delete_permission?(current_user) %>
