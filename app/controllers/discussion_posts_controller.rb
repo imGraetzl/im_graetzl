@@ -9,7 +9,6 @@ class DiscussionPostsController < ApplicationController
     @post = @discussion.discussion_posts.new(discussion_post_params)
     @post.user = current_user
     if @post.save
-      @discussion.update(last_post_at: @post.created_at)
       @post.create_activity(:create, owner: current_user)
       redirect_to [@group, @discussion]
     else
