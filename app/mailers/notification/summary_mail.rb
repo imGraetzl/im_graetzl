@@ -3,61 +3,92 @@ class Notification::SummaryMail
 
   MANDRILL_TEMPLATE = 'summary-mail'
 
-  GRAETZL_BLOCKS = [
-    {
-      name: 'Neue Treffen',
-      types: [Notifications::NewMeeting]
-    },
-    {
-      name: 'Neue Location Updates',
-      types: [Notifications::NewLocationPost]
-    },
-    {
-      name: 'Neu auf imGrätzl - Sag Hallo',
-      types: [Notifications::NewLocation]
-    },
-    {
-      name: 'Neue Ideen im Grätzl',
-      types: [Notifications::NewUserPost, Notifications::NewAdminPost]
-    }
-  ]
+  SUMMARY_TYPES = {}
+  SUMMARY_TYPES[:graetzl] = {
+    from_email: "neuigkeiten@imgraetzl.at",
+    from_name: "imGrätzl.at | Neuigkeiten",
+    blocks: [
+      {
+        name: 'Neue Treffen',
+        types: [Notifications::NewMeeting]
+      },
+      {
+        name: 'Neue Location Updates',
+        types: [Notifications::NewLocationPost]
+      },
+      {
+        name: 'Neu auf imGrätzl - Sag Hallo',
+        types: [Notifications::NewLocation]
+      },
+      {
+        name: 'Neue Ideen im Grätzl',
+        types: [Notifications::NewUserPost, Notifications::NewAdminPost]
+      }
+    ]
+  }
 
-  ROOM_BLOCKS = [
-    {
-      name: 'Neue Räume zum Andocken',
-      types: [Notifications::NewRoomOffer]
-    },
-    {
-      name: 'Auf der Suche nach Raum',
-      types: [Notifications::NewRoomDemand]
-    },
-    {
-      name: 'Neuer Raumteiler Call',
-      types: [Notifications::NewRoomCall]
-    }
-  ]
+  SUMMARY_TYPES[:rooms] = {
+    from_email: "raumteiler@imgraetzl.at",
+    from_name: "imGrätzl.at | Raumteiler",
+    blocks: [
+      {
+        name: 'Neue Räume zum Andocken',
+        types: [Notifications::NewRoomOffer]
+      },
+      {
+        name: 'Auf der Suche nach Raum',
+        types: [Notifications::NewRoomDemand]
+      },
+      {
+        name: 'Neuer Raumteiler Call',
+        types: [Notifications::NewRoomCall]
+      }
+    ]
+  }
 
-  PERSONAL_BLOCKS = [
-    {
-      name: 'Also commented',
-      types: [Notifications::AlsoCommentedAdminPost, Notifications::AlsoCommentedLocationPost,
-        Notifications::AlsoCommentedMeeting, Notifications::AlsoCommentedRoomDemand,
-        Notifications::AlsoCommentedRoomOffer, Notifications::AlsoCommentedUserPost]
-    },
-    {
-      name: 'Auf der Suche nach Raum',
-      types: [Notifications::NewRoomDemand]
-    },
-    {
-      name: 'Neuer Raumteiler Call',
-      types: [Notifications::NewRoomCall]
-    }
-  ]
-
-  SUMMARY_TYPES = {
-    graetzl: GRAETZL_BLOCKS,
-    rooms: ROOM_BLOCKS,
-    personal: PERSONAL_BLOCKS,
+  SUMMARY_TYPES[:personal] = {
+    from_email: "updates@imgraetzl.at",
+    from_name: "imGrätzl.at | Updates",
+    blocks: [
+      {
+        name: "New Meeting Atendee",
+        types: [Notifications::AttendeeInUsersMeeting]
+      },
+      {
+        name: "New Meeting Updates",
+        types: [Notifications::MeetingCancelled, Notifications::MeetingUpdated]
+      },
+      {
+        name: "Comment on my content",
+        types: [Notifications::CommentInMeeting, Notifications::CommentInUsersMeeting,
+          Notifications::CommentOnAdminPost, Notifications::CommentOnLocationPost,
+          Notifications::CommentOnRoomDemand, Notifications::CommentOnRoomOffer,
+          Notifications::CommentOnUserPost
+        ]
+      },
+      {
+        name: 'Also commented',
+        types: [Notifications::AlsoCommentedAdminPost, Notifications::AlsoCommentedLocationPost,
+          Notifications::AlsoCommentedMeeting, Notifications::AlsoCommentedRoomDemand,
+          Notifications::AlsoCommentedRoomOffer, Notifications::AlsoCommentedUserPost]
+      },
+      {
+        name: 'New Topic in Group',
+        types: [Notifications::NewGroupDiscussion]
+      },
+      {
+        name: 'New Group Members',
+        types: [Notifications::NewGroupUser]
+      },
+      {
+        name: 'New Group Meeting',
+        types: [Notifications::NewGroupMeeting]
+      },
+      {
+        name: 'New Anwser in Topic I follow',
+        types: [Notifications::NewGroupComment]
+      }
+    ]
   }
 
   def initialize(user, type, period)
@@ -75,24 +106,18 @@ class Notification::SummaryMail
       return
     end
 
-    notification_types = SUMMARY_TYPES[@type].map{|b| b[:types] }.flatten.map(&:to_s)
+    notification_types = SUMMARY_TYPES[@type][:blocks].map{|b| b[:types] }.flatten.map(&:to_s)
     notifications = notifications.where(type: notification_types)
     return if notifications.empty?
 
     MandrillMailer.deliver(template: MANDRILL_TEMPLATE, message: {
       to: [ { email: @user.email } ],
-      from_email: FROM_EMAIL,
-      from_name: FROM_NAME,
+      from_email: SUMMARY_TYPES[@type][:from_email],
+      from_name: SUMMARY_TYPES[@type][:from_name],
       subject: mail_title,
       google_analytics_domains: ['staging.imgraetzl.at', 'www.imgraetzl.at'],
-      google_analytics_campaign: 'daily-mail',
-      global_merge_vars: global_vars,
-      merge_vars: [
-        rcpt: @user.email,
-        vars: [
-          { name: 'notification_blocks', content: notification_block_vars(notifications) }
-        ]
-      ]
+      google_analytics_campaign: 'summary-mail',
+      global_merge_vars: message_vars,
     })
 
     notifications.update_all(sent: true)
@@ -100,18 +125,19 @@ class Notification::SummaryMail
 
   private
 
-  def global_vars
+  def message_vars
     [
       { name: 'username', content: @user.username },
       { name: 'edit_user_url', content: edit_user_url(URL_OPTIONS) },
       { name: 'graetzl_name', content: @user.graetzl.name },
-      { name: 'graetzl_url', content: graetzl_url(@user.graetzl, URL_OPTIONS) }
+      { name: 'graetzl_url', content: graetzl_url(@user.graetzl, URL_OPTIONS) },
+      { name: 'notification_blocks', content: notification_block_vars(notifications) },
     ]
   end
 
   def notification_block_vars(notifications)
     block_mail_vars = []
-    SUMMARY_TYPES[@type].each do |block|
+    SUMMARY_TYPES[@type][:blocks].each do |block|
       block_notifications = notifications.select{|n| n.type.in?(block[:types].map(&:to_s))}
       if block_notifications.present?
         block_mail_vars << {
@@ -127,11 +153,11 @@ class Notification::SummaryMail
   def mail_title
     case @type
     when :graetzl
-      "Neues aus dem Grätzl #{@user.graetzl.name}"
+      "#{@user.graetzl.name} - Neue Treffen & Location Updates"
     when :rooms
-      "Neue Raumteiler aus dem Grätzl #{@user.graetzl.name}"
+      "#{@user.graetzl.name} - Neue Räume & Raumsuchende"
     when :personal
-      "Neue aus dem imGraetzl.at"
+      "Persönliche Neuigkeiten für #{@user.first_name} zusammengefasst"
     end
   end
 

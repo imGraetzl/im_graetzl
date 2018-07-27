@@ -73,24 +73,31 @@ module User::Notifiable
   private
 
   def set_default_notification_settings
-    self.daily_mail_notifications = [
+    self.weekly_mail_notifications = [
       Notifications::NewMeeting,
-      Notifications::NewLocationPost,
       Notifications::NewLocation,
+      Notifications::NewLocationPost,
       Notifications::NewUserPost,
       Notifications::NewRoomOffer,
       Notifications::NewRoomDemand,
-    ].sum{|n| n::BITMASK }
+      Notifications::NewRoomCall,
+    ].map{|n| n::BITMASK }.inject(&:|)
 
-    self.immediate_mail_notifications = [
-      Notifications::MeetingUpdated,
+    self.daily_mail_notifications = [
       Notifications::CommentInMeeting,
       Notifications::AlsoCommentedMeeting,
-      Notifications::MeetingCancelled,
+      Notifications::NewGroupDiscussion,
+      Notifications::NewGroupUser,
+      Notifications::NewGroupMeeting,
+      Notifications::NewGroupComment,
+    ].map{|n| n::BITMASK }.inject(&:|)
+
+    self.immediate_mail_notifications = [
       Notifications::AttendeeInUsersMeeting,
+      Notifications::MeetingCancelled,
       Notifications::NewWallComment,
       Notifications::LocationApproved,
-    ].sum{|n| n::BITMASK }
+    ].map{|n| n::BITMASK }.inject(&:|)
 
     self.enabled_website_notifications = immediate_mail_notifications
   end

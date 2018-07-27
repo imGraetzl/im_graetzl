@@ -7,6 +7,15 @@ module NotificationSettingsHelper
     Notifications::NewRoomOffer,
     Notifications::NewRoomDemand,
     Notifications::NewRoomCall,
+    Notifications::AttendeeInUsersMeeting,
+    Notifications::MeetingCancelled,
+    Notifications::MeetingUpdated,
+    Notifications::CommentInMeeting,
+    Notifications::AlsoCommentedAdminPost,
+    Notifications::NewGroupDiscussion,
+    Notifications::NewGroupUser,
+    Notifications::NewGroupMeeting,
+    Notifications::NewGroupComment,
   ]
 
   def notification_settings_mail_options(notification_type)

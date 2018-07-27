@@ -8,27 +8,27 @@
 
   <div class="discussion-infos -page">
     <%= @discussion.discussion_posts.size %> <%= @discussion.discussion_posts.size > 1 ? 'Beiträge' : 'Beitrag' %>
+
     <% if @group.users.include?(current_user) %>
-      <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-      E-Mail Updates:
-      <%= link_to 'javascript:', class: 'follow', :data => { :topic => @discussion.id } do %>
-        <div class="input-switch -checked -small">
-          <label></label>
-        </div>
-      <% end %>
+        <% following = @discussion.followed_by?(current_user) %>
+        <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+        E-Mail Updates:
+        <%= link_to toggle_following_group_discussion_path(@group, @discussion), remote: true, method: 'post', class: ["follow", following ? '' : '-hide'] do %>
+          <div class="input-switch -small -checked"><label></label></div>
+        <% end %>
+
+        <%= link_to toggle_following_group_discussion_path(@group, @discussion), remote: true, method: 'post', class: ["follow", following ? '-hide' : ''] do %>
+          <div class="input-switch -small"><label></label></div>
+        <% end %>
     <% end %>
-    <%= link_to 'javascript:', class: 'follow -hide', :data => { :topic => @discussion.id } do %>
-      <div class="input-switch -small">
-        <label></label>
-      </div>
-    <% end %>
+
     <% if @discussion.delete_permission?(current_user) %>
-    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-    <div class="btn-control">
-      <%= link_to [@group, @discussion], method: :delete, data: { confirm: 'Thema wirklich löschen?', disable_with: 'wird gelöscht...'}, class: 'delete' do %>
-        <%= icon_tag "trash-delete-remove" %>
-      <% end %>
-    </div>
+      <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+      <div class="btn-control">
+        <%= link_to [@group, @discussion], method: :delete, data: { confirm: 'Thema wirklich löschen?', disable_with: 'wird gelöscht...'}, class: 'delete' do %>
+          <%= icon_tag "trash-delete-remove" %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 

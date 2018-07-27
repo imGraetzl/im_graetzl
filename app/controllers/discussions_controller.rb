@@ -23,8 +23,13 @@ class DiscussionsController < ApplicationController
     @discussion = @group.discussions.build(discussion_params)
     @discussion.user = current_user
     @discussion.discussion_posts.build(content: params[:content], user: current_user)
-    @discussion.save
-    redirect_to [@group, @discussion]
+    if @discussion.save
+      @discussion.discussion_followings.create(user: current_user)
+      @discussion.create_activity(:create, owner: current_user)
+      redirect_to [@group, @discussion]
+    else
+      redirect_to [@group, @discussion]
+    end
   end
 
   def update
@@ -32,6 +37,18 @@ class DiscussionsController < ApplicationController
     redirect_to [@group, @discussion] if @discussion.user != current_user
     @discussion.update(discussion_params)
     redirect_to [@group, @discussion]
+  end
+
+  def toggle_following
+    @discussion = @group.discussions.find(params[:id])
+    following = @discussion.discussion_followings.find_by(user: current_user)
+    if following
+      following.destroy
+    else
+      @discussion.discussion_followings.create(user: current_user)
+    end
+
+    head :ok
   end
 
   def destroy
