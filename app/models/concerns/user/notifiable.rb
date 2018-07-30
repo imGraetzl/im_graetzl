@@ -40,66 +40,62 @@ module User::Notifiable
   end
 
   def enabled_mail_notification?(type, interval)
-    send("#{interval}_mail_notifications".to_sym) & type::BITMASK > 0
+    read_attribute("#{interval}_mail_notifications") & type::BITMASK > 0
+  end
+
+  def enabled_mail_notification(type)
+    [:immediate, :daily, :weekly].each do |i|
+      return i if enabled_mail_notification?(type, i)
+    end
+    :off
   end
 
   def enable_mail_notification(type, interval)
-    [ :immediate, :daily, :weekly ].each do |i|
-      disable_mail_notification(type, i)
+    [:immediate, :daily, :weekly].each do |i|
+      if interval == i
+        new_setting = read_attribute("#{i}_mail_notifications") | type::BITMASK
+      else
+        new_setting = read_attribute("#{i}_mail_notifications") & ~type::BITMASK
+      end
+      write_attribute("#{i}_mail_notifications", new_setting)
     end
-
-    new_setting = send("#{interval}_mail_notifications".to_sym) | type::BITMASK
-    update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
+    save
   end
 
-  def disable_mail_notification(type, interval)
-    mask = "11111111111111".to_i(2) ^ type::BITMASK
-    new_setting = send("#{interval}_mail_notifications".to_sym) & mask
-    update_attribute("#{interval}_mail_notifications".to_sym, new_setting)
+  def disable_all_mail_notifications(type)
+    [:immediate, :daily, :weekly].each do |i|
+      new_setting = read_attribute("#{i}_mail_notifications") & ~type::BITMASK
+      write_attribute("#{i}_mail_notifications", new_setting)
+    end
+    save
   end
 
   def pending_daily_notifications
     notifications.where(["bitmask & ? > 0", daily_mail_notifications]).
-      where("notify_at BETWEEN (NOW() - interval '2 days') AND (NOW() - interval '5 minutes')").
+      where("notify_at BETWEEN (NOW() - interval '2 days') AND NOW()").
       where(sent: false)
   end
 
   def pending_weekly_notifications
     notifications.where(["bitmask & ? > 0", weekly_mail_notifications]).
-      where("notify_at BETWEEN (NOW() - interval '8 days') AND (NOW() - interval '5 minutes')").
+      where("notify_at BETWEEN (NOW() - interval '8 days') AND NOW()").
       where(sent: false)
   end
 
   private
 
   def set_default_notification_settings
-    self.weekly_mail_notifications = [
-      Notifications::NewMeeting,
-      Notifications::NewLocation,
-      Notifications::NewLocationPost,
-      Notifications::NewUserPost,
-      Notifications::NewRoomOffer,
-      Notifications::NewRoomDemand,
-      Notifications::NewRoomCall,
-    ].map{|n| n::BITMASK }.inject(&:|)
-
-    self.daily_mail_notifications = [
-      Notifications::CommentInMeeting,
-      Notifications::AlsoCommentedMeeting,
-      Notifications::NewGroupDiscussion,
-      Notifications::NewGroupUser,
-      Notifications::NewGroupMeeting,
-      Notifications::NewGroupPost,
-    ].map{|n| n::BITMASK }.inject(&:|)
-
-    self.immediate_mail_notifications = [
-      Notifications::AttendeeInUsersMeeting,
-      Notifications::MeetingCancelled,
-      Notifications::NewWallComment,
-      Notifications::LocationApproved,
-    ].map{|n| n::BITMASK }.inject(&:|)
-
-    self.enabled_website_notifications = immediate_mail_notifications
+    Notification.subclasses.each do |klass|
+      case klass::DEFAULT_INTERVAL
+      when :weekly
+        self.weekly_mail_notifications |= klass::BITMASK
+      when :daily
+        self.daily_mail_notifications |= klass::BITMASK
+      when :immediate
+        self.immediate_mail_notifications |= klass::BITMASK
+        self.enabled_website_notifications |= klass::BITMASK
+      end
+    end
   end
 
   def destroy_activity_and_notifications

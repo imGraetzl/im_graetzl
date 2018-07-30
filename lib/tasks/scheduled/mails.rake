@@ -7,25 +7,20 @@ namespace :scheduled do
     end
   end
 
-  task summary_graetzl_mail: :environment do
+  task test_daily_summary_mail: :environment do
     puts "Rake daily_mail start at #{Time.now}"
-    User.admin.find_each do |user|
-      Notification::SummaryMail.new(user, :graetzl, :daily).deliver
-    end
+    user = User.find_by(email: "michael.walchhuetter@gmail.com")
+    Notification::SummaryMail.new(user, :graetzl, :daily).deliver
+    Notification::SummaryMail.new(user, :rooms, :daily).deliver
+    Notification::SummaryMail.new(user, :personal, :daily).deliver
   end
 
-  task summary_rooms_mail: :environment do
+  task test_weekly_summary_mail: :environment do
     puts "Rake daily_mail start at #{Time.now}"
-    User.admin.find_each do |user|
-      Notification::SummaryMail.new(user, :rooms, :daily).deliver
-    end
-  end
-
-  task summary_personal_mail: :environment do
-    puts "Rake daily_mail start at #{Time.now}"
-    User.admin.find_each do |user|
-      Notification::SummaryMail.new(user, :personal, :daily).deliver
-    end
+    user = User.find_by(email: "ni.santic@gmail.com")
+    Notification::SummaryMail.new(user, :graetzl, :weekly).deliver
+    Notification::SummaryMail.new(user, :rooms, :weekly).deliver
+    Notification::SummaryMail.new(user, :personal, :weekly).deliver
   end
 
 end

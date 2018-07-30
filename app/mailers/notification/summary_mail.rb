@@ -9,6 +9,10 @@ class Notification::SummaryMail
     from_name: "imGrätzl.at | Neuigkeiten",
     blocks: [
       {
+        name: 'Neu auf imGrätzl - Sag Hallo',
+        types: [Notifications::NewLocation]
+      },
+      {
         name: 'Neue Treffen',
         types: [Notifications::NewMeeting]
       },
@@ -17,13 +21,9 @@ class Notification::SummaryMail
         types: [Notifications::NewLocationPost]
       },
       {
-        name: 'Neu auf imGrätzl - Sag Hallo',
-        types: [Notifications::NewLocation]
-      },
-      {
         name: 'Neue Ideen im Grätzl',
         types: [Notifications::NewUserPost, Notifications::NewAdminPost]
-      }
+      },
     ]
   }
 
@@ -32,6 +32,10 @@ class Notification::SummaryMail
     from_name: "imGrätzl.at | Raumteiler",
     blocks: [
       {
+        name: 'Neuer Raumteiler Call',
+        types: [Notifications::NewRoomCall]
+      },
+      {
         name: 'Neue Räume zum Andocken',
         types: [Notifications::NewRoomOffer]
       },
@@ -39,10 +43,6 @@ class Notification::SummaryMail
         name: 'Auf der Suche nach Raum',
         types: [Notifications::NewRoomDemand]
       },
-      {
-        name: 'Neuer Raumteiler Call',
-        types: [Notifications::NewRoomCall]
-      }
     ]
   }
 
@@ -50,6 +50,22 @@ class Notification::SummaryMail
     from_email: "updates@imgraetzl.at",
     from_name: "imGrätzl.at | Updates",
     blocks: [
+      {
+        name: 'New Topic in Group',
+        types: [Notifications::NewGroupDiscussion]
+      },
+      {
+        name: 'New Group Members',
+        types: [Notifications::NewGroupUser]
+      },
+      {
+        name: 'New Group Meeting',
+        types: [Notifications::NewGroupMeeting]
+      },
+      {
+        name: 'New Anwser in Topic I follow',
+        types: [Notifications::NewGroupPost]
+      },
       {
         name: "New Meeting Atendee",
         types: [Notifications::AttendeeInUsersMeeting]
@@ -72,22 +88,6 @@ class Notification::SummaryMail
           Notifications::AlsoCommentedMeeting, Notifications::AlsoCommentedRoomDemand,
           Notifications::AlsoCommentedRoomOffer, Notifications::AlsoCommentedUserPost]
       },
-      {
-        name: 'New Topic in Group',
-        types: [Notifications::NewGroupDiscussion]
-      },
-      {
-        name: 'New Group Members',
-        types: [Notifications::NewGroupUser]
-      },
-      {
-        name: 'New Group Meeting',
-        types: [Notifications::NewGroupMeeting]
-      },
-      {
-        name: 'New Anwser in Topic I follow',
-        types: [Notifications::NewGroupPost]
-      }
     ]
   }
 
@@ -108,6 +108,7 @@ class Notification::SummaryMail
 
     notification_types = SUMMARY_TYPES[@type][:blocks].map{|b| b[:types] }.flatten.map(&:to_s)
     notifications = notifications.where(type: notification_types)
+    print "#{notifications.size} #{@period} #{@type} notifications found\n"
     return if notifications.empty?
 
     MandrillMailer.deliver(template: MANDRILL_TEMPLATE, message: {
@@ -131,6 +132,8 @@ class Notification::SummaryMail
       { name: 'edit_user_url', content: edit_user_url(URL_OPTIONS) },
       { name: 'graetzl_name', content: @user.graetzl.name },
       { name: 'graetzl_url', content: graetzl_url(@user.graetzl, URL_OPTIONS) },
+      { name: 'frequency_type', content: @period },
+      { name: 'summary_type', content: @type },
       { name: 'notification_blocks', content: notification_block_vars(notifications) },
     ]
   end

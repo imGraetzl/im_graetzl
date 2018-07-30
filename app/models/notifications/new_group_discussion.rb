@@ -1,5 +1,6 @@
 class Notifications::NewGroupDiscussion < Notification
   TRIGGER_KEY = 'discussion.create'
+  DEFAULT_INTERVAL = :daily
   BITMASK = 2**15
 
   def self.receivers(activity)

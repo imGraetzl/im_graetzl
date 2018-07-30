@@ -1,5 +1,6 @@
 class Notifications::NewGroupUser < Notification
   TRIGGER_KEY = 'group_user.create'
+  DEFAULT_INTERVAL = :daily
   BITMASK = 2**16
 
   def self.receivers(activity)

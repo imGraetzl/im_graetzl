@@ -2,6 +2,7 @@ class Notification < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   DEFAULT_URL_OPTIONS = Rails.application.config.action_mailer.default_url_options
+  DEFAULT_INTERVAL = :off
 
   belongs_to :user
   belongs_to :activity

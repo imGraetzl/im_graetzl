@@ -1,5 +1,6 @@
 class Notifications::NewGroupMeeting < Notification
   TRIGGER_KEY = 'meeting.create'
+  DEFAULT_INTERVAL = :daily
   BITMASK = 2**17
 
   def self.receivers(activity)
