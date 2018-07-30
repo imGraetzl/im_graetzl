@@ -53,7 +53,7 @@ APP.controllers.groups = (function() {
           $dropdown.append(getOption());
 
           function getOption() {
-              if($this.hasClass('active'))
+              if($this.hasClass('autoload-link'))
                   return '<option selected value="'+ link +'" data-remote="true">'+ txt +'</option>';
               return '<option value="'+ link +'" data-remote="true">'+ txt +'</option>';
           }
