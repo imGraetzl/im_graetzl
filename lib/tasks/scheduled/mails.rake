@@ -17,7 +17,7 @@ namespace :scheduled do
 
   task test_weekly_summary_mail: :environment do
     puts "Rake daily_mail start at #{Time.now}"
-    user = User.find_by(email: "ni.santic@gmail.com")
+    user = User.find_by(email: "michael.walchhuetter@gmail.com")
     Notification::SummaryMail.new(user, :graetzl, :weekly).deliver
     Notification::SummaryMail.new(user, :rooms, :weekly).deliver
     Notification::SummaryMail.new(user, :personal, :weekly).deliver

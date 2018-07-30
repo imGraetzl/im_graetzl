@@ -1,8 +1,6 @@
 class Notification::SummaryMail
   include MailUtils
 
-  MANDRILL_TEMPLATE = 'summary-mail'
-
   SUMMARY_TYPES = {}
   SUMMARY_TYPES[:graetzl] = {
     from_email: "neuigkeiten@imgraetzl.at",
@@ -111,7 +109,7 @@ class Notification::SummaryMail
     print "#{notifications.size} #{@period} #{@type} notifications found\n"
     return if notifications.empty?
 
-    MandrillMailer.deliver(template: MANDRILL_TEMPLATE, message: {
+    MandrillMailer.deliver(template: "summary-#{@type}-mail", message: {
       to: [ { email: @user.email } ],
       from_email: SUMMARY_TYPES[@type][:from_email],
       from_name: SUMMARY_TYPES[@type][:from_name],
