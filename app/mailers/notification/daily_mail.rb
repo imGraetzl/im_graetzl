@@ -23,10 +23,6 @@ class Notification::DailyMail
       name: 'Neue Räume zum Andocken',
       types: [Notifications::NewRoomOffer]
     },
-    {
-      name: 'Auf der Suche nach Raum',
-      types: [Notifications::NewRoomDemand]
-    }
   ]
 
   def initialize(user)
