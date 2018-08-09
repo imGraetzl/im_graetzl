@@ -1,13 +1,13 @@
 APP.controllers.groups = (function() {
 
     function init() {
+      if ($(".group-page .categories-list").exists()) {
+        initMobileNav();
+      }
       if ($(".group-page").exists()) {
         initHeader();
         initInfo();
         initDiscussions();
-      }
-      if ($(".group-page .categories-list").exists()) {
-        initMobileNav();
       }
     }
 
@@ -53,13 +53,13 @@ APP.controllers.groups = (function() {
           $dropdown.append(getOption());
 
           function getOption() {
-              if($this.hasClass('active'))
+              if($this.hasClass('autoload-link'))
                   return '<option selected value="'+ link +'" data-remote="true">'+ txt +'</option>';
               return '<option value="'+ link +'" data-remote="true">'+ txt +'</option>';
           }
       });
       $dropdown.on('change', function() {
-        var getLink = $('.categories-list li a[href*="'+$dropdown.val()+'"]');
+        var getLink = $('.categories-list li a[href="'+$dropdown.val()+'"]');
         getLink.click();
       });
     }

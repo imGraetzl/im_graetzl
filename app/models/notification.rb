@@ -2,11 +2,13 @@ class Notification < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   DEFAULT_URL_OPTIONS = Rails.application.config.action_mailer.default_url_options
+  DEFAULT_INTERVAL = :off
 
   belongs_to :user
   belongs_to :activity
 
   before_create :set_bitmask
+  before_create :set_notify_at
 
   def self.receive_new_activity(activity)
     CreateNotificationsJob.perform_later activity
@@ -67,6 +69,10 @@ class Notification < ApplicationRecord
     "notification-#{type.demodulize.underscore.dasherize}"
   end
 
+  def mail_vars
+    { type: type.demodulize.underscore }.merge(custom_mail_vars)
+  end
+
   def basic_mail_vars
     if activity.trackable.respond_to?(:graetzl)
       [
@@ -78,8 +84,8 @@ class Notification < ApplicationRecord
     end
   end
 
-  def mail_vars
-    raise NotImplementedError, "mail_vars method not implemented for #{self.class}"
+  def custom_mail_vars
+    raise NotImplementedError, "custom_mail_vars method not implemented for #{self.class}"
   end
 
   def mail_subject
@@ -90,5 +96,9 @@ class Notification < ApplicationRecord
 
   def set_bitmask
     self.bitmask ||= self.class::BITMASK
+  end
+
+  def set_notify_at
+    self.notify_at = Time.current
   end
 end
