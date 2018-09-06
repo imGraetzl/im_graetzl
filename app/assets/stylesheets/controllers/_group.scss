@@ -146,6 +146,14 @@
     }
   }
 
+  .mail-modal {
+    display: none;
+    width:600px;
+    .wrapper {
+      //display: flex;
+    }
+  }
+
   // Button Control Dropdown
   .btn-ctrl .dropdown-container {
     width: 310px;

@@ -23,6 +23,12 @@ APP.controllers.groups = (function() {
         root: '#groups-btn-ctrl',
         targetAttr: 'href'
       });
+
+      $(".mail-modal-opener").featherlight({
+        root: '#groups-btn-ctrl',
+        targetAttr: 'href'
+      });
+
     }
 
     function initInfo() {

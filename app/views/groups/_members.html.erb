@@ -1,5 +1,51 @@
 <div class="members-section -page">
 
+  <% if user_signed_in? && @group.admins.include?(current_user) %>
+  <div class="header">
+
+    <h3><%= @group.users.count %> <%= @group.users.count > 1 ? 'Gruppenmitglieder' : 'Gruppenmitglied' %></h3>
+
+      <!-- Mail to Members Button -->
+      <%= link_to "#mail-modal", class: 'mail-modal-opener btn-userIcons' do %>
+      <span class="ico-left">
+        <%= icon_tag('at-symbol') %>
+        E-Mail an Mitglieder
+      </span>
+      <% end %>
+      <!-- /Mail to Members Button -->
+
+      <!-- Mail to Members Modal-->
+      <div class="mail-modal" id="mail-modal">
+        <div class="wrapper">
+          <%= form_for(@group) do |f| %>
+          <%= form_errors_for @group %>
+
+          <div class="input-field">
+            <%= f.label :subject do %>
+            <%= icon_tag "record" %>
+            <span>Betreff</span>
+            <% end %>
+            <input placeholder="Dein Betreff .." type="text" name="subject" id="subject">
+          </div>
+
+          <div class="input-textarea">
+            <%= f.label :body do %>
+            <%= icon_tag "layout-document" %>
+            <span>Inhalt</span>
+            <% end %>
+            <textarea placeholder="Deine E-Mail .." name="body" id="body"></textarea>
+          </div>
+
+          <%= f.button 'E-Mail absenden', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>
+
+          <% end %>
+        </div>
+      </div>
+      <!-- /Mail to Members Modal-->
+
+  </div>
+  <% end %>
+
   <div class="users">
     <!-- JOIN REQUESTS -->
     <% if @group.admins.include?(current_user) %>
@@ -15,4 +61,5 @@
     <% end %>
     <!-- /Users -->
   </div>
+
 </div>
