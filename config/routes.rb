@@ -87,7 +87,7 @@ Rails.application.routes.draw do
       post :toggle_following, on: :member
     end
     resources :discussion_posts, only: [:create, :update, :destroy]
-    get 'settings', on: :member
+    get 'mail', on: :member
     post 'request_join', on: :member
     post 'accept_request', on: :member
     post 'reject_request', on: :member

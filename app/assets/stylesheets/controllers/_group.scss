@@ -146,14 +146,6 @@
     }
   }
 
-  .mail-modal {
-    display: none;
-    width:600px;
-    .wrapper {
-      //display: flex;
-    }
-  }
-
   // Button Control Dropdown
   .btn-ctrl .dropdown-container {
     width: 310px;
@@ -568,18 +560,8 @@
     }
   }
 
-  &.settings-page {
-    .settings-section {
-      .settingSlice {
-        .col1 {
-          font-weight:bold;
-          label {font-weight: normal;}
-        }
-        strong {
-          color: $color-ambient-mint-dark;
-        }
-      }
-    }
+  &.mail-page {
+
   }
 
 

@@ -24,9 +24,16 @@ APP.controllers.groups = (function() {
         targetAttr: 'href'
       });
 
-      $(".mail-modal-opener").featherlight({
-        root: '#groups-btn-ctrl',
-        targetAttr: 'href'
+      $('select#mail-user-select').SumoSelect({
+        search: true,
+        searchText: 'Suche nach User.',
+        placeholder: 'User auswählen',
+        csvDispCount: 2,
+        captionFormat: '{0} Gruppenmitglieder',
+        captionFormatAllSelected: 'Alle Gruppenmitglieder',
+        okCancelInMulti: true,
+        selectAll: true,
+        locale: ['OK', 'Cancel', 'Alle auswählen']
       });
 
     }

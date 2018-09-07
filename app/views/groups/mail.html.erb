@@ -1,0 +1,57 @@
+<div class="group-page mail-page">
+
+  <%= render 'groups/header' %>
+  <%= render 'groups/btn_ctrl', group: @group %>
+  <%= render 'groups/tab_navigation' %>
+
+  <!-- CONTENT -->
+
+  <div class="mail-section -page mailTo">
+
+    <%= form_for(@group) do |f| %>
+    <%= form_errors_for @group %>
+
+    <div class="input-select">
+      <%= f.label :user_id do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Empfänger</span>
+      <% end %>
+      <%= select_tag :user_id, options_from_collection_for_select(@group.members, :id, :email, params[:user_id]), id: 'mail-user-select', multiple: true %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :subject do %>
+      <%= icon_tag "record" %>
+      <span>Betreff</span>
+      <% end %>
+      <input placeholder="Dein Betreff .." type="text" name="subject" id="subject">
+    </div>
+
+    <div class="input-textarea">
+      <%= f.label :body do %>
+      <%= icon_tag "layout-document" %>
+      <span>Inhalt</span>
+      <% end %>
+      <textarea placeholder="Deine E-Mail .." name="body" id="body"></textarea>
+    </div>
+
+    <% if current_user.admin? %>
+      <div class="input-field">
+        <%= f.label :from do %>
+        <%= icon_tag "at-symbol" %>
+        <span>Absender</span>
+        <% end %>
+        <input placeholder="... @imgraetzl.at" type="text" name="from" id="from">
+      </div>
+    <% end %>
+
+    <%= f.button 'E-Mail absenden', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>
+
+    <% end %>
+
+
+  </div>
+
+  <!-- /CONTENT -->
+
+</div>

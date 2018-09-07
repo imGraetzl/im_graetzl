@@ -10,9 +10,10 @@ class GroupsController < ApplicationController
     end
   end
 
-  def settings
+  def mail
     @group = Group.find(params[:id])
-    render 'settings'
+    redirect_to @group and return unless @group.admins.include?(current_user)
+    render 'mail'
   end
 
   def new
