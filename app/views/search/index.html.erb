@@ -5,7 +5,7 @@
   <!-- Search Field-->
   <%= form_tag search_path, method: :get do |f| %>
 
-    <div class="input-field">
+    <div class="input-field search-form">
       <label for="search">
         <%= icon_tag "search" %>
         <span>Suche</span>
@@ -140,7 +140,7 @@
     <!-- /Pagination -->
 
   <% elsif @results %>
-  
+
     <p>Keine Ergebnisse</p>
 
   <% end %>

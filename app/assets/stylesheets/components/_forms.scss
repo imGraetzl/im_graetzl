@@ -161,6 +161,7 @@ input, select, textarea {
   &.select-btn {
     min-width: fit-content;
     select {
+      font-size: 1.8rem;
       font-style: italic;
       color: #ffffff;
       background-image: $texture-primary;
