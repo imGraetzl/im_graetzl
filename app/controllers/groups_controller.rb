@@ -10,12 +10,6 @@ class GroupsController < ApplicationController
     end
   end
 
-  def mail
-    @group = Group.find(params[:id])
-    redirect_to @group and return unless @group.admins.include?(current_user)
-    render 'mail'
-  end
-
   def new
     @group = Group.new(
       room_offer_id: params[:room_offer_id],
@@ -97,6 +91,21 @@ class GroupsController < ApplicationController
 
     @group_user.destroy
     redirect_to group_url(@group, anchor: "tab-members")
+  end
+
+  def compose_mail
+    @group = Group.find(params[:id])
+    redirect_to @group and return unless @group.admins.include?(current_user)
+  end
+
+  def send_mail
+    @group = Group.find(params[:id])
+    redirect_to @group and return unless @group.admins.include?(current_user)
+
+    GroupMailer.new.message_to_users(
+      @group, User.where(id: params[:user_ids]), params[:subject], params[:body], params[:from_email]
+    )
+    redirect_to @group, notice: 'Email sent'
   end
 
   def destroy
