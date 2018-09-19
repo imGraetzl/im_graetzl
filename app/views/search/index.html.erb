@@ -11,9 +11,17 @@
         <span>Suche</span>
       </label>
       <%= text_field_tag :q, params[:q], placeholder: 'Suchbegriff ...' %>
-      <button class="btn-primary">Suchen</button>
+      <div class="input-select label-right select-btn">
+        <select name="label" id="label">
+          <option value="all" <%= params[:label] == 'all' || !params[:label] ? 'selected' : nil %>>Alles durchsuchen</option>
+          <option value="locations" <%= params[:label] == 'locations' ? 'selected' : nil %>>Locations durchsuchen</option>
+          <option value="treffen" <%= params[:label] == 'treffen' ? 'selected' : nil %>>Treffen durchsuchen</option>
+          <option value="raumteiler" <%= params[:label] == 'raumteiler' ? 'selected' : nil %>>Raumteiler durchsuchen</option>
+        </select>
+      </div>
     </div>
 
+    <!--
     <div class="search-type-selection">
       <div class="input-radio">
         <%= radio_button_tag :label, 'all', params[:label] == 'all' || !params[:label] ? 'checked: true' : nil %>
@@ -32,6 +40,7 @@
         <label for="label_raumteiler">Raumteiler</label>
       </div>
     </div>
+  -->
 
   <% end %>
   <!-- /Search Field-->
@@ -88,11 +97,12 @@
               <div class="name"><%= item.htmlTitle.html_safe %></div>
             <% end %>
             <div class="category"></div>
-            <% if pos = item.pagemap.metatags[0]['og:description'].index('Wien') %>
-              <div class="address">
-                <%= icon_tag "location" %>
-                <%= item.pagemap.metatags[0]['og:description'][0,pos+4] %>
-              </div>
+            <% if !item.pagemap.metatags[0]['og:description'].index('Wien').nil? %>
+            <% pos = item.pagemap.metatags[0]['og:description'].index('Wien') %>
+                <div class="address">
+                  <%= icon_tag "location" %>
+                  <%= item.pagemap.metatags[0]['og:description'][0,pos+4] %>
+                </div>
             <% end %>
           </div>
         </div>
@@ -129,8 +139,8 @@
     </div>
     <!-- /Pagination -->
 
-  <% else %>
-
+  <% elsif @results %>
+  
     <p>Keine Ergebnisse</p>
 
   <% end %>
