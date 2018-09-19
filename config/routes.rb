@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   match "/clicked-room" => "sync#room", via: [:get, :post]
   get 'reports' => 'reports#index'
   get 'reports/mailchimp'
+  get '/search' => 'search#index'
 
   ActiveAdmin.routes(self)
 
