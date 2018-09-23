@@ -3,6 +3,7 @@ module SchemaOrgHelper
   def structured_data_tag (type, object)
     hash = {:@context => 'http://www.schema.org'}
     final_hash = hash.merge(structured_data_meeting(object)) if type == 'meeting'
+    final_hash = hash.merge(structured_data_location(object)) if type == 'location'
     content_tag(:script, final_hash.to_json, {type: 'application/ld+json'}, false) # false is used here to prevent html character escaping
   end
 
@@ -59,8 +60,20 @@ module SchemaOrgHelper
 
   # Create Structured Data for Locations
   def structured_data_location (location)
-    hash = {:@type => 'Place'}
+    hash = {:@type => 'LocalBusiness'}
     hash[:name] = location.name
+    hash[:description] = location.slogan if location.slogan.present?
+    hash[:url] = location_url(location)
+    hash[:logo] = attachment_url(location, :avatar, host: request.url, fallback: 'avatar/location/400x400.png')
+    hash[:image] = attachment_url(location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+    hash[:email] = location.contact.email if location.contact.email.present?
+    hash[:telephone] = location.contact.phone if location.contact.phone.present?
+    hash[:address] = structured_data_address(location.address) if location.address
+    if location.address.try(:coordinates)
+      hash[:geo] = {:@type => 'GeoCoordinates'}
+      hash[:geo][:latitude] = location.address.coordinates.y
+      hash[:geo][:longitude] = location.address.coordinates.x
+    end
     return hash
   end
 
