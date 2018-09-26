@@ -15,10 +15,18 @@ section.search-section {
   }
 
   .select-btn {
-    min-width: 230px;
+    min-width: 180px;
+  }
+  .input-select.select-btn::before{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
   .search-form {
     margin-bottom: 40px;
+  }
+
+  .pagination a {
+    margin:5px;
   }
 
   // Search Results -----------------------
