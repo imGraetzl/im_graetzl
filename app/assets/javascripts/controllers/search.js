@@ -7,7 +7,7 @@ APP.controllers.search = (function() {
 
   // Search
   function radio_submit() {
-    $( 'form' ).change(function() {
+    $( 'form select' ).change(function() {
       if(!$('#q').val()) {
         return
       } else {
