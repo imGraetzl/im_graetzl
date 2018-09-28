@@ -31,10 +31,13 @@ section.search-section {
 
   // Search Results -----------------------
 
-  // ------ Locations
-  .cardBoxContent .avatar-block .name {
-    max-height:45px;
-    white-space: normal;
+  // ------ CardBox Result
+  .-searchresult {
+    .cardBoxContent .avatar-block .name {
+      max-height:45px;
+      white-space: normal;
+    }
   }
+
 
 } // End Search Page
