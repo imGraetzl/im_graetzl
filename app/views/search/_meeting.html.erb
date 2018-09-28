@@ -1,5 +1,5 @@
 <% meeting = item.pagemap.document[0] %>
-<% startDate = Date.parse(meeting['startDate']) if !meeting['startDate'].empty? %>
+<% startDate = Date.parse(meeting['startDate']) if !meeting['startDate'].nil? %>
 
 <!-- Meeting Card-->
 <div class="cardBox -meeting <%= '-past' if startDate.try(:past?) %>" data-behavior="masonry-card">
@@ -9,7 +9,7 @@
         <%= image_tag(item.pagemap.image[0].src, class: 'attachment meeting cover_photo coverImg') %>
       </div>
     <% end %>
-    <% if !meeting['startDate'].empty? %>
+    <% if !meeting['startDate'].nil? %>
       <div class="calendarSheet">
         <div class="day"><%= I18n.localize(startDate, format:'%-d') %></div>
         <div class="month"><%= I18n.localize(startDate, format:'%b') %></div>

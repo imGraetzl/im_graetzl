@@ -4,6 +4,7 @@
 
   <!-- Search Field-->
   <%= form_tag search_path, method: :get do |f| %>
+  <%= hidden_field_tag :page, 1 %>
     <div class="input-field search-form">
       <label for="search">
         <%= icon_tag "search" %>
@@ -14,9 +15,9 @@
         <select name="label" id="label">
           <option value="all" selected>Suchen nach ...</option>
           <option value="all" <%= params[:label] == 'all' ? 'selected' : nil %>>Alles</option>
-          <option value="locations" <%= params[:label] == 'locations' ? 'selected' : nil %>>Locations</option>
-          <option value="treffen" <%= params[:label] == 'treffen' ? 'selected' : nil %>>Treffen</option>
-          <option value="raumteiler" <%= params[:label] == 'raumteiler' ? 'selected' : nil %>>Raumteiler</option>
+          <option value="location" <%= params[:label] == 'location' ? 'selected' : nil %>>Locations</option>
+          <option value="meeting" <%= params[:label] == 'meeting' ? 'selected' : nil %>>Treffen</option>
+          <option value="rooms" <%= params[:label] == 'rooms' ? 'selected' : nil %>>Raumteiler</option>
         </select>
       </div>
     </div>
@@ -56,13 +57,13 @@
     <!-- Pagination-->
     <div class='pagination'>
       <% if @results.previous_page %>
-      <%= link_to '<< Zurück', search_path(q: params[:q], page: @results.previous_page, label: params[:label]), class: 'btn-primary -grey' %>
+      <%= link_to 'Zurück', search_path(q: params[:q], page: @results.previous_page, label: params[:label]), class: 'btn-primary -grey' %>
       <% end %>
       <% @results.pages.times do |i| %>
       <%= link_to i + 1, search_path(q: params[:q], page: i+1, label: params[:label]), :class => (params[:page].to_i == i+1 ? 'btn-secondary' : 'btn-secondary -grey') %>
       <% end %>
       <% if @results.next_page %>
-      <%= link_to 'Weiter >>', search_path(q: params[:q], page: @results.next_page, label: params[:label]), class: 'btn-primary -grey' %>
+      <%= link_to 'Weiter', search_path(q: params[:q], page: @results.next_page, label: params[:label]), class: 'btn-primary -grey' %>
       <% end %>
     </div>
     <!-- /Pagination -->

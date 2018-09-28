@@ -29,9 +29,9 @@
         </div>
       </div>
     </div>
-    <div class="slogan"><%= location['slogan'] %></div>
+    <div class="slogan"><%= location['slogan'] if !location['slogan'].nil? %></div>
     <div class="txt">
-      <p><%= location['description'].truncate(120) %></p>
+      <p><%= location['description'].truncate(120) if !location['description'].nil? %></p>
       <!--<p><%= item.htmlSnippet.html_safe %></p>-->
     </div>
   </div>
