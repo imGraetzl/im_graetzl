@@ -26,7 +26,7 @@ module SchemaOrgHelper
     if meeting.location # If Location exists
       hash[:location][:name] = meeting.location.name
       hash[:location][:image] = attachment_url(meeting.location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-      hash[:location][:sameAs] = location_url(meeting.location)
+      hash[:location][:sameAs] = graetzl_location_url(meeting.location.graetzl, meeting.location)
       # Take Address from Location if no Meeting Address exists
       if meeting.address.nil? && meeting.location.address
         hash[:location][:address] = structured_data_address(meeting.location.address)
