@@ -15,7 +15,7 @@ module SchemaOrgHelper
     hash[:description] = meeting.description if meeting.description.present?
     hash[:startDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date
     hash[:image] = attachment_url(meeting, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
-    hash[:url] = meeting_url(meeting)
+    hash[:url] = graetzl_meeting_url(meeting.graetzl, meeting)
 
     hash[:location] = {:@type => 'Place'} # Object for Event Location or Address
     if !meeting.address.nil? # Take Adress from Meeting if exists
@@ -64,7 +64,7 @@ module SchemaOrgHelper
     hash = {:@type => 'LocalBusiness'}
     hash[:name] = location.name + ' - ' + location.slogan if location.slogan.present?
     hash[:description] = location.description if location.description.present?
-    hash[:url] = location_url(location)
+    hash[:url] = graetzl_location_url(location.graetzl, location)
     hash[:logo] = attachment_url(location, :avatar, host: request.url, fallback: 'avatar/location/400x400.png')
     hash[:image] = attachment_url(location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
     hash[:email] = location.contact.email if location.contact.email.present?
