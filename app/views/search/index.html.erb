@@ -27,7 +27,7 @@
   <% if @results && !@results.items.empty? %>
 
     <!-- Search Results-->
-    <div class="cardBoxCollection -tripple">
+    <div class="cardBoxCollection -tripple" data-behavior='search-card-container'>
       <% @results.items.each do |item| %>
         <% if item.pagemap.key?('document') && item.pagemap.document[0].type == 'location' %>
 
