@@ -16,7 +16,7 @@ class SearchController < ApplicationController
       end
 
       if params[:label] == 'meeting'
-        #sort = 'date:startDate:d'
+        sort = "document-startDate"
       end
 
       @results = GoogleCustomSearchApi.search(searchterm + label, sort: sort, page: page, num:9, as_sitesearch: params[:as_sitesearch])
