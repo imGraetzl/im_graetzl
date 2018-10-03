@@ -37,6 +37,10 @@
           <%= render 'room_offer', item: item %>
         <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'room_demand' %>
           <%= render 'room_demand', item: item %>
+        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'district' %>
+          <%= render 'district', item: item %>
+        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'graetzl' %>
+          <%= render 'graetzl', item: item %>
         <% else %>
           <%= render 'fallback', item: item %>
         <% end %>
@@ -60,7 +64,7 @@
 
   <% elsif @results %>
 
-    <p>Keine Ergebnisse</p>
+    <p class="noresult">Nichts gefunden ...</p>
 
   <% end %>
 
