@@ -44,6 +44,7 @@ APP.components.mainNavigation = (function() {
                     $(".notificationsTrigger").jqDropdown('attach', '.notificationsContainer');
                     $(".usersettingsTrigger").jqDropdown('attach', '.usersettingsContainer');
                     $(".createTrigger").jqDropdown('attach', '.createContainer');
+                    $(".searchTrigger").jqDropdown('attach', '.searchContainer');
                 },
                 match : function() {
                     $dropdownTriggers.jqDropdown('enable');
@@ -54,6 +55,10 @@ APP.components.mainNavigation = (function() {
                     $dropdownTriggers.jqDropdown('hide');
                 }
             });
+
+        $(".searchTrigger").on("click", function() {
+            setTimeout(function() { $("header .search-form #q").focus(); }, 200);
+        });
 
         $(document).on("closeAllTopnav", function() {
             closeMobileNav();
