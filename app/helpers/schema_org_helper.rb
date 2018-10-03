@@ -4,7 +4,8 @@ module SchemaOrgHelper
     hash = {:@context => 'http://www.schema.org'}
     final_hash = hash.merge(structured_data_meeting(object)) if type == 'meeting'
     final_hash = hash.merge(structured_data_location(object)) if type == 'location'
-    final_hash = hash.merge(structured_data_roomoffer(object)) if type == 'room_offer'
+    final_hash = hash.merge(structured_data_room_offer(object)) if type == 'room_offer'
+    final_hash = hash.merge(structured_data_room_demand(object)) if type == 'room_demand'
     content_for :structured_data_tag, content_tag(:script, final_hash.to_json, {type: 'application/ld+json'}, false) # false is used here to prevent html character escaping
   end
 
@@ -79,14 +80,23 @@ module SchemaOrgHelper
   end
 
   # //////////////////////////// Create Structured Data for ROOM_OFFERS
-  def structured_data_roomoffer (room_offer)
+  def structured_data_room_offer (room_offer)
     hash = {:@type => 'RentAction'}
     hash[:object] = {:@type => 'Room'}
-    hash[:object][:name] = t("activerecord.attributes.room_offer.offer_types.#{@room_offer.offer_type}") + ': ' + room_offer.slogan
+    hash[:object][:name] = t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") + ': ' + room_offer.slogan
     hash[:object][:address] = structured_data_address(room_offer.address) if room_offer.address
     hash[:image] = attachment_url(room_offer, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
     hash[:landlord] = structured_data_person(room_offer.user) if room_offer.user
     hash[:landlord] = structured_data_location(room_offer.location)if room_offer.location
+    return hash
+  end
+
+  # //////////////////////////// Create Structured Data for ROOM_DEMANDS
+  def structured_data_room_demand (room_demand)
+    hash = {:@type => 'Person'}
+    hash[:name] = room_demand.first_name + ' ' + room_demand.last_name if room_demand.first_name.present? && room_demand.last_name.present?
+    hash[:image] = attachment_url(room_demand, :avatar, host: request.url, fallback: 'meta/og_logo.png')
+    hash[:description] = t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") + ': ' + room_demand.slogan
     return hash
   end
 
