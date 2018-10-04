@@ -59,7 +59,7 @@ SitemapGenerator::Sitemap.create do
   end
 
   # Groups
-  Groups.find_each do |group|
+  Group.find_each do |group|
     add group_path(group), changefreq: 'daily', priority: 0.5
   end
 
