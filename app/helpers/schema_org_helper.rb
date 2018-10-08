@@ -15,7 +15,7 @@ module SchemaOrgHelper
     hash[:name] = meeting.name
     hash[:description] = meeting.description if meeting.description.present?
     hash[:startDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date
-    hash[:image] = attachment_url(meeting, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+    hash[:image] = attachment_url(meeting, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
     hash[:url] = graetzl_meeting_url(meeting.graetzl, meeting)
 
     hash[:location] = {:@type => 'Place'} # Object for Event Location or Address
@@ -26,7 +26,7 @@ module SchemaOrgHelper
 
     if meeting.location # If Location exists
       hash[:location][:name] = meeting.location.name
-      hash[:location][:image] = attachment_url(meeting.location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+      hash[:location][:image] = attachment_url(meeting.location, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
       hash[:location][:sameAs] = graetzl_location_url(meeting.location.graetzl, meeting.location)
       # Take Address from Location if no Meeting Address exists
       if meeting.address.nil? && meeting.location.address
@@ -56,7 +56,7 @@ module SchemaOrgHelper
   def structured_data_person (user)
     hash = {:@type => 'Person'}
     hash[:name] = user.full_name
-    hash[:image] = attachment_url(user, :avatar, host: request.url, fallback: 'meta/og_logo.png')
+    hash[:image] = attachment_url(user, :avatar, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
     return hash
   end
 
@@ -66,8 +66,8 @@ module SchemaOrgHelper
     hash[:name] = location.name + ' - ' + location.slogan if location.slogan.present?
     hash[:description] = location.description if location.description.present?
     hash[:url] = graetzl_location_url(location.graetzl, location)
-    hash[:logo] = attachment_url(location, :avatar, host: request.url, fallback: 'avatar/location/400x400.png')
-    hash[:image] = attachment_url(location, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+    hash[:logo] = attachment_url(location, :avatar, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/location/400x400.png')
+    hash[:image] = attachment_url(location, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
     hash[:email] = location.contact.email if location.contact.email.present?
     hash[:telephone] = location.contact.phone if location.contact.phone.present?
     hash[:address] = structured_data_address(location.address) if location.address
@@ -85,9 +85,9 @@ module SchemaOrgHelper
     hash[:object] = {:@type => 'Room'}
     hash[:object][:name] = t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") + ': ' + room_offer.slogan
     hash[:object][:address] = structured_data_address(room_offer.address) if room_offer.address
-    hash[:image] = attachment_url(room_offer, :cover_photo, host: request.url, fallback: 'meta/og_logo.png')
+    hash[:image] = attachment_url(room_offer, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
     hash[:landlord] = structured_data_person(room_offer.user) if room_offer.user
-    hash[:landlord] = structured_data_location(room_offer.location)if room_offer.location
+    hash[:landlord] = structured_data_location(room_offer.location) if room_offer.location
     return hash
   end
 
@@ -95,8 +95,9 @@ module SchemaOrgHelper
   def structured_data_room_demand (room_demand)
     hash = {:@type => 'Person'}
     hash[:name] = room_demand.first_name + ' ' + room_demand.last_name if room_demand.first_name.present? && room_demand.last_name.present?
-    hash[:image] = attachment_url(room_demand, :avatar, host: request.url, fallback: 'meta/og_logo.png')
-    hash[:description] = t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") + ': ' + room_demand.slogan
+    hash[:image] = attachment_url(room_demand, :avatar, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+    hash[:description] = room_demand.personal_description if room_demand.personal_description
+    hash[:seeks] = t("activerecord.attributes.room_demand.demand_types.#{room_demand.demand_type}") + ': ' + room_demand.slogan
     return hash
   end
 
