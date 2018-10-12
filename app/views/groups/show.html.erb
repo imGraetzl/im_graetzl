@@ -26,11 +26,11 @@
       <% end %>
       <Attribute name="users_count"><%= @group.users.count %></Attribute>
     </DataObject>
+    <% @group.users.first(10).each do |user| %>
     <DataObject type="members">
-      <% @group.users.first(10).each do |user| %>
       <Attribute name="src" value="<%= attachment_url(user, :avatar, :fill, 200, 200, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/user/100x100.png') %>" />
-      <% end %>
     </DataObject>
+    <% end %>
     <DataObject type="image">
       <Attribute name="src" value="<%= attachment_url(@group.parent, :cover_photo, :fill, 900, 540, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'cover_photo/980x370.png') %>" />
     </DataObject>
