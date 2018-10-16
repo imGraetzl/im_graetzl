@@ -1,5 +1,11 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:index, :show]
+
+  def index
+    head :ok and return if browser.bot? && !request.format.js?
+    @groups = collection_scope
+    @groups = @groups.page(params[:page]).per(15)
+  end
 
   def show
     @group = Group.find(params[:id])
@@ -117,6 +123,10 @@ class GroupsController < ApplicationController
   end
 
   private
+
+  def collection_scope
+    Group.all
+  end
 
   def group_params
     params

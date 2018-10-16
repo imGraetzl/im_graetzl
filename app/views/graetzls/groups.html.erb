@@ -1,0 +1,64 @@
+<% meta(
+    title: t('.title', graetzl: @graetzl.name),
+    description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
+    robots: 'index, follow',
+    og_title: t('.title', graetzl: @graetzl.name),
+    og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
+    og_image: image_url('meta/og_logo.png')
+  )
+%>
+
+<section class="graetzls">
+  <%= cache [@graetzl, 'map'], expires_in: 2.months do %>
+    <%= render 'map', map_data: @map_data %>
+  <% end %>
+  <%= render 'curator' if @graetzl.curator %>
+  <%= render 'menu' %>
+
+  <% if !user_signed_in? %>
+    <div class="hl-subtext">
+      <h1><span>Gruppen</span> - Vernetze dich im Grätzl</h1>
+      <p><!-- Subtitle --></p>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <%= form_tag groups_path, method: :get, remote: true, class: 'cards-filter' do %>
+      <div class="input-field double-label">
+        <label>
+          <%= icon_tag "search" %>
+          <span>Zeige mir</span>
+        </label>
+        <div class="input-field">
+          <%= text_field_tag :q, params[:q], placeholder: 'alle Gruppen', data: { jq_dropdown: "#group-suggestion" } %>
+        </div>
+        <label class="label-right">
+          <span>im Grätzl&nbsp;</span>
+          <%= link_to "#{@graetzl.name}", 'javascript:', data: { jq_dropdown: "#graetzl-suggestion" }, class: 'graetzl-suggestion' %>
+          <%= icon_tag "arrow-down-2" %>
+        </label>
+      </div>
+    <% end %>
+
+    <div id="group-suggestion" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-left dropdown-container">
+      <div class="jq-dropdown-panel">
+        Gruppen Themen Vorschlag ...
+      </div>
+    </div>
+
+    <div id="graetzl-suggestion" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-left dropdown-container">
+      <div class="jq-dropdown-panel">
+        Bezirk auswählen ...
+      </div>
+    </div>
+
+    <div class="card-grid" data-behavior="groups-card-container"></div>
+    <div class="action-card-container" data-behavior="groups-action-card-container">
+      <%= render 'groups/action_card', graetzl: @graetzl %>
+    </div>
+
+    <!-- Insert Featured Card -->
+
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'groups-paginate-link' }, rel: 'nofollow' %>
+  </div>
+</section>

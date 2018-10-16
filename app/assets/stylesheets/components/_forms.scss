@@ -73,6 +73,9 @@ input, select, textarea {
     margin-left: 10px;
     margin-right: 10px;
   }
+  a {
+    color: currentcolor;
+  }
 }
 
 .label-right {
@@ -120,6 +123,25 @@ input, select, textarea {
   @extend %field;
   input {
     height: $fieldHeight;
+  }
+  &.-bg-icon {
+    position: relative;
+    svg {
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      margin-right: 10px;
+      fill: $color-ambient-mint;
+      opacity: 0.5;
+    }
+  }
+  &.double-label {
+    justify-content: center;
+    label {
+      min-width: 0px;
+    }
   }
 }
 
