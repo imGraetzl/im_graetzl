@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
   def index
     head :ok and return if browser.bot? && !request.format.js?
     @groups = collection_scope
+    @groups = filter_collection(@groups)
     @groups = @groups.page(params[:page]).per(15)
   end
 
@@ -126,6 +127,10 @@ class GroupsController < ApplicationController
 
   def collection_scope
     Group.all
+  end
+
+  def filter_collection(groups)
+    groups
   end
 
   def group_params
