@@ -52,17 +52,17 @@ de:
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Wien.'
   districts:
     show:
-      title: 'Grätzln im %{numeric}. Bezirk (%{name}) in Wien'
-      description: 'Es gibt %{num} Grätzl in Wien %{name}! Triff Bewohner des Bezirks zu gemeinsamen Unternehmungen oder entdecke spannende Workshops & Events im %{numeric}. Bezirk'
+      title: 'Stadtteilnews aus dem %{numeric}. Bezirk, %{name} in Wien'
+      description: 'Events & Workshops von lokalen Anbietern aus dem %{numeric}. Bezirk. Bist du wirtschaftlich oder kreativ im %{numeric}. Bezirk tätig? Melde dich gleich für den Stadtteilnewsletter an & vernetze dich mit Menschen aus dem %{numeric}ten.'
     locations:
-      title: 'Lokale, Geschäfte & Treffpunkte im %{numeric}. Bezirk'
-      description: 'Durchstöbere den %{numeric}. Bezirk in Wien. Finde grätzlansässige Kreative, gute Treffpunkte, Lokale & Geschäfte und spannende Plätze im Bezirk %{name}.'
+      title: 'Lokale Geschäfte, Kreative & Wirtschaftstreibende aus dem %{numeric}. Bezirk'
+      description: 'Neuigkeiten von grätzlansässigen lokalen Anbieter & Kreativen aus dem %{numeric}. Bezirk. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
     meetings:
-      title: 'Treffen, Veranstaltungen & Events im %{numeric}. Bezirk'
-      description: 'Leute treffen sich im %{numeric}. Bezirk (%{name}). Sei dabei und lerne Menschen aus dem Grätzl kennen: Von Hunde Gassi gehen bis Lauftreffs, Mütter-Kind Gruppen...'
+      title: 'Die nächsten Workshops, Events & Veranstaltungen im %{numeric}. Bezirk'
+      description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem %{numeric}ten kennen. Die nächsten Termine im %{numeric}. Bezirk, gleich stöbern...'
     rooms:
-      title: 'Raumteiler im %{numeric}. Bezirk'
-      description: 'Wir möchten Selbständige, Kreative, Vereine und kleine Unternehmen mit dem „Raumteiler“ dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
+      title: 'Räume zum Teilen im %{numeric}. Bezirk | Raumteiler %{zip}'
+      description: 'Neue Räume und Raumsuchende aus dem %{numeric}. Bezrk. Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler finden ...'
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote im %{numeric}. Bezirk'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem %{numeric}. Bezirk %{name}.'
