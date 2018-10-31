@@ -9,22 +9,25 @@ de:
       description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
     faq:
       title: 'Häufige Fragen und Antworten (FAQs)'
-      description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+      description: 'Häufige gestellte Fragen und Antworten zu imGrätzl.at auf einem Blick.'
     zuckerl:
       title: 'Infos zum Grätzlzuckerl'
-      description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+      description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Grätzlzuckerl.'
     graetzlmarie:
       title: 'Infos zur Grätzlmarie'
-      description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+      description: 'Die Grätzlmarie - Werbung, die das das Grätzl belebt.'
     help:
-      title: 'Hilfe'
-      description: 'Hilfe zu imGrätzl.at'
+      title: 'Hilfe, Tipps & Tricks.'
+      description: 'Allgemeine Infos zu imGrätzl.at. FAQs, Tipps & Tricks.'
     raumteiler:
-      title: 'Raumteiler – Hilfe'
+      title: 'Raumteiler – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Raumteiler / Teilen von Gewerbeflächen'
     location:
-      title: 'Anbieter & Locations – Hilfe'
+      title: 'Anbieter & Locations – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zur Locationseite und weitere Funktionen für lokale Anbieter.'
     meetings:
-      title: 'Events & Workshops – Hilfe'
+      title: 'Events & Workshops – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Veröffentlichen von Events & Workhops.'
     lp_raumteilerguide:
       title: 'Der Raumteiler Guide 2018 - Jetzt kostenlos downloaden'
       description: 'Hol dir jetzt den kostenlosen 60 seitigen Raumteiler Guide 2018. Deine Schritt-für-Schritt Anleitung zum Räume teilen.'
