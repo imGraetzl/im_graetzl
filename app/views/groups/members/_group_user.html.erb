@@ -20,6 +20,12 @@
 
   <div class="infos">
     <span><%= group_user.user.first_name %> <br> <%= group_user.user.last_name %></span>
-    <p class="date">Beigetreten: <br> <%= I18n.localize(group_user.created_at, format:'%d. %B %Y') %></p>
+    <p class="date">
+      <% if group_user.admin? %>
+        <strong>Organisator</strong> <br>
+      <% end %>
+      Beigetreten: <br>
+      <%= I18n.localize(group_user.created_at, format:'%d. %B %Y') %>
+    </p>
   </div>
 </div>
