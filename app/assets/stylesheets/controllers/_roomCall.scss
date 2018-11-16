@@ -194,19 +194,20 @@
 
       .room-price-description {
         padding-right:20px;
-        h3 {color: $color-ambient-mint-dark;}
+        h3 {
+          //color: $color-ambient-mint-dark;
+        }
         @include respond-to(">=medium") {
-          width: 50%;
+          width: 40%;
         }
       }
 
       .room-price-features {
         @include respond-to(">=medium") {
-          width:50%;
+          width:60%;
           border-left: 1px solid $color-ambient-grey-light;
           padding-left:20px;
         }
-
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
@@ -534,7 +535,7 @@
     .hl-subtext {
       margin-bottom: 30px;
       div {
-        @include font-size-primaryFont('large');
+        @include font-size-primaryFont('larger');
       }
     }
 
