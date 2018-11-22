@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     get 'select', on: :collection
     patch 'update_status', on: :member
     post 'toggle_waitlist', on: :member
+    post 'remove_from_waitlist', on: :member
   end
   resources :room_calls, path: 'wien/raumteiler/open-calls', except: [:index] do
     get 'submission', on: :member

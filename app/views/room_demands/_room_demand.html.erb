@@ -1,4 +1,4 @@
-<div class="cardBox -location -roomdemand" data-behavior="masonry-card">
+<div class="cardBox -roomdemand -<%= room_demand.status %>" data-behavior="masonry-card">
 
   <div class="cardBoxHeader -roomdemand">
     <%= link_to room_demand do %>
@@ -45,8 +45,9 @@
     <% if local_assigns[:manage_buttons].present? && current_user == room_demand.user %>
       <div class="btn-group">
         <%= link_to 'Bearbeiten', edit_room_demand_path(room_demand), class: 'btn-secondary -mint -small' %>
-        <%= link_to room_demand.enabled? ? 'Deaktivieren' : 'Aktivieren', toggle_room_demand_path(room_demand),
-           class: room_demand.enabled? ? 'btn-secondary -mint -small' : 'btn-secondary -small', method: :post %>
+        <%= link_to toggle_room_demand_path(room_demand), method: :post, class: "btn-secondary -mint -small -state-#{room_demand.status}" do %>
+          Status: <span><%= t("activerecord.attributes.room_demand.statuses.#{room_demand.status}") %></span>
+        <% end %>
       </div>
 
       <%= link_to 'Löschen', room_demand_path(room_demand),
