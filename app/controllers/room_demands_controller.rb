@@ -46,6 +46,13 @@ class RoomDemandsController < ApplicationController
     redirect_to :back
   end
 
+  def update_status
+    @room_demand = current_user.room_demands.find(params[:id])
+    @room_demand.update(status: params[:status])
+    flash[:notice] = t("activerecord.attributes.room_demand.status_message.#{@room_demand.status}")
+    redirect_to :back
+  end
+
   def destroy
     @room_demand = current_user.room_demands.find(params[:id])
     @room_demand.destroy
