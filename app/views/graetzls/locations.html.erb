@@ -25,7 +25,7 @@
   <div class="card-grid-container">
     <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter' do %>
       <div class="filter-selection-text">
-        Zeige mir <%= link_to 'alle Locations', '#filter-modal-categories', data: { no_filter_label: 'alle Locations'} %>
+        Zeige mir aus <%= link_to 'allen Kategorien', '#filter-modal-categories', data: { no_filter_label: 'allen Kategorien'} %>
         in <%= link_to @graetzl.name, '#filter-modal-bezirk', class: 'filter-applied', data: { no_filter_label: 'allen Bezirken'} %>
       </div>
     <% end %>
