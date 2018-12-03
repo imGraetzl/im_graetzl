@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181017180239) do
+ActiveRecord::Schema.define(version: 20181203173023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,19 @@ ActiveRecord::Schema.define(version: 20181017180239) do
     t.index ["user_id"], name: "index_curators_on_user_id", using: :btree
   end
 
+  create_table "discussion_categories", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_discussion_categories_on_group_id", using: :btree
+    t.index ["title"], name: "index_discussion_categories_on_title", using: :btree
+  end
+
+  create_table "discussion_default_categories", force: :cascade do |t|
+    t.string "title"
+  end
+
   create_table "discussion_followings", force: :cascade do |t|
     t.integer  "discussion_id"
     t.integer  "user_id"
@@ -154,15 +167,15 @@ ActiveRecord::Schema.define(version: 20181017180239) do
 
   create_table "discussions", force: :cascade do |t|
     t.string   "title"
-    t.boolean  "closed",            default: false
-    t.boolean  "sticky",            default: false
+    t.boolean  "closed",                 default: false
+    t.boolean  "sticky",                 default: false
     t.integer  "group_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "user_id"
     t.datetime "last_post_at"
-    t.integer  "group_category_id"
-    t.index ["group_category_id"], name: "index_discussions_on_group_category_id", using: :btree
+    t.integer  "discussion_category_id"
+    t.index ["discussion_category_id"], name: "index_discussions_on_discussion_category_id", using: :btree
     t.index ["group_id", "sticky", "last_post_at"], name: "index_discussions_on_group_id_and_sticky_and_last_post_at", using: :btree
     t.index ["group_id"], name: "index_discussions_on_group_id", using: :btree
     t.index ["user_id"], name: "index_discussions_on_user_id", using: :btree
@@ -219,14 +232,22 @@ ActiveRecord::Schema.define(version: 20181017180239) do
 
   create_table "group_categories", force: :cascade do |t|
     t.string   "title"
-    t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_group_categories_on_group_id", using: :btree
   end
 
-  create_table "group_default_categories", force: :cascade do |t|
-    t.string "title"
+  create_table "group_categories_groups", id: false, force: :cascade do |t|
+    t.integer "group_category_id", null: false
+    t.integer "group_id",          null: false
+    t.index ["group_category_id"], name: "index_group_categories_groups_on_group_category_id", using: :btree
+    t.index ["group_id"], name: "index_group_categories_groups_on_group_id", using: :btree
+  end
+
+  create_table "group_graetzls", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "graetzl_id"
+    t.index ["graetzl_id"], name: "index_group_graetzls_on_graetzl_id", using: :btree
+    t.index ["group_id"], name: "index_group_graetzls_on_group_id", using: :btree
   end
 
   create_table "group_join_requests", force: :cascade do |t|
@@ -255,11 +276,18 @@ ActiveRecord::Schema.define(version: 20181017180239) do
     t.string   "title"
     t.text     "description"
     t.integer  "room_offer_id"
-    t.boolean  "private",       default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.boolean  "private",          default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "room_call_id"
+    t.integer  "room_demand_id"
+    t.integer  "location_id"
+    t.string   "cover_photo_id"
+    t.string   "cover_photo_type"
+    t.boolean  "featured",         default: false
+    t.index ["location_id"], name: "index_groups_on_location_id", using: :btree
     t.index ["room_call_id"], name: "index_groups_on_room_call_id", using: :btree
+    t.index ["room_demand_id"], name: "index_groups_on_room_demand_id", using: :btree
     t.index ["room_offer_id"], name: "index_groups_on_room_offer_id", using: :btree
   end
 
@@ -541,6 +569,15 @@ ActiveRecord::Schema.define(version: 20181017180239) do
     t.index ["room_offer_id"], name: "index_room_offer_prices_on_room_offer_id", using: :btree
   end
 
+  create_table "room_offer_waiting_users", force: :cascade do |t|
+    t.integer  "room_offer_id"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["room_offer_id"], name: "index_room_offer_waiting_users_on_room_offer_id", using: :btree
+    t.index ["user_id"], name: "index_room_offer_waiting_users_on_user_id", using: :btree
+  end
+
   create_table "room_offers", force: :cascade do |t|
     t.string   "slogan"
     t.text     "room_description"
@@ -658,18 +695,22 @@ ActiveRecord::Schema.define(version: 20181017180239) do
     t.index ["slug"], name: "index_zuckerls_on_slug", using: :btree
   end
 
+  add_foreign_key "discussion_categories", "groups"
   add_foreign_key "discussion_followings", "discussions", on_delete: :cascade
   add_foreign_key "discussion_followings", "users", on_delete: :cascade
   add_foreign_key "discussion_posts", "discussions", on_delete: :cascade
   add_foreign_key "discussion_posts", "users"
-  add_foreign_key "discussions", "group_categories", on_delete: :nullify
+  add_foreign_key "discussions", "discussion_categories", on_delete: :nullify
   add_foreign_key "discussions", "groups", on_delete: :cascade
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
-  add_foreign_key "group_categories", "groups"
+  add_foreign_key "group_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "group_graetzls", "groups", on_delete: :cascade
   add_foreign_key "group_join_requests", "groups", on_delete: :cascade
   add_foreign_key "group_join_requests", "users", on_delete: :cascade
+  add_foreign_key "groups", "locations", on_delete: :nullify
   add_foreign_key "groups", "room_calls", on_delete: :nullify
+  add_foreign_key "groups", "room_demands", on_delete: :nullify
   add_foreign_key "groups", "room_offers"
   add_foreign_key "meetings", "groups", on_delete: :nullify
   add_foreign_key "room_call_fields", "room_calls", on_delete: :cascade
@@ -695,6 +736,8 @@ ActiveRecord::Schema.define(version: 20181017180239) do
   add_foreign_key "room_offer_categories", "room_categories", on_delete: :cascade
   add_foreign_key "room_offer_categories", "room_offers", on_delete: :cascade
   add_foreign_key "room_offer_prices", "room_offers", on_delete: :cascade
+  add_foreign_key "room_offer_waiting_users", "room_offers", on_delete: :cascade
+  add_foreign_key "room_offer_waiting_users", "users", on_delete: :cascade
   add_foreign_key "room_offers", "districts", on_delete: :nullify
   add_foreign_key "room_offers", "graetzls", on_delete: :nullify
   add_foreign_key "room_offers", "locations", on_delete: :nullify
