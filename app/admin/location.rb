@@ -7,14 +7,14 @@ ActiveAdmin.register Location do
   scope :pending
   scope :approved
 
-  filter :graetzl
+  filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :users, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :category
+  filter :state, as: :select, collection: Location.states.keys
   filter :name
   filter :slogan
   filter :description
-  filter :state, as: :select, collection: Location.states.keys
   filter :allow_meetings
-  filter :users
   filter :created_at
   filter :updated_at
 
