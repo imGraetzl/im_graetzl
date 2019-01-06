@@ -4,6 +4,48 @@ section.help {
     margin-bottom: 50px;
   }
 
+  .imgHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height:450px;
+    text-align: center;
+    background-color:rgba(227, 242, 231, 0.3);
+    .wrp {
+      margin-top: -50px;
+    }
+    h1 {
+      //@include headlineBarbapapaMint;
+      font-size: 5.5em;
+      color:black;
+      font-family: $font-tertiary;
+      font-weight:900;
+    }
+    h2 {
+      margin-top:20px;
+      font-size: 4em;
+      color:black;
+      font-family: $font-tertiary;
+      font-weight: 100;
+      color: $color-ambient-mint-dark;
+    }
+  }
+  .imgHeader::after {
+    content: "";
+    background-image: url(image_path('info/imGraetzl-Features-Header-Transparent.png'));
+    opacity: 0.6;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-position: center bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
   h2 {
     //font-family: $font-tertiary;
     @include font-size-secondaryFont('medium');
@@ -71,6 +113,18 @@ section.help {
       }
       a.-illu img {
         filter: brightness(1.1);
+      }
+      .paperCard {
+        margin-bottom: 0px;
+        .wrp {
+          padding:5px 20px 5px 20px;
+        }
+        .card {
+          opacity: 0.3;
+        }
+      }
+      .link {
+        text-align: right;
       }
     }
     div.txt {
