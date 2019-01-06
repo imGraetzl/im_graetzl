@@ -4,10 +4,10 @@ class DiscussionsController < ApplicationController
 
   def index
     @discussions = @group.discussions.order("sticky DESC, last_post_at DESC")
-    @discussions = @discussions.includes(discussion_posts: :user)
-    if params[:group_category_id].present?
-      @discussions = @discussions.where(group_category_id: params[:group_category_id])
-      @category = @group.group_categories.find(params[:group_category_id])
+    @discussions = @discussions.includes(discussion_posts: [:user, :images])
+    if params[:discussion_category_id].present?
+      @discussions = @discussions.where(discussion_category_id: params[:discussion_category_id])
+      @category = @group.discussion_categories.find(params[:discussion_category_id])
     end
 
     render 'groups/discussions/index'
@@ -22,7 +22,7 @@ class DiscussionsController < ApplicationController
   def create
     @discussion = @group.discussions.build(discussion_params)
     @discussion.user = current_user
-    @discussion.discussion_posts.build(content: params[:content], user: current_user)
+    @discussion.discussion_posts.build(discussion_post_params.merge(user: current_user))
     if @discussion.save
       @discussion.discussion_followings.create(user: current_user)
       @discussion.create_activity(:create, owner: current_user)
@@ -80,6 +80,10 @@ class DiscussionsController < ApplicationController
   end
 
   def discussion_params
-    params.require(:discussion).permit(:title, :sticky, :closed, :group_category_id)
+    params.require(:discussion).permit(:title, :sticky, :closed, :discussion_category_id)
+  end
+
+  def discussion_post_params
+    params.require(:discussion).require(:initial_post).permit(:content, images_files: [])
   end
 end

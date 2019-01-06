@@ -8,19 +8,23 @@ class Notification::SummaryMail
     blocks: [
       {
         name: 'Neue Locations in deinem Grätzl',
-        types: [Notifications::NewLocation]
+        types: [Notifications::NewLocation].map(&:to_s)
       },
       {
         name: 'Neue Treffen',
-        types: [Notifications::NewMeeting]
+        types: [Notifications::NewMeeting].map(&:to_s)
       },
       {
         name: 'Neue Location Updates',
-        types: [Notifications::NewLocationPost]
+        types: [Notifications::NewLocationPost].map(&:to_s)
       },
       {
         name: 'Neue Ideen im Grätzl',
-        types: [Notifications::NewUserPost, Notifications::NewAdminPost]
+        types: [Notifications::NewUserPost, Notifications::NewAdminPost].map(&:to_s)
+      },
+      {
+        name: 'Neue Gruppen im Grätzl',
+        types: [Notifications::NewGroup].map(&:to_s)
       },
     ]
   }
@@ -31,15 +35,15 @@ class Notification::SummaryMail
     blocks: [
       {
         name: 'Neuer Raumteiler Call',
-        types: [Notifications::NewRoomCall]
+        types: [Notifications::NewRoomCall].map(&:to_s)
       },
       {
         name: 'Neue Räume zum Andocken',
-        types: [Notifications::NewRoomOffer]
+        types: [Notifications::NewRoomOffer].map(&:to_s)
       },
       {
         name: 'Auf der Suche nach Raum',
-        types: [Notifications::NewRoomDemand]
+        types: [Notifications::NewRoomDemand].map(&:to_s)
       },
     ]
   }
@@ -49,28 +53,22 @@ class Notification::SummaryMail
     from_name: "imGrätzl.at | Updates",
     blocks: [
       {
-        name: 'Neues Thema in der Gruppe',
-        types: [Notifications::NewGroupDiscussion]
-      },
-      {
-        name: 'Neues Mitglied in der Gruppe',
-        types: [Notifications::NewGroupUser]
-      },
-      {
-        name: 'Neues Gruppentreffen',
-        types: [Notifications::NewGroupMeeting]
-      },
-      {
-        name: 'Neue Antwort in der Gruppe',
-        types: [Notifications::NewGroupPost]
+        name: 'Gruppe: ',
+        types: [
+          Notifications::NewGroupDiscussion,
+          Notifications::NewGroupUser,
+          Notifications::NewGroupMeeting,
+          Notifications::NewGroupPost,
+        ].map(&:to_s),
+        group: true,
       },
       {
         name: "Neuer Teilnehmer bei einem Treffen",
-        types: [Notifications::AttendeeInUsersMeeting]
+        types: [Notifications::AttendeeInUsersMeeting].map(&:to_s)
       },
       {
         name: "Änderungen in einem Treffen",
-        types: [Notifications::MeetingCancelled, Notifications::MeetingUpdated]
+        types: [Notifications::MeetingCancelled, Notifications::MeetingUpdated].map(&:to_s)
       },
       {
         name: "Neuer Kommentar bei",
@@ -78,17 +76,18 @@ class Notification::SummaryMail
           Notifications::CommentOnAdminPost, Notifications::CommentOnLocationPost,
           Notifications::CommentOnRoomDemand, Notifications::CommentOnRoomOffer,
           Notifications::CommentOnUserPost
-        ]
+        ].map(&:to_s)
       },
       {
         name: 'Ebenfalls kommentiert',
         types: [Notifications::AlsoCommentedAdminPost, Notifications::AlsoCommentedLocationPost,
           Notifications::AlsoCommentedMeeting, Notifications::AlsoCommentedRoomDemand,
-          Notifications::AlsoCommentedRoomOffer, Notifications::AlsoCommentedUserPost]
+          Notifications::AlsoCommentedRoomOffer, Notifications::AlsoCommentedUserPost
+        ].map(&:to_s)
       },
       {
         name: 'Neuer Kommentar auf deiner Pinnwand',
-        types: [Notifications::NewWallComment]
+        types: [Notifications::NewWallComment].map(&:to_s)
       },
     ]
   }
@@ -108,7 +107,7 @@ class Notification::SummaryMail
       return
     end
 
-    notification_types = SUMMARY_TYPES[@type][:blocks].map{|b| b[:types] }.flatten.map(&:to_s)
+    notification_types = SUMMARY_TYPES[@type][:blocks].map{|b| b[:types] }.flatten
     notifications = notifications.where(type: notification_types)
     print "#{notifications.size} #{@period} #{@type} notifications found\n"
     return if notifications.empty?
@@ -142,18 +141,47 @@ class Notification::SummaryMail
   end
 
   def notification_block_vars(notifications)
-    block_mail_vars = []
+    block_vars = []
     SUMMARY_TYPES[@type][:blocks].each do |block|
-      block_notifications = notifications.select{|n| n.type.in?(block[:types].map(&:to_s))}
-      if block_notifications.present?
-        block_mail_vars << {
-          name: block[:name],
-          size: block_notifications.length,
-          notifications: block_notifications.map(&:mail_vars)
-        }
+      if block[:group]
+        block_vars += generate_group_block(block, notifications)
+      else
+        block_vars += generate_basic_block(block, notifications)
       end
     end
-    block_mail_vars
+    block_vars
+  end
+
+  def generate_basic_block(block, notifications)
+    notifications = notifications.select{|n| n.type.in?(block[:types])}
+    return [] if notifications.blank?
+    notification_vars = notifications.map(&:mail_vars)
+    [{
+      name: block[:name],
+      size: notifications.length,
+      notifications: notification_vars
+    }]
+  end
+
+  def generate_group_block(block, notifications)
+    notifications = notifications.select{|n| n.type.in?(block[:types])}
+    return [] if notifications.blank?
+    notifications.group_by(&:group).map do |group, group_notifications|
+      post_notifications, other_notifications = group_notifications.partition{|n| n.type == "Notifications::NewGroupPost"}
+      # Sort by type
+      notification_vars = other_notifications.sort_by{|n| block[:types].index(n.type) }.map(&:mail_vars)
+      # Group discussion posts by discussion
+      post_notifications.group_by(&:group_discussion_id).values.each do |discussion_notifications|
+        discussion_vars = discussion_notifications.sort_by(&:created_at).map(&:mail_vars)
+        discussion_vars.each_with_index{|d, i| d[:first_in_discussion] = i.zero? ? 'true' : 'false'}
+        notification_vars += discussion_vars
+      end
+      {
+        name: "#{block[:name]} „#{group.title}“",
+        size: group_notifications.length,
+        notifications: notification_vars,
+      }
+    end
   end
 
   def mail_title

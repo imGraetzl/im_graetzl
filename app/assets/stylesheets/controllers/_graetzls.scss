@@ -17,13 +17,9 @@ section.graetzls {
     position: absolute;
     transform: rotate(90deg);
   }
-  .sideflag {
-    display: none;
-  }
 
-  .hl-subtext {
-    position: relative;
-    z-index: 2;
+  .graetzl-sideflag {
+    display: none;
   }
 
   .graetzl-ambassador {
@@ -60,7 +56,7 @@ section.graetzls {
 
 // ---------------------------------------------------------------------- blocks for logged categories
 
-.block-locations, .block-meetings, .block-zuckerls, .block-ideas, .block-rooms {
+.block-locations, .block-meetings, .block-zuckerls, .block-ideas, .block-rooms, .block-groups {
   margin-bottom: 60px;
   @include respond-to(">=large") {
     margin-bottom: 80px;

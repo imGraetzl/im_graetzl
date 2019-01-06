@@ -1,4 +1,36 @@
-.group-form-page {
+section.group-form-page {
+
+  max-width: 775px;
+  margin: 0 auto;
+  label {min-width:175px;}
+  textarea {min-height:150px;}
+
+  h2 {
+    @include font-size-secondaryFont;
+    margin: 40px 0 15px;
+    text-align: center;
+  }
+  div.hl-subtext {
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
+  .group-categories {
+    overflow: hidden;
+    margin: 2rem 0 2rem;
+    .input-checkbox {
+      float: left;
+      width: 100%;
+      @include respond-to(">=small") {
+        width: 50%;
+      }
+      @include respond-to(">=medium") {
+        width: 33%;
+      }
+    }
+  }
+
   .remove_fields {
     margin-left: 10px;
     margin-top:15px;
@@ -234,6 +266,14 @@
   // GROUP Header Area
   .group-header {
 
+    .sideflag {
+      position: absolute;
+      bottom:35px;
+      right:-12px;
+      text-align: right;
+      line-height: 1.1;
+    }
+
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -241,12 +281,13 @@
     margin-bottom:40px;
 
     div.coverImg {
+      position:relative;
       width:100%;
       img.coverImg {
         border-radius: 8px;
         object-fit: cover;
         max-width: 100%;
-        margin-bottom:20px;
+        //margin-bottom:20px;
       }
       @include respond-to(">=medium") {
         width:48%;
@@ -259,6 +300,7 @@
 
     div.groupInfos {
       width:100%;
+      margin-top:20px;
       h1 {
         text-align: left;
         margin-bottom:20px;
@@ -266,8 +308,12 @@
       .users {
         margin-top:10px;
       }
+      .user {
+        margin-bottom:5px;
+      }
       @include respond-to(">=medium") {
         width:48%;
+        margin-top:0px;
       }
     }
 
@@ -535,7 +581,7 @@
     textarea {
       min-height:150px;
     }
-    .input-field, .input-textarea, .input-select {
+    .input-field, .input-textarea, .input-select, .upload-oldschool {
       margin-bottom: 15px;
     }
     .btn-primary {
@@ -548,14 +594,24 @@
   }
 
   &.discussion-page {
+
+    .entryImgUploads {
+      img {
+        max-width: 150px;
+        @include respond-to(">=large") {
+          max-width: 205px;
+        }
+      }
+    }
+
     .discussion-form {
       .img-round {
-        margin-right:0px;
-        width:50px;
-        height:50px;
+        margin-right:10px;
+        width:30px;
+        height:30px;
       }
       label {
-        min-width: 50px;
+        min-width: 160px;
       }
     }
   }

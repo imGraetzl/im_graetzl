@@ -1,0 +1,66 @@
+<% meta(
+    title: t('.title', numeric: @district.numeric),
+    description: t('.description', numeric: @district.numeric, name: @district.name),
+    robots: 'index, follow',
+    og_title: t('.title', numeric: @district.numeric),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name),
+    og_image: image_url('meta/og_logo.png')
+  )
+%>
+
+<section class="districts -groups">
+  <%= cache [@district, 'locationsmap'], expires_in: 2.months do %>
+    <%= render 'districts/map', map_data: @map_data %>
+  <% end %>
+
+  <%= render 'menu' %>
+
+  <% if @featured_groups.present? && @category.nil? %>
+    <div class="lightSliderWrapper card-slider-container">
+      <h1 class="hl-main"><span>Gruppen</span> - Austausch & Vernetzung</h1>
+      <div class="text">
+        Empfohlene & beliebte Gruppen im <%= @district.numeric %>. Bezirk
+      </div>
+      <div class="cardBoxCollection" id="card-slider">
+        <%= render @featured_groups %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+
+    <div class="hl-subtext -groups">
+      <h1>Stöbern in <span class="category_title">allen</span> Gruppen</h1>
+      <p>Nach Gruppe suchen oder in Kategorien stöbern</p>
+    </div>
+
+    <%= form_tag groups_path, method: :get, remote: true, class: 'cards-filter' do %>
+      <%= hidden_field_tag :group_category_id, @category.try(:id) %>
+      <div class="input-field search-filter">
+        <div class="input-field">
+          <%= text_field_tag :query, @category ? @category.title : nil, placeholder: 'Suche..', class: 'search-suggestion-trigger' %>
+        </div>
+        <div class="input-select label-select">
+          <%= select_tag :district_ids, options_from_collection_for_select(District.order(:zip), :id, :zip_name, @district.id), id: 'graetzl-suggestion', multiple: true %>
+        </div>
+      </div>
+    <% end %>
+
+    <%= render 'filters/group_categories', selected_category: @category %>
+
+    <div id="graetzl-suggestion" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-left dropdown-container">
+      <div class="jq-dropdown-panel">
+        Bezirk auswählen ...
+      </div>
+    </div>
+
+    <div class="card-grid" data-behavior="groups-card-container"></div>
+    <div class="action-card-container" data-behavior="groups-action-card-container">
+      <%= render 'groups/action_card', district: @district %>
+    </div>
+
+    <!-- Insert Featured Card -->
+
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'groups-paginate-link' }, rel: 'nofollow' %>
+  </div>
+</section>

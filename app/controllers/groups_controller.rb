@@ -1,22 +1,32 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:index, :show]
+
+  def index
+    head :ok and return if browser.bot? && !request.format.js?
+    @groups = collection_scope.includes(:group_categories, :users, :room_call, :room_offer)
+    @groups = filter_collection(@groups)
+    @groups = @groups.by_currentness.page(params[:page]).per(15)
+  end
 
   def show
     @group = Group.find(params[:id])
     if @group.readable_by?(current_user)
       @next_meeting = @group.meetings.where("DATE(starts_at_date) >= ?", Date.today).order(:starts_at_date, :starts_at_time).first
-      @discussions = @group.discussions.includes(discussion_posts: :user).order("sticky DESC, last_post_at DESC")
-      @meetings = @group.meetings.order("starts_at_date ASC")
+      @discussions = @group.discussions.includes(discussion_posts: [:user, :images]).order("sticky DESC, last_post_at DESC")
+      @meetings = @group.meetings.order("starts_at_date DESC")
     end
   end
 
   def new
     @group = Group.new(
+      location_id: params[:location_id],
       room_offer_id: params[:room_offer_id],
-      room_call_id: params[:room_call_id]
+      room_demand_id: params[:room_demand_id],
+      room_call_id: params[:room_call_id],
+      graetzl_ids: Array(params[:graetzl_id]),
     )
-    GroupDefaultCategory.all.each do |category|
-      @group.group_categories.build(title: category.title)
+    DiscussionDefaultCategory.all.each do |category|
+      @group.discussion_categories.build(title: category.title)
     end
   end
 
@@ -25,6 +35,7 @@ class GroupsController < ApplicationController
     @group.group_users.build(user_id: current_user.id, role: :admin)
 
     if @group.save
+      @group.create_activity(:create, owner: current_user)
       redirect_to @group
     else
       render 'new'
@@ -118,16 +129,41 @@ class GroupsController < ApplicationController
 
   private
 
+  def collection_scope
+    Group.non_private
+  end
+
+  def filter_collection(groups)
+    district_ids = params[:district_ids]&.select(&:present?)
+    if district_ids.present?
+      graetzl_ids = Graetzl.joins(:districts).where(districts: {id: district_ids}).distinct.pluck(:id)
+      groups = groups.joins(:group_graetzls).where(group_graetzls: {graetzl_id: graetzl_ids}).distinct
+    end
+
+    if params[:group_category_id].present?
+      groups = groups.joins(:group_categories).where(group_categories: {id: params[:group_category_id]}).distinct
+    elsif params[:query].present?
+      groups = groups.joins(:group_categories).where("groups.title ILIKE :q OR group_categories.title ILIKE :q", q: "%#{params[:query]}%").distinct
+    end
+
+    groups
+  end
+
   def group_params
     params
       .require(:group)
       .permit(
         :title,
         :description,
-        :room_offer_id,
-        :room_call_id,
         :private,
-        group_categories_attributes: [
+        :room_offer_id,
+        :room_demand_id,
+        :room_call_id,
+        :location_id,
+        :cover_photo, :remove_cover_photo,
+        graetzl_ids: [],
+        group_category_ids: [],
+        discussion_categories_attributes: [
           :id, :title, :_destroy
         ],
     )

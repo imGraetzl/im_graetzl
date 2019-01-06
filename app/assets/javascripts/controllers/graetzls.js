@@ -4,6 +4,11 @@ APP.controllers.graetzls = (function() {
       initMap();
       initFilter();
       initMobileNav();
+      initSlider();
+    }
+
+    function initSlider() {
+      APP.components.cardSlider.init($("#card-slider"));
     }
 
     function initMap() {

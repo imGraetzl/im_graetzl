@@ -50,7 +50,8 @@ Rails.application.routes.draw do
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     get 'locations'
     get 'raumteiler', action: 'rooms', as: 'rooms'
-    get 'groups'
+    #get 'groups'
+    get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
 
@@ -65,6 +66,7 @@ Rails.application.routes.draw do
   resources :zuckerls, only: [:index]
   resources :rooms, only: [:index]
   resources :posts, only: [:index]
+  resources :groups, only: [:index]
 
   resources :locations do
     concerns :graetzl_before_new
@@ -115,6 +117,7 @@ Rails.application.routes.draw do
     get 'treffen', action: 'meetings', as: 'meetings'
     get 'locations'
     get 'raumteiler', action: 'rooms', as: 'rooms'
+    get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
 
@@ -123,6 +126,7 @@ Rails.application.routes.draw do
     get 'treffen', action: 'meetings', as: 'meetings', on: :member
     get 'locations', on: :member
     get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
+    get 'gruppen', action: 'groups', as: 'groups', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
   end
 
@@ -170,7 +174,9 @@ Rails.application.routes.draw do
     get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'ideen', action: 'posts', as: 'posts', on: :member
+    get 'gruppen', action: 'groups', as: 'groups', on: :member
     resources :meetings, path: 'treffen', only: [:show]
+    resources :groups, path: 'gruppen', only: [:show]
     resources :locations, only: [:show]
     resources :users, only: [:show]
     resources :user_posts, path: 'ideen', only: [:new, :show, :create, :destroy]

@@ -5,6 +5,11 @@ APP.controllers.districts = (function() {
     initMap();
     initFilter();
     initMobileNav();
+    initSlider();
+  }
+
+  function initSlider() {
+    APP.components.cardSlider.init($("#card-slider"));
   }
 
   function initMenu() {

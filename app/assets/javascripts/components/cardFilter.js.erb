@@ -5,6 +5,88 @@ APP.components.cardFilter = (function() {
   var masonrySetup = false;
 
   function init() {
+
+    // ----------- Search Suggestion Form - MICHAEL
+    suggestionForm = $(".search-suggestion-trigger");
+    suggestionBox = $(".search-suggestion");
+    suggestionLink = $(".search-suggestion a");
+    suggestionSelect = $("#graetzl-suggestion");
+    suggestionValue = $(".search-suggestion .active").text();
+    suggestionTitle = $(".category_title");
+
+    $('.close-ico').on('click', function(event){
+      event.preventDefault();
+      suggestionForm.val(suggestionValue);
+      suggestionBox.slideUp("fast");
+    });
+
+    // Check if Category Param exists in URL
+    if (window.location.href.indexOf("category=") > -1) {
+      suggestionTitle.text(suggestionValue);
+    }
+
+    suggestionLink.on("click", function() {
+      suggestionLink.removeClass("active");
+      $(this).addClass("active");
+      var categoryId = $(this).data("category-id");
+      filterForm.find("[name=group_category_id]").val(categoryId);
+      if (categoryId) {
+        suggestionValue = $(this).text();
+        suggestionTitle.text($(this).text());
+        setValue(suggestionValue);
+      } else {
+        suggestionValue = null;
+        suggestionTitle.text("allen");
+        setValue(suggestionValue);
+      }
+      suggestionBox.slideUp("fast");
+      filterForm.submit();
+    });
+    suggestionForm.on("click", function(){
+      $(this).focus().select();
+      $(this).val("");
+      suggestionBox.slideDown("fast");
+    });
+    suggestionForm.keypress(function (e) {
+      filterForm.find("[name=group_category_id]").val(null);
+      if (e.which == 13) {
+        suggestionLink.removeClass("active");
+        suggestionBox.slideUp("fast");
+        suggestionValue = $(this).val();
+        suggestionTitle.text($(this).val());
+        setValue(suggestionValue);
+        filterForm.submit();
+      }
+    });
+
+    $(suggestionSelect).SumoSelect({
+      search: true,
+      searchText: 'Suche..',
+      placeholder: 'Bezirk auswählen..',
+      csvDispCount: 3,
+      captionFormat: 'in {0} Bezirken',
+      captionFormatAllSelected: 'in Ganz Wien',
+      okCancelInMulti: true,
+      selectAll: true,
+      locale: ['Übernehmen', 'Abbrechen', 'Ganz Wien']
+    });
+
+    $("#graetzl-suggestion").on("change", function(){
+      filterForm.submit();
+    });
+
+    $(".label-select .select-all").on("click", function(){
+      if ($(this).hasClass( "selected" )) {
+        $(".label-select .btnOk").click();
+      }
+    });
+
+    var setValue = function(value) {
+      suggestionForm.val(value);
+    }
+
+    // ----------- Search Suggestion Form - MICHAEL
+
     filterForm = $(".cards-filter");
     cardGrid = $('.card-grid');
 

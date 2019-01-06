@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def link_to_more_info
-    blog_url = 'http://blog.imgraetzl.at/services/'
+    blog_url = 'https://blog.imgraetzl.at/services/'
     icon = 'icon-lightbulb'
     use = content_tag(:use, nil, { 'xlink:href' => "##{icon}" })
     link_to blog_url, target: '_blank' do
@@ -41,7 +41,7 @@ module ApplicationHelper
   end
 
   def graetzl_flag(graetzl)
-    content_tag(:div, link_to(graetzl.name, [graetzl]), class: 'sideflag -R')
+    content_tag(:div, link_to(graetzl.name, [graetzl]), class: 'graetzl-sideflag sideflag -R')
   end
 
   def form_errors_for(target, name=nil)

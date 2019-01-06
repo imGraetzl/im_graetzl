@@ -41,7 +41,7 @@
 
       <% if user_signed_in? && current_user == @room_offer.user %>
         <div class="btn-group">
-          <%= link_to 'Gruppe erstellen', new_group_path(room_offer_id: @room_offer.id),
+          <%= link_to 'Gruppe erstellen', new_group_path(room_offer_id: @room_offer.id, graetzl_id: @room_offer.graetzl_id),
             class: 'btn-secondary -mint -small'  %>
         </div>
       <% end %>
@@ -88,7 +88,7 @@
               <%= attachment_image_tag user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
             <% end %>
             <% if current_user == user || current_user == @room_offer.user %>
-              <%= link_to [:remove_from_waitlist, @room_offer, user: user], method: :post, class: 'delete' do %>
+              <%= link_to [:remove_from_waitlist, @room_offer, user: user], method: :post, class: 'close-ico' do %>
                 <%= icon_tag "cross" %>
               <% end %>
             <% end %>
