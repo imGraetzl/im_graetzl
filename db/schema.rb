@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181216214723) do
+ActiveRecord::Schema.define(version: 20190111160355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,13 @@ ActiveRecord::Schema.define(version: 20181216214723) do
     t.datetime "updated_at"
     t.integer  "context",                default: 0
     t.string   "icon"
+  end
+
+  create_table "categories_meetings", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "meeting_id"
+    t.index ["category_id"], name: "index_categories_meetings_on_category_id", using: :btree
+    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id", using: :btree
   end
 
   create_table "categorizations", force: :cascade do |t|
@@ -285,6 +292,7 @@ ActiveRecord::Schema.define(version: 20181216214723) do
     t.string   "cover_photo_id"
     t.string   "cover_photo_content_type"
     t.boolean  "featured",                 default: false
+    t.boolean  "hidden",                   default: false
     t.index ["location_id"], name: "index_groups_on_location_id", using: :btree
     t.index ["room_call_id"], name: "index_groups_on_room_call_id", using: :btree
     t.index ["room_demand_id"], name: "index_groups_on_room_demand_id", using: :btree
