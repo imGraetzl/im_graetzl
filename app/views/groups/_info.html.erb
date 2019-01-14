@@ -5,7 +5,7 @@
     <div class="main top-posts">
 
       <div class="about-section">
-        <h3>Über die Gruppe</h3>
+        <h3>Worum es bei uns geht</h3>
         <p class="about"><%= @group.description %></p>
       </div>
 
@@ -36,7 +36,7 @@
         </div>
         <% end %>
 
-        <% @group.members.first(10 - @group.admins_and_current_user_count(current_user)).each do |user| next if user == current_user %>
+        <% @group.members.first(20 - @group.admins_and_current_user_count(current_user)).each do |user| next if user == current_user %>
           <div class="user">
             <div class="avatar">
               <%= attachment_image_tag user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round' %>
@@ -46,8 +46,15 @@
             </div>
           </div>
         <% end %>
-        <% if @group.users.size > 10 %>
-          <span> + <%= @group.users.size - 10 %> weitere </span>
+        <% if @group.users.size > 20 %>
+          <div class="user -more">
+            <div class="avatar">
+              <%= icon_tag "user-avatar" %>
+            </div>
+            <div class="infos">
+              <span>+ <%= @group.users.size - 20 %> weitere</span>
+            </div>
+          </div>
         <% end %>
       </div>
 
@@ -65,22 +72,17 @@
 
   </div>
 
-  <% if @group.readable_by?(current_user) %>
-
-  <div class="bottom-section">
-    <h3>Aktuelle Diskussionen</h3>
-    <% if @discussions.present? %>
-      <div class="cardBoxCollection -tripple -group-overview">
-        <% @discussions.first(3).each do |discussion| %>
-          <%= render 'groups/discussions/discussion_preview', discussion: discussion %>
-        <% end %>
-      </div>
-      <%= link_to "Alle Diskussionen anzeigen", "javascript:", class: 'all-discussions-link btn-secondary -mint' %>
-    <% else %>
-      <p class="hint">Noch keine Diskussionen in der Gruppe..</p>
-    <% end %>
+  <div class="district-section">
+    <h3>Bezirke / Grätzln</h3>
+    <div class="category-tags">
+      <% if @group.graetzls.present? %>
+        <ul class="tag-list">
+          <% compact_room_demand_graetzl_list(@group).each do |item| %>
+            <li><%= item %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
   </div>
-
-  <% end %>
 
 </div>

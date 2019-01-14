@@ -132,14 +132,23 @@ section.group-form-page {
       margin-bottom:20px;
 
       .btn-userIcons {
-        width:270px;
+        //width:250px;
         svg {color: white;}
+      }
+    }
+
+    &.meetings-section {
+      .header {
+        justify-content: center;
       }
     }
 
     &.discussion-section {
       .header {
-        justify-content: flex-end;
+        justify-content: center;
+      }
+      h3.title span {
+        font-weight: normal;
       }
       @include respond-to("<=medium") {
         .header {
@@ -147,6 +156,11 @@ section.group-form-page {
         }
         h3.title {
           text-align: center;
+        }
+      }
+      @include respond-to(">=medium") {
+        .discussions {
+          //margin-top: -20px;
         }
       }
     }
@@ -214,9 +228,9 @@ section.group-form-page {
       }
     }
     .side > div {
-      margin-left:30px;
+      margin-left:40px;
       margin-bottom:30px;
-      width:270px;
+      width:260px;
       @include respond-to("<=medium") {
         margin-left:0px;
         width:100%;
@@ -305,6 +319,19 @@ section.group-form-page {
         text-align: left;
         margin-bottom:20px;
       }
+      .facts, .parent {
+        display: flex;
+        align-items: center;
+        svg {
+          width:25px;
+          min-width: 25px;
+          margin-right: 4px;
+        }
+        .separator {padding-left:7px; padding-right: 7px;}
+      }
+      .parent {
+        margin-top:5px; margin-bottom:5px;
+      }
       .users {
         margin-top:10px;
       }
@@ -382,6 +409,12 @@ section.group-form-page {
       @include cf;
     }
 
+    .district-section {
+      h3 {
+        margin-bottom:20px;
+      }
+    }
+
     h2 {
       margin-bottom:15px;
     }
@@ -416,6 +449,19 @@ section.group-form-page {
   // Startpage Auszug
   .member-section {
     .user {
+      &.-more {
+        .avatar {
+          margin:5px;
+          svg {
+            @include img-round;
+            margin: 0 auto;
+            align-self: center;
+            width:100px;
+            height:100px;
+            padding: 30px;
+          }
+        }
+      }
       width:132px;
       margin-right:0px;
       margin-bottom:15px;
