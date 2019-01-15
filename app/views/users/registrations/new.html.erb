@@ -92,7 +92,8 @@
         </div>
       </div>
 
-      <div class="wrp-radios">
+      <div class="wrp-radios user-type-selection">
+        <p class="txt"><span>Registrieren als</span> ...</p>
         <div class="input-radio">
           <%= f.radio_button :business, false %>
           <%= f.label "business_false", "Bewohner" %>
@@ -103,32 +104,29 @@
         </div>
       </div>
 
-      <div class="user-business">
-        <p class="txt">In <span>welche Kategorie</span> würdest du dich einordnen?</p>
-        <div class="wrp-radios">
-          <% LocationCategory.all.each do |category| %>
-            <div class="input-radio">
-              <%= f.radio_button :location_category_id, category.id %>
-              <%= f.label "location_category_id_#{category.id}", category.name %>
-            </div>
-          <% end %>
-        </div>
-
-        <p class="txt">An <span>welchen Themen</span> bist du interessiert?</p>
-        <div class="business-interests">
-          <%= f.collection_check_boxes :business_interest_ids, BusinessInterest.all, :id, :title do |b| %>
-          <div class="input-checkbox">
-            <%= b.check_box %>
-            <%= b.label %>
-          </div>
-          <% end %>
-        </div>
-      </div>
-
-
     </div>
 
+    <div class="user-business">
+      <p class="txt">In <span>welche Kategorie</span> würdest du dich einordnen?</p>
+      <div class="wrp-radios">
+        <% LocationCategory.all.each do |category| %>
+          <div class="input-radio">
+            <%= f.radio_button :location_category_id, category.id %>
+            <%= f.label "location_category_id_#{category.id}", category.name %>
+          </div>
+        <% end %>
+      </div>
 
+      <p class="txt">An <span>welchen Themen</span> bist du interessiert?</p>
+      <div class="business-interests">
+        <%= f.collection_check_boxes :business_interest_ids, BusinessInterest.all, :id, :title do |b| %>
+        <div class="input-checkbox">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+        <% end %>
+      </div>
+    </div>
 
     <div class="wrp-checkboxes">
       <div class="input-checkbox">
