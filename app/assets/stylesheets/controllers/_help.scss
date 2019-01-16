@@ -9,31 +9,35 @@ section.help {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    height:450px;
+    height:250px;
     text-align: center;
     background-color:rgba(227, 242, 231, 0.3);
+    @include respond-to(">=medium") {
+      height:400px;
+    }
+    @include respond-to(">=large") {
+      height:500px;
+    }
     .wrp {
-      margin-top: -50px;
+      //margin-top: -20px;
     }
     h1 {
-      //@include headlineBarbapapaMint;
-      font-size: 5.5em;
-      color:black;
-      font-family: $font-tertiary;
-      font-weight:900;
+      margin:auto;
+      @include headlineBarbapapa;
+      @include font-size-secondaryFont('largest');
+      text-shadow: 2px 2px $color-ambient-rosa-dark;
     }
     h2 {
-      margin-top:20px;
-      font-size: 4em;
-      color:black;
-      font-family: $font-tertiary;
-      font-weight: 100;
-      color: $color-ambient-mint-dark;
+      margin:auto;
+      @include headlineBarbapapaMint;
+      @include font-size-secondaryFont('large');
+      text-shadow: 2px 2px $color-ambient-mint-dark;
+      margin-top:15px;
     }
   }
   .imgHeader::after {
     content: "";
-    background-image: url(image_path('info/imGraetzl-Features-Header-Transparent.png'));
+    background-image: url(image_path('info/balloon_header.jpg'));
     opacity: 0.6;
     top: 0;
     left: 0;
@@ -42,16 +46,15 @@ section.help {
     position: absolute;
     z-index: -1;
     background-position: center bottom;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 
   h2 {
-    //font-family: $font-tertiary;
     @include font-size-secondaryFont('medium');
     color: $color-ambient-rosa;
     margin-bottom: 10px;
-    font-size: 28px;
+    //font-size: 28px;
     //@include respond-to(">=medium") {
       //font-size: 34px;
     //}
@@ -150,7 +153,11 @@ section.help {
     position: relative;
     margin-bottom:40px;
     &.-header {
-      margin-top: 40px;
+      margin-top: -8px;
+      margin-bottom:50px;
+      .card {
+        //opacity:0.5;
+      }
     }
     &.-teaser {
       p {
