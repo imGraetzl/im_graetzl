@@ -108,6 +108,7 @@ section.help {
 
     // -- GRID -- //
     div.txt {
+      width:100%;
       @include respond-to(">=medium") {
         width: 65%;
         &.-half {
@@ -116,6 +117,7 @@ section.help {
       }
     }
     div.aside {
+      width:50%;
       @include respond-to(">=medium") {
         padding-left: 50px;
         width:35%;
@@ -151,29 +153,18 @@ section.help {
         }
         &.-mentoring {
           .img-round {
-            width:25%;
-            height:25%;
-            @include respond-to(">=medium") {
-              width:50%;
-              height:50%;
-            }
+            width:50%;
+            height:50%;
           }
           .img-round + .img-round {
-            margin-right: -12.5%;
-            @include respond-to(">=medium") {
-              margin-right: -25%;
-            }
+            margin-right: -25%;
           }
         }
         &.-img {
           text-align: center;
           img {
-            max-width:50%;
+            max-width:100%;
             height:auto;
-            @include respond-to(">=medium") {
-              max-width:100%;
-              height:auto;
-            }
           }
         }
 

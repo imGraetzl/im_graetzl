@@ -81,12 +81,12 @@
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Kooperationen.png'), info_gruppen_path, class: '-illu -feature') %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Kooperationen2.png'), info_gruppen_path, class: '-illu -feature') %>
     </div>
   </article>
 
 
-  <article class="container">
+  <article class="container -groups">
     <div class="txt">
       <div class="headline">
         <span class="bigicontext-element -badge">Neu</span>
@@ -106,12 +106,12 @@
       </p>
     </div>
     <div class="aside">
-      <%= render Group.first %>
+      <%= !Group.where(id: 3).empty? ? (render Group.where(id: 3)) : '' %>
     </div>
   </article>
 
 
-  <article class="container">
+  <article class="container -groups">
     <div class="txt">
       <div class="headline">
         <span class="bigicontext-element -badge">Neu</span>
@@ -130,8 +130,8 @@
         <%= link_to 'Zur Gruppe', info_gruppen_path, :class => 'btn-secondary -mint -large' %>
       </p>
     </div>
-    <div class="aside -img">
-      <%= render Group.first %>
+    <div class="aside">
+      <%= !Group.where(id: 1).empty? ? (render Group.where(id: 1)) : '' %>
     </div>
   </article>
 
