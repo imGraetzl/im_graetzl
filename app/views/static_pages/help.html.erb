@@ -5,7 +5,7 @@
   )
 %>
 
-<section class="help -about">
+<section class="help -startpage">
 
   <div class="imgHeader -fullwidth">
     <div class="wrp">
@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <div class="paperCard -cord1RT container -header">
+  <div class="paperCard -cord1RT -header">
     <div class="wrp">
       <p>
         <strong>
@@ -53,7 +53,7 @@
         <%= link_to 'Alle Infos und Anmeldung', info_gruppen_path, :class => 'btn-primary -mint -large' %>
       </p>
     </div>
-    <div class="img -mentoring">
+    <div class="aside -mentoring">
       <img class="img-round" src="/attachments/ada481de1ef3d7a474199463d2027bbea85f156c/store/fill/200/200/6137e637e40d44e4a3956797a64561a5198d3aa0a1b0f93b6247e80a81f3/avatar.gif" alt="Avatar">
       <img class="img-round" src="/attachments/ada481de1ef3d7a474199463d2027bbea85f156c/store/fill/200/200/6137e637e40d44e4a3956797a64561a5198d3aa0a1b0f93b6247e80a81f3/avatar.gif" alt="Avatar">
       <img class="img-round" src="/attachments/ada481de1ef3d7a474199463d2027bbea85f156c/store/fill/200/200/6137e637e40d44e4a3956797a64561a5198d3aa0a1b0f93b6247e80a81f3/avatar.gif" alt="Avatar">
@@ -80,8 +80,8 @@
         <%= link_to 'Zu den Bezirksgruppen', info_gruppen_path, :class => 'btn-secondary -mint -large' %>
       </p>
     </div>
-    <div class="img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Kooperationen.png'), info_gruppen_path, class: '-illu') %>
+    <div class="aside -img">
+      <%= link_to(image_tag('info/imGraetzl-Features-Kooperationen.png'), info_gruppen_path, class: '-illu -feature') %>
     </div>
   </article>
 
@@ -105,8 +105,11 @@
         <%= link_to 'Zur Gruppe', info_gruppen_path, :class => 'btn-secondary -mint -large' %>
       </p>
     </div>
-    <div class="img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Gegengeschaefte.png'), info_gruppen_path, class: '-illu') %>
+    <div class="aside">
+      <%= render Group.first %>
+      <!--
+        <%= link_to(image_tag('info/imGraetzl-Features-Gegengeschaefte.png'), info_gruppen_path, class: '-illu -feature') %>
+      -->
     </div>
   </article>
 
@@ -130,8 +133,8 @@
         <%= link_to 'Zur Gruppe', info_gruppen_path, :class => 'btn-secondary -mint -large' %>
       </p>
     </div>
-    <div class="img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Zusammenarbeit.png'), info_gruppen_path, class: '-illu') %>
+    <div class="aside -img">
+      <%= link_to(image_tag('info/imGraetzl-Features-Zusammenarbeit.png'), info_gruppen_path, class: '-illu -feature') %>
     </div>
   </article>
 
@@ -151,8 +154,8 @@
         <%= link_to 'Mehr Infos', info_anbieter_und_locations_path, :class => 'btn-secondary -mint -flex -small' %>
       </p>
     </div>
-    <div class="img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Locationpage.png'), info_anbieter_und_locations_path) %>
+    <div class="aside -img">
+      <%= link_to(image_tag('info/imGraetzl-Features-Locationpage.png'), info_anbieter_und_locations_path, class: '-feature') %>
     </div>
   </article>
 
@@ -172,8 +175,8 @@
         <%= link_to 'Mehr Infos', info_raumteiler_path, :class => 'btn-secondary -mint -flex -small' %>
       </p>
     </div>
-    <div class="img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Raumteiler.png'), info_raumteiler_path) %>
+    <div class="aside -img">
+      <%= link_to(image_tag('info/imGraetzl-Features-Raumteiler.png'), info_raumteiler_path, class: '-feature') %>
     </div>
   </article>
 
@@ -191,8 +194,8 @@
         <%= link_to 'Mehr Infos', info_events_und_workshops_path, :class => 'btn-secondary -mint -flex -small' %>
       </p>
     </div>
-    <div class="img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Events-Workshops.png'), info_events_und_workshops_path) %>
+    <div class="aside -img">
+      <%= link_to(image_tag('info/imGraetzl-Features-Events-Workshops.png'), info_events_und_workshops_path, class: '-feature') %>
     </div>
   </article>
 
@@ -212,7 +215,7 @@
         <%= link_to 'Mehr Infos', info_infos_zum_graetzlzuckerl_path, :class => 'btn-secondary -mint -flex -small' %>
       </p>
     </div>
-    <div class="img">
+    <div class="aside -img">
       <%= link_to(image_tag('info/imGraetzl-Features-Graetzlzuckerl.png'), info_infos_zum_graetzlzuckerl_path) %>
     </div>
   </article>
