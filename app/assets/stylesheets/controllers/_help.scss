@@ -155,6 +155,11 @@ section.help {
           .img-round {
             width:50%;
             height:50%;
+            &.-big {
+              width:60%;
+              margin-top:-15%;
+              margin-right:0 !important;
+            }
           }
           .img-round + .img-round {
             margin-right: -25%;
@@ -183,6 +188,7 @@ section.help {
       }
       a.-illu img {
         filter: brightness(1.1);
+        width:80%
       }
     }
   }
