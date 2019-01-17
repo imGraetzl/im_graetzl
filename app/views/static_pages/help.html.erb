@@ -107,9 +107,6 @@
     </div>
     <div class="aside">
       <%= render Group.first %>
-      <!--
-        <%= link_to(image_tag('info/imGraetzl-Features-Gegengeschaefte.png'), info_gruppen_path, class: '-illu -feature') %>
-      -->
     </div>
   </article>
 
@@ -134,7 +131,7 @@
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Zusammenarbeit.png'), info_gruppen_path, class: '-illu -feature') %>
+      <%= render Group.first %>
     </div>
   </article>
 

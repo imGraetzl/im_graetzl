@@ -105,6 +105,27 @@ section.help {
 
   // ----- HELP STARTPAGE ------ //
   &.-startpage {
+
+    // -- GRID -- //
+    div.txt {
+      @include respond-to(">=medium") {
+        width: 65%;
+        &.-half {
+          width: 55%;
+        }
+      }
+    }
+    div.aside {
+      @include respond-to(">=medium") {
+        padding-left: 50px;
+        width:35%;
+        &.-half {
+          width: 45%;
+        }
+      }
+    }
+    // -- GRID -- //
+
     article {
       display:flex;
       align-items: center;
@@ -115,10 +136,6 @@ section.help {
         margin-bottom: 70px;
       }
       div.txt {
-        @include respond-to(">=medium") {
-          float: left;
-          width: 60%;
-        }
         p {
           padding-bottom:25px;
         }
@@ -129,6 +146,9 @@ section.help {
         flex-direction: row-reverse;
         justify-content: center;
         margin-bottom:20px;
+        @include respond-to(">=medium") {
+          margin-bottom:0px;
+        }
         &.-mentoring {
           .img-round {
             width:25%;
@@ -145,11 +165,6 @@ section.help {
             }
           }
         }
-        @include respond-to(">=medium") {
-          margin-bottom:0px;
-          width:35%;
-          padding-left: 50px;
-        }
         &.-img {
           text-align: center;
           img {
@@ -161,6 +176,19 @@ section.help {
             }
           }
         }
+
+        .cardBox {
+          &.-group {
+            .infos, .slogan {
+              display: none;
+            }
+            .btn-userIcons {
+              //display: flex;
+              display: none;
+            }
+          }
+        }
+
       }
       a.-illu img {
         filter: brightness(1.1);
