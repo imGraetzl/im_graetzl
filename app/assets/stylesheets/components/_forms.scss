@@ -609,3 +609,32 @@ input[type=url]:invalid + em::after {
   margin-left: 10px;
 	content: "http:// oder https:// ..";
 }
+
+// ---------------------------------------------------------------------- Login Panel Modal
+
+.login-panel-modal {
+  display: none;
+  .hl-subtext {
+    h1 {
+      @include font-size-secondaryFont('medium');
+    }
+    p {
+      @include font-size-primaryFont('base');
+    }
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    .login {
+      .input-field {
+        margin-bottom:10px;
+      }
+    }
+    .register {
+      margin-left:20px;
+    }
+    .btn-primary {
+      width:100%;
+    }
+  }
+}
