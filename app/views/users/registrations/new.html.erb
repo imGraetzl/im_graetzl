@@ -108,13 +108,9 @@
 
     <div class="user-business">
       <p class="txt">In <span>welche Kategorie</span> würdest du dich einordnen?</p>
-      <div class="wrp-radios">
-        <% LocationCategory.all.each do |category| %>
-          <div class="input-radio">
-            <%= f.radio_button :location_category_id, category.id %>
-            <%= f.label "location_category_id_#{category.id}", category.name %>
-          </div>
-        <% end %>
+
+      <div class="input-select">
+        <%= f.collection_select :location_category_id, LocationCategory.all, :id, :name, { prompt: false } %>
       </div>
 
       <p class="txt">An <span>welchen Themen</span> bist du interessiert?</p>
