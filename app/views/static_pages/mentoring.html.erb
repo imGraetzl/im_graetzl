@@ -131,39 +131,7 @@
   <!-- END TEILNEHMEN -->
 
   <!----------- LOGIN PANEL MODAL ----------->
-  <div id="login-panel-modal" class="login-panel-modal">
-    <div class="hl-subtext">
-      <h1><em>Login</em></h1>
-      <p>
-        Bitte melde dich zuerst mit deinem imGrätzl Account an.<br>
-        Noch kein Account? Gleich kostenlos in deinem Grätzl registrieren.
-      </p>
-    </div>
-    <div class="container">
-      <div class="login">
-        <%= form_for(:user, :url => session_path(:user, :redirect => request.original_url)) do |f| %>
-          <div class="input-field">
-            <%= f.text_field :login, autofocus: true, placeholder: "Username oder E-Mail" %>
-          </div>
-          <div class="input-field">
-            <%= f.password_field :password, autocomplete: "off", placeholder: "Passwort" %>
-          </div>
-          <div class="wrp">
-            <%= f.button 'Einloggen', class: 'btn-primary -mint' %>
-          </div>
-        <% end %>
-      </div>
-      <div class="register">
-        <div class="paperCard -illuteaser -cord1RT">
-          <div class="wrp">
-            <h3>Noch nicht bei<br>imGrätzl registriert?</h3>
-            <%= link_to 'Hier kostenlos registrieren', new_registration_path(redirect: request.original_url, origin: 'mentoring'), class: 'btn-primary' %>
-          </div>
-          <div class="card"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render 'shared/login_panel', origin: 'mentoring' %>
   <!----------- LOGIN PANEL MODAL ----------->
 
 

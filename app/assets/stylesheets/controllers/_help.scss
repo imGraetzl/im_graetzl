@@ -305,8 +305,13 @@ section.help {
       .img-round {
         display: block;
         margin: auto;
+        margin-bottom:5px;
         width:80%;
         height: 80%;
+        @include respond-to("<=medium") {
+          width:60%;
+          height: 60%;
+        }
       }
     }
 
