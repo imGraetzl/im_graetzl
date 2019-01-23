@@ -33,6 +33,14 @@
     margin-top: -7px;
   }
 
+  &.-badge {
+    @include font-size-secondaryFont('base');
+    color: $color-ambient-mint;
+    text-shadow: 1px 1px $color-ambient-mint-dark;
+    display: inline-flex;
+    justify-content: center;
+  }
+
   &.-large {
     height: 105px;
     min-width: 105px;
@@ -41,6 +49,9 @@
       width: 65px;
       height: 65px;
       margin-left: 20px;
+    }
+    &.-badge {
+      @include font-size-secondaryFont('medium');
     }
   }
   &.-small {

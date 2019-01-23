@@ -1,16 +1,86 @@
 section.help {
 
+  .paperCard {
+    .wrp {
+      padding:30px 15px 5px 30px;
+      p {
+        padding-bottom:25px;
+      }
+    }
+    &.-header {
+      margin-top: -8px;
+      margin-bottom:50px;
+    }
+    &.-top {
+      margin-bottom:40px;
+      .wrp {
+        padding:35px 50px 15px 50px;
+        @include font-size-primaryFont('large');
+      }
+    }
+  }
+
+  .filter-stream {
+    margin-bottom: 50px;
+  }
+
+  // ----- HEADER ------ //
+  .imgHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height:250px;
+    text-align: center;
+    background-color:rgba(227, 242, 231, 0.3);
+    @include respond-to(">=medium") {
+      height:400px;
+    }
+    @include respond-to(">=large") {
+      height:500px;
+    }
+    h1 {
+      margin:auto;
+      @include headlineBarbapapa;
+      @include font-size-secondaryFont('largest');
+      text-shadow: 2px 2px $color-ambient-rosa-dark;
+    }
+    h2 {
+      margin:auto;
+      @include headlineBarbapapaMint;
+      @include font-size-secondaryFont('large');
+      text-shadow: 2px 2px $color-ambient-mint-dark;
+      margin-top:15px;
+    }
+  }
+  .imgHeader::after {
+    content: "";
+    background-image: url(image_path('info/header-balloon.jpg'));
+    //opacity: 0.7;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
   h2 {
-    //font-family: $font-tertiary;
     @include font-size-secondaryFont('medium');
     color: $color-ambient-rosa;
     margin-bottom: 10px;
-    font-size: 28px;
-    //@include respond-to(">=medium") {
-      //font-size: 34px;
-    //}
     span {
       color: $color-font-primary;
+    }
+    em {
+      @include headlineBarbapapaMint;
+      display: inline-block;
+      font-style: normal;
+      padding-right:10px;
+      margin-right:10px;
     }
   }
 
@@ -18,71 +88,176 @@ section.help {
     @include font-size-primaryFont('larger');
     padding: 0px 0px 15px;
   }
-  .hl-subtext p {
-    padding-bottom:0px;
-  }
-  p {
-    padding-bottom:25px;
-  }
 
-  ol, ul {
-    margin-left:20px;
-  }
-
-  aside {
-    float:left;
-    display:none;
-    @include respond-to(">=medium") {
-      display: block;
+  .headline {
+    display: flex;
+    align-items: center;
+    margin-bottom:10px;
+    h3 {
+      padding: 0px 0px 0px;
+    }
+    .bigicontext-element {
+      margin-right:10px;
+    }
+    &.-R {
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      .bigicontext-element {
+        margin-right:0px;
+      }
     }
   }
 
-  article {
-    margin-bottom: 20px;
-  }
+  // ----- HELP STARTPAGE ------ //
+  &.-startpage {
 
-  &.-about {
-    article {
-      display:table;
-      clear:both;
-      margin-bottom: 50px;
-      div.img {
-        float:none;
+    .imgHeader {
+      .wrp {
+        height:100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+      .coop-share-logo {
+        height:70%;
+        margin-top:10px;
         @include respond-to(">=medium") {
-          float: right;
-          width:40%;
-          padding-left: 50px;
-        }
-        img {
-          max-width:100%;
-          height:auto;
+          height:65%;
+          margin-top:35px;
         }
       }
     }
+
+
+    // -- GRID -- //
     div.txt {
+      width:100%;
       @include respond-to(">=medium") {
-        float: left;
-        width: 60%;
+        width: 65%;
+        &.-half {
+          width: 55%;
+        }
+      }
+    }
+    div.aside {
+      width:50%;
+      @include respond-to(">=medium") {
+        padding-left: 50px;
+        width:35%;
+        &.-half {
+          width: 45%;
+        }
+      }
+    }
+    // -- GRID -- //
+
+    article {
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap-reverse;
+      margin-bottom: 30px;
+      @include respond-to(">=medium") {
+        margin-bottom: 70px;
+      }
+      div.txt {
+        p {
+          padding-bottom:25px;
+        }
+      }
+      div.aside {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        justify-content: center;
+        margin-bottom:20px;
+        @include respond-to(">=medium") {
+          margin-bottom:0px;
+        }
+        &.-mentoring {
+          .img-round {
+            width:50%;
+            height:50%;
+            &.-big {
+              width:60%;
+              margin-top:-15%;
+              margin-right:0 !important;
+            }
+          }
+          .img-round + .img-round {
+            margin-right: -25%;
+          }
+        }
+        &.-img {
+          text-align: center;
+          img {
+            max-width:100%;
+            height:auto;
+          }
+        }
+
+        .cardBox {
+          &.-group {
+            .infos, .slogan {
+              display: none;
+            }
+            .btn-userIcons {
+              //display: flex;
+              display: none;
+            }
+          }
+        }
+
+      }
+      a.-illu img {
+        filter: brightness(1.1);
+        width:80%
       }
     }
   }
+  // ----- HELP STARTPAGE END ------ //
+
+
+  // ----- HELP Detailpage ------ //
   &.-detail {
+
+    aside {
+      float:left;
+      display:none;
+      @include respond-to(">=medium") {
+        display: block;
+      }
+    }
+
+    article {
+      margin-bottom: 20px;
+    }
+
     h3 {
       padding: 20px 0px 20px;
     }
+
+    .hl-subtext p {
+      padding-bottom:0px;
+    }
+    p {
+      padding-bottom:25px;
+    }
+    ol, ul {
+      margin-left:20px;
+    }
   }
+  // ----- HELP Detailpage END ------ //
 
 
-  #help_nav {margin-top: 10px;
+  #help_nav {
+    margin-top: 10px;
     a {
       margin-bottom:15px;
     }
   }
-  .paperCard {margin-bottom:40px;}
-  .paperCard .wrp {
-    padding:35px 50px 15px 50px;
-    @include font-size-primaryFont('large');
-  }
+
   .float_nav {
     position:fixed !important;
     top:0 !important;
@@ -94,7 +269,6 @@ section.help {
   }
 
   .partner {
-
     color: $color-ambient-grey;
     img {
       height:75px;
@@ -122,4 +296,68 @@ section.help {
       display:flex;
     }
   }
+
+  // ----- HELP MENTORING PAGE ------ //
+  &.-mentoring-page {
+
+    .imgHeader::after {
+      background-image: url(image_path('info/header-menschenstrom.png'));
+      //opacity: 0.7;
+    }
+
+    .badge {
+      float:right;
+      @include font-size-secondaryFont('small');
+    }
+
+    p.title {
+      @include font-size-primaryFont('large');
+    }
+
+    // Single Mentor Card
+    .single-mentor {
+      margin-bottom:50px;
+      h2, h3, p.title {
+        display: block;
+        text-align: center;
+      }
+      .img-round {
+        display: block;
+        margin: auto;
+        margin-bottom:5px;
+        width:80%;
+        height: 80%;
+        @include respond-to("<=medium") {
+          width:60%;
+          height: 60%;
+        }
+      }
+    }
+
+    .ablauf ul {
+      margin-left:20px;
+      margin-bottom:60px;
+      li {
+        margin-bottom:15px;
+      }
+    }
+
+    .anmeldung {
+      margin-bottom:70px;
+      textarea {
+        margin-bottom:15px;
+        min-height: 200px;
+      }
+      .btn-primary {
+        width: 100%;
+        display: block;
+        margin: auto;
+      }
+      &.-disabled {
+        //opacity: 0.5;
+      }
+    }
+
+  }
+
 }
