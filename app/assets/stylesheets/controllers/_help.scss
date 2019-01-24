@@ -344,9 +344,13 @@ section.help {
 
     .anmeldung {
       margin-bottom:70px;
+      h4 {
+        @include font-size-primaryFont('large');
+      }
       textarea {
-        margin-bottom:15px;
-        min-height: 200px;
+        margin-bottom:30px;
+        margin-top:10px;
+        min-height: 120px;
       }
       .btn-primary {
         width: 100%;

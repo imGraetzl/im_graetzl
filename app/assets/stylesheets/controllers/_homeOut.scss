@@ -123,6 +123,7 @@ section.homeOut {
     background-size: 90px 90px;
     display: inline-flex;
     align-items: center;
+    text-decoration: none;
     left: 50%;
     transform: translate(-50%, 0);
     margin-top: 200px;
@@ -143,45 +144,42 @@ section.homeOut {
       margin-bottom: 0;
     }
     .coop-share-logo {
-      width: 120px;
-      height: 120px;
-      background-size: 120px 120px;
+      width: 125px;
+      height: 125px;
+      background-size: 125px 125px;
       display: block;
       background-image: url(image_path('svg/coopshare-logo-white.svg'));
       background-repeat: no-repeat;
     }
     .txt {
-      //font-family: $font-tertiary;
-      //color: $color-ambient-rosa;
       @include headlineBarbapapaMint();
       font-size: 30px;
-      line-height: 1;
       margin-left: 10px;
       margin-top:-10px;
-      text-decoration: none;
+    }
+    &::before {
+      content: '';
+      width: 40px;
+      height: 40px;
+      background-size: 40px 40px;
+      background-image: url(image_path('svg/icon-arrow-right-blinky-rosa'));
+      background-repeat: no-repeat;
+      position: absolute;
+      bottom: -15px;
+      left: 115px;
+      transform: rotate(-45deg);
     }
     &:hover {
       .txt {
+        @include headlineBarbapapa();
       }
       &::before {
-        bottom: -15px;
-        left: 115px;
-        background-image: url(image_path('svg/icon-arrow-right-blinky-rosa.svg'));
+        bottom: -10px;
+        left: 120px;
       }
-    }
-
-    @include respond-to(">=medium") {
-      &::before {
-        content: '';
-        width: 40px;
-        height: 40px;
-        background-size: 40px 40px;
-        background-image: url(image_path('svg/icon-arrow-right-blinky-mint'));
-        background-repeat: no-repeat;
-        position: absolute;
-        bottom: -20px;
-        left: 110px;
-        transform: rotate(-45deg);
+      .coop-share-logo {
+        transform: rotate(-5deg);
+        opacity: 0.9;
       }
     }
   }
