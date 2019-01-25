@@ -62,7 +62,7 @@
         <%= icon_tag "user-avatar" %>
         <span>Vorname</span>
         <% end %>
-        <%= f.text_field :first_name %>
+        <%= f.text_field :first_name, placeholder: "Vorname" %>
       </div>
 
       <div class="input-field">
@@ -70,7 +70,7 @@
         <%= icon_tag "user-avatar" %>
         <span>Nachname</span>
         <% end %>
-        <%= f.text_field :last_name %>
+        <%= f.text_field :last_name, placeholder: "Nachname" %>
       </div>
 
       <div class="upload-oldschool">
@@ -91,21 +91,45 @@
           <%= f.attachment_field :avatar, direct: true, presigned: true %>
         </div>
       </div>
+    </div>
 
-      <div class="input-checkbox">
-        <%= f.check_box :role, {}, :business, nil %>
-        <%= f.label :role, 'Ich bin wirtschaftlich und/oder kreativ tätig' %>
+    <div class="wrp-radios user-type-selection">
+      <p class="txt">Ich möchte mich <span>registrieren als</span>...</p>
+      <div class="input-radio">
+        <%= f.radio_button :business, false %>
+        <%= f.label "business_false", "Privatperson" %>
+      </div>
+      <div class="input-radio">
+        <%= f.radio_button :business, true %>
+        <%= f.label "business_true", "Selbstständig, GründerIn, Kulturschaffende, Unternehmen, Verein, Institution" %>
+      </div>
+    </div>
+
+    <div class="user-business">
+      <p class="txt">In <span>welche Kategorie</span> würdest du dich einordnen?</p>
+
+      <div class="input-select">
+        <%= f.collection_select :location_category_id, LocationCategory.all, :id, :name, { prompt: 'Kategrie auswählen..' } %>
       </div>
 
+      <p class="txt -themen">An <span>welchen Themen</span> bist du interessiert?</p>
+      <div class="business-interests">
+        <%= f.collection_check_boxes :business_interest_ids, BusinessInterest.all, :id, :title do |b| %>
+        <div class="input-checkbox">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+        <% end %>
+      </div>
     </div>
 
     <div class="wrp-checkboxes">
       <div class="input-checkbox">
-        <%= f.check_box(:newsletter )%>
+        <%= f.check_box(:newsletter) %>
         <%= f.label :newsletter, 'Newsletter abonnieren' %>
       </div>
       <div class="input-checkbox">
-        <%= f.check_box(:terms_and_conditions )%>
+        <%= f.check_box(:terms_and_conditions) %>
         <%= f.label :terms_and_conditions, "Ich stimme den #{link_to 'AGBs', info_agb_path, target: '_blank'} zu".html_safe %>
       </div>
     </div>

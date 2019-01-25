@@ -1,14 +1,27 @@
 APP.controllers.static_pages = (function() {
 
     function init() {
-      if($("section.help").exists()) initHelp();
+      if($("#help_nav").exists()) initHelpScroller();
       if($("section.help").exists()) initMobileNav();
       if($("section.homeOut").exists()) initMobileNav();
+      if($(".-mentoring-page").exists()) initMentoring();
       if($("section.-raumteilerguide").exists()) initGuideLP();
       if($("#guide-download").exists()) initGuideDownload();
     }
 
 // ---------------------------------------------------------------------- Public
+
+function initMentoring() {
+  $(".-login").featherlight({});
+
+  // Change Wording of Notice Message for Mentoring Registrations
+  if ($("#flash .notice").exists()) {
+    if ( $("#flash .notice").text().indexOf('Vielen Dank für Deine Registrierung.') >= 0 ){
+      // Modifiy Message for Mentoring
+      $("#flash .notice").html('Vielen Dank für Deine Registrierung. Du bist nun angemeldet und kannst das <a href="#teilnahme">Teilnahme Formular</a> (unterhalb) ausfüllen.');
+    }
+  }
+}
 
 function initGuideDownload() {
 
@@ -17,7 +30,7 @@ function initGuideDownload() {
       'event_category': 'Raumteiler-Guide'
     });
   });
-  
+
 }
 
 function initGuideLP() {
@@ -111,7 +124,7 @@ function checkOffset() {
       $('#help_nav').addClass( "fix_nav" ).removeClass( "float_nav" );
 }
 
-function initHelp() {
+function initHelpScroller() {
 
   var elementPosition = $('#help_nav').offset();
 
@@ -145,16 +158,14 @@ function initHelp() {
         // We have either read the section or are currently reading the section so we'll call it our current section
         $currentSection = $(this);
         // If the next div has also been read or we are currently reading it we will overwrite this value again. This will leave us with the LAST div that passed.
+
+        // This is the bit of code that uses the currentSection as its source of ID
+
+        var id = $currentSection.attr('id');
+        $('a').addClass('-mint');
+        $('#nav-'+id).removeClass('-mint');
       }
-
-      // This is the bit of code that uses the currentSection as its source of ID
-      var id = $currentSection.attr('id');
-     $('a').addClass('-mint');
-     $('#nav-'+id).removeClass('-mint');
-     //alert(id);
-
     })
-
   });
 
 

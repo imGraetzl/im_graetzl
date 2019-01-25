@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190111160355) do
+ActiveRecord::Schema.define(version: 20190124172625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,12 +82,17 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.index ["location_id"], name: "index_billing_addresses_on_location_id", using: :btree
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "context",                default: 0
-    t.string   "icon"
+  create_table "business_interests", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "business_interests_users", id: false, force: :cascade do |t|
+    t.integer "business_interest_id"
+    t.integer "user_id"
+    t.index ["business_interest_id"], name: "index_business_interests_users_on_business_interest_id", using: :btree
+    t.index ["user_id"], name: "index_business_interests_users_on_user_id", using: :btree
   end
 
   create_table "categories_meetings", id: false, force: :cascade do |t|
@@ -95,16 +100,6 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.integer "meeting_id"
     t.index ["category_id"], name: "index_categories_meetings_on_category_id", using: :btree
     t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id", using: :btree
-  end
-
-  create_table "categorizations", force: :cascade do |t|
-    t.integer  "category_id"
-    t.integer  "categorizable_id"
-    t.string   "categorizable_type"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["categorizable_type", "categorizable_id"], name: "idx_categorizations_on_categorizable", using: :btree
-    t.index ["category_id"], name: "index_categorizations_on_category_id", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
@@ -257,6 +252,14 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.index ["group_id"], name: "index_group_graetzls_on_group_id", using: :btree
   end
 
+  create_table "group_join_questions", force: :cascade do |t|
+    t.integer  "group_id"
+    t.text     "question"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_join_questions_on_group_id", using: :btree
+  end
+
   create_table "group_join_requests", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
@@ -265,6 +268,8 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.datetime "updated_at",                       null: false
     t.text     "request_message"
     t.text     "response_message"
+    t.text     "join_answers",     default: [],                 array: true
+    t.integer  "status",           default: 0
     t.index ["group_id"], name: "index_group_join_requests_on_group_id", using: :btree
     t.index ["user_id"], name: "index_group_join_requests_on_user_id", using: :btree
   end
@@ -319,6 +324,14 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.datetime "updated_at",         null: false
   end
 
+  create_table "location_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "context",                default: 0
+    t.string   "icon"
+  end
+
   create_table "location_ownerships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "location_id"
@@ -343,7 +356,7 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.string   "cover_photo_content_type"
     t.integer  "state",                    default: 0
     t.integer  "meeting_permission",       default: 0, null: false
-    t.integer  "category_id"
+    t.integer  "location_category_id"
     t.datetime "last_activity_at"
     t.index ["created_at"], name: "index_locations_on_created_at", using: :btree
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id", using: :btree
@@ -677,10 +690,13 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.text     "bio"
     t.string   "website"
     t.string   "origin"
+    t.integer  "location_category_id"
+    t.boolean  "business",                                  default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["created_at"], name: "index_users_on_created_at", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id", using: :btree
+    t.index ["location_category_id"], name: "index_users_on_location_category_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   end
@@ -703,6 +719,8 @@ ActiveRecord::Schema.define(version: 20190111160355) do
     t.index ["slug"], name: "index_zuckerls_on_slug", using: :btree
   end
 
+  add_foreign_key "business_interests_users", "business_interests", on_delete: :cascade
+  add_foreign_key "business_interests_users", "users", on_delete: :cascade
   add_foreign_key "discussion_categories", "groups"
   add_foreign_key "discussion_followings", "discussions", on_delete: :cascade
   add_foreign_key "discussion_followings", "users", on_delete: :cascade
@@ -714,6 +732,7 @@ ActiveRecord::Schema.define(version: 20190111160355) do
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "group_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "group_graetzls", "groups", on_delete: :cascade
+  add_foreign_key "group_join_questions", "groups", on_delete: :cascade
   add_foreign_key "group_join_requests", "groups", on_delete: :cascade
   add_foreign_key "group_join_requests", "users", on_delete: :cascade
   add_foreign_key "group_users", "groups", on_delete: :cascade
@@ -752,4 +771,5 @@ ActiveRecord::Schema.define(version: 20190111160355) do
   add_foreign_key "room_offers", "graetzls", on_delete: :nullify
   add_foreign_key "room_offers", "locations", on_delete: :nullify
   add_foreign_key "room_offers", "users", on_delete: :cascade
+  add_foreign_key "users", "location_categories", on_delete: :nullify
 end

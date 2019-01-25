@@ -94,7 +94,7 @@ de:
         image: Bild
       location:
         avatar: Profilbild
-        category: Kategorie
+        location_category: Kategorie
         cover_photo: Headerbild
         description: Beschreibung
         product_list: Produktgruppen
@@ -183,6 +183,8 @@ de:
         login: Username oder Email
         last_sign_in_at: Zuletzt online am
         remember_me: Angemeldet bleiben
+        location_category: Kategorie
+        business_interests: Interessen
         role: Rolle
       zuckerl:
         active_admin_requested_event: Status ändern
