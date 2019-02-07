@@ -91,7 +91,6 @@ APP.controllers.groups = (function() {
 
     function showSpinner() {
       var spinner = $('footer .loading-spinner').clone().removeClass('-hidden');
-      //$(".discussions-container").fadeOut("");
       $(".discussions-container").append(spinner);
     }
 
