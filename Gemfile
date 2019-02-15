@@ -61,7 +61,7 @@ group :development, :test do
   # Helpers don't work if required, https://github.com/rspec/rspec-rails/issues/1525
   gem 'rails-controller-testing', require: false
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'dotenv-rails'
   gem 'guard-livereload'
   gem 'foreman', require: false
