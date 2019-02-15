@@ -84,8 +84,9 @@ ActiveRecord::Schema.define(version: 20190215102415) do
 
   create_table "business_interests", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "mailchimp_id"
   end
 
   create_table "business_interests_users", id: false, force: :cascade do |t|
@@ -93,6 +94,13 @@ ActiveRecord::Schema.define(version: 20190215102415) do
     t.integer "user_id"
     t.index ["business_interest_id"], name: "index_business_interests_users_on_business_interest_id", using: :btree
     t.index ["user_id"], name: "index_business_interests_users_on_user_id", using: :btree
+  end
+
+  create_table "categories_meetings", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "meeting_id"
+    t.index ["category_id"], name: "index_categories_meetings_on_category_id", using: :btree
+    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
