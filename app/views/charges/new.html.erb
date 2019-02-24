@@ -1,0 +1,39 @@
+<% title('Zahlung') %>
+
+<section class="charges-form">
+
+  <%= form_tag charges_path do %>
+  <%= hidden_field_tag(:stripeToken) %>
+  <%= hidden_field_tag(:stripeEmail) %>
+
+    <div class="input-field">
+      <%= label_tag(:amount) do %>
+        <%= icon_tag "currency-euro" %>
+        <!--<span>Dein Betrag</span>-->
+      <% end %>
+      <%= text_field_tag :amount, nil, placeholder: "Dein Betrag (z.b. 5,00 €)", class: 'amount' %>
+    </div>
+    <%= button_tag 'Weiter zur Zahlung', class: 'btn-primary -mint -donate' %>
+
+  <% end %>
+</section>
+
+<!-- STRIPE JS -->
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script>
+  var handler = StripeCheckout.configure({
+    key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+    locale: 'de',
+    name: 'imGrätzl.at',
+    description: 'Raumteiler Spende',
+    currency: 'eur',
+    allowRememberMe: false,
+    email: '<%= current_user.email if current_user %>',
+    token: function(response) {
+      // Get Stripe response infos and pass to hidden form fields
+      $('input#stripeToken').val(response.id);
+      $('input#stripeEmail').val(response.email);
+      $('form').submit();
+    }
+  });
+</script>

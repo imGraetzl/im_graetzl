@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190223103242) do
+ActiveRecord::Schema.define(version: 20190224103910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,13 @@ ActiveRecord::Schema.define(version: 20190223103242) do
     t.integer "user_id"
     t.index ["business_interest_id"], name: "index_business_interests_users_on_business_interest_id", using: :btree
     t.index ["user_id"], name: "index_business_interests_users_on_user_id", using: :btree
+  end
+
+  create_table "categories_meetings", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "meeting_id"
+    t.index ["category_id"], name: "index_categories_meetings_on_category_id", using: :btree
+    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id", using: :btree
   end
 
   create_table "comments", force: :cascade do |t|
@@ -687,6 +694,7 @@ ActiveRecord::Schema.define(version: 20190223103242) do
     t.string   "origin"
     t.integer  "location_category_id"
     t.boolean  "business",                                  default: false
+    t.string   "stripe_customer_id",            limit: 50
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["created_at"], name: "index_users_on_created_at", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
