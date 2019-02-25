@@ -4,13 +4,13 @@ class ChargesController < ApplicationController
   end
 
   def create
-    StripeChargesServices.new(charges_params, current_user).call
+    StripeChargesServices.new(charges_params, current_user).init_charge
   end
 
   private
 
   def charges_params
-    params.permit(:stripeToken, :stripeEmail, :amount)
+    params.permit(:stripeToken, :stripeEmail, :amount, :stripeDescription)
   end
 
   def catch_exception(exception)

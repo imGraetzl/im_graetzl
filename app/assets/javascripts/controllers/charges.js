@@ -1,15 +1,32 @@
 APP.controllers.charges = (function() {
 
   function init() {
-    initStripe();
+    if($('#stripeForm').exists()) initStripe();
   }
 
   function initStripe() {
 
-    $('.-donate').on('click', function(e) {
+    var handler = StripeCheckout.configure({
+      key: $('#stripeForm #publishable_key').val(),
+      locale: 'de',
+      currency: 'eur',
+      allowRememberMe: false,
+      name: 'imGrätzl.at',
+      description: $('#stripeForm #stripeDescription').val(),
+      email: $('#stripeForm #currentUserEmail').val(),
+      token: function(response) {
+        // Get Stripe response infos and pass to hidden form fields
+        $('#stripeForm #stripeToken').val(response.id);
+        $('#stripeForm #stripeEmail').val(response.email);
+        $('#stripeForm').submit();
+      }
+    });
+
+    // Submit Stripe Form
+    $('.stripe-submit').on('click', function(e) {
       e.preventDefault();
 
-      var amount = $('.amount').val();
+      var amount = $('#stripeForm .amount').val();
       amount = amount.replace(/\$/g, '').replace(/\,/g, '')
       amount = parseFloat(amount);
 
