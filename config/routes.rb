@@ -170,7 +170,11 @@ Rails.application.routes.draw do
     resources :meetings, only: [:index]
   end
 
-  resources :charges, only: [:new, :create]
+  resources :payment, only: [:create] do
+    collection do
+      get :invoice, :charge, :subscription, :mentoring
+    end
+  end
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen', action: 'meetings', as: 'meetings', on: :member

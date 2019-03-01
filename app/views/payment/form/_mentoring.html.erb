@@ -1,0 +1,12 @@
+<%= hidden_field_tag :stripeDescription, 'Mentoring Description' %>
+<%= hidden_field_tag :stripePlan, 'plan_EcNnk2dAP6YYDf' %>
+<%= hidden_field_tag :stripeBillingCycleAnchor, '2019-05-01' %>
+<%= hidden_field_tag :stripeTrialEnd, '2019-05-01' %>
+<!--<%= hidden_field_tag :stripeCancelAtPeriodEnd, true %>-->
+
+<h1>Mentoring Programm</h1>
+
+Mentoring 4 Monatsprogramm - Start 01.05.2019<br>
+300,00 € - Zahlung am 01.05
+
+<%= button_tag 'Weiter zur Zahlung', class: 'btn-primary -mint stripe-submit-subscription' %>

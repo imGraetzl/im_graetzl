@@ -1,4 +1,4 @@
-APP.controllers.charges = (function() {
+APP.components.stripeCheckout = (function() {
 
   function init() {
     if($('#stripeForm').exists()) initStripe();
@@ -22,11 +22,19 @@ APP.controllers.charges = (function() {
       }
     });
 
+    // Submit Subscription Stripe Form
+    $('.stripe-submit-subscription').on('click', function(e) {
+      e.preventDefault();
+      handler.open({
+        panelLabel: "Bestellung abschließen",
+      });
+    });
+
     // Submit Stripe Form
     $('.stripe-submit').on('click', function(e) {
       e.preventDefault();
 
-      var amount = $('#stripeForm .amount').val();
+      var amount = $('#stripeForm #amount').val();
       amount = amount.replace(/\$/g, '').replace(/\,/g, '')
       amount = parseFloat(amount);
 

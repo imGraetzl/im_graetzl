@@ -1,0 +1,10 @@
+<%= hidden_field_tag :stripeDescription, 'Invoice Description' %>
+
+<div class="input-field">
+  <%= label_tag(:amount) do %>
+    <%= icon_tag "currency-euro" %>
+    <!--<span>Dein Betrag</span>-->
+  <% end %>
+  <%= text_field_tag :amount, nil, placeholder: "Dein Betrag (z.b. 5,00 €)", id: 'amount' %>
+</div>
+<%= button_tag 'Weiter zur Zahlung', class: 'btn-primary -mint stripe-submit' %>
