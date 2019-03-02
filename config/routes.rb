@@ -170,9 +170,12 @@ Rails.application.routes.draw do
     resources :meetings, only: [:index]
   end
 
-  resources :payment, only: [:create] do
+  resources :payment do
     collection do
-      get :invoice, :charge, :subscription, :mentoring
+      get :raumteiler, :charge, :subscription, :mentoring
+    end
+    collection do
+      post :raumteiler_create, :charge_create, :subscription_create, :mentoring_create
     end
   end
 

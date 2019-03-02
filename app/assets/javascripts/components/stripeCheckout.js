@@ -35,7 +35,8 @@ APP.components.stripeCheckout = (function() {
       e.preventDefault();
 
       var amount = $('#stripeForm #amount').val();
-      amount = amount.replace(/\$/g, '').replace(/\,/g, '')
+      amount = amount.replace(/,/g, '.');
+      amount = amount.replace(/\$/g, '').replace(/\,/g, '');
       amount = parseFloat(amount);
 
       if (isNaN(amount)) {

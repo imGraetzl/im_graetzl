@@ -1,34 +1,42 @@
 class PaymentController < ApplicationController
   rescue_from Stripe::CardError, with: :catch_exception
 
-  def invoice
-    @orderType = 'invoice'
-    render :template => '/payment/form/new'
+  def raumteiler
+    render :template => '/payment/form/raumteiler'
   end
 
   def charge
-    @orderType = 'charge'
-    render :template => '/payment/form/new'
+    render :template => '/payment/form/charge'
   end
 
   def subscription
-    @orderType = 'subscription'
-    render :template => '/payment/form/new'
+    render :template => '/payment/form/subscription'
   end
 
   def mentoring
-    @orderType = 'mentoring'
-    render :template => '/payment/form/new'
+    render :template => '/payment/form/mentoring'
   end
 
-  def create
-    if params[:orderType] == 'invoice'
-      StripeChargesServices.new(payment_params, current_user).init_invoice
-    elsif params[:orderType] == 'charge'
-      StripeChargesServices.new(payment_params, current_user).init_charge
-    elsif params[:orderType] == 'subscription' || params[:orderType] == 'mentoring'
-      StripeChargesServices.new(payment_params, current_user).init_subscription
-    end
+  def raumteiler_create
+    StripeChargesServices.new(payment_params, current_user).init_invoice
+    #flash[:success] = payment_params[:amount]
+    render :template => '/payment/confirmation'
+    puts payment_params[:message]
+  end
+
+  def charge_create
+    StripeChargesServices.new(payment_params, current_user).init_charge
+    render :template => '/payment/confirmation'
+  end
+
+  def subscription_create
+    StripeChargesServices.new(payment_params, current_user).init_subscription
+    render :template => '/payment/confirmation'
+  end
+
+  def mentoring_create
+    StripeChargesServices.new(payment_params, current_user).init_invoice
+    render :template => '/payment/confirmation'
   end
 
   private
@@ -42,7 +50,8 @@ class PaymentController < ApplicationController
       :stripePlan,
       :stripeBillingCycleAnchor,
       :stripeTrialEnd,
-      :stripeCancelAtPeriodEnd
+      :stripeCancelAtPeriodEnd,
+      :message
     )
   end
 

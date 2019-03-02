@@ -1,0 +1,29 @@
+section.payment-form {
+
+  max-width: 600px;
+  margin: 0 auto;
+
+  .input-field {
+    margin-bottom:20px;
+  }
+
+  textarea {
+    min-height: 150px;
+  }
+
+  &.-raumteiler {
+    button {
+      width:100%;
+    }
+  }
+  &.-mentoring {
+
+  }
+  &.-subscription {
+
+  }
+  &.-charge {
+
+  }
+
+}

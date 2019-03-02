@@ -1,0 +1,45 @@
+<% title('Zahlung') %>
+
+<%= form_tag subscription_create_payment_index_path, id: 'stripeForm' do %>
+  <%= hidden_field_tag :publishable_key, Rails.configuration.stripe[:publishable_key] %>
+  <%= hidden_field_tag :stripeToken %>
+  <%= hidden_field_tag :stripeEmail %>
+  <%= hidden_field_tag :currentUserEmail, current_user ? current_user.email : '' %>
+
+  <%= hidden_field_tag :stripeDescription, 'Subscription Description' %>
+  <%= hidden_field_tag :stripePlan, 'plan_EcPqKaYViIkWOr' %>
+
+  <!--<%= hidden_field_tag :stripeBillingCycleAnchor, '2019-05-01' %>-->
+  <!--<%= hidden_field_tag :stripeTrialEnd, '2019-05-01' %>-->
+  <!--<%= hidden_field_tag :stripeCancelAtPeriodEnd, true %>-->
+
+  <section class="payment-form">
+
+    <div class="hl-subtext">
+      <h1>Du möchtest <span>imGrätzl unterstützen</span></h1>
+      <p>Wähle deinen monatlichen Wunschbetrag</p>
+    </div>
+
+    <div class="input-select">
+      <%= select_tag :stripePlan, options_for_select([
+        ["3 €", "plan_EcNxWzjJPeRoOc"],
+        ["6 €", "plan_EcPpmWFv0JZeC8"],
+        ["9 €", "plan_EcPpeCJQKptdNm"],
+        ["12 €", "plan_EcPppVIlzzCIRW"],
+        ["15 €", "plan_EcPqKaYViIkWOr"],
+      ]), { prompt: 'Monatlichen Betrag auswählen ..' } %>
+    </div>
+
+    <%= button_tag 'Weiter zur Zahlung', class: 'btn-primary -mint stripe-submit-subscription' %>
+
+    <p>
+      Du kannst deine Unterstützung jederzeit beenden.
+    </p>
+
+  </section>
+
+
+<% end %>
+
+<!-- STRIPE JS -->
+<script src="https://checkout.stripe.com/checkout.js"></script>
