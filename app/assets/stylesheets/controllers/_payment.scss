@@ -3,7 +3,7 @@ section.payment-form {
   max-width: 600px;
   margin: 0 auto;
 
-  .input-field {
+  .input-field, .input-select, .input-button {
     margin-bottom:20px;
   }
 
@@ -11,10 +11,15 @@ section.payment-form {
     min-height: 150px;
   }
 
+  label {
+  }
+
+  button {
+    width:100%;
+  }
+
   &.-raumteiler {
-    button {
-      width:100%;
-    }
+
   }
   &.-mentoring {
 

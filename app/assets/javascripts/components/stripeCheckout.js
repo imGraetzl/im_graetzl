@@ -2,6 +2,15 @@ APP.components.stripeCheckout = (function() {
 
   function init() {
     if($('#stripeForm').exists()) initStripe();
+    if($('#stripePlan').exists()) initPlan();
+  }
+
+  function initPlan() {
+    console.log('hias');
+    $('select#stripePlan').on('change', function() {
+      var stripePlan = $(this).find(":selected").text()
+      //console.log(stripePlan);
+    });
   }
 
   function initStripe() {
@@ -23,15 +32,13 @@ APP.components.stripeCheckout = (function() {
       }
     });
 
-    /*
     // Submit Subscription Stripe Form
     $('.stripe-submit-subscription').on('click', function(e) {
       e.preventDefault();
       handler.open({
-        panelLabel: "Bestellung abschließen",
+        //panelLabel: "",
       });
     });
-    */
 
     // Submit Stripe Form
     $('.stripe-submit').on('click', function(e) {

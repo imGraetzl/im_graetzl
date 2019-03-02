@@ -20,17 +20,31 @@
       <p>Wähle deinen monatlichen Wunschbetrag</p>
     </div>
 
+    <div class="input-field">
+      <%= label_tag(:amount) do %>
+        <%= icon_tag "open-book" %>
+        <span>Deine Nachricht</span>
+      <% end %>
+      <%= text_area_tag :message, nil, placeholder: "Schreib uns ein kurzes Feedback .." %>
+    </div>
+
     <div class="input-select">
+      <%= label_tag(:amount) do %>
+        <%= icon_tag "currency-euro" %>
+        <span>Monatlicher Betrag</span>
+      <% end %>
       <%= select_tag :stripePlan, options_for_select([
         ["3 €", "plan_EcNxWzjJPeRoOc"],
         ["6 €", "plan_EcPpmWFv0JZeC8"],
         ["9 €", "plan_EcPpeCJQKptdNm"],
         ["12 €", "plan_EcPppVIlzzCIRW"],
         ["15 €", "plan_EcPqKaYViIkWOr"],
-      ]), { prompt: 'Monatlichen Betrag auswählen ..' } %>
+      ]), { prompt: 'Auswählen ..' } %>
     </div>
 
-    <%= button_tag 'Weiter zur Zahlung', class: 'btn-primary -mint stripe-submit' %>
+    <div class="input-button">
+      <%= button_tag 'Weiter zur Zahlung', class: 'btn-primary -mint stripe-submit-subscription' %>
+    </div>
 
     <p>
       Du kannst deine Unterstützung jederzeit beenden.

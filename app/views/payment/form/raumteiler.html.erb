@@ -17,7 +17,7 @@
 
     <div class="input-field">
       <%= label_tag(:amount) do %>
-        <%= icon_tag "currency-euro" %>
+        <%= icon_tag "open-book" %>
         <span>Deine Nachricht</span>
       <% end %>
       <%= text_area_tag :message, nil, placeholder: "Schreib uns ein kurzes Feedback .." %>
@@ -26,7 +26,7 @@
     <div class="input-field">
       <%= label_tag(:amount) do %>
         <%= icon_tag "currency-euro" %>
-        <span>Wähle deinen Betrag selbst fest</span>
+        <span>Wähle deinen Betrag</span>
       <% end %>
       <%= text_field_tag :amount, nil, placeholder: "z.b. 25,00 €", id: 'amount' %>
     </div>
