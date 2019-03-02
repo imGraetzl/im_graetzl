@@ -14,6 +14,7 @@ APP.components.stripeCheckout = (function() {
       name: 'imGrätzl.at',
       description: $('#stripeForm #stripeDescription').val(),
       email: $('#stripeForm #currentUserEmail').val(),
+      //billingAddress: true,
       token: function(response) {
         // Get Stripe response infos and pass to hidden form fields
         $('#stripeForm #stripeToken').val(response.id);
@@ -22,6 +23,7 @@ APP.components.stripeCheckout = (function() {
       }
     });
 
+    /*
     // Submit Subscription Stripe Form
     $('.stripe-submit-subscription').on('click', function(e) {
       e.preventDefault();
@@ -29,6 +31,7 @@ APP.components.stripeCheckout = (function() {
         panelLabel: "Bestellung abschließen",
       });
     });
+    */
 
     // Submit Stripe Form
     $('.stripe-submit').on('click', function(e) {
