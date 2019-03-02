@@ -4,23 +4,13 @@
 
   <%= hidden_field_tag :publishable_key, Rails.configuration.stripe[:publishable_key] %>
   <%= hidden_field_tag :stripeToken %>
-  <%= hidden_field_tag :stripeEmail %>
-  <%= hidden_field_tag :currentUserEmail, current_user ? current_user.email : '' %>
-  <%= hidden_field_tag :stripeDescription, 'Raumteiler' %>
+  <%= hidden_field_tag :stripeDescription, 'Raumteiler Unterstützung' %>
 
   <section class="payment-form -raumteiler">
 
     <div class="hl-subtext">
-      <h1>Dein <span>Beitrag zum Raumteiler</span></h1>
-      <p>Konnten wir dir helfen?<br>Was war dir der Raumteiler wert?</p>
-    </div>
-
-    <div class="input-field">
-      <%= label_tag(:amount) do %>
-        <%= icon_tag "open-book" %>
-        <span>Deine Nachricht</span>
-      <% end %>
-      <%= text_area_tag :message, nil, placeholder: "Schreib uns ein kurzes Feedback .." %>
+      <h1>Deine <span>Raumteiler Unterstützung</span></h1>
+      <p>Du wählst selbst deinen Betrag,<br>sollte dir der Raumteiler geholfen haben.</p>
     </div>
 
     <div class="input-field">
@@ -28,7 +18,23 @@
         <%= icon_tag "currency-euro" %>
         <span>Wähle deinen Betrag</span>
       <% end %>
-      <%= text_field_tag :amount, nil, placeholder: "z.b. 25,00 €", id: 'amount' %>
+      <%= text_field_tag :amount, nil, placeholder: "z.b. 25,00 €", id: 'amount', required: true %>
+    </div>
+
+    <div class="input-field">
+      <%= label_tag(:amount) do %>
+        <%= icon_tag "open-book" %>
+        <span>Deine Nachricht</span>
+      <% end %>
+      <%= text_area_tag :message, nil, placeholder: "Wir freuen uns über ein kurzes Feedback von dir.." %>
+    </div>
+
+    <div class="input-field">
+      <%= label_tag(:stripeEmail) do %>
+        <%= icon_tag "at-symbol" %>
+        <span>E-Mail Adresse</span>
+      <% end %>
+      <%= email_field_tag :stripeEmail, (current_user ? current_user.email : nil), placeholder: 'E-Mail Adresse' %>
     </div>
 
     <div class="input-button">

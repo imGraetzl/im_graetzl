@@ -6,10 +6,11 @@ APP.components.stripeCheckout = (function() {
   }
 
   function initPlan() {
-    console.log('hias');
     $('select#stripePlan').on('change', function() {
-      var stripePlan = $(this).find(":selected").text()
-      //console.log(stripePlan);
+      var stripePlan = $(this).find(":selected").text();
+      var stripeDescription = $('#stripeForm #stripeDescription').val();
+      stripeDescription += ': ' + stripePlan + ' / Monat';
+      $('#stripeForm #stripeDescription').val(stripeDescription);
     });
   }
 
@@ -22,7 +23,7 @@ APP.components.stripeCheckout = (function() {
       allowRememberMe: false,
       name: 'imGrätzl.at',
       description: $('#stripeForm #stripeDescription').val(),
-      email: $('#stripeForm #currentUserEmail').val(),
+      email: $('#stripeForm #stripeEmail').val(),
       //billingAddress: true,
       token: function(response) {
         // Get Stripe response infos and pass to hidden form fields
@@ -30,14 +31,6 @@ APP.components.stripeCheckout = (function() {
         $('#stripeForm #stripeEmail').val(response.email);
         $('#stripeForm').submit();
       }
-    });
-
-    // Submit Subscription Stripe Form
-    $('.stripe-submit-subscription').on('click', function(e) {
-      e.preventDefault();
-      handler.open({
-        //panelLabel: "",
-      });
     });
 
     // Submit Stripe Form
@@ -51,16 +44,33 @@ APP.components.stripeCheckout = (function() {
 
       if (isNaN(amount)) {
         $('#flash').html('<p>Bitte gib einen gültigen Betrag (€) ein.</p>').show();
-      }
-      else if (amount < 3.00) {
+        document.location.href = '#';
+      } else if (amount < 3.00) {
         $('#flash').html('<p>Der Betrag muss mindestens 3 € betragen.</p>').show();
-      }
-      else {
+        document.location.href = '#';
+      } else {
         $('#flash').hide();
         amount = amount * 100; // Needs to be an integer!
         handler.open({
-          amount: Math.round(amount)
+          amount: Math.round(amount),
+          email: $('#stripeForm #stripeEmail').val(),
         })
+      }
+    });
+
+    // Submit Subscription Stripe Form
+    $('.stripe-submit-subscription').on('click', function(e) {
+      e.preventDefault();
+
+      if ($('select#stripePlan :selected').val() == '') {
+        $('#flash').html('<p>Bitte wähle einen monatlichen Betrag aus.</p>').show();
+        document.location.href = '#';
+      } else {
+        handler.open({
+          panelLabel: "Jetzt untertsützen",
+          email: $('#stripeForm #stripeEmail').val(),
+          description: $('#stripeForm #stripeDescription').val(),
+        });
       }
     });
 

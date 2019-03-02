@@ -1,4 +1,5 @@
 class PaymentController < ApplicationController
+  before_filter :authenticate_user!, except: [ :raumteiler ]
   rescue_from Stripe::CardError, with: :catch_exception
 
   def raumteiler
