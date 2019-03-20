@@ -29,13 +29,17 @@
       <%= text_area_tag :message, nil, placeholder: "Wir freuen uns über ein kurzes Feedback von dir.." %>
     </div>
 
-    <div class="input-field">
-      <%= label_tag(:stripeEmail) do %>
-        <%= icon_tag "at-symbol" %>
-        <span>E-Mail Adresse</span>
-      <% end %>
-      <%= email_field_tag :stripeEmail, (current_user ? current_user.email : nil), placeholder: 'E-Mail Adresse' %>
-    </div>
+    <% if current_user %>
+      <%= hidden_field_tag :stripeEmail, current_user.email %>
+    <% else %>
+      <div class="input-field">
+        <%= label_tag(:stripeEmail) do %>
+          <%= icon_tag "at-symbol" %>
+          <span>E-Mail Adresse</span>
+        <% end %>
+        <%= email_field_tag :stripeEmail, nil, placeholder: 'E-Mail Adresse' %>
+      </div>
+    <% end %>
 
     <div class="input-button">
       <%= button_tag 'Weiter zur Zahlung', class: 'btn-primary -mint stripe-submit' %>

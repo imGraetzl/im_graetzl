@@ -1,5 +1,5 @@
 class PaymentController < ApplicationController
-  before_filter :authenticate_user!, except: [ :raumteiler ]
+  before_action :authenticate_user!, except: [ :raumteiler, :raumteiler_create ]
   rescue_from Stripe::CardError, with: :catch_exception
 
   def raumteiler
@@ -22,7 +22,6 @@ class PaymentController < ApplicationController
     StripeChargesServices.new(payment_params, current_user).init_invoice
     #flash[:success] = payment_params[:amount]
     render :template => '/payment/confirmation'
-    puts payment_params[:message]
   end
 
   def charge_create

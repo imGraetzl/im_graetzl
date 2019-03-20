@@ -2,14 +2,16 @@ class StripeChargesServices
   DEFAULT_CURRENCY = 'eur'.freeze
   DEFAULT_TAX = 20
   DEFAULT_TAX_COMMA = 1.2
+  STRIPE_DASHBOARD = 'https://dashboard.stripe.com'
 
   def initialize(params, user)
-    @user = user # current_user if logged in
+    @user = user ? user : User.find_by_email(params[:stripeEmail])    # current_user if logged in
     @stripe_token = params[:stripeToken]
     @stripe_email = params[:stripeEmail]
     @amount = params[:amount].to_i * 100
-    @amount_netto = Float(@amount / DEFAULT_TAX_COMMA).to_i
+    @amount_netto = (@amount / DEFAULT_TAX_COMMA).round
     @description = params[:stripeDescription]
+    @message = params[:message]
     @plan = params[:stripePlan]
     @billing_cycle_anchor = DateTime.parse(params[:stripeBillingCycleAnchor]).to_i if params[:stripeBillingCycleAnchor].present?
     @trial_end = DateTime.parse(params[:stripeTrialEnd]).to_i if params[:stripeTrialEnd].present?
@@ -37,6 +39,7 @@ class StripeChargesServices
                 :amount,
                 :amount_netto,
                 :description,
+                :message,
                 :plan,
                 :billing_cycle_anchor,
                 :trial_end,
@@ -66,7 +69,7 @@ class StripeChargesServices
           user_role: user.business? ? 'business' : ''
         }
       )
-      user.update(stripe_customer_id: customer.id) #save stripe_customer_id at user
+      user.update(stripe_customer_id: @customer.id) #save stripe_customer_id at user
     else
       @customer = Stripe::Customer.create(
         email: stripe_email,
@@ -103,6 +106,7 @@ class StripeChargesServices
       auto_advance: true
     )
     puts invoice # Todo: save charge infos in DB
+    send_payment_confirmation("#{STRIPE_DASHBOARD}/invoices/#{invoice.id}")
   end
 
   def create_subscription(customer)
@@ -119,6 +123,10 @@ class StripeChargesServices
       ],
     )
     puts subscription # Todo: save charge infos in DB
+  end
+
+  def send_payment_confirmation(url)
+    AdminMailer.new_payment(amount, stripe_email, description, url, message).deliver_later
   end
 
 end
