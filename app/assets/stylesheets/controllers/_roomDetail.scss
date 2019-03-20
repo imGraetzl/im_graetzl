@@ -11,6 +11,9 @@ section.roomDetail {
           .coverImgWrapper {
             height:100%;
           }
+          .sideflag {
+            display: none;
+          }
         }
         .cardBoxContent {
           margin-left:25px;
@@ -231,7 +234,7 @@ section.roomDetail {
     .sideBarbox {
       margin-bottom: 20px;
       .category-tags {
-        margin: 20px 0px 20px;
+        margin: 0px 0px 20px;
       }
     }
 
@@ -379,6 +382,9 @@ section.roomDetail {
         display: none;
       }
     }
+    .created {
+      //@include font-size-primaryFont('small');
+    }
 
   }
 
@@ -468,6 +474,9 @@ section.roomDetail {
       }
       div.costname {
       }
+    }
+    li:last-child {
+      margin-bottom: 0px;
     }
   }
 

@@ -16,7 +16,7 @@ class DiscussionsController < ApplicationController
 
   def show
     @discussion = @group.discussions.find(params[:id])
-    @posts = @discussion.discussion_posts.includes(:user, :group).order(created_at: :asc)
+    @posts = @discussion.discussion_posts.includes(:user, :group, :comments).order(created_at: :asc)
     render 'groups/discussions/show'
   end
 
@@ -27,7 +27,7 @@ class DiscussionsController < ApplicationController
     if @discussion.save
       @discussion.discussion_followings.create(user: current_user)
       @discussion.create_activity(:create, owner: current_user)
-      redirect_to [@group, @discussion]
+      redirect_to [@group, @discussion, anchor: "topic"]
     else
       redirect_to [@group, @discussion]
     end
@@ -72,10 +72,10 @@ class DiscussionsController < ApplicationController
   def check_group
     @group = Group.find(params[:group_id])
     if @group.nil?
-      flash[:error] = "Group not found"
+      flash[:error] = "Gruppe nicht gefunden."
       redirect_to root_url
     elsif !@group.readable_by?(current_user)
-      flash[:error] = "No access"
+      flash[:error] = "Nur für eingeloggte Gruppenmitglieder - Falls du Gruppenmitglied bist, logge dich bitte vorher ein."
       redirect_to @group
     end
   end
