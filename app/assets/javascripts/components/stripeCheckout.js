@@ -24,7 +24,7 @@ APP.components.stripeCheckout = (function() {
       name: 'imGrätzl.at',
       description: $('#stripeForm #stripeDescription').val(),
       email: $('#stripeForm #stripeEmail').val(),
-      //billingAddress: true,
+      //billingAddress: $('#stripeForm #stripeBillingAddress').val(),
       token: function(response) {
         // Get Stripe response infos and pass to hidden form fields
         $('#stripeForm #stripeToken').val(response.id);
@@ -37,6 +37,7 @@ APP.components.stripeCheckout = (function() {
     $('.stripe-submit').on('click', function(e) {
       e.preventDefault();
 
+      var email = $('#stripeForm #stripeEmail').val();
       var amount = $('#stripeForm #amount').val();
       amount = amount.replace(/,/g, '.');
       amount = amount.replace(/\$/g, '').replace(/\,/g, '');
@@ -47,6 +48,9 @@ APP.components.stripeCheckout = (function() {
         document.location.href = '#';
       } else if (amount < 3.00) {
         $('#flash').html('<p>Der Betrag muss mindestens 3 € betragen.</p>').show();
+        document.location.href = '#';
+      } else if (email == '') {
+        $('#flash').html('<p>Bitte gib deine E-Mail Adresse an.</p>').show();
         document.location.href = '#';
       } else {
         $('#flash').hide();

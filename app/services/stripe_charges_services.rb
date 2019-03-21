@@ -3,6 +3,7 @@ class StripeChargesServices
   DEFAULT_TAX = 20
   DEFAULT_TAX_COMMA = 1.2
   STRIPE_DASHBOARD = 'https://dashboard.stripe.com'
+  DEFAULT_FOOTER = 'Lieben Dank für deine Unterstützung - Dein Team von imGrätzl.at'
 
   def initialize(params, user)
     @user = user ? user : User.find_by_email(params[:stripeEmail])    # current_user if logged in
@@ -16,6 +17,14 @@ class StripeChargesServices
     @billing_cycle_anchor = DateTime.parse(params[:stripeBillingCycleAnchor]).to_i if params[:stripeBillingCycleAnchor].present?
     @trial_end = DateTime.parse(params[:stripeTrialEnd]).to_i if params[:stripeTrialEnd].present?
     @cancel_at_period_end = params[:stripeCancelAtPeriodEnd] if params[:stripeCancelAtPeriodEnd].present?
+    @billing_address = params[:stripebillingAddress] if params[:stripebillingAddress].present?
+
+    @company = !params[:stripeCompany].nil? ? params[:stripeCompany] : nil
+    @name = !params[:stripeName].nil? ? params[:stripeName] : nil
+    @address = !params[:stripeAddress].nil? ? params[:stripeAddress] : nil
+    @plz = !params[:stripePostalCode].nil? ? params[:stripePostalCode] : nil
+    @city = !params[:stripeCity].nil? ? params[:stripeCity] : nil
+
   end
 
   def init_charge
@@ -43,7 +52,13 @@ class StripeChargesServices
                 :plan,
                 :billing_cycle_anchor,
                 :trial_end,
-                :cancel_at_period_end
+                :cancel_at_period_end,
+                :billing_address,
+                :company,
+                :name,
+                :address,
+                :plz,
+                :city
 
   def find_customer
   if user && user.stripe_customer_id
@@ -60,20 +75,25 @@ class StripeChargesServices
 
   def create_customer
     if user
+      # Create Stripe Customer with User Infos
       @customer = Stripe::Customer.create(
         email: stripe_email,
         source: stripe_token,
-        description: user.full_name,
         metadata: {
           user_id: user.id,
           user_role: user.business? ? 'business' : ''
-        }
+        },
+        description: name,
+        shipping: insert_shipping
       )
-      user.update(stripe_customer_id: @customer.id) #save stripe_customer_id at user
+      user.update(stripe_customer_id: @customer.id) #Save stripe_customer_id in DB
     else
+      # Create Anonym Stripe Customer
       @customer = Stripe::Customer.create(
         email: stripe_email,
-        source: stripe_token
+        source: stripe_token,
+        description: name,
+        shipping: insert_shipping
       )
     end
     @customer
@@ -86,7 +106,7 @@ class StripeChargesServices
       amount: amount,
       description: description
     )
-    puts charge # Todo: save charge infos in DB
+    #puts charge # Todo: save charge infos in DB
   end
 
   def create_invoice_item(customer)
@@ -103,9 +123,10 @@ class StripeChargesServices
     invoice = Stripe::Invoice.create(
       customer: customer.id,
       tax_percent: DEFAULT_TAX,
-      auto_advance: true
+      auto_advance: true,
+      footer: DEFAULT_FOOTER
     )
-    puts invoice # Todo: save charge infos in DB
+    #puts invoice # Todo: save charge infos in DB
     send_payment_confirmation("#{STRIPE_DASHBOARD}/invoices/#{invoice.id}")
   end
 
@@ -122,7 +143,21 @@ class StripeChargesServices
         },
       ],
     )
-    puts subscription # Todo: save charge infos in DB
+    #puts subscription # Todo: save charge infos in DB
+  end
+
+  # Create Address Hash for Stripe Customer
+  def insert_shipping
+    hash = {
+      name: name,
+      address: {
+        line1: company,
+        line2: address,
+        postal_code: plz,
+        city: city
+      }
+    }
+    return hash
   end
 
   def send_payment_confirmation(url)

@@ -20,7 +20,9 @@ class PaymentController < ApplicationController
 
   def raumteiler_create
     StripeChargesServices.new(payment_params, current_user).init_invoice
-    #flash[:success] = payment_params[:amount]
+    @amount = payment_params[:amount].to_i
+    @email = payment_params[:stripeEmail]
+    @description = payment_params[:stripeDescription]
     render :template => '/payment/confirmation'
   end
 
@@ -51,7 +53,13 @@ class PaymentController < ApplicationController
       :stripeBillingCycleAnchor,
       :stripeTrialEnd,
       :stripeCancelAtPeriodEnd,
-      :message
+      :stripebillingAddress,
+      :message,
+      :stripeCompany,
+      :stripeName,
+      :stripeAddress,
+      :stripePostalCode,
+      :stripeCity
     )
   end
 
