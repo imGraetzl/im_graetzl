@@ -7,14 +7,15 @@
     <p><%= number_with_precision(@amount, :precision => 2, :delimiter => ',') %> € - <%= @description %></p>
   </div>
 
-  <p class="txt">
-    Deine Zahlung war erfolgreich und der Betrag wird dir in den nächsten Tagen abgebucht.<br>
-    Wir schicken dir auch noch eine Zahlungsbestätigung an <strong><%= @email %></strong>.
-  </p>
-
-  <p class="txt">
-    Dein Team von imGrätzl.at<br>
-    Bei Fragen schreib uns an <%= mail_to 'wir@imgraetzl.at' %>.
-  </p>
+  <div class="cardBox">
+    <p class="txt">
+      Deine Zahlung war erfolgreich und dein gewählter Betrag wird dir in den nächsten Tagen abgebucht.
+      Wir schicken dir auch noch eine Zahlungsbestätigung an <strong><%= @email %></strong>.
+    </p>
+    <p>
+      Dein Team von imGrätzl.at<br>
+      Bei Fragen schreib uns an <%= mail_to 'wir@imgraetzl.at' %>.
+    </p>
+  </div>
 
 </section>

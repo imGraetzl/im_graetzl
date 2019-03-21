@@ -22,7 +22,7 @@ class PaymentController < ApplicationController
     StripeChargesServices.new(payment_params, current_user).init_invoice
     @amount = payment_params[:amount].to_i
     @email = payment_params[:stripeEmail]
-    @description = payment_params[:stripeDescription]
+    @description = "Deine #{payment_params[:stripeDescription]}"
     render :template => '/payment/confirmation'
   end
 
