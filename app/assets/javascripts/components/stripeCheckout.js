@@ -43,6 +43,7 @@ APP.components.stripeCheckout = (function() {
       amount = amount.replace(/,/g, '.');
       amount = amount.replace(/\$/g, '').replace(/\,/g, '');
       amount = parseFloat(amount);
+      amount = Math.floor(amount); // Abrunden auf ganze Zahl
 
       if (isNaN(amount)) {
         $('#flash').html('<p>Bitte gib einen gültigen Betrag (€) ein.</p>').show();
