@@ -20,6 +20,18 @@ section.payment-form, section.payment-confirmation {
     padding:25px;
   }
 
+  .txt {
+    &.-footer {
+      margin-top:30px;
+      padding-top: 20px;
+      border-top: 1px solid $color-ambient-mint-light;
+      color: $color-ambient-grey;
+      p {
+        padding-bottom:15px;
+      }
+    }
+  }
+
 }
 
 section.payment-form {
@@ -56,14 +68,6 @@ section.payment-form {
     display: none;
   }
 
-  // ----------- Form Specific -----------
-
-  &.-subscription {
-    .input-button {
-      padding-bottom: 30px;
-      border-bottom: 1px solid #DBEFEC;
-    }
-  }
 
 }
 
