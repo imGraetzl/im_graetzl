@@ -1,6 +1,9 @@
 class PaymentController < ApplicationController
   before_action :authenticate_user!, except: [ :raumteiler, :raumteiler_create ]
-  rescue_from Stripe::CardError, with: :catch_exception
+
+  rescue_from Stripe::CardError, with: :catch_stripe_card_error
+  rescue_from Stripe::InvalidRequestError, with: :catch_stripe_invalid_request
+  rescue_from Stripe::StripeError, with: :catch_stripe_error
 
   def raumteiler
     render :template => '/payment/form/raumteiler'
@@ -75,7 +78,18 @@ class PaymentController < ApplicationController
     )
   end
 
-  def catch_exception(exception)
-    flash[:error] = exception.message
+  def catch_stripe_card_error(e)
+    flash[:error] = e.message
+    redirect_back(fallback_location: root_path)
+  end
+
+  def catch_stripe_invalid_request(e)
+    flash[:error] = e.message
+    redirect_back(fallback_location: root_path)
+  end
+
+  def catch_stripe_error(e)
+    flash[:error] = e.message
+    redirect_back(fallback_location: root_path)
   end
 end

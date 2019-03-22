@@ -4,6 +4,7 @@
 
     <%= hidden_field_tag :publishable_key, Rails.configuration.stripe[:publishable_key] %>
     <%= hidden_field_tag :stripeToken %>
+    <%= hidden_field_tag :stripeIcon, image_url('stripe_logo.png') %>
     <%= hidden_field_tag :stripeDescription, 'Unterstützer Team' %>
     <%= hidden_field_tag :amount, 300 %>
 
