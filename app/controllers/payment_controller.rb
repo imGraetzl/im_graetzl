@@ -20,24 +20,36 @@ class PaymentController < ApplicationController
 
   def raumteiler_create
     StripeChargesServices.new(payment_params, current_user).init_invoice
-    @amount = payment_params[:amount].to_i
+    amount = payment_params[:amount].to_i
+    description = payment_params[:stripeDescription]
+    @payment_confirmation_info = "#{amount},00 € - Deine #{description}"
     @email = payment_params[:stripeEmail]
-    @description = "Deine #{payment_params[:stripeDescription]}"
     render :template => '/payment/confirmation'
   end
 
   def charge_create
     StripeChargesServices.new(payment_params, current_user).init_charge
+    amount = payment_params[:amount].to_i
+    description = payment_params[:stripeDescription]
+    @payment_confirmation_info = "#{amount},00 € - #{description}"
+    @email = payment_params[:stripeEmail]
     render :template => '/payment/confirmation'
   end
 
   def subscription_create
     StripeChargesServices.new(payment_params, current_user).init_subscription
+    description = payment_params[:stripeDescription]
+    @payment_confirmation_info = "#{description}"
+    @email = payment_params[:stripeEmail]
     render :template => '/payment/confirmation'
   end
 
   def mentoring_create
     StripeChargesServices.new(payment_params, current_user).init_invoice
+    amount = payment_params[:amount].to_i
+    description = payment_params[:stripeDescription]
+    @payment_confirmation_info = "#{amount},00 € - #{description}"
+    @email = payment_params[:stripeEmail]
     render :template => '/payment/confirmation'
   end
 
