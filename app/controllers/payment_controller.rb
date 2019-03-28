@@ -27,7 +27,7 @@ class PaymentController < ApplicationController
     description = payment_params[:stripeDescription]
     @payment_confirmation_info = "#{amount},00 € - Deine #{description}"
     @email = payment_params[:stripeEmail]
-    MailchimpPaymentJob.perform_later(current_user, '5f02f45ea9') # Insert Mailchimp List ID
+    MailchimpPaymentJob.perform_later(@email, '5f02f45ea9') # Insert Mailchimp List ID
     render :template => '/payment/confirmation'
   end
 
