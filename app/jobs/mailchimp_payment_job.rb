@@ -1,8 +1,8 @@
 class MailchimpPaymentJob < ApplicationJob
 
-  def perform(user, mailchimp_list_id)
+  def perform(email, mailchimp_list_id)
     list_id = Rails.application.secrets.mailchimp_list_id
-    member_id = mailchimp_member_id(user)
+    member_id = mailchimp_member_id(email)
 
     begin
       g = Gibbon::Request.new
@@ -20,8 +20,8 @@ class MailchimpPaymentJob < ApplicationJob
 
   end
 
-  def mailchimp_member_id(user)
-    Digest::MD5.hexdigest(user.email.downcase)
+  def mailchimp_member_id(email)
+    Digest::MD5.hexdigest(email.downcase)
   end
 
 end
