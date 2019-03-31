@@ -34,7 +34,7 @@ class GraetzlsController < ApplicationController
   def groups
     @graetzl = Graetzl.find(params[:id])
     @map_data = MapData.call(graetzl: @graetzl)
-    @featured_groups = @graetzl.groups.featured
+    @featured_groups = @graetzl.groups.featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])
   end
 

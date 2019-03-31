@@ -24,7 +24,7 @@ class WienController < ApplicationController
   end
 
   def groups
-    @featured_groups = Group.featured
+    @featured_groups = Group.featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])
   end
 

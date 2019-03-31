@@ -12,6 +12,12 @@ class District < ApplicationRecord
   has_many :room_demands, -> { distinct }, through: :graetzls
   has_many :groups, -> { distinct }, through: :graetzls
 
+  def self.cached
+    Rails.cache.fetch('district-cache') do
+      includes(:graetzls).to_a
+    end
+  end
+
   def long_name
     "#{name}-#{zip}"
   end

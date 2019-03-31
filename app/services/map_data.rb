@@ -31,9 +31,8 @@ class MapData < BaseService
     return {} unless @graetzls
     { graetzls: encode(@graetzls) }
   end
-  
+
   def address_data
-    Rails.logger.info "Person attributes hash: #{@addresses}"
     return {} unless @addresses
     { addresses: encode(@addresses) }
   end

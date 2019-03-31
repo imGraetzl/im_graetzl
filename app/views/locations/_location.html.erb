@@ -56,7 +56,7 @@
     <% end %>
 
     <% if meeting = location.upcoming_meetings.last %>
-      <%= link_to [meeting.graetzl, meeting], class: 'event-teaser-box' do %>
+      <%= link_to [location.graetzl, meeting], class: 'event-teaser-box' do %>
         <% if meeting.starts_at_date %>
           <div class="date">
             <%= icon_tag "calendar-2" %>
