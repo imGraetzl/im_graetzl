@@ -1,0 +1,97 @@
+<% title('Zahlung') %>
+
+<%= form_tag subscription_create_payment_index_path, id: 'stripeForm' do %>
+  <%= hidden_field_tag :publishable_key, Rails.configuration.stripe[:publishable_key] %>
+  <%= hidden_field_tag :stripeToken %>
+  <%= hidden_field_tag :stripeIcon, image_url('stripe_logo.png') %>
+  <%= hidden_field_tag :stripeDescription, 'Deine Unterstützung' %>
+  <%= hidden_field_tag :stripePlan, 'plan_EcPqKaYViIkWOr' %>
+
+  <!--<%= hidden_field_tag :stripeBillingCycleAnchor, '2019-05-01' %>-->
+  <!--<%= hidden_field_tag :stripeTrialEnd, '2019-05-01' %>-->
+  <!--<%= hidden_field_tag :stripeCancelAtPeriodEnd, true %>-->
+
+  <section class="payment-form -subscription">
+
+    <div class="hl-subtext">
+      <h1>Du möchtest <span>imGrätzl unterstützen?</span></h1>
+      <p>Wähle selbst deinen monatlichen Wunschbetrag.</p>
+    </div>
+
+    <div class="input-select">
+      <%= label_tag(:amount) do %>
+        <%= icon_tag "currency-euro" %>
+        <span>Monatlicher Betrag</span>
+      <% end %>
+      <% if Rails.env.production? %>
+        <%= select_tag :stripePlan, options_for_select([
+          ["3 €", "plan_EmWt1P4gTM80lM"],
+          ["6 €", "plan_EmWtdStPF8A0WR"],
+          ["9 €", "plan_EmWucBFEZ7njha"],
+          ["12 €", "plan_EmWvW63t1ZkKBE"],
+          ["15 €", "plan_EmWw1phfK0mjTo"],
+        ]), { prompt: 'Auswählen ..' } %>
+      <% else %>
+      <%= select_tag :stripePlan, options_for_select([
+        ["3 €", "plan_EmWmbjpJHZdTe6"],
+        ["6 €", "plan_EmWpKyqvZZyiRR"],
+        ["9 €", "plan_EmWoPUrhsjXnOy"],
+        ["12 €", "plan_EmWotli6teM3gS"],
+        ["15 €", "plan_EmWpKyqvZZyiRR"],
+      ]), { prompt: 'Auswählen ..' } %>
+      <% end %>
+    </div>
+
+    <div class="input-field">
+      <%= label_tag(:amount) do %>
+        <%= icon_tag "open-book" %>
+        <span>Deine Nachricht</span>
+      <% end %>
+      <%= text_area_tag :message, nil, placeholder: "Wir freuen uns über ein kurzes Feedback von dir.." %>
+    </div>
+
+    <% if current_user %>
+      <%= hidden_field_tag :stripeEmail, current_user.email %>
+    <% else %>
+      <div class="input-field">
+        <%= label_tag(:stripeEmail) do %>
+          <%= icon_tag "at-symbol" %>
+          <span>E-Mail Adresse</span>
+        <% end %>
+        <%= email_field_tag :stripeEmail, nil, placeholder: 'E-Mail Adresse' %>
+      </div>
+    <% end %>
+
+    <%= link_to 'Rechnungsanschrift hinzufügen?', 'javascript:', class: 'triggerBillingInformation' %>
+
+    <div class="billing-information">
+      <%= render 'payment/form/billing_address' %>
+    </div>
+
+
+    <div class="input-button">
+      <%= button_tag 'Weiter zur Zahlung mit Kreditkarte', class: 'btn-primary -mint -large stripe-submit-subscription' %>
+    </div>
+
+    <div class="txt -footer">
+      <p>
+        Die Abwicklung der Zahlung wird über den sicheren Zahlungsanbeiter
+        <%= link_to 'Stripe', 'https://stripe.com/at', target: '_blank' %> durchgeführt.<br>
+        imGrätzl hat zu keiner Zeit Zugriff auf deine Kreditkarteninformationen.
+      </p>
+      <p>
+        Du kannst deine monatliche Unterstützung jederzeit mit sofortiger Wirkung beenden.<br>
+        Hast du Fragen? Schreib uns an <a href="mailto:wir@imgraetzl.at">wir@imgraetzl.at</a>.
+      </p>
+    </div>
+
+  </section>
+
+<% end %>
+
+<!-- STRIPE JS -->
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+<!----------- LOGIN PANEL MODAL ----------->
+<%= render 'shared/login_panel',redirect: request.original_url ,origin: 'mentoring' %>
+<!----------- LOGIN PANEL MODAL ----------->
