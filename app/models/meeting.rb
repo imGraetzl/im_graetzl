@@ -15,10 +15,10 @@ class Meeting < ApplicationRecord
   #  order(:starts_at_date) }
 
   # scopes primarily used for users
-  scope :initiated, -> { includes(:going_tos, :graetzl)
+  scope :initiated, -> { includes(:going_tos)
                         .where('going_tos.role = ?', GoingTo::roles[:initiator]).references(:going_tos)
                         .order(starts_at_date: :desc) }
-  scope :attended, -> { includes(:going_tos, :graetzl)
+  scope :attended, -> { includes(:going_tos)
                         .where('going_tos.role = ?', GoingTo::roles[:attendee]).references(:going_tos)
                         .order(starts_at_date: :desc) }
 
@@ -59,7 +59,7 @@ class Meeting < ApplicationRecord
   end
 
   def self.include_for_box
-    includes(:graetzl, :going_tos, :users, location: :users)
+    includes(:going_tos, :users, location: :users)
   end
 
   def initiator

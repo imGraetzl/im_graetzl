@@ -17,7 +17,7 @@
     <h1 class="hl-main"><%= @group.title %></h1>
 
     <% if @group.location %>
-      <div class="parent"><%= icon_tag('location') %><div>Gruppe für <%= link_to @group.location, graetzl_location_path(@group.location.graetzl, @group.location) %></div></div>
+      <div class="parent"><%= icon_tag('location') %><div>Gruppe für <%= link_to @group.location, [Graetzl.memoized(@group.location.graetzl_id), @group.location] %></div></div>
     <% elsif @group.parent %>
       <div class="parent"><%= icon_tag('raumteiler') %><div>Gruppe für <%= link_to @group.parent, @group.parent %></div></div>
     <% end %>

@@ -21,7 +21,7 @@ class DiscussionsController < ApplicationController
 
   def show
     @discussion = @group.discussions.find(params[:id])
-    @posts = @discussion.discussion_posts.includes(:group, :images, :user,  comments: [:images, user: :graetzl])
+    @posts = @discussion.discussion_posts.includes(:group, :images, :user,  comments: [:images, :user])
     render 'groups/discussions/show'
   end
 

@@ -1,23 +1,36 @@
 module GraetzlsHelper
 
-  def compact_graetzl_list(graetzls)
-    graetzl_ids = graetzls.includes(:districts).map{|g| [g.id, g]}.to_h
+  def district_url_options
+    District::MEMOIZED.values.sort_by(&:zip).map { |d| [d.zip_name, district_path(d)] }
+  end
 
-    whole_districts = []
-    District.cached.each do |district|
-      if Set.new(district.graetzl_ids).subset?(Set.new(graetzl_ids.keys))
-        whole_districts << district
+  def district_select_options
+    District::MEMOIZED.values.sort_by(&:zip).map { |d| [d.zip_name, d.id, 'data-label' => d.zip] }
+  end
+
+  def graetzl_select_options
+    District::MEMOIZED.values.sort_by(&:zip).map do |district|
+      district.graetzls.map{|g| ["#{district.zip} - #{g.name}", g.id, 'data-district-id' => district.id] }
+    end.flatten(1)
+  end
+
+  def compact_graetzl_list(graetzls)
+    graetzl_ids = graetzls.map(&:id)
+
+    results = []
+    District::MEMOIZED.values.sort_by(&:zip).each do |district|
+      if (district.graetzl_ids - graetzl_ids).empty?
+        results << district.zip_name
+        graetzl_ids -= district.graetzl_ids
       end
     end
 
-    whole_districts.each do |district|
-      district.graetzl_ids.each { |gid| graetzl_ids.delete(gid) }
+    graetzl_ids.each do |graetzl_id|
+      graetzl = Graetzl::MEMOIZED[graetzl_id]
+      results << "#{graetzl.district.zip} - #{graetzl.name}"
     end
 
-    result = []
-    result += whole_districts.map(&:zip_name)
-    result += graetzl_ids.map{|_, g| "#{g.district.zip} - #{g.name}"}
-    result.sort
+    results.sort
   end
 
   def graetzl_flag(graetzl)

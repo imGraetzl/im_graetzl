@@ -2,7 +2,6 @@ class WienController < ApplicationController
 
   def show
     @districts = District.order(zip: :asc)
-    @map_data = MapData.call(districts: @districts)
   end
 
   def visit_graetzl

@@ -37,7 +37,7 @@ class Location < ApplicationRecord
   before_create { |location| location.last_activity_at = Time.current }
 
   def self.include_for_box
-    includes(:graetzl, :posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
+    includes(:posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
   end
 
   def self.meeting_permissions_for_select

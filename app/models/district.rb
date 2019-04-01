@@ -12,10 +12,10 @@ class District < ApplicationRecord
   has_many :room_demands, -> { distinct }, through: :graetzls
   has_many :groups, -> { distinct }, through: :graetzls
 
-  def self.cached
-    Rails.cache.fetch('district-cache') do
-      includes(:graetzls).to_a
-    end
+  MEMOIZED = includes(:graetzls).map{|d| [d.id, d] }.to_h.freeze
+
+  def self.memoized(id)
+    MEMOIZED[id]
   end
 
   def long_name
