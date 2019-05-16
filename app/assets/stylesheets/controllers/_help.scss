@@ -382,6 +382,53 @@ section.help {
       @include font-size-primaryFont('large');
     }
 
+    img.ablauf {
+      width:50%;
+      display: block;
+      margin: auto;
+      margin-bottom: 30px;
+    }
+
+    .-quotes {
+      .-quote {
+        background-color: rgba($color-ambient-mint-light,0.75);
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .user {
+        width:30%;
+        img {
+          width:100%;
+          height:auto;
+        }
+        .infos {
+          text-align: center;
+          font-style: italic;
+        }
+      }
+      .txt {
+        width:70%;
+        //text-align: center;
+        align-self: center;
+        font-style: italic;
+        @include font-size-primaryFont('large');
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+
+    .-mentors {
+      .single-mentor {
+        width:50%;
+        float:left;
+        @include respond-to(">=medium") {
+          width:33%;
+        }
+        @include respond-to(">=large") {
+          width:25%;
+        }
+      }
+    }
     // Single Mentor Card
     .single-mentor {
       margin-bottom:50px;
@@ -389,8 +436,11 @@ section.help {
         display: block;
         text-align: center;
       }
+      h3 {
+        padding:0px 0px 5px;
+      }
       a {
-        text-decoration: none;
+        //text-decoration: none;
       }
       a:hover {
         img {
@@ -416,6 +466,7 @@ section.help {
       margin-bottom:60px;
       li {
         margin-bottom:15px;
+        @include font-size-primaryFont('large');
       }
     }
 
@@ -440,5 +491,4 @@ section.help {
     }
 
   }
-
 }

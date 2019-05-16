@@ -12,8 +12,7 @@
   <div class="imgHeader -fullwidth">
     <%= image_tag('info/mentoring-team2-anmeldung.png', class: 'anmeldung-badge') %>
     <div class="wrp">
-      <h1>imGrätzl - Mentoring Programm</h1>
-      <h2>Komm in dein Unterstützer Team</h2>
+      <h1>Komm in dein Unterstützer-Team</h1>
     </div>
   </div>
 
@@ -24,163 +23,131 @@
       </a>
       <p>
         <strong>
-          Das imGrätzl Mentoring-Programm für Selbstständige und MacherInnen startet.
+          Das imGrätzl Unterstützer-Programm für Selbstständige und MacherInnen startet.
         </strong>
       </p>
       <p>
-        Die imGrätzl.at Unterstützer-Teams werden ins Leben gerufen, um Selbstständige, GründerInnen
-        und MacherInnen darin zu bestärken ihre Ideen auf den Boden zu bringen und sie gleichzeitig
-        in ein lokales Netzwerk aus Gleichgesinnten einzubinden.
+        Die imGrätzl.at Unterstützer-Teams werden ins Leben gerufen, um Selbstständige,
+        GründerInnen und MacherInnen darin zu bestärken ihre Ideen auf den Boden zu bringen
+        und sie gleichzeitig in ein lokales Netzwerk aus Gleichgesinnten einzubinden.
       </p>
       <p>
-        Die TeilnehmerInnen werden in einem Team verbunden, das sie 4 Monate bei der Umsetzung ihrer Ideen
-        begleitet, fördert und trägt. Es geht um gegenseitige Motivation, Wertschätzung und darum die
-        Begeisterung für den Weg immer wieder aufs Neue anzufachen und Hürden gemeinsam aus dem Weg
-        zu räumen. MentorInnen aus den unterschiedlichsten Bereichen steuern ihre jahrelange Erfahrung,
-        Expertise und Kontakte bei.
+        Die TeilnehmerInnen werden in einem Team verbunden, das sie 5 Monate bei der Umsetzung
+        ihrer Ideen begleitet, fördert und trägt. Es geht um gegenseitige Motivation,
+        Wertschätzung und darum die Begeisterung für den Weg immer wieder aufs Neue
+        anzufachen und Hürden gemeinsam aus dem Weg zu räumen.
       </p>
     </div>
     <div class="card"></div>
   </div>
 
-  <div class="hl-subtext">
-    <h1><em>Eure MentorInnen</em></h1>
-    <p>Sie begleiten euch mit ihrer Erfahrung und Expertise und öffnen Netzwerke für euch.</p>
-  </div>
 
-  <!-- MENTORINNEN CARDBOXES-->
-  <div class="cardBoxCollection -tripple">
 
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-sabina-haas-possibilistin-und-karriere-coach/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-sabina-haas.jpg', class: 'img-round') %>
-        <h2>Sabina Haas</h2>
-      <% end %>
-      <p class="title">Possibilistin und Karriere Coach</p>
-    </div>
+  <!-- SLIDER -->
 
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-sibylle-exel-rauth-grafikerin-mit-sinn-fuer-haptik-print/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-sibylle-exel-rauth.jpg', class: 'img-round') %>
-        <h2>Sibylle Exel-Rauth</h2>
-      <% end %>
-      <p class="title">GrafikerIn – Mit Sinn für Haptik & Print</p>
-    </div>
+  <div class="lightSliderWrapper card-slider-container">
+    <div class="cardBoxCollection -quotes" id="card-slider">
 
-    <div class="paperCard -cord1RT">
-      <div class="wrp">
-        <p class="title">
-          <strong>
-            Als MentorInnen konnten wir einen Kreis an inspirierenden Menschen gewinnen,
-            mit denen wir selber unheimlich gerne zusammenarbeiten möchten.
-          </strong>
-        </p>
-        <p>
-          Manche kennen wir schon seit Jahren, andere hatten wir im Sichtfeld und
-          wieder andere sind durch Empfehlungen zu uns gestossen. Die ExpertInnen
-          unterstützen euch in den Bereichen Positionierung, Marketing, Unternehmensaufbau,
-          Fokussierung und persönliche Weiterentwicklung, Förderungen, Entwicklung von
-          Geschäftsmodellen, Events, Kundengewinnung, Grafik, Buchhaltung und digitale Tools.
-        </p>
+      <!-- Single Quote -->
+      <div class="cardBox -quote">
+        <div class="user">
+          <div class="avatar">
+              <a href="https://hands-of-change.at" target="_blank"><%= image_tag('info/statement_monika.jpg', class: 'attachment user avatar img-round') %></a>
+          </div>
+          <div class="infos">
+            <span>Monika, von<br><a href="https://hands-of-change.at" target="_blank">hands-of-change.at</a></span>
+          </div>
+        </div>
+        <blockquote class="txt">
+          &#8222;
+          Teil des Unterstützer-Teams zu sein bedeutet für mich eingebettet zu sein in eine Gruppe von Gleichgesinnten, es wird Raum geboten für Fragen, Zweifel, Freud, Leid und es findet ein absolut wertschätzender Umgang miteinander statt. Darüber hinaus gibt es wertvolle Tipps und Informationen der anderen TeilnehmerInnen bzw. der ExpertInnen.
+          &#8220;
+        </blockquote>
       </div>
-      <div class="card"></div>
-    </div>
 
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-sabine-melnicki-expertin-digitalisierung-webseiten-wissensmanagement/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-sabine-melnicki.jpg', class: 'img-round') %>
-        <h2>Sabine Melnicki</h2>
-      <% end %>
-      <p class="title">Expertin Digitalisierung, Webseiten, Wissensmanagement</p>
-    </div>
+      <!-- Single Quote -->
+      <div class="cardBox -quote">
+        <div class="user">
+          <div class="avatar">
+            <a href="http://www.demgutenmehrgewicht.at" target="_blank"><%= image_tag('info/statement_ines.jpg', class: 'attachment user avatar img-round') %></a>
+          </div>
+          <div class="infos">
+            <span>Ines, von<br><a href="http://www.demgutenmehrgewicht.at" target="_blank">demguten<br>mehrgewicht.at</a></span>
+          </div>
+        </div>
+        <blockquote class="txt">
+          &#8222;
+          Die gegenseitige Unterstützung motiviert mich dazu, viel gezielter an meinem Projekt zu arbeiten. Ganz wunderbar finde ich, dass die Mitglieder des Unterstützerteams sich gegenseitig so viel Mut machen und dass der Umgang miteinander so wertschätzend ist. Und der Input aus so vielen unterschiedlichen Branchen ist Gold wert!
+          &#8220;
+        </blockquote>
+      </div>
 
-    <!--
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-georg-dinhobl-rechnen-buchen-bunter-hund/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-georg-dinhobl.jpg', class: 'img-round') %>
-        <h2>Georg Dinhobl</h2>
-      <% end %>
-      <p class="title">Rechnen/Buchen/Bunter Hund</p>
-    </div>
-    -->
+      <!-- Single Quote -->
+      <div class="cardBox -quote">
+        <div class="user">
+          <div class="avatar">
+              <a href="https://www.robertkalb-photographien.at" target="_blank"><%= image_tag('info/statement_robert.jpg', class: 'attachment user avatar img-round') %></a>
+          </div>
+          <div class="infos">
+            <span>Robert, von<br><a href="https://www.robertkalb-photographien.at" target="_blank">robertkalb-<br>photographien.at</a></span>
+          </div>
+        </div>
+        <blockquote class="txt">
+          &#8222;
+          Danke an das Team, das mit unterstützenden Ideen und neuen Ansichten sehr wertvolle Hilfe für "eine andere Sichtweise" ist.
+          Unterstützt hat es mich, um ein anderes "Überziel" zu finden, das nicht unbedingt mit der Fotografie zu tun hat. Ganz besonders mag ich das "Treffen" der Gruppe!
+          &#8220;
+        </blockquote>
+      </div>
 
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-katharina-sabetzer-kommunikationskonzepte-social-media-textierungen/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-katharina-sabetzer.jpg', class: 'img-round') %>
-        <h2>Katharina Sabetzer</h2>
-      <% end %>
-      <p class="title">Kommunikationskonzepte, Social Media, Textierungen</p>
-    </div>
+      <!-- Single Quote -->
+      <div class="cardBox -quote">
+        <div class="user">
+          <div class="avatar">
+              <a href="https://hutmode-biester.com" target="_blank"><%= image_tag('info/statement_eva.jpg', class: 'attachment user avatar img-round') %></a>
+          </div>
+          <div class="infos">
+            <span>Eva, von<br><a href="https://hutmode-biester.com" target="_blank">Hutmode BIESTER</a></span>
+          </div>
+        </div>
+        <blockquote class="txt">
+          &#8222;
+          Das Programm ist absolut großartig! Ich habe in kürzester Zeit Gedanken und Schritte gewagt, die ich sonst wahrscheinlich über Monate vor mir hergeschoben hätte. Am liebsten würde ich gleich nochmal mitmachen... :)
+          &#8220;
+        </blockquote>
+      </div>
 
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-karin-kiendler-spezialistin-foerderungen-und-rechtsberatung/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-karin-kiendler.jpg', class: 'img-round') %>
-        <h2>Karin Kiendler</h2>
-      <% end %>
-      <p class="title">Spezialistin Förderungen und Rechtsberatung</p>
     </div>
-
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-leonhard-kern-den-kunden-im-fokus/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-leonhard-kern.jpg', class: 'img-round') %>
-        <h2>Leonhard Kern</h2>
-      <% end %>
-      <p class="title">Den Kunden im Fokus</p>
-    </div>
-
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-marlies-stohl-solution-scout-innovative-connector-tausendsassa/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-marlies-stohl.jpg', class: 'img-round') %>
-        <h2>Marlies Stohl</h2>
-      <% end %>
-      <p class="title">solution scout, innovative connector, Tausendsassa</p>
-    </div>
-
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-harald-neger-umdieeckedenker-netzwerker/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-harald-neger.jpg', class: 'img-round') %>
-        <h2>Harald Neger</h2>
-      <% end %>
-      <p class="title">umdieEckeDenker & Netzwerker</p>
-    </div>
-
-    <div class="single-mentor">
-      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-christoph-schwarz-geschaeftsmodelle-unternehmensaufbau/", class: 'bloglink', target: '_blank' do %>
-        <%= image_tag('info/mentorin-christoph-schwarz.jpg', class: 'img-round') %>
-        <h2>Christoph Schwarz</h2>
-      <% end %>
-      <p class="title">Geschäftsmodelle & Unternehmensaufbau</p>
-    </div>
-
   </div>
-  <!-- END MENTORINNEN CARDBOXES-->
+  <!-- /SLIDER -->
+
 
 
   <!-- DER ABLAUF -->
   <div class="hl-subtext">
-    <h1><em>Der Ablauf</em></h1>
-    <p>
-      Was dich im Unterstützer-Team erwartet.
-    </p>
+    <h1><em>Was dich im Unterstützer-Team erwartet.</em></h1>
   </div>
 
   <div class="paperCard -cord1RT -top">
     <div class="wrp">
       <p>
         <strong>
-          Das imGrätzl Team stellt das Unterstützer-Team zusammen und organisiert es,
-          die MentorInnen sind sorgfältig ausgewählt und ExpertInnen auf ihrem Fachgebiet.
+          Das imGrätzl Team stellt das Unterstützer-Team zusammen und organisiert es, die Gruppe und das Programm sind ein "Ins-Tun-kommen & Dranbleiben" Motivation. Du wirst Woche für Woche begleitet und das drei Monate lang.
         </strong>
       </p>
       <p>
-        Der Austausch mit dem Unterstützer-Team erfolgt hauptsächlich über eine online Gruppe, es stehen
-        aber auch ganz reale Treffen auf dem Programm. Die persönliche Betreuung in Kleingruppen
-        und Unterstützung bei der Umsetzung bringen handfeste Ergebnisse. Deshalb sollten
-        Interessierte unbedingt ein konkretes Ziel, Projekt, oder Idee in ihr Unterstützungs-Team
-        mitbringen.
+        Der Austausch mit dem Unterstützer-Team erfolgt hauptsächlich über eine online Gruppe,
+        es stehen aber auch ganz reale Treffen auf dem Programm. Die persönliche Betreuung
+        in Kleingruppen und Unterstützung bei der Umsetzung bringen handfeste Ergebnisse.
+        Deshalb sollten Interessierte unbedingt ein konkretes Ziel, Projekt, oder Idee in
+        ihr Unterstützungs-Team mitbringen.
       </p>
     </div>
     <div class="card"></div>
+  </div>
+
+  <div class="hl-subtext">
+    <h1><em>Der Ablauf</em></h1>
   </div>
 
   <div class="ablauf">
@@ -189,33 +156,115 @@
         <strong>Persönliches Erstgespräch</strong>, damit wir dein Vorhaben und deine Ziele kennenlernen.
       </li>
       <li>
-        <strong>Kick-off Treffen</strong> mit allen TeilnehmerInnen und den MentorInnen.
+        <strong>Kick-off Treffen</strong> mit allen TeilnehmerInnen und den ExpertInnen <strong>Annfang September</strong>.
       </li>
       <li>
-        <strong>Es stehen maximal 15 Plätze zur Verfügung.</strong> Das Team startet, sobald sich das erste Team eingespielt hat.
-        Bei der Zusammenstellung des Teams wird auf einen guten Mix der Vorhaben geachtet, damit zwischen den TeilnehmerInnen ganz viel Synergien entstehen können.
+        <strong>2 x Workshops zum Start:</strong> wie formulierst du gute Ziele und wie brichst du dein Vorhaben auf kleine Schritte runter.
       </li>
       <li>
-        <strong>Das Herzstück:</strong> Das Prinzip ist ganz einfach! Am Anfang der Woche veröffentlichen alle TeilnehmerInnen stichpunktartig drei Teilziele für die aktuelle Woche in der digitalen Unterstützer-Gruppe. Die Teilziele zahlen dabei auf das große Ziel ein. Am Ende der Woche berichten alle, welche Teilziele erreicht wurden und welche Hürden aufgetreten sind. Die anderen TeilnehmerInnen und MentorInnen stehen mit Rat und Tat, aber auch Kontakten zur Seite und zeigen auf, wie die individuellen Hürden genommen werden können. Die TeilnehmerInnen geben Feedback, welchen Rat sie umsetzen werden. Daraus entwickelt sich eine Dynamik des Tuns und der gleichzeitigen Reflexion. Schritt-für-Schritt und ganz entspannt geht es voran. Die Gruppe wird vom imGrätzl Team betreut.
+        <strong>Es stehen maximal 15 Plätze zur Verfügung.</strong> Bei der Zusammenstellung des Teams wird auf einen guten Mix der Vorhaben geachtet, damit zwischen den TeilnehmerInnen ganz viele Synergien entstehen können.
       </li>
       <li>
-        <strong>Alle drei bis vier Wochen</strong> gibt es einen Live-Video-Chat zu unterschiedlichen Themenfeldern, in denen individuelle Fragen von den ExpertInnen und MentorInnen beantworten werden.
+        <strong>Das Herzstück:</strong> Das Prinzip ist ganz einfach! Am Anfang der Woche veröffentlichen alle TeilnehmerInnen stichpunktartig drei Teilziele für die aktuelle Woche in der digitalen Unterstützer-Gruppe. Die Teilziele zahlen dabei auf das große Ziel ein. Am Ende der Woche berichten alle, welche Teilziele erreicht wurden und welche Hürden aufgetreten sind. Die anderen TeilnehmerInnen und ExpertInnen stehen mit Rat und Tat, aber auch Kontakten zur Seite und zeigen auf, wie die individuellen Hürden genommen werden können. Die TeilnehmerInnen geben Feedback, welchen Rat sie umsetzen werden. Daraus entwickelt sich eine Dynamik des Tuns und der gleichzeitigen Reflexion. Schritt-für-Schritt und ganz entspannt geht es voran. Die Gruppe wird vom imGrätzl Team persönlich betreut.
       </li>
       <li>
-        <strong>Alle fünf Wochen</strong> ertiefen die TeilnehmerInnen bei einem realen Treffen den persönlichen Kontakt.
+        <strong>Jeden Monat</strong> gibt es einen Live-Video-Chat zu unterschiedlichen Themenfeldern, in denen deine Fragen von ExpertInnen beantworten werden.
+      </li>
+      <li>Wenn es deinem Vorhaben hilft und es zu imGrätzl.at passt, dann <strong>pushen wir dich</strong> auch auf unseren <strong>Plattform Kanälen</strong>.</li>
+      <li>
+        <strong>Alle vier Wochen</strong> vertiefen die TeilnehmerInnen bei einem realen Treffen den persönlichen Kontakt.
       </li>
       <li>
         <strong>Extra:</strong> Auf Wunsch wird ein Arbeitsplatz für 80 €/Monat zur Verfügung gestellt (Atelier, Praxis oder Büro). Damit soll das Unterstützer Team auch ganz analog die Möglichkeit bekommen gemeinsam durchzustarten.
       </li>
       <li>
-        <strong>Das Programm dauert 4 Monate.</strong>
+        <strong>Das Programm dauert 5 Monate.</strong>
       </li>
       <li>
-        <strong>Kosten:</strong> 300 € (inkl. USt.)
+        <strong>Kosten:</strong> 290 € (inkl. USt.)
       </li>
     </ul>
   </div>
   <!-- END DER ABLAUF -->
+
+
+
+  <div class="hl-subtext">
+    <h1><em>Eure ExpertInnen</em></h1>
+    <p>
+      Die imGrätzl ExpertInnen begleiten die Unterstützer-Teams mit ihrer Erfahrung und Expertise. Lernt sie bei den Treffen und Workshops kennen und holt euch Rat in den online Fragerunden.
+    </p>
+  </div>
+
+  <!-- Experten CARDBOXES-->
+  <div class="cardBoxCollection -mentors">
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-sabina-haas-possibilistin-und-karriere-coach/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-sabina-haas.jpg', class: 'img-round') %>
+        <h3>Sabina Haas</h3>
+      <% end %>
+      <p class="title">Possibilistin und Karriere Coach</p>
+    </div>
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-sibylle-exel-rauth-grafikerin-mit-sinn-fuer-haptik-print/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-sibylle-exel-rauth.jpg', class: 'img-round') %>
+        <h3>Sibylle Exel-Rauth</h3>
+      <% end %>
+      <p class="title">GrafikerIn – Mit Sinn für Haptik & Print</p>
+    </div>
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-katharina-sabetzer-kommunikationskonzepte-social-media-textierungen/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-katharina-sabetzer.jpg', class: 'img-round') %>
+        <h3>Katharina Sabetzer</h3>
+      <% end %>
+      <p class="title">Kommunikationskonzepte, Social Media, Textierungen</p>
+    </div>
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-karin-kiendler-spezialistin-foerderungen-und-rechtsberatung/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-karin-kiendler.jpg', class: 'img-round') %>
+        <h3>Karin Kiendler</h3>
+      <% end %>
+      <p class="title">Spezialistin Förderungen und Rechtsberatung</p>
+    </div>
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-leonhard-kern-den-kunden-im-fokus/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-leonhard-kern.jpg', class: 'img-round') %>
+        <h3>Leonhard Kern</h3>
+      <% end %>
+      <p class="title">Den Kunden im Fokus</p>
+    </div>
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/allgemein/we-proudly-present-das-imgraetzl-mentoring-team-sabine-melnicki-expertin-digitalisierung-webseiten-wissensmanagement/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-sabine-melnicki.jpg', class: 'img-round') %>
+        <h3>Sabine Melnicki</h3>
+      <% end %>
+      <p class="title">Expertin Digitalisierung, Webseiten, Wissensmanagement</p>
+    </div>
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/vorgestellt/mentoring-team/we-proudly-present-das-imgraetzl-mentoring-team-david-bongard-online-marketing-seo/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-david-bongard.jpg', class: 'img-round') %>
+        <h3>David Bongard</h3>
+      <% end %>
+      <p class="title">Online-Marketing & SEO</p>
+    </div>
+
+    <div class="single-mentor">
+      <%= link_to "https://blog.imgraetzl.at/vorgestellt/mentoring-team/we-proudly-present-das-imgraetzl-mentoring-team-elisabeth-siencnik-finanzplanung-und-controlling/", target: '_blank' do %>
+        <%= image_tag('info/mentorin-elisabeth-siencnik.jpg', class: 'img-round') %>
+        <h3>Elisabeth Siencnik</h3>
+      <% end %>
+      <p class="title">Finanzplanung und Controlling</p>
+    </div>
+
+  </div>
+  <!-- END Experten CARDBOXES-->
 
 
   <!-- TEILNEHMEN -->
@@ -227,10 +276,6 @@
   </div>
 
   <div class="anmeldung cardBox <%= '-login' if !current_user %>"  <%= 'data-featherlight=#login-panel-modal' if !current_user %>>
-
-
-
-
     <% if !Group.where(id: 28).empty? %>
       <% group = Group.find_by_id(28) %>
       <%= form_tag request_join_group_path(group) do %>
