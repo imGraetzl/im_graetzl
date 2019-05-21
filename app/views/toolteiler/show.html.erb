@@ -1,5 +1,5 @@
-
 <section class="toolTeiler">
+
 
   <!-- HEADER -->
   <div class="imgHeader">
@@ -15,17 +15,104 @@
   </div>
 
 
+
+  <!-- SIDEBAR -->
+  <aside class="sideBar">
+
+    <!-- Request Box-->
+    <div class="sideBarbox">
+
+      <h3 class="sideflag -L">Toolteiler / zu verleihen</h3>
+
+      <div class="pricing-info">
+        <div>
+          <span class="price">25 €</span>
+          <span class="info">1 Tag</span>
+        </div>
+        <div>
+          <span class="price">22 €</span>
+          <span class="info">pro Tag<br>ab 2 Tagen</span>
+        </div>
+        <div>
+          <span class="price">20 €</span>
+          <span class="info">pro Tag<br>ab 1 Woche</span>
+        </div>
+      </div>
+
+      <h3 class="sidebar">Jetzt anfragen</h3>
+
+      <div class="request">
+        <%= form_for 'toolteiler' do |f| %>
+
+          <div class="input-field">
+            <%= f.label :starts_at_date do %>
+              <%= icon_tag "calendar-2" %>
+              <span></span>
+            <% end %>
+            <%= f.text_field :starts_at_date, class: 'datepicker', placeholder: 'Von' %>
+          </div>
+
+          <div class="input-field">
+            <%= f.label :ends_at_date do %>
+              <%= icon_tag "calendar-2" %>
+              <span></span>
+            <% end %>
+            <%= f.text_field :ends_at_date, class: 'datepicker', placeholder: 'Bis' %>
+          </div>
+
+        <% end %>
+      </div>
+
+      <h3 class="sidebar">Zusammenfassung</h3>
+
+      <ul class="pricing-summary">
+        <li>
+          <div class="cost">250,00 €</div>
+          <div class="costname">10 Tage x 25 €</div>
+        </li>
+        <li>
+          <div class="cost">- 50,00 €</div>
+          <div class="costname">Rabatt 10 Tage x 5 €</div>
+        </li>
+        <li>
+          <div class="cost">40,00 €</div>
+          <div class="costname">Servicegebühr inkl. Versicherung</div>
+        </li>
+        <li class=sum>
+          <div class="cost">240,00 €</div>
+          <div class="costname">Gesamt</div>
+        </li>
+      </ul>
+
+      <a class="btn-primary" href="/wien/raumteiler">Anfrage abschicken</a>
+
+    </div>
+    <!-- /Request Box-->
+
+  </aside>
+  <!-- /SIDEBAR -->
+
+
   <!-- MAIN CONTENT -->
   <div class="mainContent">
 
     <div class="introtxt">
-      <h3>Kamera Canon EOS 100D Komplett-Ausrüstung</h3>
+      <h3>Kamera-Set Canon EOS 100D Komplett-Ausrüstung inkl. Mikro</h3>
+      <div class="brand">
+        <strong>Marke: </strong>Canon
+      </div>
+      <div class="model">
+        <strong>Modell: </strong>EOS 100D
+      </div>
     </div>
 
     <div class="txt">Absolut neuwertige Canon Spiegelreflexkamera (EOS 100 D), inkl. passender kleiner Tasche und original Canon 18-55mm Objektiv.
 Liegt super in der Hand! Alles voll sauber!
 Sehr angenehm für tolle Shootings.
 
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
     </div>
 
     <!-- Images -->
@@ -39,76 +126,84 @@ Sehr angenehm für tolle Shootings.
     <section>
       <div class="bigicontext-element">
         <svg class="icon-dot-3"><use xlink:href="#icon-dot-3"></use></svg>
-        <div class="txt">Ausstattung</div>
+        <div class="txt">Ausstattung / Zubehör</div>
       </div>
       <div class="category-tags">
         <ul class="tag-list">
-            <li>nook meeting pods</li>
-            <li>extra meeting room</li>
-            <li>präsentationstools</li>
+            <li>Tasche</li>
+            <li>Stativ</li>
+            <li>Objektive</li>
+            <li>Blitz</li>
+            <li>Mikrophon</li>
         </ul>
       </div>
     </section>
 
-    <section>
-      <div class="bigicontext-element">
-        <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
-        <div class="txt">Mein idealer Raumpartner</div>
-      </div>
-      <div class="txt">Wir sind keine Yoga-Raum und auch kein Bastelklub - aber offen für Creative Ideen. Ideal suchen wird Unternehmen / Trainer die kreative Seminare &amp; Workshops ein neuen Räummöglichkeiten abhalten wollen.</div>
-    </section>
-
+    <!--
     <section class="owner">
       <div class="bigicontext-element">
-          <img class="attachment room_offer avatar room_offer avatar img-round" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/e7c0440b27dca82eb2ad42cd80eaf91291da06e0/store/fill/200/200/72f8cfb36608ac07c266f45ba99dd1e327e2b3fe01e777d47a9154559b9f/avatar.jpeg">
-        <div class="txt">Über mich</div>
+          <img class="attachment room_offer avatar room_offer avatar img-round" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/fad5d1e8df9b7eba405c9f2deec155f27c709f09/store/fill/400/400/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png">
+          <div class="txt">Vermieter</div>
       </div>
       <div class="txt">Description ...</div>
     </section>
+    -->
 
-    <section>
+  </div>
 
-      <div class="bigicontext-element">
-        <svg class="icon-profile-vcard"><use xlink:href="#icon-profile-vcard"></use></svg>
-        <div class="txt">Kontakt-Infos</div>
-      </div>
+  <!-- SIDEBAR -->
+  <aside class="sideBar">
 
-      <!-- Contact Block -->
-      <div class="contact-login-msg -show">
+    <!-- Contactbox-->
+    <div class="sideBarbox">
 
-        <div class="contact-infos" id="contact-infos-block">
-          <div class="icontxt">
-            <svg class="icon-user-avatar"><use xlink:href="#icon-user-avatar"></use></svg>
-            <div class="txt">Paul Maurer</div>
-          </div>
+      <h3 class="sideflag -L">Infos & Adresse</h3>
 
-          <div class="icontxt">
-            <svg class="icon-phone"><use xlink:href="#icon-phone"></use></svg>
-            <div class="txt">+4319346604</div>
-          </div>
-
-          <a href="mailto:office@smartwall.at">
-            <div class="icontxt">
-              <svg class="icon-at-symbol"><use xlink:href="#icon-at-symbol"></use></svg>
-              <div class="txt">office@smartwall.at</div>
+      <a class="innerbox user-wrp" target="_blank" href="/users/gregory">
+        <img class="attachment user avatar img-round" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/fad5d1e8df9b7eba405c9f2deec155f27c709f09/store/fill/400/400/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png">
+        <span class="name">
+          Michael Walchhütter
+          <div class="rating-container">
+            <div class="rating">
+              <span class="fill">☆</span>
+              <span class="fill">☆</span>
+              <span class="fill">☆</span>
+              <span class="fill">☆</span>
+              <span>☆</span>
             </div>
-          </a>
-          <a class="icontxt" target="_blank" href="https://www.smartwall.at/">
-            <svg class="icon-globe"><use xlink:href="#icon-globe"></use></svg>
-            www.smartwall.at
-          </a>
-        </div>
+            <small class="txt">4,2 von 5</small>
+          </div>
+        </span>
+      </a>
+
+      <div class="innerbox icontxt">
+        <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
+        Kinskygasse 40-44<br>
+        1230 Wien<br>
       </div>
-      <!-- /Contact Block -->
 
-    </section>
+      <div class="innerbox icontxt">
+        <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
+        Erstellt / Aktualisiert:<br>15. Mai 2019
+      </div>
 
+      <a class="gmap" href="https://maps.google.com?q=Kinskygasse+40-44">
+        <img src="https://maps.google.com/maps/api/staticmap?key=AIzaSyB8n3QhtommfuGrJ2Khk-TyE-wQsUQksnM&amp;center=48.146612254703335,16.330155103226552&amp;zoom=16&amp;size=250x150&amp;scale=2&amp;markers=size:small|48.146612254703335,16.330155103226552">
+      </a>
+
+    </div>
+
+  </aside>
+  <!-- /SIDEBAR -->
+
+  <!-- MAIN CONTENT -->
+  <div class="mainContent">
 
     <section>
       <div class="stream">
         <div class="bigicontext-element">
           <svg class="icon-layout-text"><use xlink:href="#icon-layout-text"></use></svg>
-          <div class="txt">Frage / Kommentar zum Raum</div>
+          <div class="txt">Frage zum Toolteiler</div>
         </div>
         <div class="entryCreate js-initialized" data-behavior="stream-form">
           <img class="attachment user avatar img-round" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/b08edf6d2190549a24d5c51f4acbf49a87767fd1/store/fill/100/100/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png">
@@ -128,49 +223,7 @@ Sehr angenehm für tolle Shootings.
       </div>
     </section>
 
-
   </div>
-
-  <!-- SIDEBAR CONTENT -->
-  <aside class="sideBar">
-
-    <!-- Factbox-->
-    <div class="sideBarbox contact">
-      <a href="/neustift-draschegrunde"><h3 class="sideflag -L">Neustift / Draschegründe</h3></a>
-
-      <div class="iconlist">
-
-        <div class="address icontxt">
-          <svg class="icon-map-location"><use xlink:href="#icon-map-location"></use></svg>
-          Kinskygasse 40-44<br>
-          1230 Wien<br>
-        </div>
-
-        <div class="pricing icontxt">
-          <ul class="pricing-list">
-              <li>
-                <div class="cost">45 €</div>
-                <div class="costname">pro Stunde</div>
-              </li>
-          </ul>
-        </div>
-
-        <div class="created icontxt">
-          <svg class="icon-pencil"><use xlink:href="#icon-pencil"></use></svg>
-          Erstellt / Aktualisiert:<br>15. Mai 2019
-        </div>
-
-      </div>
-
-      <a class="gmap" href="https://maps.google.com?q=Kinskygasse+40-44">
-        <img src="https://maps.google.com/maps/api/staticmap?key=AIzaSyB8n3QhtommfuGrJ2Khk-TyE-wQsUQksnM&amp;center=48.146612254703335,16.330155103226552&amp;zoom=16&amp;size=250x150&amp;scale=2&amp;markers=size:small|48.146612254703335,16.330155103226552">
-      </a>
-
-    </div>
-    <!-- /Factbox-->
-
-    <a class="btn-primary -mint" href="/wien/raumteiler">Alle Toolteiler</a>
-
-  </aside>
+  <!-- /MAIN CONTENT -->
 
 </section>

@@ -58,16 +58,19 @@ section.toolTeiler {
   // LAYOUT Positioning --------------
 
   @include respond-to(">=small") {
+    aside {
+      top:40px;
+    }
     .headContent {
       position: absolute;
       bottom: 0px;
       text-align: center;
     }
     .mainContent {
-      top:25px;
+      top:30px;
       position: relative;
       z-index: 8;
-      margin-bottom: 3em;
+      //margin-bottom: 3em;
     }
   }
 
@@ -107,7 +110,7 @@ section.toolTeiler {
   }
 
   section {
-    margin: 3em 0;
+    margin: 2em 0;
   }
 
   .bigicontext-element {
@@ -123,21 +126,10 @@ section.toolTeiler {
   .sideBar {
     position: relative;
     z-index: 10;
-    margin: 0 auto 40px auto;
-
-    & > * {
-      margin-bottom: 40px;
-    }
+    margin: 0 auto 50px auto;
 
     @include respond-to(">=large") {
-      margin: 0 0 60px -25px;
-    }
-
-    .iconlist {
-      padding: 15px;
-      > * {
-        margin-bottom: 20px;
-      }
+      margin: 0 0 50px -25px;
     }
 
     .sideflag {
@@ -148,49 +140,132 @@ section.toolTeiler {
 
   }
 
-  .action-container {
-    padding-left: 25px;
-    margin-bottom: 20px;
-    display: none;
-    @include respond-to(">=medium") {
-      display: block;
+  .sideBarbox {
+
+    border: 1px solid $color-ambient-grey-light;
+    background-color: #ffffff;
+    border-radius: 8px;
+
+    h3.sidebar {
+      text-align: center;
+      padding-bottom:15px;
     }
-    a {
-      text-decoration: none;
-      margin-bottom: 5px;
-      &:hover {
-        text-decoration: underline;
+
+    a.btn-primary {
+      color: white;
+    }
+
+    .innerbox {
+      padding: 0px 5px 15px 15px;
+    }
+
+    .gmap {
+      img {
+        display: block;
+        width: 100%;
       }
     }
+
+    .user-wrp {
+      display: flex;
+      align-items: center;
+      .img-round {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+      }
+    }
+
   }
 
-  .action-container + .sideBarbox.contact {
-    margin-top: 40px;
+  .rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    display: inline-block;
+    text-align: left;
+  }
+  .rating-container .txt {
+    padding-left:3px;
+  }
+  .rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+  }
+  .rating > span:hover:before,
+  .rating > span:hover ~ span:before, span.fill ~ span:before {
+     content: "\2605";
+     position: absolute;
+     color: $color-ambient-mint-dark;
   }
 
-  .pricing-list {
+
+  .pricing-info {
+    display: flex;
+    justify-content:space-around;
+    margin-bottom: 15px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid $color-ambient-grey-light;
+
+    div {
+      text-align: center;
+      width:30%;
+    }
+    span {
+      display: block;
+    }
+    .price {
+      @include font-size-secondaryFont('medium');
+      color: $color-ambient-rosa-dark;
+    }
+    .info {
+      @include font-size-primaryFont('small');
+    }
+  }
+
+  .request {
+    border-bottom: 1px solid $color-ambient-grey-light;
+    margin-bottom:15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom:5px;
+
+    .input-field {
+      padding-bottom:15px;
+    }
+    .input-field label {
+      min-width:50px !important;
+      max-width:50px !important;
+    }
+  }
+
+  .pricing-summary {
+    padding-left: 15px;
+    padding-right: 15px;
     margin: 0;
     list-style: none;
 
     li {
       display: flex;
       clear:both;
-      margin-bottom: 20px;
+      margin-bottom: 17px;
       div.cost {
         display:table;
         color: $color-ambient-mint-dark;
-        min-width: 30px;
+        min-width: 60px;
         white-space: nowrap;
         margin-right:9px;
+        text-align: right;
       }
       div.costname {
       }
     }
-    li:last-child {
-      margin-bottom: 0px;
+    li.sum {
+      font-weight: bold;
+      border-top: 1px solid $color-ambient-mint-light;
+      padding-top:15px;
     }
   }
-
 
   // MAIN CONTENT --------------
 
@@ -199,6 +274,9 @@ section.toolTeiler {
     h3 {
       @include font-size-primaryFont('larger');
       margin-bottom: 15px;
+    }
+    .brand, .model {
+      font-style: italic;
     }
   }
   .mainContent .txt {
@@ -223,76 +301,5 @@ section.toolTeiler {
       margin-bottom: 20px;
     }
   }
-
-  .contact-infos {
-    a {
-      color: $color-ambient-mint;
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .contact-login-msg {
-    @include font-size-primaryFont('large');
-    border: 1px solid $color-ambient-grey-light;
-    border-radius: 8px;
-    padding:20px;
-    font-style: italic;
-    background-color: #FEF6DF;
-    color: #cd891b;
-    a {
-      color: #cd891b;
-    }
-    &.-show {
-      @include font-size-primaryFont('base');
-      background-color: white;
-      font-style: normal;
-      color: $color-font-primary;
-      a {
-        color: $color-ambient-mint;
-      }
-      #show-contact-link {
-        font-weight:bold;
-        font-style: italic;
-      }
-    }
-  }
-
-  .contact {
-    border: 1px solid $color-ambient-grey-light;
-    background-color: #ffffff;
-    border-radius: 8px;
-
-    a {
-      text-decoration: none;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .address {
-      margin-bottom: 20px;
-      align-items: flex-start;
-    }
-
-    .gmap {
-      img {
-        display: block;
-        width: 100%;
-      }
-    }
-    .user-wrp {
-      display: flex;
-      align-items: center;
-      .img-round {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-      }
-    }
-  }
-
 
 }
