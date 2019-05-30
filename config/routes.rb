@@ -185,7 +185,8 @@ Rails.application.routes.draw do
 
   resources :toolteiler do
     collection do
-      get :show, :list
+      get :show,
+          :rent_1, :rent_2, :rent_3, :rent_4
     end
   end
 

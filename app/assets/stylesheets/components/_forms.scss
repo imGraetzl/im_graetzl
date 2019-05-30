@@ -612,8 +612,7 @@ input[type=url]:invalid + em::after {
 
 // ---------------------------------------------------------------------- Login Panel Modal
 
-.login-panel-modal {
-  display: none;
+.login-panel-modal, .login-panel {
   .hl-subtext {
     margin-bottom: 30px;
     h1 {
@@ -631,15 +630,6 @@ input[type=url]:invalid + em::after {
       .input-field {
         margin-bottom:10px;
       }
-      .sharedLinks {
-        margin-top:25px;
-        margin-bottom:25px;
-        padding-top:15px;
-        border-top: solid 1px $color-ambient-mint-light;
-        a {
-          color: $color-ambient-grey;
-        }
-      }
     }
     .register {
       margin-left:20px;
@@ -651,8 +641,45 @@ input[type=url]:invalid + em::after {
         }
       }
     }
+    .sharedLinks {
+      margin-top:25px;
+      margin-bottom:25px;
+      padding-top:15px;
+      border-top: solid 1px $color-ambient-mint-light;
+      a {
+        color: $color-ambient-grey;
+      }
+    }
     .btn-primary {
       width:100%;
     }
   }
+
+  &.-content {
+    .container {
+      align-items: flex-end;
+      justify-content: space-between;
+      label {
+        min-width: 50px;
+      }
+      .login, .register {
+        width:48%;
+        margin:0px;
+      }
+      .register {
+
+      }
+    }
+    .sharedLinks {
+      margin-bottom: 0px;
+      padding: 0px;
+      line-height: 46px;
+      a {
+        color: $color-ambient-mint-dark;
+      }
+    }
+  }
+}
+.login-panel-modal {
+  display: none;
 }
