@@ -291,7 +291,8 @@ section.form-rent-tool {
   }
   .col-sidebar {
     width:100%;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     @include respond-to(">=medium") {
       width: 50%;
     }
@@ -300,6 +301,15 @@ section.form-rent-tool {
     }
   }
   // End Layout Grid
+
+  // tabs-nav
+  .tabs-nav {
+    display: none;
+    @include respond-to(">=medium") {
+      display: flex;
+      justify-content: center;
+    }
+  }
 
   // FORMS
   .col-content {
@@ -313,7 +323,7 @@ section.form-rent-tool {
       margin-bottom: 15px;
     }
     .btn-primary {
-      
+
     }
   }
 

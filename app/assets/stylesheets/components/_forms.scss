@@ -613,15 +613,6 @@ input[type=url]:invalid + em::after {
 // ---------------------------------------------------------------------- Login Panel Modal
 
 .login-panel-modal, .login-panel {
-  .hl-subtext {
-    margin-bottom: 30px;
-    h1 {
-      @include font-size-secondaryFont('medium');
-    }
-    p {
-      @include font-size-primaryFont('base');
-    }
-  }
   .container {
     display: flex;
     flex-wrap: wrap;
@@ -657,23 +648,61 @@ input[type=url]:invalid + em::after {
 
   &.-content {
     .container {
-      align-items: flex-end;
-      justify-content: space-between;
-      label {
-        min-width: 50px;
+
+      // Remove Linebreak for labels if small
+      .input-field {
+        @include respond-to("<medium") {
+          @include field-HorizontalLayout;
+        }
       }
+      .input-field label {
+        min-width:50px !important;
+        max-width:50px !important;
+      }
+      // End
+
+      align-items: stretch;
+      justify-content: space-between;
+
       .login, .register {
-        width:48%;
         margin:0px;
+        width:100%;
+        @include respond-to(">=medium") {
+          width:48%;
+        }
       }
       .register {
+        border-top: solid 1px $color-ambient-mint-light;
+        border-bottom: solid 1px $color-ambient-mint-light;
+        //background-color: rgba($color-ambient-mint-light,0.1);
+        //border: solid 1px $color-ambient-mint-light;
+        background-color: white;
 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .wrp {
+          font-weight: bold;
+          height: calc(100% - 46px);
+          display: flex;
+          align-items: center;
+          text-align: center;
+          padding-top:20px;
+          padding-bottom:20px;
+          @include respond-to(">=medium") {
+            padding:0px;
+          }
+        }
       }
     }
     .sharedLinks {
-      margin-bottom: 0px;
-      padding: 0px;
-      line-height: 46px;
+      margin-top:0px;
+      margin-bottom:0px;
+      padding-top:0px;
+      height: 46px;
+      display: flex;
+      align-items: center;
       a {
         color: $color-ambient-mint-dark;
       }
@@ -682,4 +711,13 @@ input[type=url]:invalid + em::after {
 }
 .login-panel-modal {
   display: none;
+  .hl-subtext {
+    margin-bottom: 30px;
+    h1 {
+      @include font-size-secondaryFont('medium');
+    }
+    p {
+      @include font-size-primaryFont('base');
+    }
+  }
 }
