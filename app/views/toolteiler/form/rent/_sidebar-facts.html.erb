@@ -31,26 +31,30 @@
         <div class="costname">
           10 Tage x 25 €
 
-          <!-- HINT ANWSER PANEL-->
-          <%= link_to 'javascript:', data: { jq_dropdown: "#hint-anwser-1" }, class: 'hint-questionmark' do %>
-            <svg class="icon-questions-answers"><use xlink:href="#icon-questions-answers"></use></svg>
-          <% end %>
-          <div id="hint-anwser-1" class="jq-dropdown jq-dropdown-relative dropdown-container hint-info">
-            <div class="jq-dropdown-panel">
-              Das ist der Tagespreis für die Anzahl der Tage die du den Toolteiler mieten möchtest.
-            </div>
-          </div>
-          <!-- HINT ANWSER PANEL-->
+          <!-- Hint Questionmark Panel-->
+          <%= render 'shared/questionmark',hint_id: "1" ,hint_message: 'Das ist der Tagespreis für die Anzahl der Tage die du den Toolteiler mieten möchtest.' %>
 
         </div>
       </li>
       <li>
         <div class="cost">- 50,00 €</div>
-        <div class="costname">Rabatt 10 Tage x 5 €</div>
+        <div class="costname">
+          Rabatt 10 Tage x 5 €
+
+          <!-- Hint Questionmark Panel-->
+          <%= render 'shared/questionmark',hint_id: "2" ,hint_message: 'Dieser Toolteiler hat 10% Rabatt ab einer Miete von 2 Tagen.' %>
+
+        </div>
       </li>
       <li>
         <div class="cost">40,00 €</div>
-        <div class="costname">Servicegebühr inkl. Versicherung</div>
+        <div class="costname">
+          Servicegebühr inkl. Versicherung
+
+          <!-- Hint Questionmark Panel-->
+          <%= render 'shared/questionmark',hint_id: "3" ,hint_message: 'Hier kommt noch der Versicherungstext rein sauber' %>
+
+        </div>
       </li>
       <li class=sum>
         <div class="cost">240,00 €</div>
