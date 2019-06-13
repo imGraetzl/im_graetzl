@@ -1,4 +1,4 @@
-a.hint-question {
+a.hint-questionmark {
   position: absolute;
   margin-top:-2px;
   padding-left: 5px;
@@ -9,6 +9,17 @@ a.hint-question {
     height:24px;
   }
 }
-a.hint-question:hover {
+a.hint-questionmark:hover {
   color: $color-ambient-rosa-dark;
+}
+.hint-info {
+  min-width:150px;
+  max-width:200px;
+  margin-left:-80px;
+  margin-top:10px;
+  color: $color-ambient-grey;
+  @include font-size-primaryFont('small');
+  .jq-dropdown-panel {
+
+  }
 }
