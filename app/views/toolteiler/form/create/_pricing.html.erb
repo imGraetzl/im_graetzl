@@ -84,15 +84,14 @@
   </div>
 
   <div class="input-field">
-    <%= label_tag(:Price) do %>
-      <%= icon_tag "currency-euro" %>
-      <span>IBAN</span>
+    <%= label_tag(:IBAN) do %>
+      <%= icon_tag "profile-vcard" %>
+      <span>Kontoverbindung</span>
     <% end %>
     <%= text_field_tag :IBAN, nil, placeholder: 'IBAN' %>
   </div>
 
-
-  <a href="/toolteiler/new_4" class="btn-primary">Weiter</a>
+  <%= f.button 'Toolteiler erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 
 </div>
 <% end %>
