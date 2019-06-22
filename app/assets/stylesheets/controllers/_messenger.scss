@@ -1,0 +1,207 @@
+section.messenger {
+
+  // Messenger Size on Screen
+  $chatheight: calc(100vh - 150px);
+  margin-top: -30px;
+  //margin-left: -50px;
+  //margin-right: -50px;
+
+  #chat-container {
+    display: flex;
+    justify-content:space-between;
+    height: $chatheight;
+  }
+
+  #side-bar {
+
+    width:30%;
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-right:20px;
+    border-right: 1px solid $color-ambient-mint-light;
+
+    // Top Controls
+    .controls {
+      height:70px;
+      width:100%;
+      border-bottom: 1px solid $color-ambient-mint-light;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px 10px 10px;
+      .actions {
+        color: $color-ambient-mint-dark;
+      }
+    }
+
+    .users-list {
+      height: calc(100% - 70px);
+      width:100%;
+      overflow: scroll;
+    }
+
+    .single-user {
+      padding: 10px 20px 10px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: .3s ease;
+
+      &.-active {
+        background-color: rgba($color-ambient-grey-light,0.70);
+      }
+
+      &:hover {
+        background: $color-ambient-mint-light;
+        cursor: pointer;
+      }
+      .avatar {
+        margin-right: 10px;
+      }
+      .wrp {
+        width:100%;
+        display: grid;
+        @include font-size-primaryFont('small');
+        .user {
+          font-weight:600;
+        }
+        .time {
+          float: right;
+          color: $color-ambient-grey;
+          font-style: italic;
+        }
+        .txt {
+          @include ellipsis();
+        }
+      }
+    }
+  }
+
+
+  #chat-window {
+
+    width: 70%;
+    height: 100%;
+    overflow: scroll;
+
+    .chat-panel {
+      width:100%;
+      height: 100%;
+      overflow: scroll;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: space-between;
+      position: relative;
+    }
+
+    .message-wrapper {
+      width:100%;
+    }
+
+    .message-control {
+      width:100%;
+      position: sticky;
+      bottom: 0;
+
+      border-top: 1px solid $color-ambient-mint-light;
+      background-color: #fbfbfb;
+      padding-top:20px;
+
+      display: flex;
+      align-items: flex-end;
+      div.input {
+        width:100%;
+        margin-right: 10px;
+      }
+    }
+
+    textarea {
+      background-color: #ffffff;
+      border: 1px solid $color-ambient-grey-light;
+      outline: none;
+      font-family: $font-primary;
+      border-radius: 4px;
+      font-size: 1.6rem;
+      resize: none;
+      line-height: 1.4;
+      width: 100%;
+      display: block;
+      color: $color-ambient-grey;
+      height: 4.0rem;
+      padding: 0.8rem 1.4rem;
+      height:38px;
+      max-height: calc(30vh);
+      //overflow:scroll !important; // ???
+      &::placeholder {
+        color: $color-ambient-grey;
+      }
+    }
+  }
+
+  .chat-bubble {
+    
+    width:100%;
+    display: flex;
+    align-items: center;
+    margin-bottom:20px;
+
+    // Firefox Hack -> Margin Bottom at last chat bubble
+    &:last-child {
+      @-moz-document url-prefix() {
+        margin-bottom: 80px;
+      }
+    }
+
+    div {
+      width:100%;
+      padding: 10px 14px;
+      background-color: rgba($color-ambient-grey-light,0.70);
+      border-radius: 9px;
+      position: relative;
+      animation: fadeIn 1s ease-in;
+      white-space: pre-line;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 20px solid transparent;
+        border-bottom: 0;
+        margin-top: -10px;
+      }
+    }
+
+    &.-left {
+      .user {
+      }
+      div {
+        margin-left:25px;
+        &:after {
+         left: 0;
+         border-right-color: rgba($color-ambient-grey-light,0.70);
+         border-left: 0;
+         margin-left: -20px;
+       }
+      }
+    }
+
+    &.-right {
+      flex-direction: row-reverse;
+      .user {
+      }
+      div {
+        background-color: rgba($color-ambient-mint-light,0.60);
+        margin-right:25px;
+        &:after {
+          right: 0;
+          border-left-color: rgba($color-ambient-mint-light,0.60);
+    	    border-right: 0;
+          margin-right: -20px;
+        }
+      }
+    }
+  }
+}
