@@ -10,11 +10,12 @@ APP.controllers.messenger = (function() {
     // Jump to end of Chat Messages -> Show newest.
     $(".chat-panel").scrollTop($(".chat-panel")[0].scrollHeight);
 
-    // When scrolling to top of Chat Messages -> Load older
-
+    // When scrolling to top of Chat Messages -> Load older before
     var loading_bubbles = false;
-    var numberMessages = 8;
+    var numberMessages = 5;
     var insert_fake_content = $('.chat-bubble:nth-child(-n+'+numberMessages+')'); // Fake Clone Content
+    var loadedBubbleHeight = 0;
+    var loading_spinner_height = 0;
 
     $(".chat-panel").bind('scroll', function(e) {
 
@@ -25,13 +26,23 @@ APP.controllers.messenger = (function() {
         //console.log("top rechaed"); // Check for older Messages and load them
         $('.loading-spinner').clone().insertBefore('.chat-bubble:first').hide().fadeIn('200', function(){
           setTimeout(function() { // Animate Time for Ajax
-            var loading_spinner_height = $('.chat-panel .loading-spinner').outerHeight(true);
-            console.log(loading_spinner_height);
+            loading_spinner_height = $('.chat-panel .loading-spinner').outerHeight(true);
             $('.chat-panel .loading-spinner').remove();
-            // Demo for loading more content ...
-            insert_fake_content.clone().insertBefore('.chat-bubble:first').hide().fadeIn();
-            // Move to correct position, so that content is at same posotion after inserting. check on different screen sizes !!!! Mobile Problems ..?!
-            $(".chat-panel").scrollTop(insert_fake_content.outerHeight(true) * numberMessages - loading_spinner_height); // 4 Bubbles inserted Fake Content
+
+            // Demo Bubbles for loading more content ...
+            insert_fake_content.clone().insertBefore('.chat-bubble:first').hide().fadeIn().addClass('inserted');
+
+            // Get sum height of all inserted bubbles
+            $(".chat-bubble.inserted").each(function(){
+                loadedBubbleHeight = loadedBubbleHeight + $(this).outerHeight(true);
+            });
+
+            // Move to correct position, so that content is at same posotion after inserting.
+            $(".chat-panel").scrollTop(loadedBubbleHeight - loading_spinner_height);
+
+            // Resets
+            $(".chat-bubble.inserted").removeClass('inserted'); // remove class after calculation
+            loadedBubbleHeight = 0; // reset bubbleheight
             loading_bubbles = false; // reset loading to default
           }, 2000);
         });

@@ -17,18 +17,21 @@ section.messenger {
     width:30%;
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
+    //position: relative;
+    overflow: scroll;
 
     margin-right:20px;
     border-right: 1px solid $color-ambient-mint-light;
 
     // Top Controls
     .controls {
-      height:70px;
+      //height:70px;
       width:100%;
+      position: sticky;
+      top: 0;
+      background-color: #fbfbfb;
       border-bottom: 1px solid $color-ambient-mint-light;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       padding: 10px 20px 10px 10px;
       .actions a {
         color: $color-ambient-mint-dark;
@@ -36,10 +39,16 @@ section.messenger {
           color: $color-ambient-rosa;
         }
       }
+      .user-ctrl {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
 
     .users-list {
-      height: calc(100% - 70px);
+      //height: calc(100% - 70px);
+      //height: 100%;
       width:100%;
       overflow: scroll;
     }
