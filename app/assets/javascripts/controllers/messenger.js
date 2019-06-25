@@ -10,12 +10,15 @@ APP.controllers.messenger = (function() {
     // Jump to end of Chat Messages -> Show newest.
     $(".chat-panel").scrollTop($(".chat-panel")[0].scrollHeight);
 
-    // Scroll to top of Chat Messages -> Load more
+    // When scrolling to top of Chat Messages -> Load older
+
     var loading_bubbles = false;
+    var numberMessages = 8;
+    var insert_fake_content = $('.chat-bubble:nth-child(-n+'+numberMessages+')'); // Fake Clone Content
+
     $(".chat-panel").bind('scroll', function(e) {
 
       var elem = $(e.currentTarget);
-      var insert_content = $('.chat-bubble:nth-child(-n+8)'); // Fake Clone Content
 
       if (elem.scrollTop() == 0 && loading_bubbles == false) {
         loading_bubbles = true;
@@ -26,10 +29,9 @@ APP.controllers.messenger = (function() {
             console.log(loading_spinner_height);
             $('.chat-panel .loading-spinner').remove();
             // Demo for loading more content ...
-            insert_content.clone().insertBefore('.chat-bubble:first').hide().fadeIn();
-
+            insert_fake_content.clone().insertBefore('.chat-bubble:first').hide().fadeIn();
             // Move to correct position, so that content is at same posotion after inserting. check on different screen sizes !!!! Mobile Problems ..?!
-            $(".chat-panel").scrollTop(insert_content.outerHeight(true) * 8 - loading_spinner_height); // 4 Bubbles inserted Fake Content
+            $(".chat-panel").scrollTop(insert_fake_content.outerHeight(true) * numberMessages - loading_spinner_height); // 4 Bubbles inserted Fake Content
             loading_bubbles = false; // reset loading to default
           }, 2000);
         });
@@ -38,6 +40,13 @@ APP.controllers.messenger = (function() {
       //if (elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight() {
         //console.log("bottom rechaed");
       //}
+    });
+
+    $('select#compose-user-select').SumoSelect({
+      search: true,
+      searchText: 'Suche nach User.',
+      placeholder: 'User auswählen',
+      csvDispCount: 5
     });
 
   }

@@ -30,8 +30,11 @@ section.messenger {
       align-items: center;
       justify-content: space-between;
       padding: 10px 20px 10px 10px;
-      .actions {
+      .actions a {
         color: $color-ambient-mint-dark;
+        &:hover {
+          color: $color-ambient-rosa;
+        }
       }
     }
 
@@ -49,6 +52,13 @@ section.messenger {
       transition: .3s ease;
 
       &.-active {
+        background-color: rgba($color-ambient-mint-light,0.60);
+        .img-round {
+          border: 1px dashed $color-ambient-mint-dark;
+        }
+      }
+      &.-new {
+        display: none;
         background-color: rgba($color-ambient-grey-light,0.70);
       }
 

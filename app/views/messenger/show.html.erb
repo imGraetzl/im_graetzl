@@ -7,11 +7,23 @@
       <div class="controls">
           <img class="attachment user avatar img-round" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/fad5d1e8df9b7eba405c9f2deec155f27c709f09/store/fill/400/400/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png">
           <div class="actions">
-            <%= icon_tag "pencil" %>
+            <a href="#" class="new_message"><%= icon_tag "pencil" %></a>
           </div>
       </div>
 
       <div class="users-list">
+
+        <!-- New Message -->
+        <div class="single-user -new">
+          <%= image_tag('avatar/user/100x100.png', class: 'attachment user avatar img-round') %>
+          <div class="wrp">
+            <div class="input-select">
+              <%= select_tag :user_ids, options_from_collection_for_select(User.all, :id, :full_name), id: 'compose-user-select', multiple: false, placeholder: 'wieso' %>
+            </div>
+          </div>
+        </div>
+        <!-- /New Message-->
+
         <!-- Users -->
 
         <div class="single-user -active">
@@ -211,7 +223,5 @@
     </div>
 
   </div>
-
-
 
 </section>
