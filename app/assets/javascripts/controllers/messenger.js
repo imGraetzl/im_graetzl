@@ -53,12 +53,25 @@ APP.controllers.messenger = (function() {
       //}
     });
 
+
     $('select#compose-user-select').SumoSelect({
       search: true,
       searchText: 'Suche nach User.',
       placeholder: 'User auswählen',
       csvDispCount: 5
     });
+
+    // Fake Insert Bubble
+    $('.message-control .btn-primary').on('click', function(){
+      $(".chat-message").animate({'height':'38px'}, 100, function() {
+        var chatMessage = $('.chat-message').val();
+        $('.chat-message').val('');
+        var bContainer = $('<div class="chat-bubble -left"><img class="attachment user avatar img-round" src="https://d1dcf21ighh4hq.cloudfront.net/attachments/fad5d1e8df9b7eba405c9f2deec155f27c709f09/store/fill/400/400/0a90d925fcde3d6fa5b1b3f35f7ba2753972a5c6164acc222ab2e172d1ae/avatar.png"><div class="content">'+chatMessage+'</div></div>');
+        bContainer.insertAfter('.chat-panel .chat-bubble:last');
+        $(".chat-panel").scrollTop($(".chat-panel")[0].scrollHeight);
+      });
+    });
+
 
   }
 

@@ -11,10 +11,20 @@
             <a href="#" class="new_message"><%= icon_tag "pencil" %></a>
           </div>
         </div>
-        <div>
-
+        <div class="filter">
+          <%= link_to 'javascript:', data: { jq_dropdown: "#filter-messages-dropdown" } do %>
+            Alle Nachrichten<%= icon_tag "arrow-down-2" %>
+          <% end %>
+          <div id="filter-messages-dropdown" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+            <div class="jq-dropdown-panel">
+              <%= link_to 'Alle', 'javascript:' %>
+              <%= link_to 'Toolteiler Chats' %>
+              <%= link_to 'Raumteiler Chats' %>
+            </div>
+          </div>
         </div>
       </div>
+
 
       <div class="users-list">
 
@@ -53,7 +63,7 @@
           </div>
         </div>
 
-        <div class="single-user -active">
+        <div class="single-user">
           <img class="attachment user avatar img-round" src="https://www.imgraetzl.at/attachments/8bf3aeaac56409e22d63a054292bec47bfb23186/store/fill/400/400/f2e48035cca68ea979e35dd9656082ec025d98c28c402bcec017835cc274/avatar.jpeg">
           <div class="wrp">
             <div>
@@ -75,7 +85,7 @@
           </div>
         </div>
 
-        <div class="single-user -active">
+        <div class="single-user">
           <img class="attachment user avatar img-round" src="https://www.imgraetzl.at/attachments/8bf3aeaac56409e22d63a054292bec47bfb23186/store/fill/400/400/f2e48035cca68ea979e35dd9656082ec025d98c28c402bcec017835cc274/avatar.jpeg">
           <div class="wrp">
             <div>
@@ -211,6 +221,14 @@
               </div>
             </div>
 
+            <div class="chat-bubble -right">
+              <img class="attachment user avatar img-round" src="https://www.imgraetzl.at/attachments/8bf3aeaac56409e22d63a054292bec47bfb23186/store/fill/400/400/f2e48035cca68ea979e35dd9656082ec025d98c28c402bcec017835cc274/avatar.jpeg">
+              <div>Hello dude! Sehr geniale coole Sache!
+                Bin dabei für immer!
+                sauber
+              </div>
+            </div>
+
           <!-- /Messages -->
           </div>
 
@@ -223,10 +241,6 @@
             <a href="#" class="btn-primary -small">Senden</a>
           </form>
           <!-- /Chat Message Input Control -->
-
-
-
-
 
 
 
