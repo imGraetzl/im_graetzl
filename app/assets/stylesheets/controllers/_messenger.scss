@@ -1,27 +1,34 @@
 section.messenger {
 
-  // ----- Desktop Fullsize Chat -----
-  $chatheight: calc(100vh - 70px);
-  margin-top: -80px;
-  margin-right: -15px;
-  margin-left: -5px;
-
-  #chat-window {
-    padding-bottom:20px; // Bottom Abstand
-  }
-  #side-bar {
-    border-bottom: 20px solid #fbfbfb;
-  }
+  // ----- Mobile First Size -----
+  margin-top: -30px;
+  margin-right: -5px;
+  margin-left: -17px;
   #chat-container {
-    margin-bottom: -80px; // Abstand Footer 0
+    height: calc(100vh - 60px);
   }
-  // ----- Desktop Fullsize Chat -----
+
+  // ----- > Tablet Size -----
+  @include respond-to(">medium") {
+    margin-top: -50px;
+    margin-left: -22px;
+    #chat-container {
+      height: calc(100vh - 70px);
+    }
+  }
+
+  // ----- > Desktop Fullsize -----
+  @include respond-to(">large") {
+    margin-top: -80px;
+    margin-right: -15px;
+    margin-left: -5px;
+  }
 
 
   #chat-container {
     display: flex;
     justify-content:space-between;
-    height: $chatheight;
+    margin-bottom: -80px; // Abstand Footer 0
   }
 
   #side-bar {
@@ -29,12 +36,11 @@ section.messenger {
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-    //position: relative;
+    border-bottom: 20px solid #fbfbfb;
     overflow: scroll;
 
     // Top Controls
     .controls {
-      //height:70px;
       width:100%;
       position: sticky;
       top: 0;
@@ -135,18 +141,19 @@ section.messenger {
 
   #chat-window {
 
+    width: 70%;
+    height: 100%;
+    overflow: scroll;
+    padding-left:20px;
+    padding-bottom:20px;
+    border-left: 1px solid $color-ambient-mint-light;
+
     .loading-spinner {
       width: 60px;
       height:60px;
       margin-top:10px;
       margin-bottom:10px;
     }
-
-    width: 70%;
-    height: 100%;
-    overflow: scroll;
-    padding-left:20px;
-    border-left: 1px solid $color-ambient-mint-light;
 
     .chat-panel {
       width:100%;
