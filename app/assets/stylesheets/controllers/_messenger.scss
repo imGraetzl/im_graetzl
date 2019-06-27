@@ -64,6 +64,9 @@ section.messenger {
           text-decoration: none;
           display: flex;
           line-height:28px;
+          &:hover {
+            color: $color-ambient-rosa;
+          }
         }
         svg {
           margin-left:5px;
@@ -78,7 +81,7 @@ section.messenger {
     }
 
     .single-user {
-      padding: 10px 20px 10px 10px;
+      padding: 10px 30px 10px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -98,6 +101,9 @@ section.messenger {
       &:hover {
         background: $color-ambient-mint-light;
         cursor: pointer;
+        .actions {
+          display: block;
+        }
       }
       .avatar {
         margin-right: 10px;
@@ -110,13 +116,18 @@ section.messenger {
           font-weight:600;
         }
         .time {
-          float: right;
           color: $color-ambient-grey;
           font-style: italic;
         }
         .txt {
           @include ellipsis();
         }
+      }
+      .actions {
+        display: none;
+        margin-right:-20px;
+        svg { color: $color-ambient-mint-dark; transform: rotate(90deg); }
+        &:hover svg { color: $color-ambient-rosa; }
       }
     }
   }
@@ -149,7 +160,7 @@ section.messenger {
 
     .message-wrapper {
       width:100%;
-      
+
       &.fake2 {
         display: none;
       }
@@ -201,6 +212,10 @@ section.messenger {
       display: flex;
       align-items: center;
       margin-bottom:20px;
+
+      &:first-child {
+        margin-top:50px;
+      }
 
       // Firefox Hack -> Margin Bottom at last chat bubble
       &:last-child {
