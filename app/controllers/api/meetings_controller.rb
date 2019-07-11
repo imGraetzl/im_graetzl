@@ -19,9 +19,9 @@ class Api::MeetingsController < Api::ApiController
   private
 
   def get_date_range
-    from_date = Date.parse(params[:from_date]) if params[:from_date].present?
-    to_date = Date.parse(params[:to_date]) if params[:to_date].present?
-    min_created_at  = Date.parse(params[:min_created_at]) if params[:min_created_at].present?
+    from_date = Time.parse(params[:from_date]) if params[:from_date].present?
+    to_date = Time.parse(params[:to_date]) if params[:to_date].present?
+    min_created_at  = Time.parse(params[:min_created_at]) if params[:min_created_at].present?
     return from_date, to_date, min_created_at
   end
 end
