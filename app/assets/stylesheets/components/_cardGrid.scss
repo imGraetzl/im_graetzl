@@ -19,6 +19,7 @@
   }
 }
 
+// Ugly Bugfix - NoWrap erzwingen bei einzelnen Slides durch Flex
 .toolteiler .lightSlider.lSSlide {
   display: flex;
 }
