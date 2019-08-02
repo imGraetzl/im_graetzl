@@ -51,12 +51,14 @@
 
     <div class="innerbox user-wrp">
       <%= avatar_for @tool_offer.user %>
-      <%= link_to @tool_offer.user, class: 'user-wrp', target: '_blank' do %>
-        <span class="name"><%= @tool_offer.user.full_name %></span>
-      <% end %>
+      <div class="">
+        <%= link_to @tool_offer.user, class: 'user-wrp', target: '_blank' do %>
+          <span class="name"><%= @tool_offer.user.full_name %></span>
+        <% end %>
 
-      <div class="rating-container">
-        <%= user_rating(@tool_offer.user) %>
+        <div class="rating-container">
+          <%= user_rating(@tool_offer.user) %>
+        </div>
       </div>
     </div>
 
