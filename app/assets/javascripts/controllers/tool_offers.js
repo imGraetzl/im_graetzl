@@ -59,15 +59,11 @@ APP.controllers.tool_offers = (function() {
     }
 
     function initToolteilerRent() {
-
-      tabsNavActivating();
-
-    }
-
-    // Add Active Class to Actual Step
-    function tabsNavActivating() {
-      var step = $('*[data-step]').attr("data-step");
-      $('#step'+step).addClass('active');
+      APP.components.tabs.initTabs(".tabs-ctrl");
+      $(".next-screen").on("click", function() {
+        $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
+        $('.tabs-ctrl').get(0).scrollIntoView();
+      });
     }
 
     return {

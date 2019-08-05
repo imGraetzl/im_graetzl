@@ -91,13 +91,10 @@ Rails.application.routes.draw do
     post 'add_submission', on: :member
   end
 
-  get 'toolteiler/rent_1'
-  get 'toolteiler/rent_2'
-  get 'toolteiler/rent_3'
-  get 'toolteiler/rent_4'
-
   resources :tool_offers, path: 'toolteiler' do
     get 'calculate_price', on: :member
+    get 'rent', on: :member
+    post 'request_rental', on: :member
   end
 
   resources :groups, except: [:index] do

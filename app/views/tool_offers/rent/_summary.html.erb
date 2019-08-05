@@ -1,0 +1,66 @@
+<div class="summary" id="tab-summary">
+
+  <div class="hl-subtext">
+    <h1>Tool anfragen</h1>
+    <p>
+      Deine Auswahl
+    </p>
+  </div>
+
+  <div class="summarybox">
+    <div>
+      <p>
+        <strong>„<%= @tool_offer.title %>“</strong><br>
+      </p>
+    </div>
+    <div class="avatar">
+      <%= avatar_for @tool_offer.user %>
+    </div>
+    <div>
+      <p>
+        <strong>Vermieter</strong><br>
+        <%= @tool_offer.address.street %><br>
+        <%= @tool_offer.user.full_name %><br>
+        <%= @tool_offer.address.zip %> <%= @tool_offer.address.city %>
+      </p>
+    </div>
+  </div>
+
+  <div class="summarybox">
+    <div class="line">
+    </div>
+    <div class="avatar">
+      <svg class="icon-share"><use xlink:href="#icon-share"></use></svg>
+    </div>
+    <div class="line">
+    </div>
+  </div>
+
+  <div class="summarybox">
+    <div>
+      <p>
+        <strong>Zahlungsart</strong><br>
+        Kreditkarte<br>
+        endet auf **** 335975<br>
+        <a href="#">ändern</a>
+      </p>
+    </div>
+
+    <div class="avatar">
+      <%= avatar_for current_user %>
+    </div>
+    <div>
+      <p>
+        <strong>Mieter</strong><br>
+        morgenjungs GmbH<br>
+        Michael Walchhütter<br>
+        Ausstellungsstrasse 9/9<br>
+        1020, Wien
+      </p>
+    </div>
+  </div>
+  <%= hidden_field_tag :rent_from, @calculator.date_from %>
+  <%= hidden_field_tag :rent_to, @calculator.date_to %>
+  
+  <%= submit_tag "Jetzt anfragen" %>
+</div>
