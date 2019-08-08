@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_28_185958) do
+ActiveRecord::Schema.define(version: 2019_08_05_195115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -694,6 +694,26 @@ ActiveRecord::Schema.define(version: 2019_07_28_185958) do
     t.index ["user_id"], name: "index_tool_offers_on_user_id"
   end
 
+  create_table "tool_rentals", force: :cascade do |t|
+    t.bigint "tool_offer_id"
+    t.bigint "user_id"
+    t.date "rent_from"
+    t.date "rent_to"
+    t.string "renter_company"
+    t.string "renter_name"
+    t.string "renter_address"
+    t.string "renter_zip"
+    t.string "renter_city"
+    t.integer "status", default: 0
+    t.string "stripe_customer_id"
+    t.integer "owner_rating"
+    t.integer "renter_rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"
+    t.index ["user_id"], name: "index_tool_rentals_on_user_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", limit: 255, default: "", null: false
     t.string "encrypted_password", limit: 255, default: "", null: false
@@ -819,5 +839,7 @@ ActiveRecord::Schema.define(version: 2019_07_28_185958) do
   add_foreign_key "tool_offers", "locations", on_delete: :nullify
   add_foreign_key "tool_offers", "tool_categories", on_delete: :nullify
   add_foreign_key "tool_offers", "users", on_delete: :cascade
+  add_foreign_key "tool_rentals", "tool_offers", on_delete: :nullify
+  add_foreign_key "tool_rentals", "users", on_delete: :nullify
   add_foreign_key "users", "location_categories", on_delete: :nullify
 end

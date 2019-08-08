@@ -1,12 +1,15 @@
 class ToolPriceCalculator
 
-  def initialize(tool_offer, days)
+  attr_reader :date_from, :date_to
+  
+  def initialize(tool_offer, date_from, date_to)
     @tool_offer = tool_offer
-    @days = days
+    @date_from = Date.parse(date_from)
+    @date_to = Date.parse(date_to)
   end
 
   def days
-    @days
+    (@date_from - @date_to).to_i.abs + 1
   end
 
   def daily_price

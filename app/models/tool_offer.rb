@@ -13,6 +13,7 @@ class ToolOffer < ApplicationRecord
   belongs_to :tool_category, optional: true
   belongs_to :tool_subcategory, class_name: "ToolCategory", optional: true
 
+  has_many :tool_rentals
   has_many :comments, as: :commentable, dependent: :destroy
 
   enum status: { enabled: 0, disabled: 1, deleted: 2 }

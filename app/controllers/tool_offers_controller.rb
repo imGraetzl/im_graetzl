@@ -1,5 +1,5 @@
 class ToolOffersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :calculate_price, :rent]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -42,11 +42,26 @@ class ToolOffersController < ApplicationController
     end
   end
 
+  def update_status
+    @tool_offer = current_user.tool_offers.non_deleted.find(params[:id])
+    @tool_offer.update(status: params[:status])
+    redirect_back(fallback_location: tool_offers_user_path)
+  end
+
   def calculate_price
     @tool_offer = ToolOffer.find(params[:id])
-    days = Date.parse(params[:date_from]) - Date.parse(params[:date_to])
-    days = days.to_i.abs + 1
-    @calculator = ToolPriceCalculator.new(@tool_offer, days)
+    @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
+  end
+
+  def rent
+    @tool_offer = ToolOffer.find(params[:id])
+    @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
+  end
+
+  def request_rental
+    @tool_offer = ToolOffer.find(params[:id])
+    @tool_rental = current_user.tool_rentals.build(tool_rental_params)
+    @tool_rental.tool_offer = @tool_offer
   end
 
   def destroy
@@ -87,6 +102,13 @@ class ToolOffersController < ApplicationController
       address_attributes: [
         :id, :street_name, :street_number, :zip, :city
       ],
+    )
+  end
+
+  def tool_rental_params
+    params.permit(
+      :renter_company, :renter_name, :renter_address, :renter_zip, :renter_city,
+      :rent_from, :rent_to,
     )
   end
 end

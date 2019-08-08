@@ -1,0 +1,24 @@
+<section class="form-rent-toolteiler">
+
+  <div class="col-content">
+    <% if user_signed_in? %>
+      <%= form_tag [:request_rental, @tool_offer] do %>
+        <div class="tabs-ctrl">
+          <%= render "tool_offers/rent/tabs_nav" %>
+          <%= render "tool_offers/rent/address" %>
+          <%= render "tool_offers/rent/payment" %>
+          <%= render "tool_offers/rent/summary" %>
+        </div>
+      <% end %>
+    <% else %>
+      <section class="login">
+        <%= render 'shared/login_panel_content', redirect: request.original_url, origin: 'toolteiler' %>
+      </section>
+    <% end %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'tool_offers/rent/sidebar' %>
+  </div>
+
+</section>
