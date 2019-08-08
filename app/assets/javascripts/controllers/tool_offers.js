@@ -27,7 +27,7 @@ APP.controllers.tool_offers = (function() {
       $(".category-select").on("change", function() {
         $(".subcategory-select option").remove();
         $(".subcategory-select").append(getOptions($(this).val()));
-      });
+      }).change();
 
       // Get SubCategories from selected Parent Category
       function getOptions(parentCategory){

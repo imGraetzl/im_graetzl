@@ -95,6 +95,7 @@ Rails.application.routes.draw do
     get 'calculate_price', on: :member
     get 'rent', on: :member
     post 'request_rental', on: :member
+    patch 'update_status', on: :member
   end
 
   resources :groups, except: [:index] do

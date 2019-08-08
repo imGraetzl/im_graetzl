@@ -42,6 +42,12 @@ class ToolOffersController < ApplicationController
     end
   end
 
+  def update_status
+    @tool_offer = current_user.tool_offers.non_deleted.find(params[:id])
+    @tool_offer.update(status: params[:status])
+    redirect_back(fallback_location: tool_offers_user_path)
+  end
+
   def calculate_price
     @tool_offer = ToolOffer.find(params[:id])
     @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
