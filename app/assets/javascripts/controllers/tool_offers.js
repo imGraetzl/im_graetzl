@@ -15,11 +15,36 @@ APP.controllers.tool_offers = (function() {
         $('.tabs-ctrl').get(0).scrollIntoView();
       });
 
-      $(".category-select").on("change", function() {
-        $(".subcategory-select option").hide();
-        $(".subcategory-select option[data-parent-id=" + $(this).val() + "]").show();
-      }).change();
 
+      // Prepare SubCategory Dropdown
+      var $allSubCategories = [];
+      var emptyOption = '<option>auswählen...</option>';
+      $(".subcategory-select option").each(function() { $allSubCategories.push($(this)); });
+      $(".subcategory-select option").remove();
+      $(".subcategory-select").append(emptyOption);
+
+      // Fill SubCategory Dropdown on Change
+      $(".category-select").on("change", function() {
+        $(".subcategory-select option").remove();
+        $(".subcategory-select").append(getOptions($(this).val()));
+      });
+
+      // Get SubCategories from selected Parent Category
+      function getOptions(parentCategory){
+        $filteredSubCategories = [];
+        $allSubCategories.forEach(function (item) {
+          if (item.data("parent-id") == parentCategory) {
+            $filteredSubCategories.push(item);
+          }
+        });
+        if ($filteredSubCategories.length == 0) {
+          return emptyOption;
+        } else {
+          return $filteredSubCategories;
+        }
+      }
+
+      // Tag Input JS
       $('#custom-keywords').tagsInput({
         'defaultText':'Kurz in Stichworten ..'
       });
