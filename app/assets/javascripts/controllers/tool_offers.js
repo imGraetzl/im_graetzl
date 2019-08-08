@@ -15,34 +15,13 @@ APP.controllers.tool_offers = (function() {
         $('.tabs-ctrl').get(0).scrollIntoView();
       });
 
-
-      // Prepare SubCategory Dropdown
-      var $allSubCategories = [];
-      var emptyOption = '<option>auswählen...</option>';
-      $(".subcategory-select option").each(function() { $allSubCategories.push($(this)); });
-      $(".subcategory-select option").remove();
-      $(".subcategory-select").append(emptyOption);
-
-      // Fill SubCategory Dropdown on Change
       $(".category-select").on("change", function() {
-        $(".subcategory-select option").remove();
-        $(".subcategory-select").append(getOptions($(this).val()));
-      }).change();
-
-      // Get SubCategories from selected Parent Category
-      function getOptions(parentCategory){
-        $filteredSubCategories = [];
-        $allSubCategories.forEach(function (item) {
-          if (item.data("parent-id") == parentCategory) {
-            $filteredSubCategories.push(item);
-          }
-        });
-        if ($filteredSubCategories.length == 0) {
-          return emptyOption;
-        } else {
-          return $filteredSubCategories;
+        if ($(".subcategory-select option:selected").data("parent-id") != $(this).val() ) {
+          $(".subcategory-select").val('');
         }
-      }
+        $(".subcategory-select option[data-parent-id]").hide();
+        $(".subcategory-select option[data-parent-id=" + $(this).val() + "]").show();
+      }).change();
 
       // Tag Input JS
       $('#custom-keywords').tagsInput({

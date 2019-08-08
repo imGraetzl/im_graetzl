@@ -27,7 +27,7 @@ class ToolOffer < ApplicationRecord
 
   validates_presence_of :title, :description, :address
 
-  before_create :set_graetzl
+  before_save :set_graetzl
 
   scope :non_deleted, -> { where.not(status: :deleted) }
   scope :by_currentness, -> { order(created_at: :desc) }
@@ -53,7 +53,7 @@ class ToolOffer < ApplicationRecord
   private
 
   def set_graetzl
-    self.graetzl = address.graetzl if address
+    self.graetzl = address.graetzl if address.present?
   end
 
 end

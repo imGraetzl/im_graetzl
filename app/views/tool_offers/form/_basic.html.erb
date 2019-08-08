@@ -10,7 +10,7 @@
         <%= icon_tag "layout-document" %>
         <span>Hauptkategorie</span>
       <% end %>
-      <%= f.select :tool_category_id, tool_categories_select_options, { prompt: 'auwählen...' }, class: 'category-select' %>
+      <%= f.select :tool_category_id, tool_categories_select_options, { include_blank: 'auwählen...' }, class: 'category-select' %>
     </div>
 
     <div class="input-select">
@@ -18,7 +18,7 @@
         <%= icon_tag "layout-document" %>
         <span>Unterkategorie</span>
       <% end %>
-      <%= f.select :tool_subcategory_id, tool_subcategories_select_options, { prompt: 'auwählen...' }, class: 'subcategory-select' %>
+      <%= f.select :tool_subcategory_id, tool_subcategories_select_options, { include_blank: 'auwählen...' }, class: 'subcategory-select' %>
     </div>
   </div>
 
