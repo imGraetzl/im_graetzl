@@ -12,7 +12,7 @@
     </li>
   <% end %>
   <li>
-    <div class="cost"><%= number_to_currency(@calculator.service_fee, unit: "€") %></div>
+    <div class="cost"><%= number_to_currency(@calculator.total_fee, unit: "€") %></div>
     <div class="costname">Servicegebühr inkl. Versicherung</div>
   </li>
   <li class=sum>

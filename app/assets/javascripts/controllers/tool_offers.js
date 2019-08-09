@@ -38,6 +38,7 @@ APP.controllers.tool_offers = (function() {
       }).off('focus').on("change", function() {
         if ($('.request-price-form .date-from').val() && $('.request-price-form .date-to').val()) {
           $('.request-price-form').submit();
+          $('.-disabled').hide();
         }
       });
 

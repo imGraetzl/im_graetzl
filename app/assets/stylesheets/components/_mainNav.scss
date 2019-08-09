@@ -340,12 +340,17 @@
         right: -15px;
         svg {
           fill: $color-ambient-mint-light;
-          //fill: $color-ambient-grey-light;
         }
       }
     }
     section.second {
       z-index: 2;
+    }
+  }
+
+  .-trigger:hover {
+    .-more svg {
+      fill: $color-ambient-mint-dark !important;
     }
   }
 

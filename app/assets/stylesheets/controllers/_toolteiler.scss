@@ -137,6 +137,7 @@ section.toolTeiler-detail {
 
     &.-top {
       padding-top:15px;
+      margin-bottom:70px;
     }
 
     border: 1px solid $color-ambient-grey-light;
@@ -206,12 +207,17 @@ section.toolTeiler-detail {
     border-bottom: 1px solid $color-ambient-grey-light;
   }
 
+  #calculated-price-container {
+    h3.sidebar {
+      padding-top:15px;
+      border-top: 1px solid $color-ambient-grey-light;
+    }
+  }
+
   .request {
-    border-bottom: 1px solid $color-ambient-grey-light;
-    margin-bottom:15px;
+    margin-bottom:10px;
     padding-left: 15px;
     padding-right: 15px;
-    padding-bottom:5px;
 
     .input-field {
       overflow: hidden;
