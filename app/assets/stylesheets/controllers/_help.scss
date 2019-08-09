@@ -497,5 +497,28 @@ section.help {
       }
     }
 
+    .sponsoring {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .cardBox {
+        width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        .logo {
+          width:90%;
+        }
+        @include respond-to(">=medium") {
+          width: 40%;
+        }
+      }
+    }
+
   }
 }
