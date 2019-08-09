@@ -15,12 +15,12 @@ APP.controllers.tool_offers = (function() {
         $('.tabs-ctrl').get(0).scrollIntoView();
       });
 
+      var subcategoryOptions = $(".subcategory-select option[data-parent-id]").detach();
       $(".category-select").on("change", function() {
-        if ($(".subcategory-select option:selected").data("parent-id") != $(this).val() ) {
-          $(".subcategory-select").val('');
+        $(".subcategory-select option[data-parent-id]").remove();
+        if ($(this).val()) {
+          $(".subcategory-select").append(subcategoryOptions.filter("[data-parent-id=" + $(this).val() + "]"));
         }
-        $(".subcategory-select option[data-parent-id]").hide();
-        $(".subcategory-select option[data-parent-id=" + $(this).val() + "]").show();
       }).change();
 
       // Tag Input JS

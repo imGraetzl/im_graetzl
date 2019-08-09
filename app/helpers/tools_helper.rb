@@ -1,13 +1,13 @@
 module ToolsHelper
 
   def tool_categories_select_options
-    ToolCategory.top.map do |category|
+    ToolCategory.top.sort_by(&:position).map do |category|
       [category.name, category.id]
     end
   end
 
   def tool_subcategories_select_options
-    ToolCategory.subcategories.map do |category|
+    ToolCategory.subcategories.sort_by(&:position).map do |category|
       [category.name, category.id, 'data-parent-id' => category.parent_category_id]
     end
   end
