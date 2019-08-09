@@ -47,13 +47,14 @@
     align-items: flex-end;
     justify-content: center;
     overflow: hidden;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border: 1px solid white;
-    border-radius: 8px;
+    //background-position: center center;
+    //background-size: cover;
+    //background-repeat: no-repeat;
 
-    img { height: 100%; }
+    img {
+      height: 100%;
+      border-radius: 10px;
+    }
 
     &.hover {
       cursor: pointer;
