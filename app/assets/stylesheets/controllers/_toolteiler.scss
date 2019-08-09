@@ -154,7 +154,7 @@ section.toolTeiler-detail {
     }
 
     .innerbox {
-      padding: 0px 5px 15px 15px;
+      padding: 0px 15px 15px 15px;
     }
 
     .gmap {
@@ -171,6 +171,13 @@ section.toolTeiler-detail {
         width: 30px;
         height: 30px;
         margin-right: 10px;
+      }
+    }
+
+    .edit {
+      display: block;
+      .btn-group:first-child {
+        margin-bottom: 10px;
       }
     }
 
