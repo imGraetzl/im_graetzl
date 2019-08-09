@@ -3,47 +3,40 @@
   <% if @tool_offers.empty? %>
 
   <div class="introcontainer -toolteiler">
-    <div class="introtxt">
-      <h1>Der <span>Raumteiler</span> auf imGrätzl.at</h1>
-      <p>
-        <strong>Gewerbeflächen teilen - Kosten teilen:</strong> Der Raumteiler ist eine Art WG-Partnersuche für Gewerbeflächen.
-        <ol class="list-basic">
-          <li>Raumhabende und Raumsuchende werden zu neuen Raumpartnerschaften verbunden.</li>
-          <li>Trage deine freien Raumressourcen kostenlos ein: Büro, Geschäftslokal, Praxis, Werktstatt, oder Studio und Atelier!</li>
-          <li>Wenn du Raum zum Andocken suchst, dann veröffentliche jetzt deinen Raumwunsch!</li>
-        </ol>
-      </p>
-      <p>
-        <strong>Filtere Räume & Suchende nach Bezirk und Grätzl ...</strong>
-        <ul class="list-basic">
-          <li>direkter Kontakt</li>
-          <li>alle Gewerbeflächentypen</li>
-          <li>leistbare Räume</li>
-        </ul>
-      </p>
-      <p>
-        <strong>Wir Trommeln für dein Raumteilergesuch via ...</strong>
-        <ul class="list-basic">
-          <li>imGrätzl, Suchmaschinen</li>
-          <li>Newsletter & Grätzlmail</li>
-          <li>Social Media Kanäle</li>
-        </ul>
-      </p>
-      <p>
-        <strong>Raumpartnerschaften = neue Formen der Zusammenarbeit</strong>
-        <ul class="list-basic">
-          <li>Kooperationen</li>
-          <li>hin zu einem neuem WIR</li>
-          <li>gegenseitige Unterstützung</li>
-        </ul>
-      </p>
-      <p>
-        Schließt euch zusammen & aktiviert gemeinsam Raum
 
-        Flächen für Gruppen
-        Raumteiler Speed-Dating
-        Begleitung, Beratung
+    <div class="introtxt">
+
+      <div class="hl-subtext" id="teilnahme">
+        <h1><em>Der Toolteiler auf imGrätzl.at</em></h1>
+        <p>Lass dein Arbeitsequipment  & die Geräte an deinem Arbeitsplatz für dich arbeiten.</p>
+      </div>
+
+      <h3>Arbeitsequipment verleihen & Geld verdienen</h3>
+      <p>
+        Ermögliche GründerInnen, Selbstständigen, Kreativen und MacherInnen in Wien
+        die Nutzung deines Arbeitsequipments. Du kannst über den Toolteiler Geräte verleihen
+        oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen.
+        Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst
+        gleichzeitig Ressourcen. Es dreht sich beim Toolteiler alles um Gegenstände,
+        die man im Arbeitsumfeld benötigt, also nicht um Freizeitgegenstände,
+        wie z.B. eine Skiausrüstung
       </p>
+
+      <h3>Du behältst immer die Kontrolle</h3>
+      <p>
+        Du bestimmst  den Tages- oder Wochenpreis für dein Gerät. Es liegt ganz bei dir, ob du eine Mietanfrage annimmst oder einfach ablehnst.
+      </p>
+
+      <h3>Dein Gerät ist automatisch versichert</h3>
+      <p>
+        Bei Beschädigung deines Gerätes hilft dir unsere Versicherung. Mit AXA XL haben wir dafür einen starken Partner an unserer Seite. <%= link_to "Mehr Info", info_versicherung_path %>
+      </p>
+
+      <h3>Die Abwicklung übernehmen wir</h3>
+      <p>
+        Die Buchung und die Geldverteilung erfolgt über uns, du musst dich um nichts kümmern, die Abwicklung des Mietvorgangs geht voll automatisiert.
+      </p>
+
     </div>
     <%= render 'tool_offers/action_card', user: current_user %>
   </div>
