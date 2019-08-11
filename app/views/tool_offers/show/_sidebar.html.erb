@@ -20,29 +20,34 @@
 
 
     <h3 class="sidebar">Zeitraum</h3>
-    <div class="request">
-      <%= form_tag [:calculate_price, @tool_offer], remote: true, method: :get, class: 'request-price-form' do %>
-        <div class="input-field">
-          <%= label_tag :date_from do %>
-            <%= icon_tag "calendar-2" %>
-            <span></span>
-          <% end %>
-          <%= text_field_tag :date_from, nil, class: 'date-from', placeholder: 'Von' %>
-        </div>
+    <% if @tool_offer.enabled? %>
+      <div class="request">
+        <%= form_tag [:calculate_price, @tool_offer], remote: true, method: :get, class: 'request-price-form' do %>
+          <div class="input-field">
+            <%= label_tag :date_from do %>
+              <%= icon_tag "calendar-2" %>
+              <span></span>
+            <% end %>
+            <%= text_field_tag :date_from, nil, class: 'date-from', placeholder: 'Von' %>
+          </div>
 
-        <div class="input-field">
-          <%= label_tag :date_to do %>
-            <%= icon_tag "calendar-2" %>
-            <span></span>
-          <% end %>
-          <%= text_field_tag :date_to, nil, class: 'date-to', placeholder: 'Bis' %>
-        </div>
-      <% end %>
-    </div>
+          <div class="input-field">
+            <%= label_tag :date_to do %>
+              <%= icon_tag "calendar-2" %>
+              <span></span>
+            <% end %>
+            <%= text_field_tag :date_to, nil, class: 'date-to', placeholder: 'Bis' %>
+          </div>
+        <% end %>
+      </div>
 
-    <div id="calculated-price-container"></div>
-    <%= link_to "Wähle zuerst die Mietdauer", '', class: "btn-primary -disabled" %>
-
+      <div id="calculated-price-container"></div>
+      <%= link_to "Wähle zuerst die Mietdauer", '', class: "btn-primary -disabled" %>
+    <% else %>
+      <div class="tool-offer-unavailable">
+        This toolteiler is unavailable
+      </div>
+    <% end %>
   </div>
 
   <!-- Contactbox-->

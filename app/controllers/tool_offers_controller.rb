@@ -9,7 +9,7 @@ class ToolOffersController < ApplicationController
   end
 
   def show
-    @tool_offer = ToolOffer.find(params[:id])
+    @tool_offer = ToolOffer.non_deleted.find(params[:id])
     @comments = @tool_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
@@ -54,12 +54,12 @@ class ToolOffersController < ApplicationController
   end
 
   def rent
-    @tool_offer = ToolOffer.find(params[:id])
+    @tool_offer = ToolOffer.enabled.find(params[:id])
     @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
   end
 
   def request_rental
-    @tool_offer = ToolOffer.find(params[:id])
+    @tool_offer = ToolOffer.enabled.find(params[:id])
     @tool_rental = current_user.tool_rentals.build(tool_rental_params)
     @tool_rental.tool_offer = @tool_offer
   end
@@ -67,7 +67,7 @@ class ToolOffersController < ApplicationController
   def destroy
     @tool_offer = current_user.tool_offers.find(params[:id])
     @tool_offer.deleted!
-    redirect_to tools_user_path
+    redirect_to tool_offers_user_path
   end
 
   private
