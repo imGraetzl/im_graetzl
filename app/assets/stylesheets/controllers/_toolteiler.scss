@@ -222,7 +222,7 @@ section.toolTeiler-detail {
   }
 
   .request {
-    margin-bottom:10px;
+    margin-bottom: 10px;
     padding-left: 15px;
     padding-right: 15px;
 
@@ -238,6 +238,11 @@ section.toolTeiler-detail {
       max-width:50px !important;
     }
     .hidden {display: none;}
+  }
+
+  .tool-offer-unavailable {
+    padding-left: 15px;
+    margin-bottom: 10px;
   }
 
   // MAIN CONTENT --------------

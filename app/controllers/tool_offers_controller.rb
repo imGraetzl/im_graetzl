@@ -73,19 +73,24 @@ class ToolOffersController < ApplicationController
   private
 
   def collection_scope
-    if params[:location_id].present?
-      ToolOffer.enabled.where(location_id: params[:location_id])
-    elsif params[:district_id].present?
-      district = District.find(params[:district_id])
-      ToolOffer.enabled.where(graetzl_id: district.graetzl_ids)
-    elsif params[:graetzl_id].present?
-      ToolOffer.enabled.where(graetzl_id: params[:graetzl_id])
-    else
-      ToolOffer.enabled
-    end
+    ToolOffer.enabled
   end
 
   def filter_collection(collection)
+    district_ids = params[:district_ids]&.select(&:present?)
+    if district_ids.present?
+      graetzl_ids = Graetzl.joins(:districts).where(districts: {id: district_ids}).distinct.pluck(:id)
+      collection = collection.where(graetzl_id: graetzl_ids)
+    end
+
+    if params[:category_id].present?
+      collection = collection.where(tool_category_id: params[:category_id])
+    end
+
+    if params[:query].present?
+      collection = collection.where("title ILIKE :q OR description ILIKE :q", q: "%#{params[:query]}%")
+    end
+
     collection
   end
 

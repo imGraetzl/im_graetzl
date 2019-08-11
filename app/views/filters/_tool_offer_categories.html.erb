@@ -2,7 +2,7 @@
 <div class="category-slider-container">
   <div id="category-slider">
     <% ToolCategory.top.each do |category| %>
-      <div class="-category" data-cat="<%= category.id %>">
+      <div class="-category" data-id="<%= category.id %>">
         <%= category_photo_for(category) %>
         <h3><%= category.name %></h3>
       </div>

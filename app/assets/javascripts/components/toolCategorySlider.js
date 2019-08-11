@@ -6,6 +6,8 @@ APP.components.toolCategorySlider = (function() {
     var item_mob = 1;
     var items = element.find("div").length;
 
+    var filterForm = $(".cards-filter");
+
     var slider = element.lightSlider({
       item: item_desk,
       autoWidth: true,
@@ -88,15 +90,16 @@ APP.components.toolCategorySlider = (function() {
 
    // Click Slide
    element.find('.-category').on('click', function(){
-     var cat_id = $(this).attr("data-cat");
-     element.find('.-category').not(this).removeClass('activated');
-     $(this).toggleClass('activated');
-
-     // On mobile slide on click
-     if ($('.lSSlideOuter').is('.-mobile')) {
-       slider.goToSlide(cat_id-1);
+     if ($(this).hasClass("activated")) {
+       $(this).removeClass('activated');
+       filterForm.find("[name=category_id]").val("");
+       filterForm.submit();
+     } else {
+       element.find('.-category').removeClass('activated');
+       $(this).addClass('activated');
+       filterForm.find("[name=category_id]").val($(this).attr("data-id"));
+       filterForm.submit();
      }
-
    });
 
   }
