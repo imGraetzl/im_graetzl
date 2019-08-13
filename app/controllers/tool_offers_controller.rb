@@ -1,5 +1,5 @@
 class ToolOffersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :calculate_price, :rent]
+  before_action :authenticate_user!, except: [:index, :show, :calculate_price]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -53,17 +53,6 @@ class ToolOffersController < ApplicationController
     @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
   end
 
-  def rent
-    @tool_offer = ToolOffer.enabled.find(params[:id])
-    @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
-  end
-
-  def request_rental
-    @tool_offer = ToolOffer.enabled.find(params[:id])
-    @tool_rental = current_user.tool_rentals.build(tool_rental_params)
-    @tool_rental.tool_offer = @tool_offer
-  end
-
   def destroy
     @tool_offer = current_user.tool_offers.find(params[:id])
     @tool_offer.deleted!
@@ -110,10 +99,4 @@ class ToolOffersController < ApplicationController
     )
   end
 
-  def tool_rental_params
-    params.permit(
-      :renter_company, :renter_name, :renter_address, :renter_zip, :renter_city,
-      :rent_from, :rent_to,
-    )
-  end
 end

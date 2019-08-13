@@ -3,7 +3,6 @@ APP.controllers.tool_offers = (function() {
     function init() {
       if ($("section.form-new-toolteiler").exists()) { initToolOfferForm(); }
       if ($("section.toolTeiler-detail").exists()) { initToolOfferDetails(); }
-      if ($("section.form-rent-toolteiler").exists()) { initToolteilerRent(); }
     }
 
     function initToolOfferForm() {
@@ -61,14 +60,6 @@ APP.controllers.tool_offers = (function() {
       });
       */
 
-    }
-
-    function initToolteilerRent() {
-      APP.components.tabs.initTabs(".tabs-ctrl");
-      $(".next-screen").on("click", function() {
-        $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
-        $('.tabs-ctrl').get(0).scrollIntoView();
-      });
     }
 
     return {

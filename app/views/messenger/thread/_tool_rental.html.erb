@@ -1,0 +1,40 @@
+<div class="tool-rental-info">
+  <% if tool_rental.pending? %>
+    <h3>Neue Toolteiler Anfrage</h3>
+  <% else %>
+    <h3>Neue Toolteiler Anfrage</h3>
+  <% end %>
+
+  <div class="title">
+    <%= link_to "„#{tool_rental.tool_offer.title}“", tool_rental.tool_offer %>
+  </div>
+  <div class="time">
+    <%= tool_rental.days %> Tage / Zeitraum:
+    <%= tool_rental.rent_from.to_s(:weekday) %> – <%= tool_rental.rent_to.to_s(:weekday) %>
+  </div>
+
+  <% if current_user.id == tool_rental.tool_offer.user_id && tool_rental.pending? %>
+    <div class="action-box">
+      <div class="box-icon">
+        <%= icon_tag "horn-promote" %>
+      </div>
+      <div class="note">
+        Bitte klicke auf Akzeptieren um die Buchung anzunehmen oder auf Ablehnen, wenn eine Vermietung
+        nicht möglich ist. Weitere Fragen kannst Du mit dem Mieter im Chat klären.
+      </div>
+      <div class="buttons">
+        <%= link_to "Ablehnen", approve_tool_rental_path(tool_rental), method: :post, class: "btn-primary -small -grey" %>
+        <%= link_to "Akzeptieren", reject_tool_rental_path(tool_rental), method: :post, class: "btn-primary -small -mint" %>
+      </div>
+    </div>
+  <% elsif tool_rental.pending? %>
+    <p> Waiting for response </p>
+  <% elsif tool_rental.canceled? %>
+    <p> Request canceled </p>
+  <% elsif tool_rental.approved? %>
+    <p> Request approved </p>
+  <% elsif tool_rental.rejected? %>
+    <p> Request rejected </p>
+  <% end %>
+
+</div>

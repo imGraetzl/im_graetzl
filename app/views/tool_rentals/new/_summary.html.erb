@@ -37,30 +37,40 @@
   </div>
 
   <div class="summarybox">
-    <div>
+    <div class="payment-summary">
       <p>
         <strong>Zahlungsart</strong><br>
+        <span class="payment-method"></span><br>
+        <span class="renter-name"></span><br>
+
         Kreditkarte<br>
-        endet auf **** 335975<br>
-        <a href="#">ändern</a>
+        endet auf <span class="card-last4"></span><br>
+        <%= link_to "ändern", 'javascript:', class: 'back-to-payment' %>
       </p>
     </div>
 
     <div class="avatar">
       <%= avatar_for current_user %>
     </div>
-    <div>
+    <div class="renter-summary">
       <p>
         <strong>Mieter</strong><br>
-        morgenjungs GmbH<br>
-        Michael Walchhütter<br>
-        Ausstellungsstrasse 9/9<br>
-        1020, Wien
+        <span class="renter-company"></span><br>
+        <span class="renter-name"></span><br>
+        <span class="renter-address"></span><br>
+        <span class="renter-zip"></span>
+        <span class="renter-city"></span>
       </p>
     </div>
   </div>
-  <%= hidden_field_tag :rent_from, @calculator.date_from %>
-  <%= hidden_field_tag :rent_to, @calculator.date_to %>
-  
-  <%= submit_tag "Jetzt anfragen" %>
+
+  <%= f.hidden_field :tool_offer_id %>
+  <%= f.hidden_field :rent_from %>
+  <%= f.hidden_field :rent_to %>
+  <%= f.hidden_field :stripe_payment_intent_id, id: 'payment-intent-input' %>
+  <%= f.hidden_field :payment_method, id: 'payment-method-input' %>
+
+  <% # Not using submit tag here to disable submiting the form with "enter" %>
+  <%= button_tag "Weiter", type: 'button', class: 'btn-primary submit-form' %>
+
 </div>

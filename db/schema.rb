@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_09_093139) do
+ActiveRecord::Schema.define(version: 2019_08_12_161108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -707,14 +707,51 @@ ActiveRecord::Schema.define(version: 2019_08_09_093139) do
     t.string "renter_address"
     t.string "renter_zip"
     t.string "renter_city"
-    t.integer "status", default: 0
-    t.string "stripe_customer_id"
+    t.integer "rental_status", default: 0
+    t.string "stripe_payment_intent_id"
     t.integer "owner_rating"
     t.integer "renter_rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_method"
+    t.decimal "basic_price", precision: 10, scale: 2
+    t.decimal "discount", precision: 10, scale: 2
+    t.decimal "service_fee", precision: 10, scale: 2
+    t.decimal "insurance_fee", precision: 10, scale: 2
+    t.integer "payment_status", default: 0
+    t.index ["stripe_payment_intent_id"], name: "index_tool_rentals_on_stripe_payment_intent_id"
     t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"
     t.index ["user_id"], name: "index_tool_rentals_on_user_id"
+  end
+
+  create_table "user_message_thread_members", force: :cascade do |t|
+    t.bigint "user_message_thread_id"
+    t.bigint "user_id"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_message_thread_members_on_user_id"
+    t.index ["user_message_thread_id"], name: "index_user_message_thread_members_on_user_message_thread_id"
+  end
+
+  create_table "user_message_threads", force: :cascade do |t|
+    t.bigint "tool_rental_id"
+    t.datetime "last_message_at"
+    t.text "last_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["last_message"], name: "index_user_message_threads_on_last_message"
+    t.index ["tool_rental_id"], name: "index_user_message_threads_on_tool_rental_id"
+  end
+
+  create_table "user_messages", force: :cascade do |t|
+    t.bigint "user_message_thread_id"
+    t.bigint "user_id"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_messages_on_user_id"
+    t.index ["user_message_thread_id"], name: "index_user_messages_on_user_message_thread_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -763,6 +800,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_093139) do
     t.index ["location_category_id"], name: "index_users_on_location_category_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
+    t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id"
   end
 
   create_table "zuckerls", id: :serial, force: :cascade do |t|
@@ -844,5 +882,10 @@ ActiveRecord::Schema.define(version: 2019_08_09_093139) do
   add_foreign_key "tool_offers", "users", on_delete: :cascade
   add_foreign_key "tool_rentals", "tool_offers", on_delete: :nullify
   add_foreign_key "tool_rentals", "users", on_delete: :nullify
+  add_foreign_key "user_message_thread_members", "user_message_threads", on_delete: :cascade
+  add_foreign_key "user_message_thread_members", "users", on_delete: :cascade
+  add_foreign_key "user_message_threads", "tool_rentals", on_delete: :nullify
+  add_foreign_key "user_messages", "user_message_threads", on_delete: :cascade
+  add_foreign_key "user_messages", "users", on_delete: :cascade
   add_foreign_key "users", "location_categories", on_delete: :nullify
 end

@@ -36,4 +36,5 @@ module ToolsHelper
     html += content_tag(:small, "#{user_rating} von 5", class: 'txt')
     html
   end
+
 end

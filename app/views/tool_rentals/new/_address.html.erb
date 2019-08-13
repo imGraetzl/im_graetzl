@@ -8,49 +8,48 @@
   </div>
 
   <div class="input-field">
-    <%= label_tag :renter_company do %>
+    <%= f.label :renter_company do %>
       <%= icon_tag "user-avatar" %>
       <span>Firma</span>
     <% end %>
-    <%= text_field_tag :renter_company, nil, placeholder: 'Firma (optional)' %>
+    <%= f.text_field :renter_company, placeholder: 'Firma (optional)', class: 'renter-company-input' %>
   </div>
 
   <div class="input-field">
-    <%= label_tag :renter_name do %>
+    <%= f.label :renter_name do %>
       <%= icon_tag "user-avatar" %>
       <span>Name</span>
     <% end %>
-    <%= text_field_tag :renter_name, current_user.full_name, placeholder: 'Vor- & Nachname' %>
+    <%= f.text_field :renter_name, placeholder: 'Vor- & Nachname', class: 'renter-name-input' %>
   </div>
 
   <div class="input-field">
-    <%= label_tag :renter_address do %>
+    <%= f.label :renter_address do %>
       <%= icon_tag "map-location" %>
       <span>Strasse & Nr.</span>
     <% end %>
-    <%= text_field_tag :renter_address, current_user.address.try(:street), placeholder: 'Strasse & Nr.' %>
+    <%= f.text_field :renter_address, placeholder: 'Strasse & Nr.', class: 'renter-address-input' %>
   </div>
 
   <div class="form-columns">
 
     <div class="input-field">
-      <%= label_tag :renter_zip do %>
+      <%= f.label :renter_zip do %>
         <%= icon_tag "map-location" %>
         <span>Postleitzahl</span>
       <% end %>
-      <%= text_field_tag :renter_zip, current_user.address.try(:zip), placeholder: 'PLZ' %>
+      <%= f.text_field :renter_zip, placeholder: 'PLZ', class: 'renter-zip-input' %>
     </div>
 
     <div class="input-field">
-      <%= label_tag :renter_city do %>
+      <%= f.label :renter_city do %>
         <%= icon_tag "map-location" %>
         <span>Ort/Stadt</span>
       <% end %>
-      <%= text_field_tag :renter_city, current_user.address.try(:city), placeholder: 'Stadt' %>
+      <%= f.text_field :renter_city, placeholder: 'Stadt', class: 'renter-city-input' %>
     </div>
-
   </div>
 
-  <%= button_tag "Weiter", type: 'button', class: 'btn-primary next-screen', data: { tab: 'tab-payment' } %>
+  <%= button_tag "Weiter", type: 'button', class: 'btn-primary next-screen' %>
 
 </div>

@@ -4,8 +4,9 @@ class ToolPriceCalculator
 
   def initialize(tool_offer, date_from, date_to)
     @tool_offer = tool_offer
-    @date_from = Date.parse(date_from)
-    @date_to = Date.parse(date_to)
+    date_from = Date.parse(date_from) if date_from.is_a?(String)
+    date_to = Date.parse(date_to) if date_to.is_a?(String)
+    @date_from, @date_to = [date_from, date_to].sort
   end
 
   def days
