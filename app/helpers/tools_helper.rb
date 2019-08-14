@@ -37,4 +37,14 @@ module ToolsHelper
     html
   end
 
+  def payment_method_label(payment_method)
+    case payment_method
+    when 'card'
+      "Kreditkarte"
+    when 'sofort'
+      "Sofort Überweisung"
+    when 'eps'
+      "EPS Überweisung"
+    end
+  end
 end

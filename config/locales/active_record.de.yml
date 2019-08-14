@@ -209,11 +209,6 @@ de:
           enabled: Aktiv
           disabled: Inaktiv
           deleted: Deleted
-      tool_rental:
-        payment_method:
-          card: Kreditkarte
-          sofort: Sofort Überweisung
-          eps: EPS Überweisung
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am

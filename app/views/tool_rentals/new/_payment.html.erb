@@ -11,7 +11,7 @@
     <% ToolRental::PAYMENT_METHODS.each do |payment_method| %>
       <div class="input-radio -<%= payment_method %>">
         <%= f.radio_button :payment_method, payment_method %>
-        <%= f.label :"payment_method_#{payment_method}", t("activerecord.attributes.tool_rental.payment_method.#{payment_method}") %>
+        <%= f.label :"payment_method_#{payment_method}", payment_method_label(payment_method) %>
       </div>
     <% end %>
   </div>
