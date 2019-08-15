@@ -112,21 +112,9 @@
 
   .payment-method-container {
     display: none;
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
 
-    .card-input-field {
-      display: block;
-      width: 100%;
-      background-color: white;
-      height: 36px;
-      padding: 10px 12px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-shadow: 0 1px 3px 0 #e6ebf1;
+    label {
+      min-width: 165px;
     }
 
     .error-message {

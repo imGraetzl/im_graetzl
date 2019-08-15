@@ -32,10 +32,30 @@ APP.controllers.tool_rentals = (function() {
     }
 
     function initCardPayment() {
+
       var container = $(".card-container");
 
-      var elements = stripe.elements();
-      var cardElement = elements.create('card', { hidePostalCode: true, classes: {base: 'card-input-field'}});
+      var elements = stripe.elements({
+        fonts: [
+          { cssSrc: 'https://fonts.googleapis.com/css?family=Lato:400,400i,300' }
+        ]
+      });
+
+      var style = {
+        base: {
+          fontFamily: '"Lato", sans-serif',
+          fontWeight:400,
+          fontSmoothing: 'antialiased',
+          fontSize: '16px',
+          color:'#615454',
+          '::placeholder': {
+            color: '#83C7BD',
+            fontStyle:'italic'
+          },
+        }
+      };
+
+      var cardElement = elements.create('card', {style: style, hidePostalCode: true, classes: {base: 'input-plain'}});
       cardElement.mount('#card-element');
 
       var paymentMethod;
