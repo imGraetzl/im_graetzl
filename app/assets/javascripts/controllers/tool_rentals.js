@@ -52,6 +52,7 @@ APP.controllers.tool_rentals = (function() {
             color: '#83C7BD',
             fontStyle:'italic'
           },
+          iconColor:'#69a8a7'
         }
       };
 
