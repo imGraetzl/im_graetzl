@@ -438,7 +438,7 @@ section.help {
     }
     // Single Mentor Card
     .single-mentor {
-      margin-bottom:50px;
+      //margin-bottom:20px;
       h2, h3, p.title {
         display: block;
         text-align: center;
@@ -448,6 +448,11 @@ section.help {
       }
       a {
         //text-decoration: none;
+      }
+      p {
+        height:80px;
+        max-height: 80px;
+        overflow: hidden;
       }
       a:hover {
         img {
