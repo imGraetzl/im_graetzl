@@ -447,11 +447,12 @@ section.help {
         padding:0px 0px 5px;
       }
       a {
+        display: block;
         //text-decoration: none;
       }
       p {
-        height:80px;
-        max-height: 80px;
+        height:90px;
+        max-height: 90px;
         overflow: hidden;
       }
       a:hover {
