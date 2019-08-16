@@ -3,9 +3,21 @@ APP.controllers.tool_rentals = (function() {
     function init() {
       if ($(".tool-rental-page").exists()) {
         APP.components.tabs.initTabs(".tabs-ctrl");
+        initLoginScreen();
         initAddressScreen();
         initPaymentScreen();
         initSummaryScreen();
+      }
+    }
+
+    function initLoginScreen() {
+      // Change Wording of Notice Message for Toolteiler Registrations
+      if ($("#flash .notice").exists()) {
+        var flashText = $("#flash .notice").text();
+        if (flashText.indexOf('Vielen Dank für Deine Registrierung.') >= 0){
+          // Modifiy Message for Toolteiler Registrations
+          $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst mit deiner Toolteiler Anfrage fortfahren..');
+        }
       }
     }
 
