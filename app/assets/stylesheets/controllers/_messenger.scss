@@ -356,18 +356,26 @@ section.messenger {
     .tool-rental-info {
       text-align: center;
       margin-bottom: 20px;
-      .title a { color:$color-ambient-mint-dark; }
+      .title  {
+        font-weight: bold;
+        a {
+          color:$color-ambient-mint-dark;
+          font-weight: bold;
+        }
+      }
     }
 
     .action-box {
       position: relative;
       margin-top: 20px;
-      padding: 10px 10px 10px 14px;
+      //padding: 10px 10px 10px 14px;
+      padding:20px;
       text-align: left;
       background-color: rgba($color-ambient-grey-light,0.70);
       border-radius: 9px;
       display: flex;
       align-items: center;
+      justify-content: center;
       .box-icon {
         position: absolute;
         top: -20px;
@@ -387,11 +395,15 @@ section.messenger {
         }
       }
       .note {
-        width: 70%;
         @include font-size-primaryFont('small');
+        .contact {
+          font-style: italic;
+          padding:10px;
+        }
       }
       .buttons {
-        width: 30%;
+        margin-left:20px;
+        min-width: 25%;
         a:nth-child(2) { margin-top: 10px; }
       }
     }
