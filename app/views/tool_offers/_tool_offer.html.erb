@@ -27,7 +27,7 @@
       <p><%= tool_offer.description.truncate(250) %></p>
     </div>
 
-    <%= link_to 'Ausleihen', tool_offer, class: 'btn-primary -mint' %>
+    <%= link_to 'Ausleihen', tool_offer, class: 'btn-primary -btn-rent -mint' %>
   </div>
 
   <% if local_assigns[:manage_buttons].present? && current_user == tool_offer.user %>

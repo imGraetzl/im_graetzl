@@ -102,14 +102,11 @@
     <%= link_to 'javascript:void(0);', class: '-trigger', :data => {:type => '-tools'} do %>
       <%= icon_tag "arrow-left-2" %> Zurück
     <% end %>
-    <% current_user.tool_offers.non_deleted.first(6).each do |tool_offer| %>
-      <%= link_to tool_offer do %>
-        <%= attachment_image_tag tool_offer, :cover_photo, :fill, 100, 100, fallback: 'avatar/tool_offer/100x100.png', class: 'img-square' %>
-        <span><%= tool_offer.title %></span>
-      <% end %>
-    <% end %>
     <%= link_to tool_offers_user_path do %>
       <%= icon_tag "share" %> Toolteiler verwalten
+    <% end %>
+    <%= link_to tool_offers_user_path(:target => "tab-2") do %>
+      <%= icon_tag "time-clock" %> Buchungsanfragen
     <% end %>
   </section>
 
