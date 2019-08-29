@@ -126,17 +126,14 @@
       <% end %>
     <% end %>
     <section class="content">
-      <% current_user.groups.size >= 8 ? maxgroups = 7 : maxgroups = 8 %>
-      <% current_user.groups.last(maxgroups).reverse.each do |group| %>
+      <% current_user.groups.last(8).reverse.each do |group| %>
         <%= link_to group do %>
           <%= icon_tag "coop-share" %>
           <span><%= group.title %></span>
         <% end %>
       <% end %>
-      <% if maxgroups == 7 %>
-        <%= link_to groups_user_path do %>
-          <%= icon_tag "speech-bubble" %> Alle Gruppen
-        <% end %>
+      <%= link_to groups_user_path do %>
+        <%= icon_tag "speech-bubble" %> Gruppen verwalten
       <% end %>
     </section>
   </section>
