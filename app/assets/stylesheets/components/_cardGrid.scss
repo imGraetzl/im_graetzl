@@ -27,7 +27,7 @@
 // For Example Toolteiler Categories
 .category-slider-container {
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 
   @include respond-to(">=large") {
     width:978px;
@@ -105,6 +105,9 @@
   }
 }
 
+.category-slider-container + .-open {
+  margin-top: -20px;
+}
 
 .card-grid-container {
 

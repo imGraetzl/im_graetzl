@@ -7,6 +7,7 @@ APP.components.toolCategorySlider = (function() {
     var items = element.find("div").length;
 
     var filterForm = $(".cards-filter");
+    var suggestionForm = $(".search-suggestion-trigger");
 
     var slider = element.lightSlider({
       item: item_desk,
@@ -88,17 +89,25 @@ APP.components.toolCategorySlider = (function() {
      function(){ $(this).removeClass('hover')}
    );
 
+   filterForm.hide(); // Hide per default - Show on Category Click
+
    // Click Slide
    element.find('.-category').on('click', function(){
      if ($(this).hasClass("activated")) {
        $(this).removeClass('activated');
        filterForm.find("[name=category_id]").val("");
+       suggestionForm.val("");
        filterForm.submit();
+       filterForm.slideUp("fast");
+       filterForm.removeClass("-open");
      } else {
        element.find('.-category').removeClass('activated');
        $(this).addClass('activated');
        filterForm.find("[name=category_id]").val($(this).attr("data-id"));
+       suggestionForm.val("");
        filterForm.submit();
+       filterForm.addClass("-open");
+       filterForm.slideDown("fast");
      }
    });
 
