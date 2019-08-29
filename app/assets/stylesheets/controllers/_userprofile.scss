@@ -42,8 +42,21 @@ section.userprofile {
   }
 
   .tabs-nav {
-    //margin: 0 auto;
+    margin: 0 auto;
     margin-bottom: 50px;
+
+    li {
+      width:100%;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    display: block;
+    @include respond-to(">=large") {
+      display: flex;
+      justify-content: center;
+    }
+
   }
 
   .cardBoxCollection .no-results-box {
@@ -53,6 +66,14 @@ section.userprofile {
   .link-more {
     margin: 0 auto;
     display: table;
+  }
+
+  .cardBox {
+    &.-toolteiler {
+      .graetzl-sideflag {
+        display:none;
+      }
+    }
   }
 
   .userContent {
@@ -87,6 +108,7 @@ section.userprofile {
     }
 
     .col2 {
+      white-space: pre-wrap;
       @include font-size-primaryFont('large');
       @include respond-to(">=medium") {
         @include col(2/3);

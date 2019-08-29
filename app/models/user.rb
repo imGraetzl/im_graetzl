@@ -100,7 +100,7 @@ class User < ApplicationRecord
   end
 
   def rooms
-    self.room_offers + self.room_demands
+    self.room_offers.enabled + self.room_demands.enabled
   end
 
   def meetings
