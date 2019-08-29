@@ -99,6 +99,14 @@ class User < ApplicationRecord
     self.locations.first
   end
 
+  def rooms
+    self.room_offers + self.room_demands
+  end
+
+  def meetings
+    self.initiated_meetings + self.attended_meetings
+  end
+
   private
 
   def update_mailchimp

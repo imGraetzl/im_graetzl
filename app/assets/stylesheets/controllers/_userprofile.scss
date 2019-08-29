@@ -41,6 +41,11 @@ section.userprofile {
     margin-bottom: 60px;
   }
 
+  .tabs-nav {
+    //margin: 0 auto;
+    margin-bottom: 50px;
+  }
+
   .cardBoxCollection .no-results-box {
     display: none;
   }
@@ -52,7 +57,7 @@ section.userprofile {
 
   .userContent {
     @include cf;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 
     .col1 {
       margin-top: -50px;

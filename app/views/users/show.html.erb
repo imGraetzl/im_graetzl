@@ -42,7 +42,50 @@
     <div class="col2"><%= @user.bio %></div>
   </div>
 
-  <%= render 'meetings' %>
+  <div class="tabs-ctrl">
+    <ul class="tabs-nav">
+      <% if @user.locations.exists? %><li><a href="#tab-locations">Location</a></li><% end %>
+      <% if !@user.rooms.blank? %><li><a href="#tab-raumteiler">Raumteiler</a></li><% end %>
+      <% if @user.tool_offers.exists? %><li><a href="#tab-toolteiler">Toolteiler</a></li><% end %>
+      <% if @user.groups.exists? %><li><a href="#tab-gruppen">Mitglied in Gruppen</a></li><% end %>
+      <% if !@user.meetings.blank? %><li><a href="#tab-meetings">Teilnahme an Treffen</a></li><% end %>
+    </ul>
+
+    <% if @user.locations.exists? %>
+    <div id="tab-locations" class="cardBoxCollection -tripple">
+      <%= render @user.locations %>
+    </div>
+    <% end %>
+
+    <% if !@user.rooms.blank? %>
+    <div id="tab-raumteiler" class="cardBoxCollection -tripple">
+      <%= render @user.rooms %>
+    </div>
+    <% end %>
+
+    <% if @user.tool_offers.exists? %>
+    <div id="tab-toolteiler" class="cardBoxCollection -tripple">
+      <%= render @user.tool_offers %>
+    </div>
+    <% end %>
+
+    <% if @user.groups.exists? %>
+    <div id="tab-gruppen" class="cardBoxCollection -tripple">
+      <%= render @user.groups.order(created_at: :desc) %>
+    </div>
+    <% end %>
+
+    <% if !@user.meetings.blank? %>
+    <div id="tab-meetings">
+      <%= render 'meetings' %>
+    </div>
+    <% end %>
+
+  </div>
+
+
+
+
 
   <div class="stream" data-behavior="stream-container">
     <h3>Persönliche <span>Pinnwand</span> von <%= @user.username %></h3>
