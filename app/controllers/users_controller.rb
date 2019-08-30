@@ -29,6 +29,8 @@ class UsersController < ApplicationController
 
   def tool_offers
     @tool_offers = current_user.tool_offers.non_deleted
+    @tool_offer_rentals = current_user.tool_offer_rentals.includes(:tool_offer, :user)
+    @tool_rentals = current_user.tool_rentals.includes(tool_offer: :user)
   end
 
   def zuckerls
