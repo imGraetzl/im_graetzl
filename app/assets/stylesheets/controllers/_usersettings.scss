@@ -124,7 +124,7 @@ div.notification-settings {
         //color: $color-ambient-grey;
         font-size: 14px;
         font-style: italic;
-        [class^=icon-] {
+        .icon {
           margin: 0 auto;
         }
       }
