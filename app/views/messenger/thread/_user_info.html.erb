@@ -1,6 +1,8 @@
 <% user = thread_other_user(@thread) %>
 <div class="user-info">
-  <%= avatar_for user %>
+  <%= link_to user do %>
+    <%= avatar_for user %>
+  <% end %>
   <div>
     <strong><%= user.full_name %></strong><br>
     <em><%= Graetzl.memoized(user.graetzl_id).try(:name) %></em>

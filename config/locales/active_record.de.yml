@@ -211,15 +211,15 @@ de:
           deleted: Deleted
       tool_rental:
         rental_statuses:
-          pending: Pending
-          canceled: Canceled
-          rejected: Rejected
-          approved: Approved
+          pending: Wartend
+          canceled: Abgebrochen
+          rejected: Abgelehnt
+          approved: Akzeptiert
         payment_statuses:
-          payment_pending: Payment Pending
-          payment_success: Payment Success
-          payment_failed: Payment Failed
-          payment_transfered: Payment Transfered
+          payment_pending: Zahlung wartend
+          payment_success: Zahlung erfolgreich
+          payment_failed: Zahlung fehlgeschlagen
+          payment_transfered: Zahlung überwiesen
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am
