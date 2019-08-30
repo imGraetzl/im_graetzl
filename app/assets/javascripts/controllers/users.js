@@ -13,12 +13,6 @@ APP.controllers.users = (function() {
           addActionCard();
         }
 
-        if ($("section.usersetup.-toolteiler").exists()) {
-          $("#messenger").on('click', function(){
-            window.location.href = "/messenger";
-          });
-        }
-
         function addActionCard() {
           if ($(".action-card-container").exists()) {
             var actionCard = $(".action-card-container").children().first().clone();

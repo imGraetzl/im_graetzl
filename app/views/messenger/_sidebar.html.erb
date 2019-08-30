@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class="threads-list" data-thread="<%= params[:thread_id] %>">
+  <div class="threads-list" data-thread="<%= params[:thread_id] %>" data-filter="<%= params[:filter] %>">
     <% @threads.each do |thread| %>
       <% user = thread_other_user(thread) %>
       <div class="message-thread single-user <%= message_thread_class(thread) %>" data-id="<%= thread.id %>">

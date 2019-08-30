@@ -4,7 +4,7 @@
     <ul class="tabs-nav">
       <li><a href="#tab-toolteiler">Deine Toolteiler</a></li>
       <li><a href="#tab-buchungsarchiv">Buchungsarchiv</a></li>
-      <li><a href="#tab-messenger" id="messenger">Anfragen Messenger</a></li>
+      <li><%= link_to "Anfragen Messenger", messenger_url(filter: "tool_rental") %></li>
     </ul>
 
     <div id='tab-toolteiler' class="tool-offers">
@@ -14,11 +14,6 @@
     <div id='tab-buchungsarchiv' class="tool-rentals">
       <%= render 'tool_rentals' %>
     </div>
-
-    <div id='tab-messenger' class="tool-messenger">
-      Messenger wird geladen ..
-    </div>
-
   </div>
 
 </section>

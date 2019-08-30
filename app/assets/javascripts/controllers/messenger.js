@@ -1,10 +1,37 @@
 APP.controllers.messenger = (function() {
 
   function init() {
-    initThreadSelect();
     initThreadFilter();
+    initThreadSelect();
     initThread();
     initLayout();
+  }
+
+  function initThreadFilter() {
+    var filterMessages = new jBox('Tooltip', {
+      addClass:'jBox',
+      attach: '#filterMessages',
+      content: $('#jBoxFilterMessages'),
+      trigger: 'click',
+      closeOnClick:true,
+      pointer:'left',
+      adjustTracker:true,
+      isolateScroll:true,
+      adjustDistance: {top: 25, right: 25, bottom: 25, left: 25},
+      animation:{open: 'zoomIn', close: 'zoomOut'},
+      maxHeight:500,
+    });
+
+    $("#side-bar .filter .jBoxDropdown a").on("click", function() {
+      $("#side-bar .message-thread").addClass('hidden');
+      $("#side-bar .message-thread." + $(this).data("filter")).removeClass('hidden');
+      $("#filterMessages .selected-filter").text($(this).text());
+    });
+
+    var preselectedFilter = $("#side-bar .threads-list").data("filter");
+    if (preselectedFilter) {
+      $("#side-bar .filter a[data-filter='" + preselectedFilter + "']").click();
+    }
   }
 
   function initThreadSelect() {
@@ -26,28 +53,6 @@ APP.controllers.messenger = (function() {
     if (preselectedThread) {
       $("#side-bar .message-thread[data-id='" + preselectedThread + "']").click();
     }
-  }
-
-  function initThreadFilter() {
-    var filterMessages = new jBox('Tooltip', {
-      addClass:'jBox',
-      attach: '#filterMessages',
-      content: $('#jBoxFilterMessages'),
-      trigger: 'click',
-      closeOnClick:true,
-      pointer:'left',
-      adjustTracker:true,
-      isolateScroll:true,
-      adjustDistance: {top: 25, right: 25, bottom: 25, left: 25},
-      animation:{open: 'zoomIn', close: 'zoomOut'},
-      maxHeight:500,
-    });
-
-    $(".filter .jBoxDropdown a").on("click", function() {
-      $("#side-bar .message-thread").addClass('hidden');
-      $("#side-bar .message-thread." + $(this).data("filter")).removeClass('hidden');
-      $("#filterMessages .selected-filter").text($(this).text());
-    });
   }
 
   function initThread() {
