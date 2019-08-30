@@ -1,7 +1,7 @@
 module MessengerHelper
 
   def thread_other_user(thread)
-    (thread.users - [current_user]).first
+    (thread.users - [current_user]).first || current_user
   end
 
   def message_thread_class(thread)
