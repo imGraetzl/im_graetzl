@@ -17,7 +17,7 @@ ActiveAdmin.register ToolOffer do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :title, :description, :brand, :model, :status,
+  permit_params :title, :description, :brand, :model, :status, :keyword_list,
     :value_up_to, :serial_number, :known_defects,
     :price_per_day, :two_day_discount, :weekly_discount,
     :tool_category_id, :tool_subcategory_id, :location_id,
