@@ -1,12 +1,13 @@
 APP.controllers.messenger = (function() {
 
   function init() {
-    initSidebar();
+    initThreadSelect();
+    initThreadFilter();
     initThread();
     initLayout();
   }
 
-  function initSidebar() {
+  function initThreadSelect() {
     // Load thread on Click
     $("#side-bar .message-thread").on("click", function() {
       if ($(this).hasClass("-active") || $(this).hasClass("hidden")) return;
@@ -16,10 +17,18 @@ APP.controllers.messenger = (function() {
     });
 
     $("#side-bar .fetch-form").on("ajax:complete", function() {
+      $("#chat-container").addClass("show-messages");
       scrollToLastMessage();
+      history && history.replaceState({}, '', location.pathname + "?thread_id=" + $(".chat-panel").data("thread-id"));
     });
 
-    // Thread filter
+    var preselectedThread = $("#side-bar .threads-list").data("thread");
+    if (preselectedThread) {
+      $("#side-bar .message-thread[data-id='" + preselectedThread + "']").click();
+    }
+  }
+
+  function initThreadFilter() {
     var filterMessages = new jBox('Tooltip', {
       addClass:'jBox',
       attach: '#filterMessages',
@@ -66,12 +75,13 @@ APP.controllers.messenger = (function() {
       setWindowHeight();
     });
 
-    $('.back-btn').click(function() {
-      $('#side-bar').toggleClass('is-collapsed');
-      $('#main-content').toggleClass('is-full-width');
+    $('#main-content').on("click", '.back-btn', function() {
+      $("#chat-container").removeClass("show-messages");
+      $("#side-bar .message-thread").removeClass("-active");
+      history && history.replaceState({}, '', location.pathname);
+      return false;
     });
   }
-
 
   function setWindowHeight() {
     var vh = window.innerHeight * 0.01; // Needed for Exactly Mobile Height

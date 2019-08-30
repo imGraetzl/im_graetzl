@@ -22,6 +22,6 @@
     <% end %>
   </div>
   <div class="flex-row" role="cell">
-    <%= link_to icon_tag("speech-bubbles"), messenger_path(user_id: user.id) %>
+    <%= link_to icon_tag("speech-bubbles"), messenger_path(thread_id: tool_rental.user_message_thread.id) %>
   </div>
 </div>
