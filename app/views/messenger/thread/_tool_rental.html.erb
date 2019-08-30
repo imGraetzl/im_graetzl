@@ -48,14 +48,13 @@
     <% elsif current_user.id == tool_rental.tool_offer.user_id && tool_rental.canceled? %>
 
       <div class="note">
-        Du hast die Anfrage abgelehnt. Bitte schreibe dem Mieter warum du ihm den Toolteiler nicht vermieten konntest.
+        <%= thread_other_user(@thread).full_name %> hat die Anfrage zurückgezogen.
       </div>
 
     <% elsif tool_rental.canceled? %>
 
       <div class="note">
-        Leider hat der Verleiher deine Anfrage abgelehnt.
-        Probiere es mit einer anderen <%= link_to "Toolteiler", tool_offers_wien_path %> Anfrage.
+        Du hast die Anfrage zurückgezogen. Bitte schreib dem Verleiher, warum du den Toolteiler doch nicht ausleihen möchtest.
       </div>
 
     <% elsif current_user.id == tool_rental.tool_offer.user_id && tool_rental.approved? %>
@@ -85,13 +84,14 @@
     <% elsif current_user.id == tool_rental.tool_offer.user_id && tool_rental.rejected? %>
 
       <div class="note">
-        <%= thread_other_user(@thread).full_name %> hat die Anfrage zurückgezogen.
+        Du hast die Anfrage abgelehnt. Bitte schreibe dem Mieter warum du ihm den Toolteiler nicht vermieten konntest.
       </div>
 
     <% elsif tool_rental.rejected? %>
 
       <div class="note">
-        Du hast die Anfrage zurückgezogen. Bitte schreib dem Verleiher, warum du den Toolteiler doch nicht ausleihen möchtest.
+        Leider hat der Verleiher deine Anfrage abgelehnt.
+        Probiere es mit einer anderen <%= link_to "Toolteiler", tool_offers_wien_path %> Anfrage.
       </div>
 
     <% end %>
