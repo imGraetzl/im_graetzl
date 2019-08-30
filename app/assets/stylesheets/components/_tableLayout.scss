@@ -1,7 +1,7 @@
 $table-header: $color-ambient-mint-dark;
 $table-header-border: $color-ambient-mint-dark;
 $table-border: $color-ambient-grey-light;
-$row-bg: none;
+$row-bg: $color-ambient-grey-light;
 $row-hover-bg : $color-ambient-mint-light;
 
 .table-container {
@@ -12,7 +12,7 @@ $row-hover-bg : $color-ambient-mint-light;
 
 .table-container {
 
-  line-height: 33px;
+  line-height: 1.5;
 
   a {
     color: $color-ambient-mint-dark;
@@ -34,7 +34,7 @@ $row-hover-bg : $color-ambient-mint-light;
       color: white;
     }
     &.row:nth-child(odd) .flex-row {
-      background: $row-bg;
+      background-color: rgba($row-bg, 0.5);
     }
     &:hover {
       background: $row-hover-bg;
@@ -43,29 +43,32 @@ $row-hover-bg : $color-ambient-mint-light;
   }
 
   .flex-row {
-    &.first {
-      width: 25%;
-      a {
-        font-weight: bold;
-      }
-    }
-    width: calc(75% / 6);
 
-    text-align: center;
-    padding: 0.2em 0.2em;
+    display: flex;
+    justify-content: left;
+    padding:5px 10px 5px 10px;
     border-right: solid 1px $table-border;
     border-bottom: solid 1px $table-border;
-    @include ellipsis();
+    //@include ellipsis();
+    //text-align: center;
 
-    .status {
+    &.wide20 {width: 20%; justify-content: left;}
+    &.wide25 {width: 25%; justify-content: left;}
+    width: calc(35% / 3);
+
+    .message {
       display: inline-flex;
-      align-items: center;
-      a {
-        color: $color-ambient-rosa;
-      }
       svg {
-        margin-left:10px;
+        color: $color-ambient-rosa;
+        margin-right:7px;
       }
+    }
+    .payment-status {padding-left: 5px;}
+  }
+
+  .header {
+    .flex-row {
+      justify-content: center;
     }
   }
 
@@ -113,11 +116,9 @@ $row-hover-bg : $color-ambient-mint-light;
   // MEDIUM SIZE
   @include respond-to("<=medium") {
 
-    .flex-row {
-      width: calc(100% / 3); //1px = border right
-      &.first {
-         width: 100%;
-      }
+    .flex-row, .flex-row.wide20, .flex-row.wide25 {
+      width: calc(100% / 2); //1px = border right
+      justify-content: center;
     }
     .column {
       width: 100%;
@@ -141,16 +142,12 @@ $row-hover-bg : $color-ambient-mint-light;
       .flex-row {
         border-bottom: solid 1px;
       }
-      .flex-row:not(.first) { display: none}
+      //.flex-row:not(.first) { display: none}
     }
 
-    .flex-row {
+    .flex-row, .flex-row.wide20, .flex-row.wide25 {
       width: 100%; //1px = border right
-
-     &.first {
-       width: 100%;
-       border-bottom: solid 1px $table-border;
-     }
+      justify-content: center;
     }
 
     .column {
