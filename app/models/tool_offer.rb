@@ -42,9 +42,9 @@ class ToolOffer < ApplicationRecord
 
   def daily_price(days)
     if days >= 7
-      price_per_day * (100 - weekly_discount) / 100
+      price_per_day * (100 - weekly_discount.to_i) / 100
     elsif days >= 2
-      price_per_day * (100 - two_day_discount) / 100
+      price_per_day * (100 - two_day_discount.to_i) / 100
     else
       price_per_day
     end
