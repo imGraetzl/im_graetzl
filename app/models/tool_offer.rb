@@ -25,7 +25,7 @@ class ToolOffer < ApplicationRecord
   accepts_attachments_for :images, attachment: :file, append: true
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :title, :description, :address
+  validates_presence_of :title, :description, :address, :tool_category_id, :cover_photo, :price_per_day, :iban
 
   before_save :set_graetzl
 
