@@ -2,7 +2,7 @@ class ToolRentalsController < ApplicationController
   before_action :authenticate_user!, except: [:new]
 
   def new
-    @tool_offer = ToolOffer.enabled.find(params[:tool_rental_id])
+    @tool_offer = ToolOffer.enabled.find(params[:tool_offer_id])
     @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
 
     render 'login' and return if !user_signed_in?
@@ -11,10 +11,6 @@ class ToolRentalsController < ApplicationController
       user: current_user,
       rent_from: @calculator.date_from,
       rent_to: @calculator.date_to,
-      renter_name: current_user.full_name,
-      renter_address: current_user.address.try(:street),
-      renter_zip: current_user.address.try(:zip),
-      renter_city: current_user.address.try(:city),
     )
   end
 
@@ -23,7 +19,7 @@ class ToolRentalsController < ApplicationController
     @calculator = ToolPriceCalculator.new(@tool_offer, params[:date_from], params[:date_to])
     intent = Stripe::PaymentIntent.create(
       amount: (@calculator.total * 100).to_i,
-      currency: 'usd',
+      currency: 'eur',
       payment_method: params[:payment_method_id],
       capture_method: 'manual',
       confirmation_method: 'manual',
@@ -38,7 +34,7 @@ class ToolRentalsController < ApplicationController
       # Already paid?
       render json: { success: true, payment_intent_id: intent.id }
     else
-      render json: { error: "Invalid Payment intent" }
+      render json: { error: "Invalid Payment intent" }, status: :bad_request
     end
   end
 
