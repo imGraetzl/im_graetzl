@@ -52,29 +52,29 @@ class ToolRentalsController < ApplicationController
       insurance_fee: calculator.insurance_fee,
     )
     @tool_rental.save!
-    UserMessageThread.create_for_tool_rental(@tool_rental)
-    redirect_to messenger_url
+    thread = UserMessageThread.create_for_tool_rental(@tool_rental)
+    redirect_to messenger_url(thread_id: thread.id)
   end
 
   def cancel
     @tool_rental = current_user.tool_rentals.pending.find(params[:id])
-    @tool_rental.canceled!
     Stripe::PaymentIntent.cancel(@tool_rental.stripe_payment_intent_id)
-    redirect_to messenger_url
+    @tool_rental.canceled!
+    redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id)
   end
 
   def approve
     @tool_rental = current_user.tool_offer_rentals.pending.find(params[:id])
-    @tool_rental.approved!
     intent = Stripe::PaymentIntent.capture(@tool_rental.stripe_payment_intent_id)
-    redirect_to messenger_url
+    @tool_rental.approved!
+    redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id)
   end
 
   def reject
     @tool_rental = current_user.tool_offer_rentals.pending.find(params[:id])
-    @tool_rental.rejected!
     Stripe::PaymentIntent.cancel(@tool_rental.stripe_payment_intent_id)
-    redirect_to messenger_url
+    @tool_rental.rejected!
+    redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id)
   end
 
   private
@@ -83,7 +83,7 @@ class ToolRentalsController < ApplicationController
     params.require(:tool_rental).permit(
       :tool_offer_id, :rent_from, :rent_to,
       :renter_name, :renter_address, :renter_zip, :renter_city,
-      :payment_intent_id, :payment_method,
+      :stripe_payment_intent_id, :payment_method,
     )
   end
 end
