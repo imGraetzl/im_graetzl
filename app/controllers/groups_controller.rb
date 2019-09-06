@@ -1,5 +1,7 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_admin_user!, only: [:create, :new] # New: Create Groups only for Admin Users
+
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
