@@ -8,7 +8,7 @@ class Notifications::NewToolOffer < Notification
   end
 
   def self.description
-    'Ein neues Toolangebot wurde im Grätzl erstellt'
+    'Ein neuer Toolteiler wurde im Grätzl erstellt'
   end
 
   def self.notify_owner?
@@ -28,6 +28,6 @@ class Notifications::NewToolOffer < Notification
   end
 
   def mail_subject
-    "Neuer Tool Offer im Grätzl #{activity.trackable.graetzl.name}"
+    "Neuer Toolteiler im Grätzl #{activity.trackable.graetzl.name}"
   end
 end
