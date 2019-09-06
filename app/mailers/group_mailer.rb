@@ -36,15 +36,6 @@ class GroupMailer < ApplicationMailer
       to: to_user.email, from: "#{from_user} | imGrätzl.at <#{from_email}>",
       reply_to: reply_to, subject: subject
     )
-        { name: 'email_body', content: html_body },
-        { name: 'group_name', content: group.title },
-        { name: 'group_url', content: group_url(group, URL_OPTIONS) },
-        { name: 'from_name', content: user.full_name },
-        { name: 'from_email', content: from_email },
-        { name: 'reply_to_email', content: reply_to },
-        { name: 'user_avatar_url', content: Notifications::ImageService.new.avatar_url(user) }
-      ]
-    })
   end
 
 end
