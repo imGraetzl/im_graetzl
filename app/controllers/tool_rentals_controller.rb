@@ -53,6 +53,7 @@ class ToolRentalsController < ApplicationController
     )
     @tool_rental.save!
     thread = UserMessageThread.create_for_tool_rental(@tool_rental)
+    ToolOfferMailer.new_rental_request(@tool_rental).deliver_later
     redirect_to messenger_url(thread_id: thread.id)
   end
 
@@ -60,6 +61,7 @@ class ToolRentalsController < ApplicationController
     @tool_rental = current_user.tool_rentals.pending.find(params[:id])
     Stripe::PaymentIntent.cancel(@tool_rental.stripe_payment_intent_id)
     @tool_rental.canceled!
+    ToolOfferMailer.rental_canceled(@tool_rental).deliver_later
     redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id)
   end
 
@@ -67,6 +69,7 @@ class ToolRentalsController < ApplicationController
     @tool_rental = current_user.tool_offer_rentals.pending.find(params[:id])
     intent = Stripe::PaymentIntent.capture(@tool_rental.stripe_payment_intent_id)
     @tool_rental.approved!
+    ToolOfferMailer.rental_approved(@tool_rental).deliver_later
     redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id)
   end
 
@@ -74,6 +77,7 @@ class ToolRentalsController < ApplicationController
     @tool_rental = current_user.tool_offer_rentals.pending.find(params[:id])
     Stripe::PaymentIntent.cancel(@tool_rental.stripe_payment_intent_id)
     @tool_rental.rejected!
+    ToolOfferMailer.rental_rejected(@tool_rental).deliver_later
     redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id)
   end
 
