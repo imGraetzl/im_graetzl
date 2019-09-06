@@ -21,7 +21,7 @@
     <div class="error-message"></div>
 
     <div class="input-field">
-      <%= f.label :card_info do %>
+      <%= label_tag :card_info do %>
         <%= icon_tag "credit-card" %>
         <span>Kreditkarte</span>
       <% end %>
@@ -29,7 +29,7 @@
     </div>
 
     <div class="input-field">
-      <%= f.label :cardholder_name do %>
+      <%= label_tag :cardholder_name do %>
         <%= icon_tag "user-avatar" %>
         <span>Karteninhaber</span>
       <% end %>
@@ -40,7 +40,38 @@
   </div>
 
   <div class="payment-method-container sofort-container">
-    <p> Coming soon </p>
+    <div class="input-field">
+      <%= label_tag :cardholder_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>First name</span>
+      <% end %>
+      <%= text_field_tag :first_name, current_user.first_name, placeholder: '', class: 'input-plain' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :cardholder_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Karteninhaber</span>
+      <% end %>
+      <%= text_field_tag :cardholder_name, current_user.full_name, placeholder: 'Karte laufend auf ...', class: 'input-plain', id: 'cardholder-name' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :cardholder_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Karteninhaber</span>
+      <% end %>
+      <%= text_field_tag :cardholder_name, current_user.full_name, placeholder: 'Karte laufend auf ...', class: 'input-plain', id: 'cardholder-name' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :cardholder_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Karteninhaber</span>
+      <% end %>
+      <%= text_field_tag :cardholder_name, current_user.full_name, placeholder: 'Karte laufend auf ...', class: 'input-plain', id: 'cardholder-name' %>
+    </div>
+
   </div>
 
   <div class="payment-method-container eps-container">

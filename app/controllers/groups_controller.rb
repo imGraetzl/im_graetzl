@@ -32,7 +32,7 @@ class GroupsController < ApplicationController
 
     if @group.save
       @group.create_activity(:create, owner: current_user)
-      GroupMailer.new.group_online(@group, current_user)
+      GroupMailer.group_online(@group, current_user).deliver_later
       redirect_to @group
     else
       render 'new'
@@ -71,7 +71,9 @@ class GroupsController < ApplicationController
         request_message: params[:request_message],
       )
     end
-    GroupMailer.new.new_join_request(join_request)
+    join_request.group.admins.each do |group_admin|
+      GroupMailer.new_join_request(join_request, group_admin).deliver_later
+    end
     flash[:notice] = 'Deine Beitrittsanfrage wurde abgeschickt!'
     redirect_to @group
   end
@@ -87,7 +89,7 @@ class GroupsController < ApplicationController
 
       if @group.save
         group_user.create_activity(:create, owner: current_user)
-        GroupMailer.new.join_request_accepted(@group, @join_request.user)
+        GroupMailer.join_request_accepted(@group, @join_request.user).deliver_later
       end
 
     end
@@ -127,9 +129,11 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
-    GroupMailer.new.message_to_users(
-      @group, current_user, User.where(id: params[:user_ids]), params[:subject], params[:body], params[:from_email]
-    )
+    User.where(id: params[:user_ids]).find_each do |user|
+      GroupMailer.message_to_user(
+        @group, current_user, user, params[:subject], params[:body], params[:from_email]
+      ).deliver_later
+    end
     redirect_to @group, notice: 'Deine E-Mail wurde versendet ..'
   end
 
