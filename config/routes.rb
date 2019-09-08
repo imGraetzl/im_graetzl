@@ -97,7 +97,11 @@ Rails.application.routes.draw do
   end
 
   resources :tool_rentals, only: [:new, :create] do
-    post 'create_intent', on: :collection
+    get 'choose_payment', on: :collection
+    get 'summary', on: :collection
+    post 'initiate_card_payment', on: :collection
+    post 'initiate_klarna_payment', on: :collection
+    post 'initiate_eps_payment', on: :collection
     post 'cancel', on: :member
     post 'approve', on: :member
     post 'reject', on: :member
