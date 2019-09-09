@@ -159,11 +159,10 @@ Rails.application.routes.draw do
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
   end
 
-  get 'lp/raumteiler-guide', to: 'static_pages#lp_raumteilerguide'
-  get 'lp/raumteiler-guide-danke', to: 'static_pages#lp_raumteilerguide_success'
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'info', to: 'static_pages#help'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
+  get 'info/toolteiler', to: 'static_pages#toolteiler'
   get 'info/gruppen', to: 'static_pages#groups'
   get 'info/anbieter-und-locations', to: 'static_pages#location'
   get 'info/events-und-workshops', to: 'static_pages#meetings'
