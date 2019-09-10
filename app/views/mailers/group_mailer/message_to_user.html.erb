@@ -15,7 +15,6 @@
         </p>
       </td>
     </tr>
-
     <tr>
       <td colspan="2" style="padding-bottom:9px;"></td>
     </tr>
@@ -24,7 +23,9 @@
 <!-- --------------- USER HEADER ROW --------------- -->
 
 <!-- MAIL CONTENT -->
-<%= @message.gsub("\r\n", "<br/>").html_safe %>
+<p class="mcnTextContent">
+  <%= @message.gsub("\r\n", "<br/>").html_safe %>
+</p>
 <!-- /MAIL CONTENT -->
 
 <!-- BUTTON -->
