@@ -1,0 +1,8 @@
+<% content_for(:title, "Hey #{@tool_rental.owner.first_name}") %>
+
+<p>
+  We hope your rental was successful. Please confirm the return of bike and add a rating for
+  <%= @tool_rental.renter.first_name %>
+</p>
+
+<%= link_to "Confirm Return", messenger_url(thread_id: @tool_rental.user_message_thread.id) %>
