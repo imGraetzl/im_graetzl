@@ -1,0 +1,118 @@
+<h1 style="color:#434343; font-size:30px; line-height:130%; margin-top:10; margin-bottom:2px;">
+  Hallo <%= @user.first_name %>,
+</h1>
+
+<p style="color:#434343; font-family:Helvetica;">
+  Vielen Dank für die Buchung deines Grätzlzuckerls.
+  <br/>
+  <strong>Wir bestätigen hiermit den Eingang deiner Zahlung und die erfolgreiche Buchung.</strong>
+  <br/><br/>
+  Dein Grätzlzuckerl für die Location
+  <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location), style: "color:#f48a85; font-weight:bold;" %>
+  ist somit im Monat
+  <strong><%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform imGrätzl.at aktiv!</strong>
+  <br/><br/>Solltest du Fragen haben schick uns ein Mail an wir@imgraetzl.at.
+  <br/>
+  Dein Team von imGrätzl.at
+</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate !important;border: 2px solid #64A8A7;border-top-left-radius: 6px;border-top-right-radius: 6px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;background-color: #64A8A7;">
+  <tr>
+    <td style="font-family: Arial; font-size: 14px; padding: 8px;">
+      <%= link_to "Dein gebuchtes Zuckerl einsehen", zuckerls_user_url, style: "color: #FFFFFF; text-decoration: none;", target: "_blank" %>
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<h2 style="color:#64A8A7; font-size:20px; font-family:Helvetica; font-style:normal; font-weight:normal; line-height:130%; margin-top:0px; padding-top:15px; margin-bottom:2px;">
+  Rechnung
+</h2>
+
+<table cellpadding="0" cellspacing="0" width="100%" style="border-top-width: 3px;border-top-style: solid;border-top-color: #64A8A7; margin-bottom:10px;">
+  <tr>
+    <td><span></span></td>
+  </tr>
+</table>
+
+<table width="100%">
+  <tr>
+    <td width="50%" valign="top">
+      <% if @zuckerl.location.billing_address.present? %>
+        <p>
+          <strong>Rechnungsempfänger</strong><br/>
+          <%= @zuckerl.location.billing_address.full_name %><br/>
+          <%= @zuckerl.location.billing_address.company %><br/>
+          <%= @zuckerl.location.billing_address.street %><br/>
+          <%= @zuckerl.location.billing_address.zip %> <%= @zuckerl.location.billing_address.city %><br/>
+          <%= @zuckerl.location.billing_address.country %><br/>
+        </p>
+      <% end %>
+    </td>
+    <td width="50%" valign="top">
+      <p>
+        <strong>Rechnungssteller</strong><br/>
+        www.imGrätzl.at - betrieben von<br/>
+        morgenjungs GmbH<br/>
+        Ausstellungsstrasse 9/9<br/>
+        1020 Wien<br/>
+        UID: ATU 69461502<br/>
+      </p>
+    </td>
+  </tr>
+</table>
+
+<table width="100%" cellpadding="2">
+  <tr>
+    <td colspan="3" style="padding-bottom:5px;">
+      Rechnungsdatum: <%= Date.today.strftime('%d.%m.%Y') %><br/>
+      Verwendungszweck: <%= @zuckerl.payment_reference %><br/>
+      Zahlungsmittel: Banküberweisung<br/>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" style="border-top-width: 3px;border-top-style: solid;border-top-color: #64A8A7;"></td>
+  </tr>
+  <tr>
+    <td width="10%"><strong>Anzahl</strong></td>
+    <td width="65%"><strong>Buchung</strong></td>
+    <td width="25%"><strong>Preis</strong></td>
+  </tr>
+  <tr>
+    <td valign="top">1</td>
+    <td valign="top" style="padding-bottom:5px;">
+      Grätzlzuckerl Buchung auf imGrätzl.at für die Location:<br/>
+      "<%= @zuckerl.location.name %>"<br/>
+      Laufzeit: <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %>
+    </td>
+    <td valign="top">12,50 € (exkl. USt.)</td>
+  </tr>
+  <tr>
+    <td colspan="3" style="border-top-width: 3px;border-top-style: solid;border-top-color: #64A8A7;"></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align="right">zzgl. 20% USt. </td>
+    <td>  2,50 €</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align="right" style="padding-bottom:5px;"><strong>Gesamt inkl. USt. </strong></td>
+    <td><strong>15,00 €</strong></td>
+  </tr>
+  <tr>
+    <td colspan="3" style="border-top-width: 3px;border-top-style: solid;border-top-color: #64A8A7;"></td>
+  </tr>
+</table>
+
+<br/>
+
+<strong>Der Betrag wurde dankend erhalten!</strong><br/>
+<em>Kontoverbindung:</em><br/>
+morgenjungs GmbH<br/>
+IBAN: AT03 2011 1826 6988 6500<br/>
+BIC: GIBAATWWXXX<br/><br/>
+Ausstellungsstrasse 9/9<br/>
+A-1020 Wien<br/>
+wir@imgraetzl.at

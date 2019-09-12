@@ -3,7 +3,6 @@ class ToolOfferMailer < ApplicationMailer
   def new_rental_request(tool_rental)
     @tool_rental = tool_rental
     @tool_offer = tool_rental.tool_offer
-    @calculator = ToolPriceCalculator.new(@tool_offer, @tool_rental.rent_from, @tool_rental.rent_to)
     headers("X-MC-Tags" => "tool-rental-request")
     mail(to: @tool_rental.tool_offer.user.email, subject: "Neue Toolteiler Anfrage")
   end
