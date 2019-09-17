@@ -1,0 +1,52 @@
+<% content_for(:above_title, "Hallo #{@user.first_name},") %>
+<% content_for(:title, "Schau mal - Es gibt Neuigkeiten aus dem Grätzl #{@notification.meeting.graetzl.name} für dich:") %>
+
+<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+  <tr>
+    <td style="height:30px"> </td>
+  </tr>
+  <tr>
+    <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+      <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
+        Neuer Teilnehmer an deinem Treffen
+      </h4>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-left:9px; padding-right:9px;">
+      <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td>
+            <span></span>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<table style="margin-bottom:15px;">
+  <tr>
+    <td valign="top" style="width:50px;">
+    </td>
+    <td valign="top" style="color:#444444; font-family:Helvetica;">
+      <h3 style="font-size:18px; font-style:normal; font-weight:normal; line-height:130%; letter-spacing:normal; margin-top:0;margin-right:0; margin-bottom:2px;">
+        <%= link_to @notification.meeting.name, graetzl_meeting_url(@notification.meeting.graetzl, @notification.meeting), style:"color:#f48a85;" %>
+      </h3>
+    </td>
+  </tr>
+</table>
+
+<table style="margin-bottom:35px;">
+  <tr>
+    <td valign="top" style="width:50px;">
+      <%= image_tag Notifications::ImageService.new.avatar_url(@notification.activity.owner), style: "width: 40px; height: 40px; border-radius: 20px; display: block; margin-bottom:5px;" %>
+    </td>
+    <td valign="top" style="color:#444444; font-family:Helvetica;">
+      <em><strong style="line-height:40px;">
+        <%= link_to @notification.activity.owner.username, user_url(@notification.activity.owner), style: "color:#f48a85; font-weight:bold;" %>
+        nimmt teil.
+      </strong></em>
+    </td>
+  </tr>
+</table>
