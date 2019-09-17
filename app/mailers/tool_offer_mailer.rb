@@ -27,6 +27,6 @@ class ToolOfferMailer < ApplicationMailer
 
   def rental_return_pending(tool_rental)
     @tool_rental = tool_rental
-    mail(to: @tool_rental.owner.email, subject: "Please confirm the return")
+    mail(to: @tool_rental.owner.email, subject: "Bitte bestätige die Rückgabe deines Toolteilers.")
   end
 end
