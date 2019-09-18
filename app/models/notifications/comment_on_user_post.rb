@@ -24,7 +24,7 @@ class Notifications::CommentOnUserPost < Notification
   end
 
   def headline
-    'Neuer Kommentar bei deinem Beitrag:'
+    'Neuer Kommentar bei deinem Beitrag'
   end
 
   def content_title

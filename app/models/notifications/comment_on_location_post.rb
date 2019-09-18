@@ -24,7 +24,7 @@ class Notifications::CommentOnLocationPost < Notification
   end
 
   def headline
-    'Neuer Kommentar bei deinem Location-Update:'
+    'Neuer Kommentar bei deinem Location-Update'
   end
 
   def content_title

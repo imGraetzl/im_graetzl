@@ -20,7 +20,7 @@ class Notifications::AlsoCommentedUserPost < Notification
   end
 
   def headline
-    'Neuer Kommentar bei Beitrag:'
+    'Neuer Kommentar bei einem Beitrag'
   end
 
   def content_title

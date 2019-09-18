@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hey #{@user.first_name},") %>
-<% content_for(:title, "es gibt eine neue Antwort,") %>
+<% content_for(:title, "es gibt einen neuen Kommentar,") %>
 <% content_for(:subtitle, "wo du zuvor auch kommentiert hast.") %>
 
 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -9,7 +9,9 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        <%= @notification.headline %>
+        Der Beitrag von
+        <%= link_to @notification.discussion_post.user.first_name, user_url(@notification.discussion_post.user), style: "color:#f48a85;" %>
+         wurde kommentiert von:
       </h4>
     </td>
   </tr>
@@ -28,13 +30,6 @@
 
 <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
   <tbody>
-    <tr>
-      <td colspan="2" valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-        <p>
-          <em><strong>Ebenfalls kommentiert:</strong></em>
-        </p>
-      </td>
-    </tr>
 
     <tr>
       <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
@@ -42,7 +37,7 @@
       </td>
       <td class="mcnTextContent" style="padding-right:18px; width:100%;">
         <p>
-          <em><strong><%= @notification.activity.owner.username %>:</strong></em>
+          <em><strong><%= @notification.activity.owner.first_name %>:</strong></em>
           <br>
           <%= @notification.comment.content.truncate(300, separator: ' ') %>
         </p>

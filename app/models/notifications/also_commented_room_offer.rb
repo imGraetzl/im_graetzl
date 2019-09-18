@@ -20,7 +20,7 @@ class Notifications::AlsoCommentedRoomOffer < Notification
   end
 
   def headline
-    'Neuer Kommentar bei Raum:'
+    'Neuer Kommentar bei einem Raumteiler'
   end
 
   def content_title
