@@ -27,6 +27,7 @@ class ToolOffer < ApplicationRecord
 
   validates_presence_of :title, :description, :address, :tool_category_id, :cover_photo, :price_per_day, :iban
 
+  before_save :check_discounts
   before_save :set_graetzl
 
   scope :non_deleted, -> { where.not(status: :deleted) }
@@ -55,6 +56,12 @@ class ToolOffer < ApplicationRecord
   end
 
   private
+
+  def check_discounts
+    if weekly_discount.to_i < two_day_discount.to_i
+      self.weekly_discount = two_day_discount
+    end
+  end
 
   def set_graetzl
     self.graetzl = address.graetzl if address.present?
