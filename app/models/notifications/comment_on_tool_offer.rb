@@ -16,11 +16,11 @@ class Notifications::CommentOnToolOffer < Notification
   end
 
   def mail_subject
-    "#{activity.owner.username} hat deinen Tool kommentiert."
+    "#{activity.owner.username} hat deinen Toolteiler kommentiert."
   end
 
   def headline
-    'Neuer Kommentar bei deinem Toolteiler:'
+    'Neuer Kommentar bei deinem Toolteiler'
   end
 
   def content_title

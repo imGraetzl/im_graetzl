@@ -20,7 +20,7 @@ class Notifications::CommentInMeeting < Notification
   end
 
   def headline
-    'Neuer Kommentar bei einem Treffen:'
+    'Neuer Kommentar bei einem Treffen'
   end
 
   def content_title

@@ -16,11 +16,11 @@ class Notifications::AlsoCommentedToolOffer < Notification
   end
 
   def mail_subject
-    "#{activity.owner.username} hat einen Tool ebenfalls kommentiert."
+    "#{activity.owner.username} hat einen Toolteiler ebenfalls kommentiert."
   end
 
   def headline
-    'Neuer Kommentar bei Tool:'
+    'Neuer Kommentar bei einem Toolteiler'
   end
 
   def content_title

@@ -8,7 +8,8 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        Neues Treffen
+        <%= link_to @notification.activity.owner.first_name, user_url(@notification.activity.owner), style: "color:#f48a85;" %>
+        hat ein neues Treffen erstellt:
       </h4>
     </td>
   </tr>
@@ -25,37 +26,34 @@
   </tr>
 </table>
 
-<!-- ITEM mit inline CSS -->
-<table style="margin-bottom:35px;">
-  <tr>
-    <td valign="top" style="width:50px;">
-      <%= image_tag Notifications::ImageService.new.avatar_url(@notification.activity.owner), style: "width: 40px; height: 40px; border-radius: 20px; display: block;" %>
-    </td>
-    <td valign="top" style="color:#444444; font-family:Helvetica;">
-      <em><strong style="line-height:40px;">
-        Neues Treffen von
-        <%= link_to @notification.activity.owner.username, user_url(@notification.activity.owner), style: "color:#f48a85; font-weight:bold;" %>
-      </strong></em>
+<table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-left:18px; padding-right:18px; vertical-align:top;">
+        <%= image_tag Notifications::ImageService.new.avatar_url(@notification.activity.owner), style: "width: 40px; height: 40px; border-radius: 20px; display: block;" %>
+      </td>
+      <td valign="center" class="mcnTextContent" width="100%">
 
-      <h3 style="font-size:18px; font-style:normal; font-weight:normal; line-height:130%; letter-spacing:normal; margin-top:0;margin-right:0; margin-bottom:2px;">
-        <%= link_to @notification.meeting.name.truncate(70, separator: ' '), graetzl_meeting_url(@notification.meeting.graetzl, @notification.meeting), style:"color:#f48a85;" %>
-      </h3>
+        <h3 style="font-size:18px; font-style:normal; font-weight:normal; line-height:130%; letter-spacing:normal; margin-top:0;margin-right:0; margin-bottom:2px;">
+          <%= link_to @notification.meeting.name.truncate(70, separator: ' '), graetzl_meeting_url(@notification.meeting.graetzl, @notification.meeting), style:"color:#f48a85;" %>
+        </h3>
+        <em>
+          <%= I18n.localize(@notification.meeting.starts_at_date, format:'%A %d. %B') if @notification.meeting.starts_at_date.present? %>
+        </em>
+        <p style="margin-top:12px;">
+          <%= @notification.meeting.description.truncate(255, separator: ' ') %>
+        </p>
 
-      <em>
-        <%= I18n.localize(@notification.meeting.starts_at_date, format:'%A %d. %B') if @notification.meeting.starts_at_date.present? %>
-      </em>
-
-      <p style="margin-top:12px;">
-        <%= @notification.meeting.description.truncate(255, separator: ' ') %>
-      </p>
-
-      <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate !important;border: 2px solid #64A8A7;border-top-left-radius: 6px;border-top-right-radius: 6px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;background-color: #64A8A7;">
-        <tr>
-          <td style="font-family: Arial; font-size: 14px; padding: 8px;">
-            <%= link_to "Treffen ansehen", graetzl_meeting_url(@notification.meeting.graetzl, @notification.meeting), style:"color: #FFFFFF; text-decoration: none;", target: "_blank" %>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-bottom:9px;">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= render 'mailers/shared/button', title: "Treffen ansehen", url: graetzl_meeting_url(@notification.meeting.graetzl, @notification.meeting) %>
+      </td>
+    </tr>
+  </tbody>
 </table>
