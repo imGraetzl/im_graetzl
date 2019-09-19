@@ -53,8 +53,6 @@ class NotificationMailer < ApplicationMailer
     )
     return if @notifications.empty?
 
-    @notifications.update_all(sent: true)
-
     headers(
       "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
       "X-MC-GoogleAnalyticsCampaign" => "notification-mail",
@@ -64,6 +62,7 @@ class NotificationMailer < ApplicationMailer
       from: "imGrätzl.at | Neuigkeiten <neuigkeiten@imgraetzl.at>",
       subject: "#{@user.graetzl.name} - Neue Treffen & Location Updates",
     )
+    @notifications.update_all(sent: true)
   end
 
   PERSONAL_SUMMARY_BLOCKS = {
@@ -112,8 +111,6 @@ class NotificationMailer < ApplicationMailer
       return
     end
 
-    @notifications.values.each { |n| n.update_all(sent: true) }
-
     headers(
       "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
       "X-MC-GoogleAnalyticsCampaign" => "summary-mail",
@@ -123,6 +120,7 @@ class NotificationMailer < ApplicationMailer
       from: "imGrätzl.at | Updates <updates@imgraetzl.at>",
       subject: "Persönliche Neuigkeiten für #{@user.first_name} zusammengefasst",
     )
+    @notifications.values.each { |n| n.update_all(sent: true) }
   end
 
   private
