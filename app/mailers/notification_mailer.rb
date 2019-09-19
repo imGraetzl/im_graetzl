@@ -60,14 +60,17 @@ class NotificationMailer < ApplicationMailer
     )
     mail(
       to: @user.email,
-      from: "imGrätzl.at | Neuigkeiten <neuigkeiten@imgraetzl.at>",
-      subject: "#{@user.graetzl.name} - Neue Treffen & Location Updates",
+      from: "imGrätzl.at <neuigkeiten@imgraetzl.at>",
+      subject: "Neues aus dem Grätzl #{@user.graetzl.name}",
     )
     @notifications.update_all(sent: true)
   end
 
   PERSONAL_SUMMARY_BLOCKS = {
-    "Änderungen in einem Treffen" => [
+    'Neuer Kommentar auf deiner Pinnwand' => [
+      Notifications::NewWallComment,
+    ],
+    "Änderungen an einem Treffen" => [
       Notifications::MeetingCancelled, Notifications::MeetingUpdated,
     ],
     "Neuer Kommentar bei" => [
@@ -80,9 +83,6 @@ class NotificationMailer < ApplicationMailer
       Notifications::AlsoCommentedAdminPost, Notifications::AlsoCommentedLocationPost,
       Notifications::AlsoCommentedMeeting, Notifications::AlsoCommentedRoomDemand,
       Notifications::AlsoCommentedRoomOffer, Notifications::AlsoCommentedUserPost,
-    ],
-    'Neuer Kommentar auf deiner Pinnwand' => [
-      Notifications::NewWallComment,
     ]
   }
 
