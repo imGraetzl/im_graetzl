@@ -29,4 +29,20 @@ class ToolOfferMailer < ApplicationMailer
     @tool_rental = tool_rental
     mail(to: @tool_rental.owner.email, subject: "Bitte bestätige die Rückgabe deines Toolteilers.")
   end
+
+  def renter_invoice(tool_rental)
+    @tool_rental = tool_rental
+    invoice_pdf = ToolRentalInvoice.new.generate_for_renter(@tool_rental)
+    @tool_rental.renter_invoice.put(body: invoice_pdf)
+    attachments['invoice.pdf'] = invoice_pdf
+    mail(to: @tool_rental.renter.email, subject: "Your receipt.")
+  end
+
+  def owner_invoice(tool_rental)
+    @tool_rental = tool_rental
+    invoice_pdf = ToolRentalInvoice.new.generate_for_owner(@tool_rental)
+    @tool_rental.owner_invoice.put(body: invoice_pdf)
+    attachments['invoice.pdf'] = invoice_pdf
+    mail(to: @tool_rental.owner.email, subject: "Your receipt.")
+  end
 end

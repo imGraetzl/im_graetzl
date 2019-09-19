@@ -40,6 +40,10 @@ class ToolOffer < ApplicationRecord
     title
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def daily_price(days)
     if days >= 7
       price_per_day * (100 - weekly_discount.to_i) / 100
