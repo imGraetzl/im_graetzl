@@ -97,6 +97,7 @@ class NotificationMailer < ApplicationMailer
   def summary_personal(user, period)
     @user, @period = user, period
 
+    @notifications = {}
     @notifications[:atendees] = user.pending_notifications(@period).where(
       type: "Notifications::AttendeeInUsersMeeting"
     )
