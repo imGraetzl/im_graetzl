@@ -32,6 +32,9 @@ class NotificationMailer < ApplicationMailer
     'Neue Gruppen' => [
       Notifications::NewGroup
     ],
+    'Neue Toolteiler in deinem Grätzl' => [
+      Notifications::NewToolOffer
+    ],
     'Neuer Raumteiler Call' => [
       Notifications::NewRoomCall
     ],
@@ -40,9 +43,6 @@ class NotificationMailer < ApplicationMailer
     ],
     'Auf der Suche nach Raum' => [
       Notifications::NewRoomDemand
-    ],
-    'Neuer Tool Offers' => [
-      Notifications::NewToolOffer
     ],
   }
 
@@ -54,6 +54,7 @@ class NotificationMailer < ApplicationMailer
     return if @notifications.empty?
 
     headers(
+      "X-MC-Tags" => "summary-graetzl-mail",
       "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
       "X-MC-GoogleAnalyticsCampaign" => "notification-mail",
     )
@@ -113,6 +114,7 @@ class NotificationMailer < ApplicationMailer
     end
 
     headers(
+      "X-MC-Tags" => "summary-personal-mail",
       "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
       "X-MC-GoogleAnalyticsCampaign" => "summary-mail",
     )

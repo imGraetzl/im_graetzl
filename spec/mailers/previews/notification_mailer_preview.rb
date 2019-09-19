@@ -1,7 +1,7 @@
 class NotificationMailerPreview < ActionMailer::Preview
 
   def send_immediate
-    notification = Notifications::NewGroupPost.first
+    notification = Notifications::NewToolOffer.first
     NotificationMailer.send_immediate(notification)
   end
 
@@ -10,7 +10,7 @@ class NotificationMailerPreview < ActionMailer::Preview
   end
 
   def summary_personal
-    NotificationMailer.summary_personal(prepare_user, :daily)
+    NotificationMailer.summary_personal(prepare_user, :weekly)
   end
 
   private
