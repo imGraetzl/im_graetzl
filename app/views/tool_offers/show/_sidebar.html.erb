@@ -84,10 +84,11 @@
         <%= link_to @tool_offer.user, class: 'user-wrp', target: '_blank' do %>
           <span class="name"><%= @tool_offer.user.full_name %></span>
         <% end %>
-
-        <div class="rating-container">
-          <%= user_rating(@tool_offer.user) %>
-        </div>
+        <% if @user.rating.present? %>
+          <div class="rating-container">
+            <%= user_rating(@tool_offer.user) %>
+          </div>
+        <% end %>
       </div>
     </div>
 
