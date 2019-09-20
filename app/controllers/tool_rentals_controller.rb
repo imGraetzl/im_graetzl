@@ -121,10 +121,10 @@ class ToolRentalsController < ApplicationController
 
     if @tool_rental.owner == current_user
       @tool_rental.update(renter_rating: params[:rating])
-      @tool_retal.renter.recalculate_rating
+      @tool_rental.renter.recalculate_rating
     elsif @tool_rental.renter == current_user
       @tool_rental.update(owner_rating: params[:rating])
-      @tool_retal.owner.recalculate_rating
+      @tool_rental.owner.recalculate_rating
     end
 
     redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id)

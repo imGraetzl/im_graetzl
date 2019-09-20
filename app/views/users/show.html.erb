@@ -28,11 +28,9 @@
           <%= icon_tag "user-avatar" %>
           <div>
             <span class="name"><%= @user.full_name %></span>
-            <% if @user.rating.present? %>
-              <div class="rating-container">
-                <%= user_rating(@user) %>
-              </div>
-            <% end %>
+            <div class="rating-container">
+              <%= user_rating(@user) %>
+            </div>
           </div>
         </div>
 

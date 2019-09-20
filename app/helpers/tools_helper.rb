@@ -25,7 +25,8 @@ module ToolsHelper
   end
 
   def user_rating(user)
-    html = content_tag(:div, class: 'rating') do
+    return if user.rating.nil?
+    html = content_tag(:div, class: 'user-rating') do
       content_tag(:span, '☆', class: 'fill') +
       content_tag(:span, '☆', class: user.rating > 1.5 ? 'fill' : nil) +
       content_tag(:span, '☆', class: user.rating > 2.5 ? 'fill' : nil) +
