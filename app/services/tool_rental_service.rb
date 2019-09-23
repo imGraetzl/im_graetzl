@@ -118,7 +118,6 @@ class ToolRentalService
     invoice_number = "Toolteiler #{tool_rental.tool_offer_id} / #{ToolRental.next_invoice_number}"
     tool_rental.update(rental_status: :approved, payment_status: :payment_success, invoice_number: invoice_number)
     ToolOfferMailer.rental_approved(tool_rental).deliver_later
-    #ToolOfferMailer.renter_invoice(tool_rental).deliver_later
   rescue Stripe::InvalidRequestError => e
     tool_rental.update(rental_status: :rejected, payment_status: :payment_failed)
   end
@@ -145,7 +144,8 @@ class ToolRentalService
 
   def confirm_return(tool_rental)
     tool_rental.update(rental_status: :return_confirmed)
-    ToolOfferMailer.owner_invoice(tool_rental).deliver_later
+    ToolOfferMailer.return_confirmed_owner(tool_rental).deliver_later
+    ToolOfferMailer.return_confirmed_renter(tool_rental).deliver_later
   end
 
 end
