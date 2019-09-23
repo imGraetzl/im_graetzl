@@ -12,8 +12,8 @@
       <%= user.full_name %>
     <% end %>
   </div>
-  <div class="flex-row" role="cell"><%= tool_rental.rent_from.to_s(:weekday) %></div>
-  <div class="flex-row" role="cell"><%= tool_rental.rent_to.to_s(:weekday) %></div>
+  <div class="flex-row" role="cell"><%= l(tool_rental.rent_from) %></div>
+  <div class="flex-row" role="cell"><%= l(tool_rental.rent_to) %></div>
   <div class="flex-row" role="cell"><%= number_to_currency(tool_rental.total_price, unit: "€") %></div>
   <div class="flex-row wide20" role="cell">
     <%= t("activerecord.attributes.tool_rental.rental_statuses.#{tool_rental.rental_status}") %>
