@@ -14,19 +14,28 @@ class WienController < ApplicationController
   end
 
   def locations
+    @districts = District.order(zip: :asc)
   end
 
   def meetings
+    @districts = District.order(zip: :asc)
   end
 
   def rooms
+    @districts = District.order(zip: :asc)
   end
 
   def groups
     @featured_groups = Group.featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])
+    @districts = District.order(zip: :asc)
   end
 
-  def zuckerl
+  def tool_offers
+    @districts = District.order(zip: :asc)
+  end
+
+  def zuckerls
+    @districts = District.order(zip: :asc)
   end
 end

@@ -114,9 +114,32 @@
     }
   } // Group Cardbox
 
+  &.-toolteiler {
+    .btn-group {
+      margin-top:15px;
+      display: flex;
+      margin-left: auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      .btn-secondary {
+        flex-basis: 49%;
+        margin-bottom: 5px;
+        &:first-child:not(:only-child) {
+          margin-right: 5px;
+        }
+      }
+      .btn-primary {
+        float: left;
+        flex-basis: 100%;
+      }
+    }
+  }
 }
 
-.card-grid .btn-userIcons, .card-slider-container .btn-userIcons, .block-groups .btn-userIcons {
+.card-grid .btn-userIcons,
+.card-slider-container .btn-userIcons,
+.block-groups .btn-userIcons,
+.cardBoxCollection .btn-userIcons {
   display: flex;
 }
 
@@ -142,7 +165,7 @@
     bottom: -10px;
     right: -20px;
   }
-  .calendarSheet {
+  .calendarSheet, .priceSheet {
     position: absolute;
     top: 5px;
     left: 5px;
@@ -162,7 +185,7 @@
     padding: 6px 6px;
     border-radius: 0 0 0 5px;
     color: $color-ambient-mint;
-    [class*=icon-shop], [class*=icon-zuckerl] {
+    .icon-shop, .icon-zuckerl {
       color: $color-ambient-rosa;
     }
     .count {
@@ -237,13 +260,12 @@
       }
     }
   }
+
   &.-roomoffer {
     .slogan {
       margin-top: 5px;
     }
-
   }
-
 
   .updateteaser, .zuckerlteasertxt, .event-teaser-box, .basic-message-box {
     display: block;
@@ -257,7 +279,7 @@
       align-items: center;
       margin-bottom: 7px;
       font-size: 13px;
-      [class^=icon-] {
+      .icon {
         margin-right: 6px;
       }
     }
@@ -470,7 +492,7 @@
       padding-left: 8px;
       margin-left: 8px;
     }
-    [class^=icon-] {
+    .icon {
       width: 20px;
       height: 20px;
       display: inline-block;

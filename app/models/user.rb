@@ -27,6 +27,9 @@ class User < ApplicationRecord
   has_many :room_calls
   has_many :room_offers
   has_many :room_demands
+  has_many :tool_offers
+  has_many :owned_tool_rentals, through: :tool_offers, source: :tool_rentals
+  has_many :tool_rentals
 
   has_and_belongs_to_many :business_interests
   belongs_to :location_category, optional: true
@@ -36,6 +39,9 @@ class User < ApplicationRecord
   has_many :groups, through: :group_users
   has_many :discussions
   has_many :discussion_followings
+
+  has_many :user_message_thread_members
+  has_many :user_message_threads, through: :user_message_thread_members
 
   has_many :wall_comments, as: :commentable, class_name: "Comment", dependent: :destroy
   accepts_nested_attributes_for :address
@@ -85,12 +91,25 @@ class User < ApplicationRecord
   end
 
   def after_confirmation
-    UsersMailer.new.send_welcome_email(self)
+    UsersMailer.welcome_email(self).deliver_later
     MailchimpSubscribeJob.perform_later(self)
   end
 
   def primary_location
     self.locations.first
+  end
+
+  def rooms
+    self.room_offers.enabled + self.room_demands.enabled
+  end
+
+  def meetings
+    self.initiated_meetings + self.attended_meetings
+  end
+
+  def recalculate_rating
+    ratings = (tool_rentals.pluck(:renter_rating) + owned_tool_rentals.pluck(:owner_rating)).compact
+    update(rating: ratings.sum * 1.0 / ratings.size, ratings_count: ratings.size) if ratings.present?
   end
 
   private

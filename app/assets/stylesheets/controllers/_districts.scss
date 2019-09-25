@@ -14,10 +14,6 @@ section.districts {
     }
   }
 
-  .mapImgBlock {
-    margin-bottom: 35px;
-  }
-
   .navBlock {
     .links {
       display: none;
@@ -38,14 +34,6 @@ section.districts {
     }
   }
 
-
-  .teaserBlock {
-    h2 {
-      @include font-size-secondaryFont('base');
-      text-align: center;
-      margin-bottom: 30px;
-    }
-  }
 }
 
 

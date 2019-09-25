@@ -19,6 +19,19 @@ input, select, textarea {
   box-shadow: inset 2px 2px 2px 0 rgba(0,0,0,0.05);
 }
 
+// 2 Form Fields in a row on Desktop
+.form-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  div {
+    width:100%;
+    @include respond-to(">small") {
+      width:48.5%;
+      overflow: hidden;
+    }
+  }
+}
 
 // ---------------------------------------------------------------------- textfield & select & textarea
 @mixin field-HorizontalLayout {
@@ -64,11 +77,11 @@ input, select, textarea {
   border-radius: 4px 4px 0 0;
   align-items: center;
   font-size: 1.6rem;
-  [class^=icon] {
+  .icon {
     fill: currentcolor;
     flex: 0 0 auto;
   }
-  [class^=icon] + span {
+  .icon + span {
     //min-width: 100px;
     margin-left: 10px;
     margin-right: 10px;
@@ -124,12 +137,6 @@ input, select, textarea {
   input {
     height: $fieldHeight;
   }
-  /*input.ico-search {
-    background-image: url(image_path('svg/icon-search.svg'));
-    background-repeat: no-repeat;
-    background-size: 40px 40px, 100% 100%;
-    background-position: center right;
-  }*/
   &.search-filter {
     justify-content: center;
     label, input, .SumoSelect p.SelectBox, .input-field > input, input::placeholder {
@@ -352,7 +359,7 @@ input, select, textarea {
     > label {
       padding-top: 20px;
       align-items: flex-start;
-      [class^=icon-] {
+      .icon {
         margin-top: -5px;
       }
     }
@@ -447,7 +454,7 @@ input, select, textarea {
       display: block;
     }
   }
-  [class*=icon-delete] {
+  .icon-delete {
     position: relative;
     z-index: 2;
     margin-left: 1rem;
@@ -612,17 +619,7 @@ input[type=url]:invalid + em::after {
 
 // ---------------------------------------------------------------------- Login Panel Modal
 
-.login-panel-modal {
-  display: none;
-  .hl-subtext {
-    margin-bottom: 30px;
-    h1 {
-      @include font-size-secondaryFont('medium');
-    }
-    p {
-      @include font-size-primaryFont('base');
-    }
-  }
+.login-panel-modal, .login-panel {
   .container {
     display: flex;
     flex-wrap: wrap;
@@ -630,15 +627,6 @@ input[type=url]:invalid + em::after {
     .login {
       .input-field {
         margin-bottom:10px;
-      }
-      .sharedLinks {
-        margin-top:25px;
-        margin-bottom:25px;
-        padding-top:15px;
-        border-top: solid 1px $color-ambient-mint-light;
-        a {
-          color: $color-ambient-grey;
-        }
       }
     }
     .register {
@@ -651,8 +639,96 @@ input[type=url]:invalid + em::after {
         }
       }
     }
+    .sharedLinks {
+      margin-top:25px;
+      margin-bottom:25px;
+      padding-top:15px;
+      border-top: solid 1px $color-ambient-mint-light;
+      a {
+        color: $color-ambient-grey;
+      }
+    }
     .btn-primary {
       width:100%;
     }
   }
+
+  &.-content {
+    .container {
+
+      // Remove Linebreak for labels if small
+      .input-field {
+        @include respond-to("<medium") {
+          @include field-HorizontalLayout;
+        }
+      }
+      .input-field label {
+        min-width:50px !important;
+        max-width:50px !important;
+      }
+      // End
+
+      align-items: stretch;
+      justify-content: space-between;
+
+      .login, .register {
+        margin:0px;
+        width:100%;
+        @include respond-to(">=medium") {
+          width:48%;
+        }
+      }
+      .register {
+        margin-top:20px;
+        @include respond-to(">=medium") {
+          margin-top:0px;
+        }
+        border-top: solid 1px $color-ambient-mint-light;
+        border-bottom: solid 1px $color-ambient-mint-light;
+        background-color: white;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .wrp {
+          font-weight: bold;
+          height: calc(100% - 46px);
+          display: flex;
+          align-items: center;
+          text-align: center;
+          padding-top:20px;
+          padding-bottom:20px;
+          @include respond-to(">=medium") {
+            padding:0px;
+          }
+        }
+      }
+    }
+    .sharedLinks {
+      margin-top:0px;
+      margin-bottom:0px;
+      padding-top:0px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      a {
+        color: $color-ambient-mint-dark;
+      }
+    }
+  }
 }
+.login-panel-modal {
+  display: none;
+  .hl-subtext {
+    margin-bottom: 30px;
+    h1 {
+      @include font-size-secondaryFont('medium');
+    }
+    p {
+      @include font-size-primaryFont('base');
+    }
+  }
+}
+
+#card-element {width:100%;}

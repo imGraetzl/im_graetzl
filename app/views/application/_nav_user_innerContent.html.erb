@@ -1,4 +1,4 @@
-<section class="personal">
+<section class="personal -wrapper">
 
   <section class="main">
     <%= link_to user_path(current_user) do %>
@@ -10,6 +10,10 @@
     <% end %>
     <%= link_to 'javascript:void(0);', class: '-trigger', :data => {:type => '-rooms'} do %>
       <%= icon_tag "raumteiler" %> Raumteiler
+      <span class="-more"><%= icon_tag "arrow-right-2" %></span>
+    <% end %>
+    <%= link_to 'javascript:void(0);', class: '-trigger', :data => {:type => '-tools'} do %>
+      <%= icon_tag "tacker" %> Toolteiler
       <span class="-more"><%= icon_tag "arrow-right-2" %></span>
     <% end %>
     <%= link_to 'javascript:void(0);', class: '-trigger', :data => {:type => '-groups'} do %>
@@ -66,7 +70,7 @@
       <% end %>
     <% end %>
     <%= link_to locations_user_path do %>
-      <%= icon_tag "location" %> Location einrichten
+      <%= icon_tag "location" %> Location verwalten
     <% end %>
     <%= link_to zuckerls_user_path do %>
       <%= icon_tag "shopping-bag" %> Grätzlzuckerl buchen
@@ -90,7 +94,22 @@
       <% end %>
     <% end %>
     <%= link_to rooms_user_path do %>
-      <%= icon_tag "raumteiler" %> Raumteiler erstellen
+      <%= icon_tag "raumteiler" %> Raumteiler verwalten
+    <% end %>
+  </section>
+
+  <section class="second -tools">
+    <%= link_to 'javascript:void(0);', class: '-trigger', :data => {:type => '-tools'} do %>
+      <%= icon_tag "arrow-left-2" %> Zurück
+    <% end %>
+    <%= link_to tool_offers_user_path do %>
+      <%= icon_tag "tacker" %> Toolteiler verwalten
+    <% end %>
+    <%= link_to messenger_path do %>
+      <%= icon_tag "speech-bubbles" %> Anfragen Messenger
+    <% end %>
+    <%= link_to tool_offers_user_path(:target => "tab-buchungsarchiv") do %>
+      <%= icon_tag "archive-storage" %> Buchungsarchiv
     <% end %>
   </section>
 
@@ -105,22 +124,16 @@
       <%= link_to groups_wien_path do %>
         <%= icon_tag "coop-share" %> Stöbern in Gruppen
       <% end %>
-      <%= link_to groups_user_path do %>
-        <%= icon_tag "speech-bubble" %> Neue Gruppe gründen
-      <% end %>
     <% end %>
     <section class="content">
-      <% current_user.groups.size >= 8 ? maxgroups = 7 : maxgroups = 8 %>
-      <% current_user.groups.last(maxgroups).reverse.each do |group| %>
+      <% current_user.groups.last(8).reverse.each do |group| %>
         <%= link_to group do %>
           <%= icon_tag "coop-share" %>
           <span><%= group.title %></span>
         <% end %>
       <% end %>
-      <% if maxgroups == 7 %>
-        <%= link_to groups_user_path do %>
-          <%= icon_tag "speech-bubble" %> Alle Gruppen
-        <% end %>
+      <%= link_to groups_user_path do %>
+        <%= icon_tag "speech-bubble" %> Gruppen verwalten
       <% end %>
     </section>
   </section>

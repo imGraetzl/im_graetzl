@@ -1,0 +1,111 @@
+<aside class="sideBar">
+
+  <div class="sideBarbox -top">
+
+    <h3 class="sidebar">Die Kosten</h3>
+    <div class="pricing-info">
+      <div class="priceSheet -variant2">
+        <div class="price"><%= @tool_offer.daily_price(1).to_i %><sup>€</sup></div>
+        <div class="txt">pro Tag</div>
+      </div>
+      <% if @tool_offer.two_day_discount? %>
+      <div class="priceSheet -variant2 -discount-days">
+        <div class="price"><%= @tool_offer.daily_price(2).to_i %><sup>€</sup></div>
+        <div class="txt">pro Tag</div>
+      </div>
+      <% end %>
+      <% if @tool_offer.weekly_discount? %>
+      <div class="priceSheet -variant2 -discount-week">
+        <div class="price"><%= @tool_offer.daily_price(7).to_i %><sup>€</sup></div>
+        <div class="txt">pro Tag</div>
+      </div>
+      <% end %>
+    </div>
+
+    <% if current_user == @tool_offer.user %>
+      <div class="innerbox edit">
+        <div class="btn-group">
+          <%= link_to 'Bearbeiten', edit_tool_offer_path(@tool_offer),
+            class: 'btn-secondary -mint -small'  %>
+        </div>
+        <div class="btn-group">
+          <%= link_to "javascript:", data: { jq_dropdown: "#tool-state-update-dropdown" }, class: "btn-secondary -mint -small -state-#{@tool_offer.status}" do %>
+            Status: <span><%= t("activerecord.attributes.tool_offer.statuses.#{@tool_offer.status}") %></span>
+          <% end %>
+        </div>
+        <div id="tool-state-update-dropdown" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+          <div class="jq-dropdown-panel">
+            <%= link_to 'Aktiv', [:update_status, @tool_offer, status: "enabled"], method: :patch %>
+            <%= link_to 'Inaktiv', [:update_status, @tool_offer, status: "disabled"], method: :patch %>
+            <%= link_to 'Löschen', @tool_offer, method: :delete, data: { confirm: 'Bist du dir sicher?' } %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <h3 class="sidebar">Zeitraum</h3>
+      <% if @tool_offer.enabled? %>
+        <div class="request">
+          <%= form_tag [:calculate_price, @tool_offer], remote: true, method: :get, class: 'request-price-form' do %>
+            <div class="input-field">
+              <%= label_tag :rent_from do %>
+                <%= icon_tag "calendar-2" %>
+                <span></span>
+              <% end %>
+              <%= text_field_tag :rent_from, nil, class: 'date-from', placeholder: 'Von' %>
+            </div>
+
+            <div class="input-field">
+              <%= label_tag :rent_to do %>
+                <%= icon_tag "calendar-2" %>
+                <span></span>
+              <% end %>
+              <%= text_field_tag :rent_to, nil, class: 'date-to', placeholder: 'Bis' %>
+            </div>
+          <% end %>
+        </div>
+
+        <div id="calculated-price-container"></div>
+        <%= link_to "Wähle zuerst die Mietdauer", '', class: "btn-primary -disabled" %>
+      <% else %>
+        <div class="tool-offer-unavailable">
+          Dieser Toolteiler ist vorübergehend auf "Inaktiv" gesetzt und kann daher nicht angefragt werden.
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Contactbox-->
+  <div class="sideBarbox">
+
+    <h3 class="sideflag -L">Infos & Adresse</h3>
+    <div class="innerbox user-wrp">
+      <%= avatar_for @tool_offer.user %>
+      <div>
+        <%= link_to @tool_offer.user, class: 'user-wrp', target: '_blank' do %>
+          <span class="name"><%= @tool_offer.user.full_name %></span>
+        <% end %>
+        <div class="rating-container">
+          <%= user_rating(@tool_offer.user) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="innerbox icontxt">
+      <%= icon_tag "map-location" %>
+      <%= @tool_offer.address.street %><br>
+      <%= "#{@tool_offer.address.zip} #{@tool_offer.address.city}" %><br>
+    </div>
+
+    <div class="innerbox icontxt">
+      <%= icon_tag "pencil" %>
+      Erstellt / Aktualisiert:<br><%= I18n.localize(@tool_offer.updated_at, format:'%d. %b %Y') %>
+    </div>
+
+    <% if @tool_offer.address.try(:coordinates) %>
+      <%= link_to google_map_url(@tool_offer.address), class: 'gmap' do %>
+        <%= image_tag static_map_url(@tool_offer.address.coordinates, zoom: 16, size: [250,150]) %>
+      <% end %>
+    <% end %>
+
+  </div>
+</aside>

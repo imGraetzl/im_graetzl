@@ -1,0 +1,121 @@
+<div class="form-block" id="tab-basic">
+
+  <h2 class="hl-main">
+    Wähle zuerst eine <span>Kategorie</span>
+  </h2>
+
+  <!--<div class="form-columns">-->
+    <div class="input-select">
+      <%= f.label :tool_category_id do %>
+        <%= icon_tag "layout-document" %>
+        <span>Kategorie</span>
+      <% end %>
+      <%= f.select :tool_category_id, tool_categories_select_options, { include_blank: 'auswählen...' }, class: 'category-select' %>
+    </div>
+
+    <!--<div class="input-select">
+      <%= f.label :tool_subcategory_id do %>
+        <%= icon_tag "layout-document" %>
+        <span>Unterkategorie</span>
+      <% end %>
+      <%= f.select :tool_subcategory_id, tool_subcategories_select_options, { include_blank: 'auswählen...' }, class: 'subcategory-select' %>
+    </div>
+  </div>-->
+
+  <div class="hl-subtext">
+    <h2><span>Beschreibe</span> deinen <span>Toolteiler</span></h2>
+    <p>
+      Wähle einen treffenden Titel und beschriebe deinen Toolteiler ausführlicher im Beschreibungsfeld.
+      Wenn du auch noch Marke und Modell weisst, perfekt! Und ein gutes Headerbild ist wichtig!
+    </p>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :title do %>
+    <%= icon_tag "record" %>
+    <span>Titel</span>
+    <% end %>
+    <%= f.text_field :title, placeholder: 'Gib deinem Toolteiler einen kurzen Titel ...' %>
+  </div>
+
+  <div class="form-columns">
+    <div class="input-field">
+      <%= f.label :brand do %>
+        <%= icon_tag "label-tag" %>
+        <span>Marke</span>
+      <% end %>
+      <%= f.text_field :brand, placeholder: 'Marke...' %>
+    </div>
+    <div class="input-field">
+      <%= f.label :model do %>
+        <%= icon_tag "label-tag" %>
+        <span>Modell</span>
+      <% end %>
+      <%= f.text_field :model, placeholder: 'Modell...' %>
+    </div>
+  </div>
+
+  <div class="input-textarea">
+    <%= f.label :description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Beschreibung</span>
+    <% end %>
+    <%= f.text_area :description, placeholder: 'Hier kannst du deinen Toolteiler in wenigen Sätzen ausführlicher beschreiben ..' %>
+  </div>
+
+  <div class="upload-oldschool">
+    <%= f.label :cover_photo do %>
+      <%= icon_tag "photo-camera" %>
+      <span>Headerbild</span>
+    <% end %>
+    <div class="field-wrp">
+      <% if f.object.cover_photo %>
+      <div class="preview-wrp">
+        <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+        <div class="input-checkbox">
+          <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
+          <%= f.label :remove_cover_photo, 'Löschen' %>
+        </div>
+      </div>
+      <% end %>
+      <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+    </div>
+  </div>
+
+  <div class="upload-oldschool">
+    <%= f.label :images do %>
+      <%= icon_tag "photo-camera" %>
+      <span>Weitere Fotos</span>
+    <% end %>
+    <div class="field-wrp">
+      <%= f.fields_for :images do |ff| %>
+        <div class="preview-wrp">
+          <%= image_tag attachment_url(ff.object, :file, :fill, 159, 60) %>
+          <div class="input-checkbox">
+            <%= ff.check_box :_destroy, { class: 'deleteCheckbox' } %>
+            <%= ff.label :_destroy, 'Löschen' %>
+          </div>
+        </div>
+      <% end %>
+      <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+    </div>
+  </div>
+
+  <div class="hl-subtext">
+    <h2><span>Ausstattung</span> - kurz das wichtigste</h2>
+    <p>Hier kannst du stichwortartig noch besondere Ausstattungsmermale festlegen.</p>
+  </div>
+
+  <div class="input-tags">
+    <%= f.label :keyword_list do %>
+    <%= icon_tag "label-tag" %>
+    <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
+    <% end %>
+    <%= f.text_field :keyword_list, value: @tool_offer.keyword_list.to_s, id: 'custom-keywords' %>
+  </div>
+
+  <div class="input-button">
+    <%= button_tag "Weiter", type: 'button', class: 'btn-primary next-screen', data: { tab: 'tab-address' } %>
+  </div>
+
+</div>

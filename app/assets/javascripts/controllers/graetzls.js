@@ -3,8 +3,8 @@ APP.controllers.graetzls = (function() {
     function init() {
       initMap();
       initFilter();
-      initMobileNav();
       initSlider();
+      initJBox();
     }
 
     function initSlider() {
@@ -29,29 +29,35 @@ APP.controllers.graetzls = (function() {
       if ($('.cards-filter').exists()) {
         APP.components.cardFilter.init();
       }
+
+      if ($("section.toolteiler").exists()) {
+        APP.components.toolCategorySlider.init($('#category-slider'));
+      }
     }
 
-    function initMobileNav() {
-      var $dropdown = $(".filter-stream .input-select select");
-      $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
-          var $this = $(this),
-              link = $this.prop('href'),
-              txt = $this.find('.txt').text();
-
-          $dropdown.append(getOption());
-          $dropdown.on('change', function() {
-              document.location.href = $dropdown.val();
-          });
-
-          function getOption() {
-              if($this.hasClass('active'))
-                  return '<option selected value="'+ link +'">'+ txt +'</option>';
-              return '<option value="'+ link +'">'+ txt +'</option>';
-          }
-
+    function initJBox() {
+      var mobCreate = new jBox('Modal', {
+        addClass:'jBox',
+        attach: '.mob #createContent',
+        content: $('#jBoxCreateContent'),
+        trigger: 'click',
+        closeOnClick:true,
+        blockScroll:true,
+        animation:{open: 'zoomIn', close: 'zoomOut'},
       });
-
-      $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
+      var deskCreate = new jBox('Tooltip', {
+        addClass:'jBox',
+        attach: '.desk #createContent',
+        content: $('#jBoxCreateContent'),
+        trigger: 'click',
+        closeOnClick:true,
+        pointer:'right',
+        adjustTracker:true,
+        isolateScroll:true,
+        adjustDistance: {top: 25, right: 25, bottom: 25, left: 25},
+        animation:{open: 'zoomIn', close: 'zoomOut'},
+        maxHeight:500,
+      });
     }
 
     return {

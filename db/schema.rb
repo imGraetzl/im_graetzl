@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_01_082231) do
+ActiveRecord::Schema.define(version: 2019_09_23_174453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,13 +94,6 @@ ActiveRecord::Schema.define(version: 2019_04_01_082231) do
     t.integer "user_id"
     t.index ["business_interest_id"], name: "index_business_interests_users_on_business_interest_id"
     t.index ["user_id"], name: "index_business_interests_users_on_user_id"
-  end
-
-  create_table "categories_meetings", id: false, force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "meeting_id"
-    t.index ["category_id"], name: "index_categories_meetings_on_category_id"
-    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -660,6 +653,112 @@ ActiveRecord::Schema.define(version: 2019_04_01_082231) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "tool_categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "parent_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "main_photo_id"
+    t.string "main_photo_content_type"
+    t.integer "position", default: 0
+    t.index ["parent_category_id"], name: "index_tool_categories_on_parent_category_id"
+  end
+
+  create_table "tool_offers", force: :cascade do |t|
+    t.string "title"
+    t.string "slug"
+    t.text "description"
+    t.string "brand"
+    t.string "model"
+    t.string "cover_photo_id"
+    t.string "cover_photo_content_type"
+    t.bigint "tool_category_id"
+    t.integer "tool_subcategory_id"
+    t.bigint "user_id"
+    t.bigint "location_id"
+    t.bigint "graetzl_id"
+    t.integer "value_up_to"
+    t.string "serial_number"
+    t.text "known_defects"
+    t.decimal "price_per_day", precision: 10, scale: 2
+    t.integer "two_day_discount", default: 0
+    t.integer "weekly_discount", default: 0
+    t.integer "status", default: 0
+    t.string "first_name"
+    t.string "last_name"
+    t.string "iban"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
+    t.index ["location_id"], name: "index_tool_offers_on_location_id"
+    t.index ["status"], name: "index_tool_offers_on_status"
+    t.index ["tool_category_id"], name: "index_tool_offers_on_tool_category_id"
+    t.index ["tool_subcategory_id"], name: "index_tool_offers_on_tool_subcategory_id"
+    t.index ["user_id"], name: "index_tool_offers_on_user_id"
+  end
+
+  create_table "tool_rentals", force: :cascade do |t|
+    t.bigint "tool_offer_id"
+    t.bigint "user_id"
+    t.date "rent_from"
+    t.date "rent_to"
+    t.string "renter_company"
+    t.string "renter_name"
+    t.string "renter_address"
+    t.string "renter_zip"
+    t.string "renter_city"
+    t.integer "rental_status", default: 0
+    t.string "stripe_payment_intent_id"
+    t.integer "owner_rating"
+    t.integer "renter_rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "payment_method"
+    t.decimal "basic_price", precision: 10, scale: 2, default: "0.0"
+    t.decimal "discount", precision: 10, scale: 2, default: "0.0"
+    t.decimal "service_fee", precision: 10, scale: 2, default: "0.0"
+    t.decimal "insurance_fee", precision: 10, scale: 2, default: "0.0"
+    t.integer "payment_status", default: 0
+    t.string "stripe_source_id"
+    t.string "stripe_charge_id"
+    t.decimal "tax", precision: 10, scale: 2, default: "0.0"
+    t.string "invoice_number"
+    t.index ["stripe_payment_intent_id"], name: "index_tool_rentals_on_stripe_payment_intent_id"
+    t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"
+    t.index ["user_id"], name: "index_tool_rentals_on_user_id"
+  end
+
+  create_table "user_message_thread_members", force: :cascade do |t|
+    t.bigint "user_message_thread_id"
+    t.bigint "user_id"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "last_message_seen_id", default: 0
+    t.index ["user_id"], name: "index_user_message_thread_members_on_user_id"
+    t.index ["user_message_thread_id"], name: "index_user_message_thread_members_on_user_message_thread_id"
+  end
+
+  create_table "user_message_threads", force: :cascade do |t|
+    t.bigint "tool_rental_id"
+    t.datetime "last_message_at"
+    t.text "last_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["last_message"], name: "index_user_message_threads_on_last_message"
+    t.index ["tool_rental_id"], name: "index_user_message_threads_on_tool_rental_id"
+  end
+
+  create_table "user_messages", force: :cascade do |t|
+    t.bigint "user_message_thread_id"
+    t.bigint "user_id"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_messages_on_user_id"
+    t.index ["user_message_thread_id"], name: "index_user_messages_on_user_message_thread_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", limit: 255, default: "", null: false
     t.string "encrypted_password", limit: 255, default: "", null: false
@@ -698,6 +797,9 @@ ActiveRecord::Schema.define(version: 2019_04_01_082231) do
     t.integer "location_category_id"
     t.boolean "business", default: false
     t.string "stripe_customer_id", limit: 50
+    t.string "iban"
+    t.decimal "rating", precision: 3, scale: 2
+    t.integer "ratings_count", default: 0
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -705,6 +807,7 @@ ActiveRecord::Schema.define(version: 2019_04_01_082231) do
     t.index ["location_category_id"], name: "index_users_on_location_category_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
+    t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id"
   end
 
   create_table "zuckerls", id: :serial, force: :cascade do |t|
@@ -734,6 +837,7 @@ ActiveRecord::Schema.define(version: 2019_04_01_082231) do
   add_foreign_key "discussion_posts", "users", on_delete: :nullify
   add_foreign_key "discussions", "discussion_categories", on_delete: :nullify
   add_foreign_key "discussions", "groups", on_delete: :cascade
+  add_foreign_key "discussions", "users", on_delete: :nullify
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "group_graetzls", "graetzls", on_delete: :cascade
@@ -779,5 +883,16 @@ ActiveRecord::Schema.define(version: 2019_04_01_082231) do
   add_foreign_key "room_offers", "graetzls", on_delete: :nullify
   add_foreign_key "room_offers", "locations", on_delete: :nullify
   add_foreign_key "room_offers", "users", on_delete: :cascade
+  add_foreign_key "tool_offers", "graetzls", on_delete: :nullify
+  add_foreign_key "tool_offers", "locations", on_delete: :nullify
+  add_foreign_key "tool_offers", "tool_categories", on_delete: :nullify
+  add_foreign_key "tool_offers", "users", on_delete: :cascade
+  add_foreign_key "tool_rentals", "tool_offers", on_delete: :nullify
+  add_foreign_key "tool_rentals", "users", on_delete: :nullify
+  add_foreign_key "user_message_thread_members", "user_message_threads", on_delete: :cascade
+  add_foreign_key "user_message_thread_members", "users", on_delete: :cascade
+  add_foreign_key "user_message_threads", "tool_rentals", on_delete: :nullify
+  add_foreign_key "user_messages", "user_message_threads", on_delete: :cascade
+  add_foreign_key "user_messages", "users", on_delete: :cascade
   add_foreign_key "users", "location_categories", on_delete: :nullify
 end

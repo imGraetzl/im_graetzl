@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.mask
+//= require jquery.detect_swipe
 //= require picker
 //= require jquery.tabslet.min
 //= require picker.date
@@ -40,8 +41,10 @@
 //= require lightslider
 //= require modernizr.custom
 //= require fastclick
+//= require unscroll
 //= require autogrow
 //= require datatables.min
+//= require jBox.min
 //= require timetable
 //= require moment-with-locales.min
 //= require datetime-moment
@@ -49,6 +52,10 @@
 //= require cocoon
 //= require refile
 //= require cookieconsent
+//= require overthrow-detect
+//= require overthrow-polyfill
+//= require overthrow-toss
+//= require overthrow-init
 //= require FileAPI.core
 //= require FileAPI.Image
 //= require_directory ./utils

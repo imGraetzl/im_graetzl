@@ -48,6 +48,7 @@
   .bloglink,
   .createMeeting,
   .graetzlTrigger,
+  .wienTrigger,
   .registerlink,
   .loginlink,
   .notificationsTrigger,
@@ -62,7 +63,7 @@
     @include respond-to(">=large") {
       font-size: 2.2rem;
     }
-    [class^="icon-"], [class*=" icon-"] {
+    .icon {
       display: inline-block;
       float: left;
       //margin-right: 0.5em;
@@ -72,10 +73,14 @@
 
 
 
-  .homelink {
+  .homelink, .wienTrigger span {
     padding-right: 20px;
     margin-right: 16px;
     border-right: 1px dotted lighten($color-ambient-mint, 20);
+  }
+
+  .wienTrigger svg {
+    margin-right: 10px;
   }
 
   .bloglink {
@@ -137,7 +142,7 @@
 
   .graetzlTrigger {
     margin-right: 20px;
-    [class^=icon-] {
+    .icon {
       margin-right: 8px;
     }
     .txt {
@@ -156,13 +161,13 @@
     padding-left: 20px;
     padding-right: 20px;
     height: 100%;
-    [class*=icon-] {
+    .icon {
       width: 32px;
       height: 32px;
       fill: $color-ambient-mint-dark;
     }
     &:hover, &.jq-dropdown-open, &.is-open {
-      [class*=icon-] {
+      .icon {
         fill: $color-ambient-rosa;
       }
     }
@@ -186,9 +191,6 @@
       padding: 2px 5px 2px 15px;
       z-index: 1;
       margin-left: -14px;
-    }
-    [class^=icon-] {
-
     }
     .username {
       display: none;
@@ -271,11 +273,13 @@
   padding: 1px 3px;
 }
 
-.usersettingsContainer .nav-usersettings, .mobileUserSettings .nav-usersettings {
+.usersettingsContainer .nav-usersettings,
+.mobileUserSettings .nav-usersettings,
+.mobileMainNav {
 
   display: flex;
 
-  section.personal {
+  section.personal, section.general {
     position: relative;
     width:300px;
     overflow: hidden;
@@ -332,12 +336,18 @@
         position: absolute;
         right: -15px;
         svg {
-          fill: $color-ambient-grey-light;
+          fill: $color-ambient-mint-light;
         }
       }
     }
     section.second {
       z-index: 2;
+    }
+  }
+
+  .-trigger:hover {
+    .-more svg {
+      fill: $color-ambient-mint-dark !important;
     }
   }
 

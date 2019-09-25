@@ -13,8 +13,20 @@
   font-size: 1.8rem;
   display: block;
   text-align: center;
-  &.-flex {
+  &.-inlineflex {
     display: inline-flex;
+  }
+  &.-flex {
+    display: flex;
+    align-items: center;
+  }
+  &.-ico {
+    display: flex;
+    align-items: center;
+    svg {
+      width:22px; height:22px;
+      margin-right:8px;
+    }
   }
   &:hover {
     opacity: 0.9;
@@ -150,7 +162,7 @@
       border-color: $color-ambient-mint-dark;
     }
   }
-  [class^=icon-]:last-child {
+  .icon:last-child {
     margin-left: 10px;
   }
 }
@@ -198,23 +210,23 @@
       border-color: $color-font-primary;
     }
   }
-  [class^=icon-] {
+  .icon {
     width:20px;
     height:20px;
   }
   span {
-    [class^=icon-]:last-child {
+    .icon:last-child {
       margin-left: 10px;
     }
   }
   span.ico-left {
-    [class^=icon-] {
+    .icon {
       margin:0px;
       margin-right:8px;
     }
   }
   span.ico-right {
-    [class^=icon-] {
+    .icon {
       margin:0px;
       margin-left:8px;
     }

@@ -1,4 +1,12 @@
+.filter-stream.-help {
+  margin-bottom: -70px;
+  padding-top:40px;
+}
+
 section.help {
+
+  position: relative;
+  padding-bottom:50px;
 
   .paperCard {
     .wrp {
@@ -18,10 +26,6 @@ section.help {
         @include font-size-primaryFont('large');
       }
     }
-  }
-
-  .filter-stream {
-    margin-bottom: 50px;
   }
 
   // ----- HEADER ------ //
@@ -104,6 +108,101 @@ section.help {
       justify-content: space-between;
       .bigicontext-element {
         margin-right:0px;
+      }
+    }
+  }
+
+  // ----- HELP AXA INSURANCE ------ //
+
+  &.-insurance {
+
+    .axa-logo {
+      background-image: url(image_path('logo-axa.png'));
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+
+    margin-bottom:-80px;
+    padding-bottom: 0px;
+    .imgHeader {
+      background-color:rgba(227, 242, 231, 0.5);
+      height:auto;
+      text-align: left;
+      .wrp {
+        height:100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        padding-bottom:50px;
+        padding-top: 30px;
+        @include respond-to(">=large") {
+          padding-top: 60px;
+        }
+
+        .logo-big {
+          display: none;
+          width:30%;
+          height:300px;
+          @extend .axa-logo;
+          @include respond-to(">=large") {
+            display: block;
+          }
+        }
+
+        .hl {
+          display: flex;
+          align-items: center;
+          h3 {
+            padding:0px;
+          }
+        }
+
+        .logo-small {
+          display: block;
+          //width:40%;
+          min-width:100px;
+          height:150px;
+          margin:0px 20px 0px 0px;
+          @extend .axa-logo;
+          @include respond-to(">=large") {
+            display: none;
+          }
+        }
+
+        .txt {
+          width:90%;
+          @include respond-to(">=large") {
+            width:50%;
+          }
+
+        }
+        .cardBox {
+          @include respond-to(">=large") {
+            margin-left:-14px;
+          }
+          width:100%;
+          margin: 20px 0px 20px 0px;
+          a {
+            color: $color-ambient-mint-dark;
+          }
+        }
+        .btn-primary {
+          display: inline-block;
+          margin-top: 10px;
+        }
+      }
+    }
+    .imgHeader::after {
+      background-image: none;
+      //opacity: 0.7;
+    }
+
+    // REMOVE TMP CLASS AFTER WE CAN USE AXA LOGO
+    &.-tmp {
+      .axa-logo {
+        background-image: url(image_path('illu/illu-werkbank-plain.png'));
       }
     }
   }
@@ -303,6 +402,23 @@ section.help {
     }
     ol, ul {
       margin-left:20px;
+    }
+    .axa-logo {
+      img {
+        margin-left:15px;
+        margin-bottom:5px;
+        width:65px;
+        height:65px;
+        float:right;
+      }
+    }
+    .toolteiler-faq {
+      li {
+        padding-bottom:25px;
+      }
+      em.quote {
+        display: block;
+      }
     }
   }
   // ----- HELP Detailpage END ------ //

@@ -197,6 +197,34 @@ de:
         status_message:
           enabled: Deine Raumsuche ist nun aktiv und sichtbar.
           disabled: Dein Raumsuche ist nun deaktiviert und scheint nicht mehr auf den Raumteilerseiten auf.
+      tool_offer:
+        address: Adresse
+        title: Titel
+        description: Beschreibung
+        cover_photo: Headerbild
+        first_name: Vorname
+        last_name: Nachname
+        email: Email
+        tool_category_id: Kategorie
+        price_per_day: Tagespreis
+        iban: Kontoverbindung (IBAN)
+        statuses:
+          enabled: Aktiv
+          disabled: Inaktiv
+          deleted: Deleted
+      tool_rental:
+        rental_statuses:
+          pending: Warte auf Antwort
+          canceled: Anfrage zurückgezogen
+          rejected: Anfrage abgelehnt
+          approved: Anfrage akzeptiert
+          return_pending: Rückgabe noch nicht bestätigt
+          return_confirmed: Rückgabe bestätigt
+        payment_statuses:
+          payment_pending: Zahlung wartend
+          payment_success: Zahlung erfolgreich
+          payment_failed: Zahlung fehlgeschlagen
+          payment_transfered: Gutschrift überwiesen
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am

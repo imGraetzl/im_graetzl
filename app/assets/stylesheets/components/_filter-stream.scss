@@ -1,8 +1,8 @@
 .filter-stream {
+
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0px 0px 35px 15px;
 
   .iconfilter {
     @extend .bigicontext-element;
@@ -18,7 +18,7 @@
     }
     &.-coopshare {
       background: none;
-      [class^=icon-] {
+      .icon {
         margin-left:0px;
         width: 75px;
         height: 75px;
@@ -28,10 +28,27 @@
       }
     }
   }
+  .iconfilter:last-of-type {
+    margin-right: 0px;
+  }
 
-  .iconfilter:not(.createentry):not(.loginlink)  {
+  a.hide {display: none !important;}
+
+  .iconfilter {
     display: none;
-    @include respond-to(">=large") {
+  }
+
+  @include respond-to(">=medium") {
+    .iconfilter {
+      display: flex;
+    }
+    .iconfilter .txt {
+      display: none;
+    }
+  }
+
+  @include respond-to(">=large") {
+    .iconfilter .txt {
       display: flex;
     }
   }
@@ -51,7 +68,7 @@
 
   .loginlink {
     position: relative;
-    [class^=icon-] {
+    .icon {
       fill: white;
       position: relative;
       z-index: 2;
@@ -81,8 +98,6 @@
     }
   }
 
-
-
   .mapthumb {
     border-radius: 50%;
   }
@@ -91,20 +106,170 @@
   .input-select {
     flex: 1 1 200px;
     max-width: 500px;
-    @include respond-to(">=large") {
+    @include respond-to(">=medium") {
       display: none;
     }
   }
 
 }
 
-.createmenu {
-  max-width: 400px;
-  width: 90%;
-  width: calc(100% - 20px);
+// Filterstream Scroll
+.filter-stream.-scrollnav::-webkit-scrollbar {
+  height: 0 !important
+}
+.filter-stream.-scrollnav {
+
+  position: relative;
+  margin-top: 0px;
+  margin-left:-18px;
+  margin-right:-18px;
+  overflow: -moz-scrollbars-none !important; // Testen
+  -ms-overflow-style: none !important; // Testen
+
+  // Mobile
+  .iconfilter .txt {display: none;}
+  background-color:#fcfcfc;
+  border-bottom: 1px solid #DEEAE6;
+  justify-content: flex-start;
+  //margin-top: -30px;
+  margin-bottom:30px;
+  padding: 10px 10px 10px 10px;
+
   @include respond-to(">=medium") {
-    transform: translate(-20px,0);
-    width: 75%;
-    width: calc(100% - 200px);
+    background:none;
+    border-bottom: none;
+    justify-content: center;
+    //margin-top: -50px;
+    padding: 20px 20px 20px 20px;
   }
+
+  @include respond-to(">=large") {
+    //margin-top: -80px;
+    margin-left:30px;
+    padding: 35px 20px 35px 20px;
+    .iconfilter .txt {display: block;}
+  }
+
+  @include respond-to(">=medium") {
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 9;
+    }
+  }
+
+  .createentry, .loginlink {
+    margin-left:0;
+  }
+
+  .iconfilter {
+    display: flex;
+  }
+  .iconfilter .icon {
+    width: 30px;
+    height: 30px;
+  }
+  .iconfilter {
+    height: 55px;
+    min-width: 55px;
+    background-size: 55px 55px;
+    background-image: url(image_path('svg/kringel-grey-white.svg'));
+    &:hover {
+      background-image: url(image_path('svg/kringel-grey-white.svg'));
+      .icon {
+        fill: $color-ambient-mint-dark;
+      }
+    }
+    &.active, &.active:hover {
+      background-image: url(image_path('svg/kringel-grey-mint.svg'));
+      .icon {
+        fill: $color-ambient-rosa;
+      }
+    }
+    @include respond-to(">medium") {
+      &:hover, &.active {
+        background-image: url(image_path('svg/kringel-grey-mint.svg'));
+        .icon {
+          fill: $color-ambient-rosa;
+        }
+        &.-coopshare {
+          background-image: none;
+        }
+      }
+    }
+  }
+  .-coopshare {
+    background-image: none;
+    .icon {
+      width: 55px;
+      height: 55px;
+    }
+    &:hover, &.active {
+      background-image: none;
+    }
+  }
+
+  // Sticky Nav on Mobile
+  @include respond-to("<=medium") {
+    &.fixed {
+      position: -webkit-sticky; /* Safari */
+      position: sticky;
+      top: 0;
+      left:0;
+      z-index: 9999;
+    }
+  }
+
+}
+
+.filter-stream.-help {
+  background:none;
+  border: none;
+  @include respond-to(">=medium") {
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 9;
+    }
+  }
+}
+
+// ILLU BG
+.filter-stream.-illubg {
+  @include respond-to(">=medium") {
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top:0;
+      width: 100%;
+      height: 100%;
+      background-image: url(image_path('illu/illu-karte-transparent@2x.jpg'));
+      background-repeat: no-repeat;
+      background-size: 700px;
+      background-position: center, center;
+    }
+  }
+}
+
+.hl-main, .hl-subtext {
+  &.-cards {
+    margin-bottom:20px;
+  }
+}
+
+.search-filter, .filter-selection-text {
+  margin-bottom:30px;
 }

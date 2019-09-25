@@ -31,6 +31,10 @@ APP.controllers.wien = (function() {
           APP.components.cardSlider.init($("#card-slider"));
         }
 
+        if ($("section.toolteiler").exists()) {
+          APP.components.toolCategorySlider.init($('#category-slider'));
+        }
+
         initMobileNav();
     }
 
@@ -63,6 +67,13 @@ APP.controllers.wien = (function() {
 
       });
       $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
+    }
+
+    function initToolTeiler() {
+
+
+
+
     }
 
     return {

@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     get 'locations'
     get 'raumteiler', action: 'rooms', as: 'rooms'
-    #get 'groups'
+    get 'toolteiler', action: 'tool_offers', as: 'tool_offers'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
@@ -91,6 +91,24 @@ Rails.application.routes.draw do
     post 'add_submission', on: :member
   end
 
+  resources :tool_offers, path: 'toolteiler' do
+    get 'calculate_price', on: :member
+    patch 'update_status', on: :member
+  end
+
+  resources :tool_rentals, only: [:new, :create] do
+    get 'choose_payment', on: :collection
+    get 'summary', on: :collection
+    post 'initiate_card_payment', on: :collection
+    post 'initiate_klarna_payment', on: :collection
+    post 'initiate_eps_payment', on: :collection
+    post 'cancel', on: :member
+    post 'approve', on: :member
+    post 'reject', on: :member
+    post 'confirm_return', on: :member
+    post 'leave_rating', on: :member
+  end
+
   resources :groups, except: [:index] do
     resources :discussions, only: [:index, :show, :create, :edit, :update, :destroy] do
       post :toggle_following, on: :member
@@ -105,6 +123,12 @@ Rails.application.routes.draw do
     get 'compose_mail', on: :member
     post 'send_mail', on: :member
   end
+
+  get 'messenger' => 'messenger#index'
+  get 'messenger/fetch_thread'
+  get 'messenger/fetch_new_messages'
+  post 'messenger/post_message'
+  post 'messenger/update_thread'
 
   get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
   get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
@@ -123,6 +147,7 @@ Rails.application.routes.draw do
     get 'locations'
     get 'raumteiler', action: 'rooms', as: 'rooms'
     get 'gruppen', action: 'groups', as: 'groups'
+    get 'toolteiler', action: 'tool_offers', as: 'tool_offers'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
 
@@ -132,14 +157,14 @@ Rails.application.routes.draw do
     get 'locations', on: :member
     get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member
+    get 'toolteiler', action: 'tool_offers', as: 'tool_offers', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
   end
 
-  get 'lp/raumteiler-guide', to: 'static_pages#lp_raumteilerguide'
-  get 'lp/raumteiler-guide-danke', to: 'static_pages#lp_raumteilerguide_success'
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'info', to: 'static_pages#help'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
+  get 'info/toolteiler', to: 'static_pages#toolteiler'
   get 'info/gruppen', to: 'static_pages#groups'
   get 'info/anbieter-und-locations', to: 'static_pages#location'
   get 'info/events-und-workshops', to: 'static_pages#meetings'
@@ -150,6 +175,7 @@ Rails.application.routes.draw do
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
   get 'info/infos-zur-graetzlmarie', to: 'static_pages#graetzlmarie'
   get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
+  get 'info/versicherung', to: 'static_pages#insurance'
   get '/robots.txt' => 'static_pages#robots'
 
   root 'static_pages#home'
@@ -189,6 +215,7 @@ Rails.application.routes.draw do
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'ideen', action: 'posts', as: 'posts', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member
+    get 'toolteiler', action: 'tool_offers', as: 'tool_offers', on: :member
     resources :meetings, path: 'treffen', only: [:show]
     resources :groups, path: 'gruppen', only: [:show]
     resources :locations, only: [:show]
