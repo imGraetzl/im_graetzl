@@ -14,6 +14,8 @@ class Zuckerl < ApplicationRecord
 
   validates :title, length: { in: 4..80 }
 
+  scope :all_districts, -> { where(all_districts: true) }
+
   aasm do
     state :pending, initial: true
     state :draft

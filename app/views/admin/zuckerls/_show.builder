@@ -8,6 +8,7 @@ context.instance_eval do
       z.image ? attachment_image_tag(z, :image, :fill, 400, 400) : nil
     end
     row :flyer
+    row :all_districts
     row(:aasm_state){|z| status_tag(z.aasm_state)}
     row :paid_at
     row(:payment_reference){|z| z.payment_reference}

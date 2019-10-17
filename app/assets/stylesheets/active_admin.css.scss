@@ -22,7 +22,7 @@
   &.pending, &.cancelled, &.nein, &.owner_meetable, &.disabled, &.return_pending {
     background: orange;
   }
-  &.approved, &.ja, &.meetable, &.paid, &.enabled, &.return_confirmed {
+  &.approved, &.ja, &.meetable, &.paid, &.enabled, &.return_confirmed, &.live {
     background: green;
   }
   &.recreation, &.public_space {
