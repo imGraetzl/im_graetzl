@@ -16,12 +16,11 @@
 
       <p>Grätzlzuckerl können immer für den kommenden Monat im Voraus gebucht werden und laufen dann einen ganzen Monat.
       <strong>Sprich, wenn du jetzt ein Grätzlzuckerl buchst, läuft dieses im Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B %Y' %>.</strong></p>
-
-      <p><strong>Ein Grätzlzuckerl kostet dich 19,80 €</strong> (inkl. USt.) Um deinem Zuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint es nicht nur in deinem
+      <p><strong>Ein Grätzlzuckerl kostet dich <%= zuckerl_price('graetzl') %></strong> (inkl. USt.) Um deinem Zuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint es nicht nur in deinem
         eigenen Grätzl, sondern sogar <strong>im ganzen zugehörigen Bezirk!</strong></p>
 
       <p><strong>Seit kurzem gibt es auch das Wien Zuckerl.</strong>
-      Dieses läuft dann in allen Bezirken und Grätzln auf der Plattform - Sprich in ganz Wien :)</p>
+      Dieses läuft dann in allen Bezirken und Grätzln auf der Plattform, sprich in ganz Wien und <strong>kostet dich <%= zuckerl_price('all_districts') %></strong>.</p>
 
     </div>
     <%= render partial: 'users/zuckerl_actioncard' %>

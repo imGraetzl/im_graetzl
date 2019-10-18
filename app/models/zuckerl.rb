@@ -1,10 +1,7 @@
 class Zuckerl < ApplicationRecord
   extend FriendlyId
   include AASM
-  include ActionView::Helpers::NumberHelper
-
-  ZuckerlGraetzlPrice = 16.5
-  ZuckerlAllDistrictsPrice = 190
+  include ActionView::Helpers
 
   attachment :image, type: :image
   friendly_id :title
@@ -56,9 +53,9 @@ class Zuckerl < ApplicationRecord
 
   def basic_price
     if self.all_districts
-      ZuckerlAllDistrictsPrice
+      ZuckerlsHelper::ZuckerlAllDistrictsPrice
     else
-      ZuckerlGraetzlPrice
+      ZuckerlsHelper::ZuckerlGraetzlPrice
     end
   end
 
@@ -82,15 +79,7 @@ class Zuckerl < ApplicationRecord
     number_to_currency(basic_price + tax)
   end
 
-  def zuckerl_graetzl_price_with_curreny
-    number_to_currency(ZuckerlGraetzlPrice + (ZuckerlGraetzlPrice * 0.20))
-  end
-
-  def zuckerl_all_districts_price_with_curreny
-    number_to_currency(ZuckerlAllDistrictsPrice + (ZuckerlAllDistrictsPrice * 0.20))
-  end
-
-  def district_visibility
+  def visibility
     if self.all_districts
       "Ganz Wien"
     else
