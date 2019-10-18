@@ -29,10 +29,14 @@
       </div>
     </div>
     <div class="zuckerlteasertxt">
+      <div class="hl">
+        <%= icon_tag "shopping-bag" %>
+        Grätzlzuckerl <%= zuckerl_month_and_year(zuckerl) %>
+      </div>
       <div class="title"><%= zuckerl.title %></div>
       <div class="description"><%= zuckerl.description %></div>
     </div>
-    <div class="locationstate">
+    <div class="itemstate">
       <%= zuckerl_state_for(zuckerl) %>
     </div>
     <div class="btn-group">

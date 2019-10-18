@@ -1,7 +1,5 @@
 <section class="usersetup -zuckerl">
 
-<% if @zuckerls.empty? %>
-
   <div class="introcontainer">
     <div class="introtxt">
 
@@ -20,23 +18,20 @@
         eigenen Grätzl, sondern sogar <strong>im ganzen zugehörigen Bezirk!</strong></p>
 
       <p><strong>Seit kurzem gibt es auch das Wien Zuckerl.</strong>
-      Dieses läuft dann in allen Bezirken und Grätzln auf der Plattform, sprich in ganz Wien und <strong>kostet dich <%= zuckerl_price('all_districts') %></strong>.</p>
+      Dieses läuft dann in allen Bezirken und Grätzln auf der Plattform, also in ganz Wien und <strong>kostet dich <%= zuckerl_price('all_districts') %></strong>.</p>
 
     </div>
     <%= render partial: 'users/zuckerl_actioncard' %>
   </div>
 
-<% else %>
+  <% if @zuckerls.present? %>
 
-  <h2 class="hl-main">Deine <span>Grätzlzuckerl</span> verwalten</h2>
+    <h2 class="hl-main">Deine <span>Grätzlzuckerl</span> verwalten</h2>
 
-  <div class="cardBoxCollection -tripple" data-behavior="zuckerls-card-container">
-    <%= render partial: 'users/zuckerl', collection: @zuckerls %>
-  </div>
-  <div class="action-card-container">
-    <%= render partial: 'users/zuckerl_actioncard' %>
-  </div>
+    <div class="cardBoxCollection -tripple" data-behavior="zuckerls-card-container">
+      <%= render partial: 'users/zuckerl', collection: @zuckerls %>
+    </div>
 
-<% end %>
+  <% end %>
 
 </section>
