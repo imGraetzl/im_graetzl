@@ -15,10 +15,12 @@ ActiveAdmin.register Zuckerl do
   filter :created_at
 
   scope :all, default: true
-  scope :paid
   scope :pending
   scope :live
+  scope :marked_as_paid
+  scope :paid
   scope :cancelled
+  scope :expired
 
   index { render 'index', context: self }
   show { render 'show', context: self }
