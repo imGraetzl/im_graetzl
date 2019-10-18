@@ -35,7 +35,7 @@
   <div class="headline">Eckdaten</div>
   <ul class="facts">
     <li><strong>Laufzeit:</strong> <%= zuckerl_month_and_year(zuckerl) %></li>
-    <li><strong>Grätzl:</strong> <%= zuckerl.location.graetzl.name %></li>
-    <li><strong>Preis:</strong> 15 € (inkl. USt.)</li>
+    <li><strong>Grätzl:</strong> <%= zuckerl.district_visibility %></li>
+    <li><strong>Preis:</strong> <%= zuckerl.total_price_with_currency %> (inkl. 20% USt.)</li>
   </ul>
 </div>

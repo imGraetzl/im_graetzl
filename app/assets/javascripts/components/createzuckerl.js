@@ -1,7 +1,7 @@
 APP.components.createzuckerl = (function() {
 
-    var price_graetzl = 15;
-    var price_all_districts = 190;
+    var price_graetzl = $('[data-behavior=zuckerlform] #zuckerl_graetzl_price').val();
+    var price_all_districts = $('[data-behavior=zuckerlform] #zuckerl_all_districts_price').val();
 
     var $titleinput, $descriptioninput, $imageinput, $districtinput, $titlepreview,
         $descriptionpreview, $imagepreview, $pricepreview, $btnconfirm, $btnsend,

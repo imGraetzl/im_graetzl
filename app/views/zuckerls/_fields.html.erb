@@ -1,5 +1,8 @@
 <%= form_errors_for f.object %>
 <%= f.hidden_field :location_id %>
+<%= f.hidden_field :graetzl_price, value: @zuckerl.zuckerl_graetzl_price_with_curreny %>
+<%= f.hidden_field :all_districts_price, value: @zuckerl.zuckerl_all_districts_price_with_curreny %>
+
 
 <div class="input-field">
   <%= f.label :title do %>
@@ -51,10 +54,10 @@
     </div>
     <div class="description">
       <small class="graetzl">
-        Dein Grätzlzuckerl läuft im gesamten <%= @location.districts.first.numeric %>. Bezirk und kostet <span data-behavior="pricepreview"></span> €.
+        Dein Grätzlzuckerl läuft im gesamten <%= @location.districts.first.numeric %>. Bezirk und kostet <span data-behavior="pricepreview"></span>.
       </small>
       <small class="all_districts">
-        Dein Grätzlzuckerl läuft in ganz Wien und kostet <span data-behavior="pricepreview"></span> €.
+        Dein Grätzlzuckerl läuft in ganz Wien und kostet <span data-behavior="pricepreview"></span>.
       </small>
     </div>
   </div>

@@ -6,7 +6,7 @@
         <p>Um dein Grätzlzuckerl zeitgerecht am <%= I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%d.%m.%Y') %> schalten zu können,
           überweise bitte den noch offenen Betrag an folgende Kontoverbindung.</p>
         <div class="bookingdetails">
-          <p><strong>Gesamtbetrag: 15 €</strong> (inkl. USt.)</p>
+          <p><strong>Gesamtbetrag: <%= @zuckerl.total_price_with_currency %></strong> (inkl. USt.)</p>
           <p><strong>Kontoverbindung:</strong><br/>
             morgenjungs GmbH<br/>
             IBAN: AT03 2011 1826 6988 6500<br/>
