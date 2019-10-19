@@ -15,7 +15,7 @@
         </div>
         <p>Nach Zahlungseingang senden wir dir erneut eine Bestätigung (inkl. Rechnung) an folgende E-Mailadresse zu: <%= mail_to current_user.email, nil %></p>
         <p>Solltest du Fragen zu deiner Buchung haben, sende uns ein E-Mail an <%= mail_to 'wir@imgraetzl.at', nil %></p>
-        <%= link_to 'Fertig', root_path, class: 'btn-primary' %>
+        <%= link_to 'Fertig', zuckerls_user_path(anchor: "zuckerl-verwalten"), class: 'btn-primary' %>
       </div>
       <div class="collapsible">
         <div class="collapsibletrigger" data-collapsed="<%= @billing_address.errors.any? ? false : true %>">

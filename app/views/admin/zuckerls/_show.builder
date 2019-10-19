@@ -7,6 +7,7 @@ context.instance_eval do
     row :visibility
     row(:payment_reference){|z| z.payment_reference}
     row :paid_at
+    row :invoice_number
     row :location
     row :title
     row :description

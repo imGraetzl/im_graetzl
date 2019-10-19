@@ -258,6 +258,7 @@ de:
         paid_at: Bezahlt am
         payment_reference: Zahlungsreferenz
         visibility: Sichtbarkeit
+        marked_as_paid: Als bezahlt markiert
       group:
         group_category_ids: Kategorie
         title: Titel

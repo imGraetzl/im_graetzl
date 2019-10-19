@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_100637) do
+ActiveRecord::Schema.define(version: 2019_10_19_085559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -831,6 +831,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_100637) do
     t.integer "initiative_id"
     t.string "slug"
     t.boolean "all_districts", default: false
+    t.string "invoice_number"
     t.index ["initiative_id"], name: "index_zuckerls_on_initiative_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"

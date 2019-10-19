@@ -17,6 +17,8 @@ class Zuckerl < ApplicationRecord
 
   scope :all_districts, -> { where(all_districts: true) }
   scope :marked_as_paid, -> { where("paid_at IS NOT NULL") }
+  scope :this_month, lambda {where("created_at > ? AND created_at < ?", Time.now.beginning_of_month - 1.month, Time.now.end_of_month - 1.month)}
+  scope :next_month, lambda {where("created_at > ? AND created_at < ?", Time.now.beginning_of_month, Time.now.end_of_month)}
 
 
   aasm do
@@ -51,6 +53,10 @@ class Zuckerl < ApplicationRecord
 
   def payment_reference
     "#{model_name.singular}_#{id}_#{created_at.strftime('%y%m')}"
+  end
+
+  def self.next_invoice_number
+    Zuckerl.where("invoice_number IS NOT NULL").count + 1
   end
 
   def basic_price
@@ -97,6 +103,8 @@ class Zuckerl < ApplicationRecord
   end
 
   def send_invoice
+    invoice_number = "#{Date.current.year}/Zuckerl-#{self.id}/Nr-#{Zuckerl.next_invoice_number}"
+    update(invoice_number: invoice_number)
     update(paid_at: Time.now)
     ZuckerlMailer.invoice(self).deliver_later
   end
