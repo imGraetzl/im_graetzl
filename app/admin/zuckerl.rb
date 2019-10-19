@@ -15,7 +15,7 @@ ActiveAdmin.register Zuckerl do
   filter :created_at
 
   scope "#{I18n.localize Time.now.end_of_month+1.day, format: '%B'} Zuckerl", :next_month, default: true
-  scope "#{I18n.localize Time.now.beginning_of_month, format: '%B'} Zuckerl", :this_month
+  scope "Aktueller Monat", :this_month
 
   scope "Alle", :all
   scope "Bezahlt", :marked_as_paid

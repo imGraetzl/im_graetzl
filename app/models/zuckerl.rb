@@ -95,6 +95,11 @@ class Zuckerl < ApplicationRecord
     end
   end
 
+  def zuckerl_invoice
+    bucket = Aws::S3::Resource.new.bucket('invoices.imgraetzl.at')
+    bucket.object("#{Rails.env}/zuckerls/#{id}-zuckerl.pdf")
+  end
+
   private
 
   def send_booking_confirmation
@@ -102,14 +107,21 @@ class Zuckerl < ApplicationRecord
     ZuckerlMailer.booking_confirmation(self).deliver_later
   end
 
+  def send_live_information
+    ZuckerlMailer.live_information(self).deliver_later
+  end
+
+  def generate_invoice(zuckerl)
+    zuckerl_invoice = ZuckerlInvoice.new.invoice(zuckerl)
+    zuckerl.zuckerl_invoice.put(body: zuckerl_invoice)
+  end
+
   def send_invoice
     invoice_number = "#{Date.current.year}/Zuckerl-#{self.id}/Nr-#{Zuckerl.next_invoice_number}"
     update(invoice_number: invoice_number)
     update(paid_at: Time.now)
+    generate_invoice(self)
     ZuckerlMailer.invoice(self).deliver_later
   end
 
-  def send_live_information
-    ZuckerlMailer.live_information(self).deliver_later
-  end
 end
