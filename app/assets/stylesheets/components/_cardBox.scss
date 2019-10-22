@@ -221,7 +221,7 @@
       &:last-child {
         margin-bottom: 0;
       }
-      + .streamElement {
+      + .streamElement, + .btn-group {
         margin-top: 20px;
       }
     }
