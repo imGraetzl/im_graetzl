@@ -46,6 +46,14 @@ class Zuckerl < ApplicationRecord
     end
   end
 
+  def url
+    unless self.link.nil?
+      self.link
+    else
+      Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location, anchor: dom_id(self))
+    end
+  end
+
   def self.include_for_box
     includes(location: [:location_category, :address])
   end
