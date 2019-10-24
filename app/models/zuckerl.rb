@@ -3,6 +3,8 @@ class Zuckerl < ApplicationRecord
   include AASM
   include ActionView::Helpers
 
+  before_destroy :can_destroy?
+
   attachment :image, type: :image
   friendly_id :title
   attr_accessor :active_admin_requested_event
@@ -108,6 +110,12 @@ class Zuckerl < ApplicationRecord
   end
 
   private
+
+  def can_destroy?
+    if self.invoice_number?
+      throw :abort
+    end
+  end
 
   def send_booking_confirmation
     AdminMailer.new_zuckerl(self).deliver_later
