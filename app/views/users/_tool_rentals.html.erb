@@ -9,7 +9,9 @@
 
 <% if @owned_tool_rentals.present? %>
 
-  <h2 class="hl-main">Als <span>Vermieter</span></h2>
+  <div class="hl-subtext">
+    <h1><em>Als Vermieter</em></h1>
+  </div>
 
   <div class="table-container" role="table" aria-label="Destinations">
     <div class="flex-table header" role="rowgroup">
@@ -28,7 +30,9 @@
 <% end %>
 
 <% if @tool_rentals.present? %>
-  <h2 class="hl-main">Als <span>Mieter</span></h2>
+<div class="hl-subtext">
+  <h1><em>Als Mieter</em></h1>
+</div>
 
   <div class="table-container" role="table" aria-label="Destinations">
     <div class="flex-table header" role="rowgroup">

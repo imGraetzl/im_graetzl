@@ -85,6 +85,23 @@ section.usersetup {
     .paperCard.-tmp .wrp {
       h3 {margin-bottom:0px;}
     }
+    .tabs-nav {
+      margin: 0 auto;
+      margin-bottom: 50px;
+
+      li {
+        width:100%;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      display: block;
+      @include respond-to(">=large") {
+        display: flex;
+        justify-content: center;
+      }
+
+    }
   }
 
   &.-zuckerl {
