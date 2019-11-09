@@ -52,8 +52,8 @@ $row-hover-bg : $color-ambient-mint-light;
     border-bottom: solid 1px $table-border;
 
     &.small {width: 10%; justify-content: left;}
-    &.medium {width: 14%; justify-content: left;}
-    &.large {width: 19%; justify-content: left;}
+    &.medium {width: 15%; justify-content: left;}
+    &.large {width: 20%; justify-content: left;}
     //width: calc(28% / 2);
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
       // IE Fix

@@ -16,7 +16,7 @@
       <%= tool_rental.tool_offer.title.truncate(35) %>
     <% end %>
   </div>
-  <div class="flex-row large" role="cell"><%= l(tool_rental.rent_from) %> - <%= l(tool_rental.rent_to) %></div>
+  <div class="flex-row medium" role="cell"><%= l(tool_rental.rent_from, format: :short) %> - <%= l(tool_rental.rent_to, format: :short) %></div>
   <div class="flex-row small" role="cell"><%= number_to_currency(tool_rental.total_price, unit: "€") %></div>
   <div class="flex-row large <%= tool_rental.rental_status %>" role="cell">
     <%= t("activerecord.attributes.tool_rental.rental_statuses.#{tool_rental.rental_status}") %>
