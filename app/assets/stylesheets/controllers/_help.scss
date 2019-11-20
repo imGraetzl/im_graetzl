@@ -614,6 +614,38 @@ section.help {
       }
     }
 
+    // Radio Button Switch
+    .group-switch {
+      margin-top:-20px;
+      display: flex;
+      justify-content: center;
+      .input-radio {
+        padding: 0px 20px 30px 20px;
+        label {
+          padding-left:15px;
+          @include font-size-primaryFont('large');
+        }
+      }
+    }
+
+    .tabs-nav {
+      margin: 0 auto;
+      margin-top:-10px;
+      margin-bottom: 20px;
+      a {
+        cursor: pointer;
+      }
+    }
+
+    // Group Info Txt
+    .group-info {
+      text-align: center;
+      margin-bottom:30px;
+      .summary {
+        color: $color-ambient-mint-dark;
+      }
+    }
+
     .anmeldung {
       margin-bottom:70px;
       h4 {
@@ -631,29 +663,6 @@ section.help {
       }
       &.-disabled {
         //opacity: 0.5;
-      }
-    }
-
-    .sponsoring {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      .cardBox {
-        width: 100%;
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-bottom: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        .logo {
-          width:90%;
-        }
-        @include respond-to(">=medium") {
-          width: 40%;
-        }
       }
     }
 
