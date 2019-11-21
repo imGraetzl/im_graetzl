@@ -646,6 +646,93 @@ section.help {
       }
     }
 
+    .-coworking {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      span {
+        width:80%
+      }
+      .tischlerei-logo {
+        width:20%;
+      }
+    }
+
+    a.tischlerei-link {
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .tischlerei-infos {
+      .headline {
+        color: $color-ambient-mint-dark;
+      }
+      .tischlerei-anita {
+        padding-right:110px;
+        background-image: url(image_path('info/die-tischlerei-anita.jpg'));
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: 100px;
+      }
+      .entryImgUploads {
+        margin-top: 0px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        img {
+          width: 80px;
+          height:80px;
+          object-fit: cover;
+          @include respond-to(">=large") {
+            width: 150px;
+            height:150px;
+          }
+        }
+      }
+    }
+
+    .-coworking:after {
+      display: block;
+      margin-bottom:25px;
+      content: '';
+      width: 100%;
+      height: 10px;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 30%);
+      z-index: 9;
+    }
+
+    .-coworking:after {
+      margin-bottom: 0px;
+      margin-top:15px;
+    }
+
+    .arrow {
+      margin: 0 auto;
+      margin-top:-10px;
+      width:50px;
+      height:50px;
+      background-image: url(image_path('controls-arrow-mint'));
+      background-position: center center;
+      background-size: 80%;
+      background-repeat: no-repeat;
+      border:1px solid $color-ambient-mint-light;
+      border-radius: 50%;
+      background-color:rgba($color-ambient-mint-light, 0.3);
+      cursor: pointer;
+      opacity: 0.8;
+      &.-up {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+    }
+    .arrow:hover {
+      background-color:rgba($color-ambient-mint-light, 0.5);
+      opacity: 1.0;
+    }
+
     .anmeldung {
       margin-bottom:70px;
       h4 {

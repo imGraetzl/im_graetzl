@@ -16,7 +16,6 @@
   </div>
 
   <div class="paperCard -cord1RT -header -top">
-    <!--<%= image_tag('info/button_mentoring_ausgebucht.png', class: 'anmeldung-badge') %>-->
     <div class="wrp">
       <a href="#teilnahme" class="badge -mint -arrow">
         Jetzt durchstarten!
@@ -137,12 +136,38 @@
         </strong>
       </p>
       <p>
-        Der Austausch mit dem Unterstützer-Team erfolgt hauptsächlich über eine online Gruppe,
-        es stehen aber auch ganz reale Treffen auf dem Programm. Die persönliche Betreuung
-        in Kleingruppen und Unterstützung bei der Umsetzung bringen handfeste Ergebnisse.
-        Deshalb sollten Interessierte unbedingt ein konkretes Ziel, Projekt, oder Idee in
-        ihr Unterstützungs-Team mitbringen.
+        Der Austausch mit dem Unterstützer-Team erfolgt hauptsächlich über eine online Gruppe, es stehen aber auch ganz reale Treffen auf dem Programm.
+        Alle TeilnehmerInnen bringen ein konkretes Ziel, Projekt oder Vorhaben in ihr Unterstützer-Team mit und planen Zeit für die Umsetzung ein. Daraus folgen handfeste Ergebnisse, weil sich das Wollen ins Machen verwandelt.
       </p>
+      <p class="-coworking">
+        <span>
+          <strong>Wenn du noch mehr Sog für dein Vorhaben erzeugen willst, dann nimm das Unterstützer-Programm Paket mit zusätzlichem Arbeitsplatz.</strong>
+          <br>Du bist an deinem Arbeitsplatz umgeben von anderen TeilnehmerInnen deines Unterstützer-Teams und eure Gemeinschaft im Coworking-Space "<%= link_to 'Die Tischlerei', 'http://www.dietischlerei.wien/de/', class: 'tischlerei-link', target: 'blank' %>" gibt euch zusätzliche Turboenergie.
+        </span>
+        <%= link_to image_tag('info/die-tischlerei-logo.svg'), 'http://www.dietischlerei.wien/de/', class: 'tischlerei-logo', target: 'blank' %>
+      </p>
+      <div class="tischlerei-infos">
+        <strong class="headline">Jetzt neu: Unterstützer-Programm mit Arbeitsplatz!</strong>
+        <p>
+          Um noch eine zusätzliche und intensivere Form des Unterstützer-Programms anbieten zu können, war uns klar, dass wir euch dafür eine Homebase bieten möchten. Stell dir vor: du hast einen Arbeitsplatz und triffst dort die Menschen aus deinem Unterstützer-Team. Eine Gemeinschaft aus lauter Menschen, die alle ihr Ding durchziehen. Nutze diese besondere Energie und erlebe, wie ihr gemeinsam wachst und zusammen immer größere Schritte geht. Ein gutes Umfeld & Inspiration pur!
+        </p>
+
+        <div class="entryImgUploads">
+          <%= link_to image_tag('info/die-tischlerei-1.jpg'), image_url('info/die-tischlerei-1.jpg'), data: { jbox_image: "gallery1" } %>
+          <%= link_to image_tag('info/die-tischlerei-2.jpg'), image_url('info/die-tischlerei-2.jpg'), data: { jbox_image: "gallery1" } %>
+          <%= link_to image_tag('info/die-tischlerei-3.jpg'), image_url('info/die-tischlerei-3.jpg'), data: { jbox_image: "gallery1" } %>
+          <%= link_to image_tag('info/die-tischlerei-4.jpg'), image_url('info/die-tischlerei-4.jpg'), data: { jbox_image: "gallery1" } %>
+          <%= link_to image_tag('info/die-tischlerei-5.jpg'), image_url('info/die-tischlerei-5.jpg'), data: { jbox_image: "gallery1" } %>
+        </div>
+
+        <p>
+          Unser Hintergedanke dazu: Einzelunternehmen, die im Homeoffice arbeiten, sind laut Studien, weniger erfolgreich und zufrieden im Vergleich zu denjenigen, die sich mit anderen zusammentun und einen externen Arbeitsplatz bespielen. Gilt sicher auch für alle anderen, die was vorhaben. Also raus aus dem Home-Office!
+        </p>
+        <p class="tischlerei-anita">
+          <strong>Anita, Gründerin von "Die Tischlerei" und unsere Gastgeberin passt mit ihrem Spirit zu uns wie der Topf auf den Deckel.</strong> Sie gehört nämlich auch eindeutig zu den Menschen, die in die Umsetzung gehen und es außerdem liebt Menschen miteinander zu verbinden. Ihr kommt in gute Hände!
+        </p>
+      </div>
+      <div class="arrow"></div>
     </div>
     <div class="card"></div>
   </div>
@@ -178,7 +203,7 @@
         <strong>Netzwerk öffne dich:</strong> Das Unterstützer-Programm verbindet dich mit Gleichgesinnten mit einem kooperativen Mindset in Wien. Adieu EinzelkämpferInnentum, hallo Gruppenpower.
       </li>
       <li>
-        <strong>Es gibt drei Treffen:</strong> das Kick-off Treffen, das Bergfest nach 6 Wochen und die Abschiedssause am Schluss.
+        <strong>Es gibt drei Treffen in unserer Homebase "Die Tischlerei":</strong> das Kick-off Treffen, das Bergfest nach 6 Wochen und die Abschiedssause am Schluss.
       </li>
       <li>
         <strong>Aus dem Workshop-Pool kannst du dir 3 passende Checks mit unseren MentorInnen aussuchen</strong> (z.B. Social Media, Finanzen, Webseite). Wenn zwischendurch der Schuh drückt, dann hast du eine MentorIn als persönliche Ansprechpartnerin, die dir zur Seite steht.
@@ -395,10 +420,11 @@
       <% end %>
 
     </div>
-  <!-- END TEILNEHMEN -->
   <% else %>
     Keine Gruppe verknüpft ...
   <% end %>
+  <!-- END TEILNEHMEN -->
+
 
   <!----------- LOGIN PANEL MODAL ----------->
   <%= render 'shared/login_panel',redirect: request.original_url ,origin: 'mentoring' %>

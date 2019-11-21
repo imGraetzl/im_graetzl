@@ -23,6 +23,22 @@ function initMentoring() {
   });
   */
 
+  $( ".tischlerei-infos" ).hide();
+  $( ".arrow" ).click(function() {
+    $( ".tischlerei-infos" ).slideToggle(function() {
+      $( ".arrow" ).toggleClass( "-up" );
+    });
+  });
+
+  var roomGallery = new jBox('Image', {
+    addClass:'jBoxGallery',
+    imageCounter:true,
+    preloadFirstImage:true,
+    closeOnEsc:true,
+    createOnInit:true,
+    animation:{open: 'zoomIn', close: 'zoomOut'},
+  });
+
   // Group Swicth for Submitting in selected Group
   $('.group-info').hide();
   var selectedgroup = $('#group-switch li.active').attr("id");
