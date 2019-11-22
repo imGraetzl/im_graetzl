@@ -639,10 +639,17 @@ section.help {
 
     // Group Info Txt
     .group-info {
+      @include font-size-primaryFont('large');
       text-align: center;
       margin-bottom:30px;
       .summary {
         color: $color-ambient-mint-dark;
+        &.early {
+          text-decoration: line-through;
+        }
+      }
+      .earlybird {
+        color: $color-ambient-rosa-dark;
       }
     }
 
