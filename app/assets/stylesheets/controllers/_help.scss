@@ -662,10 +662,10 @@ section.help {
         width:100%
       }
       .tischlerei-logo {
-        margin-top:10px;
+        margin-top:20px;
         width:40%;
       }
-      @include respond-to(">=large") {
+      @include respond-to(">=medium") {
         justify-content: space-between;
         span {
           width:80%;
