@@ -67,9 +67,9 @@ APP.controllers.application = (function() {
 
           // SignUp Unterstützer-Team
           if ( $("#flash .notice").text().indexOf('Deine Beitrittsanfrage wurde abgeschickt!') >= 0 && document.referrer.indexOf('unterstuetzer-team') >= 0 ){
-            fbq('track', 'UnterstuetzerSignUp'); // FB
+            fbq('trackCustom', 'UnterstuetzerSignUp');
           }
-          
+
         }
       });
     }
