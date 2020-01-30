@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   end
   resources :room_offers, path: 'wien/raumteiler/raum', except: [:index] do
     get 'select', on: :collection
+    get 'activate/:activation_code' => 'room_offers#activate', on: :member
     patch 'update_status', on: :member
     post 'toggle_waitlist', on: :member
     post 'remove_from_waitlist', on: :member

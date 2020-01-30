@@ -20,4 +20,10 @@ class RoomMailer < ApplicationMailer
     mail(to: @room_offer.user.email, subject: "Neuer User auf deiner Warteliste")
   end
 
+  def room_offer_activate_reminder(room_offer)
+    @room_offer = room_offer
+    headers("X-MC-Tags" => "notification-room-expiring")
+    mail(to: @room_offer.user.email, subject: "Dein Raumteiler läuft demnächst ab. Klicke hier um zu verlängern.")
+  end
+
 end

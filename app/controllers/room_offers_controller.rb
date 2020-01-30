@@ -51,6 +51,18 @@ class RoomOffersController < ApplicationController
     redirect_back(fallback_location: rooms_user_path)
   end
 
+  def activate
+    @room_offer = RoomOffer.find(params[:id])
+    if params[:activation_code].to_i == @room_offer.activation_code
+      @room_offer.update(last_activated_at: Time.now)
+      @room_offer.update(status: "enabled")
+      flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
+    else
+      flash[:notice] = "Der Aktivierungslink ist leider ungültig. #{@room_offer.created_at.to_i}"
+    end
+    redirect_to @room_offer
+  end
+
   def toggle_waitlist
     @room_offer = RoomOffer.find(params[:id])
     if @room_offer.waiting_users.include?(current_user)
@@ -103,6 +115,7 @@ class RoomOffersController < ApplicationController
         :cover_photo,
         :remove_cover_photo,
         :avatar,
+        :activation_code,
         :remove_avatar,
         :first_name, :last_name, :website, :email, :phone, :location_id,
         images_files: [],
