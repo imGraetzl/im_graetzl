@@ -42,6 +42,7 @@ class RoomOffer < ApplicationRecord
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
 
   scope :by_currentness, -> { order(created_at: :desc) }
+  scope :reactivated, -> { enabled.where("last_activated_at > created_at") }
 
   def to_s
     slogan
@@ -51,11 +52,11 @@ class RoomOffer < ApplicationRecord
     return self.created_at.to_i
   end
 
-  private
-
   def set_last_activated_at
     self.last_activated_at = Time.now
   end
+
+  private
 
   def set_graetzl_and_district
     self.graetzl ||= address.graetzl if address.present?
