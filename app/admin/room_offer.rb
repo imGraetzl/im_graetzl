@@ -4,11 +4,11 @@ ActiveAdmin.register RoomOffer do
   includes :graetzl, :location, :user, :comments
   actions :all, except: [:new, :create]
 
-  scope :all, default: true
-  scope :enabled
+  scope :enabled, default: true
+  scope :reactivated
   scope :disabled
   scope :occupied
-  scope :reactivated
+  scope :all
 
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :district, collection: proc { District.order(:zip) }, include_blank: true, input_html: { class: 'admin-filter-select'}

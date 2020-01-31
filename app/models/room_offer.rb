@@ -44,6 +44,8 @@ class RoomOffer < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
   scope :reactivated, -> { enabled.where("last_activated_at > created_at") }
 
+  LIFETIME_MONTHS = 6
+
   def to_s
     slogan
   end
