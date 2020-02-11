@@ -222,7 +222,7 @@ APP.components.cardFilter = (function() {
         // if the scroll is more than 70% from the top, load more content.
         if(scrollPercentage > 0.7 && btn_link_load_clicked == false) {
           $('.link-load').click();
-          //console.log('scrolled and clicked');
+          console.log('scrolled and clicked');
           btn_link_load_clicked = true;
         }
       }
@@ -235,6 +235,7 @@ APP.components.cardFilter = (function() {
     var newCards = cardGrid.find('[data-behavior="masonry-card"]').not('[data-appended]');
     cardGrid.masonry('appended', newCards);
     newCards.attr("data-appended", true);
+    console.log(newCards);
     initInfiniteScroll();
   }
 
