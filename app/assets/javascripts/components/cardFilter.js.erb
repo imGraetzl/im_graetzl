@@ -128,6 +128,7 @@ APP.components.cardFilter = (function() {
     });
 
     $('.link-load').on('ajax:success', function() {
+      removeDuplicates();
       adjustNewCards();
     });
 
@@ -222,20 +223,35 @@ APP.components.cardFilter = (function() {
         // if the scroll is more than 70% from the top, load more content.
         if(scrollPercentage > 0.7 && btn_link_load_clicked == false) {
           $('.link-load').click();
-          console.log('scrolled and clicked');
+          //console.log('scrolled and clicked');
           btn_link_load_clicked = true;
         }
       }
     });
   } // Infinite Scrolling
 
+  // Remove Duplicate Cards
+  function removeDuplicates() {
+    var items = cardGrid.find('[data-card-id]');
+    var exists = {};
+    console.log(items.length);
+    items.each(function() {
+        var cardId = $(this).attr('data-card-id');
+        if (exists[cardId]) {
+          console.log($(this));
+          $(this).remove();
+        } else {
+          exists[cardId] = true;
+        }
+    });
+  }
 
 
   function adjustNewCards() {
     var newCards = cardGrid.find('[data-behavior="masonry-card"]').not('[data-appended]');
     cardGrid.masonry('appended', newCards);
     newCards.attr("data-appended", true);
-    console.log(newCards);
+    //console.log(newCards);
     initInfiniteScroll();
   }
 
