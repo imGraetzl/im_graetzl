@@ -96,5 +96,6 @@ ActiveAdmin.register Meeting do
       :id,
       :user_id,
       :role,
+      :meeting_additional_date_id,
       :_destroy]
 end

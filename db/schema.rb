@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_120435) do
+ActiveRecord::Schema.define(version: 2020_02_14_114915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,6 +220,12 @@ ActiveRecord::Schema.define(version: 2020_02_06_120435) do
     t.integer "role", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.bigint "meeting_additional_date_id"
+    t.integer "payment_status", default: 0
+    t.string "payment_method"
+    t.string "stripe_payment_intent_id"
+    t.string "stripe_invoice_id"
+    t.index ["meeting_additional_date_id"], name: "index_going_tos_on_meeting_additional_date_id"
     t.index ["meeting_id"], name: "index_going_tos_on_meeting_id"
     t.index ["user_id"], name: "index_going_tos_on_user_id"
   end
@@ -397,6 +403,8 @@ ActiveRecord::Schema.define(version: 2020_02_06_120435) do
     t.boolean "private", default: false
     t.integer "user_id"
     t.boolean "platform_meeting", default: false
+    t.boolean "chargeable", default: false
+    t.integer "amount", default: 0
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"
     t.index ["group_id"], name: "index_meetings_on_group_id"
@@ -862,6 +870,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_120435) do
   add_foreign_key "discussions", "groups", on_delete: :cascade
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
   add_foreign_key "group_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "group_graetzls", "groups", on_delete: :cascade
   add_foreign_key "group_join_questions", "groups", on_delete: :cascade
