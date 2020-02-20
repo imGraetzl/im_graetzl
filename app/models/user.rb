@@ -63,6 +63,29 @@ class User < ApplicationRecord
 
   scope :business, -> { where(business: true) }
 
+
+  # Filter for Active Admin User Notification Settings
+  def self.user_mail_setting_eq(type)
+    case type
+    when 'WeeklyNewMeeting'
+      User.where("weekly_mail_notifications & ? > 0", Notifications::NewMeeting::BITMASK)
+    when 'DailyNewMeeting'
+      User.where("daily_mail_notifications & ? > 0", Notifications::NewMeeting::BITMASK)
+    when 'ImmediateNewMeeting'
+      User.where("immediate_mail_notifications & ? > 0", Notifications::NewMeeting::BITMASK)
+    when 'OffNewMeeting'
+      user = User.where("weekly_mail_notifications & ? <= 0", Notifications::NewMeeting::BITMASK)
+      user = user.where("daily_mail_notifications & ? <= 0", Notifications::NewMeeting::BITMASK)
+      user = user.where("immediate_mail_notifications & ? <= 0", Notifications::NewMeeting::BITMASK)
+    end
+  end
+
+  #scope als filter
+  def self.ransackable_scopes(_auth_object = nil)
+    [:user_mail_setting_eq]
+  end
+
+
   # overwrite devise authentication method to allow username OR email
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
