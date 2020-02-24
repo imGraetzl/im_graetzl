@@ -85,6 +85,7 @@ section.meeting {
   }
 
   .btn-userCallToAction {
+    display: inline-block;
     margin: 0 auto 2rem auto;
     @include respond-to(">=medium") {
       margin-left: 0;
@@ -111,5 +112,11 @@ section.meeting {
   margin-top:50px;
   .paperCard {
     padding:20px;
+  }
+}
+
+#jBoxBuyTicket {
+  select {
+    min-width: 215px;
   }
 }

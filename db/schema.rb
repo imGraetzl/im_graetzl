@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 2020_02_14_114915) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.bigint "meeting_additional_date_id"
+    t.decimal "amount", precision: 10, scale: 2
     t.integer "payment_status", default: 0
     t.string "payment_method"
     t.string "stripe_payment_intent_id"
@@ -403,8 +404,7 @@ ActiveRecord::Schema.define(version: 2020_02_14_114915) do
     t.boolean "private", default: false
     t.integer "user_id"
     t.boolean "platform_meeting", default: false
-    t.boolean "chargeable", default: false
-    t.integer "amount", default: 0
+    t.decimal "amount", precision: 10, scale: 2
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"
     t.index ["group_id"], name: "index_meetings_on_group_id"
