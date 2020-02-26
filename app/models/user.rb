@@ -65,18 +65,17 @@ class User < ApplicationRecord
 
 
   # Filter for Active Admin User Notification Settings
-  def self.user_mail_setting_eq(type)
-    case type
-    when 'WeeklyNewMeeting'
-      User.where("weekly_mail_notifications & ? > 0", Notifications::NewMeeting::BITMASK)
-    when 'DailyNewMeeting'
-      User.where("daily_mail_notifications & ? > 0", Notifications::NewMeeting::BITMASK)
-    when 'ImmediateNewMeeting'
-      User.where("immediate_mail_notifications & ? > 0", Notifications::NewMeeting::BITMASK)
-    when 'OffNewMeeting'
-      user = User.where("weekly_mail_notifications & ? <= 0", Notifications::NewMeeting::BITMASK)
-      user = user.where("daily_mail_notifications & ? <= 0", Notifications::NewMeeting::BITMASK)
-      user = user.where("immediate_mail_notifications & ? <= 0", Notifications::NewMeeting::BITMASK)
+  def self.user_mail_setting_eq(notification)
+    frequency = notification.split("_").first
+    type = notification.split("_").last
+    type = Notifications.const_get(type)
+    case frequency
+    when 'weekly', 'daily', 'immediate'
+      User.where("#{frequency}_mail_notifications & ? > 0", type::BITMASK)
+    when 'off'
+      user = User.where("weekly_mail_notifications & ? <= 0", type::BITMASK)
+      user = user.where("daily_mail_notifications & ? <= 0", type::BITMASK)
+      user = user.where("immediate_mail_notifications & ? <= 0", type::BITMASK)
     end
   end
 

@@ -13,12 +13,16 @@ ActiveAdmin.register User, as: "User Notification Settings" do
   filter :email
 
   filter :user_mail_setting, as: :select, collection: proc {[
-    ['Treffen - Wöchentlich','WeeklyNewMeeting'],
-    ['Treffen - Täglich','DailyNewMeeting'],
-    ['Treffen - Sofort','ImmediateNewMeeting'],
-    ['Treffen - Aus','OffNewMeeting'],
-  ]}
+    ['Treffen - Wöchentlich','weekly_NewMeeting'],
+    ['Treffen - Täglich','daily_NewMeeting'],
+    ['Treffen - Sofort','immediate_NewMeeting'],
+    ['Treffen - Aus','off_NewMeeting'],
 
+    ['Location - Wöchentlich','weekly_NewLocation'],
+    ['Location - Täglich','daily_NewLocation'],
+    ['Location - Sofort','immediate_NewLocation'],
+    ['Location - Aus','off_NewLocation'],
+  ]}
 
   index { render 'index', context: self }
 
