@@ -13,42 +13,86 @@ class GoingTosController < ApplicationController
     end
   end
 
-  def summary
+  def initiate_card_payment
     read_params
-    if params[:stripe_payment_intent_id].present?
-      intent = Stripe::PaymentIntent.retrieve(params[:stripe_payment_intent_id])
-      @card = intent.charges.data.first.payment_method_details.card
+    description = "#{@meeting.name}, am #{@display_starts_at_date}"
+
+    result = GoingToService.new.initiate_card_payment(
+      current_user, description, @meeting.amount, params[:payment_method_id]
+    )
+
+    if result[:error].present?
+      render json: { error: result[:error] }, status: :bad_request
+    else
+      render json: result
     end
   end
 
-  def initiate_card_payment
-  end
-
   def initiate_eps_payment
+    read_params
+    description = "#{@meeting.name}, am #{@display_starts_at_date}"
+
+    result = GoingToService.new.initiate_eps_payment(
+      current_user, description, @meeting.amount, eps_params, params[:redirect_url]
+    )
+
+    if result[:error].present?
+      render json: { error: result[:error] }, status: :bad_request
+    else
+      render json: result
+    end
+
   end
 
   def create
     read_params
 
-    @going_to = current_user.going_tos.build(going_to_params)
-    @going_to.assign_attributes(
+    if current_user.billing_address
+      current_user.billing_address.assign_attributes(billing_address_params)
+      current_user.billing_address.save!
+    else
+      billing_address = current_user.create_billing_address(billing_address_params)
+      billing_address.save!
+    end
+
+    going_to = current_user.going_tos.new(going_to_params)
+    going_to.assign_attributes(
+      role: :paid_attendee,
+      amount: @meeting.amount,
+      payment_status: :payment_pending,
     )
-    @going_to.save!
+    if going_to.payment_method.in?(['card'])
+      going_to.assign_attributes(payment_status: :payment_success)
+    end
+
+    going_to.save!
+
+    if going_to.payment_method.in?(['card'])
+      GoingToService.new.generate_invoice(going_to)
+      GoingToMailer.send_invoice(going_to).deliver_later
+    end
+
+    if going_to.payment_method.in?(['eps'])
+      ChargeGoingToJob.set(wait: 2.minutes).perform_later(going_to)
+    end
+
+    render 'summary'
 
   end
 
   private
 
-  def going_to_params
+  def billing_address_params
     params.permit(
-      :meeting_id, :meeting_additional_date_id,
-      :company, :full_name, :street, :zip, :city,
-      :stripe_payment_intent_id, :stripe_source_id, :payment_method,
+      :company, :full_name, :street, :zip, :city
     )
   end
 
-  def klarna_params
-    params.permit(:first_name, :last_name, :email, :address, :zip, :city)
+  def going_to_params
+    params.permit(
+      :meeting_id, :meeting_additional_date_id,
+      :stripe_payment_intent_id, :stripe_source_id, :payment_method,
+    )
   end
 
   def eps_params

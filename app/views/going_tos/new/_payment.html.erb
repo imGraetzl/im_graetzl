@@ -2,9 +2,6 @@
 
   <div class="hl-subtext">
     <h1>Wähle deine Zahlungsart</h1>
-    <p>
-      Beschriebungssatz ..
-    </p>
   </div>
 
   <div class="paymentMethods">
@@ -20,15 +17,11 @@
     <%= render 'going_tos/new/payment_credit_card' %>
   </div>
 
-  <div class="payment-method-container klarna-container">
-    <%= render 'going_tos/new/payment_klarna' %>
-  </div>
-
   <div class="payment-method-container eps-container">
     <%= render 'going_tos/new/payment_eps' %>
   </div>
 
-  <%= form_tag summary_going_tos_url, method: :get, class: 'next-step-form' do %>
+  <%= form_with url: going_tos_path, class: 'next-step-form' do |f| %>
     <%= hidden_field_tag :meeting_id, params[:meeting_id] %>
     <%= hidden_field_tag :meeting_additional_date_id, params[:meeting_additional_date_id] %>
     <%= hidden_field_tag :company, params[:company] %>

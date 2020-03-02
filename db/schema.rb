@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_114915) do
+ActiveRecord::Schema.define(version: 2020_02_29_193833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,9 @@ ActiveRecord::Schema.define(version: 2020_02_14_114915) do
     t.string "country", default: "Austria"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["location_id"], name: "index_billing_addresses_on_location_id"
+    t.index ["user_id"], name: "index_billing_addresses_on_user_id"
   end
 
   create_table "business_interests", id: :serial, force: :cascade do |t|
@@ -222,12 +224,15 @@ ActiveRecord::Schema.define(version: 2020_02_14_114915) do
     t.datetime "updated_at"
     t.bigint "meeting_additional_date_id"
     t.decimal "amount", precision: 10, scale: 2
-    t.integer "payment_status", default: 0
+    t.integer "payment_status"
     t.string "payment_method"
     t.string "stripe_payment_intent_id"
-    t.string "stripe_invoice_id"
+    t.string "invoice_number"
+    t.string "stripe_source_id"
+    t.string "stripe_charge_id"
     t.index ["meeting_additional_date_id"], name: "index_going_tos_on_meeting_additional_date_id"
     t.index ["meeting_id"], name: "index_going_tos_on_meeting_id"
+    t.index ["stripe_payment_intent_id"], name: "index_going_tos_on_stripe_payment_intent_id"
     t.index ["user_id"], name: "index_going_tos_on_user_id"
   end
 
@@ -859,6 +864,7 @@ ActiveRecord::Schema.define(version: 2020_02_14_114915) do
     t.index ["slug"], name: "index_zuckerls_on_slug"
   end
 
+  add_foreign_key "billing_addresses", "users", on_delete: :nullify
   add_foreign_key "business_interests_users", "business_interests", on_delete: :cascade
   add_foreign_key "business_interests_users", "users", on_delete: :cascade
   add_foreign_key "discussion_categories", "groups", on_delete: :cascade

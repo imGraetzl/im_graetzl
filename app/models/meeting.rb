@@ -18,7 +18,7 @@ class Meeting < ApplicationRecord
 
   has_many :going_tos, dependent: :destroy
   accepts_nested_attributes_for :going_tos, allow_destroy: true
-  has_many :users, through: :going_tos
+  has_many :users, -> { distinct }, through: :going_tos
 
   has_many :comments, as: :commentable, dependent: :destroy
 

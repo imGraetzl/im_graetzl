@@ -8,12 +8,22 @@
           <span><%= image_tag 'avatar/user/default.png', class: 'img-round' %> Ticket kaufen</span>
         <% end %>
       <% elsif current_user == meeting.user %>
-        <%= button_to edit_meeting_path(meeting), method: :get, class: 'btn-userCallToAction' do %>
-          <span><%= avatar_for current_user %> Treffen bearbeiten</span>
+        <%= link_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'meetingSettings' do %>
+          <span><%= avatar_for current_user %> Tickets – ab <%= number_to_currency(meeting.amount, unit: "€") %> <%= icon_tag "arrow-down-2" %></span>
         <% end %>
+        <div class="jBoxHidden jBoxDropdown" id="jBoxMeetingSettings">
+          <%= link_to 'javascript:void(0);', id: 'buyTicket' do %>
+            <%= icon_tag "ticket" %>
+            <div class="icontxt">Ticket kaufen</div>
+          <% end %>
+          <%= link_to edit_meeting_path(meeting), method: :get do %>
+            <%= icon_tag "pencil" %>
+            <div class="icontxt">Treffen bearbeiten</div>
+          <% end %>
+        </div>
       <% else %>
-        <%= link_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'buyTicket' do %>
-          <span><%= avatar_for current_user %> Ticket kaufen</span>
+        <%= button_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'buyTicket' do %>
+          <span><%= avatar_for current_user %> Tickets – ab <%= number_to_currency(meeting.amount, unit: "€") %></span>
         <% end %>
       <% end %>
 
@@ -43,9 +53,9 @@
 
   <div class="participants">
     <% if meeting.paid? %>
-        <p class="userCount"><span><%= meeting.going_tos.size %></span> nehmen teil</p>
+        <p class="userCount"><span><%= meeting.users.size %></span> nehmen teil</p>
     <% else %>
-        <p class="userCount"><span><%= meeting.going_tos.size %></span> sind interessiert</p>
+        <p class="userCount"><span><%= meeting.users.size %></span> sind interessiert</p>
     <% end %>
     <div class="portraitCollection">
       <% meeting.users.each do |user| %>

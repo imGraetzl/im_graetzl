@@ -85,7 +85,8 @@ section.meeting {
   }
 
   .btn-userCallToAction {
-    display: inline-block;
+    display: inline-flex;
+    max-height: 48px;
     margin: 0 auto 2rem auto;
     @include respond-to(">=medium") {
       margin-left: 0;
@@ -118,5 +119,9 @@ section.meeting {
 #jBoxBuyTicket {
   select {
     min-width: 215px;
+  }
+  .btn-primary {
+    margin-top:20px;
+    float:right;
   }
 }

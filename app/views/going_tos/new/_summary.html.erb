@@ -1,46 +1,29 @@
 <div class="summary" id="tab-summary">
 
   <div class="hl-subtext">
-    <h1>Deine Ticket</h1>
+    <h1>Dein Ticket</h1>
     <p>
-      Zusammenfassung
+      Herzlichen Glückwunsch <%= current_user.first_name %>!<br>
+    </p>
+    <p class="subtext">
+      Wir haben dich erfolgreich auf die Teilnehmerliste gesetzt. Du bekommst dein Ticket auch noch per E-Mail zugesandt.
     </p>
   </div>
 
-  <div class="summarybox">
-    <div>
-      <h3>Ticket</h3>
-      <p>
-        „<%= @meeting.title %>“
-      </p>
+
+  <div class="paperCard -cord1RT">
+    <div class="wrp summarybox">
+      <div class="avatar">
+        <%= avatar_for current_user %>
+      </div>
+      <div class="details">
+        <h3><%= @meeting.name %></h3>
+        <p><%= @display_starts_at_date %></p>
+        <div><%= meeting_address @meeting %></div>
+      </div>
     </div>
+    <div class="card"></div>
   </div>
 
-  <div class="summarybox">
-    <div class="payment-summary">
-      <h3>Zahlungsart</h3>
-      <p>
-        <span class="payment-method block">
-          <%= payment_method_label(params[:payment_method]) %> <br>
-          <% if @card %> endet auf <%= @card.last4 %> <span class="card-last4"></span> <% end %>
-        </span>
-        <%= link_to "ändern", choose_payment_tool_rentals_url(tool_rental_params) %>
-      </p>
-    </div>
-  </div>
-
-  <%= form_tag tool_rentals_path, html: { class: 'rental-form' } do |f| %>
-    <%= hidden_field_tag :meeting_id, params[:meeting_id] %>
-    <%= hidden_field_tag :meeting_additional_date_id, params[:meeting_additional_date_id] %>
-    <%= hidden_field_tag :company, params[:company] %>
-    <%= hidden_field_tag :full_name, params[:full_name] %>
-    <%= hidden_field_tag :street, params[:street] %>
-    <%= hidden_field_tag :zip, params[:zip] %>
-    <%= hidden_field_tag :city, params[:city] %>
-    <%= hidden_field_tag :payment_method, params[:payment_method] %>
-    <%= hidden_field_tag :stripe_payment_intent_id, params[:stripe_payment_intent_id] %>
-    <%= hidden_field_tag :stripe_source_id, params[:stripe_source_id] %>
-    <%= submit_tag "Weiter", class: 'btn-primary submit-form' %>
-  <% end %>
 
 </div>

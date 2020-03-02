@@ -65,6 +65,16 @@ APP.controllers.meetings = (function() {
         animation:{open: 'zoomIn', close: 'zoomOut'},
       });
 
+      var meetingSettings = new jBox('Tooltip', {
+        addClass:'jBox',
+        attach: '#meetingSettings',
+        content: $('#jBoxMeetingSettings'),
+        trigger: 'click',
+        closeOnClick:true,
+        isolateScroll:true,
+        animation:{open: 'zoomIn', close: 'zoomOut'},
+      });
+
     }
 
     function initCreateMeeting() {
