@@ -67,6 +67,8 @@ class GoingTosController < ApplicationController
 
     going_to.save!
 
+    @meeting.create_activity(:paid_go_to, owner: current_user)
+
     if going_to.payment_method.in?(['card'])
       GoingToService.new.generate_invoice(going_to)
       GoingToMailer.send_invoice(going_to).deliver_later

@@ -1,4 +1,5 @@
 class GoingTo < ApplicationRecord
+  include Trackable
   belongs_to :user
   belongs_to :meeting
   belongs_to :meeting_additional_date
