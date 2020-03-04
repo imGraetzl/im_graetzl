@@ -58,6 +58,8 @@ class GoingTosController < ApplicationController
     going_to = current_user.going_tos.new(going_to_params)
     going_to.assign_attributes(
       role: :paid_attendee,
+      going_to_date: @starts_at_date,
+      going_to_time: @starts_at_time,
       amount: @meeting.amount,
       payment_status: :payment_pending,
     )
@@ -72,6 +74,7 @@ class GoingTosController < ApplicationController
     if going_to.payment_method.in?(['card'])
       GoingToService.new.generate_invoice(going_to)
       GoingToMailer.send_invoice(going_to).deliver_later
+      AdminMailer.new_paid_going_to(going_to).deliver_later
     end
 
     if going_to.payment_method.in?(['eps'])
@@ -106,9 +109,11 @@ class GoingTosController < ApplicationController
     if params[:meeting_additional_date_id].present?
       @meeting_additional_date = MeetingAdditionalDate.find(params[:meeting_additional_date_id])
       @starts_at_date = @meeting_additional_date.starts_at_date
+      @starts_at_time = @meeting_additional_date.starts_at_time
       @display_starts_at_date = @meeting_additional_date.display_starts_at_date
     else
       @starts_at_date = @meeting.starts_at_date
+      @starts_at_time = @meeting.starts_at_time
       @display_starts_at_date = @meeting.display_starts_at_date
     end
   end

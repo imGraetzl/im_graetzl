@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_29_193833) do
+ActiveRecord::Schema.define(version: 2020_03_04_193251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,8 @@ ActiveRecord::Schema.define(version: 2020_02_29_193833) do
     t.string "invoice_number"
     t.string "stripe_source_id"
     t.string "stripe_charge_id"
+    t.date "going_to_date"
+    t.time "going_to_time"
     t.index ["meeting_additional_date_id"], name: "index_going_tos_on_meeting_additional_date_id"
     t.index ["meeting_id"], name: "index_going_tos_on_meeting_id"
     t.index ["stripe_payment_intent_id"], name: "index_going_tos_on_stripe_payment_intent_id"

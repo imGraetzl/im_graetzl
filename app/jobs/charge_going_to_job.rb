@@ -18,6 +18,7 @@ class ChargeGoingToJob < ApplicationJob
         going_to.save!
         GoingToService.new.generate_invoice(going_to)
         GoingToMailer.send_invoice(going_to).deliver_later
+        AdminMailer.new_paid_going_to(going_to).deliver_later
     elsif stripe_charge.status == 'failed'
         going_to.assign_attributes(
           stripe_charge_id: stripe_charge.id,

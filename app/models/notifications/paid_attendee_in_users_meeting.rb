@@ -3,7 +3,7 @@ class Notifications::PaidAttendeeInUsersMeeting < Notification
   BITMASK = 0 # System notification
 
   def self.receivers(activity)
-    User.where(id: activity.trackable.user_id)
+    User.admin
   end
 
   def self.description
