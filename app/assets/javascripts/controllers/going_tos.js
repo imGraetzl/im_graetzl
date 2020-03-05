@@ -196,6 +196,39 @@ APP.controllers.going_tos = (function() {
 
     function initSummaryScreen() {
       setTab('step3');
+
+      var transaction_id = $('#purchase #going_to_id').val();
+      var value = $('#purchase #going_to_amount').val();
+      var tax = $('#purchase #going_to_tax').val();
+      var item_id = $('#purchase #meeting_id').val();
+      var item_name = $('#purchase #meeting_name').val();
+
+      gtag('event', 'purchase', {
+        transaction_id: transaction_id,
+        value: value,
+        currency: 'EUR',
+        tax: tax,
+        items: [
+          {
+            id: item_id,
+            name: item_name,
+          }
+        ]
+      });
+
+      fbq('track', 'Purchase',
+        {
+          value: value,
+          currency: 'EUR',
+          contents: [
+            {
+              id: item_id,
+              quantity: 1
+            }
+          ],
+        }
+      );
+
     }
 
     function openTab(tab) {

@@ -80,7 +80,7 @@ class GoingTosController < ApplicationController
     if going_to.payment_method.in?(['eps'])
       ChargeGoingToJob.set(wait: 2.minutes).perform_later(going_to)
     end
-
+    @going_to = going_to
     render 'summary'
 
   end

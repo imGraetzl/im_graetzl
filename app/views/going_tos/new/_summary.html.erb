@@ -25,5 +25,12 @@
     <div class="card"></div>
   </div>
 
+  <%= form_with url: going_tos_path, id: 'purchase' do |f| %>
+    <%= hidden_field_tag :meeting_id, @meeting.id %>
+    <%= hidden_field_tag :meeting_name, @meeting.name %>
+    <%= hidden_field_tag :going_to_id, @going_to.id %>
+    <%= hidden_field_tag :going_to_amount, @going_to.amount %>
+    <%= hidden_field_tag :going_to_tax, @going_to.tax %>
+  <% end %>
 
 </div>
