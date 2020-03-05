@@ -212,23 +212,25 @@ APP.controllers.going_tos = (function() {
           {
             id: item_id,
             name: item_name,
+            price: value,
           }
         ]
       });
 
-      fbq('track', 'Purchase',
-        {
-          value: value,
-          currency: 'EUR',
-          contents: [
-            {
-              id: item_id,
-              quantity: 1
-            }
-          ],
-        }
-      );
-
+      if (window.location.hostname == 'www.imgraetzl.at') {
+        fbq('track', 'Purchase',
+          {
+            value: value,
+            currency: 'EUR',
+            contents: [
+              {
+                id: item_id,
+                quantity: 1
+              }
+            ],
+          }
+        );
+      }
     }
 
     function openTab(tab) {
