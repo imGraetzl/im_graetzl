@@ -27,7 +27,7 @@
       <% else %>
         <div class="btn-going-to">
           <%= button_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'buyTicket' do %>
-            <span><%= avatar_for current_user %> Tickets – ab <%= number_to_currency(meeting.amount, unit: "€") %></span>
+            <span><%= avatar_for current_user %> Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %></span>
           <% end %>
         </div>
       <% end %>
