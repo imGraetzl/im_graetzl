@@ -44,8 +44,8 @@ class MeetingsController < ApplicationController
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.try(:graetzl)
     @meeting.state = :active
 
-    changed_attributes = @meeting.changed_attributes.keys.map(&:to_sym)
-    changed_attributes.push(:address) if @meeting.address.try(:changed?)
+    #changed_attributes = @meeting.changed_attributes.keys.map(&:to_sym)
+    #changed_attributes.push(:address) if @meeting.address.try(:changed?)
 
     if @meeting.save
       # Prevent Activity for Meeting Changes
@@ -71,9 +71,14 @@ class MeetingsController < ApplicationController
 
   def destroy
     @meeting = find_user_meeting
-    # call method if method returns true (cancelled wird ausgeführt, dann activity)
-    @meeting.create_activity(:cancel, owner: current_user) if @meeting.cancelled!
-    redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
+    # Meeting auf Cancelled setzen:
+    # Erklärung: call method if method returns true (cancelled wird ausgeführt, dann activity)
+    #@meeting.create_activity(:cancel, owner: current_user) if @meeting.cancelled!
+    #redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
+
+    @meeting.destroy
+    redirect_to root_path, notice: 'Dein Treffen wurde gelöscht.'
+
   end
 
   private
