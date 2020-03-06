@@ -7,5 +7,5 @@
   <%= button_to 'Treffen löschen', @meeting,
                 method: :delete,
                 data: { confirm: "Willst Du dein Treffen '#{@meeting.name}' wirklich unwiderruflich löschen?" },
-                class: 'btn-secondary -grey -small' if @meeting.active? %>
+                class: 'btn-secondary -grey -small' %>
 </section>
