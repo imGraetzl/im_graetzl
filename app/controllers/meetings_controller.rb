@@ -48,9 +48,10 @@ class MeetingsController < ApplicationController
     changed_attributes.push(:address) if @meeting.address.try(:changed?)
 
     if @meeting.save
-      if (changed_attributes & [:address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description]).present?
-        @meeting.create_activity :update, owner: current_user, parameters: { changed_attributes: changed_attributes }
-      end
+      # Prevent Activity for Meeting Changes
+      #if (changed_attributes & [:address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description]).present?
+      #  @meeting.create_activity :update, owner: current_user, parameters: { changed_attributes: changed_attributes }
+      #end
       redirect_to [@meeting.graetzl, @meeting]
     else
       render :edit
@@ -70,6 +71,7 @@ class MeetingsController < ApplicationController
 
   def destroy
     @meeting = find_user_meeting
+    # call method if method returns true (cancelled wird ausgeführt, dann activity)
     @meeting.create_activity(:cancel, owner: current_user) if @meeting.cancelled!
     redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
   end
