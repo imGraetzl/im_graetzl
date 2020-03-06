@@ -43,7 +43,7 @@ APP.controllers.going_tos = (function() {
       setTab('step2');
 
       var screen = $(".going-to-page.payment-screen");
-      screen.find(".paymentMethods input").on("click", function() {
+        screen.find(".paymentMethods input").on("click", function() {
         screen.find(".payment-method-container").hide();
         screen.find("." + $(this).val() + "-container").show();
       });
