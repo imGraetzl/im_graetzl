@@ -84,7 +84,7 @@ APP.controllers.meetings = (function() {
       });
 
       // Goolge Map Script-Tag einbinden am Ende der Seite
-      $( document ).ready(function() {
+      if ($("#google_map").exists()) {
         var google_api_key = $('#google_map').attr('data-google-api-key');
         var script_url = "https://maps.googleapis.com/maps/api/js?key="+google_api_key+"&callback=initMaps"
         var google_maps_script_tag = document.createElement('script');
@@ -92,8 +92,8 @@ APP.controllers.meetings = (function() {
         google_maps_script_tag.async = true;
         google_maps_script_tag.defer = true;
         document.body.appendChild(google_maps_script_tag);
-      });
-      
+      }
+
     }
 
     function initCreateMeeting() {
