@@ -8,9 +8,9 @@ namespace :scheduled do
     end
   end
 
-  desc 'Send Reminder to ToolOffer Owner for Pending Rentals'
+  desc 'Send Reminder to ToolRental Owner for Pending Rentals after 2 days'
   task owner_reminder_pending_tool_rentals: :environment do
-    ToolRental.pending.where("created_at < ?", Date.today - 4.days).find_each do |tool_rental|
+    ToolRental.pending.where(created_at: (Time.now.midnight - 2.days)..Time.now.midnight - 1.day).find_each do |tool_rental|
       ToolOfferMailer.new_rental_request_reminder(tool_rental).deliver_now
     end
   end

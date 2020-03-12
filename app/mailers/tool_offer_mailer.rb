@@ -17,7 +17,7 @@ class ToolOfferMailer < ApplicationMailer
     @tool_rental = tool_rental
     @tool_offer = tool_rental.tool_offer
     headers("X-MC-Tags" => "tool-rental-request-reminder")
-    mail(to: @tool_rental.owner.email, subject: "Erinnerung: Du hast eine neue Toolteiler Anfrage")
+    mail(to: @tool_rental.owner.email, subject: "Erinnerung: #{@tool_rental.renter.first_name} möchte deinen Toolteiler ausborgen.")
   end
 
   def rental_approved(tool_rental)
