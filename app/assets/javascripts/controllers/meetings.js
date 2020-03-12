@@ -66,7 +66,7 @@ APP.controllers.meetings = (function() {
         onOpen: function() {
           var meeting_id = $('#meeting_id').val();
           var page_title = 'Dein Ticket - Termin wählen - ' + document.title;
-          var page_path = '/going_tos?meeting_id='+meeting_id;
+          var page_path = '/going_tos/choose_date?meeting_id='+meeting_id;
           gtag('config', window.imgraetzl.uaid, {
             'page_title': page_title,
             'page_path': page_path
