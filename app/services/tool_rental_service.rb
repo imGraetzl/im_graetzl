@@ -149,7 +149,7 @@ class ToolRentalService
     elsif tool_rental.payment_method.in?(['klarna', 'eps'])
       Stripe::Refund.create(charge: tool_rental.stripe_charge_id)
     end
-    tool_rental.expired!
+    tool_rental.update(rental_status: :expired, payment_status: :payment_canceled)
   end
 
   def confirm_return(tool_rental)
