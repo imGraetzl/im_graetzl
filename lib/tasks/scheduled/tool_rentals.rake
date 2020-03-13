@@ -8,11 +8,19 @@ namespace :scheduled do
     end
   end
 
-  desc 'Send Reminder to ToolRental Owner for Pending Rentals after 2 days'
-  task owner_reminder_pending_tool_rentals: :environment do
-    ToolRental.pending.where(created_at: (Time.now.midnight - 2.days)..Time.now.midnight - 1.day).find_each do |tool_rental|
+  desc 'Send Reminder for Pending Rentals after 2 days / Expire Rentals when date is over'
+  task process_reminder_pending_tool_rentals: :environment do
+
+    # Send Reminder for pending Rental Requests
+    ToolRental.pending.where(created_at: (Time.now.midnight - 2.days)..Time.now.midnight - 1.day).where("rent_from >= ?", Date.today).find_each do |tool_rental|
       ToolOfferMailer.new_rental_request_reminder(tool_rental).deliver_now
     end
+
+    # Expire Rental Requests where rent_from is in past
+    ToolRental.pending.where("rent_from < ?", Date.today).find_each do |tool_rental|
+      ToolRentalService.new.expire(tool_rental)
+    end
+
   end
 
 end
