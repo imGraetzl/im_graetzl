@@ -67,15 +67,13 @@
         <% meeting.users.each do |user| %>
           <%= link_to avatar_for(user), user %>
         <% end %>
+      <% elsif current_user == meeting.user || current_user.admin? %>
+        <% meeting.users.each do |user| %>
+          <%= render "shared/user_miniprofile", :user => user %>
+        <% end %>
       <% else %>
-        <% if current_user == meeting.user || current_user.admin? %>
-          <% meeting.users.each do |user| %>
-            <%= render "shared/user_miniprofile", :user => user %>
-          <% end %>
-        <% else %>
-          <% meeting.users.each do |user| %>
-            <%= link_to avatar_for(user), user %>
-          <% end %>
+        <% meeting.users.each do |user| %>
+          <%= link_to avatar_for(user), user %>
         <% end %>
       <% end %>
     </div>
