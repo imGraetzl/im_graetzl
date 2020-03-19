@@ -86,7 +86,11 @@ module User::Notifiable
     Notification.subclasses.each do |klass|
       case klass::DEFAULT_INTERVAL
       when :weekly
+        puts klass
+        puts self.weekly_mail_notifications
+        puts "-- change --"
         self.weekly_mail_notifications |= klass::BITMASK
+        puts self.weekly_mail_notifications
       when :daily
         self.daily_mail_notifications |= klass::BITMASK
       when :immediate
