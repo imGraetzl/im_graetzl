@@ -69,7 +69,7 @@
         <% end %>
       <% else %>
         <% meeting.users.each do |user| %>
-          <%= avatar_for user %>
+          <%= link_to avatar_for(user), user %>
         <% end %>
       <% end %>
     </div>
