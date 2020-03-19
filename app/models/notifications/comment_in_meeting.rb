@@ -8,7 +8,7 @@ class Notifications::CommentInMeeting < Notification
   end
 
   def self.description
-    "Meine erstellten Inhalte wurden kommentiert"
+    "Ein Treffen an dem ich interessiert bin wurde kommentiert"
   end
 
   def mail_template

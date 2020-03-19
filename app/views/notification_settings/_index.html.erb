@@ -46,6 +46,7 @@
       <h2>Betrifft <span>mich</span></h2>
     </div>
   </div>
+  <%= render 'notification_settings/slice', type: Notifications::CommentInMeeting %>
   <%= render 'notification_settings/slice', type: Notifications::CommentInUsersMeeting %>
   <%= render 'notification_settings/slice', type: Notifications::AlsoCommentedLocationPost %>
   <%= render 'notification_settings/slice', type: Notifications::NewWallComment %>
