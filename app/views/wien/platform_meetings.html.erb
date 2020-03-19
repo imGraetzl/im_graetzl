@@ -28,7 +28,7 @@
     <div class="card"></div>
   </div>
 
-  <%= form_tag meetings_path(platform_meeting: true), method: :get, remote: true, class: 'cards-filter' do; end %>
+  <%= form_tag meetings_path(platform_meeting: true, per_page: 75), method: :get, remote: true, class: 'cards-filter' do; end %>
 
   <div class="card-grid-container">
     <div class="card-grid" data-behavior="meetings-card-container"></div>
