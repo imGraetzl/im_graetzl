@@ -52,11 +52,16 @@ module User::Notifiable
 
   def enable_mail_notification(type, interval)
     [:immediate, :daily, :weekly].each do |i|
+      puts "--------enable_mail_notification--------"
+      puts i
+      puts type::BITMASK
+      puts read_attribute("#{i}_mail_notifications")
       if interval == i
         new_setting = read_attribute("#{i}_mail_notifications") | type::BITMASK
       else
         new_setting = read_attribute("#{i}_mail_notifications") & ~type::BITMASK
       end
+      puts new_setting
       write_attribute("#{i}_mail_notifications", new_setting)
     end
     save
@@ -84,19 +89,24 @@ module User::Notifiable
 
   def set_default_notification_settings
     Notification.subclasses.each do |klass|
+      puts klass
+      puts klass::DEFAULT_INTERVAL
       case klass::DEFAULT_INTERVAL
       when :weekly
-        puts klass
-        puts self.weekly_mail_notifications
-        puts "-- change --"
         self.weekly_mail_notifications |= klass::BITMASK
-        puts self.weekly_mail_notifications
       when :daily
         self.daily_mail_notifications |= klass::BITMASK
       when :immediate
         self.immediate_mail_notifications |= klass::BITMASK
         self.enabled_website_notifications |= klass::BITMASK
       end
+      puts 'weekly:'
+      puts self.weekly_mail_notifications
+      puts 'daily:'
+      puts self.daily_mail_notifications
+      puts 'immediate:'
+      puts self.immediate_mail_notifications
+
     end
   end
 
