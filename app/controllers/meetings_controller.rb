@@ -141,7 +141,8 @@ class MeetingsController < ApplicationController
   def filter_collection(meetings)
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      meetings = meetings.where(graetzl_id: graetzl_ids)
+      #meetings = meetings.where(graetzl_id: graetzl_ids)
+      meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)
     end
     meetings
   end
