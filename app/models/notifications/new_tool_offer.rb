@@ -1,7 +1,6 @@
 class Notifications::NewToolOffer < Notification
   TRIGGER_KEY = 'tool_offer.create'
   DEFAULT_INTERVAL = :weekly
-  #DEFAULT_WEBSITE_NOTIFICATION = :on
   BITMASK = 2**19
 
   def self.receivers(activity)
