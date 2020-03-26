@@ -25,6 +25,7 @@ active_admin_form_for [:admin, resource] do |f|
         a.input :street_name
         a.input :street_number
         a.input :description
+        a.input :online_meeting_description
         a.input :zip
         a.input :city
       end

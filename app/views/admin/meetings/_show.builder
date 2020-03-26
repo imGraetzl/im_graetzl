@@ -27,6 +27,7 @@ context.instance_eval do
         attributes_table_for meeting.address do
           row :id
           row :description
+          row :online_meeting_description
           row :street_name
           row :street_number
           row :zip

@@ -95,7 +95,8 @@ ActiveAdmin.register Meeting do
       :zip,
       :city,
       :coordinates,
-      :description],
+      :description,
+      :online_meeting_description],
     going_tos_attributes: [
       :id,
       :user_id,
