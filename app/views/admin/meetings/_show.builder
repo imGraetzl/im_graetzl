@@ -5,6 +5,7 @@ context.instance_eval do
         attributes_table_for meeting do
           row :id
           row :platform_meeting
+          row :online_meeting
           row :name
           row(:state){|m| status_tag(m.state)}
           row :slug
