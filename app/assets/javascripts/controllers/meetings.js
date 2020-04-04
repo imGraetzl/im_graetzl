@@ -24,16 +24,18 @@ APP.controllers.meetings = (function() {
         csvDispCount: 2,
         captionFormat: '{0} Treffenmitglieder',
         captionFormatAllSelected: 'Alle Treffenmitglieder',
-        okCancelInMulti: true,
+        //okCancelInMulti: true,
         selectAll: true,
-        triggerChangeCombined: true,
+        //triggerChangeCombined: false,
         isClickAwayOk: true,
         locale: ['OK', 'Abbrechen', 'Alle auswählen']
       });
 
       // Highlight Users on Select Change
+      /*
       $('select#mail-user-select').on('change', function(){
           var selected_users = $(this).val();
+          console.log(selected_users);
           if (selected_users == null) {
             $('.user-miniprofile-link').removeClass('active');
           } else {
@@ -44,10 +46,12 @@ APP.controllers.meetings = (function() {
             }
           }
       });
+      */
 
       // Highlight Users on single Click Options
       $('.select_users .opt').on('click', function(){
         var user_index = $(this).index();
+        console.log(user_index);
         if ($(this).hasClass('selected')){
           $('.user-miniprofile-container').eq(user_index).find('.user-miniprofile-link').addClass('active');
         } else {
@@ -56,13 +60,16 @@ APP.controllers.meetings = (function() {
       });
 
       // Highlight correct Users on Cancel Click
+      /*
       $('.select_users .btnCancel').on('click', function(){
         $('.user-miniprofile-link').removeClass('active');
         $('.select_users .options .selected').each(function() {
             var user_index = $(this).index();
+            console.log(user_index);
             $('.user-miniprofile-container').eq(user_index).find('.user-miniprofile-link').addClass('active');
         });
       });
+      */
 
     }
 
