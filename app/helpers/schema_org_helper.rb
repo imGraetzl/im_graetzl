@@ -11,49 +11,39 @@ module SchemaOrgHelper
 
   # //////////////////////////// Create Structured Data for MEETINGS
   def structured_data_meeting (meeting)
+
     hash = {:@type => 'Event'}
     hash[:name] = meeting.name
     hash[:description] = meeting.description if meeting.description.present?
     hash[:startDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date
     hash[:image] = attachment_url(meeting, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
     hash[:url] = graetzl_meeting_url(meeting.graetzl, meeting)
-
-    puts "--------------------"
-    puts meeting.starts_at_date if meeting.starts_at_date
-    puts meeting.starts_at_time if meeting.starts_at_time
-    puts meeting.ends_at_date if meeting.ends_at_date
-    puts meeting.ends_at_time if meeting.ends_at_time
-    puts meeting.display_address.description if meeting.display_address.description
+    hash[:eventStatus] = 'https://schema.org/EventScheduled'
 
     if meeting.online_meeting?
+      hash[:eventAttendanceMode] = 'https://schema.org/OnlineEventAttendanceMode'
       hash[:location] = {:@type => 'VirtualLocation'} # Object for Virtual Event Location
       hash[:location][:url] = graetzl_meeting_url(meeting.graetzl, meeting)
     else
+      hash[:eventAttendanceMode] = 'https://schema.org/OfflineEventAttendanceMode'
       hash[:location] = {:@type => 'Place'} # Object for Event Location or Address
-
       if meeting.display_address # Take Adress from Meeting
         hash[:location][:name] = meeting.display_address.description if meeting.display_address.description
         hash[:location][:address] = structured_data_address(meeting.display_address)
       end
-
       if meeting.location # If Location exists
         hash[:location][:name] = meeting.location.name
         hash[:location][:image] = attachment_url(meeting.location, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
         hash[:location][:sameAs] = graetzl_location_url(meeting.location.graetzl, meeting.location)
-        # Take Address from Location if no Meeting Address exists
-        #if meeting.address.nil? && meeting.location.address
-        #  hash[:location][:address] = structured_data_address(meeting.location.address)
-        #end
       end
-
     end
-
 
     if meeting.user # Creator of Meeting
       hash[:organizer] = structured_data_person(meeting.user)
     end
 
     return hash
+
   end
 
   # //////////////////////////// Create Structured Data for ADDRESS
