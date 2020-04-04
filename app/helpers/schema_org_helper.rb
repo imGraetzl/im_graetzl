@@ -18,21 +18,36 @@ module SchemaOrgHelper
     hash[:image] = attachment_url(meeting, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
     hash[:url] = graetzl_meeting_url(meeting.graetzl, meeting)
 
-    hash[:location] = {:@type => 'Place'} # Object for Event Location or Address
-    if !meeting.address.nil? # Take Adress from Meeting if exists
-      hash[:location][:address] = structured_data_address(meeting.address)
-      hash[:location][:name] = meeting.address.description if meeting.address.description.present?
+    puts "--------------------"
+    puts meeting.starts_at_date if meeting.starts_at_date
+    puts meeting.starts_at_time if meeting.starts_at_time
+    puts meeting.ends_at_date if meeting.ends_at_date
+    puts meeting.ends_at_time if meeting.ends_at_time
+    puts meeting.display_address.description if meeting.display_address.description
+
+    if meeting.online_meeting?
+      hash[:location] = {:@type => 'VirtualLocation'} # Object for Virtual Event Location
+      hash[:location][:url] = graetzl_meeting_url(meeting.graetzl, meeting)
+    else
+      hash[:location] = {:@type => 'Place'} # Object for Event Location or Address
+
+      if meeting.display_address # Take Adress from Meeting
+        hash[:location][:name] = meeting.display_address.description if meeting.display_address.description
+        hash[:location][:address] = structured_data_address(meeting.display_address)
+      end
+
+      if meeting.location # If Location exists
+        hash[:location][:name] = meeting.location.name
+        hash[:location][:image] = attachment_url(meeting.location, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+        hash[:location][:sameAs] = graetzl_location_url(meeting.location.graetzl, meeting.location)
+        # Take Address from Location if no Meeting Address exists
+        #if meeting.address.nil? && meeting.location.address
+        #  hash[:location][:address] = structured_data_address(meeting.location.address)
+        #end
+      end
+
     end
 
-    if meeting.location # If Location exists
-      hash[:location][:name] = meeting.location.name
-      hash[:location][:image] = attachment_url(meeting.location, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
-      hash[:location][:sameAs] = graetzl_location_url(meeting.location.graetzl, meeting.location)
-      # Take Address from Location if no Meeting Address exists
-      if meeting.address.nil? && meeting.location.address
-        hash[:location][:address] = structured_data_address(meeting.location.address)
-      end
-    end
 
     if meeting.user # Creator of Meeting
       hash[:organizer] = structured_data_person(meeting.user)
