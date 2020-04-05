@@ -51,7 +51,6 @@ APP.controllers.meetings = (function() {
       // Highlight Users on single Click Options
       $('.select_users .opt').on('click', function(){
         var user_index = $(this).index();
-        console.log(user_index);
         if ($(this).hasClass('selected')){
           $('.user-miniprofile-container').eq(user_index).find('.user-miniprofile-link').addClass('active');
         } else {
