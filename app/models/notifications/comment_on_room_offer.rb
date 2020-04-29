@@ -9,7 +9,7 @@ class Notifications::CommentOnRoomOffer < Notification
   end
 
   def self.description
-    "Meine erstellten Inhalte wurden kommentiert"
+    "Mein Raumteiler, Toolteiler bzw. Treffen wurde kommentiert"
   end
 
   def mail_template
