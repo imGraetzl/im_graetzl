@@ -1,15 +1,14 @@
 class Notifications::AlsoCommentedComment < Notification
   TRIGGER_KEY = 'comment.comment'
   DEFAULT_INTERVAL = :immediate
-  DEFAULT_WEBSITE_NOTIFICATION = :on
-  BITMASK = 2**6
+  BITMASK = 2**22
 
   def self.receivers(activity)
     User.where(id: activity.trackable.comments.includes(:user).pluck(:user_id) - [activity.owner_id])
   end
 
   def self.description
-    "Es gibt neue Kommentare auf Beiträge die ich auch kommentiert habe"
+    "Ein Beitrag den ich kommentiert habe wurde auch kommentiert"
   end
 
   def mail_template

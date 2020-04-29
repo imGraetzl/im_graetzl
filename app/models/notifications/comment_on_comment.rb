@@ -2,14 +2,14 @@ class Notifications::CommentOnComment < Notification
   TRIGGER_KEY = 'comment.comment'
   DEFAULT_INTERVAL = :immediate
   DEFAULT_WEBSITE_NOTIFICATION = :on
-  BITMASK = 2**4
+  BITMASK = 2**21
 
   def self.receivers(activity)
     User.where(id: activity.trackable.user_id)
   end
 
   def self.description
-    "Meine Beitrag wurde kommentiert"
+    "Ein Beitrag von mir wurde kommentiert"
   end
 
   def mail_template

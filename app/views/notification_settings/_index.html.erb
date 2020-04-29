@@ -14,7 +14,7 @@
   <%= render 'notification_settings/slice', type: Notifications::NewMeeting %>
   <%= render 'notification_settings/slice', type: Notifications::NewLocation %>
   <%= render 'notification_settings/slice', type: Notifications::NewLocationPost %>
-  <%= render 'notification_settings/slice', type: Notifications::NewUserPost %>
+  <!--<%= render 'notification_settings/slice', type: Notifications::NewUserPost %>-->
   <%= render 'notification_settings/slice', type: Notifications::NewGroup %>
 </div>
 
@@ -46,11 +46,13 @@
       <h2>Betrifft <span>mich</span></h2>
     </div>
   </div>
-  <%= render 'notification_settings/slice', type: Notifications::CommentInUsersMeeting %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentOnRoomOffer %>
+  <%= render 'notification_settings/slice', type: Notifications::AlsoCommentedRoomOffer %>
   <%= render 'notification_settings/slice', type: Notifications::CommentInMeeting %>
-  <%= render 'notification_settings/slice', type: Notifications::AlsoCommentedLocationPost %>
-  <%= render 'notification_settings/slice', type: Notifications::NewWallComment %>
   <%= render 'notification_settings/slice', type: Notifications::AttendeeInUsersMeeting %>
+  <%= render 'notification_settings/slice', type: Notifications::NewWallComment %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentOnComment %>
+  <%= render 'notification_settings/slice', type: Notifications::AlsoCommentedComment %>
   <!--<%= render 'notification_settings/slice', type: Notifications::MeetingUpdated %>-->
   <!--<%= render 'notification_settings/slice', type: Notifications::MeetingCancelled %>-->
 </div>
