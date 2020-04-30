@@ -9,6 +9,9 @@ class NotificationMailer < ApplicationMailer
       "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
       "X-MC-GoogleAnalyticsCampaign" => "notification-mail",
     )
+
+    Rails.logger.info("[Immediate Mail] #{@user.email} - #{@notification.mail_subject}")
+
     mail(
       to: @user.email,
       subject: @notification.mail_subject,
@@ -51,7 +54,13 @@ class NotificationMailer < ApplicationMailer
     @notifications = user.pending_notifications(@period).where(
       type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
     )
-    return if @notifications.empty?
+
+    if @notifications.empty?
+      Rails.logger.info("[Graetzl Summary Mail] #{@user.email} #{@period}: None found")
+      return
+    else
+      Rails.logger.info("[Graetzl Summary Mail] #{@user.email} #{@period}: #{@notifications.size} found")
+    end
 
     headers(
       "X-MC-Tags" => "summary-graetzl-mail",
@@ -97,6 +106,7 @@ class NotificationMailer < ApplicationMailer
   ]
 
   def summary_personal(user, period)
+    Rails.logger.info("[Summary Personal Mail] #{user.email} - #{period}")
     @user, @period = user, period
 
     @notifications = {}
@@ -111,7 +121,10 @@ class NotificationMailer < ApplicationMailer
     )
 
     if @notifications.values.all?(&:empty?)
+      Rails.logger.info("[Personal Summary Mail] #{@user.email} #{@period}: None found")
       return
+    else
+      Rails.logger.info("[Personal Summary Mail] #{@user.email} #{@period}: #{@notifications.values.sum(&:size)} found")
     end
 
     headers(
