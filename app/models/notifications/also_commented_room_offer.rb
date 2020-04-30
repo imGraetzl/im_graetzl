@@ -1,6 +1,6 @@
 class Notifications::AlsoCommentedRoomOffer < Notification
   TRIGGER_KEY = 'room_offer.comment'
-  DEFAULT_INTERVAL = :daily
+  DEFAULT_INTERVAL = :weekly
   BITMASK = 2**6
 
   def self.receivers(activity)
@@ -8,7 +8,7 @@ class Notifications::AlsoCommentedRoomOffer < Notification
   end
 
   def self.description
-    'Es gibt neue Antworten auf Inhalte die ich auch kommentiert habe'
+    'Ein Raumteiler, Toolteiler bzw. Treffen welches ich kommentiert habe wurde auch kommentiert'
   end
 
   def mail_template
