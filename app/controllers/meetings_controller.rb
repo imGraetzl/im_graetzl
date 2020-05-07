@@ -162,7 +162,9 @@ class MeetingsController < ApplicationController
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)
     end
 
-    if params[:meeting_category_id].present?
+    if params[:params_category_id].present?
+      meetings = meetings.where(meeting_category_id: params[:params_category_id])
+    elsif params[:meeting_category_id].present?
       meetings = meetings.where(meeting_category_id: params[:meeting_category_id])
     end
 

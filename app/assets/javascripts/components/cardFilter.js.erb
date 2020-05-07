@@ -103,6 +103,7 @@ APP.components.cardFilter = (function() {
     });
 
     $("#meeting-categories").on("change", function(){
+      $("#params_category_id").val('');
       filterForm.submit();
     });
 

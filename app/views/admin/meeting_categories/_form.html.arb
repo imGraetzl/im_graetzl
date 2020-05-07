@@ -3,8 +3,8 @@ active_admin_form_for [:admin, resource] do |f|
   inputs do
     input :title
     input :icon, placeholder: 'icon-etc'
-    input :starts_at_date
-    input :ends_at_date
+    input :starts_at_date, as: :datepicker
+    input :ends_at_date, as: :datepicker
   end
   actions
 end
