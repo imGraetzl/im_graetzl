@@ -103,6 +103,7 @@ ActiveAdmin.register Meeting do
     :location_id,
     :group_id,
     :user_id,
+    :meeting_category_id,
     :approved_for_api,
     :platform_meeting,
     :online_meeting,

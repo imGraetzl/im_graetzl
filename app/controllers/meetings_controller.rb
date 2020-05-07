@@ -155,11 +155,17 @@ class MeetingsController < ApplicationController
   end
 
   def filter_collection(meetings)
+
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if graetzl_ids.present? && graetzl_ids.any?(&:present?)
       #meetings = meetings.where(graetzl_id: graetzl_ids)
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)
     end
+
+    if params[:meeting_category_id].present?
+      meetings = meetings.where(meeting_category_id: params[:meeting_category_id])
+    end
+
     meetings
   end
 
@@ -171,6 +177,7 @@ class MeetingsController < ApplicationController
         :group_id,
         :name,
         :description,
+        :meeting_category_id,
         :starts_at_date,
         :starts_at_time,
         :ends_at_time,

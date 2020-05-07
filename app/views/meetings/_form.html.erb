@@ -118,6 +118,25 @@
 
   </div>
 
+
+
+  <div class="meet-eputoepu">
+    <p>Aktion <span>Selbständige</span> für <span>Selbständige</span></p>
+
+    <div class="input-select">
+      <%= f.label :meeting_category_id do %>
+        <%= icon_tag "record" %>
+        <span>Kategorie</span>
+      <% end %>
+      <%= f.collection_select :meeting_category_id,
+                              MeetingCategory.all, :id, :title,
+                              { prompt: 'Wähle eine Kategorie ..' } %>
+    </div>
+
+  </div>
+
+
+
   <% if current_user.admin? %>
   <div class="meet-pricing">
     <p><span>Admin</span> Funktionen</p>

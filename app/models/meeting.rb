@@ -12,6 +12,7 @@ class Meeting < ApplicationRecord
   belongs_to :location, optional: true
   belongs_to :user, optional: true
   belongs_to :group, optional: true
+  belongs_to :meeting_category, optional: true
 
   has_one :address, as: :addressable, dependent: :destroy
   accepts_nested_attributes_for :address
