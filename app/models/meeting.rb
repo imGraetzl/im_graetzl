@@ -21,6 +21,10 @@ class Meeting < ApplicationRecord
   accepts_nested_attributes_for :going_tos, allow_destroy: true
   has_many :users, -> { distinct }, through: :going_tos
 
+  has_one :platform_meeting_join_requests
+  accepts_nested_attributes_for :platform_meeting_join_requests, allow_destroy: true, reject_if: :all_blank
+
+
   has_many :comments, as: :commentable, dependent: :destroy
 
   attachment :cover_photo, type: :image

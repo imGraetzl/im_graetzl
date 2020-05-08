@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_101214) do
+ActiveRecord::Schema.define(version: 2020_05_08_150531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -459,6 +459,16 @@ ActiveRecord::Schema.define(version: 2020_05_07_101214) do
     t.string "operator_type"
     t.index ["graetzl_id"], name: "index_operating_ranges_on_graetzl_id"
     t.index ["operator_id", "operator_type"], name: "index_operating_ranges_on_operator_id_and_operator_type"
+  end
+
+  create_table "platform_meeting_join_requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "meeting_id"
+    t.text "request_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meeting_id"], name: "index_platform_meeting_join_requests_on_meeting_id"
+    t.index ["user_id"], name: "index_platform_meeting_join_requests_on_user_id"
   end
 
   create_table "posts", id: :serial, force: :cascade do |t|
@@ -912,6 +922,8 @@ ActiveRecord::Schema.define(version: 2020_05_07_101214) do
   add_foreign_key "meetings", "meeting_categories", on_delete: :nullify
   add_foreign_key "meetings", "users", on_delete: :nullify
   add_foreign_key "notifications", "activities", on_delete: :cascade
+  add_foreign_key "platform_meeting_join_requests", "meetings", on_delete: :cascade
+  add_foreign_key "platform_meeting_join_requests", "users", on_delete: :cascade
   add_foreign_key "room_call_fields", "room_calls", on_delete: :cascade
   add_foreign_key "room_call_modules", "room_calls", on_delete: :cascade
   add_foreign_key "room_call_modules", "room_modules", on_delete: :cascade
