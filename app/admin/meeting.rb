@@ -5,20 +5,21 @@ ActiveAdmin.register Meeting do
   includes :graetzl, :location
 
   scope :all, default: true
+  scope :upcoming
   scope :online_meeting
   scope :platform_meeting
-  scope :active
-  scope :cancelled
-  scope :upcoming
+  #scope :active
+  #scope :cancelled
 
+  filter :meeting_category, collection: proc { MeetingCategory.order(:starts_at_date).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :users, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :state, as: :select, collection: Meeting.states.keys
+  #filter :state, as: :select, collection: Meeting.states.keys, input_html: { class: 'admin-filter-select'}
   filter :name
   filter :description
   filter :created_at
-  filter :starts_at_date
+  #filter :starts_at_date
   filter :platform_meeting
   filter :online_meeting
 
@@ -68,7 +69,7 @@ ActiveAdmin.register Meeting do
       flash[:success] = 'Das Treffen wurde für die API genehmigt.'
       redirect_to admin_meetings_path
     else
-      flash[:error] = 'Das Treffen kan für die API nicht genehmigt werden.'
+      flash[:error] = 'Das Treffen kann für die API nicht genehmigt werden.'
       redirect_to resource_path
     end
   end
@@ -90,6 +91,10 @@ ActiveAdmin.register Meeting do
           chain = super unless formats.include?(:json) || formats.include?(:csv)
           chain
       end
+  end
+
+  csv do
+    column(:email) {|m| m.user.email }
   end
 
   permit_params :graetzl_id,
