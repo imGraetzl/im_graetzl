@@ -203,12 +203,21 @@ APP.controllers.meetings = (function() {
         hiddenSuffix: ''
       });
 
-      // location field
+      // location field toggle
       $('input:checkbox#location').on('change', function() {
         if (!this.checked) {
           $('#meeting_location_id').val('');
         }
-        $('div#meeting-location-field').toggle();
+        $('div#meeting-location-field').slideToggle();
+      });
+
+      // platform_meeting toggle
+      var $wants_platform_meeting_checkbox = $('input:checkbox#meeting_platform_meeting_join_request_attributes_wants_platform_meeting');
+      if (!$wants_platform_meeting_checkbox.checked) {
+        $('div#meeting-platform-meeting-fields').hide();
+      }
+      $wants_platform_meeting_checkbox.on('change', function() {
+        $('div#meeting-platform-meeting-fields').slideToggle();
       });
 
       // online meeting switch

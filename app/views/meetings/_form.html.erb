@@ -120,28 +120,37 @@
 
 
 
-  <div class="meet-eputoepu">
+  <div class="meet-platform_meeting_request">
     <p>Aktion <span>Selbständige</span> für <span>Selbständige</span></p>
 
-    <div class="input-select">
-      <%= f.label :meeting_category_id do %>
-        <%= icon_tag "record" %>
-        <span>Kategorie</span>
+    <div class="checkbox_container">
+      <%= f.fields_for :platform_meeting_join_request_attributes do |p| %>
+        <div class="input-checkbox">
+          <%= p.check_box :wants_platform_meeting %>
+          <%= p.label :wants_platform_meeting, "Ja, ich möchte mein Treffen unter Selbständige für Selbständige listen" %>
+        </div>
       <% end %>
-      <%= f.collection_select :meeting_category_id, MeetingCategory.all, :id, :title, { prompt: 'Wähle eine Kategorie ..' } %>
     </div>
 
-    <%= f.fields_for :platform_meeting_join_request do |platform_meeting_join_request_fields| %>
-    <div class="input-textarea">
-      <%= platform_meeting_join_request_fields.label :request_message do %>
-        <%= icon_tag "layout-document" %>
-        <span>Deine Antwort</span>
+    <div id="meeting-platform-meeting-fields">
+      <div class="input-select">
+        <%= f.label :meeting_category_id do %>
+          <%= icon_tag "record" %>
+          <span>Kategorie</span>
+        <% end %>
+        <%= f.collection_select :meeting_category_id, MeetingCategory.all, :id, :title, { prompt: 'Wähle eine Kategorie ..' } %>
+      </div>
+
+      <%= f.fields_for :platform_meeting_join_request_attributes do |p| %>
+        <div class="input-textarea">
+          <%= p.label :request_message do %>
+            <%= icon_tag "layout-document" %>
+            <span>Deine Antwort</span>
+          <% end %>
+          <%= p.text_area :request_message, placeholder: 'Gib hier deine Antwort ein ..' %>
+        </div>
       <% end %>
-      <%= platform_meeting_join_request_fields.text_area :request_message, placeholder: 'Gib hier deine Antwort ein ..' %>
     </div>
-    <% end %>
-
-
 
   </div>
 

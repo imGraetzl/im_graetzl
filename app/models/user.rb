@@ -35,7 +35,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :business_interests
   belongs_to :location_category, optional: true
 
-  has_many :platform_meeting_join_requests, dependent: :destroy
+  has_many :platform_meeting_join_requests, through: :initiated_meetings
 
   has_many :group_join_requests
   has_many :group_users

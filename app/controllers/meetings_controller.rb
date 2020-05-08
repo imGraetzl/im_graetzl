@@ -34,11 +34,6 @@ class MeetingsController < ApplicationController
     @meeting.user = meeting_user
     @meeting.going_tos.new(user_id: meeting_user.id, role: :initiator)
 
-    if params[:platform_meeting_join_request]
-      puts '-------------------'
-      puts params[:platform_meeting_join_request][:request_message]
-    end
-
     if @meeting.save
       @meeting.create_activity :create, owner: meeting_user, cross_platform: @meeting.online_meeting?
       redirect_to [@meeting.graetzl, @meeting]
@@ -195,7 +190,7 @@ class MeetingsController < ApplicationController
         :online_meeting,
         :amount,
         meeting_additional_dates_attributes: [:id, :starts_at_date, :starts_at_time, :ends_at_time, :_destroy],
-        platform_meeting_join_requests_attributes: [:id, :request_message, :_destroy],
+        platform_meeting_join_request_attributes: [:id, :wants_platform_meeting, :request_message, :_destroy],
         address_attributes: [:id, :description, :online_meeting_description, :street_name, :street_number, :zip, :city, :coordinates]
     )
 

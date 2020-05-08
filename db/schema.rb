@@ -462,13 +462,12 @@ ActiveRecord::Schema.define(version: 2020_05_08_150531) do
   end
 
   create_table "platform_meeting_join_requests", force: :cascade do |t|
-    t.bigint "user_id"
     t.bigint "meeting_id"
     t.text "request_message"
+    t.boolean "wants_platform_meeting", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meeting_id"], name: "index_platform_meeting_join_requests_on_meeting_id"
-    t.index ["user_id"], name: "index_platform_meeting_join_requests_on_user_id"
   end
 
   create_table "posts", id: :serial, force: :cascade do |t|
@@ -923,7 +922,6 @@ ActiveRecord::Schema.define(version: 2020_05_08_150531) do
   add_foreign_key "meetings", "users", on_delete: :nullify
   add_foreign_key "notifications", "activities", on_delete: :cascade
   add_foreign_key "platform_meeting_join_requests", "meetings", on_delete: :cascade
-  add_foreign_key "platform_meeting_join_requests", "users", on_delete: :cascade
   add_foreign_key "room_call_fields", "room_calls", on_delete: :cascade
   add_foreign_key "room_call_modules", "room_calls", on_delete: :cascade
   add_foreign_key "room_call_modules", "room_modules", on_delete: :cascade
