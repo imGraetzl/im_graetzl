@@ -8,6 +8,7 @@ ActiveAdmin.register Meeting do
   scope :upcoming
   scope :online_meeting
   scope :platform_meeting
+  scope :platform_meeting_pending
   #scope :active
   #scope :cancelled
 

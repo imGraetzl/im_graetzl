@@ -32,6 +32,9 @@ class Meeting < ApplicationRecord
   scope :non_private, -> { where(private: false) }
   scope :platform_meeting, -> { where(platform_meeting: true) }
   scope :online_meeting, -> { where(online_meeting: true) }
+  scope :platform_meeting_pending, -> {
+    joins(:platform_meeting_join_request).merge(PlatformMeetingJoinRequest.wants_platform_meeting)
+  }
 
   scope :by_currentness, -> {
     active.
