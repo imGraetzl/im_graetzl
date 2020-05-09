@@ -33,7 +33,7 @@ class Meeting < ApplicationRecord
   scope :platform_meeting, -> { where(platform_meeting: true) }
   scope :online_meeting, -> { where(online_meeting: true) }
   scope :platform_meeting_pending, -> {
-    joins(:platform_meeting_join_request).merge(PlatformMeetingJoinRequest.wants_platform_meeting)
+    where(platform_meeting: false).joins(:platform_meeting_join_request).merge(PlatformMeetingJoinRequest.wants_platform_meeting)
   }
 
   scope :by_currentness, -> {
@@ -105,6 +105,10 @@ class Meeting < ApplicationRecord
     else
       "#{I18n.localize(starts_at_date, format:'%a, %d. %B %Y')}"
     end
+  end
+
+  def attendees
+    self.going_tos.where.not(role: :initiator)
   end
 
   def attending?(user)

@@ -17,6 +17,7 @@ class MeetingsController < ApplicationController
 
   def new
     @meeting = initialize_meeting
+    @meeting.build_platform_meeting_join_request
   end
 
   def create

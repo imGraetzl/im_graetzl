@@ -124,7 +124,7 @@
     <p>Aktion <span>Selbständige</span> für <span>Selbständige</span></p>
 
     <div class="checkbox_container">
-      <%= f.fields_for :platform_meeting_join_request_attributes do |p| %>
+      <%= f.fields_for :platform_meeting_join_request do |p| %>
         <div class="input-checkbox">
           <%= p.check_box :wants_platform_meeting %>
           <%= p.label :wants_platform_meeting, "Ja, ich möchte mein Treffen unter Selbständige für Selbständige listen" %>
@@ -141,7 +141,7 @@
         <%= f.collection_select :meeting_category_id, MeetingCategory.all, :id, :title, { prompt: 'Wähle eine Kategorie ..' } %>
       </div>
 
-      <%= f.fields_for :platform_meeting_join_request_attributes do |p| %>
+      <%= f.fields_for :platform_meeting_join_request do |p| %>
         <div class="input-textarea">
           <%= p.label :request_message do %>
             <%= icon_tag "layout-document" %>
