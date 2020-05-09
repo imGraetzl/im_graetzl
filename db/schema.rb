@@ -140,6 +140,21 @@ ActiveRecord::Schema.define(version: 2020_05_08_150531) do
     t.index ["user_id"], name: "index_curators_on_user_id"
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "discussion_categories", id: :serial, force: :cascade do |t|
     t.string "title"
     t.integer "group_id"
