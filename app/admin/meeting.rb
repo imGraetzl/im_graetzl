@@ -61,10 +61,25 @@ ActiveAdmin.register Meeting do
   end
 
   action_item :disapprove_for_api, only: :show, if: proc{ meeting.approved_for_api? } do
-    link_to 'Treffen für API nicht genehmigen', disapprove_for_api_admin_meeting_path(meeting), { method: :put }
+    link_to 'Treffen von API entfernen', disapprove_for_api_admin_meeting_path(meeting), { method: :put }
+  end
+
+  # action buttons
+  action_item :mark_as_platform_meeting, only: :show, if: proc{ !meeting.platform_meeting } do
+    link_to 'Als Platform Treffen markieren', mark_as_platform_meeting_admin_meeting_path(meeting), { method: :put }
   end
 
   # member actions
+  member_action :mark_as_platform_meeting, method: :put do
+    if resource.mark_as_platform_meeting
+      flash[:success] = 'Das Treffen wurde als Platform Treffen markiert.'
+      redirect_to admin_meetings_path
+    else
+      flash[:error] = 'Das Treffen kann nicht als Platform Treffen markiert werden.'
+      redirect_to resource_path
+    end
+  end
+
   member_action :approve_for_api, method: :put do
     if resource.approve_for_api
       flash[:success] = 'Das Treffen wurde für die API genehmigt.'

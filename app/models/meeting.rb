@@ -115,6 +115,10 @@ class Meeting < ApplicationRecord
     user && going_tos.any?{|gt| gt.user_id == user.id}
   end
 
+  def mark_as_platform_meeting
+    update platform_meeting: true
+  end
+
   def approve_for_api
     if !approved_for_api?
       update approved_for_api: true

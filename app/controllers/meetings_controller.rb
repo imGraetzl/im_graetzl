@@ -52,6 +52,9 @@ class MeetingsController < ApplicationController
     @meeting.assign_attributes(meeting_params)
     @meeting.graetzl = @meeting.address.graetzl if @meeting.address.try(:graetzl)
     @meeting.state = :active
+    unless @meeting.platform_meeting_join_request.wants_platform_meeting
+      @meeting.platform_meeting = false
+    end
 
     #changed_attributes = @meeting.changed_attributes.keys.map(&:to_sym)
     #changed_attributes.push(:address) if @meeting.address.try(:changed?)

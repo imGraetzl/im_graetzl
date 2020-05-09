@@ -163,6 +163,12 @@ section.meeting {
 
 }
 
+.platform-meeting-infos {
+  padding-top: 3rem;
+  font-style: italic;
+  border-top: 1px solid $color-ambient-mint-light-lowsaturation;
+}
+
 #jBoxBuyTicket, #jBoxAttendMeeting {
   max-width:500px;
   select {
