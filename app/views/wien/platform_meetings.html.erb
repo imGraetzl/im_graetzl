@@ -16,24 +16,32 @@
   </div>
 
   <div class="paperCard -cord1RT -top">
-    <div class="wrp -stoerer">
+    <div class="wrp">
       <p>
-         <strong>In den unterschiedlichen Themenbereichen könnt ihr aus den online Sprechstunden und Gruppenrunden das wählen, was euch jetzt stärkt und unterstützt.</strong>
+         <strong>Wählt aus den Online- oder Offline-Angeboten das aus, was euch jetzt stärkt und weiterbringt. Alle zwei Wochen gibt es einen neuen Themenbereich. Alle Angebote sind im Rahmen der Aktion kostenlos.</strong>
       </p>
       <br>
       <p>
-        Folgende Bereiche versuchen wir abzubilden: Liquiditäts- & Finanzcheck, Coaching-Sprechstunden, Marketing & Entwicklung neuer Geschäftsfelder, nicht zu vergessen Entspannungstechniken. Das Angebot ist kostenlos. 1000 Dank an die Anbieter*innen, die das hier möglich machen!
-      </p>
-      <br>
-      <p>
-        <em>Aktuell: <%= link_to 'Infos zur finanziellen Unterstützung', 'https://www.wko.at/service/w/corona-hilfe-wiener-kleinbetriebe.html', target: '_blank' %> für Kleinbetriebe & EPU der Wirtschaftskammer Wien</em>
+        Die Aktion wird ermöglicht durch die Expert*innen, die damit die lokalen Anbieter*innen,
+        die lokale Wirtschaft & die lokale Vernetzung stärken. 1000 Dank, ihr seid phantastisch!
+        Möchtest du selber als Expert*in mitmachen? Dann bitte <%= link_to 'hier entlang', 'https://blog.imgraetzl.at/allgemein/so-kannst-du-als-expertin-bei-selbststaendige-fuer-selbststaendige-macherinnen-mitmachen/', target: 'blank' %>.
       </p>
     </div>
     <div class="card"></div>
-    <div class="stoererImg"></div>
   </div>
 
-  <%= form_tag meetings_path(platform_meeting: true, per_page: 75), method: :get, remote: true, class: 'cards-filter' do; end %>
+  <div class="hl-subtext -cards">
+    <h1>Aktuelle <span class="category_title">Themen</span> Wochen</h1>
+  </div>
+
+  <%= form_tag meetings_path(platform_meeting: true, per_page: 75), method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :params_category_id, @params_category.try(:id) %>
+    <div class="input-select label-select">
+      <%= select_tag(:meeting_category_id, ("
+          <option value=''>Alle anzeigen</option>" +
+          options_from_collection_for_select(MeetingCategory.all.order(:starts_at_date), :id, :category_width_date_range, (@params_category.try(:id) ? @params_category.try(:id) : actual_meeting_category))).html_safe, id: 'meeting-categories', multiple: false) %>
+    </div>
+  <% end %>
 
   <div class="card-grid-container">
     <div class="card-grid" data-behavior="meetings-card-container"></div>

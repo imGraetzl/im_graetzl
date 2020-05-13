@@ -127,11 +127,46 @@ section.meeting {
   }
 }
 
-.more-platform-meetings {
+.more-platform-meetings, .platform-meeting-user-box {
   margin-top:50px;
   .paperCard {
     padding:20px;
   }
+}
+.platform-meeting-user-box {
+
+  .wrp {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .txt {
+    white-space: pre-line;
+  }
+
+  .card {
+    background-color: rgba($color-ambient-mint-light,0.3);
+  }
+
+  .userinfos {
+    img {
+      width:95px;
+      height:95px;
+      float:left;
+      margin-right: 16px;
+    }
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+}
+
+.platform-meeting-infos {
+  padding-top: 3rem;
+  font-style: italic;
+  border-top: 1px solid $color-ambient-mint-light-lowsaturation;
 }
 
 #jBoxBuyTicket, #jBoxAttendMeeting {

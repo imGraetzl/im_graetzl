@@ -56,6 +56,29 @@ section.wien {
 
   &.platform-meetings {
 
+    .sumo_meeting_category_id {
+      .date {
+        font-style: italic;
+        color: $color-ambient-grey;
+        font-weight: normal;
+      }
+      li.selected {
+
+      }
+      .SelectBox {
+        //font-weight: bold;
+      }
+    }
+
+    .cards-filter {
+      margin-bottom:40px;
+      display: flex;
+      justify-content: center;
+      .input-select {
+        min-width: 370px;
+      }
+    }
+
     .-stoerer {
       opacity: 0.3;
     }
@@ -81,6 +104,15 @@ section.wien {
       .wrp {
         padding:35px 50px 35px 50px;
         @include font-size-primaryFont('large');
+
+        @include respond-to(">=medium") {
+          background-image: url(image_path('illu/eputoepu.png'));
+          background-repeat: no-repeat;
+          background-position: center right;
+          background-size: 25% auto;
+          padding-right: 23%;
+        }
+
       }
     }
     .-bottom {
