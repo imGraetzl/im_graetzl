@@ -56,6 +56,14 @@ section.wien {
 
   &.platform-meetings {
 
+    #meeting-categories {
+      background-color: transparent;
+      box-shadow: none;
+      color: #69a8a7;
+      //font-style: italic;
+      border: 1px solid #DBEFEC;
+    }
+
     .sumo_meeting_category_id {
       .date {
         font-style: italic;
@@ -67,6 +75,9 @@ section.wien {
       }
       .SelectBox {
         //font-weight: bold;
+      }
+      .optWrapper {
+        width: fit-content;
       }
     }
 
