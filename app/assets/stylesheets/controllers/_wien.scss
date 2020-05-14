@@ -62,6 +62,10 @@ section.wien {
       color: #69a8a7;
       //font-style: italic;
       border: 1px solid #DBEFEC;
+      padding-right:50px;
+    }
+    select {
+      -webkit-appearance: none;
     }
 
     .sumo_meeting_category_id {
@@ -86,7 +90,7 @@ section.wien {
       display: flex;
       justify-content: center;
       .input-select {
-        min-width: 370px;
+        //min-width: 370px;
       }
     }
 
@@ -128,12 +132,16 @@ section.wien {
         @include respond-to(">=medium") {
           background-image: url(image_path('illu/eputoepu.png'));
           background-repeat: no-repeat;
-          background-position: center right;
-          background-size: 25% auto;
-          padding-right: 23%;
+          background-position: center right 20px;
+          background-size: auto 95%;
+          padding-right: 30%;
           .poweredby {
             display: none;
           }
+        }
+
+        @include respond-to(">=large") {
+          padding-right: 21%;
         }
 
       }
