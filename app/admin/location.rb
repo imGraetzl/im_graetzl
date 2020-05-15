@@ -64,8 +64,8 @@ ActiveAdmin.register Location do
   end
 
   csv do
-    column(:email) {|l| l.boss.email if l.boss}
-    column(:full_name) {|l| l.boss.full_name if l.boss}
+    column(:email) {|l| l.boss.email unless l.users.empty?}
+    column(:full_name) {|l| l.boss.full_name unless l.users.empty?}
     column :id
     column(:location_category) {|l| l.location_category.name if l.location_category}
     column :name
