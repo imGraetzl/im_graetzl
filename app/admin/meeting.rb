@@ -111,10 +111,13 @@ ActiveAdmin.register Meeting do
 
   csv do
     column(:email) {|m| m.user.email }
+    column(:full_name) {|m| m.user.full_name }
     column :user_id
     column :id
     column(:category) {|m| m.meeting_category.title if m.meeting_category}
     column :name
+    column(:going_tos) {|m| m.going_tos.count }
+    column(:meeting_url) { |m| graetzl_meeting_url(m.graetzl, m)}
     column :created_at
   end
 
