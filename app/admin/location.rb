@@ -63,6 +63,15 @@ ActiveAdmin.register Location do
     end
   end
 
+  csv do
+    column(:email) {|l| l.boss.email }
+    column(:full_name) {|l| l.boss.full_name }
+    column :id
+    column(:location_category) {|l| l.location_category.name if l.location_category}
+    column :name
+    column(:location_url) { |l| graetzl_location_url(l.graetzl, l)}
+    column :created_at
+  end
 
   # strong parameters
   permit_params :graetzl_id,
