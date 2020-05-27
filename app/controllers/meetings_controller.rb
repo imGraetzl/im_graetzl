@@ -29,7 +29,7 @@ class MeetingsController < ApplicationController
       @meeting.graetzl = @meeting.address.try(:graetzl) || meeting_user.graetzl
     else
       meeting_user = current_user
-      @meeting.graetzl = @meeting.address.try(:graetzl) || @meeting.graetzl
+      @meeting.graetzl = @meeting.address.try(:graetzl) || @meeting.graetzl || meeting_user.graetzl
     end
 
     @meeting.user = meeting_user
