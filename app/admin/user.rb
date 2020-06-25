@@ -57,15 +57,17 @@ ActiveAdmin.register User do
 
     csv do
       #column :created_at
-      column :id
+      #column :id
       column :email
       #column :username
       column :first_name
       column :last_name
       #column(:business) {|user| user.business? ? 'business' : '' }
-      column :newsletter
+      #column :newsletter
+      #column (:plz) { |user| user.address.zip if user.address}
+
       column(:bezirk) { |user| user.graetzl.districts.first.try(:zip) }
-      column(:graetzl) { |user| user.graetzl.name }
+      #column(:graetzl) { |user| user.graetzl.name }
       #column(:location_category) {|user| user.location_category.try(:name) }
       #column(:location) { |user| user.primary_location.try(:name) }
       #column(:location_bezirk) { |user|
