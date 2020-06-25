@@ -66,7 +66,7 @@ ActiveAdmin.register User do
       #column :newsletter
       #column (:plz) { |user| user.address.zip if user.address}
 
-      column(:plz) { |user| user.districts.first.zip }
+      column(:plz) { |user| user.district.try(:zip) }
       #column(:graetzl) { |user| user.graetzl.name }
       #column(:location_category) {|user| user.location_category.try(:name) }
       #column(:location) { |user| user.primary_location.try(:name) }
