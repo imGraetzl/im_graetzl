@@ -56,13 +56,13 @@ ActiveAdmin.register User do
     end
 
     csv do
-      column :created_at
+      #column :created_at
       column :id
       column :email
-      column :username
+      #column :username
       column :first_name
       column :last_name
-      column(:business) {|user| user.business? ? 'business' : '' }
+      #column(:business) {|user| user.business? ? 'business' : '' }
       column :newsletter
       column(:bezirk) { |user| user.graetzl.districts.first.try(:zip) }
       column(:graetzl) { |user| user.graetzl.name }
