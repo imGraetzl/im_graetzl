@@ -1,0 +1,41 @@
+<div class="nested-fields">
+
+  <div class="input-field">
+    <%= label_tag :title do %>
+      <%= icon_tag "record" %>
+      <span>Preis Paket Titel</span>
+    <% end %>
+    <%= text_field_tag :title, nil, placeholder: 'Gib deinem Preis Paket einen Titel, z.b. "Ganzer Raum"' %>
+  </div>
+
+  <div class="input-field">
+    <%= label_tag(:price_per_hour) do %>
+      <%= icon_tag "currency-euro" %>
+      <span>Preis / Stunde</span>
+    <% end %>
+    <%= number_field_tag :price_per_hour, nil, placeholder: 'Lege deinen gewünschten Stundenpreis für dieses Preis Paket fest ..' %>
+  </div>
+
+  <div class="form-columns">
+    <div class="input-select">
+      <%= label_tag(:four_hour_discount) do %>
+        <%= icon_tag "sale-label" %>
+        <span>Rabatt halber Tag</span>
+      <% end %>
+      <%= select_tag :four_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 4 Stunden" %>
+    </div>
+    <div class="input-select">
+      <%= label_tag(:eight_hour_discount) do %>
+        <%= icon_tag "sale-label" %>
+        <span>Rabatt ganzer Tag</span>
+      <% end %>
+      <%= select_tag :eight_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 8 Stunden" %>
+    </div>
+  </div>
+
+  <%= link_to_remove_association f do %>
+    <div class="btn-delete">
+      <%= icon_tag "trash-delete-remove" %>
+    </div>
+  <% end %>
+</div>

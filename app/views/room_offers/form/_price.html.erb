@@ -1,0 +1,58 @@
+<div class="form-block" id="tab-price">
+
+  <div class="hl-subtext">
+    <h2>Lege den <span>Preis</span> fest.</h2>
+    <p>
+      Definiere einen Stundenpreis für deinen Raum (Räume können ab 1h gebucht werden). Weiters kannst du noch Rabatte für einen halben oder ganzen Tag gewähren.
+      Solltest du mehrere Räume oder Miet-Varianten haben (z.b. nur halber oder ganzen Raum), so definiere hierfür einzelne Preis Pakete.
+    </p>
+  </div>
+
+  <div class="room-prices">
+    <%= f.fields_for :room_offer_prices do |price_form| %>
+    <%= render 'room_offers/form/room_offer_price_fields', f: price_form %>
+    <% end %>
+    <div class="room-prices-links">
+      <%= link_to_add_association 'Weiteres Preis Paket hinzufügen', f, :room_offer_prices, partial: 'room_offers/form/room_offer_price_fields' %>
+    </div>
+  </div>
+
+  <div class="hl-subtext">
+    <h2>Dein <span>Auszahlungskonto</span></h2>
+    <p>
+      Deine Kontoangaben benötigen wir für die Auszahlung deiner Mieteinnahmen.
+    </p>
+  </div>
+
+  <div class="form-columns">
+    <div class="input-field">
+      <%= f.label :first_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Vorname</span>
+      <% end %>
+      <%= f.text_field :first_name, placeholder: 'Vorname' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :last_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Nachname</span>
+      <% end %>
+      <%= f.text_field :last_name, placeholder: 'Nachname' %>
+    </div>
+  </div>
+
+  <div class="input-field">
+    <%= label_tag :iban do %>
+      <%= icon_tag "profile-vcard" %>
+      <span>Kontoverbindung</span>
+    <% end %>
+    <%= text_field_tag :iban, nil, placeholder: 'IBAN' %>
+  </div>
+
+
+  <div class="input-button">
+    <%= f.submit 'Raumteiler erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+  </div>
+
+</div>

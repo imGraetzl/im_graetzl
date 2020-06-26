@@ -67,7 +67,13 @@ APP.controllers.room_offers = (function() {
 
 
   function initRoomForm() {
+    APP.components.tabs.initTabs(".tabs-ctrl");
     APP.components.addressSearchAutocomplete();
+
+    $(".next-screen").on("click", function() {
+      $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
+      $('.tabs-ctrl').get(0).scrollIntoView();
+    });
 
     $('#custom-keywords').tagsInput({
       'defaultText':'Kurz in Stichworten ..'
