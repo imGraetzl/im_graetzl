@@ -92,6 +92,8 @@ section.room-form {
 
 section.room-offer-form {
 
+  label {min-width:185px;}
+
   .room-offer-type-selection {
     text-align: center;
     .input-radio {
@@ -114,6 +116,13 @@ section.room-offer-form {
         @include respond-to(">=medium") {
           top:15px;
         }
+      }
+    }
+    .price-package + .price-package {
+      padding-top: 20px;
+      border-top: 1px solid $color-ambient-mint-light;
+      a.remove_fields {
+        padding-top: 20px;
       }
     }
   }

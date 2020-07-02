@@ -1,4 +1,4 @@
-<div class="nested-fields">
+<div class="nested-fields price-package">
 
   <div class="input-field">
     <%= label_tag :title do %>
@@ -8,12 +8,21 @@
     <%= text_field_tag :title, nil, placeholder: 'Gib deinem Preis Paket einen Titel, z.b. "Ganzer Raum"' %>
   </div>
 
-  <div class="input-field">
-    <%= label_tag(:price_per_hour) do %>
-      <%= icon_tag "currency-euro" %>
-      <span>Preis / Stunde</span>
-    <% end %>
-    <%= number_field_tag :price_per_hour, nil, placeholder: 'Lege deinen gewünschten Stundenpreis für dieses Preis Paket fest ..' %>
+  <div class="form-columns">
+    <div class="input-field">
+      <%= label_tag(:price_per_hour) do %>
+        <%= icon_tag "currency-euro" %>
+        <span>Preis / Stunde</span>
+      <% end %>
+      <%= number_field_tag :price_per_hour, nil, placeholder: 'Stundenpreis in €' %>
+    </div>
+    <div class="input-select">
+      <%= label_tag(:minimum_rental_hours) do %>
+        <%= icon_tag "time-clock" %>
+        <span>Mindestmietdauer</span>
+      <% end %>
+      <%= select_tag :minimum_rental_hours, options_for_select(minimum_rental_hour_values) %>
+    </div>
   </div>
 
   <div class="form-columns">
@@ -22,14 +31,14 @@
         <%= icon_tag "sale-label" %>
         <span>Rabatt halber Tag</span>
       <% end %>
-      <%= select_tag :four_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 4 Stunden" %>
+      <%= select_tag :four_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 4h" %>
     </div>
     <div class="input-select">
       <%= label_tag(:eight_hour_discount) do %>
         <%= icon_tag "sale-label" %>
         <span>Rabatt ganzer Tag</span>
       <% end %>
-      <%= select_tag :eight_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 8 Stunden" %>
+      <%= select_tag :eight_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 8h" %>
     </div>
   </div>
 

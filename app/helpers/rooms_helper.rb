@@ -16,4 +16,10 @@ module RoomsHelper
     end
   end
 
+  def minimum_rental_hour_values
+    [1, 2, 3, 4, 5, 6, 7, 8].map do |value|
+      ["#{value} h", value]
+    end
+  end
+
 end
