@@ -5,6 +5,7 @@ APP.controllers.room_offers = (function() {
     if ($("#GAinfos").exists()) initshowContact();
     if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($("section.roomDetail").exists()) { initRoomDetail(); }
+    if ($("#jBoxBookRoom").exists()) initBookRoom();
   }
 
   function initRoomDetail() {
@@ -17,6 +18,30 @@ APP.controllers.room_offers = (function() {
       createOnInit:true,
       animation:{open: 'zoomIn', close: 'zoomOut'},
     });
+
+    var bookRoom = new jBox('Modal', {
+      addClass:'jBox',
+      attach: '#bookRoom',
+      content: $('#jBoxBookRoom'),
+      trigger: 'click',
+      closeOnEsc:true,
+      closeOnClick:'body',
+      blockScroll:true,
+      animation:{open: 'zoomIn', close: 'zoomOut'},
+      onOpen: function() {
+        // Send Click Tracking Infos
+      }
+    });
+
+  }
+
+  function initBookRoom() {
+    $("#jBoxBookRoom input:radio:checked").closest('.cardBox').addClass('-checked');
+    $("#jBoxBookRoom input:radio").on('click', function() {
+      $("#jBoxBookRoom .cardBox").removeClass('-checked');
+      $("#jBoxBookRoom input:radio:checked").closest('.cardBox').addClass('-checked');
+    })
+
   }
 
   function initshowContact(){

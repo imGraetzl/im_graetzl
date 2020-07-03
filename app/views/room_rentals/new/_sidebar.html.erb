@@ -1,0 +1,22 @@
+<% graetzl = Graetzl.memoized(@room_offer.graetzl_id) %>
+
+<div class="cardBox -roomoffer">
+
+  <div class="cardBoxHeader">
+    <div class="coverImgWrapper">
+      <%= link_to cover_photo_for(@room_offer), @room_offer %>
+    </div>
+    <% if graetzl %>
+      <div class="categoryicon">
+        <%= "#{graetzl.district.zip}, #{graetzl.name}" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="cardBoxContent">
+    <h3 class="sidebar">Deine Auswahl</h3>
+
+    ...
+
+  </div>
+</div>

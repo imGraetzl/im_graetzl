@@ -115,6 +115,15 @@ Rails.application.routes.draw do
     post 'leave_rating', on: :member
   end
 
+  resources :room_rentals, only: [:new, :create] do
+    get 'address', on: :collection
+    get 'choose_payment', on: :collection
+    get 'summary', on: :collection
+    post 'initiate_card_payment', on: :collection
+    post 'initiate_klarna_payment', on: :collection
+    post 'initiate_eps_payment', on: :collection
+  end
+
   resources :going_tos, only: [:new, :create] do
     get 'choose_payment', on: :collection
     get 'summary', on: :collection

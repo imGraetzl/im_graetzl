@@ -22,4 +22,11 @@ module RoomsHelper
     end
   end
 
+  def room_rental_params
+    params.permit(
+      :room_offer_id, :rent_from, :rent_to, :renter_company, :renter_name, :renter_address,
+      :renter_zip, :renter_city,
+    )
+  end
+
 end
