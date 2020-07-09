@@ -40,7 +40,7 @@
 
     </div>
 
-    <%= link_to "Buchungsanfrage erstellen", 'javascript:void(0);', class: "btn-primary", id: 'bookRoom' %>
+    <%= link_to "Buchungsanfrage stellen", 'javascript:void(0);', class: "btn-primary", id: 'bookRoom' %>
 
     <%= render 'room_offers/show/book_room', room_offer: @room_offer %>
 
@@ -176,10 +176,6 @@
     <aside class="location">
       <%= render @room_offer.location %>
     </aside>
-  <% end %>
-
-  <% if @room_offer.email.present? && current_user %>
-    <%= mail_to @room_offer.email, "Anbieter kontaktieren", class: 'btn-primary -mint -contact', id: 'room-contact-btn', subject: "Raumteiler Kontakt" %>
   <% end %>
 
   <%= link_to "Alle Raumteiler", rooms_wien_path, class: 'btn-primary -mint' %>

@@ -182,9 +182,13 @@
 
   .footer-txt {
     border-top: 1px solid $color-ambient-mint-light;
-    padding-top:25px;
+    border-bottom: 1px solid $color-ambient-mint-light;
+    padding-top:15px;
+    padding-bottom:15px;
     margin-top:20px;
+    margin-bottom:20px;
     font-style: italic;
+    text-align: center;
   }
 
 }

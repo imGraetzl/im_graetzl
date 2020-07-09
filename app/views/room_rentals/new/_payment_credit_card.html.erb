@@ -21,13 +21,10 @@
 </div>
 
 <!--
-<%= button_tag "Weiter", type: 'button', class: 'btn-primary next-screen' %>
+<%= button_tag "Buchungsanfrage abschicken", type: 'button', class: 'btn-primary next-screen' %>
 -->
-<%= link_to "Weiter", summary_room_rentals_path(room_offer_id: @room_offer.id), class: "btn-primary" %>
+<%= link_to "Buchungsanfrage abschicken", summary_room_rentals_path(room_offer_id: @room_offer.id), class: "btn-primary" %>
 
-
-<!--
 <div class="footer-txt">
-  Info Text
+  <strong>Bist du noch unschlüssig und möchtest <%= @room_offer.user.first_name %> zuerst eine Frage stellen</strong>, so gehe direkt <%= link_to 'zum Messenger', '' %>. Du kannst deine Buchung auch nachher im Messenger starten.
 </div>
--->

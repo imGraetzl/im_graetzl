@@ -1,7 +1,7 @@
 <div class="summary" id="tab-summary">
 
   <div class="hl-subtext">
-    <h1>Deine Raumbuchungs-Anfrage</h1>
+    <h1>Deine Buchungsanfrage</h1>
     <p>
       Zusammenfassung
     </p>
@@ -43,7 +43,6 @@
           <%= payment_method_label(params[:payment_method]) %> <br>
           <% if @card %> endet auf <%= @card.last4 %> <span class="card-last4"></span> <% end %>
         </span>
-        <%= link_to "ändern", choose_payment_room_rentals_url(room_rental_params) %>
       </p>
     </div>
 
@@ -61,6 +60,11 @@
     </div>
   </div>
 
+  <div class="footer-txt">
+    <strong>Deine Anfrage wurde erfolgreich an <%= @room_offer.user.first_name %> versendet.</strong>
+    Sobald <%= @room_offer.user.first_name %> deine Anfrage bearbeitet, erhältst du eine Nachricht im Messenger (und per E-Mail).
+  </div>
+
   <%= form_tag room_rentals_path, html: { class: 'rental-form' } do |f| %>
     <%= hidden_field_tag :room_offer_id, params[:room_offer_id] %>
     <%= hidden_field_tag :renter_company, params[:renter_company] %>
@@ -72,7 +76,9 @@
     <%= hidden_field_tag :stripe_payment_intent_id, params[:stripe_payment_intent_id] %>
     <%= hidden_field_tag :stripe_source_id, params[:stripe_source_id] %>
 
-    <%= submit_tag "Weiter", class: 'btn-primary submit-form' %>
+    <%= submit_tag "Weiter zum Messenger", class: 'btn-primary submit-form' %>
   <% end %>
+
+
 
 </div>

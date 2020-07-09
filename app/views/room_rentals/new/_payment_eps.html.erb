@@ -16,7 +16,7 @@
     <%= text_field_tag :full_name, current_user.full_name  %>
   </div>
 
-  <%= submit_tag "Weiter", class: 'btn-primary next-screen' %>
+  <%= submit_tag "Buchungsanfrage abschicken", class: 'btn-primary next-screen' %>
 <% end %>
 
 <% if params[:payment_method] == 'eps' && @source_status == 'chargeable' %>

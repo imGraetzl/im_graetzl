@@ -52,7 +52,7 @@
     <%= text_field_tag :city, current_user.address.try(:city), placeholder: 'Stadt' %>
   </div>
 
-  <%= submit_tag "Weiter", class: 'btn-primary next-screen' %>
+  <%= submit_tag "Buchungsanfrage abschicken", class: 'btn-primary next-screen' %>
 <% end %>
 
 <% if params[:payment_method] == 'klarna' && @source_status == 'chargeable' %>
