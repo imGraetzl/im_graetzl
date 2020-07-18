@@ -1,47 +1,19 @@
 <div class="nested-fields price-package">
 
-  <div class="input-field">
-    <%= label_tag :title do %>
-      <%= icon_tag "record" %>
-      <span>Preis Paket Titel</span>
+  <div class="input-field price">
+    <%= f.label :amount do %>
+      <%= icon_tag "currency-euro" %>
+      <span>Preisangabe</span>
     <% end %>
-    <%= text_field_tag :title, nil, placeholder: 'Gib deinem Preis Paket einen Titel, z.b. "Ganzer Raum"' %>
+    <%= f.text_field :amount, placeholder: "Preis in €" %>
   </div>
-
-  <div class="form-columns">
-    <div class="input-field">
-      <%= label_tag(:price_per_hour) do %>
-        <%= icon_tag "currency-euro" %>
-        <span>Preis / Stunde</span>
-      <% end %>
-      <%= number_field_tag :price_per_hour, nil, placeholder: 'Stundenpreis in €' %>
-    </div>
-    <div class="input-select">
-      <%= label_tag(:minimum_rental_hours) do %>
-        <%= icon_tag "time-clock" %>
-        <span>Mindestmietdauer</span>
-      <% end %>
-      <%= select_tag :minimum_rental_hours, options_for_select(minimum_rental_hour_values) %>
-    </div>
+  <div class="input-field name">
+    <%= f.label :name do %>
+      <%= icon_tag "record" %>
+      <span>Beschreibung</span>
+    <% end %>
+    <%= f.text_field :name, placeholder: "z. B.: pro Monat für 2 Tage / Woche" %>
   </div>
-
-  <div class="form-columns">
-    <div class="input-select">
-      <%= label_tag(:four_hour_discount) do %>
-        <%= icon_tag "sale-label" %>
-        <span>Rabatt halber Tag</span>
-      <% end %>
-      <%= select_tag :four_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 4h" %>
-    </div>
-    <div class="input-select">
-      <%= label_tag(:eight_hour_discount) do %>
-        <%= icon_tag "sale-label" %>
-        <span>Rabatt ganzer Tag</span>
-      <% end %>
-      <%= select_tag :eight_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 8h" %>
-    </div>
-  </div>
-
   <%= link_to_remove_association f do %>
     <div class="btn-delete">
       <%= icon_tag "trash-delete-remove" %>

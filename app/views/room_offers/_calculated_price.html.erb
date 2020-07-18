@@ -1,0 +1,34 @@
+<h3 class="sidebar">Deine Auswahl</h3>
+
+<ul class="pricing-summary">
+  <li>
+    <div class="cost">
+      <%= number_to_currency(20, unit: "€") %>
+    </div>
+    <div class="costname">
+      6 Stunden x 10,00 €
+    </div>
+  </li>
+  <li>
+    <div class="cost">
+      <%= number_to_currency(-3, unit: "€") %>
+    </div>
+    <div class="costname">
+      Rabatt ab 4 Stunden
+    </div>
+  </li>
+  <li>
+    <div class="cost">
+      <%= number_to_currency(2, unit: "€") %>
+    </div>
+    <div class="costname">
+      Servicegebühr
+    </div>
+  </li>
+  <li class=sum>
+    <div class="cost"><%= number_to_currency(19, unit: "€") %></div>
+    <div class="costname">Gesamtpreis</div>
+  </li>
+</ul>
+
+<%= link_to "Weiter zur Buchung", new_room_rental_path(room_offer_id: @room_offer.id), class: "btn-primary" %>

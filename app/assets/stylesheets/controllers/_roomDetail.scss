@@ -154,7 +154,7 @@ section.roomDetail {
 
       &.-top {
         padding-top:15px;
-        margin-bottom:70px;
+        //margin-bottom:70px;
       }
 
       border: 1px solid $color-ambient-grey-light;
@@ -173,14 +173,44 @@ section.roomDetail {
       &.waiting-list {
         padding-bottom:20px;
       }
+
+      &.-pricing {
+        h3.sidebar {
+          padding-top:15px;
+        }
+        .pricing-list {
+          border-top: 1px solid $color-ambient-grey-light;
+          padding-top:20px;
+        }
+        margin-bottom: 50px;
+      }
+
     }
 
     .pricingForm {
       padding: 15px;
       padding-top:0px;
-      > * {
-        margin-bottom: 20px;
+    }
+
+    .request {
+      border-top: 1px solid $color-ambient-grey-light;
+      padding-top:15px;
+      margin-bottom: 10px;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      .input-field {
+        overflow: hidden;
+        padding-bottom:15px;
+        @include respond-to("<medium") {
+          @include field-HorizontalLayout;
+        }
       }
+      .input-field label {
+        min-width:50px !important;
+        max-width:50px !important;
+      }
+      .hidden {display: none;}
     }
 
     .waiting-list {
@@ -378,9 +408,19 @@ section.roomDetail {
 
   .iconlist {
     padding: 15px;
+    padding-top:0px;
     > * {
       margin-bottom: 20px;
     }
+
+    div:last-child {
+      margin-bottom: 0px;
+    }
+
+  }
+
+  .btn-group + .btn-group {
+    margin-bottom: 10px;
   }
 
   .sideBar {

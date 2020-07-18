@@ -98,6 +98,10 @@ class RoomOffersController < ApplicationController
     redirect_to rooms_user_path
   end
 
+  def calculate_price
+    @room_offer = RoomOffer.find(params[:id])
+  end
+
   private
 
   def room_offer_params

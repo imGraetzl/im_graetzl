@@ -6,6 +6,37 @@ APP.controllers.room_offers = (function() {
     if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($("section.roomDetail").exists()) { initRoomDetail(); }
     if ($("#jBoxBookRoom").exists()) initBookRoom();
+    if ($(".request-price-form").exists()) initRoomOfferBookingForm();
+  }
+
+  function initRoomOfferBookingForm() {
+    $('.request-price-form').find(".date-from").pickadate({
+      hiddenName: true,
+      min: true,
+      formatSubmit: 'yyyy-mm-dd',
+      format: 'ddd, dd mmm, yyyy',
+      onClose: function() {
+        $(document.activeElement).blur();
+      },
+    }).off('focus').on("change", function() {
+      if ($('.request-price-form .date-from').val() && $('.request-price-form .hour-from').val() && $('.request-price-form .hour-to').val()) {
+        $('.request-price-form').submit();
+        $('.-disabled').hide();
+      }
+    });
+    $('.request-price-form').find(".hour-from, .hour-to").pickatime({
+      interval: 60,
+      format: 'HH:i',
+      formatSubmit: 'HH:i',
+      onClose: function() {
+        $(document.activeElement).blur();
+      },
+    }).off('focus').on("change", function() {
+      if ($('.request-price-form .date-from').val() && $('.request-price-form .hour-from').val() && $('.request-price-form .hour-to').val()) {
+        $('.request-price-form').submit();
+        $('.-disabled').hide();
+      }
+    });
   }
 
   function initRoomDetail() {
@@ -41,7 +72,6 @@ APP.controllers.room_offers = (function() {
       $("#jBoxBookRoom .cardBox").removeClass('-checked');
       $("#jBoxBookRoom input:radio:checked").closest('.cardBox').addClass('-checked');
     })
-
   }
 
   function initshowContact(){

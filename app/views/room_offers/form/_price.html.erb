@@ -1,10 +1,46 @@
 <div class="form-block" id="tab-price">
 
   <div class="hl-subtext">
-    <h2>Lege den <span>Preis</span> fest.</h2>
+    <h2><span>Kurzzeit Miete</span> - Online Buchungsformular</h2>
     <p>
-      Lege einen Stundenpreis für deinen Raum fest. Weiters kannst du noch Rabatte für einen halben oder ganzen Tag gewähren, bzw. eine Mindestmietdauer festlegen.
-      Solltest du verschiedene Miet-Varianten haben (z.b. mehrere Räume), so definiere hierfür einzelne Preis Pakete.
+      Lege einen Stundenpreis für deinen Raum fest. Nutzer können deinen Raum direkt über ein online Buchungsformular anfragen.
+      Sobald du eine Buchungsanfrage bestätigst, bekommst du nach Mietende die Mieteinnahmen auf dein Konto überwiesen.
+    </p>
+  </div>
+
+  <div class="">
+    <div class="form-columns">
+      <div class="input-field">
+        <%= label_tag(:price_per_hour) do %>
+          <%= icon_tag "currency-euro" %>
+          <span>Preis / Stunde</span>
+        <% end %>
+        <%= number_field_tag :price_per_hour, nil, placeholder: 'Stundenpreis in €' %>
+      </div>
+      <div class="input-select">
+        <%= label_tag(:minimum_rental_hours) do %>
+          <%= icon_tag "time-clock" %>
+          <span>Mindestmietdauer</span>
+        <% end %>
+        <%= select_tag :minimum_rental_hours, options_for_select(minimum_rental_hour_values) %>
+      </div>
+    </div>
+    <div class="input-select">
+      <%= label_tag(:eight_hour_discount) do %>
+        <%= icon_tag "sale-label" %>
+        <span>Rabatt ganzer Tag</span>
+      <% end %>
+      <%= select_tag :eight_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 8h" %>
+    </div>
+  </div>
+
+
+
+  <div class="hl-subtext">
+    <h2><span>Langezeit</span> Miete</h2>
+    <p>
+      Hier kannst du mehrere Preispakete für eine längerfristige Vermietung definieren.
+      Nutzer können eine Anfrage über die Platform stellen und ihr könnt euch kennenlernen.
     </p>
   </div>
 
@@ -13,9 +49,23 @@
     <%= render 'room_offers/form/room_offer_price_fields', f: price_form %>
     <% end %>
     <div class="room-prices-links">
-      <%= link_to_add_association 'Weiteres Preis Paket hinzufügen', f, :room_offer_prices, partial: 'room_offers/form/room_offer_price_fields' %>
+      <%= link_to_add_association 'Weiteres Preispaket hinzufügen', f, :room_offer_prices, partial: 'room_offers/form/room_offer_price_fields' %>
     </div>
   </div>
+
+
+
+  <div class="hl-subtext">
+    <h2>Raum <span>Verfügbarkeit</span></h2>
+    <p>
+      Definiere für die einzelnen Wochentage die Uhrzeiten an denen dein Raum grundsätzlich verfügbar ist und eine Buchungsanfrage gestellt werden kann.
+    </p>
+  </div>
+  <div class="room-availability">
+    <%= render 'room_offers/form/room_offer_availability_fields' %>
+  </div>
+
+
 
   <div class="hl-subtext">
     <h2>Dein <span>Auszahlungskonto</span></h2>
