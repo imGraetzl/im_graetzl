@@ -39,6 +39,8 @@
       <%= render 'locations/action_card' %>
     </div>
     <!-- Insert Featured Card -->
+    <%= render 'shared/featured_cards/raumteiler_voting' %>
+    
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'locations-paginate-link' }, rel: 'nofollow' %>
   </div>
 
