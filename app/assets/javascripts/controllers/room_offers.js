@@ -16,11 +16,16 @@ APP.controllers.room_offers = (function() {
       formatSubmit: 'yyyy-mm-dd',
       format: 'ddd, dd mmm, yyyy',
       disable: [
-        1,2 // if Mon and Tue is not available ...
+        1,2 // if Mon and Tue is not available ...v
       ],
       onClose: function() {
         $(document.activeElement).blur();
       },
+      // Insert Legend (improve ...)
+      onRender: function() {
+        $( "#rent_from_root .picker__box" ).append( "<div class='picker_legend'><div class='legend_not_availiable'></div><small class='legend_not_availiable_text'> ... Nicht verfügbar</small></div>" );
+      },
+
     }).off('focus').on("change", function() {
       if ($('.request-price-form .date-from').val() && $('.request-price-form .hour-from').val() && $('.request-price-form .hour-to').val()) {
         $('.request-price-form').submit();
@@ -31,6 +36,8 @@ APP.controllers.room_offers = (function() {
       interval: 60,
       format: 'HH:i',
       formatSubmit: 'HH:i',
+      min: [8,00],
+      max: [18,00],
       onClose: function() {
         $(document.activeElement).blur();
       },
@@ -40,6 +47,7 @@ APP.controllers.room_offers = (function() {
         $('.-disabled').hide();
       }
     });
+
   }
 
   function initRoomDetail() {

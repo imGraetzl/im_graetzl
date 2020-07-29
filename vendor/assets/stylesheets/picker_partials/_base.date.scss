@@ -329,3 +329,21 @@
 .picker__button--today[disabled]:before {
     border-top-color: $disabled-tag;
 }
+
+.picker_legend {
+  padding:10px;
+  font-style: italic;
+  text-align: center;
+  .legend_not_availiable {
+    display: inline-block;
+    background-color: $disabled-things-bg;
+    width:20px;
+    height:20px;
+    margin-right: 10px;
+  }
+  .legend_not_availiable_text {
+    font-size: .75em;
+    color: $disabled-things-text;
+
+  }
+}
