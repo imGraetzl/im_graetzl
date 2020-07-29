@@ -215,7 +215,7 @@
 
 // Out of focus days.
 .picker__day--outfocus {
-    color: $disabled-things-text;
+    color: $outfocus-things-text;
 }
 
 // Hovered date picker items.
@@ -329,6 +329,3 @@
 .picker__button--today[disabled]:before {
     border-top-color: $disabled-tag;
 }
-
-
-

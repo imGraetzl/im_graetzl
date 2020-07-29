@@ -15,6 +15,9 @@ APP.controllers.room_offers = (function() {
       min: true,
       formatSubmit: 'yyyy-mm-dd',
       format: 'ddd, dd mmm, yyyy',
+      disable: [
+        1,2 // if Mon and Tue is not available ...
+      ],
       onClose: function() {
         $(document.activeElement).blur();
       },
