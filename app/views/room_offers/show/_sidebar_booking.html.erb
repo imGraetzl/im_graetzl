@@ -3,7 +3,7 @@
 
   <!-- ONLINE BOOKING -->
   <div class="sideBarbox -top">
-    <h3 class="sidebar">Kurzzeitmiete</h3>
+    <h3 class="sidebar">Online Buchung</h3>
 
     <div class="pricingForm">
 
@@ -27,8 +27,6 @@
     </div>
 
     <div class="request">
-
-      <h3 class="sidebar">Online Buchung</h3>
 
       <%= form_tag [:calculate_price, @room_offer], remote: true, method: :get, class: 'request-price-form' do %>
         <div class="input-field">
@@ -63,6 +61,7 @@
   <!-- ONLINE BOOKING -->
 
 
+  <% unless @room_offer.room_offer_prices.empty? %>
   <!-- OTHER PRICING -->
   <div class="sideBarbox -pricing">
     <h3 class="sidebar">Langzeitmiete</h3>
@@ -84,6 +83,7 @@
 
   </div>
   <!-- OTHER PRICING -->
+  <% end %>
 
 
   <div class="sideBarbox contact">

@@ -182,8 +182,15 @@ section.roomDetail {
           border-top: 1px solid $color-ambient-grey-light;
           padding-top:20px;
         }
-        margin-bottom: 50px;
       }
+
+      &.contact {
+        margin-top:60px;
+      }
+      &.contact:first-child {
+        margin-top:0px;
+      }
+
 
     }
 
