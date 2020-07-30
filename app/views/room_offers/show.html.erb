@@ -33,8 +33,6 @@
     </div>
   </div>
 
-
-
   <div class="mainContent">
 
     <div class="introtxt">
@@ -49,6 +47,16 @@
         <%= link_to attachment_image_tag(image, :file, :fill, 200, 200), attachment_url(image, :file, :limit, 800, 800), data: { jbox_image: "gallery1" } %>
       <% end %>
     </div>
+
+  </div>
+
+
+  <%= render 'room_offers/show/sidebar_booking' %>
+
+
+  <div class="mainContent">
+
+
 
     <% if @room_offer.keyword_list.present? %>
       <section>
@@ -175,6 +183,5 @@
 
   </div>
 
-  <%= render 'room_offers/show/sidebar_booking' %>
 
 </section>

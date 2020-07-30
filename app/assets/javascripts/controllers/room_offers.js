@@ -23,7 +23,7 @@ APP.controllers.room_offers = (function() {
       },
       // Insert Legend (improve ...)
       onRender: function() {
-        $( "#rent_from_root .picker__box" ).append( "<div class='picker_legend'><div class='legend_not_availiable'></div><small class='legend_not_availiable_text'> ... Nicht verfügbar</small></div>" );
+        $( "#rent_from_root .picker__box" ).append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_availiable_text'> ... Nicht verfügbar</small><div class='legend_availiable'></div><small class='legend_availiable_text'> ... Verfügbar</small></div>" );
       },
 
     }).off('focus').on("change", function() {

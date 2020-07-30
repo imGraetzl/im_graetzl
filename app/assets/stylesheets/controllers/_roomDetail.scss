@@ -514,7 +514,7 @@ section.roomDetail {
       margin-top: -28px;
       margin-bottom: 0;
       width: calc(100% - 295px);
-      z-index: 10;
+      z-index: 9;
     }
     @include respond-to(">=large") {
       width: calc(100% - 280px);
