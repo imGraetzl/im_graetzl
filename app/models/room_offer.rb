@@ -15,6 +15,9 @@ class RoomOffer < ApplicationRecord
   has_many :room_categories, through: :room_offer_categories
   has_many :room_offer_prices
   accepts_nested_attributes_for :room_offer_prices, allow_destroy: true, reject_if: :all_blank
+  has_one :room_rental_price
+  accepts_nested_attributes_for :room_rental_price, allow_destroy: true,
+    reject_if: proc { |attrs| attrs['price_per_hour'].blank? }
 
   has_many :room_offer_waiting_users
   has_many :waiting_users, through: :room_offer_waiting_users, source: :user

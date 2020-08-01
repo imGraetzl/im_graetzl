@@ -1,0 +1,30 @@
+<div class="request">
+  <%= form_tag [:calculate_price, @room_offer], remote: true, method: :get, class: 'request-price-form' do %>
+    <div class="input-field">
+      <%= label_tag :rent_from do %>
+        <%= icon_tag "calendar-2" %>
+        <span></span>
+      <% end %>
+      <%= text_field_tag :rent_from, nil, class: 'date-from', placeholder: 'Mietdatum auswählen' %>
+    </div>
+
+    <div class="input-field">
+      <%= label_tag :rent_to do %>
+        <%= icon_tag "time-clock" %>
+        <span></span>
+      <% end %>
+      <%= text_field_tag :rent_hour_from, nil, class: 'hour-from', placeholder: 'Check-In' %>
+    </div>
+
+    <div class="input-field">
+      <%= label_tag :rent_to do %>
+        <%= icon_tag "time-clock" %>
+        <span></span>
+      <% end %>
+      <%= text_field_tag :rent_hour_to, nil, class: 'hour-to', placeholder: 'Check-Out' %>
+    </div>
+  <% end %>
+</div>
+
+<div id="calculated-price-container"></div>
+<%= link_to "Wähle zuerst dein Mietdatum", new_room_rental_path(:room_offer_id => @room_offer.id), class: "btn-primary -disabled" %>

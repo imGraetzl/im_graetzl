@@ -113,16 +113,42 @@
       </div>
       <div class="col2">
         <div class="input-checkbox">
-          <%= f.check_box :business %>
-          <%= f.label :business, 'Ich bin wirtschaftlich und/oder kreativ tätig' %>
-        </div>
-        <div class="input-checkbox">
           <%= f.check_box :newsletter %>
           <%= f.label :newsletter, 'Newsletter abonnieren' %>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="formBlock profileSection">
+    <h2><span>Billing</span>info</h2>
+    <div class="formRow -double">
+      <div class="col1">
+        <div class="input-field">
+          <%= f.label :iban do %>
+            <%= icon_tag "profile-vcard" %>
+            <span>IBAN</span>
+          <% end %>
+          <%= f.text_field :iban, placeholder: 'IBAN' %>
+        </div>
+
+        <div class="input-textarea">
+          <%= f.label :billing_address do %>
+            <%= icon_tag "home" %>
+            <span>Billing address</span>
+          <% end %>
+          <%= f.text_area :billing_address, size: '30x10' %>
+        </div>
+      </div>
+      <div class="col2">
+        <div class="input-checkbox">
+          <%= f.check_box :business %>
+          <%= f.label :business, 'Ich bin wirtschaftlich und/oder kreativ tätig' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <%= f.submit 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>
 <%= button_to 'Account löschen', registration_path,

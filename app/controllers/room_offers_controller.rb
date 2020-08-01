@@ -20,6 +20,7 @@ class RoomOffersController < ApplicationController
     @room_offer.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @room_offer.address = Address.from_feature(params[:feature])
     if @room_offer.save
+      current_user.update(iban: params[:iban]) if params[:iban].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
       RoomMailer.room_offer_published(@room_offer).deliver_later
       @room_offer.create_activity(:create, owner: @room_offer.user)
@@ -36,6 +37,7 @@ class RoomOffersController < ApplicationController
   def update
     @room_offer = current_user.room_offers.find(params[:id])
     if @room_offer.update(room_offer_params)
+      current_user.update(iban: params[:iban]) if params[:iban].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
       redirect_to @room_offer
     else
@@ -129,6 +131,10 @@ class RoomOffersController < ApplicationController
         ],
         room_offer_prices_attributes: [
           :id, :name, :amount, :_destroy
+        ],
+        room_rental_price_attributes: [
+          :id, :name, :price_per_hour, :minimum_rental_hours, :four_hour_discount, :eight_hour_discount,
+          :_destroy
         ],
         room_category_ids: []
     ).merge(

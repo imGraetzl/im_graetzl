@@ -8,33 +8,10 @@
     </p>
   </div>
 
-  <div class="">
-    <div class="form-columns">
-      <div class="input-field">
-        <%= label_tag(:price_per_hour) do %>
-          <%= icon_tag "currency-euro" %>
-          <span>Preis / Stunde</span>
-        <% end %>
-        <%= number_field_tag :price_per_hour, nil, placeholder: 'Stundenpreis in €' %>
-      </div>
-      <div class="input-select">
-        <%= label_tag(:minimum_rental_hours) do %>
-          <%= icon_tag "time-clock" %>
-          <span>Mindestmietdauer</span>
-        <% end %>
-        <%= select_tag :minimum_rental_hours, options_for_select(minimum_rental_hour_values) %>
-      </div>
-    </div>
-    <div class="input-select">
-      <%= label_tag(:eight_hour_discount) do %>
-        <%= icon_tag "sale-label" %>
-        <span>Rabatt ganzer Tag</span>
-      <% end %>
-      <%= select_tag :eight_hour_discount, options_for_select(room_discount_values), include_blank: "% Rabatt ab 8h" %>
-    </div>
-  </div>
-
-
+  <% f.object.build_room_rental_price if f.object.room_rental_price.nil? %>
+  <%= f.fields_for :room_rental_price do |price_form| %>
+    <%= render 'room_offers/form/rental_price_fields', f: price_form %>
+  <% end %>
 
   <div class="hl-subtext">
     <h2><span>Langezeit</span> Miete</h2>
@@ -45,11 +22,12 @@
   </div>
 
   <div class="room-prices">
+    <% f.object.room_offer_prices.build if f.object.room_offer_prices.empty? %>
     <%= f.fields_for :room_offer_prices do |price_form| %>
-    <%= render 'room_offers/form/room_offer_price_fields', f: price_form %>
+      <%= render 'room_offers/form/longterm_price_fields', f: price_form %>
     <% end %>
     <div class="room-prices-links">
-      <%= link_to_add_association 'Weiteres Preispaket hinzufügen', f, :room_offer_prices, partial: 'room_offers/form/room_offer_price_fields' %>
+      <%= link_to_add_association 'Weiteres Preispaket hinzufügen', f, :room_offer_prices, partial: 'room_offers/form/longterm_price_fields' %>
     </div>
   </div>
 
@@ -74,32 +52,32 @@
     </p>
   </div>
 
-  <div class="form-columns">
-    <div class="input-field">
-      <%= f.label :first_name do %>
-        <%= icon_tag "user-avatar" %>
-        <span>Vorname</span>
-      <% end %>
-      <%= f.text_field :first_name, placeholder: 'Vorname' %>
-    </div>
-
-    <div class="input-field">
-      <%= f.label :last_name do %>
-        <%= icon_tag "user-avatar" %>
-        <span>Nachname</span>
-      <% end %>
-      <%= f.text_field :last_name, placeholder: 'Nachname' %>
-    </div>
-  </div>
-
   <div class="input-field">
-    <%= label_tag :iban do %>
-      <%= icon_tag "profile-vcard" %>
-      <span>Kontoverbindung</span>
+    <%= f.label :first_name do %>
+      <%= icon_tag "user-avatar" %>
+      <span>Name</span>
     <% end %>
-    <%= text_field_tag :iban, nil, placeholder: 'IBAN' %>
+    <%= text_field_tag :name, current_user.full_name, placeholder: 'IBAN', disabled: true %>
   </div>
 
+  <% if current_user.iban.blank? %>
+    <div class="input-field">
+      <%= label_tag :iban do %>
+        <%= icon_tag "profile-vcard" %>
+        <span>Kontoverbindung</span>
+      <% end %>
+      <%= text_field_tag :iban, nil, placeholder: 'IBAN' %>
+    </div>
+  <% else %>
+    <div class="input-field">
+      <%= label_tag :iban do %>
+        <%= icon_tag "profile-vcard" %>
+        <span>Kontoverbindung</span>
+      <% end %>
+      <%= text_field_tag :iban, current_user.iban, placeholder: 'IBAN', disabled: true %>
+    </div>
+    <%= link_to 'Bearbeiten', edit_user_path, target: '_blank' %>
+  <% end %>
 
   <div class="input-button">
     <%= f.submit 'Raumteiler erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>

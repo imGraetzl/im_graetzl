@@ -1,90 +1,58 @@
 <aside class="sideBar">
 
-
   <!-- ONLINE BOOKING -->
-  <div class="sideBarbox -top">
-    <h3 class="sidebar">Online Buchung</h3>
+  <% if @room_offer.room_rental_price.present? %>
+    <div class="sideBarbox -top">
+      <h3 class="sidebar">Online Buchung</h3>
 
-    <div class="pricingForm">
-
-      <!-- Price Module Entry -->
-      <div class="package-pricing">
-        <!--<div class="desc">
-          Das hier ist der Titel vom ersten Preispaket
-        </div>-->
-        <ul>
-          <li>
-            <div class="cost"><pie class="pie-hour"></pie></div>
-            <div class="costname">35 € / Stunde</div>
-          </li>
-          <li>
-            <div class="cost"><pie class="pie-day"></pie></div>
-            <div class="costname">190 € / Tag <br><small class="discount">25% Rabatt ab 8 Stunden</small></div>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="request">
-
-      <%= form_tag [:calculate_price, @room_offer], remote: true, method: :get, class: 'request-price-form' do %>
-        <div class="input-field">
-          <%= label_tag :rent_from do %>
-            <%= icon_tag "calendar-2" %>
-            <span></span>
-          <% end %>
-          <%= text_field_tag :rent_from, nil, class: 'date-from', placeholder: 'Mietdatum auswählen' %>
-        </div>
-
-        <div class="input-field">
-          <%= label_tag :rent_to do %>
-            <%= icon_tag "time-clock" %>
-            <span></span>
-          <% end %>
-          <%= text_field_tag :rent_hour_from, nil, class: 'hour-from', placeholder: 'Check-In' %>
-        </div>
-
-        <div class="input-field">
-          <%= label_tag :rent_to do %>
-            <%= icon_tag "time-clock" %>
-            <span></span>
-          <% end %>
-          <%= text_field_tag :rent_hour_to, nil, class: 'hour-to', placeholder: 'Check-Out' %>
-        </div>
-      <% end %>
-    </div>
-
-    <div id="calculated-price-container"></div>
-    <%= link_to "Wähle zuerst dein Mietdatum", new_room_rental_path(:room_offer_id => @room_offer.id), class: "btn-primary -disabled" %>
-  </div>
-  <!-- ONLINE BOOKING -->
-
-
-  <% unless @room_offer.room_offer_prices.empty? %>
-  <!-- OTHER PRICING -->
-  <div class="sideBarbox -pricing">
-    <h3 class="sidebar">Langzeitmiete</h3>
-
-    <div class="iconlist">
-      <div class="pricing icontxt">
-        <ul class="pricing-list">
-          <% @room_offer.room_offer_prices.each do |price| %>
+      <div class="pricingForm">
+        <div class="package-pricing">
+          <div class="desc"><%= @room_offer.room_rental_price.name %></div>
+          <ul>
             <li>
-              <div class="cost"><%= "%g €" % price.amount %></div>
-              <div class="costname"><%= price.name %></div>
+              <div class="cost"><pie class="pie-hour"></pie></div>
+              <div class="costname">
+                <%= @room_offer.room_rental_price.price_per_hour.to_i %> € / Stunde
+              </div>
             </li>
-          <% end %>
-        </ul>
+            <% if @room_offer.room_rental_price.eight_hour_discount.to_i > 0 %>
+            <li>
+              <div class="cost"><pie class="pie-day"></pie></div>
+              <div class="costname">
+                <%= @room_offer.room_rental_price.daily_price %> € / Tag <br>
+                <small class="discount"><%= @room_offer.room_rental_price.eight_hour_discount %>% Rabatt ab 8 Stunden</small>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
+
+      <%= render 'room_offers/show/rental_form' %>
     </div>
-
-    <%= link_to "Allgemeine Anfrage stellen", 'javascript:void(0);', class: "btn-primary -mint", id: 'requestRoom' %>
-
-  </div>
-  <!-- OTHER PRICING -->
   <% end %>
 
+  <!-- OTHER PRICING -->
+  <% if @room_offer.room_offer_prices.present? %>
+    <div class="sideBarbox -pricing">
+      <h3 class="sidebar">Langzeitmiete</h3>
+
+      <div class="iconlist">
+        <div class="pricing icontxt">
+          <ul class="pricing-list">
+            <% @room_offer.room_offer_prices.each do |price| %>
+              <li>
+                <div class="cost"><%= "%g €" % price.amount %></div>
+                <div class="costname"><%= price.name %></div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <%= link_to "Allgemeine Anfrage stellen", 'javascript:void(0);', class: "btn-primary -mint", id: 'requestRoom' %>
+    </div>
+  <% end %>
 
   <div class="sideBarbox contact">
     <%= link_to content_tag(:h3, @room_offer.graetzl.name, class: 'sideflag -L'), @room_offer.graetzl %>
@@ -117,21 +85,6 @@
           Auch an Kooperationen interessiert.
         </div>
       <% end %>
-
-      <!-- OLD PRICING INFO
-      <% if @room_offer.room_offer_prices.present? %>
-        <div class="pricing icontxt">
-          <ul class="pricing-list">
-            <% @room_offer.room_offer_prices.each do |price| %>
-              <li>
-                <div class="cost"><%= "%g €" % price.amount %></div>
-                <div class="costname"><%= price.name %></div>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-       /OLD PRICING INFO -->
 
       <div class="created icontxt">
         <%= icon_tag "pencil" %>

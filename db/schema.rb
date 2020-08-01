@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_04_102207) do
+ActiveRecord::Schema.define(version: 2020_08_01_171938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -697,6 +697,17 @@ ActiveRecord::Schema.define(version: 2020_06_04_102207) do
     t.index ["user_id"], name: "index_room_offers_on_user_id"
   end
 
+  create_table "room_rental_prices", force: :cascade do |t|
+    t.integer "room_offer_id"
+    t.string "name"
+    t.decimal "price_per_hour", precision: 10, scale: 2
+    t.integer "minimum_rental_hours", default: 0
+    t.integer "four_hour_discount", default: 0
+    t.integer "eight_hour_discount", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "room_suggested_tags", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -868,6 +879,7 @@ ActiveRecord::Schema.define(version: 2020_06_04_102207) do
     t.string "iban"
     t.decimal "rating", precision: 3, scale: 2
     t.integer "ratings_count", default: 0
+    t.text "billing_address"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
