@@ -1,1 +1,7 @@
-$("#calculated-price-container").html("<%= j render('calculated_price') %>");
+<% if @available_hours %>
+  $("#rental-hours-container").html("<%= j render('room_offers/show/rental_hours') %>");
+<% end %>
+
+<% if @calculator %>
+  $("#rental-price-container").html("<%= j render('room_offers/show/rental_price') %>");
+<% end %>

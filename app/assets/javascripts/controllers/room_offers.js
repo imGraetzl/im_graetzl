@@ -10,44 +10,29 @@ APP.controllers.room_offers = (function() {
   }
 
   function initRoomOfferBookingForm() {
-    $('.request-price-form').find(".date-from").pickadate({
+    var dateInput = $('.request-price-form').find(".rent-date");
+    var days = dateInput.data("days");
+
+    $('.request-price-form').find(".rent-date").pickadate({
       hiddenName: true,
       min: true,
       formatSubmit: 'yyyy-mm-dd',
       format: 'ddd, dd mmm, yyyy',
-      disable: [
-        1,2 // if Mon and Tue is not available ...v
-      ],
+      disable: days.map(function(v, i) { return v ? null : i; }),
       onClose: function() {
         $(document.activeElement).blur();
       },
       // Insert Legend (improve ...)
       onRender: function() {
-        $( "#rent_from_root .picker__box" ).append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_availiable_text'> ... Nicht verfügbar</small><div class='legend_availiable'></div><small class='legend_availiable_text'> ... Verfügbar</small></div>" );
-      },
-
-    }).off('focus').on("change", function() {
-      if ($('.request-price-form .date-from').val() && $('.request-price-form .hour-from').val() && $('.request-price-form .hour-to').val()) {
-        $('.request-price-form').submit();
-        $('.-disabled').hide();
+        $("#rent_from_root .picker__box").append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_availiable_text'> ... Nicht verfügbar</small><div class='legend_availiable'></div><small class='legend_availiable_text'> ... Verfügbar</small></div>" );
       }
-    });
-    $('.request-price-form').find(".hour-from, .hour-to").pickatime({
-      interval: 60,
-      format: 'HH:i',
-      formatSubmit: 'HH:i',
-      min: [8,00],
-      max: [18,00],
-      onClose: function() {
-        $(document.activeElement).blur();
-      },
-    }).off('focus').on("change", function() {
-      if ($('.request-price-form .date-from').val() && $('.request-price-form .hour-from').val() && $('.request-price-form .hour-to').val()) {
-        $('.request-price-form').submit();
-        $('.-disabled').hide();
-      }
+    }).on("change", function() {
+      $(this).parents(".request-price-form").submit();
     });
 
+    $('.request-price-form').on("change", '.hour-input', function() {
+      $(this).parents(".request-price-form").submit();
+    });
   }
 
   function initRoomDetail() {
@@ -144,6 +129,15 @@ APP.controllers.room_offers = (function() {
     $('#custom-keywords').tagsInput({
       'defaultText':'Kurz in Stichworten ..'
     });
+
+    $(".availability-select").on("change", function() {
+      var day = $(this).data("weekday");
+      if ($(this).val() == "0") {
+        $(".availability-input-" + day).prop("disabled", true);
+      } else {
+        $(".availability-input-" + day).removeProp("disabled");
+      }
+    }).change();
 
     $('select#admin-user-select').SumoSelect({
       search: true,

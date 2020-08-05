@@ -190,8 +190,6 @@ section.roomDetail {
       &.contact:first-child {
         margin-top:0px;
       }
-
-
     }
 
     .pricingForm {
@@ -199,21 +197,24 @@ section.roomDetail {
       padding-top:0px;
     }
 
-    .request {
+    .request-price-form {
       border-top: 1px solid $color-ambient-grey-light;
       padding-top:15px;
       margin-bottom: 10px;
       padding-left: 15px;
       padding-right: 15px;
 
+      .input-field, .input-select {
+        margin-bottom: 15px;
+      }
+
       .input-field {
         overflow: hidden;
-        padding-bottom:15px;
         @include respond-to("<medium") {
           @include field-HorizontalLayout;
         }
       }
-      .input-field label {
+      .input-field label, .input-select label {
         min-width:50px !important;
         max-width:50px !important;
       }

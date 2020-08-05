@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_01_171938) do
+ActiveRecord::Schema.define(version: 2020_08_02_144624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -639,6 +639,27 @@ ActiveRecord::Schema.define(version: 2020_08_01_171938) do
     t.string "icon"
   end
 
+  create_table "room_offer_availabilities", force: :cascade do |t|
+    t.bigint "room_offer_id"
+    t.integer "day_0_from"
+    t.integer "day_0_to"
+    t.integer "day_1_from"
+    t.integer "day_1_to"
+    t.integer "day_2_from"
+    t.integer "day_2_to"
+    t.integer "day_3_from"
+    t.integer "day_3_to"
+    t.integer "day_4_from"
+    t.integer "day_4_to"
+    t.integer "day_5_from"
+    t.integer "day_5_to"
+    t.integer "day_6_from"
+    t.integer "day_6_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_offer_id"], name: "index_room_offer_availabilities_on_room_offer_id"
+  end
+
   create_table "room_offer_categories", id: :serial, force: :cascade do |t|
     t.integer "room_category_id"
     t.integer "room_offer_id"
@@ -879,7 +900,6 @@ ActiveRecord::Schema.define(version: 2020_08_01_171938) do
     t.string "iban"
     t.decimal "rating", precision: 3, scale: 2
     t.integer "ratings_count", default: 0
-    t.text "billing_address"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -965,6 +985,7 @@ ActiveRecord::Schema.define(version: 2020_08_01_171938) do
   add_foreign_key "room_demand_graetzls", "room_demands", on_delete: :cascade
   add_foreign_key "room_demands", "locations", on_delete: :nullify
   add_foreign_key "room_demands", "users", on_delete: :cascade
+  add_foreign_key "room_offer_availabilities", "room_offers", on_delete: :cascade
   add_foreign_key "room_offer_categories", "room_categories", on_delete: :cascade
   add_foreign_key "room_offer_categories", "room_offers", on_delete: :cascade
   add_foreign_key "room_offer_prices", "room_offers", on_delete: :cascade

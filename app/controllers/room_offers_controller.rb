@@ -6,6 +6,17 @@ class RoomOffersController < ApplicationController
     @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
+  def calculate_price
+    @room_offer = RoomOffer.find(params[:id])
+    if params[:rent_date].present?
+      rent_date = Date.parse(params[:rent_date])
+      @available_hours = @room_offer.available_hours(rent_date)
+    end
+    if params[:rent_hour_from].present? && params[:rent_hour_to].present?
+      @calculator = RoomPriceCalculator.new(@room_offer, rent_date, params[:rent_hour_from], params[:rent_hour_to])
+    end
+  end
+
   def select
   end
 
@@ -100,10 +111,6 @@ class RoomOffersController < ApplicationController
     redirect_to rooms_user_path
   end
 
-  def calculate_price
-    @room_offer = RoomOffer.find(params[:id])
-  end
-
   private
 
   def room_offer_params
@@ -123,6 +130,7 @@ class RoomOffersController < ApplicationController
         :avatar,
         :activation_code,
         :remove_avatar,
+        :general_availability,
         :first_name, :last_name, :website, :email, :phone, :location_id,
         images_files: [],
         images_attributes: [:id, :_destroy],
@@ -136,6 +144,7 @@ class RoomOffersController < ApplicationController
           :id, :name, :price_per_hour, :minimum_rental_hours, :four_hour_discount, :eight_hour_discount,
           :_destroy
         ],
+        room_offer_availability_attributes: (0..6).map{ |i| [:"day_#{i}_from", :"day_#{i}_to"] }.flatten,
         room_category_ids: []
     ).merge(
       keyword_list: [params[:suggested_keywords], params[:custom_keywords]].join(", ")

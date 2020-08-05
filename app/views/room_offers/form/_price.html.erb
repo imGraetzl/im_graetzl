@@ -31,19 +31,7 @@
     </div>
   </div>
 
-
-
-  <div class="hl-subtext">
-    <h2>Raum <span>Verfügbarkeit</span></h2>
-    <p>
-      Definiere für die einzelnen Wochentage die Uhrzeiten an denen dein Raum grundsätzlich verfügbar ist und eine Buchungsanfrage gestellt werden kann.
-    </p>
-  </div>
-  <div class="room-availability">
-    <%= render 'room_offers/form/room_offer_availability_fields' %>
-  </div>
-
-
+  <%= render 'room_offers/form/availability', f: f %>
 
   <div class="hl-subtext">
     <h2>Dein <span>Auszahlungskonto</span></h2>
