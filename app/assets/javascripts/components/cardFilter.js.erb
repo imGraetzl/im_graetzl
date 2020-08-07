@@ -89,37 +89,50 @@ APP.components.cardFilter = (function() {
 
 
     // ----------- EPU-to-EPU
-
-    /*
-    $("#meeting-categories").SumoSelect({
-      search: false,
-      searchText: 'Suche..',
-      placeholder: 'Kategorie wählen ..',
-      csvDispCount: 3,
-      captionFormat: 'in {0} Bezirken',
-      captionFormatAllSelected: 'alle Kategorien',
-      okCancelInMulti: true,
-      selectAll: true,
-      locale: ['Übernehmen', 'Abbrechen', 'Alle Kategorien']
-    });
-    */
-
     $("#meeting-categories").on("change", function(){
       $("#params_category_id").val('');
       filterForm.submit();
     });
-
     // ----------- EPU-to-EPU
 
 
     filterForm = $(".cards-filter");
     cardGrid = $('.card-grid');
 
+
     filterForm.find(".filter-selection-text a").not( ".plain-link" ).featherlight({
       root: '.card-grid-container',
       targetAttr: 'href',
       persist: true
     });
+
+
+
+    /*
+    var filterModal = new jBox('Modal', {
+      addClass:'jBox',
+      attach: '.filter-selection-text a',
+      content: $('.filter-input'),
+      trigger: 'click',
+      closeOnEsc:true,
+      closeOnClick:'body',
+      blockScroll:true,
+      animation:{open: 'zoomIn', close: 'zoomOut'},
+      onOpen: function() {
+        // Here we are getting the ID of the content to display
+        var id = this.source.attr('href').split("#")[1];
+        console.log(id);
+        console.log(this.content);
+        // Now we are hiding all content elements
+        this.content.find('.filter-input').css({display: 'none'});
+
+        // Then we show the content with the id we just received
+        this.content.find('.'+id).css({display: 'block'});
+      }
+    });
+    */
+
+
 
     $(".filter-modal").on("click", ".reset-button", function() {
       $('input:checkbox').prop('checked', false);
@@ -131,6 +144,8 @@ APP.components.cardFilter = (function() {
 
     $(".filter-modal").on("click", ".filter-button", function() {
       var currentModal = $.featherlight.current();
+      //console.log(currentModal);
+      //console.log(currentModal.$content);
       updateFilterInputs(currentModal.$content);
       updateFilterLabels(currentModal.$content);
       filterForm.submit();

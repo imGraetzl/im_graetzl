@@ -1,61 +1,5 @@
 <aside class="sideBar">
 
-  <!-- ONLINE BOOKING -->
-  <% if @room_offer.room_rental_price.present? %>
-    <div class="sideBarbox -top">
-      <h3 class="sidebar">Online Buchung</h3>
-
-      <div class="pricingForm">
-        <div class="package-pricing">
-          <div class="desc"><%= @room_offer.room_rental_price.name %></div>
-          <ul>
-            <li>
-              <div class="cost"><pie class="pie-hour"></pie></div>
-              <div class="costname">
-                <%= @room_offer.room_rental_price.price_per_hour.to_i %> € / Stunde
-              </div>
-            </li>
-            <% if @room_offer.room_rental_price.eight_hour_discount.to_i > 0 %>
-            <li>
-              <div class="cost"><pie class="pie-day"></pie></div>
-              <div class="costname">
-                <%= @room_offer.room_rental_price.daily_price %> € / Tag <br>
-                <small class="discount"><%= @room_offer.room_rental_price.eight_hour_discount %>% Rabatt ab 8 Stunden</small>
-              </div>
-            </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-
-      <div id="rental-form-container">
-        <%= render 'room_offers/show/rental_form' %>
-      </div>  
-    </div>
-  <% end %>
-
-  <!-- OTHER PRICING -->
-  <% if @room_offer.room_offer_prices.present? %>
-    <div class="sideBarbox -pricing">
-      <h3 class="sidebar">Langzeitmiete</h3>
-
-      <div class="iconlist">
-        <div class="pricing icontxt">
-          <ul class="pricing-list">
-            <% @room_offer.room_offer_prices.each do |price| %>
-              <li>
-                <div class="cost"><%= "%g €" % price.amount %></div>
-                <div class="costname"><%= price.name %></div>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-
-      <%= link_to "Allgemeine Anfrage stellen", 'javascript:void(0);', class: "btn-primary -mint", id: 'requestRoom' %>
-    </div>
-  <% end %>
-
   <div class="sideBarbox contact">
     <%= link_to content_tag(:h3, @room_offer.graetzl.name, class: 'sideflag -L'), @room_offer.graetzl %>
 
@@ -122,6 +66,63 @@
 
   </div>
 
+
+  <!-- ONLINE BOOKING -->
+  <% if @room_offer.room_rental_price.present? %>
+    <div class="sideBarbox -top">
+      <h3 class="sidebar">Jetzt Slot buchen</h3>
+
+      <div class="pricingForm">
+        <div class="package-pricing">
+          <ul>
+            <li>
+              <div class="cost"><pie class="pie-hour"></pie></div>
+              <div class="costname">
+                <%= @room_offer.room_rental_price.price_per_hour.to_i %> € / Stunde
+              </div>
+            </li>
+            <% if @room_offer.room_rental_price.eight_hour_discount.to_i > 0 %>
+            <li>
+              <div class="cost"><pie class="pie-day"></pie></div>
+              <div class="costname">
+                <%= @room_offer.room_rental_price.daily_price %> € / Tag (8h)<br>
+                <small class="discount"><%= @room_offer.room_rental_price.eight_hour_discount %>% Rabatt</small>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div id="rental-form-container">
+        <%= render 'room_offers/show/rental_form' %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- OTHER PRICING -->
+  <% if @room_offer.room_offer_prices.present? %>
+    <div class="sideBarbox -pricing">
+      <h3 class="sidebar">Raumpartner Pakete</h3>
+
+      <div class="iconlist">
+        <div class="pricing icontxt">
+          <ul class="pricing-list">
+            <% @room_offer.room_offer_prices.each do |price| %>
+              <li>
+                <div class="cost"><%= "%g €" % price.amount %></div>
+                <div class="costname"><%= price.name %></div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <%= link_to "Allgemeine Anfrage stellen", 'javascript:void(0);', class: "btn-primary -mint", id: 'requestRoom' %>
+    </div>
+  <% end %>
+
+
   <% if @room_offer.occupied? %>
 
     <div class="sideBarbox waiting-list">
@@ -171,6 +172,6 @@
     </aside>
   <% end %>
 
-  <%= link_to "Alle Raumteiler", rooms_wien_path, class: 'btn-primary -mint' %>
+  <!--<%= link_to "Alle Raumteiler", rooms_wien_path, class: 'btn-primary -mint' %>-->
 
 </aside>

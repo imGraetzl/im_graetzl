@@ -97,13 +97,13 @@ section.room-offer-form {
   .availability {
     .day {
       @include respond-to(">small") {
-        width:40.0%;
+        width:42.0%;
       }
       label {min-width:150px;}
     }
     .time {
       @include respond-to(">small") {
-        width:28.5%;
+        width:26.5%;
       }
       label {min-width:20px;}
     }
@@ -132,13 +132,8 @@ section.room-offer-form {
           top:15px;
         }
       }
-    }
-    .price-package + .price-package {
-      padding-top: 20px;
-      border-top: 1px solid $color-ambient-mint-light;
-      a.remove_fields {
-        padding-top: 20px;
-      }
+      margin-bottom:20px;
+      border-bottom: 1px solid $color-ambient-mint-light;
     }
   }
 

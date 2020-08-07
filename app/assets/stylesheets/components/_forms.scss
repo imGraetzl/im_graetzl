@@ -740,3 +740,10 @@ input[type=url]:invalid + em::after {
 }
 
 #card-element {width:100%;}
+
+// DATE PICKER OVERRIDES
+.request-price-form {
+  .picker__day--disabled {
+    text-decoration: line-through;
+  }
+}

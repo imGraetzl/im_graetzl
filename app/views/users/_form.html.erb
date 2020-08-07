@@ -84,6 +84,7 @@
     <h2>Ergänzungen zur <span>Profilseite</span></h2>
     <div class="formRow -double">
       <div class="col1">
+
         <div class="input-field">
           <%= f.label :website do %>
             <%= icon_tag "globe" %>
@@ -91,7 +92,6 @@
           <% end %>
           <%= f.url_field :website, placeholder: 'Deine Web-, FB- oder Blog Url eintragen' %>
         </div>
-
         <div class="upload-oldschool">
           <%= f.label :cover_photo do %>
             <%= icon_tag "photo-camera" %>
@@ -110,26 +110,13 @@
             <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
           </div>
         </div>
+
       </div>
       <div class="col2">
+
         <div class="input-checkbox">
           <%= f.check_box :newsletter %>
           <%= f.label :newsletter, 'Newsletter abonnieren' %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="formBlock profileSection">
-    <h2><span>Billing</span>info</h2>
-    <div class="formRow -double">
-      <div class="col1">
-        <div class="input-field">
-          <%= f.label :iban do %>
-            <%= icon_tag "profile-vcard" %>
-            <span>IBAN</span>
-          <% end %>
-          <%= f.text_field :iban, placeholder: 'IBAN' %>
         </div>
         <div class="input-checkbox">
           <%= f.check_box :business %>
@@ -137,54 +124,16 @@
         </div>
       </div>
 
-      <div class="col1">
-        <% f.object.build_billing_address(country: "Austria", city: "Wien") if f.object.billing_address.nil? %>
-        <%= f.fields_for :billing_address do |bf| %>
-          <div class="input-field">
-            <%= bf.label :street do %>
-              <%= icon_tag "map-location" %>
-              <span>Strasse & Nr.</span>
-            <% end %>
-            <%= bf.text_field :street, placeholder: 'Strasse & Nr.' %>
-          </div>
-
-          <div class="input-field">
-            <%= label_tag :zip do %>
-              <%= icon_tag "map-location" %>
-              <span>Postleitzahl</span>
-            <% end %>
-            <%= bf.text_field :zip, placeholder: 'PLZ' %>
-          </div>
-
-          <div class="input-field">
-            <%= label_tag :city do %>
-              <%= icon_tag "map-location" %>
-              <span>Ort/Stadt</span>
-            <% end %>
-            <%= bf.text_field :city, placeholder: 'Wien' %>
-          </div>
-
-          <div class="input-field">
-            <%= label_tag :country do %>
-              <%= icon_tag "map-location" %>
-              <span>Country</span>
-            <% end %>
-            <%= bf.text_field :country, placeholder: 'Austria' %>
-          </div>
-
-
-          <div class="input-field">
-            <%= bf.label :company do %>
-              <%= icon_tag "home" %>
-              <span>Company Name</span>
-            <% end %>
-            <%= bf.text_field :company %>
-          </div>
-        <% end %>
-      </div>
-
     </div>
   </div>
+
+  
+
+
+
+
+
+
 
   <%= f.submit 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>

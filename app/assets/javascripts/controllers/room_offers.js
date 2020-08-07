@@ -5,26 +5,27 @@ APP.controllers.room_offers = (function() {
     if ($("#GAinfos").exists()) initshowContact();
     if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($("section.roomDetail").exists()) { initRoomDetail(); }
-    if ($("#jBoxBookRoom").exists()) initBookRoom();
     if ($(".request-price-form").exists()) initRoomOfferBookingForm();
   }
 
   function initRoomOfferBookingForm() {
     var dateInput = $('.request-price-form').find(".rent-date");
     var days = dateInput.data("days");
+    var disabledDays = [true].concat(days);
 
     $('.request-price-form').find(".rent-date").pickadate({
       hiddenName: true,
       min: true,
       formatSubmit: 'yyyy-mm-dd',
       format: 'ddd, dd mmm, yyyy',
-      disable: days.map(function(v, i) { return v ? null : i; }),
+      //disable: days.map(function(v, i) { return v ? null : i; }),
+      disable: disabledDays,
       onClose: function() {
         $(document.activeElement).blur();
       },
       // Insert Legend (improve ...)
       onRender: function() {
-        $("#rent_from_root .picker__box").append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_availiable_text'> ... Nicht verfügbar</small><div class='legend_availiable'></div><small class='legend_availiable_text'> ... Verfügbar</small></div>" );
+        $(".request-price-form .picker__box").append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_availiable_text'> ... Nicht verfügbar</small><div class='legend_availiable'></div><small class='legend_availiable_text'> ... Verfügbar</small></div>" );
       }
     }).on("change", function() {
       $(this).parents(".request-price-form").submit();
@@ -46,28 +47,6 @@ APP.controllers.room_offers = (function() {
       animation:{open: 'zoomIn', close: 'zoomOut'},
     });
 
-    var bookRoom = new jBox('Modal', {
-      addClass:'jBox',
-      attach: '#bookRoom',
-      content: $('#jBoxBookRoom'),
-      trigger: 'click',
-      closeOnEsc:true,
-      closeOnClick:'body',
-      blockScroll:true,
-      animation:{open: 'zoomIn', close: 'zoomOut'},
-      onOpen: function() {
-        // Send Click Tracking Infos
-      }
-    });
-
-  }
-
-  function initBookRoom() {
-    $("#jBoxBookRoom input:radio:checked").closest('.cardBox').addClass('-checked');
-    $("#jBoxBookRoom input:radio").on('click', function() {
-      $("#jBoxBookRoom .cardBox").removeClass('-checked');
-      $("#jBoxBookRoom input:radio:checked").closest('.cardBox').addClass('-checked');
-    })
   }
 
   function initshowContact(){
@@ -143,6 +122,25 @@ APP.controllers.room_offers = (function() {
       search: true,
       csvDispCount: 5
     });
+
+    $(".room-categories input").on("change", function() {
+      maxCategories(); // init on Change
+    });
+
+    maxCategories(); // init on Load
+
+  }
+
+  function maxCategories() {
+    if ($(".room-categories input:checked").length >= 3) {
+      $(".room-categories input:not(:checked)").each(function() {
+        $(this).prop("disabled", true);
+        $(this).parents(".input-checkbox").addClass("disabled");
+      });
+    } else {
+      $(".room-categories input").prop("disabled", false);
+      $(".room-categories .input-checkbox").removeClass("disabled");
+    }
   }
 
   return {
