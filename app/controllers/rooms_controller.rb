@@ -64,9 +64,17 @@ class RoomsController < ApplicationController
       offers = offers.joins(:room_offer_categories).where(room_offer_categories: {room_category_id: room_category_ids}).distinct
     end
 
+    if params[:category_id].present?
+      offers = offers.joins(:room_offer_categories).where(room_offer_categories: {room_category_id: params[:category_id]}).distinct
+    end
+
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if graetzl_ids.present? && graetzl_ids.any?(&:present?)
+      puts "------- inside graetzl_ids bei offers--------"
+      puts graetzl_ids
       offers = offers.where(graetzl_id: graetzl_ids)
+      puts offers
+      puts "-----END -----"
     end
 
     offers
@@ -85,8 +93,13 @@ class RoomsController < ApplicationController
       demands = demands.joins(:room_demand_categories).where(room_demand_categories: {room_category_id: room_category_ids}).distinct
     end
 
+    if params[:category_id].present?
+      demands = demands.joins(:room_demand_categories).where(room_demand_categories: {room_category_id: params[:category_id]}).distinct
+    end
+
     graetzl_ids = params.dig(:filter, :graetzl_ids)&.select(&:present?)
     if graetzl_ids.present?
+      puts "------- inside graetzl_ids bei demands--------"
       demands = demands.joins(:room_demand_graetzls).where(room_demand_graetzls: {graetzl_id: graetzl_ids}).distinct
     end
 

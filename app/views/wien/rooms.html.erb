@@ -18,24 +18,23 @@
     <p>Gewerbeflächen teilen - Kosten teilen.</p>
   </div>
 
+  <%= render 'filters/room_categories_slider' %>
+
   <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter' do %>
-    <div class="filter-selection-text">
-      Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
-      aus <%= link_to 'allen Kategorien', '#filter-modal-categories', data: { no_filter_label: 'allen Kategorien'} %>,
-      in <%= link_to 'allen Bezirken', '#filter-modal-bezirk', data: { no_filter_label: 'allen Bezirken'} %>
+    <%= hidden_field_tag :category_id %>
+    <div class="filter-selection-text-jbox">
+      Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler', jbox_title: 'Filtern nach ...'} %>,
+      aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
+      in <%= link_to 'allen Bezirken', '#filter-modal-district', data: { no_filter_label: 'allen Bezirken', jbox_title: 'Filtern nach Bezirk ...'}, class: 'filter-modal-district' %>
     </div>
   <% end %>
 
-  <div id="filter-modal-type" class="filter-modal">
+  <div id="filter-modal-type" class="filter-modal-jbox oneclick">
     <%= render 'filters/room_type' %>
   </div>
 
-  <div id="filter-modal-categories" class="filter-modal">
-    <%= render 'filters/room_categories' %>
-  </div>
-
-  <div id="filter-modal-bezirk" class="filter-modal">
-    <%= render 'filters/district_graetzl' %>
+  <div id="filter-modal-district" class="filter-modal-jbox-district">
+    <%= render 'filters/district' %>
   </div>
 
 

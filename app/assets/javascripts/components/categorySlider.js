@@ -1,4 +1,4 @@
-APP.components.toolCategorySlider = (function() {
+APP.components.categorySlider = (function() {
 
   function init(element) {
     var item_desk = 5;
@@ -8,7 +8,7 @@ APP.components.toolCategorySlider = (function() {
 
     var filterForm = $(".cards-filter");
     var filterLine = $(".filter-line");
-    var suggestionForm = $(".search-suggestion-trigger");
+    var categorylink = filterForm.find('.category-slider-label');
 
     var slider = element.lightSlider({
       item: item_desk,
@@ -46,9 +46,6 @@ APP.components.toolCategorySlider = (function() {
             item: item_tab,
             slideMove: item_tab,
             addClass: '-tablet',
-            onBeforeSlide: function (el) {
-              //showControls(el.getCurrentSlideCount(), item_tab);
-            }
           }
         },
         {
@@ -59,32 +56,10 @@ APP.components.toolCategorySlider = (function() {
             controls: false,
             pager: true,
             addClass: '-mobile',
-            onBeforeSlide: function (el) {
-              //showControls(el.getCurrentSlideCount(), item_mob);
-            }
           }
         }
-      ],
-      onBeforeSlide: function (el) {
-        //showControls(el.getCurrentSlideCount(), item_desk);
-      }
+      ]
     });
-
-    //$('.lSPrev').hide(); // hide prev on load
-
-    // Show or Hide Control Buttons
-    function showControls(currentCount, itemCount) {
-      if (currentCount == 1) {
-        $('.lSPrev').hide();
-      } else {
-        $('.lSPrev').show();
-      }
-      if (currentCount > (items - itemCount)) {
-        $('.lSNext').hide();
-      } else {
-        $('.lSNext').show();
-      }
-    }
 
     // Hover Slide
     element.find('.-category').hover(
@@ -92,30 +67,47 @@ APP.components.toolCategorySlider = (function() {
      function(){ $(this).removeClass('hover')}
    );
 
-   filterForm.hide(); // Hide per default - Show on Category Click
+   //filterForm.hide(); // Hide per default - Show on Category Click
    //filterLine.hide(); // Hide per default - Show on Category Click
 
    // Click Slide
    element.find('.-category').on('click', function(){
      if ($(this).hasClass("activated")) {
+
        $(this).removeClass('activated');
        filterForm.find("[name=category_id]").val("");
-       suggestionForm.val("");
+       updateFilterLabels($(this));
        filterForm.submit();
-       filterForm.slideUp("fast");
-       filterForm.removeClass("-open");
+       //filterForm.slideUp("fast");
+       //filterForm.removeClass("-open");
        //filterLine.slideUp();
+
      } else {
+
        element.find('.-category').removeClass('activated');
        $(this).addClass('activated');
        filterForm.find("[name=category_id]").val($(this).attr("data-id"));
-       suggestionForm.val("");
+       updateFilterLabels($(this));
        filterForm.submit();
        //filterLine.slideDown();
        //filterForm.addClass("-open"); // Search and District Filter vorübergehend deaktiviert
        //filterForm.slideDown("fast"); // Search and District Filter vorübergehend deaktiviert
+
      }
    });
+
+   // Update Text Label if exists on Page
+   function updateFilterLabels(category) {
+     if (typeof categorylink !== "undefined") {
+         if (category.hasClass("activated")) {
+           var label = category.attr("data-label");
+           categorylink.text(label);
+         } else {
+           categorylink.text(categorylink.data("no-filter-label"));
+         }
+     }
+   }
+   // Update Text Label if exists on Page
 
   }
 

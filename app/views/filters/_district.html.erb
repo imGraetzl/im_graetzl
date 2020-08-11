@@ -1,0 +1,22 @@
+<% district_ids ||= nil %>
+<% graetzl_ids ||= nil %>
+
+<script>
+  //console.log("<%= district_ids ||= nil %>");
+  //console.log("<%= graetzl_ids ||= nil %>");
+</script>
+
+<div class="filter-districts">
+  <div class="input-checkbox select-all">
+    <input type="checkbox" value="" id="select-all" name="select-all">
+    <label for="select-all">Ganz Wien</label>
+  </div>
+  <%= collection_check_boxes :filter, :district_ids, District.sorted_by_zip, :id, :zip_name do |b| %>
+    <div class="input-checkbox filter-input">
+      <%= b.check_box("data-label": b.object.zip, "data-graetzls": b.object.graetzls.ids.to_s) %>
+      <%= b.label %>
+    </div>
+  <% end %>
+  <input type="hidden" name="filter[graetzl_ids][]" value="" id="graetzl_ids">
+</div>
+<%= select :filter, :graetzl_ids, options_for_select(graetzl_select_options, graetzl_ids), {}, { multiple: true, class: 'graetzl-ids' } %>

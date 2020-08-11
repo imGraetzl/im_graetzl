@@ -100,39 +100,118 @@ APP.components.cardFilter = (function() {
     cardGrid = $('.card-grid');
 
 
-    filterForm.find(".filter-selection-text a").not( ".plain-link" ).featherlight({
-      root: '.card-grid-container',
-      targetAttr: 'href',
-      persist: true
+    // ---------- USE VOR NEW JBOX MODALS
+
+    var modals = []
+
+    // Use new jBox Modals
+    $(".filter-selection-text-jbox a").not( ".plain-link, .filter-modal-district" ).each(function(index, value) {
+
+        var modal = $(this).attr('href');
+        var $attach = $('[href="'+modal+'"]');
+        var $content = $(''+modal+'');
+
+        modals[modal] = new jBox('Modal', {
+          addClass:'jBox',
+          attach: $attach,
+          getTitle: 'data-jbox-title',
+          confirmButton: 'Do it!',
+          cancelButton: 'Nope',
+          content: $content,
+          trigger: 'click',
+          closeOnEsc:true,
+          closeOnClick:'body',
+          blockScroll:true,
+          animation:{open: 'zoomIn', close: 'zoomOut'},
+          onOpen: function() {}
+        });
+
     });
 
+    // jBox District Filter MODAL
 
-
-    /*
-    var filterModal = new jBox('Modal', {
+    var districtModal = new jBox('Confirm', {
       addClass:'jBox',
-      attach: '.filter-selection-text a',
-      content: $('.filter-input'),
+      attach: '.filter-modal-district',
+      getTitle: 'data-jbox-title',
+      confirmButton: 'Auswahl übernehmen',
+      cancelButton: 'Filter zurücksetzen',
+      content: $('.filter-modal-jbox-district'),
       trigger: 'click',
       closeOnEsc:true,
       closeOnClick:'body',
       blockScroll:true,
       animation:{open: 'zoomIn', close: 'zoomOut'},
-      onOpen: function() {
-        // Here we are getting the ID of the content to display
-        var id = this.source.attr('href').split("#")[1];
-        console.log(id);
-        console.log(this.content);
-        // Now we are hiding all content elements
-        this.content.find('.filter-input').css({display: 'none'});
-
-        // Then we show the content with the id we just received
-        this.content.find('.'+id).css({display: 'block'});
+      confirm: function() {
+        selectAllGraetzlsIn(this.content);
+        updateFilterInputs(this.content);
+        updateFilterLabels(this.content);
+        filterForm.submit();
+      },
+      cancel: function() {
+        unSelectAllDistricts(this.content);
+        selectAllGraetzlsIn(this.content);
+        updateFilterInputs(this.content);
+        updateFilterLabels(this.content);
+        filterForm.submit();
       }
     });
-    */
 
 
+    // TODO : Check-All - Bei click auf District Checkboxes, schauen ob alle geklickt
+    // wenn nicht, dann gan Wien unchecken, wenn ja, dann Ganz Wien Checken.
+
+    // District Filter - Select Ganz Wien Checkbox
+    $(".filter-modal-jbox-district").on("click", ".select-all", function() {
+      if ($(".select-all input:checkbox").prop('checked') == true) {
+        selectAllDistricts($(".filter-modal-jbox-district"))
+      } else {
+        unSelectAllDistricts($(".filter-modal-jbox-district"))
+      }
+    });
+    $(".filter-modal-jbox-district .filter-input").on("change", function() {
+
+      var countDistricts = $(".filter-modal-jbox-district .filter-input").length;
+      var countCheckedDistricts = $(".filter-modal-jbox-district .filter-input").find('input:checked').length;
+
+      if (countDistricts == countCheckedDistricts) {
+        $(".select-all input:checkbox").prop("checked", true);
+      } else {
+        $(".select-all input:checkbox").prop("checked", false);
+      }
+
+    });
+
+
+
+    $(".filter-modal-jbox").on("click", ".filter-button", function() {
+      var currentModalContent = $(this).closest( ".filter-modal-jbox" );
+      var currentModalId = '#' + currentModalContent.attr('id');
+      updateFilterInputs(currentModalContent);
+      updateFilterLabels(currentModalContent);
+      filterForm.submit();
+      modals[currentModalId].close();
+    });
+
+    $(".filter-modal-jbox.oneclick .filter-input").on("change", function() {
+      var currentModalContent = $(this).closest( ".filter-modal-jbox" );
+      var currentModalId = '#' + currentModalContent.attr('id');
+      updateFilterInputs(currentModalContent);
+      updateFilterLabels(currentModalContent);
+      filterForm.submit();
+      modals[currentModalId].close();
+    });
+
+    // ---------- USE FOR NEW JBOX MODALS
+
+
+    // ---------- USE FOR OLD featherlight MODALS
+
+    filterForm.find(".filter-selection-text a").not( ".plain-link" ).featherlight({
+      root: '.card-grid-container',
+      targetAttr: 'href',
+      persist: true
+    });
 
     $(".filter-modal").on("click", ".reset-button", function() {
       $('input:checkbox').prop('checked', false);
@@ -144,13 +223,15 @@ APP.components.cardFilter = (function() {
 
     $(".filter-modal").on("click", ".filter-button", function() {
       var currentModal = $.featherlight.current();
-      //console.log(currentModal);
-      //console.log(currentModal.$content);
       updateFilterInputs(currentModal.$content);
       updateFilterLabels(currentModal.$content);
       filterForm.submit();
       currentModal.close();
     });
+
+    // ---------- USE FOR OLD featherlight MODALS
+
+
 
     $(".filter-modal").each(function() {
       updateFilterInputs($(this));
@@ -173,6 +254,37 @@ APP.components.cardFilter = (function() {
     });
 
     filterForm.submit();
+  }
+
+  function selectAllDistricts(modal) {
+    modal.find(".filter-input input:checkbox").each(function(){
+      $(this).prop("checked", true);
+    });
+  }
+
+  function unSelectAllDistricts(modal) {
+    modal.find(".filter-input input:checkbox").each(function(){
+      $(this).prop("checked", false);
+    });
+  }
+
+  function selectAllGraetzlsIn(modal) {
+
+    var districtIds = [];
+    modal.find(".filter-input input:checkbox:checked").each(function(){
+      districtIds = districtIds.concat($(this).val());
+    });
+
+    if (districtIds.length == 23) {
+      unSelectAllDistricts(modal);
+      districtIds = []; // Reset for better Rails Performance
+    }
+
+    $('.graetzl-ids').find('option').each(function() {
+      $(this).prop("selected", false);
+      var inSelectedDistrict = districtIds && districtIds.indexOf($(this).data('districtId').toString()) > -1;
+      if (inSelectedDistrict) $(this).prop("selected", true);
+    });
   }
 
   function updateFilterInputs(modal) {

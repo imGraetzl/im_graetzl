@@ -31,7 +31,7 @@ APP.controllers.graetzls = (function() {
       }
 
       if ($("section.toolteiler").exists()) {
-        APP.components.toolCategorySlider.init($('#category-slider'));
+        APP.components.categorySlider.init($('#category-slider'));
       }
     }
 

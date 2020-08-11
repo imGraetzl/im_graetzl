@@ -276,7 +276,7 @@
 
 }
 
-.cards-filter .filter-selection-text {
+.cards-filter .filter-selection-text, .cards-filter .filter-selection-text-jbox {
   text-align: center;
   font-style: italic;
   position: relative;
@@ -292,13 +292,18 @@
     padding: 0 10px;
   }
 
-  a:hover {
+  a:hover:not(.category-slider-label) {
     color: $color-ambient-grey-light;
     background-color: $color-ambient-rosa;
   }
+
+  a.category-slider-label {
+    cursor:default;
+  }
+
 }
 
-.filter-modal {
+.filter-modal, .filter-modal-jbox, .filter-modal-jbox-district {
   display: none;
 
   .filter-button { margin-top: 20px; }

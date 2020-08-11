@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_144624) do
+ActiveRecord::Schema.define(version: 2020_08_07_081159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_144624) do
     t.string "recipient_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "cross_platform", default: true
+    t.boolean "cross_platform", default: false
     t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
     t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
     t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
@@ -98,6 +98,13 @@ ActiveRecord::Schema.define(version: 2020_08_02_144624) do
     t.integer "user_id"
     t.index ["business_interest_id"], name: "index_business_interests_users_on_business_interest_id"
     t.index ["user_id"], name: "index_business_interests_users_on_user_id"
+  end
+
+  create_table "categories_meetings", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "meeting_id"
+    t.index ["category_id"], name: "index_categories_meetings_on_category_id"
+    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -472,6 +479,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_144624) do
   create_table "platform_meeting_join_requests", force: :cascade do |t|
     t.bigint "meeting_id"
     t.text "request_message"
+    t.boolean "wants_platform_meeting", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
@@ -591,6 +599,9 @@ ActiveRecord::Schema.define(version: 2020_08_02_144624) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "main_photo_id"
+    t.string "main_photo_content_type"
+    t.integer "position", default: 0
   end
 
   create_table "room_demand_categories", id: :serial, force: :cascade do |t|
@@ -926,8 +937,6 @@ ActiveRecord::Schema.define(version: 2020_08_02_144624) do
     t.boolean "all_districts", default: false
     t.string "invoice_number"
     t.string "link"
-    t.integer "graetzl_id"
-    t.index ["graetzl_id"], name: "index_zuckerls_on_graetzl_id"
     t.index ["initiative_id"], name: "index_zuckerls_on_initiative_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
@@ -943,7 +952,6 @@ ActiveRecord::Schema.define(version: 2020_08_02_144624) do
   add_foreign_key "discussion_posts", "users", on_delete: :nullify
   add_foreign_key "discussions", "discussion_categories", on_delete: :nullify
   add_foreign_key "discussions", "groups", on_delete: :cascade
-  add_foreign_key "discussions", "users", on_delete: :nullify
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
