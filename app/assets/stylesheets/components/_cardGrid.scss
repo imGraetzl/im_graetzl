@@ -304,7 +304,13 @@
 }
 
 .filter-modal, .filter-modal-jbox, .filter-modal-jbox-district {
+
   display: none;
+
+  .filter-input-graetzl, .select-all {
+    border-bottom: 1px solid $color-ambient-mint-light;
+    font-style: italic;
+  }
 
   .filter-button { margin-top: 20px; }
   .district-select-input { margin-bottom: 15px; margin-top:10px;}
@@ -326,12 +332,12 @@
 
   .filter-categories {
     @include respond-to(">=medium") {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 600px;
-      .input-checkbox {
-        width:50%;
-      }
+      //display: flex;
+      //flex-wrap: wrap;
+      //max-width: 600px;
+      //.input-checkbox {
+        //width:50%;
+      //}
     }
   }
 

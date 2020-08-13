@@ -55,6 +55,10 @@ APP.controllers.districts = (function() {
     if ($("section.toolteiler").exists()) {
       APP.components.categorySlider.init($('#category-slider'));
     }
+
+    if ($("section.rooms").exists()) {
+      APP.components.categorySlider.init($('#category-slider'));
+    }
   }
 
   function initMobileNav() {

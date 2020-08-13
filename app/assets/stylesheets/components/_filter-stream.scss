@@ -275,12 +275,18 @@
 }
 
 // FILTER jBox
+
+.jBox-wrapper .jBox-container {
+  margin-top:10px !important;
+  label {cursor: pointer;}
+}
+
 .jBox-Confirm {
 
   .jBox-content {
     text-align: left !important;
-    padding-top:0px !important;
-    padding-bottom:0px !important;
+    padding-top:10px !important;
+    padding-bottom:10px !important;
   }
 
   .jBox-Confirm-footer {
