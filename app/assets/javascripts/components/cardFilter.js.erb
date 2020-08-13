@@ -346,7 +346,7 @@ APP.components.cardFilter = (function() {
         var shownCount = selectedInputs.length - 2;
         selectedInputs.length = 2; // Cut for too much labels and show more info
         var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
-        link.text(label +', +' + shownCount + ' weitere');
+        link.text(label +', + ' + shownCount + ' weitere');
         link.addClass('filter-applied');
     } else if (selectedInputs.length > 0) {
         var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
