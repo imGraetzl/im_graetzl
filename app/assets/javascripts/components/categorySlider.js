@@ -76,6 +76,7 @@ APP.components.categorySlider = (function() {
 
        $(this).removeClass('activated');
        filterForm.find("[name=category_id]").val("");
+       filterForm.find("[name=special_category_id]").val("");
        updateFilterLabels($(this));
        filterForm.submit();
        //filterForm.slideUp("fast");
@@ -84,9 +85,18 @@ APP.components.categorySlider = (function() {
 
      } else {
 
+       if ($(this).hasClass("-special-category")) {
+         // Special Filter Selected
+         filterForm.find("[name=category_id]").val("");
+         filterForm.find("[name=special_category_id]").val($(this).attr("data-id"));
+       } else {
+         // Normal Filter Selected
+         filterForm.find("[name=special_category_id]").val("");
+         filterForm.find("[name=category_id]").val($(this).attr("data-id"));
+       }
+
        element.find('.-category').removeClass('activated');
        $(this).addClass('activated');
-       filterForm.find("[name=category_id]").val($(this).attr("data-id"));
        updateFilterLabels($(this));
        filterForm.submit();
        //filterLine.slideDown();

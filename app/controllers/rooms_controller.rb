@@ -64,6 +64,10 @@ class RoomsController < ApplicationController
       offers = offers.joins(:room_offer_categories).where(room_offer_categories: {room_category_id: room_category_ids}).distinct
     end
 
+    if params[:special_category_id].present? && params[:special_category_id] == 'room_rental'
+      offers = offers.rentable
+    end
+
     if params[:category_id].present?
       offers = offers.joins(:room_offer_categories).where(room_offer_categories: {room_category_id: params[:category_id]}).distinct
     end
@@ -79,6 +83,10 @@ class RoomsController < ApplicationController
   def filter_demands(demands)
     room_type = params.dig(:filter, :room_type)
     if room_type.present? && room_type != 'demand'
+      return RoomDemand.none
+    end
+
+    if params[:special_category_id].present? && params[:special_category_id] == 'room_rental'
       return RoomDemand.none
     end
 

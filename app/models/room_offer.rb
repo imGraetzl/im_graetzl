@@ -50,6 +50,7 @@ class RoomOffer < ApplicationRecord
 
   scope :by_currentness, -> { order(created_at: :desc) }
   scope :reactivated, -> { enabled.where("last_activated_at > created_at") }
+  scope :rentable, -> { joins(:room_rental_price) }
 
   LIFETIME_MONTHS = 6
 

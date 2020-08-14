@@ -22,6 +22,7 @@
 
   <%= form_tag rooms_path, method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id %>
+    <%= hidden_field_tag :special_category_id %>
     <div class="filter-selection-text-jbox">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
