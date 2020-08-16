@@ -111,34 +111,68 @@
           width: 100px;
           height: 100px;
         }
-        &.category-1 {
+
+        // Tools Categories
+        &.category-1.-tools {
           background-image: url(image_path('svg/icon-kringel-gesundheit-active.svg'));
         }
-        &.category-2 {
+        &.category-2.-tools {
           background-image: url(image_path('svg/icon-kringel-handwerk-active.svg'));
         }
-        &.category-3 {
+        &.category-3.-tools {
           background-image: url(image_path('svg/icon-kringel-grafik-design-active.svg'));
         }
-        &.category-4 {
+        &.category-4.-tools {
           background-image: url(image_path('svg/icon-kringel-event-active.svg'));
         }
-        &.category-5 {
+        &.category-5.-tools {
           background-image: url(image_path('svg/icon-kringel-gastronomie-active.svg'));
         }
-        &.category-6 {
+        &.category-6.-tools {
           background-image: url(image_path('svg/icon-kringel-technik-foto-active.svg'));
         }
-        &.category-7 {
+        &.category-7.-tools {
           background-image: url(image_path('svg/icon-kringel-instrumente-active.svg'));
         }
-        &.category-8 {
+        &.category-8.-tools {
           background-image: url(image_path('svg/icon-kringel-kunst-active.svg'));
         }
-        &.category-9 {
+        &.category-9.-tools {
           background-image: url(image_path('svg/icon-kringel-deko-active.svg'));
         }
-        &.category-10 {
+        &.category-10.-tools {
+          background-image: url(image_path('svg/icon-kringel-transport-active.svg'));
+        }
+
+        // Rooms Categories
+        &.category-11.-rooms {
+          background-image: url(image_path('svg/icon-kringel-gesundheit-active.svg'));
+        }
+        &.category-12.-rooms {
+          background-image: url(image_path('svg/icon-kringel-handwerk-active.svg'));
+        }
+        &.category-13.-rooms {
+          background-image: url(image_path('svg/icon-kringel-grafik-design-active.svg'));
+        }
+        &.category-14.-rooms {
+          background-image: url(image_path('svg/icon-kringel-event-active.svg'));
+        }
+        &.category-15.-rooms {
+          background-image: url(image_path('svg/icon-kringel-gastronomie-active.svg'));
+        }
+        &.category-16.-rooms {
+          background-image: url(image_path('svg/icon-kringel-technik-foto-active.svg'));
+        }
+        &.category-17.-rooms {
+          background-image: url(image_path('svg/icon-kringel-instrumente-active.svg'));
+        }
+        &.category-18.-rooms {
+          background-image: url(image_path('svg/icon-kringel-kunst-active.svg'));
+        }
+        &.category-19.-rooms {
+          background-image: url(image_path('svg/icon-kringel-deko-active.svg'));
+        }
+        &.category-20.-rooms {
           background-image: url(image_path('svg/icon-kringel-transport-active.svg'));
         }
       }
@@ -181,34 +215,68 @@
       margin-bottom: auto;
       margin-left: auto;
       margin-right: auto;
-      &.category-1 {
+
+      // Tools Categories
+      &.category-1.-tools {
         background-image: url(image_path('svg/icon-kringel-gesundheit.svg'));
       }
-      &.category-2 {
+      &.category-2.-tools {
         background-image: url(image_path('svg/icon-kringel-handwerk.svg'));
       }
-      &.category-3 {
+      &.category-3.-tools {
         background-image: url(image_path('svg/icon-kringel-grafik-design.svg'));
       }
-      &.category-4 {
+      &.category-4.-tools {
         background-image: url(image_path('svg/icon-kringel-event.svg'));
       }
-      &.category-5 {
+      &.category-5.-tools {
         background-image: url(image_path('svg/icon-kringel-gastronomie.svg'));
       }
-      &.category-6 {
+      &.category-6.-tools {
         background-image: url(image_path('svg/icon-kringel-technik-foto.svg'));
       }
-      &.category-7 {
+      &.category-7.-tools {
         background-image: url(image_path('svg/icon-kringel-instrumente.svg'));
       }
-      &.category-8 {
+      &.category-8.-tools {
         background-image: url(image_path('svg/icon-kringel-kunst.svg'));
       }
-      &.category-9 {
+      &.category-9.-tools {
         background-image: url(image_path('svg/icon-kringel-deko.svg'));
       }
-      &.category-10 {
+      &.category-10.-tools {
+        background-image: url(image_path('svg/icon-kringel-transport.svg'));
+      }
+
+      // Rooms Categories
+      &.category-11.-rooms {
+        background-image: url(image_path('svg/icon-kringel-gesundheit.svg'));
+      }
+      &.category-12.-rooms {
+        background-image: url(image_path('svg/icon-kringel-handwerk.svg'));
+      }
+      &.category-13.-rooms {
+        background-image: url(image_path('svg/icon-kringel-grafik-design.svg'));
+      }
+      &.category-14.-rooms {
+        background-image: url(image_path('svg/icon-kringel-event.svg'));
+      }
+      &.category-15.-rooms {
+        background-image: url(image_path('svg/icon-kringel-gastronomie.svg'));
+      }
+      &.category-16.-rooms {
+        background-image: url(image_path('svg/icon-kringel-technik-foto.svg'));
+      }
+      &.category-17.-rooms {
+        background-image: url(image_path('svg/icon-kringel-instrumente.svg'));
+      }
+      &.category-18.-rooms {
+        background-image: url(image_path('svg/icon-kringel-kunst.svg'));
+      }
+      &.category-19.-rooms {
+        background-image: url(image_path('svg/icon-kringel-deko.svg'));
+      }
+      &.category-20.-rooms {
         background-image: url(image_path('svg/icon-kringel-transport.svg'));
       }
     }

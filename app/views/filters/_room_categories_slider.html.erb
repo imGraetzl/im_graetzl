@@ -11,10 +11,10 @@
         <% end %>
       </div>
     <!-- /RoomOffers with Rental Option-->
-    <% RoomCategory.all.each do |category| %>
+    <% RoomCategory.all.sort_by(&:position).each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>">
         <%= category_photo_for(category) %>
-        <div class="cat category-<%= category.id %>"></div>
+        <div class="cat category-<%= category.id %> -rooms"></div>
         <h3><%= category.name %></h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
