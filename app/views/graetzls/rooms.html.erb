@@ -13,11 +13,12 @@
   <%= render 'navigation' %>
 
   <% if !user_signed_in? %>
-    <div class="hl-subtext -cards">
-      <h1><span>Raumteiler</span> - Für neue Raumpartnerschaften</h1>
-      <p>Gewerbeflächen teilen - Kosten teilen.</p>
-    </div>
+    <!-- only logged in -->
   <% end %>
+  <div class="hl-subtext -cards">
+    <%= image_tag 'svg/raumteiler-headline.svg', class: 'raumteiler-headline' %>
+    <p>Gewerbeflächen teilen - Kosten teilen.</p>
+  </div>
 
   <%= render 'filters/room_categories_slider' %>
 
