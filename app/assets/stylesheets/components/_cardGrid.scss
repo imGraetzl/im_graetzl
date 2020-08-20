@@ -148,35 +148,47 @@
         &.-booking {
           background-image: url(image_path('svg/icon-kringel-kurzzeitmiete-active.svg'));
         }
-        &.category-11.-rooms {
-          background-image: url(image_path('svg/icon-kringel-bueroraum-active.svg'));
+        &.-arbeitsplatz.-rooms {
+          background-image: url(image_path('svg/icon-kringel-arbeitsplatz-active.svg'));
         }
-        &.category-12.-rooms {
-          background-image: url(image_path('svg/icon-kringel-praxis-active.svg'));
-        }
-        &.category-13.-rooms {
+        &.-atelier.-rooms {
           background-image: url(image_path('svg/icon-kringel-atelier-active.svg'));
         }
-        &.category-14.-rooms {
+        &.-bueroraum.-rooms {
+          background-image: url(image_path('svg/icon-kringel-bueroraum-active.svg'));
+        }
+        &.-coaching.-rooms {
+          background-image: url(image_path('svg/icon-kringel-coaching-active.svg'));
+        }
+        &.-coworking.-rooms {
+          background-image: url(image_path('svg/icon-kringel-coworking-active.svg'));
+        }
+        &.-gastro.-rooms {
+          background-image: url(image_path('svg/icon-kringel-gastro-active.svg'));
+        }
+        &.-geschaeftslokal.-rooms {
+          background-image: url(image_path('svg/icon-kringel-geschaeftslokal-active.svg'));
+        }
+        &.-popup.-rooms {
+          background-image: url(image_path('svg/icon-kringel-popup-active.svg'));
+        }
+        &.-praxis.-rooms {
+          background-image: url(image_path('svg/icon-kringel-praxis-active.svg'));
+        }
+        &.-proberaum.-rooms {
           background-image: url(image_path('svg/icon-kringel-proberaum-active.svg'));
         }
-        &.category-15.-rooms {
+        &.-seminarraum.-rooms {
+          background-image: url(image_path('svg/icon-kringel-seminarraum-active.svg'));
+        }
+        &.-veranstaltung.-rooms {
+          background-image: url(image_path('svg/icon-kringel-veranstaltung-active.svg'));
+        }
+        &.-werkstatt.-rooms {
+          background-image: url(image_path('svg/icon-kringel-werkstatt-active.svg'));
+        }
+        &.-yoga.-rooms {
           background-image: url(image_path('svg/icon-kringel-yoga-active.svg'));
-        }
-        &.category-16.-rooms {
-          background-image: url(image_path('svg/icon-kringel-technik-foto-active.svg'));
-        }
-        &.category-17.-rooms {
-          background-image: url(image_path('svg/icon-kringel-instrumente-active.svg'));
-        }
-        &.category-18.-rooms {
-          background-image: url(image_path('svg/icon-kringel-kunst-active.svg'));
-        }
-        &.category-19.-rooms {
-          background-image: url(image_path('svg/icon-kringel-deko-active.svg'));
-        }
-        &.category-20.-rooms {
-          background-image: url(image_path('svg/icon-kringel-transport-active.svg'));
         }
       }
     }
@@ -252,38 +264,51 @@
       }
 
       // Rooms Categories
+      // Rooms Categories
       &.-booking {
         background-image: url(image_path('svg/icon-kringel-kurzzeitmiete.svg'));
       }
-      &.category-11.-rooms {
-        background-image: url(image_path('svg/icon-kringel-bueroraum.svg'));
+      &.-arbeitsplatz.-rooms {
+        background-image: url(image_path('svg/icon-kringel-arbeitsplatz.svg'));
       }
-      &.category-12.-rooms {
-        background-image: url(image_path('svg/icon-kringel-praxis.svg'));
-      }
-      &.category-13.-rooms {
+      &.-atelier.-rooms {
         background-image: url(image_path('svg/icon-kringel-atelier.svg'));
       }
-      &.category-14.-rooms {
+      &.-bueroraum.-rooms {
+        background-image: url(image_path('svg/icon-kringel-bueroraum.svg'));
+      }
+      &.-coaching.-rooms {
+        background-image: url(image_path('svg/icon-kringel-coaching.svg'));
+      }
+      &.-coworking.-rooms {
+        background-image: url(image_path('svg/icon-kringel-coworking.svg'));
+      }
+      &.-gastro.-rooms {
+        background-image: url(image_path('svg/icon-kringel-gastro.svg'));
+      }
+      &.-geschaeftslokal.-rooms {
+        background-image: url(image_path('svg/icon-kringel-geschaeftslokal.svg'));
+      }
+      &.-popup.-rooms {
+        background-image: url(image_path('svg/icon-kringel-popup.svg'));
+      }
+      &.-praxis.-rooms {
+        background-image: url(image_path('svg/icon-kringel-praxis.svg'));
+      }
+      &.-proberaum.-rooms {
         background-image: url(image_path('svg/icon-kringel-proberaum.svg'));
       }
-      &.category-15.-rooms {
+      &.-seminarraum.-rooms {
+        background-image: url(image_path('svg/icon-kringel-seminarraum.svg'));
+      }
+      &.-veranstaltung.-rooms {
+        background-image: url(image_path('svg/icon-kringel-veranstaltung.svg'));
+      }
+      &.-werkstatt.-rooms {
+        background-image: url(image_path('svg/icon-kringel-werkstatt.svg'));
+      }
+      &.-yoga.-rooms {
         background-image: url(image_path('svg/icon-kringel-yoga.svg'));
-      }
-      &.category-16.-rooms {
-        background-image: url(image_path('svg/icon-kringel-technik-foto.svg'));
-      }
-      &.category-17.-rooms {
-        background-image: url(image_path('svg/icon-kringel-instrumente.svg'));
-      }
-      &.category-18.-rooms {
-        background-image: url(image_path('svg/icon-kringel-kunst.svg'));
-      }
-      &.category-19.-rooms {
-        background-image: url(image_path('svg/icon-kringel-deko.svg'));
-      }
-      &.category-20.-rooms {
-        background-image: url(image_path('svg/icon-kringel-transport.svg'));
       }
     }
   }

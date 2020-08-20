@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_081159) do
+ActiveRecord::Schema.define(version: 2020_08_20_094148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -602,6 +602,7 @@ ActiveRecord::Schema.define(version: 2020_08_07_081159) do
     t.string "main_photo_id"
     t.string "main_photo_content_type"
     t.integer "position", default: 0
+    t.string "css_ico_class"
   end
 
   create_table "room_demand_categories", id: :serial, force: :cascade do |t|
