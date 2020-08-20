@@ -743,7 +743,23 @@ input[type=url]:invalid + em::after {
 
 // DATE PICKER OVERRIDES
 .request-price-form {
-  .picker__day--disabled {
-    text-decoration: line-through;
+  .picker__day {
+    position: relative;
   }
+  .picker__day--disabled::after {
+    top: 0;
+    left: 0;
+    width: 1px;
+    right: 0;
+    height: 80%;
+    bottom: 0;
+    margin: auto;
+    content: '';
+    display: block;
+    position: absolute;
+    transform: rotate(60deg);
+    background: $color-ambient-rosa;
+    //text-decoration: line-through;
+  }
+
 }

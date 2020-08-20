@@ -25,7 +25,8 @@ APP.controllers.room_offers = (function() {
       },
       // Insert Legend (improve ...)
       onRender: function() {
-        $(".request-price-form .picker__box").append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_availiable_text'> ... Nicht verfügbar</small><div class='legend_availiable'></div><small class='legend_availiable_text'> ... Verfügbar</small></div>" );
+        $(".request-price-form .picker__box").append( "<div class='picker__legend'><div class='legend_not_availiable'></div><small class='legend_text'> ... an diesen Tagen nicht verfügbar</small></div>" );
+        $(".request-price-form .picker__box .picker__header").append( "<div class='picker__header_info'><small class='legend_text'>Wähle dein Mietdatum.<br />(Du kannst im Buchungsprozess auch noch weitere Tage hinzufügen.)</small></div>" );
       }
     }).on("change", function() {
       $(this).parents(".request-price-form").submit();
