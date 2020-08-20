@@ -340,6 +340,7 @@
 .picker__header_info {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   padding:10px;
   margin-top:10px;
   border-top: 1px solid $color-ambient-grey-light;
@@ -349,10 +350,17 @@
     color: $disabled-things-text;
     font-style: italic;
   }
+  .legend_headline {
+    font-size: .75em;
+    display: block;
+    width:100%;
+    //color: $disabled-things-text;
+    //font-style: italic;
+  }
 }
 
 .picker__legend {
-  padding:10px;
+  padding-bottom:10px;
   font-style: italic;
   text-align: center;
   .legend_not_availiable, .legend_availiable {
