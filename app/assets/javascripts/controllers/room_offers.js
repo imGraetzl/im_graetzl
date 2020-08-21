@@ -101,7 +101,7 @@ APP.controllers.room_offers = (function() {
     APP.components.tabs.initTabs(".tabs-ctrl");
     APP.components.addressSearchAutocomplete();
 
-    $(".next-screen").on("click", function() {
+    $(".next-screen, .prev-screen").on("click", function() {
       $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
       $('.tabs-ctrl').get(0).scrollIntoView();
     });
