@@ -238,6 +238,12 @@ de:
         status_message:
           enabled: Deine Raumsuche ist nun aktiv und sichtbar.
           disabled: Dein Raumsuche ist nun deaktiviert und scheint nicht mehr auf den Raumteilerseiten auf.
+      room_rental:
+        rental_statuses:
+          pending: Noch nicht akzeptiert
+          canceled: Anfrage zurückgezogen
+          rejected: Anfrage abgelehnt
+          approved: Anfrage akzeptiert
       tool_offer:
         address: Adresse
         title: Titel
