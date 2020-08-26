@@ -48,6 +48,10 @@ APP.controllers.room_rentals = (function() {
         $(input).pickadate('picker').set('select', $(input).val(), { format: 'yyyy-mm-dd' });
       });
 
+      $('.date-screen').on('change', '.datepicker', function() {
+        $(this).parents(".date-fields").find('.hour-input').attr("disabled", !$(this).val());
+      });
+
       $('.date-screen').on('change', '.datepicker, .hour-from', function() {
         var fieldRow = $(this).parents(".date-fields");
         var hoursUrl = fieldRow.data('hours-url');
