@@ -29,7 +29,7 @@
               <td class="available" colspan="<%= length %>"> Verfügbar </td>
             <% else %>
               <td class="rented" colspan="<%= length %>">
-                Vermietet <%= link_to status.owner.first_name, messenger_path(thread_id: status.user_message_thread.id) %>
+                Vermietet <%= link_to status.renter.first_name, messenger_path(thread_id: status.user_message_thread.id) %>
             <% end %>
           <% end %>
         </tr>
