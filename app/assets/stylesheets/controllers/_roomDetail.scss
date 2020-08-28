@@ -189,7 +189,9 @@ section.roomDetail {
         margin-top:60px;
       }
       &.contact:first-child {
-        margin-top:0px;
+        @include respond-to(">=medium") {
+          margin-top:0px;
+        }
       }
     }
 
@@ -213,7 +215,7 @@ section.roomDetail {
         margin-bottom: 15px;
       }
 
-      .input-field {
+      .input-field, .input-select {
         overflow: hidden;
         @include respond-to("<medium") {
           @include field-HorizontalLayout;
