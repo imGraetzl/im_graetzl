@@ -12,7 +12,7 @@ class RoomRentalInvoice
   def generate_for_owner(room_rental)
     pdf = Prawn::Document.new
     add_header(pdf)
-    add_owner_info(pdf, room_rental.room_offer)
+    add_owner_info(pdf, room_rental.owner)
     add_owner_price_info(pdf, room_rental)
     add_company_info(pdf)
     pdf.render
@@ -57,10 +57,12 @@ class RoomRentalInvoice
     pdf.move_down 50
   end
 
-  def add_owner_info(pdf, room_offer)
-    pdf.text room_offer.slogan
-    pdf.text room_offer.address.street
-    pdf.text "#{room_offer.address.zip} #{room_offer.address.city}"
+  def add_owner_info(pdf, owner)
+    return if owner.billing_address.blank?
+    pdf.text owner.billing_address.full_name
+    pdf.text owner.billing_address.street
+    pdf.text "#{owner.billing_address.zip} #{owner.billing_address.city}"
+    pdf.text owner.vat_id
     pdf.move_down 50
   end
 
@@ -76,7 +78,9 @@ class RoomRentalInvoice
     table_data << [room_rental.id, room_rental.room_offer.slogan, room_rental.rental_period, room_rental.renter_name, format_price(room_rental.basic_price)]
     table_data << [nil, nil, nil, nil, "Rabatt", format_price(-room_rental.discount)] if room_rental.discount?
     table_data << [nil, nil, nil, nil, "(20% MwSt.)", format_price(room_rental.tax)]
-    table_data << [nil, nil, nil, nil, "Servicegebühr Gesamt (Inkl. MwSt)", format_price(-room_rental.service_fee)]
+    table_data << [nil, nil, nil, nil, "imGrätzl Service Fee", format_price(-room_rental.basic_service_fee)]
+    table_data << [nil, nil, nil, nil, "Ust (20%) on imGrätzl Service Fee", format_price(-room_rental.service_fee_tax)]
+
     table_data << [nil, nil, nil, nil, "Auszahlungsbetrag", format_price(room_rental.owner_payout_amount)]
 
     pdf.table(table_data, width: pdf.bounds.width, column_widths: {5 => 60}) do
