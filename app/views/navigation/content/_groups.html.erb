@@ -1,7 +1,7 @@
 <% if @groups.empty? %>
-  <div class="nav-menu-item">
+  <em class="nav-menu-item">
     Du bist in keiner Gruppe Mitglied ..
-  </div>
+  </em>
 <% end %>
 <% @groups.each do |group| %>
   <%= link_to group, class: 'nav-menu-item' do %>

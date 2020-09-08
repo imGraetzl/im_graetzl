@@ -144,7 +144,7 @@
     text-decoration: none;
     color: $color-font-primary;
     border-bottom: 1px solid $color-ambient-mint-light;
-    &:last-of-type { border-bottom: none; }
+    &:last-child { border-bottom: none; }
     &:hover, &:active { background-color: $color-ambient-mint-light; }
     &.half { width: 50%; }
     &.half:first-child { float: left; border-right: 1px solid $color-ambient-mint-light; }
@@ -165,7 +165,10 @@
       margin-right:8px;
       min-width:50px;
     }
-    
+
+  }
+  em.nav-menu-item {
+    color: $color-ambient-grey;
   }
 
   .nav-logo {

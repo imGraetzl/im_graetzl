@@ -30,20 +30,21 @@ class RoomRentalInvoice
     pdf.text room_rental.renter_name
     pdf.text room_rental.renter_address
     pdf.text "#{room_rental.renter_zip} #{room_rental.renter_city}"
-    pdf.move_down 20
+    pdf.move_down 30
     pdf.text "Rechnungssteller", size: 14, style: :bold
-    pdf.text room_rental.owner.full_name
-    pdf.text room_rental.owner.address.street_name
-    pdf.text "#{room_rental.owner.address.zip} #{room_rental.owner.address.city}"
-    pdf.move_down 20
+    pdf.text room_rental.owner.billing_address.company if room_rental.owner.billing_address.company.present?
+    pdf.text "#{room_rental.owner.billing_address.first_name} #{room_rental.owner.billing_address.last_name}"
+    pdf.text room_rental.owner.billing_address.street
+    pdf.text "#{room_rental.owner.billing_address.zip} #{room_rental.owner.billing_address.city}"
+    pdf.move_down 30
   end
 
   def add_renter_price_info(pdf, room_rental)
+    pdf.text "Rechnung", size: 20, style: :bold
+    pdf.move_down 10
     pdf.text "Rechnungsnummer: #{room_rental.invoice_number}"
     pdf.text "Datum: #{room_rental.created_at.to_date}"
-    pdf.move_down 10
-    pdf.text "Rechnung", size: 30, style: :bold
-    pdf.move_down 10
+    pdf.move_down 20
 
     table_data = []
     table_data << ["ID", "Raumteiler", "Miete", nil, "Preis"]
@@ -66,23 +67,24 @@ class RoomRentalInvoice
   # OWNER INVOICE
   def add_owner_info(pdf, owner)
     pdf.text "Rechnungsempfänger", size: 14, style: :bold
+    pdf.text owner.billing_address.company if owner.billing_address.company.present?
     pdf.text owner.billing_address.full_name
     pdf.text owner.billing_address.street
     pdf.text "#{owner.billing_address.zip} #{owner.billing_address.city}"
-    pdf.move_down 20
+    pdf.move_down 30
     pdf.text "Rechnungssteller", size: 14, style: :bold
     pdf.text "morgenjungs GmbH / imGrätzl.at"
     pdf.text "Ausstellungsstrasse 9/9"
     pdf.text "A-1020 Wien"
-    pdf.move_down 20
+    pdf.move_down 30
   end
 
   def add_owner_price_info(pdf, room_rental)
-    pdf.text "Rechnungsnummer: #{room_rental.invoice_number}"
-    pdf.text "Datum: #{room_rental.created_at.to_date}"
-    pdf.move_down 10
     pdf.text "Rechnung", size: 20, style: :bold
     pdf.move_down 10
+    pdf.text "Rechnungsnummer: #{room_rental.invoice_number}"
+    pdf.text "Datum: #{room_rental.created_at.to_date}"
+    pdf.move_down 20
 
     table_data = []
 

@@ -1,7 +1,7 @@
 <% if @meetings.empty? %>
-  <div class="nav-menu-item">
-    Es gibt keine aktuellen Treffen an denen du interessiert bist ..
-  </div>
+  <em class="nav-menu-item">
+    Es gibt keine zukünftigen Treffen an denen du interessiert bist ..
+  </em>
 <% end %>
 <% @meetings.each do |meeting| %>
   <%= link_to [meeting.graetzl, meeting], class: 'nav-menu-item' do %>
