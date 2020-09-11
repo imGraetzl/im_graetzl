@@ -44,6 +44,10 @@ class RoomRental < ApplicationRecord
     room_rental_slots.map{|s| "#{I18n.l(s.rent_date, format: :short)}, #{s.hour_from}-#{s.hour_to} Uhr"}.join(", ")
   end
 
+  def rental_start
+    room_rental_slots.map(&:rent_date).min
+  end
+
   def calculate_price
     self.hourly_price = room_offer.room_rental_price.price_per_hour
     self.basic_price = total_hours * hourly_price
