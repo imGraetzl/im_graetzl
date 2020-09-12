@@ -10,7 +10,7 @@ class RoomRental < ApplicationRecord
 
   has_one :user_message_thread
 
-  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4 }
+  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, expired: 5 }
   enum payment_status: { payment_pending: 0, payment_success: 1, payment_failed: 2, payment_transfered: 3, payment_canceled: 4 }
 
   scope :submitted, -> { where.not(rental_status: :incomplete) }
