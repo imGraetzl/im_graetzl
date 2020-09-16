@@ -35,6 +35,7 @@ class WienController < ApplicationController
 
   def tool_offers
     @districts = District.order(zip: :asc)
+    @category = ToolCategory.find_by(id: params[:category]) if params[:category].present?
   end
 
   def zuckerls
