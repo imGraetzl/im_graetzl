@@ -96,6 +96,10 @@ input, select, textarea {
   a {
     color: currentcolor;
   }
+  &.-invalid {
+    background-color: $color-ambient-rosa-dark;
+    color: white;
+  }
 }
 
 .label-right {
@@ -622,7 +626,7 @@ input[type=url]:invalid + em {
   align-items: center;
 }
 input[type=url]:invalid + em::after {
-	color: #cd891b;
+	color: $color-ambient-rosa-dark;
   display: block;
   margin-left: 10px;
 	content: "http:// oder https://";

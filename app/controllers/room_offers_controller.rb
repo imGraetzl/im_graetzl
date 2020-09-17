@@ -4,9 +4,6 @@ class RoomOffersController < ApplicationController
   def show
     @room_offer = RoomOffer.find(params[:id])
     @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
-    if @room_offer.disabled? && current_user == @room_offer.user && flash.empty?
-      flash[:notice] = "Dein Raumteiler ist aktuell auf inaktiv gesetzt."
-    end
   end
 
   def select

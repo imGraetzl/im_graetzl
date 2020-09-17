@@ -4,9 +4,6 @@ class RoomDemandsController < ApplicationController
   def show
     @room_demand = RoomDemand.find(params[:id])
     @comments = @room_demand.comments.includes(:user, :images).order(created_at: :desc)
-    if @room_demand.disabled? && current_user == @room_demand.user && flash.empty?
-      flash[:notice] = "Dein Raumgesuch ist aktuell auf inaktiv gesetzt."
-    end
   end
 
   def new
