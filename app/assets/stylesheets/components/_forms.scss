@@ -97,8 +97,9 @@ input, select, textarea {
     color: currentcolor;
   }
   &.-invalid {
-    background-color: $color-ambient-rosa-dark;
-    color: white;
+    background-color: $color-ambient-rosa-light;
+    color: $color-ambient-rosa-dark;
+    //color: white;
   }
 }
 
@@ -144,6 +145,7 @@ input, select, textarea {
 }
 
 .input-field {
+  position: relative; // needed for <em> error msg url field
   @extend %field;
   input {
     height: $fieldHeight;
@@ -622,6 +624,11 @@ input::-webkit-inner-spin-button {
 
 // Hint for URL Validation
 input[type=url]:invalid + em {
+  position: absolute;
+  top:50%;
+  right: 10px;
+  height:20px;
+  margin-top:-10px;
 	display: flex;
   align-items: center;
 }

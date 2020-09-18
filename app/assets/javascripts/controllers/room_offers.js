@@ -152,24 +152,7 @@ APP.controllers.room_offers = (function() {
   function initRoomForm() {
     APP.components.tabs.initTabs(".tabs-ctrl");
     APP.components.addressSearchAutocomplete();
-
-
-    // Validate Form Fields with class "-validate"
-    //Todo: Improve a little bit!
-    var $error_msg = $( "<span class='error_msg'> (Fehler)</span>" );
-    $(".form-block :input.-validate").on("blur", function() {
-      var $label = $("label[for='"+this.id+"']");
-      if (this.checkValidity() == false) {
-        $(this).addClass('-invalid');
-        $label.addClass('-invalid');
-        $label.find('span').append($error_msg);
-      } else {
-        $(this).removeClass('-invalid');
-        $label.removeClass('-invalid');
-        $label.find('span.error_msg').remove();
-      }
-    });
-
+    APP.components.formValidation.init();
 
     $(".next-screen, .prev-screen").on("click", function() {
       $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
