@@ -122,6 +122,20 @@ class GroupsController < ApplicationController
     redirect_to group_url(@group, anchor: "tab-members")
   end
 
+  def toggle_user_status
+    @group = Group.find(params[:id])
+    @group_user = @group.group_users.find_by(user_id: params[:user_id])
+
+    if @group_user.admin?
+      @group_user.update(role: 0)
+    else
+      @group_user.update(role: 1)
+    end
+
+    redirect_to group_url(@group, anchor: "tab-members")
+
+  end
+
   def compose_mail
     @group = Group.find(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
