@@ -35,5 +35,5 @@ active_admin_form_for [:admin, resource] do |f|
   #    gu.input :role, include_blank: false
   #  end
   #end
-  #actions
+  actions
 end
