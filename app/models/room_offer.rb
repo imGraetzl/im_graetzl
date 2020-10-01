@@ -54,7 +54,7 @@ class RoomOffer < ApplicationRecord
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
-  scope :reactivated, -> { enabled.where("last_activated_at > created_at") }
+  scope :reactivated, -> { enabled.where("last_activated_at > created_at").where("created_at < ?", LIFETIME_MONTHS.months.ago) }
   scope :rentable, -> { where(rental_enabled: true) }
   #scope :rentable, -> { joins(:room_rental_price) }
 
@@ -82,7 +82,7 @@ class RoomOffer < ApplicationRecord
     # enabled & last_activated_at = today
     # and last_activated_at is more then 15 days ago
     # and cerated_at is more then 30 days ago
-    if self.enabled? && self.last_activated_at.today? && self.last_activated_at_was <= 15.days.ago && self.created_at <= 30.days.ago
+    if self.enabled? && self.last_activated_at.today? && self.last_activated_at_was <= 30.days.ago && self.created_at <= LIFETIME_MONTHS.months.ago
       self.create_activity(:update, owner: self.user)
     end
   end
