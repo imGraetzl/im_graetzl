@@ -82,7 +82,7 @@ class RoomOffer < ApplicationRecord
     # enabled & last_activated_at = today
     # and last_activated_at is more then 15 days ago
     # and cerated_at is more then 30 days ago
-    if self.enabled? && self.last_activated_at.today? && self.last_activated_at_was <= 15.days.ago && self.created_at <= 30.days.ago
+    if self.enabled? && self.last_activated_at.today? && self.last_activated_at_was <= 30.days.ago && self.created_at <= LIFETIME_MONTHS.months.ago
       self.create_activity(:update, owner: self.user)
     end
   end
