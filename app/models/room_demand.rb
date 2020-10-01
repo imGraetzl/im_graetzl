@@ -23,7 +23,7 @@ class RoomDemand < ApplicationRecord
   attachment :avatar, type: :image
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
-  scope :reactivated, -> { enabled.where("last_activated_at > created_at") }
+  scope :reactivated, -> { enabled.where("last_activated_at > created_at").where("created_at < ?", LIFETIME_MONTHS.months.ago) }
 
   LIFETIME_MONTHS = 6
 
