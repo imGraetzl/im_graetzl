@@ -8,11 +8,11 @@ class RoomsController < ApplicationController
 
     room_offers = room_offers_scope.includes(:user)
     room_offers = filter_offers(room_offers)
-    room_offers = room_offers.by_currentness.page(params[:page]).per(8)
+    room_offers = room_offers.by_currentness.page(params[:page]).per(10)
 
     room_demands = room_demands_scope.includes(:user, :room_categories)
     room_demands = filter_demands(room_demands)
-    room_demands = room_demands.by_currentness.page(params[:page]).per(8)
+    room_demands = room_demands.by_currentness.page(params[:page]).per(10)
 
     @rooms = []
     @rooms += room_calls.sort_by(&:ends_at).reverse if params[:page].blank?
