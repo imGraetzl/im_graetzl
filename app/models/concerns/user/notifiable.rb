@@ -76,7 +76,7 @@ module User::Notifiable
     elsif period == 'weekly'
       notifications.ready_to_be_sent.where(["bitmask & ? > 0", weekly_mail_notifications])
     else
-      notification.none
+      notifications.none
     end
   end
 
