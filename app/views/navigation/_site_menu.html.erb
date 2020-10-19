@@ -67,6 +67,7 @@
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
     <%= icon_tag "arrow-down-2" %>
+    <span>
     <% if graetzl %>
       <%= graetzl.name %>
     <% elsif district %>
@@ -74,6 +75,7 @@
     <% else %>
       Grätzl entdecken
     <% end %>
+    </span>
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-site-location">
