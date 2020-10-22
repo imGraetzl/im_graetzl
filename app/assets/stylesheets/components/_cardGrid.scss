@@ -193,6 +193,38 @@
         &.-sonstiges.-rooms {
           background-image: url(image_path('svg/icon-kringel-sonstiges-active.svg'));
         }
+
+        // Meetings Categories
+        &.-sfs {
+          background-image: url(image_path('svg/icon-kringel-sfs-active.svg'));
+        }
+        &.-feste.-events {
+          background-image: url(image_path('svg/icon-kringel-feste-active.svg'));
+        }
+        &.-tickets.-events {
+          background-image: url(image_path('svg/icon-kringel-tickets-active.svg'));
+        }
+        &.-markt.-events {
+          background-image: url(image_path('svg/icon-kringel-markt-active.svg'));
+        }
+        &.-essentrinken.-events {
+          background-image: url(image_path('svg/icon-kringel-essentrinken-active.svg'));
+        }
+        &.-nachbarschaft.-events {
+          background-image: url(image_path('svg/icon-kringel-nachbarschaft-active.svg'));
+        }
+        &.-klima.-events {
+          background-image: url(image_path('svg/icon-kringel-klima-active.svg'));
+        }
+        &.-kultur.-events {
+          background-image: url(image_path('svg/icon-kringel-kultur-active.svg'));
+        }
+        &.-fitnessyoga.-events {
+          background-image: url(image_path('svg/icon-kringel-fitnessyoga-active.svg'));
+        }
+        &.-weiterbildung.-events {
+          background-image: url(image_path('svg/icon-kringel-weiterbildung-active.svg'));
+        }
       }
     }
 
@@ -267,7 +299,6 @@
       }
 
       // Rooms Categories
-      // Rooms Categories
       &.-booking {
         background-image: url(image_path('svg/icon-kringel-kurzzeitmiete.svg'));
       }
@@ -315,6 +346,38 @@
       }
       &.-sonstiges.-rooms {
         background-image: url(image_path('svg/icon-kringel-sonstiges.svg'));
+      }
+
+      // Meetings Categories
+      &.-sfs {
+        background-image: url(image_path('svg/icon-kringel-sfs.svg'));
+      }
+      &.-feste.-events {
+        background-image: url(image_path('svg/icon-kringel-feste.svg'));
+      }
+      &.-tickets.-events {
+        background-image: url(image_path('svg/icon-kringel-tickets.svg'));
+      }
+      &.-markt.-events {
+        background-image: url(image_path('svg/icon-kringel-markt.svg'));
+      }
+      &.-essentrinken.-events {
+        background-image: url(image_path('svg/icon-kringel-essentrinken.svg'));
+      }
+      &.-nachbarschaft.-events {
+        background-image: url(image_path('svg/icon-kringel-nachbarschaft.svg'));
+      }
+      &.-klima.-events {
+        background-image: url(image_path('svg/icon-kringel-klima.svg'));
+      }
+      &.-kultur.-events {
+        background-image: url(image_path('svg/icon-kringel-kultur.svg'));
+      }
+      &.-fitnessyoga.-events {
+        background-image: url(image_path('svg/icon-kringel-fitnessyoga.svg'));
+      }
+      &.-weiterbildung.-events {
+        background-image: url(image_path('svg/icon-kringel-weiterbildung.svg'));
       }
     }
   }
