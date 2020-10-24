@@ -225,6 +225,9 @@
         &.-wohlbefinden {
           background-image: url(image_path('svg/icon-kringel-wohlbefinden-active.svg'));
         }
+        &.-hobby {
+          background-image: url(image_path('svg/icon-kringel-hobby-active.svg'));
+        }
       }
     }
 
@@ -378,6 +381,9 @@
       }
       &.-wohlbefinden {
         background-image: url(image_path('svg/icon-kringel-wohlbefinden.svg'));
+      }
+      &.-hobby {
+        background-image: url(image_path('svg/icon-kringel-hobby.svg'));
       }
     }
   }
