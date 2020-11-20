@@ -15,7 +15,7 @@ APP.controllers.wien = (function() {
 
         APP.components.addressSearchAutocomplete();
 
-        if ($("#graetzlMapWidget").exists()) {
+        if($('#graetzlMapWidget:visible').length > 0) {
           initMap();
         }
 
