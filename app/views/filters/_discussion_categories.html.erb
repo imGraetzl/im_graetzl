@@ -4,7 +4,7 @@
 </div>
 <% @group.discussion_categories.each do |category| %>
   <div class="input-radio filter-input filter-discussion-category">
-    <%= radio_button :filter, :discussion_category, category.id, data: { label: category.title, filter_label: "#{@group.title} :: Discussion :: Category" }, :checked => (params[:category] == category.id.to_s), :class => "filter-radio-category" %>
+    <%= radio_button :filter, :discussion_category, category.id, data: { label: category.title, filter_label: "Group Discussion :: #{@group.title} :: Category" }, :checked => (params[:category] == category.id.to_s), :class => "filter-radio-category" %>
     <%= label_tag "filter_discussion_category_#{category.id}", "#{category.title}" %>
   </div>
 <% end %>
