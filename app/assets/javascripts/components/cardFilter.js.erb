@@ -131,6 +131,7 @@ APP.components.cardFilter = (function() {
             updateFilterInputs(this.content);
             updateFilterLabels(this.content);
             submitForm();
+            gtag_tracking(this.content);
           },
           cancel: function() {
             //this.content.find('input:checked').removeAttr('checked');
@@ -160,6 +161,7 @@ APP.components.cardFilter = (function() {
         updateFilterInputs(this.content);
         updateFilterLabels(this.content);
         submitForm();
+        gtag_tracking(this.content);
       },
       cancel: function() {
         unSelectAllDistricts(this.content);
@@ -353,8 +355,6 @@ APP.components.cardFilter = (function() {
         link.removeClass('filter-applied');
     }
 
-    gtag_tracking(modal, link);
-
     // ----- Select Label in SidebarBox if Exists
     if ($('.updateFromFilter').exists()) {
       selectedInputsID = selectedInputs.attr('id');
@@ -372,12 +372,14 @@ APP.components.cardFilter = (function() {
 
   function gtag_tracking(modal, link) {
     var label_type = modal.find("[data-filter-label]").data("filter-label");
-    var label_item = link.text();
+    var label_item = filterForm.find('a[href="#' + modal.prop("id") + '"]').text();
     gtag(
       'event', label_type + ' :: Modal', {
       'event_category': 'Filter',
       'event_label': label_item
     });
+    //console.log(label_type);
+    //console.log(label_item);
   }
 
 
