@@ -370,16 +370,24 @@ APP.components.cardFilter = (function() {
   }
 
 
-  function gtag_tracking(modal, link) {
+  function gtag_tracking(modal) {
+
+    var label_category = "Filter";
     var label_type = modal.find("[data-filter-label]").data("filter-label");
     var label_item = filterForm.find('a[href="#' + modal.prop("id") + '"]').text();
+
+    if ( typeof modal.data("category-label") !== "undefined") {
+      label_category = modal.data("category-label");
+    }
     gtag(
       'event', label_type + ' :: Modal', {
-      'event_category': 'Filter',
+      'event_category': label_category,
       'event_label': label_item
     });
+    //console.log(label_category);
     //console.log(label_type);
     //console.log(label_item);
+    
   }
 
 
@@ -481,7 +489,8 @@ APP.components.cardFilter = (function() {
   return {
     init: init,
     submitForm : submitForm,
-    updateFilterLabels : updateFilterLabels
+    updateFilterLabels : updateFilterLabels,
+    gtag_tracking : gtag_tracking
   };
 
 })();
