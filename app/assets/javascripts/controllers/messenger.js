@@ -2,14 +2,47 @@ APP.controllers.messenger = (function() {
 
   function init() {
     initThreadFilter();
-    initThreadSelect();
     initThread();
     initLayout();
+    fetchThreadList();
+
+    // initThread Select after Load more Button Click
+    $('.link-load').on('ajax:success', function() {
+      initThreadSelect();
+    });
+
+    // Preselect Filter in Sidebar
+    var preselectedFilter = $("#side-bar .threads-list").data("filter");
+    if (preselectedFilter) {
+      $("#side-bar .filter a[data-filter='" + preselectedFilter + "']").click();
+    }
+
+    if (!$("#side-bar .fetch-thread-list-form").find('.loading-spinner').exists()) {
+      $("#side-bar .fetch-thread-list-form").append(createSpinner());
+    }
+
   }
 
-  $(document).ready(function(){
-  // auszuführender Code, nachdem DOM geladen wurden
-});
+
+  // Load Sidebar Threads
+  function fetchThreadList() {
+    $("#side-bar .fetch-thread-list-form").submit();
+    $("#side-bar .fetch-thread-list-form").on("ajax:beforeSend", function() {
+      if (!$("#side-bar .fetch-thread-list-form").find('.loading-spinner').exists()) {
+        $("#side-bar .fetch-thread-list-form").append(createSpinner());
+      }
+    });
+    $("#side-bar .fetch-thread-list-form").on("ajax:success", function() {
+      initThreadSelect();
+      $("#side-bar .fetch-thread-list-form").find(".loading-spinner").remove();
+      // Preselect Thread in Sidebar
+      var preselectedThread = $("#side-bar .threads-list").data("thread");
+      if (preselectedThread) {
+        $("#side-bar .message-thread[data-id='" + preselectedThread + "']").click();
+      }
+    });
+  }
+
 
   function initThreadFilter() {
     var filterMessages = new jBox('Tooltip', {
@@ -26,17 +59,16 @@ APP.controllers.messenger = (function() {
       maxHeight:500,
     });
 
+    // Click on Filter Link in Sidebar
     $("#side-bar .filter .jBoxDropdown a").on("click", function() {
-      $("#side-bar .message-thread").addClass('hidden');
-      $("#side-bar .message-thread." + $(this).data("filter")).removeClass('hidden');
+      $("#side-bar #filter").val($(this).data("filter")); // Set HiddenField Filter Value
+      $("#side-bar #thread_id").val($(this).data("")); // Remove Hidden Field Value for Thread-ID
       $("#filterMessages .selected-filter").text($(this).text());
+      fetchThreadList();
     });
 
-    var preselectedFilter = $("#side-bar .threads-list").data("filter");
-    if (preselectedFilter) {
-      $("#side-bar .filter a[data-filter='" + preselectedFilter + "']").click();
-    }
   }
+
 
   function initThreadSelect() {
     // Load thread on Click
@@ -54,11 +86,8 @@ APP.controllers.messenger = (function() {
       APP.components.initUserTooltip();
     });
 
-    var preselectedThread = $("#side-bar .threads-list").data("thread");
-    if (preselectedThread) {
-      $("#side-bar .message-thread[data-id='" + preselectedThread + "']").click();
-    }
   }
+
 
   function initThread() {
     $("#main-content").on("ajax:complete", ".post-message-form", function() {
@@ -71,6 +100,12 @@ APP.controllers.messenger = (function() {
     }, 10*1000);
   }
 
+
+  function createSpinner() {
+    return $('footer .loading-spinner').clone().removeClass('-hidden');
+  }
+
+
   function scrollToLastMessage() {
     //$(".chat-panel").scrollTop($(".chat-panel")[0].scrollHeight);
     $('.chat-panel').animate({
@@ -79,8 +114,8 @@ APP.controllers.messenger = (function() {
 
   }
 
+  // Layout Init Function
   function initLayout() {
-    // ------ Load Init Functions
     $('footer').hide(); // Disable Footer for Turn-Off Body Scrolling and better Height Calc
     unscroll(); // Prevent Body Scrolling on Desktop
     setWindowHeight(); // Set Exact Browser vh
