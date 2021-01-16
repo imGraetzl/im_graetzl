@@ -18,23 +18,30 @@ APP.controllers.messenger = (function() {
     }
 
     if (!$("#side-bar .fetch-thread-list-form").find('.loading-spinner').exists()) {
-      $("#side-bar .fetch-thread-list-form").append(createSpinner());
+      $("#side-bar .threads-list").hide(); // Hide Threads
+      $("#side-bar .fetch-thread-list-form").append(createSpinner()); // Show Spinner
     }
 
   }
 
 
-  // Load Sidebar Threads
+  // Sidebar Threads - Load Thread
   function fetchThreadList() {
     $("#side-bar .fetch-thread-list-form").submit();
     $("#side-bar .fetch-thread-list-form").on("ajax:beforeSend", function() {
       if (!$("#side-bar .fetch-thread-list-form").find('.loading-spinner').exists()) {
-        $("#side-bar .fetch-thread-list-form").append(createSpinner());
+        $("#side-bar .threads-list").hide(); // Hide Threads
+        $("#side-bar .fetch-thread-list-form").append(createSpinner()); // Show Spinner
       }
     });
+
     $("#side-bar .fetch-thread-list-form").on("ajax:success", function() {
       initThreadSelect();
-      $("#side-bar .fetch-thread-list-form").find(".loading-spinner").remove();
+      $("#side-bar .fetch-thread-list-form").find(".loading-spinner").fadeOut(250, function() {
+        $(this).remove(); // remove Spinner
+        $("#side-bar .threads-list").fadeIn(250); // Show Threads
+      });
+
       // Preselect Thread in Sidebar
       var preselectedThread = $("#side-bar .threads-list").data("thread");
       if (preselectedThread) {
