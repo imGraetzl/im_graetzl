@@ -32,14 +32,12 @@
   -->
   <!-- Write new MSG - Open Modal -->
 
-  <%= form_tag messenger_fetch_thread_list_path(per_page: 15), remote: true, method: :get, class: 'fetch-thread-list-form' do %>
+  <%= form_tag messenger_fetch_thread_list_path(per_page: 20), remote: true, method: :get, class: 'fetch-thread-list-form' do %>
   <%= hidden_field_tag :filter, params[:filter] %>
   <%= hidden_field_tag :thread_id, params[:thread_id] %>
   <% end %>
   <div class="threads-list" data-behavior="thread-list-container" data-thread="<%= params[:thread_id] %>" data-filter="<%= params[:filter] %>">
-
   </div>
-
   <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide btn-secondary -small -grey', data: { disable_with: 'lädt...', behavior: 'thread-paginate-link' }, rel: 'nofollow' %>
 
 </div>

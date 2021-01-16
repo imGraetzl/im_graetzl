@@ -32,6 +32,7 @@ APP.controllers.messenger = (function() {
       if (!$("#side-bar .fetch-thread-list-form").find('.loading-spinner').exists()) {
         $("#side-bar .threads-list").hide(); // Hide Threads
         $("#side-bar .fetch-thread-list-form").append(createSpinner()); // Show Spinner
+        $("#side-bar").find(".more-data").addClass("hide"); // Hide Load More Link
       }
     });
 
@@ -40,6 +41,7 @@ APP.controllers.messenger = (function() {
       $("#side-bar .fetch-thread-list-form").find(".loading-spinner").fadeOut(250, function() {
         $(this).remove(); // remove Spinner
         $("#side-bar .threads-list").fadeIn(250); // Show Threads
+        $("#side-bar").find(".more-data").removeClass("hide"); // Show Load More Link if moredata exists
       });
 
       // Preselect Thread in Sidebar

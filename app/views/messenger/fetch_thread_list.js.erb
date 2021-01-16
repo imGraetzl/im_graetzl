@@ -9,9 +9,9 @@
   <% end %>
 
   <% if params[:thread_id].blank? && @threads.next_page.present? %>
-    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+    $paginateLink.attr('href', "<%= j next_page_url %>").addClass("more-data");
   <% else %>
-    $paginateLink.addClass("hide");
+    $paginateLink.addClass("hide").removeClass("more-data");;
   <% end %>
 
 })();
