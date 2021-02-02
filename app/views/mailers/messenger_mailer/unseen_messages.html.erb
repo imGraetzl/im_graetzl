@@ -37,7 +37,7 @@
          <em><strong><%= message.user.full_name %></strong></em>
        </p>
        <p>
-         <%= message.message %>
+         <%= message.message.gsub("\r\n", "<br/>").html_safe %>
        </p>
      </td>
    </tr>
