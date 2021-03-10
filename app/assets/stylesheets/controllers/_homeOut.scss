@@ -23,14 +23,171 @@ section.homeOut {
     }
   }
 
+  // SUPPORTER BOX
+  .supporterBox {
+
+    position: relative;
+    width:150px;
+    display: none;
+
+    .inner {
+      padding:20px;
+      text-align: center;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      width:100%;
+      height:100%;
+      background-image: url(image_path('supporter/boxBorder.svg'));
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+
+    // MOBILE VERSION
+    @include respond-to("<large") {
+
+      display: block;
+      width:100%;
+
+      .inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding:15px;
+        //padding-bottom:20px;
+      }
+
+      margin-top:40px;
+      .txt {
+        //text-align: center;
+        //width:100%;
+        font-family: $font-tertiary;
+        font-size: 1.8rem;
+        //margin-top:-50px;
+      }
+
+      margin-bottom: 40px;
+      .btn-viewall {
+        @include headlineBarbapapaMint();
+        font-family: $font-tertiary;
+        text-decoration: none;
+        transform: rotate(-3deg);
+        //position: absolute;
+        //bottom:-15px;
+        left:auto;
+        text-align: center;
+        font-size: 25px;
+        &:hover {
+          @include headlineBarbapapa();
+          font-family: $font-tertiary;
+        }
+      }
+
+      &::before {
+        background-image: url(image_path('supporter/boxBorder-quer.svg'));
+      }
+
+      .-logo {
+        width:30%;
+        img {
+          width:95%;
+          max-width: 130px;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      .close-ico {
+        display: none;
+      }
+    }
+
+    @include respond-to("<large") {
+      .txt {
+        text-align: center;
+        width:100%;
+        padding-bottom: 10px;
+      }
+      .btn-viewall {
+        width:28%;
+      }
+      .-logo {
+        width:28%;
+      }
+    }
+    @include respond-to("<medium") {
+      .btn-viewall {
+        font-size: 18px;
+      }
+    }
+
+    // DESKTOP VERSION
+    @include respond-to(">=large") {
+
+      display: block;
+      position: absolute;
+      top: 145px;
+      left:0px;
+      z-index:9;
+
+      .close-ico {
+        top: -7px;
+        right: -2px;
+      }
+
+      .txt {
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: $font-tertiary;
+        font-size: 1.8rem;
+        //color: $color-ambient-mint-dark;
+        span {
+          display: block;
+          width:100%;
+        }
+      }
+
+      .-logo img {
+        width:97%;
+        margin-bottom:30px;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      .btn-viewall {
+        @include headlineBarbapapaMint();
+        font-family: $font-tertiary;
+        text-decoration: none;
+        white-space: nowrap;
+        transform: rotate(-5deg);
+        position: absolute;
+        bottom:-10px;
+        left:0px;
+        width:100%;
+        text-align: center;
+        font-size: 25px;
+        &:hover {
+          @include headlineBarbapapa();
+          font-family: $font-tertiary;
+        }
+      }
+    }
+  }
 }
 
 .buehne {
-  overflow: hidden;
+  //overflow: hidden;
   background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
   background-repeat: no-repeat;
+  min-height: 320px;
   background-size: 270px auto, 700px auto;
-  background-position: center 75px, -140px -90px;
+  background-position: 45px 75px, -95px -90px;
   position: relative;
   margin-left: -18px;
   margin-right: -18px;
@@ -40,9 +197,9 @@ section.homeOut {
   @include respond-to(">=medium") {
     background-size: 400px auto, 1000px auto;
     background-position: 40px 75px, -30px -160px;
-    min-height: 360px;
+    min-height: 380px;
     margin-bottom: 30px;
-    margin-left: -20px;
+    margin-left: -25px;
     margin-right: -25px;
     padding-left: 25px;
     padding-right: 25px;
@@ -50,10 +207,9 @@ section.homeOut {
 
   @include respond-to(">=large") {
     background-size: 507px auto, 936px auto;
-    background-position: 10px 88px, 90px -31px;
-    min-height: 460px;
+    background-position: 120px 88px, 90px -31px;
+    min-height: 480px;
     margin-top: -8.0rem;
-    //margin-bottom: 4.0rem;
     margin-left: 0;
     margin-right: 0;
     padding-left: 0;
@@ -75,9 +231,10 @@ section.homeOut {
     @include respond-to(">=medium") {
       transform: translate(80px, 0);
     }
+
     @include respond-to(">=large") {
       position: absolute;
-      left: 340px;
+      left: 430px;
       top: 100px;
       text-align: left;
       margin-left: 0;
@@ -90,6 +247,7 @@ section.homeOut {
         @include headlineBarbapapa();
       }
     }
+
     span:first-child {
       @include respond-to(">=medium") {
         margin-left: 35px;
@@ -101,32 +259,36 @@ section.homeOut {
 
   .registerlink {
     position: relative;
-    height: 90px;
-    background-size: 90px 90px;
     display: inline-flex;
     align-items: center;
     text-decoration: none;
     left: 50%;
     transform: translate(-50%, 0);
-    margin-top: 200px;
+    margin-top: 150px;
     margin-bottom: 40px;
-    margin-left: 0;
+    margin-left: 0px;
+
+    @include respond-to(">small") {
+      margin-top: 90px;
+      margin-left: 65px;
+    }
+
     @include respond-to(">=medium") {
       transform: translate(0, 0);
-      left: 400px;
+      left: 450px;
       position: absolute;
       top: 190px;
       margin-top: 0;
       margin-bottom: 0;
+      margin-left: 0;
     }
+
     @include respond-to(">=large") {
       position: absolute;
       top: 300px;
-      margin-left: 100px;
-      //left: auto;
-      //right: 140px;
-      //margin-bottom: 0;
+      left: 600px;
     }
+
     .coop-share-logo {
       width: 130px;
       height: 130px;

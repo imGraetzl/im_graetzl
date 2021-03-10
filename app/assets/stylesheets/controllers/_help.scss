@@ -207,6 +207,211 @@ section.help {
     }
   }
 
+
+  // ----- SUPPORTER PAGE ------ //
+  &.-supporter {
+    padding-bottom:0px;
+    margin-bottom:-80px;
+    .imgHeader::after {
+      background-image: url(image_path('supporter/bg-header.jpg'));
+    }
+    .imgHeader {
+      background-color: #1e2c29;
+      .wrp {
+        height:90%;
+        width:100%;
+        max-width: 900px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+      }
+      .txt {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        color: #ffe16f;
+        text-transform: uppercase;
+        text-shadow: black 0 1px;
+        @include font-size-primaryFont('large');
+        line-height: 1.8;
+        margin-top:-50px;
+        height:30%;
+      }
+      .title-img {
+        width:100%;
+      }
+      @include respond-to(">medium") {
+        .wrp {
+          height:80%;
+          align-items: flex-end;
+        }
+        .txt {
+          height:20%;
+        }
+        .title-img {
+          height:80%;
+        }
+      }
+      @include respond-to("<=medium") {
+        height:300px;
+      }
+      @include respond-to("<=small") {
+        .txt {
+          font-size: 1.4rem;
+        }
+      }
+    }
+
+    .topBoxes, .allBoxes {
+      padding-top:175px;
+      padding-bottom:75px;
+      position: relative;
+
+      &::before {
+        // Insert DANKE Background Images here
+        content:'';
+        position: absolute;
+        text-align: center;
+        top:40px;
+        width:100%;
+        height:100px;
+        background-position: center top 0px;
+        background-size: auto 100px;
+        background-image: url(image_path('supporter/danke-top.png'));
+        background-repeat: no-repeat;
+        z-index: 999;
+      }
+
+    }
+
+    .allBoxes {
+
+      padding-top:100px;
+      &::before {
+        top:-45px;
+        background-image: url(image_path('supporter/danke-small.png'));
+      }
+
+      .-quart {
+        // Small: 1 Column
+        // Medium: 2 Columns
+        // Large: 3 Coloumns
+        // Desktop: 4 Columns
+        > * {
+          @include respond-to("<=large") {
+            @include col(1/3, $cycle: 3, $uncycle: 2, $gutter: 2);
+          }
+          @include respond-to(">=large") {
+            @include col(1/4, $gutter: 2, $cycle: 4, $uncycle: 2);
+          }
+          @include respond-to("<=medium") {
+            @include col(1/2, $cycle: 2, $gutter: 2, $uncycle: 1);
+          }
+          @include respond-to("<=small") {
+            @include col(1/1);
+          }
+        }
+      }
+
+      background-color: #eaf2f4;
+      width: 100vw;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+
+      .inner {
+        max-width: 980px;
+        position: relative;
+        margin: 0 auto;
+        display: block;
+        padding-left: 18px;
+        padding-right: 18px;
+
+        @include respond-to(">=medium") {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+        @include respond-to(">=large") {
+          padding-left: 0px;
+          padding-right: 0px;
+        }
+      }
+    }
+
+    .sponsorBox {
+      margin-bottom:25px;
+      text-align: center;
+      padding:10px;
+      img {
+        width:80%;
+        max-width: 200px;
+      }
+      span {
+        display: block;
+        margin-top:30px;
+        padding-top:25px;
+        padding-bottom:15px;
+        color: $color-ambient-grey;
+        @include font-size-primaryFont('medium');
+        background: url(image_path('supporter/ico-apostroph.svg')) no-repeat center top;
+        background-size: 20px;
+      }
+      a {
+        text-transform: uppercase;
+        color: $color-ambient-grey;
+        font-weight: bold;
+        @include font-size-primaryFont('medium');
+      }
+      div[class^='logo'] {
+        width:100%;
+        height:160px;
+        padding:15px;
+        background-color: white;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-origin: content-box;
+        border: 8px solid #ffffff;
+        background-color: #ffffff;
+        border-radius: 8px;
+
+      }
+      div[class^='logo-top'] {
+        border:none;
+        background-color: transparent;
+        height:220px;
+        @include respond-to("<=medium") {
+          height:160px;
+        }
+      }
+      // Main Sponsors
+      .logo-top-kolarik {background: url(image_path('supporter/logos/kolarik.png'))}
+      .logo-top-geldmachtwas {background: url(image_path('supporter/logos/geldmachtwas.png'))}
+      .logo-top-bezirksimkerei {background: url(image_path('supporter/logos/bezirksimkerei.png'))}
+      // All Sponsors
+      .logo-cermak {background: url(image_path('supporter/logos/cermak.png'))}
+      .logo-business-moms {background: url(image_path('supporter/logos/business-moms.jpg'))}
+      .logo-rani-yoga {background: url(image_path('supporter/logos/rani-yoga.jpg'))}
+      .logo-corona-gsteu {background: url(image_path('supporter/logos/corona-gsteu.jpg'))}
+      .logo-der-achte {background: url(image_path('supporter/logos/der-achte.jpg'))}
+      .logo-dirmhirn {background: url(image_path('supporter/logos/dirmhirn.png'))}
+      .logo-elisabeth-walter {background: url(image_path('supporter/logos/elisabeth-walter.png'))}
+      .logo-manhartsberger {background: url(image_path('supporter/logos/manhartsberger.png'))}
+      .logo-healthconsult {background: url(image_path('supporter/logos/healthconsult.png'))}
+      .logo-pohnitzer {background: url(image_path('supporter/logos/pohnitzer.png'))}
+      .logo-raumen {background: url(image_path('supporter/logos/raumen.png'))}
+      .logo-share-architects {background: url(image_path('supporter/logos/share-architects.png'))}
+      .logo-kainz {background: url(image_path('supporter/logos/kainz.jpg'))}
+      .logo-schrenk {background: url(image_path('supporter/logos/schrenk.jpg'))}
+      .logo-marie-meyer-marktl {background: url(image_path('supporter/logos/marie-meyer-marktl.jpg'))}
+      .logo-punkrockdev {background: url(image_path('supporter/logos/punkrockdev.png'))}
+    }
+
+  }
+
+
   // ----- HELP STARTPAGE ------ //
   &.-startpage {
 
