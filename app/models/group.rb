@@ -60,6 +60,10 @@ class Group < ApplicationRecord
     group_users.select{|gu| gu.member? }.map(&:user)
   end
 
+  def active_members
+    group_users.select{|gu| gu.member? && gu.last_activity_at? }.sort_by(&:last_activity_at).reverse.map(&:user)
+  end
+
   def build_meeting
     meetings.build(address: Address.new)
   end
@@ -77,6 +81,16 @@ class Group < ApplicationRecord
   end
 
   def postable_by?(user)
+    user && group_users.any?{|gu| gu.user == user}
+    # Use the following if only Admins should be able to create content:
+    #if default_joined?
+    #  admins.include?(user)
+    #else
+    #  user && group_users.any?{|gu| gu.user == user}
+    #end
+  end
+
+  def commentable_by?(user)
     user && group_users.any?{|gu| gu.user == user}
   end
 

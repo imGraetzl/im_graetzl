@@ -17,7 +17,7 @@
     <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
   <% end %>
 
-  <% if @group.postable_by?(current_user) %>
+  <% if @group.commentable_by?(current_user) %>
     <% following = @discussion.followed_by?(current_user) %>
     E-Mail Updates:
     <%= link_to toggle_following_group_discussion_path(@group, @discussion), remote: true, method: 'post', class: ["follow", following ? '' : '-hide'] do %>

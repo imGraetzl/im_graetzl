@@ -62,7 +62,7 @@
       <% end %>
     </div>
 
-    <% if @group.postable_by?(current_user) %>
+    <% if @group.commentable_by?(current_user) %>
       <%= render 'groups/discussion_posts/comment_form', discussion_post: post %>
     <% end %>
   </div>

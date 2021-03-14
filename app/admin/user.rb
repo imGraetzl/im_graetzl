@@ -38,6 +38,7 @@ ActiveAdmin.register User do
     :business,
     :location_category,
     :business_interests,
+    group_ids: [],
     address_attributes: [
       :id,
       :street_name,

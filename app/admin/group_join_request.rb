@@ -1,5 +1,7 @@
 ActiveAdmin.register GroupJoinRequest do
   menu parent: 'Gruppe', priority: 4
+  actions :index, :show, :destroy
+
   includes :user
 
   scope :all, default: true
@@ -12,7 +14,36 @@ ActiveAdmin.register GroupJoinRequest do
 
   index { render 'index', context: self }
   show { render 'show', context: self }
-  form partial: 'form'
+
+  # action buttons
+  action_item :accept, only: :show, if: proc{ group_join_request.pending? } do
+    link_to 'Beitritt akzeptieren', accept_admin_group_join_request_path(group_join_request), { method: :put }
+  end
+
+  action_item :reject, only: :show, if: proc{ group_join_request.pending? } do
+    link_to 'Beitritt ablehnen', reject_admin_group_join_request_path(group_join_request), { method: :put }
+  end
+
+  # member actions
+  member_action :accept, method: :put do
+    if !resource.group.users.include?(resource.user)
+      group_user = resource.group.group_users.create(user: resource.user)
+      if resource.group.save
+        GroupMailer.join_request_accepted(resource.group, resource.user).deliver_later
+      end
+    end
+    resource.assign_attributes(status: :accepted)
+    resource.save
+    flash[:success] = 'Beitritt genehmigt'
+    redirect_to admin_group_join_requests_path
+  end
+
+  member_action :reject, method: :put do
+    resource.assign_attributes(status: :rejected)
+    resource.save
+    flash[:error] = 'Beitritt abgelehnt'
+    redirect_to admin_group_join_requests_path
+  end
 
   permit_params :group_id, :status
 end

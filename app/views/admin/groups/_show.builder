@@ -4,6 +4,7 @@ context.instance_eval do
       panel 'Basic Details' do
         attributes_table_for group do
           row :id
+          row(:group_members_count) { group.group_users.count }
           row :title
           row :description
           row :featured
@@ -28,17 +29,20 @@ context.instance_eval do
     end
   end
 
-  panel "Graetzln" do
-    table_for group.graetzls do
-      column :name
+  if !group.default_joined?
+    panel "#{group.group_users.count} Gruppenmitglieder / #{group.active_members.count} aktive" do
+      table_for group.group_users do
+        column :user
+        column("Email") { |f| f.user.email }
+        column :role
+      end
     end
   end
 
-  panel "Users" do
-    table_for group.group_users do
-      column :user
-      column("Email") { |f| f.user.email }
-      column :role
+  if group.default_joined?
+    panel "#{group.group_users.count} Gruppenmitglieder / #{group.active_members.count} aktive" do
+      "Zu viele User um anzuzeigen ..."
     end
   end
+
 end

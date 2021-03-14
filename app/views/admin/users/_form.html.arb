@@ -18,6 +18,7 @@ active_admin_form_for [:admin, resource] do |f|
       hint: (image_tag(attachment_url(f.object, :avatar, :fill, 100, 100)) if f.object.avatar)
     input :remove_avatar, as: :boolean if f.object.avatar
     input :newsletter
+    input :groups, collection: Group.all, input_html: { :class => 'admin-filter-select'}
   end
   inputs 'Address', for: [:address, (f.object.address || f.object.build_address)] do |a|
     a.input :street_name

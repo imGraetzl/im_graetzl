@@ -11,6 +11,7 @@ class DiscussionPost < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   after_create :set_discussion_last_post
+  after_create :set_last_activity
 
   def deleted?
     user_id.blank?
@@ -30,4 +31,9 @@ class DiscussionPost < ApplicationRecord
   def set_discussion_last_post
     discussion.update(last_post_at: created_at)
   end
+
+  def set_last_activity
+    group.group_users.where(user_id: user.id).last.update(last_activity_at: Time.now)
+  end
+
 end
