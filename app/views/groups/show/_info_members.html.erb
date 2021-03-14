@@ -1,0 +1,22 @@
+<% @group.members.first(20 - @group.admins.size).each do |user| %>
+  <div class="user">
+    <div class="avatar">
+      <%= link_to user_path(user) do %>
+        <%= user_tooltip_avatar user, 200 %>
+      <% end %>
+    </div>
+    <div class="infos">
+      <span><%= user.first_name %><br><%= user.last_name %></span>
+    </div>
+  </div>
+<% end %>
+<% if @group.group_users.size > 20 %>
+  <div class="user -more">
+    <div class="avatar">
+      <%= icon_tag "user-avatar" %>
+    </div>
+    <div class="infos">
+      <span>+ <%= @group.group_users.size - 20 %> weitere</span>
+    </div>
+  </div>
+<% end %>

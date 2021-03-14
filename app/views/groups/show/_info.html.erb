@@ -20,7 +20,12 @@
   </div>
 
   <div class="group-member-section">
-    <h3><%= @group.group_users.size %> <%= @group.group_users.size > 1 ? 'Mitglieder' : 'Mitglied' %></h3>
+
+    <% if @group.default_joined? %>
+      <h3>Aktive Mitglieder</h3>
+    <% else %>
+      <h3><%= @group.group_users.size %> <%= @group.group_users.size > 1 ? 'Mitglieder' : 'Mitglied' %></h3>
+    <% end %>
 
     <div class="users member-section">
 
@@ -38,28 +43,12 @@
         </div>
       <% end %>
 
-      <% @group.members.first(20 - @group.admins.size).each do |user| %>
-        <div class="user">
-          <div class="avatar">
-            <%= link_to user_path(user) do %>
-              <%= user_tooltip_avatar user, 200 %>
-            <% end %>
-          </div>
-          <div class="infos">
-            <span><%= user.first_name %><br><%= user.last_name %></span>
-          </div>
-        </div>
+      <% if @group.default_joined? %>
+        <%= render partial: 'groups/show/info_members_active' %>
+      <% else %>
+        <%= render partial: 'groups/show/info_members' %>
       <% end %>
-      <% if @group.group_users.size > 20 %>
-        <div class="user -more">
-          <div class="avatar">
-            <%= icon_tag "user-avatar" %>
-          </div>
-          <div class="infos">
-            <span>+ <%= @group.group_users.size - 20 %> weitere</span>
-          </div>
-        </div>
-      <% end %>
+
     </div>
   </div>
 

@@ -23,9 +23,19 @@
     <% end %>
 
     <p class="facts">
-      <%= icon_tag('users') %><%= @group.group_users.size %> <%= @group.group_users.size > 1 ? "Mitglieder" : "Mitglied" %>
-      <span class="separator">&middot;</span>
-      <%= icon_tag('lock-1') if @group.private? %><%= @group.private? ? "Geschlossene" : "Offene" %> Gruppe
+
+      <% if @group.default_joined? %>
+          <% if @group.private? %>
+            <%= icon_tag('lock-1') %>Geschlossene Gruppe
+          <% else %>
+            <%= icon_tag('users') %>Offene Gruppe
+          <% end %>
+      <% else %>
+          <%= icon_tag('users') %><%= @group.group_users.size %> <%= @group.group_users.size > 1 ? "Mitglieder" : "Mitglied" %>
+          <span class="separator">&middot;</span>
+          <%= icon_tag('lock-1') if @group.private? %><%= @group.private? ? "Geschlossene" : "Offene" %> Gruppe
+      <% end %>
+
     </p>
     <div class="users">
       <% @group.admins.first(5).each do |user| %>
