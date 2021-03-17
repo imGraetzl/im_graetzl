@@ -9,7 +9,7 @@
         <%= link_to cover_photo_for(discussion.group), [discussion.group, discussion, anchor: "topic"] %>
       </div>
       <div class="categoryicon"><%= icon_tag "layout-document" %><sup><%= discussion.discussion_posts.size %></sup></div>
-      <div class="sideflag -R">Neues Thema in Gruppe</div>
+      <div class="sideflag -R"><div class="title"><%= discussion.group.title %></div></div>
     <% else %>
       <!-- Normal HeaderView for Groups -->
       <div class="coverImgWrapper">

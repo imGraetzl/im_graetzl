@@ -12,6 +12,10 @@ class Notifications::NewGroupDiscussion < Notification
     'Eine neue Diskussion wurde gestartet.'
   end
 
+  def self.notify_owner?
+    true
+  end
+
   def mail_subject
     "Neues Thema von #{activity.owner.first_name} in der Gruppe #{group.title}."
   end
