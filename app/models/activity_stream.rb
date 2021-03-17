@@ -22,7 +22,7 @@ class ActivityStream
       Activity.where(trackable_id: @area.groups.non_private.pluck(:id), key: ['group.create']),
 
       # Personal Activity Stream build on User Notifications
-      #Activity.where(id: @user.notifications.where(:type => "Notifications::NewGroupDiscussion").pluck(:activity_id)),
+      Activity.where(id: @user.notifications.where(:type => "Notifications::NewGroupDiscussion").pluck(:activity_id)),
 
     ].reduce(:or)
 
