@@ -58,6 +58,8 @@
     <% end %>
   </div>
 
+  <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @location.boss.id), class: "btn-primary -mint", id: 'requestLocationBtn' if current_user != @location.boss %>
+
   <% if @location.contact.hours.present? %>
     <div class="sideBarbox openinghours">
       <div class="bigicontext-element">

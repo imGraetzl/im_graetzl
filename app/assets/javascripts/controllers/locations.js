@@ -40,6 +40,20 @@ APP.controllers.locations = (function() {
     }
 
     function initLocationPage() {
+
+        // Sidebar Button Click
+        $('#requestLocationBtn').on('click', function(event){
+          event.preventDefault();
+          var href = $(this).attr('href');
+          gtag(
+            'event', 'Location :: Click :: Kontaktieren', {
+            'event_category': 'Location',
+            'event_callback': function() {
+              location.href = href;
+            }
+          });
+        });
+
         $('.introtxt .txt').linkify({ target: "_blank"});
         $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
 
