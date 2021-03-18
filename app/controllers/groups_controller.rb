@@ -132,7 +132,7 @@ class GroupsController < ApplicationController
 
   def compose_mail
     @group = Group.find(params[:id])
-    redirect_to @group and return unless @group.admins.include?(current_user)
+    redirect_to @group and return unless @group.admins.include?(current_user) && !@group.default_joined?
   end
 
   def send_mail

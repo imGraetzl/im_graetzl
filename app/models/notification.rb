@@ -10,6 +10,7 @@ class Notification < ApplicationRecord
 
   before_create :set_bitmask
   before_create :set_notify_time
+  before_create :set_notify
 
   scope :ready_to_be_sent, -> {
     where("notify_at <= CURRENT_DATE").where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
@@ -90,5 +91,9 @@ class Notification < ApplicationRecord
   def set_notify_time
     self.notify_at = Time.current
     self.notify_before = nil
+  end
+
+  def set_notify
+    self.sent = false
   end
 end

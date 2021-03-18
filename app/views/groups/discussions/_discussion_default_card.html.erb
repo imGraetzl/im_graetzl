@@ -18,7 +18,7 @@
         </ul>
       </div>
 
-      <%= link_to 'Neues Thema starten', new_group_discussion_path(@group), class: 'btn-primary' %>
+      <%= link_to 'Neues Thema starten', new_group_discussion_path(@group), class: 'btn-primary' if @group.postable_by?(current_user) %>
 
     </div>
     <div class="card"></div>

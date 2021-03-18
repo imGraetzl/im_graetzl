@@ -15,9 +15,6 @@ class DiscussionsController < ApplicationController
 
     @discussions = @discussions.page(params[:page]).per(params[:per_page] || 15)
 
-    #@title = @category ? @category.title : 'Alle Themen'
-    #@title = "#{@title} <span>(#{@discussions.total_count})</span>".html_safe
-
     render 'groups/discussions/index'
   end
 
@@ -37,7 +34,19 @@ class DiscussionsController < ApplicationController
     @discussion.discussion_posts.build(discussion_post_params.merge(initial_post: true, user: current_user))
     if @discussion.save
       @discussion.discussion_followings.create(user: current_user)
-      @discussion.create_activity(:create, owner: current_user)
+
+      if @group.default_joined?
+
+        if @group.admins.include?(current_user) && params[:trigger_notification] == "1"
+          @discussion.create_activity(:create, owner: current_user)
+        else
+          @discussion.create_activity(:create_dont_notify, owner: current_user)
+        end
+
+      else
+        @discussion.create_activity(:create, owner: current_user)
+      end
+
       redirect_to [@group, @discussion, anchor: "topic"]
     else
       redirect_to [@group, @discussion]

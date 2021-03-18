@@ -2,14 +2,27 @@
 
 <div class="cardBox -discussion" data-behavior="masonry-card">
   <div class="cardBoxHeader">
-    <div class="coverImgWrapper">
-      <%= link_to attachment_image_tag(discussion.first_post.images.first, :file, :fill, 300, 180, class: 'coverImg', fallback: 'cover_photo/600x300-speech-bubble.png'), [discussion.group, discussion, anchor: "topic"] %>
-    </div>
-    <% if discussion.sticky %>
-      <div class="categoryicon sticky"><%= icon_tag "pin" %><sup><%= discussion.discussion_posts.size %></sup></div>
-    <% else %>
+
+    <% if controller.controller_name == 'activities' %>
+      <!-- Use other HeaderView if used as Activities Stream-Box -->
+      <div class="coverImgWrapper">
+        <%= link_to cover_photo_for(discussion.group), [discussion.group, discussion, anchor: "topic"] %>
+      </div>
       <div class="categoryicon"><%= icon_tag "layout-document" %><sup><%= discussion.discussion_posts.size %></sup></div>
+      <div class="sideflag -R"><div class="title"><%= discussion.group.title %></div></div>
+    <% else %>
+      <!-- Normal HeaderView for Groups -->
+      <div class="coverImgWrapper">
+        <%= link_to attachment_image_tag(discussion.first_post.images.first, :file, :fill, 300, 180, class: 'coverImg', fallback: 'cover_photo/600x300-speech-bubble.png'), [discussion.group, discussion, anchor: "topic"] %>
+      </div>
+      <% if discussion.sticky %>
+        <div class="categoryicon sticky"><%= icon_tag "pin" %><sup><%= discussion.discussion_posts.size %></sup></div>
+      <% else %>
+        <div class="categoryicon"><%= icon_tag "layout-document" %><sup><%= discussion.discussion_posts.size %></sup></div>
+      <% end %>
     <% end %>
+
+
   </div>
   <div class="cardBoxContent">
     <div class="avatar-block">
