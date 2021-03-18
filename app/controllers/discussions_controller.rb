@@ -35,8 +35,14 @@ class DiscussionsController < ApplicationController
     if @discussion.save
       @discussion.discussion_followings.create(user: current_user)
 
-      if @group.default_joined? && (!params[:trigger_notification].present? || params[:trigger_notification] == "0")
-        @discussion.create_activity(:create_dont_notify, owner: current_user)
+      if @group.default_joined?
+
+        if @group.admins.include?(current_user) && params[:trigger_notification] == "1"
+          @discussion.create_activity(:create, owner: current_user)
+        else
+          @discussion.create_activity(:create_dont_notify, owner: current_user)
+        end
+
       else
         @discussion.create_activity(:create, owner: current_user)
       end
