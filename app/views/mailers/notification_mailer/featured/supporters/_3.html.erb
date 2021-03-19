@@ -2,7 +2,7 @@
   <tr>
     <td heigt="170px" style="height:170px;">
       <%= link_to 'https://www.wiener-bezirksimkerei.at' do %>
-        <%= image_tag('supporter/logos/bezirksimkerei.png', style: "max-width:162px;", class: "mcnImage") %>
+        <%= image_tag Notifications::ImageService.new.attachment_url('supporter/logos/bezirksimkerei.png'), style: "max-width:162px;", class: "mcnImage" %>
       <% end %>
     </td>
   </tr>
