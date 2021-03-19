@@ -1,0 +1,32 @@
+<% supporters = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19] %>
+<% supporters = supporters.sample(3) %>
+
+<%= render 'summary/block_header', title: "Danke an alle imGrätzl UnterstützerInnen!" %>
+
+<table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer">
+    <tr>
+      <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px; text-align:center;">
+        Der Betrieb und die Weiterentwicklung von imGrätzl wird ermöglicht durch diese großartigen Menschen und Unternehmen.
+      </td>
+    </tr>
+</table>
+
+<% supporters.each do |supporter| %>
+  <!-- Supporter Card -->
+
+    <table border="0" cellpadding="0" cellspacing="0" style="float:left; width:200px; box-sizing: border-box; max-width:200px; margin-bottom:20px; border-bottom-width: 1px; border-bottom-style: dashed;border-bottom-color: #efefef;" class="mcnTextContentContainer">
+      <tbody>
+        <tr>
+          <td valign="top" align="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px; padding-top:0; padding-bottom:18px; text-align:center;">
+
+            <%= render "featured/supporters/#{supporter}" %>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  <!-- /Supporter Card -->
+<% end %>
+
+<%= render 'mailers/shared/button', title: "Zu allen UnterstützerInnen", url: info_danke_url, style: "width:100%;" %>

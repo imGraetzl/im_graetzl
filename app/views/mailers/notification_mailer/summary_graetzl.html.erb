@@ -18,12 +18,13 @@
 
 <% end %>
 
-<!-- Insert Featured Content in all Notification Mails -->
-<% if @period == 'weekly' %>
-  <%= render 'featured/hauswirtschaft' %>
-<% end %>
 
 <% if @period == 'weekly' %>
   <!-- Insert 2 Random District Zuckerls in Weekly Mail if any exists -->
   <%= render "summary/new_zuckerl" %>
+<% end %>
+
+<!-- Insert Featured Content in all Notification Mails -->
+<% if @period == 'weekly' %>
+  <%= render 'featured/supporters/insert_random_supporters' %>
 <% end %>

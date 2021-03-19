@@ -27,6 +27,10 @@ class Notifications::ImageService
     end
   end
 
+  def attachment_url(path)
+    ApplicationController.helpers.image_url(path, host: host)
+  end
+
   private
 
   def host
