@@ -64,6 +64,9 @@ de:
         one: Event Kategorie
         other: Event Kategorien
       contact: Kontakt
+      campaign_user:
+        one: Eintrag
+        other: Einträge
       curator:
         one: Grätzlbotschafter
         other: Grätzlbotschafter
@@ -149,6 +152,10 @@ de:
         country: Land
         city: Stadt
         zip: Postleitzahl
+      campaign_user:
+        first_name: Vorname
+        last_name: Nachname
+        email: E-Mail
       category:
         context: Kontext
         created_at: Erstellt am
