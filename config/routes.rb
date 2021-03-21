@@ -83,6 +83,10 @@ Rails.application.routes.draw do
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
   end
 
+  resources :campaign_users, path: 'campaign', only: [:new, :create] do
+  end
+  get 'muehlviertel', to: 'campaign_users#muehlviertel'
+
   resources :room_demands, path: 'wien/raumteiler/raumsuche', except: [:index] do
     post 'toggle', on: :member
     get 'activate/:activation_code' => 'room_demands#activate', on: :member
@@ -172,8 +176,6 @@ Rails.application.routes.draw do
   get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
   get 'raumteiler' => redirect('/wien/raumteiler')
   get 'dieselgasse' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-dieselgasse')
-  get 'flohmarkt' => redirect('https://blog.imgraetzl.at/allgemein/flowmarkt-eroeffnung-raumteiler-hub-dieselgasse/')
-  get 'flowmarkt' => redirect('https://blog.imgraetzl.at/allgemein/flowmarkt-eroeffnung-raumteiler-hub-dieselgasse/')
   get 'mixit' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
   get 'mix-it' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
   get 'raumteilerfestival', to: 'landing_pages#raumteiler_festival_2018'

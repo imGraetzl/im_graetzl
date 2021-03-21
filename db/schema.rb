@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_12_104305) do
+ActiveRecord::Schema.define(version: 2021_03_20_201147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,18 @@ ActiveRecord::Schema.define(version: 2021_03_12_104305) do
     t.integer "user_id"
     t.index ["business_interest_id"], name: "index_business_interests_users_on_business_interest_id"
     t.index ["user_id"], name: "index_business_interests_users_on_user_id"
+  end
+
+  create_table "campaign_users", force: :cascade do |t|
+    t.string "campaign_title"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email", default: "", null: false
+    t.string "website"
+    t.string "zip"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "categories_meetings", id: false, force: :cascade do |t|
