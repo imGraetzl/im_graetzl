@@ -59,11 +59,11 @@ section.lp {
     }
     .-header .wrp {
       @include respond-to(">=medium") {
-        background-image: url(image_path('info/imGraetzl-Features-Kooperationen.png'));
+        background-image: url(image_path('info/imGraetzl-Features-Gegengeschaefte.png'));
         background-repeat: no-repeat;
-        background-position: right bottom;
+        background-position: right 80%;
         background-size:250px;
-        padding-right:200px;
+        padding-right:220px;
       }
     }
     h2 {
