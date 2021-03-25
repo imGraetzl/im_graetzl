@@ -15,6 +15,7 @@ context.instance_eval do
           row :updated_at
           row :graetzl
           row :slogan
+          row :online_shop
           row :description
           row(:meeting_permission){|l| status_tag(l.meeting_permission)}
           row :cover_photo do |l|

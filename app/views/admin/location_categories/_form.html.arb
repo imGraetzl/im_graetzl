@@ -3,7 +3,12 @@ active_admin_form_for [:admin, resource] do |f|
   inputs do
     input :name
     input :context, as: :select, collection: LocationCategory.contexts.keys, include_blank: false
-    input :icon, placeholder: 'icon-etc'
+    input :main_photo, as: :file,
+      hint: (image_tag(attachment_url(f.object, :main_photo, :fill, 400, 600)) if f.object.main_photo)
+    input :remove_main_photo, as: :boolean if f.object.main_photo
+    input :position
+    input :css_ico_class
+    input :icon, placeholder: 'old icon class'
   end
   actions
 end

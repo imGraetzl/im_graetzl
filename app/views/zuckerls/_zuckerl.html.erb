@@ -22,7 +22,7 @@
         <%= link_to [graetzl, location] do %>
           <div class="name"><%= location.name %></div>
         <% end %>
-        <div class="category"><%= location.location_category.name %></div>
+        <div class="category"><%= location.location_category.name if location.location_category %></div>
         <% if location.address %>
           <div class="address">
             <%= icon_tag "location" %>

@@ -12,6 +12,7 @@ active_admin_form_for [:admin, resource] do |f|
         input :slug unless f.object.new_record?
         input :slogan
         input :description
+        input :online_shop, as: :url
         input :meeting_permission, as: :select, collection: Location.meeting_permissions_for_select, include_blank: false
         input :cover_photo, as: :file,
           hint: (image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100)) if f.object.cover_photo)

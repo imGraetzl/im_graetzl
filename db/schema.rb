@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_201147) do
+ActiveRecord::Schema.define(version: 2021_03_25_104829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -396,6 +396,10 @@ ActiveRecord::Schema.define(version: 2021_03_20_201147) do
     t.datetime "updated_at"
     t.integer "context", default: 0
     t.string "icon"
+    t.string "main_photo_id"
+    t.string "main_photo_content_type"
+    t.string "css_ico_class"
+    t.integer "position", default: 0
   end
 
   create_table "location_ownerships", id: :serial, force: :cascade do |t|
@@ -424,6 +428,7 @@ ActiveRecord::Schema.define(version: 2021_03_20_201147) do
     t.integer "meeting_permission", default: 0, null: false
     t.integer "location_category_id"
     t.datetime "last_activity_at"
+    t.string "online_shop"
     t.index ["created_at"], name: "index_locations_on_created_at"
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_locations_on_last_activity_at"

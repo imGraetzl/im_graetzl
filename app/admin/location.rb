@@ -6,6 +6,7 @@ ActiveAdmin.register Location do
   scope :all, default: true
   scope :pending
   scope :approved
+  scope :online_shop
 
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -15,6 +16,7 @@ ActiveAdmin.register Location do
   filter :name
   filter :slogan
   filter :description
+  filter :online_shop
   filter :allow_meetings
   filter :created_at
   filter :updated_at
@@ -81,6 +83,7 @@ ActiveAdmin.register Location do
     :slug,
     :slogan,
     :description,
+    :online_shop,
     :allow_meetings,
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
