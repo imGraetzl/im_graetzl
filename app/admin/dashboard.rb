@@ -36,37 +36,6 @@ ActiveAdmin.register_page "Dashboard" do
               end
             end
 
-            tab 'Processing' do
-              table_for Meeting.platform_meeting_processing.order(updated_at: :asc) do
-                column(:meeting, sortable: :name) do |meeting|
-                  link_to meeting.name, admin_meeting_path(meeting)
-                end
-                column('status') { |meeting| status_tag(meeting.platform_meeting_join_request.status) }
-                column :users do |meeting|
-                  link_to(meeting.user.username, admin_user_path(meeting.user))
-                end
-                column :meeting_category
-              end
-              span do
-                link_to 'Offene Anfragen Bearbeiten', admin_meetings_path(:scope => 'platform_meeting_processing'), class: 'btn-light'
-              end
-            end
-
-            tab 'Declined' do
-              table_for Meeting.platform_meeting_declined.order(updated_at: :asc) do
-                column(:meeting, sortable: :name) do |meeting|
-                  link_to meeting.name, admin_meeting_path(meeting)
-                end
-                column('status') { |meeting| status_tag(meeting.platform_meeting_join_request.status) }
-                column :users do |meeting|
-                  link_to(meeting.user.username, admin_user_path(meeting.user))
-                end
-                column :meeting_category
-              end
-              span do
-                link_to 'Offene Anfragen Bearbeiten', admin_meetings_path(:scope => 'platform_meeting_declined'), class: 'btn-light'
-              end
-            end
           end
 
 
@@ -76,6 +45,18 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
       column do
+        panel 'Campaign Users' do
+          table_for CampaignUser.order(updated_at: :asc).limit(10) do
+            column :campaign_title
+            column :first_name
+            column :last_name
+            column :email
+          end
+          span do
+            link_to 'Alle anzeigen', admin_campaign_users_path, class: 'btn-light'
+          end
+        end
+
         panel 'Offene Location Anfragen' do
           table_for Location.pending.order(updated_at: :asc) do
             column(:location, sortable: :name) do |location|
