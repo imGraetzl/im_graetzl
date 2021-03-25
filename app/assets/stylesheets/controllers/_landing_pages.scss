@@ -42,7 +42,7 @@ section.lp {
   }
 
 
-  // WeLocally Mühlviertel Kernland
+  // WeLocally Mühlviertler Kernland
   &.-muehlviertel {
     .imgHeader {
       .wrp {
@@ -140,6 +140,48 @@ section.lp {
       margin-top:20px;
       font-style: italic;
       text-align: center;
+    }
+    section.kooperationspartner {
+      margin-top:60px;
+      h2 {
+        @include headlineBarbapapaMintDark;
+        margin: auto;
+        margin-bottom: 40px;
+      }
+      a {
+        color: $color-ambient-grey;
+        &:hover {
+          color: $color-ambient-rosa;
+        }
+      }
+      .cardBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap:wrap;
+        flex-direction:column;
+        @include respond-to(">=medium") {
+          flex-direction:row;
+        }
+        img {
+          width:50%;
+          @include respond-to(">=medium") {
+            width:100%;
+          }
+        }
+        div.wrp {
+          width:100%;
+          text-align:center;
+          @include respond-to(">=medium") {
+            width:50%;
+            text-align:left;
+          }
+          padding:10px;
+          .links {
+            @include ellipsis;
+          }
+        }
+      }
     }
   }
 
