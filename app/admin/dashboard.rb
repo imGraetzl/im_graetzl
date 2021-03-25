@@ -29,7 +29,6 @@ ActiveAdmin.register_page "Dashboard" do
                 column :users do |meeting|
                   link_to(meeting.user.username, admin_user_path(meeting.user))
                 end
-                column :meeting_category
               end
               span do
                 link_to 'Offene Anfragen Bearbeiten', admin_meetings_path(:scope => 'platform_meeting_pending'), class: 'btn-light'
