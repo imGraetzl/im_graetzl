@@ -399,7 +399,6 @@ ActiveRecord::Schema.define(version: 2021_03_25_104829) do
     t.string "icon"
     t.string "main_photo_id"
     t.string "main_photo_content_type"
-    t.string "css_ico_class"
     t.integer "position", default: 0
   end
 

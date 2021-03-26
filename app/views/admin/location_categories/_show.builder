@@ -5,7 +5,6 @@ context.instance_eval do
         row :id
         row :position
         row :name
-        row :css_ico_class
         row :icon
         row(:context){|c| status_tag(c.context)}
         row :created_at
