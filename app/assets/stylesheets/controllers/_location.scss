@@ -93,6 +93,12 @@ section.location-page {
     padding-left: 15px;
     padding-right: 15px;
   }
+  .icontxt.onlineshop {
+    color: $color-ambient-rosa;
+    .icon {
+      fill: $color-ambient-rosa;
+    }
+  }
 
   .sideBar {
     position: relative;

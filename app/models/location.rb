@@ -29,7 +29,7 @@ class Location < ApplicationRecord
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
-  scope :online_shop, -> { where.not(online_shop: [nil, ""]) }
+  scope :online_shop, -> { joins(:contact).where("online_shop != 'NIL'") }
 
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
 
@@ -71,6 +71,10 @@ class Location < ApplicationRecord
 
   def boss
     location_ownerships.order(:created_at).first.user
+  end
+
+  def onlineshop?
+    self.contact.online_shop.present?
   end
 
   def editable_by?(user)

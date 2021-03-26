@@ -83,7 +83,6 @@ ActiveAdmin.register Location do
     :slug,
     :slogan,
     :description,
-    :online_shop,
     :allow_meetings,
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,
@@ -93,6 +92,7 @@ ActiveAdmin.register Location do
     contact_attributes: [
       :id,
       :website,
+      :online_shop,
       :email,
       :phone,
       :hours],

@@ -8,7 +8,11 @@
       </div>
     <% end %>
     <div class="categoryicon">
-      <%= icon_tag "location" %>
+      <% if location.onlineshop? %>
+        <%= icon_tag "onlineshop" %>
+      <% else %>
+        <%= icon_tag "location" %>
+      <% end %>
     </div>
     <%= graetzl_flag(graetzl) %>
   </div>

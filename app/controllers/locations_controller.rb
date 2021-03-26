@@ -126,6 +126,7 @@ class LocationsController < ApplicationController
         contact_attributes: [
           :id,
           :website,
+          :online_shop,
           :email,
           :phone,
           :hours],

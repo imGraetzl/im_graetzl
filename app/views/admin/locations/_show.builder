@@ -15,7 +15,6 @@ context.instance_eval do
           row :updated_at
           row :graetzl
           row :slogan
-          row :online_shop
           row :description
           row(:meeting_permission){|l| status_tag(l.meeting_permission)}
           row :cover_photo do |l|
@@ -29,6 +28,7 @@ context.instance_eval do
       panel 'Contact Details' do
         attributes_table_for location.contact do
           row :id
+          row :online_shop
           row :website
           row :email
           row :phone

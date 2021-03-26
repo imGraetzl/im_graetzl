@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_104829) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "hours"
+    t.string "online_shop"
     t.index ["location_id"], name: "index_contacts_on_location_id"
   end
 
@@ -428,7 +429,6 @@ ActiveRecord::Schema.define(version: 2021_03_25_104829) do
     t.integer "meeting_permission", default: 0, null: false
     t.integer "location_category_id"
     t.datetime "last_activity_at"
-    t.string "online_shop"
     t.index ["created_at"], name: "index_locations_on_created_at"
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_locations_on_last_activity_at"
