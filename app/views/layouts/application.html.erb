@@ -15,7 +15,6 @@
 </head>
 
 <body data-controller=<%= controller_name %> class=<%= user_signed_in? ? 'signed-in' : ''%>>
-  <%= render "icons" %>
   <%= render 'navigation/header' %>
   <%= render 'flashes' %>
 
@@ -25,6 +24,7 @@
 
   <%= render 'footer' %>
   <%= javascript_include_tag 'application' %>
+  <%= render "icons" %>
 </body>
 
 </html>
