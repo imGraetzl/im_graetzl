@@ -1,8 +1,26 @@
-<div class="filter-categories" data-filter-label="Locations Category">
-  <%= collection_check_boxes :filter, :location_category_ids, LocationCategory.all, :id, :name do |b| %>
-    <div class="input-checkbox filter-input">
-      <%= b.check_box("data-label": b.text) %>
-      <%= b.label %>
-    </div>
-  <% end %>
+<!-- SLIDER -->
+<div class="category-slider-container">
+  <div id="category-slider" data-label="Locations">
+    <!-- Online Shops -->
+      <div class="-category -special-category" data-id="online_shop" data-label="Online Shops">
+        <%= image_tag('location-onlineshop.jpg', class: 'attachment event_category main_photo categoryImg') %>
+        <div class="cat -onlineshop"></div>
+        <h3>Online Shops</h3>
+        <%= button_tag '', class: 'close-ico' do %>
+          <%= icon_tag "cross" %>
+        <% end %>
+      </div>
+    <!-- /Online Shops -->
+    <% LocationCategory.all.sort_by(&:position).each do |category| %>
+      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>">
+        <%= category_photo_for(category) %>
+        <div class="cat category-<%= category.id %> -<%= category.icon %> -locations"></div>
+        <h3><%= category.name %></h3>
+        <%= button_tag '', class: 'close-ico' do %>
+          <%= icon_tag "cross" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="filter-line"></div>
 </div>

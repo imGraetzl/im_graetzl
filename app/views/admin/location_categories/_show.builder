@@ -3,6 +3,7 @@ context.instance_eval do
     column do
       attributes_table do
         row :id
+        row :position
         row :name
         row :icon
         row(:context){|c| status_tag(c.context)}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_20_201147) do
+ActiveRecord::Schema.define(version: 2021_03_25_104829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 2021_03_20_201147) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "hours"
+    t.string "online_shop"
     t.index ["location_id"], name: "index_contacts_on_location_id"
   end
 
@@ -396,6 +397,9 @@ ActiveRecord::Schema.define(version: 2021_03_20_201147) do
     t.datetime "updated_at"
     t.integer "context", default: 0
     t.string "icon"
+    t.string "main_photo_id"
+    t.string "main_photo_content_type"
+    t.integer "position", default: 0
   end
 
   create_table "location_ownerships", id: :serial, force: :cascade do |t|

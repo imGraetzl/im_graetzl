@@ -3,9 +3,17 @@
     <p class="txt">So kann man dich <span>erreichen</span></p>
 
     <div class="input-field">
+      <%= contact_fields.label :online_shop do %>
+          <%= icon_tag "onlineshop" %>
+          <span>Online Shop</span>
+      <% end %>
+      <%= contact_fields.url_field :online_shop, placeholder: 'Falls du einen Online Shop hast, trage hier die Adresse ein..', class: '-validate' %><em></em>
+    </div>
+
+    <div class="input-field">
       <%= contact_fields.label :website do %>
           <%= icon_tag "globe" %>
-          <span><%= Contact.human_attribute_name(:website) %></span>
+          <span>Homepage</span>
       <% end %>
       <%= contact_fields.url_field :website, placeholder: 'http:// oder https://', class: '-validate' %><em></em>
     </div>
@@ -13,7 +21,7 @@
     <div class="input-field">
       <%= contact_fields.label :email do %>
         <%= icon_tag "at-symbol" %>
-        <span><%= Contact.human_attribute_name(:email) %></span>
+        <span>E-Mail Adresse</span>
       <% end %>
       <%= contact_fields.email_field :email, placeholder: 'E-Mail', class: '-validate' %>
     </div>

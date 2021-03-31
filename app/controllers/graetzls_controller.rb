@@ -11,6 +11,8 @@ class GraetzlsController < ApplicationController
   end
 
   def locations
+    @category = LocationCategory.find_by(id: params[:category]) if params[:category].present?
+    @special_category = params[:special_category] if params[:special_category].present?
   end
 
   def rooms

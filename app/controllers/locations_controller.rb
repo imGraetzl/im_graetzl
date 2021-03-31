@@ -83,9 +83,12 @@ class LocationsController < ApplicationController
       locations = locations.where(graetzl_id: graetzl_ids)
     end
 
-    category_ids = params.dig(:filter, :location_category_ids)&.select(&:present?)
-    if category_ids.present?
-      locations = locations.where(location_category_id: category_ids)
+    if params[:special_category_id].present? && params[:special_category_id] == 'online_shop'
+      locations = locations.online_shop
+    end
+
+    if params[:category_id].present?
+      locations = locations.where(location_category: params[:category_id])
     end
 
     locations
@@ -123,6 +126,7 @@ class LocationsController < ApplicationController
         contact_attributes: [
           :id,
           :website,
+          :online_shop,
           :email,
           :phone,
           :hours],
