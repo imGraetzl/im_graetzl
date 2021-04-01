@@ -58,7 +58,8 @@ class Notification < ApplicationRecord
       users.each do |u|
         next if notified_user_ids[u.id].present?
         next if u == activity.owner && !klass.notify_owner?
-        next if klass.sent == nil
+        puts "--------- #{klass.sent}---------"
+        next if klass.sent.nil?
 
         display_on_website = u.enabled_website_notification?(klass) && u != activity.owner
         n = klass.create(activity: activity, user: u, display_on_website: display_on_website)
