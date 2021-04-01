@@ -183,6 +183,31 @@ section.lp {
         }
       }
     }
+    &.-kaernten {
+      section.kooperationspartner {
+        .cardBox {
+          flex-direction:row;
+          img {
+            width:60%;
+            @include respond-to(">=medium") {
+              width:40%;
+              margin-right: 30px;
+            }
+          }
+          div.wrp {
+            width:50%;
+            text-align:left;
+          }
+          div.wrp.-img {
+            text-align: center;
+            @include respond-to(">=medium") {
+              text-align:right;
+            }
+          }
+        }
+
+      }
+    }
   }
 
 
