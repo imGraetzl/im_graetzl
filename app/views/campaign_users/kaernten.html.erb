@@ -13,14 +13,14 @@
   <div class="imgHeader -fullwidth">
     <div class="wrp">
       <%= image_tag('svg/coopshare-logo-black.svg', class: 'coop-share-logo') %>
-      <h2>Servus Mühlviertler Kernland!</h2>
+      <h2>Servus Kärnten!</h2>
     </div>
   </div>
 
   <div class="paperCard -cord1RT -header -top">
     <div class="wrp">
       <h3>
-        Wir freuen uns sehr darauf, euch persönlich kennenzulernen, liebe Macher*innen im Mühlviertler Kernland!
+        Wir freuen uns sehr darauf, euch persönlich kennenzulernen, liebe Macher*innen in Kärnten!
       </h3>
       <p>
         Wir, das sind Mirjam, Lena und Michi. In Wien betreiben wir seit 2016 die gemeinwohlorientierte Plattform imGrätzl.at zur Stärkung der Selbstständigen, Gründer*innen, Kulturschaffenden, Macher*innen und Vereine.
@@ -31,12 +31,12 @@
 
   <div class="hl-subtext">
     <h1>Die großartige Nachricht:</h1>
-    <p>wir dürfen nun die Plattform zu euch ins Mühlviertler Kernland bringen.</p>
+    <p>wir dürfen nun die Plattform zu euch nach Kärnten bringen.</p>
   </div>
 
   <article class="container -team">
     <div class="aside -img -mentoring">
-      <%= link_to(image_tag('lp/muehlviertel/team.jpg'), root_path, class: '-feature') %>
+      <%= link_to(image_tag('lp/team.jpg'), root_path, class: '-feature') %>
     </div>
     <div class="txt">
       <p>
@@ -55,8 +55,8 @@
 
   <%= form_for @campaign_user do |f| %>
   <%= form_errors_for @campaign_user if @campaign_user %>
-  <%= f.hidden_field :campaign_title, value: 'muehlviertel' %>
-  <%= hidden_field_tag :campaign_redirect, 'muehlviertel' %>
+  <%= f.hidden_field :campaign_title, value: 'kaernten' %>
+  <%= hidden_field_tag :campaign_redirect, 'kaernten' %>
 
     <div class="form-block cardBox">
       <div class="form-columns">
@@ -151,7 +151,7 @@
         </p>
       </div>
       <div class="aside -img">
-        <%= link_to(image_tag('lp/muehlviertel/platform-screenshot.jpg'), root_path, class: '-feature') %>
+        <%= link_to(image_tag('lp/platform-screenshot.jpg'), root_path, class: '-feature') %>
       </div>
     </article>
 
@@ -165,23 +165,25 @@
   <div class="paperCard -cord1RT -footer">
     <div class="wrp">
       <p>
-        Wir sind überzeugt davon, dass so eine Plattform auch im Mühlviertler Kernland eine positive Wirkung erzielen kann.
+        Wir sind überzeugt davon, dass so eine Plattform auch in Kärnten eine positive Wirkung erzielen kann.
         Und: Wir glauben an Gemeinschaft und daran, dass man zusammen mehr erreichen kann.
       </p>
       <p>
         <strong>Weg vom Einzelkämpfertum hin zu einem kooperativen WIR, als Lösung für viele Herausforderungen!</strong> Wir denken dabei an den Strukturwandel, Digitalisierung, eine sich verändernde Arbeitswelt, aber auch an die Klimakrise. Unser Motto ist: Laßt uns die Kräfte bündeln!
       </p>
       <p>
-        Neben dem Mühlviertler Kernland dockt übrigens noch ein weiteres Gebiet an den neuen Plattform Prototyp an und zwar drei Gemeinden in Kärnten.
+        Neben Kärnten dockt übrigens noch ein weiteres Gebiet an den neuen Plattform Prototyp an und zwar das Mühlviertler Kernland.
         <strong>Last but not least: wenn du jemand kennst, der/die auch Lust auf Mitgestaltung und Vernetzung  hat, dann gerne den Link zur Seite weiterleiten.</strong>
       </p>
     </div>
     <div class="card"></div>
   </div>
 
+
   <section class="kooperationspartner">
       <h2>Unser Kooperationspartner</h2>
       <div class="cardBox">
+      <!--
         <div class="wrp -img">
           <%= link_to(image_tag('lp/muehlviertel/logo-mv-kernland.jpg'), 'https://www.facebook.com/leader.muehlviertlerkernland/', :target => "blank") %>
         </div>
@@ -200,6 +202,7 @@
             <%= link_to 'www.facebook.com/groups/supportyourmuehlviertel', 'https://www.facebook.com/groups/supportyourmuehlviertel', :target => "blank" %><br>
           </div>
         </div>
+        -->
       </div>
   </section>
 
