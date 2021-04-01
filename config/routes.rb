@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   resources :campaign_users, path: 'campaign', only: [:new, :create] do
   end
   get 'muehlviertel', to: 'campaign_users#muehlviertel'
+  get 'kaernten', to: 'campaign_users#kaernten'
 
   resources :room_demands, path: 'wien/raumteiler/raumsuche', except: [:index] do
     post 'toggle', on: :member

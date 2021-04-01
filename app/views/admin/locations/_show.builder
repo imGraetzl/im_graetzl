@@ -28,6 +28,7 @@ context.instance_eval do
       panel 'Contact Details' do
         attributes_table_for location.contact do
           row :id
+          row :online_shop
           row :website
           row :email
           row :phone

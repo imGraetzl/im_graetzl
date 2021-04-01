@@ -8,7 +8,11 @@
       </div>
     <% end %>
     <div class="categoryicon">
-      <%= icon_tag "location" %>
+      <% if location.onlineshop? %>
+        <%= icon_tag "onlineshop" %>
+      <% else %>
+        <%= icon_tag "location" %>
+      <% end %>
     </div>
     <%= graetzl_flag(graetzl) %>
   </div>
@@ -22,7 +26,7 @@
         <%= link_to [graetzl, location] do %>
           <div class="name"><%= location.name %></div>
         <% end %>
-        <div class="category"><%= location.location_category.name %></div>
+        <div class="category"><%= location.location_category.name if location.location_category %></div>
         <% if location.address %>
           <div class="address">
             <%= icon_tag "location" %>

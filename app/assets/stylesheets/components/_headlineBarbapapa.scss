@@ -49,7 +49,7 @@
 .headlineBarbapapa {
   @include headlineBarbapapa();
 }
-.toolteiler-headline, .raumteiler-headline, .meetings-headline {
+.toolteiler-headline, .raumteiler-headline, .meetings-headline, .locations-headline {
   width: 340px;
   max-width: 70%;
   display: block;
@@ -57,7 +57,11 @@
   margin-bottom: 10px;
   padding-left:30px;
 }
-.meetings-headline {
+.meetings-headline, .locations-headline {
   width: 430px;
   padding-left:20px;
+}
+.locations-headline {
+  width: 440px;
+  padding-left:0px;
 }

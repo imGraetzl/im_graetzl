@@ -4,6 +4,10 @@ class CampaignUsersController < ApplicationController
     @campaign_user = CampaignUser.new
   end
 
+  def kaernten
+    @campaign_user = CampaignUser.new
+  end
+
   def create
 
     @campaign_user = CampaignUser.new(campaign_user_params)

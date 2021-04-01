@@ -10,7 +10,8 @@ ActiveAdmin.register LocationCategory do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :name, :icon, :context
+  permit_params :name, :icon, :context, :main_photo, :remove_main_photo, :position
+
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
   controller do

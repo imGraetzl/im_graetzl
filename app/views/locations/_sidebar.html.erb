@@ -25,6 +25,13 @@
         <% end %>
       <% end %>
 
+      <% if @location.contact.online_shop.present? %>
+        <%= link_to @location.contact.online_shop, class: 'icontxt onlineshop', target: '_blank' do %>
+          <%= icon_tag "onlineshop" %>
+          <span>Online Shop</span>
+        <% end %>
+      <% end %>
+
       <% if @location.contact.website.present? %>
         <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
           <%= icon_tag "globe" %>

@@ -199,5 +199,8 @@ de:
 
   campaign_users:
     muehlviertel:
-      title: 'Mühlviertel'
-      description: 'Mühlviertel'
+      title: 'Servus Mühlviertler Kernland!'
+      description: 'Die großartige Nachricht: Wir dürfen nun die Plattform zu euch bringen. Lust die Plattform mitzugestalten? Hier entlang ..'
+    kaernten:
+      title: 'Servus Kärnten!'
+      description: 'Die großartige Nachricht: Wir dürfen nun die Plattform zu euch bringen. Lust die Plattform mitzugestalten? Hier entlang ..'
