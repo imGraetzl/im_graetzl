@@ -362,6 +362,10 @@
 
   > .txt {
     margin-bottom: 20px;
+    h3 {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
     h3 a {
       @include font-size-primaryFont('larger');
       margin-bottom: 10px;
@@ -371,6 +375,8 @@
     p {
       @include font-size-primaryFont('base');
       margin-bottom: 15px;
+      text-overflow: ellipsis;
+      overflow: hidden;
       &:last-child {
         margin-bottom: 0;
       }
