@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_25_104829) do
+ActiveRecord::Schema.define(version: 2021_04_04_123429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -365,6 +365,7 @@ ActiveRecord::Schema.define(version: 2021_03_25_104829) do
     t.boolean "hidden", default: false
     t.text "welcome_message"
     t.boolean "default_joined", default: false
+    t.integer "group_users_count"
     t.index ["location_id"], name: "index_groups_on_location_id"
     t.index ["room_call_id"], name: "index_groups_on_room_call_id"
     t.index ["room_demand_id"], name: "index_groups_on_room_demand_id"
