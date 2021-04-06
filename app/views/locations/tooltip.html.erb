@@ -9,7 +9,7 @@
 
   <div class="tt-content">
     <%= link_to @location.name, [graetzl, @location], class:'username' %>
-    <% if @user @location.location_category %>
+    <% if @user && @location.location_category %>
       <div class="tt-line -category">
         <%= @location.location_category.name %>
       </div>
