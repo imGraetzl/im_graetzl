@@ -4,7 +4,7 @@ context.instance_eval do
   end
   column :origin
   column do |user|
-    link_to "Zur Seite", "#{ENV['HOST']}#{user.origin}", target: "blank"
+    link_to "Zur Seite", "#{root_url.delete_suffix('/')}#{user.origin}", target: "blank" if user.origin
   end
   column :created_at
 end
