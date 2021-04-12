@@ -19,8 +19,8 @@ class ActivityStream
       Activity.where(trackable_id: @area.groups.pluck(:id), key: ['group.create']),
 
       # Used for cross_platform Meetings:
-      #Activity.where(trackable_id: Meeting.non_private.pluck(:id), cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
-      Activity.where(cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
+      Activity.where(trackable_id: Meeting.non_private.pluck(:id), cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
+      #Activity.where(cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
 
       # Personal Activity Stream build on User Notifications
       Activity.where(id: @user.notifications.where(:type => "Notifications::NewGroupDiscussion").pluck(:activity_id)),
