@@ -20,6 +20,9 @@
 
 
 <% if @period == 'weekly' %>
+  <!-- Featured Box -->
+  <%= render 'featured/ffg_wettbewerb' %>
+
   <!-- Insert 2 Random District Zuckerls in Weekly Mail if any exists -->
   <%= render "summary/new_zuckerl" %>
 <% end %>
