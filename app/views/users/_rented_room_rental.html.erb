@@ -13,11 +13,7 @@
     </div>
   </div>
   <div class="flex-row large" role="cell">
-    <% if room_rental.room_offer.enabled? %>
-      <%= link_to room_rental.room_offer.slogan.truncate(35), room_rental.room_offer %>
-    <% else %>
-      <%= room_rental.room_offer.title.truncate(35) %>
-    <% end %>
+    <%= link_to room_rental.room_offer.slogan.truncate(35), room_rental.room_offer %>
   </div>
   <div class="flex-row medium" role="cell"><%= room_rental.rental_period %></div>
   <div class="flex-row small" role="cell"><%= number_to_currency(room_rental.total_price, unit: "€") %></div>
