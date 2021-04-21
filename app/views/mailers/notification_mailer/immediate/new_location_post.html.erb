@@ -39,7 +39,7 @@
         </h3>
 
         <p style="margin-top:12px;">
-          <%= @notification.location_post.content.truncate(255, separator: ' ') %>
+          <%= @notification.location_post.content.truncate(255, separator: ' ').gsub("\r\n", "<br/>").html_safe %>
         </p>
 
       </td>
