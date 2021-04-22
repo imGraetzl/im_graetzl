@@ -43,7 +43,6 @@ module Notifications
     NewRoomRental,
     NewUserPost,
     NewWallComment,
-    PaidAttendeeInUsersMeeting,
     RejectToolRental,
     RejectRoomRental,
     ReturnConfirmedToolRental,
