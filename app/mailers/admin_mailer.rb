@@ -14,17 +14,4 @@ class AdminMailer < ApplicationMailer
     mail(subject: "[ImGrätzl] Ticket-Kauf für #{@meeting.name}")
   end
 
-  def new_payment(amount, email, description, url, message)
-    @amount = amount
-    @email = email
-    @description = description
-    @url = url
-    @message = message
-    if Rails.env.production?
-      mail(subject: "Zahlung #{description} von #{email}")
-    else
-      mail(subject: "[TEST] Zahlung #{description} von #{email}")
-    end
-  end
-
 end

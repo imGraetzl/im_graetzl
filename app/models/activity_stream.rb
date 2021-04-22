@@ -9,7 +9,7 @@ class ActivityStream
 
   def fetch
     activities = [
-      Activity.where(trackable_id: @area.meetings.non_private.pluck(:id), key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
+      Activity.where(trackable_id: @area.meetings.non_private.pluck(:id), key: ['meeting.comment', 'meeting.create', 'meeting.go_to']),
       Activity.where(trackable_id: @area.location_ids, key: ['location.create']),
       Activity.where(trackable_id: @area.location_post_ids, key: ['location_post.comment', 'location_post.create']),
       Activity.where(trackable_id: @area.room_offer_ids, key: ['room_offer.create', 'room_offer.update', 'room_offer.comment']),
@@ -19,8 +19,8 @@ class ActivityStream
       Activity.where(trackable_id: @area.groups.pluck(:id), key: ['group.create']),
 
       # Used for cross_platform Meetings:
-      Activity.where(trackable_id: Meeting.non_private.pluck(:id), cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
-      #Activity.where(cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
+      Activity.where(trackable_id: Meeting.non_private.pluck(:id), cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to']),
+      #Activity.where(cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to']),
 
       # Personal Activity Stream build on User Notifications
       Activity.where(id: @user.notifications.where(:type => "Notifications::NewGroupDiscussion").pluck(:activity_id)),
