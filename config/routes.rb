@@ -172,13 +172,11 @@ Rails.application.routes.draw do
   post 'messenger/post_message'
   post 'messenger/update_thread'
 
-  get 'wien/community-treffen' => redirect('/wien/selbststaendige-fuer-selbststaendige')
   get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
   get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
   get 'raumteiler' => redirect('/wien/raumteiler')
   get 'dieselgasse' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-dieselgasse')
   get 'mixit' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
-  get 'mix-it' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
   get 'raumteilerfestival', to: 'landing_pages#raumteiler_festival_2018'
   get 'raumteilerfestival/info', to: 'landing_pages#raumteiler_festival_2018_infos'
 
@@ -244,15 +242,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :meetings, only: [:index]
-  end
-
-  resources :payment do
-    collection do
-      get :raumteiler, :charge, :subscription, :mentoring
-    end
-    collection do
-      post :raumteiler_create, :charge_create, :subscription_create, :mentoring_create
-    end
   end
 
   resources :graetzls, path: '', only: [:show] do
