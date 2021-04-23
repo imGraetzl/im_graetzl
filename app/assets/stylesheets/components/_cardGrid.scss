@@ -18,6 +18,11 @@
     @include font-size-primaryFont('larger');
   }
 }
+.category-slider-container.loading {
+  background-image: url(image_path('svg/loading.svg'));
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 
 // Ugly Bugfix - NoWrap erzwingen bei einzelnen Slides durch Flex
 .toolteiler .lightSlider.lSSlide {
