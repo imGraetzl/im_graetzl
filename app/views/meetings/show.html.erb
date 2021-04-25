@@ -87,7 +87,7 @@
     <% end %>
 
     <div class="ico-row userPortraitName">
-      <% if @meeting.location && @meeting.location.users.include?(@meeting.user) %>
+      <% if @meeting.location&.owned_by?(@meeting.user) %>
         <%= location_tooltip_avatar @meeting.location %>
         <div class="infotxt">
           <em class="info">Erstellt von:</em><br>
@@ -123,11 +123,11 @@
   </div>
 
 
-  <% if @meeting.address.try(:coordinates) %>
+  <% if @meeting.address&.coordinates %>
     <script type="text/javascript">
       function initMaps() {
-        var lat = <%= @meeting.address.try(:coordinates).y %>;
-        var lng = <%= @meeting.address.try(:coordinates).x %>;
+        var lat = <%= @meeting.address.coordinates.y %>;
+        var lng = <%= @meeting.address.coordinates.x %>;
         var zoom = 17;
         var icon = '<%= image_path('map-marker.png') %>';
         var infowindow = false;

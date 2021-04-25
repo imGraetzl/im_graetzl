@@ -29,10 +29,7 @@ Rails.application.routes.draw do
       only: [:new, :create, :destroy],
       path: 'users',
       controller: 'users/registrations',
-      path_names: { new: 'registrierung' } do
-        post :set_address
-        get :graetzls
-      end
+      path_names: { new: 'registrierung' }
 
     post 'users/notification_settings/toggle_website_notification', to: 'notification_settings#toggle_website_notification', as: :user_toggle_website_notification
     post 'users/notification_settings/change_mail_notification', to: 'notification_settings#change_mail_notification', as: :user_change_mail_notification
@@ -59,12 +56,6 @@ Rails.application.routes.draw do
     get 'treffen', action: 'meetings', as: 'meetings'
   end
 
-  concern :graetzl_before_new do
-    collection do
-      post 'new', as: :before_new
-    end
-  end
-
   resources :activities, only: [:index]
   resources :meetings, path: 'treffen', except: [:show] do
     post :attend, on: :member
@@ -75,12 +66,13 @@ Rails.application.routes.draw do
   end
   resources :zuckerls, only: [:index]
   resources :rooms, only: [:index]
-  resources :posts, only: [:index]
   resources :groups, only: [:index]
 
   resources :locations do
-    concerns :graetzl_before_new
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
+    post :add_post, on: :member
+    post :remove_post, on: :member
+    post :comment_post, on: :member
   end
 
   resources :campaign_users, path: 'campaign', only: [:new, :create] do
@@ -234,11 +226,6 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:create, :destroy]
 
-  resources :location_posts, only: [:create, :destroy] do
-    post :comments, action: :comment
-  end
-  resources :admin_posts, path: 'ideen', only: [:show, :destroy]
-
   get 'navigation/load_content'
 
   namespace :api do
@@ -259,14 +246,12 @@ Rails.application.routes.draw do
     get 'locations', on: :member
     get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
-    get 'ideen', action: 'posts', as: 'posts', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member
     get 'toolteiler', action: 'tool_offers', as: 'tool_offers', on: :member
     resources :meetings, path: 'treffen', only: [:show]
     resources :groups, path: 'gruppen', only: [:show]
     resources :locations, only: [:show]
     resources :users, only: [:show]
-    resources :user_posts, path: 'ideen', only: [:new, :show, :create, :destroy]
   end
 
 end

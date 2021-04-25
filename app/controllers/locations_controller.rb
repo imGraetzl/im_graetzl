@@ -12,19 +12,19 @@ class LocationsController < ApplicationController
     @graetzl = Graetzl.find(params[:graetzl_id])
     @location = @graetzl.locations.find(params[:id])
     redirect_enqueued and return if @location.pending?
-    @posts = @location.posts.includes(:images, :comments).order(created_at: :desc).page(params[:page])
+    @posts = @location.location_posts.includes(:images, :comments).order(created_at: :desc).first(20)
     @zuckerls = @location.zuckerls.live
     @room_offer = RoomOffer.where(location_id: @location).last
     @room_demand = RoomDemand.where(location_id: @location).last
   end
 
   def new
-    if request.get?
+    if params[:selected_graetzl_id].blank?
       @graetzl = Graetzl.find(params[:graetzl_id] || current_user.graetzl_id)
       @district = @graetzl.districts.first
-      render :graetzl_form
+      render 'select_graetzl'
     else
-      @graetzl = Graetzl.find(params[:graetzl_id])
+      @graetzl = Graetzl.find(params[:selected_graetzl_id])
       @location = @graetzl.locations.build(location_category_id: current_user.location_category_id)
       @location.build_contact
     end
@@ -32,7 +32,9 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
-    @location.user_ids = [current_user.id]
+    @location.user = current_user
+    set_address(@location)
+
     if @location.save
       redirect_enqueued
     else
@@ -41,20 +43,49 @@ class LocationsController < ApplicationController
   end
 
   def edit
-    set_location
+    @location = fetch_user_location(params[:id])
   end
 
   def update
-    set_location
-    if @location.update location_params
+    @location = fetch_user_location(params[:id])
+    @location.assign_attributes(location_params)
+    set_address(@location) if @location.address.changed?
+    if @location.save
       redirect_to [@location.graetzl, @location]
     else
       render :edit
     end
   end
 
+  def add_post
+    @location = fetch_user_location(params[:id])
+    @location_post = @location.location_posts.build(location_post_params)
+    if @location_post.save
+      @location_post.create_activity :create, owner: current_user
+    end
+    render 'locations/location_posts/add'
+  end
+
+  def remove_post
+    @location = fetch_user_location(params[:id])
+    @location_post = @location.location_posts.find(params[:post_id])
+    @location_post.destroy
+    render 'locations/location_posts/remove'
+  end
+
+  def comment_post
+    @location = Location.find(params[:id])
+    @location_post = @location.location_posts.find(params[:post_id])
+    @comment = @location_post.comments.new(location_comment_params)
+    @comment.user = current_user
+    if @comment.save
+      @location_post.create_activity :comment, owner: current_user, recipient: @comment
+    end
+    render 'locations/location_posts/comment'
+  end
+
   def destroy
-    set_location
+    @location = fetch_user_location(params[:id])
     @location.destroy
     redirect_to locations_user_path, notice: 'Location entfernt'
   end
@@ -62,7 +93,7 @@ class LocationsController < ApplicationController
   def tooltip
     head :ok and return if browser.bot? && !request.format.js?
     @location = Location.find(params[:id])
-    @user = @location.boss unless @location.users.empty?
+    @user = @location.user
     render layout: false
   end
 
@@ -91,48 +122,46 @@ class LocationsController < ApplicationController
     locations
   end
 
-  def set_location
-    @location = current_user.locations.find params[:id]
-  end
-
-  def paginate_content
-    case
-    when params[:page]
-      @posts = @location.posts.order(created_at: :desc).page(params[:page]).per(10)
-    when params[:meetings]
-      @meetings = @location.meetings.include_for_box.by_currentness.page(params[:meetings]).per(2)
-    end
+  def fetch_user_location(id)
+    current_user.locations.find(id)
   end
 
   def redirect_enqueued
     redirect_to root_url, notice: 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
   end
 
+  def set_address(location)
+    if location.address?
+      resolver = AddressResolver.from_street(location.address.street_name, location.address.street_name)
+      return if !resolver.valid?
+      location.address.assign_attributes(resolver.address_fields)
+      location.graetzl = resolver.graetzl
+    end
+  end
+
   def location_params
-    params.
-      require(:location).
-      permit(:name,
-        :graetzl_id,
-        :slogan,
-        :description,
-        :avatar, :remove_avatar,
-        :cover_photo, :remove_cover_photo,
-        :location_category_id,
-        :meeting_permission,
-        :product_list,
-        contact_attributes: [
-          :id,
-          :website,
-          :email,
-          :phone,
-          :hours],
-        address_attributes: [
-          :id,
-          :street_name,
-          :street_number,
-          :zip,
-          :city,
-          :_destroy])
+    params.require(:location).permit(
+      :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
+      :location_category_id, :meeting_permission, :product_list,
+      contact_attributes: [
+        :id, :website, :email, :phone, :hours
+      ],
+      address_attributes: [
+        :id, :street_name, :street_number, :zip, :city, :_destroy
+      ]
+    )
+  end
+
+  def location_post_params
+    params.require(:location_post).permit(
+      :title, :content, images_files: []
+    )
+  end
+
+  def location_comment_params
+    params.require(:comment).permit(
+      :content, images_files: []
+    )
   end
 
 end

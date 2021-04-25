@@ -3,9 +3,8 @@
 <section class="location-form">
   <div class="wrp">
     <h1 class="hl-main"><span><%= @location.name %></span> im <%= @location.graetzl.name %></h1>
-    <%= link_to_add_graetzl_fields('Grätzl ändern', @location) %>
   </div>
 
-  <%= render 'form' %>
+  <%= render 'locations/form/index' %>
 
 </section>

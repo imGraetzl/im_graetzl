@@ -1,9 +1,12 @@
 class Coordinates < BaseService
-  BASE_URL = 'http://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo'
 
   def initialize(address)
     @street, @street_nr = address.street_name, address.street_number
     @district_nr = address.district_nr
+    def district_nr
+      zip.slice(1..2).sub(%r{^0},"") unless zip.blank?
+    end
+
   end
 
   def call

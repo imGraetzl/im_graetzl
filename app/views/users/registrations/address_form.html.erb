@@ -4,7 +4,7 @@
 
   <h1>Lass uns zu Beginn dein <span>Heimatgrätzl</span> finden...</h1>
 
-  <%= form_tag set_address_registration_path, method: :post do %>
+  <%= form_tag new_registration_path, method: :get do %>
     <div id="addressSearchAutocomplete" class="input-field">
       <%= label_tag :address do %>
         <%= icon_tag "map-location" %>

@@ -1,0 +1,5 @@
+<div class="posts-container stream">
+  <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
+  <%= render 'locations/location_posts/post_form' if @location.owned_by?(current_user) %>
+  <%= render partial: 'locations/location_posts/post', collection: @posts, as: :post %>
+</div>

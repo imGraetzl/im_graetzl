@@ -61,8 +61,8 @@ ActiveAdmin.register_page "Dashboard" do
             column(:location, sortable: :name) do |location|
               link_to location.name, admin_location_path(location)
             end
-            column :users do |location|
-              safe_join(location.users.map { |user| link_to(user.username, admin_user_path(user)) }, ', ')
+            column :user do |location|
+              link_to location.user, admin_user_path(location.user)
             end
             column('status') { |location| status_tag(location.state) }
           end

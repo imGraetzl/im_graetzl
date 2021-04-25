@@ -79,14 +79,8 @@ active_admin_form_for [:admin, resource] do |f|
       actions
     end
     column do
-      inputs 'Users' do
-        has_many :location_ownerships,
-                  allow_destroy: true,
-                  heading: false,
-                  new_record: 'User Hinzufügen' do |o|
-          o.input :user, collection: User.admin_select_collection, include_blank: "Select User", input_html: { class: 'admin-filter-select'}
-          o.input :state, as: :select, collection: LocationOwnership.states.keys, include_blank: false
-        end
+      inputs 'User' do
+        input :user, collection: User.admin_select_collection, include_blank: "Select User", input_html: { class: 'admin-filter-select'}
       end
     end
   end

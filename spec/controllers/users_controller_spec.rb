@@ -96,8 +96,7 @@ RSpec.describe UsersController, type: :controller do
     end
     context 'when logged in' do
       let(:user) { create :user }
-      let(:location) { create :location, :approved }
-      let!(:ownership) { create :location_ownership, user: user, location: location }
+      let(:location) { create :location, :approved, user }
       let!(:zuckerls) { create_list :zuckerl, 3, location: location }
       let!(:cancelled_zuckerl) { create :zuckerl, :cancelled, location: location }
 

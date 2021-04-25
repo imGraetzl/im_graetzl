@@ -24,7 +24,7 @@ class Notifications::NewLocationPost < Notification
   end
 
   def location
-    location_post.author
+    location_post.location
   end
 
 end

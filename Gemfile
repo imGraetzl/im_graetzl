@@ -2,11 +2,11 @@ source 'https://rubygems.org'
 
 ruby '2.7.2'
 
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 6.1.0'
 gem 'puma'
 gem 'puma_worker_killer'
 gem 'pg'
-gem 'activerecord-postgis-adapter', '~> 5.0'
+gem 'activerecord-postgis-adapter'
 gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
@@ -43,10 +43,7 @@ gem 'refile-mini_magick', github: 'refile/refile-mini_magick', ref: '466e30cf587
 gem 'sinatra', github: 'sinatra/sinatra', ref: '6f15fba2790ebdf4d1215cebf425dea2ea3130ea'
 gem 'refile-s3'
 
-# Lib V8does not support Macbook M1 for the moment, so for development on M1, use the commented gem
-# Just make sure to comment it back and run bundle install before commiting changes
-gem 'mini_racer' # For deployment
-#gem 'mini_racer', github: 'rubyjs/mini_racer', branch: 'refs/pull/186/head' # For M1
+gem 'mini_racer'
 
 gem 'sass-rails'
 gem 'uglifier'

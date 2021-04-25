@@ -20,8 +20,8 @@ class RoomCall < ApplicationRecord
   accepts_nested_attributes_for :room_call_prices, allow_destroy: true, reject_if: :all_blank
 
   belongs_to :location, optional: true
-  has_one :address, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
+  belongs_to :address, optional: true
+  accepts_nested_attributes_for :address
 
   attachment :cover_photo, type: :image
   attachment :avatar, type: :image
@@ -34,7 +34,7 @@ class RoomCall < ApplicationRecord
   validates_presence_of :address, :title, :starts_at, :ends_at, :opens_at, :description, :about_us, :about_partner,
   :cover_photo, :first_name, :last_name, :email, :room_call_fields
 
-  before_create :set_graetzl_and_district
+  before_create :set_district
   after_create :set_group
 
   scope :open_calls, -> { where("starts_at <= current_date AND ends_at >= current_date") }
@@ -53,9 +53,8 @@ class RoomCall < ApplicationRecord
 
   private
 
-  def set_graetzl_and_district
-    self.graetzl = address.graetzl if address
-    self.district = graetzl.district if graetzl
+  def set_district
+    self.district = graetzl.district
   end
 
   def set_group

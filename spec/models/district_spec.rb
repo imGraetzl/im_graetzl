@@ -80,27 +80,6 @@ RSpec.describe District, type: :model do
     end
   end
 
-  describe '#curators' do
-    let(:graetzl_1) { create(:graetzl) }
-    let(:graetzl_2) { create(:graetzl) }
-    let(:district) { create(:district, graetzls: [graetzl_1, graetzl_2]) }
-    let(:other_graetzl) { create(:graetzl) }
-    let(:curator_1) { create(:curator, graetzl: graetzl_1) }
-    let(:curator_2) { create(:curator, graetzl: graetzl_1) }
-    let(:curator_3) { create(:curator, graetzl: graetzl_2) }
-    let(:curator_4) { create(:curator, graetzl: other_graetzl) }
-
-    subject(:curators) { district.curators }
-
-    it 'returns curators from graetzls' do
-      expect(curators).to include(curator_1, curator_2, curator_3)
-    end
-
-    it 'excludes curators from other graetzls' do
-      expect(curators).not_to include(curator_4)
-    end
-  end
-
   describe '#zuckerls' do
     let(:graetzl_1) { create :graetzl }
     let(:graetzl_2) { create :graetzl }

@@ -64,20 +64,10 @@ context.instance_eval do
       panel 'Associations' do
         tabs do
           tab 'User' do
-            table_for location.location_ownerships do
-              column(:id){|o| o.user.id}
-              column(:username){|o| o.user.username}
-              column(:state){|o| status_tag(o.state)}
-              column(''){|o| link_to 'User Anzeigen', admin_user_path(o.user) }
-            end
-          end
-          tab 'Posts' do
-            table_for location.posts do
-              column :id
-              column(:title){|p| truncate(p.title, length: 20)}
-              column :slug
-              column :created_at
-              column(''){|p| link_to 'Anzeigen', admin_post_path(p) }
+            attributes_table_for location.user do
+              row :id
+              row :username
+              row :email
             end
           end
           tab 'Treffen' do

@@ -11,7 +11,6 @@ class Zuckerl < ApplicationRecord
 
   belongs_to :location
   has_one :graetzl, through: :location
-  belongs_to :initiative
 
   after_commit :send_booking_confirmation, on: :create, if: proc {|zuckerl| zuckerl.pending?}
 

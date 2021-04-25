@@ -22,10 +22,6 @@ RSpec.describe Zuckerl, type: :model do
     it 'has location' do
       expect(zuckerl).to respond_to :location
     end
-
-    it 'has initiative' do
-      expect(zuckerl).to respond_to :initiative
-    end
   end
 
   describe 'validations' do

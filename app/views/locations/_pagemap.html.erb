@@ -1,6 +1,7 @@
 <% content_for :pagemap do %>
-  <!--
-  <PageMap>
+  <%
+=begin%>
+ <PageMap>
     <DataObject type="document">
       <Attribute name="type">location</Attribute>
       <Attribute name="searchable">true</Attribute>
@@ -20,5 +21,6 @@
       <Attribute name="src" value="<%= attachment_url(@location, :avatar, :fill, 400, 400, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/location/400x400.png') %>" />
     </DataObject>
   </PageMap>
-  -->
+<%
+=end%>
 <% end %>

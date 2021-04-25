@@ -2,7 +2,7 @@ ActiveAdmin.register LocationPost do
   menu parent: 'Locations'
   actions :all, except: [:new, :create]
 
-  filter :author_id, as: :select, collection: -> { Location.all }
+  filter :location_id, as: :select, collection: -> { Location.all }
   filter :title
   filter :content
   filter :created_at
@@ -14,7 +14,7 @@ ActiveAdmin.register LocationPost do
   permit_params :title,
     :content,
     :graetzl_id,
-    :author_id, :author_type,
+    :location_id,
     images_attributes: [:id, :file, :_destroy]
   # Within app/admin/resource_name.rb
   # Controller pagination overrides

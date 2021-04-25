@@ -27,7 +27,7 @@ ActiveAdmin.register GroupJoinRequest do
   # member actions
   member_action :accept, method: :put do
     if !resource.group.users.include?(resource.user)
-      group_user = resource.group.group_users.create(user: resource.user)
+      resource.group.group_users.create(user: resource.user)
       if resource.group.save
         GroupMailer.join_request_accepted(resource.group, resource.user).deliver_later
       end

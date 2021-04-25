@@ -1,0 +1,43 @@
+<div class="input-checkbox">
+  <%= check_box_tag 'location-address-select', 1, f.object.location, id: 'location-address-select' %>
+  <%= label_tag 'location-address-select', 'Hat mit meiner wirtschaftlichen oder kreativen Tätigkeit zu tun.' %>
+</div>
+
+<% if !f.object.online_meeting? %>
+  <div id="input-address-field">
+    <% if f.object.new_record? %>
+      <div id="addressSearchAutocomplete" class="input-field">
+        <%= label_tag :address do %>
+          <%= icon_tag "map-location" %>
+          <span>Adresse</span>
+        <% end %>
+        <%= text_field_tag :address, params[:address], placeholder: 'Straße und Hausnummer' %>
+        <%= hidden_field_tag :feature %>
+      </div>
+    <% else %>
+      <%= f.fields_for :address do |address_fields| %>
+        <div class="input-field" id="address-fields">
+          <%= address_fields.label :description do %>
+            <%= icon_tag "location" %>
+            <span>Ortsbeschreibung</span>
+          <% end %>
+          <%= address_fields.text_field :description, placeholder: 'z.B.: Venediger Au, Gasthaus Hansy, Schikaneder Kino, etc.' %>
+          <%= address_fields.hidden_field :street_name %>
+          <%= address_fields.hidden_field :street_number %>
+          <%= address_fields.hidden_field :zip %>
+          <%= address_fields.hidden_field :city %>
+          <%= address_fields.hidden_field :coordinates %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<div id="meeting-location-field" class="input-select">
+  <%= f.label :location_id do %>
+    <%= icon_tag "label-tag" %>
+    <span>Location</span>
+  <% end %>
+  <%= f.select(:location_id, current_user.locations.collect {|l| [l.name, l.id] },
+              {include_blank: 'wähle deine Location'}, {class: 'select-location-input'}) %>
+</div>

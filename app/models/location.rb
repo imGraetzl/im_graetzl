@@ -1,44 +1,41 @@
 class Location < ApplicationRecord
   include Trackable
   extend FriendlyId
-
   friendly_id :name
-  enum state: { pending: 0, approved: 1 }
-  enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
+
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
   acts_as_taggable_on :products
 
+  belongs_to :user
   belongs_to :graetzl
   has_many :districts, through: :graetzl
-  has_one :address, as: :addressable, dependent: :destroy
-  has_many :posts, as: :author, dependent: :destroy, class_name: 'LocationPost'
-  accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
-  has_one :contact, dependent: :destroy
-  accepts_nested_attributes_for :contact
-  has_many :location_ownerships, dependent: :destroy
-  accepts_nested_attributes_for :location_ownerships, allow_destroy: true
-  has_many :users, through: :location_ownerships
-  has_many :room_offers
-  has_many :tool_offers
-  belongs_to :location_category
-  has_many :meetings
-  has_many :upcoming_meetings, -> { upcoming }, class_name: "Meeting"
-  has_many :zuckerls, dependent: :destroy
-  has_many :live_zuckerls, -> { live }, class_name: "Zuckerl"
+  belongs_to :address, optional: true
+  accepts_nested_attributes_for :address
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
+
+  belongs_to :location_category
+  has_many :location_posts, dependent: :destroy
+  has_one :contact, dependent: :destroy
+  accepts_nested_attributes_for :contact
+
+  has_many :meetings
+  has_many :upcoming_meetings, -> { upcoming }, class_name: "Meeting"
+  has_many :room_offers
+  has_many :tool_offers
+  has_many :zuckerls, dependent: :destroy
+  has_many :live_zuckerls, -> { live }, class_name: "Zuckerl"
+
+  enum state: { pending: 0, approved: 1 }
+  enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
 
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
 
   before_create { |location| location.last_activity_at = Time.current }
 
-  def actual_newest_post
-    self.posts.where("created_at > ?", 8.weeks.ago).sort_by(&:created_at).last
-  end
-
   def self.include_for_box
-    includes(:posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
+    includes(:location_posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
   end
 
   def self.meeting_permissions_for_select
@@ -63,19 +60,20 @@ class Location < ApplicationRecord
     (pending? && destroy) || nil
   end
 
-  def can_create_meeting?(user)
-    meetable? || (owner_meetable? && users.include?(user))
+  def can_create_meeting?(a_user)
+    meetable? || (owner_meetable? && owned_by?(a_user))
   end
 
-  def boss
-    location_ownerships.order(:created_at).first.user
-  end
-
-  def editable_by?(user)
-    user && user_ids.include?(user.id)
+  def owned_by?(a_user)
+    user_id.present? && user_id == a_user&.id
   end
 
   def build_meeting
     meetings.build(graetzl_id: graetzl_id)
   end
+
+  def actual_newest_post
+    location_posts.select{|p| p.created_at > 8.weeks.ago}.max_by(&:created_at)
+  end
+
 end

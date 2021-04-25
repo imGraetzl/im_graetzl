@@ -30,9 +30,6 @@ class NotificationMailer < ApplicationMailer
     'Neue Location Updates' => [
       Notifications::NewLocationPost
     ],
-    'Neue Ideen im Grätzl' => [
-      Notifications::NewUserPost, Notifications::NewAdminPost
-    ],
     'Neue Gruppen' => [
       Notifications::NewGroup
     ],
@@ -86,15 +83,13 @@ class NotificationMailer < ApplicationMailer
     ],
     "Neuer Kommentar bei" => [
       Notifications::CommentInMeeting, Notifications::CommentInUsersMeeting,
-      Notifications::CommentOnAdminPost, Notifications::CommentOnLocationPost,
-      Notifications::CommentOnRoomDemand, Notifications::CommentOnRoomOffer,
-      Notifications::CommentOnUserPost, Notifications::CommentOnToolOffer,
+      Notifications::CommentOnLocationPost, Notifications::CommentOnRoomDemand,
+      Notifications::CommentOnRoomOffer, Notifications::CommentOnToolOffer,
       Notifications::CommentOnComment,
     ],
     'Ebenfalls kommentiert' => [
-      Notifications::AlsoCommentedAdminPost, Notifications::AlsoCommentedLocationPost,
-      Notifications::AlsoCommentedMeeting, Notifications::AlsoCommentedRoomDemand,
-      Notifications::AlsoCommentedRoomOffer, Notifications::AlsoCommentedUserPost,
+      Notifications::AlsoCommentedLocationPost, Notifications::AlsoCommentedMeeting,
+      Notifications::AlsoCommentedRoomDemand, Notifications::AlsoCommentedRoomOffer,
       Notifications::AlsoCommentedToolOffer, Notifications::AlsoCommentedComment,
     ]
   }

@@ -67,9 +67,6 @@ de:
       campaign_user:
         one: Eintrag
         other: Einträge
-      curator:
-        one: Grätzlbotschafter
-        other: Grätzlbotschafter
       discussion_default_category:
         one: Diskussions Kategorie
         other: Diskussions Kategorien
@@ -88,9 +85,6 @@ de:
       image:
         one: Bild
         other: Bilder
-      initiative:
-        one: Initiativen
-        other: Initiativen
       meeting:
         one: Treffen
         other: Treffen
@@ -100,9 +94,6 @@ de:
       user:
         one: User
         other: User
-      user_post:
-        one: Idee
-        other: Ideen
       location_post:
         one: Location Update
         other: Location Updates
@@ -140,8 +131,6 @@ de:
         city: Stadt
         coordinates: Koordinaten
         description: Beschreibung
-      admin_post:
-        select_all_districts: Alle Bezirke
       billing_address:
         first_name: Vorname
         last_name: Nachname
@@ -162,8 +151,6 @@ de:
       contact:
         phone: Telefon
         hours: Öffnungszeiten
-      curator:
-        created_at: Erstellt am
       graetzl:
         created_at: Erstellt am
         updated_at: Aktualisiert am
@@ -171,10 +158,6 @@ de:
         area: Fläche
       images:
         file: Bilddatei
-      initiative:
-        created_at: Erstellt am
-        description: Beschreibung
-        image: Bild
       location:
         avatar: Profilbild
         location_category: Kategorie

@@ -3,33 +3,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /users/registrierung
   def new
-    if params[:graetzl_id].blank?
+    if params[:feature].blank?
       render "address_form" and return
     end
 
     build_resource(origin: params[:origin])
-    self.resource.graetzl = Graetzl.find(params[:graetzl_id])
-    self.resource.address = Address.from_feature(params[:feature])
+    address_resolver = AddressResolver.from_json(params[:feature])
+    self.resource.graetzl = address_resolver.graetzl
+    self.resource.build_address(address_resolver.address_fields)
     respond_with self.resource
-  end
-
-  def set_address
-    @address = Address.from_feature(params[:feature])
-    @graetzls = @address ? @address.graetzls : []
-
-    if @graetzls.size == 1
-      redirect_to new_registration_url(
-        graetzl_id: @graetzls.first.id,
-        feature: params[:feature],
-        origin: params[:origin],
-        redirect: params[:redirect],
-      )
-    else
-      render "graetzls"
-    end
-  end
-
-  def graetzls
   end
 
   def create
@@ -39,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_inactive_sign_up_path_for(resource)
+  def after_inactive_sign_up_path_for(_resource)
     params[:redirect] || root_url
   end
 

@@ -202,14 +202,17 @@ APP.controllers.meetings = (function() {
         hiddenSuffix: ''
       });
 
-      // location field toggle
-      $('input:checkbox#location').on('change', function() {
-        if (!this.checked) {
-          $('#meeting_location_id').val('');
-        }
-        $('div#meeting-location-field').slideToggle();
+      // online meeting switch
+      $('.online-meeting-switch').on('change', function() {
+        $('#input-address-field').toggle($(this).val() != "true")
       });
 
+      // location field toggle
+      $('#location-address-select').on('change', function() {
+        $('.select-location-input').attr("disabled", !this.checked);
+        $('#meeting-location-field').toggle(this.checked);
+        $('#input-address-field').toggle(!this.checked);
+      }).trigger('change');
 
       // platform_meeting toggle
       var $platform_join_checkbox = $('input:checkbox#meeting_platform_meeting_join_request_attributes_status');
@@ -218,20 +221,6 @@ APP.controllers.meetings = (function() {
       }
       $platform_join_checkbox.on('change', function() {
         $('div#meeting-platform-meeting-fields').slideToggle();
-      });
-
-
-      // online meeting switch
-      $('.online-meeting-switch').on('change', function() {
-        if ( $(this).val() === "true") {
-          $('#addressSearchAutocomplete').hide();
-          $('#address-fields').hide();
-          $('#online-address-fields').show();
-        } else {
-          $('#addressSearchAutocomplete').show();
-          $('#address-fields').show();
-          $('#online-address-fields').hide();
-        }
       });
 
       // Hide Elements

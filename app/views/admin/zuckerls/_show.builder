@@ -12,7 +12,7 @@ context.instance_eval do
       row(:zuckerl_invoice) { |z| link_to "PDF Rechnung", z.zuckerl_invoice.presigned_url(:get) }
     end
     row :user do
-      link_to zuckerl.location.boss.username, admin_user_path(zuckerl.location.boss)
+      link_to zuckerl.location.user.username, admin_user_path(zuckerl.location.user)
     end
     row :location
     row :title
@@ -22,7 +22,6 @@ context.instance_eval do
       z.image ? attachment_image_tag(z, :image, :fill, 400, 400) : nil
     end
     row :flyer
-    row :initiative
     row :updated_at
   end
 end

@@ -20,10 +20,6 @@ module MeetingsHelper
     end
   end
 
-  def address_value(address)
-    address.try(:street)
-  end
-
   def localize_time(time, format)
     if time
       I18n.localize(time, format: format)
@@ -68,8 +64,8 @@ module MeetingsHelper
 
   def online_address(meeting)
     content_tag(:div, icon_tag("globe"), class: 'iconMapLink') +
-    if meeting.address.online_meeting_description?
-      content_tag(:strong, meeting.address.online_meeting_description)
+    if meeting.online_description?
+      content_tag(:strong, meeting.online_description)
     else
       content_tag(:strong, 'Online Event')
     end

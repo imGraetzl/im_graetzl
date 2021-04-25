@@ -60,6 +60,4 @@ class GoingToService
     going_to.invoice.put(body: invoice)
   end
 
-  private
-
 end

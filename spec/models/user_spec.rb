@@ -165,19 +165,6 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'posts' do
-      it 'has posts' do
-        expect(user).to respond_to :posts
-      end
-
-      it 'destroys posts' do
-        create_list :user_post, 3, author: user
-        expect{
-          user.destroy
-        }.to change{Post.count}.by -3
-      end
-    end
-
     describe 'comments' do
       it 'has comments' do
         expect(user).to respond_to :comments
@@ -188,19 +175,6 @@ RSpec.describe User, type: :model do
         expect{
           user.destroy
         }.to change{Comment.count}.by -3
-      end
-    end
-
-    describe 'location_ownerships' do
-      it 'has location_ownerships' do
-        expect(user).to respond_to :location_ownerships
-      end
-
-      it 'destroys location_ownerships' do
-        create_list :location_ownership, 3, user: user
-        expect{
-          user.destroy
-        }.to change{LocationOwnership.count}.by -3
       end
     end
 
@@ -217,17 +191,5 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'curator' do
-      it 'has curator' do
-        expect(user).to respond_to :curator
-      end
-
-      it 'destroys curator' do
-        create :curator, user: user
-        expect{
-          user.destroy
-        }.to change{Curator.count}.by -1
-      end
-    end
   end
 end

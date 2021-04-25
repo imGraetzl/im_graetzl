@@ -1,0 +1,83 @@
+<aside class="sideBar">
+  <div class="action-container">
+    <% if @location.owned_by?(current_user) %>
+      <%= link_to edit_location_path(@location), class: 'icontxt' do %>
+      <%= icon_tag "pencil" %> Location bearbeiten
+      <% end %>
+      <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
+        <%= icon_tag "shopping-bag" %> Grätzlzuckerl buchen
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= render partial: 'locations/sidebar/zuckerl', collection: @zuckerls %>
+
+  <div class="sideBarbox contact">
+    <%= link_to content_tag(:h3, @graetzl.name, class: 'sideflag -L'), @graetzl %>
+
+    <div class="iconlist">
+      <% if @location.user %>
+        <%= link_to @location.user, class: 'user-wrp' do %>
+          <%= user_tooltip_avatar @location.user %>
+          <span class="name"><%= @location.user.username %></span>
+        <% end %>
+      <% end %>
+
+      <% if @location.contact.website.present? %>
+        <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
+          <%= icon_tag "globe" %>
+          <span><%= @location.contact.website.sub(/^https?\:\/\//,'') %></span>
+        <% end %>
+      <% end %>
+      <% if @location.contact.email.present? %>
+        <%= mail_to @location.contact.email, class: 'icontxt' do %>
+          <%= icon_tag "at-symbol" %>
+          <span><%= @location.contact.email %></span>
+        <% end %>
+      <% end %>
+      <% if @location.contact.phone.present? %>
+        <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
+          <%= icon_tag "mobile" %>
+          <%= @location.contact.phone %>
+        <% end %>
+      <% end %>
+      <% if @location.address %>
+        <div class="address icontxt">
+          <%= icon_tag "address-directions" %>
+          <%= @location.address.street %><br>
+          <%= "#{@location.address.zip} #{@location.address.city}" %>
+        </div>
+      <% end %>
+    </div>
+    <% if @location.address.try(:coordinates) %>
+      <%= link_to google_map_url(@location.address), class: 'gmap' do %>
+        <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,150]) %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @location.user_id),
+      class: "btn-primary -mint", id: 'requestLocationBtn' if @location.user && @location.user != current_user %>
+
+  <% if @location.contact.hours.present? %>
+    <div class="sideBarbox openinghours">
+      <div class="bigicontext-element">
+        <%= icon_tag "time-clock" %>
+        <div class="txt">Öffnungszeiten</div>
+      </div>
+      <div class="txt"><%= @location.contact.hours %></div>
+    </div>
+  <% end %>
+
+  <% if @room_offer && !@room_offer.disabled? %>
+    <div class="sideBarbox roomoffer">
+      <%= render partial: 'locations/sidebar/room_offer', object: @room_offer %>
+    </div>
+  <% end %>
+
+  <% if @room_demand && !@room_demand.disabled? %>
+    <div class="sideBarbox roomdemand">
+      <%= render partial: 'locations/sidebar/room_demand', object: @room_demand %>
+    </div>
+  <% end %>
+</aside>

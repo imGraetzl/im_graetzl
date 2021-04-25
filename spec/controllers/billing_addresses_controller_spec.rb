@@ -14,11 +14,10 @@ RSpec.describe BillingAddressesController, type: :controller do
     end
     context 'when logged in' do
       let(:user) { create :user }
-      let(:location) { create :location, state: Location.states[:approved] }
+      let(:location) { create :location, state: Location.states[:approved], user: user }
       let(:zuckerl) { create :zuckerl, location: location }
 
       before do
-        create :location_ownership, user: user, location: location
         sign_in user
       end
 

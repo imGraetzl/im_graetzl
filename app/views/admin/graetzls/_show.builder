@@ -11,15 +11,6 @@ context.instance_eval do
           row :area
         end
       end
-      if graetzl.curator
-        panel 'Grätzlbotschafter' do
-          attributes_table_for graetzl.curator do
-            row :id
-            row :user
-            row :created_at
-          end
-        end
-      end
     end
     column span: 2 do
       panel 'Associations' do

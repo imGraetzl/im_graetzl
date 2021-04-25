@@ -3,7 +3,7 @@ class ToolOffersController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @tool_offers = collection_scope
+    @tool_offers = collection_scope.includes(:user)
     @tool_offers = filter_collection(@tool_offers)
     @tool_offers = @tool_offers.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
@@ -20,7 +20,8 @@ class ToolOffersController < ApplicationController
   def create
     @tool_offer = ToolOffer.new(tool_offer_params)
     @tool_offer.user_id = current_user.id
-    @tool_offer.address = Address.from_feature(params[:feature])
+    set_address(@tool_offer, params[:feature])
+
     if @tool_offer.save
       ToolOfferMailer.tool_offer_published(@tool_offer).deliver_later
       @tool_offer.create_activity(:create, owner: @tool_offer.user)
@@ -36,7 +37,10 @@ class ToolOffersController < ApplicationController
 
   def update
     @tool_offer = current_user.tool_offers.non_deleted.find(params[:id])
-    if @tool_offer.update(tool_offer_params)
+    @tool_offer.assign_attributes(tool_offer_params)
+    set_address(@tool_offer) if @tool_offer.address.changed?
+
+    if @tool_offer.save
       redirect_to @tool_offer
     else
       render 'edit'
@@ -100,6 +104,20 @@ class ToolOffersController < ApplicationController
         :id, :street_name, :street_number, :zip, :city
       ],
     )
+  end
+
+  def set_address(tool_offer, json = nil)
+    if json
+      resolver = AddressResolver.from_json(json)
+      return if !resolved.valid?
+      tool_offer.build_address(resolver.address_fields)
+      tool_offer.graetzl = resolver.graetzl
+    elsif tool_offer.address
+      resolver = AddressResolver.from_street(tool_offer.address.street_name, tool_offer.address.street_name)
+      return if !resolver.valid?
+      tool_offer.address.assign_attributes(resolver.address_fields)
+      tool_offer.graetzl = resolver.graetzl
+    end
   end
 
 end

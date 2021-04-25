@@ -41,7 +41,6 @@ ActiveAdmin.register User, as: "User Notification Settings" do
     column(:new_meeting) { |u| u.enabled_mail_notification(Notifications::NewMeeting) }
     column(:new_location) { |u| u.enabled_mail_notification(Notifications::NewLocation) }
     column(:new_location_post) { |u| u.enabled_mail_notification(Notifications::NewLocationPost) }
-    column(:new_user_post) { |u| u.enabled_mail_notification(Notifications::NewUserPost) }
     column(:new_group) { |u| u.enabled_mail_notification(Notifications::NewGroup) }
     column(:new_room_offer) { |u| u.enabled_mail_notification(Notifications::NewRoomOffer) }
     column(:new_room_demand) { |u| u.enabled_mail_notification(Notifications::NewRoomDemand) }

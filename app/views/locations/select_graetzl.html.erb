@@ -1,0 +1,33 @@
+<% title('Neue Location Graetzl') %>
+
+<section class="selectGraetzl">
+
+  <h1>In welchem <span>Grätzl</span> befindet sich die Location?</h1>
+
+    <%= form_tag new_location_path, method: :get do %>
+      <div class="ctrl-graetzlselect">
+        <div class="input-select">
+          <label>
+            <%= icon_tag "map-location" %>
+            <span>Bezirk</span>
+          </label>
+          <%= select_tag :district_id, options_for_select(district_select_options, @district&.id), prompt: 'wählen' %>
+        </div>
+
+        <div class="input-select" id="graetzl-select">
+          <label>
+            <%= icon_tag "flag-1" %>
+            <span>Grätzl</span>
+          </label>
+          <%= select_tag :selected_graetzl_id, options_from_collection_for_select(@district&.graetzls || Graetzl.all,
+              :id, :name, @graetzl&.id), prompt: 'wählen', required: true, class: 'graetzl_id' %>
+        </div>
+      </div>
+
+      <div class="nav-btnBar">
+        <%= link_to 'Zurück', 'javascript:history.back();', class: 'btn-secondary' %>
+        <%= button_tag 'Weiter', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>
+      </div>
+    <% end %>
+
+</section>

@@ -1,37 +1,41 @@
+//= require typeahead.bundle
+
 APP.components.addressSearchAutocomplete = function() {
-    var $featureHiddenField = $("#feature");
+  var container = $("#addressSearchAutocomplete");
+  if (container.length == 0) return;
 
-    function updateFeatureHiddenField(obj) {
-        $featureHiddenField.val(JSON.stringify(obj));
+  var SEARCH_URL = 'https://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo?crs=EPSG:4326&Address=';
+  var addressSearch = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    limit: 7,
+    remote: {
+      url: SEARCH_URL + '%QUERY',
+      filter: function(response) {
+        selectAddress(response.features[0]);
+        return response.features;
+      }
     }
+  });
+  addressSearch.initialize();
 
-    var addressSearch = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        limit: 7,
-        remote: {
-            url:  APP.config.adressSearchOpenGov + '%QUERY' + '&crs=EPSG:4326',
-            filter: function(addresses) {
-                updateFeatureHiddenField(addresses.features[0]);
-                return addresses.features;
-            }
-        }
-    });
-    addressSearch.initialize();
+  container.find("[name=address]").typeahead(null, {
+    name: 'addresse',
+    source: addressSearch.ttAdapter(),
+    displayKey: function(data) {
+      return data.properties.Adresse;
+    },
+    templates: {
+      suggestion: function(data) {
+        return data.properties.Adresse +'<span class="district">Bezirk: ' + data.properties.Bezirk + '</span>';
+      }
+    }
+  }).on('typeahead:selected typeahead:autocompleted', function(event, suggestion) {
+    selectAddress(suggestion);
+  });
 
-    $('#address').typeahead(null, {
-        name: 'addresse',
-        source: addressSearch.ttAdapter(),
-        displayKey: function (data) {
-            return data.properties.Adresse;
-        },
-        templates: {
-            suggestion: function(data) {
-                return data.properties.Adresse +'<span class="district">Bezirk: ' + data.properties.Bezirk + '</span>'
-            }
-        }
-    }).on('typeahead:selected typeahead:autocompleted', function(event, suggestion) {
-        updateFeatureHiddenField(suggestion);
-    });
+  function selectAddress(obj) {
+    container.find("[name=feature]").val(JSON.stringify(obj));
+  }
 
 };

@@ -1,0 +1,15 @@
+<div id="location-post-form" class="entryCreate" data-behavior="stream-form">
+  <%= avatar_for @location %>
+  <%= form_for(LocationPost.new, url: add_post_location_path(@location), html: { class: 'textEditor' }, remote: true) do |f| %>
+    <%= f.text_field :title, placeholder: 'Neuigkeit (Titel)', class: 'input-plain postTitle' %>
+    <%= f.text_area :content, placeholder: 'Beschreibung', class: 'input-plain postMessage' %>
+
+    <div class="hideBlock">
+      <div class="upload-streamImgs">
+        <%= icon_tag "photo-camera" %>
+        <%= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+      </div>
+      <%= f.button 'Beitrag senden', data: { disable_with: 'sendet...' }, class: 'btn-secondary' %>
+    </div>
+  <% end %>
+</div>

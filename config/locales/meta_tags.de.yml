@@ -103,9 +103,6 @@ de:
     locations:
       title: '%{graetzl} | Lokale Geschäfte, Kreative & Wirtschaftstreibende'
       description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen aus dem Grätzl %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
-    posts:
-      title: '%{graetzl} | Ideen & Initiativen im Grätzl'
-      description: 'Entdecke, was sich BewohnerInnen fürs Grätzl %{graetzl} wünschen und welche Ideen im Raum stehen. Gestaltet euer Grätzl mit: Wünsche, Ideen & Initiativen!'
     rooms:
       title: '%{graetzl} Raumteiler | Neue Räume & Raumsuchende'
       description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} finden ...'

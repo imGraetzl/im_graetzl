@@ -1,7 +1,7 @@
 ActiveAdmin.register Location do
   include ViewInApp
   menu priority: 4
-  includes :graetzl, :location_category, :users
+  includes :graetzl, :location_category, :user
 
   scope :all, default: true
   scope :pending
@@ -102,11 +102,6 @@ ActiveAdmin.register Location do
       :city,
       :coordinates,
       :description],
-    location_ownerships_attributes: [
-      :id,
-      :user_id,
-      :state,
-      :_destroy],
     billing_address_attributes: [
       :id,
       :_destroy,

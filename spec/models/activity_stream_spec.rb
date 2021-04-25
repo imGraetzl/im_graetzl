@@ -15,22 +15,15 @@ RSpec.describe ActivityStream, type: :model do
     context 'with activity in graetzl' do
       let!(:meeting_1) { create :meeting, graetzl: graetzl }
       let!(:meeting_2) { create :meeting, graetzl: graetzl }
-      let!(:user_post) { create :user_post, graetzl: graetzl }
       let!(:location_post) { create :location_post, graetzl: graetzl }
-      let!(:admin_post) { create :admin_post }
-
-      before { create :operating_range, operator: admin_post, graetzl: graetzl }
 
       it 'includes most recent activity per trackable' do
-        create_admin_post = admin_post.create_activity :create
-        create_post_1 = user_post.create_activity :create
         create_post_2 = location_post.create_activity :create
         create_meeting_1 = meeting_1.create_activity :create
         create_meeting_2 = meeting_2.create_activity :create
-        comment_post_1 = user_post.create_activity :comment
         comment_meeting_1 = meeting_1.create_activity :comment
 
-        expect(activity_stream).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2, create_admin_post]
+        expect(activity_stream).to eq [comment_meeting_1, comment_post_1, create_meeting_2, create_post_2]
       end
     end
   end

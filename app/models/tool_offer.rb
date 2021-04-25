@@ -7,8 +7,8 @@ class ToolOffer < ApplicationRecord
   belongs_to :user
   belongs_to :graetzl
   belongs_to :location, optional: true
-  has_one :address, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
+  belongs_to :address, optional: true
+  accepts_nested_attributes_for :address
 
   belongs_to :tool_category, optional: true
   belongs_to :tool_subcategory, class_name: "ToolCategory", optional: true
@@ -28,7 +28,6 @@ class ToolOffer < ApplicationRecord
   validates_presence_of :title, :description, :address, :tool_category_id, :cover_photo, :price_per_day, :iban
 
   before_save :check_discounts
-  before_save :set_graetzl
   after_save :remove_activities_if_deleted
 
   scope :non_deleted, -> { where.not(status: :deleted) }
@@ -62,10 +61,6 @@ class ToolOffer < ApplicationRecord
     if weekly_discount.to_i < two_day_discount.to_i
       self.weekly_discount = two_day_discount
     end
-  end
-
-  def set_graetzl
-    self.graetzl = address.graetzl if address.present?
   end
 
   def remove_activities_if_deleted

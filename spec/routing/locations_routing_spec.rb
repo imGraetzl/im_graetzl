@@ -40,10 +40,6 @@ RSpec.describe LocationsController, type: :routing do
       expect(get: new_location_path).to route_to('locations#new')
     end
 
-    it 'routes POST before_new_locations_path to #new' do
-      expect(post: before_new_locations_path).to route_to('locations#new')
-    end
-
     it 'routes POST locations_path to #create' do
       expect(post: locations_path).to route_to('locations#create')
     end

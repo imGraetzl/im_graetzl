@@ -13,8 +13,6 @@ class ActivityStream
       Activity.where(trackable_id: Meeting.non_private.pluck(:id), cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to', 'meeting.paid_go_to']),
       Activity.where(trackable_id: @area.location_ids, key: ['location.create']),
       Activity.where(trackable_id: @area.location_post_ids, key: ['location_post.comment', 'location_post.create']),
-      #Activity.where(trackable_id: @area.user_post_ids, key: ['user_post.comment', 'user_post.create']),
-      #Activity.where(trackable_id: @area.admin_post_ids, key: ['admin_post.comment', 'admin_post.create']),
       Activity.where(trackable_id: @area.room_offer_ids, key: ['room_offer.create', 'room_offer.update', 'room_offer.comment']),
       Activity.where(trackable_id: @area.room_demand_ids, key: ['room_demand.create', 'room_demand.update', 'room_demand.comment']),
       Activity.where(trackable_id: @area.room_call_ids, key: ['room_call.create']),

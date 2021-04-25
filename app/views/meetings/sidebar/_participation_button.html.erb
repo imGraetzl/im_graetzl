@@ -2,13 +2,13 @@
 
     <% if !user_signed_in? %>
       <div class="btn-going-to">
-        <%= link_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'buyTicket' do %>
+        <%= link_to 'javascript:', class: 'btn-userCallToAction', id: 'buyTicket' do %>
           <span><%= image_tag 'avatar/user/default.png', class: 'img-round' %> Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %></span>
         <% end %>
       </div>
     <% elsif current_user == meeting.user %>
       <div class="btn-going-to">
-        <%= link_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'meetingSettings' do %>
+        <%= link_to 'javascript:', class: 'btn-userCallToAction', id: 'meetingSettings' do %>
           <span><%= avatar_for current_user %> Treffen Optionen <%= icon_tag "arrow-down-2" %></span>
         <% end %>
       </div>
@@ -21,14 +21,14 @@
           <%= icon_tag "at-symbol" %>
           <div class="icontxt">E-Mail an Mitglieder</div>
         <% end %>
-        <%= link_to 'javascript:void(0);', id: 'buyTicket' do %>
+        <%= link_to 'javascript:', id: 'buyTicket' do %>
           <%= icon_tag "ticket" %>
           <div class="icontxt">Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %></div>
         <% end %>
       </div>
     <% else %>
       <div class="btn-going-to">
-        <%= button_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'buyTicket' do %>
+        <%= button_to 'javascript:', class: 'btn-userCallToAction', id: 'buyTicket' do %>
           <span><%= avatar_for current_user %> Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %></span>
         <% end %>
       </div>
@@ -47,7 +47,7 @@
     <% elsif current_user == meeting.user %>
 
       <div class="btn-going-to">
-        <%= link_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'meetingSettingsPaid' do %>
+        <%= link_to 'javascript:', class: 'btn-userCallToAction', id: 'meetingSettingsPaid' do %>
           <span><%= avatar_for current_user %> Treffen Optionen <%= icon_tag "arrow-down-2" %></span>
         <% end %>
       </div>
@@ -70,7 +70,7 @@
       </div>
     <% else %>
       <div class="btn-going-to">
-        <%= button_to 'javascript:void(0);', class: 'btn-userCallToAction', id: 'attendMeeting' do %>
+        <%= button_to 'javascript:', class: 'btn-userCallToAction', id: 'attendMeeting' do %>
           <span><%= avatar_for current_user %> Am Treffen teilnehmen</span>
         <% end %>
       </div>

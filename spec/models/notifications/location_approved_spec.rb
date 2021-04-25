@@ -19,10 +19,6 @@ RSpec.describe Notifications::LocationApproved, type: :model do
     let(:users) { create_list :user, 3 }
     let!(:activity) { create :activity, trackable: location }
 
-    before do
-      users.each{|user| create(:location_ownership, user: user, location: location)}
-    end
-
     subject(:receivers) { Notifications::LocationApproved.receivers(activity) }
 
     it 'returns location users' do
