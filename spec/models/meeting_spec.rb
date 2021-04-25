@@ -179,12 +179,11 @@ RSpec.describe Meeting, type: :model do
     subject(:responsible) { meeting.responsible_user_or_location }
 
     context 'when location' do
-      let(:location) { create :location }
+      let(:location) { create :location, user: user }
 
       before { meeting.update location: location }
 
       it 'returns location if user owner' do
-        create(:location_ownership, user: user, location: location)
         expect(responsible).to eq location
       end
 

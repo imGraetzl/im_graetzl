@@ -83,7 +83,7 @@ module User::Notifiable
   private
 
   def set_default_notification_settings
-    Notifications::ALL_TYPES.each do |klass|
+    Notifications::AllTypes.each do |klass|
 
       case klass::DEFAULT_INTERVAL
       when :weekly

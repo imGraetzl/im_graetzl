@@ -1,0 +1,12 @@
+(function() {
+  var $streamForm = $("[data-behavior='stream-form']");
+
+  <% if @location_post.persisted? %>
+    $streamForm.after("<%= j render 'locations/location_posts/post', post: @location_post %>");
+    $streamForm.replaceWith("<%= j render 'locations/location_posts/post_form' %>");
+    APP.components.stream.init();
+  <% else %>
+    alert('Es gab ein Problem, bitte versuche es später nochmal: <%= @location_post.errors.full_messages.first %>');
+  <% end %>
+
+})();

@@ -13,19 +13,15 @@ class User < ApplicationRecord
 
   belongs_to :graetzl, counter_cache: true
   has_many :districts, through: :graetzl
-  has_one :curator, dependent: :destroy
-  has_one :address, as: :addressable, dependent: :destroy
+  belongs_to :address, optional: true
 
   has_many :initiated_meetings, class_name: 'Meeting'
   has_many :going_tos, dependent: :destroy
   has_many :meeting_additional_dates, through: :going_tos, source: :meeting
   has_many :attended_meetings, through: :going_tos, source: :meeting
 
-  has_many :posts, as: :author, dependent: :destroy, class_name: 'UserPost'
   has_many :comments, dependent: :destroy
-  has_many :location_ownerships, dependent: :destroy
-  has_many :locations, through: :location_ownerships
-  has_many :location_posts, through: :locations, source: :posts
+  has_many :locations
   has_many :room_calls
   has_many :room_offers
   has_many :room_demands
@@ -55,7 +51,6 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :address, :billing_address, reject_if: :all_blank
 
   validates :email, presence: true, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-  validates :graetzl, presence: true
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
@@ -84,7 +79,7 @@ class User < ApplicationRecord
     when 'off'
       user = User.where("weekly_mail_notifications & ? <= 0", type::BITMASK)
       user = user.where("daily_mail_notifications & ? <= 0", type::BITMASK)
-      user = user.where("immediate_mail_notifications & ? <= 0", type::BITMASK)
+      user.where("immediate_mail_notifications & ? <= 0", type::BITMASK)
     end
   end
 
@@ -116,10 +111,6 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def user_width_full_name
-    "#{username} | #{full_name}"
-  end
-
   def full_name_with_email
     "#{full_name} (#{email})"
   end
@@ -138,7 +129,6 @@ class User < ApplicationRecord
         group.group_users.create(user: self)
       end
     end
-
   end
 
   def primary_location
@@ -160,6 +150,10 @@ class User < ApplicationRecord
   def recalculate_rating
     ratings = (tool_rentals.pluck(:renter_rating) + owned_tool_rentals.pluck(:owner_rating)).compact
     update(rating: ratings.sum * 1.0 / ratings.size, ratings_count: ratings.size) if ratings.present?
+  end
+
+  def mailchimp_member_id
+    Digest::MD5.hexdigest(email.downcase)
   end
 
   private

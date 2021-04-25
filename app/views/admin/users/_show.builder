@@ -51,15 +51,6 @@ context.instance_eval do
           end
         end
       end
-      if user.curator
-        panel 'Grätzlbotschafter' do
-          attributes_table_for user.curator do
-            row :id
-            row :graetzl
-            row :created_at
-          end
-        end
-      end
     end
     column do
 
@@ -116,15 +107,6 @@ context.instance_eval do
               column :user
               column :created_at
               column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
-            end
-          end
-          tab 'Posts' do
-            table_for user.posts do
-              column :id
-              column(:content){|p| truncate(p.content, length: 20)}
-              column :graetzl
-              column :created_at
-              column(''){|p| link_to 'Anzeigen', admin_post_path(p) }
             end
           end
           tab 'Pinnwand' do

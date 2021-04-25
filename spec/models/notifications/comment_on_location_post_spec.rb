@@ -18,12 +18,8 @@ RSpec.describe Notifications::CommentOnLocationPost, type: :model do
   describe '.receivers(activity)' do
     let!(:location) { create :location, :approved }
     let(:users) { create_list :user, 3 }
-    let!(:location_post) { create :location_post, author: location }
+    let!(:location_post) { create :location_post, location: location }
     let!(:activity) { create :activity, trackable: location_post }
-
-    before do
-      users.each{|user| create(:location_ownership, user: user, location: location)}
-    end
 
     subject(:receivers) { Notifications::CommentOnLocationPost.receivers(activity) }
 
@@ -34,25 +30,21 @@ RSpec.describe Notifications::CommentOnLocationPost, type: :model do
 
   describe '.condition(activity)' do
     let!(:location) { create :location, :approved }
-    let!(:location_post) { create :location_post, author: location }
+    let!(:location_post) { create :location_post, location: location }
     let!(:user) { create :user }
     let!(:activity) { create :activity, trackable: location_post, owner: user }
 
     subject(:condition) { Notifications::CommentOnLocationPost.condition activity }
 
-    it 'returns false if author != Location' do
-      allow(location_post).to receive(:author_type) { 'User' }
-      expect(condition).to eq false
-    end
 
-    it 'returns false if author not present' do
-      location_post.author = nil
+    it 'returns false if location not present' do
+      location_post.location = nil
       location_post.save(validate: false)
       expect(condition).to eq false
     end
 
     it 'returns false if location owner activity owner' do
-      create(:location_ownership, user: user, location: location)
+      location.user = user
       expect(condition).to eq false
     end
 

@@ -1,6 +1,6 @@
 context.instance_eval do
   attributes_table do
-    row :author
+    row :location
     row :graetzl
     row :title
     row :content

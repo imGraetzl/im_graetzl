@@ -95,7 +95,7 @@ class ToolRentalService
     generate_invoices(tool_rental)
     tool_rental.create_activity(:approve, owner: tool_rental.owner)
     ToolOfferMailer.rental_approved(tool_rental).deliver_later
-  rescue Stripe::InvalidRequestError => e
+  rescue Stripe::InvalidRequestError
     tool_rental.update(rental_status: :rejected, payment_status: :payment_failed)
   end
 

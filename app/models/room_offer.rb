@@ -8,8 +8,8 @@ class RoomOffer < ApplicationRecord
   belongs_to :graetzl
   belongs_to :district
   belongs_to :location, optional: true
-  has_one :address, as: :addressable, dependent: :destroy
-  accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
+  belongs_to :address, optional: true
+  accepts_nested_attributes_for :address
 
   has_many :room_offer_categories
   has_many :room_categories, through: :room_offer_categories
@@ -48,7 +48,7 @@ class RoomOffer < ApplicationRecord
   validates_presence_of :room_rental_price, if: :rental_enabled?
   validate :has_one_category_at_least
 
-  before_save :set_graetzl_and_district
+  before_save :set_district
   before_create :set_last_activated_at
   before_update :create_update_activity?
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
@@ -89,8 +89,7 @@ class RoomOffer < ApplicationRecord
 
   private
 
-  def set_graetzl_and_district
-    self.graetzl ||= address.graetzl if address.present?
+  def set_district
     self.district ||= graetzl.district if graetzl.present?
   end
 

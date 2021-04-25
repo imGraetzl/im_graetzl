@@ -30,7 +30,6 @@
 //= require jquery.jeditable
 //= require jquery.jeditable.autogrow
 //= require jquery.dropdown
-//= require typeahead.bundle
 //= require jquery.noty.packaged
 //= require masonry.pkgd.min
 //= require imagesloaded

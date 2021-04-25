@@ -502,7 +502,7 @@ APP.controllers.reports = (function() {
             function(resolve, reject) {
               $.ajax({
                 url:
-                  "/admin/locations.json?q%5Blocation_ownerships_user_id_eq%5D=" +
+                  "/admin/locations.json?q%5Buser_id_eq%5D=" +
                   this.id,
                 method: "GET",
                 success: function(res) {

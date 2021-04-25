@@ -70,10 +70,4 @@ class ActivitySample
     end
   end
 
-  def posts
-    if @graetzl
-      @graetzl.posts.where(type: "UserPost").order(created_at: :desc).first(2)
-    end
-  end
-
 end

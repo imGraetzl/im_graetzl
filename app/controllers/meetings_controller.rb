@@ -21,25 +21,16 @@ class MeetingsController < ApplicationController
   end
 
   def create
-    @meeting = initialize_meeting
-    @meeting.assign_attributes(meeting_params)
-
-    if current_user.admin?
-      meeting_user = User.find(params[:user_id])
-      @meeting.graetzl = @meeting.address.try(:graetzl) || meeting_user.graetzl
-    else
-      meeting_user = current_user
-      @meeting.graetzl = @meeting.address.try(:graetzl) || @meeting.graetzl || meeting_user.graetzl
-    end
-
-    @meeting.user = meeting_user
-    @meeting.going_tos.new(user_id: meeting_user.id, role: :initiator)
+    @meeting = Meeting.new(meeting_params)
+    set_address(@meeting, params[:feature])
+    @meeting.user = current_user.admin? ? User.find(params[:user_id]) : current_user
+    @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
 
     if @meeting.save
-      @meeting.create_activity :create, owner: meeting_user, cross_platform: @meeting.online_meeting?
+      @meeting.create_activity :create, owner: @meeting.user, cross_platform: @meeting.online_meeting?
       redirect_to [@meeting.graetzl, @meeting]
     else
-      render :new
+      render 'new'
     end
   end
 
@@ -53,20 +44,13 @@ class MeetingsController < ApplicationController
   def update
     @meeting = find_user_meeting
     @meeting.assign_attributes(meeting_params)
-    @meeting.graetzl = @meeting.address.graetzl if @meeting.address.try(:graetzl)
+    set_address(@meeting) if @meeting.address.changed? || @meeting.location_id_changed?
     @meeting.state = :active
     if @meeting.platform_meeting_join_request.no?
       @meeting.platform_meeting = false
     end
 
-    #changed_attributes = @meeting.changed_attributes.keys.map(&:to_sym)
-    #changed_attributes.push(:address) if @meeting.address.try(:changed?)
-
     if @meeting.save
-      # Prevent Activity for Meeting Changes
-      #if (changed_attributes & [:address, :address_attributes, :starts_at_time, :starts_at_date, :ends_at_time, :description]).present?
-      #  @meeting.create_activity :update, owner: current_user, parameters: { changed_attributes: changed_attributes }
-      #end
       redirect_to [@meeting.graetzl, @meeting]
     else
       render :edit
@@ -162,7 +146,6 @@ class MeetingsController < ApplicationController
   end
 
   def filter_collection(meetings)
-
     meeting_type = params.dig(:filter, :meeting_type)
     if meeting_type.present?
       if meeting_type == 'online'
@@ -193,33 +176,51 @@ class MeetingsController < ApplicationController
     meetings
   end
 
-  def meeting_params
-    result =
-      params.require(:meeting)
-      .permit(
-        :graetzl_id,
-        :group_id,
-        :name,
-        :description,
-        :meeting_category_id,
-        :starts_at_date,
-        :starts_at_time,
-        :ends_at_time,
-        :cover_photo,
-        :remove_cover_photo,
-        :location_id,
-        :platform_meeting,
-        :online_meeting,
-        :amount,
-        event_category_ids: [],
-        meeting_additional_dates_attributes: [:id, :starts_at_date, :starts_at_time, :ends_at_time, :_destroy],
-        platform_meeting_join_request_attributes: [:id, :status, :request_message, :_destroy],
-        address_attributes: [:id, :description, :online_meeting_description, :street_name, :street_number, :zip, :city, :coordinates]
-    )
+  def set_address(meeting, json = nil)
+    if meeting.location
+      meeting.address = meeting.location.address
+      meeting.graetzl = meeting.location.graetzl
+    elsif json
+      resolver = AddressResolver.from_json(json)
+      return if !resolved.valid?
+      meeting.build_address(resolver.address_fields)
+      meeting.graetzl = resolver.graetzl
+    elsif meeting.address
+      resolver = AddressResolver.from_street(meeting.address.street_name, meeting.address.street_name)
+      return if !resolved.valid?
+      meeting.address.assign_attributes(resolver.address_fields)
+      meeting.graetzl = resolver.graetzl
+    end
+  end
 
-    feature_address = Address.from_feature(params[:feature]) if params[:feature]
-    result[:address_attributes].merge!(feature_address.attributes.symbolize_keys.compact) if feature_address
-    result
+  def meeting_params
+    params.require(:meeting).permit(
+      :graetzl_id,
+      :group_id,
+      :name,
+      :description,
+      :meeting_category_id,
+      :starts_at_date,
+      :starts_at_time,
+      :ends_at_time,
+      :cover_photo,
+      :remove_cover_photo,
+      :location_id,
+      :platform_meeting,
+      :online_meeting,
+      :online_description,
+      :amount,
+      event_category_ids: [],
+      meeting_additional_dates_attributes: [
+        :id, :starts_at_date, :starts_at_time, :ends_at_time, :_destroy
+      ],
+      platform_meeting_join_request_attributes: [
+        :id, :status, :request_message, :_destroy
+      ],
+      address_attributes: [
+        :id, :description, :street_name, :street_number, :zip, :city
+      ]
+    )
   end
 
   def going_to_params
@@ -230,17 +231,13 @@ class MeetingsController < ApplicationController
 
   def initialize_meeting
     if params[:location_id].present?
-      location = Location.find(params[:location_id])
-      location.build_meeting
-    elsif params[:graetzl_id].present?
-      graetzl = Graetzl.find(params[:graetzl_id])
-      graetzl.build_meeting
+      Meeting.new(location: Location.find(params[:location_id]))
     elsif params[:group_id].present?
-      group = Group.find(params[:group_id])
-      group.build_meeting
+      Meeting.new(group: Group.find(params[:group_id]))
+    elsif params[:graetzl_id].present?
+      Meeting.new(graetzl: Graetzl.find(params[:graetzl_id]))
     else
-      graetzl = current_user.graetzl
-      graetzl.build_meeting
+      Meeting.new(graetzl: current_user.graetzl)
     end
   end
 

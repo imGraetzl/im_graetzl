@@ -177,6 +177,7 @@ ActiveAdmin.register Meeting do
     :approved_for_api,
     :platform_meeting,
     :online_meeting,
+    :online_description,
     event_category_ids: [],
     address_attributes: [
       :id,
@@ -186,7 +187,7 @@ ActiveAdmin.register Meeting do
       :city,
       :coordinates,
       :description,
-      :online_meeting_description],
+    ],
     going_tos_attributes: [
       :id,
       :user_id,

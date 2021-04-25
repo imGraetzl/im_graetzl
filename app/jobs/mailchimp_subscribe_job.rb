@@ -2,7 +2,7 @@ class MailchimpSubscribeJob < ApplicationJob
 
   def perform(user)
     list_id = Rails.application.secrets.mailchimp_list_id
-    member_id = mailchimp_member_id(user)
+    member_id = user.mailchimp_member_id
 
     begin
       g = Gibbon::Request.new
@@ -33,10 +33,6 @@ class MailchimpSubscribeJob < ApplicationJob
       Rails.logger.error("subscribe failed: due to #{e.message}")
       raise e
     end
-  end
-
-  def mailchimp_member_id(user)
-    Digest::MD5.hexdigest(user.email.downcase)
   end
 
   def business_user_interests(user)

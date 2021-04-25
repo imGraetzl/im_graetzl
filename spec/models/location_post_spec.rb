@@ -25,10 +25,8 @@ RSpec.describe LocationPost, type: :model do
 
   describe '#edit_permission?' do
     let(:user) { create :user }
-    let(:location) { create :location, state: Location.states[:approved] }
-    let(:post) { create :location_post, author: location }
-
-    before { create :location_ownership, user: user, location: location }
+    let(:location) { create :location, state: Location.states[:approved], user: user }
+    let(:post) { create :location_post, location: location }
 
     it 'returns true if user admin' do
       admin = create :user, :admin

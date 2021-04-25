@@ -62,11 +62,9 @@
 @import "components/shame";
 @import "components/ctrl-graetzlselect";
 @import "components/bigicontext-element";
-@import "components/graetzl-ambassador";
 @import "components/tag-list";
 @import "components/filter-stream";
 @import "components/category-tags";
-@import "components/initiative-info";
 @import "components/dropdown-container";
 @import "components/ccCookie";
 @import "components/mailTo";
@@ -96,7 +94,6 @@
 @import "controllers/location";
 @import "controllers/location-form";
 @import "controllers/selectGraetzl";
-@import "controllers/userPostForm";
 @import "controllers/usersCardsSetup";
 @import "controllers/help";
 @import "controllers/static_pages";

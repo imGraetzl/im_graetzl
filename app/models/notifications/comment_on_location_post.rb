@@ -5,11 +5,11 @@ class Notifications::CommentOnLocationPost < Notification
   BITMASK = 2**4
 
   def self.receivers(activity)
-    activity.trackable.author.users
+    User.where(id: activity.trackable.location.user_id)
   end
 
   def self.condition(activity)
-    activity.trackable.author.present? && activity.trackable.author_type == "Location" && activity.trackable.author.users.exclude?(activity.owner)
+    activity.trackable.location.user != activity.owner
   end
 
   def self.description
@@ -51,6 +51,6 @@ class Notifications::CommentOnLocationPost < Notification
   end
 
   def location
-    location_post.author
+    location_post.location
   end
 end

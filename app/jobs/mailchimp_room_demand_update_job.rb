@@ -2,8 +2,7 @@ class MailchimpRoomDemandUpdateJob < ApplicationJob
 
   def perform(room)
     list_id = Rails.application.secrets.mailchimp_list_id
-
-    member_id = mailchimp_member_id(room.user)
+    member_id = room.user.mailchimp_member_id
 
     begin
       g = Gibbon::Request.new
@@ -27,10 +26,6 @@ class MailchimpRoomDemandUpdateJob < ApplicationJob
       Rails.logger.error("subscribe failed: due to #{e.message}")
       raise e
     end
-
   end
 
-  def mailchimp_member_id(user)
-    Digest::MD5.hexdigest(user.email.downcase)
-  end
 end

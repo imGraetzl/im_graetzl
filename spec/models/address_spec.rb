@@ -88,25 +88,11 @@ RSpec.describe Address, type: :model do
       end
 
       it 'includes matching graetzl' do
-        expect(address.graetzls).to include matching_graetzl
+        expect(address.graetzl).to eq(matching_graetzl)
       end
 
       it 'excludes matching graetzl' do
-        expect(address.graetzls).not_to include wrong_graetzl
-      end
-    end
-
-    context 'with multiple results' do
-      let!(:matching_graetzl) { create(:graetzl) }
-      let!(:other_graetzl) { create(:graetzl,
-        area: 'POLYGON ((0.0 0.0, 0.0 5.0, 5.0 5.0, 5.0 0.0, 0.0 0.0))') }
-
-      it 'returns array of results' do
-        expect(address.graetzls.size).to eq(2)
-      end
-
-      it 'includes 2 matching graetzls' do
-        expect(address.graetzls).to include(matching_graetzl, other_graetzl)
+        expect(address.graetzl).not_to eq(wrong_graetzl)
       end
     end
 
@@ -115,7 +101,7 @@ RSpec.describe Address, type: :model do
         area: 'POLYGON ((0.0 0.0, 0.0 0.9, 0.9 0.9, 0.9 0.0, 0.0 0.0))') }
 
       it 'returns empty array graetzl' do
-        expect(address.graetzls).to be_empty
+        expect(address.graetzl).to be_nil
       end
     end
 

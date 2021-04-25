@@ -5,7 +5,6 @@ context.instance_eval do
       "<span class='mailtype'>New Meeting: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewMeeting)}'>#{u.enabled_mail_notification(Notifications::NewMeeting)}</span>",
       "<span class='mailtype'>New Location: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewLocation)}'>#{u.enabled_mail_notification(Notifications::NewLocation)}</span>",
       "<span class='mailtype'>New Location Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewLocationPost)}'>#{u.enabled_mail_notification(Notifications::NewLocationPost)}</span>",
-      "<span class='mailtype'>New User Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewUserPost)}'>#{u.enabled_mail_notification(Notifications::NewUserPost)}</span>",
       "<span class='mailtype'>New Group: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewGroup)}'>#{u.enabled_mail_notification(Notifications::NewGroup)}</span>",
       "<span class='mailtype'>New Room Offer: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewRoomOffer)}'>#{u.enabled_mail_notification(Notifications::NewRoomOffer)}</span>",
       "<span class='mailtype'>New Room Demand: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewRoomDemand)}'>#{u.enabled_mail_notification(Notifications::NewRoomDemand)}</span>",

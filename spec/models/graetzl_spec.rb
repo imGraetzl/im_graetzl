@@ -13,11 +13,6 @@ RSpec.describe Graetzl, type: :model do
       expect(graetzl).to respond_to(:users)
     end
 
-    it 'has initiatives' do
-      expect(graetzl).to respond_to :initiatives
-      expect(graetzl).to respond_to :operating_ranges
-    end
-
     describe 'meetings' do
       it 'has meetings' do
         expect(graetzl).to respond_to(:meetings)
@@ -31,20 +26,6 @@ RSpec.describe Graetzl, type: :model do
       end
     end
 
-    describe 'posts' do
-      it 'has posts' do
-        expect(graetzl).to respond_to :posts
-      end
-
-      it 'destroys posts' do
-        create_list :user_post, 3, graetzl: graetzl
-        create_list :location_post, 3, graetzl: graetzl
-        expect{
-          graetzl.destroy
-        }.to change(Post, :count).by -6
-      end
-    end
-
     describe 'locations' do
       it 'has locations' do
         expect(graetzl).to respond_to(:locations)
@@ -55,19 +36,6 @@ RSpec.describe Graetzl, type: :model do
         expect{
           graetzl.destroy
         }.to change(Location, :count).by -3
-      end
-    end
-
-    describe 'curator' do
-      it 'has curator' do
-        expect(graetzl).to respond_to :curator
-      end
-
-      it 'destroys curator' do
-        create :curator, graetzl: graetzl
-        expect{
-          graetzl.destroy
-        }.to change(Curator, :count).by(-1)
       end
     end
   end

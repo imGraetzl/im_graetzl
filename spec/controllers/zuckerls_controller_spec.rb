@@ -17,9 +17,8 @@ RSpec.describe ZuckerlsController, type: :controller do
       before { sign_in user }
 
       context 'with location_id' do
-        let(:location) { create :location, state: Location::states[:approved] }
+        let(:location) { create :location, state: Location::states[:approved], user: user }
         before do
-          create(:location_ownership, user: user, location: location)
           get :new, params: { location_id: location }
         end
 
@@ -32,9 +31,8 @@ RSpec.describe ZuckerlsController, type: :controller do
         end
       end
       context 'when user owns single location' do
-        let(:location) { create :location, state: Location::states[:approved] }
+        let(:location) { create :location, state: Location::states[:approved], user: user }
         before do
-          create(:location_ownership, user: user, location: location)
           get :new
         end
 
@@ -48,9 +46,7 @@ RSpec.describe ZuckerlsController, type: :controller do
       end
       context 'when user owns multiple locations' do
         before do
-          create_list(:location_ownership, 3,
-            user: user,
-            location: create(:location, state: Location::states[:approved]))
+          create_list(:location, 3, user: user, state: Location::states[:approved])
           get :new
         end
 
@@ -67,10 +63,9 @@ RSpec.describe ZuckerlsController, type: :controller do
 
   describe 'POST create' do
     let(:user) { create :user }
-    let(:location) { create(:location, state: Location::states[:approved]) }
+    let(:location) { create(:location, state: Location::states[:approved], user: user) }
 
     before do
-      create(:location_ownership, user: user, location: location)
       sign_in user
     end
 
@@ -132,7 +127,7 @@ RSpec.describe ZuckerlsController, type: :controller do
         end
       end
       context 'when owner of location' do
-        before { create :location_ownership, user: user, location: location }
+        location.user = user
 
         context 'when zuckerl :live' do
           let(:zuckerl) { create :zuckerl, :live }
@@ -171,7 +166,7 @@ RSpec.describe ZuckerlsController, type: :controller do
       before { sign_in user }
 
       context 'when owner of location' do
-        before { create :location_ownership, user: user, location: location }
+        location.user = user
 
         context 'with valid params' do
           let(:params) { { location_id: location, id: zuckerl, zuckerl: { title: 'new_title' } } }
@@ -233,7 +228,7 @@ RSpec.describe ZuckerlsController, type: :controller do
       before { sign_in user }
 
       context 'when owner of location' do
-        before { create :location_ownership, user: user, location: location }
+        location.user = user
 
         it 'changes zuckerl to :cancelled' do
           expect{

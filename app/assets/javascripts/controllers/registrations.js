@@ -8,10 +8,26 @@ APP.controllers.registrations = (function() {
       if ($(".register-personalInfo").exists()) {
         initRegistrationForm();
       }
-
     }
 
     function initRegistrationForm() {
+      new jBox('Confirm', {
+        addClass:'jBox',
+        attach: $(".graetzl-select-link"),
+        title: 'Wähle dein Heimatgrätzl',
+        content: $("#select-graetzl-modal-content"),
+        trigger: 'click',
+        closeOnEsc: true,
+        closeOnClick: 'body',
+        blockScroll: true,
+        animation:{open: 'zoomIn', close: 'zoomOut'},
+        confirmButton: 'Weiter',
+        cancelButton: 'Zurück',
+        confirm: function() {
+          $(".form-register .graetzl-id-input").val($("#graetzl-select select").val());
+        },
+      });
+
       $('input[name="user[business]"]').on("change", function() {
         var isBusiness = $('input[name="user[business]"]:checked').val() == 'true';
         $(".user-business").toggle(isBusiness);

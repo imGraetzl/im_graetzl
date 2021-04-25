@@ -32,7 +32,6 @@
         <%= nav_menu_item("location", "Anbieter & Locations", locations_graetzl_path(graetzl)) %>
         <%= nav_menu_item("calendar-2", "Events & Workshops", meetings_graetzl_path(graetzl)) %>
         <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
-        <!--<%= nav_menu_item("head-idea-lightbulb", "Ideen im Grätzl", posts_graetzl_path(graetzl)) %>-->
       <% elsif district %>
         <%= nav_submenu_back('nav-submenu-site-city') %>
         <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_path(district)) %>
@@ -89,7 +88,6 @@
       <%= nav_menu_item("location", "Anbieter & Locations", locations_graetzl_path(graetzl)) %>
       <%= nav_menu_item("calendar-2", "Events & Workshops", meetings_graetzl_path(graetzl)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
-      <!--<%= nav_menu_item("head-idea-lightbulb", "Ideen im Grätzl", posts_graetzl_path(graetzl)) %>-->
     <% elsif district %>
       <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_path(district)) %>
       <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", rooms_district_path(district)) %>

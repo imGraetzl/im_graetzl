@@ -5,7 +5,7 @@ class MeetingsSerializer
     @request = request
   end
 
-  def as_json(options = {})
+  def as_json(*)
     @meetings.map do |meeting|
       meeting.slice(
         :id,

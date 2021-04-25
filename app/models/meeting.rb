@@ -15,7 +15,7 @@ class Meeting < ApplicationRecord
   belongs_to :meeting_category, optional: true
   has_and_belongs_to_many :event_categories
 
-  has_one :address, as: :addressable, dependent: :destroy
+  belongs_to :address, optional: true
   accepts_nested_attributes_for :address
 
   has_many :going_tos, dependent: :nullify
@@ -61,6 +61,7 @@ class Meeting < ApplicationRecord
   validates :graetzl, presence: true
   validate :starts_at_date_cannot_be_in_the_past, on: :create
 
+  before_save :set_graetzl
   before_create :set_privacy
   after_create :update_location_activity
 
@@ -77,7 +78,7 @@ class Meeting < ApplicationRecord
   end
 
   def self.include_for_box
-    includes(:going_tos, :user, location: :users)
+    includes(:going_tos, :user, location: :user)
   end
 
   def platform_meeting_pending?
@@ -158,6 +159,10 @@ class Meeting < ApplicationRecord
     if starts_at_date && starts_at_date < Date.today
       errors.add(:starts_at, 'kann nicht in der Vergangenheit liegen')
     end
+  end
+
+  def set_graetzl
+    self.graetzl ||= user&.graetzl
   end
 
   def set_privacy

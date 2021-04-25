@@ -6,6 +6,7 @@ context.instance_eval do
           row :id
           row :name
           row :online_meeting
+          row :online_description
           row(:state){|m| status_tag(m.state)}
           row :event_categories do |e|
             safe_join(
@@ -33,7 +34,6 @@ context.instance_eval do
         attributes_table_for meeting.address do
           row :id
           row :description
-          row :online_meeting_description
           row :street_name
           row :street_number
           row :zip
@@ -47,7 +47,6 @@ context.instance_eval do
         table_for meeting.going_tos do
           column(:id){|g| g.user.id}
           column(:username){|g| g.user.username}
-          column(:role){|g| status_tag(g.role)}
           column(:going_to_date){|g| g.going_to_date}
           column(''){|m| link_to 'User Anzeigen', admin_user_path(m.user) }
         end

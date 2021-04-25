@@ -1,0 +1,11 @@
+(function() {
+  <% if @comment.persisted? %>
+    var $commentForm = $("[data-behavior='comment-form-<%= @location_post.id %>']");
+    $commentForm.before("<%= j render @comment %>");
+    $commentForm.replaceWith("<%= j render 'locations/location_posts/comment_form', post: @location_post %>");
+    APP.components.stream.initCommentForm();
+    APP.components.stream.initLinkify();
+  <% else %>
+    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+  <% end %>
+})();

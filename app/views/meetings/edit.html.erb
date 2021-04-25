@@ -2,7 +2,7 @@
 
 <section class="create-meeting">
 
-  <%= render 'form', disable_fields: @meeting.location && !@meeting.location.users.include?(current_user) %>
+  <%= render 'form', disable_fields: @meeting.location && @meeting.location.user != current_user %>
 
   <%= button_to 'Treffen löschen', @meeting,
                 method: :delete,

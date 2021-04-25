@@ -17,9 +17,6 @@ RSpec.describe GraetzlsController, type: :routing do
     it 'routes GET meetings_graetzl_path to #index' do
       expect(get: meetings_graetzl_path('graetzl-slug')).to route_to 'graetzls#meetings', id: 'graetzl-slug'
     end
-    it 'routes GET posts_graetzl_path to #posts' do
-      expect(get: posts_graetzl_path('graetzl-slug')).to route_to('graetzls#posts', id: 'graetzl-slug')
-    end
     it 'routes GET zuckerls_graetzl_path to #index' do
       expect(get: zuckerls_graetzl_path('graetzl-slug')).to route_to('graetzls#zuckerls', id: 'graetzl-slug')
     end

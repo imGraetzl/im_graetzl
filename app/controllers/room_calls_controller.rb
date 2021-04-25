@@ -13,7 +13,7 @@ class RoomCallsController < ApplicationController
   def create
     @room_call = RoomCall.new(room_call_params)
     @room_call.user_id = current_user.admin? ? params[:user_id] : current_user.id
-    @room_call.address = Address.from_feature(params[:feature]) if params[:feature].present?
+    set_address(@room_call, json: params[:feature])
     if @room_call.save
       @room_call.create_activity(:create, owner: @room_call.user)
       redirect_to @room_call
@@ -28,7 +28,9 @@ class RoomCallsController < ApplicationController
 
   def update
     @room_call = current_user.room_calls.find(params[:id])
-    if @room_call.update(room_call_params)
+    @room_call.assign_attributes(room_call_params)
+    set_address(@room_call) if @room_call.address.changed?
+    if @room_call.save
       redirect_to @room_call
     else
       render 'edit'
@@ -100,6 +102,20 @@ class RoomCallsController < ApplicationController
 
   def room_call_submission_params
     params.permit(:first_name, :last_name, :email, :phone, :website)
+  end
+
+  def set_address(room_call, json = nil)
+    if json
+      resolver = AddressResolver.from_json(json)
+      return if !resolved.valid?
+      room_call.build_address(resolver.address_fields)
+      room_call.graetzl = resolver.graetzl
+    elsif room_call.address
+      resolver = AddressResolver.from_street(room_call.address.street_name, room_call.address.street_name)
+      return if !resolver.valid?
+      room_call.address.assign_attributes(resolver.address_fields)
+      room_call.graetzl = resolver.graetzl
+    end
   end
 
 end

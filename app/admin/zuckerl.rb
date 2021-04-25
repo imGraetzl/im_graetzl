@@ -60,7 +60,6 @@ ActiveAdmin.register Zuckerl do
                 :active_admin_requested_event,
                 :paid_at,
                 :image, :remove_image,
-                :initiative_id,
                 :link
   # Within app/admin/resource_name.rb
   # Controller pagination overrides

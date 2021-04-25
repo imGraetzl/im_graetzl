@@ -92,19 +92,6 @@ RSpec.describe Location, type: :model do
       end
     end
 
-    describe 'users' do
-      it 'has users' do
-        expect(location).to respond_to(:users)
-      end
-
-      it 'destroys ownerships with location' do
-        create_list :location_ownership, 3, location: location
-        expect{
-          location.destroy
-        }.to change{LocationOwnership.count}.by -3
-      end
-    end
-
     describe 'contact' do
       it 'has contact' do
         expect(location).to respond_to(:contact)
@@ -124,7 +111,7 @@ RSpec.describe Location, type: :model do
       end
 
       it 'destroys posts with location' do
-        create_list(:location_post, 3, author: location)
+        create_list(:location_post, 3, location: location)
         expect{
           location.destroy
         }.to change{Post.count}.by -3
@@ -161,7 +148,7 @@ RSpec.describe Location, type: :model do
       let(:owner) { create(:user) }
       before do
         location.owner_meetable!
-        create(:location_ownership, location: location, user: owner)
+        location.user = owner
       end
 
       it 'returns false for random user' do
@@ -250,28 +237,13 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#boss' do
-    let(:location) { create :location }
-    let(:owner) { create :user }
-    before do
-      create(:location_ownership, user: owner, location: location)
-      create_list(:location_ownership, 3, location: location)
-    end
-
-    it 'returs first user' do
-      expect(location.users.count).to eq 4
-      expect(location.boss).to eq owner
-    end
-  end
-
-  describe '#editable_by' do
-    let(:location) { create :location }
+  describe '#owned_by' do
     let(:user) { create :user }
+    let(:location) { create :location, user: user }
 
-    subject(:edit_state) { location.editable_by?(user) }
+    subject(:edit_state) { location.owned_by?(user) }
 
     it 'returns true for owners' do
-      create :location_ownership, user: user, location: location
       expect(edit_state).to eq true
     end
 

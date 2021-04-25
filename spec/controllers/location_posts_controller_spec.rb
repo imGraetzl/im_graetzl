@@ -17,8 +17,7 @@ RSpec.describe LocationPostsController, type: :controller do
           title: 'something',
           content: 'something else',
           graetzl_id: graetzl.id,
-          author_id: location.id,
-          author_type: 'Location' } }}
+          location_id: location.id} }}
 
       before { sign_in user }
 
@@ -36,7 +35,7 @@ RSpec.describe LocationPostsController, type: :controller do
 
       it 'assigns @location_post with attributes' do
         post :create, params: params, xhr: true
-        expect(assigns :location_post).to have_attributes(author: location, graetzl: graetzl)
+        expect(assigns :location_post).to have_attributes(location: location, graetzl: graetzl)
       end
 
       it 'renders create.js' do

@@ -20,6 +20,7 @@ active_admin_form_for [:admin, resource] do |f|
         input :ends_at_time, ignore_date: true
         input :approved_for_api
         input :online_meeting
+        input :online_description
         input :platform_meeting
         input :meeting_category, include_blank: true
       end
@@ -27,7 +28,6 @@ active_admin_form_for [:admin, resource] do |f|
         a.input :street_name
         a.input :street_number
         a.input :description
-        a.input :online_meeting_description
         a.input :zip
         a.input :city
       end
@@ -41,7 +41,6 @@ active_admin_form_for [:admin, resource] do |f|
                   new_record: 'User Hinzufügen' do |o|
           o.input :meeting_additional_date, as: :select, collection: f.object.meeting_additional_dates.pluck(:starts_at_date, :id), include_blank: true
           o.input :user, collection: User.admin_select_collection, include_blank: "Select User", input_html: { class: 'admin-filter-select'}
-          o.input :role, as: :select, collection: GoingTo.roles.keys, include_blank: false
         end
       end
     end
