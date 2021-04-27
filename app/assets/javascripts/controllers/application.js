@@ -5,8 +5,6 @@ APP.controllers.application = (function() {
     APP.components.headerNavigation.init();
     APP.components.stream.init();
 
-    FastClick.attach(document.body);
-
     window.cookieconsent_options = {
       "message":"Diese Website verwendet Cookies. Indem Sie weiter auf dieser Website navigieren, stimmen Sie unserer Verwendung von Cookies zu.",
       "dismiss":"OK!","learnMore":"Mehr Information",

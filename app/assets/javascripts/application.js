@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require underscore
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require jquery.mask
 //= require jquery.detect_swipe
@@ -27,20 +27,15 @@
 //= require featherlight.gallery
 //= require enquire
 //= require jquery.sumoselect
-//= require jquery.jeditable
-//= require jquery.jeditable.autogrow
 //= require jquery.dropdown
 //= require typeahead.bundle
-//= require jquery.noty.packaged
 //= require masonry.pkgd.min
-//= require imagesloaded
 //= require jquery.tagsinput
 //= require linkify.min
 //= require linkify-jquery.min
 //= require jquery.remotipart
 //= require lightslider
 //= require modernizr.custom
-//= require fastclick
 //= require unscroll
 //= require autogrow
 //= require datatables.min
