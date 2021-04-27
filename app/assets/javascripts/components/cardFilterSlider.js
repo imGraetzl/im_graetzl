@@ -58,7 +58,11 @@ APP.components.cardFilterSlider = (function() {
             addClass: '-mobile',
           }
         }
-      ]
+      ],
+      onSliderLoad: function(el) {
+        $(el).removeClass('cS-hidden');
+        $(el).closest(".category-slider-container").removeClass('loading');
+      }
     });
 
 

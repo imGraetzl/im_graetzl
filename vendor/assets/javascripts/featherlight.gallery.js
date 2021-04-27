@@ -1,11 +1,36 @@
 /**
  * Featherlight Gallery – an extension for the ultra slim jQuery lightbox
- * Version 1.7.9 - http://noelboss.github.io/featherlight/
+ * Version 1.7.14-UMD - http://noelboss.github.io/featherlight/
  *
- * Copyright 2017, Noël Raoul Bossart (http://www.noelboss.com)
+ * Copyright 2019, Noël Raoul Bossart (http://www.noelboss.com)
  * MIT Licensed.
 **/
-(function($) {
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery'], factory);
+	} else if (typeof module === 'object' && module.exports) {
+		// Node/CommonJS
+		module.exports = function (root, jQuery) {
+			if (jQuery === undefined) {
+				// require('jQuery') returns a factory that requires window to
+				// build a jQuery instance, we normalize how we use modules
+				// that require this pattern but the window provided is a noop
+				// if it's defined (how jquery works)
+				if (typeof window !== 'undefined') {
+					jQuery = require('jquery');
+				} else {
+					jQuery = require('jquery')(root);
+				}
+			}
+			factory(jQuery);
+			return jQuery;
+		};
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
+})(function($) {
 	"use strict";
 
 	var warn = function(m) {
@@ -111,13 +136,6 @@
 		galleryFadeIn: 100,          /* fadeIn speed when image is loaded */
 		galleryFadeOut: 300,         /* fadeOut speed before image is loaded */
 
-    beforeOpen: function() {
-        document.body.style.overflow = 'hidden';
-    },
-    beforeClose: function() {
-        document.body.style.overflow = '';
-    },
-
 		slides: function() {
 			if (this.filter) {
 				return this.$source.find(this.filter);
@@ -141,6 +159,7 @@
 				$inner = self.$instance.find('.' + self.namespace + '-inner');
 			index = ((index % len) + len) % len; /* pin index to [0, len[ */
 
+			this.$instance.addClass(this.namespace+'-loading');
 			self.$currentTarget = source.eq(index);
 			self.beforeContent();
 			return $.when(
@@ -155,8 +174,9 @@
 
 		createNavigation: function(target) {
 			var self = this;
-			return $('<span title="'+target+'" class="'+this.namespace+'-'+target+'"><span>'+this[target+'Icon']+'</span></span>').click(function(){
+			return $('<span title="'+target+'" class="'+this.namespace+'-'+target+'"><span>'+this[target+'Icon']+'</span></span>').click(function(evt){
 				$(this).trigger(target+'.'+self.namespace);
+				evt.preventDefault();
 			});
 		}
 	});
@@ -172,4 +192,4 @@
 	/* bind featherlight on ready if config autoBind is set */
 	$(document).ready(function(){ FeatherlightGallery._onReady(); });
 
-}(jQuery));
+});

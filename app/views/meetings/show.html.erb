@@ -49,7 +49,7 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= attachment_image_tag @meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg' %>
+    <%= attachment_image_tag @meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg', width:980, height:370 %>
   </div>
 
   <div class="entryDescription">
