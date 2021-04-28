@@ -5,6 +5,8 @@ APP.controllers.application = (function() {
     APP.components.headerNavigation.init();
     APP.components.stream.init();
 
+    FastClick.attach(document.body);
+
     window.cookieconsent_options = {
       "message":"Diese Website verwendet Cookies. Indem Sie weiter auf dieser Website navigieren, stimmen Sie unserer Verwendung von Cookies zu.",
       "dismiss":"OK!","learnMore":"Mehr Information",
@@ -48,7 +50,6 @@ APP.controllers.application = (function() {
           // Registration
           if ( $("#flash .notice").text().indexOf('Super, du bist nun registriert!') >= 0 ){
             gtag('event', 'sign_up', {'event_category': 'Registration'}); // GA
-            gtag('event', 'conversion', {'send_to': 'AW-807401138/zBwECJ738IABELLt_4AD'}); // G-AW
             fbq('track', 'CompleteRegistration'); // FB
           }
 
