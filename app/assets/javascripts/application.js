@@ -52,6 +52,7 @@
 //= require overthrow-init
 //= require FileAPI.core
 //= require FileAPI.Image
+//= require fastclick
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers
