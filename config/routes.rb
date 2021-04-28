@@ -177,8 +177,7 @@ Rails.application.routes.draw do
   get 'raumteiler' => redirect('/wien/raumteiler')
   get 'dieselgasse' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-dieselgasse')
   get 'mixit' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
-  get 'raumteilerfestival', to: 'landing_pages#raumteiler_festival_2018'
-  get 'raumteilerfestival/info', to: 'landing_pages#raumteiler_festival_2018_infos'
+  get 'raumteilerfestival' => redirect('/wien/raumteiler/')
 
   resource :wien, controller: 'wien', only: [:show] do
     get 'visit_graetzl'
