@@ -13,17 +13,6 @@ APP.controllers.static_pages = (function() {
 function initMentoring() {
   $(".-login").featherlight({});
 
-  // Find question coworking and exchange ith radio buttons?
-  //var question_coworking = $("h4:contains('2')").next('.input-textarea').children('textarea').first();
-  //console.log(question_coworking);
-
-  $( ".tischlerei-infos" ).hide();
-  $( ".arrow" ).click(function() {
-    $( ".tischlerei-infos" ).slideToggle(function() {
-      $( ".arrow" ).toggleClass( "-up" );
-    });
-  });
-
   var roomGallery = new jBox('Image', {
     addClass:'jBoxGallery',
     imageCounter:true,

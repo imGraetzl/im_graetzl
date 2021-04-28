@@ -980,44 +980,6 @@ section.help {
       }
     }
 
-    a.tischlerei-link {
-      white-space: nowrap;
-      font-weight: bold;
-    }
-
-    .tischlerei-infos {
-      .headline {
-        color: $color-ambient-mint-dark;
-      }
-      .tischlerei-anita {
-        padding-top:110px;
-        background-image: url(image_path('info/die-tischlerei-anita.jpg'));
-        background-position: center top;
-        background-repeat: no-repeat;
-        background-size: 100px;
-        @include respond-to(">=large") {
-          padding-top:0px;
-          padding-right:110px;
-          background-position: right top;
-        }
-      }
-      .entryImgUploads {
-        margin-top: 0px;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        img {
-          width: 80px;
-          height:80px;
-          object-fit: cover;
-          @include respond-to(">=large") {
-            width: 150px;
-            height:150px;
-          }
-        }
-      }
-    }
-
     .-coworking:after {
       display: block;
       margin-bottom:25px;
