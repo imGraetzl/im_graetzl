@@ -48,7 +48,6 @@ APP.controllers.application = (function() {
           // Registration
           if ( $("#flash .notice").text().indexOf('Super, du bist nun registriert!') >= 0 ){
             gtag('event', 'sign_up', {'event_category': 'Registration'}); // GA
-            gtag('event', 'conversion', {'send_to': 'AW-807401138/zBwECJ738IABELLt_4AD'}); // G-AW
             fbq('track', 'CompleteRegistration'); // FB
           }
 
