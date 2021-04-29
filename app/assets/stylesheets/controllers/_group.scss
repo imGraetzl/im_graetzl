@@ -194,25 +194,6 @@ section.group-form-page {
 
   .request-message-modal {
     display: none;
-    max-width:600px;
-    .wrapper {
-      display: flex;
-      margin-bottom:15px;
-      padding-bottom:15px;
-      border-bottom: solid 1px $color-ambient-mint-light;
-      align-items: center;
-      justify-content: center;
-    }
-    .anwsers {
-      h3 {
-        @include font-size-primaryFont('large');
-        margin-bottom:5px;
-      }
-      p {
-        margin-bottom: 20px;
-        white-space: pre-wrap;
-      }
-    }
   }
 
   // Button Control Dropdown
@@ -682,19 +663,14 @@ section.group-form-page {
     }
   }
 
-
-
-
-
-    .entryImgUploads {
-      img {
-        max-width: 150px;
-        @include respond-to(">=large") {
-          max-width: 205px;
-        }
+  .entryImgUploads {
+    img {
+      max-width: 150px;
+      @include respond-to(">=large") {
+        max-width: 205px;
       }
     }
-
+  }
 
   // form customization
   ::-webkit-input-placeholder {
@@ -708,20 +684,5 @@ section.group-form-page {
   }
   :-moz-placeholder {
     @include groupsPlaceholder;
-  }
-}
-
-#jBoxRoinRequest {
-  h1 {
-    @include headlineBarbapapa();
-    margin: auto;
-    margin-bottom:15px;
-  }
-  h3 {
-    @include font-size-primaryFont('large');
-  }
-  .input-textarea {
-    margin-top: 10px;
-    margin-bottom: 25px;
   }
 }

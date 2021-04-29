@@ -5,6 +5,7 @@
     $commentForm.replaceWith("<%= j render 'comment_form', location_post: @location_post %>");
     APP.components.stream.initCommentForm();
     APP.components.stream.initLinkify();
+    APP.controllers.application.jBoxGallery();
   <% else %>
     alert('Es gab ein Problem, bitte versuche es später nochmal.');
   <% end %>

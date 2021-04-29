@@ -6,13 +6,7 @@ APP.controllers.room_offers = (function() {
     if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($("section.roomDetail").exists()) { initRoomDetail(); }
     if ($(".request-price-form").exists()) initRoomOfferBookingForm();
-    if ($(".room-rental-timetable-page").exists()) initTimeTable();
   }
-
-  function initTimeTable() {
-
-  }
-
 
   function initRoomOfferBookingForm() {
     var dateInput = $('.request-price-form .rent-date');
@@ -81,15 +75,6 @@ APP.controllers.room_offers = (function() {
   }
 
   function initRoomDetail() {
-
-    var roomGallery = new jBox('Image', {
-      addClass:'jBoxGallery',
-      imageCounter:true,
-      preloadFirstImage:true,
-      closeOnEsc:true,
-      createOnInit:true,
-      animation:{open: 'zoomIn', close: 'zoomOut'},
-    });
 
     // Sidebar Button Click
     $('#requestRoomBtn').on('click', function(event){

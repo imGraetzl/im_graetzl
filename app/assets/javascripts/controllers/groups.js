@@ -59,35 +59,20 @@ APP.controllers.groups = (function() {
         trigger: 'click',
         blockScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
+        width:750
       });
 
-      /*
-      var newTopic = new jBox('Confirm', {
+      var joinRequestMessage = new jBox('Modal', {
         addClass:'jBox',
-        attach: '.newTopicTrigger',
-        content: $('#newTopic'),
+        attach: '.request-message-opener',
         trigger: 'click',
-        closeOnEsc:true,
-        closeOnClick:'body',
-        closeOnConfirm:false,
         blockScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
-        confirmButton: 'Thema erstellen',
-        cancelButton: 'Abbrechen',
-        minWidth: 900,
-        confirm: function() {
-          $('.jBox-Confirm .discussion-form').find('.btn-primary').trigger('click');
-        }
-      });
-
-      $('#tab-discussions .btn-new-topic').on('click', function() {
-        $('#new-topic').slideToggle();
-      });
-      */
-
-      $(".request-message-opener").featherlight({
-        root: '#groups-btn-ctrl',
-        targetAttr: 'href'
+        onOpen: function() {
+          var id = this.source.attr('data-content-id');
+          this.setContent($('#' + id).clone());
+        },
+        width:750
       });
 
       $('select#mail-user-select').SumoSelect({

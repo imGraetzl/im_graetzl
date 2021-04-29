@@ -4,6 +4,7 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
+    jBoxGallery();
 
     FastClick.attach(document.body);
 
@@ -13,6 +14,18 @@ APP.controllers.application = (function() {
       "link":"https://www.imgraetzl.at/info/datenschutz",
       "theme": false
     };
+
+    // Register & Login Modal
+    var loginModal = new jBox('Modal', {
+      addClass:'jBox',
+      attach: '.login-panel-opener',
+      content: $('#login-panel-modal'),
+      trigger: 'click',
+      closeOnClick:true,
+      blockScroll:true,
+      animation:{open: 'zoomIn', close: 'zoomOut'},
+      width:750
+    });
 
     // Get Target for Mandrill Linking
     $(window).on("load", function() {
@@ -81,11 +94,24 @@ APP.controllers.application = (function() {
     return vars;
   }
 
+  var jBoxGallery = function() {
+    new jBox('Image', {
+      addClass:'jBoxGallery',
+      imageCounter:true,
+      preloadFirstImage:true,
+      closeOnEsc:true,
+      createOnInit:true,
+      animation:{open: 'zoomIn', close: 'zoomOut'},
+      imageSize: 'auto'
+    });
+  }
+
   // ---------------------------------------------------------------------- Returns
 
   return {
     init: init,
-    getUrlVars: getUrlVars
+    getUrlVars: getUrlVars,
+    jBoxGallery: jBoxGallery
   }
 
 })();
