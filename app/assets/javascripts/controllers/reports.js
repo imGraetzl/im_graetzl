@@ -12,7 +12,17 @@ APP.controllers.reports = (function() {
       /*********************************
           Init Vars
       *********************************/
-      moment.locale("de-at");
+      var date_format_month = {
+        year: 'numeric', month: 'short'
+      };
+      var date_format_day = {
+        year: 'numeric', month: 'short', day: 'numeric',
+      };
+      var date_format_day_hour = {
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: 'numeric', minute: 'numeric'
+      };
+
       var chartTopArea; // Top Chart Area for Line-Charts
 
       var chartGraetzlTopArea; // Top Chart Area for Pie-Chart
@@ -134,7 +144,7 @@ APP.controllers.reports = (function() {
               //var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds - Summer/Winter
               //var priorDate = new Date(i - tzoffset).toISOString().slice(0,10);
               var priorDate = convertDateToISOString(i);
-              var priorDateFriendly = moment(i).format("ll");
+              var priorDateFriendly = new Intl.DateTimeFormat('de-DE', date_format_day).format(i);
               this.dates.push(priorDate);
               this.datesFriendly.push(priorDateFriendly);
             }
@@ -816,14 +826,14 @@ APP.controllers.reports = (function() {
       // Create Monthly Navigation Dropdown
 
       var setTimeNav = function setTimeNav() {
-        var actualmonth = moment(new Date());
+        var actualmonth = new Date();
         $("#months")
           .find("option")
           .remove(); // Set actual last 30 Days
 
         $(
           '<option data-unit="days" data-day="' +
-            actualmonth.format("YYYY-MM-DD") +
+            actualmonth.toISOString().slice(0, 10) +
             '" data-period="' +
             initPeriod +
             '">Letzten ' +
@@ -831,14 +841,17 @@ APP.controllers.reports = (function() {
             " Tage</option>"
         ).appendTo("#months");
 
-        for (i = 0; i < 13; i++) {
-          var prevMonth = moment(actualmonth).subtract(i, "months");
-          var prevMonthLast = prevMonth.endOf("month").format("YYYY-MM-DD");
+        for (i = 0; i < 12; i++) {
+
+          actualMonth = actualmonth.getMonth();
+          var prevMonthLast = new Date(actualmonth.getFullYear(), actualMonth - i, 0);
+          var prevMonthLastDigits = prevMonthLast.toISOString().slice(0, 10);
+
           $(
             '<option data-unit="months" data-day="' +
-              prevMonthLast +
+              prevMonthLastDigits +
               '">' +
-              prevMonth.format("MMMM YYYY") +
+              new Intl.DateTimeFormat('de-DE', date_format_month).format(prevMonthLast) +
               "</option>"
           ).appendTo("#months");
         }
@@ -1187,7 +1200,7 @@ APP.controllers.reports = (function() {
                   return data;
                 } else {
                   // Use Friendly Format for Output
-                  return moment(data).format("lll");
+                  return new Intl.DateTimeFormat('de-DE', date_format_day_hour).format(new Date(data));
                 }
               }
             }
@@ -1364,7 +1377,7 @@ APP.controllers.reports = (function() {
                   return data;
                 } else {
                   // Use Friendly Format for Output
-                  return moment(data).format("lll");
+                  return new Intl.DateTimeFormat('de-DE', date_format_day_hour).format(new Date(data));
                 }
               }
             }
@@ -1409,7 +1422,7 @@ APP.controllers.reports = (function() {
                   return data;
                 } else {
                   // Use Friendly Format for Output
-                  return moment(data).format("lll");
+                  return new Intl.DateTimeFormat('de-DE', date_format_day_hour).format(new Date(data));
                 }
               }
             }
@@ -1454,7 +1467,7 @@ APP.controllers.reports = (function() {
                   return data;
                 } else {
                   // Use Friendly Format for Output
-                  return moment(data).format("lll");
+                  return new Intl.DateTimeFormat('de-DE', date_format_day_hour).format(new Date(data));
                 }
               }
             }
@@ -1497,7 +1510,7 @@ APP.controllers.reports = (function() {
                   return data;
                 } else {
                   // Use Friendly Format for Output
-                  return moment(data).format("lll");
+                  return new Intl.DateTimeFormat('de-DE', date_format_day_hour).format(new Date(data));
                 }
               }
             }
@@ -1566,27 +1579,13 @@ APP.controllers.reports = (function() {
 
         var activeGraetzls = sumGraetzl - zeroGraetzl;
         var remainingGraetzlCount = activeGraetzls - topGraetzlCount;
-        /*
-        console.log('Anzahl Top Grätzl :' + topGraetzlCount);
-        console.log('Anzahl Grätz ohne User :' + zeroGraetzl);
-        console.log('Anzahl Grätzl Array gesamt: ' + sumGraetzl);
-        console.log('Anzahl Grätzln mit User: ' + activeGraetzls);
-        console.log('Anzahl restlicher Grätzln mit User: ' + remainingGraetzlCount);
-        console.log('Summer User in Top Grätzl: ' + sumTopGraetzl);
-        console.log('Summe User im Zeitraum: ' + sum);
-        console.log('Summe User in restlichen Grätzln: ' + sumRemainingGraetzl);
-        console.log(chartdata);
-        console.log(chartlabel);
-        console.log(initDate);
-        console.log(initUnit);
-        */
+
         // Friendly Text for Headline
 
         if (initUnit == "days") {
           headlineTimePeriod = "in den letzten " + initPeriod + " Tagen";
         } else if (initUnit == "months") {
-          actualMonth = moment(initDate);
-          actualMonth = actualMonth.format("MMMM YYYY");
+          actualMonth = new Intl.DateTimeFormat('de-DE', date_format_month).format(initDate);
           headlineTimePeriod = "im " + actualMonth;
         } // Kürzen auf Top Grätzl
 
@@ -1732,10 +1731,10 @@ APP.controllers.reports = (function() {
           $("#u_username").html(user.username);
           $("#u_email").html(user.email);
           $("#u_graetzl").html(user.graetzl_name);
-          $("#u_created_at").html(moment(user.created_at).format("ll"));
+          $("#u_created_at").html(new Intl.DateTimeFormat('de-DE', date_format_day_hour).format(user.created_at));
           $("#u_last_login").html(
             user.last_login
-              ? moment(user.last_login).format("ll")
+              ? new Intl.DateTimeFormat('de-DE', date_format_day_hour).format(user.last_login)
               : "noch kein Login"
           );
           $("#u_admin").attr("href", user.user_path_admin);
@@ -1767,7 +1766,7 @@ APP.controllers.reports = (function() {
                 $(
                   "<div>" +
                     '<span class="time">' +
-                    moment(new Date(activity[i].timestamp)).format("ll") +
+                    new Intl.DateTimeFormat('de-DE', date_format_day).format(new Date(activity[i].timestamp)) +
                     "</span>" +
                     '<span class="action"><ul class="tag-list ' +
                     activity[i].action +
