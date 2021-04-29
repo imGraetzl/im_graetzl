@@ -8,7 +8,7 @@
 
     <% if join_request.has_content? %>
       <p class="date">
-        <%= link_to "Beitritts Nachricht", "#request-message-modal-#{join_request.id}", class: 'request-message-opener' %>
+        <%= link_to "Beitritts Nachricht", "javascript:", class: 'request-message-opener', data: { content_id: "request-message-modal-#{join_request.id}" } %>
         <%= render 'groups/members/join_request_modal', join_request: join_request %>
       </p>
     <% end %>

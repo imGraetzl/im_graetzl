@@ -1,9 +1,9 @@
 APP.components.stream = (function() {
 
     function init() {
+
         initEntryCreateForm();
         initCommentForm();
-        initImgGallery();
         initLinkify();
 
         $('.show-all-comments-link').on("click", function() {
@@ -46,12 +46,6 @@ APP.components.stream = (function() {
         })
     }
 
-    function initImgGallery() {
-        $('.entryCreate').not('.js-initialized').featherlightGallery({
-            openSpeed: 300
-        }).addClass('js-initialized');
-    }
-
     function initSingleTextarea($parent) {
         $parent
             .addClass('js-initialized')
@@ -78,10 +72,9 @@ APP.components.stream = (function() {
         $container.append($markup);
         $markup.hide().fadeIn();
         $markup.on('click', function(e) { e.stopPropagation(); });
-        $(document).add($container.find('.close')).on('click.hideblock', function(e) {
+        $container.find('.close').on('click.hideblock', function(e) {
             $markup.remove();
             $container.find('textarea').prop('disabled', false);
-            $(document).off('click.hideblock');
         });
     }
 
@@ -89,7 +82,6 @@ APP.components.stream = (function() {
         init : init,
         initEntryCreateForm : initEntryCreateForm,
         initCommentForm : initCommentForm,
-        initImgGallery : initImgGallery,
         initLinkify: initLinkify
     }
 

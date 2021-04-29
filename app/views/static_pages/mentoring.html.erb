@@ -193,7 +193,7 @@
     <h1><em>Melde dich jetzt an</em></h1>
   </div>
 
-  <% group1 = Group.find_by_id(57) %>
+  <% group1 = Group.find_by_id(57) %> <!-- 57 -->
   <% if !group1.nil? %>
 
     <div class="cardBox -unterstuetzer">
@@ -240,7 +240,7 @@
       Und noch ein paar Fragen zu deinem Vorhaben:
     </p>
 
-    <div class="anmeldung cardBox <%= '-login' if !current_user %>"  <%= 'data-featherlight=#login-panel-modal' if !current_user %>>
+    <div class="anmeldung cardBox <%= '-login login-panel-opener' if !current_user %>" >
 
       <%= form_tag request_join_group_path(group1), id: "groupform" do %>
         <% if group1.group_join_questions.present? %>
@@ -416,7 +416,7 @@
 
 
   <!----------- LOGIN PANEL MODAL ----------->
-  <%= render 'shared/login_panel',redirect: request.original_url ,origin: 'mentoring' %>
+  <%= render 'shared/login_panel_modal',redirect: request.original_url ,origin: 'mentoring' %>
   <!----------- LOGIN PANEL MODAL ----------->
 
 </section>

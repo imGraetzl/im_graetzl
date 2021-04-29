@@ -1,27 +1,16 @@
 APP.controllers.static_pages = (function() {
 
     function init() {
-      if($("#help_nav").exists()) initHelpScroller();
       if($("section.homeOut").exists()) initMobileNav();
       if($("section.homeOut").exists()) initSupporterBox();
       if($(".-mentoring-page").exists()) initMentoring();
+      if($("#help_nav").exists()) initHelpScroller();
       if($("#guide-download").exists()) initGuideDownload();
     }
 
 // ---------------------------------------------------------------------- Public
 
 function initMentoring() {
-  $(".-login").featherlight({});
-
-  var roomGallery = new jBox('Image', {
-    addClass:'jBoxGallery',
-    imageCounter:true,
-    preloadFirstImage:true,
-    closeOnEsc:true,
-    createOnInit:true,
-    animation:{open: 'zoomIn', close: 'zoomOut'},
-  });
-
 
   $('.group-info').hide();
   var selectedgroup = $('input[name=group]:checked').attr("id");
@@ -35,9 +24,6 @@ function initMentoring() {
 
     $('.group-info').hide();
     $('.group-info.' + group).show();
-
-
-
 
   });
 

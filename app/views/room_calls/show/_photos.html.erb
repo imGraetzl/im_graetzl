@@ -1,8 +1,8 @@
 <section class="photos-section">
-  <div class="gallery" data-featherlight-gallery data-featherlight-filter="a">
+  <div class="gallery">
     <!--  @room_call.images.order(:created_at).each do |image| -->
     <% @room_call.images.each do |image| %>
-      <%= link_to attachment_image_tag(image, :file, :fill, 900, 900), attachment_url(image, :file, :limit, 900, 900) %>
+      <%= link_to attachment_image_tag(image, :file, :fill, 900, 900), attachment_url(image, :file, :limit, 900, 900), data: { jbox_image: "maingallery" } %>
     <% end %>
   </div>
 </section>

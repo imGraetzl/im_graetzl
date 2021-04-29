@@ -72,7 +72,6 @@
 @import "components/jBox";
 @import "components/tableLayout";
 
-
 //---------------------------------------------------------------------------------------------*\
 // PAGES
 // Page-specific styles. Mainly for positioning and fine adjust the components in the layout.
@@ -111,7 +110,6 @@
 @import "controllers/messenger";
 @import "controllers/reports";
 
-
 //---------------------------------------------------------------------------------------------*\
 // VENDOR
 // CSS files from external libraries and frameworks.
@@ -123,8 +121,6 @@
 @import "dropdown";
 @import "sumoselect";
 @import "leaflet";
-@import "featherlight";
-@import "featherlight.gallery";
 @import "jquery.tagsinput";
 @import "datatables.min";
 @import "jBox.min";
