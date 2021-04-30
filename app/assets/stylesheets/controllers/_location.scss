@@ -27,6 +27,7 @@ section.location-page {
       left: 20px;
       bottom: 20px;
       width: 80px;
+      height: 80px;
       border-radius: 4px;
       padding: 2px;
       background-color: #fff;
@@ -35,12 +36,12 @@ section.location-page {
         bottom: -50px;
         left: 38px;
         width: 245px;
+        height: 245px;
         border-radius: 12px;
         padding: 5px;
       }
       @include respond-to(">=large") {
         bottom: -90px;
-        width: 245px;
         left: 25px;
       }
     }
