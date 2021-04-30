@@ -21,7 +21,7 @@ APP.controllers.application = (function() {
       attach: '.login-panel-opener',
       content: $('#login-panel-modal'),
       trigger: 'click',
-      closeOnClick:true,
+      closeOnClick:'body',
       blockScroll:true,
       animation:{open: 'zoomIn', close: 'zoomOut'},
       width:750
