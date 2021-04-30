@@ -956,47 +956,6 @@ section.help {
       }
     }
 
-    .-coworking {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: center;
-      span {
-        width:100%
-      }
-      .tischlerei-logo {
-        margin-top:20px;
-        width:40%;
-      }
-      @include respond-to(">=medium") {
-        justify-content: space-between;
-        span {
-          width:80%;
-        }
-        .tischlerei-logo {
-          margin-top:0px;
-          width:20%;
-        }
-      }
-    }
-
-    .-coworking:after {
-      display: block;
-      margin-bottom:25px;
-      content: '';
-      width: 100%;
-      height: 10px;
-      bottom: 0;
-      left: 0;
-      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 30%);
-      z-index: 9;
-    }
-
-    .-coworking:after {
-      margin-bottom: 0px;
-      margin-top:15px;
-    }
-
     .arrow {
       margin: 0 auto;
       margin-top:-10px;
