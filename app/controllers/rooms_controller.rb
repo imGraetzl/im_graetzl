@@ -8,11 +8,11 @@ class RoomsController < ApplicationController
 
     room_offers = room_offers_scope.includes(:user)
     room_offers = filter_offers(room_offers)
-    room_offers = room_offers.by_currentness.page(params[:page]).per(10)
+    room_offers = room_offers.by_currentness.page(params[:page]).per(params[:per_page] || 10)
 
     room_demands = room_demands_scope.includes(:user, :room_categories)
     room_demands = filter_demands(room_demands)
-    room_demands = room_demands.by_currentness.page(params[:page]).per(10)
+    room_demands = room_demands.by_currentness.page(params[:page]).per(params[:per_page] || 10)
 
     @rooms = []
     @rooms += room_calls.sort_by(&:ends_at).reverse if params[:page].blank?
@@ -25,6 +25,9 @@ class RoomsController < ApplicationController
   def room_offers_scope
     if params[:district_id].present?
       RoomOffer.where(district_id: params[:district_id])
+    elsif params[:user_id].present?
+      user = User.find(params[:user_id])
+      user.room_offers.enabled
     else
       RoomOffer.all
     end
@@ -34,6 +37,9 @@ class RoomsController < ApplicationController
     if params[:district_id].present?
       district = District.find(params[:district_id])
       RoomDemand.joins(:room_demand_graetzls).where(room_demand_graetzls: {graetzl_id: district.graetzl_ids}).distinct
+    elsif params[:user_id].present?
+      user = User.find(params[:user_id])
+      user.room_demands.enabled
     else
       RoomDemand.all
     end

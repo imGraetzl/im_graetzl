@@ -5,6 +5,7 @@ APP.components.tabs = (function() {
         animation: false,
         active: getFirstNotEmptyTab(tabgroup)
       });
+      $(tabgroup).find("li.active").click();
     }
 
 

@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @locations = collection_scope.approved.include_for_box
     @locations = filter_collections(@locations)
-    @locations = @locations.order("last_activity_at DESC").page(params[:page]).per(15)
+    @locations = @locations.order("last_activity_at DESC").page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show
@@ -72,6 +72,9 @@ class LocationsController < ApplicationController
     if params[:graetzl_id].present?
       graetzl = Graetzl.find(params[:graetzl_id])
       Location.where(graetzl: graetzl)
+    elsif params[:user_id].present?
+      user = User.find(params[:user_id])
+      user.locations.approved
     else
       Location.all
     end
