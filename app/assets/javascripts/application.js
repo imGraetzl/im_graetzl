@@ -13,7 +13,6 @@
 //= require underscore
 //= require jquery2
 //= require jquery_ujs
-//= require jquery.mask
 //= require jquery.detect_swipe
 //= require picker
 //= require jquery.tabslet.min
