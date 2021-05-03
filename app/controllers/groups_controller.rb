@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @groups = collection_scope.include_for_box
     @groups = filter_collection(@groups)
-    @groups = @groups.by_currentness.page(params[:page]).per(15)
+    @groups = @groups.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show
@@ -158,9 +158,12 @@ class GroupsController < ApplicationController
   private
 
   def collection_scope
-    #Group.non_private
-    #Group.non_hidden
-    Group.all
+    if params[:member_user_id].present?
+      user = User.find(params[:member_user_id])
+      user.groups.order(created_at: :desc)
+    else
+      Group.all
+    end
   end
 
   def filter_collection(groups)
