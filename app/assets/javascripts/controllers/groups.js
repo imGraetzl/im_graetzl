@@ -121,7 +121,10 @@ APP.controllers.groups = (function() {
     }
 
     function initMeetings() {
-      if ($('*[data-behavior="meetings-card-container"]').is(':empty')){
+      var $cardCrid = $('*[data-behavior="meetings-card-container"]');
+      if ($cardCrid.is(':empty')){
+        var $spinner = $('footer .loading-spinner').clone().removeClass('-hidden');
+        $cardCrid.append($spinner);
         $('#meeting-submit').submit();
       }
     }
