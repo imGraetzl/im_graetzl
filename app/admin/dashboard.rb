@@ -17,31 +17,22 @@ ActiveAdmin.register_page "Dashboard" do
             link_to 'Alle User anzeigen', admin_users_path, class: 'btn-light'
           end
         end
+
         panel 'Offene Platform Treffen Anfragen' do
-
-          tabs do
-            tab 'Pending' do
-              table_for Meeting.platform_meeting_pending.order(updated_at: :asc) do
-                column(:meeting, sortable: :name) do |meeting|
-                  link_to meeting.name, admin_meeting_path(meeting)
-                end
-                column('status') { |meeting| status_tag(meeting.platform_meeting_join_request.status) }
-                column :users do |meeting|
-                  link_to(meeting.user.username, admin_user_path(meeting.user))
-                end
-              end
-              span do
-                link_to 'Offene Anfragen Bearbeiten', admin_meetings_path(:scope => 'platform_meeting_pending'), class: 'btn-light'
-              end
+          table_for Meeting.platform_meeting_pending.order(updated_at: :asc) do
+            column(:meeting, sortable: :name) do |meeting|
+              link_to meeting.name, admin_meeting_path(meeting)
             end
-
+            column :users do |meeting|
+              link_to(meeting.user.username, admin_user_path(meeting.user))
+            end
+            column('status') { |meeting| status_tag(meeting.platform_meeting_join_request.status) }
           end
-
-
-
-
-
+          span do
+            link_to 'Offene Anfragen Bearbeiten', admin_meetings_path(:scope => 'platform_meeting_pending'), class: 'btn-light'
+          end
         end
+
       end
       column do
         panel 'Campaign Users' do

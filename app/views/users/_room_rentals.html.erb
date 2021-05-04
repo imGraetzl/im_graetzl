@@ -24,7 +24,7 @@
       <div class="flex-row medium" role="columnheader">Messenger</div>
     </div>
 
-    <% @owned_room_rentals.order("id DESC").each do |rental| %>
+    <% @owned_room_rentals.order("id DESC").each do |rental| next if !rental.renter %>
       <%= render 'users/owned_room_rental', room_rental: rental %>
     <% end %>
   </div>
@@ -45,7 +45,7 @@
       <div class="flex-row medium" role="columnheader">Messenger</div>
     </div>
 
-    <% @room_rentals.order("id DESC").each do |rental| %>
+    <% @room_rentals.order("id DESC").each do |rental| next if !rental.owner %>
       <%= render 'users/rented_room_rental', room_rental: rental %>
     <% end %>
   </div>

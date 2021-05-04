@@ -24,7 +24,7 @@
       <div class="flex-row medium" role="columnheader">Messenger</div>
     </div>
 
-    <% @owned_tool_rentals.order("rent_from DESC").each do |rental| %>
+    <% @owned_tool_rentals.order("rent_from DESC").each do |rental| next if !rental.renter %>
       <%= render 'users/owned_tool_rental', tool_rental: rental %>
     <% end %>
   </div>
@@ -45,7 +45,7 @@
       <div class="flex-row medium" role="columnheader">Messenger</div>
     </div>
 
-    <% @tool_rentals.order("rent_from DESC").each do |rental| %>
+    <% @tool_rentals.order("rent_from DESC").each do |rental| next if !rental.owner %>
       <%= render 'users/rented_tool_rental', tool_rental: rental %>
     <% end %>
   </div>
