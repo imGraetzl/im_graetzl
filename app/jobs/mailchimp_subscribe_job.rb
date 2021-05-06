@@ -48,9 +48,7 @@ class MailchimpSubscribeJob < ApplicationJob
   end
 
   def user_location_category(user)
-    if !user.locations.nil?
-      user.locations.last.location_category.try(:name)
-    else
+    if user.locations.nil?
       user.location_category.try(:name) ? user.location_category.try(:name) : ''
     end
   end
