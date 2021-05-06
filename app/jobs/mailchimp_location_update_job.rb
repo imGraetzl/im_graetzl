@@ -1,11 +1,9 @@
-class MailchimpLocationApprovedJob < ApplicationJob
+class MailchimpLocationUpdateJob < ApplicationJob
 
   def perform(location)
     graetzl = location.graetzl
     list_id = Rails.application.secrets.mailchimp_list_id
-
-    UsersMailer.location_approved(location, location.user).deliver_now
-    member_id = location.user.mailchimp_member_id
+    member_id = mailchimp_member_id(location.boss)
 
     begin
       g = Gibbon::Request.new
@@ -27,6 +25,10 @@ class MailchimpLocationApprovedJob < ApplicationJob
       Rails.logger.error("subscribe failed: due to #{e.message}")
       raise e
     end
+
   end
 
+  def mailchimp_member_id(user)
+    Digest::MD5.hexdigest(user.email.downcase)
+  end
 end

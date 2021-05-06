@@ -62,7 +62,7 @@ class User < ApplicationRecord
 
   before_validation { self.username.squish! if self.username }
 
-  after_update :update_mailchimp, if: -> { email_changed? || first_name_changed? || last_name_changed? || newsletter_changed? }
+  after_update :update_mailchimp, if: -> { saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_newsletter? }
   before_destroy :unsubscribe_mailchimp
 
   scope :business, -> { where(business: true) }
