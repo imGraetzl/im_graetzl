@@ -67,7 +67,8 @@ ActiveAdmin.register Location do
   end
 
   csv do
-    column(:email) {|l| l.boss.email if !l.users.empty?}
+    #column(:email) {|l| l.boss.email if !l.users.empty?}
+    column(:email) {|l| l.users.first.email if !l.users.empty?}
     column :id
     #column :name
     #column(:l_graetzl) {|l| l.graetzl.name}
