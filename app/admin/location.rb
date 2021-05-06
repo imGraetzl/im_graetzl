@@ -69,10 +69,10 @@ ActiveAdmin.register Location do
   csv do
     column(:email) {|l| l.boss.email unless l.users.empty?}
     column :name
-    #column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_path(l.graetzl, l)}
-    column(:location_category) {|l| l.location_category.name if l.location_category}
     column(:l_graetzl) {|l| l.graetzl.name}
-    #column(:l_plz) {|l| l.graetzl.districts.first.try(:zip)}
+    column(:l_plz) {|l| l.graetzl.districts.first.try(:zip)}
+    #column(:location_category) {|l| l.location_category.name if l.location_category}
+    #column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_path(l.graetzl, l)}
     #column(:l_graetzl_url) { |l| Rails.application.routes.url_helpers.graetzl_path(l.graetzl)}
   end
 
