@@ -21,7 +21,7 @@ class MailchimpSubscribeJob < ApplicationJob
           PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
           NEWSLETTER: user.newsletter.to_s,
           SIGNUP: user.created_at,
-          ORIGIN: user.origin,
+          ORIGIN: user.origin? ? user.origin : '',
           L_CATEGORY: user_location_category(user)
         },
         interests: business_user_interests(user)
@@ -45,17 +45,14 @@ class MailchimpSubscribeJob < ApplicationJob
       mailchimp_interests[interest.mailchimp_id] = true if interest.mailchimp_id.present?
     end
     return mailchimp_interests
-    #BusinessInterest.find_each do |interest|
-    #  if user.business_interests.include?(interest)
-    #    mailchimp_interests[interest.mailchimp_id] = true if interest.mailchimp_id.present?
-    #  else
-    #    mailchimp_interests[interest.mailchimp_id] = false if interest.mailchimp_id.present?
-    #  end
-    #end
   end
 
   def user_location_category(user)
-    user.location_category.try(:name) ? user.location_category.try(:name) : ''
+    if !user.locations.nil?
+      user.locations.last.location_category.try(:name)
+    else
+      user.location_category.try(:name) ? user.location_category.try(:name) : ''
+    end
   end
 
 end

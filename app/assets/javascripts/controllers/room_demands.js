@@ -61,17 +61,6 @@ APP.controllers.room_demands = (function() {
           'event_category': 'Raumteiler',
           'event_label': 'User: ' + roomContact_id
         });
-
-        // Mailchimp Tracking
-        $.ajax({
-          url : '/clicked-room',
-          type : 'post',
-          data : { user_id: roomOwner_userid },
-          dataType: 'json',
-          success: function(response) {
-            //console.log(response);
-          }
-        });
       }
 
       $('#contact-infos-block').hide();

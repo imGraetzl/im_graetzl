@@ -35,6 +35,9 @@ class Location < ApplicationRecord
 
   before_create { |location| location.last_activity_at = Time.current }
 
+  after_update :update_mailchimp, if: -> { approved?  }
+  before_destroy :unsubscribe_mailchimp
+
   def actual_newest_post
     self.posts.where("created_at > ?", 8.weeks.ago).sort_by(&:created_at).last
   end
@@ -53,7 +56,7 @@ class Location < ApplicationRecord
     if pending?
       approved!
       create_activity(:create)
-      MailchimpLocationApprovedJob.perform_later(self)
+      UsersMailer.location_approved(self, self.boss).deliver_now
     end
   end
 
@@ -84,4 +87,15 @@ class Location < ApplicationRecord
   def build_meeting
     meetings.build(graetzl_id: graetzl_id)
   end
+
+  private
+
+  def update_mailchimp
+    MailchimpLocationUpdateJob.perform_later(self)
+  end
+
+  def unsubscribe_mailchimp
+    MailchimpLocationDeleteJob.perform_later(self)
+  end
+
 end

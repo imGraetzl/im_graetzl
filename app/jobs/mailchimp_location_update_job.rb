@@ -1,25 +1,22 @@
-class MailchimpRoomDeleteJob < ApplicationJob
+class MailchimpLocationUpdateJob < ApplicationJob
 
-  def perform(user)
+  def perform(location)
+    graetzl = location.graetzl
     list_id = Rails.application.secrets.mailchimp_list_id
-    member_id = mailchimp_member_id(user)
+    member_id = mailchimp_member_id(location.boss)
 
     begin
       g = Gibbon::Request.new
       g.timeout = 30
       g.lists(list_id).members(member_id).update(body: {
         merge_fields: {
-          ROOM_TYPE: '',
-          ROOM_STATE: '',
-          ROOM_TITLE: '',
-          ROOM_URL: '',
-          ROOM_PLZ: '',
-          ROOM_CAT: '',
-          ROOM_DATE: ''
+          LOCATION: location.name,
+          L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
+          L_CATEGORY: location.location_category.try(:name),
+          L_PLZ: graetzl.districts.first.try(:zip),
+          L_GRAETZL: graetzl.name,
+          L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),
         }
-      })
-      g.lists(list_id).members(member_id).tags.create(body: {
-        tags: [{name:"Habe Raum", status:"inactive"}, {name:"Suche Raum", status:"inactive"}]
       })
     rescue Gibbon::MailChimpError => mce
       Rails.logger.error("subscribe failed: due to #{mce.message}")
