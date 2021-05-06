@@ -58,27 +58,19 @@ ActiveAdmin.register User do
     end
 
     csv do
-      #column :created_at
-      #column :id
+      column :created_at
+      column :id
       column :email
-      #column :username
+      column :username
       column :first_name
       column :last_name
-      #column(:business) {|user| user.business? ? 'business' : '' }
-      #column :newsletter
-      #column (:plz) { |user| user.address.zip if user.address}
-
-      #column(:plz) { |user| user.district.try(:zip) }
-      #column(:graetzl) { |user| user.graetzl.name }
-      #column(:location_category) {|user| user.location_category.try(:name) }
-      #column(:location) { |user| user.primary_location.try(:name) }
-      #column(:location_bezirk) { |user|
-      #  user.primary_location.graetzl.districts.first.try(:zip) if user.primary_location
-      #}
-      #column(:location_graetzl) { |user|
-      #  user.primary_location.graetzl.name if user.primary_location
-      #}
-      #column(:meetings_initiated) { |user| user.initiated_meetings.count }
-      #column(:location_posts) { |user| user.location_posts.count }
+      column(:business) {|user| user.business? ? 'business' : '' }
+      column :newsletter
+      column(:plz) { |user| user.graetzl.districts.first.try(:zip) }
+      column(:graetzl) { |user| user.graetzl.name }
+      column(:graetzl_url) { |user| Rails.application.routes.url_helpers.graetzl_path(user.graetzl) }
+      column(:profil_url) { |user| Rails.application.routes.url_helpers.user_path(user) }
+      column :origin
+      column(:location_category) {|user| user.location_category.try(:name) }
     end
 end

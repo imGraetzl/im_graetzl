@@ -67,13 +67,13 @@ ActiveAdmin.register Location do
   end
 
   csv do
-    column :id
-    #column(:email) {|l| l.boss.email unless l.users.empty?}
-    #column(:full_name) {|l| l.boss.full_name unless l.users.empty?}
-    column(:location_category) {|l| l.location_category.name if l.location_category}
+    column(:email) {|l| l.boss.email unless l.users.empty?}
     column :name
-    #column(:location_url) { |l| graetzl_location_url(l.graetzl, l)}
-    #column :created_at
+    column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_path(l.graetzl, l)}
+    column(:location_category) {|l| l.location_category.name if l.location_category}
+    column(:l_graetzl) {|l| l.graetzl.name}
+    column(:l_plz) {|l| l.graetzl.districts.first.try(:zip)}
+    column(:l_graetzl_url) { |l| Rails.application.routes.url_helpers.graetzl_path(l.graetzl)}
   end
 
   # strong parameters
