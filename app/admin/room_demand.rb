@@ -37,13 +37,13 @@ ActiveAdmin.register RoomDemand do
 
   csv do
     column(:email) {|room| room.user.email if room.user }
-    column :slogan
-    column(:plz) { |room| room.districts.map(&:zip).join(", ") }
-    column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
-    column :created_at
-    #column(:room_url) { |room| Rails.application.routes.url_helpers.room_demand_path(room)}
-    column(:room_state) { |room| I18n.t("activerecord.attributes.room_demand.statuses.#{room.status}")}
-    column(:room_type) { |room| I18n.t("activerecord.attributes.room_demand.demand_types.#{room.demand_type}")}
+    #column :slogan
+    #column(:plz) { |room| room.districts.map(&:zip).join(", ") }
+    #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
+    #column :created_at
+    column(:room_url) { |room| Rails.application.routes.url_helpers.room_demand_path(room)}
+    #column(:room_state) { |room| I18n.t("activerecord.attributes.room_demand.statuses.#{room.status}")}
+    #column(:room_type) { |room| I18n.t("activerecord.attributes.room_demand.demand_types.#{room.demand_type}")}
   end
 
 end

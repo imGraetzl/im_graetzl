@@ -46,13 +46,13 @@ ActiveAdmin.register RoomOffer do
 
   csv do
     column(:email) {|room| room.user.email if room.user }
-    column :slogan
-    column(:plz) { |room| room.district.try(:zip) }
-    column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
-    column :created_at
-    #column(:room_url) { |room| Rails.application.routes.url_helpers.room_offer_path(room)}
-    column(:room_state) { |room| I18n.t("activerecord.attributes.room_offer.statuses.#{room.status}")}
-    column(:room_type) { |room| I18n.t("activerecord.attributes.room_offer.offer_types.#{room.offer_type}")}
+    #column :slogan
+    #column(:plz) { |room| room.district.try(:zip) }
+    #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
+    #column :created_at
+    column(:room_url) { |room| Rails.application.routes.url_helpers.room_offer_path(room)}
+    #column(:room_state) { |room| I18n.t("activerecord.attributes.room_offer.statuses.#{room.status}")}
+    #column(:room_type) { |room| I18n.t("activerecord.attributes.room_offer.offer_types.#{room.offer_type}")}
   end
 
 end
