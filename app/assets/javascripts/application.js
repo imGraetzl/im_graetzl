@@ -11,9 +11,8 @@
 // about supported directives.
 //
 //= require underscore
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
-//= require jquery.mask
 //= require jquery.detect_swipe
 //= require picker
 //= require jquery.tabslet.min
@@ -23,30 +22,21 @@
 //= require leaflet
 //= require leaflet-providers
 //= require leaflet.activearea
-//= require featherlight
-//= require featherlight.gallery
 //= require enquire
 //= require jquery.sumoselect
-//= require jquery.jeditable
-//= require jquery.jeditable.autogrow
 //= require jquery.dropdown
-//= require jquery.noty.packaged
+//= require typeahead.bundle
 //= require masonry.pkgd.min
-//= require imagesloaded
 //= require jquery.tagsinput
 //= require linkify.min
 //= require linkify-jquery.min
 //= require jquery.remotipart
 //= require lightslider
 //= require modernizr.custom
-//= require fastclick
 //= require unscroll
 //= require autogrow
 //= require datatables.min
 //= require jBox.min
-//= require timetable
-//= require moment-with-locales.min
-//= require datetime-moment
 //= require Chart.min
 //= require cocoon
 //= require refile
@@ -57,6 +47,7 @@
 //= require overthrow-init
 //= require FileAPI.core
 //= require FileAPI.Image
+//= require fastclick
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers

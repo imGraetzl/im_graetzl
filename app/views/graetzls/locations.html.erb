@@ -4,11 +4,11 @@
     robots: 'index, follow',
     og_title: t('.title', graetzl: @graetzl.name),
     og_description: t('.description', graetzl: @graetzl.name),
-    og_image: image_url('meta/og_logo.png')
+    og_image: image_url('meta/locations.jpg')
   )
 %>
 
-<section class="graetzls">
+<section class="graetzls locations">
   <%= render 'map' %>
   <%= render 'navigation' %>
 
@@ -19,16 +19,17 @@
     </div>
   <% end %>
 
+  <%= render 'filters/location_categories' %>
+
   <%= form_tag locations_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
+    <%= hidden_field_tag :special_category_id, @special_category %>
     <div class="filter-selection-text-jbox">
-      Zeige mir aus <%= link_to 'allen Kategorien', '#filter-modal-categories', data: { no_filter_label: 'allen Kategorien'} %>
+      Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
     </div>
     <div id="filter-modal-district" class="filter-modal-jbox-district">
       <%= render 'filters/district', graetzl_ids: @graetzl.id, district_ids: @graetzl.district.id, graetzl: @graetzl  %>
-    </div>
-    <div id="filter-modal-categories" class="filter-modal-jbox">
-      <%= render 'filters/location_categories' %>
     </div>
   <% end %>
 
@@ -38,7 +39,7 @@
       <%= render 'locations/action_card', graetzl: @graetzl %>
     </div>
     <!-- Insert Featured Card -->
-    
+
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'locations-paginate-link' }, rel: 'nofollow' %>
   </div>
 

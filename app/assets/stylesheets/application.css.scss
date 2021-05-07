@@ -72,7 +72,6 @@
 @import "components/jBox";
 @import "components/tableLayout";
 
-
 //---------------------------------------------------------------------------------------------*\
 // PAGES
 // Page-specific styles. Mainly for positioning and fine adjust the components in the layout.
@@ -108,11 +107,8 @@
 @import "controllers/group";
 @import "controllers/wien";
 @import "controllers/adminreports";
-@import "controllers/landing_pages";
-@import "controllers/payment";
 @import "controllers/messenger";
 @import "controllers/reports";
-
 
 //---------------------------------------------------------------------------------------------*\
 // VENDOR
@@ -125,10 +121,7 @@
 @import "dropdown";
 @import "sumoselect";
 @import "leaflet";
-@import "featherlight";
-@import "featherlight.gallery";
 @import "jquery.tagsinput";
 @import "datatables.min";
 @import "jBox.min";
-@import "timetable";
 @import "lightslider";

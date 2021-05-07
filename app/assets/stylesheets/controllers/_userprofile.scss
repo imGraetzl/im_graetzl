@@ -59,6 +59,13 @@ section.userprofile {
 
   }
 
+  .cardBoxCollection .loading-spinner {
+    float: none;
+    width:100px;
+    height:auto;
+    margin: auto;
+  }
+
   .cardBoxCollection .no-results-box {
     display: none;
   }

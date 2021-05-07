@@ -16,7 +16,7 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= attachment_image_tag(@user, :cover_photo, :fill, 980, 200, class: 'titleImg', fallback: 'cover_photo/980x370.png') %>
+    <%= attachment_image_tag(@user, :cover_photo, :fill, 980, 200, class: 'titleImg', fallback: 'cover_photo/980x370.png', width:980, height:200) %>
   </div>
 
   <div class="userContent">
@@ -53,7 +53,6 @@
           <%= link_to @user.graetzl.name, @user.graetzl %>
         </div>
 
-
       </div>
     </div>
     <div class="col2"><%= @user.bio %></div>
@@ -61,48 +60,44 @@
 
   <div class="tabs-ctrl">
     <ul class="tabs-nav">
-      <% if @user.locations.approved.exists? %><li><a href="#tab-locations">Location</a></li><% end %>
-      <% if !@user.rooms.blank? %><li><a href="#tab-raumteiler">Raumteiler</a></li><% end %>
-      <% if @user.tool_offers.enabled.exists? %><li><a href="#tab-toolteiler">Toolteiler</a></li><% end %>
-      <% if @user.groups.exists? %><li><a href="#tab-gruppen">Mitglied in Gruppen</a></li><% end %>
-      <% if !@user.meetings.blank? %><li><a href="#tab-meetings">Teilnahme an Treffen</a></li><% end %>
+      <% if @user.locations.approved.exists? %><li data-submit="#location-submit" data-target="locations-card-container"><a href="#tab-locations">Location</a></li><% end %>
+      <% if !@user.rooms.blank? %><li data-submit="#room-submit" data-target="rooms-card-container"><a href="#tab-raumteiler">Raumteiler</a></li><% end %>
+      <% if @user.tool_offers.enabled.exists? %><li data-submit="#tool-submit" data-target="tool-offers-card-container"><a href="#tab-toolteiler">Toolteiler</a></li><% end %>
+      <% if @user.groups.exists? %><li data-submit="#group-submit" data-target="groups-card-container"><a href="#tab-gruppen">Mitglied in Gruppen</a></li><% end %>
+      <% if !@user.meetings.blank? %><li data-submit="#meeting-submit" data-target="meetings-card-container"><a href="#tab-meetings">Events & Workshops</a></li><% end %>
     </ul>
 
-    <% if @user.locations.exists? %>
-    <div id="tab-locations" class="cardBoxCollection -tripple">
-      <%= render @user.locations.approved %>
+    <div id="tab-locations">
+      <%= form_tag locations_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'location-submit' do; end %>
+      <div class="cardBoxCollection -tripple" data-behavior="locations-card-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'locations-paginate-link' }, rel: 'nofollow' %>
     </div>
-    <% end %>
 
-    <% if !@user.rooms.blank? %>
-    <div id="tab-raumteiler" class="cardBoxCollection -tripple">
-      <%= render @user.rooms %>
+    <div id="tab-raumteiler">
+      <%= form_tag rooms_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'room-submit' do; end %>
+      <div class="cardBoxCollection -tripple" data-behavior="rooms-card-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' }, rel: 'nofollow' %>
     </div>
-    <% end %>
 
-    <% if @user.tool_offers.enabled.exists? %>
-    <div id="tab-toolteiler" class="cardBoxCollection -tripple">
-      <%= render @user.tool_offers.enabled %>
+    <div id="tab-toolteiler">
+      <%= form_tag tool_offers_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'tool-submit' do; end %>
+      <div class="cardBoxCollection -tripple" data-behavior="tool-offers-card-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'tool-offers-paginate-link' }, rel: 'nofollow' %>
     </div>
-    <% end %>
 
-    <% if @user.groups.exists? %>
-    <div id="tab-gruppen" class="cardBoxCollection -tripple">
-      <%= render @user.groups.order(created_at: :desc) %>
+    <div id="tab-gruppen">
+      <%= form_tag groups_path(member_user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'group-submit' do; end %>
+      <div class="cardBoxCollection -tripple" data-behavior="groups-card-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'groups-paginate-link' }, rel: 'nofollow' %>
     </div>
-    <% end %>
 
-    <% if !@user.meetings.blank? %>
-      <div id="tab-meetings">
-        <%= form_tag meetings_path(attended_user_id: @user.id, per_page: 6), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
-        <div class="cardBoxCollection -tripple" data-behavior="meetings-card-container"></div>
-        <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
-      </div>
-    <% end %>
+    <div id="tab-meetings">
+      <%= form_tag meetings_path(initiated_user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'meeting-submit' do; end %>
+      <div class="cardBoxCollection -tripple" data-behavior="meetings-card-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
+    </div>
+
   </div>
-
-
-
 
 
   <div class="stream" data-behavior="stream-container">

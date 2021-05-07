@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "hours"
+    t.string "online_shop"
     t.index ["location_id"], name: "index_contacts_on_location_id"
   end
 
@@ -345,6 +346,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.boolean "hidden", default: false
     t.text "welcome_message"
     t.boolean "default_joined", default: false
+    t.integer "group_users_count"
     t.index ["location_id"], name: "index_groups_on_location_id"
     t.index ["room_call_id"], name: "index_groups_on_room_call_id"
     t.index ["room_demand_id"], name: "index_groups_on_room_demand_id"
@@ -367,6 +369,9 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.datetime "updated_at"
     t.integer "context", default: 0
     t.string "icon"
+    t.string "main_photo_id"
+    t.string "main_photo_content_type"
+    t.integer "position", default: 0
   end
 
   create_table "location_ownerships", id: :serial, force: :cascade do |t|

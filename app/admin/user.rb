@@ -61,5 +61,6 @@ ActiveAdmin.register User do
       column :email
       column :first_name
       column :last_name
+      column(:plz) { |user| user.district&.zip }
     end
 end

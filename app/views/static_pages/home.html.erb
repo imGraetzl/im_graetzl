@@ -20,9 +20,9 @@
   <div class="supporterBox">
     <div class="inner">
       <div class="txt"><span>imGrätzl</span> wird unterstützt von</div>
-      <%= link_to(image_tag('supporter/logos/kolarik.png'), 'https://www.kolarik.at', target: '_blank', :class => '-logo') %>
-      <%= link_to(image_tag('supporter/logos/elif-macht-was.png'), 'https://www.geldmachtwas.com', target: '_blank', :class => '-logo -elif') %>
-      <%= link_to(image_tag('supporter/logos/bezirksimkerei.png'), 'https://www.wiener-bezirksimkerei.at', target: '_blank', :class => '-logo') %>
+      <%= link_to(image_tag('supporter/logos/kolarik.png', width:107, height:44), 'https://www.kolarik.at', target: '_blank', :class => '-logo') %>
+      <%= link_to(image_tag('supporter/logos/elif-macht-was.png', width:107, height:100), 'https://www.geldmachtwas.com', target: '_blank', :class => '-logo -elif') %>
+      <%= link_to(image_tag('supporter/logos/bezirksimkerei.png', width:107, height:41), 'https://www.wiener-bezirksimkerei.at', target: '_blank', :class => '-logo') %>
       <%= link_to 'alle ansehen', info_danke_path, class: 'btn-viewall' %>
       <%= button_tag '', class: 'close-ico' do %>
         <%= icon_tag "cross" %>
@@ -54,7 +54,7 @@
   <div class="block-locations">
     <div class="hl-subtext">
       <h1>Entdecke — <span>Anbieter &amp; Locations</span> im Grätzl</h1>
-      <p>Finde grätzlansässige Projekte & Selbständige, Vereine & Geschäfte</p>
+      <p>Entdecke Selbständige, kl. Unternehmen, Kreative, Vereine & Macher*innen</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
       <%= render @activity_sample.locations %>

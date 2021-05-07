@@ -7,8 +7,6 @@ APP.controllers.groups = (function() {
 
     function initGroupPage() {
 
-      $('.autosubmit-stream').submit(); // Used for Meetings Tabs - Make like Discussions
-
       APP.components.tabs.initTabs(".tabs-ctrl");
 
       var target = APP.controllers.application.getUrlVars()["category"];
@@ -19,12 +17,16 @@ APP.controllers.groups = (function() {
       // Load on Pageload if Tab is selected
       if($("#tab-discussions").is(":visible")){
         initDiscussions();
+      } else if ($("#tab-meetings").is(":visible")) {
+        initMeetings();
       }
 
       // Load on Tab Change
       $('.tabs-ctrl').on("_after", function() {
           if($("#tab-discussions").is(":visible")){
             initDiscussions();
+          } else if ($("#tab-meetings").is(":visible")) {
+            initMeetings();
           }
       });
 
@@ -59,35 +61,20 @@ APP.controllers.groups = (function() {
         trigger: 'click',
         blockScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
+        width:750
       });
 
-      /*
-      var newTopic = new jBox('Confirm', {
+      var joinRequestMessage = new jBox('Modal', {
         addClass:'jBox',
-        attach: '.newTopicTrigger',
-        content: $('#newTopic'),
+        attach: '.request-message-opener',
         trigger: 'click',
-        closeOnEsc:true,
-        closeOnClick:'body',
-        closeOnConfirm:false,
         blockScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
-        confirmButton: 'Thema erstellen',
-        cancelButton: 'Abbrechen',
-        minWidth: 900,
-        confirm: function() {
-          $('.jBox-Confirm .discussion-form').find('.btn-primary').trigger('click');
-        }
-      });
-
-      $('#tab-discussions .btn-new-topic').on('click', function() {
-        $('#new-topic').slideToggle();
-      });
-      */
-
-      $(".request-message-opener").featherlight({
-        root: '#groups-btn-ctrl',
-        targetAttr: 'href'
+        onOpen: function() {
+          var id = this.source.attr('data-content-id');
+          this.setContent($('#' + id).clone());
+        },
+        width:750
       });
 
       $('select#mail-user-select').SumoSelect({
@@ -130,6 +117,15 @@ APP.controllers.groups = (function() {
         APP.components.cardFilter.init();
       } else {
         APP.components.cardFilter.submitForm();
+      }
+    }
+
+    function initMeetings() {
+      var $cardCrid = $('*[data-behavior="meetings-card-container"]');
+      if ($cardCrid.is(':empty')){
+        var $spinner = $('footer .loading-spinner').clone().removeClass('-hidden');
+        $cardCrid.append($spinner);
+        $('#meeting-submit').submit();
       }
     }
 

@@ -10,7 +10,7 @@
       <Attribute name="slogan"><%= @location.slogan if @location.slogan.present? %></Attribute>
       <Attribute name="description"><%= @location.description if @location.description.present? %></Attribute>
       <Attribute name="graetzl"><%= @graetzl.name %></Attribute>
-      <Attribute name="category"><%= @location.location_category.name %></Attribute>
+      <Attribute name="category"><%= @location.location_category.name if @location.location_category %></Attribute>
       <Attribute name="address_street"><%= @location.address.street if @location.address && @location.address.street %></Attribute>
       <Attribute name="address_zip"><%= @location.address.zip if @location.address && @location.address.zip %></Attribute>
     </DataObject>

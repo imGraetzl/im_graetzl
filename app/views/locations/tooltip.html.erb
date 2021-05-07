@@ -9,9 +9,11 @@
 
   <div class="tt-content">
     <%= link_to @location.name, [graetzl, @location], class:'username' %>
-    <div class="tt-line -category">
-      <%= @location.location_category.name %>
-    </div>
+    <% if @user && @location.location_category %>
+      <div class="tt-line -category">
+        <%= @location.location_category.name %>
+      </div>
+    <% end %>
     <% if @user %>
       <div class="tt-line -boss">
         <%= avatar_for @user %>

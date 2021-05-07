@@ -6,6 +6,7 @@ ActiveAdmin.register Location do
   scope :all, default: true
   scope :pending
   scope :approved
+  scope :online_shop
 
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :districts, collection: proc { District.order(:zip).pluck(:zip, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -15,6 +16,7 @@ ActiveAdmin.register Location do
   filter :name
   filter :slogan
   filter :description
+  filter :online_shop
   filter :allow_meetings
   filter :created_at
   filter :updated_at
@@ -65,13 +67,14 @@ ActiveAdmin.register Location do
   end
 
   csv do
+    #column(:email) {|l| l.users.first.email if !l.users.empty?}
     column :id
-    #column(:email) {|l| l.boss.email unless l.users.empty?}
-    #column(:full_name) {|l| l.boss.full_name unless l.users.empty?}
-    column(:location_category) {|l| l.location_category.name if l.location_category}
     column :name
-    #column(:location_url) { |l| graetzl_location_url(l.graetzl, l)}
-    #column :created_at
+    column(:l_graetzl) {|l| l.graetzl.name}
+    column(:l_plz) {|l| l.graetzl.districts.first.try(:zip)}
+    column(:location_category) {|l| l.location_category.name if l.location_category}
+    column(:location_url) { |l| Rails.application.routes.url_helpers.graetzl_location_path(l.graetzl, l)}
+    column(:l_graetzl_url) { |l| Rails.application.routes.url_helpers.graetzl_path(l.graetzl)}
   end
 
   # strong parameters
@@ -90,6 +93,7 @@ ActiveAdmin.register Location do
     contact_attributes: [
       :id,
       :website,
+      :online_shop,
       :email,
       :phone,
       :hours],

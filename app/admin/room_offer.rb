@@ -45,41 +45,14 @@ ActiveAdmin.register RoomOffer do
   end
 
   csv do
-    column :id
-    column(:email) {|r| r.user.email if r.user }
-    column(:full_name) {|r| r.user.full_name if r.user }
-    #column :user_id
+    column(:email) {|room| room.user.email if room.user }
+    #column :slogan
+    #column(:plz) { |room| room.district.try(:zip) }
+    #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
     #column :created_at
-    #column :last_activated_at
-    #column :rental_enabled
-    column(:district) { |room_offer| room_offer.district.try(:zip) }
-    #column(:graetzl)  { |room_offer| room_offer.graetzl.name }
-
-    #column(:room_categories) { |g|
-    #  g.room_categories.map { |category|
-    #    category.name
-    #  }
-    #}
-
-    column :slogan
-    #column :room_description
-    #column :total_area
-    #column :wants_collaboration
-    #column :owner_description
-    #column :tenant_description
-
-    #column(:room_offer_prices) { |g|
-    #  g.room_offer_prices.map { |price|
-    #    "#{price.amount} - #{price.name}"
-    #  }
-    #}
-
-    #column(:keyword_list) { |g|
-    #  g.keyword_list.map { |keyword|
-    #    keyword
-    #  }
-    #}
-
+    column(:room_url) { |room| Rails.application.routes.url_helpers.room_offer_path(room)}
+    #column(:room_state) { |room| I18n.t("activerecord.attributes.room_offer.statuses.#{room.status}")}
+    #column(:room_type) { |room| I18n.t("activerecord.attributes.room_offer.offer_types.#{room.offer_type}")}
   end
 
 end

@@ -30,15 +30,7 @@ APP.controllers.graetzls = (function() {
         APP.components.cardFilter.init();
       }
 
-      if ($("section.toolteiler").exists()) {
-        APP.components.cardFilterSlider.init($('#category-slider'));
-      }
-
-      if ($("section.rooms").exists()) {
-        APP.components.cardFilterSlider.init($('#category-slider'));
-      }
-      
-      if ($("section.meetings").exists()) {
+      if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
         APP.components.cardFilterSlider.init($('#category-slider'));
       }
 

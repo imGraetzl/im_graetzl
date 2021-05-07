@@ -23,15 +23,6 @@
   </div>
 <% end %>
 
-<% if paid_go_to = appendix[:paid_go_to] %>
-  <div class="userCreateInfo">
-    <%= link_to paid_go_to do %>
-      <%= user_tooltip_avatar paid_go_to, 100 %>
-    <% end %>
-    <span class="userAndType"><%= link_to paid_go_to.username, paid_go_to %> <span>nimmt teil.</span></span>
-  </div>
-<% end %>
-
 <% if message = appendix[:message] %>
   <%= link_to [parent.graetzl, parent], class: "basic-message-box" do %>
     <div class="hl">

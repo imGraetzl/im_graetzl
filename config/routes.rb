@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
-  match "/clicked-room" => "sync#room", via: [:get, :post]
   get 'reports' => 'reports#index'
   get 'reports/mailchimp'
   get 'sitemap.xml' => redirect('https://s3.eu-central-1.amazonaws.com/im-graetzl-production/sitemaps/sitemap.xml.gz')
@@ -78,6 +77,7 @@ Rails.application.routes.draw do
   resources :campaign_users, path: 'campaign', only: [:new, :create] do
   end
   get 'muehlviertel', to: 'campaign_users#muehlviertel'
+  get 'kaernten', to: 'campaign_users#kaernten'
 
   resources :room_demands, path: 'wien/raumteiler/raumsuche', except: [:index] do
     post 'toggle', on: :member
@@ -163,15 +163,12 @@ Rails.application.routes.draw do
   post 'messenger/post_message'
   post 'messenger/update_thread'
 
-  get 'wien/community-treffen' => redirect('/wien/selbststaendige-fuer-selbststaendige')
   get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
   get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
   get 'raumteiler' => redirect('/wien/raumteiler')
   get 'dieselgasse' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-dieselgasse')
   get 'mixit' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
-  get 'mix-it' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
-  get 'raumteilerfestival', to: 'landing_pages#raumteiler_festival_2018'
-  get 'raumteilerfestival/info', to: 'landing_pages#raumteiler_festival_2018_infos'
+  get 'raumteilerfestival' => redirect('/wien/raumteiler/')
 
   resource :wien, controller: 'wien', only: [:show] do
     get 'visit_graetzl'
@@ -230,15 +227,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :meetings, only: [:index]
-  end
-
-  resources :payment do
-    collection do
-      get :raumteiler, :charge, :subscription, :mentoring
-    end
-    collection do
-      post :raumteiler_create, :charge_create, :subscription_create, :mentoring_create
-    end
   end
 
   resources :graetzls, path: '', only: [:show] do

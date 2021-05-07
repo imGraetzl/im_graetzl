@@ -18,13 +18,17 @@
     @include font-size-primaryFont('larger');
   }
 }
+.category-slider-container.loading {
+  background-image: url(image_path('svg/loading.svg'));
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 
 // Ugly Bugfix - NoWrap erzwingen bei einzelnen Slides durch Flex
 .toolteiler .lightSlider.lSSlide {
   display: flex;
 }
 
-// For Example Toolteiler Categories
 .category-slider-container {
   position: relative;
   margin-bottom: 30px;
@@ -140,7 +144,7 @@
         &.category-9.-tools {
           background-image: url(image_path('svg/icon-kringel-deko-active.svg'));
         }
-        &.category-10.-tools {
+        &.category-10.-tools, &.-mobilitaet {
           background-image: url(image_path('svg/icon-kringel-transport-active.svg'));
         }
 
@@ -228,6 +232,33 @@
         &.-hobby {
           background-image: url(image_path('svg/icon-kringel-hobby-active.svg'));
         }
+
+        // Locations Categories
+        &.-onlineshop {
+          background-image: url(image_path('svg/icon-kringel-onlineshop-active.svg'));
+        }
+        &.-startup {
+          background-image: url(image_path('svg/icon-kringel-startup-active.svg'));
+        }
+        &.-oeffentlicher-raum {
+          background-image: url(image_path('svg/icon-kringel-oeffentlicher-raum-active.svg'));
+        }
+        &.-lokaler-dienstleister {
+          background-image: url(image_path('svg/icon-kringel-lokaler-dienstleister-active.svg'));
+        }
+        &.-kreativ-handwerk {
+          background-image: url(image_path('svg/icon-kringel-kreativ-handwerk-active.svg'));
+        }
+        &.-institution {
+          background-image: url(image_path('svg/icon-kringel-institution-active.svg'));
+        }
+        &.-verein {
+          background-image: url(image_path('svg/icon-kringel-verein-active.svg'));
+        }
+        &.-spiritualitaet {
+          background-image: url(image_path('svg/icon-kringel-spiritualitaet-active.svg'));
+        }
+
       }
     }
 
@@ -297,7 +328,7 @@
       &.category-9.-tools {
         background-image: url(image_path('svg/icon-kringel-deko.svg'));
       }
-      &.category-10.-tools {
+      &.category-10.-tools, &.-mobilitaet {
         background-image: url(image_path('svg/icon-kringel-transport.svg'));
       }
 
@@ -385,6 +416,33 @@
       &.-hobby {
         background-image: url(image_path('svg/icon-kringel-hobby.svg'));
       }
+
+      // Locations Categories
+      &.-onlineshop {
+        background-image: url(image_path('svg/icon-kringel-onlineshop.svg'));
+      }
+      &.-startup {
+        background-image: url(image_path('svg/icon-kringel-startup.svg'));
+      }
+      &.-oeffentlicher-raum {
+        background-image: url(image_path('svg/icon-kringel-oeffentlicher-raum.svg'));
+      }
+      &.-lokaler-dienstleister {
+        background-image: url(image_path('svg/icon-kringel-lokaler-dienstleister.svg'));
+      }
+      &.-kreativ-handwerk {
+        background-image: url(image_path('svg/icon-kringel-kreativ-handwerk.svg'));
+      }
+      &.-institution {
+        background-image: url(image_path('svg/icon-kringel-institution.svg'));
+      }
+      &.-verein {
+        background-image: url(image_path('svg/icon-kringel-verein.svg'));
+      }
+      &.-spiritualitaet {
+        background-image: url(image_path('svg/icon-kringel-spiritualitaet.svg'));
+      }
+
     }
   }
 }

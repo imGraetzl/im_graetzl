@@ -1,9 +1,9 @@
 <!-- SLIDER -->
-<div class="category-slider-container">
-  <div id="category-slider" data-label="Raumteiler">
+<div class="category-slider-container loading">
+  <div id="category-slider" data-label="Raumteiler" class="cS-hidden">
     <!-- RoomOffers with Rental Option-->
       <div class="-category -special-category" data-id="room_rental" data-label="Kurzzeitmiete">
-        <%= image_tag('rt-kurzzeitmieten.jpg', class: 'attachment room_category main_photo categoryImg') %>
+        <%= image_tag('rt-kurzzeitmieten.jpg', class: 'attachment room_category main_photo categoryImg', width:257, height:385) %>
         <div class="cat -booking"></div>
         <h3>Kurzzeitmiete</h3>
         <%= button_tag '', class: 'close-ico' do %>

@@ -14,7 +14,7 @@
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">
-    <%= image_tag 'svg/raumteiler-headline.svg', class: 'raumteiler-headline' %>
+    <%= image_tag 'svg/raumteiler-headline.svg', class: 'raumteiler-headline', width:340, height:87 %>
     <p>Gewerbeflächen teilen - Kosten teilen. <%= render 'shared/questionmarklink', hint_url: info_raumteiler_path %></p>
   </div>
 
@@ -42,7 +42,7 @@
       <%= render 'rooms/action_card' %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render 'shared/featured_cards/hauswirtschaft' %>
+    <%= render partial: 'shared/featured_cards/kreative_raeume' %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' }, rel: 'nofollow' %>
   </div>

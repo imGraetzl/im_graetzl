@@ -21,7 +21,7 @@
               <td style="font-size:12px; line-height:16px; vertical-valign:center;">
                 <%= link_to location.name, graetzl_location_url(location.graetzl, location), style: "color:#69a8a7;" %>
                 <br>
-                <%= location.location_category.name %>
+                <%= location.location_category.name if location.location_category %>
                 <% if location.address %>
                   <div class="address">
                     <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>

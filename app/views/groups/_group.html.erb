@@ -18,21 +18,16 @@
 
     <%= link_to group.title, group, class: 'title' %>
 
-    <p class="infos">
-      <%= group.group_users.size %> <%= group.group_users.size > 1 ? "Mitglieder" : "Mitglied" %>  &middot;
-      <%= group.private? ? "Geschlossene" : "Offene" %> Gruppe
-    </p>
-
     <div class="users">
       <% group.admins.last(10).each do |user| %>
         <%= link_to user_path(user) do %>
-          <%= attachment_image_tag user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round' %>
+          <%= attachment_image_tag user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round', width:50, height:50 %>
         <% end %>
       <% end %>
       <% if group.admins.size < 10 %>
         <% group.members.last(10 - group.admins.size).each do |user| %>
           <%= link_to user_path(user) do %>
-            <%= attachment_image_tag user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round' %>
+            <%= attachment_image_tag user, :avatar, :fill, 200, 200, fallback: 'avatar/user/200x200.png', class: 'img-round', width:50, height:50 %>
           <% end %>
         <% end %>
       <% end %>

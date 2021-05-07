@@ -1,13 +1,5 @@
 .going-to-page {
 
-  .col-content {
-
-  }
-
-  .col-sidebar {
-
-  }
-
   .hl-subtext .subtext {
     @include font-size-primaryFont('base');
   }
@@ -30,10 +22,6 @@
         }
       }
     }
-  }
-
-  .payment-method-container {
-
   }
 
 }

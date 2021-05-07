@@ -22,7 +22,7 @@ class RoomRental < ApplicationRecord
   end
 
   def owner
-    room_offer.user
+    room_offer.user if room_offer
   end
 
   def renter

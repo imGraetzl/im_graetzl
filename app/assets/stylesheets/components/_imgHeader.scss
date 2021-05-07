@@ -41,6 +41,7 @@
 
   .titleImg {
     max-width: 100%;
+    height:auto; // Used for responsive https://blog.logrocket.com/jank-free-page-loading-with-media-aspect-ratios/
     display: block;
     margin-bottom: 2rem;
     @include respond-to(">=medium") {

@@ -1,38 +1,16 @@
 APP.controllers.static_pages = (function() {
 
     function init() {
-      if($("#help_nav").exists()) initHelpScroller();
       if($("section.homeOut").exists()) initMobileNav();
       if($("section.homeOut").exists()) initSupporterBox();
       if($(".-mentoring-page").exists()) initMentoring();
+      if($("#help_nav").exists()) initHelpScroller();
       if($("#guide-download").exists()) initGuideDownload();
     }
 
 // ---------------------------------------------------------------------- Public
 
 function initMentoring() {
-  $(".-login").featherlight({});
-
-  // Find question coworking and exchange ith radio buttons?
-  //var question_coworking = $("h4:contains('2')").next('.input-textarea').children('textarea').first();
-  //console.log(question_coworking);
-
-  $( ".tischlerei-infos" ).hide();
-  $( ".arrow" ).click(function() {
-    $( ".tischlerei-infos" ).slideToggle(function() {
-      $( ".arrow" ).toggleClass( "-up" );
-    });
-  });
-
-  var roomGallery = new jBox('Image', {
-    addClass:'jBoxGallery',
-    imageCounter:true,
-    preloadFirstImage:true,
-    closeOnEsc:true,
-    createOnInit:true,
-    animation:{open: 'zoomIn', close: 'zoomOut'},
-  });
-
 
   $('.group-info').hide();
   var selectedgroup = $('input[name=group]:checked').attr("id");
@@ -47,24 +25,7 @@ function initMentoring() {
     $('.group-info').hide();
     $('.group-info.' + group).show();
 
-
-
-
   });
-
-
-  // Button Switch for Submitting in selected Group
-  /*
-  $('#group-switch li').on('click', function(){
-    $('#group-switch li').removeClass('active');
-    $(this).addClass('active');
-    var group = $(this).attr("id");
-    var groupaction = $(this).attr("data-group");
-    $('.group-info').slideUp();
-    $('.group-info.' + group).slideDown();
-    $('#groupform').attr('action', groupaction);
-  })
-  */
 
   // Change Wording of Notice Message for Mentoring Registrations
   if ($("#flash .notice").exists()) {
@@ -232,16 +193,6 @@ function initHelpScroller() {
           $('html, body').animate({
             scrollTop: target.offset().top
           }, 1000, function() {
-            // Callback after animation
-            // Must change focus!
-            //var $target = $(target);
-            //$target.focus();
-            //if ($target.is(":focus")) { // Checking if the target was focused
-              //return false;
-            //} else {
-              //$target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
-              //$target.focus(); // Set focus again
-            //};
           });
         }
       }

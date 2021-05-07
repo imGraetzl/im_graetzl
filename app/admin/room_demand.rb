@@ -36,43 +36,14 @@ ActiveAdmin.register RoomDemand do
   end
 
   csv do
-    column :id
-    column(:email) {|r| r.user.email if r.user }
-    column(:full_name) {|r| r.user.full_name if r.user }
-    #column :user_id
+    column(:email) {|room| room.user.email if room.user }
+    #column :slogan
+    #column(:plz) { |room| room.districts.map(&:zip).join(", ") }
+    #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
     #column :created_at
-    #column :last_activated_at
-
-    column(:districts) { |g|
-      g.districts.map { |district|
-        district.try(:zip)
-      }
-    }
-
-    #column(:graetzls) { |g|
-    #  g.graetzls.map { |graetzl|
-    #    graetzl.name
-    #  }
-    #}
-
-    #column(:room_categories) { |g|
-    #  g.room_categories.map { |category|
-    #    category.name
-    #  }
-    #}
-
-    column :slogan
-    #column :demand_description
-    #column :needed_area
-    #column :wants_collaboration
-    #column :personal_description
-
-    #column(:keyword_list) { |g|
-    #  g.keyword_list.map { |keyword|
-    #    keyword
-    #  }
-    #}
-
+    column(:room_url) { |room| Rails.application.routes.url_helpers.room_demand_path(room)}
+    #column(:room_state) { |room| I18n.t("activerecord.attributes.room_demand.statuses.#{room.status}")}
+    #column(:room_type) { |room| I18n.t("activerecord.attributes.room_demand.demand_types.#{room.demand_type}")}
   end
 
 end

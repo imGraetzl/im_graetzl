@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
     head :ok and return if browser.bot? && !request.format.js?
     @locations = collection_scope.approved.include_for_box
     @locations = filter_collections(@locations)
-    @locations = @locations.order("last_activity_at DESC").page(params[:page]).per(15)
+    @locations = @locations.order("last_activity_at DESC").page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show
@@ -103,20 +103,27 @@ class LocationsController < ApplicationController
     if params[:graetzl_id].present?
       graetzl = Graetzl.find(params[:graetzl_id])
       Location.where(graetzl: graetzl)
+    elsif params[:user_id].present?
+      user = User.find(params[:user_id])
+      user.locations.approved
     else
       Location.all
     end
   end
 
   def filter_collections(locations)
+
     graetzl_ids = params.dig(:filter, :graetzl_ids)
-    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      locations = locations.where(graetzl_id: graetzl_ids)
+
+    if params[:special_category_id].present? && params[:special_category_id] == 'online_shop'
+      locations = locations.online_shop
+      graetzl_ids = [] # Reset and always show Online Shops from ALL Dsirticts
+    elsif params[:category_id].present?
+      locations = locations.where(location_category: params[:category_id])
     end
 
-    category_ids = params.dig(:filter, :location_category_ids)&.select(&:present?)
-    if category_ids.present?
-      locations = locations.where(location_category_id: category_ids)
+    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
+      locations = locations.where(graetzl_id: graetzl_ids)
     end
 
     locations
@@ -144,7 +151,7 @@ class LocationsController < ApplicationController
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
       :location_category_id, :meeting_permission, :product_list,
       contact_attributes: [
-        :id, :website, :email, :phone, :hours
+        :id, :website, :online_shop, :email, :phone, :hours
       ],
       address_attributes: [
         :id, :street_name, :street_number, :zip, :city, :_destroy

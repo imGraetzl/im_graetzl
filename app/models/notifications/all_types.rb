@@ -37,7 +37,6 @@ module Notifications
     NewToolRental,
     NewRoomRental,
     NewWallComment,
-    PaidAttendeeInUsersMeeting,
     RejectToolRental,
     RejectRoomRental,
     ReturnConfirmedToolRental,

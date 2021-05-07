@@ -62,7 +62,9 @@ class Notification < ApplicationRecord
         display_on_website = u.enabled_website_notification?(klass) && u != activity.owner
         n = klass.create(activity: activity, user: u, display_on_website: display_on_website)
         notification_count += 1
-        send_immediate_email = u.enabled_mail_notification?(klass, :immediate)
+        # check if user setting is immediate and notification flag sent is not NIL
+        # dont send if NIL even if the user setting is immediate. (used for group discussions)
+        send_immediate_email = u.enabled_mail_notification?(klass, :immediate) && !n.sent.nil?
         NotificationMailer.send_immediate(n).deliver_later if send_immediate_email
         notified_user_ids[u.id] = true
       end

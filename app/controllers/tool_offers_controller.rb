@@ -69,7 +69,11 @@ class ToolOffersController < ApplicationController
   private
 
   def collection_scope
-    ToolOffer.enabled
+    if params[:user_id].present?
+      ToolOffer.enabled.where(user_id: params[:user_id])
+    else
+      ToolOffer.enabled
+    end
   end
 
   def filter_collection(collection)

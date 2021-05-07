@@ -674,6 +674,12 @@ input[type=url]:invalid + em::after {
     .btn-primary {
       width:100%;
     }
+    .login, .register {
+      width:100%;
+      @include respond-to(">=medium") {
+        width:45%;
+      }
+    }
   }
 
   &.-content {

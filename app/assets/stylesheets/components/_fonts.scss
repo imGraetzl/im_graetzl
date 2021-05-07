@@ -22,15 +22,54 @@
   font-style: normal;
 }
 
-// For Raumteiler Festival Landingpage
+// Fetched from: https://fonts.googleapis.com/css?family=Loved+by+the+King
 @font-face {
-    font-family: 'Dosis';
-    src: font-url('Dosis-Regular.ttf');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Loved by the King';
+  font-style: normal;
+  font-weight: 400;
+  src: font-url('lovedbytheking.woff2') format('woff2');
 }
+
+// Fetched from: https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic&subset=latin,latin-ext
+/* latin */
 @font-face {
-    font-family: 'Dosis';
-    src: font-url('Dosis-Bold.ttf');
-    font-weight: bold;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: font-url('lato-normal-400.woff2') format('woff2');
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: font-url('lato-normal-700.woff2') format('woff2');
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 900;
+  src: font-url('lato-normal-900.woff2') format('woff2');
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: font-url('lato-italic-400.woff2') format('woff2');
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: font-url('lato-italic-700.woff2') format('woff2');
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 900;
+  src: font-url('lato-italic-900.woff2') format('woff2');
 }

@@ -30,9 +30,14 @@ class Location < ApplicationRecord
   enum state: { pending: 0, approved: 1 }
   enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
 
+  scope :online_shop, -> { joins(:contact).where("online_shop != ? AND online_shop != ?", "NIL", "") }
+
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
 
   before_create { |location| location.last_activity_at = Time.current }
+
+  after_update :update_mailchimp, if: -> { approved?  }
+  before_destroy :unsubscribe_mailchimp
 
   def self.include_for_box
     includes(:location_posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
@@ -48,7 +53,7 @@ class Location < ApplicationRecord
     if pending?
       approved!
       create_activity(:create)
-      MailchimpLocationApprovedJob.perform_later(self)
+      UsersMailer.location_approved(self, self.boss).deliver_now
     end
   end
 
@@ -68,12 +73,26 @@ class Location < ApplicationRecord
     user_id.present? && user_id == a_user&.id
   end
 
+  def onlineshop?
+    self.contact.online_shop.present?
+  end
+
   def build_meeting
     meetings.build(graetzl_id: graetzl_id)
   end
 
   def actual_newest_post
     location_posts.select{|p| p.created_at > 8.weeks.ago}.max_by(&:created_at)
+  end
+
+  private
+
+  def update_mailchimp
+    MailchimpLocationUpdateJob.perform_later(self)
+  end
+
+  def unsubscribe_mailchimp
+    MailchimpLocationDeleteJob.perform_later(self)
   end
 
 end
