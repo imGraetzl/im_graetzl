@@ -7,7 +7,7 @@ module Trackable
 
   def create_activity(activity_name, options = {})
     options[:key] = "#{self.class.name.demodulize.underscore}.#{activity_name}"
-    self.activities.create(options)
+    self.activities.create!(options)
   end
 
 end

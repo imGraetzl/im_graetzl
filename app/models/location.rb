@@ -69,12 +69,12 @@ class Location < ApplicationRecord
     meetable? || (owner_meetable? && owned_by?(a_user))
   end
 
-  def onlineshop?
-    self.contact.online_shop.present?
-  end
-
   def owned_by?(a_user)
     user_id.present? && user_id == a_user&.id
+  end
+
+  def onlineshop?
+    self.contact.online_shop.present?
   end
 
   def build_meeting

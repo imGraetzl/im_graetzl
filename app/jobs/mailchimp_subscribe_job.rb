@@ -1,21 +1,5 @@
 class MailchimpSubscribeJob < ApplicationJob
 
-  def business_user_interests(user)
-    mailchimp_interests = {}
-    user.try(:business_interests).each do |interest|
-      mailchimp_interests[interest.mailchimp_id] = true if interest.mailchimp_id.present?
-    end
-    return mailchimp_interests
-  end
-
-  def user_location_category(user)
-    if user.locations.empty?
-      user.location_category.try(:name) ? user.location_category.try(:name) : ''
-    else
-      ''
-    end
-  end
-
   def perform(user)
     list_id = Rails.application.secrets.mailchimp_list_id
     member_id = user.mailchimp_member_id
@@ -51,8 +35,20 @@ class MailchimpSubscribeJob < ApplicationJob
     end
   end
 
-  def mailchimp_member_id(user)
-    Digest::MD5.hexdigest(user.email.downcase)
+  def business_user_interests(user)
+    mailchimp_interests = {}
+    user.try(:business_interests).each do |interest|
+      mailchimp_interests[interest.mailchimp_id] = true if interest.mailchimp_id.present?
+    end
+    return mailchimp_interests
+  end
+
+  def user_location_category(user)
+    if user.locations.empty?
+      user.location_category.try(:name) ? user.location_category.try(:name) : ''
+    else
+      ''
+    end
   end
 
 end

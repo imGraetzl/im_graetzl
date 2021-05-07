@@ -113,11 +113,11 @@ class ToolOffersController < ApplicationController
   def set_address(tool_offer, json = nil)
     if json
       resolver = AddressResolver.from_json(json)
-      return if !resolved.valid?
+      return if !resolver.valid?
       tool_offer.build_address(resolver.address_fields)
       tool_offer.graetzl = resolver.graetzl
     elsif tool_offer.address
-      resolver = AddressResolver.from_street(tool_offer.address.street_name, tool_offer.address.street_name)
+      resolver = AddressResolver.from_street(tool_offer.address.street)
       return if !resolver.valid?
       tool_offer.address.assign_attributes(resolver.address_fields)
       tool_offer.graetzl = resolver.graetzl

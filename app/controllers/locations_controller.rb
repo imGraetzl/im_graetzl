@@ -112,7 +112,6 @@ class LocationsController < ApplicationController
   end
 
   def filter_collections(locations)
-
     graetzl_ids = params.dig(:filter, :graetzl_ids)
 
     if params[:special_category_id].present? && params[:special_category_id] == 'online_shop'
@@ -139,7 +138,7 @@ class LocationsController < ApplicationController
 
   def set_address(location)
     if location.address?
-      resolver = AddressResolver.from_street(location.address.street_name, location.address.street_name)
+      resolver = AddressResolver.from_street(location.address.street)
       return if !resolver.valid?
       location.address.assign_attributes(resolver.address_fields)
       location.graetzl = resolver.graetzl
@@ -151,7 +150,7 @@ class LocationsController < ApplicationController
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
       :location_category_id, :meeting_permission, :product_list,
       contact_attributes: [
-        :id, :website, :email, :phone, :hours, :online_shop
+        :id, :website, :online_shop, :email, :phone, :hours
       ],
       address_attributes: [
         :id, :street_name, :street_number, :zip, :city, :_destroy

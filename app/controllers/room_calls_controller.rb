@@ -107,11 +107,11 @@ class RoomCallsController < ApplicationController
   def set_address(room_call, json = nil)
     if json
       resolver = AddressResolver.from_json(json)
-      return if !resolved.valid?
+      return if !resolver.valid?
       room_call.build_address(resolver.address_fields)
       room_call.graetzl = resolver.graetzl
     elsif room_call.address
-      resolver = AddressResolver.from_street(room_call.address.street_name, room_call.address.street_name)
+      resolver = AddressResolver.from_street(room_call.address.street)
       return if !resolver.valid?
       room_call.address.assign_attributes(resolver.address_fields)
       room_call.graetzl = resolver.graetzl

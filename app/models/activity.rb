@@ -1,7 +1,7 @@
 class Activity < ApplicationRecord
   belongs_to :trackable, polymorphic: true
   belongs_to :owner, optional: true, class_name: "User"
-  belongs_to :recipient, polymorphic: true
+  belongs_to :recipient, optional: true, polymorphic: true
   serialize :parameters, Hash
 
   after_commit on: :create do |activity|
