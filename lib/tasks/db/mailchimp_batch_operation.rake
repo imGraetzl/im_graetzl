@@ -11,8 +11,10 @@ namespace :db do
     end
 
     def user_location_category(user)
-      if user.locations.nil?
+      if user.locations.empty?
         user.location_category.try(:name) ? user.location_category.try(:name) : ''
+      else
+        ''
       end
     end
 
