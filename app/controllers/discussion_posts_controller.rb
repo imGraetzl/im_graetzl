@@ -24,7 +24,7 @@ class DiscussionPostsController < ApplicationController
       @post.create_activity :comment, owner: current_user, recipient: @comment
     end
     respond_to do |format|
-      format.js { render :file => "groups/discussion_posts/comment.js.erb" }
+      format.js { render "groups/discussion_posts/comment" }
     end
   end
 

@@ -44,7 +44,7 @@ class MeetingsController < ApplicationController
   def update
     @meeting = find_user_meeting
     @meeting.assign_attributes(meeting_params)
-    set_address(@meeting) if @meeting.address.changed? || @meeting.location_id_changed?
+    set_address(@meeting, params[:feature]) if params[:feature].present? || @meeting.address.changed?
     @meeting.state = :active
     if @meeting.platform_meeting_join_request.no?
       @meeting.platform_meeting = false
@@ -157,7 +157,6 @@ class MeetingsController < ApplicationController
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      #meetings = meetings.where(graetzl_id: graetzl_ids)
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)
     end
 
@@ -177,17 +176,16 @@ class MeetingsController < ApplicationController
   end
 
   def set_address(meeting, json = nil)
-    if meeting.location
-      meeting.address = meeting.location.address
-      meeting.graetzl = meeting.location.graetzl
-    elsif json
+    if json.present?
       resolver = AddressResolver.from_json(json)
-      return if !resolved.valid?
+      return if !resolver.valid?
       meeting.build_address(resolver.address_fields)
       meeting.graetzl = resolver.graetzl
     elsif meeting.address
-      resolver = AddressResolver.from_street(meeting.address.street_name, meeting.address.street_name)
-      return if !resolved.valid?
+      p "ADRESSS"
+      resolver = AddressResolver.from_street(meeting.address.street)
+      return if !resolver.valid?
+      p "VALIIID"
       meeting.address.assign_attributes(resolver.address_fields)
       meeting.graetzl = resolver.graetzl
     end

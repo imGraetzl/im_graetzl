@@ -186,11 +186,11 @@ class RoomOffersController < ApplicationController
   def set_address(room_offer, json = nil)
     if json
       resolver = AddressResolver.from_json(json)
-      return if !resolved.valid?
+      return if !resolver.valid?
       room_offer.build_address(resolver.address_fields)
       room_offer.graetzl = resolver.graetzl
     elsif room_offer.address
-      resolver = AddressResolver.from_street(room_offer.address.street_name, room_offer.address.street_name)
+      resolver = AddressResolver.from_street(room_offer.address.street)
       return if !resolver.valid?
       room_offer.address.assign_attributes(resolver.address_fields)
       room_offer.graetzl = resolver.graetzl

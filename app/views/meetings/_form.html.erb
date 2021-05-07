@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <div class="input-field <%= 'hide' unless f.object.online_meeting %>" id="online-address-fields">
+    <div class="input-field" id="online-address-fields">
       <%= f.label :online_description do %>
         <%= icon_tag "globe" %>
         <span>Online Tool</span>
@@ -58,7 +58,23 @@
       <%= f.text_field :online_description, placeholder: 'z.B.: Zoom, Skype, etc.' %>
     </div>
 
-    <%= render "meetings/form/address_fields", f: f if @meeting.location.nil? || @meeting.persisted? %>
+    <%= render "meetings/form/address_fields", f: f %>
+
+    <% if current_user.locations.present? %>
+      <div class="input-checkbox">
+        <%= check_box_tag 'location-address-select', 1, f.object.location, id: 'location-address-select' %>
+        <%= label_tag 'location-address-select', 'Hat mit meiner wirtschaftlichen oder kreativen Tätigkeit zu tun.' %>
+      </div>
+
+      <div id="meeting-location-field" class="input-select">
+        <%= f.label :location_id do %>
+          <%= icon_tag "label-tag" %>
+          <span>Location</span>
+        <% end %>
+        <%= f.select(:location_id, current_user.locations.collect {|l| [l.name, l.id] },
+                    {include_blank: 'wähle deine Location'}, {class: 'select-location-input'}) %>
+      </div>
+    <% end %>
   </div>
 
   <div class="meet-when">

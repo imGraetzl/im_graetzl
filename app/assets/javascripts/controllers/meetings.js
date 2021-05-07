@@ -185,10 +185,6 @@ APP.controllers.meetings = (function() {
         });
       });
 
-      $("textarea").autogrow({
-        onInitialize: true
-      });
-
       $('.datepicker').pickadate({
         formatSubmit: 'yyyy-mm-dd',
         hiddenName: true,
@@ -199,19 +195,24 @@ APP.controllers.meetings = (function() {
         interval: 15,
         format: 'HH:i',
         formatSubmit: 'HH:i',
-        hiddenSuffix: ''
+        hiddenSuffix: '',
+      });
+
+      $("textarea").autogrow({
+        onInitialize: true
       });
 
       // online meeting switch
       $('.online-meeting-switch').on('change', function() {
-        $('#input-address-field').toggle($(this).val() != "true")
-      });
+        $('#online-address-fields').toggle($(this).val() == "true");
+        $('#input-address-fields').toggle($(this).val() != "true");
+      })
+      $('.online-meeting-switch:checked').trigger('change');
 
       // location field toggle
       $('#location-address-select').on('change', function() {
+        $("#meeting-location-field").toggle(this.checked);
         $('.select-location-input').attr("disabled", !this.checked);
-        $('#meeting-location-field').toggle(this.checked);
-        $('#input-address-field').toggle(!this.checked);
       }).trigger('change');
 
       // platform_meeting toggle
