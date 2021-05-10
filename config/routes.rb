@@ -218,6 +218,7 @@ Rails.application.routes.draw do
 
   post 'webhooks/stripe'
   post 'webhooks/mailchimp'
+  get 'webhooks/mailchimp'
 
   get '/robots.txt' => 'static_pages#robots'
 
