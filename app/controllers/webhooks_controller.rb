@@ -14,14 +14,14 @@ class WebhooksController < ApplicationController
   end
 
   def mailchimp
-    head :bad_request and return if params[:type].blank? || params[:data].blank?
-    type, data = params['type'], params['data']
-
-    if type == 'unsubscribe'
-      user = User.find_by_email(data['email'])
-      user.update_columns(newsletter: false) if !user.nil?
+    #head :bad_request and return if params[:type].blank? || params[:data].blank?
+    if params[:type].present? && params[:data].present?
+      type, data = params['type'], params['data']
+      if type == 'unsubscribe'
+        user = User.find_by_email(data['email'])
+        user.update_columns(newsletter: false) if !user.nil?
+      end
     end
-
   end
 
   private
