@@ -24,7 +24,7 @@ class MailchimpUserSubscribeJob < ApplicationJob
       g = Gibbon::Request.new
       g.timeout = 30
       g.lists(list_id).members(member_id).upsert(body: {
-        email_address: user.email, status_if_new: "subscribed",
+        email_address: user.email, status: "subscribed",
         merge_fields: {
           USERID: user.id,
           FNAME: user.first_name,

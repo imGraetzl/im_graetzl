@@ -1,4 +1,4 @@
-class MailchimpUserUnsubscribeJob < ApplicationJob
+class MailchimpUserDeleteJob < ApplicationJob
 
   def perform(user)
     list_id = Rails.application.secrets.mailchimp_list_id
@@ -7,14 +7,7 @@ class MailchimpUserUnsubscribeJob < ApplicationJob
     begin
       g = Gibbon::Request.new
       g.timeout = 30
-      g.lists(list_id).members(member_id).update(body: {
-        email_address: user.email, status: "unsubscribed",
-        merge_fields: {
-          NEWSLETTER: user.newsletter.to_s,
-        },
-      })
-
-
+      g.lists(list_id).members(member_id).delete()
     rescue Gibbon::MailChimpError => mce
       Rails.logger.error("subscribe failed: due to #{mce.message}")
       raise mce

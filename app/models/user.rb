@@ -67,9 +67,10 @@ class User < ApplicationRecord
 
   before_validation { self.username.squish! if self.username }
 
-  before_update :mailchimp_user_new_email, if: -> { email != email_was }
-  after_update :mailchimp_user_update, if: -> { saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_newsletter? || saved_change_to_graetzl_id? }
-  before_destroy :mailchimp_user_unsubscribe
+  before_update :mailchimp_user_email_changed, if: -> { email != email_was }
+  after_update :mailchimp_user_newsletter_changed, if: -> { saved_change_to_newsletter? }
+  after_update :mailchimp_user_update, if: -> { saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
+  before_destroy :mailchimp_user_delete
 
   scope :business, -> { where(business: true) }
 
@@ -169,13 +170,21 @@ class User < ApplicationRecord
     MailchimpUserUpdateJob.perform_later(self)
   end
 
-  def mailchimp_user_new_email
+  def mailchimp_user_email_changed
     MailchimpUserSubscribeJob.perform_now(self)
-    MailchimpEmailUnsubscribeJob.perform_later(self.email_was)
+    MailchimpUserDeleteJob.perform_later(self.email_was)
   end
 
-  def mailchimp_user_unsubscribe
-    MailchimpUserUnsubscribeJob.perform_later(self)
+  def mailchimp_user_newsletter_changed
+    if newsletter?
+      MailchimpUserSubscribeJob.perform_now(self)
+    else
+      MailchimpUserUnsubscribeJob.perform_later(self)
+    end
+  end
+
+  def mailchimp_user_delete
+    MailchimpUserDeleteJob.perform_later(self)
   end
 
 end
