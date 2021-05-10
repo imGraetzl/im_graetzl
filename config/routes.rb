@@ -217,6 +217,7 @@ Rails.application.routes.draw do
   get 'info/danke', to: 'static_pages#supporter'
 
   post 'webhooks/stripe'
+  post 'webhooks/mailchimp'
 
   get '/robots.txt' => 'static_pages#robots'
 

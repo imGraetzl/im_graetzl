@@ -67,8 +67,9 @@ class User < ApplicationRecord
 
   before_validation { self.username.squish! if self.username }
 
-  after_update :update_mailchimp, if: -> { saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_newsletter? }
-  before_destroy :unsubscribe_mailchimp
+  before_update :mailchimp_user_new_email, if: -> { email != email_was }
+  after_update :mailchimp_user_update, if: -> { saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_newsletter? || saved_change_to_graetzl_id? }
+  before_destroy :mailchimp_user_unsubscribe
 
   scope :business, -> { where(business: true) }
 
@@ -130,7 +131,7 @@ class User < ApplicationRecord
 
   def after_confirmation
     UsersMailer.welcome_email(self).deliver_later
-    MailchimpSubscribeJob.perform_later(self)
+    MailchimpUserSubscribeJob.perform_later(self)
 
     # Add User to Default_Joined Groups in same District
     Group.where(:default_joined => true).each do |group|
@@ -164,12 +165,17 @@ class User < ApplicationRecord
 
   private
 
-  def update_mailchimp
-    MailchimpSubscribeJob.perform_later(self)
+  def mailchimp_user_update
+    MailchimpUserUpdateJob.perform_later(self)
   end
 
-  def unsubscribe_mailchimp
-    MailchimpUnsubscribeJob.perform_later(self)
+  def mailchimp_user_new_email
+    MailchimpUserSubscribeJob.perform_now(self)
+    MailchimpEmailUnsubscribeJob.perform_later(self.email_was)
+  end
+
+  def mailchimp_user_unsubscribe
+    MailchimpUserUnsubscribeJob.perform_later(self)
   end
 
 end

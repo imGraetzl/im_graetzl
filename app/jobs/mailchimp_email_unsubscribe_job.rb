@@ -1,8 +1,8 @@
-class MailchimpUnsubscribeJob < ApplicationJob
+class MailchimpEmailUnsubscribeJob < ApplicationJob
 
-  def perform(user)
+  def perform(email)
     list_id = Rails.application.secrets.mailchimp_list_id
-    member_id = mailchimp_member_id(user)
+    member_id = mailchimp_member_id(email)
 
     begin
       g = Gibbon::Request.new
@@ -17,7 +17,7 @@ class MailchimpUnsubscribeJob < ApplicationJob
     end
   end
 
-  def mailchimp_member_id(user)
-    Digest::MD5.hexdigest(user.email.downcase)
+  def mailchimp_member_id(email)
+    Digest::MD5.hexdigest(email.downcase)
   end
 end

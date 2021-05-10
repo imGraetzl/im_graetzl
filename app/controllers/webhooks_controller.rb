@@ -13,6 +13,17 @@ class WebhooksController < ApplicationController
     head :ok
   end
 
+  def mailchimp
+    head :bad_request and return if params[:type].blank? || params[:data].blank?
+    type, data = params['type'], params['data']
+
+    if type == 'unsubscribe'
+      user = User.find_by_email(data['email'])
+      user.update_columns(newsletter: false) if !user.nil?
+    end
+
+  end
+
   private
 
   def payment_intent_succeded(payment_intent)

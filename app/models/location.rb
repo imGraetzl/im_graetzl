@@ -35,8 +35,8 @@ class Location < ApplicationRecord
 
   before_create { |location| location.last_activity_at = Time.current }
 
-  after_update :update_mailchimp, if: -> { approved?  }
-  before_destroy :unsubscribe_mailchimp
+  after_update :mailchimp_location_update, if: -> { approved?  }
+  before_destroy :mailchimp_location_delete
 
   def actual_newest_post
     self.posts.where("created_at > ?", 8.weeks.ago).sort_by(&:created_at).last
@@ -90,11 +90,11 @@ class Location < ApplicationRecord
 
   private
 
-  def update_mailchimp
+  def mailchimp_location_update
     MailchimpLocationUpdateJob.perform_later(self)
   end
 
-  def unsubscribe_mailchimp
+  def mailchimp_location_delete
     MailchimpLocationDeleteJob.perform_later(self)
   end
 

@@ -1,4 +1,4 @@
-class MailchimpSubscribeJob < ApplicationJob
+class MailchimpUserSubscribeJob < ApplicationJob
 
   def business_user_interests(user)
     mailchimp_interests = {}
@@ -24,7 +24,7 @@ class MailchimpSubscribeJob < ApplicationJob
       g = Gibbon::Request.new
       g.timeout = 30
       g.lists(list_id).members(member_id).upsert(body: {
-        email_address: user.email, status: "subscribed",
+        email_address: user.email, status_if_new: "subscribed",
         merge_fields: {
           USERID: user.id,
           FNAME: user.first_name,
