@@ -12,11 +12,11 @@ class MailchimpUserUnsubscribeJob < ApplicationJob
       })
       if user.newsletter?
         g.lists(list_id).members(member_id).tags.create(body: {
-          tags: [{name:"NL False", status:"active"}]
+          tags: [{name:"NL False", status:"inactive"}]
         })
       else
         g.lists(list_id).members(member_id).tags.create(body: {
-          tags: [{name:"NL False", status:"inactive"}]
+          tags: [{name:"NL False", status:"active"}]
         })
       end
 
