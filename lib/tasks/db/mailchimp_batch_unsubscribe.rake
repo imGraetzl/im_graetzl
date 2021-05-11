@@ -5,10 +5,12 @@ namespace :db do
     ARGV.each { |a| task a.to_sym do ; end }
 
     # heroku run rake db:mailchimp_batch_unsubscribe 0 1000 -a imgraetzl-staging
+    list_id = Rails.application.secrets.mailchimp_list_id
     offset = ARGV[1].to_i
     count = ARGV[2].to_i
 
-    response = g.lists(Rails.application.secrets.mailchimp_list_id).members.retrieve(params: {
+    g = Gibbon::Request.new
+    response = g.lists(list_id).members.retrieve(params: {
       "offset":"#{offset}", "count": "#{count}", "status": "unsubscribed"
     })
     members = response.body['members']
