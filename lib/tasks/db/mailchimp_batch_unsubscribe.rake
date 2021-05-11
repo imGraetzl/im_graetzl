@@ -8,15 +8,15 @@ namespace :db do
     # User.where(:newsletter => false).count
     # heroku run rake db:mailchimp_batch_unsubscribe 0 1000 -a imgraetzl-staging
     list_id = Rails.application.secrets.mailchimp_list_id
-    offset = ARGV[1]
-    count = ARGV[2]
+    offset = ARGV[1].to_i
+    count = ARGV[2].to_i
     logging_count_unsubscribed = 0
     logging_count_already_unsubscribed = 0
 
     g = Gibbon::Request.new
     g.debug = true
     response = g.lists(list_id).members.retrieve(params: {
-      "offset":"#{offset}", "count": "#{count}", "status": "unsubscribed"
+      "offset":offset, "count": count, "status": "unsubscribed"
     })
     members = response.body['members']
 
