@@ -8,6 +8,8 @@ namespace :db do
     list_id = Rails.application.secrets.mailchimp_list_id
     offset = ARGV[1].to_i
     count = ARGV[2].to_i
+    logging_count_unsubscribed = 0
+    logging_count_already_unsubscribed = 0
 
     g = Gibbon::Request.new
     response = g.lists(list_id).members.retrieve(params: {
@@ -19,10 +21,6 @@ namespace :db do
       email = member['email_address']
       next if User.find_by_email(email).nil?
       user = User.find_by_email(email)
-
-      logging_count_unsubscribed = 0
-      logging_count_already_unsubscribed = 0
-
       if user.newsletter?
         user.update_columns(newsletter: false)
         Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{email}: set newsletter to FALSE")
@@ -31,11 +29,10 @@ namespace :db do
         Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{email}: already unsubscribed")
         logging_count_already_unsubscribed += 1
       end
-
-      Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{logging_count_unsubscribed}: users unsubscribed")
-      Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{logging_count_already_unsubscribed}: users already unsubscribed")
-
     end
+
+    Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{logging_count_unsubscribed}: users unsubscribed")
+    Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{logging_count_already_unsubscribed}: users already unsubscribed")
 
   end
 end
