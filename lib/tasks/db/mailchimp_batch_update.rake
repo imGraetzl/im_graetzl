@@ -1,6 +1,6 @@
 namespace :db do
-  desc 'mailchimp batch operations task'
-  task mailchimp_batch_operation: :environment do
+  desc 'mailchimp batch operations update task'
+  task mailchimp_batch_update: :environment do
 
     def business_user_interests(user)
       mailchimp_interests = {}
@@ -51,7 +51,7 @@ namespace :db do
 
     begin
       g = Gibbon::Request.new
-      g.debug = true
+      #g.debug = true
       g.batches.create(body: {
         operations: members
       })
