@@ -8,12 +8,17 @@ class MailchimpUserUnsubscribeJob < ApplicationJob
       g = Gibbon::Request.new
       g.timeout = 30
       g.lists(list_id).members(member_id).update(body: {
-        email_address: user.email, status: "unsubscribed",
-        merge_fields: {
-          NEWSLETTER: user.newsletter.to_s,
-        },
+        email_address: user.email, status: "unsubscribed"
       })
-
+      if user.newsletter?
+        g.lists(list_id).members(member_id).tags.create(body: {
+          tags: [{name:"NL False", status:"active"}]
+        })
+      else
+        g.lists(list_id).members(member_id).tags.create(body: {
+          tags: [{name:"NL False", status:"inactive"}]
+        })
+      end
 
     rescue Gibbon::MailChimpError => mce
       Rails.logger.error("subscribe failed: due to #{mce.message}")
