@@ -35,13 +35,21 @@ class MailchimpUserSubscribeJob < ApplicationJob
           PLZ: user.graetzl.districts.first.try(:zip),
           USERNAME: user.username,
           PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
-          NEWSLETTER: user.newsletter.to_s,
           SIGNUP: user.created_at,
           ORIGIN: user.origin? ? user.origin : '',
           L_CATEGORY: user_location_category(user)
         },
         interests: business_user_interests(user)
       })
+      if user.newsletter?
+        g.lists(list_id).members(member_id).tags.create(body: {
+          tags: [{name:"NL False", status:"active"}]
+        })
+      else
+        g.lists(list_id).members(member_id).tags.create(body: {
+          tags: [{name:"NL False", status:"inactive"}]
+        })
+      end
     rescue Gibbon::MailChimpError => mce
       Rails.logger.error("subscribe failed: due to #{mce.message}")
       raise mce
