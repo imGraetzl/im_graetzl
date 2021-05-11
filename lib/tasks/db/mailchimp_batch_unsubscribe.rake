@@ -19,8 +19,14 @@ namespace :db do
       email = member['email_address']
       next if User.find_by_email(email).nil?
       user = User.find_by_email(email)
-      user.update_columns(newsletter: false)
-      Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{email}: unsubscribed")
+
+      if user.newsletter?
+        user.update_columns(newsletter: false)
+        Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{email}: set newsletter to FALSE")
+      else
+        Rails.logger.info("[Mailchimp Batch Unsubscribe]: #{email}: already unsubscribed")
+      end
+
     end
 
   end
