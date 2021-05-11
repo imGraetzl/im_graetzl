@@ -4,6 +4,8 @@ namespace :db do
 
     ARGV.each { |a| task a.to_sym do ; end }
 
+    # User.where(:newsletter => true).count
+    # User.where(:newsletter => false).count
     # heroku run rake db:mailchimp_batch_unsubscribe 0 1000 -a imgraetzl-staging
     list_id = Rails.application.secrets.mailchimp_list_id
     offset = ARGV[1].to_i
