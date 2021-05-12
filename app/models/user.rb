@@ -172,7 +172,7 @@ class User < ApplicationRecord
 
   def mailchimp_user_email_changed
     MailchimpUserSubscribeJob.perform_now(self)
-    MailchimpUserDeleteJob.perform_later(self.email_was)
+    MailchimpEmailDeleteJob.perform_later(self.email_was)
   end
 
   def mailchimp_user_newsletter_changed
