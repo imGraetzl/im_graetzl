@@ -5,8 +5,9 @@ namespace :db do
     ARGV.each { |a| task a.to_sym do ; end }
 
     list_id = Rails.application.secrets.mailchimp_list_id
-    user_from = ARGV[1].to_i # Start User ID
-    user_to = ARGV[2].to_i # End User ID
+    method = ARGV[1] # PATCH: Update existing, PUT: create & update
+    user_from = ARGV[2].to_i # Start User ID
+    user_to = ARGV[3].to_i # End User ID
     members = []
 
     def mailchimp_member_id(user)
@@ -113,7 +114,7 @@ namespace :db do
       merge_fields.merge!(user_room(user))
 
       member = {
-        method: "PUT",
+        method: method, # PATCH: Update existing, PUT: create & update
         path: "lists/#{ list_id }/members/#{mailchimp_member_id(user)}",
         operation_id: "batch-member-#{user.id}",
         body: {
