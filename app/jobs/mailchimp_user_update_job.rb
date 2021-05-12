@@ -33,7 +33,8 @@ class MailchimpUserUpdateJob < ApplicationJob
           PLZ: user.graetzl.districts.first.try(:zip),
           USERNAME: user.username,
           PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
-          L_CATEGORY: user_location_category(user)
+          L_CATEGORY: user_location_category(user),
+          NL_STATE: user.newsletter? ? 'true' : 'false',
         },
         interests: business_user_interests(user)
       })

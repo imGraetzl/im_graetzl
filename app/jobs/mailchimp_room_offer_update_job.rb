@@ -16,7 +16,7 @@ class MailchimpRoomOfferUpdateJob < ApplicationJob
           ROOM_URL: Rails.application.routes.url_helpers.room_offer_path(room),
           ROOM_PLZ: room.district.zip,
           ROOM_CAT: room.room_categories.map(&:name).join(", "),
-          ROOM_DATE: room.created_at
+          R_UPDATE: room.last_activated_at
         }
       })
       g.lists(list_id).members(member_id).tags.create(body: {

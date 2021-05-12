@@ -37,7 +37,8 @@ class MailchimpUserSubscribeJob < ApplicationJob
           PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
           SIGNUP: user.created_at,
           ORIGIN: user.origin? ? user.origin : '',
-          L_CATEGORY: user_location_category(user)
+          L_CATEGORY: user_location_category(user),
+          NL_STATE: user.newsletter? ? 'true' : 'false',
         },
         interests: business_user_interests(user)
       })

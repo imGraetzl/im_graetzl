@@ -15,7 +15,7 @@ class MailchimpRoomDeleteJob < ApplicationJob
           ROOM_URL: '',
           ROOM_PLZ: '',
           ROOM_CAT: '',
-          ROOM_DATE: ''
+          R_UPDATE: ''
         }
       })
       g.lists(list_id).members(member_id).tags.create(body: {

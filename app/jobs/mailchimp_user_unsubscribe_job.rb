@@ -8,7 +8,10 @@ class MailchimpUserUnsubscribeJob < ApplicationJob
       g = Gibbon::Request.new
       g.timeout = 30
       g.lists(list_id).members(member_id).update(body: {
-        email_address: user.email, status: "unsubscribed"
+        email_address: user.email, status: "unsubscribed",
+        merge_fields: {
+          NL_STATE: user.newsletter? ? 'true' : 'false',
+        },
       })
       if user.newsletter?
         g.lists(list_id).members(member_id).tags.create(body: {
