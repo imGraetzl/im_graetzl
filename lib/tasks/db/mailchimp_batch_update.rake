@@ -32,7 +32,6 @@ namespace :db do
         location_fieds = {
           LOCATION: "",
           L_URL: "",
-          L_CATEGORY: "",
           L_PLZ: "",
           L_GRAETZL: "",
           L_GR_URL: "",
