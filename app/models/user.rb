@@ -9,6 +9,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
+  include RefileShrineSynchronization
+
   enum role: { admin: 0 }
 
   belongs_to :graetzl, counter_cache: true
@@ -62,8 +64,10 @@ class User < ApplicationRecord
 
   before_validation { self.username.squish! if self.username }
 
-  after_update :update_mailchimp, if: -> { saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_newsletter? }
-  before_destroy :unsubscribe_mailchimp
+  before_update :mailchimp_user_email_changed, if: -> { email != email_was }
+  after_update :mailchimp_user_newsletter_changed, if: -> { saved_change_to_newsletter? }
+  after_update :mailchimp_user_update, if: -> { saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
+  before_destroy :mailchimp_user_delete
 
   scope :business, -> { where(business: true) }
 
@@ -121,7 +125,7 @@ class User < ApplicationRecord
 
   def after_confirmation
     UsersMailer.welcome_email(self).deliver_later
-    MailchimpSubscribeJob.perform_later(self)
+    MailchimpUserSubscribeJob.perform_later(self)
 
     # Add User to Default_Joined Groups in same District
     Group.where(:default_joined => true).each do |group|
@@ -158,12 +162,25 @@ class User < ApplicationRecord
 
   private
 
-  def update_mailchimp
-    MailchimpSubscribeJob.perform_later(self)
+  def mailchimp_user_update
+    MailchimpUserUpdateJob.perform_later(self)
   end
 
-  def unsubscribe_mailchimp
-    MailchimpUnsubscribeJob.perform_later(self)
+  def mailchimp_user_email_changed
+    MailchimpUserSubscribeJob.perform_now(self)
+    MailchimpEmailDeleteJob.perform_later(self.email_was)
+  end
+
+  def mailchimp_user_newsletter_changed
+    if newsletter?
+      MailchimpUserSubscribeJob.perform_now(self)
+    else
+      MailchimpUserDeleteJob.perform_later(self)
+    end
+  end
+
+  def mailchimp_user_delete
+    MailchimpUserDeleteJob.perform_later(self)
   end
 
 end

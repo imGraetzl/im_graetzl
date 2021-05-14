@@ -3,6 +3,7 @@ class RoomCategory < ApplicationRecord
   has_many :room_demand_categories
 
   attachment :main_photo, type: :image
+  include RefileShrineSynchronization
 
   def to_s
     name

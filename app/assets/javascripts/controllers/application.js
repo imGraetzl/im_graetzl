@@ -63,12 +63,6 @@ APP.controllers.application = (function() {
           // Registration
           if ( $("#flash .notice").text().indexOf('Super, du bist nun registriert!') >= 0 ){
             gtag('event', 'sign_up', {'event_category': 'Registration'}); // GA
-            fbq('track', 'CompleteRegistration'); // FB
-          }
-
-          // SignUp Unterstützer-Team
-          if ( $("#flash .notice").text().indexOf('Deine Beitrittsanfrage wurde abgeschickt!') >= 0 && document.referrer.indexOf('unterstuetzer-team') >= 0 ){
-            fbq('trackCustom', 'UnterstuetzerSignUp');
           }
 
         }

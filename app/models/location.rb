@@ -5,6 +5,8 @@ class Location < ApplicationRecord
 
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
+  include RefileShrineSynchronization
+
   acts_as_taggable_on :products
 
   belongs_to :user
@@ -36,8 +38,8 @@ class Location < ApplicationRecord
 
   before_create { |location| location.last_activity_at = Time.current }
 
-  after_update :update_mailchimp, if: -> { approved?  }
-  before_destroy :unsubscribe_mailchimp
+  after_update :mailchimp_location_update, if: -> { approved?  }
+  before_destroy :mailchimp_location_delete
 
   def self.include_for_box
     includes(:location_posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
@@ -87,11 +89,11 @@ class Location < ApplicationRecord
 
   private
 
-  def update_mailchimp
+  def mailchimp_location_update
     MailchimpLocationUpdateJob.perform_later(self)
   end
 
-  def unsubscribe_mailchimp
+  def mailchimp_location_delete
     MailchimpLocationDeleteJob.perform_later(self)
   end
 

@@ -25,6 +25,8 @@ class RoomCall < ApplicationRecord
 
   attachment :cover_photo, type: :image
   attachment :avatar, type: :image
+  include RefileShrineSynchronization
+
   has_many :images, as: :imageable, dependent: :destroy
   accepts_attachments_for :images, attachment: :file, append: true
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank

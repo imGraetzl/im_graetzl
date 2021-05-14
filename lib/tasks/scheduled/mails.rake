@@ -1,6 +1,6 @@
 namespace :scheduled do
 
-  desc 'Send messanger notifications'
+  desc 'Send messenger notifications'
   task unseen_messages: :environment do
     time_range = 1.day.ago..10.minutes.ago
     UserMessageThread.includes(user_messages: :user, user_message_thread_members: :user).where(last_message_at: time_range).find_each do |thread|
