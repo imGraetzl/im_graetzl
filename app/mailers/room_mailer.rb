@@ -1,6 +1,26 @@
 class RoomMailer < ApplicationMailer
   default from: 'imGrätzl | Raumteiler <raumteiler@imgraetzl.at>'
 
+  def room_offer_info_mail(room_offer)
+    @room_offer = room_offer
+    headers("X-MC-Tags" => "raumteiler-info-mail")
+    mail(
+      to: @room_offer.user.email,
+      from: "Mirjam Mieschendahl | imGrätzl.at <mirjam@imgraetzl.at>",
+      subject: "5 Tipps zu deinem Raumteiler",
+    )
+  end
+
+  def room_demand_info_mail(room_demand)
+    @room_demand = room_demand
+    headers("X-MC-Tags" => "raumteiler-info-mail")
+    mail(
+      to: @room_demand.user.email,
+      from: "Mirjam Mieschendahl | imGrätzl.at <mirjam@imgraetzl.at>",
+      subject: "4 Tipps zu deinem Raumteiler",
+    )
+  end
+
   def room_offer_published(room_offer)
     @room_offer = room_offer
     headers("X-MC-Tags" => "notification-room-online")

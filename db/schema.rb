@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_113132) do
+ActiveRecord::Schema.define(version: 2021_05_14_104742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.integer "position", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "main_photo_data"
   end
 
   create_table "event_categories_meetings", id: false, force: :cascade do |t|
@@ -347,6 +348,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.text "welcome_message"
     t.boolean "default_joined", default: false
     t.integer "group_users_count"
+    t.jsonb "cover_photo_data"
     t.index ["location_id"], name: "index_groups_on_location_id"
     t.index ["room_call_id"], name: "index_groups_on_room_call_id"
     t.index ["room_demand_id"], name: "index_groups_on_room_demand_id"
@@ -360,6 +362,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "file_content_type"
+    t.jsonb "file_data"
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id"
   end
 
@@ -372,6 +375,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.string "main_photo_id"
     t.string "main_photo_content_type"
     t.integer "position", default: 0
+    t.jsonb "main_photo_data"
   end
 
   create_table "location_ownerships", id: :serial, force: :cascade do |t|
@@ -417,6 +421,8 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.datetime "last_activity_at"
     t.integer "user_id"
     t.integer "address_id"
+    t.jsonb "avatar_data"
+    t.jsonb "cover_photo_data"
     t.index ["address_id"], name: "index_locations_on_address_id"
     t.index ["created_at"], name: "index_locations_on_created_at"
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id"
@@ -471,6 +477,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.integer "meeting_category_id"
     t.integer "address_id"
     t.text "online_description"
+    t.jsonb "cover_photo_data"
     t.index ["address_id"], name: "index_meetings_on_address_id"
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"
@@ -593,6 +600,8 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.string "cover_photo_id"
     t.string "cover_photo_content_type"
     t.integer "address_id"
+    t.jsonb "cover_photo_data"
+    t.jsonb "avatar_data"
     t.index ["address_id"], name: "index_room_calls_on_address_id"
     t.index ["district_id"], name: "index_room_calls_on_district_id"
     t.index ["graetzl_id"], name: "index_room_calls_on_graetzl_id"
@@ -608,6 +617,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.string "main_photo_content_type"
     t.integer "position", default: 0
     t.string "css_ico_class"
+    t.jsonb "main_photo_data"
   end
 
   create_table "room_demand_categories", id: :serial, force: :cascade do |t|
@@ -645,6 +655,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.string "avatar_content_type"
     t.integer "status", default: 0
     t.date "last_activated_at"
+    t.jsonb "avatar_data"
     t.index ["location_id"], name: "index_room_demands_on_location_id"
     t.index ["user_id"], name: "index_room_demands_on_user_id"
   end
@@ -731,6 +742,8 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.date "last_activated_at"
     t.boolean "rental_enabled", default: false
     t.integer "address_id"
+    t.jsonb "cover_photo_data"
+    t.jsonb "avatar_data"
     t.index ["address_id"], name: "index_room_offers_on_address_id"
     t.index ["district_id"], name: "index_room_offers_on_district_id"
     t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id"
@@ -822,6 +835,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.string "main_photo_id"
     t.string "main_photo_content_type"
     t.integer "position", default: 0
+    t.jsonb "main_photo_data"
     t.index ["parent_category_id"], name: "index_tool_categories_on_parent_category_id"
   end
 
@@ -851,6 +865,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "address_id"
+    t.jsonb "cover_photo_data"
     t.index ["address_id"], name: "index_tool_offers_on_address_id"
     t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_tool_offers_on_location_id"
@@ -970,6 +985,8 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.decimal "rating", precision: 3, scale: 2
     t.integer "ratings_count", default: 0
     t.integer "address_id"
+    t.jsonb "avatar_data"
+    t.jsonb "cover_photo_data"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
@@ -996,6 +1013,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_113132) do
     t.boolean "all_districts", default: false
     t.string "invoice_number"
     t.string "link"
+    t.jsonb "image_data"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
   end

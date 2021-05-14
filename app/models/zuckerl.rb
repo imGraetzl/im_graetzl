@@ -6,6 +6,8 @@ class Zuckerl < ApplicationRecord
   before_destroy :can_destroy?
 
   attachment :image, type: :image
+  include RefileShrineSynchronization
+
   friendly_id :title
   attr_accessor :active_admin_requested_event
 

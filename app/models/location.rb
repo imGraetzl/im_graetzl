@@ -5,6 +5,8 @@ class Location < ApplicationRecord
 
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
+  include RefileShrineSynchronization
+
   acts_as_taggable_on :products
 
   belongs_to :user

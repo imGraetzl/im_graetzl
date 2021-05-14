@@ -3,5 +3,6 @@ class LocationCategory < ApplicationRecord
   has_many :locations
 
   attachment :main_photo, type: :image
+  include RefileShrineSynchronization
 
 end

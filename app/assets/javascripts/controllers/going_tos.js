@@ -217,20 +217,6 @@ APP.controllers.going_tos = (function() {
         ]
       });
 
-      if (window.location.hostname == 'www.imgraetzl.at') {
-        fbq('track', 'Purchase',
-          {
-            value: value,
-            currency: 'EUR',
-            contents: [
-              {
-                id: item_id,
-                quantity: 1
-              }
-            ],
-          }
-        );
-      }
     }
 
     function openTab(tab) {

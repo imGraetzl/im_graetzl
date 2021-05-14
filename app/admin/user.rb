@@ -59,17 +59,9 @@ ActiveAdmin.register User do
 
     csv do
       column :email
-      #column :username
-      #column :first_name
-      #column :last_name
+      column :first_name
+      column :last_name
+      column(:plz) { |user| user.district&.zip }
       column :newsletter
-      #column :created_at
-      #column(:business) {|user| user.business? ? 'business' : '' }
-    #  column(:plz) { |user| user.districts.first.try(:zip) }
-      #column(:graetzl) { |user| user.graetzl.name }
-      #column(:graetzl_url) { |user| Rails.application.routes.url_helpers.graetzl_path(user.graetzl) }
-      #column(:profil_url) { |user| Rails.application.routes.url_helpers.user_path(user) }
-      #column :origin
-      #column(:location_category) {|user| user.location_category.try(:name) }
     end
 end

@@ -9,6 +9,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
+  include RefileShrineSynchronization
+
   enum role: { admin: 0 }
 
   belongs_to :graetzl, counter_cache: true
@@ -173,7 +175,7 @@ class User < ApplicationRecord
     if newsletter?
       MailchimpUserSubscribeJob.perform_now(self)
     else
-      MailchimpUserUnsubscribeJob.perform_later(self)
+      MailchimpUserDeleteJob.perform_later(self)
     end
   end
 

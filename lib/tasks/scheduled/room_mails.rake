@@ -1,4 +1,20 @@
 namespace :scheduled do
+
+  desc 'Room Info Mail'
+  task room_info_mail: :environment do
+
+    RoomOffer.where("DATE(created_at) = ?", Date.today - 5).find_each do |room_offer|
+      next if room_offer.user.nil?
+      RoomMailer.room_offer_info_mail(room_offer).deliver_now
+    end
+
+    RoomDemand.where("DATE(created_at) = ?", Date.today - 5).find_each do |room_demand|
+      next if room_demand.user.nil?
+      RoomMailer.room_demand_info_mail(room_demand).deliver_now
+    end
+
+  end
+
   desc 'Reminder for Room expiring'
   task reminder_room_expiring: :environment do
 
