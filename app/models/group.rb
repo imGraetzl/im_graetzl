@@ -35,6 +35,7 @@ class Group < ApplicationRecord
 
   attachment :cover_photo, type: :image
   include RefileShrineSynchronization
+  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
 
   scope :by_currentness, -> { order(created_at: :desc) }
   scope :non_private, -> { where(private: false) }
