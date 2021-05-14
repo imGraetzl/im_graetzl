@@ -6,6 +6,9 @@ class Zuckerl < ApplicationRecord
   before_destroy :can_destroy?
 
   attachment :image, type: :image
+  include RefileShrineSynchronization
+  before_save { write_shrine_data(:image) if image_id_changed? }
+
   friendly_id :title
   attr_accessor :active_admin_requested_event
 

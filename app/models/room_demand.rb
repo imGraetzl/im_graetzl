@@ -21,6 +21,8 @@ class RoomDemand < ApplicationRecord
   acts_as_taggable_on :keywords
 
   attachment :avatar, type: :image
+  include RefileShrineSynchronization
+  before_save { write_shrine_data(:avatar) if avatar_id_changed? }
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
   scope :reactivated, -> { enabled.where("last_activated_at > created_at").where("created_at < ?", LIFETIME_MONTHS.months.ago) }
