@@ -6,6 +6,8 @@ class Location < ApplicationRecord
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
   include RefileShrineSynchronization
+  before_save { write_shrine_data(:avatar) if avatar_id_changed? }
+  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
 
   acts_as_taggable_on :products
 
