@@ -17,7 +17,6 @@ gem 'rack-rewrite'
 
 gem 'aasm'
 gem 'acts-as-taggable-on'
-gem 'aws-sdk', '~> 2.0'
 gem 'browser'
 gem 'cocoon'
 gem 'devise'
@@ -36,12 +35,15 @@ gem 'newrelic_rpm'
 gem 'rollbar'
 gem 'scout_apm'
 
+gem "shrine", "~> 3.0"
+gem "aws-sdk-s3", "~> 1"
+
 # Refile is pretty much abandoned and we have to jump through hoops to make it work
 # It should be replaced with active-storage or shrine in the next upgrade
-gem 'refile', github: 'refile/refile', require: 'refile/rails', ref: '6803d83f0764558932de6880728672326211b018'
-gem 'refile-mini_magick', github: 'refile/refile-mini_magick', ref: '466e30cf5878844b0e0bc4588f766bb18dabdd2b'
-gem 'sinatra', github: 'sinatra/sinatra', ref: '6f15fba2790ebdf4d1215cebf425dea2ea3130ea'
-gem 'refile-s3'
+gem 'refile', require: 'refile/rails', github: 'refile/refile', branch: 'master'
+gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'
+gem 'refile-s3', github: 'refile/refile-s3', branch: 'master'
+gem 'refile-mini_magick'
 
 # Lib V8does not support Macbook M1 for the moment, so for development on M1, use the commented gem
 # Just make sure to comment it back and run bundle install before commiting changes

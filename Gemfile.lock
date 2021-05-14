@@ -1,34 +1,32 @@
 GIT
-  remote: https://github.com/refile/refile-mini_magick.git
-  revision: 466e30cf5878844b0e0bc4588f766bb18dabdd2b
-  ref: 466e30cf5878844b0e0bc4588f766bb18dabdd2b
+  remote: https://github.com/refile/refile-s3.git
+  revision: 765b51ded93b96cf7e7cad2353c5bc591507dbe3
+  branch: master
   specs:
-    refile-mini_magick (0.2.0)
-      image_processing (~> 1.1)
-      mini_magick (~> 4.0)
-      refile (~> 0.6)
+    refile-s3 (0.2.0)
+      aws-sdk-s3 (~> 1.23)
+      refile (~> 0.7.0)
 
 GIT
   remote: https://github.com/refile/refile.git
-  revision: 6803d83f0764558932de6880728672326211b018
-  ref: 6803d83f0764558932de6880728672326211b018
+  revision: c4ac577c6fdad92bc079a62a0e82888319daedc8
+  branch: master
   specs:
-    refile (0.6.2)
+    refile (0.7.0)
       mime-types
-      rest-client (>= 1.8, < 3.0)
       sinatra (>= 2.0.0, <= 3.0.0)
 
 GIT
   remote: https://github.com/sinatra/sinatra.git
-  revision: 6f15fba2790ebdf4d1215cebf425dea2ea3130ea
-  ref: 6f15fba2790ebdf4d1215cebf425dea2ea3130ea
+  revision: 5513eb3c7969dc3d15b3c704df63a3ccce9ac9cb
+  branch: master
   specs:
-    rack-protection (2.0.5)
+    rack-protection (2.1.0)
       rack
-    sinatra (2.0.5)
+    sinatra (2.1.0)
       mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.5)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
       tilt (~> 2.0)
 
 GEM
@@ -101,16 +99,22 @@ GEM
     arel (9.0.0)
     autoprefixer-rails (9.5.0)
       execjs
-    aws-eventstream (1.0.2)
-    aws-sdk (2.11.244)
-      aws-sdk-resources (= 2.11.244)
-    aws-sdk-core (2.11.244)
-      aws-sigv4 (~> 1.0)
+    aws-eventstream (1.1.1)
+    aws-partitions (1.455.0)
+    aws-sdk-core (3.114.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.239.0)
+      aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.244)
-      aws-sdk-core (= 2.11.244)
-    aws-sigv4 (1.1.0)
-      aws-eventstream (~> 1.0, >= 1.0.2)
+    aws-sdk-kms (1.43.0)
+      aws-sdk-core (~> 3, >= 3.112.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.94.1)
+      aws-sdk-core (~> 3, >= 3.112.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.2.3)
+      aws-eventstream (~> 1, >= 1.0.2)
     bb-ruby (1.4.0)
     bcrypt (3.1.13)
     browser (2.5.3)
@@ -135,6 +139,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
+    content_disposition (1.0.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
@@ -151,12 +156,12 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
-    domain_name (0.5.20190701)
-      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.1)
     dotenv-rails (2.7.1)
       dotenv (= 2.7.1)
       railties (>= 3.2, < 6.1)
+    down (5.2.1)
+      addressable (~> 2.5)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -209,18 +214,12 @@ GEM
       actionpack (>= 4.1)
       activesupport (>= 4.1)
     hashdiff (0.3.8)
-    http-accept (1.7.0)
-    http-cookie (1.0.3)
-      domain_name (~> 0.5)
     http_parser.rb (0.6.0)
     httparty (0.16.4)
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
-    image_processing (1.12.1)
-      mini_magick (>= 4.9.5, < 5)
-      ruby-vips (>= 2.0.17, < 3)
     inherited_resources (1.9.0)
       actionpack (>= 4.2, < 5.3)
       has_scope (~> 0.6)
@@ -283,7 +282,6 @@ GEM
     nenv (0.3.0)
     net-http-persistent (3.1.0)
       connection_pool (~> 2.2)
-    netrc (0.11.0)
     newrelic_rpm (6.2.0.354)
     nio4r (2.5.2)
     nokogiri (1.10.9)
@@ -359,19 +357,14 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    refile-s3 (0.2.0)
-      aws-sdk (~> 2.0)
-      refile (~> 0.6.0)
+    refile-mini_magick (0.2.0)
+      mini_magick (~> 4.0)
+      refile (~> 0.5)
     regexp_parser (1.3.0)
     remotipart (1.4.2)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rest-client (2.1.0)
-      http-accept (>= 1.7.0, < 2.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     rgeo (2.0.1)
     rgeo-activerecord (6.1.0)
       activerecord (~> 5.0)
@@ -396,8 +389,6 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
-    ruby-vips (2.0.17)
-      ffi (~> 1.9)
     ruby2_keywords (0.0.4)
     safe_yaml (1.0.5)
     sass (3.7.3)
@@ -413,6 +404,9 @@ GEM
       tilt (>= 1.1, < 3)
     scout_apm (2.4.24)
     shellany (0.0.1)
+    shrine (3.3.0)
+      content_disposition (~> 1.0)
+      down (~> 5.1)
     sitemap_generator (6.0.2)
       builder (~> 3.0)
     spring (2.0.2)
@@ -436,9 +430,6 @@ GEM
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.7)
     warden (1.2.8)
       rack (>= 2.0.6)
     webmock (3.5.1)
@@ -460,7 +451,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (~> 5.0)
   acts-as-taggable-on
   autoprefixer-rails
-  aws-sdk (~> 2.0)
+  aws-sdk-s3 (~> 1)
   bb-ruby
   browser
   capybara
@@ -499,8 +490,8 @@ DEPENDENCIES
   rails (~> 5.2)
   rails-controller-testing
   refile!
-  refile-mini_magick!
-  refile-s3
+  refile-mini_magick
+  refile-s3!
   remotipart
   rgeo
   rgeo-geojson
@@ -508,6 +499,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   scout_apm
+  shrine (~> 3.0)
   sinatra!
   sitemap_generator
   spring

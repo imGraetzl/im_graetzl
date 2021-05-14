@@ -1,3 +1,5 @@
+require 'aws-sdk-s3'
+
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = 'https://www.imgraetzl.at'
 # pick a place safe to write the files
