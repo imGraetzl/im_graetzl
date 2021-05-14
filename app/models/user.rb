@@ -179,7 +179,7 @@ class User < ApplicationRecord
     if newsletter?
       MailchimpUserSubscribeJob.perform_now(self)
     else
-      MailchimpUserUnsubscribeJob.perform_later(self)
+      MailchimpUserDeleteJob.perform_later(self)
     end
   end
 

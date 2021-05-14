@@ -20,7 +20,7 @@ class MailchimpRoomOfferUpdateJob < ApplicationJob
         }
       })
       g.lists(list_id).members(member_id).tags.create(body: {
-        tags: [{name:"Habe Raum", status:"active"}]
+        tags: [{name:"Raumteiler", status:"active"}]
       })
     rescue Gibbon::MailChimpError => mce
       Rails.logger.error("subscribe failed: due to #{mce.message}")
