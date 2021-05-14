@@ -22,6 +22,7 @@ class ToolOffer < ApplicationRecord
 
   attachment :cover_photo, type: :image
   include RefileShrineSynchronization
+  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
 
   has_many :images, as: :imageable, dependent: :destroy
   accepts_attachments_for :images, attachment: :file, append: true

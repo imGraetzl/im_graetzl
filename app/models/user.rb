@@ -7,9 +7,12 @@ class User < ApplicationRecord
   friendly_id :username
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
   attachment :avatar, type: :image
   attachment :cover_photo, type: :image
   include RefileShrineSynchronization
+  before_save { write_shrine_data(:avatar) if avatar_id_changed? }
+  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
 
   enum role: { admin: 0 }
 
