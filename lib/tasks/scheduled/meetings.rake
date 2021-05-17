@@ -14,18 +14,24 @@ namespace :scheduled do
     # Update Activity if previous Activity of this Meeting is more then 1 Week ago
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
       if meeting.meeting_additional_dates.present?
+
         next_meeting = meeting.meeting_additional_dates.sort_by(&:starts_at_date).first
         meeting.update(starts_at_date: next_meeting.starts_at_date)
         next_meeting.destroy
         Rails.logger.info("[Meeting] Meeting (#{meeting.id}) updated next meeting date: #{next_meeting.starts_at_date}")
-
-        # Update Activity for this Meeting if last Activity is greather then 1 week ago or if there is no Activity
-        if !meeting.activities.where(key: 'meeting.create').present? || (meeting.activities.where(key: 'meeting.create').present? && meeting.activities.where(key: 'meeting.create').last.created_at < 6.days.ago)
-          # meeting.activities.where(key: 'meeting.create').destroy_all
+        # Update Activity for this Meeting if last Activity is greather then 1 week ago or if there is no Activity - And delete old online Activities
+        if !meeting.activities.where(key: 'meeting.create').present? || meeting.activities.where(key: 'meeting.create').last.created_at < 6.days.ago
+          meeting.activities.where(key: 'meeting.create').destroy_all
           meeting.create_activity :create, owner: meeting.user, cross_platform: meeting.online_meeting?
         end
 
+      else
+
+        # Destroy old "create.meeting" Activities for online meetings if no Additonal Dates present (lets stay offline meetings for now)
+        meeting.activities.where(key: 'meeting.create').destroy_all if meeting.online_meeting?
+
       end
+
     end
 
   end
