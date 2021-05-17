@@ -21,14 +21,14 @@ namespace :scheduled do
         Rails.logger.info("[Meeting] Meeting (#{meeting.id}) updated next meeting date: #{next_meeting.starts_at_date}")
         # Update Activity for this Meeting if last Activity is greather then 1 week ago or if there is no Activity - And delete old online Activities
         if !meeting.activities.where(key: 'meeting.create').present? || meeting.activities.where(key: 'meeting.create').last.created_at < 6.days.ago
-          meeting.activities.where(key: 'meeting.create').destroy_all if meeting.online_meeting? #maybe offline meetings are more interesting..
+          meeting.activities.where(key: 'meeting.create').destroy_all
           meeting.create_activity :create, owner: meeting.user, cross_platform: meeting.online_meeting?
         end
 
       else
 
-        # Destroy old "create.meeting" Activities if no Additonal Dates present
-        meeting.activities.where(key: 'meeting.create').destroy_all
+        # Destroy old "create.meeting" Activities for online meetings if no Additonal Dates present (lets stay offline meetings for now)
+        meeting.activities.where(key: 'meeting.create').destroy_all if meeting.online_meeting?
 
       end
 
