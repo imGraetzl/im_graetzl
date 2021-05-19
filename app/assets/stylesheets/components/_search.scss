@@ -7,6 +7,7 @@
     position: absolute;
     margin-top:10px;
     right:20px;
+    width:40px;
     height:40px;
     &.-hidden {
       display:none;
@@ -43,6 +44,19 @@
     font-weight: bold;
     color: $color-ambient-mint-dark;
     border-bottom: 1px solid $color-ambient-mint-light;
+
+    a {
+      float:right;
+      font-weight:normal;
+      color: $color-ambient-grey;
+      text-decoration: none;
+      font-size: 14px;
+      &:hover {
+        color: $color-ambient-rosa;
+        text-decoration: underline;
+      }
+    }
+
   }
 
   .eac-item div.item {

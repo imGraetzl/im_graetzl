@@ -3,6 +3,9 @@ class SearchController < ApplicationController
   before_action :force_json, only: [:autocomplete]
 
   def autocomplete
+
+    return if params[:q].empty? || params[:q].length < 3
+
     search_phrase = "%#{params[:q]}%"
     room_offers = RoomOffer.enabled.where("slogan ILIKE :q", q: search_phrase).last(2)
     room_demands = RoomDemand.enabled.where("slogan ILIKE :q", q: search_phrase).last(2)
@@ -24,7 +27,7 @@ class SearchController < ApplicationController
     search_phrase = "%#{params[:q]}%"
     @results = []
 
-    if !params[:q].empty?
+    if !params[:q].empty? && params[:q].length >= 3
 
       if search_type == 'rooms'
 

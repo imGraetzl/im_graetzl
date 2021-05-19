@@ -50,6 +50,9 @@ APP.components.search = (function() {
           $input.val("");
           document.location.href = url;
         },
+        onLoadEvent:function() {
+          addCategoryLinks();
+        },
         onShowListEvent:function() {
           hideSpinner();
         },
@@ -69,12 +72,48 @@ APP.components.search = (function() {
 
     $input.easyAutocomplete(options);
 
+    // HELPER FUNCTIONS -------------------
+
     function showSpinner() {
       $('.autocomplete-loading-spinner').removeClass('-hidden');
     }
 
     function hideSpinner() {
       $('.autocomplete-loading-spinner').addClass('-hidden');
+    }
+
+    function addCategoryLinks() {
+
+      var search_phrase = $input.val();
+      var type;
+
+      // Find Categories and add Link
+      $('.eac-category').each( function( index, element ) {
+
+          switch($(this).text()) {
+            case 'Raumteiler':
+              type = 'rooms'
+              break;
+            case 'Toolteiler':
+              type = 'tool_offers'
+              break;
+            case 'Events & Workshops':
+              type = 'meetings'
+              break;
+            case 'Anbieter & Locations':
+              type = 'locations'
+              break;
+            case 'Gruppen':
+              type = 'groups'
+              break;
+            default:
+              type = ''
+          }
+
+          var link = "<a href='/search?q="+search_phrase+"&search_type="+type+"'>mehr anzeigen</a>"
+          $(this).append(link);
+
+      });
     }
 
   }
