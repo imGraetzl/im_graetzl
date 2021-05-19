@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   get 'reports' => 'reports#index'
   get 'reports/mailchimp'
   get 'sitemap.xml' => redirect('https://s3.eu-central-1.amazonaws.com/im-graetzl-production/sitemaps/sitemap.xml.gz')
-  get '/search' => 'search#index'
-  get '/location/tooltip' => 'locations#tooltip'
-
+  get 'location/tooltip' => 'locations#tooltip'
+  get 'search' => 'search#index'
+  get 'search/results' => 'search#results'
+  get 'search/autocomplete' => 'search#autocomplete'
 
   ActiveAdmin.routes(self)
 

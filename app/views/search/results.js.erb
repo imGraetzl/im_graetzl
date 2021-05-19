@@ -2,16 +2,17 @@
   var $cardContainer = $("[data-behavior='search-card-container']");
   var $paginateLink = $("[data-behavior='search-paginate-link']");
 
-  console.log('michael');
-
   <% if params[:page].blank? %>
-    $cardContainer.html("<%= j render 'search/result' %>");
-
+    <% if @results.empty? %>
+      $cardContainer.html("<%= j render 'no_results' %>");
+    <% else %>
+      $cardContainer.html("<%= j render @results %>");
+    <% end %>
   <% else %>
-    $cardContainer.append("<%= j render 'search/result' %>");
+    $cardContainer.append("<%= j render @results %>");
   <% end %>
 
-  <% if @results.next_page.present? %>
+  <% if @results.next_page %>
     $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");

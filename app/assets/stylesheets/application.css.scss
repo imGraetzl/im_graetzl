@@ -71,6 +71,7 @@
 @import "components/bbcode";
 @import "components/jBox";
 @import "components/tableLayout";
+@import "components/search";
 
 //---------------------------------------------------------------------------------------------*\
 // PAGES
@@ -103,7 +104,6 @@
 @import "controllers/tool_rentals";
 @import "controllers/room_rentals";
 @import "controllers/going_tos";
-@import "controllers/search";
 @import "controllers/group";
 @import "controllers/wien";
 @import "controllers/adminreports";

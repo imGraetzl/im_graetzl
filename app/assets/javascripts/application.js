@@ -14,6 +14,7 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery.detect_swipe
+//= require jquery.easy-autocomplete
 //= require picker
 //= require jquery.tabslet.min
 //= require picker.date
