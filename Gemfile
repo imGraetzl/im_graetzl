@@ -28,7 +28,6 @@ gem 'remotipart'
 gem 'sitemap_generator'
 gem 'prawn'
 gem 'prawn-table'
-gem 'google_custom_search_api'
 
 gem 'gibbon', '~> 3.0', '>= 3.0.2'
 gem 'newrelic_rpm'

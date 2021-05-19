@@ -221,6 +221,7 @@ APP.components.cardFilter = (function() {
       updateFilterInputs(currentModalContent);
       updateFilterLabels(currentModalContent);
       submitForm();
+      gtag_tracking(currentModalContent);
       modals[currentModalId].close();
     });
 
