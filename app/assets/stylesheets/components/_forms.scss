@@ -130,7 +130,7 @@ input, select, textarea {
   > label {
     @extend %label;
   }
-  > input, select, textarea, .fakefield,
+  > input, select, textarea, .fakefield, .easy-autocomplete > input,
   .tt-input, .tt-hint {
     @extend %input;
   }

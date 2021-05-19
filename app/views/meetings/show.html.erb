@@ -10,30 +10,6 @@
 
 <%= structured_data_tag('meeting', @meeting) if @meeting.starts_at_date %>
 
-<% content_for :pagemap do %>
-  <!--
-  <PageMap>
-    <DataObject type="document">
-      <Attribute name="type">meeting</Attribute>
-      <Attribute name="searchable">true</Attribute>
-      <Attribute name="id"><%= @meeting.id %></Attribute>
-      <Attribute name="title"><%= @meeting.name %></Attribute>
-      <Attribute name="description"><%= @meeting.description if @meeting.description.present? %></Attribute>
-      <Attribute name="author"><%= @meeting.user.full_name if @meeting.user %></Attribute>
-      <Attribute name="user"><%= @meeting.user.username if @meeting.user %></Attribute>
-      <Attribute name="graetzl"><%= @graetzl.name %></Attribute>
-      <Attribute name="startDate"><%= I18n.localize(@meeting.starts_at_date, format:'%Y-%m-%d') if @meeting.starts_at_date %></Attribute>
-    </DataObject>
-    <DataObject type="image">
-      <Attribute name="src" value="<%= attachment_url(@meeting, :cover_photo, :fill, 900, 540, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png') %>" />
-    </DataObject>
-    <DataObject type="thumbnail">
-      <Attribute name="src" value="<%= attachment_url(@meeting.user, :avatar, :fill, 400, 400, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/user/400x400.png') %>" />
-    </DataObject>
-  </PageMap>
-  -->
-<% end %>
-
 <section class="meeting">
   <div class="imgHeader -cloudy">
     <div class="titleHeadline">
