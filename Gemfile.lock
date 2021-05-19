@@ -187,9 +187,6 @@ GEM
       multi_json (>= 1.11.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    google_custom_search_api (2.0.0)
-      addressable
-      httparty
     guard (2.15.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -474,7 +471,6 @@ DEPENDENCIES
   foreman
   friendly_id
   gibbon (~> 3.0, >= 3.0.2)
-  google_custom_search_api
   guard-livereload
   httparty
   jbuilder
