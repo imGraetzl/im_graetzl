@@ -4,7 +4,7 @@
     robots: 'noindex, follow',
     og_title: t('.title', name: @user.username, graetzl: @user.graetzl.name),
     og_description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.district.numeric),
-    og_image: attachment_url(@user, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+    og_image: @user.cover_photo_url || image_url('meta/og_logo.png')
   )
 %>
 
@@ -16,12 +16,12 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= attachment_image_tag(@user, :cover_photo, :fill, 980, 200, class: 'titleImg', fallback: 'cover_photo/980x370.png', width:980, height:200) %>
+    <%= image_tag cover_url(@user, :large), class: 'titleImg', width:980, height:200  %>
   </div>
 
   <div class="userContent">
     <div class="col1">
-      <%= attachment_image_tag(@user, :avatar, :fill, 400 ,400, class: 'img-round -largest', fallback: 'avatar/user/400x400.png') %>
+      <%= image_tag avatar_url(@user, :large), class: 'img-round -largest' %>
       <div class="sideBarbox">
 
         <div class="rating-block icontxt">

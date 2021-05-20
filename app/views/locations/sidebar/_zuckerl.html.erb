@@ -1,7 +1,7 @@
 <div id="<%= dom_id(zuckerl) %>" class="zuckerl cardBox -zuckerl">
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
-      <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') %>
+      <%= image_tag zuckerl.image_url, class: 'coverImg' %>
     </div>
     <div class="categoryicon">
       <%= icon_tag "shopping-bag" %>

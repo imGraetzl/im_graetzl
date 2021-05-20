@@ -28,10 +28,10 @@ context.instance_eval do
           end
 
           row :cover_photo do |r|
-            r.cover_photo ? attachment_image_tag(r, :cover_photo, :fill, 200, 70) : nil
+            r.cover_photo && image_tag(r.cover_photo_url(:small))
           end
           row :avatar do |r|
-            r.avatar ? attachment_image_tag(r, :avatar, :fill, 200, 200) : nil
+            r.avatar && image_tag(r.avatar_url(:small))
           end
         end
       end

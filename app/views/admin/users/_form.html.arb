@@ -12,10 +12,9 @@ active_admin_form_for [:admin, resource] do |f|
     input :business
     input :bio
     input :website
-    f.input :cover_photo, as: :file, hint: (image_tag(attachment_url(f.object, :cover_photo, :fill, 200, 100)) if f.object.cover_photo)
+    input :cover_photo, as: :file, hint: f.object.cover_photo && image_tag(f.object.cover_photo_url(:small))
     input :remove_cover_photo, as: :boolean if f.object.cover_photo
-    input :avatar, as: :file,
-      hint: (image_tag(attachment_url(f.object, :avatar, :fill, 100, 100)) if f.object.avatar)
+    input :avatar, as: :file, hint: f.object.avatar && image_tag(f.object.avatar_url(:small))
     input :remove_avatar, as: :boolean if f.object.avatar
     input :newsletter
     input :groups, collection: Group.all, input_html: { :class => 'admin-filter-select'}

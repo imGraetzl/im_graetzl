@@ -24,7 +24,7 @@ context.instance_eval do
           end
 
           row :avatar do |r|
-            r.avatar ? attachment_image_tag(r, :avatar, :fill, 200, 200) : nil
+            r.avatar && image_tag(r.avatar_url(:small))
           end
         end
       end

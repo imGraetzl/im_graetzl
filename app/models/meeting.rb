@@ -27,9 +27,7 @@ class Meeting < ApplicationRecord
 
   has_many :comments, as: :commentable, dependent: :destroy
 
-  attachment :cover_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
+  include ImageUploader::Attachment(:cover_photo)
 
   enum state: { active: 0, cancelled: 1 }
 

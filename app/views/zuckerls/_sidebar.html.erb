@@ -2,7 +2,7 @@
   <div class="cardBoxHeader">
     <div class="imgpreview" data-behavior="imagepreview">
       <div class="coverImgWrapper">
-        <%= attachment_image_tag(zuckerl, :image, :fill, 300, 180, class: 'coverImg') if zuckerl.image_id %>
+        <%= image_tag cover_url(zuckerl, :small), class: 'coverImg' if zuckerl.image %>
       </div>
     </div>
 

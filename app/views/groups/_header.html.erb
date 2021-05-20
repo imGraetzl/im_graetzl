@@ -2,7 +2,7 @@
 
   <div class="coverImg">
     <%= link_to group_path(@group) do %>
-      <%= attachment_image_tag @group, :cover_photo, :fill, 980, 500, fallback: 'cover_photo/980x370.png', class: 'coverImg' %>
+      <%= image_tag cover_url(@group, :large), class: 'coverImg' %>
     <% end %>
     <% if @group.group_categories %>
       <div class="sideflag -category -R">

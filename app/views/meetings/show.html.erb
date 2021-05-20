@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', name: @meeting.name),
     og_description: t('.description', desc: @meeting.description[0...154]),
-    og_image: attachment_url(@meeting, :cover_photo, :fill, 1200, 630, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+    og_image: @meeting.cover_photo_url || image_url('meta/og_logo.png')
   )
 %>
 
@@ -25,10 +25,10 @@
       <Attribute name="startDate"><%= I18n.localize(@meeting.starts_at_date, format:'%Y-%m-%d') if @meeting.starts_at_date %></Attribute>
     </DataObject>
     <DataObject type="image">
-      <Attribute name="src" value="<%= attachment_url(@meeting, :cover_photo, :fill, 900, 540, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png') %>" />
+      <Attribute name="src" value="<%= @meeting.cover_photo_url || image_url('meta/og_logo.png') %>" />
     </DataObject>
     <DataObject type="thumbnail">
-      <Attribute name="src" value="<%= attachment_url(@meeting.user, :avatar, :fill, 400, 400, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/user/400x400.png') %>" />
+      <Attribute name="src" value="<%= @meeting.user.avatar_url || image_url('avatar/user/400x400.png') %>" />
     </DataObject>
   </PageMap>
   -->
@@ -49,7 +49,8 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= attachment_image_tag @meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg', width:980, height:370 %>
+
+    <%= image_tag cover_url(@meeting, :large), class: 'titleImg', width: 980, height: 370 %>
   </div>
 
   <div class="entryDescription">
@@ -78,7 +79,7 @@
 
     <% if @meeting.group.present? %>
       <div class="ico-row">
-        <%= attachment_image_tag @meeting.group, :cover_photo, :fill, 100, 100, fallback: 'cover_photo/980x370.png', class: 'location avatar img-square' %>
+        <%= image_tag cover_url(@meeting.group, :thumb), class: 'location avatar img-square' %>
         <div class="infotxt">
           <em class="info">Gruppe:</em><br>
           <span><%= link_to @meeting.group.title, @meeting.group, class: 'infolink' %></span>

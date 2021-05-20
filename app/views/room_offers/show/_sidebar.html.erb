@@ -143,7 +143,7 @@
         <% @room_offer.waiting_users.each do |user| %>
           <li class="waiting-list-user">
             <%= link_to user do %>
-              <%= attachment_image_tag user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+              <%= image_tag avatar_url(user, :thumb), class: 'img-round' %>
             <% end %>
             <% if current_user == user || current_user == @room_offer.user %>
               <%= link_to [:remove_from_waitlist, @room_offer, user: user], method: :post, class: 'close-ico' do %>

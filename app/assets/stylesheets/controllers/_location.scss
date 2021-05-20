@@ -10,7 +10,7 @@ section.location-page {
     z-index: 10;
     overflow: visible;
     @include respond-to(">=large") {
-      min-height: 370px;
+      min-height: 420px;
     }
 
     .dropdown-container {

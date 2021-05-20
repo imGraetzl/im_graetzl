@@ -1,6 +1,6 @@
 <div class="user cardBox -action">
   <div class="avatar">
-    <%= attachment_image_tag join_request.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+    <%= image_tag avatar_url(join_request.user, :small), class: 'img-round' %>
   </div>
   <div class="infos">
     <span><%= join_request.user.first_name %> <br> <%= join_request.user.last_name.truncate(18, separator: ' ') %></span>

@@ -6,7 +6,7 @@ context.instance_eval do
     row :content
     row :images do
       location_post.images.map do |image|
-        attachment_image_tag image, :file, :limit, 600, 300
+        image_tag image.file_url(:small)
       end
     end
     row :created_at

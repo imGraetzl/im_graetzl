@@ -2,7 +2,7 @@
 
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
-      <%= link_to cover_photo_for(room_offer), room_offer %>
+      <%= link_to cover_url(room_offer, :small), room_offer %>
     </div>
 
     <% graetzl = Graetzl.memoized(room_offer.graetzl_id) %>

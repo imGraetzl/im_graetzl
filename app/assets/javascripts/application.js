@@ -39,7 +39,6 @@
 //= require jBox.min
 //= require Chart.min
 //= require cocoon
-//= require refile
 //= require cookieconsent
 //= require overthrow-detect
 //= require overthrow-polyfill

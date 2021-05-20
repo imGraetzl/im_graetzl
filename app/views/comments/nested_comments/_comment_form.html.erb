@@ -2,7 +2,7 @@
   <%= f.hidden_field :commentable_id %>
   <%= f.hidden_field :commentable_type %>
   <label>
-    <%= attachment_image_tag current_user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+    <%= image_tag avatar_url(current_user, :small), class: 'img-round' %>
     <%= f.text_area :content, placeholder: ' Kommentieren' %>
   </label>
   <div class="hideBlock">

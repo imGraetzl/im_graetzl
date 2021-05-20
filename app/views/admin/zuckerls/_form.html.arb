@@ -5,7 +5,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :title
     input :description
     input :link
-    input :image, as: :file, hint: (image_tag(attachment_url(f.object, :image, :fill, 100, 100)) if f.object.image)
+    input :image, as: :file, hint: f.object.image && image_tag(f.object.image_url(:small))
     input :remove_image, as: :boolean if f.object.image
     input :all_districts
     if resource.persisted?

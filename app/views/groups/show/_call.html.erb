@@ -5,7 +5,7 @@
       <div class="user cardBox">
 
         <div class="avatar">
-          <%= attachment_image_tag submission.user, :avatar, :fill, 100, 100, fallback: 'avatar/user/100x100.png', class: 'img-round' %>
+          <%= image_tag avatar_url(submission.user, :small), class: 'img-round' %>
         </div>
         <div class="infos">
           <span><%= submission.first_name %> <br> <%= submission.last_name %></span>

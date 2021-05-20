@@ -6,10 +6,10 @@
     <%= link_to [graetzl, location, anchor: dom_id(location_post)] do %>
       <% if image = location_post.images.first %>
         <div class="coverImgWrapper">
-          <%= attachment_image_tag image, :file, :fill, 300, 250, class: 'coverImg' %>
+          <%= image_tag image.file_url(:small), class: 'coverImg' %>
         </div>
       <% else %>
-        <%= cover_photo_for location %>
+        <%= image_tag cover_url(location, :small), class: 'coverImg' %>
       <% end %>
     <% end %>
     <div class="categoryicon">

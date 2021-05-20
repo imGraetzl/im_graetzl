@@ -2,14 +2,10 @@ class Location < ApplicationRecord
   include Trackable
   extend FriendlyId
   friendly_id :name
-
-  attachment :avatar, type: :image
-  attachment :cover_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:avatar) if avatar_id_changed? }
-  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
-
   acts_as_taggable_on :products
+
+  include ImageUploader::Attachment(:avatar)
+  include ImageUploader::Attachment(:cover_photo)
 
   belongs_to :user
   belongs_to :graetzl
@@ -57,7 +53,7 @@ class Location < ApplicationRecord
     if pending?
       approved!
       create_activity(:create)
-      UsersMailer.location_approved(self, self.boss).deliver_now
+      UsersMailer.location_approved(self, self.user).deliver_now
     end
   end
 

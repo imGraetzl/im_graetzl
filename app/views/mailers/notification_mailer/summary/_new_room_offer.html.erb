@@ -6,7 +6,7 @@
         <table>
           <tr>
             <td>
-              <%= image_tag Notifications::ImageService.new.avatar_url(notification.room_offer), style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+              <%= image_tag avatar_url(notification.room_offer, :thumb), style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
             </td>
             <td> 
             </td>
@@ -19,7 +19,7 @@
         </table>
 
         <%= link_to room_offer_url(notification.room_offer), target: "_blank" do %>
-          <%= image_tag Notifications::ImageService.new.cover_photo_url(notification.room_offer), style: "width:100%; padding-bottom:5px; padding-top:10px;", class: "mcnImage" %>
+          <%= image_tag cover_url(notification.room_offer, :small), style: "width:100%; padding-bottom:5px; padding-top:10px;", class: "mcnImage" %>
         <% end %>
 
         <p>

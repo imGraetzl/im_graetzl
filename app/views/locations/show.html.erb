@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', name: @location.name, slogan: @location.slogan),
     og_description: t('.description', desc: location_meta(@location)),
-    og_image: attachment_url(@location, :cover_photo, :fill, 1200, 630, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+    og_image: @location.cover_photo_url || image_url('meta/og_logo.png')
   )
 %>
 
@@ -14,8 +14,8 @@
 <section class="location-page">
 
   <div class="imgHeader -cloudy2">
-    <%= attachment_image_tag @location, :avatar, :fill, 400, 400, fallback: 'avatar/location/400x400.png', class: 'locationAvatar', width:245, height:245 %>
-    <%= attachment_image_tag @location, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg', width:980, height:370 %>
+    <%= image_tag avatar_url(@location, :large), class: 'locationAvatar', width:245, height:245 %>
+    <%= image_tag cover_url(@location, :large), class: 'titleImg', width: 980, height: 370 %>
     <% if @location.owned_by?(current_user) %>
       <div class="bigicontext-element createentry" data-behavior="createTrigger">
         <%= icon_tag "dot-3" %>

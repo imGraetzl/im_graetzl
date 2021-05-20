@@ -1,16 +1,49 @@
 module AttachmentsHelper
+
+  def avatar_url(object, size)
+    object&.avatar_url(size).presence || avatar_fallback_url(size, object.is_a?(Location) ? 'location' : 'user')
+  end
+
+  def avatar_fallback_url(size, type)
+    case size
+    when :thumb then image_url("avatar/#{type}/100x100.png")
+    when :small then image_url("avatar/#{type}/200x200.png")
+    when :large then image_url("avatar/#{type}/400x400.png")
+    end
+  end
+
+  def cover_url(object, size)
+    object&.cover_photo_url(size).presence || cover_fallback_url(size)
+  end
+
+  def cover_fallback_url(size)
+    case size
+    when :thumb then image_url("avatar/user/100x100.png")
+    when :small then image_url("cover_photo/300x180.png")
+    when :large then image_url("cover_photo/980x370.png")
+    end
+  end
+
+  def category_photo_url(object)
+    object&.main_photo_url(:large).presence || image_url("cover_photo/200x200.png")
+  end
+
   def avatar_for(resource, size=200, form=nil)
     if form.nil?
-      css_class = resource.is_a?(User) || resource.is_a?(RoomOffer) || resource.is_a?(RoomDemand) ? 'img-round' : 'img-square'
+      css_class = resource.is_a?(User) || resource.is_a?(RoomOffer) || resource.is_a?(RoomDemand) ? 'img-round avatar' : 'img-square avatar'
     else
       css_class = form
     end
-    if resource.nil?
-      fallback = "http://via.placeholder.com/200x200"
+
+    if size <= 100
+      size = :thumb
+    elsif size <= 200
+      size = :small
     else
-      fallback = "avatar/#{resource.model_name.human.downcase}/200x200.png"
+      size = :large
     end
-    attachment_image_tag(resource, :avatar, :fill, size, size, class: css_class, fallback: fallback)
+
+    image_tag(avatar_url(resource, size), class: css_class)
   end
 
   # USER Avatar with Tooltip
@@ -28,7 +61,7 @@ module AttachmentsHelper
     fallback = "avatar/user/200x200.png"
     tooltip_id = "user-tooltip-#{user.id}-#{rand(1000)}"
     tooltip_url = "/user/tooltip?id=#{user.id}#{additional}"
-    attachment_image_tag(user, :avatar, :fill, size, size, class: css_class, fallback: fallback, data: { tooltip_id: tooltip_id, url: tooltip_url, tooltip_type: 'User' })
+    image_tag(avatar_url(user, :small), class: css_class, data: { tooltip_id: tooltip_id, url: tooltip_url, tooltip_type: 'User' })
   end
 
   # LOCATION Avatar with Tooltip
@@ -46,14 +79,7 @@ module AttachmentsHelper
     fallback = "avatar/location/200x200.png"
     tooltip_id = "location-tooltip-#{location.id}-#{rand(1000)}"
     tooltip_url = "/location/tooltip?id=#{location.id}#{additional}"
-    attachment_image_tag(location, :avatar, :fill, size, size, class: css_class, fallback: fallback, data: { tooltip_id: tooltip_id, url: tooltip_url, tooltip_type: 'Location' })
+    image_tag(avatar_url(location, :small), class: css_class, data: { tooltip_id: tooltip_id, url: tooltip_url, tooltip_type: 'Location' })
   end
 
-  def cover_photo_for(resource)
-    attachment_image_tag(resource, :cover_photo, :fill, 600, 440, class: 'coverImg', fallback: 'cover_photo/300x180.png')
-  end
-
-  def category_photo_for(resource)
-    attachment_image_tag(resource, :main_photo, :fill, 400, 600, class: 'categoryImg', fallback: 'cover_photo/200x200.png', width:257, height:385)
-  end
 end

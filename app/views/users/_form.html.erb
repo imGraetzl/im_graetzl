@@ -67,7 +67,7 @@
         <div class="field-wrp">
           <% if f.object.avatar %>
             <div class="preview-wrp">
-              <%= image_tag attachment_url(f.object, :avatar, :fill, 100, 100), class: 'img-round' %>
+              <%= image_tag f.object.avatar_url(:small), class: 'img-round' %>
               <div class="input-checkbox">
                 <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
                 <%= f.label :remove_avatar, 'Löschen' %>
@@ -100,7 +100,7 @@
           <div class="field-wrp">
             <% if f.object.cover_photo %>
               <div class="preview-wrp">
-                <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+                <%= image_tag f.object.cover_photo_url(:small) %>
                 <div class="input-checkbox">
                   <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
                   <%= f.label :remove_cover_photo, 'Löschen' %>

@@ -83,7 +83,7 @@
         <div class="field-wrp">
           <% if resource.avatar %>
           <div class="preview-wrp">
-            <%= image_tag attachment_url(resource, :avatar, :fill, 100, 100), class: 'img-round' %>
+            <%= image_tag f.object.avatar_url(:small) %>
             <div class="input-checkbox">
               <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
               <%= f.label :remove_avatar, 'Löschen' %>

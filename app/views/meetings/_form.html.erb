@@ -139,19 +139,18 @@
       <div class="field-wrp">
         <% if f.object.cover_photo %>
             <div class="preview-wrp">
-              <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+              <%= image_tag f.object.cover_photo_url(:small) %>
               <div class="input-checkbox">
                 <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
                 <%= f.label :remove_cover_photo, 'Löschen' %>
               </div>
             </div>
         <% end %>
-        <%= f.attachment_field :cover_photo, direct: true, presigned: true %>
+        <%= f.hidden_field :cover_photo, value: f.object.cached_cover_photo_data %>
+        <%= f.file_field :cover_photo %>
       </div>
     </div>
-
   </div>
-
 
   <div class="meet-event-category">
     <p>Event <span>Kategorien</span> - Welche treffen zu?</p>

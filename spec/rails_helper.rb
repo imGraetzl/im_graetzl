@@ -13,7 +13,6 @@ require 'database_cleaner'
 require 'capybara/poltergeist'
 require 'webmock/rspec'
 require 'aasm/rspec'
-require "refile/file_double"
 
 # require all spec support files
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }

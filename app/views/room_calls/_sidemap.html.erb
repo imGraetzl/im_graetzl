@@ -10,10 +10,10 @@
       <Attribute name="subtitle"><%= @room_call.subtitle %></Attribute>
     </DataObject>
     <DataObject type="image">
-      <Attribute name="src" value="<%= attachment_url(@room_call, :cover_photo, :fill, 900, 540, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png') %>" />
+      <Attribute name="src" value="<%= @room_call.cover_photo_url || image_url('meta/og_logo.png') %>" />
     </DataObject>
     <DataObject type="thumbnail">
-      <Attribute name="src" value="<%= attachment_url(@room_call, :avatar, :fill, 400, 400, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/room_offer/400x400.png') %>" />
+      <Attribute name="src" value="<%= @room_call.avatar_url || image_url('avatar/room_offer/400x400.png') %>" />
     </DataObject>
   </PageMap>
   -->

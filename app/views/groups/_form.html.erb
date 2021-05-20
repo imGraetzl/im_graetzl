@@ -42,7 +42,7 @@
     <div class="field-wrp">
       <% if f.object.cover_photo %>
       <div class="preview-wrp">
-        <%= image_tag attachment_url(f.object, :cover_photo, :fill, 159, 60) %>
+        <%= image_tag f.object.cover_photo_url(:small) %>
         <div class="input-checkbox">
           <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
           <%= f.label :remove_cover_photo, 'Löschen' %>

@@ -8,13 +8,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  attachment :avatar, type: :image
-  attachment :cover_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:avatar) if avatar_id_changed? }
-  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
-
   enum role: { admin: 0 }
+
+  include ImageUploader::Attachment(:avatar)
+  include ImageUploader::Attachment(:cover_photo)
 
   belongs_to :graetzl, counter_cache: true
   has_many :districts, through: :graetzl

@@ -12,11 +12,11 @@
     </DataObject>
     <% @group.group_users.first(10).each do |group_user| %>
     <DataObject type="members">
-      <Attribute name="src" value="<%= attachment_url(group_user.user, :avatar, :fill, 200, 200, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/user/100x100.png') %>" />
+      <Attribute name="src" value="<%= group_user.avatar_url || image_url('avatar/user/100x100.png') %>" />
     </DataObject>
     <% end %>
     <DataObject type="image">
-      <Attribute name="src" value="<%= attachment_url(@group, :cover_photo, :fill, 900, 540, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'cover_photo/980x370.png') %>" />
+      <Attribute name="src" value="<%= @group.cover_photo_url || image_url('cover_photo/980x370.png') %>" />
     </DataObject>
   </PageMap>
   -->

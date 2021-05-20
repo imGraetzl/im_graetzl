@@ -2,7 +2,7 @@
   <div class="gallery">
     <!--  @room_call.images.order(:created_at).each do |image| -->
     <% @room_call.images.each do |image| %>
-      <%= link_to attachment_image_tag(image, :file, :fill, 900, 900), attachment_url(image, :file, :limit, 900, 900), data: { jbox_image: "maingallery" } %>
+      <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "maingallery" } %>
     <% end %>
   </div>
 </section>

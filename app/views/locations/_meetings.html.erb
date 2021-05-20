@@ -8,7 +8,7 @@
     <% if user_signed_in? && @location.can_create_meeting?(current_user) %>
       <%= link_to new_meeting_path(location_id: @location.id), class: 'btn-userCallToAction' do %>
       <span>
-        <%= avatar_for current_user %>
+        <%= image_tag avatar_url(current_user, :thumb), class: 'img-round' %>
         Treffen hier starten
         <%= icon_tag('plus') %>
       </span>

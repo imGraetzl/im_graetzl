@@ -4,13 +4,13 @@
     robots: 'index, follow',
     og_title: t('.title', title: @tool_offer.title[0..80].gsub(/\s\w+\s*$/,'...')),
     og_description: t('.description', desc: @tool_offer.description[0..250].gsub(/\n/, " ")),
-    og_image: attachment_url(@tool_offer, :cover_photo, :fill, 1200, 630, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+    og_image: @tool_offer.cover_photo_url || image_url('meta/og_logo.png')
   )
 %>
 
 <section class="toolTeiler-detail">
   <div class="imgHeader">
-    <%= attachment_image_tag @tool_offer, :cover_photo, :fill, 980, 420, fallback: 'cover_photo/980x370.png', class: 'titleImg', width:980, height:430 %>
+    <%= image_tag cover_url(@tool_offer, :large), class: 'titleImg', width:980, height:430 %>
     <div class="headContent">
       <div class="category-tags">
           <ul class="tag-list -mint">
@@ -41,9 +41,9 @@
     <div class="txt"><%= @tool_offer.description %></div>
 
     <div class="entryImgUploads">
-      <%= link_to attachment_image_tag(@tool_offer, :cover_photo, :fill, 200, 200), attachment_url(@tool_offer, :cover_photo, :limit, 800, 800), data: { jbox_image: "maingallery" } %>
+      <%= link_to image_tag(@tool_offer.cover_photo_url(:small)), @tool_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
       <% @tool_offer.images.each do |image| %>
-        <%= link_to attachment_image_tag(image, :file, :fill, 200, 200), attachment_url(image, :file, :limit, 800, 800), data: { jbox_image: "maingallery" } %>
+        <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "maingallery" } %>
       <% end %>
     </div>
 

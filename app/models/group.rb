@@ -33,9 +33,7 @@ class Group < ApplicationRecord
   has_many :discussion_categories
   accepts_nested_attributes_for :discussion_categories, allow_destroy: true, reject_if: :all_blank
 
-  attachment :cover_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
+  include ImageUploader::Attachment(:cover_photo)
 
   scope :by_currentness, -> { order(created_at: :desc) }
   scope :non_private, -> { where(private: false) }

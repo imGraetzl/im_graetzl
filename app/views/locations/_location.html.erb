@@ -4,7 +4,7 @@
   <div class="cardBoxHeader">
     <%= link_to [graetzl, location] do %>
       <div class="coverImgWrapper">
-        <%= cover_photo_for location %>
+        <%= image_tag cover_url(location, :small), class: 'coverImg' %>
       </div>
     <% end %>
     <div class="categoryicon">
