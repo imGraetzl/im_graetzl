@@ -1,3 +1,9 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow',
+  )
+%>
+
 <section class="search-section">
 
   <%= form_with url: search_results_path, remote: true, method: :get, class: 'cards-filter' do |f| %>
