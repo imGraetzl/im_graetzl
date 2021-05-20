@@ -38,7 +38,7 @@
 
     </p>
     <div class="users">
-      <% @group.admins.first(5).each do |user| %>
+      <% @group.admins.to_a.first(5).each do |user| %>
       <div class="user">
         <div class="avatar">
           <%= link_to user_path(user) do %>
