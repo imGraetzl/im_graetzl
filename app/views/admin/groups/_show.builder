@@ -29,19 +29,15 @@ context.instance_eval do
     end
   end
 
-  if !group.default_joined?
-    panel "#{group.group_users.count} Gruppenmitglieder / #{group.active_members.count} aktive" do
+  panel "#{group.group_users.size} Gruppenmitglieder / #{group.active_members.size} aktive" do
+    if group.default_joined?
+      "Zu viele User um anzuzeigen ..."
+    else
       table_for group.group_users do
         column :user
         column("Email") { |f| f.user.email }
         column :role
       end
-    end
-  end
-
-  if group.default_joined?
-    panel "#{group.group_users.count} Gruppenmitglieder / #{group.active_members.count} aktive" do
-      "Zu viele User um anzuzeigen ..."
     end
   end
 
