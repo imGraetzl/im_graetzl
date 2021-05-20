@@ -3,6 +3,7 @@ APP.components.search = (function() {
   function init() {
 
     $input = $("[data-behavior='autocomplete']");
+    var search_phrase;
 
     // Nav Search Icon Click: Delete Value and set Focus to Field
     $(".nav-autocomplete-icon").on("click", function() {
@@ -45,16 +46,32 @@ APP.components.search = (function() {
       list: {
         match: {enabled: true},
         maxNumberOfElements: 10,
-        onChooseEvent:function() {
+        onShowListEvent:function() {
+          search_phrase = $input.val();
+          addCategoryLinks();
+          hideSpinner();
+          gtag(
+            'event', 'Search', {
+            'event_category': 'Autocomplete :: Results',
+            'event_label': search_phrase
+          });
+        },
+        onClickEvent:function() {
           var url = $input.getSelectedItemData().url
           $input.val("");
-          document.location.href = url;
+          gtag(
+            'event', 'Search', {
+            'event_category': 'Autocomplete :: Result Click',
+            'event_label': search_phrase,
+            'event_callback': function() {
+              location.href = url;
+            }
+          });
         },
-        onLoadEvent:function() {
-          addCategoryLinks();
-        },
-        onShowListEvent:function() {
-          hideSpinner();
+        onKeyEnterEvent:function() {
+          var url = "/search?q=" + search_phrase;
+          $input.val("");
+          location.href = url;
         },
         onHideListEvent:function() {
           hideSpinner();
@@ -111,7 +128,10 @@ APP.components.search = (function() {
           }
 
           var link = "<a href='/search?q="+search_phrase+"&search_type="+type+"'>mehr anzeigen</a>"
-          $(this).append(link);
+
+          if ($(this).find('a').length == 0) {
+            $(this).append(link);
+          }
 
       });
     }
