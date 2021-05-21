@@ -64,7 +64,7 @@ class Group < ApplicationRecord
   end
 
   def last_active_members(size)
-    user_ids = group_active_members.order("last_activity_at DESC").first(size).pluck(:id)
+    user_ids = group_active_members.order("last_activity_at DESC").first(size).pluck(:user_id)
     User.where(id: user_ids)
   end
 
