@@ -109,8 +109,8 @@ context.instance_eval do
 
       panel 'Associations' do
         tabs do
-          tab 'Treffen' do
-            table_for user.attended_meetings do
+          tab 'Erstellte Treffen' do
+            table_for user.initiated_meetings do
               column :id
               column :name
               column :user
