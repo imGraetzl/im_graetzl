@@ -1,24 +1,31 @@
 APP.controllers.search = (function() {
 
-  function init() {
-    //if ($("section.search-section").exists()) search();
-    radio_submit();
-  }
+    function init() {
 
-  // Search
-  function radio_submit() {
-    $( 'form select' ).change(function() {
-      if(!$('#q').val()) {
-        return
-      } else {
-        $('form').submit();
-      }
-    });
-  }
+        $searchInput = $("[data-behavior='searchinput']");
 
+        if ($('.cards-filter').exists()) {
+          APP.components.cardFilter.init();
+        }
 
-  return {
-    init: init,
-  }
+        $('.cards-filter').on('submit', function(event){
+          event.preventDefault();
+
+          // Submit Form if Field not empty
+          if ($searchInput.val().length >= 3) {
+              APP.components.cardFilter.submitForm();
+              gtag(
+                'event', 'Search', {
+                'event_category': 'Searchpage :: Search',
+                'event_label': $searchInput.val()
+              });
+          }
+
+        });
+    }
+
+    return {
+      init: init
+    };
 
 })();

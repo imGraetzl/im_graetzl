@@ -90,19 +90,17 @@
     </div>
   </div>
 
-  <%= link_to 'javascript:', class: 'nav-top-link', data: { dropdown: "nav-user-search", anchor: 'right' } do %>
+  <%= link_to 'javascript:', class: 'nav-top-link nav-autocomplete-icon', data: { dropdown: "nav-user-search", anchor: 'right' } do %>
     <%= icon_tag "search" %>
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-user-search">
-    <%= form_tag search_path, method: :get do |f| %>
-      <%= hidden_field_tag :label, 'all' %>
-      <%= hidden_field_tag :page, 1 %>
-      <div class="input-field search-form">
-        <%= text_field_tag :q, params[:q], placeholder: 'Suchbegriff ...' %>
+    <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
+    <%= form_with url: search_path, local: true, method: :get, class: 'autocomplete-form' do |f| %>
+      <div class="input-field">
+        <%= text_field_tag :q, params[:q], placeholder: 'Suchbegriff ...', data:{behavior:"autocomplete"} %>
       </div>
-      <% end %>
-    </div>
+    <% end %>
   </div>
 
 </div>

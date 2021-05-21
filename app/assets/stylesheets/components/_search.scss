@@ -1,0 +1,122 @@
+.autocomplete-form {
+  position: relative;
+}
+#nav-user-search {
+  .autocomplete-loading-spinner {
+    z-index:9999;
+    position: absolute;
+    margin-top:10px;
+    right:20px;
+    width:40px;
+    height:40px;
+    &.-hidden {
+      display:none;
+    }
+  }
+}
+
+// Search Autocomplete
+.easy-autocomplete {
+  min-width:350px;
+  max-width: 350px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.mobile-dropdown .easy-autocomplete {
+  min-width:100%;
+  max-width: 100%;
+}
+
+// Search Autocomplete Results
+.easy-autocomplete-container {
+
+  ul, li {
+    list-style: none;
+  }
+
+  .eac-category {
+    padding-top: 15px;
+    padding-bottom:10px;
+    margin-bottom:5px;
+    padding-left:5px;
+    font-style: italic;
+    font-weight: bold;
+    color: $color-ambient-mint-dark;
+    border-bottom: 1px solid $color-ambient-mint-light;
+
+    a {
+      padding-right:5px;
+      float:right;
+      font-weight:normal;
+      color: $color-ambient-grey;
+      text-decoration: none;
+      font-size: 14px;
+      &:hover {
+        color: $color-ambient-rosa;
+        text-decoration: underline;
+      }
+    }
+
+  }
+
+  .eac-item div.item {
+    padding: 5px;
+    padding-left:15px;
+    display: inline-flex;
+    align-items: center;
+    width:100%;
+    &:hover {
+      background-color: $color-ambient-mint-light;
+      cursor: pointer;
+    }
+    .calendarSheet {display: none;}
+    &.Meeting {
+      img {display: none;}
+      .calendarSheet {
+        display: block;
+        transform: scale(0.8);
+        min-width:50px;
+        margin-left:-5px;
+        margin-right:5px;
+      }
+      &.-past {
+        .calendarSheet {
+          filter: grayscale(1);
+          opacity: 0.75;
+        }
+      }
+    }
+    &.RoomOffer, &.ToolOffer, &.Location, &.Group {
+      img {
+        @extend .img-square;
+      }
+    }
+    &.RoomDemand, &.User {
+      img {
+        @extend .img-round;
+      }
+    }
+  }
+
+  .img-square, .img-round {
+    margin-right:10px;
+    width:40px;
+    height:40px;
+    min-width:40px;
+    min-height:40px;
+  }
+
+  .txt {
+    @include ellipsis;
+    color: $color-font-primary;
+  }
+
+}
+
+// Search Result Page
+section.search-section {
+  .search-field-block {
+    margin-bottom:40px;
+  }
+}

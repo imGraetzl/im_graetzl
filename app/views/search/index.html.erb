@@ -1,76 +1,30 @@
-<% title('Suche') %>
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow',
+  )
+%>
 
 <section class="search-section">
 
-  <!-- Search Field-->
-  <%= form_tag search_path, method: :get do |f| %>
-  <%= hidden_field_tag :page, 1 %>
-    <div class="input-field search-form">
-      <label for="search">
+  <%= form_with url: search_results_path, remote: true, method: :get, class: 'cards-filter' do |f| %>
+    <div class="input-field search-field-block">
+      <%= f.label :q do %>
         <%= icon_tag "search" %>
-        <span>Suche</span>
-      </label>
-      <%= text_field_tag :q, params[:q], placeholder: 'Suchbegriff ...' %>
-      <div class="input-select label-right select-btn">
-        <select name="label" id="label">
-          <option value="all" selected>Suchen nach ...</option>
-          <option value="all" <%= params[:label] == 'all' ? 'selected' : nil %>>Alles</option>
-          <option value="location" <%= params[:label] == 'location' ? 'selected' : nil %>>Locations</option>
-          <option value="meeting" <%= params[:label] == 'meeting' ? 'selected' : nil %>>Treffen</option>
-          <option value="rooms" <%= params[:label] == 'rooms' ? 'selected' : nil %>>Raumteiler</option>
-          <option value="group" <%= params[:label] == 'group' ? 'selected' : nil %>>Gruppen</option>
-        </select>
-      </div>
+        <span>Suche nach ..</span>
+      <% end %>
+      <%= text_field_tag :q, params[:q], placeholder: 'Suchbegriff (mind. 3 Zeichen) ...', data: { behavior:"searchinput" }, :required => true %>
+    </div>
+    <div class="filter-selection-text-jbox">
+      Zeig mir Ergebnisse aus <%= link_to 'allen Bereichen', '#filter-modal-searchtype', data: { no_filter_label: 'allen Bereichen'} %>
+    </div>
+    <div id="filter-modal-searchtype" class="filter-modal-jbox oneclick">
+      <%= render 'filters/search_type' %>
     </div>
   <% end %>
-  <!-- /Search Field-->
 
-  <% if @results && !@results.items.empty? %>
-
-    <!-- Search Results-->
-    <div class="cardBoxCollection -tripple" data-behavior='search-card-container'>
-      <% @results.items.each do |item| %>
-        <% if item.pagemap.key?('document') && item.pagemap.document[0].type == 'location' %>
-          <%= render 'location', item: item %>
-        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'meeting' %>
-          <%= render 'meeting', item: item %>
-        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'room_offer' %>
-          <%= render 'room_offer', item: item %>
-        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'room_demand' %>
-          <%= render 'room_demand', item: item %>
-        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'district' %>
-          <%= render 'district', item: item %>
-        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'graetzl' %>
-          <%= render 'graetzl', item: item %>
-        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'group' %>
-          <%= render 'group', item: item %>
-        <% elsif item.pagemap.key?('document') && item.pagemap.document[0].type == 'room_call' %>
-          <%= render 'room_call', item: item %>
-        <% else %>
-          <%= render 'fallback', item: item %>
-        <% end %>
-      <% end %>
-    </div>
-    <!-- /Search Results-->
-
-    <!-- Pagination-->
-    <div class='pagination'>
-      <% if @results.previous_page %>
-      <%= link_to 'Zurück', search_path(q: params[:q], page: @results.previous_page, label: params[:label]), class: 'btn-secondary -grey' %>
-      <% end %>
-      <% @results.pages.times do |i| %>
-      <%= link_to i + 1, search_path(q: params[:q], page: i+1, label: params[:label]), :class => (params[:page].to_i == i+1 ? 'btn-primary -page' : 'btn-secondary -grey -page') %>
-      <% end %>
-      <% if @results.next_page %>
-      <%= link_to 'Weiter', search_path(q: params[:q], page: @results.next_page, label: params[:label]), class: 'btn-secondary -grey' %>
-      <% end %>
-    </div>
-    <!-- /Pagination -->
-
-  <% elsif @results %>
-
-    <p class="noresult">Nichts gefunden ...</p>
-
-  <% end %>
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="search-card-container"></div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'search-paginate-link' }, rel: 'nofollow' %>
+  </div>
 
 </section>
