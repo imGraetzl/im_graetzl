@@ -10,14 +10,6 @@
       <Attribute name="description"><%= @group.description[0..250].gsub(/\n/, " ") if @group.description? %></Attribute>
       <Attribute name="users_count"><%= @group.group_users.size %></Attribute>
     </DataObject>
-    <% @group.group_users.first(10).each do |group_user| %>
-    <DataObject type="members">
-      <Attribute name="src" value="<%= attachment_url(group_user.user, :avatar, :fill, 200, 200, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/user/100x100.png') %>" />
-    </DataObject>
-    <% end %>
-    <DataObject type="image">
-      <Attribute name="src" value="<%= attachment_url(@group, :cover_photo, :fill, 900, 540, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'cover_photo/980x370.png') %>" />
-    </DataObject>
   </PageMap>
   -->
 <% end %>

@@ -4,26 +4,30 @@ class MailchimpUserSubscribeJob < ApplicationJob
     list_id = Rails.application.secrets.mailchimp_list_id
     member_id = user.mailchimp_member_id
 
+    merge_fields = {
+      USERID: user.id,
+      FNAME: user.first_name,
+      LNAME: user.last_name,
+      USERROLE: user.business? ? 'business' : '',
+      GRAETZL: user.graetzl.name,
+      GR_URL: Rails.application.routes.url_helpers.graetzl_path(user.graetzl),
+      PLZ: user.graetzl.districts.first.try(:zip),
+      USERNAME: user.username,
+      PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
+      SIGNUP: user.created_at,
+      ORIGIN: user.origin? ? user.origin : '',
+      L_CATEGORY: user_location_category(user),
+      NL_STATE: user.newsletter? ? 'true' : 'false',
+    }
+
+    merge_fields.merge!(user_location(user))
+
     begin
       g = Gibbon::Request.new
       g.timeout = 30
       g.lists(list_id).members(member_id).upsert(body: {
         email_address: user.email, status: "subscribed",
-        merge_fields: {
-          USERID: user.id,
-          FNAME: user.first_name,
-          LNAME: user.last_name,
-          USERROLE: user.business? ? 'business' : '',
-          GRAETZL: user.graetzl.name,
-          GR_URL: Rails.application.routes.url_helpers.graetzl_path(user.graetzl),
-          PLZ: user.graetzl.districts.first.try(:zip),
-          USERNAME: user.username,
-          PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
-          SIGNUP: user.created_at,
-          ORIGIN: user.origin? ? user.origin : '',
-          L_CATEGORY: user_location_category(user),
-          NL_STATE: user.newsletter? ? 'true' : 'false',
-        },
+        merge_fields: merge_fields,
         interests: business_user_interests(user)
       })
       if user.newsletter?
@@ -44,6 +48,30 @@ class MailchimpUserSubscribeJob < ApplicationJob
     end
   end
 
+  def user_location(user)
+    if user.locations.approved.empty?
+      location_fieds = {
+        LOCATION: "",
+        L_URL: "",
+        L_PLZ: "",
+        L_GRAETZL: "",
+        L_GR_URL: "",
+      }
+    else
+      location = user.locations.approved.last
+      graetzl = location.graetzl
+      location_fieds = {
+        LOCATION: location.name,
+        L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
+        L_CATEGORY: location.location_category.try(:name),
+        L_PLZ: graetzl.districts.first.try(:zip),
+        L_GRAETZL: graetzl.name,
+        L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),
+      }
+    end
+    return location_fieds
+  end
+
   def business_user_interests(user)
     mailchimp_interests = {}
     user.try(:business_interests).each do |interest|
@@ -53,11 +81,7 @@ class MailchimpUserSubscribeJob < ApplicationJob
   end
 
   def user_location_category(user)
-    if user.locations.empty?
-      user.location_category.try(:name) ? user.location_category.try(:name) : ''
-    else
-      ''
-    end
+    user.location_category.try(:name) ? user.location_category.try(:name) : ''
   end
 
 end

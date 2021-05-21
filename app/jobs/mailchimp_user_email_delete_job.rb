@@ -1,4 +1,4 @@
-class MailchimpEmailDeleteJob < ApplicationJob
+class MailchimpUserEmailDeleteJob < ApplicationJob
 
   def perform(email)
     list_id = Rails.application.secrets.mailchimp_list_id
