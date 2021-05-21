@@ -12,8 +12,13 @@ APP.controllers.search = (function() {
           event.preventDefault();
 
           // Submit Form if Field not empty
-          if ($searchInput.val().length > 0) {
+          if ($searchInput.val().length >= 3) {
               APP.components.cardFilter.submitForm();
+              gtag(
+                'event', 'Search', {
+                'event_category': 'Searchpage :: Search',
+                'event_label': $searchInput.val()
+              });
           }
 
         });
