@@ -61,13 +61,13 @@ namespace :db do
       'Leerstand',
       'Sonstige Tätigkeit']
     location_categories.each do |c|
-      LocationCategory.create(name: c, context: LocationCategory.contexts[:business])
+      LocationCategory.create(name: c)
     end
 
     # add locations
     puts 'add locations'
     users = User.all
-    category = LocationCategory.business.first
+    category = LocationCategory.first
     2.times do
       users.each do |u|
         u.locations.create(

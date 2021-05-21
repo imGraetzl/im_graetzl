@@ -4,16 +4,6 @@
       <%= icon_tag('calendar-2') %>
       <div class="txt">Treffen & Termine</div>
     </div>
-
-    <% if user_signed_in? && @location.can_create_meeting?(current_user) %>
-      <%= link_to new_meeting_path(location_id: @location.id), class: 'btn-userCallToAction' do %>
-      <span>
-        <%= avatar_for current_user %>
-        Treffen hier starten
-        <%= icon_tag('plus') %>
-      </span>
-      <% end %>
-    <% end %>
   </div>
 
   <%= form_tag meetings_path(location_id: @location.id, per_page: 2), method: :get, remote: true, class: 'autosubmit-stream' do; end %>

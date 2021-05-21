@@ -4,6 +4,5 @@ context.instance_eval do
   column :position
   column :name
   column :icon
-  column(:context){|c| status_tag(c.context) }
   actions
 end

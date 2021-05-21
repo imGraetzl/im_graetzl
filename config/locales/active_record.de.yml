@@ -165,11 +165,6 @@ de:
         description: Beschreibung
         product_list: Produktgruppen
         products: Produkte
-        meeting_permission: Treffen ermöglichen
-        meeting_permissions:
-          meetable: Jeder kann Treffen hier starten
-          owner_meetable: Nur ich kann Treffen hier starten
-          non_meetable: Hier können keine Treffen stattfinden
         state: Status
         created_at: Erstellt am
         updated_at: Aktualisiert am

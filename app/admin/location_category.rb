@@ -3,14 +3,12 @@ ActiveAdmin.register LocationCategory do
   config.filters = false
 
   scope :all, default: true
-  scope :business
-  scope :recreation
 
   index { render 'index', context: self }
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :name, :icon, :context, :main_photo, :remove_main_photo, :position
+  permit_params :name, :icon, :main_photo, :remove_main_photo, :position
 
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
