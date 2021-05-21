@@ -13,7 +13,7 @@ APP.components.search = (function() {
 
     $input.on("input", function(){
       showSpinner();
-    })
+    });
 
     // Easy Autocomplete Logic
     var options = {

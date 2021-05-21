@@ -1,11 +1,11 @@
 json.rooms do
-  json.array!(@rooms) do |room|
+  json.array!(@results.select{|r| r.is_a?(RoomOffer) || r.is_a?(RoomDemand)}) do |room|
     json.type room.class.name
     json.name room.slogan
-    if room.class.name == 'RoomOffer'
+    if room.is_a?(RoomOffer)
       json.url room_offer_path(room)
       json.icon attachment_url(room, :cover_photo, :fill, 100, 100, fallback: 'avatar/room_offer/40x40.png')
-    else
+    elsif room.is_a?(RoomDemand)
       json.url room_demand_path(room)
       json.icon attachment_url(room, :avatar, :fill, 100, 100, fallback: 'avatar/room_demand/40x40.png')
     end
@@ -13,7 +13,7 @@ json.rooms do
 end
 
 json.meetings do
-  json.array!(@meetings) do |meeting|
+  json.array!(@results.select{|r| r.is_a?(Meeting)}) do |meeting|
     json.type meeting.class.name
     json.name meeting.name
     json.day meeting.starts_at_date.day
@@ -25,7 +25,7 @@ json.meetings do
 end
 
 json.locations do
-  json.array!(@locations) do |location|
+  json.array!(@results.select{|r| r.is_a?(Location)}) do |location|
     json.type location.class.name
     json.name location.name
     json.url graetzl_location_path(location.graetzl, location)
@@ -34,7 +34,7 @@ json.locations do
 end
 
 json.tool_offers do
-  json.array!(@tool_offers) do |tool_offer|
+  json.array!(@results.select{|r| r.is_a?(ToolOffer)}) do |tool_offer|
     json.type tool_offer.class.name
     json.name tool_offer.title
     json.url tool_offer_path(tool_offer)
@@ -43,7 +43,7 @@ json.tool_offers do
 end
 
 json.groups do
-  json.array!(@groups) do |group|
+  json.array!(@results.select{|r| r.is_a?(Group)}) do |group|
     json.type group.class.name
     json.name group.title
     json.url group_path(group)
