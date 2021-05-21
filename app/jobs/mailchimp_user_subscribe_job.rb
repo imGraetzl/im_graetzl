@@ -1,42 +1,5 @@
 class MailchimpUserSubscribeJob < ApplicationJob
 
-  def business_user_interests(user)
-    mailchimp_interests = {}
-    user.try(:business_interests).each do |interest|
-      mailchimp_interests[interest.mailchimp_id] = true if interest.mailchimp_id.present?
-    end
-    return mailchimp_interests
-  end
-
-  def user_location_category(user)
-    user.location_category.try(:name) ? user.location_category.try(:name) : ''
-  end
-
-  # LOCATION MERGE FIELDS
-  def user_location(user)
-    if user.locations.approved.empty?
-      location_fieds = {
-        LOCATION: "",
-        L_URL: "",
-        L_PLZ: "",
-        L_GRAETZL: "",
-        L_GR_URL: "",
-      }
-    else
-      location = user.locations.approved.last
-      graetzl = location.graetzl
-      location_fieds = {
-        LOCATION: location.name,
-        L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
-        L_CATEGORY: location.location_category.try(:name),
-        L_PLZ: graetzl.districts.first.try(:zip),
-        L_GRAETZL: graetzl.name,
-        L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),
-      }
-    end
-    return location_fieds
-  end
-
   def perform(user)
     list_id = Rails.application.secrets.mailchimp_list_id
     member_id = mailchimp_member_id(user)
@@ -85,8 +48,46 @@ class MailchimpUserSubscribeJob < ApplicationJob
     end
   end
 
+  private
+
   def mailchimp_member_id(user)
     Digest::MD5.hexdigest(user.email.downcase)
+  end
+
+  def user_location(user)
+    if user.locations.approved.empty?
+      location_fieds = {
+        LOCATION: "",
+        L_URL: "",
+        L_PLZ: "",
+        L_GRAETZL: "",
+        L_GR_URL: "",
+      }
+    else
+      location = user.locations.approved.last
+      graetzl = location.graetzl
+      location_fieds = {
+        LOCATION: location.name,
+        L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
+        L_CATEGORY: location.location_category.try(:name),
+        L_PLZ: graetzl.districts.first.try(:zip),
+        L_GRAETZL: graetzl.name,
+        L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),
+      }
+    end
+    return location_fieds
+  end
+
+  def business_user_interests(user)
+    mailchimp_interests = {}
+    user.try(:business_interests).each do |interest|
+      mailchimp_interests[interest.mailchimp_id] = true if interest.mailchimp_id.present?
+    end
+    return mailchimp_interests
+  end
+
+  def user_location_category(user)
+    user.location_category.try(:name) ? user.location_category.try(:name) : ''
   end
 
 end

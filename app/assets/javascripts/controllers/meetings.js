@@ -204,15 +204,18 @@ APP.controllers.meetings = (function() {
 
       // online meeting switch
       $('.online-meeting-switch').on('change', function() {
-        $('#online-address-fields').toggle($(this).val() == "true");
-        $('#input-address-fields').toggle($(this).val() != "true");
+        var showOnlineFields = $(this).val() == "true";
+        $('#meeting-online-fields').toggle(showOnlineFields);
+        $('#meeting-offline-fields').toggle(!showOnlineFields);
       })
       $('.online-meeting-switch:checked').trigger('change');
 
       // location field toggle
-      $('#location-address-select').on('change', function() {
-        $("#meeting-location-field").toggle(this.checked);
-        $('.select-location-input').attr("disabled", !this.checked);
+      $('.select-location-input').on('change', function() {
+        var street = $(this).find("option:selected").data("street");
+        if (street) {
+          $("#addressSearchAutocomplete [name=address]").val(street);
+        }
       }).trigger('change');
 
       // platform_meeting toggle

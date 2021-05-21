@@ -32,7 +32,6 @@ class Location < ApplicationRecord
   has_many :live_zuckerls, -> { live }, class_name: "Zuckerl"
 
   enum state: { pending: 0, approved: 1 }
-  enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
 
   scope :online_shop, -> { joins(:contact).where("online_shop != ? AND online_shop != ?", "NIL", "") }
 
@@ -45,12 +44,6 @@ class Location < ApplicationRecord
 
   def self.include_for_box
     includes(:location_posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
-  end
-
-  def self.meeting_permissions_for_select
-    meeting_permissions.map do |t|
-      [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :meeting_permissions]), t[0]]
-    end
   end
 
   def approve
@@ -70,7 +63,7 @@ class Location < ApplicationRecord
   end
 
   def can_create_meeting?(a_user)
-    meetable? || (owner_meetable? && owned_by?(a_user))
+    owned_by?(a_user)
   end
 
   def owned_by?(a_user)

@@ -148,7 +148,7 @@ class LocationsController < ApplicationController
   def location_params
     params.require(:location).permit(
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
-      :location_category_id, :meeting_permission, :product_list,
+      :location_category_id, :product_list,
       contact_attributes: [
         :id, :website, :online_shop, :email, :phone, :hours
       ],

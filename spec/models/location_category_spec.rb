@@ -18,11 +18,4 @@ RSpec.describe LocationCategory, type: :model do
     end
   end
 
-  describe 'attributes' do
-    let(:location_category) { build(:location_category) }
-
-    it 'has context' do
-      expect(location_category).to respond_to(:context)
-    end
-  end
 end

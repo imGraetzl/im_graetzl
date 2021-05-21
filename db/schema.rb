@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_14_104742) do
+ActiveRecord::Schema.define(version: 2021_05_21_112625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -370,7 +370,6 @@ ActiveRecord::Schema.define(version: 2021_05_14_104742) do
     t.string "name", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer "context", default: 0
     t.string "icon"
     t.string "main_photo_id"
     t.string "main_photo_content_type"
@@ -416,7 +415,6 @@ ActiveRecord::Schema.define(version: 2021_05_14_104742) do
     t.string "avatar_content_type"
     t.string "cover_photo_content_type"
     t.integer "state", default: 0
-    t.integer "meeting_permission", default: 0, null: false
     t.integer "location_category_id"
     t.datetime "last_activity_at"
     t.integer "user_id"
@@ -478,6 +476,7 @@ ActiveRecord::Schema.define(version: 2021_05_14_104742) do
     t.integer "address_id"
     t.text "online_description"
     t.jsonb "cover_photo_data"
+    t.string "online_url"
     t.index ["address_id"], name: "index_meetings_on_address_id"
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"
