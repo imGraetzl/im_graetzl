@@ -64,8 +64,12 @@ module MeetingsHelper
 
   def online_address(meeting)
     content_tag(:div, icon_tag("globe"), class: 'iconMapLink') +
-    if meeting.online_description?
+    if meeting.online_description? && meeting.online_url?
+      link_to(meeting.online_description, meeting.online_url, target: "blank")
+    elsif meeting.online_description?
       content_tag(:strong, meeting.online_description)
+    elsif meeting.online_url?
+      link_to(meeting.online_url, meeting.online_url, target: "blank")
     else
       content_tag(:strong, 'Online Event')
     end

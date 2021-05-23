@@ -50,7 +50,7 @@ class Location < ApplicationRecord
     if pending?
       approved!
       create_activity(:create)
-      UsersMailer.location_approved(self, self.boss).deliver_now
+      UsersMailer.location_approved(self, self.user).deliver_now
     end
   end
 
