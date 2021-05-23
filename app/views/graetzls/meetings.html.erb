@@ -28,7 +28,6 @@
       Zeige mir <%= link_to 'online & offline Events', '#filter-modal-type', data: { no_filter_label: 'online & offline Events'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
-      <!-- - Zur Aktion <%= link_to 'Selbstständige für Selbstständige', platform_meetings_wien_path, class: 'plain-link' %>-->
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/meeting_type' %>
@@ -44,7 +43,7 @@
       <%= render 'meetings/action_card', graetzl: @graetzl %>
     </div>
     <!-- Insert Featured Card -->
-    
+
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
 
