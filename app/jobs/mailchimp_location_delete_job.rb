@@ -3,7 +3,7 @@ class MailchimpLocationDeleteJob < ApplicationJob
   def perform(location)
     graetzl = location.graetzl
     list_id = Rails.application.secrets.mailchimp_list_id
-    member_id = mailchimp_member_id(location.boss)
+    member_id = mailchimp_member_id(location.user)
 
     begin
       g = Gibbon::Request.new
