@@ -137,7 +137,7 @@ class LocationsController < ApplicationController
   end
 
   def set_address(location)
-    if location.address?
+    if location.address
       resolver = AddressResolver.from_street(location.address.street)
       return if !resolver.valid?
       location.address.assign_attributes(resolver.address_fields)

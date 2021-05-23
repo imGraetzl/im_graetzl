@@ -214,7 +214,7 @@ APP.controllers.meetings = (function() {
       $('.select-location-input').on('change', function() {
         var street = $(this).find("option:selected").data("street");
         if (street) {
-          $("#addressSearchAutocomplete [name=address]").val(street);
+          $("#addressSearchAutocomplete .address-input").val(street);
         }
       }).trigger('change');
 
