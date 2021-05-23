@@ -252,18 +252,4 @@ RSpec.describe Location, type: :model do
     end
   end
 
-  describe '#build_meeting' do
-    let(:graetzl) { create :graetzl }
-    let(:location) { create :location, :approved, graetzl: graetzl }
-
-    subject(:meeting) { location.build_meeting }
-
-    it 'builds meeting in location graetzl' do
-      expect(meeting).to have_attributes(location: location, graetzl: graetzl)
-    end
-
-    it 'builds meeting without address' do
-      expect(meeting.address).to be_nil
-    end
-  end
 end

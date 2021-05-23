@@ -53,7 +53,7 @@ ActiveAdmin.register_page "Dashboard" do
               link_to location.name, admin_location_path(location)
             end
             column :user do |location|
-              link_to location.user, admin_user_path(location.user)
+              link_to location.user.username, admin_user_path(location.user)
             end
             column('status') { |location| status_tag(location.state) }
           end

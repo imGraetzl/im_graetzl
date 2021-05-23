@@ -68,10 +68,6 @@ class Group < ApplicationRecord
     User.where(id: user_ids)
   end
 
-  def build_meeting
-    meetings.build(address: Address.new)
-  end
-
   def next_meeting
     meetings.select{|m| m.starts_at_date >= Date.today}.min_by(&:starts_at_date)
   end

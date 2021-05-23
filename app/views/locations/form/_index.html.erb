@@ -91,7 +91,6 @@
   <%= render 'locations/form/contact_fields', f: f %>
 
   <div class="form-block">
-    <% f.object.build_address if f.object.address.nil? %>
     <%= render 'locations/form/address_fields', f: f %>
   </div>
 

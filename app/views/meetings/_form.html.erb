@@ -31,10 +31,6 @@
         <%= f.collection_select(:group_id, current_user.groups, :id, :title, { :id => 'meeting-group-select', :include_blank => 'Gruppe auswählen..'}) %>
       </div>
     <% end %>
-  </div>
-
-  <div class="meet-where">
-    <p><span>Wo</span> soll dein Treffen oder Veranstaltung stattfinden?</p>
 
     <% user_locations = current_user.locations.includes(:address) %>
     <% if user_locations.present? %>
@@ -44,9 +40,13 @@
           <span>Location</span>
         <% end %>
         <%= f.select(:location_id, user_locations.map{|l| [l.name, l.id, "data-street" => l.address&.street] },
-                    {include_blank: 'wähle deine Location'}, {class: 'select-location-input'}) %>
+                    {include_blank: 'Treffen mit deiner Location-Seite verknüpfen ..'}, {class: 'select-location-input'}) %>
       </div>
     <% end %>
+  </div>
+
+  <div class="meet-where">
+    <p><span>Wo</span> soll dein Treffen oder Veranstaltung stattfinden?</p>
 
     <div class="meeting-switch">
       <div class="input-radio">

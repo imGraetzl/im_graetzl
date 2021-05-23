@@ -33,7 +33,6 @@ class LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
     @location.user = current_user
-    set_address(@location)
 
     if @location.save
       redirect_enqueued
@@ -49,7 +48,6 @@ class LocationsController < ApplicationController
   def update
     @location = fetch_user_location(params[:id])
     @location.assign_attributes(location_params)
-    set_address(@location) if @location.address.changed?
     if @location.save
       redirect_to [@location.graetzl, @location]
     else
@@ -136,25 +134,13 @@ class LocationsController < ApplicationController
     redirect_to root_url, notice: 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
   end
 
-  def set_address(location)
-    if location.address
-      resolver = AddressResolver.from_street(location.address.street)
-      return if !resolver.valid?
-      location.address.assign_attributes(resolver.address_fields)
-      location.graetzl = resolver.graetzl
-    end
-  end
-
   def location_params
     params.require(:location).permit(
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
-      :location_category_id, :product_list,
+      :location_category_id, :product_list, :full_address, :address_description,
       contact_attributes: [
         :id, :website, :online_shop, :email, :phone, :hours
       ],
-      address_attributes: [
-        :id, :street_name, :street_number, :zip, :city, :_destroy
-      ]
     )
   end
 
