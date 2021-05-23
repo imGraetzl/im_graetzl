@@ -108,13 +108,15 @@ class Meeting < ApplicationRecord
 
   def full_address=(value)
     return if full_address == value
-    resolver = AddressResolver.from_street(value)
-    if resolver.valid?
+
+    if value.present?
+      resolver = AddressResolver.from_street(value)
+      return if !resolver.valid?
       build_address if address.nil?
       self.address.assign_attributes(resolver.address_fields)
       self.graetzl = resolver.graetzl
     else
-      errors.add(:street, :not_found)
+      self.address&.mark_for_destruction
     end
   end
 
@@ -123,8 +125,12 @@ class Meeting < ApplicationRecord
   end
 
   def address_description=(value)
-    build_address if address.nil? && value.present?
-    address.description = value
+    if value.present?
+      build_address if address.nil?
+      address.description = value
+    else
+      self.address&.description = nil
+    end
   end
 
   def display_address

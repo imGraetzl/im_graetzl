@@ -104,17 +104,7 @@ ActiveAdmin.register Location do
       :zip,
       :city,
       :coordinates,
-      :description],
-    billing_address_attributes: [
-      :id,
-      :_destroy,
-      :first_name,
-      :last_name,
-      :company,
-      :street,
-      :zip,
-      :city,
-      :country]
+      :description]
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
   controller do

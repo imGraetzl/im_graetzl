@@ -14,8 +14,7 @@ class Location < ApplicationRecord
   belongs_to :user
   belongs_to :graetzl
   has_many :districts, through: :graetzl
-  belongs_to :address, optional: true
-  accepts_nested_attributes_for :address
+  belongs_to :address, optional: true, autosave: true
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
@@ -74,8 +73,35 @@ class Location < ApplicationRecord
     self.contact.online_shop.present?
   end
 
-  def build_meeting
-    meetings.build(graetzl_id: graetzl_id)
+  def full_address
+    address&.street
+  end
+
+  def full_address=(value)
+    return if full_address == value
+
+    if value.present?
+      resolver = AddressResolver.from_street(value)
+      return if !resolver.valid?
+      build_address if address.nil?
+      self.address.assign_attributes(resolver.address_fields)
+      self.graetzl = resolver.graetzl
+    else
+      self.address&.mark_for_destruction
+    end
+  end
+
+  def address_description
+    address&.description
+  end
+
+  def address_description=(value)
+    if value.present?
+      build_address if address.nil?
+      address.description = value
+    else
+      self.address&.description = nil
+    end
   end
 
   def actual_newest_post

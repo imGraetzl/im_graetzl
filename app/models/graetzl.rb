@@ -35,8 +35,4 @@ class Graetzl < ApplicationRecord
     Zuckerl.live.joins(:graetzl).where(graetzls: { id: related_graetzl_ids}).or(Zuckerl.live.all_districts.joins(:graetzl))
   end
 
-  def build_meeting
-    meetings.build(address: Address.new)
-  end
-
 end
