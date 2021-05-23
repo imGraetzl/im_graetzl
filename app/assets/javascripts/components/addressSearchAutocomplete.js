@@ -19,7 +19,7 @@ APP.components.addressSearchAutocomplete = function() {
   });
   addressSearch.initialize();
 
-  container.find("[name=address]").typeahead(null, {
+  container.find("[name=address], .address-input").typeahead(null, {
     name: 'addresse',
     source: addressSearch.ttAdapter(),
     displayKey: function(data) {

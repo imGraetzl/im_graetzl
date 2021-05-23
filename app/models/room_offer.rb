@@ -51,7 +51,6 @@ class RoomOffer < ApplicationRecord
   validates_presence_of :room_rental_price, if: :rental_enabled?
   validate :has_one_category_at_least
 
-  before_save :set_district
   before_create :set_last_activated_at
   before_update :create_update_activity?
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
@@ -90,11 +89,12 @@ class RoomOffer < ApplicationRecord
     end
   end
 
-  private
-
-  def set_district
-    self.district ||= graetzl.district if graetzl.present?
+  def graetzl=(value)
+    super
+    self.district ||= value.district if value.present?
   end
+
+  private
 
   def has_one_category_at_least
     if room_categories.empty?
