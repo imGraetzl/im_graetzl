@@ -8,7 +8,7 @@ module AttachmentsHelper
     if resource.nil?
       fallback = "http://via.placeholder.com/200x200"
     else
-      fallback = "avatar/#{resource.model_name.human.downcase}/200x200.png"
+      fallback = "avatar/#{resource.model_name.singular}/200x200.png"
     end
     attachment_image_tag(resource, :avatar, :fill, size, size, class: css_class, fallback: fallback)
   end
