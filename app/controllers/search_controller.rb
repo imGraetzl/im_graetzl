@@ -2,28 +2,20 @@ class SearchController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if params[:q]
-
-      searchterm = params[:q]
-      page = params[:page] || 1
-      label = ''
-      sort = ''
-      searchable = ' more:pagemap:document-searchable:true'
-
-      if (params[:label] && params[:label] != 'all')
-        label = " more:pagemap:document-type:" + params[:label]
-      end
-
-      if (params[:label] && params[:label] == 'rooms')
-        label = " more:pagemap:document-type:room_offer OR more:pagemap:document-type:room_demand"
-      end
-
-      if params[:label] == 'meeting'
-        sort = "document-startDate"
-      end
-
-      @results = GoogleCustomSearchApi.search(searchterm + label + searchable, sort: sort, page: page, num:9, as_sitesearch: params[:as_sitesearch])
-
-    end
   end
+
+  def autocomplete
+    @results = SearchService.new(params[:q]).sample
+    respond_to { |format| format.json }
+  end
+
+  def results
+    head :ok and return if browser.bot? && !request.format.js?
+    @results = SearchService.new(params[:q], search_params).search
+  end
+
+  def search_params
+    params.permit(:page, :per_page).merge(type: params.dig(:filter, :search_type))
+  end
+
 end

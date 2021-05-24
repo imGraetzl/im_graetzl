@@ -14,6 +14,7 @@ APP.controllers.locations = (function() {
     function initLocationForm() {
 
         APP.components.formValidation.init();
+        APP.components.addressSearchAutocomplete();
 
         $("#location_description, #location_contact_attributes_hours").autogrow({
             onInitialize: true

@@ -10,8 +10,7 @@ class Location < ApplicationRecord
   belongs_to :user
   belongs_to :graetzl
   has_many :districts, through: :graetzl
-  belongs_to :address, optional: true
-  accepts_nested_attributes_for :address
+  belongs_to :address, optional: true, autosave: true
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
@@ -28,7 +27,6 @@ class Location < ApplicationRecord
   has_many :live_zuckerls, -> { live }, class_name: "Zuckerl"
 
   enum state: { pending: 0, approved: 1 }
-  enum meeting_permission: { meetable: 0, owner_meetable: 1, non_meetable: 2 }
 
   scope :online_shop, -> { joins(:contact).where("online_shop != ? AND online_shop != ?", "NIL", "") }
 
@@ -41,12 +39,6 @@ class Location < ApplicationRecord
 
   def self.include_for_box
     includes(:location_posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
-  end
-
-  def self.meeting_permissions_for_select
-    meeting_permissions.map do |t|
-      [I18n.t(t[0], scope: [:activerecord, :attributes, :location, :meeting_permissions]), t[0]]
-    end
   end
 
   def approve
@@ -66,7 +58,7 @@ class Location < ApplicationRecord
   end
 
   def can_create_meeting?(a_user)
-    meetable? || (owner_meetable? && owned_by?(a_user))
+    owned_by?(a_user)
   end
 
   def owned_by?(a_user)
@@ -77,8 +69,35 @@ class Location < ApplicationRecord
     self.contact.online_shop.present?
   end
 
-  def build_meeting
-    meetings.build(graetzl_id: graetzl_id)
+  def full_address
+    address&.street
+  end
+
+  def full_address=(value)
+    return if full_address == value
+
+    if value.present?
+      resolver = AddressResolver.from_street(value)
+      return if !resolver.valid?
+      build_address if address.nil?
+      self.address.assign_attributes(resolver.address_fields)
+      self.graetzl = resolver.graetzl
+    else
+      self.address&.mark_for_destruction
+    end
+  end
+
+  def address_description
+    address&.description
+  end
+
+  def address_description=(value)
+    if value.present?
+      build_address if address.nil?
+      address.description = value
+    else
+      self.address&.description = nil
+    end
   end
 
   def actual_newest_post

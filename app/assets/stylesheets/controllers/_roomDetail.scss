@@ -61,7 +61,6 @@ section.roomDetail {
     .imgHeader {
       position: relative;
       z-index: 10;
-      overflow: visible;
 
       @include respond-to(">=medium") {
         max-height: 420px;

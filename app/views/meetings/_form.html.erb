@@ -1,9 +1,7 @@
 <%= form_for @meeting do |f| %>
-  <%= f.hidden_field :graetzl_id %>
-  <%= f.hidden_field :location_id %>
-  <%= f.hidden_field :group_id %>
-
   <%= form_errors_for @meeting %>
+
+  <%= f.hidden_field :graetzl_id %>
 
   <div class="meet-what">
     <p><span>Was</span> für ein Treffen oder Veranstaltung planst du genau?</p>
@@ -33,6 +31,18 @@
         <%= f.collection_select(:group_id, current_user.groups, :id, :title, { :id => 'meeting-group-select', :include_blank => 'Gruppe auswählen..'}) %>
       </div>
     <% end %>
+
+    <% user_locations = current_user.locations.includes(:address) %>
+    <% if user_locations.present? %>
+      <div class="input-select">
+        <%= f.label :location_id do %>
+          <%= icon_tag "label-tag" %>
+          <span>Location</span>
+        <% end %>
+        <%= f.select(:location_id, user_locations.map{|l| [l.name, l.id, "data-street" => l.address&.street] },
+                    {include_blank: 'Treffen mit deiner Location-Seite verknüpfen ..'}, {class: 'select-location-input'}) %>
+      </div>
+    <% end %>
   </div>
 
   <div class="meet-where">
@@ -50,31 +60,13 @@
       </div>
     </div>
 
-    <div class="input-field" id="online-address-fields">
-      <%= f.label :online_description do %>
-        <%= icon_tag "globe" %>
-        <span>Online Tool</span>
-      <% end %>
-      <%= f.text_field :online_description, placeholder: 'z.B.: Zoom, Skype, etc.' %>
+    <div id="meeting-online-fields">
+      <%= render "meetings/form/online_fields", f: f %>
     </div>
 
-    <%= render "meetings/form/address_fields", f: f %>
-
-    <% if current_user.locations.present? %>
-      <div class="input-checkbox">
-        <%= check_box_tag 'location-address-select', 1, f.object.location, id: 'location-address-select' %>
-        <%= label_tag 'location-address-select', 'Hat mit meiner wirtschaftlichen oder kreativen Tätigkeit zu tun.' %>
-      </div>
-
-      <div id="meeting-location-field" class="input-select">
-        <%= f.label :location_id do %>
-          <%= icon_tag "label-tag" %>
-          <span>Location</span>
-        <% end %>
-        <%= f.select(:location_id, current_user.locations.collect {|l| [l.name, l.id] },
-                    {include_blank: 'wähle deine Location'}, {class: 'select-location-input'}) %>
-      </div>
-    <% end %>
+    <div id="meeting-offline-fields">
+      <%= render "meetings/form/address_fields", f: f %>
+    </div>
   </div>
 
   <div class="meet-when">

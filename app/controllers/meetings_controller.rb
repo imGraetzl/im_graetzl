@@ -22,7 +22,7 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
-    set_address(@meeting, params[:feature])
+    @meeting.address = nil if @meeting.online_meeting?
     @meeting.user = current_user.admin? ? User.find(params[:user_id]) : current_user
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
 
@@ -44,7 +44,8 @@ class MeetingsController < ApplicationController
   def update
     @meeting = find_user_meeting
     @meeting.assign_attributes(meeting_params)
-    set_address(@meeting, params[:feature]) if params[:feature].present? || @meeting.address.changed?
+    @meeting.address = nil if @meeting.online_meeting?
+
     @meeting.state = :active
     if @meeting.platform_meeting_join_request.no?
       @meeting.platform_meeting = false
@@ -175,22 +176,6 @@ class MeetingsController < ApplicationController
     meetings
   end
 
-  def set_address(meeting, json = nil)
-    if json.present?
-      resolver = AddressResolver.from_json(json)
-      return if !resolver.valid?
-      meeting.build_address(resolver.address_fields)
-      meeting.graetzl = resolver.graetzl
-    elsif meeting.address
-      p "ADRESSS"
-      resolver = AddressResolver.from_street(meeting.address.street)
-      return if !resolver.valid?
-      p "VALIIID"
-      meeting.address.assign_attributes(resolver.address_fields)
-      meeting.graetzl = resolver.graetzl
-    end
-  end
-
   def meeting_params
     params.require(:meeting).permit(
       :graetzl_id,
@@ -204,9 +189,12 @@ class MeetingsController < ApplicationController
       :cover_photo,
       :remove_cover_photo,
       :location_id,
+      :full_address,
+      :address_description,
       :platform_meeting,
       :online_meeting,
       :online_description,
+      :online_url,
       :amount,
       event_category_ids: [],
       meeting_additional_dates_attributes: [
@@ -215,9 +203,6 @@ class MeetingsController < ApplicationController
       platform_meeting_join_request_attributes: [
         :id, :status, :request_message, :_destroy
       ],
-      address_attributes: [
-        :id, :description, :street_name, :street_number, :zip, :city
-      ]
     )
   end
 
@@ -228,9 +213,7 @@ class MeetingsController < ApplicationController
   end
 
   def initialize_meeting
-    if params[:location_id].present?
-      Meeting.new(location: Location.find(params[:location_id]))
-    elsif params[:group_id].present?
+    if params[:group_id].present?
       Meeting.new(group: Group.find(params[:group_id]))
     elsif params[:graetzl_id].present?
       Meeting.new(graetzl: Graetzl.find(params[:graetzl_id]))

@@ -14,9 +14,18 @@ class Group < ApplicationRecord
   has_many :discussions, dependent: :destroy
   has_many :discussion_posts, through: :discussions
 
-  has_many :group_users, -> { includes(:user) }
+  has_many :group_users
   has_many :users, through: :group_users
   accepts_nested_attributes_for :group_users, allow_destroy: true, reject_if: :all_blank
+
+  has_many :group_admins, -> { where(role: 'admin') }, class_name: "GroupUser", inverse_of: :group
+  has_many :admins, through: :group_admins, source: :user
+
+  has_many :group_members, -> { where(role: 'member') }, class_name: "GroupUser", inverse_of: :group
+  has_many :members, through: :group_members, source: :user
+
+  has_many :group_active_members, -> { where(role: 'member').where('last_activity_at IS NOT NULL') }, class_name: "GroupUser", inverse_of: :group
+  has_many :active_members, through: :group_active_members, source: :user
 
   has_many :group_join_questions
   accepts_nested_attributes_for :group_join_questions, allow_destroy: true, reject_if: :all_blank
@@ -41,7 +50,7 @@ class Group < ApplicationRecord
   scope :featured, -> { where(featured: true) }
 
   def self.include_for_box
-    includes(:group_categories, group_users: :user)
+    includes(:group_categories, :admins)
   end
 
   def to_s
@@ -52,50 +61,45 @@ class Group < ApplicationRecord
     room_call || room_offer || room_demand || location
   end
 
-  def admins
-    group_users.select{|gu| gu.admin? }.map(&:user)
-  end
-
-  def members
-    group_users.select{|gu| gu.member? }.map(&:user)
-  end
-
-  def active_members
-    group_users.select{|gu| gu.member? && gu.last_activity_at? }.sort_by(&:last_activity_at).reverse.map(&:user)
-  end
-
-  def build_meeting
-    meetings.build(address: Address.new)
+  def last_active_members(size)
+    user_ids = group_active_members.order("last_activity_at DESC").first(size).pluck(:user_id)
+    User.where(id: user_ids)
   end
 
   def next_meeting
     meetings.select{|m| m.starts_at_date >= Date.today}.min_by(&:starts_at_date)
   end
 
+  def admin?(user)
+    cached_user_role(user) == "admin"
+  end
+
+  def member?(user)
+    cached_user_role(user) == "member"
+  end
+
+  def in_group?(user)
+    admin?(user) || member?(user)
+  end
+
   def readable_by?(user)
     if private?
-      user && group_users.any?{|gu| gu.user == user}
+      in_group?(user)
     else
       true
     end
   end
 
   def postable_by?(user)
-    user && group_users.any?{|gu| gu.user == user}
-    # Use the following if only Admins should be able to create content:
-    #if default_joined?
-    #  admins.include?(user)
-    #else
-    #  user && group_users.any?{|gu| gu.user == user}
-    #end
+    in_group?(user)
   end
 
   def commentable_by?(user)
-    user && group_users.any?{|gu| gu.user == user}
+    in_group?(user)
   end
 
   def room_call_readable_by?(user)
-    room_call_id? && admins.include?(user)
+    room_call_id? && admin?(user)
   end
 
   def user_join_request(group_user)
@@ -107,4 +111,12 @@ class Group < ApplicationRecord
     room_call.room_call_submissions.find{|jr| jr.user_id == user_id }
   end
 
+  private
+
+  # Cached DB request to avoid loading all users in memory
+  def cached_user_role(user)
+    return 'none' if user.nil?
+    @user_members ||= {}
+    @user_members[user.id] ||= group_users.find_by(user_id: user.id)&.role || 'none'
+  end
 end

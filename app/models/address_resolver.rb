@@ -9,7 +9,7 @@ class AddressResolver
   def self.from_street(street)
     params = { address: street, crs: 'EPSG:4326' }
     results = HTTParty.get("#{SEARCH_URL}?#{params.to_query}")
-    new(results['features'].first)
+    new(results['features']&.first)
   end
 
   def initialize(feature)
@@ -38,7 +38,7 @@ class AddressResolver
 
   def coordinates
     # Maybe we can just use @feature['geometry']['coordinates'] ?
-    p RGeo::GeoJSON.decode(@feature['geometry'], json_parser: :json)
+    RGeo::GeoJSON.decode(@feature['geometry'], json_parser: :json)
   end
 
 end

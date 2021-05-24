@@ -1,0 +1,6 @@
+<% filter_search_types.each do |label, filterlabel, value| %>
+  <div class="input-radio filter-input filter-search-type">
+    <%= radio_button :filter, :search_type, value, data: { label: filterlabel, filter_label: 'Search :: Type' }, :checked => (params[:search_type] == value || value == '') %>
+    <%= label_tag "filter_search_type_#{value}", label %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+<div class="input-field">
+  <%= f.label :online_description do %>
+    <%= icon_tag "globe" %>
+    <span>Online Tool</span>
+  <% end %>
+  <%= f.text_field :online_description, placeholder: 'z.B.: Zoom, Skype, etc.' %>
+</div>
+
+<div class="input-field">
+  <%= f.label :online_url do %>
+    <%= icon_tag "globe" %>
+    <span>URL</span>
+  <% end %>
+  <%= f.url_field :online_url, placeholder: 'http:// oder https://' %>
+</div>

@@ -8,8 +8,6 @@
   )
 %>
 
-<%= render 'pagemap' %>
-
 <section class="graetzls">
   <%= render 'map' %>
   <%= render 'navigation' %>
@@ -18,8 +16,7 @@
 
     <%= form_tag activities_path, method: :get, remote: true, class: 'cards-filter' do %>
       <div class="filter-selection-text-jbox">
-        Neues aus <%= link_to "#{@graetzl.name}", '#filter-modal-activity', data: { no_filter_label: @graetzl.name} %> -
-        Zur Aktion <%= link_to 'Selbstständige für Selbstständige', platform_meetings_wien_path, class: 'plain-link' %>
+        Neues aus dem <%= link_to "#{@graetzl.name}", '#filter-modal-activity', data: { no_filter_label: "Grätzl #{@graetzl.name}"} %>
       </div>
       <div id="filter-modal-activity" class="filter-modal-jbox oneclick">
         <%= render 'filters/graetzl', graetzl_ids: @graetzl.id, district_ids: @graetzl.district.id, graetzl: @graetzl %>

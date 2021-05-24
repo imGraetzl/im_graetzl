@@ -1,4 +1,4 @@
-<% @group.active_members.first(21 - @group.admins.size).each do |user| %>
+<% @group.last_active_members(21 - @group.admins.size).each do |user| %>
   <div class="user">
     <div class="avatar">
       <%= link_to user_path(user) do %>

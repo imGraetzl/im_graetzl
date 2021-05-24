@@ -37,7 +37,7 @@
         <span><%= Location.human_attribute_name(:location_category) %></span>
       <% end %>
       <%= f.collection_select :location_category_id,
-                              LocationCategory.business.all, :id, :name,
+                              LocationCategory.all, :id, :name,
                               { prompt: 'Um welche Art von Location handelt es sich..' } %>
     </div>
 
@@ -93,19 +93,7 @@
   <%= render 'locations/form/contact_fields', f: f %>
 
   <div class="form-block">
-    <% f.object.build_address if f.object.address.nil? %>
     <%= render 'locations/form/address_fields', f: f %>
-  </div>
-
-  <div class="form-block">
-    <p class="txt">Zusätzliche <span>Einstellungen</span></p>
-    <div class="input-select">
-      <%= f.label :meeting_permission do %>
-        <%= icon_tag "users" %>
-        <span><%= Location.human_attribute_name(:meeting_permission) %></span>
-      <% end %>
-      <%= f.select :meeting_permission, options_for_select(Location.meeting_permissions_for_select) %>
-    </div>
   </div>
 
   <%= f.button data: { disable_with: 'speichert...' }, class: 'btn-primary' %>

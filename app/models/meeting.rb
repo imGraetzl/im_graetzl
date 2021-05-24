@@ -9,14 +9,12 @@ class Meeting < ApplicationRecord
   has_many :meeting_additional_dates, dependent: :destroy
   accepts_nested_attributes_for :meeting_additional_dates, allow_destroy: true, reject_if: :all_blank
 
+  belongs_to :address, optional: true, autosave: true
   belongs_to :location, optional: true
   belongs_to :user, optional: true
   belongs_to :group, optional: true
   belongs_to :meeting_category, optional: true
   has_and_belongs_to_many :event_categories
-
-  belongs_to :address, optional: true
-  accepts_nested_attributes_for :address
 
   has_many :going_tos, dependent: :nullify
   accepts_nested_attributes_for :going_tos, allow_destroy: true
@@ -62,7 +60,7 @@ class Meeting < ApplicationRecord
   validates :graetzl, presence: true
   validate :starts_at_date_cannot_be_in_the_past, on: :create
 
-  before_save :set_graetzl
+  before_validation :set_graetzl
   before_create :set_privacy
   after_create :update_location_activity
 
@@ -100,6 +98,37 @@ class Meeting < ApplicationRecord
 
   def tax
     (amount_netto * 0.20).round(2)
+  end
+
+  def full_address
+    address&.street
+  end
+
+  def full_address=(value)
+    return if full_address == value
+
+    if value.present?
+      resolver = AddressResolver.from_street(value)
+      return if !resolver.valid?
+      build_address if address.nil?
+      self.address.assign_attributes(resolver.address_fields)
+      self.graetzl = resolver.graetzl
+    else
+      self.address&.mark_for_destruction
+    end
+  end
+
+  def address_description
+    address&.description
+  end
+
+  def address_description=(value)
+    if value.present?
+      build_address if address.nil?
+      address.description = value
+    else
+      self.address&.description = nil
+    end
   end
 
   def display_address

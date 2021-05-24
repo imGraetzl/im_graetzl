@@ -4,6 +4,7 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
+    APP.components.search.init();
     jBoxGallery();
 
     FastClick.attach(document.body);

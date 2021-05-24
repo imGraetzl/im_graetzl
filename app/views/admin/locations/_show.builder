@@ -16,7 +16,6 @@ context.instance_eval do
           row :graetzl
           row :slogan
           row :description
-          row(:meeting_permission){|l| status_tag(l.meeting_permission)}
           row :cover_photo do |l|
             l.cover_photo && image_tag(l.cover_photo_url(:small))
           end

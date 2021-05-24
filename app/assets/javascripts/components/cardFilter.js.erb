@@ -221,6 +221,7 @@ APP.components.cardFilter = (function() {
       updateFilterInputs(currentModalContent);
       updateFilterLabels(currentModalContent);
       submitForm();
+      gtag_tracking(currentModalContent);
       modals[currentModalId].close();
     });
 
@@ -414,7 +415,7 @@ APP.components.cardFilter = (function() {
   function showSpinner() {
     var spinner = $('footer .loading-spinner').clone().removeClass('-hidden');
     if (!cardGrid.find('.loading-spinner').exists()) {
-      cardGrid.append(spinner);
+      cardGrid.html(spinner);
     }
   }
 
@@ -490,6 +491,7 @@ APP.components.cardFilter = (function() {
     init: init,
     submitForm : submitForm,
     updateFilterLabels : updateFilterLabels,
+    showSpinner : showSpinner,
     gtag_tracking : gtag_tracking
   };
 

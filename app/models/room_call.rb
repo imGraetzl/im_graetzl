@@ -35,7 +35,6 @@ class RoomCall < ApplicationRecord
   validates_presence_of :address, :title, :starts_at, :ends_at, :opens_at, :description, :about_us, :about_partner,
   :cover_photo, :first_name, :last_name, :email, :room_call_fields
 
-  before_create :set_district
   after_create :set_group
 
   scope :open_calls, -> { where("starts_at <= current_date AND ends_at >= current_date") }
@@ -52,11 +51,12 @@ class RoomCall < ApplicationRecord
     "#{address.street}, #{address.zip} #{address.city}"
   end
 
-  private
-
-  def set_district
-    self.district = graetzl.district
+  def graetzl=(value)
+    super
+    self.district ||= value.district if value.present?
   end
+
+  private
 
   def set_group
     self.create_group(

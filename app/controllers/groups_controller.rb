@@ -2,7 +2,6 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :authenticate_admin_user!, only: [:create, :new] # New: Create Groups only for Admin Users
 
-
   def index
     head :ok and return if browser.bot? && !request.format.js?
     @groups = collection_scope.include_for_box
@@ -12,7 +11,6 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @group.group_users.to_a # Preload users
   end
 
   def new
