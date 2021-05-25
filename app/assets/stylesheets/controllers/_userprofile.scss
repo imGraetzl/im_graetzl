@@ -17,6 +17,23 @@ section.userprofile {
       }
     }
 
+    .imgWrapper {
+      background-position: center center;
+      background-size: cover;
+      height:150px;
+    }
+
+    @include respond-to(">=medium") {
+      .imgWrapper {
+        height:240px;
+      }
+    }
+    @include respond-to(">=large") {
+      .imgWrapper {
+        height:260px;
+      }
+    }
+
   }
 
   .titleHeadline {

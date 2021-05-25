@@ -16,7 +16,7 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= attachment_image_tag(@user, :cover_photo, :fill, 980, 200, class: 'titleImg', fallback: 'cover_photo/980x370.png', width:980, height:200) %>
+    <div class="imgWrapper" style="background-image:url('<%= attachment_url(@user, :cover_photo, :limit, 980, 980) %>')"></div>
   </div>
 
   <div class="userContent">
