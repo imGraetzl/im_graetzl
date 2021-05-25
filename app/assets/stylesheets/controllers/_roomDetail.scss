@@ -63,23 +63,21 @@ section.roomDetail {
       z-index: 10;
 
       .imgWrapper {
-        background-position: center center;
-        background-size: cover;
-        height:380px;
+        height:300px;
         margin-top:-30px;
         margin-bottom:30px;
       }
 
       @include respond-to(">=medium") {
-        max-height:420px;
         .imgWrapper {
-          height:420px;
+          height:380px;
           margin-top:0px;
           margin-bottom:0px;
         }
       }
       @include respond-to(">=large") {
         .imgWrapper {
+          height:420px;
           border-bottom: 10px solid $color-ambient-mint-light;
         }
       }
@@ -350,6 +348,15 @@ section.roomDetail {
     .titleHeadline {
       .category-tags {
         margin: 20px -5px 20px;
+
+        display: flex;
+        flex-wrap:wrap;
+        justify-content: center;
+
+        @include respond-to(">=medium") {
+          justify-content: left;
+        }
+
       }
       @include respond-to(">=medium") {
         color: $color-ambient-mint;

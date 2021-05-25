@@ -9,8 +9,6 @@ section.meeting {
     }
 
     .imgWrapper {
-      background-position: center center;
-      background-size: cover;
       height:260px;
     }
 
@@ -20,7 +18,6 @@ section.meeting {
       }
     }
     @include respond-to(">=large") {
-      max-height: 400px;
       .imgWrapper {
         height:400px;
       }
