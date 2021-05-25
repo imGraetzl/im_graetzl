@@ -19,11 +19,11 @@ class SearchService
     return [] if @query.length < 3
 
     results = []
-    results += search_rooms if @options[:type].blank? || @options[:type] == 'rooms'
     results += search_meetings if @options[:type].blank? || @options[:type] == 'meetings'
-    results += search_locations if @options[:type].blank? || @options[:type] == 'locations'
-    results += search_tools if @options[:type].blank? || @options[:type] == 'tool_offers'
     results += search_groups if @options[:type].blank? || @options[:type] == 'groups'
+    results += search_locations if @options[:type].blank? || @options[:type] == 'locations'
+    results += search_rooms if @options[:type].blank? || @options[:type] == 'rooms'
+    results += search_tools if @options[:type].blank? || @options[:type] == 'tool_offers'
 
     Kaminari.paginate_array(results).page(@options[:page]).per(@options[:per_page] || 15)
   end
@@ -41,7 +41,7 @@ class SearchService
   end
 
   def search_meetings
-    Meeting.where("name ILIKE :q", q: like_query).order('starts_at_date DESC')
+    Meeting.upcoming.where("name ILIKE :q", q: like_query).order('starts_at_date DESC')
   end
 
   def search_locations
