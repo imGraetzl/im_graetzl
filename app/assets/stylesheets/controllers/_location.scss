@@ -9,8 +9,27 @@ section.location-page {
     position: relative;
     z-index: 10;
     overflow: visible;
+
+    .imgWrapper {
+      background-position: center center;
+      background-size: cover;
+      height:180px;
+      margin-top:-30px;
+      margin-bottom:30px;
+    }
+
+    @include respond-to(">=medium") {
+      max-height:420px;
+      .imgWrapper {
+        height:320px;
+        margin-top:0px;
+        margin-bottom:0px;
+      }
+    }
     @include respond-to(">=large") {
-      min-height: 370px;
+      .imgWrapper {
+        height:380px;
+      }
     }
 
     .dropdown-container {

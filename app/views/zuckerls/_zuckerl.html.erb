@@ -26,7 +26,7 @@
         <% if location.address %>
           <div class="address">
             <%= icon_tag "location" %>
-            <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
+            <%= location.address.street %>
           </div>
         <% end %>
       </div>

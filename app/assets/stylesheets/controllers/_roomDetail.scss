@@ -62,12 +62,26 @@ section.roomDetail {
       position: relative;
       z-index: 10;
 
+      .imgWrapper {
+        background-position: center center;
+        background-size: cover;
+        height:380px;
+        margin-top:-30px;
+        margin-bottom:30px;
+      }
+
       @include respond-to(">=medium") {
-        max-height: 420px;
+        max-height:420px;
+        .imgWrapper {
+          height:420px;
+          margin-top:0px;
+          margin-bottom:0px;
+        }
       }
       @include respond-to(">=large") {
-        min-height: 420px;
-        .titleImg {border-bottom: 10px solid $color-ambient-mint-light;}
+        .imgWrapper {
+          border-bottom: 10px solid $color-ambient-mint-light;
+        }
       }
 
       .introtxt {

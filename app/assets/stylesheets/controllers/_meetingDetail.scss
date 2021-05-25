@@ -1,12 +1,31 @@
 section.meeting {
   @include cf;
   .imgHeader {
+
+    margin-bottom: 20px;
+
     @include respond-to(">=medium") {
       margin-bottom: -50px;
     }
-    @include respond-to(">=large") {
-      height:370px;
+
+    .imgWrapper {
+      background-position: center center;
+      background-size: cover;
+      height:260px;
     }
+
+    @include respond-to(">=medium") {
+      .imgWrapper {
+        height:340px;
+      }
+    }
+    @include respond-to(">=large") {
+      max-height: 400px;
+      .imgWrapper {
+        height:400px;
+      }
+    }
+
   }
 }
 

@@ -5,28 +5,29 @@ section.toolTeiler-detail {
   .imgHeader {
     position: relative;
     z-index: 10;
-    height: 320px;
-    max-height: 320px !important;
 
-    @include respond-to("<medium") {
-      padding-top: 0px;
+
+    .imgWrapper {
+      background-position: center center;
+      background-size: cover;
+      height:380px;
+      margin-top:-30px;
     }
 
     @include respond-to(">=medium") {
-      height: 380px;
-      max-height: 380px !important;
+      max-height:420px;
+      .imgWrapper {
+        height:420px;
+        margin-top:0px;
+      }
     }
     @include respond-to(">=large") {
-      height: 430px;
-      max-height: 430px !important;
+      .imgWrapper {
+        border-bottom: 10px solid $color-ambient-mint-light;
+      }
     }
 
-    .titleImg {
-      border-bottom: 10px solid $color-ambient-mint-light;
-      object-fit: cover;
-      height:100%;
-      width:100%;
-    }
+
   }
 
   // HEADER Content --------------
