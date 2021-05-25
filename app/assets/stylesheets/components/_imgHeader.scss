@@ -5,10 +5,21 @@
   margin-left: -18px;
   margin-right: -18px;
   padding-top: 30px;
+
   @include respond-to(">=medium") {
     padding-top: 0;
-    overflow: hidden;
-    max-height: 370px;
+    margin-top: -50px;
+    margin-left: -25px;
+    margin-right: -25px;
+  }
+
+  @include respond-to(">=large") {
+    margin-top: -80px;
+  }
+
+  .imgWrapper {
+    background-position: center center;
+    background-size: cover;
   }
 
   // Full Width Header
@@ -21,7 +32,6 @@
     margin-right: -50vw;
     padding-top: 0;
     max-height: 100%;
-    //margin-bottom: 30px;
 
     .titleImg {
       width: 100%;
@@ -32,10 +42,6 @@
         max-width: 1280px;
       }
 
-    }
-
-    @include respond-to(">=medium") {
-      //margin-bottom: 40px;
     }
   }
 
@@ -49,14 +55,6 @@
       margin-top: 0;
       margin-bottom: 0;
     }
-  }
-  @include respond-to(">=medium") {
-    margin-top: -50px;
-    margin-left: -25px;
-    margin-right: -25px;
-  }
-  @include respond-to(">=large") {
-    margin-top: -80px;
   }
 
   &.-cloudy, &.-cloudy2, &.-cloudy3 {
@@ -107,12 +105,6 @@
       background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
       pointer-events: none;
       z-index: 9;
-    }
-  }
-
-  .meeting {
-    .titleImg {
-      height: 370px;
     }
   }
 
