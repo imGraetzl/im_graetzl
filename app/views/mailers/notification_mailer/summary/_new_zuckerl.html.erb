@@ -24,7 +24,7 @@
                 <%= location.location_category.name if location.location_category %>
                 <% if location.address %>
                   <div class="address">
-                    <%= "#{location.address.street_name} #{location.address.street_number.split(%r{/}).first}" %>
+                    <%= location.address.street %>
                   </div>
                 <% end %>
               </td>

@@ -25,7 +25,7 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= attachment_image_tag @meeting, :cover_photo, :fill, 980, 370, fallback: 'cover_photo/980x370.png', class: 'titleImg', width:980, height:370 %>
+    <div class="imgWrapper" style="background-image:url('<%= attachment_url(@meeting, :cover_photo, :limit, 980, 980) %>')"></div>
   </div>
 
   <div class="entryDescription">

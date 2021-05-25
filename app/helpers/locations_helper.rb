@@ -1,7 +1,11 @@
 module LocationsHelper
 
+  def long_address(location)
+    location.address&.street ? "#{location.address&.street}, #{location.address&.zip} #{location.address&.city}" : nil
+  end
+
   def location_meta(location)
-    [location.address&.street, location.description].compact.join(" | ").truncate(154)
+    [long_address(location), location.description].compact.join(" | ").truncate(154)
   end
 
 end
