@@ -15,8 +15,8 @@ APP.controllers.search = (function() {
           if ($searchInput.val().length >= 3) {
               APP.components.cardFilter.submitForm();
               gtag(
-                'event', 'Search', {
-                'event_category': 'Searchpage :: Search',
+                'event', 'Searchpage :: Results', {
+                'event_category': 'Search',
                 'event_label': $searchInput.val()
               });
           }
