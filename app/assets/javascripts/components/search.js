@@ -51,8 +51,8 @@ APP.components.search = (function() {
           addCategoryLinks();
           hideSpinner();
           gtag(
-            'event', 'Search', {
-            'event_category': 'Autocomplete :: Results',
+            'event', 'Autocomplete :: Results', {
+            'event_category': 'Search',
             'event_label': search_phrase
           });
         },
@@ -60,8 +60,8 @@ APP.components.search = (function() {
           var url = $input.getSelectedItemData().url
           $input.val("");
           gtag(
-            'event', 'Search', {
-            'event_category': 'Autocomplete :: Result Click',
+            'event', 'Autocomplete :: Result Click', {
+            'event_category': 'Search',
             'event_label': search_phrase,
             'event_callback': function() {
               location.href = url;
