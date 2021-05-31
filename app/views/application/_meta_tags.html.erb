@@ -9,10 +9,9 @@
   <%= yield("og_#{tag}".to_sym) %>
 <% end %>
 
-<%= yield :structured_data_tag %>
-
 <%= tag(:meta, property: 'og:site_name', content: t('.site_name')) %>
 <%= tag(:meta, property: 'og:locale', content: t('.locale')) %>
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="language" content="de">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
