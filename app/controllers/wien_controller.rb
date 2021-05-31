@@ -5,9 +5,9 @@ class WienController < ApplicationController
   end
 
   def visit_graetzl
-    @address = Address.from_feature(params[:feature])
-    if @address && @address.graetzls.present?
-      redirect_to @address.graetzls.first
+    resolver = AddressResolver.from_json(params[:feature])
+    if resolver.valid? && resolver.graetzl.present?
+      redirect_to resolver.graetzl
     else
       redirect_to wien_url
     end

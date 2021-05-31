@@ -1,12 +1,17 @@
 module SchemaOrgHelper
 
-  def structured_data_tag (type, object)
+  def structured_data_tag (object)
     hash = {:@context => 'http://www.schema.org'}
-    final_hash = hash.merge(structured_data_meeting(object)) if type == 'meeting'
-    final_hash = hash.merge(structured_data_location(object)) if type == 'location'
-    final_hash = hash.merge(structured_data_room_offer(object)) if type == 'room_offer'
-    final_hash = hash.merge(structured_data_room_demand(object)) if type == 'room_demand'
-    content_for :structured_data_tag, content_tag(:script, final_hash.to_json, {type: 'application/ld+json'}, false) # false is used here to prevent html character escaping
+    if object.class.name == 'Meeting'
+      final_hash = hash.merge(structured_data_meeting(object))
+    elsif object.class.name == 'Location'
+      final_hash = hash.merge(structured_data_location(object))
+    elsif object.class.name == 'RoomOffer'
+      final_hash = hash.merge(structured_data_room_offer(object))
+    elsif object.class.name == 'RoomDemand'
+      final_hash = hash.merge(structured_data_room_demand(object))
+    end
+    content_tag(:script, final_hash.to_json, {type: 'application/ld+json'}, false) if final_hash
   end
 
   # //////////////////////////// Create Structured Data for MEETINGS
