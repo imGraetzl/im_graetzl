@@ -8,6 +8,7 @@
 
   <%= favicon_link_tag 'favicon.ico' %>
   <%= render 'tracking_tags' %>
+  <%= render partial: 'controller_header' rescue nil %>
 </head>
 
 <body data-controller=<%= controller_name %> class=<%= user_signed_in? ? 'signed-in' : ''%>>
@@ -20,6 +21,7 @@
 
   <%= render 'footer' %>
   <%= javascript_include_tag 'application' %>
+  <%= render partial: 'controller_footer' rescue nil %>
   <%= render "icons" %>
 </body>
 
