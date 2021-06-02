@@ -21,6 +21,9 @@ module SchemaOrgHelper
     hash[:name] = meeting.name
     hash[:description] = meeting.description if meeting.description.present?
     hash[:startDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date
+    hash[:startDate] += "T#{I18n.localize(meeting.starts_at_time, format:'%H:%M')}" if meeting.starts_at_time
+    hash[:endDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date # days is same as startdate
+    hash[:endDate] += "T#{I18n.localize(meeting.ends_at_time, format:'%H:%M')}" if meeting.ends_at_time
     hash[:image] = attachment_url(meeting, :cover_photo, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
     hash[:url] = graetzl_meeting_url(meeting.graetzl, meeting)
     hash[:eventStatus] = 'https://schema.org/EventScheduled'
@@ -73,7 +76,8 @@ module SchemaOrgHelper
   # //////////////////////////// Create Structured Data for LOCATIONS
   def structured_data_location (location)
     hash = {:@type => 'LocalBusiness'}
-    hash[:name] = location.name + ' - ' + location.slogan if location.slogan.present?
+    hash[:name] = location.name
+    hash[:slogan] = location.slogan if location.slogan.present?
     hash[:description] = location.description if location.description.present?
     hash[:url] = graetzl_location_url(location.graetzl, location)
     hash[:logo] = attachment_url(location, :avatar, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'avatar/location/400x400.png')
@@ -88,9 +92,7 @@ module SchemaOrgHelper
     end
 
     if location.upcoming_meetings.present?
-      next_location_event = location.upcoming_meetings
-      next_location_event = next_location_event.where.not(starts_at_date: nil)
-      next_location_event = next_location_event.sort_by(&:starts_at_date).first
+      next_location_event = location.upcoming_meetings.where.not(starts_at_date: nil).sort_by(&:starts_at_date).first
       hash[:event] = structured_data_meeting(next_location_event) unless next_location_event.nil?
     end
 
