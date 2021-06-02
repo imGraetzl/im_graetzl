@@ -14,13 +14,19 @@
 
     <% if f.object.new_record? && current_user.admin? %>
       <h2 class="hl-main"><span>User</span> auswählen</h2>
-      <div class="input-select">
-        <%= f.label :user_id do %>
-          <%= icon_tag "user-avatar" %>
-          <span>Raumteiler Ersteller</span>
-        <% end %>
-        <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :email, params[:user_id] || current_user.id), id: 'admin-user-select' %>
-      </div>
+      <% if f.object.new_record? %>
+        <div class="input-field">
+          <%= f.label :user_id do %>
+            <%= icon_tag "user-avatar" %>
+            <span>Raumteiler Ersteller</span>
+          <% end %>
+          <div class="user-autocomplete autocomplete-wrp">
+            <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
+            <%= hidden_field_tag :user_id, current_user.id, data:{behavior:"user-autocomplete-id"} %>
+            <%= text_field_tag :q, current_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
 
     <h2 class="hl-main">Welche <span>Art von Raum</span> suchst du?</h2>

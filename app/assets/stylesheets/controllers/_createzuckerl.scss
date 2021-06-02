@@ -54,13 +54,13 @@ section.createzuckerl {
 
   .booking-block {
     .btn-container {
-      opacity: 0;
+      display: none;
       margin-left: auto;
       .btn-primary {
         flex: 0 0 auto;
       }
       &.is-visible {
-        opacity: 1;
+        display: block;
         transition: opacity 0.3s;
         display: table;
         @include respond-to(">=large") {

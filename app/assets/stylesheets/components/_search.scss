@@ -1,29 +1,48 @@
 .autocomplete-form {
   position: relative;
 }
-#nav-user-search {
-  .autocomplete-loading-spinner {
-    z-index:9999;
+
+.user-autocomplete {
+  position: relative;
+  width:100%;
+  .easy-autocomplete-container {
+    position: relative;
+    width:100%;
+  }
+  .easy-autocomplete-container ul {
+    display: none;
     position: absolute;
-    margin-top:10px;
-    right:20px;
-    width:40px;
-    height:40px;
-    &.-hidden {
-      display:none;
-    }
+    top:3px;
+    width:100%;
+    background-color: white;
+    z-index: 9999;
+    border-radius: 4px 0 0 4px;
+    border: solid 1px #DBEFEC;
+    border-top: 0;
+  }
+}
+
+.autocomplete-loading-spinner {
+  z-index:9999;
+  position: absolute;
+  margin-top:10px;
+  right:20px;
+  width:40px;
+  height:40px;
+  &.-hidden {
+    display:none;
   }
 }
 
 // Search Autocomplete
-.easy-autocomplete {
+.navigation .easy-autocomplete {
   min-width:350px;
   max-width: 350px;
   max-height: 80vh;
   overflow-y: auto;
 }
 
-.mobile-dropdown .easy-autocomplete {
+.navigation .mobile-dropdown .easy-autocomplete {
   min-width:100%;
   max-width: 100%;
 }
@@ -110,6 +129,12 @@
   .txt {
     @include ellipsis;
     color: $color-font-primary;
+
+    small {
+      font-style: italic;
+      color:$color-ambient-grey;
+    }
+
   }
 
 }

@@ -159,6 +159,7 @@ APP.controllers.room_offers = (function() {
     APP.components.tabs.initTabs(".tabs-ctrl");
     APP.components.addressSearchAutocomplete();
     APP.components.formValidation.init();
+    APP.components.search.userAutocomplete();
 
     $(".next-screen, .prev-screen").on("click", function() {
       $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
@@ -177,11 +178,6 @@ APP.controllers.room_offers = (function() {
         $(".availability-input-" + day).removeProp("disabled");
       }
     }).change();
-
-    $('select#admin-user-select').SumoSelect({
-      search: true,
-      csvDispCount: 5
-    });
 
     // Slot Fields Toogle
     var slotsSection = null;

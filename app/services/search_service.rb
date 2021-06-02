@@ -15,6 +15,12 @@ class SearchService
     search_groups.first(2)
   end
 
+  def user
+    return [] if @query.length < 3
+
+    search_users.first(10)
+  end
+
   def search
     return [] if @query.length < 3
 
@@ -54,6 +60,10 @@ class SearchService
 
   def search_groups
     Group.non_hidden.where("title ILIKE :q", q: like_query).order('created_at DESC')
+  end
+
+  def search_users
+    User.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct   
   end
 
 end
