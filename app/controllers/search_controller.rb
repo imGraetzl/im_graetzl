@@ -4,6 +4,11 @@ class SearchController < ApplicationController
   def index
   end
 
+  def user
+    @results = SearchService.new(params[:q]).user
+    respond_to { |format| format.json }
+  end
+
   def autocomplete
     @results = SearchService.new(params[:q]).sample
     respond_to { |format| format.json }

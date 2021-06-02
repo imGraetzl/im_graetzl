@@ -7,6 +7,7 @@ APP.controllers.meetings = (function() {
 
       if ($("section.create-meeting").exists()) {
         initCreateMeeting();
+        APP.components.search.userAutocomplete();
       }
 
       if ($("section.meetings-compose-mail").exists()) {
@@ -229,12 +230,6 @@ APP.controllers.meetings = (function() {
 
       // Hide Elements
       $('.hide').hide();
-
-      $('select#admin-user-select').SumoSelect({
-        search: true,
-        searchText: 'Suche nach User.',
-        placeholder: 'User auswählen',
-      });
 
       $(".event-categories input").on("change", function() {
         maxCategories(); // init on Change

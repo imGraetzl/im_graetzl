@@ -18,10 +18,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
-
-  def render_404
-    render :template => "errors/not_found", :status => 404
-  end
-
 end
