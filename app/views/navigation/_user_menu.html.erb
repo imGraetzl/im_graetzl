@@ -94,7 +94,7 @@
     <%= icon_tag "search" %>
   <% end %>
 
-  <div class="nav-dropdown-menu" id="nav-user-search">
+  <div class="nav-dropdown-menu autocomplete-wrp" id="nav-user-search">
     <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
     <%= form_with url: search_path, local: true, method: :get, class: 'autocomplete-form' do |f| %>
       <div class="input-field">

@@ -39,16 +39,13 @@ APP.controllers.room_calls = (function() {
 
   function initRoomForm() {
     APP.components.addressSearchAutocomplete();
+    APP.components.search.userAutocomplete();
 
     $('.datepicker').pickadate({
       formatSubmit: 'yyyy-mm-dd',
       hiddenName: true
     });
-
-    $('select#admin-user-select').SumoSelect({
-      search: true,
-      csvDispCount: 5
-    });
+    
   }
 
   return {
