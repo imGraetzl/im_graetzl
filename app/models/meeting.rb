@@ -10,6 +10,8 @@ class Meeting < ApplicationRecord
   accepts_nested_attributes_for :meeting_additional_dates, allow_destroy: true, reject_if: :all_blank
 
   belongs_to :address, optional: true, autosave: true
+  accepts_nested_attributes_for :address
+
   belongs_to :location, optional: true
   belongs_to :user, optional: true
   belongs_to :group, optional: true
