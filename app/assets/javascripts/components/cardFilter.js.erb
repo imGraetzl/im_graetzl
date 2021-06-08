@@ -364,7 +364,12 @@ APP.components.cardFilter = (function() {
       matchedLabel.closest("li").addClass("active");
       // Set Browser Address Bar:
       var matchedLabelId = matchedLabel.data('cat-id');
-      history && history.pushState({}, '', location.pathname + '?category=' + matchedLabelId);
+      if (typeof matchedLabelId == 'number'){
+        history && history.pushState({}, '', location.pathname + '?category=' + matchedLabelId);
+      }
+      else {
+        history && history.replaceState({}, '', location.pathname);
+      }
     }
 
 
