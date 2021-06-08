@@ -11,7 +11,9 @@
         <% end %>
       </div>
     <!-- /SFS -->
-    <% EventCategory.all.sort_by(&:position).each do |category| %>
+    <% categories = EventCategory.all.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
         <%= category_photo_for(category) %>
         <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -events"></div>

@@ -1,7 +1,9 @@
 <!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Toolteiler" class="cS-hidden">
-    <% ToolCategory.top.sort_by(&:position).each do |category| %>
+    <% categories = ToolCategory.top.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
         <%= category_photo_for(category) %>
         <div class="cat category-<%= category.id %> -tools"></div>

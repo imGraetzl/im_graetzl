@@ -11,7 +11,9 @@
         <% end %>
       </div>
     <!-- /Online Shops -->
-    <% LocationCategory.all.sort_by(&:position).each do |category| %>
+    <% categories = LocationCategory.all.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
         <%= category_photo_for(category) %>
         <div class="cat category-<%= category.id %> -<%= category.icon %> -locations"></div>
