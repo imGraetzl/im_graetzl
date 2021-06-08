@@ -1,4 +1,7 @@
 class ToolCategory < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name
+
   belongs_to :parent_category, class_name: "ToolCategory"
   has_many :tool_offers
 

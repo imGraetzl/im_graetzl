@@ -1,7 +1,19 @@
-<% meta(
+<% if @category %>
+  <% meta(
+      title: t('.title_category', graetzl: @graetzl.name, category: @category.name),
+      description: t('.description_category', graetzl: @graetzl.name, numeric: @graetzl.district.numeric, category: @category.name),
+      robots: 'noindex, follow',
+    )
+  %>
+<% else %>
+  <% meta(
     title: t('.title', graetzl: @graetzl.name),
     description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
     robots: 'index, follow',
+    )
+  %>
+<% end %>
+<% meta(
     og_title: t('.title', graetzl: @graetzl.name),
     og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
     og_image: image_url('meta/og_logo.png')

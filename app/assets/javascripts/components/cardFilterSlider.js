@@ -83,7 +83,7 @@ APP.components.cardFilterSlider = (function() {
          filterForm.find("[name=special_category_id]").val("");
          updateFilterLabels($(this));
          APP.components.cardFilter.submitForm();
-         history && history.replaceState({}, '', location.pathname);
+         history && history.replaceState({}, '', location.pathname.split('/category/')[0]);
 
      } else {
 
@@ -91,12 +91,14 @@ APP.components.cardFilterSlider = (function() {
              // Special Filter Selected
              filterForm.find("[name=category_id]").val("");
              filterForm.find("[name=special_category_id]").val($(this).attr("data-id"));
-             history && history.replaceState({}, '', location.pathname + "?special_category=" + $(this).attr("data-id"));
+             history && history.replaceState({}, '', location.pathname.split('/category/')[0] + "/category/" + $(this).attr("data-slug"));
          } else {
              // Normal Filter Selected
              filterForm.find("[name=special_category_id]").val("");
              filterForm.find("[name=category_id]").val($(this).attr("data-id"));
-             history && history.replaceState({}, '', location.pathname + "?category=" + $(this).attr("data-id"));
+             if ($(this).attr("data-slug")) {
+               history && history.replaceState({}, '', location.pathname.split('/category/')[0] + "/category/" + $(this).attr("data-slug"));
+             }
          }
 
          element.find('.-category').removeClass('activated');

@@ -1,4 +1,7 @@
 class RoomCategory < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name
+
   has_many :room_offer_categories
   has_many :room_demand_categories
 

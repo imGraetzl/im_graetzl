@@ -1,4 +1,7 @@
 class LocationCategory < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name
+
   has_many :locations
 
   attachment :main_photo, type: :image

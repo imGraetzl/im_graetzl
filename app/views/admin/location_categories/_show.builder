@@ -6,6 +6,7 @@ context.instance_eval do
         row :position
         row :name
         row :icon
+        row :slug
         row :created_at
       end
     end

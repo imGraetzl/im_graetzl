@@ -175,12 +175,16 @@ Rails.application.routes.draw do
   resource :wien, controller: 'wien', only: [:show] do
     get 'visit_graetzl'
     get 'treffen', action: 'meetings', as: 'meetings'
-    get 'locations'
+    get 'locations', action: 'locations', as: 'locations'
     get 'raumteiler', action: 'rooms', as: 'rooms'
-    get 'gruppen', action: 'groups', as: 'groups'
     get 'toolteiler', action: 'tool_offers', as: 'tool_offers'
+    get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'selbststaendige-fuer-selbststaendige', action: 'platform_meetings', as: 'platform_meetings'
+    get 'treffen/category/:category', action: 'meetings', as: 'meetings_category'
+    get 'locations/category/:category', action: 'locations', as: 'locations_category'
+    get 'raumteiler/category/:category', action: 'rooms', as: 'rooms_category'
+    get 'toolteiler/category/:category', action: 'tool_offers', as: 'tool_offers_category'
   end
 
   resources :districts, path: 'wien', only: [:show] do
@@ -191,6 +195,10 @@ Rails.application.routes.draw do
     get 'gruppen', action: 'groups', as: 'groups', on: :member
     get 'toolteiler', action: 'tool_offers', as: 'tool_offers', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
+    get 'treffen/category/:category', action: 'meetings', as: 'meetings_category', on: :member
+    get 'locations/category/:category', action: 'locations', as: 'locations_category', on: :member
+    get 'raumteiler/category/:category', action: 'rooms', as: 'rooms_category', on: :member
+    get 'toolteiler/category/:category', action: 'tool_offers', as: 'tool_offers_category', on: :member
   end
 
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
@@ -244,6 +252,10 @@ Rails.application.routes.draw do
     resources :groups, path: 'gruppen', only: [:show]
     resources :locations, only: [:show]
     resources :users, only: [:show]
+    get 'treffen/category/:category', action: 'meetings', as: 'meetings_category', on: :member
+    get 'locations/category/:category', action: 'locations', as: 'locations_category', on: :member
+    get 'raumteiler/category/:category', action: 'rooms', as: 'rooms_category', on: :member
+    get 'toolteiler/category/:category', action: 'tool_offers', as: 'tool_offers_category', on: :member
   end
 
 end
