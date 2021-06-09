@@ -13,7 +13,11 @@
   <%= render 'navigation' %>
 
   <h1 class="hl-main -cards">
-    Events, Workshops & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span>
+    <% if @category %>
+      <%= @category.title %> <span>Events</span> im <%= @district.numeric %>. Bezirk
+    <% else %>
+      Events, Workshops & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span>
+    <% end %>
   </h1>
 
   <%= render 'filters/meeting_categories' %>

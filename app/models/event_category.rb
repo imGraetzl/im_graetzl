@@ -12,4 +12,8 @@ class EventCategory < ApplicationRecord
     title
   end
 
+  def should_generate_new_friendly_id? #will change the slug if the name changed
+    title_changed?
+  end
+
 end

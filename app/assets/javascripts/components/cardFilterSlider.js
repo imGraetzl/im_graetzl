@@ -74,7 +74,8 @@ APP.components.cardFilterSlider = (function() {
 
 
    // Click Slide
-   element.find('.-category').on('click', function(){
+   element.find('.-category').on('click', function(event){
+     event.preventDefault();
 
      if ($(this).hasClass("activated")) {
 

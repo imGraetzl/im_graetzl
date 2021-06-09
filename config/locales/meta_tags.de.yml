@@ -51,6 +51,8 @@ de:
     locations:
       title: 'Lokale Anbieter, Kreative & Wirtschaftstreibende in Wien'
       description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen in Wien. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Grätzl...'
+      title_category: '%{category} AnbieterInnen & Locations in Wien'
+      description_category: 'Neuigkeiten von grätzlansässigen lokalen Anbietern aus dem Bereich „%{category}“ in Wien. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Grätzl...'
     meetings:
       title: 'Die nächsten Workshops, Events & Veranstaltungen in Wien'
       description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende in Wien kennen. Die nächsten Termine in deinem Bezirk, gleich stöbern...'
@@ -60,8 +62,8 @@ de:
     rooms:
       title: 'Raumteiler in Wien - Gewerbeflächen teilen - Kosten teilen'
       description: 'Wir möchten Selbständige, Kreative, Vereine und kleine Unternehmen mit dem „Raumteiler“ dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
-      title_category: '%{category} Raumteiler in Wien - Gewerbeflächen teilen - Kosten teilen'
-      description_category: 'Räume aus dem Bereich %{category} gemeinsam nutzen. Wir möchten Selbständige, Kreative, Vereine und kleine Unternehmen mit dem „Raumteiler“ dabei unterstützen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
+      title_category: '%{category} Raumteiler in Wien | Gewerbeflächen teilen - Kosten teilen'
+      description_category: 'Finde passende Räume aus dem Bereich „%{category}“ in Wien. Mit dem „Raumteiler“ unterstützen wir Selbständige, Kreative, Vereine und kleine Unternehmen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
     tool_offers:
       title: 'Toolteiler in Wien - Arbeitsequipment leihen & Geräte am Standort nutzen'
       description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
@@ -77,16 +79,18 @@ de:
       title: 'Stadtteilnews aus dem %{numeric}. Bezirk, %{name} in Wien'
       description: 'Events & Workshops von lokalen Anbietern aus dem %{numeric}. Bezirk. Bist du wirtschaftlich oder kreativ im %{numeric}. Bezirk tätig? Melde dich gleich für den Stadtteilnewsletter an & vernetze dich mit Menschen aus dem %{numeric}ten.'
     locations:
-      title: 'Lokale Geschäfte, Kreative & Wirtschaftstreibende aus dem %{numeric}. Bezirk'
+      title: 'Lokale Geschäfte, Kreative & Wirtschaftstreibende aus dem %{numeric}. Bezirk in Wien'
       description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen aus dem %{numeric}. Bezirk. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
+      title_category: '%{category} AnbieterInnen & Locations in %{zip} Wien'
+      description_category: 'Neuigkeiten von grätzlansässigen lokalen AnbieterInnen aus dem Bereich „%{category}“ im %{numeric}. Bezirk. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
     meetings:
       title: 'Die nächsten Workshops, Events & Veranstaltungen im %{numeric}. Bezirk'
       description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem %{numeric}ten kennen. Die nächsten Termine im %{numeric}. Bezirk, gleich stöbern...'
     rooms:
-      title: 'Räume zum Teilen im %{numeric}. Bezirk | Raumteiler %{zip} Wien'
+      title: 'Raumteiler in %{zip} Wien | Gewerbeflächen teilen - Kosten teilen'
       description: 'Neue Räume und Raumsuchende aus dem %{numeric}. Bezirk. Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler finden ...'
-      title_category: '%{category} %{zip} Wien | Neue Raumteiler im %{numeric}. Bezirk'
-      description_category: 'Hier findest du neue Räume zum Teilen aus der Kategorie %{category} im %{numeric}. Bezirk.'
+      title_category: '%{category} in %{zip} Wien | Gewerbeflächen teilen - Kosten teilen'
+      description_category: 'Finde passende Räume aus dem Bereich „%{category}“ im %{numeric}. Bezirk. Mit dem „Raumteiler“ unterstützen wir Selbständige, Kreative, Vereine und kleine Unternehmen ihre Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
     tool_offers:
       title: 'Toolteiler im %{numeric}. Bezirk - Arbeitsequipment leihen & Geräte am Standort nutzen'
       description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
@@ -110,8 +114,6 @@ de:
     rooms:
       title: '%{graetzl} Raumteiler | Neue Räume & Raumsuchende'
       description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} im %{numeric}. Bezirk. finden ...'
-      title_category: '%{category} im Grätzl %{graetzl} | Neue Räume & Raumsuchende'
-      description_category: 'Hier findest du neue Räume zum Teilen aus der Kategorie %{category} im Grätzl %{graetzl} im %{numeric}. Bezirk.'
     tool_offers:
       title: '%{graetzl} Toolteiler - Arbeitsequipment leihen & Geräte am Standort nutzen'
       description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
@@ -138,17 +140,17 @@ de:
 
   room_offers:
     show:
-      title: 'Raumteiler: %{slogan}'
+      title: '%{slogan}'
       description: '%{type}: %{desc}...'
 
   room_demands:
     show:
-      title: 'Raumteiler: %{slogan}'
+      title: '%{slogan}'
       description: '%{type}: %{desc}...'
 
   tool_offers:
     show:
-      title: 'Toolteiler: %{title}'
+      title: '%{title}'
       description: '%{desc}'
 
   tool_rentals:

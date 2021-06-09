@@ -281,6 +281,11 @@
         rgba(0, 0, 0, 0),
         rgba(0, 0, 0, 0.7)
       );
+      a {
+        text-decoration: none;
+        color: white;
+      }
+      a:hover {text-decoration: none;}
     }
     .cat {
       width: 65px;
