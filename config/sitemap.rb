@@ -10,12 +10,11 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV['UPL
 
 SitemapGenerator::Sitemap.create do
 
-  add root_path, changefreq: 'always', priority: 0.9
   add wien_path, changefreq: 'always', priority: 0.9
-  add locations_wien_path, changefreq: 'always', priority: 0.9
-  add meetings_wien_path, changefreq: 'always', priority: 0.9
-  add rooms_wien_path, changefreq: 'always', priority: 0.9
-  add tool_offers_wien_path, changefreq: 'always', priority: 0.9
+  add locations_wien_path, changefreq: 'always', priority: 1.0
+  add meetings_wien_path, changefreq: 'always', priority: 1.0
+  add rooms_wien_path, changefreq: 'always', priority: 1.0
+  add tool_offers_wien_path, changefreq: 'always', priority: 1.0
   add groups_wien_path, changefreq: 'daily', priority: 0.7
   add zuckerls_wien_path, changefreq: 'monthly', priority: 0.6
 
@@ -36,7 +35,7 @@ SitemapGenerator::Sitemap.create do
 
   # Tools Categories
   ToolCategory.find_each do |category|
-    add tool_offers_category_wien_path(category), changefreq: 'daily', priority: 0.8
+    add tool_offers_category_wien_path(category), changefreq: 'daily', priority: 0.7
   end
 
   District.find_each do |district|
@@ -44,7 +43,7 @@ SitemapGenerator::Sitemap.create do
     add locations_district_path(district), changefreq: 'daily', priority: 0.8
     add meetings_district_path(district), changefreq: 'daily', priority: 0.8
     add rooms_district_path(district), changefreq: 'daily', priority: 0.8
-    add tool_offers_district_path(district), changefreq: 'daily', priority: 0.8
+    add tool_offers_district_path(district), changefreq: 'daily', priority: 0.7
 
     # Room Categories
     RoomCategory.find_each do |category|
