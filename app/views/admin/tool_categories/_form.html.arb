@@ -7,6 +7,7 @@ active_admin_form_for [:admin, resource] do |f|
       hint: (image_tag(attachment_url(f.object, :main_photo, :fill, 400, 600)) if f.object.main_photo)
     input :remove_main_photo, as: :boolean if f.object.main_photo
     input :position
+    input :slug
   end
 
   actions
