@@ -9,7 +9,8 @@ SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV['UPLOADS_BUCKET'])
 
 SitemapGenerator::Sitemap.create do
-  # Districts
+
+  add root_path, changefreq: 'always', priority: 0.9
   add wien_path, changefreq: 'always', priority: 0.9
   add locations_wien_path, changefreq: 'always', priority: 0.9
   add meetings_wien_path, changefreq: 'always', priority: 0.9
