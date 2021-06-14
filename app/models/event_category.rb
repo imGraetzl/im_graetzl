@@ -1,4 +1,7 @@
 class EventCategory < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title
+
   has_and_belongs_to_many :meetings
 
   attachment :main_photo, type: :image
@@ -7,6 +10,10 @@ class EventCategory < ApplicationRecord
 
   def to_s
     title
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank?
   end
 
 end

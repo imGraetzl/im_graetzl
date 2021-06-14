@@ -1,5 +1,5 @@
 <% meta(
-    title: t('.title', slogan: @room_demand.slogan[0..45].gsub(/\s\w+\s*$/,'...')),
+    title: t('.title', slogan: @room_demand.slogan[0..55].gsub(/\s\w+\s*$/,'...')),
     description: t('.description', type: t("activerecord.attributes.room_demand.demand_types.#{@room_demand.demand_type}"), desc: @room_demand.demand_description[0..160].gsub(/\n/, " ")),
     robots: 'index, follow',
     og_title: t('.title', slogan: @room_demand.slogan[0..80].gsub(/\s\w+\s*$/,'...')),
@@ -19,7 +19,7 @@
           <% if @room_demand.room_categories.present? %>
             <ul class="tag-list -mint">
               <% @room_demand.room_categories.each do |category| %>
-                <li><%= category.name %></li>
+                <li><%= link_to category.name, rooms_category_wien_path(category) %></li>
               <% end %>
             </ul>
           <% end %>

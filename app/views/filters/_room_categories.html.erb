@@ -2,7 +2,7 @@
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Raumteiler" class="cS-hidden">
     <!-- RoomOffers with Rental Option-->
-      <div class="-category -special-category" data-id="room_rental" data-label="Kurzzeitmiete">
+      <div class="-category -special-category" data-id="kurzzeitmiete" data-label="Kurzzeitmiete" data-slug="kurzzeitmiete">
         <%= image_tag('rt-kurzzeitmieten.jpg', class: 'attachment room_category main_photo categoryImg', width:257, height:385) %>
         <div class="cat -booking"></div>
         <h3>Kurzzeitmiete</h3>
@@ -11,11 +11,17 @@
         <% end %>
       </div>
     <!-- /RoomOffers with Rental Option-->
-    <% RoomCategory.all.sort_by(&:position).each do |category| %>
-      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>">
+    <% categories = RoomCategory.all.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
+      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
         <%= category_photo_for(category) %>
         <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -rooms"></div>
-        <h3><%= category.name %></h3>
+        <% if @district %>
+          <h3><%= link_to category.name, rooms_category_district_path(@district, category) %></h3>
+        <% else %>
+          <h3><%= link_to category.name, rooms_category_wien_path(category) %></h3>
+        <% end %>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>

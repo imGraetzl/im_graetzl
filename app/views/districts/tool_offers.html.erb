@@ -13,7 +13,7 @@
   <%= render 'navigation' %>
 
   <h1 class="hl-main -cards">
-    Entdecke Toolteiler <span>im <%= @district.numeric %>. Bezirk</span>
+    <%= @category ? @category.name : 'Entdecke' %> <span>Toolteiler</span> im <%= @district.numeric %>. Bezirk
   </h1>
 
   <%= render 'filters/tool_offer_categories' %>

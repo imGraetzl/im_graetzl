@@ -7,6 +7,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :remove_main_photo, as: :boolean if f.object.main_photo
     input :position
     input :css_ico_class
+    input :slug
   end
 
   actions
