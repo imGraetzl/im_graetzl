@@ -13,8 +13,8 @@ class RoomCategory < ApplicationRecord
     name
   end
 
-  def should_generate_new_friendly_id? #will change the slug if the name changed
-    slug.blank? || name_changed?
+  def should_generate_new_friendly_id?
+    slug.blank?
   end
 
 end
