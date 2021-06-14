@@ -6,18 +6,24 @@ class GraetzlsController < ApplicationController
   end
 
   def meetings
-    @category = EventCategory.find_by(id: params[:category]) if params[:category].present?
-    @special_category = params[:special_category] if params[:special_category].present?
+    if params[:category].present?
+      @category = EventCategory.find_by(slug: params[:category])
+      @special_category = params[:category] if helpers.special_categories.include?(params[:category])
+    end
   end
 
   def locations
-    @category = LocationCategory.find_by(id: params[:category]) if params[:category].present?
-    @special_category = params[:special_category] if params[:special_category].present?
+    if params[:category].present?
+      @category = LocationCategory.find_by(slug: params[:category])
+      @special_category = params[:category] if helpers.special_categories.include?(params[:category])
+    end
   end
 
   def rooms
-    @category = RoomCategory.find_by(id: params[:category]) if params[:category].present?
-    @special_category = params[:special_category] if params[:special_category].present?
+    if params[:category].present?
+      @category = RoomCategory.find_by(slug: params[:category])
+      @special_category = params[:category] if helpers.special_categories.include?(params[:category])
+    end
   end
 
   def zuckerls
@@ -27,7 +33,9 @@ class GraetzlsController < ApplicationController
   end
 
   def tool_offers
-    @category = ToolCategory.find_by(id: params[:category]) if params[:category].present?
+    if params[:category].present?
+      @category = ToolCategory.find_by(slug: params[:category])
+    end
   end
 
   def groups

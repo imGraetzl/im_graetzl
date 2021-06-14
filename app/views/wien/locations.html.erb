@@ -1,6 +1,17 @@
+<% if @category %>
+  <% meta(
+      title: t('.title_category', category: @category.name),
+      description: t('.description_category', category: @category.name),
+    )
+  %>
+<% else %>
+  <% meta(
+  title: t('.title'),
+  description: t('.description'),
+    )
+  %>
+<% end %>
 <% meta(
-    title: t('.title'),
-    description: t('.description'),
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),

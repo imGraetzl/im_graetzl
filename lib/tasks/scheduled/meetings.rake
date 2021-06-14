@@ -16,7 +16,7 @@ namespace :scheduled do
       if meeting.meeting_additional_dates.present?
 
         next_meeting = meeting.meeting_additional_dates.sort_by(&:starts_at_date).first
-        meeting.update(starts_at_date: next_meeting.starts_at_date)
+        meeting.update(starts_at_date: next_meeting.starts_at_date, starts_at_time: next_meeting.starts_at_time, ends_at_time: next_meeting.ends_at_time)
         next_meeting.destroy
         Rails.logger.info("[Meeting] Meeting (#{meeting.id}) updated next meeting date: #{next_meeting.starts_at_date}")
         # Update Activity for this Meeting if last Activity is greather then 1 week ago or if there is no Activity - And delete old online Activities

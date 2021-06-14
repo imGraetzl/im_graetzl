@@ -70,7 +70,7 @@ class RoomsController < ApplicationController
       offers = offers.joins(:room_offer_categories).where(room_offer_categories: {room_category_id: room_category_ids}).distinct
     end
 
-    if params[:special_category_id].present? && params[:special_category_id] == 'room_rental'
+    if params[:special_category_id].present? && params[:special_category_id] == 'kurzzeitmiete'
       offers = offers.rentable
     end
 
@@ -92,7 +92,7 @@ class RoomsController < ApplicationController
       return RoomDemand.none
     end
 
-    if params[:special_category_id].present? && params[:special_category_id] == 'room_rental'
+    if params[:special_category_id].present? && params[:special_category_id] == 'kurzzeitmiete'
       return RoomDemand.none
     end
 

@@ -1,8 +1,19 @@
+<% if @category %>
+  <% meta(
+      title: t('.title_category', numeric: @district.numeric, zip: @district.zip, category: @category.name),
+      description: t('.description_category', numeric: @district.numeric, name: @district.name, category: @category.name),
+    )
+  %>
+<% else %>
+  <% meta(
+      title: t('.title', numeric: @district.numeric, zip: @district.zip),
+      description: t('.description', numeric: @district.numeric, name: @district.name),
+    )
+  %>
+<% end %>
 <% meta(
-    title: t('.title', numeric: @district.numeric),
-    description: t('.description', numeric: @district.numeric, name: @district.name),
     robots: 'index, follow',
-    og_title: t('.title', numeric: @district.numeric),
+    og_title: t('.title', numeric: @district.numeric, zip: @district.zip),
     og_description: t('.description', numeric: @district.numeric, name: @district.name),
     og_image: image_url('meta/locations.jpg')
   )
@@ -13,7 +24,11 @@
   <%= render 'navigation' %>
 
   <h1 class="hl-main -cards">
-    Anbieter, Locations &amp; Geschäfte <span>im <%= @district.numeric %>. Bezirk</span>
+    <% if @category %>
+      <%= @category.name %> <span>Anbieter</span> im <%= @district.numeric %>. Bezirk
+    <% else %>
+      Anbieter, Locations & Geschäfte <span>im <%= @district.numeric %>. Bezirk</span>
+    <% end %>
   </h1>
 
   <%= render 'filters/location_categories' %>

@@ -6,6 +6,7 @@ context.instance_eval do
         row :title
         row :position
         row :css_ico_class
+        row :slug
         row :created_at
       end
     end

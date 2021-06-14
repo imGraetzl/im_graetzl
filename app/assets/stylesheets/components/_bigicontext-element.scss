@@ -28,6 +28,14 @@
   .txt {
     font-family: $font-tertiary;
     margin-left: 16px;
+    a {
+      color: $color-ambient-mint-dark;
+      text-decoration: none;
+    }
+    a:hover {
+      color: $color-ambient-mint-dark;
+      text-decoration: underline;
+    }
   }
   .icon-shopping-bag {
     margin-top: -7px;
