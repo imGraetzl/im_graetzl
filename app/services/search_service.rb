@@ -41,7 +41,7 @@ class SearchService
   end
 
   def search_rooms
-    room_offers = RoomOffer.enabled.where("slogan ILIKE :q", q: like_query)
+    room_offers = RoomOffer.enabled.joins(:room_categories).where("slogan ILIKE :q OR room_categories.name ILIKE :q", q: like_query).distinct
     room_demands = RoomDemand.enabled.where("slogan ILIKE :q", q: like_query)
     (room_offers + room_demands).sort_by(&:last_activated_at).reverse
   end
@@ -63,7 +63,7 @@ class SearchService
   end
 
   def search_users
-    User.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct   
+    User.where("username ILIKE :q OR first_name ILIKE :q OR last_name ILIKE :q", q: like_query).order('created_at DESC').distinct
   end
 
 end
