@@ -37,7 +37,7 @@ class SearchService
   private
 
   def like_query
-    "%#{@query}%"
+    "%#{@query.gsub(/\s/, "%")}%"
   end
 
   def search_rooms
