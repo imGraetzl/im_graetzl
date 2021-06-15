@@ -10,6 +10,16 @@ class UsersMailer < ApplicationMailer
     )
   end
 
+  def user_confirmation_reminder(user)
+    @user = user
+    headers("X-MC-Tags" => "user-confirmation-reminder")
+    mail(
+      to: @user.email,
+      from: "imGrätzl.at <wir@imgraetzl.at>",
+      subject: "Noch ein Klick zu deinem imGrätzl Account",
+    )
+  end
+
   def location_approved(location, user)
     @location = location
     @user = user
