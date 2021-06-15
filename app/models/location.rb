@@ -15,6 +15,7 @@ class Location < ApplicationRecord
   belongs_to :graetzl
   has_many :districts, through: :graetzl
   belongs_to :address, optional: true, autosave: true
+  accepts_nested_attributes_for :address
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
