@@ -19,6 +19,8 @@
         <div class="cat category-<%= category.id %> -<%= category.icon %> -locations"></div>
         <% if @district %>
           <h3><%= link_to category.name, locations_category_district_path(@district, category) %></h3>
+        <% elsif @graetzl %>
+          <h3><%= link_to category.name, locations_category_district_path(@graetzl.district, category) %></h3>
         <% else %>
           <h3><%= link_to category.name, locations_category_wien_path(category) %></h3>
         <% end %>

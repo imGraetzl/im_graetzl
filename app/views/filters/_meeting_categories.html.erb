@@ -17,11 +17,7 @@
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
         <%= category_photo_for(category) %>
         <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -events"></div>
-        <% if @district %>
-          <h3><%= link_to category.title, meetings_category_district_path(@district, category) %></h3>
-        <% else %>
-          <h3><%= link_to category.title, meetings_category_wien_path(category) %></h3>
-        <% end %>
+        <h3><%= link_to category.title, meetings_category_wien_path(category) %></h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>
