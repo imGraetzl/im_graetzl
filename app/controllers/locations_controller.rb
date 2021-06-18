@@ -146,7 +146,7 @@ class LocationsController < ApplicationController
 
   def location_post_params
     params.require(:location_post).permit(
-      :title, :content, images_files: []
+      :title, :content, images_attributes: [:id, :file, :destroy]
     )
   end
 

@@ -3,7 +3,7 @@
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
       <%= link_to room_call do %>
-        <%= image_tag cover_url(room_call, :small), class: 'coverImg' %>
+        <%= cover_photo_image(room_call, class: 'coverImg') %>
       <% end %>
     </div>
     <% if room_call.open? %>
@@ -17,7 +17,7 @@
 
     <div class="avatar-block -below">
       <%= link_to room_call, class: 'avatarImg' do %>
-        <%= image_tag avatar_url(room_call, :small), class: 'img-square' %>
+        <%= avatar_image room_call, size: :small, class: 'img-square' %>
       <% end %>
       <%= link_to room_call, class: 'typelink' do %>
         <div class="typetxt">

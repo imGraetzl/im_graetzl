@@ -2,7 +2,7 @@
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to group_user.group do %>
-    <%= image_tag avatar_url(group_user.user, :thumb), class: 'img-round' %>
+    <%= avatar_image group_user.group, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       <span class="username"><%= group_user.user.username %></span> ist der Gruppe <span class="matter"><%= group_user.group.title %></span> beigetreten.

@@ -2,7 +2,7 @@
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to polymorphic_url(notification.content_url_params, :target => "comment_#{notification.activity.recipient_id}") do %>
-    <%= image_tag avatar_url(notification.activity.owner, :thumb), class: 'img-round' %>
+    <%= avatar_image notification.activity.owner, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       <span class="username"><%= notification.activity.owner.username %></span> hat deinen Raumteiler <span class="matter"><%= room_demand.slogan %></span> kommentiert

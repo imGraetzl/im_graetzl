@@ -5,7 +5,7 @@
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
       <%= link_to room_offer do %>
-        <%= image_tag cover_url(room_offer, :small), class: 'coverImg' %>
+        <%= cover_photo_image(room_offer, class: 'coverImg') %>
       <% end %>
     </div>
     <% if graetzl %>
@@ -19,7 +19,7 @@
 
     <div class="avatar-block -below">
       <%= link_to room_offer, class: 'avatarImg' do %>
-        <%= image_tag avatar_url(room_offer, :small), class: 'img-square', width:80, height:80 %>
+        <%= avatar_image @room_offer, size: :small, class: 'img-square' %>
       <% end %>
       <%= link_to room_offer, class: 'typelink' do %>
         <div class="typetxt">

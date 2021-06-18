@@ -53,12 +53,12 @@ active_admin_form_for [:admin, resource] do |f|
     end
 
     inputs "Photos" do
-      input :cover_photo, as: :file, hint: f.object.cover_photo && image_tag(f.object.cover_photo_url(:small))
+      input :cover_photo, as: :file, hint: f.object.cover_photo && image_tag(f.object.cover_photo_url(:thumb))
       input :remove_cover_photo, as: :boolean if f.object.cover_photo
-      input :avatar, as: :file, hint: f.object.avatar && image_tag(f.object.avatar_url(:small))
+      input :avatar, as: :file, hint: f.object.avatar && image_tag(f.object.avatar_url(:thumb))
       input :remove_avatar, as: :boolean if f.object.avatar
       has_many :images, allow_destroy: true do |i|
-        i.input :file, as: :file, hint: i.file && image_tag(i.file_url(:small))
+        i.input :file, as: :file, hint: i.file && image_tag(i.file_url(:thumb))
       end
     end
 

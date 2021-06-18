@@ -2,7 +2,7 @@
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
       <%= link_to @tool_rental.tool_offer do %>
-        <%= image_tag cover_url(@tool_rental.tool_offer, :small), class: 'coverImg' %>
+        <%= cover_photo_image(@tool_rental.tool_offer, class: 'coverImg') %>
       <% end %>
     </div>
     <div class="priceSheet">

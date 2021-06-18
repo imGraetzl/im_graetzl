@@ -3,10 +3,10 @@
     <div class="wrp">
       <div class="user">
         <% if current_user %>
-          <%= image_tag avatar_url(current_user, :small), class: 'img-round' %>
+          <%= avatar_image current_user, size: :small, class: 'avatar img-round' %>
           <span><%= current_user.username %></span>
         <% else %>
-          <%= image_tag('avatar/user/default.png', class: 'img-round') %>
+          <%= image_tag('fallbacks/user_avatar.png', class: 'img-round') %>
           <span>Dein Name</span>
         <% end %>
       </div>

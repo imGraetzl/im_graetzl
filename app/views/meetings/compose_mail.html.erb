@@ -11,7 +11,7 @@
     <% @meeting.going_tos.each do |going_to| %>
       <%= link_to user_path(going_to.user) do %>
         <% going_to.going_to_date ? additional = "<strong>Termin:</strong> #{going_to.display_starts_at_date}" : nil %>
-        <%= user_tooltip_avatar going_to.user, 100, nil , additional %>
+        <%= avatar_image_with_tooltip going_to.user, size: :thumb, class: 'img-round', additional: additional %>
       <% end %>
     <% end %>
   </div>

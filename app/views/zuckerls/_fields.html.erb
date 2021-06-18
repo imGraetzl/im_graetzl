@@ -40,12 +40,12 @@
 </div>
 
 <div class="upload-oldschool">
-  <%= f.label :image do %>
+  <%= f.label :cover_photo do %>
     <%= icon_tag "photo-camera" %>
     <span>Bild hochladen</span>
   <% end %>
   <div class="field-wrp">
-    <%= f.attachment_field :image, direct: true, presigned: true, data: { behavior: 'imageinput' } %>
+    <%= upload_image_input(f, :cover_photo) %>
   </div>
 </div>
 

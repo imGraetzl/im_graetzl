@@ -33,5 +33,15 @@ module ImGraetzl
     ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
       html_tag.html_safe
     end
+
+    # Configure shrine upload location
+    config.upload_server = if ENV["UPLOAD_SERVER"].present?
+      ENV["UPLOAD_SERVER"].to_sym
+    elsif Rails.env.production? || Rails.env.staging?
+      :s3
+    else
+      :app
+    end
+
   end
 end

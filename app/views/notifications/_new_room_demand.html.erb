@@ -2,7 +2,7 @@
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to room_demand do %>
-    <%= image_tag avatar_url(room_demand, :thumb), class: 'img-round' %>
+    <%= avatar_image room_demand, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       <span class="username"><%= notification.activity.owner.username %></span> sucht Räumlichkeiten in deinem Grätzl

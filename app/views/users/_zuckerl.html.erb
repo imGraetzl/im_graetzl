@@ -5,7 +5,7 @@
   <div class="cardBoxHeader">
     <%= link_to [graetzl, location] do %>
       <div class="coverImgWrapper">
-        <%= image_tag cover_url(zuckerl, :small), class: 'coverImg' %>
+        <%= cover_photo_image(zuckerl, class: 'coverImg') %>
       </div>
     <% end %>
     <div class="categoryicon">
@@ -15,7 +15,9 @@
   <div class="cardBoxContent">
     <div class="avatar-block">
       <div class="avatarImg">
-        <%= link_to([graetzl, location]){ avatar_for location } %>
+        <%= link_to [graetzl, location] do %>
+          <%= avatar_image location, size: :small, class: 'avatar img-square' %>
+        <% end %>
       </div>
       <div class="typetxt">
         <%= link_to location.name, [graetzl, location], class: 'name' %>

@@ -6,10 +6,10 @@
     <%= link_to [graetzl, location, anchor: dom_id(location_post)] do %>
       <% if image = location_post.images.first %>
         <div class="coverImgWrapper">
-          <%= image_tag image.file_url(:small), class: 'coverImg' %>
+          <%= cover_photo_image(image, class: 'coverImg') %>
         </div>
       <% else %>
-        <%= image_tag cover_url(location, :small), class: 'coverImg' %>
+        <%= cover_photo_image(location, class: 'coverImg') %>
       <% end %>
     <% end %>
     <div class="categoryicon">
@@ -19,7 +19,7 @@
   <div class="cardBoxContent">
     <div class="avatar-block">
       <%= link_to [graetzl, location], class: 'avatarImg' do %>
-        <%= avatar_for location %>
+        <%= avatar_image(location, size: :small, class: 'img-square avatar') %>
       <% end %>
       <div class="typetxt">
         <%= link_to [graetzl, location] do %>

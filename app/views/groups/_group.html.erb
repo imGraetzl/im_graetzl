@@ -2,7 +2,7 @@
 
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
-      <%= link_to image_tag(cover_url(group, :small), class: 'coverImg'), group %>
+      <%= link_to cover_photo_image(group, class: 'coverImg'), group %>
     </div>
     <div class="categoryicon">
       <%= icon_tag "speech-bubble" %>
@@ -21,13 +21,13 @@
     <div class="users">
       <% group.admins.last(10).each do |user| %>
         <%= link_to user_path(user) do %>
-          <%= image_tag avatar_url(user, :small), class: 'img-round', width:50, height:50 %>
+          <%= avatar_image user, size: :thumb, class: 'img-round' %>
         <% end %>
       <% end %>
       <% if group.admins.size < 10 %>
         <% group.members.last(10 - group.admins.size).each do |user| %>
           <%= link_to user_path(user) do %>
-            <%= image_tag avatar_url(user, :small), class: 'img-round', width:50, height:50 %>
+            <%= avatar_image user, size: :thumb, class: 'img-round' %>
           <% end %>
         <% end %>
       <% end %>

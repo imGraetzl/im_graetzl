@@ -20,7 +20,7 @@
 
   <div class="avatar">
     <%= link_to user_path(group_user.user) do %>
-      <%= user_tooltip_avatar group_user.user, 100 %>
+      <%= avatar_image_with_tooltip group_user.user, size: :thumb, class: 'img-round' %>
     <% end %>
   </div>
 

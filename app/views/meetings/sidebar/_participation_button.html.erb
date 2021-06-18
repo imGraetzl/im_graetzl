@@ -3,13 +3,16 @@
     <% if !user_signed_in? %>
       <div class="btn-going-to">
         <%= link_to 'javascript:', class: 'btn-userCallToAction', id: 'buyTicket' do %>
-          <span><%= image_tag 'avatar/user/default.png', class: 'img-round' %> Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %></span>
+          <span><%= image_tag 'fallbacks/user_avatar.png', class: 'img-round' %> Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %></span>
         <% end %>
       </div>
     <% elsif current_user == meeting.user %>
       <div class="btn-going-to">
         <%= link_to 'javascript:', class: 'btn-userCallToAction', id: 'meetingSettings' do %>
-          <span><%= avatar_for current_user %> Treffen Optionen <%= icon_tag "arrow-down-2" %></span>
+          <span>
+            <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
+            Treffen Optionen <%= icon_tag "arrow-down-2" %>
+          </span>
         <% end %>
       </div>
       <div class="jBoxHidden jBoxDropdown" id="jBoxMeetingSettings">
@@ -29,7 +32,10 @@
     <% else %>
       <div class="btn-going-to">
         <%= button_to 'javascript:', class: 'btn-userCallToAction', id: 'buyTicket' do %>
-          <span><%= avatar_for current_user %> Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %></span>
+          <span>
+            <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
+            Ticket kaufen: <%= number_to_currency(meeting.amount, unit: "€") %>
+          </span>
         <% end %>
       </div>
     <% end %>
@@ -41,14 +47,17 @@
     <% if !user_signed_in? %>
       <div class="btn-going-to">
         <%= button_to new_user_session_path, method: :get, class: 'btn-userCallToAction' do %>
-          <span><%= image_tag 'avatar/user/default.png', class: 'img-round' %> Am Treffen teilnehmen</span>
+          <span><%= image_tag 'fallbacks/user_avatar.png', class: 'img-round' %> Am Treffen teilnehmen</span>
         <% end %>
       </div>
     <% elsif current_user == meeting.user %>
 
       <div class="btn-going-to">
         <%= link_to 'javascript:', class: 'btn-userCallToAction', id: 'meetingSettingsPaid' do %>
-          <span><%= avatar_for current_user %> Treffen Optionen <%= icon_tag "arrow-down-2" %></span>
+          <span>
+            <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
+            Treffen Optionen <%= icon_tag "arrow-down-2" %>
+          </span>
         <% end %>
       </div>
       <div class="jBoxHidden jBoxDropdown" id="jBoxMeetingSettingsPaid">
@@ -65,13 +74,19 @@
     <% elsif meeting.attending?(current_user) %>
       <div class="btn-going-to">
         <%= button_to [:unattend, meeting], method: :post, class: 'btn-userCallToAction meeting-unattend-btn' do %>
-          <span><%= avatar_for current_user %> Nicht mehr teilnehmen</span>
+          <span>
+            <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
+            Nicht mehr teilnehmen
+          </span>
         <% end %>
       </div>
     <% else %>
       <div class="btn-going-to">
         <%= button_to 'javascript:', class: 'btn-userCallToAction', id: 'attendMeeting' do %>
-          <span><%= avatar_for current_user %> Am Treffen teilnehmen</span>
+          <span>
+            <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
+            Am Treffen teilnehmen
+          </span>
         <% end %>
       </div>
     <% end %>

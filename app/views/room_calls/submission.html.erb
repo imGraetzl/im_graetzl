@@ -14,7 +14,7 @@
 
   <div class="user cardBox">
     <div class="avatar">
-      <%= image_tag avatar_url(@room_call_submission.user, :small), class: 'img-round' %>
+      <%= avatar_image @room_call_submission.user, size: :small, class: 'img-round' %>
     </div>
     <div class="infos">
       <span><%= @room_call_submission.first_name %> <%= @room_call_submission.last_name %></span>

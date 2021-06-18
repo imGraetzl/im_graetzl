@@ -1,6 +1,6 @@
 <% @locations.each do |location| %>
   <%= link_to graetzl_location_path(location.graetzl, location), class: 'nav-menu-item' do %>
-    <%= image_tag avatar_url(location, :small), class: 'img-square' %>
+    <%= avatar_image location, size: :thumb, class: 'img-square' %>
     <span><%= location.name %></span>
   <% end %>
 <% end %>

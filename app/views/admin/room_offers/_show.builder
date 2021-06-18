@@ -28,10 +28,10 @@ context.instance_eval do
           end
 
           row :cover_photo do |r|
-            r.cover_photo && image_tag(r.cover_photo_url(:small))
+            r.cover_photo && image_tag(r.cover_photo_url(:thumb))
           end
           row :avatar do |r|
-            r.avatar && image_tag(r.avatar_url(:small))
+            r.avatar && image_tag(r.avatar_url(:thumb))
           end
         end
       end

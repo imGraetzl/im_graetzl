@@ -5,7 +5,7 @@
       <div class="user cardBox">
 
         <div class="avatar">
-          <%= image_tag avatar_url(submission.user, :small), class: 'img-round' %>
+          <%= avatar_image submission.user, size: :small, class: 'avatar img-round' %>
         </div>
         <div class="infos">
           <span><%= submission.first_name %> <br> <%= submission.last_name %></span>

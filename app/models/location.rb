@@ -4,8 +4,8 @@ class Location < ApplicationRecord
   friendly_id :name
   acts_as_taggable_on :products
 
-  include ImageUploader::Attachment(:avatar)
-  include ImageUploader::Attachment(:cover_photo)
+  include AvatarUploader::Attachment(:avatar)
+  include CoverImageUploader::Attachment(:cover_photo)
 
   belongs_to :user
   belongs_to :graetzl

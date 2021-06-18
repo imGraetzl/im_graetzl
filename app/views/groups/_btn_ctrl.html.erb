@@ -21,7 +21,7 @@
   <% if !user_signed_in? %> <!-- Logged Out -->
 
     <%= link_to new_user_session_path(redirect: request.original_url), class: 'btn-userIcons' do %>
-      <span><%= image_tag 'avatar/user/default.png', class: 'img-round' %> Gruppe beitreten</span>
+      <span><%= image_tag 'fallbacks/user_avatar.png', class: 'img-round' %> Gruppe beitreten</span>
     <% end %>
 
   <% elsif group.admin?(current_user) %> <!-- Group Admin -->
@@ -73,7 +73,7 @@
   <% else %>
 
     <%= link_to 'javascript:', class: 'btn-userIcons', id: 'joinRequest' do %>
-      <span><%= avatar_for current_user %> Gruppe beitreten</span>
+      <span><%= avatar_image current_user, size: :thumb, class: 'img-round' %> Gruppe beitreten</span>
     <% end %>
 
     <div id="jBoxRoinRequest" class="jBoxHidden jBoxDropdown">

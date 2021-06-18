@@ -21,7 +21,7 @@ context.instance_eval do
           row :keyword_list
 
           row :cover_photo do |r|
-            r.cover_photo && image_tag(r.cover_photo_url(:small))
+            r.cover_photo && image_tag(r.cover_photo_url(:thumb))
           end
         end
       end

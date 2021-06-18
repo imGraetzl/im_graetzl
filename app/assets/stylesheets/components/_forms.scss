@@ -447,52 +447,6 @@ input, select, textarea {
 
 // ---------------------------------------------------------------------- Upload Fields
 
-
-.file-group, %file-group {
-  position: relative;
-  padding: 1.6rem;
-  background-color: $color-ambient-mint-light;
-  color: $color-ambient-mint;
-  display: table;
-  width: 100%;
-  .imgCrop {
-    overflow: hidden;
-    width: 400px;
-    height: 200px;
-    position: relative;
-    margin-bottom: 0.6rem;
-    img {
-      width: 100%;
-      position: absolute;
-      display: block;
-    }
-  }
-  .icon-delete {
-    position: relative;
-    z-index: 2;
-    margin-left: 1rem;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  [type=file] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    z-index: 1;
-  }
-  .checkbox-group {
-    z-index: 2;
-    display: inline-block;
-  }
-}
-
-
-
 .upload-oldschool {
   > label {
     @extend %label;
@@ -522,9 +476,6 @@ input, select, textarea {
     @include field-HorizontalLayout;
   }
 }
-
-
-
 
 
 .input-tags {

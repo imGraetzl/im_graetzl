@@ -20,7 +20,7 @@ class RoomDemand < ApplicationRecord
 
   acts_as_taggable_on :keywords
 
-  include ImageUploader::Attachment(:avatar)
+  include AvatarUploader::Attachment(:avatar)
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
   scope :reactivated, -> { enabled.where("last_activated_at > created_at").where("created_at < ?", LIFETIME_MONTHS.months.ago) }

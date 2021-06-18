@@ -3,7 +3,7 @@
 
   <div class="tt-img">
     <%= link_to [graetzl, @location] do %>
-      <%= image_tag avatar_url(@location, :small), class: 'img-square' %>
+      <%= avatar_image @location, size: :small, class: 'img-square avatar' %>
     <% end %>
   </div>
 
@@ -16,7 +16,7 @@
     <% end %>
     <% if @user %>
       <div class="tt-line -boss">
-        <%= avatar_for @user %>
+        <%= avatar_image @user, size: :thumb, class: 'img-round avatar' %>
         <%= link_to @user.full_name, @user %>
       </div>
       <% if current_user != @user %>

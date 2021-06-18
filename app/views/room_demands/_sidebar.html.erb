@@ -30,7 +30,7 @@
       <% end %>
 
       <%= link_to @room_demand.user, class: 'user-wrp' do %>
-        <%= user_tooltip_avatar @room_demand.user %>
+        <%= avatar_image_with_tooltip @room_demand.user, size: :thumb, class: 'img-round' %>
         <span class="name"><%= @room_demand.user.username %></span>
       <% end %>
 

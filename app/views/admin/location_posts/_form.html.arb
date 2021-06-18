@@ -6,7 +6,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :title
     input :content
     has_many :images, allow_destroy: true do |i|
-      i.input :file, as: :file, hint: f.object.file && image_tag(f.object.file_url(:small))
+      i.input :file, as: :file, hint: f.object.file && image_tag(f.object.file_url(:thumb))
     end
   end
   actions

@@ -26,8 +26,7 @@ ActiveAdmin.register ToolOffer do
     :tool_category_id, :tool_subcategory_id, :location_id,
     :cover_photo, :remove_cover_photo,
     :first_name, :last_name, :iban,
-    images_files: [],
-    images_attributes: [:id, :_destroy],
+    images_attributes: [:id, :file, :_destroy],
     address_attributes: [
       :id, :street_name, :street_number, :zip, :city
     ]

@@ -7,7 +7,6 @@ class DiscussionPost < ApplicationRecord
 
   has_many :images, as: :imageable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  # accepts_attachments_for :images, attachment: :file, append: true
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   after_create :set_discussion_last_post

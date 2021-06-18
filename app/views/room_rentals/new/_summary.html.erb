@@ -15,7 +15,7 @@
       </p>
     </div>
     <div class="avatar">
-      <%= avatar_for @room_rental.owner %>
+      <%= avatar_image @room_rental.owner, size: :small, class: 'img-round' %>
     </div>
     <div>
       <h3>Vermieter</h3>
@@ -49,7 +49,7 @@
     </div>
 
     <div class="avatar">
-      <%= avatar_for current_user %>
+      <%= avatar_image current_user, size: :small, class: 'avatar img-round' %>
     </div>
     <div class="renter-summary">
       <h3>Mieter</h3>

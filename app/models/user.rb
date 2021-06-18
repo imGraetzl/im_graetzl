@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   enum role: { admin: 0 }
 
-  include ImageUploader::Attachment(:avatar)
-  include ImageUploader::Attachment(:cover_photo)
+  include AvatarUploader::Attachment(:avatar)
+  include CoverImageUploader::Attachment(:cover_photo)
 
   belongs_to :graetzl, counter_cache: true
   has_many :districts, through: :graetzl
@@ -109,6 +109,10 @@ class User < ApplicationRecord
     User.all.pluck(:id, :first_name, :last_name, :username).map do |id, first_name, last_name, username|
       ["#{first_name} #{last_name} (#{username})", id]
     end
+  end
+
+  def to_s
+    full_name
   end
 
   def full_name

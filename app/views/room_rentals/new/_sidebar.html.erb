@@ -4,9 +4,7 @@
 
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
-      <%= link_to @room_rental.room_offer do %>
-        <%= image_tag cover_url(@room_rental.room_offer, :small), class: 'coverImg' %>
-      <% end %>
+      <%= link_to cover_photo_image(@room_rental.room_offer, class: 'coverImg'), @room_rental.room_offer %>
     </div>
     <% if graetzl %>
       <div class="categoryicon">

@@ -11,7 +11,7 @@
     <% end %>
 
     <div class="userCreateInfo">
-      <%= image_tag avatar_url(@location, :thumb), class: 'img-square' %>
+      <%= avatar_image @location, size: :thumb, class: 'img-square' %>
       <span>vor <%= time_ago_in_words(post.created_at) %></span>
     </div>
 
@@ -21,7 +21,7 @@
     <% if post.images.present? %>
       <div class="entryImgUploads">
         <% post.images.each do |image| %>
-          <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "gallery-#{post.id}" } %>
+          <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "gallery-#{post.id}" } %>
         <% end %>
       </div>
     <% end %>

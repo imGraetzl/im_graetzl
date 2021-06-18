@@ -23,11 +23,10 @@ class RoomCall < ApplicationRecord
   belongs_to :address, optional: true
   accepts_nested_attributes_for :address
 
-  include ImageUploader::Attachment(:avatar)
-  include ImageUploader::Attachment(:cover_photo)
+  include AvatarUploader::Attachment(:avatar)
+  include CoverImageUploader::Attachment(:cover_photo)
 
   has_many :images, as: :imageable, dependent: :destroy
-  # accepts_attachments_for :images, attachment: :file, append: true
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   has_one :group
@@ -63,9 +62,9 @@ class RoomCall < ApplicationRecord
       title: "#{title} Gruppe",
       description: description,
       graetzls: [graetzl],
-      cover_photo_id: cover_photo_id,
-      cover_photo_content_type: cover_photo_content_type,
     )
+    self.group.cover_photo_attacher.set group.cover_photo_attacher.upload(cover_photo_attacher.file)
+    self.group.cover_photo_attacher.add_derivatives cover_photo_attacher.derivatives
     self.group.group_users.create(user_id: user_id, role: :admin)
   end
 

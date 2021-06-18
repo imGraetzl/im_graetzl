@@ -49,7 +49,7 @@
               <% else %>
                 <td class="rented" colspan="<%= length %>">
                   <%= link_to messenger_path(thread_id: status.user_message_thread.id) do %>
-                    <%= user_tooltip_avatar status.renter, 100 %>
+                    <%= avatar_image_with_tooltip status.renter, size: :thumb, class: 'img-round' %>
                   <% end %>
               <% end %>
             <% end %>

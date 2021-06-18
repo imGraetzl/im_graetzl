@@ -11,7 +11,7 @@
 <div class="room-call-page">
 
   <div class="imgHeader -fullwidth">
-    <%= image_tag @room_call.cover_photo_url || image_url('cover_photo/980x370.png'), class: 'titleImg -fullwidth', width:1280, height:500 %>
+    <%= cover_header_image(@room_call, size: :huge, class: 'titleImg -fullwidth') %>
   </div>
 
   <div class="bulge-wrapper">

@@ -77,20 +77,11 @@
 
       <div class="upload-oldschool">
         <%= f.label :avatar do %>
-        <%= icon_tag "photo-camera" %>
-        <span>Profilbild</span>
+          <%= icon_tag "photo-camera" %>
+          <span>Profilbild</span>
         <% end %>
         <div class="field-wrp">
-          <% if resource.avatar %>
-          <div class="preview-wrp">
-            <%= image_tag f.object.avatar_url(:small) %>
-            <div class="input-checkbox">
-              <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
-              <%= f.label :remove_avatar, 'Löschen' %>
-            </div>
-          </div>
-          <% end %>
-          <%= f.attachment_field :avatar, direct: true, presigned: true %>
+          <%= upload_image_input(f, :avatar) %>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to tool_offer do %>
-    <%= image_tag avatar_url(tool_offer.user, :thumb), class: 'img-round' %>
+    <%= avatar_image tool_offer.user, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       <span class="username"><%= notification.activity.owner.username %></span> hat einen neuen Toolteiler im Grätzl <span class="matter"><%= graetzl.name %></span> erstellt

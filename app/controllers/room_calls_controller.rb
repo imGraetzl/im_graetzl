@@ -95,8 +95,7 @@ class RoomCallsController < ApplicationController
       room_call_prices_attributes: [:id, :name, :description, :features, :amount, :_destroy, room_module_ids: []],
       room_call_modules_attributes: [:id, :room_module_id, :description, :quantity, :_destroy],
       address_attributes: [:id, :_destroy, :street_name, :street_number, :zip, :city, :coordinates, :description],
-      images_files: [],
-      images_attributes: [:id, :_destroy],
+      images_attributes: [:id, :file, :_destroy],
     )
   end
 

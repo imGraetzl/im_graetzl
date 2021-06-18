@@ -2,7 +2,7 @@
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to messenger_path(thread_id: room_rental.user_message_thread.id) do %>
-    <%= image_tag avatar_url(room_rental.user, :thumb), class: 'img-round' %>
+    <%= avatar_image room_rental.user, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       <span class="username"><%= notification.activity.owner.username %></span> möchte deinen Raum mieten. Du kannst die <span class="matter">Anfrage akzeptieren oder ablehnen</span>.

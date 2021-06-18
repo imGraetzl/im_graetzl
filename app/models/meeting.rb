@@ -25,7 +25,7 @@ class Meeting < ApplicationRecord
 
   has_many :comments, as: :commentable, dependent: :destroy
 
-  include ImageUploader::Attachment(:cover_photo)
+  include CoverImageUploader::Attachment(:cover_photo)
 
   enum state: { active: 0, cancelled: 1 }
 
@@ -78,6 +78,10 @@ class Meeting < ApplicationRecord
 
   def self.include_for_box
     includes(:going_tos, :user, location: :user)
+  end
+
+  def to_s
+    name
   end
 
   def platform_meeting_pending?

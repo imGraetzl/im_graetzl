@@ -1,8 +1,7 @@
 <section class="photos-section">
   <div class="gallery">
-    <!--  @room_call.images.order(:created_at).each do |image| -->
     <% @room_call.images.each do |image| %>
-      <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "maingallery" } %>
+      <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
     <% end %>
   </div>
 </section>

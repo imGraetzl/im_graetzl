@@ -5,7 +5,7 @@
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
       <%= link_to tool_offer do %>
-        <%= image_tag cover_url(tool_offer, :small), class: 'coverImg' %>
+        <%= cover_photo_image(tool_offer, class: 'coverImg') %>
       <% end %>
     </div>
     <div class="priceSheet">
@@ -22,7 +22,7 @@
 
   <div class="cardBoxContent">
     <%= link_to tool_offer.user, class: 'initiator' do %>
-      <%= user_tooltip_avatar tool_offer.user %>
+      <%= avatar_image_with_tooltip tool_offer.user, size: :thumb, class: 'img-round' %>
       <span><%= tool_offer.user.full_name %></span>
     <% end %>
 

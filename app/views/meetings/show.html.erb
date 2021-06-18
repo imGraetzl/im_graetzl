@@ -25,8 +25,7 @@
       </div>
       <div class="card"></div>
     </div>
-
-    <%= image_tag cover_url(@meeting, :large), class: 'titleImg', width: 980, height: 370 %>
+    <%= cover_header_image(@meeting, class: 'titleImg') %>
   </div>
 
   <div class="entryDescription">
@@ -65,13 +64,13 @@
 
     <div class="ico-row userPortraitName">
       <% if @meeting.location&.owned_by?(@meeting.user) %>
-        <%= location_tooltip_avatar @meeting.location %>
+        <%= avatar_image_with_tooltip @meeting.location, size: :thumb, class: 'img-square' %>
         <div class="infotxt">
           <em class="info">Erstellt von:</em><br>
           <%= link_to @meeting.location.name, [Graetzl.memoized(@meeting.location.graetzl_id), @meeting.location], class: 'infolink' %>
         </div>
       <% elsif @meeting.user %>
-        <%= user_tooltip_avatar @meeting.user, 100 %>
+        <%= avatar_image_with_tooltip @meeting.user, size: :thumb, class: 'img-round' %>
         <div class="infotxt">
           <em class="info">Erstellt von:</em><br>
           <%= link_to @meeting.user.username, @meeting.user, class: 'infolink' %>

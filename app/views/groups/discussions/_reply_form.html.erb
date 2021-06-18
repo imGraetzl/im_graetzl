@@ -4,7 +4,7 @@
       <%= hidden_field_tag :discussion_id, @discussion.id %>
       <div class="input-textarea">
         <%= f.label :content do %>
-        <%= image_tag avatar_url(current_user, :thumb), class: 'img-round' %>
+        <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
         <span>Dein Beitrag</span>
         <% end %>
         <%= f.text_area :content, cols: 80, rows: 3, placeholder: 'Neuen Beitrag im Thema schreiben ..', required: true %>
@@ -15,7 +15,7 @@
           <span>Bilder</span>
         <% end %>
         <div class="field-wrp">
-          <%#= f.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+          <%= upload_images_input(f, :images) %>
         </div>
       </div>
       <%= f.button 'Beitrag absenden', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>

@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get 'reports' => 'reports#index'
   get 'reports/mailchimp'
   get 'sitemap.xml' => redirect('https://s3.eu-central-1.amazonaws.com/im-graetzl-production/sitemaps/sitemap.xml.gz')
-  get 'location/tooltip' => 'locations#tooltip'
   get 'search' => 'search#index'
   get 'search/results' => 'search#results'
   get 'search/autocomplete' => 'search#autocomplete'
@@ -73,6 +72,7 @@ Rails.application.routes.draw do
     post :add_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
+    get :tooltip, on: :member
   end
 
   resources :campaign_users, path: 'campaign', only: [:new, :create] do
@@ -243,6 +243,12 @@ Rails.application.routes.draw do
     resources :groups, path: 'gruppen', only: [:show]
     resources :locations, only: [:show]
     resources :users, only: [:show]
+  end
+
+  if Rails.configuration.upload_server == :s3
+    mount Shrine.presign_endpoint(:cache) => "/s3/params"
+  elsif Rails.configuration.upload_server == :app
+    mount Shrine.upload_endpoint(:cache) => "/upload"
   end
 
 end

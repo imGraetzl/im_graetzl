@@ -1,5 +1,7 @@
 class LocationCategory < ApplicationRecord
   has_many :locations
-  include ImageUploader::Attachment(:main_photo)
+
+  include CategoryImageUploader::Attachment(:main_photo)
+  validates_presence_of :main_photo
 
 end

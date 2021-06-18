@@ -12,7 +12,7 @@
     <a name="comment-<%= comment.id -%>"></a>
     <div class="userCreateInfo">
       <%= link_to comment.user do %>
-        <%= user_tooltip_avatar comment.user, 100 %>
+        <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
       <% end %>
       <div class="infos">
         <div class="name"><%= link_to comment.user.full_name, comment.user %></div>
@@ -25,7 +25,7 @@
     <% if comment.images.present? %>
       <div class="entryImgUploads">
         <% comment.images.each do |image| %>
-          <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "gallery-#{comment.id}" } %>
+          <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "gallery-#{comment.id}" } %>
         <% end %>
       </div>
     <% end %>

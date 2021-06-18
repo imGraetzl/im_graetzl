@@ -6,7 +6,7 @@
     <% if controller.controller_name == 'activities' %>
       <!-- Use other HeaderView if used as Activities Stream-Box -->
       <div class="coverImgWrapper">
-        <%= link_to image_tag(cover_url(discussion.group, :small), class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
+        <%= link_to cover_photo_image(discussion.group, class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
       </div>
       <div class="categoryicon"><%= icon_tag "layout-document" %><sup><%= discussion.discussion_posts.size %></sup></div>
       <div class="sideflag -R"><div class="title"><%= discussion.group.title %></div></div>
@@ -28,11 +28,11 @@
     <div class="avatar-block">
       <% if discussion.user %>
         <%= link_to discussion.user, class: 'avatarImg' do %>
-          <%= user_tooltip_avatar discussion.user %>
+        <%= avatar_image_with_tooltip discussion.user, size: :thumb, class: 'img-round' %>
         <% end %>
       <% else %>
         <div class="avatarImg">
-          <%= image_tag('avatar/user/default.png', class: 'img-round') %>
+          <%= image_tag('fallbacks/user_avatar.png', class: 'img-round') %>
         </div>
       <% end %>
       <div class="typetxt">
@@ -59,7 +59,7 @@
     <div class="streamElement">
       <div class="entryInitialContent">
         <div class="userCreateInfo">
-          <%= image_tag avatar_url(last_post.user, :small), class: 'img-round' %>
+          <%= avatar_image last_post.user, size: :small, class: 'avatar img-round' %>
           <span class="userAndType"><%= link_to last_post.user.full_name, last_post.user %> am <%= I18n.localize(last_post.created_at, format:'%d. %b %Y') %></span>
         </div>
         <div class="txt">

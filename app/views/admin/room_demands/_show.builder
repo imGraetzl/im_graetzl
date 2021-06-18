@@ -24,7 +24,7 @@ context.instance_eval do
           end
 
           row :avatar do |r|
-            r.avatar && image_tag(r.avatar_url(:small))
+            r.avatar && image_tag(r.avatar_url(:thumb))
           end
         end
       end

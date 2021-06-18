@@ -6,7 +6,7 @@
   <div class="cardBoxHeader">
     <%= link_to [graetzl, meeting] do %>
       <div class="coverImgWrapper">
-        <%= image_tag image_tag(cover_url(meeting, :small), class: 'coverImg'), class: 'coverImg' %>
+        <%= cover_photo_image(meeting, class: 'coverImg') %>
       </div>
     <% end %>
     <div class="calendarSheet">

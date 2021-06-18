@@ -16,12 +16,12 @@
       </div>
       <div class="card"></div>
     </div>
-    <%= image_tag cover_url(@user, :large), class: 'titleImg', width:980, height:200  %>
+    <%= cover_header_image(@user, class: 'titleImg') %>
   </div>
 
   <div class="userContent">
     <div class="col1">
-      <%= image_tag avatar_url(@user, :large), class: 'img-round -largest' %>
+      <%= avatar_image @user, class: 'img-round -largest' %>
       <div class="sideBarbox">
 
         <div class="rating-block icontxt">

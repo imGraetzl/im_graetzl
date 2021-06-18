@@ -71,7 +71,7 @@ module SchemaOrgHelper
     hash[:name] = location.name + ' - ' + location.slogan if location.slogan.present?
     hash[:description] = location.description if location.description.present?
     hash[:url] = graetzl_location_url(location.graetzl, location)
-    hash[:logo] = location.avatar_url || asset_url('avatar/location/400x400.png')
+    hash[:logo] = location.avatar_url || asset_url('fallbacks/location_avatar.png')
     hash[:image] = location.cover_photo_url || asset_url('meta/og_logo.png')
     hash[:email] = location.contact.email if location.contact.email.present?
     hash[:telephone] = location.contact.phone if location.contact.phone.present?

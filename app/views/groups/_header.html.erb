@@ -2,7 +2,7 @@
 
   <div class="coverImg">
     <%= link_to group_path(@group) do %>
-      <%= image_tag cover_url(@group, :large), class: 'coverImg' %>
+      <%= cover_header_image(@group, class: 'coverImg') %>
     <% end %>
     <% if @group.group_categories %>
       <div class="sideflag -category -R">
@@ -42,7 +42,7 @@
       <div class="user">
         <div class="avatar">
           <%= link_to user_path(user) do %>
-            <%= user_tooltip_avatar user, 100 %>
+            <%= avatar_image_with_tooltip(user, size: :small, class: 'img-round') %>
           <% end %>
         </div>
         <div class="infos">

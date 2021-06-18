@@ -110,16 +110,7 @@
         <span>Foto von dir</span>
       <% end %>
       <div class="field-wrp">
-        <% if f.object.avatar %>
-            <div class="preview-wrp">
-              <%= image_tag f.object.avatar_url(:small), class: 'img-round' %>
-              <div class="input-checkbox">
-                <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
-                <%= f.label :remove_avatar, 'Löschen' %>
-              </div>
-            </div>
-        <% end %>
-        <%= f.attachment_field :avatar, direct: true, presigned: true %>
+        <%= upload_image_input(f, :avatar) %>
       </div>
     </div>
 

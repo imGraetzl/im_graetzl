@@ -3,7 +3,7 @@
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to [graetzl, location] do %>
-    <%= image_tag avatar_url(location, :thumb), class: 'img-square' %>
+    <%= avatar_image location, size: :thumb, class: 'img-square' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       Neu auf imGrätzl: <span class="matter"><%= location.name %></span> - Sag gleich Hallo!

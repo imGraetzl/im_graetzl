@@ -2,7 +2,7 @@
 
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
-      <%= link_to cover_url(room_offer, :small), room_offer %>
+      <%= cover_photo_image(room_offer, class: 'coverImg') %>
     </div>
 
     <% graetzl = Graetzl.memoized(room_offer.graetzl_id) %>
@@ -17,7 +17,7 @@
 
     <div class="avatar-block -below">
       <%= link_to room_offer, class: 'avatarImg' do %>
-        <%= avatar_for room_offer, 200, 'img-square' %>
+        <%= avatar_image room_offer, size: :small, class: 'img-square' %>
       <% end %>
       <%= link_to room_offer, class: 'typelink' do %>
         <div class="typetxt">

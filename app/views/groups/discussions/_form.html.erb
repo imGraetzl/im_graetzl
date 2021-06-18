@@ -20,7 +20,7 @@
     <%= f.fields_for :initial_post, DiscussionPost.new do |pf| %>
       <div class="input-textarea">
         <%= pf.label :content do %>
-          <%= image_tag avatar_url(current_user, :small), class: 'img-round' %>
+          <%= avatar_image current_user, size: :small, class: 'avatar img-round' %>
           <span>Dein Beitrag</span>
         <% end %>
         <%= pf.text_area :content, cols: 100, rows: 5, placeholder: 'Dein erster Beitrag im Thema ..', required: true, class: '-validate' %>
@@ -32,7 +32,7 @@
           <span>Bilder</span>
         <% end %>
         <div class="field-wrp">
-          <%#= pf.attachment_field :images_files, multiple: true, direct: true, presigned: true %>
+          <%= upload_images_input(f, :images) %>
         </div>
       </div>
     <% end %>

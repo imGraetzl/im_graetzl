@@ -2,7 +2,8 @@ class ToolCategory < ApplicationRecord
   belongs_to :parent_category, class_name: "ToolCategory"
   has_many :tool_offers
 
-  include ImageUploader::Attachment(:main_photo)
+  include CategoryImageUploader::Attachment(:main_photo)
+  validates_presence_of :main_photo
 
   scope :top, -> { where(parent_category_id: nil) }
   scope :subcategories, -> { where("parent_category_id IS NOT NULL") }

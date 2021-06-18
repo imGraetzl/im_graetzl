@@ -5,7 +5,7 @@ class Zuckerl < ApplicationRecord
 
   before_destroy :can_destroy?
 
-  include ImageUploader::Attachment(:image)
+  include CoverImageUploader::Attachment(:cover_photo)
 
   friendly_id :title
   attr_accessor :active_admin_requested_event
@@ -54,10 +54,6 @@ class Zuckerl < ApplicationRecord
     else
       Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location, anchor: dom_id(self))
     end
-  end
-
-  def cover_photo_url(type = nil)
-    image_url(type)
   end
 
   def self.include_for_box

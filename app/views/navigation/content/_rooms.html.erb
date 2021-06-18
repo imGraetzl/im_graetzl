@@ -6,7 +6,7 @@
 <% end %>
 <% @room_demands.each do |room| %>
   <%= link_to room, class: 'nav-menu-item' do %>
-    <%= image_tag avatar_url(room, :thumb), class: 'img-square' %>
+    <%= avatar_image room, size: :thumb, class: 'img-square' %>
     <span><%= room.slogan %></span>
   <% end %>
 <% end %>

@@ -3,7 +3,7 @@
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to [graetzl, post.location, anchor: dom_id(post)] do %>
-    <%= image_tag avatar_url(post.location, :thumb), class: 'img-square' %>
+    <%= avatar_image post.location, size: :thumb, class: 'img-square' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
       <span class="username"><%= post.location.name %></span> hat einen neuen Beitrag im Grätzl <span class="matter"><%= graetzl.name %></span> geschrieben

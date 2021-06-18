@@ -74,12 +74,12 @@
       <%= link_to graetzl_location_path(Graetzl.memoized(location.graetzl_id), location, anchor: 'location-post-form') do %>
         <%= icon_tag "location" %>
         <div class="icontxt">Neuigkeit meiner Location</div>
-        <%= image_tag avatar_url(location, :small), class: 'img-square' %>
+        <%= avatar_image location, size: :thumb, class: 'img-square' %>
       <% end %>
       <%= link_to new_location_zuckerl_path(location) do %>
         <%= icon_tag "shopping-bag" %>
         <div class="icontxt">Grätzlzuckerl meiner Location</div>
-        <%= image_tag avatar_url(location, :small), class: 'img-square' %>
+        <%= avatar_image location, size: :thumb, class: 'img-square' %>
       <% end %>
     <% end %>
   </div>

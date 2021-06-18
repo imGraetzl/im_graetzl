@@ -12,7 +12,7 @@
 
 <section class="roomDetail -Offer">
   <div class="imgHeader">
-    <%= image_tag cover_url(@room_offer, :large), class: 'titleImg', width:980, height:430 %>
+    <%= cover_header_image(@room_offer, class: 'titleImg') %>
 
     <div class="headContent">
 
@@ -44,9 +44,9 @@
     <div class="txt"><%= @room_offer.room_description %></div>
 
     <div class="entryImgUploads">
-      <%= link_to image_tag(@room_offer.cover_photo_url(:small)), @room_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
+      <%= link_to cover_photo_image(@room_offer), @room_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
       <% @room_offer.images.each do |image| %>
-        <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "maingallery" } %>
+        <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
       <% end %>
     </div>
   </div>
@@ -91,7 +91,7 @@
     <section class="owner">
       <div class="bigicontext-element">
         <% if @room_offer.user %>
-          <%= image_tag avatar_url(@room_offer, :small), class: 'room_offer avatar img-round' %>
+          <%= avatar_image @room_offer, size: :small, class: 'room_offer avatar img-round' %>
         <% else %>
           <%= icon_tag "user-avatar" %>
         <% end %>

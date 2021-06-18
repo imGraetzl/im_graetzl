@@ -18,7 +18,7 @@
     <div class="iconlist">
       <% if @location.user %>
         <%= link_to @location.user, class: 'user-wrp' do %>
-          <%= user_tooltip_avatar @location.user %>
+          <%= avatar_image_with_tooltip @location.user, size: :thumb, class: 'img-round' %>
           <span class="name"><%= @location.user.username %></span>
         <% end %>
       <% end %>

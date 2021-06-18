@@ -2,10 +2,10 @@
   <div class="user">
     <div class="avatar">
       <% if post.deleted? %>
-        <%= image_tag 'avatar/user/100x100.png', class: 'attachment user avatar img-round' %>
+        <%= image_tag 'fallbacks/user_avatar.png', class: 'attachment user avatar img-round' %>
       <% else %>
         <%= link_to post.user do %>
-          <%= user_tooltip_avatar post.user, 100 %>
+        <%= avatar_image_with_tooltip post.user, size: :thumb, class: 'img-round' %>
         <% end %>
       <% end %>
     </div>
@@ -47,7 +47,7 @@
       <% if post.images.present? %>
         <div class="entryImgUploads">
           <% post.images.each do |image| %>
-            <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "gallery-post-#{post.id}" } %>
+            <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "gallery-post-#{post.id}" } %>
           <% end %>
         </div>
       <% end %>

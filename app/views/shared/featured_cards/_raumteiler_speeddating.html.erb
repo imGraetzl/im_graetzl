@@ -5,7 +5,7 @@
   <div class="cardBoxHeader">
     <%= link_to [graetzl, meeting] do %>
       <div class="coverImgWrapper">
-        <%= image_tag cover_url(meeting, :small), class: 'coverImg' %>
+        <%= cover_photo_image(meeting, class: 'coverImg') %>
       </div>
     <% end %>
     <% if meeting.starts_at_date %>
@@ -24,12 +24,12 @@
   <div class="cardBoxContent">
     <% if meeting.location&.owned_by?(meeting.user) %>
       <%= link_to [Graetzl.memoized(meeting.location.graetzl_id), meeting.location], class: 'initiator' do %>
-        <%= avatar_for(meeting.location) %>
+        <%= avatar_image meeting.location, size: :thumb, class: 'img-round' %>
         <span><%= meeting.location.name %></span>
       <% end %>
     <% elsif meeting.user %>
       <%= link_to [Graetzl.memoized(meeting.user.graetzl_id), meeting.user], class: 'initiator' do %>
-        <%= avatar_for(meeting.user) %>
+        <%= avatar_image meeting.user, size: :thumb, class: 'img-round' %>
         <span><%= meeting.user.username %></span>
       <% end %>
     <% end %>

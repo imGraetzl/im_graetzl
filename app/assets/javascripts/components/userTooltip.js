@@ -4,7 +4,7 @@ APP.components.initUserTooltip = function() {
   var user_tooltips = []
 
   // ------- DESKTOP Hover Tooltips -------
-  $(".no-touch .signed-in .user-tooltip-trigger").each(function(index, value) {
+  $(".no-touch .signed-in .avatar-tooltip-trigger").each(function(index, value) {
       var tooltip = $(this).data('tooltip-id');
       var type = $(this).data('tooltip-type');
       user_tooltips[tooltip] = new jBox('Tooltip', {
@@ -39,7 +39,7 @@ APP.components.initUserTooltip = function() {
   });
 
   // ------- MOBILE Click Modals -------
-  $(".touch .signed-in .user-tooltip-trigger").each(function(index, value) {
+  $(".touch .signed-in .avatar-tooltip-trigger").each(function(index, value) {
       var tooltip = $(this).data('tooltip-id');
       var type = $(this).data('tooltip-type');
       user_tooltips[tooltip] = new jBox('Modal', {

@@ -453,6 +453,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (~> 3.0.5)
+  marcel
   mini_racer
   newrelic_rpm
   oj

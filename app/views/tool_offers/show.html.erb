@@ -10,7 +10,7 @@
 
 <section class="toolTeiler-detail">
   <div class="imgHeader">
-    <%= image_tag cover_url(@tool_offer, :large), class: 'titleImg', width:980, height:430 %>
+    <%= cover_header_image(@tool_offer, class: 'titleImg') %>
     <div class="headContent">
       <div class="category-tags">
           <ul class="tag-list -mint">
@@ -41,9 +41,9 @@
     <div class="txt"><%= @tool_offer.description %></div>
 
     <div class="entryImgUploads">
-      <%= link_to image_tag(@tool_offer.cover_photo_url(:small)), @tool_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
+      <%= link_to cover_photo_image(@tool_offer), @tool_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
       <% @tool_offer.images.each do |image| %>
-        <%= link_to image_tag(image.file_url(:small)), image.file_url(:large), data: { jbox_image: "maingallery" } %>
+        <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
       <% end %>
     </div>
 

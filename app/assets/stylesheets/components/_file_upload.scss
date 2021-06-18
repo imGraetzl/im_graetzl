@@ -1,0 +1,26 @@
+.uppy-FileInput-container {
+  margin-bottom: 0;
+}
+
+.uppy-FileInput-btn {
+  border-color: $color-ambient-mint-dark;
+  color: $color-ambient-mint-dark;
+  &:hover {
+    background-color: $color-ambient-mint-dark;
+  }
+}
+
+.upload-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  color: $color-ambient-mint-dark;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.upload-preview img {
+  max-height: 200px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}

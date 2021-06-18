@@ -55,17 +55,7 @@
         <span>Coverphoto</span>
       <% end %>
       <div class="field-wrp">
-        <% if f.object.cover_photo %>
-          <div class="preview-wrp">
-            <%= image_tag f.object.cover_photo_url(:small) %>
-            <div class="input-checkbox">
-              <%= f.check_box :remove_cover_photo, { class: 'deleteCheckbox' } %>
-              <%= f.label :remove_cover_photo, 'Löschen' %>
-            </div>
-          </div>
-        <% end %>
-        <%= f.hidden_field :cover_photo, value: f.object.cached_cover_photo_data %>
-        <%= f.file_field :cover_photo %>
+        <%= upload_image_input(f, :cover_photo) %>
       </div>
     </div>
 
@@ -75,17 +65,7 @@
         <span>Profilbild</span>
       <% end %>
       <div class="field-wrp">
-        <% if f.object.avatar %>
-          <div class="preview-wrp">
-            <%= image_tag f.object.avatar_url(:small), class: 'img-round' %>
-            <div class="input-checkbox">
-              <%= f.check_box :remove_avatar, { class: 'deleteCheckbox' } %>
-              <%= f.label :remove_avatar, 'Löschen' %>
-            </div>
-          </div>
-        <% end %>
-        <%= f.hidden_field :avatar, value: f.object.cached_avatar_data %>
-        <%= f.file_field :avatar %>
+        <%= upload_image_input(f, :avatar) %>
       </div>
     </div>
   </div>

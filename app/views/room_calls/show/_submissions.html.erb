@@ -7,7 +7,7 @@
     <% @room_call.room_call_submissions.includes(:user).each do |submission| %>
       <div class="user cardBox">
         <div class="avatar">
-          <%= image_tag avatar_url(submission.user, :thumb), class: 'img-round' %>
+          <%= avatar_image submission.user, size: :thumb, class: 'img-round' %>
         </div>
         <div class="infos">
           <span><%= submission.first_name %> <br> <%= submission.last_name %></span>
