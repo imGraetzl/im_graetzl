@@ -7,7 +7,7 @@
   <div class="hideBlock">
     <div class="upload-streamImgs">
       <%= icon_tag "photo-camera" %>
-      <%= upload_images_input(f, :images) %>
+      <%= upload_image_input(f, :images, multiple: true, live_preview: false) %>
     </div>
     <%= f.button 'Antwort senden', data: { disable_with: 'sendet...' } %>
   </div>

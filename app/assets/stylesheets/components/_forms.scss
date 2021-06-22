@@ -459,19 +459,6 @@ input, select, textarea {
       background-color: #fff;
     }
   }
-  .preview-wrp {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    color: $color-ambient-mint-dark;
-    font-size: 14px;
-    font-style: italic;
-    img {
-      margin-right: 10px;
-      max-width: 400px;
-      flex: 0 0 auto;
-    }
-  }
   @include respond-to(">=medium") {
     @include field-HorizontalLayout;
   }

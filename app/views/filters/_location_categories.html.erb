@@ -13,10 +13,10 @@
     <!-- /Online Shops -->
     <% LocationCategory.all.sort_by(&:position).each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>">
-        <%= category_image(category), class: 'categoryImg' %>
+        <%= category_image(category, class: 'categoryImg') %>
         <div class="cat category-<%= category.id %> -<%= category.icon %> -locations"></div>
         <h3><%= category.name %></h3>
-        <%= button_tag '', class: 'close-ico' do %>
+        <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>
       </div>

@@ -18,8 +18,8 @@ context.instance_eval do
     row :title
     row :description
     row :link
-    row :image do |z|
-      z.image && image_tag(z.image_url(:thumb))
+    row :cover_photo do |z|
+      z.cover_photo && image_tag(z.cover_photo(:thumb))
     end
     row :flyer
     row :updated_at
