@@ -12,7 +12,7 @@ APP.components.createzuckerl = (function() {
         $titleinput = $("[data-behavior=titleinput]");
         $descriptioninput = $("[data-behavior=descriptioninput]");
         $linkinput = $("[data-behavior=linkinput]");
-        $imageinput = $("[data-behavior=imageinput]");
+        $imageinput = $(".direct-upload-result");
         $districtinput = $('.district_visibility .input-radio');
         $titlepreview = $("[data-behavior=titlepreview]");
         $linkpreview = $("a.linkpreview");
@@ -40,11 +40,11 @@ APP.components.createzuckerl = (function() {
         $titleinput.on("keyup change", updatetitle);
         $descriptioninput.on("keyup change", updatedescription);
         $linkinput.on("keyup change", updatelink);
-        $imageinput.on("upload:complete", updateimage);
+        $imageinput.on("upload:complete", function() { setTimeout(updateimage, 300) });
         $districtinput.on("change", updatedistricts);
         $btnconfirm.on("click", btnstate);
         $("[data-behavior=zuckerlform]").on("submit", submitzuckerlform);
-        $titleinput.add($descriptioninput).add($imageinput).on("keyup change", function() {
+        $titleinput.add($descriptioninput).on("keyup change", function() {
             btnclickability();
             btnstate("reset");
         });
@@ -92,9 +92,10 @@ APP.components.createzuckerl = (function() {
     }
 
     function updateimage() {
-        FileAPI.Image(this.files[0]).preview(300, 185).get(function (err, img){
-            $imagepreview.empty().append(img);
-        });
+      var src = $(".upload-preview-image").attr("src");
+      $imagepreview.html($("<img>").attr("src", src));
+      btnclickability();
+      btnstate("reset");
     }
 
     function validatefields() {

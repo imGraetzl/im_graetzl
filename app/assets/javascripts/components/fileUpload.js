@@ -28,14 +28,15 @@ APP.components.fileUpload = (function() {
 
     uppy.on('upload-success', function(file, response) {
       const fileData = uploadedFileData(file, response, fileInput);
+      const resultField = container.find(".direct-upload-result").last();
       // Append or update hidden field
       if (multiple) {
-        const hiddenField = container.find(".direct-upload-result").last();
-        hiddenField.val(fileData);
-        container.append(generateNextInput(hiddenField))
+        resultField.val(fileData);
+        container.append(generateNextInput(resultField));
       } else {
-        container.find(".direct-upload-result").val(fileData);
+        resultField.val(fileData);
       }
+      resultField.trigger("upload:complete");
     });
 
     if (previewContainer.length) {

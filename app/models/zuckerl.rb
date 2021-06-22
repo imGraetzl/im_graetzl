@@ -48,6 +48,10 @@ class Zuckerl < ApplicationRecord
     end
   end
 
+  def to_s
+    title
+  end
+
   def url
     unless self.link.nil?
       self.link
