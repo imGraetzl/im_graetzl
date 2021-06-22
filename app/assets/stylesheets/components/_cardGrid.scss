@@ -475,11 +475,6 @@
       margin-right: 24px;
     }
 
-    .coverImg {
-      min-width: 292px;
-      min-height: 176px;
-    }
-
     .no-results-box {
       @include font-size-primaryFont();
       color: $color-ambient-grey;
@@ -566,17 +561,6 @@
   .search-txt { font-size: 1.6rem; }
   .SumoSelect .select-all { height: 40px; }
   .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
-
-  .filter-categories {
-    @include respond-to(">=medium") {
-      //display: flex;
-      //flex-wrap: wrap;
-      //max-width: 600px;
-      //.input-checkbox {
-        //width:50%;
-      //}
-    }
-  }
 
   .filter-room-options {
     border-top: 1px solid $color-ambient-grey-light;

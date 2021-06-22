@@ -11,4 +11,8 @@ class LocationCategory < ApplicationRecord
     slug.blank?
   end
 
+  def to_s
+    name
+  end
+
 end

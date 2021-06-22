@@ -86,8 +86,7 @@ APP.components.fileUpload = (function() {
 
   function uploadedFileData(file, response, fileInput) {
     if (fileInput.data("upload-server") == 's3') {
-      var id = file.meta['key'].match(/^cache\/(.+)/)[1]; // object key without prefix
-
+      var id = file.meta['key'].split("/").pop(); // object key without prefix
       return JSON.stringify(fileData(file, id))
     } else {
       return JSON.stringify(response.body)
