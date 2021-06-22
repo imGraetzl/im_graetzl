@@ -11,13 +11,13 @@ APP.components.fileUpload = (function() {
 
   function setupFileUpload(fileInput) {
     if (fileInput.hasClass("uppy-setup")) return;
-    const uppy = fileUpload(fileInput);
-    const multiple = fileInput.attr("multiple");
-    const container = fileInput.parents('.upload-container');
-    const previewContainer = container.find(".upload-previews");
+    var uppy = fileUpload(fileInput);
+    var multiple = fileInput.attr("multiple");
+    var container = fileInput.parents('.upload-container');
+    var previewContainer = container.find(".upload-previews");
 
     fileInput.on('change', function(event) {
-      const files = Array.from(event.target.files)
+      var files = Array.from(event.target.files)
       files.forEach(function(file) {
         uppy.addFile({
           name: file.name,
@@ -28,8 +28,8 @@ APP.components.fileUpload = (function() {
     });
 
     uppy.on('upload-success', function(file, response) {
-      const fileData = uploadedFileData(file, response, fileInput);
-      const resultField = container.find(".direct-upload-result").last();
+      var fileData = uploadedFileData(file, response, fileInput);
+      var resultField = container.find(".direct-upload-result").last();
 
       if (multiple) {
         resultField.val(fileData);
@@ -51,7 +51,7 @@ APP.components.fileUpload = (function() {
       });
 
       uppy.on('thumbnail:generated', function(file, preview) {
-        const element = imagePreview(preview);
+        var element = imagePreview(preview);
         if (multiple) {
           previewContainer.append(element);
         } else {
@@ -64,7 +64,7 @@ APP.components.fileUpload = (function() {
   }
 
   function fileUpload(fileInput) {
-    const uppy = Uppy.Core({
+    var uppy = Uppy.Core({
       autoProceed: true,
       restrictions: {
         allowedFileTypes: fileInput.attr("accept").split(','),
@@ -86,7 +86,7 @@ APP.components.fileUpload = (function() {
 
   function uploadedFileData(file, response, fileInput) {
     if (fileInput.data("upload-server") == 's3') {
-      const id = file.meta['key'].match(/^cache\/(.+)/)[1]; // object key without prefix
+      var id = file.meta['key'].match(/^cache\/(.+)/)[1]; // object key without prefix
 
       return JSON.stringify(fileData(file, id))
     } else {
@@ -108,16 +108,16 @@ APP.components.fileUpload = (function() {
   }
 
   function generateNextInput(lastInput) {
-    const input = lastInput.clone().val(null);
-    const oldIndex = lastInput.data("index");
-    const newIndex = oldIndex + 1;
+    var input = lastInput.clone().val(null);
+    var oldIndex = lastInput.data("index");
+    var newIndex = oldIndex + 1;
     input.data("index", newIndex);
     input.attr("name", input.attr("name").replace("[" + oldIndex + "]", "[" + newIndex + "]"));
     return input;
   }
 
   function imagePreview(preview) {
-    const image = $("<img class='upload-preview-image'>").attr("src", preview);
+    var image = $("<img class='upload-preview-image'>").attr("src", preview);
     return $("<div class='upload-preview'></div>").html(image);
   }
 
