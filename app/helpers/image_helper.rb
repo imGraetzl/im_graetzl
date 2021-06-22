@@ -1,11 +1,5 @@
 module ImageHelper
 
-  def avatar_url(object, size)
-    avatar_type = object.is_a?(Location) ? 'location' : 'user'
-    object&.avatar_url(size).presence ||
-    image_url("fallbacks/#{avatar_type}_avatar.png")
-  end
-
   def avatar_image(object, size: nil, **options)
     if object&.avatar.nil?
       avatar_type = object.is_a?(Location) ? 'location' : 'user'

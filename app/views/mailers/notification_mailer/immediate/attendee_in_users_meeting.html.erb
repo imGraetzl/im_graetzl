@@ -33,7 +33,7 @@
 
     <tr>
       <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-        <%= image_tag avatar_url(@notification.activity.owner, :thumb), style: "width: 40px; height: 40px; border-radius: 20px; display: block; margin-bottom:5px;" %>
+        <%= avatar_image @notification.activity.owner, size: :thumb, style: "width: 40px; height: 40px; border-radius: 20px; display: block; margin-bottom:5px;" %>
       </td>
       <td>&nbsp;</td>
       <td class="mcnTextContent" style="padding-right:18px; width:100%;">

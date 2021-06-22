@@ -4,10 +4,10 @@ json.rooms do
     json.name room.slogan
     if room.is_a?(RoomOffer)
       json.url room_offer_path(room)
-      json.icon cover_url(room, :thumb)
+      json.icon room.cover_photo_url(:thumb)
     elsif room.is_a?(RoomDemand)
       json.url room_demand_path(room)
-      json.icon avatar_url(room, :thumb)
+      json.icon room.avatar_url(:thumb)
     end
   end
 end
@@ -20,7 +20,7 @@ json.meetings do
     json.month I18n.localize(meeting.starts_at_date, format:'%b')
     json.past_flag meeting_past_flag(meeting)
     json.url graetzl_meeting_path(meeting.graetzl, meeting)
-    json.icon cover_url(meeting, :thumb)
+    json.icon meeting.cover_photo_url(:thumb)
   end
 end
 
@@ -29,7 +29,7 @@ json.locations do
     json.type location.class.name
     json.name location.name
     json.url graetzl_location_path(location.graetzl, location)
-    json.icon avatar_url(location, :thumb)
+    json.icon location.avatar_url(:thumb)
   end
 end
 
@@ -38,7 +38,7 @@ json.tool_offers do
     json.type tool_offer.class.name
     json.name tool_offer.title
     json.url tool_offer_path(tool_offer)
-    json.icon cover_url(tool_offer, :thumb)
+    json.icon tool_offer.cover_photo_url(:thumb)
   end
 end
 
@@ -47,6 +47,6 @@ json.groups do
     json.type group.class.name
     json.name group.title
     json.url group_path(group)
-    json.icon cover_url(group, :thumb)
+    json.icon group.cover_photo_url(:thumb)
   end
 end

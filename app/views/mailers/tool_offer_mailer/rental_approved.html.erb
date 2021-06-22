@@ -32,7 +32,7 @@
     <tr>
       <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
         <%= link_to tool_offer_url(@tool_rental.tool_offer) do %>
-          <%= image_tag cover_url(@tool_rental.tool_offer, :small), class: 'mcnImage', style: "width:280px; border-radius:5px; max-width:280px; min-width:100px;" %>
+          <%= cover_photo_image @tool_rental.tool_offer, size: :small, class: 'mcnImage', style: "width:280px; border-radius:5px; max-width:280px; min-width:100px;" %>
          <% end %>
       </td>
       <td valign="center" class="mcnTextContent" width="100%">
@@ -130,7 +130,7 @@
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
   <tr>
     <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-      <%= image_tag avatar_url(@tool_rental.owner, :small), style: "width:120px; height:120px; border-radius: 60px; max-width:120px; min-width:120px;", class: "mcnImage" %>
+      <%= avatar_image @tool_rental.owner, size: :small, style: "width:120px; height:120px; border-radius: 60px; max-width:120px; min-width:120px;", class: "mcnImage" %>
     </td>
     <td valign="center" class="mcnTextContent" width="100%">
       <p>

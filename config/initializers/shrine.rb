@@ -23,11 +23,12 @@ when :app
 end
 
 Shrine.plugin :activerecord
-Shrine.plugin :instrumentation
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
 Shrine.plugin :remove_attachment
 Shrine.plugin :determine_mime_type, analyzer: :marcel, log_subscriber: nil
+
+Shrine.plugin :instrumentation if Rails.env.development?
 
 case Rails.configuration.upload_server
 when :s3

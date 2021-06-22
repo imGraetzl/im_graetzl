@@ -15,7 +15,7 @@
             <tr>
               <td align="center">
                 <%= link_to user_url(notification.group_user.user), target: "_blank" do %>
-                  <%= image_tag avatar_url(notification.group_user.user, :small), style: "width:96px; height:96px; border-radius: 48px; max-width:96px; min-width:96px;", class: "mcnImage" %>
+                  <%= avatar_image notification.group_user.user, size: :small, style: "width:96px; height:96px; border-radius: 48px; max-width:96px; min-width:96px;", class: "mcnImage" %>
                 <% end %>
               </td>
             </tr>
