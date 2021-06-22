@@ -32,7 +32,7 @@
           <span>Bilder</span>
         <% end %>
         <div class="field-wrp">
-          <%= upload_images_input(f, :images) %>
+          <%= upload_image_input(f, :images, multiple: true, live_preview: false) %>
         </div>
       </div>
     <% end %>

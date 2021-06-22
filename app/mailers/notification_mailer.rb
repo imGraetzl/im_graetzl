@@ -1,7 +1,7 @@
 class NotificationMailer < ApplicationMailer
   before_action :prepend_view_paths
 
-  helper :attachments
+  helper :image
 
   def send_immediate(notification)
     @notification = notification

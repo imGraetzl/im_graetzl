@@ -5,55 +5,50 @@ APP.components.fileUpload = (function() {
 
   function init() {
     onRender(function() {
-      $('.direct-upload-input').each(function() { setupFileUpload(this); });
+      $('.direct-upload-input').each(function() { setupFileUpload($(this)); });
     });
   }
 
   function setupFileUpload(fileInput) {
-    const multiple = fileInput.multiple;
-    const formGroup = fileInput.parentNode;
     const uppy = fileUpload(fileInput);
+    const multiple = fileInput.attr("multiple");
+    const container = fileInput.parents('.upload-container');
+    const previewContainer = container.find(".upload-previews");
 
-    formGroup.removeChild(fileInput)
-
-    uppy.use(Uppy.FileInput, {
-      target: formGroup,
-      locale: { strings: { chooseFiles: multiple ? 'Choose files' : 'Choose file'} },
-    }).use(Uppy.Informer, {
-      target: formGroup,
+    fileInput.on('change', function(event) {
+      const files = Array.from(event.target.files)
+      files.forEach(function(file) {
+        uppy.addFile({
+          name: file.name,
+          type: file.type,
+          data: file
+        });
+      });
     });
 
     uppy.on('upload-success', function(file, response) {
       const fileData = uploadedFileData(file, response, fileInput);
-      const $form = $(formGroup).parents('form');
       // Append or update hidden field
       if (multiple) {
-        const hiddenField = $("<input type='hidden'>").attr("name", fileInput.dataset.uploadResultName).val(fileData);
-        $form.append(hiddenField);
+        const hiddenField = container.find(".direct-upload-result").last();
+        hiddenField.val(fileData);
+        container.append(generateNextInput(hiddenField))
       } else {
-        $form.find("#" + fileInput.dataset.uploadResultElement).val(fileData);
+        container.find(".direct-upload-result").val(fileData);
       }
     });
 
-    if (fileInput.dataset.previewElement) {
-      const previewContainer = document.getElementById(fileInput.dataset.previewElement)
-      uppy.use(Uppy.ProgressBar, {
-        target: previewContainer.parentNode,
-      }).use(Uppy.ThumbnailGenerator, {
+    if (previewContainer.length) {
+      uppy.use(Uppy.ThumbnailGenerator, {
         thumbnailWidth: 600,
       });
 
       uppy.on('thumbnail:generated', function(file, preview) {
-        // Append or update preview image
-        const image = $("<img>").attr("src", preview);
+        const element = imagePreview(preview);
         if (multiple) {
-          $(previewContainer).append(image);
+          previewContainer.append(element);
         } else {
-          if ($(previewContainer).find("img").length) {
-            $(previewContainer).find("img").replaceWith(image);
-          } else {
-            $(previewContainer).append(image);
-          }
+          previewContainer.html(element);
         }
       });
     }
@@ -61,14 +56,13 @@ APP.components.fileUpload = (function() {
 
   function fileUpload(fileInput) {
     const uppy = Uppy.Core({
-      id: fileInput.id,
       autoProceed: true,
       restrictions: {
-        allowedFileTypes: fileInput.accept.split(','),
+        allowedFileTypes: fileInput.attr("accept").split(','),
       },
     })
 
-    if (fileInput.dataset.uploadServer == 's3') {
+    if (fileInput.data("upload-server") == 's3') {
       uppy.use(Uppy.AwsS3, {
         companionUrl: '/', // will call Shrine's presign endpoint mounted on `/s3/params`
       })
@@ -82,7 +76,7 @@ APP.components.fileUpload = (function() {
   }
 
   function uploadedFileData(file, response, fileInput) {
-    if (fileInput.dataset.uploadServer == 's3') {
+    if (fileInput.data("upload-server") == 's3') {
       const id = file.meta['key'].match(/^cache\/(.+)/)[1]; // object key without prefix
 
       return JSON.stringify(fileData(file, id))
@@ -102,6 +96,20 @@ APP.components.fileUpload = (function() {
         mime_type: file.type,
       }
     };
+  }
+
+  function generateNextInput(lastInput) {
+    const input = lastInput.clone().val(null);
+    const oldIndex = lastInput.data("index");
+    const newIndex = oldIndex + 1;
+    input.data("index", newIndex);
+    input.attr("name", input.attr("name").replace("[" + oldIndex + "]", "[" + newIndex + "]"));
+    return input;
+  }
+
+  function imagePreview(preview) {
+    const image = $("<img class='upload-preview-image'>").attr("src", preview);
+    return $("<div class='upload-preview'></div>").html(image);
   }
 
   return {

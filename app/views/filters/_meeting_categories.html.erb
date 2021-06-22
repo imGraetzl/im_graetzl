@@ -13,10 +13,10 @@
     <!-- /SFS -->
     <% EventCategory.all.sort_by(&:position).each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>">
-        <%= category_image category, class: 'categoryImg' %>
+        <%= category_image(category, class: 'categoryImg') %>
         <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -events"></div>
         <h3><%= category.title %></h3>
-        <%= button_tag '', class: 'close-ico' do %>
+        <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>
       </div>
