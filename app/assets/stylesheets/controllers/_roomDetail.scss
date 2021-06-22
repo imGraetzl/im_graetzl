@@ -59,16 +59,6 @@ section.roomDetail {
 
 
     .imgHeader {
-      position: relative;
-      z-index: 10;
-
-      @include respond-to(">=medium") {
-        max-height: 420px;
-      }
-      @include respond-to(">=large") {
-        min-height: 420px;
-        .titleImg {border-bottom: 10px solid $color-ambient-mint-light;}
-      }
 
       .introtxt {
         margin-bottom: 0px;
@@ -101,20 +91,14 @@ section.roomDetail {
     }
 
 
-    .mainContent {
-      margin: 0px;
+    .headContent {
+      margin-top: 30px;
+      h1 {
+        margin-bottom:10px;
+      }
     }
-
-    @include respond-to(">=small") {
-      .headContent {
-        margin-top: 0px;
-        h1 {
-          margin-bottom:10px;
-        }
-      }
-      .mainContent {
-        top:10px;
-      }
+    .mainContent {
+      top:10px;
     }
 
     @include respond-to(">=medium") {
@@ -146,9 +130,6 @@ section.roomDetail {
     @include respond-to(">=large") {
       aside {
         top:-50px;
-      }
-      .mainContent {
-        top:45px;
       }
       .headContent {
         max-width: 515px;
@@ -574,7 +555,6 @@ section.roomDetail {
     }
 
     @include respond-to(">=medium") {
-      margin-top: -28px;
       margin-bottom: 0;
       width: calc(100% - 295px);
       z-index: 9;
