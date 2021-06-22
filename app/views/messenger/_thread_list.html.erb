@@ -1,7 +1,7 @@
 <% user = thread_other_user(thread) %>
 <div class="message-thread single-user <%= message_thread_class(thread) %>" data-id="<%= thread.id %>">
   <%= form_tag messenger_fetch_thread_path(thread_id: thread.id), remote: true, method: :get, class: 'fetch-form' do; end %>
-  <%= avatar_for(user) %>
+  <%= avatar_image(user, size: :thumb, class: 'img-round avatar') %>
   <div class="wrp">
     <div class="user"><%= user.full_name %></div>
     <div class="txt"><%= thread.last_message.try(:truncate, 100) %></div>

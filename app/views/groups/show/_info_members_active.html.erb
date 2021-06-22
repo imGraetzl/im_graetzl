@@ -2,7 +2,7 @@
   <div class="user">
     <div class="avatar">
       <%= link_to user_path(user) do %>
-        <%= user_tooltip_avatar user, 200 %>
+        <%= avatar_image_with_tooltip(user, size: :large, class: 'img-round') %>
       <% end %>
     </div>
     <div class="infos">

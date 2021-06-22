@@ -17,10 +17,10 @@ context.instance_eval do
           row :slogan
           row :description
           row :cover_photo do |l|
-            l.cover_photo ? attachment_image_tag(l, :cover_photo, :fill, 200, 70) : nil
+            l.cover_photo && image_tag(l.cover_photo_url(:thumb))
           end
           row :avatar do |l|
-            l.avatar ? attachment_image_tag(l, :avatar, :fill, 200, 200) : nil
+            l.avatar && image_tag(l.avatar_url(:thumb))
           end
         end
       end

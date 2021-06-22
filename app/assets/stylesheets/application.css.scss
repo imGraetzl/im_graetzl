@@ -9,6 +9,23 @@
 @import "utils/grid/main";
 
 //---------------------------------------------------------------------------------------------*\
+// VENDOR
+// CSS files from external libraries and frameworks.
+//---------------------------------------------------------------------------------------------*/
+
+@import "picker.default";
+@import "picker.default.date";
+@import "picker.default.time";
+@import "dropdown";
+@import "sumoselect";
+@import "leaflet";
+@import "jquery.tagsinput";
+@import "datatables.min";
+@import "jBox.min";
+@import "lightslider";
+@import "uppy";
+
+//---------------------------------------------------------------------------------------------*\
 // LAYOUT
 // Styles for the main sections and the layout (header, footer, grid, forms, typography).
 //---------------------------------------------------------------------------------------------*/
@@ -55,7 +72,6 @@
 @import "components/navigation";
 @import "components/notifications";
 @import "components/addressSearchAutocomplete";
-@import "components/fileUploads";
 @import "components/titleHeadline";
 @import "components/imgHeader";
 @import "components/notificationsValidation";
@@ -72,6 +88,7 @@
 @import "components/jBox";
 @import "components/tableLayout";
 @import "components/search";
+@import "components/file_upload";
 
 //---------------------------------------------------------------------------------------------*\
 // PAGES
@@ -110,18 +127,3 @@
 @import "controllers/messenger";
 @import "controllers/reports";
 
-//---------------------------------------------------------------------------------------------*\
-// VENDOR
-// CSS files from external libraries and frameworks.
-//---------------------------------------------------------------------------------------------*/
-
-@import "picker.default";
-@import "picker.default.date";
-@import "picker.default.time";
-@import "dropdown";
-@import "sumoselect";
-@import "leaflet";
-@import "jquery.tagsinput";
-@import "datatables.min";
-@import "jBox.min";
-@import "lightslider";

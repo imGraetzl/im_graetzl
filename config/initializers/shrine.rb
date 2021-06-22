@@ -1,7 +1,7 @@
-require "shrine/storage/s3"
-require "shrine/storage/file_system"
+case Rails.configuration.upload_server
+when :s3
+  require "shrine/storage/s3"
 
-if Rails.env.production? || Rails.env.staging?
   s3_options = {
     bucket:            ENV['UPLOADS_BUCKET'],
     region:            ENV['AWS_REGION'],
@@ -13,41 +13,31 @@ if Rails.env.production? || Rails.env.staging?
     cache: Shrine::Storage::S3.new(prefix: "shrine/cache", **s3_options),
     store: Shrine::Storage::S3.new(prefix: "shrine/store", **s3_options),
   }
-else
+when :app
+  require "shrine/storage/file_system"
+
   Shrine.storages = {
-    cache: Shrine::Storage::FileSystem.new("tmp", prefix: "uploads/cache"),
-    store: Shrine::Storage::FileSystem.new("tmp", prefix: "uploads/store"),
+    cache: Shrine::Storage::FileSystem.new("public", prefix: "uploads/cache"),
+    store: Shrine::Storage::FileSystem.new("public", prefix: "uploads/store"),
   }
 end
 
 Shrine.plugin :activerecord
+Shrine.plugin :instrumentation
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
+Shrine.plugin :remove_attachment
+Shrine.plugin :determine_mime_type, analyzer: :marcel, log_subscriber: nil
 
-## Migration dual write
-
-Shrine.plugin :model
-
-module RefileShrineSynchronization
-  def write_shrine_data(name)
-    attacher = Shrine::Attacher.from_model(self, name)
-
-    if read_attribute("#{name}_id").present?
-      attacher.set shrine_file(name)
-    else
-      attacher.set nil
-    end
-  end
-
-  def shrine_file(name)
-    Shrine.uploaded_file(
-      storage:  :store,
-      id:       send("#{name}_id"),
-      metadata: {
-        "size"      => (send("#{name}_size") if respond_to?("#{name}_size")),
-        "filename"  => (send("#{name}_filename") if respond_to?("#{name}_filename")),
-        "mime_type" => (send("#{name}_content_type") if respond_to?("#{name}_content_type")),
-      }
-    )
-  end
+case Rails.configuration.upload_server
+when :s3
+  Shrine.plugin :presign_endpoint, presign_options: -> (request) {
+    {
+      content_disposition: ContentDisposition.inline(request.params["filename"]),
+      content_type: request.params["type"],
+      content_length_range: 0..10.megabytes,
+    }
+  }
+when :app
+  Shrine.plugin :upload_endpoint
 end

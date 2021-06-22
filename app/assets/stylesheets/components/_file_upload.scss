@@ -1,0 +1,15 @@
+.upload-preview {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  color: $color-ambient-mint-dark;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.upload-preview-image {
+  max-height: 150px;
+  max-width: 300px;
+  margin-right: 10px;
+}

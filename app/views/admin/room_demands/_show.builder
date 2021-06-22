@@ -4,6 +4,7 @@ context.instance_eval do
       panel 'Room Offer Details' do
         attributes_table_for room_demand do
           row :id
+          row(:status){|r| status_tag(r.status)}
           row :demand_type
           row :slogan
           row :slug
@@ -24,7 +25,7 @@ context.instance_eval do
           end
 
           row :avatar do |r|
-            r.avatar ? attachment_image_tag(r, :avatar, :fill, 200, 200) : nil
+            r.avatar && image_tag(r.avatar_url(:thumb))
           end
         end
       end

@@ -14,7 +14,7 @@
   <div class="paperCard -cord1RT">
     <div class="wrp summarybox">
       <div class="avatar">
-        <%= avatar_for current_user %>
+        <%= avatar_image current_user, size: :thumb, class: 'img-round' %>
       </div>
       <div class="details">
         <h3><%= @meeting.name %></h3>

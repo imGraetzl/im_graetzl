@@ -84,18 +84,20 @@ class ZuckerlsController < ApplicationController
     params.require(:zuckerl).permit(
       :title,
       :description,
-      :image,
-      :remove_image,
+      :cover_photo,
+      :remove_cover_photo,
       :all_districts,
-      :link)
+      :link
+    )
   end
 
   def zuckerl_params_edit
     params.require(:zuckerl).permit(
       :title,
       :description,
-      :image,
-      :remove_image,
-      :link)
+      :cover_photo,
+      :remove_cover_photo,
+      :link
+    )
   end
 end

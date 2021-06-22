@@ -36,13 +36,8 @@ gem 'scout_apm'
 
 gem "shrine", "~> 3.0"
 gem "aws-sdk-s3", "~> 1"
-
-# Refile is pretty much abandoned and we have to jump through hoops to make it work
-# It should be replaced with active-storage or shrine in the next upgrade
-gem 'refile', require: 'refile/rails', github: 'refile/refile', branch: 'master'
-gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'
-gem 'refile-s3', github: 'refile/refile-s3', branch: 'master'
-gem 'refile-mini_magick'
+gem "image_processing", "~> 1.8"
+gem 'marcel'
 
 gem 'mini_racer'
 
@@ -60,7 +55,7 @@ gem 'bb-ruby'
 gem 'stripe'
 
 group :development do
-  gem 'spring'
+  # gem 'spring'
   gem 'letter_opener'
 end
 

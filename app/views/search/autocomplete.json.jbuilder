@@ -4,10 +4,10 @@ json.rooms do
     json.name room.slogan
     if room.is_a?(RoomOffer)
       json.url room_offer_path(room)
-      json.icon attachment_url(room, :cover_photo, :fill, 100, 100, fallback: 'avatar/room_offer/40x40.png')
+      json.icon cover_url(room, :thumb)
     elsif room.is_a?(RoomDemand)
       json.url room_demand_path(room)
-      json.icon attachment_url(room, :avatar, :fill, 100, 100, fallback: 'avatar/room_demand/40x40.png')
+      json.icon avatar_url(room, :thumb)
     end
   end
 end
@@ -20,7 +20,7 @@ json.meetings do
     json.month I18n.localize(meeting.starts_at_date, format:'%b')
     json.past_flag meeting_past_flag(meeting)
     json.url graetzl_meeting_path(meeting.graetzl, meeting)
-    json.icon attachment_url(meeting, :cover_photo, :fill, 100, 100, fallback: 'avatar/user/40x40.png')
+    json.icon cover_url(meeting, :thumb)
   end
 end
 
@@ -29,7 +29,7 @@ json.locations do
     json.type location.class.name
     json.name location.name
     json.url graetzl_location_path(location.graetzl, location)
-    json.icon attachment_url(location, :avatar, :fill, 100, 100, fallback: 'avatar/location/40x40.png')
+    json.icon avatar_url(location, :thumb)
   end
 end
 
@@ -38,7 +38,7 @@ json.tool_offers do
     json.type tool_offer.class.name
     json.name tool_offer.title
     json.url tool_offer_path(tool_offer)
-    json.icon attachment_url(tool_offer, :cover_photo, :fill, 100, 100, fallback: 'avatar/tool_offer/40x40.png')
+    json.icon cover_url(tool_offer, :thumb)
   end
 end
 
@@ -47,6 +47,6 @@ json.groups do
     json.type group.class.name
     json.name group.title
     json.url group_path(group)
-    json.icon attachment_url(group, :cover_photo, :fill, 100, 100, fallback: 'avatar/user/40x40.png')
+    json.icon cover_url(group, :thumb)
   end
 end

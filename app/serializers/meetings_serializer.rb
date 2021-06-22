@@ -19,7 +19,7 @@ class MeetingsSerializer
         :ends_at_time,
       ).merge(
         url: site_url(:graetzl_meeting_url, meeting.graetzl, meeting),
-        cover_photo_url: asset_url(meeting, :cover_photo),
+        cover_photo_url: meeting.cover_photo_url,
         graetzl: meeting.graetzl.name,
         graetzl_url: site_url(:graetzl_url, meeting.graetzl),
         location: location_fields(meeting.location),
@@ -49,10 +49,5 @@ class MeetingsSerializer
   def site_url(helper_name, *args)
     Rails.application.routes.url_helpers.public_send(helper_name, *args,
       protocol: @request.protocol, host: @request.host, port: @request.port )
-  end
-
-  def asset_url(resource, asset_name)
-    host = "https://#{Refile.cdn_host || @request.host}"
-    Refile.attachment_url(resource, asset_name, host: host)
   end
 end

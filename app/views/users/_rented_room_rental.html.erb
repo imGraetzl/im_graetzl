@@ -2,7 +2,7 @@
   <div class="flex-row large user" role="cell">
     <div>
       <%= link_to room_rental.owner do %>
-        <%= avatar_for room_rental.owner %>
+        <%= avatar_image(room_rental.owner, size: :small, class: 'img-round avatar') %>
       <% end %>
     </div>
     <div class="name">

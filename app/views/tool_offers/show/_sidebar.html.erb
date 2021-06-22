@@ -85,7 +85,7 @@
 
     <h3 class="sideflag -L">Infos & Adresse</h3>
     <div class="innerbox user-wrp">
-      <%= avatar_for @tool_offer.user %>
+      <%= avatar_image @tool_offer.user, size: :thumb, class: 'img-round avatar' %>
       <div>
         <%= link_to @tool_offer.user, class: 'user-wrp' do %>
           <span class="name"><%= @tool_offer.user.full_name %></span>

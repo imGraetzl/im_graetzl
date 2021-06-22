@@ -20,12 +20,9 @@ class ToolOffer < ApplicationRecord
 
   acts_as_taggable_on :keywords
 
-  attachment :cover_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
+  include CoverImageUploader::Attachment(:cover_photo)
 
   has_many :images, as: :imageable, dependent: :destroy
-  accepts_attachments_for :images, attachment: :file, append: true
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   validates_presence_of :title, :description, :address, :tool_category_id, :cover_photo, :price_per_day, :iban

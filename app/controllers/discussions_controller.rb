@@ -108,6 +108,9 @@ class DiscussionsController < ApplicationController
   end
 
   def discussion_post_params
-    params.require(:discussion).require(:initial_post).permit(:content, images_files: [])
+    params.require(:discussion).require(:initial_post).permit(
+      :content,
+      images_attributes: [:id, :file, :_destroy],
+    )
   end
 end

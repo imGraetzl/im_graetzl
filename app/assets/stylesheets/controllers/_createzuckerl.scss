@@ -183,9 +183,11 @@ section.createzuckerl {
                     rgba(0, 0, 0, 0.1) 10px,
                     rgba(0, 0, 0, 0.1) 20px
     );
-    canvas {
-      width: 100%;
+    img {
+      width: 300px;
+      height: 185px;
       display: block;
+      object-fit: cover;
     }
   }
 

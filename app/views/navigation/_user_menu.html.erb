@@ -26,7 +26,7 @@
   </div>
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-current-user-link', data: { dropdown: "nav-current-user", anchor: 'right' } do %>
-    <%= avatar_for current_user %>
+    <%= avatar_image(current_user, size: :thumb, class: 'img-round avatar') %>
     <div class="icon-wrap"><%= icon_tag "gear" %></div>
   <% end %>
 

@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
       :commentable_id,
       :commentable_type,
       :content,
-      images_files: []
+      images_attributes: [:file]
     )
   end
 end

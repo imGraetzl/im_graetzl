@@ -1,33 +1,6 @@
 // -------------- ToolTeiler Detail View --------------
 section.toolTeiler-detail {
 
-  // HEADER Image --------------
-  .imgHeader {
-    position: relative;
-    z-index: 10;
-
-
-    .imgWrapper {
-      height:300px;
-      margin-top:-30px;
-    }
-
-    @include respond-to(">=medium") {
-      .imgWrapper {
-        height:380px;
-        margin-top:0px;
-      }
-    }
-    @include respond-to(">=large") {
-      .imgWrapper {
-        height:420px;
-        border-bottom: 10px solid $color-ambient-mint-light;
-      }
-    }
-
-
-  }
-
   // HEADER Content --------------
   .headContent {
     z-index: 10;
@@ -61,8 +34,8 @@ section.toolTeiler-detail {
     top:40px;
   }
   .headContent {
+    bottom: 10px;
     position: absolute;
-    bottom: 0px;
     text-align: center;
   }
   .mainContent {
@@ -93,7 +66,6 @@ section.toolTeiler-detail {
     }
     .mainContent {
       width: calc(100% - 280px);
-      top:35px;
     }
   }
 

@@ -153,8 +153,7 @@ class RoomOffersController < ApplicationController
         :rental_enabled,
         :last_activated_at,
         :first_name, :last_name, :website, :email, :phone, :location_id,
-        images_files: [],
-        images_attributes: [:id, :_destroy],
+        images_attributes: [:id, :file, :_destroy],
         address_attributes: [
           :id, :street_name, :street_number, :zip, :city
         ],

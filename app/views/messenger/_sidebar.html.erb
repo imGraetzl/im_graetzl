@@ -2,7 +2,7 @@
 
   <div class="controls">
     <div class="user-ctrl">
-      <%= avatar_for(current_user) %>
+      <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
 
       <div class="filter">
         <%= link_to 'javascript:', id: 'filterMessages' do %>

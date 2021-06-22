@@ -62,15 +62,15 @@ class DiscussionPostsController < ApplicationController
   def discussion_post_params
     params.require(:discussion_post).permit(
       :content,
-      images_files: [],
-      images_attributes: [:id, :_destroy],
+      images_attributes: [:id, :file, :_destroy],
     )
   end
 
   def comment_params
     params.require(:comment).permit(
       :content,
-      images_files: []).merge(user_id: current_user.id)
+      images_attributes: [:file]
+    ).merge(user_id: current_user.id)
   end
 
 end

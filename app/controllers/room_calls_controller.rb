@@ -13,7 +13,7 @@ class RoomCallsController < ApplicationController
   def create
     @room_call = RoomCall.new(room_call_params)
     @room_call.user_id = current_user.admin? ? params[:user_id] : current_user.id
-    set_address(@room_call, json: params[:feature])
+    set_address(@room_call, params[:feature])
     if @room_call.save
       @room_call.create_activity(:create, owner: @room_call.user)
       redirect_to @room_call
@@ -94,9 +94,12 @@ class RoomCallsController < ApplicationController
       room_call_fields_attributes: [:id, :label, :_destroy],
       room_call_prices_attributes: [:id, :name, :description, :features, :amount, :_destroy, room_module_ids: []],
       room_call_modules_attributes: [:id, :room_module_id, :description, :quantity, :_destroy],
-      address_attributes: [:id, :_destroy, :street_name, :street_number, :zip, :city, :coordinates, :description],
-      images_files: [],
-      images_attributes: [:id, :_destroy],
+      address_attributes: [
+        :id, :street_name, :street_number, :zip, :city
+      ],
+      images_attributes: [
+        :id, :file, :_destroy
+      ],
     )
   end
 

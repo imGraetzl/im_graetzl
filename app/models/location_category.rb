@@ -4,9 +4,8 @@ class LocationCategory < ApplicationRecord
 
   has_many :locations
 
-  attachment :main_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:main_photo) if main_photo_id_changed? }
+  include CategoryImageUploader::Attachment(:main_photo)
+  validates_presence_of :main_photo
 
   def should_generate_new_friendly_id?
     slug.blank?

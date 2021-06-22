@@ -4,21 +4,18 @@
     robots: 'index, follow',
     og_title: t('.title', slogan: @room_offer.slogan[0..80].gsub(/\s\w+\s*$/,'...')),
     og_description: t('.description', type: t("activerecord.attributes.room_offer.offer_types.#{@room_offer.offer_type}"), desc: @room_offer.room_description[0..250].gsub(/\n/, " ")),
-    og_image: attachment_url(@room_offer, :cover_photo, :fill, 1200, 630, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+    og_image: @room_offer.cover_photo_url || image_url('meta/og_logo.png'),
   )
 %>
 
 <section class="roomDetail -Offer">
-  <div class="imgHeader">
-
-    <div class="imgWrapper" style="background-image:url('<%= attachment_url(@room_offer, :cover_photo, :limit, 980, 980) %>')"></div>
+  <div class="imgHeader -line">
+    <%= cover_header_image(@room_offer, class: 'titleImg') %>
 
     <div class="headContent">
-
       <div class="introtxt">
         <h1><span><%= t("activerecord.attributes.room_offer.offer_types.#{@room_offer.offer_type}") %></span></h1>
       </div>
-
       <div class="category-tags">
         <% if @room_offer.room_categories.present? %>
           <ul class="tag-list -mint">
@@ -43,9 +40,9 @@
     <div class="txt"><%= @room_offer.room_description %></div>
 
     <div class="entryImgUploads">
-      <%= link_to attachment_image_tag(@room_offer, :cover_photo, :fill, 200, 200), attachment_url(@room_offer, :cover_photo, :limit, 800, 800), data: { jbox_image: "maingallery" } %>
+      <%= link_to cover_photo_image(@room_offer), @room_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
       <% @room_offer.images.each do |image| %>
-        <%= link_to attachment_image_tag(image, :file, :fill, 200, 200), attachment_url(image, :file, :limit, 800, 800), data: { jbox_image: "maingallery" } %>
+        <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
       <% end %>
     </div>
   </div>
@@ -90,7 +87,7 @@
     <section class="owner">
       <div class="bigicontext-element">
         <% if @room_offer.user %>
-          <%= attachment_image_tag(@room_offer, :avatar, :fill, 200, 200, class: 'room_offer avatar img-round', fallback: 'avatar/user/200x200.png') %>
+          <%= avatar_image @room_offer, size: :small, class: 'room_offer avatar img-round' %>
         <% else %>
           <%= icon_tag "user-avatar" %>
         <% end %>

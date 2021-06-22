@@ -10,7 +10,7 @@
         <%= link_to user_path(user) do %>
           <% going_to = meeting.going_tos.where(user:user).last %>
           <% going_to.going_to_date ? additional = "<strong>Termin:</strong> #{going_to.display_starts_at_date}" : nil %>
-          <%= user_tooltip_avatar user, 100, nil , additional %>
+          <%= avatar_image_with_tooltip going_to.user, size: :thumb, class: 'img-round', additional: additional %>
         <% end %>
       <% end %>
 
@@ -18,7 +18,7 @@
 
       <% meeting.users.each do |user| next if user == meeting.user %>
         <%= link_to user_path(user) do %>
-          <%= user_tooltip_avatar user, 100 %>
+          <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round' %>
         <% end %>
       <% end %>
 

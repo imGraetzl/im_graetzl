@@ -38,7 +38,6 @@
 //= require autogrow
 //= require jBox.min
 //= require cocoon
-//= require refile
 //= require cookieconsent
 //= require overthrow-detect
 //= require overthrow-polyfill

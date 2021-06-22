@@ -5,9 +5,7 @@ class Zuckerl < ApplicationRecord
 
   before_destroy :can_destroy?
 
-  attachment :image, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:image) if image_id_changed? }
+  include CoverImageUploader::Attachment(:cover_photo)
 
   friendly_id :title
   attr_accessor :active_admin_requested_event
@@ -48,6 +46,10 @@ class Zuckerl < ApplicationRecord
     event :cancel do
       transitions to: :cancelled
     end
+  end
+
+  def to_s
+    title
   end
 
   def url

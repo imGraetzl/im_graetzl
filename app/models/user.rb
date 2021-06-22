@@ -8,13 +8,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  attachment :avatar, type: :image
-  attachment :cover_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:avatar) if avatar_id_changed? }
-  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
-
   enum role: { admin: 0 }
+
+  include AvatarUploader::Attachment(:avatar)
+  include CoverImageUploader::Attachment(:cover_photo)
 
   belongs_to :graetzl, counter_cache: true
   has_many :districts, through: :graetzl
@@ -112,6 +109,10 @@ class User < ApplicationRecord
     User.all.pluck(:id, :first_name, :last_name, :username).map do |id, first_name, last_name, username|
       ["#{first_name} #{last_name} (#{username})", id]
     end
+  end
+
+  def to_s
+    full_name
   end
 
   def full_name

@@ -27,9 +27,7 @@ class Meeting < ApplicationRecord
 
   has_many :comments, as: :commentable, dependent: :destroy
 
-  attachment :cover_photo, type: :image
-  include RefileShrineSynchronization
-  before_save { write_shrine_data(:cover_photo) if cover_photo_id_changed? }
+  include CoverImageUploader::Attachment(:cover_photo)
 
   enum state: { active: 0, cancelled: 1 }
 
@@ -82,6 +80,10 @@ class Meeting < ApplicationRecord
 
   def self.include_for_box
     includes(:going_tos, :user, location: :user)
+  end
+
+  def to_s
+    name
   end
 
   def platform_meeting_pending?

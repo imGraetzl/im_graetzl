@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', name: @meeting.name),
     og_description: t('.description', desc: @meeting.description[0...154]),
-    og_image: attachment_url(@meeting, :cover_photo, :fill, 1200, 630, host: url_for(:only_path => false, :overwrite_params => nil), fallback: 'meta/og_logo.png')
+    og_image: @meeting.cover_photo_url || image_url('meta/og_logo.png')
   )
 %>
 
@@ -23,7 +23,7 @@
       </div>
       <div class="card"></div>
     </div>
-    <div class="imgWrapper" style="background-image:url('<%= attachment_url(@meeting, :cover_photo, :limit, 980, 980) %>')"></div>
+    <%= cover_header_image(@meeting, class: 'titleImg') %>
   </div>
 
   <div class="entryDescription">
@@ -52,7 +52,7 @@
 
     <% if @meeting.group.present? %>
       <div class="ico-row">
-        <%= attachment_image_tag @meeting.group, :cover_photo, :fill, 100, 100, fallback: 'cover_photo/980x370.png', class: 'location avatar img-square' %>
+        <%= image_tag cover_url(@meeting.group, :thumb), class: 'location avatar img-square' %>
         <div class="infotxt">
           <em class="info">Gruppe:</em><br>
           <span><%= link_to @meeting.group.title, @meeting.group, class: 'infolink' %></span>
@@ -62,13 +62,13 @@
 
     <div class="ico-row userPortraitName">
       <% if @meeting.location&.owned_by?(@meeting.user) %>
-        <%= location_tooltip_avatar @meeting.location %>
+        <%= avatar_image_with_tooltip @meeting.location, size: :thumb, class: 'img-square' %>
         <div class="infotxt">
           <em class="info">Erstellt von:</em><br>
           <%= link_to @meeting.location.name, [Graetzl.memoized(@meeting.location.graetzl_id), @meeting.location], class: 'infolink' %>
         </div>
       <% elsif @meeting.user %>
-        <%= user_tooltip_avatar @meeting.user, 100 %>
+        <%= avatar_image_with_tooltip @meeting.user, size: :thumb, class: 'img-round' %>
         <div class="infotxt">
           <em class="info">Erstellt von:</em><br>
           <%= link_to @meeting.user.username, @meeting.user, class: 'infolink' %>
