@@ -6,9 +6,10 @@ class CoverImageUploader < ImageUploader
     {
       thumb: magick.resize_to_fill!(100, 100),
       header: {
-        small: magick.resize_to_fill!(375, 300),
-        large: magick.resize_to_fill!(980, 400),
-        huge:  magick.resize_to_fill!(1960, 800),
+        phone:      magick.resize_to_fill!(375, 300),
+        phone_2x:   magick.resize_to_fill!(750, 600),
+        desktop:    magick.resize_to_fill!(980, 400),
+        desktop_2x: magick.resize_to_fill!(1960, 800),
       },
       photo: {
         small: magick.resize_to_fill!(300, 220),

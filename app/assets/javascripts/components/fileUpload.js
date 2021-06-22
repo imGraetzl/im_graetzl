@@ -10,6 +10,7 @@ APP.components.fileUpload = (function() {
   }
 
   function setupFileUpload(fileInput) {
+    if (fileInput.hasClass("uppy-setup")) return;
     const uppy = fileUpload(fileInput);
     const multiple = fileInput.attr("multiple");
     const container = fileInput.parents('.upload-container');
@@ -29,7 +30,7 @@ APP.components.fileUpload = (function() {
     uppy.on('upload-success', function(file, response) {
       const fileData = uploadedFileData(file, response, fileInput);
       const resultField = container.find(".direct-upload-result").last();
-      // Append or update hidden field
+
       if (multiple) {
         resultField.val(fileData);
         container.append(generateNextInput(resultField));
@@ -37,6 +38,11 @@ APP.components.fileUpload = (function() {
         resultField.val(fileData);
       }
       resultField.trigger("upload:complete");
+    });
+
+    // Don't upload files through file input, they've been directly uploaded
+    fileInput.parents("form").on("submit", function() {
+      fileInput.val(null);
     });
 
     if (previewContainer.length) {
@@ -53,6 +59,8 @@ APP.components.fileUpload = (function() {
         }
       });
     }
+
+    fileInput.addClass("uppy-setup");
   }
 
   function fileUpload(fileInput) {
