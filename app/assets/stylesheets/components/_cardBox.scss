@@ -23,6 +23,7 @@
   opacity: 0.3;
 }
 
+
 .cardBox {
   border: 1px solid $color-ambient-grey-light;
   background-color: #ffffff;
@@ -30,21 +31,7 @@
   border-radius: 8px;
   position: relative;
 
-  // CardBox States
-  &.-disabled .cardBoxHeader {
-    //filter: grayscale(70%);
-    //opacity: 0.3;
-  }
-  &.-disabled:hover {
-    //filter: grayscale(0%);
-    //opacity: 1.0;
-  }
-  &.occupied {
-    //filter: grayscale(0%);
-    //opacity: 1.0;
-  }
-
-  // --------- Zuckerl Crdbox
+  // -------------------------- Zuckerl Cardbox
   &.-zuckerl {
     .btn-userIcons {
       width:100%;
@@ -63,15 +50,8 @@
     }
   }
 
-  // --------- Room Demand Cardbox
+  // -------------------------- Room Demand Cardbox
   &.-roomdemand {
-    @supports (object-fit: cover) {
-      img.room_demand {
-        //height: 176px;
-        height: 206px;
-        object-fit: cover;
-      }
-    }
     .category-tags {
       position: absolute;
       top:4px;
@@ -79,11 +59,10 @@
     }
   }
 
-  // --------- Group Cardbox
+  // -------------------------- Group Cardbox
   &.-group {
     a.title {
       font-weight: bold;
-      padding-bottom:2px;
     }
     p.infos {
       display: none;
@@ -110,7 +89,7 @@
     }
   } // Group Cardbox
 
-  // --------- Group Discussion CardBox
+  // -------------------------- Group Discussion CardBox
   &.-discussion {
     .avatarImg {
       .img-round {
@@ -168,10 +147,6 @@
 .cardBoxHeader {
   position: relative;
   margin: -6px -6px 20px;
-  min-height: 40px;
-  &.-roomdemand {
-    margin-bottom:0px;
-  }
 
   // this tag should always be around the coverImg
   .coverImgWrapper { height: 220px; }
@@ -236,23 +211,33 @@
   }
 }
 
-
+// -------- Cardbox Content
 .cardBoxContent {
+
+  a.typelink {text-decoration: none !important;}
+  a.typelink:hover {text-decoration: none !important;}
 
   .roomtype {
     color: $color-ambient-rosa;
     font-style: italic;
-    padding: 10px 0px 12px 0px;
+    padding: 10px 0px 15px 0px;
   }
+
   &.-roomdemand {
     .roomtype {
       padding-top: 0px;
+      margin-top:-10px;
     }
   }
-  a.typelink {text-decoration: none !important;}
-  a.typelink:hover {text-decoration: none !important;}
+
+  &.-roomoffer {
+    .slogan {
+      margin-top: 5px;
+    }
+  }
 
   &.-roomoffer, &.-roomdemand {
+
     .slogan {
       font-style: normal;
       font-weight: 600;
@@ -274,12 +259,6 @@
       background-color: $color-ambient-mint-light;
     }
 
-  }
-
-  &.-roomoffer {
-    .slogan {
-      margin-top: 5px;
-    }
   }
 
   .updateteaser, .zuckerlteasertxt, .event-teaser-box, .basic-message-box {
@@ -422,7 +401,6 @@
 .cardBoxContent .initiator {
   margin: -47px 0 15px 0;
   text-decoration: none;
-  // display: table;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -530,7 +508,6 @@
   }
   .categoryicon {
     display: flex;
-    //align-items: center;
     sup {
       font-style: italic;
     }
@@ -585,19 +562,10 @@
   }
 }
 
-.cardBox.-meeting.-online {
-  .graetzl-sideflag {
-    //display: none;
-  }
-}
-
 // Featured CardBoxes
 .cardBox.featuredCard {
   &.-hidden {
     display:none;
-  }
-  &#festival {
-    a.btn-primary {background-color: #e2226e;}
   }
   &.-static {
     .cardBoxContent {
@@ -627,10 +595,6 @@
   &.-crowdfunding {
     .coverImgWrapper { height: 240px; }
     a.btn-primary {background-color: #f37164; color: #fff;}
-  }
-  &.-ffg-wettbewerb {
-    .coverImgWrapper { height: 240px; }
-    a.btn-primary {background-color: #ffcc3f; color: #333333;}
   }
 }
 .homeOut {
