@@ -226,6 +226,8 @@ ActiveRecord::Schema.define(version: 2021_06_18_115258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "main_photo_data"
+    t.string "slug"
+    t.index ["slug"], name: "index_event_categories_on_slug", unique: true
   end
 
   create_table "event_categories_meetings", id: false, force: :cascade do |t|
@@ -375,6 +377,8 @@ ActiveRecord::Schema.define(version: 2021_06_18_115258) do
     t.string "main_photo_content_type"
     t.integer "position", default: 0
     t.jsonb "main_photo_data"
+    t.string "slug"
+    t.index ["slug"], name: "index_location_categories_on_slug", unique: true
   end
 
   create_table "location_ownerships", id: :serial, force: :cascade do |t|
@@ -617,6 +621,8 @@ ActiveRecord::Schema.define(version: 2021_06_18_115258) do
     t.integer "position", default: 0
     t.string "css_ico_class"
     t.jsonb "main_photo_data"
+    t.string "slug"
+    t.index ["slug"], name: "index_room_categories_on_slug", unique: true
   end
 
   create_table "room_demand_categories", id: :serial, force: :cascade do |t|
@@ -835,7 +841,9 @@ ActiveRecord::Schema.define(version: 2021_06_18_115258) do
     t.string "main_photo_content_type"
     t.integer "position", default: 0
     t.jsonb "main_photo_data"
+    t.string "slug"
     t.index ["parent_category_id"], name: "index_tool_categories_on_parent_category_id"
+    t.index ["slug"], name: "index_tool_categories_on_slug", unique: true
   end
 
   create_table "tool_offers", force: :cascade do |t|

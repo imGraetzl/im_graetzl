@@ -1,6 +1,17 @@
+<% if @category %>
+  <% meta(
+      title: t('.title_category', numeric: @district.numeric, zip: @district.zip, category: @category.name),
+      description: t('.description_category', numeric: @district.numeric, name: @district.name, category: @category.name),
+    )
+  %>
+<% else %>
+  <% meta(
+      title: t('.title', numeric: @district.numeric, zip: @district.zip),
+      description: t('.description', numeric: @district.numeric, name: @district.name),
+    )
+  %>
+<% end %>
 <% meta(
-    title: t('.title', numeric: @district.numeric, zip: @district.zip),
-    description: t('.description', numeric: @district.numeric, name: @district.name),
     robots: 'index, follow',
     og_title: t('.title', numeric: @district.numeric, zip: @district.zip),
     og_description: t('.description', numeric: @district.numeric, name: @district.name),
@@ -13,7 +24,7 @@
   <%= render 'navigation' %>
 
   <h1 class="hl-main -cards">
-    Entdecke Raumteiler <span>im <%= @district.numeric %>. Bezirk</span>
+    <%= @category ? @category.name : 'Entdecke' %> <span>Raumteiler</span> im <%= @district.numeric %>. Bezirk
   </h1>
 
   <%= render 'filters/room_categories' %>
@@ -41,9 +52,6 @@
     </div>
 
     <!-- Insert Featured Card here -->
-    <% unless Meeting.platform_meeting.upcoming.empty? %>
-      <%= render "shared/featured_cards/community_meeting" %>
-    <% end %>
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' }, rel: 'nofollow' %>
   </div>
 

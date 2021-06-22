@@ -15,9 +15,13 @@
   }
 
   &.-mint {
-    li {
+    li, li a {
       background-color: #5D9798;
       color: white;
+      text-decoration: none;
+      a:hover {
+        text-decoration: underline;
+      }
     }
   }
 

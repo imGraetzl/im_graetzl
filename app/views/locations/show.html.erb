@@ -8,8 +8,6 @@
   )
 %>
 
-<%= structured_data_tag('location', @location) %>
-
 <section class="location-page">
 
   <div class="imgHeader -cloudy2">
@@ -45,7 +43,7 @@
       <% if @location.location_category.present? %>
         <div class="bigicontext-element">
           <%= location_category_icon @location.location_category %>
-          <div class="txt"><%= @location.location_category.name %></div>
+          <div class="txt"><%= link_to @location.location_category.name, locations_category_wien_path(@location.location_category) %></div>
         </div>
       <% end %>
       <% if @location.products.present? %>

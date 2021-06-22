@@ -193,11 +193,6 @@
   <div class="meet-pricing">
     <p><span>Admin</span> Funktionen</p>
 
-    <!--<div class="input-checkbox">
-      <%= f.check_box :platform_meeting %>
-      <%= f.label :platform_meeting, "Treffen unter 'Selbstständige für Selbstständige' listen" %>
-    </div>-->
-
     <div class="input-field">
       <%= label_tag(:amount) do %>
         <%= icon_tag "currency-euro" %>
@@ -207,12 +202,16 @@
     </div>
 
     <% if f.object.new_record? %>
-      <div class="input-select">
+      <div class="input-field">
         <%= f.label :user_id do %>
           <%= icon_tag "user-avatar" %>
           <span>Treffen Ersteller</span>
         <% end %>
-        <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :full_name_with_user_and_email, params[:user_id] || current_user.id), id: 'admin-user-select' %>
+        <div class="user-autocomplete autocomplete-wrp">
+          <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
+          <%= hidden_field_tag :user_id, current_user.id, data:{behavior:"user-autocomplete-id"} %>
+          <%= text_field_tag :q, current_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
+        </div>
       </div>
     <% end %>
 

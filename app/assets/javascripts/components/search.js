@@ -12,7 +12,7 @@ APP.components.search = (function() {
     });
 
     $input.on("input", function(){
-      showSpinner();
+      showSpinner($input);
     });
 
     // Easy Autocomplete Logic
@@ -44,15 +44,15 @@ APP.components.search = (function() {
         },
       ],
       list: {
-        match: {enabled: true},
+        //match: {enabled: true}, // searchphrase must be in shown result
         maxNumberOfElements: 10,
         onShowListEvent:function() {
           search_phrase = $input.val();
           addCategoryLinks();
-          hideSpinner();
+          hideSpinner($input);
           gtag(
-            'event', 'Search', {
-            'event_category': 'Autocomplete :: Results',
+            'event', 'Autocomplete :: Results', {
+            'event_category': 'Search',
             'event_label': search_phrase
           });
         },
@@ -60,8 +60,8 @@ APP.components.search = (function() {
           var url = $input.getSelectedItemData().url
           $input.val("");
           gtag(
-            'event', 'Search', {
-            'event_category': 'Autocomplete :: Result Click',
+            'event', 'Autocomplete :: Result Click', {
+            'event_category': 'Search',
             'event_label': search_phrase,
             'event_callback': function() {
               location.href = url;
@@ -74,7 +74,7 @@ APP.components.search = (function() {
           location.href = url;
         },
         onHideListEvent:function() {
-          hideSpinner();
+          hideSpinner($input);
         },
       },
       template: {
@@ -88,16 +88,6 @@ APP.components.search = (function() {
     }
 
     $input.easyAutocomplete(options);
-
-    // HELPER FUNCTIONS -------------------
-
-    function showSpinner() {
-      $('.autocomplete-loading-spinner').removeClass('-hidden');
-    }
-
-    function hideSpinner() {
-      $('.autocomplete-loading-spinner').addClass('-hidden');
-    }
 
     function addCategoryLinks() {
 
@@ -138,8 +128,63 @@ APP.components.search = (function() {
 
   }
 
+  // USER AUTOCOMPLETE -------------------
+
+  function userAutocomplete() {
+
+    $user_input = $("[data-behavior='user-autocomplete']");
+    $user_hidden_id = $("[data-behavior='user-autocomplete-id']");
+    $user_input.on("input", function(){
+      showSpinner($user_input);
+    });
+
+    // Easy Autocomplete Logic
+    var options = {
+      getValue:"name",
+      url: function(phrase) {
+        return "/search/user.json?q=" + phrase;
+      },
+      list: {
+        //match: {enabled: true},
+        maxNumberOfElements: 10,
+        onShowListEvent:function() {
+          hideSpinner($user_input);
+        },
+        onChooseEvent:function() {
+          $user_input.val($user_input.getSelectedItemData().name);
+          $user_hidden_id.val($user_input.getSelectedItemData().id);
+        },
+        onHideListEvent:function() {
+          hideSpinner($user_input);
+        },
+      },
+      template: {
+        type: "custom",
+        method: function(value, item) {
+          return "<div class='item " + item.type + "'><img src='" + item.icon + "'><div class='txt'>" + value + "<br><small>"+ item.first_name +" "+ item.last_name +"</small></div></div>";
+        }
+      },
+      highlightPhrase: false,
+      requestDelay: 750
+    }
+
+    $user_input.easyAutocomplete(options);
+
+  }
+
+  // LOADING SPINNERS -------------------
+
+  function showSpinner($this) {
+    $this.closest('.autocomplete-wrp').find('.autocomplete-loading-spinner').removeClass('-hidden');
+  }
+
+  function hideSpinner($this) {
+    $this.closest('.autocomplete-wrp').find('.autocomplete-loading-spinner').addClass('-hidden');
+  }
+
   return {
     init: init,
+    userAutocomplete: userAutocomplete
   }
 
 })();

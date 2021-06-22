@@ -6,6 +6,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :main_photo, as: :file, hint: f.object.main_photo && image_tag(f.object.main_photo_url(:thumb))
     input :remove_main_photo, as: :boolean if f.object.main_photo
     input :position
+    input :slug
   end
 
   actions

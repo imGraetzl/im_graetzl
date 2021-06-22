@@ -16,8 +16,8 @@ ActiveAdmin.register RoomOffer do
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :room_categories
-  filter :wants_collaboration
   filter :rental_enabled
+  filter :slogan
   filter :created_at
   filter :updated_at
   filter :last_activated_at

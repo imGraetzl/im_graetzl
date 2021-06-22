@@ -2,7 +2,7 @@
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Events & Workshops" class="cS-hidden">
     <!-- SFS -->
-      <div class="-category -special-category" data-id="sfs" data-label="Selbstständige für Selbstständige">
+      <div class="-category -special-category" data-id="sfs" data-label="Selbstständige für Selbstständige" data-slug="sfs">
         <%= image_tag('meeting-sfs.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
         <div class="cat -sfs"></div>
         <h3>Selbstständige für Selbstständige</h3>
@@ -11,11 +11,13 @@
         <% end %>
       </div>
     <!-- /SFS -->
-    <% EventCategory.all.sort_by(&:position).each do |category| %>
-      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>">
+    <% categories = EventCategory.all.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
+      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
         <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -events"></div>
-        <h3><%= category.title %></h3>
+        <h3><%= link_to category.title, meetings_category_wien_path(category) %></h3>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>

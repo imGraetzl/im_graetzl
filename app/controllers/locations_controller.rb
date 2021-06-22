@@ -112,7 +112,7 @@ class LocationsController < ApplicationController
   def filter_collections(locations)
     graetzl_ids = params.dig(:filter, :graetzl_ids)
 
-    if params[:special_category_id].present? && params[:special_category_id] == 'online_shop'
+    if params[:special_category_id].present? && params[:special_category_id] == 'online-shops'
       locations = locations.online_shop
       graetzl_ids = [] # Reset and always show Online Shops from ALL Dsirticts
     elsif params[:category_id].present?

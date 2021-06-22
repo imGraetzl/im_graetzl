@@ -18,13 +18,14 @@
 
 <% end %>
 
+<%= render 'featured/treffen_erstellen' %>
 
 <% if @period == 'weekly' %>
   <!-- Insert 2 Random District Zuckerls in Weekly Mail if any exists -->
   <%= render "summary/new_zuckerl" %>
 <% end %>
 
-<!-- Insert Featured Content in all Notification Mails -->
+<!-- Insert Supporters -->
 <% if @period == 'weekly' %>
   <%= render 'featured/supporters' %>
 <% end %>

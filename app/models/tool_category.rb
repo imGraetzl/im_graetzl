@@ -1,5 +1,8 @@
 class ToolCategory < ApplicationRecord
-  belongs_to :parent_category, class_name: "ToolCategory"
+  extend FriendlyId
+  friendly_id :name
+
+  belongs_to :parent_category, class_name: "ToolCategory", optional: true
   has_many :tool_offers
 
   include CategoryImageUploader::Attachment(:main_photo)
@@ -10,6 +13,10 @@ class ToolCategory < ApplicationRecord
 
   def to_s
     name
+  end
+
+  def should_generate_new_friendly_id?
+    slug.blank?
   end
 
 end

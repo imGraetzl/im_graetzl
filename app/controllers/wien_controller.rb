@@ -5,9 +5,9 @@ class WienController < ApplicationController
   end
 
   def visit_graetzl
-    @address = Address.from_feature(params[:feature])
-    if @address && @address.graetzls.present?
-      redirect_to @address.graetzls.first
+    resolver = AddressResolver.from_json(params[:feature])
+    if resolver.valid? && resolver.graetzl.present?
+      redirect_to resolver.graetzl
     else
       redirect_to wien_url
     end
@@ -15,20 +15,30 @@ class WienController < ApplicationController
 
   def locations
     @districts = District.order(zip: :asc)
-    @category = LocationCategory.find_by(id: params[:category]) if params[:category].present?
-    @special_category = params[:special_category] if params[:special_category].present?
+    if params[:category].present?
+      @category = LocationCategory.find_by(slug: params[:category])
+      @special_category = params[:category] if helpers.special_categories.include?(params[:category])
+    end
   end
 
   def meetings
     @districts = District.order(zip: :asc)
-    @category = EventCategory.find_by(id: params[:category]) if params[:category].present?
-    @special_category = params[:special_category] if params[:special_category].present?
+    if params[:category].present?
+      @category = EventCategory.find_by(slug: params[:category])
+      @special_category = params[:category] if helpers.special_categories.include?(params[:category])
+    end
+  end
+
+  def category_meetings
+
   end
 
   def rooms
     @districts = District.order(zip: :asc)
-    @category = RoomCategory.find_by(id: params[:category]) if params[:category].present?
-    @special_category = params[:special_category] if params[:special_category].present?
+    if params[:category].present?
+      @category = RoomCategory.find_by(slug: params[:category])
+      @special_category = params[:category] if helpers.special_categories.include?(params[:category])
+    end
   end
 
   def groups
@@ -39,7 +49,9 @@ class WienController < ApplicationController
 
   def tool_offers
     @districts = District.order(zip: :asc)
-    @category = ToolCategory.find_by(id: params[:category]) if params[:category].present?
+    if params[:category].present?
+      @category = ToolCategory.find_by(slug: params[:category])
+    end
   end
 
   def zuckerls

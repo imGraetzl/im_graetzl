@@ -36,9 +36,7 @@
 //= require modernizr.custom
 //= require unscroll
 //= require autogrow
-//= require datatables.min
 //= require jBox.min
-//= require Chart.min
 //= require cocoon
 //= require cookieconsent
 //= require overthrow-detect

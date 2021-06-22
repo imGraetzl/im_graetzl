@@ -1,12 +1,17 @@
 module SchemaOrgHelper
 
-  def structured_data_tag (type, object)
+  def structured_data_tag (object)
     hash = {:@context => 'http://www.schema.org'}
-    final_hash = hash.merge(structured_data_meeting(object)) if type == 'meeting'
-    final_hash = hash.merge(structured_data_location(object)) if type == 'location'
-    final_hash = hash.merge(structured_data_room_offer(object)) if type == 'room_offer'
-    final_hash = hash.merge(structured_data_room_demand(object)) if type == 'room_demand'
-    content_for :structured_data_tag, content_tag(:script, final_hash.to_json, {type: 'application/ld+json'}, false) # false is used here to prevent html character escaping
+    if object.class.name == 'Meeting'
+      final_hash = hash.merge(structured_data_meeting(object))
+    elsif object.class.name == 'Location'
+      final_hash = hash.merge(structured_data_location(object))
+    elsif object.class.name == 'RoomOffer'
+      final_hash = hash.merge(structured_data_room_offer(object))
+    elsif object.class.name == 'RoomDemand'
+      final_hash = hash.merge(structured_data_room_demand(object))
+    end
+    content_tag(:script, final_hash.to_json, {type: 'application/ld+json'}, false) if final_hash
   end
 
   # //////////////////////////// Create Structured Data for MEETINGS
@@ -16,6 +21,9 @@ module SchemaOrgHelper
     hash[:name] = meeting.name
     hash[:description] = meeting.description if meeting.description.present?
     hash[:startDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date
+    hash[:startDate] += "T#{I18n.localize(meeting.starts_at_time, format:'%H:%M')}+01:00" if meeting.starts_at_time
+    hash[:endDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date # days is same as startdate
+    hash[:endDate] += "T#{I18n.localize(meeting.ends_at_time, format:'%H:%M')}+01:00" if meeting.ends_at_time
     hash[:image] = meeting.cover_photo_url || asset_url('meta/og_logo.png')
     hash[:url] = graetzl_meeting_url(meeting.graetzl, meeting)
     hash[:eventStatus] = 'https://schema.org/EventScheduled'
@@ -68,7 +76,8 @@ module SchemaOrgHelper
   # //////////////////////////// Create Structured Data for LOCATIONS
   def structured_data_location (location)
     hash = {:@type => 'LocalBusiness'}
-    hash[:name] = location.name + ' - ' + location.slogan if location.slogan.present?
+    hash[:name] = location.name
+    hash[:slogan] = location.slogan if location.slogan.present?
     hash[:description] = location.description if location.description.present?
     hash[:url] = graetzl_location_url(location.graetzl, location)
     hash[:logo] = location.avatar_url || asset_url('fallbacks/location_avatar.png')
@@ -83,9 +92,7 @@ module SchemaOrgHelper
     end
 
     if location.upcoming_meetings.present?
-      next_location_event = location.upcoming_meetings
-      next_location_event = next_location_event.where.not(starts_at_date: nil)
-      next_location_event = next_location_event.sort_by(&:starts_at_date).first
+      next_location_event = location.upcoming_meetings.where.not(starts_at_date: nil).sort_by(&:starts_at_date).first
       hash[:event] = structured_data_meeting(next_location_event) unless next_location_event.nil?
     end
 

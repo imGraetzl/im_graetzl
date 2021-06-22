@@ -1,19 +1,39 @@
+<% if @category %>
+  <% meta(
+      title: t('.title_category', numeric: @district.numeric, zip: @district.zip, category: @category.title),
+      description: t('.description_category', numeric: @district.numeric, name: @district.name, category: @category.title),
+    )
+  %>
+<% else %>
+  <% meta(
+      title: t('.title', numeric: @district.numeric, zip: @district.zip),
+      description: t('.description', numeric: @district.numeric, name: @district.name),
+    )
+  %>
+<% end %>
 <% meta(
-    title: t('.title', numeric: @district.numeric),
-    description: t('.description', numeric: @district.numeric, name: @district.name),
-    robots: 'index, follow',
-    og_title: t('.title', numeric: @district.numeric),
+    og_title: t('.title', numeric: @district.numeric, zip: @district.zip),
     og_description: t('.description', numeric: @district.numeric, name: @district.name),
-    og_image: image_url('meta/og_logo.png')
+    og_image: image_url('meta/og_logo.png'),
+    robots: 'index, follow',
   )
 %>
+<% if @category %>
+  <% content_for :canonical_url, meetings_category_wien_path(@category) %>
+<% elsif @special_category %>
+  <% content_for :canonical_url, meetings_category_wien_path(@special_category) %>
+<% end %>
 
 <section class="districts meetings">
   <%= render 'map' %>
   <%= render 'navigation' %>
 
   <h1 class="hl-main -cards">
-    Events, Workshops & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span>
+    <% if @category %>
+      <%= @category.title %> <span>Events</span> im <%= @district.numeric %>. Bezirk
+    <% else %>
+      Events, Workshops & Veranstaltungen <span>im <%= @district.numeric %>. Bezirk</span>
+    <% end %>
   </h1>
 
   <%= render 'filters/meeting_categories' %>
