@@ -35,7 +35,7 @@
         <table>
           <tr>
             <td>
-              <%= image_tag avatar_url(@tool_offer.user, :thumb), style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+              <%= avatar_image @tool_offer.user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
             </td>
             <td> </td>
             <td style="font-size:12px; line-height:16px;">
@@ -46,7 +46,7 @@
           </tr>
         </table>
         <%= link_to tool_offer_url(@tool_offer), target: "_blank" do %>
-          <%= image_tag cover_url(@tool_offer, :small), style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage" %>
+          <%= cover_photo_image @tool_offer, size: :small, style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage" %>
         <% end %>
 
         <p><%= @tool_offer.title.truncate(75, separator: ' ') %></p>

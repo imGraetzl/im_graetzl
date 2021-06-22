@@ -35,7 +35,7 @@
     <tr>
       <td class="mcnTextContent" style="padding-left:18px; padding-right:18px; width:300px;">
         <%= link_to graetzl_meeting_url(@going_to.meeting.graetzl, @going_to.meeting), target: "_blank" do %>
-          <%= image_tag cover_url(@going_to.meeting, :small), style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage" %>
+          <%= cover_photo_image(@going_to.meeting, size: :small, style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage") %>
         <% end %>
       </td>
       <td class="mcnTextContent" style="padding-left:18px; padding-right:18px; width:300px;">

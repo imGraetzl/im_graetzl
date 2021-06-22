@@ -1,7 +1,7 @@
 <!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Toolteiler" class="cS-hidden">
-    <% categories = ToolCategory.top.sort_by(&:position) %>
+    <% categories = ToolCategory.all.sort_by(&:position) %>
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
     <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">

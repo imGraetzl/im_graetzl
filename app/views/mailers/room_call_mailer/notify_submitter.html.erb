@@ -56,7 +56,7 @@
     <tr>
       <td colspan="2" valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
         <%= link_to room_call_url(@submission.room_call) do %>
-          <%= image_tag cover_url(@submission.room_call, :small), width: "100%", class: 'mcnImage') %>
+          <%= cover_photo_image @submission.room_call, size: :small, width: "100%", class: 'mcnImage') %>
         <% end %>
         <br><br>
       </td>

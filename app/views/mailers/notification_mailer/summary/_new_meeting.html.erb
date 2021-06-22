@@ -6,7 +6,7 @@
         <table>
           <tr>
             <td>
-              <%= image_tag avatar_url(notification.activity.owner, :thumb), style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+              <%= avatar_image notification.activity.owner, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
             </td>
             <td> </td>
             <td style="font-size:12px; line-height:16px;">
@@ -21,7 +21,7 @@
         </table>
 
         <%= link_to graetzl_meeting_url(notification.meeting.graetzl, notification.meeting), target: "_blank" do %>
-          <%= image_tag cover_url(notification.meeting, :small), style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage" %>
+          <%= cover_photo_image(notification.meeting, size: :small, style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage") %>
         <% end %>
 
         <p style="min-height:55px;"><%= notification.meeting.name.truncate(70, separator: ' ') %></p>

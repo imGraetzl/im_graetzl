@@ -34,7 +34,7 @@
         <table>
           <tr>
             <td>
-              <%= image_tag avatar_url(@room_offer.user, :thumb), style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+              <%= avatar_image @room_offer.user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
             </td>
             <td>
             </td>
@@ -45,7 +45,7 @@
         </table>
 
         <%= link_to room_offer_url(@room_offer), target: 'blank' do %>
-          <%= image_tag cover_url(@room_offer, :small), style: "width:100%; padding-bottom:5px; padding-top:10px;", class: "mcnImage" %>
+          <%= cover_photo_image @room_offer, size: :small, style: "width:100%; padding-bottom:5px; padding-top:10px;", class: "mcnImage" %>
         <% end %>
 
         <p>

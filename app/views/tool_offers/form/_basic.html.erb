@@ -4,23 +4,13 @@
     Wähle zuerst eine <span>Kategorie</span>
   </h2>
 
-  <!--<div class="form-columns">-->
-    <div class="input-select">
-      <%= f.label :tool_category_id do %>
-        <%= icon_tag "layout-document" %>
-        <span>Kategorie</span>
-      <% end %>
-      <%= f.select :tool_category_id, tool_categories_select_options, { include_blank: 'auswählen...' }, class: 'category-select' %>
-    </div>
-
-    <!--<div class="input-select">
-      <%= f.label :tool_subcategory_id do %>
-        <%= icon_tag "layout-document" %>
-        <span>Unterkategorie</span>
-      <% end %>
-      <%= f.select :tool_subcategory_id, tool_subcategories_select_options, { include_blank: 'auswählen...' }, class: 'subcategory-select' %>
-    </div>
-  </div>-->
+  <div class="input-select">
+    <%= f.label :tool_category_id do %>
+      <%= icon_tag "layout-document" %>
+      <span>Kategorie</span>
+    <% end %>
+    <%= f.select :tool_category_id, tool_categories_select_options, { include_blank: 'auswählen...' }, class: 'category-select' %>
+  </div>
 
   <div class="hl-subtext">
     <h2><span>Beschreibe</span> deinen <span>Toolteiler</span></h2>

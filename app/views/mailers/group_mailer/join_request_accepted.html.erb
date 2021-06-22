@@ -32,7 +32,7 @@
     <tr>
       <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
         <%= link_to group_url(@group) do %>
-          <%= image_tag cover_url(@group, :small), class: 'mcnImage', style: "width:290px; border-radius:5px; max-width:290px; min-width:100px;" %>
+          <%= cover_photo_image(@group, size: :small, class: 'mcnImage', style: "width:290px; border-radius:5px; max-width:290px; min-width:100px;") %>
          <% end %>
       </td>
       <td valign="center" class="mcnTextContent" width="100%">

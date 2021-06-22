@@ -50,8 +50,7 @@ active_admin_form_for [:admin, resource] do |f|
         input :two_day_discount
         input :weekly_discount
         input :keyword_list, as: :tag_list, hint: 'mit Komma getrennt'
-        input :tool_category, collection: ToolCategory.top, input_html: { :class => 'admin-filter-select'}
-        input :tool_subcategory, collection: ToolCategory.subcategories, input_html: { :class => 'admin-filter-select'}
+        input :tool_category, collection: ToolCategory.all, input_html: { :class => 'admin-filter-select'}
       end
     end
   end

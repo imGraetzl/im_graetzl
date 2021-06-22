@@ -82,7 +82,7 @@
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-right:15px;">
 
         <%= link_to room_offer_url(@room_offer), target: 'blank' do %>
-          <%= image_tag cover_url(@room_offer, :small), style: "width:100%; padding-bottom:5px;", class: "mcnImage" %>
+          <%= cover_photo_image @room_offer, size: :small, style: "width:100%; padding-bottom:5px;", class: "mcnImage" %>
         <% end %>
 
         <p>
