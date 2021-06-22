@@ -3,6 +3,20 @@ section.userprofile {
 
   .imgHeader {
     overflow: visible;
+
+    @include respond-to("<=medium") {
+      margin-top:0px;
+    }
+
+    .titleImg {
+      @include respond-to(">=small") {
+        height:150px;
+      }
+      @include respond-to(">=medium") {
+        height:250px;
+      }
+    }
+
     @include respond-to(">=medium") {
       &::before {
         content: '';

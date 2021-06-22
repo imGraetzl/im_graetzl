@@ -1,14 +1,35 @@
 .imgHeader {
+
   position: relative;
+  overflow: hidden;
   z-index: 1;
+
   margin-top: -30px;
   margin-left: -18px;
   margin-right: -18px;
-  padding-top: 30px;
+
   @include respond-to(">=medium") {
-    padding-top: 0;
-    overflow: hidden;
-    max-height: 370px;
+    margin-top: -50px;
+    margin-left: -25px;
+    margin-right: -25px;
+    max-height:350px;
+  }
+  @include respond-to(">=large") {
+    margin-top: -80px;
+    max-height:400px;
+  }
+
+  .titleImg {
+    width:100%;
+    height:300px;
+    object-fit: cover;
+    object-position: center center;
+    @include respond-to(">=medium") {
+      height:350px;
+    }
+    @include respond-to(">=large") {
+      height:400px;
+    }
   }
 
   // Full Width Header
@@ -21,42 +42,20 @@
     margin-right: -50vw;
     padding-top: 0;
     max-height: 100%;
-    //margin-bottom: 30px;
-
     .titleImg {
       width: 100%;
       max-width: 980px;
       margin: auto;
-
       &.-fullwidth {
         max-width: 1280px;
       }
-
-    }
-
-    @include respond-to(">=medium") {
-      //margin-bottom: 40px;
     }
   }
 
-  .titleImg {
-    max-width: 100%;
-    height:auto; // Used for responsive https://blog.logrocket.com/jank-free-page-loading-with-media-aspect-ratios/
-    display: block;
-    margin-bottom: 2rem;
-    @include respond-to(">=medium") {
-      z-index: 1;
-      margin-top: 0;
-      margin-bottom: 0;
+  &.-line {
+    @include respond-to(">=large") {
+      .titleImg { border-bottom: 10px solid $color-ambient-mint-light;}
     }
-  }
-  @include respond-to(">=medium") {
-    margin-top: -50px;
-    margin-left: -25px;
-    margin-right: -25px;
-  }
-  @include respond-to(">=large") {
-    margin-top: -80px;
   }
 
   &.-cloudy, &.-cloudy2, &.-cloudy3 {
@@ -102,17 +101,11 @@
       width: 100%;
       height: 10px;
       position: absolute;
-      bottom: 0;
+      bottom: 5px;
       left: 0;
       background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
       pointer-events: none;
       z-index: 9;
-    }
-  }
-
-  .meeting {
-    .titleImg {
-      height: 370px;
     }
   }
 

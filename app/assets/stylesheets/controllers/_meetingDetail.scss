@@ -1,11 +1,16 @@
 section.meeting {
   @include cf;
   .imgHeader {
-    @include respond-to(">=medium") {
-      margin-bottom: -50px;
+    @include respond-to("<=medium") {
+      margin-top:0px;
+      margin-bottom:15px;
+      .titleImg {
+        height:250px;
+      }
     }
-    @include respond-to(">=large") {
-      height:370px;
+    @include respond-to(">=medium") {
+      margin-bottom: -55px;
+      overflow: visible;
     }
   }
 }
