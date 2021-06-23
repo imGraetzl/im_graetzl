@@ -1,6 +1,4 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :configure_sign_up_params, only: [:create]
-
   # GET /users/registrierung
   def new
     if params[:feature].blank?
@@ -16,7 +14,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     session[:confirmation_redirect] = params[:redirect] if params[:redirect].present?
-    super
+
+    build_resource(sign_up_params)
+    resource.save
+
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        resource.send_confirmation_instructions
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
   end
 
   protected
@@ -25,28 +42,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params[:redirect] || root_url
   end
 
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up) do |u|
-      u.permit(
-        :username,
-        :first_name, :last_name,
-        :email,
-        :password,
-        :business,
-        :terms_and_conditions,
-        :newsletter,
-        :origin,
-        :avatar, :remove_avatar,
-        :graetzl_id,
-        :location_category_id,
-        business_interest_ids: [],
-        address_attributes: [
-          :street_name,
-          :street_number,
-          :zip,
-          :city,
-          :coordinates])
-    end
+  def sign_up_params
+    params.require(:user).permit(
+      :username,
+      :first_name, :last_name,
+      :email,
+      :password,
+      :business,
+      :terms_and_conditions,
+      :newsletter,
+      :origin,
+      :avatar, :remove_avatar,
+      :graetzl_id,
+      :location_category_id,
+      business_interest_ids: [],
+      address_attributes: [
+        :street_name,
+        :street_number,
+        :zip,
+        :city,
+        :coordinates]
+      )
   end
 
 end

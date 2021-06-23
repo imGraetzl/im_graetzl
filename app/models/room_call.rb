@@ -58,14 +58,15 @@ class RoomCall < ApplicationRecord
   private
 
   def set_group
-    self.create_group(
+    group = build_group(
       title: "#{title} Gruppe",
       description: description,
       graetzls: [graetzl],
     )
-    self.group.cover_photo_attacher.set group.cover_photo_attacher.upload(cover_photo_attacher.file)
-    self.group.cover_photo_attacher.add_derivatives cover_photo_attacher.derivatives
-    self.group.group_users.create(user_id: user_id, role: :admin)
+    group.cover_photo_attacher.set group.cover_photo_attacher.upload(cover_photo_attacher.file)
+    group.cover_photo_attacher.add_derivatives cover_photo_attacher.derivatives
+    group.save!
+    group.group_users.create(user_id: user_id, role: :admin)
   end
 
 end
