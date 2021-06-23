@@ -127,6 +127,11 @@ class User < ApplicationRecord
     "#{username} | #{full_name} (#{email})"
   end
 
+  def send_confirmation_notification?
+    # send confirmation manually from the controller as the after_commit callback clashes with shrine
+    false
+  end
+
   def after_confirmation
     UsersMailer.welcome_email(self).deliver_later
     MailchimpUserSubscribeJob.perform_later(self)

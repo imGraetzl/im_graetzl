@@ -46,6 +46,7 @@ module UploadHelper
     f.fields_for(field_name) do |ff|
       content_tag(:div, class: 'upload-preview') do
         concat image_tag(ff.object.file.url, class: 'upload-preview-image')
+        concat ff.hidden_field(:file, value: ff.object.cached_file_data) if ff.object.new_record?
         concat(content_tag(:div, class: 'input-checkbox') do
           ff.check_box(:"_destroy", class: 'deleteCheckbox') +
           ff.label(:_destroy, 'Löschen')
