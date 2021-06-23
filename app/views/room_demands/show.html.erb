@@ -33,11 +33,7 @@
   <div class="userContent">
     <div class="col1">
       <%= avatar_image @room_demand, class: 'img-round -largest' %>
-      <div class="sideBarbox">
-
-      </div>
     </div>
-    <div class="col2"></div>
   </div>
 
 
@@ -58,7 +54,7 @@
     <section class="owner">
       <div class="bigicontext-element">
         <% if @room_demand.user %>
-          <%= avatar_image room_offer, size: :thumb, class: 'avatar img-round' %>
+          <%= avatar_image @room_demand, size: :thumb, class: 'avatar img-round' %>
         <% else %>
           <%= icon_tag "user-avatar" %>
         <% end %>

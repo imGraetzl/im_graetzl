@@ -78,13 +78,13 @@
 
   <% if @room_offer && !@room_offer.disabled? %>
     <div class="sideBarbox roomoffer">
-      <%= render partial: 'locations/sidebar/room_offer', object: @room_offer %>
+      <%= render @room_offer %>
     </div>
   <% end %>
 
   <% if @room_demand && !@room_demand.disabled? %>
-    <div class="sideBarbox roomdemand">
-      <%= render partial: 'locations/sidebar/room_demand', object: @room_demand %>
+    <div class="sideBarbox roomoffer">
+      <%= render @room_demand %>
     </div>
   <% end %>
 </aside>

@@ -59,7 +59,7 @@
     <div class="streamElement">
       <div class="entryInitialContent">
         <div class="userCreateInfo">
-          <%= avatar_image last_post.user, size: :small, class: 'avatar img-round' %>
+          <%= avatar_image last_post.user, size: :thumb, class: 'avatar img-round' %>
           <span class="userAndType"><%= link_to last_post.user.full_name, last_post.user %> am <%= I18n.localize(last_post.created_at, format:'%d. %b %Y') %></span>
         </div>
         <div class="txt">

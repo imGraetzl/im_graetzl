@@ -1,8 +1,8 @@
 <%= form_for Comment.new, url: comment_post_location_path(@location, post_id: post.id), remote: true,
     html: { class: 'entryCommentForm', data: { behavior: "comment-form-#{post.id}" } } do |f| %>
   <label>
-    <%= avatar_image current_user, size: :thumn, class: 'avatar img-round' %>
-    <%= f.text_area :content, placeholder: ' Kommentieren' %>
+    <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
+    <%= f.text_area :content, placeholder: 'Kommentieren' %>
   </label>
   <div class="hideBlock">
     <div class="upload-streamImgs">

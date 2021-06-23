@@ -20,7 +20,7 @@
     <%= f.fields_for :initial_post, DiscussionPost.new do |pf| %>
       <div class="input-textarea">
         <%= pf.label :content do %>
-          <%= avatar_image current_user, size: :small, class: 'avatar img-round' %>
+          <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
           <span>Dein Beitrag</span>
         <% end %>
         <%= pf.text_area :content, cols: 100, rows: 5, placeholder: 'Dein erster Beitrag im Thema ..', required: true, class: '-validate' %>
