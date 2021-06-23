@@ -305,19 +305,15 @@ section.group-form-page {
 
     div.coverImg {
       position:relative;
-      width:100%;
+      height:270px;
       img.coverImg {
-        border-radius: 8px;
+        width:100%;
+        height:100%;
         object-fit: cover;
-        max-width: 100%;
-        //margin-bottom:20px;
+        border-radius: 8px;
       }
       @include respond-to(">=medium") {
         width:48%;
-        img.coverImg {
-          height:270px;
-          max-width: 100%;
-        }
       }
     }
 
