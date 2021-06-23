@@ -2,7 +2,7 @@
 
   <div class="coverImg">
     <%= link_to group_path(@group) do %>
-      <%= cover_header_image(@group, class: 'coverImg') %>
+      <%= cover_header_image(@group, size: :desktop_1x, class: 'coverImg') %>
     <% end %>
     <% if @group.group_categories %>
       <div class="sideflag -category -R">
