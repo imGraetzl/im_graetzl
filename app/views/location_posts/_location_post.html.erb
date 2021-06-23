@@ -6,7 +6,7 @@
     <%= link_to [graetzl, location, anchor: dom_id(location_post)] do %>
       <% if image = location_post.images.first %>
         <div class="coverImgWrapper">
-          <%= cover_photo_image(image, class: 'coverImg') %>
+          <%= gallery_photo_image(image, class: 'coverImg') %>
         </div>
       <% else %>
         <%= cover_photo_image(location, class: 'coverImg') %>

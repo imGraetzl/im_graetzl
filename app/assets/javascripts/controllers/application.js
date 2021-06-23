@@ -94,11 +94,11 @@ APP.controllers.application = (function() {
     new jBox('Image', {
       addClass:'jBoxGallery',
       imageCounter:true,
-      preloadFirstImage:true,
+      preloadFirstImage:false,
       closeOnEsc:true,
       createOnInit:true,
       animation:{open: 'zoomIn', close: 'zoomOut'},
-      imageSize: 'auto'
+      imageSize: 'contain'
     });
   }
 
