@@ -126,7 +126,6 @@ section.group-form-page {
       margin-bottom:20px;
 
       .btn-userIcons {
-        //width:250px;
         svg {color: white;}
       }
     }
@@ -150,11 +149,6 @@ section.group-form-page {
         }
         h3.title {
           text-align: center;
-        }
-      }
-      @include respond-to(">=medium") {
-        .discussions {
-          //margin-top: -20px;
         }
       }
     }
@@ -654,6 +648,7 @@ section.group-form-page {
       .img-round {
         width:60px;
         height:60px;
+        margin-right:10px;
       }
     }
 
