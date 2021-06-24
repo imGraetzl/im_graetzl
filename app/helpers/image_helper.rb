@@ -3,11 +3,11 @@ module ImageHelper
   def avatar_image(object, size: nil, **options)
     if object&.avatar.nil?
       avatar_type = object.is_a?(Location) ? 'location' : 'user'
-      image_tag("fallbacks/#{avatar_type}_avatar.png", alt: object.to_s, **options)
+      image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)
     elsif size
-      image_tag(object.avatar_url(size), alt: object.to_s, **options)
+      image_tag(object.avatar_url(size), loading: 'lazy', alt: object.to_s, **options)
     else
-      image_tag(object.avatar_url(:large), srcset: {
+      image_tag(object.avatar_url(:large), loading: 'lazy', srcset: {
         object.avatar_url(:small) => '200w',
         object.avatar_url(:large) => '400w',
         object.avatar_url(:huge) => '800w',
@@ -22,7 +22,7 @@ module ImageHelper
       url: url_for([:tooltip, object.class.name.parameterize.to_sym, id: object.id, additional: additional]),
       tooltip_type: object.class.name,
     }
-    avatar_image(object, size: size, data: tooltip_data, **options)
+    avatar_image(object, size: size, loading: 'lazy', data: tooltip_data, **options)
   end
 
   def cover_url(object, size)
@@ -32,29 +32,29 @@ module ImageHelper
 
   def cover_header_image(object, size: nil, fallback: "cover_header.png", **options)
     if object&.cover_photo.nil?
-      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
     elsif size
-      image_tag(object.cover_photo_url(:header, size), alt: object.to_s, **options)
+      image_tag(object.cover_photo_url(:header, size), loading: 'lazy', alt: object.to_s, **options)
     else
       image_tag(object.cover_photo_url(:header, :desktop_1x), srcset: {
         object.cover_photo_url(:header, :phone) => '375w',
         object.cover_photo_url(:header, :phone_2x) => '750w',
         object.cover_photo_url(:header, :desktop) => '980w',
         object.cover_photo_url(:header, :desktop_2x) => '1960w',
-      }, sizes: "(min-width: 980px) 980px, 100vw", alt: object.to_s, **options)
+      }, sizes: "(min-width: 980px) 980px, 100vw", loading: 'lazy', alt: object.to_s, **options)
     end
   end
 
   def cover_photo_image(object, size: nil, fallback: "cover_photo.png", **options)
     if object&.cover_photo.nil?
-      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
     elsif size
-      image_tag(object.cover_photo_url(:photo, size), alt: object.to_s, **options)
+      image_tag(object.cover_photo_url(:photo, size), loading: 'lazy', alt: object.to_s, **options)
     else
       image_tag(object.cover_photo_url(:photo, :small), srcset: {
         object.cover_photo_url(:photo, :small) => '1x',
         object.cover_photo_url(:photo, :large) => '2x',
-      }, alt: object.to_s, **options)
+      }, loading: 'lazy', alt: object.to_s, **options)
     end
   end
 
@@ -62,17 +62,17 @@ module ImageHelper
     image_tag(object.main_photo_url(:small), srcset: {
       object.main_photo_url(:small) => '1x',
       object.main_photo_url(:large) => '2x',
-    }, alt: object.to_s, **options)
+    }, loading: 'lazy', alt: object.to_s, **options)
   end
 
   def gallery_photo_image(object, fallback: 'cover_photo.png', **options)
     if object&.file.nil?
-      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
     else
       image_tag(object.file_url(:photo, :small), srcset: {
         object.file_url(:photo, :small) => '1x',
         object.file_url(:photo, :large) => '2x',
-      }, alt: object.to_s, **options)
+      }, loading: 'lazy', alt: object.to_s, **options)
     end
   end
 
