@@ -1753,7 +1753,7 @@ APP.controllers.reports = (function() {
           }
 
           if (user.avatar == null) {
-            $("#u_avatar").attr("src", "/assets/img/400x400.png");
+            $("#u_avatar").attr("src", "/assets/fallbacks/user_avatar.png");
           } else {
             $("#u_avatar").attr("src", user.avatar);
           } // Request User Mailings when User Infos are loaded!
