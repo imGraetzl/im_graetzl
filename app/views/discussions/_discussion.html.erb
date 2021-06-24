@@ -13,7 +13,7 @@
     <% else %>
       <!-- Normal HeaderView for Groups -->
       <div class="coverImgWrapper">
-        <%= link_to image_tag('cover_photo/600x300-speech-bubble.png', class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
+        <%= link_to image_tag('fallbacks/discussion_photo.png', class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
       </div>
       <% if discussion.sticky %>
         <div class="categoryicon sticky"><%= icon_tag "pin" %><sup><%= discussion.discussion_posts.size %></sup></div>
