@@ -30,28 +30,28 @@ module ImageHelper
     image_url("fallbacks/cover_photo.png")
   end
 
-  def cover_header_image(object, size: nil, **options)
+  def cover_header_image(object, size: nil, fallback: "cover_header.png", **options)
     if object&.cover_photo.nil?
-      image_tag("fallbacks/cover_header.png", alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
     elsif size
       image_tag(object.cover_photo_url(:header, size), alt: object.to_s, **options)
     else
       image_tag(object.cover_photo_url(:header, :desktop_1x), srcset: {
-        object.cover_photo_url(:header, :phone_1x) => '375w',
+        object.cover_photo_url(:header, :phone) => '375w',
         object.cover_photo_url(:header, :phone_2x) => '750w',
-        object.cover_photo_url(:header, :desktop_1x) => '980w',
+        object.cover_photo_url(:header, :desktop) => '980w',
         object.cover_photo_url(:header, :desktop_2x) => '1960w',
-      }, sizes: "(min-width: 1960px) 1960px, (min-width: 1440px) 980px, 100vw", alt: object.to_s, **options)
+      }, sizes: "(min-width: 980px) 980px, 100vw", alt: object.to_s, **options)
     end
   end
 
-  def cover_photo_image(object, size: nil, **options)
+  def cover_photo_image(object, size: nil, fallback: "cover_photo.png", **options)
     if object&.cover_photo.nil?
-      image_tag("fallbacks/cover_photo.png", alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
     elsif size
       image_tag(object.cover_photo_url(:photo, size), alt: object.to_s, **options)
     else
-      image_tag(object.cover_photo_url(:photo, :large), srcset: {
+      image_tag(object.cover_photo_url(:photo, :small), srcset: {
         object.cover_photo_url(:photo, :small) => '1x',
         object.cover_photo_url(:photo, :large) => '2x',
       }, alt: object.to_s, **options)
@@ -65,11 +65,15 @@ module ImageHelper
     }, alt: object.to_s, **options)
   end
 
-  def gallery_photo_image(object, **options)
-    image_tag(object.file_url(:photo, :small), srcset: {
-      object.file_url(:photo, :small) => '1x',
-      object.file_url(:photo, :large) => '2x',
-    }, alt: object.to_s, **options)
+  def gallery_photo_image(object, fallback: 'cover_photo.png', **options)
+    if object&.file.nil?
+      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
+    else
+      image_tag(object.file_url(:photo, :small), srcset: {
+        object.file_url(:photo, :small) => '1x',
+        object.file_url(:photo, :large) => '2x',
+      }, alt: object.to_s, **options)
+    end
   end
 
 end

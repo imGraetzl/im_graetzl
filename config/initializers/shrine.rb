@@ -11,7 +11,7 @@ when :s3
 
   Shrine.storages = {
     cache: Shrine::Storage::S3.new(prefix: "shrine/cache", **s3_options),
-    store: Shrine::Storage::S3.new(prefix: "shrine/store", **s3_options),
+    store: Shrine::Storage::S3.new(prefix: "shrine/store", public: true, **s3_options),
   }
 when :app
   require "shrine/storage/file_system"
