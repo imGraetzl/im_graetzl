@@ -19,7 +19,7 @@
   <% end %>
 
   <div class="avatar">
-    <%= link_to user_path(group_user.user) do %>
+    <%= link_to user_path(group_user.user), rel: 'nofollow' do %>
       <%= avatar_image_with_tooltip group_user.user, size: :thumb, class: 'img-round' %>
     <% end %>
   </div>

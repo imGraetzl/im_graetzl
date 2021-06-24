@@ -32,7 +32,7 @@
       <% @group.admins.each do |user| %>
         <div class="user">
           <div class="avatar">
-            <%= link_to user_path(user) do %>
+            <%= link_to user_path(user), rel: 'nofollow' do %>
               <%= avatar_image_with_tooltip(user, size: :small, class: 'img-round') %>
             <% end %>
           </div>

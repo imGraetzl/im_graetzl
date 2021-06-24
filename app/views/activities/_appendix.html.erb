@@ -3,7 +3,7 @@
     <div class="entryInitialContent">
       <div class="userCreateInfo">
         <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
-        <span class="userAndType">Kommentar von <%= link_to comment.user.username, comment.user %></span>
+        <span class="userAndType">Kommentar von <%= link_to comment.user.username, comment.user, rel: 'nofollow' %></span>
       </div>
       <div class="txt"><%= truncate comment.content, length: 100 %></div>
     </div>
@@ -16,10 +16,10 @@
 
 <% if participant = appendix[:participant] %>
   <div class="userCreateInfo">
-    <%= link_to participant do %>
+    <%= link_to participant, rel: 'nofollow' do %>
       <%= avatar_image_with_tooltip participant, size: :thumb, class: 'img-round' %>
     <% end %>
-    <span class="userAndType"><%= link_to participant.username, participant %> <span>nimmt teil.</span></span>
+    <span class="userAndType"><%= link_to participant.username, participant, rel: 'nofollow' %> <span>nimmt teil.</span></span>
   </div>
 <% end %>
 

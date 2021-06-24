@@ -49,7 +49,7 @@
         <span><%= meeting.location.name %></span>
       <% end %>
     <% elsif meeting.user %>
-      <%= link_to meeting.user, class: 'initiator' do %>
+      <%= link_to meeting.user, class: 'initiator', rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip meeting.user, size: :thumb, class: 'img-round' %>
         <span><%= meeting.user.username %></span>
       <% end %>

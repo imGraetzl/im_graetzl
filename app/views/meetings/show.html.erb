@@ -71,7 +71,7 @@
         <%= avatar_image_with_tooltip @meeting.user, size: :thumb, class: 'img-round' %>
         <div class="infotxt">
           <em class="info">Erstellt von:</em><br>
-          <%= link_to @meeting.user.username, @meeting.user, class: 'infolink' %>
+          <%= link_to @meeting.user.username, @meeting.user, class: 'infolink', rel: 'nofollow' %>
         </div>
       <% end %>
     </div>

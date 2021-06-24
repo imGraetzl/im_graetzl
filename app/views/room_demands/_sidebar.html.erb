@@ -29,7 +29,7 @@
         </div>
       <% end %>
 
-      <%= link_to @room_demand.user, class: 'user-wrp' do %>
+      <%= link_to @room_demand.user, class: 'user-wrp', rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip @room_demand.user, size: :thumb, class: 'img-round' %>
         <span class="name"><%= @room_demand.user.username %></span>
       <% end %>
