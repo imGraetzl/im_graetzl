@@ -37,11 +37,11 @@ module ImageHelper
       image_tag(object.cover_photo_url(:header, size), alt: object.to_s, **options)
     else
       image_tag(object.cover_photo_url(:header, :desktop_1x), srcset: {
-        object.cover_photo_url(:header, :phone_1x) => '375w',
+        object.cover_photo_url(:header, :phone) => '375w',
         object.cover_photo_url(:header, :phone_2x) => '750w',
-        object.cover_photo_url(:header, :desktop_1x) => '980w',
+        object.cover_photo_url(:header, :desktop) => '980w',
         object.cover_photo_url(:header, :desktop_2x) => '1960w',
-      }, sizes: "(min-width: 1960px) 1960px, (min-width: 1440px) 980px, 100vw", alt: object.to_s, **options)
+      }, sizes: "(min-width: 980px) 980px, 100vw", alt: object.to_s, **options)
     end
   end
 
