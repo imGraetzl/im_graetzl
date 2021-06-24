@@ -51,7 +51,7 @@ module ImageHelper
     elsif size
       image_tag(object.cover_photo_url(:photo, size), alt: object.to_s, **options)
     else
-      image_tag(object.cover_photo_url(:photo, :large), srcset: {
+      image_tag(object.cover_photo_url(:photo, :small), srcset: {
         object.cover_photo_url(:photo, :small) => '1x',
         object.cover_photo_url(:photo, :large) => '2x',
       }, alt: object.to_s, **options)
