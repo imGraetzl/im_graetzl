@@ -30,9 +30,9 @@ module ImageHelper
     image_url("fallbacks/cover_photo.png")
   end
 
-  def cover_header_image(object, size: nil, **options)
+  def cover_header_image(object, size: nil, fallback: "cover_header.png", **options)
     if object&.cover_photo.nil?
-      image_tag("fallbacks/cover_header.png", alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
     elsif size
       image_tag(object.cover_photo_url(:header, size), alt: object.to_s, **options)
     else
@@ -45,9 +45,9 @@ module ImageHelper
     end
   end
 
-  def cover_photo_image(object, size: nil, **options)
+  def cover_photo_image(object, size: nil, fallback: "cover_photo.png", **options)
     if object&.cover_photo.nil?
-      image_tag("fallbacks/cover_photo.png", alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
     elsif size
       image_tag(object.cover_photo_url(:photo, size), alt: object.to_s, **options)
     else
@@ -65,11 +65,15 @@ module ImageHelper
     }, alt: object.to_s, **options)
   end
 
-  def gallery_photo_image(object, **options)
-    image_tag(object.file_url(:photo, :small), srcset: {
-      object.file_url(:photo, :small) => '1x',
-      object.file_url(:photo, :large) => '2x',
-    }, alt: object.to_s, **options)
+  def gallery_photo_image(object, fallback: 'cover_photo.png', **options)
+    if object&.file.nil?
+      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
+    else
+      image_tag(object.file_url(:photo, :small), srcset: {
+        object.file_url(:photo, :small) => '1x',
+        object.file_url(:photo, :large) => '2x',
+      }, alt: object.to_s, **options)
+    end
   end
 
 end

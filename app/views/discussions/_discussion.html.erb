@@ -13,7 +13,8 @@
     <% else %>
       <!-- Normal HeaderView for Groups -->
       <div class="coverImgWrapper">
-        <%= link_to image_tag('fallbacks/discussion_photo.png', class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
+        <%= link_to gallery_photo_image(discussion.first_post.images.first, fallback: 'discussion_photo.png',
+            class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
       </div>
       <% if discussion.sticky %>
         <div class="categoryicon sticky"><%= icon_tag "pin" %><sup><%= discussion.discussion_posts.size %></sup></div>
