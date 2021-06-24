@@ -87,7 +87,7 @@
     <div class="innerbox user-wrp">
       <%= avatar_image @tool_offer.user, size: :thumb, class: 'img-round avatar' %>
       <div>
-        <%= link_to @tool_offer.user, class: 'user-wrp' do %>
+        <%= link_to @tool_offer.user, class: 'user-wrp', rel: 'nofollow' do %>
           <span class="name"><%= @tool_offer.user.full_name %></span>
         <% end %>
         <div class="rating-container">

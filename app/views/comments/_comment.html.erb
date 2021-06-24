@@ -12,11 +12,11 @@
     <% end %>
     <a name="comment-<%= comment.id -%>"></a>
     <div class="userCreateInfo">
-      <%= link_to comment.user do %>
+      <%= link_to comment.user, rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
     <% end %>
       <span class="userAndType">
-        Kommentar von <%= link_to comment.user.username, comment.user %>
+        Kommentar von <%= link_to comment.user.username, comment.user, rel: 'nofollow' %>
         <span>vor <%= time_ago_in_words(comment.created_at) %></span>
       </span>
     </div>

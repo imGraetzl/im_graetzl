@@ -27,7 +27,7 @@
   <div class="cardBoxContent">
     <div class="avatar-block">
       <% if discussion.user %>
-        <%= link_to discussion.user, class: 'avatarImg' do %>
+        <%= link_to discussion.user, class: 'avatarImg', rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip discussion.user, size: :thumb, class: 'img-round' %>
         <% end %>
       <% else %>
@@ -38,7 +38,7 @@
       <div class="typetxt">
         <div class="name">
           <% if discussion.user %>
-            <%= link_to discussion.user.full_name, discussion.user %>
+            <%= link_to discussion.user.full_name, discussion.user, rel: 'nofollow' %>
           <% else %>
             Gelöschtes Mitglied
           <% end %>
@@ -60,7 +60,7 @@
       <div class="entryInitialContent">
         <div class="userCreateInfo">
           <%= avatar_image last_post.user, size: :thumb, class: 'avatar img-round' %>
-          <span class="userAndType"><%= link_to last_post.user.full_name, last_post.user %> am <%= I18n.localize(last_post.created_at, format:'%d. %b %Y') %></span>
+          <span class="userAndType"><%= link_to last_post.user.full_name, last_post.user, rel: 'nofollow' %> am <%= I18n.localize(last_post.created_at, format:'%d. %b %Y') %></span>
         </div>
         <div class="txt">
           <%= link_to [discussion.group, discussion, anchor: "discussion-post-#{last_post.id}"], class: 'commentslink' do %>

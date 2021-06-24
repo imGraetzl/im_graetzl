@@ -21,7 +21,7 @@
   </div>
 
   <div class="cardBoxContent">
-    <%= link_to tool_offer.user, class: 'initiator' do %>
+    <%= link_to tool_offer.user, class: 'initiator', rel: 'nofollow' do %>
       <%= avatar_image_with_tooltip tool_offer.user, size: :thumb, class: 'img-round' %>
       <span><%= tool_offer.user.full_name %></span>
     <% end %>

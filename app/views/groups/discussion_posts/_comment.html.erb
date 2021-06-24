@@ -11,11 +11,11 @@
     <% end %>
     <a name="comment-<%= comment.id -%>"></a>
     <div class="userCreateInfo">
-      <%= link_to comment.user do %>
+      <%= link_to comment.user, rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
       <% end %>
       <div class="infos">
-        <div class="name"><%= link_to comment.user.full_name, comment.user %></div>
+        <div class="name"><%= link_to comment.user.full_name, comment.user, rel: 'nofollow' %></div>
         <div class="date">
           <%= I18n.localize(comment.created_at, format:'%a, %d. %B %Y, %H:%M') %>
         </div>

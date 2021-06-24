@@ -20,13 +20,13 @@
 
     <div class="users">
       <% group.admins.last(10).each do |user| %>
-        <%= link_to user_path(user) do %>
+        <%= link_to user_path(user), rel: 'nofollow' do %>
           <%= avatar_image user, size: :thumb, class: 'img-round' %>
         <% end %>
       <% end %>
       <% if group.admins.size < 10 %>
         <% group.members.last(10 - group.admins.size).each do |user| %>
-          <%= link_to user_path(user) do %>
+          <%= link_to user_path(user), rel: 'nofollow' do %>
             <%= avatar_image user, size: :thumb, class: 'img-round' %>
           <% end %>
         <% end %>
