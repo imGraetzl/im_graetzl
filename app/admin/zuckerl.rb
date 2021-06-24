@@ -59,8 +59,8 @@ ActiveAdmin.register Zuckerl do
                 :aasm_state,
                 :active_admin_requested_event,
                 :paid_at,
-                :image, :remove_image,
-                :link
+                :link,
+                :cover_photo, :remove_cover_photo
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
   controller do

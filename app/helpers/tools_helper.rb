@@ -1,7 +1,7 @@
 module ToolsHelper
 
   def tool_categories_select_options
-    ToolCategory.order(&:position).map do |category|
+    ToolCategory.order(:position).map do |category|
       [category.name, category.id]
     end
   end
