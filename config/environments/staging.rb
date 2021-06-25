@@ -62,9 +62,7 @@ Rails.application.configure do
     reply_to: 'imGrätzl.at <wir@imgraetzl.at>'
   }
   config.action_mailer.default_url_options = { host: 'staging.imgraetzl.at', protocol: 'https' }
-  config.action_mailer.asset_host = "www.imgraetzl.at"
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default charset: 'utf-8'
   config.action_mailer.smtp_settings = {
     address: 'smtp.mandrillapp.com',
     port: 587,
