@@ -74,7 +74,7 @@ module ImageHelper
       image_tag(object.file_url(:cardbox, :small), srcset: {
         object.file_url(:cardbox, :small) => '1x',
         object.file_url(:cardbox, :large) => '2x',
-      },
+      }, loading: 'lazy', alt: object.to_s, **options)
     end
   end
 
