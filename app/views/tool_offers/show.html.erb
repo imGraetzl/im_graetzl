@@ -14,7 +14,9 @@
     <div class="headContent">
       <div class="category-tags">
           <ul class="tag-list -mint">
-            <% if @tool_offer.tool_subcategory.present? %><li><%= @tool_offer.tool_subcategory.try(:name) %></li><% end %>
+            <% if @tool_offer.tool_subcategory.present? %>
+              <li><%= @tool_offer.tool_subcategory.try(:name) %></li>
+            <% end %>
             <li><%= @tool_offer.tool_category.try(:name) %></li>
           </ul>
       </div>
@@ -41,9 +43,9 @@
     <div class="txt"><%= @tool_offer.description %></div>
 
     <div class="entryImgUploads">
-      <%= link_to cover_photo_image(@tool_offer), @tool_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
+      <%= link_to image_tag(@tool_offer.cover_photo_url(:thumb)), @tool_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
       <% @tool_offer.images.each do |image| %>
-        <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+        <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
       <% end %>
     </div>
 

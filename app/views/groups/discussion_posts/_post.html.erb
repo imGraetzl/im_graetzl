@@ -47,7 +47,7 @@
       <% if post.images.present? %>
         <div class="entryImgUploads">
           <% post.images.each do |image| %>
-            <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "gallery-post-#{post.id}" } %>
+            <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "gallery-post-#{post.id}" } %>
           <% end %>
         </div>
       <% end %>

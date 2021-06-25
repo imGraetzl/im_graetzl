@@ -26,7 +26,7 @@
     <% unless comment.images.empty? %>
       <div class="entryImgUploads">
         <% comment.images.each do |image| %>
-          <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "gallery-#{comment.id}"} %>
+          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "gallery-#{comment.id}"} %>
         <% end %>
       </div>
     <% end %>

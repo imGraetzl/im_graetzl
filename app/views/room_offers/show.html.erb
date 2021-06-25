@@ -31,7 +31,8 @@
   <div class="mainContent">
     <% if @room_offer.disabled? && current_user == @room_offer.user %>
       <div class="owner-inactive-msg">
-          Dein Raumteiler ist aktuell auf inaktiv gesetzt. Raumteiler jetzt <%= link_to 'wieder aktivieren', [:update_status, @room_offer, status: "enabled"], method: :patch %>.
+          Dein Raumteiler ist aktuell auf inaktiv gesetzt. Raumteiler jetzt
+          <%= link_to 'wieder aktivieren', [:update_status, @room_offer, status: "enabled"], method: :patch %>.
       </div>
     <% end %>
     <div class="introtxt">
@@ -40,9 +41,9 @@
     <div class="txt"><%= @room_offer.room_description %></div>
 
     <div class="entryImgUploads">
-      <%= link_to cover_photo_image(@room_offer), @room_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
+      <%= link_to image_tag(@room_offer.cover_photo_url(:thumb)), @room_offer.cover_photo_url, data: { jbox_image: "maingallery" } %>
       <% @room_offer.images.each do |image| %>
-        <%= link_to gallery_photo_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+        <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
       <% end %>
     </div>
   </div>
