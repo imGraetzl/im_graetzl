@@ -10,8 +10,7 @@ module ImageHelper
       image_tag(object.avatar_url(:large), loading: 'lazy', srcset: {
         object.avatar_url(:small) => '200w',
         object.avatar_url(:large) => '400w',
-        object.avatar_url(:huge) => '800w',
-      }, sizes: "(min-width: 800px) 800px, 100vw", alt: object.to_s, **options)
+      }, sizes: "(min-width: 650px) 400px, 200px", alt: object.to_s, **options)
     end
   end
 
@@ -26,7 +25,7 @@ module ImageHelper
   end
 
   def cover_url(object, size)
-    object&.cover_photo_url(:photo, size).presence ||
+    object&.cover_photo_url(:cardbox, size).presence ||
     image_url("fallbacks/cover_photo.png")
   end
 
@@ -36,11 +35,10 @@ module ImageHelper
     elsif size
       image_tag(object.cover_photo_url(:header, size), loading: 'lazy', alt: object.to_s, **options)
     else
-      image_tag(object.cover_photo_url(:header, :desktop_1x), srcset: {
-        object.cover_photo_url(:header, :phone) => '375w',
-        object.cover_photo_url(:header, :phone_2x) => '750w',
-        object.cover_photo_url(:header, :desktop) => '980w',
-        object.cover_photo_url(:header, :desktop_2x) => '1960w',
+      image_tag(object.cover_photo_url(:header, :large), srcset: {
+        object.cover_photo_url(:header, :small) => '375w',
+        object.cover_photo_url(:header, :medium) => '750w',
+        object.cover_photo_url(:header, :large) => '980w',
       }, sizes: "(min-width: 980px) 980px, 100vw", loading: 'lazy', alt: object.to_s, **options)
     end
   end
@@ -49,11 +47,11 @@ module ImageHelper
     if object&.cover_photo.nil?
       image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
     elsif size
-      image_tag(object.cover_photo_url(:photo, size), loading: 'lazy', alt: object.to_s, **options)
+      image_tag(object.cover_photo_url(:cardbox, size), loading: 'lazy', alt: object.to_s, **options)
     else
-      image_tag(object.cover_photo_url(:photo, :small), srcset: {
-        object.cover_photo_url(:photo, :small) => '1x',
-        object.cover_photo_url(:photo, :large) => '2x',
+      image_tag(object.cover_photo_url(:cardbox, :small), srcset: {
+        object.cover_photo_url(:cardbox, :small) => '1x',
+        object.cover_photo_url(:cardbox, :large) => '2x',
       }, loading: 'lazy', alt: object.to_s, **options)
     end
   end
@@ -69,9 +67,9 @@ module ImageHelper
     if object&.file.nil?
       image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
     else
-      image_tag(object.file_url(:photo, :small), srcset: {
-        object.file_url(:photo, :small) => '1x',
-        object.file_url(:photo, :large) => '2x',
+      image_tag(object.file_url(:cardbox, :small), srcset: {
+        object.file_url(:cardbox, :small) => '1x',
+        object.file_url(:cardbox, :large) => '2x',
       }, loading: 'lazy', alt: object.to_s, **options)
     end
   end

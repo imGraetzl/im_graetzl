@@ -4,14 +4,13 @@ class CoverImageUploader < ImageUploader
   Attacher.derivatives do |original|
     magick = ImageProcessing::MiniMagick.source(original)
     {
-      thumb: magick.resize_to_fill!(100, 100),
+      thumb: magick.resize_to_fill!(200, 200),
       header: {
-        phone:      magick.resize_to_fill!(375, 300),
-        phone_2x:   magick.resize_to_fill!(750, 600),
-        desktop:    magick.resize_to_fill!(980, 400),
-        desktop_2x: magick.resize_to_fill!(1960, 800),
+        small:  magick.resize_to_fill!(375, 300),
+        medium: magick.resize_to_fill!(750, 600),
+        large:  magick.resize_to_fill!(980, 400),
       },
-      photo: {
+      cardbox: {
         small: magick.resize_to_fill!(300, 220),
         large: magick.resize_to_fill!(600, 440),
       }
