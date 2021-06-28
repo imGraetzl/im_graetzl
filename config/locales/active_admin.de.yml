@@ -12,6 +12,7 @@ de:
         approve_for_platform_meetings: freischalten für SFS
         process_for_platform_meetings: als 'in Bearbeitung' für SFS markieren
         decline_for_platform_meetings: ablehnen für SFS
+        add_to_platform_meetings: als SFS kennzeichnen
         reject: Ablehnen
         destroy: Löschen
         mark_as_paid: als bezahlt markieren

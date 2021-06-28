@@ -43,38 +43,46 @@ ActiveAdmin.register Meeting do
     redirect_to collection_path, alert: 'Die gewählten Treffen werden für die API nicht mehr genehmigt.'
   end
 
-  batch_action :approve_for_platform_meetings do |ids|
+  #batch_action :approve_for_platform_meetings do |ids|
+  #  batch_action_collection.find(ids).each do |meeting|
+  #    if meeting.platform_meeting_join_request
+  #      meeting.platform_meeting_join_request.assign_attributes(status: :approved)
+  #    end
+  #    meeting.platform_meeting = true
+  #    meeting.save
+  #  end
+  #  redirect_to collection_path, alert: 'Die gewählten Treffen wurden zu den Platform-Treffen hinzugefügt'
+  #end
+
+  batch_action :add_to_platform_meetings do |ids|
     batch_action_collection.find(ids).each do |meeting|
-      if meeting.platform_meeting_join_request
-        meeting.platform_meeting_join_request.assign_attributes(status: :approved)
-      end
       meeting.platform_meeting = true
       meeting.save
     end
     redirect_to collection_path, alert: 'Die gewählten Treffen wurden zu den Platform-Treffen hinzugefügt'
   end
 
-  batch_action :decline_for_platform_meetings do |ids|
-    batch_action_collection.find(ids).each do |meeting|
-      if meeting.platform_meeting_join_request
-        meeting.platform_meeting_join_request.assign_attributes(status: :declined)
-      end
-      meeting.platform_meeting = false
-      meeting.save
-    end
-    redirect_to collection_path, alert: 'Die gewählten Treffen wurden abgelehnt'
-  end
+  #batch_action :decline_for_platform_meetings do |ids|
+  #  batch_action_collection.find(ids).each do |meeting|
+  #    if meeting.platform_meeting_join_request
+  #      meeting.platform_meeting_join_request.assign_attributes(status: :declined)
+  #    end
+  #    meeting.platform_meeting = false
+  #    meeting.save
+  #  end
+  #  redirect_to collection_path, alert: 'Die gewählten Treffen wurden abgelehnt'
+  #end
 
-  batch_action :process_for_platform_meetings do |ids|
-    batch_action_collection.find(ids).each do |meeting|
-      if meeting.platform_meeting_join_request
-        meeting.platform_meeting_join_request.assign_attributes(status: :processing)
-      end
-      meeting.platform_meeting = false
-      meeting.save
-    end
-    redirect_to collection_path, alert: 'Die gewählten Treffen wurden als in Bearbeitung markiert'
-  end
+  #batch_action :process_for_platform_meetings do |ids|
+  #  batch_action_collection.find(ids).each do |meeting|
+  #    if meeting.platform_meeting_join_request
+  #      meeting.platform_meeting_join_request.assign_attributes(status: :processing)
+  #    end
+  #    meeting.platform_meeting = false
+  #    meeting.save
+  #  end
+  #  redirect_to collection_path, alert: 'Die gewählten Treffen wurden als in Bearbeitung markiert'
+  #end
 
   # action buttons
   action_item :approve_for_api, only: :show, if: proc{ !meeting.approved_for_api? } do
@@ -97,28 +105,50 @@ ActiveAdmin.register Meeting do
     link_to 'In Bearbeitung für SFS', process_for_platform_meeting_admin_meeting_path(meeting), { method: :put }
   end
 
+  action_item :add_to_platform_meeting, only: :show, if: proc{ !meeting.platform_meeting? } do
+    link_to 'Hinzufügen zu SFS', add_to_platform_meeting_admin_meeting_path(meeting), { method: :put }
+  end
+
+  action_item :remove_from_platform_meeting, only: :show, if: proc{ meeting.platform_meeting? } do
+    link_to 'Entfernen von SFS', remove_from_platform_meeting_admin_meeting_path(meeting), { method: :put }
+  end
+
   # member actions
-  member_action :approve_for_platform_meeting, method: :put do
-    resource.platform_meeting_join_request.assign_attributes(status: :approved)
+  #member_action :approve_for_platform_meeting, method: :put do
+  #  resource.platform_meeting_join_request.assign_attributes(status: :approved)
+  #  resource.platform_meeting = true
+  #  resource.save
+  #  flash[:success] = 'Das Treffen wurde freigeschalten.'
+  #  redirect_to admin_meetings_path
+  #end
+
+  #member_action :decline_for_platform_meeting, method: :put do
+  #  resource.platform_meeting_join_request.assign_attributes(status: :declined)
+  #  resource.platform_meeting = false
+  #  resource.save
+  #  flash[:error] = 'Das Treffen wurde abgelehnt.'
+  #  redirect_to admin_meetings_path
+  #end
+
+  #member_action :process_for_platform_meeting, method: :put do
+  #  resource.platform_meeting_join_request.assign_attributes(status: :processing)
+  #  resource.platform_meeting = false
+  #  resource.save
+  #  flash[:success] = 'Das Treffen wurde als in Bearbeitung markiert.'
+  #  redirect_to admin_meetings_path
+  #end
+
+  member_action :add_to_platform_meeting, method: :put do
     resource.platform_meeting = true
     resource.save
-    flash[:success] = 'Das Treffen wurde freigeschalten.'
+    flash[:success] = 'Das Treffen wurde zu SFS hinzugefügt'
     redirect_to admin_meetings_path
   end
 
-  member_action :decline_for_platform_meeting, method: :put do
-    resource.platform_meeting_join_request.assign_attributes(status: :declined)
+  member_action :remove_from_platform_meeting, method: :put do
     resource.platform_meeting = false
     resource.save
-    flash[:error] = 'Das Treffen wurde abgelehnt.'
-    redirect_to admin_meetings_path
-  end
-
-  member_action :process_for_platform_meeting, method: :put do
-    resource.platform_meeting_join_request.assign_attributes(status: :processing)
-    resource.platform_meeting = false
-    resource.save
-    flash[:success] = 'Das Treffen wurde als in Bearbeitung markiert.'
+    flash[:success] = 'Das Treffen wurde von SFS entfernt'
     redirect_to admin_meetings_path
   end
 
