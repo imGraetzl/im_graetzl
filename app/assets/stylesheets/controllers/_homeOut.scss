@@ -179,7 +179,14 @@ section.homeOut {
 
 .buehne {
   //overflow: hidden;
-  background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
+  background-image: url(image_path('illu/illu-sitzendeAmTisch.png')), url(image_path('illu/illu-karte.jpg'));
+  @media
+    screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    /* CSS Code für hochauflösende Displays */
+    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
+  }
   background-repeat: no-repeat;
   min-height: 320px;
   background-size: 270px auto, 700px auto;

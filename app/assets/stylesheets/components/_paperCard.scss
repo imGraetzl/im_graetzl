@@ -160,9 +160,16 @@
   background-image: url(image_path('illu/illu-ideen-weissbg.png'));
 }
 .paperCard.-groups .wrp, .paperCard.-discussions .wrp {
-  background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png'));
+  background-image: url(image_path('illu/illu-sitzendeAmTisch.png'));
   background-position-x: 40px;
   background-position-y: 25px;
+  @media
+    screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    /* CSS Code für hochauflösende Displays */
+    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png'));
+  }
 }
 .paperCard.-discussions .wrp {
   padding-top:190px;
