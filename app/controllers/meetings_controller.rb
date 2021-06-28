@@ -161,7 +161,7 @@ class MeetingsController < ApplicationController
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)
     end
 
-    if params[:special_category_id].present? && params[:special_category_id] == 'sfs'
+    if params[:special_category_id].present? && params[:special_category_id] == 'special-events'
       meetings = meetings.platform_meeting
     end
 

@@ -12,9 +12,7 @@
   <div class="imgHeader -cloudy">
     <div class="titleHeadline">
       <div class="wrp">
-        <% if @meeting.platform_meeting %>
-          <%= link_to content_tag(:h3, 'Selbstständige für Selbstständige', class: 'district'), platform_meetings_wien_path %>
-        <% elsif @meeting.online_meeting %>
+        <% if @meeting.online_meeting %>
           <%= link_to content_tag(:h3, 'Online Event', class: 'district'), @graetzl %>
         <% else %>
           <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
@@ -78,7 +76,7 @@
 
     <div class="bbcode"><%= @meeting.description.bbcode_to_html.html_safe %></div>
 
-    <%= render 'meetings/sidebar/platform_meeting_infos' if @meeting.platform_meeting %>
+    <!-- render 'meetings/sidebar/platform_meeting_infos' if @meeting.platform_meeting -->
 
   </div>
 
@@ -86,7 +84,7 @@
   <div class="entryParticipate" data-behavior="participants-container">
     <%= render 'meetings/sidebar/participation_button', meeting: @meeting %>
     <%= render 'meetings/sidebar/participations', meeting: @meeting %>
-    <%= render 'meetings/sidebar/platform_meeting_user_infos' if @meeting.platform_meeting && @meeting.platform_meeting_join_request %>
+    <!--  render 'meetings/sidebar/platform_meeting_user_infos' if @meeting.platform_meeting && @meeting.platform_meeting_join_request -->
   </div>
 
   <div class="stream">
