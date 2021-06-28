@@ -7,11 +7,10 @@ ActiveAdmin.register Meeting do
   scope :all, default: true
   scope :upcoming
   #scope 'Online Event', :online_meeting
-  scope 'SFS all', :platform_meeting_all_requests
   scope 'SFS approved', :platform_meeting
-  scope 'SFS pending', :platform_meeting_pending
-  scope 'SFS processing', :platform_meeting_processing
-  scope 'SFS declined', :platform_meeting_declined
+  #scope 'SFS pending', :platform_meeting_pending
+  #scope 'SFS processing', :platform_meeting_processing
+  #scope 'SFS declined', :platform_meeting_declined
   #scope :active
   #scope :cancelled
 
