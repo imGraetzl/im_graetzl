@@ -47,9 +47,6 @@ class MeetingsController < ApplicationController
     @meeting.address = nil if @meeting.online_meeting?
 
     @meeting.state = :active
-    if @meeting.platform_meeting_join_request.no?
-      @meeting.platform_meeting = false
-    end
 
     if @meeting.save
       redirect_to [@meeting.graetzl, @meeting]
