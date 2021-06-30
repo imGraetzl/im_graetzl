@@ -109,7 +109,7 @@
 
     <% if @tool_offer.address.try(:coordinates) %>
       <%= link_to google_map_url(@tool_offer.address), class: 'gmap' do %>
-        <%= image_tag static_map_url(@tool_offer.address.coordinates, zoom: 16, size: [250,150]) %>
+        <%= image_tag static_map_url(@tool_offer.address.coordinates, zoom: 16, size: [250,150]), width:268, height:161 %>
       <% end %>
     <% end %>
 

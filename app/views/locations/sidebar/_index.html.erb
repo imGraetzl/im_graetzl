@@ -58,7 +58,7 @@
     </div>
     <% if @location.address.try(:coordinates) %>
       <%= link_to google_map_url(@location.address), class: 'gmap' do %>
-        <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,150]) %>
+        <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,150]), width:268, height:161 %>
       <% end %>
     <% end %>
   </div>
