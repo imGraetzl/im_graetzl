@@ -44,5 +44,8 @@ module ImGraetzl
       :app
     end
 
+    # gzip compression
+    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
+
   end
 end
