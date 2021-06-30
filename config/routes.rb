@@ -180,7 +180,8 @@ Rails.application.routes.draw do
     get 'toolteiler', action: 'tool_offers', as: 'tool_offers'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
-    get 'selbststaendige-fuer-selbststaendige', action: 'platform_meetings', as: 'platform_meetings'
+    get 'selbststaendige-fuer-selbststaendige' => redirect('/wien/special-events')
+    get 'special-events', action: 'platform_meetings', as: 'platform_meetings'
     get 'treffen/category/:category', action: 'meetings', as: 'meetings_category'
     get 'locations/category/:category', action: 'locations', as: 'locations_category'
     get 'raumteiler/category/:category', action: 'rooms', as: 'rooms_category'

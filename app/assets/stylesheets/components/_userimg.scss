@@ -6,12 +6,6 @@
   @include img-square;
 }
 
-.userimg-header {
-  width: 296px;
-}
-
-
-
 .portraitCollection {
   //overflow: hidden;
   display: flex;
@@ -43,7 +37,6 @@
     }
   }
 }
-
 
 .userPortraitName {
   display: flex;

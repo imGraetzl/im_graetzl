@@ -1,16 +1,16 @@
 <!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Events & Workshops" class="cS-hidden">
-    <!-- SFS -->
-      <div class="-category -special-category" data-id="sfs" data-label="Selbstständige für Selbstständige" data-slug="sfs">
+    <!-- special events -->
+      <div class="-category -special-category" data-id="special-events" data-label="Sommer Special: Kurse & Workshops" data-slug="special-events">
         <%= image_tag('meeting-sfs.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
-        <div class="cat -sfs"></div>
-        <h3>Selbstständige für Selbstständige</h3>
+        <div class="cat -special"></div>
+        <h3>Sommer Special: Kurse & Workshops</h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>
       </div>
-    <!-- /SFS -->
+    <!-- /special events -->
     <% categories = EventCategory.all.sort_by(&:position) %>
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
     <% categories.each do |category| %>

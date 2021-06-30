@@ -59,6 +59,9 @@
     <div class="action-card-container" data-behavior="meetings-action-card-container">
       <%= render 'meetings/action_card', district: @district %>
     </div>
+    <!-- Insert Featured Card -->
+    <%= render partial: 'shared/featured_cards/sommer_events' %>
+
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
 

@@ -47,9 +47,6 @@ class MeetingsController < ApplicationController
     @meeting.address = nil if @meeting.online_meeting?
 
     @meeting.state = :active
-    if @meeting.platform_meeting_join_request.no?
-      @meeting.platform_meeting = false
-    end
 
     if @meeting.save
       redirect_to [@meeting.graetzl, @meeting]
@@ -161,7 +158,7 @@ class MeetingsController < ApplicationController
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)
     end
 
-    if params[:special_category_id].present? && params[:special_category_id] == 'sfs'
+    if params[:special_category_id].present? && params[:special_category_id] == 'special-events'
       meetings = meetings.platform_meeting
     end
 

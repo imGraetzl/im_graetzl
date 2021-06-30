@@ -4,50 +4,50 @@
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
-    og_image: image_url('meta/selbststaendige-fuer-selbststaendige.jpg')
+    og_image: image_url('meta/summer-events.jpg')
   )
 %>
 
 <section class="wien platform-meetings">
 
   <div class="hl-subtext -cards">
-    <h1><em>Von Selbstständigen für Selbstständige</em></h1>
-    <p>Eine Aktion von Selbstständigen für Selbstständige, Kulturschaffende und Macher*innen. Mit gegenseitiger Unterstützung packen wir das!</p>
+    <h1><em>Sommer Special: Kurse & Workshops</em></h1>
+    <p>Genieße den Sommer in Wien: Kurse & Workshops im Juli und August</p>
   </div>
 
   <div class="paperCard -cord1RT -top">
     <div class="wrp">
       <div class="illu-wrp">
-        <%= image_tag('illu/eputoepu.png', class: 'illu') %>
+        <%= image_tag('illu/tanzen.png', class: 'illu') %>
       </div>
       <div class="txt">
         <p>
-           <strong>Wählt aus den Angeboten das aus, was euch jetzt stärkt und weiterbringt. <!--Alle zwei Wochen gibt es einen neuen Themenbereich.--> Alle Angebote sind im Rahmen der Aktion kostenlos.</strong>
+           <strong>Für alle, die den Sommer in Wien verbringen und Lust auf Gemeinschaft haben und darauf neue Erlebnisse und Eindrücke zu sammeln. Motto: Raus aus dem Hamsterrad, hereinspaziert ins Vergnügen.</strong>
         </p>
         <br>
         <p>
-          Die Aktion wird ermöglicht durch die Expert*innen, die damit die lokalen Anbieter*innen & die lokale Vernetzung stärken. 1000 Dank! Wie man als Expert*in mitmachen kann, bitte <%= link_to 'hier entlang', 'https://blog.imgraetzl.at/allgemein/so-kannst-du-als-expertin-bei-selbststaendige-fuer-selbststaendige-macherinnen-mitmachen/', target: 'blank' %>.
+          Alle Workshops und Kurse finden im Juli und August statt, organisiert von den lokalen Macher*innen. Genießt das Zusammensein und den Sommer in Wien!
+          <br>
+          Hast du auch einen Kurs oder einen Workshop im Juli und August im Bereich "Freizeit, Kreativität, Kultur oder Bewegung? Dann trag ihn jetzt <%= link_to 'als Event auf imGrätzl ein', new_meeting_path %>, wir übernehmen den Rest.
         </p>
-      </div>
-      <div class="poweredby-wrp">
-        <%= link_to(image_tag('logo-klimafonds.png'), 'https://www.klimafonds.gv.at', target: '_blank', class: 'poweredby') %>
-        <%= link_to(image_tag('logo-bz.jpg'), 'https://www.meinbezirk.at/wien', target: '_blank', class: 'poweredby -bz') %>
       </div>
     </div>
     <div class="card"></div>
   </div>
 
+  <!--
   <div class="hl-subtext -cards">
     <h1>Aktuelle <span class="category_title">Themen</span> Wochen</h1>
   </div>
+  -->
 
   <%= form_tag meetings_path(platform_meeting: true, per_page: 75), method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :meeting_category_id, @meeting_category.try(:id) %>
-    <div class="input-select label-select">
+    <!--<div class="input-select label-select">
       <%= select_tag(:meeting_category_id, ("
           <option value=''>Alle anzeigen</option>" +
           options_from_collection_for_select(MeetingCategory.all.order(:starts_at_date), :id, :category_width_date_range, (@meeting_category.try(:id) ? @meeting_category.try(:id) : actual_meeting_category))).html_safe, id: 'meeting-categories', multiple: false) %>
-    </div>
+    </div>-->
   <% end %>
 
   <div class="card-grid-container">
@@ -56,7 +56,7 @@
       <%= render 'meetings/action_card_platform_meeting' %>
     </div>
     <!-- Insert Featured Card -->
-    
+
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
 

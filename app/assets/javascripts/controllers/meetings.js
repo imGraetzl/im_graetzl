@@ -219,14 +219,16 @@ APP.controllers.meetings = (function() {
         }
       }).trigger('change');
 
-      // platform_meeting toggle
-      var $platform_join_checkbox = $('input:checkbox#meeting_platform_meeting_join_request_attributes_status');
-      if(!document.getElementById('meeting_platform_meeting_join_request_attributes_status').checked) {
-        $('div#meeting-platform-meeting-fields').hide();
+      // platform_meeting checkbox
+      if ($("input:checkbox#meeting_platform_meeting_join_request_attributes_status").exists()) {
+          var $platform_join_checkbox = $('input:checkbox#meeting_platform_meeting_join_request_attributes_status');
+          if(!document.getElementById('meeting_platform_meeting_join_request_attributes_status').checked) {
+            $('div#meeting-platform-meeting-fields').hide();
+          }
+          $platform_join_checkbox.on('change', function() {
+            $('div#meeting-platform-meeting-fields').slideToggle();
+          });
       }
-      $platform_join_checkbox.on('change', function() {
-        $('div#meeting-platform-meeting-fields').slideToggle();
-      });
 
       // Hide Elements
       $('.hide').hide();
