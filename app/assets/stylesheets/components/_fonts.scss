@@ -37,6 +37,7 @@
   font-style: normal;
   font-weight: 400;
   src: font-url('lato-normal-400.woff2') format('woff2');
+  font-display: swap;
 }
 /* latin */
 @font-face {
@@ -44,6 +45,7 @@
   font-style: normal;
   font-weight: 700;
   src: font-url('lato-normal-700.woff2') format('woff2');
+  font-display: swap;
 }
 /* latin */
 @font-face {
@@ -51,6 +53,7 @@
   font-style: normal;
   font-weight: 900;
   src: font-url('lato-normal-900.woff2') format('woff2');
+  font-display: swap;
 }
 /* latin */
 @font-face {
@@ -58,6 +61,7 @@
   font-style: italic;
   font-weight: 400;
   src: font-url('lato-italic-400.woff2') format('woff2');
+  font-display: swap;
 }
 /* latin */
 @font-face {
@@ -65,6 +69,7 @@
   font-style: italic;
   font-weight: 700;
   src: font-url('lato-italic-700.woff2') format('woff2');
+  font-display: swap;
 }
 /* latin */
 @font-face {
@@ -72,4 +77,5 @@
   font-style: italic;
   font-weight: 900;
   src: font-url('lato-italic-900.woff2') format('woff2');
+  font-display: swap;
 }
