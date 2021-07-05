@@ -26,7 +26,7 @@
 
   <div class="hl-subtext -cards">
     <%= image_tag 'svg/raumteiler-headline.svg', class: 'raumteiler-headline', width:340, height:87 %>
-    <p>Gewerbeflächen teilen - Kosten teilen. <%= render 'shared/questionmarklink', hint_url: info_raumteiler_path %></p>
+    <p><%= @category? "Räume aus der Kategorie „#{@category.name}“ zum mieten & einmieten." : "Gewerbeflächen teilen - Kosten teilen." %> <%= render 'shared/questionmarklink', hint_url: info_raumteiler_path %></p>
   </div>
 
   <%= render 'filters/room_categories' %>

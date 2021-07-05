@@ -26,7 +26,7 @@
 
   <div class="hl-subtext -cards">
     <%= image_tag 'svg/toolteiler-headline.svg', class: 'toolteiler-headline', width:340, height:85 %>
-    <p>Arbeitsequipment leihen & Geräte am Standort nutzen <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
+    <p><%= @category? "Arbeitsequipment aus der Kategorie „#{@category.name}“ leihen." : "Arbeitsequipment leihen & Geräte am Standort nutzen" %> <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
   </div>
 
 
