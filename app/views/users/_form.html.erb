@@ -112,5 +112,5 @@
   <%= f.submit 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
 <% end %>
 
-<%= button_to 'Account löschen', registration_path, data: { confirm: 'Bist du dir sicher?' },
+<%= button_to 'Account löschen', registration_path, data: { confirm: 'Bist du dir sicher? Kann nicht rückgängig gemacht werden.' },
     method: :delete, class: 'btn-destroy' %>

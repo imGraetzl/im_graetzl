@@ -25,11 +25,12 @@ APP.controllers.registrations = (function() {
         cancelButton: 'Zurück',
         confirm: function() {
           $(".form-register .graetzl-id-input").val($("#graetzl-select select").val());
+          $(".register-personalInfo h1 span").text($("#graetzl-select select option:selected").text());
         },
       });
 
       $('input[name="user[business]"]').on("change", function() {
-        var isBusiness = $('input[name="user[business]"]:checked').val() == 'true';
+        var isBusiness = $('input[name="user[business]"]:checked').val() == '1';
         $(".user-business").toggle(isBusiness);
       }).change();
 

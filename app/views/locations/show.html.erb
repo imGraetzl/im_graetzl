@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', name: @location.name, slogan: @location.slogan),
     og_description: t('.description', desc: location_meta(@location)),
-    og_image: @location.cover_photo_url || image_url('meta/og_logo.png')
+    og_image: @location.cover_photo_url(:header, :large) || image_url('meta/og_logo.png')
   )
 %>
 

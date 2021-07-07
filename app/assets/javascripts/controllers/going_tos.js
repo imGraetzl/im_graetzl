@@ -30,7 +30,7 @@ APP.controllers.going_tos = (function() {
       // Change Wording of Notice Message for Ticket Registrations
       if ($("#flash .notice").exists()) {
         var flashText = $("#flash .notice").text();
-        if (flashText.indexOf('Vielen Dank für Deine Registrierung.') >= 0){
+        if (flashText.indexOf('Vielen Dank für Deine Registrierung') >= 0){
           // Modifiy Message for Ticket Registrations
           $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst mit deinem Ticket-Kauf fortfahren..');
         }
