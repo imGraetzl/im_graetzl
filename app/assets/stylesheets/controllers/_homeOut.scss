@@ -298,16 +298,35 @@ section.homeOut {
       background-size: 130px 130px;
       display: block;
       background-image: url(image_path('svg/coopshare-logo-white.svg'));
-      //background-image: url(image_path('support-us-badge.png'));
       background-repeat: no-repeat;
+    }
+    .register-badge {
+      width: 120px;
+      height: 120px;
+      background-size: 120px 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url(image_path('svg/hands-badge.svg'));
+      background-repeat: no-repeat;
+      opacity: 0.9;
+      svg {
+        color:$color-ambient-mint-dark;
+        width:43%;
+        height:43%;
+        margin-top:-10px;
+      }
+      .txt {
+        white-space: nowrap;
+      }
     }
     .txt {
       @include headlineBarbapapaMint();
       font-size: 30px;
-      left: 20px;
-      bottom: -30px;
+      left: 17px;
+      bottom: -25px;
       position: absolute;
-      transform: rotate(-10deg);
+      transform: rotate(-12deg);
     }
     &::before {
       content: '';
@@ -332,6 +351,13 @@ section.homeOut {
       .coop-share-logo {
         transform: rotate(-5deg);
         opacity: 0.9;
+      }
+      .register-badge {
+        svg {
+          color:$color-ambient-rosa;
+          width:45%;
+          height:45%;
+        }
       }
     }
   }

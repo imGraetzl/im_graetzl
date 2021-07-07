@@ -1,1 +1,1 @@
-<div id="flash"><% flash.each do |name, msg| %><% unless msg.blank? %><%= content_tag :div, msg, class: name %><% end %><% end %></div>
+<div id="flash"><% flash.each do |name, msg| %><% unless msg.blank? %><%= content_tag :div, sanitize(msg), class: name %><% end %><% end %></div>

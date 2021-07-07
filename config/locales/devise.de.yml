@@ -5,6 +5,7 @@ de:
         resend_confirmation_instructions: Anleitung zur Bestätigung noch mal schicken
       confirmed: "Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet."
       confirmed_and_signed_in: "Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet."
+      confirmed_business_and_signed_in: "Vielen Dank für Deine Registrierung %{first_name}. Du bist jetzt angemeldet.<br>Der nächste Schritt: Richte dir gleich deine %{link} ein. Danach kanns losgehen!"
       send_instructions: "Du erhältst in wenigen Minuten eine E-Mail, mit der Du Deine Registrierung bestätigen kannst."
       send_paranoid_instructions: "Falls Deine E-Mail-Adresse in unserer Datenbank existiert erhältst Du in wenigen Minuten eine E-Mail mit der Du Deine Registrierung bestätigen kannst."
     failure:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_22_224742) do
+ActiveRecord::Schema.define(version: 2021_07_06_141948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -991,7 +991,7 @@ ActiveRecord::Schema.define(version: 2021_06_22_224742) do
     t.string "website"
     t.string "origin"
     t.integer "location_category_id"
-    t.boolean "business", default: false
+    t.boolean "business", default: true
     t.string "stripe_customer_id", limit: 50
     t.string "iban"
     t.decimal "rating", precision: 3, scale: 2

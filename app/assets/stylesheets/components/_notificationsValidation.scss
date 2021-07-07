@@ -45,6 +45,9 @@ main [id^=error_] {
     text-align: center;
     padding-bottom:10px;
   }
+  a {
+    color: #cd891b;
+  }
 }
 
 #flash:not(:empty) + main .mapImgBlock,

@@ -108,7 +108,7 @@ APP.controllers.room_rentals = (function() {
       // Change Wording of Notice Message for RoomRental Registrations
       if ($("#flash .notice").exists()) {
         var flashText = $("#flash .notice").text();
-        if (flashText.indexOf('Vielen Dank für Deine Registrierung.') >= 0){
+        if (flashText.indexOf('Vielen Dank für Deine Registrierung') >= 0){
           // Modifiy Message for RoomRental Registrations
           $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst mit deiner Raumbuchungs-Anfrage fortfahren..');
         }

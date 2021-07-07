@@ -60,7 +60,7 @@ class User < ApplicationRecord
   validates :website, url: true, allow_blank: true
 
   validates :location_category, presence: true, on: :create, if: :business?
-  validates :business_interests, presence: true, on: :create, if: :business?
+  #validates :business_interests, presence: true, on: :create
 
   before_validation { self.username.squish! if self.username }
 
