@@ -93,23 +93,8 @@
   </div>
 
   <% if @meeting.address&.coordinates %>
-    <script type="text/javascript">
-      function initMaps() {
-        var lat = <%= @meeting.address.coordinates.y %>;
-        var lng = <%= @meeting.address.coordinates.x %>;
-        var zoom = 17;
-        var icon = '<%= image_path('map-marker.png') %>';
-        var infowindow = false;
-        var popup =
-          '<div id="mapsMarker" class="infowindow">'+
-            '<p></p>'+
-          '</div>';
-        APP.components.googleMap.init(lng, lat, zoom, popup, icon, infowindow);
-      }
-    </script>
-    <div id="google_map" class="map cardBox" data-google-api-key="<%= ENV['GOOGLE_API_KEY'] %>">
-      <div id="map"></div>
-    </div>
+    <div id="map" class="cardBox" data-x="<%= @meeting.address.coordinates.x %>" data-y="<%= @meeting.address.coordinates.y %>"></div>
+    <div class="map-avatar -hidden"><%= icon_tag "pin" %></div>
   <% end %>
 
 </section>

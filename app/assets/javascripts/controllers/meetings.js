@@ -139,15 +139,20 @@ APP.controllers.meetings = (function() {
         animation:{open: 'zoomIn', close: 'zoomOut'},
       });
 
-      // Goolge Map Script-Tag einbinden am Ende der Seite
-      if ($("#google_map").exists()) {
-        var google_api_key = $('#google_map').attr('data-google-api-key');
-        var script_url = "https://maps.googleapis.com/maps/api/js?key="+google_api_key+"&callback=initMaps"
-        var google_maps_script_tag = document.createElement('script');
-        google_maps_script_tag.src = script_url;
-        google_maps_script_tag.async = true;
-        google_maps_script_tag.defer = true;
-        document.body.appendChild(google_maps_script_tag);
+      // Leaflet MAP
+      if ($("#map").exists()) {
+
+        var x = $("#map").data("x");
+        var y = $("#map").data("y");
+        var $markerHtml = $(".map-avatar").html();
+        //var $popupHtml =  $(".map-popup").html();
+        //var popup = L.popup().setLatLng([y, x]).setContent($popupHtml);
+        var map = L.map('map', {tap: false}).setView([y, x], 16);
+        var marker = L.divIcon({className: 'marker-container', html: $markerHtml});
+        L.tileLayer.provider('MapBox', { id: 'malano78/ckgcmiv6v0irv19paa4aoexz3', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}).addTo(map);
+        L.marker([y, x], {icon: marker}).addTo(map).bindPopup(popup);
+        //L.marker([y, x], {icon: marker}).addTo(map).bindPopup(popup);
+
       }
 
       // Analytics
