@@ -1,23 +1,6 @@
 <section class="map-section cardBox">
   <% if @room_call.address.try(:coordinates) %>
-
-  <script>
-    function initMaps() {
-      var lat = <%= @room_call.address.try(:coordinates).y %>;
-      var lng = <%= @room_call.address.try(:coordinates).x %>;
-      var zoom = 16;
-      var icon = '<%= image_path('map-marker.png') %>';
-      var infowindow = true;
-      var popup =
-        '<div id="mapsMarker" class="infowindow">'+
-          '<strong><%= @room_call.title %></strong><br>'+
-          '<p><%= @room_call.full_address %></p>'+
-        '</div>';
-      APP.components.googleMap.init(lng, lat, zoom, popup, icon, infowindow);
-    }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= embedded_map_defaults.merge({})[:key] %>&callback=initMaps" async defer></script>
-  <div id="map"></div>
-
+    <div id="map" class="cardBox" data-x="<%= @room_call.address.coordinates.x %>" data-y="<%= @room_call.address.coordinates.y %>"></div>
+    <div class="map-avatar -hidden"><%= icon_tag "pin" %></div>
   <% end %>
 </section>

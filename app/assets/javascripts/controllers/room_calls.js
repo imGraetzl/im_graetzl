@@ -27,14 +27,20 @@ APP.controllers.room_calls = (function() {
     }
   }
 
-  function initMap() {
-    var mapdata = $('#graetzlMapWidget').data('mapdata');
-    var map =  APP.components.graetzlMap;
-    map.init(function() {
-      map.showMapAddress(mapdata.addresses, mapdata.graetzls, {
-        style: $.extend(map.styles.rose, { weight: 4, fillOpacity: 0.2 })
-      });
-    }, {interactive: true});
+  // Leaflet MAP
+  if ($("#map").exists()) {
+    var x = $("#map").data("x");
+    var y = $("#map").data("y");
+    var $markerHtml = $(".map-avatar").html();
+    var marker = L.divIcon({className: 'marker-container', html: $markerHtml});
+    var map = L.map('map', {
+      tap: false,
+      scrollWheelZoom:false,
+      zoomControl:false,
+    }).setView([y, x], 16);
+    L.tileLayer.provider('MapBox', { id: 'malano78/ckgcmiv6v0irv19paa4aoexz3', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}).addTo(map);
+    L.control.zoom({position:'bottomright'}).addTo(map);
+    L.marker([y, x], {icon: marker}).addTo(map);
   }
 
   function initRoomForm() {
@@ -45,7 +51,7 @@ APP.controllers.room_calls = (function() {
       formatSubmit: 'yyyy-mm-dd',
       hiddenName: true
     });
-    
+
   }
 
   return {

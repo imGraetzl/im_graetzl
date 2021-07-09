@@ -1,4 +1,9 @@
-#map { height: 400px; }
+#map {
+  height: 400px;
+  .leaflet-control-container {
+    display: block;
+  }
+}
 .marker-container {
   svg.icon {
     width:50px;
