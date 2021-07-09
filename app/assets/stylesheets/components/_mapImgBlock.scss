@@ -1,8 +1,8 @@
 // Standalone LEAFLET-MAPs on DETAIL PAGES
 #leafletMap {
   height: 400px;
-  .leaflet-control-container {
-    display: block;
+  .leaflet-control-attribution {
+    display: none;
   }
   .map-avatar, .map-popup {
     &.-hidden {
