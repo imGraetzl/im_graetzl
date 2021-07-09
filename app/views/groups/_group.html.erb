@@ -9,7 +9,7 @@
     </div>
     <% if group.group_categories.first %>
       <div class="sideflag -category -R">
-        <%= safe_join(group.group_categories.map { |category| link_to(category.title, groups_wien_path(category: category.id), :rel => 'nofollow') }, ', ') %>
+        <%= safe_join(group.group_categories.map { |category| link_to(category.title, groups_region_path(category: category.id), :rel => 'nofollow') }, ', ') %>
       </div>
     <% end %>
   </div>

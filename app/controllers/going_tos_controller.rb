@@ -88,7 +88,7 @@ class GoingTosController < ApplicationController
   end
 
   def summary
-    @meeting = Meeting.find(params[:meeting_id])
+    @meeting = Meeting.in(current_region).find(params[:meeting_id])
     @going_to = GoingTo.find(params[:going_to_id])
     @starts_at_date = @going_to.going_to_date
     @starts_at_time = @going_to.going_to_time
@@ -115,7 +115,7 @@ class GoingTosController < ApplicationController
   end
 
   def read_params
-    @meeting = Meeting.find(params[:meeting_id])
+    @meeting = Meeting.in(current_region).find(params[:meeting_id])
     if params[:meeting_additional_date_id].present?
       @meeting_additional_date = MeetingAdditionalDate.find(params[:meeting_additional_date_id])
       @starts_at_date = @meeting_additional_date.starts_at_date

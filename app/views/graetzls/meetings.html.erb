@@ -8,9 +8,9 @@
   )
 %>
 <% if @category %>
-  <% content_for :canonical_url, meetings_category_wien_path(@category) %>
+  <% content_for :canonical_url, meetings_category_region_path(@category) %>
 <% elsif @special_category %>
-  <% content_for :canonical_url, meetings_category_wien_path(@special_category) %>
+  <% content_for :canonical_url, meetings_category_region_path(@special_category) %>
 <% end %>
 
 <section class="graetzls meetings">
@@ -32,7 +32,7 @@
     <div class="filter-selection-text-jbox">
       Zeige mir <%= link_to 'online & offline Events', '#filter-modal-type', data: { no_filter_label: 'online & offline Events'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-district filter-applied' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/meeting_type' %>

@@ -9,14 +9,14 @@
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
-      <%= nav_menu_item("map-location", 'Wien Karte', wien_path) %>
-      <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_wien_path) %>
-      <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_wien_path) %>
-      <%= nav_menu_item("coop-share-white", 'Gruppen', groups_wien_path) %>
-      <%= nav_menu_item("location", 'Anbieter & Locations', locations_wien_path) %>
-      <%= nav_menu_item("calendar-2", 'Events & Workshops', meetings_wien_path) %>
-      <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', platform_meetings_wien_path) %>
-      <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', zuckerls_wien_path) %>
+      <%= nav_menu_item("map-location", "#{current_region} Karte", region_path) %>
+      <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_region_path) %>
+      <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_region_path) %>
+      <%= nav_menu_item("coop-share-white", 'Gruppen', groups_region_path) %>
+      <%= nav_menu_item("location", 'Anbieter & Locations', locations_region_path) %>
+      <%= nav_menu_item("calendar-2", 'Events & Workshops', meetings_region_path) %>
+      <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', platform_meetings_region_path) %>
+      <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', zuckerls_region_path) %>
       <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
       <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
       <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) %>
@@ -49,18 +49,18 @@
   <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-city-link', data: { dropdown: "nav-site-city" } do %>
-    <%= icon_tag "arrow-down-2" %> Wien
+    <%= icon_tag "arrow-down-2" %> <%= current_region %>
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-site-city">
-    <%= nav_menu_item("map-location", 'Wien Karte', wien_path) %>
-    <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_wien_path) %>
-    <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_wien_path) %>
-    <%= nav_menu_item("coop-share-white", 'Gruppen', groups_wien_path) %>
-    <%= nav_menu_item("location", 'Anbieter & Locations', locations_wien_path) %>
-    <%= nav_menu_item("calendar-2", 'Events & Workshops', meetings_wien_path) %>
-    <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', platform_meetings_wien_path) %>
-    <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', zuckerls_wien_path) %>
+    <%= nav_menu_item("map-location", "#{current_region} Karte", region_path) %>
+    <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_region_path) %>
+    <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_region_path) %>
+    <%= nav_menu_item("coop-share-white", 'Gruppen', groups_region_path) %>
+    <%= nav_menu_item("location", 'Anbieter & Locations', locations_region_path) %>
+    <%= nav_menu_item("calendar-2", 'Events & Workshops', meetings_region_path) %>
+    <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', platform_meetings_region_path) %>
+    <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', zuckerls_region_path) %>
     <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
     <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
     <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) %>
@@ -97,7 +97,7 @@
       <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", meetings_district_path(district)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", zuckerls_district_path(district)) %>
     <% else %>
-      <%= nav_menu_item("map-location", "Wien Karte", wien_path) %>
+      <%= nav_menu_item("map-location", "#{current_region} Karte", region_path) %>
     <% end %>
   </div>
 

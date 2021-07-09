@@ -35,7 +35,7 @@
     <div class="filter-selection-text-jbox">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler', jbox_title: 'Filtern nach ...'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @district.zip_name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @district.zip_name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-district filter-applied' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/room_type' %>

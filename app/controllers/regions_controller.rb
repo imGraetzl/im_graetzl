@@ -1,4 +1,4 @@
-class WienController < ApplicationController
+class RegionsController < ApplicationController
 
   def show
     @districts = District.order(zip: :asc)
@@ -9,7 +9,7 @@ class WienController < ApplicationController
     if resolver.valid? && resolver.graetzl.present?
       redirect_to resolver.graetzl
     else
-      redirect_to wien_url
+      redirect_to region_url
     end
   end
 

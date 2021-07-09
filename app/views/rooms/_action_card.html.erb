@@ -30,7 +30,7 @@
     <% elsif local_assigns[:district] %>
       <%= link_to 'Alle Raumteiler', rooms_district_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Raumteiler', rooms_wien_path, class: 'link-more' %>
+      <%= link_to 'Alle Raumteiler', rooms_region_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

@@ -3,15 +3,15 @@ class MeetingsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @meetings = collection_scope.include_for_box
+    @meetings = collection_scope.in(current_region).include_for_box
     @meetings = filter_collection(@meetings)
     @meetings = @meetings.visible_to(current_user)
     @meetings = @meetings.by_currentness.page(params[:page]).per(params[:per_page] || 30)
   end
 
   def show
-    @graetzl = Graetzl.find(params[:graetzl_id])
-    @meeting = @graetzl.meetings.find(params[:id])
+    @meeting = Meeting.in(current_region).find(params[:id])
+    @graetzl = @meeting.graetzl
     @comments = @meeting.comments.includes(:user, :images).order(created_at: :desc)
   end
 
@@ -24,6 +24,7 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.address = nil if @meeting.online_meeting?
     @meeting.user = current_user.admin? ? User.find(params[:user_id]) : current_user
+    @meeting.region_id = current_region.id
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
 
     if @meeting.save

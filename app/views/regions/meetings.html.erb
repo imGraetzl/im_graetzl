@@ -19,14 +19,14 @@
   )
 %>
 
-<section class="wien meetings">
+<section class="region meetings">
 
   <%= render 'map' %>
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">
     <%= image_tag 'svg/meetings-headline.svg', class: 'meetings-headline', width:430, height:85 %>
-    <p><%= @category? "Events & Workshops in Wien aus der Kategorie „#{@category.title}“." : "Organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen." %></p>
+    <p><%= @category? "Events & Workshops in #{current_region} aus der Kategorie „#{@category.title}“." : "Organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen." %></p>
   </div>
 
   <%= render 'filters/meeting_categories' %>
@@ -37,7 +37,7 @@
     <div class="filter-selection-text-jbox">
       Zeige mir <%= link_to 'online & offline Events', '#filter-modal-type', data: { no_filter_label: 'online & offline Events'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to 'ganz Wien', '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district' %>
+      in <%= link_to "ganz #{current_region}", '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-district' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/meeting_type' %>

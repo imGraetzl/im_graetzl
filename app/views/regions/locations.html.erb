@@ -19,7 +19,7 @@
   )
 %>
 
-<section class="wien locations">
+<section class="region locations">
 
   <%= render 'map' %>
   <%= render 'navigation' %>
@@ -36,7 +36,7 @@
     <%= hidden_field_tag :special_category_id, @special_category %>
     <div class="filter-selection-text-jbox">
       Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to 'ganz Wien', '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district' %>
+      in <%= link_to "ganz #{current_region}", '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-district' %>
     </div>
     <div id="filter-modal-district" class="filter-modal-jbox-district">
       <%= render 'filters/district' %>

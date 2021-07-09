@@ -61,14 +61,14 @@
     </div>
     <div class="input-radio">
       <%= f.radio_button :all_districts, true, data: { behavior: 'all_districts_true'} %>
-      <%= f.label "all_districts_true", "Ganz Wien" %>
+      <%= f.label "all_districts_true", "Ganz #{current_region}" %>
     </div>
     <div class="description">
       <small class="graetzl">
         Dein Grätzlzuckerl läuft im gesamten <%= @location.districts.first.numeric %>. Bezirk und kostet <span data-behavior="pricepreview"></span>.
       </small>
       <small class="all_districts">
-        Dein Grätzlzuckerl läuft in ganz Wien und kostet <span data-behavior="pricepreview"></span>.
+        Dein Grätzlzuckerl läuft in ganz <%= current_region %> und kostet <span data-behavior="pricepreview"></span>.
       </small>
     </div>
   </div>

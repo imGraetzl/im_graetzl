@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="wien -overview">
+<section class="region -overview">
 
   <%= render 'map' %>
   <%= render 'navigation' %>
@@ -17,7 +17,7 @@
     <h1 class="hl-main">
       Lass uns dein <em>Heimatgrätzl</em> Finden
     </h1>
-    <%= form_tag visit_graetzl_wien_path, method: :get do %>
+    <%= form_tag visit_graetzl_region_path, method: :get do %>
       <div class="input-field" id="addressSearchAutocomplete">
         <%= label_tag :address do %>
           <%= icon_tag "map-location" %>
@@ -29,5 +29,5 @@
       </div>
     <% end %>
   <div>
-    
+
 </section>

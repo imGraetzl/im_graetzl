@@ -31,7 +31,7 @@
     <% elsif local_assigns[:district] %>
       <%= link_to 'Alle Events & Workshops', meetings_district_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Events & Workshops', meetings_wien_path, class: 'link-more' %>
+      <%= link_to 'Alle Events & Workshops', meetings_region_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

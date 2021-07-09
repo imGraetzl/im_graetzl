@@ -70,5 +70,5 @@
     <%= link_to "#{@room_demand.user.first_name} kontaktieren", messenger_start_thread_path(user_id: @room_demand.user.id), class: 'btn-primary -mint -contact', id: 'requestRoomBtn', subject: "Raumteiler Kontakt" %>
   <% end %>
 
-  <%= link_to "Alle Raumteiler", rooms_wien_path, class: 'btn-primary -mint' %>
+  <%= link_to "Alle Raumteiler", rooms_region_path, class: 'btn-primary -mint' %>
 </aside>

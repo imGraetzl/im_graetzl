@@ -2,7 +2,7 @@ class RoomDemandsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :activate]
 
   def show
-    @room_demand = RoomDemand.find(params[:id])
+    @room_demand = RoomDemand.in(current_region).find(params[:id])
     @comments = @room_demand.comments.includes(:user, :images).order(created_at: :desc)
   end
 
@@ -14,6 +14,7 @@ class RoomDemandsController < ApplicationController
   def create
     @room_demand = RoomDemand.new(room_demand_params)
     @room_demand.user_id = current_user.admin? ? params[:user_id] : current_user.id
+    @room_demand.region_id = current_region.id
 
     if @room_demand.save
       MailchimpRoomDemandUpdateJob.perform_later(@room_demand)

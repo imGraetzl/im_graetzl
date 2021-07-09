@@ -18,4 +18,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  helper_method :current_region
+
+  def current_region
+    if request.domain == 'imgraetzl.at'
+      Region.get('wien')
+    else
+      region_domain = request.subdomain.split(".").last # removing local. or staging.
+      Region.get(region_domain)
+    end
+  end
+
 end

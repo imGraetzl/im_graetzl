@@ -8,33 +8,33 @@
       <div class="input-select">
         <label for="filter">
           <%= icon_tag "funnel-filter" %>
-          <span>Stöbern in Wien nach ...</span>
+          <span>Stöbern in <%= current_region %> nach ...</span>
         </label>
         <select id="filter"><!-- generate links from desktop view via JS --></select>
       </div>
       <!-- END mobile select menu -->
 
-      <%= active_link_to wien_path, class: "iconfilter hide" do %>
+      <%= active_link_to region_path, class: "iconfilter hide" do %>
         <%= icon_tag "map-location" %>
-        <div class="txt">Wien <br/>Übersicht</div>
+        <div class="txt"><%= current_region %> <br/>Übersicht</div>
       <% end %>
-      <%= active_link_to locations_wien_path, class: "iconfilter" do %>
+      <%= active_link_to locations_region_path, class: "iconfilter" do %>
         <%= icon_tag "location" %>
         <div class="txt">Anbieter <br/>& Locations</div>
       <% end %>
-      <%= active_link_to meetings_wien_path, class: "iconfilter" do %>
+      <%= active_link_to meetings_region_path, class: "iconfilter" do %>
         <%= icon_tag "calendar-2" %>
         <div class="txt">Events & <br/>Workshops</div>
       <% end %>
-      <%= active_link_to rooms_wien_path, class: "iconfilter" do %>
+      <%= active_link_to rooms_region_path, class: "iconfilter" do %>
         <%= icon_tag "raumteiler" %>
         <div class="txt">Raum<br/>teiler</div>
       <% end %>
-      <%= active_link_to groups_wien_path, class: "iconfilter -coopshare" do %>
+      <%= active_link_to groups_region_path, class: "iconfilter -coopshare" do %>
         <%= icon_tag "coop-share" %>
         <div class="txt">Gruppen</div>
       <% end %>
-      <%= active_link_to zuckerls_wien_path, class: "iconfilter hide" do %>
+      <%= active_link_to zuckerls_region_path, class: "iconfilter hide" do %>
         <%= icon_tag "shopping-bag" %>
         <div class="txt">Zuckerl <br/>& Angebote</div>
       <% end %>

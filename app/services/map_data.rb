@@ -11,7 +11,7 @@ class MapData < BaseService
     { districts: district_feature(district), graetzls: graetzl_features(graetzls) }
   end
 
-  def for_wien(districts)
+  def for_region(region, districts)
     { districts: district_feature(districts) }
   end
 

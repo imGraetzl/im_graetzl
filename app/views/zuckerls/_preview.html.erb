@@ -41,7 +41,11 @@
   <div class="headline">Eckdaten</div>
   <ul class="facts">
     <li><strong>Laufzeit:</strong> <%= zuckerl_month_and_year(zuckerl) %></li>
-    <li><strong>Grätzl:</strong> <span data-behavior="graetzlpreview"><%= location.graetzl.name %> und gesamter <%= location.districts.first.numeric %>. Bezirk</span><span data-behavior="alldistrictspreview">Ganz Wien</span></li>
+    <li>
+      <strong>Grätzl:</strong> <span data-behavior="graetzlpreview">
+      <%= location.graetzl.name %> und gesamter <%= location.districts.first.numeric %>.
+      Bezirk</span><span data-behavior="alldistrictspreview">Ganz <%= current_region %></span>
+      </li>
     <li><strong>Preis:</strong> <span data-behavior="pricepreview"></span> (inkl. 20% USt.)</li>
   </ul>
 </div>

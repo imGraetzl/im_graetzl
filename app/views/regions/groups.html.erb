@@ -1,14 +1,14 @@
 <% meta(
-    title: (@category ? @category.title : 'Alle') + ' Gruppen in Wien',
+    title: (@category ? @category.title : 'Alle') + " Gruppen in #{current_region}",
     description: t('.description'),
     robots: 'index, follow',
-    og_title: (@category ? @category.title : 'Alle') + ' Gruppen in Wien',
+    og_title: (@category ? @category.title : 'Alle') + " Gruppen in #{current_region}",
     og_description: t('.description'),
     og_image: image_url('meta/og_logo.png')
   )
 %>
 
-<section class="wien groups">
+<section class="region groups">
 
   <%= render 'map' %>
   <%= render 'navigation' %>
@@ -16,7 +16,7 @@
   <% if @featured_groups.present? && @category.nil? %>
     <div class="hl-subtext -cards">
       <h1><em>Gruppen - Austausch & Vernetzung</em></h1>
-      <p>Empfohlene & beliebte Gruppen in Wien</p>
+      <p>Empfohlene & beliebte Gruppen in <%= current_region %></p>
     </div>
     <div class="lightSliderWrapper card-slider-container">
       <div class="cardBoxCollection" id="card-slider">

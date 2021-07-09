@@ -3,15 +3,16 @@ class LocationsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @locations = collection_scope.approved.include_for_box
+    @locations = collection_scope.in(current_region).approved.include_for_box
     @locations = filter_collections(@locations)
     @locations = @locations.order("last_activity_at DESC").page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show
-    @graetzl = Graetzl.find(params[:graetzl_id])
-    @location = @graetzl.locations.find(params[:id])
+    @location = Location.in(current_region).find(params[:id])
     redirect_enqueued and return if @location.pending?
+
+    @graetzl = @location.graetzl
     @posts = @location.location_posts.includes(:images, :comments).order(created_at: :desc).first(20)
     @zuckerls = @location.zuckerls.live
     @room_offer = RoomOffer.where(location_id: @location).last
@@ -33,6 +34,7 @@ class LocationsController < ApplicationController
   def create
     @location = Location.new(location_params)
     @location.user = current_user
+    @location.region_id = current_region.id
 
     if @location.save
       redirect_enqueued
@@ -90,7 +92,7 @@ class LocationsController < ApplicationController
 
   def tooltip
     head :ok and return if browser.bot? && !request.format.js?
-    @location = Location.find(params[:id])
+    @location = Location.in(current_region).find(params[:id])
     @user = @location.user
     render layout: false
   end
@@ -103,7 +105,7 @@ class LocationsController < ApplicationController
       Location.where(graetzl: graetzl)
     elsif params[:user_id].present?
       user = User.find(params[:user_id])
-      user.locations.approved
+      user.locations
     else
       Location.all
     end

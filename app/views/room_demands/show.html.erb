@@ -19,7 +19,7 @@
           <% if @room_demand.room_categories.present? %>
             <ul class="tag-list -mint">
               <% @room_demand.room_categories.each do |category| %>
-                <li><%= link_to category.name, rooms_category_wien_path(category) %></li>
+                <li><%= link_to category.name, rooms_category_region_path(category) %></li>
               <% end %>
             </ul>
           <% end %>

@@ -4,13 +4,13 @@ class GroupsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @groups = collection_scope.include_for_box
+    @groups = collection_scope.in(current_region).include_for_box
     @groups = filter_collection(@groups)
     @groups = @groups.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
   end
 
   def new
@@ -28,6 +28,7 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
+    @group.region_id = current_region.id
     @group.group_users.build(user_id: current_user.id, role: :admin)
 
     if @group.save
@@ -40,12 +41,12 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
   end
 
   def update
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
     if @group.update(group_params)
@@ -56,7 +57,7 @@ class GroupsController < ApplicationController
   end
 
   def request_join
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return if @group.group_join_requests.exists?(user: current_user)
 
     if params[:join_answers].present?
@@ -79,7 +80,7 @@ class GroupsController < ApplicationController
   end
 
   def accept_request
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
     @join_request = @group.group_join_requests.find(params[:join_request_id])
@@ -100,7 +101,7 @@ class GroupsController < ApplicationController
   end
 
   def reject_request
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
     @join_request = @group.group_join_requests.find(params[:join_request_id])
@@ -110,7 +111,7 @@ class GroupsController < ApplicationController
   end
 
   def remove_user
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     @group_user = @group.group_users.find_by(user_id: params[:user_id])
     redirect_to @group and return unless (@group.admins.include?(current_user) || current_user.id == @group_user.user_id)
 
@@ -121,7 +122,7 @@ class GroupsController < ApplicationController
   end
 
   def toggle_user_status
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     @group_user = @group.group_users.find_by(user_id: params[:user_id])
     redirect_to @group and return unless @group.admins.include?(current_user)
     @group_user.admin? ? @group_user.update(role: 0) : @group_user.update(role: 1)
@@ -129,12 +130,12 @@ class GroupsController < ApplicationController
   end
 
   def compose_mail
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user) && !@group.default_joined?
   end
 
   def send_mail
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
     User.where(id: params[:user_ids]).find_each do |user|
@@ -146,7 +147,7 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:id])
+    @group = find_group(params[:id])
     redirect_to @group and return unless @group.admins.include?(current_user)
 
     @group.destroy
@@ -162,6 +163,10 @@ class GroupsController < ApplicationController
     else
       Group.all
     end
+  end
+
+  def find_group(id)
+    Group.in(current_region).find(id)
   end
 
   def filter_collection(groups)

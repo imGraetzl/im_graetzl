@@ -3,7 +3,7 @@ class ZuckerlsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @zuckerls = collection_scope
+    @zuckerls = collection_scope.in(current_region)
     @zuckerls = @zuckerls.page(params[:page]).per(15).order(Arel.sql("RANDOM()"))
   end
 
@@ -14,7 +14,9 @@ class ZuckerlsController < ApplicationController
 
   def create
     @location = Location.find(params[:location_id])
-    @zuckerl = @location.zuckerls.new zuckerl_params
+    @zuckerl = @location.zuckerls.new(zuckerl_params)
+    @zuckerl.region_id = current_region.id
+
     if @zuckerl.save
       @zuckerl.link ||= nil
       redirect_to zuckerl_billing_address_path @zuckerl

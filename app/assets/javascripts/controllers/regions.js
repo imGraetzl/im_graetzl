@@ -1,4 +1,4 @@
-APP.controllers.wien = (function() {
+APP.controllers.regions = (function() {
 
     var map = APP.components.graetzlMap;
 

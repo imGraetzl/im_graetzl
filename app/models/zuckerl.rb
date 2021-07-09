@@ -102,7 +102,7 @@ class Zuckerl < ApplicationRecord
 
   def visibility
     if self.all_districts
-      "Ganz Wien"
+      "Ganz #{region.name}"
     else
       "#{self.location.graetzl.name} und gesamter #{self.location.districts.first.numeric}. Bezirk"
     end

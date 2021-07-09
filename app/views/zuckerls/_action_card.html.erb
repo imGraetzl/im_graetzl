@@ -30,7 +30,7 @@
     <% elsif local_assigns[:district] %>
       <%= link_to 'Alle Angebote', zuckerls_district_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Angebote', zuckerls_wien_path, class: 'link-more' %>
+      <%= link_to 'Alle Angebote', zuckerls_region_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

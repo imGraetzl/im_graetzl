@@ -1,6 +1,7 @@
 class SearchService
 
-  def initialize(query, options = {})
+  def initialize(region, query, options = {})
+    @region = region
     @query = query.to_s.strip
     @options = options
   end
@@ -41,25 +42,25 @@ class SearchService
   end
 
   def search_rooms
-    room_offers = RoomOffer.enabled.joins(:room_categories).where("slogan ILIKE :q OR room_categories.name ILIKE :q", q: like_query).distinct
-    room_demands = RoomDemand.enabled.where("slogan ILIKE :q", q: like_query)
+    room_offers = RoomOffer.in(@region).enabled.joins(:room_categories).where("slogan ILIKE :q OR room_categories.name ILIKE :q", q: like_query).distinct
+    room_demands = RoomDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query)
     (room_offers + room_demands).sort_by(&:last_activated_at).reverse
   end
 
   def search_meetings
-    Meeting.upcoming.where("name ILIKE :q", q: like_query).order('starts_at_date DESC')
+    Meeting.in(@region).upcoming.where("name ILIKE :q", q: like_query).order('starts_at_date DESC')
   end
 
   def search_locations
-    Location.approved.where("name ILIKE :q", q: like_query).order('created_at DESC')
+    Location.in(@region).approved.where("name ILIKE :q", q: like_query).order('created_at DESC')
   end
 
   def search_tools
-    ToolOffer.enabled.where("title ILIKE :q", q: like_query).order('created_at DESC')
+    ToolOffer.in(@region).enabled.where("title ILIKE :q", q: like_query).order('created_at DESC')
   end
 
   def search_groups
-    Group.non_hidden.where("title ILIKE :q", q: like_query).order('created_at DESC')
+    Group.in(@region).non_hidden.where("title ILIKE :q", q: like_query).order('created_at DESC')
   end
 
   def search_users

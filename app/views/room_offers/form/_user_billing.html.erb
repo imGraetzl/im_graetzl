@@ -3,7 +3,7 @@
   <% f.object.build_billing_address(
     first_name: current_user.first_name,
     last_name: current_user.last_name,
-    country: "Austria", city: "Wien"
+    country: "Austria",
   ) if f.object.billing_address.nil? %>
 
   <%= f.fields_for :billing_address do |bf| %>

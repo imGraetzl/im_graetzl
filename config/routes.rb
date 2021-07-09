@@ -81,12 +81,12 @@ Rails.application.routes.draw do
   get 'muehlviertel', to: 'campaign_users#muehlviertel'
   get 'kaernten', to: 'campaign_users#kaernten'
 
-  resources :room_demands, path: 'wien/raumteiler/raumsuche', except: [:index] do
+  resources :room_demands, path: '(wien)/raumteiler/raumsuche', except: [:index] do
     post 'toggle', on: :member
     get 'activate/:activation_code' => 'room_demands#activate', on: :member
     patch 'update_status', on: :member
   end
-  resources :room_offers, path: 'wien/raumteiler/raum', except: [:index] do
+  resources :room_offers, path: '(wien)/raumteiler/raum', except: [:index] do
     get 'select', on: :collection
     get 'activate/:activation_code' => 'room_offers#activate', on: :member
     get 'rental_timetable', on: :member
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
     post 'toggle_waitlist', on: :member
     post 'remove_from_waitlist', on: :member
   end
-  resources :room_calls, path: 'wien/raumteiler/open-calls', except: [:index] do
+  resources :room_calls, path: '(wien)/raumteiler/open-calls', except: [:index] do
     get 'submission', on: :member
     post 'add_submission', on: :member
   end
@@ -172,7 +172,7 @@ Rails.application.routes.draw do
   get 'mixit' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
   get 'raumteilerfestival' => redirect('/wien/raumteiler/')
 
-  resource :wien, controller: 'wien', only: [:show] do
+  resource :region, path: 'gemeinden', only: [:show] do # and wien
     get 'visit_graetzl'
     get 'treffen', action: 'meetings', as: 'meetings'
     get 'locations', action: 'locations', as: 'locations'

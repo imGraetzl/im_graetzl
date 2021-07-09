@@ -5,7 +5,7 @@
       <div class="-category -special-category" data-id="online-shops" data-label="Online Shops" data-slug="online-shops">
         <%= image_tag('location-onlineshop.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
         <div class="cat -onlineshop"></div>
-        <h3>Online Shops <br>aus Wien</h3>
+        <h3>Online Shops <br>aus <%= current_region %></h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>
@@ -22,7 +22,7 @@
         <% elsif @graetzl %>
           <h3><%= link_to category.name, locations_category_district_path(@graetzl.district, category) %></h3>
         <% else %>
-          <h3><%= link_to category.name, locations_category_wien_path(category) %></h3>
+          <h3><%= link_to category.name, locations_category_region_path(category) %></h3>
         <% end %>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>

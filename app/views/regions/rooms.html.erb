@@ -19,7 +19,7 @@
   )
 %>
 
-<section class="wien rooms">
+<section class="region rooms">
 
   <%= render 'map' %>
   <%= render 'navigation' %>
@@ -37,7 +37,7 @@
     <div class="filter-selection-text-jbox">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to 'ganz Wien', '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district' %>
+      in <%= link_to "ganz #{current_region}", '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-district' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/room_type' %>

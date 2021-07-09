@@ -28,7 +28,7 @@
     <% elsif local_assigns[:district] %>
       <%= link_to 'Alle Gruppen', groups_district_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Gruppen', groups_wien_path, class: 'link-more' %>
+      <%= link_to 'Alle Gruppen', groups_region_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

@@ -2,7 +2,7 @@ class RoomOffersController < ApplicationController
   before_action :authenticate_user!, except: [:show, :activate, :calculate_price, :available_hours]
 
   def show
-    @room_offer = RoomOffer.find(params[:id])
+    @room_offer = RoomOffer.in(current_region).find(params[:id])
     @comments = @room_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
@@ -18,7 +18,10 @@ class RoomOffersController < ApplicationController
   def create
     @room_offer = RoomOffer.new(room_offer_params)
     @room_offer.user_id = current_user.admin? ? params[:user_id] : current_user.id
+    @room_offer.region_id = current_region.id
+
     set_address(@room_offer, params[:feature])
+
     if @room_offer.save
       current_user.update(user_params) if params[:user].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)

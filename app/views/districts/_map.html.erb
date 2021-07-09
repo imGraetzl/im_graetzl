@@ -4,9 +4,9 @@
   <div class="navBlock">
     <h1><%= @district.name %></h1>
     <div class="links">
-      <a class="toOverview" href="/wien">
-        <%= icon_tag "arrow-left-2" %> Wien
-      </a>
+      <%= link_to region_path, class: 'toOverview' do %>
+        <%= icon_tag "arrow-left-2" %> <%= current_region.name %>
+      <% end %>
       <% District.memoized(@district.id).graetzls.each do |graetzl| %>
         <%= link_to graetzl.name, graetzl %>
       <% end %>

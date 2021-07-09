@@ -38,7 +38,7 @@
     <%= hidden_field_tag :special_category_id, @special_category %>
     <div class="filter-selection-text-jbox">
       Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @district.zip_name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @district.zip_name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-district filter-applied' %>
     </div>
     <div id="filter-modal-district" class="filter-modal-jbox-district">
       <%= render 'filters/district', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
