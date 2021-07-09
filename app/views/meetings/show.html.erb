@@ -93,8 +93,9 @@
   </div>
 
   <% if @meeting.address&.coordinates %>
-    <div id="map" class="cardBox" data-x="<%= @meeting.address.coordinates.x %>" data-y="<%= @meeting.address.coordinates.y %>"></div>
-    <div class="map-avatar -hidden"><%= icon_tag "pin" %></div>
+    <div id="leafletMap" class="cardBox" data-x="<%= @meeting.address.coordinates.x %>" data-y="<%= @meeting.address.coordinates.y %>">
+      <div class="map-avatar -hidden"><%= icon_tag "pin" %></div>
+    </div>
   <% end %>
 
 </section>
