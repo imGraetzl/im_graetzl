@@ -7,10 +7,11 @@
     og_image: image_url('meta/og_logo.png')
   )
 %>
+<% graetzl_naming = current_region.use_districts ? 'im Grätzl' : 'in deiner Gemeinde' %>
 
 <section class="homeOut">
   <div class="buehne">
-    <h1><span>Was ist los </span><span>in deinem Grätzl?</span></h1>
+    <h1><span>Was ist los </span><span><%= current_region.use_districts ? 'in deinem Grätzl?' : 'in deiner Gemeinde?' %></span></h1>
     <%= link_to new_registration_path(origin: request.path), class: 'registerlink' do %>
       <div class="register-badge"><%= icon_tag "user-info-profile-details" %></div>
       <div class="txt">Mitmachen</div>
@@ -42,7 +43,7 @@
 
   <div class="block-meetings">
     <div class="hl-subtext">
-      <h1>Entdecke — <span>Events &amp; Workhops</span> im Grätzl</h1>
+      <h1>Entdecke — <span>Events &amp; Workhops</span> <%= graetzl_naming %></h1>
       <p>Organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen.</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
@@ -53,7 +54,7 @@
 
   <div class="block-locations">
     <div class="hl-subtext">
-      <h1>Entdecke — <span>Anbieter &amp; Locations</span> im Grätzl</h1>
+      <h1>Entdecke — <span>Anbieter &amp; Locations</span> <%= graetzl_naming %></h1>
       <p>Entdecke Selbständige, kl. Unternehmen, Kreative, Vereine & Macher*innen</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
@@ -64,7 +65,7 @@
 
   <div class="block-rooms">
     <div class="hl-subtext">
-      <h1>Entdecke — <span>Raumteiler</span> im Grätzl</h1>
+      <h1>Entdecke — <span>Raumteiler</span> <%= graetzl_naming %></h1>
       <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
@@ -75,7 +76,7 @@
 
   <div class="block-tools">
     <div class="hl-subtext">
-      <h1>Entdecke — <span>Toolteiler</span> im Grätzl</h1>
+      <h1>Entdecke — <span>Toolteiler</span> <%= graetzl_naming %></h1>
       <p>Arbeitsequipment leihen & Geräte am Standort nutzen <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
@@ -86,7 +87,7 @@
 
   <div class="block-groups">
     <div class="hl-subtext">
-      <h1>Entdecke — <span>Gruppen</span> im Grätzl</h1>
+      <h1>Entdecke — <span>Gruppen</span> <%= graetzl_naming %></h1>
       <p>Vernetze dich mit anderen, tausch dich aus und kooperiere!</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">

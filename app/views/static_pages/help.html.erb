@@ -29,7 +29,7 @@
         Zusammenarbeit und Gemeinschaft stehen dabei im Mittelpunkt!
       </p>
       <p>
-        imGrätzl.at entfaltet seine Stärke im Wir - Ganz lokal in Wien, analog und digital.
+        imGrätzl.at entfaltet seine Stärke im Wir - Ganz lokal in <%= current_region %>, analog und digital.
       </p>
     </div>
     <div class="card"></div>
@@ -87,7 +87,7 @@
       <h2>Toolteiler</h2>
       <h3>Arbeitsequipment leihen & Geräte am Standort nutzen</h3>
       <p>
-         Ermögliche GründerInnen, Selbstständigen, Kreativen und MacherInnen in Wien
+         Ermögliche GründerInnen, Selbstständigen, Kreativen und MacherInnen in <%= current_region %>
          die Nutzung deines Arbeitsequipments. Du kannst über den Toolteiler Geräte verleihen
          oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen.
          Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst
@@ -202,7 +202,7 @@
         dich und dein spezielles Angebot in deinem Stadtteil & Bezirk schalten.
         Ein Zuckerl läuft immer für einen Monat und kostet dich <%= zuckerl_price('graetzl') %> (inkl. 20% USt.).
         <br>
-        Möchtest du darüber hinaus dein Grätzlzuckerl nicht nur in deinem Bezirk sondern in ganz Wien schalten - Auch das geht seit Kurzem :)
+        Möchtest du darüber hinaus dein Grätzlzuckerl nicht nur in deinem Bezirk sondern in ganz <%= current_region %> schalten - Auch das geht seit Kurzem :)
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_infos_zum_graetzlzuckerl_path, :class => 'btn-primary -grey -inlineflex' %>

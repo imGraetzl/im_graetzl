@@ -73,8 +73,10 @@
       <%= graetzl.name %>
     <% elsif district %>
       <%= district.name %>
-    <% else %>
+    <% elsif current_region.use_districts %>
       Grätzl entdecken
+    <% else %>
+      Gemeinden
     <% end %>
     </span>
   <% end %>

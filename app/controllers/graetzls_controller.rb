@@ -2,7 +2,7 @@ class GraetzlsController < ApplicationController
   before_action :load_graetzl
 
   def show
-    @activity_sample = ActivitySample.new(graetzl: @graetzl) if !user_signed_in?
+    @activity_sample = ActivitySample.new(graetzl: @graetzl, current_region: current_region) if !user_signed_in?
   end
 
   def meetings
@@ -39,7 +39,7 @@ class GraetzlsController < ApplicationController
   end
 
   def groups
-    @featured_groups = @graetzl.groups.featured.include_for_box
+    @featured_groups = @graetzl.groups.in(current_region).featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])
   end
 

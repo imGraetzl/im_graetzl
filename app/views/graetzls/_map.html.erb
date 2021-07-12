@@ -7,10 +7,16 @@
   <div class="navBlock">
     <h1><%= @graetzl.name %></h1>
     <div class="links">
-      <% Graetzl.memoized(@graetzl.id).districts.each do |district| %>
-        <%= link_to district, class: 'toOverview' do %>
-          <%= icon_tag "arrow-left-2" %> <%= district.name %>
-        <% end %>
+      <% if current_region.use_districts %>
+          <% Graetzl.memoized(@graetzl.id).districts.each do |district| %>
+            <%= link_to district, class: 'toOverview' do %>
+              <%= icon_tag "arrow-left-2" %> <%= district.name %>
+            <% end %>
+          <% end %>
+      <% else %>
+          <%= link_to region_path, class: 'toOverview' do %>
+            <%= icon_tag "arrow-left-2" %> <%= current_region %>
+          <% end %>
       <% end %>
     </div>
   </div>

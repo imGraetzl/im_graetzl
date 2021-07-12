@@ -42,7 +42,7 @@ class RegionsController < ApplicationController
   end
 
   def groups
-    @featured_groups = Group.featured.include_for_box
+    @featured_groups = Group.in(current_region).featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])
     @districts = District.order(zip: :asc)
   end

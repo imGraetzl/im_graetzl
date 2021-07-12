@@ -1,61 +1,62 @@
 class ActivitySample
 
-  def initialize(graetzl: nil, district: nil)
+  def initialize(graetzl: nil, district: nil, current_region: nil)
     @graetzl = graetzl
     @district = district
+    @current_region = current_region
   end
 
   def meetings
     if @graetzl
-      @graetzl.meetings.visible_to_all.include_for_box.by_currentness.first(2)
+      @graetzl.meetings.in(@current_region).visible_to_all.include_for_box.by_currentness.first(2)
     elsif @district
-      @district.meetings.visible_to_all.include_for_box.by_currentness.first(2)
+      @district.meetings.in(@current_region).visible_to_all.include_for_box.by_currentness.first(2)
     else
-      Meeting.visible_to_all.include_for_box.by_currentness.first(2)
+      Meeting.in(@current_region).visible_to_all.include_for_box.by_currentness.first(2)
     end
   end
 
   def groups
     if @graetzl
-      @graetzl.groups.featured.include_for_box.first(2)
+      @graetzl.groups.in(@current_region).featured.include_for_box.first(2)
     elsif @district
-      @district.groups.featured.include_for_box.first(2)
+      @district.groups.in(@current_region).featured.include_for_box.first(2)
     else
-      Group.featured.include_for_box.first(2)
+      Group.in(@current_region).featured.include_for_box.first(2)
     end
   end
 
   def locations
     if @graetzl
-      @graetzl.locations.approved.include_for_box.order("last_activity_at DESC").first(2)
+      @graetzl.locations.in(@current_region).approved.include_for_box.order("last_activity_at DESC").first(2)
     elsif @district
-      @district.locations.approved.include_for_box.order("last_activity_at DESC").first(2)
+      @district.locations.in(@current_region).approved.include_for_box.order("last_activity_at DESC").first(2)
     else
-      Location.approved.include_for_box.order("last_activity_at DESC").first(2)
+      Location.in(@current_region).approved.include_for_box.order("last_activity_at DESC").first(2)
     end
   end
 
   def tool_offers
     if @graetzl
-      @graetzl.tool_offers.enabled.by_currentness.first(2)
+      @graetzl.tool_offers.in(@current_region).enabled.by_currentness.first(2)
     elsif @district
-      @district.tool_offers.enabled.by_currentness.first(2)
+      @district.tool_offers.in(@current_region).enabled.by_currentness.first(2)
     else
-      ToolOffer.enabled.by_currentness.first(2)
+      ToolOffer.in(@current_region).enabled.by_currentness.first(2)
     end
   end
 
   def rooms
-    room_call = RoomCall.open_calls.first
+    room_call = RoomCall.in(@current_region).open_calls.first
     if @graetzl
-      room_offer = @graetzl.room_offers.enabled.by_currentness.first
-      room_demand = @graetzl.room_demands.enabled.by_currentness.first
+      room_offer = @graetzl.room_offers.in(@current_region).enabled.by_currentness.first
+      room_demand = @graetzl.room_demands.in(@current_region).enabled.by_currentness.first
     elsif @district
-      room_offer = @district.room_offers.enabled.by_currentness.first
-      room_demand = @district.room_demands.enabled.by_currentness.first
+      room_offer = @district.room_offers.in(@current_region).enabled.by_currentness.first
+      room_demand = @district.room_demands.in(@current_region).enabled.by_currentness.first
     else
-      room_offer = RoomOffer.enabled.by_currentness.first
-      room_demand = RoomDemand.enabled.by_currentness.first
+      room_offer = RoomOffer.in(@current_region).enabled.by_currentness.first
+      room_demand = RoomDemand.in(@current_region).enabled.by_currentness.first
     end
     [room_call, room_offer, room_demand].compact.first(2)
   end

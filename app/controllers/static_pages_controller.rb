@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
     if current_user
       redirect_to current_user.graetzl
     else
-      @activity_sample = ActivitySample.new
+      @activity_sample = ActivitySample.new(current_region: current_region)
     end
   end
 

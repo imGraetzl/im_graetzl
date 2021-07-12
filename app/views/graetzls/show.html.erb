@@ -1,8 +1,8 @@
 <% meta(
-    title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric),
+    title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric, region: current_region.name),
     description: t('.description', name: @graetzl.name),
     robots: 'index, follow',
-    og_title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric),
+    og_title: t('.title', name: @graetzl.name, numeric: @graetzl.district.numeric, region: current_region.name),
     og_description: t('.description', name: @graetzl.name),
     og_image: image_url('meta/og_logo.png')
   )

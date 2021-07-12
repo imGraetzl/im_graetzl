@@ -1,19 +1,19 @@
 <% if @category %>
   <% meta(
-      title: t('.title_category', numeric: @district.numeric, zip: @district.zip, category: @category.title),
-      description: t('.description_category', numeric: @district.numeric, name: @district.name, category: @category.title),
+      title: t('.title_category', numeric: @district.numeric, zip: @district.zip, category: @category.title, region: current_region.name),
+      description: t('.description_category', numeric: @district.numeric, name: @district.name, category: @category.title, region: current_region.name),
     )
   %>
 <% else %>
   <% meta(
-      title: t('.title', numeric: @district.numeric, zip: @district.zip),
-      description: t('.description', numeric: @district.numeric, name: @district.name),
+      title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+      description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
     )
   %>
 <% end %>
 <% meta(
-    og_title: t('.title', numeric: @district.numeric, zip: @district.zip),
-    og_description: t('.description', numeric: @district.numeric, name: @district.name),
+    og_title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
     og_image: image_url('meta/og_logo.png'),
     robots: 'index, follow',
   )
