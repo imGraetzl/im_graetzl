@@ -11,7 +11,7 @@
   <%= render partial: 'controller_header' rescue nil %>
 </head>
 
-<body data-controller=<%= controller_name %> class=<%= user_signed_in? ? 'signed-in' : ''%>>
+<body data-controller=<%= controller_name %> class="<%= user_signed_in? ? 'signed-in ' : ''%>region-<%= current_region.id %>">
   <%= render 'navigation/header' %>
   <%= render 'flashes' %>
 
