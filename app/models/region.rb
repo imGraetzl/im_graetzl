@@ -1,7 +1,7 @@
 class Region
   REGION_LIST = {
     'wien' => ['Wien', true],
-    'kaernten' => ['Kärnten', false],
+    'kaernten' => ['Unterkärnten', false],
   }
 
   attr_reader :id, :name, :use_districts

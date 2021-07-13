@@ -13,7 +13,7 @@
       <%= icon_tag "flag-1" %>
       <span>Grätzl</span>
     </label>
-    <%= select_tag :graetzl_id, options_from_collection_for_select(Graetzl.all, :id, :name),
+    <%= select_tag :graetzl_id, options_from_collection_for_select(Graetzl.in(current_region).all, :id, :name),
         prompt: 'wählen', required: true, class: 'graetzl_id' %>
   </div>
 </div>

@@ -15,8 +15,12 @@ APP.controllers.regions = (function() {
 
         APP.components.addressSearchAutocomplete();
 
-        if($('#graetzlMapWidget:visible').length > 0) {
-          initMap();
+        if($('.graetzlMapWidgetUseDistricts:visible').length > 0) {
+          initMapUseDistricts();
+        }
+
+        if($('.graetzlMapWidgetUseGraetzls:visible').length > 0) {
+          initMapUseGraetzls();
         }
 
         if ($("#filter-modal-bezirk").exists()) {
@@ -42,12 +46,21 @@ APP.controllers.regions = (function() {
         initMobileNav();
     }
 
-    function initMap() {
+    function initMapUseDistricts() {
         var mapdata = $('#graetzlMapWidget').data('mapdata');
         map.init(function() {
             map.showMapDistrict(mapdata.districts, {
                 interactive: true
             });
+        });
+    }
+
+    function initMapUseGraetzls() {
+        var mapdata = $('#graetzlMapWidget').data('mapdata');
+        map.init(function() {
+          map.showMapGraetzl(mapdata.graetzls, {
+            interactive: true,
+          });
         });
     }
 

@@ -10,7 +10,7 @@
 
 <section class="region -overview">
 
-  <%= render 'map' %>
+  <%= render current_region.use_districts ? 'map_use_districts' : 'map_use_graetzls' %>
   <%= render 'navigation' %>
 
   <div class="address-block">

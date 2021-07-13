@@ -9,7 +9,7 @@
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
-      <%= nav_menu_item("map-location", "#{current_region} Karte", region_path) %>
+      <%= nav_menu_item("map-location", "Übersichtskarte", region_path) %>
       <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_region_path) %>
       <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_region_path) %>
       <%= nav_menu_item("coop-share-white", 'Gruppen', groups_region_path) %>
@@ -53,7 +53,7 @@
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-site-city">
-    <%= nav_menu_item("map-location", "#{current_region} Karte", region_path) %>
+    <%= nav_menu_item("map-location", "Übersichtskarte", region_path) %>
     <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_region_path) %>
     <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_region_path) %>
     <%= nav_menu_item("coop-share-white", 'Gruppen', groups_region_path) %>
@@ -99,7 +99,7 @@
       <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", meetings_district_path(district)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", zuckerls_district_path(district)) %>
     <% else %>
-      <%= nav_menu_item("map-location", "#{current_region} Karte", region_path) %>
+      <%= nav_menu_item("map-location", "Übersichtskarte", region_path) %>
     <% end %>
   </div>
 

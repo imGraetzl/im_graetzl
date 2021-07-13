@@ -1,15 +1,15 @@
 module GraetzlsHelper
 
   def district_url_options
-    District.sorted_by_zip.map { |d| [d.zip_name, district_path(d)] }
+    District.in(current_region).sorted_by_zip.map { |d| [d.zip_name, district_path(d)] }
   end
 
   def district_select_options
-    District.sorted_by_zip.map { |d| [d.zip_name, d.id, 'data-label' => d.zip] }
+    District.in(current_region).sorted_by_zip.map { |d| [d.zip_name, d.id, 'data-label' => d.zip] }
   end
 
   def graetzl_select_options
-    District.sorted_by_zip.map do |district|
+    District.in(current_region).sorted_by_zip.map do |district|
       district.graetzls.map{|g| ["#{district.zip} - #{g.name}", g.id, 'data-district-id' => district.id] }
     end.flatten(1)
   end
