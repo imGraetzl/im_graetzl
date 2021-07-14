@@ -14,7 +14,7 @@
     <label for="select-all">Ganz <%= current_region.name %></label>
   </div>
   <div class="district-list">
-    <%= collection_check_boxes :filter, :district_ids, District.sorted_by_zip, :id, :zip_name, { checked: district_ids } do |b| %>
+    <%= collection_check_boxes :filter, :district_ids, District.in(current_region).sorted_by_zip, :id, :zip_name, { checked: district_ids } do |b| %>
       <div class="input-checkbox filter-input">
         <%= b.check_box("data-label": b.object.zip, "data-graetzls": b.object.graetzls.ids.to_s) %>
         <%= b.label %>

@@ -1,27 +1,17 @@
-<% if current_region.use_districts %>
+<% district_ids ||= nil %>
+<% graetzl_ids ||= nil %>
+<% graetzl ||= nil %>
 
-  <div class="filter-area" data-filter-label="Activity Steam :: Area">
-    <div class="input-radio filter-input">
-      <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="Grätzl <%= graetzl.name %>">
-      <label for="graetzl_id">Grätzl <%= graetzl.name %></label>
+<div class="filter-districts" data-filter-label="Grätzl / Bezirk">
+  <% if graetzl %>
+    <div class="input-checkbox filter-input-graetzl">
+      <input type="checkbox" value="<%= graetzl.id %>" id="select-home-graetzl" name="select-home-graetzl" data-label="<%= graetzl.name %>" checked>
+      <label for="select-home-graetzl"><%= graetzl.name %></label>
     </div>
-    <div class="input-radio filter-input">
-      <input type="radio" value="<%= graetzl.district.id %>" id="district_id" name="district_id" data-label="Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)" checked>
-      <label for="district_id">Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)</label>
-    </div>
-  </div>
-
-<% else %>
-
-<div class="filter-area" data-filter-label="Activity Steam :: Area">
-  <div class="input-radio filter-input">
-    <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="Gemeinde <%= graetzl.name %>">
-    <label for="graetzl_id">Gemeinde <%= graetzl.name %></label>
-  </div>
-  <div class="input-radio filter-input">
-    <input type="radio" value="<%= graetzl.district.id %>" id="district_id" name="district_id" data-label="Region <%= current_region.name %>" checked>
-    <label for="district_id">Region <%= current_region.name %></label>
+  <% end %>
+  <div class="input-checkbox select-all">
+    <input type="checkbox" value="" id="select-all" name="select-all" <%= 'checked' unless district_ids %>>
+    <label for="select-all">Ganz <%= current_region.name %></label>
   </div>
 </div>
-
-<% end %>
+<%= select :filter, :graetzl_ids, options_for_select(graetzl_select_options, graetzl_ids), {}, { multiple: true, class: 'graetzl-ids' } %>

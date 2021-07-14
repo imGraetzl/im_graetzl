@@ -8,6 +8,10 @@ module GraetzlsHelper
     District.in(current_region).sorted_by_zip.map { |d| [d.zip_name, d.id, 'data-label' => d.zip] }
   end
 
+  def graetztl_url_options
+    Graetzl.in(current_region).map { |g| ["#{g.name}", g.slug] }
+  end
+
   def graetzl_select_options
     District.in(current_region).sorted_by_zip.map do |district|
       district.graetzls.map{|g| ["#{district.zip} - #{g.name}", g.id, 'data-district-id' => district.id] }

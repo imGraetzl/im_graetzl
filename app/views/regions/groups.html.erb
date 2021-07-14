@@ -10,6 +10,7 @@
 
 <section class="region groups">
 
+  <%= render current_region.use_districts ? 'map_use_districts' : 'map_use_graetzls' %>
   <%= render 'navigation' %>
 
   <% if @featured_groups.present? && @category.nil? %>

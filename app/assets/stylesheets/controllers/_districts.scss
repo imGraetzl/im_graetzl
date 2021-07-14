@@ -45,7 +45,6 @@ section.districts {
   border: 1px solid $color-ambient-mint;
   font-family: $font-primary;
   font-size: 1.6rem;
-  max-width: 90%;
   @include respond-to(">=medium") {
     display: none;
   }

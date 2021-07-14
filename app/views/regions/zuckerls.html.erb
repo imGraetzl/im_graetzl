@@ -10,6 +10,7 @@
 
 <section class="region zuckerl">
 
+  <%= render current_region.use_districts ? 'map_use_districts' : 'map_use_graetzls' %>
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">

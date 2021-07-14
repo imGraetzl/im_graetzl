@@ -1,17 +1,19 @@
-<%= link_to 'Nicht dein Grätzl?', 'javascript:', class: 'link-subtle graetzl-select-link' %>
+<%= link_to current_region.use_districts ? 'Nicht dein Grätzl?' : 'Nicht deine Gemeinde?', 'javascript:', class: 'link-subtle graetzl-select-link' %>
 
 <div id="select-graetzl-modal-content" style="display: none">
-  <div class="input-select" style="margin-bottom: 12px">
-    <label>
-      <%= icon_tag "map-location" %>
-      <span>Bezirk</span>
-    </label>
-    <%= select_tag :district_id, options_for_select(district_select_options), prompt: 'wählen' %>
-  </div>
+  <% if current_region.use_districts %>
+    <div class="input-select" style="margin-bottom: 12px">
+      <label>
+        <%= icon_tag "map-location" %>
+        <span>Bezirk</span>
+      </label>
+      <%= select_tag :district_id, options_for_select(district_select_options), prompt: 'wählen' %>
+    </div>
+  <% end %>
   <div class="input-select" id="graetzl-select">
     <label>
       <%= icon_tag "flag-1" %>
-      <span>Grätzl</span>
+      <span><%= current_region.use_districts ? 'Grätzl' : 'Gemeinde' =%></span>
     </label>
     <%= select_tag :graetzl_id, options_from_collection_for_select(Graetzl.in(current_region).all, :id, :name),
         prompt: 'wählen', required: true, class: 'graetzl_id' %>
