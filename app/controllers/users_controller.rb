@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def rooms
     @user = current_user
-    @rooms = @user.room_offers.in(current_region) + @user.room_demands.in(current_region) + @user.room_call.in(current_region)
+    @rooms = @user.room_offers.in(current_region) + @user.room_demands.in(current_region) + @user.room_calls.in(current_region)
     @owned_room_rentals = current_user.owned_room_rentals.in(current_region).submitted.includes(:room_offer, :user, :user_message_thread)
     @room_rentals = current_user.room_rentals.in(current_region).submitted.includes(:user_message_thread, room_offer: :user)
   end

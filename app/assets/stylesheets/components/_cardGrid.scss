@@ -613,9 +613,9 @@
 
 }
 
-.filter-districts {
+.filter-districts, .filter-graetzls {
   @include respond-to(">=medium") {
-    .district-list {
+    .district-list, .graetzl-list {
       columns: 2;
       -webkit-columns: 2;
       -moz-columns: 2;

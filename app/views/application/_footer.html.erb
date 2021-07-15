@@ -38,47 +38,58 @@
     </div>
 
     <div class="maplinks-block">
-      <h3>Entdecke dein Grätzl in Wien:</h3>
 
-      <div class="row">
+      <% if current_region.use_districts %>
 
-        <div class="col">
-          <a href="/wien/">Wien Übersicht</a>
-          <a href="/wien/innere-stadt-1010">1010 - Innere Stadt</a>
-          <a href="/wien/leopoldstadt-1020">1020 - Leopoldstadt</a>
-          <a href="/wien/landstrasse-1030">1030 - Landstraße</a>
-          <a href="/wien/wieden-1040">1040 - Wieden</a>
-          <a href="/wien/margareten-1050">1050 - Margareten</a>
-        </div>
+          <h3>Entdecke dein Grätzl in Wien:</h3>
+          <div class="row">
+            <div class="col">
+              <a href="/wien/">Wien Übersicht</a>
+              <a href="/wien/innere-stadt-1010">1010 - Innere Stadt</a>
+              <a href="/wien/leopoldstadt-1020">1020 - Leopoldstadt</a>
+              <a href="/wien/landstrasse-1030">1030 - Landstraße</a>
+              <a href="/wien/wieden-1040">1040 - Wieden</a>
+              <a href="/wien/margareten-1050">1050 - Margareten</a>
+            </div>
+            <div class="col">
+              <a href="/wien/mariahilf-1060">1060 - Mariahilf</a>
+              <a href="/wien/neubau-1070">1070 - Neubau</a>
+              <a href="/wien/josefstadt-1080">1080 - Josefstadt</a>
+              <a href="/wien/alsergrund-1090">1090 - Alsergrund</a>
+              <a href="/wien/favoriten-1100">1100 - Favoriten</a>
+              <a href="/wien/simmering-1110">1110 - Simmering</a>
+            </div>
+            <div class="col">
+              <a href="/wien/meidling-1120">1120 - Meidling</a>
+              <a href="/wien/hietzing-1130">1130 - Hietzing</a>
+              <a href="/wien/penzing-1140">1140 - Penzing</a>
+              <a href="/wien/rudolfsheim-funfhaus-1150">1150 - Rudolfsheim-Fünfhaus</a>
+              <a href="/wien/ottakring-1160">1160 - Ottakring</a>
+              <a href="/wien/hernals-1170">1170 - Hernals</a>
+            </div>
+            <div class="col">
+              <a href="/wien/wahring-1180">1180 - Währing</a>
+              <a href="/wien/dobling-1190">1190 - Döbling</a>
+              <a href="/wien/brigittenau-1200">1200 - Brigittenau</a>
+              <a href="/wien/floridsdorf-1210">1210 - Floridsdorf</a>
+              <a href="/wien/donaustadt-1220">1220 - Donaustadt</a>
+              <a href="/wien/liesing-1230">1230 - Liesing</a>
+            </div>
+          </div>
 
-        <div class="col">
-          <a href="/wien/mariahilf-1060">1060 - Mariahilf</a>
-          <a href="/wien/neubau-1070">1070 - Neubau</a>
-          <a href="/wien/josefstadt-1080">1080 - Josefstadt</a>
-          <a href="/wien/alsergrund-1090">1090 - Alsergrund</a>
-          <a href="/wien/favoriten-1100">1100 - Favoriten</a>
-          <a href="/wien/simmering-1110">1110 - Simmering</a>
-        </div>
+      <% else %>
 
-        <div class="col">
-          <a href="/wien/meidling-1120">1120 - Meidling</a>
-          <a href="/wien/hietzing-1130">1130 - Hietzing</a>
-          <a href="/wien/penzing-1140">1140 - Penzing</a>
-          <a href="/wien/rudolfsheim-funfhaus-1150">1150 - Rudolfsheim-Fünfhaus</a>
-          <a href="/wien/ottakring-1160">1160 - Ottakring</a>
-          <a href="/wien/hernals-1170">1170 - Hernals</a>
-        </div>
+          <h3>Mitmachende Gemeinden in <%= current_region %></h3>
+          <div class="row">
+            <div class="col">
+            <% Graetzl.in(current_region).each do |graetzl| %>
+              <%= link_to graetzl.name, graetzl_path(graetzl) %>
+            <% end %>
+            </div>
+          </div>
 
-        <div class="col">
-          <a href="/wien/wahring-1180">1180 - Währing</a>
-          <a href="/wien/dobling-1190">1190 - Döbling</a>
-          <a href="/wien/brigittenau-1200">1200 - Brigittenau</a>
-          <a href="/wien/floridsdorf-1210">1210 - Floridsdorf</a>
-          <a href="/wien/donaustadt-1220">1220 - Donaustadt</a>
-          <a href="/wien/liesing-1230">1230 - Liesing</a>
-        </div>
+      <% end %>
 
-      </div>
     </div>
 
   </div>

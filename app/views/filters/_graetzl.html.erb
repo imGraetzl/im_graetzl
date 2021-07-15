@@ -1,17 +1,15 @@
-<% district_ids ||= nil %>
 <% graetzl_ids ||= nil %>
-<% graetzl ||= nil %>
-
-<div class="filter-districts" data-filter-label="Grätzl / Bezirk">
-  <% if graetzl %>
-    <div class="input-checkbox filter-input-graetzl">
-      <input type="checkbox" value="<%= graetzl.id %>" id="select-home-graetzl" name="select-home-graetzl" data-label="<%= graetzl.name %>" checked>
-      <label for="select-home-graetzl"><%= graetzl.name %></label>
-    </div>
-  <% end %>
+<div class="filter-graetzls" data-filter-label="Grätzl / Bezirk">
   <div class="input-checkbox select-all">
-    <input type="checkbox" value="" id="select-all" name="select-all" <%= 'checked' unless district_ids %>>
+    <input type="checkbox" value="" id="select-all" name="select-all" <%= 'checked' unless graetzl_ids %>>
     <label for="select-all">Ganz <%= current_region.name %></label>
   </div>
+  <div class="graetzl-list">
+    <%= collection_check_boxes :filter, :graetzl_ids, Graetzl.in(current_region), :id, :name, { checked: graetzl_ids } do |b| %>
+      <div class="input-checkbox filter-input">
+        <%= b.check_box("data-label": b.object.name, "data-graetzls": b.object.id.to_s) %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
 </div>
-<%= select :filter, :graetzl_ids, options_for_select(graetzl_select_options, graetzl_ids), {}, { multiple: true, class: 'graetzl-ids' } %>
