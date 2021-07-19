@@ -44,7 +44,7 @@
               <%= icon_tag "map-location" %>
               <span>Wo wohnst du?</span>
             <% end %>
-            <%= text_field_tag :address, nil, required: true, autofocus: true, placeholder: "Straße und Hausnummer" %>
+            <%= text_field_tag :address, nil, required: true, placeholder: "Straße und Hausnummer" %>
             <button class="btn-primary">Weiter</button>
             <%= hidden_field_tag :feature %>
             <%= hidden_field_tag :redirect, params[:redirect] %>
