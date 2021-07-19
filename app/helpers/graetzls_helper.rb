@@ -1,7 +1,7 @@
 module GraetzlsHelper
 
   def district_url_options
-    District.in(current_region).sorted_by_zip.map { |d| [d.zip_name, district_path(d)] }
+    District.in(current_region).sorted_by_zip.map { |d| [d.zip_name, district_index_path(d)] }
   end
 
   def district_select_options

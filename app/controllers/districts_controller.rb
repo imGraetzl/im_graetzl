@@ -1,7 +1,7 @@
 class DistrictsController < ApplicationController
   before_action :load_district
 
-  def show
+  def index
     @activity_sample = ActivitySample.new(district: @district, current_region: current_region)
   end
 

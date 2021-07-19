@@ -20,9 +20,9 @@
     <% if local_assigns[:graetzl] %>
       <%= link_to 'Alle Toolteiler', tool_offers_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Toolteiler', tool_offers_district_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Toolteiler', district_tool_offers_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Toolteiler', tool_offers_region_path, class: 'link-more' %>
+      <%= link_to 'Alle Toolteiler', region_tool_offers_path, class: 'link-more' %>
     <% end %>
   <% end %>
 

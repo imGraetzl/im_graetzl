@@ -4,7 +4,7 @@
   <div class="navBlock">
     <h1><%= @district.name %></h1>
     <div class="links">
-      <%= link_to region_path, class: 'toOverview' do %>
+      <%= link_to region_index_path, class: 'toOverview' do %>
         <%= icon_tag "arrow-left-2" %> <%= current_region.name %>
       <% end %>
       <% District.memoized(@district.id).graetzls.each do |graetzl| %>

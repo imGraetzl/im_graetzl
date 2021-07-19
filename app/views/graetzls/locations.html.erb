@@ -8,9 +8,9 @@
   )
 %>
 <% if @category %>
-  <% content_for :canonical_url, locations_category_district_path(@graetzl.district, @category) %>
+  <% content_for :canonical_url, district_locations_path(@graetzl.district, category: @category) %>
 <% elsif @special_category %>
-  <% content_for :canonical_url, locations_category_district_path(@graetzl.district, @special_category) %>
+  <% content_for :canonical_url, district_locations_path(@graetzl.district, category: @special_category) %>
 <% end %>
 
 <section class="graetzls locations">

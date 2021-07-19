@@ -8,9 +8,9 @@
   )
 %>
 <% if @category %>
-  <% content_for :canonical_url, meetings_category_region_path(@category) %>
+  <% content_for :canonical_url, region_meetings(category: @category) %>
 <% elsif @special_category %>
-  <% content_for :canonical_url, meetings_category_region_path(@special_category) %>
+  <% content_for :canonical_url, region_meetings(category: @special_category) %>
 <% end %>
 
 <section class="graetzls meetings">

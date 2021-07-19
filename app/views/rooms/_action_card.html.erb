@@ -28,9 +28,9 @@
     <% if local_assigns[:graetzl] %>
       <%= link_to 'Alle Raumteiler', rooms_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Raumteiler', rooms_district_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Raumteiler', district_rooms_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Raumteiler', rooms_region_path, class: 'link-more' %>
+      <%= link_to 'Alle Raumteiler', region_rooms_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

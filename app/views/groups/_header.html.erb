@@ -7,7 +7,7 @@
     <% if @group.group_categories %>
       <div class="sideflag -category -R">
         <% @group.group_categories.each do |category| %>
-          <%= link_to category.title, groups_region_path(category: category.id), rel: 'nofollow' %><br>
+          <%= link_to category.title, region_groups_path(category: category.id), rel: 'nofollow' %><br>
         <% end %>
       </div>
     <% end %>

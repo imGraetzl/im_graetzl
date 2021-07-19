@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @graetzl = @user.graetzl
-    redirect_to([@user.graetzl, @user], status: 301) and return if wrong_graetzl?(@user, @graetzl)
     @wall_comments = @user.wall_comments.includes(:user, :images).order(created_at: :desc)
   end
 
@@ -16,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       bypass_sign_in @user
-      redirect_to [@user.graetzl, @user], notice: "Profil gespeichert!"
+      redirect_to @user, notice: "Profil gespeichert!"
     else
       render :edit
     end
@@ -59,10 +58,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def wrong_graetzl?(user, graetzl)
-    graetzl.nil? || user.graetzl != graetzl
-  end
 
   def user_params
     params[:user].delete(:password) if params[:user][:password].blank?

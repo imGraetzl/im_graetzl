@@ -10,49 +10,49 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV['UPL
 
 SitemapGenerator::Sitemap.create do
 
-  add region_path, changefreq: 'always', priority: 0.9
-  add locations_region_path, changefreq: 'always', priority: 1.0
-  add meetings_region_path, changefreq: 'always', priority: 1.0
-  add rooms_region_path, changefreq: 'always', priority: 1.0
-  add tool_offers_region_path, changefreq: 'always', priority: 1.0
-  add groups_region_path, changefreq: 'daily', priority: 0.7
-  add zuckerls_region_path, changefreq: 'monthly', priority: 0.6
+  add region_index_path, changefreq: 'always', priority: 0.9
+  add region_locations_path, changefreq: 'always', priority: 1.0
+  add region_meetings_path, changefreq: 'always', priority: 1.0
+  add region_rooms_path, changefreq: 'always', priority: 1.0
+  add region_tool_offers_path, changefreq: 'always', priority: 1.0
+  add region_groups_path, changefreq: 'daily', priority: 0.7
+  add region_zuckerls_path, changefreq: 'monthly', priority: 0.6
 
   # Room Categories
   RoomCategory.find_each do |category|
-    add rooms_category_region_path(category), changefreq: 'daily', priority: 0.9
+    add region_rooms_path(category: category), changefreq: 'daily', priority: 0.9
   end
 
   # Location Categories
   LocationCategory.find_each do |category|
-    add locations_category_region_path(category), changefreq: 'daily', priority: 0.9
+    add region_locations_path(category: category), changefreq: 'daily', priority: 0.9
   end
 
   # Meeting Categories
   EventCategory.find_each do |category|
-    add meetings_category_region_path(category), changefreq: 'daily', priority: 0.8
+    add region_meetings_path(category: category), changefreq: 'daily', priority: 0.8
   end
 
   # Tools Categories
   ToolCategory.find_each do |category|
-    add tool_offers_category_region_path(category), changefreq: 'daily', priority: 0.7
+    add region_tool_offers_path(category: category), changefreq: 'daily', priority: 0.7
   end
 
   District.find_each do |district|
-    add district_path(district), changefreq: 'daily', priority: 0.8
-    add locations_district_path(district), changefreq: 'daily', priority: 0.8
-    add meetings_district_path(district), changefreq: 'daily', priority: 0.8
-    add rooms_district_path(district), changefreq: 'daily', priority: 0.8
-    add tool_offers_district_path(district), changefreq: 'daily', priority: 0.7
+    add district_index_path(district), changefreq: 'daily', priority: 0.8
+    add district_locations_path(district), changefreq: 'daily', priority: 0.8
+    add district_meetings_path(district), changefreq: 'daily', priority: 0.8
+    add district_rooms_path(district), changefreq: 'daily', priority: 0.8
+    add district_tool_offers_path(district), changefreq: 'daily', priority: 0.7
 
     # Room Categories
     RoomCategory.find_each do |category|
-      add rooms_category_district_path(district, category), changefreq: 'daily', priority: 0.8
+      add district_rooms_path(district, category: category), changefreq: 'daily', priority: 0.8
     end
 
     # Location Categories
     LocationCategory.find_each do |category|
-      add locations_category_district_path(district, category), changefreq: 'daily', priority: 0.8
+      add district_locations_path(district, category: category), changefreq: 'daily', priority: 0.8
     end
 
   end

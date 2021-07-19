@@ -49,7 +49,7 @@ de:
       description: 'Der Betrieb und die Weiterentwicklung von imGrätzl wird ermöglicht durch diese großartigen Menschen und Unternehmen.'
 
   regions:
-    show:
+    index:
       title: 'Bezirke, Stadtviertel & Grätzl in %{region}'
       description: 'Entdecke dein Grätzl in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Grätzl & Bezirk. Die nächsten Workshops und Termine bei dir ums Eck ...'
     locations:
@@ -83,7 +83,7 @@ de:
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften in %{region}.'
 
   districts:
-    show:
+    index:
       title: 'Stadtteilnews aus dem %{numeric}. Bezirk, %{name} in %{region}'
       description: 'Events & Workshops von lokalen Anbietern aus dem %{numeric}. Bezirk. Bist du wirtschaftlich oder kreativ im %{numeric}. Bezirk tätig? Melde dich gleich für den Stadtteilnewsletter an & vernetze dich mit Menschen aus dem %{numeric}ten.'
     locations:

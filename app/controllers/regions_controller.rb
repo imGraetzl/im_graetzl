@@ -1,6 +1,6 @@
 class RegionsController < ApplicationController
 
-  def show
+  def index
     @districts = District.order(zip: :asc)
   end
 
@@ -9,7 +9,7 @@ class RegionsController < ApplicationController
     if resolver.valid? && resolver.graetzl.present?
       redirect_to resolver.graetzl
     else
-      redirect_to region_url
+      redirect_to region_index_url
     end
   end
 

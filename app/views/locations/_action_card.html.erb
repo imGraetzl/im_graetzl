@@ -28,9 +28,9 @@
     <% if local_assigns[:graetzl] %>
       <%= link_to 'Alle Anbieter & Locations', locations_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Anbieter & Locations', locations_district_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Locations', district_locations_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Anbieter & Locations', locations_region_path, class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Locations', region_locations_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

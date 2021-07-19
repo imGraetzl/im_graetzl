@@ -26,7 +26,7 @@ class MapData < BaseService
 
   def district_feature(districts)
     features = Array(districts).map { |d|
-      RGEO_FACTORY.feature(d.area, d.id, { name: d.name, zip: d.zip, targetURL: district_path(d) })
+      RGEO_FACTORY.feature(d.area, d.id, { name: d.name, zip: d.zip, targetURL: district_index_path(d) })
     }
     RGeo::GeoJSON.encode RGEO_FACTORY.feature_collection(features)
   end

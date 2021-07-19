@@ -7,13 +7,19 @@ Rails.application.routes.draw do
 
   get 'reports' => 'reports#index'
   get 'reports/mailchimp'
-  get 'sitemap.xml' => redirect('https://s3.eu-central-1.amazonaws.com/im-graetzl-production/sitemaps/sitemap.xml.gz')
+
   get 'search' => 'search#index'
   get 'search/results' => 'search#results'
   get 'search/autocomplete' => 'search#autocomplete'
   get 'search/user' => 'search#user'
 
   ActiveAdmin.routes(self)
+
+  if Rails.configuration.upload_server == :s3
+    mount Shrine.presign_endpoint(:cache) => "/s3/params"
+  elsif Rails.configuration.upload_server == :app
+    mount Shrine.upload_endpoint(:cache) => "/upload"
+  end
 
   devise_scope :user do
     resource :password,
@@ -56,17 +62,38 @@ Rails.application.routes.draw do
     get 'treffen', action: 'meetings', as: 'meetings'
   end
 
+  scope controller: 'regions', as: 'region'  do
+    get 'gemeinden', action: 'index', as: 'index'
+    get 'visit_graetzl'
+    get 'treffen(/category/:category)', action: 'meetings', as: 'meetings'
+    get 'locations(/category/:category)', action: 'locations', as: 'locations'
+    get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
+    get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers'
+    get 'gruppen', action: 'groups', as: 'groups'
+    get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
+    get 'special-events', action: 'platform_meetings', as: 'platform_meetings'
+  end
+
+  scope controller: 'districts', as: 'district', path: 'bezirk/:id' do
+    root action: 'index', as: 'index'
+    get 'graetzls'
+    get 'treffen(/category/:category)', action: 'meetings', as: 'meetings'
+    get 'locations(/category/:category)', action: 'locations', as: 'locations'
+    get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
+    get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers'
+    get 'gruppen', action: 'groups', as: 'groups'
+    get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
+  end
+
   resources :activities, only: [:index]
   resources :meetings, path: 'treffen', except: [:show] do
     post :attend, on: :member
     post :unattend, on: :member
     get 'compose_mail', on: :member
     post 'send_mail', on: :member
-
   end
+
   resources :zuckerls, only: [:index]
-  resources :rooms, only: [:index]
-  resources :groups, only: [:index]
 
   resources :locations do
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
@@ -76,17 +103,17 @@ Rails.application.routes.draw do
     get :tooltip, on: :member
   end
 
-  resources :campaign_users, path: 'campaign', only: [:new, :create] do
-  end
+  resources :campaign_users, path: 'campaign', only: [:new, :create]
   get 'muehlviertel', to: 'campaign_users#muehlviertel'
   get 'kaernten', to: 'campaign_users#kaernten'
 
-  resources :room_demands, path: '(wien)/raumteiler/raumsuche', except: [:index] do
+  resources :rooms, only: [:index]
+  resources :room_demands, path: 'raumsuche', except: [:index] do
     post 'toggle', on: :member
     get 'activate/:activation_code' => 'room_demands#activate', on: :member
     patch 'update_status', on: :member
   end
-  resources :room_offers, path: '(wien)/raumteiler/raum', except: [:index] do
+  resources :room_offers, path: 'raum', except: [:index] do
     get 'select', on: :collection
     get 'activate/:activation_code' => 'room_offers#activate', on: :member
     get 'rental_timetable', on: :member
@@ -96,7 +123,7 @@ Rails.application.routes.draw do
     post 'toggle_waitlist', on: :member
     post 'remove_from_waitlist', on: :member
   end
-  resources :room_calls, path: '(wien)/raumteiler/open-calls', except: [:index] do
+  resources :room_calls, path: '(wien/raumteiler)/open-calls', except: [:index] do
     get 'submission', on: :member
     post 'add_submission', on: :member
   end
@@ -141,7 +168,7 @@ Rails.application.routes.draw do
     post 'initiate_eps_payment', on: :collection
   end
 
-  resources :groups, except: [:index] do
+  resources :groups do
     resources :discussions, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       post :toggle_following, on: :member
     end
@@ -165,43 +192,7 @@ Rails.application.routes.draw do
   post 'messenger/post_message'
   post 'messenger/update_thread'
 
-  get 'wien/raumteiler/raumsuche' => redirect('/wien/raumteiler')
-  get 'wien/raumteiler/raum' => redirect('/wien/raumteiler')
-  get 'raumteiler' => redirect('/wien/raumteiler')
-  get 'dieselgasse' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-dieselgasse')
-  get 'mixit' => redirect('/wien/raumteiler/open-calls/raumteiler-hub-mix-it')
-  get 'raumteilerfestival' => redirect('/wien/raumteiler/')
-
-  resource :region, path: 'gemeinden', only: [:show] do # and wien
-    get 'visit_graetzl'
-    get 'treffen', action: 'meetings', as: 'meetings'
-    get 'locations', action: 'locations', as: 'locations'
-    get 'raumteiler', action: 'rooms', as: 'rooms'
-    get 'toolteiler', action: 'tool_offers', as: 'tool_offers'
-    get 'gruppen', action: 'groups', as: 'groups'
-    get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
-    get 'selbststaendige-fuer-selbststaendige' => redirect('/wien/special-events')
-    get 'special-events', action: 'platform_meetings', as: 'platform_meetings'
-    get 'treffen/category/:category', action: 'meetings', as: 'meetings_category'
-    get 'locations/category/:category', action: 'locations', as: 'locations_category'
-    get 'raumteiler/category/:category', action: 'rooms', as: 'rooms_category'
-    get 'toolteiler/category/:category', action: 'tool_offers', as: 'tool_offers_category'
-  end
-
-  resources :districts, path: 'wien', only: [:show] do
-    get 'graetzls', on: :member
-    get 'treffen', action: 'meetings', as: 'meetings', on: :member
-    get 'locations', on: :member
-    get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
-    get 'gruppen', action: 'groups', as: 'groups', on: :member
-    get 'toolteiler', action: 'tool_offers', as: 'tool_offers', on: :member
-    get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
-    get 'treffen/category/:category', action: 'meetings', as: 'meetings_category', on: :member
-    get 'locations/category/:category', action: 'locations', as: 'locations_category', on: :member
-    get 'raumteiler/category/:category', action: 'rooms', as: 'rooms_category', on: :member
-    get 'toolteiler/category/:category', action: 'tool_offers', as: 'tool_offers_category', on: :member
-  end
-
+  root 'static_pages#home'
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'info', to: 'static_pages#help'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
@@ -223,12 +214,10 @@ Rails.application.routes.draw do
   post 'webhooks/mailchimp'
   get 'webhooks/mailchimp'
 
-  get '/robots.txt' => 'static_pages#robots'
-
-  root 'static_pages#home'
-
   get 'notifications/unseen_count'
   get 'notifications/fetch'
+
+  get 'navigation/load_content'
 
   resources :zuckerls, path: 'zuckerl', only: [:new] do
     resource :billing_address, only: [:show, :create, :update]
@@ -236,33 +225,34 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:create, :destroy]
 
-  get 'navigation/load_content'
+  get 'sitemap.xml' => redirect('https://s3.eu-central-1.amazonaws.com/im-graetzl-production/sitemaps/sitemap.xml.gz')
+  get '/robots.txt' => 'static_pages#robots'
 
   namespace :api do
     resources :meetings, only: [:index]
   end
 
+  # Redirects for legacy routes
+  get 'wien/raumteiler/raumsuche/(:id)' => redirect {|_, req| "raumsuche/#{req.params[:id]}" }
+  get 'wien/raumteiler/raum/(:id)' => redirect {|_, req| "raum/#{req.params[:id]}" }
+  get 'wien/*rest' => redirect { |_, req| req.params[:rest] }, rest: /.+/
+
+  get 'selbststaendige-fuer-selbststaendige' => redirect('/special-events')
+  get 'raumteilerfestival' => redirect('raumteiler')
+  get 'dieselgasse' => redirect('open-calls/raumteiler-hub-dieselgasse')
+  get 'mixit' => redirect('open-calls/raumteiler-hub-mix-it')
+
+
   resources :graetzls, path: '', only: [:show] do
-    get 'treffen', action: 'meetings', as: 'meetings', on: :member
-    get 'locations', on: :member
-    get 'raumteiler', action: 'rooms', as: 'rooms', on: :member
+    get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
+    get 'locations(/category/:category)', action: 'locations', as: 'locations', on: :member
+    get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms', on: :member
+    get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member
-    get 'toolteiler', action: 'tool_offers', as: 'tool_offers', on: :member
     resources :meetings, path: 'treffen', only: [:show]
     resources :groups, path: 'gruppen', only: [:show]
     resources :locations, only: [:show]
-    resources :users, only: [:show]
-    get 'treffen/category/:category', action: 'meetings', as: 'meetings_category', on: :member
-    get 'locations/category/:category', action: 'locations', as: 'locations_category', on: :member
-    get 'raumteiler/category/:category', action: 'rooms', as: 'rooms_category', on: :member
-    get 'toolteiler/category/:category', action: 'tool_offers', as: 'tool_offers_category', on: :member
-  end
-
-  if Rails.configuration.upload_server == :s3
-    mount Shrine.presign_endpoint(:cache) => "/s3/params"
-  elsif Rails.configuration.upload_server == :app
-    mount Shrine.upload_endpoint(:cache) => "/upload"
   end
 
 end

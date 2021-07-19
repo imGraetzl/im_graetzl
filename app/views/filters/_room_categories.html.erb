@@ -18,11 +18,11 @@
         <%= category_image(category, class: 'categoryImg') %>
         <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -rooms"></div>
         <% if @district %>
-          <h3><%= link_to category.name, rooms_category_district_path(@district, category) %></h3>
+          <h3><%= link_to category.name, district_rooms_path(@district, category: category) %></h3>
         <% elsif @graetzl %>
-          <h3><%= link_to category.name, rooms_category_district_path(@graetzl.district, category) %></h3>
+          <h3><%= link_to category.name, district_rooms_path(@graetzl.district, category: category) %></h3>
         <% else %>
-          <h3><%= link_to category.name, rooms_category_region_path(category) %></h3>
+          <h3><%= link_to category.name, region_rooms_path(category: category) %></h3>
         <% end %>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>
