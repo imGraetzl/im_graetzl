@@ -332,14 +332,23 @@ APP.components.cardFilter = (function() {
 
 
   function updateFilterLabels(modal) {
+
+    var allInputsCount = modal.find(".filter-input").length;
     var selectedInputs = modal.find(".filter-input :selected, .filter-input :checked");
     var link = filterForm.find('a[href="#' + modal.prop("id") + '"]');
+
     if (modal.find(".filter-input select").data("select-all")) {
       link.text(link.data("no-filter-label"));
       link.removeClass('filter-applied');
+
     } else if (modal.find('#select-home-graetzl').prop('checked') == true) {
         link.text(modal.find('#select-home-graetzl').data('label'));
         link.addClass('filter-applied');
+
+    } else if (selectedInputs.length == allInputsCount) {
+        link.text(link.data("no-filter-label"));
+        link.removeClass('filter-applied');
+
     } else if (selectedInputs.length > 2) {
         var selectedCount = selectedInputs.length;
         var shownCount = selectedInputs.length - 2;
@@ -347,10 +356,12 @@ APP.components.cardFilter = (function() {
         var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
         link.text(label +', + ' + shownCount + ' weitere');
         link.addClass('filter-applied');
+
     } else if (selectedInputs.length > 0) {
         var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
         link.text(label);
         link.addClass('filter-applied');
+        
     } else {
         link.text(link.data("no-filter-label"));
         link.removeClass('filter-applied');

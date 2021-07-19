@@ -19,20 +19,32 @@ module GraetzlsHelper
   end
 
   def compact_graetzl_list(graetzls)
-    graetzl_ids = graetzls.map(&:id)
-    cleaned_graetzl_ids = graetzl_ids
 
     results = []
-    District.sorted_by_zip.each do |district|
-      if (district.graetzl_ids - graetzl_ids).empty?
-        results << district.zip_name
-        cleaned_graetzl_ids -= district.graetzl_ids
-      end
-    end
 
-    cleaned_graetzl_ids.each do |graetzl_id|
-      graetzl = Graetzl.memoized(graetzl_id)
-      results << "#{graetzl.district.zip} - #{graetzl.name}"
+    if current_region.use_districts
+
+      graetzl_ids = graetzls.map(&:id)
+      cleaned_graetzl_ids = graetzl_ids
+
+      District.sorted_by_zip.each do |district|
+        if (district.graetzl_ids - graetzl_ids).empty?
+          results << district.zip_name
+          cleaned_graetzl_ids -= district.graetzl_ids
+        end
+      end
+
+      cleaned_graetzl_ids.each do |graetzl_id|
+        graetzl = Graetzl.memoized(graetzl_id)
+        results << "#{graetzl.district.zip} - #{graetzl.name}"
+      end
+
+    else
+
+      graetzls.each do |graetzl|
+        results << graetzl.name
+      end
+
     end
 
     results.sort
