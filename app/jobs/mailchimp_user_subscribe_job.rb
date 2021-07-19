@@ -30,6 +30,9 @@ class MailchimpUserSubscribeJob < ApplicationJob
         merge_fields: merge_fields,
         interests: business_user_interests(user)
       })
+      g.lists(list_id).members(member_id).tags.create(body: {
+        tags: [{name:"#{user.region.name}", status:"active"}]
+      })
       if user.newsletter?
         g.lists(list_id).members(member_id).tags.create(body: {
           tags: [{name:"NL False", status:"inactive"}]
