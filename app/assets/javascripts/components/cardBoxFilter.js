@@ -1,4 +1,4 @@
-APP.components.cardFilter = (function() {
+APP.components.cardBoxFilter = (function() {
 
   var filterForm = $(".cards-filter");
   var cardGrid = $('.card-grid');
@@ -7,88 +7,6 @@ APP.components.cardFilter = (function() {
   var modals = []
 
   function init() {
-
-    // ----------- Search Suggestion Form for Groups
-    suggestionForm = $(".search-suggestion-trigger");
-    suggestionBox = $(".search-suggestion");
-    suggestionLink = $(".search-suggestion a");
-    suggestionSelect = $("#graetzl-suggestion");
-    suggestionValue = $(".search-suggestion .active").text();
-    suggestionTitle = $(".category_title");
-
-    $('.close-ico').on('click', function(event){
-      event.preventDefault();
-      suggestionForm.val(suggestionValue);
-      suggestionBox.slideUp("fast");
-    });
-
-    // Check if Category Param exists in URL
-    if (window.location.href.indexOf("category=") > -1) {
-      suggestionTitle.text(suggestionValue);
-    }
-
-    suggestionLink.on("click", function() {
-      suggestionLink.removeClass("active");
-      $(this).addClass("active");
-      var categoryId = $(this).data("category-id");
-      filterForm.find("[name=group_category_id]").val(categoryId);
-      if (categoryId) {
-        suggestionValue = $(this).text();
-        suggestionTitle.text($(this).text());
-        setValue(suggestionValue);
-      } else {
-        suggestionValue = null;
-        suggestionTitle.text("allen");
-        setValue(suggestionValue);
-      }
-      suggestionBox.slideUp("fast");
-      submitForm();
-    });
-
-    suggestionForm.on("click", function(){
-      $(this).focus().select();
-      $(this).val("");
-      suggestionBox.slideDown("fast");
-    });
-
-    suggestionForm.keypress(function (e) {
-      filterForm.find("[name=group_category_id]").val(null);
-      if (e.which == 13) {
-        suggestionLink.removeClass("active");
-        suggestionBox.slideUp("fast");
-        suggestionValue = $(this).val();
-        suggestionTitle.text($(this).val());
-        setValue(suggestionValue);
-        submitForm();
-      }
-    });
-
-    $(suggestionSelect).SumoSelect({
-      search: true,
-      searchText: 'Suche..',
-      placeholder: 'Bezirk auswählen..',
-      csvDispCount: 3,
-      captionFormat: 'in {0} Bezirken',
-      captionFormatAllSelected: 'in Ganz Wien',
-      okCancelInMulti: true,
-      selectAll: true,
-      locale: ['Übernehmen', 'Abbrechen', 'Ganz Wien']
-    });
-
-    $("#graetzl-suggestion").on("change", function(){
-      submitForm();
-    });
-
-    $(".label-select .select-all").on("click", function(){
-      if ($(this).hasClass( "selected" )) {
-        $(".label-select .btnOk").click();
-      }
-    });
-
-    var setValue = function(value) {
-      suggestionForm.val(value);
-    }
-
 
     // ----------- EPU-to-EPU
     $("#meeting-categories").on("change", function(){
@@ -102,7 +20,6 @@ APP.components.cardFilter = (function() {
       });
     });
 
-
     // JBOX Standard Filter MODAL
     $(".filter-selection-text-jbox a").not( ".plain-link, .filter-modal-district" ).each(function(index, value) {
 
@@ -112,8 +29,6 @@ APP.components.cardFilter = (function() {
         var modal_type = 'Confirm';
 
         $content.hasClass('oneclick') ? modal_type = 'Modal' : modal_type = 'Confirm';
-
-        //console.log($content.hasClass('oneclick'));
 
         modals[modal] = new jBox(modal_type, {
           addClass:'jBox',
@@ -132,12 +47,6 @@ APP.components.cardFilter = (function() {
             updateFilterLabels(this.content);
             submitForm();
             gtag_tracking(this.content);
-          },
-          cancel: function() {
-            //this.content.find('input:checked').removeAttr('checked');
-            //updateFilterInputs(this.content);
-            //updateFilterLabels(this.content);
-            //submitForm();
           }
         });
     });
@@ -361,7 +270,7 @@ APP.components.cardFilter = (function() {
         var label = selectedInputs.map(function() { return $(this).data("label"); }).get().join(", ");
         link.text(label);
         link.addClass('filter-applied');
-        
+
     } else {
         link.text(link.data("no-filter-label"));
         link.removeClass('filter-applied');
@@ -401,10 +310,6 @@ APP.components.cardFilter = (function() {
       'event_category': label_category,
       'event_label': label_item
     });
-    //console.log(label_category);
-    //console.log(label_type);
-    //console.log(label_item);
-
   }
 
 

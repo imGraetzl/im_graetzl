@@ -12,35 +12,22 @@
   <%= render 'map' %>
   <%= render 'navigation' %>
 
-  <% if @featured_groups.present? && @category.nil? %>
-    <div class="hl-subtext -cards">
-      <h1><span>Gruppen</span> - Austausch & Vernetzung</h1>
-      <p>Empfohlene & beliebte Gruppen im <%= @district.numeric %>. Bezirk</p>
-    </div>
-    <div class="lightSliderWrapper card-slider-container">
-      <div class="cardBoxCollection" id="card-slider">
-        <%= render @featured_groups %>
-      </div>
-    </div>
-  <% end %>
-
   <div class="hl-subtext -cards">
-    <h1>Stöbern in <span class="category_title">allen</span> Gruppen</h1>
-    <p>Nach Gruppe suchen oder in Kategorien stöbern</p>
+    <h1><span>Gruppen</span> - Austausch & Vernetzung</h1>
   </div>
 
   <%= form_tag groups_path, method: :get, remote: true, class: 'cards-filter' do %>
-    <%= hidden_field_tag :group_category_id, @category.try(:id) %>
-    <div class="input-field search-filter">
-      <div class="input-field">
-        <%= text_field_tag :query, @category ? @category.title : nil, placeholder: 'Suche..', class: 'search-suggestion-trigger' %>
-      </div>
-      <div class="input-select label-select">
-        <%= select_tag :district_ids, options_for_select(district_select_options, @district.id), id: 'graetzl-suggestion', multiple: true %>
-      </div>
+    <div class="filter-selection-text-jbox">
+      Zeige mir Gruppen aus <%= link_to 'allen Kategorien', '#filter-modal-category', data: { no_filter_label: 'allen Kategorien'}, class: 'filter-modal-category' %>,
+      in <%= link_to @district.zip_name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-district filter-applied' %>
+    </div>
+    <div id="filter-modal-category" class="filter-modal-jbox">
+      <%= render 'filters/group_categories' %>
+    </div>
+    <div id="filter-modal-district" class="filter-modal-jbox-district">
+      <%= render 'filters/district', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
     </div>
   <% end %>
-  <%= render 'filters/group_categories', selected_category: @category %>
 
   <div class="card-grid-container">
     <div class="card-grid" data-behavior="groups-card-container"></div>

@@ -1,4 +1,4 @@
-APP.components.cardFilterSlider = (function() {
+APP.components.categoryFilter = (function() {
 
   function init(element) {
     var item_desk = 5;
@@ -83,7 +83,7 @@ APP.components.cardFilterSlider = (function() {
          filterForm.find("[name=category_id]").val("");
          filterForm.find("[name=special_category_id]").val("");
          updateFilterLabels($(this));
-         APP.components.cardFilter.submitForm();
+         APP.components.cardBoxFilter.submitForm();
          history && history.replaceState({}, '', location.pathname.split('/category/')[0]);
 
      } else {
@@ -105,7 +105,7 @@ APP.components.cardFilterSlider = (function() {
          element.find('.-category').removeClass('activated');
          $(this).addClass('activated');
          updateFilterLabels($(this));
-         APP.components.cardFilter.submitForm();
+         APP.components.cardBoxFilter.submitForm();
          categoryClickTracking($(this))
 
      }

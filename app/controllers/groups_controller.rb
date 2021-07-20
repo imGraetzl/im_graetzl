@@ -170,21 +170,20 @@ class GroupsController < ApplicationController
   end
 
   def filter_collection(groups)
-    district_ids = params[:district_ids]&.select(&:present?)
-    if district_ids.present?
-      graetzl_ids = Graetzl.joins(:districts).where(districts: {id: district_ids}).distinct.pluck(:id)
+
+    graetzl_ids = params.dig(:filter, :graetzl_ids)
+    group_category_ids = params.dig(:filter, :group_category_ids)
+
+    if group_category_ids.present? && group_category_ids.any?(&:present?)
+      groups = groups.joins(:group_categories).where(group_categories: {id: group_category_ids}).distinct
+    end
+
+    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
       groups = groups.joins(:group_graetzls).where(group_graetzls: {graetzl_id: graetzl_ids}).distinct
     end
 
-    if params[:group_category_id].present?
-      groups = groups.joins(:group_categories).where(group_categories: {id: params[:group_category_id]}).distinct
-    elsif params[:query].present?
-      groups = groups.joins(:group_categories).where("groups.title ILIKE :q OR group_categories.title ILIKE :q", q: "%#{params[:query]}%").distinct
-    else
-      groups = groups.non_hidden
-    end
+    groups.non_hidden
 
-    groups
   end
 
   def group_params
