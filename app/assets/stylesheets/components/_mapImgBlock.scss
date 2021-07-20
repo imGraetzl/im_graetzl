@@ -20,7 +20,10 @@
   }
 }
 
-.gmap img, .gmap iframe { max-width: 930px; width: 100%; }
+.sideBar #leafletMap {
+  height: 268px;
+  .leaflet-control {display: none;}
+}
 
 .mapImgBlock {
 
