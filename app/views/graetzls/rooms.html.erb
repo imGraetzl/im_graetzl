@@ -7,11 +7,7 @@
     robots: 'index, follow'
   )
 %>
-<% if @category %>
-  <% content_for :canonical_url, rooms_category_district_path(@graetzl.district, @category) %>
-<% elsif @special_category %>
-  <% content_for :canonical_url, rooms_category_district_path(@graetzl.district, @special_category) %>
-<% end %>
+<% content_for :canonical_url, rooms_category_region_path(@category) if @category %>
 
 <section class="graetzls rooms">
   <%= render 'map' %>

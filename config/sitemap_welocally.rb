@@ -59,16 +59,6 @@ REGION_LIST.each do |region|
         add meetings_district_path(district), changefreq: 'daily', priority: 0.8
         add rooms_district_path(district), changefreq: 'daily', priority: 0.8
         add tool_offers_district_path(district), changefreq: 'daily', priority: 0.7
-
-        # Room Categories
-        RoomCategory.find_each do |category|
-          add rooms_category_district_path(district, category), changefreq: 'daily', priority: 0.8
-        end
-
-        # Location Categories
-        LocationCategory.find_each do |category|
-          add locations_category_district_path(district, category), changefreq: 'daily', priority: 0.8
-        end
       end
 
     end
