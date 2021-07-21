@@ -5,11 +5,6 @@ APP.controllers.districts = (function() {
     initMap();
     initFilter();
     initMobileNav();
-    initSlider();
-  }
-
-  function initSlider() {
-    APP.components.cardSlider.init($("#card-slider"));
   }
 
   function initMenu() {
@@ -36,11 +31,11 @@ APP.controllers.districts = (function() {
     }
 
     if ($('.cards-filter').exists()) {
-      APP.components.cardFilter.init();
+      APP.components.cardBoxFilter.init();
     }
 
     if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
-      APP.components.cardFilterSlider.init($('#category-slider'));
+      APP.components.categoryFilter.init($('#category-slider'));
     }
 
   }

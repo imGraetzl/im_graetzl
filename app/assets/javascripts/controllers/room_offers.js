@@ -76,6 +76,8 @@ APP.controllers.room_offers = (function() {
 
   function initRoomDetail() {
 
+    APP.components.leafletMap.init();
+
     // Sidebar Button Click
     $('#requestRoomBtn').on('click', function(event){
       event.preventDefault();

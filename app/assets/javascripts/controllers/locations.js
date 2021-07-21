@@ -42,6 +42,8 @@ APP.controllers.locations = (function() {
 
     function initLocationPage() {
 
+        APP.components.leafletMap.init();
+
         // Sidebar Button Click
         $('#requestLocationBtn').on('click', function(event){
           event.preventDefault();

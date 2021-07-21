@@ -63,9 +63,9 @@ class ActivitySample
 
   def zuckerls
     if @graetzl
-      @graetzl.zuckerls.include_for_box.order(Arel.sql("RANDOM()")).first(2)
+      Zuckerl.for_area(@graetzl).include_for_box.order(Arel.sql("RANDOM()")).first(2)
     elsif @district
-      @district.zuckerls.include_for_box.order(Arel.sql("RANDOM()")).first(2)
+      Zuckerl.for_area(@district).include_for_box.order(Arel.sql("RANDOM()")).first(2)
     else
       Zuckerl.live.include_for_box.order(Arel.sql("RANDOM()")).first(2)
     end

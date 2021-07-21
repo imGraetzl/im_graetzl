@@ -30,13 +30,12 @@ class Graetzl < ApplicationRecord
     "#{zip} – #{name}"
   end
 
-  def district
-    self.class.memoized(id).districts.first
+  def numeric
+    zip.slice(1..2).sub(%r{^0},"") if zip.present?
   end
 
-  def zuckerls
-    related_graetzl_ids = District.memoized(district.id).graetzl_ids
-    Zuckerl.live.joins(:graetzl).where(graetzls: { id: related_graetzl_ids}).or(Zuckerl.live.all_districts.joins(:graetzl))
+  def district
+    self.class.memoized(id).districts.first
   end
 
 end

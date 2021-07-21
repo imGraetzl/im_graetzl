@@ -1,17 +1,13 @@
 <% meta(
     title: t('.title', graetzl: @graetzl.name),
-    description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
+    description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.numeric),
     og_title: t('.title', graetzl: @graetzl.name),
-    og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
+    og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.numeric),
     og_image: image_url('meta/og_logo.png'),
     robots: 'index, follow'
   )
 %>
-<% if @category %>
-  <% content_for :canonical_url, district_rooms_path(@graetzl.district, category: @category) %>
-<% elsif @special_category %>
-  <% content_for :canonical_url, district_rooms_path(@graetzl.district, category: @special_category) %>
-<% end %>
+<% content_for :canonical_url, region_rooms_path(category: @category) if @category %>
 
 <section class="graetzls rooms">
   <%= render 'map' %>

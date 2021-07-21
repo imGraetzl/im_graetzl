@@ -489,19 +489,6 @@
   }
 }
 
-.cardBox.-sponsor {
-  .cardBoxHeader img {
-    margin: 0 auto;
-    display: block;
-  }
-  .sideflag {
-    bottom: auto;
-    top: 10px;
-    max-width: none;
-  }
-}
-
-
 .-discussion .cardBoxHeader {
   .coverImgWrapper {
     height:180px;
@@ -543,10 +530,6 @@
 .cardBox.-illuteaser {
   padding-top: 188px;
   background-size: auto 180px;
-}
-.cardBox.-illuteasersmall {
-  padding-top: 177px;
-  background-size: auto 170px;
 }
 
 .cardBox.-zuckerl .sideflag,

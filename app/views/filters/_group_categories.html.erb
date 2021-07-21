@@ -1,18 +1,6 @@
-<div class="cardBox search-suggestion">
-  <div class="wrapper">
-    <% ([:all] + GroupCategory.all).in_groups_of(3, false).each do |categories| %>
-      <div class="col">
-        <% categories.each do |category| %>
-          <% if category == :all %>
-            <%= link_to "Alle Gruppen", 'javascript:', class: selected_category.nil? ? 'active' : nil %>
-          <% else %>
-            <%= link_to category.title, 'javascript:', data: { category_id: category.id }, class: selected_category == category ? 'active' : nil %>
-          <% end %>
-        <% end %>
-      </div>
-    <% end %>
+<%= collection_check_boxes :filter, :group_category_ids, GroupCategory.all, :id, :title, { checked: params[:category] } do |b| %>
+  <div class="input-checkbox filter-input">
+    <%= b.check_box("data-label": b.object.title, "data-filter-label": 'Groups :: Category Modal') %>
+    <%= b.label %>
   </div>
-  <%= button_tag '', class: 'close-ico' do %>
-    <%= icon_tag "cross" %>
-  <% end %>
-</div>
+<% end %>

@@ -63,9 +63,13 @@
     </div>
 
     <% if @room_offer.address.try(:coordinates) %>
-      <%= link_to google_map_url(@room_offer.address), class: 'gmap' do %>
-        <%= image_tag static_map_url(@room_offer.address.coordinates, zoom: 16, size: [250,150]), width:268, height:161 %>
-      <% end %>
+      <div id="leafletMap" class="" data-x="<%= @room_offer.address.coordinates.x %>" data-y="<%= @room_offer.address.coordinates.y %>">
+        <div class="map-avatar -hidden">
+          <%= link_to "https://maps.google.com?q=#{@room_offer.address.street_name}+#{@room_offer.address.street_number}+#{@room_offer.address.zip}", target: '_blank' do %>
+            <%= icon_tag "pin" %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
 
   </div>
@@ -84,7 +88,6 @@
         <div class="package-pricing">
           <ul>
             <li>
-              <!--<div class="cost"><pie class="pie-hour"></pie></div>-->
               <%= icon_tag "label-tag" %>
               <div class="costname">
                 <%= @room_offer.room_rental_price.price_per_hour.to_i %> € / Stunde
@@ -92,7 +95,6 @@
             </li>
             <% if @room_offer.room_rental_price.eight_hour_discount.to_i > 0 %>
             <li>
-              <!--<div class="cost"><pie class="pie-day"></pie></div>-->
               <%= icon_tag "label-tag" %>
               <div class="costname">
                 <%= @room_offer.room_rental_price.daily_price.to_i %> € / Tag (8h)<br>

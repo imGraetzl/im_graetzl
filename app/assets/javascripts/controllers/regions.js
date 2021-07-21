@@ -18,20 +18,12 @@ APP.controllers.regions = (function() {
           APP.components.graetzlSelectFilter.init($("#filter-modal-bezirk"));
         }
 
-        if ($("#filter-modal-district").exists()) {
-          APP.components.districtSelectFilter.init($("#filter-modal-district"));
-        }
-
         if ($('.cards-filter').exists()) {
-          APP.components.cardFilter.init();
-        }
-
-        if ($("#card-slider").exists()) {
-          APP.components.cardSlider.init($("#card-slider"));
+          APP.components.cardBoxFilter.init();
         }
 
         if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
-          APP.components.cardFilterSlider.init($('#category-slider'));
+          APP.components.categoryFilter.init($('#category-slider'));
         }
 
         initMobileNav();

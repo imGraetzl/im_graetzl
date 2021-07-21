@@ -15,11 +15,11 @@
       <%= nav_menu_item("coop-share-white", 'Gruppen', region_groups_path) %>
       <%= nav_menu_item("location", 'Anbieter & Locations', region_locations_path) %>
       <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
-      <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) %>
+      <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) if current_region.use_districts? %>
       <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
       <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
       <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) %>
+      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
     </div>
 
     <div class="nav-dropdown-menu nav-dropdown-submenu" id="nav-submenu-site-location">
@@ -59,11 +59,11 @@
     <%= nav_menu_item("coop-share-white", 'Gruppen', region_groups_path) %>
     <%= nav_menu_item("location", 'Anbieter & Locations', region_locations_path) %>
     <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
-    <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) %>
+    <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) if current_region.use_districts?  %>
     <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
     <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
     <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-    <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) %>
+    <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
   </div>
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>

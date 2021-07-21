@@ -48,6 +48,23 @@ class Zuckerl < ApplicationRecord
     end
   end
 
+  def self.for_area(area)
+    if area.is_a?(Graetzl)
+      graetzl_ids = area.region.use_districts? ? area.district.graetzl_ids : [area.id]
+    elsif area.is_a?(District)
+      graetzl_ids = area.graetzl_ids
+    end
+    Zuckerl.live.joins(:location).where("all_districts = 't' OR locations.graetzl_id IN (?)", graetzl_ids)
+  end
+
+  def self.include_for_box
+    includes(location: [:location_category, :address])
+  end
+
+  def self.next_invoice_number
+    Zuckerl.where("invoice_number IS NOT NULL").count + 1
+  end
+
   def to_s
     title
   end
@@ -60,16 +77,8 @@ class Zuckerl < ApplicationRecord
     end
   end
 
-  def self.include_for_box
-    includes(location: [:location_category, :address])
-  end
-
   def payment_reference
     "#{model_name.singular}_#{id}_#{created_at.strftime('%y%m')}"
-  end
-
-  def self.next_invoice_number
-    Zuckerl.where("invoice_number IS NOT NULL").count + 1
   end
 
   def basic_price

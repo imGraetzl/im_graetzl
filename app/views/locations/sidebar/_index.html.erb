@@ -57,9 +57,13 @@
       <% end %>
     </div>
     <% if @location.address.try(:coordinates) %>
-      <%= link_to google_map_url(@location.address), class: 'gmap' do %>
-        <%= image_tag static_map_url(@location.address.coordinates, zoom: 16, size: [250,150]), width:268, height:161 %>
-      <% end %>
+      <div id="leafletMap" class="" data-x="<%= @location.address.coordinates.x %>" data-y="<%= @location.address.coordinates.y %>">
+        <div class="map-avatar -hidden">
+          <%= link_to "https://maps.google.com?q=#{@location.address.street_name}+#{@location.address.street_number}+#{@location.address.zip}", target: '_blank' do %>
+            <%= icon_tag "pin" %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </div>
 

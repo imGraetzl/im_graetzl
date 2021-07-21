@@ -35,7 +35,4 @@ class District < ApplicationRecord
     zip.slice(1..2).sub(%r{^0},"") if zip.present?
   end
 
-  def zuckerls
-    Zuckerl.live.where(location_id: locations.map(&:id)).or(Zuckerl.live.all_districts)
-  end
 end

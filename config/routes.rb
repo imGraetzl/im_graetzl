@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   get 'reports' => 'reports#index'
   get 'reports/mailchimp'
-
+  get 'sitemap.xml' => 'sitemaps#sitemap'
   get 'search' => 'search#index'
   get 'search/results' => 'search#results'
   get 'search/autocomplete' => 'search#autocomplete'

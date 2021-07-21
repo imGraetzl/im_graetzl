@@ -3,12 +3,7 @@ APP.controllers.graetzls = (function() {
     function init() {
       initMap();
       initFilter();
-      initSlider();
       initJBox();
-    }
-
-    function initSlider() {
-      APP.components.cardSlider.init($("#card-slider"));
     }
 
     function initMap() {
@@ -21,11 +16,11 @@ APP.controllers.graetzls = (function() {
       }
 
       if ($('.cards-filter').exists()) {
-        APP.components.cardFilter.init();
+        APP.components.cardBoxFilter.init();
       }
 
       if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
-        APP.components.cardFilterSlider.init($('#category-slider'));
+        APP.components.categoryFilter.init($('#category-slider'));
       }
 
     }

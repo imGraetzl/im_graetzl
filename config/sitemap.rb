@@ -44,17 +44,6 @@ SitemapGenerator::Sitemap.create do
     add district_meetings_path(district), changefreq: 'daily', priority: 0.8
     add district_rooms_path(district), changefreq: 'daily', priority: 0.8
     add district_tool_offers_path(district), changefreq: 'daily', priority: 0.7
-
-    # Room Categories
-    RoomCategory.find_each do |category|
-      add district_rooms_path(district, category: category), changefreq: 'daily', priority: 0.8
-    end
-
-    # Location Categories
-    LocationCategory.find_each do |category|
-      add district_locations_path(district, category: category), changefreq: 'daily', priority: 0.8
-    end
-
   end
 
   # Graetzls

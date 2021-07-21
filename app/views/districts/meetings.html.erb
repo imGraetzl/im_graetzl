@@ -18,11 +18,8 @@
     robots: 'index, follow',
   )
 %>
-<% if @category %>
-  <% content_for :canonical_url, region_meetings_path(category: @category) %>
-<% elsif @special_category %>
-  <% content_for :canonical_url, region_meetings_path(category: @special_category) %>
-<% end %>
+
+<% content_for :canonical_url, region_meetings_path(category: @category) if @category %>
 
 <section class="districts meetings">
   <%= render 'map' %>
