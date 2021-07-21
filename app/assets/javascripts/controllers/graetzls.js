@@ -12,13 +12,7 @@ APP.controllers.graetzls = (function() {
     }
 
     function initMap() {
-      var mapdata = $('#graetzlMapWidget').data('mapdata');
-      var map =  APP.components.graetzlMap;
-      map.init(function() {
-        map.showMapGraetzl(mapdata.graetzls, {
-          style: $.extend(map.styles.rose, { weight: 4, fillOpacity: 0.2 })
-        });
-      });
+      APP.components.areaMap.init($('#area-map'));
     }
 
     function initFilter() {

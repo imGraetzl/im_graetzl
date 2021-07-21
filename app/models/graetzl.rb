@@ -26,6 +26,10 @@ class Graetzl < ApplicationRecord
     all_memoized[id]
   end
 
+  def zip_name
+    "#{zip} – #{name}"
+  end
+
   def district
     self.class.memoized(id).districts.first
   end

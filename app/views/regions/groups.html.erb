@@ -10,7 +10,7 @@
 
 <section class="region groups">
 
-  <%= render current_region.use_districts ? 'map_use_districts' : 'map_use_graetzls' %>
+  <%= render 'map' %>
   <%= render 'navigation' %>
 
   <% if @featured_groups.present? && @category.nil? %>
@@ -31,7 +31,7 @@
   </div>
 
   <%= form_tag groups_path, method: :get, remote: true, class: 'cards-filter' do %>
-    <%= hidden_field_tag :group_category_id, @category.try(:id) %>
+    <%= hidden_field_tag :group_category_id, @category.&id %>
     <div class="input-field search-filter">
       <div class="input-field">
         <%= text_field_tag :query, @category ? @category.title : nil, placeholder: 'Suche..', class: 'search-suggestion-trigger' %>

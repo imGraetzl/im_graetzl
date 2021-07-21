@@ -19,8 +19,21 @@ class Region
     @use_districts = use_districts
   end
 
+  def use_districts?
+    @use_districts
+  end
+
   def to_s
     name
+  end
+
+  def districts
+    return [] if !use_districts?
+    @districts ||= District.all_memoized.values.select{|d| d.region_id == id }
+  end
+
+  def graetzls
+    @graetzls ||= Graetzl.all_memoized.values.select{|g| g.region_id == id }
   end
 
 end

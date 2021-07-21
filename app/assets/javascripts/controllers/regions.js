@@ -1,7 +1,5 @@
 APP.controllers.regions = (function() {
 
-    var map = APP.components.graetzlMap;
-
     function init() {
         var $select = $(".mapImgBlock .mobileSelectMenu");
         $(".mapImgBlock .links a").each(function() {
@@ -14,14 +12,7 @@ APP.controllers.regions = (function() {
         });
 
         APP.components.addressSearchAutocomplete();
-
-        if($('.graetzlMapWidgetUseDistricts:visible').length > 0) {
-          initMapUseDistricts();
-        }
-
-        if($('.graetzlMapWidgetUseGraetzls:visible').length > 0) {
-          initMapUseGraetzls();
-        }
+        APP.components.areaMap.init($('#area-map'), { interactive: true });
 
         if ($("#filter-modal-bezirk").exists()) {
           APP.components.graetzlSelectFilter.init($("#filter-modal-bezirk"));
@@ -44,24 +35,6 @@ APP.controllers.regions = (function() {
         }
 
         initMobileNav();
-    }
-
-    function initMapUseDistricts() {
-        var mapdata = $('#graetzlMapWidget').data('mapdata');
-        map.init(function() {
-            map.showMapDistrict(mapdata.districts, {
-                interactive: true
-            });
-        });
-    }
-
-    function initMapUseGraetzls() {
-        var mapdata = $('#graetzlMapWidget').data('mapdata');
-        map.init(function() {
-          map.showMapGraetzl(mapdata.graetzls, {
-            interactive: true,
-          });
-        });
     }
 
     function initMobileNav() {

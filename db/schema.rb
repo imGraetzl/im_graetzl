@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_13_082426) do
+ActiveRecord::Schema.define(version: 2021_07_21_145139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -283,6 +283,7 @@ ActiveRecord::Schema.define(version: 2021_07_13_082426) do
     t.string "slug", limit: 255
     t.integer "users_count", default: 0
     t.string "region_id"
+    t.string "zip"
     t.index ["region_id"], name: "index_graetzls_on_region_id"
     t.index ["slug"], name: "index_graetzls_on_slug"
   end

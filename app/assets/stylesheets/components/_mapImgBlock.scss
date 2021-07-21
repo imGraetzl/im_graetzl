@@ -61,7 +61,7 @@
     display: none;
   }
 
-  #graetzlMapWidget {
+  #area-map {
     width: 100%;
     background-color: transparent;
     position: relative;
@@ -188,7 +188,7 @@
     }
   }
 
-  #graetzlMapWidget {
+  #area-map {
     height: 150px;
     @include respond-to(">=medium") {
       height: 200px;

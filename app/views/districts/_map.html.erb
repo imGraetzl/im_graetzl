@@ -1,13 +1,14 @@
+<% graetzls = District.memoized(@district.id).graetzls %>
 <div class="mapImgBlock">
-  <div id="graetzlMapWidget" data-mapdata="<%= MapData.new.for_district(@district).to_json %>"></div>
-  <div class="activeArea"></div>
+  <%= area_map(graetzls) %>
+
   <div class="navBlock">
     <h1><%= @district.name %></h1>
     <div class="links">
       <%= link_to region_index_path, class: 'toOverview' do %>
         <%= icon_tag "arrow-left-2" %> <%= current_region.name %>
       <% end %>
-      <% District.memoized(@district.id).graetzls.each do |graetzl| %>
+      <% graetzls.each do |graetzl| %>
         <%= link_to graetzl.name, graetzl %>
       <% end %>
     </div>

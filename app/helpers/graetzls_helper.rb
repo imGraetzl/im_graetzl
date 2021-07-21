@@ -1,53 +1,31 @@
 module GraetzlsHelper
 
   def district_url_options
-    District.in(current_region).sorted_by_zip.map { |d| [d.zip_name, district_index_path(d)] }
+    current_region.districts.sort_by(&:zip).map{|d| [d.zip_name, district_index_path(d)] }
   end
 
   def district_select_options
-    District.in(current_region).sorted_by_zip.map { |d| [d.zip_name, d.id, 'data-label' => d.zip] }
+    current_region.districts.sort_by(&:zip).map{|d| [d.zip_name, d.id, 'data-label' => d.zip] }
   end
 
-  def graetztl_url_options
-    Graetzl.in(current_region).map { |g| ["#{g.name}", g.slug] }
+  def graetzl_url_options
+    current_region.graetzls.sort_by(&:name).map{|g| ["#{g.name}", g.slug] }
   end
 
   def graetzl_select_options
-    District.in(current_region).sorted_by_zip.map do |district|
-      district.graetzls.map{|g| ["#{district.zip} - #{g.name}", g.id, 'data-district-id' => district.id] }
-    end.flatten(1)
+    current_region.graetzls.sort_by(&:zip).map{|g| [g.zip_name, g.id, 'data-district-id' => g.district&.id] }
   end
 
   def compact_graetzl_list(graetzls)
+    if current_region.use_districts?
+      all_districts = current_region.districts.sort_by(&:zip)
+      full_districts = all_districts.select{|d| (d.graetzl_ids - graetzl.map(&:id)).empty? }
+      individual_graetzls = graetzls.select{|g| !full_districts.include?(g.district) }
 
-    results = []
-
-    if current_region.use_districts
-
-      graetzl_ids = graetzls.map(&:id)
-      cleaned_graetzl_ids = graetzl_ids
-
-      District.sorted_by_zip.each do |district|
-        if (district.graetzl_ids - graetzl_ids).empty?
-          results << district.zip_name
-          cleaned_graetzl_ids -= district.graetzl_ids
-        end
-      end
-
-      cleaned_graetzl_ids.each do |graetzl_id|
-        graetzl = Graetzl.memoized(graetzl_id)
-        results << "#{graetzl.district.zip} - #{graetzl.name}"
-      end
-
+      (full_districts.map(&:zip_name) + individual_graetzls.map(&:zip_name)).sort
     else
-
-      graetzls.each do |graetzl|
-        results << graetzl.name
-      end
-
+      graetzls.map(&:name).sort
     end
-
-    results.sort
   end
 
   def graetzl_flag(graetzl)

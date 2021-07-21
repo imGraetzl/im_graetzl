@@ -1,6 +1,5 @@
 <div class="mapImgBlock -hasillu">
-  <div id="graetzlMapWidget" data-mapdata="<%= MapData.new.for_graetzl(@graetzl).to_json %>"></div>
-  <div class="activeArea"></div>
+  <%= area_map(@graetzl) %>
   <div class="illuDistrict"></div>
   <div class="mapInfoText"></div>
 

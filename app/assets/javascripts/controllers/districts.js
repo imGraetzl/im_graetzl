@@ -27,20 +27,7 @@ APP.controllers.districts = (function() {
   }
 
   function initMap() {
-    var map = APP.components.graetzlMap;
-    var mapdata = $('#graetzlMapWidget').data('mapdata');
-    map.init(function() {
-      map.showMapDistrict(mapdata.districts, {
-        style: $.extend(map.styles.mint, {
-          weight: 0,
-          fillOpacity: 0.5
-        })
-      });
-      map.showMapGraetzl(mapdata.graetzls, {
-        interactive: true,
-        zoomAfterRender: false
-      });
-    });
+    APP.components.areaMap.init($('#area-map'), { interactive: true });
   }
 
   function initFilter() {

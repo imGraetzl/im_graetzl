@@ -23,10 +23,6 @@ class District < ApplicationRecord
     all_memoized[id]
   end
 
-  def self.sorted_by_zip
-    all_memoized.values.sort_by(&:zip)
-  end
-
   def long_name
     "#{name}-#{zip}"
   end

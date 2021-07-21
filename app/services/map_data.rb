@@ -2,33 +2,22 @@ class MapData < BaseService
 
   RGEO_FACTORY = RGeo::GeoJSON::EntityFactory.new
 
-  def for_graetzl(graetzl)
-    { graetzls: graetzl_features(graetzl) }
+  def encode(areas)
+    features = Array(areas).map do |a|
+      RGEO_FACTORY.feature(a.area, a.id, {
+        name: a.name,
+        url: area_url(a),
+      })
+    end
+    RGeo::GeoJSON.encode(RGEO_FACTORY.feature_collection(features))
   end
 
-  def for_district(district)
-    graetzls = District.memoized(district.id).graetzls
-    { districts: district_feature(district), graetzls: graetzl_features(graetzls) }
-  end
-
-  def for_region(region, districts)
-    { districts: district_feature(districts) }
-  end
-
-  private
-
-  def graetzl_features(graetzls)
-    features = Array(graetzls).map { |g|
-      RGEO_FACTORY.feature(g.area, g.id, {name: g.name, targetURL: graetzl_path(g)})
-    }
-    RGeo::GeoJSON.encode RGEO_FACTORY.feature_collection(features)
-  end
-
-  def district_feature(districts)
-    features = Array(districts).map { |d|
-      RGEO_FACTORY.feature(d.area, d.id, { name: d.name, zip: d.zip, targetURL: district_index_path(d) })
-    }
-    RGeo::GeoJSON.encode RGEO_FACTORY.feature_collection(features)
+  def area_url(area)
+    if area.is_a?(District)
+      Rails.application.routes.url_helpers.district_index_path(area)
+    elsif area.is_a?(Graetzl)
+      Rails.application.routes.url_helpers.graetzl_path(area)
+    end
   end
 
 end

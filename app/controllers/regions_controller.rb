@@ -1,7 +1,6 @@
 class RegionsController < ApplicationController
 
   def index
-    @districts = District.order(zip: :asc)
   end
 
   def visit_graetzl
@@ -14,7 +13,6 @@ class RegionsController < ApplicationController
   end
 
   def locations
-    @districts = District.order(zip: :asc)
     if params[:category].present?
       @category = LocationCategory.find_by(slug: params[:category])
       @special_category = params[:category] if helpers.special_categories.include?(params[:category])
@@ -22,19 +20,13 @@ class RegionsController < ApplicationController
   end
 
   def meetings
-    @districts = District.order(zip: :asc)
     if params[:category].present?
       @category = EventCategory.find_by(slug: params[:category])
       @special_category = params[:category] if helpers.special_categories.include?(params[:category])
     end
   end
 
-  def category_meetings
-
-  end
-
   def rooms
-    @districts = District.order(zip: :asc)
     if params[:category].present?
       @category = RoomCategory.find_by(slug: params[:category])
       @special_category = params[:category] if helpers.special_categories.include?(params[:category])
@@ -44,18 +36,15 @@ class RegionsController < ApplicationController
   def groups
     @featured_groups = Group.in(current_region).featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])
-    @districts = District.order(zip: :asc)
   end
 
   def tool_offers
-    @districts = District.order(zip: :asc)
     if params[:category].present?
       @category = ToolCategory.find_by(slug: params[:category])
     end
   end
 
   def zuckerls
-    @districts = District.order(zip: :asc)
   end
 
   def platform_meetings

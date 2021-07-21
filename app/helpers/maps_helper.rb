@@ -1,4 +1,10 @@
 module MapsHelper
+
+  def area_map(areas)
+    content_tag(:div, nil, id: "area-map", data: { areas: MapData.new.encode(areas) }) +
+    content_tag(:div, nil, class: "activeArea")
+  end
+
   def google_map_url(address)
     "https://maps.google.com?"\
     "q=#{address.street_name}+#{address.street_number}"
@@ -14,7 +20,7 @@ module MapsHelper
     "scale=#{options[:scale]}&"\
     "markers=size:#{options[:marker]}|#{coords.y},#{coords.x}"
   end
-  
+
   def embedded_map_url(coords, options={})
     options = embedded_map_defaults.merge(options)
     "https://www.google.com/maps/embed/v1/place?"\
@@ -33,7 +39,7 @@ module MapsHelper
       key: ENV['GOOGLE_API_KEY']
     }
   end
-  
+
   def embedded_map_defaults
     {
       key: ENV['GOOGLE_API_KEY']
