@@ -65,10 +65,10 @@ class ZuckerlsController < ApplicationController
     case
     when params[:location_id].present?
       @location = Location.find(params[:location_id])
-    when current_user.locations.approved.count == 1
-      @location = current_user.locations.approved.first
+    when current_user.locations.in(current_region).approved.count == 1
+      @location = current_user.locations.in(current_region).approved.first
     else
-      @locations = current_user.locations.approved
+      @locations = current_user.locations.in(current_region).approved
       render :new_location and return
     end
   end
