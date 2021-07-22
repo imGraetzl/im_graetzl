@@ -41,7 +41,7 @@
       in <%= link_to @district.zip_name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-district filter-applied' %>
     </div>
     <div id="filter-modal-district" class="filter-modal-jbox-district">
-      <%= render 'filters/district', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
+      <%= render 'filters/areas', district: @district %>
     </div>
   <% end %>
 

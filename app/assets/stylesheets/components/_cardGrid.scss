@@ -570,9 +570,9 @@
 
 }
 
-.filter-districts, .filter-graetzls {
+.filter-areas {
   @include respond-to(">=medium") {
-    .district-list, .graetzl-list {
+    .areas-list {
       columns: 2;
       -webkit-columns: 2;
       -moz-columns: 2;

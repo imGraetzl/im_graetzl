@@ -19,7 +19,7 @@ module GraetzlsHelper
   def compact_graetzl_list(graetzls)
     if current_region.use_districts?
       all_districts = current_region.districts.sort_by(&:zip)
-      full_districts = all_districts.select{|d| (d.graetzl_ids - graetzl.map(&:id)).empty? }
+      full_districts = all_districts.select{|d| (d.graetzl_ids - graetzls.map(&:id)).empty? }
       individual_graetzls = graetzls.select{|g| !full_districts.include?(g.district) }
 
       (full_districts.map(&:zip_name) + individual_graetzls.map(&:zip_name)).sort

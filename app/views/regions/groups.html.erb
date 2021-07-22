@@ -26,7 +26,7 @@
       <%= render 'filters/group_categories' %>
     </div>
     <div id="filter-modal-district" class="filter-modal-jbox-district">
-      <%= render current_region.use_districts ? 'filters/district' : 'filters/graetzl' %>
+      <%= render 'filters/areas', entire_region: true %>
     </div>
   <% end %>
 

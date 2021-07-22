@@ -1,0 +1,38 @@
+<div class="filter-areas" data-filter-label="Grätzl / Bezirk">
+  <% if current_region.use_districts? && local_assigns[:graetzl] %>
+    <div class="input-checkbox filter-input-graetzl">
+      <%= check_box_tag "select-home-graetzl", local_assigns[:graetzl].id, true, data: { label: local_assigns[:graetzl].name} %>
+      <%= label_tag "select-home-graetzl", local_assigns[:graetzl].name %>
+    </div>
+  <% end %>
+
+  <div class="input-checkbox select-all">
+    <%= check_box_tag "select-all", nil, local_assigns[:entire_region] %>
+    <%= label_tag "select-all", "Ganz #{current_region.name}" %>
+  </div>
+
+  <div class="areas-list">
+    <% if current_region.use_districts? %>
+      <%= collection_check_boxes :filter, :district_ids, current_region.districts.sort_by(&:zip), :id, :zip_name, { checked: local_assigns[:district]&.id } do |b| %>
+        <div class="input-checkbox filter-input">
+          <%= b.check_box("data-label": b.object.zip, "data-graetzls": b.object.graetzl_ids.to_s) %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= collection_check_boxes :filter, :graetzl_ids, current_region.graetzls, :id, :name, { checked: local_assigns[:graetzl]&.id } do |b| %>
+        <div class="input-checkbox filter-input">
+          <%= b.check_box("data-label": b.object.name, "data-graetzls": b.object.id.to_s) %>
+          <%= b.label %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<% if current_region.use_districts? %>
+  <%= select :filter, :graetzl_ids,
+      options_for_select(graetzl_select_options, local_assigns[:district]&.graetzl_ids || local_assigns[:graetzl]&.id),
+      {}, { multiple: true, class: 'graetzl-ids' }
+  %>
+<% end %>

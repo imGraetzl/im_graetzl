@@ -5,11 +5,11 @@
     <h1><%= current_region %></h1>
     <div class="links">
       <% if current_region.use_districts? %>
-        <% current_region.districts.each do |district| %>
+        <% current_region.districts.sort_by(&:zip).each do |district| %>
           <%= link_to district.zip_name, district_index_path(district) %>
         <% end %>
       <% else %>
-        <% current_region.graetzls.each do |graetzl| %>
+        <% current_region.graetzls.sort_by(&:name).each do |graetzl| %>
           <%= link_to graetzl.name, graetzl %>
         <% end %>
       <% end %>

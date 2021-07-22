@@ -41,7 +41,7 @@
       <%= render 'filters/room_type' %>
     </div>
     <div id="filter-modal-district" class="filter-modal-jbox-district">
-      <%= render 'filters/district', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
+      <%= render 'filters/areas', district: @district %>
     </div>
   <% end %>
 

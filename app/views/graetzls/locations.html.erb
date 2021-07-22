@@ -30,7 +30,7 @@
       in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-district filter-applied' %>
     </div>
     <div id="filter-modal-district" class="filter-modal-jbox-district">
-      <%= render current_region.use_districts ? 'filters/district' : 'filters/graetzl', graetzl_ids: @graetzl.id, district_ids: @graetzl.district.id, graetzl: @graetzl  %>
+      <%= render 'filters/areas', graetzl: @graetzl %>
     </div>
   <% end %>
 

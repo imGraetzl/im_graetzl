@@ -23,6 +23,10 @@ class District < ApplicationRecord
     all_memoized[id]
   end
 
+  def graetzl_ids
+    graetzls.map(&:id)
+  end
+
   def long_name
     "#{name}-#{zip}"
   end
