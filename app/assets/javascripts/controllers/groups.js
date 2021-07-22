@@ -142,7 +142,7 @@ APP.controllers.groups = (function() {
           $(".group-categories .input-checkbox").removeClass("disabled");
         }
       });
-      APP.components.graetzlSelectFilter.init($('#district-graetzl-select'));
+      APP.components.graetzlSelectFilter.init($('#area-select'));
     }
 
 

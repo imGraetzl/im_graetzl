@@ -37,12 +37,12 @@
     <div class="filter-selection-text-jbox">
       Zeige mir <%= link_to 'online & offline Events', '#filter-modal-type', data: { no_filter_label: 'online & offline Events'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to "ganz #{current_region}", '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-district' %>
+      in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/meeting_type' %>
     </div>
-    <div id="filter-modal-district" class="filter-modal-jbox-district">
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
       <%= render 'filters/areas', entire_region: true %>
     </div>
   <% end %>

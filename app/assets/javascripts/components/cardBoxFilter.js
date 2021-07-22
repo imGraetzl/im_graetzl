@@ -21,7 +21,7 @@ APP.components.cardBoxFilter = (function() {
     });
 
     // JBOX Standard Filter MODAL
-    $(".filter-selection-text-jbox a").not( ".plain-link, .filter-modal-district" ).each(function(index, value) {
+    $(".filter-selection-text-jbox a").not( ".plain-link, .filter-modal-areas" ).each(function(index, value) {
 
         var modal = $(this).attr('href');
         var $attach = $('[href="'+modal+'"]');
@@ -55,11 +55,11 @@ APP.components.cardBoxFilter = (function() {
     // JBOX District Filter MODAL
     var districtModal = new jBox('Confirm', {
       addClass:'jBox',
-      attach: '.filter-modal-district',
+      attach: '.filter-modal-areas',
       getTitle: 'data-jbox-title',
       confirmButton: 'Anwenden',
       cancelButton: 'Zurücksetzen',
-      content: $('.filter-modal-jbox-district'),
+      content: $('.filter-modal-jbox-areas'),
       trigger: 'click',
       closeOnEsc:true,
       closeOnClick:'body',
@@ -90,29 +90,29 @@ APP.components.cardBoxFilter = (function() {
 
 
 
-    $(".filter-modal-jbox-district").on("click", "#select-home-graetzl", function() {
+    $(".filter-modal-jbox-areas").on("click", "#select-home-graetzl", function() {
       selectHomeGraetzl();
     });
 
 
     // District Filter - Select Ganz Wien Checkbox
-    $(".filter-modal-jbox-district").on("click", ".select-all", function() {
+    $(".filter-modal-jbox-areas").on("click", ".select-all", function() {
       if ($(".select-all input:checkbox").prop('checked') == true) {
-        selectAllDistricts($(".filter-modal-jbox-district"));
-        $('.filter-modal-jbox-district #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
+        selectAllDistricts($(".filter-modal-jbox-areas"));
+        $('.filter-modal-jbox-areas #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
       } else {
-        unSelectAllDistricts($(".filter-modal-jbox-district"));
+        unSelectAllDistricts($(".filter-modal-jbox-areas"));
       }
     });
 
 
     // Toggle ganz Wien Checkbox wenn alle Bezirke gewählt
-    $(".filter-modal-jbox-district .filter-input").on("change", function() {
+    $(".filter-modal-jbox-areas .filter-input").on("change", function() {
 
-      $('.filter-modal-jbox-district #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
+      $('.filter-modal-jbox-areas #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
 
-      var countDistricts = $(".filter-modal-jbox-district .filter-input").length;
-      var countCheckedDistricts = $(".filter-modal-jbox-district .filter-input").find('input:checked').length;
+      var countDistricts = $(".filter-modal-jbox-areas .filter-input").length;
+      var countCheckedDistricts = $(".filter-modal-jbox-areas .filter-input").find('input:checked').length;
 
       if (countDistricts == countCheckedDistricts) {
         $(".select-all input:checkbox").prop("checked", true);
@@ -184,8 +184,8 @@ APP.components.cardBoxFilter = (function() {
 
   function selectHomeGraetzl() {
     if ($('#select-home-graetzl').prop('checked') == true) {
-      unSelectAllDistricts($(".filter-modal-jbox-district"));
-      $('.filter-modal-jbox-district #select-all').prop("checked", false); // deselect Wien
+      unSelectAllDistricts($(".filter-modal-jbox-areas"));
+      $('.filter-modal-jbox-areas #select-all').prop("checked", false); // deselect Wien
     }
   }
 

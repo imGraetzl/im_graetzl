@@ -19,12 +19,12 @@
   <%= form_tag groups_path, method: :get, remote: true, class: 'cards-filter' do %>
     <div class="filter-selection-text-jbox">
       Zeige mir Gruppen aus <%= link_to 'allen Kategorien', '#filter-modal-category', data: { no_filter_label: 'allen Kategorien'}, class: 'filter-modal-category' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
     </div>
     <div id="filter-modal-category" class="filter-modal-jbox">
       <%= render 'filters/group_categories' %>
     </div>
-    <div id="filter-modal-district" class="filter-modal-jbox-district">
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
       <%= render 'filters/areas', graetzl: @graetzl %>
     </div>
   <% end %>

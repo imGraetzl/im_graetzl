@@ -10,7 +10,7 @@
     </div>
     <% if graetzl %>
       <div class="categoryicon">
-        <%= "#{graetzl.district.zip}, " if current_region.use_districts %><%= graetzl.name %>
+        <%= "#{graetzl.district.zip}, " if current_region.use_districts? %><%= graetzl.name %>
       </div>
     <% end %>
   </div>

@@ -112,8 +112,10 @@ class Zuckerl < ApplicationRecord
   def visibility
     if self.all_districts
       "Ganz #{region.name}"
+    elsif region.use_districts?
+      "#{graetzl.name} und gesamter #{graetzl.district.numeric}. Bezirk"
     else
-      "#{self.location.graetzl.name} und gesamter #{self.location.districts.first.numeric}. Bezirk"
+      graetzl.name
     end
   end
 

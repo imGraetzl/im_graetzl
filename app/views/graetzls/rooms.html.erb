@@ -29,12 +29,12 @@
     <div class="filter-selection-text-jbox">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/room_type' %>
     </div>
-    <div id="filter-modal-district" class="filter-modal-jbox-district">
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
       <%= render 'filters/areas', graetzl: @graetzl %>
     </div>
   <% end %>
