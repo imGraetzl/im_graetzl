@@ -1,0 +1,11 @@
+de:
+  region:
+    default: &default
+      register_button: "Gemeinde"
+
+    wien:
+      <<: *default
+      register_button: "Grätzl"
+
+    kaernten:
+      <<: *default
