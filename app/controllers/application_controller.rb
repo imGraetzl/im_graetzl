@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   http_basic_authenticate_with name: 'user', password: 'secret' if Rails.env.staging? && !(ENV["ALLOW_WORKER"] == 'true')
 
   def after_sign_in_path_for(resource)
-    params[:redirect].presence || stored_location_for(resource) || graetzl_path(resource.graetzl)
+    params[:redirect].presence || stored_location_for(resource) || root_url
   end
 
   def authenticate_admin_user!
