@@ -235,6 +235,8 @@ Rails.application.routes.draw do
 
   # Redirects for legacy routes
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
+  get 'raum' => redirect('raumteiler')
+  get 'raumsuche' => redirect('raumteiler')
   get 'selbststaendige-fuer-selbststaendige' => redirect('/special-events')
   get 'raumteilerfestival' => redirect('raumteiler')
   get 'dieselgasse' => redirect('open-calls/raumteiler-hub-dieselgasse')
