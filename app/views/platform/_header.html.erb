@@ -1,0 +1,42 @@
+<header class="navigation">
+  <div class="inner">
+    <div class="nav-body">
+
+      <div class="nav-site">
+
+        <!-- Mobile Menue -->
+        <%= link_to 'javascript:', class: "nav-mobile-toggle", data: { dropdown: "nav-site-main" } do %>
+          <%= icon_tag("layout-text") %>
+          <span class="nav-mobile-toggle-label">Navigation</span>
+        <% end %>
+        <div class="nav-dropdown-menu" id="nav-site-main">
+          <div class="nav-dropdown-submenu shown" id="nav-submenu-site-city">
+            <%= nav_menu_item("map-location", "Übersichtskarte", region_index_path) %>
+          </div>
+        </div>
+        <!-- /Mobile Menue -->
+
+        <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
+        <%= link_to 'javascript:', class: 'nav-top-link nav-city-link', data: { dropdown: "nav-site-city" } do %>
+          <%= icon_tag "arrow-down-2" %> <%= current_region %>
+          <span>Regionen</span>
+        <% end %>
+
+        <div class="nav-dropdown-menu" id="nav-site-city">
+          <%= nav_menu_item("map-location", "Übersichtskarte", region_index_path) %>
+        </div>
+
+      </div>
+
+      <div class="nav-logo">
+        <%= link_to root_path do %>
+          <%= image_tag("regions/kaernten/logo.svg", class: 'logo-desktop', width:120, height:84) %>
+          <%= image_tag("regions/kaernten/logo_reduced.svg", class: 'logo-mobile', width:45, height:25) %>
+        <% end %>
+      </div>
+
+      <%= render "navigation/guest_menu" %>
+
+    </div>
+  </div>
+</header>

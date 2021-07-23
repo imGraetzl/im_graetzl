@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
 
   def home
     if current_region.nil? # www.welocally.at
-      render 'platform_info', layout: false
+      render 'platform_info', layout: 'platform'
     elsif current_user && user_home_graetzl
       redirect_to user_home_graetzl
     else

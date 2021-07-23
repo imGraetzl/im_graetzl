@@ -1,0 +1,52 @@
+<footer id="footer">
+
+   <%= link_to info_danke_path, class: 'supporter' do %>imGrätzl <%= icon_tag "love" %> UnterstützerInnen<% end %>
+
+  <div class="inner">
+
+    <div class="row infolinks">
+      <div class="col">
+        <%= link_to 'Infos & Services', info_path %>
+        <%= link_to 'Infos zum Grätzlzuckerl', info_infos_zum_graetzlzuckerl_path %>
+        <%= link_to 'Unterstützer-Team', unterstuetzer_team_path %>
+        <a href="https://blog.imgraetzl.at/" target="_blank">Blog</a>
+        <a href="https://www.facebook.com/imGraetzl" target="_blank" class="facebook">
+          Auf Facebook <%= icon_tag "social-facebook" %>
+        </a>
+      </div>
+      <div class="col">
+        <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
+        <%= link_to 'Code of Conduct', info_code_of_conduct_path %>
+        <%= link_to 'Impressum', info_impressum_path %>
+        <%= link_to 'Medien', 'https://blog.imgraetzl.at/medien/', target: '_blank' %>
+        <%= link_to 'AGB', info_agb_path %>
+      </div>
+      <div class="col logo-wa">
+        <%= link_to(image_tag('logo-wa.png', width:132, height:65), 'https://wirtschaftsagentur.at/', target: '_blank') %>
+        <div>Gefördert durch die Wirtschaftsagentur Wien.<br>
+          Ein Fonds der Stadt Wien.</div>
+      </div>
+      <div class="col logo-ke">
+        <%= link_to(image_tag('logo-klimafonds.png', width:76, height:65), 'https://www.klimafonds.gv.at', target: '_blank') %>
+        <div>
+          Die <%= link_to 'coop & share', info_path %> Services und der  <%= link_to 'Raumteiler', region_rooms_path %> auf imGrätzl.at sind Teil des F&amp;E Projektes Mischung: Nordbahnhof (Lead TU Wien).
+          <br><br>
+          Dieses Projekt wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen der Smart-Cities-Initiative durchgeführt.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="maplinks-block">
+
+      <h3>More Footer Infos</h3>
+      <div class="row">
+        <div class="col">
+        ...
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</footer>
