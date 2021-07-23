@@ -21,7 +21,7 @@ class LocationsController < ApplicationController
 
   def new
     if params[:selected_graetzl_id].blank?
-      @graetzl = Graetzl.find(params[:graetzl_id] || current_user.graetzl_id)
+      @graetzl = Graetzl.find(params[:graetzl_id] || user_home_graetzl&.id)
       @district = @graetzl.districts.first
       render 'select_graetzl'
     else

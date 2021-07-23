@@ -46,7 +46,7 @@ class GraetzlsController < ApplicationController
   private
 
   def load_graetzl
-    @graetzl = Graetzl.find(params[:id])
+    @graetzl = Graetzl.in(current_region).find(params[:id])
   end
 
 end

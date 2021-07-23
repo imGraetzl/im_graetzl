@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :current_region
+  helper_method :current_region, :user_home_graetzl
 
   def current_region
     if request.domain == 'imgraetzl.at'
@@ -27,6 +27,10 @@ class ApplicationController < ActionController::Base
       region_domain = request.subdomain.split(".").last # removing local. or staging.
       Region.get(region_domain)
     end
+  end
+
+  def user_home_graetzl
+    current_user.graetzl if current_user && current_user.graetzl.region == current_region
   end
 
 end

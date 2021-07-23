@@ -47,7 +47,7 @@ class DistrictsController < ApplicationController
   private
 
   def load_district
-    @district = District.find(params[:id])
+    @district = District.in(current_region).find(params[:id])
   end
 
 end

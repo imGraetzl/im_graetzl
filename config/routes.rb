@@ -63,7 +63,7 @@ Rails.application.routes.draw do
   end
 
   scope controller: 'regions', as: 'region'  do
-    get 'gemeinden', action: 'index', as: 'index'
+    get 'karte', action: 'index', as: 'index'
     get 'visit_graetzl'
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings'
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
@@ -123,7 +123,7 @@ Rails.application.routes.draw do
     post 'toggle_waitlist', on: :member
     post 'remove_from_waitlist', on: :member
   end
-  resources :room_calls, path: '(wien/raumteiler)/open-calls', except: [:index] do
+  resources :room_calls, path: 'open-calls', except: [:index] do
     get 'submission', on: :member
     post 'add_submission', on: :member
   end
@@ -233,15 +233,11 @@ Rails.application.routes.draw do
   end
 
   # Redirects for legacy routes
-  get 'wien/raumteiler/raumsuche/(:id)' => redirect {|_, req| "raumsuche/#{req.params[:id]}" }
-  get 'wien/raumteiler/raum/(:id)' => redirect {|_, req| "raum/#{req.params[:id]}" }
-  get 'wien/*rest' => redirect { |_, req| req.params[:rest] }, rest: /.+/
-
+  get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
   get 'selbststaendige-fuer-selbststaendige' => redirect('/special-events')
   get 'raumteilerfestival' => redirect('raumteiler')
   get 'dieselgasse' => redirect('open-calls/raumteiler-hub-dieselgasse')
   get 'mixit' => redirect('open-calls/raumteiler-hub-mix-it')
-
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member

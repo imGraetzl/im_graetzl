@@ -216,7 +216,7 @@ class MeetingsController < ApplicationController
     elsif params[:graetzl_id].present?
       Meeting.new(graetzl: Graetzl.find(params[:graetzl_id]))
     else
-      Meeting.new(graetzl: current_user.graetzl)
+      Meeting.new(graetzl: user_home_graetzl)
     end
   end
 
