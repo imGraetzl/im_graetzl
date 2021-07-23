@@ -17,13 +17,14 @@
         <!-- /Mobile Menue -->
 
         <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
-        <%= link_to 'javascript:', class: 'nav-top-link nav-city-link', data: { dropdown: "nav-site-city" } do %>
-          <%= icon_tag "arrow-down-2" %> <%= current_region %>
-          <span>Regionen</span>
+        <%= link_to 'javascript:', class: 'nav-top-link', data: { dropdown: "nav-site-regions" } do %>
+          <%= icon_tag "arrow-down-2" %><span>Regionen</span>
         <% end %>
 
-        <div class="nav-dropdown-menu" id="nav-site-city">
-          <%= nav_menu_item("map-location", "Übersichtskarte", region_index_path) %>
+        <div class="nav-dropdown-menu" id="nav-site-regions">
+          <% ['kaernten', 'wien'].each do |region| region = Region.get(region) %>
+            <%= nav_menu_item("map-location", "#{region.name}", root_url(subdomain: "#{region.id}")) %>
+          <% end %>
         </div>
 
       </div>
@@ -35,7 +36,6 @@
         <% end %>
       </div>
 
-      <%= render "navigation/guest_menu" %>
 
     </div>
   </div>
