@@ -16,7 +16,8 @@ class ZuckerlsController < ApplicationController
   def create
     @location = Location.find(params[:location_id])
     @zuckerl = @location.zuckerls.new(zuckerl_params)
-    #@zuckerl.region_id = current_region.id
+    @zuckerl.user = current_user
+    @zuckerl.region_id = current_region.id
 
     if @zuckerl.save
       @zuckerl.link ||= nil
@@ -89,7 +90,7 @@ class ZuckerlsController < ApplicationController
       :description,
       :cover_photo,
       :remove_cover_photo,
-      :all_districts,
+      :entire_region,
       :link
     )
   end

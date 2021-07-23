@@ -1,8 +1,4 @@
 APP.components.createzuckerl = (function() {
-
-    var price_graetzl = $('[data-behavior=zuckerlform] #zuckerl_graetzl_price').val();
-    var price_all_districts = $('[data-behavior=zuckerlform] #zuckerl_all_districts_price').val();
-
     var $titleinput, $descriptioninput, $imageinput, $districtinput, $titlepreview,
         $descriptionpreview, $imagepreview, $pricepreview, $btnconfirm, $btnsend,
         $graetzlpreview, $alldistrictspreview;
@@ -75,17 +71,17 @@ APP.components.createzuckerl = (function() {
     }
 
     function updatedistricts() {
-      var selected_area = $(".district_visibility input[type='radio']:checked").data('behavior');
-      if (selected_area == "all_districts_true") {
+      var selected_input = $(".district_visibility input[type='radio']:checked");
+      $pricepreview.text(formatPrice(selected_input.data("price")));
+
+      if (selected_input.data('behavior') == "entire_region_true") {
         $('.description .graetzl').hide();
-        $('.description .all_districts').show();
-        $pricepreview.text(price_all_districts);
+        $('.description .entire_region').show();
         $graetzlpreview.hide();
         $alldistrictspreview.show();
       } else {
-        $('.description .all_districts').hide();
+        $('.description .entire_region').hide();
         $('.description .graetzl').show();
-        $pricepreview.text(price_graetzl);
         $alldistrictspreview.hide();
         $graetzlpreview.show();
       }
@@ -121,6 +117,10 @@ APP.components.createzuckerl = (function() {
             $btnconfirm.hide();
             $btnsend.addClass("is-visible");
         }
+    }
+
+    function formatPrice(price) {
+      return '€' + (price / 100).toFixed(2);
     }
 
     $("a.linkpreview").on('click', function(){

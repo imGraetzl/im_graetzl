@@ -11,16 +11,28 @@ class Zuckerl < ApplicationRecord
   attr_accessor :active_admin_requested_event
 
   belongs_to :location
+  belongs_to :user
   has_one :graetzl, through: :location
 
   after_commit :send_booking_confirmation, on: :create, if: proc {|zuckerl| zuckerl.pending?}
 
   validates :title, length: { in: 4..80 }
 
-  scope :all_districts, -> { where(all_districts: true) }
+  scope :entire_region, -> { where(entire_region: true) }
   scope :marked_as_paid, -> { where("paid_at IS NOT NULL") }
   scope :this_month_live, lambda {where("created_at > ? AND created_at < ?", Time.now.beginning_of_month - 1.month, Time.now.end_of_month - 1.month).or(Zuckerl.live)}
   scope :next_month_live, lambda {where("created_at > ? AND created_at < ? AND aasm_state != ? AND aasm_state != ?", Time.now.beginning_of_month, Time.now.end_of_month, 'live', 'cancelled')}
+
+  GRAETZL_PRICE = 16_50
+  ENTIRE_REGION_PRICE = 175_00
+
+  def self.price
+    GRAETZL_PRICE * 1.2
+  end
+
+  def self.region_price
+    ENTIRE_REGION_PRICE * 1.2
+  end
 
   aasm do
     state :pending, initial: true
@@ -54,7 +66,7 @@ class Zuckerl < ApplicationRecord
     elsif area.is_a?(District)
       graetzl_ids = area.graetzl_ids
     end
-    Zuckerl.live.joins(:location).where("all_districts = 't' OR locations.graetzl_id IN (?)", graetzl_ids)
+    Zuckerl.live.joins(:location).where("entire_region = 't' OR locations.graetzl_id IN (?)", graetzl_ids)
   end
 
   def self.include_for_box
@@ -82,15 +94,11 @@ class Zuckerl < ApplicationRecord
   end
 
   def basic_price
-    if self.all_districts
-      ZuckerlsHelper::ZuckerlAllDistrictsPrice
-    else
-      ZuckerlsHelper::ZuckerlGraetzlPrice
-    end
+    entire_region? ? ENTIRE_REGION_PRICE : GRAETZL_PRICE
   end
 
   def tax
-    (basic_price * 0.20).round(2)
+    (basic_price * 0.20)
   end
 
   def total_price
@@ -98,19 +106,19 @@ class Zuckerl < ApplicationRecord
   end
 
   def basic_price_with_currency
-    number_to_currency(basic_price)
+    number_to_currency(basic_price / 100)
   end
 
   def tax_with_currency
-    number_to_currency(tax)
+    number_to_currency(tax / 100)
   end
 
   def total_price_with_currency
-    number_to_currency(basic_price + tax)
+    number_to_currency(basic_price + tax / 100)
   end
 
   def visibility
-    if self.all_districts
+    if entire_region?
       "Ganz #{region.name}"
     elsif region.use_districts?
       "#{graetzl.name} und gesamter #{graetzl.district.numeric}. Bezirk"

@@ -5,7 +5,7 @@ context.instance_eval do
   column :title
   column(:aasm_state){ |z| status_tag(z.aasm.current_state) }
   column :paid_at
-  column :all_districts
+  column :entire_region
   column :created_at
   actions
 end

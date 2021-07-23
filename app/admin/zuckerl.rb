@@ -9,7 +9,7 @@ ActiveAdmin.register Zuckerl do
   filter :title
   filter :description
   filter :flyer
-  filter :all_districts
+  filter :entire_region
   filter :aasm_state, as: :select, collection: Zuckerl.aasm.states_for_select
   filter :paid_at
   filter :created_at
@@ -55,7 +55,7 @@ ActiveAdmin.register Zuckerl do
                 :title,
                 :description,
                 :flyer,
-                :all_districts,
+                :entire_region,
                 :aasm_state,
                 :active_admin_requested_event,
                 :paid_at,

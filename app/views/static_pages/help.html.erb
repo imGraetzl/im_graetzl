@@ -200,7 +200,7 @@
       <p>
         Mit einem Grätzlzuckerl kannst du günstig & zielgerichtet Werbung für
         dich und dein spezielles Angebot in deinem Stadtteil & Bezirk schalten.
-        Ein Zuckerl läuft immer für einen Monat und kostet dich <%= zuckerl_price('graetzl') %> (inkl. 20% USt.).
+        Ein Zuckerl läuft immer für einen Monat und kostet dich <%= number_to_currency(Zuckerl.price / 100) %> (inkl. 20% USt.).
         <br>
         Möchtest du darüber hinaus dein Grätzlzuckerl nicht nur in deinem Bezirk sondern in ganz <%= current_region %> schalten - Auch das geht seit Kurzem :)
       </p>

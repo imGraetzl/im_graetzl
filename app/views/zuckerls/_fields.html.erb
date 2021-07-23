@@ -1,8 +1,5 @@
 <%= form_errors_for f.object %>
 <%= f.hidden_field :location_id %>
-<%= f.hidden_field :graetzl_price, value: zuckerl_price('graetzl') %>
-<%= f.hidden_field :all_districts_price, value: zuckerl_price('all_districts') %>
-
 
 <div class="input-field">
   <%= f.label :title do %>
@@ -50,24 +47,24 @@
 </div>
 
 <div class="input-labledcheckbox">
-  <%= f.label :all_districts do %>
+  <%= f.label :entire_region do %>
     <%= icon_tag "map-location" %>
     <span>Zuckerl Sichtbarkeit</span>
   <% end %>
   <div class="field-wrp district_visibility">
     <div class="input-radio">
-      <%= f.radio_button :all_districts, false, data: { behavior: 'all_districts_false'} %>
-      <%= f.label "all_districts_false", "#{@location.districts.first.numeric}. Bezirk" %>
+      <%= f.radio_button :entire_region, false, data: { behavior: 'entire_region_false', price: Zuckerl.price } %>
+      <%= f.label "entire_region_false", "#{@location.districts.first.numeric}. Bezirk" %>
     </div>
     <div class="input-radio">
-      <%= f.radio_button :all_districts, true, data: { behavior: 'all_districts_true'} %>
-      <%= f.label "all_districts_true", "Ganz #{current_region}" %>
+      <%= f.radio_button :entire_region, true, data: { behavior: 'entire_region_true', price: Zuckerl.region_price } %>
+      <%= f.label "entire_region_true", "Ganz #{current_region}" %>
     </div>
     <div class="description">
       <small class="graetzl">
         Dein Grätzlzuckerl läuft im gesamten <%= @location.districts.first.numeric %>. Bezirk und kostet <span data-behavior="pricepreview"></span>.
       </small>
-      <small class="all_districts">
+      <small class="entire_region">
         Dein Grätzlzuckerl läuft in ganz <%= current_region %> und kostet <span data-behavior="pricepreview"></span>.
       </small>
     </div>

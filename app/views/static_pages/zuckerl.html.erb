@@ -60,8 +60,8 @@
   <div class="wrp">
     <h3>Was kostet das Grätzlzuckerl?</h3>
     <p>
-      Ein Grätzlzuckerl mit der Sichtbarkeit <strong>"Bezirk" kostet <%= zuckerl_price('graetzl') %></strong> (inkl. 20% USt.).<br>
-      Ein Grätzlzuckerl mit der Sichtbarkeit <strong>"ganz <%= current_region %>" kostet <%= zuckerl_price('all_districts') %></strong> (inkl. 20% USt.).
+      Ein Grätzlzuckerl mit der Sichtbarkeit <strong>"Bezirk" kostet <%= number_to_currency(Zuckerl.price / 100) %></strong> (inkl. 20% USt.).<br>
+      Ein Grätzlzuckerl mit der Sichtbarkeit <strong>"ganz <%= current_region %>" kostet <%= number_to_currency(Zuckerl.region_price / 100) %></strong> (inkl. 20% USt.).
     </p>
   </div>
 
