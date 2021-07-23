@@ -193,6 +193,7 @@ Rails.application.routes.draw do
   post 'messenger/update_thread'
 
   root 'static_pages#home'
+
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'info', to: 'static_pages#help'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
