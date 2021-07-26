@@ -29,7 +29,7 @@
         Zusammenarbeit und Gemeinschaft stehen dabei im Mittelpunkt!
       </p>
       <p>
-        imGrätzl.at entfaltet seine Stärke im Wir - Ganz lokal in Wien, analog und digital.
+        imGrätzl.at entfaltet seine Stärke im Wir - Ganz lokal in <%= current_region %>, analog und digital.
       </p>
     </div>
     <div class="card"></div>
@@ -72,11 +72,11 @@
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_raumteiler_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den Raumteilern', rooms_wien_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zu den Raumteilern', region_rooms_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Raumteiler2.png'), rooms_wien_path, class: '-feature') %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Raumteiler2.png'), region_rooms_path, class: '-feature') %>
     </div>
   </article>
 
@@ -87,7 +87,7 @@
       <h2>Toolteiler</h2>
       <h3>Arbeitsequipment leihen & Geräte am Standort nutzen</h3>
       <p>
-         Ermögliche GründerInnen, Selbstständigen, Kreativen und MacherInnen in Wien
+         Ermögliche GründerInnen, Selbstständigen, Kreativen und MacherInnen in <%= current_region %>
          die Nutzung deines Arbeitsequipments. Du kannst über den Toolteiler Geräte verleihen
          oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen.
          Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst
@@ -96,11 +96,11 @@
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_toolteiler_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den Toolteilern', tool_offers_wien_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zu den Toolteilern', region_tool_offers_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Toolteiler.png'), groups_wien_path(:category => 1), class: '-illu -feature') %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Toolteiler.png'), region_groups_path(:category => 1), class: '-illu -feature') %>
     </div>
   </article>
 
@@ -115,11 +115,11 @@
         Eine Aktion von Selbstständigen für Selbstständige, Kulturschaffende und Macher*innen. Wählt aus den Angeboten das aus, was euch jetzt stärkt und weiterbringt. Alle Angebote sind im Rahmen der Aktion kostenlos.
       </p>
       <p class="link">
-        <%= link_to 'Zur Aktion Selbstständige für Selbstständige', platform_meetings_wien_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zur Aktion Selbstständige für Selbstständige', region_platform_meetings_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Community-Treffen.png'), platform_meetings_wien_path, class: '-feature') %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Community-Treffen.png'), region_platform_meetings_path, class: '-feature') %>
     </div>
   </article>
   -->
@@ -139,11 +139,11 @@
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_gruppen_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den Gruppen', groups_wien_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zu den Gruppen', region_groups_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Gruppen.png'), groups_wien_path, class: '-feature') %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Gruppen.png'), region_groups_path, class: '-feature') %>
     </div>
   </article>
 
@@ -164,11 +164,11 @@
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_anbieter_und_locations_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den AnbieterInnen', locations_wien_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zu den AnbieterInnen', region_locations_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Locationpage2.png'), locations_wien_path, class: '-feature') %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Locationpage2.png'), region_locations_path, class: '-feature') %>
     </div>
   </article>
 
@@ -184,11 +184,11 @@
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_events_und_workshops_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den Events', meetings_wien_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zu den Events', region_meetings_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Events.png'), meetings_wien_path, class: '-feature') %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Events.png'), region_meetings_path, class: '-feature') %>
     </div>
   </article>
 
@@ -200,17 +200,17 @@
       <p>
         Mit einem Grätzlzuckerl kannst du günstig & zielgerichtet Werbung für
         dich und dein spezielles Angebot in deinem Stadtteil & Bezirk schalten.
-        Ein Zuckerl läuft immer für einen Monat und kostet dich <%= zuckerl_price('graetzl') %> (inkl. 20% USt.).
+        Ein Zuckerl läuft immer für einen Monat und kostet dich <%= number_to_currency(Zuckerl.price / 100) %> (inkl. 20% USt.).
         <br>
-        Möchtest du darüber hinaus dein Grätzlzuckerl nicht nur in deinem Bezirk sondern in ganz Wien schalten - Auch das geht seit Kurzem :)
+        Möchtest du darüber hinaus dein Grätzlzuckerl nicht nur in deinem Bezirk sondern in ganz <%= current_region %> schalten - Auch das geht seit Kurzem :)
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_infos_zum_graetzlzuckerl_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den Grätzlzuckerln', zuckerls_wien_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zu den Grätzlzuckerln', region_zuckerls_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">
-      <%= link_to(image_tag('info/imGraetzl-Features-Graetzlzuckerl.png'), zuckerls_wien_path) %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Graetzlzuckerl.png'), region_zuckerls_path) %>
     </div>
   </article>
 

@@ -28,7 +28,7 @@
         <span><%= meeting.location.name %></span>
       <% end %>
     <% elsif meeting.user %>
-      <%= link_to [Graetzl.memoized(meeting.user.graetzl_id), meeting.user], class: 'initiator' do %>
+      <%= link_to meeting.user, class: 'initiator' do %>
         <%= avatar_image meeting.user, size: :thumb, class: 'img-round' %>
         <span><%= meeting.user.username %></span>
       <% end %>

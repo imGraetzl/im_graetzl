@@ -55,7 +55,6 @@
 @import "components/sideFlag";
 @import "components/badge";
 @import "components/tabs-ctrl";
-@import "components/pagination";
 @import "components/medalBadge";
 @import "components/cardBox";
 @import "components/commonTypograpy";
@@ -122,8 +121,13 @@
 @import "controllers/room_rentals";
 @import "controllers/going_tos";
 @import "controllers/group";
-@import "controllers/wien";
+@import "controllers/regions";
 @import "controllers/adminreports";
 @import "controllers/messenger";
 @import "controllers/reports";
 
+//---------------------------------------------------------------------------------------------*\
+// OVERWRITE CSS FOR REGION SPECIFIC CHANGES
+//---------------------------------------------------------------------------------------------*/
+
+@import "components/region";

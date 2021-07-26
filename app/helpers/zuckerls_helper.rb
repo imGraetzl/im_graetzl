@@ -29,15 +29,4 @@ module ZuckerlsHelper
     I18n.localize time.end_of_month+1.day, format: '%B %Y'
   end
 
-  ZuckerlGraetzlPrice = 16.5
-  ZuckerlAllDistrictsPrice = 175
-
-  def zuckerl_price(zuckerl_visibility)
-    if zuckerl_visibility == 'all_districts'
-      number_to_currency(ZuckerlAllDistrictsPrice + (ZuckerlAllDistrictsPrice * 0.20))
-    else
-      number_to_currency(ZuckerlGraetzlPrice + (ZuckerlGraetzlPrice * 0.20))
-    end
-  end
-
 end

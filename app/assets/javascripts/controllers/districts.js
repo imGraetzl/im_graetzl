@@ -5,11 +5,6 @@ APP.controllers.districts = (function() {
     initMap();
     initFilter();
     initMobileNav();
-    initSlider();
-  }
-
-  function initSlider() {
-    APP.components.cardSlider.init($("#card-slider"));
   }
 
   function initMenu() {
@@ -27,20 +22,7 @@ APP.controllers.districts = (function() {
   }
 
   function initMap() {
-    var map = APP.components.graetzlMap;
-    var mapdata = $('#graetzlMapWidget').data('mapdata');
-    map.init(function() {
-      map.showMapDistrict(mapdata.districts, {
-        style: $.extend(map.styles.mint, {
-          weight: 0,
-          fillOpacity: 0.5
-        })
-      });
-      map.showMapGraetzl(mapdata.graetzls, {
-        interactive: true,
-        zoomAfterRender: false
-      });
-    });
+    APP.components.areaMap.init($('#area-map'), { interactive: true });
   }
 
   function initFilter() {
@@ -49,11 +31,11 @@ APP.controllers.districts = (function() {
     }
 
     if ($('.cards-filter').exists()) {
-      APP.components.cardFilter.init();
+      APP.components.cardBoxFilter.init();
     }
 
     if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
-      APP.components.cardFilterSlider.init($('#category-slider'));
+      APP.components.categoryFilter.init($('#category-slider'));
     }
 
   }

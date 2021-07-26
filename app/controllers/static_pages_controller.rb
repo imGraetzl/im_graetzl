@@ -1,10 +1,12 @@
 class StaticPagesController < ApplicationController
 
   def home
-    if current_user
-      redirect_to current_user.graetzl
+    if current_region.nil? # www.welocally.at
+      render 'platform_info', layout: 'platform'
+    elsif current_user && user_home_graetzl
+      redirect_to user_home_graetzl
     else
-      @activity_sample = ActivitySample.new
+      @activity_sample = ActivitySample.new(current_region: current_region)
     end
   end
 

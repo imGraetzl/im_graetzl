@@ -3,13 +3,13 @@ class ToolOffersController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @tool_offers = collection_scope.includes(:user)
+    @tool_offers = collection_scope.in(current_region).includes(:user)
     @tool_offers = filter_collection(@tool_offers)
     @tool_offers = @tool_offers.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show
-    @tool_offer = ToolOffer.non_deleted.find(params[:id])
+    @tool_offer = ToolOffer.in(current_region).non_deleted.find(params[:id])
     @comments = @tool_offer.comments.includes(:user, :images).order(created_at: :desc)
   end
 
@@ -20,6 +20,8 @@ class ToolOffersController < ApplicationController
   def create
     @tool_offer = ToolOffer.new(tool_offer_params)
     @tool_offer.user_id = current_user.id
+    @tool_offer.region_id = current_region.id
+
     set_address(@tool_offer, params[:feature])
 
     if @tool_offer.save

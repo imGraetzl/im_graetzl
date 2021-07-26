@@ -7,11 +7,7 @@
     robots: 'index, follow'
   )
 %>
-<% if @category %>
-  <% content_for :canonical_url, locations_category_district_path(@graetzl.district, @category) %>
-<% elsif @special_category %>
-  <% content_for :canonical_url, locations_category_district_path(@graetzl.district, @special_category) %>
-<% end %>
+<% content_for :canonical_url, region_locations_path(category: @category) if @category %>
 
 <section class="graetzls locations">
   <%= render 'map' %>
@@ -31,10 +27,10 @@
     <%= hidden_field_tag :special_category_id, @special_category %>
     <div class="filter-selection-text-jbox">
       Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
     </div>
-    <div id="filter-modal-district" class="filter-modal-jbox-district">
-      <%= render 'filters/district', graetzl_ids: @graetzl.id, district_ids: @graetzl.district.id, graetzl: @graetzl  %>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', graetzl: @graetzl %>
     </div>
   <% end %>
 

@@ -1,26 +1,28 @@
-#map {
+// Standalone LEAFLET-MAPs on DETAIL PAGES
+#leafletMap {
   height: 400px;
-  .leaflet-control-container {
-    display: block;
+  .leaflet-control-attribution {
+    display: none;
+  }
+  .map-avatar, .map-popup {
+    &.-hidden {
+      display:none;
+    }
+  }
+  .marker-container {
+    svg.icon {
+      width:50px;
+      height:50px;
+      color: $color-ambient-rosa;
+      margin-top:-38px;
+      margin-left:-20px;
+    }
   }
 }
-.marker-container {
-  svg.icon {
-    width:50px;
-    height:50px;
-    color: $color-ambient-rosa;
-    margin-top:-38px;
-    margin-left:-20px;
-  }
-}
-.map-avatar, .map-popup {
-  &.-hidden {
-    display:none;
-  }
-}
-.gmap img, .gmap iframe { max-width: 930px; width: 100%; }
-.infowindow {
-  padding:10px;
+
+.sideBar #leafletMap {
+  height: 268px;
+  .leaflet-control {display: none;}
 }
 
 .mapImgBlock {
@@ -51,7 +53,18 @@
     margin-top: -80px;
   }
 
-  #graetzlMapWidget {
+  // LEAFLET MAP
+  .leaflet-tile-pane {
+    //filter: hue-rotate(-1100deg) saturate(50%);
+    opacity: 0.8;
+  }
+  .leaflet-pane { z-index: auto !important; }
+  .leaflet-control-attribution,
+  .leaflet-control-container {
+    display: none;
+  }
+
+  #area-map {
     width: 100%;
     background-color: transparent;
     position: relative;
@@ -153,7 +166,6 @@
 }
 
 
-
 .mapImgBlock.-hasillu {
 
   .activeArea {
@@ -179,7 +191,7 @@
     }
   }
 
-  #graetzlMapWidget {
+  #area-map {
     height: 150px;
     @include respond-to(">=medium") {
       height: 200px;
@@ -192,31 +204,9 @@
       &::before {
         width: 650px;
       }
-
     }
   }
 
-}
-
-.mapImgBlock.-location {
-  margin-top: 0;
-  @include respond-to(">=medium") {
-    padding: 0 25px;
-  }
-  .navBlock h1 {
-    @include headlineBarbapapaMint();
-    @include textShadowHard($color-ambient-mint-dark);
-  }
-}
-
-.leaflet-tile-pane {
-  filter: hue-rotate(-1100deg) saturate(50%);
-  opacity: 0.8;
-}
-.leaflet-pane         { z-index: auto !important; }
-.leaflet-control-attribution,
-.leaflet-control-container {
-  display: none;
 }
 
 .activeArea {

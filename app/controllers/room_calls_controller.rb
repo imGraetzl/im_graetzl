@@ -2,7 +2,7 @@ class RoomCallsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
   def show
-    @room_call = RoomCall.find(params[:id])
+    @room_call = RoomCall.in(current_region).find(params[:id])
   end
 
   def new
@@ -13,6 +13,8 @@ class RoomCallsController < ApplicationController
   def create
     @room_call = RoomCall.new(room_call_params)
     @room_call.user_id = current_user.admin? ? params[:user_id] : current_user.id
+    @room_call.region_id = current_region.id
+
     set_address(@room_call, params[:feature])
     if @room_call.save
       @room_call.create_activity(:create, owner: @room_call.user)

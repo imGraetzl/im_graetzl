@@ -3,22 +3,11 @@ APP.controllers.graetzls = (function() {
     function init() {
       initMap();
       initFilter();
-      initSlider();
       initJBox();
     }
 
-    function initSlider() {
-      APP.components.cardSlider.init($("#card-slider"));
-    }
-
     function initMap() {
-      var mapdata = $('#graetzlMapWidget').data('mapdata');
-      var map =  APP.components.graetzlMap;
-      map.init(function() {
-        map.showMapGraetzl(mapdata.graetzls, {
-          style: $.extend(map.styles.rose, { weight: 4, fillOpacity: 0.2 })
-        });
-      });
+      APP.components.areaMap.init($('#area-map'));
     }
 
     function initFilter() {
@@ -27,11 +16,11 @@ APP.controllers.graetzls = (function() {
       }
 
       if ($('.cards-filter').exists()) {
-        APP.components.cardFilter.init();
+        APP.components.cardBoxFilter.init();
       }
 
       if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
-        APP.components.cardFilterSlider.init($('#category-slider'));
+        APP.components.categoryFilter.init($('#category-slider'));
       }
 
     }

@@ -1,8 +1,8 @@
 class DistrictsController < ApplicationController
   before_action :load_district
 
-  def show
-    @activity_sample = ActivitySample.new(district: @district)
+  def index
+    @activity_sample = ActivitySample.new(district: @district, current_region: current_region)
   end
 
   def graetzls
@@ -37,7 +37,7 @@ class DistrictsController < ApplicationController
   end
 
   def groups
-    @featured_groups = @district.groups.featured.include_for_box
+    @featured_groups = @district.groups.in(current_region).featured.include_for_box
     @category = GroupCategory.find_by(id: params[:category])
   end
 
@@ -47,7 +47,7 @@ class DistrictsController < ApplicationController
   private
 
   def load_district
-    @district = District.find(params[:id])
+    @district = District.in(current_region).find(params[:id])
   end
 
 end

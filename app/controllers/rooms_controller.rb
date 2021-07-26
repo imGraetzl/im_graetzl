@@ -3,14 +3,14 @@ class RoomsController < ApplicationController
   def index
     head :ok and return if browser.bot? && !request.format.js?
 
-    room_calls = room_calls_scope.includes(:user)
+    room_calls = room_calls_scope.in(current_region).includes(:user)
     room_calls = filter_calls(room_calls)
 
-    room_offers = room_offers_scope.includes(:user)
+    room_offers = room_offers_scope.in(current_region).includes(:user)
     room_offers = filter_offers(room_offers)
     room_offers = room_offers.by_currentness.page(params[:page]).per(params[:per_page] || 10)
 
-    room_demands = room_demands_scope.includes(:user, :room_categories)
+    room_demands = room_demands_scope.in(current_region).includes(:user, :room_categories)
     room_demands = filter_demands(room_demands)
     room_demands = room_demands.by_currentness.page(params[:page]).per(params[:per_page] || 10)
 

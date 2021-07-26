@@ -1,13 +1,13 @@
 <% meta(
-    title: t('.title', numeric: @district.numeric, zip: @district.zip),
-    description: t('.description', numeric: @district.numeric, name: @district.name),
-    og_title: t('.title', numeric: @district.numeric, zip: @district.zip),
-    og_description: t('.description', numeric: @district.numeric, name: @district.name),
+    title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+    description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
+    og_title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
     og_image: image_url('meta/toolteiler.jpg'),
     robots: 'index, follow'
   )
 %>
-<% content_for :canonical_url, tool_offers_category_wien_path(@category) if @category %>
+<% content_for :canonical_url, region_tool_offers_path(category: @category) if @category %>
 
 
 <section class="districts toolteiler">

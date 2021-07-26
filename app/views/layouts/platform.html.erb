@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to WeLocally.at</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= render 'tracking_tags' %>
+</head>
+
+<body>
+  <%= render 'platform/header' %>
+  <%= render 'flashes' %>
+
+  <main>
+    <%= yield %>
+  </main>
+
+  <%= render 'platform/footer' %>
+  <%= javascript_include_tag 'application' %>
+  <%= render "icons" %>
+</body>
+
+</html>

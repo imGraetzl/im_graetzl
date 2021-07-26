@@ -5,18 +5,18 @@ class SearchController < ApplicationController
   end
 
   def user
-    @results = SearchService.new(params[:q]).user
+    @results = SearchService.new(current_region, params[:q]).user
     respond_to { |format| format.json }
   end
 
   def autocomplete
-    @results = SearchService.new(params[:q]).sample
+    @results = SearchService.new(current_region, params[:q]).sample
     respond_to { |format| format.json }
   end
 
   def results
     head :ok and return if browser.bot? && !request.format.js?
-    @results = SearchService.new(params[:q], search_params).search
+    @results = SearchService.new(current_region, params[:q], search_params).search
   end
 
   def search_params

@@ -1,6 +1,8 @@
 class MailchimpLocationUpdateJob < ApplicationJob
 
   def perform(location)
+    return if location.user.nil?
+
     graetzl = location.graetzl
     list_id = Rails.application.secrets.mailchimp_list_id
     member_id = mailchimp_member_id(location.user)

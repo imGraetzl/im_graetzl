@@ -9,17 +9,17 @@
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
-      <%= nav_menu_item("map-location", 'Wien Karte', wien_path) %>
-      <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_wien_path) %>
-      <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_wien_path) %>
-      <%= nav_menu_item("coop-share-white", 'Gruppen', groups_wien_path) %>
-      <%= nav_menu_item("location", 'Anbieter & Locations', locations_wien_path) %>
-      <%= nav_menu_item("calendar-2", 'Events & Workshops', meetings_wien_path) %>
-      <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', platform_meetings_wien_path) %>
-      <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', zuckerls_wien_path) %>
+      <%= nav_menu_item("map-location", "Übersichtskarte", region_index_path) %>
+      <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
+      <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
+      <%= nav_menu_item("coop-share-white", 'Gruppen', region_groups_path) %>
+      <%= nav_menu_item("location", 'Anbieter & Locations', region_locations_path) %>
+      <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
+      <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) if current_region.use_districts? %>
+      <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
       <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
       <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) %>
+      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
     </div>
 
     <div class="nav-dropdown-menu nav-dropdown-submenu" id="nav-submenu-site-location">
@@ -34,13 +34,13 @@
         <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
       <% elsif district %>
         <%= nav_submenu_back('nav-submenu-site-city') %>
-        <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_path(district)) %>
-        <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", rooms_district_path(district)) %>
-        <%= nav_menu_item("tacker", "Toolteiler (#{district.numeric}. Bez.)", tool_offers_district_path(district)) %>
-        <%= nav_menu_item("coop-share", "Gruppen (#{district.numeric}. Bez.)", groups_district_path(district)) %>
-        <%= nav_menu_item("location", "Anbieter & Locations (#{district.numeric}. Bez.)", locations_district_path(district)) %>
-        <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", meetings_district_path(district)) %>
-        <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", zuckerls_district_path(district)) %>
+        <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_index_path(district)) %>
+        <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", district_rooms_path(district)) %>
+        <%= nav_menu_item("tacker", "Toolteiler (#{district.numeric}. Bez.)", district_tool_offers_path(district)) %>
+        <%= nav_menu_item("coop-share", "Gruppen (#{district.numeric}. Bez.)", district_groups_path(district)) %>
+        <%= nav_menu_item("location", "Anbieter & Locations (#{district.numeric}. Bez.)", district_locations_path(district)) %>
+        <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", district_meetings_path(district)) %>
+        <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", district_zuckerls_path(district)) %>
       <% end %>
     </div>
 
@@ -49,21 +49,21 @@
   <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-city-link', data: { dropdown: "nav-site-city" } do %>
-    <%= icon_tag "arrow-down-2" %> Wien
+    <%= icon_tag "arrow-down-2" %> <%= current_region %>
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-site-city">
-    <%= nav_menu_item("map-location", 'Wien Karte', wien_path) %>
-    <%= nav_menu_item("raumteiler", 'Raumteiler', rooms_wien_path) %>
-    <%= nav_menu_item("tacker", 'Toolteiler', tool_offers_wien_path) %>
-    <%= nav_menu_item("coop-share-white", 'Gruppen', groups_wien_path) %>
-    <%= nav_menu_item("location", 'Anbieter & Locations', locations_wien_path) %>
-    <%= nav_menu_item("calendar-2", 'Events & Workshops', meetings_wien_path) %>
-    <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', platform_meetings_wien_path) %>
-    <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', zuckerls_wien_path) %>
+    <%= nav_menu_item("map-location", "Übersichtskarte", region_index_path) %>
+    <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
+    <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
+    <%= nav_menu_item("coop-share-white", 'Gruppen', region_groups_path) %>
+    <%= nav_menu_item("location", 'Anbieter & Locations', region_locations_path) %>
+    <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
+    <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) if current_region.use_districts?  %>
+    <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
     <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
     <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-    <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) %>
+    <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
   </div>
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
@@ -73,8 +73,10 @@
       <%= graetzl.name %>
     <% elsif district %>
       <%= district.name %>
-    <% else %>
+    <% elsif current_region.use_districts %>
       Grätzl entdecken
+    <% else %>
+      Gemeinden
     <% end %>
     </span>
   <% end %>
@@ -89,15 +91,15 @@
       <%= nav_menu_item("calendar-2", "Events & Workshops", meetings_graetzl_path(graetzl)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
     <% elsif district %>
-      <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_path(district)) %>
-      <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", rooms_district_path(district)) %>
-      <%= nav_menu_item("tacker", "Toolteiler (#{district.numeric}. Bez.)", tool_offers_district_path(district)) %>
-      <%= nav_menu_item("coop-share", "Gruppen (#{district.numeric}. Bez.)", groups_district_path(district)) %>
-      <%= nav_menu_item("location", "Anbieter & Locations (#{district.numeric}. Bez.)", locations_district_path(district)) %>
-      <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", meetings_district_path(district)) %>
-      <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", zuckerls_district_path(district)) %>
+      <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_index_path(district)) %>
+      <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", district_rooms_path(district)) %>
+      <%= nav_menu_item("tacker", "Toolteiler (#{district.numeric}. Bez.)", district_tool_offers_path(district)) %>
+      <%= nav_menu_item("coop-share", "Gruppen (#{district.numeric}. Bez.)", district_groups_path(district)) %>
+      <%= nav_menu_item("location", "Anbieter & Locations (#{district.numeric}. Bez.)", district_locations_path(district)) %>
+      <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", district_meetings_path(district)) %>
+      <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", district_zuckerls_path(district)) %>
     <% else %>
-      <%= nav_menu_item("map-location", "Wien Karte", wien_path) %>
+      <%= nav_menu_item("map-location", "Übersichtskarte", region_index_path) %>
     <% end %>
   </div>
 

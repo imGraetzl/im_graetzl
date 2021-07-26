@@ -1,20 +1,20 @@
 <% if @category %>
   <% meta(
-      title: t('.title_category', numeric: @district.numeric, zip: @district.zip, category: @category.name),
-      description: t('.description_category', numeric: @district.numeric, name: @district.name, category: @category.name),
+      title: t('.title_category', numeric: @district.numeric, zip: @district.zip, category: @category.name, region: current_region.name),
+      description: t('.description_category', numeric: @district.numeric, name: @district.name, category: @category.name, region: current_region.name),
     )
   %>
 <% else %>
   <% meta(
-      title: t('.title', numeric: @district.numeric, zip: @district.zip),
-      description: t('.description', numeric: @district.numeric, name: @district.name),
+      title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+      description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
     )
   %>
 <% end %>
 <% meta(
     robots: 'index, follow',
-    og_title: t('.title', numeric: @district.numeric, zip: @district.zip),
-    og_description: t('.description', numeric: @district.numeric, name: @district.name),
+    og_title: t('.title', numeric: @district.numeric, zip: @district.zip, region: current_region.name),
+    og_description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
     og_image: image_url('meta/og_logo.png')
   )
 %>
@@ -35,13 +35,13 @@
     <div class="filter-selection-text-jbox">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler', jbox_title: 'Filtern nach ...'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @district.zip_name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @district.zip_name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-areas filter-applied' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/room_type' %>
     </div>
-    <div id="filter-modal-district" class="filter-modal-jbox-district">
-      <%= render 'filters/district', graetzl_ids: @district.graetzl_ids, district_ids: @district.id %>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', district: @district %>
     </div>
   <% end %>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_06_141948) do
+ActiveRecord::Schema.define(version: 2021_07_23_132805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.boolean "enabled", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "region_id"
+    t.index ["region_id"], name: "index_api_accounts_on_region_id"
   end
 
   create_table "billing_addresses", id: :serial, force: :cascade do |t|
@@ -221,6 +223,8 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.datetime "updated_at"
     t.geometry "area", limit: {:srid=>0, :type=>"st_polygon"}
     t.string "slug", limit: 255
+    t.string "region_id"
+    t.index ["region_id"], name: "index_districts_on_region_id"
     t.index ["slug"], name: "index_districts_on_slug"
   end
 
@@ -285,6 +289,9 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.geometry "area", limit: {:srid=>0, :type=>"st_polygon"}
     t.string "slug", limit: 255
     t.integer "users_count", default: 0
+    t.string "region_id"
+    t.string "zip"
+    t.index ["region_id"], name: "index_graetzls_on_region_id"
     t.index ["slug"], name: "index_graetzls_on_slug"
   end
 
@@ -358,7 +365,9 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.boolean "default_joined", default: false
     t.integer "group_users_count"
     t.jsonb "cover_photo_data"
+    t.string "region_id"
     t.index ["location_id"], name: "index_groups_on_location_id"
+    t.index ["region_id"], name: "index_groups_on_region_id"
     t.index ["room_call_id"], name: "index_groups_on_room_call_id"
     t.index ["room_demand_id"], name: "index_groups_on_room_demand_id"
     t.index ["room_offer_id"], name: "index_groups_on_room_offer_id"
@@ -432,10 +441,12 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.integer "address_id"
     t.jsonb "avatar_data"
     t.jsonb "cover_photo_data"
+    t.string "region_id"
     t.index ["address_id"], name: "index_locations_on_address_id"
     t.index ["created_at"], name: "index_locations_on_created_at"
     t.index ["graetzl_id"], name: "index_locations_on_graetzl_id"
     t.index ["last_activity_at"], name: "index_locations_on_last_activity_at"
+    t.index ["region_id"], name: "index_locations_on_region_id"
     t.index ["slug"], name: "index_locations_on_slug"
     t.index ["user_id"], name: "index_locations_on_user_id"
   end
@@ -488,12 +499,14 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.text "online_description"
     t.jsonb "cover_photo_data"
     t.string "online_url"
+    t.string "region_id"
     t.index ["address_id"], name: "index_meetings_on_address_id"
     t.index ["created_at"], name: "index_meetings_on_created_at"
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"
     t.index ["group_id"], name: "index_meetings_on_group_id"
     t.index ["location_id"], name: "index_meetings_on_location_id"
     t.index ["meeting_category_id"], name: "index_meetings_on_meeting_category_id"
+    t.index ["region_id"], name: "index_meetings_on_region_id"
     t.index ["slug"], name: "index_meetings_on_slug"
     t.index ["user_id"], name: "index_meetings_on_user_id"
   end
@@ -613,10 +626,12 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.integer "address_id"
     t.jsonb "cover_photo_data"
     t.jsonb "avatar_data"
+    t.string "region_id"
     t.index ["address_id"], name: "index_room_calls_on_address_id"
     t.index ["district_id"], name: "index_room_calls_on_district_id"
     t.index ["graetzl_id"], name: "index_room_calls_on_graetzl_id"
     t.index ["location_id"], name: "index_room_calls_on_location_id"
+    t.index ["region_id"], name: "index_room_calls_on_region_id"
     t.index ["user_id"], name: "index_room_calls_on_user_id"
   end
 
@@ -669,7 +684,9 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.integer "status", default: 0
     t.date "last_activated_at"
     t.jsonb "avatar_data"
+    t.string "region_id"
     t.index ["location_id"], name: "index_room_demands_on_location_id"
+    t.index ["region_id"], name: "index_room_demands_on_region_id"
     t.index ["user_id"], name: "index_room_demands_on_user_id"
   end
 
@@ -757,10 +774,12 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.integer "address_id"
     t.jsonb "cover_photo_data"
     t.jsonb "avatar_data"
+    t.string "region_id"
     t.index ["address_id"], name: "index_room_offers_on_address_id"
     t.index ["district_id"], name: "index_room_offers_on_district_id"
     t.index ["graetzl_id"], name: "index_room_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_room_offers_on_location_id"
+    t.index ["region_id"], name: "index_room_offers_on_region_id"
     t.index ["user_id"], name: "index_room_offers_on_user_id"
   end
 
@@ -810,6 +829,8 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_card_last4"
+    t.string "region_id"
+    t.index ["region_id"], name: "index_room_rentals_on_region_id"
     t.index ["room_offer_id"], name: "index_room_rentals_on_room_offer_id"
     t.index ["stripe_payment_intent_id"], name: "index_room_rentals_on_stripe_payment_intent_id"
     t.index ["user_id"], name: "index_room_rentals_on_user_id"
@@ -878,9 +899,11 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.datetime "updated_at", null: false
     t.integer "address_id"
     t.jsonb "cover_photo_data"
+    t.string "region_id"
     t.index ["address_id"], name: "index_tool_offers_on_address_id"
     t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_tool_offers_on_location_id"
+    t.index ["region_id"], name: "index_tool_offers_on_region_id"
     t.index ["status"], name: "index_tool_offers_on_status"
     t.index ["tool_category_id"], name: "index_tool_offers_on_tool_category_id"
     t.index ["tool_subcategory_id"], name: "index_tool_offers_on_tool_subcategory_id"
@@ -915,6 +938,8 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.string "invoice_number"
     t.decimal "daily_price", precision: 10, scale: 2, default: "0.0"
     t.string "payment_card_last4"
+    t.string "region_id"
+    t.index ["region_id"], name: "index_tool_rentals_on_region_id"
     t.index ["stripe_payment_intent_id"], name: "index_tool_rentals_on_stripe_payment_intent_id"
     t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"
     t.index ["user_id"], name: "index_tool_rentals_on_user_id"
@@ -999,12 +1024,14 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.integer "address_id"
     t.jsonb "avatar_data"
     t.jsonb "cover_photo_data"
+    t.string "region_id"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["graetzl_id"], name: "index_users_on_graetzl_id"
     t.index ["location_category_id"], name: "index_users_on_location_category_id"
+    t.index ["region_id"], name: "index_users_on_region_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
     t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id"
@@ -1022,12 +1049,16 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
-    t.boolean "all_districts", default: false
+    t.boolean "entire_region", default: false
     t.string "invoice_number"
     t.string "link"
     t.jsonb "cover_photo_data"
+    t.string "region_id"
+    t.bigint "user_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
+    t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
+    t.index ["user_id"], name: "index_zuckerls_on_user_id"
   end
 
   add_foreign_key "billing_addresses", "users", on_delete: :nullify
@@ -1107,4 +1138,5 @@ ActiveRecord::Schema.define(version: 2021_07_06_141948) do
   add_foreign_key "user_messages", "user_message_threads", on_delete: :cascade
   add_foreign_key "user_messages", "users", on_delete: :cascade
   add_foreign_key "users", "location_categories", on_delete: :nullify
+  add_foreign_key "zuckerls", "users", on_delete: :nullify
 end

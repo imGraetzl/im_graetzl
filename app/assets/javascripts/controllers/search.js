@@ -5,7 +5,7 @@ APP.controllers.search = (function() {
         $searchInput = $("[data-behavior='searchinput']");
 
         if ($('.cards-filter').exists()) {
-          APP.components.cardFilter.init();
+          APP.components.cardBoxFilter.init();
         }
 
         $('.cards-filter').on('submit', function(event){
@@ -13,7 +13,7 @@ APP.controllers.search = (function() {
 
           // Submit Form if Field not empty
           if ($searchInput.val().length >= 3) {
-              APP.components.cardFilter.submitForm();
+              APP.components.cardBoxFilter.submitForm();
               gtag(
                 'event', 'Searchpage :: Results', {
                 'event_category': 'Search',

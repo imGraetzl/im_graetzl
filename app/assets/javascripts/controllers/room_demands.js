@@ -80,7 +80,7 @@ APP.controllers.room_demands = (function() {
 
 
     function initRoomForm() {
-      APP.components.graetzlSelectFilter.init($('#district-graetzl-select'));
+      APP.components.graetzlSelectFilter.init($('#area-select'));
       APP.components.search.userAutocomplete();
 
       $('#custom-keywords').tagsInput({

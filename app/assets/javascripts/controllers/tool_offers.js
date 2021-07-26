@@ -30,6 +30,9 @@ APP.controllers.tool_offers = (function() {
     }
 
     function initToolOfferDetails() {
+
+      APP.components.leafletMap.init();
+
       $('.request-price-form').find(".date-from, .date-to").pickadate({
         hiddenName: true,
         min: true,

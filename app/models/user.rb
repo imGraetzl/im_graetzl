@@ -136,11 +136,9 @@ class User < ApplicationRecord
     UsersMailer.welcome_email(self).deliver_later
     MailchimpUserSubscribeJob.perform_later(self)
 
-    # Add User to Default_Joined Groups in same District
-    Group.where(:default_joined => true).each do |group|
-      if group.districts.include?(self.district) && !group.users.include?(self)
-        group.group_users.create(user: self)
-      end
+    Group.in(region).default_joined.includes(:graetzls).each do |group|
+      next if self.groups.include?(group)
+      group.group_users.create(user: self) if group.graetzls.include?(self.greatzl)
     end
   end
 

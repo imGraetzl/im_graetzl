@@ -16,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     session[:confirmation_redirect] = params[:redirect] if params[:redirect].present?
 
     build_resource(sign_up_params)
+    resource.region_id = current_region.id
     resource.save
 
     if resource.persisted?

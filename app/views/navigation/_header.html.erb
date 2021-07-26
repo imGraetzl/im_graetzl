@@ -1,12 +1,12 @@
 <header class="navigation">
   <div class="inner">
     <div class="nav-body">
-      <%= render "navigation/site_menu", graetzl: @graetzl || current_user&.graetzl, district: @district %>
+      <%= render "navigation/site_menu", graetzl: @graetzl || user_home_graetzl, district: @district %>
 
       <div class="nav-logo">
         <%= link_to root_path do %>
-          <%= image_tag('svg/logo.svg', class: 'logo-desktop', width:120, height:84) %>
-          <%= image_tag('svg/logo_reduced.svg', class: 'logo-mobile', width:45, height:25) %>
+          <%= image_tag("regions/#{current_region.id}/logo.svg", class: 'logo-desktop', width:120, height:84) %>
+          <%= image_tag("regions/#{current_region.id}/logo_reduced.svg", class: 'logo-mobile', width:45, height:25) %>
         <% end %>
       </div>
 

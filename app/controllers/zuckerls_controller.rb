@@ -3,6 +3,7 @@ class ZuckerlsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
+    #@zuckerls = collection_scope.in(current_region)
     @zuckerls = collection_scope
     @zuckerls = @zuckerls.page(params[:page]).per(15).order(Arel.sql("RANDOM()"))
   end
@@ -14,7 +15,10 @@ class ZuckerlsController < ApplicationController
 
   def create
     @location = Location.find(params[:location_id])
-    @zuckerl = @location.zuckerls.new zuckerl_params
+    @zuckerl = @location.zuckerls.new(zuckerl_params)
+    @zuckerl.user = current_user
+    @zuckerl.region_id = current_region.id
+
     if @zuckerl.save
       @zuckerl.link ||= nil
       redirect_to zuckerl_billing_address_path @zuckerl
@@ -49,10 +53,10 @@ class ZuckerlsController < ApplicationController
   def collection_scope
     if params[:graetzl_id].present?
       graetzl = Graetzl.find(params[:graetzl_id])
-      graetzl.zuckerls
+      Zuckerl.for_area(graetzl)
     elsif params[:district_id].present?
       district = District.find(params[:district_id])
-      district.zuckerls
+      Zuckerl.for_area(district)
     else
       Zuckerl.live
     end
@@ -62,10 +66,10 @@ class ZuckerlsController < ApplicationController
     case
     when params[:location_id].present?
       @location = Location.find(params[:location_id])
-    when current_user.locations.approved.count == 1
-      @location = current_user.locations.approved.first
+    when current_user.locations.in(current_region).approved.count == 1
+      @location = current_user.locations.in(current_region).approved.first
     else
-      @locations = current_user.locations.approved
+      @locations = current_user.locations.in(current_region).approved
       render :new_location and return
     end
   end
@@ -86,7 +90,7 @@ class ZuckerlsController < ApplicationController
       :description,
       :cover_photo,
       :remove_cover_photo,
-      :all_districts,
+      :entire_region,
       :link
     )
   end

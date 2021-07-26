@@ -40,10 +40,12 @@
     </div>
 
     <h2 class="hl-main"><span>Wo</span> möchtest du idealerweise <span>anmieten</span>?</h2>
-    <div id="district-graetzl-select">
-      <div class="input-select">
-        <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
-      </div>
+    <div id="area-select">
+      <% if current_region.use_districts? %>
+        <div class="input-select">
+          <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
+        </div>
+      <% end %>
       <div class="input-select">
         <%= f.select :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
       </div>

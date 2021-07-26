@@ -10,6 +10,8 @@ class ToolRental < ApplicationRecord
 
   scope :submitted, -> { where.not(rental_status: :incomplete) }
 
+  before_create :set_region
+
   PAYMENT_METHODS = ['card', 'eps'].freeze
 
   def self.next_invoice_number
@@ -78,6 +80,12 @@ class ToolRental < ApplicationRecord
   def renter_invoice
     bucket = Aws::S3::Resource.new.bucket('invoices.imgraetzl.at')
     bucket.object("#{Rails.env}/tool_rentals/#{id}-renter.pdf")
+  end
+
+  private
+
+  def set_region
+    self.region_id = room_offer.region_id
   end
 
 end

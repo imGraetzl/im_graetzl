@@ -1,17 +1,13 @@
 <% meta(
     title: t('.title', graetzl: @graetzl.name),
-    description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
+    description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.numeric),
     og_title: t('.title', graetzl: @graetzl.name),
-    og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.district.numeric),
+    og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.numeric),
     og_image: image_url('meta/og_logo.png'),
     robots: 'index, follow'
   )
 %>
-<% if @category %>
-  <% content_for :canonical_url, rooms_category_district_path(@graetzl.district, @category) %>
-<% elsif @special_category %>
-  <% content_for :canonical_url, rooms_category_district_path(@graetzl.district, @special_category) %>
-<% end %>
+<% content_for :canonical_url, region_rooms_path(category: @category) if @category %>
 
 <section class="graetzls rooms">
   <%= render 'map' %>
@@ -33,13 +29,13 @@
     <div class="filter-selection-text-jbox">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-district', data: { no_filter_label: 'ganz Wien'}, class: 'filter-modal-district filter-applied' %>
+      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/room_type' %>
     </div>
-    <div id="filter-modal-district" class="filter-modal-jbox-district">
-      <%= render 'filters/district', graetzl_ids: @graetzl.id, district_ids: @graetzl.district.id, graetzl: @graetzl  %>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', graetzl: @graetzl %>
     </div>
   <% end %>
 

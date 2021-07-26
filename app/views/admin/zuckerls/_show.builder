@@ -3,7 +3,7 @@ context.instance_eval do
     row :id
     row :created_at
     row(:aasm_state){|z| status_tag(z.aasm_state)}
-    row :all_districts
+    row :entire_region
     row :visibility
     row(:payment_reference){|z| z.payment_reference}
     row :invoice_number

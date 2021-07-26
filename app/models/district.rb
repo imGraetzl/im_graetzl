@@ -23,8 +23,8 @@ class District < ApplicationRecord
     all_memoized[id]
   end
 
-  def self.sorted_by_zip
-    all_memoized.values.sort_by(&:zip)
+  def graetzl_ids
+    graetzls.map(&:id)
   end
 
   def long_name
@@ -39,7 +39,4 @@ class District < ApplicationRecord
     zip.slice(1..2).sub(%r{^0},"") if zip.present?
   end
 
-  def zuckerls
-    Zuckerl.live.where(location_id: locations.map(&:id)).or(Zuckerl.live.all_districts)
-  end
 end

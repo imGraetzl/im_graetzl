@@ -4,10 +4,18 @@ namespace :db do
   desc 'import graetzls from mapbox api'
   task import_graetzls: :environment do
 
+    # ---------------------------------
+    # rake db:import_graetzls kaernten ckqhr5awa0djj21p9wbz10jkb
+    # rake db:import_graetzls wien ckh0g7hga08kl26o5b1tu57nz
+    # ---------------------------------
+
+    ARGV.each { |a| task a.to_sym do ; end }
+    @region = ARGV[1]
+    @map_id = ARGV[2]
+
     def query_api
       access_token = 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'
-      map_id = 'ckh0g7hga08kl26o5b1tu57nz'
-      query = "https://api.mapbox.com/datasets/v1/malano78/#{map_id}/features?access_token=#{access_token}"
+      query = "https://api.mapbox.com/datasets/v1/malano78/#{@map_id}/features?access_token=#{access_token}"
       uri = URI.parse(URI.encode(query))
       HTTParty.get uri
     rescue HTTParty::Error
@@ -20,7 +28,7 @@ namespace :db do
         if feature['geometry'].present?
           area = RGeo::GeoJSON.decode(feature['geometry'], json_parser: :json)
           name = feature['properties']['title']
-          graetzl = Graetzl.find_or_create_by(name: name, area: area)
+          graetzl = Graetzl.find_or_create_by(name: name, area: area, region_id: @region)
         end
       end
     end

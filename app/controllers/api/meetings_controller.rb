@@ -1,7 +1,7 @@
 class Api::MeetingsController < Api::ApiController
 
   def index
-    @meetings = Meeting.active.visible_to_all.where(approved_for_api: true)
+    @meetings = Meeting.in(current_region).active.visible_to_all.where(approved_for_api: true)
     from_date, to_date, min_created_at = get_date_range
     if from_date || to_date
       @meetings = @meetings.where("starts_at_date >= ?", from_date) if from_date

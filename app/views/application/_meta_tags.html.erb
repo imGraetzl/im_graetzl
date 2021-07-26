@@ -1,4 +1,4 @@
-<title><%= yield(:title) %>imGrätzl.at</title>
+<title><%= yield(:title) %><%= t("#{current_region.id}.site_name") %></title>
 
 <%= canonical_tag %>
 
@@ -9,7 +9,7 @@
   <%= yield("og_#{tag}".to_sym) %>
 <% end %>
 
-<%= tag(:meta, property: 'og:site_name', content: t('.site_name')) %>
+<%= tag(:meta, property: 'og:site_name', content: t("#{current_region.id}.site_name")) %>
 <%= tag(:meta, property: 'og:locale', content: t('.locale')) %>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

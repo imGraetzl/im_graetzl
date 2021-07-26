@@ -1,6 +1,6 @@
 <section class="map-section cardBox">
   <% if @room_call.address.try(:coordinates) %>
-    <div id="map" class="cardBox" data-x="<%= @room_call.address.coordinates.x %>" data-y="<%= @room_call.address.coordinates.y %>"></div>
+    <div id="leafletMap" class="cardBox" data-x="<%= @room_call.address.coordinates.x %>" data-y="<%= @room_call.address.coordinates.y %>"></div>
     <div class="map-avatar -hidden"><%= icon_tag "pin" %></div>
   <% end %>
 </section>
