@@ -1,23 +1,23 @@
 class Region
-  REGION_LIST = {
-    'wien' => ['Wien', true, 'imgraetzl.at'],
-    'kaernten' => ['Unterkärnten', false, 'kaernten.welocally.at'],
-  }
-
-  attr_reader :id, :name, :use_districts, :domain
+  attr_reader :id, :name, :use_districts
   # (Maybe PLZ Range: The first two digits of the zip code)
 
-  def self.get(id)
-    if REGION_LIST.key?(id)
-      new(id, *REGION_LIST[id])
-    end
-  end
-
-  def initialize(id, name, use_districts, domain)
+  def initialize(id, name, use_districts)
     @id = id
     @name = name
     @use_districts = use_districts
     @domain = domain
+  end
+
+  def self.all
+    @regions ||= [
+      new('wien', 'Wien', true),
+      new('kaernten', 'Unterkärnten', false),
+    ]
+  end
+
+  def self.get(id)
+    all.find{|r| r.id == id }
   end
 
   def use_districts?
@@ -26,6 +26,22 @@ class Region
 
   def to_s
     name
+  end
+
+  def host
+    if Rails.env.production?
+      prefix = ""
+    elsif Rails.env.staging?
+      prefix = "staging."
+    else
+      prefix = "local."
+    end
+
+    if id == 'wien'
+      "#{prefix}imgraetzl.at"
+    else
+      "#{prefix}#{id}.welocally.at"
+    end
   end
 
   def districts

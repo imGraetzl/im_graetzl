@@ -47,8 +47,8 @@
           <%= image_tag 'regions/flag_AT.png', width:20, height:20, class: 'flag-icon' %>
         <% end %>
         <div class="nav-dropdown-menu" id="nav-site-regions">
-          <% ['kaernten', 'wien'].each do |region| region = Region.get(region) %>
-            <%= nav_menu_item("map-location", "#{region.name}", root_url(domain: "#{region.domain}")) %>
+          <% Region.all.each do |region| %>
+            <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
           <% end %>
         </div>
       </div>
