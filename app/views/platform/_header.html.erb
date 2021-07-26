@@ -48,7 +48,7 @@
         <% end %>
         <div class="nav-dropdown-menu" id="nav-site-regions">
           <% Region.all.each do |region| %>
-            <%= nav_menu_item("map-location", "#{region.name}", welocally_platform_url) %>
+            <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
           <% end %>
         </div>
       </div>
