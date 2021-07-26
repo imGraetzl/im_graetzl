@@ -1,0 +1,18 @@
+<section class="register-searchRegion">
+
+  <h1><span>In welcher Region</span> möchtest du dich registrieren ...</h1>
+
+  <div class="input-select">
+    <label for="select">
+      <%= icon_tag "map-location" %>
+      <span>Wähle deine Region</span>
+    </label>
+    <select name="select" id="select" onchange="location.href = $(this).val()">
+      <option value="">Auswählen</option>
+      <% ['kaernten', 'wien'].each do |region| region = Region.get(region) %>
+        <option value="<%= new_registration_url(domain: "#{region.domain}", origin: request.path) %>"><%= region.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+</section>

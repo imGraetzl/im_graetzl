@@ -82,14 +82,15 @@
       padding-left: 0;
       @include respond-to("<large") { display: none; }
     }
-    .nav-city-link, .nav-location-link {
+
+    .nav-city-link, .nav-location-link, .nav-about-link {
       @include respond-to("<large") { display: none; }
       span {
         @include ellipsis;
         max-width: 160px;
       }
-
     }
+
   }
 
   .nav-guest {
@@ -97,6 +98,9 @@
     align-items: center;
     height: 100%;
     .nav-top-link:last-of-type { padding-right: 0; }
+    .nav-top-link {
+      .icon { margin-right: 10px; }
+    }
   }
 
   .nav-user {
@@ -213,6 +217,12 @@
         @include respond-to(">=medium") { display: none; }
       }
     }
+  }
+
+  .nav-regions-link {
+    //padding-left:0px;
+    svg.icon {margin-right:3px !important}
+    .flag-icon {}
   }
 
 }

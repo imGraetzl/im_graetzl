@@ -1,10 +1,10 @@
 class Region
   REGION_LIST = {
-    'wien' => ['Wien', true],
-    'kaernten' => ['Unterkärnten', false],
+    'wien' => ['Wien', true, 'imgraetzl.at'],
+    'kaernten' => ['Unterkärnten', false, 'kaernten.welocally.at'],
   }
 
-  attr_reader :id, :name, :use_districts
+  attr_reader :id, :name, :use_districts, :domain
   # (Maybe PLZ Range: The first two digits of the zip code)
 
   def self.get(id)
@@ -13,10 +13,11 @@ class Region
     end
   end
 
-  def initialize(id, name, use_districts)
+  def initialize(id, name, use_districts, domain)
     @id = id
     @name = name
     @use_districts = use_districts
+    @domain = domain
   end
 
   def use_districts?

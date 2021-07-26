@@ -1,15 +1,21 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # GET /users/registrierung
   def new
-    if params[:feature].blank?
-      render "address_form" and return
+
+    if current_region.nil?
+      render 'select_region', layout: 'platform'
+    else
+      if params[:feature].blank?
+        render "address_form" and return
+      end
+
+      build_resource(origin: params[:origin])
+      address_resolver = AddressResolver.from_json(params[:feature])
+      self.resource.graetzl = address_resolver.graetzl
+      self.resource.build_address(address_resolver.address_fields)
+      respond_with self.resource
     end
 
-    build_resource(origin: params[:origin])
-    address_resolver = AddressResolver.from_json(params[:feature])
-    self.resource.graetzl = address_resolver.graetzl
-    self.resource.build_address(address_resolver.address_fields)
-    respond_with self.resource
   end
 
   def create
