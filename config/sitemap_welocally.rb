@@ -1,19 +1,14 @@
 require 'aws-sdk-s3'
 
-# use this sitemap file for all welocally.at regions
-# create seperate sitemap file for imgraetzl.at
-REGION_LIST = ['kaernten', 'wien']
-
-REGION_LIST.each do |region|
-
-  current_region = Region.get(region)
+Region.all.each do |region|
+  region = Region.get(region)
 
   # Set the host name for URL creation
-  SitemapGenerator::Sitemap.default_host = "https://#{current_region.id}.welocally.at"
+  SitemapGenerator::Sitemap.default_host = "https://#{region.id}.welocally.at"
   # pick a place safe to write the files
   SitemapGenerator::Sitemap.public_path = 'tmp/'
   # store on S3 using aws-sdk
-  SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/#{current_region.id}"
+  SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/#{region.id}"
   # Use Localhost (FileAdapter) or AWS Upload
   #SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV['UPLOADS_BUCKET'])
   SitemapGenerator::Sitemap.adapter = SitemapGenerator::FileAdapter.new
@@ -49,9 +44,8 @@ REGION_LIST.each do |region|
       add region_tool_offers_path(category: category), changefreq: 'daily', priority: 0.7
     end
 
-    # Districts if used in current_region
-    if current_region.use_districts
-
+    # Districts if used in region
+    if region.use_districts?
       District.find_each do |district|
         add district_path(district), changefreq: 'daily', priority: 0.8
         add locations_district_path(district), changefreq: 'daily', priority: 0.8
@@ -59,11 +53,10 @@ REGION_LIST.each do |region|
         add rooms_district_path(district), changefreq: 'daily', priority: 0.8
         add tool_offers_district_path(district), changefreq: 'daily', priority: 0.7
       end
-
     end
 
     # Graetzls
-    Graetzl.in(current_region).find_each do |graetzl|
+    Graetzl.in(region).find_each do |graetzl|
       add graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
       add locations_graetzl_path(graetzl), changefreq: 'daily', priority: 0.7
       add meetings_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
@@ -88,25 +81,25 @@ REGION_LIST.each do |region|
     end
 
     # Raumteiler
-    RoomOffer.in(current_region).find_each do |room_offer|
+    RoomOffer.in(region).find_each do |room_offer|
       add room_offer_path(room_offer), changefreq: 'daily', priority: 0.9
     end
 
-    RoomDemand.in(current_region).find_each do |room_demand|
+    RoomDemand.in(region).find_each do |room_demand|
       add room_demand_path(room_demand), changefreq: 'daily', priority: 0.8
     end
 
-    RoomCall.in(current_region).find_each do |room_call|
+    RoomCall.in(region).find_each do |room_call|
       add room_call_path(room_call), changefreq: 'daily', priority: 0.6
     end
 
     # Groups
-    Group.in(current_region).find_each do |group|
+    Group.in(region).find_each do |group|
       add group_path(group), changefreq: 'weekly', priority: 0.5
     end
 
     # Toolteiler
-    ToolOffer.in(current_region).non_deleted.find_each do |tool_offer|
+    ToolOffer.in(region).non_deleted.find_each do |tool_offer|
       add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.7
     end
 
