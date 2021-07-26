@@ -3,6 +3,8 @@ require "active_support/core_ext/integer/time"
 Rails.application.default_url_options = { protocol: 'https', host: 'www.imgraetzl.at' }
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.imgraetzl_host = "imgraetzl.at"
+  config.welocally_host = "welocally.at"
 
   # Code is not reloaded between requests.
   config.cache_classes = true

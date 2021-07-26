@@ -21,10 +21,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_region, :user_home_graetzl
 
   def current_region
-    if request.domain.end_with?('welocally.at')
-      region_domain = request.subdomain.split(".").first
+    if request.host.end_with?(Rails.application.config.welocally_host)
+      region_domain = request.host.split(".").first
       Region.get(region_domain)
-    else
+    elsif request.host.end_with?(Rails.application.config.imgraetzl_host)
       Region.get('wien')
     end
   end

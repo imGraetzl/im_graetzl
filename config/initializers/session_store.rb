@@ -1,5 +1,7 @@
 Rails.application.config.session_store(:cookie_store,
-  key: '_im_graetzl_session',
-  domain: ["imgraetzl.at", "welocally.at"],
+  key: Rails.env.production? ? "_im_graetzl_session" : "wl_session_#{Rails.env}",
+  domain: [
+    Rails.application.config.imgraetzl_host,
+    Rails.application.config.welocally_host,
+  ],
 )
-

@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def welocally_platform_url
+    root_url(host: Rails.application.config.welocally_host)
+  end
+
   def link_to_more_info
     blog_url = 'https://blog.imgraetzl.at/services/'
     icon = 'icon-lightbulb'

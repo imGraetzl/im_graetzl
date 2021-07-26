@@ -28,12 +28,10 @@ class Region
   end
 
   def host
-    if Rails.env.production?
-      id == 'wien' ? 'imgraetzl.at' : "#{id}.welocally.at"
-    elsif Rails.env.staging?
-      id == 'wien' ? 'staging.imgraetzl.at' : "#{id}.staging.welocally.at"
+    if id == 'wien'
+      Rails.application.config.imgraetzl_host
     else
-      id == 'wien' ? 'local.imgraetzl.at' : "#{id}.local.welocally.at"
+      "#{id}.#{Rails.application.config.welocally_host}"
     end
   end
 
