@@ -6,7 +6,6 @@ class Region
     @id = id
     @name = name
     @use_districts = use_districts
-    @domain = domain
   end
 
   def self.all

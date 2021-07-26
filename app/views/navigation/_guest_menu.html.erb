@@ -5,10 +5,7 @@
     <%= image_tag 'regions/flag_AT.png', width:20, height:20, class: 'flag-icon' %>
   <% end %>
   <div class="nav-dropdown-menu" id="nav-site-regions">
-    <%= nav_menu_item("map-location", "WeLocally.at", root_url(domain: "welocally.at", subdomain: request.subdomain.split(".").first)) %>
-    <% ['kaernten', 'wien'].each do |region| region = Region.get(region) %>
-      <%= nav_menu_item("map-location", "#{region.name}", root_url(domain: "#{region.domain}", subdomain: request.subdomain.split(".").first)) %>
-    <% end %>
+    <%= nav_menu_item("map-location", "WeLocally.at", root_url) %>
   </div>
 
 </div>
