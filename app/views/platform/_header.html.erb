@@ -9,31 +9,48 @@
           <%= icon_tag("layout-text") %>
           <span class="nav-mobile-toggle-label">Navigation</span>
         <% end %>
+
         <div class="nav-dropdown-menu" id="nav-site-main">
-          <div class="nav-dropdown-submenu shown" id="nav-submenu-site-city">
-            <%= nav_menu_item("map-location", "Übersichtskarte", region_index_path) %>
-          </div>
+          <%= nav_menu_item("lightbulb", 'Mehr Infos', info_path) %>
+          <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
         </div>
         <!-- /Mobile Menue -->
 
+
+        <!-- Desktop Menue -->
         <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
-        <%= link_to 'javascript:', class: 'nav-top-link', data: { dropdown: "nav-site-regions" } do %>
-          <%= icon_tag "arrow-down-2" %><span>Regionen</span>
+
+        <%= link_to 'javascript:', class: 'nav-top-link nav-about-link', data: { dropdown: "nav-site-about" } do %>
+          <%= icon_tag "arrow-down-2" %><span>Über WeLocally</span>
         <% end %>
 
+        <div class="nav-dropdown-menu" id="nav-site-about">
+          <%= nav_menu_item("lightbulb", 'Mehr Infos', info_path) %>
+          <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+        </div>
+        <!-- /Desktop Menue -->
+
+      </div>
+
+
+      <div class="nav-logo">
+        <%= link_to root_path do %>
+          <%= image_tag("regions/logo.svg", class: 'logo-desktop', width:120, height:84) %>
+          <%= image_tag("regions/logo_reduced.svg", class: 'logo-mobile', width:45, height:25) %>
+        <% end %>
+      </div>
+
+
+      <div class="nav-guest">
+        <%= link_to 'Kostenlos registrieren', new_registration_path, class: 'nav-top-link flare' %>
+        <%= link_to 'javascript:', class: 'nav-top-link nav-regions-link', data: { dropdown: "nav-site-regions" } do %>
+          <%= image_tag 'regions/flag_AT.png', width:20, height:20, class: 'flag-icon' %>
+        <% end %>
         <div class="nav-dropdown-menu" id="nav-site-regions">
           <% Region.all.each do |region| %>
             <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
           <% end %>
         </div>
-
-      </div>
-
-      <div class="nav-logo">
-        <%= link_to root_path do %>
-          <%= image_tag("regions/kaernten/logo.svg", class: 'logo-desktop', width:120, height:84) %>
-          <%= image_tag("regions/kaernten/logo_reduced.svg", class: 'logo-mobile', width:45, height:25) %>
-        <% end %>
       </div>
 
 

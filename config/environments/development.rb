@@ -6,8 +6,7 @@ Rails.application.configure do
 
   # DNS rebinding attack exception
   config.hosts << "local.imgraetzl.at"
-  config.hosts << "local.welocally.at"
-  config.hosts << "local.kaernten.welocally.at"
+  config.hosts << /(\w+\.)?local\.welocally\.at\Z/
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development

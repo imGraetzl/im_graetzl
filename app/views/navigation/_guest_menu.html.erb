@@ -1,4 +1,11 @@
 <div class="nav-guest">
   <%= link_to 'Kostenlos registrieren', new_registration_path(origin: request.path), class: 'nav-top-link flare' %>
   <%= link_to 'Anmelden', new_user_session_path, class: 'nav-top-link' %>
+  <%= link_to 'javascript:', class: 'nav-regions-link', data: { dropdown: "nav-site-regions" } do %>
+    <%= image_tag 'regions/flag_AT.png', width:20, height:20, class: 'flag-icon' %>
+  <% end %>
+  <div class="nav-dropdown-menu" id="nav-site-regions">
+    <%= nav_menu_item("map-location", "WeLocally.at", root_url) %>
+  </div>
+
 </div>

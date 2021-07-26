@@ -21,11 +21,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_region, :user_home_graetzl
 
   def current_region
-    if request.domain == 'imgraetzl.at'
-      Region.get('wien')
-    else
-      region_domain = request.subdomain.split(".").last # removing local. or staging.
+    if request.domain.end_with?('welocally.at')
+      region_domain = request.subdomain.split(".").first
       Region.get(region_domain)
+    else
+      Region.get('wien')
     end
   end
 
