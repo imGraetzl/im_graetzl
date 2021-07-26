@@ -3,10 +3,12 @@ require "active_support/core_ext/integer/time"
 Rails.application.default_url_options = { host: 'local.imgraetzl.at', port: 3000 }
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.imgraetzl_host = "local.imgraetzl.at"
+  config.welocally_host = "local.welocally.at"
 
   # DNS rebinding attack exception
-  config.hosts << "local.imgraetzl.at"
-  config.hosts << /(\w+\.)?local\.welocally\.at\Z/
+  config.hosts << config.imgraetzl_host
+  config.hosts << ".#{config.welocally_host}"
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
