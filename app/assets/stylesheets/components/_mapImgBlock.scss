@@ -4,7 +4,7 @@
   .leaflet-control-attribution {
     display: none;
   }
-  .map-avatar, .map-popup {
+  .map-marker, .map-popup {
     &.-hidden {
       display:none;
     }
@@ -55,7 +55,6 @@
 
   // LEAFLET MAP
   .leaflet-tile-pane {
-    //filter: hue-rotate(-1100deg) saturate(50%);
     opacity: 0.8;
   }
   .leaflet-pane { z-index: auto !important; }

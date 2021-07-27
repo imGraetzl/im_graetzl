@@ -3,12 +3,33 @@ APP.controllers.static_pages = (function() {
     function init() {
       if($("section.homeOut").exists()) initMobileNav();
       if($("section.homeOut").exists()) initSupporterBox();
+      if($("section.homePlatform").exists()) initHomePlatform();
       if($(".-mentoring-page").exists()) initMentoring();
       if($("#help_nav").exists()) initHelpScroller();
       if($("#guide-download").exists()) initGuideDownload();
     }
 
 // ---------------------------------------------------------------------- Public
+
+// WeLocally Homepage
+function initHomePlatform() {
+  APP.components.leafletMap.init($('#area-map'), { zoom: 7 });
+  initMenu();
+
+  function initMenu() {
+    var $select = $(".mapImgBlock .mobileSelectMenu");
+    $(".mapImgBlock .links a").each(function() {
+      var text = $(this).text();
+      var target = $(this).attr("href");
+      $select.append("<option value=\'" + target + "\'>" + text + "</option>");
+    });
+
+    $select.on("change", function() {
+      window.location.href = $(this).val();
+    });
+  }
+
+}
 
 function initMentoring() {
 

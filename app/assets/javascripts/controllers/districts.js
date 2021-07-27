@@ -13,7 +13,6 @@ APP.controllers.districts = (function() {
       var text = $(this).text();
       var target = $(this).attr("href");
       $select.append("<option value="+target+">"+text+"</option>");
-      //$(".mapImgBlock .links").after($select);
     });
 
     $select.on("change", function() {
