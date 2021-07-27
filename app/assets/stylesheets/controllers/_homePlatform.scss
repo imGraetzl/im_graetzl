@@ -1,0 +1,40 @@
+section.homePlatform {
+
+  .regionjump {
+    max-width: 500px;
+    margin:auto;
+  }
+
+  #area-map {
+    height: 150px;
+    @include respond-to(">=medium") {
+      height: 500px;
+    }
+    &::before {
+      display: none;
+    }
+    .logo-mobile {
+      width:100px;
+      height:auto;
+      background-color: rgba(white, 0.8);
+      padding:10px;
+      border-radius: 10px;
+      margin-left:-50px;
+      margin-top:-28px;
+      &:hover {
+        background-color: rgba($color-ambient-rosa-light, 0.9);
+      }
+    }
+  }
+
+  .navBlock {
+    .links {
+      display: none;
+      @include respond-to(">=medium") {
+        width: 400px;
+        display: block;
+      }
+    }
+  }
+
+}

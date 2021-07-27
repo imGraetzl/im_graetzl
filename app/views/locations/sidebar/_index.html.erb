@@ -58,7 +58,7 @@
     </div>
     <% if @location.address.try(:coordinates) %>
       <div id="leafletMap" class="" data-x="<%= @location.address.coordinates.x %>" data-y="<%= @location.address.coordinates.y %>">
-        <div class="map-avatar -hidden">
+        <div class="map-marker -hidden">
           <%= link_to "https://maps.google.com?q=#{@location.address.street_name}+#{@location.address.street_number}+#{@location.address.zip}", target: '_blank' do %>
             <%= icon_tag "pin" %>
           <% end %>

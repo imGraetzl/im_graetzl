@@ -42,7 +42,7 @@ APP.controllers.locations = (function() {
 
     function initLocationPage() {
 
-        APP.components.leafletMap.init();
+        APP.components.leafletMap.init($('#leafletMap'));
 
         // Sidebar Button Click
         $('#requestLocationBtn').on('click', function(event){
