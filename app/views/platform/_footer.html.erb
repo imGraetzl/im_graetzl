@@ -48,3 +48,17 @@
 
   </div>
 </footer>
+<div id="select-region-modal-content" style="display: none">
+  <div class="input-select">
+    <label for="select">
+      <%= icon_tag "map-location" %>
+      <span>Region</span>
+    </label>
+    <select name="select" id="select">
+      <option value="">Auswählen</option>
+      <% Region.all.each do |region| %>
+        <option value="<%= root_url(host: region.host) %>"><%= region.name %></option>
+      <% end %>
+    </select>
+  </div>
+</div>

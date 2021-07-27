@@ -6,6 +6,7 @@
 
   <div class="nav-dropdown-menu" id="nav-site-main">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-site-city">
+      <%= nav_submenu_link("globe", 'Region wechseln', 'nav-submenu-regions') %>
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
@@ -21,7 +22,15 @@
       <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
       <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
     </div>
-
+    <div class="nav-dropdown-submenu" id="nav-submenu-regions">
+      <%= nav_submenu_back('nav-submenu-site-city', 'half') %>
+      <%= link_to welocally_platform_url, class: 'half nav-menu-item center' do %>
+        <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
+      <% end %>
+      <% Region.all.each do |region| %>
+        <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
+      <% end %>
+    </div>
     <div class="nav-dropdown-menu nav-dropdown-submenu" id="nav-submenu-site-location">
       <% if graetzl %>
         <%= nav_submenu_back('nav-submenu-site-city') %>
@@ -53,18 +62,32 @@
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-site-city">
-    <%= nav_menu_item("map-location", "#{current_region.name} Karte", region_index_path) %>
-    <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
-    <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
-    <%= nav_menu_item("coop-share-white", 'Gruppen', region_groups_path) %>
-    <%= nav_menu_item("location", 'Anbieter & Locations', region_locations_path) %>
-    <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
-    <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) if current_region.use_districts?  %>
-    <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
-    <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
-    <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-    <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
+    <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
+        <%= nav_submenu_link("globe", 'Region wechseln', 'nav-submenu-desk-regions') %>
+        <%= nav_menu_item("map-location", "#{current_region.name} Karte", region_index_path) %>
+        <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
+        <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
+        <%= nav_menu_item("coop-share-white", 'Gruppen', region_groups_path) %>
+        <%= nav_menu_item("location", 'Anbieter & Locations', region_locations_path) %>
+        <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
+        <%= nav_menu_item("handshake", 'Sommer Special: Kurse & Workshops', region_platform_meetings_path) if current_region.use_districts?  %>
+        <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
+        <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
+        <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
+        <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
+    </div>
+    <div class="nav-dropdown-submenu" id="nav-submenu-desk-regions">
+      <%= nav_submenu_back('nav-submenu-city-main', 'half') %>
+      <%= link_to welocally_platform_url, class: 'half nav-menu-item center' do %>
+        <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
+      <% end %>
+      <% Region.all.each do |region| %>
+        <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
+      <% end %>
+    </div>
   </div>
+
+
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
     <%= icon_tag "arrow-down-2" %>

@@ -138,7 +138,7 @@
 
   #nav-current-user.jq-dropdown { width: 320px; }
   #nav-user-notifications.jq-dropdown { width: 400px; }
-  .jq-dropdown-panel { padding: 10px; min-width: 160px; }
+  .jq-dropdown-panel { padding: 10px; min-width: 270px; }
 
   .nav-dropdown-menu.mobile-dropdown {
     display: block;
@@ -157,6 +157,9 @@
     &:hover, &:active { background-color: $color-ambient-mint-light; }
     &.half { width: 50%; }
     &.half:first-child { float: left; border-right: 1px solid $color-ambient-mint-light; }
+    &.center {
+      justify-content: center;
+    }
 
     .icon, .img-square {
       margin-right: 16px;
@@ -164,7 +167,7 @@
       width: 30px; height: 30px;
       flex: none;
     }
-    .arrow { position: absolute; right: 0px; }
+    .arrow { position: absolute; right: -5px; }
     .arrow svg { fill: $color-ambient-mint-light; }
     &:hover .arrow svg { fill: $color-ambient-mint-dark; }
 

@@ -11,22 +11,44 @@
         <% end %>
 
         <div class="nav-dropdown-menu" id="nav-site-main">
-          <%= nav_menu_item("lightbulb", 'Mehr Infos', info_path) %>
-          <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+          <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
+            <%= nav_submenu_link("globe", 'Region wechseln', 'nav-submenu-regions') %>
+            <%= nav_menu_item("lightbulb", 'Mehr Infos', info_path) %>
+            <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+          </div>
+          <div class="nav-dropdown-submenu" id="nav-submenu-regions">
+            <%= nav_submenu_back('nav-submenu-city-main', 'half') %>
+            <%= link_to welocally_platform_url, class: 'half nav-menu-item center' do %>
+              <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
+            <% end %>
+            <% Region.all.each do |region| %>
+              <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
+            <% end %>
+          </div>
         </div>
         <!-- /Mobile Menue -->
 
-
         <!-- Desktop Menue -->
         <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
-
         <%= link_to 'javascript:', class: 'nav-top-link nav-about-link', data: { dropdown: "nav-site-about" } do %>
-          <%= icon_tag "arrow-down-2" %><span>Über WeLocally</span>
+          <%= icon_tag "arrow-down-2" %><span>WeLocally</span>
         <% end %>
 
         <div class="nav-dropdown-menu" id="nav-site-about">
-          <%= nav_menu_item("lightbulb", 'Mehr Infos', info_path) %>
-          <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+          <div class="nav-dropdown-submenu shown" id="nav-submenu-regions-main">
+            <%= nav_submenu_link("globe", 'Region wechseln', 'nav-submenu-desk-regions') %>
+            <%= nav_menu_item("lightbulb", 'Mehr Infos', info_path) %>
+            <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+          </div>
+          <div class="nav-dropdown-submenu" id="nav-submenu-desk-regions">
+            <%= nav_submenu_back('nav-submenu-regions-main', 'half') %>
+            <%= link_to welocally_platform_url, class: 'half nav-menu-item center' do %>
+              <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
+            <% end %>
+            <% Region.all.each do |region| %>
+              <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
+            <% end %>
+          </div>
         </div>
         <!-- /Desktop Menue -->
 
@@ -42,15 +64,8 @@
 
 
       <div class="nav-guest">
-        <%= link_to 'Kostenlos registrieren', new_registration_path, class: 'nav-top-link flare' %>
-        <%= link_to 'javascript:', class: 'nav-top-link nav-regions-link', data: { dropdown: "nav-site-regions" } do %>
-          <%= image_tag 'regions/flag_AT.png', width:20, height:20, class: 'flag-icon' %>
-        <% end %>
-        <div class="nav-dropdown-menu" id="nav-site-regions">
-          <% Region.all.each do |region| %>
-            <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
-          <% end %>
-        </div>
+        <%= link_to 'Kostenlos registrieren', 'javascript:', class: 'nav-top-link flare region-select-link', data: {urlmethod: new_registration_path} %>
+        <%= link_to 'Anmelden', 'javascript:', class: 'nav-top-link region-select-link', data: {urlmethod: new_user_session_path} %>
       </div>
 
 

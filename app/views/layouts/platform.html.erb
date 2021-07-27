@@ -12,7 +12,7 @@
   <meta name="google-site-verification" content="LSgg3WBUIokaZhSK4uO3MezLJjfnwvJX0vFDfnInsk8" />
 </head>
 
-<body data-controller="<%= controller_name %>">
+<body data-controller="<%= controller_name %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>welocally">
   <%= render 'platform/header' %>
   <%= render 'flashes' %>
 

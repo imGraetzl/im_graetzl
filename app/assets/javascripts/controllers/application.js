@@ -7,6 +7,7 @@ APP.controllers.application = (function() {
     APP.components.search.init();
     APP.components.fileUpload.init();
     jBoxGallery();
+    if($(".welocally").exists()) chooseRegionModal();
 
     FastClick.attach(document.body);
 
@@ -16,6 +17,34 @@ APP.controllers.application = (function() {
       "link":"https://www.imgraetzl.at/info/datenschutz",
       "theme": false
     };
+
+    // WeLocally Register and Login Choose Region Modal
+    function chooseRegionModal() {
+      var redirect_path;
+      new jBox('Confirm', {
+        addClass:'jBox',
+        attach: $(".region-select-link"),
+        title: 'Wähle deine Region',
+        content: $("#select-region-modal-content"),
+        trigger: 'click',
+        closeOnEsc: true,
+        closeOnClick: 'body',
+        blockScroll: true,
+        animation:{open: 'zoomIn', close: 'zoomOut'},
+        cancelButton: 'Abbrechen',
+        confirmButton: 'Weiter',
+        onOpen: function() {
+          redirect_path = this.source.attr('data-urlmethod');
+        },
+        confirm: function() {
+          var redirect_host = $("#select-region-modal-content select").val();
+          if (redirect_host != "") {
+            var redirect_url =  redirect_host + redirect_path.substring(1);
+            window.location.href = redirect_url;
+          }
+        }
+      });
+    }
 
     // Register & Login Modal
     var loginModal = new jBox('Modal', {
