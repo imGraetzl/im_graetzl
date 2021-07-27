@@ -1,5 +1,6 @@
 CORS_DOMAIN_WHITELIST = [
   /imgraetzl\.at(:\d+)?/,
+  /welocally\.at(:\d+)?/,
 ]
 
 Rails.application.config.middleware.insert_before(0, Rack::Cors) do
