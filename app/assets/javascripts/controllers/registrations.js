@@ -21,8 +21,8 @@ APP.controllers.registrations = (function() {
         closeOnClick: 'body',
         blockScroll: true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
-        confirmButton: 'Weiter',
-        cancelButton: 'Zurück',
+        cancelButton: 'Abbrechen',
+        confirmButton: 'Übernehmen',
         confirm: function() {
           $(".form-register .graetzl-id-input").val($("#graetzl-select select").val());
           $(".register-personalInfo h1 span").text($("#graetzl-select select option:selected").text());
