@@ -44,7 +44,7 @@
           </tr>
         </table>
 
-        <%= link_to room_offer_url(@room_offer), target: 'blank' do %>
+        <%= link_to room_offer_url(@room_offer, host: @room_offer.region.host), target: 'blank' do %>
           <%= cover_photo_image @room_offer, size: :small, style: "width:100%; padding-bottom:5px; padding-top:10px;", class: "mcnImage" %>
         <% end %>
 
@@ -56,7 +56,7 @@
 
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Raum ansehen", url: room_offer_url(@room_offer) %>
+        <%= render 'mailers/shared/button', title: "Raum ansehen", url: room_offer_url(@room_offer, host: @room_offer.region.host) %>
       </td>
     </tr>
   </tbody>

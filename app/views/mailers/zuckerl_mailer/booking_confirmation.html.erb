@@ -115,7 +115,7 @@
       Hier kannst du dein gebuchtes Zuckerl nochmals ansehen. Bitte beachte das du dafür eingeloggt sein musst:
       <br/><br/>
 
-      <%= render 'mailers/shared/button', title: "Zuckerl nochmals ansehen", url: zuckerls_user_url %>
+      <%= render 'mailers/shared/button', title: "Zuckerl nochmals ansehen", url: zuckerls_user_url(host: @zuckerl.region.host) %>
 
       --<br/><br/>
       Dies ist keine Rechnung - Nach erhalt der Zahlung senden wir Dir erneut eine Bestätigung inkl. Rechnung zu.

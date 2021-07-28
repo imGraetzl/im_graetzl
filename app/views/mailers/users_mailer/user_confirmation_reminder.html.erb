@@ -9,12 +9,12 @@
 
         <p>
           Um deinen imGrätzl Account nutzen zu können, müsstest du noch deine Registrierung bestätigen. Klicke dafür bitte folgenden Link:<br>
-          <strong><%= link_to 'Registrierung jetzt abschließen!', confirmation_url(confirmation_token: @user.confirmation_token) %></strong>
+          <strong><%= link_to 'Registrierung jetzt abschließen!', confirmation_url(confirmation_token: @user.confirmation_token, host: @user.region.host) %></strong>
         </p>
 
         <p>
           Als registrierter Nutzer bekommst du automatisch Updates und News aus deinem Stadtteil <%= @user.graetzl.name %>.
-          Du kannst diesen Service nach der Registrierung unter <a href="https://www.imgraetzl.at/user/einstellungen#tab-2">Einstellungen</a> jederzeit abbestellen oder nach deinen Interessen anpassen.
+          Du kannst diesen Service nach der Registrierung unter <%= link_to 'Einstellungen', edit_user_url(target: "tab-2", host: @user.region.host) %> jederzeit abbestellen oder nach deinen Interessen anpassen.
         </p>
 
         <p>Wir freuen uns auf Dich!<p>

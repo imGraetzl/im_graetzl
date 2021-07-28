@@ -30,7 +30,7 @@
 
         <strong>4.)</strong>
         <em>
-          <strong>Noch ein wichtiger Tipp zum Schluss:</strong> Je aktiver du selber bist, desto schneller klappt es auch mit dem Finden von Raumpartner*innen. Schreib selber auch Raumhabende im Raumteiler an. Teile den Raumteiler in deinen Netzwerken und erzähle es Freunden und Bekannten. Hier gehts zu deinem Raumteiler: <%= link_to room_demand_url(@room_demand), room_demand_url(@room_demand), target: '_blank' %>
+          <strong>Noch ein wichtiger Tipp zum Schluss:</strong> Je aktiver du selber bist, desto schneller klappt es auch mit dem Finden von Raumpartner*innen. Schreib selber auch Raumhabende im Raumteiler an. Teile den Raumteiler in deinen Netzwerken und erzähle es Freunden und Bekannten. Hier gehts zu deinem Raumteiler: <%= link_to room_demand_url(@room_demand, host: @room_demand.region.host), room_demand_url(@room_demand, host: @room_demand.region.host), target: '_blank' %>
         </em>
 
         <br><br>

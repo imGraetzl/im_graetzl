@@ -34,7 +34,7 @@
       </td>
       <td valign="center" class="mcnTextContent" width="100%">
         <p>
-          <%= link_to @room_demand.slogan, room_demand_url(@room_demand), style: "color:#ec776a; font-size:18px;" %>
+          <%= link_to @room_demand.slogan, room_demand_url(@room_demand, host: @room_demand.region.host), style: "color:#ec776a; font-size:18px;" %>
         </p>
       </td>
     </tr>
