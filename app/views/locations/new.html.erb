@@ -2,7 +2,7 @@
 
 <section class="location-form">
   <div class="wrp">
-    <h1 class="hl-main">Neue Location im Grätzl <span><%= @location.graetzl.name %></span></h1>
+    <h1 class="hl-main">Neue Location <%= t("region.#{current_region.id}.in_graetzl") %> <span><%= @location.graetzl.name %></span></h1>
   </div>
 
   <%= render 'locations/form/index' %>

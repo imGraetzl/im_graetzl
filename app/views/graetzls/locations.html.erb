@@ -15,8 +15,8 @@
 
   <% if !user_signed_in? %>
     <div class="hl-subtext -cards">
-      <h1>Lerne die <span>Anbieter &amp; Locations</span> im Grätzl kennen</h1>
-      <p>Entdecke das Besondere ums Eck im Grätzl <%= @graetzl.name %></p>
+      <h1>Lerne die <span>Anbieter &amp; Locations</span> <%= t("region.#{current_region.id}.in_graetzl") %> kennen</h1>
+      <p>Entdecke das Besondere ums Eck <%= t("region.#{current_region.id}.in_graetzl") %> <%= @graetzl.name %></p>
     </div>
   <% end %>
 
