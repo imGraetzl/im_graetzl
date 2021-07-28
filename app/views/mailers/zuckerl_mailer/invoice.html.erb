@@ -34,14 +34,14 @@
       <p>
         <strong>Wir bestätigen hiermit den Eingang deiner Zahlung und die erfolgreiche Buchung.</strong>
         Dein Grätzlzuckerl für die Location
-        <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location), style: "color:#f48a85;" %>
+        <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
         ist somit im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform imGrätzl.at aktiv!
         <br/><br/>Solltest du Fragen haben schick uns ein Mail an wir@imgraetzl.at.
         <br/>
         Dein Team von imGrätzl.at
       </p>
 
-      <%= render 'mailers/shared/button', title: "Zum Grätzlzuckerl", url: zuckerls_user_url %>
+      <%= render 'mailers/shared/button', title: "Zum Grätzlzuckerl", url: zuckerls_user_url(host: @zuckerl.region.host) %>
     </td>
   </tr>
 </table>

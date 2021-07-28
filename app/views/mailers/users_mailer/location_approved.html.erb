@@ -5,7 +5,7 @@
         Hallo <%= @user.first_name %>,
         <p>
           ich habe deine Locationseite auf imGrätz.at gerade freigeschaltet.<br>
-          <%= link_to graetzl_location_url(@location.graetzl, @location), graetzl_location_url(@location.graetzl, @location) %>
+          <%= link_to graetzl_location_url(@location.graetzl, @location, host: @location.region.host), graetzl_location_url(@location.graetzl, @location, host: @location.region.host) %>
         </p>
 
         <p>

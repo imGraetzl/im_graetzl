@@ -35,12 +35,12 @@
       mit folgender Sichtbarkeit: "<strong><em><%= @zuckerl.visibility %></em></strong>"
       <p>
         <strong>Zu den Grätzlzuckerln im <%= @zuckerl.location.graetzl.name %>:</strong><br/>
-        <%= link_to zuckerls_graetzl_url(@zuckerl.location.graetzl), zuckerls_graetzl_url(@zuckerl.location.graetzl), style: "color:#f48a85;" %>
+        <%= link_to zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), style: "color:#f48a85;" %>
       </p>
 
       <p>
         <strong>Auf deiner Locationseite:</strong><br/>
-        <%= link_to graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location), graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location), style: "color:#f48a85;" %>
+        <%= link_to graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
       </p>
 
       <p>

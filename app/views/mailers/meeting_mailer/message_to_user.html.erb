@@ -29,7 +29,7 @@
 <!-- /MAIL CONTENT -->
 
 <!-- BUTTON -->
-<%= render 'mailers/shared/button', title: "Zum Treffen", url: graetzl_meeting_url(@meeting.graetzl, @meeting) %>
+<%= render 'mailers/shared/button', title: "Zum Treffen", url: graetzl_meeting_url(@meeting.graetzl, @meeting, host: @meeting.region.host) %>
 
 <!-- MAIL FOOTER -->
 <p class="mcnTextContent">

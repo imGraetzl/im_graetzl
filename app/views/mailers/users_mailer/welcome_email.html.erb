@@ -9,35 +9,35 @@
 
         <strong>1.)</strong>
         <em>
-          <strong>Richte dir deine gratis Locationseite ein,</strong> um mit deinen Aktionen und deinem Tun im Stadtteil sichtbar zu werden. Zum Einrichten deiner Locationseite: <%= link_to locations_user_url, locations_user_url, target: '_blank' %>
+          <strong>Richte dir deine gratis Locationseite ein,</strong> um mit deinen Aktionen und deinem Tun im Stadtteil sichtbar zu werden. Zum Einrichten deiner Locationseite: <%= link_to locations_user_url(host: @user.region.host), locations_user_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>2.)</strong>
         <em>
-          <strong>Du möchtest deine Gewerbefläche teilen, oder suchst Raum zum Andocken?</strong> Dann stelle jetzt dein Raumteilergesuch beim Raumteiler ein. Ganz neu sind die Kurzzeitmieten. Zum Raumteiler: <%= link_to region_rooms_url, region_rooms_url, target: '_blank' %>
+          <strong>Du möchtest deine Gewerbefläche teilen, oder suchst Raum zum Andocken?</strong> Dann stelle jetzt dein Raumteilergesuch beim Raumteiler ein. Ganz neu sind die Kurzzeitmieten. Zum Raumteiler: <%= link_to region_rooms_url(host: @user.region.host), region_rooms_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>3.)</strong>
         <em>
-          <strong>Du hast Arbeitsequipment und Geräte, die du nicht rund um die Uhr nutzt?</strong> Dann vermiete sie im <strong>Toolteiler</strong> an andere Macher*innen und verdiene damit etwas dazu. Du benötigst temporär ein Gerät für ein Projekt? Dann schau im Toolteiler rein, ob du es dir günstig ausleihen kannst. Eine Versicherung ist immer automatisch inkludiert. <%= link_to region_tool_offers_url, region_tool_offers_url, target: '_blank' %>
+          <strong>Du hast Arbeitsequipment und Geräte, die du nicht rund um die Uhr nutzt?</strong> Dann vermiete sie im <strong>Toolteiler</strong> an andere Macher*innen und verdiene damit etwas dazu. Du benötigst temporär ein Gerät für ein Projekt? Dann schau im Toolteiler rein, ob du es dir günstig ausleihen kannst. Eine Versicherung ist immer automatisch inkludiert. <%= link_to region_tool_offers_url(host: @user.region.host), region_tool_offers_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>4.)</strong>
         <em>
-          <strong>Du kannst online und offline Workshops, Events und Beratungen über unsere Treffenfunktion bekannt machen.</strong> Die online Workshops, Kurse und Beratungen werden auf der Plattform in ganz Wien ausgespielt. <%= link_to new_meeting_url, new_meeting_url, target: '_blank' %>
+          <strong>Du kannst online und offline Workshops, Events und Beratungen über unsere Treffenfunktion bekannt machen.</strong> Die online Workshops, Kurse und Beratungen werden auf der Plattform in ganz Wien ausgespielt. <%= link_to new_meeting_url(host: @user.region.host), new_meeting_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
 
         <strong>5.)</strong>
         <em>
-          <strong>Hast du gerade ein besonderes Angebot oder einen Rabatt?</strong> Dann ist das Grätzlzuckerl dafür das Richtige, das spielt dein Angebot bezirksweise oder in ganz Wien aus, einen ganzen Monat lang: <%= link_to zuckerls_user_url, zuckerls_user_url, target: '_blank' %>
+          <strong>Hast du gerade ein besonderes Angebot oder einen Rabatt?</strong> Dann ist das Grätzlzuckerl dafür das Richtige, das spielt dein Angebot bezirksweise oder in ganz Wien aus, einen ganzen Monat lang: <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>

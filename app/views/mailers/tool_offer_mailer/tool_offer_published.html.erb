@@ -39,13 +39,13 @@
             </td>
             <td> </td>
             <td style="font-size:12px; line-height:16px;">
-              <%= link_to @tool_offer.user.username, user_url(@tool_offer.user), style: "color:#ec776a; font-size:12px;" %>
+              <%= link_to @tool_offer.user.username, user_url(@tool_offer.user, host: @tool_offer.user.region.host), style: "color:#ec776a; font-size:12px;" %>
               <br>
               verleiht ab <%= @tool_offer.daily_price(7).to_i %> € pro Tag:
             </td>
           </tr>
         </table>
-        <%= link_to tool_offer_url(@tool_offer), target: "_blank" do %>
+        <%= link_to tool_offer_url(@tool_offer, host: @tool_offer.region.host), target: "_blank" do %>
           <%= cover_photo_image @tool_offer, size: :small, style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage" %>
         <% end %>
 
@@ -55,7 +55,7 @@
 
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Toolteiler ansehen", url: tool_offer_url(@tool_offer), style: "width:100%;" %>
+        <%= render 'mailers/shared/button', title: "Toolteiler ansehen", url: tool_offer_url(@tool_offer, host: @tool_offer.region.host), style: "width:100%;" %>
       </td>
     </tr>
 
