@@ -3,6 +3,7 @@ de:
     default: &default
       claim_readable: "WeLocally"
       domain_readable: "WeLocally.at"
+      graetzl: "Gemeinde"
       in_graetzl: "in der Gemeinde"
       in_your_graetzl: "in deiner Gemeinde"
       wish_graetzl: "Wunschgemeinden"
@@ -12,6 +13,7 @@ de:
       <<: *default
       claim_readable: "imGrätzl"
       domain_readable: "imGrätzl.at"
+      graetzl: "Grätzl"
       in_graetzl: "im Grätzl"
       in_your_graetzl: "in deinem Grätzl"
       wish_graetzl: "Wunschgrätzln"
