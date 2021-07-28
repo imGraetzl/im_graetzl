@@ -13,6 +13,7 @@ APP.controllers.static_pages = (function() {
 
 // WeLocally Homepage
 function initHomePlatform() {
+  /*
   APP.components.leafletMap.init($('#area-map'), { zoom: 7 });
   initMenu();
 
@@ -28,7 +29,7 @@ function initHomePlatform() {
       window.location.href = $(this).val();
     });
   }
-
+  */
 }
 
 function initMentoring() {
