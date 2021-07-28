@@ -21,14 +21,11 @@ class LocationsController < ApplicationController
 
   def new
     if params[:selected_graetzl_id].blank?
-      @graetzl = Graetzl.find(params[:graetzl_id] || user_home_graetzl&.id)
-      @district = @graetzl.districts.first
-      render 'select_graetzl'
-    else
-      @graetzl = Graetzl.find(params[:selected_graetzl_id])
-      @location = @graetzl.locations.build(location_category_id: current_user.location_category_id)
-      @location.build_contact
+      render 'select_graetzl' and return
     end
+    @graetzl = Graetzl.find(params[:selected_graetzl_id])
+    @location = @graetzl.locations.build(location_category_id: current_user.location_category_id)
+    @location.build_contact
   end
 
   def create
