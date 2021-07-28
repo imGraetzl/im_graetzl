@@ -6,7 +6,7 @@ class RoomOffer < ApplicationRecord
 
   belongs_to :user
   belongs_to :graetzl
-  belongs_to :district
+  belongs_to :district, optional: true
   belongs_to :location, optional: true
   belongs_to :address, optional: true
   accepts_nested_attributes_for :address
