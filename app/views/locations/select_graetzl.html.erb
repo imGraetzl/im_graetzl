@@ -20,8 +20,8 @@
                 <%= icon_tag "flag-1" %>
                 <span>Grätzl</span>
               </label>
-              <%= select_tag :selected_graetzl_id, options_from_collection_for_select(@district&.graetzls || Graetzl.all,
-                  :id, :name, @graetzl&.id), prompt: 'wählen', required: true, class: 'graetzl_id' %>
+              <%= select_tag :selected_graetzl_id, options_from_collection_for_select(Graetzl.all,
+                  :id, :name, params[:graetzl_id]), prompt: 'wählen', required: true, class: 'graetzl_id' %>
             </div>
           </div>
       <% else %>
@@ -31,7 +31,7 @@
               <span>Gemeinde</span>
             </label>
             <%= select_tag :selected_graetzl_id, options_from_collection_for_select(Graetzl.in(current_region).all,
-                :id, :name, @graetzl&.id), prompt: 'wählen', required: true, class: 'graetzl_id' %>
+                :id, :name, params[:graetzl_id]), prompt: 'wählen', required: true, class: 'graetzl_id' %>
           </div>
       <% end %>
 

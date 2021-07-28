@@ -24,7 +24,7 @@ APP.components.addressSearchAutocomplete = function() {
         // Filter Response for Gemeinden we have.
         if (region == 'kaernten') {
           response.features = response.features.filter(function(element) {
-            element.context[1].text_de.includes('Griffen') ||
+            return element.context[1].text_de.includes('Griffen') ||
             element.context[1].text_de.includes('St. Andrä') ||
             element.context[1].text_de.includes('Völkermarkt')
           });
