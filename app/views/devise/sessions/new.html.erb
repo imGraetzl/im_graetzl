@@ -1,7 +1,7 @@
 <% title('Anmelden') %>
 
 <section class="loginPage">
-  <h1>In deinem <span>Grätzl</span> anmelden</h1>
+  <h1><span><%= t("region.#{current_region.id}.in_your_graetzl") %></span> anmelden</h1>
 
   <div class="loginForm">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -41,7 +41,7 @@
 
   <div class="paperCard -illuteaser -cord1RT">
     <div class="wrp">
-      <h3>Noch nicht bei imGrätzl registriert?</h3>
+      <h3>Noch nicht bei <%= t("region.#{current_region.id}.claim_readable") %> registriert?</h3>
       <%= link_to 'Hier kostenlos registrieren', new_registration_path(origin: @origin_path_from_referer), class: 'btn-primary -rose' %>
     </div>
     <div class="card"></div>

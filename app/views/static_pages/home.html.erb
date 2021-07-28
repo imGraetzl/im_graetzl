@@ -103,6 +103,6 @@
     </div>
   </div>
 
-  <%= link_to 'Kostenlos in deinem Grätzl registrieren', new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register' %>
+  <%= link_to "Kostenlos #{ t("region.#{current_region.id}.in_your_graetzl") } registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register' %>
 
 </section>

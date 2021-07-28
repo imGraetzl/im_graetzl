@@ -69,7 +69,7 @@
       <div class="txt">
         <h3>Noch nicht auf imGrätzl registriert?</h3>
         <p><strong>Melde dich jetzt an:</strong> Neben Services, die Kosten senken und Ressourcen erhöhen, wirst du mit Gleichgesinnten verbunden: Kooperieren, sharen, tauschen - neue Formen der Zusammenarbeit und Gemeinschaft stehen dabei im Mittelpunkt!</p>
-        <%= link_to 'Kostenlos in deinem Grätzl registrieren', new_user_session_path, class: 'btn-primary -register' %>
+        <%= link_to "Kostenlos #{ t("region.#{current_region.id}.in_your_graetzl") } registrieren", new_user_session_path, class: 'btn-primary -register' %>
       </div>
     </div>
     <div class="card"></div>
