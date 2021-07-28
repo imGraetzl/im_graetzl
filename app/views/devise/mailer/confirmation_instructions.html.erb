@@ -4,7 +4,6 @@
 
 <p>
   Um deine Registrierung abzuschließen klicke bitte folgenden Link:<br>
-  root_url(host: Region.get('wien').host)
   <%= link_to 'Registrierung jetzt abschließen!', confirmation_url(confirmation_token: @token, host: @resource.region.host) %>
 </p>
 
