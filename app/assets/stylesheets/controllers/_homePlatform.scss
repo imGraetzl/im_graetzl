@@ -9,9 +9,11 @@ section.homePlatform {
   }
 
   .regionjump {
-    width:400px;
     max-width: 500px;
     margin:auto;
+    @include respond-to(">=medium") {
+      width:400px;
+    }
   }
 
   .welocally_illu_bg {
@@ -50,20 +52,22 @@ section.homePlatform {
       z-index: 9;
     }
 
-    height:250px;
+    height:180px;
+    margin-top: -30px;
     margin-left: -18px;
     margin-right: -18px;
     margin-bottom:30px;
 
     @include respond-to(">=medium") {
       height:350px;
+      margin-top: -50px;
       margin-left: -25px;
       margin-right: -25px;
       margin-bottom:50px;
     }
     @include respond-to(">=large") {
       height:450px;
-      margin-top: -50px;
+      margin-top: -80px;
     }
   }
 
