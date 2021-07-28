@@ -1,6 +1,6 @@
 <p>Hallo <%= @resource.first_name %>,
 
-<p>willkommen im Grätzl <%= @resource.graetzl.name %>!</p>
+<p>willkommen <%= t("region.#{@resource.region.id}.in_graetzl") %> <%= @resource.graetzl.name %>!</p>
 
 <p>
   Um deine Registrierung abzuschließen klicke bitte folgenden Link:<br>

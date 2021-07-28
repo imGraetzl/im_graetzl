@@ -12,13 +12,13 @@
       </div>
 
       <% if local_assigns[:graetzl] %>
-        <h3>Trage deinen Workshop oder dein Event im Grätzl <%= graetzl.name %> ein.</h3>
+        <h3>Trage deinen Workshop oder dein Event <%= t("region.#{current_region.id}.in_graetzl") %> <%= graetzl.name %> ein.</h3>
         <%= link_to 'Jetzt eintragen', new_meeting_path(graetzl_id: graetzl.id), class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
         <h3>Trage deinen Workshop oder dein Event im <%= district.numeric %>. Bezirk ein.</h3>
         <%= link_to 'Jetzt eintragen', new_meeting_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Bietest du Workshops an? Organisierst du Events im Grätzl?</h3>
+        <h3>Bietest du Workshops an? Organisierst du Events <%= t("region.#{current_region.id}.in_graetzl") %>?</h3>
         <%= link_to 'Jetzt eintragen', new_meeting_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>

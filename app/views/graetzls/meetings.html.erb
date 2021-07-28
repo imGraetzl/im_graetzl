@@ -15,7 +15,7 @@
 
   <% if !user_signed_in? %>
     <div class="hl-subtext -cards">
-      <h1><span>Events & Workshops</span> im Grätzl <%= @graetzl.name %></h1>
+      <h1><span>Events & Workshops</span> <%= t("region.#{current_region.id}.in_graetzl") %> <%= @graetzl.name %></h1>
       <p>Organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen.</p>
     </div>
   <% end %>

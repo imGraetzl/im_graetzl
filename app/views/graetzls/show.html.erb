@@ -17,11 +17,11 @@
     <%= form_tag activities_path, method: :get, remote: true, class: 'cards-filter' do %>
       <div class="filter-selection-text-jbox">
         <% if current_region.use_districts? %>
-          Neues aus dem
+          Neues aus <%= t("region.#{current_region.id}.dem") %>
         <%= link_to "Bezirk #{@graetzl.district.name} (#{@graetzl.district.zip})", '#filter-modal-activity',
             data: { no_filter_label: "Bezirk #{@graetzl.district.name} (#{@graetzl.district.zip})"} %>
         <% else %>
-          Neues aus dem
+          Neues aus <%= t("region.#{current_region.id}.dem") %>
           <%= link_to "Region #{current_region.name}", '#filter-modal-activity',
             data: { no_filter_label: "Region #{current_region.name}"} %>
         <% end %>

@@ -11,7 +11,7 @@
         <% end %>
       </div>
       <% if local_assigns[:graetzl] %>
-        <h3>Du bist unternehmerisch, sozial oder kreativ im Grätzl <%= graetzl.name %> tätig?</h3>
+        <h3>Du bist unternehmerisch, sozial oder kreativ <%= t("region.#{current_region.id}.in_graetzl") %> <%= graetzl.name %> tätig?</h3>
         <%= link_to 'Deine Location-Seite einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>

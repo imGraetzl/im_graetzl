@@ -1,7 +1,7 @@
 <footer id="footer">
-
+  <% if current_region.use_districts %>
    <%= link_to info_danke_path, class: 'supporter' do %>imGrätzl <%= icon_tag "love" %> UnterstützerInnen<% end %>
-
+  <% end %>
   <div class="inner">
 
     <div class="row infolinks">

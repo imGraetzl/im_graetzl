@@ -2,7 +2,7 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-        Hallo <%= @user.first_name %> - Herzlich willkommen, schön, dass du bei imGrätzl.at dabei bist!
+        Hallo <%= @user.first_name %> - Herzlich willkommen, schön, dass du bei <%= t("region.#{@user.region.id}.domain_readable") %> dabei bist!
         <p>
           Mit imGrätzl.at bieten wir dir eine ganze Palette von Services an, die dich dabei unterstützen deine Ressourcen zu erhöhen, Kosten zu senken und die dich dabei mit kooperativen Menschen vernetzen! Unser Motto: Weg von der Einzelanstrengung hin zu neuen Formen der Zusammenarbeit.
         </p>

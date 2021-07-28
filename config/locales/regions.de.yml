@@ -1,11 +1,17 @@
 de:
   region:
     default: &default
-      register_button: "Gemeinde"
+      domain_readable: "WeLocally.at"
+      in_graetzl: "in der Gemeinde"
+      in_your_graetzl: "in deiner Gemeinde"
+      dem: "der"
 
     wien:
       <<: *default
-      register_button: "Grätzl"
+      domain_readable: "imGrätzl.at"
+      in_graetzl: "im Grätzl"
+      in_your_graetzl: "in deinem Grätzl"
+      dem: "dem"
 
     kaernten:
       <<: *default
