@@ -62,7 +62,7 @@ Rails.application.routes.draw do
     get 'treffen', action: 'meetings', as: 'meetings'
   end
 
-  scope controller: 'regions', as: 'region'  do
+  scope controller: 'regions', as: 'region', path: 'region'  do
     get 'karte', action: 'index', as: 'index'
     get 'visit_graetzl'
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings'
