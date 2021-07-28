@@ -9,7 +9,7 @@
     </label>
     <select name="select" id="select" onchange="location.href = $(this).val()">
       <option value="">Auswählen</option>
-      <% ['kaernten', 'wien'].each do |region| region = Region.get(region) %>
+      <% Region.all.each do |region| %>
         <option value="<%= new_registration_url(host: region.host, origin: request.path) %>"><%= region.name %></option>
       <% end %>
     </select>

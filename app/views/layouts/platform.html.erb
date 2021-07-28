@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Welcome to WeLocally.at</title>
+  <title>Willkommen auf WeLocally.at</title>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= favicon_link_tag 'favicon.ico' %>
   <%= render 'tracking_tags' %>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="language" content="de">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="google-site-verification" content="LSgg3WBUIokaZhSK4uO3MezLJjfnwvJX0vFDfnInsk8" />
 </head>
 
-<body data-controller="<%= controller_name %>">
+<body data-controller="<%= controller_name %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>welocally">
   <%= render 'platform/header' %>
   <%= render 'flashes' %>
 

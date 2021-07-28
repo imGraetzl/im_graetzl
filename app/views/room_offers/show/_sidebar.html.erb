@@ -64,7 +64,7 @@
 
     <% if @room_offer.address.try(:coordinates) %>
       <div id="leafletMap" class="" data-x="<%= @room_offer.address.coordinates.x %>" data-y="<%= @room_offer.address.coordinates.y %>">
-        <div class="map-avatar -hidden">
+        <div class="map-marker -hidden">
           <%= link_to "https://maps.google.com?q=#{@room_offer.address.street_name}+#{@room_offer.address.street_number}+#{@room_offer.address.zip}", target: '_blank' do %>
             <%= icon_tag "pin" %>
           <% end %>

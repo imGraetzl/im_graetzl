@@ -1,26 +1,30 @@
 APP.components.leafletMap = (function() {
 
-  function init() {
+  function init(mapElement, options) {
 
-    if ($("#leafletMap").exists()) {
+    options = options || {};
+    var defaultZoom = options.zoom || 16;
 
-      var x = $("#leafletMap").data("x");
-      var y = $("#leafletMap").data("y");
-      var $markerHtml = $(".map-avatar").html();
-      //var $popupHtml =  $(".map-popup").html();
-      //var popup = L.popup().setLatLng([y, x]).setContent($popupHtml);
+    var x = mapElement.data("x");
+    var y = mapElement.data("y");
+
+    var map = L.map(mapElement.attr('id'), {
+      tap: false,
+      scrollWheelZoom:false,
+      zoomControl:false,
+    }).setView([y, x], defaultZoom);
+    L.tileLayer.provider('MapBox', { id: 'malano78/ckgcmiv6v0irv19paa4aoexz3', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}).addTo(map);
+    L.control.zoom({position:'bottomright'}).addTo(map);
+
+    // Add Markers to Map
+    mapElement.find($(".map-marker")).each(function(){
+      console.log($(this).attr("class"));
+      var $markerHtml = $(this).html();
       var marker = L.divIcon({className: 'marker-container', html: $markerHtml});
-      var map = L.map('leafletMap', {
-        tap: false,
-        scrollWheelZoom:false,
-        zoomControl:false,
-      }).setView([y, x], 16);
-      L.tileLayer.provider('MapBox', { id: 'malano78/ckgcmiv6v0irv19paa4aoexz3', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}).addTo(map);
-      L.control.zoom({position:'bottomright'}).addTo(map);
-      L.marker([y, x], {icon: marker}).addTo(map);
-      //L.marker([y, x], {icon: marker}).addTo(map).bindPopup(popup);
-
-    }
+      var markerX = $(this).data("x") || x;
+      var markerY = $(this).data("y") || y;
+      L.marker([markerY, markerX], {icon: marker}).addTo(map);
+    });
 
   }
 

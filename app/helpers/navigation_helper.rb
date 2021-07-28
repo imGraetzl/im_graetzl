@@ -17,8 +17,8 @@ module NavigationHelper
     end
   end
 
-  def nav_submenu_back(submenu)
-    link_to('javascript:', class: 'nav-menu-item', data: {submenu: submenu}) do
+  def nav_submenu_back(submenu, css = nil)
+    link_to('javascript:', class: "#{css} nav-menu-item", data: {submenu: submenu}) do
       icon_tag("arrow-left-2") + 'Zurück'
     end
   end
