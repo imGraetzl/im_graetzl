@@ -13,6 +13,7 @@ ActiveAdmin.register ToolRental do
   scope :rejected
   scope :expired
 
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :rental_status, as: :select, collection: ToolRental.rental_statuses.keys
   filter :payment_status, as: :select, collection: ToolRental.payment_statuses.keys
   filter :tool_offer, collection: proc { ToolOffer.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}

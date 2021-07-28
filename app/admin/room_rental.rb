@@ -11,6 +11,7 @@ ActiveAdmin.register RoomRental do
   scope :rejected
   scope :expired
 
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :rental_status, as: :select, collection: RoomRental.rental_statuses.keys
   filter :payment_status, as: :select, collection: RoomRental.payment_statuses.keys
   filter :room_offer, collection: proc { RoomOffer.order(:slogan).pluck(:slogan, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}

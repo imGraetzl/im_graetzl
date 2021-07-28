@@ -14,6 +14,7 @@ ActiveAdmin.register Meeting do
   #scope :active
   #scope :cancelled
 
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :event_categories
   filter :meeting_category, collection: proc { MeetingCategory.order(:starts_at_date).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}

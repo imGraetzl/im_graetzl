@@ -4,6 +4,7 @@ ActiveAdmin.register Graetzl do
   includes :districts
   actions :all, except: [:destroy]
 
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :name
   filter :users_count
 
