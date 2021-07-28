@@ -1,9 +1,121 @@
 section.homePlatform {
 
+  .welocally_illu_inner {
+    padding-bottom:30px;
+  }
+
+  .hl-subtext {
+    //margin-bottom: 20px;
+  }
+
   .regionjump {
+    width:400px;
     max-width: 500px;
     margin:auto;
   }
+
+  .welocally_illu_bg {
+
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: .6;
+      z-index: -1;
+      background-image: url(image_path('regions/welocally_illu.png'));
+      background-size: contain;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+    }
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 9;
+    }
+
+    height:250px;
+    margin-left: -18px;
+    margin-right: -18px;
+    margin-bottom:30px;
+
+    @include respond-to(">=medium") {
+      height:350px;
+      margin-left: -25px;
+      margin-right: -25px;
+      margin-bottom:50px;
+    }
+    @include respond-to(">=large") {
+      height:450px;
+      margin-top: -50px;
+    }
+  }
+
+  .welocally_illu {
+
+    img {
+      width:100%;
+      height:auto;
+    }
+
+    position: relative;
+    z-index: 1;
+    margin-top: -30px;
+    margin-left: -18px;
+    margin-right: -18px;
+    margin-bottom:30px;
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+      z-index: 9;
+    }
+
+    @include respond-to(">=medium") {
+      margin-top: -50px;
+      margin-left: -25px;
+      margin-right: -25px;
+      margin-bottom:50px;
+    }
+    @include respond-to(">=large") {
+      margin-top: -50px;
+    }
+  }
+
+  .paperCard {
+    padding:30px;
+    h3 {
+      @include font-size-primaryFont('larger');
+      padding: 0px 0px 15px;
+    }
+    margin-bottom: 50px;
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
+
 
   #area-map {
     height: 150px;

@@ -1,7 +1,63 @@
+
 <section class="homePlatform">
 
-  <div class="mapImgBlock">
+  <div class="welocally_illu_bg">
 
+    <div class="welocally_illu_inner">
+
+      <div class="input-select regionjump">
+        <label for="select">
+          <%= icon_tag "map-location" %>
+          <span>Wähle deine Region</span>
+        </label>
+        <select name="select" id="select" onchange="location.href = $(this).val()">
+          <option value="">Auswählen</option>
+          <% Region.all.each do |region| %>
+            <option value="<%= root_url(host: region.host) %>"><%= region.name %></option>
+          <% end %>
+        </select>
+      </div>
+
+    </div>
+
+    <!--
+    <%= image_tag("regions/welocally_illu.png", width:980, usemap: "#image-map") %>
+    <map name="image-map">
+        <area title="Coming soon .." href="#" coords="235,28,386,249" shape="0">
+        <area title="<%= Region.get('kaernten') %>" href="<%= root_url(host: Region.get('kaernten').host) %>" coords="589,272,432,118" shape="0">
+        <area title="<%= Region.get('wien') %>" href="<%= root_url(host: Region.get('wien').host) %>" coords="609,35,836,218" shape="0">
+    </map>
+    -->
+  </div>
+
+  <div class="hl-subtext">
+    <h1><em>Willkommen auf WeLocally</em></h1>
+  </div>
+
+  <div class="paperCard -cord1RT">
+    <div class="wrp">
+      <h3>
+        WeLocally ist eine Plattform zum kooperativen Wirtschaften, Leerstand aktivieren und Ressourcen gemeinsam nutzen.
+      </h3>
+      <p>
+        <strong>Die Plattform macht euch und eure Angebote, aber auch eure Events & Workshops z.B. in der Gemeinde und in der Region digital sichtbar.</strong>
+        Ein zweiter Bereich auf der Plattform ist der Raumteiler, das ist eine Art WG-Suche für Gewerbeflächen und bringt Raumhabende und Raumsuchende zusammen. Raumteiler = Räume teilen & Kosten teilen! Er ist auch ein Tool um Leerstand und größere Flächen in der Region wieder zu aktivieren.
+      </p>
+      <p>
+        usw..
+      </p>
+
+    </div>
+    <div class="card"></div>
+  </div>
+
+
+
+
+
+
+  <!--
+  <div class="mapImgBlock">
     <div id="area-map" data-x="13.3457347" data-y="47.6964719">
       <div class="map-marker -hidden -region" data-x="16.373819" data-y="48.208176">
         <%= link_to root_url(host: Region.get('wien').host) do %>
@@ -27,21 +83,6 @@
       </select>
     </div>
   </div>
-
-  <!--
-  <div class="input-select regionjump">
-    <label for="select">
-      <%= icon_tag "map-location" %>
-      <span>Wähle deine Region</span>
-    </label>
-    <select name="select" id="select" onchange="location.href = $(this).val()">
-      <option value="">Auswählen</option>
-      <% Region.all.each do |region| %>
-        <option value="<%= root_url(host: region.host) %>"><%= region.name %></option>
-      <% end %>
-    </select>
-  </div>
   -->
-
 
 </section>
