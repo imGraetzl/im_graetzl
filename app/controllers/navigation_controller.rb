@@ -13,6 +13,8 @@ class NavigationController < ApplicationController
       @room_demands = current_user.room_demands.in(current_region).first(2)
     when 'tools'
       @tool_offers = current_user.tool_offers.in(current_region).non_deleted.first(4)
+    when 'coop_demands'
+      @coop_demands = current_user.coop_demands.in(current_region).first(6)
     when 'groups'
       @groups = current_user.groups.in(current_region).last(6).reverse
     end

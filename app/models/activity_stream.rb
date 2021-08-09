@@ -20,6 +20,7 @@ class ActivityStream
         Activity.where(trackable_id: RoomOffer.in(@region), key: ['room_offer.create', 'room_offer.update', 'room_offer.comment']),
         Activity.where(trackable_id: RoomDemand.in(@region), key: ['room_demand.create', 'room_demand.update', 'room_demand.comment']),
         Activity.where(trackable_id: RoomCall.in(@region), key: ['room_call.create']),
+        Activity.where(trackable_id: CoopDemand.in(@region), key: ['coop_demand.create', 'coop_demand.update', 'coop_demand.comment']),
         Activity.where(trackable_id: ToolOffer.in(@region).pluck(:id), key: ['tool_offer.create', 'tool_offer.comment']),
         Activity.where(trackable_id: Group.in(@region).pluck(:id), key: ['group.create']),
 
@@ -32,7 +33,7 @@ class ActivityStream
       ].reduce(:or)
 
     else
-      
+
       activities = [
 
         Activity.where(trackable_id: @area.meetings.non_private.pluck(:id), key: ['meeting.comment', 'meeting.create', 'meeting.go_to']),
@@ -41,6 +42,7 @@ class ActivityStream
         Activity.where(trackable_id: @area.room_offer_ids, key: ['room_offer.create', 'room_offer.update', 'room_offer.comment']),
         Activity.where(trackable_id: @area.room_demand_ids, key: ['room_demand.create', 'room_demand.update', 'room_demand.comment']),
         Activity.where(trackable_id: @area.room_call_ids, key: ['room_call.create']),
+        Activity.where(trackable_id: @area.coop_demand_ids, key: ['coop_demand.create', 'coop_demand.update', 'coop_demand.comment']),
         Activity.where(trackable_id: @area.tool_offers.pluck(:id), key: ['tool_offer.create', 'tool_offer.comment']),
         Activity.where(trackable_id: @area.groups.pluck(:id), key: ['group.create']),
 

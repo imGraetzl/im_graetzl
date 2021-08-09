@@ -43,6 +43,10 @@ class UsersController < ApplicationController
     @locations = current_user.locations.in(current_region).includes(:user)
   end
 
+  def coop_demands
+    @coop_demands = current_user.coop_demands.in(current_region).includes(:user)
+  end
+
   def meetings
     @user = current_user
   end

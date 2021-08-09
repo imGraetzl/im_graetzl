@@ -21,6 +21,10 @@ de:
           attributes:
             avatar:
               too_large: 'Das Bild ist zu groß. Maximale Filegröße 5mb'
+        coop_demand:
+          attributes:
+            avatar:
+              too_large: 'Das Bild ist zu groß. Maximale Filegröße 5mb'
         room_offer:
           attributes:
             avatar:
@@ -55,6 +59,9 @@ de:
         other: Business Interessen
       billing_address: Rechnungsadresse
       location_category:
+        one: Kategorie
+        other: Kategorien
+      coop_demand_category:
         one: Kategorie
         other: Kategorien
       meeting_category:
@@ -100,6 +107,9 @@ de:
       zuckerl:
         one: Zuckerl
         other: Zuckerln
+      coop_demand:
+        one: Coop & Share Suche
+        other: Coop & Share Suchen
       room_offer:
         one: Raumangebot
         other: Raumangebote
@@ -184,6 +194,23 @@ de:
         title: Titel
         content: Text
         created_at: Erstellt am
+      coop_demand:
+        slogan: Titel
+        coop_demand_category: Kategorie
+        graetzls: Grätzl
+        graetzl: Grätzl
+        demand_description: Beschreibung
+        personal_description: Über dich
+        avatar: Profilbild
+        first_name: Vorname
+        last_name: Nachname
+        email: Email
+        statuses:
+          enabled: Aktiv
+          disabled: Inaktiv
+        status_message:
+          enabled: Deine Coop & Share Suche ist nun aktiv und sichtbar.
+          disabled: Deine Coop & Share Suche ist nun deaktiviert und scheint nicht mehr auf den Coop & Share Seiten auf.
       room_offer:
         address: Adresse
         slogan: Titel

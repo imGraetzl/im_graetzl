@@ -5,7 +5,7 @@
 <% end %>
 <% @groups.each do |group| %>
   <%= link_to group, class: 'nav-menu-item' do %>
-    <%= icon_tag "coop-share" %>
+    <%= image_tag cover_url(group, :thumb), class: 'img-square' %>
     <span><%= group.title %></span>
   <% end %>
 <% end %>

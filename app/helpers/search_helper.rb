@@ -7,6 +7,7 @@ module SearchHelper
       ['Anbieter & Locations', 'Anbieter & Locations', 'locations'],
       ['Raumteiler', 'Raumteiler', 'rooms'],
       ['Toolteiler', 'Toolteiler', 'tool_offers'],
+      ['Coop & Share', 'Coop & Share', 'coop_demands'],
       ['Gruppen', 'Gruppen', 'groups'],
     ]
   end

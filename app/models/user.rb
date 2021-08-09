@@ -24,6 +24,7 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
   has_many :locations
+  has_many :coop_demands
   has_many :room_calls
   has_many :room_offers
   has_many :room_demands

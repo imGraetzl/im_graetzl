@@ -145,12 +145,6 @@
         <!-- /Contact Block -->
         <% if user_signed_in? && current_user == @room_offer.user || user_signed_in? && current_user.admin? %>
           <div id="hide-contact-link"></div>
-        <% else %>
-          <div id="GAinfos">
-            <span id="roomContact_url" data-id="<%= room_offer_url(@room_offer) =%>"></span>
-            <span id="roomContact_id" data-id="<%= @room_offer.id =%>" data-user="<%= @room_offer.user.id =%>"></span>
-            <span id="roomContactClick_id" data-id="<%= current_user.id =%>"></span>
-          </div>
         <% end %>
 
       <% else %>

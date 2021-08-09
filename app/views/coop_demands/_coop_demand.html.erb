@@ -1,0 +1,51 @@
+<div class="cardBox -coopdemand -<%= coop_demand.status %>" data-behavior="masonry-card" data-card-id="coop_demand-<%= coop_demand.id %>">
+
+  <div class="cardBoxHeader -coopdemand">
+    <%= link_to coop_demand do %>
+      <div class="coverImgWrapper">
+        <%= avatar_image coop_demand, size: :large, class: 'coverImg' %>
+      </div>
+      <div class="categoryicon">
+        <%= icon_tag "coop-share-white" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="cardBoxContent -coopdemand">
+
+    <div class="type-description">
+      <%= link_to coop_demand, class: 'typelink' do %>
+        <%= coop_demand.coop_demand_category.name %>
+      <% end %>
+    </div>
+
+    <div class="slogan">
+      <%= coop_demand.slogan %>
+    </div>
+
+    <div class="txt">
+      <p><%= truncate coop_demand.demand_description, length: 100 %></p>
+    </div>
+
+    <% if local_assigns[:appendix].present? %>
+      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: coop_demand %>
+    <% end %>
+
+    <% if local_assigns[:manage_buttons].present? && current_user == coop_demand.user %>
+      <div class="btn-group">
+        <%= link_to 'Bearbeiten', edit_coop_demand_path(coop_demand), class: 'btn-secondary -mint -small' %>
+        <%= link_to "javascript:", data: { jq_dropdown: "#coopdemand-update-dropdown-#{coop_demand.id}" }, class: "btn-secondary -mint -small -state-#{coop_demand.status}" do %>
+          Status: <span><%= t("activerecord.attributes.coop_demand.statuses.#{coop_demand.status}") %></span>
+        <% end %>
+      </div>
+      <div id="coopdemand-update-dropdown-<%= coop_demand.id %>" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+        <div class="jq-dropdown-panel">
+          <%= link_to 'Aktiv', [:update_status, coop_demand, status: "enabled"], method: :patch %>
+          <%= link_to 'Inaktiv', [:update_status, coop_demand, status: "disabled"], method: :patch %>
+          <%= link_to 'Löschen', [coop_demand], method: :delete, data: { confirm: 'Bist du dir sicher?' } %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

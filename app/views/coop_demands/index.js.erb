@@ -1,0 +1,16 @@
+(function() {
+  var $cardContainer = $("[data-behavior='coop-demands-card-container']");
+  var $paginateLink = $("[data-behavior='coop-demands-paginate-link']");
+
+  <% if params[:page].blank? %>
+    $cardContainer.html("<%= j render @coop_demands %>")
+  <% else %>
+    $cardContainer.append("<%= j render @coop_demands %>");
+  <% end %>
+
+  <% if @coop_demands.next_page.present? %>
+    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+  <% else %>
+    $paginateLink.addClass("hide");
+  <% end %>
+})();

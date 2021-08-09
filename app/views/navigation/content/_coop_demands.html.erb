@@ -1,0 +1,6 @@
+<% @coop_demands.each do |coop_demand| %>
+  <%= link_to coop_demand, class: 'nav-menu-item' do %>
+    <%= avatar_image coop_demand, size: :thumb, class: 'img-round' %>
+    <span><%= coop_demand.slogan %></span>
+  <% end %>
+<% end %>

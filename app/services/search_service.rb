@@ -13,6 +13,7 @@ class SearchService
     search_meetings.first(2) +
     search_locations.first(2) +
     search_tools.first(2) +
+    search_coop_demands.first(2) +
     search_groups.first(2)
   end
 
@@ -31,6 +32,7 @@ class SearchService
     results += search_locations if @options[:type].blank? || @options[:type] == 'locations'
     results += search_rooms if @options[:type].blank? || @options[:type] == 'rooms'
     results += search_tools if @options[:type].blank? || @options[:type] == 'tool_offers'
+    results += search_coop_demands if @options[:type].blank? || @options[:type] == 'coop_demands'
 
     Kaminari.paginate_array(results).page(@options[:page]).per(@options[:per_page] || 15)
   end
@@ -57,6 +59,10 @@ class SearchService
 
   def search_tools
     ToolOffer.in(@region).enabled.where("title ILIKE :q", q: like_query).order('created_at DESC')
+  end
+
+  def search_coop_demands
+    CoopDemand.in(@region).enabled.where("slogan ILIKE :q", q: like_query).order('created_at DESC')
   end
 
   def search_groups

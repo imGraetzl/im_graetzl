@@ -1,0 +1,6 @@
+<%= collection_check_boxes :filter, :category_ids, CoopDemandCategory.all, :id, :name, { checked: @category.try(:id) } do |b| %>
+  <div class="input-checkbox filter-input">
+    <%= b.check_box("data-label": b.object.name, "data-filter-label": 'Coop & Share :: Category Modal') %>
+    <%= b.label %>
+  </div>
+<% end %>

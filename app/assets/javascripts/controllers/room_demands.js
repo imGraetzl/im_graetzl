@@ -2,12 +2,12 @@ APP.controllers.room_demands = (function() {
 
   function init() {
     if ($("section.room-offer-form").exists()) initRoomForm();
-    if ($("#GAinfos").exists()) initshowContact();
-    if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($("section.roomDetail").exists()) { initRoomDetail(); }
+    if ($("#hide-contact-link").exists()) inithideContactLink();
   }
 
   function initRoomDetail() {
+
     // Sidebar Button Click
     $('#requestRoomBtn').on('click', function(event){
       event.preventDefault();
@@ -45,53 +45,42 @@ APP.controllers.room_demands = (function() {
       });
     }
 
+
+    $('#contact-infos-block').hide();
+    $('#show-contact-link').on('click', function(event){
+      event.preventDefault();
+      $('#contact-infos-block').fadeIn();
+      $(this).hide();
+      gtag(
+        'event', 'Raumsuche :: Click :: Kontaktinformationen einblenden', {
+        'event_category': 'Raumteiler'
+      });
+    });
+
+
   }
 
-  function initshowContact(){
 
-    var roomOwner_url = $('#roomContact_url').attr('data-id');
-    var roomOwner_id = $('#roomContact_id').attr('data-id');
-    var roomOwner_userid = $('#roomContact_id').attr('data-user');
-    var roomContact_id = $('#roomContactClick_id').attr('data-id');
-
-    var click_track = function() {
-        // Analytics Tracking
-        gtag(
-          'event', 'Raumsuche :: Click :: Kontaktinformationen einblenden', {
-          'event_category': 'Raumteiler',
-          'event_label': 'User: ' + roomContact_id
-        });
-      }
-
-      $('#contact-infos-block').hide();
-      $('#show-contact-link').on('click', function(event){
-        event.preventDefault();
-        $('#contact-infos-block').fadeIn();
-        $(this).hide();
-        click_track();
-      });
-
-    }
-
-    function inithideContactLink(){
-      $('#contact-infos-block').show();
-      $('#show-contact-link').hide();
-    }
+  function inithideContactLink(){
+    $('#contact-infos-block').show();
+    $('#show-contact-link').hide();
+  }
 
 
-    function initRoomForm() {
-      APP.components.graetzlSelectFilter.init($('#area-select'));
-      APP.components.search.userAutocomplete();
+  function initRoomForm() {
+    APP.components.graetzlSelectFilter.init($('#area-select'));
+    APP.components.search.userAutocomplete();
+    $("textarea").autogrow({ onInitialize: true });
 
-      $('#custom-keywords').tagsInput({
-        'defaultText':'Kurz in Stichworten ..'
-      });
+    $('#custom-keywords').tagsInput({
+      'defaultText':'Kurz in Stichworten ..'
+    });
 
-    }
+  }
 
-    return {
-      init: init,
-      initshowContact : initshowContact
-    }
+  return {
+    init: init
+  }
+
 
   })();

@@ -111,7 +111,7 @@
         @extend .img-square;
       }
     }
-    &.RoomDemand, &.User {
+    &.RoomDemand, &.CoopDemand, &.User {
       img {
         @extend .img-round;
       }
