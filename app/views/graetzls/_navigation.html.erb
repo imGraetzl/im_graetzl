@@ -2,7 +2,7 @@
 
   <%= active_link_to graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= icon_tag "map-location" %>
-    <div class="txt">Grätzl <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
+    <div class="txt"><%= t("region.#{current_region.id}.graetzl") %> <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
   <% end %>
 
   <%= active_link_to rooms_graetzl_path(@graetzl), class: "iconfilter" do %>

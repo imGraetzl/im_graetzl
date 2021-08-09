@@ -46,6 +46,16 @@ class ActivitySample
     end
   end
 
+  def coop_demands
+    if @graetzl
+      @graetzl.coop_demands.in(@current_region).enabled.by_currentness.first(2)
+    elsif @district
+      @district.coop_demands.in(@current_region).enabled.by_currentness.first(2)
+    else
+      CoopDemand.in(@current_region).enabled.by_currentness.first(2)
+    end
+  end
+
   def rooms
     room_call = RoomCall.in(@current_region).open_calls.first
     if @graetzl

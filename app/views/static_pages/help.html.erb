@@ -20,7 +20,7 @@
     <div class="wrp">
       <p>
         <strong>
-          imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an.
+          <%= t("region.#{current_region ? current_region.id : 'default'}.domain_readable") %> ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an.
         </strong>
       </p>
       <p>
@@ -29,7 +29,7 @@
         Zusammenarbeit und Gemeinschaft stehen dabei im Mittelpunkt!
       </p>
       <p>
-        imGrätzl.at entfaltet seine Stärke im Wir - Ganz lokal in <%= current_region %>, analog und digital.
+        <%= t("region.#{current_region ? current_region.id : 'default'}.domain_readable") %> entfaltet seine Stärke im Wir - Ganz lokal in <%= current_region %>, analog und digital.
       </p>
     </div>
     <div class="card"></div>
@@ -41,7 +41,7 @@
       <h2>Komm in dein Unterstützer-Team!</h2>
       <h3>Ideen gemeinsam auf den Boden bringen.</h3>
       <p>
-        MacherInnen werden in einem Team aus Gleichgesinnten auf imGrätzl.at verbunden,
+        MacherInnen werden in einem Team aus Gleichgesinnten auf <%= t("region.#{current_region ? current_region.id : 'default'}.domain_readable") %> verbunden,
         das sie bei der Umsetzung ihrer Ideen oder Aufbau ihrer Unternehmen begleitet,
         fördert und trägt. Das Prinzip dahinter: große Ziele in kleine machbare Schritte unterteilen.
         Bei der Umsetzung werden die MacherInnen begleitet. Woche für Woche, 3 Monate lang.
@@ -65,7 +65,7 @@
       <h3>Gewerbeflächen teilen - Kosten teilen.</h3>
       <p>
         Der Raumteiler ist eine Art WG-Partnersuche für Gewerbeflächen und verbindet
-        Raumsuchende und Raumhabende auf imGrätzl.at in Raumpartnerschaften.
+        Raumsuchende und Raumhabende auf <%= t("region.#{current_region ? current_region.id : 'default'}.domain_readable") %> in Raumpartnerschaften.
         Es geht darum Gewerbeflächen, und im weiteren Kosten zu teilen.
         Der Raumteiler ist auch ein Werkzeug, um Leerstand zu verhindern und verbindet
         Raumsuchende in Gruppen, um Leerstand neu zu aktivieren.
@@ -156,7 +156,7 @@
       <h2>AnbieterInnen & Location-Seite</h2>
       <h3>Für mehr Sichtbarkeit in deinem Stadtteil!</h3>
       <p>
-        Lokale AkteurInnen bekommen auf imGrätzl.at die kostenlose Möglichkeit ihr Angebot,
+        Lokale AkteurInnen bekommen auf <%= t("region.#{current_region ? current_region.id : 'default'}.domain_readable") %> die kostenlose Möglichkeit ihr Angebot,
         ihre Events und Workshops im Stadtteil auf einer eigenen interaktiven Seite vorzustellen.
         Alle Updates, Workshops und Events werden zusätzlich dazu per Stadtteil-Newsletter
         versendet und in Häusern der Sozialbau AG (Bauträger) und Heimbau (Bauträger)

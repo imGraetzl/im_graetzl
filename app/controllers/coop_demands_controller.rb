@@ -20,7 +20,7 @@ class CoopDemandsController < ApplicationController
 
   def create
     @coop_demand = CoopDemand.new(coop_demand_params)
-    @coop_demand.user_id = current_user.admin && params[:user_id].present ? params[:user_id] : current_user.id
+    @coop_demand.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @coop_demand.region_id = current_region.id
 
     if @coop_demand.save

@@ -1,7 +1,11 @@
 <aside class="sideBar">
 
   <div class="sideBarbox contact">
-    <div class='sideflag -L'>Infos</div>
+    <% if @coop_demand.user %>
+      <%= link_to content_tag(:h3, @coop_demand.user.graetzl.name, class: 'sideflag -L'), @coop_demand.user.graetzl %>
+    <% else %>
+      <div class='sideflag -L'>Infos</div>
+    <% end %>
 
     <div class="iconlist">
 

@@ -13,6 +13,7 @@ class District < ApplicationRecord
   has_many :location_posts, through: :graetzls
 
   has_many :room_demands, -> { distinct }, through: :graetzls
+  has_many :coop_demands, -> { distinct }, through: :graetzls
   has_many :groups, -> { distinct }, through: :graetzls
 
   def self.all_memoized
