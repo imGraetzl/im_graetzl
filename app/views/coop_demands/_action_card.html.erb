@@ -1,0 +1,28 @@
+<div class="cardbox-wrp" data-behavior="masonry-card">
+  <div class="paperCard -cord1RT -illuteaser -coop-demands">
+    <div class="wrp">
+      <div class="user">
+        <% if current_user %>
+          <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
+          <span><%= current_user.username %></span>
+        <% else %>
+          <%= image_tag('fallbacks/user_avatar.png', class: 'img-round') %>
+          <span>Dein Name</span>
+        <% end %>
+      </div>
+      <h3>Hast du ein Coop & Share Markplatz Angebot?</h3>
+      <%= link_to 'Deinen Angebot eintragen', new_coop_demand_path, class: 'btn-primary -rose' %>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <% if local_assigns[:view_all] %>
+    <% if local_assigns[:graetzl] %>
+      <%= link_to 'Alle Coop & Share Markplatz Angebote', coop_demands_graetzl_path(graetzl), class: 'link-more' %>
+    <% elsif local_assigns[:district] %>
+      <%= link_to 'Alle Coop & Share Markplatz Angebote', district_coop_demands_path(district), class: 'link-more' %>
+    <% else %>
+      <%= link_to 'Alle Coop & Share Markplatz Angebote', region_coop_demands_path, class: 'link-more' %>
+    <% end %>
+  <% end %>
+</div>

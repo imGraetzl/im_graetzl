@@ -1,0 +1,101 @@
+section.coop-demand-form {
+  max-width: 775px;
+  margin: 0 auto;
+  label {min-width:175px;}
+  textarea {min-height:150px;}
+
+  h2 {
+    @include font-size-secondaryFont;
+    margin: 40px 0 15px;
+    text-align: center;
+  }
+
+  div.hl-subtext {
+    margin: 40px 0 15px;
+    h1 { margin: 0px 0 15px; }
+    h2 { margin: 0px 0 5px; }
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
+  .input-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top:15px;
+    .btn-primary {
+      display: inline-block;
+    }
+    .btn-secondary {
+      margin-right:15px;
+    }
+    .btn-primary:only-child {
+      margin-left: auto;
+    }
+  }
+
+  .coop-demand-categories, .suggested-tags {
+    overflow: hidden;
+    margin: 2rem 0 2rem;
+    .input-checkbox {
+      float: left;
+      width: 100%;
+      @include respond-to(">=small") {
+        width: 50%;
+      }
+      @include respond-to(">=medium") {
+        width: 33%;
+      }
+    }
+  }
+
+  .suggested-tags{
+    display: none;
+  }
+
+  .tagsinput {
+    text-transform: capitalize;
+  }
+
+  .category-switch {
+    @include cf;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    background-color: rgba($color-ambient-mint-light,0.75);
+    .input-radio {
+      display: inline-flex;
+    }
+    label {
+      @include font-size-primaryFont('large');
+      padding-bottom:5px;
+    }
+    input:checked ~ label {
+      font-weight: bold;
+    }
+  }
+  #custom-keywords_addTag, #custom-keywords_tag {
+    width:100% !important;
+  }
+
+  .coop-demand-columns {
+    overflow: hidden;
+    .column-left { float: left; width: 50%; padding-right:10px;}
+    .column-right { float: right; width: 50%;}
+  }
+
+  .input-select {
+    .SumoSelect > .optWrapper > .options li.opt.disabled { display: none; }
+  }
+
+  .button-switch {
+    text-align: center;
+    margin-top: 10px;
+    .btn-primary {
+      display:inline-table;
+      span {text-decoration: underline; font-weight: bold;}
+      margin: 10px;
+    }
+  }
+
+}

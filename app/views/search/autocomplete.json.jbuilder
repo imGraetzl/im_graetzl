@@ -42,6 +42,15 @@ json.tool_offers do
   end
 end
 
+json.coop_demands do
+  json.array!(@results.select{|r| r.is_a?(CoopDemand)}) do |coop_demand|
+    json.type coop_demand.class.name
+    json.name coop_demand.slogan
+    json.url coop_demand_path(coop_demand)
+    json.icon coop_demand.avatar_url(:thumb)
+  end
+end
+
 json.groups do
   json.array!(@results.select{|r| r.is_a?(Group)}) do |group|
     json.type group.class.name

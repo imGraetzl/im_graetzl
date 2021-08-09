@@ -39,6 +39,10 @@ APP.components.search = (function() {
           header: "Toolteiler"
         },
         {
+          listLocation: "coop_demands",
+          header: "Coop & Share"
+        },
+        {
           listLocation: "groups",
           header: "Gruppen"
         },
@@ -103,6 +107,9 @@ APP.components.search = (function() {
               break;
             case 'Toolteiler':
               type = 'tool_offers'
+              break;
+            case 'Coop & Share':
+              type = 'coop_demands'
               break;
             case 'Events & Workshops':
               type = 'meetings'

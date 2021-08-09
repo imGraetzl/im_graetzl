@@ -1,0 +1,39 @@
+<section class="usersetup -coop-demands">
+
+  <% if @coop_demands.empty? %>
+    <div class="introcontainer">
+      <div class="introtxt">
+        <div class="hl-subtext" id="teilnahme">
+          <h1><em>Coop & Share Marktplatz</em></h1>
+          <p>Dein persönliches Schaufenster auf <%= t("region.#{current_region.id}.domain_readable") %> <%= render 'shared/questionmarklink', hint_url: info_anbieter_und_locations_path %></p>
+        </div>
+        <h3>1. Richte dir deine kostenlose Location-Seite ein.</h3>
+          <p>
+          Du hast ein Projekt <%= t("region.#{current_region.id}.in_graetzl") %>, du bist kreativ, oder wirtschaftlich <%= t("region.#{current_region.id}.in_graetzl") %> tätig? Egal,
+          ob aus dem Home-Office, mit oder ohne Geschäftslokal - Mach dich und deine Tätigkeit für die Bewohner <%= t("region.#{current_region.id}.in_your_graetzl") %> sichtbar!
+          <br>
+          <strong>Deine Location ist dein persönliches Schaufenster <%= t("region.#{current_region.id}.in_your_graetzl") %> - Und sie ist kostenlos!</strong>
+          </p>
+        <h3>2. Wenn du deine Location hast ...</h3>
+          ... kannst du Neuigkeiten, Aktionen oder Termine auf dieser veröffentlichen - Diese
+          landen nicht nur im <%= t("region.#{current_region.id}.graetzl") %>-Stream, sondern auch im wöchentlichen <%= t("region.#{current_region.id}.graetzl") %> Newsletter.
+          <br>
+          Damit erfahren die Bewohner <%= t("region.#{current_region.id}.in_your_graetzl") %>, was es bei dir Neues & Besonderes gibt. Darüber hinaus ist die Locationseite die Voraussetzung für das Grätzlzuckerl.
+      </div>
+      <%= render 'coop_demands/action_card', user: @user %>
+    </div>
+
+  <% else %>
+
+    <h2 class="hl-main">Deine <span>Coop & Share Angebote</span> verwalten</h2>
+
+    <div class="cardBoxCollection -tripple">
+      <%= render @coop_demands %>
+    </div>
+    <div class="action-card-container">
+      <%= render 'coop_demands/action_card', user: @user %>
+    </div>
+
+  <% end %>
+
+</section>

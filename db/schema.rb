@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_132805) do
+ActiveRecord::Schema.define(version: 2021_08_05_093346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,56 @@ ActiveRecord::Schema.define(version: 2021_07_23_132805) do
     t.text "hours"
     t.string "online_shop"
     t.index ["location_id"], name: "index_contacts_on_location_id"
+  end
+
+  create_table "coop_demand_categories", force: :cascade do |t|
+    t.string "name"
+    t.string "icon"
+    t.integer "position", default: 0
+    t.jsonb "main_photo_data"
+    t.string "slug"
+    t.index ["slug"], name: "index_coop_demand_categories_on_slug", unique: true
+  end
+
+  create_table "coop_demand_graetzls", force: :cascade do |t|
+    t.bigint "coop_demand_id"
+    t.bigint "graetzl_id"
+    t.index ["coop_demand_id"], name: "index_coop_demand_graetzls_on_coop_demand_id"
+    t.index ["graetzl_id"], name: "index_coop_demand_graetzls_on_graetzl_id"
+  end
+
+  create_table "coop_demands", force: :cascade do |t|
+    t.string "slogan"
+    t.text "demand_description"
+    t.text "personal_description"
+    t.string "slug"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "website"
+    t.string "email"
+    t.string "phone"
+    t.integer "status", default: 0
+    t.jsonb "avatar_data"
+    t.string "region_id"
+    t.date "last_activated_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "location_id"
+    t.bigint "coop_demand_category_id"
+    t.index ["coop_demand_category_id"], name: "index_coop_demands_on_coop_demand_category_id"
+    t.index ["location_id"], name: "index_coop_demands_on_location_id"
+    t.index ["region_id"], name: "index_coop_demands_on_region_id"
+    t.index ["slug"], name: "index_coop_demands_on_slug"
+    t.index ["user_id"], name: "index_coop_demands_on_user_id"
+  end
+
+  create_table "coop_suggested_tags", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "coop_demand_category_id"
+    t.index ["coop_demand_category_id"], name: "index_coop_suggested_tags_on_coop_demand_category_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -836,12 +886,6 @@ ActiveRecord::Schema.define(version: 2021_07_23_132805) do
     t.index ["user_id"], name: "index_room_rentals_on_user_id"
   end
 
-  create_table "room_suggested_tags", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.integer "taggable_id"
@@ -1064,6 +1108,12 @@ ActiveRecord::Schema.define(version: 2021_07_23_132805) do
   add_foreign_key "billing_addresses", "users", on_delete: :nullify
   add_foreign_key "business_interests_users", "business_interests", on_delete: :cascade
   add_foreign_key "business_interests_users", "users", on_delete: :cascade
+  add_foreign_key "coop_demand_graetzls", "coop_demands", on_delete: :cascade
+  add_foreign_key "coop_demand_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "coop_demands", "coop_demand_categories", on_delete: :nullify
+  add_foreign_key "coop_demands", "locations", on_delete: :nullify
+  add_foreign_key "coop_demands", "users", on_delete: :cascade
+  add_foreign_key "coop_suggested_tags", "coop_demand_categories", on_delete: :nullify
   add_foreign_key "discussion_categories", "groups", on_delete: :cascade
   add_foreign_key "discussion_followings", "discussions", on_delete: :cascade
   add_foreign_key "discussion_followings", "users", on_delete: :cascade

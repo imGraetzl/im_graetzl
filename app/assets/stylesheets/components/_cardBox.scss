@@ -51,11 +51,21 @@
   }
 
   // -------------------------- Room Demand Cardbox
-  &.-roomdemand {
+  &.-roomdemand, &.-coopdemand {
     .category-tags {
       position: absolute;
       top:4px;
       right:0px;
+    }
+  }
+
+  &.-coopdemand {
+    .categoryicon {
+      svg {
+        fill: $color-ambient-rosa;
+        width:50px;
+        height: 50px;
+      }
     }
   }
 
@@ -217,14 +227,14 @@
   a.typelink {text-decoration: none !important;}
   a.typelink:hover {text-decoration: none !important;}
 
-  .roomtype {
+  .type-description {
     color: $color-ambient-rosa;
     font-style: italic;
     padding: 10px 0px 15px 0px;
   }
 
-  &.-roomdemand {
-    .roomtype {
+  &.-roomdemand, &.-coopdemand {
+    .type-description {
       padding-top: 0px;
       margin-top:-10px;
     }
@@ -483,7 +493,7 @@
   &.-below {
     background: none;
     margin-bottom: 0px;
-    .roomtype {
+    .type-description {
       margin-top: 47px;
     }
   }

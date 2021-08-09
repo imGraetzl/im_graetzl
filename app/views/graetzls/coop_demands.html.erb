@@ -1,0 +1,41 @@
+<% meta(
+    title: t('.title', graetzl: @graetzl.name),
+    description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.numeric, region: current_region.name),
+    robots: 'index, follow',
+    og_title: t('.title', graetzl: @graetzl.name),
+    og_description: t('.description', graetzl: @graetzl.name, numeric: @graetzl.numeric, region: current_region.name),
+    og_image: image_url('meta/og_logo.png')
+  )
+%>
+
+<section class="graetzls">
+  <%= render 'map' %>
+  <%= render 'navigation' %>
+
+  <div class="hl-subtext -cards">
+    <h1><span>Coop & Share</span> Marplatz</h1>
+  </div>
+
+  <%= form_tag coop_demands_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <div class="filter-selection-text-jbox">
+      Zeige mir Coop & Share Angebote aus <%= link_to 'allen Kategorien', '#filter-modal-category', data: { no_filter_label: 'allen Kategorien'}, class: 'filter-modal-category' %>,
+      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+    </div>
+    <div id="filter-modal-category" class="filter-modal-jbox">
+      <%= render 'filters/coop_demand_categories' %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', graetzl: @graetzl %>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="coop-demands-card-container"></div>
+    <div class="action-card-container" data-behavior="coop-demands-action-card-container">
+      <%= render 'coop_demands/action_card', create_link: true %>
+    </div>
+    <!-- Insert Featured Card -->
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'coop-demands-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>
