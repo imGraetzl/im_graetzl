@@ -11,7 +11,7 @@ class Region
   def self.all
     @regions ||= [
       new('wien', 'Wien', true),
-      new('kaernten', 'Unterkärnten', false),
+      new('kaernten', 'Kärnten', false),
     ]
   end
 
