@@ -248,6 +248,7 @@
 
 // ILLU BG
 .filter-stream.-illubg {
+  /*
   @include respond-to(">=medium") {
     &::before {
       content: '';
@@ -262,6 +263,7 @@
       background-position: center, center;
     }
   }
+  */
 }
 
 .hl-main, .hl-subtext {
