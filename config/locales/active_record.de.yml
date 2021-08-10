@@ -57,6 +57,9 @@ de:
       business_interest:
         one: Business Interesse
         other: Business Interessen
+      district:
+        one: Bezirk
+        other: Bezirke
       billing_address: Rechnungsadresse
       location_category:
         one: Kategorie
@@ -65,11 +68,11 @@ de:
         one: Kategorie
         other: Kategorien
       meeting_category:
-        one: SFS Kategorie
-        other: SFS Kategorien
+        one: Special Kategorie
+        other: Special Kategorien
       event_category:
-        one: Event Kategorie
-        other: Event Kategorien
+        one: Kategorie
+        other: Kategorien
       contact: Kontakt
       campaign_user:
         one: Eintrag
@@ -108,20 +111,26 @@ de:
         one: Zuckerl
         other: Zuckerln
       coop_demand:
-        one: Coop & Share Suche
-        other: Coop & Share Suchen
+        one: Coop & Share Angebot
+        other: Coop & Share Angebote
+      tool_offer:
+        one: Toolteiler
+        other: Toolteiler
       room_offer:
         one: Raumangebot
         other: Raumangebote
       room_demand:
         one: Raumsuche
         other: Raumsuchen
+      tool_category:
+        one: Kategorie
+        other: Kategorien
       room_category:
         one: Kategorie
         other: Kategorien
-      room_suggested_tag:
-        one: Tag
-        other: Tags
+      coop_suggested_tag:
+        one: Default Tag
+        other: Default Tags
       room_call:
         one: Call
         other: Calls
@@ -131,6 +140,12 @@ de:
       room_call_submission:
         one: Call Einreichung
         other: Call Einreichungen
+      room_rental:
+        one: Transaktion
+        other: Transaktionen
+      tool_rental:
+        one: Transaktion
+        other: Transaktionen
 
 
     attributes:

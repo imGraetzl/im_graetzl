@@ -22,7 +22,7 @@
     </div>
     -->
 
-    <h2 class="hl-main"><span>Schlagworte</span> - Kurz das wichtigste</h2>
+    <h2 class="hl-main">Konkretisiere <span>deine Wünsche</span></h2>
 
     <% CoopDemandCategory.all.each do |category| %>
       <div class="suggested-tags" data-category="<%= category.id %>">
@@ -32,13 +32,16 @@
           <%= b.label :for => "#{category.id}_#{b.text}" %>
           </div>
         <% end %>
+        <div class="own-tag-description">
+          .. oder setze eigene Stichwörter:
+        </div>
       </div>
     <% end %>
 
     <div class="input-tags">
       <%= label_tag :custom_keywords do %>
       <%= icon_tag "label-tag" %>
-      <span>Schlagworte<br/><small>(mit Komma getrennt)</small></span>
+      <span>Eigene Stichwörter<br/><small>(mit Komma getrennt)</small></span>
       <% end %>
       <%= text_field_tag :custom_keywords, (f.object.keyword_list - CoopSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
     </div>
@@ -49,7 +52,7 @@
         <%= icon_tag "record" %>
         <span>Kurzer Titel</span>
       <% end %>
-      <%= f.text_field :slogan, placeholder: 'z.B. Suche einen Raum für handwerklich kreative Tätigkeiten…' %>
+      <%= f.text_field :slogan, placeholder: 'z.B. Suche Webdesigner*in für Kooperation' %>
     </div>
 
     <div class="input-field">
@@ -57,7 +60,7 @@
         <%= icon_tag "layout-document" %>
         <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :demand_description, placeholder: 'Hast du spezielle Anforderungen an den Raum? Beschreibe kurz das Umfeld welches gut zu dir passen würde. Welche Leute wären toll als Mitnutzer im Raum zu haben …' %>
+      <%= f.text_area :demand_description, placeholder: 'Beschreibe hier, was du suchst. Schreibe nicht nur Stichpunkte hin, sondern formuliere ganze Sätze' %>
     </div>
 
     <h2 class="hl-main">Ein paar Worte <span>über dich & deine Tätigkeit</span></h2>
@@ -66,7 +69,7 @@
       <%= icon_tag "layout-document" %>
       <span>Über dich</span>
       <% end %>
-      <%= f.text_area :personal_description, placeholder: 'Beschreibe kurz deine Tätigkeit. Auch ein paar persönliche Worte über dich wären toll …' %>
+      <%= f.text_area :personal_description, placeholder: 'Erzähle etwas über dich und beschreibe deine Tätigkeit.' %>
     </div>
 
     <h2 class="hl-main"><span>Kontakt</span> & Infos</h2>

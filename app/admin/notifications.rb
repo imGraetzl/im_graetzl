@@ -1,5 +1,5 @@
 ActiveAdmin.register Notification, as: "Notifications" do
-  menu parent: 'Users', priority: 3
+  menu parent: 'Users'
   actions :all, except: [:new, :create, :edit]
 
   scope :all, default: true

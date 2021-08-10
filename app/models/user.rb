@@ -71,6 +71,11 @@ class User < ApplicationRecord
   before_destroy :mailchimp_user_delete
 
   scope :business, -> { where(business: true) }
+  Region.all.each do |region|
+    scope region.id.to_sym, -> { where(region_id: region) }
+  end
+
+
 
 
   # Filter for Active Admin User Notification Settings

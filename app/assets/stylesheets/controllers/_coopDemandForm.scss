@@ -36,7 +36,7 @@ section.coop-demand-form {
 
   .coop-demand-categories, .suggested-tags {
     overflow: hidden;
-    margin: 2rem 0 2rem;
+    //margin: 2rem 0 2rem;
     .input-checkbox {
       float: left;
       width: 100%;
@@ -55,6 +55,13 @@ section.coop-demand-form {
 
   .tagsinput {
     text-transform: capitalize;
+  }
+  .own-tag-description {
+    clear: both;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    padding: 1rem 0 1rem;
   }
 
   .category-switch {

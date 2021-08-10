@@ -1,5 +1,5 @@
 ActiveAdmin.register CampaignUser do
-  menu parent: 'Users', priority: 4, label: "Campaign User"
+  menu parent: 'Users', label: "Campaign User"
 
   index { render 'index', context: self }
   form partial: 'form'
