@@ -1,5 +1,5 @@
 ActiveAdmin.register User, as: "User Notification Settings" do
-  menu parent: 'Users', priority: 2
+  menu parent: 'Users'
 
   actions :index
   #config.filters = false

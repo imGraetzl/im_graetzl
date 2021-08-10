@@ -1,5 +1,5 @@
 ActiveAdmin.register DiscussionDefaultCategory do
-  menu parent: 'Gruppe', priority: 3
+  menu parent: 'Groups'
 
   permit_params :title
 end

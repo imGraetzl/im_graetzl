@@ -1,6 +1,7 @@
 ActiveAdmin.register CoopDemand do
   include ViewInApp
   menu parent: 'Coop & Share'
+
   includes :location, :user, :comments
   actions :all, except: [:new, :create]
 

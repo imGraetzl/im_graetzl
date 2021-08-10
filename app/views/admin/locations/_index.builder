@@ -4,7 +4,7 @@ context.instance_eval do
   column :name
   column(:state){ |l| status_tag(l.state) }
   column :location_category
+  column :region
   column :graetzl
-  column :user
   actions
 end

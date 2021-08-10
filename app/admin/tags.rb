@@ -1,6 +1,6 @@
 ActiveAdmin.register ActsAsTaggableOn::Tag, as: 'Tag' do
   actions :index, :show, :update, :edit, :destroy
-  menu parent: :locations
+  menu false
   config.filters = false
 
   index { render 'index', context: self }

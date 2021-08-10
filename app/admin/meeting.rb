@@ -1,7 +1,7 @@
 ActiveAdmin.register Meeting do
   include ViewInApp
-  menu priority: 5
-  menu parent: 'Treffen'
+  menu label: 'Treffen'
+  menu priority: 3
   includes :graetzl, :location
 
   scope :all, default: true
