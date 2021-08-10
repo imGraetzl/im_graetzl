@@ -12,6 +12,7 @@ class Region
     @regions ||= [
       new('wien', 'Wien', true),
       new('kaernten', 'Kärnten', false),
+      new('muehlviertler-kernland', 'Mühlviertler Kernland', false),
     ]
   end
 

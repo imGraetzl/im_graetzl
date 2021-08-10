@@ -21,3 +21,6 @@ de:
 
     kaernten:
       <<: *default
+
+    muehlviertler-kernland:
+      <<: *default
