@@ -6,10 +6,11 @@ active_admin_form_for [:admin, resource] do |f|
     input :status, include_blank: false
 
     inputs 'Description' do
+      input :coop_type
+      input :coop_demand_category, include_blank: false
       input :slogan
       input :demand_description
       input :personal_description
-      input :coop_demand_categories, collection: CoopDemandCategory.all, input_html: { :class => 'admin-filter-select'}
     end
 
     inputs "Photos" do

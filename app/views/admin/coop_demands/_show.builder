@@ -5,6 +5,8 @@ context.instance_eval do
         attributes_table_for coop_demand do
           row :id
           row(:status){|r| status_tag(r.status)}
+          row :coop_type
+          row :coop_demand_category
           row :slogan
           row :slug
           row :created_at
@@ -12,15 +14,6 @@ context.instance_eval do
           row :last_activated_at
           row :demand_description
           row :personal_description
-
-          row :coop_demand_categories do |g|
-            safe_join(
-              g.coop_demand_categories.map do |category|
-                content_tag(:li, link_to(category.name, admin_coop_demand_category_path(category)))
-              end
-            )
-          end
-
           row :avatar do |r|
             r.avatar && image_tag(r.avatar_url(:thumb))
           end
