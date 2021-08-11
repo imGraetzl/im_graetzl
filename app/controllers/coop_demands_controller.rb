@@ -112,6 +112,7 @@ class CoopDemandsController < ApplicationController
     params
       .require(:coop_demand)
       .permit(
+        :coop_type,
         :slogan,
         :demand_description,
         :personal_description,

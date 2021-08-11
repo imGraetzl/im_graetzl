@@ -13,6 +13,7 @@ class CoopDemand < ApplicationRecord
   has_many :districts, -> { distinct }, through: :graetzls
   has_many :comments, as: :commentable, dependent: :destroy
 
+  enum coop_type: { demand: 0, offer: 1 }
   enum status: { enabled: 0, disabled: 1 }
 
   acts_as_taggable_on :keywords
@@ -27,7 +28,7 @@ class CoopDemand < ApplicationRecord
 
   LIFETIME_MONTHS = 6
 
-  validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email, :coop_demand_category
+  validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email, :coop_demand_category, :coop_type
   validate :has_one_graetzl_at_least
 
   before_create :set_last_activated_at
