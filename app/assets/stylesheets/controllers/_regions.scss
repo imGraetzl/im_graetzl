@@ -22,6 +22,9 @@ section.region {
         display: block;
       }
     }
+    h1.region-title {
+      white-space: nowrap;
+    }
   }
 
   .activeArea {

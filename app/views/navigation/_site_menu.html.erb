@@ -28,7 +28,7 @@
         <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
       <% end %>
       <% Region.all.each do |region| %>
-        <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
+        <%= nav_region_menu_item("map-location", "#{region.name}", region_index_url(host: region.host), region) %>
       <% end %>
     </div>
     <div class="nav-dropdown-menu nav-dropdown-submenu" id="nav-submenu-site-location">
@@ -84,26 +84,27 @@
         <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
       <% end %>
       <% Region.all.each do |region| %>
-        <%= nav_menu_item("map-location", "#{region.name}", root_url(host: region.host)) %>
+        <%= nav_region_menu_item("map-location", "#{region.name}", region_index_url(host: region.host), region) %>
       <% end %>
     </div>
   </div>
 
 
-
-  <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
-    <%= icon_tag "arrow-down-2" %>
-    <span>
-    <% if graetzl %>
-      <%= graetzl.name %>
-    <% elsif district %>
-      <%= district.name %>
-    <% elsif current_region.use_districts %>
-      Grätzl entdecken
-    <% else %>
-      Gemeinden
+  <% if graetzl || district %>
+    <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
+      <%= icon_tag "arrow-down-2" %>
+      <span>
+      <% if graetzl %>
+        <%= graetzl.name %>
+      <% elsif district %>
+        <%= district.name %>
+      <% elsif current_region.use_districts %>
+        Grätzl entdecken
+      <% else %>
+        Gemeinden
+      <% end %>
+      </span>
     <% end %>
-    </span>
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-site-location">
