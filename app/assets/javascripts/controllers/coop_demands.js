@@ -85,7 +85,12 @@ APP.controllers.coop_demands = (function() {
       $("div[data-category='" + selected_category_id + "']").show(); // Show selected
     }
 
+    if ($("form#new_coop_demand").exists()) {
+      $('.coop-category-switch').on("change", function() {
+        $('.coop-tag-area').slideDown();
+      });
 
+    }
 
   }
 

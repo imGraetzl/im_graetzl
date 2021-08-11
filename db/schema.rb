@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_05_093346) do
+ActiveRecord::Schema.define(version: 2021_08_11_084755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 2021_08_05_093346) do
     t.bigint "user_id"
     t.bigint "location_id"
     t.bigint "coop_demand_category_id"
+    t.integer "coop_type", default: 0
     t.index ["coop_demand_category_id"], name: "index_coop_demands_on_coop_demand_category_id"
     t.index ["location_id"], name: "index_coop_demands_on_location_id"
     t.index ["region_id"], name: "index_coop_demands_on_region_id"

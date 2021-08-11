@@ -220,6 +220,9 @@ de:
         first_name: Vorname
         last_name: Nachname
         email: Email
+        coop_types:
+          demand: Suche
+          offer: Biete
         statuses:
           enabled: Aktiv
           disabled: Inaktiv

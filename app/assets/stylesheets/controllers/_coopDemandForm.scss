@@ -19,6 +19,24 @@ section.coop-demand-form {
     }
   }
 
+  .coop-tag-area {
+    border-top:none;
+    border-top-right-radius:0px;
+    border-top-left-radius:0px;
+    h2.-tags {
+      margin-top:10px;
+      margin-bottom:20px;
+
+    }
+    .input-tags {
+      margin-bottom:0px;
+    }
+  }
+
+  #new_coop_demand .coop-tag-area {
+    display: none;
+  }
+
   .input-button {
     display: flex;
     justify-content: flex-end;
@@ -32,6 +50,28 @@ section.coop-demand-form {
     .btn-primary:only-child {
       margin-left: auto;
     }
+  }
+
+  .coop-type-selection {
+    text-align: center;
+    .input-radio {
+      display: inline-block;
+      margin: 0 10px;
+      label {
+        min-width:10px;
+        @include font-size-primaryFont('larger');
+        &::before {
+          margin-top:3px;
+        }
+      }
+      input:checked ~ label {
+        font-weight: bold;
+      }
+    }
+    border-bottom: 1px solid $color-ambient-mint-dark;
+    border-bottom-right-radius:0px;
+    border-bottom-left-radius:0px;
+
   }
 
   .coop-demand-categories, .suggested-tags {
@@ -60,7 +100,7 @@ section.coop-demand-form {
     clear: both;
     text-align: center;
     font-style: italic;
-    font-weight: bold;
+    //font-weight: bold;
     padding: 1rem 0 1rem;
   }
 
@@ -70,6 +110,10 @@ section.coop-demand-form {
     flex-flow: column wrap;
     align-content: center;
     background-color: rgba($color-ambient-mint-light,0.75);
+    border-color: #dbeeed;
+    //border-top-right-radius:0px;
+    //border-top-left-radius:0px;
+    border-radius:0px;
     .input-radio {
       display: inline-flex;
     }

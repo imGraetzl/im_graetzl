@@ -13,7 +13,10 @@
   <div class="imgHeader">
     <div class="titleHeadline">
       <div class="wrp">
-        <h1><%= @coop_demand.coop_demand_category.name %></h1>
+        <h1>
+          <%= t("activerecord.attributes.coop_demand.coop_types.#{@coop_demand.coop_type}") %>
+          <%= @coop_demand.coop_demand_category.name %>
+        </h1>
 
         <% if @coop_demand.keyword_list.present? %>
           <div class="category-tags">
@@ -24,12 +27,6 @@
             </ul>
           </div>
         <% end %>
-
-        <!--<div class="category-tags">
-          <ul class="tag-list -mint">
-            <li><%= link_to @coop_demand.coop_demand_category.name, region_coop_demands_path(category: @coop_demand.coop_demand_category) %></li>
-          </ul>
-        </div>-->
 
       </div>
       <div class="card"></div>

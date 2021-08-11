@@ -1,5 +1,6 @@
 collection @coop_demands
 attributes :id,
+  :coop_type
   :slogan,
   :user_id,
   :district_ids,

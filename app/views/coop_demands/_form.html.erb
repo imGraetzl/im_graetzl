@@ -3,6 +3,15 @@
   <%= hidden_field_tag :last_activated_at, @coop_demand.last_activated_at %>
   <div class="form-block">
 
+    <div class="coop-type-selection cardBox">
+      <% CoopDemand.coop_types.each_with_index do |(name, value), i| %>
+        <div class="input-radio">
+          <%= f.radio_button :coop_type, name, required: true %>
+          <%= f.label "coop_type_#{name}", t("activerecord.attributes.coop_demand.coop_types.#{name}") %>
+        </div>
+      <% end %>
+    </div>
+
     <div class="category-switch cardBox">
       <% CoopDemandCategory.all.each do |category| %>
         <div class="input-radio">
@@ -12,39 +21,34 @@
       <% end %>
     </div>
 
-    <!--
-    <div class="input-select">
-      <%= f.label :coop_demand_category_id do %>
-        <%= icon_tag "record" %>
-        <span>Kategorie</span>
-      <% end %>
-      <%= f.collection_select :coop_demand_category_id, CoopDemandCategory.all, :id, :name, { prompt: 'Kategrie auswählen..' }, class: 'coop-category-switch' %>
-    </div>
-    -->
+    <div class="coop-tag-area cardBox">
 
-    <h2 class="hl-main">Konkretisiere <span>deine Wünsche</span></h2>
+      <h2 class="hl-main -tags">Aus dem <span>Bereich</span></h2>
 
-    <% CoopDemandCategory.all.each do |category| %>
-      <div class="suggested-tags" data-category="<%= category.id %>">
-        <%= collection_check_boxes nil, :suggested_keywords, CoopSuggestedTag.where(coop_demand_category_id: category.id).pluck(:name), :downcase, :to_s do |b| %>
-          <div class="input-checkbox">
-          <%= b.check_box(checked: f.object.keyword_list.include?(b.value), :id => "#{category.id}_#{b.text}")   %>
-          <%= b.label :for => "#{category.id}_#{b.text}" %>
+      <% CoopDemandCategory.all.each do |category| %>
+        <div class="suggested-tags" data-category="<%= category.id %>">
+          <%= collection_check_boxes nil, :suggested_keywords, CoopSuggestedTag.where(coop_demand_category_id: category.id).pluck(:name), :downcase, :to_s do |b| %>
+            <div class="input-checkbox">
+            <%= b.check_box(checked: f.object.keyword_list.include?(b.value), :id => "#{category.id}_#{b.text}")   %>
+            <%= b.label :for => "#{category.id}_#{b.text}" %>
+            </div>
+          <% end %>
+          <div class="own-tag-description">
+            .. oder setze eigene Stichwörter:
           </div>
-        <% end %>
-        <div class="own-tag-description">
-          .. oder setze eigene Stichwörter:
         </div>
-      </div>
-    <% end %>
-
-    <div class="input-tags">
-      <%= label_tag :custom_keywords do %>
-      <%= icon_tag "label-tag" %>
-      <span>Eigene Stichwörter<br/><small>(mit Komma getrennt)</small></span>
       <% end %>
-      <%= text_field_tag :custom_keywords, (f.object.keyword_list - CoopSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
+
+      <div class="input-tags">
+        <%= label_tag :custom_keywords do %>
+        <%= icon_tag "label-tag" %>
+        <span>Eigene Stichwörter<br/><small>(mit Komma getrennt)</small></span>
+        <% end %>
+        <%= text_field_tag :custom_keywords, (f.object.keyword_list - CoopSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
+      </div>
+
     </div>
+
 
     <h2 class="hl-main">Coop & Share <span>Titel</span> und <span>Beschreibung</span></h2>
     <div class="input-field">
