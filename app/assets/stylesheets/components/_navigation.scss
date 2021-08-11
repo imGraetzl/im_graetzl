@@ -181,6 +181,14 @@
       position: absolute;
       right:0;
     }
+    &.active-region {
+      //color: $color-ambient-rosa;
+      //font-weight:bold;
+      //.icon { fill: $color-ambient-mint; }
+    }
+    &.home-region {
+      padding-right:55px;
+    }
 
   }
   em.nav-menu-item {
