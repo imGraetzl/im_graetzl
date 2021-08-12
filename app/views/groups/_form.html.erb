@@ -61,7 +61,7 @@
   </div>
 
   <h2 class="hl-main"><span>Wo</span> soll deine Gruppe sichtbar sein?</h2>
-  <div id="area-select">
+  <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzl") %>">
     <% if current_region.use_districts? %>
       <div class="input-select">
         <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>

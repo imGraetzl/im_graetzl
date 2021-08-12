@@ -14,7 +14,7 @@ APP.controllers.registrations = (function() {
       new jBox('Confirm', {
         addClass:'jBox',
         attach: $(".graetzl-select-link"),
-        title: 'Wähle dein Heimatgrätzl',
+        title: 'Wähle ' + $(".graetzl-select-link").data("homegraetzl"),
         content: $("#select-graetzl-modal-content"),
         trigger: 'click',
         closeOnEsc: true,

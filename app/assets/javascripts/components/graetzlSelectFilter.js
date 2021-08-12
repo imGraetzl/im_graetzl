@@ -3,20 +3,22 @@ APP.components.graetzlSelectFilter = (function() {
   var selectedDistrictIds = [];
 
   function init(container) {
+    var region = container.data('region') || 'Wien';
+    var graetzl = container.data('graetzl') || 'Grätzl';
     var $districtSelect = container.find(".district-select");
     var $graetzlSelect = container.find(".graetzl-select");
     var $resetButton = container.find(".reset-button");
 
     $districtSelect.SumoSelect({
       search: true,
-      searchText: 'Suche nach Bezirk.',
+      searchText: 'Suche nach Bezirk...',
       placeholder: 'Bezirk auswählen',
       csvDispCount: 3,
       captionFormat: '{0} Bezirke',
-      captionFormatAllSelected: 'Alle {0} Bezirke in Wien',
+      captionFormatAllSelected: 'Alle {0} Bezirke in ' + region,
       okCancelInMulti: true,
       selectAll: true,
-      locale: ['Übernehmen', 'Abbrechen', 'Ganz Wien']
+      locale: ['Übernehmen', 'Abbrechen', 'Ganz ' + region]
     });
 
     if ($districtSelect.val() && $districtSelect.val().length > 0) {
@@ -25,11 +27,11 @@ APP.components.graetzlSelectFilter = (function() {
 
     $graetzlSelect.SumoSelect({
       search: true,
-      searchText: 'Suche nach Grätzl.',
-      placeholder: 'Grätzln auswählen',
+      searchText: 'Suche nach ' + graetzl + '...',
+      placeholder: graetzl + ' auswählen',
       csvDispCount: 3,
-      captionFormat: '{0} Grätzln',
-      captionFormatAllSelected: 'Alle {0} Grätzln in Wien',
+      captionFormat: '{0} ' + graetzl + 'n',
+      captionFormatAllSelected: 'Alle {0} '+ graetzl +'n in ' + region,
       okCancelInMulti: true,
       locale: ['Übernehmen', 'Abbrechen']
     });

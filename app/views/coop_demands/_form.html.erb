@@ -34,7 +34,7 @@
             </div>
           <% end %>
           <div class="own-tag-description">
-            .. oder setze eigene Stichwörter:
+            ... oder setze eigene Stichwörter:
           </div>
         </div>
       <% end %>
@@ -142,7 +142,7 @@
     </div>
 
     <h2 class="hl-main"><span>Wo</span> soll dieses Angebot <span>sichtbar</span> sein?</h2>
-    <div id="area-select">
+    <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzl") %>">
       <% if current_region.use_districts? %>
         <div class="input-select">
           <%= f.label :district_ids do %>
