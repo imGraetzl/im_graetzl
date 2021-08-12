@@ -7,6 +7,8 @@ de:
       in_graetzl: "in der Gemeinde"
       in_your_graetzl: "in deiner Gemeinde"
       wish_graetzl: "Wunschgemeinden"
+      homegraetzl: "Heimatgemeinde"
+      your_homegraetzl: "deine Heimatgemeinde"
       dem: "der"
 
     wien:
@@ -17,6 +19,8 @@ de:
       in_graetzl: "im Grätzl"
       in_your_graetzl: "in deinem Grätzl"
       wish_graetzl: "Wunschgrätzln"
+      homegraetzl: "Heimatgrätzl"
+      your_homegraetzl: "dein Heimatgrätzl"
       dem: "dem"
 
     kaernten:

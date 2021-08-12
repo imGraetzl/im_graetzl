@@ -10,7 +10,7 @@
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
-      <%= nav_menu_item("map-location", "#{current_region.name} Karte", region_index_path) %>
+      <%= nav_menu_item("map-location", "#{current_region.name}", region_index_path) %>
       <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
       <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
       <%= nav_menu_item("coop-share-white", 'Coop & Share Marktplatz', region_coop_demands_path) %>
@@ -66,7 +66,7 @@
   <div class="nav-dropdown-menu" id="nav-site-city">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
         <%= nav_submenu_link("globe", 'Region wechseln', 'nav-submenu-desk-regions') %>
-        <%= nav_menu_item("map-location", "#{current_region.name} Karte", region_index_path) %>
+        <%= nav_menu_item("map-location", "#{current_region.name}", region_index_path) %>
         <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
         <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
         <%= nav_menu_item("coop-share-white", 'Coop & Share Marktplatz', region_coop_demands_path) %>
@@ -127,7 +127,7 @@
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", district_zuckerls_path(district)) %>
       <%= nav_menu_item("speech-bubble", "Gruppen (#{district.numeric}. Bez.)", district_groups_path(district)) %>
     <% else %>
-      <%= nav_menu_item("map-location", "#{current_region.name} Karte", region_index_path) %>
+      <%= nav_menu_item("map-location", "#{current_region.name}", region_index_path) %>
     <% end %>
   </div>
 

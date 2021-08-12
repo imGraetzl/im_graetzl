@@ -1,4 +1,4 @@
-<%= link_to current_region.use_districts ? 'Nicht dein Grätzl?' : 'Nicht deine Gemeinde?', 'javascript:', class: 'link-subtle graetzl-select-link' %>
+<%= link_to current_region.use_districts ? 'Nicht dein Grätzl?' : 'Nicht deine Gemeinde?', 'javascript:', class: 'link-subtle graetzl-select-link', data: { homegraetzl: "#{t("region.#{current_region.id}.your_homegraetzl")}"}  %>
 
 <div id="select-graetzl-modal-content" style="display: none">
   <% if current_region.use_districts %>

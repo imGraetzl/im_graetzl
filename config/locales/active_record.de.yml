@@ -227,8 +227,8 @@ de:
           enabled: Aktiv
           disabled: Inaktiv
         status_message:
-          enabled: Deine Coop & Share Suche ist nun aktiv und sichtbar.
-          disabled: Deine Coop & Share Suche ist nun deaktiviert und scheint nicht mehr auf den Coop & Share Seiten auf.
+          enabled: Dein Coop & Share Angebot ist nun aktiv und sichtbar.
+          disabled: Dein Coop & Share Angebot ist nun deaktiviert und scheint nicht mehr im Coop & Share Markplatz auf.
       room_offer:
         address: Adresse
         slogan: Titel

@@ -60,7 +60,7 @@ APP.components.addressSearchAutocomplete = function() {
     name: 'addresse',
     source: addressSearch.ttAdapter(),
     displayKey: function(data) {
-      if (region == 'kaernten' || 'muehlviertler-kernland') {
+      if (region == 'kaernten' || region == 'muehlviertler-kernland') {
         return data.place_name_de;
       } else {
         return data.properties.Adresse;
@@ -68,7 +68,7 @@ APP.components.addressSearchAutocomplete = function() {
     },
     templates: {
       suggestion: function(data) {
-        if (region == 'kaernten' || 'muehlviertler-kernland') {
+        if (region == 'kaernten' || region == 'muehlviertler-kernland') {
           return data.place_name_de.split(',')[0] +'<span class="district">' + data.context[0].text_de + ' ' + data.context[1].text_de + '</span>';
         } else {
           return data.properties.Adresse +'<span class="district">Bezirk: ' + data.properties.Bezirk + '</span>';
