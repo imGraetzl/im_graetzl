@@ -6,11 +6,11 @@
 
   <div class="nav-dropdown-menu" id="nav-site-main">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-site-city">
-      <%= nav_submenu_link("globe", 'Region wechseln', 'nav-submenu-regions') %>
+      <%= nav_menu_item("map-location", "#{current_region.name}", region_index_path, class: 'half region-switch') %>
+      <%= nav_submenu_link("globe", '', 'nav-submenu-regions', class: 'half region-switch globe') %>
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
-      <%= nav_menu_item("map-location", "#{current_region.name}", region_index_path) %>
       <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
       <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
       <%= nav_menu_item("coop-share-white", 'Coop & Share Marktplatz', region_coop_demands_path) %>
@@ -65,8 +65,8 @@
 
   <div class="nav-dropdown-menu" id="nav-site-city">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
-        <%= nav_submenu_link("globe", 'Region wechseln', 'nav-submenu-desk-regions') %>
-        <%= nav_menu_item("map-location", "#{current_region.name}", region_index_path) %>
+        <%= nav_menu_item("map-location", "#{current_region.name}", region_index_path, class: 'half region-switch') %>
+        <%= nav_submenu_link("globe", '', 'nav-submenu-desk-regions', class: 'half region-switch globe') %>
         <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
         <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
         <%= nav_menu_item("coop-share-white", 'Coop & Share Marktplatz', region_coop_demands_path) %>
