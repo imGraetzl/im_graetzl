@@ -169,8 +169,13 @@
     &.half.region-switch.globe {
       width:20%;
       justify-content: center;
+      padding-left:0px;
+      padding-right:0px;
       .arrow {display: none;}
-      //.icon { fill: $color-ambient-mint-dark; }
+      .icon {
+        margin-right: 0px;
+        //fill: $color-ambient-mint-dark;
+      }
     }
 
     &.center {
