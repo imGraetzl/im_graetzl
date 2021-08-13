@@ -138,7 +138,8 @@
 
   #nav-current-user.jq-dropdown { width: 320px; }
   #nav-user-notifications.jq-dropdown { width: 400px; }
-  .jq-dropdown-panel { padding: 10px; min-width: 270px; }
+  //#nav-submenu-desk-regions { width: 320px; }
+  .jq-dropdown-panel { padding: 10px; min-width: 320px; }
 
   .nav-dropdown-menu.mobile-dropdown {
     display: block;
@@ -155,8 +156,23 @@
     border-bottom: 1px solid $color-ambient-mint-light;
     &:last-child { border-bottom: none; }
     &:hover, &:active { background-color: $color-ambient-mint-light; }
-    &.half { width: 50%; }
     &.half:first-child { float: left; border-right: 1px solid $color-ambient-mint-light; }
+    &.half { width: 50%; }
+
+    &.half.region-switch {
+      padding-right: 5px;
+    }
+    &.half:first-child.region-switch {
+      width:80%;
+      white-space: nowrap;
+    }
+    &.half.region-switch.globe {
+      width:20%;
+      justify-content: center;
+      .arrow {display: none;}
+      //.icon { fill: $color-ambient-mint-dark; }
+    }
+
     &.center {
       justify-content: center;
     }
