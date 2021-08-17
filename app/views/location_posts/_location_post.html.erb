@@ -4,13 +4,13 @@
 <div class="cardBox" data-behavior="masonry-card">
   <div class="cardBoxHeader">
     <%= link_to [graetzl, location, anchor: dom_id(location_post)] do %>
+    <div class="coverImgWrapper">
       <% if image = location_post.images.first %>
-        <div class="coverImgWrapper">
           <%= gallery_photo_image(image, class: 'coverImg') %>
-        </div>
       <% else %>
         <%= cover_photo_image(location, class: 'coverImg') %>
       <% end %>
+    </div>
     <% end %>
     <div class="categoryicon">
       <%= icon_tag "location" %>
