@@ -50,6 +50,15 @@ APP.controllers.tool_offers = (function() {
           });
         }
       });
+      $(".request-price-form").on("ajax:complete", function() {
+        new jBox('Tooltip', {
+          addClass:'temporary-deactivated',
+          attach: '.tooltip-trigger',
+          trigger: 'click',
+          closeOnClick: true,
+          closeOnMouseleave: true,
+        });
+      });
 
     }
 
