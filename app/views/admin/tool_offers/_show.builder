@@ -14,6 +14,7 @@ context.instance_eval do
           row :model
           row :value_up_to
           row :serial_number
+          row :deposit
           row :known_defects
           row :price_per_day
           row :two_day_discount

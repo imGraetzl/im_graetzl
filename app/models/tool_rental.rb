@@ -52,7 +52,8 @@ class ToolRental < ApplicationRecord
       self.discount = 0
     end
     self.service_fee = ((basic_price - discount) * 0.065).round(2)
-    self.insurance_fee = ((basic_price - discount) * 0.08).round(2)
+    #self.insurance_fee = ((basic_price - discount) * 0.08).round(2)
+    self.insurance_fee = 0
     self.tax = (service_fee * 0.20).round(2)
   end
 
@@ -85,7 +86,7 @@ class ToolRental < ApplicationRecord
   private
 
   def set_region
-    self.region_id = room_offer.region_id
+    self.region_id = tool_offer.region_id
   end
 
 end

@@ -32,6 +32,13 @@
     padding-top: 20px;
     margin-bottom: 20px;
   }
+  li.deposit {
+    border-top: 1px solid $color-ambient-mint-light;
+    padding-top: 20px;
+    .cost, .costname {
+      color: $color-ambient-grey;
+    }
+  }
 }
 
 .package-pricing {

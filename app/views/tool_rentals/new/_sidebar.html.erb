@@ -60,14 +60,23 @@
           <%= number_to_currency(@tool_rental.total_fee, unit: "€") %>
         </div>
         <div class="costname">
-          Servicegebühr inkl. Versicherung
-          <%= render 'shared/questionmark',hint_id: "3" ,hint_message: 'Beinhaltet die imGrätzl Servicegebühr (inkl. Mwst) und die Toolteiler Versicherung.' %>
+          Servicegebühr
+          <%= render 'shared/questionmark',hint_id: "3" ,hint_message: 'Beinhaltet die imGrätzl Servicegebühr (inkl. Mwst).' %>
         </div>
       </li>
-      <li class=sum>
+      <li class="sum">
         <div class="cost"><%= number_to_currency(@tool_rental.total_price, unit: "€") %></div>
         <div class="costname">Gesamtpreis</div>
       </li>
+      <% if @tool_rental.tool_offer.deposit? %>
+      <li class="deposit">
+        <div class="cost"><%= number_to_currency(@tool_rental.tool_offer.deposit, unit: "€") %></div>
+        <div class="costname">
+          Bargeld Kaution bei Übergabe.
+          <%= render 'shared/questionmark',hint_id: "4" ,hint_message: 'Bitte in bar zur Übergabe mitnehmen. Du bekommst den Betrag nach Rückgabe wieder zurück.' %>
+        </div>
+      </li>
+      <% end %>
     </ul>
 
   </div>

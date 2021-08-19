@@ -1,17 +1,25 @@
 <div class="cardbox-wrp" data-behavior="masonry-card">
-  <div class="paperCard -cord1RT -illuteaser -insurance -tmp">
+  <div class="paperCard -cord1RT -illuteaser -tools">
     <div class="wrp">
-      <!--
-      <h3>Mit Unterstützung von:</h3>
-      <div class="insurance">
-        <%= link_to info_versicherung_path do %><%= image_tag('logo-axa.png') %><% end %>
+      <div class="user">
+        <% if current_user %>
+          <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
+          <span><%= current_user.username %></span>
+        <% else %>
+          <%= image_tag('fallbacks/user_avatar.png', class: 'img-round') %>
+          <span>Dein Name</span>
+        <% end %>
       </div>
-      -->
-      <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
-      <p>
-        Jeder Mietvorgang ist versichert. (Mit Unterstützung von <%= link_to 'AXA XL Insurance', info_versicherung_path %>).
-      </p>
-      <%= link_to 'Gerät einstellen', new_tool_offer_path, class: 'btn-primary' %>
+      <% if local_assigns[:graetzl] %>
+        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
+        <%= link_to 'Neuen Toolteiler erstellen', new_tool_offer_path, class: 'btn-primary' %>
+      <% elsif local_assigns[:district] %>
+        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
+        <%= link_to 'Neuen Toolteiler erstellen', new_tool_offer_path, class: 'btn-primary' %>
+      <% else %>
+        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
+        <%= link_to 'Neuen Toolteiler erstellen', new_tool_offer_path, class: 'btn-primary -rose' %>
+      <% end %>
     </div>
     <div class="card"></div>
   </div>
@@ -25,11 +33,4 @@
       <%= link_to 'Alle Toolteiler', region_tool_offers_path, class: 'link-more' %>
     <% end %>
   <% end %>
-
-  <% if local_assigns[:create_link] %>
-    <div class="create_link">
-      <%= link_to 'Neuen Toolteiler erstellen', new_tool_offer_path, class: 'btn-primary' %>
-    </div>
-  <% end %>
-
 </div>

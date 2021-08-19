@@ -45,7 +45,7 @@ class ToolRentalInvoice
     table_data << [nil, nil, nil, nil, "Rabatt", format_price(-tool_rental.discount)] if tool_rental.discount?
     table_data << [nil, nil, nil, nil, "Servicegebühr", format_price(tool_rental.service_fee)]
     table_data << [nil, nil, nil, nil, "(20% MwSt.)", format_price(tool_rental.tax)]
-    table_data << [nil, nil, nil, nil, "Servicegebühr Gesamt (Inkl. Versicherung und MwSt)", format_price(tool_rental.total_fee)]
+    table_data << [nil, nil, nil, nil, "Servicegebühr Gesamt (Inkl. MwSt)", format_price(tool_rental.total_fee)]
     table_data << [nil, nil, nil, nil, "Gesamt", format_price(tool_rental.total_price)]
 
     pdf.table(table_data, width: pdf.bounds.width, column_widths: {5 => 60}) do

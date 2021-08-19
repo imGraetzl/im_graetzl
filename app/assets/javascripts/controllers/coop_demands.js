@@ -82,6 +82,7 @@ APP.controllers.coop_demands = (function() {
 
     if ($('.coop-category-switch:checked').length > 0) {
       var selected_category_id = $('.coop-category-switch:checked').val();
+      $(".coop-tag-area").show();
       $("div[data-category='" + selected_category_id + "']").show(); // Show selected
     }
 
@@ -89,7 +90,6 @@ APP.controllers.coop_demands = (function() {
       $('.coop-category-switch').on("change", function() {
         $('.coop-tag-area').slideDown();
       });
-
     }
 
   }

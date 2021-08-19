@@ -27,6 +27,17 @@ APP.controllers.tool_offers = (function() {
         'defaultText':'Kurz in Stichworten ..'
       });
 
+      // Deposit Fields Toogle
+      $('.deposit-radios .deposit-toggle-input').on('change', function() {
+        var depositEnabled = $('.deposit-radios .deposit-toggle-input:checked').val() == 'true';
+        if (depositEnabled) {
+          $('#deposit-fields').slideDown();
+        } else if (!depositEnabled){
+          $('#deposit-fields input').val('');
+          $('#deposit-fields').slideUp();
+        }
+      }).change();
+
     }
 
     function initToolOfferDetails() {

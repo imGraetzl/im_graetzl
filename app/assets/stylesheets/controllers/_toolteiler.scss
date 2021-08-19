@@ -293,6 +293,17 @@ section.form-new-toolteiler {
     }
   }
 
+  .deposit-radios {
+    display: flex;
+    justify-content: center;
+    label {
+      min-width: 0px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    margin-bottom:20px;
+  }
+
 }
 
 .footer-insurance {
