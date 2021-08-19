@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_084755) do
+ActiveRecord::Schema.define(version: 2021_08_19_132137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -945,6 +945,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_084755) do
     t.integer "address_id"
     t.jsonb "cover_photo_data"
     t.string "region_id"
+    t.decimal "deposit", precision: 10, scale: 2
     t.index ["address_id"], name: "index_tool_offers_on_address_id"
     t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_tool_offers_on_location_id"

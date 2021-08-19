@@ -44,7 +44,8 @@ class ToolPriceCalculator
   end
 
   def insurance_fee
-    ((basic_price - discount) * 0.08).round(2)
+    0
+    #((basic_price - discount) * 0.08).round(2)
   end
 
   def total

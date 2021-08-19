@@ -11,10 +11,10 @@
         <% end %>
       </div>
       <% if local_assigns[:graetzl] %>
-        <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= graetzl.name %>--></h3>
+        <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>
         <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
-        <h3>Hast du einen Raum / oder suchst du einen Raum? <!--<%= district.numeric %>--></h3>
+        <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>
         <%= link_to 'Deinen Raumteiler eintragen', select_room_offers_path, class: 'btn-primary' %>
       <% else %>
         <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>

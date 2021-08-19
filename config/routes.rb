@@ -217,7 +217,6 @@ Rails.application.routes.draw do
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
   get 'info/infos-zur-graetzlmarie', to: 'static_pages#graetzlmarie'
   get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
-  get 'info/versicherung', to: 'static_pages#insurance'
   get 'info/danke', to: 'static_pages#supporter'
 
   post 'webhooks/stripe'
