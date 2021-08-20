@@ -89,6 +89,7 @@ ActiveAdmin.register Location do
     :cover_photo, :remove_cover_photo,
     :location_category_id,
     :product_list,
+    :user_id,
     contact_attributes: [
       :id,
       :website,
