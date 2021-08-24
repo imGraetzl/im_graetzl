@@ -32,7 +32,8 @@ APP.components.areaMap = (function() {
         scrollWheelZoom: false,
         doubleClickZoom: false,
         boxZoom: false,
-        tap: false
+        tap: false,
+        zoomSnap: options.zoomSnap || 1,
     }).setActiveArea('activeArea');
 
     var defaultStyle = styles[options.style || 'rose'];

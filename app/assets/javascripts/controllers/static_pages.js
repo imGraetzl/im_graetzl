@@ -1,8 +1,7 @@
 APP.controllers.static_pages = (function() {
 
     function init() {
-      if($("section.homeOut").exists()) initMobileNav();
-      if($("section.homeOut").exists()) initSupporterBox();
+      if($("section.homeOut").exists()) initHome();
       if($("section.homePlatform").exists()) initHomePlatform();
       if($(".-mentoring-page").exists()) initMentoring();
       if($("#help_nav").exists()) initHelpScroller();
@@ -31,6 +30,44 @@ function initHomePlatform() {
   }
   */
 }
+
+// Region Homepage
+function initHome() {
+
+  // Only load when map is shown
+  if ($('#area-map').is(":visible")) {
+    APP.components.areaMap.init($('#area-map'), { interactive: false, zoomSnap:0.25 });
+  }
+
+  // SupporterBox Hide
+  $('.close-ico').on('click', function(event){
+    $(this).parent().fadeOut('fast');
+  });
+
+  // Mobile Nav
+  var $dropdown = $(".filter-stream .input-select select");
+  $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
+      var $this = $(this),
+          link = $this.prop('href'),
+          txt = $this.find('.txt').text();
+
+      $dropdown.append(getOption());
+      $dropdown.on('change', function() {
+          document.location.href = $dropdown.val();
+      });
+
+      function getOption() {
+          if($this.hasClass('active'))
+              return '<option selected value="'+ link +'">'+ txt +'</option>';
+          return '<option value="'+ link +'">'+ txt +'</option>';
+      }
+
+  });
+  $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
+
+}
+
+
 
 function initMentoring() {
 
@@ -114,34 +151,6 @@ function initGuideDownload() {
 }
 
 
-function initSupporterBox() {
-  $('.close-ico').on('click', function(event){
-    $(this).parent().fadeOut('fast');
-  });
-}
-
-
-function initMobileNav() {
-  var $dropdown = $(".filter-stream .input-select select");
-  $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
-      var $this = $(this),
-          link = $this.prop('href'),
-          txt = $this.find('.txt').text();
-
-      $dropdown.append(getOption());
-      $dropdown.on('change', function() {
-          document.location.href = $dropdown.val();
-      });
-
-      function getOption() {
-          if($this.hasClass('active'))
-              return '<option selected value="'+ link +'">'+ txt +'</option>';
-          return '<option value="'+ link +'">'+ txt +'</option>';
-      }
-
-  });
-  $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
-}
 
 // Dont scroll over the Footer Element
 function checkOffset() {

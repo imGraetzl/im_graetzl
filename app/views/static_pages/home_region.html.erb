@@ -9,12 +9,15 @@
 %>
 
 <section class="homeOut">
-  <div class="buehne">
-    <h1><span>Was ist los </span><span><%= t("region.#{current_region.id}.in_your_graetzl") %>?</span></h1>
-    <%= link_to new_registration_path(origin: request.path), class: 'registerlink' do %>
-      <div class="register-badge"><%= icon_tag "user-info-profile-details" %></div>
-      <div class="txt">Mitmachen</div>
-    <% end %>
+
+  <div class="stage">
+    <%= render 'map' %>
+    <div class="stage-content">
+      <h1><span>Was ist los </span><span><%= t("region.#{current_region.id}.in_your_graetzl") %>?</span></h1>
+      <%= link_to new_registration_path(origin: request.path), class: 'badge -mint -arrow -left' do %>
+        Kostenlos<br/>anmelden
+      <% end %>
+    </div>
   </div>
 
   <div class="supporterBox">
