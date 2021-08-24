@@ -1,13 +1,29 @@
 body.region-kaernten, body.region-muehlviertler-kernland {
 
-  // HOME OUT - HIDE SUPPORTER BOX
-  .homeOut {
-    .supporterBox { display: none; }
+  .supporterBox { display: none; }
+
+}
+
+
+// ---------- REGION WIEN ------------
+body.region-wien {
+  .supporterBox { display: none; }
+}
+
+
+// ---------- REGION MÜHLVIERTLER KERNLAND ------------
+body.region-muehlviertler-kernland {
+
+  .navigation .nav-location-link {
+    span {
+      width: 110px;
+    }
   }
 
 }
 
-// ---------- WIEN ------------
-body.region-wien {
-  .supporterBox { display: none; }
+
+// ---------- REGION KÄRNTEN ------------
+body.region-kaernten {
+
 }

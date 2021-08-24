@@ -49,7 +49,7 @@
     display: flex;
     align-items: center;
     color: $color-ambient-mint-dark;
-    padding: 0 18px;
+    padding: 0 15px;
     font-family: $font-tertiary;
     font-size: 2.2rem;
     text-decoration: none;
@@ -75,7 +75,7 @@
     .nav-top-link {
       border-right: 1px dotted #c9e7e2;
       &:last-of-type { border-right: none; }
-      .icon { margin-right: 10px; }
+      .icon { margin-right: 8px; }
     }
 
     .nav-home-link {
@@ -87,7 +87,17 @@
       @include respond-to("<large") { display: none; }
       span {
         @include ellipsis;
-        max-width: 160px;
+        max-width: 170px;
+      }
+    }
+    .nav-city-link {
+      span {
+        max-width: 90px;
+      }
+    }
+    .nav-city-link:last-of-type {
+      span {
+        max-width: 250px;
       }
     }
 

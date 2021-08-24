@@ -27,10 +27,7 @@ class ActivityStream
         # Used for cross_platform Meetings:
         Activity.where(trackable_id: Meeting.in(@region).non_private.pluck(:id), cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to']),
 
-        # Personal Activity Stream build on User Notifications
-        Activity.where(id: @user.notifications.where(:type => "Notifications::NewGroupDiscussion").pluck(:activity_id)),
-
-      ].reduce(:or)
+      ]
 
     else
 
@@ -49,12 +46,19 @@ class ActivityStream
         # Used for cross_platform Meetings:
         Activity.where(trackable_id: Meeting.non_private.pluck(:id), cross_platform: true, key: ['meeting.comment', 'meeting.create', 'meeting.go_to']),
 
-        # Personal Activity Stream build on User Notifications
-        Activity.where(id: @user.notifications.where(:type => "Notifications::NewGroupDiscussion").pluck(:activity_id)),
-
-      ].reduce(:or)
+      ]
 
     end
+
+    # Personal Activity Stream build on User Notifications
+    if @user
+      personal_activities = [
+        Activity.where(id: @user.notifications.where(:type => "Notifications::NewGroupDiscussion").pluck(:activity_id))
+      ]
+      activities = activities + personal_activities
+    end
+
+    activities = activities.reduce(:or)
 
     activity_ids = activities.select('DISTINCT ON(trackable_id, trackable_type) id')
     activity_ids = activity_ids.order(:trackable_id, :trackable_type, id: :desc)
