@@ -6,7 +6,7 @@
 
   <div class="nav-dropdown-menu" id="nav-site-main">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-site-city">
-      <%= nav_menu_item("map-location", "Karte / Übersicht", region_index_path, class: 'half region-switch') %>
+      <%= nav_menu_item("map-location", "Region Übersicht", region_index_path, class: 'half region-switch') %>
       <%= nav_submenu_link("globe", '', 'nav-submenu-regions', class: 'half region-switch globe') %>
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
@@ -60,12 +60,12 @@
   <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
 
   <%= link_to 'javascript:', class: 'nav-top-link nav-city-link', data: { dropdown: "nav-site-city" } do %>
-    <%= icon_tag "arrow-down-2" %> <%= current_region %>
+    <%= icon_tag "arrow-down-2" %> <span><%= current_region %></span>
   <% end %>
 
   <div class="nav-dropdown-menu" id="nav-site-city">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
-        <%= nav_menu_item("map-location", "Karte / Übersicht", region_index_path, class: 'half region-switch') %>
+        <%= nav_menu_item("map-location", "Region Übersicht", region_index_path, class: 'half region-switch') %>
         <%= nav_submenu_link("globe", '', 'nav-submenu-desk-regions', class: 'half region-switch globe') %>
         <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
         <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>

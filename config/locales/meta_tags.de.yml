@@ -6,10 +6,12 @@ de:
     site_name: imGrätzl.at
   kaernten:
     site_name: weLocally.at
+  muehlviertler-kernland:
+    site_name: weLocally.at
 
   static_pages:
-    home:
-      title: 'Mach mit - Treffen, Events & Initiativen im Grätzl'
+    home_region:
+      title: 'Mach mit und sei locally dabei! | %{region}'
       description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
     faq:
       title: 'Häufige Fragen und Antworten (FAQs)'
