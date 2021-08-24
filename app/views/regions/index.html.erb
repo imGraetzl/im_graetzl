@@ -13,7 +13,22 @@
   <%= render 'map' %>
   <%= render 'navigation' %>
 
-  <% if user_signed_in? && (current_user.region == current_region) %>
+  <% if user_signed_in? %>
+
+    <%= form_tag activities_path, method: :get, remote: true, class: 'cards-filter' do %>
+      <input type="hidden" value="<%= current_region.id %>" name="region_id">
+      <div class="filter-selection-text-jbox">
+          Neues aus <%= link_to "ganz #{current_region.name}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region.name}"} %>
+      </div>
+      <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+        <%= render 'filters/areas', entire_region: true %>
+      </div>
+    <% end %>
+    <div class="card-grid-container">
+      <div class="card-grid" data-behavior="activities-card-container"></div>
+      <!-- Insert Featured Card -->
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
+    </div>
 
   <% else %>
 

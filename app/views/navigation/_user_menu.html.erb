@@ -41,7 +41,7 @@
           badge: current_user.attended_meetings.in(current_region).upcoming.size) %>
       <%= nav_submenu_link("raumteiler", 'Meine Raumteiler', 'nav-submenu-user-rooms') %>
       <%= nav_submenu_link("tacker", 'Meine Toolteiler', 'nav-submenu-user-tools') %>
-      <%= nav_submenu_link("coop-share-white", 'Meine Coop & Shares', 'nav-submenu-user-coop-shares') %>
+      <%= nav_submenu_link("coop-share-white", 'Coop & Share Marktplatz', 'nav-submenu-user-coop-shares') %>
       <%= nav_submenu_link("speech-bubble", 'Gruppen', 'nav-submenu-user-groups') %>
       <% if current_user.admin? %>
         <%= nav_menu_item("magic-wand", 'Admin', admin_root_path) %>
