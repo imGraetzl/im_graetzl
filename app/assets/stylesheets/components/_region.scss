@@ -3,10 +3,11 @@ body.region-kaernten, body.region-muehlviertler-kernland {
   // HOME OUT - HIDE SUPPORTER BOX
   .homeOut {
     .supporterBox { display: none; }
-    @include respond-to(">=large") {
-      .buehne { background-position: 70px 88px, 90px -31px; }
-      h1 { left: 400px; }
-    }
   }
 
+}
+
+// ---------- WIEN ------------
+body.region-wien {
+  .supporterBox { display: none; }
 }
