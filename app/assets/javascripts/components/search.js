@@ -28,7 +28,7 @@ APP.components.search = (function() {
         },
         {
           listLocation: "locations",
-          header: "Anbieter & Locations"
+          header: "Anbieter & Macherinnen"
         },
         {
           listLocation: "rooms",
@@ -114,7 +114,7 @@ APP.components.search = (function() {
             case 'Events & Workshops':
               type = 'meetings'
               break;
-            case 'Anbieter & Locations':
+            case 'Anbieter & Macherinnen':
               type = 'locations'
               break;
             case 'Gruppen':
