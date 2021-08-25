@@ -40,7 +40,7 @@
           <span>Location</span>
         <% end %>
         <%= f.select(:location_id, user_locations.map{|l| [l.name, l.id, "data-street" => l.address&.street] },
-                    {include_blank: 'Treffen mit deiner Location-Seite verknüpfen ..'}, {class: 'select-location-input'}) %>
+                    {include_blank: 'Treffen mit deinem Schaufenster verknüpfen ..'}, {class: 'select-location-input'}) %>
       </div>
     <% end %>
   </div>

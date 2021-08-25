@@ -64,7 +64,7 @@
 
   <div class="block-locations">
     <div class="hl-subtext">
-      <h1>Entdecke — <span>Anbieter &amp; Locations</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
+      <h1>Entdecke — <span>Anbieter &amp; Macherinnen</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
       <p>Entdecke Selbständige, kl. Unternehmen, Kreative, Vereine & Macher*innen</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
@@ -106,6 +106,6 @@
     </div>
   </div>
 
-  <%= link_to "Kostenlos #{ t("region.#{current_region.id}.in_your_graetzl") } registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register' %>
+  <%= link_to "Kostenlos #{ t("region.#{current_region.id}.in_your_graetzl") } registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register' if !user_signed_in? %>
 
 </section>
