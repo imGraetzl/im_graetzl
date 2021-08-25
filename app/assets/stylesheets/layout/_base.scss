@@ -57,6 +57,11 @@ header {
 main {
   padding-bottom: 80px;
   position: relative;
+
+  @include respond-to("<=large") {
+    overflow-x: hidden;
+  }
+
 }
 
 a {
