@@ -58,8 +58,11 @@ main {
   padding-bottom: 80px;
   position: relative;
 
+  // Fix for Mobile and Tablet - Remove vertical Scrolling
   @include respond-to("<=large") {
-    //overflow-x: hidden;
+    overflow-x: hidden;
+    margin-top:-50px;
+    padding-top:50px;
   }
 
 }
