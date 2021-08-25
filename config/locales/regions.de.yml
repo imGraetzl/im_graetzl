@@ -1,27 +1,37 @@
 de:
   region:
     default: &default
-      claim_readable: "WeLocally"
-      domain_readable: "WeLocally.at"
+      contact_email: "wir@welocally.at"
+      domain_short: "WeLocally"
+      domain_full: "WeLocally.at"
       graetzl: "Gemeinde"
       in_graetzl: "in der Gemeinde"
       in_your_graetzl: "in deiner Gemeinde"
+      in_region: "in der Region"
+      in_your_region: "in deiner Region"
       wish_graetzl: "Wunschgemeinden"
       homegraetzl: "Heimatgemeinde"
       your_homegraetzl: "deine Heimatgemeinde"
       dem: "der"
+      zuckerl_headline: "Das Zuckerl für eine ganze Region"
+      zuckerl_subline: "Dieses wird in allen Gemeinden deiner Region angezeigt."
 
     wien:
       <<: *default
-      claim_readable: "imGrätzl"
-      domain_readable: "imGrätzl.at"
+      contact_email: "wir@imgraetzl.at"
+      domain_short: "imGrätzl"
+      domain_full: "imGrätzl.at"
       graetzl: "Grätzl"
       in_graetzl: "im Grätzl"
       in_your_graetzl: "in deinem Grätzl"
+      in_region: "in Wien"
+      in_your_region: "in Wien"
       wish_graetzl: "Wunschgrätzln"
       homegraetzl: "Heimatgrätzl"
       your_homegraetzl: "dein Heimatgrätzl"
       dem: "dem"
+      zuckerl_headline: "Das Zuckerl für ganz Wien"
+      zuckerl_subline: "Dieses wird in allen Grätzln und Bezirken in ganz Wien angezeigt."
 
     kaernten:
       <<: *default

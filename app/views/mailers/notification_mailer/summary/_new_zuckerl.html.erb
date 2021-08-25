@@ -2,7 +2,7 @@
 
 <% if zuckerls.any? %>
 
-  <%= render 'summary/block_header', title: "Aktuelle Grätzlzuckerl im #{I18n.localize Time.now, format: '%B'} im #{@user.graetzl.numeric}. Bezirk und Wien" %>
+  <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'} im #{@user.graetzl.numeric}. Bezirk und Wien" %>
 
   <% zuckerls.each do |zuckerl| %>
   <% location = zuckerl.location %>
@@ -35,7 +35,7 @@
           <% end %>
           <table style="width:100%;">
             <tr>
-              <td style="vertical-valign:center;"><img src="https://gallery.mailchimp.com/3accfa3feb5f05b82bd1fddc6/images/91f7f040-579d-43aa-968d-c19e08f100ef.png" style="width:20px; height:20px; max-width:20px; max-height:20px; padding-right:5px; float:left;" width="20" height="20" class="mcnImage"><em>Grätzlzuckerl im <%= I18n.localize Time.now, format: '%B' %>:</em></td>
+              <td style="vertical-valign:center;"><img src="https://gallery.mailchimp.com/3accfa3feb5f05b82bd1fddc6/images/91f7f040-579d-43aa-968d-c19e08f100ef.png" style="width:20px; height:20px; max-width:20px; max-height:20px; padding-right:5px; float:left;" width="20" height="20" class="mcnImage"><em>Zuckerl im <%= I18n.localize Time.now, format: '%B' %>:</em></td>
             </tr>
             <tr>
               <td>
@@ -54,6 +54,6 @@
 
   <% end %>
 
-  <%= render 'mailers/shared/button', title: "Alle Grätzlzuckerl im #{I18n.localize Time.now, format: '%B'}", url: zuckerls_graetzl_url(@user.graetzl), style: "width:100%;" %>
+  <%= render 'mailers/shared/button', title: "Alle Zuckerl im #{I18n.localize Time.now, format: '%B'}", url: zuckerls_graetzl_url(@user.graetzl), style: "width:100%;" %>
 
 <% end %>

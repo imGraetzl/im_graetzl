@@ -3,7 +3,7 @@
     <div class="billing-block">
       <div class="hl"><span>Vielen Dank</span> für deine Buchung</div>
       <div class="txt">
-        <p>Um dein Grätzlzuckerl zeitgerecht am <%= I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%d.%m.%Y') %> schalten zu können,
+        <p>Um dein Zuckerl zeitgerecht am <%= I18n.localize(@zuckerl.created_at.end_of_month+1.day, format: '%d.%m.%Y') %> schalten zu können,
           überweise bitte den noch offenen Betrag an folgende Kontoverbindung.</p>
         <div class="bookingdetails">
           <p><strong>Gesamtbetrag: <%= @zuckerl.total_price_with_currency %></strong> (inkl. USt.)</p>

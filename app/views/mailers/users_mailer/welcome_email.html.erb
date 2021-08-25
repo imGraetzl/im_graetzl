@@ -2,9 +2,9 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-        Hallo <%= @user.first_name %> - Herzlich willkommen, schön, dass du bei <%= t("region.#{@user.region.id}.domain_readable") %> dabei bist!
+        Hallo <%= @user.first_name %> - Herzlich willkommen, schön, dass du bei <%= t("region.#{@user.region.id}.domain_full") %> dabei bist!
         <p>
-          Mit <%= t("region.#{@user.region.id}.domain_readable") %> bieten wir dir eine ganze Palette von Services an, die dich dabei unterstützen deine Ressourcen zu erhöhen, Kosten zu senken und die dich dabei mit kooperativen Menschen vernetzen! Unser Motto: Weg von der Einzelanstrengung hin zu neuen Formen der Zusammenarbeit.
+          Mit <%= t("region.#{@user.region.id}.domain_full") %> bieten wir dir eine ganze Palette von Services an, die dich dabei unterstützen deine Ressourcen zu erhöhen, Kosten zu senken und die dich dabei mit kooperativen Menschen vernetzen! Unser Motto: Weg von der Einzelanstrengung hin zu neuen Formen der Zusammenarbeit.
         </p>
 
         <strong>1.)</strong>
@@ -30,7 +30,7 @@
 
         <strong>4.)</strong>
         <em>
-          <strong>Du kannst deine Workshops, Veranstaltungen und Kurse über die Eventfunktion bekannt machen.</strong> Die Events werden nicht nur auf <%= t("region.#{@user.region.id}.domain_readable") %>, sondern auch im Newsletter ausgespielt (gratis). <%= link_to new_meeting_url(host: @user.region.host), new_meeting_url(host: @user.region.host), target: '_blank' %>
+          <strong>Du kannst deine Workshops, Veranstaltungen und Kurse über die Eventfunktion bekannt machen.</strong> Die Events werden nicht nur auf <%= t("region.#{@user.region.id}.domain_full") %>, sondern auch im Newsletter ausgespielt (gratis). <%= link_to new_meeting_url(host: @user.region.host), new_meeting_url(host: @user.region.host), target: '_blank' %>
         </em>
 
         <br><br>
@@ -45,7 +45,7 @@
         <strong>6.)</strong>
         <em>
           <% if @user.region.use_districts? %>
-            <strong>Hast du gerade ein besonderes Angebot oder einen Rabatt?</strong> Dann ist das Grätzlzuckerl dafür das Richtige, das spielt dein Angebot bezirksweise oder in ganz <%= @user.region.name %> aus, einen ganzen Monat lang (kostenpflichtig): <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
+            <strong>Hast du gerade ein besonderes Angebot oder einen Rabatt?</strong> Dann ist das Zuckerl dafür das Richtige, das spielt dein Angebot bezirksweise oder in ganz <%= @user.region.name %> aus, einen ganzen Monat lang (kostenpflichtig): <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
           <% else %>
             <strong>Hast du gerade ein besonderes Angebot oder einen Rabatt?</strong> Dann ist das Zuckerl dafür das Richtige, das spielt dein Angebot in deiner Gemeinde oder in der ganzen Region <%= @user.region.name %> aus, einen ganzen Monat lang (kostenpflichtig): <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
           <% end %>
@@ -53,13 +53,13 @@
 
         <br><br>
 
-        <p>Viel Freude mit <%= t("region.#{@user.region.id}.domain_readable") %> und wenn du Fragen hast, dann melde dich einfach bei mir.</p>
+        <p>Viel Freude mit <%= t("region.#{@user.region.id}.domain_full") %> und wenn du Fragen hast, dann melde dich einfach bei mir.</p>
 
         Liebe Grüße,<br>
         Mirjam<br>
 
         <p>
-          PS: Ich sende dir in den nächsten Tagen weitere nützliche Tipps zu <%= t("region.#{@user.region.id}.domain_readable") %> zu, damit du
+          PS: Ich sende dir in den nächsten Tagen weitere nützliche Tipps zu <%= t("region.#{@user.region.id}.domain_full") %> zu, damit du
           für dich das Passende rauspicken kannst!
         </p>
 

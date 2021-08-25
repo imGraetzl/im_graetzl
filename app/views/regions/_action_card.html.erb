@@ -10,7 +10,7 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <h3>Noch nicht auf <%= t("region.#{current_region.id}.claim_readable") %> registriert? Melde dich gleich <%= t("region.#{current_region.id}.in_your_graetzl") %> an.</h3>
+      <h3>Noch nicht auf <%= t("region.#{current_region.id}.domain_short") %> registriert? Melde dich gleich <%= t("region.#{current_region.id}.in_your_graetzl") %> an.</h3>
       <%= link_to "Hier kostenlos registrieren", new_user_session_path, class: 'btn-primary -rose' %>
     </div>
     <div class="card"></div>
