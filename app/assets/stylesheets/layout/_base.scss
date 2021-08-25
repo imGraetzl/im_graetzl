@@ -59,7 +59,7 @@ main {
   position: relative;
 
   @include respond-to("<=large") {
-    overflow-x: hidden;
+    //overflow-x: hidden;
   }
 
 }

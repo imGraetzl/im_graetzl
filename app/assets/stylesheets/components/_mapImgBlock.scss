@@ -27,6 +27,10 @@
 
 .mapImgBlock {
 
+  @include respond-to("<=large") {
+    overflow-x: hidden;
+  }
+
   position: relative;
   z-index: 1;
   margin-top: -30px;
