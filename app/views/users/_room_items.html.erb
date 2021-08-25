@@ -3,28 +3,29 @@
     <div class="introtxt">
 
       <div class="hl-subtext" id="teilnahme">
-        <h1><em>Der Raumteiler auf imGrätzl.at</em></h1>
+        <h1><em>Der Raumteiler auf <%= t("region.#{current_region.id}.domain_full") %></em></h1>
         <p>Gewerbeflächen teilen - Kosten teilen. <%= render 'shared/questionmarklink', hint_url: info_raumteiler_path %></p>
       </div>
 
       <h3>Der Raumteiler ist eine Art WG-Partnersuche für Gewerbeflächen.</h3>
       <ul class="list-basic">
         <li>Raumhabende und Raumsuchende werden zu neuen Raumpartnerschaften verbunden.</li>
-        <li>Trage deine freien Raumressourcen kostenlos ein: Büro, Geschäftslokal, Praxis, Werktstatt, oder Studio und Atelier!</li>
-        <li>Wenn du Raum zum Andocken suchst, dann veröffentliche jetzt deinen Raumwunsch!</li>
+        <li>Trage deine freien Raumressourcen kostenlos ein: Büro, Geschäftslokal, Praxis, Werkstatt, oder Studio und Atelier!</li>
+        <li>Du kannst das Kurzzeitmieten Buchungstool optional nutzen, wenn du die Buchung und Bezahlung direkt über den Raumteiler abwickeln willst.</li>
+        <li>Wenn du Raum zum Andocken suchst, dann veröffentliche jetzt kostenlos deinen Raumwunsch!</li>
       </ul>
 
       <h3>Wir Trommeln für dein Raumteilergesuch via ...</h3>
       <ul class="list-basic">
-        <li>Newsletter & Grätzlmail</li>
+        <li>Newsletter <%= t("region.#{current_region.id}.in_region") %></li>
         <li>Social Media Kanäle</li>
       </ul>
 
       <h3>Raumpartnerschaften = neue Formen der Zusammenarbeit</h3>
       <ul class="list-basic">
         <li>Kooperationen</li>
-        <li>hin zu einem neuem WIR</li>
-        <li>gegenseitige Unterstützung</li>
+        <li>Hin zu mehr WIR</li>
+        <li>Gegenseitige Unterstützung</li>
       </ul>
 
     </div>

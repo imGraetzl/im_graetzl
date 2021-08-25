@@ -5,7 +5,7 @@ class AdminMailer < ApplicationMailer
   def new_zuckerl(zuckerl)
     @zuckerl = zuckerl
     @location = @zuckerl.location
-    mail(subject: "[ImGrätzl] Buchung Grätzlzuckerl von #{@location.name}")
+    mail(subject: "[ImGrätzl] Buchung Zuckerl von #{@location.name}")
   end
 
   def new_paid_going_to(going_to)

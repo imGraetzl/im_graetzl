@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hallo #{@user.first_name}") %>
-<% content_for(:title, "Vielen Dank für die Zahlung deines Grätzlzuckerls.") %>
+<% content_for(:title, "Vielen Dank für die Zahlung deines Zuckerls.") %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -9,7 +9,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Dein Grätzlzuckerl - Laufzeit: <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %>
+         Dein Zuckerl - Laufzeit: <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %>
        </h4>
      </td>
    </tr>
@@ -33,7 +33,7 @@
 
       <p>
         <strong>Wir bestätigen hiermit den Eingang deiner Zahlung und die erfolgreiche Buchung.</strong>
-        Dein Grätzlzuckerl für die Location
+        Dein Zuckerl für die Location
         <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
         ist somit im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform imGrätzl.at aktiv!
         <br/><br/>Solltest du Fragen haben schick uns ein Mail an wir@imgraetzl.at.
@@ -41,7 +41,7 @@
         Dein Team von imGrätzl.at
       </p>
 
-      <%= render 'mailers/shared/button', title: "Zum Grätzlzuckerl", url: zuckerls_user_url(host: @zuckerl.region.host) %>
+      <%= render 'mailers/shared/button', title: "Zum Zuckerl", url: zuckerls_user_url(host: @zuckerl.region.host) %>
     </td>
   </tr>
 </table>
@@ -117,7 +117,7 @@
           <td colspan="3" style="border-top-width: 2px;border-top-style: solid;border-top-color: #64A8A7;"></td>
         </tr>
         <tr>
-          <td width="80%"><strong>Grätzlzuckerl Buchung</strong></td>
+          <td width="80%"><strong>Zuckerl Buchung</strong></td>
           <td width="20%"><strong>Preis</strong></td>
         </tr>
         <tr>

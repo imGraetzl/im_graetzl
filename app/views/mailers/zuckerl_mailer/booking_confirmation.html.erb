@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hallo #{@user.first_name}") %>
-<% content_for(:title, "Vielen Dank für die Buchung deines Grätzlzuckerls!") %>
+<% content_for(:title, "Vielen Dank für die Buchung deines Zuckerls!") %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -31,13 +31,13 @@
   <tr>
     <td class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
       <strong>Wichtig: </strong>
-      Um deine Buchung erfolgreich abschließen und dein Grätzlzuckerl zeitgerecht am
+      Um deine Buchung erfolgreich abschließen und dein Zuckerl zeitgerecht am
       <%= I18n.localize Time.now.end_of_month+1.day, format: '%d.%m.%Y' %>
       schalten zu können, <strong>beachte bitte folgende Zahlungsinformationen:</strong>
       <br><br>
       Bitte überweise den offenen Betrag von <%= @zuckerl.total_price_with_currency %> an folgende Kontoverbindung.
       <br/>
-      Nach erfolgreichem Zahlungseingang senden wir dir erneut eine Bestätigung für die Schaltung deines Grätzlzuckerls zu.
+      Nach erfolgreichem Zahlungseingang senden wir dir erneut eine Bestätigung für die Schaltung deines Zuckerls zu.
       <br/><br/>
       <p>
         <em><strong>Kontoverbindung:</strong></em><br/>
@@ -82,7 +82,7 @@
 
       <table width="100%" cellpadding="2">
         <tr>
-          <td width="80%"><strong>Grätzlzuckerl Buchung</strong></td>
+          <td width="80%"><strong>Zuckerl Buchung</strong></td>
           <td width="20%"><strong>Preis</strong></td>
         </tr>
         <tr>

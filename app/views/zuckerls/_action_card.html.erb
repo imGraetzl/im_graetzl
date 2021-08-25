@@ -11,14 +11,14 @@
         <% end %>
       </div>
       <% if local_assigns[:graetzl] %>
-        <h3>Mit dem Grätzlzuckerl kannst Du Werbung für dein Angebot in deinem Grätzl & Bezirk schalten</h3>
-        <%= link_to 'Mein Grätzlzuckerl', new_zuckerl_path, class: 'btn-primary' %>
+        <h3>Mit dem Zuckerl kannst Du Werbung für dein Angebot in deinem Grätzl & Bezirk schalten</h3>
+        <%= link_to 'Mein Zuckerl', new_zuckerl_path, class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
-        <h3>Mit dem Grätzlzuckerl kannst Du Werbung für dein Angebot im <%= district.numeric %>. Bezirk schalten.</h3>
-        <%= link_to 'Mein Grätzlzuckerl', new_zuckerl_path, class: 'btn-primary' %>
+        <h3>Mit dem Zuckerl kannst Du Werbung für dein Angebot im <%= district.numeric %>. Bezirk schalten.</h3>
+        <%= link_to 'Mein Zuckerl', new_zuckerl_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Mit dem Grätzlzuckerl kannst Du Werbung für dein Angebot in deinem Grätzl & Bezirk schalten</h3>
-        <%= link_to 'Mein Grätzlzuckerl', new_zuckerl_path, class: 'btn-primary -rose' %>
+        <h3>Mit dem Zuckerl kannst Du Werbung für dein Angebot in deinem Grätzl & Bezirk schalten</h3>
+        <%= link_to 'Mein Zuckerl', new_zuckerl_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>

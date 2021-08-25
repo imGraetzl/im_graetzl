@@ -4,21 +4,22 @@
     <div class="introcontainer">
       <div class="introtxt">
         <div class="hl-subtext" id="teilnahme">
-          <h1><em>Coop & Share Marktplatz</em></h1>
-          <p>Dein persönliches Schaufenster auf <%= t("region.#{current_region.id}.domain_readable") %> <%= render 'shared/questionmarklink', hint_url: info_anbieter_und_locations_path %></p>
+          <h1><em>Der Coop & Share Markt auf <%= t("region.#{current_region.id}.domain_full") %></em></h1>
+          <p>Vernetze dich mit Gleichgesinnten!</p>
         </div>
-        <h3>1. Richte dir dein kostenlose Schaufenster ein.</h3>
-          <p>
-          Du hast ein Projekt <%= t("region.#{current_region.id}.in_graetzl") %>, du bist kreativ, oder wirtschaftlich <%= t("region.#{current_region.id}.in_graetzl") %> tätig? Egal,
-          ob aus dem Home-Office, mit oder ohne Geschäftslokal - Mach dich und deine Tätigkeit für die Bewohner <%= t("region.#{current_region.id}.in_your_graetzl") %> sichtbar!
+        <ul class="list-basic">
+          <li>Finde Mitgestalter*innen und Teilnehmer*innen für deine Initiative, deinen Verein (z.B. Sportverein,Orts- Stadtteilverein, Kunstinitiative, FoodCoop, Solawi).</li>
           <br>
-          <strong>Deine Location ist dein persönliches Schaufenster <%= t("region.#{current_region.id}.in_your_graetzl") %> - Und sie ist kostenlos!</strong>
-          </p>
-        <h3>2. Wenn du deine Location hast ...</h3>
-          ... kannst du Neuigkeiten, Aktionen oder Termine auf dieser veröffentlichen - Diese
-          landen nicht nur im <%= t("region.#{current_region.id}.graetzl") %>-Stream, sondern auch im wöchentlichen <%= t("region.#{current_region.id}.graetzl") %> Newsletter.
+          <li>Schließe dich mit anderen zur gegenseitigen Unterstützung und Motivation zusammen ( z.B. Erfolgsteam, Mastermind Gruppe, WOL Circle, Frauen- oder Unternehmer*innen Netzwerke).</li>
           <br>
-          Damit erfahren die Bewohner <%= t("region.#{current_region.id}.in_your_graetzl") %>, was es bei dir Neues & Besonderes gibt. Darüber hinaus ist die Locationseite die Voraussetzung für das Grätzlzuckerl.
+          <li>Werde eine Mentor*in und bestärke andere Menschen bei der Umsetzung ihrer Ideen und Vorhaben.</li>
+          <br>
+          <li>Finde heraus, wie du in Tauschgeschäften deine Ressourcen erhöhen kannst (z.B. biete Textierung suche Webdesign).</li>
+          <br>
+          <li>Schließe dich für Kooperationen zusammen an oder finde Projektpartner*innen zur Umsetzung größerer Projekte.</li>
+          <br>
+          <li>Veröffentliche kostenlos ein Bieteanzeige oder Gesuch, beschreibe dort möglichst detailliert, worum es geht und was du dir wünscht. Falls dein Angebot kostenpflichtig ist, mache dies deutlich in der Beschreibung erkennbar. Interessierte können direkt den Kontakt zu dir aufnehmen, entweder über deine veröffentlichen Kontaktdaten oder über den <%= t("region.#{current_region.id}.domain_short") %> Messenger. </li>
+        </ul>
       </div>
       <%= render 'coop_demands/action_card', user: @user %>
     </div>
