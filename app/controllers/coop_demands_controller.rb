@@ -95,10 +95,9 @@ class CoopDemandsController < ApplicationController
   def filter_collection(collection)
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
-    category_ids = params.dig(:filter, :category_ids)
 
-    if category_ids.present? && category_ids.any?(&:present?)
-      collection = collection.joins(:coop_demand_category).where(coop_demand_category: {id: category_ids}).distinct
+    if params[:category_id].present?
+      collection = collection.where(coop_demand_category: params[:category_id])
     end
 
     if graetzl_ids.present? && graetzl_ids.any?(&:present?)
