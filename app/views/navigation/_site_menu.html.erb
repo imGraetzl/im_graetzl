@@ -6,7 +6,7 @@
 
   <div class="nav-dropdown-menu" id="nav-site-main">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-site-city">
-      <%= nav_menu_item("map-location", "Region Übersicht", region_index_path, class: 'half region-switch') %>
+      <%= nav_menu_item("map-location", "#{t("region.#{current_region.id}.region")} Übersicht", region_index_path, class: 'half region-switch') %>
       <%= nav_submenu_link("globe", '', 'nav-submenu-regions', class: 'half region-switch globe') %>
       <% if graetzl || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
@@ -28,7 +28,7 @@
         <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
       <% end %>
       <% Region.all.each do |region| %>
-        <%= nav_region_menu_item("map-location", "#{region.name}", root_url(host: region.host), region) %>
+        <%= nav_region_menu_item("map-location", "#{region.name}", region_index_url(host: region.host), region) %>
       <% end %>
     </div>
     <div class="nav-dropdown-menu nav-dropdown-submenu" id="nav-submenu-site-location">
@@ -65,7 +65,7 @@
 
   <div class="nav-dropdown-menu" id="nav-site-city">
     <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
-        <%= nav_menu_item("map-location", "Region Übersicht", region_index_path, class: 'half region-switch') %>
+        <%= nav_menu_item("map-location", "#{t("region.#{current_region.id}.region")} Übersicht", region_index_path, class: 'half region-switch') %>
         <%= nav_submenu_link("globe", '', 'nav-submenu-desk-regions', class: 'half region-switch globe') %>
         <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
         <%= nav_menu_item("tacker", 'Toolteiler', region_tool_offers_path) %>
@@ -84,7 +84,7 @@
         <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
       <% end %>
       <% Region.all.each do |region| %>
-        <%= nav_region_menu_item("map-location", "#{region.name}", root_url(host: region.host), region) %>
+        <%= nav_region_menu_item("map-location", "#{region.name}", region_index_url(host: region.host), region) %>
       <% end %>
     </div>
   </div>

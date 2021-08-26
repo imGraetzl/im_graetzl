@@ -17,13 +17,13 @@
     <h1><span>Coop & Share</span> Marktplatz</h1>
   </div>
 
+  <%= render 'filters/coop_demand_categories' %>
+
   <%= form_tag coop_demands_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
     <div class="filter-selection-text-jbox">
-      Zeige mir Coop & Share Angebote aus <%= link_to 'allen Kategorien', '#filter-modal-category', data: { no_filter_label: 'allen Kategorien'}, class: 'filter-modal-category' %>,
+      Zeige mir Coop & Share Angebote aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %>
-    </div>
-    <div id="filter-modal-category" class="filter-modal-jbox">
-      <%= render 'filters/coop_demand_categories' %>
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">
       <%= render 'filters/areas', entire_region: true %>
