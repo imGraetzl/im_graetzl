@@ -30,6 +30,9 @@
 }
 
 .category-slider-container {
+  .lSSlideWrapper {
+    text-align: -webkit-center;
+  }
   position: relative;
   margin-bottom: 30px;
   padding-top:10px;
@@ -258,6 +261,9 @@
         &.-spiritualitaet {
           background-image: url(image_path('svg/icon-kringel-spiritualitaet-active.svg'));
         }
+        &.-handshake {
+          background-image: url(image_path('svg/icon-kringel-sfs-active.svg'));
+        }
 
       }
     }
@@ -446,6 +452,9 @@
       }
       &.-spiritualitaet {
         background-image: url(image_path('svg/icon-kringel-spiritualitaet.svg'));
+      }
+      &.-handshake {
+        background-image: url(image_path('svg/icon-kringel-sfs.svg'));
       }
 
     }

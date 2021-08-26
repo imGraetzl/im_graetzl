@@ -6,12 +6,11 @@ module NavigationHelper
 
     if current_user && current_user.region_id == region.id
       user = avatar_image(current_user, size: :thumb, class: 'img-round avatar user-home')
-      url = root_url(host: region.host)
-      home_region = 'home-region'
+      home_region_class = 'home-region'
     end
-    active_region = (current_region.id == region.id) ? 'active-region' : ''
-
-    link_to(url, class: "nav-menu-item #{active_region} #{home_region}") do
+    active_region_class = (current_region.id == region.id) ? 'active-region' : ''
+    
+    link_to(url, class: "nav-menu-item #{active_region_class} #{home_region_class}") do
       icon_tag(icon) + label + user
     end
   end

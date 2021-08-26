@@ -29,8 +29,6 @@
     <p><%= @category? "Arbeitsequipment aus der Kategorie „#{@category.name}“ leihen." : "Arbeitsequipment leihen & Geräte am Standort nutzen" %> <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
   </div>
 
-
-
   <%= render 'filters/tool_offer_categories' %>
 
   <%= form_tag tool_offers_path, method: :get, remote: true, class: 'cards-filter' do %>

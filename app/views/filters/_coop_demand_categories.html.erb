@@ -1,6 +1,18 @@
-<%= collection_check_boxes :filter, :category_ids, CoopDemandCategory.all, :id, :name, { checked: @category.try(:id) } do |b| %>
-  <div class="input-checkbox filter-input">
-    <%= b.check_box("data-label": b.object.name, "data-filter-label": 'Coop & Share :: Category Modal') %>
-    <%= b.label %>
+<!-- SLIDER -->
+<div class="category-slider-container loading">
+  <div id="category-slider" data-label="Coop & Share" class="cS-hidden">
+    <% categories = CoopDemandCategory.all.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
+      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
+        <%= category_image(category, class: 'categoryImg') %>
+        <div class="cat category-<%= category.id %> -<%= category.icon %> -coopdemands"></div>
+        <h3><%= link_to category.name, region_coop_demands_path(category: category) %></h3>
+        <%= button_tag class: 'close-ico' do %>
+          <%= icon_tag "cross" %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="filter-line"></div>
+</div>
