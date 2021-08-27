@@ -164,9 +164,9 @@
     text-decoration: none;
     color: $color-font-primary;
     border-bottom: 1px solid $color-ambient-mint-light;
-    &:last-child { border-bottom: none; }
+    &:last-child, &.last-row { border-bottom: none; }
     &:hover, &:active { background-color: $color-ambient-mint-light; }
-    &.half:first-child { float: left; border-right: 1px solid $color-ambient-mint-light; }
+    &.half:first-child, &.half.first { float: left; border-right: 1px solid $color-ambient-mint-light; }
     &.half { width: 50%; }
 
     &.half.region-switch {
