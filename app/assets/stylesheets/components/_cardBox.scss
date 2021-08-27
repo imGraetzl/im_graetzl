@@ -130,7 +130,7 @@
     margin-bottom: 0px;
   }
 
-  .btn-group {
+  .btn-group, {
     display: flex;
     margin-left: auto;
     flex-wrap: wrap;
@@ -142,6 +142,17 @@
       float: left;
       width: 100%;
       margin-top: 10px;
+    }
+    .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      .btn-secondary {
+        width:100%;
+      }
+      .btn-secondary:first-of-type {margin-right:5px;}
+      .btn-secondary:last-of-type {margin-left:5px;}
+      .btn-secondary:only-child {margin:0px;}
     }
   }
 
@@ -341,6 +352,10 @@
     .txt {
       font-size: 13px;
       margin-bottom: 15px;
+    }
+    svg {
+      float:right;
+      fill: $color-ambient-rosa;
     }
   }
 

@@ -1,5 +1,23 @@
 section.usersetup {
 
+  &.-zuckerl {
+    #error_explanation {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom:60px;
+      .title {font-weight: bold;}
+      .btn-primary {
+        color: white;
+        margin:0;
+        margin-top:15px;
+      }
+    }
+    &.-missing-location .introcontainer .btn-primary {
+      display: none;
+    }
+  }
+
   .introcontainer .introtxt, &.-toolteiler, &.-rooms {
     h1 {
       @include font-size-secondaryFont('base');

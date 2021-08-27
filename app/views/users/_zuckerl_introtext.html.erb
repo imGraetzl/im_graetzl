@@ -1,0 +1,26 @@
+<div class="introcontainer">
+  <div class="introtxt">
+    <div class="hl-subtext">
+      <h1><em>Deine Zuckerln</em></h1>
+      <p>Mit einem Zuckerl hast du die Möglichkeit günstig, einfach und unkompliziert Werbung für dein spezielles
+        Angebot <%= t("region.#{current_region.id}.in_your_graetzl") %><%= ', Bezirk' if current_region.use_districts? %> oder in ganz <%= current_region %> zu schalten.</p>
+    </div>
+
+    <p>Als Zuckerl eignen sich <strong>Angebote, Gutscheine oder Rabattaktionen, aber auch allgemeine Werbung für deine Produkte.</strong>.</p>
+
+    <p>Zuckerl können immer für den kommenden Monat im Voraus gebucht werden und laufen dann einen ganzen Monat.
+    <strong>Sprich, wenn du jetzt ein Zuckerl buchst, läuft dieses im Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B %Y' %>.</strong></p>
+    <p>
+      <strong>Ein Zuckerl kostet dich <%= number_to_currency(Zuckerl.price / 100) %></strong> (inkl. USt.)
+      Das Zuckerl erscheint <%= t("region.#{current_region.id}.in_your_graetzl") %><%= ' und im ganzen Bezirk' if current_region.use_districts? %> auf <%= t("region.#{current_region.id}.domain_full") %>!
+      Das Zuckerl wird ausserdem in die automatisierten Newsletter <%= t("region.#{current_region.id}.in_your_graetzl") %><%= ' bzw. in deinem Bezirk' if current_region.use_districts? %> eingestreut.
+    </p>
+
+    <p><strong><%= t("region.#{current_region.id}.zuckerl_headline") %>.</strong>
+    <%= t("region.#{current_region.id}.zuckerl_subline") %> - Also 1 Monat die volle Sichtbarkeit für dich auf <%= t("region.#{current_region.id}.domain_short") %> :)
+    <strong>Das Zuckerl kostet dich <%= number_to_currency(Zuckerl.region_price / 100) %></strong> (inkl. USt.).
+    Das Zuckerl wird ausserdem in die automatisierten Newsletter <%= t("region.#{current_region.id}.in_your_region") %> eingestreut.
+    </p>
+  </div>
+  <%= render 'users/zuckerl_actioncard', user: @user %>
+</div>

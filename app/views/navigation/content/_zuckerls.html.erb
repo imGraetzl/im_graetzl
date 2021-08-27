@@ -1,0 +1,7 @@
+<% @zuckerls.each do |zuckerl| %>
+  <%= link_to zuckerls_user_path(anchor:"zuckerl-#{zuckerl.id}"), class: "nav-menu-item -zuckerl -#{zuckerl.aasm_state}" do %>
+    <%= image_tag cover_url(zuckerl, :thumb), class: 'img-square' %>
+    <span><%= zuckerl.title %></span>
+    <%= icon_tag "signal" if zuckerl.live? %>
+  <% end %>
+<% end %>
