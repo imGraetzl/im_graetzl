@@ -1,5 +1,14 @@
 section.graetzls {
 
+  .navBlock {
+    .links {
+      @include respond-to("<=medium") {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
   .textEditor:before {
     left: 21px;
     top: -12px;

@@ -220,6 +220,19 @@
     &.home-region {
       padding-right:55px;
     }
+    &.-zuckerl {
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      &.-live {
+        svg.icon-signal {
+          margin-left:5px;
+          margin-right:0px;
+        }
+      }
+    }
 
   }
   em.nav-menu-item {

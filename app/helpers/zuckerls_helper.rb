@@ -11,6 +11,7 @@ module ZuckerlsHelper
       content_tag(:div, 'Deine Zahlung wurde erfolgreich geprüft!', class: 'state') +
       content_tag(:div, "Dein Zuckerl läuft im #{zuckerl_month_and_year zuckerl} mit der Sichtbarkeit: #{zuckerl.visibility}", class: 'txt')
     when zuckerl.live?
+      content_tag(:div, (icon_tag "signal")) +
       content_tag(:div, 'Dein Zuckerl ist aktiv!', class: 'state') +
       content_tag(:div, "Dein Zuckerl ist gerade online mit der Sichtbarkeit: #{zuckerl.visibility}", class: 'txt')
     else
