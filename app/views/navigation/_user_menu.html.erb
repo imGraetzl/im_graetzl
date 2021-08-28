@@ -37,7 +37,7 @@
       <%= nav_menu_item("speech-bubbles", 'Messenger', messenger_path, class: 'half') %>
       <%= nav_submenu_link("gears", 'Einstellungen', 'nav-submenu-user-settings') %>
       <%= nav_submenu_link("location", 'Mein Schaufenster', 'nav-submenu-user-locations') %>
-      <%= nav_submenu_link("location", 'Meine Zuckerln', 'nav-submenu-user-zuckerls') %>
+      <%= nav_submenu_link("shopping-bag", 'Meine Zuckerln', 'nav-submenu-user-zuckerls') %>
       <%= nav_submenu_link("calendar-2", 'Meine Treffen', 'nav-submenu-user-meetings',
           badge: current_user.attended_meetings.in(current_region).upcoming.size) %>
       <%= nav_submenu_link("raumteiler", 'Meine Raumteiler', 'nav-submenu-user-rooms') %>

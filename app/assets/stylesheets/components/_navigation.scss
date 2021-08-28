@@ -153,6 +153,7 @@
 
   .nav-dropdown-menu.mobile-dropdown {
     display: block;
+    overflow-x: hidden;
     border-top: 1px solid $color-ambient-mint-light;
   }
 
