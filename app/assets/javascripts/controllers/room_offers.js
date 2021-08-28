@@ -175,7 +175,7 @@ APP.controllers.room_offers = (function() {
       if ($(this).val() == "0") {
         $(".availability-input-" + day).prop("disabled", true);
       } else {
-        $(".availability-input-" + day).removeProp("disabled");
+        $(".availability-input-" + day).prop("disabled", false);
       }
     }).change();
 
