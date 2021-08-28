@@ -24,7 +24,7 @@
         <%= icon_tag "user-avatar" %>
         <span>Name</span>
       <% end %>
-      <%= text_field_tag :full_name, current_user.billing_address ? current_user.billing_address.try(:full_name) : current_user.try(:full_name), placeholder: 'Vor- & Nachname', data: { field: 'full_name' } %>
+      <%= text_field_tag :full_name, current_user.billing_address&.full_name || current_user.full_name, placeholder: 'Vor- & Nachname', data: { field: 'full_name' } %>
     </div>
 
     <div class="input-field">
@@ -32,7 +32,7 @@
         <%= icon_tag "map-location" %>
         <span>Strasse & Nr.</span>
       <% end %>
-      <%= text_field_tag :street, current_user.billing_address ? current_user.billing_address.try(:street) : current_user.address.try(:street), placeholder: 'Strasse & Nr.', data: { field: 'street' } %>
+      <%= text_field_tag :street, current_user.billing_address&.street || current_user.address_street, placeholder: 'Strasse & Nr.', data: { field: 'street' } %>
     </div>
 
     <div class="form-columns">
@@ -42,7 +42,7 @@
           <%= icon_tag "map-location" %>
           <span>Postleitzahl</span>
         <% end %>
-        <%= text_field_tag :zip, current_user.billing_address ? current_user.billing_address.try(:zip) : current_user.address.try(:zip), placeholder: 'PLZ', data: { field: 'zip' } %>
+        <%= text_field_tag :zip, current_user.billing_address&.zip || current_user.address_zip, placeholder: 'PLZ', data: { field: 'zip' } %>
       </div>
 
       <div class="input-field">
@@ -50,7 +50,7 @@
           <%= icon_tag "map-location" %>
           <span>Ort/Stadt</span>
         <% end %>
-        <%= text_field_tag :city, current_user.billing_address ? current_user.billing_address.try(:city) : current_user.address.try(:city), placeholder: 'Stadt', data: { field: 'city' } %>
+        <%= text_field_tag :city, current_user.billing_address&.city : current_user.address_city, placeholder: 'Stadt', data: { field: 'city' } %>
       </div>
     </div>
 

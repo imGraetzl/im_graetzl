@@ -22,9 +22,9 @@
                 <%= link_to location.name, graetzl_location_url(location.graetzl, location), style: "color:#69a8a7;" %>
                 <br>
                 <%= location.location_category.name if location.location_category %>
-                <% if location.address %>
+                <% if location.using_address? %>
                   <div class="address">
-                    <%= location.address.street %>
+                    <%= location.address_street %>
                   </div>
                 <% end %>
               </td>

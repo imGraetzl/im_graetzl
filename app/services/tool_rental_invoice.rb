@@ -61,8 +61,8 @@ class ToolRentalInvoice
 
   def add_owner_info(pdf, tool_offer)
     pdf.text tool_offer.full_name
-    pdf.text tool_offer.address.street
-    pdf.text "#{tool_offer.address.zip} #{tool_offer.address.city}"
+    pdf.text tool_offer.address_street
+    pdf.text "#{tool_offer.address_zip} #{tool_offer.address_city}"
     pdf.move_down 50
   end
 

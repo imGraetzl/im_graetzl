@@ -1,0 +1,22 @@
+.address-autocomplete {
+  .autocomplete-suggestions {
+    background-color: $color-ambient-bright;
+    border: 2px solid $color-ambient-mint-light;
+    overflow: auto;
+  }
+  .autocomplete-suggestion {
+    border-bottom: 2px solid $color-ambient-mint-light;
+    padding: 3px 5px;
+    font-size: 1.6rem;
+    white-space: nowrap;
+    overflow: hidden;
+    color: $color-font-primary;
+  }
+  .autocomplete-selected {
+    background: #cbcbcb;
+  }
+  .autocomplete-suggestions strong {
+    color: $color-ambient-rosa-dark;
+  }
+
+}

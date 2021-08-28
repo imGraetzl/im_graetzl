@@ -52,9 +52,8 @@ module MeetingsHelper
   end
 
   def meeting_map(meeting)
-    coords = meeting.display_address.try(:coordinates)
-    if coords
-      link_to map_link(coords), target: '_blank', class: 'iconMapLink' do
+    if meeting.address_coordinates.present?
+      link_to map_link(meeting.address_coordinates), target: '_blank', class: 'iconMapLink' do
         icon_tag("map-location")
       end
     else
@@ -78,19 +77,15 @@ module MeetingsHelper
   def meeting_address(meeting)
     meeting_map(meeting) +
     content_tag(:div, class: 'infotxt address') do
-      location = meeting.location
-      address = meeting.display_address
-      concat case
-      when address && address.description.present?
-        content_tag(:strong, address.description)
-      when location
-        link_to(location.name, [location.graetzl, location])
+      if meeting.location
+        concat link_to(meeting.location.name, [meeting.location.graetzl, meeting.location])
+      else
+        concat content_tag(:strong, meeting.address_description)
       end
-      if address
-        concat address.street
-        concat tag(:br) if address.street
-        concat "#{address.zip} #{address.city}"
-      end
-      end
+      concat meeting.address_street
+      concat tag(:br) if meeting.address_street.present?
+      concat "#{meeting.address_zip} #{meeting.address_city}"
+    end
   end
+
 end

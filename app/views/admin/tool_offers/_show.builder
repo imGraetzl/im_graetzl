@@ -27,14 +27,12 @@ context.instance_eval do
       end
 
       panel 'Address Details' do
-        attributes_table_for tool_offer.address do
-          row :id
-          row :description
-          row :street_name
-          row :street_number
-          row :zip
-          row :city
-          row :coordinates
+        attributes_table_for meeting do
+          row :address_street
+          row :address_zip
+          row :address_city
+          row :address_coordinates
+          row :address_description
         end
       end
 

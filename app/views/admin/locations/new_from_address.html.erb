@@ -6,12 +6,11 @@
     <%= f.input :state, as: :select, collection: Location.states.keys %>
   <% end %>
 
-  <%= f.inputs name: 'Adresse', for: :address do |address_form| %>
-    <%= address_form.input :street_name %>
-    <%= address_form.input :street_number %>
-    <%= address_form.input :zip %>
-    <%= address_form.input :city %>
-    <%= address_form.input :coordinates, as: :hidden %>
+  <%= f.inputs name: 'Adresse' do %>
+    <%= f.input :address_street %>
+    <%= f.input :address_zip %>
+    <%= f.input :address_city %>
+    <%= f.input :address_coordinates, as: :hidden %>
   <% end %>
 
   <%= f.inputs name: 'Kontakt', for: :contact do |contact_form| %>

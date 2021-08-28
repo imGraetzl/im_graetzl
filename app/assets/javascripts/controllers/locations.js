@@ -1,43 +1,31 @@
 APP.controllers.locations = (function() {
 
     function init() {
-        if($("section.selectGraetzl").exists()) initSelectGraetzl();
-        if($("section.location-form").exists()) initLocationForm();
-        if($("section.location-page").exists()) initLocationPage();
-    }
-
-
-    function initSelectGraetzl() {
-      APP.components.graetzlSelect();
+        if ($("section.location-form").exists()) initLocationForm();
+        if ($("section.location-page").exists()) initLocationPage();
     }
 
     function initLocationForm() {
+      APP.components.formValidation.init();
+      APP.components.graetzlSelect();
+      APP.components.addressInput();
 
-        APP.components.formValidation.init();
-        APP.components.addressSearchAutocomplete();
+      $("#location_description, #location_contact_attributes_hours").autogrow({
+          onInitialize: true
+      });
 
-        $("#location_description, #location_contact_attributes_hours").autogrow({
-            onInitialize: true
-        });
+      $('#location_product_list').tagsInput({
+          'defaultText':'Tags'
+      });
 
-        $('form').on('click', '.add_address_fields', function(event) {
-            var fields = $(this).data('fields');
-            $(this).replaceWith(fields);
-            event.preventDefault();
-        });
-
-        $('#location_product_list').tagsInput({
-            'defaultText':'Tags'
-        });
-
-        // TODO: change name of wrapper class
-        $('section.location-form').on('click', '.add_graetzl_fields', function(event) {
-            var fields = $(this).data('fields');
-            $('input#location_graetzl_id').replaceWith(fields);
-            $(this).hide();
-            APP.components.graetzlSelect();
-            event.preventDefault();
-        });
+      // online meeting switch
+      $('.using-address-switch').on('change', function() {
+        var showAddress = $(this).val() == "true";
+        $('#not-using-address-fields').toggle(!showAddress);
+        $('#using-address-fields').toggle(showAddress);
+        $("#using-address-fields").find("input, select").attr("disabled", !showAddress);
+      });
+      $('.using-address-switch:checked').trigger('change');
     }
 
     function initLocationPage() {

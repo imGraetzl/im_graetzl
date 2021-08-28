@@ -92,10 +92,8 @@
     <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
   </div>
 
-  <% if @meeting.address&.coordinates %>
-    <div id="leafletMap" class="cardBox" data-x="<%= @meeting.address.coordinates.x %>" data-y="<%= @meeting.address.coordinates.y %>">
-      <div class="map-marker -hidden"><%= icon_tag "pin" %></div>
-    </div>
+  <% if @meeting.address_coordinates.present? %>
+    <%= address_map(@meeting) %>
   <% end %>
 
 </section>

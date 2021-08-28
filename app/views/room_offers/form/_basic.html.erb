@@ -27,11 +27,7 @@
   <% end %>
 
   <h2 class="hl-main"><span>Wo</span> befindet sich dein Raum?</h2>
-  <% if f.object.new_record? %>
-  <%= render 'room_offers/form/address_select', f: f %>
-  <% else %>
   <%= render 'room_offers/form/address_fields', f: f %>
-  <% end %>
 
   <h2 class="hl-main"><span>Raumtitel</span> und <span>Beschreibung</span></h2>
   <div class="input-field">

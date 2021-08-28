@@ -35,9 +35,9 @@ module SchemaOrgHelper
     else
       hash[:eventAttendanceMode] = 'https://schema.org/OfflineEventAttendanceMode'
       hash[:location] = {:@type => 'Place'} # Object for Event Location or Address
-      if meeting.display_address # Take Adress from Meeting
-        hash[:location][:name] = meeting.display_address.description if meeting.display_address.description
-        hash[:location][:address] = structured_data_address(meeting.display_address)
+      if meeting.using_address? # Take Adress from Meeting
+        hash[:location][:name] = meeting.address_description if meeting.address_description.present?
+        hash[:location][:address] = structured_data_address(meeting)
       end
       if meeting.location # If Location exists
         hash[:location][:name] = meeting.location.name
@@ -55,12 +55,12 @@ module SchemaOrgHelper
   end
 
   # //////////////////////////// Create Structured Data for ADDRESS
-  def structured_data_address (address)
+  def structured_data_address(object)
     hash = {:@type => 'PostalAddress'}
-    hash[:streetAddress] = address.street if address.street
-    hash[:addressLocality] = address.city if address.city
-    hash[:addressRegion] = address.city if address.city
-    hash[:postalCode] = address.zip if address.zip
+    hash[:streetAddress] = object.address_street if object.address_street.present?
+    hash[:addressLocality] = object.address_city if object.address_city.present?
+    hash[:addressRegion] = object.address_city if object.address_city.present?
+    hash[:postalCode] = object.address_zip if object.address_zip.present?
     hash[:addressCountry] = 'AT'
     return hash
   end
@@ -82,13 +82,13 @@ module SchemaOrgHelper
     hash[:url] = graetzl_location_url(location.graetzl, location)
     hash[:logo] = location.avatar_url || asset_url('fallbacks/location_avatar.png')
     hash[:image] = location.cover_photo_url || asset_url('meta/og_logo.png')
-    hash[:email] = location.contact.email if location.contact.email.present?
-    hash[:telephone] = location.contact.phone if location.contact.phone.present?
-    hash[:address] = structured_data_address(location.address) if location.address
-    if location.address.try(:coordinates)
+    hash[:email] = location.email if location.email.present?
+    hash[:telephone] = location.phone if location.phone.present?
+    hash[:address] = structured_data_address(location) if location.using_address?
+    if location.address_coordinates.present?
       hash[:geo] = {:@type => 'GeoCoordinates'}
-      hash[:geo][:latitude] = location.address.coordinates.y
-      hash[:geo][:longitude] = location.address.coordinates.x
+      hash[:geo][:longitude] = location.address_coordinates.x
+      hash[:geo][:latitude] = location.address_coordinates.y
     end
 
     if location.upcoming_meetings.present?
@@ -104,7 +104,7 @@ module SchemaOrgHelper
     hash = {:@type => 'RentAction'}
     hash[:object] = {:@type => 'Room'}
     hash[:object][:name] = t("activerecord.attributes.room_offer.offer_types.#{room_offer.offer_type}") + ': ' + room_offer.slogan
-    hash[:object][:address] = structured_data_address(room_offer.address) if room_offer.address
+    hash[:object][:address] = structured_data_address(room_offer) if room_offer.using_address?
     hash[:image] = room_offer.cover_photo_url || asset_url('meta/og_logo.png')
     hash[:landlord] = structured_data_person(room_offer.user) if room_offer.user
     hash[:landlord] = structured_data_location(room_offer.location) if room_offer.location

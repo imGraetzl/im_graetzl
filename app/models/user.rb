@@ -1,10 +1,13 @@
 class User < ApplicationRecord
   include Trackable
+  include Address
   include User::Notifiable
+
   extend FriendlyId
+  friendly_id :username
 
   attr_accessor :login # virtual attribute to login with username or email
-  friendly_id :username
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
@@ -15,7 +18,6 @@ class User < ApplicationRecord
 
   belongs_to :graetzl, counter_cache: true
   has_many :districts, through: :graetzl
-  belongs_to :address, optional: true
 
   has_many :initiated_meetings, class_name: 'Meeting'
   has_many :going_tos, dependent: :destroy
@@ -50,7 +52,7 @@ class User < ApplicationRecord
   has_many :wall_comments, as: :commentable, class_name: "Comment", dependent: :destroy
 
   has_one :billing_address, dependent: :destroy
-  accepts_nested_attributes_for :address, :billing_address, reject_if: :all_blank
+  accepts_nested_attributes_for :billing_address, reject_if: :all_blank
 
   validates :email, presence: true, format: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }

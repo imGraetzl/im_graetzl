@@ -20,12 +20,8 @@ class LocationsController < ApplicationController
   end
 
   def new
-    if params[:selected_graetzl_id].blank?
-      render 'select_graetzl' and return
-    end
-    @graetzl = Graetzl.find(params[:selected_graetzl_id])
-    @location = @graetzl.locations.build(location_category_id: current_user.location_category_id)
-    @location.build_contact
+    @location = current_user.locations.build(location_category_id: current_user.location_category_id)
+    @location.graetzl = user_home_graetzl
   end
 
   def create
@@ -136,10 +132,8 @@ class LocationsController < ApplicationController
   def location_params
     params.require(:location).permit(
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
-      :location_category_id, :product_list, :full_address, :address_description,
-      contact_attributes: [
-        :id, :website, :online_shop, :email, :phone, :hours
-      ],
+      :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,
+      :location_category_id, :product_list, :website_url, :online_shop_url, :email, :phone, :open_hours,
     )
   end
 

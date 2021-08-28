@@ -40,17 +40,17 @@ context.instance_eval do
           row :origin
         end
       end
-      if user.address
-        panel 'Address Details' do
-          attributes_table_for user.address do
-            row :id
-            row :description
-            row(:street){|a| a.street }
-            row(:place){|a| "#{a.zip}, #{a.city}"}
-            row :coordinates
-          end
+
+      panel 'Address Details' do
+        attributes_table_for meeting do
+          row :address_street
+          row :address_zip
+          row :address_city
+          row :address_coordinates
+          row :address_description
         end
       end
+
     end
     column do
 

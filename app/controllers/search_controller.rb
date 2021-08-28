@@ -19,6 +19,14 @@ class SearchController < ApplicationController
     @results = SearchService.new(current_region, params[:q], search_params).search
   end
 
+  def address
+    render json: AddressSearch.new.search(current_region, params[:q])
+  end
+
+  def graetzls
+    render json: District.memoized(params[:district_id]).graetzls.to_json(only: [:id, :name])
+  end
+
   def search_params
     params.permit(:page, :per_page).merge(type: params.dig(:filter, :search_type))
   end

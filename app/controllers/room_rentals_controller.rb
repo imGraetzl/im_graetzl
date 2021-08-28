@@ -125,9 +125,9 @@ class RoomRentalsController < ApplicationController
     {
       renter_name: current_user.billing_address&.full_name || current_user.full_name,
       renter_company: current_user.billing_address&.company,
-      renter_address: current_user.billing_address&.street || current_user.address&.street,
-      renter_zip: current_user.billing_address&.zip || current_user.address&.zip,
-      renter_city: current_user.billing_address&.city || current_user.address&.city,
+      renter_address: current_user.billing_address&.street || current_user.address_street,
+      renter_zip: current_user.billing_address&.zip || current_user.address_zip,
+      renter_city: current_user.billing_address&.city || current_user.address_city,
     }
   end
 

@@ -20,7 +20,7 @@
       <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
       <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
       <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
+      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts? %>
     </div>
     <div class="nav-dropdown-submenu" id="nav-submenu-regions">
       <%= nav_submenu_back('nav-submenu-site-city', 'half') %>
@@ -74,7 +74,7 @@
         <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
         <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
         <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-        <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
+        <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts? %>
     </div>
     <div class="nav-dropdown-submenu" id="nav-submenu-desk-regions">
       <%= nav_submenu_back('nav-submenu-city-main', 'half') %>
@@ -96,7 +96,7 @@
       <%= graetzl.name %>
     <% elsif district %>
       <%= district.name %>
-    <% elsif current_region.use_districts %>
+    <% elsif current_region.use_districts? %>
       Grätzl entdecken
     <% else %>
       Gemeinden

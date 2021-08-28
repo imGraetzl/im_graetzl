@@ -1,22 +1,22 @@
 class Region
-  attr_reader :id, :name, :use_districts
+  attr_reader :id, :name
   # (Maybe PLZ Range: The first two digits of the zip code)
 
-  def initialize(id, name, use_districts)
-    @id = id
-    @name = name
-    @use_districts = use_districts
-  end
+  DATA = [
+    ['wien', 'Wien', true],
+    ['kaernten', 'Unterkärnten', false],
+  ]
 
   def self.all
-    @regions ||= [
-      new('wien', 'Wien', true),
-      new('kaernten', 'Unterkärnten', false),
-    ]
+    @regions ||= DATA.map{|d| new(*d) }
   end
 
   def self.get(id)
     all.find{|r| r.id == id }
+  end
+
+  def initialize(id, name, use_districts)
+    @id, @name, @use_districts = id, name, use_districts
   end
 
   def use_districts?

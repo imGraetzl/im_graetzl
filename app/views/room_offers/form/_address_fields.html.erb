@@ -1,37 +1,47 @@
-<%= f.fields_for :address do |address_fields| %>
-
+<div class="address-autocomplete" data-url="<%= address_search_url %>">
   <div class="input-field">
-    <%= address_fields.label :street_name do %>
+    <%= f.label :address_street do %>
       <%= icon_tag "map-location" %>
-      <span>Straße</span>
+      <span>Adresse</span>
     <% end %>
-    <%= address_fields.text_field :street_name %>
+    <%= f.text_field :address_street, placeholder: 'Straße und Hausnummer', class: 'address-autocomplete-input' %>
   </div>
 
-  <div class="input-field">
-    <%= address_fields.label :street_number do %>
-      <%= icon_tag "map-location" %>
-      <span>Hausnummer</span>
-    <% end %>
-    <%= address_fields.text_field :street_number %>
-  </div>
+  <%= f.hidden_field :address_coords, class: 'address-coords-input' %>
 
   <div class="form-columns">
     <div class="input-field">
-      <%= address_fields.label :zip do %>
+      <%= f.label :address_zip do %>
         <%= icon_tag "map-location" %>
         <span>Postleitzahl</span>
       <% end %>
-      <%= address_fields.text_field :zip %>
+      <%= f.text_field :address_zip, class: 'address-zip-input' %>
     </div>
 
     <div class="input-field">
-      <%= address_fields.label :city do %>
+      <%= f.label :address_city do %>
         <%= icon_tag "map-location" %>
         <span>Ort</span>
       <% end %>
-      <%= address_fields.text_field :city %>
+      <%= f.text_field :address_city, class: 'address-city-input' %>
     </div>
   </div>
 
-<% end %>
+  <div class="input-select">
+    <label>
+      <%= icon_tag "flag-1" %>
+      <span>Grätzl</span>
+    </label>
+    <%= f.select :graetzl_id, current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id]},
+        { prompt: 'wählen', required: true }, { class: 'address-graetzl-input' } %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :address_description do %>
+      <%= icon_tag "location" %>
+      <span>Ortsbeschreibung</span>
+    <% end %>
+    <%= f.text_field :address_description, placeholder: 'z.B.: Kaiserwiese, Gasthaus Hansy, Yoga-Studio am Eck, etc.' %>
+  </div>
+
+</div>

@@ -1,45 +1,43 @@
-<%= f.fields_for :contact do |contact_fields| %>
-  <div class="form-block">
-    <p class="txt">So kann man dich <span>erreichen</span></p>
+<div class="form-block">
+  <p class="txt">So kann man dich <span>erreichen</span></p>
 
-    <div class="input-field">
-      <%= contact_fields.label :online_shop do %>
-          <%= icon_tag "onlineshop" %>
-          <span>Online Shop</span>
-      <% end %>
-      <%= contact_fields.url_field :online_shop, placeholder: 'Falls du Produkte über deinen eigenen Online Shop verkaufst ...', class: '-validate' %><em></em>
-    </div>
-
-    <div class="input-field">
-      <%= contact_fields.label :website do %>
-          <%= icon_tag "globe" %>
-          <span>Homepage</span>
-      <% end %>
-      <%= contact_fields.url_field :website, placeholder: 'http:// oder https://', class: '-validate' %><em></em>
-    </div>
-
-    <div class="input-field">
-      <%= contact_fields.label :email do %>
-        <%= icon_tag "at-symbol" %>
-        <span>E-Mail Adresse</span>
-      <% end %>
-      <%= contact_fields.email_field :email, placeholder: 'E-Mail', class: '-validate' %>
-    </div>
-
-    <div class="input-field">
-      <%= contact_fields.label :phone do %>
-        <%= icon_tag "phone" %>
-        <span><%= Contact.human_attribute_name(:phone) %></span>
-      <% end %>
-      <%= contact_fields.telephone_field :phone, placeholder: '+43 xxx xxxxxxx' %>
-    </div>
-
-    <div class="input-textarea">
-      <%= contact_fields.label :hours do %>
-        <%= icon_tag "time-clock" %>
-        <span><%= Contact.human_attribute_name(:hours) %></span>
-      <% end %>
-      <%= contact_fields.text_area :hours, placeholder: 'Wann bist du vor Ort anzutreffen' %>
-    </div>
+  <div class="input-field">
+    <%= f.label :online_shop_url do %>
+        <%= icon_tag "onlineshop" %>
+        <span>Online Shop</span>
+    <% end %>
+    <%= f.url_field :online_shop_url, placeholder: 'Falls du Produkte über deinen eigenen Online Shop verkaufst ...', class: '-validate' %><em></em>
   </div>
-<% end %>
+
+  <div class="input-field">
+    <%= f.label :website_url do %>
+        <%= icon_tag "globe" %>
+        <span>Homepage</span>
+    <% end %>
+    <%= f.url_field :website_url, placeholder: 'http:// oder https://', class: '-validate' %><em></em>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :email do %>
+      <%= icon_tag "at-symbol" %>
+      <span>E-Mail Adresse</span>
+    <% end %>
+    <%= f.email_field :email, placeholder: 'E-Mail', class: '-validate' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :phone do %>
+      <%= icon_tag "phone" %>
+      <span>Telefon</span>
+    <% end %>
+    <%= f.telephone_field :phone, placeholder: '+43 xxx xxxxxxx' %>
+  </div>
+
+  <div class="input-textarea">
+    <%= f.label :open_hours do %>
+      <%= icon_tag "time-clock" %>
+      <span>Öffnungszeiten</span>
+    <% end %>
+    <%= f.text_area :open_hours, placeholder: 'Wann bist du vor Ort anzutreffen' %>
+  </div>
+</div>

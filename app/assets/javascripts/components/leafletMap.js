@@ -17,15 +17,13 @@ APP.components.leafletMap = (function() {
     L.control.zoom({position:'bottomright'}).addTo(map);
 
     // Add Markers to Map
-    mapElement.find($(".map-marker")).each(function(){
-      console.log($(this).attr("class"));
+    mapElement.find(".map-marker").each(function(){
       var $markerHtml = $(this).html();
       var marker = L.divIcon({className: 'marker-container', html: $markerHtml});
       var markerX = $(this).data("x") || x;
       var markerY = $(this).data("y") || y;
       L.marker([markerY, markerX], {icon: marker}).addTo(map);
     });
-
   }
 
   return {

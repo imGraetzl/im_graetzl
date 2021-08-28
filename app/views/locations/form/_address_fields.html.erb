@@ -1,18 +1,85 @@
-<p class="txt">Wie <span>findet</span> man dich</p>
+<div class="address-setting">
+  <p class="txt">Wie <span>findet</span> man dich</p>
 
-<div id="addressSearchAutocomplete" class="input-field">
-  <%= f.label :full_address do %>
-    <%= icon_tag "map-location" %>
-    <span>Adresse</span>
-  <% end %>
-  <%= f.text_field :full_address, placeholder: 'Straße und Hausnummer', class: 'address-input' %>
-  <%= hidden_field_tag :feature %>
-</div>
+  <div class="using-address-selection">
+    <div class="input-radio">
+      <%= f.radio_button :using_address, false, class: 'using-address-switch' %>
+      <%= f.label :using_address, "No Address", value: false %>
+    </div>
 
-<div class="input-field">
-  <%= f.label :address_description do %>
-    <%= icon_tag "location" %>
-    <span>Ortsbeschreibung</span>
-  <% end %>
-  <%= f.text_field :address_description, placeholder: 'z.B.: Kaiserwiese, Gasthaus Hansy, Yoga-Studio am Eck, etc.' %>
+    <div class="input-radio">
+      <%= f.radio_button :using_address, true, class: 'using-address-switch' %>
+      <%= f.label :using_address, "Yes Address", value: true %>
+    </div>
+  </div>
+
+  <div id="not-using-address-fields">
+    <% if current_region.use_districts? %>
+      <div class="input-select">
+        <label>
+          <%= icon_tag "map-location" %>
+          <span>Bezirk</span>
+        </label>
+        <%= select_tag :district_id, options_for_select(district_select_options, f.object.graetzl.district_id),
+            prompt: 'wählen', data: { url: graetzl_search_url } %>
+      </div>
+    <% end %>
+
+    <div class="input-select">
+      <label>
+        <%= icon_tag "flag-1" %>
+        <span>Grätzl</span>
+      </label>
+      <%= f.select :graetzl_id, current_region.graetzls.map{|g| [g.zip_name, g.id]}, { prompt: 'wählen', required: true }, { class: 'graetzl_id' } %>
+    </div>
+  </div>
+
+  <div id="using-address-fields" class="address-autocomplete" data-url="<%= address_search_url %>">
+    <div class="input-field">
+      <%= f.label :address_street do %>
+        <%= icon_tag "map-location" %>
+        <span>Adresse</span>
+      <% end %>
+      <%= f.text_field :address_street, placeholder: 'Straße und Hausnummer', class: 'address-autocomplete-input' %>
+    </div>
+
+    <%= f.hidden_field :address_coords, class: 'address-coords-input' %>
+
+    <div class="form-columns">
+      <div class="input-field">
+        <%= f.label :address_zip do %>
+          <%= icon_tag "map-location" %>
+          <span>Postleitzahl</span>
+        <% end %>
+        <%= f.text_field :address_zip, class: 'address-zip-input' %>
+      </div>
+
+      <div class="input-field">
+        <%= f.label :address_city do %>
+          <%= icon_tag "map-location" %>
+          <span>Ort</span>
+        <% end %>
+        <%= f.text_field :address_city, class: 'address-city-input' %>
+      </div>
+    </div>
+
+    <div class="input-select">
+      <label>
+        <%= icon_tag "flag-1" %>
+        <span>Grätzl</span>
+      </label>
+      <%= f.select :graetzl_id, current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id]},
+          { prompt: 'wählen', required: true }, { class: 'address-graetzl-input' } %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :address_description do %>
+        <%= icon_tag "location" %>
+        <span>Ortsbeschreibung</span>
+      <% end %>
+      <%= f.text_field :address_description, placeholder: 'z.B.: Kaiserwiese, Gasthaus Hansy, Yoga-Studio am Eck, etc.' %>
+    </div>
+
+  </div>
+
 </div>

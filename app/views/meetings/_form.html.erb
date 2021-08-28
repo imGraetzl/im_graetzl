@@ -1,8 +1,6 @@
 <%= form_for @meeting do |f| %>
   <%= form_errors_for @meeting %>
 
-  <%= f.hidden_field :graetzl_id %>
-
   <div class="meet-what">
     <p><span>Was</span> für ein Treffen oder Veranstaltung planst du genau?</p>
 
@@ -32,15 +30,17 @@
       </div>
     <% end %>
 
-    <% user_locations = current_user.locations.in(current_region).includes(:address) %>
+    <% user_locations = current_user.locations.in(current_region) %>
     <% if user_locations.present? %>
       <div class="input-select">
         <%= f.label :location_id do %>
           <%= icon_tag "label-tag" %>
           <span>Location</span>
         <% end %>
-        <%= f.select(:location_id, user_locations.map{|l| [l.name, l.id, "data-street" => l.address&.street] },
-                    {include_blank: 'Treffen mit deiner Location-Seite verknüpfen ..'}, {class: 'select-location-input'}) %>
+        <%= f.select(:location_id, user_locations.map{|l| [l.name, l.id, data: l.address_hash] },
+            { include_blank: 'Treffen mit deiner Location-Seite verknüpfen ..' },
+            { class: 'select-location-input' })
+        %>
       </div>
     <% end %>
   </div>

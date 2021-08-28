@@ -16,11 +16,11 @@ class District < ApplicationRecord
   has_many :groups, -> { distinct }, through: :graetzls
 
   def self.all_memoized
-    @@memoized ||= includes(:graetzls).map{|d| [d.id, d] }.to_h.freeze
+    @@memoized ||= includes(:graetzls).to_h{|d| [d.id.to_s, d] }.freeze
   end
 
   def self.memoized(id)
-    all_memoized[id]
+    all_memoized[id.to_s]
   end
 
   def graetzl_ids

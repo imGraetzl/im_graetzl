@@ -1,5 +1,6 @@
 class RoomCall < ApplicationRecord
   include Trackable
+  include Address
 
   extend FriendlyId
   friendly_id :title
@@ -20,8 +21,6 @@ class RoomCall < ApplicationRecord
   accepts_nested_attributes_for :room_call_prices, allow_destroy: true, reject_if: :all_blank
 
   belongs_to :location, optional: true
-  belongs_to :address, optional: true
-  accepts_nested_attributes_for :address
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
@@ -31,7 +30,7 @@ class RoomCall < ApplicationRecord
 
   has_one :group
 
-  validates_presence_of :address, :title, :starts_at, :ends_at, :opens_at, :description, :about_us, :about_partner,
+  validates_presence_of :address_street, :title, :starts_at, :ends_at, :opens_at, :description, :about_us, :about_partner,
   :cover_photo, :first_name, :last_name, :email, :room_call_fields
 
   after_create :set_group
@@ -44,10 +43,6 @@ class RoomCall < ApplicationRecord
 
   def open?
     (starts_at..ends_at).cover?(Date.current)
-  end
-
-  def full_address
-    "#{address.street}, #{address.zip} #{address.city}"
   end
 
   def graetzl=(value)

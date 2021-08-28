@@ -19,11 +19,21 @@ class Graetzl < ApplicationRecord
   has_many :districts, through: :district_graetzls
 
   def self.all_memoized
-    @@memoized ||= includes(:districts).map{|g| [g.id, g] }.to_h.freeze
+    @@memoized ||= includes(:districts).to_h{|g| [g.id.to_s, g] }.freeze
   end
 
   def self.memoized(id)
-    all_memoized[id]
+    all_memoized[id.to_s]
+  end
+
+  def self.find_by_coords(region, coordinates)
+    return if coordinates.blank?
+    point = RGeo::Cartesian.factory(srid: 0).point(*coordinates)
+    region.graetzls.find{|g| g.area.contains?(point)}
+  end
+
+  def to_s
+    name
   end
 
   def zip_name
@@ -36,6 +46,10 @@ class Graetzl < ApplicationRecord
 
   def district
     self.class.memoized(id).districts.first
+  end
+
+  def district_id
+    district&.id
   end
 
 end

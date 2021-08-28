@@ -22,7 +22,7 @@ APP.utils = (function() {
     return {
         URLcontains: URLcontains,
         URLendsWith: URLendsWith,
-        isLoggedIn: isLoggedIn
+        isLoggedIn: isLoggedIn,
     }
 
 })();

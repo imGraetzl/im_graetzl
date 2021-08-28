@@ -44,14 +44,14 @@
           <strong><%= @going_to.display_starts_at_date %></strong>
         </p>
         <p>
-          <% if @going_to.meeting.address.description %>
-            <%= @going_to.meeting.address.description %><br>
+          <% if @going_to.meeting.address_description.present? %>
+            <%= @going_to.meeting.address_description %><br>
           <% end %>
-          <% if @going_to.meeting.address.street %>
-            <%= @going_to.meeting.address.street %><br>
+          <% if @going_to.meeting.address_street.present? %>
+            <%= @going_to.meeting.address_street %><br>
           <% end %>
-          <% if @going_to.meeting.address.zip && @going_to.meeting.address.city %>
-            <%= @going_to.meeting.address.zip %> <%= @going_to.meeting.address.city %>
+          <% if @going_to.meeting.address_zip.present? && @going_to.meeting.address_city.present? %>
+            <%= @going_to.meeting.address_zip %> <%= @going_to.meeting.address_city %>
           <% end %>
         </p>
       </td>

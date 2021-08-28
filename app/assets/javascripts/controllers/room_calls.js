@@ -29,14 +29,13 @@ APP.controllers.room_calls = (function() {
   }
 
   function initRoomForm() {
-    APP.components.addressSearchAutocomplete();
+    APP.components.addressInput();
     APP.components.search.userAutocomplete();
 
     $('.datepicker').pickadate({
       formatSubmit: 'yyyy-mm-dd',
       hiddenName: true
     });
-
   }
 
   return {

@@ -157,7 +157,8 @@ APP.controllers.meetings = (function() {
     }
 
     function initCreateMeeting() {
-      APP.components.addressSearchAutocomplete();
+      APP.components.graetzlSelect();
+      APP.components.addressInput();
 
       $('.create-meeting').on('cocoon:after-insert', function(e, insertedItem, originalEvent) {
         $('.datepicker').pickadate({
@@ -172,20 +173,7 @@ APP.controllers.meetings = (function() {
           formatSubmit: 'HH:i',
           hiddenSuffix: '',
         });
-      });
-
-      $('.datepicker').pickadate({
-        formatSubmit: 'yyyy-mm-dd',
-        hiddenName: true,
-        min: true
-      });
-
-      $('.timepicker').pickatime({
-        interval: 15,
-        format: 'HH:i',
-        formatSubmit: 'HH:i',
-        hiddenSuffix: '',
-      });
+      }).trigger('cocoon:after-insert');
 
       $("textarea").autogrow({
         onInitialize: true
@@ -196,15 +184,18 @@ APP.controllers.meetings = (function() {
         var showOnlineFields = $(this).val() == "true";
         $('#meeting-online-fields').toggle(showOnlineFields);
         $('#meeting-offline-fields').toggle(!showOnlineFields);
+        $("#meeting-offline-fields").find("input, select").attr("disabled", showOnlineFields);
       })
       $('.online-meeting-switch:checked').trigger('change');
 
       // location field toggle
       $('.select-location-input').on('change', function() {
-        var street = $(this).find("option:selected").data("street");
-        if (street) {
-          $("#addressSearchAutocomplete .address-input").val(street);
-        }
+        var location = $(this).find("option:selected");
+        $('#meeting-offline-fields [name*="address_street"]').val(location.data("address-street"));
+        $('#meeting-offline-fields [name*="address_coords"]').val(location.data("address-coords"));
+        $('#meeting-offline-fields [name*="address_zip"]').val(location.data("address-zip"));
+        $('#meeting-offline-fields [name*="address_city"]').val(location.data("address-city"));
+        $('#meeting-offline-fields [name*="graetzl_id"]').val(location.data("graetzl-id"));
       }).trigger('change');
 
       // platform_meeting checkbox
@@ -223,10 +214,7 @@ APP.controllers.meetings = (function() {
 
       $(".event-categories input").on("change", function() {
         maxCategories(); // init on Change
-      });
-
-      maxCategories(); // init on Load
-
+      }).trigger('change');
     }
 
     function maxCategories() {

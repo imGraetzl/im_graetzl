@@ -135,8 +135,8 @@
     <td valign="center" class="mcnTextContent" width="100%">
       <p>
         <strong><%= @tool_rental.owner.full_name %></strong><br>
-        <%= @tool_rental.tool_offer.address.street %><br>
-        <%= "#{@tool_rental.tool_offer.address.zip} #{@tool_rental.tool_offer.address.city}" %>
+        <%= @tool_rental.tool_offer.address_street %><br>
+        <%= "#{@tool_rental.tool_offer.address_zip} #{@tool_rental.tool_offer.address_city}" %>
       </p>
       <p>
         <em>Klicke auf jetzt antworten um mit <%= @tool_rental.owner.first_name %> im Toolteiler-Messenger in Kontakt zu treten.</em>

@@ -24,27 +24,30 @@ context.instance_eval do
           end
         end
       end
+
       panel 'Contact Details' do
-        attributes_table_for location.contact do
+        attributes_table_for location do
           row :id
-          row :online_shop
-          row :website
+          row :online_shop_url
+          row :website_url
           row :email
           row :phone
-          row :hours
+          row :open_hours
         end
       end
-      if location.address
+
+      if location.using_address?
         panel 'Address Details' do
-          attributes_table_for location.address do
-            row :id
-            row :description
-            row(:street){|a| a.street}
-            row(:place){|a| "#{a.zip}, #{a.city}"}
-            row :coordinates
+          attributes_table_for meeting do
+            row :address_street
+            row :address_zip
+            row :address_city
+            row :address_coordinates
+            row :address_description
           end
         end
       end
+
       if location.billing_address
         panel 'Billing Address Details' do
           attributes_table_for location.billing_address do

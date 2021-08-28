@@ -85,10 +85,6 @@ $ rails db:setup
 # populate the database with sample data
 $ rails db:populate
 
-# calculate the district-graetzl relationships
-$ rails db:connect_districts_graetzls
-```
-
 #### Run the application
 
 To run the server:

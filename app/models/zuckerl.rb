@@ -70,7 +70,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def self.include_for_box
-    includes(location: [:location_category, :address])
+    includes(location: [:location_category])
   end
 
   def self.next_invoice_number

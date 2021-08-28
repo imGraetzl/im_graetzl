@@ -148,9 +148,6 @@ de:
       category:
         context: Kontext
         created_at: Erstellt am
-      contact:
-        phone: Telefon
-        hours: Öffnungszeiten
       graetzl:
         created_at: Erstellt am
         updated_at: Aktualisiert am
@@ -163,6 +160,8 @@ de:
         location_category: Kategorie
         cover_photo: Headerbild
         description: Beschreibung
+        phone: Telefon
+        open_hours: Öffnungszeiten
         product_list: Produktgruppen
         products: Produkte
         state: Status

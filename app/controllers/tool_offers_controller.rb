@@ -22,8 +22,6 @@ class ToolOffersController < ApplicationController
     @tool_offer.user_id = current_user.id
     @tool_offer.region_id = current_region.id
 
-    set_address(@tool_offer, params[:feature])
-
     if @tool_offer.save
       ToolOfferMailer.tool_offer_published(@tool_offer).deliver_later
       @tool_offer.create_activity(:create, owner: @tool_offer.user)
@@ -40,7 +38,6 @@ class ToolOffersController < ApplicationController
   def update
     @tool_offer = current_user.tool_offers.non_deleted.find(params[:id])
     @tool_offer.assign_attributes(tool_offer_params)
-    set_address(@tool_offer) if @tool_offer.address.changed?
 
     if @tool_offer.save
       redirect_to @tool_offer
@@ -102,27 +99,11 @@ class ToolOffersController < ApplicationController
       :value_up_to, :serial_number, :known_defects,
       :price_per_day, :two_day_discount, :weekly_discount,
       :tool_category_id, :tool_subcategory_id, :location_id,
+      :address_street, :address_coords, :address_city, :address_zip, :address_description,
       :cover_photo, :remove_cover_photo,
       :first_name, :last_name, :iban,
       images_attributes: [:id, :file, :_destroy],
-      address_attributes: [
-        :id, :street_name, :street_number, :zip, :city
-      ],
     )
-  end
-
-  def set_address(tool_offer, json = nil)
-    if json
-      resolver = AddressResolver.from_json(json)
-      return if !resolver.valid?
-      tool_offer.build_address(resolver.address_fields)
-      tool_offer.graetzl = resolver.graetzl
-    elsif tool_offer.address
-      resolver = AddressResolver.from_street(tool_offer.address.street)
-      return if !resolver.valid?
-      tool_offer.address.assign_attributes(resolver.address_fields)
-      tool_offer.graetzl = resolver.graetzl
-    end
   end
 
 end

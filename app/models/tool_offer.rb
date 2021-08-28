@@ -1,14 +1,13 @@
 class ToolOffer < ApplicationRecord
   include Trackable
-  extend FriendlyId
+  include Address
 
+  extend FriendlyId
   friendly_id :title
 
   belongs_to :user
   belongs_to :graetzl
   belongs_to :location, optional: true
-  belongs_to :address, optional: true
-  accepts_nested_attributes_for :address
 
   belongs_to :tool_category, optional: true
   belongs_to :tool_subcategory, class_name: "ToolCategory", optional: true
@@ -25,7 +24,7 @@ class ToolOffer < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :title, :description, :address, :tool_category_id, :cover_photo, :price_per_day, :iban
+  validates_presence_of :title, :description, :address_street, :tool_category_id, :cover_photo, :price_per_day, :iban
 
   before_save :check_discounts
   after_save :remove_activities_if_deleted

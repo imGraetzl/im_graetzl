@@ -135,8 +135,8 @@
     <td valign="center" class="mcnTextContent" width="100%">
       <p>
         <strong><%= @room_rental.owner.full_name %></strong><br>
-        <%= @room_rental.room_offer.address.street %><br>
-        <%= "#{@room_rental.room_offer.address.zip} #{@room_rental.room_offer.address.city}" %>
+        <%= @room_rental.room_offer.address_street %><br>
+        <%= @room_rental.room_offer.address_zip %> <%= @room_rental.room_offer.address_city %>
       </p>
       <p>
         <em>Klicke auf jetzt antworten um mit <%= @room_rental.owner.first_name %> im Raumteiler-Messenger in Kontakt zu treten.</em>

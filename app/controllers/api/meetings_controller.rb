@@ -11,7 +11,7 @@ class Api::MeetingsController < Api::ApiController
     end
 
     @meetings = @meetings.where("updated_at > ?", min_created_at) if min_created_at
-    @meetings = @meetings.includes(:graetzl, :address, location: [:address, :graetzl])
+    @meetings = @meetings.includes(:graetzl, location: [:graetzl])
 
     render json: MeetingsSerializer.new(@meetings, request)
   end

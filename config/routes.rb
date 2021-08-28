@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'search/results' => 'search#results'
   get 'search/autocomplete' => 'search#autocomplete'
   get 'search/user' => 'search#user'
+  get 'search/graetzls' => 'search#graetzls', as: 'graetzl_search'
+  get 'search/address' => 'search#address', as: 'address_search'
 
   ActiveAdmin.routes(self)
 

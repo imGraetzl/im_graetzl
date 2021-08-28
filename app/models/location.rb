@@ -1,5 +1,7 @@
 class Location < ApplicationRecord
   include Trackable
+  include Address
+
   extend FriendlyId
   friendly_id :name
   acts_as_taggable_on :products
@@ -10,8 +12,6 @@ class Location < ApplicationRecord
   belongs_to :user
   belongs_to :graetzl
   has_many :districts, through: :graetzl
-  belongs_to :address, optional: true, autosave: true
-  accepts_nested_attributes_for :address
   has_one :billing_address, dependent: :destroy
   accepts_nested_attributes_for :billing_address, allow_destroy: true, reject_if: :all_blank
 
@@ -29,7 +29,7 @@ class Location < ApplicationRecord
 
   enum state: { pending: 0, approved: 1 }
 
-  scope :online_shop, -> { joins(:contact).where("online_shop != ? AND online_shop != ?", "NIL", "") }
+  scope :online_shop, -> { where("online_shop_url != ''") }
 
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
 
@@ -39,7 +39,7 @@ class Location < ApplicationRecord
   before_destroy :mailchimp_location_delete
 
   def self.include_for_box
-    includes(:location_posts, :live_zuckerls, :address, :location_category, :upcoming_meetings)
+    includes(:location_posts, :live_zuckerls, :location_category, :upcoming_meetings)
   end
 
   def approve
@@ -66,39 +66,8 @@ class Location < ApplicationRecord
     user_id.present? && user_id == a_user&.id
   end
 
-  def onlineshop?
-    self.contact.online_shop.present?
-  end
-
-  def full_address
-    address&.street
-  end
-
-  def full_address=(value)
-    return if full_address == value
-
-    if value.present?
-      resolver = AddressResolver.from_street(value)
-      return if !resolver.valid?
-      build_address if address.nil?
-      self.address.assign_attributes(resolver.address_fields)
-      self.graetzl = resolver.graetzl
-    else
-      self.address&.mark_for_destruction
-    end
-  end
-
-  def address_description
-    address&.description
-  end
-
-  def address_description=(value)
-    if value.present?
-      build_address if address.nil?
-      address.description = value
-    else
-      self.address&.description = nil
-    end
+  def online_shop?
+    self.online_shop_url.present?
   end
 
   def actual_newest_post
