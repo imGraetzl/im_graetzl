@@ -12,12 +12,16 @@
       </div>
       <% if local_assigns[:graetzl] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ <%= t("region.#{current_region.id}.in_graetzl") %> <%= graetzl.name %> tätig?</h3>
-        <%= link_to 'Dein virtuelles Schaufenster einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
+        <%= link_to 'Dein virtuelles Schaufenster gratis einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
-        <%= link_to 'Dein virtuelles Schaufenster einrichten', new_location_path, class: 'btn-primary' %>
+        <%= link_to 'Dein virtuelles Schaufenster gratis einrichten', new_location_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Über 7.500 Selbstständige, kl. Unternehmen & Macher*innen sind dabei.</h3>
+        <% if current_region.use_districts? %>
+          <h3>Über 7.500 Selbstständige, kl. Unternehmen & Macher*innen sind dabei.</h3>
+        <% else %>
+          <h3>Werde in deiner Gemeinde und Region sichtbar.</h3>
+        <% end %>
         <%= link_to 'Dein virtuelles Schaufenster gratis einrichten', new_location_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
