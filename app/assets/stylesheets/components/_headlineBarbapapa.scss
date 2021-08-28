@@ -50,19 +50,19 @@
   @include headlineBarbapapa();
 }
 .toolteiler-headline, .raumteiler-headline, .meetings-headline, .locations-headline {
-  width: 340px;
-  height:auto;
-  max-width: 70%;
+  width: auto;
+  height:60px;
+  max-width: 95%;
   display: block;
   margin: 0 auto;
   margin-bottom: 10px;
-  padding-left:30px;
+  @include respond-to(">=medium") {
+    height:80px;
+    padding-left:30px;
+  }
 }
 .meetings-headline {
-  width: 430px;
-  padding-left:20px;
-}
-.locations-headline {
-  width: 500px;
-  padding-left:30px;
+  @include respond-to(">=medium") {
+    padding-left:20px;
+  }
 }
