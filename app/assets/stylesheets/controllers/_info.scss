@@ -3,7 +3,7 @@
   padding-top:40px;
 }
 
-section.help {
+section.info {
 
   position: relative;
   padding-bottom:50px;
@@ -112,102 +112,6 @@ section.help {
     }
   }
 
-  // ----- HELP AXA INSURANCE ------ //
-
-  &.-insurance {
-
-    .axa-logo {
-      background-image: url(image_path('logo-axa.png'));
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-    }
-
-    margin-bottom:-80px;
-    padding-bottom: 0px;
-    .imgHeader {
-      background-color:rgba(227, 242, 231, 0.5);
-      height:auto;
-      text-align: left;
-      .wrp {
-        height:100%;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: space-around;
-        padding-bottom:50px;
-        padding-top: 30px;
-        @include respond-to(">=large") {
-          padding-top: 60px;
-        }
-
-        .logo-big {
-          display: none;
-          width:30%;
-          height:300px;
-          @extend .axa-logo;
-          @include respond-to(">=large") {
-            display: block;
-          }
-        }
-
-        .hl {
-          display: flex;
-          align-items: center;
-          h3 {
-            padding:0px;
-          }
-        }
-
-        .logo-small {
-          display: block;
-          //width:40%;
-          min-width:100px;
-          height:150px;
-          margin:0px 20px 0px 0px;
-          @extend .axa-logo;
-          @include respond-to(">=large") {
-            display: none;
-          }
-        }
-
-        .txt {
-          width:90%;
-          @include respond-to(">=large") {
-            width:50%;
-          }
-
-        }
-        .cardBox {
-          @include respond-to(">=large") {
-            margin-left:-14px;
-          }
-          width:100%;
-          margin: 20px 0px 20px 0px;
-          a {
-            color: $color-ambient-mint-dark;
-          }
-        }
-        .btn-primary {
-          display: inline-block;
-          margin-top: 10px;
-        }
-      }
-    }
-    .imgHeader::after {
-      background-image: none;
-      //opacity: 0.7;
-    }
-
-    // REMOVE TMP CLASS AFTER WE CAN USE AXA LOGO
-    &.-tmp {
-      .axa-logo {
-        background-image: url(image_path('illu/illu-werkbank-plain.png'));
-      }
-    }
-  }
-
-
   // ----- SUPPORTER PAGE ------ //
   &.-supporter {
     padding-bottom:0px;
@@ -269,7 +173,6 @@ section.help {
       position: relative;
 
       &::before {
-        // Insert DANKE Background Images here
         content:'';
         position: absolute;
         text-align: center;
@@ -420,7 +323,7 @@ section.help {
   }
 
 
-  // ----- HELP STARTPAGE ------ //
+  // ----- INFO STARTPAGE ------ //
   &.-startpage {
 
     .imgHeader {
@@ -455,7 +358,6 @@ section.help {
     div.aside {
       width:50%;
       @include respond-to(">=medium") {
-        //padding-left: 50px;
         width:38%;
         &.-half {
           width: 45%;
@@ -470,7 +372,6 @@ section.help {
     .-groups {
       @include respond-to("<medium") {
         div.aside {
-          //display: none;
           width:100%;
           margin-bottom:0px;
         }
@@ -585,7 +486,7 @@ section.help {
       }
     }
   }
-  // ----- HELP STARTPAGE END ------ //
+  // ----- INFO STARTPAGE END ------ //
 
 
   // ----- HELP Detailpage ------ //
@@ -741,7 +642,6 @@ section.help {
 
     .imgHeader::after {
       background-image: url(image_path('info/header-menschenstrom.png'));
-      //opacity: 0.7;
     }
 
     .mentoring-illu {
@@ -826,7 +726,6 @@ section.help {
     }
     // Single Mentor Card
     .single-mentor {
-      //margin-bottom:20px;
       h2, h3, p.title {
         display: block;
         text-align: center;
@@ -836,7 +735,6 @@ section.help {
       }
       a {
         display: block;
-        //text-decoration: none;
       }
       p {
         height:90px;
@@ -863,7 +761,6 @@ section.help {
     }
 
     .ablauf ul {
-      //margin-left:20px;
       margin-bottom:60px;
       li {
         margin-bottom:20px;
@@ -874,9 +771,6 @@ section.help {
       }
       li:hover {
         background: url(image_path('svg/icon-arrow-right-blinky-rosa-dark.svg')) no-repeat left center;
-      }
-      strong {
-        //color: $color-ambient-rosa-dark;
       }
     }
 
@@ -994,9 +888,6 @@ section.help {
         width: 100%;
         display: block;
         margin: auto;
-      }
-      &.-disabled {
-        //opacity: 0.5;
       }
     }
 

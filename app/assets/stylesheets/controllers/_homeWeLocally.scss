@@ -1,0 +1,98 @@
+section.homeWeLocally {
+
+  .imgHeader {
+    margin-bottom:30px;
+  }
+
+  .imgHeader .wrp {
+    position: relative;
+  }
+
+  .imgHeader::after {
+    background-image: url(image_path('regions/welocally_header.jpg'));
+  }
+
+  h1.weLocally {
+    background-image: url(image_path('svg/speech-bubble-wide.svg'));
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: left;
+    max-width:480px;
+    padding: 15px 15px 50px 15px; // top, right, bottom, left
+    position: relative;
+    @include font-size-secondaryFont('base');
+    top:-20px;
+    left:-60px;
+    @include respond-to(">=medium") {
+      @include font-size-secondaryFont('large');
+      padding: 20px 20px 80px 20px; // top, right, bottom, left
+      top:-30px;
+      left:-180px;
+    }
+    @include respond-to(">=large") {
+      left:-280px;
+    }
+  }
+
+  p.subline {
+    @include font-size-primaryFont('larger');
+    text-align: center;
+    margin-bottom:30px;
+  }
+
+  .regionjump {
+    max-width: 600px;
+    margin:auto;
+    @include respond-to(">=medium") {
+      width:500px;
+    }
+  }
+
+
+  .paperCard {
+    padding:30px;
+    h3 {
+      @include font-size-primaryFont('larger');
+      padding: 0px 0px 15px;
+    }
+    margin-bottom: 50px;
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
+  // MAP CSS
+  #area-map {
+    height: 150px;
+    @include respond-to(">=medium") {
+      height: 500px;
+    }
+    &::before {
+      display: none;
+    }
+    .logo-mobile {
+      width:100px;
+      height:auto;
+      background-color: rgba(white, 0.8);
+      padding:10px;
+      border-radius: 10px;
+      margin-left:-50px;
+      margin-top:-28px;
+      &:hover {
+        background-color: rgba($color-ambient-rosa-light, 0.9);
+      }
+    }
+  }
+
+  .navBlock {
+    .links {
+      display: none;
+      @include respond-to(">=medium") {
+        width: 400px;
+        display: block;
+      }
+    }
+  }
+
+}
