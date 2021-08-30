@@ -1,61 +1,93 @@
 
-<section class="homePlatform">
+<section class="homeWeLocally info lp -startpage">
 
-  <div class="welocally_illu_bg">
-
-    <div class="welocally_illu_inner">
-
-      <div class="input-select regionjump">
-        <label for="select">
-          <%= icon_tag "map-location" %>
-          <span>Wähle deine Region</span>
-        </label>
-        <select name="select" id="select" onchange="location.href = $(this).val()">
-          <option value="">Auswählen</option>
-          <% Region.all.each do |region| %>
-            <option value="<%= root_url(host: region.host) %>"><%= region.name %></option>
-          <% end %>
-        </select>
-      </div>
-
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1 class="weLocally">Gemeinsam bringen <br>wir mehr zusammen.<br>Sei locally dabei!</h1>
     </div>
-
-    <!--
-    <%= image_tag("regions/welocally_illu.png", width:980, usemap: "#image-map") %>
-    <map name="image-map">
-        <area title="Coming soon .." href="#" coords="235,28,386,249" shape="0">
-        <area title="<%= Region.get('kaernten') %>" href="<%= root_url(host: Region.get('kaernten').host) %>" coords="589,272,432,118" shape="0">
-        <area title="<%= Region.get('wien') %>" href="<%= root_url(host: Region.get('wien').host) %>" coords="609,35,836,218" shape="0">
-    </map>
-    -->
   </div>
+
+  <p class="subline">
+    <strong>Entdecke spannende Events, Workshops und die lokalen Anbieter*innen und Initiativen.</strong><br>
+    Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen
+    Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!
+  </p>
 
   <div class="hl-subtext">
-    <h1><em>Willkommen auf WeLocally</em></h1>
+    <h1><span>WeLocally gibt es</span> in diesen Gebieten:</h1>
+    <p class="mail-hint">Möchtest du, dass WeLocally auch in deine Region kommt? Dann melde dich bei uns: <%= mail_to "mailto:wir@welocally.at", 'wir@welocally.at' %></p>
   </div>
 
-  <div class="paperCard -cord1RT">
-    <div class="wrp">
-      <h3>
-        WeLocally stärkt lokale Akteur*innen über neue Formen der Zusammenarbeit.
-      </h3>
-      <p>
-        <strong>WeLocally macht euch und eure Angebote, aber auch eure Events & Workshops in der Stadt, in der Gemeinde und in der Region digital sichtbar.</strong>
-        Der Raumteiler auf WeLocally ist eine Art WG-Suche für Gewerbeflächen und bringt Raumhabende und Raumsuchende zusammen. Räume teilen & Kosten teilen! Er ist auch ein Tool um Leerstand und größere Flächen zu aktivieren.
-      </p>
-      <br>
-      <p>
-        Kooperationen und gegenseitige Unterstützung werden bei WeLocally groß geschrieben: Ihr findet Gleichgesinnte für Kooperationen oder zum Teilen von Ressourcen. Ideen, Vereine, Projekte und Initiativen werden sichtbar und vernetzen sich mit Unterstützer*innen und neuen Mitgliedern.
-      </p>
-      <p>
-        <strong>WeLocally bedeutet die WIR-Kraft zu nutzen, damit lokal für alle 1000 neue Chancen entstehen. Registriere dich und nutze die kostenlosen Services.</strong>
-      </p>
-      <br>
-      <p>
-        WeLocally kommt auch gerne in deine Region oder Stadt. Interesse? Dann kontaktiere uns: <a href="mailto:wir@welocally.at">wir@welocally.at</a>
-      </p>
-    </div>
-    <div class="card"></div>
+  <div class="region-switch-icons">
+    <% Region.all.each do |region| %>
+      <%= link_to root_url(host: region.host), class: 'region-button' do %>
+        <div class="bigicontext-element">
+          <%= image_tag("regions/#{region.id}/icon.png", class: 'region-ico', width:80, height:80) %>
+        </div>
+        <div class="title"><%= region.name %></div>
+      <% end %>
+    <% end %>
   </div>
+
+  <div class="section -fullwidth -fullwidth-welocally">
+
+    <div class="hl-subtext">
+      <h1><em>So funktioniert</em> WeLocally</h1>
+      <p>Melde dich gleich kostenlos an.</p>
+    </div>
+
+    <%= render 'info_services' %>
+
+    <%= link_to "Sei locally dabei - Kostenlos registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register region-select-link', data: {urlmethod: new_registration_path} if !user_signed_in? %>
+
+  </div>
+
+
 
 </section>
+
+
+  <!--
+  <div class="input-select regionjump">
+    <label for="select">
+      <%= icon_tag "map-location" %>
+      <span>Wähle deine Region</span>
+    </label>
+    <select name="select" id="select" onchange="location.href = $(this).val()">
+      <option value="">Auswählen</option>
+      <% Region.all.each do |region| %>
+        <option value="<%= root_url(host: region.host) %>"><%= region.name %></option>
+      <% end %>
+    </select>
+  </div>
+  -->
+
+
+  <!--
+  <div class="mapImgBlock">
+    <div id="area-map" data-x="13.3457347" data-y="47.6964719">
+      <div class="map-marker -hidden -region" data-x="16.373819" data-y="48.208176">
+        <%= link_to root_url(host: Region.get('wien').host) do %>
+          <%= image_tag("regions/wien/logo.svg", class: 'logo-mobile', height:40) %>
+        <% end %>
+      </div>
+      <div class="map-marker -hidden -region" data-x="14.731930" data-y="46.703800">
+        <%= link_to root_url(host: Region.get('kaernten').host) do %>
+          <%= image_tag("regions/kaernten/logo.svg", class: 'logo-mobile', height:40) %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="navBlock">
+      <h1>Regionen</h1>
+      <div class="links">
+        <% Region.all.each do |region| %>
+          <%= link_to region.name, root_url(host: region.host) %>
+        <% end %>
+      </div>
+      <select class="mobileSelectMenu">
+        <option disabled>Region wählen</option>
+      </select>
+    </div>
+  </div>
+  -->

@@ -1,0 +1,67 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/coop-and-share.jpg')
+  )
+%>
+
+<section class="info -startpage">
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <%= image_tag('svg/coopshare-logo-black.svg', class: 'coop-share-logo') %>
+    </div>
+  </div>
+
+  <div class="paperCard -cord1RT -header -top">
+    <div class="wrp">
+      <p>
+        <strong>
+          <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an.
+        </strong>
+      </p>
+      <p>
+        Neben Services, die Kosten senken und Ressourcen erhöhen, werden die NutzerInnen
+        mit Gleichgesinnten verbunden: Kooperieren, sharen, tauschen - neue Formen der
+        Zusammenarbeit und Gemeinschaft stehen dabei im Mittelpunkt!
+      </p>
+      <p>
+        <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> entfaltet seine Stärke im Wir - Ganz lokal in <%= current_region %>, analog und digital.
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <!--
+  <article class="container -mentoring">
+    <div class="txt">
+      <h2>Komm in dein Unterstützer-Team!</h2>
+      <h3>Ideen gemeinsam auf den Boden bringen.</h3>
+      <p>
+        MacherInnen werden in einem Team aus Gleichgesinnten auf <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> verbunden,
+        das sie bei der Umsetzung ihrer Ideen oder Aufbau ihrer Unternehmen begleitet,
+        fördert und trägt. Das Prinzip dahinter: große Ziele in kleine machbare Schritte unterteilen.
+        Bei der Umsetzung werden die MacherInnen begleitet. Woche für Woche, 3 Monate lang.
+      </p>
+      <p class="link">
+        <%= link_to 'Alle Infos und Anmeldung', unterstuetzer_team_path, :class => 'btn-primary -mint -large' %>
+      </p>
+    </div>
+    <div class="aside -mentoring">
+      <%= image_tag('info/mentorin-david-bongard.jpg', class: 'img-round') %>
+      <%= image_tag('info/mentorin-karin-kiendler.jpg', class: 'img-round') %>
+      <%= image_tag('info/mentorin-elisabeth-siencnik.jpg', class: 'img-round') %>
+    </div>
+  </article>
+  -->
+
+
+  <%= render 'info_services' %>
+
+
+</section>
+
+<%= render 'info_menu' %>

@@ -1,8 +1,8 @@
 APP.controllers.static_pages = (function() {
 
     function init() {
-      if($("section.homeOut").exists()) initHome();
-      if($("section.homePlatform").exists()) initHomePlatform();
+      if($("section.homeRegion").exists()) initHome();
+      if($("section.homeWeLocally").exists()) initHomePlatform();
       if($(".-mentoring-page").exists()) initMentoring();
       if($("#help_nav").exists()) initHelpScroller();
       if($("#guide-download").exists()) initGuideDownload();

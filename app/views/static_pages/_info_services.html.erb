@@ -1,0 +1,165 @@
+<article class="container">
+  <div class="txt">
+    <h2>Das virtuelle Schaufenster</h2>
+    <h3>Für mehr Sichtbarkeit in deiner Region oder Stadt!</h3>
+    <p>
+      Alle Macher*innen bekommen ein kostenloses virtuelles Schaufenster zur Verfügung gestellt.
+      Das ist eine interaktive Seite, die ganz einfach eingerichtet werden kann.
+      Damit wird sichtbar, was du in deiner Umgebung organisierst und anbietest.
+      Es geht auch andersrum: Falls du gerade ein spezielles Angebot benötigst,
+      kannst du in dem Anbieter*innen Bereich ein kostenloses Gesuch veröffentlichen.
+    </p>
+    <% if current_region %>
+      <p class="link">
+        <%= link_to 'Mehr Infos', info_anbieter_und_locations_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zu den AnbieterInnen', region_locations_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    <% end %>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Locationpage2.png'), region_locations_path) %>
+    <% else %>
+      <%= image_tag('info/imGraetzl-Features-Locationpage2.png') %>
+    <% end %>
+  </div>
+</article>
+
+
+
+<article class="container">
+  <div class="txt">
+    <h2>Veranstaltungen, Workshops & Kurse</h2>
+    <h3>Mach deine Veranstaltungen in der Umgebung bekannt!</h3>
+    <p>
+      Veröffentliche kostenlos deine Veranstaltungen, Treffen, Kurse, Workshops,
+      gerne auch deine online Events. Diese werden nicht nur auf WeLocally in deiner Region bzw. Stadt angezeigt,
+      sondern auch in den Newsletter aufgenommen und per Mail verteilt.
+    </p>
+    <% if current_region %>
+      <p class="link">
+        <%= link_to 'Mehr Infos', info_events_und_workshops_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zu den Events', region_meetings_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    <% end %>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Events.png'), region_meetings_path) %>
+    <% else %>
+      <%= image_tag('info/imGraetzl-Features-Events.png') %>
+    <% end %>
+  </div>
+</article>
+
+
+
+<article class="container">
+  <div class="txt">
+    <h2>Raumteiler</h2>
+    <h3>Gewerbeflächen teilen - Kosten teilen.</h3>
+    <p>
+      Der Raumteiler ist eine Art WG-Partnersuche für Gewerbeflächen und verbindet Raumsuchende
+      und Raumhabende in Raumpartnerschaften. Es geht darum Räume und Kosten zu teilen
+      und darum neue Gemeinschaften zu bilden. Der Raumteiler ist auch ein Werkzeug, um Leerstand zu aktivieren.
+    </p>
+    <% if current_region %>
+      <p class="link">
+        <%= link_to 'Mehr Infos', info_raumteiler_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zu den Raumteilern', region_rooms_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    <% end %>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Raumteiler2.png'), region_rooms_path) %>
+    <% else %>
+      <%= image_tag('info/imGraetzl-Features-Raumteiler2.png') %>
+    <% end %>
+  </div>
+</article>
+
+
+
+
+<article class="container">
+  <div class="txt">
+    <h2>Coop & Share Marktplatz</h2>
+    <h3>Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.</h3>
+    <p>
+      Finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur
+      gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.
+      Suche Mitgestalter*innen für deine Initiative, Idee oder Verein.
+      Oder schließe dich mit Tauschpartner*innen für Tauschgeschäfte zusammen.
+    </p>
+    <% if current_region %>
+      <p class="link">
+        <%= link_to 'Mehr Infos', info_gruppen_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zum Coop & Share Marktplatz', region_groups_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    <% end %>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Gruppen.png'), region_groups_path) %>
+    <% else %>
+      <%= image_tag('info/imGraetzl-Features-Gruppen.png') %>
+    <% end %>
+  </div>
+</article>
+
+
+
+<article class="container">
+  <div class="txt">
+    <h2>Toolteiler</h2>
+    <h3>Arbeitsequipment leihen & Geräte am Standort nutzen</h3>
+    <p>
+       Du kannst über den Toolteiler Geräte vermieten und mieten oder auch den Zugang zur Ausstattung
+       an deinem Arbeitsstandort ermöglichen. Wenn dein Wunschgerät noch nicht ausleihbar ist,
+       dann starte ein Toolteilergesuch. Ein schöner Nebeneffekt, wenn Arbeitsequipment mehrfach genutzt wird,
+       schon das die Ressourcen, weil sich nicht jeder die Geräte selber kaufen muss.
+    </p>
+    <% if current_region %>
+      <p class="link">
+        <%= link_to 'Mehr Infos', info_toolteiler_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zu den Toolteilern', region_tool_offers_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    <% end %>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+    <%= link_to(image_tag('info/imGraetzl-Features-Toolteiler.png'), region_groups_path) %>
+    <% else %>
+    <%= image_tag('info/imGraetzl-Features-Toolteiler.png') %>
+    <% end %>
+  </div>
+</article>
+
+
+
+
+<article class="container">
+  <div class="txt">
+    <h2>Das Zuckerl</h2>
+    <h3>Einen Monat lang die volle Aufmerksamkeit auf dein Angebot gerichtet.</h3>
+    <p>
+      Mit einem Grätzlzuckerl kannst du günstig & zielgerichtet Werbung für dein spezielles Angebot in
+      deiner Gemeinde bzw. Bezirk schalten. Ein Zuckerl läuft immer für einen Monat.
+      Wenn es in der ganzen Region bzw. Stadt und in allen Newslettern aufscheinen soll, dann geht das auch.
+    </p>
+    <% if current_region %>
+      <p class="link">
+        <%= link_to 'Mehr Infos', info_infos_zum_graetzlzuckerl_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zu den Zuckerln', region_zuckerls_path, :class => 'btn-primary -mint -inlineflex' %>
+      </p>
+    <% end %>
+  </div>
+  <div class="aside -img -illu">
+    <% if current_region %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Graetzlzuckerl.png'), region_zuckerls_path) %>
+    <% else %>
+      <%= image_tag('info/imGraetzl-Features-Graetzlzuckerl.png') %>
+    <% end %>
+  </div>
+</article>
