@@ -103,8 +103,9 @@
 @import "controllers/userprofile";
 @import "controllers/footerTextHeavyPages";
 @import "controllers/usersettings";
-@import "controllers/homeOut";
-@import "controllers/homePlatform";
+@import "controllers/info";
+@import "controllers/homeRegion";
+@import "controllers/homeWeLocally";
 @import "controllers/createzuckerl";
 @import "controllers/graetzls";
 @import "controllers/districts";
@@ -112,7 +113,6 @@
 @import "controllers/location-form";
 @import "controllers/selectGraetzl";
 @import "controllers/usersCardsSetup";
-@import "controllers/help";
 @import "controllers/static_pages";
 @import "controllers/roomForm";
 @import "controllers/roomCall";

@@ -1,4 +1,4 @@
-section.homeOut {
+section.homeRegion {
 
   .graetzljump {
     max-width: 500px;
@@ -236,8 +236,8 @@ section.homeOut {
     background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png'));
   }
 
-  background-size: 280px auto;
-  background-position: 20% 60%;
+  background-size: 230px auto;
+  background-position: 10% 75%;
 
   @include respond-to(">=medium") {
     background-size: 450px auto;
@@ -255,37 +255,44 @@ section.homeOut {
     @include textShadowHard($color-ambient-rosa-dark);
 
     position: relative;
-    display: inline-block;
-    text-align: center;
+    //display: inline-block;
+    //text-align: center;
     margin: 0 auto;
-    top:30px;
+    top:25px;
+    left:65px;
 
-    @include respond-to("<medium") {
+    span {
+      display: table;
       @include headlineBarbapapa();
+      margin-bottom: 5px;
     }
 
     @include respond-to(">=medium") {
       top: 50px;
-      left: 100px;
+      left: 320px;
     }
 
     @include respond-to(">=large") {
       top: 80px;
-      left: 150px;
+      left: 395px;
+    }
+
+    @include respond-to("<medium") {
+      //@include headlineBarbapapa();
     }
 
     span {
       @include respond-to(">=medium") {
-        display: table;
-        @include headlineBarbapapa();
+        //display: table;
+        //@include headlineBarbapapa();
       }
     }
 
     span:first-child {
-      @include respond-to(">=medium") {
-        margin-left: 35px;
-        margin-bottom: 5px;
-      }
+      margin-left: -25px;
+    }
+    span:last-child {
+      margin-left: 25px;
     }
 
   }
@@ -296,17 +303,17 @@ section.homeOut {
     line-height: 0.95;
     transform: rotate(-8deg);
     font-size: 2.7rem;
-    top:190px;
-    left:50px;
+    top:70px;
+    left:80px;
     @include respond-to(">=medium") {
       font-size: 3.3rem;
-      top:200px;
-      left:0px;
+      top:70px;
+      left:100px;
     }
     @include respond-to(">=large") {
       font-size: 3.5rem;
-      top:240px;
-      left:0px;
+      top:100px;
+      left:150px;
     }
   }
 
