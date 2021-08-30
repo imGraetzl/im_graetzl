@@ -26,10 +26,10 @@
           <div class="name"><%= location.name %></div>
         <% end %>
         <div class="category"><%= location.location_category.name if location.location_category %></div>
-        <% if location.address %>
+        <% if location.using_address? %>
           <div class="address">
             <%= icon_tag "location" %>
-            <%= location.address.street %>
+            <%= location.address_street %>
           </div>
         <% end %>
       </div>

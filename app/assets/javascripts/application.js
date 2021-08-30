@@ -20,13 +20,9 @@
 //= require picker.date
 //= require picker.time
 //= require picker.de_DE
-//= require leaflet
-//= require leaflet-providers
-//= require leaflet.activearea
 //= require enquire
 //= require jquery.sumoselect
 //= require jquery.dropdown
-//= require typeahead.bundle
 //= require masonry.pkgd.min
 //= require jquery.tagsinput
 //= require linkify.min
@@ -47,8 +43,6 @@
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers
-
-
 
 $(document).on('ready', function(event) {
     APP.init();

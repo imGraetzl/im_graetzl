@@ -16,13 +16,14 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    @meeting = initialize_meeting
+    @meeting = current_user.initiated_meetings.build(group_id: params[:group_id])
+    @meeting.graetzl = params[:graetzl_id].present? ? Graetzl.find(params[:graetzl_id]) : user_home_graetzl
     @meeting.build_platform_meeting_join_request
   end
 
   def create
     @meeting = Meeting.new(meeting_params)
-    @meeting.address = nil if @meeting.online_meeting?
+    @meeting.using_address = !@meeting.online_meeting?
     @meeting.user = current_user.admin? ? User.find(params[:user_id]) : current_user
     @meeting.region_id = current_region.id
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
@@ -45,7 +46,7 @@ class MeetingsController < ApplicationController
   def update
     @meeting = find_user_meeting
     @meeting.assign_attributes(meeting_params)
-    @meeting.address = nil if @meeting.online_meeting?
+    @meeting.using_address = !@meeting.online_meeting?
 
     @meeting.state = :active
 
@@ -176,23 +177,11 @@ class MeetingsController < ApplicationController
 
   def meeting_params
     params.require(:meeting).permit(
-      :graetzl_id,
-      :group_id,
-      :name,
-      :description,
-      :meeting_category_id,
-      :starts_at_date,
-      :starts_at_time,
-      :ends_at_time,
-      :cover_photo,
-      :remove_cover_photo,
-      :location_id,
-      :full_address,
-      :address_description,
-      :platform_meeting,
-      :online_meeting,
-      :online_description,
-      :online_url,
+      :graetzl_id, :group_id, :location_id, :name, :description,
+      :meeting_category_id, :starts_at_date, :starts_at_time, :ends_at_time,
+      :cover_photo, :remove_cover_photo,
+      :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,
+      :platform_meeting, :online_meeting, :online_description, :online_url,
       :amount,
       event_category_ids: [],
       meeting_additional_dates_attributes: [
@@ -208,16 +197,6 @@ class MeetingsController < ApplicationController
     params.permit(
       :meeting_id, :meeting_additional_date_id
     )
-  end
-
-  def initialize_meeting
-    if params[:group_id].present?
-      Meeting.new(group: Group.find(params[:group_id]))
-    elsif params[:graetzl_id].present?
-      Meeting.new(graetzl: Graetzl.find(params[:graetzl_id]))
-    else
-      Meeting.new(graetzl: user_home_graetzl)
-    end
   end
 
   def find_user_meeting

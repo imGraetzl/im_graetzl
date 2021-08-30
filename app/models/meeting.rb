@@ -1,5 +1,7 @@
 class Meeting < ApplicationRecord
   include Trackable
+  include Address
+
   extend FriendlyId
   friendly_id :name
 
@@ -8,9 +10,6 @@ class Meeting < ApplicationRecord
 
   has_many :meeting_additional_dates, dependent: :destroy
   accepts_nested_attributes_for :meeting_additional_dates, allow_destroy: true, reject_if: :all_blank
-
-  belongs_to :address, optional: true, autosave: true
-  accepts_nested_attributes_for :address
 
   belongs_to :location, optional: true
   belongs_to :user, optional: true
@@ -104,47 +103,6 @@ class Meeting < ApplicationRecord
 
   def tax
     (amount_netto * 0.20).round(2)
-  end
-
-  def full_address
-    address&.street
-  end
-
-  def full_address=(value)
-    return if full_address == value
-
-    if value.present?
-      resolver = AddressResolver.from_street(value)
-      return if !resolver.valid?
-      build_address if address.nil?
-      self.address.assign_attributes(resolver.address_fields)
-      self.graetzl = resolver.graetzl
-    else
-      self.address&.mark_for_destruction
-    end
-  end
-
-  def address_description
-    address&.description
-  end
-
-  def address_description=(value)
-    if value.present?
-      build_address if address.nil?
-      address.description = value
-    else
-      self.address&.description = nil
-    end
-  end
-
-  def display_address
-    if address && address.street_name.present?
-      address
-    elsif location
-      location.address
-    else
-      address
-    end
   end
 
   def display_starts_at_date

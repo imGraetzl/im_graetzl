@@ -90,13 +90,11 @@ ActiveAdmin.register Location do
     :cover_photo, :remove_cover_photo,
     :location_category_id,
     :product_list,
-    contact_attributes: [
-      :id,
-      :website,
-      :online_shop,
-      :email,
-      :phone,
-      :hours],
+    :website_url,
+    :online_shop_url,
+    :email,
+    :phone,
+    :open_hours,
     address_attributes: [
       :id,
       :_destroy,

@@ -7,7 +7,7 @@ APP.controllers.tool_offers = (function() {
 
     function initToolOfferForm() {
       APP.components.tabs.initTabs(".tabs-ctrl");
-      APP.components.addressSearchAutocomplete();
+      APP.components.addressInput();
 
       $(".next-screen, .prev-screen").on("click", function() {
         $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));

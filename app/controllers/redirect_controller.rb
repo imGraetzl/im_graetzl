@@ -9,7 +9,7 @@ class RedirectController < ApplicationController
     elsif current_region.districts.any?{|d| params[:wien_path].start_with?(d.slug) }
       redirect_to "/bezirk/#{params[:wien_path]}"
     else
-      redirect_to params[:wien_path]
+      redirect_to "/" + params[:wien_path]
     end
   end
 

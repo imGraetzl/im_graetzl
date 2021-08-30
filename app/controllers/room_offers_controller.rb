@@ -20,8 +20,6 @@ class RoomOffersController < ApplicationController
     @room_offer.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @room_offer.region_id = current_region.id
 
-    set_address(@room_offer, params[:feature])
-
     if @room_offer.save
       current_user.update(user_params) if params[:user].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
@@ -155,11 +153,9 @@ class RoomOffersController < ApplicationController
         :general_availability,
         :rental_enabled,
         :last_activated_at,
+        :address_street, :address_coords, :address_city, :address_zip, :address_description,
         :first_name, :last_name, :website, :email, :phone, :location_id,
         images_attributes: [:id, :file, :_destroy],
-        address_attributes: [
-          :id, :street_name, :street_number, :zip, :city
-        ],
         room_offer_prices_attributes: [
           :id, :name, :amount, :_destroy
         ],
@@ -183,20 +179,6 @@ class RoomOffersController < ApplicationController
         :id, :first_name, :last_name, :street, :zip, :city, :country, :company, :vat_id,
       ],
     )
-  end
-
-  def set_address(room_offer, json = nil)
-    if json
-      resolver = AddressResolver.from_json(json)
-      return if !resolver.valid?
-      room_offer.build_address(resolver.address_fields)
-      room_offer.graetzl = resolver.graetzl
-    elsif room_offer.address
-      resolver = AddressResolver.from_street(room_offer.address.street)
-      return if !resolver.valid?
-      room_offer.address.assign_attributes(resolver.address_fields)
-      room_offer.graetzl = resolver.graetzl
-    end
   end
 
 end

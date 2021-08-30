@@ -1,21 +1,14 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # GET /users/registrierung
   def new
-
     if current_region.nil?
-      render 'select_region', layout: 'platform'
-    else
-      if params[:feature].blank?
-        render "address_form" and return
-      end
-
-      build_resource(origin: params[:origin])
-      address_resolver = AddressResolver.from_json(params[:feature])
-      self.resource.graetzl = address_resolver.graetzl
-      self.resource.build_address(address_resolver.address_fields)
-      respond_with self.resource
+      render 'select_region', layout: 'platform' and return
+    elsif params.dig(:user, :address_street).blank?
+      render "select_address" and return
     end
 
+    build_resource(sign_up_params)
+    respond_with self.resource
   end
 
   def create
@@ -51,25 +44,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     params.require(:user).permit(
-      :username,
-      :first_name, :last_name,
-      :email,
-      :password,
-      :business,
-      :terms_and_conditions,
-      :newsletter,
-      :origin,
+      :username, :first_name, :last_name, :email, :password,
+      :graetzl_id, :address_street, :address_coords, :address_city, :address_zip, :address_description,
       :avatar, :remove_avatar,
-      :graetzl_id,
-      :location_category_id,
-      business_interest_ids: [],
-      address_attributes: [
-        :street_name,
-        :street_number,
-        :zip,
-        :city,
-        :coordinates]
-      )
+      :origin, :terms_and_conditions, :newsletter, :location_category_id, :business, business_interest_ids: [],
+    )
   end
 
 end

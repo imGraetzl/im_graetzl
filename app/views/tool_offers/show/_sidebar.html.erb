@@ -98,8 +98,8 @@
 
     <div class="innerbox icontxt">
       <%= icon_tag "map-location" %>
-      <%= @tool_offer.address.street %><br>
-      <%= "#{@tool_offer.address.zip} #{@tool_offer.address.city}" %><br>
+      <%= @tool_offer.address_street %><br>
+      <%= "#{@tool_offer.address_zip} #{@tool_offer.address_city}" %><br>
     </div>
 
     <div class="innerbox icontxt">
@@ -107,14 +107,8 @@
       Erstellt / Aktualisiert:<br><%= I18n.localize(@tool_offer.updated_at, format:'%d. %b %Y') %>
     </div>
 
-    <% if @tool_offer.address.try(:coordinates) %>
-      <div id="leafletMap" class="" data-x="<%= @tool_offer.address.coordinates.x %>" data-y="<%= @tool_offer.address.coordinates.y %>">
-        <div class="map-marker -hidden">
-          <%= link_to "https://maps.google.com?q=#{@tool_offer.address.street_name}+#{@tool_offer.address.street_number}+#{@tool_offer.address.zip}", target: '_blank' do %>
-            <%= icon_tag "pin" %>
-          <% end %>
-        </div>
-      </div>
+    <% if @tool_offer.address_coordinates.present? %>
+      <%= address_map(@tool_offer) %>
     <% end %>
 
   </div>

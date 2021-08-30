@@ -23,60 +23,54 @@
         <% end %>
       <% end %>
 
-      <% if @location.contact.online_shop.present? %>
-        <%= link_to @location.contact.online_shop, class: 'icontxt onlineshop', target: '_blank' do %>
+      <% if @location.online_shop_url.present? %>
+        <%= link_to @location.online_shop_url, class: 'icontxt onlineshop', target: '_blank' do %>
           <%= icon_tag "onlineshop" %>
           <span>Online Shop</span>
         <% end %>
       <% end %>
 
-      <% if @location.contact.website.present? %>
-        <%= link_to @location.contact.website, class: 'icontxt', target: '_blank' do %>
+      <% if @location.website_url.present? %>
+        <%= link_to @location.website_url, class: 'icontxt', target: '_blank' do %>
           <%= icon_tag "globe" %>
-          <span><%= @location.contact.website.sub(/^https?\:\/\//,'') %></span>
+          <span><%= @location.website_url.sub(/^https?\:\/\//,'') %></span>
         <% end %>
       <% end %>
-      <% if @location.contact.email.present? %>
-        <%= mail_to @location.contact.email, class: 'icontxt' do %>
+      <% if @location.email.present? %>
+        <%= mail_to @location.email, class: 'icontxt' do %>
           <%= icon_tag "at-symbol" %>
-          <span><%= @location.contact.email %></span>
+          <span><%= @location.email %></span>
         <% end %>
       <% end %>
-      <% if @location.contact.phone.present? %>
-        <%= link_to "tel:#{@location.contact.phone}", class: 'icontxt' do %>
+      <% if @location.phone.present? %>
+        <%= link_to "tel:#{@location.phone}", class: 'icontxt' do %>
           <%= icon_tag "mobile" %>
-          <%= @location.contact.phone %>
+          <%= @location.phone %>
         <% end %>
       <% end %>
-      <% if @location.address.try(:street) %>
+      <% if @location.address_street %>
         <div class="address icontxt">
           <%= icon_tag "address-directions" %>
-          <%= @location.address.street %><br>
-          <%= "#{@location.address.zip} #{@location.address.city}" %>
+          <%= @location.address_street %><br>
+          <%= "#{@location.address_zip} #{@location.address_city}" %>
         </div>
       <% end %>
     </div>
-    <% if @location.address.try(:coordinates) %>
-      <div id="leafletMap" class="" data-x="<%= @location.address.coordinates.x %>" data-y="<%= @location.address.coordinates.y %>">
-        <div class="map-marker -hidden">
-          <%= link_to "https://maps.google.com?q=#{@location.address.street_name}+#{@location.address.street_number}+#{@location.address.zip}", target: '_blank' do %>
-            <%= icon_tag "pin" %>
-          <% end %>
-        </div>
-      </div>
+    <% if @location.address_coordinates.present? %>
+      <%= address_map(@location) %>
     <% end %>
   </div>
 
   <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @location.user_id),
       class: "btn-primary -mint", id: 'requestLocationBtn' if @location.user && @location.user != current_user %>
 
-  <% if @location.contact.hours.present? %>
+  <% if @location.open_hours.present? %>
     <div class="sideBarbox openinghours">
       <div class="bigicontext-element">
         <%= icon_tag "time-clock" %>
         <div class="txt">Öffnungszeiten</div>
       </div>
-      <div class="txt"><%= @location.contact.hours %></div>
+      <div class="txt"><%= @location.open_hours %></div>
     </div>
   <% end %>
 

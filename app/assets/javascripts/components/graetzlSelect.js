@@ -2,8 +2,7 @@ APP.components.graetzlSelect = function() {
 
     $('select#district_id').on('change', function() {
         var districtID = $(this).val();
-        var url = '/wien/' + districtID + '/graetzls';
-        //var graetzlSelect = $('select#graetzl_id');
+        var url = $(this).data("url") + "?district_id=" + districtID;
         var graetzlSelect = $('select.graetzl_id');
 
         $.ajax({

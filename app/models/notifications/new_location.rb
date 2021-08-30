@@ -19,10 +19,4 @@ class Notifications::NewLocation < Notification
     activity.trackable
   end
 
-  def location_printable_address
-    if location.address
-      "#{location.address.street}, #{location.address.zip} #{location.address.city}"
-    end
-  end
-
 end

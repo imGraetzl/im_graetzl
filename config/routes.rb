@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'search/results' => 'search#results'
   get 'search/autocomplete' => 'search#autocomplete'
   get 'search/user' => 'search#user'
+  get 'search/graetzls' => 'search#graetzls', as: 'graetzl_search'
+  get 'search/address' => 'search#address', as: 'address_search'
 
   ActiveAdmin.routes(self)
 
@@ -65,7 +67,6 @@ Rails.application.routes.draw do
 
   scope controller: 'regions', as: 'region', path: 'region'  do
     get 'karte', action: 'index', as: 'index'
-    get 'visit_graetzl'
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings'
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'

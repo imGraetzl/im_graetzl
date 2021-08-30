@@ -20,7 +20,7 @@
       <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
       <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
       <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
+      <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts? %>
     </div>
     <div class="nav-dropdown-submenu" id="nav-submenu-regions">
       <%= nav_submenu_back('nav-submenu-site-city', 'half') %>
@@ -76,7 +76,7 @@
         <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
         <%= nav_menu_item("lightbulb", 'Alle Services', info_path) %>
         <%= nav_menu_item("coffee", "Blog", "https://blog.imgraetzl.at/", class: 'discover', target: '_blank') %>
-        <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts %>
+        <%= nav_menu_item("love", 'imGrätzl UnterstützerInnen', info_danke_path) if current_region.use_districts? %>
     </div>
     <div class="nav-dropdown-submenu" id="nav-submenu-desk-regions">
       <%= nav_submenu_back('nav-submenu-city-main', 'half') %>
@@ -89,21 +89,17 @@
     </div>
   </div>
 
-
-  <% if graetzl || district %>
-    <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
-      <%= icon_tag "arrow-down-2" %>
-      <span>
-      <% if graetzl %>
-        <%= graetzl.name %>
-      <% elsif district %>
-        <%= district.name %>
-      <% elsif current_region.use_districts %>
-        Grätzl entdecken
-      <% else %>
-        Gemeinden
-      <% end %>
-      </span>
+  <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
+    <%= icon_tag "arrow-down-2" %>
+    <span>
+    <% if graetzl %>
+      <%= graetzl.name %>
+    <% elsif district %>
+      <%= district.name %>
+    <% elsif current_region.use_districts? %>
+      Grätzl entdecken
+    <% else %>
+      Gemeinden
     <% end %>
   <% end %>
 

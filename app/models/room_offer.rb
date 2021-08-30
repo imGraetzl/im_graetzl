@@ -1,15 +1,14 @@
 class RoomOffer < ApplicationRecord
   include Trackable
-  extend FriendlyId
+  include Address
 
+  extend FriendlyId
   friendly_id :slogan
 
   belongs_to :user
   belongs_to :graetzl
   belongs_to :district, optional: true
   belongs_to :location, optional: true
-  belongs_to :address, optional: true
-  accepts_nested_attributes_for :address
 
   has_many :room_offer_categories
   has_many :room_categories, through: :room_offer_categories
@@ -42,7 +41,7 @@ class RoomOffer < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :address, :slogan, :room_description, :owner_description, :tenant_description
+  validates_presence_of :address_street, :slogan, :room_description, :owner_description, :tenant_description
   validates_presence_of :cover_photo, :first_name, :last_name, :email
   validates_presence_of :room_rental_price, if: :rental_enabled?
   validate :has_one_category_at_least

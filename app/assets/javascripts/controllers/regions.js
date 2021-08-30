@@ -11,8 +11,6 @@ APP.controllers.regions = (function() {
             window.location.href = $(this).val();
         });
 
-        APP.components.addressSearchAutocomplete();
-
         // Only load when map is shown
         if ($('#area-map').is(":visible")) {
           APP.components.areaMap.init($('#area-map'), { interactive: true });

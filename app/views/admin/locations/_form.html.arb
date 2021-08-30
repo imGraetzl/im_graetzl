@@ -17,38 +17,21 @@ active_admin_form_for [:admin, resource] do |f|
         input :avatar, as: :file, hint: f.object.avatar && image_tag(f.object.avatar_url(:thumb))
         input :remove_avatar, as: :boolean if f.object.avatar
       end
-      inputs 'Contact', for: [:contact, (f.object.contact || f.object.build_contact)] do |c|
-        c.input :website, as: :url
-        c.input :online_shop, as: :url
-        c.input :email, as: :email
-        c.input :phone
-        c.input :hours
+      inputs 'Contact' do
+        input :website_url, as: :url
+        input :online_shop_url, as: :url
+        input :email, as: :email
+        input :phone
+        input :open_hours
       end
-      if f.object.address
-        inputs 'Address', for: [:address, (f.object.address)] do |a|
-          a.input :street_name
-          a.input :street_number
-          a.input :description
-          a.input :zip
-          a.input :city
-          a.input :coordinates, as: :string,
-            placeholder: 'POINT (16.345169051785824 48.19314778332606)',
-            hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
-          a.input :_destroy, as: :boolean, label: 'Adresse Löschen'
-        end
-      else
-        inputs 'Address' do
-          has_many :address, heading: false do |a|
-            a.input :street_name
-            a.input :street_number
-            a.input :description
-            a.input :zip
-            a.input :city
-            a.input :coordinates, as: :string,
-              placeholder: 'POINT (16.345169051785824 48.19314778332606)',
-              hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
-          end
-        end
+      inputs 'Address' do
+        input :address_street
+        input :address_zip
+        input :address_city
+        input :address_coordinates, as: :string,
+          placeholder: 'POINT (16.345169051785824 48.19314778332606)',
+          hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
+        input :address_description
       end
       if f.object.billing_address
         inputs 'Billing Address', for: [:billing_address, f.object.billing_address] do |b|

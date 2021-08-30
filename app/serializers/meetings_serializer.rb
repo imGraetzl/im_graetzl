@@ -23,7 +23,7 @@ class MeetingsSerializer
         graetzl: meeting.graetzl.name,
         graetzl_url: site_url(:graetzl_url, meeting.graetzl),
         location: location_fields(meeting.location),
-        address: address_fields(meeting.display_address)
+        address: address_fields(meeting)
       )
     end
   end
@@ -34,12 +34,14 @@ class MeetingsSerializer
     ) if location
   end
 
-  def address_fields(address)
-    address.slice(
-      :street_name, :street_number, :zip, :city
-    ).merge(
-      coordinates: coordinates_fields(address.coordinates)
-    ) if address
+  def address_fields(meeting)
+    return if !meeting.using_address?
+    {
+      street_name: meeting.address_street,
+      zip: meeting.address_zip,
+      city: meeting.address_city,
+      coordinates: coordinates_fields(meeting.address_coordinates)
+    }
   end
 
   def coordinates_fields(coordinates)

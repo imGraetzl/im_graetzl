@@ -9,16 +9,14 @@ active_admin_form_for [:admin, resource] do |f|
         input :status, include_blank: false
       end
 
-      inputs 'Address', for: [:address, (f.object.address)] do |a|
-        a.input :street_name
-        a.input :street_number
-        a.input :description
-        a.input :zip
-        a.input :city
-        a.input :coordinates, as: :string,
+      inputs 'Address' do
+        input :address_street
+        input :address_zip
+        input :address_city
+        input :address_coordinates, as: :string,
           placeholder: 'POINT (16.345169051785824 48.19314778332606)',
           hint: 'e.g. POINT (16.345169051785824 48.19314778332606)'
-        a.input :_destroy, as: :boolean, label: 'Adresse Löschen'
+        input :address_description
       end
 
       inputs "Photos" do

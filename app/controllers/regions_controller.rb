@@ -3,15 +3,6 @@ class RegionsController < ApplicationController
   def index
   end
 
-  def visit_graetzl
-    resolver = AddressResolver.from_json(params[:feature])
-    if resolver.valid? && resolver.graetzl.present?
-      redirect_to resolver.graetzl
-    else
-      redirect_to region_index_url
-    end
-  end
-
   def locations
     if params[:category].present?
       @category = LocationCategory.find_by(slug: params[:category])

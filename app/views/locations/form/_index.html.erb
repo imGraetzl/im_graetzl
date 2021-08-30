@@ -1,7 +1,4 @@
 <%= form_for(@location) do |f| %>
-  <%= hidden_field_tag :selected_graetzl_id, params[:selected_graetzl_id] %>
-  <%= f.hidden_field :graetzl_id %>
-
   <%= form_errors_for @location %>
 
   <div class="form-block">

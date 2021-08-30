@@ -42,11 +42,11 @@
           <%= @going_to.display_starts_at_date %>
         </p>
         <p>
-          <% unless @going_to.meeting.display_address.description.empty? %>
-            <%= @going_to.meeting.display_address.description %><br>
+          <% if @going_to.meeting.address_description.present? %>
+            <%= @going_to.meeting.address_description %><br>
           <% end %>
-          <%= @going_to.meeting.display_address.street %><br>
-          <%= @going_to.meeting.display_address.zip %> <%= @going_to.meeting.display_address.city %>
+          <%= @going_to.meeting.address_street %><br>
+          <%= @going_to.meeting.address_zip %> <%= @going_to.meeting.address_city %>
         </p>
         <p>
           <em>Im Anhang findest du deine Mwst-Rechnung.</em>

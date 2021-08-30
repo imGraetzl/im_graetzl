@@ -1,3 +1,7 @@
+//= require leaflet
+//= require leaflet-providers
+//= require leaflet.activearea
+
 APP.components.areaMap = (function() {
   var styles = {
     mint: {

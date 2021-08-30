@@ -5,10 +5,6 @@ class DistrictsController < ApplicationController
     @activity_sample = ActivitySample.new(district: @district, current_region: current_region)
   end
 
-  def graetzls
-    render json: District.memoized(@district.id).graetzls.to_json(only: [:id, :name])
-  end
-
   def meetings
     if params[:category].present?
       @category = EventCategory.find_by(slug: params[:category])

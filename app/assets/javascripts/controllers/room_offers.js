@@ -144,7 +144,7 @@ APP.controllers.room_offers = (function() {
 
   function initRoomForm() {
     APP.components.tabs.initTabs(".tabs-ctrl");
-    APP.components.addressSearchAutocomplete();
+    APP.components.addressInput();
     APP.components.formValidation.init();
     APP.components.search.userAutocomplete();
     $("textarea").autogrow({ onInitialize: true });

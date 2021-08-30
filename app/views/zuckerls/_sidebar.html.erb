@@ -18,10 +18,10 @@
       <div class="typetxt">
         <div class="name"><%= zuckerl.location.name %></div>
         <div class="category"><%= zuckerl.location.location_category.name if zuckerl.location.location_category %></div>
-        <% if address = zuckerl.location.address %>
+        <% if zuckerl.location.using_address? %>
           <div class="address">
             <%= icon_tag "location" %>
-            <%= zuckerl.location.address.street %>
+            <%= zuckerl.location.address_street %>
           </div>
         <% end %>
       </div>
