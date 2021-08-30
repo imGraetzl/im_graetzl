@@ -26,6 +26,7 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
   has_many :locations
+  has_many :coop_demands
   has_many :room_calls
   has_many :room_offers
   has_many :room_demands
@@ -72,6 +73,11 @@ class User < ApplicationRecord
   before_destroy :mailchimp_user_delete
 
   scope :business, -> { where(business: true) }
+  Region.all.each do |region|
+    scope region.id.to_sym, -> { where(region_id: region) }
+  end
+
+
 
 
   # Filter for Active Admin User Notification Settings

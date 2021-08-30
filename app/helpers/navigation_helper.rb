@@ -1,5 +1,20 @@
 module NavigationHelper
 
+  # Try Personal Logged-in Region Navigation Switch
+  # Show in which Region the current User is logged-in (todo: cookie domain ...)
+  def nav_region_menu_item(icon, label, url, region)
+
+    if current_user && current_user.region_id == region.id
+      user = avatar_image(current_user, size: :thumb, class: 'img-round avatar user-home')
+      home_region_class = 'home-region'
+    end
+    active_region_class = (current_region.id == region.id) ? 'active-region' : ''
+    
+    link_to(url, class: "nav-menu-item #{active_region_class} #{home_region_class}") do
+      icon_tag(icon) + label + user
+    end
+  end
+
   def nav_menu_item(icon, label, url, options = {})
     options[:class] = [options[:class], 'nav-menu-item']
     link_to(url, options) do

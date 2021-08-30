@@ -1,6 +1,6 @@
 ActiveAdmin.register Graetzl do
   include ViewInApp
-  menu parent: 'Grätzl', priority: 2
+  menu parent: 'Regionen'
   includes :districts
   actions :all, except: [:destroy]
 

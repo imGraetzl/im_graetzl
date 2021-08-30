@@ -2,29 +2,45 @@ class Region
   attr_reader :id, :name
   # (Maybe PLZ Range: The first two digits of the zip code)
 
-  DATA = [
-    ['wien', 'Wien', true],
-    ['kaernten', 'Unterkärnten', false],
-  ]
+  DATA = JSON.parse(File.read("#{Rails.root}/config/regions.json"), symbolize_names: true)
 
   def self.all
-    @regions ||= DATA.map{|d| new(*d) }
+    @regions ||= DATA.map{|id, data| new(id, data) }
   end
 
   def self.get(id)
     all.find{|r| r.id == id }
   end
 
-  def initialize(id, name, use_districts)
-    @id, @name, @use_districts = id, name, use_districts
+  def initialize(id, data)
+    @id = id.to_s
+    @name = data[:name]
+    @area_coordinates = data[:area]
+    @bound_coordinates = data[:bounds]
+    @use_districts = data[:use_districts]
+  end
+
+  def to_s
+    name
   end
 
   def use_districts?
     @use_districts
   end
 
-  def to_s
-    name
+  def area
+    {
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": { "coordinates": @area_coordinates, "type": "Polygon" },
+        }
+      ]
+    }
+  end
+
+  def bounds
+    @bound_coordinates
   end
 
   def host

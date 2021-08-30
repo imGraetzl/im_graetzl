@@ -79,6 +79,36 @@
         background-image: url(image_path('svg/icon-arrow-right-blinky-mint.svg'));
       }
     }
+    &.-left {
+      &::before {
+        bottom: 0px;
+        right: 90px;
+        transform: rotate(-30deg);
+        @include respond-to(">=medium") {
+          bottom: -5px;
+          right: 115px;
+        }
+        @include respond-to(">=large") {
+          bottom: 0px;
+          right: 130px;
+          transform: rotate(-30deg) scale(1.5);
+        }
+      }
+      &:hover {
+        &::before {
+          bottom: 5px;
+          right: 85px;
+          @include respond-to(">=medium") {
+            bottom: 0px;
+            right: 110px;
+          }
+          @include respond-to(">=large") {
+            bottom: 5px;
+            right: 125px;
+          }
+        }
+      }
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 <% location = zuckerl.location %>
 <% graetzl = Graetzl.memoized(location.graetzl_id) %>
 
-<div class="cardBox -zuckerl">
+<div class="cardBox -zuckerl" id="zuckerl-<%= zuckerl.id %>">
   <div class="cardBoxHeader">
     <%= link_to [graetzl, location] do %>
       <div class="coverImgWrapper">
@@ -33,7 +33,7 @@
     <div class="zuckerlteasertxt">
       <div class="hl">
         <%= icon_tag "shopping-bag" %>
-        Grätzlzuckerl <%= zuckerl_month_and_year(zuckerl) %>
+        Zuckerl <%= zuckerl_month_and_year(zuckerl) %>
       </div>
       <div class="title"><%= zuckerl.title %></div>
       <div class="description"><%= zuckerl.description %></div>
@@ -49,11 +49,13 @@
       <%= zuckerl_state_for(zuckerl) %>
     </div>
     <div class="btn-group">
-      <%= link_to 'Bearbeiten', edit_location_zuckerl_path(location, zuckerl), class: 'btn-secondary -mint -small' unless zuckerl.live? || zuckerl.expired? %>
-      <%= link_to 'Löschen', location_zuckerl_path(location, zuckerl),
-        data: { confirm: 'Bist du dir sicher?' },
-        method: :delete,
-        class: 'btn-secondary -mint -small' %>
+      <div class="actions">
+        <%= link_to 'Bearbeiten', edit_location_zuckerl_path(location, zuckerl), class: 'btn-secondary -mint -small -actions' unless zuckerl.live? || zuckerl.expired? %>
+        <%= link_to 'Löschen', location_zuckerl_path(location, zuckerl),
+          data: { confirm: 'Bist du dir sicher?' },
+          method: :delete,
+          class: 'btn-secondary -mint -small' %>
+      </div>
       <%= link_to "Download Rechnung", zuckerl.zuckerl_invoice.presigned_url(:get), class: 'btn-secondary -grey -small -invoice' if zuckerl.invoice_number.present? %>
     </div>
   </div>

@@ -1,0 +1,18 @@
+<!-- SLIDER -->
+<div class="category-slider-container loading">
+  <div id="category-slider" data-label="Coop & Share" class="cS-hidden">
+    <% categories = CoopDemandCategory.all.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
+      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
+        <%= category_image(category, class: 'categoryImg') %>
+        <div class="cat category-<%= category.id %> -<%= category.icon %> -coopdemands"></div>
+        <h3><%= link_to category.name, region_coop_demands_path(category: category) %></h3>
+        <%= button_tag class: 'close-ico' do %>
+          <%= icon_tag "cross" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="filter-line"></div>
+</div>

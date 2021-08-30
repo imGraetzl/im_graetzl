@@ -1,33 +1,10 @@
 <section class="usersetup -zuckerl">
 
-  <div class="introcontainer">
-    <div class="introtxt">
-
-      <div class="hl-subtext">
-        <h1><em>Deine Grätzlzuckerl</em></h1>
-        <p>Mit einem Grätzlzuckerl hast du die Möglichkeit günstig, einfach und unkompliziert Werbung für dein spezielles
-          Angebot in deinem Grätzl, Bezirk oder in ganz <%= current_region %> zu schalten.</p>
-      </div>
-
-      <p>Als Grätzlzuckerl eignen sich besondere <strong>Angebote, Gutscheine oder Rabattaktionen, aber auch Werbung für deine
-        Produkte</strong>.</p>
-
-      <p>Grätzlzuckerl können immer für den kommenden Monat im Voraus gebucht werden und laufen dann einen ganzen Monat.
-      <strong>Sprich, wenn du jetzt ein Grätzlzuckerl buchst, läuft dieses im Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B %Y' %>.</strong></p>
-      <p><strong>Ein Grätzlzuckerl kostet dich <%= number_to_currency(Zuckerl.price / 100) %></strong> (inkl. USt.) Um deinem Zuckerl noch mehr Aufmerksamkeit und Sichtbarkeit zu schenken, erscheint es nicht nur in deinem
-        eigenen Grätzl, sondern sogar im ganzen zugehörigen Bezirk!</p>
-
-      <p><strong>Seit Kurzem gibt es auch das <%= current_region %> Zuckerl.</strong>
-      Dieses läuft dann in allen Bezirken und Grätzln auf der Plattform - Also 1 Monat die volle Sichtbarkeit für dich auf imGrätzl :)
-      <strong>Ein <%= current_region %> Zuckerl kostet dich <%= number_to_currency(Zuckerl.region_price / 100) %></strong> (inkl. USt.).</p>
-
-    </div>
-    <%= render partial: 'users/zuckerl_actioncard' %>
-  </div>
+  <%= render partial: 'users/zuckerl_introtext' %>
 
   <% if @zuckerls.present? %>
 
-    <h2 class="hl-main" id="zuckerl-verwalten">Deine <span>Grätzlzuckerl</span> verwalten</h2>
+    <h2 class="hl-main" id="zuckerl-verwalten">Deine <span>Zuckerl</span> verwalten</h2>
 
     <div class="cardBoxCollection -tripple" data-behavior="zuckerls-card-container">
       <%= render partial: 'users/zuckerl', collection: @zuckerls %>

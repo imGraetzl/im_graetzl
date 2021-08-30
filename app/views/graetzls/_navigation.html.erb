@@ -2,7 +2,7 @@
 
   <%= active_link_to graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= icon_tag "map-location" %>
-    <div class="txt">Grätzl <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
+    <div class="txt"><%= t("region.#{current_region.id}.graetzl") %> <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
   <% end %>
 
   <%= active_link_to rooms_graetzl_path(@graetzl), class: "iconfilter" do %>
@@ -15,14 +15,14 @@
     <div class="txt">Tool<br/>teiler</div>
   <% end %>
 
-  <%= active_link_to groups_graetzl_path(@graetzl), class: "iconfilter -coopshare" do %>
+  <%= active_link_to coop_demands_graetzl_path(@graetzl), class: "iconfilter -coopshare" do %>
     <%= icon_tag "coop-share-white" %>
-    <div class="txt">Gruppen</div>
+    <div class="txt">Coop & Share<br/>Marktplatz</div>
   <% end %>
 
   <%= active_link_to locations_graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= icon_tag "location" %>
-    <div class="txt">Anbieter <br/>& Locations</div>
+    <div class="txt">Anbieter &<br/>Macherinnen</div>
   <% end %>
 
   <%= active_link_to meetings_graetzl_path(@graetzl), class: "iconfilter" do %>
@@ -32,7 +32,7 @@
 
   <%= active_link_to zuckerls_graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= icon_tag "shopping-bag" %>
-    <div class="txt">Zuckerl <br/>& Angebote</div>
+    <div class="txt">Zuckerl &<br/>Angebote</div>
   <% end %>
 
   <% if user_signed_in? %>
@@ -57,6 +57,10 @@
       <%= icon_tag "tacker" %>
       <div class="icontxt">Neuer Toolteiler</div>
     <% end %>
+    <%= link_to new_coop_demand_path do %>
+      <%= icon_tag "coop-share-white" %>
+      <div class="icontxt">Neues Coop & Share Angebot</div>
+    <% end %>
     <% if current_user.locations.empty? %>
       <%= link_to new_location_path do %>
         <%= icon_tag "location" %>
@@ -78,7 +82,7 @@
       <% end %>
       <%= link_to new_location_zuckerl_path(location) do %>
         <%= icon_tag "shopping-bag" %>
-        <div class="icontxt">Grätzlzuckerl meiner Location</div>
+        <div class="icontxt">Zuckerl meiner Location</div>
         <%= avatar_image location, size: :thumb, class: 'img-square' %>
       <% end %>
     <% end %>

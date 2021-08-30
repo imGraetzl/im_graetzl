@@ -28,7 +28,7 @@ APP.components.search = (function() {
         },
         {
           listLocation: "locations",
-          header: "Anbieter & Locations"
+          header: "Anbieter & Macherinnen"
         },
         {
           listLocation: "rooms",
@@ -37,6 +37,10 @@ APP.components.search = (function() {
         {
           listLocation: "tool_offers",
           header: "Toolteiler"
+        },
+        {
+          listLocation: "coop_demands",
+          header: "Coop & Share"
         },
         {
           listLocation: "groups",
@@ -104,10 +108,13 @@ APP.components.search = (function() {
             case 'Toolteiler':
               type = 'tool_offers'
               break;
+            case 'Coop & Share':
+              type = 'coop_demands'
+              break;
             case 'Events & Workshops':
               type = 'meetings'
               break;
-            case 'Anbieter & Locations':
+            case 'Anbieter & Macherinnen':
               type = 'locations'
               break;
             case 'Gruppen':

@@ -1,5 +1,5 @@
 ActiveAdmin.register EventCategory do
-  menu parent: 'Treffen'
+  menu parent: 'Meetings'
   config.filters = false
 
   scope :all, default: true

@@ -1,9 +1,10 @@
 ActiveAdmin.register District do
   include ViewInApp
-  menu parent: 'Grätzl', priority: 1
+  menu label: 'Bezirke', parent: 'Regionen'
   includes :graetzls
   actions :all, except: [:new, :create, :destroy]
 
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :zip
   filter :name
 

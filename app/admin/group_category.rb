@@ -1,5 +1,5 @@
 ActiveAdmin.register GroupCategory do
-  menu parent: 'Gruppe', priority: 2
+  menu parent: 'Groups'
 
   permit_params :title
 end

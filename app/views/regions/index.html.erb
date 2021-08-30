@@ -13,53 +13,23 @@
   <%= render 'map' %>
   <%= render 'navigation' %>
 
-  <% if user_signed_in? && (current_user.region == current_region) %>
-
-  <% else %>
-
-    <% if current_region.use_districts? %>
-
-        <div class="address-block">
-          <h1 class="hl-main">
-            Lass uns dein <em>Heimatgrätzl</em> Finden
-          </h1>
-          <%= form_tag region_visit_graetzl_path, method: :get do %>
-            <div class="input-field" id="addressSearchAutocomplete">
-              <%= label_tag :address do %>
-                <%= icon_tag "map-location" %>
-                <span>Wo wohnst du?</span>
-              <% end %>
-              <%= text_field_tag :address, nil, required: true, placeholder: "Straße und Hausnummer" %>
-              <%= hidden_field_tag :feature %>
-              <button class="btn-primary">Weiter</button>
-            </div>
-          <% end %>
-        <div>
-
-    <% else %>
-
-        <div class="address-block">
-          <h1 class="hl-main">
-            Kostenlos in deiner <em>Gemeinde</em> registrieren
-          </h1>
-          <%= form_tag new_registration_path, method: :get do %>
-            <div id="addressSearchAutocomplete" class="input-field">
-              <%= label_tag :address do %>
-                <%= icon_tag "map-location" %>
-                <span>Wo wohnst du?</span>
-              <% end %>
-              <%= text_field_tag :address, nil, required: true, placeholder: "Straße und Hausnummer" %>
-              <button class="btn-primary">Weiter</button>
-              <%= hidden_field_tag :feature %>
-              <%= hidden_field_tag :redirect, params[:redirect] %>
-              <%= hidden_field_tag :origin, params[:origin] %>
-            </div>
-          <% end %>
-        <div>
-
-    <% end %>
-
+  <%= form_tag activities_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <input type="hidden" value="<%= current_region.id %>" name="region_id">
+    <div class="filter-selection-text-jbox">
+        Neues aus <%= link_to "ganz #{current_region.name}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region.name}"} %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', entire_region: true %>
+    </div>
   <% end %>
 
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="activities-card-container"></div>
+    <div class="action-card-container" data-behavior="activities-action-card-container">
+      <%= render 'regions/action_card' if !user_signed_in? %>
+    </div>
+    <!-- Insert Featured Card -->
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'activities-paginate-link' }, rel: 'nofollow' %>
+  </div>
 
 </section>

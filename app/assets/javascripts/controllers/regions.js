@@ -11,8 +11,6 @@ APP.controllers.regions = (function() {
             window.location.href = $(this).val();
         });
 
-        APP.components.addressSearchAutocomplete();
-
         // Only load when map is shown
         if ($('#area-map').is(":visible")) {
           APP.components.areaMap.init($('#area-map'), { interactive: true });
@@ -26,7 +24,7 @@ APP.controllers.regions = (function() {
           APP.components.cardBoxFilter.init();
         }
 
-        if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
+        if ($("section.toolteiler, section.rooms, section.meetings, section.locations, section.coop-demands").exists()) {
           APP.components.categoryFilter.init($('#category-slider'));
         }
 

@@ -51,11 +51,21 @@
   }
 
   // -------------------------- Room Demand Cardbox
-  &.-roomdemand {
+  &.-roomdemand, &.-coopdemand {
     .category-tags {
       position: absolute;
       top:4px;
       right:0px;
+    }
+  }
+
+  &.-coopdemand {
+    .categoryicon {
+      svg {
+        fill: $color-ambient-rosa;
+        width:50px;
+        height: 50px;
+      }
     }
   }
 
@@ -120,7 +130,7 @@
     margin-bottom: 0px;
   }
 
-  .btn-group {
+  .btn-group, {
     display: flex;
     margin-left: auto;
     flex-wrap: wrap;
@@ -132,6 +142,17 @@
       float: left;
       width: 100%;
       margin-top: 10px;
+    }
+    .actions {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      .btn-secondary {
+        width:100%;
+      }
+      .btn-secondary:first-of-type {margin-right:5px;}
+      .btn-secondary:last-of-type {margin-left:5px;}
+      .btn-secondary:only-child {margin:0px;}
     }
   }
 
@@ -217,14 +238,14 @@
   a.typelink {text-decoration: none !important;}
   a.typelink:hover {text-decoration: none !important;}
 
-  .roomtype {
+  .type-description {
     color: $color-ambient-rosa;
     font-style: italic;
     padding: 10px 0px 15px 0px;
   }
 
-  &.-roomdemand {
-    .roomtype {
+  &.-roomdemand, &.-coopdemand {
+    .type-description {
       padding-top: 0px;
       margin-top:-10px;
     }
@@ -331,6 +352,10 @@
     .txt {
       font-size: 13px;
       margin-bottom: 15px;
+    }
+    svg {
+      float:right;
+      fill: $color-ambient-rosa;
     }
   }
 
@@ -483,7 +508,7 @@
   &.-below {
     background: none;
     margin-bottom: 0px;
-    .roomtype {
+    .type-description {
       margin-top: 47px;
     }
   }

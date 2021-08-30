@@ -14,4 +14,9 @@ module MapsHelper
     end
   end
 
+  def region_map(region)
+    content_tag(:div, nil, id: "area-map", data: { areas: region.area } ) +
+    content_tag(:div, nil, class: "activeArea")
+  end
+
 end

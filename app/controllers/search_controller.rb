@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:address]
 
   def index
   end
@@ -26,6 +26,8 @@ class SearchController < ApplicationController
   def graetzls
     render json: District.memoized(params[:district_id]).graetzls.to_json(only: [:id, :name])
   end
+
+  private
 
   def search_params
     params.permit(:page, :per_page).merge(type: params.dig(:filter, :search_type))

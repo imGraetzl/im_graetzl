@@ -4,21 +4,13 @@
     <h2><span>Ausstattung</span> - kurz das wichtigste</h2>
     <p>Hier kannst du stichwortartig noch besondere Ausstattungsmermale festlegen.</p>
   </div>
-  <div class="room-tags">
-    <%= collection_check_boxes nil, :suggested_keywords, RoomSuggestedTag.pluck(:name), :downcase, :to_s do |b| %>
-    <div class="input-checkbox">
-      <%= b.check_box(checked: f.object.keyword_list.include?(b.value)) %>
-      <%= b.label %>
-    </div>
-    <% end %>
-  </div>
 
   <div class="input-tags">
     <%= label_tag :custom_keywords do %>
     <%= icon_tag "label-tag" %>
     <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
     <% end %>
-    <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
+    <%= text_field_tag :custom_keywords, (f.object.keyword_list).join(', '), id: 'custom-keywords' %>
   </div>
 
 

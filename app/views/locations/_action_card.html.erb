@@ -12,13 +12,17 @@
       </div>
       <% if local_assigns[:graetzl] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ <%= t("region.#{current_region.id}.in_graetzl") %> <%= graetzl.name %> tätig?</h3>
-        <%= link_to 'Deine Location-Seite einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
+        <%= link_to 'Dein virtuelles Schaufenster gratis einrichten', new_location_path(graetzl_id: graetzl), class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
         <h3>Du bist unternehmerisch, sozial oder kreativ im <%= district.numeric %>. Bezirk tätig?</h3>
-        <%= link_to 'Deine Location-Seite einrichten', new_location_path, class: 'btn-primary' %>
+        <%= link_to 'Dein virtuelles Schaufenster gratis einrichten', new_location_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Über 7.500 Selbstständige, kl. Unternehmen & Macher*innen sind dabei.</h3>
-        <%= link_to 'Deine Location-Seite gratis einrichten', new_location_path, class: 'btn-primary -rose' %>
+        <% if current_region.use_districts? %>
+          <h3>Über 7.500 Selbstständige, kl. Unternehmen & Macher*innen sind dabei.</h3>
+        <% else %>
+          <h3>Werde in deiner Gemeinde und Region sichtbar.</h3>
+        <% end %>
+        <%= link_to 'Dein virtuelles Schaufenster gratis einrichten', new_location_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>
@@ -26,11 +30,11 @@
 
   <% if local_assigns[:view_all] %>
     <% if local_assigns[:graetzl] %>
-      <%= link_to 'Alle Anbieter & Locations', locations_graetzl_path(graetzl), class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Macherinnen', locations_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Anbieter & Locations', district_locations_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Macherinnen', district_locations_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Anbieter & Locations', region_locations_path, class: 'link-more' %>
+      <%= link_to 'Alle Anbieter & Macherinnen', region_locations_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

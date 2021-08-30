@@ -145,8 +145,8 @@
 
   @include respond-to(">=large") {
     //margin-top: -80px;
-    margin-left:30px;
-    padding: 35px 20px 35px 20px;
+    //margin-left:30px;
+    padding: 35px 20px 35px 30px;
     .iconfilter .txt {display: block;}
   }
 
@@ -248,6 +248,7 @@
 
 // ILLU BG
 .filter-stream.-illubg {
+  /*
   @include respond-to(">=medium") {
     &::before {
       content: '';
@@ -262,6 +263,7 @@
       background-position: center, center;
     }
   }
+  */
 }
 
 .hl-main, .hl-subtext {

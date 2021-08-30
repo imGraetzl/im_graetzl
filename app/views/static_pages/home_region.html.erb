@@ -1,20 +1,23 @@
 <% meta(
-    title: t('.title'),
-    description: t('.description'),
+    title: t('.title', region: current_region.name),
+    description: t('.description', region: current_region.name),
     robots: 'index, follow',
-    og_title: t('.title'),
-    og_description: t('.description'),
+    og_title: t('.title', region: current_region.name),
+    og_description: t('.description', region: current_region.name),
     og_image: image_url('meta/og_logo.png')
   )
 %>
 
 <section class="homeOut">
-  <div class="buehne">
-    <h1><span>Was ist los </span><span><%= t("region.#{current_region.id}.in_your_graetzl") %>?</span></h1>
-    <%= link_to new_registration_path(origin: request.path), class: 'registerlink' do %>
-      <div class="register-badge"><%= icon_tag "user-info-profile-details" %></div>
-      <div class="txt">Mitmachen</div>
-    <% end %>
+
+  <div class="stage">
+    <%= render 'map' %>
+    <div class="stage-content">
+      <h1><span>Was ist los </span><span><%= t("region.#{current_region.id}.in_your_graetzl") %>?</span></h1>
+      <%= link_to new_registration_path(origin: request.path), class: 'badge -mint -arrow -left' do %>
+        Kostenlos<br/>anmelden
+      <% end %>
+    </div>
   </div>
 
   <div class="supporterBox">
@@ -61,12 +64,23 @@
 
   <div class="block-locations">
     <div class="hl-subtext">
-      <h1>Entdecke — <span>Anbieter &amp; Locations</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
+      <h1>Entdecke — <span>Anbieter &amp; Macherinnen</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
       <p>Entdecke Selbständige, kl. Unternehmen, Kreative, Vereine & Macher*innen</p>
     </div>
     <div class="cardBoxCollection -tripple -morelink">
       <%= render @activity_sample.locations %>
       <%= render 'locations/action_card', view_all: true %>
+    </div>
+  </div>
+
+  <div class="block-coops">
+    <div class="hl-subtext">
+      <h1>Entdecke — <span>Coop & Share</span> Angebote <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
+      <p>Vernetze dich mit anderen, tausch dich aus und kooperiere!</p>
+    </div>
+    <div class="cardBoxCollection -tripple -morelink">
+      <%= render @activity_sample.coop_demands %>
+      <%= render 'coop_demands/action_card', view_all: true, create_link: true %>
     </div>
   </div>
 
@@ -92,17 +106,6 @@
     </div>
   </div>
 
-  <div class="block-groups">
-    <div class="hl-subtext">
-      <h1>Entdecke — <span>Gruppen</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
-      <p>Vernetze dich mit anderen, tausch dich aus und kooperiere!</p>
-    </div>
-    <div class="cardBoxCollection -tripple -morelink">
-      <%= render @activity_sample.groups %>
-      <%= render 'groups/action_card', view_all: true, create_link: true %>
-    </div>
-  </div>
-
-  <%= link_to "Kostenlos #{ t("region.#{current_region.id}.in_your_graetzl") } registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register' %>
+  <%= link_to "Kostenlos #{ t("region.#{current_region.id}.in_your_graetzl") } registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register' if !user_signed_in? %>
 
 </section>

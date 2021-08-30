@@ -40,33 +40,32 @@
     </div>
 
     <h2 class="hl-main"><span>Wo</span> möchtest du idealerweise <span>anmieten</span>?</h2>
-    <div id="area-select">
+    <div id="area-select" data-region="<%= current_region %>" data-graetzl="<%= t("region.#{current_region.id}.graetzl") %>">
       <% if current_region.use_districts? %>
         <div class="input-select">
+          <%= f.label :district_ids do %>
+            <%= icon_tag "map-location" %>
+            <span>Bezirk</span>
+          <% end %>
           <%= f.select :district_ids, district_select_options, {}, { multiple: true, class: 'district-select' } %>
         </div>
       <% end %>
       <div class="input-select">
+        <%= f.label :graetzl_ids do %>
+          <%= icon_tag "map-location" %>
+          <span><%= t("region.#{current_region.id}.graetzl") %></span>
+        <% end %>
         <%= f.select :graetzl_ids, graetzl_select_options, {}, { multiple: true, class: 'graetzl-select' } %>
       </div>
     </div>
 
     <h2 class="hl-main"><span>Ausstattung</span> - Kurz das wichtigste</h2>
-    <div class="room-tags">
-      <%= collection_check_boxes nil, :suggested_keywords, RoomSuggestedTag.pluck(:name), :downcase, :to_s do |b| %>
-        <div class="input-checkbox">
-        <%= b.check_box(checked: f.object.keyword_list.include?(b.value)) %>
-        <%= b.label %>
-        </div>
-      <% end %>
-    </div>
-
     <div class="input-tags">
       <%= label_tag :custom_keywords do %>
       <%= icon_tag "label-tag" %>
       <span>Ausstattung<br/><small>(mit Komma getrennt)</small></span>
       <% end %>
-      <%= text_field_tag :custom_keywords, (f.object.keyword_list - RoomSuggestedTag.all_tags).join(', '), id: 'custom-keywords' %>
+      <%= text_field_tag :custom_keywords, (f.object.keyword_list).join(', '), id: 'custom-keywords' %>
     </div>
 
 

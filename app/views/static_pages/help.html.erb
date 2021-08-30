@@ -20,7 +20,7 @@
     <div class="wrp">
       <p>
         <strong>
-          imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an.
+          <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an.
         </strong>
       </p>
       <p>
@@ -29,7 +29,7 @@
         Zusammenarbeit und Gemeinschaft stehen dabei im Mittelpunkt!
       </p>
       <p>
-        imGrätzl.at entfaltet seine Stärke im Wir - Ganz lokal in <%= current_region %>, analog und digital.
+        <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> entfaltet seine Stärke im Wir - Ganz lokal in <%= current_region %>, analog und digital.
       </p>
     </div>
     <div class="card"></div>
@@ -41,7 +41,7 @@
       <h2>Komm in dein Unterstützer-Team!</h2>
       <h3>Ideen gemeinsam auf den Boden bringen.</h3>
       <p>
-        MacherInnen werden in einem Team aus Gleichgesinnten auf imGrätzl.at verbunden,
+        MacherInnen werden in einem Team aus Gleichgesinnten auf <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> verbunden,
         das sie bei der Umsetzung ihrer Ideen oder Aufbau ihrer Unternehmen begleitet,
         fördert und trägt. Das Prinzip dahinter: große Ziele in kleine machbare Schritte unterteilen.
         Bei der Umsetzung werden die MacherInnen begleitet. Woche für Woche, 3 Monate lang.
@@ -65,7 +65,7 @@
       <h3>Gewerbeflächen teilen - Kosten teilen.</h3>
       <p>
         Der Raumteiler ist eine Art WG-Partnersuche für Gewerbeflächen und verbindet
-        Raumsuchende und Raumhabende auf imGrätzl.at in Raumpartnerschaften.
+        Raumsuchende und Raumhabende auf <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> in Raumpartnerschaften.
         Es geht darum Gewerbeflächen, und im weiteren Kosten zu teilen.
         Der Raumteiler ist auch ein Werkzeug, um Leerstand zu verhindern und verbindet
         Raumsuchende in Gruppen, um Leerstand neu zu aktivieren.
@@ -91,8 +91,7 @@
          die Nutzung deines Arbeitsequipments. Du kannst über den Toolteiler Geräte verleihen
          oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen.
          Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst
-         gleichzeitig Ressourcen.<br><br>
-         <strong>Jedes Gerät, das du über den Toolteiler verleihst, ist mit bis zu 15.000 € versichert. Einfach und unbürokratisch.</strong>
+         gleichzeitig Ressourcen.
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_toolteiler_path, :class => 'btn-primary -grey -inlineflex' %>
@@ -153,10 +152,10 @@
 
   <article class="container">
     <div class="txt">
-      <h2>AnbieterInnen & Location-Seite</h2>
+      <h2>AnbieterInnen & Macherinnen</h2>
       <h3>Für mehr Sichtbarkeit in deinem Stadtteil!</h3>
       <p>
-        Lokale AkteurInnen bekommen auf imGrätzl.at die kostenlose Möglichkeit ihr Angebot,
+        Lokale AkteurInnen bekommen auf <%= t("region.#{current_region ? current_region.id : 'default'}.domain_full") %> die kostenlose Möglichkeit ihr Angebot,
         ihre Events und Workshops im Stadtteil auf einer eigenen interaktiven Seite vorzustellen.
         Alle Updates, Workshops und Events werden zusätzlich dazu per Stadtteil-Newsletter
         versendet und in Häusern der Sozialbau AG (Bauträger) und Heimbau (Bauträger)
@@ -195,18 +194,18 @@
 
   <article class="container">
     <div class="txt">
-      <h2>Das Grätzlzuckerl</h2>
+      <h2>Das Zuckerl</h2>
       <h3>Einen Monat lang die volle Aufmerksamkeit auf dich gerichtet.</h3>
       <p>
-        Mit einem Grätzlzuckerl kannst du günstig & zielgerichtet Werbung für
+        Mit einem Zuckerl kannst du günstig & zielgerichtet Werbung für
         dich und dein spezielles Angebot in deinem Stadtteil & Bezirk schalten.
         Ein Zuckerl läuft immer für einen Monat und kostet dich <%= number_to_currency(Zuckerl.price / 100) %> (inkl. 20% USt.).
         <br>
-        Möchtest du darüber hinaus dein Grätzlzuckerl nicht nur in deinem Bezirk sondern in ganz <%= current_region %> schalten - Auch das geht seit Kurzem :)
+        Möchtest du darüber hinaus dein Zuckerl nicht nur in deinem Bezirk sondern in ganz <%= current_region %> schalten - Auch das geht seit Kurzem :)
       </p>
       <p class="link">
         <%= link_to 'Mehr Infos', info_infos_zum_graetzlzuckerl_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zu den Grätzlzuckerln', region_zuckerls_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Zu den Zuckerln', region_zuckerls_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     </div>
     <div class="aside -img">

@@ -6,20 +6,17 @@
       <div class="introtxt">
 
         <div class="hl-subtext" id="teilnahme">
-          <h1><em>Gruppen auf imGrätzl.at</em></h1>
-          <p>Deine Gruppen für Kooperationen, Austausch und Zusammenarbeit!</p>
+          <h1><em>Gruppen auf <%= t("region.#{current_region.id}.domain_full") %></em></h1>
+          <p>Erstelle eine Gruppe für Austausch, Zusammenarbeit und Organisation!</p>
         </div>
 
-        <h3>Stöbern in Gruppen</h3>
-        <p>Durchstöbere die Gruppen auf imGrätzl.at und trete gleich einer Gruppe bei.
-          <br>
-          Hier gehts zur <%= link_to "Übersicht aller Gruppen", region_groups_path %>.
+        <p>
+          Gruppenfunktionalitäten werden auf Wunsch kostenlos zur Verfügung gestellt. In den Gruppen können Beiträge veröffentlicht, kommentiert und Termine koordiniert werden. Sie verfügen zusätzlich dazu über ein Mailverteiler. Die Gruppen eignen sich besonders gut, wenn ihr mit einem Kreis von Menschen in Kontakt bleiben, euch zu einem Thema austauschen und gemeinsame Termine planen, möchtet. Die Gruppen können mit einem Raumteiler oder dem Schaufenster verknüpft werden.
         </p>
 
         <h3>Du möchtest eine neue Gruppe gründen?</h3>
         <p>
-          Schreib uns ein kurzes Mail an <%= mail_to 'wir@imgraetzl.at' %> mit ein paar Infos zu deiner Gruppe die du gründen möchtest.
-          Wir geben dir Feedback und schalten dich gerne frei, um eine neue Gruppe zu starten.
+          Schreib uns ein kurzes Mail an <%= mail_to t("region.#{current_region.id}.contact_email") %> mit ein paar Infos zu deiner Gruppe die du gründen möchtest. Wir richten dir die Gruppe gerne ein.
         </p>
 
       </div>

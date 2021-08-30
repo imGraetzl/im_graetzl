@@ -1,0 +1,30 @@
+<% title('Registrierung') %>
+
+<section class="register-searchGraetzl">
+
+  <% if current_region.use_districts? %>
+    <h1>Lass uns zu Beginn dein <span>Heimatgrätzl</span> finden...</h1>
+  <% else %>
+    <h1>Kostenlos in <span>deiner Gemeinde</span> registrieren</h1>
+  <% end %>
+
+  <%= form_for :user, url: new_registration_path, method: :get do |f| %>
+    <div class="address-autocomplete" data-url="<%= address_search_url %>">
+      <div class="input-field">
+        <%= f.label :address_street do %>
+          <%= icon_tag "map-location" %>
+          <span>Wo wohnst du?</span>
+        <% end %>
+        <%= f.text_field :address_street, placeholder: 'Straße und Hausnummer', class: 'address-autocomplete-input' %>
+        <button class="btn-primary">Weiter</button>
+      </div>
+      <%= f.hidden_field :address_coords, class: 'address-coords-input' %>
+      <%= f.hidden_field :address_zip, class: 'address-zip-input' %>
+      <%= f.hidden_field :address_city, class: 'address-city-input' %>
+      <%= f.hidden_field :graetzl_id, class: 'address-graetzl-input' %>
+      <%= hidden_field_tag :redirect, params[:redirect] %>
+      <%= hidden_field_tag :origin, params[:origin] %>
+    </div>
+  <% end %>
+
+</section>

@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     get 'tooltip'
     get 'raumteiler', action: 'rooms', as: 'rooms'
     get 'toolteiler', action: 'tool_offers', as: 'tool_offers'
+    get 'coop-share', action: 'coop_demands', as: 'coop_demands'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'treffen', action: 'meetings', as: 'meetings'
@@ -66,10 +67,10 @@ Rails.application.routes.draw do
 
   scope controller: 'regions', as: 'region', path: 'region'  do
     get 'karte', action: 'index', as: 'index'
-    get 'visit_graetzl'
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings'
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
+    get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
     get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
@@ -82,6 +83,7 @@ Rails.application.routes.draw do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings'
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
+    get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
     get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
@@ -108,6 +110,12 @@ Rails.application.routes.draw do
   resources :campaign_users, path: 'campaign', only: [:new, :create]
   get 'muehlviertel', to: 'campaign_users#muehlviertel'
   get 'kaernten', to: 'campaign_users#kaernten'
+
+  resources :coop_demands, path: 'coop-share' do
+    post 'toggle', on: :member
+    get 'activate/:activation_code' => 'coop_demands#activate', on: :member
+    patch 'update_status', on: :member
+  end
 
   resources :rooms, only: [:index]
   resources :room_demands, path: 'raumsuche', except: [:index] do
@@ -210,7 +218,6 @@ Rails.application.routes.draw do
   get 'info/fragen-und-antworten', to: 'static_pages#faq'
   get 'info/infos-zur-graetzlmarie', to: 'static_pages#graetzlmarie'
   get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
-  get 'info/versicherung', to: 'static_pages#insurance'
   get 'info/danke', to: 'static_pages#supporter'
 
   post 'webhooks/stripe'
@@ -249,6 +256,7 @@ Rails.application.routes.draw do
     get 'locations(/category/:category)', action: 'locations', as: 'locations', on: :member
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms', on: :member
     get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers', on: :member
+    get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member
     resources :meetings, path: 'treffen', only: [:show]

@@ -10,6 +10,7 @@ ActiveAdmin.register_page "Dashboard" do
             column :username do |user|
               link_to user.username, admin_user_path(user)
             end
+            column :region
             column :graetzl
             column :created_at
           end

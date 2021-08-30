@@ -4,6 +4,7 @@ context.instance_eval do
       panel 'Basic Details' do
         attributes_table_for location do
           row :id
+          row :region
           row :name
           row :location_category
           row :products do |location|
@@ -64,31 +65,27 @@ context.instance_eval do
       end
     end
     column do
-      panel 'Associations' do
-        tabs do
-          tab 'User' do
-            attributes_table_for location.user do
-              row :id
-              row :username
-              row :email
-            end
-          end
-          tab 'Treffen' do
-            table_for location.meetings do
-              column :id
-              column :name
-              column :created_at
-              column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
-            end
-          end
-          tab 'Zuckerl' do
-            table_for location.zuckerls do
-              column :id
-              column :title
-              column(:aasm_state){|z| status_tag(z.aasm_state)}
-              column(''){|z| link_to 'Anzeigen', admin_zuckerl_path(z) }
-            end
-          end
+      panel 'User' do
+        table_for location.user do
+          column(:id){|u| u.id}
+          column(:username){|u| u.username}
+          column(''){|u| link_to 'User Anzeigen', admin_user_path(u) }
+        end
+      end
+      panel 'Zuckerl' do
+        table_for location.zuckerls do
+          column :id
+          column :title
+          column(:aasm_state){|z| status_tag(z.aasm_state)}
+          column(''){|z| link_to 'Anzeigen', admin_zuckerl_path(z) }
+        end
+      end
+      panel 'Treffen' do
+        table_for location.meetings do
+          column :id
+          column :name
+          column :created_at
+          column(''){|m| link_to 'Anzeigen', admin_meeting_path(m) }
         end
       end
     end

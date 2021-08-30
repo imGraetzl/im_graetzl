@@ -2,9 +2,8 @@ APP.controllers.room_offers = (function() {
 
   function init() {
     if ($("section.room-offer-form").exists()) initRoomForm();
-    if ($("#GAinfos").exists()) initshowContact();
-    if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($("section.roomDetail").exists()) { initRoomDetail(); }
+    if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($(".request-price-form").exists()) initRoomOfferBookingForm();
   }
 
@@ -123,33 +122,19 @@ APP.controllers.room_offers = (function() {
       });
     }
 
-  }
-
-  function initshowContact(){
-
-    var roomOwner_url = $('#roomContact_url').attr('data-id');
-    var roomOwner_id = $('#roomContact_id').attr('data-id');
-    var roomOwner_userid = $('#roomContact_id').attr('data-user');
-    var roomContact_id = $('#roomContactClick_id').attr('data-id');
-
-    var click_track = function() {
-      // Analytics Tracking
-      gtag(
-        'event', 'Raumangebot :: Click :: Kontaktinformationen einblenden', {
-        'event_category': 'Raumteiler',
-        'event_label': 'User: ' + roomContact_id
-      });
-    }
-
     $('#contact-infos-block').hide();
     $('#show-contact-link').on('click', function(event){
       event.preventDefault();
       $('#contact-infos-block').fadeIn();
       $(this).hide();
-      click_track();
+      gtag(
+        'event', 'Raumangebot :: Click :: Kontaktinformationen einblenden', {
+        'event_category': 'Raumteiler'
+      });
     });
 
   }
+
 
   function inithideContactLink(){
     $('#contact-infos-block').show();
@@ -162,6 +147,7 @@ APP.controllers.room_offers = (function() {
     APP.components.addressInput();
     APP.components.formValidation.init();
     APP.components.search.userAutocomplete();
+    $("textarea").autogrow({ onInitialize: true });
 
     $(".next-screen, .prev-screen").on("click", function() {
       $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));
@@ -174,10 +160,11 @@ APP.controllers.room_offers = (function() {
 
     $(".availability-select").on("change", function() {
       var day = $(this).data("weekday");
+      console.log($(this).val());
       if ($(this).val() == "0") {
         $(".availability-input-" + day).prop("disabled", true);
       } else {
-        $(".availability-input-" + day).removeProp("disabled");
+        $(".availability-input-" + day).prop("disabled", false);
       }
     }).change();
 
@@ -217,8 +204,7 @@ APP.controllers.room_offers = (function() {
   }
 
   return {
-    init: init,
-    initshowContact : initshowContact
+    init: init
   }
 
 })();

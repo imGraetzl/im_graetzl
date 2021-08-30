@@ -1,0 +1,50 @@
+<aside class="sideBar">
+
+  <div class="sideBarbox contact">
+    <div class='sideflag -L'>Infos</div>
+
+    <div class="iconlist">
+
+      <%= link_to @coop_demand.user, class: 'user-wrp', rel: 'nofollow' do %>
+        <%= avatar_image_with_tooltip @coop_demand.user, size: :thumb, class: 'img-round' %>
+        <span class="name"><%= @coop_demand.user.username %></span>
+      <% end %>
+
+      <div class="created icontxt">
+        <%= icon_tag "pencil" %>
+        Erstellt / Aktualisiert:<br><%= I18n.localize(@coop_demand.updated_at, format:'%d. %b %Y') %>
+      </div>
+
+      <% if user_signed_in? && current_user == @coop_demand.user %>
+        <div class="btn-group">
+          <%= link_to 'Bearbeiten', edit_coop_demand_path(@coop_demand), class: 'btn-secondary -mint -small' %>
+        </div>
+        <div id="coopdemand-state-update-dropdown" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+          <div class="jq-dropdown-panel">
+            <%= link_to 'Aktiv', [:update_status, @coop_demand, status: "enabled"], method: :patch %>
+            <%= link_to 'Inaktiv', [:update_status, @coop_demand, status: "disabled"], method: :patch %>
+            <%= link_to 'Löschen', coop_demand_path(@coop_demand), data: { confirm: 'Bist du dir sicher?' }, method: :delete %>
+          </div>
+        </div>
+        <div class="btn-group">
+          <%= link_to "javascript:", data: { jq_dropdown: "#coopdemand-state-update-dropdown" }, class: "btn-secondary -mint -small -state-#{@coop_demand.status}" do %>
+            Status: <span><%= t("activerecord.attributes.coop_demand.statuses.#{@coop_demand.status}") %></span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <% if @coop_demand.location %>
+    <aside class="location">
+      <%= render @coop_demand.location %>
+    </aside>
+  <% end %>
+
+  <% if @coop_demand.user.present? %>
+    <%= link_to "#{@coop_demand.user.first_name} kontaktieren", messenger_start_thread_path(user_id: @coop_demand.user.id), class: 'btn-primary -mint -contact', id: 'requestCoopDemandBtn', subject: "Coop & Share Kontakt" %>
+  <% end %>
+
+  <%= link_to "Zum Coop & Share Markplatz", region_coop_demands_path, class: 'btn-primary -mint' %>
+</aside>

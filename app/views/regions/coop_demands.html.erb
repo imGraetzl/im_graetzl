@@ -1,0 +1,42 @@
+<% meta(
+    title: (@category ? @category.name : 'Alle') + " Coop & Share Angebote in #{current_region}",
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: (@category ? @category.name : 'Alle') + " Coop & Share Angebote in #{current_region}",
+    og_description: t('.description'),
+    og_image: image_url('meta/og_logo.png')
+  )
+%>
+
+<section class="region coop-demands">
+
+  <%= render 'map' %>
+  <%= render 'navigation' %>
+
+  <div class="hl-subtext -cards">
+    <h1><span>Coop & Share</span> Marktplatz</h1>
+  </div>
+
+  <%= render 'filters/coop_demand_categories' %>
+
+  <%= form_tag coop_demands_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
+    <div class="filter-selection-text-jbox">
+      Zeige mir Coop & Share Angebote aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
+      in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <%= render 'filters/areas', entire_region: true %>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="coop-demands-card-container"></div>
+    <div class="action-card-container" data-behavior="coop-demands-action-card-container">
+      <%= render 'coop_demands/action_card', create_link: true %>
+    </div>
+    <!-- Insert Featured Card -->
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'coop-demands-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

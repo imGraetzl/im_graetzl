@@ -70,7 +70,6 @@
 @import "components/mapImgBlock";
 @import "components/navigation";
 @import "components/notifications";
-@import "components/addressSearchAutocomplete";
 @import "components/address-input";
 @import "components/titleHeadline";
 @import "components/imgHeader";
@@ -118,6 +117,8 @@
 @import "controllers/roomForm";
 @import "controllers/roomCall";
 @import "controllers/roomDetail";
+@import "controllers/coopDemandForm";
+@import "controllers/coopDemandDetail";
 @import "controllers/toolteiler";
 @import "controllers/tool_rentals";
 @import "controllers/room_rentals";

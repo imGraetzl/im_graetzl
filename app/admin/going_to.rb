@@ -1,5 +1,5 @@
 ActiveAdmin.register GoingTo do
-  menu parent: 'Treffen'
+  menu parent: 'Meetings'
   includes :meeting, :user
   actions :all, except: [:new, :create, :destroy]
 

@@ -1,5 +1,5 @@
 ActiveAdmin.register BusinessInterest do
-  menu parent: 'Users', priority: 2
+  menu parent: 'Users'
 
   index { render 'index', context: self }
   show { render 'show', context: self }

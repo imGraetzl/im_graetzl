@@ -1,11 +1,14 @@
 ActiveAdmin.register User do
   include ViewInApp
-  menu priority: 3
+  menu priority: 1
   includes :graetzl, :location_category, :business_interests
 
   scope :all, default: true
-  scope :business
   scope :admin
+  Region.all.each do |region|
+    scope region.name, region.id.to_sym
+  end
+
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select' }

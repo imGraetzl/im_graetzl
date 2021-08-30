@@ -33,7 +33,7 @@ APP.controllers.districts = (function() {
       APP.components.cardBoxFilter.init();
     }
 
-    if ($("section.toolteiler, section.rooms, section.meetings, section.locations").exists()) {
+    if ($("section.toolteiler, section.rooms, section.meetings, section.locations, section.coop-demands").exists()) {
       APP.components.categoryFilter.init($('#category-slider'));
     }
 

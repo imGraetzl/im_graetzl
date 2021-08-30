@@ -1,35 +1,17 @@
-<section class="usersetup">
+<section class="usersetup -zuckerl -missing-location">
   <% if @locations.empty? %>
-    <div class="introcontainer -location">
-      <div class="introtxt">
-        <div class="step-element">
-          <h2><span class="number">1.</span> Richte dir zuerst deine Location-Seite ein</h2>
 
-          <div class="text">Um ein Grätzlzuckerl zu buchen, musst du dir zuerst eine Location-Seite einrichten. Die
-            Location ist dein persönliches Schaufenster im Grätzl - Und: sie ist kostenlos!
-            <%= link_to 'Jetzt Location einrichten', new_location_path, class: 'btn-primary -large -shadow' %>
-          </div>
-        </div>
-        <div class="step-element">
-          <h2><span class="number">2.</span> Schalte dein Grätzlzuckerl</h2>
-
-          <div class="text">Sobald du deine Location-Seite hast, kannst du mit nur wenigen Klicks dein Grätzlzuckerl
-            buchen.
-          </div>
-        </div>
-      </div>
-      <div class="paperCard -illuteaser -cord1RT">
-        <div class="wrp">
-          <h3>Um ein Grätzlzuckerl zu buchen richte dir zuerst deine Location-Seite ein.</h3>
-          <%= link_to 'Fragen und Antworten zum Grätzlzuckerl', info_infos_zum_graetzlzuckerl_path, class: 'link-more' %>
-        </div>
-
-        <div class="card"></div>
-      </div>
+    <div class="cardBox" id="error_explanation">
+      <p class="title">Du hast noch kein virtuelles Schaufenster!</p>
+      <p>Um ein Zuckerl buchen zu können, musst du dir zuerst dein kostenloses virtuelles Schaufenster einrichten.</p>
+      <%= link_to 'Kostenloses Schaufenster jetzt einrichten', new_location_path, class: 'btn-primary -rose -shadow' %>
     </div>
+
+    <%= render partial: 'users/zuckerl_introtext' %>
+
   <% else %>
     <div class="selectlocation">
-      <h2 class="hl-main">Für <span>welche deiner Location-Seite</span> möchtest Du ein Grätzlzuckerl buchen?</h2>
+      <h2 class="hl-main">Für <span>welches deiner Schaufenster</span> möchtest Du ein Zuckerl buchen?</h2>
       <div class="input-select">
         <label>
           <%= icon_tag "label-tag" %>

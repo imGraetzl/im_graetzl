@@ -4,9 +4,10 @@ module SearchHelper
     [
       ['Allen Bereichen', 'allen Bereichen', ''],
       ['Events & Workshops', 'Events & Workshops', 'meetings'],
-      ['Anbieter & Locations', 'Anbieter & Locations', 'locations'],
+      ['Anbieter & Macherinnen', 'Anbieter & Macherinnen', 'locations'],
       ['Raumteiler', 'Raumteiler', 'rooms'],
       ['Toolteiler', 'Toolteiler', 'tool_offers'],
+      ['Coop & Share', 'Coop & Share', 'coop_demands'],
       ['Gruppen', 'Gruppen', 'groups'],
     ]
   end

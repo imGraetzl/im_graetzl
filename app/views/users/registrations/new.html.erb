@@ -1,31 +1,16 @@
 <% title('Registrierung') %>
 
 <section class="register-personalInfo">
+  <% if resource.graetzl %>
   <div class="wrp">
     <h1>Willkommen im Grätzl <span><%= resource.graetzl.name %></span></h1>
-    <%= render 'users/registrations/select_graetzl' %>
   </div>
+  <% end %>
 
-
-  <%= form_for(resource, as: resource_name, url: registration_path,
-      html: { data: { graetzl: resource.graetzl.name, zip: resource.graetzl.zip } }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path) do |f| %>
   <%= render 'devise/shared/error_messages' %>
 
   <div class="form-register">
-
-    <div class="field">
-      <%= f.fields_for :address do |address_fields| %>
-        <%= address_fields.hidden_field :street_name %>
-        <%= address_fields.hidden_field :street_number %>
-        <%= address_fields.hidden_field :zip %>
-        <%= address_fields.hidden_field :city %>
-        <%= address_fields.hidden_field :coordinates %>
-      <% end %>
-    </div>
-
-    <div class="field">
-      <%= f.hidden_field :graetzl_id, class: 'graetzl-id-input' %>
-    </div>
 
     <div class="user-login">
       <p class="txt"><span>Ein paar Dinge</span> müssen wir noch wissen ...</p>
@@ -86,6 +71,45 @@
       </div>
     </div>
 
+    <div class="address-autocomplete" data-url="<%= address_search_url %>">
+      <div class="input-field">
+        <%= f.label :address_street do %>
+          <%= icon_tag "map-location" %>
+          <span>Adresse</span>
+        <% end %>
+        <%= f.text_field :address_street, placeholder: 'Straße und Hausnummer', class: 'address-autocomplete-input' %>
+      </div>
+
+      <%= f.hidden_field :address_coords, class: 'address-coords-input' %>
+
+      <div class="form-columns">
+        <div class="input-field">
+          <%= f.label :address_zip do %>
+            <%= icon_tag "map-location" %>
+            <span>Postleitzahl</span>
+          <% end %>
+          <%= f.text_field :address_zip, class: 'address-zip-input' %>
+        </div>
+
+        <div class="input-field">
+          <%= f.label :address_city do %>
+            <%= icon_tag "map-location" %>
+            <span>Ort</span>
+          <% end %>
+          <%= f.text_field :address_city, class: 'address-city-input' %>
+        </div>
+      </div>
+
+      <div class="input-select">
+        <label>
+          <%= icon_tag "flag-1" %>
+          <span>Grätzl</span>
+        </label>
+        <%= f.select :graetzl_id, current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id]},
+            { prompt: 'wählen', required: true }, { class: 'address-graetzl-input' } %>
+      </div>
+    </div>
+
     <div class="user-interests">
       <p class="txt -themen">An <span>welchen Themen</span> bist du interessiert?</p>
       <div class="business-interests">
@@ -109,7 +133,7 @@
     <div class="user-business">
       <p class="txt">In <span>welche Kategorie</span> würdest du dich einordnen?</p>
       <div class="input-select">
-        <%= f.collection_select :location_category_id, LocationCategory.all, :id, :name, { prompt: 'Kategrie auswählen..' } %>
+        <%= f.collection_select :location_category_id, LocationCategory.all, :id, :name, { prompt: 'Kategorie auswählen..' } %>
       </div>
     </div>
 

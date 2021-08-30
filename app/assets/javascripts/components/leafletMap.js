@@ -1,3 +1,7 @@
+//= require leaflet
+//= require leaflet-providers
+//= require leaflet.activearea
+
 APP.components.leafletMap = (function() {
 
   function init(mapElement, options) {

@@ -4,8 +4,8 @@ class AddressSearch
     return [] if query.blank?
     query.strip!
     # search_wien_gv(region, query)
-    # search_mapbox(region, query)
-    search_opendata(region, query)
+    search_mapbox(region, query)
+    # search_opendata(region, query)
   end
 
   # private
@@ -38,7 +38,7 @@ class AddressSearch
       language: "de",
       autocomplete: true,
       limit: 10,
-      bbox: "14.452515,46.607469,14.987411,46.845634", # TODO: use from region
+      bbox: region.bounds.flatten.join(","),
     }).parse(:json)
 
     response['features'].map do |address|

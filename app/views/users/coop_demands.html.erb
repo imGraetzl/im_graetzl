@@ -1,0 +1,40 @@
+<section class="usersetup -coop-demands">
+
+  <% if @coop_demands.empty? %>
+    <div class="introcontainer">
+      <div class="introtxt">
+        <div class="hl-subtext" id="teilnahme">
+          <h1><em>Der Coop & Share Markt auf <%= t("region.#{current_region.id}.domain_full") %></em></h1>
+          <p>Vernetze dich mit Gleichgesinnten!</p>
+        </div>
+        <ul class="list-basic">
+          <li>Finde Mitgestalter*innen und Teilnehmer*innen für deine Initiative, deinen Verein (z.B. Sportverein,Orts- Stadtteilverein, Kunstinitiative, FoodCoop, Solawi).</li>
+          <br>
+          <li>Schließe dich mit anderen zur gegenseitigen Unterstützung und Motivation zusammen ( z.B. Erfolgsteam, Mastermind Gruppe, WOL Circle, Frauen- oder Unternehmer*innen Netzwerke).</li>
+          <br>
+          <li>Werde eine Mentor*in und bestärke andere Menschen bei der Umsetzung ihrer Ideen und Vorhaben.</li>
+          <br>
+          <li>Finde heraus, wie du in Tauschgeschäften deine Ressourcen erhöhen kannst (z.B. biete Textierung suche Webdesign).</li>
+          <br>
+          <li>Schließe dich für Kooperationen zusammen an oder finde Projektpartner*innen zur Umsetzung größerer Projekte.</li>
+          <br>
+          <li>Veröffentliche kostenlos ein Bieteanzeige oder Gesuch, beschreibe dort möglichst detailliert, worum es geht und was du dir wünscht. Falls dein Angebot kostenpflichtig ist, mache dies deutlich in der Beschreibung erkennbar. Interessierte können direkt den Kontakt zu dir aufnehmen, entweder über deine veröffentlichen Kontaktdaten oder über den <%= t("region.#{current_region.id}.domain_short") %> Messenger. </li>
+        </ul>
+      </div>
+      <%= render 'coop_demands/action_card', user: @user %>
+    </div>
+
+  <% else %>
+
+    <h2 class="hl-main">Deine <span>Coop & Share Angebote</span> verwalten</h2>
+
+    <div class="cardBoxCollection -tripple">
+      <%= render @coop_demands %>
+    </div>
+    <div class="action-card-container">
+      <%= render 'coop_demands/action_card', user: @user %>
+    </div>
+
+  <% end %>
+
+</section>

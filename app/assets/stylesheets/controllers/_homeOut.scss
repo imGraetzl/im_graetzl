@@ -23,7 +23,7 @@ section.homeOut {
     }
   }
 
-  // SUPPORTER BOX
+  // SUPPORTER BOX ------------
   .supporterBox {
 
     position: relative;
@@ -64,11 +64,8 @@ section.homeOut {
 
       margin-top:40px;
       .txt {
-        //text-align: center;
-        //width:100%;
         font-family: $font-tertiary;
         font-size: 1.8rem;
-        //margin-top:-50px;
       }
 
       margin-bottom: 40px;
@@ -177,71 +174,104 @@ section.homeOut {
   }
 }
 
-.buehne {
-  //overflow: hidden;
-  background-image: url(image_path('illu/illu-sitzendeAmTisch.png')), url(image_path('illu/illu-karte.jpg'));
+// Region Landingpage Buehne ---------------------------------------------
+.stage {
+
+  .stage-content {
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    top: 0; left: 0; bottom: 0; right: 0;
+  }
+
+  .mapImgBlock {
+    z-index: -1;
+    &::after { display: none; } // Schatten ausblenden
+  }
+
+  .activeArea {
+    top:15%;
+    width:55%; // MAP-AREA
+    height:85%;
+    @include respond-to(">=medium") {
+      top:0%;
+      width:40%; // MAP-AREA
+      height:100%;
+    }
+  }
+
+  #area-map {
+    height: 350px;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      background: linear-gradient(to right, rgba(252,252,252,1) 50%,rgba(252,252,252,0) 100%);
+      pointer-events: none;
+      z-index: 1;
+      height: 100%;
+      width: 85%; // White Transparent Layer over Map
+    }
+    @include respond-to(">=medium") {
+      height: 450px;
+      opacity: 1;
+      &::before {
+        width: 65%; // White Transparent Layer over Map
+      }
+    }
+    @include respond-to(">=large") {
+      height: 500px;
+    }
+  }
+
+  position: relative;
+  background-repeat: no-repeat;
+  background-image: url(image_path('illu/illu-sitzendeAmTisch.png'));
+
   @media
     screen and (-webkit-min-device-pixel-ratio: 2),
     screen and (min-resolution: 192dpi),
     screen and (min-resolution: 2dppx) {
-    /* CSS Code für hochauflösende Displays */
-    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png')), url(image_path('illu/illu-karte@2x.jpg'));
+    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png'));
   }
-  background-repeat: no-repeat;
-  min-height: 320px;
-  background-size: 270px auto, 700px auto;
-  background-position: 45px 75px, -95px -90px;
-  position: relative;
-  margin-left: -18px;
-  margin-right: -18px;
-  padding-left: 18px;
-  padding-right: 18px;
+
+  background-size: 280px auto;
+  background-position: 20% 60%;
 
   @include respond-to(">=medium") {
-    background-size: 400px auto, 1000px auto;
-    background-position: 40px 75px, -30px -160px;
-    min-height: 380px;
+    background-size: 450px auto;
+    background-position: 5% 50%;
     margin-bottom: 30px;
-    margin-left: -25px;
-    margin-right: -25px;
-    padding-left: 25px;
-    padding-right: 25px;
   }
 
   @include respond-to(">=large") {
-    background-size: 507px auto, 936px auto;
-    background-position: 120px 88px, 90px -31px;
-    min-height: 480px;
-    margin-top: -8.0rem;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
+    background-size: 510px auto;
+    background-position: 5% 50%;
   }
 
   h1 {
     @include font-size-secondaryFont('large');
     @include textShadowHard($color-ambient-rosa-dark);
-    display: table;
+
+    position: relative;
+    display: inline-block;
     text-align: center;
     margin: 0 auto;
-    max-width: 350px;
+    top:30px;
 
     @include respond-to("<medium") {
       @include headlineBarbapapa();
     }
 
     @include respond-to(">=medium") {
-      transform: translate(80px, 0);
+      top: 50px;
+      left: 100px;
     }
 
     @include respond-to(">=large") {
-      position: absolute;
-      left: 430px;
-      top: 100px;
-      text-align: left;
-      margin-left: 0;
-      margin-right: 0;
+      top: 80px;
+      left: 150px;
     }
 
     span {
@@ -260,105 +290,23 @@ section.homeOut {
 
   }
 
-  .registerlink {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    left: 50%;
-    transform: translate(-50%, 0);
-    margin-top: 150px;
-    margin-bottom: 40px;
-    margin-left: 0px;
+  .badge {
 
-    @include respond-to(">small") {
-      margin-top: 90px;
-      margin-left: 65px;
-    }
-
+    display: inline-block;
+    line-height: 0.95;
+    transform: rotate(-8deg);
+    font-size: 2.7rem;
+    top:190px;
+    left:50px;
     @include respond-to(">=medium") {
-      transform: translate(0, 0);
-      left: 450px;
-      position: absolute;
-      top: 190px;
-      margin-top: 0;
-      margin-bottom: 0;
-      margin-left: 0;
+      font-size: 3.3rem;
+      top:200px;
+      left:0px;
     }
-
     @include respond-to(">=large") {
-      position: absolute;
-      top: 300px;
-      left: 600px;
-    }
-
-    .coop-share-logo {
-      width: 130px;
-      height: 130px;
-      background-size: 130px 130px;
-      display: block;
-      background-image: url(image_path('svg/coopshare-logo-white.svg'));
-      background-repeat: no-repeat;
-    }
-    .register-badge {
-      width: 120px;
-      height: 120px;
-      background-size: 120px 120px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-image: url(image_path('svg/hands-badge.svg'));
-      background-repeat: no-repeat;
-      opacity: 0.9;
-      svg {
-        color:$color-ambient-mint-dark;
-        width:43%;
-        height:43%;
-        margin-top:-10px;
-      }
-      .txt {
-        white-space: nowrap;
-      }
-    }
-    .txt {
-      @include headlineBarbapapaMint();
-      font-size: 30px;
-      left: 17px;
-      bottom: -25px;
-      position: absolute;
-      transform: rotate(-12deg);
-    }
-    &::before {
-      content: '';
-      width: 40px;
-      height: 40px;
-      background-size: 40px 40px;
-      background-image: url(image_path('svg/icon-arrow-right-blinky-rosa'));
-      background-repeat: no-repeat;
-      position: absolute;
-      bottom: -10px;
-      left: -30px;
-      transform: rotate(30deg);
-    }
-    &:hover {
-      .txt {
-        @include headlineBarbapapa();
-      }
-      &::before {
-        bottom: -15px;
-        left: -25px;
-      }
-      .coop-share-logo {
-        transform: rotate(-5deg);
-        opacity: 0.9;
-      }
-      .register-badge {
-        svg {
-          color:$color-ambient-rosa;
-          width:45%;
-          height:45%;
-        }
-      }
+      font-size: 3.5rem;
+      top:240px;
+      left:0px;
     }
   }
 

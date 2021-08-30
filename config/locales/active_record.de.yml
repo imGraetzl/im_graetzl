@@ -21,6 +21,10 @@ de:
           attributes:
             avatar:
               too_large: 'Das Bild ist zu groß. Maximale Filegröße 5mb'
+        coop_demand:
+          attributes:
+            avatar:
+              too_large: 'Das Bild ist zu groß. Maximale Filegröße 5mb'
         room_offer:
           attributes:
             avatar:
@@ -53,16 +57,22 @@ de:
       business_interest:
         one: Business Interesse
         other: Business Interessen
+      district:
+        one: Bezirk
+        other: Bezirke
       billing_address: Rechnungsadresse
       location_category:
         one: Kategorie
         other: Kategorien
+      coop_demand_category:
+        one: Kategorie
+        other: Kategorien
       meeting_category:
-        one: SFS Kategorie
-        other: SFS Kategorien
+        one: Special Kategorie
+        other: Special Kategorien
       event_category:
-        one: Event Kategorie
-        other: Event Kategorien
+        one: Kategorie
+        other: Kategorien
       contact: Kontakt
       campaign_user:
         one: Eintrag
@@ -100,18 +110,27 @@ de:
       zuckerl:
         one: Zuckerl
         other: Zuckerln
+      coop_demand:
+        one: Coop & Share Angebot
+        other: Coop & Share Angebote
+      tool_offer:
+        one: Toolteiler
+        other: Toolteiler
       room_offer:
         one: Raumangebot
         other: Raumangebote
       room_demand:
         one: Raumsuche
         other: Raumsuchen
+      tool_category:
+        one: Kategorie
+        other: Kategorien
       room_category:
         one: Kategorie
         other: Kategorien
-      room_suggested_tag:
-        one: Tag
-        other: Tags
+      coop_suggested_tag:
+        one: Default Tag
+        other: Default Tags
       room_call:
         one: Call
         other: Calls
@@ -121,6 +140,12 @@ de:
       room_call_submission:
         one: Call Einreichung
         other: Call Einreichungen
+      room_rental:
+        one: Transaktion
+        other: Transaktionen
+      tool_rental:
+        one: Transaktion
+        other: Transaktionen
 
 
     attributes:
@@ -183,6 +208,26 @@ de:
         title: Titel
         content: Text
         created_at: Erstellt am
+      coop_demand:
+        slogan: Titel
+        coop_demand_category: Kategorie
+        graetzls: Grätzl
+        graetzl: Grätzl
+        demand_description: Beschreibung
+        personal_description: Über dich
+        avatar: Profilbild
+        first_name: Vorname
+        last_name: Nachname
+        email: Email
+        coop_types:
+          demand: Suche
+          offer: Biete
+        statuses:
+          enabled: Aktiv
+          disabled: Inaktiv
+        status_message:
+          enabled: Dein Coop & Share Angebot ist nun aktiv und sichtbar.
+          disabled: Dein Coop & Share Angebot ist nun deaktiviert und scheint nicht mehr im Coop & Share Markplatz auf.
       room_offer:
         address: Adresse
         slogan: Titel

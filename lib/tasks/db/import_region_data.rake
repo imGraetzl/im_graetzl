@@ -6,6 +6,7 @@ namespace :db do
     map_ids = {
       'wien' => { graetzls: 'ckh0g7hga08kl26o5b1tu57nz' },
       'kaernten' => { graetzls: 'ckqhr5awa0djj21p9wbz10jkb' },
+      'muehlviertler-kernland' => { graetzls: 'cks61e5tj3p4c20l45zuefvy5' },
     }
 
     region = Region.get(ENV['region'])

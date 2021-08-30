@@ -44,6 +44,7 @@ active_admin_form_for [:admin, resource] do |f|
         input :value_up_to
         input :serial_number
         input :known_defects
+        input :deposit
         input :price_per_day
         input :two_day_discount
         input :weekly_discount

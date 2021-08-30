@@ -96,7 +96,7 @@ class ToolOffersController < ApplicationController
   def tool_offer_params
     params.require(:tool_offer).permit(
       :title, :description, :brand, :model, :status, :keyword_list,
-      :value_up_to, :serial_number, :known_defects,
+      :value_up_to, :serial_number, :known_defects, :deposit,
       :price_per_day, :two_day_discount, :weekly_discount,
       :tool_category_id, :tool_subcategory_id, :location_id,
       :address_street, :address_coords, :address_city, :address_zip, :address_description,

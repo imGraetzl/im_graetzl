@@ -5,34 +5,27 @@
     <div class="introtxt">
 
       <div class="hl-subtext">
-        <h1><em>Der Toolteiler auf imGrätzl.at</em></h1>
-        <p>Lass dein Arbeitsequipment  & die Geräte an deinem Arbeitsplatz für dich arbeiten.</p>
+        <h1><em>Der Toolteiler auf <%= t("region.#{current_region.id}.domain_full") %></em></h1>
+        <p>Vermiete dein Arbeitsequipment & die Geräte an deinem Arbeitsplatz. Leihe Arbeitsequipment & oder miete Geräte am Standort.<%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
       </div>
 
-      <h3>Arbeitsequipment leihen & Geräte am Standort nutzen <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></h3>
       <p>
-        Ermögliche GründerInnen, Selbstständigen, Kreativen und MacherInnen in <%= current_region %>
-        die Nutzung deines Arbeitsequipments. Du kannst über den Toolteiler Geräte verleihen
-        oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen.
-        Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst
-        gleichzeitig Ressourcen. Es dreht sich beim Toolteiler alles um Gegenstände,
-        die man im Arbeitsumfeld benötigt, also nicht um Freizeitgegenstände,
-        wie z.B. eine Skiausrüstung
+        Ermögliche anderen Menschen die Nutzung deines Arbeitsequipments.
+        Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur
+        Ausstattung an deinem Arbeitsstandort ermöglichen.
+        Es dreht sich beim Toolteiler alles um Gegenstände, die man im Arbeitsumfeld benötigt,
+        also nicht um Freizeitgegenstände, wie z.B. eine Skiausrüstung
       </p>
 
       <h3>Du behältst immer die Kontrolle</h3>
       <p>
-        Du bestimmst  den Tages- oder Wochenpreis für dein Gerät. Es liegt ganz bei dir, ob du eine Mietanfrage annimmst oder einfach ablehnst.
-      </p>
-
-      <h3>Dein Gerät ist automatisch versichert</h3>
-      <p>
-        Bei Beschädigung deines Gerätes hilft dir unsere Versicherung. Mit AXA XL haben wir dafür einen starken Partner an unserer Seite. <%= link_to "Mehr Info", info_versicherung_path %>
+        Du bestimmst den Tages- oder Wochenpreis für dein Gerät. Es liegt ganz bei dir, ob du eine Mietanfrage annimmst oder einfach ablehnst.
       </p>
 
       <h3>Die Abwicklung übernehmen wir</h3>
       <p>
-        Die Buchung und die Geldverteilung erfolgt über uns, du musst dich um nichts kümmern, die Abwicklung des Mietvorgangs geht voll automatisiert.
+        Die Buchung und die Verteilung der Einnahmen erfolgt über <%= t("region.#{current_region.id}.domain_short") %>.
+        Das Einstellen der Geräte ist kostenlos, erst bei einer erfolgreichen Buchung wird eine Servicegebühr erhoben (Die Payment Servicegebühr ist dort inkludiert).
       </p>
 
     </div>

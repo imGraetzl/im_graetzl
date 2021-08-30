@@ -2,7 +2,7 @@
 
   <%= active_link_to region_index_path, class: "iconfilter" do %>
     <%= icon_tag "map-location" %>
-    <div class="txt"><%= current_region %> <br/>Übersicht</div>
+    <div class="txt"><%= t("region.#{current_region.id}.region") %><br/>Übersicht</div>
   <% end %>
 
   <%= active_link_to region_rooms_path, class: "iconfilter" do %>
@@ -12,17 +12,17 @@
 
   <%= active_link_to region_tool_offers_path, class: "iconfilter" do %>
     <%= icon_tag "tacker" %>
-    <div class="txt">Tool<br>teiler</div>
+    <div class="txt">Tool<br/>teiler</div>
   <% end %>
 
-  <%= active_link_to region_groups_path, class: "iconfilter -coopshare" do %>
+  <%= active_link_to region_coop_demands_path, class: "iconfilter -coopshare" do %>
     <%= icon_tag "coop-share-white" %>
-    <div class="txt">Gruppen</div>
+    <div class="txt">Coop & Share<br/>Marktplatz</div>
   <% end %>
 
   <%= active_link_to region_locations_path, class: "iconfilter" do %>
     <%= icon_tag "location" %>
-    <div class="txt">Anbieter <br/>& Locations</div>
+    <div class="txt">Anbieter &<br/>Macherinnen</div>
   <% end %>
 
   <%= active_link_to region_meetings_path, class: "iconfilter" do %>
@@ -32,7 +32,7 @@
 
   <%= active_link_to region_zuckerls_path, class: "iconfilter" do %>
     <%= icon_tag "shopping-bag" %>
-    <div class="txt">Zuckerl <br/>& Angebote</div>
+    <div class="txt">Zuckerl &<br/>Angebote</div>
   <% end %>
 
 </div>

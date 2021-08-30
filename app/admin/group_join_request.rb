@@ -1,5 +1,5 @@
 ActiveAdmin.register GroupJoinRequest do
-  menu parent: 'Gruppe', priority: 4
+  menu parent: 'Groups'
   actions :index, :show, :destroy
 
   includes :user

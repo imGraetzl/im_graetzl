@@ -6,22 +6,24 @@ de:
     site_name: imGrätzl.at
   kaernten:
     site_name: weLocally.at
+  muehlviertler-kernland:
+    site_name: weLocally.at
 
   static_pages:
-    home:
-      title: 'Mach mit - Treffen, Events & Initiativen im Grätzl'
+    home_region:
+      title: 'Mach mit und sei locally dabei! | %{region}'
       description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
     faq:
       title: 'Häufige Fragen und Antworten (FAQs)'
       description: 'Häufige gestellte Fragen und Antworten zu imGrätzl.at auf einem Blick.'
     zuckerl:
-      title: 'Infos zum Grätzlzuckerl'
-      description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Grätzlzuckerl.'
+      title: 'Infos zum Zuckerl'
+      description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Zuckerl.'
     graetzlmarie:
       title: 'Infos zur Grätzlmarie'
       description: 'Die Grätzlmarie - Werbung, die das das Grätzl belebt.'
     help:
-      title: 'coop & share - Alle Services im Überblick'
+      title: 'Coop & Share - Alle Services im Überblick'
       description: 'imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an...'
     raumteiler:
       title: 'Raumteiler – Hilfe, Tipps & Tricks.'
@@ -30,7 +32,7 @@ de:
       title: 'Toolteiler – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Toolteiler / Arbeitsequipment leihen & Geräte am Standort nutzen'
     location:
-      title: 'Anbieter & Locations – Hilfe, Tipps & Tricks.'
+      title: 'Anbieter & Macherinnen – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zur Locationseite und weitere Funktionen für lokale Anbieter.'
     meetings:
       title: 'Events & Workshops – Hilfe, Tipps & Tricks.'

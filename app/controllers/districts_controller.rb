@@ -37,6 +37,12 @@ class DistrictsController < ApplicationController
     @category = GroupCategory.find_by(id: params[:category])
   end
 
+  def coop_demands
+    if params[:category].present?
+      @category = CoopDemandCategory.find_by(slug: params[:category])
+    end
+  end
+
   def zuckerls
   end
 

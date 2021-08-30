@@ -3,6 +3,7 @@ context.instance_eval do
   id_column
   column :username
   column :email
+  column :region
   column :graetzl
   column :created_at
   actions
