@@ -89,17 +89,15 @@
     </div>
   </div>
 
-  <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
-    <%= icon_tag "arrow-down-2" %>
-    <span>
-    <% if graetzl %>
-      <%= graetzl.name %>
-    <% elsif district %>
-      <%= district.name %>
-    <% elsif current_region.use_districts? %>
-      Grätzl entdecken
-    <% else %>
-      Gemeinden
+  <% if graetzl || district %>
+    <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
+      <%= icon_tag "arrow-down-2" %>
+      <span>
+      <% if graetzl %>
+        <%= graetzl.name %>
+      <% elsif district %>
+        <%= district.name %>
+      <% end %>
     <% end %>
   <% end %>
 
