@@ -46,15 +46,9 @@ section.homeWeLocally {
     margin-bottom:35px;
   }
 
-  .regionjump {
-    max-width: 600px;
-    margin:auto;
-    @include respond-to(">=medium") {
-      width:500px;
-    }
-  }
 
   .region-switch {
+
     display: flex;
     justify-content: center;
 
@@ -92,6 +86,7 @@ section.homeWeLocally {
         }
       }
     }
+    
     .title {
       @include font-size-primaryFont('larger');
       font-weight: bold;
