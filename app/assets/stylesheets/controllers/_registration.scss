@@ -76,12 +76,6 @@ section.register-personalInfo, section.register-locationInfo  {
     display: table;
     margin-bottom: 0;
   }
-  .link-subtle {
-    text-align: center;
-    display: block;
-    margin-top: -10px;
-
-  }
   .txt {
     @include font-size-secondaryFont('base');
     margin-bottom: 20px;

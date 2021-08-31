@@ -10,13 +10,6 @@ section.location-form {
     margin-bottom: 0;
   }
 
-  .link-subtle {
-    text-align: center;
-    display: block;
-    margin-top: -10px;
-
-  }
-
   .btn-primary {
     float: right;
   }
@@ -33,6 +26,19 @@ section.location-form {
 
   .ctrl-graetzlselect {
     margin-bottom: 30px;
+  }
+
+  .using-address-selection {
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+    div {
+      display: inline-block;
+    }
+    label {
+      min-width: 0px;
+      margin-right: 20px;
+    }
   }
 
 }

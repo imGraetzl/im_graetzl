@@ -48,7 +48,7 @@
           <%= @location.phone %>
         <% end %>
       <% end %>
-      <% if @location.address_street %>
+      <% if @location.address_street.present? %>
         <div class="address icontxt">
           <%= icon_tag "address-directions" %>
           <%= @location.address_street %><br>
