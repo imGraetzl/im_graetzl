@@ -2,7 +2,7 @@
   <div class="action-container">
     <% if @location.owned_by?(current_user) %>
       <%= link_to edit_location_path(@location), class: 'icontxt' do %>
-      <%= icon_tag "pencil" %> Location bearbeiten
+      <%= icon_tag "pencil" %> Schaufenster bearbeiten
       <% end %>
       <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
         <%= icon_tag "shopping-bag" %> Zuckerl buchen
@@ -48,7 +48,7 @@
           <%= @location.phone %>
         <% end %>
       <% end %>
-      <% if @location.address_street %>
+      <% if @location.address_street.present? %>
         <div class="address icontxt">
           <%= icon_tag "address-directions" %>
           <%= @location.address_street %><br>

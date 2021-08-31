@@ -229,9 +229,9 @@
         <div class="input-select">
           <%= f.label :location_id do %>
           <%= icon_tag "location" %>
-          <span>Location</span>
+          <span>Schaufenster</span>
           <% end %>
-          <%= f.collection_select(:location_id, current_user.locations, :id, :name, {:include_blank => 'Location verknüpfen..'}) %>
+          <%= f.collection_select(:location_id, current_user.locations, :id, :name, {:include_blank => 'Schaufenster verknüpfen..'}) %>
         </div>
 
         <%= f.button 'Call erstellen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>

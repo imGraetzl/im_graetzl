@@ -7,7 +7,7 @@
       <h1><span>Neue Gruppe</span> erstellen</h1>
 
       <% if @group.location %>
-        <p>Für deine Location "<%= @group.location.name %>"</p>
+        <p>Für dein Schaufenster "<%= @group.location.name %>"</p>
       <% elsif @group.room_offer %>
         <p>Für deinen Raumteiler "<%= @group.room_offer %>"</p>
       <% elsif @group.room_demand %>

@@ -20,7 +20,7 @@ class Notifications::AlsoCommentedLocationPost < Notification
   end
 
   def headline
-    'Neuer Kommentar bei Location-Update'
+    'Neuer Kommentar bei Schaufenster-Update'
   end
 
   def content_title

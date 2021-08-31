@@ -35,7 +35,7 @@
       <div class="input-select">
         <%= f.label :location_id do %>
           <%= icon_tag "label-tag" %>
-          <span>Location</span>
+          <span>Schaufenster</span>
         <% end %>
         <%= f.select(:location_id, user_locations.map{|l| [l.name, l.id, data: l.address_hash] },
             { include_blank: 'Treffen mit deinem Schaufenster verknüpfen ..' },

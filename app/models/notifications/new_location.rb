@@ -8,11 +8,11 @@ class Notifications::NewLocation < Notification
   end
 
   def self.description
-    'Es gibt eine neue Location in deinem Grätzl'
+    'Es gibt ein neues Schaufenster in deinem Grätzl'
   end
 
   def mail_subject
-    'Es gibt eine neue Location in deinem Grätzl'
+    'Es gibt ein neues Schaufenster in deinem Grätzl'
   end
 
   def location

@@ -21,11 +21,11 @@ class Notifications::CommentOnLocationPost < Notification
   end
 
   def mail_subject
-    "#{activity.owner.username} hat dein Location-Update kommentiert."
+    "#{activity.owner.username} hat dein Schaufenster-Update kommentiert."
   end
 
   def headline
-    'Neuer Kommentar bei deinem Location-Update'
+    'Neuer Kommentar bei deinem Schaufenster-Update'
   end
 
   def content_title

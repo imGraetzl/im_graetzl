@@ -2,14 +2,14 @@
   <%= form_errors_for @location %>
 
   <div class="form-block">
-    <p class="txt"><span>Details</span> zu deiner Location</p>
+    <p class="txt"><span>Details</span> zu deinem Schaufenster</p>
 
     <div class="input-field">
       <%= f.label :name do %>
         <%= icon_tag "location" %>
         <span>Name</span>
       <% end %>
-      <%= f.text_field :name, placeholder: 'Name deiner Location / Benenne deine Tätigkeit' %>
+      <%= f.text_field :name, placeholder: 'Name deines Schaufensters / Benenne deine Tätigkeit' %>
     </div>
 
     <div class="input-field">
@@ -25,7 +25,7 @@
         <%= icon_tag "layout-document" %>
         <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :description, placeholder: 'Ausführlichere Beschreibung deiner Location. Was bietest du an? Worum gehts?' %>
+      <%= f.text_area :description, placeholder: 'Ausführlichere Beschreibung. Was bietest du an? Worum gehts?' %>
     </div>
 
     <div class="input-select">
@@ -35,7 +35,7 @@
       <% end %>
       <%= f.collection_select :location_category_id,
                               LocationCategory.all, :id, :name,
-                              { prompt: 'Um welche Art von Location handelt es sich..' } %>
+                              { prompt: 'Um welche Art von Schaufenster handelt es sich..' } %>
     </div>
 
     <div class="input-tags">

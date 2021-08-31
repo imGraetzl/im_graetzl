@@ -33,7 +33,7 @@
 
       <p>
         <strong>Wir bestätigen hiermit den Eingang deiner Zahlung und die erfolgreiche Buchung.</strong>
-        Dein Zuckerl für die Location
+        Dein Zuckerl für das Schaufenster
         <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
         ist somit im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform imGrätzl.at aktiv!
         <br/><br/>Solltest du Fragen haben schick uns ein Mail an wir@imgraetzl.at.
@@ -123,7 +123,7 @@
         <tr>
           <td valign="top" style="padding-bottom:5px;">
             <em>Sichtbarkeit:</em> <%= @zuckerl.visibility %><br>
-            <em>Location:</em> <%= @zuckerl.location.name %><br>
+            <em>Schaufenster:</em> <%= @zuckerl.location.name %><br>
             <em>Laufzeit:</em> <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %>
           </td>
           <td valign="top" nowrap="nowrap"><%= @zuckerl.basic_price_with_currency %> (exkl. USt.)</td>
