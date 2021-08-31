@@ -114,7 +114,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def total_price_with_currency
-    number_to_currency(basic_price + tax / 100)
+    number_to_currency((basic_price + tax) / 100)
   end
 
   def visibility
