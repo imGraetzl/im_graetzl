@@ -27,7 +27,7 @@ class UsersMailer < ApplicationMailer
     mail(
       to: @user.email,
       from: "Mirjam | imGrätzl.at <mirjam@imgraetzl.at>",
-      subject: "Deine Location wurde freigeschalten",
+      subject: "Dein Schaufenster wurde freigeschalten",
     )
   end
 

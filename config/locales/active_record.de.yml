@@ -104,9 +104,12 @@ de:
       user:
         one: User
         other: User
+      location:
+        one: Schaufenster
+        other: Schaufenster
       location_post:
-        one: Location Update
-        other: Location Updates
+        one: Schaufenster Update
+        other: Schaufenster Updates
       zuckerl:
         one: Zuckerl
         other: Zuckerln

@@ -126,7 +126,7 @@ class LocationsController < ApplicationController
   end
 
   def redirect_enqueued
-    redirect_to root_url, notice: 'Deine Locationanfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
+    redirect_to root_url, notice: 'Deine Schaufenster-Anfrage wird geprüft. Du erhältst eine Nachricht sobald sie bereit ist.'
   end
 
   def location_params

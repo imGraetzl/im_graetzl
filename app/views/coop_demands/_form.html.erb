@@ -136,9 +136,9 @@
     <div class="input-select">
       <%= f.label :location_id do %>
         <%= icon_tag "location" %>
-        <span>Location</span>
+        <span>Schaufenster</span>
       <% end %>
-      <%= f.collection_select(:location_id, current_user.locations, :id, :name, {:include_blank => 'Location verknüpfen..'}) %>
+      <%= f.collection_select(:location_id, current_user.locations, :id, :name, {:include_blank => 'Schaufenster verknüpfen..'}) %>
     </div>
 
     <h2 class="hl-main"><span>Wo</span> soll dieses Angebot <span>sichtbar</span> sein?</h2>

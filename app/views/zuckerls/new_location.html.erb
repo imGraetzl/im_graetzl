@@ -15,7 +15,7 @@
       <div class="input-select">
         <label>
           <%= icon_tag "label-tag" %>
-          <span>Location</span>
+          <span>Schaufenster</span>
         </label>
         <%= select_tag :location_id,
                        options_for_select(@locations.map { |location| [location.name, new_location_zuckerl_path(location)] }),
