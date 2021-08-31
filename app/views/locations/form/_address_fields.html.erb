@@ -20,7 +20,7 @@
           <%= icon_tag "map-location" %>
           <span>Bezirk</span>
         </label>
-        <%= select_tag :district_id, options_for_select(district_select_options, f.object.graetzl.district_id),
+        <%= select_tag :district_id, options_for_select(district_select_options, f.object.graetzl&.district_id),
             prompt: 'wählen', data: { url: graetzl_search_url } %>
       </div>
     <% end %>
