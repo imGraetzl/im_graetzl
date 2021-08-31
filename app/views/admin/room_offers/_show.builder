@@ -38,7 +38,7 @@ context.instance_eval do
       end
 
       panel 'Address Details' do
-        attributes_table_for meeting do
+        attributes_table_for room_offer do
           row :address_street
           row :address_zip
           row :address_city

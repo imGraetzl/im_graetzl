@@ -39,7 +39,7 @@ context.instance_eval do
 
       if location.using_address?
         panel 'Address Details' do
-          attributes_table_for meeting do
+          attributes_table_for location do
             row :address_street
             row :address_zip
             row :address_city
