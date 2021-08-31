@@ -115,6 +115,13 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "categories_meetings", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "meeting_id"
+    t.index ["category_id"], name: "index_categories_meetings_on_category_id"
+    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id"
+  end
+
   create_table "comments", id: :serial, force: :cascade do |t|
     t.text "content"
     t.integer "user_id"
@@ -588,6 +595,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   create_table "platform_meeting_join_requests", force: :cascade do |t|
     t.bigint "meeting_id"
     t.text "request_message"
+    t.boolean "wants_platform_meeting", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
@@ -852,7 +860,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   end
 
   create_table "room_rental_prices", force: :cascade do |t|
-    t.bigint "room_offer_id"
+    t.integer "room_offer_id"
     t.string "name"
     t.decimal "price_per_hour", precision: 10, scale: 2
     t.integer "minimum_rental_hours", default: 0
@@ -860,7 +868,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.integer "eight_hour_discount", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["room_offer_id"], name: "index_room_rental_prices_on_room_offer_id"
   end
 
   create_table "room_rental_slots", force: :cascade do |t|
@@ -963,12 +970,12 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.integer "address_id"
     t.jsonb "cover_photo_data"
     t.string "region_id"
+    t.decimal "deposit", precision: 10, scale: 2
     t.string "address_street"
     t.string "address_zip"
     t.string "address_city"
     t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
     t.string "address_description"
-    t.decimal "deposit", precision: 10, scale: 2
     t.index ["address_id"], name: "index_tool_offers_on_address_id"
     t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_tool_offers_on_location_id"
@@ -1127,8 +1134,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.string "invoice_number"
     t.string "link"
     t.jsonb "cover_photo_data"
-    t.bigint "user_id"
     t.string "region_id"
+    t.bigint "user_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
@@ -1151,7 +1158,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   add_foreign_key "discussion_posts", "users", on_delete: :nullify
   add_foreign_key "discussions", "discussion_categories", on_delete: :nullify
   add_foreign_key "discussions", "groups", on_delete: :cascade
-  add_foreign_key "discussions", "users", on_delete: :nullify
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
@@ -1203,7 +1209,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   add_foreign_key "room_offers", "graetzls", on_delete: :nullify
   add_foreign_key "room_offers", "locations", on_delete: :nullify
   add_foreign_key "room_offers", "users", on_delete: :cascade
-  add_foreign_key "room_rental_prices", "room_offers", on_delete: :cascade
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify
