@@ -62,6 +62,7 @@ APP.components.categoryFilter = (function() {
       onSliderLoad: function(el) {
         $(el).removeClass('cS-hidden');
         $(el).closest(".category-slider-container").removeClass('loading');
+        $(el).closest(".category-slider-container").addClass('loaded');
       }
     });
 
