@@ -20,36 +20,32 @@
     </div>
   </div>
 
-  <div class="supporterBox">
-    <div class="inner">
-      <div class="txt"><span>imGrätzl</span> wird unterstützt von</div>
-      <%= link_to(image_tag('supporter/logos/kolarik_small.png', width:107, height:44), 'https://www.kolarik.at', target: '_blank', :class => '-logo') %>
-      <%= link_to(image_tag('supporter/logos/elif-macht-was_small.png', width:107, height:100), 'https://www.geldmachtwas.com', target: '_blank', :class => '-logo -elif') %>
-      <%= link_to(image_tag('supporter/logos/bezirksimkerei_small.png', width:107, height:41), 'https://www.wiener-bezirksimkerei.at', target: '_blank', :class => '-logo') %>
-      <%= link_to 'alle ansehen', info_danke_path, class: 'btn-viewall' %>
-      <%= button_tag '', class: 'close-ico' do %>
-        <%= icon_tag "cross" %>
-      <% end %>
-    </div>
-  </div>
 
   <%= render "navigation" %>
 
-  <div class="input-select graetzljump">
-    <% if current_region.use_districts? %>
-        <label for="select">
-          <%= icon_tag "map-location" %>
-          <span>Zu deinem Grätzl</span>
-        </label>
-        <%= select_tag :select, options_for_select(district_url_options), prompt: 'Bezirk wählen', onchange: 'location.href = $(this).val()' %>
-    <% else %>
-        <label for="select">
-          <%= icon_tag "map-location" %>
-          <span>Zu deiner Gemeinde</span>
-        </label>
-        <%= select_tag :select, options_for_select(graetzl_url_options), prompt: 'Auswählen', onchange: 'location.href = $(this).val()' %>
-    <% end %>
+  <div class="graetzl-switch-wrapper">
+
+    <div class="input-select">
+      <% if current_region.use_districts? %>
+          <label for="select">
+            <%= icon_tag "map-location" %>
+            <span>Zu deinem Grätzl</span>
+          </label>
+          <%= select_tag :select, options_for_select(district_url_options), prompt: 'Bezirk wählen', onchange: 'location.href = $(this).val()' %>
+      <% else %>
+          <label for="select">
+            <%= icon_tag "map-location" %>
+            <span>Zu deiner Gemeinde</span>
+          </label>
+          <%= select_tag :select, options_for_select(graetzl_url_options), prompt: 'Auswählen', onchange: 'location.href = $(this).val()' %>
+      <% end %>
+    </div>
+
+    <%= render partial: "regions/logos_#{current_region.id}" rescue nil %>
+
   </div>
+
+
 
   <div class="block-meetings">
     <div class="hl-subtext">
