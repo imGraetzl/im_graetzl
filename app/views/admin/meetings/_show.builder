@@ -4,6 +4,8 @@ context.instance_eval do
       panel 'Meeting Details' do
         attributes_table_for meeting do
           row :id
+          row :region
+          row :graetzl
           row :name
           row :online_meeting
           row :online_description
@@ -17,7 +19,6 @@ context.instance_eval do
           end
           row :slug
           row :created_at
-          row :graetzl
           row :location
           row :group
           row :user

@@ -4,6 +4,8 @@ context.instance_eval do
       panel 'Tool Offer Details' do
         attributes_table_for tool_offer do
           row :id
+          row :region
+          row :graetzl
           row :title
           row(:state){|l| status_tag(l.status)}
           row :description

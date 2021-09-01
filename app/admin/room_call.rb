@@ -8,9 +8,13 @@ ActiveAdmin.register RoomCall do
     :about_partner, :slug, :total_vacancies, :user_id, :location_id,
     :first_name, :last_name, :website, :email, :phone,
     :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
+    :address_street,
+    :address_zip,
+    :address_city,
+    :address_coordinates,
+    :address_description,
     room_call_fields_attributes: [:id, :label, :_destroy],
     room_call_prices_attributes: [:id, :name, :description, :amount, :features, :_destroy, room_module_ids: []],
     room_call_modules_attributes: [:id, :room_module_id, :description, :quantity, :_destroy],
-    address_attributes: [:id, :_destroy, :street_name, :street_number, :zip, :city, :coordinates, :description],
     images_attributes: [:id, :file, :_destroy]
 end
