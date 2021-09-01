@@ -11,7 +11,7 @@ APP.components.districtGraetzlInput = function() {
       $(this).attr("hidden", $(this).data("district-id") != districtId);
     });
     if (graetzlInput.find("option:selected[hidden]").length) {
-      graetzlInput.val('');
+      graetzlInput.find("option:not([hidden]):first").attr('selected', true);
     }
   }).trigger("change");
 
