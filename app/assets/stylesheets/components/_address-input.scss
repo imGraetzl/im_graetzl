@@ -18,5 +18,15 @@
   .autocomplete-suggestions strong {
     color: $color-ambient-rosa-dark;
   }
+  .autocomplete-suggestions span {
+    float: right;
+    color: $color-ambient-grey;
+    font-size: 14px;
+  }
+}
 
+.address-autocomplete-input.confirmed {
+  background-image: image-url("svg/icon-check.svg");
+  background-position: 95% center;
+  background-repeat: no-repeat;
 }

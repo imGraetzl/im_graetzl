@@ -7,31 +7,44 @@ APP.components.addressInput = function() {
 
   container.find('.address-autocomplete-input').autocomplete({
     minChars: 3,
-    deferRequestBy: 100,
+    deferRequestBy: 200,
     appendTo: container,
     forceFixPosition: true,
     lookupLimit: 10,
-    lookup: searchAddress,
+    serviceUrl: container.data("url"),
+    formatResult: formatAddress,
+    onSearchComplete: checkResults,
+    triggerSelectOnValidInput: true,
     onSelect: selectAddress,
   });
 
-  function selectAddress(suggestion) {
-    if (suggestion) {
-      container.find(".address-zip-input").val(suggestion.data.zip);
-      container.find(".address-city-input").val(suggestion.data.city);
-      if (suggestion.data.coordinates) {
-        container.find(".address-coords-input").val(suggestion.data.coordinates.join(","));
-      }
-      container.find(".address-graetzl-input").val(suggestion.data.graetzl_id);
-    } else {
+  container.find('.address-autocomplete-input').on("input", function() {
+    if ($(this).val().length < 3) {
       container.find(".address-coords-input").val(null);
+      container.find('.address-autocomplete-input').removeClass("confirmed");
+    }
+  });
+
+  function formatAddress(suggestion, currentValue) {
+    var optionHtml = $.Autocomplete.defaults.formatResult(suggestion, currentValue);
+    if (suggestion.data.graetzl_name) {
+      optionHtml += '<span>' + suggestion.data.graetzl_name + '</span>';
+    }
+    return optionHtml;
+  }
+
+  function checkResults(_query, suggestions) {
+    if (suggestions.length == 0) {
+      container.find(".address-coords-input").val(null);
+      container.find('.address-autocomplete-input').removeClass("confirmed");
     }
   }
 
-  function searchAddress(query, done) {
-    $.get(container.data("url"), { q: query }, function(data) {
-      done({ suggestions: data });
-    });
+  function selectAddress(suggestion) {
+    container.find(".address-zip-input").val(suggestion.data.zip);
+    container.find(".address-city-input").val(suggestion.data.city);
+    container.find(".address-coords-input").val(suggestion.data.coordinates.join(","));
+    container.find(".address-graetzl-input").val(suggestion.data.graetzl_id);
+    container.find('.address-autocomplete-input').addClass("confirmed");
   }
-
 };
