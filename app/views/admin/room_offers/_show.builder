@@ -4,6 +4,8 @@ context.instance_eval do
       panel 'Room Offer Details' do
         attributes_table_for room_offer do
           row :id
+          row :region
+          row :graetzl
           row(:status){|r| status_tag(r.status)}
           row :offer_type
           row :slogan

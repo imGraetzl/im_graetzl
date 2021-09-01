@@ -26,10 +26,12 @@ ActiveAdmin.register ToolOffer do
     :tool_category_id, :tool_subcategory_id, :location_id,
     :cover_photo, :remove_cover_photo,
     :first_name, :last_name, :iban,
-    images_attributes: [:id, :file, :_destroy],
-    address_attributes: [
-      :id, :street_name, :street_number, :zip, :city
-    ]
+    :address_street,
+    :address_zip,
+    :address_city,
+    :address_coordinates,
+    :address_description,
+    images_attributes: [:id, :file, :_destroy]
 
   controller do
     def apply_pagination(chain)

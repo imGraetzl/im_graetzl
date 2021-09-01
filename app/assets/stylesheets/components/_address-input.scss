@@ -1,22 +1,27 @@
 .address-autocomplete {
   .autocomplete-suggestions {
     background-color: $color-ambient-bright;
-    border: 2px solid $color-ambient-mint-light;
+    border: 1px solid $color-ambient-mint-light;
+    border-top:0px;
     overflow: auto;
+    margin-top:3px;
   }
   .autocomplete-suggestion {
-    border-bottom: 2px solid $color-ambient-mint-light;
-    padding: 3px 5px;
+    border-bottom: 1px solid $color-ambient-mint-light;
+    border-left:0px;
+    border-right:0px;
+    padding: 7px 7px;
     font-size: 1.6rem;
     white-space: nowrap;
     overflow: hidden;
     color: $color-font-primary;
   }
   .autocomplete-selected {
-    background: #cbcbcb;
+    background: #DBEFEC;
   }
   .autocomplete-suggestions strong {
-    color: $color-ambient-rosa-dark;
+    color: $color-ambient-rosa;
+    font-weight:normal;
   }
 
 }

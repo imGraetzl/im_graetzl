@@ -31,9 +31,13 @@ ActiveAdmin.register RoomOffer do
     :rented_area, :owner_description, :tenant_description, :wants_collaboration, :keyword_list,
     :slug, :offer_type, :cover_photo, :remove_cover_photo, :avatar, :remove_avatar,
     :first_name, :last_name, :website, :email, :phone, :status,
+    :address_street,
+    :address_zip,
+    :address_city,
+    :address_coordinates,
+    :address_description,
     room_offer_price_ids: [],
     room_category_ids: [],
-    address_attributes: [ :id, :_destroy, :street_name, :street_number, :zip, :city, :coordinates, :description],
     room_offer_prices_attributes: [ :id, :name, :amount, :_destroy],
     images_attributes: [:id, :file, :_destroy]
   # Within app/admin/resource_name.rb

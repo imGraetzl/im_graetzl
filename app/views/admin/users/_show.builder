@@ -4,8 +4,9 @@ context.instance_eval do
       panel 'User Details' do
         attributes_table_for user do
           row :id
-          row :slug
+          row :region
           row :graetzl
+          row :slug
           row :username
           row "Benachrichtigungen" do |u|
             link_to "Mail-Einstellungen von #{u.username}", admin_user_notification_settings_path(q: { id_eq: u.id })
