@@ -24,12 +24,18 @@
   background-position: center center;
 }
 
+.category-slider-container.loaded {
+  //display: flex;
+  //justify-content: center;
+}
+
 // Ugly Bugfix - NoWrap erzwingen bei einzelnen Slides durch Flex
 .toolteiler .lightSlider.lSSlide {
-  display: flex;
+  //display: flex;
 }
 
 .category-slider-container {
+
   .lSSlideWrapper {
     text-align: -webkit-center;
   }
