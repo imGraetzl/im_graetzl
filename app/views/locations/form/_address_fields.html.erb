@@ -1,13 +1,14 @@
 <div class="address-setting">
   <p class="txt">Wie <span>findet</span> man dich</p>
 
+  <% no_address = f.object.new_record? ? params[:no_address].present? : !f.object.using_address? %>
   <div class="using-address-selection">
     <div class="input-radio">
-      <%= radio_button_tag :no_address, false, params[:no_address].blank?, class: 'using-address-switch' %>
+      <%= radio_button_tag :no_address, false, !no_address, class: 'using-address-switch' %>
       <%= label_tag :no_address_false, "Adresse anzeigen" %>
     </div>
     <div class="input-radio">
-      <%= radio_button_tag :no_address, true, params[:no_address].present?, class: 'using-address-switch' %>
+      <%= radio_button_tag :no_address, true, no_address, class: 'using-address-switch' %>
       <%= label_tag :no_address_true, "Ohne Adresse" %>
     </div>
   </div>
