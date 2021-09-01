@@ -3,12 +3,12 @@
 
   <div class="using-address-selection">
     <div class="input-radio">
-      <%= f.radio_button :using_address, true, class: 'using-address-switch' %>
-      <%= f.label :using_address, "Adresse anzeigen", value: true %>
+      <%= radio_button_tag :no_address, false, params[:no_address].blank?, class: 'using-address-switch' %>
+      <%= label_tag :no_address_false, "Adresse anzeigen" %>
     </div>
     <div class="input-radio">
-      <%= f.radio_button :using_address, false, class: 'using-address-switch' %>
-      <%= f.label :using_address, "Ohne Adresse", value: false %>
+      <%= radio_button_tag :no_address, true, params[:no_address].present?, class: 'using-address-switch' %>
+      <%= label_tag :no_address_true, "Ohne Adresse" %>
     </div>
   </div>
 
@@ -19,8 +19,8 @@
           <%= icon_tag "map-location" %>
           <span>Bezirk</span>
         </label>
-        <%= select_tag :district_id, options_for_select(district_select_options, f.object.graetzl&.district_id),
-            prompt: 'wählen', data: { url: graetzl_search_url } %>
+        <%= select nil, :district_id, district_select_options, { prompt: 'wählen', selected: f.object.graetzl&.district_id },
+            { class: 'district-input' } %>
       </div>
     <% end %>
 
@@ -29,7 +29,8 @@
         <%= icon_tag "flag-1" %>
         <span><%= t("region.#{current_region.id}.graetzl") %></span>
       </label>
-      <%= f.select :graetzl_id, current_region.graetzls.map{|g| [g.zip_name, g.id]}, { prompt: 'wählen', required: true }, { class: 'graetzl_id' } %>
+      <%= f.select :graetzl_id, graetzl_select_options, { prompt: 'wählen', required: true },
+          { class: 'graetzl-input' } %>
     </div>
   </div>
 

@@ -23,10 +23,6 @@ class SearchController < ApplicationController
     render json: AddressSearch.new.search(current_region, params[:q])
   end
 
-  def graetzls
-    render json: District.memoized(params[:district_id]).graetzls.to_json(only: [:id, :name])
-  end
-
   private
 
   def search_params

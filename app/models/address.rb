@@ -1,22 +1,16 @@
 module Address
 
-  def using_address
+  def using_address?
     address_street.present?
   end
 
-  def using_address?
-    using_address
-  end
-
-  def using_address=(value)
-    if !value
-      assign_attributes(
-        address_street: nil,
-        address_zip: nil,
-        address_city: nil,
-        address_coordinates: nil,
-      )
-    end
+  def clear_address
+    assign_attributes(
+      address_street: nil,
+      address_zip: nil,
+      address_city: nil,
+      address_coordinates: nil,
+    )
   end
 
   def full_address

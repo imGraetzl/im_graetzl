@@ -32,8 +32,8 @@
       <%= icon_tag "flag-1" %>
       <span><%= t("region.#{current_region.id}.graetzl") %></span>
     </label>
-    <%= f.select :graetzl_id, current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id]},
-        { prompt: 'wählen', required: true }, { class: 'address-graetzl-input' } %>
+    <%= f.select :graetzl_id, graetzl_select_options, { prompt: 'wählen', required: true },
+        { class: 'address-graetzl-input' } %>
   </div>
 
   <div class="input-field">

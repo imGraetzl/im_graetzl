@@ -16,13 +16,15 @@ class AddressSearch
     response = HTTP.get(WIEN_GV_URL, params: { crs: "EPSG:4326", Address: query}).parse(:json)
     response['features'].first(10).map do |address|
       coordinates = address.dig('geometry', 'coordinates')
+      graetzl = Graetzl.find_by_coords(region, coordinates)
       {
         value: address.dig('properties', 'Adresse'),
         data: {
           coordinates: coordinates,
           city: address.dig('properties', 'Municipality'),
           zip: address.dig('properties', 'PostalCode'),
-          graetzl_id: Graetzl.find_by_coords(region, coordinates)&.id,
+          graetzl_id: graetzl&.id,
+          graetzl_name: graetzl&.name,
         }
       }
     end
@@ -36,6 +38,7 @@ class AddressSearch
       types: "address",
       country: "at",
       language: "de",
+      types: 'address',
       autocomplete: true,
       limit: 10,
       bbox: region.bounds.flatten.join(","),
@@ -43,16 +46,18 @@ class AddressSearch
 
     response['features'].map do |address|
       coordinates = address['center']
+      graetzl = Graetzl.find_by_coords(region, coordinates)
       {
-        value: address['text_de'],
+        value: address['place_name_de'].split(",").first,
         data: {
           coordinates: coordinates,
           city: address['context'][1]['text_de'],
           zip: address['context'][0]['text_de'],
-          graetzl_id: Graetzl.find_by_coords(region, coordinates)&.id,
+          graetzl_id: graetzl&.id,
+          graetzl_name: graetzl&.name,
         }
       }
-    end.select{|f| f[:data][:graetzl_id].present? }
+    end
   end
 
   OPEN_DATA_URL = "http://api.opendata.host/1.0/address/find"
@@ -78,13 +83,15 @@ class AddressSearch
 
     response["addresses"].map do |address|
       coordinates = [address['longitude'], address['latitude']]
+      graetzl = Graetzl.find_by_coords(region, coordinates)
       {
         value: "#{address['street']} #{address['houseNumber']}",
         data: {
           coordinates: coordinates,
           city: address['city'],
           zip: address['postalCode'],
-          graetzl_id: Graetzl.find_by_coords(region, coordinates)&.id,
+          graetzl_id: graetzl&.id,
+          graetzl_name: graetzl&.name,
         }
       }
     end

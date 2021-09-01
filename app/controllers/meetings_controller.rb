@@ -23,7 +23,7 @@ class MeetingsController < ApplicationController
 
   def create
     @meeting = Meeting.new(meeting_params)
-    @meeting.using_address = !@meeting.online_meeting?
+    @meeting.clear_address if @meeting.online_meeting?
     @meeting.user = current_user.admin? ? User.find(params[:user_id]) : current_user
     @meeting.region_id = current_region.id
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
@@ -46,7 +46,7 @@ class MeetingsController < ApplicationController
   def update
     @meeting = find_user_meeting
     @meeting.assign_attributes(meeting_params)
-    @meeting.using_address = !@meeting.online_meeting?
+    @meeting.clear_address if @meeting.online_meeting?
 
     @meeting.state = :active
 
