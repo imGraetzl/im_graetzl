@@ -5,6 +5,7 @@ context.instance_eval do
         attributes_table_for location do
           row :id
           row :region
+          row :graetzl
           row :name
           row :location_category
           row :products do |location|
@@ -14,7 +15,6 @@ context.instance_eval do
           row :slug
           row :created_at
           row :updated_at
-          row :graetzl
           row :slogan
           row :description
           row :cover_photo do |l|

@@ -42,15 +42,12 @@ ActiveAdmin.register User do
     :business,
     :location_category,
     :business_interests,
-    group_ids: [],
-    address_attributes: [
-      :id,
-      :street_name,
-      :street_number,
-      :zip,
-      :city,
-      :description,
-      :coordinates]
+    :address_street,
+    :address_zip,
+    :address_city,
+    :address_coordinates,
+    :address_description,
+    group_ids: []
 
     # Within app/admin/resource_name.rb
     # Controller pagination overrides

@@ -95,15 +95,12 @@ ActiveAdmin.register Location do
     :email,
     :phone,
     :open_hours,
-    address_attributes: [
-      :id,
-      :_destroy,
-      :street_name,
-      :street_number,
-      :zip,
-      :city,
-      :coordinates,
-      :description]
+    :address_street,
+    :address_zip,
+    :address_city,
+    :address_coordinates,
+    :address_description
+
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
   controller do
