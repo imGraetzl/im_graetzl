@@ -157,7 +157,6 @@ APP.controllers.meetings = (function() {
     }
 
     function initCreateMeeting() {
-      APP.components.graetzlSelect();
       APP.components.addressInput();
 
       $('.create-meeting').on('cocoon:after-insert', function(e, insertedItem, originalEvent) {

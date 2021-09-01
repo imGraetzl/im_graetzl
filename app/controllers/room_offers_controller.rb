@@ -153,6 +153,7 @@ class RoomOffersController < ApplicationController
         :general_availability,
         :rental_enabled,
         :last_activated_at,
+        :graetzl_id,
         :address_street, :address_coords, :address_city, :address_zip, :address_description,
         :first_name, :last_name, :website, :email, :phone, :location_id,
         images_attributes: [:id, :file, :_destroy],

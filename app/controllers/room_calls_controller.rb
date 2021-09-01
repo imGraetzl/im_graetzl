@@ -91,7 +91,7 @@ class RoomCallsController < ApplicationController
       :phone,
       :avatar, :remove_avatar,
       :cover_photo, :remove_cover_photo,
-      :address_street, :address_coords, :address_city, :address_zip, :address_description,
+      :graetzl_id, :address_street, :address_coords, :address_city, :address_zip, :address_description,
       room_call_fields_attributes: [:id, :label, :_destroy],
       room_call_prices_attributes: [:id, :name, :description, :features, :amount, :_destroy, room_module_ids: []],
       room_call_modules_attributes: [:id, :room_module_id, :description, :quantity, :_destroy],

@@ -54,7 +54,8 @@
   <div class="field-wrp district_visibility">
     <div class="input-radio">
       <%= f.radio_button :entire_region, false, data: { behavior: 'entire_region_false', price: Zuckerl.price } %>
-      <%= f.label "entire_region_false", "#{@location.districts.first.numeric}. Bezirk" %>
+      <%= f.label "entire_region_false", current_region.use_districts? ?
+          "#{@location.graetzl.district.numeric}. Bezirk" : @location.graetzl %>
     </div>
     <div class="input-radio">
       <%= f.radio_button :entire_region, true, data: { behavior: 'entire_region_true', price: Zuckerl.region_price } %>
@@ -62,7 +63,13 @@
     </div>
     <div class="description">
       <small class="graetzl">
-        Dein Zuckerl läuft im gesamten <%= @location.districts.first.numeric %>. Bezirk und kostet <span data-behavior="pricepreview"></span>.
+        Dein Zuckerl läuft im
+        <% if current_region.use_districts? %>
+          gesamten <%= @location.districts.first.numeric %>. Bezirk
+        <% else %>
+          <%= @location.graetzl %>
+        <% end %>
+        und kostet <span data-behavior="pricepreview"></span>.
       </small>
       <small class="entire_region">
         Dein Zuckerl läuft in ganz <%= current_region %> und kostet <span data-behavior="pricepreview"></span>.

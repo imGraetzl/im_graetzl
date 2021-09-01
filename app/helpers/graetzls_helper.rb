@@ -13,7 +13,7 @@ module GraetzlsHelper
   end
 
   def graetzl_select_options
-    current_region.graetzls.sort_by(&:zip).map{|g| [g.zip_name, g.id, 'data-district-id' => g.district&.id] }
+    current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id, 'data-district-id' => g.district&.id] }
   end
 
   def compact_graetzl_list(graetzls)

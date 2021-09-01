@@ -3,7 +3,6 @@ APP.controllers.registrations = (function() {
     function init() {
       APP.components.inputTextareaMovingLabel();
       APP.components.addressInput();
-      APP.components.graetzlSelect();
 
       if ($(".register-personalInfo").exists()) {
         initRegistrationForm();

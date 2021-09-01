@@ -26,6 +26,7 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
+    @location.clear_address if params[:no_address].present?
     @location.user = current_user
     @location.region_id = current_region.id
 
@@ -43,6 +44,7 @@ class LocationsController < ApplicationController
   def update
     @location = fetch_user_location(params[:id])
     @location.assign_attributes(location_params)
+    @location.clear_address if params[:no_address].present?
     if @location.save
       redirect_to [@location.graetzl, @location]
     else
@@ -132,7 +134,7 @@ class LocationsController < ApplicationController
   def location_params
     params.require(:location).permit(
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
-      :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,
+      :address_street, :address_coords, :address_city, :address_zip, :address_description,
       :location_category_id, :product_list, :website_url, :online_shop_url, :email, :phone, :open_hours,
     )
   end
