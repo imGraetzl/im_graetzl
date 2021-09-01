@@ -1,0 +1,12 @@
+<div class="supporterBox">
+  <div class="inner">
+    <div class="txt"><span>imGrätzl</span> wird unterstützt von</div>
+    <%= link_to(image_tag('supporter/logos/kolarik_small.png', width:107, height:44), 'https://www.kolarik.at', target: '_blank', :class => '-logo') %>
+    <%= link_to(image_tag('supporter/logos/elif-macht-was_small.png', width:107, height:100), 'https://www.geldmachtwas.com', target: '_blank', :class => '-logo -elif') %>
+    <%= link_to(image_tag('supporter/logos/bezirksimkerei_small.png', width:107, height:41), 'https://www.wiener-bezirksimkerei.at', target: '_blank', :class => '-logo') %>
+    <%= link_to 'alle ansehen', info_danke_path, class: 'btn-viewall' %>
+    <%= button_tag '', class: 'close-ico' do %>
+      <%= icon_tag "cross" %>
+    <% end %>
+  </div>
+</div>
