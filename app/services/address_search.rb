@@ -8,13 +8,13 @@ class AddressSearch
     # search_opendata(region, query)
   end
 
-  # private
+  private
 
   WIEN_GV_URL = 'https://data.wien.gv.at/daten/OGDAddressService.svc/GetAddressInfo'
 
   def search_wien_gv(region, query)
-    response = HTTP.get(WIEN_GV_URL, params: { crs: "EPSG:4326", Address: query}).parse(:json)
-    response['features'].first(10).map do |address|
+    response = HTTP.get(WIEN_GV_URL, params: { crs: "EPSG:4326", Address: query }).parse(:json)
+    response['features'].map do |address|
       coordinates = address.dig('geometry', 'coordinates')
       graetzl = Graetzl.find_by_coords(region, coordinates)
       {
@@ -35,7 +35,6 @@ class AddressSearch
   def search_mapbox(region, query)
     response = HTTP.get(MAPBOX_URL + ERB::Util.url_encode(query) + ".json", params: {
       access_token: Rails.application.secrets.mapbox_token,
-      types: "address",
       country: "at",
       language: "de",
       types: 'address',
@@ -44,9 +43,12 @@ class AddressSearch
       bbox: region.bounds.flatten.join(","),
     }).parse(:json)
 
-    response['features'].map do |address|
+    response['features'].filter_map do |address|
       coordinates = address['center']
       graetzl = Graetzl.find_by_coords(region, coordinates)
+      next if graetzl.nil?
+      # Skip addresses without number if user has entered a number
+      next if query.match?(/\d+\Z/) && address['address'].blank?
       {
         value: address['place_name_de'].split(",").first,
         data: {
@@ -73,17 +75,18 @@ class AddressSearch
       user: Rails.application.secrets.open_data_key, pass: nil
     ).get(OPEN_DATA_URL, params: {
       country: "at",
-      # city: TODO,
+      # city: TODO?,
       "street-address": street,
       "street-number": number,
-      limit: 10,
+      limit: 20,
     }).parse(:json)
 
     return [] if response["addresses"].blank?
 
-    response["addresses"].map do |address|
+    response["addresses"].filter_map do |address|
       coordinates = [address['longitude'], address['latitude']]
       graetzl = Graetzl.find_by_coords(region, coordinates)
+      next if graetzl.nil?
       {
         value: "#{address['street']} #{address['houseNumber']}",
         data: {

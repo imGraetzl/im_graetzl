@@ -1,7 +1,7 @@
 <div class="address-setting">
   <p class="txt">Wie <span>findet</span> man dich</p>
 
-  <% no_address = f.object.new_record? ? params[:no_address].present? : !f.object.using_address? %>
+  <% no_address = f.object.new_record? ? params[:no_address] == 'true' : !f.object.using_address? %>
   <div class="using-address-selection">
     <div class="input-radio">
       <%= radio_button_tag :no_address, false, !no_address, class: 'using-address-switch' %>
