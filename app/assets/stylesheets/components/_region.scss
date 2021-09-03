@@ -1,16 +1,3 @@
-body.region-kaernten, body.region-muehlviertler-kernland {
-
-  .supporterBox { display: none; }
-
-}
-
-
-// ---------- REGION WIEN ------------
-body.region-wien {
-  .supporterBox { display: none; }
-}
-
-
 // ---------- REGION MÜHLVIERTLER KERNLAND ------------
 body.region-muehlviertler-kernland {
 
@@ -23,7 +10,51 @@ body.region-muehlviertler-kernland {
 }
 
 
+
 // ---------- REGION KÄRNTEN ------------
 body.region-kaernten {
+
+}
+
+
+
+// ---------- REGION WIEN ------------
+body.region-wien {
+  .homeRegion .graetzl-switch-wrapper {
+
+    .input-select {
+      width:55%;
+    }
+
+    .region-logos {
+      margin-top:0;
+      width:40%;
+    }
+    .region-logos .inner {
+      background-color: rgba($color-ambient-mint-light,0.2);
+    }
+
+    @include respond-to("<=large") {
+      flex-wrap: wrap;
+      width: 100%;
+      .input-select, .region-logos {
+        width:100%;
+        max-width: 500px;
+      }
+      .region-logos {
+        margin-top: 50px;
+      }
+      .inner {
+        padding:8px !important;
+      }
+    }
+
+    .-elif img {
+      margin:0px;
+      height:48px;
+    }
+
+  }
+
 
 }
