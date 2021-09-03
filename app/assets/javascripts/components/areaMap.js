@@ -27,7 +27,7 @@ APP.components.areaMap = (function() {
     options = options || {};
 
     var mainLayer = L.tileLayer.provider('MapBox',
-      { id: 'malano78/ckgcmiv6v0irv19paa4aoexz3', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}
+      { id: 'malano78/ckt4d1tal0y9u17o5sn6y0jp4', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}
     );
     var map = L.map(mapElement.attr('id'), {
         layers: [mainLayer],

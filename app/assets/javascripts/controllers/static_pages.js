@@ -1,7 +1,7 @@
 APP.controllers.static_pages = (function() {
 
     function init() {
-      if($("section.homeRegion").exists()) initHome();
+      if($("section.homeRegion").exists()) initHomeRegion();
       if($("section.homeWeLocally").exists()) initHomePlatform();
       if($(".-mentoring-page").exists()) initMentoring();
       if($("#help_nav").exists()) initHelpScroller();
@@ -32,7 +32,7 @@ function initHomePlatform() {
 }
 
 // Region Homepage
-function initHome() {
+function initHomeRegion() {
 
   // Only load when map is shown
   if ($('#area-map').is(":visible")) {
@@ -43,6 +43,19 @@ function initHome() {
   $('.close-ico').on('click', function(event){
     $(this).parent().fadeOut('fast');
   });
+
+  // Logo Mouseover
+  var titletext = $(".region-logos .title").text();
+
+  $('.region-logos .-logo img').on('mouseover', function(event){
+    $( ".region-logos .title" ).text($(this).data('label'));
+  });
+
+  $('.region-logos').on('mouseleave', function(event){
+    $( ".region-logos .title" ).text(titletext);
+  });
+
+
 
   // Mobile Nav
   var $dropdown = $(".filter-stream .input-select select");
