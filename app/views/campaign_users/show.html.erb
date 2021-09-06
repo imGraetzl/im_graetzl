@@ -1,0 +1,87 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/coop-and-share-muehlviertel.jpg')
+  )
+%>
+
+<section class="campaignUsers info help lp -startpage -campaignUsers">
+
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1 class="weLocally">Gemeinsam bringen <br>wir mehr zusammen.<br>Sei locally dabei!</h1>
+    </div>
+  </div>
+
+
+  <div class="hl-subtext -header">
+    <h1>WeLocally startet in Kürze.</h1>
+    <p>Wir freuen uns schon sehr darauf, euch persönlich kennenzulernen, liebe Macher*innen.</p>
+  </div>
+
+
+  <article class="container -team">
+    <div class="aside -img -mentoring">
+      <%= link_to(image_tag('lp/team.jpg'), root_path, class: '-feature') %>
+    </div>
+    <div class="txt">
+      <p>
+        Wir, das sind Mirjam, Lena und Michi. In Wien betreiben wir seit 2016 die gemeinwohlorientierte Plattform <%= link_to 'imGrätzl.at', 'https://www.imgraetzl.at', :target => "blank" %> zur Stärkung der Selbstständigen, Gründer*innen, Kulturschaffenden, Macher*innen und Vereine.
+        <br>
+        <strong>Die großartige Nachricht: wir dürfen nun die Plattform in 2 weitere Regionen ausrollen.</strong>
+      </p>
+    </div>
+  </article>
+
+
+
+  <div class="hl-subtext">
+    <h1><span>WeLocally startet</span> in diesen Gebieten:</h1>
+  </div>
+  <div class="region-switch-icons">
+    <a class="region-button" href="/kaernten">
+      <div class="bigicontext-element">
+        <%= image_tag('campaign_users/kaernten/icon.png') %>
+      </div>
+      <div class="title">Kärnten</div>
+    </a>
+    <a class="region-button" href="/muehlviertel">
+      <div class="bigicontext-element">
+        <%= image_tag('campaign_users/muehlviertel/icon.png') %>
+      </div>
+      <div class="title">Mühlviertler Kernland</div>
+    </a>
+  </div>
+
+
+
+  <div class="hl-subtext">
+    <h1><em>Möchtest du von Anfang an dabei sein?</em></h1>
+    <p>Dann trage dich gleich hier ein:</p>
+  </div>
+
+
+  <%= form_for @campaign_user do |f| %>
+    <%= form_errors_for @campaign_user if @campaign_user %>
+    <%= f.hidden_field :campaign_title, value: 'muehlviertel' %>
+    <%= hidden_field_tag :campaign_redirect, 'muehlviertel' %>
+    <%= render 'form', :f => f %>
+  <% end %>
+
+
+  <div class="section -fullwidth -fullwidth-welocally">
+    <div class="hl-subtext">
+      <h1><em>Über die Platform</em> WeLocally</h1>
+      <p><strong>Entdecke spannende Events, Workshops und die lokalen Anbieter*innen und Initiativen.</strong>
+      <br>
+      Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!</p>
+    </div>
+    <%= render 'info_services' %>
+  </div>
+
+
+</section>

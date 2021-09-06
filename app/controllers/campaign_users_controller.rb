@@ -1,11 +1,18 @@
 class CampaignUsersController < ApplicationController
 
+  def show
+    @campaign_user = CampaignUser.new
+    render layout: 'campaign_users'
+  end
+
   def muehlviertel
     @campaign_user = CampaignUser.new
+    render layout: 'campaign_users'
   end
 
   def kaernten
     @campaign_user = CampaignUser.new
+    render layout: 'campaign_users'
   end
 
   def create
@@ -16,7 +23,7 @@ class CampaignUsersController < ApplicationController
 
     if @campaign_user.save
       redirect_to campaign
-      flash[:error] = "Vielen lieben Dank, du bist nun eingetragen! Wir melden uns in Kürze.."
+      flash[:error] = "Vielen lieben Dank für deine Voranmeldung! In wenigen Wochen gehts los ..."
     else
       render campaign
     end

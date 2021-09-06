@@ -1,0 +1,208 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/coop-and-share-muehlviertel.jpg')
+  )
+%>
+
+<section class="help -startpage lp -campaignUsers">
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <%= image_tag('svg/coopshare-logo-black.svg', class: 'coop-share-logo') %>
+      <h2>Servus Mühlviertler Kernland!</h2>
+    </div>
+  </div>
+
+  <div class="paperCard -cord1RT -header -top">
+    <div class="wrp">
+      <h3>
+        Wir freuen uns sehr darauf, euch persönlich kennenzulernen, liebe Macher*innen im Mühlviertler Kernland!
+      </h3>
+      <p>
+        Wir, das sind Mirjam, Lena und Michi. In Wien betreiben wir seit 2016 die gemeinwohlorientierte Plattform imGrätzl.at zur Stärkung der Selbstständigen, Gründer*innen, Kulturschaffenden, Macher*innen und Vereine.
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <div class="hl-subtext">
+    <h1>Die großartige Nachricht:</h1>
+    <p>wir dürfen nun die Plattform zu euch ins Mühlviertler Kernland bringen.</p>
+  </div>
+
+  <article class="container -team">
+    <div class="aside -img -mentoring">
+      <%= link_to(image_tag('lp/team.jpg'), root_path, class: '-feature') %>
+    </div>
+    <div class="txt">
+      <p>
+        Dafür werden wir die Plattform umbauen und dabei brauchen wir eure Hilfe.<br>
+        <strong>Eure Wünsche wollen wir nämlich in die Plattform einarbeiten, damit die Plattform euch in Zukunft wirklich unterstützen kann.</strong><br>
+        Was würde euch helfen in eurem Tun, was wünscht ihr euch, was vermisst ihr vielleicht? Auf welche Unterschiede, bezogen auf den ländlichen Raum und Stadt, sollten wir achten? Das sind die Themen über die wir uns gerne austauschen möchten.<br>
+        Die neue Plattform wird übrigens nicht imGrätzl heißen, unser Arbeitsname dafür ist im Moment "welocally".
+      </p>
+    </div>
+  </article>
+
+  <div class="hl-subtext">
+    <h1><em>Hast du Lust die Plattform mitzugestalten?</em></h1>
+    <p>Dann trage dich hier ein:</p>
+  </div>
+
+  <%= form_for @campaign_user do |f| %>
+  <%= form_errors_for @campaign_user if @campaign_user %>
+  <%= f.hidden_field :campaign_title, value: 'muehlviertel' %>
+  <%= hidden_field_tag :campaign_redirect, 'muehlviertel' %>
+
+    <div class="form-block cardBox">
+      <div class="form-columns">
+        <div class="input-field">
+          <%= f.label :first_name do %>
+            <%= icon_tag "user-avatar" %>
+            <span>Vorname</span>
+          <% end %>
+          <%= f.text_field :first_name, placeholder: 'Vorname' %>
+        </div>
+        <div class="input-field">
+          <%= f.label :last_name do %>
+            <%= icon_tag "user-avatar" %>
+            <span>Nachname</span>
+          <% end %>
+          <%= f.text_field :last_name, placeholder: 'Nachname' %>
+        </div>
+      </div>
+      <div class="input-field">
+        <%= f.label :email do %>
+          <%= icon_tag "at-symbol" %>
+          <span>E-Mail</span>
+        <% end %>
+        <%= f.text_field :email, placeholder: 'E-Mail Adresse' %>
+      </div>
+      <div class="input-field">
+        <%= f.label :website do %>
+          <%= icon_tag "globe" %>
+          <span>Website</span>
+        <% end %>
+        <%= f.text_field :website, placeholder: 'Website (falls vorhanden)' %>
+      </div>
+
+      <div class="form-columns">
+
+        <div class="input-field">
+          <%= f.label :zip do %>
+            <%= icon_tag "map-location" %>
+            <span>Postleitzahl</span>
+          <% end %>
+          <%= f.text_field :zip, placeholder: 'PLZ' %>
+        </div>
+
+        <div class="input-field">
+          <%= f.label :city do %>
+            <%= icon_tag "map-location" %>
+            <span>Ort/Stadt</span>
+          <% end %>
+          <%= f.text_field :city, placeholder: 'Ort' %>
+        </div>
+      </div>
+
+      <%= submit_tag "Absenden", class: 'btn-primary -mint -large' %>
+
+      <div class="hint">
+        Wir kontaktiert dich in den nächsten Tagen und machen uns dann ein Gespräch aus. Das Gespräch dauert circa eine Stunde und findet online via Zoom statt. Sobald sich eine größere Gruppe gebildet hat, starten wir auch mit den ortsübergreifenden Vernetzungsformaten, aber das erzählen wir dir dann alles in unserem Gespräch :)
+      </div>
+
+    </div>
+
+  <% end %>
+
+
+
+  <div class="section -fullwidth -fullwidth-imgraetzl">
+
+    <div class="hl-subtext">
+      <h1>Zu unserer <em>imGrätzl Plattform</em> in Wien</h1>
+      <p>Damit du einen Einblick bekommst, was wir tun.</p>
+    </div>
+
+    <div class="paperCard -cord1RT">
+      <div class="wrp">
+        <h3>
+          Es ist eine Plattform zum kooperativen Wirtschaften, Leerstand aktivieren und Ressourcen gemeinsam nutzen.
+        </h3>
+        <p>
+          Mit der Plattform möchten wir besonders Selbstständige, die kleinen Unternehmen, Kulturschaffende, Vereine und lokale Macher*innen stärken. Weil ihr so elementar wichtig für ein liebenswertes und lebendiges Lebensumfeld seid.
+        </p>
+      </div>
+      <div class="card"></div>
+    </div>
+
+    <article class="container">
+      <div class="txt">
+        <p>
+          <strong>Die Plattform macht euch und eure Angebote, aber auch eure Events & Workshops z.B. in der Gemeinde und in der Region digital sichtbar.</strong>
+          Ein zweiter Bereich auf der Plattform ist der <%= link_to 'Raumteiler', rooms_wien_path %>, das ist eine Art WG-Suche für Gewerbeflächen und bringt Raumhabende und Raumsuchende zusammen. Raumteiler = Räume teilen & Kosten teilen! Er ist auch ein Tool um Leerstand und größere Flächen in der Region wieder zu aktivieren.
+        </p>
+        <p>
+          Dann haben wir noch den <%= link_to 'Toolteiler', tool_offers_wien_path %> auf der Plattform, darüber können Arbeitsgeräte und Equipment, das nicht rund um die Uhr genutzt wird an andere vermietet werden (inkl. einer Versicherung). Außerdem gibt es noch das <%= link_to 'Unterstützer-Team', unterstuetzer_team_path %> mit Mentoring Begleitung. Da werden Menschen in Gruppen auf der Plattform verbunden, damit sie ihre Vorhaben mit Gruppenpower auf den Boden bringen können. Dadurch entstehen viele kleine kooperative Zellen. Und wir haben Weiterbildungsformate (Social Media Kitchen, Website-Werkstatt), Vernetzungsevents (Selbstständige für Selbstständige, Stadtteilfeste) und, und, und.
+        </p>
+      </div>
+      <div class="aside -img">
+        <%= link_to(image_tag('lp/platform-screenshot.jpg'), root_path, class: '-feature') %>
+      </div>
+    </article>
+
+
+  </div>
+
+  <div class="hl-subtext">
+    <h1>Weg vom Einzelkämpfertum <em>hin zu einem kooperativen WIR</em></h1>
+  </div>
+
+  <div class="paperCard -cord1RT -footer">
+    <div class="wrp">
+      <p>
+        Wir sind überzeugt davon, dass so eine Plattform auch im Mühlviertler Kernland eine positive Wirkung erzielen kann.
+        Und: Wir glauben an Gemeinschaft und daran, dass man zusammen mehr erreichen kann.
+      </p>
+      <p>
+        <strong>Weg vom Einzelkämpfertum hin zu einem kooperativen WIR, als Lösung für viele Herausforderungen!</strong> Wir denken dabei an den Strukturwandel, Digitalisierung, eine sich verändernde Arbeitswelt, aber auch an die Klimakrise. Unser Motto ist: Laßt uns die Kräfte bündeln!
+      </p>
+      <p>
+        Neben dem Mühlviertler Kernland dockt übrigens noch ein weiteres Gebiet an den neuen Plattform Prototyp an und zwar drei Gemeinden in Kärnten.
+        <strong>Last but not least: wenn du jemand kennst, der/die auch Lust auf Mitgestaltung und Vernetzung  hat, dann gerne den Link zur Seite weiterleiten.</strong>
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <section class="kooperationspartner">
+      <h2>Unser Kooperationspartner</h2>
+      <div class="cardBox">
+        <div class="wrp -img">
+          <%= link_to(image_tag('lp/muehlviertel/logo-mv-kernland.jpg'), 'https://www.facebook.com/leader.muehlviertlerkernland/', :target => "blank") %>
+        </div>
+        <div class="wrp">
+          <h3>Regionalverein „Leader-Region“ Mühlviertler Kernland</h3>
+          Ansprechpartnerin: Conny Wernitznig<br>
+          Waaggasse 6<br>
+          4240 Freistadt<br>
+          07942/75111<br>
+          conny.wernitznig@leader-kernland.at<br><br>
+          <div class="links">
+            <%= link_to 'www.kernland.at', 'http://www.kernland.at', :target => "blank" %><br>
+            <%= link_to 'www.thinktankregion.at', 'https://www.thinktankregion.at', :target => "blank" %><br>
+            <%= link_to 'www.dahoamimmuehlviertel.at', 'https://www.dahoamimmuehlviertel.at', :target => "blank" %><br>
+            <%= link_to 'www.facebook.com/leader.muehlviertlerkernland', 'https://www.facebook.com/leader.muehlviertlerkernland', :target => "blank" %><br>
+            <%= link_to 'www.facebook.com/groups/supportyourmuehlviertel', 'https://www.facebook.com/groups/supportyourmuehlviertel', :target => "blank" %><br>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+
+</section>

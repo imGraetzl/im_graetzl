@@ -1,0 +1,354 @@
+body.welocally {
+  .nav-dropdown-submenu {
+    min-width: 250px;
+  }
+}
+
+
+
+// OLD LANDINGPAGES ------------------
+// WeLocally Mühlviertler Kernland & Kärnten
+section.-campaignUsers {
+
+  .-header {
+    margin-top:70px;
+    margin-bottom:60px;
+  }
+
+  h3.team {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+  article.-team {
+    flex-wrap: wrap;
+    .txt, .aside {
+      @include font-size-primaryFont('large');
+      text-align: justify;
+      p {
+        padding-bottom: 0px;
+      }
+      width:100%;
+      @include respond-to(">=medium") {
+        width:48%;
+      }
+    }
+  }
+  .-fullwidth-imgraetzl {
+    background-color: #eaf2f4;
+    padding:40px;
+    margin-bottom:40px;
+
+    .paperCard, .container {
+      max-width:1280px;
+      margin: auto;
+    }
+    .paperCard {
+      margin-bottom: 50px;
+      p {
+        @include font-size-primaryFont('large');
+      }
+    }
+    .container {
+      img {
+        border: 1px solid white;
+        border-radius: 8px;
+      }
+      .txt {
+        @include font-size-primaryFont('large');
+        text-align: justify;
+      }
+      a {
+        font-weight: bold;
+      }
+      p:last-of-type {
+        padding-bottom:0px;
+      }
+    }
+    .aside {
+      @include respond-to("<=medium") {
+        width:100%;
+      }
+    }
+  }
+  .paperCard.-footer {
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+  .form-block .btn-primary {
+    width:100%;
+    margin:auto;
+  }
+  .hint {
+    border-top: 1px solid $color-ambient-mint-light;
+    padding-top:15px;
+    margin-top:20px;
+    font-style: italic;
+    text-align: center;
+  }
+  section.kooperationspartner {
+    margin-top:60px;
+    h2 {
+      @include headlineBarbapapaMintDark;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+    a {
+      color: $color-ambient-grey;
+      &:hover {
+        color: $color-ambient-rosa;
+      }
+    }
+    .cardBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap:wrap;
+      flex-direction:column;
+      @include respond-to(">=medium") {
+        flex-direction:row;
+      }
+      img {
+        width:50%;
+        @include respond-to(">=medium") {
+          width:100%;
+        }
+      }
+      div.wrp {
+        width:100%;
+        text-align:center;
+        @include respond-to(">=medium") {
+          width:50%;
+          text-align:left;
+        }
+        padding:10px;
+        .links {
+          @include ellipsis;
+        }
+      }
+    }
+  }
+  &.-kaernten {
+    section.kooperationspartner {
+      .cardBox {
+        flex-direction:row;
+        img {
+          width:60%;
+          @include respond-to(">=medium") {
+            width:40%;
+            margin-right: 30px;
+          }
+        }
+        div.wrp {
+          width:50%;
+          text-align:left;
+        }
+        div.wrp.-img {
+          text-align: center;
+          @include respond-to(">=medium") {
+            text-align:right;
+          }
+        }
+      }
+
+    }
+  }
+}
+// OLD LANDINGPAGES ------------------
+
+
+
+
+section.campaignUsers {
+
+
+
+
+  padding-bottom: 0px;
+  //margin-bottom:-80px;
+
+  .imgHeader {
+    background-color: #dff0f0;
+  }
+
+  .imgHeader .wrp {
+    position: relative;
+  }
+
+  .imgHeader::after {
+    background-image: url(image_path('campaign_users/welocally_header.jpg'));
+    background-position: center bottom;
+    @media only screen and (min-width:1500px){
+      background-size: contain;
+    }
+  }
+
+  h1.weLocally {
+    background-image: url(image_path('campaign_users/speech-bubble-wide.svg'));
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: left;
+    max-width:480px;
+    padding: 15px 15px 50px 15px; // top, right, bottom, left
+    position: relative;
+    @include font-size-secondaryFont('base');
+    top:-20px;
+    left:-60px;
+    @include respond-to(">=medium") {
+      @include font-size-secondaryFont('large');
+      padding: 20px 20px 80px 20px; // top, right, bottom, left
+      top:-30px;
+      left:-180px;
+    }
+    @include respond-to(">=large") {
+      left:-280px;
+    }
+  }
+
+  p.subline {
+    @include font-size-primaryFont('larger');
+    text-align: center;
+    margin-top:40px;
+    margin-bottom:35px;
+  }
+
+  .mail-hint {
+    font-style: italic;
+    text-align: center;
+    @include font-size-primaryFont('base');
+  }
+
+
+  .region-switch-icons {
+
+    position: relative;
+    padding-bottom: 50px;
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+      z-index: 9;
+    }
+
+    display: flex;
+    justify-content: center;
+
+    .bigicontext-element {
+      background-image: url(image_path('svg/kringel-grey-white.svg'));
+      justify-content: center;
+
+      height: 75px;
+      min-width: 75px;
+      max-width: 75px;
+
+      @include respond-to(">small") {
+        height: 105px;
+        min-width: 105px;
+        max-width: 105px;
+        background-size: 105px 105px;
+      }
+
+      img.region-ico {
+        width:65%;
+        height:auto;
+        margin:0;
+      }
+
+    }
+
+    a.region-button {
+      width:165px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: $color-font-primary;
+      &:hover {
+        .bigicontext-element {
+          color: $color-font-primary;
+          background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+        }
+        .title {
+          color: $color-ambient-rosa;
+        }
+      }
+    }
+
+    .title {
+      @include font-size-primaryFont('larger');
+      font-weight: bold;
+      margin-top:10px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+  }
+
+  .-fullwidth-welocally {
+    background-color: #eaf2f4;
+    padding:18px;
+    padding-top:40px !important;
+    padding-bottom:50px !important;
+    margin-bottom:0px;
+    margin-top: 80px;
+
+    .paperCard, .container {
+      max-width:930px;
+      margin: auto;
+    }
+
+    .-register {
+      display: table;
+      margin: auto;
+    }
+
+    .hl-subtext {
+      max-width: 930px;
+      margin: auto;
+      margin-bottom: 90px;
+    }
+
+    &::before {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      top: -10px;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+      z-index: 9;
+    }
+
+  }
+
+  article {
+    margin-bottom: 70px !important;
+    justify-content: space-between;
+
+    .aside img {
+      max-width: 90% !important;
+      height: auto;
+    }
+
+    &.-team {
+      margin-bottom: 80px !important;
+    }
+
+  }
+
+  .-footer-headline {
+    margin-top: 50px;
+  }
+
+}
