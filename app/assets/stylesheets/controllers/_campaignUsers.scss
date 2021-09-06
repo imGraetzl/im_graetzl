@@ -2,91 +2,42 @@ body.welocally {
   .nav-dropdown-submenu {
     min-width: 250px;
   }
+  .nav-guest {
+    .icon {
+      fill: $color-ambient-mint-dark;
+      margin-left:12px;
+    }
+  }
 }
 
+section.campaignUsers {
 
-
-// OLD LANDINGPAGES ------------------
-// WeLocally Mühlviertler Kernland & Kärnten
-section.-campaignUsers {
+  padding-bottom: 0px;
 
   .-header {
-    margin-top:70px;
-    margin-bottom:60px;
+    margin-top:60px;
+    margin-bottom:90px;
+    @include respond-to("<=medium") {
+      margin-top:50px;
+      margin-bottom:50px;
+    }
   }
 
-  h3.team {
-    padding-top: 20px;
-    padding-bottom: 30px;
-    text-align: center;
+  .-footer-headline {
+    margin-top: 50px;
   }
-  article.-team {
-    flex-wrap: wrap;
-    .txt, .aside {
-      @include font-size-primaryFont('large');
-      text-align: justify;
-      p {
-        padding-bottom: 0px;
-      }
-      width:100%;
-      @include respond-to(">=medium") {
-        width:48%;
-      }
-    }
-  }
-  .-fullwidth-imgraetzl {
-    background-color: #eaf2f4;
-    padding:40px;
-    margin-bottom:40px;
 
-    .paperCard, .container {
-      max-width:1280px;
-      margin: auto;
-    }
-    .paperCard {
-      margin-bottom: 50px;
-      p {
-        @include font-size-primaryFont('large');
-      }
-    }
-    .container {
-      img {
-        border: 1px solid white;
-        border-radius: 8px;
-      }
-      .txt {
-        @include font-size-primaryFont('large');
-        text-align: justify;
-      }
-      a {
-        font-weight: bold;
-      }
-      p:last-of-type {
-        padding-bottom:0px;
-      }
-    }
-    .aside {
-      @include respond-to("<=medium") {
-        width:100%;
-      }
-    }
-  }
   .paperCard.-footer {
     p {
       @include font-size-primaryFont('large');
     }
   }
+
   .form-block .btn-primary {
     width:100%;
     margin:auto;
   }
-  .hint {
-    border-top: 1px solid $color-ambient-mint-light;
-    padding-top:15px;
-    margin-top:20px;
-    font-style: italic;
-    text-align: center;
-  }
+
   section.kooperationspartner {
     margin-top:60px;
     h2 {
@@ -129,6 +80,7 @@ section.-campaignUsers {
       }
     }
   }
+
   &.-kaernten {
     section.kooperationspartner {
       .cardBox {
@@ -154,16 +106,7 @@ section.-campaignUsers {
 
     }
   }
-}
-// OLD LANDINGPAGES ------------------
 
-
-
-
-section.campaignUsers {
-
-
-  padding-bottom: 0px;
   &.-landing {
     margin-bottom:-80px;
   }
@@ -210,20 +153,6 @@ section.campaignUsers {
       left:-280px;
     }
   }
-
-  p.subline {
-    @include font-size-primaryFont('larger');
-    text-align: center;
-    margin-top:40px;
-    margin-bottom:35px;
-  }
-
-  .mail-hint {
-    font-style: italic;
-    text-align: center;
-    @include font-size-primaryFont('base');
-  }
-
 
   .region-switch-icons {
 
@@ -336,23 +265,65 @@ section.campaignUsers {
 
   }
 
-  article {
+  article.-team {
+    flex-wrap: wrap;
+    .txt, .aside {
+      @include font-size-primaryFont('large');
+      text-align: justify;
+      p {
+        padding-bottom: 0px;
+      }
+      width:100%;
+      @include respond-to(">=medium") {
+        width:48%;
+      }
+    }
+  }
+
+  .-fullwidth-welocally article {
     margin-bottom: 70px !important;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 
     .aside img {
       max-width: 90% !important;
       height: auto;
     }
 
-    &.-team {
-      margin-bottom: 80px !important;
+    @include respond-to("<=medium") {
+      h2, h3 {
+        text-align: center;
+      }
+      p {
+        text-align: justify;
+      }
     }
 
-  }
+    &.-team {
+      margin-bottom: 80px;
+      @include respond-to("<=medium") {
+        margin-bottom: 80px;
+      }
+    }
 
-  .-footer-headline {
-    margin-top: 50px;
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 75%);
+      pointer-events: none;
+      z-index: 9;
+    }
+    &:last-of-type {
+      margin-bottom: 0px !important;
+      &::after {
+        display: none;
+      }
+    }
+
   }
 
 }
