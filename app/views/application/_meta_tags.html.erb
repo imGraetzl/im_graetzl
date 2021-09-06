@@ -1,4 +1,4 @@
-<title><%= yield(:title) %>imGrätzl.at</title>
+<title><%= yield(:title) %><%= request.host.end_with?('welocally.at') ? 'WeLocally.at' : 'imGrätzl.at' %></title>
 
 <%= canonical_tag %>
 
