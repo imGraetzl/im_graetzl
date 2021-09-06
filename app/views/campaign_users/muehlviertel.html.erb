@@ -43,7 +43,7 @@
     <p>Dann trage dich gleich hier ein:</p>
   </div>
 
-  <%= form_for @campaign_user do |f| %>
+  <%= form_for @campaign_user, url: url_for do |f| %>
   <%= form_errors_for @campaign_user if @campaign_user %>
   <%= hidden_field_tag :redirect_path, '/muehlviertel' %>
   <%= f.hidden_field :campaign_title, value: 'muehlviertel' %>

@@ -13,6 +13,13 @@ Rails.application.routes.draw do
   get 'search/autocomplete' => 'search#autocomplete'
   get 'search/user' => 'search#user'
 
+  scope controller: 'campaign_users', as: 'campaign_users', constraints: { host: /welocally\.at\Z/ } do
+    root to: 'campaign_users#index'
+    get 'muehlviertel'
+    get 'kaernten'
+    post '(:campaign)' => 'campaign_users#create'
+  end
+
   ActiveAdmin.routes(self)
 
   devise_scope :user do
@@ -75,11 +82,6 @@ Rails.application.routes.draw do
     post :comment_post, on: :member
     get :tooltip, on: :member
   end
-
-  resources :campaign_users, path: '', only: [:new, :create] do
-  end
-  get 'muehlviertel', to: 'campaign_users#muehlviertel'
-  get 'kaernten', to: 'campaign_users#kaernten'
 
   resources :room_demands, path: 'wien/raumteiler/raumsuche', except: [:index] do
     post 'toggle', on: :member
