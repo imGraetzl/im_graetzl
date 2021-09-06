@@ -163,10 +163,14 @@ section.-campaignUsers {
 section.campaignUsers {
 
 
-
-
   padding-bottom: 0px;
-  //margin-bottom:-80px;
+  &.-landing {
+    margin-bottom:-80px;
+  }
+
+  .region-switch-icons {
+    margin-bottom: 50px;
+  }
 
   .imgHeader {
     background-color: #dff0f0;

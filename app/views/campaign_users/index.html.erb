@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="campaignUsers info help lp -startpage -campaignUsers">
+<section class="campaignUsers info help lp -startpage -campaignUsers -landing">
 
 
   <div class="imgHeader -fullwidth">
@@ -32,7 +32,7 @@
       <p>
         Wir, das sind Mirjam, Lena und Michi. In Wien betreiben wir seit 2016 die gemeinwohlorientierte Plattform <%= link_to 'imGrätzl.at', 'https://www.imgraetzl.at', :target => "blank" %> zur Stärkung der Selbstständigen, Gründer*innen, Kulturschaffenden, Macher*innen und Vereine.
         <br>
-        <strong>Die großartige Nachricht: wir dürfen nun die Plattform in 2 weitere Regionen ausrollen.</strong>
+        <strong>Die großartige Nachricht: wir dürfen nun die Plattform in zwei weitere Regionen ausrollen.</strong>
       </p>
     </div>
   </article>
@@ -40,7 +40,7 @@
 
 
   <div class="hl-subtext">
-    <h1><span>WeLocally startet</span> in diesen Gebieten:</h1>
+    <h1><span>WeLocally startet</span> in folgenden Gebieten:</h1>
   </div>
   <div class="region-switch-icons">
     <a class="region-button" href="/kaernten">
@@ -67,9 +67,18 @@
 
   <%= form_for @campaign_user do |f| %>
     <%= form_errors_for @campaign_user if @campaign_user %>
-    <%= f.hidden_field :campaign_title, value: 'muehlviertel' %>
-    <%= hidden_field_tag :campaign_redirect, 'muehlviertel' %>
-    <%= render 'form', :f => f %>
+    <%= hidden_field_tag :redirect_path, '/' %>
+    <div class="form-block cardBox">
+      <%= render 'campaign_users/form', :f => f %>
+      <div class="input-select">
+        <%= f.label :campaign_title do %>
+          <%= icon_tag "globe" %>
+          <span>Region</span>
+        <% end %>
+        <%= f.select :campaign_title, options_for_select([['Mühlviertler Kernland', 'muehlviertel'], ['Kärnten', 'kaernten']], @campaign_user.campaign_title), include_blank: "Wähle eine Region" %>
+      </div>
+      <%= submit_tag "Absenden", class: 'btn-primary -mint -large' %>
+    </div>
   <% end %>
 
 
@@ -80,7 +89,7 @@
       <br>
       Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!</p>
     </div>
-    <%= render 'info_services' %>
+    <%= render 'campaign_users/info_services' %>
   </div>
 
 

@@ -45,11 +45,12 @@
 
   <%= form_for @campaign_user do |f| %>
   <%= form_errors_for @campaign_user if @campaign_user %>
+  <%= hidden_field_tag :redirect_path, '/muehlviertel' %>
   <%= f.hidden_field :campaign_title, value: 'muehlviertel' %>
-  <%= hidden_field_tag :campaign_redirect, 'muehlviertel' %>
-
-    <%= render 'form', :f => f %>
-
+    <div class="form-block cardBox">
+      <%= render 'form', :f => f %>
+      <%= submit_tag "Absenden", class: 'btn-primary -mint -large' %>
+    </div>
   <% end %>
 
 

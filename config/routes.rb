@@ -76,7 +76,7 @@ Rails.application.routes.draw do
     get :tooltip, on: :member
   end
 
-  resources :campaign_users, path: 'campaign', only: [:new, :create] do
+  resources :campaign_users, path: '', only: [:new, :create] do
   end
   get 'muehlviertel', to: 'campaign_users#muehlviertel'
   get 'kaernten', to: 'campaign_users#kaernten'
