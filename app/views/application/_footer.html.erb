@@ -9,8 +9,8 @@
         <%= link_to 'Infos & Services', info_path %>
         <%= link_to 'Infos zum Zuckerl', info_infos_zum_graetzlzuckerl_path %>
         <%= link_to 'Unterstützer-Team', unterstuetzer_team_path %>
-        <a href="https://blog.imgraetzl.at/" target="_blank">Blog</a>
-        <a href="https://www.facebook.com/imGraetzl" target="_blank" class="facebook">
+        <%= link_to 'Blog', t("region.#{current_region.id}.blog_url") %>
+        <a href="<%= t("region.#{current_region.id}.facebook_url") %>" target="_blank" class="facebook">
           Auf Facebook <%= icon_tag "social-facebook" %>
         </a>
       </div>
@@ -23,8 +23,10 @@
       </div>
       <div class="col logo-wa">
         <%= link_to(image_tag('logo-wa.png', width:132, height:65), 'https://wirtschaftsagentur.at/', target: '_blank') %>
-        <div>Gefördert durch die Wirtschaftsagentur Wien.<br>
-          Ein Fonds der Stadt Wien.</div>
+        <div>
+          Gefördert durch die Wirtschaftsagentur Wien.<br>
+          Ein Fonds der Stadt Wien.
+        </div>
       </div>
       <div class="col logo-ke">
         <%= link_to(image_tag('logo-klimafonds.png', width:76, height:65), 'https://www.klimafonds.gv.at', target: '_blank') %>
@@ -41,52 +43,37 @@
 
       <% if current_region.use_districts? %>
 
-          <h3>Entdecke dein Grätzl in Wien:</h3>
-          <div class="row">
+        <h3>Entdecke dein Grätzl in Wien:</h3>
+        <div class="row">
+          <% ([:all] + District.in(current_region)).in_groups_of(6, false).each do |districts| %>
             <div class="col">
-              <a href="/wien/">Wien Übersicht</a>
-              <a href="/wien/innere-stadt-1010">1010 - Innere Stadt</a>
-              <a href="/wien/leopoldstadt-1020">1020 - Leopoldstadt</a>
-              <a href="/wien/landstrasse-1030">1030 - Landstraße</a>
-              <a href="/wien/wieden-1040">1040 - Wieden</a>
-              <a href="/wien/margareten-1050">1050 - Margareten</a>
+              <% districts.each do |district| %>
+                <% if district == :all %>
+                  <%= link_to "#{current_region} Übersicht", region_index_path %>
+                <% else %>
+                  <%= link_to district.zip_name, district_index_path(district) %>
+                <% end %>
+              <% end %>
             </div>
-            <div class="col">
-              <a href="/wien/mariahilf-1060">1060 - Mariahilf</a>
-              <a href="/wien/neubau-1070">1070 - Neubau</a>
-              <a href="/wien/josefstadt-1080">1080 - Josefstadt</a>
-              <a href="/wien/alsergrund-1090">1090 - Alsergrund</a>
-              <a href="/wien/favoriten-1100">1100 - Favoriten</a>
-              <a href="/wien/simmering-1110">1110 - Simmering</a>
-            </div>
-            <div class="col">
-              <a href="/wien/meidling-1120">1120 - Meidling</a>
-              <a href="/wien/hietzing-1130">1130 - Hietzing</a>
-              <a href="/wien/penzing-1140">1140 - Penzing</a>
-              <a href="/wien/rudolfsheim-funfhaus-1150">1150 - Rudolfsheim-Fünfhaus</a>
-              <a href="/wien/ottakring-1160">1160 - Ottakring</a>
-              <a href="/wien/hernals-1170">1170 - Hernals</a>
-            </div>
-            <div class="col">
-              <a href="/wien/wahring-1180">1180 - Währing</a>
-              <a href="/wien/dobling-1190">1190 - Döbling</a>
-              <a href="/wien/brigittenau-1200">1200 - Brigittenau</a>
-              <a href="/wien/floridsdorf-1210">1210 - Floridsdorf</a>
-              <a href="/wien/donaustadt-1220">1220 - Donaustadt</a>
-              <a href="/wien/liesing-1230">1230 - Liesing</a>
-            </div>
-          </div>
+          <% end %>
+        </div>
 
       <% else %>
 
-          <h3>Mitmachende Gemeinden in <%= current_region %></h3>
-          <div class="row">
+        <h3>Mitmachende Gemeinden in <%= current_region %></h3>
+        <div class="row">
+          <% ([:all] + Graetzl.in(current_region)).in_groups_of(5, false).each do |graetzls| %>
             <div class="col">
-            <% Graetzl.in(current_region).each do |graetzl| %>
-              <%= link_to graetzl.name, graetzl_path(graetzl) %>
-            <% end %>
+              <% graetzls.each do |graetzl| %>
+                <% if graetzl == :all %>
+                  <%= link_to "#{current_region} Übersicht", region_index_path %>
+                <% else %>
+                  <%= link_to graetzl.name, graetzl_path(graetzl) %>
+                <% end %>
+              <% end %>
             </div>
-          </div>
+          <% end %>
+        </div>
 
       <% end %>
 
