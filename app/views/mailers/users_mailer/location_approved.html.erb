@@ -4,30 +4,30 @@
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
         Hallo <%= @user.first_name %>,
         <p>
-          ich habe dein Schaufenster auf imGrätz.at gerade freigeschaltet.<br>
+          ich habe dein virtuelles Schaufenster auf <%= t("region.#{@location.region.id}.domain_full") %> gerade freigeschaltet.<br>
           <%= link_to graetzl_location_url(@location.graetzl, @location, host: @location.region.host), graetzl_location_url(@location.graetzl, @location, host: @location.region.host) %>
         </p>
 
         <p>
-          Und: Dein Schaufenster wird außerdem im nächsten Stadtteil Newsletter vorgestellt.
+          Und: Dein Schaufenster wird außerdem im nächsten Newsletter vorgestellt.
         </p>
 
         <p>
           Wir schicken dir in den nächsten Wochen immer wieder kurze Schritt-für-Schritt Anleitungen,
-          damit du langsam reinkommst, was du mit deiner Schaufenster-Seite so alles machen kannst.
+          damit du langsam reinkommst, was du mit dem virtuellen Schaufenster so alles machen kannst.
         </p>
 
         <p>
-          Du kannst mir aber natürlich auch gerne jetzt gleich schreiben, wenn du Fragen zu imGrätzl.at hast.
+          Du kannst mir aber natürlich auch gerne jetzt gleich schreiben, wenn du Fragen zu <%= t("region.#{@location.region.id}.domain_short") %> hast.
         </p>
 
         <p>
-          Viel Freude auf imGrätzl.at<br>
+          Viel Freude auf <%= t("region.#{@location.region.id}.domain_full") %><br>
           Mirjam
         </p>
 
         <p>
-          PS: Wenn dir die Idee von imGrätzl gefällt, würden wir uns sehr freuen, wenn du die
+          PS: Wenn dir die Idee von <%= t("region.#{@location.region.id}.domain_short") %> gefällt, würden wir uns sehr freuen, wenn du die
           Möglichkeiten an andere Selbständige, kleinen Unternehmen, Kulturschaffende oder Vereine
           weiterträgst.
         </p>

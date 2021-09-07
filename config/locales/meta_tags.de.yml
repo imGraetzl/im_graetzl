@@ -13,18 +13,15 @@ de:
     home_region:
       title: 'Mach mit und sei locally dabei! | %{region}'
       description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
-    faq:
-      title: 'Häufige Fragen und Antworten (FAQs)'
-      description: 'Häufige gestellte Fragen und Antworten zu imGrätzl.at auf einem Blick.'
+    info:
+      title: 'Coop & Share - Alle Services im Überblick'
+      description: 'imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an...'
+    coop_demands:
+      title: 'Coop & Share Marktplatz'
+      description: 'Text ..'
     zuckerl:
       title: 'Infos zum Zuckerl'
       description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Zuckerl.'
-    graetzlmarie:
-      title: 'Infos zur Grätzlmarie'
-      description: 'Die Grätzlmarie - Werbung, die das das Grätzl belebt.'
-    help:
-      title: 'Coop & Share - Alle Services im Überblick'
-      description: 'imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an...'
     raumteiler:
       title: 'Raumteiler – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Raumteiler / Teilen von Gewerbeflächen'
@@ -49,6 +46,12 @@ de:
     supporter:
       title: 'DANKE an unsere MöglichmacherInnen'
       description: 'Der Betrieb und die Weiterentwicklung von imGrätzl wird ermöglicht durch diese großartigen Menschen und Unternehmen.'
+    faq:
+      title: 'Häufige Fragen und Antworten (FAQs)'
+      description: 'Häufige gestellte Fragen und Antworten zu imGrätzl.at auf einem Blick.'
+    graetzlmarie:
+      title: 'Infos zur Grätzlmarie'
+      description: 'Die Grätzlmarie - Werbung, die das das Grätzl belebt.'
 
   regions:
     index:

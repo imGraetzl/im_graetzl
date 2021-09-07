@@ -1,0 +1,48 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow'
+  )
+%>
+
+<section class="info -detail">
+
+  <div class="hl-subtext">
+    <h1><em>Coop & Share Marktplatz</em></h1>
+    <p>Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.</p>
+  </div>
+
+  <div class="paperCard -cord1RT container -top" id="zero">
+    <div class="wrp">
+      <p>
+        Finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.
+        Suche Mitgestalter*innen für deine Initiative, Idee oder Verein. Oder schließe dich mit Tauschpartner*innen für Tauschgeschäfte zusammen.
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <aside>
+    <div id="help_nav">
+      <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
+      <a href="#stoebern" class="btn-primary -mint" id="nav-one">Info</a>
+    </div>
+  </aside>
+
+  <div class="mainContent">
+
+    <article class="container" id="one">
+      <h2 id="stoebern">Info ..</h2>
+      <h3>Info ..</h3>
+      <p>
+        Infotext ..
+      </p>
+    </article>
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+</section>
+
+<%= render 'info_menu' %>

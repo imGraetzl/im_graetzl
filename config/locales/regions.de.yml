@@ -7,6 +7,7 @@ de:
       graetzl: "Gemeinde"
       in_graetzl: "in der Gemeinde"
       in_your_graetzl: "in deiner Gemeinde"
+      from_your_graetzl: "aus deiner Gemeinde"
       region: "Region"
       in_region: "in der Region"
       in_your_region: "in deiner Region"
@@ -14,8 +15,11 @@ de:
       homegraetzl: "Heimatgemeinde"
       your_homegraetzl: "deine Heimatgemeinde"
       dem: "der"
-      zuckerl_headline: "Das Zuckerl für eine ganze Region"
-      zuckerl_subline: "Dieses wird in allen Gemeinden deiner Region angezeigt."
+      zuckerl:
+        headline: "Das Zuckerl für eine ganze Region"
+        subline: "Dieses wird in allen Gemeinden deiner Region angezeigt."
+        graetzl: "Gemeinde"
+        visibility_graetzl: "in der Gemeinde"
 
     wien:
       <<: *default
@@ -25,6 +29,7 @@ de:
       graetzl: "Grätzl"
       in_graetzl: "im Grätzl"
       in_your_graetzl: "in deinem Grätzl"
+      from_your_graetzl: "aus deinem Grätzl"
       region: "Wien"
       in_region: "in Wien"
       in_your_region: "in Wien"
@@ -32,8 +37,11 @@ de:
       homegraetzl: "Heimatgrätzl"
       your_homegraetzl: "dein Heimatgrätzl"
       dem: "dem"
-      zuckerl_headline: "Das Zuckerl für ganz Wien"
-      zuckerl_subline: "Dieses wird in allen Grätzln und Bezirken in ganz Wien angezeigt."
+      zuckerl:
+        headline: "Das Zuckerl für ganz Wien"
+        subline: "Dieses wird in allen Grätzln und Bezirken in ganz Wien angezeigt."
+        graetzl: "Bezirk"
+        visibility_graetzl: "im Bezirk und allen zugehörigen Grätzln"
 
     kaernten:
       <<: *default

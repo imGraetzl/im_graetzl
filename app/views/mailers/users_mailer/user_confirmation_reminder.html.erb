@@ -5,7 +5,7 @@
 
         <p>Hallo <%= @user.first_name %>,
 
-        <p>nochmals herzlich willkommen im Grätzl <%= @user.graetzl.name %>!</p>
+        <p>nochmals herzlich willkommen auf <%= t("region.#{@user.region.id}.domain_short") %> <%= @user.graetzl.name %>!</p>
 
         <p>
           Um deinen imGrätzl Account nutzen zu können, müsstest du noch deine Registrierung bestätigen. Klicke dafür bitte folgenden Link:<br>
@@ -13,7 +13,7 @@
         </p>
 
         <p>
-          Als registrierter Nutzer bekommst du automatisch Updates und News aus deinem Stadtteil <%= @user.graetzl.name %>.
+          Als registrierter Nutzer bekommst du automatisch Updates und News <%= t("region.#{@user.region.id}.from_your_graetzl") %> <%= @user.graetzl.name %>.
           Du kannst diesen Service nach der Registrierung unter <%= link_to 'Einstellungen', edit_user_url(target: "tab-2", host: @user.region.host) %> jederzeit abbestellen oder nach deinen Interessen anpassen.
         </p>
 
@@ -21,10 +21,10 @@
 
         <p>
           Liebe Grüße,<br>
-          dein Team von imGrätzl.at<br>
+          dein Team von <%= t("region.#{@user.region.id}.domain_full") %><br>
           --<br>
           Bei Fragen schreib uns an:
-          <%= mail_to 'wir@imgraetzl.at' %>
+          <%= t("region.#{@user.region.id}.contact_email") %>
         </p>
 
       </td>

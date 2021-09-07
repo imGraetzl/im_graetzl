@@ -9,16 +9,16 @@
 
   <div class="hl-subtext">
     <h1><em>Anbieter & Macherinnen</em></h1>
-    <p>Für mehr Sichtbarkeit in deinem Stadtteil!</p>
+    <p>Für mehr Sichtbarkeit <%= t("region.#{current_region.id}.in_your_region") %>!</p>
   </div>
 
   <div class="paperCard -cord1RT container -top" id="zero">
     <div class="wrp">
       <p>
-        <strong>Die Locationseite</strong> ist der erste Schritt, um in deinem Stadtteil sichtbar zu werden!
+        <strong>Das virtuelle und interaktive Schaufenster</strong> ist der erste Schritt, um <%= t("region.#{current_region.id}.in_your_region") %> sichtbar zu werden!
         Du kannst sie mit nur wenigen Klicks einfach und schnell einrichten,
-        sie ist mobil- und suchmaschinenoptimiert und deine Eintrittskarte um in deinen
-        Stadtteil-Newsletter zu gelangen! Und: sie ist kostenlos!
+        sie ist mobil- und suchmaschinenoptimiert und sie ist kostenlos.
+        Interessierte gelangen von deinem <%= t("region.#{current_region.id}.domain_short") %> Schaufenster zu deiner Website oder deinem online Shop.
       </p>
     </div>
     <div class="card"></div>
@@ -27,7 +27,7 @@
   <aside>
     <div id="help_nav">
       <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
-      <a href="#einrichten" class="btn-primary -mint" id="nav-one">Location einrichten</a>
+      <a href="#einrichten" class="btn-primary -mint" id="nav-one">Schaufenster einrichten</a>
       <a href="#neuigkeiten" class="btn-primary -mint" id="nav-two">Neuigkeiten posten</a>
     </div>
   </aside>
@@ -35,33 +35,29 @@
   <div class="mainContent">
 
     <article class="container" id="one">
-      <h2 id="einrichten">Locationseite einrichten</h2>
+      <h2 id="einrichten">Schaufenster einrichten</h2>
       <h3>So kommst du zu deiner Seite:</h3>
       <p>
-        Wenn du dich auf imGrätzl.at registriert hast und eingeloggt bist,
-        dann klicke rechts oben neben deinem Profilbild auf das „Rädchen“ und
-        dann auf den Menüpunkt „<%= link_to 'Locations', new_location_path %>“.
+        Wenn du dich auf <%= t("region.#{current_region.id}.domain_short") %> registriert hast und eingeloggt bist,
+        dann klicke rechts oben neben deinem Profilbild auf das „Rädchen“ und dann auf den Menüpunkt <%= link_to 'Schaufenster', new_location_path %>.
         Einfach das Formular ausfüllen, wenn alle Felder ausgefüllt sind,
         schalten wir dir deine Seite frei und es kann losgehen.
       </p>
 
-      <h3>Nun gehts zum Einrichten - gib dir Mühe! :)</h3>
+      <h3>Nun geht es zum Einrichten</h3>
       <p>
-        Die Locationseite ist dein Aushängeschild im Grätzl. Die größte Aufmerksamkeit bekommst du,
-        wenn du dir bewußt machst, dass du als Mensch mit anderen Menschen sprichst.
+        Das Schaufenster ist dein Aushängeschild <%= t("region.#{current_region.id}.in_your_region") %>.
+        Die größte Aufmerksamkeit bekommst du, wenn du dir bewusst machst, dass du als Mensch mit anderen Menschen sprichst.
         Und: Persönlichkeit ist der Joker!
+    </p>
+      <p>
+        <b>Also ganze Sätze schreiben. Mehr Informationen und deine Expertise einfließen lassen. Gerne auch etwas von dir persönlich erzählen z.B. über deinen Background.</b>
       </p>
       <p>
-        <b>Also ganze Sätze schreiben. Mehr Informationen und deine Expertise einfließen lassen.
-          Gerne auch immer mal wieder etwas von dir persönlich erzählen.</b>
-      </p>
-      <p>
-        Wenn du nichts über dich erzählst, deine Spezialität nicht hervorhebst,
-        dann nützt dir auch die Seite nichts, da steht ja dann nichts drauf.
-        Solche Seiten schalten wir natürlich auch nicht frei, sondern geben in solchen
-        Fällen noch einmal individuelle Hinweise, was man verbessern könnte.
-        Wir wollen schließlich, dass alle schreien vor Glück, weil es so tolle Dinge
-        in ihrem Grätzl gibt &#x1f609;
+        Wenn du nichts über dich erzählst, deine Spezialität nicht hervorhebst, dann nützt dir auch die Seite nichts.
+        Solche Seiten schalten wir nicht frei, sondern geben in solchen Fällen noch einmal individuelle Hinweise,
+        was man verbessern könnte. Wir wollen schließlich, dass sich Menschen auch für dich,
+        dein Tun und deine Angebote interessieren &#x1f609;
       </p>
 
       <h3>Ein paar Tipps zu den einzelnen Feldern:</h3>
@@ -72,7 +68,7 @@
       </p>
       <p>
         <em><strong>Slogan:</strong></em><br>
-        In einem kurzen Satz deine Expertise oder was dich ausmacht, was du anbietest.
+        In einem kurzen Satz deine Expertise, was du anbietest.
       </p>
       <p>
         <em><strong>Beschreibung:</strong></em><br>
@@ -80,59 +76,56 @@
       </p>
       <p>
         <em><strong>Produktgruppen / Tags:</strong></em><br>
-        Weniger ist mehr, übertreibs nicht! Hier geht’s weniger darum alles, was du anbietest in allen Ausführungen aufzulisten, sondern in einigen wenigen guten Oberbegriffen dein Angebot zu beschreiben – Der Vorteil: Man sieht auf einem Blick was du tust:
-        Gute Begrifflichkeiten sind z.b. Schmuck, Design, Yoga, Fotografie, Mode, Kunst, Workshops, Coaching, usw... Also einfach 4-5 gute Oberbegriffe angeben. Ganze Sätze sind hier fehl am Platz...
+        Weniger ist mehr, übertreibs nicht! Hier geht’s weniger darum alles, was du anbietest in allen Ausführungen aufzulisten,
+        sondern in einigen wenigen guten Oberbegriffen dein Angebot zu beschreiben – Der Vorteil: Man sieht auf einem Blick was du tust:
+        Gute Begrifflichkeiten sind z.b. Schmuck, Design, Yoga, Fotografie, Mode, Kunst, Workshops, Coaching, usw...
+        Also einfach 4-5 gute Oberbegriffe angeben. Ganze Sätze sind hier fehl am Platz...
       </p>
       <p>
         <em><strong>Bilder:</strong></em><br>
-        Tja, Bilder sind nun mal der erste Eindruck, der erste Blickfang! Daher: Schau darauf, dass diese was hermachen. Sie müssen nicht unbedingt professionell sein, aber sie sollten jedenfalls nicht zu klein sein, und natürlich sollen sie ins Format passen. Die idealen Abmessungen sind:
+        Tja, Bilder sind nun mal der erste Eindruck, der erste Blickfang!
+        Daher: Schau darauf, dass diese was hermachen. Sie müssen nicht unbedingt professionell sein,
+        aber sie sollten jedenfalls nicht zu klein sein, und natürlich sollen sie ins Format passen.
+        Die idealen Abmessungen sind:
       </p>
       <p>
         <strong>- Coverphoto</strong>: Querformat – Ideal, ca. 1.000 mal 400 Pixel<br>
         <strong>- Profilbild</strong>: Quadratisch – Mindestens 500 mal 500 Pixel
       </p>
       <p>
-        Solltest du Hilfe bei den Bildern oder auch sonst beim Einrichten deiner Locationseite benötigen, schreib uns an <a href="mailto:wir@imgraetzl.at" target="_blank">wir@imgraetzl.at</a> - Gemeinsam bekommen wir deine Seite top hin!
+        Solltest du Hilfe bei den Bildern oder auch sonst Unterstützung beim Einrichten deines Schaufensters benötigen,
+        schreib uns an <%= t("region.#{current_region.id}.contact_email") %> - Gemeinsam bekommen wir das hin!
       </p>
     </article>
 
     <article class="container" id="two">
       <h2 id="neuigkeiten">Neuigkeiten veröffentlichen</h2>
 
-      <h3>Treffen & Neuigkeiten auf deiner Locationseite veröffentlichen – So gehts!</h3>
+      <h3>Treffen & Neuigkeiten in deinem Schaufenster veröffentlichen – So geht’s!</h3>
       <p>
-        Für jedes Grätzl gibt’s einen täglichen Stadtteil-Newsletter (das Daily Grätzl-Mail),
-        in diesen kommst du mit deinen Inhalten rein. Wenn du also Treffen erstellst oder
-        Neuigkeiten auf deinem Schaufenster veröffentlichst, dann landest du automatisch
-        am nächsten Tag im Daily-Grätzl Mail.
+        Für jede Region gibt es einen automatisierten Newsletter, in diesen kommst du mit deinen Inhalten rein.
+        Wenn du also Treffen erstellst oder Neuigkeiten in deinem Schaufenster veröffentlichst,
+        dann landest du damit automatisch im <%= t("region.#{current_region.id}.domain_short") %> Mail.
+        <br><br>
+        Diese tolle Möglichkeit funktioniert nur, wenn dir bewusst ist, dass am anderen Ende des Newsletters
+        echte Menschen (BewohnerInnen aus deiner Region) sitzen, die deine Inhalte lesen.
       </p>
       <p>
-        <em><strong>Verlockend gell? Aber jetzt kommt der Clou – Lies weiter bevor du in die Tasten haust:</strong></em><br>
-        Diese tolle Möglichkeit funktioniert nur, wenn dir bewusst ist, das am anderen Ende des Newsletters echte Menschen (Bewohner aus deinem Grätzl) sitzen, die deine Inhalte lesen.
-      </p>
-      <p>
-        <strong>Deswegen achte auf die Frequenz deiner Updates und vorallem deine Inhalte.</strong> Es bringt nichts jeden Tag irgendetwas kundzutun oder auf einmal 20 Treffen für die nächsten Monate zu erstellen. Damit schadest du dir und deinem Grätzl.
-      </p>
-      <p>
-        Mirjam hat einen tollen kurzen Beitrag dazu geschrieben: „<strong>So rückst du dich ins beste Licht … kommuniziere von Mensch zu Mensch</strong>“. <a href="https://blog.imgraetzl.at/allgemein/so-rueckst-du-dich-ins-beste-licht/" target="_blank">Lies mal rein</a>.
+        <strong>Deswegen achte auf die Frequenz deiner Updates und auf deine Inhalte.</strong> Es bringt nichts jeden Tag irgendetwas kundzutun oder auf einmal 20 Treffen für die nächsten Monate zu erstellen. Damit schadest du dir selber, weil deine Einträge dann als Spam wahrgenommen werden.
       </p>
 
       <h3>Wofür sind also nun Treffen geeignet?</h3>
       <p>
-        Wenn du etwas veranstaltest, einen Workshop, ein Event, einen Schnupperkurs, oder sonst etwas was real im Grätzl stattfindet, dann kannst du hierfür ein Treffen erstellen.
-      </p>
-      <p>
-        Was du nicht tun solltest, wäre jetzt auf einmal all deine Termine der nächsten Monate zu veröffentlichen – Damit verschießt du dein Pulver. Niemand wird sich in 8 Wochen mehr daran erinnern, was morgen im Daily-Gräzl Mail steht.
-        <strong>Daher lieber weniger, ab und an mal etwas und dafür mit deiner persönlichen Note :)</strong>
+        Wenn du etwas organisierst: einen Workshop, - ein Event, einen Schnupperkurs, oder sonst etwas was real oder digital <%= t("region.#{current_region.id}.in_region") %> stattfindet - dann kannst du hierfür ein Treffen kostenlos erstellen.
       </p>
 
       <h3>Und wofür sind Neuigkeiten geeignet?</h3>
       <p>
-        Die erste tolle Neuigkeit ist, dass es dich überhaupt gibt! Sprich: sag mal kurz “Hallo” in dein Grätzl, stell dich kurz vor.
-      </p>
-      <p>
-        <strong>Neuigkeiten sind kurze Geschichten, die man gerne liest:</strong><br>
-        Zum Beispiel, wenn du ein neues Label in dein Sortiment aufnimmst, dann kannst du hier ein paar Background Infos zum Label schreiben. Oder, wenn du auf Entspannungstechniken spezialisiert bist, dann könntest du dort passend zur Jahreszeit Tipps geben. Teile dein Wissen, das muss gar kein langer Text sein, auch kurze Beiträge bringen dich ins Gedächtnis.
+        <strong>Neuigkeiten sind kurze Updates:</strong><br>
+        Zum Beispiel, wenn du ein neues Label in dein Sortiment aufnimmst, dann kannst du hier ein paar Infos zum neuen Label schreiben.
+        Oder, wenn du eine neue Dienstleistung anbietest oder etwas Neues startest.
+        Eine Neuigkeit muss kein langer Text sein, auch kurze Beiträge bringen dich ins Gedächtnis.
+        Wenn du Neuigkeiten veröffentlichst, dann wird dein Schaufenster dadurch ganz nach oben bei “Anbieter & Macher*innen” gelistet.
       </p>
      </article>
 

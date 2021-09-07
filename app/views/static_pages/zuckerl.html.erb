@@ -20,26 +20,24 @@
       <div class="left">
         <p>
           <strong>Das Zuckerl</strong> erscheint jeden Monat neu und enthält besondere Angebote,
-          Gutscheine & Rabattaktionen von grätzlansässigen Kreativen, Selbständigen und
-          kleinen Unternehmen.
+          Gutscheine & Rabattaktionen von Kreativen, Selbständigen und kleinen Unternehmen <%= t("region.#{current_region.id}.from_your_graetzl") %>.
         </p>
         <p>
           Mit dem Zuckerl wollen wir besonders Angebote der
           lokalen Unternehmen bei den Bewohnern ins Scheinwerferlicht rücken und
-          gleichzeitig mithelfen, die lokalen Wirtschaftskreisläufe im Grätzl zu beleben.
-          <strong>Kurz gesagt:</strong> mit dem Zuckerl kannst du Werbung für dich und deine Angebote
-          gezielt in deinem Bezirk schalten und die Bewohner in deinem Einzugsgebiet erreichen.
+          gleichzeitig mithelfen, die lokalen Wirtschaftskreisläufe <%= t("region.#{current_region.id}.in_graetzl") %> zu beleben.
         </p>
         <p>
-          <strong>Seit Kurzem gibt es auch das <%= current_region %> Zuckerl.</strong> Dieses läuft dann in allen Bezirken und Grätzln auf der Plattform - Also 1 Monat die volle Sichtbarkeit für dich auf imGrätzl :)
+          <strong>Kurz gesagt:</strong> mit dem Zuckerl hast du die Möglichkeit günstig, einfach und unkompliziert Werbung für dein spezielles
+            Angebot <%= t("region.#{current_region.id}.in_your_graetzl") %><%= ', Bezirk' if current_region.use_districts? %> oder in ganz <%= current_region %> zu schalten.
         </p>
       </div>
       <div class="right">
 
         <div class="zuckerlcard">
           <div class="wrp">
-            <h3>Mit dem Zuckerl kannst Du Werbung für dein Angebot in deinem Grätzl & Bezirk schalten</h3>
-            <%= link_to 'Jetzt Zuckerl buchen', new_zuckerl_path, class: 'btn-primary -rose' %>
+            <h3>Schalte jetzt dein Zuckerl für den Monat <%= I18n.localize Time.now.end_of_month+1.day, format: '%B' %>.</h3>
+            <%= link_to 'Jetzt Zuckerl buchen', new_zuckerl_path, class: 'btn-primary -rose -shadow' %>
           </div>
         </div>
       </div>
@@ -52,16 +50,17 @@
   <div class="wrp">
     <h3>Wo erscheint das Zuckerl?</h3>
     <p>
-      Je nach eingestellter Sichtbarkeit deines Zuckerls (Bezirk oder <%= current_region %>), erscheint dein Angebot in deinem Bezirk und allen zugehörigen Grätzln, oder sogar in ganz <%= current_region %>.
-      Ausserdem werden Zuckerln in die jeweiligen Grätzl-Streams gestreut und erscheinen auch in den wöchentlichen Grätzl-Mails an die NutzerInnen.
+      Je nach eingestellter Sichtbarkeit deines Zuckerls (<%= t("region.#{current_region.id}.zuckerl.graetzl") %> oder <%= t("region.#{current_region.id}.region") %>),
+      erscheint dein Angebot <%= t("region.#{current_region.id}.zuckerl.visibility_graetzl") %> auf <%= t("region.#{current_region.id}.domain_full") %>, oder sogar in ganz <%= current_region %>.
+      Ausserdem werden Zuckerln in die jeweiligen <%= t("region.#{current_region.id}.graetzl") %>-Streams gestreut und erscheinen auch in den wöchentlichen <%= t("region.#{current_region.id}.graetzl") %>-Newslettern an die NutzerInnen.
     </p>
   </div>
 
   <div class="wrp">
     <h3>Was kostet das Zuckerl?</h3>
     <p>
-      Ein Zuckerl mit der Sichtbarkeit <strong>"Bezirk" kostet <%= number_to_currency(Zuckerl.price / 100) %></strong> (inkl. 20% USt.).<br>
-      Ein Zuckerl mit der Sichtbarkeit <strong>"ganz <%= current_region %>" kostet <%= number_to_currency(Zuckerl.region_price / 100) %></strong> (inkl. 20% USt.).
+      Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.graetzl") %>" kostet <%= number_to_currency(Zuckerl.price(current_region) / 100) %></strong> (inkl. 20% USt.).<br>
+      Ein Zuckerl mit der Sichtbarkeit <strong>"ganz <%= current_region %>" kostet <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong> (inkl. 20% USt.).
     </p>
   </div>
 
@@ -72,20 +71,23 @@
 
   <div class="wrp">
     <h3>Wie kann ich mein gebuchtes Zuckerl bearbeiten?</h3>
-    <p>Du findest deine gebuchten Zuckerl im Zuckerl-Setup. Solange dein Zuckerl noch nicht aktiv läuft, kannst du dieses dort auch bearbeiten. Wenn dein Zuckerl einmal im gebuchten Monat aktiv ist, kann es nicht mehr bearbeitet werden. Solltest du unbedingt noch etwas ändern müssen, so kontaktiere uns unter: <a href="mailto:&#119;&#105;&#114;&#064;&#105;&#109;&#103;&#114;&#097;&#101;&#116;&#122;&#108;&#046;&#097;&#116;">&#119;&#105;&#114;&#064;&#105;&#109;&#103;&#114;&#097;&#101;&#116;&#122;&#108;&#046;&#097;&#116;</a>. Löschen kannst du dein Zuckerl natürlich jederzeit.</p>
+    <p>
+      Du findest deine gebuchten Zuckerl unter "<%= link_to 'Buchungen verwalten', zuckerls_user_path %>". Solange dein Zuckerl noch nicht aktiv läuft, kannst du dieses dort auch bearbeiten. Wenn dein Zuckerl einmal im gebuchten Monat aktiv ist, kann es nicht mehr bearbeitet werden. Solltest du unbedingt noch etwas ändern müssen, so kontaktiere uns unter: <%= t("region.#{current_region.id}.contact_email") %>.
+      Löschen kannst du dein Zuckerl natürlich jederzeit.
+    </p>
   </div>
 
   <div class="wrp">
-    <h3>Warum brauche ich eine Locationseite zum schalten eines Zuckerls?</h3>
-    <p>Deine Locationseite ist dein persönliches Schaufenster für dich und deine Angebote im Grätzl und somit auch der Absender deines Zuckerls. Das virtuelle Schaufenster ist kostenlos und geht ganz easy einzurichten - Einfach Name, Beschreibung und Bild hochladen, danach schalten wir deine Seite frei und du kannst dein Zuckerl schon buchen.</p>
-    <p>Über deine Locationseite kannst du aber nicht nur Zuckerl schalten, sondern hast darüber hinaus noch weitere Werkzeuge um Sichtbarkeit in deinem Grätzl zu bekommen. Du kannst Treffen oder Termine kundtun, Neuigkeiten einstellen und vieles mehr. Richte dir <%= link_to 'gleich hier', new_location_path %> deine Seite ein.</p>
+    <h3>Warum brauche ich ein virtuelles Schaufenster zum schalten eines Zuckerls?</h3>
+    <p>Das Schaufenster ist dein persönliches Aushängeschild für dich und deine Angebote <%= t("region.#{current_region.id}.in_region") %> und somit auch der Absender deines Zuckerls. Das virtuelle Schaufenster ist kostenlos und geht ganz easy einzurichten - Einfach Name, Beschreibung und Bild hochladen, danach schalten wir deine Seite frei und du kannst dein Zuckerl schon buchen.</p>
+    <p>Über dein virtuelles Schaufenster kannst du aber nicht nur Zuckerl schalten, sondern hast darüber hinaus noch weitere Werkzeuge um Sichtbarkeit <%= t("region.#{current_region.id}.in_your_region") %> zu bekommen. Du kannst Treffen oder Termine kundtun, Neuigkeiten einstellen und vieles mehr. Richte dir <%= link_to 'gleich hier', new_location_path %> dein Schaufenster ein.</p>
   </div>
 
   <div class="wrp">
     <h3>Wo finde ich eine Mwst Rechnung für mein Zuckerl?</h3>
     <p>
-      Nachdem dein Zuckerl bezahlt wurde, senden wir dir eine Rechnung per E-Mail zu.
-      Du kannst aber auch nachträglich eingeloggt im Bereich "<%= link_to 'Zuckerl verwalten', zuckerls_user_path %>" deine Zuckerl Rechnungen downloaden. (Dies geht für alle Zuckerl, die nach dem 01.11.2019 erstellt wurden.)
+      Nachdem dein Zuckerl bezahlt wurde, senden wir dir deine Rechnung per E-Mail zu.
+      Du kannst aber auch nachträglich eingeloggt im Bereich "<%= link_to 'Buchungen verwalten', zuckerls_user_path %>" deine Zuckerl Rechnungen downloaden.
     </p>
   </div>
 
@@ -97,7 +99,7 @@
   <div class="wrp">
     <h3>Interesse, aber keine Idee für ein Zuckerl?</h3>
     <p>Wir helfen euch gerne dabei herauszufinden, welches eurer Angebote oder Aktionen ein schönes Zuckerl für die Bewohner sein könnte. Wir unterstützen euch auch beim Texten und beim Aussuchen von Bildmaterial.<br>
-    Schreib uns einfach, wir würden uns freuen, unsere Erfahrung in diesem Bereich an euch weitergeben zu dürfen. (<a href="mailto:&#119;&#105;&#114;&#064;&#105;&#109;&#103;&#114;&#097;&#101;&#116;&#122;&#108;&#046;&#097;&#116;">&#119;&#105;&#114;&#064;&#105;&#109;&#103;&#114;&#097;&#101;&#116;&#122;&#108;&#046;&#097;&#116;</a>)</p>
+    Schreib uns einfach, wir würden uns freuen, unsere Erfahrung in diesem Bereich an euch weitergeben zu dürfen. (<%= t("region.#{current_region.id}.contact_email") %>)</p>
   </div>
 
   <%= link_to 'Jetzt Zuckerl buchen', new_zuckerl_path, class: 'btn-primary -rose -large -shadow -bookzuckerl' %>

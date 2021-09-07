@@ -43,7 +43,7 @@ namespace :db do
           LOCATION: location.name,
           L_URL: Rails.application.routes.url_helpers.graetzl_location_path(graetzl, location),
           L_CATEGORY: location.location_category.try(:name),
-          L_PLZ: graetzl.districts.first.try(:zip),
+          L_PLZ: location.address_zip? ? location.address_zip : '',
           L_GRAETZL: graetzl.name,
           L_GR_URL: Rails.application.routes.url_helpers.graetzl_path(graetzl),
         }
@@ -100,7 +100,7 @@ namespace :db do
         USERROLE: user.business? ? 'business' : '',
         GRAETZL: user.graetzl.name,
         GR_URL: Rails.application.routes.url_helpers.graetzl_path(user.graetzl),
-        PLZ: user.graetzl.districts.first.try(:zip),
+        PLZ: user.address_zip? ? user.address_zip : '',
         USERNAME: user.username,
         PROFIL_URL: Rails.application.routes.url_helpers.user_path(user),
         SIGNUP: user.created_at,

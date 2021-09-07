@@ -110,7 +110,7 @@
 
       <br/>
 
-      Bei Fragen zu deiner Buchung sende uns bitte ein Mail an wir@imgraetzl.at
+      Bei Fragen zu deiner Buchung sende uns bitte ein Mail an <%= t("region.#{@user.region.id}.contact_email") %>
       <br/>
       Hier kannst du dein gebuchtes Zuckerl nochmals ansehen. Bitte beachte das du dafür eingeloggt sein musst:
       <br/><br/>
@@ -122,7 +122,7 @@
       <br/><br/>
 
       <strong>Vielen Dank und liebe Grüße,</strong><br/>
-      Dein Team von imGrätzl.at<br/>
+      Dein Team von <%= t("region.#{@user.region.id}.domain_full") %><br/>
 
     </td>
   </tr>

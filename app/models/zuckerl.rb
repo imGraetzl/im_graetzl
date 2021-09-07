@@ -23,15 +23,13 @@ class Zuckerl < ApplicationRecord
   scope :this_month_live, lambda {where("created_at > ? AND created_at < ?", Time.now.beginning_of_month - 1.month, Time.now.end_of_month - 1.month).or(Zuckerl.live)}
   scope :next_month_live, lambda {where("created_at > ? AND created_at < ? AND aasm_state != ? AND aasm_state != ?", Time.now.beginning_of_month, Time.now.end_of_month, 'live', 'cancelled')}
 
-  GRAETZL_PRICE = 16_50
-  ENTIRE_REGION_PRICE = 175_00
 
-  def self.price
-    GRAETZL_PRICE * 1.2
+  def self.price(region)
+    region.zuckerl_graetzl_price * 1.2
   end
 
-  def self.region_price
-    ENTIRE_REGION_PRICE * 1.2
+  def self.region_price(region)
+    region.zuckerl_entire_region_price * 1.2
   end
 
   aasm do
@@ -94,7 +92,7 @@ class Zuckerl < ApplicationRecord
   end
 
   def basic_price
-    entire_region? ? ENTIRE_REGION_PRICE : GRAETZL_PRICE
+    entire_region? ? Zuckerl.region_price(region) / 1.2 : Zuckerl.price(region) / 1.2
   end
 
   def tax
