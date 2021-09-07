@@ -36,12 +36,12 @@
   <div class="mainContent">
 
     <article class="container" id="1">
-      <h2 id="worum-gehts">Worum geht es?</h2>
+      <h2 id="worum-gehts">Worum geht es beim Raumteiler?</h2>
       <h3>Gewerbeflächen teilen - Kosten teilen.</h3>
       <p>
         Raumsuchende und Raumhabende werden via Raumteiler miteinander verbunden.
-        Weg vom EinzelkämpferInnentum hin zu vielen kleinen Gemeinschaften und neuen
-        Raumpartnerschaften. Der Raumteiler ist eine Art WG-PartnerInnen Suche für Gewerbeflächen.
+        Weg vom EinzelkämpferInnentum hin zu vielen kleinen Gemeinschaften und neuen Raumpartnerschaften.
+        Der Raumteiler ist eine Art WG-PartnerInnen Suche für Gewerbeflächen.
         Es geht um <strong>Arbeitsräume, Geschäftslokale, Werkstätten, Büroräume, Praxen, Studios und
         Ateliers.</strong> Der Mensch steht dabei immer im Mittelpunkt.
         <ul>
@@ -53,10 +53,9 @@
       </p>
       <p>
         Wir trommeln übrigens für eure Räume und Raumgesuche auch auf unseren social Media Kanälen,
-        sie werden aufgenommen in das daily Grätzl Mail und zusätzlich dazu über den Raumteiler
-        Newsletter verteilt. Einen Raum mit anderen zu teilen, kann außerdem helfen Leerstand
-        zu verhindern, oder neu zu aktivieren. Und: Der Raumteiler fördert neue Formen der
-        Zusammenarbeit im Grätzl.
+        sie werden aufgenommen in das <%= t("region.#{current_region.id}.domain_short") %> Mail.
+        Einen Raum mit anderen zu teilen, kann außerdem helfen Leerstand zu verhindern, oder neu zu aktivieren.
+        Und: Der Raumteiler fördert neue Formen der Zusammenarbeit in der Region oder Stadt.
       </p>
     </article>
 
@@ -64,16 +63,27 @@
       <h2 id="buchung">Infos zur Buchung</h2>
       <h3>Für Raumhabende, die Kurzzeitmieten anbieten möchten:</h3>
       <p>
-        Du stellst ein, an welchen Tagen dein Raum verfügbar ist inkl. Angabe der Uhrzeiten. Du bestimmst, was der Raum pro Stunde kosten soll. Außerdem kannst du einstellen, wenn jemand den Raum z.B. mehrere Tage bucht, dass du dann einen Rabatt gewährst. Wenn dir jemand eine Buchungsanfrage schickt, kannst du zustimmen oder ablehnen. Wenn eine Buchung im Tool zustande kommt,  fallen bei der Buchung Paymentkosten und eine kleine Servicegebühr an, da bei jeder Buchung auch etwas Arbeit bei uns anfällt. Eine ganz große Bitte, damit es gut wird: Antwortet auf die Buchungsanfragen und haltet die verfügbaren Zeiten aktuell.
+        Du stellst ein, an welchen Tagen dein Raum verfügbar ist inkl. Angabe der Uhrzeiten.
+        Du bestimmst, was der Raum pro Stunde kosten soll. Außerdem kannst du einstellen,
+        wenn jemand den Raum z.B. mehrere Tage bucht, dass du dann einen Rabatt gewährst.
+        Wenn dir jemand eine Buchungsanfrage schickt, kannst du zustimmen oder ablehnen.
+        Wenn eine Buchung im Tool zustande kommt, fallen bei der Buchung Paymentkosten und
+        eine kleine Servicegebühr an, da bei jeder Buchung auch etwas Arbeit bei uns anfällt.
+        Eine ganz große Bitte, damit es für alle ein gutes Erlebnis wird:
+        Antwortet auf die Buchungsanfragen und haltet die verfügbaren Zeiten aktuell.
       </p>
+
       <h3>Für Raumhabende, die langfristige Raumpartnerschaften suchen:</h3>
       <p>
-        Du trägst im Raumteiler Formular deine Paketpreise ein z.B. der Raum zur alleinigen Nutzung in einem Studio kostet xyz€ pro Monat.
-        Die Option "Kurzzeitmiete" überspringst du.
+        Du trägst im Raumteiler Formular deine Paketpreise ein z.B. der Raum zur alleinigen Nutzung
+        in einem Studio kostet xyz€ pro Monat. Die Option "Kurzzeitmiete" überspringst du.
       </p>
+
       <h3>Kosten Kurzzeitmieten Tool:</h3>
       <p>
-        Die Erstellung und Veröffentlichung eines Raumteilergesuchs im Raumteiler ist immer kostenlos. Beim Raumteiler Kurzzeitmieten Tool wird erst dann eine Payment Provider Gebühr und eine Servicegebühr (7% von der Gesamtsumme) berechnet, sobald eine Buchung des Raumes erfolgt.
+        Die Erstellung und Veröffentlichung eines Raumteilergesuchs im Raumteiler ist immer kostenlos.
+        Beim Raumteiler Kurzzeitmieten Tool wird erst dann eine Payment Provider Gebühr und eine Servicegebühr (7% von der Gesamtsumme) berechnet,
+        sobald eine Buchung des Raumes erfolgt.
       </p>
     </article>
 
@@ -84,25 +94,15 @@
         <%= image_tag'info/Raumteiler-Guide-2019-Deckblatt.png', class: 'guide' %>
       </a>
       <p>
-        Wenn du Fragen rund ums Räume teilen hast, der "Raumteiler Guide" erklärt Schritt
-        für Schritt, was es beim Räume teilen und beim Andocken zu beachten gibt.
-        Enthalten sind außerdem Musterverträge und die wichtigsten Anlaufadresse in Wien.
+        Wenn du Fragen rund ums Räume teilen hast, der "Raumteiler Guide" erklärt Schritt für Schritt,
+        was es beim Räume teilen und beim Andocken zu beachten gibt.
+        Enthalten sind außerdem Musterverträge und die wichtigsten Anlaufadressen <%= t("region.#{current_region.id}.in_your_region") %>.
       </p>
       <br>
       <p>
         <a href="https://blog.imgraetzl.at/wp-content/uploads/2019/02/RaumteilerGuide2019.pdf" class="btn-primary -mint -download" id="guide-download">Raumteiler Guide gratis downloaden</a>
       </p>
-      <br>
-      <p style="clear:both;">
-        Wir kooperieren außerdem mit den <a href="https://www.kreativeraeumewien.at" target="_blank" class="partner">Kreativen Räumen Wien</a>
-        und der <a href="http://www.freielokale.at" target="_blank" class="partner">Wirtschaftskammer Wien - Freielokale.at</a>.
-        Das heißt eure Raumteiler Gesuche übergeben wir ggf. auch an diese PartnerInnen, wenn wir denken,
-        dass damit euer Raumwunsch vielleicht noch schneller in Erfüllung geht.
-      </p>
-      <p class="partner">
-        <%= link_to(image_tag('logo-krw.png'), 'https://www.kreativeraeumewien.at', target: '_blank', :class => 'krw') %>
-        <%= link_to(image_tag('logo-wkw.png'), 'http://www.freielokale.at', target: '_blank', :class => 'wkw') %>
-      </p>
+      <br style="clear:both;">
     </article>
 
     <article class="container" id="4">
@@ -117,10 +117,8 @@
     </article>
 
     <div>
-      Der Raumteiler auf imGrätzl.at ist Teil des F&amp;E Projektes
-      Mischung: Nordbahnhof (Lead TU Wien).<br>
-      Dieses Projekt wird aus Mitteln des Klima- und Energiefonds gefördert
-      und im Rahmen der Smart-Cities-Initiative durchgeführt.
+      Der Raumteiler auf <%= t("region.#{current_region.id}.domain_short") %> ist Teil des F&E Projektes Mischung: Nordbahnhof (Lead TU Wien).
+      <br>Dieses Projekt wurde aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen der Smart-Cities-Initiative durchgeführt.
     </div>
 
   </div>

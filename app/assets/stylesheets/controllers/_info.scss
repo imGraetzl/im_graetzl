@@ -1,12 +1,32 @@
-.filter-stream.-help {
+
+.filter-stream.-info {
   margin-bottom: -70px;
-  padding-top:40px;
+  padding-top:50px;
+  @include respond-to("<=medium") {
+    padding-top:30px;
+  }
+  background:none;
+  border: none;
+  &::after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+    z-index: 9;
+  }
 }
 
 section.info {
 
   position: relative;
   padding-bottom:50px;
+  @include respond-to("<=medium") {
+    padding-bottom:0px;
+  }
 
   .paperCard {
     .wrp {
@@ -378,7 +398,7 @@ section.info {
       }
     }
     // -- GRID -- //
-    
+
 
     article {
       display:flex;
@@ -413,6 +433,14 @@ section.info {
           text-align: left;
         }
       }
+
+      &:last-of-type {
+        margin-bottom: 0px !important;
+        &::after {
+          display: none;
+        }
+      }
+
       div.txt {
         p {
           padding-bottom:25px;
@@ -596,27 +624,12 @@ section.info {
     bottom:0 !important;
   }
 
-  .partner {
-    color: $color-ambient-grey;
-    img {
-      height:75px;
-      padding-right: 25px;
-    }
-    .nest img {
-      height:55px;
-      padding-top:20px;
-      padding-right: 25px;
-    }
-    .wkw img {
-      padding-top:20px;
-      height:75px;
-    }
-  }
   img.guide {
     width:210px;
     margin-bottom:20px;
     float:left;
   }
+  
   a.btn-primary {
     &.-download {
       align-items: center;

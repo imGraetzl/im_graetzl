@@ -35,10 +35,10 @@
         <strong>Wir bestätigen hiermit den Eingang deiner Zahlung und die erfolgreiche Buchung.</strong>
         Dein Zuckerl für das Schaufenster
         <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
-        ist somit im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform imGrätzl.at aktiv!
-        <br/><br/>Solltest du Fragen haben schick uns ein Mail an wir@imgraetzl.at.
+        ist somit im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform <%= t("region.#{@user.region.id}.domain_full") %> aktiv!
+        <br/><br/>Solltest du Fragen haben schick uns ein Mail an <%= t("region.#{@user.region.id}.contact_email") %>.
         <br/>
-        Dein Team von imGrätzl.at
+        Dein Team von <%= t("region.#{@user.region.id}.domain_full") %>
       </p>
 
       <%= render 'mailers/shared/button', title: "Zum Zuckerl", url: zuckerls_user_url(host: @zuckerl.region.host) %>

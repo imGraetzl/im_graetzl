@@ -94,14 +94,14 @@
     </p>
     <% if current_region %>
       <p class="link">
-        <%= link_to 'Mehr Infos', info_gruppen_path, :class => 'btn-primary -grey -inlineflex' %>
-        <%= link_to 'Zum Coop & Share Marktplatz', region_groups_path, :class => 'btn-primary -mint -inlineflex' %>
+        <%= link_to 'Mehr Infos', info_coop_share_path, :class => 'btn-primary -grey -inlineflex' %>
+        <%= link_to 'Zum Coop & Share Marktplatz', region_coop_demands_path, :class => 'btn-primary -mint -inlineflex' %>
       </p>
     <% end %>
   </div>
   <div class="aside -img -illu">
     <% if current_region %>
-      <%= link_to(image_tag('info/imGraetzl-Features-Gruppen.png'), region_groups_path) %>
+      <%= link_to(image_tag('info/imGraetzl-Features-Gruppen.png'), region_coop_demands_path) %>
     <% else %>
       <%= image_tag('info/imGraetzl-Features-Gruppen.png') %>
     <% end %>

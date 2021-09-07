@@ -18,6 +18,8 @@ class Region
     @area_coordinates = data[:area]
     @bound_coordinates = data[:bounds]
     @use_districts = data[:use_districts]
+    @zuckerl_graetzl_price = data[:zuckerl_graetzl_price]
+    @zuckerl_entire_region_price = data[:zuckerl_entire_region_price]
   end
 
   def to_s
@@ -41,6 +43,14 @@ class Region
 
   def bounds
     @bound_coordinates
+  end
+
+  def zuckerl_graetzl_price
+    @zuckerl_graetzl_price.to_f
+  end
+
+  def zuckerl_entire_region_price
+    @zuckerl_entire_region_price.to_f
   end
 
   def host

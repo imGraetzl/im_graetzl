@@ -52,7 +52,6 @@ ActiveAdmin.register RoomOffer do
   csv do
     column(:email) {|room| room.user.email if room.user }
     #column :slogan
-    #column(:plz) { |room| room.district.try(:zip) }
     #column(:category)  { |room| room.room_categories.map(&:name).join(", ") }
     #column :created_at
     column(:room_url) { |room| Rails.application.routes.url_helpers.room_offer_path(room)}

@@ -205,6 +205,7 @@ Rails.application.routes.draw do
 
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'info', to: 'static_pages#info'
+  get 'info/coop-share', to: 'static_pages#coop_demands'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
   get 'info/toolteiler', to: 'static_pages#toolteiler'
   get 'info/gruppen', to: 'static_pages#groups'

@@ -1,8 +1,23 @@
-<div class="filter-stream overthrow -scrollnav -help">
+<div class="filter-stream overthrow -scrollnav -info">
 
   <%= active_link_to info_path, class: "iconfilter" do %>
     <%= icon_tag "lightbulb" %>
-    <div class="txt">imGrätzl<br>Services</div>
+    <div class="txt">Services<br/>Übersicht</div>
+  <% end %>
+
+  <%= active_link_to info_anbieter_und_locations_path, class: "iconfilter" do %>
+    <%= icon_tag "location" %>
+    <div class="txt">Anbieter &<br/>MacherInnen</div>
+  <% end %>
+
+  <%= active_link_to info_events_und_workshops_path, class: "iconfilter" do %>
+    <%= icon_tag "calendar-2" %>
+    <div class="txt">Events & <br/>Workshops</div>
+  <% end %>
+
+  <%= active_link_to info_coop_share_path, class: "iconfilter -coopshare" do %>
+    <%= icon_tag "coop-share-white" %>
+    <div class="txt">Coop & Share<br/>Marktplatz</div>
   <% end %>
 
   <%= active_link_to info_raumteiler_path, class: "iconfilter" do %>
@@ -15,24 +30,9 @@
     <div class="txt">Tool<br/>teiler</div>
   <% end %>
 
-  <%= active_link_to info_gruppen_path, class: "iconfilter -coopshare" do %>
-    <%= icon_tag "coop-share-white" %>
-    <div class="txt">Gruppen</div>
-  <% end %>
-
-  <%= active_link_to info_anbieter_und_locations_path, class: "iconfilter" do %>
-    <%= icon_tag "location" %>
-    <div class="txt">Anbieter <br/>& Locations</div>
-  <% end %>
-
-  <%= active_link_to info_events_und_workshops_path, class: "iconfilter" do %>
-    <%= icon_tag "calendar-2" %>
-    <div class="txt">Events & <br/>Workshops</div>
-  <% end %>
-
   <%= active_link_to info_infos_zum_graetzlzuckerl_path, class: "iconfilter" do %>
     <%= icon_tag "shopping-bag" %>
-    <div class="txt">Zuckerl <br/>& Angebote</div>
+    <div class="txt">Zuckerl &<br/>Angebote</div>
   <% end %>
 
 </div>

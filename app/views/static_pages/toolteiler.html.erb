@@ -15,10 +15,10 @@
   <div class="paperCard -cord1RT container -top" id="zero">
     <div class="wrp">
       <p>
-        Mit dem Toolteiler möchten wir Selbstständigen, GründerInnen, MacherInnen und Kreativen eine Möglichkeit eröffnen Arbeitsequipment gegen eine Gebühr an andere lokale AkteurInnen in <%= current_region %> zu verleihen, das umfasst z.B. auch den Verleih von größeren Geräten am Arbeitsstandort.
+        Mit dem Toolteiler möchten wir eine Möglichkeit eröffnen Arbeitsequipment gegen eine Gebühr an andere lokale AkteurInnen <%= t("region.#{current_region.id}.in_region") %> zu verleihen, das umfasst z.B. auch den Verleih von größeren Geräten am Arbeitsstandort.
       </p>
       <p>
-        Mit dem Toolteiler bekommst du Zugriff auf Arbeitsequipment, das du nur temporär oder zum Start benötigst und zwar zu einem Bruchteil der Anschaffungskosten. Ressourcen werden mit dem Toolteiler mehrfach genutzt und die lokale Kreislaufwirtschaft wird gestärkt.
+        Mit dem Toolteiler bekommst du Zugriff auf Arbeitsequipment, das du nur temporär benötigst und zwar zu einem Bruchteil der Anschaffungskosten. Ressourcen werden mit dem Toolteiler mehrfach genutzt und Ressourcen geschont.
       </p>
     </div>
     <div class="card"></div>
@@ -40,12 +40,12 @@
 
       <h3>Du behältst immer die Kontrolle</h3>
       <p>
-        Du bestimmst  den Tages- oder Wochenpreis für dein Gerät. Es liegt ganz bei dir, ob du eine Mietanfrage annimmst oder einfach ablehnst.
+        Du bestimmst den Tages- oder Wochenpreis für dein Gerät. Es liegt ganz bei dir, ob du eine Mietanfrage annimmst oder einfach ablehnst.
       </p>
 
       <h3>Die Abwicklung übernehmen wir</h3>
       <p>
-        Die Buchung und die Geldverteilung erfolgt über imGrätzl, du musst dich um nichts kümmern, die Abwicklung des Mietvorgangs geht voll automatisiert.
+        Die Buchung und die Geldverteilung erfolgt über <%= t("region.#{current_region.id}.domain_short") %>, du musst dich um nichts kümmern, die Abwicklung des Mietvorgangs ist automatisiert.
       </p>
 
     </article>
@@ -54,7 +54,7 @@
       <h2 id="thema-2">Häufige gestellte Fragen & Infos</h2>
       <h3>Allgemein zum Toolteiler</h3>
       <ul class="toolteiler-faq">
-        <li>Verleiher von Arbeitsequipment und Leiher werden via Toolteiler auf imGrätzl.at miteinander verbunden.</li>
+        <li>Verleiher von Arbeitsequipment und Leiher werden via Toolteiler auf <%= t("region.#{current_region.id}.domain_short") %> miteinander verbunden.</li>
         <li>Der Ausleihvorgang, die Bezahlung und Geldverteilung erfolgt online über den Toolteiler.</li>
         <li>Die Übergabe der Geräte erfolgt persönlich, das erhöht die Sicherheit. Als zusätzliche Sichheitsmaßnahmen kannst du die MieterInnen bitten sich bei der Übergabe mit einem Ausweisdokument auszuweisen und du kannst eine Kaution verlangen. Bitte kommuniziere die Kaution immer auch in deinem Toolteiler.</li>
         <li>Stelle dein Arbeitsequipment in den Toolteiler rein, das du nicht rund um die Uhr selber benötigst und verdiene etwas dazu. Hast du Geräte am deinem Arbeitsplatz (z.B. einen Brennofen), die nicht laufend in Betrieb sind? Auch die Nutzung von größeren Geräten kannst du im Toolteiler anderen ermöglichen.</li>
@@ -65,9 +65,9 @@
       <h3>Rund ums Bezahlen</h3>
       <ul class="toolteiler-faq">
         <li>Verleiher bekommen nach dem Verleihende die Leihgebühr auf das hinterlegte Konto überwiesen, sobald der Verleiher angegeben hat im Toolteiler, dass das Gerät wieder zurückgegeben wurde. Die Auszahlung kann bis zu 5 Werktage dauern.</li>
-        <li>Ausleiher stehen zwei Bezahlformen zur Verfügung: Kreditkarte und KLARNA.</li>
+        <li>Ausleiher stehen zwei Bezahlformen zur Verfügung: Kreditkarte und EPS Überweisung.</li>
         <li>Die Leihgebühr wird eingezogen, sobald der Verleihvorgang aktiviert wurde und zwar indem der Ausleiher der konkreten Leihanfrage zusagt.</li>
-        <li>Bei jedem Verleihvorgang wird eine Servicegebühr von uns erhoben. imGrätzl bietet viele kostenlose Services an und ihr tragt mit der Servicegebühr dazu bei, dass die laufenden Plattformkosten gedeckt werden können. Großes Dankeschön an der Stelle!</li>
+        <li>Bei jedem Verleihvorgang wird eine Servicegebühr von uns erhoben. <%= t("region.#{current_region.id}.domain_short") %> bietet viele kostenlose Services an und ihr tragt mit der Servicegebühr dazu bei, dass die laufenden Plattformkosten gedeckt werden können. Großes Dankeschön an der Stelle!</li>
         <li>Die Servicegebühr wird aufgeteilt zwischen Verleiher und Leihenden: es werden beiden Parteien jeweils 6,5 % des Mietpreises verrechnet. Zusätzlich dazu wird die Umsatzsteuer auf die Service Fee ausgewiesen.</li>
       </ul>
 
@@ -77,18 +77,18 @@
           Du hast ein Gewerbe? Unter § 32 Abs. 1 Z 10 der Gewerbeordnung steht dazu:<br><br>
           <em class="quote">Weiters wird ein allgemeines Recht aller Gewerbetreibenden bestimmt, Waren zu vermieten und zu vermitteln, wobei es unerheblich ist, ob die Waren in einem sachlichen Zusammenhang mit der Haupttätigkeit des Gewerbetreibenden stehen oder nicht. Bei der Vermittlung ist es irrelevant, ob tatsächlich ein Kaufvertrag zwischen den Vertragspartnern zustande kommt. Link: <%= link_to 'https://www.wko.at/service/wirtschaftsrecht-gewerberecht/sonstige-rechte-nebenrechte-gewerbetreibende.html', 'https://www.wko.at/service/wirtschaftsrecht-gewerberecht/sonstige-rechte-nebenrechte-gewerbetreibende.html' %></em>
           <br>
-          Falls ihr Fragen dazu habt, erkundigt euch bitte dazu bei der Wirtschaftskammer Wien.
+          Falls ihr Fragen dazu habt, erkundigt euch bitte dazu bei der Wirtschaftskammer.
         </li>
       </ul>
 
       <h3>Transaktionsbelege für Privatpersonen, Kleingewerbe, größere Unternehmen ...</h3>
       <ul class="toolteiler-faq">
-        <li>Du kannst Transaktionsbelege ganz einfach für alle deine Verleihvorgänge herunterladen. Log dich über imGrätzl.at ein und gehe zu Deinem Buchungsarchiv. Hier findest du eine Liste mit allen Zahlungen und Einnahmen, die du über den Toolteiler gemacht hast, inklusive Link zum Download des Transaktionsbelegs. Die Transaktionsbelege haben eine rechtliche Gültigkeit und können auch als Abrechnung genutzt werden.</li>
+        <li>Du kannst Transaktionsbelege ganz einfach für alle deine Verleihvorgänge herunterladen. Log dich über <%= t("region.#{current_region.id}.domain_short") %> ein und gehe zu Deinem Buchungsarchiv. Hier findest du eine Liste mit allen Zahlungen und Einnahmen, die du über den Toolteiler gemacht hast, inklusive Link zum Download des Transaktionsbelegs. Die Transaktionsbelege haben eine rechtliche Gültigkeit und können auch als Abrechnung genutzt werden.</li>
         <li>Wenn du Einnahmen über den Toolteiler generierst, dann musst du diese Einnahmen auch steuerlich berücksichtigen, bitte sprich dazu mit deinem Steuerberater.</li>
         <li>
-          Der Toolteiler richtet sich vor allem an Kleingewerbetreibende, KünstlerInnen, Vereine und Privatpersonen. Kleingewerbetreibende bis 30.000 € Jahresumsatz sind von der Umsatzsteuer befreit, deshalb wird die Umsatzsteuer auf den Mietpreis nicht in den automatisierten Transaktionsbelegen ausgewiesen. Eine Rechnung mit ausgewiesener Umsatzsteuer kann nur vom Vermieter selber erstellt werden, da sie auch individuelle Informationen enthält wie z.B. eine Rechnungsnummer. Bitte den Vermieter dir eine Rechnung mit ausgewiesener Umsatzsteuer zu stellen: Der Betrag, den der Mieter über die Plattform bezahlt hat, muss als Rechnungsbetrag eingetragen werden. Diese Information ist im Toolteiler Buchungsarchiv zu finden. Vergiss nicht, alle Informationen der Anmietung auf der Rechnung anzugeben, darunter fallen der Name des Mieters, Adresse, Details zum Mietgerät, Anzahl Tage, Rechnungsnummer und Datumsangaben.
+          Der Toolteiler richtet sich vor allem an Kleingewerbetreibende, KünstlerInnen, Vereine und Privatpersonen. Kleingewerbetreibende bis 35.000 € Jahresumsatz sind von der Umsatzsteuer befreit, deshalb wird die Umsatzsteuer auf den Mietpreis nicht in den automatisierten Transaktionsbelegen ausgewiesen. Eine Rechnung mit ausgewiesener Umsatzsteuer kann nur vom Vermieter selber erstellt werden, da sie auch individuelle Informationen enthält wie z.B. eine Rechnungsnummer. Bitte den Vermieter dir eine Rechnung mit ausgewiesener Umsatzsteuer zu stellen: Der Betrag, den der Mieter über die Plattform bezahlt hat, muss als Rechnungsbetrag eingetragen werden. Diese Information ist im Toolteiler Buchungsarchiv zu finden. Vergiss nicht, alle Informationen der Anmietung auf der Rechnung anzugeben, darunter fallen der Name des Mieters, Adresse, Details zum Mietgerät, Anzahl Tage, Rechnungsnummer und Datumsangaben.
           <br><br>
-          Als Beispiel eine Anmietung, bei der der Mieter 70 € bezahlt hat. Die Rechnung muss den zu versteuernden Betrag, die Höhe der Mehrwertsteuer und den Rechnungsbetrag, inklusive 20% Mehrwertsteuer enthalten. 
+          Als Beispiel eine Anmietung, bei der der Mieter 70 € bezahlt hat. Die Rechnung muss den zu versteuernden Betrag, die Höhe der Mehrwertsteuer und den Rechnungsbetrag, inklusive 20% Mehrwertsteuer enthalten.
           <br><br>
           - Zu besteuernder Betrag = 70,00 € / 1,20 = 58,33 €<br>
           - Höhe der Mehrwertsteuer = 58,33 € * 20% = 11,66 €<br>
@@ -98,11 +98,14 @@
 
       <h3>Gewerbliche Gerätevermieter?</h3>
       <ul class="toolteiler-faq">
-        <li>Der Toolteiler richtet sich vor allem an Kleingewerbetreibende, kleine Unternehmen, KünstlerInnen, Vereine und Privatpersonen, die nebenher ihre eigenen Arbeitsgeräte verleihen. Gewerbliche, also professionelle Gerätevermieter müssen spezielle Vorgaben beachten, werden gekennzeichnet und werden nach einer persönlichen Kontaktaufnahme und Prüfung für die Nutzung des Toolteilers ggf. freigeschaltet. Interesse? Bitte kontaktiert uns über <%= mail_to 'wir@imgraetzl.at' %>.</li>
+        <li>Der Toolteiler richtet sich vor allem an Kleingewerbetreibende, kleine Unternehmen, KünstlerInnen, Vereine und Privatpersonen, die nebenher ihre eigenen Arbeitsgeräte verleihen.
+          Gewerbliche, also professionelle Gerätevermieter, müssen spezielle Vorgaben beachten, werden gekennzeichnet und werden nach einer persönlichen Kontaktaufnahme und Prüfung für die Nutzung des Toolteilers ggf. freigeschaltet.
+          Interesse? Bitte kontaktiert uns über <%= t("region.#{current_region.id}.contact_email") %>.
+        </li>
       </ul>
 
       <h3>Hast Du Fragen?</h3>
-      <p>Bitte kontaktiere uns unter: <%= mail_to 'wir@imgraetzl.at' %></p>
+      <p>Bitte kontaktiere uns unter: <%= t("region.#{current_region.id}.contact_email") %></p>
 
     </article>
 
@@ -121,10 +124,7 @@
 
       <h3>Handwerk & Produktion</h3>
       <p>
-        z.B. Lötstation, PUK für Feinschweißen,
-        Kompressoren, Lupen, Werkbank, Galvanisierungsgerät, Kaltlichtleuchten, Fräse,
-        Mikroskope, elektrische Drehscheiben, Drehspindel, Hartschaumsäge, Kreisschneider, Klebepistolen,
-        Lasergravur und Schneidegerät, 3-D Drucker
+        z.B. Lötstation, PUK für Feinschweißen, Kompressoren, Lupen, Werkbank, Galvanisierungsgerät, Kaltlichtleuchten, Fräse, Mikroskope, elektrische Drehscheiben, Drehspindel, Hartschaumsäge, Kreisschneider, Klebepistolen, Lasergravur und Schneidegerät, 3-D Drucker
       </p>
 
       <h3>Kreativ- & Künstlerbedarf</h3>
@@ -149,8 +149,7 @@
 
       <h3>Gesundheit, Fitness, Wohlbefinden</h3>
       <p>
-        von mobile Massagestühlen (z.B. Shiatsu),
-        Klangschalen, Pilates Reformer, Yoga Geräte wie Aerial Aufhängung oder Yoga-Matten in höherer Stückzahl bis zu Sportgeräte, wie Handelsets, Vibrationsplatten, Trampolin oder Multifunktionsbank. Kosmetik und Friseurausstattung wie Make-up Stühle, Liegen, Bedampfer, mobiler Friseurstuhl.
+        von mobile Massagestühlen (z.B. Shiatsu), Klangschalen, Pilates Reformer, Yoga Geräte wie Aerial Aufhängung oder Yoga-Matten in höherer Stückzahl bis zu Sportgeräte, wie Handelsets, Vibrationsplatten, Trampolin oder Multifunktionsbank. Kosmetik und Friseurausstattung wie Make-up Stühle, Liegen, Bedampfer, mobiler Friseurstuhl.
       </p>
 
       <h3>Deko-Materialien</h3>
