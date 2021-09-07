@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="campaignUsers info help lp -startpage -landing">
+<section class="campaignUsers info help lp -startpage">
 
 
   <div class="imgHeader -fullwidth">
@@ -18,53 +18,24 @@
   </div>
 
 
-  <div class="hl-subtext -header">
+  <div class="hl-subtext -header-headline">
     <h1>WeLocally startet in Kürze.</h1>
-    <p>Wir freuen uns schon sehr darauf, euch persönlich kennenzulernen, liebe Macher*innen.</p>
+    <p>Sei von Anfang an dabei und gestalte WeLocally mit.</p>
+    <p><strong>Melde dich an für:</strong></p>
   </div>
 
-
-  <article class="container -team">
-    <div class="aside -img -mentoring">
-      <%= link_to(image_tag('lp/team.jpg'), root_path, class: '-feature') %>
-    </div>
-    <div class="txt">
-      <p>
-        Wir, das sind Mirjam, Lena und Michi. In Wien betreiben wir seit 2016 die gemeinwohlorientierte Plattform <%= link_to 'imGrätzl.at', 'https://www.imgraetzl.at', :target => "blank" %> zur Stärkung der Selbstständigen, Gründer*innen, Kulturschaffenden, Macher*innen und Vereine.
-        <br>
-        <strong>Die großartige Nachricht: wir dürfen nun die Plattform in zwei weitere Regionen ausrollen.</strong>
-      </p>
-    </div>
-  </article>
-
-
-
-  <div class="hl-subtext">
-    <h1><span>WeLocally startet</span> in folgenden Gebieten:</h1>
-  </div>
-  <div class="region-switch-icons">
-    <a class="region-button" href="/kaernten">
-      <div class="bigicontext-element">
-        <%= image_tag('campaign_users/kaernten/icon.png') %>
-      </div>
-      <div class="title">Kärnten</div>
-    </a>
-    <a class="region-button" href="/muehlviertel">
-      <div class="bigicontext-element">
-        <%= image_tag('campaign_users/muehlviertel/icon.png') %>
-      </div>
-      <div class="title">Mühlviertler Kernland</div>
-    </a>
+  <div class="region-switch">
+    <%= link_to 'Mühlviertler Kernland', '/muehlviertel', :class => 'btn-primary -rose -large -shadow' %>
+    <%= link_to 'Griffen, St. Andrä, Völkermarkt', '/kaernten', :class => 'btn-primary -rose -large -shadow' %>
   </div>
 
 
 
-  <div class="hl-subtext">
-    <h1><em>Möchtest du von Anfang an dabei sein?</em></h1>
-    <p>Dann trage dich gleich hier ein:</p>
+  <!--
+  <div class="hl-subtext -form-headline">
+    <h1><em>Was ist zu tun?</em></h1>
+    <p>Ganz einfach, melde dich über das Formular an. Wir melden uns dann bei dir, sobald es los geht.</p>
   </div>
-
-
   <%= form_for @campaign_user, url: url_for do |f| %>
     <%= form_errors_for @campaign_user if @campaign_user %>
     <%= hidden_field_tag :redirect_path, '/' %>
@@ -80,17 +51,7 @@
       <%= submit_tag "Absenden", class: 'btn-primary -mint -large' %>
     </div>
   <% end %>
-
-
-  <div class="section -fullwidth -fullwidth-welocally">
-    <div class="hl-subtext">
-      <h1><em>Über die Platform</em> WeLocally</h1>
-      <p><strong>Entdecke spannende Events, Workshops und die lokalen Anbieter*innen und Initiativen.</strong>
-      <br>
-      Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!</p>
-    </div>
-    <%= render 'campaign_users/info_services' %>
-  </div>
+  -->
 
 
 </section>

@@ -1,3 +1,4 @@
+// Navigation Adaptions
 body.welocally {
   .nav-dropdown-submenu {
     min-width: 250px;
@@ -10,17 +11,22 @@ body.welocally {
   }
 }
 
+// Campaign Pages
 section.campaignUsers {
 
   padding-bottom: 0px;
 
-  .-header {
+  .-header-headline {
     margin-top:60px;
-    margin-bottom:90px;
+    margin-bottom:60px;
     @include respond-to("<=medium") {
       margin-top:50px;
       margin-bottom:50px;
     }
+  }
+
+  .-form-headline {
+    margin-bottom:20px;
   }
 
   .-footer-headline {
@@ -28,30 +34,37 @@ section.campaignUsers {
   }
 
   .paperCard.-footer {
+    margin-top:70px;
     p {
       @include font-size-primaryFont('large');
     }
   }
 
-  .form-block .btn-primary {
-    width:100%;
-    margin:auto;
+  .form-block {
+    label {
+      min-width: 145px;
+    }
+    .btn-primary {
+      width:100%;
+      margin:auto;
+    }
   }
 
+
   section.kooperationspartner {
-    margin-top:60px;
-    h2 {
-      @include headlineBarbapapaMintDark;
-      margin: auto;
-      margin-bottom: 40px;
+
+    margin-top:40px;
+    @include respond-to(">=medium") {
+      margin-top:60px;
     }
+
     a {
       color: $color-ambient-grey;
       &:hover {
         color: $color-ambient-rosa;
       }
     }
-    .cardBox {
+    .cardBox, .sponsorBox {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -83,36 +96,45 @@ section.campaignUsers {
 
   &.-kaernten {
     section.kooperationspartner {
-      .cardBox {
+      .cardBox, .sponsorBox {
+
         flex-direction:row;
-        img {
-          width:60%;
-          @include respond-to(">=medium") {
-            width:40%;
-            margin-right: 30px;
-          }
+
+        h3 {
+          padding-bottom:0px;
         }
+
         div.wrp {
-          width:50%;
+          width:65%;
           text-align:left;
         }
         div.wrp.-img {
-          text-align: center;
-          @include respond-to(">=medium") {
-            text-align:right;
+          width:35%;
+          text-align: right;
+        }
+
+        img {
+          width:30%;
+        }
+
+        @include respond-to(">=medium") {
+          flex-wrap: nowrap;
+          img {
+            width:80%;
+            margin-right: 0px;
           }
         }
       }
-
     }
   }
 
-  &.-landing {
-    margin-bottom:-80px;
-  }
-
-  .region-switch-icons {
-    margin-bottom: 50px;
+  p.kooperation-txt {
+    @include font-size-primaryFont('large');
+    text-align: justify;
+    margin-bottom:30px;
+    @include respond-to(">=medium") {
+      margin-bottom:50px;
+    }
   }
 
   .imgHeader {
@@ -154,77 +176,13 @@ section.campaignUsers {
     }
   }
 
-  .region-switch-icons {
-
-    position: relative;
-    padding-bottom: 50px;
-
-    &::after {
-      content: '';
-      width: 100%;
-      height: 10px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 100%);
-      pointer-events: none;
-      z-index: 9;
-    }
-
+  .region-switch {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-
-    .bigicontext-element {
-      background-image: url(image_path('svg/kringel-grey-white.svg'));
-      justify-content: center;
-
-      height: 75px;
-      min-width: 75px;
-      max-width: 75px;
-
-      @include respond-to(">small") {
-        height: 105px;
-        min-width: 105px;
-        max-width: 105px;
-        background-size: 105px 105px;
-      }
-
-      img.region-ico {
-        width:65%;
-        height:auto;
-        margin:0;
-      }
-
+    .btn-primary {
+      margin:10px;
     }
-
-    a.region-button {
-      width:165px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      text-decoration: none;
-      color: $color-font-primary;
-      &:hover {
-        .bigicontext-element {
-          color: $color-font-primary;
-          background-image: url(image_path('svg/kringel-grey-rosa.svg'));
-        }
-        .title {
-          color: $color-ambient-rosa;
-        }
-      }
-    }
-
-    .title {
-      @include font-size-primaryFont('larger');
-      font-weight: bold;
-      margin-top:10px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-    }
-
   }
 
   .-fullwidth-welocally {
@@ -240,15 +198,15 @@ section.campaignUsers {
       margin: auto;
     }
 
-    .-register {
-      display: table;
-      margin: auto;
-    }
-
-    .hl-subtext {
+    .-feature-headline {
       max-width: 930px;
       margin: auto;
-      margin-bottom: 90px;
+      margin-top:20px;
+      margin-bottom:90px;
+      @include respond-to("<=medium") {
+        margin-top:10px;
+        margin-bottom:40px;
+      }
     }
 
     &::before {
@@ -280,6 +238,7 @@ section.campaignUsers {
     }
   }
 
+  // Feature Article List
   .-fullwidth-welocally article {
     margin-bottom: 70px !important;
     align-items: center;
@@ -291,18 +250,13 @@ section.campaignUsers {
     }
 
     @include respond-to("<=medium") {
+      margin-bottom: 30px !important;
+      padding-bottom: 10px !important;
       h2, h3 {
         text-align: center;
       }
       p {
         text-align: justify;
-      }
-    }
-
-    &.-team {
-      margin-bottom: 80px;
-      @include respond-to("<=medium") {
-        margin-bottom: 80px;
       }
     }
 

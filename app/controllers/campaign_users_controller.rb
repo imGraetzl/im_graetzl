@@ -17,7 +17,7 @@ class CampaignUsersController < ApplicationController
     @campaign_user = CampaignUser.new(campaign_user_params)
     if @campaign_user.save
       redirect_to params[:redirect_path]
-      flash[:notice] = "Vielen lieben Dank für deine Voranmeldung! In wenigen Wochen gehts los ..."
+      flash[:notice] = "Vielen lieben Dank für deine Voranmeldung! Wir melden uns bei dir, sobald es los geht."
     else
       render params[:campaign] || 'index'
     end
