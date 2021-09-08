@@ -75,7 +75,7 @@ APP.controllers.room_offers = (function() {
 
   function initRoomDetail() {
 
-    APP.components.leafletMap.init($('#leafletMap'));
+    if ($("#leafletMap").exists()) APP.components.leafletMap.init($('#leafletMap'));
 
     // Sidebar Button Click
     $('#requestRoomBtn').on('click', function(event){

@@ -30,7 +30,17 @@ APP.controllers.locations = (function() {
 
     function initLocationPage() {
 
-        APP.components.leafletMap.init($('#leafletMap'));
+        if ($("#leafletMap").exists()) APP.components.leafletMap.init($('#leafletMap'));
+
+        var mobCreate = new jBox('Modal', {
+          addClass:'jBox',
+          attach: '#editPage',
+          content: $('#jBoxEditPage'),
+          trigger: 'click',
+          closeOnClick:true,
+          blockScroll:true,
+          animation:{open: 'zoomIn', close: 'zoomOut'},
+        });
 
         // Sidebar Button Click
         $('#requestLocationBtn').on('click', function(event){
@@ -46,8 +56,6 @@ APP.controllers.locations = (function() {
         });
 
         $('.introtxt .txt').linkify({ target: "_blank"});
-        $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
-
         $('.autosubmit-stream').submit();
 
         // open comments if post hash exists

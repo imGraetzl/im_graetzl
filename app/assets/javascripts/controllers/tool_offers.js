@@ -42,7 +42,7 @@ APP.controllers.tool_offers = (function() {
 
     function initToolOfferDetails() {
 
-      APP.components.leafletMap.init($('#leafletMap'));
+      if ($("#leafletMap").exists()) APP.components.leafletMap.init($('#leafletMap'));
 
       $('.request-price-form').find(".date-from, .date-to").pickadate({
         hiddenName: true,

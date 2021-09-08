@@ -3,7 +3,7 @@ APP.controllers.meetings = (function() {
     function init() {
       if ($("section.meeting").exists()) {
         initMeetingDetail();
-        APP.components.leafletMap.init($('#leafletMap'));
+        if ($("#leafletMap").exists()) APP.components.leafletMap.init($('#leafletMap'));
       }
 
       if ($("section.create-meeting").exists()) {

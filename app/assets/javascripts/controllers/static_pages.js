@@ -76,8 +76,7 @@ function initHomeRegion() {
       }
 
   });
-  $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
-
+  
 }
 
 
