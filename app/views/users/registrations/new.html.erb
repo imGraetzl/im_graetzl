@@ -105,7 +105,7 @@
           <%= icon_tag "flag-1" %>
           <span><%= t("region.#{current_region.id}.graetzl") %></span>
         </label>
-        <%= f.select :graetzl_id, graetzl_select_options, { prompt: 'wählen', required: true },
+        <%= f.select :graetzl_id, graetzl_select_options, { include_blank: 'wählen', required: true },
             { class: 'address-graetzl-input' } %>
       </div>
     </div>
