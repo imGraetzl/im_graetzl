@@ -1,175 +1,53 @@
-body.welocally {
+// Navigation Adaptions
+body.welocally .navigation {
   .nav-dropdown-submenu {
     min-width: 250px;
   }
+  .nav-guest {
+    .icon {
+      fill: $color-ambient-mint-dark;
+      margin-left:12px;
+    }
+  }
 }
 
+// Campaign Pages
+section.campaignUsers {
 
+  padding-bottom: 0px;
 
-// OLD LANDINGPAGES ------------------
-// WeLocally Mühlviertler Kernland & Kärnten
-section.-campaignUsers {
-
-  .-header {
-    margin-top:70px;
-    margin-bottom:60px;
-  }
-
-  h3.team {
-    padding-top: 20px;
-    padding-bottom: 30px;
-    text-align: center;
-  }
-  article.-team {
-    flex-wrap: wrap;
-    .txt, .aside {
-      @include font-size-primaryFont('large');
-      text-align: justify;
-      p {
-        padding-bottom: 0px;
-      }
-      width:100%;
-      @include respond-to(">=medium") {
-        width:48%;
-      }
+  .-header-headline {
+    margin-top:60px;
+    margin-bottom:50px;
+    @include respond-to("<=medium") {
+      margin-top:50px;
+      margin-bottom:40px;
     }
   }
-  .-fullwidth-imgraetzl {
-    background-color: #eaf2f4;
-    padding:40px;
-    margin-bottom:40px;
 
-    .paperCard, .container {
-      max-width:1280px;
-      margin: auto;
-    }
-    .paperCard {
-      margin-bottom: 50px;
-      p {
-        @include font-size-primaryFont('large');
-      }
-    }
-    .container {
-      img {
-        border: 1px solid white;
-        border-radius: 8px;
-      }
-      .txt {
-        @include font-size-primaryFont('large');
-        text-align: justify;
-      }
-      a {
-        font-weight: bold;
-      }
-      p:last-of-type {
-        padding-bottom:0px;
-      }
-    }
-    .aside {
-      @include respond-to("<=medium") {
-        width:100%;
-      }
-    }
+  .-form-headline {
+    margin-bottom:20px;
   }
+
+  .-footer-headline {
+    margin-top: 50px;
+  }
+
   .paperCard.-footer {
+    margin-top:70px;
     p {
       @include font-size-primaryFont('large');
     }
   }
-  .form-block .btn-primary {
-    width:100%;
-    margin:auto;
-  }
-  .hint {
-    border-top: 1px solid $color-ambient-mint-light;
-    padding-top:15px;
-    margin-top:20px;
-    font-style: italic;
-    text-align: center;
-  }
-  section.kooperationspartner {
-    margin-top:60px;
-    h2 {
-      @include headlineBarbapapaMintDark;
-      margin: auto;
-      margin-bottom: 40px;
+
+  .form-block {
+    label {
+      min-width: 145px;
     }
-    a {
-      color: $color-ambient-grey;
-      &:hover {
-        color: $color-ambient-rosa;
-      }
+    .btn-primary {
+      width:100%;
+      margin:auto;
     }
-    .cardBox {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap:wrap;
-      flex-direction:column;
-      @include respond-to(">=medium") {
-        flex-direction:row;
-      }
-      img {
-        width:50%;
-        @include respond-to(">=medium") {
-          width:100%;
-        }
-      }
-      div.wrp {
-        width:100%;
-        text-align:center;
-        @include respond-to(">=medium") {
-          width:50%;
-          text-align:left;
-        }
-        padding:10px;
-        .links {
-          @include ellipsis;
-        }
-      }
-    }
-  }
-  &.-kaernten {
-    section.kooperationspartner {
-      .cardBox {
-        flex-direction:row;
-        img {
-          width:60%;
-          @include respond-to(">=medium") {
-            width:40%;
-            margin-right: 30px;
-          }
-        }
-        div.wrp {
-          width:50%;
-          text-align:left;
-        }
-        div.wrp.-img {
-          text-align: center;
-          @include respond-to(">=medium") {
-            text-align:right;
-          }
-        }
-      }
-
-    }
-  }
-}
-// OLD LANDINGPAGES ------------------
-
-
-
-
-section.campaignUsers {
-
-
-  padding-bottom: 0px;
-  &.-landing {
-    margin-bottom:-80px;
-  }
-
-  .region-switch-icons {
-    margin-bottom: 50px;
   }
 
   .imgHeader {
@@ -211,93 +89,19 @@ section.campaignUsers {
     }
   }
 
-  p.subline {
-    @include font-size-primaryFont('larger');
-    text-align: center;
-    margin-top:40px;
-    margin-bottom:35px;
-  }
-
-  .mail-hint {
-    font-style: italic;
-    text-align: center;
-    @include font-size-primaryFont('base');
-  }
-
-
-  .region-switch-icons {
-
-    position: relative;
-    padding-bottom: 50px;
-
-    &::after {
-      content: '';
-      width: 100%;
-      height: 10px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 100%);
-      pointer-events: none;
-      z-index: 9;
-    }
-
+  .region-switch {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-
-    .bigicontext-element {
-      background-image: url(image_path('svg/kringel-grey-white.svg'));
-      justify-content: center;
-
-      height: 75px;
-      min-width: 75px;
-      max-width: 75px;
-
-      @include respond-to(">small") {
-        height: 105px;
-        min-width: 105px;
-        max-width: 105px;
-        background-size: 105px 105px;
-      }
-
-      img.region-ico {
-        width:65%;
-        height:auto;
-        margin:0;
-      }
-
-    }
-
-    a.region-button {
-      width:165px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      text-decoration: none;
-      color: $color-font-primary;
-      &:hover {
-        .bigicontext-element {
-          color: $color-font-primary;
-          background-image: url(image_path('svg/kringel-grey-rosa.svg'));
-        }
-        .title {
-          color: $color-ambient-rosa;
-        }
+    .btn-primary {
+      margin:10px;
+      @include respond-to("<=medium") {
+        width:100%;
       }
     }
-
-    .title {
-      @include font-size-primaryFont('larger');
-      font-weight: bold;
-      margin-top:10px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-    }
-
   }
 
+  // Mint FeatureList Background
   .-fullwidth-welocally {
     background-color: #eaf2f4;
     padding:18px;
@@ -311,15 +115,15 @@ section.campaignUsers {
       margin: auto;
     }
 
-    .-register {
-      display: table;
-      margin: auto;
-    }
-
-    .hl-subtext {
+    .-feature-headline {
       max-width: 930px;
       margin: auto;
-      margin-bottom: 90px;
+      margin-top:20px;
+      margin-bottom:90px;
+      @include respond-to("<=medium") {
+        margin-top:10px;
+        margin-bottom:40px;
+      }
     }
 
     &::before {
@@ -336,23 +140,132 @@ section.campaignUsers {
 
   }
 
-  article {
+  // Feature Article List
+  .-fullwidth-welocally article {
     margin-bottom: 70px !important;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 
     .aside img {
       max-width: 90% !important;
       height: auto;
     }
 
-    &.-team {
-      margin-bottom: 80px !important;
+    @include respond-to("<=medium") {
+      margin-bottom: 30px !important;
+      padding-bottom: 10px !important;
+      h2, h3 {
+        text-align: center;
+      }
+      p {
+        text-align: justify;
+      }
+    }
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 75%);
+      pointer-events: none;
+      z-index: 9;
+    }
+    &:last-of-type {
+      margin-bottom: 0px !important;
+      &::after {
+        display: none;
+      }
     }
 
   }
 
-  .-footer-headline {
-    margin-top: 50px;
+  section.kooperationspartner {
+
+    margin-top:40px;
+    @include respond-to(">=medium") {
+      margin-top:60px;
+    }
+
+    a {
+      color: $color-ambient-grey;
+      &:hover {
+        color: $color-ambient-rosa;
+      }
+    }
+    .cardBox, .sponsorBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap:wrap;
+      flex-direction:column;
+      @include respond-to(">=medium") {
+        flex-direction:row;
+      }
+      img {
+        width:50%;
+        @include respond-to(">=medium") {
+          width:100%;
+        }
+      }
+      div.wrp {
+        width:100%;
+        text-align:center;
+        @include respond-to(">=medium") {
+          width:50%;
+          text-align:left;
+        }
+        padding:10px;
+        .links {
+          @include ellipsis;
+        }
+      }
+    }
+  }
+
+  &.-kaernten {
+    section.kooperationspartner {
+      .cardBox, .sponsorBox {
+
+        flex-direction:row;
+
+        h3 {
+          padding-bottom:0px;
+        }
+
+        div.wrp {
+          width:70%;
+          text-align:left;
+        }
+        div.wrp.-img {
+          width:30%;
+          text-align: right;
+        }
+
+        img {
+          width:40%;
+        }
+
+        @include respond-to(">=medium") {
+          flex-wrap: nowrap;
+          img {
+            width:80%;
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  p.kooperation-txt {
+    @include font-size-primaryFont('large');
+    text-align: justify;
+    margin-bottom:30px;
+    @include respond-to(">=medium") {
+      margin-bottom:50px;
+    }
   }
 
 }
