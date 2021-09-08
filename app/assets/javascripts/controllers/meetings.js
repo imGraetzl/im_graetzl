@@ -190,12 +190,19 @@ APP.controllers.meetings = (function() {
       // location field toggle
       $('.select-location-input').on('change', function() {
         var location = $(this).find("option:selected");
+        //if (!location.data("graetzl-id")) return;
         $('#meeting-offline-fields [name*="address_street"]').val(location.data("address-street"));
         $('#meeting-offline-fields [name*="address_coords"]').val(location.data("address-coords"));
         $('#meeting-offline-fields [name*="address_zip"]').val(location.data("address-zip"));
         $('#meeting-offline-fields [name*="address_city"]').val(location.data("address-city"));
         $('#meeting-offline-fields [name*="graetzl_id"]').val(location.data("graetzl-id"));
-      }).trigger('change');
+      });
+
+      // Trigger Location Toggle on load if location_id param is set
+      var location = APP.controllers.application.getUrlVars()["location_id"];
+      if (typeof location !== 'undefined') {
+        $('.select-location-input').trigger('change');
+      }
 
       // platform_meeting checkbox
       if ($("input:checkbox#meeting_platform_meeting_join_request_attributes_status").exists()) {
