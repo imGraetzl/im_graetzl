@@ -16,7 +16,7 @@ class MeetingsController < ApplicationController
   end
 
   def new
-    @meeting = current_user.initiated_meetings.build(group_id: params[:group_id])
+    @meeting = current_user.initiated_meetings.build(group_id: params[:group_id], location_id: params[:location_id])
     @meeting.graetzl = params[:graetzl_id].present? ? Graetzl.find(params[:graetzl_id]) : user_home_graetzl
     @meeting.build_platform_meeting_join_request
   end

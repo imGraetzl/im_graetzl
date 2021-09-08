@@ -14,21 +14,19 @@
     <%= avatar_image @location, class: 'locationAvatar' %>
     <%= cover_header_image(@location, class: 'titleImg') %>
     <% if @location.owned_by?(current_user) %>
-      <div class="bigicontext-element createentry" data-behavior="createTrigger">
+      <%= link_to 'javascript:', class: 'bigicontext-element createentry', id: 'editPage' do %>
         <%= icon_tag "dot-3" %>
-      </div>
-      <!-- dropDown -->
-      <div class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container" data-behavior="createContainer">
-        <div class="jq-dropdown-panel">
-          <%= link_to edit_location_path(@location) do %>
-            <%= icon_tag "pencil" %>
-            <div class="icontxt">Schaufenster bearbeiten</div>
-          <% end %>
-          <%= link_to new_location_zuckerl_path(@location) do %>
-            <%= icon_tag "shopping-bag" %>
-            <div class="icontxt">Zuckerl buchen</div>
-          <% end %>
-        </div>
+      <% end %>
+      <div class="jBoxHidden jBoxDropdown" id="jBoxEditPage">
+        <%= link_to edit_location_path(@location), class: 'icontxt' do %>
+          <%= icon_tag "pencil" %> Schaufenster bearbeiten
+        <% end %>
+        <%= link_to new_meeting_path(location_id: @location.id), class: 'icontxt' do %>
+          <%= icon_tag "calendar-2" %> Treffen erstellen
+        <% end %>
+        <%= link_to new_location_zuckerl_path(@location), class: 'icontxt' do %>
+          <%= icon_tag "shopping-bag" %> Zuckerl buchen
+        <% end %>
       </div>
     <% end %>
   </div>

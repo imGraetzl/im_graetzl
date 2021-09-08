@@ -4,7 +4,7 @@ APP.controllers.room_calls = (function() {
     if ($("section.room-call-form").exists()) initRoomForm();
     afterRegistration();
     afterCallSubmit();
-    APP.components.leafletMap.init($('#leafletMap'));
+    if ($("#leafletMap").exists()) APP.components.leafletMap.init($('#leafletMap'));
   }
 
   // Change Wording of Notice Message for Call Registrations

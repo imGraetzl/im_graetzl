@@ -58,7 +58,6 @@ APP.controllers.districts = (function() {
         }
 
     });
-    $('[data-behavior=createTrigger]').jqDropdown('attach', '[data-behavior=createContainer]');
   }
 
   return {
