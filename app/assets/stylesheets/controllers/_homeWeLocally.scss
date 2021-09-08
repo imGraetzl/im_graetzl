@@ -59,7 +59,12 @@ section.homeWeLocally {
   .region-switch-icons {
 
     position: relative;
-    padding-bottom: 50px;
+    padding-top:0px;
+    padding-bottom: 40px;
+    @include respond-to(">=medium") {
+      padding-top:10px;
+      padding-bottom: 60px;
+    }
 
     &::after {
       content: '';
@@ -77,21 +82,22 @@ section.homeWeLocally {
     justify-content: center;
 
     .bigicontext-element {
-      background-image: url(image_path('svg/kringel-grey-white.svg'));
+      background-image: url(image_path('svg/kringel-grey-mint.svg'));
       justify-content: center;
 
-      height: 75px;
-      min-width: 75px;
-      max-width: 75px;
+      height: 80px;
+      min-width: 80px;
+      max-width: 80px;
+      background-size: 80px 80px;
 
-      @include respond-to(">small") {
-        height: 105px;
-        min-width: 105px;
-        max-width: 105px;
-        background-size: 105px 105px;
+      @include respond-to(">=medium") {
+        height: 130px;
+        min-width: 130px;
+        max-width: 130px;
+        background-size: 130px 130px;
       }
 
-      img.region-ico {
+      svg {
         width:65%;
         height:auto;
         margin:0;
@@ -107,13 +113,19 @@ section.homeWeLocally {
       text-align: center;
       text-decoration: none;
       color: $color-font-primary;
+      .bigicontext-element {
+        //color: $color-ambient-rosa-dark;
+        color: $color-ambient-mint-dark;
+      }
       &:hover {
+        svg {
+          width:70%;
+        }
         .bigicontext-element {
-          color: $color-font-primary;
-          background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+          color: $color-ambient-rosa;
         }
         .title {
-          color: $color-ambient-rosa;
+          //text-decoration: underline;
         }
       }
     }
@@ -144,6 +156,9 @@ section.homeWeLocally {
     .-register {
       display: table;
       margin: auto;
+      @include respond-to(">=medium") {
+        margin-top:40px;
+      }
     }
 
   }

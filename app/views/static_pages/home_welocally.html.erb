@@ -22,7 +22,7 @@
     <% Region.all.each do |region| %>
       <%= link_to root_url(host: region.host), class: 'region-button' do %>
         <div class="bigicontext-element">
-          <%= image_tag("regions/#{region.id}/icon.png", class: 'region-ico', width:80, height:80) %>
+          <%= icon_tag "region-#{region.id}" %>
         </div>
         <div class="title"><%= region.name %></div>
       <% end %>
