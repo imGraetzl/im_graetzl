@@ -1,11 +1,5 @@
 section.homeRegion {
 
-  .graetzljump {
-    max-width: 500px;
-    margin:auto;
-    margin-bottom:50px;
-  }
-
   .filter-stream {
     margin-bottom: 50px;
 
@@ -81,20 +75,6 @@ section.homeRegion {
       display: block;
       margin-top: 2px;
     }
-
-    /*
-    &::before {
-      content: "";
-      position: absolute;
-      width:100%;
-      height:100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      z-index: -1;
-      background-size: 100% 100%;
-      background-image: url(image_path('supporter/boxBorder-quer.svg'));
-    }
-    */
 
     .-logo {
       img {

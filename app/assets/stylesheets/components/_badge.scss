@@ -111,17 +111,3 @@
     }
   }
 }
-
-.badgeregister {
-  display: block;
-  width: 200px;
-  height: 171px;
-  background-image: url(image_path('badge-anmelden.png'));
-  background-size: 200px 171px;
-  background-repeat: no-repeat ;
-  transition: transform 0.25s;
-  &:hover {
-    transform: translate(0, -10px);
-  }
-
-}
