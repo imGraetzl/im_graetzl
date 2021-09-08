@@ -14,7 +14,7 @@
   <!-- END mobile select menu -->
 
   <%= active_link_to region_index_path, class: "iconfilter" do %>
-    <%= icon_tag "map-location" %>
+    <%= icon_tag "region-#{current_region.id}" %>
     <div class="txt"><%= t("region.#{current_region.id}.region") %> <br/>Übersicht</div>
   <% end %>
 
