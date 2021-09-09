@@ -6,7 +6,7 @@ APP.components.addressInput = function() {
   if (container.length == 0) return;
 
   container.find('.address-autocomplete-input').autocomplete({
-    minChars: 3,
+    minChars: 4,
     deferRequestBy: 200,
     appendTo: container,
     forceFixPosition: true,
@@ -16,6 +16,7 @@ APP.components.addressInput = function() {
     onSearchComplete: checkResults,
     triggerSelectOnValidInput: true,
     onSelect: selectAddress,
+    //preventBadQueries:false,
   });
 
   container.find('.address-autocomplete-input').on("input", function() {
@@ -28,7 +29,7 @@ APP.components.addressInput = function() {
   function formatAddress(suggestion, currentValue) {
     var optionHtml = $.Autocomplete.defaults.formatResult(suggestion, currentValue);
     if (suggestion.data.graetzl_name) {
-      optionHtml += '<span>' + suggestion.data.graetzl_name + '</span>';
+      optionHtml += '<span>' + suggestion.data.zip + " - " + suggestion.data.graetzl_name + '</span>';
     }
     return optionHtml;
   }

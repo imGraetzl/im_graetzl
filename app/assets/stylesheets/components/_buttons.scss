@@ -233,31 +233,6 @@
   }
 }
 
-
-.nav-btnBar {
-  text-align: right;
-  display: flex;
-  justify-content: flex-end;
-  align-items: stretch;
-  > button, > a {
-    margin-left: 1rem;
-    display: inline-block;
-    flex: 0 0 auto;
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-
-  .wrp-btn {
-    button, a {
-      display: block;
-    }
-    button {
-      margin-bottom: 5px;
-    }
-  }
-}
-
 .btn-destroy {
   cursor: pointer;
   background-color: transparent;

@@ -50,7 +50,12 @@ input, select, textarea {
     border-radius: 4px 0 0 4px;
     border-bottom: solid 1px $color-ambient-mint-light;
     border-right: 0;
-    min-width: 140px;
+    min-width: 145px;
+  }
+
+  > label[for$="address_city"]
+  {
+      min-width: 95px;
   }
 
   > .label-right {

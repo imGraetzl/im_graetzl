@@ -8,7 +8,7 @@
     <div class="nav-dropdown-submenu shown" id="nav-submenu-site-city">
       <%= nav_menu_item("region-#{current_region.id}", "#{t("region.#{current_region.id}.region")} Übersicht", region_index_path, class: 'half region-switch') %>
       <%= nav_submenu_link("globe", '', 'nav-submenu-regions', class: 'half region-switch globe') %>
-      <% if graetzl || district %>
+      <% if graetzl && graetzl.region == current_region || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
       <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
@@ -89,7 +89,7 @@
     </div>
   </div>
 
-  <% if graetzl || district %>
+  <% if graetzl && graetzl.region == current_region || district %>
     <%= link_to 'javascript:', class: 'nav-top-link nav-location-link', data: { dropdown: "nav-site-location" } do %>
       <%= icon_tag "arrow-down-2" %>
       <span>
