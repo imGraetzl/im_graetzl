@@ -100,10 +100,11 @@ de:
     format: "%{attribute} %{message}"
     messages:
       accepted: muss akzeptiert werden
+      required: muss ausgefüllt werden
       blank: muss ausgefüllt werden
+      empty: muss ausgefüllt werden
       present: darf nicht ausgefüllt werden
       confirmation: stimmt nicht mit %{attribute} überein
-      empty: muss ausgefüllt werden
       equal_to: muss genau %{count} sein
       even: muss gerade sein
       exclusion: ist nicht verfügbar

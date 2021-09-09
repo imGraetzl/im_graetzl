@@ -100,34 +100,30 @@ section.register-personalInfo, section.register-locationInfo  {
 }
 
 .user-login {
-  margin-bottom: 1.8rem;
+  margin-bottom: 3rem;
 }
 
 
 section.register-personalInfo {
 
   .user-personal {
-    margin-bottom: 3.0rem;
+    margin-bottom: 3.5rem;
     .input-checkbox {
       margin-left: 13px;
     }
   }
 
   .user-interests {
-    margin-bottom: 3.0rem;
+    margin-bottom: 3.5rem;
   }
 
   .user-business {
-    margin-bottom: 3.0rem;
-    padding-bottom: 1.0rem;
+    margin-bottom: 1.0rem;
     border-bottom: 1px solid $color-ambient-mint-light;
-    .-themen {
-      margin-top:40px;
-    }
   }
 
   .user-type-selection {
-    margin-bottom: 3.0rem;
+    margin-bottom: 3.5rem;
     padding-bottom: 1.0rem;
     border-bottom: 1px solid $color-ambient-mint-light;
     .input-radio {
