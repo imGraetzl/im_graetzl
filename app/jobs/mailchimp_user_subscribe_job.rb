@@ -18,6 +18,8 @@ class MailchimpUserSubscribeJob < ApplicationJob
       ORIGIN: user.origin? ? user.origin : '',
       L_CATEGORY: user_location_category(user),
       NL_STATE: user.newsletter? ? 'true' : 'false',
+      REGION: user.region.name,
+      REGION_URL: user.region.host,
     }
 
     merge_fields.merge!(user_location(user))
