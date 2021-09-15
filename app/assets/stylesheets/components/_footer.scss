@@ -49,6 +49,7 @@ footer {
       margin-right: 40px;
       padding-right: 40px;
       flex: 0 0 200px;
+      max-width: 200px;
     }
     > a {
       display: block;
@@ -78,17 +79,17 @@ footer {
       }
     }
   }
-  .logo-wa {
+
+  .footer-logos {
     align-self: flex-start;
     margin-top: 30px;
     font-size: 12px;
     color: #565759;
     border: none;
-    margin-right:20px;
-    padding-right:20px;
     @include respond-to(">=large") {
-      flex: 0 0 auto;
+      //flex: 0 0 auto;
       margin-top: 0;
+      padding-right: 20px;
     }
     img  {
       height: 65px;
@@ -96,34 +97,31 @@ footer {
     }
     div {
       font-style: italic;
-      max-width: 160px;
-    }
-  }
-  .logo-ke {
-    align-self: flex-start;
-    margin-top: 30px;
-    font-size: 12px;
-    color: #565759;
-    border: none;
-    margin-right:0px;
-    padding-right:0px;
-    @include respond-to(">=large") {
-      flex: 0 0 auto;
-      margin-top: 0;
-    }
-    img  {
-      height: 65px;
-      margin-bottom: 5px;
-    }
-    div {
-      font-style: italic;
-      max-width: 250px;
+      max-width: 300px;
     }
     a {
       color: $color-ambient-grey;
       &:hover {
         color: $color-ambient-rosa;
       }
+    }
+    &:last-of-type {
+      margin-right:0px;
+      padding-right:0px;
+    }
+  }
+  .footer-logos.-kaernten {
+    a {
+      display: inline-flex;
+      margin-right:5px;
+      &:last-of-type {
+        margin-right:0px;
+      }
+    }
+    img {
+      margin-top: 5px;
+      margin-bottom: 10px;
+      height: 55px;
     }
   }
 
