@@ -3,6 +3,7 @@ APP.controllers.users = (function() {
     function init() {
         APP.components.tabs.initTabs(".tabs-ctrl");
         APP.components.notificationSettings.init();
+        APP.components.addressInput();
 
         // User Profile
         if ($("section.userprofile").exists()) {

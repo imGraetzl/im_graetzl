@@ -77,6 +77,7 @@ class UsersController < ApplicationController
       :cover_photo, :remove_cover_photo,
       :location_category_id,
       :iban,
+      :address_street, :address_coords, :address_zip, :address_city, :graetzl_id,
       billing_address_attributes: [
         :first_name, :last_name, :street, :zip, :city, :country, :company, :vat_id
       ],

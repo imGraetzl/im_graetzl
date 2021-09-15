@@ -21,6 +21,11 @@
     </div>
   </div>
 
+  <div class="formBlock -adress">
+    <h2>Deine Adresse & <span><%= t("region.#{current_region.id}.graetzl") %></span></h2>
+    <%= render 'users/form_address_fields', f: f %>
+  </div>
+
   <div class="formBlock">
     <h2>Informationen <span>über dich</span></h2>
     <div class="formRow -double">
