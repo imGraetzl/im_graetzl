@@ -189,6 +189,10 @@ div.notification-settings {
       @include font-size-primaryFont('large');
     }
   }
+  &.-adress .form-columns {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+  }
 }
 
 .formRow  {

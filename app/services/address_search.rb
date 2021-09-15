@@ -46,6 +46,7 @@ class AddressSearch
     response['features'].filter_map do |address|
       coordinates = address['center']
       graetzl = Graetzl.find_by_coords(region, coordinates)
+      city = region.id == 'wien' ? address['context'][2]['text_de'] : address['context'][1]['text_de']
       next if graetzl.nil?
       # Skip addresses without number if user has entered a number
       next if query.match?(/\d+\Z/) && address['address'].blank?
@@ -53,7 +54,7 @@ class AddressSearch
         value: address['place_name_de'].split(",").first,
         data: {
           coordinates: coordinates,
-          city: address['context'][1]['text_de'],
+          city: city,
           zip: address['context'][0]['text_de'],
           graetzl_id: graetzl&.id,
           graetzl_name: graetzl&.name,
