@@ -48,13 +48,10 @@ namespace :scheduled do
 
   desc 'Send Create Meeting Reminder'
   task create_meeting_reminder_mail: :environment do
-    puts "----------------TASK STARTED"
     user_id = nil
-    Meeting.where("starts_at_date = ?", 1.day.ago).find_each do |meeting|
-      puts "----------------meeting : #{meeting}"
+    Meeting.where("starts_at_date = ?", 30.days.ago).find_each do |meeting|
       next if meeting.user.initiated_meetings.upcoming.present? || user_id == meeting.user.id
       MeetingMailer.create_meeting_reminder(meeting).deliver_now
-      puts "----------------send mail to meeting : #{meeting}"
       user_id = meeting.user.id
     end
   end
