@@ -15,7 +15,7 @@
   <% if !user_signed_in? %>
     <div class="hl-subtext -cards">
       <h1>Die schönsten <span>Angebote im <%= I18n.localize Time.now.end_of_month, format: '%B' %></span> <%= t("region.#{current_region.id}.in_graetzl") %></h1>
-      <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck <%= render 'shared/questionmarklink', hint_url: info_infos_zum_graetzlzuckerl_path %></p>
+      <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck <%= render 'shared/questionmarklink', hint_url: info_zuckerl_path %></p>
     </div>
   <% end %>
 

@@ -61,6 +61,14 @@ class Region
     end
   end
 
+  def domain
+    if id == 'wien'
+      Rails.application.config.imgraetzl_host
+    else
+      Rails.application.config.welocally_host
+    end
+  end
+
   def districts
     return [] if !use_districts?
     @districts ||= District.all_memoized.values.select{|d| d.region_id == id }

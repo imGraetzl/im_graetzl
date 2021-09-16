@@ -10,6 +10,11 @@
     window.imgraetzl.uaid = 'UA-59844253-2';
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('set', 'linker', {'domains': ['imgraetzl.at', 'welocally.at']});
+    gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied'
+    });
     gtag('js', new Date());
     <% if current_user %>
       gtag('set', {'user_id': '<%= current_user.id =%>'});
@@ -28,6 +33,11 @@
     window.imgraetzl.uaid = 'UA-59844253-4';
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('set', 'linker', {'domains': ['imgraetzl.at', 'welocally.at']});
+    gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied'
+    });
     gtag('js', new Date());
     <% if current_user %>
         gtag('set', {'user_id': '<%= current_user.id =%>'});
@@ -35,24 +45,6 @@
     gtag('config', window.imgraetzl.uaid, { 'anonymize_ip': true });
   </script>
   <!-- /GA -->
-
-  <!-- FB -->
-  <script>
-    /*
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('set', 'autoConfig', false, '785505584900772');
-    fbq('init', '785505584900772');
-    fbq('track', 'PageView');
-    */
-  </script>
-  <!-- FB -->
 
 <!-- Staging & Localhost -->
 <% end %>
