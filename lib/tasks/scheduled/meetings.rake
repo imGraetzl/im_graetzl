@@ -36,12 +36,22 @@ namespace :scheduled do
 
   end
 
-  desc 'Send Info Mail to Upcoming Meetings without Category'
-  task info_mail_missing_meeting_category: :environment do
+  desc 'Send Meeting Create Reminder Mail to Past Meeting Owners'
+  task info_mail_create_meeting_reminder: :environment do
     user_id = nil
     Meeting.upcoming.includes(:event_categories).where(event_categories: {id: nil}).find_each do |meeting|
       next if user_id == meeting.user.id
       MeetingMailer.missing_meeting_category(meeting).deliver_now
+      user_id = meeting.user.id
+    end
+  end
+
+  desc 'Send Info Mail to Upcoming Meetings without Category'
+  task info_mail_missing_meeting_category: :environment do
+    user_id = nil
+    Meeting.where("starts_at_date = ?", 3.days.ago).find_each do |meeting|
+      next if meeting.user.initiated_meetings.upcoming.present? || user_id == meeting.user.id
+      # SEND REMINDER TO meeting.user
       user_id = meeting.user.id
     end
   end

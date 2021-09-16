@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require jquery.detect_swipe
 //= require jquery.easy-autocomplete
+//= require jquery.ihavecookies
 //= require picker
 //= require jquery.tabslet.min
 //= require picker.date
@@ -34,7 +35,6 @@
 //= require autogrow
 //= require jBox.min
 //= require cocoon
-//= require cookieconsent
 //= require overthrow-detect
 //= require overthrow-polyfill
 //= require overthrow-toss

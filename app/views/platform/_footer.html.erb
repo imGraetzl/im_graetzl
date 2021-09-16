@@ -5,7 +5,7 @@
     <div class="row infolinks">
       <div class="col">
         <%= link_to 'Infos & Services', info_path %>
-        <%= link_to 'Infos zum Zuckerl', info_infos_zum_graetzlzuckerl_path %>
+        <%= link_to 'Infos zum Zuckerl', info_zuckerl_path %>
         <%= link_to 'Unterstützer-Team', unterstuetzer_team_path %>
         <a href="https://blog.imgraetzl.at/" target="_blank">Blog</a>
         <a href="https://www.facebook.com/imGraetzl" target="_blank" class="facebook">
@@ -14,6 +14,7 @@
       </div>
       <div class="col">
         <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
+        <%= link_to 'Cookie Einstellungen', 'javascript:', id: 'ihavecookiesBtn' %>
         <%= link_to 'Code of Conduct', info_code_of_conduct_path %>
         <%= link_to 'Impressum', info_impressum_path %>
         <%= link_to 'Medien', 'https://blog.imgraetzl.at/medien/', target: '_blank' %>
