@@ -38,10 +38,15 @@
 button#ihavecookiesBtn {
     @extend .btn-primary.-rose.-small;
     display: inline-flex;
-    margin-left: 15px;
+    margin-left: 10px;
     cursor: pointer;
     &:first-of-type {
       margin-left: 0px;
+    }
+    @media only screen and (max-width:370px){
+      &:last-of-type {
+        margin-top: 10px;
+      }
     }
 }
 button#gdpr-cookie-advanced {
