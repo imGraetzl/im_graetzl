@@ -127,16 +127,7 @@ section.room-offer-form {
   }
 
   .room-prices {
-    .nested-fields {
-      position: relative;
-      a.remove_fields {
-        position: absolute;
-        top:5px;
-        right:10px;
-        @include respond-to(">=medium") {
-          top:15px;
-        }
-      }
+    .nested-fields { 
       margin-bottom:20px;
       border-bottom: 1px solid $color-ambient-mint-light;
     }

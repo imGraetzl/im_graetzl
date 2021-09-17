@@ -20,6 +20,11 @@
   }
 }
 
+.region-select-link {
+  display: table;
+  margin: auto;
+}
+
 section.info {
 
   position: relative;
@@ -629,7 +634,7 @@ section.info {
     margin-bottom:20px;
     float:left;
   }
-  
+
   a.btn-primary {
     &.-download {
       align-items: center;
