@@ -7,9 +7,9 @@
     <div class="row infolinks">
       <div class="col">
         <%= link_to 'Infos & Services', info_path %>
-        <%= link_to 'Infos zum Zuckerl', info_zuckerl_path %>
-        <%= link_to 'Unterstützer-Team', unterstuetzer_team_path %>
         <%= link_to 'Blog', t("region.#{current_region.id}.blog_url") %>
+        <%= link_to 'Impressum', info_impressum_path %>
+        <%= link_to 'Medien', 'https://blog.imgraetzl.at/medien/', target: '_blank' %>
         <a href="<%= t("region.#{current_region.id}.facebook_url") %>" target="_blank" class="facebook">
           Auf Facebook <%= icon_tag "social-facebook" %>
         </a>
@@ -18,9 +18,10 @@
         <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
         <%= link_to 'Cookie Einstellungen', 'javascript:', id: 'ihavecookiesBtn' %>
         <%= link_to 'Code of Conduct', info_code_of_conduct_path %>
-        <%= link_to 'Impressum', info_impressum_path %>
-        <%= link_to 'Medien', 'https://blog.imgraetzl.at/medien/', target: '_blank' %>
         <%= link_to 'AGB', info_agb_path %>
+        <a href="<%= t("region.#{current_region.id}.instagram_url") %>" target="_blank" class="instagram">
+          Auf Instagram <%= image_tag 'svg/icon-instagram-grey.svg', width:28, height:28, class: 'icon' %>
+        </a>
       </div>
 
       <%= render partial: "regions/logos_#{current_region.id}_footer" rescue nil %>

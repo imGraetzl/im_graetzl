@@ -12,8 +12,11 @@
 
         <div class="nav-dropdown-menu" id="nav-site-main">
           <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
-            <%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-regions') %>
-            <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+            <!--<%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-regions') %>-->
+            <% Region.all.each do |region| %>
+              <%= nav_menu_item("region-#{region.id}", "#{region.name}", root_url(host: region.host)) %>
+            <% end %>
+            <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
           </div>
           <div class="nav-dropdown-submenu" id="nav-submenu-regions">
             <%= nav_submenu_back('nav-submenu-city-main', 'half') %>
@@ -35,8 +38,11 @@
 
         <div class="nav-dropdown-menu" id="nav-site-about">
           <div class="nav-dropdown-submenu shown" id="nav-submenu-regions-main">
-            <%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-desk-regions') %>
-            <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+            <!--<%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-desk-regions') %>-->
+            <% Region.all.each do |region| %>
+              <%= nav_menu_item("region-#{region.id}", "#{region.name}", root_url(host: region.host)) %>
+            <% end %>
+            <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
           </div>
           <div class="nav-dropdown-submenu" id="nav-submenu-desk-regions">
             <%= nav_submenu_back('nav-submenu-regions-main', 'half') %>
