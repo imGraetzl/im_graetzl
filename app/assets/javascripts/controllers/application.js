@@ -124,20 +124,6 @@ APP.controllers.application = (function() {
             }
         });
 
-    // Conversion Tracking
-    if (window.location.hostname == 'www.imgraetzl.at') {
-      $(document).ready(function() {
-        if ($("#flash .notice").exists()) {
-
-          // Registration
-          if ( $("#flash .notice").text().indexOf('Super, du bist nun registriert!') >= 0 ){
-            gtag('event', 'sign_up', {'event_category': 'Registration'}); // GA
-          }
-
-        }
-      });
-    }
-
     function scrollToTarget() {
       var target = APP.controllers.application.getUrlVars()["target"];
       if (typeof target !== 'undefined') {
