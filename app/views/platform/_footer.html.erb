@@ -21,6 +21,12 @@
           Auf Instagram <%= image_tag 'svg/icon-instagram-grey.svg', width:28, height:28, class: 'icon' %>
         </a>
       </div>
+      <div class="col">
+        <span class="footer-region-title">WeLocally Regionen:</span>
+        <% Region.all.each do |region| %>
+          <%= link_to region.name, root_url(host: region.host) %>
+        <% end %>
+      </div>
 
       <div class="col footer-logos logo-ke">
         <%= link_to(image_tag('logo-klimafonds.png', width:76, height:65), 'https://www.klimafonds.gv.at', target: '_blank') %>
