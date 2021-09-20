@@ -21,22 +21,32 @@
           Auf Instagram <%= image_tag 'svg/icon-instagram-grey.svg', width:28, height:28, class: 'icon' %>
         </a>
       </div>
-      <div class="col">
-        <span class="footer-region-title">WeLocally Regionen:</span>
-        <% Region.all.each do |region| %>
-          <%= link_to region.name, root_url(host: region.host) %>
-        <% end %>
+      <div class="col footer-logos">
+        <%= link_to(image_tag('logo-ffg.png', width:161, height:65), 'https://www.ffg.at', target: '_blank') %>
+        <div>
+          Der Prototyp von “<%= link_to 'WeLocally', welocally_platform_url %>” wurde im Rahmen der FFG-Förderung “Impact Innovation” entwickelt.
+        </div>
       </div>
-
       <div class="col footer-logos logo-ke">
         <%= link_to(image_tag('logo-klimafonds.png', width:76, height:65), 'https://www.klimafonds.gv.at', target: '_blank') %>
         <div>
-          Die <%= link_to 'coop & share', info_path %> Services und der  <%= link_to 'Raumteiler', region_rooms_path %> auf imGrätzl.at sind Teil des F&amp;E Projektes Mischung: Nordbahnhof (Lead TU Wien).
+          Der Raumteiler auf imGrätzl.at ist Teil des F&amp;E Projektes Mischung: Nordbahnhof (Lead TU Wien).
           <br><br>
           Dieses Projekt wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen der Smart-Cities-Initiative durchgeführt.
         </div>
       </div>
 
+    </div>
+
+    <div class="maplinks-block">
+      <h3>WeLocally gibt es derzeit in folgenden Gebieten:</h3>
+      <div class="row">
+        <div class="col">
+          <% Region.all.each do |region| %>
+            <%= link_to region.name, root_url(host: region.host) %>
+          <% end %>
+        </div>
+      </div>
     </div>
 
   </div>

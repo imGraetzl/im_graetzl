@@ -14,7 +14,7 @@ APP.controllers.application = (function() {
     // Cookie Consent Banner
     var options = {
         title: 'Cookie Informationen',
-        message: 'Wir kommen fast ohne Cookies aus. Dennoch gibts einige wenige für welche wir deine Zustimmung benötigen.',
+        message: 'Wir kommen fast ohne Cookies aus. Es gibt dennoch Cookies, für die wir deine Zustimmung benötigen.',
         delay: 500,
         expires: 90,
         link: '/info/datenschutz',

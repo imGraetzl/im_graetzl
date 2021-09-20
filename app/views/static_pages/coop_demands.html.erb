@@ -9,14 +9,15 @@
 
   <div class="hl-subtext">
     <h1><em>Coop & Share Marktplatz</em></h1>
-    <p>Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.</p>
+    <p>Vernetze dich für ein konkretes Anliegen mit Gleichgesinnten!</p>
   </div>
 
   <div class="paperCard -cord1RT container -top" id="zero">
     <div class="wrp">
       <p>
-        Finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.
-        Suche Mitgestalter*innen für deine Initiative, Idee oder Verein. Oder schließe dich mit Tauschpartner*innen für Tauschgeschäfte zusammen.
+        <strong>Erstelle kostenlos ein Angebot oder eine Suche im Coop & Share Marktplatz, wenn du ein konkretes Anliegen hast.</strong>
+        <br><br>
+        Du suchst z.B. aktuell neue Mitglieder für deinen Verein oder Initiative. Oder ihr habt eine Food Coop im Aufbau und nehmt jetzt neue Mitglieder auf. Du organisierst ein Fest und brauchst noch Helfer*innen. Du hast einen Projektauftrag und möchtest diesen nicht alleine abwickeln und suchst geeignete Projektpartner*innen. Du suchst eine Mastermind Gruppe, an die du dich andocken kannst. Oder du möchtest dein Wissen und deine Erfahrung als Mentor*in weitergeben und z.B. eine Gründerin ein Stück des Weges begleiten. Für solche konkreten Anliegen ist der Coop & Share Marktplatz entwickelt worden.
       </p>
     </div>
     <div class="card"></div>
@@ -25,17 +26,53 @@
   <aside>
     <div id="help_nav">
       <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
-      <a href="#stoebern" class="btn-primary -mint" id="nav-one">Info</a>
+      <a href="#erstellen" class="btn-primary -mint" id="nav-one">Angebot erstellen</a>
+      <a href="#sichtbarkeit" class="btn-primary -mint" id="nav-two">Sichtbarkeit & Kontakt</a>
+      <a href="#tauschgeschaefte" class="btn-primary -mint" id="nav-three">Tauschgeschäfte</a>
     </div>
   </aside>
 
   <div class="mainContent">
 
     <article class="container" id="one">
-      <h2 id="stoebern">Info ..</h2>
-      <h3>Info ..</h3>
+      <h2 id="erstellen">Angebot erstellen</h2>
+      <h3>Erstellung einen Angebotes im Coop & Share Marktplatz</h3>
       <p>
-        Infotext ..
+        Suchst du oder bietest du etwas an? Beide Varianten sind möglich. Die Erstellung deines Gesuchs oder Angebots geht ganz einfach, indem du das Formular ausfüllst und dann der passenden Kategorie zuordnest. Aus dem Formular entsteht eine interaktive Seite, die du auch in deinem eigenen Kanälen teilen kannst.
+        <br><br>
+        Es gibt aktuell folgende Kategorien: Tauschgeschäft, Kooperation, Interessierte für Verein & Initiative, Motivation und Unterstützung. Schreibe nicht nur Stichpunkte auf, sondern formuliere ganze Sätze. Wähle ein aussagekräftiges Bild. Verwende keinen Text im Bild, der wird unleserlich.
+      </p>
+    </article>
+
+    <article class="container" id="two">
+      <h2 id="sichtbarkeit">Sichtbarkeit deines Gesuch oder Angebot</h2>
+      <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
+      <h3>Kontaktaufnahme</h3>
+      <p>
+        Interessierten stehen drei Wege zur Kontaktaufnahme zur Verfügung: 1. über den internen Messenger 2. über deine angegebene Emailadresse 3. über das Kommentarfeld auf der Seite.
+      </p>
+    </article>
+
+    <article class="container" id="three">
+      <h2 id="tauschgeschaefte">Zu den Tauschgeschäften</h2>
+      <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
+      <p>
+        Viele NetzwerkerInnen tun es schon und in großen Konzernen gibt es häufig Abteilungen, die sich nur um die Abwicklung von Tauschgeschäften (Kompensationsgeschäfte, Barter-Deals, Gegengeschäfte) kümmern. Was liegt näher diese Möglichkeit auch für Dienstleister*innen und generell für lokale Anbieter*innen lokal einfacher zugänglich zu machen.
+      </p>
+      <h3>Folgende Varianten könnt ihr hier ausprobieren</h3>
+      <ol>
+        <li>Du brauchst ein Produkt oder eine Dienstleistung. Dann formuliere deine Anzeige folgendermaßen: Ich suche xyz und ich biete z.B. dies, dies und das dafür an (hier kannst du alles nennen, was du bereit bist dafür einzutauschen). Der Wert deines Angebotes sollte natürlich auch zum Produkt/Dienstleistung passen, dass du suchst. </li>
+        <br>
+        <li>Du hast gerade gar keine konkreten Wünsche, aber bist trotzdem offen für Tauschgeschäfte. Dann schreibe: Ich biete xyz an, was möchtest du dafür eintauschen?</li>
+      </ol>
+      <br>
+      <p>So praktisch Geld und die darauf basierende Geldwirtschaft sein mag: Unverzichtbar oder gar gesetzlich vorgeschrieben ist sie nicht: Die Tauschwirtschaft ist völlig legal.</p>
+
+      <h3>Was gilt es zu beachten:</h3>
+      <p>
+        Erstelle über deine Tauschleistung eine Rechnung mit ordnungsgemäß ausgewiesener Umsatzsteuer, so wie bei jedem anderen Geschäft auch. Entsprechend erhältst du vom Tauschpartner eine Rechnung mit ausgewiesener Umsatzsteuer über seine Leistung. Tauschgeschäfte sind buchhalterisch, finanztechnisch und steuerrechtlich genauso zu behandeln wie normale Geld-Geschäfte. Es gibt keine steuerlichen Nachteile aber auch keine steuerlichen Vorteile. Wer es genau wissen möchte, bitte auch noch beim SteuerberaterIn deines Vertrauens nachfragen. Mehr Infos und Beispiele gibt es dazu in diesem Blogbeitrag von <%= link_to 'Hellerconsult', 'https://blog.hellerconsult.com/gegenschaefte-wie-ist-das-eigentlich-steuerlich/', target: '_blank' %>.
+        <br><br>
+        Um auf Nummer sicher zu gehen, laß dich aber unbedingt auch noch einmal von eine*r Steuerberater*in beraten.
       </p>
     </article>
 
