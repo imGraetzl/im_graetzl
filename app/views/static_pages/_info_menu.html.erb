@@ -5,14 +5,14 @@
     <div class="txt">Services<br/>Übersicht</div>
   <% end %>
 
-  <%= active_link_to info_anbieter_und_locations_path, class: "iconfilter" do %>
-    <%= icon_tag "location" %>
-    <div class="txt">Anbieter &<br/>MacherInnen</div>
-  <% end %>
-
   <%= active_link_to info_events_und_workshops_path, class: "iconfilter" do %>
     <%= icon_tag "calendar-2" %>
     <div class="txt">Events & <br/>Workshops</div>
+  <% end %>
+
+  <%= active_link_to info_anbieter_und_locations_path, class: "iconfilter" do %>
+    <%= icon_tag "location" %>
+    <div class="txt">Anbieter &<br/>MacherInnen</div>
   <% end %>
 
   <%= active_link_to info_coop_share_path, class: "iconfilter -coopshare" do %>

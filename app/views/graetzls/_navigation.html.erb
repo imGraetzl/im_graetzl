@@ -5,6 +5,21 @@
     <div class="txt"><%= t("region.#{current_region.id}.graetzl") %> <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
   <% end %>
 
+  <%= active_link_to meetings_graetzl_path(@graetzl), class: "iconfilter" do %>
+    <%= icon_tag "calendar-2" %>
+    <div class="txt">Events & <br/>Workshops</div>
+  <% end %>
+
+  <%= active_link_to locations_graetzl_path(@graetzl), class: "iconfilter" do %>
+    <%= icon_tag "location" %>
+    <div class="txt">Anbieter &<br/>Macherinnen</div>
+  <% end %>
+
+  <%= active_link_to coop_demands_graetzl_path(@graetzl), class: "iconfilter -coopshare" do %>
+    <%= icon_tag "coop-share-white" %>
+    <div class="txt">Coop & Share<br/>Marktplatz</div>
+  <% end %>
+
   <%= active_link_to rooms_graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= icon_tag "raumteiler" %>
     <div class="txt">Raum<br/>teiler</div>
@@ -13,21 +28,6 @@
   <%= active_link_to tool_offers_graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= icon_tag "tacker" %>
     <div class="txt">Tool<br/>teiler</div>
-  <% end %>
-
-  <%= active_link_to coop_demands_graetzl_path(@graetzl), class: "iconfilter -coopshare" do %>
-    <%= icon_tag "coop-share-white" %>
-    <div class="txt">Coop & Share<br/>Marktplatz</div>
-  <% end %>
-
-  <%= active_link_to locations_graetzl_path(@graetzl), class: "iconfilter" do %>
-    <%= icon_tag "location" %>
-    <div class="txt">Anbieter &<br/>Macherinnen</div>
-  <% end %>
-
-  <%= active_link_to meetings_graetzl_path(@graetzl), class: "iconfilter" do %>
-    <%= icon_tag "calendar-2" %>
-    <div class="txt">Events & <br/>Workshops</div>
   <% end %>
 
   <%= active_link_to zuckerls_graetzl_path(@graetzl), class: "iconfilter" do %>

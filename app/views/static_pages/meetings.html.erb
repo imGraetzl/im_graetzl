@@ -9,14 +9,12 @@
 
   <div class="hl-subtext">
     <h1><em>Events & Workshops</em></h1>
-    <p>Wir machen deine Neuigkeiten im Stadtteil bekannt!</p>
+    <p><%= t("region.#{current_region.id}.info.meeting.subline") %></p>
   </div>
 
   <div class="paperCard -cord1RT container -top" id="zero">
     <div class="wrp">
-      <p>
-        Über den <b>Stadtteil-Newsletter</b> erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail.
-      </p>
+      <p><%= t("region.#{current_region.id}.info.meeting.description") %></p>
     </div>
     <div class="card"></div>
   </div>
@@ -34,80 +32,47 @@
 
     <article class="container" id="one">
       <h2 id="worum-gehts">Worum gehts?</h2>
-      <h3>Welche Termine eignen sich besonders als Event oder Workshop?</h3>
+      <h3>Welche Art von Treffen eignen sich zur Veröffentlichung?</h3>
       <p>
-        Wenn etwas ums Eck stattfindet, ist das für die BewohnerInnen deines Viertels grundsätzlich
-        sehr interessant. Planst du einen Hausflohmarkt, eine Verkostung, oder organisierst du einen
-        Lettering-Workshop? Bereitest du ein Konzert, eine Ausstellung, oder Lesung vor? Fantastico,
-        du belebst damit dein Grätzl!
-      </p>
-      <p>
-        Zur Veröffentlichung auf imGrätzl eignen sich besonders
-        die einmalig stattfindenden Events, Workshops und Aktionen. Nicht geeignet sind regelmäßig
-        stattfindende Events. Wenn du z.B. jede Woche einen Yoga-Stunde gibst, dann ist die als
-        imGrätzl Event eher ungeeignet, regelmäßig stattfindende Termine gehören in die Beschreibung
-        deiner Locationseite. Oder veröffentliche z.B. ein Update auf deiner Locationsseite,
-        wenn der Kurs startet.
-
-        <h3>Nicht geeignet als imGrätzl Event, weil wiederkehrend:</h3>
-        Eva organisiert eine Laufgruppe, die sich jeden Mittwoch, also regelmäßig einmal die Woche trifft.
-
-        <h3>Geeignet als imGrätzl Event, weil einmalig:</h3>
-        Eva organisiert einen Lauf-Schnuppersession zu der Eva alle einlädt um die Laufgruppe kennenzulernen.
-        <br><br>
-
-        Das heißt nicht, dass du nicht auch auf die offene Jamsession, die jede Woche stattfindet,
-        immer mal wieder hinweisen kannst. Aber zu häufige Wiederholungen vom immer dem selben
-        Inhalt führen zu einer Abstumpfung bei den BewohnerInnen. Wenn ihr dann mal was Besonderes habt,
-        dann bekommt das Treffen nicht mehr die Aufmerksamkeit, die es verdient.
-
-        <h3>Kostenlose vs. kostenpflichtige Events</h3>
-        Schreib unbedingt dazu, ob es sich bei deinem Event oder Workshop, um ein kostenloses
-        Event/Workshop handelt, oder nicht. Schreib auch dazu, wie viel es kostet.
+        Wenn etwas ums Eck stattfindet, ist das für die BewohnerInnen <%= t("region.#{current_region.id}.in_your_graetzl") %> bzw. auch <%= t("region.#{current_region.id}.in_region") %> grundsätzlich von großem Interesse.
+        Sei es ein Vorlesenachmittag, ein Pilateskurs, ein Workshop, der Stammtisch, eine Ausstellungseröffnung, eine Lesung, ein Vereinsfest, der Lauftreff, ein Flohmarkt, ein Konzert - ob groß oder klein, all diese Aktivitäten führen Menschen zusammen und genau darum geht es bei <%= t("region.#{current_region.id}.domain_short") %>!
       </p>
     </article>
 
     <article class="container" id="two">
-      <h2 id="events-erstellen">Events & Workshops veröffentlichen</h2>
+      <h2 id="events-erstellen">Treffen, Events & Workshops veröffentlichen</h2>
       <p>
         <strong>Deine Termine veröffentlichen – Worauf solltest du achten?</strong>
         <h3>Bilder und Beschreibungen</h3>
-        Schreibe unbedingt ganze Sätze und nicht nur Stichpunkte, um dein Event oder Workshop zu beschreiben.
-        Lass die BewohnerInnen wissen, was sie erwartet, dann steigt die Wahrscheinlichkeit,
-        dass sie teilnehmen und vorbeikommen.<br>
-        Setze unbedingt ein Bild rein. Inspiration gefällig? Lese dir mal
-        <a href="https://www.basicthinking.de/blog/2017/04/25/kostenlose-bilder-kommerzielle-zwecke/" target="_blank">diesen Artikel</a> dazu durch,
-        wir fanden ihn sehr hilfreich.
+        Schreibe ganze Sätze und nicht nur Stichpunkte auf, um dein Event, Treffen oder Workshop zu beschreiben. Lass die Menschen wissen, was sie erwartet, dann steigt die Wahrscheinlichkeit, dass sie teilnehmen und vorbeikommen. Stelle außerdem ein aussagekräftiges Bild rein, gar nicht geeignet sind Texte in den Bildern.
 
-        <h3>Erstelle dein Event & Workshop von deiner Locationseite aus</h3>
-        Gehe dazu auf deine Locationseite und starte mit der Erstellung deines Events oder Workshops.
-        Dann wird das Event automatisch auf deiner Locationseite angezeigt und die BewohnerInnen bekommen
-        über die Events auf deiner Loationseite ein Gespür dafür, dass dein Projekt/dein Unternehmen auch
-        wirklich lebt. Es ist übrigens vollkommen egal, ob dein Event oder dein Workshop in einem ganz
-        anderen Grätzl stattfindet, als in dem deine Locationseite beheimatet ist. Das Event wird dann
-        sogar zweimal angezeigt, einmal dort wo deine Locationseite beheimatet ist und einmal in dem
-        Grätzl/Bezirk in dem das Event stattfindet.
+        <h3>Interessierte können sich beim Event anmelden</h3>
+        Wenn sich Menschen für dein Event interessieren und teilnehmen möchten, können sie auf “Mitmachen” beim Event klicken. Du siehst dann direkt auf der Eventseite, wer sich angemeldet hat und für welchen Termin. Du kannst den Interessierten eine interne Message schicken, die Option wird dir angezeigt, wenn du auf der Eventseite auf das Profilbild der Interessierten klickst.
+
+        <h3>Verknüpfe dein Event & Workshop mit deinem virtuellen Schaufenster</h3>
+        Du kannst deine Events mit deinem virtuellen Schaufenster verknüpfen, die Option findest du im Event erstellen Formular. Nutze die Option, weil die Events auf deinem virtuellen Schaufenster den Besucher*innen ein Gespür dafür geben, dass du richtig aktiv bei deinem Thema bist. Das schafft Vertrauen.
+
+        <h3>Ein Event, aber mehrere Termine</h3>
+        Du planst z.B. einen Stammtisch, der sich einmal pro Monat trifft, dann erstelle dafür ein Event und trage alle Termine in diesem einen Event ein. Das erspart dir Arbeit, weil du nicht für jeden Termin ein eigenes Event anlegen musst.
 
         <h3>Die Adresse ist ganz wichtig!</h3>
-        Wo findet euer Event, oder euer Workshop statt? Natürlich ist die Adresse wichtig, weil wie
-        sollten die Menschen sonst zu dir und deinem Event hinfinden. Aber genau die Adresse wird
-        gerne mal vergessen.
+        Wo findet euer Event, oder euer Workshop statt? Natürlich ist die Adresse wichtig, weil wie sollten die Menschen sonst zu dir und deinem Event hinfinden. Aber genau die Adresse wird gerne mal vergessen.
+
+        <h3>Kostenlose vs. kostenpflichtige Veranstaltungen</h3>
+        Schreibe dazu, ob es sich bei deinem Event, Treffen, Kurs oder Workshop, um ein kostenloses Angebot handelt, oder nicht. Schreib auch dazu, wie viel es kostet. Die kostenlosen Angebote werden zusätzlich noch in einer eigenen Kategorie ausgewiesen für etwas mehr Sichtbarkeit.
+
+        <h3>Virtuelle vs. reale Treffen</h3>
+        Du kannst auch Events eintragen, die virtuell stattfinden, also per Video. Wichtig ist, dass das Treffen ein Datum und Uhrzeit hat. Nicht geeignet sind z.B. 1:1 Treffenangebote (z.B. für Coaching), die du über die Eventfunktion quasi bewirbst, aber bei denen die Terminfindung erst noch stattfinden muss.
+
       </p>
     </article>
 
     <article class="container" id="three">
       <h2 id="sichtbarkeit">Sichtbarkeit für dein Event</h2>
       <p>
-        Deine Events, Workshops und Aktionen werden in das Grätzl Mail aufgenommen und an alle
-        registrierten BewohnerInnen im Stadtteil verschickt.<br><br>
-        imGrätzl ist übrigens das einzige Angebot, dass Events stadtteilsegementiert in Wien
-        digital sichtbar macht und das auch ohne Registrierung/Anmeldung einsehbar sind.
-        Durch die Kooperation z.B. mit der Sozialbau Ag werden die imGrätzl Events und Workshops
-        nicht nur im Internet angezeigt, sondern auch auf vielen Displays in Häusern, die sie betreuen.
-        So sehen die BewohnerInnen, wie auf einem schwarzen Brett im Haus, was in ihrem Grätzl für
-        Events und Workshops geplant sind.<br><br>
-        Wir beschäftigen uns außerdem viel mit Suchmaschinen Optimierung, damit eure Events &
-        Workshops auch über die Google Suche Sichtbarkeit bekommen.
+        Deine Events, Workshops und Aktionen werden auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt, wenn dein Event näher rückt.
+        <br><br>
+        Die Events sind ohne Registrierung/Anmeldung einsehbar und werden z.B. auch über die Google Suche gefunden. Wir arbeiten laufend an der Suchmaschinen Optimierung, damit eure Events & Workshops auch über die Suchmaschinen Sichtbarkeit bekommen.
       </p>
     </article>
 

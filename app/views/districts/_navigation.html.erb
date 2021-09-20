@@ -5,6 +5,21 @@
     <div class="txt"><%= @district.numeric %>. Bezirk <br/>Übersicht</div>
   <% end %>
 
+  <%= active_link_to district_meetings_path(@district), class: "iconfilter" do %>
+    <%= icon_tag "calendar-2" %>
+    <div class="txt">Events & <br/>Workshops</div>
+  <% end %>
+
+  <%= active_link_to district_locations_path(@district), class: "iconfilter" do %>
+    <%= icon_tag "location" %>
+    <div class="txt">Anbieter &<br/>Macherinnen</div>
+  <% end %>
+
+  <%= active_link_to district_coop_demands_path(@district), class: "iconfilter -coopshare" do %>
+    <%= icon_tag "coop-share-white" %>
+    <div class="txt">Coop & Share<br/>Marktplatz</div>
+  <% end %>
+
   <%= active_link_to district_rooms_path(@district), class: "iconfilter" do %>
     <%= icon_tag "raumteiler" %>
     <div class="txt">Raum<br/>teiler</div>
@@ -13,21 +28,6 @@
   <%= active_link_to district_tool_offers_path(@district), class: "iconfilter" do %>
     <%= icon_tag "tacker" %>
     <div class="txt">Tool<br/>teiler</div>
-  <% end %>
-
-  <%= active_link_to district_coop_demands_path(@district), class: "iconfilter -coopshare" do %>
-    <%= icon_tag "coop-share-white" %>
-    <div class="txt">Coop & Share<br/>Marktplatz</div>
-  <% end %>
-
-  <%= active_link_to district_locations_path(@district), class: "iconfilter" do %>
-    <%= icon_tag "location" %>
-    <div class="txt">Anbieter &<br/>Macherinnen</div>
-  <% end %>
-
-  <%= active_link_to district_meetings_path(@district), class: "iconfilter" do %>
-    <%= icon_tag "calendar-2" %>
-    <div class="txt">Events & <br/>Workshops</div>
   <% end %>
 
   <%= active_link_to district_zuckerls_path(@district), class: "iconfilter" do %>

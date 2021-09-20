@@ -13,13 +13,16 @@
   <div class="stage">
     <%= render 'map' %>
     <div class="stage-content">
-      <h1><span>Gemeinsam </span><span>bringen wir mehr </span><span>zusammen</span></h1>
+      <% if current_region.id == 'kaernten' %>
+        <br><br><h1><span>Mach mit: </span><span>be locally</span></h1>
+      <% else %>
+        <h1><span>Gemeinsam </span><span>bringen wir mehr </span><span>zusammen</span></h1>
+      <% end %>
       <%= link_to new_registration_path(origin: request.path), class: 'badge -mint -arrow -left' do %>
         Kostenlos<br/>anmelden
       <% end %>
     </div>
   </div>
-
 
   <%= render "navigation" %>
 
