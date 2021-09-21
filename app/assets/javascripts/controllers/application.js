@@ -12,6 +12,7 @@ APP.controllers.application = (function() {
     FastClick.attach(document.body);
 
     // Cookie Consent Banner
+    var eventSubmitted;
     var options = {
         title: 'Cookie Informationen',
         message: 'Wir kommen fast ohne Cookies aus. Es gibt dennoch Cookies, für die wir deine Zustimmung benötigen.',
@@ -33,11 +34,18 @@ APP.controllers.application = (function() {
           },
         ],
         onAccept: function(){
-            var myPreferences = $.fn.ihavecookies.cookie();
-            console.log(myPreferences);
+            myPreferences = $.fn.ihavecookies.cookie();
             gtag('consent', 'update', {
               'analytics_storage': 'granted'
             });
+            if (!eventSubmitted) {
+              gtag(
+                'event', 'Accepted', {
+                'event_category': 'Consent Manager',
+                'event_label': ''+myPreferences+''
+              });
+              eventSubmitted = true;
+            }
         }
     }
 
@@ -52,6 +60,7 @@ APP.controllers.application = (function() {
 
         $('#ihavecookiesBtn').on('click', function(){
             $('body').ihavecookies(options, 'reinit');
+            eventSubmitted = false;
         });
     });
 
