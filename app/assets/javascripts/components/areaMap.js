@@ -23,6 +23,50 @@ APP.components.areaMap = (function() {
     }
   };
 
+  // Favorite Graetzl Map
+  function initFavoriteGraetzls(mapElement, options) {
+    options = options || {};
+
+    var mainLayer = L.tileLayer.provider('MapBox',
+      { id: 'malano78/ckt4d1tal0y9u17o5sn6y0jp4', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}
+    );
+    var map = L.map(mapElement.attr('id'), {
+        layers: [mainLayer],
+        dragging: true,
+        touchZoom: true,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false,
+        tap: false,
+        zoomSnap: options.zoomSnap || 1,
+        zoomControl: false
+    }).setActiveArea('activeArea');
+    L.control.zoom({position:'bottomright'}).addTo(map);
+
+    var defaultStyle = styles[options.style || 'rose'];
+
+    var areaLayer = L.geoJson(mapElement.data("areas"), {
+      style: defaultStyle,
+      onEachFeature: function (feature, layer) {
+        if (!options.interactive) { return; }
+        layer.on('click', function () {
+            console.log(feature.properties.url);
+            this.setStyle(styles.over)
+        });
+        layer.on('mouseover', function () {
+            //this.setStyle(styles.over)
+        });
+        layer.on('mouseout', function () {
+            //areaLayer.resetStyle(layer)
+        });
+      }
+    });
+
+    map.addLayer(areaLayer, true);
+    map.fitBounds(areaLayer.getBounds());
+  }
+
+
   function init(mapElement, options) {
     options = options || {};
 
@@ -85,6 +129,7 @@ APP.components.areaMap = (function() {
 
   return {
     init: init,
+    initFavoriteGraetzls: initFavoriteGraetzls,
   }
 
 })();

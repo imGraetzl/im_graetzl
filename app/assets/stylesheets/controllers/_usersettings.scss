@@ -1,3 +1,25 @@
+section.usersetup.-favorite-graetzls {
+  #area-map {
+    &::before {
+      display: none;
+    }
+    .activeArea {
+      width:70%;
+    }
+
+    height: 350px;
+    @include respond-to(">=medium") {
+      height: 450px;
+    }
+    @include respond-to(">=large") {
+      height: 550px;
+    }
+  }
+  .leaflet-control-container {
+    display: block;
+  }
+}
+
 section.user-settings, section.usersetup.-toolteiler, section.usersetup.-rooms {
   h2 {
     @include font-size-secondaryFont('base');

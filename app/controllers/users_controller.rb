@@ -55,6 +55,10 @@ class UsersController < ApplicationController
     @groups = current_user.groups.in(current_region).includes(:room_offer, :room_call, :discussion_categories)
   end
 
+  def favorite_graetzls
+    @user = current_user
+  end
+
   def tooltip
     head :ok and return if browser.bot? && !request.format.js?
     @user = User.find(params[:id])

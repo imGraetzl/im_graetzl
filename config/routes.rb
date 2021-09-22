@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'treffen', action: 'meetings', as: 'meetings'
+    get 'region-setup', action: 'favorite_graetzls', as: 'favorite_graetzls'
   end
 
   scope controller: 'regions', as: 'region', path: 'region'  do

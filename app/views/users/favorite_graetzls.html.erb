@@ -1,0 +1,10 @@
+<% title("#{@user.username} Region Einstellungen") %>
+
+<section class="usersetup -favorite-graetzls">
+
+  <div class="mapImgBlock">
+    <% graetzls = Graetzl.in(current_region) %>
+    <%= area_map(graetzls) %>
+  </div>
+
+</section>
