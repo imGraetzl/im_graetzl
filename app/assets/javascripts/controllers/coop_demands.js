@@ -20,31 +20,6 @@ APP.controllers.coop_demands = (function() {
       });
     });
 
-    // Activate Coop & Share
-    if ( $("#flash .notice").text().indexOf('Dein Coop & Share Angebot ist nun aktiv') >= 0 ){
-      gtag(
-        'event', 'Coop & Share :: Click :: Status Aktiv', {
-        'event_category': 'Coop & Share'
-      });
-    }
-
-    // Deactivate Coop & Share
-    if ( $("#flash .notice").text().indexOf('Dein Coop & Share Angebot ist nun deaktiviert') >= 0 ){
-      gtag(
-        'event', 'Coop & Share :: Click :: Status Inaktiv', {
-        'event_category': 'Coop & Share'
-      });
-    }
-
-    // Reactivate Coop & Share
-    if ( $("#flash .notice").text().indexOf('Dein Coop & Share Angebot wurde erfolgreich verlängert!') >= 0 ){
-      gtag(
-        'event', 'Coop & Share :: Click :: E-Mail Aktivierungslink', {
-        'event_category': 'Coop & Share'
-      });
-    }
-
-
     $('#contact-infos-block').hide();
     $('#show-contact-link').on('click', function(event){
       event.preventDefault();

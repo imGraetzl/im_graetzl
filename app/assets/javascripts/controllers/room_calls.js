@@ -16,17 +16,6 @@ APP.controllers.room_calls = (function() {
       }
     }
   }
-  // Analytics Event Tracking for Call Submission
-  function afterCallSubmit() {
-    if ($("#flash .notice").exists()) {
-      if ( $("#flash .notice").text().indexOf('Danke für deine Bewerbung') >= 0 ){
-        var pathArray = window.location.pathname.split('/');
-        var callSlug = pathArray.slice(-1)[0];
-        // GA
-        gtag('event', 'call', {'event_category': 'Call completed', 'event_label': callSlug});
-      }
-    }
-  }
 
   function initRoomForm() {
     APP.components.addressInput();

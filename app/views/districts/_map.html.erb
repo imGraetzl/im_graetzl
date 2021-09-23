@@ -9,7 +9,7 @@
         <%= icon_tag "arrow-left-2" %> <%= current_region.name %>
       <% end %>
       <% graetzls.each do |graetzl| %>
-        <%= link_to graetzl.name, graetzl %>
+        <%= link_to graetzl.name, graetzl, data:{id: graetzl.id} %>
       <% end %>
     </div>
     <select class="mobileSelectMenu">
