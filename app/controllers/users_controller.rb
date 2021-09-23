@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     @user = current_user
     # USE GRAETZLS FOR TESTING:
     @graetzls = Graetzl.in(current_region).sort_by(&:zip).reverse
-    @favorite_graetzls = Graetzl.in(current_region).where.not(id: @user.graetzl.id).sort_by(&:zip).first(20)
+    @favorite_graetzls = Graetzl.in(current_region).where.not(id: @user.graetzl.id).sort_by(&:zip).first(4)
   end
 
   def tooltip
