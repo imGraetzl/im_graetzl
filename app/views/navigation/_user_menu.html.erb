@@ -55,6 +55,7 @@
       <%= nav_submenu_back('nav-submenu-user-main') %>
       <%= nav_menu_item("user-avatar", 'Profil Einstellungen', edit_user_path) %>
       <%= nav_menu_item("mail-1", 'E-Mail Benachrichtigungen', edit_user_path(target: "tab-2")) %>
+      <%= nav_menu_item("flag", "Deine #{t("region.#{current_region.id}.favorite_graetzl")}", favorite_graetzls_user_path) %>
     </div>
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-locations">

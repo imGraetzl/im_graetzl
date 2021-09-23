@@ -61,12 +61,19 @@ APP.controllers.users = (function() {
 
         // Favorite Graetzl Setup Page
         function initFavoriteGraetzls() {
+          APP.components.graetzlSelectFilter.init($('#area-select'));
           if ($('#area-map').is(":visible")) {
             APP.components.areaMap.initFavoriteGraetzls($('#area-map'), {
               interactive: true,
             });
-
           }
+
+          // Submit IDS
+          $(".save-favorite-graetzls").on("click", function() {
+            var ids = $( ".favorites a" ).map(function() { return $(this).data('id') }).get().join(';');
+            console.log(ids);
+          });
+
         }
 
     }
