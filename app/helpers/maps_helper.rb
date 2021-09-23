@@ -5,6 +5,11 @@ module MapsHelper
     content_tag(:div, nil, class: "activeArea")
   end
 
+  def favorite_graetzl_map(areas, favorite_graetzls, home_graetzl)
+    content_tag(:div, nil, id: "area-map", data: { areas: MapData.new.encode_favorite_graetzls(areas, favorite_graetzls, home_graetzl) }) +
+    content_tag(:div, nil, class: "activeArea")
+  end
+
   def address_map(object)
     coordinates = object.address_coordinates
     content_tag(:div, nil, id: 'leafletMap', data: {x: coordinates.x, y: coordinates.y}) do

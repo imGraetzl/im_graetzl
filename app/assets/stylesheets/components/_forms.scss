@@ -40,6 +40,19 @@ input, select, textarea {
   }
 }
 
+.nested-fields {
+  position: relative;
+  a.remove_fields {
+    position: absolute;
+    top:5px;
+    right:10px;
+    z-index: 9;
+    @include respond-to(">=medium") {
+      top:15px;
+    }
+  }
+}
+
 // ---------------------------------------------------------------------- textfield & select & textarea
 @mixin field-HorizontalLayout {
   display: flex;

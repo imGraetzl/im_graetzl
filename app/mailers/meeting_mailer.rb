@@ -5,7 +5,7 @@ class MeetingMailer < ApplicationMailer
     @region = @meeting.region
 
     if from_email_name.present?
-      @reply_email = "#{from_email_name}@#{@region.email_host}"
+      @reply_email = "#{from_email_name}@#{@region.domain}"
     else
       @reply_email = from_user.email
     end
@@ -22,6 +22,16 @@ class MeetingMailer < ApplicationMailer
       from: "#{from_user.full_name} | über #{platform_email('no-reply')}>",
       reply_to: @reply_email,
     )
+  end
+
+  def create_meeting_reminder(meeting)
+    @meeting = meeting
+    headers(
+      "X-MC-Tags" => "create-meeting-reminder",
+      "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
+      "X-MC-GoogleAnalyticsCampaign" => "create-meeting-reminder",
+    )
+    mail(to: @meeting.user.email, subject: "Hast du wieder ein Event oder ein Treffen in Planung?")
   end
 
   def missing_meeting_category(meeting)

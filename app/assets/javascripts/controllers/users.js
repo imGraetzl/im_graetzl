@@ -1,8 +1,18 @@
 APP.controllers.users = (function() {
 
     function init() {
+
         APP.components.tabs.initTabs(".tabs-ctrl");
         APP.components.notificationSettings.init();
+        APP.components.addressInput();
+
+        if ($("section.usersetup.-location").exists()) { addActionCard(); }
+        if ($("section.usersetup.-toolteiler").exists()) { addActionCard(); }
+        if ($("section.usersetup.-rooms").exists()) { addActionCard(); }
+        if ($("section.usersetup.-groups").exists()) { addActionCard(); }
+        if ($("section.usersetup.-zuckerl").exists()) { addActionCard(); }
+        if ($("section.usersetup.-favorite-graetzls").exists()) { initFavoriteGraetzls(); }
+
 
         // User Profile
         if ($("section.userprofile").exists()) {
@@ -30,13 +40,6 @@ APP.controllers.users = (function() {
 
         }
 
-        if ($("section.usersetup.-location").exists()) { addActionCard(); }
-        if ($("section.usersetup.-toolteiler").exists()) { addActionCard(); }
-        if ($("section.usersetup.-rooms").exists()) { addActionCard(); }
-        if ($("section.usersetup.-groups").exists()) { addActionCard(); }
-        if ($("section.usersetup.-zuckerl").exists()) { addActionCard(); }
-
-
         if ($("section.usersetup.-meetings").exists()) {
           $('.autosubmit-stream').submit();
           $(".autosubmit-stream").bind('ajax:complete', function() {
@@ -54,6 +57,23 @@ APP.controllers.users = (function() {
               cardGrid.append(actionCard);
             }
           }
+        }
+
+        // Favorite Graetzl Setup Page
+        function initFavoriteGraetzls() {
+          APP.components.graetzlSelectFilter.init($('#area-select'));
+          if ($('#area-map').is(":visible")) {
+            APP.components.areaMap.initFavoriteGraetzls($('#area-map'), {
+              interactive: true,
+            });
+          }
+
+          // Submit IDS
+          $(".save-favorite-graetzls").on("click", function() {
+            var ids = $( ".favorites a" ).map(function() { return $(this).data('id') }).get().join(';');
+            console.log(ids);
+          });
+
         }
 
     }

@@ -7,35 +7,24 @@
     <div class="row infolinks">
       <div class="col">
         <%= link_to 'Infos & Services', info_path %>
-        <%= link_to 'Infos zum Zuckerl', info_infos_zum_graetzlzuckerl_path %>
-        <%= link_to 'Unterstützer-Team', unterstuetzer_team_path %>
         <%= link_to 'Blog', t("region.#{current_region.id}.blog_url") %>
+        <%= link_to 'Impressum', info_impressum_path %>
+        <%= link_to 'Medien', 'https://blog.imgraetzl.at/medien/', target: '_blank' %>
         <a href="<%= t("region.#{current_region.id}.facebook_url") %>" target="_blank" class="facebook">
           Auf Facebook <%= icon_tag "social-facebook" %>
         </a>
       </div>
       <div class="col">
         <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
+        <%= link_to 'Cookie Einstellungen', 'javascript:', id: 'ihavecookiesBtn' %>
         <%= link_to 'Code of Conduct', info_code_of_conduct_path %>
-        <%= link_to 'Impressum', info_impressum_path %>
-        <%= link_to 'Medien', 'https://blog.imgraetzl.at/medien/', target: '_blank' %>
         <%= link_to 'AGB', info_agb_path %>
+        <a href="<%= t("region.#{current_region.id}.instagram_url") %>" target="_blank" class="instagram">
+          Auf Instagram <%= image_tag 'svg/icon-instagram-grey.svg', width:28, height:28, class: 'icon' %>
+        </a>
       </div>
-      <div class="col logo-wa">
-        <%= link_to(image_tag('logo-wa.png', width:132, height:65), 'https://wirtschaftsagentur.at/', target: '_blank') %>
-        <div>
-          Gefördert durch die Wirtschaftsagentur Wien.<br>
-          Ein Fonds der Stadt Wien.
-        </div>
-      </div>
-      <div class="col logo-ke">
-        <%= link_to(image_tag('logo-klimafonds.png', width:76, height:65), 'https://www.klimafonds.gv.at', target: '_blank') %>
-        <div>
-          Die <%= link_to 'coop & share', info_path %> Services und der  <%= link_to 'Raumteiler', region_rooms_path %> auf imGrätzl.at sind Teil des F&amp;E Projektes Mischung: Nordbahnhof (Lead TU Wien).
-          <br><br>
-          Dieses Projekt wird aus Mitteln des Klima- und Energiefonds gefördert und im Rahmen der Smart-Cities-Initiative durchgeführt.
-        </div>
-      </div>
+
+      <%= render partial: "regions/logos_#{current_region.id}_footer" rescue nil %>
 
     </div>
 

@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'treffen', action: 'meetings', as: 'meetings'
+    get 'region-einstellungen', action: 'favorite_graetzls', as: 'favorite_graetzls'
   end
 
   scope controller: 'regions', as: 'region', path: 'region'  do
@@ -214,9 +215,7 @@ Rails.application.routes.draw do
   get 'info/agb', to: 'static_pages#agb'
   get 'info/datenschutz', to: 'static_pages#datenschutz'
   get 'info/impressum', to: 'static_pages#impressum'
-  get 'info/infos-zum-graetzlzuckerl', to: 'static_pages#zuckerl'
-  get 'info/fragen-und-antworten', to: 'static_pages#faq'
-  get 'info/infos-zur-graetzlmarie', to: 'static_pages#graetzlmarie'
+  get 'info/zuckerl', to: 'static_pages#zuckerl'
   get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
   get 'info/danke', to: 'static_pages#supporter'
 

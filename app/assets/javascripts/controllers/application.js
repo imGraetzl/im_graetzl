@@ -11,12 +11,59 @@ APP.controllers.application = (function() {
 
     FastClick.attach(document.body);
 
-    window.cookieconsent_options = {
-      "message":"Diese Website verwendet Cookies. Indem Sie weiter auf dieser Website navigieren, stimmen Sie unserer Verwendung von Cookies zu.",
-      "dismiss":"OK!","learnMore":"Mehr Information",
-      "link":"https://www.imgraetzl.at/info/datenschutz",
-      "theme": false
-    };
+    // Cookie Consent Banner
+    var eventSubmitted;
+    var options = {
+        title: 'Cookie Informationen',
+        message: 'Wir kommen fast ohne Cookies aus. Es gibt dennoch Cookies, für die wir deine Zustimmung benötigen.',
+        delay: 500,
+        expires: 90,
+        link: '/info/datenschutz',
+        uncheckBoxes: false,
+        acceptBtnLabel: 'Cookies akzeptieren',
+        advancedBtnLabel: 'Einstellungen',
+        moreInfoLabel: 'Weitere Informationen',
+        cookieTypesTitle: 'Wähle welche Cookies du zulassen möchtest.',
+        fixedCookieTypeLabel: 'Notwendige',
+        fixedCookieTypeDesc: 'Notwendige Cookies damit die Website funktioniert.',
+        cookieTypes: [
+          {
+            type: 'Analytics',
+            value: 'analytics',
+            description: 'Cookies die uns dabei helfen die Website zu verbessern.'
+          },
+        ],
+        onAccept: function(){
+            myPreferences = $.fn.ihavecookies.cookie();
+            gtag('consent', 'update', {
+              'analytics_storage': 'granted'
+            });
+            if (!eventSubmitted) {
+              gtag(
+                'event', 'Accepted', {
+                'event_category': 'Consent Manager',
+                'event_label': ''+myPreferences+''
+              });
+              eventSubmitted = true;
+            }
+        }
+    }
+
+    $(document).ready(function() {
+        $('body').ihavecookies(options);
+
+        if ($.fn.ihavecookies.preference('analytics') === true) {
+            gtag('consent', 'update', {
+              'analytics_storage': 'granted'
+            });
+        }
+
+        $('#ihavecookiesBtn').on('click', function(){
+            $('body').ihavecookies(options, 'reinit');
+            eventSubmitted = false;
+        });
+    });
+
 
     // WeLocally Register and Login Choose Region Modal
     function chooseRegionModal() {
@@ -85,20 +132,6 @@ APP.controllers.application = (function() {
               $('body').removeClass('mob');
             }
         });
-
-    // Conversion Tracking
-    if (window.location.hostname == 'www.imgraetzl.at') {
-      $(document).ready(function() {
-        if ($("#flash .notice").exists()) {
-
-          // Registration
-          if ( $("#flash .notice").text().indexOf('Super, du bist nun registriert!') >= 0 ){
-            gtag('event', 'sign_up', {'event_category': 'Registration'}); // GA
-          }
-
-        }
-      });
-    }
 
     function scrollToTarget() {
       var target = APP.controllers.application.getUrlVars()["target"];

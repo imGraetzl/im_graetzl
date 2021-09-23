@@ -47,7 +47,7 @@ class GroupMailer < ApplicationMailer
     @region = @group.region
 
     if from_email_name.present?
-      @reply_email = "#{from_email_name}@#{@region.email_host}"
+      @reply_email = "#{from_email_name}@#{@region.domain}"
     else
       @reply_email = from_user.email
     end

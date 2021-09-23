@@ -60,15 +60,6 @@ section.group-form-page {
       }
     }
   }
-
-  .remove_fields {
-    margin-left: 10px;
-    margin-top:15px;
-    float: right;
-    @include respond-to("<=medium") {
-      margin-top:5px;
-    }
-  }
   .-permission {
     margin-bottom:30px;
   }

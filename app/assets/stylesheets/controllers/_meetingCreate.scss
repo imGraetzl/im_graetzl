@@ -49,17 +49,6 @@
       margin-right: 20px;
     }
   }
-  .nested-fields {
-    position: relative;
-    a.remove_fields {
-      position: absolute;
-      top:5px;
-      right:10px;
-      @include respond-to(">=medium") {
-        top:15px;
-      }
-    }
-  }
   a.add_fields {
     display: block;
     margin-bottom: 2.5rem;

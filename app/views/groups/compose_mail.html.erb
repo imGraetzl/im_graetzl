@@ -40,7 +40,7 @@
             <span>Absender</span>
           <% end %>
           <%= text_field_tag :from_email, params[:from_email], placeholder: "no-reply" %>
-          <%= label_tag :from_email, "@#{current_region.email_host}", class: 'label-right' %>
+          <%= label_tag :from_email, "@#{current_region.domain}", class: 'label-right' %>
         </div>
       <% end %>
 

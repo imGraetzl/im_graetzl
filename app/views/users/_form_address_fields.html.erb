@@ -32,16 +32,8 @@
       <%= icon_tag "flag" %>
       <span><%= t("region.#{current_region.id}.graetzl") %></span>
     </label>
-    <%= f.select :graetzl_id, graetzl_select_options, { include_blank: 'wählen', required: true },
-        { class: 'address-graetzl-input' } %>
-  </div>
-
-  <div class="input-field">
-    <%= f.label :address_description do %>
-      <%= icon_tag "location" %>
-      <span>Ortsbeschreibung</span>
-    <% end %>
-    <%= f.text_field :address_description, placeholder: 'z.B.: Kaiserwiese, Gasthaus Hansy, Yoga-Studio am Eck, etc.' %>
+    <%= f.select :graetzl_id, current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id]},
+        { include_blank: 'wählen', required: true }, { class: 'address-graetzl-input' } %>
   </div>
 
 </div>

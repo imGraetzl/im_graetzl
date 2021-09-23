@@ -69,7 +69,7 @@ class Region
     end
   end
 
-  def email_host
+  def domain
     if id == 'wien'
       Rails.application.config.imgraetzl_host
     else

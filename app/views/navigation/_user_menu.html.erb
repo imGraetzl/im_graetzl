@@ -6,10 +6,10 @@
 
   <div class="nav-dropdown-menu" id="nav-user-create">
     <%= nav_menu_item("calendar-2", 'Treffen erstellen', new_meeting_path(graetzl_id: user_home_graetzl&.id)) %>
-    <%= nav_menu_item("raumteiler", 'Raumteiler erstellen', select_room_offers_path) %>
-    <%= nav_menu_item("tacker", 'Toolteiler erstellen', new_tool_offer_path) %>
     <%= nav_menu_item("location", 'Schaufenster einrichten', new_location_path) %>
     <%= nav_menu_item("coop-share-white", 'Neues Coop & Share Angebot', new_coop_demand_path) %>
+    <%= nav_menu_item("raumteiler", 'Raumteiler erstellen', select_room_offers_path) %>
+    <%= nav_menu_item("tacker", 'Toolteiler erstellen', new_tool_offer_path) %>
     <%= nav_menu_item("shopping-bag", 'Zuckerl buchen', new_zuckerl_path) %>
     <% if current_user.admin? %>
       <%= nav_menu_item("speech-bubble", 'Gruppe gründen', new_group_path(graetzl_id: user_home_graetzl&.id)) %>
@@ -55,6 +55,7 @@
       <%= nav_submenu_back('nav-submenu-user-main') %>
       <%= nav_menu_item("user-avatar", 'Profil Einstellungen', edit_user_path) %>
       <%= nav_menu_item("mail-1", 'E-Mail Benachrichtigungen', edit_user_path(target: "tab-2")) %>
+      <%= nav_menu_item("flag", "Meine #{t("region.#{current_region.id}.favorite_graetzl")}", favorite_graetzls_user_path) %>
     </div>
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-locations">

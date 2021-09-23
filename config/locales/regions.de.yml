@@ -6,22 +6,32 @@ de:
       domain_full: "WeLocally.at"
       blog_url: "https://blog.welocally.at"
       facebook_url: "https://www.facebook.com/WeLocally"
+      instagram_url: "https://www.instagram.com/welocally"
       graetzl: "Gemeinde"
+      graetzln: "Gemeinden"
       in_graetzl: "in der Gemeinde"
       in_your_graetzl: "in deiner Gemeinde"
       from_your_graetzl: "aus deiner Gemeinde"
       region: "Region"
       in_region: "in der Region"
       in_your_region: "in deiner Region"
-      wish_graetzl: "Wunschgemeinden"
+      your_homegraetzl: "Deine Heimatgemeinde"
+      your_homegraetzl_lower: "deine Heimatgemeinde"
+      from_your_homegraetzl: "aus deiner Heimatgemeinde"
       homegraetzl: "Heimatgemeinde"
-      your_homegraetzl: "deine Heimatgemeinde"
+      wish_graetzl: "Wunschgemeinden"
+      favorite_graetzl: "Lieblingsgemeinden"
+      from_your_favorite_graetzl: "aus deinen Lieblingsgemeinden"
       dem: "der"
       zuckerl:
         headline: "Das Zuckerl für eine ganze Region"
         subline: "Dieses wird in allen Gemeinden deiner Region angezeigt."
         graetzl: "Gemeinde"
         visibility_graetzl: "in der Gemeinde"
+      info:
+        meeting:
+          subline: "WeLocally macht deine Treffen in der Region sichtbarer!"
+          description: "Deine Events werden auf WeLocally angezeigt und sie werden über das wöchentliche WeLocally Mail an die registrierten Nutzer*innen in der Region bzw. Gemeinden versendet."
 
     wien:
       <<: *default
@@ -30,22 +40,33 @@ de:
       domain_full: "imGrätzl.at"
       blog_url: "https://blog.imgraetzl.at"
       facebook_url: "https://www.facebook.com/imGraetzl"
+      instagram_url: "https://www.instagram.com/imgraetzl"
       graetzl: "Grätzl"
+      graetzln: "Grätzl"
       in_graetzl: "im Grätzl"
       in_your_graetzl: "in deinem Grätzl"
       from_your_graetzl: "aus deinem Grätzl"
       region: "Wien"
       in_region: "in Wien"
       in_your_region: "in Wien"
-      wish_graetzl: "Wunschgrätzln"
+      your_homegraetzl: "Dein Heimatgrätzl"
+      from_your_homegraetzl: "aus deinem Heimatgrätzl"
+      your_homegraetzl_lower: "dein Heimatgrätzl"
       homegraetzl: "Heimatgrätzl"
-      your_homegraetzl: "dein Heimatgrätzl"
+      wish_graetzl: "Wunschgrätzln"
+      favorite_graetzl: "Lieblingsgrätzl"
+      from_your_favorite_graetzl: "aus deinen Lieblingsgrätzln"
       dem: "dem"
       zuckerl:
         headline: "Das Zuckerl für ganz Wien"
         subline: "Dieses wird in allen Grätzln und Bezirken in ganz Wien angezeigt."
         graetzl: "Bezirk"
         visibility_graetzl: "im Bezirk und allen zugehörigen Grätzln"
+      info:
+        meeting:
+          subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"
+          description: "Über den Stadtteil-Newsletter erreichst du mit deinen veröffentlichten Events & Workshops alle registrierten Nutzer im jeweiligen Stadtteil wöchentlich per Mail."
+
 
     kaernten:
       <<: *default

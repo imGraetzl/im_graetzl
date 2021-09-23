@@ -4,9 +4,9 @@
 
 APP.components.areaMap = (function() {
   var styles = {
-    mint: {
-      color: '#93CFC6',
-      fill: '#93CFC6',
+    rose: {
+      color: '#F37468',
+      fill: '#F37468',
       opacity: 1,
       weight: 2,
       fillOpacity: 0.1
@@ -14,21 +14,125 @@ APP.components.areaMap = (function() {
     over: {
       fillOpacity: 0.8
     },
-    rose: {
+    default: {
+      color: '#93CFC6',
+      fill: '#93CFC6',
+      weight: 1,
+      opacity: 0.8,
+      fillOpacity: 0.2
+    },
+    active: {
       color: '#F37468',
       fill: '#F37468',
+      weight: 1,
+      opacity: 0.7,
+      fillOpacity: 0.3
+    },
+    home: {
+      color: '#69a8a7',
+      fill: '#69a8a7',
+      weight: 1,
+      opacity: 0.7,
+      fillOpacity: 0.6
+    },
+    hover: {
+      weight: 1,
       opacity: 1,
-      weight: 2,
-      fillOpacity: 0.1
-    }
+      fillOpacity: 0.5,
+    },
   };
+
+  var mainLayer = L.tileLayer.provider('MapBox',
+    { id: 'malano78/ckt4d1tal0y9u17o5sn6y0jp4', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}
+  );
+
+  // FAVORITE GRAETZL MAP ------------------
+  
+  function initFavoriteGraetzls(mapElement, options) {
+    options = options || {};
+
+    var map = L.map(mapElement.attr('id'), {
+        layers: [mainLayer],
+        dragging: true,
+        touchZoom: true,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        boxZoom: false,
+        tap: false,
+        zoomSnap: 1,
+        zoomControl: false,
+        minZoom: 10,
+        maxZoom: 16,
+    }).setActiveArea('activeArea');
+    L.control.zoom({position:'bottomright'}).addTo(map);
+
+    var defaultStyle = styles[options.style || 'default'];
+
+    // Set Favorite Graetzl Map Layer
+    var initFavorites = mapElement.data("areas").features.filter(function(value, index, arr){
+        return value.properties.favorite || value.properties.home;
+    });
+    var favoritesLayer = L.geoJson({type:"FeatureCollection", features:initFavorites});
+
+    var areaLayer = L.geoJson(mapElement.data("areas"), {
+      style: defaultStyle,
+      onEachFeature: function (feature, layer) {
+
+        // Set Home
+        if (feature.properties.home) {
+          layer.setStyle(styles.home)
+          listAdd(feature, layer, styles.home, false, '.home');
+        }
+
+        // Set Favorites
+        if (feature.properties.favorite) {
+          layer.setStyle(styles.active);
+          listAdd(feature, layer, styles.active, true, '.favorites');
+        }
+
+        layer.on('click', function () {
+            if (this.feature.properties.home) { return; }
+            if (this.feature.properties.favorite) {
+              this.feature.properties.favorite = false;
+              areaLayer.resetStyle(layer);
+              listRemove(feature);
+            }
+            else {
+              this.feature.properties.favorite = true;
+              this.setStyle(styles.active);
+              listAdd(feature, layer, styles.active, true, '.favorites');
+            }
+        });
+
+        layer.on('mouseover', function () {
+            highlightMapNav(feature.properties.id);
+            if (this.feature.properties.home) { return; }
+            this.setStyle(styles.hover);
+        });
+
+        layer.on('mouseout', function () {
+            unhighlightMapNav(feature.properties.id);
+            if (this.feature.properties.home) { return; }
+            if (this.feature.properties.favorite) {
+              this.setStyle(styles.active)
+            }
+            else {
+              areaLayer.resetStyle(layer)
+            }
+        });
+      }
+    });
+
+    //map.addLayer(favoritesLayer, true);
+    map.addLayer(areaLayer, true);
+    map.fitBounds(favoritesLayer.getBounds());
+  }
+
+  // STANDARD MAPS ------------------
 
   function init(mapElement, options) {
     options = options || {};
 
-    var mainLayer = L.tileLayer.provider('MapBox',
-      { id: 'malano78/ckt4d1tal0y9u17o5sn6y0jp4', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}
-    );
     var map = L.map(mapElement.attr('id'), {
         layers: [mainLayer],
         dragging: false,
@@ -47,18 +151,18 @@ APP.components.areaMap = (function() {
       onEachFeature: function (feature, layer) {
         if (!options.interactive) { return; }
 
-        handlehighlightMapPoly(layer, feature.properties.url);
+        handlehighlightMapPoly(layer, feature, styles.over, styles.rose);
 
         layer.on('click', function () {
             window.location.href = feature.properties.url;
         });
         layer.on('mouseover', function () {
           this.setStyle(styles.over)
-          highlightMapNav(feature.properties.url);
+          highlightMapNav(feature.properties.id);
         });
         layer.on('mouseout', function () {
           areaLayer.resetStyle(layer)
-          unhighlightMapNav(feature.properties.url);
+          unhighlightMapNav(feature.properties.id);
         });
       }
     });
@@ -67,24 +171,49 @@ APP.components.areaMap = (function() {
     map.fitBounds(areaLayer.getBounds());
   }
 
+  // HELPER FUNCTIONS ------------------
+
   function highlightMapNav(k) {
-    $(".navBlock .links").find('a[href*="'+ k + '"]').addClass('is-highlighted');
+    $(".navBlock .links").find('a[data-id="'+ k + '"]').addClass('is-highlighted');
   }
 
   function unhighlightMapNav(k) {
-    $(".navBlock .links").find('a[href*="'+ k + '"]').removeClass('is-highlighted');
+    $(".navBlock .links").find('a[data-id="'+ k + '"]').removeClass('is-highlighted');
   }
 
-  function handlehighlightMapPoly(layer, k) {
-    $(".navBlock .links").find('a[href*="'+  k + '"]').on("mouseover", function() {
-      layer.setStyle(styles.over)
+  function handlehighlightMapPoly(layer, feature, over, out, remove) {
+    $(".navBlock .links").find('a[data-id="'+ feature.properties.id + '"]').on("mouseover", function() {
+      layer.setStyle(over)
     }).on("mouseout", function() {
-      layer.setStyle(styles.rose)
+      layer.setStyle(out)
+    });
+    if (remove) {
+      $(".navBlock .links").find('a[data-id="'+ feature.properties.id + '"]').on("click", function() {
+        $(".navBlock .links").find('a[data-id="'+ feature.properties.id + '"]').fadeOut(200, function() {
+          $(this).remove();
+        });
+        layer.setStyle(styles.default);
+        layer.feature.properties.favorite = false;
+      })
+    }
+  }
+
+  function listAdd(feature, layer, reset_style, remove, append_to) {
+    if (!$("[data-id="+feature.properties.id+"]").exists()) {
+      $("<a href='javascript:' data-id="+feature.properties.id+">"+feature.properties.plz+""+feature.properties.name+"</a>").prependTo( append_to ).hide().fadeIn();
+    }
+    handlehighlightMapPoly(layer, feature, styles.hover, reset_style, remove);
+  }
+
+  function listRemove(feature) {
+    $("[data-id="+feature.properties.id+"]").fadeOut(400, function() {
+      $(this).remove();
     });
   }
 
   return {
     init: init,
+    initFavoriteGraetzls: initFavoriteGraetzls,
   }
 
 })();

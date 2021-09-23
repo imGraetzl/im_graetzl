@@ -1,3 +1,85 @@
+section.usersetup.-favorite-graetzls {
+  .fav-desktop {
+    display: none;
+  }
+  @include respond-to(">=medium") {
+    .fav-desktop {
+      display: block;
+    }
+    .fav-mobile {
+      display: none;
+    }
+  }
+  h2.region-title {
+    @include headlineBarbapapaMintDark;
+    @include font-size-secondaryFont('large');
+    margin-bottom: 10px;
+    position: absolute;
+    top:40px;
+    left:15px;
+    z-index: 99;
+  }
+  .navBlock {
+    width:35%;
+    max-width:35%;
+    top: 90px;
+    bottom:80px;
+    left: 10px;
+    margin-top:40px;
+    direction:rtl;
+    overflow: auto;
+    padding-right:0px;
+    h3 {
+      margin-left: 17px;
+      direction:ltr;
+      margin-bottom:5px;
+      &.favoritetitle {
+        margin-top:14px;
+      }
+    }
+    .links.home a {
+      border-color: $color-ambient-mint-dark;
+      background-color: $color-ambient-mint-dark;
+      color: #ffffff;
+    }
+    .links a {
+      width: 48%;
+      text-align: left;
+      direction: ltr;
+    }
+  }
+  h3.more-info-title {
+    margin-top:25px;
+    margin-bottom:5px;
+  }
+  .save-favorite-graetzls {
+    position: absolute;
+    bottom:15px;
+    left:12px;
+    z-index:999;
+    //width:35%;
+  }
+  .activeArea {
+    width:70%;
+  }
+  #area-map {
+    &::before {
+      width:40%;
+      background: linear-gradient(to right, rgba(252,252,252,1) 75%,rgba(252,252,252,0) 100%);
+    }
+    height: 350px;
+    @include respond-to(">=medium") {
+      height: 500px;
+    }
+    @include respond-to(">=large") {
+      height: 600px;
+    }
+  }
+  .leaflet-control-container {
+    display: block;
+  }
+}
+
 section.user-settings, section.usersetup.-toolteiler, section.usersetup.-rooms {
   h2 {
     @include font-size-secondaryFont('base');
@@ -188,6 +270,10 @@ div.notification-settings {
     p {
       @include font-size-primaryFont('large');
     }
+  }
+  &.-adress .form-columns {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
   }
 }
 

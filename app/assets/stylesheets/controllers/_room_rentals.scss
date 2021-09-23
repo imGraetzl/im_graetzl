@@ -3,17 +3,6 @@
   .rental-date-form {
     .nested-fields {
       margin-bottom:20px;
-      position: relative;
-      //border-bottom: 1px solid $color-ambient-mint-light;
-      //padding-bottom:20px;
-      a.remove_fields {
-        position: absolute;
-        top:5px;
-        right:10px;
-        @include respond-to(">=medium") {
-          top:15px;
-        }
-      }
     }
 
     .nested-fields:first-of-type {
