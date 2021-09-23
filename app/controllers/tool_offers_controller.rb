@@ -24,7 +24,7 @@ class ToolOffersController < ApplicationController
 
     if @tool_offer.save
       ToolOfferMailer.tool_offer_published(@tool_offer).deliver_later
-      @tool_offer.create_activity(:create, owner: @tool_offer.user)
+      ActionProcessor.track(@tool_offer, :create)
       redirect_to @tool_offer
     else
       render 'new'

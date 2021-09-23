@@ -17,32 +17,44 @@ namespace :scheduled do
   desc 'Send daily summary mail'
   task daily_summary_mail: :environment do
     puts "Rake daily_summary_mail start at #{Time.now}"
-    User.find_each do |user|
-      NotificationMailer.summary_graetzl(user, 'daily').deliver_now
-      NotificationMailer.summary_personal(user, 'daily').deliver_now
+    User.confirmed.find_each do |user|
+      Region.all.each do |region|
+        NotificationMailer.summary_graetzl(user, region, 'daily').deliver_now
+        NotificationMailer.summary_personal(user, region, 'daily').deliver_now
+      end
     end
   end
 
   desc 'Send weekly summary mail'
   task weekly_summary_mail: :environment do
     puts "Rake weekly_summary_mail start at #{Time.now}"
-    User.find_each do |user|
-      NotificationMailer.summary_graetzl(user, 'weekly').deliver_now if Date.today.wednesday?
-      NotificationMailer.summary_personal(user, 'weekly').deliver_now if Date.today.sunday?
+    User.confirmed.find_each do |user|
+      Region.all.each do |region|
+        NotificationMailer.summary_graetzl(user, region, 'weekly').deliver_now if Date.today.wednesday?
+        NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.sunday?
+      end
     end
   end
 
-  task test_daily_summary_mail: :environment do
+  task test_summary_mail: :environment do
     user = User.find_by(email: "michael.walchhuetter@gmail.com")
-    NotificationMailer.summary_graetzl(user, 'daily').deliver_now
-    NotificationMailer.summary_personal(user, 'daily').deliver_now
-    Rails.logger.flush
-  end
 
-  task test_weekly_summary_mail: :environment do
-    user = User.find_by(email: "michael.walchhuetter@gmail.com")
-    NotificationMailer.summary_graetzl(user, 'weekly').deliver_now
-    NotificationMailer.summary_personal(user, 'weekly').deliver_now
+    region = Region.get(ENV['region'])
+    if region.nil?
+      print "Please select region by using:\n\nrake scheduled:test_daily_summary_mail region=wien\n\n"
+      print "Available regions: #{Region.all.map(&:id).join(", ")}\n"
+      exit
+    end
+
+    if ENV['period'].nil?
+      print "Please select period by using:\n\nrake scheduled:test_daily_summary_mail period=daily\n\n"
+      print "Available periods: daily, weekly\n"
+      exit
+    end
+
+
+    NotificationMailer.summary_graetzl(user, region, ENV['period']).deliver_now
+    NotificationMailer.summary_personal(user, region, ENV['period']).deliver_now
     Rails.logger.flush
   end
 

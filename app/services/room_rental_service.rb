@@ -38,8 +38,8 @@ class RoomRentalService
     )
 
     UserMessageThread.create_for_room_rental(room_rental)
-    room_rental.create_activity(:create, owner: room_rental.renter)
     RoomMailer.new_rental_request(room_rental).deliver_later
+    Notifications::RoomRentalCreated.generate(room_rental, to: room_rental.owner.id)
     return { success: true }
   end
 
@@ -70,8 +70,8 @@ class RoomRentalService
         rental_status: :pending,
       )
       UserMessageThread.create_for_room_rental(room_rental)
-      room_rental.create_activity(:create, owner: room_rental.renter)
       RoomMailer.new_rental_request(room_rental).deliver_later
+      Notifications::RoomRentalCreated.generate(room_rental, to: room_rental.owner.id)
     end
   end
 
@@ -93,9 +93,9 @@ class RoomRentalService
     )
 
     generate_invoices(room_rental)
-    room_rental.create_activity(:approve, owner: room_rental.owner)
     RoomMailer.rental_approved_renter(room_rental).deliver_later
     RoomMailer.rental_approved_owner(room_rental).deliver_later
+    Notifications::RoomRentalApproved.generate(room_rental, to: room_rental.renter.id)
   rescue Stripe::InvalidRequestError
     room_rental.update(rental_status: :rejected, payment_status: :payment_failed)
   end
@@ -103,15 +103,16 @@ class RoomRentalService
   def reject(room_rental)
     undo_payment(room_rental)
     room_rental.rejected!
-    room_rental.create_activity(:reject, owner: room_rental.owner)
+
     RoomMailer.rental_rejected(room_rental).deliver_later
+    Notifications::RoomRentalRejected.generate(room_rental, to: room_rental.renter.id)
   end
 
   def cancel(room_rental)
     undo_payment(room_rental)
     room_rental.canceled!
-    room_rental.create_activity(:cancel, owner: room_rental.renter)
     RoomMailer.rental_canceled(room_rental).deliver_later
+    Notifications::RoomRentalCanceled.generate(room_rental, to: room_rental.owner.id)
   end
 
   def expire(room_rental)

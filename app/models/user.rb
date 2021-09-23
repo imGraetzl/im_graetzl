@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  include Trackable
   include Address
-  include User::Notifiable
+  include Trackable
+  include UserNotifiable
 
   extend FriendlyId
   friendly_id :username
@@ -17,7 +17,8 @@ class User < ApplicationRecord
   include CoverImageUploader::Attachment(:cover_photo)
 
   belongs_to :graetzl, counter_cache: true
-  has_many :districts, through: :graetzl
+  has_many :user_graetzls
+  has_many :favorite_graetzls, through: :user_graetzls, source: :graetzl
 
   has_many :initiated_meetings, class_name: 'Meeting'
   has_many :going_tos, dependent: :destroy
@@ -73,12 +74,7 @@ class User < ApplicationRecord
   before_destroy :mailchimp_user_delete
 
   scope :business, -> { where(business: true) }
-  Region.all.each do |region|
-    scope region.id.to_sym, -> { where(region_id: region) }
-  end
-
-
-
+  scope :confirmed, -> { where("confirmed_at IS NOT NULL") }
 
   # Filter for Active Admin User Notification Settings
   def self.user_mail_setting_eq(notification)
@@ -87,11 +83,11 @@ class User < ApplicationRecord
     type = Notifications.const_get(type)
     case frequency
     when 'weekly', 'daily', 'immediate'
-      User.where("#{frequency}_mail_notifications & ? > 0", type::BITMASK)
+      User.where("#{frequency}_mail_notifications & ? > 0", type.bitmask)
     when 'off'
-      user = User.where("weekly_mail_notifications & ? <= 0", type::BITMASK)
-      user = user.where("daily_mail_notifications & ? <= 0", type::BITMASK)
-      user.where("immediate_mail_notifications & ? <= 0", type::BITMASK)
+      user = User.where("weekly_mail_notifications & ? <= 0", type.bitmask)
+      user = user.where("daily_mail_notifications & ? <= 0", type.bitmask)
+      user.where("immediate_mail_notifications & ? <= 0", type.bitmask)
     end
   end
 
@@ -146,16 +142,12 @@ class User < ApplicationRecord
 
     Group.in(region).default_joined.includes(:graetzls).each do |group|
       next if self.groups.include?(group)
-      group.group_users.create(user: self) if group.graetzls.include?(self.greatzl)
+      group.group_users.create(user: self) if group.graetzls.include?(self.graetzl)
     end
   end
 
   def primary_location
     self.locations.first
-  end
-
-  def district
-    self.districts.first
   end
 
   def rooms

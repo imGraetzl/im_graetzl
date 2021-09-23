@@ -1,0 +1,10 @@
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to polymorphic_url(notification.content_url_params, target: "comment_#{notification.comment.id}") do %>
+    <%= avatar_image notification.comment.user, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.comment.user.username %></span> hat dein
+      <%= notification.content_label %> <span class="matter"><%= notification.content_title %></span> kommentiert
+    </div>
+  <% end %>
+<% end %>

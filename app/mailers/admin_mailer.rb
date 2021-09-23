@@ -1,17 +1,25 @@
 class AdminMailer < ApplicationMailer
-  default from: 'Info imGrätzl.at <no-reply@imgraetzl.at>'
-  default to: 'wir@imgraetzl.at'
 
   def new_zuckerl(zuckerl)
     @zuckerl = zuckerl
-    @location = @zuckerl.location
-    mail(subject: "[ImGrätzl] Buchung Zuckerl von #{@location.name}")
+    @region = @zuckerl.region
+
+    mail(
+      subject: "[#{@region.platform_name}] Buchung Zuckerl von #{@zuckerl.location.name}"
+      from: platform_email("no-reply"),
+      to: platform_email("wir"),
+    )
   end
 
   def new_paid_going_to(going_to)
     @going_to = going_to
-    @meeting = @going_to.meeting
-    mail(subject: "[ImGrätzl] Ticket-Kauf für #{@meeting.name}")
+    @region = @going_to.meeting.region
+
+    mail(
+      subject: "[#{@region.platform_name}] Ticket-Kauf für #{@going_to.meeting.name}",
+      from: platform_email("no-reply"),
+      to: platform_email("wir"),
+    )
   end
 
 end

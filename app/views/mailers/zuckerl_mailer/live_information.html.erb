@@ -1,4 +1,4 @@
-<% content_for(:above_title, "Hallo #{@user.first_name}") %>
+<% content_for(:above_title, "Hallo #{@zuckerl.user.first_name}") %>
 <% content_for(:title, "Dein Zuckerl ist nun online!") %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
@@ -31,7 +31,7 @@
   <tr>
     <td class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
 
-      Dein Zuckerl mit dem Titel "<strong><em><%= @zuckerl.title %></em></strong>" läuft nun für einen Monat auf <%= t("region.#{@user.region.id}.domain_full") %>
+      Dein Zuckerl mit dem Titel "<strong><em><%= @zuckerl.title %></em></strong>" läuft nun für einen Monat auf <%= t("region.#{@zuckerl.region_id}.domain_full") %>
       mit folgender Sichtbarkeit: "<strong><em><%= @zuckerl.visibility %></em></strong>"
       <p>
         <strong>Zu den Zuckerln im <%= @zuckerl.location.graetzl.name %>:</strong><br/>
@@ -51,7 +51,7 @@
       <br>
 
       Viele Grüße,<br/>
-      dein Team von <%= t("region.#{@user.region.id}.domain_full") %>
+      dein Team von <%= t("region.#{@zuckerl.region_id}.domain_full") %>
 
     </td>
   </tr>

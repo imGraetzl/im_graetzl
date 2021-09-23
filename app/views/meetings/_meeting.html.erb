@@ -61,10 +61,22 @@
     </div>
     <%= link_to meeting_link_text(meeting), [graetzl, meeting], class: 'btn-primary -mint' %>
 
-    <% if local_assigns[:appendix].present? %>
-      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: meeting %>
+    <% if local_assigns[:activity_going_to] %>
+      <% participant = local_assigns[:activity_going_to].user %>
+      <div class="userCreateInfo">
+        <%= link_to participant, rel: 'nofollow' do %>
+          <%= avatar_image_with_tooltip participant, size: :thumb, class: 'img-round' %>
+        <% end %>
+        <span class="userAndType">
+          <%= link_to participant.username, participant, rel: 'nofollow' %>
+          <span>nimmt teil.</span>
+        </span>
+      </div>
     <% end %>
 
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: meeting, comment: local_assigns[:activity_comment] %>
+    <% end %>
   </div>
 
   <div class="btn-group">

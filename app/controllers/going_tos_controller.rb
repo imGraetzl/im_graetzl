@@ -69,7 +69,7 @@ class GoingTosController < ApplicationController
 
     going_to.save!
 
-    @meeting.create_activity :go_to, owner: current_user, cross_platform: @meeting.online_meeting?
+    ActionProcessor.track(@meeting, :attended, going_to)
 
     if going_to.payment_method.in?(['card'])
       GoingToService.new.generate_invoice(going_to)
@@ -80,11 +80,8 @@ class GoingTosController < ApplicationController
     if going_to.payment_method.in?(['eps'])
       ChargeGoingToJob.set(wait: 2.minutes).perform_later(going_to)
     end
-    #@going_to = going_to
-    #render 'summary'
-    #render action: :summary
-    redirect_to summary_going_tos_url(meeting_id: @meeting.id, going_to_id: going_to.id)
 
+    redirect_to summary_going_tos_url(meeting_id: @meeting.id, going_to_id: going_to.id)
   end
 
   def summary

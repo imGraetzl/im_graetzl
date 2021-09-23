@@ -2,16 +2,16 @@
   <tbody>
     <tr>
       <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-        <%= avatar_image notification.activity.owner, size: :thumb, style: "width:60px; height:60px; border-radius: 30px; max-width:60px; min-width:60px;", class: 'mcnImage' %>
+        <%= avatar_image notification.comment.user, size: :thumb, style: "width:60px; height:60px; border-radius: 30px; max-width:60px; min-width:60px;", class: 'mcnImage' %>
       </td>
 
       <td class="mcnTextContent" style="padding-right:18px; width:100%;">
         <p>
           <em><strong>
-            <%= notification.activity.owner.username %>:
+            <%= notification.comment.user.username %>:
           </strong></em>
           <br>
-          <%= notification.comment.content.truncate(255, separator: ' ') %>
+          <%= notification.comment.preview %>
         </p>
       </td>
     </tr>
@@ -22,7 +22,7 @@
 
     <tr>
       <td colspan="2">
-        <%= render 'mailers/shared/button', title: "Zu deiner Pinnwand", url: graetzl_user_url(notification.activity.trackable.graetzl, notification.activity.trackable, target: "comment_#{notification.comment.id}") %>
+        <%= render 'mailers/shared/button', title: "Zu deiner Pinnwand", url: user_url(notification.subject, target: "comment_#{notification.comment.id}") %>
       </td>
     </tr>
 

@@ -4,18 +4,20 @@ class NotificationMailer < ApplicationMailer
   def send_immediate(notification)
     @notification = notification
     @user = @notification.user
+    @region = @notification.region
 
     headers(
       "X-MC-Tags" => "notification-immediate",
-      "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
+      "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "notification-immediate-#{@notification.mail_template}",
     )
 
     Rails.logger.info("[Immediate Mail] #{@user.email} - #{@notification.mail_subject}")
 
     mail(
-      to: @user.email,
       subject: @notification.mail_subject,
+      from: platform_email('no-reply'),
+      to: @user.email,
       template_name: "immediate/#{@notification.mail_template}"
     )
   end
@@ -29,9 +31,6 @@ class NotificationMailer < ApplicationMailer
     ],
     'Neue Location Updates' => [
       Notifications::NewLocationPost
-    ],
-    'Neue Gruppen' => [
-      Notifications::NewGroup
     ],
     'Neue Toolteiler in deinem Grätzl' => [
       Notifications::NewToolOffer
@@ -47,10 +46,11 @@ class NotificationMailer < ApplicationMailer
     ],
   }
 
-  def summary_graetzl(user, period)
+  def summary_graetzl(user, region, period)
     @user, @period = user, period
+    @region = region
 
-    @notifications = user.pending_notifications(@period).where(
+    @notifications = user.pending_notifications(@region, @period).where(
       type: GRAETZL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
     )
 
@@ -63,14 +63,16 @@ class NotificationMailer < ApplicationMailer
 
     headers(
       "X-MC-Tags" => "summary-graetzl-mail",
-      "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
+      "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "summary-graetzl-mail",
     )
+
     mail(
-      to: @user.email,
-      from: "imGrätzl.at <neuigkeiten@imgraetzl.at>",
       subject: "Neues aus dem Grätzl #{@user.graetzl.name}",
+      from: platform_email('no-reply'),
+      to: @user.email,
     )
+
     @notifications.update_all(sent: true)
   end
 
@@ -79,18 +81,13 @@ class NotificationMailer < ApplicationMailer
       Notifications::NewWallComment,
     ],
     "Änderungen an einem Treffen" => [
-      Notifications::MeetingCancelled, Notifications::MeetingUpdated,
+      Notifications::MeetingUpdated,
     ],
     "Neuer Kommentar bei" => [
-      Notifications::CommentInMeeting, Notifications::CommentInUsersMeeting,
-      Notifications::CommentOnLocationPost, Notifications::CommentOnRoomDemand,
-      Notifications::CommentOnRoomOffer, Notifications::CommentOnToolOffer,
-      Notifications::CommentOnComment,
+      Notifications::CommentInMeeting, Notifications::CommentToUser, Notifications::ReplyOnComment,
     ],
     'Ebenfalls kommentiert' => [
-      Notifications::AlsoCommentedLocationPost, Notifications::AlsoCommentedMeeting,
-      Notifications::AlsoCommentedRoomDemand, Notifications::AlsoCommentedRoomOffer,
-      Notifications::AlsoCommentedToolOffer, Notifications::AlsoCommentedComment,
+      Notifications::CommentOnFollowedContent, Notifications::ReplyOnFollowedComment,
     ]
   }
 
@@ -98,22 +95,22 @@ class NotificationMailer < ApplicationMailer
     Notifications::NewGroupMeeting,
     Notifications::NewGroupDiscussion,
     Notifications::NewGroupPost,
-    Notifications::NewGroupUser,
     Notifications::CommentOnDiscussionPost,
-    Notifications::AlsoCommentedDiscussionPost,
+    Notifications::ReplyOnFollowedDiscussionPost,
   ]
 
-  def summary_personal(user, period)
+  def summary_personal(user, region, period)
     @user, @period = user, period
+    @region = region
 
     @notifications = {}
-    @notifications[:attendees] = user.pending_notifications(@period).where(
-      type: "Notifications::AttendeeInUsersMeeting"
+    @notifications[:attendees] = user.pending_notifications(@region, @period).where(
+      type: "Notifications::MeetingAttended"
     )
-    @notifications[:personal] = user.pending_notifications(@period).where(
+    @notifications[:personal] = user.pending_notifications(@region, @period).where(
       type: PERSONAL_SUMMARY_BLOCKS.values.flatten.map(&:to_s)
     )
-    @notifications[:groups] = user.pending_notifications(@period).where(
+    @notifications[:groups] = user.pending_notifications(@region, @period).where(
       type: GROUP_SUMMARY_TYPES.map(&:to_s)
     )
 
@@ -126,14 +123,16 @@ class NotificationMailer < ApplicationMailer
 
     headers(
       "X-MC-Tags" => "summary-personal-mail",
-      "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
+      "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "summary-personal-mail",
     )
+
     mail(
-      to: @user.email,
-      from: "imGrätzl.at | Updates <updates@imgraetzl.at>",
       subject: "Persönliche Neuigkeiten für #{@user.first_name} zusammengefasst",
+      from: platform_email('no-reply'),
+      to: @user.email,
     )
+
     @notifications.values.each { |n| n.update_all(sent: true) }
   end
 

@@ -2,7 +2,7 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-        Hallo <%= @user.first_name %>,
+        Hallo <%= @location.user.first_name %>,
         <p>
           ich habe dein virtuelles Schaufenster auf <%= t("region.#{@location.region.id}.domain_full") %> gerade freigeschaltet.<br>
           <%= link_to graetzl_location_url(@location.graetzl, @location, host: @location.region.host), graetzl_location_url(@location.graetzl, @location, host: @location.region.host) %>

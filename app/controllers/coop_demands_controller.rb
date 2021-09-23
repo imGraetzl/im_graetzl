@@ -22,11 +22,10 @@ class CoopDemandsController < ApplicationController
     @coop_demand = CoopDemand.new(coop_demand_params)
     @coop_demand.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @coop_demand.region_id = current_region.id
+    @coop_demand.activate
 
     if @coop_demand.save
-      #MailchimpCoopDemandUpdateJob.perform_later(@coop_demand)
-      #RoomMailer.coop_demand_published(@coop_demand).deliver_later
-      @coop_demand.create_activity(:create, owner: @coop_demand.user)
+      ActionProcessor.track(@coop_demand, :create)
       redirect_to @coop_demand
     else
       render 'new'
@@ -40,15 +39,8 @@ class CoopDemandsController < ApplicationController
   def update
     @coop_demand = current_user.coop_demands.find(params[:id])
 
-    ########
-    # Set new last_activated_at date if edit and last_activated_at is more then 7 days ago
-    if params[:last_activated_at] <= 7.days.ago && @coop_demand.enabled?
-      @coop_demand.last_activated_at = Time.now
-    end
-    #########
-
     if @coop_demand.update(coop_demand_params)
-      #MailchimpCoopDemandUpdateJob.perform_later(@coop_demand)
+      ActionProcessor.track(@coop_demand, :update) if @coop_demand.refresh_activity
       redirect_to @coop_demand
     else
       render 'edit'
@@ -58,8 +50,7 @@ class CoopDemandsController < ApplicationController
   def update_status
     @coop_demand = current_user.coop_demands.find(params[:id])
     @coop_demand.update(status: params[:status])
-    @coop_demand.update(last_activated_at: @coop_demand.set_last_activated_at) if @coop_demand.enabled?
-    #MailchimpCoopDemandUpdateJob.perform_later(@coop_demand)
+    ActionProcessor.track(@coop_demand, :update) if @coop_demand.refresh_activity
     flash[:notice] = t("activerecord.attributes.coop_demand.status_message.#{@coop_demand.status}")
     redirect_back(fallback_location: coop_demands_user_path)
   end
@@ -67,7 +58,7 @@ class CoopDemandsController < ApplicationController
   def activate
     @coop_demand = CoopDemand.find(params[:id])
     if params[:activation_code].to_i == @coop_demand.activation_code
-      @coop_demand.update(:last_activated_at => @coop_demand.set_last_activated_at, :status => "enabled")
+      @coop_demand.enabled!
       flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
@@ -93,7 +84,6 @@ class CoopDemandsController < ApplicationController
   end
 
   def filter_collection(collection)
-
     graetzl_ids = params.dig(:filter, :graetzl_ids)
 
     if params[:category_id].present?

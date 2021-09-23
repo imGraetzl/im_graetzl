@@ -3,37 +3,66 @@ class GroupMailer < ApplicationMailer
   def group_online(group, user)
     @group = group
     @user = user
+    @region = @group.region
+
     headers("X-MC-Tags" => "notification-group-online")
-    mail(to: user.email, subject: "Deine Gruppe ist nun online.")
+
+    mail(
+      subject: "Deine Gruppe ist nun online.",
+      from: platform_email("no-reply"),
+      to: user.email,
+    )
   end
 
   def new_join_request(join_request, user)
     @join_request = join_request
     @user = user
+    @region = @join_request.group.region
+
     headers("X-MC-Tags" => "group-new-join-request")
-    mail(to: user.email, subject: "Neue Beitrittsanfrage für deine Gruppe.")
+
+    mail(
+      subject: "Neue Beitrittsanfrage für deine Gruppe.",
+      from: platform_email("no-reply"),
+      to: user.email,
+    )
   end
 
   def join_request_accepted(group, user)
     @group = group
     @user = user
+    @region = @group.region
+
     headers("X-MC-Tags" => "group-new-member")
-    mail(to: user.email, subject: "Deine Beitrittsanfrage zur Gruppe wurde bestätigt.")
+
+    mail(
+      subject: "Deine Beitrittsanfrage zur Gruppe wurde bestätigt.",
+      from: platform_email("no-reply"),
+      to: user.email,
+    )
   end
 
-  def message_to_user(group, from_user, to_user, subject, message, from_email)
+  def message_to_user(group, from_user, to_user, subject, message, from_email_name)
     @group, @user, @message = group, from_user, message
-    @reply_to = from_email.present? ? "#{from_email}@imgraetzl.at" : from_user.email
-    from_email = from_email.present? ? "#{from_email}@imgraetzl.at" : "no-reply@imgraetzl.at"
+    @region = @group.region
+
+    if from_email_name.present?
+      @reply_email = "#{from_email_name}@#{@region.email_host}"
+    else
+      @reply_email = from_user.email
+    end
 
     headers(
       "X-MC-Tags" => "group-user-mail",
-      "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
+      "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "group-user-mail",
     )
+
     mail(
-      to: to_user.email, from: "#{from_user.full_name} | imGrätzl.at <#{from_email}>",
-      reply_to: @reply_to, subject: subject
+      subject: subject,
+      to: to_user.email,
+      from: "#{from_user.full_name} | über #{platform_email('no-reply')}>",
+      reply_to: @reply_email,
     )
   end
 

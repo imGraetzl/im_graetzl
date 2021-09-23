@@ -1,40 +1,26 @@
 class Notifications::CommentOnDiscussionPost < Notification
-  TRIGGER_KEY = 'discussion_post.comment'
   DEFAULT_INTERVAL = :immediate
   DEFAULT_WEBSITE_NOTIFICATION = :on
-  BITMASK = 2**21
-
-
-  def self.receivers(activity)
-    User.where(id: activity.trackable.user_id)
-  end
+  self.bitmask = 2**21
 
   def self.description
     "Meine erstellten Inhalte wurden kommentiert"
   end
 
   def mail_subject
-    "#{activity.owner.username} hat deinen Beitrag kommentiert."
-  end
-
-  def headline
-    group.title
-  end
-
-  def discussion_post
-    activity.trackable
+    "#{comment.user.username} hat deinen Beitrag kommentiert."
   end
 
   def group
-    discussion_post.group
+    subject.group
+  end
+
+  def discussion
+    subject.discussion
   end
 
   def comment
-    activity.trackable.comments.find_by_id(activity.recipient_id)
-  end
-
-  def group_discussion_post_id
-    activity.trackable.id
+    child
   end
 
 end

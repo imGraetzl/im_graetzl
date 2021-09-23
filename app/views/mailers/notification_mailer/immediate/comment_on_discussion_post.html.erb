@@ -8,7 +8,7 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        <%= link_to @notification.activity.owner.first_name, user_url(@notification.activity.owner), style: "color:#f48a85;" %>
+        <%= link_to @notification.comment.user.first_name, user_url(@notification.comment.user), style: "color:#f48a85;" %>
         hat deinen Beitrag kommentiert:
       </h4>
     </td>
@@ -31,13 +31,13 @@
 
     <tr>
       <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-        <%= avatar_image @notification.activity.owner, size: :thumb, style: "width:60px; height:60px; border-radius: 30px; max-width:60px; min-width:60px;", class: "mcnImage" %>
+        <%= avatar_image @notification.comment.user, size: :thumb, style: "width:60px; height:60px; border-radius: 30px; max-width:60px; min-width:60px;", class: "mcnImage" %>
       </td>
       <td class="mcnTextContent" style="padding-right:18px; width:100%;">
         <p>
-          <em><strong><%= @notification.activity.owner.first_name %>:</strong></em>
+          <em><strong><%= @notification.comment.user.first_name %>:</strong></em>
           <br>
-          <%= @notification.comment.content.truncate(300, separator: ' ') %>
+          <%= @notification.comment.preview %>
         </p>
       </td>
     </tr>
@@ -48,7 +48,8 @@
 
     <tr>
       <td colspan="2">
-        <%= render 'mailers/shared/button', title: "Zum Kommentar", url: group_discussion_url(@notification.group, @notification.discussion_post.discussion, target: "discussion-post-#{@notification.discussion_post.id}") %>
+        <%= render 'mailers/shared/button', title: "Zum Kommentar",
+            url: [@notification.group, @notification.discussion, target: "comment_#{@notification.child_id}"]
       </td>
     </tr>
 

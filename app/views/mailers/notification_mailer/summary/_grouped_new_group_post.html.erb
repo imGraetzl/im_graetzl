@@ -20,7 +20,7 @@
           </td>
           <td class="mcnTextContent" style="padding-right:18px; width:100%;">
             <p>
-              <em><strong><%= notification.activity.owner.first_name %>:</strong></em>
+              <em><strong><%= notification.discussion_post.user.first_name %>:</strong></em>
               <br>
               <%= notification.discussion_post.content.truncate(300, separator: ' ') %>
             </p>

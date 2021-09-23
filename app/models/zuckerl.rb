@@ -58,17 +58,17 @@ class Zuckerl < ApplicationRecord
     end
   end
 
-  def self.for_area(area)
-    if area.is_a?(Graetzl)
-      graetzl_ids = area.region.use_districts? ? area.district.graetzl_ids : [area.id]
-    elsif area.is_a?(District)
-      graetzl_ids = area.graetzl_ids
-    end
-    Zuckerl.live.joins(:location).where("entire_region = 't' OR locations.graetzl_id IN (?)", graetzl_ids)
+  def self.in_area(graetzl_ids)
+    ids = joins(:location).where("entire_region = 't' OR locations.graetzl_id IN (?)", graetzl_ids).pluck(:id)
+    where(id: ids)
   end
 
   def self.include_for_box
     includes(location: [:location_category])
+  end
+
+  def self.random(n)
+    order(Arel.sql("RANDOM()")).first(n)
   end
 
   def self.next_invoice_number

@@ -19,12 +19,13 @@ class RoomOffersController < ApplicationController
     @room_offer = RoomOffer.new(room_offer_params)
     @room_offer.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @room_offer.region_id = current_region.id
+    @room_offer.activate
 
     if @room_offer.save
       current_user.update(user_params) if params[:user].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
       RoomMailer.room_offer_published(@room_offer).deliver_later
-      @room_offer.create_activity(:create, owner: @room_offer.user)
+      ActionProcessor.track(@room_offer, :create)
       redirect_to @room_offer
     else
       render 'new'
@@ -38,16 +39,10 @@ class RoomOffersController < ApplicationController
   def update
     @room_offer = current_user.room_offers.find(params[:id])
 
-    ########
-    # Set new last_activated_at date if edit and last_activated_at is more then 7 days ago
-    if params[:last_activated_at] <= 7.days.ago && @room_offer.enabled?
-      @room_offer.last_activated_at = Time.now
-    end
-    #########
-
     if @room_offer.update(room_offer_params)
       current_user.update(user_params) if params[:user].present?
       MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
+      ActionProcessor.track(@room_offer, :update) if @room_offer.refresh_activity
       redirect_to @room_offer
     else
       render 'edit'
@@ -57,7 +52,7 @@ class RoomOffersController < ApplicationController
   def update_status
     @room_offer = current_user.room_offers.find(params[:id])
     @room_offer.update(status: params[:status])
-    @room_offer.update(last_activated_at: @room_offer.set_last_activated_at) if @room_offer.enabled?
+    ActionProcessor.track(@room_offer, :update) if @room_offer.refresh_activity
     MailchimpRoomOfferUpdateJob.perform_later(@room_offer)
     flash[:notice] = t("activerecord.attributes.room_offer.status_message.#{@room_offer.status}")
     redirect_back(fallback_location: rooms_user_path)
@@ -66,7 +61,7 @@ class RoomOffersController < ApplicationController
   def activate
     @room_offer = RoomOffer.find(params[:id])
     if params[:activation_code].to_i == @room_offer.activation_code
-      @room_offer.update(:last_activated_at => @room_offer.set_last_activated_at, :status => "enabled")
+      @room_offer.enabled!
       flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."

@@ -1,26 +1,17 @@
 class Notifications::NewToolOffer < Notification
-  TRIGGER_KEY = 'tool_offer.create'
   DEFAULT_INTERVAL = :weekly
-  BITMASK = 2**19
-
-  def self.receivers(activity)
-    User.where(graetzl_id: activity.trackable.graetzl_id)
-  end
+  self.bitmask = 2**19
 
   def self.description
     'Ein neuer Toolteiler wurde im Grätzl erstellt'
   end
 
-  def self.notify_owner?
-    true
-  end
-
   def mail_subject
-    "Neuer Toolteiler im Grätzl #{activity.trackable.graetzl.name}"
+    "Neuer Toolteiler im Grätzl #{subject.graetzl.name}"
   end
 
   def tool_offer
-    activity.trackable
+    subject
   end
 
 end

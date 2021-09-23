@@ -1,12 +1,9 @@
-<% user = notification.activity.trackable %>
-<% graetzl = Graetzl.memoized(user.graetzl_id) %>
-
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
-  <%= link_to user do %>
-    <%= avatar_image notification.activity.owner, size: :thumb, class: 'img-round' %>
+  <%= link_to notification.user do %>
+    <%= avatar_image notification.comment.user, size: :thumb, class: 'img-round' %>
     <div class="msg">
-      <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
-      <span class="username"><%= notification.activity.owner.username %></span> hat an deine Pinnwand geschrieben
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.comment.user.username %></span> hat an deine Pinnwand geschrieben
     </div>
   <% end %>
 <% end %>

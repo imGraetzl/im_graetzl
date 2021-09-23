@@ -115,12 +115,30 @@ class Meeting < ApplicationRecord
     end
   end
 
+  def activate_next_date!
+    next_meeting = meeting_additional_dates.sort_by(&:starts_at_date).first
+    update(
+      starts_at_date: next_meeting.starts_at_date,
+      starts_at_time: next_meeting.starts_at_time,
+      ends_at_time: next_meeting.ends_at_time
+    )
+    next_meeting.destroy
+  end
+
   def attendees
     self.going_tos.where.not(role: :initiator)
   end
 
   def attending?(user)
     user && going_tos.any?{|gt| gt.user_id == user.id}
+  end
+
+  def notification_time_range
+    if starts_at_date
+      [starts_at_date - 7.days, starts_at_date]
+    else
+      [Time.current, nil]
+    end
   end
 
   def approve_for_platform_meeting
@@ -131,20 +149,6 @@ class Meeting < ApplicationRecord
   def decline_for_platform_meeting
     update platform_meeting: false
     self.platform_meeting_join_request.assign_attributes(status: :declined)
-  end
-
-  def approve_for_api
-    if !approved_for_api?
-      update approved_for_api: true
-      create_activity(:approve_for_api)
-    end
-  end
-
-  def disapprove_for_api
-    if approved_for_api?
-      update approved_for_api: false
-      create_activity(:disapprove_for_api)
-    end
   end
 
   private

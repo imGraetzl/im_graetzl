@@ -42,14 +42,6 @@ class Location < ApplicationRecord
     includes(:location_posts, :live_zuckerls, :location_category, :upcoming_meetings)
   end
 
-  def approve
-    if pending?
-      approved!
-      create_activity(:create)
-      UsersMailer.location_approved(self, self.user).deliver_now
-    end
-  end
-
   def to_s
     name
   end

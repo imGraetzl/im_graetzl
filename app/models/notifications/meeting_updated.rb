@@ -1,11 +1,6 @@
 class Notifications::MeetingUpdated < Notification
-  TRIGGER_KEY = 'meeting.update'
   DEFAULT_INTERVAL = :daily
-  BITMASK = 2**3
-
-  def self.receivers(activity)
-    activity.trackable.users
-  end
+  self.bitmask = 2**3
 
   def self.description
     'Änderungen eines Treffens an dem ich teilnehme'
@@ -16,7 +11,7 @@ class Notifications::MeetingUpdated < Notification
   end
 
   def meeting
-    activity.trackable
+    subject
   end
 
 end

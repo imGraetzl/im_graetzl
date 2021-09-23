@@ -9,7 +9,7 @@ class UsersMailerPreview < ActionMailer::Preview
   end
 
   def location_approved
-    UsersMailer.location_approved(Location.last, Location.last.users.last)
+    UsersMailer.location_approved(Location.last)
   end
 
 end

@@ -4,8 +4,8 @@ namespace :scheduled do
   task update_completed_tool_rentals: :environment do
     ToolRental.approved.where("rent_to < ?", Date.today).find_each do |tool_rental|
       tool_rental.update(rental_status: :return_pending)
-      tool_rental.create_activity(:return_pending, owner: tool_rental.user)
       ToolOfferMailer.rental_return_pending(tool_rental).deliver_now
+      Notifications::ToolRentalPending.generate(tool_rental, to: tool_rental.owner.id)
     end
   end
 

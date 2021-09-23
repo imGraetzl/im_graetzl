@@ -25,6 +25,10 @@ class DiscussionPost < ApplicationRecord
     by_user && (user_id == by_user.id || group.admins.include?(by_user))
   end
 
+  def region_id
+    group.region_id
+  end
+
   private
 
   def set_discussion_last_post

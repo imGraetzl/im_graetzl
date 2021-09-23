@@ -1,11 +1,6 @@
 class Notifications::NewLocation < Notification
-  TRIGGER_KEY = 'location.create'
   DEFAULT_INTERVAL = :weekly
-  BITMASK = 2**5
-
-  def self.receivers(activity)
-    User.where(graetzl_id: activity.trackable.graetzl_id)
-  end
+  self.bitmask = 2**5
 
   def self.description
     'Es gibt ein neues Schaufenster in deinem Grätzl'
@@ -16,7 +11,7 @@ class Notifications::NewLocation < Notification
   end
 
   def location
-    activity.trackable
+    subject
   end
 
 end

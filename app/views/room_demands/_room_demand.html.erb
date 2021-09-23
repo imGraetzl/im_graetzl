@@ -38,8 +38,8 @@
     </div>
     <% end %>
 
-    <% if local_assigns[:appendix].present? %>
-      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: room_demand %>
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: room_demand, comment: local_assigns[:activity_comment] %>
     <% end %>
 
     <% if local_assigns[:manage_buttons].present? && current_user == room_demand.user %>

@@ -29,7 +29,7 @@ class MeetingsController < ApplicationController
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
 
     if @meeting.save
-      @meeting.create_activity :create, owner: @meeting.user, cross_platform: @meeting.online_meeting?
+      ActionProcessor.track(@meeting, :create)
       redirect_to [@meeting.graetzl, @meeting]
     else
       render 'new'
@@ -59,32 +59,21 @@ class MeetingsController < ApplicationController
 
   def attend
     @meeting = Meeting.find(params[:id])
-    if params[:meeting_additional_date_id].present?
-      if params[:meeting_additional_date_id] == 'original_date'
-        @meeting.going_tos.new(
-          user_id: current_user.id,
-          going_to_date: @meeting.starts_at_date,
-          going_to_time: @meeting.starts_at_time,
-        )
-      else
-        @meeting_additional_date = MeetingAdditionalDate.find(params[:meeting_additional_date_id])
-        @meeting.going_tos.new(
-          user_id: current_user.id,
-          going_to_date: @meeting_additional_date.starts_at_date,
-          going_to_time: @meeting_additional_date.starts_at_time,
-          meeting_additional_date_id: @meeting_additional_date.id,
-        )
-      end
-    else
-      @meeting.going_tos.new(
-        user_id: current_user.id,
-      )
+    going_to = @meeting.going_tos.new(user_id: current_user.id)
+
+    if params[:meeting_additional_date_id] == 'original_date'
+      going_to.going_to_date = @meeting.starts_at_date
+      going_to.going_to_time = @meeting.starts_at_time
+    elsif params[:meeting_additional_date_id].present?
+      additional_date = MeetingAdditionalDate.find(params[:meeting_additional_date_id])
+      going_to.going_to_date = additional_date.starts_at_date
+      going_to.going_to_time = additional_date.starts_at_time
+      going_to.meeting_additional_date_id = additional_date.id
     end
-    @meeting.save
 
-    @meeting.create_activity :go_to, owner: current_user, cross_platform: @meeting.online_meeting?
+    going_to.save
+    ActionProcessor.track(@meeting, :attended, child: going_to)
 
-    #flash[:notice] = "Du wurdest als InteressentIn hinzugefügt."
     redirect_to [@meeting.graetzl, @meeting]
   end
 
@@ -96,14 +85,8 @@ class MeetingsController < ApplicationController
 
   def destroy
     @meeting = find_user_meeting
-    # Meeting auf Cancelled setzen:
-    # Erklärung: call method if method returns true (cancelled wird ausgeführt, dann activity)
-    #@meeting.create_activity(:cancel, owner: current_user) if @meeting.cancelled!
-    #redirect_to @meeting.graetzl, notice: 'Dein Treffen wurde abgesagt.'
-
     @meeting.destroy
     redirect_to root_path, notice: 'Dein Treffen wurde gelöscht.'
-
   end
 
   def compose_mail

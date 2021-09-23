@@ -1,27 +1,18 @@
 class Notifications::NewWallComment < Notification
-  TRIGGER_KEY = 'user.comment'
   DEFAULT_INTERVAL = :immediate
   DEFAULT_WEBSITE_NOTIFICATION = :on
-  BITMASK = 2**10
-
-  def self.receivers(activity)
-    User.where(id: activity.trackable.id)
-  end
-
-  def self.condition(activity)
-    activity.owner.present? && activity.recipient.present?
-  end
+  self.bitmask = 2**10
 
   def self.description
     'Jemand hat auf meine Pinnwand geschrieben'
   end
 
   def mail_subject
-    "#{activity.owner.username} hat auf deine Pinnwand geschrieben."
+    "#{comment.user.username} hat auf deine Pinnwand geschrieben."
   end
 
   def comment
-    activity.recipient
+    child
   end
 
 end

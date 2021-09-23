@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_19_132137) do
+ActiveRecord::Schema.define(version: 2021_09_13_171917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,20 +31,32 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   end
 
   create_table "activities", id: :serial, force: :cascade do |t|
-    t.integer "trackable_id"
-    t.string "trackable_type", limit: 255
+    t.integer "subject_id"
+    t.string "subject_type", limit: 255
     t.integer "owner_id"
     t.string "owner_type", limit: 255
     t.string "key", limit: 255
-    t.text "parameters"
-    t.integer "recipient_id"
-    t.string "recipient_type", limit: 255
+    t.integer "child_id"
+    t.string "child_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "cross_platform", default: false
+    t.boolean "entire_region", default: false
+    t.string "region_id"
+    t.bigint "group_id"
+    t.index ["child_id", "child_type"], name: "index_activities_on_child_id_and_child_type"
+    t.index ["group_id"], name: "index_activities_on_group_id"
     t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
-    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
-    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+    t.index ["region_id"], name: "index_activities_on_region_id"
+    t.index ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type"
+  end
+
+  create_table "activity_graetzls", force: :cascade do |t|
+    t.bigint "activity_id"
+    t.bigint "graetzl_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["activity_id"], name: "index_activity_graetzls_on_activity_id"
+    t.index ["graetzl_id"], name: "index_activity_graetzls_on_graetzl_id"
   end
 
   create_table "addresses", id: :serial, force: :cascade do |t|
@@ -113,13 +125,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "categories_meetings", id: false, force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "meeting_id"
-    t.index ["category_id"], name: "index_categories_meetings_on_category_id"
-    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -589,13 +594,20 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.string "type"
     t.date "notify_at"
     t.date "notify_before"
+    t.string "subject_type"
+    t.integer "subject_id"
+    t.string "child_type"
+    t.integer "child_id"
+    t.string "region_id"
+    t.index ["child_type", "child_id"], name: "index_notifications_on_child_type_and_child_id"
+    t.index ["region_id"], name: "index_notifications_on_region_id"
+    t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
     t.index ["user_id", "notify_at"], name: "index_notifications_on_user_id_and_notify_at"
   end
 
   create_table "platform_meeting_join_requests", force: :cascade do |t|
     t.bigint "meeting_id"
     t.text "request_message"
-    t.boolean "wants_platform_meeting", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
@@ -860,7 +872,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   end
 
   create_table "room_rental_prices", force: :cascade do |t|
-    t.integer "room_offer_id"
+    t.bigint "room_offer_id"
     t.string "name"
     t.decimal "price_per_hour", precision: 10, scale: 2
     t.integer "minimum_rental_hours", default: 0
@@ -868,6 +880,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.integer "eight_hour_discount", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_offer_id"], name: "index_room_rental_prices_on_room_offer_id"
   end
 
   create_table "room_rental_slots", force: :cascade do |t|
@@ -970,12 +983,12 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.integer "address_id"
     t.jsonb "cover_photo_data"
     t.string "region_id"
-    t.decimal "deposit", precision: 10, scale: 2
     t.string "address_street"
     t.string "address_zip"
     t.string "address_city"
     t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
     t.string "address_description"
+    t.decimal "deposit", precision: 10, scale: 2
     t.index ["address_id"], name: "index_tool_offers_on_address_id"
     t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_tool_offers_on_location_id"
@@ -1019,6 +1032,15 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.index ["stripe_payment_intent_id"], name: "index_tool_rentals_on_stripe_payment_intent_id"
     t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"
     t.index ["user_id"], name: "index_tool_rentals_on_user_id"
+  end
+
+  create_table "user_graetzls", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "graetzl_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["graetzl_id"], name: "index_user_graetzls_on_graetzl_id"
+    t.index ["user_id"], name: "index_user_graetzls_on_user_id"
   end
 
   create_table "user_message_thread_members", force: :cascade do |t|
@@ -1134,14 +1156,17 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
     t.string "invoice_number"
     t.string "link"
     t.jsonb "cover_photo_data"
-    t.string "region_id"
     t.bigint "user_id"
+    t.string "region_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
     t.index ["user_id"], name: "index_zuckerls_on_user_id"
   end
 
+  add_foreign_key "activities", "groups", on_delete: :cascade
+  add_foreign_key "activity_graetzls", "activities", on_delete: :cascade
+  add_foreign_key "activity_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "billing_addresses", "users", on_delete: :nullify
   add_foreign_key "business_interests_users", "business_interests", on_delete: :cascade
   add_foreign_key "business_interests_users", "users", on_delete: :cascade
@@ -1158,6 +1183,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   add_foreign_key "discussion_posts", "users", on_delete: :nullify
   add_foreign_key "discussions", "discussion_categories", on_delete: :nullify
   add_foreign_key "discussions", "groups", on_delete: :cascade
+  add_foreign_key "discussions", "users", on_delete: :nullify
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
@@ -1209,6 +1235,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   add_foreign_key "room_offers", "graetzls", on_delete: :nullify
   add_foreign_key "room_offers", "locations", on_delete: :nullify
   add_foreign_key "room_offers", "users", on_delete: :cascade
+  add_foreign_key "room_rental_prices", "room_offers", on_delete: :cascade
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify
@@ -1218,6 +1245,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_132137) do
   add_foreign_key "tool_offers", "users", on_delete: :cascade
   add_foreign_key "tool_rentals", "tool_offers", on_delete: :nullify
   add_foreign_key "tool_rentals", "users", on_delete: :nullify
+  add_foreign_key "user_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "user_graetzls", "users", on_delete: :cascade
   add_foreign_key "user_message_thread_members", "user_message_threads", on_delete: :cascade
   add_foreign_key "user_message_thread_members", "users", on_delete: :cascade
   add_foreign_key "user_message_threads", "room_rentals", on_delete: :nullify

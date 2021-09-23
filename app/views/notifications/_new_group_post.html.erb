@@ -1,11 +1,12 @@
-<%- post = notification.activity.trackable %>
+<%- post = notification.subject %>
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to [post.group, post.discussion, :target => "discussion-post-#{post.id}"] do %>
-    <%= avatar_image notification.activity.owner, size: :thumb, class: 'img-round' %>
+    <%= avatar_image post.user, size: :thumb, class: 'img-round' %>
     <div class="msg">
-      <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
-      Neue Antwort von <span class="username"><%= notification.activity.owner.username %></span> bei: <span class="matter"><%= post.discussion.title %></span>
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      Neue Antwort von <span class="username"><%= post.user.username %></span> bei:
+      <span class="matter"><%= post.discussion.title %></span>
     </div>
   <% end %>
 <% end %>

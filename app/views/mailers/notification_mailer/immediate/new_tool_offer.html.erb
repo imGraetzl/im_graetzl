@@ -8,7 +8,7 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        <%= link_to @notification.activity.owner.first_name, user_url(@notification.activity.owner), style: "color:#f48a85;" %>
+        <%= link_to @notification.tool_offer.user.first_name, user_url(@notification.tool_offer.user), style: "color:#f48a85;" %>
         hat einen neuen Toolteiler erstellt:
       </h4>
     </td>
@@ -34,11 +34,11 @@
         <table>
           <tr>
             <td>
-              <%= avatar_image @notification.activity.owner, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+              <%= avatar_image @notification.tool_offer.user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
             </td>
             <td> </td>
             <td style="font-size:12px; line-height:16px;">
-              <%= link_to @notification.activity.owner.username, user_url(@notification.activity.owner), style: "color:#ec776a; font-size:12px;" %>
+              <%= link_to @notification.tool_offer.user.username, user_url(@notification.tool_offer.user), style: "color:#ec776a; font-size:12px;" %>
               <br>
               verleiht ab <%= @notification.tool_offer.daily_price(7).to_i %> € pro Tag:
             </td>

@@ -32,7 +32,6 @@ class GroupsController < ApplicationController
     @group.group_users.build(user_id: current_user.id, role: :admin)
 
     if @group.save
-      @group.create_activity(:create, owner: current_user)
       GroupMailer.group_online(@group, current_user).deliver_later
       redirect_to @group
     else
@@ -89,7 +88,6 @@ class GroupsController < ApplicationController
       group_user = @group.group_users.create(user: @join_request.user)
 
       if @group.save
-        group_user.create_activity(:create, owner: current_user)
         GroupMailer.join_request_accepted(@group, @join_request.user).deliver_later
       end
 

@@ -1,11 +1,9 @@
-<%- room_demand = notification.activity.trackable %>
-
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
-  <%= link_to room_demand do %>
-    <%= avatar_image room_demand, size: :thumb, class: 'img-round' %>
+  <%= link_to notification.room_demand do %>
+    <%= avatar_image notification.room_demand, size: :thumb, class: 'img-round' %>
     <div class="msg">
-      <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
-      <span class="username"><%= notification.activity.owner.username %></span> sucht Räumlichkeiten in deinem Grätzl
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.room_demand.user.username %></span> sucht Räumlichkeiten in deinem Grätzl
     </div>
   <% end %>
 <% end %>

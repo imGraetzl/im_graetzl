@@ -3,8 +3,7 @@ class ZuckerlsController < ApplicationController
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    #@zuckerls = collection_scope.in(current_region)
-    @zuckerls = collection_scope
+    @zuckerls = collection_scope.in(region).include_for_box
     @zuckerls = @zuckerls.page(params[:page]).per(15).order(Arel.sql("RANDOM()"))
   end
 
@@ -52,11 +51,10 @@ class ZuckerlsController < ApplicationController
 
   def collection_scope
     if params[:graetzl_id].present?
-      graetzl = Graetzl.find(params[:graetzl_id])
-      Zuckerl.for_area(graetzl)
+      Zuckerl.live.in_area(params[:graetzl_id])
     elsif params[:district_id].present?
       district = District.find(params[:district_id])
-      Zuckerl.for_area(district)
+      Zuckerl.live.in_area(district.graetzl_ids)
     else
       Zuckerl.live
     end

@@ -1,26 +1,17 @@
 class Notifications::NewRoomOffer < Notification
-  TRIGGER_KEY = ['room_offer.create', 'room_offer.update']
   DEFAULT_INTERVAL = :weekly
-  BITMASK = 2**12
-
-  def self.receivers(activity)
-    User.where(graetzl_id: activity.trackable.graetzl_id)
-  end
+  self.bitmask = 2**12
 
   def self.description
     'Ein neues Raumangebot wurde im Grätzl erstellt'
   end
 
-  def self.notify_owner?
-    true
-  end
-
   def mail_subject
-    "Neuer Raumteiler im Grätzl #{activity.trackable.graetzl.name}"
+    "Neuer Raumteiler im Grätzl #{subject.graetzl.name}"
   end
 
   def room_offer
-    activity.trackable
+    subject
   end
 
 end

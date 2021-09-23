@@ -1,11 +1,11 @@
-<% notifications.group_by(&:discussion_post).each do |discussion_post, post_notifications| %>
+<% notifications.group_by(&:subject).each do |discussion_post, post_notifications| %>
 
   <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
     <tbody>
       <tr>
         <td colspan="2" valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
           <p>
-              <em><strong>Dein Beitrag wurde kommentiert:</strong></em>
+            <em><strong>Dein Beitrag wurde kommentiert:</strong></em>
           </p>
         </td>
       </tr>
@@ -39,13 +39,13 @@
       <tbody>
         <tr>
           <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-            <%= avatar_image notification.activity.owner, size: :thumb, style: "width:60px; height:60px; border-radius: 30px; max-width:60px; min-width:60px;", class: "mcnImage" %>
+            <%= avatar_image notification.comment.user, size: :thumb, style: "width:60px; height:60px; border-radius: 30px; max-width:60px; min-width:60px;", class: "mcnImage" %>
           </td>
           <td class="mcnTextContent" style="padding-right:18px; width:100%;">
             <p>
-              <em><strong><%= notification.activity.owner.first_name %>:</strong></em>
+              <em><strong><%= notification.comment.user.first_name %>:</strong></em>
               <br>
-              <%= notification.comment.content.truncate(300, separator: ' ') %>
+              <%= notification.comment.preview %>
             </p>
           </td>
         </tr>
@@ -56,7 +56,8 @@
 
         <tr>
           <td colspan="2">
-            <%= render 'mailers/shared/button', title: "Zum Kommentar", url: group_discussion_url(notification.group, notification.activity.trackable.discussion, target: "comment_#{notification.activity.recipient_id}") %>
+            <%= render 'mailers/shared/button', title: "Zum Kommentar",
+                url: [notification.group, notification.discussion, target: "comment_#{notification.child_id}"] %>
           </td>
         </tr>
       </tbody>

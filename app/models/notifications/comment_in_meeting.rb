@@ -1,11 +1,6 @@
 class Notifications::CommentInMeeting < Notification
-  TRIGGER_KEY = 'meeting.comment'
   DEFAULT_INTERVAL = :daily
-  BITMASK = 2**20
-
-  def self.receivers(activity)
-    activity.trackable.users
-  end
+  self.bitmask = 2**20
 
   def self.description
     "Ein Treffen an dem ich teilnehme wurde kommentiert"
@@ -16,33 +11,23 @@ class Notifications::CommentInMeeting < Notification
   end
 
   def mail_subject
-    "#{activity.owner.username} hat ein Treffen kommentiert."
+    "#{child.user.username} hat ein Treffen kommentiert."
   end
 
   def headline
     'Neuer Kommentar bei einem Treffen'
   end
 
+  def comment
+    child
+  end
+
   def content_title
-    meeting.name
+    subject.to_s
   end
 
   def content_url_params
-    [meeting.graetzl, meeting]
-  end
-
-  def comment_content_preview
-    activity.recipient.content.truncate(300, separator: ' ')
-  end
-
-  def comment_url_params
-    [meeting.graetzl, meeting]
-  end
-
-  private
-
-  def meeting
-    activity.trackable
+    [subject.graetzl, subject]
   end
 
 end

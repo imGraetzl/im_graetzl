@@ -8,7 +8,7 @@
         <td valign="center" class="mcnTextContent" width="100%">
           <p>
             <em>
-              <strong><%= notification.activity.owner.first_name %></strong>
+              <strong><%= notification.discussion.user.first_name %></strong>
               hat ein neues Thema
               <% if notification.discussion.discussion_category %>
                 unter "<%= notification.discussion.discussion_category.title %>"

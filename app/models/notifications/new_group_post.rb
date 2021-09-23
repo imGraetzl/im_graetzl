@@ -1,18 +1,13 @@
 class Notifications::NewGroupPost < Notification
-  TRIGGER_KEY = 'discussion_post.create'
   DEFAULT_INTERVAL = :daily
-  BITMASK = 2**18
-
-  def self.receivers(activity)
-    activity.trackable.discussion.following_users
-  end
+  self.bitmask = 2**18
 
   def self.description
     'Es gibt neue Beiträge in Themen denen ich folge'
   end
 
   def mail_subject
-    "Neuer Beitrag von #{activity.owner.first_name} im Thema #{activity.trackable.discussion.title}."
+    "Neuer Beitrag von #{subject.user.first_name} im Thema #{subject.discussion.title}."
   end
 
   def group
@@ -24,7 +19,7 @@ class Notifications::NewGroupPost < Notification
   end
 
   def discussion_post
-    activity.trackable
+    subject
   end
 
 end

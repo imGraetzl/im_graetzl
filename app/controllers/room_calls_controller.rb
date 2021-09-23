@@ -16,7 +16,6 @@ class RoomCallsController < ApplicationController
     @room_call.region_id = current_region.id
 
     if @room_call.save
-      @room_call.create_activity(:create, owner: @room_call.user)
       redirect_to @room_call
     else
       render 'new'

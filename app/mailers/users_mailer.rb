@@ -2,32 +2,40 @@ class UsersMailer < ApplicationMailer
 
   def welcome_email(user)
     @user = user
+    @region = @user.region
+
     headers("X-MC-Tags" => "welcome-mail")
+
     mail(
-      to: @user.email,
-      from: "Mirjam | imGrätzl.at <mirjam@imgraetzl.at>",
       subject: "Zum Start gibt es gleich ein paar schöne Chancen als Willkommensgeschenk!",
+      from: platform_email("mirjam", "Mirjam Mieschendahl"),
+      to: @user.email,
     )
   end
 
   def user_confirmation_reminder(user)
     @user = user
+    @region = @user.region
+
     headers("X-MC-Tags" => "user-confirmation-reminder")
+
     mail(
-      to: @user.email,
-      from: "imGrätzl.at <wir@imgraetzl.at>",
       subject: "Noch ein Klick zu deinem imGrätzl Account",
+      from: platform_email("wir"),
+      to: @user.email,
     )
   end
 
-  def location_approved(location, user)
+  def location_approved(location)
     @location = location
-    @user = user
+    @region = @location.region
+
     headers("X-MC-Tags" => "location-approved")
+
     mail(
-      to: @user.email,
-      from: "Mirjam | imGrätzl.at <mirjam@imgraetzl.at>",
       subject: "Dein Schaufenster wurde freigeschalten",
+      from: platform_email("mirjam", "Mirjam Mieschendahl"),
+      to: @location.user.email,
     )
   end
 
