@@ -84,7 +84,7 @@ class NotificationMailer < ApplicationMailer
       Notifications::MeetingUpdated,
     ],
     "Neuer Kommentar bei" => [
-      Notifications::CommentInMeeting, Notifications::CommentToUser, Notifications::ReplyOnComment,
+      Notifications::CommentInMeeting, Notifications::ReplyOnComment,
     ],
     'Ebenfalls kommentiert' => [
       Notifications::CommentOnFollowedContent, Notifications::ReplyOnFollowedComment,
