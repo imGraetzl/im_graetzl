@@ -40,10 +40,6 @@ namespace :db do
       end
     end
 
-    Notification.includes(:subject).find_each do |notification|
-      notification.update(region_id: notification.subject.region_id)
-    end
-
     Notification.where(bitmask: 2**4).update_all(type: 'Notifications::CommentOnOwnedContent')
     Notification.where(bitmask: 2**6).update_all(type: 'Notifications::CommentOnFollowedContent')
     Notification.where(bitmask: 2**9).update_all(type: 'Notifications::MeetingAttended')
