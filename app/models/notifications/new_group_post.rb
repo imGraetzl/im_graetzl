@@ -1,6 +1,6 @@
 class Notifications::NewGroupPost < Notification
   DEFAULT_INTERVAL = :daily
-  self.bitmask = 2**18
+  self.class_bitmask = 2**18
 
   def self.description
     'Es gibt neue Beiträge in Themen denen ich folge'

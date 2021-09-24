@@ -83,11 +83,11 @@ class User < ApplicationRecord
     type = Notifications.const_get(type)
     case frequency
     when 'weekly', 'daily', 'immediate'
-      User.where("#{frequency}_mail_notifications & ? > 0", type.bitmask)
+      User.where("#{frequency}_mail_notifications & ? > 0", type.class_bitmask)
     when 'off'
-      user = User.where("weekly_mail_notifications & ? <= 0", type.bitmask)
-      user = user.where("daily_mail_notifications & ? <= 0", type.bitmask)
-      user.where("immediate_mail_notifications & ? <= 0", type.bitmask)
+      user = User.where("weekly_mail_notifications & ? <= 0", type.class_bitmask)
+      user = user.where("daily_mail_notifications & ? <= 0", type.class_bitmask)
+      user.where("immediate_mail_notifications & ? <= 0", type.class_bitmask)
     end
   end
 

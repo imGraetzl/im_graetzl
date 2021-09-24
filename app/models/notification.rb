@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  class_attribute :bitmask
+  class_attribute :class_bitmask
 
   DEFAULT_INTERVAL = :off
   DEFAULT_WEBSITE_NOTIFICATION = :off
@@ -23,15 +23,15 @@ class Notification < ApplicationRecord
         user: user,
         subject: subject,
         child: child,
-        display_on_website: user.enabled_website_notification?(self.class),
-        bitmask: bitmask,
+        display_on_website: user.enabled_website_notification?(self),
+        bitmask: class_bitmask,
         region_id: subject.region_id,
         notify_at: time_range.first || Time.current,
         notify_before: time_range.last,
       )
     end
 
-    import(notifications, synchronize: true)
+    import(notifications, synchronize: notifications)
 
     notifications.each do |notification|
       if notification.user.enabled_mail_notification?(self, :immediate)
@@ -41,7 +41,7 @@ class Notification < ApplicationRecord
   end
 
   def self.platform_notification?
-    self.bitmask.nil?
+    self.class_bitmask.nil?
   end
 
   def self.dasherized

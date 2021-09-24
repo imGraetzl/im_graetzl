@@ -1,6 +1,6 @@
 class Notifications::NewRoomCall < Notification
   DEFAULT_INTERVAL = :weekly
-  self.bitmask = 2**14
+  self.class_bitmask = 2**14
 
   def self.description
     'Eine gibt einen neuen Raumteiler Call'

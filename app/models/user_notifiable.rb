@@ -10,16 +10,16 @@ module UserNotifiable
   # Website Notifications
 
   def enable_website_notification(type)
-    new_setting = enabled_website_notifications | type.bitmask
+    new_setting = enabled_website_notifications | type.class_bitmask
     update_attribute(:enabled_website_notifications, new_setting)
   end
 
   def enabled_website_notification?(type)
-    (enabled_website_notifications & type.bitmask > 0) || type.platform_notification?
+    (enabled_website_notifications & type.class_bitmask > 0) || type.platform_notification?
   end
 
   def toggle_website_notification(type)
-    new_setting = enabled_website_notifications ^ type.bitmask
+    new_setting = enabled_website_notifications ^ type.class_bitmask
     update_attribute(:enabled_website_notifications, new_setting)
   end
 
@@ -40,7 +40,7 @@ module UserNotifiable
   end
 
   def enabled_mail_notification?(type, interval)
-    read_attribute("#{interval}_mail_notifications") & type.bitmask > 0
+    read_attribute("#{interval}_mail_notifications") & type.class_bitmask > 0
   end
 
   def enabled_mail_notification(type)
@@ -53,9 +53,9 @@ module UserNotifiable
   def enable_mail_notification(type, interval)
     [:immediate, :daily, :weekly].each do |i|
       if interval == i
-        new_setting = read_attribute("#{i}_mail_notifications") | type.bitmask
+        new_setting = read_attribute("#{i}_mail_notifications") | type.class_bitmask
       else
-        new_setting = read_attribute("#{i}_mail_notifications") & ~type.bitmask
+        new_setting = read_attribute("#{i}_mail_notifications") & ~type.class_bitmask
       end
       write_attribute("#{i}_mail_notifications", new_setting)
     end
@@ -64,7 +64,7 @@ module UserNotifiable
 
   def disable_all_mail_notifications(type)
     [:immediate, :daily, :weekly].each do |i|
-      new_setting = read_attribute("#{i}_mail_notifications") & ~type.bitmask
+      new_setting = read_attribute("#{i}_mail_notifications") & ~type.class_bitmask
       write_attribute("#{i}_mail_notifications", new_setting)
     end
     save
@@ -87,16 +87,16 @@ module UserNotifiable
 
       case klass::DEFAULT_INTERVAL
       when :weekly
-        self.weekly_mail_notifications |= klass.bitmask
+        self.weekly_mail_notifications |= klass.class_bitmask
       when :daily
-        self.daily_mail_notifications |= klass.bitmask
+        self.daily_mail_notifications |= klass.class_bitmask
       when :immediate
-        self.immediate_mail_notifications |= klass.bitmask
+        self.immediate_mail_notifications |= klass.class_bitmask
       end
 
       case klass::DEFAULT_WEBSITE_NOTIFICATION
       when :on
-        self.enabled_website_notifications |= klass.bitmask
+        self.enabled_website_notifications |= klass.class_bitmask
       end
 
     end

@@ -1,7 +1,7 @@
 class Notifications::NewWallComment < Notification
   DEFAULT_INTERVAL = :immediate
   DEFAULT_WEBSITE_NOTIFICATION = :on
-  self.bitmask = 2**10
+  self.class_bitmask = 2**10
 
   def self.description
     'Jemand hat auf meine Pinnwand geschrieben'

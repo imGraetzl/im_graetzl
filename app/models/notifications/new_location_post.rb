@@ -1,6 +1,6 @@
 class Notifications::NewLocationPost < Notification
   DEFAULT_INTERVAL = :weekly
-  self.bitmask = 2**1
+  self.class_bitmask = 2**1
 
   def self.description
     'Ein Schaufenster aus deinem Grätzl hat eine Neuigkeit erstellt'

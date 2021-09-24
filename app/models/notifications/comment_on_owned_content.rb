@@ -1,7 +1,7 @@
 class Notifications::CommentOnOwnedContent < Notification
   DEFAULT_INTERVAL = :immediate
   DEFAULT_WEBSITE_NOTIFICATION = :on
-  self.bitmask = 2**4
+  self.class_bitmask = 2**4
 
   def self.description
     'Mein Raumteiler, Toolteiler bzw. Treffen wurde kommentiert'

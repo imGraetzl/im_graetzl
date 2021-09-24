@@ -1,7 +1,7 @@
 class Notifications::MeetingAttended < Notification
   DEFAULT_INTERVAL = :immediate
   DEFAULT_WEBSITE_NOTIFICATION = :on
-  self.bitmask = 2**9
+  self.class_bitmask = 2**9
 
   def self.description
     'Mein erstelltes Treffen hat einen neuen Teilnehmer'

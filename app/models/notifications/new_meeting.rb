@@ -1,6 +1,6 @@
 class Notifications::NewMeeting < Notification
   DEFAULT_INTERVAL = :weekly
-  self.bitmask = 2**0
+  self.class_bitmask = 2**0
 
   def self.description
     'Ein neues Treffen wurde im Grätzl erstellt'

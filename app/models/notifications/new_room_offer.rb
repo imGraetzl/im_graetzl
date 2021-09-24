@@ -1,6 +1,6 @@
 class Notifications::NewRoomOffer < Notification
   DEFAULT_INTERVAL = :weekly
-  self.bitmask = 2**12
+  self.class_bitmask = 2**12
 
   def self.description
     'Ein neues Raumangebot wurde im Grätzl erstellt'

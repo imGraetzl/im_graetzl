@@ -1,6 +1,6 @@
 class Notifications::ReplyOnFollowedDiscussionPost < Notification
   DEFAULT_INTERVAL = :immediate
-  self.bitmask = 2**22
+  self.class_bitmask = 2**22
 
   def self.description
     'Es gibt neue Antworten auf Inhalte die ich auch kommentiert habe'

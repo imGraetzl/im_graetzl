@@ -1,6 +1,6 @@
 class Notifications::NewToolOffer < Notification
   DEFAULT_INTERVAL = :weekly
-  self.bitmask = 2**19
+  self.class_bitmask = 2**19
 
   def self.description
     'Ein neuer Toolteiler wurde im Grätzl erstellt'

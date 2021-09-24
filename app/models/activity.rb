@@ -24,7 +24,7 @@ class Activity < ApplicationRecord
 
   def self.add_personal(subject, child = nil, group:)
     where(subject: subject).destroy_all
-    create!(
+    activity = create!(
       subject: subject,
       child: child,
       group_id: group.id,

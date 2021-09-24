@@ -1,7 +1,7 @@
 class Notifications::CommentOnDiscussionPost < Notification
   DEFAULT_INTERVAL = :immediate
   DEFAULT_WEBSITE_NOTIFICATION = :on
-  self.bitmask = 2**21
+  self.class_bitmask = 2**21
 
   def self.description
     "Meine erstellten Inhalte wurden kommentiert"

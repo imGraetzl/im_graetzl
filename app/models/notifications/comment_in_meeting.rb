@@ -1,6 +1,6 @@
 class Notifications::CommentInMeeting < Notification
   DEFAULT_INTERVAL = :daily
-  self.bitmask = 2**20
+  self.class_bitmask = 2**20
 
   def self.description
     "Ein Treffen an dem ich teilnehme wurde kommentiert"

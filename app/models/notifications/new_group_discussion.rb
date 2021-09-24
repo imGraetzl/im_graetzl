@@ -1,6 +1,6 @@
 class Notifications::NewGroupDiscussion < Notification
   DEFAULT_INTERVAL = :daily
-  self.bitmask = 2**15
+  self.class_bitmask = 2**15
 
   def self.description
     'Eine neue Diskussion wurde gestartet.'

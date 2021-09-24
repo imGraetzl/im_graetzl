@@ -1,6 +1,6 @@
 class Notifications::CommentOnFollowedContent < Notification
   DEFAULT_INTERVAL = :weekly
-  self.bitmask = 2**6
+  self.class_bitmask = 2**6
 
   def self.description
     'Ein Raumteiler, Toolteiler bzw. Treffen welches ich kommentiert habe wurde auch kommentiert'

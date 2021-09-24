@@ -1,6 +1,6 @@
 class Notifications::MeetingUpdated < Notification
   DEFAULT_INTERVAL = :daily
-  self.bitmask = 2**3
+  self.class_bitmask = 2**3
 
   def self.description
     'Änderungen eines Treffens an dem ich teilnehme'

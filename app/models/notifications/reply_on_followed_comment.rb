@@ -1,6 +1,6 @@
 class Notifications::ReplyOnFollowedComment < Notification
   DEFAULT_INTERVAL = :immediate
-  self.bitmask = 2**22
+  self.class_bitmask = 2**22
 
   def self.description
     "Ein Beitrag den ich kommentiert habe wurde auch kommentiert"

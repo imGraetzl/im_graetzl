@@ -1,6 +1,6 @@
 class Notifications::NewGroupMeeting < Notification
   DEFAULT_INTERVAL = :daily
-  self.bitmask = 2**17
+  self.class_bitmask = 2**17
 
   def self.description
     'Eine neues Treffen wurde in der Gruppe erstellt.'
