@@ -49,6 +49,10 @@ class Notification < ApplicationRecord
     self.name.demodulize.underscore.dasherize
   end
 
+  def to_partial_path
+    "notifications/#{type.demodulize.underscore}"
+  end
+
   def mail_template
     type.demodulize.underscore
   end

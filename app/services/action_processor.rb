@@ -5,11 +5,11 @@ class ActionProcessor
 
     when [Location, :create]
       Activity.add_public(object, to: object.graetzl)
-      Notifications::NewLocation.generate(object, to: object.graetzl.user_ids - [object.user_id])
+      Notifications::NewLocation.generate(object, to: user_ids(object.graetzl) - [object.user_id])
 
     when [Location, :post]
       Activity.add_public(object, child, to: object.graetzl)
-      Notifications::NewLocationPost.generate(object, to: object.graetzl.user_ids - [child.user_id])
+      Notifications::NewLocationPost.generate(object, child, to: user_ids(object.graetzl) - [object.user_id])
 
     when [Location, :comment]
       Activity.add_public(object, child, to: object.graetzl)
@@ -21,10 +21,10 @@ class ActionProcessor
       end
 
       if object.group_id
-        Notifications::NewGroupMeeting.generate(object, to: object.group.users - [object.user_id],
+        Notifications::NewGroupMeeting.generate(object, to: object.group.user_ids - [object.user_id],
           time_range: object.notification_time_range)
       elsif object.public?
-        Notifications::NewMeeting.generate(object, to: object.graetzl.user_ids - [object.user_id],
+        Notifications::NewMeeting.generate(object, to: user_ids(object.graetzl) - [object.user_id],
           time_range: object.notification_time_range)
       end
 
@@ -62,7 +62,7 @@ class ActionProcessor
 
     when [RoomOffer, :create]
       Activity.add_public(object, to: object.graetzl)
-      Notifications::NewRoomOffer.generate(object, to: object.graetzl.user_ids - [object.user_id])
+      Notifications::NewRoomOffer.generate(object, to: user_ids(object.graetzl) - [object.user_id])
 
     when [RoomOffer, :update]
       Activity.add_public(object, to: object.graetzl)
@@ -73,7 +73,7 @@ class ActionProcessor
 
     when [RoomDemand, :create]
       Activity.add_public(object, to: object.graetzls)
-      Notifications::NewRoomDemand.generate(object, to: object.graetzl.user_ids - [object.user_id])
+      Notifications::NewRoomDemand.generate(object, to: user_ids(object.graetzls) - [object.user_id])
 
     when [RoomDemand, :update]
       Activity.add_public(object, to: object.graetzls)
@@ -84,7 +84,7 @@ class ActionProcessor
 
     when [ToolOffer, :create]
       Activity.add_public(object, to: object.graetzl)
-      Notifications::NewToolOffer.generate(object, to: object.graetzl.user_ids - [object.user_id])
+      Notifications::NewToolOffer.generate(object, to: user_ids(object.graetzl) - [object.user_id])
 
     when [ToolOffer, :comment]
       Activity.add_public(object, to: object.graetzl)
@@ -117,6 +117,10 @@ class ActionProcessor
     end
     comment_followers = object.comments.pluck(:user_id) - [object.user_id, comment.user_id]
     Notifications::CommentOnFollowedContent.generate(object, comment, to: comment_followers)
+  end
+
+  def user_ids(graetzls)
+    User.where(greatzl_ids: Array(graetzls).map(&:id)).pluck(:id)
   end
 
 end

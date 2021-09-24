@@ -17,17 +17,10 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  def insert_zuckerls(graetzl_ids)
-    zuckerls_sample_size = activity_items.size * 0.2
-    zuckerls = Zuckerl.for_area(@area).limit(zuckerls_sample_size).order(Arel.sql("RANDOM()")).to_a
-    zuckerl_items = Array.new(activity_items.size){|i| zuckerls[i] || nil}.shuffle
-    activity_items.zip(zuckerl_items).flatten.compact
-  end
-
   private
 
   def insert_zuckerls(activities, graetzl_ids)
-    zuckerls = Zuckerl.in(current_region)
+    zuckerls = Zuckerl.live.in(current_region)
     zuckerls = zuckerls.in_area(graetzl_ids) if graetzl_ids.present?
     zuckerls = zuckerls.include_for_box.random(2)
 

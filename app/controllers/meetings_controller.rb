@@ -72,7 +72,7 @@ class MeetingsController < ApplicationController
     end
 
     going_to.save
-    ActionProcessor.track(@meeting, :attended, child: going_to)
+    ActionProcessor.track(@meeting, :attended, going_to)
 
     redirect_to [@meeting.graetzl, @meeting]
   end

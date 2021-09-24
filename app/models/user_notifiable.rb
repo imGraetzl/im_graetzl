@@ -4,7 +4,6 @@ module UserNotifiable
   included do
     has_many :notifications, dependent: :destroy
     before_create :set_default_notification_settings
-    before_destroy :destroy_activity_and_notifications, prepend: true
   end
 
   # Website Notifications
@@ -102,7 +101,4 @@ module UserNotifiable
     end
   end
 
-  def destroy_activity_and_notifications
-    Activity.where(owner: self).destroy_all
-  end
 end
