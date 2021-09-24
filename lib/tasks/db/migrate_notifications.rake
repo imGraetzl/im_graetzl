@@ -41,7 +41,7 @@ namespace :db do
     end
 
     Notification.includes(:subject).find_each do |notification|
-      activity.update(region_id: activity.subject.region_id)
+      notification.update(region_id: notification.subject.region_id)
     end
 
     Notification.where(bitmask: 2**4).update_all(type: 'Notifications::CommentOnOwnedContent')
