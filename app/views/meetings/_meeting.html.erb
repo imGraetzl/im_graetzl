@@ -16,9 +16,9 @@
       </div>
     <% end %>
 
-    <% if meeting.meeting_additional_dates.present? %>
+    <% if meeting.meeting_additional_dates.size > 0 %>
     <div class="calendarSheet -additionalDate">
-      + <%= meeting.meeting_additional_dates.count %>
+      + <%= meeting.meeting_additional_dates.size %>
     </div>
     <% end %>
 

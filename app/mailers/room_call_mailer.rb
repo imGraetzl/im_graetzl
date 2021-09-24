@@ -18,7 +18,7 @@ class RoomCallMailer < ApplicationMailer
     @region = @submission.room_call.region
 
     mail(
-      subject: "Neue Call Bewerbung."
+      subject: "Neue Call Bewerbung.",
       from: platform_email('no-reply'),
       to: @submission.room_call.user.email,
       bcc: 'call@imgraetzl.at',

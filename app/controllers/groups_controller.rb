@@ -85,7 +85,7 @@ class GroupsController < ApplicationController
     @join_request = @group.group_join_requests.find(params[:join_request_id])
 
     if !@group.users.include?(@join_request.user)
-      group_user = @group.group_users.create(user: @join_request.user)
+      @group.group_users.create(user: @join_request.user)
 
       if @group.save
         GroupMailer.join_request_accepted(@group, @join_request.user).deliver_later

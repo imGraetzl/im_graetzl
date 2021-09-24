@@ -5,8 +5,8 @@ module MapsHelper
     content_tag(:div, nil, class: "activeArea")
   end
 
-  def favorite_graetzl_map(areas, favorite_graetzls, home_graetzl)
-    content_tag(:div, nil, id: "area-map", data: { areas: MapData.new.encode_favorite_graetzls(areas, favorite_graetzls, home_graetzl) }) +
+  def favorite_graetzl_map(areas, favorites, home)
+    content_tag(:div, nil, id: "area-map", data: { areas: MapData.new.encode_favorite_graetzls(areas, favorites, home) }) +
     content_tag(:div, nil, class: "activeArea")
   end
 

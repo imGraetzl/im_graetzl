@@ -78,7 +78,7 @@ class Meeting < ApplicationRecord
   end
 
   def self.include_for_box
-    includes(:going_tos, :user, location: :user)
+    includes(:going_tos, :user, :meeting_additional_dates, location: :user)
   end
 
   def to_s

@@ -41,13 +41,13 @@ namespace :scheduled do
 
     region = Region.get(ENV['region'])
     if region.nil?
-      print "Please select region by using:\n\nrake scheduled:test_daily_summary_mail region=wien\n\n"
+      print "Please select region by using:\n\nrake scheduled:test_summary_mail region=wien\n\n"
       print "Available regions: #{Region.all.map(&:id).join(", ")}\n"
       exit
     end
 
     if ENV['period'].nil?
-      print "Please select period by using:\n\nrake scheduled:test_daily_summary_mail period=daily\n\n"
+      print "Please select period by using:\n\nrake scheduled:test_summary_mail period=daily\n\n"
       print "Available periods: daily, weekly\n"
       exit
     end

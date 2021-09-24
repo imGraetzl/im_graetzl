@@ -34,12 +34,6 @@ APP.components.notificationSettings = (function() {
                 dataType: "json",
                 type: "POST",
                 data: { type: toggle.data('type') },
-                success: function() {
-                    console.log("SUCCESSFULL TOGGLE WEBSITE NOTIFICATION REQUEST")
-                },
-                error: function() {
-                    console.log("UNSUCCESSFULL TOGGLE WEBSITE NOTIFICATION REQUEST")
-                }
             });
         }
     }
@@ -51,12 +45,6 @@ APP.components.notificationSettings = (function() {
                 dataType: "json",
                 type: "POST",
                 data: { type: toggle.data('type'), interval: toggle.find("option:selected")[0].value },
-                success: function() {
-                    console.log("SUCCESSFULL CHANGE MAIL NOTIFICATION REQUEST")
-                },
-                error: function() {
-                    console.log("UNSUCCESSFULL CHANGE MAIL NOTIFICATION REQUEST")
-                }
             });
         }
     }

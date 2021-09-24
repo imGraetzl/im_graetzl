@@ -57,9 +57,7 @@ class UsersController < ApplicationController
 
   def favorite_graetzls
     @user = current_user
-    # USE GRAETZLS FOR TESTING:
     @graetzls = Graetzl.in(current_region).sort_by(&:zip).reverse
-    @favorite_graetzls = Graetzl.in(current_region).where.not(id: @user.graetzl.id).sort_by(&:zip).first(4)
   end
 
   def tooltip
@@ -85,6 +83,7 @@ class UsersController < ApplicationController
       :location_category_id,
       :iban,
       :address_street, :address_coords, :address_zip, :address_city, :graetzl_id,
+      favorite_graetzl_ids: [],
       billing_address_attributes: [
         :first_name, :last_name, :street, :zip, :city, :country, :company, :vat_id
       ],

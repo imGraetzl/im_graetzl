@@ -7,11 +7,8 @@ namespace :scheduled do
       model.destroy
     end
 
-    # Find all Meetings where Start Date = Yesterday
-    # Look if they have Additonal Dates in Future
-    # Set new startDate for Meeting
-    # Delete next Additonal Date
-    # Update Activity if previous Activity of this Meeting is more then 1 Week ago
+    # Update all past meetings to next additional date.
+    # Add activity only if it has been a week since the last one.
     Meeting.where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
       if meeting.meeting_additional_dates.present?
         meeting.activate_next_date!
@@ -20,13 +17,13 @@ namespace :scheduled do
         if !Activity.where(subject: meeting).where("created_at >= ?", 1.week.ago).exists?
           ActionProcessor.track(meeting, :create)
         end
-      elsif meeting.online_meeting?
-        # Destroy old "create.meeting" Activities for online meetings if no Additonal Dates present (lets stay offline meetings for now)
-        Activity.where(subject: meeting).destroy_all
       end
-
     end
 
+    # Remove all activity from past online meetings
+    Meeting.where(online_meeting: true).where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
+      Activity.where(subject: meeting).destroy_all
+    end
   end
 
   desc 'Send Meeting Create Reminder Mail to Past Meeting Owners'
