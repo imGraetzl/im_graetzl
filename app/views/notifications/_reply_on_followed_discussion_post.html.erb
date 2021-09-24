@@ -1,0 +1,10 @@
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to [notification.group, notification.discussion, target: "comment_#{notification.child_id}"] do %>
+    <%= avatar_image notification.comment.user, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.comment.user.username %></span> hat deinen Beitrag im Thema
+      <span class="matter"><%= notification.discussion.title %></span> kommentiert.
+    </div>
+  <% end %>
+<% end %>

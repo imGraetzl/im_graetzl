@@ -1,0 +1,11 @@
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to messenger_path(thread_id: notification.room_rental.user_message_thread.id) do %>
+    <%= avatar_image notification.room_rental.owner, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.room_rental.owner.username %></span>
+      <span class="matter">hat deine Raumteiler Buchungsanfrage bestätigt</span>.
+      Macht euch gleich im Messenger Details zur Miete aus.
+    </div>
+  <% end %>
+<% end %>

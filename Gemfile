@@ -10,6 +10,7 @@ gem 'activerecord-postgis-adapter'
 gem 'rgeo'
 gem 'rgeo-geojson'
 gem 'delayed_job_active_record'
+gem 'activerecord-import'
 
 gem 'rack-attack'
 gem 'rack-cors', require: 'rack/cors'

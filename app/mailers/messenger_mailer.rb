@@ -4,8 +4,15 @@ class MessengerMailer < ApplicationMailer
     @user = user
     @messages = messages
     @thread = @messages.first.user_message_thread
+    @region = @user.region
+
     headers("X-MC-Tags" => "messenger-mail")
-    mail(to: user.email, subject: "Du hast neue Nachrichten im Messenger.")
+
+    mail(
+      subject: "Du hast neue Nachrichten im Messenger.",
+      from: platform_email("no-reply"),
+      to: @user.email,
+    )
   end
 
 end

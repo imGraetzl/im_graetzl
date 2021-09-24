@@ -58,6 +58,8 @@ GEM
     activerecord (6.1.3.2)
       activemodel (= 6.1.3.2)
       activesupport (= 6.1.3.2)
+    activerecord-import (1.2.0)
+      activerecord (>= 3.2)
     activerecord-postgis-adapter (6.0.1)
       activerecord (~> 6.0)
       rgeo-activerecord (~> 6.0)
@@ -439,6 +441,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   activeadmin
+  activerecord-import
   activerecord-postgis-adapter
   acts-as-taggable-on
   autoprefixer-rails

@@ -31,12 +31,12 @@
 
     <tr>
       <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
-        <%= avatar_image @notification.activity.owner, size: :thumb, style: "width: 40px; height: 40px; border-radius: 20px; display: block; margin-bottom:5px;" %>
+        <%= avatar_image @notification.meeting.user, size: :thumb, style: "width: 40px; height: 40px; border-radius: 20px; display: block; margin-bottom:5px;" %>
       </td>
       <td class="mcnTextContent" style="padding-right:18px; width:100%;">
         <p>
           <em><strong>
-            <%= link_to @notification.activity.owner.username, user_url(@notification.activity.owner), style: "color:#f48a85; font-weight:bold;" %>
+            <%= link_to @notification.meeting.user.username, user_url(@notification.meeting.user), style: "color:#f48a85; font-weight:bold;" %>
             hat das Treffen aktualisiert.
           </strong></em>
         </p>

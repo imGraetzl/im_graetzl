@@ -32,12 +32,12 @@
         <table>
           <tr>
             <td>
-              <%= avatar_image @notification.activity.owner, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+              <%= avatar_image @notification.meeting.user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
             </td>
             <td>
             </td>
             <td style="font-size:12px; line-height:16px;">
-              <%= link_to @notification.activity.owner.first_name, user_url(@notification.activity.owner), style: "color:#ec776a; font-size:12px;" %>
+              <%= link_to @notification.meeting.user.first_name, user_url(@notification.meeting.user), style: "color:#ec776a; font-size:12px;" %>
               <br>
               <%= I18n.localize(@notification.meeting.starts_at_date, format:'%A %d. %B') if @notification.meeting.starts_at_date %>
             </td>

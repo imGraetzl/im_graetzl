@@ -1,6 +1,6 @@
 namespace :db do
 
-  desc 'connect districts and graetzls using geometry'
+  desc 'Migrate Addresses'
   task migrate_addresses: :environment do
     [User, Meeting, Location, RoomOffer, RoomCall, ToolOffer].each do |model_class|
       model_class.find_each do |object|

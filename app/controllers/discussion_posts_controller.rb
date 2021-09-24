@@ -10,7 +10,7 @@ class DiscussionPostsController < ApplicationController
     @post.user = current_user
     if @post.save
       @discussion.discussion_followings.find_or_create_by(user: current_user)
-      @post.create_activity(:create, owner: current_user)
+      ActionProcessor.track(@post, :create)
       redirect_to [@group, @discussion, anchor: "discussion-post-#{@post.id}" ]
     else
       redirect_to [@group, @discussion]
@@ -21,7 +21,7 @@ class DiscussionPostsController < ApplicationController
     @post = @group.discussion_posts.find(params[:discussion_post_id])
     @comment = @post.comments.new comment_params
     if @comment.save
-      @post.create_activity :comment, owner: current_user, recipient: @comment
+      ActionProcessor.track(@post, :comment, @comment)
     end
     respond_to do |format|
       format.js { render "groups/discussion_posts/comment" }

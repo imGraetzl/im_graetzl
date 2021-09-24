@@ -1117,7 +1117,6 @@ APP.controllers.reports = (function() {
                   user_path_admin: host_admin + "users/" + response[i].slug,
                   user_path_app: host + response[i].slug,
                   role: response[i].role,
-                  districts: [],
                   locations: []
                 });
               }
@@ -1745,12 +1744,6 @@ APP.controllers.reports = (function() {
           $("#u_zip").html("");
           user.newsletter ? $("#u_newsletter").show() : $("#u_newsletter").hide();
           user.role ? $("#u_role").show() : $("#u_role").hide();
-
-          for (i = 0; i < user.districts.length; i++) {
-            $("<span>")
-              .html(user.districts[i].zip)
-              .appendTo("#u_zip");
-          }
 
           if (user.avatar == null) {
             $("#u_avatar").attr("src", "/assets/fallbacks/user_avatar.png");

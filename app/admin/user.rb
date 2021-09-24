@@ -6,9 +6,8 @@ ActiveAdmin.register User do
   scope :all, default: true
   scope :admin
   Region.all.each do |region|
-    scope region.name, region.id.to_sym
+    scope(region.name) { |scope| scope.where(region_id: region.id) }
   end
-
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select' }
@@ -62,7 +61,7 @@ ActiveAdmin.register User do
       column :email
       column :first_name
       column :last_name
-      column(:plz) { |user| user.district&.zip }
+      column(:plz) { |user| user.graetzl.zip }
       column :newsletter
     end
 end

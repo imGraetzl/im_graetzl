@@ -1,6 +1,5 @@
 require "active_support/core_ext/integer/time"
 
-Rails.application.default_url_options = { protocol: 'https', host: 'www.imgraetzl.at' }
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.imgraetzl_host = "imgraetzl.at"
@@ -59,11 +58,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Mailer config
-  config.action_mailer.default_options = {
-    from: 'imGrätzl.at <no-reply@imgraetzl.at>',
-    reply_to: 'imGrätzl.at <wir@imgraetzl.at>'
-  }
-  config.action_mailer.default_url_options = { host: 'www.imgraetzl.at', protocol: 'https' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.mandrillapp.com',

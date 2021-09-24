@@ -40,8 +40,8 @@
     </div>
     <%= link_to meeting_link_text(meeting), [graetzl, meeting], class: 'btn-primary -mint' %>
 
-    <% if local_assigns[:appendix].present? %>
-      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: meeting %>
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: meeting, comment: local_assigns[:activity_comment] %>
     <% end %>
   </div>
 

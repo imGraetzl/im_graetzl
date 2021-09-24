@@ -386,11 +386,9 @@ APP.components.cardBoxFilter = (function() {
   function removeDuplicateCards() {
     var items = cardGrid.find('[data-card-id]');
     var exists = {};
-    console.log(items.length);
     items.each(function() {
         var cardId = $(this).attr('data-card-id');
         if (exists[cardId]) {
-          console.log($(this));
           $(this).remove();
         } else {
           exists[cardId] = true;

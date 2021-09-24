@@ -1,27 +1,26 @@
-<% if current_region.use_districts? %>
-
-  <div class="filter-area" data-filter-label="Activity Steam :: Area">
+<div class="filter-area" data-filter-label="Activity Steam :: Area">
+  <% if graetzl.id == current_user&.graetzl_id %>
     <div class="input-radio filter-input">
-      <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="Grätzl <%= graetzl.name %>">
-      <label for="graetzl_id">Grätzl <%= graetzl.name %></label>
+      <input type="radio" value="true" id="favorites" name="favorites" data-label="Favorites">
+      <label for="favorites">Favorites</label>
     </div>
+  <% end %>
+
+  <div class="input-radio filter-input">
+    <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="<%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %>">
+    <label for="graetzl_id"><%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %></label>
+  </div>
+
+  <% if current_region.use_districts? %>
     <div class="input-radio filter-input">
       <input type="radio" value="<%= graetzl.district.id %>" id="district_id" name="district_id" data-label="Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)" checked>
       <label for="district_id">Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)</label>
     </div>
-  </div>
+  <% else %>
+    <div class="input-radio filter-input">
+      <input type="radio" value="<%= current_region.id %>" id="region_id" name="region_id" data-label="Region <%= current_region.name %>" checked>
+      <label for="region_id">Region <%= current_region.name %></label>
+    </div>
+  <% end %>
 
-<% else %>
-
-<div class="filter-area" data-filter-label="Activity Steam :: Area">
-  <div class="input-radio filter-input">
-    <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="Gemeinde <%= graetzl.name %>">
-    <label for="graetzl_id">Gemeinde <%= graetzl.name %></label>
-  </div>
-  <div class="input-radio filter-input">
-    <input type="radio" value="<%= current_region.id %>" id="region_id" name="region_id" data-label="Region <%= current_region.name %>" checked>
-    <label for="region_id">Region <%= current_region.name %></label>
-  </div>
 </div>
-
-<% end %>

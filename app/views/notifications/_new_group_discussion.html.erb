@@ -1,11 +1,12 @@
-<%- discussion = notification.activity.trackable %>
+<%- discussion = notification.subject %>
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
   <%= link_to [discussion.group, discussion, :target => "topic"] do %>
-    <%= avatar_image notification.activity.owner, size: :thumb, class: 'img-round' %>
+    <%= avatar_image discussion.user, size: :thumb, class: 'img-round' %>
     <div class="msg">
-      <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
-      <span class="username"><%= notification.activity.owner.username %></span> hat ein neues Thema in der Gruppe erstellt: <span class="matter"><%= discussion.title %></span>
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= discussion.user.username %></span> hat ein neues Thema in der Gruppe erstellt:
+      <span class="matter"><%= discussion.title %></span>
     </div>
   <% end %>
 <% end %>

@@ -28,8 +28,8 @@
       <p><%= truncate coop_demand.demand_description, length: 100 %></p>
     </div>
 
-    <% if local_assigns[:appendix].present? %>
-      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: coop_demand %>
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: coop_demand, comment: local_assigns[:activity_comment] %>
     <% end %>
 
     <% if local_assigns[:manage_buttons].present? && current_user == coop_demand.user %>

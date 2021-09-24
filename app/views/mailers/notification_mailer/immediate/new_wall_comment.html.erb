@@ -8,7 +8,7 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        <%= link_to @notification.activity.owner.first_name, user_url(@notification.activity.owner), style: "color:#f48a85;" %>
+        <%= link_to @notification.comment.user.first_name, user_url(@notification.comment.user), style: "color:#f48a85;" %>
         hat auf deine Pinnwand geschrieben:
       </h4>
     </td>
@@ -30,7 +30,7 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-left:18px; padding-right:18px; vertical-align:top;">
-        <%= avatar_image @notification.activity.owner, size: :thumb, style: "width: 40px; height: 40px; border-radius: 20px; display: block;" %>
+        <%= avatar_image @notification.comment.user, size: :thumb, style: "width: 40px; height: 40px; border-radius: 20px; display: block;" %>
       </td>
       <td valign="center" class="mcnTextContent" width="100%">
 
@@ -46,7 +46,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <%= render 'mailers/shared/button', title: "Beitrag lesen", url: graetzl_user_url(@notification.activity.trackable.graetzl, @notification.activity.trackable, target: "comment_#{@notification.comment.id}") %>
+        <%= render 'mailers/shared/button', title: "Beitrag lesen", url: user_url(@notification.subject, target: "comment_#{@notification.comment.id}") %>
       </td>
     </tr>
   </tbody>

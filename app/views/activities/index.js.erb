@@ -2,17 +2,15 @@
   var $cardContainer = $("[data-behavior='activities-card-container']");
   var $paginateLink = $("[data-behavior='activities-paginate-link']");
 
-  <% if params[:page].blank? %>
-    <% if @activity.empty? %>
-      $cardContainer.html("<%= j render 'empty_message' %>")
-    <% else %>
-      $cardContainer.html("<%= j render @activity_with_zuckerls %>")
-    <% end %>
+  <% if params[:page].blank? && @activities.empty? %>
+    $cardContainer.html("<%= j render 'empty_message' %>");
+  <% elsif params[:page].blank? %>
+    $cardContainer.html("<%= j render @activities_with_zuckerls %>");
   <% else %>
-    $cardContainer.append("<%= j render @activity %>");
+    $cardContainer.append("<%= j render @activities %>");
   <% end %>
 
-  <% if @activity.next_page.present? %>
+  <% if @activities.next_page.present? %>
     $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
   <% else %>
     $paginateLink.addClass("hide");

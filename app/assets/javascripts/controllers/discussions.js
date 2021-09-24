@@ -24,7 +24,6 @@ APP.controllers.discussions = (function() {
   function initFollowing() {
     $('.follow').on('click', function(){
       $('.follow').toggleClass('-hide');
-      //console.log($(this).attr("data-topic"));
     })
   }
 

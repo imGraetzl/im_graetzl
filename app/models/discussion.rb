@@ -32,6 +32,10 @@ class Discussion < ApplicationRecord
     discussion_followings.where(user: by_user).exists?
   end
 
+  def region_id
+    group.region_id
+  end
+
   private
 
   def set_discussion_last_post

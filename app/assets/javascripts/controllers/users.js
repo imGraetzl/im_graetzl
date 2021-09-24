@@ -69,9 +69,12 @@ APP.controllers.users = (function() {
           }
 
           // Submit IDS
-          $(".save-favorite-graetzls").on("click", function() {
-            var ids = $( ".favorites a" ).map(function() { return $(this).data('id') }).get().join(';');
-            console.log(ids);
+          $(".map-form").on("submit", function() {
+            $(".fav-desktop .favorites a").each(function() {
+              $(".map-form").append(
+                "<input type='hidden' name='user[favorite_graetzl_ids][]' value=" + $(this).data('id') + ">"
+              );
+            })
           });
 
         }

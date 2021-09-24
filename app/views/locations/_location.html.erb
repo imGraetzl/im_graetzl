@@ -4,7 +4,11 @@
   <div class="cardBoxHeader">
     <%= link_to [graetzl, location] do %>
       <div class="coverImgWrapper">
-        <%= cover_photo_image(location, class: 'coverImg') %>
+        <% if local_assigns[:activity_location_post] && local_assigns[:activity_location_post].images.first %>
+          <%= gallery_photo_image(local_assigns[:activity_location_post].images.first, class: 'coverImg') %>
+        <% else %>
+          <%= cover_photo_image(location, class: 'coverImg') %>
+        <% end %>
       </div>
     <% end %>
     <div class="categoryicon">
@@ -73,9 +77,15 @@
       <% end %>
     <% end %>
 
-    <% if local_assigns[:appendix].present? %>
-      <%= render 'activities/appendix', appendix: local_assigns[:appendix], parent: location %>
+    <% if location.created_at > 2.weeks.ago %>
+      <%= link_to [graetzl, location], class: "basic-message-box" do %>
+        <div class="hl"> Neu auf imGrätzl</div>
+        <div class="title"> Sag gleich Hallo!</div>
+      <% end %>
     <% end %>
 
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: location, comment: local_assigns[:activity_comment] %>
+    <% end %>
   </div>
 </div>

@@ -56,7 +56,7 @@ class LocationsController < ApplicationController
     @location = fetch_user_location(params[:id])
     @location_post = @location.location_posts.build(location_post_params)
     if @location_post.save
-      @location_post.create_activity :create, owner: current_user
+      ActionProcessor.track(@location, :post, @location_post)
     end
     render 'locations/location_posts/add'
   end
@@ -74,7 +74,7 @@ class LocationsController < ApplicationController
     @comment = @location_post.comments.new(location_comment_params)
     @comment.user = current_user
     if @comment.save
-      @location_post.create_activity :comment, owner: current_user, recipient: @comment
+      ActionProcessor.track(@location, :comment, @comment)
     end
     render 'locations/location_posts/comment'
   end

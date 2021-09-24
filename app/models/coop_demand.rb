@@ -1,7 +1,7 @@
 class CoopDemand < ApplicationRecord
   include Trackable
-  extend FriendlyId
 
+  extend FriendlyId
   friendly_id :slogan
 
   belongs_to :user
@@ -31,29 +31,22 @@ class CoopDemand < ApplicationRecord
   validates_presence_of :slogan, :demand_description, :personal_description, :avatar, :first_name, :last_name, :email, :coop_demand_category, :coop_type
   validate :has_one_graetzl_at_least
 
-  before_create :set_last_activated_at
-  before_update :create_update_activity?
-  #after_destroy { MailchimpCoopDeleteJob.perform_later(user) }
-
   def to_s
     slogan
   end
 
   def activation_code
-    return self.created_at.to_i
+    self.created_at.to_i
   end
 
-  def set_last_activated_at
+  def activate
+    self.status = :enabled
     self.last_activated_at = Time.now
   end
 
-  def create_update_activity?
-    # create update activity if ->
-    # enabled & last_activated_at = today
-    # and last_activated_at is more then 15 days ago
-    # and cerated_at is more then 30 days ago
-    if self.enabled? && self.last_activated_at.today? && self.last_activated_at_was <= 30.days.ago && self.created_at <= LIFETIME_MONTHS.months.ago
-      self.create_activity(:update, owner: self.user)
+  def refresh_activity
+    if enabled? && last_activated_at < 1.month.ago
+      update(last_activated_at: Time.now)
     end
   end
 

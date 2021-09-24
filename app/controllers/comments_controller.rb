@@ -4,8 +4,7 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.new(comment_params)
     if @comment.save
-      cross_platform = @comment.commentable_type == 'Meeting' && @comment.commentable.online_meeting?
-      @comment.commentable.create_activity :comment, owner: current_user, recipient: @comment, cross_platform: cross_platform
+      ActionProcessor.track(@comment.commentable, :comment, @comment)
     end
   end
 

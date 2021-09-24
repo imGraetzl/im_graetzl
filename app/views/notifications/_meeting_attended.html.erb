@@ -1,0 +1,13 @@
+<% meeting = notification.subject %>
+<% graetzl = Graetzl.memoized(meeting.graetzl_id) %>
+
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to [graetzl, meeting] do %>
+    <%= avatar_image notification.going_to.user, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.going_to.user.username %></span> nimmt an deinem Treffen
+      <span class="matter"><%= meeting.name %></span> teil
+    </div>
+  <% end %>
+<% end %>

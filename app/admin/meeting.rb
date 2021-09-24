@@ -34,12 +34,12 @@ ActiveAdmin.register Meeting do
 
   # batch actions
   batch_action :approve_for_api do |ids|
-    batch_action_collection.find(ids).map(&:approve_for_api)
+    batch_action_collection.where(id: ids).update_all(approved_for_api: true)
     redirect_to collection_path, alert: 'Die gewählten Treffen wurden für die API genehmigt.'
   end
 
   batch_action :disapprove_for_api, confirm: 'Wirklich aus API entfernen?' do |ids|
-    batch_action_collection.find(ids).map(&:disapprove_for_api)
+    batch_action_collection.where(id: ids).update_all(approved_for_api: false)
     redirect_to collection_path, alert: 'Die gewählten Treffen werden für die API nicht mehr genehmigt.'
   end
 
@@ -153,7 +153,7 @@ ActiveAdmin.register Meeting do
   end
 
   member_action :approve_for_api, method: :put do
-    if resource.approve_for_api
+    if resource.update(approved_for_api: true)
       flash[:success] = 'Das Treffen wurde für die API genehmigt.'
       redirect_to admin_meetings_path
     else
@@ -163,7 +163,7 @@ ActiveAdmin.register Meeting do
   end
 
   member_action :disapprove_for_api, method: :put do
-    if resource.disapprove_for_api
+    if resource.update(approved_for_api: false)
       flash[:notice] = 'Das Treffen ist nicht mehr für die API genehmigt.'
       redirect_to admin_meetings_path
     else

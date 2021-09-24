@@ -1,1 +1,5 @@
-<%= render activity.trackable, appendix: activity.appendix %>
+<% if activity.child %>
+  <%= render activity.subject, :"activity_#{activity.child_type.underscore}" => activity.child %>
+<% else %>
+  <%= render activity.subject %>
+<% end %>

@@ -1,12 +1,12 @@
-<% room_offer = notification.activity.trackable %>
-<% graetzl = Graetzl.memoized(room_offer.graetzl_id) %>
+<% graetzl = Graetzl.memoized(notification.room_offer.graetzl_id) %>
 
-<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
-  <%= link_to room_offer do %>
-    <%= avatar_image room_offer, size: :thumb, class: 'img-round' %>
+<%= content_tag(:li, id: dom_id(notification.room_offer), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to notification.room_offer do %>
+    <%= avatar_image notification.room_offer, size: :thumb, class: 'img-round' %>
     <div class="msg">
-      <div class="timeago">vor <%= time_ago_in_words(notification.activity.created_at) %></div>
-      <span class="username"><%= notification.activity.owner.username %></span> hat einen neuen Raum im Grätzl <span class="matter"><%= graetzl.name %></span> erstellt
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.room_offer.user.username %></span>
+      hat einen neuen Raum im Grätzl <span class="matter"><%= graetzl.name %></span> erstellt
     </div>
   <% end %>
 <% end %>

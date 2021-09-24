@@ -102,7 +102,6 @@ namespace :db do
             description: Faker::Lorem.sentence(2),
             coordinates: 'POINT (16.353172456228375 48.194235057984216)'
           })
-        meeting.create_activity :create, owner: u
       end
     end
 

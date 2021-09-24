@@ -53,6 +53,14 @@ class Region
     @zuckerl_entire_region_price.to_f
   end
 
+  def platform_name
+    if id == 'wien'
+      'imGrätzl.at'
+    else
+      'WeLocally.at'
+    end
+  end
+
   def host
     if id == 'wien'
       Rails.application.config.imgraetzl_host
