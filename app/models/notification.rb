@@ -16,9 +16,10 @@ class Notification < ApplicationRecord
   }
 
   def self.generate(subject, child = nil, to:, time_range: [])
-    return if to.empty?
+    user_ids = Array(to)
+    return if user_ids.empty?
 
-    notifications = User.where(id: to).find_each.map do |user|
+    notifications = User.where(id: user_ids).find_each.map do |user|
       new(
         user: user,
         subject: subject,
