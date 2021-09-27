@@ -447,9 +447,9 @@
                                 <tbody>
                                   <tr>
                                     <td class="mcnCaptionRightImageContent" align="center" valign="top">
-                                      <a href="https://www.imgraetzl.at" target="_blank">
-                                        <img alt="" src="https://gallery.mailchimp.com/3accfa3feb5f05b82bd1fddc6/images/096a7ace-57c1-4f73-934a-9581f2b821cc.png" width="176" style="max-width:176px;" class="mcnImage">
-                                      </a>
+                                      <%= link_to root_url(@region), target: '_blank' do %>
+                                        <%= image_tag("regions/#{@region.id}/logo.png", width:175) %>
+                                      <% end %>
                                     </td>
                                   </tr>
                                 </tbody>
@@ -463,11 +463,17 @@
                                         Du kannst einzelne Inhalte, die dich nicht interessieren, abbestellen. Du kannst dich natürlich auch komplett aus dem Verteiler austragen.<br>
                                         <%= link_to "Hier gehts zu deinen E-Mail Einstellungen.", edit_user_url(anchor: 'tab-2') %>
                                       </p>
-
-                                      <strong>imGrätzl.at</strong><br>
-                                      Breitenfeldergasse 14/2A<br>
-                                      1080 Wien<br>
-                                      wir@imgraetzl.at
+                                      <% if @region == 'wien' %>
+                                        <strong>imGrätzl.at</strong><br>
+                                        Breitenfeldergasse 14/2A<br>
+                                        1080 Wien<br>
+                                        wir@imgraetzl.at
+                                      <% else %>
+                                        <strong>WeLocally.at</strong><br>
+                                        Breitenfeldergasse 14/2A<br>
+                                        1080 Wien<br>
+                                        wir@welocally.at
+                                      <% end %>
                                     </td>
                                   </tr>
                                 </tbody>
