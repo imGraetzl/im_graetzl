@@ -51,7 +51,7 @@ ActiveAdmin.register Location do
 
     if resource.approved!
       UsersMailer.location_approved(resource).deliver_now
-      ActionProcessor.track(:create, location)
+      ActionProcessor.track(resource, :create)
 
       flash[:success] = 'Location wurde freigeschalten.'
       redirect_to admin_locations_path
