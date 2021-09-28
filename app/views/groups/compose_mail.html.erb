@@ -33,17 +33,6 @@
         <%= text_area_tag :body, params[:body], placeholder: "Deine E-Mail", required: true %>
       </div>
 
-      <% if current_user.admin? %>
-        <div class="input-field">
-          <%= label_tag :from_email do %>
-            <%= icon_tag "at-symbol" %>
-            <span>Absender</span>
-          <% end %>
-          <%= text_field_tag :from_email, params[:from_email], placeholder: "no-reply" %>
-          <%= label_tag :from_email, "@#{current_region.domain}", class: 'label-right' %>
-        </div>
-      <% end %>
-
       <%= submit_tag 'E-Mail absenden', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>
     <% end %>
 

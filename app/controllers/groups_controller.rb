@@ -138,7 +138,7 @@ class GroupsController < ApplicationController
 
     User.where(id: params[:user_ids]).find_each do |user|
       GroupMailer.message_to_user(
-        @group, current_user, user, params[:subject], params[:body], params[:from_email]
+        @group, current_user, user, params[:subject], params[:body]
       ).deliver_later
     end
     redirect_to @group, notice: 'Deine E-Mail wurde versendet ..'

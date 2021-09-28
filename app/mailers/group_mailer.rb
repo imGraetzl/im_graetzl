@@ -42,15 +42,10 @@ class GroupMailer < ApplicationMailer
     )
   end
 
-  def message_to_user(group, from_user, to_user, subject, message, from_email_name)
+  def message_to_user(group, from_user, to_user, subject, message)
     @group, @user, @message = group, from_user, message
     @region = @group.region
-
-    if from_email_name.present?
-      @reply_email = "#{from_email_name}@#{@region.domain}"
-    else
-      @reply_email = from_user.email
-    end
+    @reply_email = from_user.email
 
     headers(
       "X-MC-Tags" => "group-user-mail",

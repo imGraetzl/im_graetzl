@@ -13,7 +13,7 @@ class GroupMailerPreview < ActionMailer::Preview
   end
 
   def message_to_user
-    GroupMailer.message_to_user(Group.first, User.first, User.last, "Hello", "Hello world", "test")
+    GroupMailer.message_to_user(Group.first, User.first, User.last, "Hello", "Hello world")
   end
 
 end

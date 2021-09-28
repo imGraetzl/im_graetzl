@@ -3,7 +3,7 @@
     <%= avatar_image notification.coop_demand, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
-      <span class="username"><%= notification.coop_demand.user.username %></span> hat ein Coop & Share Angebot veröffentlicht.
+      <span class="username"><%= notification.coop_demand.user.username %></span> hat ein neues <strong>Coop & Share Angebot</strong> veröffentlicht.
     </div>
   <% end %>
 <% end %>

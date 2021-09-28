@@ -1,14 +1,9 @@
 class MeetingMailer < ApplicationMailer
 
-  def message_to_user(meeting, from_user, to_user, subject, message, from_email_name)
+  def message_to_user(meeting, from_user, to_user, subject, message)
     @meeting, @user, @message = meeting, from_user, message
     @region = @meeting.region
-
-    if from_email_name.present?
-      @reply_email = "#{from_email_name}@#{@region.domain}"
-    else
-      @reply_email = from_user.email
-    end
+    @reply_email = from_user.email
 
     headers(
       "X-MC-Tags" => "meeting-user-mail",
