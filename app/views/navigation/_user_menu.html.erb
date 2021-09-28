@@ -53,9 +53,9 @@
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-settings">
       <%= nav_submenu_back('nav-submenu-user-main') %>
-      <%= nav_menu_item("user-avatar", 'Profil Einstellungen', edit_user_path) %>
-      <%= nav_menu_item("mail-1", 'E-Mail Benachrichtigungen', edit_user_path(target: "tab-2")) %>
-      <%= nav_menu_item("flag", "Meine #{t("region.#{current_region.id}.favorite_graetzl")}", favorite_graetzls_user_path) %>
+      <%= nav_menu_item("user-avatar", 'Profil Einstellungen', edit_user_url(host: current_user.region.host)) %>
+      <%= nav_menu_item("mail-1", 'E-Mail Benachrichtigungen', edit_user_url(host: current_user.region.host, target: "tab-2")) %>
+      <%= nav_menu_item("flag", "Meine #{t("region.#{current_region.id}.favorite_graetzl")}", favorite_graetzls_user_url(host: current_user.region.host)) %>
     </div>
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-locations">

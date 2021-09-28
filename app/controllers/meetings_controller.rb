@@ -100,7 +100,7 @@ class MeetingsController < ApplicationController
 
     User.where(id: params[:user_ids]).find_each do |user|
       MeetingMailer.message_to_user(
-        @meeting, current_user, user, params[:subject], params[:body], params[:from_email]
+        @meeting, current_user, user, params[:subject], params[:body]
       ).deliver_later
     end
     redirect_to [@meeting.graetzl, @meeting], notice: 'Deine E-Mail wurde versendet ..'

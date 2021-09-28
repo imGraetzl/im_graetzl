@@ -11,7 +11,7 @@ class Notifications::CommentOnFollowedContent < Notification
   end
 
   def mail_subject
-    "#{comment.user.username} hat einen #{content_label} ebenfalls kommentiert."
+    "Ein #{content_label} wurde ebenfalls kommentiert."
   end
 
   def headline
@@ -36,6 +36,8 @@ class Notifications::CommentOnFollowedContent < Notification
       'Raumteiler'
     when 'Toolteiler'
       'Toolteiler'
+    when 'CoopDemand'
+      'Coop & Share Angebot'
     end
   end
 

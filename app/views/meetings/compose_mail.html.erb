@@ -44,14 +44,6 @@
         <%= text_area_tag :body, params[:body], placeholder: "Deine E-Mail", required: true %>
       </div>
 
-      <div class="input-field">
-        <%= label_tag :from_email do %>
-          <%= icon_tag "at-symbol" %>
-          <span>Absender</span>
-        <% end %>
-        <%= email_field_tag :from_email, params[:from_email], placeholder: "Deine E-Mail Adresse", required: true %>
-      </div>
-
       <%= submit_tag 'E-Mail absenden', data: { disable_with: 'sendet...' }, class: 'btn-primary' %>
     <% end %>
   </div>

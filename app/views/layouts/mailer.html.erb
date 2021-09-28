@@ -463,7 +463,7 @@
                                         Du kannst einzelne Inhalte, die dich nicht interessieren, abbestellen. Du kannst dich natürlich auch komplett aus dem Verteiler austragen.<br>
                                         <%= link_to "Hier gehts zu deinen E-Mail Einstellungen.", edit_user_url(anchor: 'tab-2') %>
                                       </p>
-                                      <% if @region == 'wien' %>
+                                      <% if @region.id == 'wien' %>
                                         <strong>imGrätzl.at</strong><br>
                                         Breitenfeldergasse 14/2A<br>
                                         1080 Wien<br>
