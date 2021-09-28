@@ -4,7 +4,7 @@ class Notifications::CommentOnOwnedContent < Notification
   self.class_bitmask = 2**4
 
   def self.description
-    'Mein Raumteiler, Toolteiler bzw. Treffen wurde kommentiert'
+    'Meine erstellen Inhalte wurden kommentiert'
   end
 
   def mail_template
@@ -37,6 +37,8 @@ class Notifications::CommentOnOwnedContent < Notification
       'Raumteiler'
     when 'Toolteiler'
       'Toolteiler'
+    when 'CoopDemand'
+      'Coop & Share Angebot'
     end
   end
 

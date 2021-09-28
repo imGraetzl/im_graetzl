@@ -3,7 +3,7 @@ class Notifications::NewRoomOffer < Notification
   self.class_bitmask = 2**12
 
   def self.description
-    'Ein neues Raumangebot wurde im Grätzl erstellt'
+    'Ein neues Raumangebot wurde erstellt'
   end
 
   def mail_subject

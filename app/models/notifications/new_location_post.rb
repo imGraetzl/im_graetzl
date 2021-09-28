@@ -3,7 +3,7 @@ class Notifications::NewLocationPost < Notification
   self.class_bitmask = 2**1
 
   def self.description
-    'Ein Schaufenster aus deinem Grätzl hat eine Neuigkeit erstellt'
+    'Ein Schaufenster hat eine Neuigkeit erstellt'
   end
 
   def mail_subject
