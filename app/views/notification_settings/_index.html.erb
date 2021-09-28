@@ -2,7 +2,7 @@
 
   <div class="settingHead">
     <div class="col1">
-      <h2><span>Neuigkeiten</span> aus deinem Grätzl</h2>
+      <h2><span>Neuigkeiten</span> <%= t("region.#{current_region.id}.from_your_graetzl") %></h2>
     </div>
     <div class="col3">
       <%= icon_tag "mail-1" %> Benachrichtigungen per E-Mail
@@ -20,7 +20,7 @@
 <div class="notifications-block">
   <div class="settingHead">
     <div class="col1">
-      <h2><span>Neue Raumteiler</span> in deinem Grätzl</h2>
+      <h2><span>Raumteiler</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h2>
     </div>
   </div>
   <%= render 'notification_settings/slice', type: Notifications::NewRoomOffer %>
@@ -30,12 +30,20 @@
 <div class="notifications-block">
   <div class="settingHead">
     <div class="col1">
-      <h2><span>Neue Toolteiler</span> in deinem Grätzl</h2>
+      <h2><span>Toolteiler</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h2>
     </div>
   </div>
   <%= render 'notification_settings/slice', type: Notifications::NewToolOffer %>
 </div>
 
+<div class="notifications-block">
+  <div class="settingHead">
+    <div class="col1">
+      <h2><span>Coop & Share Angebote</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h2>
+    </div>
+  </div>
+  <%= render 'notification_settings/slice', type: Notifications::NewCoopDemand %>
+</div>
 
 <div class="notifications-block">
   <div class="settingHead">
@@ -43,18 +51,18 @@
       <h2>Betrifft <span>mich</span></h2>
     </div>
   </div>
+  <%= render 'notification_settings/slice', type: Notifications::NewWallComment %>
+  <%= render 'notification_settings/slice', type: Notifications::MeetingAttended %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentInMeeting %>
   <%= render 'notification_settings/slice', type: Notifications::CommentOnOwnedContent %>
   <%= render 'notification_settings/slice', type: Notifications::CommentOnFollowedContent %>
-  <%= render 'notification_settings/slice', type: Notifications::CommentInMeeting %>
-  <%= render 'notification_settings/slice', type: Notifications::MeetingAttended %>
-  <%= render 'notification_settings/slice', type: Notifications::NewWallComment %>
 </div>
 
 
 <div class="notifications-block">
   <div class="settingHead">
     <div class="col1">
-      <h2>Neue <span>Kommentare</span></h2>
+      <h2>Neue <span>Kommentare</span> bei Beiträgen</h2>
     </div>
   </div>
   <%= render 'notification_settings/slice', type: Notifications::ReplyOnComment %>

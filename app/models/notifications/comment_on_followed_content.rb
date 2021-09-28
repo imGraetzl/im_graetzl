@@ -3,7 +3,7 @@ class Notifications::CommentOnFollowedContent < Notification
   self.class_bitmask = 2**6
 
   def self.description
-    'Ein Raumteiler, Toolteiler bzw. Treffen welches ich kommentiert habe wurde auch kommentiert'
+    'Inhalte welche ich kommentiert habe wurden auch kommentiert'
   end
 
   def mail_template

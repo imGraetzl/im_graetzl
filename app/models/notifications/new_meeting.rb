@@ -3,7 +3,7 @@ class Notifications::NewMeeting < Notification
   self.class_bitmask = 2**0
 
   def self.description
-    'Ein neues Treffen wurde im Grätzl erstellt'
+    'Ein neues Treffen wurde erstellt'
   end
 
   def mail_subject

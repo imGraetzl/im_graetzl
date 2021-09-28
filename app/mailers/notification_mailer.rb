@@ -23,16 +23,16 @@ class NotificationMailer < ApplicationMailer
   end
 
   GRAETZL_SUMMARY_BLOCKS = {
-    'Neue Locations in deinem Grätzl' => [
+    'Neue Schaufenster' => [
       Notifications::NewLocation
     ],
     'Neue Treffen' => [
       Notifications::NewMeeting
     ],
-    'Neue Location Updates' => [
+    'Neue Schaufenster Updates' => [
       Notifications::NewLocationPost
     ],
-    'Neue Toolteiler in deinem Grätzl' => [
+    'Neue Toolteiler' => [
       Notifications::NewToolOffer
     ],
     'Neuer Raumteiler Call' => [
@@ -43,6 +43,9 @@ class NotificationMailer < ApplicationMailer
     ],
     'Auf der Suche nach Raum' => [
       Notifications::NewRoomDemand
+    ],
+    'Neue Coop & Share Anbegote' => [
+      Notifications::NewCoopDemand
     ],
   }
 

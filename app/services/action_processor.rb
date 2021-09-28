@@ -94,9 +94,14 @@ class ActionProcessor
 
     when [CoopDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
+      Notifications::NewCoopDemand.generate(subject, to: user_ids(subject.graetzls) - [subject.user_id])
 
     when [CoopDemand, :update]
       Activity.add_public(subject, to: subject.graetzls)
+
+    when [CoopDemand, :comment]
+      Activity.add_public(subject, child, to: subject.graetzls)
+      notify_comment(subject, child)
 
     when [User, :comment]
       Notifications::NewWallComment.generate(subject, child, to: subject.id)
