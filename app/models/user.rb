@@ -71,6 +71,7 @@ class User < ApplicationRecord
   before_update :mailchimp_user_email_changed, if: -> { email != email_was }
   after_update :mailchimp_user_newsletter_changed, if: -> { saved_change_to_newsletter? }
   after_update :mailchimp_user_update, if: -> { saved_change_to_newsletter? || saved_change_to_email? || saved_change_to_first_name? || saved_change_to_last_name? || saved_change_to_business? || saved_change_to_graetzl_id? }
+  after_update :update_user_graetzls, if: -> { saved_change_to_graetzl_id? }
   before_destroy :mailchimp_user_delete
 
   scope :business, -> { where(business: true) }
@@ -168,6 +169,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def update_user_graetzls
+    self.user_graetzls.where(graetzl_id: self.graetzl.id).delete_all
+  end
 
   def mailchimp_user_update
     MailchimpUserSubscribeJob.perform_later(self) if newsletter? && confirmed_at?
