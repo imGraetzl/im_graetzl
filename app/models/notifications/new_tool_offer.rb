@@ -7,7 +7,7 @@ class Notifications::NewToolOffer < Notification
   end
 
   def mail_subject
-    "Neuer Toolteiler im Grätzl #{subject.graetzl.name}"
+    "Neuer Toolteiler #{self.region.id == 'wien' ? 'im Grätzl' : 'in der Gemeinde'} #{subject.graetzl.name}"
   end
 
   def tool_offer

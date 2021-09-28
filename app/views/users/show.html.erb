@@ -50,7 +50,7 @@
         <% end %>
         <div class="icontxt">
           <%= icon_tag "map-location" %>
-          <%= link_to @user.graetzl.name, @user.graetzl %>
+          <%= link_to @user.graetzl.name, graetzl_url(@user.graetzl, host: @user.region.host) %>
         </div>
 
       </div>

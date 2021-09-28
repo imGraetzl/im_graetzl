@@ -7,7 +7,7 @@ class Notifications::NewRoomOffer < Notification
   end
 
   def mail_subject
-    "Neuer Raumteiler im Grätzl #{subject.graetzl.name}"
+    "Neuer Raumteiler #{self.region.id == 'wien' ? 'im Grätzl' : 'in der Gemeinde'} #{subject.graetzl.name}"
   end
 
   def room_offer

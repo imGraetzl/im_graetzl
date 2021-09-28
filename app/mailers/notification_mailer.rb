@@ -71,7 +71,7 @@ class NotificationMailer < ApplicationMailer
     )
 
     mail(
-      subject: "Neues aus dem Grätzl #{@user.graetzl.name}",
+      subject: "Neues #{@region.id == 'wien' ? 'aus dem Grätzl' : 'aus der Gemeinde'} #{@user.graetzl.name}",
       from: platform_email('no-reply'),
       to: @user.email,
     )

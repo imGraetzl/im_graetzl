@@ -7,7 +7,7 @@ class Notifications::NewLocationPost < Notification
   end
 
   def mail_subject
-    "Neuer Beitrag im Grätzl #{subject.graetzl.name}"
+    "Schaufenster News #{self.region.id == 'wien' ? 'aus dem Grätzl' : 'aus der Gemeinde'} #{subject.graetzl.name}"
   end
 
   def location

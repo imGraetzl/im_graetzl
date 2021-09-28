@@ -12,7 +12,7 @@ class Notifications::CommentOnOwnedContent < Notification
   end
 
   def mail_subject
-    "#{comment.user.username} hat dein #{content_label} kommentiert."
+    "Dein #{content_label} wurde kommentiert."
   end
 
   def headline
