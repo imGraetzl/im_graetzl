@@ -12,7 +12,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def platform_email(email_name, label_name = nil)
     label = [label_name, @region.platform_name].compact.join(' | ')
-    email = "#{email_name}@#{@region.domain}"
+    email = "#{email_name}@#{@region.platform_domain}"
     email_address_with_name(email, label)
   end
 

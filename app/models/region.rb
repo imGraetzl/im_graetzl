@@ -61,6 +61,14 @@ class Region
     end
   end
 
+  def platform_domain
+    if id == 'wien'
+      'imgraetzl.at'
+    else
+      'welocally.at'
+    end
+  end
+
   def host
     if id == 'wien'
       Rails.application.config.imgraetzl_host

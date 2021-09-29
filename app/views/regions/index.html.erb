@@ -8,6 +8,15 @@
   )
 %>
 
+<% if current_region.id != 'wien' %>
+<div id="betaflash">
+  WeLocally ist in der Testphase, melde dich jetzt an und begleite die ersten Schritte.
+  <%= link_to 'javascript:', class: 'close-ico' do %>
+    <%= icon_tag "cross" %>
+  <% end %>
+</div>
+<% end %>
+
 <section class="region -overview">
 
   <%= render 'map' %>

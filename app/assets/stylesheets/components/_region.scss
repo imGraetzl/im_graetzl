@@ -1,3 +1,43 @@
+#betaflash {
+  display: none;
+  position: relative;
+  top: -30px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding:15px;
+  @include font-size-primaryFont('large');
+  font-style: italic;
+  background-color: #FEF6DF;
+  color: #cd891b;
+  a, svg {
+    color: #cd891b;
+  }
+  a.close-ico {
+    right:2px;
+    top:2px;
+  }
+  padding-right:25px;
+
+  @include respond-to(">=medium") {
+    position: absolute;
+    top:0px;
+    right:0px;
+    margin: auto;
+    width:40%;
+    border-bottom-left-radius: 20px;
+    z-index:9999999;
+  }
+
+  @include respond-to(">=large") {
+    padding-right:15px;
+    a.close-ico {
+      right: -12px;
+      top: -12px;
+    }
+  }
+
+}
+
 // ---------- REGION MÜHLVIERTLER KERNLAND ------------
 body.region-muehlviertler-kernland {
 
@@ -13,7 +53,7 @@ body.region-muehlviertler-kernland {
 
 // ---------- REGION KÄRNTEN ------------
 body.region-kaernten {
-
+  
 }
 
 
