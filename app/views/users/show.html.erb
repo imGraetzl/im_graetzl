@@ -60,11 +60,11 @@
 
   <div class="tabs-ctrl">
     <ul class="tabs-nav">
-      <% if @user.locations.approved.exists? %><li data-submit="#location-submit" data-target="locations-card-container"><a href="#tab-locations">Schaufenster</a></li><% end %>
-      <% if !@user.rooms.blank? %><li data-submit="#room-submit" data-target="rooms-card-container"><a href="#tab-raumteiler">Raumteiler</a></li><% end %>
-      <% if @user.tool_offers.enabled.exists? %><li data-submit="#tool-submit" data-target="tool-offers-card-container"><a href="#tab-toolteiler">Toolteiler</a></li><% end %>
-      <% if @user.groups.exists? %><li data-submit="#group-submit" data-target="groups-card-container"><a href="#tab-gruppen">Mitglied in Gruppen</a></li><% end %>
-      <% if !@user.initiated_meetings.blank? %><li data-submit="#meeting-submit" data-target="meetings-card-container"><a href="#tab-meetings">Events & Workshops</a></li><% end %>
+      <% if @user.locations.in(current_region).approved.exists? %><li data-submit="#location-submit" data-target="locations-card-container"><a href="#tab-locations">Schaufenster</a></li><% end %>
+      <% if !@user.room_offers.in(current_region).blank? || !@user.room_demands.in(current_region).blank? %><li data-submit="#room-submit" data-target="rooms-card-container"><a href="#tab-raumteiler">Raumteiler</a></li><% end %>
+      <% if @user.tool_offers.in(current_region).enabled.exists? %><li data-submit="#tool-submit" data-target="tool-offers-card-container"><a href="#tab-toolteiler">Toolteiler</a></li><% end %>
+      <% if @user.groups.in(current_region).exists? %><li data-submit="#group-submit" data-target="groups-card-container"><a href="#tab-gruppen">Mitglied in Gruppen</a></li><% end %>
+      <% if !@user.initiated_meetings.in(current_region).blank? %><li data-submit="#meeting-submit" data-target="meetings-card-container"><a href="#tab-meetings">Events & Workshops</a></li><% end %>
     </ul>
 
     <div id="tab-locations">

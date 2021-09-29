@@ -1,7 +1,7 @@
 class NotificationMailerPreview < ActionMailer::Preview
 
   def send_immediate
-    notification = Notifications::NewMeeting.first
+    notification = Notifications::NewCoopDemand.first
     NotificationMailer.send_immediate(notification)
   end
 
