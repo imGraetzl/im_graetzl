@@ -1,7 +1,7 @@
 <% graetzl = Graetzl.memoized(notification.location.graetzl_id) %>
 
 <%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
-  <%= link_to [graetzl, notification.location, anchor: dom_id(notification.post)] do %>
+  <%= link_to [graetzl, notification.location, anchor: dom_id(notification.location_post)] do %>
     <%= avatar_image notification.location, size: :thumb, class: 'img-square' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>

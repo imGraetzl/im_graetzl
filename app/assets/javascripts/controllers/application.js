@@ -164,6 +164,17 @@ APP.controllers.application = (function() {
     });
   }
 
+
+  // BETA FLASH for WeLocally
+  if (!sessionStorage.getItem('betaflash')) {
+    $('#betaflash').show();
+  }
+  $('#betaflash .close-ico').on('click', function(){
+      sessionStorage.setItem('betaflash', true);
+      $('#betaflash').fadeOut();
+  });
+
+
   // ---------------------------------------------------------------------- Returns
 
   return {

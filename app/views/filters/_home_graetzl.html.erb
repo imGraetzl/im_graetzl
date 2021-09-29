@@ -1,24 +1,25 @@
 <div class="filter-area" data-filter-label="Activity Steam :: Area">
+
   <% if graetzl.id == current_user&.graetzl_id %>
     <div class="input-radio filter-input">
-      <input type="radio" value="true" id="favorites" name="favorites" data-label="Favorites">
-      <label for="favorites">Favorites</label>
+      <input type="radio" value="true" id="favorites" name="favorites" data-label="<%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %>" checked>
+      <label for="favorites"><%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %></label>
     </div>
   <% end %>
 
   <div class="input-radio filter-input">
-    <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="<%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %>">
+    <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="<%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %>" <%= 'checked' if graetzl.id != current_user&.graetzl_id %> >
     <label for="graetzl_id"><%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %></label>
   </div>
 
   <% if current_region.use_districts? %>
     <div class="input-radio filter-input">
-      <input type="radio" value="<%= graetzl.district.id %>" id="district_id" name="district_id" data-label="Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)" checked>
+      <input type="radio" value="<%= graetzl.district.id %>" id="district_id" name="district_id" data-label="Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)" >
       <label for="district_id">Bezirk <%= graetzl.district.name %> (<%= graetzl.district.zip %>)</label>
     </div>
   <% else %>
     <div class="input-radio filter-input">
-      <input type="radio" value="<%= current_region.id %>" id="region_id" name="region_id" data-label="Region <%= current_region.name %>" checked>
+      <input type="radio" value="<%= current_region.id %>" id="region_id" name="region_id" data-label="Region <%= current_region.name %>" >
       <label for="region_id">Region <%= current_region.name %></label>
     </div>
   <% end %>
