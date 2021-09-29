@@ -25,6 +25,7 @@ class CoopDemandsController < ApplicationController
     @coop_demand.activate
 
     if @coop_demand.save
+      CoopDemandMailer.coop_demand_published(@coop_demand).deliver_later
       ActionProcessor.track(@coop_demand, :create)
       redirect_to @coop_demand
     else

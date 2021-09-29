@@ -7,7 +7,7 @@ class Notifications::NewLocation < Notification
   end
 
   def mail_subject
-    "Es gibt ein neues Schaufenster #{self.region.id == 'wien' ? 'im Grätzl' : 'in der Gemeinde'} #{subject.graetzl.name}"
+    "Es gibt ein neues Schaufenster #{I18n.t("region.#{region_id}.in_graetzl")} #{subject.graetzl.name}"
   end
 
   def location
