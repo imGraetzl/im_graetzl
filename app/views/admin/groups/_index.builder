@@ -1,11 +1,10 @@
 context.instance_eval do
   selectable_column
   id_column
+  column :region
   column :title
+  column :default_joined
   column :private
-  column :featured
-  column :hidden
-  column :created_at
   column :graetzls do |group|
     group.graetzls.size
   end

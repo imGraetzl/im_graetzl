@@ -74,15 +74,15 @@
   </div>
 
   <div class="form-block">
-    <p class="txt">Mein <span>Goodie</span> für <%= t("region.#{current_region.id}.domain_short") %> Mitglieder</p>
-    <p class="desc">Möchtest du ein spezielles Angebot für Mitglieder bereitstellen und damit in der Kategorie <br><strong>"Goodies für Mitglieder"</strong> gelistet sein.</p>
+    <p class="txt">Mein <span>Goodie für <%= t("region.#{current_region.id}.domain_short") %> Mitglieder</p>
+    <p class="desc"><strong>Von Macher*innen für Macher*innen:</strong><br>Trage hier z.B. einen Rabatt oder einen anderen Vorteil ein, den du speziell der <%= t("region.#{current_region.id}.domain_short") %> Community gewähren möchtest. Dieser erscheint in der Kategorie "Goodie" und ist nur für <%= t("region.#{current_region.id}.domain_short") %> Mitglieder sichtbar.</p>
 
     <div class="input-textarea -description">
       <%= f.label :goodie do %>
         <%= icon_tag "goodie" %>
         <span>Mitglieder Goodie</span>
       <% end %>
-      <%= f.text_area :goodie, placeholder: "Kurze Beschreibung deines Angebots" %>
+      <%= f.text_area :goodie, placeholder: 'Beschreibe dein Goodie in 1-2 Sätzen ... (250 Zeichen)', maxlength: 250 %>
     </div>
 
   </div>

@@ -7,10 +7,10 @@ ActiveAdmin.register_page "Dashboard" do
         panel "Neue User" do
           table_for User.order(created_at: :desc).limit(10) do
             column :id
+            column :region
             column :username do |user|
               link_to user.username, admin_user_path(user)
             end
-            column :region
             column :graetzl
             column :created_at
           end
@@ -50,6 +50,7 @@ ActiveAdmin.register_page "Dashboard" do
 
         panel 'Offene Location Anfragen' do
           table_for Location.pending.order(updated_at: :asc) do
+            column :region
             column(:location, sortable: :name) do |location|
               link_to location.name, admin_location_path(location)
             end
