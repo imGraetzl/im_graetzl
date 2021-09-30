@@ -18,12 +18,12 @@
       <div class="filter-selection-text-jbox">
 
         <% if @graetzl.id == current_user&.graetzl_id %>
-          Neues aus <%= t("region.#{current_region.id}.dem") %>
-          <%= link_to "#{t("region.#{current_region.id}.graetzl")} #{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-activity',
+          Neues aus
+          <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-activity',
               data: { no_filter_label: "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}"} %>
         <% else %>
-          Neues aus <%= t("region.#{current_region.id}.dem") %>
-          <%= link_to "#{t("region.#{current_region.id}.graetzl")} #{@graetzl.name}", '#filter-modal-activity',
+          Neues aus
+          <%= link_to "#{@graetzl.name}", '#filter-modal-activity',
             data: { no_filter_label: "#{t("region.#{current_region.id}.graetzl")} #{@graetzl.name}"} %>
         <% end %>
 
