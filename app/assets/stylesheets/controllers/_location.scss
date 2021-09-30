@@ -102,9 +102,9 @@ section.location-page {
     padding-right: 15px;
   }
   .icontxt.onlineshop {
-    color: $color-ambient-rosa;
+    //color: $color-ambient-rosa;
     .icon {
-      fill: $color-ambient-rosa;
+      //fill: $color-ambient-rosa;
     }
   }
 
@@ -141,7 +141,38 @@ section.location-page {
     }
   }
 
-  .action-container + .sideBarbox.contact {
+  .goodie {
+    .sideflag {
+      display: flex;
+      justify-content: space-between;
+      background-color: #eed8b7;
+      color: #cd891b;
+      &:after {
+        border-color: transparent #cd891b transparent transparent;
+      }
+    }
+    .wrp {
+      color: #cd891b;
+      padding:0px 15px 15px 15px;
+      white-space: pre-wrap;
+    }
+    .goodie-login-msg {
+      padding:0px 15px 15px 15px;
+      color: #cd891b;
+      font-style: italic;
+      a {
+        color: #cd891b;
+        text-decoration: underline;
+        margin-bottom: 0px;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+  }
+
+  .action-container + .sideBarbox.contact, .action-container + .sideBarbox.goodie {
     margin-top: 40px;
   }
 
@@ -224,7 +255,7 @@ section.location-page {
     }
   }
 
-  .contact {
+  .contact, .goodie {
     border: 1px solid $color-ambient-grey-light;
     background-color: #ffffff;
     border-radius: 8px;
@@ -252,6 +283,11 @@ section.location-page {
 
     }
   }
+}
+
+.sideBarbox.goodie {
+  background-color: rgba(#FEF6DF, 0.3) !important;
+  border-color: rgba(#cd891b, 0.3) !important;
 }
 
 .meetingBlock {

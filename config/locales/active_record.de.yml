@@ -190,6 +190,7 @@ de:
         description: Beschreibung
         phone: Telefon
         open_hours: Öffnungszeiten
+        goodie: Goodie
         product_list: Produktgruppen
         products: Produkte
         state: Status

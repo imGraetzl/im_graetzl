@@ -236,6 +236,9 @@
         &.-onlineshop {
           background-image: url(image_path('svg/icon-kringel-onlineshop-active.svg'));
         }
+        &.-goodie {
+          background-image: url(image_path('svg/icon-kringel-goodie-active.svg'));
+        }
         &.-startup {
           background-image: url(image_path('svg/icon-kringel-startup-active.svg'));
         }
@@ -427,6 +430,9 @@
       // Locations Categories
       &.-onlineshop {
         background-image: url(image_path('svg/icon-kringel-onlineshop.svg'));
+      }
+      &.-goodie {
+        background-image: url(image_path('svg/icon-kringel-goodie.svg'));
       }
       &.-startup {
         background-image: url(image_path('svg/icon-kringel-startup.svg'));

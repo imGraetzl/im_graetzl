@@ -2,10 +2,10 @@
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Locations" class="cS-hidden">
     <!-- Online Shops -->
-      <div class="-category -special-category" data-id="online-shops" data-label="Online Shops" data-slug="online-shops">
-        <%= image_tag('location-onlineshop.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
-        <div class="cat -onlineshop"></div>
-        <h3>Online Shops <br>aus <%= current_region %></h3>
+      <div class="-category -special-category" data-id="goodies" data-label="Goodies für Mitglieder" data-slug="goodies">
+        <%= image_tag('location-goodie.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
+        <div class="cat -goodie"></div>
+        <h3>Goodies <br>für Mitglieder</h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>
@@ -23,6 +23,16 @@
         <% end %>
       </div>
     <% end %>
+    <!-- Online Shops -->
+      <div class="-category -special-category" data-id="online-shops" data-label="Online Shops" data-slug="online-shops">
+        <%= image_tag('location-onlineshop.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
+        <div class="cat -onlineshop"></div>
+        <h3>Online Shops <br>aus <%= current_region %></h3>
+        <%= button_tag '', class: 'close-ico' do %>
+          <%= icon_tag "cross" %>
+        <% end %>
+      </div>
+    <!-- /Online Shops -->
   </div>
   <div class="filter-line"></div>
 </div>

@@ -567,6 +567,11 @@ input::-webkit-inner-spin-button {
       color: $color-ambient-rosa;
     }
   }
+  .desc {
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
 
   .input-field,
   .input-textarea,

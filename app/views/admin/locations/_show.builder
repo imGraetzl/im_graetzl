@@ -16,6 +16,7 @@ context.instance_eval do
           row :created_at
           row :updated_at
           row :slogan
+          row :goodie
           row :description
           row :cover_photo do |l|
             l.cover_photo && image_tag(l.cover_photo_url(:thumb))
