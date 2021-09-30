@@ -12,11 +12,7 @@
       </div>
     <% end %>
     <div class="categoryicon">
-      <% if location.online_shop? %>
-        <%= icon_tag "onlineshop" %>
-      <% else %>
-        <%= icon_tag "location" %>
-      <% end %>
+      <%= icon_tag "location" %>
     </div>
     <%= graetzl_flag(graetzl) %>
   </div>
@@ -43,6 +39,22 @@
     <div class="txt">
       <p><%= truncate location.description, length: 100 %></p>
     </div>
+
+    <% if location.goodie? %>
+      <%= link_to [graetzl, location, anchor: 'goodie'], class: 'goodieteasertxt' do %>
+        <div class="hl">
+          <%= icon_tag "goodie" %>
+          Goodie für Mitglieder
+        </div>
+        <% if user_signed_in? %>
+          <div class="title"><%= truncate(location.goodie, length: 90) %></div
+        <% else %>
+          <div>
+            <em>Nur für eingeloggte Mitglider sichtbar.</em>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
 
     <% if location_post = location.actual_newest_post %>
       <%= link_to [graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>

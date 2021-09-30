@@ -282,7 +282,7 @@
 
   }
 
-  .updateteaser, .zuckerlteasertxt, .event-teaser-box, .basic-message-box {
+  .updateteaser, .zuckerlteasertxt, .event-teaser-box, .basic-message-box, .goodieteasertxt {
     display: block;
     padding: 10px 15px;
     border-left-width: 1px;
@@ -326,6 +326,18 @@
     .description {
       white-space: pre-wrap;
       overflow: hidden;
+    }
+  }
+  .goodieteasertxt {
+    border-color: #cd891b;
+    background-color: #FEF6DF;
+    color: #cd891b;
+    svg {margin-top: -5px;}
+    .title {
+      font-weight:normal;
+    }
+    .hl {
+      font-weight:bold;
     }
   }
   .event-teaser-box {

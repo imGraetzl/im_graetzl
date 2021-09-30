@@ -32,6 +32,7 @@ class Location < ApplicationRecord
   enum state: { pending: 0, approved: 1 }
 
   scope :online_shop, -> { where("online_shop_url != ''") }
+  scope :goodie, -> { where("goodie != ''") }
 
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
 
@@ -62,6 +63,10 @@ class Location < ApplicationRecord
 
   def online_shop?
     self.online_shop_url.present?
+  end
+
+  def goodie?
+    self.goodie.present?
   end
 
   def actual_newest_post

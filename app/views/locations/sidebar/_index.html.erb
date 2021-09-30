@@ -15,6 +15,21 @@
 
   <%= render partial: 'locations/sidebar/zuckerl', collection: @zuckerls %>
 
+  <% if @location.goodie.present? %>
+    <div class="sideBarbox goodie" id="goodie">
+      <h3 class='sideflag -L'>Goodie für Mitglieder<%= icon_tag "goodie" %></h3>
+        <% if user_signed_in? %>
+          <div class="wrp"><%= @location.goodie %></div>
+        <% else %>
+          <div class="goodie-login-msg">
+            Das Goodie ist nur für eingeloggte Mitglider sichtbar.<br />
+            <%= link_to 'Zum Login', new_user_session_path %> |
+            <%= link_to 'Zur Registrierung', new_registration_path(origin: request.path) %>
+          </div>
+        <% end %>
+    </div>
+  <% end %>
+
   <div class="sideBarbox contact">
     <%= link_to content_tag(:h3, @graetzl.name, class: 'sideflag -L'), @graetzl %>
 

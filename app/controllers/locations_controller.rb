@@ -112,6 +112,8 @@ class LocationsController < ApplicationController
     if params[:special_category_id].present? && params[:special_category_id] == 'online-shops'
       locations = locations.online_shop
       graetzl_ids = [] # Reset and always show Online Shops from ALL Dsirticts
+    elsif params[:special_category_id].present? && params[:special_category_id] == 'goodies'
+      locations = locations.goodie
     elsif params[:category_id].present?
       locations = locations.where(location_category: params[:category_id])
     end
@@ -135,7 +137,7 @@ class LocationsController < ApplicationController
     params.require(:location).permit(
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description,
-      :location_category_id, :product_list, :website_url, :online_shop_url, :email, :phone, :open_hours,
+      :location_category_id, :product_list, :website_url, :online_shop_url, :email, :phone, :open_hours, :goodie,
     )
   end
 

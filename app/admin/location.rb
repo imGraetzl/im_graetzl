@@ -99,6 +99,7 @@ ActiveAdmin.register Location do
     :email,
     :phone,
     :open_hours,
+    :goodie,
     :address_street,
     :address_zip,
     :address_city,
