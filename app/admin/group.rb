@@ -24,6 +24,6 @@ ActiveAdmin.register Group do
   form partial: 'form'
 
   permit_params :title, :description, :featured, :hidden, :private, :room_offer_id, :room_demand_id,
-    :room_call_id, :location_id, :cover_photo, :remove_cover_photo, graetzl_ids: [],
+    :room_call_id, :location_id, :cover_photo, :remove_cover_photo, :default_joined, graetzl_ids: [],
     group_category_ids: [], group_users_attributes: [:id, :user_id, :role, :_destroy]
 end

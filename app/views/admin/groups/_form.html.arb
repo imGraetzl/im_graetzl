@@ -3,6 +3,7 @@ active_admin_form_for [:admin, resource] do |f|
   inputs "Group" do
     input :title
     input :description
+    input :default_joined
     input :featured
     input :hidden
     input :private

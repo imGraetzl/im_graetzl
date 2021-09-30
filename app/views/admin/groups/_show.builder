@@ -7,6 +7,7 @@ context.instance_eval do
           row(:group_members_count) { group.group_users.count }
           row :title
           row :description
+          row :default_joined
           row :featured
           row :hidden
           row :room_offer

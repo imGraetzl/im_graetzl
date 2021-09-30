@@ -53,7 +53,7 @@
   </div>
 
   <div class="district-section">
-    <h3>Bezirke / Grätzln</h3>
+    <h3><%= current_region.use_districts? ? 'Bezirke / Grätzln' : 'Gemeinden' %></h3>
     <div class="category-tags">
       <ul class="tag-list">
         <% compact_graetzl_list(@group.graetzls).each do |item| %>
