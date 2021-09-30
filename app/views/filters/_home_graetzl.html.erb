@@ -2,14 +2,14 @@
 
   <% if graetzl.id == current_user&.graetzl_id %>
     <div class="input-radio filter-input">
-      <input type="radio" value="true" id="favorites" name="favorites" data-label="<%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %>" checked>
-      <label for="favorites"><%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %></label>
+      <input type="radio" value="true" id="favorites" name="favorites" data-label="<%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %>" checked>
+      <label for="favorites"><%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %></label>
     </div>
   <% end %>
 
   <div class="input-radio filter-input">
-    <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="<%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %>" <%= 'checked' if graetzl.id != current_user&.graetzl_id %> >
-    <label for="graetzl_id"><%= t("region.#{current_region.id}.graetzl") %> <%= graetzl.name %></label>
+    <input type="radio" value="<%= graetzl.id %>" id="graetzl_id" name="graetzl_id" data-label="<%= graetzl.name %>" <%= 'checked' if graetzl.id != current_user&.graetzl_id %> >
+    <label for="graetzl_id"><%= graetzl.name %></label>
   </div>
 
   <% if current_region.use_districts? %>
