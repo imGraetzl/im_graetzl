@@ -1,4 +1,9 @@
 class CampaignUsersController < ApplicationController
+  layout 'campaign_users'
+
+  def index
+    @campaign_user = CampaignUser.new
+  end
 
   def muehlviertel
     @campaign_user = CampaignUser.new
@@ -9,18 +14,13 @@ class CampaignUsersController < ApplicationController
   end
 
   def create
-
     @campaign_user = CampaignUser.new(campaign_user_params)
-
-    campaign = params[:campaign_redirect].parameterize.underscore.to_sym
-
     if @campaign_user.save
-      redirect_to campaign
-      flash[:error] = "Vielen lieben Dank, du bist nun eingetragen! Wir melden uns in Kürze.."
+      redirect_to params[:redirect_path]
+      flash[:notice] = "Vielen lieben Dank für deine Voranmeldung! Wir melden uns bei dir, sobald es los geht."
     else
-      render campaign
+      render params[:campaign] || 'index'
     end
-
   end
 
   private

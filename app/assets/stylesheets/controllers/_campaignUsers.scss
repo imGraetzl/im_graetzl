@@ -1,0 +1,271 @@
+// Navigation Adaptions
+body.welocally .navigation {
+  .nav-dropdown-submenu {
+    min-width: 250px;
+  }
+  .nav-guest {
+    .icon {
+      fill: $color-ambient-mint-dark;
+      margin-left:12px;
+    }
+  }
+}
+
+// Campaign Pages
+section.campaignUsers {
+
+  padding-bottom: 0px;
+
+  .-header-headline {
+    margin-top:60px;
+    margin-bottom:50px;
+    @include respond-to("<=medium") {
+      margin-top:50px;
+      margin-bottom:40px;
+    }
+  }
+
+  .-form-headline {
+    margin-bottom:20px;
+  }
+
+  .-footer-headline {
+    margin-top: 50px;
+  }
+
+  .paperCard.-footer {
+    margin-top:70px;
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
+  .form-block {
+    label {
+      min-width: 145px;
+    }
+    .btn-primary {
+      width:100%;
+      margin:auto;
+    }
+  }
+
+  .imgHeader {
+    background-color: #dff0f0;
+  }
+
+  .imgHeader .wrp {
+    position: relative;
+  }
+
+  .imgHeader::after {
+    background-image: url(image_path('campaign_users/welocally_header.jpg'));
+    background-position: center bottom;
+    @media only screen and (min-width:1500px){
+      background-size: contain;
+    }
+  }
+
+  h1.weLocally {
+    background-image: url(image_path('campaign_users/speech-bubble-wide.svg'));
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    text-align: left;
+    max-width:480px;
+    padding: 15px 15px 50px 15px; // top, right, bottom, left
+    position: relative;
+    @include font-size-secondaryFont('base');
+    top:-20px;
+    left:-60px;
+    @include respond-to(">=medium") {
+      @include font-size-secondaryFont('large');
+      padding: 20px 20px 80px 20px; // top, right, bottom, left
+      top:-30px;
+      left:-180px;
+    }
+    @include respond-to(">=large") {
+      left:-280px;
+    }
+  }
+
+  .region-switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .btn-primary {
+      margin:10px;
+      @include respond-to("<=medium") {
+        width:100%;
+      }
+    }
+  }
+
+  // Mint FeatureList Background
+  .-fullwidth-welocally {
+    background-color: #eaf2f4;
+    padding:18px;
+    padding-top:40px !important;
+    padding-bottom:50px !important;
+    margin-bottom:0px;
+    margin-top: 80px;
+
+    .paperCard, .container {
+      max-width:930px;
+      margin: auto;
+    }
+
+    .-feature-headline {
+      max-width: 930px;
+      margin: auto;
+      margin-top:20px;
+      margin-bottom:90px;
+      @include respond-to("<=medium") {
+        margin-top:10px;
+        margin-bottom:40px;
+      }
+    }
+
+    &::before {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      top: -10px;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+      z-index: 9;
+    }
+
+  }
+
+  // Feature Article List
+  .-fullwidth-welocally article {
+    margin-bottom: 70px !important;
+    align-items: center;
+    justify-content: center;
+
+    .aside img {
+      max-width: 90% !important;
+      height: auto;
+    }
+
+    @include respond-to("<=medium") {
+      margin-bottom: 30px !important;
+      padding-bottom: 10px !important;
+      h2, h3 {
+        text-align: center;
+      }
+      p {
+        text-align: justify;
+      }
+    }
+
+    &::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-image: radial-gradient(ellipse farthest-side at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 75%);
+      pointer-events: none;
+      z-index: 9;
+    }
+    &:last-of-type {
+      margin-bottom: 0px !important;
+      &::after {
+        display: none;
+      }
+    }
+
+  }
+
+  section.kooperationspartner {
+
+    margin-top:40px;
+    @include respond-to(">=medium") {
+      margin-top:60px;
+    }
+
+    a {
+      color: $color-ambient-grey;
+      &:hover {
+        color: $color-ambient-rosa;
+      }
+    }
+    .cardBox, .sponsorBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap:wrap;
+      flex-direction:column;
+      @include respond-to(">=medium") {
+        flex-direction:row;
+      }
+      img {
+        width:50%;
+        @include respond-to(">=medium") {
+          width:100%;
+        }
+      }
+      div.wrp {
+        width:100%;
+        text-align:center;
+        @include respond-to(">=medium") {
+          width:50%;
+          text-align:left;
+        }
+        padding:10px;
+        .links {
+          @include ellipsis;
+        }
+      }
+    }
+  }
+
+  &.-kaernten {
+    section.kooperationspartner {
+      .cardBox, .sponsorBox {
+
+        flex-direction:row;
+
+        h3 {
+          padding-bottom:0px;
+        }
+
+        div.wrp {
+          width:70%;
+          text-align:left;
+        }
+        div.wrp.-img {
+          width:30%;
+          text-align: right;
+        }
+
+        img {
+          width:40%;
+        }
+
+        @include respond-to(">=medium") {
+          flex-wrap: nowrap;
+          img {
+            width:80%;
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  p.kooperation-txt {
+    @include font-size-primaryFont('large');
+    text-align: justify;
+    margin-bottom:30px;
+    @include respond-to(">=medium") {
+      margin-bottom:50px;
+    }
+  }
+
+}
