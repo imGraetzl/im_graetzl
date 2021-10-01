@@ -1,8 +1,8 @@
 <% meta(
-    title: (@category ? @category.name : 'Alle') + " Coop & Share Angebote in #{current_region}",
+    title: (@category ? @category.name : 'Alle') + " Coop & Share Marktplatz Angebote in #{current_region}",
     description: t('.description'),
     robots: 'index, follow',
-    og_title: (@category ? @category.name : 'Alle') + " Coop & Share Angebote in #{current_region}",
+    og_title: (@category ? @category.name : 'Alle') + " Coop & Share Marktplatz Angebote in #{current_region}",
     og_description: t('.description'),
     og_image: image_url("meta/#{current_region.id}/og_logo.png")
   )
@@ -32,7 +32,7 @@
   <% end %>
 
   <div class="card-grid-container">
-    <div class="card-grid" data-behavior="coop-demands-card-container"></div>
+    <div class="card-grid" data-behavior="coopdemands-card-container"></div>
     <div class="action-card-container" data-behavior="coop-demands-action-card-container">
       <%= render 'coop_demands/action_card', create_link: true %>
     </div>

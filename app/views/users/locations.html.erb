@@ -19,9 +19,10 @@
           ... kannst du Neuigkeiten, Aktionen oder Termine auf dieser veröffentlichen -
           Diese landen nicht nur im Stream, sondern auch im wöchentlichen Newsletter
           <%= t("region.#{current_region.id}.in_region") %>.
-          <br>
           Damit erfahren die Bewohner*innen, was es bei dir Neues & Besonderes gibt.
-          Darüber hinaus ist das Schaufenster die Voraussetzung für das <%= link_to 'Zuckerl', info_zuckerl_path %>.
+          <br>
+          Darüber hinaus ist das Schaufenster die Voraussetzung für das <%= link_to 'Zuckerl', info_zuckerl_path %>.<br>
+          Und: du kannst an der Community only Aktion teilnehmen und im Schaufenster dein Goodie für die anderen Mitglieder eintragen.
       </div>
       <%= render 'locations/action_card', user: @user %>
     </div>
