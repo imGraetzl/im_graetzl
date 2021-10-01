@@ -4,7 +4,7 @@
     robots: 'noindex, follow',
     og_title: t('.title', name: @user.username, graetzl: @user.graetzl.name),
     og_description: t('.description', name: @user.username, graetzl: @user.graetzl, numeric: @user.graetzl.numeric, region: current_region.name),
-    og_image: @user.cover_photo_url || image_url('meta/og_logo.png')
+    og_image: @user.cover_photo_url || image_url("meta/#{current_region.id}/og_logo.png")
   )
 %>
 
