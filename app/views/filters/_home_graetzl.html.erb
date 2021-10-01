@@ -3,7 +3,7 @@
   <% if graetzl.id == current_user&.graetzl_id %>
     <div class="input-radio filter-input">
       <input type="radio" value="true" id="favorites" name="favorites" data-label="<%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %>" checked>
-      <label for="favorites"><%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %></label>
+      <label for="favorites"><%= graetzl.name %> & <%= t("region.#{current_region.id}.favorite_graetzls") %> (<%= link_to "anpassen", favorite_graetzls_user_path %>)</label>
     </div>
   <% end %>
 

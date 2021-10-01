@@ -108,17 +108,22 @@ class LocationsController < ApplicationController
 
   def filter_collections(locations)
     graetzl_ids = params.dig(:filter, :graetzl_ids)
+    favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
+    use_favorites = params[:favorites]
 
     if params[:special_category_id].present? && params[:special_category_id] == 'online-shops'
       locations = locations.online_shop
       graetzl_ids = [] # Reset and always show Online Shops from ALL Dsirticts
+      use_favorites = false
     elsif params[:special_category_id].present? && params[:special_category_id] == 'goodies'
       locations = locations.goodie
     elsif params[:category_id].present?
       locations = locations.where(location_category: params[:category_id])
     end
 
-    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
+    if use_favorites
+      locations = locations.where(graetzl_id: favorite_ids)
+    elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       locations = locations.where(graetzl_id: graetzl_ids)
     end
 

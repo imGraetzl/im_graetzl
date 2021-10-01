@@ -176,7 +176,10 @@ class GroupsController < ApplicationController
       groups = groups.joins(:group_categories).where(group_categories: {id: group_category_ids}).distinct
     end
 
-    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
+    if params[:favorites].present?
+      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
+      groups = groups.joins(:group_graetzls).where(group_graetzls: {graetzl_id: favorite_ids}).distinct
+    elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       groups = groups.joins(:group_graetzls).where(group_graetzls: {graetzl_id: graetzl_ids}).distinct
     end
 

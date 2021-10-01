@@ -76,18 +76,17 @@ class ToolOffersController < ApplicationController
   end
 
   def filter_collection(collection)
-    district_ids = params[:district_ids]&.select(&:present?)
-    if district_ids.present?
-      graetzl_ids = Graetzl.joins(:districts).where(districts: {id: district_ids}).distinct.pluck(:id)
-      collection = collection.where(graetzl_id: graetzl_ids)
-    end
 
     if params[:category_id].present?
       collection = collection.where(tool_category_id: params[:category_id])
     end
 
-    if params[:query].present?
-      collection = collection.where("title ILIKE :q OR description ILIKE :q", q: "%#{params[:query]}%")
+    graetzl_ids = params.dig(:filter, :graetzl_ids)
+    if params[:favorites].present?
+      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
+      collection = collection.where(graetzl_id: favorite_ids)
+    elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
+      collection = collection.where(graetzl_id: graetzl_ids)
     end
 
     collection

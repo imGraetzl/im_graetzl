@@ -15,7 +15,7 @@
 
   <div class="hl-subtext -cards">
     <%= image_tag 'svg/coop-share-headline.svg', class: 'coop-share-headline' %>
-    <p>Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.</p>
+    <p>Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.<%= render 'shared/questionmarklink', hint_url: info_coop_share_path %></p>
   </div>
 
   <%= render 'filters/coop_demand_categories' %>

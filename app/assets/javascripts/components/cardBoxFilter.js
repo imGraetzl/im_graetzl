@@ -95,8 +95,9 @@ APP.components.cardBoxFilter = (function() {
     });
 
 
-    // District Filter - Select Ganz Wien Checkbox
+    // District Filter - Select All
     $(".filter-modal-jbox-areas").on("click", ".select-all", function() {
+      $('.filter-modal-jbox-areas #favorites').prop("checked", false); // deselect Favorites
       if ($(".select-all input:checkbox").prop('checked') == true) {
         selectAllDistricts($(".filter-modal-jbox-areas"));
         $('.filter-modal-jbox-areas #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
@@ -106,10 +107,19 @@ APP.components.cardBoxFilter = (function() {
     });
 
 
+    // Filter - Select Favorites
+    $(".filter-modal-jbox-areas").on("click", ".filter-input-favorites", function() {
+      $('.filter-modal-jbox-areas #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
+      $(".select-all input:checkbox").prop("checked", false);
+      unSelectAllDistricts($(".filter-modal-jbox-areas"));
+    });
+
+
     // Toggle ganz Wien Checkbox wenn alle Bezirke gewählt
     $(".filter-modal-jbox-areas .filter-input").on("change", function() {
 
       $('.filter-modal-jbox-areas #select-home-graetzl').prop("checked", false); // deselect HomeGraetzl
+      $('.filter-modal-jbox-areas #favorites').prop("checked", false); // deselect Favorites
 
       var countDistricts = $(".filter-modal-jbox-areas .filter-input").length;
       var countCheckedDistricts = $(".filter-modal-jbox-areas .filter-input").find('input:checked').length;
@@ -246,12 +256,12 @@ APP.components.cardBoxFilter = (function() {
     var selectedInputs = modal.find(".filter-input :selected, .filter-input :checked");
     var link = filterForm.find('a[href="#' + modal.prop("id") + '"]');
 
-    if (modal.find(".filter-input select").data("select-all")) {
-      link.text(link.data("no-filter-label"));
-      link.removeClass('filter-applied');
-
-    } else if (modal.find('#select-home-graetzl').prop('checked') == true) {
+    if (modal.find('#select-home-graetzl').prop('checked') == true) {
         link.text(modal.find('#select-home-graetzl').data('label'));
+        link.addClass('filter-applied');
+
+    } else if (modal.find('#favorites').prop('checked') == true) {
+        link.text(modal.find('#favorites').data('label'));
         link.addClass('filter-applied');
 
     } else if (selectedInputs.length == allInputsCount) {

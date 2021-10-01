@@ -24,7 +24,7 @@
         <% else %>
           Neues aus
           <%= link_to "#{@graetzl.name}", '#filter-modal-activity',
-            data: { no_filter_label: "#{t("region.#{current_region.id}.graetzl")} #{@graetzl.name}"} %>
+            data: { no_filter_label: "#{@graetzl.name}"} %>
         <% end %>
 
       </div>

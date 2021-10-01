@@ -13,11 +13,8 @@
   <%= render 'map' %>
   <%= render 'navigation' %>
 
-  <% if !user_signed_in? %>
-    <!-- only logged in -->
-  <% end %>
   <div class="hl-subtext -cards">
-    <%= image_tag 'svg/raumteiler-headline.svg', class: 'raumteiler-headline', width:340, height:87 %>
+    <h1>Entdecke <span>Raumteiler</span></h1>
     <p>Gewerbeflächen teilen - Kosten teilen. <%= render 'shared/questionmarklink', hint_url: info_raumteiler_path %></p>
   </div>
 
@@ -29,13 +26,21 @@
     <div class="filter-selection-text-jbox">
       Zeig mir <%= link_to 'alle Raumteiler', '#filter-modal-type', data: { no_filter_label: 'alle Raumteiler'} %>,
       aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        in <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% else %>
+        in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
+      <% end %>
     </div>
     <div id="filter-modal-type" class="filter-modal-jbox">
       <%= render 'filters/room_type' %>
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">
-      <%= render 'filters/areas', graetzl: @graetzl %>
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        <%= render 'filters/areas', favorites: current_user %>
+      <% else %>
+        <%= render 'filters/areas', graetzl: @graetzl %>
+      <% end %>
     </div>
   <% end %>
 
