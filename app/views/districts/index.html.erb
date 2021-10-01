@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: t('.title', numeric: @district.numeric, name: @district.name, region: current_region.name),
     og_description: t('.description', num: @district.graetzls.size, name: @district.name, numeric: @district.numeric, region: current_region.name),
-    og_image: image_url('meta/og_logo.png')
+    og_image: image_url("meta/#{current_region.id}/og_logo.png")
   )
 %>
 

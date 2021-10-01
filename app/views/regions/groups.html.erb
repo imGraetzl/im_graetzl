@@ -4,7 +4,7 @@
     robots: 'index, follow',
     og_title: (@category ? @category.title : 'Alle') + " Gruppen in #{current_region}",
     og_description: t('.description'),
-    og_image: image_url('meta/og_logo.png')
+    og_image: image_url("meta/#{current_region.id}/og_logo.png")
   )
 %>
 
