@@ -26,7 +26,7 @@
 
   <div class="hl-subtext -cards">
     <%= image_tag 'svg/meetings-headline.svg', class: 'meetings-headline', width:430, height:85 %>
-    <p><%= @category? "Events & Workshops in #{current_region} aus der Kategorie „#{@category.title}“." : "Organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen." %></p>
+    <p><%= @category? "Events & Workshops in #{current_region} aus der Kategorie „#{@category.title}“." : "Organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen." %><%= render 'shared/questionmarklink', hint_url: info_events_und_workshops_path %></p>
   </div>
 
   <%= render 'filters/meeting_categories' %>

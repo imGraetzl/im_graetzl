@@ -6,6 +6,13 @@
     </div>
   <% end %>
 
+  <% if local_assigns[:favorites] %>
+    <div class="input-checkbox filter-input-favorites">
+      <%= check_box_tag "favorites", true, true, data: { label: "#{current_user.graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}"} %>
+      <%= label_tag "favorites", "#{current_user.graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}" %> <span>(<%= link_to "anpassen", favorite_graetzls_user_path %>)</span>
+    </div>
+  <% end %>
+
   <div class="input-checkbox select-all">
     <%= check_box_tag "select-all", nil, local_assigns[:entire_region] %>
     <%= label_tag "select-all", "Ganz #{current_region.name}" %>

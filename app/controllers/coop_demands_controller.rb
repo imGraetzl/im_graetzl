@@ -91,7 +91,10 @@ class CoopDemandsController < ApplicationController
       collection = collection.where(coop_demand_category: params[:category_id])
     end
 
-    if graetzl_ids.present? && graetzl_ids.any?(&:present?)
+    if params[:favorites].present?
+      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
+      collection = collection.joins(:coop_demand_graetzls).where(coop_demand_graetzls: {graetzl_id: favorite_ids}).distinct
+    elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       collection = collection.joins(:coop_demand_graetzls).where(coop_demand_graetzls: {graetzl_id: graetzl_ids}).distinct
     end
 

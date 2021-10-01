@@ -13,7 +13,8 @@
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">
-    <h1><span>Coop & Share</span> Marplatz</h1>
+    <h1><span>Coop & Share</span> Marktplatz</h1>
+    <p>Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.<%= render 'shared/questionmarklink', hint_url: info_coop_share_path %></p>
   </div>
 
   <%= render 'filters/coop_demand_categories' %>
@@ -22,20 +23,28 @@
     <%= hidden_field_tag :category_id, @category.try(:id) %>
     <div class="filter-selection-text-jbox">
       Zeige mir Coop & Share Angebote aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        in <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% else %>
+        in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
+      <% end %>
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">
-      <%= render 'filters/areas', graetzl: @graetzl %>
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        <%= render 'filters/areas', favorites: current_user %>
+      <% else %>
+        <%= render 'filters/areas', graetzl: @graetzl %>
+      <% end %>
     </div>
   <% end %>
 
   <div class="card-grid-container">
-    <div class="card-grid" data-behavior="coop-demands-card-container"></div>
-    <div class="action-card-container" data-behavior="coop-demands-action-card-container">
+    <div class="card-grid" data-behavior="coopdemands-card-container"></div>
+    <div class="action-card-container" data-behavior="coopdemands-action-card-container">
       <%= render 'coop_demands/action_card', create_link: true %>
     </div>
     <!-- Insert Featured Card -->
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'coop-demands-paginate-link' }, rel: 'nofollow' %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'coopdemands-paginate-link' }, rel: 'nofollow' %>
   </div>
 
 </section>

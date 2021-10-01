@@ -19,13 +19,21 @@
   <%= form_tag groups_path, method: :get, remote: true, class: 'cards-filter' do %>
     <div class="filter-selection-text-jbox">
       Zeige mir Gruppen aus <%= link_to 'allen Kategorien', '#filter-modal-category', data: { no_filter_label: 'allen Kategorien'}, class: 'filter-modal-category' %>,
-      in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        in <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% else %>
+        in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
+      <% end %>
     </div>
     <div id="filter-modal-category" class="filter-modal-jbox">
       <%= render 'filters/group_categories' %>
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">
-      <%= render 'filters/areas', graetzl: @graetzl %>
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        <%= render 'filters/areas', favorites: current_user %>
+      <% else %>
+        <%= render 'filters/areas', graetzl: @graetzl %>
+      <% end %>
     </div>
   <% end %>
 

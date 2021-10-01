@@ -550,7 +550,7 @@
 
   display: none;
 
-  .filter-input-graetzl, .select-all {
+  .filter-input-graetzl, .select-all, .filter-input-favorites {
     border-bottom: 1px solid $color-ambient-mint-light;
     font-style: italic;
   }
@@ -595,5 +595,8 @@
         }
       }
     }
+  }
+  .filter-input-favorites {
+    label { display: inline-block; }
   }
 }
