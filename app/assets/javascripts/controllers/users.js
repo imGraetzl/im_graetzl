@@ -77,6 +77,15 @@ APP.controllers.users = (function() {
             })
           });
 
+          // Remove Current Homegraetzl from Favorite Select Dropdown (Mobileversion)
+          var current_home_graetzl_name = $("#current_home_graetzl").data('name');
+          var current_home_graetzl_id = $("#current_home_graetzl").data('id');
+          $(".fav-mobile .fav_graetzls ul.options label").each(function() {
+              if ($(this).text().indexOf(current_home_graetzl_name) !== -1 ) {
+                $(this).parent().remove();
+              }
+          });
+          $(".fav-mobile .fav_graetzls option[value="+current_home_graetzl_id+"]").remove();
         }
 
     }
