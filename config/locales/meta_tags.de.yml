@@ -18,7 +18,7 @@ de:
       description: 'imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an...'
     coop_demands:
       title: 'Coop & Share Marktplatz'
-      description: 'Text ..'
+      description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
     zuckerl:
       title: 'Infos zum Zuckerl'
       description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Zuckerl.'
@@ -109,6 +109,9 @@ de:
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote im %{numeric}. Bezirk'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem %{numeric}. Bezirk %{name}.'
+    coop_demands:
+      title: 'Coop & Share Marktplatz Angebote in %{zip} %{region}'
+      description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
 
   graetzls:
     show:
@@ -132,11 +135,15 @@ de:
     zuckerls:
       title: 'Zuckerl & Angebote im Grätzl %{graetzl}'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'
+    coop_demands:
+      title: 'Coop & Share Marktplatz Angebote im Grätzl %{graetzl}'
+      description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
 
   meetings:
     show:
       title: '%{name}'
       description: '%{desc}'
+
   locations:
     show:
       title: '%{name} - %{slogan}'
@@ -156,6 +163,11 @@ de:
     show:
       title: '%{slogan}'
       description: '%{type}: %{desc}...'
+
+  coop_demands:
+    show:
+      title: '%{slogan}'
+      description: '%{desc}...'
 
   tool_offers:
     show:
