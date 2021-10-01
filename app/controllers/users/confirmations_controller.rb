@@ -25,7 +25,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
   def after_confirmation_path_for(_resource_name, resource)
     sign_in(resource)
     if resource.business?
-      set_flash_message! :notice, :confirmed_business_and_signed_in, :link => ActionController::Base.helpers.link_to('kostenloses virtuelles Schaufenster', locations_user_path), :first_name => resource.first_name
+      set_flash_message! :notice, :confirmed_business_and_signed_in, :link => ActionController::Base.helpers.link_to('kostenloses Schaufenster', locations_user_path), :first_name => resource.first_name
     end
     session.delete(:confirmation_redirect) || root_url
   end
