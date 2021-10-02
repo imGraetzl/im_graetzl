@@ -16,8 +16,8 @@
 
 <p>
   Liebe Grüße,<br>
-  dein Team von imGrätzl.at<br>
+  dein Team von <%= @region.platform_name %><br>
   --<br>
   Bei Fragen schreib uns an:
-  <%= mail_to 'wir@imgraetzl.at' %>
+  <%= mail_to "wir@#{@region.platform_domain}" %>
 </p>

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get 'search/user' => 'search#user'
   get 'search/address' => 'search#address', as: 'address_search'
 
+  root 'home#index'
+  get  'home' => 'home#about', as: 'about_platform'
+
   scope controller: 'campaign_users', as: 'campaign_users', constraints: { host: /welocally\.at\Z/ } do
     root to: 'campaign_users#index'
     get 'muehlviertel'
@@ -208,8 +211,6 @@ Rails.application.routes.draw do
   get 'messenger/fetch_new_messages'
   post 'messenger/post_message'
   post 'messenger/update_thread'
-
-  root 'static_pages#home'
 
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'info', to: 'static_pages#info'

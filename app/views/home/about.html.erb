@@ -36,7 +36,7 @@
       <p>Melde dich gleich kostenlos an.</p>
     </div>
 
-    <%= render 'info_services' %>
+    <%= render 'static_pages/info_services' %>
 
     <%= link_to "Sei locally dabei - Kostenlos registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register region-select-link', data: {urlmethod: new_registration_path} if !user_signed_in? %>
 

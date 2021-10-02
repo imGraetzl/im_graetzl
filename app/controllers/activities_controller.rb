@@ -3,8 +3,8 @@ class ActivitiesController < ApplicationController
   def index
     head :ok and return if browser.bot? && !request.format.js?
 
-    if params[:favorites].present?
-      graetzl_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
+    if params[:favorites].present? && current_user
+      graetzl_ids = current_user.followed_graetzl_ids
     elsif params[:graetzl_id].present?
       graetzl_ids = [Graetzl.find(params[:graetzl_id]).id]
     elsif params[:district_id].present?
