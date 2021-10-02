@@ -82,9 +82,8 @@ class ToolOffersController < ApplicationController
     end
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
-    if params[:favorites].present?
-      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
-      collection = collection.where(graetzl_id: favorite_ids)
+    if params[:favorites].present? && current_user
+      collection = collection.where(graetzl_id: current_user.followed_graetzl_ids)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       collection = collection.where(graetzl_id: graetzl_ids)
     end

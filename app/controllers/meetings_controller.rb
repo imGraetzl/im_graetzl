@@ -139,8 +139,8 @@ class MeetingsController < ApplicationController
     end
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
-    if params[:favorites].present?
-      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
+    if params[:favorites].present? && current_user
+      favorite_ids = current_user.followed_graetzl_ids
       meetings = meetings.where(graetzl_id: favorite_ids).or(meetings.online_meeting)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)

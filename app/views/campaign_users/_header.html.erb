@@ -1,0 +1,64 @@
+<header class="navigation">
+  <div class="inner">
+    <div class="nav-body">
+
+      <div class="nav-site">
+
+        <!-- Mobile Menue -->
+        <%= link_to 'javascript:', class: "nav-mobile-toggle", data: { dropdown: "nav-site-main" } do %>
+          <%= icon_tag("layout-text") %>
+          <span class="nav-mobile-toggle-label">Navigation</span>
+        <% end %>
+
+        <div class="nav-dropdown-menu" id="nav-site-main">
+          <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
+            <%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-regions') %>
+            <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+          </div>
+          <div class="nav-dropdown-submenu" id="nav-submenu-regions">
+            <%= nav_submenu_back('nav-submenu-city-main') %>
+            <%= nav_menu_item("map-location", "Mühlviertler Kernland", '/muehlviertel') %>
+            <%= nav_menu_item("map-location", "Kärnten", '/kaernten') %>
+          </div>
+        </div>
+        <!-- /Mobile Menue -->
+
+        <!-- Desktop Menue -->
+        <%= link_to 'Home', '/', class: 'nav-top-link nav-home-link' %>
+        <%= link_to 'javascript:', class: 'nav-top-link nav-city-link', data: { dropdown: "nav-site-about" } do %>
+          <%= icon_tag "arrow-down-2" %><span>WeLocally</span>
+        <% end %>
+
+        <div class="nav-dropdown-menu" id="nav-site-about">
+          <div class="nav-dropdown-submenu shown" id="nav-submenu-regions-main">
+            <%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-desk-regions') %>
+            <%= nav_menu_item("coffee", "Blog", "https://blog.welocally.at/", class: 'discover', target: '_blank') %>
+          </div>
+          <div class="nav-dropdown-submenu" id="nav-submenu-desk-regions">
+            <%= nav_submenu_back('nav-submenu-regions-main') %>
+            <%= nav_menu_item("map-location", "Mühlviertler Kernland", '/muehlviertel') %>
+            <%= nav_menu_item("map-location", "Kärnten", '/kaernten') %>
+          </div>
+        </div>
+        <!-- /Desktop Menue -->
+
+      </div>
+
+
+      <div class="nav-logo">
+        <%= link_to '/' do %>
+          <%= image_tag("campaign_users/logo.svg", class: 'logo-desktop', width:120, height:84) %>
+          <%= image_tag("campaign_users/logo_reduced.svg", class: 'logo-mobile', width:45, height:25) %>
+        <% end %>
+      </div>
+
+
+      <div class="nav-guest">
+        <%= link_to 'https://www.facebook.com/WeLocally', target: '_blank' do %><%= icon_tag "social-facebook" %><% end %>
+        <%= link_to 'https://www.instagram.com/welocally/', target: '_blank' do %><%= image_tag("svg/icon-instagram.svg", class: 'icon', width:28, height:28) %><% end %>
+      </div>
+
+
+    </div>
+  </div>
+</header>

@@ -141,10 +141,22 @@ class User < ApplicationRecord
     UsersMailer.welcome_email(self).deliver_later
     MailchimpUserSubscribeJob.perform_later(self)
 
+    # Default favorite graetzls
+    self.favorite_graetzls = (region.use_districts? ? district.graetzls : region.graetzls) - [self.graetzl]
+
+    # Default groups
     Group.in(region).default_joined.includes(:graetzls).each do |group|
       next if self.groups.include?(group)
       group.group_users.create(user: self) if group.graetzls.include?(self.graetzl)
     end
+  end
+
+  def district
+    self.graetzl.district
+  end
+
+  def followed_graetzl_ids
+    favorite_graetzl_ids + [graetzl_id]
   end
 
   def primary_location

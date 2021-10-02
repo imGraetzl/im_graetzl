@@ -79,9 +79,8 @@ class RoomsController < ApplicationController
     end
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)
-    if params[:favorites].present?
-      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
-      offers = offers.where(graetzl_id: favorite_ids)
+    if params[:favorites].present? && current_user
+      offers = offers.where(graetzl_id: current_user.followed_graetzl_ids)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       offers = offers.where(graetzl_id: graetzl_ids)
     end
@@ -111,8 +110,8 @@ class RoomsController < ApplicationController
     end
 
     graetzl_ids = params.dig(:filter, :graetzl_ids)&.select(&:present?)
-    if params[:favorites].present?
-      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
+    if params[:favorites].present? && current_user
+      favorite_ids = current_user.followed_graetzl_ids
       demands = demands.joins(:room_demand_graetzls).where(room_demand_graetzls: {graetzl_id: favorite_ids}).distinct
     elsif graetzl_ids.present?
       demands = demands.joins(:room_demand_graetzls).where(room_demand_graetzls: {graetzl_id: graetzl_ids}).distinct

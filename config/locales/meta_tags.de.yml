@@ -220,9 +220,12 @@ de:
       title: 'Suche'
 
   campaign_users:
+    index:
+      title: 'Gemeinsam bringen wir mehr zusammen - Sei locally dabei!'
+      description: 'WeLocally startet in Kürze! Sei von Anfang an dabei und gestalte WeLocally mit. Damit gibst du WeLocally noch vor dem offiziellen Start den letzten Schliff.'
     muehlviertel:
-      title: 'Servus Mühlviertler Kernland!'
-      description: 'Die großartige Nachricht: Wir dürfen nun die Plattform zu euch bringen. Lust die Plattform mitzugestalten? Hier entlang ..'
+      title: 'Gemeinsam bringen wir mehr zusammen - Sei locally dabei!'
+      description: 'WeLocally startet in Kürze im Mühlviertler Kernland! Sei von Anfang an dabei und gestalte WeLocally mit. Damit gibst du WeLocally noch vor dem offiziellen Start den letzten Schliff.'
     kaernten:
-      title: 'Servus Griffen, St. Andrä & Völkermarkt!'
-      description: 'Die großartige Nachricht: Wir dürfen nun die Plattform zu euch bringen. Lust die Plattform mitzugestalten? Hier entlang ..'
+      title: 'Gemeinsam bringen wir mehr zusammen - Sei locally dabei!'
+      description: 'WeLocally startet in Kürze in Griffen, St. Andrä und Völkermarkt! Sei von Anfang an dabei und gestalte WeLocally mit. Damit gibst du WeLocally noch vor dem offiziellen Start den letzten Schliff.'

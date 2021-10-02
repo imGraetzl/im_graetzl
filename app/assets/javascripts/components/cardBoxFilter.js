@@ -218,7 +218,7 @@ APP.components.cardBoxFilter = (function() {
 
     var districtIds = [];
     modal.find(".filter-input input:checkbox:checked").each(function(){
-      districtIds = districtIds.concat($(this).val());
+      districtIds.push($(this).val());
     });
 
     if (districtIds.length == 23) {

@@ -1,4 +1,4 @@
-active_admin_form_for [:admin, resource] do |f|
+active_admin_form_for [:admin, resource] do
   semantic_errors
   inputs do
     input :campaign_title

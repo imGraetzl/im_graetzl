@@ -170,6 +170,7 @@ de:
         city: Stadt
         zip: Postleitzahl
       campaign_user:
+        campaign_title: Region
         first_name: Vorname
         last_name: Nachname
         email: E-Mail
