@@ -1,7 +1,7 @@
 class IpResolver
 
   def find_region(ip)
-    response = Http.get("http://ipwhois.app/json/#{ip}").parse(:json)
+    response = HTTP.get("http://ipwhois.app/json/#{ip}").parse(:json)
 
     if response["longitude"] && response["latitude"]
       coordinates = [response["longitude"], response["latitude"]]
