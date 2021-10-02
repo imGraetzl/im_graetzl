@@ -108,7 +108,6 @@ class LocationsController < ApplicationController
 
   def filter_collections(locations)
     graetzl_ids = params.dig(:filter, :graetzl_ids)
-    favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
     use_favorites = params[:favorites]
 
     if params[:special_category_id].present? && params[:special_category_id] == 'online-shops'
@@ -122,6 +121,7 @@ class LocationsController < ApplicationController
     end
 
     if use_favorites
+      favorite_ids = [current_user.graetzl_id] + current_user.favorite_graetzl_ids
       locations = locations.where(graetzl_id: favorite_ids)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
       locations = locations.where(graetzl_id: graetzl_ids)
