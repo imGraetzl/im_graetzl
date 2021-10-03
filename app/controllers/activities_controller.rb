@@ -9,6 +9,10 @@ class ActivitiesController < ApplicationController
       graetzl_ids = [Graetzl.find(params[:graetzl_id]).id]
     elsif params[:district_id].present?
       graetzl_ids = District.find(params[:district_id]).graetzl_ids
+    elsif params.dig(:filter, :graetzl_ids)&.compact_blank.present?
+      graetzl_ids = Graetzl.where(id: params[:filter][:graetzl_ids]).pluck(:id)
+    elsif params.dig(:filter, :district_ids)&.compact_blank.present?
+      graetzl_ids = DistrictGraetzl.where(district_id: params[:filter][:district_ids]).distinct.pluck(:graetzl_id)
     end
 
     @activities = ActivityStream.new.fetch(current_region, current_user, graetzl_ids)
