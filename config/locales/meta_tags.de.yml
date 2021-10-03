@@ -9,10 +9,14 @@ de:
   muehlviertler-kernland:
     site_name: weLocally.at
 
-  static_pages:
-    home_region:
+  home:
+    region:
       title: 'Mach mit und sei locally dabei! | %{region}'
-      description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+      description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Gemeinde-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+      title_imgraetzl: 'Mach mit - Treffen, Events & Initiativen im Grätzl'
+      description_imgraetzl: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
+
+  static_pages:
     info:
       title: 'Coop & Share - Alle Services im Überblick'
       description: 'imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an...'
