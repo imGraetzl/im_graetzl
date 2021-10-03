@@ -17,13 +17,6 @@ Rails.application.routes.draw do
   root 'home#index'
   get  'home' => 'home#about', as: 'about_platform'
 
-  scope controller: 'campaign_users', as: 'campaign_users', constraints: { host: /welocally\.at\Z/ } do
-    root to: 'campaign_users#index'
-    get 'muehlviertel'
-    get 'kaernten'
-    post '(:campaign)' => 'campaign_users#create'
-  end
-
   ActiveAdmin.routes(self)
 
   if Rails.configuration.upload_server == :s3
