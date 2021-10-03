@@ -18,7 +18,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :current_region, :user_home_graetzl
+  def remember_region
+    session[:region_id] = current_region.id if current_region
+  end
+
+  helper_method :current_region, :region_root_url, :user_home_graetzl
 
   def current_region
     if request.host.end_with?(Rails.application.config.welocally_host)
@@ -27,6 +31,10 @@ class ApplicationController < ActionController::Base
     elsif request.host.end_with?(Rails.application.config.imgraetzl_host)
       Region.get('wien')
     end
+  end
+
+  def region_root_url(region)
+    root_url(host: region.host)
   end
 
   def user_home_graetzl
