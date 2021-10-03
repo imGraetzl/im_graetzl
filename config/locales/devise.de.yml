@@ -22,7 +22,7 @@ de:
       confirmation_instructions:
         subject: "Bitte aktiviere deinen Account"
       reset_password_instructions:
-        subject: "Dein imGrätzl Passwort zurücksetzen"
+        subject: "Dein Passwort zurücksetzen"
       unlock_instructions:
         subject: "Anleitung um Deinen Account freizuschalten"
     omniauth_callbacks:
