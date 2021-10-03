@@ -36,6 +36,9 @@ Rails.application.configure do
   # Use welocally.at for assets
   config.asset_host = 'https://www.welocally.at'
 
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
+
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
