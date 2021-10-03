@@ -8,7 +8,7 @@
 </p>
 
 <p>
-  Als registrierter Nutzer bekommst du automatisch Updates und News aus deinem Stadtteil <%= @resource.graetzl.name %>.
+  Als registrierter Nutzer bekommst du automatisch Updates und News <%= I18n.t("region.#{@region.id}.from_your_graetzl") %> <%= @resource.graetzl.name %>.
   Du kannst diesen Service nach der Registrierung unter <%= link_to 'Einstellungen', edit_user_url(target: "tab-2", host: @resource.region.host) %> jederzeit abbestellen.
 </p>
 
