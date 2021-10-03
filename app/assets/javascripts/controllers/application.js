@@ -35,9 +35,18 @@ APP.controllers.application = (function() {
         ],
         onAccept: function(){
             myPreferences = $.fn.ihavecookies.cookie();
-            gtag('consent', 'update', {
-              'analytics_storage': 'granted'
-            });
+
+            if ($.fn.ihavecookies.preference('analytics') === true) {
+              gtag('consent', 'update', {
+                'analytics_storage': 'granted'
+              });
+            } else {
+              gtag('consent', 'update', {
+                'analytics_storage': 'denied'
+              });
+            }
+
+            // Settings Event Tracking
             if (!eventSubmitted) {
               gtag(
                 'event', 'Accepted', {
