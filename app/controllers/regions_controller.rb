@@ -1,6 +1,7 @@
 class RegionsController < ApplicationController
 
   def index
+    remember_region if !current_user
   end
 
   def locations

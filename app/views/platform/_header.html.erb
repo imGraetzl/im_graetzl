@@ -14,7 +14,7 @@
           <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
             <!--<%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-regions') %>-->
             <% Region.all.each do |region| %>
-              <%= nav_menu_item("region-#{region.id}", "#{region.name}", root_url(host: region.host)) %>
+              <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
             <% end %>
             <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
           </div>
@@ -24,7 +24,7 @@
               <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
             <% end %>
             <% Region.all.each do |region| %>
-              <%= nav_menu_item("region-#{region.id}", "#{region.name}", root_url(host: region.host)) %>
+              <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
             <% end %>
           </div>
         </div>
@@ -40,7 +40,7 @@
           <div class="nav-dropdown-submenu shown" id="nav-submenu-regions-main">
             <!--<%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-desk-regions') %>-->
             <% Region.all.each do |region| %>
-              <%= nav_menu_item("region-#{region.id}", "#{region.name}", root_url(host: region.host)) %>
+              <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
             <% end %>
             <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
           </div>
@@ -50,7 +50,7 @@
               <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
             <% end %>
             <% Region.all.each do |region| %>
-              <%= nav_menu_item("region-#{region.id}", "#{region.name}", root_url(host: region.host)) %>
+              <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
             <% end %>
           </div>
         </div>
