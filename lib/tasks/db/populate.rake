@@ -90,7 +90,7 @@ namespace :db do
     users = User.all
     4.times do
       users.each do |u|
-        meeting = u.graetzl.meetings.create(
+        u.graetzl.meetings.create(
           name: Faker::Lorem.sentence(3),
           user: u,
           description: Faker::Lorem.paragraph(6),
