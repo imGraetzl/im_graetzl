@@ -43,7 +43,7 @@
       <div class="row">
         <div class="col">
           <% Region.all.each do |region| %>
-            <%= link_to region.name, root_url(host: region.host) %>
+            <%= link_to region.name, region_root_url(region) %>
           <% end %>
         </div>
       </div>
@@ -61,7 +61,7 @@
     <select name="select" id="select">
       <option value="">Auswählen</option>
       <% Region.all.each do |region| %>
-        <option value="<%= root_url(host: region.host) %>"><%= region.name %></option>
+        <option value="<%= region_root_url(region) %>"><%= region.name %></option>
       <% end %>
     </select>
   </div>

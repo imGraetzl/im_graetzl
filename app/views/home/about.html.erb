@@ -20,7 +20,7 @@
 
   <div class="region-switch-icons">
     <% Region.all.each do |region| %>
-      <%= link_to root_url(host: region.host), class: 'region-button' do %>
+      <%= link_to region_root_url(region), class: 'region-button' do %>
         <div class="bigicontext-element">
           <%= icon_tag "region-#{region.id}" %>
         </div>

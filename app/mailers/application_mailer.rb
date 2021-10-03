@@ -1,6 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
   layout 'mailer'
-  helper :image, :mailer
+  helper :image
 
   def self.inherited(subclass)
     subclass.default template_path: "mailers/#{subclass.name.to_s.underscore}"
