@@ -47,7 +47,7 @@ APP.components.areaMap = (function() {
   );
 
   // FAVORITE GRAETZL MAP ------------------
-  
+
   function initFavoriteGraetzls(mapElement, options) {
     options = options || {};
 
@@ -80,14 +80,14 @@ APP.components.areaMap = (function() {
 
         // Set Home
         if (feature.properties.home) {
-          layer.setStyle(styles.home)
-          listAdd(feature, layer, styles.home, false, '.home');
+          layer.setStyle(styles.home);
+          listAdd(feature, layer, styles.home, false, '.home-graetzl');
         }
 
         // Set Favorites
         if (feature.properties.favorite) {
           layer.setStyle(styles.active);
-          listAdd(feature, layer, styles.active, true, '.favorites');
+          listAdd(feature, layer, styles.active, true, '.favorite-graetzls');
         }
 
         layer.on('click', function () {
@@ -100,7 +100,7 @@ APP.components.areaMap = (function() {
             else {
               this.feature.properties.favorite = true;
               this.setStyle(styles.active);
-              listAdd(feature, layer, styles.active, true, '.favorites');
+              listAdd(feature, layer, styles.active, true, '.favorite-graetzls');
             }
         });
 
@@ -199,8 +199,10 @@ APP.components.areaMap = (function() {
   }
 
   function listAdd(feature, layer, reset_style, remove, append_to) {
-    if (!$("[data-id="+feature.properties.id+"]").exists()) {
-      $("<a href='javascript:' data-id="+feature.properties.id+">"+feature.properties.plz+""+feature.properties.name+"</a>").prependTo( append_to ).hide().fadeIn();
+    var list = $(".links" + append_to);
+    if (!list.find("[data-id="+feature.properties.id+"]").exists()) {
+      var item = $("<a href='javascript:' data-id="+feature.properties.id+">"+feature.properties.plz+""+feature.properties.name+"</a>");
+      item.prependTo(list).hide().fadeIn();
     }
     handlehighlightMapPoly(layer, feature, styles.hover, reset_style, remove);
   }

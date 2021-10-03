@@ -57,7 +57,7 @@ class UsersController < ApplicationController
 
   def favorite_graetzls
     @user = current_user
-    @graetzls = Graetzl.in(current_region).sort_by(&:zip).reverse
+    @graetzls = current_region.graetzls.sort_by(&:zip).reverse
   end
 
   def tooltip

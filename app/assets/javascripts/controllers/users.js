@@ -70,7 +70,7 @@ APP.controllers.users = (function() {
 
           // Submit IDS
           $(".map-form").on("submit", function() {
-            $(".fav-desktop .favorites a").each(function() {
+            $(".fav-desktop .favorite-graetzls a").each(function() {
               $(".map-form").append(
                 "<input type='hidden' name='user[favorite_graetzl_ids][]' value=" + $(this).data('id') + ">"
               );
