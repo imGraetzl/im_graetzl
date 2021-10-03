@@ -51,8 +51,8 @@ class ZuckerlsController < ApplicationController
 
   def collection_scope
     if params[:graetzl_id].present?
-      greatzl = Graetzl.find(params[:graetzl_id])
-      Zuckerl.live.in_area(greatzl.id)
+      graetzl = Graetzl.find(params[:graetzl_id])
+      Zuckerl.live.in_area(graetzl.id)
     elsif params[:district_id].present?
       district = District.find(params[:district_id])
       Zuckerl.live.in_area(district.graetzl_ids)
