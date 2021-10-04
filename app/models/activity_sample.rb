@@ -73,11 +73,11 @@ class ActivitySample
 
   def zuckerls
     if @graetzl
-      Zuckerl.live.in_area(@graetzl.id).include_for_box.random(2)
+      Zuckerl.in(@current_region).live.in_area(@graetzl.id).include_for_box.random(2)
     elsif @district
-      Zuckerl.live.in_area(@district.graetzl_ids).include_for_box.random(2)
+      Zuckerl.in(@current_region).live.in_area(@district.graetzl_ids).include_for_box.random(2)
     else
-      Zuckerl.live.include_for_box.random(2)
+      Zuckerl.in(@current_region).live.include_for_box.random(2)
     end
   end
 
