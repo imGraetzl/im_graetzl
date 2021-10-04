@@ -46,6 +46,7 @@ class GroupMailer < ApplicationMailer
     @group, @user, @message = group, from_user, message
     @region = @group.region
     @reply_email = from_user.email
+    @sender_email = email_address_with_name("no-reply@#{@region.platform_domain}", "#{from_user.full_name} | über #{@region.platform_name}")
 
     headers(
       "X-MC-Tags" => "group-user-mail",
@@ -56,7 +57,7 @@ class GroupMailer < ApplicationMailer
     mail(
       subject: subject,
       to: to_user.email,
-      from: "#{from_user.full_name} | über #{platform_email('no-reply')}>",
+      from: @sender_email,
       reply_to: @reply_email,
     )
   end
