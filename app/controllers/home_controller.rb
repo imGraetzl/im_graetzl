@@ -24,10 +24,10 @@ class HomeController < ApplicationController
   def find_best_region
     if current_user
       current_user.region
-    elsif session[:region_id].present?
+    else session[:region_id].present?
       Region.get(session[:region_id])
-    else
-      IpResolver.new.find_region(request.remote_ip)
+    #else
+      #IpResolver.new.find_region(request.remote_ip)
     end
   end
 
