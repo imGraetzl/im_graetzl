@@ -235,7 +235,6 @@ Rails.application.routes.draw do
 
   resources :comments, only: [:create, :destroy]
 
-  get 'sitemap.xml' => redirect('https://s3.eu-central-1.amazonaws.com/im-graetzl-production/sitemaps/sitemap.xml.gz')
   get 'robots.txt' => 'static_pages#robots'
 
   namespace :api do
