@@ -8,6 +8,7 @@ context.instance_eval do
       "<span class='mailtype'>New Room Offer: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewRoomOffer)}'>#{u.enabled_mail_notification(Notifications::NewRoomOffer)}</span>",
       "<span class='mailtype'>New Room Demand: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewRoomDemand)}'>#{u.enabled_mail_notification(Notifications::NewRoomDemand)}</span>",
       "<span class='mailtype'>New Tool Offer: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewToolOffer)}'>#{u.enabled_mail_notification(Notifications::NewToolOffer)}</span>",
+      "<span class='mailtype'>New Coop Demand: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewCoopDemand)}'>#{u.enabled_mail_notification(Notifications::NewCoopDemand)}</span>",
     ].join("<br>").html_safe
   }
   column("Betrifft Mich") { |u|
