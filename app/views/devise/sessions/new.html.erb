@@ -1,7 +1,12 @@
 <% title('Anmelden') %>
 
 <section class="loginPage">
-  <h1><span><%= t("region.#{current_region.id}.in_your_graetzl") %></span> anmelden</h1>
+
+  <% if current_region.nil? %>
+    <h1><span>Bei WeLocally</span> anmelden</h1>
+  <% else %>
+    <h1><span><%= t("region.#{current_region.id}.in_your_graetzl") %></span> anmelden</h1>
+  <% end %>
 
   <div class="loginForm">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -41,7 +46,11 @@
 
   <div class="paperCard -illuteaser -cord1RT">
     <div class="wrp">
-      <h3>Noch nicht bei <%= t("region.#{current_region.id}.domain_short") %> registriert?</h3>
+      <% if current_region.nil? %>
+        <h3>Noch nicht bei WeLocally registriert?</h3>
+      <% else %>
+        <h3>Noch nicht bei <%= t("region.#{current_region.id}.domain_short") %> registriert?</h3>
+      <% end %>
       <%= link_to 'Hier kostenlos registrieren', new_registration_path(origin: @origin_path_from_referer), class: 'btn-primary -rose' %>
     </div>
     <div class="card"></div>

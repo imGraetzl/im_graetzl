@@ -1,4 +1,7 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
+
+layout :set_layout
+
   # GET /resource/confirmation/new
   # def new
   #   super
@@ -29,4 +32,15 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     end
     session.delete(:confirmation_redirect) || root_url
   end
+
+  private
+
+  def set_layout
+    if current_region.nil?
+      'platform'
+    else
+      'application'
+    end
+  end
+
 end
