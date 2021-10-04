@@ -154,7 +154,7 @@
 
   </div>
 
-  <%= f.hidden_field :origin %>
+  <%= f.hidden_field :origin, value: params[:origin] %>
   <%= hidden_field_tag :redirect, params[:redirect] %>
   <%= f.button "Jetzt registrieren!", data: { disable_with: 'speichert...' }, class: 'btn-primary', id: 'btn-register' %>
 

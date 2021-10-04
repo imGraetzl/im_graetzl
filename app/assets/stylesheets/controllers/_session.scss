@@ -27,9 +27,6 @@ section.loginPage {
 
 }
 
-
-
-
 .loginForm {
   margin-bottom: 5rem;
   @include respond-to(">=medium") {
@@ -74,4 +71,3 @@ section.loginPage {
   }
 
 }
-

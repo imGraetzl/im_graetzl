@@ -18,6 +18,7 @@ ActiveAdmin.register User, as: "User Notification Settings" do
     ['New Location Post - Weekly','weekly_NewLocationPost'],['New Location Post - Daily','daily_NewLocationPost'],['New Location Post - Immediate','immediate_NewLocationPost'],['New Location Post - Off','off_NewLocationPost'],
     ['New RoomOffer - Weekly','weekly_NewRoomOffer'],['New RoomOffer - Daily','daily_NewRoomOffer'],['New RoomOffer - Immediate','immediate_NewRoomOffer'],['New RoomOffer - Off','off_NewRoomOffer'],
     ['New RoomDemand - Weekly','weekly_NewRoomDemand'],['New RoomDemand - Daily','daily_NewRoomDemand'],['New RoomDemand - Immediate','immediate_NewRoomDemand'],['New RoomDemand - Off','off_NewRoomDemand'],
+    ['New CoopDemand - Weekly','weekly_NewCoopDemand'],['New CoopDemand - Daily','daily_NewCoopDemand'],['New CoopDemand - Immediate','immediate_NewCoopDemand'],['New CoopDemand - Off','off_NewCoopDemand'],
     ['New ToolOffer - Weekly','weekly_NewToolOffer'],['New ToolOffer - Daily','daily_NewToolOffer'],['New ToolOffer - Immediate','immediate_NewToolOffer'],['New ToolOffer - Off','off_NewToolOffer'],
 
     ['Comment in Meeting - Weekly','weekly_CommentInMeeting'],['Comment in Meeting - Daily','daily_CommentInMeeting'],['Comment in Meeting - Immediate','immediate_CommentInMeeting'],['Comment in Meeting - Off','off_CommentInMeeting'],
