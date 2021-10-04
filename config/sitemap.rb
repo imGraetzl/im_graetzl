@@ -9,9 +9,18 @@ Region.all.each do |region|
   # store on S3 using aws-sdk
   SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/#{region.id}"
   # Use Localhost (FileAdapter) or AWS Upload
-  SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV['UPLOADS_BUCKET'])
+
+  s3_options = {
+    bucket:            ENV['UPLOADS_BUCKET'],
+    region:            ENV['AWS_REGION'],
+    access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+  }
+
+  SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(**s3_options)
   #SitemapGenerator::Sitemap.adapter = SitemapGenerator::FileAdapter.new
   # TASK - setup on heroku:
+  #rake sitemap:refresh:no_ping
   #rake sitemap:refresh:no_ping CONFIG_FILE="config/sitemap.rb"
   SitemapGenerator::Sitemap.create do
 
