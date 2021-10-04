@@ -1,4 +1,17 @@
 class Users::PasswordsController < Devise::PasswordsController
+
+  layout :set_layout
+
+  private
+
+  def set_layout
+    if current_region.nil?
+      'platform'
+    else
+      'application'
+    end
+  end
+
   # GET /resource/password/new
   # def new
   #   super

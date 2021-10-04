@@ -1,4 +1,17 @@
 class Users::UnlocksController < Devise::UnlocksController
+
+  layout :set_layout
+
+  private
+
+  def set_layout
+    if current_region.nil?
+      'platform'
+    else
+      'application'
+    end
+  end
+
   # GET /resource/unlock/new
   # def new
   #   super
