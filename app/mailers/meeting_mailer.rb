@@ -4,6 +4,7 @@ class MeetingMailer < ApplicationMailer
     @meeting, @user, @message = meeting, from_user, message
     @region = @meeting.region
     @reply_email = from_user.email
+    @sender_email = email_address_with_name("no-reply@#{@region.platform_domain}", "#{from_user.full_name} | über #{@region.platform_name}")
 
     headers(
       "X-MC-Tags" => "meeting-user-mail",
@@ -14,7 +15,7 @@ class MeetingMailer < ApplicationMailer
     mail(
       subject: subject,
       to: to_user.email,
-      from: "#{from_user.full_name} | über #{platform_email('no-reply')}>",
+      from: @sender_email,
       reply_to: @reply_email,
     )
   end
