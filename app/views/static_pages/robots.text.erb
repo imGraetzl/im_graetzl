@@ -3,4 +3,8 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
 # Disallow: /
-Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/sitemap.xml.gz
+<% if current_region %>
+  Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/<%= current_region.id %>/sitemap.xml.gz
+<% else %>
+  Sitemap: https://s3.eu-central-1.amazonaws.com/<%= ENV['UPLOADS_BUCKET'] %>/sitemaps/welocally/sitemap.xml.gz
+<% end %>
