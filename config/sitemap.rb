@@ -19,7 +19,7 @@ Region.all.each do |region|
   #SitemapGenerator::Sitemap.adapter = SitemapGenerator::FileAdapter.new
   # TASK - setup on heroku:
   #rake sitemap:refresh:no_ping
-  #rake sitemap:refresh:no_ping CONFIG_FILE="config/sitemap.rb"
+  
   SitemapGenerator::Sitemap.create do
 
     add region_index_path, changefreq: 'always', priority: 0.9
