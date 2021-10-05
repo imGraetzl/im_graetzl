@@ -1,5 +1,5 @@
 active_admin_form_for [:admin, resource] do |f|
-  semantic_errors
+  f.semantic_errors
   columns do
     column do
       inputs 'Basic Info' do
