@@ -22,7 +22,7 @@
           <div class="wrp"><%= @location.goodie %></div>
         <% else %>
           <div class="goodie-login-msg">
-            Das Goodie ist nur für eingeloggte Mitglider sichtbar.<br />
+            Das Goodie ist nur für eingeloggte Mitglieder sichtbar.<br />
             <%= link_to 'Zum Login', new_user_session_path %> |
             <%= link_to 'Zur Registrierung', new_registration_path(origin: request.path) %>
           </div>
