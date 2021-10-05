@@ -399,6 +399,7 @@ APP.components.cardBoxFilter = (function() {
     items.each(function() {
         var cardId = $(this).attr('data-card-id');
         if (exists[cardId]) {
+          console.log($(this));
           $(this).remove();
         } else {
           exists[cardId] = true;
