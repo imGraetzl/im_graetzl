@@ -1,4 +1,4 @@
-class Notifications::RoomRentalCanceled < Notification
+class Notifications::RoomRentalCanceled < Notifications::PlatformNotification
 
   def self.description
     'Raumteiler Anfrage wurde zurückgezogen'

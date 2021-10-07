@@ -1,4 +1,4 @@
-class Notifications::ToolRentalRejected < Notification
+class Notifications::ToolRentalRejected < Notifications::PlatformNotification
 
   def self.description
     'Toolteiler Anfrage wurde abgelehnt'

@@ -1,4 +1,4 @@
-class Notifications::ToolRentalCanceled < Notification
+class Notifications::ToolRentalCanceled < Notifications::PlatformNotification
 
   def self.description
     'Toolteiler Anfrage wurde zurückgezogen'

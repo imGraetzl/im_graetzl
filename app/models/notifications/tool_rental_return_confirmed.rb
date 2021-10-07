@@ -1,4 +1,4 @@
-class Notifications::ToolRentalReturnConfirmed < Notification
+class Notifications::ToolRentalReturnConfirmed < Notifications::PlatformNotification
 
   def self.description
     'Toolteiler Rückgabe bestätigt. Verleihvorgang bewerten.'

@@ -1,4 +1,4 @@
-class Notifications::RoomRentalApproved < Notification
+class Notifications::RoomRentalApproved < Notifications::PlatformNotification
 
   def self.description
     'Deine Raumteiler Anfrage wurde bestätigt'

@@ -1,4 +1,4 @@
-class Notifications::ToolRentalApproved < Notification
+class Notifications::ToolRentalApproved < Notifications::PlatformNotification
 
   def self.description
     'Deine Toolteiler Anfrage wurde bestätigt'
