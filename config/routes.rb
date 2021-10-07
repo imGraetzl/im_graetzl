@@ -110,9 +110,11 @@ Rails.application.routes.draw do
     get :tooltip, on: :member
   end
 
-  resources :campaign_users, path: 'campaign', only: [:new, :create]
-  get 'muehlviertel', to: 'campaign_users#muehlviertel'
-  get 'kaernten', to: 'campaign_users#kaernten'
+#  scope controller: 'campaign_users', as: 'campaign_users' do
+#    get 'muehlviertel'
+#    get 'kaernten'
+#    post '(:campaign)' => 'campaign_users#create'
+#  end
 
   resources :coop_demands, path: 'coop-share' do
     post 'toggle', on: :member
@@ -245,10 +247,8 @@ Rails.application.routes.draw do
   get 'wien(/*wien_path)' => 'redirect#wien', wien_path: /.*/
   get 'raum' => redirect('raumteiler')
   get 'raumsuche' => redirect('raumteiler')
-  get 'selbststaendige-fuer-selbststaendige' => redirect('/special-events')
-  get 'raumteilerfestival' => redirect('raumteiler')
-  get 'dieselgasse' => redirect('open-calls/raumteiler-hub-dieselgasse')
-  get 'mixit' => redirect('open-calls/raumteiler-hub-mix-it')
+  get 'muehlviertel' => redirect('https://muehlviertler-kernland.welocally.at')
+  get 'kaernten' => redirect('https://kaernten.welocally.at')
 
   resources :graetzls, path: '', only: [:show] do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
