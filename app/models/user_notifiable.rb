@@ -14,7 +14,7 @@ module UserNotifiable
   end
 
   def enabled_website_notification?(type)
-    (enabled_website_notifications & type.class_bitmask > 0) || type.platform_notification?
+    type.platform_notification? || (enabled_website_notifications & type.class_bitmask > 0)
   end
 
   def toggle_website_notification(type)

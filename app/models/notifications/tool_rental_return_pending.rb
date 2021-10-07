@@ -1,4 +1,4 @@
-class Notifications::ToolRentalReturnPending < Notification
+class Notifications::ToolRentalReturnPending < Notifications::PlatformNotification
 
   def self.description
     'Toolteiler Rückgabe Bestätigung'

@@ -42,7 +42,7 @@ class Notification < ApplicationRecord
   end
 
   def self.platform_notification?
-    self.class_bitmask.nil?
+    self.class_bitmask == 0
   end
 
   def self.dasherized

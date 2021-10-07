@@ -1,4 +1,4 @@
-class Notifications::RoomRentalCreated < Notification
+class Notifications::RoomRentalCreated < Notifications::PlatformNotification
 
   def self.description
     'Neue Toolteiler Anfrage'

@@ -1,4 +1,4 @@
-class Notifications::RoomRentalRejected < Notification
+class Notifications::RoomRentalRejected < Notifications::PlatformNotification
 
   def self.description
     'Raumteiler Anfrage wurde abgelehnt'
