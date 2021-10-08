@@ -3,7 +3,11 @@ class HomeController < ApplicationController
   def index
     if current_region.nil?
       region = find_best_region
-      redirect_to region ? region_root_url(region) : about_platform_url and return
+      if region
+        redirect_to region_root_url(region) and return
+      else
+        render 'about', layout: 'platform' and return
+      end
     end
 
     if current_user && user_home_graetzl
@@ -17,6 +21,14 @@ class HomeController < ApplicationController
 
   def about
     render 'about', layout: 'platform'
+  end
+
+  def geolocation
+    head :bad_request and return if params[:longitude].blank? || params[:latitude].blank?
+    region = GeoResolver.new.find_region(params[:longitude], params[:latitude])
+    if region && region.id != 'wien'
+      render :js => "window.location = '#{region_root_url(region)}'"
+    end
   end
 
   private

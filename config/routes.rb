@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get  'home' => 'home#about', as: 'about_platform'
+  post 'geolocation'  => 'home#geolocation'
 
   ActiveAdmin.routes(self)
 
