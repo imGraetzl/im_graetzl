@@ -8,7 +8,7 @@
         <p>nochmals herzlich willkommen auf <%= t("region.#{@user.region.id}.domain_short") %> <%= @user.graetzl.name %>!</p>
 
         <p>
-          Um deinen imGrätzl Account nutzen zu können, müsstest du noch deine Registrierung bestätigen. Klicke dafür bitte folgenden Link:<br>
+          Um deinen <%= t("region.#{@user.region.id}.domain_short") %> Account nutzen zu können, müsstest du noch deine Registrierung bestätigen. Klicke dafür bitte folgenden Link:<br>
           <strong><%= link_to 'Registrierung jetzt abschließen!', confirmation_url(confirmation_token: @user.confirmation_token, host: @user.region.host) %></strong>
         </p>
 
