@@ -30,7 +30,7 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
-        <strong>Hast du bereits etwas Neues in Planung, dann mach dein Event gleich auf WeLocally sichtbar,</strong> damit die Menschen davon erfahren.
+        <strong>Hast du bereits etwas Neues in Planung, dann mach dein Event gleich auf <%= t("region.#{@meeting.region.id}.domain_full") %> sichtbar,</strong> damit die Menschen davon erfahren.
         <br><br>
         Egal wie klein oder groß die Aktion bzw. das Event ist, trage es jetzt kostenlos als 'neues Treffen' ein.
       </td>
@@ -74,7 +74,7 @@
   <tr>
     <td class="mcnTextContent" style="padding-top:10px; padding-left:18px; padding-right:18px;">
       Liebe Grüße<br>
-      dein WeLocally Team
+      dein <%= t("region.#{@meeting.region.id}.domain_short") %> Team
     </td>
   </tr>
 </table>

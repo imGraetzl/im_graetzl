@@ -8,8 +8,4 @@ class MeetingMailerPreview < ActionMailer::Preview
     MeetingMailer.create_meeting_reminder(Meeting.last)
   end
 
-  def missing_meeting_category
-    MeetingMailer.missing_meeting_category(Meeting.upcoming.last)
-  end
-
 end
