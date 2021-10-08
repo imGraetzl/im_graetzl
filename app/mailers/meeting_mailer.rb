@@ -30,20 +30,4 @@ class MeetingMailer < ApplicationMailer
     mail(to: @meeting.user.email, subject: "Hast du wieder ein Event oder ein Treffen in Planung?")
   end
 
-  def missing_meeting_category(meeting)
-    @meeting = meeting
-    @region = @meeting.region
-
-    headers(
-      "X-MC-Tags" => "info-mail-missing-meeting-category",
-      "X-MC-GoogleAnalytics" => @region.host,
-      "X-MC-GoogleAnalyticsCampaign" => "info-mail-missing-meeting-category",
-    )
-    mail(
-      subject: "Kategorie zuweisen für '#{@meeting.name}'",
-      from: platform_email('no-reply'),
-      to: @meeting.user.email,
-    )
-  end
-
 end

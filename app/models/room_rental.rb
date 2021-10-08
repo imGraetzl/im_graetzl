@@ -17,7 +17,8 @@ class RoomRental < ApplicationRecord
 
   before_create :set_region
 
-  PAYMENT_METHODS = ['card', 'eps'].freeze
+  #PAYMENT_METHODS = ['card', 'eps'].freeze
+  PAYMENT_METHODS = ['eps'].freeze
 
   def self.next_invoice_number
     where("invoice_number IS NOT NULL").count + 1
