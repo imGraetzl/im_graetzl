@@ -20,7 +20,7 @@ class UsersMailer < ApplicationMailer
     headers("X-MC-Tags" => "user-confirmation-reminder")
 
     mail(
-      subject: "Noch ein Klick zu deinem imGrätzl Account",
+      subject: "Noch ein Klick zu deinem #{I18n.t("region.#{@user.region.id}.domain_short")} Account",
       from: platform_email("wir"),
       to: @user.email,
     )
