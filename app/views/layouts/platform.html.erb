@@ -11,6 +11,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="msapplication-tap-highlight" content="no" />
   <meta name="google-site-verification" content="LSgg3WBUIokaZhSK4uO3MezLJjfnwvJX0vFDfnInsk8" />
+  <%= csrf_meta_tags %>
 </head>
 
 <body data-controller="<%= controller_name %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>welocally">
