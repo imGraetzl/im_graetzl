@@ -13,12 +13,13 @@ APP.controllers.home = (function() {
       function successPosition(position) {
         console.log(position.coords);
 
-        position.coords = { latitude: 48.511296, longitude: 14.5047566, } // TESTDATA
+        var testcoords = { latitude: 48.511296, longitude: 14.5047566, } // TESTDATA
 
         $.ajax({
           type: "POST",
           url: "/geolocation",
-          data: position.coords
+          //data: position.coords
+          data: testcoords
         })
 
       }
