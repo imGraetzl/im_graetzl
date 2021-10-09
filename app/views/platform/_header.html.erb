@@ -9,23 +9,12 @@
           <%= icon_tag("layout-text") %>
           <span class="nav-mobile-toggle-label">Navigation</span>
         <% end %>
-
         <div class="nav-dropdown-menu" id="nav-site-main">
           <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
-            <!--<%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-regions') %>-->
             <% Region.all.each do |region| %>
               <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
             <% end %>
             <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
-          </div>
-          <div class="nav-dropdown-submenu" id="nav-submenu-regions">
-            <%= nav_submenu_back('nav-submenu-city-main', 'half') %>
-            <%= link_to welocally_platform_url, class: 'half nav-menu-item center' do %>
-              <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
-            <% end %>
-            <% Region.all.each do |region| %>
-              <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
-            <% end %>
           </div>
         </div>
         <!-- /Mobile Menue -->
@@ -35,23 +24,12 @@
         <%= link_to 'javascript:', class: 'nav-top-link nav-about-link', data: { dropdown: "nav-site-about" } do %>
           <%= icon_tag "arrow-down-2" %><span>WeLocally</span>
         <% end %>
-
         <div class="nav-dropdown-menu" id="nav-site-about">
           <div class="nav-dropdown-submenu shown" id="nav-submenu-regions-main">
-            <!--<%= nav_submenu_link("globe", 'Region auswählen', 'nav-submenu-desk-regions') %>-->
             <% Region.all.each do |region| %>
               <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
             <% end %>
             <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
-          </div>
-          <div class="nav-dropdown-submenu" id="nav-submenu-desk-regions">
-            <%= nav_submenu_back('nav-submenu-regions-main', 'half') %>
-            <%= link_to welocally_platform_url, class: 'half nav-menu-item center' do %>
-              <%= image_tag("regions/logo.svg", class: 'logo-mobile', height:30) %>
-            <% end %>
-            <% Region.all.each do |region| %>
-              <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
-            <% end %>
           </div>
         </div>
         <!-- /Desktop Menue -->

@@ -5,11 +5,15 @@ de:
   wien:
     site_name: imGrätzl.at
   kaernten:
-    site_name: weLocally.at
+    site_name: WeLocally.at
   muehlviertler-kernland:
-    site_name: weLocally.at
+    site_name: WeLocally.at
 
   home:
+    about:
+      title: 'Gemeinsam bringen wir mehr zusammen. Sei locally dabei!'
+      description: 'Entdecke spannende Events, Workshops und die lokalen Anbieter*innen. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
+
     region:
       title: 'Mach mit und sei locally dabei! | %{region}'
       description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Gemeinde-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
@@ -50,6 +54,12 @@ de:
     supporter:
       title: 'DANKE an unsere MöglichmacherInnen'
       description: 'Der Betrieb und die Weiterentwicklung von imGrätzl wird ermöglicht durch diese großartigen Menschen und Unternehmen.'
+    impressum:
+      title: 'Impressum'
+    datenschutz:
+      title: 'Datenschutzrichtlinie'
+    agb:
+      title: 'Allgemeine Geschäftsbedingungen'
 
   regions:
     index:
