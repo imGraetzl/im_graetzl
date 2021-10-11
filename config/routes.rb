@@ -119,19 +119,19 @@ Rails.application.routes.draw do
 
   resources :coop_demands, path: 'coop-share' do
     post 'toggle', on: :member
-    get 'activate/:activation_code' => 'coop_demands#activate', on: :member
+    get 'reactivate/:activation_code' => 'coop_demands#reactivate', on: :member
     patch 'update_status', on: :member
   end
 
   resources :rooms, only: [:index]
   resources :room_demands, path: 'raumsuche', except: [:index] do
     post 'toggle', on: :member
-    get 'activate/:activation_code' => 'room_demands#activate', on: :member
+    get 'reactivate/:activation_code' => 'room_demands#reactivate', on: :member
     patch 'update_status', on: :member
   end
   resources :room_offers, path: 'raum', except: [:index] do
     get 'select', on: :collection
-    get 'activate/:activation_code' => 'room_offers#activate', on: :member
+    get 'reactivate/:activation_code' => 'room_offers#reactivate', on: :member
     get 'rental_timetable', on: :member
     get 'available_hours', on: :member
     get 'calculate_price', on: :member

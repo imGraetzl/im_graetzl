@@ -60,7 +60,7 @@ namespace :db do
           ROOM_STATE: I18n.t("activerecord.attributes.room_offer.statuses.#{room.status}"),
           ROOM_TITLE: room.slogan,
           ROOM_URL: Rails.application.routes.url_helpers.room_offer_path(room),
-          ROOM_PLZ: room.district.zip,
+          ROOM_PLZ: room.district ? room.district.zip : '',
           ROOM_CAT: room.room_categories.map(&:name).join(", "),
           R_UPDATE: room.last_activated_at
         }
@@ -71,7 +71,7 @@ namespace :db do
           ROOM_STATE: I18n.t("activerecord.attributes.room_demand.statuses.#{room.status}"),
           ROOM_TITLE: room.slogan,
           ROOM_URL: Rails.application.routes.url_helpers.room_demand_path(room),
-          ROOM_PLZ: room.districts.map(&:zip).join(", "),
+          ROOM_PLZ: room.districts ? room.districts.map(&:zip).join(", ") : '',
           ROOM_CAT: room.room_categories.map(&:name).join(", "),
           R_UPDATE: room.last_activated_at
         }

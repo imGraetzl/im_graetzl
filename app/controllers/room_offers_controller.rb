@@ -58,10 +58,12 @@ class RoomOffersController < ApplicationController
     redirect_back(fallback_location: rooms_user_path)
   end
 
-  def activate
+  def reactivate
     @room_offer = RoomOffer.find(params[:id])
     if params[:activation_code].to_i == @room_offer.activation_code
-      @room_offer.enabled!
+      @room_offer.status = :enabled
+      @room_offer.last_activated_at = Time.now
+      @room_offer.save
       flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."

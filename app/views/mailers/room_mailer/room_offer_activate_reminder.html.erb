@@ -40,7 +40,7 @@
 
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Raumteiler wieder aktivieren", url: "#{room_offer_url(@room_offer)}/activate/#{@room_offer.activation_code}", style: "width:100%;" %>
+        <%= render 'mailers/shared/button', title: "Raumteiler wieder aktivieren", url: "#{room_offer_url(@room_offer)}/reactivate/#{@room_offer.activation_code}", style: "width:100%;" %>
       </td>
     </tr>
   </tbody>
