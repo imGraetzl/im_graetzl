@@ -7,23 +7,27 @@ APP.controllers.home = (function() {
 
   // WeLocally Homepage
   function initHomePlatform() {
-    /*
-    APP.components.leafletMap.init($('#area-map'), { zoom: 7 });
-    initMenu();
 
-    function initMenu() {
-      var $select = $(".mapImgBlock .mobileSelectMenu");
-      $(".mapImgBlock .links a").each(function() {
-        var text = $(this).text();
-        var target = $(this).attr("href");
-        $select.append("<option value=\'" + target + "\'>" + text + "</option>");
-      });
+    if (navigator.geolocation && window.location.pathname === '/') {
 
-      $select.on("change", function() {
-        window.location.href = $(this).val();
-      });
+      function successPosition(position) {
+        console.log(position.coords);
+        //var testcoords = { latitude: 48.511296, longitude: 14.5047566, } // TESTDATA
+        $.ajax({
+          type: "POST",
+          url: "/geolocation",
+          data: position.coords
+          //data: testcoords
+        })
+      }
+
+      function errorPosition(error) {
+        console.log(error);
+      }
+
+      navigator.geolocation.getCurrentPosition(successPosition,errorPosition,{timeout:500});
+
     }
-    */
   }
 
   // Region Homepage
