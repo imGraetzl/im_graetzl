@@ -1,4 +1,4 @@
-<% zuckerls = ActivitySample.new(graetzl: @user.graetzl).zuckerls %>
+<% zuckerls = Zuckerl.in(@region).live.in_area(@user.graetzl.id).include_for_box.random(2) %>
 
 <% if zuckerls.any? %>
 
