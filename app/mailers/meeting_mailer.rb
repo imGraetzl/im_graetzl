@@ -22,9 +22,10 @@ class MeetingMailer < ApplicationMailer
 
   def create_meeting_reminder(meeting)
     @meeting = meeting
+    @region = @meeting.region
     headers(
       "X-MC-Tags" => "create-meeting-reminder",
-      "X-MC-GoogleAnalytics" => 'staging.imgraetzl.at, www.imgraetzl.at',
+      "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "create-meeting-reminder",
     )
     mail(to: @meeting.user.email, subject: "Hast du wieder ein Event oder ein Treffen in Planung?")
