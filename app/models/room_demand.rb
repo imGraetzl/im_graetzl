@@ -31,6 +31,8 @@ class RoomDemand < ApplicationRecord
 
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
 
+  LIFETIME_MONTHS = 6
+
   def to_s
     slogan
   end
