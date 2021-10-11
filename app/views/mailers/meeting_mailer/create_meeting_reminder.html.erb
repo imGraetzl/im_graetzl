@@ -37,7 +37,7 @@
     </tr>
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Neues Treffen eintragen", url: new_meeting_url(host: @meeting.region.host), style: "width:100%;" %>
+        <%= render 'mailers/shared/button', title: "Neues Treffen eintragen", url: new_meeting_url, style: "width:100%;" %>
       </td>
     </tr>
   </tbody>
@@ -55,13 +55,13 @@
             </td>
             <td> </td>
             <td style="font-size:12px; line-height:16px;">
-              <%= link_to @meeting.user.username, user_url(@meeting.user, host: @meeting.user.region.host), target: "_blank", style: "color:#ec776a; font-size:12px;" %>
+              <%= link_to @meeting.user.username, user_url(@meeting.user), target: "_blank", style: "color:#ec776a; font-size:12px;" %>
               <br>
               <%= I18n.localize(@meeting.starts_at_date, format:'%A %d. %B') if @meeting.starts_at_date.present? %>
             </td>
           </tr>
         </table>
-        <%= link_to graetzl_meeting_url(@meeting.graetzl, @meeting, host: @meeting.region.host), target: "_blank" do %>
+        <%= link_to graetzl_meeting_url(@meeting.graetzl, @meeting), target: "_blank" do %>
           <%= cover_photo_image(@meeting, size: :small, style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage") %>
         <% end %>
         <p style="min-height:55px;"><%= @meeting.name.truncate(70, separator: ' ') %></p>
