@@ -28,7 +28,10 @@ class MeetingMailer < ApplicationMailer
       "X-MC-GoogleAnalytics" => @region.host,
       "X-MC-GoogleAnalyticsCampaign" => "create-meeting-reminder",
     )
-    mail(to: @meeting.user.email, subject: "Hast du wieder ein Event oder ein Treffen in Planung?")
+    mail(
+      to: @meeting.user.email,
+      from: platform_email('no-reply'),
+      subject: "Hast du wieder ein Event oder ein Treffen in Planung?")
   end
 
 end
