@@ -21,6 +21,10 @@ namespace :db do
       Activity.where(subject: room_demand).destroy_all
       Notification.where(subject: room_demand).destroy_all
     end
+    CoopDemand.where(status: :disabled).find_each do |coop_demand|
+      Activity.where(subject: coop_demand).destroy_all
+      Notification.where(subject: coop_demand).destroy_all
+    end
     ToolOffer.where(status: :disabled).find_each do |tool_offer|
       Activity.where(subject: tool_offer).destroy_all
       Notification.where(subject: tool_offer).destroy_all
