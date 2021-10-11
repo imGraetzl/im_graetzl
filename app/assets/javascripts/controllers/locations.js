@@ -15,7 +15,7 @@ APP.controllers.locations = (function() {
       });
 
       $('#location_product_list').tagsInput({
-          'defaultText':'Tags'
+          'defaultText':'Schlagworte / Tags'
       });
 
       // online meeting switch

@@ -14,7 +14,7 @@ module MapsHelper
     coordinates = object.address_coordinates
     content_tag(:div, nil, id: 'leafletMap', data: {x: coordinates.x, y: coordinates.y}) do
       content_tag(:div, class: 'map-marker -hidden') do
-        link_to(icon_tag("pin"), "https://maps.google.com?q=#{object.address_street}+#{object.address_zip}", target: '_blank')
+        link_to(icon_tag("pin"), "https://maps.google.com?q=#{coordinates.y},#{coordinates.x}", target: '_blank')
       end
     end
   end

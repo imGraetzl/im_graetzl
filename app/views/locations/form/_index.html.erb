@@ -31,7 +31,7 @@
     <div class="input-select">
       <%= f.label :location_category_id do %>
         <%= icon_tag "record" %>
-        <span><%= Location.human_attribute_name(:location_category) %></span>
+        <span>Kategorie</span>
       <% end %>
       <%= f.collection_select :location_category_id,
                               LocationCategory.all, :id, :name,
@@ -41,7 +41,7 @@
     <div class="input-tags">
       <%= f.label :product_list do %>
         <%= icon_tag "label-tag" %>
-        <span><%= Location.human_attribute_name(:product_list) %><br/><small>(mit Komma getrennt)</small></span>
+        <span>Schlagworte<br/><small>(mit Komma getrennt)</small></span>
       <% end %>
       <%= f.text_field :product_list, value: @location.product_list.to_s %>
     </div>
