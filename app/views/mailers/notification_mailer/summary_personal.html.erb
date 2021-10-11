@@ -5,7 +5,7 @@
 <% if @notifications[:attendees].present? %>
   <%= render 'summary/block_header', title: 'Teilnehmer an deinem Treffen' %>
   <% @notifications[:attendees].group_by(&:meeting).each do |meeting, notifications| %>
-    <%= render "summary/attendees_by_meeting", meeting: meeting, notifications: notifications %>
+    <%= render "summary/meeting_attended", meeting: meeting, notifications: notifications %>
   <% end %>
 <% end %>
 
