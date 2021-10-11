@@ -602,6 +602,11 @@ input[type=url]:invalid + em::after {
   @include font-size-primaryFont('small');
 }
 
+.upload-hint {
+  color: $color-ambient-grey;
+  display: block;
+}
+
 // ---------------------------------------------------------------------- Login Panel Modal
 
 .login-panel-modal, .login-panel {

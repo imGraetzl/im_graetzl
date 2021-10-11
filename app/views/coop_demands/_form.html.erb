@@ -80,7 +80,7 @@
     <div class="upload-oldschool">
       <%= f.label :avatar do %>
         <%= icon_tag "photo-camera" %>
-        <span>Foto von dir</span>
+        <span>Foto von dir<small class="upload-hint">(max. 5MB)</small></span>
       <% end %>
       <div class="field-wrp">
         <%= upload_image_input(f, :avatar) %>
@@ -90,7 +90,7 @@
     <div class="upload-oldschool">
       <%= f.label :images do %>
         <%= icon_tag "photo-camera" %>
-        <span>Weitere Fotos</span>
+        <span>Weitere Fotos<small class="upload-hint">(max. 5MB / Foto)</small></span>
       <% end %>
       <div class="field-wrp">
         <%= upload_image_input(f, :images, multiple: true) %>
