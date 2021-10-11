@@ -52,6 +52,8 @@ class RoomOffer < ApplicationRecord
   scope :reactivated, -> { enabled.where("last_activated_at > created_at") }
   scope :rentable, -> { where(rental_enabled: true) }
 
+  LIFETIME_MONTHS = 6
+
   def to_s
     slogan
   end
