@@ -89,9 +89,9 @@
       <% end %>
     <% end %>
 
-    <% if location.created_at > 2.weeks.ago %>
+    <% if location.created_at > 7.days.ago %>
       <%= link_to [graetzl, location], class: "basic-message-box" do %>
-        <div class="hl"> Neu auf imGrätzl</div>
+        <div class="hl"> Neu auf <%= t("region.#{location.region.id}.domain_short") %></div>
         <div class="title"> Sag gleich Hallo!</div>
       <% end %>
     <% end %>

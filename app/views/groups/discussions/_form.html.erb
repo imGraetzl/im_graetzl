@@ -29,7 +29,7 @@
       <div class="upload-oldschool">
         <%= pf.label :images do %>
           <%= icon_tag "photo-camera" %>
-          <span>Bilder</span>
+          <span>Bilder<small class="upload-hint">(max. 5MB / Foto)</small></span>
         <% end %>
         <div class="field-wrp">
           <%= upload_image_input(pf, :images, multiple: true, live_preview: false) %>

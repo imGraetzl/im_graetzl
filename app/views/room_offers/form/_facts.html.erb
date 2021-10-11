@@ -38,7 +38,7 @@
   <div class="upload-oldschool">
     <%= f.label :cover_photo do %>
       <%= icon_tag "photo-camera" %>
-      <span>Coverfoto</span>
+      <span>Coverfoto<small class="upload-hint">(max. 5MB)</small></span>
     <% end %>
     <div class="field-wrp">
       <%= upload_image_input(f, :cover_photo) %>
@@ -48,7 +48,7 @@
   <div class="upload-oldschool">
     <%= f.label :images do %>
       <%= icon_tag "photo-camera" %>
-      <span>Weitere Fotos</span>
+      <span>Weitere Fotos<small class="upload-hint">(max. 5MB / Foto)</small></span>
     <% end %>
     <div class="field-wrp">
       <%= upload_image_input(f, :images, multiple: true) %>

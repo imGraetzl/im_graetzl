@@ -65,7 +65,7 @@
       <div class="upload-oldschool">
         <%= f.label :avatar do %>
           <%= icon_tag "photo-camera" %>
-          <span>Profilbild</span>
+          <span>Profilbild<small class="upload-hint">(max. 5MB)</small></span>
         <% end %>
         <div class="field-wrp">
           <%= upload_image_input(f, :avatar) %>

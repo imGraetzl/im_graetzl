@@ -48,7 +48,7 @@ module MeetingsHelper
   private
 
   def map_link(coords)
-    "http://www.openstreetmap.org/?mlat=#{coords.y}&mlon=#{coords.x}&zoom=18"
+    "https://maps.google.com?q=#{coords.y},#{coords.x}"
   end
 
   def meeting_map(meeting)

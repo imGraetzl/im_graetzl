@@ -48,8 +48,9 @@ APP.controllers.tool_rentals = (function() {
 
       screen.find(".paymentMethods input:checked").click();
 
-      initCardPayment();
-      initEpsPayment();
+      if ($(".card-container").exists()) { initCardPayment(); }
+      if ($(".eps-container").exists()) { initEpsPayment(); }
+
     }
 
     function initCardPayment() {
