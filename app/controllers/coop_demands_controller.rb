@@ -56,10 +56,12 @@ class CoopDemandsController < ApplicationController
     redirect_back(fallback_location: coop_demands_user_path)
   end
 
-  def activate
+  def reactivate
     @coop_demand = CoopDemand.find(params[:id])
     if params[:activation_code].to_i == @coop_demand.activation_code
-      @coop_demand.enabled!
+      @coop_demand.status = :enabled
+      @coop_demand.last_activated_at = Time.now
+      @coop_demand.save
       flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
     else
       flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
