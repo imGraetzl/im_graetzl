@@ -3,16 +3,9 @@ namespace :db do
   task cleanup: :environment do
     puts "Rake db:cleanup start at: #{Time.now}"
 
-
-    puts "Rake db:cleanup delete notifications older than 2 weeks at: #{Time.now}"
     Notification.where('created_at < ?', 2.weeks.ago).destroy_all
-
-
-    puts "Rake db:cleanup delete activity older than 8 weeks at: #{Time.now}"
     Activity.where('created_at < ?', 8.weeks.ago).destroy_all
 
-
-    puts "Rake db:cleanup delete activity for disabled content at: #{Time.now}"
     RoomOffer.where(status: :disabled).find_each do |room_offer|
       Activity.where(subject: room_offer).destroy_all
       Notification.where(subject: room_offer).destroy_all
@@ -30,7 +23,11 @@ namespace :db do
       Notification.where(subject: tool_offer).destroy_all
     end
 
-    puts "Rake db:cleanup delete not paid going_tos from deleted meeting: #{Time.now}"
+    # Delete not paid going_tos from deleted meeting
     GoingTo.where(meeting_id: nil).where.not(role: 2).destroy_all
+
+    # Delete Meetings without User - Todo: Add to UserModel
+    Meeting.where(user_id: nil).destroy_all
+
   end
 end

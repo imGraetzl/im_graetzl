@@ -30,6 +30,17 @@ class ActionProcessor
           time_range: subject.notification_time_range)
       end
 
+    when [Meeting, :update]
+      if subject.public?
+        Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
+        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl) - [subject.user_id],
+          time_range: subject.notification_time_range)
+      elsif subject.group_id
+        Activity.add_personal(subject, group: subject.group)
+        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids - [subject.user_id],
+          time_range: subject.notification_time_range)
+      end
+
     when [Meeting, :attended]
       if subject.public?
         Activity.add_public(subject, child, to: subject.online_meeting? ? :entire_region : subject.graetzl)

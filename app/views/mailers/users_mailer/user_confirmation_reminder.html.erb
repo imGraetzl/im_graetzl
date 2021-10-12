@@ -5,7 +5,7 @@
 
         <p>Hallo <%= @user.first_name %>,
 
-        <p>nochmals herzlich willkommen auf <%= t("region.#{@user.region.id}.domain_short") %> <%= @user.graetzl.name %>!</p>
+        <p>nochmals herzlich willkommen <%= t("region.#{@user.region.id}.in_graetzl") %> <%= @user.graetzl.name %>!</p>
 
         <p>
           Um deinen <%= t("region.#{@user.region.id}.domain_short") %> Account nutzen zu können, müsstest du noch deine Registrierung bestätigen. Klicke dafür bitte folgenden Link:<br>
