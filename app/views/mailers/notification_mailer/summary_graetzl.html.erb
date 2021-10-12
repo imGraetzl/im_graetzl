@@ -4,7 +4,7 @@
 <% elsif @period == 'weekly' %>
   <% content_for(:title, "Neuigkeiten der Woche") %>
 <% end %>
-<% content_for(:subtitle, "#{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name}") %>
+<% content_for(:subtitle, "#{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} & #{t("region.#{@region.id}.favorite_graetzl")}") %>
 
 <% NotificationMailer::GRAETZL_SUMMARY_BLOCKS.each do |block_title, notification_types| %>
   <% notifications = @notifications.select{|n| n.class.in?(notification_types)} %>

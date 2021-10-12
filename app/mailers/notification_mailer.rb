@@ -29,6 +29,9 @@ class NotificationMailer < ApplicationMailer
     'Neue Treffen' => [
       Notifications::NewMeeting
     ],
+    'Neue Coop & Share Marktplatz Anbegote' => [
+      Notifications::NewCoopDemand
+    ],
     'Neue Schaufenster Updates' => [
       Notifications::NewLocationPost
     ],
@@ -43,9 +46,6 @@ class NotificationMailer < ApplicationMailer
     ],
     'Auf der Suche nach Raum' => [
       Notifications::NewRoomDemand
-    ],
-    'Neue Coop & Share Anbegote' => [
-      Notifications::NewCoopDemand
     ],
   }
 
