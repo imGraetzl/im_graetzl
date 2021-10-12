@@ -2,7 +2,11 @@
 
 <% if zuckerls.any? %>
 
-  <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'} im #{@user.graetzl.numeric}. Bezirk und Wien" %>
+  <% if @region == 'wien' %>
+    <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'} im #{@user.graetzl.numeric}. Bezirk und Wien" %>
+  <% else %>
+    <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'}" %>
+  <% end %>
 
   <% zuckerls.each do |zuckerl| %>
   <% location = zuckerl.location %>
