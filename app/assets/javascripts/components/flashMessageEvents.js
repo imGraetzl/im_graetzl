@@ -35,7 +35,7 @@ APP.components.flashMessageEvents = (function() {
     });
   }
 
-  // Reactivate RoomOffer
+  // Reactivate RoomsOffers
   else if (flashMessage('Dein Raumteiler wurde erfolgreich verlängert!')){
     gtag(
       'event', 'Raumangebot :: Click :: E-Mail Aktivierungslink', {
@@ -68,7 +68,7 @@ APP.components.flashMessageEvents = (function() {
   }
 
   // Reactivate RoomDemand
-  else if (flashMessage('Dein Raumteiler wurde erfolgreich verlängert!')){
+  else if (flashMessage('Deine Raumsuche wurde erfolgreich verlängert!')){
     gtag(
       'event', 'Raumsuche :: Click :: E-Mail Aktivierungslink', {
       'event_category': 'Raumteiler'
@@ -87,6 +87,14 @@ APP.components.flashMessageEvents = (function() {
   else if (flashMessage('Deine Raumsuche ist nun deaktiviert')){
     gtag(
       'event', 'Raumsuche :: Click :: Status Inaktiv', {
+      'event_category': 'Raumteiler'
+    });
+  }
+
+  // Deactivate RoomDemand
+  else if (flashMessage('Der Aktivierungslink ist leider ungültig')){
+    gtag(
+      'event', 'Raumteiler :: Click :: Aktivierungslink ungültig', {
       'event_category': 'Raumteiler'
     });
   }
