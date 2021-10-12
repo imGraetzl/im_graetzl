@@ -13,10 +13,14 @@ namespace :scheduled do
       if meeting.meeting_additional_dates.present?
         meeting.activate_next_date!
         Rails.logger.info("[Meeting] Meeting (#{meeting.id}) updated next meeting date: #{meeting.starts_at_date}")
-        # Update Activity if there is none in the last week
-        if !Activity.where(subject: meeting).where("created_at >= ?", 1.week.ago).exists?
-          ActionProcessor.track(meeting, :create)
+
+        # Update Activity if there is none in the last week or 2 weeks for online meetings
+        if meeting.online_meeting? && !Activity.where(subject: meeting).where("created_at >= ?", 2.weeks.ago).exists?
+          ActionProcessor.track(meeting, :update)
+        elsif !meeting.online_meeting? && !Activity.where(subject: meeting).where("created_at >= ?", 1.week.ago).exists?
+          ActionProcessor.track(meeting, :update)
         end
+
       end
     end
 
