@@ -28,11 +28,11 @@ namespace :scheduled do
 
   desc 'Send Create Meeting Reminder'
   task create_meeting_reminder_mail: :environment do
-    user_id = nil
-    Meeting.where("starts_at_date = ?", 30.days.ago).find_each do |meeting|
-      next if meeting.user.nil? || meeting.user.initiated_meetings.upcoming.present? || user_id == meeting.user.id
+    already_sent = []
+    Meeting.where(starts_at_date: 30.days.ago).find_each do |meeting|
+      next if meeting.user.nil? || meeting.user.initiated_meetings.upcoming.present? || already_sent.include?(meeting.user.id)
       MeetingMailer.create_meeting_reminder(meeting).deliver_now
-      user_id = meeting.user.id
+      already_sent.push(meeting.user.id)
     end
   end
 

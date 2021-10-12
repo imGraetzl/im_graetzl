@@ -62,9 +62,9 @@ class CoopDemandsController < ApplicationController
       @coop_demand.status = :enabled
       @coop_demand.last_activated_at = Time.now
       @coop_demand.save
-      flash[:notice] = "Dein Raumteiler wurde erfolgreich verlängert!"
+      flash[:notice] = "Dein Coop & Share Angebot wurde erfolgreich verlängert!"
     else
-      flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um deinen Raumteiler zu aktivieren."
+      flash[:notice] = "Der Aktivierungslink ist leider ungültig. Log dich ein um dein Coop & Share Angebot zu aktivieren."
     end
     redirect_to @coop_demand
   end
