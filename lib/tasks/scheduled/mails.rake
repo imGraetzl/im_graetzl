@@ -37,7 +37,7 @@ namespace :scheduled do
   end
 
   task test_summary_mail: :environment do
-    user = User.find_by(email: "michael.walchhuetter@gmail.com")
+    #user = User.find_by(email: "michael.walchhuetter@gmail.com")
 
     region = Region.get(ENV['region'])
     if region.nil?
@@ -52,9 +52,11 @@ namespace :scheduled do
       exit
     end
 
+    User.where("email like ?", "%@imgraetzl.at%").find_each do |user|
+      NotificationMailer.summary_graetzl(user, region, ENV['period']).deliver_now
+      NotificationMailer.summary_personal(user, region, ENV['period']).deliver_now
+    end
 
-    NotificationMailer.summary_graetzl(user, region, ENV['period']).deliver_now
-    NotificationMailer.summary_personal(user, region, ENV['period']).deliver_now
     Rails.logger.flush
   end
 
