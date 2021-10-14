@@ -1,20 +1,9 @@
-<% if @category %>
-  <% meta(
-      title: t('.title_category', category: @category.title, region: current_region.name),
-      description: t('.description_category', category: @category.title, region: current_region.name),
-    )
-  %>
-<% else %>
-  <% meta(
-    title: t('.title', region: current_region.name),
-    description: t('.description', region: current_region.name),
-    )
-  %>
-<% end %>
 <% meta(
+    title: t(".title", region: current_region.name, category: @category ? "#{@category.title} - " : ""),
+    description: t(".description", region: current_region.name, category: @category ? " aus der Kategorie #{@category.title}" : ""),
     robots: 'index, follow',
-    og_title: t('.title', region: current_region.name),
-    og_description: t('.description', region: current_region.name),
+    og_title: t(".title", region: current_region.name, category: @category ? "#{@category.title} - " : ""),
+    og_description: t(".description", region: current_region.name, category: @category ? " aus der Kategorie  #{@category.title} " : ""),
     og_image: image_url("meta/#{current_region.id}/og_logo.png")
   )
 %>

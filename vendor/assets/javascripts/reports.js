@@ -1095,40 +1095,6 @@ APP.controllers.reports = (function() {
       }; // Get Mailchimp Automations
       // Search Request for Users
 
-      var requestUserSearch = function requestUserSearch(email, id) {
-        // Emtpy Search Result Array
-        usersearch = [];
-        return new Promise(function(resolve, reject) {
-          $.ajax({
-            url: "/admin/users.json?q%5Bemail_contains%5D=" + email,
-            method: "GET",
-            success: function success(response) {
-              for (i = 0; i < response.length; i++) {
-                usersearch.push({
-                  id: response[i].id,
-                  graetzl_id: response[i].graetzl_id,
-                  graetzl_name: "",
-                  graetzl_app_path: "",
-                  created_at: new Date(response[i].created_at),
-                  username: response[i].username,
-                  first_name: response[i].first_name,
-                  last_name: response[i].last_name,
-                  email: response[i].email,
-                  user_path_admin: host_admin + "users/" + response[i].slug,
-                  user_path_app: host + response[i].slug,
-                  role: response[i].role,
-                  locations: []
-                });
-              }
-
-              completeUser(usersearch);
-              resolve("usersearch");
-            }
-          });
-        });
-      }; // Search for User
-      // END Ajax JSON Requests //
-
       /*********************************
            Create DATATABLES
           (jQuery Plugin)
@@ -1319,10 +1285,9 @@ APP.controllers.reports = (function() {
               render: function render(data, type, row, meta) {
                 if (row["districts"].length == 2) {
                   data = row["districts"][0].zip + ", " + row["districts"][1].zip;
-                } else {
+                } else if (row["districts"].length > 0) {
                   data = row["districts"][0].zip;
                 }
-
                 return data;
               }
             },
@@ -1921,24 +1886,7 @@ APP.controllers.reports = (function() {
           page_loader("page_users");
         }); // Toggle Search Field
 
-        $("#btn-search").on("click", function() {
-          $("#page_search").slideToggle();
-        }); // Toogle
-        // Search Form Submit
-
-        $(document).on("submit", "#search-form", function(event) {
-          event.preventDefault();
-          var searchParam = requestUserSearch($("#search-value").val());
-          Promise.resolve(searchParam).then(function(res) {
-            var actualPage = $("button[class*='-rosa']");
-            var goalPage = $("button").filter('[data-nav="page_users"]');
-            actualPage.removeClass("-rosa").addClass("-mint");
-            goalPage.addClass("-rosa").removeClass("-mint");
-            page_loader("page_users", "search");
-          });
-        }); // Search
         // Open Single User Page
-
         $(".datatable_users").on("click", "a.user", function(event) {
           event.preventDefault();
           singleUser($(this).data("id"));

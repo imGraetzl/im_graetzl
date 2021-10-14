@@ -53,7 +53,15 @@ class Region
     @zuckerl_entire_region_price.to_f
   end
 
-  def platform_name
+  def host_id
+    if id == 'wien'
+      'imgraetzl'
+    else
+      'welocally'
+    end
+  end
+
+  def host_domain_name
     if id == 'wien'
       'imGrätzl.at'
     else
@@ -61,7 +69,7 @@ class Region
     end
   end
 
-  def platform_domain
+  def host_domain
     if id == 'wien'
       'imgraetzl.at'
     else

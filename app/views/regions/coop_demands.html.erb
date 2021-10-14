@@ -1,9 +1,9 @@
 <% meta(
-    title: (@category ? @category.name : 'Alle') + " Coop & Share Marktplatz Angebote in #{current_region}",
-    description: t('.description'),
+    title: t(".title", region: current_region.name, category: @category ? "#{@category.name} - " : ""),
+    description: t(".description", region: current_region.name, category: @category ? " aus der Kategorie #{@category.name}" : ""),
     robots: 'index, follow',
-    og_title: (@category ? @category.name : 'Alle') + " Coop & Share Marktplatz Angebote in #{current_region}",
-    og_description: t('.description'),
+    og_title: t(".title", region: current_region.name, category: @category ? "#{@category.name} - " : ""),
+    og_description: t(".description", region: current_region.name, category: @category ? " aus der Kategorie  #{@category.name} " : ""),
     og_image: image_url("meta/#{current_region.id}/og_logo.png")
   )
 %>

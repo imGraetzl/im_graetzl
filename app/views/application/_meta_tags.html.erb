@@ -1,4 +1,4 @@
-<% site_name = current_region ? t("#{current_region.id}.site_name") : "WeLocally.at" %>
+<% site_name = current_region ? current_region.host_domain_name : "WeLocally.at" %>
 
 <title><%= yield(:title) %><%= site_name %></title>
 
