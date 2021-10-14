@@ -1,20 +1,9 @@
-<% if @category %>
-  <% meta(
-      title: t('.title_category', category: @category.name, region: current_region.name),
-      description: t('.description_category', category: @category.name, region: current_region.name),
-    )
-  %>
-<% else %>
-  <% meta(
-  title: t('.title', region: current_region.name),
-  description: t('.description', region: current_region.name),
-    )
-  %>
-<% end %>
 <% meta(
+    title: t(".#{current_region.host_id}.title", region: current_region.name, category: @category ? "#{@category.name} - " : ""),
+    description: t(".#{current_region.host_id}.description", region: current_region.name, category: @category ? " aus der Kategorie #{@category.name}" : ""),
     robots: 'index, follow',
-    og_title: t('.title', region: current_region.name),
-    og_description: t('.description', region: current_region.name),
+    og_title: t(".#{current_region.host_id}.title", region: current_region.name, category: @category ? "#{@category.name} - " : ""),
+    og_description: t(".#{current_region.host_id}.description", region: current_region.name, category: @category ? " aus der Kategorie  #{@category.name} " : ""),
     og_image: image_url('meta/locations.jpg')
   )
 %>

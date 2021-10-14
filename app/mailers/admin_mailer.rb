@@ -5,7 +5,7 @@ class AdminMailer < ApplicationMailer
     @region = @zuckerl.region
 
     mail(
-      subject: "[#{@region.platform_name}] Buchung Zuckerl von #{@zuckerl.location.name}",
+      subject: "[#{@region.host_domain_name}] Buchung Zuckerl von #{@zuckerl.location.name}",
       from: platform_email("no-reply"),
       to: platform_email("wir"),
     )
@@ -16,7 +16,7 @@ class AdminMailer < ApplicationMailer
     @region = @going_to.meeting.region
 
     mail(
-      subject: "[#{@region.platform_name}] Ticket-Kauf für #{@going_to.meeting.name}",
+      subject: "[#{@region.host_domain_name}] Ticket-Kauf für #{@going_to.meeting.name}",
       from: platform_email("no-reply"),
       to: platform_email("wir"),
     )

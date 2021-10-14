@@ -2,82 +2,37 @@ de:
   application:
       meta_tags:
         locale: de_DE
-  wien:
-    site_name: imGrätzl.at
-  kaernten:
-    site_name: WeLocally.at
-  muehlviertler-kernland:
-    site_name: WeLocally.at
 
   home:
     about:
       title: 'Gemeinsam bringen wir mehr zusammen. Sei locally dabei!'
       description: 'Entdecke spannende Events, Workshops und die lokalen Anbieter*innen. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
-
     region:
-      title: 'Mach mit und sei locally dabei! | %{region}'
-      description: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Gemeinde-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
-      title_imgraetzl: 'Mach mit - Treffen, Events & Initiativen im Grätzl'
-      description_imgraetzl: 'Lerne Menschen in der Nähe bei gemeinsamen Unternehmungen kennen, unterstütze eine Grätzl-Initiative, oder entdecke spannende Workshops & Events bei dir ums Eck.'
-
-  static_pages:
-    info:
-      title: 'Coop & Share - Alle Services im Überblick'
-      description: 'imGrätzl.at ist eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende und bietet seinen NutzerInnen eine ganze Palette an Services an...'
-    coop_demands:
-      title: 'Coop & Share Marktplatz'
-      description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
-    zuckerl:
-      title: 'Infos zum Zuckerl'
-      description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Zuckerl.'
-    raumteiler:
-      title: 'Raumteiler – Hilfe, Tipps & Tricks.'
-      description: 'Fragen & Antworten zum Raumteiler / Teilen von Gewerbeflächen'
-    toolteiler:
-      title: 'Toolteiler – Hilfe, Tipps & Tricks.'
-      description: 'Fragen & Antworten zum Toolteiler / Arbeitsequipment leihen & Geräte am Standort nutzen'
-    location:
-      title: 'Anbieter & Macherinnen – Hilfe, Tipps & Tricks.'
-      description: 'Fragen & Antworten zur Locationseite und weitere Funktionen für lokale Anbieter.'
-    meetings:
-      title: 'Events & Workshops – Hilfe, Tipps & Tricks.'
-      description: 'Fragen & Antworten zum Veröffentlichen von Events & Workhops.'
-    groups:
-      title: 'Gruppen – Hilfe, Tipps & Tricks.'
-      description: 'Fragen & Antworten zu den Gruppen.'
-    code-of-conduct:
-      title: 'Code of Conduct'
-      description: 'imGrätzl Verhaltenskodex: Das imGrätzl Team sieht es als Aufgabe, eine freundliche, sichere und einladende Umgebung zu schaffen, unabhängig von Geschlecht, sexueller Orientierung, Befähigung, Herkunft, Religion (oder deren Nichtvorhandensein) sowie gesellschaftlichem und wirtschaftlichem Status.'
-    mentoring:
-      title: 'imGrätzl Mentoring Programm - Komm in dein Unterstützer Team'
-      description: 'Die imGrätzl.at Unterstützer-Teams werden ins Leben gerufen, um Selbständige, GründerInnen und MacherInnen darin zu bestärken ihre Ideen auf den Boden zu bringen und sie gleichzeitig in ein lokales Netzwerk aus Gleichgesinnten einzubinden.'
-    supporter:
-      title: 'DANKE an unsere MöglichmacherInnen'
-      description: 'Der Betrieb und die Weiterentwicklung von imGrätzl wird ermöglicht durch diese großartigen Menschen und Unternehmen.'
-    impressum:
-      title: 'Impressum'
-    datenschutz:
-      title: 'Datenschutzrichtlinie'
-    agb:
-      title: 'Allgemeine Geschäftsbedingungen'
+      welocally:
+        title: 'Mach mit und sei locally dabei! | %{region}'
+        description: 'Gemeinsam bringen wir mehr zusammen. Entdecke spannende Events, Workshops und die lokalen Anbieter*innen. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
+      imgraetzl:
+        title: 'Mach mit - Treffen, Events & Initiativen im Grätzl'
+        description: 'Gemeinsam bringen wir mehr zusammen. Entdecke spannende Events, Workshops und die lokalen Anbieter*innen in Wien. Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!'
 
   regions:
     index:
-      title: 'Bezirke, Stadtviertel & Grätzl in %{region}'
-      description: 'Entdecke dein Grätzl in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Grätzl & Bezirk. Die nächsten Workshops und Termine bei dir ums Eck ...'
+      welocally:
+        title: 'Gemeinden in der Region %{region}'
+        description: 'Entdecke deine Gemeinde in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deiner Gemeinde. Die nächsten Workshops und Termine bei dir ums Eck ...'
+      imgraetzl:
+        title: 'Bezirke, Stadtviertel & Grätzl in %{region}'
+        description: 'Entdecke dein Grätzl in %{region}. Neuigkeiten von lokalen Anbietern, Kreativen & Geschäften aus deinem Grätzl & Bezirk. Die nächsten Workshops und Termine bei dir ums Eck ...'
     locations:
-      title: 'Lokale Anbieter, Kreative & Wirtschaftstreibende in %{region}'
-      description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen in %{region}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Grätzl...'
-      title_category: '„%{category}“ AnbieterInnen in %{region}'
-      description_category: 'Entdecke grätzlansässige lokale AnbieterInnen aus dem Bereich „%{category}“ in %{region}. Erhalte Neuigkeiten auch als wöchentlicher Stadtteilnewsletter aus deinem Grätzl..'
+      welocally:
+        title: '%{category}Lokale Anbieter & MacherInnen, Kreative & Wirtschaftstreibende in %{region}'
+        description: 'Neuigkeiten von lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Newsletter aus deiner Gemeinde...'
+      imgraetzl:
+        title: '%{category}Lokale Anbieter & MacherInnen, Kreative & Wirtschaftstreibende in %{region}'
+        description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen%{category} in %{region}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter aus deinem Grätzl...'
     meetings:
-      title: 'Workshops, Events & Veranstaltungen in %{region}'
-      description: 'Events & Workshops organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen in %{region}. Die nächsten Termine in %{region} und deinem Bezirk, gleich stöbern...'
-      title_category: '„%{category}“ Events & Workshops in %{region}'
-      description_category: 'Die nächsten Events & Workshops organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen aus dem Bereich „%{category}“.'
-    platform_meetings:
-      title: 'Sommer Special: Kurse & Workshops'
-      description: 'Für alle, die den Sommer in %{region} verbringen und Lust auf Gemeinschaft haben und darauf neue Erlebnisse und Eindrücke zu sammeln. Motto: Raus aus dem Hamsterrad, hereinspaziert ins Vergnügen.'
+      title: '%{category}Workshops, Events & Veranstaltungen in %{region}'
+      description: 'Events & Workshops organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen%{category}. Die nächsten Termine in %{region}, gleich stöbern...'
     rooms:
       title: 'Raumteiler in %{region} - Gewerbeflächen teilen - Kosten teilen'
       description: 'Finde passende Räumlichkeiten zum einmieten in %{region}. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
@@ -88,12 +43,18 @@ de:
       description: 'Du kannst über den Toolteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
       title_category: 'Geräte für „%{category}“ ausleihen in %{region} | Toolteiler'
       description_category: 'Du kannst über den „Toolteiler“ Geräte aus dem Bereich „%{category}“ ausleihen & verleihen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+    coop_demands:
+      title: '%{category}Coop & Share Marktplatz Angebote in %{region}'
+      description: 'Finde Kooperationspartner*innen für dein Vorhaben%{category}. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
     groups:
-      title: 'Gruppen in %{region}'
-      description: 'Durchstöbere jetzt die Gruppen in %{region}. Neben Gruppen für ganz %{region} gibt es auch Gruppen nur für deinen Bezirk. Egal ob Kooperationen im Bezirk, Gegengeschäfte oder Gruppen für Aufträge & Zusammenarbeit. Schau mal rein ...'
+      title: 'Gruppen zum Austausch in %{region}'
+      description: 'Durchstöbere jetzt die Gruppen in %{region}. Finde Gleichgesinnte für Kooperationen, Austausch und Zusammenarbeit!'
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote in %{region}'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften in %{region}.'
+    platform_meetings:
+      title: 'Sommer Special: Kurse & Workshops'
+      description: 'Für alle, die den Sommer in %{region} verbringen und Lust auf Gemeinschaft haben und darauf neue Erlebnisse und Eindrücke zu sammeln. Motto: Raus aus dem Hamsterrad, hereinspaziert ins Vergnügen.'
 
   districts:
     index:
@@ -129,29 +90,61 @@ de:
 
   graetzls:
     show:
-      title: 'Grätzl „%{name}“ im %{numeric}. Bezirk in %{region}'
-      description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Grätzl %{name}. Bist du wirtschaftlich oder kreativ im Grätzl tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus dem Grätzl.'
+      welocally:
+        title: 'Gemeinde „%{name}“ | %{region}'
+        description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus der Gemeinde %{name}. Bist du wirtschaftlich oder kreativ in der Gemeinde tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus der Gemeinde.'
+      imgraetzl:
+          title: 'Grätzl „%{name}“ im %{numeric}. Bezirk in %{region}'
+          description: 'Events, Workshops & Neuigkeiten von lokalen AnbieterInnen aus dem Grätzl %{name}. Bist du wirtschaftlich oder kreativ im Grätzl tätig? Melde dich gleich für den %{name}-Newsletter an & vernetze dich mit Menschen aus dem Grätzl.'
     meetings:
-      title: 'Workshops, Events & Veranstaltungen im Grätzl %{graetzl}'
-      description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem Grätzl %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
+      welocally:
+        title: 'Workshops, Events & Veranstaltungen in der Gemeinde %{graetzl}'
+        description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus der Gemeinde %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
+      imgraetzl:
+        title: 'Workshops, Events & Veranstaltungen im Grätzl %{graetzl}'
+        description: 'Lerne lokale Anbieter, Kreative & Wirtschaftstreibende aus dem Grätzl %{graetzl} kennen. Die nächsten Termine, gleich stöbern...'
     locations:
-      title: 'Lokale Geschäfte, Kreative & AnbieterInnen im Grätzl %{graetzl}'
-      description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen aus dem Grätzl %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
+      welocally:
+        title: 'Lokale Geschäfte, Kreative & AnbieterInnen in der Gemeinde %{graetzl}'
+        description: 'Neuigkeiten von lokalen Anbietern & Kreativen aus der Gemeinde %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Gemeinde-Newsletter...'
+      imgraetzl:
+        title: 'Lokale Geschäfte, Kreative & AnbieterInnen im Grätzl %{graetzl}'
+        description: 'Neuigkeiten von grätzlansässigen lokalen Anbietern & Kreativen aus dem Grätzl %{graetzl}. Schau was es Neues gibt, auch als wöchentlicher Stadtteilnewsletter...'
     rooms:
-      title: 'Raumteiler im Grätzl %{graetzl} | Neue Räume & Raumsuchende'
-      description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} im %{numeric}. Bezirk. finden ...'
+      welocally:
+        title: 'Raumteiler aus der Gemeinde %{graetzl} | Neue Räume & Raumsuchende'
+        description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler in der Gemeinde %{graetzl} finden ...'
+      imgraetzl:
+        title: 'Raumteiler im Grätzl %{graetzl} | Neue Räume & Raumsuchende'
+        description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} im %{numeric}. Bezirk. finden ...'
     tool_offers:
-      title: 'Toolteiler im Grätzl %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-      description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+      welocally:
+        title: 'Toolteiler aus der Gemeinde %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
+        description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+      imgraetzl:
+        title: 'Toolteiler im Grätzl %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
+        description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
     groups:
-      title: 'Gruppen im Grätzl %{graetzl}'
-      description: 'Durchstöbere jetzt die Gruppen im Grätzl %{graetzl}. Neben Gruppen für ganz %{region} gibt es auch Gruppen nur für deinen Bezirk. Egal ob Kooperationen im Bezirk, Gegengeschäfte oder Gruppen für Aufträge & Zusammenarbeit. Schau mal rein ...'
+      welocally:
+        title: 'Gruppen in der Gemeinde %{graetzl}'
+        description: 'Durchstöbere jetzt die Gruppen in der Gemeinde %{graetzl}.'
+      imgraetzl:
+        title: 'Gruppen im Grätzl %{graetzl}'
+        description: 'Durchstöbere jetzt die Gruppen im Grätzl %{graetzl}. Neben Gruppen für ganz %{region} gibt es auch Gruppen nur für deinen Bezirk. Egal ob Kooperationen im Bezirk, Gegengeschäfte oder Gruppen für Aufträge & Zusammenarbeit. Schau mal rein ...'
     zuckerls:
-      title: 'Zuckerl & Angebote im Grätzl %{graetzl}'
-      description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'
+      welocally:
+        title: 'Zuckerl & Angebote aus der Gemeinde %{graetzl}'
+        description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus der Gemeinde %{graetzl}.'
+      imgraetzl:
+        title: 'Zuckerl & Angebote im Grätzl %{graetzl}'
+        description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften aus dem Grätzl %{graetzl} im %{numeric}. Bezirk.'
     coop_demands:
-      title: 'Coop & Share Marktplatz Angebote im Grätzl %{graetzl}'
-      description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
+      welocally:
+        title: 'Coop & Share Marktplatz Angebote in der Gemeinde %{graetzl}'
+        description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind & finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
+      imgraetzl:
+        title: 'Coop & Share Marktplatz Angebote im Grätzl %{graetzl}'
+        description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind & finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
 
   meetings:
     show:
@@ -165,8 +158,12 @@ de:
 
   users:
     show:
-      title: '%{name} aus dem Grätzl %{graetzl}'
-      description: '%{name}s Heimatgrätzl in %{region} ist das Grätzl: %{graetzl} im %{numeric}. Bezirk.'
+      welocally:
+        title: '%{name} aus der Gemeinde %{graetzl}'
+        description: '%{name}s Heimatgemeinde in %{region} ist %{graetzl}'
+      imgraetz:
+        title: '%{name} aus dem Grätzl %{graetzl}'
+        description: '%{name}s Heimatgrätzl in %{region} ist das Grätzl %{graetzl}'
 
   room_offers:
     show:
@@ -232,6 +229,50 @@ de:
   search:
     index:
       title: 'Suche'
+
+  static_pages:
+    info:
+      title: 'Coop & Share - Alle Services im Überblick'
+      description: 'Eine Plattform für Selbständige, MacherInnen, lokale Unternehmen, Vereine und Kulturschaffende welche seinen NutzerInnen eine ganze Palette an Services anbietet...'
+    coop_demands:
+      title: 'Coop & Share Marktplatz'
+      description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
+    zuckerl:
+      title: 'Das Zuckerl - Alle Infos'
+      description: 'Fragen & Antworten zu Zuckerl & Angeboten - Das Zuckerl.'
+    raumteiler:
+      title: 'Raumteiler – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Raumteiler / Teilen von Gewerbeflächen'
+    toolteiler:
+      title: 'Toolteiler – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Toolteiler / Arbeitsequipment leihen & Geräte am Standort nutzen'
+    location:
+      title: 'Anbieter & Macherinnen – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Schaufenster und weitere Funktionen für lokale Anbieter.'
+    meetings:
+      title: 'Events & Workshops – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Veröffentlichen von Events & Workhops.'
+    groups:
+      title: 'Gruppen – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zu den Gruppen.'
+    code-of-conduct:
+      title: 'Code of Conduct'
+      description: 'Verhaltenskodex: Das Team sieht es als Aufgabe, eine freundliche, sichere und einladende Umgebung zu schaffen, unabhängig von Geschlecht, sexueller Orientierung, Befähigung, Herkunft, Religion (oder deren Nichtvorhandensein) sowie gesellschaftlichem und wirtschaftlichem Status.'
+    mentoring:
+      title: 'Mentoring Programm - Komm in dein Unterstützer Team'
+      description: 'Die Unterstützer-Teams werden ins Leben gerufen, um Selbständige, GründerInnen und MacherInnen darin zu bestärken ihre Ideen auf den Boden zu bringen und sie gleichzeitig in ein lokales Netzwerk aus Gleichgesinnten einzubinden.'
+    supporter:
+      title: 'DANKE an unsere MöglichmacherInnen'
+      description: 'Der Betrieb und die Weiterentwicklung von imGrätzl.at & WeLocally.at wird ermöglicht durch diese großartigen Menschen und Unternehmen.'
+    impressum:
+      title: 'Impressum'
+      description: 'Impressum & Kontaktdaten'
+    datenschutz:
+      title: 'Datenschutzrichtlinie'
+      description: 'Diese Plattform ist ein Angebot der morgenjungs GmbH. Mit dieser Datenschutzerklärung informieren wir dich über die Verarbeitung personenbezogener Daten im Zusammenhang mit der Nutzung von WeLocally.at und imGrätzl.at.'
+    agb:
+      title: 'Allgemeine Geschäftsbedingungen'
+      description: 'AGB - Allgemeine Geschäftsbedingungen imGrätzl.at / WeLocally.at'
 
   campaign_users:
     index:

@@ -44,7 +44,7 @@ class Group < ApplicationRecord
 
   include CoverImageUploader::Attachment(:cover_photo)
 
-  scope :by_currentness, -> { order(created_at: :desc) }
+  scope :by_currentness, -> { order(featured: :desc, created_at: :desc) }
   scope :default_joined, -> { where(default_joined: true) }
   scope :non_private, -> { where(private: false) }
   scope :non_hidden, -> { where(hidden: false) }

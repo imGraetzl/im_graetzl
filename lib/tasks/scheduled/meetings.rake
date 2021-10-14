@@ -34,7 +34,7 @@ namespace :scheduled do
   task create_meeting_reminder_mail: :environment do
     already_sent = []
     Meeting.where(starts_at_date: 30.days.ago).find_each do |meeting|
-      next if meeting.user.nil? || meeting.user.initiated_meetings.upcoming.present? || already_sent.include?(meeting.user.id)
+      next if meeting.user.nil? || meeting.user.initiated_meetings.where("starts_at_date > ?", 30.days.ago).present? || already_sent.include?(meeting.user.id)
       MeetingMailer.create_meeting_reminder(meeting).deliver_now
       already_sent.push(meeting.user.id)
     end
