@@ -58,6 +58,11 @@ active_admin_form_for [:admin, resource] do |f|
           end
         end
       end
+      inputs 'Bilder' do
+        has_many :images, allow_destroy: true do |i|
+          i.input :file, as: :file, hint: i.object.file && image_tag(i.object.file_url(:thumb))
+        end
+      end
       actions
     end
     column do

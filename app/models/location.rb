@@ -9,6 +9,9 @@ class Location < ApplicationRecord
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
 
+  has_many :images, as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
+
   belongs_to :user
   belongs_to :graetzl
   has_many :districts, through: :graetzl

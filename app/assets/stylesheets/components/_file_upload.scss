@@ -1,3 +1,9 @@
+.upload-previews {
+  label {
+    min-width: 0px !important;
+  }
+}
+
 .upload-preview {
   margin-top: 10px;
   display: flex;
@@ -9,7 +15,8 @@
 }
 
 .upload-preview-image {
-  max-height: 150px;
-  max-width: 300px;
+  width:100px;
+  height:100px;
+  object-fit: cover;
   margin-right: 10px;
 }

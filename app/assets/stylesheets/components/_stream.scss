@@ -313,19 +313,22 @@
 }
 
 .entryImgUploads {
-  @include cf;
   margin-bottom: 2rem;
   margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
   img {
     float: left;
     display: block;
-    max-width: 285px;
     margin-right: 1rem;
     margin-bottom: 1rem;
     padding: 0.4rem;
     background-color: #ffffff;
     background-image: $texture-secondary;
     box-shadow: $boxShadow-light;
+    width: 145px;
+    height:145px;
+    object-fit: cover;
   }
 }
 

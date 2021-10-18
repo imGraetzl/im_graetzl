@@ -105,7 +105,8 @@ ActiveAdmin.register Location do
     :address_zip,
     :address_city,
     :address_coordinates,
-    :address_description
+    :address_description,
+    images_attributes: [:id, :file, :_destroy]
 
   # Within app/admin/resource_name.rb
   # Controller pagination overrides
