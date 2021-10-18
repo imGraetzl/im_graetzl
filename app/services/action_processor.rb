@@ -60,6 +60,9 @@ class ActionProcessor
     when [Discussion, :create_without_notify]
       Activity.add_personal(subject, group: subject.group)
 
+    when [Discussion, :post]
+      Activity.add_personal(subject, group: subject.group)
+
     when [DiscussionPost, :create]
       Notifications::NewGroupPost.generate(subject, to: subject.discussion.following_user_ids)
 

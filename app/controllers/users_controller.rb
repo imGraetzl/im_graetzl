@@ -15,7 +15,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       bypass_sign_in @user
-      redirect_to @user, notice: "Profil gespeichert!"
+
+      if user_params[:favorite_graetzl_ids].present?
+        redirect_back fallback_location: @user, notice: "Deine Favoriten wurden gespeichert!"
+      else
+        redirect_to @user, notice: "Profil gespeichert!"
+      end
+
     else
       render :edit
     end

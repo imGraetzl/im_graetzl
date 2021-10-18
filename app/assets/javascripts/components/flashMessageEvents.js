@@ -107,4 +107,12 @@ APP.components.flashMessageEvents = (function() {
     });
   }
 
+  // Favorite Graetzls
+  else if (flashMessage('Deine Favoriten wurden gespeichert')){
+    gtag(
+      'event', 'Favorite Graetzls :: Save', {
+      'event_category': 'User Settings'
+    });
+  }
+
 })();
