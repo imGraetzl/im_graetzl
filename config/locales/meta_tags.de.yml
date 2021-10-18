@@ -161,7 +161,7 @@ de:
       welocally:
         title: '%{name} aus der Gemeinde %{graetzl}'
         description: '%{name}s Heimatgemeinde in %{region} ist %{graetzl}'
-      imgraetz:
+      imgraetzl:
         title: '%{name} aus dem Grätzl %{graetzl}'
         description: '%{name}s Heimatgrätzl in %{region} ist das Grätzl %{graetzl}'
 

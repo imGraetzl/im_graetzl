@@ -10,6 +10,7 @@ class DiscussionPostsController < ApplicationController
     @post.user = current_user
     if @post.save
       @discussion.discussion_followings.find_or_create_by(user: current_user)
+      ActionProcessor.track(@discussion, :post) # new activitiy for each post (test it in stream..)
       ActionProcessor.track(@post, :create)
       redirect_to [@group, @discussion, anchor: "discussion-post-#{@post.id}" ]
     else
