@@ -25,8 +25,7 @@
         <div class="category"><%= location.location_category.name if location.location_category %></div>
         <% if location.using_address? %>
           <div class="address">
-            <%= icon_tag "location" %>
-            <%= location.address_street %>
+            <%= address_short(location) %>
           </div>
         <% end %>
       </div>

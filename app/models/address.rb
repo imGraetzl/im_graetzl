@@ -23,6 +23,7 @@ module Address
       address_zip: address_zip,
       address_city: address_city,
       address_coords: address_coords,
+      address_description: address_description,
       graetzl_id: graetzl_id,
     }
   end

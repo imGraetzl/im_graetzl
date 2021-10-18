@@ -4,11 +4,7 @@
   <div class="cardBoxHeader">
     <%= link_to [graetzl, location] do %>
       <div class="coverImgWrapper">
-        <% if local_assigns[:activity_location_post] && local_assigns[:activity_location_post].images.first %>
-          <%= gallery_photo_image(local_assigns[:activity_location_post].images.first, class: 'coverImg') %>
-        <% else %>
-          <%= cover_photo_image(location, class: 'coverImg') %>
-        <% end %>
+        <%= cover_photo_image(location, class: 'coverImg') %>
       </div>
     <% end %>
     <div class="categoryicon">
@@ -29,8 +25,7 @@
         <div class="category"><%= location.location_category.name if location.location_category %></div>
         <% if location.using_address? %>
           <div class="address">
-            <%= icon_tag "location" %>
-            <%= location.address_street %>
+            <%= address_short(location) %>
           </div>
         <% end %>
       </div>
@@ -53,17 +48,6 @@
             <em>Nur für eingeloggte Mitglieder sichtbar.</em>
           </div>
         <% end %>
-      <% end %>
-    <% end %>
-
-    <% if location_post = location.actual_newest_post %>
-      <%= link_to [graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
-        <div class="hl">
-          Letztes Update:
-        </div>
-        <div class="title">
-          <%= location_post.title %>
-        </div>
       <% end %>
     <% end %>
 
@@ -93,6 +77,17 @@
       <%= link_to [graetzl, location], class: "basic-message-box" do %>
         <div class="hl"> Neu auf <%= t("region.#{location.region.id}.domain_short") %></div>
         <div class="title"> Sag gleich Hallo!</div>
+      <% end %>
+    <% end %>
+
+    <% if location_post = location.actual_newest_post %>
+      <%= link_to [graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
+        <div class="hl">
+          Letztes Update:
+        </div>
+        <div class="title">
+          <%= location_post.title %>
+        </div>
       <% end %>
     <% end %>
 

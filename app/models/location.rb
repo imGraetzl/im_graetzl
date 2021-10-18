@@ -70,7 +70,7 @@ class Location < ApplicationRecord
   end
 
   def actual_newest_post
-    location_posts.select{|p| p.created_at > 8.weeks.ago}.max_by(&:created_at)
+    location_posts.select{|p| p.created_at > 4.weeks.ago}.max_by(&:created_at)
   end
 
   private
