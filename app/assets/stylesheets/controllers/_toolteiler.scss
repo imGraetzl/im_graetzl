@@ -208,18 +208,6 @@ section.toolTeiler-detail {
     white-space: pre-wrap;
   }
 
-  // Gallery Pics
-  .entryImgUploads {
-    img {
-      width: 152px;
-      height:152px;
-      object-fit: cover;
-      @include respond-to(">=large") {
-
-      }
-    }
-  }
-
   .category-tags {
     margin: 20px 0px 40px;
     .bigicontext-element {

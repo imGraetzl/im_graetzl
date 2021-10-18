@@ -68,10 +68,10 @@ a.btn-dark {
   text-transform:none !important;
 }
 
-.ui-dialog {
-  //width:50% !important;
-  //height:80% !important;
-  textarea {
-    //height:200px;
+.row-cover_photo, .row-avatar, .row-images, .file.input {
+  img {
+    width:100px;
+    height:100px;
+    object-fit: cover;
   }
 }

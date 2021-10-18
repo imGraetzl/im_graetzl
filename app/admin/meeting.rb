@@ -6,8 +6,8 @@ ActiveAdmin.register Meeting do
 
   scope :all, default: true
   scope :upcoming
-  #scope 'Online Event', :online_meeting
-  scope 'SFS approved', :platform_meeting
+  #scope 'Online Events', :online_meeting
+  #scope 'SFS approved', :platform_meeting
   #scope 'SFS pending', :platform_meeting_pending
   #scope 'SFS processing', :platform_meeting_processing
   #scope 'SFS declined', :platform_meeting_declined
@@ -25,7 +25,6 @@ ActiveAdmin.register Meeting do
   filter :description
   filter :created_at
   #filter :starts_at_date
-  filter :platform_meeting
   filter :online_meeting
 
   index { render 'index', context: self }
@@ -214,6 +213,7 @@ ActiveAdmin.register Meeting do
     :address_city,
     :address_coordinates,
     :address_description,
+    images_attributes: [:id, :file, :_destroy],
     event_category_ids: [],
     going_tos_attributes: [
       :id,

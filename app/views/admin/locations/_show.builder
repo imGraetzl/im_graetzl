@@ -24,6 +24,11 @@ context.instance_eval do
           row :avatar do |l|
             l.avatar && image_tag(l.avatar_url(:thumb))
           end
+          row :images do
+            location.images.map do |image|
+              image_tag image.file_url(:thumb)
+            end
+          end
         end
       end
 

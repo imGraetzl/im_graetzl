@@ -28,6 +28,9 @@ class Meeting < ApplicationRecord
 
   include CoverImageUploader::Attachment(:cover_photo)
 
+  has_many :images, as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
+
   enum state: { active: 0, cancelled: 1 }
 
   scope :non_private, -> { where(private: false) }

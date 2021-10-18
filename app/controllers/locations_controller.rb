@@ -141,6 +141,7 @@ class LocationsController < ApplicationController
       :name, :graetzl_id, :slogan, :description, :avatar, :remove_avatar, :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description,
       :location_category_id, :product_list, :website_url, :online_shop_url, :email, :phone, :open_hours, :goodie,
+      images_attributes: [:id, :file, :_destroy],
     )
   end
 

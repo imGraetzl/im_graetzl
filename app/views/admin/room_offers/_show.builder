@@ -36,6 +36,11 @@ context.instance_eval do
           row :avatar do |r|
             r.avatar && image_tag(r.avatar_url(:thumb))
           end
+          row :images do
+            room_offer.images.map do |image|
+              image_tag image.file_url(:thumb)
+            end
+          end
         end
       end
 

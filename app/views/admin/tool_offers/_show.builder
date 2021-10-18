@@ -26,6 +26,11 @@ context.instance_eval do
           row :cover_photo do |r|
             r.cover_photo && image_tag(r.cover_photo_url(:thumb))
           end
+          row :images do
+            tool_offer.images.map do |image|
+              image_tag image.file_url(:thumb)
+            end
+          end
         end
       end
 

@@ -23,12 +23,17 @@ context.instance_eval do
           row :group
           row :user
           row :description
-          row :cover_photo do |m|
-            m.cover_photo && image_tag(m.cover_photo_url(:thumb))
-          end
           row :starts_at_date
           row(:starts_at_time){|m| m.starts_at_time ? m.starts_at_time.strftime('%H:%M') : nil}
           row(:ends_at_time){|m| m.ends_at_time ? m.ends_at_time.strftime('%H:%M') : nil}
+          row :cover_photo do |m|
+            m.cover_photo && image_tag(m.cover_photo_url(:thumb))
+          end
+          row :images do
+            meeting.images.map do |image|
+              image_tag image.file_url(:thumb)
+            end
+          end
         end
       end
       panel 'Address Details' do
@@ -53,15 +58,6 @@ context.instance_eval do
       panel 'Additional Dates' do
         table_for meeting.meeting_additional_dates do
           column(:date){|g| link_to g.starts_at_date, admin_meeting_additional_date_path(g)}
-        end
-      end
-      panel 'Aktion Selbstständige für Selbstständige' do
-        attributes_table_for meeting do
-          row :platform_meeting
-          row :meeting_category
-        end
-        attributes_table_for meeting.platform_meeting_join_request do
-          row(:request_message){|p| p.request_message if p}
         end
       end
     end

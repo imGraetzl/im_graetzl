@@ -87,6 +87,13 @@
     <!--  render 'meetings/sidebar/platform_meeting_user_infos' if @meeting.platform_meeting && @meeting.platform_meeting_join_request -->
   </div>
 
+  <div class="entryImgUploads">
+    <%= link_to image_tag(@meeting.cover_photo_url(:thumb)), @meeting.cover_photo_url, data: { jbox_image: "maingallery" } if @meeting.images.present? %>
+    <% @meeting.images.each do |image| %>
+      <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+    <% end %>
+  </div>
+
   <div class="stream">
     <%= render 'comments/form', commentable: @meeting %>
     <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
