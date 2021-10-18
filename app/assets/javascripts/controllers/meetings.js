@@ -196,6 +196,7 @@ APP.controllers.meetings = (function() {
         $('#meeting-offline-fields [name*="address_zip"]').val(location.data("address-zip"));
         $('#meeting-offline-fields [name*="address_city"]').val(location.data("address-city"));
         $('#meeting-offline-fields [name*="graetzl_id"]').val(location.data("graetzl-id"));
+        $('#meeting-offline-fields [name*="address_description"]').val(location.data("address-description"));
       });
 
       // Trigger Location Toggle on load if location_id param is set

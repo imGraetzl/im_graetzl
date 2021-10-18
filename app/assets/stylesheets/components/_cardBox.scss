@@ -318,6 +318,10 @@
     ~ a.basic-message-box {
       display: none;
     }
+    + .streamElement {
+      margin-top: 10px;
+      margin-left: 15px;
+    }
   }
   .zuckerlteasertxt {
     border-color: $color-ambient-rosa-dark;

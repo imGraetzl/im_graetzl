@@ -270,6 +270,14 @@ section.location-page {
     .address {
       margin-bottom: 20px;
       align-items: flex-start;
+      span {
+        display: block;
+        white-space: normal;
+      }
+      span.desc {
+        margin-top:10px;
+        font-style: italic;
+      }
     }
 
     .user-wrp {

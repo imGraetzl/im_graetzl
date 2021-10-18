@@ -77,11 +77,7 @@ module MeetingsHelper
   def meeting_address(meeting)
     meeting_map(meeting) +
     content_tag(:div, class: 'infotxt address') do
-      if meeting.location
-        concat link_to(meeting.location.name, [meeting.location.graetzl, meeting.location])
-      else
-        concat content_tag(:strong, meeting.address_description)
-      end
+      concat content_tag(:strong, meeting.address_description) if meeting.address_description.present?
       concat meeting.address_street
       concat tag(:br) if meeting.address_street.present?
       concat "#{meeting.address_zip} #{meeting.address_city}"

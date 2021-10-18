@@ -69,8 +69,11 @@
       <% if @location.address_street.present? %>
         <div class="address icontxt">
           <%= icon_tag "address-directions" %>
-          <%= @location.address_street %><br>
-          <%= "#{@location.address_zip} #{@location.address_city}" %>
+          <div>
+            <span><%= @location.address_street %></span>
+            <span><%= "#{@location.address_zip} #{@location.address_city}" %></span>
+            <span class="desc"><%= @location.address_description %></span>
+          </div>
         </div>
       <% end %>
     </div>
