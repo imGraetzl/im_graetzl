@@ -18,6 +18,14 @@
 
 <% end %>
 
+<% if @region.id == 'wien' %>
+  <%= render "featured/welocally_wien" %>
+<% elsif @region.id == 'kaernten' %>
+  <%= render "featured/welocally_kaernten" %>
+<% else %>
+  <%= render "featured/welocally_muehlviertel" %>
+<% end %>
+
 <% if @period == 'weekly' %>
   <!-- Insert 2 Random District Zuckerls in Weekly Mail if any exists -->
   <%= render "summary/new_zuckerl" %>
