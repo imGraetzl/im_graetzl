@@ -37,6 +37,7 @@ APP.components.stream = (function() {
     function initLinkify() {
         $('.stream .entryInitialContent .txt').linkify({ target: "_blank"});
         $('.stream .post-comments .txt').linkify({ target: "_blank"});
+        $('.entryUserComment .txt').linkify({ target: "_blank"});
     }
 
     function initCommentForm() {
