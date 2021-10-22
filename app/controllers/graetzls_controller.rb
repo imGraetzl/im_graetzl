@@ -52,6 +52,7 @@ class GraetzlsController < ApplicationController
   private
 
   def load_graetzl
+    head :not_found and return if current_region.nil?
     @graetzl = Graetzl.in(current_region).find(params[:id])
   end
 

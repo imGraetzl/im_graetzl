@@ -53,6 +53,7 @@ class ToolOffersController < ApplicationController
   end
 
   def calculate_price
+    head :ok and return if browser.bot? && !request.format.js?
     @tool_offer = ToolOffer.find(params[:id])
     @tool_rental = @tool_offer.tool_rentals.build(params.permit(:rent_from, :rent_to))
     head :bad_request and return if @tool_rental.rent_from.blank? || @tool_rental.rent_to.blank?

@@ -85,6 +85,7 @@ class RoomOffersController < ApplicationController
   end
 
   def calculate_price
+    head :ok and return if browser.bot? && !request.format.js?
     @room_offer = RoomOffer.find(params[:id])
     @room_rental = RoomRental.new(
       room_offer: @room_offer,
