@@ -1,7 +1,7 @@
 APP.controllers.tool_offers = (function() {
 
     function init() {
-      if ($("section.form-new-toolteiler").exists()) { initToolOfferForm(); }
+      if ($("section.form-toolteiler").exists()) { initToolOfferForm(); }
       if ($("section.toolTeiler-detail").exists()) { initToolOfferDetails(); }
     }
 

@@ -1,0 +1,70 @@
+<aside class="sideBar">
+
+  <div class="sideBarbox contact">
+    <div class='sideflag -L'>Infos</div>
+
+    <div class="iconlist">
+
+      <div class="icontxt">
+        <%= icon_tag "slots" %>
+        <div class="">
+          <em>Benötigte Dauer:</em><br><strong><%= @tool_demand.usage_days %> Tage</strong>
+        </div>
+      </div>
+
+      <% if @tool_demand.usage_period %>
+        <div class="usage-period icontxt">
+          <%= icon_tag "calendar-2" %>
+          <div class="">
+            <em>Im Zeitraum zwischen:<br></em>
+            <strong><%= I18n.localize(@tool_demand.usage_period_from, format:'%a %d. %b %Y') %></strong>
+            <br>
+            <strong><%= I18n.localize(@tool_demand.usage_period_to, format:'%a %d. %b %Y') %></strong>
+          </div>
+        </div>
+      <% end %>
+
+
+      <%= link_to @tool_demand.user, class: 'user-wrp', rel: 'nofollow' do %>
+        <%= avatar_image_with_tooltip @tool_demand.user, size: :thumb, class: 'img-round' %>
+        <span class="name"><%= @tool_demand.user.username %></span>
+      <% end %>
+
+      <div class="created icontxt">
+        <%= icon_tag "pencil" %>
+        Erstellt / Aktualisiert:<br><%= I18n.localize(@tool_demand.updated_at, format:'%d. %b %Y') %>
+      </div>
+
+      <% if user_signed_in? && current_user == @tool_demand.user %>
+        <div class="btn-group">
+          <%= link_to 'Bearbeiten', edit_tool_demand_path(@tool_demand), class: 'btn-secondary -mint -small' %>
+        </div>
+        <div class="btn-group">
+          <%= link_to "javascript:", data: { jq_dropdown: "#tooldemand-state-update-dropdown" }, class: "btn-secondary -mint -small -state-#{@tool_demand.status}" do %>
+            Status: <span><%= t("activerecord.attributes.tool_demand.statuses.#{@tool_demand.status}") %></span>
+          <% end %>
+        </div>
+        <div id="tooldemand-state-update-dropdown" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+          <div class="jq-dropdown-panel">
+            <%= link_to 'Aktiv', [:update_status, @tool_demand, status: "enabled"], method: :patch %>
+            <%= link_to 'Inaktiv', [:update_status, @tool_demand, status: "disabled"], method: :patch %>
+            <%= link_to 'Löschen', tool_demand_path(@tool_demand), data: { confirm: 'Bist du dir sicher?' }, method: :delete %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <% if @tool_demand.location %>
+    <aside class="location">
+      <%= render @tool_demand.location %>
+    </aside>
+  <% end %>
+
+  <% if @tool_demand.user.present? %>
+    <%= link_to "#{@tool_demand.user.first_name} kontaktieren", messenger_start_thread_path(user_id: @tool_demand.user.id), class: 'btn-primary -mint -contact', id: 'requesttoolBtn', subject: "Toolteiler Kontakt" %>
+  <% end %>
+
+  <%= link_to "Alle Toolteiler", region_tool_offers_path, class: 'btn-primary -mint' %>
+</aside>

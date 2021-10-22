@@ -96,7 +96,7 @@ class ToolOffersController < ApplicationController
       :title, :description, :brand, :model, :status, :keyword_list,
       :value_up_to, :serial_number, :known_defects, :deposit,
       :price_per_day, :two_day_discount, :weekly_discount,
-      :tool_category_id, :tool_subcategory_id, :location_id,
+      :tool_category_id, :location_id,
       :graetzl_id, :address_street, :address_coords, :address_city, :address_zip, :address_description,
       :cover_photo, :remove_cover_photo,
       :first_name, :last_name, :iban,

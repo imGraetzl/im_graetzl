@@ -1,0 +1,56 @@
+<div class="cardBox -tooldemand -<%= tool_demand.status %>" data-behavior="masonry-card" data-card-id="tool_demand-<%= tool_demand.id %>">
+
+  <div class="cardBoxHeader -tooldemand">
+    <%= link_to tool_demand do %>
+      <div class="coverImgWrapper">
+        <%= avatar_image tool_demand.user, size: :large, class: 'coverImg' %>
+      </div>
+      <div class="categoryicon">
+        <%= icon_tag "tacker" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="cardBoxContent -tooldemand">
+
+    <div class="type-description">
+      <%= link_to tool_demand, class: 'typelink' do %>
+        <%= tool_demand.slogan %>
+      <% end %>
+    </div>
+
+    <div class="slogan">
+      <em>Benötigte Dauer:</em> <%= tool_demand.usage_days %> Tage<%= ", zwischen:" if tool_demand.usage_period %><br>
+      <% if tool_demand.usage_period %>
+      <%= I18n.localize(tool_demand.usage_period_from, format:'%a %d. %b %Y') %> und
+      <%= I18n.localize(tool_demand.usage_period_to, format:'%a %d. %b %Y') %>
+      <% end %>
+
+    </div>
+
+    <div class="txt">
+      <p><%= truncate tool_demand.demand_description, length: 100 %></p>
+    </div>
+
+    <% if local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: tool_demand, comment: local_assigns[:activity_comment] %>
+    <% end %>
+
+    <% if local_assigns[:manage_buttons].present? && current_user == tool_demand.user %>
+      <div class="btn-group">
+        <%= link_to 'Bearbeiten', edit_tool_demand_path(tool_demand), class: 'btn-secondary -mint -small' %>
+        <%= link_to "javascript:", data: { jq_dropdown: "#tooldemand-update-dropdown-#{tool_demand.id}" }, class: "btn-secondary -mint -small -state-#{tool_demand.status}" do %>
+          Status: <span><%= t("activerecord.attributes.tool_demand.statuses.#{tool_demand.status}") %></span>
+        <% end %>
+      </div>
+      <div id="tooldemand-update-dropdown-<%= tool_demand.id %>" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+        <div class="jq-dropdown-panel">
+          <%= link_to 'Aktiv', [:update_status, tool_demand, status: "enabled"], method: :patch %>
+          <%= link_to 'Inaktiv', [:update_status, tool_demand, status: "disabled"], method: :patch %>
+          <%= link_to 'Löschen', [tool_demand], method: :delete, data: { confirm: 'Bist du dir sicher?' } %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>

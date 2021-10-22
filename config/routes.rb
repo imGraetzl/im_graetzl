@@ -158,7 +158,12 @@ Rails.application.routes.draw do
     post 'leave_rating', on: :member
   end
 
+  resources :tools, only: [:index]
+  resources :tool_demands, path: 'toolsuche', except: [:index] do
+    patch 'update_status', on: :member
+  end
   resources :tool_offers, path: 'toolteiler' do
+    get 'select', on: :collection
     get 'calculate_price', on: :member
     patch 'update_status', on: :member
   end

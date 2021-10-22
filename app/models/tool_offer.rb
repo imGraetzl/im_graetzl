@@ -10,7 +10,6 @@ class ToolOffer < ApplicationRecord
   belongs_to :location, optional: true
 
   belongs_to :tool_category, optional: true
-  belongs_to :tool_subcategory, class_name: "ToolCategory", optional: true
 
   has_many :tool_rentals
   has_many :comments, as: :commentable, dependent: :destroy
@@ -32,7 +31,7 @@ class ToolOffer < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def self.include_for_box
-    includes(:user, :tool_category, :tool_subcategory)
+    includes(:user, :tool_category)
   end
 
   def to_s
