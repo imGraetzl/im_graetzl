@@ -6,7 +6,7 @@ module SearchHelper
       ['Events & Workshops', 'Events & Workshops', 'meetings'],
       ['Anbieter & Macherinnen', 'Anbieter & Macherinnen', 'locations'],
       ['Raumteiler', 'Raumteiler', 'rooms'],
-      ['Toolteiler', 'Toolteiler', 'tool_offers'],
+      ['Toolteiler', 'Toolteiler', 'tools'],
       ['Coop & Share', 'Coop & Share', 'coop_demands'],
       ['Gruppen', 'Gruppen', 'groups'],
     ]

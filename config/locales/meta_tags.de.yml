@@ -38,7 +38,7 @@ de:
       description: 'Finde passende Räumlichkeiten zum einmieten in %{region}. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
       title_category: '%{category} einmieten in %{region} | Gewerbeflächen teilen - Kosten teilen'
       description_category: 'Finde passende Räume aus dem Bereich „%{category}“ in %{region}. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
-    tool_offers:
+    tools:
       title: 'Toolteiler in %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
       description: 'Du kannst über den Toolteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
       title_category: 'Geräte für „%{category}“ ausleihen in %{region} | Toolteiler'
@@ -75,7 +75,7 @@ de:
       description: 'Neue Räume und Raumsuchende aus dem %{numeric}. Bezirk. Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler finden ...'
       title_category: '%{category} einmieten in %{zip} %{region} | Gewerbeflächen teilen - Kosten teilen'
       description_category: 'Finde passende Räume aus dem Bereich „%{category}“ im %{numeric}. Bezirk. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
-    tool_offers:
+    tools:
       title: 'Toolteiler in %{zip} %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
       description: 'Du kannst über den Toolteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
     groups:
@@ -117,7 +117,7 @@ de:
       imgraetzl:
         title: 'Raumteiler im Grätzl %{graetzl} | Neue Räume & Raumsuchende'
         description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} im %{numeric}. Bezirk. finden ...'
-    tool_offers:
+    tools:
       welocally:
         title: 'Toolteiler aus der Gemeinde %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
         description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
@@ -181,6 +181,11 @@ de:
       description: '%{desc}...'
 
   tool_offers:
+    show:
+      title: '%{title}'
+      description: '%{desc}'
+
+  tool_demands:
     show:
       title: '%{title}'
       description: '%{desc}'

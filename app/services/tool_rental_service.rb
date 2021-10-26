@@ -38,7 +38,7 @@ class ToolRentalService
     )
 
     UserMessageThread.create_for_tool_rental(tool_rental)
-    ToolOfferMailer.new_rental_request(tool_rental).deliver_later
+    ToolMailer.new_rental_request(tool_rental).deliver_later
     Notifications::ToolRentalCreated.generate(tool_rental, to: tool_rental.owner.id)
 
     return { success: true }
@@ -71,7 +71,7 @@ class ToolRentalService
         rental_status: :pending,
       )
       UserMessageThread.create_for_tool_rental(tool_rental)
-      ToolOfferMailer.new_rental_request(tool_rental).deliver_later
+      ToolMailer.new_rental_request(tool_rental).deliver_later
       Notifications::ToolRentalCreated.generate(tool_rental, to: tool_rental.owner.id)
     end
   end
@@ -94,7 +94,7 @@ class ToolRentalService
     )
 
     generate_invoices(tool_rental)
-    ToolOfferMailer.rental_approved(tool_rental).deliver_later
+    ToolMailer.rental_approved(tool_rental).deliver_later
     Notifications::ToolRentalApproved.generate(tool_rental, to: tool_rental.renter.id)
 
   rescue Stripe::InvalidRequestError
@@ -104,14 +104,14 @@ class ToolRentalService
   def reject(tool_rental)
     undo_payment(tool_rental)
     tool_rental.rejected!
-    ToolOfferMailer.rental_rejected(tool_rental).deliver_later
+    ToolMailer.rental_rejected(tool_rental).deliver_later
     Notifications::ToolRentalRejected.generate(tool_rental, to: tool_rental.renter.id)
   end
 
   def cancel(tool_rental)
     undo_payment(tool_rental)
     tool_rental.canceled!
-    ToolOfferMailer.rental_canceled(tool_rental).deliver_later
+    ToolMailer.rental_canceled(tool_rental).deliver_later
     Notifications::ToolRentalCanceled.generate(tool_rental, to: tool_rental.owner.id)
   end
 
@@ -125,8 +125,8 @@ class ToolRentalService
 
   def confirm_return(tool_rental)
     tool_rental.update(rental_status: :return_confirmed)
-    ToolOfferMailer.return_confirmed_owner(tool_rental).deliver_later
-    ToolOfferMailer.return_confirmed_renter(tool_rental).deliver_later
+    ToolMailer.return_confirmed_owner(tool_rental).deliver_later
+    ToolMailer.return_confirmed_renter(tool_rental).deliver_later
     Notifications::ToolRentalReturnConfirmed.generate(tool_rental, to: tool_rental.renter.id)
   end
 

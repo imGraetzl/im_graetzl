@@ -22,6 +22,10 @@ namespace :db do
       Activity.where(subject: tool_offer).destroy_all
       Notification.where(subject: tool_offer).destroy_all
     end
+    ToolDemand.where(status: :disabled).find_each do |tool_demand|
+      Activity.where(subject: tool_demand).destroy_all
+      Notification.where(subject: tool_demand).destroy_all
+    end
 
     # Delete not paid going_tos from deleted meeting
     GoingTo.where(meeting_id: nil).where.not(role: 2).destroy_all

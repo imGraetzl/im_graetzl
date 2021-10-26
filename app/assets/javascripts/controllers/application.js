@@ -12,7 +12,7 @@ APP.controllers.application = (function() {
     FastClick.attach(document.body);
 
     // Cookie Consent Banner
-    var eventSubmitted;
+    var eventSubmitted = false;
     var options = {
         title: 'Cookie Informationen',
         message: 'Wir kommen fast ohne Cookies aus. Es gibt dennoch Cookies, für die wir deine Zustimmung benötigen.',
@@ -34,8 +34,22 @@ APP.controllers.application = (function() {
           },
         ],
         onAccept: function(){
-            myPreferences = $.fn.ihavecookies.cookie();
 
+            myPreferences = $.fn.ihavecookies.cookie();
+            myPreferences = myPreferences.join();
+            myPreferences == '' ? myPreferences = 'all denied' : myPreferences;
+
+            // Event Tracking - Update Status
+            if (!eventSubmitted) {
+              gtag(
+                'event', 'Accept', {
+                'event_category': 'Consent Manager :: Update',
+                'event_label': myPreferences
+              });
+              eventSubmitted = true;
+            }
+
+            // Set Analytics Status
             if ($.fn.ihavecookies.preference('analytics') === true) {
               gtag('consent', 'update', {
                 'analytics_storage': 'granted'
@@ -45,22 +59,30 @@ APP.controllers.application = (function() {
                 'analytics_storage': 'denied'
               });
             }
-
-            // Settings Event Tracking
-            if (!eventSubmitted) {
-              gtag(
-                'event', 'Accepted', {
-                'event_category': 'Consent Manager',
-                'event_label': ''+myPreferences+''
-              });
-              eventSubmitted = true;
-            }
         }
     }
 
     $(document).ready(function() {
         $('body').ihavecookies(options);
 
+        // Track Consent Manager Status on Load
+        myPreferences = $.fn.ihavecookies.cookie();
+        if (myPreferences) {
+          myPreferences == '' ? myPreferences = 'all denied' : myPreferences.join();
+          gtag(
+            'event', 'Status', {
+            'event_category': 'Consent Manager :: Init',
+            'event_label': 'cookie :: ' + myPreferences
+          });
+        } else {
+          gtag(
+            'event', 'Status', {
+            'event_category': 'Consent Manager :: Init',
+            'event_label': 'no cookie :: consent manager shown'
+          });
+        }
+
+        // Set Analytics Status on Load
         if ($.fn.ihavecookies.preference('analytics') === true) {
             gtag('consent', 'update', {
               'analytics_storage': 'granted'

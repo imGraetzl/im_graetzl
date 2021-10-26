@@ -1,0 +1,16 @@
+(function() {
+  var $cardContainer = $("[data-behavior='tools-card-container']");
+  var $paginateLink = $("[data-behavior='tools-paginate-link']");
+
+  <% if params[:page].blank? %>
+    $cardContainer.html("<%= j render @tools %>");
+  <% else %>
+    $cardContainer.append("<%= j render @tools %>");
+  <% end %>
+
+  <% if @next_page %>
+    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+  <% else %>
+    $paginateLink.addClass("hide");
+  <% end %>
+})();

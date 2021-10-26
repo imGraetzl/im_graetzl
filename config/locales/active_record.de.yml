@@ -78,6 +78,9 @@ de:
       tool_offer:
         one: Toolteiler
         other: Toolteiler
+      tool_demand:
+        one: Toolsuche
+        other: Toolsuche
       room_offer:
         one: Raumangebot
         other: Raumangebote
@@ -261,6 +264,22 @@ de:
           enabled: Aktiv
           disabled: Inaktiv
           deleted: Deleted
+      tool_demand:
+        slogan: Titel
+        tool_category_id: Kategorie
+        demand_description: Beschreibung
+        usage_description: Verwendung
+        usage_days: Anzahl benötigte Tage
+        first_name: Vorname
+        last_name: Nachname
+        email: Email
+        statuses:
+          enabled: Aktiv
+          disabled: Inaktiv
+        status_message:
+          enabled: Deine Toolsuche ist nun aktiv und sichtbar.
+          disabled: Deine Toolsuche ist nun deaktiviert und scheint nicht mehr im Bereich Toolteiler auf.
+
       tool_rental:
         rental_statuses:
           pending: Noch nicht akzeptiert

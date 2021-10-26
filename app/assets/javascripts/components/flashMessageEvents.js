@@ -107,6 +107,22 @@ APP.components.flashMessageEvents = (function() {
     });
   }
 
+  // Activate ToolDemand
+  else if (flashMessage('Deine Toolsuche ist nun aktiv')){
+    gtag(
+      'event', 'Toolsuche :: Click :: Status Aktiv', {
+      'event_category': 'Toolteiler'
+    });
+  }
+
+  // Deactivate ToolDemand
+  else if (flashMessage('Deine Toolsuche ist nun deaktiviert')){
+    gtag(
+      'event', 'Toolsuche :: Click :: Status Inaktiv', {
+      'event_category': 'Toolteiler'
+    });
+  }
+
   // Favorite Graetzls
   else if (flashMessage('Deine Favoriten wurden gespeichert')){
     gtag(

@@ -35,7 +35,7 @@ APP.components.search = (function() {
           header: "Raumteiler"
         },
         {
-          listLocation: "tool_offers",
+          listLocation: "tools",
           header: "Toolteiler"
         },
         {
@@ -106,7 +106,7 @@ APP.components.search = (function() {
               type = 'rooms'
               break;
             case 'Toolteiler':
-              type = 'tool_offers'
+              type = 'tools'
               break;
             case 'Coop & Share':
               type = 'coop_demands'

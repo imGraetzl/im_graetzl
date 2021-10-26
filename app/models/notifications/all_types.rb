@@ -19,6 +19,7 @@ module Notifications
     NewRoomDemand,
     NewRoomOffer,
     NewToolOffer,
+    NewToolDemand,
     NewWallComment,
     NewCoopDemand,
   ]

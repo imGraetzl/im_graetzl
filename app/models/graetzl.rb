@@ -14,6 +14,8 @@ class Graetzl < ApplicationRecord
   has_many :coop_demands, through: :coop_demand_graetzls
   has_many :room_calls
   has_many :tool_offers
+  has_many :tool_demand_graetzls
+  has_many :tool_demands, through: :tool_demand_graetzls
   has_many :group_graetzls
   has_many :groups, through: :group_graetzls
 

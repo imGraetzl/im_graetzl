@@ -7,7 +7,7 @@
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
         <div class="cat category-<%= category.id %> -tools"></div>
-        <h3><%= link_to category.name, region_tool_offers_path(category: category) %></h3>
+        <h3><%= link_to category.name, region_tools_path(category: category) %></h3>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>

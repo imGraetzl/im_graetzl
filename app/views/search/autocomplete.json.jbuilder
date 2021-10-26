@@ -12,6 +12,21 @@ json.rooms do
   end
 end
 
+json.tools do
+  json.array!(@results.select{|r| r.is_a?(ToolOffer) || r.is_a?(ToolDemand)}) do |tool|
+    json.type tool.class.name
+    if tool.is_a?(ToolOffer)
+      json.name tool.title
+      json.url tool_offer_path(tool)
+      json.icon tool.cover_photo_url(:thumb)
+    elsif tool.is_a?(ToolDemand)
+      json.name tool.slogan
+      json.url tool_demand_path(tool)
+      json.icon tool.user.avatar_url(:thumb)
+    end
+  end
+end
+
 json.meetings do
   json.array!(@results.select{|r| r.is_a?(Meeting)}) do |meeting|
     json.type meeting.class.name
@@ -30,15 +45,6 @@ json.locations do
     json.name location.name
     json.url graetzl_location_path(location.graetzl, location)
     json.icon location.avatar_url(:thumb)
-  end
-end
-
-json.tool_offers do
-  json.array!(@results.select{|r| r.is_a?(ToolOffer)}) do |tool_offer|
-    json.type tool_offer.class.name
-    json.name tool_offer.title
-    json.url tool_offer_path(tool_offer)
-    json.icon tool_offer.cover_photo_url(:thumb)
   end
 end
 

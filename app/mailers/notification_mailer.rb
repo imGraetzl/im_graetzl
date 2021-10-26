@@ -38,6 +38,9 @@ class NotificationMailer < ApplicationMailer
     'Neue Toolteiler' => [
       Notifications::NewToolOffer
     ],
+    'Auf der Suche nach einem Tool' => [
+      Notifications::NewToolDemand
+    ],
     'Neuer Raumteiler Call' => [
       Notifications::NewRoomCall
     ],

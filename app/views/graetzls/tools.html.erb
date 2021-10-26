@@ -7,7 +7,7 @@
     robots: 'index, follow'
   )
 %>
-<% content_for :canonical_url, region_tool_offers_path(category: @category) if @category %>
+<% content_for :canonical_url, region_tools_path(category: @category) if @category %>
 
 <section class="graetzls toolteiler">
   <%= render 'map' %>
@@ -20,7 +20,7 @@
 
   <%= render 'filters/tool_offer_categories' %>
 
-  <%= form_tag tool_offers_path, method: :get, remote: true, class: 'cards-filter' do %>
+  <%= form_tag tools_path, method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>
     <div class="filter-selection-text-jbox">
       Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
@@ -40,11 +40,11 @@
   <% end %>
 
   <div class="card-grid-container">
-    <div class="card-grid" data-behavior="tool-offers-card-container"></div>
-    <div class="action-card-container" data-behavior="tool-offers-action-card-container">
-      <%= render 'tool_offers/action_card' %>
+    <div class="card-grid" data-behavior="tools-card-container"></div>
+    <div class="action-card-container" data-behavior="tools-action-card-container">
+      <%= render 'tools/action_card' %>
     </div>
-    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'tool-offers-paginate-link' }, rel: 'nofollow' %>
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'tools-paginate-link' }, rel: 'nofollow' %>
   </div>
 
 </section>

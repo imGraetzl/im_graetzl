@@ -5,7 +5,7 @@
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
       <span class="username"><%= notification.tool_offer.user.username %></span>
-      hat einen neuen Toolteiler im Grätzl <span class="matter"><%= notification.tool_offer.graetzl.name %></span> erstellt
+      hat einen neuen Toolteiler <%= t("region.#{current_region.id}.in_graetzl") %> <span class="matter"><%= notification.tool_offer.graetzl.name %></span> erstellt
     </div>
   <% end %>
 <% end %>
