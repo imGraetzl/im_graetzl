@@ -9,15 +9,16 @@
 
   <div class="hl-subtext">
     <h1><em>Coop & Share Marktplatz</em></h1>
-    <p>Vernetze dich für ein konkretes Anliegen mit Gleichgesinnten!</p>
+    <p>Der Coop & Share Marktplatz ist ein Ort für Vernetzung!</p>
   </div>
 
   <div class="paperCard -cord1RT container -top" id="zero">
     <div class="wrp">
       <p>
-        <strong>Erstelle kostenlos ein Angebot oder eine Suche im Coop & Share Marktplatz, wenn du ein konkretes Anliegen hast.</strong>
-        <br><br>
-        Du suchst z.B. aktuell neue Mitglieder für deinen Verein oder Initiative. Oder ihr habt eine Food Coop im Aufbau und nehmt jetzt neue Mitglieder auf. Du organisierst ein Fest und brauchst noch Helfer*innen. Du hast einen Projektauftrag und möchtest diesen nicht alleine abwickeln und suchst geeignete Projektpartner*innen. Du suchst eine Mastermind Gruppe, an die du dich andocken kannst. Oder du möchtest dein Wissen und deine Erfahrung als Mentor*in weitergeben und z.B. eine Gründerin ein Stück des Weges begleiten. Für solche konkreten Anliegen ist der Coop & Share Marktplatz entwickelt worden.
+        <strong>Team work makes the dream works!</strong> Stelle ein kostenloses Gesuch im Coop & Share Marktplatz ein, wenn du dich mit Gleichgesinnten zusammenschließen möchtest.
+      </p>
+      <p>
+        <strong>Der Coop & Share Marktplatz ist für alle gedacht, die ein nicht kommerzielles  Angebot bereithalten</strong> (z.B. kostenlos, zum Selbstkostenpreis, gegen Spende, Vereins- und Mitgliedergebühr, Genossenschaftsbeitrag etc. ). Bitte schreibe dazu, ob und welche Kosten mit deinem Angebot verbunden sind.
       </p>
     </div>
     <div class="card"></div>
@@ -26,15 +27,44 @@
   <aside>
     <div id="help_nav">
       <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
-      <a href="#erstellen" class="btn-primary -mint" id="nav-one">Angebot erstellen</a>
-      <a href="#sichtbarkeit" class="btn-primary -mint" id="nav-two">Sichtbarkeit & Kontakt</a>
-      <a href="#tauschgeschaefte" class="btn-primary -mint" id="nav-three">Tauschgeschäfte</a>
+      <a href="#kategorien" class="btn-primary -mint" id="nav-1">Infos zu den Kategorien</a>
+      <a href="#erstellen" class="btn-primary -mint" id="nav-2">Angebot erstellen</a>
+      <a href="#sichtbarkeit" class="btn-primary -mint" id="nav-3">Sichtbarkeit & Kontakt</a>
+      <a href="#tauschgeschaefte" class="btn-primary -mint" id="nav-4">Tauschgeschäfte</a>
     </div>
   </aside>
 
   <div class="mainContent">
 
-    <article class="container" id="one">
+    <article class="container" id="1">
+      <h2 id="kategorien">Infos zu den Kategorien</h2>
+      <h3>Motivation und Inspiration:</h3>
+      <p>
+        Startest du gerade ein Erfolgsteam und hast noch einen Platz frei? Gründest du gerade und suchst noch Wegbegleiter*innen? Oder möchtest du andere Macher*innen als Sparring Partner*in begleiten und deine Erfahrungen weitergeben? Dann stelle ein kostenloses Gesuch ein.
+      </p>
+
+      <h3>Kooperation und Kollaborationen:</h3>
+      <p>
+        Du suchst Projekt- und Kooperationspartner*innen, vielleicht auch Geschäftspartner*innen? Dann bist du in dieser Kategorie richtig, beschreibe dein Anliegen und was für eine Kooperation bzw. Zusammenarbeit du genau suchst.
+      </p>
+
+      <h3>Vereine und Initiativen:</h3>
+      <p>
+        Möchtet ihr zeigen, dass man sich noch an euch andocken kann und Mitgestalter*innen willkommen sind? Dann stellt euch vor und schreibt für wen und was eure Initiative bzw. Verein gedacht ist. Falls ihr gerade ein spezielles Anliegen habt z.B.  helfende Hände für ein Fest benötigt, auch solche Anliegen sind in dieser Kategorie willkommen.
+      </p>
+
+      <h3>Tauschgeschäfte:</h3>
+      <p>
+        Tausche eine Dienstleistung oder ein Produkt gegen eine gleichwertige andere Dienstleistung oder Produkt ein. Was es zu beachten gibt, findest du weiter unten ausführlicher beschrieben.
+      </p>
+
+      <h3>Gratis Kennenlernangebote:</h3>
+      <p>
+        Du möchtest anderen Menschen die Gelegenheit geben dein Angebot kennenzulernen und bietest z.B. kostenlose Erstberatungen oder Schnupper-Sessions an? Oder du befindest dich in Ausbildung und suchst Menschen, um an ihnen deine neuen Kenntnisse zu üben und anzuwenden. Dann mache dein Angebot hier sichtbar.
+      </p>
+    </article>
+
+    <article class="container" id="2">
       <h2 id="erstellen">Angebot erstellen</h2>
       <h3>Erstellung einen Angebotes im Coop & Share Marktplatz</h3>
       <p>
@@ -44,7 +74,7 @@
       </p>
     </article>
 
-    <article class="container" id="two">
+    <article class="container" id="3">
       <h2 id="sichtbarkeit">Sichtbarkeit deines Gesuch oder Angebot</h2>
       <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
       <h3>Kontaktaufnahme</h3>
@@ -53,7 +83,7 @@
       </p>
     </article>
 
-    <article class="container" id="three">
+    <article class="container" id="4">
       <h2 id="tauschgeschaefte">Zu den Tauschgeschäften</h2>
       <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
       <p>
