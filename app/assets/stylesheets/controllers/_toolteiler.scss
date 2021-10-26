@@ -224,7 +224,7 @@ section.demandDetail.tool-demand {
   }
 }
 
-section.form-toolteiler {
+section.tool-form {
   // tabs-nav
   .tabs-nav {
     display: flex;
@@ -251,7 +251,17 @@ section.form-toolteiler {
 }
 
 // -------------- New Toolteiler Form --------------
-section.form-toolteiler {
+section.tool-form {
+
+  .button-switch {
+    text-align: center;
+    margin-top: 10px;
+    .btn-primary {
+      display:inline-table;
+      span {text-decoration: underline; font-weight: bold;}
+      margin: 10px;
+    }
+  }
 
   max-width: 775px;
   margin: 0 auto;
@@ -313,8 +323,10 @@ section.form-toolteiler {
     }
   }
   .period-days {
-    label {
-      width:50%;
+    @include respond-to(">medium") {
+      label {
+        width:50%;
+      }
     }
   }
   #usage-period-true {

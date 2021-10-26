@@ -20,7 +20,7 @@ class ToolDemand < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  validates_presence_of :slogan, :demand_description, :usage_description, :tool_category_id, :first_name, :last_name, :email
+  validates_presence_of :slogan, :demand_description, :usage_description, :usage_days, :tool_category_id, :first_name, :last_name, :email
   validate :has_one_graetzl_at_least # doesn't work for some reason
 
   scope :by_currentness, -> { order(created_at: :desc) }

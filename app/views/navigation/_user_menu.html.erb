@@ -9,7 +9,7 @@
     <%= nav_menu_item("location", 'Schaufenster einrichten', new_location_path) %>
     <%= nav_menu_item("coop-share-white", 'Neues Coop & Share Angebot', new_coop_demand_path) %>
     <%= nav_menu_item("raumteiler", 'Raumteiler erstellen', select_room_offers_path) %>
-    <%= nav_menu_item("tacker", 'Toolteiler erstellen', new_tool_offer_path) %>
+    <%= nav_menu_item("tacker", 'Toolteiler erstellen', select_tool_offers_path) %>
     <%= nav_menu_item("shopping-bag", 'Zuckerl buchen', new_zuckerl_path) %>
     <% if current_user.admin? %>
       <%= nav_menu_item("speech-bubble", 'Gruppe gründen', new_group_path(graetzl_id: user_home_graetzl&.id)) %>
@@ -81,9 +81,9 @@
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-tools">
       <%= nav_submenu_back('nav-submenu-user-main') %>
-      <%= nav_menu_item("tacker", 'Toolteiler verwalten', tool_offers_user_path) %>
+      <%= nav_menu_item("tacker", 'Toolteiler verwalten', tools_user_path) %>
       <%= nav_menu_item("speech-bubbles", 'Anfragen Messenger', messenger_path(filter: "tool_rental")) %>
-      <%= nav_menu_item("archive-storage", 'Buchungsarchiv', tool_offers_user_path(target: "tab-buchungsarchiv")) %>
+      <%= nav_menu_item("archive-storage", 'Buchungsarchiv', tools_user_path(target: "tab-buchungsarchiv")) %>
       <%= nav_lazy_load_form('tools') %>
     </div>
 

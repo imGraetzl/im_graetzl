@@ -1,7 +1,7 @@
 APP.controllers.tool_demands = (function() {
 
   function init() {
-    if ($("section.form-toolteiler").exists()) initToolDemandForm();
+    if ($("section.tool-form").exists()) initToolDemandForm();
     if ($("section.tool-demand").exists()) { initToolDemand(); }
     if ($("#hide-contact-link").exists()) inithideContactLink();
   }
@@ -46,7 +46,7 @@ APP.controllers.tool_demands = (function() {
     $("textarea").autogrow({ onInitialize: true });
     $('#custom-keywords').tagsInput({'defaultText':'Eigene Stichwörter (mit Komma getrennt) ...'});
 
-    $('.form-toolteiler').find(".datepicker").pickadate({
+    $('.tool-form').find(".datepicker").pickadate({
       hiddenName: true,
       min: true,
       formatSubmit: 'yyyy-mm-dd',

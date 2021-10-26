@@ -19,14 +19,14 @@ Region.all.each do |region|
   #SitemapGenerator::Sitemap.adapter = SitemapGenerator::FileAdapter.new
   # TASK - setup on heroku:
   #rake sitemap:refresh:no_ping
-  
+
   SitemapGenerator::Sitemap.create do
 
     add region_index_path, changefreq: 'always', priority: 0.9
     add region_locations_path, changefreq: 'always', priority: 1.0
     add region_meetings_path, changefreq: 'always', priority: 1.0
     add region_rooms_path, changefreq: 'always', priority: 1.0
-    add region_tool_offers_path, changefreq: 'always', priority: 1.0
+    add region_tools_path, changefreq: 'always', priority: 1.0
     add region_coop_demands_path, changefreq: 'always', priority: 1.0
     add region_groups_path, changefreq: 'daily', priority: 0.6
     add region_zuckerls_path, changefreq: 'monthly', priority: 0.6
@@ -53,7 +53,7 @@ Region.all.each do |region|
 
     # Tools Categories
     ToolCategory.find_each do |category|
-      add region_tool_offers_path(category: category), changefreq: 'daily', priority: 0.7
+      add region_tools_path(category: category), changefreq: 'daily', priority: 0.7
     end
 
     # Districts if used in region
@@ -64,7 +64,7 @@ Region.all.each do |region|
         add district_meetings_path(district), changefreq: 'daily', priority: 0.8
         add district_rooms_path(district), changefreq: 'daily', priority: 0.8
         add district_coop_demands_path(district), changefreq: 'daily', priority: 0.8
-        add district_tool_offers_path(district), changefreq: 'daily', priority: 0.7
+        add district_tools_path(district), changefreq: 'daily', priority: 0.7
       end
     end
 
@@ -74,7 +74,7 @@ Region.all.each do |region|
       add locations_graetzl_path(graetzl), changefreq: 'daily', priority: 0.7
       add meetings_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add rooms_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
-      add tool_offers_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
+      add tools_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add coop_demands_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
 
       # Locations
@@ -115,6 +115,10 @@ Region.all.each do |region|
     # Toolteiler
     ToolOffer.in(region).non_deleted.find_each do |tool_offer|
       add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.7
+    end
+
+    ToolDemand.in(region).enabled.find_each do |tool_demand|
+      add tool_demand_path(tool_demand), changefreq: 'daily', priority: 0.8
     end
 
     # Info Help Pages

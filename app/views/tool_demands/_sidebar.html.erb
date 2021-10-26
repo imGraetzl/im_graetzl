@@ -17,9 +17,9 @@
           <%= icon_tag "calendar-2" %>
           <div class="">
             <em>Im Zeitraum zwischen:<br></em>
-            <strong><%= I18n.localize(@tool_demand.usage_period_from, format:'%a %d. %b %Y') %></strong>
+            <strong><%= I18n.localize(@tool_demand.usage_period_from, format:'%a, %d. %b %Y') %></strong> -
             <br>
-            <strong><%= I18n.localize(@tool_demand.usage_period_to, format:'%a %d. %b %Y') %></strong>
+            <strong><%= I18n.localize(@tool_demand.usage_period_to, format:'%a, %d. %b %Y') %></strong>
           </div>
         </div>
       <% end %>
@@ -66,5 +66,5 @@
     <%= link_to "#{@tool_demand.user.first_name} kontaktieren", messenger_start_thread_path(user_id: @tool_demand.user.id), class: 'btn-primary -mint -contact', id: 'requesttoolBtn', subject: "Toolteiler Kontakt" %>
   <% end %>
 
-  <%= link_to "Alle Toolteiler", region_tool_offers_path, class: 'btn-primary -mint' %>
+  <%= link_to "Alle Toolteiler", region_tools_path, class: 'btn-primary -mint' %>
 </aside>

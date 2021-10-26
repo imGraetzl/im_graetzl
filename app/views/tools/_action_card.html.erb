@@ -11,14 +11,14 @@
         <% end %>
       </div>
       <% if local_assigns[:graetzl] %>
-        <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>
-        <%= link_to 'Deinen Toolteiler eintragen', select_tool_offers_path, class: 'btn-primary' %>
+        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
+        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
-        <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>
-        <%= link_to 'Deinen Toolteiler eintragen', select_tool_offers_path, class: 'btn-primary' %>
+        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
+        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
       <% else %>
-        <h3>Hast du einen Raum / oder suchst du einen Raum?</h3>
-        <%= link_to 'Deinen Toolteiler eintragen', select_tool_offers_path, class: 'btn-primary -rose' %>
+        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
+        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>

@@ -1,4 +1,4 @@
-<% if @tool_offers.empty? %>
+<% if @tools.empty? %>
 
   <div class="introcontainer">
 
@@ -29,16 +29,16 @@
       </p>
 
     </div>
-    <%= render 'tool_offers/action_card', user: current_user, create_link: false %>
+    <%= render 'tools/action_card', user: current_user, create_link: false %>
   </div>
 
 <% else %>
 
   <div class="cardBoxCollection -tripple" data-behavior="tool-offers-card-container">
-    <%= render @tool_offers, manage_buttons: true %>
+    <%= render @tools, manage_buttons: true %>
   </div>
   <div class="action-card-container">
-    <%= render 'tool_offers/action_card', user: current_user, create_link: false %>
+    <%= render 'tools/action_card', user: current_user, create_link: false %>
   </div>
 
 <% end %>

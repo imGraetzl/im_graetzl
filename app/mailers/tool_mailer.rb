@@ -1,4 +1,17 @@
-class ToolOfferMailer < ApplicationMailer
+class ToolMailer < ApplicationMailer
+
+  def tool_demand_published(tool_demand)
+    @tool_demand = tool_demand
+    @region = @tool_demand.region
+
+    headers("X-MC-Tags" => "notification-tool-online")
+
+    mail(
+      subject: "Deine Toolsuche ist nun online",
+      from: platform_email('no-reply'),
+      to: @tool_demand.user.email,
+    )
+  end
 
   def tool_offer_published(tool_offer)
     @tool_offer = tool_offer
@@ -10,6 +23,19 @@ class ToolOfferMailer < ApplicationMailer
       subject: "Dein Toolteiler ist nun online",
       from: platform_email('no-reply'),
       to: @tool_offer.user.email,
+    )
+  end
+
+  def tool_demand_activate_reminder(tool_demand)
+    @tool_demand = tool_demand
+    @region = @tool_demand.region
+
+    headers("X-MC-Tags" => "notification-tool-expiring")
+
+    mail(
+      subject: "Deine Toolsuche wurde deaktiviert. Möchtest du diese reaktivieren?",
+      from: platform_email('no-reply'),
+      to: @tool_demand.user.email,
     )
   end
 

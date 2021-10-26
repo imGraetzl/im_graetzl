@@ -23,8 +23,8 @@ class ToolDemandsController < ApplicationController
     @tool_demand.region_id = current_region.id
 
     if @tool_demand.save
-      #ToolDemandMailer.tool_demand_published(@tool_demand).deliver_later
-      #ActionProcessor.track(@tool_demand, :create)
+      ToolMailer.tool_demand_published(@tool_demand).deliver_later
+      ActionProcessor.track(@tool_demand, :create)
       redirect_to @tool_demand
     else
       render 'new'
@@ -49,13 +49,14 @@ class ToolDemandsController < ApplicationController
   def update_status
     @tool_demand = current_user.tool_demands.find(params[:id])
     @tool_demand.update(status: params[:status])
-    redirect_back(fallback_location: tool_offers_user_path)
+    flash[:notice] = t("activerecord.attributes.tool_demand.status_message.#{@tool_demand.status}")
+    redirect_back(fallback_location: tools_user_path)
   end
 
   def destroy
     @tool_demand = current_user.tool_demands.find(params[:id])
     @tool_demand.destroy
-    redirect_to tool_offers_user_path
+    redirect_to tools_user_path
   end
 
   private

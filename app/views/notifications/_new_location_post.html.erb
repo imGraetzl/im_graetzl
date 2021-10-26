@@ -5,7 +5,7 @@
     <%= avatar_image notification.location, size: :thumb, class: 'img-square' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
-      <span class="username"><%= notification.location.name %></span> hat einen neuen Beitrag im Grätzl
+      <span class="username"><%= notification.location.name %></span> hat einen neuen Beitrag <%= t("region.#{current_region.id}.in_graetzl") %>
       <span class="matter"><%= graetzl.name %></span> geschrieben
     </div>
   <% end %>

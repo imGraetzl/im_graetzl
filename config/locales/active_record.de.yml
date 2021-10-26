@@ -269,6 +269,7 @@ de:
         tool_category_id: Kategorie
         demand_description: Beschreibung
         usage_description: Verwendung
+        usage_days: Anzahl benötigte Tage
         first_name: Vorname
         last_name: Nachname
         email: Email

@@ -6,7 +6,7 @@
     <%= avatar_image room_call, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
-      <span class="username"><%= room_call.user.username %></span> hat einen neuen Raumteiler Call im Grätzl
+      <span class="username"><%= room_call.user.username %></span> hat einen neuen Raumteiler Call <%= t("region.#{current_region.id}.in_graetzl") %>
       <span class="matter"><%= graetzl.name %></span> erstellt
     </div>
   <% end %>

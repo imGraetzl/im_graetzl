@@ -1,0 +1,11 @@
+
+<%= content_tag(:li, id: dom_id(notification), data: { behavior: 'notification-item' }, class: 'notification-item') do %>
+  <%= link_to notification.tool_demand do %>
+    <%= avatar_image notification.tool_demand.user, size: :thumb, class: 'img-round' %>
+    <div class="msg">
+      <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
+      <span class="username"><%= notification.tool_demand.user.username %></span>
+      hat eine <strong>neue Toolsuche</strong> veröffentlicht.
+    </div>
+  <% end %>
+<% end %>

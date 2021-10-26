@@ -19,18 +19,16 @@
       <% end %>
     </div>
 
-    <div class="slogan">
-      <em>Benötigte Dauer:</em> <%= tool_demand.usage_days %> Tage<%= ", zwischen:" if tool_demand.usage_period %><br>
-      <% if tool_demand.usage_period %>
-      <%= I18n.localize(tool_demand.usage_period_from, format:'%a %d. %b %Y') %> und
-      <%= I18n.localize(tool_demand.usage_period_to, format:'%a %d. %b %Y') %>
-      <% end %>
-
-    </div>
-
     <div class="txt">
       <p><%= truncate tool_demand.demand_description, length: 100 %></p>
     </div>
+
+    <%= link_to tool_demand, class: 'tool-usage-period' do %>
+      <%= icon_tag "slots" %>
+      <div>
+        Benötigte Dauer: <%= tool_demand.usage_days %> Tage
+      </div>
+    <% end %>
 
     <% if local_assigns[:activity_comment] %>
       <%= render 'activities/comment', parent: tool_demand, comment: local_assigns[:activity_comment] %>

@@ -151,6 +151,9 @@ section.demandDetail {
       @include font-size-secondaryFont('medium');
       color: $color-font-primary;
     }
+    h1:last-child {
+      padding-bottom: 20px;
+    }
     @include respond-to(">=large") {
       left:30px;
     }

@@ -61,7 +61,7 @@ Rails.application.routes.draw do
     get 'locations'
     get 'tooltip'
     get 'raumteiler', action: 'rooms', as: 'rooms'
-    get 'toolteiler', action: 'tool_offers', as: 'tool_offers'
+    get 'toolteiler', action: 'tools', as: 'tools'
     get 'coop-share', action: 'coop_demands', as: 'coop_demands'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
@@ -75,7 +75,7 @@ Rails.application.routes.draw do
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
-    get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers'
+    get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'special-events', action: 'platform_meetings', as: 'platform_meetings'
@@ -88,7 +88,7 @@ Rails.application.routes.draw do
     get 'locations(/category/:category)', action: 'locations', as: 'locations'
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
-    get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers'
+    get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
@@ -260,7 +260,7 @@ Rails.application.routes.draw do
     get 'treffen(/category/:category)', action: 'meetings', as: 'meetings', on: :member
     get 'locations(/category/:category)', action: 'locations', as: 'locations', on: :member
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms', on: :member
-    get 'toolteiler(/category/:category)', action: 'tool_offers', as: 'tool_offers', on: :member
+    get 'toolteiler(/category/:category)', action: 'tools', as: 'tools', on: :member
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member

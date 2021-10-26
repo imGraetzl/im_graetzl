@@ -25,7 +25,7 @@
     <div class="txt">Raum<br/>teiler</div>
   <% end %>
 
-  <%= active_link_to tool_offers_graetzl_path(@graetzl), class: "iconfilter" do %>
+  <%= active_link_to tools_graetzl_path(@graetzl), class: "iconfilter" do %>
     <%= icon_tag "tacker" %>
     <div class="txt">Tool<br/>teiler</div>
   <% end %>
@@ -53,7 +53,7 @@
       <%= icon_tag "raumteiler" %>
       <div class="icontxt">Neuer Raumteiler</div>
     <% end %>
-    <%= link_to new_tool_offer_path do %>
+    <%= link_to select_tool_offers_path do %>
       <%= icon_tag "tacker" %>
       <div class="icontxt">Neuer Toolteiler</div>
     <% end %>
