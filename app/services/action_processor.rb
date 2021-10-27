@@ -103,7 +103,18 @@ class ActionProcessor
       Notifications::NewToolOffer.generate(subject, to: user_ids(subject.graetzl) - [subject.user_id])
 
     when [ToolOffer, :comment]
-      Activity.add_public(subject, to: subject.graetzl)
+      Activity.add_public(subject, child, to: subject.graetzl)
+      notify_comment(subject, child)
+
+    when [ToolDemand, :create]
+      Activity.add_public(subject, to: subject.graetzls)
+      Notifications::NewToolDemand.generate(subject, to: user_ids(subject.graetzls) - [subject.user_id])
+
+    when [ToolDemand, :update]
+      Activity.add_public(subject, to: subject.graetzls)
+
+    when [ToolDemand, :comment]
+      Activity.add_public(subject, child, to: subject.graetzls)
       notify_comment(subject, child)
 
     when [CoopDemand, :create]

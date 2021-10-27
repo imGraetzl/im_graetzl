@@ -36,16 +36,6 @@ class ActivitySample
     end
   end
 
-  def tool_offers
-    if @graetzl
-      @graetzl.tool_offers.in(@current_region).enabled.by_currentness.first(2)
-    elsif @district
-      @district.tool_offers.in(@current_region).enabled.by_currentness.first(2)
-    else
-      ToolOffer.in(@current_region).enabled.by_currentness.first(2)
-    end
-  end
-
   def coop_demands
     if @graetzl
       @graetzl.coop_demands.in(@current_region).enabled.by_currentness.first(2)
@@ -69,6 +59,20 @@ class ActivitySample
       room_demand = RoomDemand.in(@current_region).enabled.by_currentness.first
     end
     [room_call, room_offer, room_demand].compact.first(2)
+  end
+
+  def tools
+    if @graetzl
+      tool_offer = @graetzl.tool_offers.in(@current_region).enabled.by_currentness.first
+      tool_demand = @graetzl.tool_demands.in(@current_region).enabled.by_currentness.first
+    elsif @district
+      tool_offer = @district.tool_offers.in(@current_region).enabled.by_currentness.first
+      tool_demand = @district.tool_demands.in(@current_region).enabled.by_currentness.first
+    else
+      tool_offer = ToolOffer.in(@current_region).enabled.by_currentness.first
+      tool_demand = ToolDemand.in(@current_region).enabled.by_currentness.first
+    end
+    [tool_offer, tool_demand].compact.first(2)
   end
 
   def zuckerls

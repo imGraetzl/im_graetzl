@@ -1,4 +1,4 @@
-section.coop-demand {
+section.demandDetail {
 
   .introtxt h3 {
     margin-top:20px;
@@ -150,6 +150,9 @@ section.coop-demand {
     h1 {
       @include font-size-secondaryFont('medium');
       color: $color-font-primary;
+    }
+    h1:last-child {
+      padding-bottom: 20px;
     }
     @include respond-to(">=large") {
       left:30px;

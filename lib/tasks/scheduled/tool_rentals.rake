@@ -4,7 +4,7 @@ namespace :scheduled do
   task update_completed_tool_rentals: :environment do
     ToolRental.approved.where("rent_to < ?", Date.today).find_each do |tool_rental|
       tool_rental.update(rental_status: :return_pending)
-      ToolOfferMailer.rental_return_pending(tool_rental).deliver_now
+      ToolMailer.rental_return_pending(tool_rental).deliver_now
       Notifications::ToolRentalPending.generate(tool_rental, to: tool_rental.owner.id)
     end
   end
@@ -14,7 +14,7 @@ namespace :scheduled do
 
     # Send Reminder for pending Rental Requests
     ToolRental.pending.where(created_at: (Time.now.midnight - 2.days)..Time.now.midnight - 1.day).where("rent_from >= ?", Date.today).find_each do |tool_rental|
-      ToolOfferMailer.new_rental_request_reminder(tool_rental).deliver_now
+      ToolMailer.new_rental_request_reminder(tool_rental).deliver_now
     end
 
     # Expire Rental Requests where rent_from is in past

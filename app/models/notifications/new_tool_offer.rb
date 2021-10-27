@@ -3,7 +3,7 @@ class Notifications::NewToolOffer < Notification
   self.class_bitmask = 2**19
 
   def self.description
-    'Ein neuer Toolteiler wurde erstellt'
+    'Ein neuer Toolteiler / Toolsuche wurde erstellt'
   end
 
   def mail_subject

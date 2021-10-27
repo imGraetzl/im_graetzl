@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_05_074421) do
+ActiveRecord::Schema.define(version: 2021_10_21_090851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -943,6 +943,42 @@ ActiveRecord::Schema.define(version: 2021_10_05_074421) do
     t.index ["slug"], name: "index_tool_categories_on_slug", unique: true
   end
 
+  create_table "tool_demand_graetzls", force: :cascade do |t|
+    t.bigint "tool_demand_id"
+    t.bigint "graetzl_id"
+    t.index ["graetzl_id"], name: "index_tool_demand_graetzls_on_graetzl_id"
+    t.index ["tool_demand_id"], name: "index_tool_demand_graetzls_on_tool_demand_id"
+  end
+
+  create_table "tool_demands", force: :cascade do |t|
+    t.string "slogan"
+    t.text "demand_description"
+    t.text "usage_description"
+    t.string "slug"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "website"
+    t.string "email"
+    t.string "phone"
+    t.integer "status", default: 0
+    t.string "region_id"
+    t.date "last_activated_at"
+    t.boolean "usage_period", default: false
+    t.date "usage_period_from"
+    t.date "usage_period_to"
+    t.integer "usage_days"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "location_id"
+    t.bigint "tool_category_id"
+    t.index ["location_id"], name: "index_tool_demands_on_location_id"
+    t.index ["region_id"], name: "index_tool_demands_on_region_id"
+    t.index ["slug"], name: "index_tool_demands_on_slug"
+    t.index ["tool_category_id"], name: "index_tool_demands_on_tool_category_id"
+    t.index ["user_id"], name: "index_tool_demands_on_user_id"
+  end
+
   create_table "tool_offers", force: :cascade do |t|
     t.string "title"
     t.string "slug"
@@ -1224,6 +1260,11 @@ ActiveRecord::Schema.define(version: 2021_10_05_074421) do
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify
+  add_foreign_key "tool_demand_graetzls", "graetzls", on_delete: :cascade
+  add_foreign_key "tool_demand_graetzls", "tool_demands", on_delete: :cascade
+  add_foreign_key "tool_demands", "locations", on_delete: :nullify
+  add_foreign_key "tool_demands", "tool_categories", on_delete: :nullify
+  add_foreign_key "tool_demands", "users", on_delete: :cascade
   add_foreign_key "tool_offers", "graetzls", on_delete: :nullify
   add_foreign_key "tool_offers", "locations", on_delete: :nullify
   add_foreign_key "tool_offers", "tool_categories", on_delete: :nullify

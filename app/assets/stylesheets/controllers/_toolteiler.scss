@@ -216,7 +216,15 @@ section.toolTeiler-detail {
   }
 }
 
-section.form-new-toolteiler {
+section.demandDetail.tool-demand {
+  .sideBarbox {
+    .usage-period {
+      align-items: flex-start;
+    }
+  }
+}
+
+section.tool-form {
   // tabs-nav
   .tabs-nav {
     display: flex;
@@ -243,7 +251,17 @@ section.form-new-toolteiler {
 }
 
 // -------------- New Toolteiler Form --------------
-section.form-new-toolteiler {
+section.tool-form {
+
+  .button-switch {
+    text-align: center;
+    margin-top: 10px;
+    .btn-primary {
+      display:inline-table;
+      span {text-decoration: underline; font-weight: bold;}
+      margin: 10px;
+    }
+  }
 
   max-width: 775px;
   margin: 0 auto;
@@ -290,6 +308,46 @@ section.form-new-toolteiler {
       cursor: pointer;
     }
     margin-bottom:20px;
+  }
+
+  .usage-period-switch {
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+    div {
+      display: inline-block;
+    }
+    label {
+      min-width: 0px;
+      margin-right: 20px;
+    }
+  }
+  .period-days {
+    @include respond-to(">medium") {
+      label {
+        width:50%;
+      }
+    }
+  }
+  #usage-period-true {
+    @include cf;
+    .input-field {
+      width:49%;
+    }
+    .input-field:first-of-type {
+      float: left;
+    }
+    .input-field:last-of-type {
+      float: right;
+    }
+    p {
+      text-align: center;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+  }
+  #custom-keywords_addTag, #custom-keywords_tag {
+    width:100% !important;
   }
 
 }

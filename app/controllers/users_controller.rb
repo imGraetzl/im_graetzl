@@ -34,8 +34,8 @@ class UsersController < ApplicationController
     @room_rentals = current_user.room_rentals.in(current_region).submitted.includes(:user_message_thread, room_offer: :user)
   end
 
-  def tool_offers
-    @tool_offers = current_user.tool_offers.in(current_region).non_deleted
+  def tools
+    @tools = current_user.tool_offers.in(current_region).non_deleted + current_user.tool_demands.in(current_region)
     @owned_tool_rentals = current_user.owned_tool_rentals.in(current_region).submitted.includes(:tool_offer, :user, :user_message_thread )
     @tool_rentals = current_user.tool_rentals.submitted.in(current_region).includes(:user_message_thread, tool_offer: :user)
   end

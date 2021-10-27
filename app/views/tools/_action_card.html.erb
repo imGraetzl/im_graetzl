@@ -12,13 +12,13 @@
       </div>
       <% if local_assigns[:graetzl] %>
         <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
-        <%= link_to 'Neuen Toolteiler erstellen', new_tool_offer_path, class: 'btn-primary' %>
+        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
       <% elsif local_assigns[:district] %>
         <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
-        <%= link_to 'Neuen Toolteiler erstellen', new_tool_offer_path, class: 'btn-primary' %>
+        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
       <% else %>
         <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
-        <%= link_to 'Neuen Toolteiler erstellen', new_tool_offer_path, class: 'btn-primary -rose' %>
+        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary -rose' %>
       <% end %>
     </div>
     <div class="card"></div>
@@ -26,11 +26,11 @@
 
   <% if local_assigns[:view_all] %>
     <% if local_assigns[:graetzl] %>
-      <%= link_to 'Alle Toolteiler', tool_offers_graetzl_path(graetzl), class: 'link-more' %>
+      <%= link_to 'Alle Toolteiler', tools_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Toolteiler', district_tool_offers_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Toolteiler', district_tools_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Toolteiler', region_tool_offers_path, class: 'link-more' %>
+      <%= link_to 'Alle Toolteiler', region_tools_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

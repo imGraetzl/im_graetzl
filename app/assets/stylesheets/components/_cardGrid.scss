@@ -263,6 +263,9 @@
         &.-handshake {
           background-image: url(image_path('svg/icon-kringel-sfs-active.svg'));
         }
+        &.-kennenlernen {
+          background-image: url(image_path('svg/icon-kringel-star-active.svg'));
+        }
 
       }
     }
@@ -457,6 +460,9 @@
       }
       &.-handshake {
         background-image: url(image_path('svg/icon-kringel-sfs.svg'));
+      }
+      &.-kennenlernen {
+        background-image: url(image_path('svg/icon-kringel-star.svg'));
       }
 
     }
