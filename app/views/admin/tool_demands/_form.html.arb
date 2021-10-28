@@ -26,6 +26,7 @@ active_admin_form_for [:admin, resource] do |f|
         input :slug
         input :demand_description
         input :usage_description
+        input :budget
         input :usage_days
         input :usage_period
         input :usage_period_from

@@ -43,13 +43,13 @@
       <%= text_field_tag :custom_keywords, (f.object.keyword_list).join(', '), id: 'custom-keywords' %>
     </div>
 
-    <h2 class="hl-main">Ein paar Worte <span>über deine Verwendung</span></h2>
+    <h2 class="hl-main">Ein paar Worte <span>zur geplanten Verwendung</span></h2>
     <div class="input-field">
       <%= f.label :usage_description do %>
       <%= icon_tag "layout-document" %>
       <span>Verwendung</span>
       <% end %>
-      <%= f.text_area :usage_description, placeholder: 'Beschreibe kurz wofür du das Gerät benötigst, was du vor hast ...' %>
+      <%= f.text_area :usage_description, placeholder: 'Beschreibe, was du mit dem Gerät vorhast ...' %>
     </div>
 
     <h2 class="hl-main">Bestimmter Zeitraum & <span>Ausleihdauer</span></h2>
@@ -65,18 +65,18 @@
     </div>
 
     <div id="usage-period-true">
-      <p>Ab frühestens wann benötigst du das Gerät - bzw. bis spätestens wann?</p>
+      <p>Von wann bis wann benötigst du das Gerät?</p>
       <div class="input-field">
         <%= f.label :usage_period_from do %>
           <%= icon_tag "calendar-2" %>
-          <span>Frühestens ab</span>
+          <span>Von</span>
         <% end %>
 
 
         <%= f.text_field :usage_period_from,
                          value: (I18n.localize(f.object.usage_period_from, format:'%A, %d. %B %Y') if f.object.usage_period_from),
                          data: { value: (I18n.localize(f.object.usage_period_from, format:'%Y-%m-%d') if f.object.usage_period_from) },
-                         class: 'datepicker',
+                         class: 'datepicker date-from',
                          placeholder: 'Datum' %>
 
 
@@ -85,12 +85,12 @@
       <div class="input-field">
         <%= f.label :usage_period_to do %>
           <%= icon_tag "calendar-2" %>
-          <span>Bis spätestens</span>
+          <span>Bis</span>
         <% end %>
         <%= f.text_field :usage_period_to,
                          value: (I18n.localize(f.object.usage_period_to, format:'%A, %d. %B %Y') if f.object.usage_period_to),
                          data: { value: (I18n.localize(f.object.usage_period_to, format:'%Y-%m-%d') if f.object.usage_period_to) },
-                         class: 'datepicker',
+                         class: 'datepicker date-to',
                          placeholder: 'Datum' %>
 
       </div>
@@ -104,6 +104,15 @@
         <span>Wieviele Tage benätigst du das Gerät in etwa?</span>
       <% end %>
       <%= f.text_field :usage_days, placeholder: 'Anzahl Tage' %>
+    </div>
+
+    <h2 class="hl-main">Hast du bereits ein <span>Budget</span> dafür vorgesehen?</h2>
+    <div class="input-field period-budget">
+      <%= f.label :budget do %>
+        <%= icon_tag "currency-euro" %>
+        <span>Wie hoch ist dein Budget?</span>
+      <% end %>
+      <%= f.text_field :budget, placeholder: 'Betrag in Euro' %>
     </div>
 
 
