@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_21_090851) do
+ActiveRecord::Schema.define(version: 2021_10_28_092057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -972,6 +972,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_090851) do
     t.bigint "user_id"
     t.bigint "location_id"
     t.bigint "tool_category_id"
+    t.decimal "budget", precision: 10, scale: 2
     t.index ["location_id"], name: "index_tool_demands_on_location_id"
     t.index ["region_id"], name: "index_tool_demands_on_region_id"
     t.index ["slug"], name: "index_tool_demands_on_slug"
