@@ -1,4 +1,4 @@
-<div class="filter-stream overthrow -scrollnav -info">
+<div class="navigation-bar overthrow -info">
 
   <%= active_link_to info_path, class: "iconfilter" do %>
     <%= icon_tag "lightbulb" %>
@@ -7,7 +7,7 @@
 
   <%= active_link_to info_events_und_workshops_path, class: "iconfilter" do %>
     <%= icon_tag "calendar-2" %>
-    <div class="txt">Events & <br/>Workshops</div>
+    <div class="txt">Events &<br/>Workshops</div>
   <% end %>
 
   <%= active_link_to info_anbieter_und_locations_path, class: "iconfilter" do %>
@@ -15,9 +15,9 @@
     <div class="txt">Anbieter &<br/>MacherInnen</div>
   <% end %>
 
-  <%= active_link_to info_coop_share_path, class: "iconfilter -coopshare" do %>
-    <%= icon_tag "coop-share-white" %>
-    <div class="txt">Coop & Share<br/>Marktplatz</div>
+  <%= active_link_to info_coop_share_path, class: "iconfilter" do %>
+    <%= icon_tag "coop-and-share" %>
+    <div class="txt">Markt<br/>platz</div>
   <% end %>
 
   <%= active_link_to info_raumteiler_path, class: "iconfilter" do %>
