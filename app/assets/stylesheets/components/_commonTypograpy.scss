@@ -41,3 +41,9 @@
     display: inline-table;
   }
 }
+
+.hl-main, .hl-subtext {
+  &.-cards {
+    margin-bottom:25px;
+  }
+}

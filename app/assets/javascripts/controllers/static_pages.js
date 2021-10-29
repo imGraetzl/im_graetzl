@@ -94,7 +94,7 @@ function initGuideDownload() {
 
 // Dont scroll over the Footer Element
 function checkOffset() {
-    if($('#help_nav').offset().top + $('#help_nav').height() >= $('.filter-stream').offset().top )
+    if($('#help_nav').offset().top + $('#help_nav').height() >= $('.navigation-bar').offset().top )
       $('#help_nav').addClass( "fix_nav" ).removeClass( "float_nav" );
 }
 

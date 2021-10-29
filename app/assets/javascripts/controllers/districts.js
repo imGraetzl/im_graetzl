@@ -4,7 +4,6 @@ APP.controllers.districts = (function() {
     initMenu();
     initMap();
     initFilter();
-    initMobileNav();
   }
 
   function initMenu() {
@@ -40,8 +39,8 @@ APP.controllers.districts = (function() {
   }
 
   function initMobileNav() {
-    var $dropdown = $(".filter-stream .input-select select");
-    $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
+    var $dropdown = $(".navigation-bar .input-select select");
+    $(".navigation-bar .iconfilter").not('.createentry, .loginlink').each(function() {
         var $this = $(this),
             link = $this.prop('href'),
             txt = $this.find('.txt').text();

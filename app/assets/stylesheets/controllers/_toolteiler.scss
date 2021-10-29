@@ -322,7 +322,7 @@ section.tool-form {
       margin-right: 20px;
     }
   }
-  .period-days {
+  .period-days, .period-budget {
     @include respond-to(">medium") {
       label {
         width:50%;

@@ -5,21 +5,32 @@
 
     <div class="iconlist">
 
-      <div class="icontxt">
-        <%= icon_tag "slots" %>
-        <div class="">
-          <em>Benötigte Dauer:</em><br><strong><%= @tool_demand.usage_days %> Tage</strong>
+      <% if @tool_demand.budget %>
+        <div class="icontxt">
+          <%= icon_tag "currency-euro" %>
+          <div class="">
+            <em>Budget:</em> <strong><%= "%g €" % @tool_demand.budget %></strong>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <% if @tool_demand.usage_period %>
         <div class="usage-period icontxt">
           <%= icon_tag "calendar-2" %>
           <div class="">
-            <em>Im Zeitraum zwischen:<br></em>
-            <strong><%= I18n.localize(@tool_demand.usage_period_from, format:'%a, %d. %b %Y') %></strong> -
+            <em><strong>Zeitraum:</strong><br></em>
+            <%= I18n.localize(@tool_demand.usage_period_from, format:'%A, %d. %b %Y') %> bis
             <br>
-            <strong><%= I18n.localize(@tool_demand.usage_period_to, format:'%a, %d. %b %Y') %></strong>
+            <%= I18n.localize(@tool_demand.usage_period_to, format:'%A, %d. %b %Y') %>
+            <br>
+            Ausleihdauer: <%= @tool_demand.usage_days %> Tage
+          </div>
+        </div>
+      <% else %>
+        <div class="icontxt">
+          <%= icon_tag "slots" %>
+          <div class="">
+            <em>Ausleihdauer:</em> <strong><%= @tool_demand.usage_days %> Tage</strong>
           </div>
         </div>
       <% end %>

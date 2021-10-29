@@ -13,20 +13,19 @@
 
   <div class="cardBoxContent -tooldemand">
 
-    <div class="type-description">
-      <%= link_to tool_demand, class: 'typelink' do %>
-        <%= tool_demand.slogan %>
-      <% end %>
-    </div>
-
     <div class="txt">
+      <h3>
+        <%= link_to tool_demand, class: 'typelink' do %>
+          <%= tool_demand.slogan %>
+        <% end %>
+      </h3>
       <p><%= truncate tool_demand.demand_description, length: 100 %></p>
     </div>
 
     <%= link_to tool_demand, class: 'tool-usage-period' do %>
       <%= icon_tag "slots" %>
       <div>
-        Benötigte Dauer: <%= tool_demand.usage_days %> Tage
+        Ausleihdauer: <%= tool_demand.usage_days %> Tage
       </div>
     <% end %>
 

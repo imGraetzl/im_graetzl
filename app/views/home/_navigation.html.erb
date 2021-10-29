@@ -1,17 +1,4 @@
-<div class="filter-stream">
-
-  <!-- for mobile we use a select menu -->
-  <div class="input-select">
-    <label for="filter">
-      <%= icon_tag "funnel-filter" %>
-      <span>Stöbern in <%= current_region %> nach ...</span>
-    </label>
-    <select id="filter">
-      <option>Auswählen</option>
-      <!-- generate links from desktop view via JS -->
-    </select>
-  </div>
-  <!-- END mobile select menu -->
+<div class="navigation-bar overthrow">
 
   <%= active_link_to region_index_path, class: "iconfilter" do %>
     <%= icon_tag "region-#{current_region.id}" %>
@@ -28,9 +15,9 @@
     <div class="txt">Anbieter & <br/>Macherinnen</div>
   <% end %>
 
-  <%= active_link_to region_coop_demands_path, class: "iconfilter -coopshare" do %>
-    <%= icon_tag "coop-share" %>
-    <div class="txt">Coop & Share <br/>Marktplatz</div>
+  <%= active_link_to region_coop_demands_path, class: "iconfilter" do %>
+    <%= icon_tag "coop-and-share" %>
+    <div class="txt">Markt <br/>platz</div>
   <% end %>
 
   <%= active_link_to region_rooms_path, class: "iconfilter" do %>
@@ -42,10 +29,5 @@
     <%= icon_tag "tacker" %>
     <div class="txt">Tool<br/>teiler</div>
   <% end %>
-
-  <!--<%= active_link_to region_zuckerls_path, class: "iconfilter" do %>
-    <%= icon_tag "shopping-bag" %>
-    <div class="txt">Zuckerl & <br/>Angebote</div>
-  <% end %>-->
 
 </div>

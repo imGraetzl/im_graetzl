@@ -168,21 +168,6 @@ input, select, textarea {
   input {
     height: $fieldHeight;
   }
-  &.search-filter {
-    justify-content: center;
-    label, input, .SumoSelect p.SelectBox, .input-field > input, input::placeholder {
-      @include font-size-primaryFont('large');
-      color: $color-ambient-mint-dark;
-      font-style: italic;
-    }
-    .SumoSelect p.SelectBox {
-      height: $fieldHeight;
-      line-height: 1.2;
-    }
-    input::placeholder {
-      color: $color-ambient-mint-dark;
-    }
-  }
 }
 
 .input-select {

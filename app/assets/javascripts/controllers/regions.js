@@ -28,30 +28,7 @@ APP.controllers.regions = (function() {
           APP.components.categoryFilter.init($('#category-slider'));
         }
 
-        initMobileNav();
     }
-
-    function initMobileNav() {
-      var $dropdown = $(".filter-stream .input-select select");
-      $(".filter-stream .iconfilter").not('.createentry, .loginlink').each(function() {
-          var $this = $(this),
-              link = $this.prop('href'),
-              txt = $this.find('.txt').text();
-
-          $dropdown.append(getOption());
-          $dropdown.on('change', function() {
-              document.location.href = $dropdown.val();
-          });
-
-          function getOption() {
-              if($this.hasClass('active'))
-                  return '<option selected value="'+ link +'">'+ txt +'</option>';
-              return '<option value="'+ link +'">'+ txt +'</option>';
-          }
-
-      });
-    }
-
 
     return {
       init: init

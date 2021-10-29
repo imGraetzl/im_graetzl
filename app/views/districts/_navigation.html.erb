@@ -1,4 +1,4 @@
-<div class="filter-stream -scrollnav overthrow">
+<div class="navigation-bar overthrow">
 
   <%= active_link_to district_index_path(@district), class: "iconfilter" do %>
     <%= icon_tag "map-location" %>
@@ -15,9 +15,9 @@
     <div class="txt">Anbieter &<br/>Macherinnen</div>
   <% end %>
 
-  <%= active_link_to district_coop_demands_path(@district), class: "iconfilter -coopshare" do %>
-    <%= icon_tag "coop-share-white" %>
-    <div class="txt">Coop & Share<br/>Marktplatz</div>
+  <%= active_link_to district_coop_demands_path(@district), class: "iconfilter" do %>
+    <%= icon_tag "coop-and-share" %>
+    <div class="txt">Markt <br/>platz</div>
   <% end %>
 
   <%= active_link_to district_rooms_path(@district), class: "iconfilter" do %>

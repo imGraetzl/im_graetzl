@@ -11,6 +11,7 @@ context.instance_eval do
           row :usage_period_from
           row :usage_period_to
           row :usage_days
+          row :budget
           row :demand_description
           row :usage_description
           row :slug

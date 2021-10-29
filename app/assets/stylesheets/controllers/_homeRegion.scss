@@ -1,15 +1,11 @@
 section.homeRegion {
 
-  .filter-stream {
-    margin-bottom: 50px;
-
-    // Mobile Dropdown
-    .input-select {
-      margin-top:20px;
-      margin-bottom:-20px;
+  @include respond-to(">=medium") {
+    .navigation-bar {
+      margin-bottom: 50px;
     }
   }
-
+  
   .btn-primary {
     &.-register {
       display: table;
@@ -122,7 +118,7 @@ section.homeRegion {
 
   .mapImgBlock {
     z-index: -1;
-    &::after { display: none; } // Schatten ausblenden
+    //&::after { display: none; } // Schatten ausblenden
   }
 
   .activeArea {
