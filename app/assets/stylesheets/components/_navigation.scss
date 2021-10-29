@@ -185,7 +185,6 @@
       .arrow {display: none;}
       .icon {
         margin-right: 0px;
-        //fill: $color-ambient-mint-dark;
       }
     }
 
@@ -198,6 +197,10 @@
       color: $color-ambient-rosa;
       width: 30px; height: 30px;
       flex: none;
+    }
+    .owner-avatar {
+      margin:auto;
+      margin-right:0px;
     }
     .arrow { position: absolute; right: -5px; }
     .arrow svg { fill: $color-ambient-mint-light; }
