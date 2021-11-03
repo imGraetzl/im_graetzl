@@ -10,20 +10,11 @@
           <span>Dein Name</span>
         <% end %>
       </div>
-      <% if local_assigns[:graetzl] %>
-        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
-        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
-      <% elsif local_assigns[:district] %>
-        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
-        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
-      <% else %>
-        <h3>Vermiete deine ungenutzten Arbeitsgeräte.</h3>
-        <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary -rose' %>
-      <% end %>
+      <h3>Vermiete deine ungenutzten Arbeitsgeräte, oder suche nach einem Gerät.</h3>
+      <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
     </div>
     <div class="card"></div>
   </div>
-
   <% if local_assigns[:view_all] %>
     <% if local_assigns[:graetzl] %>
       <%= link_to 'Alle Toolteiler', tools_graetzl_path(graetzl), class: 'link-more' %>

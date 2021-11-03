@@ -215,6 +215,9 @@ ActiveAdmin.register Meeting do
     :address_description,
     images_attributes: [:id, :file, :_destroy],
     event_category_ids: [],
+    meeting_additional_dates_attributes: [
+      :id, :starts_at_date, :starts_at_time, :ends_at_time, :_destroy
+    ],
     going_tos_attributes: [
       :id,
       :user_id,

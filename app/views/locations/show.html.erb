@@ -57,10 +57,10 @@
         </ul>
       <% end %>
     </div>
-    <%= render 'locations/meetings' %>
+    <%= render 'locations/meetings' if @location.meetings.present? %>
   </div>
 
   <%= render 'locations/sidebar/index' %>
-  <%= render 'locations/location_posts/index' if @posts.present? || @location.owned_by?(current_user) %>
+  <%= render 'locations/location_posts/index' %>
 
 </section>

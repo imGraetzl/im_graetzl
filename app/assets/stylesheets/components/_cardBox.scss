@@ -327,6 +327,9 @@
       opacity: 0.90;
       cursor: pointer;
     }
+    + .streamElement {
+      margin-top: 20px;
+    }
   }
 
   .updateteaser {
@@ -335,10 +338,6 @@
     /* Hide Sag Hallo wenn anderer Content vorhanden */
     ~ a.basic-message-box {
       display: none;
-    }
-    + .streamElement {
-      margin-top: 10px;
-      margin-left: 15px;
     }
   }
   .zuckerlteasertxt {
@@ -351,6 +350,7 @@
     }
   }
   .goodieteasertxt {
+    display: none;
     border-color: #cd891b;
     background-color: #FEF6DF;
     color: #cd891b;
@@ -602,6 +602,10 @@
     filter: grayscale(1);
     opacity: 0.75;
   }
+}
+
+section.locations .goodieteasertxt{
+  display: block;
 }
 
 // Featured CardBoxes

@@ -8,6 +8,7 @@ class RoomRentalsController < ApplicationController
   end
 
   def calculate_price
+    head :ok and return if browser.bot? && !request.format.js?
     @room_rental = RoomRental.new(calculate_price_params)
     @room_rental.calculate_price
   end

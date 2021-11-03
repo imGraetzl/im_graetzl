@@ -14,14 +14,19 @@ active_admin_form_for [:admin, resource] do |f|
         input :description
         input :cover_photo, as: :file, hint: f.object.cover_photo && image_tag(f.object.cover_photo_url(:thumb))
         input :remove_cover_photo, as: :boolean if f.object.cover_photo
-        input :starts_at_date
-        input :starts_at_time, ignore_date: true
-        input :ends_at_time, ignore_date: true
         input :approved_for_api
         input :online_meeting
         input :online_description
         input :platform_meeting
         input :meeting_category, include_blank: true
+        input :starts_at_date, as: :datepicker
+        input :starts_at_time, ignore_date: true
+        input :ends_at_time, ignore_date: true
+        has_many :meeting_additional_dates, allow_destroy: true, new_record: 'Weiteres Datum hinzufügen' do |o|
+          o.input :starts_at_date, as: :datepicker
+          o.input :starts_at_time, ignore_date: true
+          o.input :ends_at_time, ignore_date: true
+        end
       end
       inputs 'Address' do
         input :address_street

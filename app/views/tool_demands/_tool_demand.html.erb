@@ -30,7 +30,7 @@
     <% end %>
 
     <% if local_assigns[:activity_comment] %>
-      <%= render 'activities/comment', parent: tool_demand, comment: local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: tool_demand, comment_url: tool_demand_path(tool_demand, target: dom_id(local_assigns[:activity_comment])), comment: local_assigns[:activity_comment] %>
     <% end %>
 
     <% if local_assigns[:manage_buttons].present? && current_user == tool_demand.user %>

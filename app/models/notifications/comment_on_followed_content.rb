@@ -3,7 +3,7 @@ class Notifications::CommentOnFollowedContent < Notification
   self.class_bitmask = 2**6
 
   def self.description
-    'Inhalte welche ich kommentiert habe wurden auch kommentiert'
+    'Inhalte (Schaufenster, Treffen, Raumteiler, ...) welche ich kommentiert habe wurden auch kommentiert'
   end
 
   def mail_template
@@ -23,7 +23,12 @@ class Notifications::CommentOnFollowedContent < Notification
   end
 
   def content_title
-    subject.to_s
+    case subject_type
+    when 'LocationPost'
+      subject.location.to_s
+    else
+      subject.to_s
+    end
   end
 
   def content_label
@@ -31,10 +36,12 @@ class Notifications::CommentOnFollowedContent < Notification
     when 'Meeting'
       'Treffen'
     when 'Location'
-      'Schaufenster-Update'
+      'Schaufenster'
+    when 'LocationPost'
+      'Schaufenster Update'
     when 'RoomOffer', 'RoomDemand'
       'Raumteiler'
-    when 'Toolteiler'
+    when 'ToolOffer', 'ToolDemand'
       'Toolteiler'
     when 'CoopDemand'
       'Coop & Share Angebot'
@@ -45,6 +52,8 @@ class Notifications::CommentOnFollowedContent < Notification
     case subject_type
     when 'Meeting', 'Location'
       [subject.graetzl, subject]
+    when 'LocationPost'
+      [subject.location.graetzl, subject.location]
     else
       subject
     end

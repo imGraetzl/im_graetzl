@@ -21,6 +21,8 @@ class Location < ApplicationRecord
   belongs_to :location_category
   has_many :location_posts, dependent: :destroy
   has_many :comments, through: :location_posts
+  has_many :comments, as: :commentable, dependent: :destroy
+
 
   has_one :contact, dependent: :destroy
   accepts_nested_attributes_for :contact

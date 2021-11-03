@@ -30,7 +30,7 @@ class ToolDemand < ApplicationRecord
   end
 
   def to_s
-    title
+    slogan
   end
 
   def full_name

@@ -71,11 +71,13 @@ context.instance_eval do
       end
     end
     column do
-      panel 'User' do
-        table_for location.user do
-          column(:id){|u| u.id}
-          column(:username){|u| u.username}
-          column(''){|u| link_to 'User Anzeigen', admin_user_path(u) }
+      if location.user
+        panel 'User' do
+          table_for location.user do
+            column(:id){|u| u.id}
+            column(:username){|u| u.username}
+            column(''){|u| link_to 'User Anzeigen', admin_user_path(u) }
+          end
         end
       end
       panel 'Zuckerl' do

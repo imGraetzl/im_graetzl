@@ -36,13 +36,13 @@
     </div>
 
     <% if location.goodie? %>
-      <%= link_to [graetzl, location, anchor: 'goodie'], class: 'goodieteasertxt' do %>
+      <%= link_to [graetzl, location, target: 'goodie'], class: 'goodieteasertxt' do %>
         <div class="hl">
           <%= icon_tag "goodie" %>
           Goodie für Mitglieder
         </div>
         <% if user_signed_in? %>
-          <div class="title"><%= truncate(location.goodie, length: 90) %></div
+          <div class="title"><%= truncate(location.goodie, length: 90) %></div>
         <% else %>
           <div>
             <em>Nur für eingeloggte Mitglieder sichtbar.</em>
@@ -81,7 +81,7 @@
     <% end %>
 
     <% if location_post = location.actual_newest_post %>
-      <%= link_to [graetzl, location, anchor: dom_id(location_post)], class: 'updateteaser' do %>
+      <%= link_to [graetzl, location, target: dom_id(location_post)], class: 'updateteaser' do %>
         <div class="hl">
           Letztes Update:
         </div>
@@ -92,7 +92,7 @@
     <% end %>
 
     <% if local_assigns[:activity_comment] %>
-      <%= render 'activities/comment', parent: location, comment: local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: location, comment_url: graetzl_location_path(graetzl, location, target: dom_id(local_assigns[:activity_comment])), comment: local_assigns[:activity_comment] %>
     <% end %>
   </div>
 </div>

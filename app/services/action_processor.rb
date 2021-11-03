@@ -19,6 +19,12 @@ class ActionProcessor
       Activity.add_public(subject, child, to: subject.graetzl)
       notify_comment(subject, child)
 
+    when [LocationPost, :comment]
+      if subject.user_id != child.user_id
+        Activity.add_public(subject.location, child, to: subject.location.graetzl)
+      end
+      notify_comment(subject, child)
+
     when [Meeting, :create]
       if subject.public?
         Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)

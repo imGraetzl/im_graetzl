@@ -117,6 +117,11 @@
       }
     }
   }
+  .owner {
+    //font-weight: bold;
+    //font-style: normal;
+    color: $color-ambient-mint-dark;
+  }
 }
 
 .post-comments {
@@ -269,6 +274,7 @@
   margin-bottom: 20px;
   position: relative;
   .headline {
+    @include font-size-primaryFont('larger');
     font-weight: 600;
     margin-bottom: 5px;
   }
@@ -276,6 +282,10 @@
     margin-bottom: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    a {
+      text-decoration: none;
+      color: $color-font-primary;
+    }
   }
   > .txt:last-child {
     margin-bottom: 0;

@@ -73,7 +73,7 @@
     <% end %>
 
     <% if local_assigns[:activity_comment] %>
-      <%= render 'activities/comment', parent: meeting, comment: local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: meeting, comment_url: graetzl_meeting_path(graetzl, meeting, target: dom_id(local_assigns[:activity_comment])), comment: local_assigns[:activity_comment] %>
     <% end %>
   </div>
 

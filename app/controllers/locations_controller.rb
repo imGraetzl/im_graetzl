@@ -13,7 +13,11 @@ class LocationsController < ApplicationController
     redirect_enqueued and return if @location.pending?
 
     @graetzl = @location.graetzl
-    @posts = @location.location_posts.includes(:images, :comments).order(created_at: :desc).first(20)
+    @posts = @location.location_posts.includes(:images, :comments).first(20)
+    @comments = @location.comments.includes(:user, :images)
+    @stream = @posts + @comments
+    @stream = @stream.sort_by(&:created_at).reverse
+
     @zuckerls = @location.zuckerls.live
     @room_offer = RoomOffer.where(location_id: @location).last
     @room_demand = RoomDemand.where(location_id: @location).last
@@ -74,7 +78,7 @@ class LocationsController < ApplicationController
     @comment = @location_post.comments.new(location_comment_params)
     @comment.user = current_user
     if @comment.save
-      ActionProcessor.track(@location, :comment, @comment)
+      ActionProcessor.track(@location_post, :comment, @comment)
     end
     render 'locations/location_posts/comment'
   end

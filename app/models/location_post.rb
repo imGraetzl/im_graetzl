@@ -19,6 +19,14 @@ class LocationPost < ApplicationRecord
     user && location.owned_by?(user)
   end
 
+  def region_id
+    location.region_id
+  end
+
+  def user_id
+    location.user_id
+  end
+
   private
 
   def set_graetzl
