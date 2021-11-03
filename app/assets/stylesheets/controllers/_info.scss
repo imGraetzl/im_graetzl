@@ -509,6 +509,74 @@ section.info {
   }
   // ----- INFO STARTPAGE END ------ //
 
+  // ----- ABOUT US PAGE ------ //
+  &.-about-us {
+    .imgHeader::after {
+      background-image: url(image_path('info/about-us.jpg'));
+      background-position: center center;
+      @media only screen and (min-width:1500px){
+        background-size: contain;
+      }
+    }
+    .imgHeader h1 {
+      position: relative;
+      top:60px;
+      @include respond-to(">=medium") {
+        top:100px;
+      }
+    }
+    .subline.-paragraph {
+      text-align: justify;
+    }
+    .-fullwidth {
+      p {
+        max-width:930px;
+        margin: auto;
+      }
+      + .hl-subtext {
+        margin-top:40px;
+      }
+    }
+    .video {
+      text-align: center;
+      padding-top: 50px !important;
+      iframe {
+
+        width:320px;
+        height:180px;
+
+        @include respond-to(">=medium") {
+          width:640px;
+          height:360px;
+        }
+        @include respond-to(">=large") {
+          width:930px;
+          height:523px;
+        }
+      }
+    }
+    .team {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      .member {
+        width:160px;
+        margin:10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        img {
+          width:160px;
+          height:160px;
+        }
+        div {
+          margin-top:10px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
 
   // ----- HELP Detailpage ------ //
   &.-detail {

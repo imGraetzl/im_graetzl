@@ -227,6 +227,7 @@ Rails.application.routes.draw do
   get 'info/zuckerl', to: 'static_pages#zuckerl'
   get 'info/code-of-conduct', to: 'static_pages#code-of-conduct'
   get 'info/danke', to: 'static_pages#supporter'
+  get 'info/ueber-uns', to: 'static_pages#about_us'
 
   post 'webhooks/stripe'
   post 'webhooks/mailchimp'

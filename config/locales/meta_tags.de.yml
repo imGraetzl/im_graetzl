@@ -278,6 +278,10 @@ de:
     agb:
       title: 'Allgemeine Geschäftsbedingungen'
       description: 'AGB - Allgemeine Geschäftsbedingungen imGrätzl.at / WeLocally.at'
+    about_us:
+      title: 'Über Uns, WeLocally & imGrätzl - Und was uns antreibt'
+      description: 'Mit der Plattform WeLocally und imGrätzl möchten wir besonders Selbstständige, Kunst- und Kulturschaffende, kleine Unternehmen, Vereine, Initiativen und ganz generell lokale Macher*innen stärken. Weil ihr so elementar wichtig für ein liebenswertes und lebendiges Umfeld und das Miteinander seid.'
+
 
   campaign_users:
     index:
