@@ -12,7 +12,11 @@
 
     <div class="userCreateInfo">
       <%= avatar_image @location, size: :thumb, class: 'img-square' %>
-      <span>vor <%= time_ago_in_words(post.created_at) %></span>
+      <div>
+        <span class="owner"><%= @location.name %></span><br>
+        <span>vor <%= time_ago_in_words(post.created_at) %></span>
+      </div>
+
     </div>
 
     <div class="headline"><%= post.title %></div>
@@ -35,6 +39,9 @@
       <% end %>
     </div>
 
-    <%= render 'locations/location_posts/comment_form', post: post %>
+    <% if current_user %>
+      <%= render 'locations/location_posts/comment_form', post: post %>
+    <% end %>
+    
   </div>
 </div>

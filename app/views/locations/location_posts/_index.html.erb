@@ -1,5 +1,22 @@
 <div class="posts-container stream">
-  <h3>Neuigkeiten von <span><%= @location.name %></span></h3>
-  <%= render 'locations/location_posts/post_form' if @location.owned_by?(current_user) %>
-  <%= render partial: 'locations/location_posts/post', collection: @posts, as: :post %>
+  <h3>Neuigkeiten & Kommentare</h3>
+
+  <% if @location.owned_by?(current_user) %>
+    <%= render 'locations/location_posts/post_form' %>
+  <% else %>
+    <%= render 'comments/form', commentable: @location %>
+  <% end %>
+
+  <% @stream.each do |item| %>
+
+    <% if item.class == LocationPost %>
+      <%= render partial: 'locations/location_posts/post', :locals => {:post => item} %>
+    <% elsif item.class == Comment %>
+      <%= render partial: 'comments/stream_comment', :locals => {:comment => item} %>
+    <% end %>
+
+  <% end %>
+
+
+
 </div>

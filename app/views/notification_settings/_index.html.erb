@@ -55,17 +55,17 @@
   <%= render 'notification_settings/slice', type: Notifications::MeetingAttended %>
   <%= render 'notification_settings/slice', type: Notifications::CommentInMeeting %>
   <%= render 'notification_settings/slice', type: Notifications::CommentOnOwnedContent %>
-  <%= render 'notification_settings/slice', type: Notifications::CommentOnFollowedContent %>
+  <%= render 'notification_settings/slice', type: Notifications::ReplyOnComment %>
 </div>
 
 
 <div class="notifications-block">
   <div class="settingHead">
     <div class="col1">
-      <h2>Neue <span>Kommentare</span> bei Beiträgen</h2>
+      <h2>Ebenfalls <span>kommentiert</span></h2>
     </div>
   </div>
-  <%= render 'notification_settings/slice', type: Notifications::ReplyOnComment %>
+  <%= render 'notification_settings/slice', type: Notifications::CommentOnFollowedContent %>
   <%= render 'notification_settings/slice', type: Notifications::ReplyOnFollowedComment %>
 </div>
 

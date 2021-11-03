@@ -8,7 +8,7 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        <%= link_to @notification.subject.to_s.truncate(50, separator: ' '), polymorphic_url(@notification.content_url_params), style: "color:#f48a85;" %>
+        <%= link_to @notification.content_title.truncate(50, separator: ' '), polymorphic_url(@notification.content_url_params), style: "color:#f48a85;" %>
       </h4>
     </td>
   </tr>

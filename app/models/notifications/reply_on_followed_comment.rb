@@ -3,7 +3,7 @@ class Notifications::ReplyOnFollowedComment < Notification
   self.class_bitmask = 2**22
 
   def self.description
-    "Ein Beitrag den ich kommentiert habe wurde auch kommentiert"
+    "Beiträge welche ich kommentiert habe wurden auch kommentiert"
   end
 
   def mail_template

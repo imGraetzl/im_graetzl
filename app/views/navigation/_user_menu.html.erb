@@ -9,7 +9,7 @@
 
     <% if current_user.locations.in(current_region).approved.present? %>
       <% current_user.locations.in(current_region).approved.each do |location| %>
-        <%= link_to graetzl_location_path(Graetzl.memoized(location.graetzl_id), location, anchor: 'location-post-form'), class: 'nav-menu-item' do %>
+        <%= link_to graetzl_location_path(Graetzl.memoized(location.graetzl_id), location, target: 'location-post-form'), class: 'nav-menu-item' do %>
           <%= icon_tag "location" %>
           Schaufenster Neuigkeit
           <%= avatar_image location, size: :thumb, class: 'img-square owner-avatar' %>

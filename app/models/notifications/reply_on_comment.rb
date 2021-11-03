@@ -4,7 +4,7 @@ class Notifications::ReplyOnComment < Notification
   self.class_bitmask = 2**21
 
   def self.description
-    "Ein Beitrag von mir wurde kommentiert"
+    "Ein von mir verfasster Beitrag wurde kommentiert"
   end
 
   def mail_template
