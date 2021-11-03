@@ -521,6 +521,10 @@ section.info {
     .imgHeader h1 {
       position: relative;
       top:60px;
+      @include font-size-secondaryFont('large');
+      @include respond-to(">=medium") {
+        @include font-size-secondaryFont('larger');
+      }
       @include respond-to(">=medium") {
         top:100px;
       }
