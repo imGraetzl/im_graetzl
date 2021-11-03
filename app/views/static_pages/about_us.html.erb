@@ -1,0 +1,125 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url("meta/og_logo_welocally.png")
+  )
+%>
+<% content_for :canonical_url, welocally_platform_url %>
+
+<section class="homeWeLocally info lp -about-us">
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1>Über Uns, WeLocally & was uns antreibt</h1>
+    </div>
+  </div>
+
+  <p class="subline">
+    <strong>Lasst uns lokal die Kräfte bündeln! - Unsere Vision:</strong>
+  </p>
+
+  <p class="subline -paragraph">
+    Wir glauben an Gemeinschaft und daran, dass man zusammen mehr erreichen kann. Weg vom Einzelkämpfertum hin zu einem kooperativen WIR, als Lösung für viele Herausforderungen! Wir denken dabei an den Strukturwandel, Digitalisierung, eine sich verändernde Arbeitswelt, aber auch an die Klimakrise …
+  </p>
+
+  <p class="subline -paragraph">
+    Mit der Plattform <%= link_to 'WeLocally', welocally_platform_url %> und <%= link_to 'imGrätzl', 'https://www.imgraetzl.at' %> möchten wir besonders Selbstständige, Kunst- und Kulturschaffende, kleine Unternehmen, Vereine, Initiativen und ganz generell lokale Macher*innen stärken. Weil ihr so elementar wichtig für ein liebenswertes und lebendiges Umfeld und das Miteinander seid. Es ist eine digitale Plattform für Städte und ländliche Regionen zur Stärkung und Selbstermächtigung lokaler Akteur*innen.
+  </p>
+
+  <p class="subline -paragraph">
+    <strong>WeLocally und imGrätzl macht euch und eure Angebote digital sichtbar, bettet euch in ein Netzwerk ein, das sich gegenseitig unterstützt.</strong> Gemeinsam mit euch möchten wir neue Wege finden, wie wir lokal Kräfte bündeln und Ressourcen teilen oder mehrfach nutzen können. Bewohner*innen wiederum möchten wir die ganze Vielfalt in ihrer Umgebung vor Augen führen und Lust darauf machen die Menschen hinter den lokalen Angeboten kennenzulernen. Die Registrierung ist kostenlos.
+    <%= link_to 'Erfahre hier mehr', info_path %> über unsere Services.
+  </p>
+
+  <div class="section -fullwidth -fullwidth-welocally video">
+    <iframe src="https://player.vimeo.com/video/552859373?h=b23cad5c6e" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <div class="hl-subtext">
+    <h1><span>WeLocally gibt es</span> aktuell in diesen Gebieten:</h1>
+    <p>Und die gute Nachricht: 2022 können sich zwei weitere Gebiete oder Städte andocken.</p>
+  </div>
+
+  <div class="region-switch-icons">
+    <% Region.all.each do |region| %>
+      <%= link_to region_root_url(region), class: 'region-button' do %>
+        <div class="bigicontext-element">
+          <%= icon_tag "region-#{region.id}" %>
+        </div>
+        <div class="title"><%= region.name %></div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="section -fullwidth -fullwidth-welocally">
+    <div class="hl-subtext">
+      <h1><em>Gemeinsam</em> bringen wir mehr zusammen!</h1>
+    </div>
+    <p class="subline -paragraph">
+      Aus dieser Überzeugung heraus haben wir 2015 angefangen imGrätzl.at in Wien aufzubauen, um die lokalen Akteur*innen in Wien bei der Umsetzung ihrer Vorhaben und Ideen zu bestärken.
+    </p>
+    <br>
+    <p class="subline -paragraph">
+      Die morgenjungs GmbH haben wir ebenfalls 2015 gegründet, um imGrätzl betreiben zu können. <strong>Wir sind ein Social Business und verfolgen gemeinwohlorientierte Ziele.</strong> Digitale Plattformen können ein wunderbarer Hebel für das Gemeinwohl sein, wenn man sie dafür gezielt entwickelt und einsetzt. Um dabei alle Freiheiten zu haben, ist die Plattform eine komplette Eigenentwicklung, ebenso ist kein Investor an Bord. Dafür haben viele Menschen mit angepackt und das Team hat die meiste Zeit unbezahlt den Aufbau vorangetrieben.
+    </p>
+    <br>
+    <p class="subline -paragraph">
+      Da imGrätzl in Wien einen positiven Impact erzeugen konnte, wollten wir diese gute Idee nicht für uns behalten, sondern teilen und in andere Orte bringen, damit die Plattform dort ebenso einen positiven Nutzen stiften kann.
+      <br><br>
+      Im Rahmen der FFG Förderung “Impact Innovation” konnten wir 2021 mit WeLocally einen neuen Plattform Prototyp bauen, an den sich weitere Regionen, Städte und Gemeinden andocken können. Unsere Entwicklungspartner sind Griffen, St. Andrä und Völkermarkt in Kärnten und die Leader-Region Mühlviertler Kernland. Die imGrätzl Nutzer*innen haben sich außerdem über eine Crowdfunding Kampagne an der Ausfinanzierung beteiligt.
+      <strong>Teamwork rocks!</strong>
+    </p>
+  </div>
+
+  <div class="hl-subtext">
+    <h1><span>Das Team</span></h1>
+  </div>
+
+  <div class="team">
+    <div class="member">
+      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <div>
+        <strong>Lena Schartmüller</strong><br>
+        <span>Schwerpunkt “Raumteiler”, Social Media</span>
+      </div>
+    </div>
+    <div class="member">
+      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <div>
+        <strong>Michael Walchhütter</strong><br>
+        <span>Gründer</span>
+      </div>
+    </div>
+    <div class="member">
+      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <div>
+        <strong>Mirjam Mieschendahl</strong><br>
+        <span>Gründerin</span>
+      </div>
+    </div>
+    <div class="member">
+      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <div>
+        <strong>Jeannine Metz</strong><br>
+        <span>Grafik</span>
+      </div>
+    </div>
+    <div class="member">
+      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <div>
+        <strong>Nikola Šantić</strong><br>
+        <span>Development</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="subline">
+    Hast du Fragen, Wünsche, Ideen? Dann schicke einfach eine Mail an:
+    <br><a href="mailto:mirjam@welocally.at">mirjam@welocally.at</a> oder ruf an: 43-699-15028277
+  </p>
+
+
+</section>
