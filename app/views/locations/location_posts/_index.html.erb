@@ -1,5 +1,5 @@
 <div class="posts-container stream">
-  <h3>Neuigkeiten & Kommentare</h3>
+  <h3 id="post-comment-form">Neuigkeiten & Kommentare</h3>
 
   <% if @location.owned_by?(current_user) %>
     <%= render 'locations/location_posts/post_form' %>
