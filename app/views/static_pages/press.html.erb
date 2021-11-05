@@ -1,0 +1,576 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url("meta/og_logo_welocally.png")
+  )
+%>
+
+<% content_for :canonical_url, info_presse_url(host: welocally_platform_url) %>
+
+<section class="homeWeLocally info lp -about-pages -press">
+
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1>Presse Informationen</h1>
+      <%= render 'about_navigation' %>
+    </div>
+  </div>
+
+  <p class="subline">
+    <strong>Aktuelle Pressemitteilungen, Kontakt und Pressematerial zum Download.</strong>
+  </p>
+
+  <div class="hl-subtext">
+    <h1><span>Kontakt</span> und <span>Pressematerial</span></h1>
+  </div>
+  <div class="contact-download">
+    <div class="boxes">
+      <a href="https://www.linkedin.com/in/mmieschendahl/" target="_blank">
+        <div class="bigicontext-element">
+          <%= image_tag('info/team/Mirjam.jpg', class: 'img-round') %>
+        </div>
+      </a>
+      <p>
+        <strong>Mirjam Mieschendahl</strong> <br>
+        (Gründerin)<br>
+        <strong>Mail</strong>: <a href="mailto:mirjam@welocally.at">mirjam@welocally.at</a> <br>
+        <strong>Mobil</strong>: +43-699 / 150 28 277 <br>
+      </p>
+    </div>
+    <div class="boxes">
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressematerial/Pressematerial-WeLocally.zip' do %>
+        <div class="bigicontext-element">
+          <%= icon_tag "download" %>
+        </div>
+      <% end %>
+      <p>
+        <strong>Pressematerial <br>zum Download</strong><br>
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressematerial/Pressematerial-WeLocally.zip' do %>
+        Pressebilder &<br>
+        Logos (.zip) <br>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+
+  <div class="section -fullwidth -fullwidth-welocally">
+    <div class="hl-subtext">
+      <h1>Aktuelle <span>Pressemitteilungen</span></h1>
+    </div>
+    <div class="presslist pressemitteilungen">
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2020_04_15_PM_AllesLeerstandinWien_Umfrage.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">25.04.2020</span>
+          <span class="title">Gewerbeflächen Umfrage Ergebnisse: Heißt es bald: „Alles Leerstand in Wien“?</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2019_11_29_PM_Toolteiler_Sharing_Plattform.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">29.11.2019</span>
+          <span class="title">Toolteiler - Arbeitsequipment mieten statt kaufen! Selbstständige in Wien bekommen ihren ersten eigenen Sharing-Marktplatz.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2018_10_27_PM_Raumteiler-Hub-Dieselgasse.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">27.10.2018</span>
+          <span class="title">Favoriten heißt den "Raumteiler Hub Dieselgasse" mit einem Flowmarkt willkommen.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2018_05_25_PM_Raumteiler-Festival.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">25.05.2018</span>
+          <span class="title">Das Raumteiler Festival 2018 – Raumhabende treffen auf Raumsuchende</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2017_11_29_PM_Raumteiler_imGreatzl.at.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">29.11.2017</span>
+          <span class="title">In Wien beginnt ein neues Kapitel für das Teilen von Gewerbeflächen und die Bekämpfung von Leerstand</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2017_08_21_PM_Stuwertrubel.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">21.08.2017</span>
+          <span class="title">Stuwertrubel - Das Stuwerviertel jubelt am 15.09.2017 am Vorgartenmarkt.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2017_03_29_PM_Coworking-im-Graetzl.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">29.03.2017</span>
+          <span class="title">"Coworking im Grätzl" verwandelt Cafés in Coworking Spaces!</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2016_11_24_PM_RaumteilerBallroom.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">24.11.2016</span>
+          <span class="title">Feiern für ein Raumwunder - der Raumteiler Ballroom öffnet seine Pforten</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2016_05_23_PM_Feelgood-im-Graetzl.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">23.05.2016</span>
+          <span class="title">Wohlfühlen, inspirieren lassen und eine Portion Herzlichkeit tanken bei „Feel good im Grätzl“.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2016_04_28_PM_imGr%C3%A4tzl.at-we-are-open.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">28.04.2016</span>
+          <span class="title">My home is my Grätzl! – YES, we’re open!</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2016_01_20_PM_Stuwerviertel_digitales_Vorzeigeprojekt.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">20.01.2016</span>
+          <span class="title">Stuwerviertel realisiert digitales Vorzeigeprojekt zur Belebung der lokalen Wirtschaft.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2015_12_10_PM_Vorgluehen-im-Vorgarten.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">10.12.2015</span>
+          <span class="title">Vorglühen im Vorgarten – Nachbarn laden Nachbarn ein</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2015_12_02_PM_lokaler_Marktplatz_imGr%C3%A4tzl.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">02.12.2015</span>
+          <span class="title">Die Plattform ‚imGrätzl.at’ macht Einzigartiges ums Eck sichtbar.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2015_09_18_PM_imGr%C3%A4tzl.at-Start.docx', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">18.09.2015</span>
+          <span class="title">Wiener Unternehmen möchte mit der Grätzlplattform imGrätzl.at zur Belebung des Grätzllebens in Wien beitragen. Start ist der 18. September, die Grätzlplattform mit knapp 160 Grätzln wird zunächst im 2. Bezirk geöffnet.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressemitteilungen/docs/2015_06_19_PM_PopUPMesse.pdf', class: 'row' do %>
+        <%= icon_tag "download" %>
+        <div>
+          <span class="date">19.06.2015</span>
+          <span class="title">Der Vorgartenmarkt und 30 Kreative laden zur ersten Pop-up Messe im Stuwerviertel ein.</span>
+        </div>
+      <% end %>
+
+      <%= link_to 'Alle anzeigen', 'javascript:', class: 'press-view-all' %>
+
+    </div>
+  </div>
+
+  <div class="hl-subtext">
+    <h1><span>Pressespiegel</span> (Auszug)</h1>
+  </div>
+
+  <div class="presslist pressarchive">
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://kurier.at/chronik/wien/corona-krise-wieso-immer-mehr-buerogemeinschaften-bilden/401107194', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2020_11_24_Kurier.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">24. November 2020 – <em>Kurier</em></span>
+        <span class="title">Der Kurier berichtet: „Immer mehr Selbständigen fällt es schwer, die Miete für ihre Gewerbeflächen alleine zu bezahlen. Sie gehen nun Bürogemeinschaften ein“</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.derstandard.at/story/2000120341566/leerstand-von-geschaeftslokalen-frischer-wind-fuer-tote-flaechen', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2020_09_30_DerStandard.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">30. September 2020 – <em>Der Standard</em></span>
+        <span class="title">Der Standard über „Leerstand von Geschäftslokalen: Frischer Wind für tote Flächen“</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2020_Kurier_Job_Business.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">September 2020 – <em>Kurier Job/Business</em></span>
+        <span class="title">Selbständige für Selbständige - Kostenlose Expertenberatungen</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2020_04_20_Kronenzeitung.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">20. April 2020 – <em>Kronenzeitung</em></span>
+        <span class="title">Selbständige greifen einander unter die Arme</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://archiv.report.at/index.php/home/politik/item/94642-toolteiler-werkzeug-mieten-statt-kaufen', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">02. Dezember 2019 – <em>Report</em></span>
+        <span class="title">Die Funktion "Toolteiler" auf der Plattform imGrätzl.at adressiert "Sharing" von Arbeitsequipment in Wien. Wer sein Arbeitsgerät gerade nicht nutzt, kann es gegen eine Gebühr im Toolteiler vermieten.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2019_10_04_Kronenzeitung.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">24. Oktober 2019 – <em>Kronenzeitung</em></span>
+        <span class="title">Mieten statt Kaufen - Die Kronenzeitung berichtet über den Toolteiler.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2019_09_Gemeindemagazin.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">September 2019 – <em>Gemeindemagazin</em></span>
+        <span class="title">Mehr Gewicht dem Guten</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2018_08_30_WienerWirtschaft.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">30. August 2018 – <em>Wiener Wirtschaft</em></span>
+        <span class="title">Erster Raumteiler-Hub startet in Favoriten</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2018_06_23_DerStandard.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">23. Juni 2018 – <em>Der Standard</em></span>
+        <span class="title">Raumteilerfestival in Wien: Die Suche nach der Gewerbe-WG</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.diepresse.com/5446478/raumteiler-wien-wird-zur-wg', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">14. Juni 2018 – <em>Die Presse</em></span>
+        <span class="title">Leben in WGs, arbeiten in Coworking Spaces, nun tun sich vermehrt Geschäftsleute zusammen und teilen Räume: Ein Festival fördert den wachsenden Gemeinschaftssinn.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2018_06_07_WienerWirtschaft.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">07. Juni 2018 – <em>Wiener Wirtschaft</em></span>
+        <span class="title">Raumanbieter treffen Raumsuchende</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2018_02_20_eAward-2018-Preisverleihung-und-SiegerInnen.docx', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">20. Februar 2018 – <em>Auszeichnung eAward 2018 | Report.at</em></span>
+        <span class="title">imGrätzl.at gewinnt in der Kategorie „Smart City und Infrastruktur“</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2017_09_13_KronenZeitung.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">13. September 2017 – <em>Kronenzeitung</em></span>
+        <span class="title">Stuwerviertel hält zusammen - Bewohner organisieren gemeinsame Feste, Workshops und Treffen im Grätzl.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2017_05_17_Bezirkszeitung.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">17. Mai 2017 – <em>Bezirkszeitung</em></span>
+        <span class="title">Die Plattform imGrätzl will lust machen, die Grätzl zu entdecken.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2017_05_17_Bezirksblatt.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">17. Mai 2017 – <em>Bezirksblatt</em></span>
+        <span class="title">"Wien ist noch offen und vielfältig und hat sehr viel kreatives Potential, das müssen wir nutzen."</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2016_11_02_KronenZeitung.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">02. November 2016 – <em>Kronenzeitung</em></span>
+        <span class="title">Online Plattform stärkt die Grätzl-Geschäfte - Speeddating gegen Leerstand.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://futurezone.at/start-ups/finalisten-von-austrias-next-top-start-up-stehen-fest/223.132.047', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2016_09_16_Kurier.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">16. September 2016 – <em>Kurier</em></span>
+        <span class="title">Die Finalisten von Austria’s Next Top Start-up stehen fest - Leser wählen das beste Start-Up des Jahres.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.derstandard.at/story/2000038117348/graetzl-belebung-zusammen-ist-man-weniger-allein', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2016_06_03_DerStandard.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">03. Juni 2016 – <em>Der Standard</em></span>
+        <span class="title">Grätzl-Belebung in Wien: Zusammen ist man weniger allein.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.wienerzeitung.at/nachrichten/politik/wien-politik/822450_Neue-Wiener-Geselligkeit.html', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2016_06_03_WienerZeitung.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">03. Juni 2016 – <em>Wiener Zeitung</em></span>
+        <span class="title">Neue Wiener Geselligkeit - Die Plattform imGrätzl will Stadtteilbewohner zusammenbringen.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2016_05_30_DiePresse.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">30. Mai 2016 – <em>Die Presse</em></span>
+        <span class="title">Yoga, Tanz, Karate oder Kosmetik: Wohlfühl-Happenings im Grätzl.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.biorama.eu/feelgood-im-graetzl/', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">30. Mai 2016 – <em>Biorama</em></span>
+        <span class="title">Viel los im Grätzl – Ein Grätzl ist viel mehr als eine Wohngegend.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://welocally-presse.s3.eu-central-1.amazonaws.com/pressespiegel/2016_04_16_Kurier.jpg', class: '', target: '_blank' do %>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">19. April 2016 – <em>Kurier</em></span>
+        <span class="title">Online-Plattform „Im Grätzl“ stellt kleine Geschäfte vor.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.derstandard.at/story/2000034600294/wiener-bezirke-kleine-geschaefte-wollen-gesehen-werden', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">11. April 2016 – <em>derStandard.at</em></span>
+        <span class="title">Wiener Bezirke: Kleine Geschäfte wollen gesehen werden.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://wien.orf.at/v2/news/stories/2732565/', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">20. September 2015 – <em>wien.orf.at</em></span>
+        <span class="title">Neue Online-Plattform für soziale Kontakte.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.derstandard.at/story/2000022344699/neuer-wiener-onlineplattform-hilft-beim-netzwerken-im-graetzel', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">17. September 2015 – <em>derStandard.at</em></span>
+        <span class="title">Neue Wiener Onlineplattform hilft beim Netzwerken im Grätzl.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.diepresse.com/4822989/onlineplattform-hilft-beim-netzwerken-im-gratzel', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">17. September 2015 – <em>Die Presse</em></span>
+        <span class="title">Onlineplattform hilft beim Netzwerken im Grätzl.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.krone.at/472482', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">17. September 2015 – <em>Krone.at</em></span>
+        <span class="title">Neue Website hilft beim Netzwerken im Grätzl.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://www.vienna.at/neue-onlineplattform-hilft-wienern-beim-netzwerken-im-graetzel/4456910', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">17. September 2015 – <em>Vienna Online</em></span>
+        <span class="title">Neue Onlineplattform hilft Wienern beim Netzwerken im Grätzl.</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'http://www.diestadtspionin.at/tipps/filmab.php', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">21. Juni 2015 – <em>Die StadtSpionin</em></span>
+        <span class="title">Event-Tipp der Woche: Film ab im Grätzl</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="icons">
+        <%= link_to 'https://wien.orf.at/v2/news/stories/2720036/', class: '', target: '_blank' do %>
+          <%= icon_tag "link" %>
+        <% end %>
+      </div>
+      <div>
+        <span class="date">07. Juni 2015 – <em>wien.orf.at</em></span>
+        <span class="title">Das „lokalste Filmfestival“ der Welt.</span>
+      </div>
+    </div>
+
+    <%= link_to 'Alle anzeigen', 'javascript:', class: 'press-view-all' %>
+
+  </div>
+
+</section>

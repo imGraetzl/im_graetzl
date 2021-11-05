@@ -1,6 +1,7 @@
 APP.controllers.static_pages = (function() {
 
     function init() {
+      if($(".-about-pages").exists()) initAboutPages();
       if($(".-mentoring-page").exists()) initMentoring();
       if($("#help_nav").exists()) initHelpScroller();
       if($("#guide-download").exists()) initGuideDownload();
@@ -8,6 +9,14 @@ APP.controllers.static_pages = (function() {
 
 // ---------------------------------------------------------------------- Public
 
+function initAboutPages() {
+
+  $('.press-view-all').on('click', function(){
+    $(this).closest(".presslist").find('.row').addClass('-show');
+    $(this).hide();
+  });
+
+};
 
 function initMentoring() {
 

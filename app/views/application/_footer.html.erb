@@ -6,15 +6,17 @@
 
     <div class="row infolinks">
       <div class="col">
+        <%= link_to 'WeLocally.at', welocally_platform_url %>
         <%= link_to 'Infos & Services', info_path %>
+        <%= link_to 'Über Uns', info_ueber_uns_path %>
+        <%= link_to 'Presse', info_presse_path %>
         <%= link_to 'Blog', t("region.#{current_region.id}.blog_url") %>
-        <%= link_to 'Impressum', info_impressum_path %>
-        <%= link_to 'Medien', 'https://blog.imgraetzl.at/medien/', target: '_blank' %>
         <a href="<%= t("region.#{current_region.id}.facebook_url") %>" target="_blank" class="facebook">
           Auf Facebook <%= icon_tag "social-facebook" %>
         </a>
       </div>
       <div class="col">
+        <%= link_to 'Impressum', info_impressum_path %>
         <%= link_to 'Datenschutzrichtlinien', info_datenschutz_path %>
         <%= link_to 'Cookie Einstellungen', 'javascript:', id: 'ihavecookiesBtn' %>
         <%= link_to 'Code of Conduct', info_code_of_conduct_path %>
