@@ -281,6 +281,12 @@ de:
     about_us:
       title: 'Über Uns, WeLocally & imGrätzl - Und was uns antreibt'
       description: 'Mit der Plattform WeLocally und imGrätzl möchten wir besonders Selbstständige, Kunst- und Kulturschaffende, kleine Unternehmen, Vereine, Initiativen und ganz generell lokale Macher*innen stärken. Weil ihr so elementar wichtig für ein liebenswertes und lebendiges Umfeld und das Miteinander seid.'
+    milestones:
+      title: 'Meilensteine der letzten Jahre ...'
+      description: 'Stand Oktober 2021: 8.000 Selbstständige, kl. Unternehmen, Vereine, Kulturschaffende und Macher*innen aus Wien haben sich auf imGrätz.at registriert, über 2.000 haben sich eine interaktives Schaufenster eingerichtet, hunderte on- & offline Events und Aktionen werden monatlich veröffentlicht und 1.500 Raumteiler konnten wir bisher begleiten.'
+    press:
+      title: 'Presseportal von WeLocally.at / imGrätzl.at'
+      description: 'Aktuelle Presseinformationen und Bildmaterialen zum Download'
 
 
   campaign_users:

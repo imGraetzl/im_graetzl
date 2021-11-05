@@ -65,7 +65,7 @@
 </section>
 
 <% if current_region %>
-  <%= render 'info_menu' %>
+  <%= render 'info_navigation' %>
 <% else %>
   <%= link_to "Sei locally dabei - Kostenlos registrieren", new_registration_path(origin: request.path), class: 'btn-primary -rose -large -shadow -register region-select-link', data: {urlmethod: new_registration_path} if !user_signed_in? %>
 <% end %>

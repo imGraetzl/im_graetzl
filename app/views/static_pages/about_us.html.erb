@@ -7,18 +7,22 @@
     og_image: image_url("meta/og_logo_welocally.png")
   )
 %>
-<% content_for :canonical_url, welocally_platform_url %>
 
-<section class="homeWeLocally info lp -about-us">
+<% content_for :canonical_url, info_ueber_uns_url(host: welocally_platform_url) %>
+
+<section class="homeWeLocally info lp -about-pages">
 
   <div class="imgHeader -fullwidth">
     <div class="wrp">
-      <h1>Über Uns, WeLocally & was uns antreibt</h1>
+      <h1>Über Uns & WeLocally</h1>
+      <%= render 'about_navigation' %>
     </div>
   </div>
 
+
+
   <p class="subline">
-    <strong>Lasst uns lokal die Kräfte bündeln! - Unsere Vision:</strong>
+    <strong>Lasst uns lokal die Kräfte bündeln! - Unsere Vision & was uns antreibt:</strong>
   </p>
 
   <p class="subline -paragraph">
@@ -26,11 +30,11 @@
   </p>
 
   <p class="subline -paragraph">
-    Mit der Plattform <%= link_to 'WeLocally', welocally_platform_url %> und <%= link_to 'imGrätzl', 'https://www.imgraetzl.at' %> möchten wir besonders Selbstständige, Kunst- und Kulturschaffende, kleine Unternehmen, Vereine, Initiativen und ganz generell lokale Macher*innen stärken. Weil ihr so elementar wichtig für ein liebenswertes und lebendiges Umfeld und das Miteinander seid. Es ist eine digitale Plattform für Städte und ländliche Regionen zur Stärkung und Selbstermächtigung lokaler Akteur*innen.
+    <strong>Mit der Plattform <%= link_to 'WeLocally', welocally_platform_url %> und <%= link_to 'imGrätzl', 'https://www.imgraetzl.at' %> möchten wir besonders Selbstständige, Kunst- und Kulturschaffende, kleine Unternehmen, Vereine, Initiativen und ganz generell lokale Macher*innen stärken.</strong> Weil ihr so elementar wichtig für ein liebenswertes und lebendiges Umfeld und das Miteinander seid. Es ist eine digitale Plattform für Städte und ländliche Regionen zur Stärkung und Selbstermächtigung lokaler Akteur*innen.
   </p>
 
   <p class="subline -paragraph">
-    <strong>WeLocally und imGrätzl macht euch und eure Angebote digital sichtbar, bettet euch in ein Netzwerk ein, das sich gegenseitig unterstützt.</strong> Gemeinsam mit euch möchten wir neue Wege finden, wie wir lokal Kräfte bündeln und Ressourcen teilen oder mehrfach nutzen können. Bewohner*innen wiederum möchten wir die ganze Vielfalt in ihrer Umgebung vor Augen führen und Lust darauf machen die Menschen hinter den lokalen Angeboten kennenzulernen. Die Registrierung ist kostenlos.
+    WeLocally und imGrätzl macht euch und eure Angebote digital sichtbar, bettet euch in ein Netzwerk ein, das sich gegenseitig unterstützt. Gemeinsam mit euch möchten wir neue Wege finden, wie wir lokal Kräfte bündeln und Ressourcen teilen oder mehrfach nutzen können. Bewohner*innen wiederum möchten wir die ganze Vielfalt in ihrer Umgebung vor Augen führen und Lust darauf machen die Menschen hinter den lokalen Angeboten kennenzulernen. Die Registrierung ist kostenlos.
     <%= link_to 'Erfahre hier mehr', info_path %> über unsere Services.
   </p>
 
@@ -67,7 +71,9 @@
     </p>
     <br>
     <p class="subline -paragraph">
+      <strong>
       Da imGrätzl in Wien einen positiven Impact erzeugen konnte, wollten wir diese gute Idee nicht für uns behalten, sondern teilen und in andere Orte bringen, damit die Plattform dort ebenso einen positiven Nutzen stiften kann.
+      </strong>
       <br><br>
       Im Rahmen der FFG Förderung “Impact Innovation” konnten wir 2021 mit WeLocally einen neuen Plattform Prototyp bauen, an den sich weitere Regionen, Städte und Gemeinden andocken können. Unsere Entwicklungspartner sind Griffen, St. Andrä und Völkermarkt in Kärnten und die Leader-Region Mühlviertler Kernland. Die imGrätzl Nutzer*innen haben sich außerdem über eine Crowdfunding Kampagne an der Ausfinanzierung beteiligt.
       <strong>Teamwork rocks!</strong>
@@ -80,35 +86,45 @@
 
   <div class="team">
     <div class="member">
-      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <a href="https://www.linkedin.com/in/lena-schartmüller-985467159/" target="_blank">
+        <%= image_tag('info/team/Lena.jpg', class: 'img-round') %>
+      </a>
       <div>
         <strong>Lena Schartmüller</strong><br>
         <span>Schwerpunkt “Raumteiler”, Social Media</span>
       </div>
     </div>
     <div class="member">
-      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <a href="https://www.linkedin.com/in/walchhuetter/" target="_blank">
+        <%= image_tag('info/team/Michael.jpg', class: 'img-round') %>
+      </a>
       <div>
         <strong>Michael Walchhütter</strong><br>
-        <span>Gründer</span>
+        <span>Gründer / Development</span>
       </div>
     </div>
     <div class="member">
-      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <a href="https://www.linkedin.com/in/mmieschendahl/" target="_blank">
+        <%= image_tag('info/team/Mirjam.jpg', class: 'img-round') %>
+      </a>
       <div>
         <strong>Mirjam Mieschendahl</strong><br>
         <span>Gründerin</span>
       </div>
     </div>
     <div class="member">
-      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <a href="https://www.linkedin.com/in/jeannine-metz-45b66649/" target="_blank">
+        <%= image_tag('info/team/Jeannine.jpg', class: 'img-round') %>
+      </a>
       <div>
         <strong>Jeannine Metz</strong><br>
         <span>Grafik</span>
       </div>
     </div>
     <div class="member">
-      <%= avatar_image User.first, class: 'img-round -largest' %>
+      <a href="https://www.linkedin.com/in/nikola-šantić-ba666834/" target="_blank">
+        <%= image_tag('info/team/Nikola.jpg', class: 'img-round') %>
+      </a>
       <div>
         <strong>Nikola Šantić</strong><br>
         <span>Development</span>
@@ -116,10 +132,22 @@
     </div>
   </div>
 
-  <p class="subline">
-    Hast du Fragen, Wünsche, Ideen? Dann schicke einfach eine Mail an:
-    <br><a href="mailto:mirjam@welocally.at">mirjam@welocally.at</a> oder ruf an: 43-699-15028277
-  </p>
+
+
+  <div class="paperCard -cord1RT -footerCard">
+    <div class="wrp">
+      <p class="subline">
+        <strong>Du möchtest bei WeLocally oder imGrätzl dabei sein? <%= link_to "Dann registriere dich hier!", new_registration_path(origin: request.path) %></strong>
+        <br><br>
+        Wenn du die Idee hinter WeLocally und imGrätzl unterstützen möchtest, erzähl es Menschen weiter, die ihre gerade Vorhaben und Ideen umsetzen und lade sie ein.
+        <br><br>Magst du mitwirken? Dann erzähl uns, welcher Bereich dich interessieren würde: <a href="mailto:wir@welocally.at">wir@welocally.at</a>.
+        Sonstige Fragen, Wünsche, Ideen? Dann schicke einfach eine Mail an: <a href="mailto:mirjam@welocally.at">mirjam@welocally.at</a> oder ruf an: 43-699-15028277
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+
 
 
 </section>
