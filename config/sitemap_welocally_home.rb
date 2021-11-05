@@ -26,6 +26,9 @@ SitemapGenerator::Sitemap.create do
   add info_path, changefreq: 'monthly', priority: 1
 
   # Info Pages
+  add info_ueber_uns_path, changefreq: 'weekly', priority: 0.9
+  add info_presse_path, changefreq: 'weekly', priority: 0.9
+  add info_meilensteine_path, changefreq: 'weekly', priority: 0.8
   add info_agb_path, changefreq: 'never', priority: 0.2
   add info_datenschutz_path, changefreq: 'never', priority: 0.2
   add info_impressum_path, changefreq: 'never', priority: 0.2
