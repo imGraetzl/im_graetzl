@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def welocally_platform_root_url
+    root_url(host: Rails.application.config.welocally_host)
+  end
+
   def welocally_platform_url
     about_platform_url(host: Rails.application.config.welocally_host)
   end
