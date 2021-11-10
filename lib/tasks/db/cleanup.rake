@@ -4,7 +4,11 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     Notification.where('created_at < ?', 2.weeks.ago).destroy_all
+
     Activity.where('created_at < ?', 8.weeks.ago).destroy_all
+    Activity.where(subject_type: 'Meeting').find_each do |activity|
+      activity.destroy if activity.subject.starts_at_date < Date.yesterday
+    end
 
     RoomOffer.where(status: :disabled).find_each do |room_offer|
       Activity.where(subject: room_offer).destroy_all

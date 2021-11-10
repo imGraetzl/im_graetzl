@@ -24,10 +24,6 @@ namespace :scheduled do
       end
     end
 
-    # Remove all activity from past online meetings
-    Meeting.where(online_meeting: true).where("starts_at_date = ?", Date.yesterday).find_each do |meeting|
-      Activity.where(subject: meeting).destroy_all
-    end
   end
 
   desc 'Send Create Meeting Reminder'
