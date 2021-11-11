@@ -54,7 +54,7 @@ class SearchService
   end
 
   def search_locations
-    Location.in(@region).approved.where("name ILIKE :q", q: like_query).order('created_at DESC')
+    Location.in(@region).approved.where("name ILIKE :q OR slogan ILIKE :q", q: like_query).order('created_at DESC')
   end
 
   def search_tools
