@@ -4,6 +4,12 @@
   }
 }
 
+.img-upload-hint {
+  display: none;
+  margin-top:15px;
+  font-style: italic;
+}
+
 .upload-preview {
   margin-top: 10px;
   display: flex;
@@ -19,4 +25,30 @@
   height:100px;
   object-fit: cover;
   margin-right: 10px;
+}
+
+.upload-previews {
+  // COVER IMAGE PREVIEWS
+  &.cover_photo {
+    .upload-preview-image {
+      width:245px;
+      height:100px;
+    }
+  }
+  // AVATAR IMAGE PREVIEWS
+  &.avatar {
+    .upload-preview-image {
+      @extend .img-round;
+      width:100px;
+      height:100px;
+    }
+    &.location .upload-preview-image {
+      @extend .img-square;
+      width:100px;
+      height:100px;
+    }
+  }
+  &.show-hint + .img-upload-hint {
+    display: block;
+  }
 }
