@@ -27,7 +27,7 @@ module UploadHelper
           multiple ? uploaded_images_edit(f, field_name) : uploaded_image_edit(f, field_name)
         end)
         if field_name.to_s == 'cover_photo'
-          concat(content_tag(:small, 'Info: Dein Bild wird wie oberhalb dargestellt zugeschnitten. Wähle ein längliches Format (ca. 980 x 400 Pixel) sollte der Aussschnitt nicht passen.', class: 'img-upload-hint'))
+          concat(content_tag(:small, 'Info: Dein Bild wird wie oberhalb dargestellt zugeschnitten. Wähle ein längliches Bild-Format (ca. 980 x 400 Pixel) sollte es nicht passen.', class: 'img-upload-hint'))
         elsif field_name.to_s == 'avatar'
           concat(content_tag(:small, 'Info: Dein Bild wird wie oberhalb dargestellt quadratrisch zugeschnitten.', class: 'img-upload-hint'))
         end
