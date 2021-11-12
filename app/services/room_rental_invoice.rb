@@ -2,17 +2,19 @@ class RoomRentalInvoice
 
   def generate_for_renter(room_rental)
     pdf = Prawn::Document.new
-    add_header(pdf)
+    region = room_rental.region
+    add_header(pdf, region)
     add_renter_info(pdf, room_rental)
     add_renter_price_info(pdf, room_rental)
-    add_company_info(pdf)
+    add_company_info(pdf, region)
     pdf.render
   end
 
   def generate_for_owner(room_rental)
     pdf = Prawn::Document.new
-    add_header(pdf)
-    add_owner_info(pdf, room_rental.owner)
+    region = room_rental.region
+    add_header(pdf, region)
+    add_owner_info(pdf, room_rental.owner, region)
     add_owner_payout_summary(pdf, room_rental)
     add_owner_price_info(pdf, room_rental)
     pdf.render
@@ -20,8 +22,8 @@ class RoomRentalInvoice
 
   private
 
-  def add_header(pdf)
-    pdf.image "#{Rails.root}/app/assets/images/invoice-logo.png", width: 205, position: :right
+  def add_header(pdf, region)
+    pdf.image "#{Rails.root}/app/assets/images/regions/#{region.id}/logo.png", width: 205, position: :right
   end
 
   # RENTER INVOICE
@@ -70,7 +72,7 @@ class RoomRentalInvoice
   end
 
   # OWNER INVOICE
-  def add_owner_info(pdf, owner)
+  def add_owner_info(pdf, owner, region)
     pdf.text "Rechnungsempfänger", size: 14, style: :bold
     pdf.text owner.billing_address.company if owner.billing_address.company.present?
     pdf.text "UID: #{owner.billing_address.vat_id}" if owner.billing_address.vat_id.present?
@@ -79,7 +81,7 @@ class RoomRentalInvoice
     pdf.text "#{owner.billing_address.zip} #{owner.billing_address.city}"
     pdf.move_down 30
     pdf.text "Rechnungssteller", size: 14, style: :bold
-    pdf.text "morgenjungs GmbH / imGrätzl.at"
+    pdf.text "morgenjungs GmbH / #{I18n.t("region.#{region.id}.domain_full")}"
     pdf.text "Breitenfeldergasse 14/2A"
     pdf.text "A-1080 Wien"
     pdf.move_down 30
@@ -137,12 +139,12 @@ class RoomRentalInvoice
     pdf.move_down 100
   end
 
-  def add_company_info(pdf)
-    pdf.text "imGrätzl.at wird betrieben von:"
+  def add_company_info(pdf, region)
+    pdf.text "#{I18n.t("region.#{region.id}.domain_full")} wird betrieben von:"
     pdf.text "morgenjungs GmbH"
     pdf.text "Breitenfeldergasse 14/2A"
     pdf.text "A-1080 Wien"
-    pdf.text "wir@imgraetzl.at"
+    pdf.text "#{I18n.t("region.#{region.id}.contact_email")}"
   end
 
   def format_price(amount)

@@ -2,26 +2,28 @@ class ToolRentalInvoice
 
   def generate_for_renter(tool_rental)
     pdf = Prawn::Document.new
-    add_header(pdf)
+    region = tool_rental.region
+    add_header(pdf, region)
     add_renter_info(pdf, tool_rental)
     add_renter_price_info(pdf, tool_rental)
-    add_company_info(pdf)
+    add_company_info(pdf, region)
     pdf.render
   end
 
   def generate_for_owner(tool_rental)
     pdf = Prawn::Document.new
-    add_header(pdf)
+    region = tool_rental.region
+    add_header(pdf, region)
     add_owner_info(pdf, tool_rental.tool_offer)
     add_owner_price_info(pdf, tool_rental)
-    add_company_info(pdf)
+    add_company_info(pdf, region)
     pdf.render
   end
 
   private
 
-  def add_header(pdf)
-    pdf.image "#{Rails.root}/app/assets/images/invoice-logo.png", width: 205, position: :right
+  def add_header(pdf, region)
+    pdf.image "#{Rails.root}/app/assets/images/regions/#{region.id}/logo.png", width: 205, position: :right
   end
 
   def add_renter_info(pdf, tool_rental)
@@ -93,12 +95,12 @@ class ToolRentalInvoice
     pdf.move_down 50
   end
 
-  def add_company_info(pdf)
-    pdf.text "imGrätzl.at wird betrieben von:"
+  def add_company_info(pdf, region)
+    pdf.text "#{I18n.t("region.#{region.id}.domain_full")} wird betrieben von:"
     pdf.text "morgenjungs GmbH"
     pdf.text "Breitenfeldergasse 14/2A"
     pdf.text "A-1080 Wien"
-    pdf.text "wir@imgraetzl.at"
+    pdf.text "#{I18n.t("region.#{region.id}.contact_email")}"
   end
 
   def format_price(amount)

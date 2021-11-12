@@ -23,9 +23,14 @@ module UploadHelper
       end
 
       if f.object.public_send(field_name).present? || live_preview
-        concat(content_tag(:div, class: 'upload-previews') do
+        concat(content_tag(:div, class: "upload-previews #{field_name} #{f.object.class.name.downcase} #{f.object.public_send(field_name).present? ? 'show-hint' : ''}") do
           multiple ? uploaded_images_edit(f, field_name) : uploaded_image_edit(f, field_name)
         end)
+        if field_name.to_s == 'cover_photo'
+          concat(content_tag(:small, 'Info: Dein Bild wird wie oberhalb dargestellt zugeschnitten. Wähle ein längliches Format (ca. 980 x 400 Pixel) sollte der Aussschnitt nicht passen.', class: 'img-upload-hint'))
+        elsif field_name.to_s == 'avatar'
+          concat(content_tag(:small, 'Info: Dein Bild wird wie oberhalb dargestellt quadratrisch zugeschnitten.', class: 'img-upload-hint'))
+        end
       end
 
     end

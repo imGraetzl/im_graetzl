@@ -600,7 +600,24 @@
 .cardBox.-meeting.-past {
   .calendarSheet {
     filter: grayscale(1);
-    opacity: 0.75;
+  }
+  .cardBoxContent, .btn-group, .categoryicon, .graetzl-sideflag, .calendarSheet {
+    opacity: 0.8;
+  }
+  .coverImgWrapper img{
+    opacity: 0.3;
+  }
+
+  .coverImgWrapper::before {
+    content: 'Vergangen';
+    position: absolute;
+    bottom:0px;
+    right:-5px;
+    z-index: 11;
+    transform: rotate(-17deg);
+    @include headlineBarbapapaMintDark();
+    @include font-size-secondaryFont('small');
+    filter: grayscale(1);
   }
 }
 

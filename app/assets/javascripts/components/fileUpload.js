@@ -53,9 +53,9 @@ APP.components.fileUpload = (function() {
       uppy.on('thumbnail:generated', function(file, preview) {
         var element = imagePreview(preview);
         if (multiple) {
-          previewContainer.append(element);
+          previewContainer.append(element).addClass('show-hint');
         } else {
-          previewContainer.html(element);
+          previewContainer.html(element).addClass('show-hint');
         }
       });
     }
