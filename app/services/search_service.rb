@@ -14,7 +14,14 @@ class SearchService
     search_locations.first(2) +
     search_tools.first(2) +
     search_coop_demands.first(2) +
-    search_groups.first(2)
+    search_groups.first(2) +
+    [:rooms_count => search_rooms.length] +
+    [:meetings_count => search_meetings.length] +
+    [:locations_count => search_locations.length] +
+    [:tools_count => search_tools.length] +
+    [:coop_demands_count => search_coop_demands.length] +
+    [:groups_count => search_groups.length]
+
   end
 
   def user

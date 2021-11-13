@@ -1,5 +1,6 @@
 json.rooms do
   json.array!(@results.select{|r| r.is_a?(RoomOffer) || r.is_a?(RoomDemand)}) do |room|
+    json.count @results.find{|r| r[:rooms_count]} [:rooms_count]
     json.type room.class.name
     json.name room.slogan
     if room.is_a?(RoomOffer)
@@ -14,6 +15,7 @@ end
 
 json.tools do
   json.array!(@results.select{|r| r.is_a?(ToolOffer) || r.is_a?(ToolDemand)}) do |tool|
+    json.count @results.find{|r| r[:tools_count]} [:tools_count]
     json.type tool.class.name
     if tool.is_a?(ToolOffer)
       json.name tool.title
@@ -29,6 +31,7 @@ end
 
 json.meetings do
   json.array!(@results.select{|r| r.is_a?(Meeting)}) do |meeting|
+    json.count @results.find{|r| r[:meetings_count]} [:meetings_count]
     json.type meeting.class.name
     json.name meeting.name
     json.day meeting.starts_at_date.day
@@ -41,6 +44,7 @@ end
 
 json.locations do
   json.array!(@results.select{|r| r.is_a?(Location)}) do |location|
+    json.count @results.find{|r| r[:locations_count]} [:locations_count]
     json.type location.class.name
     json.name location.name
     json.url graetzl_location_path(location.graetzl, location)
@@ -50,6 +54,7 @@ end
 
 json.coop_demands do
   json.array!(@results.select{|r| r.is_a?(CoopDemand)}) do |coop_demand|
+    json.count @results.find{|r| r[:coop_demands_count]} [:coop_demands_count]
     json.type coop_demand.class.name
     json.name coop_demand.slogan
     json.url coop_demand_path(coop_demand)
@@ -59,6 +64,7 @@ end
 
 json.groups do
   json.array!(@results.select{|r| r.is_a?(Group)}) do |group|
+    json.count @results.find{|r| r[:groups_count]} [:groups_count]
     json.type group.class.name
     json.name group.title
     json.url group_path(group)

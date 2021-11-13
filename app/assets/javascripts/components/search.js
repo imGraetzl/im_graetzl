@@ -4,6 +4,7 @@ APP.components.search = (function() {
 
     $input = $("[data-behavior='autocomplete']");
     var search_phrase;
+    var counts = {};
 
     // Nav Search Icon Click: Delete Value and set Focus to Field
     $(".nav-autocomplete-icon").on("click", function() {
@@ -59,6 +60,7 @@ APP.components.search = (function() {
             'event_category': 'Search',
             'event_label': search_phrase
           });
+          counts = {}; // Reset Counts after Shown
         },
         onClickEvent:function() {
           var url = $input.getSelectedItemData().url
@@ -84,6 +86,7 @@ APP.components.search = (function() {
       template: {
         type: "custom",
         method: function(value, item) {
+          counts[item.type] = item.count;
           return "<div class='item " + item.type + " " + item.past_flag + "'><img src='" + item.icon + "'><div class='calendarSheet'><div class='day'>" + item.day + "</div><div class='month'>" + item.month + "</div></div><div class='txt'>" + value + "</div></div>";
         }
 	    },
@@ -103,33 +106,48 @@ APP.components.search = (function() {
 
           switch($(this).text()) {
             case 'Raumteiler':
-              type = 'rooms'
+              type = 'rooms';
+              count = 0;
+              counts.RoomOffer ? count += counts.RoomOffer : count;
+              counts.RoomDemand ? count += counts.RoomDemand : count;
               break;
             case 'Toolteiler':
               type = 'tools'
+              count = 0;
+              counts.ToolOffer ? count += counts.ToolOffer : count;
+              counts.ToolDemand ? count += counts.ToolDemand : count;
               break;
             case 'Coop & Share':
               type = 'coop_demands'
+              count = 0;
+              counts.CoopDemand ? count += counts.CoopDemand : count;
               break;
             case 'Events & Workshops':
               type = 'meetings'
+              count = 0;
+              counts.Meeting ? count += counts.Meeting : count;
               break;
             case 'Anbieter & Macherinnen':
               type = 'locations'
+              count = 0;
+              counts.Location ? count += counts.Location : count;
               break;
             case 'Gruppen':
               type = 'groups'
+              count = 0;
+              counts.Group ? count += counts.Group : count;
               break;
             default:
               type = ''
+              count = ''
           }
 
-          var link = "<a href='/search?q="+search_phrase+"&search_type="+type+"'>mehr anzeigen</a>"
+          var link = "<a href='/search?q="+search_phrase+"&search_type="+type+"'>alle anzeigen ("+count+")</a>"
 
           if ($(this).find('a').length == 0) {
             $(this).append(link);
           }
-
+          
       });
     }
 

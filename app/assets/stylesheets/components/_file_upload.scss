@@ -51,4 +51,7 @@
   &.show-hint + .img-upload-hint {
     display: block;
   }
+  &.zuckerl + .img-upload-hint {
+    display: none;
+  }
 }
