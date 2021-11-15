@@ -57,7 +57,7 @@ class SearchService
   end
 
   def search_meetings
-    Meeting.in(@region).upcoming.where("name ILIKE :q", q: like_query).order('starts_at_date DESC')
+    Meeting.in(@region).upcoming.joins(:location).where("meetings.name ILIKE :q OR locations.name ILIKE :q", q: like_query).order('starts_at_date DESC')
   end
 
   def search_locations
