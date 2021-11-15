@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
     redirect_enqueued and return if @location.pending?
 
     @graetzl = @location.graetzl
-    @posts = @location.location_posts.includes(:images, :comments).first(20)
+    @posts = @location.location_posts.includes(:images, :comments).last(20)
     @comments = @location.comments.includes(:user, :images)
     @stream = @posts + @comments
     @stream = @stream.sort_by(&:created_at).reverse
