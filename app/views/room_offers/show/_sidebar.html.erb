@@ -108,6 +108,7 @@
 
   <!-- OTHER PRICING -->
   <% if @room_offer.room_offer_prices.present? %>
+  
     <div class="sideBarbox -pricing">
       <h3 class="sidebar -pakete">Raumteiler Pakete</h3>
 
@@ -124,8 +125,13 @@
         </div>
       </div>
 
-      <%= link_to "Allgemeine Anfrage stellen", messenger_start_thread_path(user_id: @room_offer.user.id), class: "btn-primary -mint", id: 'requestRoomBtn' %>
+      <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), class: "btn-primary -mint", id: 'requestRoomBtn' %>
     </div>
+
+  <% else %>
+
+    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), class: "btn-primary -mint", id: 'requestRoomBtn' %>
+
   <% end %>
 
 
@@ -180,7 +186,5 @@
       <%= render @room_offer.location %>
     </aside>
   <% end %>
-
-  <!--<%= link_to "Alle Raumteiler", region_rooms_path, class: 'btn-primary -mint' %>-->
 
 </aside>

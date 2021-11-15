@@ -141,6 +141,9 @@ section.roomDetail {
       &.-top {
         padding-top:15px;
         background-color: $color-ambient-orange-light;
+        + #requestRoomBtn {
+          display: none; // Hide General Messenger Button if RentalForm is Shown
+        }
       }
 
       border: 1px solid $color-ambient-grey-light;

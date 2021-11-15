@@ -82,7 +82,7 @@ APP.controllers.room_offers = (function() {
       event.preventDefault();
       var href = $(this).attr('href');
       gtag(
-        'event', 'Raumangebot :: Click :: Allgemeine Anfrage stellen', {
+        'event', 'Raumangebot :: Click :: Im Messenger kontaktieren', {
         'event_category': 'Raumteiler',
         'event_callback': function() {
           location.href = href;
