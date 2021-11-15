@@ -7,4 +7,14 @@ section.meeting {
       font-size: 1.2em;
     }
   }
+  .meetingBlock {
+    padding-top: 60px;
+    border-top: 1px solid $color-ambient-mint-light-lowsaturation;
+    .bigicontext-element a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
 }

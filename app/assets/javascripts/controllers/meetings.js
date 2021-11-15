@@ -44,6 +44,15 @@ APP.controllers.meetings = (function() {
     }
 
     function initMeetingDetail() {
+
+      // Submit Further Meetings & Hide Block if Empty
+      $('.autosubmit-stream').submit();
+      $(".autosubmit-stream").bind('ajax:complete', function() {
+        if ($("[data-behavior=meetings-card-container]").is(':empty')){
+          $(".meetingBlock").hide();
+        }
+      });
+
       $('.entryDescription .bbcode').linkify({
         target: "_blank"
       });

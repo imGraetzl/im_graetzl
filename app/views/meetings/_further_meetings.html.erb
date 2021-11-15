@@ -1,0 +1,27 @@
+<% if @meeting.location %>
+  <div class="wrp-hl">
+    <div class="bigicontext-element">
+      <%= icon_tag('calendar-2') %>
+      <div class="txt">
+        Weitere Treffen von
+        <%= link_to @meeting.location.name, [Graetzl.memoized(@meeting.location.graetzl_id), @meeting.location] %>
+      </div>
+    </div>
+  </div>
+  <%= form_tag meetings_path(location_id: @meeting.location.id, per_page: 3, upcoming: true, exclude: @meeting.id), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
+  <div class="cardBoxCollection -tripple" data-behavior="meetings-card-container"></div>
+  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
+<% else %>
+  <div class="wrp-hl">
+    <div class="bigicontext-element">
+      <%= icon_tag('calendar-2') %>
+      <div class="txt">
+        Weitere Treffen von
+        <%= link_to @meeting.user.username, @meeting.user, rel: 'nofollow' %>
+      </div>
+    </div>
+  </div>
+  <%= form_tag meetings_path(initiated_user_id: @meeting.user.id, per_page: 3, upcoming: true, exclude: @meeting.id), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
+  <div class="cardBoxCollection -tripple" data-behavior="meetings-card-container"></div>
+  <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
+<% end %>
