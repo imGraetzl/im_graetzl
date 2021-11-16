@@ -1,4 +1,8 @@
-<% zuckerls = Zuckerl.in(@region).live.in_area(@user.graetzl.id).include_for_box.random(2) %>
+<!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 2 -->
+<% zuckerls = Zuckerl.in(@region).live.in_area(@user.graetzl.id).include_for_box %>
+<% ownzuckerls = Zuckerl.in(@region).where(user_id: @user.id).live.in_area(@user.graetzl.id).include_for_box %>
+<% zuckerls = (zuckerls - ownzuckerls).sample(2) %>
+<% zuckerls += ownzuckerls %>
 
 <% if zuckerls.any? %>
 
@@ -8,7 +12,7 @@
     <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'}" %>
   <% end %>
 
-  <% zuckerls.each do |zuckerl| %>
+  <% zuckerls.last(2).each do |zuckerl| %>
   <% location = zuckerl.location %>
   <% graetzl = Graetzl.memoized(location.graetzl_id) %>
 
