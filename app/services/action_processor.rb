@@ -9,11 +9,11 @@ class ActionProcessor
 
     when [Location, :create]
       Activity.add_public(subject, to: subject.graetzl)
-      Notifications::NewLocation.generate(subject, to: user_ids(subject.graetzl) - [subject.user_id])
+      Notifications::NewLocation.generate(subject, to: user_ids(subject.graetzl))
 
     when [Location, :post]
       Activity.add_public(subject, child, to: subject.graetzl)
-      Notifications::NewLocationPost.generate(subject, child, to: user_ids(subject.graetzl) - [subject.user_id])
+      Notifications::NewLocationPost.generate(subject, child, to: user_ids(subject.graetzl))
 
     when [Location, :comment]
       Activity.add_public(subject, child, to: subject.graetzl)
@@ -28,22 +28,22 @@ class ActionProcessor
     when [Meeting, :create]
       if subject.public?
         Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
-        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl) - [subject.user_id],
+        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
           time_range: subject.notification_time_range)
       elsif subject.group_id
         Activity.add_personal(subject, group: subject.group)
-        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids - [subject.user_id],
+        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
           time_range: subject.notification_time_range)
       end
 
     when [Meeting, :update]
       if subject.public?
         Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
-        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl) - [subject.user_id],
+        Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
           time_range: subject.notification_time_range)
       elsif subject.group_id
         Activity.add_personal(subject, group: subject.group)
-        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids - [subject.user_id],
+        Notifications::NewGroupMeeting.generate(subject, to: subject.group.user_ids,
           time_range: subject.notification_time_range)
       end
 
@@ -84,7 +84,7 @@ class ActionProcessor
 
     when [RoomOffer, :create]
       Activity.add_public(subject, to: subject.graetzl)
-      Notifications::NewRoomOffer.generate(subject, to: user_ids(subject.graetzl) - [subject.user_id])
+      Notifications::NewRoomOffer.generate(subject, to: user_ids(subject.graetzl))
 
     when [RoomOffer, :update]
       Activity.add_public(subject, to: subject.graetzl)
@@ -95,7 +95,7 @@ class ActionProcessor
 
     when [RoomDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewRoomDemand.generate(subject, to: user_ids(subject.graetzls) - [subject.user_id])
+      Notifications::NewRoomDemand.generate(subject, to: user_ids(subject.graetzls))
 
     when [RoomDemand, :update]
       Activity.add_public(subject, to: subject.graetzls)
@@ -106,7 +106,7 @@ class ActionProcessor
 
     when [ToolOffer, :create]
       Activity.add_public(subject, to: subject.graetzl)
-      Notifications::NewToolOffer.generate(subject, to: user_ids(subject.graetzl) - [subject.user_id])
+      Notifications::NewToolOffer.generate(subject, to: user_ids(subject.graetzl))
 
     when [ToolOffer, :comment]
       Activity.add_public(subject, child, to: subject.graetzl)
@@ -114,7 +114,7 @@ class ActionProcessor
 
     when [ToolDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewToolDemand.generate(subject, to: user_ids(subject.graetzls) - [subject.user_id])
+      Notifications::NewToolDemand.generate(subject, to: user_ids(subject.graetzls))
 
     when [ToolDemand, :update]
       Activity.add_public(subject, to: subject.graetzls)
@@ -125,7 +125,7 @@ class ActionProcessor
 
     when [CoopDemand, :create]
       Activity.add_public(subject, to: subject.graetzls)
-      Notifications::NewCoopDemand.generate(subject, to: user_ids(subject.graetzls) - [subject.user_id])
+      Notifications::NewCoopDemand.generate(subject, to: user_ids(subject.graetzls))
 
     when [CoopDemand, :update]
       Activity.add_public(subject, to: subject.graetzls)
