@@ -63,7 +63,7 @@ APP.components.stream = (function() {
         var $markup = $('<div class="formBlocker">' +
             '<div class="wrp">' +
             '<div>Du musst eingeloggt sein, um einen Kommentar zu verfassen.</div>' +
-            '<div><a href="/users/login">Zum Login</a> | <a href="/users/registrierung">Zur Registrierung</a></div>' +
+            '<div><a href="/users/login?redirect='+window.location.href+'">Zum Login</a> | <a href="/users/registrierung?origin='+window.location.pathname+'">Zur Registrierung</a></div>' +
             '<span class="close"></span>' +
             '</div>' +
             '</div>');
