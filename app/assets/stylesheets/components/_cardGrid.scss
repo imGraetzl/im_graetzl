@@ -231,6 +231,9 @@
         &.-hobby {
           background-image: url(image_path('svg/icon-kringel-hobby-active.svg'));
         }
+        &.-teens {
+          background-image: url(image_path('svg/icon-kringel-teens-active.svg'));
+        }
 
         // Locations Categories
         &.-onlineshop {
@@ -428,6 +431,9 @@
       }
       &.-hobby {
         background-image: url(image_path('svg/icon-kringel-hobby.svg'));
+      }
+      &.-teens {
+        background-image: url(image_path('svg/icon-kringel-teens.svg'));
       }
 
       // Locations Categories
