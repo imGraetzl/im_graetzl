@@ -53,14 +53,14 @@ a.iconMapLink:hover .icon {
 
 .dateTime-container {
   position: relative;
-  padding-right:50px;
-
+  &.-additional {
+    padding-right:50px;
+  }
   .additionalSlider {
     .lSAction {
       a {
+        background-color: transparent;
         width:40px;
-        height:40px;
-        margin-top:-25px;
       }
     }
     .lSAction > .lSNext {
@@ -69,6 +69,10 @@ a.iconMapLink:hover .icon {
     .lSAction > .lSPrev {
       left:calc(100% - 80px);
     }
+  }
+  .till-badge {
+    top:15px;
+    left:42px;
   }
 }
 
@@ -81,17 +85,14 @@ a.iconMapLink:hover .icon {
     display: flex;
     align-items: center;
     overflow: hidden;
+    min-width: 57px;
   }
   .calendarSheet {
     min-width: 50px;
-    margin-right:10px;
-  }
-  .additonal .calendarSheet {
-    //filter: grayscale(100%);
   }
   .dayYearTimes {
-    white-space: nowrap;
-    //font-weight: bold;
+    margin-left:10px;
+    //white-space: nowrap;
     @include respond-to(">=medium") {
       text-shadow: 1px 1px $color-ambient-bright;
     }

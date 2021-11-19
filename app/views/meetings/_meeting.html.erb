@@ -10,16 +10,20 @@
     <% end %>
 
     <% if meeting.starts_at_date %>
-      <div class="calendarSheet">
+      <div class="calendarSheet -startDate">
         <div class="day"><%= meeting.starts_at_date.day %></div>
         <div class="month"><%= I18n.localize(meeting.starts_at_date, format:'%b') %></div>
       </div>
     <% end %>
 
-    <% if meeting.meeting_additional_dates.size > 0 %>
-    <div class="calendarSheet -additionalDate">
-      + <%= meeting.meeting_additional_dates.size %>
+    <% if meeting.ends_at_date %>
+    <div class="till-badge">bis</div>
+    <div class="calendarSheet -endDate">
+      <div class="day"><%= meeting.ends_at_date.day %></div>
+      <div class="month"><%= I18n.localize(meeting.ends_at_date, format:'%b') %></div>
     </div>
+    <% elsif meeting.meeting_additional_dates.size > 0 %>
+      <div class="date-badge">+ <%= meeting.meeting_additional_dates.size %></div>
     <% end %>
 
     <div class="categoryicon">

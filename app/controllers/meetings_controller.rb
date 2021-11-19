@@ -26,6 +26,8 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
     @meeting.clear_address if @meeting.online_meeting?
+    @meeting.assign_attributes(ends_at_date: nil) if params[:date_option] != 'range' || @meeting.starts_at_date == @meeting.ends_at_date
+    @meeting.meeting_additional_dates.delete_all if params[:date_option] != 'multiple'
     @meeting.user = current_user.admin? ? User.find(params[:user_id]) : current_user
     @meeting.region_id = current_region.id
     @meeting.going_tos.build(user_id: @meeting.user.id, role: :initiator)
@@ -48,9 +50,10 @@ class MeetingsController < ApplicationController
   def update
     @meeting = find_user_meeting
     @meeting.assign_attributes(meeting_params)
-    @meeting.clear_address if @meeting.online_meeting?
-
     @meeting.state = :active
+    @meeting.clear_address if @meeting.online_meeting?
+    @meeting.assign_attributes(ends_at_date: nil) if params[:date_option] != 'range' || @meeting.starts_at_date == @meeting.ends_at_date
+    @meeting.meeting_additional_dates.delete_all if params[:date_option] != 'multiple'
 
     if @meeting.save
       redirect_to [@meeting.graetzl, @meeting]
@@ -166,7 +169,7 @@ class MeetingsController < ApplicationController
   def meeting_params
     params.require(:meeting).permit(
       :graetzl_id, :group_id, :location_id, :name, :description,
-      :meeting_category_id, :starts_at_date, :starts_at_time, :ends_at_time,
+      :meeting_category_id, :starts_at_date, :ends_at_date, :starts_at_time, :ends_at_time,
       :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,
       :platform_meeting, :online_meeting, :online_description, :online_url,

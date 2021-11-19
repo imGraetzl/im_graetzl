@@ -46,7 +46,7 @@
 
     <% if !user_signed_in? %>
       <div class="btn-going-to">
-        <%= button_to new_user_session_path, method: :get, class: 'btn-userCallToAction' do %>
+        <%= link_to new_user_session_path(redirect: request.original_url, origin: request.path), class: 'btn-userCallToAction' do %>
           <span><%= image_tag 'fallbacks/user_avatar.png', class: 'img-round' %> Am Treffen teilnehmen</span>
         <% end %>
       </div>

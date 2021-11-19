@@ -48,7 +48,7 @@
   <div class="meet-where">
     <p><span>Wo</span> soll dein Treffen oder Veranstaltung stattfinden?</p>
 
-    <div class="meeting-switch">
+    <div class="meeting-switch option-switch">
       <div class="input-radio">
         <%= f.radio_button :online_meeting, false, class: 'online-meeting-switch' %>
         <%= f.label :online_meeting, "Treffen mit Adresse", value: false %>
@@ -72,49 +72,84 @@
   <div class="meet-when">
     <p><span>Wann</span> planst du dein Treffen, deine Veranstaltung?</p>
 
-    <div class="input-field">
-      <%= f.label :starts_at_date do %>
-        <%= icon_tag "calendar-2" %>
-        <span>Datum</span>
-      <% end %>
-      <%= f.text_field :starts_at_date,
-                       value: (I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
-                       data: { value: (I18n.localize(f.object.starts_at_date, format:'%Y-%m-%d') if f.object.starts_at_date) },
-                       class: 'datepicker',
-                       placeholder: 'wählen' %>
+    <div class="date-switch option-switch">
+      <div class="input-radio">
+        <%= radio_button_tag :date_option, 'single' %>
+        <%= label_tag :date_option_single, "Einzeltermin" %>
+      </div>
+
+      <div class="input-radio">
+        <%= radio_button_tag :date_option, 'multiple' %>
+        <%= label_tag :date_option_multiple, "Mehrere Termine" %>
+      </div>
+
+      <div class="input-radio">
+        <%= radio_button_tag :date_option, 'range' %>
+        <%= label_tag :date_option_range, "Zeitraum" %>
+      </div>
     </div>
 
-    <div class="input-field">
-      <%= f.label :starts_at_time do %>
-        <%= icon_tag "time-clock" %>
-        <span>Beginn</span>
-      <% end %>
-      <%= f.text_field :starts_at_time,
-                       value: (f.object.starts_at_time.strftime('%H:%M') if f.object.starts_at_time),
-                       class: 'timepicker',
-                       placeholder: 'wählen' %>
-    </div>
+    <div class="dates">
+      <div class="input-field">
+        <%= f.label :starts_at_date do %>
+          <%= icon_tag "calendar-2" %>
+          <span>Startdatum</span>
+        <% end %>
+        <%= f.text_field :starts_at_date,
+                         value: (I18n.localize(f.object.starts_at_date, format:'%A, %d. %B %Y') if f.object.starts_at_date),
+                         data: { value: (I18n.localize(f.object.starts_at_date, format:'%Y-%m-%d') if f.object.starts_at_date) },
+                         class: 'datepicker',
+                         placeholder: 'wählen' %>
+      </div>
 
-    <div class="input-field">
-      <%= f.label :ends_at_time do %>
-        <%= icon_tag "time-clock" %>
-        <span>Ende</span>
-      <% end %>
-      <%= f.text_field :ends_at_time, ignore_date: true,
-                       value: (f.object.ends_at_time.strftime('%H:%M') if f.object.ends_at_time),
-                       class: 'timepicker', placeholder: 'wählen' %>
+      <div class="input-field">
+        <%= f.label :starts_at_time do %>
+          <%= icon_tag "time-clock" %>
+          <span>Beginn</span>
+        <% end %>
+        <%= f.text_field :starts_at_time,
+                         value: (f.object.starts_at_time.strftime('%H:%M') if f.object.starts_at_time),
+                         class: 'timepicker',
+                         placeholder: 'wählen' %>
+      </div>
+
+      <div class="input-field">
+        <%= f.label :ends_at_time do %>
+          <%= icon_tag "time-clock" %>
+          <span>Ende</span>
+        <% end %>
+        <%= f.text_field :ends_at_time, ignore_date: true,
+                         value: (f.object.ends_at_time.strftime('%H:%M') if f.object.ends_at_time),
+                         class: 'timepicker', placeholder: 'wählen' %>
+      </div>
     </div>
 
   </div>
 
+  <div class="date-fields" id="date-option-single">
 
-  <div class="additional-dates">
+  </div>
+
+  <div class="date-fields" id="date-option-range">
+    <div class="input-field">
+      <%= f.label :ends_at_date do %>
+        <%= icon_tag "calendar-2" %>
+        <span>Enddatum</span>
+      <% end %>
+      <%= f.text_field :ends_at_date,
+                       value: (I18n.localize(f.object.ends_at_date, format:'%A, %d. %B %Y') if f.object.ends_at_date),
+                       data: { value: (I18n.localize(f.object.ends_at_date, format:'%Y-%m-%d') if f.object.ends_at_date) },
+                       class: 'datepicker',
+                       placeholder: 'wählen' %>
+    </div>
+  </div>
+
+  <div class="date-fields additional-dates" id="date-option-multiple">
     <% f.object.meeting_additional_dates.build if f.object.meeting_additional_dates.empty? %>
     <%= f.fields_for :meeting_additional_dates, f.object.meeting_additional_dates.sort_by(&:starts_at_date) do |field_form| %>
       <%= render 'meetings/form/additional_date_fields', f: field_form if f.object.meeting_additional_dates.exists? %>
     <% end %>
-
-    <div class="meeting-additional-dates-links">
+    <div class="meet-when meeting-additional-dates-links">
       <%= link_to_add_association 'Weiteres Datum hinzufügen', f, :meeting_additional_dates, partial: 'meetings/form/additional_date_fields' %>
     </div>
   </div>

@@ -26,11 +26,13 @@
 
   <div class="entryDescription">
 
-    <div class="dateTime-container">
+    <div class="dateTime-container <%= '-additional' if @meeting.meeting_additional_dates.present? %>">
 
       <div class="dateTime">
 
-        <% if @meeting.starts_at_date %>
+        <% if @meeting.ends_at_date %>
+          <%= render 'meetings/datetime_range', date: @meeting %>
+        <% else %>
           <%= render 'meetings/datetime', date: @meeting %>
         <% end %>
 
