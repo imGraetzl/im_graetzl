@@ -62,7 +62,7 @@
       <% if !@user.initiated_meetings.in(current_region).blank? %><li data-submit="#meeting-submit" data-target="meetings-card-container"><a href="#tab-meetings">Events & Workshops</a></li><% end %>
       <% if @user.coop_demands.in(current_region).exists? %><li data-submit="#coopdemand-submit" data-target="coopdemands-card-container"><a href="#tab-coop">Coop & Share</a></li><% end %>
       <% if !@user.room_offers.in(current_region).enabled.blank? || !@user.room_demands.in(current_region).enabled.blank? %><li data-submit="#room-submit" data-target="rooms-card-container"><a href="#tab-raumteiler">Raumteiler</a></li><% end %>
-      <% if @user.tool_offers.in(current_region).enabled.exists? %><li data-submit="#tool-submit" data-target="tool-offers-card-container"><a href="#tab-toolteiler">Toolteiler</a></li><% end %>
+      <% if !@user.tool_offers.in(current_region).enabled.blank? || !@user.tool_demands.in(current_region).enabled.blank? %><li data-submit="#tool-submit" data-target="tools-card-container"><a href="#tab-toolteiler">Toolteiler</a></li><% end %>
     </ul>
 
     <div id="tab-locations">
@@ -78,9 +78,9 @@
     </div>
 
     <div id="tab-toolteiler">
-      <%= form_tag tool_offers_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'tool-submit' do; end %>
-      <div class="cardBoxCollection -tripple" data-behavior="tool-offers-card-container"></div>
-      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'tool-offers-paginate-link' }, rel: 'nofollow' %>
+      <%= form_tag tools_path(user_id: @user.id, per_page: 9), method: :get, remote: true, id: 'tool-submit' do; end %>
+      <div class="cardBoxCollection -tripple" data-behavior="tools-card-container"></div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'tools-paginate-link' }, rel: 'nofollow' %>
     </div>
 
     <div id="tab-meetings">
