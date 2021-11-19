@@ -35,9 +35,9 @@ APP.controllers.meetings = (function() {
       $('.select_users .opt').on('click', function(){
         var user_index = $(this).index();
         if ($(this).hasClass('selected')){
-          $('.meetings-compose-mail .members a').eq(user_index).find('.avatar').addClass('active');
+          $('.meetings-compose-mail .members a').eq(user_index).find('.img-round').addClass('active');
         } else {
-          $('.meetings-compose-mail .members a').eq(user_index).find('.avatar').removeClass('active');
+          $('.meetings-compose-mail .members a').eq(user_index).find('.img-round').removeClass('active');
         }
       });
 
