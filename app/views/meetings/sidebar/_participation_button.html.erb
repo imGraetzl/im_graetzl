@@ -91,7 +91,7 @@
         <% end %>
         <% else %>
           <%= form_tag attend_meeting_path, method: :post do %>
-            <%= button_to 'javascript:', class: 'btn-userCallToAction' do %>
+            <%= button_to 'javascript:', class: 'btn-userCallToAction meeting-attend-btn' do %>
               <span>
                 <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
                 Am Treffen teilnehmen
