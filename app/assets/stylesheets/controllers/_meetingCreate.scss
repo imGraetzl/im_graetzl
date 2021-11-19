@@ -37,7 +37,7 @@
   .meet-when {
     margin-bottom: 20px;
   }
-  .meet-where .meeting-switch {
+  .option-switch {
     margin-bottom: 20px;
     text-align: center;
     display: block;
@@ -47,13 +47,6 @@
     label {
       min-width: 0px;
       margin-right: 20px;
-    }
-  }
-  a.add_fields {
-    display: block;
-    margin-bottom: 2.5rem;
-    @include respond-to(">=medium") {
-      margin-bottom: 5.0rem;
     }
   }
 
@@ -94,7 +87,7 @@
   }
 }
 
-.meet-when {
+.meet-when .dates {
 
   @include respond-to(">medium") {
     @include cf();
@@ -114,6 +107,14 @@
     }
   }
 
+}
+
+.date-fields {
+  display: none;
+  margin-bottom: 2.5rem;
+  @include respond-to(">=medium") {
+    margin-bottom: 5.0rem;
+  }
 }
 
 .event-categories {

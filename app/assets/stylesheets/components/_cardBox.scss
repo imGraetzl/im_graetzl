@@ -621,6 +621,14 @@
   }
 }
 
+.cardBox.-meeting.-startpast {
+  .calendarSheet.-startDate {
+    filter: grayscale(1);
+    opacity: 0.8;
+  }
+}
+
+
 section.locations .goodieteasertxt{
   display: block;
 }

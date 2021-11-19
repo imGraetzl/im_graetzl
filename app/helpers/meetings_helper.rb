@@ -9,7 +9,17 @@ module MeetingsHelper
   end
 
   def meeting_past_flag(meeting)
-    '-past' if meeting.try(:starts_at_date).try(:past?)
+
+    if meeting.try(:ends_at_date).try(:past?)
+      '-past'
+    elsif meeting.try(:starts_at_date).try(:past?) && meeting.try(:ends_at_date).nil?
+      '-past'
+    elsif meeting.try(:starts_at_date).try(:past?) && !meeting.try(:ends_at_date).try(:past?)
+      '-startpast'
+    elsif meeting.try(:starts_at_date).try(:past?)
+      '-past'
+    end
+
   end
 
   def meeting_link_text(meeting)

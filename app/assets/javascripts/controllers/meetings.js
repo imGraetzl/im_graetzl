@@ -196,6 +196,24 @@ APP.controllers.meetings = (function() {
       })
       $('.online-meeting-switch:checked').trigger('change');
 
+      // check date radio on upload
+      if ($("#meeting_ends_at_date").val()) {
+        $(".date-switch :radio[value=range]").prop("checked", true);
+      }
+      else if ($(".additional-dates").find('.nested-fields').exists()) {
+        $(".date-switch :radio[value=multiple]").prop("checked", true);
+      }
+      else {
+        $(".date-switch :radio[value=single]").prop("checked", true);
+      }
+
+      // date switch
+      $('.date-switch').on('change', function() {
+        var checked = $(".date-switch input[type='radio']:checked").val();
+        $(".date-fields").hide();
+        $("#date-option-"+checked).show();
+      }).trigger('change');
+
       // location field toggle
       $('.select-location-input').on('change', function() {
         var location = $(this).find("option:selected");

@@ -1,0 +1,28 @@
+<div class="dateTimeItem">
+  <div class="calendarSheet">
+    <div class="day"><%= date.starts_at_date.day %></div>
+    <div class="month"><%= I18n.localize(date.starts_at_date, format:'%b') %></div>
+  </div>
+</div>
+
+<div class="till-badge">bis</div>
+
+<div class="dateTimeItem">
+  <div class="calendarSheet">
+    <div class="day"><%= date.ends_at_date.day %></div>
+    <div class="month"><%= I18n.localize(date.ends_at_date, format:'%b') %></div>
+  </div>
+
+  <div class="dayYearTimes">
+    <%= I18n.localize(date.starts_at_date, format:'%A, %d. %b.') %>
+    <span class="till">-</span>
+    <%= I18n.localize(date.ends_at_date, format:'%A, %d. %b. %Y') %>
+    <br>
+    <% if date.ends_at_time %>
+      <span class="time">Täglich von <%= localize_time(date.starts_at_time, '%H:%M') %> bis <%= localize_time(date.ends_at_time, '%H:%M') %> Uhr</span>
+    <% elsif date.starts_at_time %>
+      <span class="time">Täglicher Beginn: <%= localize_time(date.starts_at_time, '%H:%M') %> Uhr</span>
+    <% end %>
+  </div>
+
+</div>

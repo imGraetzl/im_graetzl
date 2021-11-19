@@ -27,7 +27,7 @@ section.meeting {
     z-index: 4;
   }
   @include respond-to(">=large") {
-    @include col(7/12);
+    @include col(2/3);
   }
 
   h3 {
@@ -48,6 +48,16 @@ section.meeting {
 
   .dateTime {
     margin-bottom: 1rem;
+    //font-weight: bold;
+    .time {
+      font-style: italic;
+      font-weight: normal;
+    }
+    .till {
+      //font-style: italic;
+      font-weight:normal;
+      padding:5px;
+    }
   }
 
   .place {
@@ -89,7 +99,7 @@ section.meeting {
     z-index: 5;
   }
   @include respond-to(">=large") {
-    @include col(5/12);
+    @include col(1/3);
     margin-right: 0;
   }
 

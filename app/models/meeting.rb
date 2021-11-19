@@ -50,12 +50,12 @@ class Meeting < ApplicationRecord
 
   scope :by_currentness, -> {
     active.
-    order(Arel.sql('CASE WHEN starts_at_date >= current_date THEN 0 WHEN starts_at_date IS NOT NULL THEN 1 ELSE 2 END')).
-    order(Arel.sql('(CASE WHEN starts_at_date >= current_date THEN starts_at_date END) ASC, (CASE WHEN starts_at_date < current_date THEN starts_at_date END) DESC'))
+    order(Arel.sql('CASE WHEN starts_at_date = current_date THEN 0 WHEN starts_at_date < current_date AND ends_at_date >= current_date THEN 1 WHEN starts_at_date >= current_date THEN 2 WHEN starts_at_date IS NOT NULL THEN 3 ELSE 4 END')).
+    order(Arel.sql('(CASE WHEN starts_at_date = current_date THEN created_at END) DESC, (CASE WHEN starts_at_date < current_date AND ends_at_date > current_date THEN ends_at_date END) ASC, (CASE WHEN starts_at_date >= current_date THEN starts_at_date END) ASC, (CASE WHEN starts_at_date < current_date THEN starts_at_date END) DESC'))
   }
 
   scope :upcoming, -> { active.
-    where("starts_at_date > ?", Date.yesterday).
+    where("starts_at_date > :today OR ends_at_date > :today", today: Date.yesterday).
     order(:starts_at_date) }
 
   validates :name, presence: true
