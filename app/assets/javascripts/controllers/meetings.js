@@ -35,9 +35,9 @@ APP.controllers.meetings = (function() {
       $('.select_users .opt').on('click', function(){
         var user_index = $(this).index();
         if ($(this).hasClass('selected')){
-          $('.meetings-compose-mail .members a').eq(user_index).find('.avatar').addClass('active');
+          $('.meetings-compose-mail .members a').eq(user_index).find('.img-round').addClass('active');
         } else {
-          $('.meetings-compose-mail .members a').eq(user_index).find('.avatar').removeClass('active');
+          $('.meetings-compose-mail .members a').eq(user_index).find('.img-round').removeClass('active');
         }
       });
 
@@ -147,21 +147,31 @@ APP.controllers.meetings = (function() {
         animation:{open: 'zoomIn', close: 'zoomOut'},
       });
 
-      // Analytics
+      // Analytics & Form Submit!
       $('.meeting-attend-btn').on('click', function() {
+        event.preventDefault();
+        var form = $(this).closest("form");
         gtag(
           'event', 'Click :: Teilnehmen', {
-          'event_category': 'Meeting'
+          'event_category': 'Meeting',
+          'event_callback': function() {
+            form.submit();
+          }
         });
       });
 
+      // Analytics & Form Submit!
       $('.meeting-unattend-btn').on('click', function() {
+        event.preventDefault();
+        var form = $(this).closest("form");
         gtag(
           'event', 'Click :: Nicht mehr teilnehmen', {
-          'event_category': 'Meeting'
+          'event_category': 'Meeting',
+          'event_callback': function() {
+            form.submit();
+          }
         });
       });
-
 
     }
 
