@@ -23,7 +23,7 @@
       <div class="month"><%= I18n.localize(meeting.ends_at_date, format:'%b') %></div>
     </div>
     <% elsif meeting.meeting_additional_dates.size > 0 %>
-      <div class="date-badge">+ <%= meeting.meeting_additional_dates.size %></div>
+      <div class="date-badge">+<%= meeting.meeting_additional_dates.size %></div>
     <% end %>
 
     <div class="categoryicon">

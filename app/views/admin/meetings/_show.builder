@@ -26,6 +26,7 @@ context.instance_eval do
           row :starts_at_date
           row(:starts_at_time){|m| m.starts_at_time ? m.starts_at_time.strftime('%H:%M') : nil}
           row(:ends_at_time){|m| m.ends_at_time ? m.ends_at_time.strftime('%H:%M') : nil}
+          row :ends_at_date
           row :cover_photo do |m|
             m.cover_photo && image_tag(m.cover_photo_url(:thumb))
           end
