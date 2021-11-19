@@ -4,11 +4,13 @@
   </em>
 <% end %>
 <% @meetings.each do |meeting| %>
+  <% going_to = meeting.going_tos.where(user:current_user).last %>
   <%= link_to [meeting.graetzl, meeting], class: 'nav-menu-item' do %>
-    <% if meeting.starts_at_date %>
+    <% if going_to.going_to_date || meeting.starts_at_date %>
+      <% date = going_to.going_to_date ? going_to.going_to_date : meeting.starts_at_date %>
       <div class="calendarSheet">
-        <div class="day"><%= meeting.starts_at_date.day %></div>
-        <div class="month"><%= I18n.localize(meeting.starts_at_date, format:'%b') %></div>
+        <div class="day"><%= date.day %></div>
+        <div class="month"><%= I18n.localize(date, format:'%b') %></div>
       </div>
     <% else %>
       <%= icon_tag "calendar-2" %>
