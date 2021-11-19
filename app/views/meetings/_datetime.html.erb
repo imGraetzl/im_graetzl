@@ -7,9 +7,9 @@
     <%= I18n.localize(date.starts_at_date, format:'%A, %d. %b. %Y') %>
     <br>
     <% if date.starts_at_time && date.ends_at_time %>
-      <span class="time">Von <%= localize_time(date.starts_at_time, '%H:%M') %> bis <%= localize_time(date.ends_at_time, '%H:%M') %></span>
+      <span class="time">Von <%= localize_time(date.starts_at_time, '%H:%M') %> bis <%= localize_time(date.ends_at_time, '%H:%M') %> Uhr</span>
     <% elsif date.starts_at_time %>
-      <span class="time">Beginn: <%= localize_time(date.starts_at_time, '%H:%M') %></span>
+      <span class="time">Beginn: <%= localize_time(date.starts_at_time, '%H:%M') %> Uhr</span>
     <% end %>
   </div>
 </div>
