@@ -76,6 +76,9 @@
   z-index: 9;
   font-style: italic;
 }
+.-past .date-badge {
+  color: $color-ambient-grey;
+}
 .till-badge {
   position: absolute;
   top: 20px;
