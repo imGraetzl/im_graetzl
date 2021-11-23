@@ -45,6 +45,7 @@
       background-color: $color-ambient-mint-dark;
     }
   }
+  /*
   &.-additionalDate {
     position: absolute;
     left:60px;
@@ -55,17 +56,15 @@
     @include font-size-primaryFont('small');
     font-style: italic;
   }
+  */
   &.-endDate {
     position: absolute;
     left:60px;
     z-index: 1;
   }
 }
-.date-badge {
-  &:empty { display: none; }
+.date-badge, .till-badge {
   position: absolute;
-  top:-1px;
-  left: 41px;
   font-family: $font-primary;
   background-color: #fdfdfe;
   color: $color-ambient-rosa-dark;
@@ -76,20 +75,14 @@
   z-index: 9;
   font-style: italic;
 }
+.date-badge {
+  top:-1px;
+  left: 41px;
+}
 .-past .date-badge {
   color: $color-ambient-grey;
 }
 .till-badge {
-  position: absolute;
   top: 20px;
   left: 45px;
-  font-family: $font-primary;
-  background-color: #fefdfd;
-  color: $color-ambient-rosa-dark;
-  border-radius: 15px;
-  line-height: 1;
-  font-size: 12px;
-  padding: 5px;
-  z-index: 9;
-  font-style: italic;
 }
