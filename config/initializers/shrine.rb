@@ -22,7 +22,7 @@ when :app
   }
 end
 
-Shrine.plugin :upload_options, store: {cache_control: "max-age=31536000"}
+Shrine.plugin :upload_options, store: {cache_control: "public, max-age=31536000"}
 Shrine.plugin :activerecord
 Shrine.plugin :cached_attachment_data
 Shrine.plugin :restore_cached_data
