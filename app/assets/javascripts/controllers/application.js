@@ -174,6 +174,8 @@ APP.controllers.application = (function() {
     }
 
   }
+  // END INIT
+  // BEGIN OFTEN USED PUBLIC FUNCTIONS
 
   function getUrlVars() {
     var vars = {};
@@ -181,6 +183,42 @@ APP.controllers.application = (function() {
         vars[key] = value;
     });
     return vars;
+  }
+
+  function initMessengerButton() {
+    $('#requestMessengerBtn').on('click', function(event){
+      event.preventDefault();
+      var href = $(this).attr('href');
+      var category = $(this).attr('data-category');
+      var label = $(this).attr('data-label');
+      gtag(
+        "event", label +  " :: Click :: Im Messenger kontaktieren", {
+        "event_category": category,
+        "event_callback": function() {
+          location.href = href;
+        }
+      });
+    });
+  }
+
+  function initShowContact() {
+    $('#contact-infos-block').hide();
+    if ($("#show-contact-block").exists()) {
+      $('#contact-infos-block').show();
+      $('#show-contact-link').hide();
+    }
+
+    $('#show-contact-link').on('click', function(event){
+      event.preventDefault();
+      $('#contact-infos-block').fadeIn();
+      $(this).hide();
+      var category = $(this).attr('data-category');
+      var label = $(this).attr('data-label');
+      gtag(
+        "event", label + " :: Click :: Kontaktinformationen einblenden", {
+        "event_category": category
+      });
+    });
   }
 
   var jBoxGallery = function() {
@@ -195,7 +233,6 @@ APP.controllers.application = (function() {
     });
   }
 
-
   // BETA FLASH for WeLocally
   if (!sessionStorage.getItem('betaflash')) {
     $('#betaflash').show();
@@ -205,12 +242,13 @@ APP.controllers.application = (function() {
       $('#betaflash').fadeOut();
   });
 
-
   // ---------------------------------------------------------------------- Returns
 
   return {
     init: init,
     getUrlVars: getUrlVars,
+    initMessengerButton: initMessengerButton,
+    initShowContact: initShowContact,
     jBoxGallery: jBoxGallery
   }
 

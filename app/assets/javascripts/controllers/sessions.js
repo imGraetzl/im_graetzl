@@ -4,8 +4,6 @@ APP.controllers.sessions = (function() {
 
         APP.components.inputTextareaMovingLabel();
 
-        // INSERT FB & GA TRCKING if in html not working
-
     }
 
 

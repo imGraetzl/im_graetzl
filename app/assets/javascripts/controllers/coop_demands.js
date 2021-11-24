@@ -3,42 +3,12 @@ APP.controllers.coop_demands = (function() {
   function init() {
     if ($("section.coop-demand-form").exists()) initCoopDemandForm();
     if ($("section.coop-demand").exists()) { initCoopDemand(); }
-    if ($("#hide-contact-link").exists()) inithideContactLink();
   }
 
   function initCoopDemand() {
-    // Sidebar Button Click
-    $('#requestCoopDemandBtn').on('click', function(event){
-      event.preventDefault();
-      var href = $(this).attr('href');
-      gtag(
-        'event', 'Coop & Share :: Click :: Kontaktieren', {
-        'event_category': 'Coop & Share',
-        'event_callback': function() {
-          location.href = href;
-        }
-      });
-    });
-
-    $('#contact-infos-block').hide();
-    $('#show-contact-link').on('click', function(event){
-      event.preventDefault();
-      $('#contact-infos-block').fadeIn();
-      $(this).hide();
-      gtag(
-        'event', 'Coop & Share :: Click :: Kontaktinformationen einblenden', {
-        'event_category': 'Coop & Share'
-      });
-    });
-
+    APP.controllers.application.initShowContact();
+    APP.controllers.application.initMessengerButton();
   }
-
-
-  function inithideContactLink(){
-    $('#contact-infos-block').show();
-    $('#show-contact-link').hide();
-  }
-
 
   function initCoopDemandForm() {
     APP.components.graetzlSelectFilter.init($('#area-select'));

@@ -18,7 +18,6 @@ a.hint-questionmark:hover, a.hint-questionlink:hover {
   max-width:200px;
   margin-left:-80px;
   margin-top:5px;
-  //color: $color-ambient-grey;
   @include font-size-primaryFont('small');
   .jq-dropdown-panel {
     background-color: $color-ambient-mint-light !important;

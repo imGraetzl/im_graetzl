@@ -58,3 +58,36 @@
   color: $color-ambient-mint;
   font-style: italic;
 }
+
+// See: https://raoulkramer.de/avif-and-webp-images-as-css-background-images/
+@mixin bg-url($url, $url2x: false, $webp1x: false, $webp2x: false, $avif1x: false, $avif2x: false) {
+  background-image: url($url);
+  @if $webp1x {
+    .webp & {
+      background-image: url($webp1x);
+    }
+  }
+  @if $avif1x {
+    .avif & {
+      background-image: url($avif1x);
+    }
+  }
+  @if $url2x {
+    @media
+    screen and (-webkit-min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+      background-image: url($url2x);
+      @if $webp2x {
+        .webp & {
+          background-image: url($webp2x);
+        }
+      }
+      @if $avif2x {
+        .avif & {
+          background-image: url($avif2x);
+        }
+      }
+    }
+  }
+}

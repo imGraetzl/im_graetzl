@@ -2,8 +2,7 @@ section.agb,
 section.datenschutz,
 section.impressum,
 section.zuckerl,
-section.faq,
-section.graetzlmarie {
+section.faq {
   .hl-subtext {
     margin-bottom: 60px;
   }
@@ -35,19 +34,5 @@ section.datenschutz {
   }
   h3 {
     padding-top:30px;
-  }
-}
-
-.sign-block {
-  background-color: #fff;
-  border: 1px solid #f0f0f0;
-  padding: 20px;
-  border-radius: 8px;
-  font-size: 1.1em;
-  @include respond-to(">=large") {
-    width: 80%;
-  }
-  li {
-    margin-bottom: 10px;
   }
 }

@@ -99,10 +99,6 @@ section.usersetup {
   }
 
   &.-toolteiler, &.-rooms {
-    // REMOVE TMP CLASS AFTER WE CAN USE AXA LOGO
-    .paperCard.-tmp .wrp {
-      h3 {margin-bottom:0px;}
-    }
     .tabs-nav {
       margin: 0 auto;
       margin-bottom: 50px;
@@ -123,11 +119,7 @@ section.usersetup {
   }
 
   &.-zuckerl {
-    .paperCard .wrp {
-      padding-top: 180px;
-      background-image: url(image_path('illu/illu-zuckerl-transparent.png'));
-    }
-    .btn-primary {
+    .paperCard .btn-primary {
       margin-bottom: 20px;
     }
   }
@@ -135,56 +127,6 @@ section.usersetup {
   &.-rooms {
     .paperCard .wrp {
       padding-top: 180px;
-      background-image: url(image_path('illu/illu-werkbank-plain.png'));
-    }
-  }
-
-  .step-element {
-    margin-bottom: 40px;
-    h2 {
-      font-family: $font-tertiary;
-      color: $color-ambient-mint-dark;
-      margin-bottom: 10px;
-      font-size: 28px;
-      @include respond-to(">=medium") {
-        font-size: 34px;
-      }
-    }
-    h2 span {
-      display: inline-block;
-      margin-right: 10px;
-      padding-top: 11px;
-      text-align: center;
-      padding-left: 8px;
-      font-size: 30px;
-      @include respond-to(">=medium") {
-        height: 80px;
-        width: 80px;
-        background-size: 80px 80px;
-        background-image: url(image_path('svg/kringel.svg'));
-        font-size: 42px;
-      }
-    }
-    .text {
-      @include respond-to(">=medium") {
-        padding-left: 100px;
-      }
-    }
-    .btn-primary {
-      display: table;
-      margin-top: 20px;
-    }
-
-    &:nth-child(even) {
-      //h2 { color: $color-ambient-mint-dark; }
-    }
-
-  }
-
-  .addlocation {
-    display: table;
-    @include respond-to(">=large") {
-      margin-left: -25px;
     }
   }
 

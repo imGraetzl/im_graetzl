@@ -83,7 +83,7 @@
   </div>
 
   <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @location.user_id),
-      class: "btn-primary -mint", id: 'requestLocationBtn' if @location.user && @location.user != current_user %>
+      class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Location", label: "Location" } if @location.user && @location.user != current_user %>
 
   <% if @location.open_hours.present? %>
     <div class="sideBarbox openinghours">

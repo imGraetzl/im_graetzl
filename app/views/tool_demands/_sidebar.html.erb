@@ -74,7 +74,7 @@
   <% end %>
 
   <% if @tool_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @tool_demand.user.id), class: 'btn-primary -mint -contact', id: 'requesttoolBtn', subject: "Toolteiler Kontakt" %>
+    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @tool_demand.user.id), class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Toolteiler", label: "Toolsuche" } %>
   <% end %>
 
   <%= link_to "Alle Toolteiler", region_tools_path, class: 'btn-primary -grey' %>

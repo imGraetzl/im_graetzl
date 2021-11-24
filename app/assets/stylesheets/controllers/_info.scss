@@ -827,8 +827,11 @@ section.info {
           padding: 150px 0px 0px 0px;
           background-position: center top 0px;
           background-size: auto 180px;
-          background-image: url(image_path('illu/illu-zuckerl-transparent.png'));
           background-repeat: no-repeat;
+          @include bg-url(
+            image_path('illu/illu-zuckerl-transparent.png'),
+            $webp1x: image_path('illu/illu-zuckerl-transparent.webp'),
+          );
         }
         button {
           width: 100%;

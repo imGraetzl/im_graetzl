@@ -62,7 +62,6 @@
   &.-coopdemand {
     .categoryicon {
       svg {
-        //fill: $color-ambient-rosa;
         width:50px;
         height: 50px;
       }
@@ -192,13 +191,6 @@
     position: absolute;
     top: 5px;
     left: 5px;
-  }
-  .participantsCountSmall {
-    position: absolute;
-    top: -4px;
-    padding-right: 4px;
-    right: 0;
-    color: $color-ambient-rosa;
   }
   .categoryicon {
     position: absolute;
@@ -579,18 +571,6 @@
 }
 
 
-// TODO: we should not need this -illustuff after new versions of startpages
-.cardBox[class*=-illu] {
-  background-repeat: no-repeat;
-  background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
-  background-position: center top 15px;
-}
-
-.cardBox.-illuteaser {
-  padding-top: 188px;
-  background-size: auto 180px;
-}
-
 .cardBox.-zuckerl .sideflag,
 .cardBox.-location .sideflag {
   bottom: 53px;
@@ -629,9 +609,10 @@
 }
 
 
-section.locations .goodieteasertxt{
+section.locations .goodieteasertxt {
   display: block;
 }
+
 
 // Featured CardBoxes
 .cardBox.featuredCard {
@@ -660,14 +641,8 @@ section.locations .goodieteasertxt{
     .coverImg {object-fit: contain;}
     a.btn-primary {background-color: #f2dd39; color: $color-font-primary}
   }
-  &.-voting {
-    a.btn-primary {background-color: #f8eb64; color: $color-font-primary;}
-  }
-  &.-crowdfunding {
-    .coverImgWrapper { height: 240px; }
-    a.btn-primary {background-color: #f37164; color: #fff;}
-  }
 }
+
 .homeRegion {
   .cardBox.featuredCard {
     &.-hidden {

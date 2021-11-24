@@ -24,7 +24,7 @@
 
       <% if @room_demand.wants_collaboration? %>
         <div class="collaboration icontxt">
-          <%= icon_tag "urgent-extra-notice-info-announcement" %>
+          <%= icon_tag "info-announcement" %>
           Auch an Kooperationen interessiert.
         </div>
       <% end %>
@@ -67,7 +67,7 @@
   <% end %>
 
   <% if @room_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_demand.user.id), class: 'btn-primary -mint -contact', id: 'requestRoomBtn', subject: "Raumteiler Kontakt" %>
+    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_demand.user.id), class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumsuche" } %>
   <% end %>
 
   <%= link_to "Alle Raumteiler", region_rooms_path, class: 'btn-primary -grey' %>

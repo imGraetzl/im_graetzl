@@ -3,7 +3,6 @@ APP.controllers.room_offers = (function() {
   function init() {
     if ($("section.room-offer-form").exists()) initRoomForm();
     if ($("section.roomDetail").exists()) { initRoomDetail(); }
-    if ($("#hide-contact-link").exists()) inithideContactLink();
     if ($(".request-price-form").exists()) initRoomOfferBookingForm();
   }
 
@@ -74,41 +73,12 @@ APP.controllers.room_offers = (function() {
   }
 
   function initRoomDetail() {
+    APP.controllers.application.initShowContact();
+    APP.controllers.application.initMessengerButton();
 
     if ($("#leafletMap").exists()) APP.components.leafletMap.init($('#leafletMap'));
 
-    // Sidebar Button Click
-    $('#requestRoomBtn').on('click', function(event){
-      event.preventDefault();
-      var href = $(this).attr('href');
-      gtag(
-        'event', 'Raumangebot :: Click :: Im Messenger kontaktieren', {
-        'event_category': 'Raumteiler',
-        'event_callback': function() {
-          location.href = href;
-        }
-      });
-    });
-
-    $('#contact-infos-block').hide();
-    $('#show-contact-link').on('click', function(event){
-      event.preventDefault();
-      $('#contact-infos-block').fadeIn();
-      $(this).hide();
-      gtag(
-        'event', 'Raumangebot :: Click :: Kontaktinformationen einblenden', {
-        'event_category': 'Raumteiler'
-      });
-    });
-
   }
-
-
-  function inithideContactLink(){
-    $('#contact-infos-block').show();
-    $('#show-contact-link').hide();
-  }
-
 
   function initRoomForm() {
     APP.components.tabs.initTabs(".tabs-ctrl");

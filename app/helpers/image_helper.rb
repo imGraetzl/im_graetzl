@@ -34,6 +34,11 @@ module ImageHelper
       image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
     elsif size
       image_tag(object.cover_photo_url(:header, size), loading: 'lazy', alt: object.to_s, **options)
+    elsif File.extname(object.cover_photo_url(:header, :large_webp)) == '.webp'
+      content_tag :picture do
+        tag(:source, srcset: object.cover_photo_url(:header, :large_webp)) +
+        image_tag(object.cover_photo_url(:header, :large), loading: 'lazy', alt: object.to_s, **options)
+      end
     else
       image_tag(object.cover_photo_url(:header, :large), srcset: {
         object.cover_photo_url(:header, :small) => '375w',
@@ -48,6 +53,11 @@ module ImageHelper
       image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
     elsif size
       image_tag(object.cover_photo_url(:cardbox, size), loading: 'lazy', alt: object.to_s, **options)
+    elsif File.extname(object.cover_photo_url(:cardbox, :large_webp)) == '.webp'
+      content_tag :picture do
+        tag(:source, srcset: object.cover_photo_url(:cardbox, :large_webp)) +
+        image_tag(object.cover_photo_url(:cardbox, :large), loading: 'lazy', alt: object.to_s, **options)
+      end
     else
       image_tag(object.cover_photo_url(:cardbox, :small), srcset: {
         object.cover_photo_url(:cardbox, :small) => '1x',
@@ -57,10 +67,17 @@ module ImageHelper
   end
 
   def category_image(object, **options)
-    image_tag(object.main_photo_url(:small), srcset: {
-      object.main_photo_url(:small) => '1x',
-      object.main_photo_url(:large) => '2x',
-    }, loading: 'lazy', alt: object.to_s, **options)
+      if File.extname(object.main_photo_url(:large_webp)) == '.webp'
+        content_tag :picture do
+          tag(:source, srcset: object.main_photo_url(:large_webp)) +
+          image_tag(object.main_photo_url(:large), loading: 'lazy', alt: object.to_s, **options)
+        end
+      else
+        image_tag(object.main_photo_url(:small), srcset: {
+          object.main_photo_url(:small) => '1x',
+          object.main_photo_url(:large) => '2x',
+        }, loading: 'lazy', alt: object.to_s, **options)
+    end
   end
 
   def gallery_thumb_image(object, **options)
