@@ -14,7 +14,7 @@ APP.controllers.coop_demands = (function() {
     APP.components.graetzlSelectFilter.init($('#area-select'));
     APP.components.search.userAutocomplete();
     $("textarea").autogrow({ onInitialize: true });
-    $('#custom-keywords').tagsInput({'defaultText':'Eigene Stichwörter (mit Komma getrennt)...'});
+    $('#custom-keywords').tagsInput({'defaultText':'Eigene Stichwörter (mit Komma getrennt) ...'});
 
     $('.coop-category-switch').on("change", function() {
       var selected_category_id = $(this).val();
