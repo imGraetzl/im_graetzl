@@ -107,7 +107,7 @@
         <!-- Contact Block -->
         <div class="contact-login-msg -show">
           <!-- Show Contact Link -->
-          <a href="#" id="show-contact-link">Kontaktinformationen einblenden</a>
+          <a href="#" id="show-contact-link" data-category="Raumteiler" data-label="Raumangebot">Kontaktinformationen einblenden</a>
           <!-- /Show Contact Link -->
 
           <div class="contact-infos" id="contact-infos-block">
@@ -144,7 +144,7 @@
         </div>
         <!-- /Contact Block -->
         <% if user_signed_in? && current_user == @room_offer.user || user_signed_in? && current_user.admin? %>
-          <div id="hide-contact-link"></div>
+          <div id="show-contact-block"></div>
         <% end %>
 
       <% else %>

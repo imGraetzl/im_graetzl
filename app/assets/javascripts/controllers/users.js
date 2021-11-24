@@ -10,9 +10,9 @@ APP.controllers.users = (function() {
         if ($("section.usersetup.-toolteiler").exists()) { addActionCard(); }
         if ($("section.usersetup.-rooms").exists()) { addActionCard(); }
         if ($("section.usersetup.-groups").exists()) { addActionCard(); }
+        if ($("section.usersetup.-coop-demands").exists()) { addActionCard(); }
         if ($("section.usersetup.-zuckerl").exists()) { addActionCard(); }
         if ($("section.usersetup.-favorite-graetzls").exists()) { initFavoriteGraetzls(); }
-
 
         // User Profile
         if ($("section.userprofile").exists()) {

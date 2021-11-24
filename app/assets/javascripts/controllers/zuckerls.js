@@ -6,7 +6,6 @@ APP.controllers.zuckerls = (function() {
       }
     }
 
-
     return {
       init: init
     };

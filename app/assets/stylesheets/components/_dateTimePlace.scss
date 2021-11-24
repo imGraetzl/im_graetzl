@@ -1,38 +1,3 @@
-.iconCalendarTextual {
-  position: relative;
-  display: table;
-  span {
-    z-index: 2;
-    font-size: 1.1rem;
-    display: block;
-    position: absolute;
-    border-radius: 4px;
-    text-align: center;
-    width: 100%;
-    line-height: 0.9;
-    color: $color-ambient-mint-dark;
-    font-weight: 600;
-    top: 12px;
-    left: 0;
-  }
-  .icon {
-    fill: $color-ambient-mint;
-    height: 35px;
-    width: 35px;
-  }
-
-  &.-large {
-    .icon {
-      height: 50px;
-      width: 50px;
-    }
-    span {
-      font-size: 1.4rem;
-      top: 21px;
-    }
-  }
-}
-
 .iconMapLink {
   text-align: center;
   font-size: 1.2rem;
@@ -42,7 +7,6 @@
   .icon {
     width: 50px;
     height: 50px;
-    //fill: $color-ambient-rosa;
     fill: $color-ambient-mint;
   }
 }
@@ -92,7 +56,6 @@ a.iconMapLink:hover .icon {
   }
   .dayYearTimes {
     margin-left:10px;
-    //white-space: nowrap;
     @include respond-to(">=medium") {
       text-shadow: 1px 1px $color-ambient-bright;
     }
@@ -106,15 +69,6 @@ a.iconMapLink:hover .icon {
     @include font-size-primaryFont('small');
     font-weight: normal;
   }
-  .iconCalendarTextual {
-    position: relative;
-    margin-right: 10px;
-    display: block;
-    @include respond-to(">=medium") {
-      margin-right: 20px;
-    }
-  }
-
 }
 
 // Community Meeting List
@@ -122,7 +76,6 @@ a.iconMapLink:hover .icon {
   .dateTimeItem {
     display: flex;
     align-items: center;
-    //flex-wrap: wrap;
     margin-top: 20px;
     margin-bottom: 20px;
   }
@@ -131,12 +84,7 @@ a.iconMapLink:hover .icon {
     min-width: 50px;
   }
   a.title {
-    //color: $color-font-primary;
-    //font-style: italic;
     color: $color-ambient-mint-dark;
-    //font-weight: bold;
-    //text-decoration: none;
-    //@include font-size-primaryFont('large');
   }
 }
 
@@ -150,7 +98,6 @@ a.iconMapLink:hover .icon {
 
   a, strong {
     display: block;
-    //font-style: italic;
   }
   a {
     display: block;
@@ -181,38 +128,8 @@ a.iconMapLink:hover .icon {
   }
   img {
     margin-right:10px;
-    //border-color: $color-ambient-rosa;
   }
   .infotxt {
     overflow: auto;
-  }
-}
-
-
-.dateTimeIconSmall, .locationIconSmall, .participantsCountSmall {
-  font-size: 1.3rem;
-  display: flex;
-  align-items: center;
-  .icon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 20px;
-    margin-right: 9px;
-  }
-}
-
-.participantsCountSmall {
-  position: absolute;
-  top: 20px;
-  right: 0;
-  font-size: 1.4rem;
-  background-color: #ffffff;
-  padding: 3px 20px 3px 6px;
-  display: flex;
-  border-radius: 5px 0 0 5px;
-  color: $color-ambient-mint-dark;
-  .icon {
-    fill: $color-ambient-mint-dark;
   }
 }

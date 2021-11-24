@@ -3,42 +3,12 @@ APP.controllers.tool_demands = (function() {
   function init() {
     if ($("section.tool-form").exists()) initToolDemandForm();
     if ($("section.tool-demand").exists()) { initToolDemand(); }
-    if ($("#hide-contact-link").exists()) inithideContactLink();
   }
 
   function initToolDemand() {
-    // Sidebar Button Click
-    $('#requesttoolBtn').on('click', function(event){
-      event.preventDefault();
-      var href = $(this).attr('href');
-      gtag(
-        'event', 'Toolsuche :: Click :: Kontaktieren', {
-        'event_category': 'Toolteiler',
-        'event_callback': function() {
-          location.href = href;
-        }
-      });
-    });
-
-    $('#contact-infos-block').hide();
-    $('#show-contact-link').on('click', function(event){
-      event.preventDefault();
-      $('#contact-infos-block').fadeIn();
-      $(this).hide();
-      gtag(
-        'event', 'Toolsuche :: Click :: Kontaktinformationen einblenden', {
-        'event_category': 'Toolteiler'
-      });
-    });
-
+    APP.controllers.application.initShowContact();
+    APP.controllers.application.initMessengerButton();
   }
-
-
-  function inithideContactLink(){
-    $('#contact-infos-block').show();
-    $('#show-contact-link').hide();
-  }
-
 
   function initToolDemandForm() {
     APP.components.graetzlSelectFilter.init($('#area-select'));

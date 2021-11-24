@@ -26,25 +26,3 @@
   }
 
 }
-
-.tag-list-newline {
-
-  margin: 0;
-  list-style: none;
-
-  li {
-    display: table;
-    clear:both;
-    margin-bottom: 10px;
-    span {
-      display: table;
-      float: left;
-      margin-top: -5px;
-      padding: 6px 15px;
-      border-radius: 20px;
-      margin-right: 5px;
-      background-color: #E2E2E2;
-      color: $color-ambient-mint-dark;
-    }
-  }
-}

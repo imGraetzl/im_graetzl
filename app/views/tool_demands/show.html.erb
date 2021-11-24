@@ -55,7 +55,7 @@
 
     <section class="owner">
       <div class="bigicontext-element">
-        <%= icon_tag "urgent-extra-notice-info-announcement" %>
+        <%= icon_tag "info-announcement" %>
         <div class="txt">Verwendung</div>
       </div>
       <div class="txt"><%= @tool_demand.usage_description %></div>
@@ -72,7 +72,7 @@
         <!-- Contact Block -->
         <div class="contact-login-msg -show">
           <!-- Show Contact Link -->
-          <a href="#" id="show-contact-link">Kontaktinformationen einblenden</a>
+          <a href="#" id="show-contact-link" data-category="Toolteiler" data-label="Toolsuche">Kontaktinformationen einblenden</a>
           <!-- /Show Contact Link -->
 
           <div class="contact-infos" id="contact-infos-block">
@@ -109,7 +109,7 @@
         </div>
         <!-- /Contact Block -->
         <% if user_signed_in? && current_user == @tool_demand.user || user_signed_in? && current_user.admin? %>
-          <div id="hide-contact-link"></div>
+          <div id="show-contact-block"></div>
         <% end %>
 
       <% else %>

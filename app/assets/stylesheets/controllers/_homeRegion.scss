@@ -5,7 +5,7 @@ section.homeRegion {
       margin-bottom: 50px;
     }
   }
-  
+
   .btn-primary {
     &.-register {
       display: table;
@@ -49,8 +49,6 @@ section.homeRegion {
       align-items: center;
       justify-content: space-around;
       text-align: center;
-      //padding:12px;
-
       padding:4px;
       padding-bottom:2px;
       border-radius: 4px;
@@ -80,7 +78,6 @@ section.homeRegion {
         opacity: 0.8;
         &:hover {
           opacity: 1.0;
-          //transform: scale(1.1);
         }
       }
     }
@@ -159,14 +156,13 @@ section.homeRegion {
 
   position: relative;
   background-repeat: no-repeat;
-  background-image: url(image_path('illu/illu-sitzendeAmTisch.png'));
 
-  @media
-    screen and (-webkit-min-device-pixel-ratio: 2),
-    screen and (min-resolution: 192dpi),
-    screen and (min-resolution: 2dppx) {
-    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png'));
-  }
+  @include bg-url(
+    image_path('illu/illu-sitzendeAmTisch.png'),
+    $url2x: image_path('illu/illu-sitzendeAmTisch@2x.png'),
+    $webp1x: image_path('illu/illu-sitzendeAmTisch.webp'),
+    $webp2x: image_path('illu/illu-sitzendeAmTisch@2x.webp'),
+  );
 
   background-size: 230px auto;
   background-position: 10% 75%;
@@ -187,8 +183,6 @@ section.homeRegion {
     @include textShadowHard($color-ambient-rosa-dark);
 
     position: relative;
-    //display: inline-block;
-    //text-align: center;
     margin: 0 auto;
     top:25px;
     left:65px;
@@ -207,17 +201,6 @@ section.homeRegion {
     @include respond-to(">=large") {
       top: 80px;
       left: 395px;
-    }
-
-    @include respond-to("<medium") {
-      //@include headlineBarbapapa();
-    }
-
-    span {
-      @include respond-to(">=medium") {
-        //display: table;
-        //@include headlineBarbapapa();
-      }
     }
 
     span:first-child {

@@ -107,7 +107,10 @@
 .paperCard[class*=-illu] {
   .wrp {
     background-repeat: no-repeat;
-    background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
+    @include bg-url(
+      image_path('illu/illu-cylce-straight@2x.png'),
+      $webp1x: image_path('illu/illu-cylce-straight@2x.webp'),
+    );
   }
 }
 
@@ -140,36 +143,45 @@
   }
 }
 
-
 .paperCard.-meeting .wrp {
-  background-image: url(image_path('illu/illu-cylce-straight@2x.png'));
+  @include bg-url(
+    image_path('illu/illu-cylce-straight@2x.png'),
+    $webp1x: image_path('illu/illu-cylce-straight@2x.webp'),
+  );
 }
 .paperCard.-zuckerl .wrp {
-  background-image: url(image_path('illu/illu-zuckerl-transparent.png'));
-}
-.paperCard.-idea .wrp {
-  background-image: url(image_path('illu/illu-ideen-weissbg.png'));
+  @include bg-url(
+    image_path('illu/illu-zuckerl-transparent.png'),
+    $webp1x: image_path('illu/illu-zuckerl-transparent.webp'),
+  );
 }
 .paperCard.-location .wrp {
-  background-image: url(image_path('illu/illu-wirtschaft2-plain.png'));
+  @include bg-url(
+    image_path('illu/illu-wirtschaft2-plain.png'),
+    $webp1x: image_path('illu/illu-wirtschaft2-plain.webp'),
+  );
 }
 .paperCard.-rooms .wrp, .paperCard.-tools .wrp {
-  background-image: url(image_path('illu/illu-werkbank-plain.png'));
+  @include bg-url(
+    image_path('illu/illu-werkbank-plain.png'),
+    $webp1x: image_path('illu/illu-werkbank-plain.webp'),
+  );
 }
 .paperCard.-platform-meeting .wrp {
-  background-image: url(image_path('illu/illu-ideen-weissbg.png'));
+  @include bg-url(
+    image_path('illu/illu-ideen-weissbg.png'),
+    $webp1x: image_path('illu/illu-ideen-weissbg.webp'),
+  );
 }
 .paperCard.-groups .wrp, .paperCard.-discussions .wrp {
-  background-image: url(image_path('illu/illu-sitzendeAmTisch.png'));
   background-position-x: 40px;
   background-position-y: 25px;
-  @media
-    screen and (-webkit-min-device-pixel-ratio: 2),
-    screen and (min-resolution: 192dpi),
-    screen and (min-resolution: 2dppx) {
-    /* CSS Code für hochauflösende Displays */
-    background-image: url(image_path('illu/illu-sitzendeAmTisch@2x.png'));
-  }
+  @include bg-url(
+    image_path('illu/illu-sitzendeAmTisch.png'),
+    $url2x: image_path('illu/illu-sitzendeAmTisch@2x.png'),
+    $webp1x: image_path('illu/illu-sitzendeAmTisch.webp'),
+    $webp2x: image_path('illu/illu-sitzendeAmTisch@2x.webp'),
+  );
 }
 .paperCard.-discussions .wrp {
   padding-top:190px;
