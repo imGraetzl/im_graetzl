@@ -1,0 +1,100 @@
+.svg-icons {
+
+  background-color: $color-ambient-mint-dark;
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center center;
+
+  // Fallback for Locations
+  &.-location {
+    mask: url(image_path('svg/icon-flat-geschaeftslokal.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-geschaeftslokal.svg')) no-repeat;
+  }
+
+  &.-spiritualitaet {
+    mask: url(image_path('svg/icon-flat-spiritualitaet.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-spiritualitaet.svg')) no-repeat;
+  }
+
+  &.-institution {
+    mask: url(image_path('svg/icon-flat-institution.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-institution.svg')) no-repeat;
+  }
+
+  &.-oeffentlicher-raum {
+    mask: url(image_path('svg/icon-flat-oeffentlicher-raum.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-oeffentlicher-raum.svg')) no-repeat;
+  }
+
+  &.-startup {
+    mask: url(image_path('svg/icon-flat-startup.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-startup.svg')) no-repeat;
+  }
+
+  &.-verein {
+    mask: url(image_path('svg/icon-flat-verein.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-verein.svg')) no-repeat;
+  }
+
+  &.-lokaler-dienstleister {
+    mask: url(image_path('svg/icon-flat-lokaler-dienstleister.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-lokaler-dienstleister.svg')) no-repeat;
+  }
+
+  &.-essentrinken {
+    mask: url(image_path('svg/icon-flat-essentrinken.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-essentrinken.svg')) no-repeat;
+  }
+
+  &.-klima {
+    mask: url(image_path('svg/icon-flat-klima.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-klima.svg')) no-repeat;
+  }
+
+  &.-wohlbefinden {
+    mask: url(image_path('svg/icon-flat-wohlbefinden.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-wohlbefinden.svg')) no-repeat;
+  }
+
+  &.-kreativ-handwerk {
+    mask: url(image_path('svg/icon-flat-kreativ-handwerk.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-kreativ-handwerk.svg')) no-repeat;
+  }
+
+  &.-weiterbildung {
+    mask: url(image_path('svg/icon-flat-weiterbildung.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-weiterbildung.svg')) no-repeat;
+  }
+
+  &.-kultur {
+    mask: url(image_path('svg/icon-flat-kultur.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-kultur.svg')) no-repeat;
+  }
+
+  &.-yoga {
+    mask: url(image_path('svg/icon-flat-yoga.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-yoga.svg')) no-repeat;
+  }
+
+  &.-coaching {
+    mask: url(image_path('svg/icon-flat-coaching.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-coaching.svg')) no-repeat;
+  }
+
+  &.-coworking {
+    mask: url(image_path('svg/icon-flat-coworking.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-coworking.svg')) no-repeat;
+  }
+
+  &.-geschaeftslokal {
+    mask: url(image_path('svg/icon-flat-geschaeftslokal.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-geschaeftslokal.svg')) no-repeat;
+  }
+
+  &.-mobilitaet {
+    mask: url(image_path('svg/icon-flat-mobilitaet.svg')) no-repeat;
+    -webkit-mask: url(image_path('svg/icon-flat-mobilitaet.svg')) no-repeat;
+  }
+
+}

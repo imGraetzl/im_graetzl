@@ -45,7 +45,7 @@
     <div class="category-tags">
       <% if @location.location_category.present? %>
         <div class="bigicontext-element">
-          <%= location_category_icon @location.location_category %>
+          <div class="svg-icons -location -<%= @location.location_category.icon %>"></div>
           <div class="txt"><%= link_to @location.location_category.name, region_locations_path(category: @location.location_category) %></div>
         </div>
       <% end %>
