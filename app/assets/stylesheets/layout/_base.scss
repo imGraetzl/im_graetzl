@@ -16,7 +16,11 @@ body {
   font-family: $font-primary;
   color: $color-font-primary;
   background-color: #ffffff;
-  background-image: $texture-stoff1;
+  //background-image: $texture-stoff1;
+  @include bg-url(
+    image_path('texture-alpha-stoff1.png'),
+    $webp1x: image_path('texture-alpha-stoff1.webp'),
+  );
   font-size: 1.6rem;
 }
 
