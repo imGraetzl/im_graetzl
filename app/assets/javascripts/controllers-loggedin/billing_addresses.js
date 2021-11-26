@@ -1,4 +1,4 @@
-APP.controllers.billing_addresses = (function() {
+APP.controllers_loggedin.billing_addresses = (function() {
     var $collapsibletrigger;
 
     function init() {

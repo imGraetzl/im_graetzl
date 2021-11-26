@@ -8,6 +8,7 @@
   font-url('amatic-bold-webfont.svg#amaticbold') format('svg');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -20,6 +21,7 @@
   font-url('amaticsc-regular-webfont.svg#amatic_scregular') format('svg');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 // Fetched from: https://fonts.googleapis.com/css?family=Loved+by+the+King
@@ -28,6 +30,7 @@
   font-style: normal;
   font-weight: 400;
   src: font-url('lovedbytheking.woff2') format('woff2');
+  font-display: swap;
 }
 
 // Fetched from: https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic&subset=latin,latin-ext

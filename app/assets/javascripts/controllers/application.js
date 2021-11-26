@@ -4,12 +4,11 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
-    APP.components.search.init();
-    APP.components.fileUpload.init();
+
     jBoxGallery();
     if($(".welocally").exists()) chooseRegionModal();
 
-    FastClick.attach(document.body);
+    //FastClick.attach(document.body);
 
     // Cookie Consent Banner
     var eventSubmitted = false;

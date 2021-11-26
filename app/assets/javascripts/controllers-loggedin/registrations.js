@@ -1,4 +1,4 @@
-APP.controllers.registrations = (function() {
+APP.controllers_loggedin.registrations = (function() {
 
     function init() {
       APP.components.inputTextareaMovingLabel();

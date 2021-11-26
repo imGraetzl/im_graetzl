@@ -1,6 +1,3 @@
-//= require uppy
-//= require components/on_render
-
 APP.components.fileUpload = (function() {
 
   function init() {

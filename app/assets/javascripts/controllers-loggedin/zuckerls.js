@@ -1,4 +1,4 @@
-APP.controllers.zuckerls = (function() {
+APP.controllers_loggedin.zuckerls = (function() {
 
     function init() {
       if ($("section.createzuckerl").exists()) {
