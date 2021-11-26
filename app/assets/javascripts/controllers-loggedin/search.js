@@ -1,4 +1,4 @@
-APP.controllers.search = (function() {
+APP.controllers_loggedin.search = (function() {
 
     function init() {
 

@@ -5,6 +5,7 @@
   <%= csrf_meta_tags %>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application-loggedin', media: 'all' if user_signed_in? || controller_name == 'registrations' %>
 
   <%= favicon_link_tag 'favicon.ico' %>
   <%= render 'tracking_tags' %>
@@ -21,6 +22,7 @@
 
   <%= render 'footer' %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag "application-loggedin" if user_signed_in? || controller_name == 'registrations' %>
   <%= render partial: 'controller_footer' rescue nil %>
   <%= render "icons" %>
 </body>

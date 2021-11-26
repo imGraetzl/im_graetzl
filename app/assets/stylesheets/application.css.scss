@@ -19,11 +19,8 @@
 @import "dropdown";
 @import "sumoselect";
 @import "leaflet";
-@import "jquery.tagsinput";
-@import "datatables.min";
 @import "jBox.min";
 @import "lightslider";
-@import "uppy";
 
 //---------------------------------------------------------------------------------------------*\
 // LAYOUT
@@ -47,7 +44,6 @@
 @import "components/cardGrid";
 @import "components/buttons";
 @import "components/forms";
-@import "components/notificationsValidation";
 @import "components/userimg";
 @import "components/headlineBarbapapa";
 @import "components/hint-questionmark";
@@ -70,7 +66,6 @@
 @import "components/mapImgBlock";
 @import "components/navigation";
 @import "components/navigation-bar";
-@import "components/notifications";
 @import "components/address-input";
 @import "components/titleHeadline";
 @import "components/imgHeader";
@@ -84,10 +79,11 @@
 @import "components/mailTo";
 @import "components/bbcode";
 @import "components/jBox";
-@import "components/tableLayout";
 @import "components/search";
 @import "components/file_upload";
 @import "components/svgIcons";
+@import "components/tableLayout";
+@import "components/notifications";
 
 //---------------------------------------------------------------------------------------------*\
 // PAGES
@@ -125,9 +121,7 @@
 @import "controllers/going_tos";
 @import "controllers/group";
 @import "controllers/regions";
-@import "controllers/adminreports";
 @import "controllers/messenger";
-@import "controllers/reports";
 @import "controllers/campaignUsers";
 
 //---------------------------------------------------------------------------------------------*\

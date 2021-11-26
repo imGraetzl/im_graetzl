@@ -25,7 +25,6 @@
 //= require jquery.sumoselect
 //= require jquery.dropdown
 //= require masonry.pkgd.min
-//= require jquery.tagsinput
 //= require linkify.min
 //= require linkify-jquery.min
 //= require jquery.remotipart
@@ -39,7 +38,6 @@
 //= require overthrow-polyfill
 //= require overthrow-toss
 //= require overthrow-init
-//= require fastclick
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers

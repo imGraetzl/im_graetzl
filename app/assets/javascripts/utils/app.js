@@ -14,10 +14,12 @@ var APP = {
     utils: {},
     components: {},
     controllers: {},
+    controllers_loggedin: {},
 
     init: function() {
         APP.controllers.application.init();
         var pageToInit = $("body").attr("data-controller");
         APP.controllers[pageToInit] && APP.controllers[pageToInit].init();
+        APP.controllers_loggedin[pageToInit] && APP.controllers_loggedin[pageToInit].init();
     }
 };

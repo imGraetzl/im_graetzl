@@ -6,7 +6,6 @@ APP.controllers.campaign_users = (function() {
 
     function initForm() {
 
-        //APP.components.formValidation.init();
         if($("#error_explanation").exists()) {
           $('html, body').animate({
             scrollTop: $('#error_explanation').offset().top

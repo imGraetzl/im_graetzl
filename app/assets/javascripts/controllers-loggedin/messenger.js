@@ -1,4 +1,4 @@
-APP.controllers.messenger = (function() {
+APP.controllers_loggedin.messenger = (function() {
 
   function init() {
     initThreadFilter();
