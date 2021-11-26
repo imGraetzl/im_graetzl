@@ -42,14 +42,14 @@
       <% end %>
 
       <% if @location.online_shop_url.present? %>
-        <%= link_to @location.online_shop_url, class: 'icontxt onlineshop', target: '_blank' do %>
+        <%= link_to @location.online_shop_url, class: 'icontxt onlineshop', target: '_blank', rel: 'noopener' do %>
           <%= icon_tag "onlineshop" %>
           <span>Online Shop</span>
         <% end %>
       <% end %>
 
       <% if @location.website_url.present? %>
-        <%= link_to @location.website_url, class: 'icontxt', target: '_blank' do %>
+        <%= link_to @location.website_url, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
           <%= icon_tag "globe" %>
           <span><%= @location.website_url.sub(/^https?\:\/\//,'') %></span>
         <% end %>
