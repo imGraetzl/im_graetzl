@@ -17,10 +17,6 @@ APP.controllers.meetings = (function() {
         }
       });
 
-      $('.entryDescription .bbcode').linkify({
-        target: "_blank"
-      });
-
       if ($(".additonal").exists()) {
         $('.dateTime').lightSlider({
           item: 2,

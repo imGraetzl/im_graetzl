@@ -1,5 +1,5 @@
 <div class="col footer-logos">
-  <a href="https://www.ffg.at" target="_blank">
+  <a href="https://www.ffg.at" target="_blank" rel="noopener">
     <picture>
       <source srcset="<%= image_path('logo-ffg.webp') %>" />
       <%= image_tag 'logo-ffg.png', width:161, height:65 %>
@@ -11,22 +11,22 @@
 </div>
 
 <div class="col footer-logos -kaernten">
-  <%= link_to(image_tag('regions/kaernten/logo_voelkermarkt.png'), 'https://voelkermarkt.gv.at', target: '_blank') %>
-  <%= link_to(image_tag('regions/kaernten/logo_griffen.png'), 'https://www.griffen.gv.at', target: '_blank') %>
-  <%= link_to(image_tag('regions/kaernten/logo_standrae.png'), 'https://www.st-andrae.gv.at', target: '_blank') %>
+  <%= link_to(image_tag('regions/kaernten/logo_voelkermarkt.png'), 'https://voelkermarkt.gv.at', target: '_blank', rel: 'noopener') %>
+  <%= link_to(image_tag('regions/kaernten/logo_griffen.png'), 'https://www.griffen.gv.at', target: '_blank', rel: 'noopener') %>
+  <%= link_to(image_tag('regions/kaernten/logo_standrae.png'), 'https://www.st-andrae.gv.at', target: '_blank', rel: 'noopener') %>
   <div>
     In Kooperation mit:<br><br>
 
     Stadtgemeinde Völkermarkt<br>
-    <%= link_to 'www.voelkermarkt.gv.at', 'https://www.voelkermarkt.gv.at', target: 'blank' %>
+    <%= link_to 'www.voelkermarkt.gv.at', 'https://www.voelkermarkt.gv.at', target: 'blank', rel: 'noopener' %>
     <br><br>
 
     Marktgemeinde Griffen<br>
-    <%= link_to 'www.griffen.gv.at', 'https://www.griffen.gv.at', target: 'blank' %>
+    <%= link_to 'www.griffen.gv.at', 'https://www.griffen.gv.at', target: 'blank', rel: 'noopener' %>
     <br><br>
 
     Stadtgemeinde St. Andrä<br>
-    <%= link_to 'www.st-andrae.gv.at', 'https://www.st-andrae.gv.at', target: 'blank' %>
+    <%= link_to 'www.st-andrae.gv.at', 'https://www.st-andrae.gv.at', target: 'blank', rel: 'noopener' %>
 
   </div>
 </div>

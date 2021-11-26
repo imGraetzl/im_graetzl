@@ -25,7 +25,6 @@
 //= require jquery.sumoselect
 //= require jquery.dropdown
 //= require masonry.pkgd.min
-//= require linkify.min
 //= require linkify-jquery.min
 //= require jquery.remotipart
 //= require lightslider

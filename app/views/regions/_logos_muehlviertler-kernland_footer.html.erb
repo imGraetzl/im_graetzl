@@ -1,5 +1,5 @@
 <div class="col footer-logos">
-  <a href="https://www.ffg.at" target="_blank">
+  <a href="https://www.ffg.at" target="_blank" rel="noopener">
     <picture>
       <source srcset="<%= image_path('logo-ffg.webp') %>" />
       <%= image_tag 'logo-ffg.png', width:161, height:65 %>
@@ -11,11 +11,11 @@
 </div>
 
 <div class="col footer-logos">
-  <%= link_to(image_tag('regions/muehlviertler-kernland/logo_leaderregion.png'), 'https://www.leader-kernland.at', target: '_blank') %>
+  <%= link_to(image_tag('regions/muehlviertler-kernland/logo_leaderregion.png'), 'https://www.leader-kernland.at', target: '_blank', rel: 'noopener') %>
   <div>
     In Kooperation mit:<br><br>
     Regionalverein „Leader-Region“ Mühlviertler Kernland
     <br>
-    <%= link_to 'www.leader-kernland.at', 'https://www.leader-kernland.at', target: 'blank' %>
+    <%= link_to 'www.leader-kernland.at', 'https://www.leader-kernland.at', target: 'blank', rel: 'noopener' %>
   </div>
 </div>

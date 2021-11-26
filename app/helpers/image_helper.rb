@@ -31,20 +31,20 @@ module ImageHelper
 
   def cover_header_image(object, size: nil, fallback: "cover_header.png", **options)
     if object&.cover_photo.nil?
-      image_tag("fallbacks/#{fallback}", loading: 'lazy', alt: object.to_s, **options)
+      image_tag("fallbacks/#{fallback}", alt: object.to_s, **options)
     elsif size
-      image_tag(object.cover_photo_url(:header, size), loading: 'lazy', alt: object.to_s, **options)
+      image_tag(object.cover_photo_url(:header, size), alt: object.to_s, **options)
     elsif File.extname(object.cover_photo_url(:header, :large_webp)) == '.webp'
       content_tag :picture do
         tag(:source, srcset: object.cover_photo_url(:header, :large_webp)) +
-        image_tag(object.cover_photo_url(:header, :large), loading: 'lazy', alt: object.to_s, **options)
+        image_tag(object.cover_photo_url(:header, :large), alt: object.to_s, **options)
       end
     else
       image_tag(object.cover_photo_url(:header, :large), srcset: {
         object.cover_photo_url(:header, :small) => '375w',
         object.cover_photo_url(:header, :medium) => '750w',
         object.cover_photo_url(:header, :large) => '980w',
-      }, sizes: "(min-width: 980px) 980px, 100vw", loading: 'lazy', alt: object.to_s, **options)
+      }, sizes: "(min-width: 980px) 980px, 100vw", alt: object.to_s, **options)
     end
   end
 
