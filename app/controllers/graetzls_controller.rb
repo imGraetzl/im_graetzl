@@ -38,7 +38,7 @@ class GraetzlsController < ApplicationController
   def posts
   end
 
-  def tool_offers
+  def tools
     if params[:category].present?
       @category = ToolCategory.find_by(slug: params[:category])
     end

@@ -19,7 +19,7 @@
   )
 %>
 
-<% content_for :canonical_url, region_meetings_path(category: @category) if @category %>
+<% content_for :canonical_url, region_meetings_url(category: @category) if @category %>
 
 <section class="districts meetings">
   <%= render 'map' %>

@@ -7,7 +7,7 @@
     robots: 'index, follow'
   )
 %>
-<% content_for :canonical_url, region_tools_path(category: @category) if @category %>
+<% content_for :canonical_url, region_tools_url(category: @category) if @category %>
 
 
 <section class="districts toolteiler">
