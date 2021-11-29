@@ -20,14 +20,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="msapplication-tap-highlight" content="no" />
 <meta name="google-site-verification" content="LSgg3WBUIokaZhSK4uO3MezLJjfnwvJX0vFDfnInsk8" />
+
+<!-- DNS Prefetch for better Performance - TODO: Add welocally asset domain -->
+<link rel="dns-prefetch" href="//welocally.at">
+<link rel="dns-prefetch" href="//api.mapbox.com">
+<link rel="preconnect" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com" crossorigin>
+<link rel="dns-prefetch" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com">
+<link rel="dns-prefetch" href="//www.googletagmanager.com">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+<!-- Check if Browser Supports WebP Image Format -->
 <script type="text/javascript">
   // See: https://github.com/djpogo/avif-webp-css-support
   !function(A){"use strict";var e="webp",t="avif";function s(A,e,t){var s=function(A){if(window.sessionStorage){var e=window.sessionStorage.getItem(A+"Support");if("false"===e||"true"===e)return"true"===e}return null}(A);if(null===s){var o=new Image;return o.onload=o.onerror=function(){t(A,2===o.height)},void(o.src=e)}a(A,s)}function a(s,a){if(a){var o=A.documentElement;o.classList?o.classList.add("webp"===s?e:t):o.className+=" "+s=="webp"?e:t,window.sessionStorage.setItem(s+"Support",!0)}else window.sessionStorage.setItem(s+"Support",!1)}s("webp","data:image/webp;base64,UklGRi4AAABXRUJQVlA4TCEAAAAvAUAAEB8wAiMwAgSSNtse/cXjxyCCmrYNWPwmHRH9jwMA",a),s("avif","data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUEAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAF0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgS0AAAAAABNjb2xybmNseAACAAIAAIAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAAGVtZGF0EgAKBzgAPtAgIAkyUBAAAPWc41TP///4gHBX9H8XVK7gGeDllq8TYARA+8Tfsv7L+zPE24eIoIzE0WhHbrqcrTK9VEgEG/hwgB5rdCbvP8g3KYPdV88CvPJnptgQ",a)}(document);
 </script>
-
-<!-- DNS Prefetch for better Performance - TODO: Add welocally asset domain -->
-<link rel="preconnect" href="//s3.eu-central-1.amazonaws.com" crossorigin>
-<link rel="dns-prefetch" href="//s3.eu-central-1.amazonaws.com">
-<link rel="dns-prefetch" href="//api.mapbox.com">
-<link rel="dns-prefetch" href="//www.googletagmanager.com">
-<link rel="dns-prefetch" href="//www.google-analytics.com">
