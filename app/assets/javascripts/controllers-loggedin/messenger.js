@@ -82,7 +82,7 @@ APP.controllers_loggedin.messenger = (function() {
 
   function initThreadSelect() {
     // Load thread on Click
-    $("#side-bar .message-thread").on("click", function() {
+    $("#side-bar .message-thread").on("click touchstart", function() {
       if ($(this).hasClass("-active") || $(this).hasClass("hidden")) return;
       $(this).find(".fetch-form").submit();
       $("#side-bar .message-thread").removeClass("-active");
@@ -95,7 +95,7 @@ APP.controllers_loggedin.messenger = (function() {
       var thread_id = $(".chat-panel").data("thread-id");
       history && history.replaceState({}, '', location.pathname + "?thread_id=" + thread_id);
       APP.components.initUserTooltip();
-      $('#message-list .chat-message').linkify({target: "_blank"});
+      $('#message-list .chat-message .bubble').linkify({target: "_blank"});
 
       gtag(
         'event', 'Open Thread', {

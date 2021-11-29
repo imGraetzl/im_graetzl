@@ -23,6 +23,9 @@
 
 <!-- DNS Prefetch for better Performance - TODO: Add welocally asset domain -->
 <link rel="dns-prefetch" href="//welocally.at">
+<% if ['home', 'regions', 'districts', 'graetzls'].include? controller_name %>
+  <link rel="preconnect" href="//api.mapbox.com" crossorigin>
+<% end %>
 <link rel="dns-prefetch" href="//api.mapbox.com">
 <link rel="preconnect" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com" crossorigin>
 <link rel="dns-prefetch" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com">
