@@ -82,7 +82,7 @@ APP.controllers_loggedin.messenger = (function() {
 
   function initThreadSelect() {
     // Load thread on Click
-    $("#side-bar .message-thread").on("click", function() {
+    $("#side-bar .message-thread").on("click touchstart", function() {
       if ($(this).hasClass("-active") || $(this).hasClass("hidden")) return;
       $(this).find(".fetch-form").submit();
       $("#side-bar .message-thread").removeClass("-active");
