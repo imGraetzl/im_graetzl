@@ -7,8 +7,7 @@ module MetaTagHelper
   end
 
   def canonical_tag
-    #url = "https://#{request.host + request.fullpath}".gsub(/\/$/, "").gsub(/scope=.+&/, "")
-    url = content_for(:canonical_url) || request.path
+    url = content_for(:canonical_url) || request.original_url.split('?').first
     tag(:link, rel: 'canonical', href: url)
   end
 

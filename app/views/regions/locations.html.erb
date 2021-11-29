@@ -14,7 +14,7 @@
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">
-    <%= image_tag 'svg/locations-headline.svg', class: 'locations-headline', width:440, height:78 %>
+    <%= image_tag 'svg/locations-headline.svg', class: 'locations-headline', alt:'Schaufenster', width:440, height:78 %>
     <p><%= @category? "Entdecke Selbständige, kl. Unternehmen & Kreative aus der Kategorie „#{@category.name}“." : "Entdecke Selbständige, kl. Unternehmen, Kreative, Vereine & Macher*innen" %><%= render 'shared/questionmarklink', hint_url: info_anbieter_und_locations_path %></p>
   </div>
 

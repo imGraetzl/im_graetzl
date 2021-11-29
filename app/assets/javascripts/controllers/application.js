@@ -8,8 +8,6 @@ APP.controllers.application = (function() {
     jBoxGallery();
     if($(".welocally").exists()) chooseRegionModal();
 
-    //FastClick.attach(document.body);
-
     // Cookie Consent Banner
     var eventSubmitted = false;
     var options = {

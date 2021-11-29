@@ -7,7 +7,7 @@
     robots: 'index, follow'
   )
 %>
-<% content_for :canonical_url, region_rooms_path(category: @category) if @category %>
+<% content_for :canonical_url, region_rooms_url(category: @category) if @category %>
 
 <section class="graetzls rooms">
   <%= render 'map' %>
