@@ -4,7 +4,6 @@ APP.components.stream = (function() {
 
         initEntryCreateForm();
         initCommentForm();
-        initLinkify();
 
         $('.show-all-comments-link').on("click", function() {
           $(this).parents(".post-comments").find(".comment-container").show();
@@ -34,10 +33,10 @@ APP.components.stream = (function() {
         }
     }
 
-    function initLinkify() {
-        $('.stream .entryInitialContent .txt').linkify({ target: "_blank"});
-        $('.stream .post-comments .txt').linkify({ target: "_blank"});
-        $('.entryUserComment .txt').linkify({ target: "_blank"});
+    function initLinkify(content) {
+      if (typeof content !== "undefined") {
+        content.linkify({ target: "_blank"});
+      }
     }
 
     function initCommentForm() {

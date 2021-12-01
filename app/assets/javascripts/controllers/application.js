@@ -4,6 +4,7 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
+    $('.entryUserComment .txt').linkify({ target: "_blank"});
 
     jBoxGallery();
     if($(".welocally").exists()) chooseRegionModal();

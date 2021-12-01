@@ -4,7 +4,7 @@
     $commentForm.before("<%= j render 'groups/discussion_posts/comment', comment: @comment %>");
     $commentForm.replaceWith("<%= j render 'groups/discussion_posts/comment_form', discussion_post: @post %>");
     APP.components.stream.initCommentForm();
-    APP.components.stream.initLinkify();
+    APP.components.stream.initLinkify($("#comment_" + <%= @comment.id %> + " .txt"));
     APP.controllers.application.jBoxGallery();
   <% else %>
     alert('Es gab ein Problem, bitte versuche es später nochmal.');
