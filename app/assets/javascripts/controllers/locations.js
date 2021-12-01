@@ -20,6 +20,7 @@ APP.controllers.locations = (function() {
       });
 
       $('.introtxt .txt').linkify({ target: "_blank"});
+      $('.stream .txtlinky').linkify({ target: "_blank"});
       $('.autosubmit-stream').submit();
 
       // open comments if post hash exists

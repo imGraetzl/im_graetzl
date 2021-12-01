@@ -92,6 +92,10 @@ h1, h2 {
   font-weight: normal;
 }
 
+picture {
+  display: contents; // for webp container
+}
+
 .no-scroll {
    position: fixed;
    width: 100%;

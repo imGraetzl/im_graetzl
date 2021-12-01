@@ -4,6 +4,11 @@ module ImageHelper
     if object&.avatar.nil?
       avatar_type = object.is_a?(Location) ? 'location' : 'user'
       image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)
+    elsif size && File.extname(object.avatar_url("#{size}_webp")) == '.webp'
+      content_tag :picture do
+        tag(:source, srcset: object.avatar_url("#{size}_webp")) +
+        image_tag(object.avatar_url(size), loading: 'lazy', alt: object.to_s, **options)
+      end
     elsif size
       image_tag(object.avatar_url(size), loading: 'lazy', alt: object.to_s, **options)
     else
@@ -81,7 +86,14 @@ module ImageHelper
   end
 
   def gallery_thumb_image(object, **options)
-    image_tag(object.file_url(:thumb), loading: 'lazy', **options)
+    if File.extname(object.file_url(:thumb_webp)) == '.webp'
+      content_tag :picture do
+        tag(:source, srcset: object.file_url(:thumb_webp)) +
+        image_tag(object.file_url(:thumb), loading: 'lazy', **options)
+      end
+    else
+      image_tag(object.file_url(:thumb), loading: 'lazy', **options)
+    end
   end
 
   def gallery_photo_image(object, fallback: 'cover_photo.png', **options)
