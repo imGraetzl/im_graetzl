@@ -504,3 +504,6 @@ section.messenger-page {
     height: calc(var(--vh, 1vh) * 100 - 70px);
   }
 }
+
+// Hack: Hide Thread Action on Touch Devices
+.touch .thread-actions {display: none !important;}
