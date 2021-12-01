@@ -10,7 +10,7 @@
   <%= link_to 'javascript:', data: { jq_dropdown: "#action-msg-#{thread.id}" }, class:'actions' do %>
     <%= icon_tag "dot-3" %>
   <% end %>
-  <div id="action-msg-<%= thread.id %>" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+  <div id="action-msg-<%= thread.id %>" class="thread-actions jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
     <div class="jq-dropdown-panel">
       <%= link_to 'Archivieren', messenger_update_thread_path(thread_id: thread.id, status: 'archived'), method: :post %>
       <%= link_to 'Löschen', messenger_update_thread_path(thread_id: thread.id, status: 'deleted'), method: :post %>
