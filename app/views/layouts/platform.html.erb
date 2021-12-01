@@ -7,8 +7,29 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= stylesheet_link_tag 'application-loggedin', media: 'all' if user_signed_in? || controller_name == 'registrations' %>
 
-  <%= favicon_link_tag 'favicon.ico' %>
+  <%= javascript_include_tag 'application', defer: true %>
+  <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || controller_name == 'registrations' %>
+
+  <!-- DNS Prefetch for better Performance -->
+  <link rel="dns-prefetch" href="//welocally.at">
+  <% if ['home', 'regions', 'districts', 'graetzls'].include? controller_name %>
+    <link rel="preconnect" href="//api.mapbox.com" crossorigin>
+  <% end %>
+  <link rel="dns-prefetch" href="//api.mapbox.com">
+  <link rel="preconnect" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com" crossorigin>
+  <link rel="dns-prefetch" href="//<%= ENV['UPLOADS_BUCKET'] %>.s3.eu-central-1.amazonaws.com">
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+  <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+  <!-- Check if Browser Supports WebP Image Format -->
+  <script type="text/javascript">
+    // See: https://github.com/djpogo/avif-webp-css-support
+    !function(A){"use strict";var e="webp",t="avif";function s(A,e,t){var s=function(A){if(window.sessionStorage){var e=window.sessionStorage.getItem(A+"Support");if("false"===e||"true"===e)return"true"===e}return null}(A);if(null===s){var o=new Image;return o.onload=o.onerror=function(){t(A,2===o.height)},void(o.src=e)}a(A,s)}function a(s,a){if(a){var o=A.documentElement;o.classList?o.classList.add("webp"===s?e:t):o.className+=" "+s=="webp"?e:t,window.sessionStorage.setItem(s+"Support",!0)}else window.sessionStorage.setItem(s+"Support",!1)}s("webp","data:image/webp;base64,UklGRi4AAABXRUJQVlA4TCEAAAAvAUAAEB8wAiMwAgSSNtse/cXjxyCCmrYNWPwmHRH9jwMA",a),s("avif","data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUEAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAF0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgS0AAAAAABNjb2xybmNseAACAAIAAIAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAAGVtZGF0EgAKBzgAPtAgIAkyUBAAAPWc41TP///4gHBX9H8XVK7gGeDllq8TYARA+8Tfsv7L+zPE24eIoIzE0WhHbrqcrTK9VEgEG/hwgB5rdCbvP8g3KYPdV88CvPJnptgQ",a)}(document);
+  </script>
+
   <%= render 'tracking_tags' %>
+  <%= favicon_link_tag 'favicon.ico' %>
+
 </head>
 
 <body data-controller="<%= controller_name %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>welocally">
@@ -20,8 +41,6 @@
   </main>
 
   <%= render 'platform/footer' %>
-  <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag "application-loggedin" if user_signed_in? || controller_name == 'registrations' %>
   <%= render "icons" %>
 </body>
 
