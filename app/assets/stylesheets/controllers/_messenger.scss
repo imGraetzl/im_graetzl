@@ -104,7 +104,8 @@ section.messenger-page {
       }
       .filter {
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
+        width: 100%;
         a {
           color: $color-ambient-mint-dark;
           white-space: nowrap;
