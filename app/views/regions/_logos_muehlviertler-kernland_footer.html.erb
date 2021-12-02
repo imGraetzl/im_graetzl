@@ -2,7 +2,7 @@
   <a href="https://www.ffg.at" target="_blank" rel="noopener">
     <picture>
       <source srcset="<%= image_path('logo-ffg.webp') %>" />
-      <%= image_tag 'logo-ffg.png', alt: 'Forschungsförderungsgesellschaft', width:161, height:65 %>
+      <%= image_tag 'logo-ffg.png', alt: 'Forschungsförderungsgesellschaft', loading: 'lazy', width:161, height:65 %>
     </picture>
   </a>
   <div class="ffg-txt">
@@ -11,7 +11,7 @@
 </div>
 
 <div class="col footer-logos">
-  <%= link_to(image_tag('regions/muehlviertler-kernland/logo_leaderregion.png'), 'https://www.leader-kernland.at', target: '_blank', rel: 'noopener') %>
+  <%= link_to(image_tag('regions/muehlviertler-kernland/logo_leaderregion.png', loading: 'lazy'), 'https://www.leader-kernland.at', target: '_blank', rel: 'noopener') %>
   <div>
     In Kooperation mit:<br><br>
     Regionalverein „Leader-Region“ Mühlviertler Kernland
