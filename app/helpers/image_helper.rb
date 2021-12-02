@@ -3,7 +3,10 @@ module ImageHelper
   def avatar_image(object, size: nil, **options)
     if object&.avatar.nil?
       avatar_type = object.is_a?(Location) ? 'location' : 'user'
-      image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)
+      content_tag :picture do
+        tag(:source, srcset: "#{image_path("fallbacks/#{avatar_type}_avatar.webp")}") +
+        image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)
+      end
     elsif size && File.extname(object.avatar_url("#{size}_webp")) == '.webp'
       content_tag :picture do
         tag(:source, srcset: object.avatar_url("#{size}_webp")) +
