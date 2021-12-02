@@ -14,7 +14,6 @@
 //= require jquery2
 //= require jquery_ujs
 //= require jquery.detect_swipe
-//= require jquery.easy-autocomplete
 //= require jquery.ihavecookies
 //= require picker
 //= require jquery.tabslet.min
@@ -33,10 +32,6 @@
 //= require autogrow
 //= require jBox.min
 //= require cocoon
-//= require overthrow-detect
-//= require overthrow-polyfill
-//= require overthrow-toss
-//= require overthrow-init
 //= require_directory ./utils
 //= require_directory ./components
 //= require_directory ./controllers

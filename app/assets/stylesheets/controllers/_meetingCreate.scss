@@ -69,6 +69,14 @@
     float: right;
   }
 
+  .date-fields {
+    //display: none;
+    margin-bottom: 2.5rem;
+    @include respond-to(">=medium") {
+      margin-bottom: 5.0rem;
+    }
+  }
+
 }
 
 #meeting-platform-meeting-fields {
@@ -112,14 +120,6 @@
     }
   }
 
-}
-
-.date-fields {
-  display: none;
-  margin-bottom: 2.5rem;
-  @include respond-to(">=medium") {
-    margin-bottom: 5.0rem;
-  }
 }
 
 .event-categories {
