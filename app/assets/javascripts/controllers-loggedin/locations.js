@@ -9,6 +9,12 @@ APP.controllers_loggedin.locations = (function() {
       APP.components.districtGraetzlInput();
       APP.components.addressInput();
 
+      // User should not be able to change Category if "Spirit & Soul"
+      var category = $('#location-cat select').find(":selected").text();
+      if (typeof category !== "undefined" && category.indexOf("Spirit") >= 0) {
+        $('#location-cat').hide();
+      }
+
       $("#location_description, #location_contact_attributes_hours").autogrow({
           onInitialize: true
       });

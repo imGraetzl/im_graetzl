@@ -4,12 +4,12 @@ module ImageHelper
     if object&.avatar.nil?
       avatar_type = object.is_a?(Location) ? 'location' : 'user'
       content_tag :picture do
-        tag(:source, srcset: "#{image_path("fallbacks/#{avatar_type}_avatar.webp")}") +
+        tag(:source, srcset: "#{image_path("fallbacks/#{avatar_type}_avatar.webp")}", type: "image/webp") +
         image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)
       end
     elsif size && File.extname(object.avatar_url("#{size}_webp")) == '.webp'
       content_tag :picture do
-        tag(:source, srcset: object.avatar_url("#{size}_webp")) +
+        tag(:source, srcset: object.avatar_url("#{size}_webp"), type: "image/webp") +
         image_tag(object.avatar_url(size), loading: 'lazy', alt: object.to_s, **options)
       end
     elsif size
@@ -44,7 +44,7 @@ module ImageHelper
       image_tag(object.cover_photo_url(:header, size), alt: object.to_s, **options)
     elsif File.extname(object.cover_photo_url(:header, :large_webp)) == '.webp'
       content_tag :picture do
-        tag(:source, srcset: object.cover_photo_url(:header, :large_webp)) +
+        tag(:source, srcset: object.cover_photo_url(:header, :large_webp), type: "image/webp") +
         image_tag(object.cover_photo_url(:header, :large), alt: object.to_s, **options)
       end
     else
@@ -63,7 +63,7 @@ module ImageHelper
       image_tag(object.cover_photo_url(:cardbox, size), loading: 'lazy', alt: object.to_s, **options)
     elsif File.extname(object.cover_photo_url(:cardbox, :large_webp)) == '.webp'
       content_tag :picture do
-        tag(:source, srcset: object.cover_photo_url(:cardbox, :large_webp)) +
+        tag(:source, srcset: object.cover_photo_url(:cardbox, :large_webp), type: "image/webp") +
         image_tag(object.cover_photo_url(:cardbox, :large), loading: 'lazy', alt: object.to_s, **options)
       end
     else
@@ -77,7 +77,7 @@ module ImageHelper
   def category_image(object, **options)
       if File.extname(object.main_photo_url(:large_webp)) == '.webp'
         content_tag :picture do
-          tag(:source, srcset: object.main_photo_url(:large_webp)) +
+          tag(:source, srcset: object.main_photo_url(:large_webp), type: "image/webp") +
           image_tag(object.main_photo_url(:large), loading: 'lazy', alt: object.to_s, **options)
         end
       else
@@ -91,7 +91,7 @@ module ImageHelper
   def gallery_thumb_image(object, **options)
     if File.extname(object.file_url(:thumb_webp)) == '.webp'
       content_tag :picture do
-        tag(:source, srcset: object.file_url(:thumb_webp)) +
+        tag(:source, srcset: object.file_url(:thumb_webp), type: "image/webp") +
         image_tag(object.file_url(:thumb), loading: 'lazy', **options)
       end
     else

@@ -6,7 +6,10 @@
           <%= avatar_image current_user, size: :thumb, class: 'img-round' %>
           <span><%= current_user.username %></span>
         <% else %>
-          <%= image_tag('fallbacks/user_avatar.png', class: 'img-round') %>
+          <picture>
+            <source srcset="<%= image_path('fallbacks/user_avatar.webp') %>" type="image/webp" />
+            <%= image_tag('fallbacks/user_avatar.png', loading: 'lazy', class: 'img-round') %>
+          </picture>
           <span>Dein Name</span>
         <% end %>
       </div>
