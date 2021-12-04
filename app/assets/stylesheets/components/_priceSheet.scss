@@ -21,10 +21,10 @@
     z-index: 2;
     @include font-size-primaryFont('largest');
     line-height: 1.0;
-    font-weight: 900;
+    font-weight: bold;
     sup {
       @include font-size-primaryFont('base');
-      font-weight: 200;
+      font-weight: normal;
     }
     small {
       display: block;
