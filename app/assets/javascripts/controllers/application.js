@@ -4,14 +4,42 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
-    $('.entryUserComment .txt').linkify({ target: "_blank"});
-
-    jBoxGallery();
     if($(".welocally").exists()) chooseRegionModal();
+    $('.entryUserComment .txt').linkify({ target: "_blank"});
+    jBoxGallery();
+
+
+    // SETUP GTM & ANALYTICS --------------------------------
+    var uaid = $("body").attr("data-uaid");
+    var userid = $("body").attr("data-userid") || false;
+
+    // LOAD ANALYTICS ASYNC
+    var script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + uaid;
+    script.setAttribute('async', 'async');
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('set', 'linker', {'domains': ['imgraetzl.at', 'welocally.at']});
+    gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'granted'
+    });
+    gtag('js', new Date());
+    if (userid) { gtag('set', {'user_id': userid}); }
+    gtag('config', uaid, { 'anonymize_ip': true });
+
+    // Set Analytics Permission Status on Load
+    if ($.fn.ihavecookies.preference('analytics') === true) {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        });
+    }
 
     // Cookie Consent Banner
     var eventSubmitted = false;
-    var options = {
+    var cookieOptions = {
         title: 'Cookie Informationen',
         message: 'Wir kommen fast ohne Cookies aus. Es gibt dennoch Cookies, für die wir deine Zustimmung benötigen.',
         delay: 500,
@@ -60,37 +88,31 @@ APP.controllers.application = (function() {
         }
     }
 
-    $(document).ready(function() {
-        $('body').ihavecookies(options);
+    // Load Consent Manager
+    $('body').ihavecookies(cookieOptions);
 
-        // Track Consent Manager Status on Load
-        myPreferences = $.fn.ihavecookies.cookie();
-        if (myPreferences) {
-          myPreferences == '' ? myPreferences = 'all denied' : myPreferences.join();
-          gtag(
-            'event', 'Status', {
-            'event_category': 'Consent Manager :: Init',
-            'event_label': 'cookie :: ' + myPreferences
-          });
-        } else {
-          gtag(
-            'event', 'Status', {
-            'event_category': 'Consent Manager :: Init',
-            'event_label': 'no cookie :: consent manager shown'
-          });
-        }
+    // Event-Tracking for Load-Status of Consent Manager
+    myPreferences = $.fn.ihavecookies.cookie();
+    if (myPreferences) {
+      myPreferences == '' ? myPreferences = 'all denied' : myPreferences.join();
+      gtag(
+        'event', 'Status', {
+        'event_category': 'Consent Manager :: Init',
+        'event_label': 'cookie :: ' + myPreferences
+      });
+    } else {
+      gtag(
+        'event', 'Status', {
+        'event_category': 'Consent Manager :: Init',
+        'event_label': 'no cookie :: consent manager shown'
+      });
+    }
 
-        // Set Analytics Status on Load
-        if ($.fn.ihavecookies.preference('analytics') === true) {
-            gtag('consent', 'update', {
-              'analytics_storage': 'granted'
-            });
-        }
 
-        $('#ihavecookiesBtn').on('click', function(){
-            $('body').ihavecookies(options, 'reinit');
-            eventSubmitted = false;
-        });
+    // Button for Opening Consent Manager
+    $('#ihavecookiesBtn').on('click', function(){
+        $('body').ihavecookies(cookieOptions, 'reinit');
+        eventSubmitted = false;
     });
 
 

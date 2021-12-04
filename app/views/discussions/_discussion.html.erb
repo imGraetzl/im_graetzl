@@ -33,7 +33,10 @@
         <% end %>
       <% else %>
         <div class="avatarImg">
-          <%= image_tag('fallbacks/user_avatar.png', class: 'img-round') %>
+          <picture>
+            <source srcset="<%= image_path('fallbacks/user_avatar.webp') %>" type="image/webp" />
+            <%= image_tag('fallbacks/user_avatar.png', loading: 'lazy', class: 'img-round') %>
+          </picture>
         </div>
       <% end %>
       <div class="typetxt">

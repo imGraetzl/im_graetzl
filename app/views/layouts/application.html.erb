@@ -27,12 +27,11 @@
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
   <link rel="dns-prefetch" href="//www.google-analytics.com">
 
-  <%= render 'tracking_tags' %>
   <%= favicon_link_tag 'favicon.ico' %>
   <%= render partial: 'controller_header' rescue nil %>
 </head>
 
-<body data-controller="<%= controller_name %>" data-region="<%= current_region.id %>" data-domain="<%= current_region.domain %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>region-<%= current_region.id %>">
+<body data-controller="<%= controller_name %>" data-region="<%= current_region.id %>" data-domain="<%= current_region.domain %>" data-uaid="<%= Rails.env.production? ? 'UA-59844253-2' : 'UA-59844253-4' %>" data-userid="<%= user_signed_in? ? current_user.id : '' %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>region-<%= current_region.id %>">
   <%= render 'navigation/header' %>
   <%= render 'flashes' %>
 

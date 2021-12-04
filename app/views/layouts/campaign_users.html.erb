@@ -5,7 +5,6 @@
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= favicon_link_tag 'favicon.ico' %>
-  <%= render 'tracking_tags' %>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="language" content="de">
   <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
@@ -14,7 +13,7 @@
   <meta name="google-site-verification" content="LSgg3WBUIokaZhSK4uO3MezLJjfnwvJX0vFDfnInsk8" />
 </head>
 
-<body data-controller="<%= controller_name %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>welocally">
+<body data-controller="<%= controller_name %>" data-uaid="<%= Rails.env.production? ? 'UA-59844253-2' : 'UA-59844253-4' %>" data-userid="<%= user_signed_in? ? current_user.id : '' %>" class="<%= user_signed_in? ? 'signed-in ' : ''%>welocally">
   <%= render 'campaign_users/header' %>
   <%= render 'flashes' %>
 

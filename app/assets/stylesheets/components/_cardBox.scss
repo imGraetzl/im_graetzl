@@ -230,6 +230,10 @@
   a.typelink {text-decoration: none !important;}
   a.typelink:hover {text-decoration: none !important;}
 
+  .entryInitialContent .txt a {
+    text-decoration: none;
+  }
+
   .type-description {
     color: $color-ambient-rosa;
     font-style: italic;

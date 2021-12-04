@@ -172,22 +172,30 @@
     opacity: 1;
 }
 .lSAction > .lSPrev {
-    background-image: url(image_path('controls-prev.png'));
+    @include bg-url(
+      image_path('controls-prev.png'),
+      $webp1x: image_path('controls-prev.webp'),
+    );
     left: -20px;
-    //-webkit-transform: rotate(90deg);
-    //transform: rotate(90deg);
 }
 .lSAction > .lSNext {
-    background-image: url(image_path('controls-next.png'));
+  @include bg-url(
+    image_path('controls-next.png'),
+    $webp1x: image_path('controls-next.webp'),
+  );
     right: -20px;
-    //-webkit-transform: rotate(-90deg);
-    //transform: rotate(-90deg);
 }
 .lSAction > a.lSPrev:hover {
-    background-image: url(image_path('controls-prev-over.png'));
+  @include bg-url(
+    image_path('controls-prev-over.png'),
+    $webp1x: image_path('controls-prev-over.webp'),
+  );
 }
 .lSAction > a.lSNext:hover {
-    background-image: url(image_path('controls-next-over.png'));
+  @include bg-url(
+    image_path('controls-next-over.png'),
+    $webp1x: image_path('controls-next-over.webp'),
+  );
 }
 .lSAction > a.disabled {
     pointer-events: none;
