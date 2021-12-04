@@ -56,6 +56,7 @@ APP.controllers.meetings = (function() {
         });
       }
 
+      var ua_id = $("body").attr("data-uaid");
       var buyTicket = new jBox('Modal', {
         addClass:'jBox',
         attach: '#buyTicket',
@@ -69,7 +70,7 @@ APP.controllers.meetings = (function() {
           var meeting_id = $('#meeting_id').val();
           var page_title = 'Dein Ticket - Termin wählen - ' + document.title;
           var page_path = '/going_tos/choose_date?meeting_id='+meeting_id;
-          gtag('config', window.imgraetzl.uaid, {
+          gtag('config', ua_id, {
             'page_title': page_title,
             'page_path': page_path
           });
