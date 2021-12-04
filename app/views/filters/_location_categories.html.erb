@@ -5,7 +5,7 @@
       <div class="-category -special-category" data-id="goodies" data-label="Goodies für Mitglieder" data-slug="goodies">
         <picture>
           <source srcset="<%= image_path('categories/goodies.webp') %>" type="image/webp" />
-          <%= image_tag('categories/goodies.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
+          <%= image_tag('categories/goodies.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
         <div class="cat -goodie"></div>
         <h3>Goodies <br>für Mitglieder</h3>
@@ -30,7 +30,7 @@
       <div class="-category -special-category" data-id="online-shops" data-label="Online Shops" data-slug="online-shops">
         <picture>
           <source srcset="<%= image_path('categories/onlineshops.webp') %>" type="image/webp" />
-          <%= image_tag('categories/onlineshops.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
+          <%= image_tag('categories/onlineshops.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
         <div class="cat -onlineshop"></div>
         <h3>Online Shops <br>aus <%= current_region %></h3>
