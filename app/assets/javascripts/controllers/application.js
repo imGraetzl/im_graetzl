@@ -4,7 +4,7 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
-    APP.components.cookieTracking.init();
+    
     if($(".welocally").exists()) chooseRegionModal();
     $('.entryUserComment .txt').linkify({ target: "_blank"});
     jBoxGallery();
