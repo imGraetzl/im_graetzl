@@ -4,7 +4,7 @@ APP.controllers.application = (function() {
 
     APP.components.headerNavigation.init();
     APP.components.stream.init();
-    
+
     if($(".welocally").exists()) chooseRegionModal();
     $('.entryUserComment .txt').linkify({ target: "_blank"});
     jBoxGallery();
@@ -49,11 +49,6 @@ APP.controllers.application = (function() {
       width:750
     });
 
-    // Get Target for Mandrill Linking
-    $(window).on("load", function() {
-      setTimeout(scrollToTarget, 250)
-    });
-
     // Set Screen Mode Class
     enquire
         .register("screen and (max-width:" + APP.config.majorBreakpoints.medium + "px)", {
@@ -77,18 +72,18 @@ APP.controllers.application = (function() {
             }
         });
 
-    function scrollToTarget() {
-      var target = APP.controllers.application.getUrlVars()["target"];
-      if (typeof target !== 'undefined') {
-        $('html, body').animate({
-          scrollTop: $('#'+target).offset().top
-        }, 600);
-      }
-    }
-
   }
   // END INIT
   // BEGIN OFTEN USED PUBLIC FUNCTIONS
+
+  function scrollToTarget() {
+    var target = APP.controllers.application.getUrlVars()["target"];
+    if (typeof target !== 'undefined') {
+      $('html, body').animate({
+        scrollTop: $('#'+target).offset().top
+      }, 600);
+    }
+  }
 
   function getUrlVars() {
     var vars = {};
@@ -160,6 +155,7 @@ APP.controllers.application = (function() {
   return {
     init: init,
     getUrlVars: getUrlVars,
+    scrollToTarget: scrollToTarget,
     initMessengerButton: initMessengerButton,
     initShowContact: initShowContact,
     jBoxGallery: jBoxGallery
