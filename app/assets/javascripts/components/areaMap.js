@@ -42,9 +42,16 @@ APP.components.areaMap = (function() {
     },
   };
 
-  var mainLayer = L.tileLayer.provider('MapBox',
-    { id: 'malano78/ckt4d1tal0y9u17o5sn6y0jp4', accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw'}
+  var mainLayer = L.tileLayer.provider('MapBox', {
+      id: 'malano78/ckt4d1tal0y9u17o5sn6y0jp4',
+      accessToken: 'pk.eyJ1IjoibWFsYW5vNzgiLCJhIjoiY2tnMjBmcWpwMG1sNjJ4cXdoZW9iMWM5NyJ9.z-AgKIQ_Op1P4aeRh_lGJw',
+    }
   );
+
+  // Reduce Resolution on Mobile Defices / Remove @x2 Image Attribute
+  if (L.Browser.mobile) {
+    mainLayer.options.r = ''
+  }
 
   // FAVORITE GRAETZL MAP ------------------
 
