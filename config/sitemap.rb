@@ -3,7 +3,11 @@ require 'aws-sdk-s3'
 Region.all.each do |region|
 
   # Set the host name for URL creation
-  SitemapGenerator::Sitemap.default_host = "https://#{region.host}"
+  if Rails.env.production? && region.id == 'wien'
+    SitemapGenerator::Sitemap.default_host = "https://www.#{region.host}"
+  else
+    SitemapGenerator::Sitemap.default_host = "https://#{region.host}"
+  end
   # pick a place safe to write the files
   SitemapGenerator::Sitemap.public_path = 'tmp/'
   # store on S3 using aws-sdk
