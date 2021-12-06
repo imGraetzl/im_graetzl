@@ -35,7 +35,7 @@
     <div class="introtxt">
       <h1><%= @location.name %></h1>
       <h2><%= @location.slogan %></h2>
-      <div class="txt"><%= @location.description %></div>
+      <div class="txt txtlinky"><%= @location.description %></div>
       <div class="entryImgUploads">
         <% @location.images.each do |image| %>
           <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>

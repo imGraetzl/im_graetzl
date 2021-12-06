@@ -137,7 +137,9 @@ class Meeting < ApplicationRecord
   end
 
   def notification_time_range
-    if starts_at_date
+    if starts_at_date && ends_at_date
+      [starts_at_date - 7.days, ends_at_date]
+    elsif starts_at_date
       [starts_at_date - 7.days, starts_at_date]
     else
       [Time.current, nil]

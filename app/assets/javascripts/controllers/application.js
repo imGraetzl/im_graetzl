@@ -6,7 +6,7 @@ APP.controllers.application = (function() {
     APP.components.stream.init();
 
     if($(".welocally").exists()) chooseRegionModal();
-    $('.entryUserComment .txt').linkify({ target: "_blank"});
+    $('.txtlinky').linkify({ target: "_blank"});
     jBoxGallery();
 
     // WeLocally Register and Login Choose Region Modal

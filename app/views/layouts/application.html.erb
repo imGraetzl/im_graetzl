@@ -15,6 +15,8 @@
     });
   </script>
 
+  <link rel="dns-prefetch" href="//welocally.at">
+
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= stylesheet_link_tag 'application-loggedin', media: 'all' if user_signed_in? || controller_name == 'registrations' %>
 
@@ -22,7 +24,6 @@
   <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || controller_name == 'registrations' %>
 
   <!-- DNS Prefetch for better Performance -->
-  <link rel="dns-prefetch" href="//welocally.at">
   <% if ['home', 'regions', 'districts', 'graetzls'].include? controller_name %>
     <link rel="preconnect" href="//api.mapbox.com" crossorigin>
   <% end %>
