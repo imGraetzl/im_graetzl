@@ -16,6 +16,7 @@ ActiveAdmin.register User, as: "User Notification Settings" do
     ['New Meeting - Weekly','weekly_NewMeeting'],['New Meeting - Daily','daily_NewMeeting'],['New Meeting - Immediate','immediate_NewMeeting'],['New Meeting - Off','off_NewMeeting'],
     ['New Location - Weekly','weekly_NewLocation'],['New Location - Daily','daily_NewLocation'],['New Location - Immediate','immediate_NewLocation'],['New Location - Off','off_NewLocation'],
     ['New Location Post - Weekly','weekly_NewLocationPost'],['New Location Post - Daily','daily_NewLocationPost'],['New Location Post - Immediate','immediate_NewLocationPost'],['New Location Post - Off','off_NewLocationPost'],
+    ['New Location Menu - Weekly','weekly_NewLocationMenu'],['New Location Menu - Daily','daily_NewLocationMenu'],['New Location Menu - Immediate','immediate_NewLocationMenu'],['New Location Menu - Off','off_NewLocationMenu'],
     ['New RoomOffer - Weekly','weekly_NewRoomOffer'],['New RoomOffer - Daily','daily_NewRoomOffer'],['New RoomOffer - Immediate','immediate_NewRoomOffer'],['New RoomOffer - Off','off_NewRoomOffer'],
     ['New RoomDemand - Weekly','weekly_NewRoomDemand'],['New RoomDemand - Daily','daily_NewRoomDemand'],['New RoomDemand - Immediate','immediate_NewRoomDemand'],['New RoomDemand - Off','off_NewRoomDemand'],
     ['New CoopDemand - Weekly','weekly_NewCoopDemand'],['New CoopDemand - Daily','daily_NewCoopDemand'],['New CoopDemand - Immediate','immediate_NewCoopDemand'],['New CoopDemand - Off','off_NewCoopDemand'],

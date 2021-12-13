@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_28_092057) do
+ActiveRecord::Schema.define(version: 2021_12_07_102038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -439,6 +439,28 @@ ActiveRecord::Schema.define(version: 2021_10_28_092057) do
     t.jsonb "main_photo_data"
     t.string "slug"
     t.index ["slug"], name: "index_location_categories_on_slug", unique: true
+  end
+
+  create_table "location_menus", force: :cascade do |t|
+    t.date "menu_from"
+    t.date "menu_to"
+    t.string "title"
+    t.text "description"
+    t.text "day_0_description"
+    t.text "day_1_description"
+    t.text "day_2_description"
+    t.text "day_3_description"
+    t.text "day_4_description"
+    t.text "day_5_description"
+    t.text "day_6_description"
+    t.string "region_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "location_id"
+    t.bigint "graetzl_id"
+    t.index ["graetzl_id"], name: "index_location_menus_on_graetzl_id"
+    t.index ["location_id"], name: "index_location_menus_on_location_id"
+    t.index ["region_id"], name: "index_location_menus_on_region_id"
   end
 
   create_table "location_ownerships", id: :serial, force: :cascade do |t|
@@ -1222,6 +1244,8 @@ ActiveRecord::Schema.define(version: 2021_10_28_092057) do
   add_foreign_key "groups", "room_calls", on_delete: :nullify
   add_foreign_key "groups", "room_demands", on_delete: :nullify
   add_foreign_key "groups", "room_offers", on_delete: :nullify
+  add_foreign_key "location_menus", "graetzls", on_delete: :nullify
+  add_foreign_key "location_menus", "locations", on_delete: :cascade
   add_foreign_key "meeting_additional_dates", "meetings", on_delete: :cascade
   add_foreign_key "meeting_categories", "meetings", on_delete: :cascade
   add_foreign_key "meetings", "groups", on_delete: :nullify

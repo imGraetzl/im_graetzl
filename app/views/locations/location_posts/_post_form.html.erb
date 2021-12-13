@@ -1,4 +1,4 @@
-<div id="location-post-form" class="entryCreate" data-behavior="stream-form">
+<div id="location-post-form" class="entryCreate">
   <%= avatar_image @location, size: :thumb, class: 'img-square avatar' %>
   <%= form_for(LocationPost.new, url: add_post_location_path(@location), html: { class: 'textEditor' }, remote: true) do |f| %>
     <%= f.text_field :title, placeholder: 'Neuigkeit (Titel)', class: 'input-plain postTitle' %>

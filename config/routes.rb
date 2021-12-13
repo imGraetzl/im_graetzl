@@ -108,6 +108,10 @@ Rails.application.routes.draw do
     post :add_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
+    post :add_menu, on: :member
+    post :update_menu, on: :member
+    post :remove_menu, on: :member
+    post :comment_menu, on: :member
     get :tooltip, on: :member
   end
 

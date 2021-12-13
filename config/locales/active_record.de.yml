@@ -69,6 +69,9 @@ de:
       location_post:
         one: Schaufenster Update
         other: Schaufenster Updates
+      location_menu:
+        one: Menüplan
+        other: Menüpläne
       zuckerl:
         one: Zuckerl
         other: Zuckerln
@@ -159,6 +162,12 @@ de:
         state: Status
         created_at: Erstellt am
         updated_at: Aktualisiert am
+      location_post:
+        title: Titel
+      location_menu:
+        menu_from: Beginn Datum
+        menu_to: End Datum
+        description: Beschreibung
       meeting:
         created_at: Erstellt am
         cover_photo: Headerbild

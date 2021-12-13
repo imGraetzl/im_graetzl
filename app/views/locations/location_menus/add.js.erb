@@ -1,0 +1,15 @@
+(function() {
+  var $streamForm = $("[data-behavior='stream-form']");
+
+  <% if @location_menu.persisted? %>
+    $streamForm.after("<%= j render 'locations/location_menus/menu', menu: @location_menu %>");
+    $streamForm.replaceWith("<%= j render 'locations/stream_form' %>");
+    APP.components.stream.init();
+    APP.controllers_loggedin.locations.initStreamForm();
+    APP.components.stream.initLinkify($("#location_menu_" + <%= @location_menu.id %> + " .txt"));
+    APP.controllers.application.jBoxGallery();
+  <% else %>
+    alert('Folgende Fehler sind aufgetreten:\n<%= @location_menu.errors.full_messages.first %>');
+  <% end %>
+
+})();

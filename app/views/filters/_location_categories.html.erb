@@ -1,7 +1,7 @@
 <!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Locations" class="cS-hidden">
-    <!-- Online Shops -->
+    <!-- Goodies -->
       <div class="-category -special-category" data-id="goodies" data-label="Goodies für Mitglieder" data-slug="goodies">
         <picture>
           <source srcset="<%= image_path('categories/goodies.webp') %>" type="image/webp" />
@@ -13,7 +13,20 @@
           <%= icon_tag "cross" %>
         <% end %>
       </div>
-    <!-- /Online Shops -->
+    <!-- /Goodies -->
+    <!-- Menus -->
+      <div class="-category -special-category" data-id="menus" data-label="Tages & Wochenmenüs" data-slug="menus">
+        <picture>
+          <source srcset="<%= image_path('categories/menus.webp') %>" type="image/webp" />
+          <%= image_tag('categories/menus.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
+        </picture>
+        <div class="cat -essentrinken"></div>
+        <h3>Tages & <br>Wochenmenüs</h3>
+        <%= button_tag '', class: 'close-ico' do %>
+          <%= icon_tag "cross" %>
+        <% end %>
+      </div>
+    <!-- /Menus -->
     <% categories = LocationCategory.all.sort_by(&:position) %>
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
     <% categories.each do |category| %>

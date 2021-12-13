@@ -1,0 +1,41 @@
+<%= form_for menu, url: update_menu_location_path(@location, menu_id: menu.id), method: :post, remote: true, html: { class: 'edit-post-form menuEditor' } do |f| %>
+
+  <div class="form-columns">
+    <div class="input-field">
+      <%= f.label :menu_from do %>
+        <%= icon_tag "calendar-2" %>
+        <span>Von</span>
+      <% end %>
+      <%= f.text_field :menu_from,
+                       value: (I18n.localize(f.object.menu_from, format:'%A, %d. %B %Y') if f.object.menu_from),
+                       data: { value: (I18n.localize(f.object.menu_from, format:'%Y-%m-%d') if f.object.menu_from) },
+                       class: 'datepicker',
+                       placeholder: 'wählen' %>
+    </div>
+    <div class="input-field">
+      <%= f.label :menu_to do %>
+        <%= icon_tag "calendar-2" %>
+        <span>Bis</span>
+      <% end %>
+      <%= f.text_field :menu_to,
+                       value: (I18n.localize(f.object.menu_to, format:'%A, %d. %B %Y') if f.object.menu_to),
+                       data: { value: (I18n.localize(f.object.menu_to, format:'%Y-%m-%d') if f.object.menu_to) },
+                       class: 'datepicker',
+                       placeholder: 'wählen' %>
+    </div>
+  </div>
+
+  <div class="input-textarea">
+    <%= f.text_area :description, cols: 80, rows: 3 %>
+  </div>
+  <div class="upload-oldschool">
+
+    <div class="field-wrp">
+      <%= upload_image_input(f, :images, multiple: true, live_preview: false) %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Speichern', data: { disable_with: 'sendet...' }, class: 'btn-primary -mint' %>
+    <%= f.button 'Abbrechen', type: 'button', class: 'cancel-edit-link btn-secondary -mint' %>
+  </div>
+<% end %>

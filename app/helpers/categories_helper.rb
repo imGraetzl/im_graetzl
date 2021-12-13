@@ -1,7 +1,7 @@
 module CategoriesHelper
 
   def special_categories
-    ['kurzzeitmiete', 'online-shops', 'special-events', 'goodies']
+    ['kurzzeitmiete', 'online-shops', 'special-events', 'goodies', 'menus']
   end
 
   def location_category_icon(category)

@@ -10,7 +10,6 @@ module LocationsHelper
     else
       "#{location.address_street}, #{location.address_city}"
     end
-
   end
 
 end

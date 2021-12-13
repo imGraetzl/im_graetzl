@@ -2,6 +2,34 @@ APP.controllers_loggedin.locations = (function() {
 
     function init() {
         if ($("section.location-form").exists()) initLocationForm();
+        if ($("section.location-page").exists()) initStreamForm();
+    }
+
+    function initStreamForm() {
+      $('.stream-switch').on('change', function() {
+        var showMenuFields = $(this).val() == "menu";
+        if (showMenuFields) {
+          $('#location-menu-form').removeClass("hidden");
+          $('#location-post-form').addClass("hidden");
+        } else {
+          $('#location-menu-form').addClass("hidden");
+          $('#location-post-form').removeClass("hidden");
+        }
+      });
+      $('.datepicker').pickadate({
+        formatSubmit: 'yyyy-mm-dd',
+        format: 'dddd, dd mmm, yyyy',
+        hiddenName: true,
+        //min: true
+      });
+
+      // Edit Menu Inline Form
+      $(".streamElement").on('click', '.edit-menu-link', function() {
+        $(this).parents(".streamElement").addClass("editing");
+        $(".edit-post-form textarea").autogrow({ onInitialize: true });
+      }).on('click', '.cancel-edit-link', function() {
+        $(this).parents(".streamElement").removeClass("editing");
+      });
     }
 
     function initLocationForm() {
@@ -34,7 +62,8 @@ APP.controllers_loggedin.locations = (function() {
     }
 
     return {
-      init: init
+      init: init,
+      initStreamForm: initStreamForm
     };
 
 })();

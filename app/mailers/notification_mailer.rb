@@ -35,6 +35,9 @@ class NotificationMailer < ApplicationMailer
     'Neue Schaufenster Updates' => [
       Notifications::NewLocationPost
     ],
+    'Aktuelle Menüpläne' => [
+      Notifications::NewLocationMenu
+    ],
     'Neue Toolteiler' => [
       Notifications::NewToolOffer
     ],

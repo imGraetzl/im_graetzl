@@ -24,7 +24,7 @@ input, select, textarea {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  div {
+  div:not([class^="picker"]) {
     width:100%;
     @include respond-to(">small") {
       width:48.5%;
@@ -735,4 +735,17 @@ input[type=url]:invalid + em::after {
     //text-decoration: line-through;
   }
 
+}
+
+.usage-period-switch, .location-post-switch {
+  margin-bottom: 20px;
+  text-align: center;
+  display: block;
+  div {
+    display: inline-block;
+  }
+  label {
+    min-width: 0px;
+    margin-right: 20px;
+  }
 }

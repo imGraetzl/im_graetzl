@@ -6,6 +6,9 @@
 
 $(document).on('ready', function(event) {
 
+    var pageToInit = $("body").attr("data-controller");
+    APP.controllers_loggedin[pageToInit] && APP.controllers_loggedin[pageToInit].init();
+    
     APP.components.search.init();
     APP.components.fileUpload.init();
 

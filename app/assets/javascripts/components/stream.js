@@ -16,7 +16,7 @@ APP.components.stream = (function() {
 
         var $parent = $('.entryCreate').not('.js-initialized');
 
-        if($parent.find('.postTitle').exists()) {
+        if($parent.find('.postMessage').exists()) {
             $parent.find('.postMessage').autogrow();
             $parent.addClass('js-initialized')
                 .find('.postTitle, .postMessage')

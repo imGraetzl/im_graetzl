@@ -15,11 +15,22 @@ class ActionProcessor
       Activity.add_public(subject, child, to: subject.graetzl)
       Notifications::NewLocationPost.generate(subject, child, to: user_ids(subject.graetzl))
 
+    when [Location, :menu]
+      Activity.add_public(subject, child, to: subject.graetzl)
+      Notifications::NewLocationMenu.generate(subject, child, to: user_ids(subject.graetzl),
+        time_range: child.notification_time_range)
+
     when [Location, :comment]
       Activity.add_public(subject, child, to: subject.graetzl)
       notify_comment(subject, child)
 
     when [LocationPost, :comment]
+      if subject.user_id != child.user_id
+        Activity.add_public(subject.location, child, to: subject.location.graetzl)
+      end
+      notify_comment(subject, child)
+
+    when [LocationMenu, :comment]
       if subject.user_id != child.user_id
         Activity.add_public(subject.location, child, to: subject.location.graetzl)
       end
