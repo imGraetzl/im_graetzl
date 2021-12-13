@@ -367,6 +367,13 @@
       display: none;
     }
   }
+  .menuteaser {
+    border-color: $color-ambient-grey;
+    background-color: $color-ambient-grey-light;
+    .hl, .txt {
+      //color: $color-ambient-mint-dark;
+    }
+  }
   .basic-message-box {
     border-color: $color-ambient-mint-dark;
     background-color: $color-ambient-mint-light;

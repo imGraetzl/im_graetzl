@@ -1,0 +1,52 @@
+<% graetzl = Graetzl.memoized(location.graetzl_id) %>
+<% menu = location.location_menus.upcoming.first %>
+
+<div class="cardBox -location" data-behavior="masonry-card" data-card-id="location-<%= location.id %>">
+  <div class="cardBoxHeader">
+    <%= link_to [graetzl, location] do %>
+      <div class="coverImgWrapper">
+        <%= cover_photo_image(location, class: 'coverImg') %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= icon_tag "location" %>
+    </div>
+    <%= graetzl_flag(graetzl) %>
+  </div>
+
+  <div class="cardBoxContent">
+    <div class="avatar-block">
+      <%= link_to [graetzl, location], class: 'avatarImg' do %>
+        <%= avatar_image(location, size: :small, class: 'img-square avatar') %>
+      <% end %>
+      <div class="typetxt">
+        <%= link_to [graetzl, location] do %>
+          <div class="name"><%= location.name %></div>
+        <% end %>
+        <div class="category"><%= location.location_category.name if location.location_category %></div>
+        <% if location.using_address? %>
+          <div class="address">
+            <%= address_short(location) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="slogan"><%= location.slogan %></div>
+    <div class="txt">
+      <p><%= truncate location.description, length: 100 %></p>
+    </div>
+
+    <%= link_to [graetzl, location, target: dom_id(menu)], class: 'updateteaser menuteaser' do %>
+      <div class="hl">
+        <%= icon_tag "essentrinken" %> Aktueller Menüplan:
+      </div>
+      <div class="title">
+        <%= menu.time_range %>
+      </div>
+      <div class="txt">
+        <%= truncate menu.description, length: 80 %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -124,11 +124,11 @@
           </ul>
         </div>
       </div>
-      <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumangebot" } %>
+      <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), rel: 'nofollow', class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumangebot" } %>
     </div>
 
   <% else %>
-      <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumangebot" } %>
+      <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_offer.user.id), rel: 'nofollow', class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumangebot" } %>
   <% end %>
 
 

@@ -12,9 +12,14 @@
             <td style="font-size:12px; line-height:16px;">
               <%= link_to notification.meeting.user.username, user_url(notification.meeting.user), style: "color:#ec776a; font-size:12px;" %>
               <br>
-              <%= I18n.localize(notification.meeting.starts_at_date, format:'%A %d. %B') if notification.meeting.starts_at_date.present? %>
-              <% if notification.meeting.meeting_additional_dates.present? %>
-              <em>+ <%= notification.meeting.meeting_additional_dates.count %> weitere</em>
+              <% if notification.meeting.ends_at_date.present? %>
+                <%= I18n.localize(notification.meeting.starts_at_date, format:'%A, %d. %b.') %>
+                bis <%= I18n.localize(notification.meeting.ends_at_date, format:'%d. %b. %Y') %>
+              <% else %>
+                <%= I18n.localize(notification.meeting.starts_at_date, format:'%A %d. %B') %>
+                <% if notification.meeting.meeting_additional_dates.present? %>
+                  <em>+ <%= notification.meeting.meeting_additional_dates.count %> weitere</em>
+                <% end %>
               <% end %>
             </td>
           </tr>

@@ -2,11 +2,23 @@
   var $cardContainer = $("[data-behavior='locations-card-container']");
   var $paginateLink = $("[data-behavior='locations-paginate-link']");
 
-  <% if params[:page].blank? %>
-    $cardContainer.html("<%= j render @locations %>")
+
+  <% if params[:special_category_id] == 'menus' %>
+    <% if params[:page].blank? %>
+      $cardContainer.html("<%= j render partial: 'menu', collection: @locations, as: 'location' %>")
+    <% else %>
+      $cardContainer.append("<%= j render partial: 'menu', collection: @locations, as: 'location' %>");
+    <% end %>
   <% else %>
-    $cardContainer.append("<%= j render @locations %>");
+    <% if params[:page].blank? %>
+      $cardContainer.html("<%= j render @locations %>")
+    <% else %>
+      $cardContainer.append("<%= j render @locations %>");
+    <% end %>
   <% end %>
+
+
+
 
   <% if @locations.next_page.present? %>
     $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");

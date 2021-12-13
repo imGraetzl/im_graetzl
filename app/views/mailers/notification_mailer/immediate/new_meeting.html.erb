@@ -38,7 +38,15 @@
           <%= link_to @notification.meeting.name.truncate(70, separator: ' '), graetzl_meeting_url(@notification.meeting.graetzl, @notification.meeting), style:"color:#f48a85;" %>
         </h3>
         <em>
-          <%= I18n.localize(@notification.meeting.starts_at_date, format:'%A %d. %B') if @notification.meeting.starts_at_date.present? %>
+          <% if @notification.meeting.ends_at_date.present? %>
+            <%= I18n.localize(@notification.meeting.starts_at_date, format:'%A, %d. %b.') %>
+            bis <%= I18n.localize(@notification.meeting.ends_at_date, format:'%d. %b. %Y') %>
+          <% else %>
+            <%= I18n.localize(@notification.meeting.starts_at_date, format:'%A %d. %B') %>
+            <% if @notification.meeting.meeting_additional_dates.present? %>
+              (+ <%= @notification.meeting.meeting_additional_dates.count %> weitere Termine)
+            <% end %>
+          <% end %>
         </em>
         <p style="margin-top:12px;">
           <%= @notification.meeting.description.truncate(255, separator: ' ') %>

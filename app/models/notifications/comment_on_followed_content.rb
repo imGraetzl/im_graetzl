@@ -24,7 +24,7 @@ class Notifications::CommentOnFollowedContent < Notification
 
   def content_title
     case subject_type
-    when 'LocationPost'
+    when 'LocationPost', 'LocationMenu'
       subject.location.to_s
     else
       subject.to_s
@@ -39,6 +39,8 @@ class Notifications::CommentOnFollowedContent < Notification
       'Schaufenster'
     when 'LocationPost'
       'Schaufenster Update'
+    when 'LocationMenu'
+      'Menüplan'
     when 'RoomOffer', 'RoomDemand'
       'Raumteiler'
     when 'ToolOffer', 'ToolDemand'
@@ -52,7 +54,7 @@ class Notifications::CommentOnFollowedContent < Notification
     case subject_type
     when 'Meeting', 'Location'
       [subject.graetzl, subject]
-    when 'LocationPost'
+    when 'LocationPost', 'LocationMenu'
       [subject.location.graetzl, subject.location]
     else
       subject

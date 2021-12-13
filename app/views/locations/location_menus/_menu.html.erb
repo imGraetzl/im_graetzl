@@ -1,0 +1,56 @@
+<div id="<%= dom_id(menu) %>" class="menu streamElement">
+  <div class="entryInitialContent">
+    <% if menu.edit_permission?(current_user) %>
+      <div class="editControls">
+        <%= link_to 'javascript:', class: 'edit-menu-link' do %>
+          <div class="btn-edit">
+            <%= icon_tag "pencil" %>
+          </div>
+        <% end %>
+        <%= link_to remove_menu_location_path(@location, menu_id: menu.id), method: :post, remote: true, data: { confirm: 'Beitrag wirklich löschen?', disable_with: 'lädt...' } do %>
+          <div class="btn-delete">
+            <%= icon_tag "trash-delete-remove" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="userCreateInfo">
+      <%= image_tag 'svg/icon-flat-essentrinken.svg', alt: 'Wochenmenü', loading: 'lazy', class: 'img-square' %>
+      <div>
+        <span class="owner"><%= @location.name %></span><br>
+        <span>vor <%= time_ago_in_words(menu.created_at) %></span>
+      </div>
+
+    </div>
+
+    <div class="content">
+      <div class="headline"><%= menu.title %></div>
+
+      <div class="txt txtlinky"><%= menu.description %></div>
+      <% if menu.images.present? %>
+        <div class="entryImgUploads">
+          <% menu.images.each do |image| %>
+            <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "gallery-#{menu.id}" } %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="post-comments">
+        <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments-link' if menu.comments.count > 3 %>
+        <% menu.comments.each_with_index do |comment, i| %>
+          <div class="comment-container" >
+            <%= render comment %>
+          </div>
+        <% end %>
+      </div>
+
+      <%= render 'locations/location_menus/comment_form', menu: menu %>
+    </div>
+
+    <% if menu.edit_permission?(current_user) %>
+      <%= render 'locations/location_menus/edit_form', menu: menu %>
+    <% end %>
+
+  </div>
+</div>

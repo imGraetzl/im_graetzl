@@ -20,6 +20,8 @@ class Location < ApplicationRecord
 
   belongs_to :location_category
   has_many :location_posts, dependent: :destroy
+  has_many :location_menus, dependent: :destroy
+  has_many :comments, through: :location_menus
   has_many :comments, through: :location_posts
   has_many :comments, as: :commentable, dependent: :destroy
 
@@ -38,6 +40,8 @@ class Location < ApplicationRecord
 
   scope :online_shop, -> { where("online_shop_url != ''") }
   scope :goodie, -> { where("goodie != ''") }
+  scope :menus, ->{ joins(:location_menus).merge(LocationMenu.upcoming) }
+
 
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
 
@@ -47,7 +51,7 @@ class Location < ApplicationRecord
   before_destroy :mailchimp_location_delete
 
   def self.include_for_box
-    includes(:location_posts, :live_zuckerls, :location_category, :upcoming_meetings)
+    includes(:location_posts, :location_menus, :live_zuckerls, :location_category, :upcoming_meetings)
   end
 
   def to_s
@@ -58,8 +62,8 @@ class Location < ApplicationRecord
     (pending? && destroy) || nil
   end
 
-  def can_create_meeting?(a_user)
-    owned_by?(a_user)
+  def can_create_menu?
+    self.location_category.name == "Gastronomie & Food"
   end
 
   def owned_by?(a_user)
@@ -75,7 +79,9 @@ class Location < ApplicationRecord
   end
 
   def actual_newest_post
-    location_posts.select{|p| p.created_at > 4.weeks.ago}.max_by(&:created_at)
+    menus = location_menus.upcoming
+    posts = location_posts.select{|p| p.created_at > 4.weeks.ago}
+    (menus + posts).max_by(&:created_at)
   end
 
   private

@@ -67,7 +67,7 @@
   <% end %>
 
   <% if @room_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_demand.user.id), class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumsuche" } %>
+    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @room_demand.user.id), rel: 'nofollow', class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Raumteiler", label: "Raumsuche" } %>
   <% end %>
 
   <%= link_to "Alle Raumteiler", region_rooms_path, class: 'btn-primary -grey' %>

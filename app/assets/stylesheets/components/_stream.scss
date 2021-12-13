@@ -54,11 +54,6 @@
     }
   }
 
-  .user-post .edit-post-form {
-    .actions { margin: 15px 0; }
-    .actions button, .actions input { display: inline-block; margin-right: 15px; }
-  }
-
   .entryCommentForm {
     .img-round {display: none;}
     &.is-focused {
@@ -262,6 +257,17 @@
     resize: vertical;
   }
 }
+.menuEditor {
+  input[type=text] {
+    margin-bottom: 0px;
+  }
+  .input-field, .input-textarea {
+    margin-bottom: 8px;
+  }
+  .form-columns {
+    label {min-width:50px;}
+  }
+}
 
 
 
@@ -382,6 +388,20 @@
   }
 }
 
+.user-post .edit-post-form, .streamElement .edit-post-form {
+  .actions { margin: 15px 0; }
+  .actions button, .actions input { display: inline-block; margin-right: 15px; }
+}
+
+.streamElement {
+  .edit-post-form { display: none; }
+  .content { display: block; }
+}
+.streamElement.editing {
+  .edit-post-form { display: block; margin-top:20px;}
+  .content { display: none; }
+}
+
 .editControls {
   display: table;
   position: absolute;
@@ -390,8 +410,8 @@
   overflow: hidden;
   opacity: 0;
   [class^=btn-] {
-    margin-left: 5px;
-    margin-right: 5px;
+    //margin-left: 5px;
+    //margin-right: 5px;
     font-size: 12px;
     cursor: pointer;
     float: left;

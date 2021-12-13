@@ -43,7 +43,7 @@
   <% end %>
 
   <% if @coop_demand.user.present? %>
-    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @coop_demand.user.id), class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Coop & Share", label: "Coop & Share" } %>
+    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @coop_demand.user.id), rel: 'nofollow', class: 'btn-primary -mint -contact', id: 'requestMessengerBtn', data: { category: "Coop & Share", label: "Coop & Share" } %>
   <% end %>
 
   <%= link_to "Zum Coop & Share Markplatz", region_coop_demands_path, class: 'btn-primary -grey' %>

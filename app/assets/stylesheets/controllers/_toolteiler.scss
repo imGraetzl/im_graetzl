@@ -310,18 +310,6 @@ section.tool-form {
     margin-bottom:20px;
   }
 
-  .usage-period-switch {
-    margin-bottom: 20px;
-    text-align: center;
-    display: block;
-    div {
-      display: inline-block;
-    }
-    label {
-      min-width: 0px;
-      margin-right: 20px;
-    }
-  }
   .period-days, .period-budget {
     @include respond-to(">medium") {
       label {

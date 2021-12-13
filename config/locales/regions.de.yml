@@ -30,6 +30,7 @@ de:
         subline: "Dieses wird in allen Gemeinden deiner Region angezeigt."
         graetzl: "Gemeinde"
         visibility_graetzl: "in der Gemeinde"
+        visibility_info: "in deiner Gemeinde & Region"
       info:
         meeting:
           subline: "WeLocally macht deine Treffen in der Region sichtbarer!"
@@ -66,6 +67,7 @@ de:
         subline: "Dieses wird in allen Grätzln und Bezirken in ganz Wien angezeigt."
         graetzl: "Bezirk"
         visibility_graetzl: "im Bezirk und allen zugehörigen Grätzln"
+        visibility_info: "in deinem Grätzl, Bezirk & Wien"
       info:
         meeting:
           subline: "Wir machen deine Neuigkeiten im Stadtteil bekannt!"

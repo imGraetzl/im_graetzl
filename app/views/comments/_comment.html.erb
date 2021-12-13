@@ -20,7 +20,7 @@
         <span>vor <%= time_ago_in_words(comment.created_at) %></span>
       </span>
     </div>
-    <div class="txt"><%= comment.content %></div>
+    <div class="txt txtlinky"><%= comment.content %></div>
     <% if comment.images.present? %>
       <div class="entryImgUploads">
         <% comment.images.each do |image| %>

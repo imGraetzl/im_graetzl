@@ -3,12 +3,13 @@
 
   <% if @location_post.persisted? %>
     $streamForm.after("<%= j render 'locations/location_posts/post', post: @location_post %>");
-    $streamForm.replaceWith("<%= j render 'locations/location_posts/post_form' %>");
+    $streamForm.replaceWith("<%= j render 'locations/stream_form' %>");
     APP.components.stream.init();
+    APP.controllers_loggedin.locations.initStreamForm();
     APP.components.stream.initLinkify($("#location_post_" + <%= @location_post.id %> + " .txt"));
     APP.controllers.application.jBoxGallery();
   <% else %>
-    alert('Es gab ein Problem, bitte versuche es später nochmal: <%= @location_post.errors.full_messages.first %>');
+    alert('Folgende Fehler sind aufgetreten:\n<%= @location_post.errors.full_messages.first %>');
   <% end %>
 
 })();

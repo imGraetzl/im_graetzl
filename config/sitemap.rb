@@ -147,4 +147,6 @@ Region.all.each do |region|
     add new_registration_path, changefreq: 'never', priority: 0.3
   end
 
+  SitemapGenerator::Sitemap.ping_search_engines if Rails.env.production?
+
 end

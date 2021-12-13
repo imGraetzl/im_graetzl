@@ -1,0 +1,40 @@
+<div id="location-menu-form" class="entryCreate hidden js-initialized is-focused">
+  <%= image_tag 'svg/icon-flat-essentrinken.svg', alt: 'Wochenmenü', loading: 'lazy', class: 'img-square' %>
+  <%= form_for(LocationMenu.new, url: add_menu_location_path(@location), html: { class: 'textEditor menuEditor' }, remote: true) do |f| %>
+
+    <div class="form-columns">
+      <div class="input-field">
+        <%= f.label :menu_from do %>
+          <%= icon_tag "calendar-2" %>
+          <span>Von</span>
+        <% end %>
+        <%= f.text_field :menu_from,
+                         value: (I18n.localize(f.object.menu_from, format:'%A, %d. %B %Y') if f.object.menu_from),
+                         data: { value: (I18n.localize(f.object.menu_from, format:'%Y-%m-%d') if f.object.menu_from) },
+                         class: 'datepicker',
+                         placeholder: 'wählen' %>
+      </div>
+      <div class="input-field">
+        <%= f.label :menu_to do %>
+          <%= icon_tag "calendar-2" %>
+          <span>Bis</span>
+        <% end %>
+        <%= f.text_field :menu_to,
+                         value: (I18n.localize(f.object.menu_to, format:'%A, %d. %B %Y') if f.object.menu_to),
+                         data: { value: (I18n.localize(f.object.menu_to, format:'%Y-%m-%d') if f.object.menu_to) },
+                         class: 'datepicker',
+                         placeholder: 'wählen' %>
+      </div>
+    </div>
+
+    <%= f.text_area :description, placeholder: 'Menüplan...', class: 'input-plain menuMessage' %>
+
+    <div class="hideBlock">
+      <div class="upload-streamImgs">
+        <%= icon_tag "photo-camera" %>
+        <%= upload_image_input(f, :images, multiple: true, live_preview: false) %>
+      </div>
+      <%= f.button 'Menü erstellen', data: { disable_with: 'sendet...' }, class: 'btn-secondary' %>
+    </div>
+  <% end %>
+</div>

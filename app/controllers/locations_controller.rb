@@ -13,9 +13,10 @@ class LocationsController < ApplicationController
     redirect_enqueued and return if @location.pending?
 
     @graetzl = @location.graetzl
-    @posts = @location.location_posts.includes(:images, :comments).last(25)
+    @posts = @location.location_posts.includes(:images, :comments).last(30)
+    @menus = @location.location_menus.includes(:images, :comments).last(30)
     @comments = @location.comments.includes(:user, :images)
-    @stream = @posts + @comments
+    @stream = @posts + @menus + @comments
     @stream = @stream.sort_by(&:created_at).reverse
 
     @zuckerls = @location.zuckerls.live
@@ -65,11 +66,38 @@ class LocationsController < ApplicationController
     render 'locations/location_posts/add'
   end
 
+  def add_menu
+    @location = fetch_user_location(params[:id])
+    @location_menu = @location.location_menus.build(location_menu_params)
+    if @location_menu.save
+      ActionProcessor.track(@location, :menu, @location_menu)
+    end
+    render 'locations/location_menus/add'
+  end
+
   def remove_post
     @location = fetch_user_location(params[:id])
     @location_post = @location.location_posts.find(params[:post_id])
     @location_post.destroy
     render 'locations/location_posts/remove'
+  end
+
+  def remove_menu
+    @location = fetch_user_location(params[:id])
+    @location_menu = @location.location_menus.find(params[:menu_id])
+    @location_menu.destroy
+    render 'locations/location_menus/remove'
+  end
+
+  def update_menu
+    @location = fetch_user_location(params[:id])
+    @location_menu = @location.location_menus.find(params[:menu_id])
+    if @location_menu && @location_menu.edit_permission?(current_user)
+      @location_menu.update(location_menu_params)
+      render 'locations/location_menus/update'
+    else
+      head :ok
+    end
   end
 
   def comment_post
@@ -81,6 +109,17 @@ class LocationsController < ApplicationController
       ActionProcessor.track(@location_post, :comment, @comment)
     end
     render 'locations/location_posts/comment'
+  end
+
+  def comment_menu
+    @location = Location.find(params[:id])
+    @location_menu = @location.location_menus.find(params[:menu_id])
+    @comment = @location_menu.comments.new(location_comment_params)
+    @comment.user = current_user
+    if @comment.save
+      ActionProcessor.track(@location_menu, :comment, @comment)
+    end
+    render 'locations/location_menus/comment'
   end
 
   def destroy
@@ -119,6 +158,8 @@ class LocationsController < ApplicationController
       params[:favorites] = false
     elsif params[:special_category_id].present? && params[:special_category_id] == 'goodies'
       locations = locations.goodie
+    elsif params[:special_category_id].present? && params[:special_category_id] == 'menus'
+      locations = locations.menus
     elsif params[:category_id].present?
       locations = locations.where(location_category: params[:category_id])
     end
@@ -151,7 +192,13 @@ class LocationsController < ApplicationController
 
   def location_post_params
     params.require(:location_post).permit(
-      :title, :content, images_attributes: [:id, :file, :destroy]
+      :title, :content, images_attributes: [:id, :file, :_destroy]
+    )
+  end
+
+  def location_menu_params
+    params.require(:location_menu).permit(
+      :title, :description, :menu_from, :menu_to, images_attributes: [:id, :file, :_destroy]
     )
   end
 

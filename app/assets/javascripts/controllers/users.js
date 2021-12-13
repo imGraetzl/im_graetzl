@@ -6,7 +6,6 @@ APP.controllers.users = (function() {
 
         // User Profile
         if ($("section.userprofile").exists()) {
-          $('.userContent .col2').linkify({ target: "_blank"});
           if (!$(".tabs-nav li").exists()) { $(".tabs-ctrl").hide(); } // Hide Taby if empty
 
           // Find and Submit active Tab on Pageload

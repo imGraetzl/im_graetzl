@@ -18,8 +18,8 @@
 
 <% end %>
 
-<% if @region.id == 'wien' %>
-  <%= render "featured/umfrage" %>
+<% if @region.id == 'wien' && @period == 'weekly' %>
+  <%= render "featured/macherinnen_brunch" %>
 <% end %>
 
 <% if @period == 'weekly' %>
