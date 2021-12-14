@@ -309,6 +309,9 @@
   }
 }
 .stream .streamElement {
+  .entryInitialContent .txt {
+    white-space: pre-wrap;
+  }
   @include respond-to(">=medium") {
     .headline, .txt {
       margin-left: 60px;
@@ -321,9 +324,6 @@
     .entryCommentForm { padding-left: 60px; }
     .entryCommentForm.is-focused {
       .img-round { display: block; }
-    }
-    .entryInitialContent .txt {
-      white-space: pre-wrap;
     }
   }
 }

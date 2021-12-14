@@ -37,5 +37,8 @@ namespace :db do
     # Delete Meetings without User - Todo: Add to UserModel
     Meeting.where(user_id: nil).destroy_all
 
+    # Delete empty UserMessageThreads
+    UserMessageThread.where(thread_type: 'general').where(last_message: nil).destroy_all
+
   end
 end

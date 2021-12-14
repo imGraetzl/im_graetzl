@@ -6,7 +6,7 @@
     <% if controller.controller_name == 'activities' %>
       <!-- Use other HeaderView if used as Activities Stream-Box -->
       <div class="coverImgWrapper">
-        <%= link_to cover_photo_image(discussion.group, class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
+        <%= link_to cover_photo_image(discussion.group, class: 'coverImg'), [discussion.group, discussion, target: "topic"] %>
       </div>
       <div class="categoryicon"><%= icon_tag "layout-document" %><sup><%= discussion.discussion_posts.size %></sup></div>
       <div class="sideflag -R"><div class="title"><%= discussion.group.title %></div></div>
@@ -14,7 +14,7 @@
       <!-- Normal HeaderView for Groups -->
       <div class="coverImgWrapper">
         <%= link_to gallery_photo_image(discussion.first_post.images.first, fallback: 'discussion_photo.png',
-            class: 'coverImg'), [discussion.group, discussion, anchor: "topic"] %>
+            class: 'coverImg'), [discussion.group, discussion, target: "topic"] %>
       </div>
       <% if discussion.sticky %>
         <div class="categoryicon sticky"><%= icon_tag "pin" %><sup><%= discussion.discussion_posts.size %></sup></div>
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="txt">
-      <h3><%= link_to discussion.title, [discussion.group, discussion, anchor: "topic"] %></h3>
+      <h3><%= link_to discussion.title, [discussion.group, discussion, target: "topic"] %></h3>
       <% if !discussion.first_post.deleted? %>
         <p><%= truncate discussion.first_post.content, length: 150 %></p>
       <% end %>
@@ -67,7 +67,7 @@
           <span class="userAndType"><%= link_to last_post.user.full_name, last_post.user, rel: 'nofollow' %> am <%= I18n.localize(last_post.created_at, format:'%d. %b %Y') %></span>
         </div>
         <div class="txt">
-          <%= link_to [discussion.group, discussion, anchor: "discussion-post-#{last_post.id}"], class: 'commentslink' do %>
+          <%= link_to [discussion.group, discussion, target: "discussion-post-#{last_post.id}"], class: 'commentslink' do %>
             <%= truncate last_post.content, length: 150 %></div>
           <% end %>
       </div>
