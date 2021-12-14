@@ -1,5 +1,7 @@
 class RegionsController < ApplicationController
 
+  enable_dynamic_rendering only: :meetings if Rails.env.development? || Rails.env.test? || Rails.env.staging?
+
   def index
     remember_region if !current_user
   end

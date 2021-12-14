@@ -1,0 +1,25 @@
+{
+  "name": "im_graetzl",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/imGraetzl/im_graetzl.svg?branch=master)](https://travis-ci.org/imGraetzl/im_graetzl) [![Dependency Status](https://gemnasium.com/badges/github.com/imGraetzl/im_graetzl.svg)](https://gemnasium.com/github.com/imGraetzl/im_graetzl)",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imGraetzl/im_graetzl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imGraetzl/im_graetzl/issues"
+  },
+  "homepage": "https://github.com/imGraetzl/im_graetzl#readme",
+  "dependencies": {
+    "puppeteer": "13.0.0"
+  }
+}

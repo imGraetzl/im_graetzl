@@ -48,3 +48,4 @@ cookbooks/
 .DS_Store
 
 Procfile.dev
+/node_modules
