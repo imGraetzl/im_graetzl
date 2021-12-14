@@ -55,8 +55,6 @@ gem 'jquery-ui-rails', '6.0.0'
 gem 'bb-ruby'
 gem 'stripe'
 
-gem 'rails-dynamic-rendering'
-
 group :development do
   # gem 'spring'
   gem 'letter_opener'
