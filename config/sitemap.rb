@@ -20,7 +20,10 @@ Region.all.each do |region|
     aws_region: ENV['AWS_REGION']
   )
 
-  #SitemapGenerator::Sitemap.adapter = SitemapGenerator::FileAdapter.new
+  # Use for Localhost - Comment Line out after Testing
+  # SitemapGenerator::Sitemap.adapter = SitemapGenerator::FileAdapter.new
+  # Use for Localhost - Comment Line out after Testing
+
   # TASK - setup on heroku:
   #rake sitemap:refresh:no_ping
 
@@ -33,9 +36,10 @@ Region.all.each do |region|
     add region_tools_path, changefreq: 'always', priority: 1.0
     add region_coop_demands_path, changefreq: 'always', priority: 1.0
     add region_groups_path, changefreq: 'daily', priority: 0.6
-    add region_zuckerls_path, changefreq: 'monthly', priority: 0.6
+    add region_zuckerls_path, changefreq: 'weekly', priority: 0.6
 
     # Room Categories
+    add region_rooms_path(category: 'kurzzeitmiete'), changefreq: 'daily', priority: 0.9
     RoomCategory.find_each do |category|
       add region_rooms_path(category: category), changefreq: 'daily', priority: 0.9
     end
@@ -46,6 +50,9 @@ Region.all.each do |region|
     end
 
     # Location Categories
+    add region_locations_path(category: 'goodies'), changefreq: 'daily', priority: 0.9
+    add region_locations_path(category: 'menus'), changefreq: 'daily', priority: 0.9
+    add region_locations_path(category: 'online-shops'), changefreq: 'daily', priority: 0.9
     LocationCategory.find_each do |category|
       add region_locations_path(category: category), changefreq: 'daily', priority: 0.9
     end
@@ -69,6 +76,19 @@ Region.all.each do |region|
         add district_rooms_path(district), changefreq: 'daily', priority: 0.8
         add district_coop_demands_path(district), changefreq: 'daily', priority: 0.8
         add district_tools_path(district), changefreq: 'daily', priority: 0.7
+        add district_groups_path(district), changefreq: 'daily', priority: 0.7
+        add district_zuckerls_path(district), changefreq: 'weekly', priority: 0.7
+
+        # Location Categories
+        LocationCategory.find_each do |category|
+          add district_locations_path(district, category: category), changefreq: 'daily', priority: 0.7
+        end
+
+        # Room Categories
+        RoomCategory.find_each do |category|
+          add district_rooms_path(district, category: category), changefreq: 'daily', priority: 0.7
+        end
+
       end
     end
 
@@ -80,12 +100,13 @@ Region.all.each do |region|
       add rooms_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add tools_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add coop_demands_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
+      add zuckerls_graetzl_path(graetzl), changefreq: 'weekly', priority: 0.5
 
       # Locations
       locations = graetzl.locations.approved
       unless locations.empty?
         locations.find_each do |location|
-          add graetzl_location_path(graetzl, location), changefreq: 'daily', priority: 0.9
+          add graetzl_location_path(graetzl, location), changefreq: 'daily', priority: 1.0
         end
       end
 
@@ -111,11 +132,6 @@ Region.all.each do |region|
       add coop_demand_path(coop_demand), changefreq: 'daily', priority: 0.8
     end
 
-    # Groups
-    Group.in(region).find_each do |group|
-      add group_path(group), changefreq: 'weekly', priority: 0.5
-    end
-
     # Toolteiler
     ToolOffer.in(region).non_deleted.find_each do |tool_offer|
       add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.7
@@ -123,6 +139,11 @@ Region.all.each do |region|
 
     ToolDemand.in(region).enabled.find_each do |tool_demand|
       add tool_demand_path(tool_demand), changefreq: 'daily', priority: 0.8
+    end
+
+    # Groups
+    Group.in(region).find_each do |group|
+      add group_path(group), changefreq: 'weekly', priority: 0.5
     end
 
     # Info Help Pages

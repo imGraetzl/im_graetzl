@@ -44,10 +44,6 @@ module MeetingsHelper
     end
   end
 
-  def meeting_name(meeting)
-    meeting.active? ? content_tag(:h1, meeting.name) : content_tag(:h2, 'ABGESAGT')
-  end
-
   def going_to_params
     params.permit(
       :meeting_id, :meeting_additional_date_id,
