@@ -31,7 +31,7 @@ class Meeting < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  enum state: { active: 0, cancelled: 1 }
+  enum state: { active: 0, disabled: 1 }
 
   scope :non_private, -> { where(private: false) }
   scope :platform_meeting, -> { where(platform_meeting: true) }
