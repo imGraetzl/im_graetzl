@@ -36,9 +36,6 @@
 //= require_directory ./components
 //= require_directory ./controllers
 
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-
 $(document).on('ready', function(event) {
     APP.init();
 });

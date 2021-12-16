@@ -9,12 +9,19 @@
     // See: https://github.com/djpogo/avif-webp-css-support
     !function(A){"use strict";var e="webp",t="avif";function s(A,e,t){var s=function(A){if(window.sessionStorage){var e=window.sessionStorage.getItem(A+"Support");if("false"===e||"true"===e)return"true"===e}return null}(A);if(null===s){var o=new Image;return o.onload=o.onerror=function(){t(A,2===o.height)},void(o.src=e)}a(A,s)}function a(s,a){if(a){var o=A.documentElement;o.classList?o.classList.add("webp"===s?e:t):o.className+=" "+s=="webp"?e:t,window.sessionStorage.setItem(s+"Support",!0)}else window.sessionStorage.setItem(s+"Support",!1)}s("webp","data:image/webp;base64,UklGRi4AAABXRUJQVlA4TCEAAAAvAUAAEB8wAiMwAgSSNtse/cXjxyCCmrYNWPwmHRH9jwMA",a),s("avif","data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUEAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAF0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgS0AAAAAABNjb2xybmNseAACAAIAAIAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAAGVtZGF0EgAKBzgAPtAgIAkyUBAAAPWc41TP///4gHBX9H8XVK7gGeDllq8TYARA+8Tfsv7L+zPE24eIoIzE0WhHbrqcrTK9VEgEG/hwgB5rdCbvP8g3KYPdV88CvPJnptgQ",a)}(document);
 
-    // Scroll to URL Parameter Target
-    window.addEventListener('load', function() {
-      setTimeout(function(){ APP.controllers.application.scrollToTarget() }, 300);
-    });
+    // Init Gtag
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Init after Application Script is ready
+    function applicationLoadedInit() {
+      window.addEventListener('load', function() {
+        APP.components.cookieTracking.init();
+        setTimeout(function(){ APP.controllers.application.scrollToTarget() }, 300);
+      });
+    }
   </script>
-  
+
   <style>
     main {max-width: 980px;}
   </style>
@@ -24,7 +31,7 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= stylesheet_link_tag 'application-loggedin', media: 'all' if user_signed_in? || controller_name == 'registrations' %>
 
-  <%= javascript_include_tag 'application', defer: true %>
+  <%= javascript_include_tag 'application', defer: true, onload: 'applicationLoadedInit();' %>
   <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || controller_name == 'registrations' %>
 
   <!-- DNS Prefetch for better Performance -->
