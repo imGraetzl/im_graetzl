@@ -50,7 +50,7 @@
           <%= icon_tag "map-location" %>
           <span>Ort/Stadt</span>
         <% end %>
-        <%= text_field_tag :city, current_user.billing_address&.city : current_user.address_city, placeholder: 'Stadt', data: { field: 'city' } %>
+        <%= text_field_tag :city, current_user.address_city, placeholder: 'Stadt', data: { field: 'city' } %>
       </div>
     </div>
 
