@@ -21,7 +21,7 @@
 }
 #gdpr-cookie-message p, #gdpr-cookie-message ul {
     @include font-size-primaryFont('small');
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 #gdpr-cookie-message p:last-child {
     margin-bottom: 0;
@@ -43,11 +43,6 @@ button#ihavecookiesBtn {
     &:first-of-type {
       margin-left: 0px;
     }
-    @media only screen and (max-width:370px){
-      &:last-of-type {
-        margin-top: 10px;
-      }
-    }
 }
 button#gdpr-cookie-advanced {
     @extend .btn-primary.-grey;
@@ -59,4 +54,14 @@ button#gdpr-cookie-advanced {
     float: none;
     margin-top: 0;
     margin-right: 5px;
+}
+@media only screen and (max-width:370px){
+  #gdpr-cookie-message {
+    margin-left: 15px;
+    right: 15px;
+    bottom: 15px;
+  }
+  #gdpr-cookie-message button {
+    padding: 1.2rem 1.2rem;
+  }
 }
