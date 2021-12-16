@@ -22,8 +22,13 @@ module SchemaOrgHelper
     hash[:description] = meeting.description if meeting.description.present?
     hash[:startDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date
     hash[:startDate] += "T#{I18n.localize(meeting.starts_at_time, format:'%H:%M')}+01:00" if meeting.starts_at_time
-    hash[:endDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d') if meeting.starts_at_date # days is same as startdate
-    hash[:endDate] += "T#{I18n.localize(meeting.ends_at_time, format:'%H:%M')}+01:00" if meeting.ends_at_time
+    if meeting.ends_at_date
+      hash[:endDate] = I18n.localize(meeting.ends_at_date, format:'%Y-%m-%d')
+      hash[:endDate] += "T#{I18n.localize(meeting.ends_at_time, format:'%H:%M')}+01:00" if meeting.ends_at_time
+    elsif meeting.starts_at_date
+      hash[:endDate] = I18n.localize(meeting.starts_at_date, format:'%Y-%m-%d')
+      hash[:endDate] += "T#{I18n.localize(meeting.ends_at_time, format:'%H:%M')}+01:00" if meeting.ends_at_time
+    end
     hash[:image] = meeting.cover_photo_url || asset_url('meta/og_logo.png')
     hash[:url] = graetzl_meeting_url(meeting.graetzl, meeting)
     hash[:eventStatus] = 'https://schema.org/EventScheduled'
