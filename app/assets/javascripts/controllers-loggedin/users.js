@@ -13,7 +13,7 @@ APP.controllers_loggedin.users = (function() {
         if ($("section.usersetup.-groups").exists()) { addActionCard(); }
         if ($("section.usersetup.-coop-demands").exists()) { addActionCard(); }
         if ($("section.usersetup.-zuckerl").exists()) { addActionCard(); }
-        
+
         if ($("section.usersetup.-meetings").exists()) {
           $('.autosubmit-stream').submit();
           $(".autosubmit-stream").bind('ajax:complete', function() {
@@ -36,11 +36,6 @@ APP.controllers_loggedin.users = (function() {
         // Favorite Graetzl Setup Page
         function initFavoriteGraetzls() {
           APP.components.graetzlSelectFilter.init($('#area-select'));
-          if ($('#area-map').is(":visible")) {
-            APP.components.areaMap.initFavoriteGraetzls($('#area-map'), {
-              interactive: true,
-            });
-          }
 
           // Submit IDS
           $(".map-form").on("submit", function() {

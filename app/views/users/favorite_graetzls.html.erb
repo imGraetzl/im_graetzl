@@ -5,7 +5,7 @@
   <!-- DESKTOP VERSION -->
   <div class="fav-desktop">
     <div class="mapImgBlock ">
-      <%= favorite_graetzl_map(@graetzls, current_user.favorite_graetzls, @user.graetzl) %>
+      <%= favorite_graetzl_map(@graetzls, current_user.favorite_graetzls, @user.graetzl, 'APP.components.areaMap.initFavoriteGraetzls($("#area-map"), {interactive: true,});') %>
       <h2 class="region-title"><%= t("region.#{current_region.id}.favorite_graetzl") %></h2>
       <div class="navBlock">
         <h3 class="hometitle"><%= t("region.#{current_region.id}.homegraetzl") %></h3>
