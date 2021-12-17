@@ -1,12 +1,7 @@
 APP.controllers.graetzls = (function() {
 
     function init() {
-      initMap();
       initFilter();
-    }
-
-    function initMap() {
-      APP.components.areaMap.init($('#area-map'));
     }
 
     function initFilter() {

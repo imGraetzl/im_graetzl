@@ -1,11 +1,13 @@
 module MapsHelper
 
-  def area_map(areas)
+  def area_map(areas, js)
+    javascript_tag("window.addEventListener('load', function() {if ($('#area-map').is(':visible')) {#{js}}});") +
     content_tag(:div, nil, id: "area-map", data: { areas: MapData.new.encode(areas) }) +
     content_tag(:div, nil, class: "activeArea")
   end
 
-  def favorite_graetzl_map(areas, favorites, home)
+  def favorite_graetzl_map(areas, favorites, home, js)
+    javascript_tag("window.addEventListener('load', function() {if ($('#area-map').is(':visible')) {#{js}}});") +
     content_tag(:div, nil, id: "area-map", data: { areas: MapData.new.encode_favorite_graetzls(areas, favorites, home) }) +
     content_tag(:div, nil, class: "activeArea")
   end
@@ -19,7 +21,8 @@ module MapsHelper
     end
   end
 
-  def region_map(region)
+  def region_map(region, js)
+    javascript_tag("window.addEventListener('load', function() {if ($('#area-map').is(':visible')) {#{js}}});") +
     content_tag(:div, nil, id: "area-map", data: { areas: region.area } ) +
     content_tag(:div, nil, class: "activeArea")
   end

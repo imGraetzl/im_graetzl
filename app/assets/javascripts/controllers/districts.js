@@ -2,7 +2,6 @@ APP.controllers.districts = (function() {
 
   function init() {
     initMenu();
-    initMap();
     initFilter();
   }
 
@@ -17,10 +16,6 @@ APP.controllers.districts = (function() {
     $select.on("change", function() {
       window.location.href = $(this).val();
     });
-  }
-
-  function initMap() {
-    APP.components.areaMap.init($('#area-map'), { interactive: true });
   }
 
   function initFilter() {

@@ -1,6 +1,6 @@
 <% graetzls = District.memoized(@district.id).graetzls %>
 <div class="mapImgBlock">
-  <%= area_map(graetzls) %>
+  <%= area_map(graetzls, 'APP.components.areaMap.init($("#area-map"), { interactive: true });') %>
 
   <div class="navBlock">
     <h1><%= @district.name %></h1>

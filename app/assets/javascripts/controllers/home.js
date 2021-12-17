@@ -33,11 +33,6 @@ APP.controllers.home = (function() {
   // Region Homepage
   function initHomeRegion() {
 
-    // Only load when map is shown
-    if ($('#area-map').is(":visible")) {
-      APP.components.areaMap.init($('#area-map'), { interactive: false, zoomSnap:0.25 });
-    }
-
     // SupporterBox Hide
     $('.close-ico').on('click', function(event){
       $(this).parent().fadeOut('fast');
