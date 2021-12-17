@@ -28,8 +28,11 @@
 
   <link rel="dns-prefetch" href="//welocally.at">
 
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= stylesheet_link_tag 'application-loggedin', media: 'all' if user_signed_in? || controller_name == 'registrations' %>
+  <% if user_signed_in? || controller_name == 'registrations' %>
+    <%= stylesheet_link_tag 'application-loggedin', media: 'all' %>
+  <% else %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  <% end %>
 
   <%= javascript_include_tag 'application', defer: true, onload: 'applicationLoadedInit();' %>
   <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || controller_name == 'registrations' %>
