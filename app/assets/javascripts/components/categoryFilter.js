@@ -44,14 +44,7 @@ APP.components.categoryFilter = (function() {
           settings: {
             item: item_tab,
             slideMove: item_tab,
-            addClass: '-tablet',
-            onSliderLoad: function (el) {
-              lazyLoadSlides(el, item_tab);
-              sliderLoaded(el)
-            },
-            onAfterSlide: function (el) {
-              lazyLoadSlides(el, item_tab);
-            }
+            addClass: '-tablet'
           }
         },
         {
@@ -61,24 +54,13 @@ APP.components.categoryFilter = (function() {
             slideMove: item_mob,
             controls: false,
             pager: true,
-            addClass: '-mobile',
-            onSliderLoad: function (el) {
-              lazyLoadSlides(el, item_mob);
-              sliderLoaded(el)
-            },
-            onAfterSlide: function (el) {
-              lazyLoadSlides(el, item_mob);
-            }
+            addClass: '-mobile'
           }
         }
       ],
       onSliderLoad: function(el) {
-        lazyLoadSlides(el, item_desk);
         sliderLoaded(el)
-      },
-      onAfterSlide: function (el) {
-        lazyLoadSlides(el, item_desk);
-      },
+      }
     });
 
     // Hover Slide
@@ -88,6 +70,11 @@ APP.components.categoryFilter = (function() {
    );
 
    // Lazy Load Images when Visible and preload Next Slide
+   /*
+
+   //Load Via:
+   //onAfterSlide: function (el) {lazyLoadSlides(el, item_desk);},
+
    function lazyLoadSlides(el, items) {
      var item_sum_count = $(el).find('.lslide').length;
      var item_active_position = $(el).find('.lslide.active').index();
@@ -102,6 +89,7 @@ APP.components.categoryFilter = (function() {
           $(this).find("picture source").attr("srcset",imgsrc);
       });
    }
+   */
 
    function sliderLoaded(el) {
      $(el).removeClass('cS-hidden');
@@ -166,7 +154,6 @@ APP.components.categoryFilter = (function() {
    // Update Text Label if exists on Page
    function updateFilterLabels(category) {
      if (typeof categorylink !== "undefined") {
-
         var src = category.find(".catimg").data("src");
         var srcactive = category.find(".catimg").data("srcactive");
 
