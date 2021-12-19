@@ -4,6 +4,6 @@ ActiveAdmin.register ToolCategory do
   index { render 'index', context: self }
   form partial: 'form'
 
-  permit_params :name, :main_photo, :remove_main_photo, :position, :slug
+  permit_params :name, :icon, :main_photo, :remove_main_photo, :position, :slug
 
 end

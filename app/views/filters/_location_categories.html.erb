@@ -1,4 +1,3 @@
-<!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Locations" class="cS-hidden">
     <!-- Goodies -->
@@ -7,7 +6,9 @@
           <source srcset="<%= image_path('categories/goodies.webp') %>" type="image/webp" />
           <%= image_tag('categories/goodies.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
-        <div class="cat -goodie"></div>
+        <div class="cat -goodie">
+          <%= category_icon('goodie', class: 'catimg', width:85, height:85) %>
+        </div>
         <h3>Goodies <br>für Mitglieder</h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
@@ -20,7 +21,9 @@
           <source srcset="<%= image_path('categories/menus.webp') %>" type="image/webp" />
           <%= image_tag('categories/menus.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
-        <div class="cat -essentrinken"></div>
+        <div class="cat -essentrinken">
+          <%= category_icon('essentrinken', class: 'catimg', width:85, height:85) %>
+        </div>
         <h3>Tages & <br>Wochenmenüs</h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
@@ -32,7 +35,9 @@
     <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
-        <div class="cat category-<%= category.id %> -<%= category.icon %> -locations"></div>
+        <div class="cat -<%= category.icon %>">
+          <%= category_icon(category.icon, class: 'catimg', width:85, height:85) %>
+        </div>
         <h3><%= link_to category.name, region_locations_path(category: category) %></h3>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>
@@ -45,7 +50,9 @@
           <source srcset="<%= image_path('categories/onlineshops.webp') %>" type="image/webp" />
           <%= image_tag('categories/onlineshops.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
-        <div class="cat -onlineshop"></div>
+        <div class="cat -onlineshop">
+          <%= category_icon('onlineshop', class: 'catimg', width:85, height:85) %>
+        </div>
         <h3>Online Shops <br>aus <%= current_region %></h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>

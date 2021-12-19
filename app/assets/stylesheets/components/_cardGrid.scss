@@ -107,169 +107,13 @@
       .close-ico {
         display: block;
       }
-      .cat {
+      .cat, .catimg {
         width: 85px;
         height: 85px;
         @include respond-to(">=medium") {
           width: 100px;
           height: 100px;
         }
-
-        // Tools Categories
-        &.category-1.-tools {
-          background-image: url(image_path('svg/icon-kringel-gesundheit-active.svg'));
-        }
-        &.category-2.-tools {
-          background-image: url(image_path('svg/icon-kringel-handwerk-active.svg'));
-        }
-        &.category-3.-tools {
-          background-image: url(image_path('svg/icon-kringel-grafik-design-active.svg'));
-        }
-        &.category-4.-tools {
-          background-image: url(image_path('svg/icon-kringel-event-active.svg'));
-        }
-        &.category-5.-tools {
-          background-image: url(image_path('svg/icon-kringel-gastronomie-active.svg'));
-        }
-        &.category-6.-tools {
-          background-image: url(image_path('svg/icon-kringel-technik-foto-active.svg'));
-        }
-        &.category-7.-tools {
-          background-image: url(image_path('svg/icon-kringel-instrumente-active.svg'));
-        }
-        &.category-8.-tools {
-          background-image: url(image_path('svg/icon-kringel-kunst-active.svg'));
-        }
-        &.category-9.-tools {
-          background-image: url(image_path('svg/icon-kringel-deko-active.svg'));
-        }
-        &.category-10.-tools, &.-mobilitaet {
-          background-image: url(image_path('svg/icon-kringel-transport-active.svg'));
-        }
-
-        // Rooms Categories
-        &.-booking {
-          background-image: url(image_path('svg/icon-kringel-kurzzeitmiete-active.svg'));
-        }
-        &.-arbeitsplatz {
-          background-image: url(image_path('svg/icon-kringel-arbeitsplatz-active.svg'));
-        }
-        &.-atelier {
-          background-image: url(image_path('svg/icon-kringel-atelier-active.svg'));
-        }
-        &.-bueroraum {
-          background-image: url(image_path('svg/icon-kringel-bueroraum-active.svg'));
-        }
-        &.-coaching {
-          background-image: url(image_path('svg/icon-kringel-coaching-active.svg'));
-        }
-        &.-coworking {
-          background-image: url(image_path('svg/icon-kringel-coworking-active.svg'));
-        }
-        &.-gastro {
-          background-image: url(image_path('svg/icon-kringel-gastro-active.svg'));
-        }
-        &.-geschaeftslokal {
-          background-image: url(image_path('svg/icon-kringel-geschaeftslokal-active.svg'));
-        }
-        &.-popup {
-          background-image: url(image_path('svg/icon-kringel-popup-active.svg'));
-        }
-        &.-praxis {
-          background-image: url(image_path('svg/icon-kringel-praxis-active.svg'));
-        }
-        &.-proberaum {
-          background-image: url(image_path('svg/icon-kringel-proberaum-active.svg'));
-        }
-        &.-seminarraum {
-          background-image: url(image_path('svg/icon-kringel-seminarraum-active.svg'));
-        }
-        &.-veranstaltung {
-          background-image: url(image_path('svg/icon-kringel-veranstaltung-active.svg'));
-        }
-        &.-werkstatt {
-          background-image: url(image_path('svg/icon-kringel-werkstatt-active.svg'));
-        }
-        &.-yoga {
-          background-image: url(image_path('svg/icon-kringel-yoga-active.svg'));
-        }
-        &.-sonstiges {
-          background-image: url(image_path('svg/icon-kringel-sonstiges-active.svg'));
-        }
-
-        // Meetings Categories
-        &.-special {
-          background-image: url(image_path('svg/icon-kringel-sfs-active.svg'));
-        }
-        &.-feste {
-          background-image: url(image_path('svg/icon-kringel-feste-active.svg'));
-        }
-        &.-tickets {
-          background-image: url(image_path('svg/icon-kringel-tickets-active.svg'));
-        }
-        &.-markt {
-          background-image: url(image_path('svg/icon-kringel-markt-active.svg'));
-        }
-        &.-essentrinken {
-          background-image: url(image_path('svg/icon-kringel-essentrinken-active.svg'));
-        }
-        &.-nachbarschaft {
-          background-image: url(image_path('svg/icon-kringel-nachbarschaft-active.svg'));
-        }
-        &.-klima {
-          background-image: url(image_path('svg/icon-kringel-klima-active.svg'));
-        }
-        &.-kultur {
-          background-image: url(image_path('svg/icon-kringel-kultur-active.svg'));
-        }
-        &.-weiterbildung {
-          background-image: url(image_path('svg/icon-kringel-weiterbildung-active.svg'));
-        }
-        &.-wohlbefinden {
-          background-image: url(image_path('svg/icon-kringel-wohlbefinden-active.svg'));
-        }
-        &.-hobby {
-          background-image: url(image_path('svg/icon-kringel-hobby-active.svg'));
-        }
-        &.-teens {
-          background-image: url(image_path('svg/icon-kringel-teens-active.svg'));
-        }
-
-        // Locations Categories
-        &.-onlineshop {
-          background-image: url(image_path('svg/icon-kringel-onlineshop-active.svg'));
-        }
-        &.-goodie {
-          background-image: url(image_path('svg/icon-kringel-goodie-active.svg'));
-        }
-        &.-startup {
-          background-image: url(image_path('svg/icon-kringel-startup-active.svg'));
-        }
-        &.-oeffentlicher-raum {
-          background-image: url(image_path('svg/icon-kringel-oeffentlicher-raum-active.svg'));
-        }
-        &.-lokaler-dienstleister {
-          background-image: url(image_path('svg/icon-kringel-lokaler-dienstleister-active.svg'));
-        }
-        &.-kreativ-handwerk {
-          background-image: url(image_path('svg/icon-kringel-kreativ-handwerk-active.svg'));
-        }
-        &.-institution {
-          background-image: url(image_path('svg/icon-kringel-institution-active.svg'));
-        }
-        &.-verein {
-          background-image: url(image_path('svg/icon-kringel-verein-active.svg'));
-        }
-        &.-spiritualitaet {
-          background-image: url(image_path('svg/icon-kringel-spiritualitaet-active.svg'));
-        }
-        &.-handshake {
-          background-image: url(image_path('svg/icon-kringel-sfs-active.svg'));
-        }
-        &.-kennenlernen {
-          background-image: url(image_path('svg/icon-kringel-star-active.svg'));
-        }
-
       }
     }
 
@@ -298,13 +142,15 @@
       }
       a:hover {text-decoration: none;}
     }
-    .cat {
+    .cat, .catimg {
       width: 65px;
       height: 65px;
       @include respond-to(">=medium") {
         width: 85px;
         height: 85px;
       }
+    }
+    .cat {
       background-repeat: no-repeat;
       position: absolute;
       top: 0;
@@ -315,161 +161,6 @@
       margin-bottom: auto;
       margin-left: auto;
       margin-right: auto;
-
-      // Tools Categories
-      &.category-1.-tools {
-        background-image: url(image_path('svg/icon-kringel-gesundheit.svg'));
-      }
-      &.category-2.-tools {
-        background-image: url(image_path('svg/icon-kringel-handwerk.svg'));
-      }
-      &.category-3.-tools {
-        background-image: url(image_path('svg/icon-kringel-grafik-design.svg'));
-      }
-      &.category-4.-tools {
-        background-image: url(image_path('svg/icon-kringel-event.svg'));
-      }
-      &.category-5.-tools {
-        background-image: url(image_path('svg/icon-kringel-gastronomie.svg'));
-      }
-      &.category-6.-tools {
-        background-image: url(image_path('svg/icon-kringel-technik-foto.svg'));
-      }
-      &.category-7.-tools {
-        background-image: url(image_path('svg/icon-kringel-instrumente.svg'));
-      }
-      &.category-8.-tools {
-        background-image: url(image_path('svg/icon-kringel-kunst.svg'));
-      }
-      &.category-9.-tools {
-        background-image: url(image_path('svg/icon-kringel-deko.svg'));
-      }
-      &.category-10.-tools, &.-mobilitaet {
-        background-image: url(image_path('svg/icon-kringel-transport.svg'));
-      }
-
-      // Rooms Categories
-      &.-booking {
-        background-image: url(image_path('svg/icon-kringel-kurzzeitmiete.svg'));
-      }
-      &.-arbeitsplatz {
-        background-image: url(image_path('svg/icon-kringel-arbeitsplatz.svg'));
-      }
-      &.-atelier {
-        background-image: url(image_path('svg/icon-kringel-atelier.svg'));
-      }
-      &.-bueroraum {
-        background-image: url(image_path('svg/icon-kringel-bueroraum.svg'));
-      }
-      &.-coaching {
-        background-image: url(image_path('svg/icon-kringel-coaching.svg'));
-      }
-      &.-coworking {
-        background-image: url(image_path('svg/icon-kringel-coworking.svg'));
-      }
-      &.-gastro {
-        background-image: url(image_path('svg/icon-kringel-gastro.svg'));
-      }
-      &.-geschaeftslokal {
-        background-image: url(image_path('svg/icon-kringel-geschaeftslokal.svg'));
-      }
-      &.-popup {
-        background-image: url(image_path('svg/icon-kringel-popup.svg'));
-      }
-      &.-praxis {
-        background-image: url(image_path('svg/icon-kringel-praxis.svg'));
-      }
-      &.-proberaum {
-        background-image: url(image_path('svg/icon-kringel-proberaum.svg'));
-      }
-      &.-seminarraum {
-        background-image: url(image_path('svg/icon-kringel-seminarraum.svg'));
-      }
-      &.-veranstaltung {
-        background-image: url(image_path('svg/icon-kringel-veranstaltung.svg'));
-      }
-      &.-werkstatt {
-        background-image: url(image_path('svg/icon-kringel-werkstatt.svg'));
-      }
-      &.-yoga {
-        background-image: url(image_path('svg/icon-kringel-yoga.svg'));
-      }
-      &.-sonstiges {
-        background-image: url(image_path('svg/icon-kringel-sonstiges.svg'));
-      }
-
-      // Meetings Categories
-      &.-special {
-        background-image: url(image_path('svg/icon-kringel-sfs.svg'));
-      }
-      &.-feste {
-        background-image: url(image_path('svg/icon-kringel-feste.svg'));
-      }
-      &.-tickets {
-        background-image: url(image_path('svg/icon-kringel-tickets.svg'));
-      }
-      &.-markt {
-        background-image: url(image_path('svg/icon-kringel-markt.svg'));
-      }
-      &.-essentrinken {
-        background-image: url(image_path('svg/icon-kringel-essentrinken.svg'));
-      }
-      &.-nachbarschaft {
-        background-image: url(image_path('svg/icon-kringel-nachbarschaft.svg'));
-      }
-      &.-klima {
-        background-image: url(image_path('svg/icon-kringel-klima.svg'));
-      }
-      &.-kultur {
-        background-image: url(image_path('svg/icon-kringel-kultur.svg'));
-      }
-      &.-weiterbildung {
-        background-image: url(image_path('svg/icon-kringel-weiterbildung.svg'));
-      }
-      &.-wohlbefinden {
-        background-image: url(image_path('svg/icon-kringel-wohlbefinden.svg'));
-      }
-      &.-hobby {
-        background-image: url(image_path('svg/icon-kringel-hobby.svg'));
-      }
-      &.-teens {
-        background-image: url(image_path('svg/icon-kringel-teens.svg'));
-      }
-
-      // Locations Categories
-      &.-onlineshop {
-        background-image: url(image_path('svg/icon-kringel-onlineshop.svg'));
-      }
-      &.-goodie {
-        background-image: url(image_path('svg/icon-kringel-goodie.svg'));
-      }
-      &.-startup {
-        background-image: url(image_path('svg/icon-kringel-startup.svg'));
-      }
-      &.-oeffentlicher-raum {
-        background-image: url(image_path('svg/icon-kringel-oeffentlicher-raum.svg'));
-      }
-      &.-lokaler-dienstleister {
-        background-image: url(image_path('svg/icon-kringel-lokaler-dienstleister.svg'));
-      }
-      &.-kreativ-handwerk {
-        background-image: url(image_path('svg/icon-kringel-kreativ-handwerk.svg'));
-      }
-      &.-institution {
-        background-image: url(image_path('svg/icon-kringel-institution.svg'));
-      }
-      &.-verein {
-        background-image: url(image_path('svg/icon-kringel-verein.svg'));
-      }
-      &.-spiritualitaet {
-        background-image: url(image_path('svg/icon-kringel-spiritualitaet.svg'));
-      }
-      &.-handshake {
-        background-image: url(image_path('svg/icon-kringel-sfs.svg'));
-      }
-      &.-kennenlernen {
-        background-image: url(image_path('svg/icon-kringel-star.svg'));
-      }
 
     }
   }

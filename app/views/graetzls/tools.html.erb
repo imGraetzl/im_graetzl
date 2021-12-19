@@ -18,7 +18,7 @@
     <p>Arbeitsequipment leihen & Geräte am Standort nutzen <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
   </div>
 
-  <%= render 'filters/tool_offer_categories' %>
+  <%= render 'filters/tool_categories' %>
 
   <%= form_tag tools_path, method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>

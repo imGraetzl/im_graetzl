@@ -73,7 +73,6 @@ APP.components.categoryFilter = (function() {
      function(){ $(this).removeClass('hover')}
    );
 
-
    // Click Slide
    element.find('.-category').on('click', function(event){
      event.preventDefault();
@@ -103,6 +102,8 @@ APP.components.categoryFilter = (function() {
              }
          }
 
+         var src = element.find(".activated .catimg").data("src");
+         element.find(".activated .catimg").attr("src",src);
          element.find('.-category').removeClass('activated');
          $(this).addClass('activated');
          updateFilterLabels($(this));
@@ -126,15 +127,20 @@ APP.components.categoryFilter = (function() {
      }
    }
 
-
    // Update Text Label if exists on Page
    function updateFilterLabels(category) {
      if (typeof categorylink !== "undefined") {
+
+        var src = category.find(".catimg").data("src");
+        var srcactive = category.find(".catimg").data("srcactive");
+
          if (category.hasClass("activated")) {
            var label = category.attr("data-label");
            categorylink.text(label);
+           category.find(".catimg").attr("src",srcactive);
          } else {
            categorylink.text(categorylink.data("no-filter-label"));
+           category.find(".catimg").attr("src",src);
          }
      }
    }
@@ -149,7 +155,6 @@ APP.components.categoryFilter = (function() {
      element.find('.-category[data-id="' + selected_special_category + '"]').addClass('activated');
 
      updateFilterLabels(element.find('.activated'));
-     //slider.goToSlide(6);
 
    }
 

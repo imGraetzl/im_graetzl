@@ -1,4 +1,3 @@
-<!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Raumteiler" class="cS-hidden">
     <!-- RoomOffers with Rental Option-->
@@ -7,7 +6,9 @@
           <source srcset="<%= image_path('categories/kurzzeitmieten.webp') %>" type="image/webp" />
           <%= image_tag('categories/kurzzeitmieten.jpg', class: 'attachment room_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
-        <div class="cat -booking"></div>
+        <div class="cat -kurzzeitmiete">
+          <%= category_icon('kurzzeitmiete', class: 'catimg', width:85, height:85) %>
+        </div>
         <h3>Kurzzeitmiete</h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
@@ -19,7 +20,9 @@
     <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
-        <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -rooms"></div>
+        <div class="cat -<%= category.css_ico_class %>">
+          <%= category_icon(category.css_ico_class, class: 'catimg', width:85, height:85) %>
+        </div>
         <h3><%= link_to category.name, region_rooms_path(category: category) %></h3>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>

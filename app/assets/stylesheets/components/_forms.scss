@@ -240,6 +240,7 @@ input, select, textarea {
       @include triangleSingle($direction: "down", $color: #ffffff);
     }
   }
+  /*
   &.label-select {
     .SumoSelect {
       min-width: 250px;
@@ -256,15 +257,14 @@ input, select, textarea {
       padding-right:25px;
     }
     &::before {
-      /*  Custom dropdown arrow cover */
       border-left: 1px dotted $color-ambient-mint-light;
       background-color: transparent;
     }
     &::after {
-      /*  Custom dropdown arrow */
       @include triangleSingle($direction: "down", $color: $color-ambient-mint);
     }
   }
+  */
 
 }
 

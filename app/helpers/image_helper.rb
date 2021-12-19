@@ -88,6 +88,14 @@ module ImageHelper
     end
   end
 
+  def category_icon(object, **options)
+    image_tag("svg/icon-kringel-#{object}.svg", **options,
+      data: {
+        src: image_path("svg/icon-kringel-#{object}.svg"),
+        srcactive: image_path("svg/icon-kringel-#{object}-active.svg")
+      })
+  end
+
   def gallery_thumb_image(object, **options)
     if File.extname(object.file_url(:thumb_webp)) == '.webp'
       content_tag :picture do
