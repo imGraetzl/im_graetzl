@@ -77,10 +77,7 @@ module ImageHelper
   def category_image(object, **options)
       if File.extname(object.main_photo_url(:large_webp)) == '.webp'
         content_tag :picture do
-          tag(:source, srcset: image_path(object.main_photo_url(:large_webp)), type: "image/webp",
-            data: {
-              src: image_path(object.main_photo_url(:large_webp))
-            }) +
+          tag(:source, srcset: image_path(object.main_photo_url(:large_webp)), type: "image/webp") +
           image_tag(object.main_photo_url(:large), loading: 'lazy', alt: object.to_s, **options)
         end
       else

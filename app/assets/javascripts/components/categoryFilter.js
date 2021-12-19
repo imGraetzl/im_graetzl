@@ -69,32 +69,11 @@ APP.components.categoryFilter = (function() {
      function(){ $(this).removeClass('hover')}
    );
 
-   // Lazy Load Images when Visible and preload Next Slide
-   /*
-
-   //Load Via:
-   //onAfterSlide: function (el) {lazyLoadSlides(el, item_desk);},
-
-   function lazyLoadSlides(el, items) {
-     var item_sum_count = $(el).find('.lslide').length;
-     var item_active_position = $(el).find('.lslide.active').index();
-     var item_visible_count = items * 2; // Preload Next Slide Items
-     if (item_active_position == item_sum_count -1) {
-       item_active_position = item_active_position -1
-     }
-     $(el).find('.lslide').slice(item_active_position, item_active_position + item_visible_count).each(function( index ) {
-          var imgsrc = $(this).find("picture source").data("src");
-          var icosrc = $(this).find(".catimg").data("src");
-          $(this).find(".catimg").attr("src",icosrc);
-          $(this).find("picture source").attr("srcset",imgsrc);
-      });
-   }
-   */
-
    function sliderLoaded(el) {
      $(el).removeClass('cS-hidden');
      $(el).closest(".category-slider-container").removeClass('loading');
      $(el).closest(".category-slider-container").addClass('loaded');
+     initSelectedCategory();
    }
 
    // Click Slide
@@ -180,8 +159,6 @@ APP.components.categoryFilter = (function() {
      updateFilterLabels(element.find('.activated'));
 
    }
-
-   initSelectedCategory();
 
   }
 

@@ -3,13 +3,13 @@
     <!-- RoomOffers with Rental Option-->
       <div class="-category -special-category" data-id="kurzzeitmiete" data-label="Kurzzeitmiete" data-slug="kurzzeitmiete">
         <picture>
-          <source srcset="<%= image_path('categories/kurzzeitmieten.webp') %>" type="image/webp" data-src="<%= image_path('categories/kurzzeitmieten.webp') %>" />
+          <source srcset="<%= image_path('categories/kurzzeitmieten.webp') %>" type="image/webp" />
           <%= image_tag('categories/kurzzeitmieten.jpg', class: 'attachment room_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
         <div class="cat -kurzzeitmiete">
           <%= category_icon('kurzzeitmiete', class: 'catimg', width:85, height:85) %>
         </div>
-        <h3>Kurzzeitmiete</h3>
+        <h3><%= link_to "Kurzzeitmiete", region_rooms_path(category: 'kurzzeitmiete') %></h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
         <% end %>
