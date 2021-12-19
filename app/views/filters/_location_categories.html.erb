@@ -21,7 +21,9 @@
           <source srcset="<%= image_path('categories/menus.webp') %>" type="image/webp" />
           <%= image_tag('categories/menus.jpg', class: 'attachment event_category main_photo categoryImg', loading: 'lazy', width:257, height:385) %>
         </picture>
-        <div class="cat -essentrinken"></div>
+        <div class="cat -essentrinken">
+          <%= category_icon('essentrinken', class: 'catimg', width:85, height:85) %>
+        </div>
         <h3>Tages- & <br>Wochenmenü</h3>
         <%= button_tag '', class: 'close-ico' do %>
           <%= icon_tag "cross" %>
