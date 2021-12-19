@@ -4,7 +4,6 @@ APP.components.categoryFilter = (function() {
     var item_desk = 5;
     var item_tab = 3;
     var item_mob = 2;
-    var items = element.find("div").length;
 
     var filterForm = $(".cards-filter");
     var filterLine = $(".filter-line");
@@ -46,6 +45,13 @@ APP.components.categoryFilter = (function() {
             item: item_tab,
             slideMove: item_tab,
             addClass: '-tablet',
+            onSliderLoad: function (el) {
+              lazyLoadSlides(el, item_tab);
+              sliderLoaded(el)
+            },
+            onAfterSlide: function (el) {
+              lazyLoadSlides(el, item_tab);
+            }
           }
         },
         {
@@ -56,22 +62,52 @@ APP.components.categoryFilter = (function() {
             controls: false,
             pager: true,
             addClass: '-mobile',
+            onSliderLoad: function (el) {
+              lazyLoadSlides(el, item_mob);
+              sliderLoaded(el)
+            },
+            onAfterSlide: function (el) {
+              lazyLoadSlides(el, item_mob);
+            }
           }
         }
       ],
       onSliderLoad: function(el) {
-        $(el).removeClass('cS-hidden');
-        $(el).closest(".category-slider-container").removeClass('loading');
-        $(el).closest(".category-slider-container").addClass('loaded');
-      }
+        lazyLoadSlides(el, item_desk);
+        sliderLoaded(el)
+      },
+      onAfterSlide: function (el) {
+        lazyLoadSlides(el, item_desk);
+      },
     });
-
 
     // Hover Slide
     element.find('.-category').hover(
      function(){ $(this).addClass('hover') },
      function(){ $(this).removeClass('hover')}
    );
+
+   // Lazy Load Images when Visible and preload Next Slide
+   function lazyLoadSlides(el, items) {
+     var item_sum_count = $(el).find('.lslide').length;
+     var item_active_position = $(el).find('.lslide.active').index();
+     var item_visible_count = items * 2; // Preload Next Slide Items
+     if (item_active_position == item_sum_count -1) {
+       item_active_position = item_active_position -1
+     }
+     $(el).find('.lslide').slice(item_active_position, item_active_position + item_visible_count).each(function( index ) {
+          var imgsrc = $(this).find("picture source").data("src");
+          var icosrc = $(this).find(".catimg").data("src");
+          $(this).find(".catimg").attr("src",icosrc);
+          $(this).find("picture source").attr("srcset",imgsrc);
+      });
+   }
+
+   function sliderLoaded(el) {
+     $(el).removeClass('cS-hidden');
+     $(el).closest(".category-slider-container").removeClass('loading');
+     $(el).closest(".category-slider-container").addClass('loaded');
+   }
 
    // Click Slide
    element.find('.-category').on('click', function(event){
