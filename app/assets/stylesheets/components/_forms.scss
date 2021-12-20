@@ -240,31 +240,6 @@ input, select, textarea {
       @include triangleSingle($direction: "down", $color: #ffffff);
     }
   }
-  /*
-  &.label-select {
-    .SumoSelect {
-      min-width: 250px;
-      .MultiControls p {
-        padding:10px !important;
-      }
-    }
-    .SumoSelect p {
-      background-color: transparent;
-      box-shadow: none;
-      color: $color-ambient-mint-dark;
-      font-style: italic;
-      border: 1px solid $color-ambient-mint-light;
-      padding-right:25px;
-    }
-    &::before {
-      border-left: 1px dotted $color-ambient-mint-light;
-      background-color: transparent;
-    }
-    &::after {
-      @include triangleSingle($direction: "down", $color: $color-ambient-mint);
-    }
-  }
-  */
 
 }
 

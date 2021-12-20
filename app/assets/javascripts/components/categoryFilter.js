@@ -72,7 +72,6 @@ APP.components.categoryFilter = (function() {
    function sliderLoaded(el) {
      $(el).removeClass('cS-hidden');
      $(el).closest(".category-slider-container").removeClass('loading');
-     $(el).closest(".category-slider-container").addClass('loaded');
      initSelectedCategory();
    }
 

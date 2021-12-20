@@ -400,7 +400,7 @@ APP.components.cardBoxFilter = (function() {
     var newCards = cardGrid.find('[data-behavior="masonry-card"]').not('[data-appended]');
     cardGrid.masonry('appended', newCards);
     newCards.attr("data-appended", true);
-    APP.components.initUserTooltip();
+    if ($('body.signed-in').exists()) APP.components.initUserTooltip();
     initInfiniteScroll();
   }
 

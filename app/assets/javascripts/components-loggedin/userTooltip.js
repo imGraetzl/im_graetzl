@@ -75,6 +75,7 @@ APP.components.initUserTooltip = function() {
     $('.user-tooltip-wrp .-messenger a').on('click', function(event){
       event.preventDefault();
       var href = $(this).attr('href');
+      console.log('mess');
       gtag(
         'event', 'Click :: Nachricht senden', {
         'event_category': 'User Tooltip',
