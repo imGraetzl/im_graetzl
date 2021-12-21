@@ -59,7 +59,7 @@
 
     <div class="txt">
       <h3><%= link_to meeting.name, [graetzl, meeting] %></h3>
-      <p><%= truncate(meeting.description, length: 100) %></p>
+      <p><%= strip_tags(meeting.description.bbcode_to_html.html_safe).truncate(100) %></p>
     </div>
     <%= link_to meeting_link_text(meeting), [graetzl, meeting], class: 'btn-primary -mint' %>
 
