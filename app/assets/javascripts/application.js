@@ -36,15 +36,6 @@
 //= require_directory ./components
 //= require_directory ./controllers
 
-console.log('application');
-
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('application - DOMContentLoaded');
-
   APP.init();
-});
-
-$(document).on('ready', function(event) {
-  console.log('application - onready');
-
 });
