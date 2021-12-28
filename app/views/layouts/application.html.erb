@@ -17,6 +17,7 @@
     function applicationLoadedInit() {
       window.addEventListener('load', function() {
         APP.components.cookieTracking.init();
+        APP.components.flashMsgEvents.init();
         setTimeout(function(){ APP.controllers.application.scrollToTarget() }, 200);
       });
     }

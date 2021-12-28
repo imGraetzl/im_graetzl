@@ -1,20 +1,20 @@
-APP.components.flashMessageEvents = (function() {
+APP.components.flashMsgEvents = (function() {
 
     function init() {
 
-      function flashMessage(message) {
+      function flashMsg(message) {
         if ( $("#flash .notice").text().indexOf(message) >= 0 ){
           return true;
         }
       }
 
       // Registration SignUp
-      if (flashMessage('Super, du bist nun registriert!')){
+      if (flashMsg('Super, du bist nun registriert!')){
         gtag('event', 'sign_up', {'event_category': 'Registration'});
       }
 
       // Activate Coop & Share
-      else if (flashMessage('Dein Coop & Share Angebot ist nun aktiv')){
+      else if (flashMsg('Dein Coop & Share Angebot ist nun aktiv')){
         gtag(
           'event', 'Coop & Share :: Click :: Status Aktiv', {
           'event_category': 'Coop & Share'
@@ -22,7 +22,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Deactivate Coop & Share
-      else if (flashMessage('Dein Coop & Share Angebot ist nun deaktiviert')){
+      else if (flashMsg('Dein Coop & Share Angebot ist nun deaktiviert')){
         gtag(
           'event', 'Coop & Share :: Click :: Status Inaktiv', {
           'event_category': 'Coop & Share'
@@ -30,7 +30,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Reactivate Coop & Share
-      else if (flashMessage('Dein Coop & Share Angebot wurde erfolgreich verlängert!')){
+      else if (flashMsg('Dein Coop & Share Angebot wurde erfolgreich verlängert!')){
         gtag(
           'event', 'Coop & Share :: Click :: E-Mail Aktivierungslink', {
           'event_category': 'Coop & Share'
@@ -38,7 +38,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Activate RoomOffer
-      else if (flashMessage('Dein Raumteiler ist nun aktiv')){
+      else if (flashMsg('Dein Raumteiler ist nun aktiv')){
         gtag(
           'event', 'Raumangebot :: Click :: Status Aktiv', {
           'event_category': 'Raumteiler'
@@ -46,7 +46,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Deactivate RoomOffer
-      else if (flashMessage('Dein Raumteiler ist nun deaktiviert')){
+      else if (flashMsg('Dein Raumteiler ist nun deaktiviert')){
         gtag(
           'event', 'Raumangebot :: Click :: Status Inaktiv', {
           'event_category': 'Raumteiler'
@@ -54,7 +54,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Reactivate RoomsOffers
-      else if (flashMessage('Dein Raumteiler wurde erfolgreich verlängert!')){
+      else if (flashMsg('Dein Raumteiler wurde erfolgreich verlängert!')){
         gtag(
           'event', 'Raumangebot :: Click :: E-Mail Aktivierungslink', {
           'event_category': 'Raumteiler'
@@ -62,7 +62,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Warteliste RoomOffer
-      else if (flashMessage('Dein Raumteiler hat nun eine Warteliste')){
+      else if (flashMsg('Dein Raumteiler hat nun eine Warteliste')){
         gtag(
           'event', 'Raumangebot :: Click :: Status Warteliste', {
           'event_category': 'Raumteiler'
@@ -70,7 +70,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Activate RoomDemand
-      else if (flashMessage('Deine Raumsuche ist nun aktiv')){
+      else if (flashMsg('Deine Raumsuche ist nun aktiv')){
         gtag(
           'event', 'Raumsuche :: Click :: Status Aktiv', {
           'event_category': 'Raumteiler'
@@ -78,7 +78,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Deactivate RoomDemand
-      else if (flashMessage('Deine Raumsuche ist nun deaktiviert')){
+      else if (flashMsg('Deine Raumsuche ist nun deaktiviert')){
         gtag(
           'event', 'Raumsuche :: Click :: Status Inaktiv', {
           'event_category': 'Raumteiler'
@@ -86,7 +86,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Reactivate RoomDemand
-      else if (flashMessage('Deine Raumsuche wurde erfolgreich verlängert!')){
+      else if (flashMsg('Deine Raumsuche wurde erfolgreich verlängert!')){
         gtag(
           'event', 'Raumsuche :: Click :: E-Mail Aktivierungslink', {
           'event_category': 'Raumteiler'
@@ -94,7 +94,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Deactivate RoomDemand
-      else if (flashMessage('Der Aktivierungslink ist leider ungültig')){
+      else if (flashMsg('Der Aktivierungslink ist leider ungültig')){
         gtag(
           'event', 'Raumteiler :: Click :: Aktivierungslink ungültig', {
           'event_category': 'Raumteiler'
@@ -102,7 +102,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Activate ToolDemand
-      else if (flashMessage('Deine Toolsuche ist nun aktiv')){
+      else if (flashMsg('Deine Toolsuche ist nun aktiv')){
         gtag(
           'event', 'Toolsuche :: Click :: Status Aktiv', {
           'event_category': 'Toolteiler'
@@ -110,7 +110,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Deactivate ToolDemand
-      else if (flashMessage('Deine Toolsuche ist nun deaktiviert')){
+      else if (flashMsg('Deine Toolsuche ist nun deaktiviert')){
         gtag(
           'event', 'Toolsuche :: Click :: Status Inaktiv', {
           'event_category': 'Toolteiler'
@@ -118,7 +118,7 @@ APP.components.flashMessageEvents = (function() {
       }
 
       // Favorite Graetzls
-      else if (flashMessage('Deine Favoriten wurden gespeichert')){
+      else if (flashMsg('Deine Favoriten wurden gespeichert')){
         gtag(
           'event', 'Favorite Graetzls :: Save', {
           'event_category': 'User Settings'
