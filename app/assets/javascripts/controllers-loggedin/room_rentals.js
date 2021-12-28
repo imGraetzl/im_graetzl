@@ -1,6 +1,9 @@
 APP.controllers_loggedin.room_rentals = (function() {
 
     function init() {
+
+      console.log('APP.controllers_loggedin.room_rentals.init()');
+
       if ($(".room-rental-page.date-screen").exists()) {
         initDateScreen();
       } else if ($(".room-rental-page.address-screen").exists()) {

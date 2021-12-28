@@ -36,6 +36,9 @@
 //= require_directory ./components
 //= require_directory ./controllers
 
+console.log('application');
+
 $(document).on('ready', function(event) {
+    console.log('application - on ready');
     APP.init();
 });
