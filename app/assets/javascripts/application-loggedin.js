@@ -6,14 +6,18 @@
 
 console.log('application loggedin');
 
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('application loggedin - DOMContentLoaded');
+
+  var pageToInit = $("body").attr("data-controller");
+  APP.controllers_loggedin[pageToInit] && APP.controllers_loggedin[pageToInit].init();
+  APP.components.search.init();
+  APP.components.fileUpload.init();
+});
+
 $(document).on('ready', function(event) {
 
-    console.log('application loggedin - on ready');
-
-    var pageToInit = $("body").attr("data-controller");
-    APP.controllers_loggedin[pageToInit] && APP.controllers_loggedin[pageToInit].init();
-
-    APP.components.search.init();
-    APP.components.fileUpload.init();
+  console.log('application loggedin - onready');
 
 });

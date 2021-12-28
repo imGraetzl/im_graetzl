@@ -38,7 +38,13 @@
 
 console.log('application');
 
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('application - DOMContentLoaded');
+
+  APP.init();
+});
+
 $(document).on('ready', function(event) {
-    console.log('application - on ready');
-    APP.init();
+  console.log('application - onready');
+
 });
