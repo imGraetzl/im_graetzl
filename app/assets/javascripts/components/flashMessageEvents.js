@@ -37,14 +37,6 @@ APP.components.flashMessageEvents = (function() {
         });
       }
 
-      // Reactivate RoomsOffers
-      else if (flashMessage('Dein Raumteiler wurde erfolgreich verlängert!')){
-        gtag(
-          'event', 'Raumangebot :: Click :: E-Mail Aktivierungslink', {
-          'event_category': 'Raumteiler'
-        });
-      }
-
       // Activate RoomOffer
       else if (flashMessage('Dein Raumteiler ist nun aktiv')){
         gtag(
@@ -61,18 +53,18 @@ APP.components.flashMessageEvents = (function() {
         });
       }
 
-      // Warteliste RoomOffer
-      else if (flashMessage('Dein Raumteiler hat nun eine Warteliste')){
+      // Reactivate RoomsOffers
+      else if (flashMessage('Dein Raumteiler wurde erfolgreich verlängert!')){
         gtag(
-          'event', 'Raumangebot :: Click :: Status Warteliste', {
+          'event', 'Raumangebot :: Click :: E-Mail Aktivierungslink', {
           'event_category': 'Raumteiler'
         });
       }
 
-      // Reactivate RoomDemand
-      else if (flashMessage('Deine Raumsuche wurde erfolgreich verlängert!')){
+      // Warteliste RoomOffer
+      else if (flashMessage('Dein Raumteiler hat nun eine Warteliste')){
         gtag(
-          'event', 'Raumsuche :: Click :: E-Mail Aktivierungslink', {
+          'event', 'Raumangebot :: Click :: Status Warteliste', {
           'event_category': 'Raumteiler'
         });
       }
@@ -93,18 +85,18 @@ APP.components.flashMessageEvents = (function() {
         });
       }
 
-      // Deactivate RoomDemand
-      else if (flashMessage('Der Aktivierungslink ist leider ungültig')){
+      // Reactivate RoomDemand
+      else if (flashMessage('Deine Raumsuche wurde erfolgreich verlängert!')){
         gtag(
-          'event', 'Raumteiler :: Click :: Aktivierungslink ungültig', {
+          'event', 'Raumsuche :: Click :: E-Mail Aktivierungslink', {
           'event_category': 'Raumteiler'
         });
       }
 
-      // Room Call
-      else if (flashMessage('Danke für deine Bewerbung')){
+      // Deactivate RoomDemand
+      else if (flashMessage('Der Aktivierungslink ist leider ungültig')){
         gtag(
-          'event', 'Call :: Completed', {
+          'event', 'Raumteiler :: Click :: Aktivierungslink ungültig', {
           'event_category': 'Raumteiler'
         });
       }

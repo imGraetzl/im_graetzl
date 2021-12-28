@@ -109,7 +109,6 @@
 @import "controllers/districts";
 @import "controllers/location";
 //@import "controllers/location-form";
-@import "controllers/selectGraetzl";
 //@import "controllers/usersCardsSetup";
 @import "controllers/static_pages";
 //@import "controllers/roomForm";
@@ -117,9 +116,11 @@
 @import "controllers/roomDetail";
 //@import "controllers/coopDemandForm";
 @import "controllers/demandDetail";
-@import "controllers/toolteiler";
+@import "controllers/toolDetail";
+//@import "controllers/toolForm";
 @import "controllers/tool_rentals";
 @import "controllers/room_rentals";
+//@import "controllers/room_rentals_timetable";
 @import "controllers/going_tos";
 @import "controllers/group";
 @import "controllers/regions";

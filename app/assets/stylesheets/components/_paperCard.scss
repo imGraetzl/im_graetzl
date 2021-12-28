@@ -77,15 +77,6 @@
     }
   }
 }
-.paperCard.-cord1RTsmall {
-  .card {
-    &::before {
-      right: -38px;
-      transform: scale(0.75);
-    }
-  }
-}
-
 
 .paperCard.-cord1LT {
   .card {
@@ -94,15 +85,6 @@
     }
   }
 }
-.paperCard.-cord1LTsmall {
-  .card {
-    &::before {
-      left: -38px;
-      transform: scale(-0.75, 0.75);
-    }
-  }
-}
-
 
 .paperCard[class*=-illu] {
   .wrp {
