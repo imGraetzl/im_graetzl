@@ -30,21 +30,21 @@
                 {
                     type: 'Site Preferences',
                     value: 'preferences',
-                    description: 'These are cookies that are related to your site preferences, e.g. remembering your username, site colours, etc.'
+                    description: ''
                 },
                 {
                     type: 'Analytics',
                     value: 'analytics',
-                    description: 'Cookies related to site visits, browser types, etc.'
+                    description: ''
                 },
                 {
                     type: 'Marketing',
                     value: 'marketing',
-                    description: 'Cookies related to marketing, e.g. newsletters, social media, etc'
+                    description: ''
                 }
             ],
             title: 'Cookies & Privacy',
-            message: 'Cookies enable you to use shopping carts and to personalize your experience on our sites, tell us which parts of our websites people have visited, help us measure the effectiveness of ads and web searches, and give us insights into user behavior so we can improve our communications and products.',
+            message: '',
             link: '/privacy-policy',
             delay: 2000,
             expires: 30,
@@ -53,7 +53,7 @@
             advancedBtnLabel: 'Customise Cookies',
             cookieTypesTitle: 'Select cookies to accept',
             fixedCookieTypeLabel:'Necessary',
-            fixedCookieTypeDesc: 'These are cookies that are essential for the website to work correctly.',
+            fixedCookieTypeDesc: '',
             onAccept: function(){},
             uncheckBoxes: false
         }, options);
