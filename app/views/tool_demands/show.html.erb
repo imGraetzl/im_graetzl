@@ -40,7 +40,7 @@
   <div class="mainContent">
 
     <% if @tool_demand.disabled? && current_user == @tool_demand.user %>
-      <div class="owner-inactive-msg">
+      <div class="inactive-msg">
           Deine Toolsuche ist aktuell auf inaktiv gesetzt. Toolsuche jetzt <%= link_to 'wieder aktivieren', [:update_status, @tool_demand, status: "enabled"], method: :patch %>.
       </div>
     <% end %>
