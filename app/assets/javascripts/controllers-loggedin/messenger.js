@@ -79,31 +79,39 @@ APP.controllers_loggedin.messenger = (function() {
 
   }
 
-
   function initThreadSelect() {
     // Load thread on Click
     $("#side-bar .message-thread").on("click", function() {
       if ($(this).hasClass("-active") || $(this).hasClass("hidden")) return;
-      $(this).find(".fetch-form").submit();
+
       $("#side-bar .message-thread").removeClass("-active");
       $(this).addClass("-active");
-    });
 
-    $("#side-bar .fetch-form").on("ajax:complete", function() {
-      $("#chat-container").addClass("show-messages");
-      scrollToLastMessage();
-      var thread_id = $(".chat-panel").data("thread-id");
-      history && history.replaceState({}, '', location.pathname + "?thread_id=" + thread_id);
-      APP.components.initUserTooltip();
-      $('.txtlinky').linkify({target: "_blank"});
+      var submit_url = $(this).find(".fetch-form").attr('action');
 
-      gtag(
-        'event', 'Open Thread', {
-        'event_category': 'Messenger',
-        'event_label': thread_id
+      if (typeof formXhr !== 'undefined') {
+          formXhr.abort();
+      }
+
+      formXhr = $.ajax({
+          type: "GET",
+          url: submit_url,
+          success: function(){
+            $("#chat-container").addClass("show-messages");
+            var thread_id = $(".chat-panel").data("thread-id");
+            history && history.replaceState({}, '', location.pathname + "?thread_id=" + thread_id);
+            scrollToLastMessage();
+            APP.components.initUserTooltip();
+            $('.txtlinky').linkify({target: "_blank"});
+            gtag(
+              'event', 'Open Thread', {
+              'event_category': 'Messenger',
+              'event_label': thread_id
+            });
+          }
       });
-    });
 
+    });
   }
 
 
