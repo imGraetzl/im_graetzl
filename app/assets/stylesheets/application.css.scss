@@ -56,6 +56,7 @@
 @import "components/tabs-ctrl";
 @import "components/cardBox";
 @import "components/commonTypograpy";
+@import "components/contactBlock";
 @import "components/link-more";
 @import "components/userCreateInfo";
 @import "components/calendarSheet";
@@ -68,7 +69,7 @@
 @import "components/mapImgBlock";
 @import "components/navigation";
 @import "components/navigation-bar";
-@import "components/address-input";
+//@import "components/address-input";
 @import "components/titleHeadline";
 @import "components/imgHeader";
 @import "components/notificationsValidation";
@@ -92,7 +93,7 @@
 // Page-specific styles. Mainly for positioning and fine adjust the components in the layout.
 //---------------------------------------------------------------------------------------------*/
 
-@import "controllers/registration";
+//@import "controllers/registration";
 //@import "controllers/meetingCreate";
 @import "controllers/meetingDetail";
 @import "controllers/passwords";
