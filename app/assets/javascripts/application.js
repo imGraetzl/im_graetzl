@@ -37,5 +37,5 @@
 //= require_directory ./controllers
 
 document.addEventListener('DOMContentLoaded', function() {
-  APP.init();
+   APP.init();
 });
