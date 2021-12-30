@@ -1,6 +1,10 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+
+  # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
+  config.middleware.use Rack::Prerender, whitelist: '/region/gruppen'
+
   # Settings specified here will take precedence over those in config/application.rb.
   config.imgraetzl_host = "imgraetzl.at"
   config.welocally_host = "welocally.at"

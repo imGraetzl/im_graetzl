@@ -54,6 +54,7 @@ gem 'oj'
 gem 'jquery-ui-rails', '6.0.0'
 gem 'bb-ruby'
 gem 'stripe'
+gem 'prerender_rails'
 
 group :development do
   # gem 'spring'
