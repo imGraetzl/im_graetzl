@@ -1,24 +1,13 @@
-<!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Events & Workshops" class="cS-hidden">
-    <!-- special events -->
-      <!--
-      <div class="-category -special-category" data-id="special-events" data-label="Sommer Special: Kurse & Workshops" data-slug="special-events">
-        <%= image_tag('meeting-sfs.jpg', class: 'attachment event_category main_photo categoryImg', width:257, height:385) %>
-        <div class="cat -special"></div>
-        <h3>Sommer Special: Kurse & Workshops</h3>
-        <%= button_tag '', class: 'close-ico' do %>
-          <%= icon_tag "cross" %>
-        <% end %>
-      </div>
-      -->
-    <!-- /special events -->
     <% categories = EventCategory.all.sort_by(&:position) %>
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
     <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
-        <div class="cat category-<%= category.id %> -<%= category.css_ico_class %> -events"></div>
+        <div class="cat -<%= category.css_ico_class %>">
+          <%= category_icon(category.css_ico_class, class: 'catimg', width:85, height:85) %>
+        </div>
         <h3><%= link_to category.title, region_meetings_path(category: category) %></h3>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>

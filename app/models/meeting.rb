@@ -31,7 +31,7 @@ class Meeting < ApplicationRecord
   has_many :images, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
-  enum state: { active: 0, cancelled: 1 }
+  enum state: { active: 0, disabled: 1 }
 
   scope :non_private, -> { where(private: false) }
   scope :platform_meeting, -> { where(platform_meeting: true) }
@@ -90,6 +90,10 @@ class Meeting < ApplicationRecord
 
   def platform_meeting_pending?
     !self.platform_meeting? && !self.platform_meeting_join_request.nil? && (self.platform_meeting_join_request.pending? || self.platform_meeting_join_request.processing?)
+  end
+
+  def past?
+    ends_at_date.try(:past?) || (ends_at_date.nil? && starts_at_date.try(:past?))
   end
 
   def public?

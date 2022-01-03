@@ -17,8 +17,20 @@ APP.components.tabs = (function() {
       }
     }
 
+    function openTab(tab) {
+      $('.tabs-ctrl').trigger('show', '#tab-' + tab);
+      $('.tabs-ctrl').get(0).scrollIntoView();
+    }
+
+    function setTab(tab) {
+      $('.tabs-ctrl li').removeClass('active');
+      $('.tabs-ctrl li#'+tab).addClass('active');
+    }
+
     return {
-      initTabs: initTabs
+      initTabs: initTabs,
+      openTab: openTab,
+      setTab: setTab
     }
 
 })();

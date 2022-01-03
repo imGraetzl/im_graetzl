@@ -1,0 +1,115 @@
+section.tool-form {
+  // tabs-nav
+  .tabs-nav {
+    display: flex;
+    justify-content: center;
+
+    li {
+      width:100%;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .desk {
+      display: none;
+      @include respond-to(">=medium") {
+        display: inline-block;
+      }
+    }
+    .mob {
+      display: none;
+      @include respond-to("<medium") {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+// -------------- New Toolteiler Form --------------
+section.tool-form {
+
+  .button-switch {
+    text-align: center;
+    margin-top: 10px;
+    .btn-primary {
+      display:inline-table;
+      span {text-decoration: underline; font-weight: bold;}
+      margin: 10px;
+    }
+  }
+
+  max-width: 775px;
+  margin: 0 auto;
+  textarea {min-height:150px;}
+  @include respond-to(">medium") {
+    label {min-width:175px;}
+  }
+
+  h2 {
+    @include font-size-secondaryFont;
+    margin: 40px 0 15px;
+    text-align: center;
+  }
+  div.hl-subtext {
+    margin: 40px 0 15px;
+    h1 { margin: 0px 0 15px; }
+    h2 { margin: 0px 0 5px; }
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
+  .input-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top:15px;
+    .btn-primary {
+      display: inline-block;
+    }
+    .btn-secondary {
+      margin-right:15px;
+    }
+    .btn-primary:only-child {
+      margin-left: auto;
+    }
+  }
+
+  .deposit-radios {
+    display: flex;
+    justify-content: center;
+    label {
+      min-width: 0px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    margin-bottom:20px;
+  }
+
+  .period-days, .period-budget {
+    @include respond-to(">medium") {
+      label {
+        width:50%;
+      }
+    }
+  }
+  #usage-period-true {
+    @include cf;
+    .input-field {
+      width:49%;
+    }
+    .input-field:first-of-type {
+      float: left;
+    }
+    .input-field:last-of-type {
+      float: right;
+    }
+    p {
+      text-align: center;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+  }
+  #custom-keywords_addTag, #custom-keywords_tag {
+    width:100% !important;
+  }
+
+}

@@ -3,6 +3,7 @@ context.instance_eval do
   id_column
   column :position
   column :name
+  column :icon
   column :created_at
   actions
 end

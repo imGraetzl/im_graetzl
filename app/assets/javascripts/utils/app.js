@@ -20,6 +20,5 @@ var APP = {
         APP.controllers.application.init();
         var pageToInit = $("body").attr("data-controller");
         APP.controllers[pageToInit] && APP.controllers[pageToInit].init();
-        APP.components.cookieTracking.init();
     }
 };

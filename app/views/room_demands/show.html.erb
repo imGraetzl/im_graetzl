@@ -8,7 +8,7 @@
   )
 %>
 
-<section class="roomDetail -Demand">
+<section class="demandDetail room-demand">
 
   <div class="imgHeader">
     <div class="titleHeadline">
@@ -40,7 +40,7 @@
   <div class="mainContent">
 
     <% if @room_demand.disabled? && current_user == @room_demand.user %>
-      <div class="owner-inactive-msg">
+      <div class="inactive-msg">
           Dein Raumteiler ist aktuell auf inaktiv gesetzt. Raumteiler jetzt <%= link_to 'wieder aktivieren', [:update_status, @room_demand, status: "enabled"], method: :patch %>.
       </div>
     <% end %>

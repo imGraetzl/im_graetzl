@@ -8,6 +8,8 @@
   )
 %>
 
+<% content_for :canonical_url, graetzl_meeting_url(@graetzl, @meeting) %>
+
 <section class="meeting">
   <div class="imgHeader -cloudy">
     <div class="titleHeadline">
@@ -17,7 +19,7 @@
         <% else %>
           <%= link_to content_tag(:h3, @graetzl.name, class: 'district'), @graetzl %>
         <% end %>
-        <%= meeting_name @meeting %>
+        <h1><%= @meeting.name %></h1>
       </div>
       <div class="card"></div>
     </div>

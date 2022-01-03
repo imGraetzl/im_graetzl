@@ -11,11 +11,6 @@ APP.controllers.regions = (function() {
             window.location.href = $(this).val();
         });
 
-        // Only load when map is shown
-        if ($('#area-map').is(":visible")) {
-          APP.components.areaMap.init($('#area-map'), { interactive: true });
-        }
-
         if ($("#filter-modal-bezirk").exists()) {
           APP.components.graetzlSelectFilter.init($("#filter-modal-bezirk"));
         }

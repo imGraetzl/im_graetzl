@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require underscore
-//= require jquery2
+//= require jquery3
 //= require jquery_ujs
 //= require jquery.detect_swipe
 //= require jquery.ihavecookies
@@ -36,9 +36,6 @@
 //= require_directory ./components
 //= require_directory ./controllers
 
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-
-$(document).on('ready', function(event) {
-    APP.init();
+document.addEventListener('DOMContentLoaded', function() {
+  APP.init();
 });

@@ -146,48 +146,6 @@ section.meeting {
   }
 }
 
-.more-platform-meetings, .platform-meeting-user-box {
-  margin-top:50px;
-  .paperCard {
-    padding:20px;
-  }
-}
-.platform-meeting-user-box {
-
-  .wrp {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .txt {
-    white-space: pre-line;
-  }
-
-  .card {
-    background-color: rgba($color-ambient-mint-light,0.3);
-  }
-
-  .userinfos {
-    img.avatar {
-      min-width:95px !important;
-      min-height:95px !important;
-      //float:left;
-      margin-right: 16px;
-    }
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-}
-
-.platform-meeting-infos {
-  padding-top: 3rem;
-  font-style: italic;
-  border-top: 1px solid $color-ambient-mint-light-lowsaturation;
-}
-
 #jBoxBuyTicket, #jBoxAttendMeeting {
   max-width:500px;
   select {
@@ -196,47 +154,5 @@ section.meeting {
   .btn-primary {
     margin-top:20px;
     float:right;
-  }
-}
-
-section.meetings-compose-mail {
-  .hl-subtext {
-    margin-bottom: 20px;
-  }
-  .members {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
-    .img-round {
-      margin-left: 4px;
-      margin-right: 4px;
-    }
-    img.img-round {
-      filter: grayscale(50%);
-    }
-    img.active {
-      filter: grayscale(0%);
-      border: 2px solid $color-ambient-rosa;
-    }
-  }
-  .col-content {
-    width:100%;
-    margin-bottom:40px;
-    @include respond-to(">=large") {
-      width: 64%;
-      margin-right: 3%;
-    }
-  }
-  .col-sidebar {
-    width:100%;
-    margin-left: auto;
-    margin-right: auto;
-    @include respond-to(">=medium") {
-      width: 50%;
-    }
-    @include respond-to(">=large") {
-      width: 33%;
-    }
   }
 }

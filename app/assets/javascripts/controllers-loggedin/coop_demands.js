@@ -33,7 +33,7 @@ APP.controllers_loggedin.coop_demands = (function() {
 
     // Hide Radio "Vereine Category" bei Type "Biete"
     $('.coop-type-selection input').on('change', function() {
-      $radio = $('.category-switch').find("label:contains('Verein')").closest('.input-radio');
+      $radio = $('.category-switch').find("label:contains('Mitglieder')").closest('.input-radio');
       if ($(this).val() == 'offer' & $(this).is(":checked")) {
         $radio.hide();
       } else {

@@ -77,7 +77,7 @@ module ImageHelper
   def category_image(object, **options)
       if File.extname(object.main_photo_url(:large_webp)) == '.webp'
         content_tag :picture do
-          tag(:source, srcset: object.main_photo_url(:large_webp), type: "image/webp") +
+          tag(:source, srcset: image_path(object.main_photo_url(:large_webp)), type: "image/webp") +
           image_tag(object.main_photo_url(:large), loading: 'lazy', alt: object.to_s, **options)
         end
       else
@@ -86,6 +86,14 @@ module ImageHelper
           object.main_photo_url(:large) => '2x',
         }, loading: 'lazy', alt: object.to_s, **options)
     end
+  end
+
+  def category_icon(object, **options)
+    image_tag("svg/icon-kringel-#{object}.svg", **options, loading: 'lazy',
+      data: {
+        src: image_path("svg/icon-kringel-#{object}.svg"),
+        srcactive: image_path("svg/icon-kringel-#{object}-active.svg")
+      })
   end
 
   def gallery_thumb_image(object, **options)

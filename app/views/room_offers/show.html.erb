@@ -30,7 +30,7 @@
 
   <div class="mainContent">
     <% if @room_offer.disabled? && current_user == @room_offer.user %>
-      <div class="owner-inactive-msg">
+      <div class="inactive-msg">
           Dein Raumteiler ist aktuell auf inaktiv gesetzt. Raumteiler jetzt
           <%= link_to 'wieder aktivieren', [:update_status, @room_offer, status: "enabled"], method: :patch %>.
       </div>

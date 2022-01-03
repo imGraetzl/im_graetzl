@@ -1,7 +1,7 @@
 APP.controllers.room_demands = (function() {
 
   function init() {
-    if ($("section.roomDetail").exists()) { initRoomDetail(); }
+    if ($("section.demandDetail").exists()) { initRoomDetail(); }
   }
 
   function initRoomDetail() {

@@ -4,7 +4,6 @@ APP.components.categoryFilter = (function() {
     var item_desk = 5;
     var item_tab = 3;
     var item_mob = 2;
-    var items = element.find("div").length;
 
     var filterForm = $(".cards-filter");
     var filterLine = $(".filter-line");
@@ -45,7 +44,7 @@ APP.components.categoryFilter = (function() {
           settings: {
             item: item_tab,
             slideMove: item_tab,
-            addClass: '-tablet',
+            addClass: '-tablet'
           }
         },
         {
@@ -55,17 +54,14 @@ APP.components.categoryFilter = (function() {
             slideMove: item_mob,
             controls: false,
             pager: true,
-            addClass: '-mobile',
+            addClass: '-mobile'
           }
         }
       ],
       onSliderLoad: function(el) {
-        $(el).removeClass('cS-hidden');
-        $(el).closest(".category-slider-container").removeClass('loading');
-        $(el).closest(".category-slider-container").addClass('loaded');
+        sliderLoaded(el)
       }
     });
-
 
     // Hover Slide
     element.find('.-category').hover(
@@ -73,6 +69,11 @@ APP.components.categoryFilter = (function() {
      function(){ $(this).removeClass('hover')}
    );
 
+   function sliderLoaded(el) {
+     $(el).removeClass('cS-hidden');
+     $(el).closest(".category-slider-container").removeClass('loading');
+     initSelectedCategory();
+   }
 
    // Click Slide
    element.find('.-category').on('click', function(event){
@@ -103,6 +104,8 @@ APP.components.categoryFilter = (function() {
              }
          }
 
+         var src = element.find(".activated .catimg").data("src");
+         element.find(".activated .catimg").attr("src",src);
          element.find('.-category').removeClass('activated');
          $(this).addClass('activated');
          updateFilterLabels($(this));
@@ -126,15 +129,19 @@ APP.components.categoryFilter = (function() {
      }
    }
 
-
    // Update Text Label if exists on Page
    function updateFilterLabels(category) {
      if (typeof categorylink !== "undefined") {
+        var src = category.find(".catimg").data("src");
+        var srcactive = category.find(".catimg").data("srcactive");
+
          if (category.hasClass("activated")) {
            var label = category.attr("data-label");
            categorylink.text(label);
+           category.find(".catimg").attr("src",srcactive);
          } else {
            categorylink.text(categorylink.data("no-filter-label"));
+           category.find(".catimg").attr("src",src);
          }
      }
    }
@@ -149,11 +156,8 @@ APP.components.categoryFilter = (function() {
      element.find('.-category[data-id="' + selected_special_category + '"]').addClass('activated');
 
      updateFilterLabels(element.find('.activated'));
-     //slider.goToSlide(6);
 
    }
-
-   initSelectedCategory();
 
   }
 

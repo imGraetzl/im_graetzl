@@ -8,18 +8,6 @@ APP.components.cardBoxFilter = (function() {
 
   function init() {
 
-    // ----------- EPU-to-EPU
-    $("#meeting-categories").on("change", function(){
-      $("#meeting_category_id").val('');
-      submitForm();
-      var label_item = $(this).find('option:selected').text();
-      gtag(
-        'event', 'SFS :: Category Select', {
-        'event_category': 'Filter',
-        'event_label': label_item
-      });
-    });
-
     // JBOX Standard Filter MODAL
     $(".filter-selection-text-jbox a").not( ".plain-link, .filter-modal-areas" ).each(function(index, value) {
 
@@ -87,7 +75,6 @@ APP.components.cardBoxFilter = (function() {
       $(".filter-area input").prop("checked", false);
       $(this).prop("checked", true);
     });
-
 
 
     $(".filter-modal-jbox-areas").on("click", "#select-home-graetzl", function() {
@@ -413,7 +400,7 @@ APP.components.cardBoxFilter = (function() {
     var newCards = cardGrid.find('[data-behavior="masonry-card"]').not('[data-appended]');
     cardGrid.masonry('appended', newCards);
     newCards.attr("data-appended", true);
-    APP.components.initUserTooltip();
+    if ($('body.signed-in').exists()) APP.components.initUserTooltip();
     initInfiniteScroll();
   }
 

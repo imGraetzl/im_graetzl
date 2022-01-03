@@ -1,4 +1,3 @@
-<!-- SLIDER -->
 <div class="category-slider-container loading">
   <div id="category-slider" data-label="Toolteiler" class="cS-hidden">
     <% categories = ToolCategory.all.sort_by(&:position) %>
@@ -6,7 +5,9 @@
     <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
-        <div class="cat category-<%= category.id %> -tools"></div>
+        <div class="cat -<%= category.icon %>">
+          <%= category_icon(category.icon, class: 'catimg', width:85, height:85) %>
+        </div>
         <h3><%= link_to category.name, region_tools_path(category: category) %></h3>
         <%= button_tag class: 'close-ico' do %>
           <%= icon_tag "cross" %>

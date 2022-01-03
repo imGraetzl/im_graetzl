@@ -36,4 +36,14 @@ namespace :scheduled do
     end
   end
 
+  desc 'Disable Meetings after 1 year'
+  task disable_past_meetings: :environment do
+    Meeting.active.where("ends_at_date = ?", 12.months.ago).find_each do |meeting|
+      meeting.update_attribute(:state, "disabled")
+    end
+    Meeting.active.where(ends_at_date: nil).where("starts_at_date = ?", 12.months.ago).find_each do |meeting|
+      meeting.update_attribute(:state, "disabled")
+    end
+  end
+
 end

@@ -1,7 +1,7 @@
 APP.controllers.application = (function() {
 
   function init() {
-
+    
     APP.components.headerNavigation.init();
     APP.components.stream.init();
 

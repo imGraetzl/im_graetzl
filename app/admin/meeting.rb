@@ -12,7 +12,6 @@ ActiveAdmin.register Meeting do
   #scope 'SFS processing', :platform_meeting_processing
   #scope 'SFS declined', :platform_meeting_declined
   #scope :active
-  #scope :cancelled
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :event_categories

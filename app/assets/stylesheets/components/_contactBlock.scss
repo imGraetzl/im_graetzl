@@ -1,0 +1,39 @@
+.contact-infos {
+  a {
+    color: $color-ambient-mint;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.contact-login-msg, .inactive-msg {
+  @include font-size-primaryFont('large');
+  border: 1px solid $color-ambient-grey-light;
+  border-radius: 8px;
+  padding:20px;
+  font-style: italic;
+  background-color: #FEF6DF;
+  color: #cd891b;
+  a {
+    color: #cd891b;
+  }
+  &.-show {
+    @include font-size-primaryFont('base');
+    background-color: white;
+    font-style: normal;
+    color: $color-font-primary;
+    a {
+      color: $color-ambient-mint;
+    }
+    #show-contact-link {
+      font-weight:bold;
+      font-style: italic;
+    }
+  }
+}
+
+.inactive-msg {
+  margin-bottom:20px;
+}

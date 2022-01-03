@@ -43,7 +43,7 @@
   <div class="mainContent">
 
     <% if @coop_demand.disabled? && current_user == @coop_demand.user %>
-      <div class="owner-inactive-msg">
+      <div class="inactive-msg">
           Dein Coop & Share Angebot ist aktuell auf inaktiv gesetzt. Coop & Share Angebot jetzt <%= link_to 'wieder aktivieren', [:update_status, @coop_demand, status: "enabled"], method: :patch %>.
       </div>
     <% end %>
