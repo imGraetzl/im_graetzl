@@ -92,6 +92,10 @@ class Meeting < ApplicationRecord
     !self.platform_meeting? && !self.platform_meeting_join_request.nil? && (self.platform_meeting_join_request.pending? || self.platform_meeting_join_request.processing?)
   end
 
+  def past?
+    ends_at_date.try(:past?) || (ends_at_date.nil? && starts_at_date.try(:past?))
+  end
+
   def public?
     !private?
   end

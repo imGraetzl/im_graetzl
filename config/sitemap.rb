@@ -29,7 +29,7 @@ Region.all.each do |region|
 
   SitemapGenerator::Sitemap.create do
 
-    add region_index_path, changefreq: 'always', priority: 0.9
+    add region_index_path, changefreq: 'always', priority: 1.0
     add region_locations_path, changefreq: 'always', priority: 1.0
     add region_meetings_path, changefreq: 'always', priority: 1.0
     add region_rooms_path, changefreq: 'always', priority: 1.0
@@ -59,7 +59,7 @@ Region.all.each do |region|
 
     # Meeting Categories
     EventCategory.find_each do |category|
-      add region_meetings_path(category: category), changefreq: 'daily', priority: 0.8
+      add region_meetings_path(category: category), changefreq: 'daily', priority: 0.7
     end
 
     # Tools Categories
@@ -94,9 +94,9 @@ Region.all.each do |region|
 
     # Graetzls
     Graetzl.in(region).find_each do |graetzl|
-      add graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
-      add locations_graetzl_path(graetzl), changefreq: 'daily', priority: 0.7
-      add meetings_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
+      add graetzl_path(graetzl), changefreq: 'daily', priority: 0.9
+      add locations_graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
+      add meetings_graetzl_path(graetzl), changefreq: 'daily', priority: 0.8
       add rooms_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add tools_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
       add coop_demands_graetzl_path(graetzl), changefreq: 'daily', priority: 0.5
@@ -111,30 +111,30 @@ Region.all.each do |region|
       end
 
       # Meetings
-      meetings = graetzl.meetings.active
+      meetings = graetzl.meetings.upcoming
       unless meetings.empty?
         meetings.find_each do |meeting|
-          add graetzl_meeting_path(graetzl, meeting), changefreq: 'daily', priority: 0.8
+          add graetzl_meeting_path(graetzl, meeting), changefreq: 'daily', priority: 0.9
         end
       end
     end
 
     # Raumteiler
-    RoomOffer.in(region).find_each do |room_offer|
+    RoomOffer.in(region).enabled.find_each do |room_offer|
       add room_offer_path(room_offer), changefreq: 'daily', priority: 0.9
     end
 
-    RoomDemand.in(region).find_each do |room_demand|
+    RoomDemand.in(region).enabled.find_each do |room_demand|
       add room_demand_path(room_demand), changefreq: 'daily', priority: 0.8
     end
 
-    CoopDemand.in(region).find_each do |coop_demand|
+    CoopDemand.in(region).enabled.find_each do |coop_demand|
       add coop_demand_path(coop_demand), changefreq: 'daily', priority: 0.8
     end
 
     # Toolteiler
-    ToolOffer.in(region).non_deleted.find_each do |tool_offer|
-      add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.7
+    ToolOffer.in(region).enabled.find_each do |tool_offer|
+      add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.8
     end
 
     ToolDemand.in(region).enabled.find_each do |tool_demand|
