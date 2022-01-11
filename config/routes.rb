@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   get  'home' => 'home#about', as: 'about_platform'
   post 'geolocation'  => 'home#geolocation'
 
+  #scope controller: 'region_calls', path: 'gemeinden', as: 'region_calls' do
+    get 'call-2022' => 'region_calls#call'
+    post 'call-2022' => 'region_calls#create'
+  #end
+
   ActiveAdmin.routes(self)
 
   if Rails.configuration.upload_server == :s3
@@ -255,11 +260,6 @@ Rails.application.routes.draw do
     get 'muehlviertel'
     get 'kaernten'
     post '(:campaign)' => 'campaign_users#create'
-  end
-
-  scope controller: 'region_calls', path: 'gemeinden', as: 'region_calls' do
-    get 'call-2022' => 'region_calls#call'
-    post '(:campaign)' => 'region_calls#create'
   end
 
   # Redirects for legacy routes

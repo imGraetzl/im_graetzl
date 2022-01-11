@@ -16,7 +16,6 @@
       <h2><span>WeLocally</span><br>Open Call</h2>
       <h1 class="weLocally"><span>Gemeinsam bringen <br>wir mehr zusammen.<br>Sei locally dabei!</span></h1>
     </div>
-    <div class="screenshot"></div>
     <%= link_to welocally_platform_url do %>
       <%= image_tag 'campaigns/call/screenshot.png', class: 'screenshot', alt:'WeLocally Screenshot', width:721, height:542 %>
     <% end %>
@@ -55,7 +54,7 @@
         <%= image_tag 'campaigns/call/variante-2.png', alt:'WeLocally Variante 2', width:310, height:308 %>
         <br>
         <strong>Variante 2</strong><br>
-        Nachbargemeinden können sich an die 2 bestehenden Pilotprojekte andocken.
+        Umliegende Gemeinden können sich an die 3 bestehenden Gebiete andocken.
       </div>
     </div>
 
@@ -74,7 +73,7 @@
     <p>
       <strong>Hintergrund: WeLocally.at ist eine gemeindeübergreifende und gemeinwohlorientierte Plattform, die 2021 mit den Kärntner Gemeinden Griffen, St. Andrä und Völkermarkt und der Leader-Reagion Mühlviertler Kernland für den ländlichen Raum entwickelt wurde. </strong>
       <br><br>
-      Der Proto-Typ basiert auf imGrätzl.at, das seit 2016 in Wien erfolgreich aufgebaut wurde Auf der Plattform teilen sich lokale Macher*innen Ressourcen (z.B. Gewerbeflächen), verbinden sich in Kooperationen, stärken sich gegenseitig und bekommen Sichtbarkeit für ihre Tätigkeit und Events.
+      WeLocally basiert auf imGrätzl.at, das seit 2016 in Wien erfolgreich aufgebaut wurde. Auf WeLocally teilen sich lokale Macher*innen Ressourcen (z.B. Gewerbeflächen), verbinden sich in Kooperationen, stärken sich gegenseitig und bekommen Sichtbarkeit für ihre Tätigkeit und Events.
       <br><br>
       Durch den regionalen Ansatz von WeLocally rücken die Gemeinden enger zusammen. Positive regionale Effekte können entstehen, etwa wenn über den Raumteiler Leerstand aktiviert und damit der Orts-/Stadtkern belebt wird. 2022 können sich neue Gemeinden an WeLocally andocken.
       Für Gemeindeverbünde kann ein neues Pilotgebiet/Region eröffnet werden, Nachbargemeinden der Entwicklungspartner können sich an die bereits bestehenden Pilotgebiete anhängen.
@@ -156,19 +155,36 @@
   </div>
 
   <small>
-    Partner profitieren von der Aufbauarbeit der letzten 5 Jahre. In die technische Entwicklung der Plattform wurden bislang über 300.000 € investiert, dazu ist ein Vielfaches an Eigenleistung eingeflossen. 2022 werden im Rahmen der Initiative „Regional.Digital.Innovativ“ vom Bundesministerium für Landwirtschaft, Regionen und Tourismus, weitere Mittel investiert, um die Plattform technisch um lokale Crowdfunding Tools zu erweitern.  WeLocally ist außerdem von 2022 - 2025 Partner bei einem  Forschungsprojekt. Das ermöglicht uns weitere Services zu entwickeln, die sich positiv auf die lokalen Strukturen und lokale Akteur*innen auswirken werden. Partner*innen bekommen mit WeLocally eine auf sie angepasste digitale und lokale Lösung zu einem Bruchteil der Entwicklungskosten.
+    Partner profitieren von der Aufbauarbeit der letzten 5 Jahre. In die technische Entwicklung der Plattform wurden bislang über 300.000 € investiert, dazu ist ein Vielfaches an Eigenleistung eingeflossen. 2022 werden im Rahmen der Initiative „Regional.Digital.Innovativ“ vom Bundesministerium für Landwirtschaft, Regionen und Tourismus weitere Mittel investiert, um die Plattform technisch um lokale Crowdfunding Tools zu erweitern.  WeLocally ist außerdem von 2022 - 2025 Partner bei einem  Forschungsprojekt. Das ermöglicht uns weitere Services zu entwickeln, die sich positiv auf die lokalen Strukturen und lokale Akteur*innen auswirken werden. Partner*innen bekommen mit WeLocally eine auf sie angepasste digitale und lokale Lösung zu einem Bruchteil der Entwicklungskosten.
   </small>
 
   <div class="hl-subtext -form-headline">
-    <h1 id="call"><em>Anmeldug Call</em></h1>
+    <h1 id="call"><em>Anmeldung Call</em></h1>
   </div>
 
   <%= form_for @region_call, url: url_for do |f| %>
   <%= form_errors_for @region_call if @region_call %>
-  <%= hidden_field_tag :redirect_path, '/gemeinden/call' %>
-    <div class="form-block cardBox">
-      <%= render 'form', :f => f %>
-      <%= submit_tag "Bewerbung absenden", class: 'btn-primary -mint -large' %>
+  <%= hidden_field_tag :redirect_path, '/call-2022' %>
+    <div class="call-form">
+      <div class="form-block cardBox">
+        <%= render 'form', :f => f %>
+        <%= submit_tag "Bewerbung absenden", class: 'btn-primary -mint -large' %>
+      </div>
+      <div class="contact cardBox">
+        <a href="https://www.linkedin.com/in/mmieschendahl/" target="_blank">
+          <div class="bigicontext-element">
+            <%= image_tag('info/team/Mirjam.jpg', class: 'img-round') %>
+          </div>
+        </a>
+        <p>
+          <strong>Kontakt WeLocally</strong>
+          <br><br>
+          Mirjam Mieschendahl<br>
+          (Gründerin)<br>
+          <strong>Mail</strong>: <a href="mailto:mirjam@welocally.at">mirjam@welocally.at</a> <br>
+          <strong>Mobil</strong>: +43-699 / 150 28 277 <br>
+        </p>
+      </div>
     </div>
   <% end %>
 

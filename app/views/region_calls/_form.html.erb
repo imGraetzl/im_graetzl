@@ -5,7 +5,7 @@
   </div>
   <div class="input-radio">
     <%= f.radio_button :region_type, 'existing_region', class: 'region-type-switch' %>
-    <%= f.label :region_type, "Andocken an bestehende Region", value: 'existing_region' %>
+    <%= f.label :region_type, "Andocken an bestehendes Gebiet", value: 'existing_region' %>
   </div>
 </div>
 
@@ -17,21 +17,19 @@
   <%= f.select :region_id, options_for_select(Region.all.sort_by(&:name).map{|g| [g.name, g.id]}, @region_call.region_id), include_blank: "Region auswählen" %>
 </div>
 
-<div class="form-columns">
-  <div class="input-field">
-    <%= f.label :name do %>
-      <%= icon_tag "user-avatar" %>
-      <span>Ansprechpartner</span>
-    <% end %>
-    <%= f.text_field :name, placeholder: 'Vorname Nachname' %>
-  </div>
-  <div class="input-field">
-    <%= f.label :phone do %>
-      <%= icon_tag "phone" %>
-      <span>Telefon</span>
-    <% end %>
-    <%= f.text_field :phone, placeholder: 'Telefonnummer' %>
-  </div>
+<div class="input-field">
+  <%= f.label :name do %>
+    <%= icon_tag "user-avatar" %>
+    <span>Ansprechpartner</span>
+  <% end %>
+  <%= f.text_field :name, placeholder: 'Vorname Nachname' %>
+</div>
+<div class="input-field">
+  <%= f.label :phone do %>
+    <%= icon_tag "phone" %>
+    <span>Telefon</span>
+  <% end %>
+  <%= f.text_field :phone, placeholder: 'Telefonnummer' %>
 </div>
 <div class="input-field">
   <%= f.label :email do %>

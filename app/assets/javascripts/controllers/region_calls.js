@@ -12,6 +12,12 @@ APP.controllers.region_calls = (function() {
           }, 600);
         }
 
+        if($("#error_explanation").exists()) {
+          $('html, body').animate({
+            scrollTop: $('#error_explanation').offset().top
+          }, 600);
+        }
+
         // Toggle Region Select
         $('.region-type-switch').on('change', function() {
           if ($(this).val() == 'existing_region' & $(this).is(":checked")) {
