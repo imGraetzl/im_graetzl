@@ -21,6 +21,15 @@ ActiveAdmin.register_page "Dashboard" do
       end
 
       column do
+        panel 'Call 2022' do
+          table_for RegionCall.order(updated_at: :asc) do
+            column :gemeinden
+            column :name
+          end
+          span do
+            link_to 'Zu den Call Bewerbungen', admin_region_calls_path, class: 'btn-light'
+          end
+        end
         panel 'Offene Location Anfragen' do
           table_for Location.pending.order(updated_at: :asc) do
             column :region
