@@ -30,8 +30,8 @@ namespace :scheduled do
     puts "Rake weekly_summary_mail start at #{Time.now}"
     User.confirmed.find_each do |user|
       Region.all.each do |region|
-        NotificationMailer.summary_graetzl(user, region, 'weekly').deliver_now if Date.today.tuesday?
-        NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.sunday?
+        NotificationMailer.summary_graetzl(user, region, 'weekly').deliver_now if Date.today.wednesday?
+        NotificationMailer.summary_personal(user, region, 'weekly').deliver_now if Date.today.wednesday?
       end
     end
   end
