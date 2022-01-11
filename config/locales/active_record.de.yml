@@ -36,6 +36,9 @@ de:
       campaign_user:
         one: Eintrag
         other: Einträge
+      region_call:
+        one: Call
+        other: Calls
       discussion_default_category:
         one: Diskussions Kategorie
         other: Diskussions Kategorien
@@ -139,6 +142,10 @@ de:
         first_name: Vorname
         last_name: Nachname
         email: E-Mail
+      region_call:
+        name: Ansprechperson
+        email: E-Mail
+        phone: Telefon
       category:
         context: Kontext
         created_at: Erstellt am

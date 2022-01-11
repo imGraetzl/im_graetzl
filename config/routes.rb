@@ -115,12 +115,6 @@ Rails.application.routes.draw do
     get :tooltip, on: :member
   end
 
-#  scope controller: 'campaign_users', as: 'campaign_users' do
-#    get 'muehlviertel'
-#    get 'kaernten'
-#    post '(:campaign)' => 'campaign_users#create'
-#  end
-
   resources :coop_demands, path: 'coop-share' do
     post 'toggle', on: :member
     get 'reactivate/:activation_code' => 'coop_demands#reactivate', on: :member
@@ -255,6 +249,17 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :meetings, only: [:index]
+  end
+
+  scope controller: 'campaign_users', path: 'campaign', as: 'campaign_users' do
+    get 'muehlviertel'
+    get 'kaernten'
+    post '(:campaign)' => 'campaign_users#create'
+  end
+
+  scope controller: 'region_calls', path: 'gemeinden', as: 'region_calls' do
+    get 'call-2022' => 'region_calls#call'
+    post '(:campaign)' => 'region_calls#create'
   end
 
   # Redirects for legacy routes

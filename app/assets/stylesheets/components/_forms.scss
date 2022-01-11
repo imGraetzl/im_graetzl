@@ -724,3 +724,21 @@ input[type=url]:invalid + em::after {
     margin-right: 20px;
   }
 }
+
+.option-switch {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  div {
+    display: flex;
+    @include respond-to("<medium") {
+      width:100%;
+      margin-left:30%;
+    }
+  }
+  label {
+    min-width: 0px;
+    margin-right: 20px;
+  }
+}
