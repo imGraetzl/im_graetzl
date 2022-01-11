@@ -1,0 +1,299 @@
+// Campaign-User Pages
+section.campaigns, section.region_calls {
+
+  padding-bottom: 60px;
+
+  .-header-headline {
+    margin-top:60px;
+    margin-bottom:50px;
+    @include respond-to("<=medium") {
+      margin-top:50px;
+      margin-bottom:40px;
+    }
+  }
+
+  .-form-headline {
+    margin-top:50px;
+    margin-bottom:20px;
+  }
+
+  .form-block {
+    label {
+      min-width: 180px;
+    }
+    .btn-primary {
+      width:100%;
+      margin:auto;
+    }
+  }
+
+  .-feature-headline {
+    max-width: 930px;
+    margin: auto;
+    margin-top:20px;
+    margin-bottom:90px;
+    @include respond-to("<=medium") {
+      margin-top:10px;
+      margin-bottom:40px;
+    }
+  }
+
+  section.kooperationspartner {
+
+    margin-top:40px;
+    @include respond-to(">=medium") {
+      margin-top:60px;
+    }
+
+    a {
+      color: $color-ambient-grey;
+      &:hover {
+        color: $color-ambient-rosa;
+      }
+    }
+    .cardBox, .sponsorBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap:wrap;
+      flex-direction:column;
+      @include respond-to(">=medium") {
+        flex-direction:row;
+      }
+      img {
+        width:50%;
+        @include respond-to(">=medium") {
+          width:100%;
+        }
+      }
+      div.wrp {
+        width:100%;
+        text-align:center;
+        @include respond-to(">=medium") {
+          width:50%;
+          text-align:left;
+        }
+        padding:10px;
+        .links {
+          @include ellipsis;
+        }
+      }
+    }
+  }
+
+  &.-kaernten {
+    section.kooperationspartner {
+      .cardBox, .sponsorBox {
+
+        flex-direction:row;
+
+        h3 {
+          padding-bottom:0px;
+        }
+
+        div.wrp {
+          width:70%;
+          text-align:left;
+        }
+        div.wrp.-img {
+          width:30%;
+          text-align: right;
+        }
+
+        img {
+          width:40%;
+        }
+
+        @include respond-to(">=medium") {
+          flex-wrap: nowrap;
+          img {
+            width:80%;
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  p.kooperation-txt {
+    @include font-size-primaryFont('large');
+    text-align: justify;
+    margin-bottom:30px;
+    @include respond-to(">=medium") {
+      margin-bottom:50px;
+    }
+  }
+
+}
+
+// ------------------- REGION CALL
+section.region_calls {
+  .-fullwidth-welocally {
+    > div {
+      max-width: 980px;
+      margin: auto;
+    }
+  }
+  .-header-headline {
+    margin-top: 70px;
+    margin-bottom: 60px;
+  }
+  .imgHeader {
+    overflow: visible;
+  }
+  .imgHeader::after {
+    background-image: url(image_path('campaigns/call/header.jpg'));
+  }
+  .imgHeader h1 {
+    background-image: url(image_path('svg/speech-bubble-wide-rotate.svg'));
+    padding: 80px 20px 20px 25px;
+    top: -30px;
+    left:100px;
+    z-index: 2;
+  }
+  .imgHeader h2, .imgHeader h2 span  {
+    font-family: $font-primary;
+    background-image: none;
+    color: #000;
+    text-shadow:none;
+    font-weight: bold;
+    font-size: 4.5rem;
+    @include respond-to(">=medium") {
+      font-size: 6.5rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 7.0rem;
+    }
+  }
+  .imgHeader h2 span {
+    font-size: 2.5rem;
+    @include respond-to(">=medium") {
+      font-size: 3.5rem;
+    }
+    @include respond-to(">=large") {
+      font-size: 4.0rem;
+    }
+  }
+  .screenshot {
+    position: absolute;
+    width:350px;
+    height:auto;
+    left:200px;
+    bottom:-70px;
+    z-index:1;
+  }
+  .register-line {
+    background-color: #daedec;
+    padding:0px !important;
+  }
+  .register-line div {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    //color: $color-ambient-mint-dark;
+    .btn-primary {
+      width:40%;
+    }
+  }
+  .variants {
+    display: flex;
+    justify-content: center;
+    padding-bottom:50px;
+    .variant {
+      text-align: center;
+      width:240px;
+      padding-left:20px;
+      padding-right:20px;
+    }
+    img {
+      width:150px;
+      height:auto;
+    }
+  }
+  .infos {
+    display: flex;
+    margin-top:50px;
+    margin-bottom: 50px;
+    align-items: center;
+    justify-content: space-between;
+    img, p {
+      width:48%;
+      height:auto;
+    }
+  }
+  .ablauf {
+    margin-bottom:50px;
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-content: center;
+      .item {
+        width:27%;
+        height:150px;
+        z-index: 2;
+        &::before {
+          content: '';
+          font-size: 11.5rem;
+          position: relative;
+          display: block;
+          color: white;
+          z-index: -1;
+          font-weight: bold;
+        }
+        &.-item1 {&::before {content: '1'}}
+        &.-item2 {&::before {content: '2'}}
+        &.-item3 {&::before {content: '3'}}
+        &.-item4 {&::before {content: '4'}}
+        &.-item5 {&::before {content: '5'}}
+        &.-item6 {&::before {content: '6'}}
+        &.-item7 {&::before {content: '7'}}
+        span {
+          position: relative;
+          top:-75px;
+          left:45px;
+        }
+        strong {
+          @include font-size-primaryFont('large');
+        }
+      }
+    }
+    .hint {
+      margin-top:30px;
+      text-align: center;
+    }
+  }
+
+  .costs {
+    .cost {
+      display: flex;
+      flex-direction: column;
+      h4 {
+        color: $color-ambient-mint-dark;
+        border-top: 5px solid $color-ambient-mint-dark;
+        padding-top:10px;
+        margin-top:10px;
+      }
+      img {
+        height:50px;
+        width:auto;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .title {
+        margin-top:20px;
+        font-style: italic;
+      }
+      .price {
+        @include font-size-primaryFont('large');
+        font-weight:bold;
+        span {
+          @include font-size-primaryFont('base');
+          font-weight:normal;
+          color: $color-ambient-grey;
+        }
+      }
+      @include cf();
+    }
+  }
+}

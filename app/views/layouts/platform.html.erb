@@ -26,7 +26,7 @@
     main {max-width: 980px;}
   </style>
 
-  <% if user_signed_in? || controller_name == 'registrations' %>
+  <% if user_signed_in? || controller_name == 'registrations' || controller_name == 'region_calls' %>
     <%= stylesheet_link_tag 'application-loggedin', media: 'all' %>
   <% else %>
     <%= stylesheet_link_tag 'application', media: 'all' %>

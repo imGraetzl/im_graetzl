@@ -1,5 +1,5 @@
 class CampaignUsersController < ApplicationController
-  layout 'campaign_users'
+  layout 'platform'
 
   def index
     @campaign_user = CampaignUser.new
