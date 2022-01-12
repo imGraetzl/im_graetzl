@@ -273,7 +273,7 @@ input, select, textarea {
 .input-textarea {
   @extend %field;
   textarea {
-    height: $fieldHeight*1.5;
+    min-height: $fieldHeight*1.5;
   }
 }
 
@@ -718,6 +718,24 @@ input[type=url]:invalid + em::after {
   display: block;
   div {
     display: inline-block;
+  }
+  label {
+    min-width: 0px;
+    margin-right: 20px;
+  }
+}
+
+.option-switch {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  div {
+    display: flex;
+    @include respond-to("<medium") {
+      width:100%;
+      margin-left:30%;
+    }
   }
   label {
     min-width: 0px;

@@ -4,11 +4,11 @@
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
-    og_image: image_url('campaign_users/welocally.jpg')
+    og_image: image_url('campaigns/welocally.jpg')
   )
 %>
 
-<section class="campaignUsers info help lp -startpage">
+<section class="homeWeLocally campaigns info lp -startpage">
 
   <div class="imgHeader -fullwidth">
     <div class="wrp">
@@ -28,7 +28,8 @@
 
   <%= form_for @campaign_user, url: url_for do |f| %>
   <%= form_errors_for @campaign_user if @campaign_user %>
-  <%= hidden_field_tag :redirect_path, '/muehlviertel' %>
+  <%= hidden_field_tag :redirect_path, '/campaign/muehlviertel' %>
+  <%= hidden_field_tag :campaign, params[:campaign] %>
   <%= f.hidden_field :campaign_title, value: 'muehlviertel' %>
     <div class="form-block cardBox">
       <%= render 'form', :f => f %>
@@ -45,7 +46,7 @@
       Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!</p>
     </div>
 
-    <%= render 'info_services' %>
+    <%= render 'static_pages/info_services' %>
 
   </div>
 

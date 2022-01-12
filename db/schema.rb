@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_19_105215) do
+ActiveRecord::Schema.define(version: 2022_01_12_085810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -623,6 +623,19 @@ ActiveRecord::Schema.define(version: 2021_12_19_105215) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
     t.index ["meeting_id"], name: "index_platform_meeting_join_requests_on_meeting_id"
+  end
+
+  create_table "region_calls", force: :cascade do |t|
+    t.integer "region_type", default: 0
+    t.string "region_id"
+    t.string "gemeinden"
+    t.string "name"
+    t.string "personal_position"
+    t.string "email", default: "", null: false
+    t.string "phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "message"
   end
 
   create_table "room_call_fields", id: :serial, force: :cascade do |t|
