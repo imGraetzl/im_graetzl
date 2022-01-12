@@ -227,6 +227,10 @@ section.region_calls {
       width:150px;
       height:auto;
     }
+    a {
+      font-style: italic;
+      color: $color-font-primary;
+    }
   }
   .infos {
     display: flex;

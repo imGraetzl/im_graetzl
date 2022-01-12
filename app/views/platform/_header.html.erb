@@ -17,6 +17,7 @@
             <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
             <%= nav_menu_item("users", 'Über Uns', info_ueber_uns_path) %>
             <%= nav_menu_item("layout-document", 'Presse', info_presse_path) %>
+            <!--<%= nav_menu_item("horn-promote", 'WeLocally Call 2022', call_2022_path) %>-->
           </div>
         </div>
         <!-- /Mobile Menue -->
@@ -33,6 +34,7 @@
           <% Region.all.each do |region| %>
             <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
           <% end %>
+          <!--<%= nav_menu_item("horn-promote", 'WeLocally Call 2022', call_2022_path) %>-->
         </div>
         <div class="nav-dropdown-menu" id="nav-site-info">
           <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>

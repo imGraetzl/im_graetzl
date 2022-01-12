@@ -9,7 +9,7 @@ class RegionCallsController < ApplicationController
     @region_call = RegionCall.new(region_call_params)
     if @region_call.save
       redirect_to params[:redirect_path]
-      flash[:notice] = "Vielen lieben Dank für Ihre Anmeldung!"
+      flash[:notice] = "Vielen Dank für Ihre Anmeldung!"
     else
       render 'call'
     end

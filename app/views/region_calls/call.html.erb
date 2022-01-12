@@ -4,9 +4,11 @@
     robots: 'index, follow',
     og_title: t('.title'),
     og_description: t('.description'),
-    og_image: image_url('campaigns/welocally.jpg')
+    og_image: image_url('meta/welocally-call-2022.jpg')
   )
 %>
+
+<% content_for :canonical_url, call_2022_url(host: welocally_platform_host) %>
 
 <section class="homeWeLocally region_calls info lp">
 
@@ -39,7 +41,6 @@
     </div>
   </div>
 
-
   <div class="section -fullwidth -fullwidth-welocally">
     <div class="variants">
       <div class="variant">
@@ -52,7 +53,7 @@
         <%= image_tag 'campaigns/call/variante-2.png', alt:'WeLocally Variante 2', width:310, height:308 %>
         <br>
         <strong>Variante 2</strong><br>
-        Umliegende Gemeinden können sich an die 3 bestehenden Gebiete andocken.
+        Umliegende Gemeinden können sich an die 3 bestehenden Gebiete andocken. (<%= link_to "Wien", 'https://www.imgraetzl.at/region/karte' %>,  <%= link_to "Kärnten", 'https://kaernten.welocally.at/region/karte' %>,  <%= link_to "Mühlviertler Kernland", 'https://muehlviertler-kernland.welocally.at/region/karte' %>)
       </div>
     </div>
 
@@ -142,9 +143,9 @@
         <%= image_tag 'campaigns/call/ico-5.png', alt:'Icon 5', width:46, height:70 %>
         <h4>10.000 - 20.000 Einwohner*innen</h4>
         <div class="title">Set-up Gebühr</div>
-        <div class="price">8.000 € <span>/ einmalig</span></div>
+        <div class="price">5.000 € <span>/ einmalig</span></div>
         <div class="title">Laufende Kosten</div>
-        <div class="price">600 € <span>/ monatlich</span></div>
+        <div class="price">500 € <span>/ monatlich</span></div>
       </div>
     </div>
   </div>
