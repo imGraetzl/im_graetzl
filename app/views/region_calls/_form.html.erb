@@ -25,6 +25,13 @@
   <%= f.text_field :name, placeholder: 'Vorname Nachname' %>
 </div>
 <div class="input-field">
+  <%= f.label :personal_position do %>
+    <%= icon_tag "user-avatar" %>
+    <span>Ihre Funktion</span>
+  <% end %>
+  <%= f.text_field :personal_position, placeholder: 'Funktion' %>
+</div>
+<div class="input-field">
   <%= f.label :phone do %>
     <%= icon_tag "phone" %>
     <span>Telefon</span>
@@ -45,7 +52,10 @@
   <% end %>
   <%= f.text_field :gemeinden, placeholder: 'Um welche Gemeinde(n) handelt es sich...' %>
 </div>
-
-<div class="form-columns">
-
+<div class="input-field">
+  <%= f.label :message do %>
+    <%= icon_tag "layout-document" %>
+    <span>Anmerkungen</span>
+  <% end %>
+  <%= f.text_area :message, placeholder: 'Fragen & Anmerkungen ...' %>
 </div>

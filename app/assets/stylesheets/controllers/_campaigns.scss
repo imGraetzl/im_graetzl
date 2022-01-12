@@ -136,7 +136,15 @@ section.region_calls {
   }
   .-header-headline {
     margin-top: 70px;
-    margin-bottom: 60px;
+    margin-bottom: 70px;
+    h1 {
+      margin-bottom:20px;
+    }
+    @include respond-to("<=medium") {
+      margin-top: 50px;
+      margin-bottom: 50px;
+
+    }
   }
   .imgHeader {
     overflow: visible;
@@ -150,6 +158,10 @@ section.region_calls {
     top: -30px;
     left:100px;
     z-index: 2;
+    @include respond-to("<=medium") {
+      padding: 50px 20px 20px 25px;
+      left:70px;
+    }
   }
   .imgHeader h2, .imgHeader h2 span  {
     font-family: $font-primary;
@@ -329,6 +341,12 @@ section.region_calls {
       .form-block, .contact {
         width:100%;
       }
+    }
+    .contact .bigicontext-element {
+      margin-bottom: 10px;
+    }
+    textarea {
+      min-height: 150px;
     }
   }
 }

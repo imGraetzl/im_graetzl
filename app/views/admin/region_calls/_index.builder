@@ -8,5 +8,6 @@ context.instance_eval do
   column :personal_position
   column :email
   column :phone
+  column :message
   actions
 end

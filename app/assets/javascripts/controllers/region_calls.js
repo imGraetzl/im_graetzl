@@ -6,6 +6,8 @@ APP.controllers.region_calls = (function() {
 
     function initForm() {
 
+        //$("textarea").autogrow({ onInitialize: true });
+
         if($("#error_explanation").exists()) {
           $('html, body').animate({
             scrollTop: $('#error_explanation').offset().top
