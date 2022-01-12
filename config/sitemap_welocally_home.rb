@@ -21,11 +21,10 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::AwsSdkAdapter.new(ENV['UPL
 SitemapGenerator::Sitemap.create do
 
   add root_path, changefreq: 'always', priority: 1
-
-  # Info Help Pages
-  add info_path, changefreq: 'monthly', priority: 1
+  add call_2022_path, changefreq: 'always', priority: 1
 
   # Info Pages
+  add info_path, changefreq: 'monthly', priority: 1
   add info_ueber_uns_path, changefreq: 'weekly', priority: 0.9
   add info_presse_path, changefreq: 'weekly', priority: 0.9
   add info_meilensteine_path, changefreq: 'weekly', priority: 0.8
