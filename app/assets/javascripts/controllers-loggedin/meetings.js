@@ -57,7 +57,7 @@ APP.controllers_loggedin.meetings = (function() {
         });
       }).trigger('cocoon:after-insert');
 
-      $("textarea").autogrow({
+      $("textarea").autoResize({
         onInitialize: true
       });
 
