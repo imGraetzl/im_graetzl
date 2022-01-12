@@ -273,7 +273,7 @@ input, select, textarea {
 .input-textarea {
   @extend %field;
   textarea {
-    height: $fieldHeight*1.5;
+    min-height: $fieldHeight*1.5;
   }
 }
 

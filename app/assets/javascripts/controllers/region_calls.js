@@ -6,7 +6,7 @@ APP.controllers.region_calls = (function() {
 
     function initForm() {
 
-        //$("textarea").autogrow({ onInitialize: true });
+        $("textarea").autoResize();
 
         if($("#error_explanation").exists()) {
           $('html, body').animate({
