@@ -8,6 +8,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :gemeinden
     input :email
     input :phone
+    input :message
   end
   actions
 end
