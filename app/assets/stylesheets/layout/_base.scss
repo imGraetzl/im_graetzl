@@ -61,14 +61,19 @@ header {
 main {
   padding-bottom: 80px;
   position: relative;
-
+}
+.touch main {
   // Fix for Mobile and Tablet - Remove vertical Scrolling
+  @include respond-to("<=xlarge") {
+    overflow-x: hidden;
+    margin-top:-80px;
+    padding-top:80px;
+  }
   @include respond-to("<=large") {
     overflow-x: hidden;
     margin-top:-50px;
     padding-top:50px;
   }
-
 }
 
 a {
