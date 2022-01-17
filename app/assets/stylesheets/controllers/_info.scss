@@ -694,9 +694,6 @@ section.info {
         text-decoration: none;
         color: $color-font-primary;
       }
-      .row.-show {
-        display: flex;
-      }
       &.pressarchive {
         margin-bottom: 70px;
         .row {
@@ -748,10 +745,16 @@ section.info {
       .row:nth-child(n+2) {
         display: none;
       }
+      .row.-show {
+        display: flex;
+      }
     }
     .pressarchive {
       .row:nth-child(n+4) {
         display: none;
+      }
+      .row.-show {
+        display: flex;
       }
     }
   }
