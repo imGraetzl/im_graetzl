@@ -1,7 +1,7 @@
 <div class="cardBox featuredCard -static -hidden" data-behavior="masonry-card">
 
   <div class="cardBoxHeader">
-    <%= link_to call_2022_path do %>
+    <%= link_to call_2022_url(host: Rails.application.config.welocally_host) do %>
       <div class="coverImgWrapper">
         <%= image_tag('campaigns/call/cardbox-call-2022.jpg', class: 'coverImg') %>
       </div>
@@ -18,7 +18,7 @@
         2022 werden innovative Gemeinden gesucht, die WeLocally als eine Chance begreifen, um Selbstständige, lokale Unternehmen, Kunst- und Kulturschaffende und lokale Macher*innen und Vereine in ihrer Region zu stärken.
       </p>
     </div>
-    <%= link_to 'Bewerbung bis 28. Februar', call_2022_path, class: 'btn-primary' %>
+    <%= link_to 'Bewerbung bis 28. Februar', call_2022_url(host: Rails.application.config.welocally_host), class: 'btn-primary' %>
   </div>
 
 </div>
