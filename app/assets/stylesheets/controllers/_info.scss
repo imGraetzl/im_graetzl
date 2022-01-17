@@ -694,9 +694,6 @@ section.info {
         text-decoration: none;
         color: $color-font-primary;
       }
-      .row:nth-child(n+2) {
-        display: none;
-      }
       .row.-show {
         display: flex;
       }
@@ -745,6 +742,16 @@ section.info {
         display: block;
         text-align: center;
         margin-top:20px;
+      }
+    }
+    .pressemitteilungen {
+      .row:nth-child(n+2) {
+        display: none;
+      }
+    }
+    .pressarchive {
+      .row:nth-child(n+4) {
+        display: none;
       }
     }
   }

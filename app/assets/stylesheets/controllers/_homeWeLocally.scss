@@ -143,6 +143,31 @@ section.homeWeLocally {
       align-items: center;
     }
 
+    .badge {
+      padding-top: 20px;
+      line-height: 1.1;
+
+      @include respond-to("<=medium") {
+        padding-top: 15px;
+        line-height: 1.0;
+        font-size: 2.8rem;
+      }
+
+    }
+    .badge.-arrow::before {
+      bottom: -45px;
+      right: 0px;
+      transform: rotate(-115deg);
+    }
+    .badge.-arrow {
+      &:hover {
+        &::before {
+          bottom: -40px;
+          right: 5px;
+        }
+      }
+    }
+
   }
 
   .-fullwidth-welocally {
