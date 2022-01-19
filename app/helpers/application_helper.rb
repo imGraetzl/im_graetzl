@@ -1,11 +1,15 @@
 module ApplicationHelper
 
   def welocally_platform_host
-    Rails.application.config.welocally_host
+    if Rails.env.production?
+      "www.#{Rails.application.config.welocally_host}"
+    else
+      Rails.application.config.welocally_host
+    end
   end
 
   def welocally_platform_url
-    about_platform_url(host: Rails.application.config.welocally_host)
+    about_platform_url(host: welocally_platform_host)
   end
 
   def link_to_more_info
