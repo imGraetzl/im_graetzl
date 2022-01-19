@@ -67,6 +67,14 @@ APP.controllers_loggedin.meetings = (function() {
         $('#meeting-online-fields').toggle(showOnlineFields);
         $('#meeting-offline-fields').toggle(!showOnlineFields);
         $("#meeting-offline-fields").find("input, select").attr("disabled", showOnlineFields);
+
+        // Hide Date Range Option for Online Events
+        if (showOnlineFields) {
+          $('#date_option_range').closest('.input-radio').hide();
+        } else {
+          $('#date_option_range').closest('.input-radio').show();
+        }
+
       })
       $('.online-meeting-switch:checked').trigger('change');
 
