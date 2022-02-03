@@ -37,7 +37,7 @@ APP.controllers_loggedin.crowdfundings = (function() {
 
       // max categories
       $(".crowd-categories input").on("change", function() {
-        APP.components.formHelper.maxCategories($(this).parents(".cb-columns"), 1); // init on Change
+        APP.components.formHelper.maxCategories($(this).parents(".cb-columns"), 3); // init on Change
       }).trigger('change');
 
 
