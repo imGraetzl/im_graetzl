@@ -106,3 +106,22 @@ picture {
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar; // IE
 }
+
+// Video Player Modal (Improve maybe!)
+.jBoxVideo .jBox-container {
+  background: none;
+  box-shadow: none;
+  padding:0px;
+  margin:0px;
+  .jBox-content {
+    padding:0px;
+  }
+  #videoIframe {
+    max-width: 100%;
+  }
+}
+.desk #videoIframe {
+  border: 15px solid white;
+  border-radius: 10px;
+  background-color: white;
+}

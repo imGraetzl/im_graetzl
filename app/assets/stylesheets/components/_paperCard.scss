@@ -162,3 +162,64 @@
 .paperCard.-discussions .wrp {
   padding-top:190px;
 }
+
+.video-thumb {
+  border-radius: 15px;
+  text-align: center;
+  a.player {
+    position: relative;
+    display: flex;
+    align-items: center;
+    .video {
+      width:180px;
+      height:auto;
+      border-radius: 20px;
+    }
+    .icon {
+      position: absolute;
+      width:100%;
+      height:80px;
+      fill: $color-ambient-mint-light;
+      opacity: 0.7;
+    }
+    &:hover {
+      .icon {
+        fill: $color-ambient-rosa-light;
+        opacity: 0.9;
+      }
+    }
+  }
+  a.sublink {
+    margin-top: 15px;
+    border-radius: 12px;
+  }
+}
+
+.paperCard.video {
+  margin-bottom:50px;
+  .wrp {
+    h3 {
+      padding-bottom:10px;
+    }
+    padding: 30px 35px 15px 20px;
+    display: flex;
+    @include respond-to("<=medium") {
+      flex-direction: column-reverse;
+      align-items: center;
+      .video-thumb {
+        margin-left:0px;
+        margin-bottom:15px;
+      }
+    }
+    .txt {
+      padding-bottom: 15px;
+    }
+  }
+  .video-thumb {
+    transform: rotate(1deg);
+    margin-left:15px;
+  }
+  .card {
+    background-color: #eaf2f4;
+  }
+}

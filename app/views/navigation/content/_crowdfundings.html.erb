@@ -1,0 +1,6 @@
+<% @crowdfundings.each do |crowdfunding| %>
+  <%= link_to crowdfunding, class: 'nav-menu-item' do %>
+    <%= image_tag cover_url(crowdfunding, :thumb), class: 'img-square' %>
+    <span><%= crowdfunding.title %></span>
+  <% end %>
+<% end %>

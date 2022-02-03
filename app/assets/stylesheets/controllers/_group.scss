@@ -45,21 +45,6 @@ section.group-form-page {
       @include font-size-primaryFont('large');
     }
   }
-
-  .group-categories {
-    overflow: hidden;
-    margin: 2rem 0 2rem;
-    .input-checkbox {
-      float: left;
-      width: 100%;
-      @include respond-to(">=small") {
-        width: 50%;
-      }
-      @include respond-to(">=medium") {
-        width: 33%;
-      }
-    }
-  }
   .-permission {
     margin-bottom:30px;
   }

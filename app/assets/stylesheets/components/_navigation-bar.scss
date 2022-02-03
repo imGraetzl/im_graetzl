@@ -91,3 +91,73 @@ body.desk .navigation-bar {
 .navigation-bar::-webkit-scrollbar {
   height: 0 !important
 }
+
+.navigation-bar.step-nav {
+
+  margin-left: 0px;
+  margin-right: 0px;
+
+  padding: 0px 0px 20px 0px;
+
+  justify-content: space-around;
+  //align-items: baseline;
+  border-bottom: none;
+  &::after {display: none;}
+  .iconfilter {
+
+    // Fill all before Steps
+    color: $color-ambient-rosa;
+    background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+
+    height:100%;
+    align-self: center;
+    flex-direction: column;
+    background-position: center top;
+    margin-right:0px;
+    .icon {
+      width: 75px;
+      height: 75px;
+      margin-left: 0px;
+      padding:20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @include font-size-secondaryFont('small');
+    }
+    .txt {
+      display: flex;
+      text-align: center;
+      padding-top:20px;
+      margin-left: 0px;
+    }
+    @include respond-to("<medium") {
+      height:100% !important;
+      .icon {
+        width: 55px !important;
+        height: 55px !important;
+        padding:15px;
+      }
+    }
+  }
+  .iconfilter.active {
+    // Fill active step
+    background-image: url(image_path('svg/kringel-grey-rosa-active.svg'));
+    .icon {
+      color:white;
+    }
+
+  }
+  .iconfilter.active ~ * {
+    // Fill all after Steps
+    color: $color-ambient-mint-dark;
+    background-image: url(image_path('svg/kringel-grey-mint.svg'));
+  }
+  .step-line {
+    border-bottom: 1px dotted $color-ambient-rosa-dark;
+    width:100%;
+    position: relative;
+    top:-35px;
+    margin:3px;
+    //align-self: baseline;
+  }
+}

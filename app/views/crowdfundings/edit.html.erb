@@ -1,0 +1,20 @@
+<% title('Crowdfunding Kampagne bearbeiten') %>
+
+<section class="crowdfunding-form">
+
+  <%= render 'crowdfundings/form/navigation' %>
+  <%= render 'crowdfundings/form/basic_video' %>
+
+  <%= form_for(@crowdfunding) do |f| %>
+  <%= form_errors_for @crowdfunding %>
+
+  <%= render 'crowdfundings/form/basic', f: f %>
+
+  <div class="input-button">
+    <%= f.button 'Zwischenspeichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary' %>
+    <%= f.button 'Speichern & Weiter zur Projekt Beschreibung', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: description_crowdfunding_path(@crowdfunding) if !f.object.new_record? %>
+  </div>
+
+  <% end %>
+
+</section>
