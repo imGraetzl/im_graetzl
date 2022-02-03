@@ -51,6 +51,13 @@ input, select, textarea {
       top:15px;
     }
   }
+  &.-line {
+    margin-bottom: 20px;
+    border-bottom: 3px dotted $color-ambient-mint-dark;
+  }
+  &.-first-no-remove:first-of-type {
+    .remove_fields { display: none; }
+  }
 }
 
 // ---------------------------------------------------------------------- textfield & select & textarea
@@ -740,5 +747,20 @@ input[type=url]:invalid + em::after {
   label {
     min-width: 0px;
     margin-right: 20px;
+  }
+}
+
+.cb-columns {
+  overflow: hidden;
+  margin: 2rem 0 2rem;
+  .input-checkbox {
+    float: left;
+    width: 100%;
+    @include respond-to(">=small") {
+      width: 50%;
+    }
+    @include respond-to(">=medium") {
+      width: 33%;
+    }
   }
 }

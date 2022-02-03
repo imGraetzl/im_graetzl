@@ -57,9 +57,7 @@ APP.controllers_loggedin.meetings = (function() {
         });
       }).trigger('cocoon:after-insert');
 
-      $("textarea").autoResize({
-        onInitialize: true
-      });
+      $("textarea").autoResize();
 
       // online meeting switch
       $('.online-meeting-switch').on('change', function() {
@@ -118,20 +116,8 @@ APP.controllers_loggedin.meetings = (function() {
       $('.hide').hide();
 
       $(".event-categories input").on("change", function() {
-        maxCategories(); // init on Change
+        APP.components.formHelper.maxCategories($(this).parents(".cb-columns"), 3); // init on Change
       }).trigger('change');
-    }
-
-    function maxCategories() {
-      if ($(".event-categories input:checked").length >= 3) {
-        $(".event-categories input:not(:checked)").each(function() {
-          $(this).prop("disabled", true);
-          $(this).parents(".input-checkbox").addClass("disabled");
-        });
-      } else {
-        $(".event-categories input").prop("disabled", false);
-        $(".event-categories .input-checkbox").removeClass("disabled");
-      }
     }
 
     return {

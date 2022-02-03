@@ -20,6 +20,7 @@
     <% end %>
 
     <%= nav_menu_item("coop-and-share", 'Neues Coop & Share Angebot', new_coop_demand_path) %>
+    <%= nav_menu_item("currency-euro", 'Neue Crowdfunding Kampagne', crowdfundings_user_path) %>
     <%= nav_menu_item("raumteiler", 'Raumteiler erstellen', select_room_offers_path) %>
     <%= nav_menu_item("tacker", 'Toolteiler erstellen', select_tool_offers_path) %>
     <%= nav_menu_item("shopping-bag", 'Zuckerl buchen', new_zuckerl_path) %>
@@ -55,6 +56,7 @@
           badge: current_user.attended_meetings.in(current_region).upcoming.size) %>
       <%= nav_submenu_link("raumteiler", 'Meine Raumteiler', 'nav-submenu-user-rooms') %>
       <%= nav_submenu_link("tacker", 'Meine Toolteiler', 'nav-submenu-user-tools') %>
+      <%= nav_submenu_link("currency-euro", 'Crowdfunding Kampagnen', 'nav-submenu-user-crowdfundings') %>
       <%= nav_submenu_link("coop-and-share", 'Coop & Share Marktplatz', 'nav-submenu-user-coop-shares') %>
       <%= nav_submenu_link("speech-bubble", 'Gruppen', 'nav-submenu-user-groups') %>
       <%= nav_menu_item("power", 'Abmelden', destroy_user_session_path, method: :delete) %>
@@ -82,6 +84,12 @@
       <%= nav_menu_item("shopping-bag", 'Neues Zuckerl buchen', new_zuckerl_path) %>
       <%= nav_menu_item("archive-storage", 'Buchungen verwalten', zuckerls_user_path) %>
       <%= nav_lazy_load_form('zuckerls') %>
+    </div>
+
+    <div class="nav-dropdown-submenu" id="nav-submenu-user-crowdfundings">
+      <%= nav_submenu_back('nav-submenu-user-main') %>
+      <%= nav_menu_item("currency-euro", 'Kampagnen verwalten', crowdfundings_user_path) %>
+      <%= nav_lazy_load_form('crowdfundings') %>
     </div>
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-rooms">

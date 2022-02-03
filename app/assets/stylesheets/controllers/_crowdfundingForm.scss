@@ -1,0 +1,89 @@
+section.crowdfunding-form {
+  @include cf;
+  max-width: 800px;
+  margin: 0 auto;
+
+  .input-button {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    .btn-primary, .btn-secondary {
+      margin-bottom:15px;
+    }
+    .btn-next {
+      margin-left:15px;
+    }
+    @include respond-to("<=medium") {
+      justify-content: center;
+      .btn-primary, .btn-secondary {
+        margin-left:0px;
+        width:100%;
+      }
+    }
+    padding-top: 20px;
+    border-top: 1px dotted $color-ambient-mint-dark;
+  }
+
+  .input-select, .input-textarea, .input-field, .upload-oldschool {
+    label {
+      @include respond-to(">=medium") {
+        width:195px;
+      }
+      min-width: 195px;
+    }
+  }
+
+  .input-textarea textarea {
+    min-height: 120px;
+  }
+
+  &.rewards {
+    .form-block {
+      margin-bottom: 60px;
+    }
+    .input-textarea textarea {
+      min-height: 90px;
+    }
+    .nested-fields::before {
+      content: '';
+      position: absolute;
+      z-index: 6;
+      background-repeat: no-repeat;
+      top: -36px;
+      left: -50px;
+      height: 95px;
+      width: 68px;
+      background-image: url(image_path('svg/card-string2-fakehole-rosa.svg'));
+      transform: rotate(-110deg);
+    }
+    .nested-fields > .input-field {
+      .icon-record { visibility: hidden;}
+    }
+    @include respond-to(">medium") {
+      .form-block .btn-primary, .form-block .btn-secondary {
+        width:33%;
+        margin: auto;
+      }
+    }
+  }
+
+  .using-address-selection {
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+    div {
+      display: inline-block;
+    }
+    label {
+      min-width: 0px;
+      margin-right: 30px;
+    }
+  }
+
+  @include respond-to("<=medium") {
+    .navigation-bar.step-nav .iconfilter .txt {
+      //display: none;
+    }
+  }
+
+}

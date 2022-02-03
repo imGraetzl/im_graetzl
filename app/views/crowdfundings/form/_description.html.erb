@@ -1,0 +1,29 @@
+<div class="form-block">
+
+  <p class="txt">Jetzt geht es um <span>dein Projekt</span></p>
+
+  <div class="input-textarea">
+    <%= f.label :description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Projekt Beschreibung</span>
+    <% end %>
+    <%= f.text_area :description, placeholder: 'Worum geht es in deinem Projekt ...' %>
+  </div>
+
+  <div class="input-textarea">
+    <%= f.label :support_description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Unterstützungsgrund</span>
+    <% end %>
+    <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...' %>
+  </div>
+
+  <div class="input-textarea">
+    <%= f.label :about_description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Infos über dich</span>
+    <% end %>
+    <%= f.text_area :about_description, placeholder: 'Ein paar Infos über dich und den Projekt Hintergrund ...' %>
+  </div>
+
+</div>

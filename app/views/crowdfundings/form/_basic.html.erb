@@ -1,0 +1,63 @@
+<div class="form-block">
+  <p class="txt"><span>Worum geht es</span> in deinem Projekt...</p>
+  <div class="input-field">
+    <%= f.label :title do %>
+    <%= icon_tag "record" %>
+    <span>Projektname</span>
+    <% end %>
+    <%= f.text_field :title, placeholder: 'Gib deiner Kampagne einen kurzen Titel ...', required: true %>
+  </div>
+  <div class="input-textarea">
+    <%= f.label :slogan do %>
+    <%= icon_tag "layout-document" %>
+    <span>Kurzbeschreibung</span>
+    <% end %>
+    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...' %>
+  </div>
+</div>
+
+<div class="form-block">
+  <%= render 'crowdfundings/form/address_fields', f: f %>
+</div>
+
+<div class="form-block">
+  <p class="txt">Kommt dein Projekt auch der <span>Allgemeinheit zugute</span>?</p>
+  <div class="input-select">
+    <%= f.label :tool_category_id do %>
+      <%= icon_tag "layout-document" %>
+      <span>Kategorie</span>
+    <% end %>
+    <%= f.select :crowd_benefit_id, crowd_benefits_select_options, { include_blank: 'Nein' }, class: 'category-select' %>
+  </div>
+</div>
+
+<div class="form-block">
+  <p class="txt">In <span>welche Kategorie</span> lässt sich dein Projekt einordnen?</p>
+  <div class="crowd-categories cb-columns">
+    <%= f.collection_check_boxes :crowd_category_ids, CrowdCategory.all, :id, :title do |b| %>
+    <div class="input-checkbox">
+      <%= b.check_box %>
+      <%= b.label %>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-block">
+  <% if f.object.new_record? && current_user.admin? %>
+    <p class="txt"><span>User</span> auswählen</p>
+    <% if f.object.new_record? %>
+      <div class="input-field">
+        <%= f.label :user_id do %>
+          <%= icon_tag "user-avatar" %>
+          <span>Kampagnen Ersteller</span>
+        <% end %>
+        <div class="user-autocomplete autocomplete-wrp">
+          <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
+          <%= hidden_field_tag :user_id, current_user.id, data:{behavior:"user-autocomplete-id"} %>
+          <%= text_field_tag :q, current_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

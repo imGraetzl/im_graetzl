@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'treffen', action: 'meetings', as: 'meetings'
+    get 'crowdfunding', action: 'crowdfundings', as: 'crowdfundings'
     get 'region-einstellungen', action: 'favorite_graetzls', as: 'favorite_graetzls'
   end
 
@@ -124,6 +125,14 @@ Rails.application.routes.draw do
     post 'toggle', on: :member
     get 'reactivate/:activation_code' => 'coop_demands#reactivate', on: :member
     patch 'update_status', on: :member
+  end
+
+  resources :crowdfundings, path: 'crowdfunding' do
+    get 'description', on: :member
+    get 'finance', on: :member
+    get 'rewards', on: :member
+    get 'media', on: :member
+    get 'finish', on: :member
   end
 
   resources :rooms, only: [:index]

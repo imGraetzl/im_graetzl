@@ -57,6 +57,10 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def crowdfundings
+    @crowdfundings = current_user.crowdfundings.in(current_region).includes(:user)
+  end
+
   def groups
     @groups = current_user.groups.in(current_region).includes(:room_offer, :room_call, :discussion_categories)
   end

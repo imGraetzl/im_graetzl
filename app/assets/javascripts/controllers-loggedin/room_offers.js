@@ -43,25 +43,10 @@ APP.controllers_loggedin.room_offers = (function() {
       }
     }).change();
 
-
     $(".room-categories input").on("change", function() {
-      maxCategories(); // init on Change
-    });
+      APP.components.formHelper.maxCategories($(this).parents(".cb-columns"), 5); // init on Change
+    }).trigger('change');
 
-    maxCategories(); // init on Load
-
-  }
-
-  function maxCategories() {
-    if ($(".room-categories input:checked").length >= 5) {
-      $(".room-categories input:not(:checked)").each(function() {
-        $(this).prop("disabled", true);
-        $(this).parents(".input-checkbox").addClass("disabled");
-      });
-    } else {
-      $(".room-categories input").prop("disabled", false);
-      $(".room-categories .input-checkbox").removeClass("disabled");
-    }
   }
 
   return {

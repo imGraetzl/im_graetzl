@@ -1,0 +1,106 @@
+<div class="form-block">
+
+  <p class="txt">Abschließende <span>Daten</span> bervor wir fertig sind...</p>
+
+  <div class="input-field">
+    <%= f.label :contact_name do %>
+      <%= icon_tag "user-avatar" %>
+      <span>Name</span>
+    <% end %>
+    <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_company do %>
+      <%= icon_tag "user-avatar" %>
+      <span>Firma</span>
+    <% end %>
+    <%= f.text_field :contact_company, placeholder: 'Firma (optional)' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_email do %>
+      <%= icon_tag "at-symbol" %>
+      <span>E-Mail</span>
+    <% end %>
+    <%= f.text_field :contact_email, placeholder: 'E-Mail Adresse' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_phone do %>
+      <%= icon_tag "phone" %>
+      <span>Telefon</span>
+    <% end %>
+    <%= f.text_field :contact_phone, placeholder: '+43 xxx xxxxxxx' %>
+  </div>
+
+  <div class="input-field">
+    <%= f.label :contact_address do %>
+      <%= icon_tag "map-location" %>
+      <span>Strasse & Nr.</span>
+    <% end %>
+    <%= f.text_field :contact_address, placeholder: 'Strasse & Nr.' %>
+  </div>
+
+  <div class="form-columns">
+
+    <div class="input-field">
+      <%= f.label :contact_zip do %>
+        <%= icon_tag "map-location" %>
+        <span>Postleitzahl</span>
+      <% end %>
+      <%= f.text_field :contact_zip, placeholder: 'PLZ' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :contact_city do %>
+        <%= icon_tag "map-location" %>
+        <span>Ort/Stadt</span>
+      <% end %>
+      <%= f.text_field :contact_city, placeholder: 'Stadt' %>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-block">
+
+  <p class="txt">Stellst du auch <span>Rechnungen für Dankeschöns</span> aus.</p>
+
+  <div class="input-select">
+    <%= label_tag :billable do %>
+      <%= icon_tag "profile-vcard" %>
+      <span>Rechnung</span>
+    <% end %>
+    <%= f.select :billable, billable_values, { include_blank: 'auswählen...' } %>
+  </div>
+
+</div>
+
+<% if current_user.locations.present? || current_user.room_offers.present? %>
+  <div class="form-block">
+
+    <p class="txt">Dein <span>Projekt verknüpfen</span> mit ...</p>
+
+    <% if current_user.locations.present? %>
+      <div class="input-select">
+        <%= f.label :location_id do %>
+          <%= icon_tag "location" %>
+          <span>Schaufenster</span>
+        <% end %>
+        <%= f.collection_select(:location_id, current_user.locations, :id, :name, {:include_blank => 'Schaufenster verknüpfen..'}) %>
+      </div>
+    <% end %>
+
+    <% if current_user.room_offers.present? %>
+      <div class="input-select">
+        <%= f.label :room_offer_id do %>
+          <%= icon_tag "raumteiler" %>
+          <span>Raumangebot</span>
+        <% end %>
+        <%= f.collection_select(:room_offer_id, current_user.room_offers, :id, :slogan, {:include_blank => 'Raumteiler verknüpfen..'}) %>
+      </div>
+    <% end %>
+
+  </div>
+<% end %>

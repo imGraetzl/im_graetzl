@@ -1,0 +1,21 @@
+<div class="paperCard video -cord1RT">
+  <div class="wrp">
+    <div class="txt">
+      <h3>Wie berechne ich mein Fundingziel? Was muss ich beachten?</h3>
+      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+      <br>
+      At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+    </div>
+    <div class="video-thumb">
+      <%= link_to 'javascript:', id: 'jBoxVideo', class: 'player', rel: 'nofollow' do %>
+        <%= icon_tag "video-play" %>
+        <%= image_tag 'videos/thumb_cf_1.jpg', class: 'video', alt:'video-thumb', width:200, height:150 %>
+      <% end %>
+      <%= link_to 'Vorlage herunterladen', '#', class: 'sublink btn-secondary -small -mint' %>
+    </div>
+  </div>
+  <div class="card"></div>
+</div>
+<div id="jBoxVideoContent" class="jBoxHidden">
+  <iframe id="videoIframe" width="800" height="450" src="https://player.vimeo.com/video/649453966" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
+</div>

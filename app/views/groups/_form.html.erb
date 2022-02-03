@@ -7,7 +7,7 @@
     <p>Wähle eine passende Kategorie für deine Gruppe. (maximal 3)</p>
   </div>
 
-  <div class="group-categories">
+  <div class="group-categories cb-columns">
     <%= f.collection_check_boxes :group_category_ids, GroupCategory.all, :id, :title do |b| %>
     <div class="input-checkbox">
       <%= b.check_box %>
@@ -53,7 +53,7 @@
     <h2>Diskussions <span>Kategorien</span></h2>
     <p>Erstelle Unterthemen für deine Gruppe, du kannst diese auch später noch ändern.</p>
   </div>
-  <div class="group-categories">
+  <div class="group-categories cb-columns">
     <%= f.fields_for :discussion_categories do |category_form| %>
       <%= render 'groups/form/discussion_category_fields', f: category_form %>
     <% end %>

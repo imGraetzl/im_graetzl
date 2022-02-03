@@ -26,7 +26,7 @@
 
   <h3 class="subline">Für welches Modul soll dieses Preis-Package gelten?</h3>
 
-  <div class="room-categories">
+  <div class="room-categories cb-columns">
     <%= f.collection_check_boxes :room_module_ids, RoomModule.all, :id, :name do |b| %>
       <div class="input-checkbox">
       <%= b.check_box %>

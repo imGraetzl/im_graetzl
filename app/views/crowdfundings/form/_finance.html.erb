@@ -1,0 +1,73 @@
+<div class="form-block">
+
+  <p class="txt"><span>Startdatum</span> und <span>Laufzeit</span></p>
+
+  <div class="form-columns">
+
+    <div class="input-field">
+      <%= f.label :startdate do %>
+        <%= icon_tag "calendar-2" %>
+        <span>Startdatum</span>
+      <% end %>
+      <%= f.text_field :startdate,
+                       value: (I18n.localize(f.object.startdate, format:'%A, %d. %B %Y') if f.object.startdate),
+                       data: { value: (I18n.localize(f.object.startdate, format:'%Y-%m-%d') if f.object.startdate) },
+                       class: 'datepicker',
+                       placeholder: 'wählen' %>
+    </div>
+
+    <div class="input-select">
+      <%= label_tag :runtime do %>
+        <%= icon_tag "time-clock" %>
+        <span>Laufzeit</span>
+      <% end %>
+      <%= f.select :runtime, runtime_values %>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="form-block">
+
+  <p class="txt"><span>Wieviel benötigst du mindestens</span> um dein Vorhaben umzusetzen?</p>
+
+  <div class="input-field">
+    <%= f.label :funding_1_amount do %>
+      <%= icon_tag "currency-euro" %>
+      <span>Mininalbetrag</span>
+    <% end %>
+    <%= f.number_field :funding_1_amount, placeholder: 'Betrag in €' %>
+  </div>
+
+  <div class="input-textarea">
+    <%= f.label :funding_1_description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Wofür benötigt?</span>
+    <% end %>
+    <%= f.text_area :funding_1_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...' %>
+  </div>
+
+</div>
+
+<div class="form-block">
+
+  <p class="txt"><span>Was wäre das Optimum</span> um dein Vorhaben umzusetzen?</p>
+
+  <div class="input-field">
+    <%= f.label :funding_2_amount do %>
+      <%= icon_tag "currency-euro" %>
+      <span>Optimalbetrag</span>
+    <% end %>
+    <%= f.number_field :funding_2_amount, placeholder: 'Betrag in €' %>
+  </div>
+
+  <div class="input-textarea">
+    <%= f.label :funding_2_description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Wofür benötigt?</span>
+    <% end %>
+    <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...' %>
+  </div>
+
+</div>

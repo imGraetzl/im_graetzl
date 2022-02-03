@@ -1,0 +1,16 @@
+<% meta(
+    title: t('.title', title: @crowdfunding.title[0..55].gsub(/\s\w+\s*$/,'...')),
+    description: t('.description', desc: @crowdfunding.description),
+    robots: 'index, follow',
+    og_title: t('.title', title: @crowdfunding.title[0..80].gsub(/\s\w+\s*$/,'...')),
+    og_description: t('.description', desc: @crowdfunding.description),
+    og_image: @crowdfunding.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/og_logo.png")
+  )
+%>
+
+<h3><%= @crowdfunding.title %></h3>
+<p><%= @crowdfunding.slogan %></p>
+
+<% if current_user == @crowdfunding.user %>
+<%= link_to 'Bearbeiten', edit_crowdfunding_path(@crowdfunding), class: 'btn-secondary -mint -small'  %>
+<% end %>

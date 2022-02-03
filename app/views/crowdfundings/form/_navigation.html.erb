@@ -1,0 +1,53 @@
+<div class="hl-subtext">
+  <h1>Deine <span>Crowdfunding</span> Kampagne</h1>
+</div>
+
+<div class="navigation-bar step-nav">
+
+  <%= active_link_to edit_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
+    <div class="icon">1.</div>
+    <div class="txt">Projekt<br>Setup</div>
+  <% end %>
+
+  <div class="step-line"></div>
+
+  <%= active_link_to description_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
+    <div class="icon">2.</div>
+    <div class="txt">Projekt<br>Beschreibung</div>
+  <% end %>
+
+  <div class="step-line"></div>
+
+  <%= active_link_to finance_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
+    <div class="icon">3.</div>
+    <div class="txt">Projekt<br>Finanzierung</div>
+  <% end %>
+
+  <div class="step-line"></div>
+
+  <%= active_link_to rewards_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
+    <div class="icon">4.</div>
+    <div class="txt">Projekt<br>Dankeschöns</div>
+  <% end %>
+
+  <div class="step-line"></div>
+
+  <%= active_link_to media_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
+    <div class="icon">5.</div>
+    <div class="txt">Projekt<br>Medien</div>
+  <% end %>
+
+  <div class="step-line"></div>
+
+  <%= active_link_to finish_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
+    <% if @crowdfunding.pending? %>
+      <%= icon_tag "slots" %>
+    <% elsif @crowdfunding.approved? %>
+      <%= icon_tag "check" %>
+    <% else %>
+      <%= icon_tag "flag" %>
+    <% end %>
+    <div class="txt">Projekt<br>Freigabe</div>
+  <% end %>
+
+</div>

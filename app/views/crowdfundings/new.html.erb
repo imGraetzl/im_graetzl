@@ -1,0 +1,30 @@
+<% title('Neue Crowdfunding Kampagne erstellen') %>
+
+<section class="crowdfunding-form">
+
+
+  <div class="hl-subtext">
+    <h1>Starten wir deine <span>Crowdfunding</span> Kampagne</h1>
+  </div>
+
+  <%= render 'crowdfundings/form/basic_video' %>
+
+  <%= form_for(@crowdfunding) do |f| %>
+  <%= form_errors_for @crowdfunding %>
+  <%= f.hidden_field :contact_name %>
+  <%= f.hidden_field :contact_company %>
+  <%= f.hidden_field :contact_address %>
+  <%= f.hidden_field :contact_zip %>
+  <%= f.hidden_field :contact_city %>
+  <%= f.hidden_field :contact_email %>
+  <%= f.hidden_field :contact_website %>
+
+  <%= render 'crowdfundings/form/basic', f: f %>
+
+  <div class="input-button">
+    <%= f.button 'Projekt anlegen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>
+  </div>
+
+  <% end %>
+
+</section>
