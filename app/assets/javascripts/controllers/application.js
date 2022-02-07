@@ -37,18 +37,6 @@ APP.controllers.application = (function() {
       });
     }
 
-    // Register & Login Modal
-    var loginModal = new jBox('Modal', {
-      addClass:'jBox',
-      attach: '.login-panel-opener',
-      content: $('#login-panel-modal'),
-      trigger: 'click',
-      closeOnClick:'body',
-      blockScroll:true,
-      animation:{open: 'zoomIn', close: 'zoomOut'},
-      width:750
-    });
-
     // Set Screen Mode Class
     enquire
         .register("screen and (max-width:" + APP.config.majorBreakpoints.medium + "px)", {
@@ -129,6 +117,19 @@ APP.controllers.application = (function() {
     });
   }
 
+  // Login Modal -------------------------
+  var loginModal = new jBox('Modal', {
+    addClass:'jBox',
+    attach: '.login-panel-opener',
+    content: $('#login-panel-modal'),
+    trigger: 'click',
+    closeOnClick:'body',
+    blockScroll:true,
+    animation:{open: 'zoomIn', close: 'zoomOut'},
+    width:750
+  });
+
+  // gallery modal -------------------------
   var jBoxGallery = function() {
     new jBox('Image', {
       addClass:'jBoxGallery',
@@ -140,6 +141,29 @@ APP.controllers.application = (function() {
       imageSize: 'contain'
     });
   }
+
+  // video modal -------------------------
+  if($("#videoIframe").exists() && $(window).width() < 800) {
+    // adjust iframe height on smaller screens
+    var iframe = document.getElementById("videoIframe");
+    var iframeHeight = $(window).width() * 0.56;
+    iframe.style.height = iframeHeight + 'px';
+  }
+
+  var videoModal = new jBox('Modal', {
+    addClass:'jBox jBoxVideo',
+    attach: '#jBoxVideo',
+    content: $('#jBoxVideoContent'),
+    trigger: 'click',
+    closeOnEsc:true,
+    closeOnClick:true,
+    animation:{open: 'zoomIn', close: 'zoomOut'},
+    onClose: function () {
+      var vidsrc = $('#videoIframe').attr('src');
+      $('#videoIframe').attr('src','');
+      $('#videoIframe').attr('src', vidsrc);
+    }
+  });
 
   // BETA FLASH for WeLocally
   /*
