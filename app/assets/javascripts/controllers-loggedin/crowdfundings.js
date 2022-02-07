@@ -13,6 +13,7 @@ APP.controllers_loggedin.crowdfundings = (function() {
 
       $("textarea").autoResize();
 
+      /*
       $('.using-address-switch').on('change', function() {
         var noAddress = $(this).val() == "true";
         $('#not-using-address-fields').toggle(noAddress);
@@ -20,6 +21,7 @@ APP.controllers_loggedin.crowdfundings = (function() {
         $("#using-address-fields").find("input, select").attr("disabled", noAddress);
       });
       $('.using-address-switch:checked').trigger('change');
+      */
 
       $('.datepicker').pickadate({
         formatSubmit: 'yyyy-mm-dd',
