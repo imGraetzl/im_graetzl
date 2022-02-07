@@ -128,6 +128,12 @@ section.campaigns, section.region_calls {
 
 // ------------------- REGION CALL
 section.region_calls {
+
+  .video-thumb img {
+    border:5px solid white;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
   .-fullwidth-welocally {
     > div {
       max-width: 980px;
