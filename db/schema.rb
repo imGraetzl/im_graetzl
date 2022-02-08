@@ -189,14 +189,6 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
     t.index ["coop_demand_category_id"], name: "index_coop_suggested_tags_on_coop_demand_category_id"
   end
 
-  create_table "crowd_benefits", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "crowdfunding_id"
-    t.index ["crowdfunding_id"], name: "index_crowd_benefits_on_crowdfunding_id"
-  end
-
   create_table "crowd_categories", force: :cascade do |t|
     t.string "title"
     t.string "css_ico_class"
@@ -259,11 +251,14 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
     t.text "description"
     t.text "support_description"
     t.text "about_description"
+    t.text "benefit_description"
     t.decimal "funding_1_amount", precision: 10, scale: 2
     t.decimal "funding_2_amount", precision: 10, scale: 2
     t.text "funding_1_description"
     t.text "funding_2_description"
     t.date "startdate"
+    t.date "enddate"
+    t.boolean "benefit"
     t.integer "runtime", default: 30
     t.integer "billable"
     t.string "video"
@@ -285,8 +280,6 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
     t.bigint "graetzl_id"
     t.bigint "location_id"
     t.bigint "room_offer_id"
-    t.bigint "crowd_benefit_id"
-    t.index ["crowd_benefit_id"], name: "index_crowdfundings_on_crowd_benefit_id"
     t.index ["graetzl_id"], name: "index_crowdfundings_on_graetzl_id"
     t.index ["location_id"], name: "index_crowdfundings_on_location_id"
     t.index ["region_id"], name: "index_crowdfundings_on_region_id"
@@ -1343,7 +1336,6 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
   add_foreign_key "coop_demands", "locations", on_delete: :nullify
   add_foreign_key "coop_demands", "users", on_delete: :cascade
   add_foreign_key "coop_suggested_tags", "coop_demand_categories", on_delete: :nullify
-  add_foreign_key "crowd_benefits", "crowdfundings", on_delete: :nullify
   add_foreign_key "crowd_donations", "crowdfundings", on_delete: :cascade
   add_foreign_key "crowd_rewards", "crowdfundings", on_delete: :cascade
   add_foreign_key "crowdfundings", "graetzls", on_delete: :nullify

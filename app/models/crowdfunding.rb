@@ -12,7 +12,6 @@ class Crowdfunding < ApplicationRecord
   belongs_to :room_offer, optional: true
 
   has_and_belongs_to_many :crowd_categories
-  belongs_to :crowd_benefit, optional: true
 
   has_many :crowd_rewards
   accepts_nested_attributes_for :crowd_rewards, allow_destroy: true, reject_if: :all_blank

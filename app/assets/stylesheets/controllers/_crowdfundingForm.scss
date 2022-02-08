@@ -3,6 +3,14 @@ section.crowdfunding-form {
   max-width: 800px;
   margin: 0 auto;
 
+  div.hl-subtext {
+    margin-bottom: 20px;
+    h2 { @include font-size-secondaryFont('base'); }
+    p {
+      @include font-size-primaryFont('large');
+    }
+  }
+
   .input-button {
     display: flex;
     justify-content: flex-end;
@@ -67,6 +75,19 @@ section.crowdfunding-form {
     }
   }
 
+  .benefit-checkbox {
+    @extend .cardBox;
+    display: flex;
+    justify-content: center;
+    border-color: $color-ambient-mint-light;
+  }
+  .benefit-fields {
+    display: none;
+    position: relative;
+    top:-2px;
+  }
+
+  /*
   .using-address-selection {
     margin-bottom: 20px;
     text-align: center;
@@ -79,6 +100,7 @@ section.crowdfunding-form {
       margin-right: 30px;
     }
   }
+  */
 
   @include respond-to("<=medium") {
     .navigation-bar.step-nav .iconfilter .txt {

@@ -122,13 +122,13 @@ class CrowdfundingsController < ApplicationController
     params
       .require(:crowdfunding)
       .permit(
-        :title, :slogan, :description, :support_description, :about_description,
-        :startdate, :runtime, :billable,
+        :title, :slogan, :description, :support_description, :about_description, :benefit_description,
+        :startdate, :enddate, :runtime, :billable,
         :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
         :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_email, :contact_phone,
-        :location_id, :room_offer_id, :crowd_benefit_id,
+        :location_id, :room_offer_id,
         :graetzl_id, :address_street, :address_coords, :address_city, :address_zip, :address_description,
-        :cover_photo, :remove_cover_photo, :video,
+        :cover_photo, :remove_cover_photo, :video, :benefit,
         images_attributes: [:id, :file, :_destroy],
         crowd_rewards_attributes: [
           :id, :amount, :limit, :title, :description, :delivery_weeks, :delivery_address_required, :question, :avatar, :remove_avatar, :_destroy

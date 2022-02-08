@@ -4,17 +4,17 @@
   <div class="input-field">
     <%= f.label :title do %>
       <%= icon_tag "record" %>
-      <span>Titel</span>
+      <span>Benötigtes Material</span>
     <% end %>
-    <%= f.text_field :title, placeholder: "Titel ...", required: true %>
+    <%= f.text_field :title, placeholder: "Welches Material / Equipment benötigst du? ...", required: true %>
   </div>
 
   <div class="input-field">
     <%= f.label :limit do %>
       <%= icon_tag "slots" %>
-      <span>Limitierung</span>
+      <span>Benötigte Stückzahl</span>
     <% end %>
-    <%= f.text_field :limit, placeholder: "Max. Stückzahl" %>
+    <%= f.text_field :limit, placeholder: "Wieviel benötigst du maximal von diesem Material?" %>
   </div>
 
   <div class="form-columns">
@@ -55,14 +55,6 @@
                        placeholder: 'wählen' %>
     </div>
 
-  </div>
-
-  <div class="input-textarea">
-    <%= f.label :question do %>
-    <%= icon_tag "layout-document" %>
-    <span>Frage</span>
-    <% end %>
-    <%= f.text_area :question, placeholder: 'Frage ...' %>
   </div>
 
   <%= link_to_remove_association f, data: { confirm: 'Sachspende entfernen?' } do %>

@@ -48,7 +48,7 @@
     <div class="input-select">
       <%= label_tag :delivery_weeks do %>
         <%= icon_tag "calendar-2" %>
-        <span>Lieferzeit</span>
+        <span>Lieferzeit (nach Kampagnenende)</span>
       <% end %>
       <%= f.select :delivery_weeks, delivery_week_values, { include_blank: 'auswählen...' } %>
     </div>
@@ -63,9 +63,9 @@
   <div class="input-textarea">
     <%= f.label :question do %>
     <%= icon_tag "layout-document" %>
-    <span>Frage</span>
+    <span>Frage an die UnterstützerIn</span>
     <% end %>
-    <%= f.text_area :question, placeholder: 'Frage ...' %>
+    <%= f.text_area :question, placeholder: 'Benötigst du weitere Infos der UnterstützerIn zu diesem Dankeschön? ...' %>
   </div>
 
   <%= link_to_remove_association f, data: { confirm: 'Dankeschön entfernen?' } do %>

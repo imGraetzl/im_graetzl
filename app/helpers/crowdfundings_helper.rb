@@ -1,11 +1,5 @@
 module CrowdfundingsHelper
 
-  def crowd_benefits_select_options
-    CrowdBenefit.order(:title).map do |category|
-      ["Ja | Kategorie '#{category.title}'", category.id]
-    end
-  end
-
   def runtime_values
     [15, 30, 45, 60].map do |value|
       ["#{value} Tage", value]

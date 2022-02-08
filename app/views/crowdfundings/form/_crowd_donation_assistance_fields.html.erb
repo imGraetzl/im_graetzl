@@ -4,17 +4,17 @@
   <div class="input-field">
     <%= f.label :title do %>
       <%= icon_tag "record" %>
-      <span>Titel</span>
+      <span>Tätigkeit</span>
     <% end %>
-    <%= f.text_field :title, placeholder: "Titel ...", required: true %>
+    <%= f.text_field :title, placeholder: "Für welche Tätigkeit benötigst du Hilfe? ...", required: true %>
   </div>
 
   <div class="input-field">
     <%= f.label :limit do %>
       <%= icon_tag "slots" %>
-      <span>Limitierung</span>
+      <span>Benötigte Personenanzahl</span>
     <% end %>
-    <%= f.text_field :limit, placeholder: "Max. Stückzahl" %>
+    <%= f.text_field :limit, placeholder: "Wieviel Personen benötigst du für diese Tätigkeit?" %>
   </div>
 
   <div class="form-columns">
@@ -55,14 +55,6 @@
                        placeholder: 'wählen' %>
     </div>
 
-  </div>
-
-  <div class="input-textarea">
-    <%= f.label :question do %>
-    <%= icon_tag "layout-document" %>
-    <span>Frage</span>
-    <% end %>
-    <%= f.text_area :question, placeholder: 'Frage ...' %>
   </div>
 
   <%= link_to_remove_association f, data: { confirm: 'Zeitspende entfernen?' } do %>
