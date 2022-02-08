@@ -1,27 +1,34 @@
 <div class="form-block">
 
-  <p class="txt"><span>Startdatum</span> und <span>Laufzeit</span></p>
+  <div class="hl-subtext">
+    <h2>Definiere die <span>Laufzeit</span> deiner Kampagne</h2>
+    <p>Die Laufzeit sollte zwischen 2 Wochen und 2 Monaten betragen / Ideal wäre ein Monat.</p>
+  </div>
 
   <div class="form-columns">
 
     <div class="input-field">
       <%= f.label :startdate do %>
         <%= icon_tag "calendar-2" %>
-        <span>Startdatum</span>
+        <span>Kampagnenstart</span>
       <% end %>
       <%= f.text_field :startdate,
-                       value: (I18n.localize(f.object.startdate, format:'%A, %d. %B %Y') if f.object.startdate),
+                       value: (I18n.localize(f.object.startdate, format:'%a, %d. %B %Y') if f.object.startdate),
                        data: { value: (I18n.localize(f.object.startdate, format:'%Y-%m-%d') if f.object.startdate) },
-                       class: 'datepicker',
+                       class: 'startdate',
                        placeholder: 'wählen' %>
     </div>
 
-    <div class="input-select">
-      <%= label_tag :runtime do %>
-        <%= icon_tag "time-clock" %>
-        <span>Laufzeit</span>
+    <div class="input-field">
+      <%= f.label :enddate do %>
+        <%= icon_tag "calendar-2" %>
+        <span>Kampagnenende</span>
       <% end %>
-      <%= f.select :runtime, runtime_values %>
+      <%= f.text_field :enddate,
+                       value: (I18n.localize(f.object.enddate, format:'%a, %d. %B %Y') if f.object.enddate),
+                       data: { value: (I18n.localize(f.object.enddate, format:'%Y-%m-%d') if f.object.enddate) },
+                       class: 'enddate',
+                       placeholder: 'wählen' %>
     </div>
 
   </div>

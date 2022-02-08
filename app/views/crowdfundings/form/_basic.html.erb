@@ -14,21 +14,25 @@
     <% end %>
     <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...' %>
   </div>
+  <div class="benefit-checkbox">
+    <div class="input-checkbox">
+      <%= f.check_box(:benefit) %>
+      <%= f.label :benefit, "Ja, von meinem Projekt profitieren auch andere", class: 'benefit-switch' %>
+    </div>
+  </div>
+  <div class="benefit-fields">
+    <div class="input-textarea">
+      <%= f.label :benefit_description do %>
+      <%= icon_tag "layout-document" %>
+      <span>Benefit für Allgemeinheit</span>
+      <% end %>
+      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...' %>
+    </div>
+  </div>
 </div>
 
 <div class="form-block">
   <%= render 'crowdfundings/form/address_fields', f: f %>
-</div>
-
-<div class="form-block">
-  <p class="txt">Kommt dein Projekt auch der <span>Allgemeinheit zugute</span>?</p>
-  <div class="input-select">
-    <%= f.label :tool_category_id do %>
-      <%= icon_tag "layout-document" %>
-      <span>Kategorie</span>
-    <% end %>
-    <%= f.select :crowd_benefit_id, crowd_benefits_select_options, { include_blank: 'Nein' }, class: 'category-select' %>
-  </div>
 </div>
 
 <div class="form-block">

@@ -13,11 +13,14 @@ class CreateCrowdfunding < ActiveRecord::Migration[6.1]
       t.text "description"
       t.text "support_description"
       t.text "about_description"
+      t.text "benefit_description"
       t.decimal "funding_1_amount", precision: 10, scale: 2
       t.decimal "funding_2_amount", precision: 10, scale: 2
       t.text "funding_1_description"
       t.text "funding_2_description"
       t.date "startdate"
+      t.date "enddate"
+      t.boolean "benefit"
       t.integer "runtime", default: 30
       t.integer "billable"
       t.string "video"
@@ -44,12 +47,6 @@ class CreateCrowdfunding < ActiveRecord::Migration[6.1]
       t.references :graetzl, foreign_key: { on_delete: :nullify }, index: true
       t.references :location, foreign_key: { on_delete: :nullify }, index: true
       t.references :room_offer, foreign_key: { on_delete: :nullify }, index: true
-    end
-
-    create_table :crowd_benefits do |t|
-      t.string :title
-      t.timestamps
-      t.references :crowdfunding, foreign_key: { on_delete: :nullify }, index: true
     end
 
     create_table :crowd_categories do |t|
@@ -96,7 +93,6 @@ class CreateCrowdfunding < ActiveRecord::Migration[6.1]
     end
 
     add_index :crowdfundings, :region_id
-    add_reference :crowdfundings, :crowd_benefit, index: true
 
   end
 end
