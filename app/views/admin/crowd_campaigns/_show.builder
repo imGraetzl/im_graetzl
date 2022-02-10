@@ -2,7 +2,7 @@ context.instance_eval do
   columns do
     column do
       panel 'Basic Details' do
-        attributes_table_for crowdfunding do
+        attributes_table_for crowd_campaign do
           row :id
           row :region
           row :graetzl
@@ -24,7 +24,7 @@ context.instance_eval do
             l.cover_photo && image_tag(l.cover_photo_url(:thumb))
           end
           row :images do
-            crowdfunding.images.map do |image|
+            crowd_campaign.images.map do |image|
               image_tag image.file_url(:thumb)
             end
           end
@@ -32,7 +32,7 @@ context.instance_eval do
       end
 
       panel 'Contact Details' do
-        attributes_table_for crowdfunding do
+        attributes_table_for crowd_campaign do
           row :id
           row :contact_name
           row :contact_email
@@ -41,9 +41,9 @@ context.instance_eval do
 
     end
     column do
-      if crowdfunding.user
+      if crowd_campaign.user
         panel 'User' do
-          table_for crowdfunding.user do
+          table_for crowd_campaign.user do
             column(:id){|u| u.id}
             column(:username){|u| u.username}
             column(''){|u| link_to 'User Anzeigen', admin_user_path(u) }

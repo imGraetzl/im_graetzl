@@ -1,4 +1,4 @@
-APP.controllers_loggedin.crowdfundings = (function() {
+APP.controllers_loggedin.crowd_campaigns = (function() {
 
     function init() {
         if ($("section.crowdfunding-form").exists()) initCrowdfundingForm();
@@ -13,7 +13,7 @@ APP.controllers_loggedin.crowdfundings = (function() {
 
       $("textarea").autoResize();
 
-      $('input[name="crowdfunding[benefit]"]').on("change", function() {
+      $('input[name="crowd_campaign[benefit]"]').on("change", function() {
         if ($(this).is(':checked')) {
           $(".benefit-fields").show();
         }
@@ -35,7 +35,7 @@ APP.controllers_loggedin.crowdfundings = (function() {
             maxdate.setMonth(maxdate.getMonth() + 2); // Maximum 2 Months after Startdate
             $('.enddate').pickadate('picker').set('min', mindate);
             $('.enddate').pickadate('picker').set('max', maxdate);
-            if ($('input[name="crowdfunding[enddate]"]').val() == '') {
+            if ($('input[name="crowd_campaign[enddate]"]').val() == '') {
               var enddate = new Date(context.select);
               enddate.setMonth(enddate.getMonth() + 1);
               $('.enddate').pickadate('picker').set('select', enddate); // Default 1 Monath after Startdate

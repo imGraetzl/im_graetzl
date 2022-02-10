@@ -71,7 +71,7 @@ Rails.application.routes.draw do
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'treffen', action: 'meetings', as: 'meetings'
-    get 'crowdfunding', action: 'crowdfundings', as: 'crowdfundings'
+    get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
     get 'region-einstellungen', action: 'favorite_graetzls', as: 'favorite_graetzls'
   end
 
@@ -127,7 +127,7 @@ Rails.application.routes.draw do
     patch 'update_status', on: :member
   end
 
-  resources :crowdfundings, path: 'crowdfunding' do
+  resources :crowd_campaigns, path: 'crowdfunding' do
     get 'description', on: :member
     get 'finance', on: :member
     get 'rewards', on: :member

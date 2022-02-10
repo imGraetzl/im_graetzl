@@ -1,4 +1,4 @@
-ActiveAdmin.register Crowdfunding do
+ActiveAdmin.register CrowdCampaign do
   include ViewInApp
   menu parent: 'Crowdfunding'
 
@@ -30,19 +30,19 @@ ActiveAdmin.register Crowdfunding do
   end
 
   # action buttons
-  action_item :approve, only: :show, if: proc{ crowdfunding.pending? } do
-    link_to 'Kampagne Freischalten', approve_admin_crowdfunding_path(crowdfunding), { method: :put }
+  action_item :approve, only: :show, if: proc{ crowd_campaign.pending? } do
+    link_to 'Kampagne Freischalten', approve_admin_crowd_campaign_path(crowd_campaign), { method: :put }
   end
 
   # member actions
   member_action :approve, method: :put do
 
     if resource.approved!
-      #UsersMailer.crowdfunding_approved(resource).deliver_now
+      #UsersMailer.crowd_campaign_approved(resource).deliver_now
       #ActionProcessor.track(resource, :create)
 
       flash[:success] = 'Crowdfunding Kampagne wurde freigeschalten.'
-      redirect_to admin_crowdfundings_path
+      redirect_to admin_crowd_campaigns_path
     else
       flash[:error] = 'Crowdfunding Kampagne kann nicht freigeschalten werden.'
       redirect_to resource_path

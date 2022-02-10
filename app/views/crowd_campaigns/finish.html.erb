@@ -2,13 +2,13 @@
 
 <section class="crowdfunding-form">
 
-  <%= render 'crowdfundings/form/navigation' %>
-  <%= render 'crowdfundings/form/finish_video' %>
+  <%= render 'crowd_campaigns/form/navigation' %>
+  <%= render 'crowd_campaigns/form/finish_video' %>
 
-  <%= form_for(@crowdfunding, html: { class: 'crowdfunding_form' }) do |f| %>
-  <%= form_errors_for @crowdfunding %>
+  <%= form_for(@crowd_campaign, html: { class: 'crowdfunding_form' }) do |f| %>
+  <%= form_errors_for @crowd_campaign %>
 
-  <%= render 'crowdfundings/form/finish', f: f %>
+  <%= render 'crowd_campaigns/form/finish', f: f %>
 
   <div class="input-button">
     <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>

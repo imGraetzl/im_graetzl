@@ -5,10 +5,10 @@
   <div class="crowd-rewards">
     <% f.object.crowd_rewards.build if f.object.crowd_rewards.empty? %>
     <%= f.fields_for :crowd_rewards do |reward_form| %>
-      <%= render 'crowdfundings/form/crowd_reward_fields', f: reward_form %>
+      <%= render 'crowd_campaigns/form/crowd_reward_fields', f: reward_form %>
     <% end %>
     <div class="room-prices-links">
-      <%= link_to_add_association 'Dankeschön hinzufügen', f, :crowd_rewards, partial: 'crowdfundings/form/crowd_reward_fields', class: 'btn-primary -mint -small' %>
+      <%= link_to_add_association 'Dankeschön hinzufügen', f, :crowd_rewards, partial: 'crowd_campaigns/form/crowd_reward_fields', class: 'btn-primary -mint -small' %>
     </div>
   </div>
 
@@ -20,10 +20,10 @@
 
   <div class="crowd-donations-assistance">
     <%= f.fields_for :crowd_donations, f.object.crowd_donations.material do |field_form| %>
-      <%= render 'crowdfundings/form/crowd_donation_material_fields', f: field_form if !f.object.crowd_donations.material.empty? %>
+      <%= render 'crowd_campaigns/form/crowd_donation_material_fields', f: field_form if !f.object.crowd_donations.material.empty? %>
     <% end %>
     <div class="room-prices-links">
-      <%= link_to_add_association 'Materialspende hinzufügen', f, :crowd_donations, partial: 'crowdfundings/form/crowd_donation_material_fields', class: 'btn-primary -mint -small' %>
+      <%= link_to_add_association 'Materialspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_material_fields', class: 'btn-primary -mint -small' %>
     </div>
   </div>
 
@@ -35,10 +35,10 @@
 
   <div class="crowd-donations-assistance">
     <%= f.fields_for :crowd_donations, f.object.crowd_donations.assistance do |field_form| %>
-      <%= render 'crowdfundings/form/crowd_donation_assistance_fields', f: field_form if !f.object.crowd_donations.assistance.empty? %>
+      <%= render 'crowd_campaigns/form/crowd_donation_assistance_fields', f: field_form if !f.object.crowd_donations.assistance.empty? %>
     <% end %>
     <div class="room-prices-links">
-      <%= link_to_add_association 'Zeitspende hinzufügen', f, :crowd_donations, partial: 'crowdfundings/form/crowd_donation_assistance_fields', class: 'btn-primary -mint -small' %>
+      <%= link_to_add_association 'Zeitspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_assistance_fields', class: 'btn-primary -mint -small' %>
     </div>
   </div>
 

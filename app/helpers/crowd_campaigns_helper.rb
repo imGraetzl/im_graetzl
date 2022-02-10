@@ -1,4 +1,4 @@
-module CrowdfundingsHelper
+module CrowdCampaignsHelper
 
   def runtime_values
     [15, 30, 45, 60].map do |value|
@@ -22,8 +22,8 @@ module CrowdfundingsHelper
   def billable_values
     [
       ["Nein - Ich stelle keine Rechnungen aus", 'no_bill'],
-      ["Ja - Ich stelle Rechnungen aus (ohne Ust.)", 'bill'],
-      ["Ja - Ich stelle Rechnungen aus (inkl. 20% Ust.)", 'bill_with_tax']
+      ["Ja - Ich stelle Rechnungen ohne Ust. aus", 'bill'],
+      ["Ja - Ich stelle Rechnungen inkl. 20% Ust. aus", 'bill_with_tax']
     ]
   end
 
@@ -61,7 +61,6 @@ module CrowdfundingsHelper
       ![
         object.crowd_rewards.first&.title,
         object.crowd_rewards.first&.amount.to_s,
-        object.crowd_rewards.first&.limit.to_s,
         object.crowd_rewards.first&.description,
         object.crowd_rewards.first&.delivery_weeks.to_s
       ].any?{ |f| f.nil? || f.empty? }

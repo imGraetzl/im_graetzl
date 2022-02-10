@@ -20,8 +20,8 @@ class NavigationController < ApplicationController
       @coop_demands = current_user.coop_demands.in(current_region).first(6)
     when 'groups'
       @groups = current_user.groups.in(current_region).last(6).reverse
-    when 'crowdfundings'
-      @crowdfundings = current_user.crowdfundings.in(current_region).last(6).reverse
+    when 'crowd_campaigns'
+      @crowd_campaigns = current_user.crowd_campaigns.in(current_region).last(6).reverse
     end
   end
 

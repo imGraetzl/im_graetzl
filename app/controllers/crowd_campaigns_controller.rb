@@ -1,72 +1,72 @@
-class CrowdfundingsController < ApplicationController
+class CrowdCampaignsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
-    @crowdfundings = collection_scope.in(current_region).includes(:user)
-    @crowdfundings = filter_collection(@crowdfundings)
-    @crowdfundings = @crowdfundings.by_currentness.page(params[:page]).per(params[:per_page] || 15)
+    @crowd_campaigns = collection_scope.in(current_region).includes(:user)
+    @crowd_campaigns = filter_collection(@crowd_campaigns)
+    @crowd_campaigns = @crowd_campaigns.by_currentness.page(params[:page]).per(params[:per_page] || 15)
   end
 
   def show
-    @crowdfunding = Crowdfunding.in(current_region).find(params[:id])
-    @comments = @crowdfunding.comments.includes(:user, :images).order(created_at: :desc)
+    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
     @preview = params[:preview] == 'true' ?  true : false
   end
 
   def new
-    @crowdfunding = Crowdfunding.new(current_user_address_params)
+    @crowd_campaign = CrowdCampaign.new(current_user_address_params)
   end
 
   def create
-    @crowdfunding = Crowdfunding.new(crowdfunding_params)
-    @crowdfunding.user_id = current_user.admin? ? params[:user_id] : current_user.id
-    @crowdfunding.region_id = current_region.id
-    @crowdfunding.clear_address if params[:no_address] == 'true'
+    @crowd_campaign = CrowdCampaign.new(crowd_campaign_params)
+    @crowd_campaign.user_id = current_user.admin? ? params[:user_id] : current_user.id
+    @crowd_campaign.region_id = current_region.id
+    @crowd_campaign.clear_address if params[:no_address] == 'true'
 
-    if @crowdfunding.save
-      #CrowdfundingMailer.crowdfunding_published(@crowdfunding).deliver_later
-      #ActionProcessor.track(@crowdfunding, :create)
-      redirect_to description_crowdfunding_path(@crowdfunding)
+    if @crowd_campaign.save
+      #CrowdCampaignMailer.crowd_campaign_published(@crowd_campaign).deliver_later
+      #ActionProcessor.track(@crowd_campaign, :create)
+      redirect_to description_crowd_campaign_path(@crowd_campaign)
     else
       render :new
     end
   end
 
   def edit
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
   def description
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
   def finance
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
   def rewards
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
   def media
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
   def finish
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
   def update
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
-    @crowdfunding.clear_address if params[:no_address] == 'true'
-    @crowdfunding.status = params[:status] if params[:status]
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    @crowd_campaign.clear_address if params[:no_address] == 'true'
+    @crowd_campaign.status = params[:status] if params[:status]
 
-    if @crowdfunding.update(crowdfunding_params)
+    if @crowd_campaign.update(crowd_campaign_params)
       if params[:page]
         redirect_to params[:page]
       else
-        redirect_back fallback_location: edit_crowdfunding_path(@crowdfunding), notice: 'Deine Änderungen wurden gespeichert.'
+        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: 'Deine Änderungen wurden gespeichert.'
       end
     else
       render :edit
@@ -74,19 +74,19 @@ class CrowdfundingsController < ApplicationController
   end
 
   def destroy
-    @crowdfunding = current_user.crowdfundings.find(params[:id])
-    @crowdfunding.destroy
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    @crowd_campaign.destroy
 
-    redirect_to crowdfundings_user_path
+    redirect_to crowd_campaigns_user_path
   end
 
   private
 
   def collection_scope
     if params[:user_id].present?
-      Crowdfunding.approved.where(user_id: params[:user_id])
+      CrowdCampaign.approved.where(user_id: params[:user_id])
     else
-      Crowdfunding.approved
+      CrowdCampaign.approved
     end
   end
 
@@ -119,9 +119,9 @@ class CrowdfundingsController < ApplicationController
     }
   end
 
-  def crowdfunding_params
+  def crowd_campaign_params
     params
-      .require(:crowdfunding)
+      .require(:crowd_campaign)
       .permit(
         :title, :slogan, :description, :support_description, :about_description, :benefit_description,
         :startdate, :enddate, :runtime, :billable,
