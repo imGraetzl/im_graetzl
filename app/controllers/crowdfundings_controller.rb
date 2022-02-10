@@ -11,6 +11,7 @@ class CrowdfundingsController < ApplicationController
   def show
     @crowdfunding = Crowdfunding.in(current_region).find(params[:id])
     @comments = @crowdfunding.comments.includes(:user, :images).order(created_at: :desc)
+    @preview = params[:preview] == 'true' ?  true : false
   end
 
   def new

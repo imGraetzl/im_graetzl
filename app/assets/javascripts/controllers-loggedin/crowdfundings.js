@@ -64,6 +64,42 @@ APP.controllers_loggedin.crowdfundings = (function() {
         APP.components.formHelper.maxCategories($(this).parents(".cb-columns"), 3); // init on Change
       }).trigger('change');
 
+      // Preview Project  - Save Form and Open Preview Modal
+
+      $(".save-and-preview").on("click", function() {
+        var form = $(".crowdfunding_form");
+        var submit_url = form.attr('action');
+        var submit_params = form.serialize();
+
+        if (typeof formXhr !== 'undefined') { formXhr.abort(); }
+
+        formXhr = $.ajax({
+            type: "POST",
+            url: submit_url,
+            data: submit_params,
+            success: function(){
+              previewModal.open();
+            }
+        });
+      });
+
+      var previewModal = new jBox('Modal', {
+        addClass:'jBox jBoxCrowdPreview',
+        content: $('#cf-preview'),
+        closeOnEsc:true,
+        closeOnClick:true,
+        blockScroll:true,
+        animation:{open: 'zoomIn', close: 'zoomOut'},
+        responsiveWidth:true,
+        responsiveHeight:true,
+        onOpen: function() {
+          var iframe = document.getElementById("cfpreview");
+          iframe.src = $("#cfpreview").data('url');
+          iframe.style.width = $(window).width() - 100 + 'px';
+          iframe.style.height = $(window).height() - 125 + 'px';
+        },
+      });
+
     }
 
     return {

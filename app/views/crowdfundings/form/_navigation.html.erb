@@ -5,35 +5,35 @@
 <div class="navigation-bar step-nav">
 
   <%= active_link_to edit_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
-    <div class="icon">1.</div>
+    <%= step_icon(@crowdfunding, 1) %>
     <div class="txt">Projekt<br>Setup</div>
   <% end %>
 
   <div class="step-line"></div>
 
   <%= active_link_to description_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
-    <div class="icon">2.</div>
+    <%= step_icon(@crowdfunding, 2) %>
     <div class="txt">Projekt<br>Beschreibung</div>
   <% end %>
 
   <div class="step-line"></div>
 
   <%= active_link_to finance_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
-    <div class="icon">3.</div>
+    <%= step_icon(@crowdfunding, 3) %>
     <div class="txt">Projekt<br>Finanzierung</div>
   <% end %>
 
   <div class="step-line"></div>
 
   <%= active_link_to rewards_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
-    <div class="icon">4.</div>
+    <%= step_icon(@crowdfunding, 4) %>
     <div class="txt">Projekt<br>Dankeschöns</div>
   <% end %>
 
   <div class="step-line"></div>
 
   <%= active_link_to media_crowdfunding_path(@crowdfunding), class: "iconfilter" do %>
-    <div class="icon">5.</div>
+    <%= step_icon(@crowdfunding, 5) %>
     <div class="txt">Projekt<br>Medien</div>
   <% end %>
 
@@ -50,4 +50,8 @@
     <div class="txt">Projekt<br>Freigabe</div>
   <% end %>
 
+</div>
+
+<div id="cf-preview" class="jBoxHidden">
+  <iframe id="cfpreview" width="100%" height="100%" src="" frameborder="0" data-url="<%= crowdfunding_url(@crowdfunding, :preview => true) %>"></iframe>
 </div>

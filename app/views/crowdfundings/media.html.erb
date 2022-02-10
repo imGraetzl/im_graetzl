@@ -5,14 +5,15 @@
   <%= render 'crowdfundings/form/navigation' %>
   <%= render 'crowdfundings/form/media_video' %>
 
-  <%= form_for(@crowdfunding) do |f| %>
+  <%= form_for(@crowdfunding, html: { class: 'crowdfunding_form' }) do |f| %>
   <%= form_errors_for @crowdfunding %>
 
   <%= render 'crowdfundings/form/media', f: f %>
 
   <div class="input-button">
-    <%= f.button 'Zwischenspeichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary' %>
-    <%= f.button 'Speichern & Weiter zur Projekt Freigabe', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: finish_crowdfunding_path(@crowdfunding) %>
+    <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
+    <%= link_to 'Vorschau', 'javascript:', class: 'btn-secondary -mint save-and-preview' %>
+    <%= f.button 'Weiter zur Projekt Freigabe', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: finish_crowdfunding_path(@crowdfunding) %>
   </div>
 
   <% end %>

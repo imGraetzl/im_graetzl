@@ -27,4 +27,51 @@ module CrowdfundingsHelper
     ]
   end
 
+  def step_icon(object, step)
+    if step_finished?(object, step)
+      icon_tag("check")
+    else
+      content_tag(:div, "#{step}.", class: 'icon')
+    end
+  end
+
+  def step_finished?(object, step)
+    case step
+    when 1
+      ![
+        object.title,
+        object.slogan,
+        object.crowd_category_ids,
+        object.graetzl_id.to_s
+      ].any?{ |f| f.nil? || f.empty? }
+    when 2
+      ![
+        object.description,
+        object.support_description,
+        object.about_description
+      ].any?{ |f| f.nil? || f.empty? }
+    when 3
+      ![
+        object.startdate.to_s,
+        object.enddate.to_s,
+        object.funding_1_amount.to_s,
+        object.funding_1_description
+      ].any?{ |f| f.nil? || f.empty? }
+    when 4
+      ![
+        object.crowd_rewards.first&.title,
+        object.crowd_rewards.first&.amount.to_s,
+        object.crowd_rewards.first&.limit.to_s,
+        object.crowd_rewards.first&.description,
+        object.crowd_rewards.first&.delivery_weeks.to_s
+      ].any?{ |f| f.nil? || f.empty? }
+    when 5
+      ![
+        object.cover_photo_data
+      ].any?{ |f| f.nil? || f.empty? }
+    else
+      false
+    end
+  end
+
 end
