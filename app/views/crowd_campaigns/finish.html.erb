@@ -1,0 +1,27 @@
+<% title('Crowdfunding Kampagne bearbeiten') %>
+
+<section class="crowdfunding-form">
+
+  <%= render 'crowd_campaigns/form/navigation' %>
+  <%= render 'crowd_campaigns/form/finish_video' %>
+
+  <%= form_for(@crowd_campaign, html: { class: 'crowdfunding_form' }) do |f| %>
+  <%= form_errors_for @crowd_campaign %>
+
+  <%= render 'crowd_campaigns/form/finish', f: f %>
+
+  <div class="input-button">
+    <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
+    <%= link_to 'Vorschau', 'javascript:', class: 'btn-secondary -mint save-and-preview' %>
+    <% if f.object.pending? %>
+      <%= f.button 'Dein Projekt wird gerade geprüft ...', disabled: true, data: {disable_with: 'speichert...' }, class: 'btn-primary btn-next' %>
+    <% elsif f.object.approved? %>
+      <%= f.button 'Dein Projekt wurde freigeschalten', disabled: true, data: {disable_with: 'speichert...' }, class: 'btn-primary btn-next' %>
+    <% else %>
+      <%= f.button 'Projekt zur Freigabe einreichen', data: {confirm: 'Klicke auf "OK" um dein Projekt jetzt zur Freigabe einzureichen.',  disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: "status", value: 'pending' %>
+    <% end %>
+  </div>
+
+  <% end %>
+
+</section>

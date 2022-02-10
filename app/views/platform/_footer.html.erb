@@ -33,6 +33,12 @@
         <div>
           Der Prototyp von “<%= link_to 'WeLocally', welocally_platform_url %>” wurde im Rahmen der FFG-Förderung “Impact Innovation” entwickelt.
         </div>
+        <a href="https://sena.or.at" target="_blank" rel="noopener">
+          <picture>
+            <source srcset="<%= image_path('logo-sena.webp') %>" type="image/webp" />
+            <%= image_tag 'logo-sena.png', loading: 'lazy', alt: 'Social Entrepreneurship Network Austria', width:181, height:65 %>
+          </picture>
+        </a>
       </div>
       <div class="col footer-logos logo-ke">
         <a href="https://www.klimafonds.gv.at" target="_blank">

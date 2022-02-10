@@ -1,0 +1,6 @@
+<% @crowd_campaigns.each do |crowd_campaign| %>
+  <%= link_to crowd_campaign, class: 'nav-menu-item' do %>
+    <%= image_tag cover_url(crowd_campaign, :thumb), class: 'img-square' %>
+    <span><%= crowd_campaign.title %></span>
+  <% end %>
+<% end %>

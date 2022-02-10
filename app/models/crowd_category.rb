@@ -2,7 +2,7 @@ class CrowdCategory < ApplicationRecord
   extend FriendlyId
   friendly_id :title
 
-  has_and_belongs_to_many :crowdfundings
+  has_and_belongs_to_many :crowd_campaigns
 
   include CategoryImageUploader::Attachment(:main_photo)
   validates_presence_of :main_photo

@@ -1,4 +1,4 @@
-class Crowdfunding < ApplicationRecord
+class CrowdCampaign < ApplicationRecord
   include Trackable
   include Address
 
@@ -42,9 +42,4 @@ class Crowdfunding < ApplicationRecord
 
   private
 
-  def has_one_category_at_least
-    if crowdfunding_categories.empty?
-      errors.add(:crowdfunding_categories, "braucht mindestens eine Kategorie")
-    end
-  end
 end

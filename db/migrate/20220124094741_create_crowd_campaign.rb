@@ -1,6 +1,6 @@
-class CreateCrowdfunding < ActiveRecord::Migration[6.1]
+class CreateCrowdCampaign < ActiveRecord::Migration[6.1]
   def change
-    create_table :crowdfundings do |t|
+    create_table :crowd_campaigns do |t|
       t.integer "status", default: 0
       t.string "slug"
       t.string "title"
@@ -42,7 +42,7 @@ class CreateCrowdfunding < ActiveRecord::Migration[6.1]
 
       t.timestamps
 
-      t.index ["slug"], name: "index_crowdfundings_on_slug"
+      t.index ["slug"], name: "index_crowd_campaigns_on_slug"
       t.references :user, foreign_key: { on_delete: :cascade }, index: true
       t.references :graetzl, foreign_key: { on_delete: :nullify }, index: true
       t.references :location, foreign_key: { on_delete: :nullify }, index: true
@@ -71,7 +71,7 @@ class CreateCrowdfunding < ActiveRecord::Migration[6.1]
       t.boolean :delivery_address_required
       t.string :question
       t.jsonb :avatar_data
-      t.references :crowdfunding, index: true, foreign_key: { on_delete: :cascade }
+      t.references :crowd_campaign, index: true, foreign_key: { on_delete: :cascade }
       t.timestamps
     end
 
@@ -83,16 +83,16 @@ class CreateCrowdfunding < ActiveRecord::Migration[6.1]
       t.date :startdate
       t.date :enddate
       t.string :question
-      t.references :crowdfunding, index: true, foreign_key: { on_delete: :cascade }
+      t.references :crowd_campaign, index: true, foreign_key: { on_delete: :cascade }
       t.timestamps
     end
 
-    create_join_table :crowd_categories, :crowdfundings do |t|
-      t.index :crowdfunding_id
+    create_join_table :crowd_categories, :crowd_campaigns do |t|
+      t.index :crowd_campaign_id
       t.index :crowd_category_id
     end
 
-    add_index :crowdfundings, :region_id
+    add_index :crowd_campaigns, :region_id
 
   end
 end

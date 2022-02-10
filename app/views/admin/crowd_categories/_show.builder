@@ -11,11 +11,11 @@ context.instance_eval do
       end
     end
     column span: 2 do
-      panel 'Crowdfundings' do
-        table_for crowd_category.crowdfundings do
+      panel 'Crowdfunding Kampagnen' do
+        table_for crowd_category.crowd_campaigns do
           column :id
           column :title
-          column(''){|m| link_to 'Anzeigen', admin_crowdfunding_path(m) }
+          column(''){|m| link_to 'Anzeigen', admin_crowd_campaign_path(m) }
         end
       end
     end

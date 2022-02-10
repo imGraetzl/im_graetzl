@@ -7,10 +7,10 @@
     <h1>Starten wir deine <span>Crowdfunding</span> Kampagne</h1>
   </div>
 
-  <%= render 'crowdfundings/form/basic_video' %>
+  <%= render 'crowd_campaigns/form/basic_video' %>
 
-  <%= form_for(@crowdfunding) do |f| %>
-  <%= form_errors_for @crowdfunding %>
+  <%= form_for(@crowd_campaign) do |f| %>
+  <%= form_errors_for @crowd_campaign %>
   <%= f.hidden_field :contact_name %>
   <%= f.hidden_field :contact_company %>
   <%= f.hidden_field :contact_address %>
@@ -19,7 +19,7 @@
   <%= f.hidden_field :contact_email %>
   <%= f.hidden_field :contact_website %>
 
-  <%= render 'crowdfundings/form/basic', f: f %>
+  <%= render 'crowd_campaigns/form/basic', f: f %>
 
   <div class="input-button">
     <%= f.button 'Projekt anlegen', data: { disable_with: 'speichert...' }, class: 'btn-primary' %>

@@ -1,4 +1,4 @@
-APP.controllers_loggedin.crowdfundings = (function() {
+APP.controllers_loggedin.crowd_campaigns = (function() {
 
     function init() {
         if ($("section.crowdfunding-form").exists()) initCrowdfundingForm();
@@ -13,7 +13,7 @@ APP.controllers_loggedin.crowdfundings = (function() {
 
       $("textarea").autoResize();
 
-      $('input[name="crowdfunding[benefit]"]').on("change", function() {
+      $('input[name="crowd_campaign[benefit]"]').on("change", function() {
         if ($(this).is(':checked')) {
           $(".benefit-fields").show();
         }
@@ -35,7 +35,7 @@ APP.controllers_loggedin.crowdfundings = (function() {
             maxdate.setMonth(maxdate.getMonth() + 2); // Maximum 2 Months after Startdate
             $('.enddate').pickadate('picker').set('min', mindate);
             $('.enddate').pickadate('picker').set('max', maxdate);
-            if ($('input[name="crowdfunding[enddate]"]').val() == '') {
+            if ($('input[name="crowd_campaign[enddate]"]').val() == '') {
               var enddate = new Date(context.select);
               enddate.setMonth(enddate.getMonth() + 1);
               $('.enddate').pickadate('picker').set('select', enddate); // Default 1 Monath after Startdate
@@ -63,6 +63,42 @@ APP.controllers_loggedin.crowdfundings = (function() {
       $(".crowd-categories input").on("change", function() {
         APP.components.formHelper.maxCategories($(this).parents(".cb-columns"), 3); // init on Change
       }).trigger('change');
+
+      // Preview Project  - Save Form and Open Preview Modal
+
+      $(".save-and-preview").on("click", function() {
+        var form = $(".crowdfunding_form");
+        var submit_url = form.attr('action');
+        var submit_params = form.serialize();
+
+        if (typeof formXhr !== 'undefined') { formXhr.abort(); }
+
+        formXhr = $.ajax({
+            type: "POST",
+            url: submit_url,
+            data: submit_params,
+            success: function(){
+              previewModal.open();
+            }
+        });
+      });
+
+      var previewModal = new jBox('Modal', {
+        addClass:'jBox jBoxCrowdPreview',
+        content: $('#cf-preview'),
+        closeOnEsc:true,
+        closeOnClick:true,
+        blockScroll:true,
+        animation:{open: 'zoomIn', close: 'zoomOut'},
+        responsiveWidth:true,
+        responsiveHeight:true,
+        onOpen: function() {
+          var iframe = document.getElementById("cfpreview");
+          iframe.src = $("#cfpreview").data('url');
+          iframe.style.width = $(window).width() - 100 + 'px';
+          iframe.style.height = $(window).height() - 125 + 'px';
+        },
+      });
 
     }
 

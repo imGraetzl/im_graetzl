@@ -189,56 +189,7 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
     t.index ["coop_demand_category_id"], name: "index_coop_suggested_tags_on_coop_demand_category_id"
   end
 
-  create_table "crowd_categories", force: :cascade do |t|
-    t.string "title"
-    t.string "css_ico_class"
-    t.string "main_photo_id"
-    t.string "main_photo_content_type"
-    t.jsonb "main_photo_data"
-    t.string "slug"
-    t.integer "position", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["slug"], name: "index_crowd_categories_on_slug"
-  end
-
-  create_table "crowd_categories_crowdfundings", id: false, force: :cascade do |t|
-    t.bigint "crowd_category_id", null: false
-    t.bigint "crowdfunding_id", null: false
-    t.index ["crowd_category_id"], name: "index_crowd_categories_crowdfundings_on_crowd_category_id"
-    t.index ["crowdfunding_id"], name: "index_crowd_categories_crowdfundings_on_crowdfunding_id"
-  end
-
-  create_table "crowd_donations", force: :cascade do |t|
-    t.integer "donation_type", default: 0
-    t.integer "limit"
-    t.string "title"
-    t.text "description"
-    t.date "startdate"
-    t.date "enddate"
-    t.string "question"
-    t.bigint "crowdfunding_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["crowdfunding_id"], name: "index_crowd_donations_on_crowdfunding_id"
-  end
-
-  create_table "crowd_rewards", force: :cascade do |t|
-    t.decimal "amount", precision: 10, scale: 2
-    t.integer "limit"
-    t.string "title"
-    t.text "description"
-    t.integer "delivery_weeks"
-    t.boolean "delivery_address_required"
-    t.string "question"
-    t.jsonb "avatar_data"
-    t.bigint "crowdfunding_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["crowdfunding_id"], name: "index_crowd_rewards_on_crowdfunding_id"
-  end
-
-  create_table "crowdfundings", force: :cascade do |t|
+  create_table "crowd_campaigns", force: :cascade do |t|
     t.integer "status", default: 0
     t.string "slug"
     t.string "title"
@@ -280,12 +231,61 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
     t.bigint "graetzl_id"
     t.bigint "location_id"
     t.bigint "room_offer_id"
-    t.index ["graetzl_id"], name: "index_crowdfundings_on_graetzl_id"
-    t.index ["location_id"], name: "index_crowdfundings_on_location_id"
-    t.index ["region_id"], name: "index_crowdfundings_on_region_id"
-    t.index ["room_offer_id"], name: "index_crowdfundings_on_room_offer_id"
-    t.index ["slug"], name: "index_crowdfundings_on_slug"
-    t.index ["user_id"], name: "index_crowdfundings_on_user_id"
+    t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
+    t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
+    t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
+    t.index ["room_offer_id"], name: "index_crowd_campaigns_on_room_offer_id"
+    t.index ["slug"], name: "index_crowd_campaigns_on_slug"
+    t.index ["user_id"], name: "index_crowd_campaigns_on_user_id"
+  end
+
+  create_table "crowd_campaigns_categories", id: false, force: :cascade do |t|
+    t.bigint "crowd_category_id", null: false
+    t.bigint "crowd_campaign_id", null: false
+    t.index ["crowd_campaign_id"], name: "index_crowd_campaigns_categories_on_crowd_campaign_id"
+    t.index ["crowd_category_id"], name: "index_crowd_campaigns_categories_on_crowd_category_id"
+  end
+
+  create_table "crowd_categories", force: :cascade do |t|
+    t.string "title"
+    t.string "css_ico_class"
+    t.string "main_photo_id"
+    t.string "main_photo_content_type"
+    t.jsonb "main_photo_data"
+    t.string "slug"
+    t.integer "position", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_crowd_categories_on_slug"
+  end
+
+  create_table "crowd_donations", force: :cascade do |t|
+    t.integer "donation_type", default: 0
+    t.integer "limit"
+    t.string "title"
+    t.text "description"
+    t.date "startdate"
+    t.date "enddate"
+    t.string "question"
+    t.bigint "crowd_campaign_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["crowd_campaign_id"], name: "index_crowd_donations_on_crowd_campaign_id"
+  end
+
+  create_table "crowd_rewards", force: :cascade do |t|
+    t.decimal "amount", precision: 10, scale: 2
+    t.integer "limit"
+    t.string "title"
+    t.text "description"
+    t.integer "delivery_weeks"
+    t.boolean "delivery_address_required"
+    t.string "question"
+    t.jsonb "avatar_data"
+    t.bigint "crowd_campaign_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["crowd_campaign_id"], name: "index_crowd_rewards_on_crowd_campaign_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -1336,12 +1336,12 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
   add_foreign_key "coop_demands", "locations", on_delete: :nullify
   add_foreign_key "coop_demands", "users", on_delete: :cascade
   add_foreign_key "coop_suggested_tags", "coop_demand_categories", on_delete: :nullify
-  add_foreign_key "crowd_donations", "crowdfundings", on_delete: :cascade
-  add_foreign_key "crowd_rewards", "crowdfundings", on_delete: :cascade
-  add_foreign_key "crowdfundings", "graetzls", on_delete: :nullify
-  add_foreign_key "crowdfundings", "locations", on_delete: :nullify
-  add_foreign_key "crowdfundings", "room_offers", on_delete: :nullify
-  add_foreign_key "crowdfundings", "users", on_delete: :cascade
+  add_foreign_key "crowd_campaigns", "graetzls", on_delete: :nullify
+  add_foreign_key "crowd_campaigns", "locations", on_delete: :nullify
+  add_foreign_key "crowd_campaigns", "room_offers", on_delete: :nullify
+  add_foreign_key "crowd_campaigns", "users", on_delete: :cascade
+  add_foreign_key "crowd_donations", "crowd_campaigns", on_delete: :cascade
+  add_foreign_key "crowd_rewards", "crowd_campaigns", on_delete: :cascade
   add_foreign_key "discussion_categories", "groups", on_delete: :cascade
   add_foreign_key "discussion_followings", "discussions", on_delete: :cascade
   add_foreign_key "discussion_followings", "users", on_delete: :cascade
