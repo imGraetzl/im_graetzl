@@ -109,6 +109,11 @@ section.crowdfunding-form {
   */
 
 }
-.jBoxCrowdPreview .jBox-content {
-  padding: 5px 5px;
+.jBoxCrowdPreview {
+  //max-width:1000px;
+  //width:100%;
+  //min-width:100%;
+  .jBox-content {
+    padding: 5px 5px;
+  }
 }

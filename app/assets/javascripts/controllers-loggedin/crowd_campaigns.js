@@ -65,7 +65,6 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       }).trigger('change');
 
       // Preview Project  - Save Form and Open Preview Modal
-
       $(".save-and-preview").on("click", function() {
         var form = $(".crowdfunding_form");
         var submit_url = form.attr('action');
@@ -83,6 +82,12 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         });
       });
 
+      // PreviewModal and ModalPreviewSize
+      var iframewidth = $(window).width() + 'px';
+      var iframeheight = $(window).height() - 100 + 'px';
+      if($(window).width() > 1050) {
+        var iframewidth = '1050px';
+      }
       var previewModal = new jBox('Modal', {
         addClass:'jBox jBoxCrowdPreview',
         content: $('#cf-preview'),
@@ -90,13 +95,11 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         closeOnClick:true,
         blockScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
-        responsiveWidth:true,
-        responsiveHeight:true,
         onOpen: function() {
           var iframe = document.getElementById("cfpreview");
           iframe.src = $("#cfpreview").data('url');
-          iframe.style.width = $(window).width() - 100 + 'px';
-          iframe.style.height = $(window).height() - 125 + 'px';
+          iframe.style.width = iframewidth;
+          iframe.style.height = iframeheight;
         },
       });
 
