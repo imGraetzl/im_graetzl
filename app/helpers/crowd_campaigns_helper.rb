@@ -46,14 +46,14 @@ module CrowdCampaignsHelper
       ].any?{ |f| f.nil? || f.empty? }
     when 2
       ![
+        object.startdate.to_s,
+        object.enddate.to_s,
         object.description,
         object.support_description,
         object.about_description
       ].any?{ |f| f.nil? || f.empty? }
     when 3
       ![
-        object.startdate.to_s,
-        object.enddate.to_s,
         object.funding_1_amount.to_s,
         object.funding_1_description
       ].any?{ |f| f.nil? || f.empty? }

@@ -1,42 +1,5 @@
 <div class="form-block">
 
-  <div class="hl-subtext">
-    <h2>Definiere die <span>Laufzeit</span> deiner Kampagne</h2>
-    <p>Die Laufzeit sollte zwischen 2 Wochen und 2 Monaten betragen / Ideal wäre ein Monat.</p>
-  </div>
-
-  <div class="form-columns">
-
-    <div class="input-field">
-      <%= f.label :startdate do %>
-        <%= icon_tag "calendar-2" %>
-        <span>Kampagnenstart</span>
-      <% end %>
-      <%= f.text_field :startdate,
-                       value: (I18n.localize(f.object.startdate, format:'%a, %d. %B %Y') if f.object.startdate),
-                       data: { value: (I18n.localize(f.object.startdate, format:'%Y-%m-%d') if f.object.startdate) },
-                       class: 'startdate',
-                       placeholder: 'wählen' %>
-    </div>
-
-    <div class="input-field">
-      <%= f.label :enddate do %>
-        <%= icon_tag "calendar-2" %>
-        <span>Kampagnenende</span>
-      <% end %>
-      <%= f.text_field :enddate,
-                       value: (I18n.localize(f.object.enddate, format:'%a, %d. %B %Y') if f.object.enddate),
-                       data: { value: (I18n.localize(f.object.enddate, format:'%Y-%m-%d') if f.object.enddate) },
-                       class: 'enddate',
-                       placeholder: 'wählen' %>
-    </div>
-
-  </div>
-
-</div>
-
-<div class="form-block">
-
   <p class="txt"><span>Wieviel benötigst du mindestens</span> um dein Vorhaben umzusetzen?</p>
 
   <div class="input-field">
@@ -75,6 +38,36 @@
     <span>Wofür benötigt?</span>
     <% end %>
     <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...' %>
+  </div>
+
+</div>
+
+<div class="form-block donations">
+
+  <p class="txt">Benötigst du auch <span>Materialspenden</span>?</p>
+
+  <div class="crowd-donations-assistance">
+    <%= f.fields_for :crowd_donations, f.object.crowd_donations.material do |field_form| %>
+      <%= render 'crowd_campaigns/form/crowd_donation_material_fields', f: field_form if !f.object.crowd_donations.material.empty? %>
+    <% end %>
+    <div>
+      <%= link_to_add_association 'Materialspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_material_fields', class: 'btn-primary -mint -small' %>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-block donations">
+
+  <p class="txt">Benötigst du auch <span>Zeitspenden</span> bzw. <span>helfende Hände</span>?</p>
+
+  <div class="crowd-donations-assistance">
+    <%= f.fields_for :crowd_donations, f.object.crowd_donations.assistance do |field_form| %>
+      <%= render 'crowd_campaigns/form/crowd_donation_assistance_fields', f: field_form if !f.object.crowd_donations.assistance.empty? %>
+    <% end %>
+    <div>
+      <%= link_to_add_association 'Zeitspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_assistance_fields', class: 'btn-primary -mint -small' %>
+    </div>
   </div>
 
 </div>
