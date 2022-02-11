@@ -8,9 +8,11 @@
   )
 %>
 
-<h3><%= @crowd_campaign.title %></h3>
-<p><%= @crowd_campaign.slogan %></p>
+<section class="crowd_campaign" data-preview="<%= @preview %>">
+  <h3><%= @crowd_campaign.title %></h3>
+  <p><%= @crowd_campaign.slogan %></p>
 
-<% if current_user == @crowd_campaign.user && !@preview %>
-<%= link_to 'Bearbeiten', edit_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -mint -small'  %>
-<% end %>
+  <% if current_user == @crowd_campaign.user && !@preview %>
+  <%= link_to 'Bearbeiten', edit_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -mint -small'  %>
+  <% end %>
+</section>

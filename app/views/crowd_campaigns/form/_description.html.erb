@@ -1,5 +1,42 @@
 <div class="form-block">
 
+  <div class="hl-subtext">
+    <h2>Definiere die zunächst die <span>Laufzeit</span> deiner Kampagne</h2>
+    <p>Die Laufzeit sollte zwischen 2 Wochen und 2 Monaten betragen / Ideal wäre ein Monat.</p>
+  </div>
+
+  <div class="form-columns">
+
+    <div class="input-field">
+      <%= f.label :startdate do %>
+        <%= icon_tag "calendar-2" %>
+        <span>Kampagnenstart</span>
+      <% end %>
+      <%= f.text_field :startdate,
+                       value: (I18n.localize(f.object.startdate, format:'%a, %d. %B %Y') if f.object.startdate),
+                       data: { value: (I18n.localize(f.object.startdate, format:'%Y-%m-%d') if f.object.startdate) },
+                       class: 'startdate',
+                       placeholder: 'wählen' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :enddate do %>
+        <%= icon_tag "calendar-2" %>
+        <span>Kampagnenende</span>
+      <% end %>
+      <%= f.text_field :enddate,
+                       value: (I18n.localize(f.object.enddate, format:'%a, %d. %B %Y') if f.object.enddate),
+                       data: { value: (I18n.localize(f.object.enddate, format:'%Y-%m-%d') if f.object.enddate) },
+                       class: 'enddate',
+                       placeholder: 'wählen' %>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="form-block">
+
   <p class="txt">Jetzt geht es um <span>dein Projekt</span></p>
 
   <div class="input-textarea">
