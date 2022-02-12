@@ -94,6 +94,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         closeOnEsc:true,
         closeOnClick:true,
         blockScroll:true,
+        isolateScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
         onOpen: function() {
           var iframe = document.getElementById("cfpreview");
