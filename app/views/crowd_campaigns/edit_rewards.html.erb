@@ -3,17 +3,18 @@
 <section class="crowdfunding-form">
 
   <%= render 'crowd_campaigns/form/navigation' %>
-  <%= render 'crowd_campaigns/form/description_video' %>
+  <%= render 'crowd_campaigns/form/rewards_video' %>
 
   <%= form_for(@crowd_campaign, html: { class: 'crowdfunding_form' }) do |f| %>
   <%= form_errors_for @crowd_campaign %>
+  <%= f.hidden_field 'placeholder', value: 'empty' %>
 
-  <%= render 'crowd_campaigns/form/description', f: f %>
+  <%= render 'crowd_campaigns/form/rewards', f: f %>
 
   <div class="input-button">
     <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
     <%= link_to 'Vorschau', 'javascript:', class: 'btn-secondary -mint save-and-preview' %>
-    <%= f.button 'Weiter zur Projekt Finanzierung', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: finance_crowd_campaign_path(@crowd_campaign) %>
+    <%= f.button 'Speichern & Weiter zu den Projekt Medien', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: edit_media_crowd_campaign_path(@crowd_campaign) %>
   </div>
 
   <% end %>

@@ -1,0 +1,24 @@
+<div class="paperCard -rewardBox -cord1RT">
+  <div class="wrp">
+    <div class="reward-img trigger">
+      <%= icon_tag crowd_donation.material? ? "label-tag" : "time-clock" %>
+    </div>
+    <div class="facts">
+      <strong class="trigger"><%= crowd_donation.limit %> <%= crowd_donation.material? ? "Stück" : "Personen" %></strong>
+      <h4 class="trigger"><%= crowd_donation.title %></h4>
+      <div class="content">
+        <div class="txt trigger">
+          <%= crowd_donation.description %><br><br>
+          <small>Benötigt im Zeitraum zwischen:</small>
+          <p><em>
+            Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d. %b %Y') %><br>
+            Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d. %b %Y') %>
+          </em></p>
+        </div>
+        <%= link_to 'Auswählen', 'javascript:', class: 'btn-primary -mint -shadow' %>
+      </div>
+      <small class="trigger">2 <%= crowd_donation.limit ? "von #{crowd_donation.limit}" : "" %> gebucht</small>
+    </div>
+  </div>
+  <div class="card"></div>
+</div>

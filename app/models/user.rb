@@ -38,6 +38,7 @@ class User < ApplicationRecord
   has_many :owned_tool_rentals, through: :tool_offers, source: :tool_rentals
   has_many :tool_rentals
   has_many :crowd_campaigns
+  has_many :crowd_pledges
 
   has_and_belongs_to_many :business_interests
   belongs_to :location_category, optional: true

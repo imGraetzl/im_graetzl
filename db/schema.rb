@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_24_094741) do
+ActiveRecord::Schema.define(version: 2022_02_17_112453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,6 +259,22 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
     t.index ["slug"], name: "index_crowd_categories_on_slug"
   end
 
+  create_table "crowd_donation_pledges", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.string "contact_name"
+    t.string "region_id"
+    t.text "anwser"
+    t.bigint "crowd_campaign_id"
+    t.bigint "crowd_donation_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["crowd_campaign_id"], name: "index_crowd_donation_pledges_on_crowd_campaign_id"
+    t.index ["crowd_donation_id"], name: "index_crowd_donation_pledges_on_crowd_donation_id"
+    t.index ["region_id"], name: "index_crowd_donation_pledges_on_region_id"
+    t.index ["user_id"], name: "index_crowd_donation_pledges_on_user_id"
+  end
+
   create_table "crowd_donations", force: :cascade do |t|
     t.integer "donation_type", default: 0
     t.integer "limit"
@@ -271,6 +287,26 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["crowd_campaign_id"], name: "index_crowd_donations_on_crowd_campaign_id"
+  end
+
+  create_table "crowd_pledges", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "contact_name"
+    t.string "address_street"
+    t.string "address_zip"
+    t.string "address_city"
+    t.string "region_id"
+    t.text "anwser"
+    t.bigint "crowd_campaign_id"
+    t.bigint "crowd_reward_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
+    t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
+    t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
+    t.index ["user_id"], name: "index_crowd_pledges_on_user_id"
   end
 
   create_table "crowd_rewards", force: :cascade do |t|
@@ -1340,7 +1376,13 @@ ActiveRecord::Schema.define(version: 2022_01_24_094741) do
   add_foreign_key "crowd_campaigns", "locations", on_delete: :nullify
   add_foreign_key "crowd_campaigns", "room_offers", on_delete: :nullify
   add_foreign_key "crowd_campaigns", "users", on_delete: :cascade
+  add_foreign_key "crowd_donation_pledges", "crowd_campaigns", on_delete: :nullify
+  add_foreign_key "crowd_donation_pledges", "crowd_donations", on_delete: :nullify
+  add_foreign_key "crowd_donation_pledges", "users", on_delete: :nullify
   add_foreign_key "crowd_donations", "crowd_campaigns", on_delete: :cascade
+  add_foreign_key "crowd_pledges", "crowd_campaigns", on_delete: :nullify
+  add_foreign_key "crowd_pledges", "crowd_rewards", on_delete: :nullify
+  add_foreign_key "crowd_pledges", "users", on_delete: :nullify
   add_foreign_key "crowd_rewards", "crowd_campaigns", on_delete: :cascade
   add_foreign_key "discussion_categories", "groups", on_delete: :cascade
   add_foreign_key "discussion_followings", "discussions", on_delete: :cascade

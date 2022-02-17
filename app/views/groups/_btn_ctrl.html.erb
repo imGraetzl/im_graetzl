@@ -1,7 +1,7 @@
 <div class="btn-ctrl" id="groups-btn-ctrl">
 
   <% if @group.postable_by?(current_user) %>
-    <%= link_to 'javascript:', class: 'newtopic', id: 'createTopic' do %>
+    <%= link_to 'javascript:', class: 'btn-round-icon', id: 'createTopic' do %>
       <%= icon_tag "pencil" %>
     <% end %>
     <div class="jBoxHidden jBoxDropdown" id="jBoxCreateTopic">

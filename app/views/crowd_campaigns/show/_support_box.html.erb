@@ -1,0 +1,25 @@
+<!-- SUPPORT BOX -->
+<div class="paperCard -mint -cord1RT -supportBox">
+  <div class="wrp">
+    <div class="txt">
+      <h2 class="hl-main"><span>Freie</span> Unterstützung</h2>
+
+      <p>
+        Du kannst dieses Projekt mit einem Betrag deiner Wahl auch ohne Belohnung unterstützen. Einfach, weil es dich anspricht.
+      </p>
+
+      <%= form_for(@crowd_campaign, html: { class: 'campaign_support_form' }) do |f| %>
+        <div class="input-field">
+          <%= label_tag :amount do %>
+            <%= icon_tag "currency-euro" %>
+          <% end %>
+          <%= text_field_tag :amount, nil, class: 'amount', placeholder: 'Betrag wählen' %>
+        </div>
+        <%= f.button 'Auswählen', class: 'btn-primary -mint' %>
+      <% end %>
+
+    </div>
+  </div>
+  <div class="card"></div>
+</div>
+<!-- /SUPPORT BOX -->

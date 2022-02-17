@@ -1,0 +1,27 @@
+  <div class="supporter">
+    <%= avatar_image User.first, size: :thumb, class: 'img-round' %>
+    <div>
+      <span><%= User.first.full_name %></span><br>
+      <small>vor 12 Stunden</small>
+    </div>
+  </div>
+  <div class="supporter">
+    <%= avatar_image User.last, size: :thumb, class: 'img-round' %>
+    <div>
+      <span><%= User.last.full_name %></span><br>
+      <small>vor 2 Tagen</small>
+    </div>
+  </div>
+  <div class="supporter">
+    <%= avatar_image User.last, size: :thumb, class: 'img-round' %>
+    <div>
+      <span><%= User.last.full_name %></span><br>
+      <small>vor 2 Tagen</small>
+    </div>
+  </div>
+
+  <% if current_user == @crowd_campaign.user && !@preview %>
+    <%= link_to edit_crowd_campaign_path(@crowd_campaign), class: 'btn-round-icon', id: 'editCampaign' do %>
+      <%= icon_tag "pencil" %>
+    <% end %>
+  <% end %>

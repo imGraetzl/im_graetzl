@@ -140,31 +140,9 @@ section.group-form-page {
     @include respond-to(">=medium") {
       float:right;
     }
-
-    .newtopic {
-      @extend .bigicontext-element;
-      flex: 0 0 auto;
-      height: 50px;
-      min-width: 50px;
-      background-size: 50px 50px;
+    .btn-round-icon {
       margin-right:10px;
-      .icon {
-        width: 30px;
-        height: 30px;
-        margin-left: 10px;
-      }
-      color: $color-ambient-rosa;
-      background-image: url(image_path('svg/kringel-grey-mint.svg'));
-      &:hover {
-        //color: $color-ambient-mint-dark;
-        background-image: url(image_path('svg/kringel-grey-rosa.svg'));
-      }
-      &.active {
-        //color: $color-ambient-mint-dark;
-        background-image: url(image_path('svg/kringel-grey-rosa.svg'));
-      }
     }
-
   }
 
   .request-message-modal {

@@ -1,0 +1,17 @@
+<div class="date-container">
+
+  <div class="hl-subtext">
+    <h1>Deine Unterstützung</h1>
+    <p>
+      Wähle deinen Betrag
+    </p>
+  </div>
+
+  <%= form_for @crowd_pledge do |f| %>
+    <%= f.hidden_field :crowd_reward_id %>
+    <%= f.hidden_field :crowd_campaign_id %>
+
+    <%= submit_tag "Weiter", class: 'btn-primary' %>
+  <% end %>
+
+</div>

@@ -19,6 +19,29 @@ module CrowdCampaignsHelper
     ]
   end
 
+  def delivery_week_names(value)
+    case value
+    when 1
+      "innerhalb 1 Woche"
+    when 2
+      "innerhalb 2 Wochen"
+    when 3
+      "innerhalb 3 Wochen"
+    when 4
+      "innerhalb 1 Monat"
+    when 12
+      "innerhalb 3 Monate"
+    when 24
+      "innerhalb 6 Monate"
+    when 36
+      "innerhalb 9 Monate"
+    when 48
+      "innerhalb 1 Jahr"
+    else
+      false
+    end
+  end
+
   def billable_values
     [
       ["Nein - Ich stelle keine Rechnungen aus", 'no_bill'],

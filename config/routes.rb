@@ -128,11 +128,17 @@ Rails.application.routes.draw do
   end
 
   resources :crowd_campaigns, path: 'crowdfunding' do
-    get 'description', on: :member
-    get 'finance', on: :member
-    get 'rewards', on: :member
-    get 'media', on: :member
-    get 'finish', on: :member
+    get 'edit_description', on: :member
+    get 'edit_finance', on: :member
+    get 'edit_rewards', on: :member
+    get 'edit_media', on: :member
+    get 'edit_finish', on: :member
+  end
+
+  resources :crowd_pledges, only: [:new, :create] do
+    get 'address', on: :member
+    get 'choose_payment', on: :member
+    get 'summary', on: :member
   end
 
   resources :rooms, only: [:index]

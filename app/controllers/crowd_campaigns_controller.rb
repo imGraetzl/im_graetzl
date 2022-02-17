@@ -27,7 +27,7 @@ class CrowdCampaignsController < ApplicationController
     if @crowd_campaign.save
       #CrowdCampaignMailer.crowd_campaign_published(@crowd_campaign).deliver_later
       #ActionProcessor.track(@crowd_campaign, :create)
-      redirect_to description_crowd_campaign_path(@crowd_campaign)
+      redirect_to edit_description_crowd_campaign_path(@crowd_campaign)
     else
       render :new
     end
@@ -37,23 +37,23 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
-  def description
+  def edit_description
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
-  def finance
+  def edit_finance
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
-  def rewards
+  def edit_rewards
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
-  def media
+  def edit_media
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
-  def finish
+  def edit_finish
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
   end
 
