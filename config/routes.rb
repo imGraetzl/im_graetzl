@@ -136,8 +136,10 @@ Rails.application.routes.draw do
   end
 
   resources :crowd_pledges, only: [:new, :create] do
-    get 'address', on: :member
     get 'choose_payment', on: :member
+    post 'initiate_card_payment', on: :member
+    post 'initiate_eps_payment', on: :member
+    get 'complete_eps_payment', on: :member
     get 'summary', on: :member
   end
 

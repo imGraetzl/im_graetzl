@@ -3,23 +3,17 @@ class CrowdPledgesController < ApplicationController
 
   def new
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    render 'login' and return if !user_signed_in?
-  end
-
-  def address
-    if params[:id].present?
-      @crowd_pledge = current_user.crowd_pledges.find(params[:id])
-      @crowd_pledge.update(crowd_pledge_params)
+    if user_signed_in?
+      @crowd_pledge.assign_attributes(current_user_address_params)
     else
-      @crowd_pledge = CrowdPledge.new(current_user_address_params)
-      @crowd_pledge.assign_attributes(crowd_pledge_params)
+      render 'login'
     end
   end
 
   def create
     @crowd_pledge = current_user.crowd_pledges.build(crowd_pledge_params)
     @crowd_pledge.save!
-    redirect_to [:address, @crowd_pledge]
+    redirect_to [:choose_payment, @crowd_pledge]
   end
 
   def choose_payment
@@ -28,6 +22,28 @@ class CrowdPledgesController < ApplicationController
 
   def summary
     @crowd_pledge = current_user.crowd_pledges.find(params[:id])
+  end
+
+  def initiate_card_payment
+    @tool_rental = current_user.tool_rentals.incomplete.find(params[:id])
+    result = ToolRentalService.new.initiate_card_payment(@tool_rental, card_params)
+    render json: result, status: result[:error].present? ? :bad_request : :ok
+  end
+
+  def initiate_eps_payment
+    @tool_rental = current_user.tool_rentals.incomplete.find(params[:id])
+    result = ToolRentalService.new.initiate_eps_payment(@tool_rental)
+    render json: result, status: result[:error].present? ? :bad_request : :ok
+  end
+
+  def complete_eps_payment
+    @tool_rental = current_user.tool_rentals.find(params[:id])
+    if params[:redirect_status] == 'succeeded'
+      redirect_to [:summary, @tool_rental]
+    else
+      flash[:error] = "EPS Überweisung gescheitert."
+      redirect_to [:choose_payment, @tool_rental]
+    end
   end
 
   private
@@ -47,9 +63,17 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
-      :crowd_campaign_id, :crowd_reward_id,
+      :crowd_campaign_id, :crowd_reward_id, :amount,
       :contact_name, :address_street, :address_zip, :address_city, :anwser
     )
+  end
+
+  def card_params
+    params.permit(:payment_method_id, :payment_intent_id)
+  end
+
+  def eps_params
+    params.permit(:payment_intent)
   end
 
 end

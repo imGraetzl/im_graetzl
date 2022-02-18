@@ -1,0 +1,29 @@
+<div class="payment">
+
+  <div class="hl-subtext">
+    <h1>Wähle deine Zahlungsart</h1>
+    <p>
+      Wir buchen erst Geld ab, wenn deine Anfrage vom Vermieter bestätigt wurde und der Deal zustande kommt.
+    </p>
+  </div>
+
+  <div class="paymentMethods">
+    <% CrowdPledge::PAYMENT_METHODS.each do |payment_method| %>
+      <div class="input-radio -<%= payment_method %>">
+        <%= radio_button_tag :payment_method, payment_method, payment_method == params[:payment_method] %>
+        <%= label_tag :"payment_method_#{payment_method}", payment_method_label(payment_method) %>
+      </div>
+    <% end %>
+  </div>
+
+  <% CrowdPledge::PAYMENT_METHODS.each do |payment_method| %>
+    <div class="payment-method-container <%= payment_method %>-container">
+      <%= render "crowd_pledges/new/payment_#{payment_method}" %>
+    </div>
+  <% end %>
+
+  <div class="footer-txt">
+    Footer Text ...
+  </div>
+
+</div>

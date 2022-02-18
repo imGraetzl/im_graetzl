@@ -1,0 +1,23 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow'
+  )
+%>
+
+<section class="tool-rental-page payment-screen">
+
+  <div class="col-content">
+    <%= render "crowd_pledges/new/tabs_nav" %>
+    <%= render 'crowd_pledges/new/payment' %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'crowd_pledges/new/sidebar' %>
+  </div>
+
+</section>
+
+<%= javascript_include_tag "https://js.stripe.com/v3/" %>
+<script>
+  window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>");
+</script>

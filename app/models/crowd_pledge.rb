@@ -6,6 +6,8 @@ class CrowdPledge < ApplicationRecord
 
   before_create :set_region
 
+  PAYMENT_METHODS = ['card', 'eps'].freeze
+
   private
 
   def set_region
