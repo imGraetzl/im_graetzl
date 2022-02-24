@@ -53,3 +53,27 @@
     }
   }
 }
+
+.tabs-ctrl.-plain {
+  position: relative;
+  .tabs-nav li a {
+    font-family: $font-tertiary;
+    @include font-size-primaryFont('largest');
+
+  }
+  .tabs-nav li:not(.active) a {
+    color: $color-font-primary;
+    //font-style: italic;
+    //font-weight: bold;
+  }
+  li:last-child {
+    &:after {
+      content: "";
+      position: absolute;
+      border-bottom: 1px dashed $color-ambient-mint-dark;
+      width: 100%;
+      bottom:0px;
+      left:1px;
+    }
+  }
+}

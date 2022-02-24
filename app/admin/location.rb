@@ -28,7 +28,7 @@ ActiveAdmin.register Location do
 
   # batch actions
   batch_action :approve do |ids|
-    batch_action_collection.find(ids).map(&:approve)
+    batch_action_collection.find(ids).map(&:approved!)
     redirect_to collection_path, alert: 'Die ausgewählten Locations wurden freigeschalten.'
   end
 

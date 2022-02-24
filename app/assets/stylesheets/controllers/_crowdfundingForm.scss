@@ -9,6 +9,9 @@ section.crowdfunding-form {
     p {
       @include font-size-primaryFont('large');
     }
+    &.title {
+      margin-bottom:30px;
+    }
   }
 
   .input-button {
@@ -25,9 +28,6 @@ section.crowdfunding-form {
       width:31%;
       margin-left: 1%;
       margin-right: 1%;
-    }
-    .btn-next {
-      //margin-left:15px;
     }
     @include respond-to("<=medium") {
       justify-content: center;
@@ -80,7 +80,6 @@ section.crowdfunding-form {
       }
     }
   }
-
   .benefit-checkbox {
     @extend .cardBox;
     display: flex;
@@ -92,27 +91,9 @@ section.crowdfunding-form {
     position: relative;
     top:-2px;
   }
-
-  /*
-  .using-address-selection {
-    margin-bottom: 20px;
-    text-align: center;
-    display: block;
-    div {
-      display: inline-block;
-    }
-    label {
-      min-width: 0px;
-      margin-right: 30px;
-    }
-  }
-  */
-
 }
+
 .jBoxCrowdPreview {
-  //max-width:1000px;
-  //width:100%;
-  //min-width:100%;
   .jBox-content {
     padding: 5px 5px;
   }

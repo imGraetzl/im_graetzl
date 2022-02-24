@@ -100,14 +100,16 @@ body.desk .navigation-bar {
   padding: 0px 0px 20px 0px;
 
   justify-content: space-around;
-  //align-items: baseline;
   border-bottom: none;
   &::after {display: none;}
   .iconfilter {
 
     // Fill all before Steps
-    color: $color-ambient-rosa;
-    background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+    //color: $color-ambient-mint;
+    //background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+
+    color: $color-ambient-mint-dark;
+    background-image: url(image_path('svg/kringel-grey-mint.svg'));
 
     height:100%;
     align-self: center;
@@ -137,20 +139,28 @@ body.desk .navigation-bar {
         height: 55px !important;
         padding:15px;
       }
+      .txt {
+        //visibility: hidden;
+      }
     }
   }
   .iconfilter.active {
     // Fill active step
+    color: $color-ambient-rosa-dark;
     background-image: url(image_path('svg/kringel-grey-rosa-active.svg'));
     .icon {
       color:white;
     }
-
+    @include respond-to("<medium") {
+      .txt {
+        //visibility: visible;
+      }
+    }
   }
   .iconfilter.active ~ * {
     // Fill all after Steps
-    color: $color-ambient-mint-dark;
-    background-image: url(image_path('svg/kringel-grey-mint.svg'));
+    //color: $color-ambient-mint-dark;
+    //background-image: url(image_path('svg/kringel-grey-mint.svg'));
   }
   .step-line {
     border-bottom: 1px dotted $color-ambient-rosa-dark;

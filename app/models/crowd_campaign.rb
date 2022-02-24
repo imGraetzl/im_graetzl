@@ -19,6 +19,8 @@ class CrowdCampaign < ApplicationRecord
   has_many :crowd_donations
   accepts_nested_attributes_for :crowd_donations, allow_destroy: true, reject_if: :all_blank
 
+  has_many :crowd_pledges
+
   has_many :comments, as: :commentable, dependent: :destroy
 
   enum status: { draft: 0, pending: 1, approved: 2 }
@@ -30,6 +32,18 @@ class CrowdCampaign < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   validates_presence_of :title, :graetzl
+
+  def ready_for_approve?
+    ApplicationController.helpers.all_steps_finished?(self)
+  end
+
+  def not_editable?
+    self.approved?
+  end
+
+  def runtime
+    "#{I18n.localize(self.startdate, format:'%d. %b %Y')} bis #{I18n.localize(self.enddate, format:'%d. %b %Y')}"
+  end
 
   def to_s
     title

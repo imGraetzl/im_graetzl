@@ -1,6 +1,7 @@
 #flash {
-  display: none;  
+  display: none;
   &:not(:empty) {
     display: table;
   }
+  div {display: block;}
 }

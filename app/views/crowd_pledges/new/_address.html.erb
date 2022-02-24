@@ -1,0 +1,67 @@
+<div>
+
+  <div class="hl-subtext">
+    <h1>Deine Daten</h1>
+    <p>
+      <% if current_user %>
+        Um fortzufahren, gib zunächst noch deine Daten bekannt.
+      <% else %>
+        Wenn du bereits bei <%= t("region.#{current_region.id}.domain_full") %> registriert bist, <%= link_to 'melde dich zunächst hier an', login_crowd_pledges_path(crowd_campaign_id: params[:crowd_campaign_id], crowd_reward_id: params[:crowd_reward_id], amount: params[:amount]) %> und nutze deine hinterlegten Standarddaten.
+      <% end %>
+    </p>
+  </div>
+
+  <%= form_for @crowd_pledge do |f| %>
+
+    <%= f.hidden_field :amount, value: params[:amount] %>
+    <%= f.hidden_field :anwser, value: params[:anwser] %>
+    <%= f.hidden_field :crowd_reward_id, value: params[:crowd_reward_id] %>
+    <%= f.hidden_field :crowd_campaign_id, value: params[:crowd_campaign_id] %>
+
+    <div class="input-field">
+      <%= f.label :email do %>
+        <%= icon_tag "at-symbol" %>
+        <span>E-Mail</span>
+      <% end %>
+      <%= f.text_field :email, placeholder: 'E-Mail Adresse' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :contact_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Name</span>
+      <% end %>
+      <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname' %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :address_street do %>
+        <%= icon_tag "map-location" %>
+        <span>Strasse & Nr.</span>
+      <% end %>
+      <%= f.text_field :address_street, placeholder: 'Strasse & Nr.' %>
+    </div>
+
+    <div class="form-columns">
+
+      <div class="input-field">
+        <%= f.label :address_zip do %>
+          <%= icon_tag "map-location" %>
+          <span>Postleitzahl</span>
+        <% end %>
+        <%= f.text_field :address_zip, placeholder: 'PLZ' %>
+      </div>
+
+      <div class="input-field">
+        <%= f.label :address_city do %>
+          <%= icon_tag "map-location" %>
+          <span>Ort/Stadt</span>
+        <% end %>
+        <%= f.text_field :address_city, placeholder: 'Stadt' %>
+      </div>
+    </div>
+
+    <%= submit_tag "Weiter", class: 'btn-primary' %>
+  <% end %>
+
+</div>

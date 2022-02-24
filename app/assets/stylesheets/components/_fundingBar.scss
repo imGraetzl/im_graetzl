@@ -1,0 +1,185 @@
+.fundingBar {
+    z-index: 99;
+    font-size: 12px;
+    border-radius: .5em;
+    height: 1em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: $color-ambient-grey-light;
+    position:relative;
+    font-size:15px;
+    @include respond-to(">=medium") {
+      font-size:20px
+    }
+}
+
+.fundingBar_track {
+    height: 100%;
+    width: 10%;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position:relative
+}
+
+.fundingBar_track:first-child {
+    overflow: hidden;
+    border-top-left-radius: .5em;
+    border-bottom-left-radius:.5em
+}
+
+.fundingBar_track-only {
+    width:90%
+}
+
+.fundingBar_track-1st {
+    width:80%
+}
+
+.fundingBar_track-finished, .fundingBar_track-full {
+    width:100%
+}
+
+.fundingBar_track-2nd {
+    position: relative;
+    overflow:visible
+}
+
+.fundingBar_track-2nd .fundingBar_bar {
+    position: absolute;
+    left: -.5em;
+    top:0
+}
+
+.fundingBar_bar {
+    height: 100%;
+    width: 100%;
+    background-color: $color-ambient-mint;
+    -webkit-transition: width 1s ease;
+    -o-transition: width 1s ease;
+    transition: width 1s ease;
+    border-top-right-radius: .5em;
+    border-bottom-right-radius:.5em
+}
+
+.fundingBar_bar-unsuccessful {
+    background-color:$color-ambient-grey
+}
+
+.fundingBar_target {
+    background-color: $color-ambient-grey-dark;
+    border-radius: 100%;
+    height: 1em;
+    width: 1em;
+    z-index: 2;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    position:relative
+}
+
+@-webkit-keyframes  {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform:scale(1)
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(3);
+        transform:scale(3)
+    }
+}
+
+@keyframes radar {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform:scale(1)
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(3);
+        transform:scale(3)
+    }
+}
+
+.fundingBar_target-animated {
+    z-index:0
+}
+
+.fundingBar_target-animated:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $color-ambient-rosa;
+    border-radius: 50%;
+    -webkit-animation: radar 1.75s ease-in-out infinite;
+    animation: radar 1.75s ease-in-out infinite;
+    pointer-events:none
+}
+
+.fundingBar_target-success:before {
+    content: " ";
+    display: block;
+    background-color: $color-ambient-mint-dark;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    z-index:2
+}
+
+.fundingBar_target-success:after {
+    content: " ";
+    display: block;
+    background-color: $color-ambient-mint;
+    position: absolute;
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    left: -.5em;
+    z-index:1
+}
+
+.fundingBar_target-success.fundingBar_target-rejected:before {
+    background-color:#304b50
+}
+
+.fundingBar_target-success.fundingBar_target-rejected:after {
+    background-color:$color-ambient-grey
+}
+
+// FUNDING STATS --------------------------------------------
+.fundingStats {
+  margin-top:10px;
+  margin-bottom:10px;
+  display: flex;
+  justify-content: space-between;
+  .left, .middle, .right {
+    text-align:center;
+  }
+  .right {
+  }
+  h2 {
+    font-family: $font-primary;
+    font-weight:bold;
+    @include font-size-primaryFont('largest');
+  }
+  span {
+    font-style: italic;
+    @include font-size-primaryFont('small');
+  }
+}

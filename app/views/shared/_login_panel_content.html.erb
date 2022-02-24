@@ -11,7 +11,9 @@
   </div>
   <div class="container">
     <div class="login">
-      <%= form_for(:user, :url => session_path(:user, :redirect => request.original_url)) do |f| %>
+
+      <% redirect = local_assigns[:redirect] ? local_assigns[:redirect] : request.original_url %>
+      <%= form_for(:user, :url => session_path(:user, :redirect => redirect)) do |f| %>
         <div class="input-field">
           <%= label_tag(:login) do %>
             <%= icon_tag "user-avatar" %>

@@ -279,3 +279,24 @@
     cursor: pointer;
   }
 }
+
+.btn-round-icon {
+  @extend .bigicontext-element;
+  flex: 0 0 auto;
+  height: 50px !important;
+  min-width: 50px !important;
+  background-size: 50px 50px !important;
+  .icon {
+    width: 30px !important;
+    height: 30px !important;
+    margin-left: 10px !important;
+  }
+  color: $color-ambient-rosa !important;
+  background-image: url(image_path('svg/kringel-grey-mint.svg'));
+  &:hover {
+    background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+  }
+  &.active {
+    background-image: url(image_path('svg/kringel-grey-rosa.svg'));
+  }
+}

@@ -1,0 +1,36 @@
+<div class="cardBox">
+
+  <div class="cardBoxHeader">
+    <div class="coverImgWrapper">
+      <%= link_to cover_photo_image(@crowd_pledge.crowd_campaign, class: 'coverImg'), @crowd_pledge.crowd_campaign %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent" id="calculated-price-container">
+    <h3 class="sidebar">Zusammenfassung</h3>
+    <ul class="pricing-summary -facts"></ul>
+
+    <ul class="pricing-summary">
+      <% if @crowd_reward %>
+      <li>
+        <div class="cost"><%= number_to_currency(@crowd_reward.amount, unit: "€") %></div>
+        <div class="costname"><%= @crowd_reward.title %></div>
+      </li>
+      <% end %>
+      <li>
+        <div class="cost"><%= number_to_currency(@crowd_pledge.amount ? @crowd_pledge.amount : 0, unit: "€") %></div>
+        <div class="costname">Freie Unterstützung</div>
+      </li>
+      <li class="sum">
+        <div class="cost"><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></div>
+        <div class="costname">
+          Gesamtbetrag
+          <br>
+          <small>inkl. MwSt. und ggf. Versandkosten</small>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+</div>

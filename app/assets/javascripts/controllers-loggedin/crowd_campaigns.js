@@ -13,6 +13,8 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
 
       $("textarea").autoResize();
 
+      $('.crowdfunding-form').find(':disabled').closest("div[class^='input-']").addClass('disabled');
+
       $('input[name="crowd_campaign[benefit]"]').on("change", function() {
         if ($(this).is(':checked')) {
           $(".benefit-fields").show();
@@ -94,6 +96,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         closeOnEsc:true,
         closeOnClick:true,
         blockScroll:true,
+        isolateScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
         onOpen: function() {
           var iframe = document.getElementById("cfpreview");
