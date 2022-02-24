@@ -12,6 +12,7 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
     @preview = params[:preview] == 'true' ?  true : false
+    show_status_message?
   end
 
   def new
@@ -35,52 +36,84 @@ class CrowdCampaignsController < ApplicationController
 
   def edit
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    form_status_message?
   end
 
   def edit_description
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    form_status_message?
   end
 
   def edit_finance
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    form_status_message?
   end
 
   def edit_rewards
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    form_status_message?
   end
 
   def edit_media
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    form_status_message?
   end
 
   def edit_finish
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    form_status_message?
+  end
+
+  def edit_next_steps
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    form_status_message?
   end
 
   def update
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.clear_address if params[:no_address] == 'true'
-    @crowd_campaign.status = params[:status] if params[:status]
 
     if @crowd_campaign.update(crowd_campaign_params)
       if params[:page]
         redirect_to params[:page]
+      elsif params[:submit_for_approve] && !@crowd_campaign.ready_for_approve?
+        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: 'Deine Crowdfundingkampagne konnte noch nicht zur Freigabe eingereicht werden. Bitte fülle alle Felder aus, bis alle Schritte mit einem Haken gekennzeichnet sind.'
+      elsif params[:submit_for_approve] && @crowd_campaign.ready_for_approve?
+        @crowd_campaign.status = :pending
+        @crowd_campaign.save
+        redirect_to edit_next_steps_crowd_campaign_path(@crowd_campaign)
       else
-        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: 'Deine Änderungen wurden gespeichert.'
+        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert."
       end
     else
       render :edit
     end
+
   end
 
   def destroy
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.destroy
-
     redirect_to crowd_campaigns_user_path
   end
 
   private
+
+  def form_status_message?
+    flash.now[:alert] = "Deine Kampagne wird gerade überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde." if @crowd_campaign.pending?
+    flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime} | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
+  end
+
+  def show_status_message?
+    if @crowd_campaign.user == current_user
+      flash.now[:alert] = "Deine Kampagne ist noch im Bearbeitungsmodus. | #{ActionController::Base.helpers.link_to('Kampagne bearbeiten', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.draft?
+      flash.now[:alert] = "Deine Kampagne wird überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
+      flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime}. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
+    else
+      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.pending?
+      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne läuft ab #{@crowd_campaign.runtime}." if @crowd_campaign.approved?
+    end
+  end
 
   def collection_scope
     if params[:user_id].present?

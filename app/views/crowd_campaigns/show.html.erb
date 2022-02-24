@@ -62,7 +62,7 @@
           <%= icon_tag "calendar-2" %>
           <div class="txt">
             <h4>Finanzierungszeitraum</h4>
-            <p><strong><%= I18n.localize(@crowd_campaign.startdate, format:'%d. %b %Y') %> - <%= I18n.localize(@crowd_campaign.enddate, format:'%d. %b %Y') %></strong>
+            <p><strong><%= I18n.localize(@crowd_campaign.startdate, format:'%d. %b %Y') if @crowd_campaign.startdate %> - <%= I18n.localize(@crowd_campaign.enddate, format:'%d. %b %Y') if @crowd_campaign.enddate %></strong>
             </p>
           </div>
         </div>
@@ -83,6 +83,7 @@
           </div>
         </div>
 
+        <% if @crowd_campaign.benefit? %>
         <div class="block -full bigicontext-element -small">
           <%= icon_tag "handshake" %>
           <div class="txt">
@@ -91,6 +92,7 @@
             <p class="desc"><%= @crowd_campaign.benefit_description %></p>
           </div>
         </div>
+        <% end %>
 
         <div class="block -full bigicontext-element -small">
           <%= icon_tag "currency-euro" %>

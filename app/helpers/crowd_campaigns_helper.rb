@@ -58,6 +58,14 @@ module CrowdCampaignsHelper
     end
   end
 
+  def all_steps_finished?(object)
+    step_finished?(object, 1) &&
+    step_finished?(object, 2) &&
+    step_finished?(object, 3) &&
+    step_finished?(object, 4) &&
+    step_finished?(object, 5)
+  end
+
   def step_finished?(object, step)
     case step
     when 1

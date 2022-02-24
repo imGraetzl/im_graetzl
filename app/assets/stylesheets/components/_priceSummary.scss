@@ -4,7 +4,7 @@
   margin: 0;
   list-style: none;
 
-  &.-duration {
+  &.-facts {
     border-bottom: 1px solid $color-ambient-mint-light;
     margin-bottom: 20px;
   }
@@ -31,6 +31,9 @@
     border-top: 1px solid $color-ambient-mint-light;
     padding-top: 20px;
     margin-bottom: 20px;
+    small {
+      font-weight: normal;
+    }
   }
   li.deposit {
     border-top: 1px solid $color-ambient-mint-light;
@@ -52,7 +55,6 @@
 
   .desc {
     padding-bottom: 10px;
-    //text-align: center;
   }
 
   ul {

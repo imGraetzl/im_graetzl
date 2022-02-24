@@ -6,7 +6,7 @@ APP.controllers.crowd_campaigns = (function() {
     }
 
     function initPreviewMode() {
-      //$("header").hide();
+      $("#flash").hide();
       $("footer").hide();
     }
 

@@ -1,0 +1,32 @@
+<div>
+
+  <div class="hl-subtext">
+    <h1>Deine Auswahl</h1>
+    <p>
+      Wenn du möchtest, kannst du auch noch einen freien Unterstützungsbetrag hinzufügen.
+    </p>
+  </div>
+
+  <%= form_with url: new_crowd_pledge_path, method: :get do |f| %>
+
+    <%= f.hidden_field :crowd_reward_id, value: params[:crowd_reward_id] %>
+    <%= f.hidden_field :crowd_campaign_id, value: params[:crowd_campaign_id] %>
+
+    <%= render partial: 'crowd_pledges/new/rewards', :locals => {:crowd_reward => @crowd_reward, :f => f} if @crowd_reward %>
+
+    <div class="input-field">
+      <%= label_tag :amount do %>
+        <%= icon_tag "currency-euro" %>
+        <span>Freie Unterstützung hinzufügen</span>
+      <% end %>
+      <%= f.text_field :amount, class: 'amount', placeholder: 'Betrag eingeben ...',
+        class: 'calculate-price',
+        :maxlength => 6,
+        data: { action: calculate_price_crowd_pledges_url(crowd_campaign_id: params[:crowd_campaign_id], crowd_reward_id: params[:crowd_reward_id])} %>
+    </div>
+
+
+    <%= submit_tag "Weiter", class: 'btn-primary' %>
+  <% end %>
+
+</div>

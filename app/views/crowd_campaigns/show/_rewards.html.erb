@@ -9,7 +9,7 @@
         <% if crowd_reward.delivery_weeks %>
           <small>Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %></small>
         <% end %>
-        <%= link_to 'Auswählen', new_crowd_pledge_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), class: 'btn-primary -mint -shadow' %>
+        <%= link_to 'Auswählen', choose_amount_crowd_pledges_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), class: 'btn-primary -mint -shadow' %>
       </div>
       <small class="trigger">2 <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
     </div>

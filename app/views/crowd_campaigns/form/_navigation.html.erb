@@ -1,4 +1,4 @@
-<div class="hl-subtext">
+<div class="hl-subtext title">
   <h1>Deine <span>Crowdfunding</span> Kampagne</h1>
 </div>
 
@@ -48,6 +48,14 @@
       <%= icon_tag "flag" %>
     <% end %>
     <div class="txt">Projekt<br>Freigabe</div>
+  <% end %>
+
+  <% if !@crowd_campaign.draft? %>
+    <div class="step-line"></div>
+    <%= active_link_to edit_next_steps_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+      <%= icon_tag "info-announcement" %>
+      <div class="txt">Nächste<br>Schritte</div>
+    <% end %>
   <% end %>
 
 </div>

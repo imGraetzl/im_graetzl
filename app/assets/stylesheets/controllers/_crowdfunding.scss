@@ -188,76 +188,121 @@ section.crowd_campaign {
 
   }
 
-  .-rewardBox {
-    margin-bottom:40px;
-    .wrp {
-      transform: rotate(1deg);
-      display: flex;
-      align-items: stretch;
-    }
-    .reward-img {
-      background-color: $color-ambient-mint-light;
-      color:$color-ambient-mint-dark;
-      min-width:100px;
-      width:100px;
-      height:auto;
-      object-fit: cover;
-      padding:1px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      svg {
-        padding:10px;
-        width:60px;
-        height:60px;
-      }
-    }
-    .facts {
-      padding:5px;
-      padding-left:10px;
-      strong {color: $color-ambient-mint-dark; display: block;}
-      small {color: $color-ambient-grey;}
-    }
-    .card:before {
-      scale:0.8;
-      top:-25px;
-    }
-    .content {
-      display: none;
-    }
-    .btn-primary {
-      margin-top:10px;
-    }
-    .trigger {
-      cursor: pointer;
-    }
-    &.-open {
-      .wrp {flex-wrap: wrap;}
-      .reward-img, .facts {
-        width:100%;
-        transition: all 0.5s ease;
-      }
-      .facts {
-        margin-left:0px;
-        padding:10px;
-      }
-      .reward-img {
-        padding:2px;
-      }
-      strong {@include font-size-primaryFont('large');}
-      h4 {@include font-size-primaryFont('large');}
-      .content {
-        display: block;
-        margin-bottom:10px;
-        .txt {
-          padding-top:10px;
-        }
-      }
-      .card:before {display: none;}
-    }
-    &:hover {
-      .card {border:1px solid $color-ambient-mint-light;}
+}
+
+.crowd_campaign .-rewardBox, .crowd-pledges-page .-rewardBox {
+  margin-bottom:40px;
+  .wrp {
+    transform: rotate(1deg);
+    display: flex;
+    align-items: stretch;
+  }
+  .reward-img {
+    background-color: $color-ambient-mint-light;
+    color:$color-ambient-mint-dark;
+    min-width:100px;
+    width:100px;
+    height:auto;
+    object-fit: cover;
+    padding:1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      padding:10px;
+      width:60px;
+      height:60px;
     }
   }
-
+  .facts {
+    padding:5px;
+    padding-left:10px;
+    strong {color: $color-ambient-mint-dark; display: block;}
+    small {color: $color-ambient-grey;}
+  }
+  .card:before {
+    scale:0.8;
+    top:-25px;
+  }
+  .content {
+    display: none;
+  }
+  .btn-primary {
+    margin-top:10px;
+  }
+  .trigger {
+    cursor: pointer;
+  }
+  &.-open {
+    .wrp {flex-wrap: wrap;}
+    .reward-img, .facts {
+      width:100%;
+      transition: all 0.5s ease;
+    }
+    .facts {
+      margin-left:0px;
+      padding:10px;
+    }
+    .reward-img {
+      padding:2px;
+    }
+    strong {@include font-size-primaryFont('large');}
+    h4 {@include font-size-primaryFont('large');}
+    .content {
+      display: block;
+      margin-bottom:10px;
+      .txt {
+        padding-top:10px;
+      }
+    }
+    .card:before {display: none;}
+  }
+  &:hover {
+    .card {border:1px solid $color-ambient-mint-light;}
+  }
+}
+.crowd-pledges-page .-rewardBox {
+  .card, .wrp {
+    transform: none;
+    .facts {
+      width: 100%;
+      padding:15px;
+      strong, h4 {
+        @include font-size-primaryFont('large');
+      }
+    }
+    .question {
+      margin-top:10px;
+      span {
+        color: $color-ambient-mint-dark;
+        font-weight: bold;
+        display: block;
+      }
+    }
+    .input-textarea {
+      margin:10px 0px 0px 0px;
+      textarea {min-height:100px; width:100%;}
+    }
+  }
+}
+.crowd-pledges-page {
+  .pricing-summary li div.cost {min-width:75px;}
+  .share {
+    text-align: center;
+    p em {
+      @include font-size-secondaryFont('small');
+    }
+    a {
+      display: block;
+      padding-top:20px;
+      font-style: italic;
+      font-weight: bold;
+    }
+    svg.icon {
+      margin:auto;
+      margin-top:30px;
+      width:120px;
+      height:120px;
+    }
+  }
 }

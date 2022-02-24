@@ -3,11 +3,11 @@
     robots: 'noindex, follow'
 ) %>
 
-<section class="room-rental-page login-screen">
+<section class="crowd-pledges-page login-screen">
 
   <div class="col-content">
     <section class="login">
-      <%= render 'shared/login_panel_content', redirect: request.original_url, origin: request.path %>
+      <%= render 'shared/login_panel_content', redirect: request.referrer, origin: request.referrer %>
     </section>
   </div>
 

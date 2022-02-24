@@ -25,7 +25,7 @@ ActiveAdmin.register CrowdCampaign do
 
   # batch actions
   batch_action :approve do |ids|
-    batch_action_collection.find(ids).map(&:approve)
+    batch_action_collection.find(ids).map(&:approved!)
     redirect_to collection_path, alert: 'Die ausgewählten Crowdfunding Kampagnen wurden freigeschalten.'
   end
 
@@ -49,7 +49,7 @@ ActiveAdmin.register CrowdCampaign do
     end
   end
 
-  permit_params :title, :slogan, :description, :support_description, :about_description,
+  permit_params :status, :title, :slogan, :description, :support_description, :about_description,
     :startdate, :runtime, :billable,
     :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
     :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_email, :contact_phone,

@@ -16,11 +16,11 @@
       <%= icon_tag "user-avatar" %>
       <span>Karteninhaber</span>
     <% end %>
-    <%= text_field_tag :cardholder_name, current_user.full_name, placeholder: 'Karte laufend auf ...',
+    <%= text_field_tag :cardholder_name, "#{current_user ? current_user.full_name : ''}", placeholder: 'Karte laufend auf ...',
         class: 'input-plain', id: 'cardholder-name' %>
   </div>
 
   <div class="error-message"></div>
 
-  <%= button_tag "Buchungsanfrage abschicken", type: 'button', disabled: true, class: "btn-primary", id: 'card-submit' %>
+  <%= button_tag "Jetzt unterstützen", type: 'button', disabled: true, class: "btn-primary", id: 'card-submit' %>
 <% end %>

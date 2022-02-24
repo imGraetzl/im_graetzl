@@ -14,11 +14,11 @@
     <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
     <%= link_to 'Vorschau', 'javascript:', class: 'btn-secondary -mint save-and-preview' %>
     <% if f.object.pending? %>
-      <%= f.button 'Dein Projekt wird gerade geprüft ...', disabled: true, data: {disable_with: 'speichert...' }, class: 'btn-primary btn-next' %>
+      <%= link_to 'Dein Projekt wird gerade geprüft', edit_next_steps_crowd_campaign_path(@crowd_campaign), class: 'btn-primary -mint btn-next' %>
     <% elsif f.object.approved? %>
-      <%= f.button 'Dein Projekt wurde freigeschalten', disabled: true, data: {disable_with: 'speichert...' }, class: 'btn-primary btn-next' %>
+      <%= link_to 'Dein Projekt wurde freigeschalten', edit_next_steps_crowd_campaign_path(@crowd_campaign), class: 'btn-primary -mint btn-next' %>
     <% else %>
-      <%= f.button 'Projekt zur Freigabe einreichen', data: {confirm: 'Klicke auf "OK" um dein Projekt jetzt zur Freigabe einzureichen.',  disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: "status", value: 'pending' %>
+      <%= f.button 'Projekt zur Freigabe einreichen', data: {confirm: 'Klicke auf "OK" um dein Projekt jetzt zur Freigabe einzureichen.',  disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: "submit_for_approve", value: 'approve' %>
     <% end %>
   </div>
 

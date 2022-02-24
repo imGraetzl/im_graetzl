@@ -13,6 +13,8 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
 
       $("textarea").autoResize();
 
+      $('.crowdfunding-form').find(':disabled').closest("div[class^='input-']").addClass('disabled');
+
       $('input[name="crowd_campaign[benefit]"]').on("change", function() {
         if ($(this).is(':checked')) {
           $(".benefit-fields").show();

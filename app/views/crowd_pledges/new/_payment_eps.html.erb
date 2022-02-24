@@ -7,10 +7,10 @@
       <%= icon_tag "user-avatar" %>
       <span>Name</span>
     <% end %>
-    <%= text_field_tag :full_name, current_user.full_name, id: 'eps-name' %>
+    <%= text_field_tag :full_name, "#{current_user ? current_user.full_name : ''}", placeholder: 'Vor- & Nachname', id: 'eps-name' %>
   </div>
 
   <div class="error-message"></div>
 
-  <%= submit_tag "Buchungsanfrage abschicken", class: 'btn-primary', id: 'eps-submit' %>
+  <%= submit_tag "Jetzt unterstützen", class: 'btn-primary', id: 'eps-submit' %>
 <% end %>

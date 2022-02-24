@@ -33,6 +33,18 @@ class CrowdCampaign < ApplicationRecord
 
   validates_presence_of :title, :graetzl
 
+  def ready_for_approve?
+    ApplicationController.helpers.all_steps_finished?(self)
+  end
+
+  def not_editable?
+    self.approved?
+  end
+
+  def runtime
+    "#{I18n.localize(self.startdate, format:'%d. %b %Y')} bis #{I18n.localize(self.enddate, format:'%d. %b %Y')}"
+  end
+
   def to_s
     title
   end
