@@ -23,7 +23,7 @@ class CrowdCampaign < ApplicationRecord
 
   has_many :comments, as: :commentable, dependent: :destroy
 
-  enum status: { draft: 0, pending: 1, approved: 2 }
+  enum status: { draft: 0, pending: 1, canceled: 2, approved: 3, funding: 4, completed_successful: 5, completed_unsuccessful: 6 }
   enum billable: { no_bill: 0, bill: 1, bill_with_tax: 2 }
 
   include CoverImageUploader::Attachment(:cover_photo)
@@ -39,6 +39,44 @@ class CrowdCampaign < ApplicationRecord
 
   def not_editable?
     self.approved?
+  end
+
+  def crowd_pledges_sum
+    1500
+  end
+
+  def funding_status
+    if !self.funding_1_amount.nil?
+      if self.crowd_pledges_sum < self.funding_1_amount
+        :funding_1
+      elsif self.crowd_pledges_sum >= self.funding_1_amount && self.funding_2_amount.nil?
+        :over_funding_1
+      elsif self.crowd_pledges_sum < self.funding_2_amount
+        :funding_2
+      elsif self.crowd_pledges_sum >= self.funding_2_amount
+        :over_funding_2
+      end
+    end
+  end
+
+  def funding_1?
+    self.funding_status == :funding_1
+  end
+
+  def over_funding_1?
+    self.funding_status == :over_funding_1
+  end
+
+  def funding_2?
+    self.funding_status == :funding_2
+  end
+
+  def over_funding_2?
+    self.funding_status == :over_funding_2
+  end
+
+  def remaining_days
+     (self.enddate - Date.today).to_i
   end
 
   def runtime
