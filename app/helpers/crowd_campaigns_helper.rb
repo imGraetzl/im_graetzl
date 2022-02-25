@@ -50,54 +50,80 @@ module CrowdCampaignsHelper
     ]
   end
 
-  def step_icon(object, step)
-    if step_finished?(object, step)
+  def funding_bar_percentage(c)
+
+    if c.completed_successful?
+          100
+
+    elsif c.completed_unsuccessful?
+          c.crowd_pledges_sum / (c.funding_1_amount / 100)
+
+    elsif c.funding_1?
+          c.crowd_pledges_sum / (c.funding_1_amount / 100)
+
+    elsif c.over_funding_1?
+          percentage = (c.crowd_pledges_sum - c.funding_1_amount) / (c.funding_1_amount / 100)
+          percentage > 100 ? 85 : percentage
+
+    elsif c.funding_2?
+          (c.crowd_pledges_sum - c.funding_1_amount) / ((c.funding_2_amount - c.funding_1_amount) / 100)
+
+    elsif c.over_funding_2?
+          percentage = (c.crowd_pledges_sum - c.funding_2_amount) / (c.funding_2_amount / 100)
+          percentage > 100 ? 85 : percentage
+
+    end
+
+  end
+
+  def step_icon(campaign, step)
+    if step_finished?(campaign, step)
       icon_tag("check")
     else
       content_tag(:div, "#{step}.", class: 'icon')
     end
   end
 
-  def all_steps_finished?(object)
-    step_finished?(object, 1) &&
-    step_finished?(object, 2) &&
-    step_finished?(object, 3) &&
-    step_finished?(object, 4) &&
-    step_finished?(object, 5)
+  def all_steps_finished?(campaign)
+    step_finished?(campaign, 1) &&
+    step_finished?(campaign, 2) &&
+    step_finished?(campaign, 3) &&
+    step_finished?(campaign, 4) &&
+    step_finished?(campaign, 5)
   end
 
-  def step_finished?(object, step)
+  def step_finished?(campaign, step)
     case step
     when 1
       ![
-        object.title,
-        object.slogan,
-        object.crowd_category_ids,
-        object.graetzl_id.to_s
+        campaign.title,
+        campaign.slogan,
+        campaign.crowd_category_ids,
+        campaign.graetzl_id.to_s
       ].any?{ |f| f.nil? || f.empty? }
     when 2
       ![
-        object.startdate.to_s,
-        object.enddate.to_s,
-        object.description,
-        object.support_description,
-        object.about_description
+        campaign.startdate.to_s,
+        campaign.enddate.to_s,
+        campaign.description,
+        campaign.support_description,
+        campaign.about_description
       ].any?{ |f| f.nil? || f.empty? }
     when 3
       ![
-        object.funding_1_amount.to_s,
-        object.funding_1_description
+        campaign.funding_1_amount.to_s,
+        campaign.funding_1_description
       ].any?{ |f| f.nil? || f.empty? }
     when 4
       ![
-        object.crowd_rewards.first&.title,
-        object.crowd_rewards.first&.amount.to_s,
-        object.crowd_rewards.first&.description,
-        object.crowd_rewards.first&.delivery_weeks.to_s
+        campaign.crowd_rewards.first&.title,
+        campaign.crowd_rewards.first&.amount.to_s,
+        campaign.crowd_rewards.first&.description,
+        campaign.crowd_rewards.first&.delivery_weeks.to_s
       ].any?{ |f| f.nil? || f.empty? }
     when 5
       ![
-        object.cover_photo_data
+        campaign.cover_photo_data
       ].any?{ |f| f.nil? || f.empty? }
     else
       false
