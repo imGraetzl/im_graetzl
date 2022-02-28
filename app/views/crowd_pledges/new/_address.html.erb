@@ -12,11 +12,12 @@
   </div>
 
   <%= form_for @crowd_pledge do |f| %>
+  <%= form_errors_for @crowd_pledge %>
 
-    <%= f.hidden_field :amount, value: params[:amount] %>
-    <%= f.hidden_field :anwser, value: params[:anwser] %>
-    <%= f.hidden_field :crowd_reward_id, value: params[:crowd_reward_id] %>
-    <%= f.hidden_field :crowd_campaign_id, value: params[:crowd_campaign_id] %>
+    <%= f.hidden_field :amount %>
+    <%= f.hidden_field :anwser %>
+    <%= f.hidden_field :crowd_reward_id %>
+    <%= f.hidden_field :crowd_campaign_id %>
 
     <div class="input-field">
       <%= f.label :email do %>
@@ -59,6 +60,11 @@
         <% end %>
         <%= f.text_field :address_city, placeholder: 'Stadt' %>
       </div>
+    </div>
+
+    <div class="input-checkbox">
+      <%= f.check_box :anonym %>
+      <%= f.label :anonym, 'Ich möchte anonym bleiben und nicht als Unterstützer gelistet werden.' %>
     </div>
 
     <%= submit_tag "Weiter", class: 'btn-primary' %>

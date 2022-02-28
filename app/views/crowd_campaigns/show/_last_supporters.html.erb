@@ -1,24 +1,12 @@
-  <div class="supporter">
-    <%= avatar_image User.first, size: :thumb, class: 'img-round' %>
-    <div>
-      <span><%= User.first.full_name %></span><br>
-      <small>vor 12 Stunden</small>
+  <% @crowd_campaign.crowd_pledges.authorized.visible.last(3).reverse.each do |crowd_pledge| %>
+    <div class="supporter">
+      <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+      <div>
+        <span><%= crowd_pledge.contact_name %></span><br>
+        <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+      </div>
     </div>
-  </div>
-  <div class="supporter">
-    <%= avatar_image User.last, size: :thumb, class: 'img-round' %>
-    <div>
-      <span><%= User.last.full_name %></span><br>
-      <small>vor 2 Tagen</small>
-    </div>
-  </div>
-  <div class="supporter">
-    <%= avatar_image User.last, size: :thumb, class: 'img-round' %>
-    <div>
-      <span><%= User.last.full_name %></span><br>
-      <small>vor 2 Tagen</small>
-    </div>
-  </div>
+  <% end %>
 
   <% if current_user == @crowd_campaign.user && !@preview %>
     <%= link_to edit_crowd_campaign_path(@crowd_campaign), class: 'btn-round-icon', id: 'editCampaign' do %>

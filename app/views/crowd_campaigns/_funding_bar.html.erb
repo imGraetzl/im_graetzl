@@ -86,11 +86,13 @@
     <span><%= funding_subtitle %></span>
   </div>
   <div class="middle -supporters">
-    <h2>13</h2>
+    <h2><%= @crowd_campaign.crowd_pledges.authorized.count %></h2>
     <span>UnterstützerInnen</span>
   </div>
   <div class="right -ending">
-    <h2><%= @crowd_campaign.remaining_days %></h2>
-    <span>Tage</span>
+    <% if !@crowd_campaign.completed? %>
+      <h2><%= @crowd_campaign.remaining_days %></h2>
+      <span>Tage</span>
+    <% end %>
   </div>
 </div>

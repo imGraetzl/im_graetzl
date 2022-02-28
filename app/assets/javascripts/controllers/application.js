@@ -152,7 +152,7 @@ APP.controllers.application = (function() {
 
   var videoModal = new jBox('Modal', {
     addClass:'jBox jBoxVideo',
-    attach: '#jBoxVideo',
+    attach: '.jBoxVideo',
     content: $('#jBoxVideoContent'),
     trigger: 'click',
     closeOnEsc:true,

@@ -144,6 +144,14 @@ section.crowd_campaign {
       transform: rotate(1.5deg) translate3d(0, 0, 0);
     }
 
+    .play-icon::before {
+      bottom:30px;
+      top:unset;
+      width:90px;
+      height:90px;
+      transform: unset;
+    }
+
   }
 
   .coverImgBottom {
@@ -163,6 +171,12 @@ section.crowd_campaign {
   .mediaSlider {
     position: relative;
     margin-bottom:60px;
+  }
+  .mediaSlider, .mediaSlider.entryImgUploads {
+    min-height:145px;
+    img {
+      margin:0px;
+    }
   }
 
   // SIDEBAR
@@ -215,6 +229,7 @@ section.crowd_campaign {
     }
   }
   .facts {
+    width:100%;
     padding:5px;
     padding-left:10px;
     strong {color: $color-ambient-mint-dark; display: block;}
