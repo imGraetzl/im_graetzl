@@ -33,6 +33,10 @@ class CrowdCampaign < ApplicationRecord
 
   validates_presence_of :title, :graetzl
 
+  def completed?
+    self.completed_successful? || self.completed_unsuccessful?
+  end
+
   def ready_for_approve?
     ApplicationController.helpers.all_steps_finished?(self)
   end
@@ -42,7 +46,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def crowd_pledges_sum
-    1500
+    self.crowd_pledges.authorized.sum(&:total_price)
   end
 
   def funding_status
@@ -76,7 +80,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def remaining_days
-     (self.enddate - Date.today).to_i
+     (self.enddate - Date.today).to_i if self.enddate
   end
 
   def runtime

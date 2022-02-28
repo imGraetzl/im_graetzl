@@ -18,7 +18,15 @@
 
   <div class="coverImg">
     <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-round crowd-avatar' %>
-    <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
+
+    <% if @crowd_campaign.video? %>
+      <%= link_to 'javascript:', class: 'play-icon jBoxVideo', rel: 'nofollow' do %>
+        <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
+      <% end %>
+    <% else %>
+        <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
+    <% end %>
+
     <div class="social-icons">
       <em>Teilen auf:</em>
       <%= icon_tag "social-facebook" %>
@@ -117,7 +125,13 @@
 
       <div class="mediaSlider">
         <div class="entryImgUploads" id="media-slider">
-          <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
+
+          <% if @crowd_campaign.video? %>
+            <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), 'javascript:', class: 'play-icon jBoxVideo' %>
+          <% else %>
+             <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
+          <% end %>
+
           <% @crowd_campaign.images.each do |image| %>
             <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
           <% end %>
@@ -163,3 +177,5 @@
   </div>
 
 </section>
+
+<%= render 'crowd_campaigns/show/video' if @crowd_campaign.video? %>

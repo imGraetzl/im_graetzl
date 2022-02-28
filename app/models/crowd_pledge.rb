@@ -6,6 +6,11 @@ class CrowdPledge < ApplicationRecord
 
   before_create :set_region
 
+  validates_presence_of :email, :contact_name
+
+  enum status: { incomplete: 0, authorized: 1, debited: 2 }
+  scope :visible, -> { where(anonym: false) }
+
   PAYMENT_METHODS = ['card', 'eps'].freeze
 
   def total_price

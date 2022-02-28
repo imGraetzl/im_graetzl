@@ -12,16 +12,20 @@ class CrowdPledgesController < ApplicationController
   def create
     @crowd_campaign = CrowdCampaign.find(params[:crowd_pledge][:crowd_campaign_id])
     @crowd_pledge = @crowd_campaign.crowd_pledges.build(crowd_pledge_params)
-    @crowd_pledge.save!
-    redirect_to [:choose_payment, @crowd_pledge]
+    @crowd_pledge.user_id = current_user.id if current_user
+    @crowd_reward = @crowd_pledge.crowd_reward
+
+    if @crowd_pledge.save
+      redirect_to [:choose_payment, @crowd_pledge]
+    else
+      render :new
+    end
   end
 
   def calculate_price
     head :ok and return if browser.bot? && !request.format.js?
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
     @crowd_reward = @crowd_pledge.crowd_reward
-    puts "------"
-    puts @crowd_pledge
     #head :bad_request and return if @crowd_pledge.amount.blank?
   end
 
@@ -85,7 +89,7 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
-      :crowd_campaign_id, :crowd_reward_id, :amount,
+      :crowd_campaign_id, :crowd_reward_id, :amount, :anonym,
       :email, :contact_name, :address_street, :address_zip, :address_city, :anwser
     )
   end

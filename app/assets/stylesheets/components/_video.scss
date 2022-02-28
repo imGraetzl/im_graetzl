@@ -48,3 +48,31 @@
     border-radius: 12px;
   }
 }
+
+.play-icon {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 6;
+    background-repeat: no-repeat;
+    left: 0;
+    right: 0;
+    height: 30%;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url(image_path('svg/icon-play.svg'));
+    background-position: center center;
+    opacity: 0.8;
+  }
+  &:hover {
+    cursor: pointer;
+    &::before {
+      opacity: 1.0;
+    }
+  }
+}
