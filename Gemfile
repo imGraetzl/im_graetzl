@@ -37,7 +37,7 @@ gem 'scout_apm'
 
 gem "shrine", "~> 3.0"
 gem "aws-sdk-s3", "~> 1"
-gem "image_processing", "~> 1.8"
+gem "image_processing", "~> 1.12"
 gem 'marcel'
 
 gem 'mini_racer'

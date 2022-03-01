@@ -166,7 +166,7 @@ GEM
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     faraday-net_http (1.0.1)
-    ffi (1.15.0)
+    ffi (1.15.5)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -214,7 +214,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    image_processing (1.12.1)
+    image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
     inherited_resources (1.12.0)
@@ -385,7 +385,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
-    ruby-vips (2.1.0)
+    ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.4)
     sass-rails (6.0.0)
@@ -464,7 +464,7 @@ DEPENDENCIES
   gibbon (~> 3.0, >= 3.0.2)
   guard-livereload
   http
-  image_processing (~> 1.8)
+  image_processing (~> 1.12)
   jbuilder
   jquery-rails
   jquery-ui-rails (= 6.0.0)
