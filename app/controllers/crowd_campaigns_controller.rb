@@ -69,6 +69,11 @@ class CrowdCampaignsController < ApplicationController
     form_status_message?
   end
 
+  def supporters
+    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.reverse
+  end
+
   def update
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.clear_address if params[:no_address] == 'true'

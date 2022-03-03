@@ -12,7 +12,20 @@ APP.controllers.crowd_campaigns = (function() {
 
     function initCrowdCampaign() {
 
+      APP.components.tabs.initTabs(".tabs-ctrl", "#tabs-container");
+
+      // Load on Tab Change & PageLoad
+      $('.tabs-ctrl').on("_after", function() {
+          if($("#tab-supporters").is(":visible")){
+            $(".form-supporters").submit();
+          }
+      }).trigger('_after');
+
+
       $('.btn-support').on("click", function() {
+        if($("#tab-info").is(":hidden")){
+          APP.components.tabs.openTab('info');
+        }
         $('html, body').animate({
           scrollTop: $('.-supportBox').offset().top
         }, 600);
@@ -24,11 +37,11 @@ APP.controllers.crowd_campaigns = (function() {
 
       $('#media-slider').lightSlider({
         autoWidth: true,
-        slideMargin: 5,
+        slideMargin: 10,
         mode: "slide",
         cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
         easing: 'linear', //'for jquery animation',////
-        speed: 750, //ms'
+        speed: 500, //ms'
         auto: false,
         loop: false,
         slideEndAnimation: true,

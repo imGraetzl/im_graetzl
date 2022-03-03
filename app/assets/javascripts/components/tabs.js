@@ -1,9 +1,18 @@
 APP.components.tabs = (function() {
 
-    function initTabs(tabgroup) {
+    function initTabs(tabgroup, container) {
+
+      if (typeof container == "undefined") {
+        container = false;
+        tabcontent = tabgroup;
+      } else {
+        tabcontent = container;
+      }
+
       $(tabgroup).tabslet({
         animation: false,
-        active: getFirstNotEmptyTab(tabgroup)
+        active: getFirstNotEmptyTab(tabcontent),
+        container: container
       });
       $(tabgroup).find("li.active").click();
     }
