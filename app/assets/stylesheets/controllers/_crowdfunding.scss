@@ -202,6 +202,32 @@ section.crowd_campaign {
 
   }
 
+  .supporters-container {
+    display: flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content: center;
+    .supporter {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      width: 30%;
+      .img-round {
+        width:80px;
+        height:80px;
+        margin-right:10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+          width:50%;
+          height:50%;
+          color: $color-ambient-mint;
+        }
+      }
+    }
+  }
+
 }
 
 .crowd_campaign .-rewardBox, .crowd-pledges-page .-rewardBox {

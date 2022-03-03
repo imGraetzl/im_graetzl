@@ -1,0 +1,123 @@
+<div id="tab-info" class="layoutArea">
+
+  <div class="mainArea">
+
+    <div class="content-block -facts">
+
+      <div class="block bigicontext-element -small">
+        <%= avatar_image User.first, size: :thumb, class: 'img-round' %>
+        <div class="txt">
+          <h4>Projekt InhaberIn</h4>
+          <p><strong><%= User.first.full_name %></strong></p>
+        </div>
+      </div>
+
+      <div class="block bigicontext-element -small">
+        <%= icon_tag "calendar-2" %>
+        <div class="txt">
+          <h4>Finanzierungszeitraum</h4>
+          <p><strong><%= I18n.localize(@crowd_campaign.startdate, format:'%d. %b %Y') if @crowd_campaign.startdate %> - <%= I18n.localize(@crowd_campaign.enddate, format:'%d. %b %Y') if @crowd_campaign.enddate %></strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="block bigicontext-element -small">
+        <%= icon_tag "archive-storage" %>
+        <div class="txt">
+          <h4>Projekt Kategorie</h4>
+          <p><strong><%= @crowd_campaign.crowd_categories.map(&:title).join(", ") %></strong></p>
+        </div>
+      </div>
+
+      <div class="block bigicontext-element -small">
+        <%= icon_tag "map-location" %>
+        <div class="txt">
+          <h4><%= t("region.#{current_region.id}.district_graetzl") %></h4>
+          <p><strong><%= @crowd_campaign.graetzl.zip_name %></strong></p>
+        </div>
+      </div>
+
+      <% if @crowd_campaign.benefit? %>
+      <div class="block -full bigicontext-element -small">
+        <%= icon_tag "handshake" %>
+        <div class="txt">
+          <h4>Gemeinwohl</h4>
+          <p><strong>Projekt Benefit für die Allgemeinheit</strong></p>
+          <p class="desc"><%= @crowd_campaign.benefit_description %></p>
+        </div>
+      </div>
+      <% end %>
+
+      <div class="block -full bigicontext-element -small">
+        <%= icon_tag "currency-euro" %>
+        <div class="txt">
+          <h4>Benötigter Startlevel Betrag</h4>
+          <p><strong><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></strong></p>
+          <p class="desc"><%= @crowd_campaign.funding_1_description %></p>
+        </div>
+      </div>
+
+      <div class="block -full bigicontext-element -small">
+        <%= icon_tag "flag" %>
+        <div class="txt">
+          <h4>Wunschlevel Zielbetrag</h4>
+          <p><strong><%= number_to_currency(@crowd_campaign.funding_2_amount, unit: "€") %></strong></p>
+          <p class="desc"><%= @crowd_campaign.funding_2_description %></p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="mediaSlider">
+      <div class="entryImgUploads" id="media-slider">
+
+        <% if @crowd_campaign.video? %>
+          <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), 'javascript:', class: 'play-icon jBoxVideo' %>
+        <% else %>
+           <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
+        <% end %>
+
+        <% @crowd_campaign.images.each do |image| %>
+          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="content-block">
+      <h3 class="hl-main"><span>Worum</span> geht es bei dem Projekt</h3>
+      <p><%= @crowd_campaign.description %></p>
+    </div>
+
+    <div class="content-block">
+      <h3 class="hl-main"><span>Warum</span> sollte jemand dieses Projekt unterstützen?</h3>
+      <p><%= @crowd_campaign.support_description %></p>
+    </div>
+
+    <div class="content-block">
+      <h3 class="hl-main"><span>Wer</span> steht hinter dem Projekt?</h3>
+      <p><%= @crowd_campaign.about_description %></p>
+    </div>
+
+  </div>
+
+  <div class="sideArea">
+
+    <%= render 'crowd_campaigns/show/support_box' %>
+
+    <h2 class="hl-main -rewards"><em>- Dankeschöns -</em></h2>
+
+    <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
+
+    <h2 class="hl-main -rewards"><em>- Materialspenden -</em></h2>
+
+    <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.material, as: :crowd_donation %>
+
+    <h2 class="hl-main -rewards"><em>- Zeitspenden -</em></h2>
+
+    <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.assistance, as: :crowd_donation %>
+
+  </div>
+
+</div>

@@ -1,0 +1,9 @@
+  <% @supporters.each do |crowd_pledge| %>
+    <div class="supporter cardBox">
+      <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+      <div>
+        <span><%= crowd_pledge.contact_name %></span><br>
+        <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+      </div>
+    </div>
+  <% end %>

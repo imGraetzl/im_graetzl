@@ -10,6 +10,7 @@ class CrowdPledge < ApplicationRecord
 
   enum status: { incomplete: 0, authorized: 1, debited: 2 }
   scope :visible, -> { where(anonym: false) }
+  scope :anonym, -> { where(anonym: true) }
 
   PAYMENT_METHODS = ['card', 'eps'].freeze
 

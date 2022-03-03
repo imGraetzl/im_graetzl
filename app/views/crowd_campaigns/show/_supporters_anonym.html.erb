@@ -1,0 +1,11 @@
+<% if @crowd_campaign.crowd_pledges.authorized.anonym.count > 0 %>
+<div class="supporter cardBox">
+  <div class="img-round">
+    <%= icon_tag "user-avatar" %>
+  </div>
+  <div>
+    <span>+ <%= @crowd_campaign.crowd_pledges.authorized.anonym.count %> weitere</span><br>
+    <small>anonyme Unterstützungen</small>
+  </div>
+</div>
+<% end %>

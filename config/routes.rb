@@ -134,6 +134,7 @@ Rails.application.routes.draw do
     get 'edit_media', on: :member
     get 'edit_finish', on: :member
     get 'edit_next_steps', on: :member
+    get 'supporters', on: :member
   end
 
   resources :crowd_pledges, only: [:new, :create] do
