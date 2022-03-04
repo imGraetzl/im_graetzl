@@ -1,9 +1,9 @@
 <% meta(
     title: t('.title', title: @crowd_campaign.title[0..55].gsub(/\s\w+\s*$/,'...')),
-    description: t('.description', desc: @crowd_campaign.description),
+    description: t('.description', desc: @crowd_campaign.slogan),
     robots: 'index, follow',
     og_title: t('.title', title: @crowd_campaign.title[0..80].gsub(/\s\w+\s*$/,'...')),
-    og_description: t('.description', desc: @crowd_campaign.description),
+    og_description: t('.description', desc: @crowd_campaign.slogan),
     og_image: @crowd_campaign.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/og_logo.png")
   )
 %>
@@ -52,9 +52,9 @@
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
         <li class="active"><a href="#tab-info">Projekt Infos</a></li>
-        <li><a href="#tab-updates">Projekt Neuigkeiten (2)</a></li>
+        <li><a href="#tab-updates">Projekt Neuigkeiten (0)</a></li>
         <li><a href="#tab-comments">Pinnwand (0)</a></li>
-        <li><a href="#tab-supporters">UnterstützerInnen</a></li>
+        <li><a href="#tab-supporters">UnterstützerInnen (<%= @crowd_campaign.crowd_pledges.authorized.count %>)</a></li>
       </ul>
     </div>
   </div>

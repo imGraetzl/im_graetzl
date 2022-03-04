@@ -1,6 +1,5 @@
 .fundingBar {
     z-index: 99;
-    font-size: 12px;
     border-radius: .5em;
     height: 1em;
     display: -webkit-box;
@@ -171,7 +170,9 @@
   .left, .middle, .right {
     text-align:center;
   }
-  .right {
+  .left {
+    text-align:left;
+
   }
   h2 {
     font-family: $font-primary;
@@ -181,5 +182,17 @@
   span {
     font-style: italic;
     @include font-size-primaryFont('small');
+  }
+}
+
+.cardBox.-crowd_campaign .fundingBar {
+  font-size:15px;
+}
+.cardBox.-crowd_campaign .fundingStats {
+  .-supporters {
+    display: none;
+  }
+  h2 {
+    @include font-size-primaryFont('larger');
   }
 }

@@ -24,9 +24,9 @@
 
   <div class="fundingBar">
     <div class="fundingBar_track fundingBar_track-only">
-      <div title="$AKTEULLER_BETRAG_€" class="fundingBar_bar" style="width:<%= funding_bar_percentage(@crowd_campaign) %>%;"></div>
+      <div title="<%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width:<%= funding_bar_percentage(@crowd_campaign) %>%;"></div>
     </div>
-    <div title="$FUNDING_GOAL_1_€" class="fundingBar_target fundingBar_target-animated"></div>
+    <div title="<%= number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-animated"></div>
     <div class="fundingBar_track"></div>
   </div>
 
@@ -36,11 +36,11 @@
 
   <div class="fundingBar">
     <div class="fundingBar_track fundingBar_track-only">
-      <div title="$AKTEULLER_BETRAG_€" class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
+      <div title="<%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
     </div>
-    <div title="$FUNDING_GOAL_1_€" class="fundingBar_target fundingBar_target-success"></div>
+    <div title="<%= number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-success"></div>
     <div class="fundingBar_track fundingBar_track-2nd">
-      <div title="$AKTEULLER_BETRAG_€" class="fundingBar_bar" style="width: calc(<%= funding_bar_percentage(@crowd_campaign) %>% + 0.5em);"></div>
+      <div title="<%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width: calc(<%= funding_bar_percentage(@crowd_campaign) %>% + 0.5em);"></div>
     </div>
   </div>
 
@@ -52,11 +52,11 @@
     <div class="fundingBar_track fundingBar_track-1st">
       <div class="fundingBar_bar"></div>
     </div>
-    <div title="$FUNDING_GOAL_1_€" class="fundingBar_target fundingBar_target-success"></div>
+    <div title="<%= number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-success"></div>
     <div class="fundingBar_track fundingBar_track-2nd">
-      <div title="$AKTEULLER_BETRAG_€" class="fundingBar_bar" style="width: calc(<%= funding_bar_percentage(@crowd_campaign) %>% + 0.5em);"></div>
+      <div title="<%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width: calc(<%= funding_bar_percentage(@crowd_campaign) %>% + 0.5em);"></div>
     </div>
-    <div title="$FUNDING_GOAL_2_€" class="fundingBar_target fundingBar_target-animated"></div>
+    <div title="<%= number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-animated"></div>
     <div class="fundingBar_track"></div>
   </div>
 
@@ -66,15 +66,15 @@
 
   <div class="fundingBar">
     <div class="fundingBar_track fundingBar_track-1st">
-      <div title="$AKTEULLER_BETRAG_€" class="fundingBar_bar"></div>
+      <div title="<%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar"></div>
     </div>
-    <div title="$FUNDING_GOAL_1_€" class="fundingBar_target fundingBar_target-success"></div>
+    <div title="<%= number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-success"></div>
     <div class="fundingBar_track fundingBar_track-2nd">
-      <div title="$AKTEULLER_BETRAG_€" class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
+      <div title="<%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
     </div>
-    <div title="$FUNDING_GOAL_2_€" class="fundingBar_target fundingBar_target-success"></div>
+    <div title="<%= number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-success"></div>
     <div class="fundingBar_track fundingBar_track-2nd">
-      <div title="$AKTEULLER_BETRAG_€" class="fundingBar_bar" style="width: calc(<%= funding_bar_percentage(@crowd_campaign) %>% + 0.5em);"></div>
+      <div title="<%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width: calc(<%= funding_bar_percentage(@crowd_campaign) %>% + 0.5em);"></div>
     </div>
   </div>
 

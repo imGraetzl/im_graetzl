@@ -175,6 +175,23 @@ de:
       title: '%{slogan}'
       description: '%{type}: %{desc}...'
 
+  crowd_campaigns:
+    show:
+      title: 'WeLocally Crowdfunding: %{title}'
+      description: '%{desc}...'
+
+  crowd_pledges:
+    login:
+      title: 'Crowdfunding Untestützung - Einloggen'
+    choose_amount:
+      title: 'Crowdfunding Untestützung - Auswahl bestätigen'
+    new:
+      title: 'Crowdfunding Untestützung - Adressangaben'
+    choose_payment:
+      title: 'Crowdfunding Untestützung - Zahlungsart wählen'
+    summary:
+      title: 'Crowdfunding Untestützung - Zusammenfassung'
+
   coop_demands:
     show:
       title: '%{slogan}'
