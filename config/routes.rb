@@ -128,6 +128,7 @@ Rails.application.routes.draw do
   end
 
   resources :crowd_campaigns, path: 'crowdfunding' do
+    get 'start', on: :collection
     get 'edit_description', on: :member
     get 'edit_finance', on: :member
     get 'edit_rewards', on: :member
