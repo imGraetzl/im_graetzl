@@ -83,7 +83,8 @@
 <div class="fundingStats">
   <div class="left -amount">
     <h2><%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %></h2>
-    <span><%= funding_subtitle %></span>
+    <span class="full-view"><%= funding_subtitle %></span>
+    <small class="compact-view"><%= "(#{funding_bar_percentage(@crowd_campaign).round}%)" if @crowd_campaign.funding_1? %></small>
   </div>
   <div class="middle -supporters">
     <h2><%= @crowd_campaign.crowd_pledges.authorized.count %></h2>
@@ -92,7 +93,7 @@
   <div class="right -ending">
     <% if !@crowd_campaign.completed? %>
       <h2><%= @crowd_campaign.remaining_days %></h2>
-      <span>Tage</span>
+      <span class="full-view compact-view">Tage</span>
     <% end %>
   </div>
 </div>

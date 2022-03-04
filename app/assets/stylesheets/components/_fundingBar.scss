@@ -185,14 +185,28 @@
   }
 }
 
-.cardBox.-crowd_campaign .fundingBar {
-  font-size:15px;
-}
-.cardBox.-crowd_campaign .fundingStats {
-  .-supporters {
+// Campaign-Page View and CardBox View
+.compact-view {display: none;}
+.full-view    {display: block;}
+
+.cardBox.-crowd_campaign {
+  .full-view {
     display: none;
   }
-  h2 {
-    @include font-size-primaryFont('larger');
+  .compact-view {
+    display: inline-block;
+    padding-left:1px;
+  }
+  .fundingBar {
+    font-size:15px;
+  }
+  .fundingStats {
+    .-supporters {
+      display: none;
+    }
+    h2 {
+      @include font-size-primaryFont('larger');
+      display: inline;
+    }
   }
 }

@@ -49,6 +49,19 @@
       }
     }
   }
+  // -------------------------- Room Demand Cardbox
+  &.-crowd_campaign {
+    .sideflag {
+      color: $color-ambient-rosa-dark;
+      background-color: $color-ambient-rosa-light;
+      &.-R {
+        &:after {
+          border-color: $color-ambient-rosa-dark transparent transparent transparent;
+        }
+      }
+    }
+  }
+
 
   // -------------------------- Room Demand Cardbox
   &.-roomdemand, &.-coopdemand {
