@@ -3,7 +3,7 @@
   <h2 class="hl-main">Deine <span>Crowdfunding Kampagnen</span> verwalten</h2>
 
   <div class="cardBoxCollection -tripple">
-    <%= render @crowd_campaigns %>
+    <%= render @crowd_campaigns, manage_buttons: true %>
   </div>
   <div class="action-card-container">
     <%= render 'crowd_campaigns/action_card', user: @user %>

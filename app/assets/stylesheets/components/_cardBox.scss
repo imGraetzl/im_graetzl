@@ -166,6 +166,11 @@
       .btn-secondary:last-of-type {margin-left:5px;}
       .btn-secondary:only-child {margin:0px;}
     }
+    .btn-secondary, .btn-primary {
+      &.-full {
+        width: 100%;
+      }
+    }
   }
 
 }
