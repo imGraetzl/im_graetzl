@@ -25,6 +25,13 @@
     </div>
 
     <%= render 'crowd_campaigns/funding_bar' %>
+
+    <% if local_assigns[:manage_buttons].present? && current_user == crowd_campaign.user %>
+      <div class="btn-group">
+        <%= link_to 'Bearbeiten', edit_crowd_campaign_path(crowd_campaign), class: 'btn-secondary -mint -small -full' %>
+      </div>
+    <% end %>
+
   </div>
 
 
