@@ -1,0 +1,6 @@
+<%= collection_check_boxes :filter, :crowd_category_ids, CrowdCategory.all, :id, :title, { checked: params[:category] } do |b| %>
+  <div class="input-checkbox filter-input">
+    <%= b.check_box("data-label": b.object.title, "data-filter-label": 'Crowdfunding :: Category Modal') %>
+    <%= b.label %>
+  </div>
+<% end %>

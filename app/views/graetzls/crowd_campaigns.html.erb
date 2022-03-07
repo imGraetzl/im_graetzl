@@ -1,0 +1,51 @@
+<% meta(
+    title: t(".#{current_region.host_id}.title", graetzl: @graetzl.name),
+    description: t(".#{current_region.host_id}.description", graetzl: @graetzl.name, numeric: @graetzl.numeric, region: current_region.name),
+    robots: 'index, follow',
+    og_title: t(".#{current_region.host_id}.title", graetzl: @graetzl.name),
+    og_description: t(".#{current_region.host_id}.description", graetzl: @graetzl.name, numeric: @graetzl.numeric, region: current_region.name),
+    og_image: image_url("meta/#{current_region.id}/og_logo.png")
+  )
+%>
+<% content_for :canonical_url, region_crowd_campaigns_url %>
+
+<section class="region crowd-campaigns">
+
+  <%= render 'map' %>
+  <%= render 'navigation' %>
+
+  <div class="hl-subtext -cards">
+    <h1>WeLocally <em>Crowdfunding</em> Projekte</h1>
+  </div>
+
+  <%= form_tag crowd_campaigns_path, method: :get, remote: true, class: 'cards-filter' do %>
+    <div class="filter-selection-text-jbox">
+      Zeige mir Projekte aus <%= link_to 'allen Kategorien', '#filter-modal-category', data: { no_filter_label: 'allen Kategorien'}, class: 'filter-modal-category' %>,
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        in <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% else %>
+        in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
+      <% end %>
+    </div>
+    <div id="filter-modal-category" class="filter-modal-jbox">
+      <%= render 'filters/crowd_campaign_categories' %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        <%= render 'filters/areas', favorites: current_user %>
+      <% else %>
+        <%= render 'filters/areas', graetzl: @graetzl %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="crowd-campaigns-card-container"></div>
+    <div class="action-card-container" data-behavior="crowd-campaigns-action-card-container">
+      <%= render 'crowd_campaigns/action_card', create_link: true %>
+    </div>
+    <!-- Insert Featured Card -->
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'crowd-campaigns-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+</section>

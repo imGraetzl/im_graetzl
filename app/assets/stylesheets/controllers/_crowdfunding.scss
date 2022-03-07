@@ -43,6 +43,12 @@ section.crowd_campaign {
     text-align: center;
     h1 {@include font-size-secondaryFont('large');}
     h2 {@include font-size-secondaryFont('small');}
+    h2 a {
+      color:white; text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .content-block {

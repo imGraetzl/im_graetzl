@@ -42,6 +42,12 @@ class RegionsController < ApplicationController
     end
   end
 
+  def crowd_campaigns
+    if params[:category].present?
+      @category = CrowdCategory.find_by(slug: params[:category])
+    end
+  end
+
   def zuckerls
   end
 
