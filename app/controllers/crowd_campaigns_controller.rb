@@ -122,17 +122,18 @@ class CrowdCampaignsController < ApplicationController
 
   def collection_scope
     if params[:user_id].present?
-      CrowdCampaign.approved.where(user_id: params[:user_id])
+      CrowdCampaign.funding.where(user_id: params[:user_id])
     else
-      CrowdCampaign.approved
+      CrowdCampaign.scope_public
     end
   end
 
   def filter_collection(collection)
     graetzl_ids = params.dig(:filter, :graetzl_ids)
+    crowd_category_ids = params.dig(:filter, :crowd_category_ids)
 
-    if params[:category_id].present?
-      collection = collection.where(crowd_category: params[:category_id])
+    if crowd_category_ids.present? && crowd_category_ids.any?(&:present?)
+      collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids}).distinct
     end
 
     if params[:favorites].present? && current_user

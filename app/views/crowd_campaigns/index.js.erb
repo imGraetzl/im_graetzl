@@ -1,0 +1,16 @@
+(function() {
+  var $cardContainer = $("[data-behavior='crowd-campaigns-card-container']");
+  var $paginateLink = $("[data-behavior='crowd-campaigns-paginate-link']");
+
+  <% if params[:page].blank? %>
+    $cardContainer.html("<%= j render @crowd_campaigns %>")
+  <% else %>
+    $cardContainer.append("<%= j render @crowd_campaigns %>");
+  <% end %>
+
+  <% if @crowd_campaigns.next_page.present? %>
+    $paginateLink.attr('href', "<%= j next_page_url %>").removeClass("hide");
+  <% else %>
+    $paginateLink.addClass("hide");
+  <% end %>
+})();

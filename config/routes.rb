@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
     get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
+    get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
     get 'special-events', action: 'platform_meetings', as: 'platform_meetings'
@@ -95,6 +96,7 @@ Rails.application.routes.draw do
     get 'raumteiler(/category/:category)', action: 'rooms', as: 'rooms'
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands'
     get 'toolteiler(/category/:category)', action: 'tools', as: 'tools'
+    get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
   end
@@ -299,6 +301,7 @@ Rails.application.routes.draw do
     get 'toolteiler(/category/:category)', action: 'tools', as: 'tools', on: :member
     get 'coop-share(/category/:category)', action: 'coop_demands', as: 'coop_demands', on: :member
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls', on: :member
+    get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns', on: :member
     get 'gruppen', action: 'groups', as: 'groups', on: :member
     resources :meetings, path: 'treffen', only: [:show]
     resources :groups, path: 'gruppen', only: [:show]

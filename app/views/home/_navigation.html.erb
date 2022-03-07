@@ -20,6 +20,11 @@
     <div class="txt">Markt <br/>platz</div>
   <% end %>
 
+  <%= active_link_to region_crowd_campaigns_path, class: "iconfilter" do %>
+    <%= icon_tag "currency-euro" %>
+    <div class="txt">Crowd<br/>funding</div>
+  <% end %>
+
   <%= active_link_to region_rooms_path, class: "iconfilter" do %>
     <%= icon_tag "raumteiler" %>
     <div class="txt">Raum<br/>teiler</div>

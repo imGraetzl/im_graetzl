@@ -42,7 +42,18 @@
     .txt { display: flex; }
   }
 
-  .iconfilter {
+  // Smaller Nav Desktop Version
+  &.-small .iconfilter {
+    height: 60px !important;
+    background-size: 60px 60px !important;
+    margin-right: 10px !important;
+    .icon {
+      width: 35px !important;
+      height: 35px !important;
+    }
+  }
+
+  .iconfilter, &.-small .iconfilter {
     @extend .bigicontext-element;
     flex: 0 0 auto;
     margin-right: 15px;
