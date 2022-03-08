@@ -2,62 +2,64 @@
   <h1>Deine <span>Crowdfunding</span> Kampagne</h1>
 </div>
 
-<div class="navigation-bar step-nav overthrow">
+<div class="navigation-bar-wrp">
+  <div class="navigation-bar step-nav overthrow">
 
-  <%= active_link_to edit_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-    <%= step_icon(@crowd_campaign, 1) %>
-    <div class="txt">Projekt<br>Setup</div>
-  <% end %>
-
-  <div class="step-line"></div>
-
-  <%= active_link_to edit_description_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-    <%= step_icon(@crowd_campaign, 2) %>
-    <div class="txt">Projekt<br>Beschreibung</div>
-  <% end %>
-
-  <div class="step-line"></div>
-
-  <%= active_link_to edit_finance_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-    <%= step_icon(@crowd_campaign, 3) %>
-    <div class="txt">Projekt<br>Finanzierung</div>
-  <% end %>
-
-  <div class="step-line"></div>
-
-  <%= active_link_to edit_rewards_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-    <%= step_icon(@crowd_campaign, 4) %>
-    <div class="txt">Projekt<br>Dankeschöns</div>
-  <% end %>
-
-  <div class="step-line"></div>
-
-  <%= active_link_to edit_media_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-    <%= step_icon(@crowd_campaign, 5) %>
-    <div class="txt">Projekt<br>Medien</div>
-  <% end %>
-
-  <div class="step-line"></div>
-
-  <%= active_link_to edit_finish_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-    <% if @crowd_campaign.pending? %>
-      <%= icon_tag "slots" %>
-    <% elsif @crowd_campaign.approved? %>
-      <%= icon_tag "check" %>
-    <% else %>
-      <%= icon_tag "flag" %>
+    <%= active_link_to edit_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+      <%= step_icon(@crowd_campaign, 1) %>
+      <div class="txt">Projekt<br>Setup</div>
     <% end %>
-    <div class="txt">Projekt<br>Freigabe</div>
-  <% end %>
 
-  <% if !@crowd_campaign.draft? %>
     <div class="step-line"></div>
-    <%= active_link_to edit_next_steps_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-      <%= icon_tag "info-announcement" %>
-      <div class="txt">Nächste<br>Schritte</div>
-    <% end %>
-  <% end %>
 
+    <%= active_link_to edit_description_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+      <%= step_icon(@crowd_campaign, 2) %>
+      <div class="txt">Projekt<br>Beschreibung</div>
+    <% end %>
+
+    <div class="step-line"></div>
+
+    <%= active_link_to edit_finance_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+      <%= step_icon(@crowd_campaign, 3) %>
+      <div class="txt">Projekt<br>Finanzierung</div>
+    <% end %>
+
+    <div class="step-line"></div>
+
+    <%= active_link_to edit_rewards_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+      <%= step_icon(@crowd_campaign, 4) %>
+      <div class="txt">Projekt<br>Dankeschöns</div>
+    <% end %>
+
+    <div class="step-line"></div>
+
+    <%= active_link_to edit_media_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+      <%= step_icon(@crowd_campaign, 5) %>
+      <div class="txt">Projekt<br>Medien</div>
+    <% end %>
+
+    <div class="step-line"></div>
+
+    <%= active_link_to edit_finish_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+      <% if @crowd_campaign.pending? %>
+        <%= icon_tag "slots" %>
+      <% elsif @crowd_campaign.approved? %>
+        <%= icon_tag "check" %>
+      <% else %>
+        <%= icon_tag "flag" %>
+      <% end %>
+      <div class="txt">Projekt<br>Freigabe</div>
+    <% end %>
+
+    <% if !@crowd_campaign.draft? %>
+      <div class="step-line"></div>
+      <%= active_link_to edit_next_steps_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
+        <%= icon_tag "info-announcement" %>
+        <div class="txt">Nächste<br>Schritte</div>
+      <% end %>
+    <% end %>
+
+  </div>
 </div>
 
 <div id="cf-preview" class="jBoxHidden">

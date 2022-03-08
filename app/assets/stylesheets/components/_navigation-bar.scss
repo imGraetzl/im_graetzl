@@ -1,3 +1,20 @@
+.navigation-bar-wrp {
+  position: relative;
+  margin-right:-18px;
+  @include respond-to("<=medium") {
+    &::after {
+      content: '';
+      background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0), #fff);
+      height: 99%;
+      position: absolute;
+      pointer-events: none;
+      right: 0;
+      top: 0;
+      width: 20px;
+      z-index: 2;
+    }
+  }
+}
 .navigation-bar {
 
   position: relative;
