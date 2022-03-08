@@ -24,10 +24,10 @@ ActiveAdmin.register CrowdCampaign do
   form partial: 'form'
 
   # batch actions
-  batch_action :approve do |ids|
-    batch_action_collection.find(ids).map(&:approved!)
-    redirect_to collection_path, alert: 'Die ausgewählten Crowdfunding Kampagnen wurden freigeschalten.'
-  end
+  #batch_action :approve do |ids|
+  #  batch_action_collection.find(ids).map(&:approved!)
+  #  redirect_to collection_path, alert: 'Die ausgewählten Crowdfunding Kampagnen wurden freigeschalten.'
+  #end
 
   # action buttons
   action_item :approve, only: :show, if: proc{ crowd_campaign.pending? } do
@@ -39,7 +39,7 @@ ActiveAdmin.register CrowdCampaign do
 
     if resource.approved!
       #UsersMailer.crowd_campaign_approved(resource).deliver_now
-      #ActionProcessor.track(resource, :create)
+      ActionProcessor.track(resource, :create) # Move to Background Task (State Funding)
 
       flash[:success] = 'Crowdfunding Kampagne wurde freigeschalten.'
       redirect_to admin_crowd_campaigns_path
