@@ -2,6 +2,17 @@
   position: relative;
   //margin-right:-18px;
   @include respond-to("<=medium") {
+    &::before {
+      content: '';
+      background: -webkit-linear-gradient(0deg, #fff, rgba(255, 255, 255, 0));
+      height: 99%;
+      position: absolute;
+      pointer-events: none;
+      left: -18px;
+      top: 0;
+      width: 15px;
+      z-index: 2;
+    }
     &::after {
       content: '';
       background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0), #fff);
@@ -10,7 +21,7 @@
       pointer-events: none;
       right: -18px;
       top: 0;
-      width: 25px;
+      width: 15px;
       z-index: 2;
     }
   }
@@ -37,7 +48,7 @@
   @include respond-to("<medium") {
     &::after {
       content: '\a0';
-      margin-left:10px;
+      margin-left:2px;
       visibility: hidden;
     }
   }
