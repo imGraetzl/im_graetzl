@@ -105,13 +105,16 @@ body.desk .navigation-bar {
 
 .navigation-bar.step-nav {
 
-  margin-left: 0px;
-  margin-right: 0px;
+  //margin-left: 0px;
+  //margin-right: 0px;
 
   padding: 0px 0px 20px 0px;
-
-  justify-content: space-around;
   border-bottom: none;
+
+  @include respond-to(">=medium") {
+    justify-content: space-around;
+  }
+
   &::after {display: none;}
   .iconfilter {
 
@@ -179,6 +182,9 @@ body.desk .navigation-bar {
     position: relative;
     top:-35px;
     margin:3px;
+    @include respond-to("<=medium") {
+      min-width:25px !important;
+    }
     //align-self: baseline;
   }
 }

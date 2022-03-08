@@ -145,6 +145,9 @@ class ActionProcessor
       Activity.add_public(subject, child, to: subject.graetzls)
       notify_comment(subject, child)
 
+    when [CrowdCampaign, :create]
+      Activity.add_public(subject, to: :entire_region)
+
     when [User, :comment]
       Notifications::NewWallComment.generate(subject, child, to: subject.id)
 

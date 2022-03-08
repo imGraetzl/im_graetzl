@@ -2,7 +2,7 @@ section.region {
 
   .sideflag {
     display: none;
-    &.-category {
+    &.-category, &.-label {
       display: block;
     }
   }
