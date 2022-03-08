@@ -3,8 +3,8 @@ APP.components.headerNavigation = (function() {
   function init() {
 
     // Scroll active Horiziontal NavPoint into View if Horizintal Nav exists
-    if (window.innerWidth <= 980 && $(".navigation-bar").exists()) {
-      $(".navigation-bar").animate({scrollLeft: $('.iconfilter.active').position().left-10}, 0);
+    if (window.innerWidth <= 980 && $(".navigation-bar .active").exists()) {
+      $(".navigation-bar").animate({scrollLeft: $('.navigation-bar .active').position().left-10}, 250);
     }
     // End Horizontal Nav
 
