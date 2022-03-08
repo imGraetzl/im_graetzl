@@ -14,6 +14,10 @@ class CrowdPledge < ApplicationRecord
 
   PAYMENT_METHODS = ['card', 'eps'].freeze
 
+  def visible?
+    !anonym
+  end
+
   def total_price
     if !crowd_reward.nil? && !amount.nil?
       crowd_reward.amount + amount

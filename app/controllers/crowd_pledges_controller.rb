@@ -17,6 +17,7 @@ class CrowdPledgesController < ApplicationController
 
     if @crowd_pledge.save
       redirect_to [:choose_payment, @crowd_pledge]
+      ActionProcessor.track(@crowd_campaign, :crowd_pledge, @crowd_pledge) # Move to after authorized Payment 
     else
       render :new
     end

@@ -148,6 +148,11 @@ class ActionProcessor
     when [CrowdCampaign, :create]
       Activity.add_public(subject, to: :entire_region)
 
+    when [CrowdCampaign, :crowd_pledge]
+      if child.visible?
+        Activity.add_public(subject, child, to: :entire_region)
+      end
+
     when [User, :comment]
       Notifications::NewWallComment.generate(subject, child, to: subject.id)
 
