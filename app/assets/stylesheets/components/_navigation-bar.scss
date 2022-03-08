@@ -1,6 +1,6 @@
 .navigation-bar-wrp {
   position: relative;
-  margin-right:-18px;
+  //margin-right:-18px;
   @include respond-to("<=medium") {
     &::after {
       content: '';
@@ -8,9 +8,9 @@
       height: 99%;
       position: absolute;
       pointer-events: none;
-      right: 0;
+      right: -18px;
       top: 0;
-      width: 20px;
+      width: 25px;
       z-index: 2;
     }
   }
@@ -32,6 +32,15 @@
   padding: 10px 10px 10px 10px;
 
   .txt { display: none; }
+
+  // Mobile Space after last Item for Scrolling
+  @include respond-to("<medium") {
+    &::after {
+      content: '\a0';
+      margin-left:10px;
+      visibility: hidden;
+    }
+  }
 
   // Desktop
   @include respond-to(">=medium") {
@@ -122,17 +131,14 @@ body.desk .navigation-bar {
 
 .navigation-bar.step-nav {
 
-  //margin-left: 0px;
-  //margin-right: 0px;
-
-  padding: 0px 0px 20px 0px;
+  padding: 0px 0px 20px 10px;
   border-bottom: none;
 
   @include respond-to(">=medium") {
     justify-content: space-around;
+    &::after {display: none;}
   }
 
-  &::after {display: none;}
   .iconfilter {
 
     // Fill all before Steps
