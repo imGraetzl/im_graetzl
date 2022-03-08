@@ -48,7 +48,6 @@
   @include respond-to("<medium") {
     &::after {
       content: '\a0';
-      margin-left:2px;
       visibility: hidden;
     }
   }
