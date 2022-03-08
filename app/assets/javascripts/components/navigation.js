@@ -1,6 +1,13 @@
 APP.components.headerNavigation = (function() {
 
   function init() {
+
+    // Scroll active Horiziontal NavPoint into View if Horizintal Nav exists
+    if (window.innerWidth <= 980 && $(".navigation-bar").exists()) {
+      $(".navigation-bar").animate({scrollLeft: $('.iconfilter.active').position().left-10}, 0);
+    }
+    // End Horizontal Nav
+
     var container = $(".navigation");
 
     container.find("[data-dropdown]").on('click', function() {
