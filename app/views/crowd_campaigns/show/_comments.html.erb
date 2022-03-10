@@ -1,0 +1,4 @@
+<div class="stream">
+  <%= render 'comments/form', commentable: @crowd_campaign %>
+  <%= render partial: 'comments/stream_comment', collection: @comments, as: 'comment' %>
+</div>

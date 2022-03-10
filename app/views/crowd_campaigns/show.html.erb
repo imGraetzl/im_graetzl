@@ -53,7 +53,7 @@
       <ul class="tabs-nav">
         <li class="active"><a href="#tab-info">Projekt Infos</a></li>
         <li><a href="#tab-updates">Projekt Neuigkeiten (0)</a></li>
-        <li><a href="#tab-comments">Pinnwand (0)</a></li>
+        <li><a href="#tab-comments">Pinnwand (<%= @crowd_campaign.comments.count %>)</a></li>
         <li><a href="#tab-supporters">UnterstützerInnen (<%= @crowd_campaign.crowd_pledges.authorized.count %>)</a></li>
       </ul>
     </div>

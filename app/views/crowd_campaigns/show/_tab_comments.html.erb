@@ -1,3 +1,8 @@
 <div id="tab-comments" class="layoutArea">
-Crowd Comments ...
+
+  <%= form_tag comments_crowd_campaign_path(@crowd_campaign), method: :get, remote: true, class: 'form-comments' do %>
+  <% end %>
+
+  <div class="comments-container"></div>
+
 </div>
