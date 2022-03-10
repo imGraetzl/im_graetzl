@@ -13,11 +13,21 @@ APP.controllers.crowd_campaigns = (function() {
     function initCrowdCampaign() {
 
       APP.components.tabs.initTabs(".tabs-ctrl", "#tabs-container");
+      APP.components.tabs.initPageTab();
+
+      // Delete target param on manual tab change
+      $('.tabs-ctrl a').on("click", function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete("target");
+        history.replaceState(null, null, "?" + urlParams.toString()); // Replace current querystring with the new one.
+      })
 
       // Load on Tab Change & PageLoad
       $('.tabs-ctrl').on("_after", function() {
-          if($("#tab-supporters").is(":visible")){
+          if ($("#tab-supporters").is(":visible")){
             $(".form-supporters").submit();
+          } else if ($("#tab-comments").is(":visible")) {
+            $(".form-comments").submit();
           }
       }).trigger('_after');
 

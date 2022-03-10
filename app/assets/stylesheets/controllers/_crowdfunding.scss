@@ -208,6 +208,13 @@ section.crowd_campaign {
     }
 
   }
+  .comments-container {
+    width:100%;
+    .stream {
+      padding-top:0px;
+      border-top:none;
+    }
+  }
 
   .supporters-container {
     width:100%;

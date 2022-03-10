@@ -28,7 +28,14 @@ APP.components.tabs = (function() {
 
     function openTab(tab) {
       $('.tabs-ctrl').trigger('show', '#tab-' + tab);
-      $('.tabs-ctrl').get(0).scrollIntoView();
+      //$('.tabs-ctrl').get(0).scrollIntoView();
+    }
+
+    function initPageTab() {
+      var tab = APP.controllers.application.getUrlVars()["pagetab"];
+      if (typeof tab !== 'undefined') {
+        openTab(tab);
+      }
     }
 
     function setTab(tab) {
@@ -38,6 +45,7 @@ APP.components.tabs = (function() {
 
     return {
       initTabs: initTabs,
+      initPageTab: initPageTab,
       openTab: openTab,
       setTab: setTab
     }

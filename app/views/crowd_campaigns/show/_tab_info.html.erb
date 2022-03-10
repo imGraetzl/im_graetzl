@@ -10,10 +10,10 @@
     <div class="content-block -facts">
 
       <div class="block bigicontext-element -small">
-        <%= avatar_image User.first, size: :thumb, class: 'img-round' %>
+        <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-round' %>
         <div class="txt">
           <h4>Projekt InhaberIn</h4>
-          <p><strong><%= User.first.full_name %></strong></p>
+          <p><strong><%= @crowd_campaign.contact_name %></strong></p>
         </div>
       </div>
 

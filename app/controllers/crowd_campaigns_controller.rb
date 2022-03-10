@@ -1,5 +1,5 @@
 class CrowdCampaignsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :supporters]
+  before_action :authenticate_user!, except: [:index, :show, :supporters, :comments]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -10,7 +10,6 @@ class CrowdCampaignsController < ApplicationController
 
   def show
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
     @preview = params[:preview] == 'true' ?  true : false
     show_status_message?
   end
@@ -72,6 +71,11 @@ class CrowdCampaignsController < ApplicationController
   def supporters
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     @supporters = @crowd_campaign.crowd_pledges.authorized.visible.reverse
+  end
+
+  def comments
+    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
   end
 
   def update
