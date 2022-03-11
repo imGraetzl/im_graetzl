@@ -3,11 +3,17 @@ section.crowd_campaign {
   .layoutArea {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     .mainArea {
       width:63%;
     }
     .sideArea {
       width:32%;
+    }
+    @include respond-to("<medium") {
+      .mainArea, .sideArea {
+        width:100%;
+      }
     }
   }
 
@@ -36,6 +42,9 @@ section.crowd_campaign {
     .btn-round-icon {
       position: absolute;
       right:0
+    }
+    .supporter:not(:first-child) {
+      display: none;
     }
   }
 
@@ -122,12 +131,19 @@ section.crowd_campaign {
     display: flex;
     justify-content: center;
     position: relative;
+    @include respond-to("<medium") {
+      margin-top:60px;
+    }
 
     .titleImg {
       width:100%;
       height:auto;
       border-radius: 10px 10px 0px 0px;
       transform: rotate(1.5deg) translate3d(0, 0, 0);
+      @include respond-to("<medium") {
+        width:auto;
+        height:250px;
+      }
     }
 
     .crowd-avatar {
@@ -139,6 +155,12 @@ section.crowd_campaign {
       border-width: 1px 0px 0px 0px;
       padding:6px;
       z-index: 9;
+      @include respond-to("<medium") {
+        width:60px;
+        height:60px;
+        top:-40px;
+        padding:3px;
+      }
     }
 
     .social-icons {
@@ -157,6 +179,10 @@ section.crowd_campaign {
       width:90px;
       height:90px;
       transform: unset;
+      @include respond-to("<medium") {
+        width:50px;
+        height:50px;
+      }
     }
 
   }
