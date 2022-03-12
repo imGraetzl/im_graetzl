@@ -52,9 +52,9 @@
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
         <li class="active"><a href="#tab-info">Projekt Infos</a></li>
-        <li><a href="#tab-updates">Projekt Neuigkeiten (0)</a></li>
-        <li><a href="#tab-comments">Pinnwand (<%= @crowd_campaign.comments.count %>)</a></li>
-        <li><a href="#tab-supporters">UnterstützerInnen (<%= @crowd_campaign.crowd_pledges.authorized.count %>)</a></li>
+        <li><a href="#tab-updates">Projekt News</a></li>
+        <li><a href="#tab-comments">Pinnwand <small><%= @crowd_campaign.comments.count if @crowd_campaign.comments.count > 0 %></small></a></li>
+        <li><a href="#tab-supporters">UnterstützerInnen <small><%= @crowd_campaign.crowd_pledges.authorized.count if @crowd_campaign.crowd_pledges.authorized.count > 0 %></small></a></li>
       </ul>
     </div>
   </div>
