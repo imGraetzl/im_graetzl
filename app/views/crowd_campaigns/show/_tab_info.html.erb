@@ -29,7 +29,7 @@
       <div class="block -full bigicontext-element -small">
         <%= icon_tag "currency-euro" %>
         <div class="txt">
-          <h4>Benötigter Startlevel Betrag</h4>
+          <h4>Benötigter Mindesbetrag</h4>
           <p><strong><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></strong></p>
           <p class="desc"><%= @crowd_campaign.funding_1_description %></p>
         </div>
@@ -38,7 +38,7 @@
       <div class="block -full bigicontext-element -small">
         <%= icon_tag "flag" %>
         <div class="txt">
-          <h4>Wunschlevel Zielbetrag</h4>
+          <h4>Optimalbetrag</h4>
           <p><strong><%= number_to_currency(@crowd_campaign.funding_2_amount, unit: "€") %></strong></p>
           <p class="desc"><%= @crowd_campaign.funding_2_description %></p>
         </div>
@@ -49,7 +49,7 @@
         <%= icon_tag "handshake" %>
         <div class="txt">
           <h4>Gemeinwohl</h4>
-          <p><strong>Projekt Benefit für die Allgemeinheit</strong></p>
+          <p><strong>Die Allgemeinheit profitiert vom Projekt</strong></p>
           <p class="desc"><%= @crowd_campaign.benefit_description %></p>
         </div>
       </div>

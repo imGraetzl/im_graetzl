@@ -13,7 +13,7 @@
   <div class="input-button">
     <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
     <%= link_to 'Vorschau', 'javascript:', class: 'btn-secondary -mint save-and-preview' %>
-    <%= f.button 'Speichern & Weiter zu den Projekt Dankeschöns', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: edit_rewards_crowd_campaign_path(@crowd_campaign) %>
+    <%= f.button 'Weiter zu den Dankeschöns', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: edit_rewards_crowd_campaign_path(@crowd_campaign) %>
   </div>
 
   <% end %>

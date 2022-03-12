@@ -43,8 +43,10 @@ section.crowd_campaign {
       position: absolute;
       right:0
     }
-    .supporter:not(:first-child) {
-      display: none;
+    @include respond-to("<medium") {
+      .supporter:not(:first-child) {
+        display: none;
+      }
     }
   }
 
@@ -97,6 +99,9 @@ section.crowd_campaign {
         font-style: italic;
       }
       p.desc {color: $color-font-primary;}
+      @include respond-to("<medium") {
+        width:100%;
+      }
     }
     .block:last-child {
       margin-bottom: 0px;
@@ -264,6 +269,9 @@ section.crowd_campaign {
           height:50%;
           color: $color-ambient-mint;
         }
+      }
+      @include respond-to("<medium") {
+        width: 100%;
       }
     }
   }
