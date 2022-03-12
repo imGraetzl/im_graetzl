@@ -17,14 +17,14 @@
   <div class="benefit-checkbox">
     <div class="input-checkbox">
       <%= f.check_box(:benefit) %>
-      <%= f.label :benefit, "Ja, von meinem Projekt profitieren auch andere", class: 'benefit-switch' %>
+      <%= f.label :benefit, "Ja, von meinem Projekt profitiert auch die Allgemeinheit", class: 'benefit-switch' %>
     </div>
   </div>
   <div class="benefit-fields">
     <div class="input-textarea">
       <%= f.label :benefit_description do %>
       <%= icon_tag "layout-document" %>
-      <span>Benefit für Allgemeinheit</span>
+      <span>Vorteil für die Allgemeinheit</span>
       <% end %>
       <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...' %>
     </div>

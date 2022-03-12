@@ -70,7 +70,7 @@
     &:after {
       content: "";
       position: absolute;
-      border-bottom: 1px dashed $color-ambient-mint-dark;
+      border-bottom: 1px solid $color-ambient-grey-light;
       width: 100%;
       bottom:0px;
       left:1px;

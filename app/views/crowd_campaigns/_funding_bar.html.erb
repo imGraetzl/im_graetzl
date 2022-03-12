@@ -20,7 +20,7 @@
 
 <% elsif @crowd_campaign.funding_1? %>
 
-  <% funding_subtitle = "Startlevel: #{number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€")}" %>
+  <% funding_subtitle = "Mindesbetrag: #{number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€")}" %>
 
   <div class="fundingBar">
     <div class="fundingBar_track fundingBar_track-only">
