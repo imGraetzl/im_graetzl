@@ -296,6 +296,8 @@ de:
         usage_description: Verwendung
         budget: Budget
         usage_days: Anzahl benötigte Tage
+        usage_period_from: Zeitraum Anfang
+        usage_period_to: Zeitraum Ende
         first_name: Vorname
         last_name: Nachname
         email: Email
