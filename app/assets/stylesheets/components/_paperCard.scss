@@ -175,7 +175,7 @@
       flex-direction: column-reverse;
       align-items: center;
       .video-thumb {
-        margin-left:0px;
+        //margin-left:0px;
         margin-bottom:15px;
       }
     }
@@ -186,7 +186,7 @@
   .video-thumb a.player .video {
     width:180px;
     @include respond-to("<medium") {
-      width:320px;
+      width:100%;
     }
   }
   .video-thumb {
