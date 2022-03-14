@@ -9,6 +9,7 @@ class SearchService
   def sample
     return [] if @query.length < 3
 
+    search_crowd_campaigns.first(2) +
     search_rooms.first(2) +
     search_meetings.first(2) +
     search_locations.first(2) +
@@ -20,6 +21,7 @@ class SearchService
     [:locations_count => search_locations.length] +
     [:tools_count => search_tools.length] +
     [:coop_demands_count => search_coop_demands.length] +
+    [:crowd_campaigns_count => search_crowd_campaigns.length] +
     [:groups_count => search_groups.length]
 
   end
@@ -35,6 +37,7 @@ class SearchService
 
     results = []
     results += search_meetings if @options[:type].blank? || @options[:type] == 'meetings'
+    results += search_crowd_campaigns if @options[:type].blank? || @options[:type] == 'crowd_campaigns'
     results += search_groups if @options[:type].blank? || @options[:type] == 'groups'
     results += search_locations if @options[:type].blank? || @options[:type] == 'locations'
     results += search_rooms if @options[:type].blank? || @options[:type] == 'rooms'
@@ -58,6 +61,10 @@ class SearchService
 
   def search_meetings
     Meeting.in(@region).upcoming.joins(:location).where("meetings.name ILIKE :q OR locations.name ILIKE :q", q: like_query).order('starts_at_date DESC')
+  end
+
+  def search_crowd_campaigns
+    CrowdCampaign.in(@region).scope_public.where("title ILIKE :q OR slogan ILIKE :q", q: like_query).order('created_at DESC')
   end
 
   def search_locations

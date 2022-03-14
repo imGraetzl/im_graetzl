@@ -100,7 +100,7 @@
         margin-right:5px;
       }
     }
-    &.RoomOffer, &.ToolOffer, &.Location, &.Group {
+    &.RoomOffer, &.ToolOffer, &.Location, &.Group, &.CrowdCampaign {
       img {
         @extend .img-square;
       }

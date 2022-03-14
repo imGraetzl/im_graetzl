@@ -62,6 +62,16 @@ json.coop_demands do
   end
 end
 
+json.crowd_campaigns do
+  json.array!(@results.select{|r| r.is_a?(CrowdCampaign)}) do |crowd_campaign|
+    json.count @results.find{|r| r[:crowd_campaigns_count]} [:crowd_campaigns_count]
+    json.type crowd_campaign.class.name
+    json.name crowd_campaign.title
+    json.url crowd_campaign_path(crowd_campaign)
+    json.icon crowd_campaign.cover_photo_url(:thumb)
+  end
+end
+
 json.groups do
   json.array!(@results.select{|r| r.is_a?(Group)}) do |group|
     json.count @results.find{|r| r[:groups_count]} [:groups_count]
