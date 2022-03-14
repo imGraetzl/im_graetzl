@@ -9,6 +9,7 @@ module SearchHelper
       ['Toolteiler', 'Toolteiler', 'tools'],
       ['Coop & Share', 'Coop & Share', 'coop_demands'],
       ['Gruppen', 'Gruppen', 'groups'],
+      ['Crowdfunding', 'Crowdfunding', 'crowd_campaigns'],
     ]
   end
 
