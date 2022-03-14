@@ -8,7 +8,7 @@ APP.components.search = (function() {
 
     // Nav Search Icon Click: Delete Value and set Focus to Field
     $(".nav-autocomplete-icon").on("click", function() {
-      $input.val("");
+      //$input.val("");
       setTimeout(function(){ $input.focus() }, 100); // hack: only works after waiting
     });
 
@@ -147,7 +147,7 @@ APP.components.search = (function() {
           if ($(this).find('a').length == 0) {
             $(this).append(link);
           }
-          
+
       });
     }
 

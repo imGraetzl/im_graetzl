@@ -22,6 +22,8 @@ class ToolDemand < ApplicationRecord
 
   validates_presence_of :slogan, :demand_description, :usage_description, :usage_days, :tool_category_id, :first_name, :last_name, :email
   validate :has_one_graetzl_at_least # doesn't work for some reason
+  validates :usage_period_from, presence: true, if: :usage_period?
+  validates :usage_period_to, presence: true, if: :usage_period?
 
   scope :by_currentness, -> { order(created_at: :desc) }
 
