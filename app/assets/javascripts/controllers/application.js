@@ -149,7 +149,7 @@ APP.controllers.application = (function() {
     var iframeHeight = $(window).width() * 0.56;
     iframe.style.height = iframeHeight + 'px';
   }
-
+  var vidsrc;
   var videoModal = new jBox('Modal', {
     addClass:'jBox jBoxVideo',
     attach: '.jBoxVideo',
@@ -158,8 +158,11 @@ APP.controllers.application = (function() {
     closeOnEsc:true,
     closeOnClick:true,
     animation:{open: 'zoomIn', close: 'zoomOut'},
+    onOpen: function () {
+      vidsrc = $('#videoIframe').attr('src');
+      $('#videoIframe').attr('src',vidsrc + "?autoplay=1");
+    },
     onClose: function () {
-      var vidsrc = $('#videoIframe').attr('src');
       $('#videoIframe').attr('src','');
       $('#videoIframe').attr('src', vidsrc);
     }
