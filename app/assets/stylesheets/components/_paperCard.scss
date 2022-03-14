@@ -185,6 +185,9 @@
   }
   .video-thumb a.player .video {
     width:180px;
+    @include respond-to("<medium") {
+      width:320px;
+    }
   }
   .video-thumb {
     transform: rotate(1deg);
