@@ -23,5 +23,6 @@ module Notifications
     NewToolDemand,
     NewWallComment,
     NewCoopDemand,
+    NewCrowdCampaign,
   ]
 end

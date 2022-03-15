@@ -16,8 +16,18 @@ class CrowdPledgesController < ApplicationController
     @crowd_reward = @crowd_pledge.crowd_reward
 
     if @crowd_pledge.save
+
+      #funding_status_before = @crowd_campaign.funding_status.to_sym
+      @crowd_pledge.authorized! # For Testing - authorize Payment
+      #funding_status_after = @crowd_campaign.funding_status.to_sym
+
+      #if @crowd_campaign.funding_1_successful?(funding_status_before, funding_status_after)
+      #  ActionProcessor.track(@crowd_campaign, :funding_1_successful, @crowd_pledge)
+      #end
+      ActionProcessor.track(@crowd_campaign, :crowd_pledge, @crowd_pledge) # Move after authorized Payment
+
       redirect_to [:choose_payment, @crowd_pledge]
-      ActionProcessor.track(@crowd_campaign, :crowd_pledge, @crowd_pledge) # Move to after authorized Payment 
+
     else
       render :new
     end

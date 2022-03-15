@@ -5,7 +5,8 @@ ActiveAdmin.register CrowdCampaign do
   includes :location, :user, :comments
   actions :all, except: [:new, :create]
 
-  scope :draft, default: true
+  scope :all, default: true
+  scope :draft
   scope :pending
   scope :approved
 

@@ -49,6 +49,15 @@
 <div class="notifications-block">
   <div class="settingHead">
     <div class="col1">
+      <h2><span>Crowdfunding</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h2>
+    </div>
+  </div>
+  <%= render 'notification_settings/slice', type: Notifications::NewCrowdCampaign %>
+</div>
+
+<div class="notifications-block">
+  <div class="settingHead">
+    <div class="col1">
       <h2>Betrifft <span>mich</span></h2>
     </div>
   </div>
