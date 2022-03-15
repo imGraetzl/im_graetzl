@@ -78,7 +78,18 @@
 
         <% if @crowd_campaign.video? %>
           <li data-thumb="<%= image_path('svg/slider-thumbnail-video.svg') %>">
-            <iframe width="100%" height="350" src="<%= @crowd_campaign.video %>" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
+
+              <div style="padding:56.25% 0 0 0;position:relative;">
+                <iframe id="galleryVideo" src="<%= @crowd_campaign.video %>"
+                  frameborder="0" allow="accelerometer; autoplay;
+                  encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  style="position:absolute;top:0;left:0;
+                  width:100%;height:100%;">
+                </iframe>
+              </div>
+
+
           </li>
         <% end %>
 
