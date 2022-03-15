@@ -46,6 +46,16 @@ APP.controllers.crowd_campaigns = (function() {
       });
 
       $('#media-slider').lightSlider({
+          gallery: true,
+          item: 1,
+          loop: false,
+          slideMargin: 10,
+          thumbItem: 5,
+          controls: false,
+      });
+
+      /*
+      $('#media-slider').lightSlider({
         autoWidth: true,
         slideMargin: 10,
         mode: "slide",
@@ -66,6 +76,7 @@ APP.controllers.crowd_campaigns = (function() {
         freeMove:true,
         swipeThreshold: 40,
       });
+      */
 
     }
 

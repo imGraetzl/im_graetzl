@@ -73,20 +73,22 @@
 
     </div>
 
-
     <div class="mediaSlider">
-      <div class="entryImgUploads" id="media-slider">
+      <ul id="media-slider" class="gallerySlider">
 
         <% if @crowd_campaign.video? %>
-          <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), 'javascript:', class: 'play-icon jBoxVideo' %>
-        <% else %>
-           <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
+          <li data-thumb="<%= image_path('svg/slider-thumbnail-video.svg') %>">
+            <iframe width="100%" height="350" src="<%= @crowd_campaign.video %>" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen=""></iframe>
+          </li>
         <% end %>
 
         <% @crowd_campaign.images.each do |image| %>
-          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+          <li data-thumb="<%= image.file_url(:thumb) %>">
+            <%= link_to image_tag(image.file_url(:cardbox, :large)), image.file_url, data: { jbox_image: "maingallery" } %>
+          </li>
         <% end %>
-      </div>
+
+      </ul>
     </div>
 
     <div class="content-block">
