@@ -37,6 +37,7 @@
   padding: 2px;
   width: $imgDimensions;
   height: $imgDimensions;
+  object-fit: cover;
 }
 
 
@@ -47,6 +48,7 @@
   padding: 2px;
   width: $imgDimensions;
   height: $imgDimensions;
+  object-fit: cover;
 }
 
 @mixin textShadowHard($color: #ffffff) {

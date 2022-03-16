@@ -3,7 +3,7 @@ class Notifications::NewCrowdCampaign < Notification
   self.class_bitmask = 2**24
 
   def self.description
-    'Es gibt eine neue Crowdfunding Kampagne'
+    'Eine neue Crowdfunding Kampagne wurde gestartet'
   end
 
   def mail_subject

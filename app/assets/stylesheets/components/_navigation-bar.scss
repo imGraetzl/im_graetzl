@@ -4,7 +4,7 @@
   @include respond-to("<=medium") {
     &::before {
       content: '';
-      background: -webkit-linear-gradient(0deg, #fff, rgba(255, 255, 255, 0.1));
+      background: -webkit-linear-gradient(0deg, #fff, rgba(255, 255, 255, 0.2));
       height: 99%;
       position: absolute;
       pointer-events: none;
@@ -15,13 +15,13 @@
     }
     &::after {
       content: '';
-      background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.1), #fff);
+      background: -webkit-linear-gradient(0deg, rgba(255, 255, 255, 0.2), #fff);
       height: 99%;
       position: absolute;
       pointer-events: none;
       right: -18px;
       top: 0;
-      width: 15px;
+      width: 25px;
       z-index: 2;
     }
   }

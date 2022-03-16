@@ -163,7 +163,6 @@ APP.controllers.application = (function() {
       $('#videoIframe').attr('src',vidsrc + "?autoplay=1");
     },
     onClose: function () {
-      $('#videoIframe').attr('src','');
       $('#videoIframe').attr('src', vidsrc);
     }
   });
