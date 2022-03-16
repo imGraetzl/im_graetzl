@@ -6,7 +6,7 @@
       <%= icon_tag "record" %>
       <span>Benötigtes Material</span>
     <% end %>
-    <%= f.text_field :title, placeholder: "Welches Material / Equipment benötigst du? ..." %>
+    <%= f.text_field :title, placeholder: "Welches Material / Equipment benötigst du? ...", required: !@crowd_campaign.draft? %>
   </div>
 
   <div class="input-field">
@@ -26,7 +26,7 @@
     <%= icon_tag "layout-document" %>
     <span>Beschreibung</span>
     <% end %>
-    <%= f.text_area :description, placeholder: 'Beschreibung ...' %>
+    <%= f.text_area :description, placeholder: 'Beschreibung ...', required: !@crowd_campaign.draft? %>
   </div>
 
   <div class="form-columns">

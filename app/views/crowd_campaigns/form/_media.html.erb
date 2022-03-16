@@ -33,7 +33,7 @@
     <%= icon_tag "video-play" %>
     <span>Video URL</span>
     <% end %>
-    <%= f.url_field :video, placeholder: 'Link zum Video (Youtube oder Vimeo)', class: '-validate' %><em></em>
+    <%= f.url_field :video, placeholder: 'Link zum Video (Youtube oder Vimeo)', class: '-validate', disabled: @crowd_campaign.not_editable? %><em></em>
   </div>
 
 </div>

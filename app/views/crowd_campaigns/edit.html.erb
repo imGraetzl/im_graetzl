@@ -1,6 +1,6 @@
 <% title('Crowdfunding Kampagne bearbeiten') %>
 
-<section class="crowdfunding-form">
+<section class="crowdfunding-form <%= @crowd_campaign.not_editable? ? 'noteditable' : '' %>">
 
   <%= render 'crowd_campaigns/form/navigation' %>
   <%= render 'crowd_campaigns/form/basic_video' %>

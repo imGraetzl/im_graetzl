@@ -2,13 +2,21 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
 
     function init() {
         if ($("section.crowdfunding-form").exists()) initCrowdfundingForm();
+        if ($("section.crowdfunding-form.noteditable").exists()) initNoEditMode();
+    }
+
+    function initNoEditMode() {
+      $(".crowd-categories, .benefit-checkbox").find("input").each(function() {
+        $(this).prop("disabled", true);
+        $(this).parents(".input-checkbox").addClass("disabled");
+      });
     }
 
     function initCrowdfundingForm() {
 
-      APP.components.formValidation.init();
       APP.components.districtGraetzlInput();
       APP.components.addressInput();
+      APP.components.formValidation.init();
       APP.components.search.userAutocomplete();
 
       $("textarea").autoResize();

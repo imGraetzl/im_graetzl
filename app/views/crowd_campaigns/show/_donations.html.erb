@@ -11,8 +11,12 @@
           <%= crowd_donation.description %><br><br>
           <small>Benötigt im Zeitraum zwischen:</small>
           <p><em>
-            Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d. %b %Y') %><br>
-            Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d. %b %Y') %>
+            <% if crowd_donation.startdate %>
+              Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d. %b %Y') %><br>
+            <% end %>
+            <% if crowd_donation.enddate %>
+              Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d. %b %Y') %>
+            <% end %>
           </em></p>
         </div>
         <%= link_to 'Auswählen', 'javascript:', class: 'btn-primary -mint -shadow' %>
