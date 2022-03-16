@@ -23,6 +23,9 @@ class NotificationMailer < ApplicationMailer
   end
 
   GRAETZL_SUMMARY_BLOCKS = {
+    'Eine neue Crowdfunding Kampagne wurde gestartet' => [
+      Notifications::NewCrowdCampaign
+    ],
     'Neue Schaufenster' => [
       Notifications::NewLocation
     ],
