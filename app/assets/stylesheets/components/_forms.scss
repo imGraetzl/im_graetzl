@@ -150,7 +150,7 @@ input, select, textarea {
   flex-grow: 1;
   &[disabled], &[readonly] {
     background-color: $color-ambient-grey-light;
-    color: $color-ambient-grey !important;
+    color: $color-ambient-grey;
   }
 }
 
@@ -160,6 +160,24 @@ input, select, textarea {
       color: $color-ambient-grey;
       border-color: $color-ambient-grey-light;
     }
+    :disabled::-webkit-input-placeholder { /* WebKit browsers */
+    color: $color-ambient-grey; opacity: 0.7;
+    }
+    :disabled:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: $color-ambient-grey; opacity: 0.7;
+    }
+    :disabled::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: $color-ambient-grey; opacity: 0.7;
+    }
+    :disabled:-ms-input-placeholder { /* Internet Explorer 10+ */
+      color: $color-ambient-grey; opacity: 0.7;
+    }
+  }
+  &.disabled.input-select::before {
+    background-color: $color-ambient-grey-light;
+  }
+  &.disabled.input-select::after {
+    border-top-color: $color-ambient-grey;
   }
   > label {
     @extend %label;
@@ -230,7 +248,7 @@ input, select, textarea {
   select[disabled] {
     color: $color-ambient-grey;
     background-color: $color-ambient-grey-light;
-    font-style: italic;
+    //font-style: italic;
   }
 
   &.select-btn {
@@ -334,6 +352,12 @@ input, select, textarea {
     font-size: 28px;
     line-height: 20px;
     color: $color-ambient-mint;
+  }
+  &.disabled {
+    label::before {
+      background-color: $color-ambient-grey-light;
+      border-color: $color-ambient-grey;
+    }
   }
 
   input:checked + label {

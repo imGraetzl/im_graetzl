@@ -29,9 +29,10 @@
 /**
  * The picker input element.
  */
-.picker__input {
+.picker__input:not([disabled]) {
     background-color: $color-ambient-mint-light !important;
     cursor: default;
+    color: $color-ambient-mint-dark !important;
 }
 
 

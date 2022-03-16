@@ -45,7 +45,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def not_editable?
-    self.approved?
+    self.funding? || self.completed?
   end
 
   def crowd_pledges_sum

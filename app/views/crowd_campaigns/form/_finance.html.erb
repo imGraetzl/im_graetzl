@@ -7,7 +7,7 @@
       <%= icon_tag "currency-euro" %>
       <span>Mininalbetrag</span>
     <% end %>
-    <%= f.number_field :funding_1_amount, placeholder: 'Betrag in €' %>
+    <%= f.number_field :funding_1_amount, placeholder: 'Betrag in €', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
   </div>
 
   <div class="input-textarea">
@@ -15,7 +15,7 @@
     <%= icon_tag "layout-document" %>
     <span>Wofür benötigt?</span>
     <% end %>
-    <%= f.text_area :funding_1_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...' %>
+    <%= f.text_area :funding_1_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
   </div>
 
 </div>
@@ -29,7 +29,7 @@
       <%= icon_tag "currency-euro" %>
       <span>Optimalbetrag</span>
     <% end %>
-    <%= f.number_field :funding_2_amount, placeholder: 'Betrag in €' %>
+    <%= f.number_field :funding_2_amount, placeholder: 'Betrag in €', disabled: @crowd_campaign.not_editable? %>
   </div>
 
   <div class="input-textarea">
@@ -37,7 +37,7 @@
     <%= icon_tag "layout-document" %>
     <span>Wofür benötigt?</span>
     <% end %>
-    <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...' %>
+    <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', disabled: @crowd_campaign.not_editable? %>
   </div>
 
 </div>

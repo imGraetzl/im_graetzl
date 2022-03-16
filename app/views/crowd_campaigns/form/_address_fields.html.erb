@@ -7,7 +7,7 @@
         <%= icon_tag "map-location" %>
         <span>Adresse</span>
       <% end %>
-      <%= f.text_field :address_street, placeholder: 'Straße und Hausnummer', class: 'address-autocomplete-input' %>
+      <%= f.text_field :address_street, placeholder: 'Straße und Hausnummer', class: 'address-autocomplete-input', disabled: @crowd_campaign.not_editable? %>
     </div>
 
     <%= f.hidden_field :address_coords, class: 'address-coords-input' %>
@@ -18,7 +18,7 @@
           <%= icon_tag "map-location" %>
           <span>Postleitzahl</span>
         <% end %>
-        <%= f.text_field :address_zip, placeholder: 'PLZ', class: 'address-zip-input' %>
+        <%= f.text_field :address_zip, placeholder: 'PLZ', class: 'address-zip-input', disabled: @crowd_campaign.not_editable? %>
       </div>
 
       <div class="input-field">
@@ -26,7 +26,7 @@
           <%= icon_tag "map-location" %>
           <span>Ort</span>
         <% end %>
-        <%= f.text_field :address_city, placeholder: 'Ort', class: 'address-city-input' %>
+        <%= f.text_field :address_city, placeholder: 'Ort', class: 'address-city-input', disabled: @crowd_campaign.not_editable? %>
       </div>
     </div>
 
@@ -36,7 +36,7 @@
         <span><%= t("region.#{current_region.id}.graetzl") %></span>
       </label>
       <%= f.select :graetzl_id, current_region.graetzls.sort_by(&:zip_name).map{|g| [g.zip_name, g.id]},
-          { include_blank: 'wählen', required: true }, { class: 'address-graetzl-input' } %>
+          { include_blank: 'wählen', required: true }, {disabled: @crowd_campaign.not_editable?, class: 'address-graetzl-input' } %>
     </div>
 
     <div class="input-field">
@@ -44,7 +44,7 @@
         <%= icon_tag "location" %>
         <span>Ortsbeschreibung</span>
       <% end %>
-      <%= f.text_field :address_description, placeholder: 'z.B.: Kaiserwiese, Gasthaus Hansy, Yoga-Studio am Eck, etc.' %>
+      <%= f.text_field :address_description, placeholder: 'z.B.: Kaiserwiese, Gasthaus Hansy, Yoga-Studio am Eck, etc.', disabled: @crowd_campaign.not_editable? %>
     </div>
 
   </div>

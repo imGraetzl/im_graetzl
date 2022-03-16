@@ -84,7 +84,7 @@
   <div class="left -amount">
     <h2><%= number_to_currency(@crowd_campaign.crowd_pledges_sum, precision: 0 ,unit: "€") %></h2>
     <span class="full-view"><%= funding_subtitle %></span>
-    <small class="compact-view"><%= "(#{funding_percentage(@crowd_campaign).round}%)" %></small>
+    <small class="compact-view"><%= "(#{funding_percentage(@crowd_campaign).round}%)" rescue nil %></small>
   </div>
   <div class="middle -supporters">
     <h2><%= @crowd_campaign.crowd_pledges.authorized.count %></h2>

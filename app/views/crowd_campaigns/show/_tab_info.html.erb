@@ -35,6 +35,7 @@
         </div>
       </div>
 
+      <% if @crowd_campaign.funding_2_amount %>
       <div class="block -full bigicontext-element -small">
         <%= icon_tag "flag" %>
         <div class="txt">
@@ -43,6 +44,7 @@
           <p class="desc"><%= @crowd_campaign.funding_2_description %></p>
         </div>
       </div>
+      <% end %>
 
       <% if @crowd_campaign.benefit? %>
       <div class="block -full bigicontext-element -small">
@@ -118,17 +120,24 @@
 
     <%= render 'crowd_campaigns/show/support_box' %>
 
-    <h2 class="hl-main -rewards"><em>- Dankeschöns -</em></h2>
+    <% if @crowd_campaign.crowd_rewards.exists? %>
 
-    <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
+      <h2 class="hl-main -rewards"><em>- Dankeschöns -</em></h2>
+      <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
 
-    <h2 class="hl-main -rewards"><em>- Materialspenden -</em></h2>
+    <% end %>
+    <% if @crowd_campaign.crowd_donations.material.exists? %>
 
-    <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.material, as: :crowd_donation %>
+      <h2 class="hl-main -rewards"><em>- Materialspenden -</em></h2>
+      <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.material, as: :crowd_donation %>
 
-    <h2 class="hl-main -rewards"><em>- Zeitspenden -</em></h2>
+    <% end %>
+    <% if @crowd_campaign.crowd_donations.assistance.exists? %>
 
-    <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.assistance, as: :crowd_donation %>
+      <h2 class="hl-main -rewards"><em>- Zeitspenden -</em></h2>
+      <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.assistance, as: :crowd_donation %>
+
+    <% end %>
 
   </div>
 
