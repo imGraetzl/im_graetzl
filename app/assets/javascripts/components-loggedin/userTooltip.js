@@ -100,4 +100,19 @@ APP.components.initUserTooltip = function() {
 
 };
 
+var jBoxTooltips = []
+$(".jBoxTooltip").each(function(index, value) {
+    var tooltip = $(this).data('tooltip-id');
+    var tooltip_type = $('html').hasClass('no-touch') ? 'Tooltip' : 'Modal';
+    jBoxTooltips[tooltip] = new jBox(tooltip_type, {
+      addClass:'jBox',
+      attach: $(this),
+      content:$("#"+tooltip),
+      trigger: 'click',
+      closeOnClick:true,
+      isolateScroll:true,
+      animation:{open: 'zoomIn', close: 'zoomOut'},
+    });
+});
+
 APP.components.initUserTooltip();

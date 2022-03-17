@@ -365,3 +365,11 @@ de:
         cover_photo: Headerbild
         graetzl_ids: Grätzl
         default_joined: Automatisch Mitglied
+      crowd_campaign:
+        statuses:
+          draft: In Bearbeitung
+          pending: In Freigabe
+          approved: Freigegeben
+          funding: Funding
+          completed_successful: Abgeschlossen
+          completed_unsuccessful: Abgeschlossen

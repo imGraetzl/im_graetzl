@@ -175,13 +175,16 @@
       flex-direction: column-reverse;
       align-items: center;
       .video-thumb {
-        //margin-left:0px;
         margin-bottom:15px;
       }
     }
     .txt {
       padding-bottom: 15px;
     }
+  }
+  .wrp:last-of-type {
+    margin-top: -15px;
+    padding-top:0px;
   }
   .video-thumb a.player .video {
     width:180px;
