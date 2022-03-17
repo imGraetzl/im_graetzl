@@ -131,6 +131,18 @@
     $webp1x: image_path('illu/illu-cylce-straight@2x.webp'),
   );
 }
+.paperCard.-crowd_campaign .wrp {
+  @include bg-url(
+    image_path('illu/illu-crowd1.png'),
+    $webp1x: image_path('illu/illu-crowd1.webp'),
+  );
+}
+.paperCard.-coop-demands .wrp {
+  @include bg-url(
+    image_path('illu/illu-crowd.png'),
+    $webp1x: image_path('illu/illu-crowd.webp'),
+  );
+}
 .paperCard.-zuckerl .wrp {
   @include bg-url(
     image_path('illu/illu-zuckerl-transparent.png'),
