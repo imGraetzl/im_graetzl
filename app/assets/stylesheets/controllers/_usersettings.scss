@@ -122,13 +122,12 @@ section.usersetup.-crowd_campaigns {
   .guidelines {
     margin-top:20px;
     padding:40px;
-    p {
-      margin-bottom: 30px;
-      span {
-        display: block;
-        font-style: italic;
-        font-weight: bold;
-      }
+    h4 {
+      font-style: italic;
+      padding-bottom:10px;
+    }
+    p, ul {
+      padding-bottom:30px;
     }
   }
 }
