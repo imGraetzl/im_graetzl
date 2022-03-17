@@ -100,6 +100,11 @@ class CrowdCampaignsController < ApplicationController
 
   end
 
+  def statistics
+    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    redirect_to @crowd_campaign and return unless @crowd_campaign.user == current_user
+  end
+
   def destroy
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.destroy

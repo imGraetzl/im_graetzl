@@ -697,3 +697,21 @@ section.locations .goodieteasertxt {
     }
   }
 }
+.statusHint {
+  justify-content: center;
+  display: flex;
+  margin-top:10px;
+  padding:5px;
+  padding-left: 15px;
+  background-color: #FEF6DF;
+  color: #cd891b;
+  span {
+    margin-left:5px;
+    font-style: italic;
+    font-weight: bold;
+  }
+  &.-approved, &.-funding, &.-completed_successful, &.-completed_unsuccessful {
+    background-color: #F0F7EB;
+    color: $color-ambient-mint-dark;
+  }
+}

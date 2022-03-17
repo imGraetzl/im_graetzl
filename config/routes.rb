@@ -139,6 +139,7 @@ Rails.application.routes.draw do
     get 'edit_next_steps', on: :member
     get 'supporters', on: :member
     get 'comments', on: :member
+    get 'statistics', on: :member
   end
 
   resources :crowd_pledges, only: [:new, :create] do

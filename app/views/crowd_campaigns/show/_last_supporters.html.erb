@@ -9,7 +9,23 @@
   <% end %>
 
   <% if current_user == @crowd_campaign.user && !@preview %>
-    <%= link_to edit_crowd_campaign_path(@crowd_campaign), class: 'btn-round-icon', id: 'editCampaign' do %>
+    <%= link_to 'javascript:', class: 'btn-round-icon jBoxTooltip', data: {tooltip_id: "tt-crowdcampaign-#{@crowd_campaign.id}"} do %>
       <%= icon_tag "pencil" %>
     <% end %>
+    <div class="jBoxHidden jBoxDropdown" id="<%= "tt-crowdcampaign-#{@crowd_campaign.id}" %>">
+      <%= link_to statistics_crowd_campaign_path(@crowd_campaign) do %>
+        <%= icon_tag "bar-chart-growth" %>
+        <div class="icontxt">Kampagnen Statistiken</div>
+      <% end %>
+      <%= link_to edit_crowd_campaign_path(@crowd_campaign) do %>
+        <%= icon_tag "pencil" %>
+        <div class="icontxt">Kampagne bearbeiten</div>
+      <% end %>
+      <% if @crowd_campaign.draft? %>
+        <%= link_to crowd_campaign_path(@crowd_campaign), data: { confirm: 'Bist du dir sicher?' }, method: :delete do %>
+          <%= icon_tag "cross" %>
+          <div class="icontxt">Kampagne löschen</div>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>

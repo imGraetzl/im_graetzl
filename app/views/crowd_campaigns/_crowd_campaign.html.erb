@@ -44,9 +44,29 @@
     <% end %>
 
     <% if local_assigns[:manage_buttons].present? && current_user == crowd_campaign.user %>
-      <div class="btn-group">
-        <%= link_to 'Bearbeiten', edit_crowd_campaign_path(crowd_campaign), class: 'btn-secondary -mint -small -full' %>
+      <%= link_to 'javascript:', class: 'btn-secondary -mint -ico -small jBoxTooltip', data: {tooltip_id: "tt-crowdcampaign-#{crowd_campaign.id}"} do %>
+        <span>Kampagnen Optionen</span>
+        <%= icon_tag "arrow-down-2" %>
+      <% end %>
+      <div class="jBoxHidden jBoxDropdown" id="<%= "tt-crowdcampaign-#{crowd_campaign.id}" %>">
+        <%= link_to statistics_crowd_campaign_path(crowd_campaign) do %>
+          <%= icon_tag "bar-chart-growth" %>
+          <div class="icontxt">Kampagnen Statistiken</div>
+        <% end %>
+        <%= link_to edit_crowd_campaign_path(crowd_campaign) do %>
+          <%= icon_tag "pencil" %>
+          <div class="icontxt">Kampagne bearbeiten</div>
+        <% end %>
+        <% if crowd_campaign.draft? %>
+          <%= link_to crowd_campaign_path(crowd_campaign), data: { confirm: 'Bist du dir sicher?' }, method: :delete do %>
+            <%= icon_tag "cross" %>
+            <div class="icontxt">Kampagne löschen</div>
+          <% end %>
+        <% end %>
       </div>
+      <small class="statusHint -<%= crowd_campaign.status %>">
+        Kampagnen Status: <span>&lt;<%= t("activerecord.attributes.crowd_campaign.statuses.#{crowd_campaign.status}") %>&gt;</span>
+      </small>
     <% end %>
 
   </div>
