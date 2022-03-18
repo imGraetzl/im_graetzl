@@ -49,7 +49,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def crowd_pledges_sum
-    self.crowd_pledges.authorized.sum(&:total_price)
+    self.crowd_pledges.complete.sum(:total_price)
   end
 
   def funding_status

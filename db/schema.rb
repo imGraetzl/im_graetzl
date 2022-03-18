@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_28_114249) do
+ActiveRecord::Schema.define(version: 2022_03_14_142433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "entire_region", default: false
-    t.bigint "group_id"
     t.string "region_id"
+    t.bigint "group_id"
     t.index ["child_id", "child_type"], name: "index_activities_on_child_id_and_child_type"
     t.index ["group_id"], name: "index_activities_on_group_id"
     t.index ["region_id"], name: "index_activities_on_region_id"
@@ -106,13 +106,6 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "categories_meetings", id: false, force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "meeting_id"
-    t.index ["category_id"], name: "index_categories_meetings_on_category_id"
-    t.index ["meeting_id"], name: "index_categories_meetings_on_meeting_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -263,7 +256,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
     t.integer "status", default: 0
     t.string "contact_name"
     t.string "region_id"
-    t.text "anwser"
+    t.text "answer"
     t.bigint "crowd_campaign_id"
     t.bigint "crowd_donation_id"
     t.bigint "user_id"
@@ -291,13 +284,13 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
 
   create_table "crowd_pledges", force: :cascade do |t|
     t.integer "status", default: 0
-    t.decimal "amount", precision: 10, scale: 2
+    t.decimal "donation_amount", precision: 10, scale: 2
     t.string "contact_name"
     t.string "address_street"
     t.string "address_zip"
     t.string "address_city"
     t.string "region_id"
-    t.text "anwser"
+    t.text "answer"
     t.bigint "crowd_campaign_id"
     t.bigint "crowd_reward_id"
     t.bigint "user_id"
@@ -305,6 +298,12 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.boolean "anonym", default: false
+    t.decimal "total_price", precision: 10, scale: 2
+    t.string "stripe_customer_id"
+    t.string "stripe_payment_method_id"
+    t.string "stripe_payment_intent_id"
+    t.string "payment_method"
+    t.string "payment_card_last4"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
@@ -755,7 +754,6 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
   create_table "platform_meeting_join_requests", force: :cascade do |t|
     t.bigint "meeting_id"
     t.text "request_message"
-    t.boolean "wants_platform_meeting", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
@@ -1033,7 +1031,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
   end
 
   create_table "room_rental_prices", force: :cascade do |t|
-    t.integer "room_offer_id"
+    t.bigint "room_offer_id"
     t.string "name"
     t.decimal "price_per_hour", precision: 10, scale: 2
     t.integer "minimum_rental_hours", default: 0
@@ -1041,6 +1039,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
     t.integer "eight_hour_discount", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["room_offer_id"], name: "index_room_rental_prices_on_room_offer_id"
   end
 
   create_table "room_rental_slots", force: :cascade do |t|
@@ -1181,12 +1180,12 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
     t.integer "address_id"
     t.jsonb "cover_photo_data"
     t.string "region_id"
-    t.decimal "deposit", precision: 10, scale: 2
     t.string "address_street"
     t.string "address_zip"
     t.string "address_city"
     t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
     t.string "address_description"
+    t.decimal "deposit", precision: 10, scale: 2
     t.index ["address_id"], name: "index_tool_offers_on_address_id"
     t.index ["graetzl_id"], name: "index_tool_offers_on_graetzl_id"
     t.index ["location_id"], name: "index_tool_offers_on_location_id"
@@ -1354,8 +1353,8 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
     t.string "invoice_number"
     t.string "link"
     t.jsonb "cover_photo_data"
-    t.string "region_id"
     t.bigint "user_id"
+    t.string "region_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
@@ -1393,6 +1392,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
   add_foreign_key "discussion_posts", "users", on_delete: :nullify
   add_foreign_key "discussions", "discussion_categories", on_delete: :nullify
   add_foreign_key "discussions", "groups", on_delete: :cascade
+  add_foreign_key "discussions", "users", on_delete: :nullify
   add_foreign_key "district_graetzls", "districts", on_delete: :cascade
   add_foreign_key "district_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "going_tos", "meeting_additional_dates", on_delete: :nullify
@@ -1445,6 +1445,7 @@ ActiveRecord::Schema.define(version: 2022_02_28_114249) do
   add_foreign_key "room_offers", "graetzls", on_delete: :nullify
   add_foreign_key "room_offers", "locations", on_delete: :nullify
   add_foreign_key "room_offers", "users", on_delete: :cascade
+  add_foreign_key "room_rental_prices", "room_offers", on_delete: :cascade
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify

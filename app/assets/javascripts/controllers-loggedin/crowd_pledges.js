@@ -51,7 +51,7 @@ APP.controllers_loggedin.crowd_pledges = (function() {
 
     function initCardPayment() {
       var cardForm = $(".card-container .card-form");
-      APP.components.paymentCard.init(cardForm);
+      APP.components.paymentCardSetup.init(cardForm);
       cardForm.on('payment:complete', function() {
         location.href = $(this).data('success-url');
       });

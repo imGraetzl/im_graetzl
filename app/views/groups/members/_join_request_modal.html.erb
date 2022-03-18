@@ -8,7 +8,7 @@
       <%= join_request.user.last_name %>
     </div>
   </div>
-  <div class="anwsers">
+  <div class="answers">
     <% if join_request.join_answers.present? %>
       <% join_request.join_answers.each_slice(2) do |question, answer| %>
         <h3><%= question %></h3>

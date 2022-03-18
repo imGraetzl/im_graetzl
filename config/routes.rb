@@ -146,9 +146,7 @@ Rails.application.routes.draw do
     get 'choose_amount', on: :collection
     get 'login', on: :collection
     get 'choose_payment', on: :member
-    post 'initiate_card_payment', on: :member
-    post 'initiate_eps_payment', on: :member
-    get 'complete_eps_payment', on: :member
+    post 'payment_authorized', on: :member
     get 'summary', on: :member
   end
 

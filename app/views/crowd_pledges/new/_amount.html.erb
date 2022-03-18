@@ -12,16 +12,15 @@
     <%= f.hidden_field :crowd_reward_id, value: params[:crowd_reward_id] %>
     <%= f.hidden_field :crowd_campaign_id, value: params[:crowd_campaign_id] %>
 
-    <%= render partial: 'crowd_pledges/new/rewards', :locals => {:crowd_reward => @crowd_reward, :f => f} if @crowd_reward %>
+    <%= render 'crowd_pledges/new/rewards', crowd_reward: @crowd_pledge.crowd_reward, f: f if @crowd_pledge.crowd_reward %>
 
     <div class="input-field">
-      <%= label_tag :amount do %>
+      <%= label_tag :donation_amount do %>
         <%= icon_tag "currency-euro" %>
         <span>Freie Unterstützung hinzufügen</span>
       <% end %>
-      <%= f.text_field :amount, class: 'amount', placeholder: 'Betrag eingeben ...',
-        class: 'calculate-price',
-        :maxlength => 6,
+      <%= f.text_field :donation_amount, class: 'amount', placeholder: 'Betrag eingeben ...',
+        class: 'calculate-price', maxlength: 6,
         data: { action: calculate_price_crowd_pledges_url(crowd_campaign_id: params[:crowd_campaign_id], crowd_reward_id: params[:crowd_reward_id])} %>
     </div>
 
