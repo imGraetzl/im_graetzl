@@ -154,8 +154,11 @@ input, select, textarea {
   }
 }
 
-%field {
+%field, .upload-oldschool {
   &.disabled, &.readonly {
+    img {
+      filter: grayscale(1);
+    }
     > label {
       color: $color-ambient-grey;
       border-color: $color-ambient-grey-light;
@@ -464,7 +467,6 @@ input, select, textarea {
 
 
 // ---------------------------------------------------------------------- Upload Fields
-
 .upload-oldschool {
   > label {
     @extend %label;
@@ -479,6 +481,10 @@ input, select, textarea {
   }
   @include respond-to(">=medium") {
     @include field-HorizontalLayout;
+  }
+  &.disabled .field-wrp {
+    background-color: $color-ambient-grey-light;
+    color: $color-ambient-grey;
   }
 }
 

@@ -2,13 +2,13 @@
 
   <p class="txt">Zeige uns <span>dein Projekt</span></p>
 
-  <div class="upload-oldschool">
+  <div class="upload-oldschool <%= @crowd_campaign.not_editable? ? 'disabled' : '' %>">
     <%= f.label :cover_photo do %>
       <%= icon_tag "photo-camera" %>
       <span>Coverfoto<small class="upload-hint">(max. 5MB)</small></span>
     <% end %>
     <div class="field-wrp">
-      <%= upload_image_input(f, :cover_photo) %>
+      <%= upload_image_input(f, :cover_photo, disabled: @crowd_campaign.not_editable?) %>
     </div>
   </div>
 
