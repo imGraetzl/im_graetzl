@@ -8,7 +8,7 @@
       <span>Coverfoto<small class="upload-hint">(max. 5MB)</small></span>
     <% end %>
     <div class="field-wrp">
-      <%= upload_image_input(f, :cover_photo, disabled: @crowd_campaign.not_editable?) %>
+      <%= upload_image_input(f, :cover_photo, disabled: !@crowd_campaign.editable?) %>
     </div>
   </div>
 
@@ -33,7 +33,7 @@
     <%= icon_tag "video-play" %>
     <span>Video URL</span>
     <% end %>
-    <%= f.url_field :video, placeholder: 'Link zum Video (Youtube oder Vimeo)', class: '-validate', disabled: @crowd_campaign.not_editable? %><em></em>
+    <%= f.url_field :video, placeholder: 'Link zum Video (Youtube oder Vimeo)', class: '-validate', disabled: !@crowd_campaign.editable? %><em></em>
   </div>
 
 </div>

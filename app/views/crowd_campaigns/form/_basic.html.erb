@@ -5,14 +5,14 @@
     <%= icon_tag "record" %>
     <span>Projektname</span>
     <% end %>
-    <%= f.text_field :title, placeholder: 'Gib deiner Kampagne einen kurzen Titel ...', required: true, disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_field :title, placeholder: 'Gib deiner Kampagne einen kurzen Titel ...', required: true, disabled: !@crowd_campaign.editable? %>
   </div>
   <div class="input-textarea">
     <%= f.label :slogan do %>
     <%= icon_tag "layout-document" %>
     <span>Kurzbeschreibung</span>
     <% end %>
-    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
   </div>
   <div class="benefit-checkbox">
     <div class="input-checkbox">
@@ -26,7 +26,7 @@
       <%= icon_tag "layout-document" %>
       <span>Vorteil für die Allgemeinheit</span>
       <% end %>
-      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', disabled: @crowd_campaign.not_editable? %>
+      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', disabled: !@crowd_campaign.editable? %>
     </div>
   </div>
 </div>

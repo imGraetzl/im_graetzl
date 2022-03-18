@@ -52,7 +52,8 @@ class CrowdPledgesController < ApplicationController
   def payment_authorized
     @crowd_pledge = CrowdPledge.find(params[:id])
     CrowdPledgeService.new.card_payment_authorized(@crowd_pledge, params[:payment_method_id])
-    ActionProcessor.track(@crowd_campaign, :crowd_pledge, @crowd_pledge)
+    ActionProcessor.track(@crowd_pledge, :create)
+    # CrowdMailer.new_pledge(@crowd_pledge)
     redirect_to [:summary, @crowd_pledge]
   end
 

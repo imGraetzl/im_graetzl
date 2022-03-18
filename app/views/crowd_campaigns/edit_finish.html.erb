@@ -12,7 +12,7 @@
 
   <div class="input-button">
     <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
-    <%= link_to 'Vorschau', 'javascript:', class: "btn-secondary -mint #{@crowd_campaign.not_editable? ? '-disabled' : 'save-and-preview'}" %>
+    <%= link_to 'Vorschau', 'javascript:', class: ["btn-secondary", "-mint", @crowd_campaign.editable? ? 'save-and-preview' : '-disabled'] %>
     <% if f.object.pending? %>
       <%= link_to 'Dein Projekt wird gerade geprüft', edit_next_steps_crowd_campaign_path(@crowd_campaign), class: 'btn-primary -mint btn-next' %>
     <% elsif f.object.approved? %>

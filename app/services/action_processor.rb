@@ -148,12 +148,10 @@ class ActionProcessor
     when [CrowdCampaign, :create]
       Activity.add_public(subject, to: :entire_region)
       Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
-
-    when [CrowdCampaign, :crowd_pledge]
-      if child.visible?
-        Activity.add_public(subject, child, to: :entire_region)
+    when [CrowdPledge, :create]
+      if subject.visible?
+        Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
-
     when [CrowdCampaign, :funding_1_successful]
       # Generate Success Notification for Owner and Pledge Users
 

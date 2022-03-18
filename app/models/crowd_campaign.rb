@@ -37,19 +37,15 @@ class CrowdCampaign < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def completed?
-    self.completed_successful? || self.completed_unsuccessful?
+    completed_successful? || completed_unsuccessful?
   end
 
-  def ready_for_approve?
-    ApplicationController.helpers.all_steps_finished?(self)
-  end
-
-  def not_editable?
-    self.funding? || self.completed?
+  def editable?
+    draft? || pending? || approved? # Remove approved maybe?
   end
 
   def crowd_pledges_sum
-    self.crowd_pledges.complete.sum(:total_price)
+    @cached_crowd_pledge_sum ||= self.crowd_pledges.complete.sum(:total_price)
   end
 
   def funding_status
@@ -83,7 +79,28 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def funding_1_successful?(funding_status_before, funding_status_after)
-    ([:over_funding_1, :funding_2].include? funding_status_after) && (funding_status_before != funding_status_after)
+    [:over_funding_1, :funding_2].include?(funding_status_after) && funding_status_before != funding_status_after
+  end
+
+  def all_steps_finished?
+    (1..5).all?{|step| step_finished?(step)}
+  end
+
+  def step_finished?(step)
+    case step
+    when 1
+      [title, slogan, crowd_category_ids, graetzl_id].all?(&:present?)
+    when 2
+      [startdate, enddate, description, support_description, about_description].all?(&:present?)
+    when 3
+      [funding_1_amount, funding_1_description].all?(&:present?)
+    when 4
+      crowd_rewards.present? && crowd_rewards.all?(:ready_for_submit?)
+    when 5
+      [cover_photo_data].all?(&:present?)
+    else
+      false
+    end
   end
 
   def remaining_days
@@ -102,7 +119,5 @@ class CrowdCampaign < ApplicationRecord
     super
     self.district ||= value.district if value.present?
   end
-
-  private
 
 end

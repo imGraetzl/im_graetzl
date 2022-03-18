@@ -11,6 +11,7 @@ class CrowdPledgeService
 
   def card_payment_authorized(crowd_pledge, payment_method_id)
     card = Stripe::PaymentMethod.retrieve(payment_method_id).card
+
     crowd_pledge.update(
       stripe_payment_method_id: payment_method_id,
       payment_method: 'card',

@@ -7,7 +7,7 @@
       <%= icon_tag "currency-euro" %>
       <span>Mininalbetrag</span>
     <% end %>
-    <%= f.number_field :funding_1_amount, placeholder: 'Betrag in €', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
+    <%= f.number_field :funding_1_amount, placeholder: 'Betrag in €', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="input-textarea">
@@ -15,7 +15,7 @@
     <%= icon_tag "layout-document" %>
     <span>Wofür benötigt?</span>
     <% end %>
-    <%= f.text_area :funding_1_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_area :funding_1_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
   </div>
 
 </div>
@@ -29,7 +29,7 @@
       <%= icon_tag "currency-euro" %>
       <span>Optimalbetrag</span>
     <% end %>
-    <%= f.number_field :funding_2_amount, placeholder: 'Betrag in €', disabled: @crowd_campaign.not_editable? %>
+    <%= f.number_field :funding_2_amount, placeholder: 'Betrag in €', disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="input-textarea">
@@ -37,7 +37,7 @@
     <%= icon_tag "layout-document" %>
     <span>Wofür benötigt?</span>
     <% end %>
-    <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_area :funding_2_description, placeholder: 'Was kannst du mit dem Betrag umsetzen? ...', disabled: !@crowd_campaign.editable? %>
   </div>
 
 </div>
@@ -48,7 +48,7 @@
 
   <div class="crowd-donations-assistance">
     <%= f.fields_for :crowd_donations, f.object.crowd_donations.material do |field_form| %>
-      <%= render 'crowd_campaigns/form/crowd_donation_material_fields', f: field_form, disabled: @crowd_campaign.not_editable? if !f.object.crowd_donations.material.empty? %>
+      <%= render 'crowd_campaigns/form/crowd_donation_material_fields', f: field_form, disabled: !@crowd_campaign.editable? if !f.object.crowd_donations.material.empty? %>
     <% end %>
     <div>
       <%= link_to_add_association 'Materialspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_material_fields', class: 'btn-primary -mint -small' %>
@@ -63,7 +63,7 @@
 
   <div class="crowd-donations-assistance">
     <%= f.fields_for :crowd_donations, f.object.crowd_donations.assistance do |field_form| %>
-      <%= render 'crowd_campaigns/form/crowd_donation_assistance_fields', f: field_form, disabled: @crowd_campaign.not_editable? if !f.object.crowd_donations.assistance.empty? %>
+      <%= render 'crowd_campaigns/form/crowd_donation_assistance_fields', f: field_form, disabled: !@crowd_campaign.editable? if !f.object.crowd_donations.assistance.empty? %>
     <% end %>
     <div>
       <%= link_to_add_association 'Zeitspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_assistance_fields', class: 'btn-primary -mint -small' %>

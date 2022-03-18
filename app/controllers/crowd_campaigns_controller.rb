@@ -19,7 +19,7 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def create
-    @crowd_campaign = CrowdCampaign.new(crowd_campaign_params)
+    @crowd_campaign = CrowdCampaign.new(editable_campaign_params)
     @crowd_campaign.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @crowd_campaign.region_id = current_region.id
     @crowd_campaign.clear_address if params[:no_address] == 'true'
@@ -82,12 +82,18 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.clear_address if params[:no_address] == 'true'
 
-    if @crowd_campaign.update(crowd_campaign_params)
+    if @crowd_campaign.editable?
+      @crowd_campaign.assign_attributes(editable_campaign_params)
+    else
+      @crowd_campaign.assign_attributes(noneditable_campaign_params)
+    end
+
+    if @crowd_campaign.save
       if params[:page]
         redirect_to params[:page]
-      elsif params[:submit_for_approve] && !@crowd_campaign.ready_for_approve?
+      elsif params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
         redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: 'Deine Crowdfundingkampagne konnte noch nicht zur Freigabe eingereicht werden. Bitte fülle alle Felder aus, bis alle Schritte mit einem Haken gekennzeichnet sind.'
-      elsif params[:submit_for_approve] && @crowd_campaign.ready_for_approve?
+      elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
         redirect_to edit_next_steps_crowd_campaign_path(@crowd_campaign)
@@ -168,7 +174,7 @@ class CrowdCampaignsController < ApplicationController
     }
   end
 
-  def crowd_campaign_params
+  def editable_campaign_params
     params
       .require(:crowd_campaign)
       .permit(
@@ -187,6 +193,12 @@ class CrowdCampaignsController < ApplicationController
           :id, :donation_type, :limit, :title, :description, :question, :startdate, :enddate, :_destroy
         ],
         crowd_category_ids: [],
+    )
+  end
+
+  def noneditable_campaign_params
+    params.require(:crowd_campaign).permit(
+      :title
     )
   end
 end
