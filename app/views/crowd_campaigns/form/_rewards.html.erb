@@ -8,10 +8,10 @@
   <div class="crowd-rewards">
     <% f.object.crowd_rewards.build if f.object.crowd_rewards.empty? %>
     <%= f.fields_for :crowd_rewards do |reward_form| %>
-      <%= render 'crowd_campaigns/form/crowd_reward_fields', f: reward_form %>
+      <%= render 'crowd_campaigns/form/reward_fields', f: reward_form, disabled: @crowd_campaign.not_editable? %>
     <% end %>
     <div>
-      <%= link_to_add_association 'Dankeschön hinzufügen', f, :crowd_rewards, partial: 'crowd_campaigns/form/crowd_reward_fields', class: 'btn-primary -mint -small' %>
+      <%= link_to_add_association 'Dankeschön hinzufügen', f, :crowd_rewards, partial: 'crowd_campaigns/form/reward_fields', class: 'btn-primary -mint -small' %>
     </div>
   </div>
 

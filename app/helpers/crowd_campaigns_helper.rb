@@ -50,6 +50,10 @@ module CrowdCampaignsHelper
     ]
   end
 
+  def funding_percentage(c)
+    c.crowd_pledges_sum / (c.funding_1_amount / 100)
+  end
+
   def funding_bar_percentage(c)
 
     if c.completed_successful?

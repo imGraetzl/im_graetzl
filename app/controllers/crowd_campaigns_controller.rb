@@ -100,6 +100,11 @@ class CrowdCampaignsController < ApplicationController
 
   end
 
+  def statistics
+    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    redirect_to @crowd_campaign and return unless @crowd_campaign.user == current_user
+  end
+
   def destroy
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.destroy
@@ -120,7 +125,7 @@ class CrowdCampaignsController < ApplicationController
       flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime}. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
     else
       flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.pending?
-      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne läuft ab #{@crowd_campaign.runtime}." if @crowd_campaign.approved?
+      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne läuft von #{@crowd_campaign.runtime}." if @crowd_campaign.approved?
     end
   end
 
@@ -140,11 +145,12 @@ class CrowdCampaignsController < ApplicationController
       collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids}).distinct
     end
 
-    if params[:favorites].present? && current_user
-      collection = collection.where(graetzl_id: current_user.followed_graetzl_ids)
-    elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      collection = collection.where(graetzl_id: graetzl_ids)
-    end
+    # Always show ALL Crowd Campaigns
+    #if params[:favorites].present? && current_user
+    #  collection = collection.where(graetzl_id: current_user.followed_graetzl_ids)
+    #elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
+    #  collection = collection.where(graetzl_id: graetzl_ids)
+    #end
 
     collection
   end

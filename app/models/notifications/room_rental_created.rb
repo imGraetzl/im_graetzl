@@ -1,7 +1,7 @@
 class Notifications::RoomRentalCreated < Notifications::PlatformNotification
 
   def self.description
-    'Neue Toolteiler Anfrage'
+    'Neue Raumteiler Anfrage'
   end
 
   def room_rental

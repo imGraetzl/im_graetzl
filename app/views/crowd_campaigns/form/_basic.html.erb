@@ -12,7 +12,7 @@
     <%= icon_tag "layout-document" %>
     <span>Kurzbeschreibung</span>
     <% end %>
-    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...' %>
+    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
   </div>
   <div class="benefit-checkbox">
     <div class="input-checkbox">
@@ -26,7 +26,7 @@
       <%= icon_tag "layout-document" %>
       <span>Vorteil für die Allgemeinheit</span>
       <% end %>
-      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...' %>
+      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', disabled: @crowd_campaign.not_editable? %>
     </div>
   </div>
 </div>

@@ -16,7 +16,7 @@
                        value: (I18n.localize(f.object.startdate, format:'%a, %d. %B %Y') if f.object.startdate),
                        data: { value: (I18n.localize(f.object.startdate, format:'%Y-%m-%d') if f.object.startdate) },
                        class: 'startdate',
-                       placeholder: 'wählen' %>
+                       placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
     </div>
 
     <div class="input-field">
@@ -28,7 +28,7 @@
                        value: (I18n.localize(f.object.enddate, format:'%a, %d. %B %Y') if f.object.enddate),
                        data: { value: (I18n.localize(f.object.enddate, format:'%Y-%m-%d') if f.object.enddate) },
                        class: 'enddate',
-                       placeholder: 'wählen' %>
+                       placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
     </div>
 
   </div>
@@ -44,7 +44,7 @@
     <%= icon_tag "layout-document" %>
     <span>Worum geht es in deinem Projekt?</span>
     <% end %>
-    <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...' %>
+    <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...', required: !@crowd_campaign.draft? %>
   </div>
 
   <div class="input-textarea">
@@ -52,7 +52,7 @@
     <%= icon_tag "layout-document" %>
     <span>Warum sollte man dich unterstützen?</span>
     <% end %>
-    <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...' %>
+    <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...', required: !@crowd_campaign.draft? %>
   </div>
 
   <div class="input-textarea">
@@ -60,7 +60,7 @@
     <%= icon_tag "layout-document" %>
     <span>Warum brennst du für dein Projekt?</span>
     <% end %>
-    <%= f.text_area :about_description, placeholder: 'Ein paar Infos über dich und den Projekt Hintergrund ...' %>
+    <%= f.text_area :about_description, placeholder: 'Ein paar Infos über dich und den Projekt Hintergrund ...', required: !@crowd_campaign.draft? %>
   </div>
 
 </div>

@@ -46,25 +46,16 @@ APP.controllers.crowd_campaigns = (function() {
       });
 
       $('#media-slider').lightSlider({
-        autoWidth: true,
-        slideMargin: 10,
-        mode: "slide",
-        cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-        easing: 'linear', //'for jquery animation',////
-        speed: 500, //ms'
-        auto: false,
-        loop: false,
-        slideEndAnimation: true,
-        keyPress: false,
-        controls: true,
-        prevHtml: '',
-        nextHtml: '',
-        adaptiveHeight:false,
-        pager: false,
-        enableTouch:true,
-        enableDrag:false,
-        freeMove:true,
-        swipeThreshold: 40,
+          gallery: true,
+          item: 1,
+          loop: false,
+          slideMargin: 10,
+          thumbItem: 5,
+          controls: false,
+          onBeforeSlide: function(el) {
+            var vidsrc = $('#galleryVideo').attr('src');
+            $('#galleryVideo').attr('src', vidsrc);
+        }
       });
 
     }

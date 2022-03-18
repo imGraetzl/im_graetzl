@@ -131,6 +131,18 @@
     $webp1x: image_path('illu/illu-cylce-straight@2x.webp'),
   );
 }
+.paperCard.-crowd_campaign .wrp {
+  @include bg-url(
+    image_path('illu/illu-crowd1.png'),
+    $webp1x: image_path('illu/illu-crowd1.webp'),
+  );
+}
+.paperCard.-coop-demands .wrp {
+  @include bg-url(
+    image_path('illu/illu-crowd.png'),
+    $webp1x: image_path('illu/illu-crowd.webp'),
+  );
+}
 .paperCard.-zuckerl .wrp {
   @include bg-url(
     image_path('illu/illu-zuckerl-transparent.png'),
@@ -175,13 +187,16 @@
       flex-direction: column-reverse;
       align-items: center;
       .video-thumb {
-        //margin-left:0px;
         margin-bottom:15px;
       }
     }
     .txt {
       padding-bottom: 15px;
     }
+  }
+  .wrp:last-of-type {
+    margin-top: -15px;
+    padding-top:0px;
   }
   .video-thumb a.player .video {
     width:180px;

@@ -119,6 +119,17 @@ section.usersetup.-crowd_campaigns {
     display: table;
     margin: auto;
   }
+  .guidelines {
+    margin-top:20px;
+    padding:40px;
+    h4 {
+      font-style: italic;
+      padding-bottom:10px;
+    }
+    p, ul {
+      padding-bottom:30px;
+    }
+  }
 }
 
 // ---------------------------------------------------------------------- personal settings

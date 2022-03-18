@@ -45,7 +45,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def not_editable?
-    self.approved?
+    self.funding? || self.completed?
   end
 
   def crowd_pledges_sum
@@ -80,6 +80,10 @@ class CrowdCampaign < ApplicationRecord
 
   def over_funding_2?
     self.funding_status == :over_funding_2
+  end
+
+  def funding_1_successful?(funding_status_before, funding_status_after)
+    ([:over_funding_1, :funding_2].include? funding_status_after) && (funding_status_before != funding_status_after)
   end
 
   def remaining_days

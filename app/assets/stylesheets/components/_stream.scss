@@ -347,6 +347,30 @@
     object-fit: cover;
   }
 }
+.lSGallery {
+  img {
+    padding: 0.4rem;
+    background-color: #ffffff;
+    background-image: $texture-secondary;
+    box-shadow: $boxShadow-light;
+    object-fit: cover;
+  }
+  .active img {
+    background-color: $color-ambient-mint-light;
+  }
+}
+.gallerySlider img {
+  object-fit: cover;
+  width:100%;
+  height:auto;
+}
+.gallerySlider img, .gallerySlider iframe  {
+  //width:100%;
+  //height:340px;
+  @include respond-to("<medium") {
+    //height:240px;
+  }
+}
 
 .entryCommentForm {
   textarea {

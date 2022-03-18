@@ -35,6 +35,7 @@
         </div>
       </div>
 
+      <% if @crowd_campaign.funding_2_amount %>
       <div class="block -full bigicontext-element -small">
         <%= icon_tag "flag" %>
         <div class="txt">
@@ -43,6 +44,7 @@
           <p class="desc"><%= @crowd_campaign.funding_2_description %></p>
         </div>
       </div>
+      <% end %>
 
       <% if @crowd_campaign.benefit? %>
       <div class="block -full bigicontext-element -small">
@@ -73,20 +75,33 @@
 
     </div>
 
-
     <div class="mediaSlider">
-      <div class="entryImgUploads" id="media-slider">
+      <ul id="media-slider" class="gallerySlider">
 
         <% if @crowd_campaign.video? %>
-          <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), 'javascript:', class: 'play-icon jBoxVideo' %>
-        <% else %>
-           <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
+          <li data-thumb="<%= image_path('svg/slider-thumbnail-video.svg') %>">
+
+              <div style="padding:56.25% 0 0 0;position:relative;">
+                <iframe id="galleryVideo" src="<%= @crowd_campaign.video %>"
+                  frameborder="0" allow="accelerometer; autoplay;
+                  encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  style="position:absolute;top:0;left:0;
+                  width:100%;height:100%;">
+                </iframe>
+              </div>
+
+
+          </li>
         <% end %>
 
         <% @crowd_campaign.images.each do |image| %>
-          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+          <li data-thumb="<%= image.file_url(:thumb) %>">
+            <%= link_to image_tag(image.file_url(:cardbox, :large)), image.file_url, data: { jbox_image: "maingallery" } %>
+          </li>
         <% end %>
-      </div>
+
+      </ul>
     </div>
 
     <div class="content-block">
@@ -105,17 +120,24 @@
 
     <%= render 'crowd_campaigns/show/support_box' %>
 
-    <h2 class="hl-main -rewards"><em>- Dankeschöns -</em></h2>
+    <% if @crowd_campaign.crowd_rewards.exists? %>
 
-    <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
+      <h2 class="hl-main -rewards"><em>- Dankeschöns -</em></h2>
+      <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
 
-    <h2 class="hl-main -rewards"><em>- Materialspenden -</em></h2>
+    <% end %>
+    <% if @crowd_campaign.crowd_donations.material.exists? %>
 
-    <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.material, as: :crowd_donation %>
+      <h2 class="hl-main -rewards"><em>- Materialspenden -</em></h2>
+      <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.material, as: :crowd_donation %>
 
-    <h2 class="hl-main -rewards"><em>- Zeitspenden -</em></h2>
+    <% end %>
+    <% if @crowd_campaign.crowd_donations.assistance.exists? %>
 
-    <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.assistance, as: :crowd_donation %>
+      <h2 class="hl-main -rewards"><em>- Zeitspenden -</em></h2>
+      <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.assistance, as: :crowd_donation %>
+
+    <% end %>
 
   </div>
 
