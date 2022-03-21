@@ -12,11 +12,11 @@ APP.controllers_loggedin.crowd_pledges = (function() {
 
       $(".calculate-price").on("focusout", function() {
         var submit_url = $(this).data('action');
-        var amount = $(this).val();
+        var donation_amount = $(this).val();
         $.ajax({
             type: "POST",
             url: submit_url,
-            data: "amount=" + amount
+            data: "donation_amount=" + donation_amount
         });
       });
     }

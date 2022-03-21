@@ -156,7 +156,7 @@ class ActionProcessor
       # Generate Success Notification for Owner and Pledge Users
 
     when [CrowdCampaign, :comment]
-      Activity.add_public(subject, child, to: subject.graetzl)
+      Activity.add_public(subject, child, to: :entire_region)
       notify_comment(subject, child)
 
     when [User, :comment]

@@ -12,10 +12,10 @@
       <%= f.hidden_field :crowd_campaign_id, value: @crowd_campaign.id %>
 
         <div class="input-field">
-          <%= label_tag :amount do %>
+          <%= label_tag :donation_amount do %>
             <%= icon_tag "currency-euro" %>
           <% end %>
-          <%= f.number_field :amount, class: 'amount', placeholder: 'Betrag wählen', required: true %>
+          <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Betrag wählen', required: true %>
         </div>
         <%= f.submit 'Auswählen', class: 'btn-primary -mint' %>
       <% end %>

@@ -48,6 +48,8 @@ class Notifications::CommentOnOwnedContent < Notification
       'Toolteiler'
     when 'CoopDemand'
       'Coop & Share Angebot'
+    when 'CrowdCampaign'
+      'Crowdfunding Projekt'
     end
   end
 
