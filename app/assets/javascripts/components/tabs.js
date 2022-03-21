@@ -32,9 +32,9 @@ APP.components.tabs = (function() {
     }
 
     function initPageTab() {
-      var tab = APP.controllers.application.getUrlVars()["pagetab"];
-      if (typeof tab !== 'undefined') {
-        openTab(tab);
+      var target = APP.controllers.application.getUrlVars()["target"];
+      if (typeof target !== 'undefined' && target.startsWith('comment')) {
+        openTab('comments');
       }
     }
 

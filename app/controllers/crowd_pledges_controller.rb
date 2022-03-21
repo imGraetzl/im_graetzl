@@ -6,6 +6,7 @@ class CrowdPledgesController < ApplicationController
     if user_signed_in?
       @crowd_pledge.assign_attributes(current_user_params)
     end
+    @crowd_pledge.calculate_price
   end
 
   def create
@@ -22,7 +23,7 @@ class CrowdPledgesController < ApplicationController
       #if @crowd_campaign.funding_1_successful?(funding_status_before, funding_status_after)
       #  ActionProcessor.track(@crowd_campaign, :funding_1_successful, @crowd_pledge)
       #end
-      
+
       redirect_to [:choose_payment, @crowd_pledge]
     else
       render :new

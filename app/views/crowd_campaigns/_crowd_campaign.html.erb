@@ -40,7 +40,7 @@
     <% end %>
 
     <% if local_assigns[:activity_comment] %>
-      <%= render 'activities/comment', parent: crowd_campaign, comment_url: crowd_campaign_path(crowd_campaign, pagetab: 'comments', target: dom_id(local_assigns[:activity_comment])), comment: local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: crowd_campaign, comment_url: crowd_campaign_path(crowd_campaign, target: dom_id(local_assigns[:activity_comment])), comment: local_assigns[:activity_comment] %>
     <% end %>
 
     <% if local_assigns[:manage_buttons].present? && current_user == crowd_campaign.user %>
