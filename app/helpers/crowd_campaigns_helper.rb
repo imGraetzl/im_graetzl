@@ -77,60 +77,13 @@ module CrowdCampaignsHelper
           percentage > 100 ? 85 : percentage
 
     end
-
   end
 
   def step_icon(campaign, step)
-    if step_finished?(campaign, step)
+    if campaign.step_finished?(step)
       icon_tag("check")
     else
       content_tag(:div, "#{step}.", class: 'icon')
-    end
-  end
-
-  def all_steps_finished?(campaign)
-    step_finished?(campaign, 1) &&
-    step_finished?(campaign, 2) &&
-    step_finished?(campaign, 3) &&
-    step_finished?(campaign, 4) &&
-    step_finished?(campaign, 5)
-  end
-
-  def step_finished?(campaign, step)
-    case step
-    when 1
-      ![
-        campaign.title,
-        campaign.slogan,
-        campaign.crowd_category_ids,
-        campaign.graetzl_id.to_s
-      ].any?{ |f| f.nil? || f.empty? }
-    when 2
-      ![
-        campaign.startdate.to_s,
-        campaign.enddate.to_s,
-        campaign.description,
-        campaign.support_description,
-        campaign.about_description
-      ].any?{ |f| f.nil? || f.empty? }
-    when 3
-      ![
-        campaign.funding_1_amount.to_s,
-        campaign.funding_1_description
-      ].any?{ |f| f.nil? || f.empty? }
-    when 4
-      ![
-        campaign.crowd_rewards.first&.title,
-        campaign.crowd_rewards.first&.amount.to_s,
-        campaign.crowd_rewards.first&.description,
-        campaign.crowd_rewards.first&.delivery_weeks.to_s
-      ].any?{ |f| f.nil? || f.empty? }
-    when 5
-      ![
-        campaign.cover_photo_data
-      ].any?{ |f| f.nil? || f.empty? }
-    else
-      false
     end
   end
 

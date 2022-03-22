@@ -1,7 +1,7 @@
-<%= form_tag [:initiate_card_payment, @crowd_pledge], class: 'card-form', remote: true,
-    data: {type: 'json', with_credentials: true, success_url: summary_crowd_pledge_url(@crowd_pledge)} do %>
+<%= form_tag [:payment_authorized, @crowd_pledge], class: 'card-form', data: {
+    setup_intent_secret: @setup_intent.client_secret,
+    } do %>
   <%= hidden_field_tag :payment_method_id %>
-  <%= hidden_field_tag :payment_intent_id %>
 
   <div class="input-field">
     <%= label_tag :card_info do %>

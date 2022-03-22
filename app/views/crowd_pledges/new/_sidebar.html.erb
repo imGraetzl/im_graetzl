@@ -11,14 +11,14 @@
     <ul class="pricing-summary -facts"></ul>
 
     <ul class="pricing-summary">
-      <% if @crowd_reward %>
+      <% if @crowd_pledge.crowd_reward %>
       <li>
-        <div class="cost"><%= number_to_currency(@crowd_reward.amount, unit: "€") %></div>
-        <div class="costname"><%= @crowd_reward.title %></div>
+        <div class="cost"><%= number_to_currency(@crowd_pledge.crowd_reward.amount, unit: "€") %></div>
+        <div class="costname"><%= @crowd_pledge.crowd_reward.title %></div>
       </li>
       <% end %>
       <li>
-        <div class="cost"><%= number_to_currency(@crowd_pledge.amount ? @crowd_pledge.amount : 0, unit: "€") %></div>
+        <div class="cost"><%= number_to_currency(@crowd_pledge.donation_amount.to_i, unit: "€") %></div>
         <div class="costname">Freie Unterstützung</div>
       </li>
       <li class="sum">

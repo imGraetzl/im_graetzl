@@ -46,7 +46,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <%= render 'mailers/shared/button', title: "Beitrag lesen", url: user_url(@notification.subject, target: "comment_#{@notification.comment.id}") %>
+        <%= render 'mailers/shared/button', title: "Beitrag lesen", url: user_url(@notification.subject, target: @notification.child.target_url_params) %>
       </td>
     </tr>
   </tbody>

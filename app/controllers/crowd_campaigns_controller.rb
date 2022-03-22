@@ -1,5 +1,5 @@
 class CrowdCampaignsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :supporters, :comments]
+  before_action :authenticate_user!, except: [:index, :show, :supporters, :posts, :comments]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -19,7 +19,7 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def create
-    @crowd_campaign = CrowdCampaign.new(crowd_campaign_params)
+    @crowd_campaign = CrowdCampaign.new(editable_campaign_params)
     @crowd_campaign.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @crowd_campaign.region_id = current_region.id
     @crowd_campaign.clear_address if params[:no_address] == 'true'
@@ -68,9 +68,9 @@ class CrowdCampaignsController < ApplicationController
     form_status_message?
   end
 
-  def supporters
+  def posts
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.reverse
+    @posts = @crowd_campaign.crowd_campaign_posts.includes(:images, :comments).order(created_at: :desc)
   end
 
   def comments
@@ -78,21 +78,32 @@ class CrowdCampaignsController < ApplicationController
     @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
   end
 
+  def supporters
+    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.reverse
+  end
+
   def update
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.clear_address if params[:no_address] == 'true'
 
-    if @crowd_campaign.update(crowd_campaign_params)
+    if @crowd_campaign.editable?
+      @crowd_campaign.assign_attributes(editable_campaign_params)
+    else
+      @crowd_campaign.assign_attributes(noneditable_campaign_params)
+    end
+
+    if @crowd_campaign.save
       if params[:page]
         redirect_to params[:page]
-      elsif params[:submit_for_approve] && !@crowd_campaign.ready_for_approve?
+      elsif params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
         redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: 'Deine Crowdfundingkampagne konnte noch nicht zur Freigabe eingereicht werden. Bitte fülle alle Felder aus, bis alle Schritte mit einem Haken gekennzeichnet sind.'
-      elsif params[:submit_for_approve] && @crowd_campaign.ready_for_approve?
+      elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
         redirect_to edit_next_steps_crowd_campaign_path(@crowd_campaign)
       else
-        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert."
+        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}"
       end
     else
       render :edit
@@ -105,6 +116,33 @@ class CrowdCampaignsController < ApplicationController
     redirect_to @crowd_campaign and return unless @crowd_campaign.user == current_user
   end
 
+  def add_post
+    @crowd_campaign = fetch_user_crowd_campaign(params[:id])
+    @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.build(crowd_campaign_post_params)
+    if @crowd_campaign_post.save
+      ActionProcessor.track(@crowd_campaign, :post, @crowd_campaign_post)
+    end
+    render 'crowd_campaigns/crowd_campaign_posts/add'
+  end
+
+  def remove_post
+    @crowd_campaign = fetch_user_crowd_campaign(params[:id])
+    @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.find(params[:post_id])
+    @crowd_campaign_post.destroy
+    render 'crowd_campaigns/crowd_campaign_posts/remove'
+  end
+
+  def comment_post
+    @crowd_campaign = CrowdCampaign.find(params[:id])
+    @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.find(params[:post_id])
+    @comment = @crowd_campaign_post.comments.new(crowd_campaign_comment_params)
+    @comment.user = current_user
+    if @comment.save
+      ActionProcessor.track(@crowd_campaign_post, :comment, @comment)
+    end
+    render 'crowd_campaigns/crowd_campaign_posts/comment'
+  end
+
   def destroy
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.destroy
@@ -112,6 +150,10 @@ class CrowdCampaignsController < ApplicationController
   end
 
   private
+
+  def fetch_user_crowd_campaign(id)
+    current_user.crowd_campaigns.find(id)
+  end
 
   def form_status_message?
     flash.now[:alert] = "Deine Kampagne wird gerade überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
@@ -168,7 +210,20 @@ class CrowdCampaignsController < ApplicationController
     }
   end
 
-  def crowd_campaign_params
+  def crowd_campaign_post_params
+    params.require(:crowd_campaign_post).permit(
+      :title, :content, images_attributes: [:id, :file, :_destroy]
+    )
+  end
+
+  def crowd_campaign_comment_params
+    params.require(:comment).permit(
+      :content,
+      images_attributes: [:file],
+    )
+  end
+
+  def editable_campaign_params
     params
       .require(:crowd_campaign)
       .permit(
@@ -187,6 +242,12 @@ class CrowdCampaignsController < ApplicationController
           :id, :donation_type, :limit, :title, :description, :question, :startdate, :enddate, :_destroy
         ],
         crowd_category_ids: [],
+    )
+  end
+
+  def noneditable_campaign_params
+    params.require(:crowd_campaign).permit(
+      :title
     )
   end
 end

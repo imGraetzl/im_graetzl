@@ -16,7 +16,7 @@
                        value: (I18n.localize(f.object.startdate, format:'%a, %d. %B %Y') if f.object.startdate),
                        data: { value: (I18n.localize(f.object.startdate, format:'%Y-%m-%d') if f.object.startdate) },
                        class: 'startdate',
-                       placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
+                       placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     </div>
 
     <div class="input-field">
@@ -28,7 +28,7 @@
                        value: (I18n.localize(f.object.enddate, format:'%a, %d. %B %Y') if f.object.enddate),
                        data: { value: (I18n.localize(f.object.enddate, format:'%Y-%m-%d') if f.object.enddate) },
                        class: 'enddate',
-                       placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: @crowd_campaign.not_editable? %>
+                       placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     </div>
 
   </div>

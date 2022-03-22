@@ -1,4 +1,4 @@
-<div id="<%= dom_id(comment) %>" class="comment">
+<div id="<%= "comment_#{comment.commentable_type.underscore}_#{comment.id}" %>" class="comment">
   <div class="entryUserComment">
     <% if comment.edit_permission?(current_user) %>
       <div class="editControls">
@@ -9,7 +9,6 @@
         <% end %>
       </div>
     <% end %>
-    <a name="comment-<%= comment.id -%>"></a>
     <div class="userCreateInfo">
       <%= link_to comment.user, rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>

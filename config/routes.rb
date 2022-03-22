@@ -130,6 +130,9 @@ Rails.application.routes.draw do
   end
 
   resources :crowd_campaigns, path: 'crowdfunding' do
+    post :add_post, on: :member
+    post :remove_post, on: :member
+    post :comment_post, on: :member
     get 'start', on: :collection
     get 'edit_description', on: :member
     get 'edit_finance', on: :member
@@ -137,8 +140,9 @@ Rails.application.routes.draw do
     get 'edit_media', on: :member
     get 'edit_finish', on: :member
     get 'edit_next_steps', on: :member
-    get 'supporters', on: :member
+    get 'posts', on: :member
     get 'comments', on: :member
+    get 'supporters', on: :member
     get 'statistics', on: :member
   end
 
@@ -147,9 +151,7 @@ Rails.application.routes.draw do
     get 'choose_amount', on: :collection
     get 'login', on: :collection
     get 'choose_payment', on: :member
-    post 'initiate_card_payment', on: :member
-    post 'initiate_eps_payment', on: :member
-    get 'complete_eps_payment', on: :member
+    post 'payment_authorized', on: :member
     get 'summary', on: :member
   end
 

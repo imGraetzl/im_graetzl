@@ -28,6 +28,8 @@ APP.controllers.crowd_campaigns = (function() {
             $(".form-supporters").submit();
           } else if ($("#tab-comments").is(":visible")) {
             $(".form-comments").submit();
+          } else if ($("#tab-posts").is(":visible")) {
+            $(".form-posts").submit();
           }
       }).trigger('_after');
 

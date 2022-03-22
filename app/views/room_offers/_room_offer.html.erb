@@ -60,7 +60,7 @@
     <% end %>
 
     <% if local_assigns[:activity_comment] %>
-      <%= render 'activities/comment', parent: room_offer, comment_url: room_offer_path(room_offer, target: dom_id(local_assigns[:activity_comment])), comment: local_assigns[:activity_comment] %>
+      <%= render 'activities/comment', parent: room_offer, comment_url: room_offer_path(room_offer, target: local_assigns[:activity_comment].target_url_params), comment: local_assigns[:activity_comment] %>
     <% end %>
 
     <% if local_assigns[:manage_buttons].present? && current_user == room_offer.user %>

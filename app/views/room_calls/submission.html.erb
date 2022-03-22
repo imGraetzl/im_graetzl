@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div class="user-anwsers">
+  <div class="user-answers">
     <% @room_call_submission.room_call_submission_fields.includes(:room_call_field).each do |sf| %>
       <h3><%= sf.room_call_field.label %></h3>
       <p><%= sf.content %></p>

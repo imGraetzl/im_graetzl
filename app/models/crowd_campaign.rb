@@ -21,6 +21,8 @@ class CrowdCampaign < ApplicationRecord
 
   has_many :crowd_pledges
 
+  has_many :crowd_campaign_posts, dependent: :destroy
+  has_many :comments, through: :crowd_campaign_posts
   has_many :comments, as: :commentable, dependent: :destroy
 
   enum status: { draft: 0, pending: 1, canceled: 2, approved: 3, funding: 4, completed_successful: 5, completed_unsuccessful: 6 }
@@ -37,19 +39,23 @@ class CrowdCampaign < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def completed?
-    self.completed_successful? || self.completed_unsuccessful?
+    completed_successful? || completed_unsuccessful?
   end
 
-  def ready_for_approve?
-    ApplicationController.helpers.all_steps_finished?(self)
+  def editable?
+    draft? || pending? || approved? # Remove approved maybe?
   end
 
-  def not_editable?
-    self.funding? || self.completed?
+  def owned_by?(a_user)
+    user_id.present? && user_id == a_user&.id
+  end
+
+  def actual_newest_post
+    crowd_campaign_posts.select{|p| p.created_at > 4.weeks.ago}.last
   end
 
   def crowd_pledges_sum
-    self.crowd_pledges.authorized.sum(&:total_price)
+    @cached_crowd_pledge_sum ||= self.crowd_pledges.complete.sum(:total_price)
   end
 
   def funding_status
@@ -82,8 +88,30 @@ class CrowdCampaign < ApplicationRecord
     self.funding_status == :over_funding_2
   end
 
+  # Needed if we want to inform Owner for Successfull Funding_Level 1 immediately... (or other users)
   def funding_1_successful?(funding_status_before, funding_status_after)
-    ([:over_funding_1, :funding_2].include? funding_status_after) && (funding_status_before != funding_status_after)
+    [:over_funding_1, :funding_2].include?(funding_status_after) && funding_status_before != funding_status_after
+  end
+
+  def all_steps_finished?
+    (1..5).all?{|step| step_finished?(step)}
+  end
+
+  def step_finished?(step)
+    case step
+    when 1
+      [title, slogan, crowd_category_ids, graetzl_id].all?(&:present?)
+    when 2
+      [startdate, enddate, description, support_description, about_description].all?(&:present?)
+    when 3
+      [funding_1_amount, funding_1_description].all?(&:present?)
+    when 4
+      crowd_rewards.present? && crowd_rewards.all?(:ready_for_submit?)
+    when 5
+      [cover_photo_data].all?(&:present?)
+    else
+      false
+    end
   end
 
   def remaining_days
@@ -102,7 +130,5 @@ class CrowdCampaign < ApplicationRecord
     super
     self.district ||= value.district if value.present?
   end
-
-  private
 
 end

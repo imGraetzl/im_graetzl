@@ -28,13 +28,16 @@ APP.components.tabs = (function() {
 
     function openTab(tab) {
       $('.tabs-ctrl').trigger('show', '#tab-' + tab);
-      //$('.tabs-ctrl').get(0).scrollIntoView();
     }
 
     function initPageTab() {
-      var tab = APP.controllers.application.getUrlVars()["pagetab"];
-      if (typeof tab !== 'undefined') {
-        openTab(tab);
+      var target = APP.controllers.application.getUrlVars()["target"];
+      if (target) {
+        if (target.includes('crowd_campaign_post')) {
+          openTab('posts');
+        } else if (target.startsWith('comment_crowd_campaign') || target.startsWith('comment_comment')) {
+          openTab('comments');
+        }
       }
     }
 

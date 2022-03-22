@@ -7,7 +7,7 @@
       <%= icon_tag "user-avatar" %>
       <span>Name</span>
     <% end %>
-    <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname', disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname', disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="input-field">
@@ -15,7 +15,7 @@
       <%= icon_tag "user-avatar" %>
       <span>Firma</span>
     <% end %>
-    <%= f.text_field :contact_company, placeholder: 'Firma (optional)', disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_field :contact_company, placeholder: 'Firma (optional)', disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="input-field">
@@ -23,7 +23,7 @@
       <%= icon_tag "at-symbol" %>
       <span>E-Mail</span>
     <% end %>
-    <%= f.text_field :contact_email, placeholder: 'E-Mail Adresse', disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_field :contact_email, placeholder: 'E-Mail Adresse', disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="input-field">
@@ -31,7 +31,7 @@
       <%= icon_tag "phone" %>
       <span>Telefon</span>
     <% end %>
-    <%= f.text_field :contact_phone, placeholder: '+43 xxx xxxxxxx', disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_field :contact_phone, placeholder: '+43 xxx xxxxxxx', disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="input-field">
@@ -39,7 +39,7 @@
       <%= icon_tag "map-location" %>
       <span>Strasse & Nr.</span>
     <% end %>
-    <%= f.text_field :contact_address, placeholder: 'Strasse & Nr.', disabled: @crowd_campaign.not_editable? %>
+    <%= f.text_field :contact_address, placeholder: 'Strasse & Nr.', disabled: !@crowd_campaign.editable? %>
   </div>
 
   <div class="form-columns">
@@ -49,7 +49,7 @@
         <%= icon_tag "map-location" %>
         <span>Postleitzahl</span>
       <% end %>
-      <%= f.text_field :contact_zip, placeholder: 'PLZ', disabled: @crowd_campaign.not_editable? %>
+      <%= f.text_field :contact_zip, placeholder: 'PLZ', disabled: !@crowd_campaign.editable? %>
     </div>
 
     <div class="input-field">
@@ -57,7 +57,7 @@
         <%= icon_tag "map-location" %>
         <span>Ort/Stadt</span>
       <% end %>
-      <%= f.text_field :contact_city, placeholder: 'Stadt', disabled: @crowd_campaign.not_editable? %>
+      <%= f.text_field :contact_city, placeholder: 'Stadt', disabled: !@crowd_campaign.editable? %>
     </div>
   </div>
 
@@ -72,7 +72,7 @@
       <%= icon_tag "profile-vcard" %>
       <span>Rechnung</span>
     <% end %>
-    <%= f.select :billable, billable_values, { include_blank: 'auswählen...' }, disabled: @crowd_campaign.not_editable? %>
+    <%= f.select :billable, billable_values, { include_blank: 'auswählen...' }, disabled: !@crowd_campaign.editable? %>
   </div>
 
 </div>

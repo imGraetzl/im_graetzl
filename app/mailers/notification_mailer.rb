@@ -26,6 +26,9 @@ class NotificationMailer < ApplicationMailer
     'Eine neue Crowdfunding Kampagne wurde gestartet' => [
       Notifications::NewCrowdCampaign
     ],
+    'Neue Crowdfunding Updates' => [
+      Notifications::NewCrowdCampaignPost
+    ],
     'Neue Schaufenster' => [
       Notifications::NewLocation
     ],
