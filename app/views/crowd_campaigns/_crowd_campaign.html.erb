@@ -26,19 +26,6 @@
 
     <%= render 'crowd_campaigns/funding_bar' %>
 
-    <% if local_assigns[:activity_crowd_pledge] %>
-      <% user = local_assigns[:activity_crowd_pledge].user %>
-      <div class="userCreateInfo">
-        <%= link_to user, rel: 'nofollow' do %>
-          <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round' %>
-        <% end %>
-        <span class="userAndType">
-          <%= link_to user.username, user, rel: 'nofollow' %>
-          <span>unterstützt dieses Projekt.</span>
-        </span>
-      </div>
-    <% end %>
-
     <% if crowd_campaign_post = crowd_campaign.actual_newest_post %>
       <%= link_to [crowd_campaign, target: dom_id(crowd_campaign_post)], class: 'updateteaser' do %>
         <div class="hl">
@@ -48,6 +35,19 @@
           <%= crowd_campaign_post.title %>
         </div>
       <% end %>
+    <% end %>
+
+    <% if local_assigns[:activity_crowd_pledge] %>
+      <% user = local_assigns[:activity_crowd_pledge].user %>
+      <div class="userCreateInfo userPledge">
+        <%= link_to user, rel: 'nofollow' do %>
+          <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round' %>
+        <% end %>
+        <span class="userAndType">
+          <%= link_to user.username, user, rel: 'nofollow' %>
+          <span>unterstützt dieses Projekt.</span>
+        </span>
+      </div>
     <% end %>
 
     <% if local_assigns[:activity_comment] %>
