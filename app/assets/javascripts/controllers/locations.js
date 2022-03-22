@@ -21,12 +21,6 @@ APP.controllers.locations = (function() {
 
       $('.autosubmit-stream').submit();
 
-      // open comments if post hash exists
-      var hash = window.location.hash.substr(1);
-      if (hash.indexOf("location_post") != -1) {
-        $( "#" + hash + " .show-all-comments-link" ).click();
-      }
-
       enquire
           //mobile mode
           .register("screen and (max-width:" + APP.config.majorBreakpoints.large + "px)", {

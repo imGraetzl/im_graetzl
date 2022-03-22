@@ -67,6 +67,9 @@ APP.controllers.application = (function() {
   function scrollToTarget() {
     var target = APP.controllers.application.getUrlVars()["target"];
     if (typeof target !== 'undefined') {
+      // Open all Comments
+      $("#"+target).parents(".post-comments").find(".show-all-comments-link").click();
+      // Scroll to Comment
       $('html, body').animate({
         scrollTop: $('#'+target).offset().top
       }, 600);

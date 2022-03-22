@@ -1,5 +1,7 @@
 <div id="<%= "comment_#{comment.commentable_type.underscore}_#{comment.id}" %>" class="comment streamElement">
+
   <div class="entryInitialContent">
+
     <% if comment.edit_permission?(current_user) %>
       <div class="editControls">
         <%= link_to comment, { method: :delete, remote: true, data: { confirm: 'Kommentar wirklich löschen?', disable_with: 'lädt...' } } do %>
@@ -9,7 +11,7 @@
         <% end %>
       </div>
     <% end %>
-    <a name="comment-<%= comment.id -%>"></a>
+
     <div class="userCreateInfo -parentComment">
       <%= link_to comment.user, rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
@@ -20,9 +22,10 @@
           <%= I18n.localize(comment.created_at, format:'%a, %d. %B %Y, %H:%M') %>
         </div>
       </div>
-
     </div>
+
     <div class="txt txtlinky"><%= comment.content %></div>
+
     <% unless comment.images.empty? %>
       <div class="entryImgUploads">
         <% comment.images.each do |image| %>
@@ -34,7 +37,7 @@
     <div class="post-comments">
       <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments-link' if comment.comments.size > 3 %>
       <% comment.comments.sort_by(&:created_at).each do |comment| %>
-        <div class="comment-container" >
+        <div class="comment-container">
           <%= render 'comments/nested_comments/comment', comment: comment %>
         </div>
       <% end %>
