@@ -1,5 +1,5 @@
 class CrowdCampaignsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :supporters, :comments]
+  before_action :authenticate_user!, except: [:index, :show, :supporters, :posts, :comments]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -68,14 +68,19 @@ class CrowdCampaignsController < ApplicationController
     form_status_message?
   end
 
-  def supporters
+  def posts
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.reverse
+    @posts = @crowd_campaign.crowd_campaign_posts.includes(:images, :comments).order(created_at: :desc)
   end
 
   def comments
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     @comments = @crowd_campaign.comments.includes(:user, :images).order(created_at: :desc)
+  end
+
+  def supporters
+    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.reverse
   end
 
   def update
@@ -98,7 +103,7 @@ class CrowdCampaignsController < ApplicationController
         @crowd_campaign.save
         redirect_to edit_next_steps_crowd_campaign_path(@crowd_campaign)
       else
-        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert."
+        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}"
       end
     else
       render :edit
@@ -111,6 +116,33 @@ class CrowdCampaignsController < ApplicationController
     redirect_to @crowd_campaign and return unless @crowd_campaign.user == current_user
   end
 
+  def add_post
+    @crowd_campaign = fetch_user_crowd_campaign(params[:id])
+    @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.build(crowd_campaign_post_params)
+    if @crowd_campaign_post.save
+      ActionProcessor.track(@crowd_campaign, :post, @crowd_campaign_post)
+    end
+    render 'crowd_campaigns/crowd_campaign_posts/add'
+  end
+
+  def remove_post
+    @crowd_campaign = fetch_user_crowd_campaign(params[:id])
+    @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.find(params[:post_id])
+    @crowd_campaign_post.destroy
+    render 'crowd_campaigns/crowd_campaign_posts/remove'
+  end
+
+  def comment_post
+    @crowd_campaign = CrowdCampaign.find(params[:id])
+    @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.find(params[:post_id])
+    @comment = @crowd_campaign_post.comments.new(crowd_campaign_comment_params)
+    @comment.user = current_user
+    if @comment.save
+      ActionProcessor.track(@crowd_campaign_post, :comment, @comment)
+    end
+    render 'crowd_campaigns/crowd_campaign_posts/comment'
+  end
+
   def destroy
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.destroy
@@ -118,6 +150,10 @@ class CrowdCampaignsController < ApplicationController
   end
 
   private
+
+  def fetch_user_crowd_campaign(id)
+    current_user.crowd_campaigns.find(id)
+  end
 
   def form_status_message?
     flash.now[:alert] = "Deine Kampagne wird gerade überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
@@ -172,6 +208,19 @@ class CrowdCampaignsController < ApplicationController
       contact_zip: current_user.billing_address&.zip || current_user.address_zip,
       contact_city: current_user.billing_address&.city || current_user.address_city,
     }
+  end
+
+  def crowd_campaign_post_params
+    params.require(:crowd_campaign_post).permit(
+      :title, :content, images_attributes: [:id, :file, :_destroy]
+    )
+  end
+
+  def crowd_campaign_comment_params
+    params.require(:comment).permit(
+      :content,
+      images_attributes: [:file],
+    )
   end
 
   def editable_campaign_params

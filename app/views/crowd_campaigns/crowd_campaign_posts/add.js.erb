@@ -1,0 +1,14 @@
+(function() {
+  var $streamForm = $("[data-behavior='crowd-campaign-post-form']");
+
+  <% if @crowd_campaign_post.persisted? %>
+    $streamForm.after("<%= j render 'crowd_campaigns/crowd_campaign_posts/post', post: @crowd_campaign_post %>");
+    $streamForm.replaceWith("<%= j render 'crowd_campaigns/crowd_campaign_posts/post_form' %>");
+    APP.components.stream.init();
+    APP.components.stream.initLinkify($("#crowd_campaign_post_" + <%= @crowd_campaign_post.id %> + " .txt"));
+    APP.controllers.application.jBoxGallery();
+  <% else %>
+    alert('Folgende Fehler sind aufgetreten:\n<%= @crowd_campaign_post.errors.full_messages.first %>');
+  <% end %>
+
+})();

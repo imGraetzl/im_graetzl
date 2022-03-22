@@ -52,16 +52,16 @@
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
         <li class="active"><a href="#tab-info">Projekt Infos</a></li>
-        <li><a href="#tab-updates">Projekt News</a></li>
-        <li><a href="#tab-comments">Pinnwand <small><%= @crowd_campaign.comments.count if @crowd_campaign.comments.count > 0 %></small></a></li>
-        <li><a href="#tab-supporters">UnterstützerInnen <small><%= @crowd_campaign.crowd_pledges.authorized.count if @crowd_campaign.crowd_pledges.authorized.count > 0 %></small></a></li>
+        <li><a href="#tab-posts">Projekt News <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
+        <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
+        <li><a href="#tab-supporters">UnterstützerInnen <% if @crowd_campaign.crowd_pledges.authorized.present? %><small><%= @crowd_campaign.crowd_pledges.authorized.count %><% end %></small></a></li>
       </ul>
     </div>
   </div>
 
   <div id="tabs-container">
     <%= render 'crowd_campaigns/show/tab_info' %>
-    <%= render 'crowd_campaigns/show/tab_updates' %>
+    <%= render 'crowd_campaigns/show/tab_posts' %>
     <%= render 'crowd_campaigns/show/tab_comments' %>
     <%= render 'crowd_campaigns/show/tab_supporters' %>
   </div>

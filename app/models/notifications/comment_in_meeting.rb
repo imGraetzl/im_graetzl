@@ -30,4 +30,8 @@ class Notifications::CommentInMeeting < Notification
     [subject.graetzl, subject]
   end
 
+  def target_url_params
+    "comment_#{subject_type.underscore}_#{comment.id}"
+  end
+
 end

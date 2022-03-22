@@ -21,6 +21,8 @@ class CrowdCampaign < ApplicationRecord
 
   has_many :crowd_pledges
 
+  has_many :crowd_campaign_posts, dependent: :destroy
+  has_many :comments, through: :crowd_campaign_posts
   has_many :comments, as: :commentable, dependent: :destroy
 
   enum status: { draft: 0, pending: 1, canceled: 2, approved: 3, funding: 4, completed_successful: 5, completed_unsuccessful: 6 }
@@ -42,6 +44,14 @@ class CrowdCampaign < ApplicationRecord
 
   def editable?
     draft? || pending? || approved? # Remove approved maybe?
+  end
+
+  def owned_by?(a_user)
+    user_id.present? && user_id == a_user&.id
+  end
+
+  def actual_newest_post
+    crowd_campaign_posts.select{|p| p.created_at > 4.weeks.ago}.last
   end
 
   def crowd_pledges_sum

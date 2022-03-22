@@ -23,6 +23,10 @@ class Comment < ApplicationRecord
     commentable.region_id
   end
 
+  def target_url_params
+    "comment_#{commentable.class.name.underscore}_#{id}"
+  end
+
   private
 
   def set_last_activity

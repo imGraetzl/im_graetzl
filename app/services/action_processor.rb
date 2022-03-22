@@ -159,6 +159,13 @@ class ActionProcessor
       Activity.add_public(subject, child, to: :entire_region)
       notify_comment(subject, child)
 
+    when [CrowdCampaign, :post]
+      Activity.add_public(subject, child, to: :entire_region)
+      Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
+
+    when [CrowdCampaignPost, :comment]
+      notify_comment(subject, child)
+
     when [User, :comment]
       Notifications::NewWallComment.generate(subject, child, to: subject.id)
 

@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hallo #{@user.first_name},") %>
-<% content_for(:title, "Schau mal - Es gibt Neuigkeiten #{t("region.#{@region.id}.from_graetzl")} #{@user.graetzl.name} für dich:") %>
+<% content_for(:title, "Schau mal - Es gibt Neuigkeiten #{t("region.#{@region.id}.from_graetzl")} #{@notification.crowd_campaign.graetzl.name} für dich:") %>
 
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
   <tr>
@@ -8,8 +8,8 @@
   <tr>
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
-        <%= link_to @notification.comment.user.first_name, user_url(@notification.comment.user), style: "color:#f48a85;" %>
-        hat auf deine Pinnwand geschrieben:
+        Neues Crowdfunding Update von
+        <%= link_to @notification.crowd_campaign.title, crowd_campaign_url(@notification.crowd_campaign, target: dom_id(@notification.crowd_campaign_post)), style: "color:#f48a85;" %>
       </h4>
     </td>
   </tr>
@@ -30,12 +30,16 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-left:18px; padding-right:18px; vertical-align:top;">
-        <%= avatar_image @notification.comment.user, size: :thumb, style: "width: 40px; height: 40px; border-radius: 20px; display: block;" %>
+        <%= avatar_image @notification.crowd_campaign.user, size: :thumb, style: "width: 40px; height: 40px; border-radius: 20px; display: block;" %>
       </td>
       <td valign="center" class="mcnTextContent" width="100%">
 
-        <p>
-          <%= @notification.comment.content.truncate(255, separator: ' ') %>
+        <h3 style="font-size:18px; font-style:normal; font-weight:normal; line-height:130%; letter-spacing:normal; margin-top:0;margin-right:0; margin-bottom:2px;">
+          <%= link_to @notification.crowd_campaign_post.title, crowd_campaign_url(@notification.crowd_campaign, target: dom_id(@notification.crowd_campaign_post)), style:"color:#f48a85;" %>
+        </h3>
+
+        <p style="margin-top:12px;">
+          <%= @notification.crowd_campaign_post.content.truncate(255, separator: ' ').gsub("\r\n", "<br/>").html_safe %>
         </p>
 
       </td>
@@ -46,7 +50,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <%= render 'mailers/shared/button', title: "Beitrag lesen", url: user_url(@notification.subject, target: @notification.child.target_url_params) %>
+        <%= render 'mailers/shared/button', title: "Neuigkeit lesen", url: crowd_campaign_url(@notification.crowd_campaign, target: dom_id(@notification.crowd_campaign_post)) %>
       </td>
     </tr>
   </tbody>

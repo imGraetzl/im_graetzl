@@ -1,0 +1,13 @@
+<div class="posts-container stream">
+
+  <% if @crowd_campaign.owned_by?(current_user) %>
+    <%= render 'crowd_campaigns/crowd_campaign_posts/post_form' %>
+  <% end %>
+
+  <% @posts.each do |post| %>
+
+    <%= render partial: 'crowd_campaigns/crowd_campaign_posts/post', :locals => {:post => post} %>
+
+  <% end %>
+
+</div>

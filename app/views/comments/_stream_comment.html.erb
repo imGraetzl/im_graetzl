@@ -1,4 +1,4 @@
-<div id="<%= dom_id(comment) %>" class="comment streamElement">
+<div id="<%= "comment_#{comment.commentable_type.underscore}_#{comment.id}" %>" class="comment streamElement">
   <div class="entryInitialContent">
     <% if comment.edit_permission?(current_user) %>
       <div class="editControls">

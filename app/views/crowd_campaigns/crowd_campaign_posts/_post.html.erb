@@ -1,0 +1,45 @@
+<div id="<%= dom_id(post) %>" class="post streamElement">
+  <div class="entryInitialContent">
+    <% if post.edit_permission?(current_user) %>
+      <div class="editControls">
+        <%= link_to remove_post_crowd_campaign_path(@crowd_campaign, post_id: post.id), method: :post, remote: true, data: { confirm: 'Beitrag wirklich löschen?', disable_with: 'lädt...' } do %>
+          <div class="btn-delete">
+            <%= icon_tag "trash-delete-remove" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="userCreateInfo">
+      <%= cover_photo_image @crowd_campaign, size: :thumb, class: 'img-square' %>
+      <div>
+        <span class="owner"><%= @crowd_campaign.user %></span><br>
+        <span>vor <%= time_ago_in_words(post.created_at) %></span>
+      </div>
+
+    </div>
+
+    <div class="headline"><%= post.title %></div>
+
+    <div class="txt txtlinky"><%= post.content %></div>
+    <% if post.images.present? %>
+      <div class="entryImgUploads">
+        <% post.images.each do |image| %>
+          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "gallery-#{post.id}" } %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="post-comments">
+      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments-link' if post.comments.count > 3 %>
+      <% post.comments.each_with_index do |comment, i| %>
+        <div class="comment-container" >
+          <%= render comment %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= render 'crowd_campaigns/crowd_campaign_posts/comment_form', post: post %>
+
+  </div>
+</div>

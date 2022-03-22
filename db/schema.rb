@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_14_142433) do
+ActiveRecord::Schema.define(version: 2022_03_21_103717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,19 @@ ActiveRecord::Schema.define(version: 2022_03_14_142433) do
     t.datetime "updated_at", null: false
     t.bigint "coop_demand_category_id"
     t.index ["coop_demand_category_id"], name: "index_coop_suggested_tags_on_coop_demand_category_id"
+  end
+
+  create_table "crowd_campaign_posts", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "region_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "crowd_campaign_id"
+    t.bigint "graetzl_id"
+    t.index ["crowd_campaign_id"], name: "index_crowd_campaign_posts_on_crowd_campaign_id"
+    t.index ["graetzl_id"], name: "index_crowd_campaign_posts_on_graetzl_id"
+    t.index ["region_id"], name: "index_crowd_campaign_posts_on_region_id"
   end
 
   create_table "crowd_campaigns", force: :cascade do |t|
@@ -1380,6 +1393,8 @@ ActiveRecord::Schema.define(version: 2022_03_14_142433) do
   add_foreign_key "coop_demands", "locations", on_delete: :nullify
   add_foreign_key "coop_demands", "users", on_delete: :cascade
   add_foreign_key "coop_suggested_tags", "coop_demand_categories", on_delete: :nullify
+  add_foreign_key "crowd_campaign_posts", "crowd_campaigns", on_delete: :cascade
+  add_foreign_key "crowd_campaign_posts", "graetzls", on_delete: :nullify
   add_foreign_key "crowd_campaigns", "graetzls", on_delete: :nullify
   add_foreign_key "crowd_campaigns", "locations", on_delete: :nullify
   add_foreign_key "crowd_campaigns", "room_offers", on_delete: :nullify

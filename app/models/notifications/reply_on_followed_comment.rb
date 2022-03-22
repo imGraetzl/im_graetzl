@@ -35,4 +35,8 @@ class Notifications::ReplyOnFollowedComment < Notification
     end
   end
 
+  def target_url_params
+    "comment_comment_#{comment.id}"
+  end
+
 end

@@ -1,0 +1,12 @@
+(function() {
+  <% if @comment.persisted? %>
+    var $commentForm = $("[data-behavior='comment-form-<%= @crowd_campaign_post.id %>']");
+    $commentForm.before("<%= j render @comment %>");
+    $commentForm.replaceWith("<%= j render 'crowd_campaigns/crowd_campaign_posts/comment_form', post: @crowd_campaign_post %>");
+    APP.components.stream.initCommentForm();
+    APP.components.stream.initLinkify($("#comment_" + <%= @comment.id %> + " .txt"));
+    APP.controllers.application.jBoxGallery();
+  <% else %>
+    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+  <% end %>
+})();

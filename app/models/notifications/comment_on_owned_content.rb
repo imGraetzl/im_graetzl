@@ -27,6 +27,8 @@ class Notifications::CommentOnOwnedContent < Notification
     case subject_type
     when 'LocationPost', 'LocationMenu'
       subject.location.to_s
+    when 'CrowdCampaignPost'
+      subject.crowd_campaign.to_s
     else
       subject.to_s
     end
@@ -50,6 +52,8 @@ class Notifications::CommentOnOwnedContent < Notification
       'Coop & Share Angebot'
     when 'CrowdCampaign'
       'Crowdfunding Projekt'
+    when 'CrowdCampaignPost'
+      'Crowdfunding Update'
     end
   end
 
@@ -59,9 +63,15 @@ class Notifications::CommentOnOwnedContent < Notification
       [subject.graetzl, subject]
     when 'LocationPost', 'LocationMenu'
       [subject.location.graetzl, subject.location]
+    when 'CrowdCampaignPost'
+      [subject.crowd_campaign]
     else
       subject
     end
+  end
+
+  def target_url_params
+    "comment_#{subject_type.underscore}_#{comment.id}"
   end
 
 end
