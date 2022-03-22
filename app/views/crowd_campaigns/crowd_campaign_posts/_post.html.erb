@@ -32,7 +32,7 @@
 
     <div class="post-comments">
       <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments-link' if post.comments.count > 3 %>
-      <% post.comments.each_with_index do |comment, i| %>
+      <% post.comments.sort_by(&:created_at).each do |comment| %>
         <div class="comment-container" >
           <%= render comment %>
         </div>
