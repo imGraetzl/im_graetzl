@@ -1,2 +1,2 @@
-var commentElement = $("#<%= dom_id @comment %>");
+var commentElement = $(<%= @comment.target_url_params %>);
 commentElement.fadeOut('slow');

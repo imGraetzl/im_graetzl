@@ -5,10 +5,6 @@
     <%= f.text_area :content, placeholder: 'Kommentieren' %>
   </label>
   <div class="hideBlock">
-    <div class="upload-streamImgs">
-      <%= icon_tag "photo-camera" %>
-      <%= upload_image_input(f, :images, multiple: true, live_preview: false) %>
-    </div>
     <%= f.button 'Antwort senden', data: { disable_with: 'sendet...' } %>
   </div>
 <% end %>

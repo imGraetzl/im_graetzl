@@ -2,7 +2,7 @@
 
   <p class="txt">Zeige uns <span>dein Projekt</span></p>
 
-  <div class="upload-oldschool <%= @crowd_campaign.not_editable? ? 'disabled' : '' %>">
+  <div class="upload-oldschool <%= @crowd_campaign.editable? ? '' : 'disabled' %>">
     <%= f.label :cover_photo do %>
       <%= icon_tag "photo-camera" %>
       <span>Coverfoto<small class="upload-hint">(max. 5MB)</small></span>

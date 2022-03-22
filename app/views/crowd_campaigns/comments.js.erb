@@ -1,6 +1,6 @@
 (function() {
   $(".comments-container").html("<%= j render 'crowd_campaigns/show/comments' %>");
   APP.components.stream.init();
-  APP.components.fileUpload.init();
   APP.controllers.application.jBoxGallery();
+  $('.txtlinky').linkify({ target: "_blank"});
 })();
