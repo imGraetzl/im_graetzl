@@ -8,7 +8,7 @@
     APP.components.stream.initLinkify($("#crowd_campaign_post_" + <%= @crowd_campaign_post.id %> + " .txt"));
     APP.controllers.application.jBoxGallery();
   <% else %>
-    alert('Folgende Fehler sind aufgetreten:\n<%= @crowd_campaign_post.errors.full_messages.first %>');
+    alert('<%= @crowd_campaign_post.errors.full_messages.first %>');
   <% end %>
 
 })();

@@ -19,7 +19,7 @@
 
   <% else %>
 
-    alert('Es gab ein Problem, bitte versuche es später nochmal.');
+    alert('<%= @comment.errors.full_messages.first %>');
 
   <% end %>
 

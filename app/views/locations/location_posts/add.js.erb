@@ -9,7 +9,7 @@
     APP.components.stream.initLinkify($("#location_post_" + <%= @location_post.id %> + " .txt"));
     APP.controllers.application.jBoxGallery();
   <% else %>
-    alert('Folgende Fehler sind aufgetreten:\n<%= @location_post.errors.full_messages.first %>');
+    alert('<%= @location_post.errors.full_messages.first %>');
   <% end %>
 
 })();
