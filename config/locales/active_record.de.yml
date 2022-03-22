@@ -129,6 +129,8 @@ de:
 
 
     attributes:
+      comment:
+        content: Kommentar
       address:
         street_name: Straße
         street_number: Hausnummer
@@ -373,3 +375,5 @@ de:
           funding: Funding
           completed_successful: Abgeschlossen
           completed_unsuccessful: Abgeschlossen
+      crowd_campaign_post:
+        title: Titel
