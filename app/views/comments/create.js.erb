@@ -4,7 +4,7 @@
     var $commentForm = $("[data-behavior='comment-form-<%= @comment.commentable_id %>']");
     $commentForm.before("<%= j render 'comments/nested_comments/comment', comment: @comment %>")
     $commentForm.replaceWith("<%= j render 'comments/nested_comments/comment_form', comment: @comment.commentable %>");
-    APP.components.stream.initLinkify($(<%= @comment.target_url_params %>));
+    APP.components.stream.initLinkify($(<%= @comment.target_url_params %>).find('.txtlinky'));
     APP.components.stream.init();
     APP.controllers.application.jBoxGallery();
 
@@ -13,7 +13,7 @@
     var $streamForm = $("[data-behavior='stream-form']");
     $streamForm.after("<%= j render 'comments/stream_comment', comment: @comment %>")
     $streamForm.replaceWith("<%= j render 'form', commentable: @comment.commentable %>");
-    APP.components.stream.initLinkify($(<%= @comment.target_url_params %>));
+    APP.components.stream.initLinkify($(<%= @comment.target_url_params %>).find('.txtlinky'));
     APP.components.stream.init();
     APP.controllers.application.jBoxGallery();
 
