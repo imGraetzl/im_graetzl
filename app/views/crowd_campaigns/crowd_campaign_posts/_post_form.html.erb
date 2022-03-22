@@ -1,5 +1,5 @@
 <div id="crowd-campaign-post-form" class="entryCreate stream-form" data-behavior="crowd-campaign-post-form">
-  <%= cover_photo_image @crowd_campaign, size: :thumb, class: 'img-square avatar' %>
+  <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-square avatar' %>
   <%= form_for(CrowdCampaignPost.new, url: add_post_crowd_campaign_path(@crowd_campaign), html: { class: 'textEditor' }, remote: true) do |f| %>
     <%= f.text_field :title, placeholder: 'Neuigkeit (Titel)', class: 'input-plain postTitle' %>
     <%= f.text_area :content, placeholder: 'Beschreibung', class: 'input-plain postMessage' %>
