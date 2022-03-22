@@ -9,6 +9,17 @@ APP.controllers.application = (function() {
     $('.txtlinky').linkify({ target: "_blank"});
     jBoxGallery();
 
+    $.ajaxSetup({
+			statusCode: {
+				401: function(){
+					alert('Du musst Dich anmelden oder registrieren, bevor Du fortfahren kannst.');
+				},
+        422: function(){
+					alert('Du musst Dich anmelden oder registrieren, bevor Du fortfahren kannst.');
+				}
+			}
+		});
+
     // WeLocally Register and Login Choose Region Modal
     function chooseRegionModal() {
       var redirect_path;

@@ -3,6 +3,8 @@
   <%= form_tag posts_crowd_campaign_path(@crowd_campaign), method: :get, remote: true, class: 'form-posts' do %>
   <% end %>
 
-  <div class="posts-container"></div>
+  <div class="posts-container">
+    <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+  </div>
 
 </div>
