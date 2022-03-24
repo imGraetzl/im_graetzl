@@ -146,8 +146,10 @@ class ActionProcessor
       notify_comment(subject, child)
 
     when [CrowdCampaign, :create]
-      Activity.add_public(subject, to: :entire_region)
-      Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
+      if subject.scope_public?
+        Activity.add_public(subject, to: :entire_region)
+        Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
+      end
     when [CrowdPledge, :create]
       if subject.visible?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
@@ -156,13 +158,14 @@ class ActionProcessor
       # Generate Success Notification for Owner and Pledge Users
 
     when [CrowdCampaign, :comment]
-      Activity.add_public(subject, child, to: :entire_region)
+      Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
       notify_comment(subject, child)
 
     when [CrowdCampaign, :post]
-      Activity.add_public(subject, child, to: :entire_region)
-      Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
-
+      if subject.scope_public?
+        Activity.add_public(subject, child, to: :entire_region)
+        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
+      end
     when [CrowdCampaignPost, :comment]
       notify_comment(subject, child)
 

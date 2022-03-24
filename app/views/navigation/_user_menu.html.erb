@@ -20,7 +20,7 @@
     <% end %>
 
     <%= nav_menu_item("coop-and-share", 'Neues Coop & Share Angebot', new_coop_demand_path) %>
-    <%= nav_menu_item("crowd", 'Neue Crowdfunding Kampagne', start_crowd_campaigns_path) %>
+    <%= nav_menu_item("crowd", 'Neue Crowdfunding Kampagne', start_crowd_campaigns_path) if current_user&.beta_user? %>
     <%= nav_menu_item("raumteiler", 'Raumteiler erstellen', select_room_offers_path) %>
     <%= nav_menu_item("tacker", 'Toolteiler erstellen', select_tool_offers_path) %>
     <%= nav_menu_item("shopping-bag", 'Zuckerl buchen', new_zuckerl_path) %>
@@ -56,7 +56,7 @@
           badge: current_user.attended_meetings.in(current_region).upcoming.size) %>
       <%= nav_submenu_link("raumteiler", 'Meine Raumteiler', 'nav-submenu-user-rooms') %>
       <%= nav_submenu_link("tacker", 'Meine Toolteiler', 'nav-submenu-user-tools') %>
-      <%= nav_submenu_link("crowd", 'Crowdfunding Kampagnen', 'nav-submenu-user-crowd_campaigns') %>
+      <%= nav_submenu_link("crowd", 'Crowdfunding Kampagnen', 'nav-submenu-user-crowd_campaigns')  if current_user&.beta_user? %>
       <%= nav_submenu_link("coop-and-share", 'Coop & Share Marktplatz', 'nav-submenu-user-coop-shares') %>
       <%= nav_submenu_link("speech-bubble", 'Gruppen', 'nav-submenu-user-groups') %>
       <%= nav_menu_item("power", 'Abmelden', destroy_user_session_path, method: :delete) %>
