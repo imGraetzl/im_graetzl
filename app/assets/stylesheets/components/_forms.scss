@@ -67,6 +67,25 @@ input, select, textarea {
   &.-first-no-remove:first-of-type {
     .remove_fields { display: none; }
   }
+  .-toggle {
+    position: relative;
+    cursor: pointer;
+    &:after {
+      content: '';
+      position: absolute;
+      width:30px;
+      height:30px;
+      right: 10px;
+      top:15px;
+      background-image: url(image_path('svg/icon-arrow-rosa.svg'));
+      background-repeat: no-repeat;
+    }
+    &.-opened {
+      &:after {
+        display: none;
+      }
+    }
+  }
 }
 
 // ---------------------------------------------------------------------- textfield & select & textarea

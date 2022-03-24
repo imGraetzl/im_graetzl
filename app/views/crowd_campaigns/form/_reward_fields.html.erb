@@ -3,7 +3,7 @@
   <% disabled = local_assigns[:disabled] %>
   <% deleteable = !local_assigns[:disabled] || !@crowd_campaign.crowd_pledges.where(:crowd_reward_id => f.object.id).present?%>
 
-  <div class="input-field">
+  <div class="input-field -toggle">
     <%= f.label :title do %>
       <%= icon_tag "record" %>
       <span>Titel</span>
@@ -11,70 +11,75 @@
     <%= f.text_field :title, placeholder: "Titel ...", required: !@crowd_campaign.draft?, disabled: disabled %>
   </div>
 
-  <div class="form-columns">
-    <div class="input-field">
-      <%= f.label :amount do %>
-        <%= icon_tag "currency-euro" %>
-        <span>Preis</span>
-      <% end %>
-      <%= f.text_field :amount, placeholder: "Preis in €", required: !@crowd_campaign.draft?, disabled: disabled %>
-    </div>
-    <div class="input-field">
-      <%= f.label :limit do %>
-        <%= icon_tag "slots" %>
-        <span>Limitierung</span>
-      <% end %>
-      <%= f.text_field :limit, placeholder: "Max. Stückzahl", disabled: disabled %>
-    </div>
-  </div>
+  <div class="toggle-content">
 
-  <div class="upload-oldschool <%= disabled ? 'disabled' : '' %>">
-    <%= f.label :avatar do %>
-      <%= icon_tag "photo-camera" %>
-      <span>Bild<small class="upload-hint">(max. 5MB)</small></span>
-    <% end %>
-    <div class="field-wrp">
-      <%= upload_image_input(f, :avatar, disabled: disabled) %>
-    </div>
-  </div>
-
-  <div class="input-textarea">
-    <%= f.label :description do %>
-    <%= icon_tag "layout-document" %>
-    <span>Beschreibung</span>
-    <% end %>
-    <%= f.text_area :description, placeholder: 'Beschreibung ...', required: !@crowd_campaign.draft?, disabled: disabled %>
-  </div>
-
-  <div class="form-columns">
-
-    <div class="input-select">
-      <%= label_tag :delivery_weeks do %>
-        <%= icon_tag "calendar-2" %>
-        <span>Lieferzeit (nach Kampagnenende)</span>
-      <% end %>
-      <%= f.select :delivery_weeks, delivery_week_values, { include_blank: 'auswählen...' }, disabled: disabled %>
-    </div>
-
-    <div class="input-checkbox">
-      <%= f.check_box(:delivery_address_required, disabled: disabled) %>
-      <%= f.label :delivery_address_required, "Lieferadresse ist erforderlich" %>
-    </div>
-
-  </div>
-
-  <div class="input-textarea">
-    <%= f.label :question do %>
-    <%= icon_tag "layout-document" %>
-    <span>Frage an die UnterstützerIn</span>
-    <% end %>
-    <%= f.text_area :question, placeholder: 'Benötigst du weitere Infos der UnterstützerIn zu diesem Dankeschön? ...', disabled: disabled %>
-  </div>
-  <% if deleteable %>
-    <%= link_to_remove_association f, data: { confirm: 'Dankeschön entfernen?' } do %>
-      <div class="btn-delete">
-        <%= icon_tag "trash-delete-remove" %>
+    <div class="form-columns">
+      <div class="input-field">
+        <%= f.label :amount do %>
+          <%= icon_tag "currency-euro" %>
+          <span>Preis</span>
+        <% end %>
+        <%= f.text_field :amount, placeholder: "Preis in €", required: !@crowd_campaign.draft?, disabled: disabled %>
       </div>
+      <div class="input-field">
+        <%= f.label :limit do %>
+          <%= icon_tag "slots" %>
+          <span>Limitierung</span>
+        <% end %>
+        <%= f.text_field :limit, placeholder: "Max. Stückzahl", disabled: disabled %>
+      </div>
+    </div>
+
+    <div class="upload-oldschool <%= disabled ? 'disabled' : '' %>">
+      <%= f.label :avatar do %>
+        <%= icon_tag "photo-camera" %>
+        <span>Bild<small class="upload-hint">(max. 5MB)</small></span>
+      <% end %>
+      <div class="field-wrp">
+        <%= upload_image_input(f, :avatar, disabled: disabled) %>
+      </div>
+    </div>
+
+    <div class="input-textarea">
+      <%= f.label :description do %>
+      <%= icon_tag "layout-document" %>
+      <span>Beschreibung</span>
+      <% end %>
+      <%= f.text_area :description, placeholder: 'Beschreibung ...', required: !@crowd_campaign.draft?, disabled: disabled %>
+    </div>
+
+    <div class="form-columns">
+
+      <div class="input-select">
+        <%= label_tag :delivery_weeks do %>
+          <%= icon_tag "calendar-2" %>
+          <span>Lieferzeit (nach Kampagnenende)</span>
+        <% end %>
+        <%= f.select :delivery_weeks, delivery_week_values, { include_blank: 'auswählen...' }, disabled: disabled %>
+      </div>
+
+      <div class="input-checkbox">
+        <%= f.check_box(:delivery_address_required, disabled: disabled) %>
+        <%= f.label :delivery_address_required, "Lieferadresse ist erforderlich" %>
+      </div>
+
+    </div>
+
+    <div class="input-textarea">
+      <%= f.label :question do %>
+      <%= icon_tag "layout-document" %>
+      <span>Frage an die UnterstützerIn</span>
+      <% end %>
+      <%= f.text_area :question, placeholder: 'Benötigst du weitere Infos der UnterstützerIn zu diesem Dankeschön? ...', disabled: disabled %>
+    </div>
+    <% if deleteable %>
+      <%= link_to_remove_association f, data: { confirm: 'Dankeschön entfernen?' } do %>
+        <div class="btn-delete">
+          <%= icon_tag "trash-delete-remove" %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
+
+    </div>
+
 </div>

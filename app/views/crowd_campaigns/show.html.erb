@@ -33,8 +33,7 @@
 
     <div class="social-icons">
       <em>Teilen auf:</em>
-      <%= icon_tag "social-facebook" %>
-      <%= image_tag 'svg/icon-instagram.svg', loading: 'lazy', width:28, height:28, class: 'icon' %>
+      <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
     </div>
   </div>
   <div class="coverImgBottom"></div>

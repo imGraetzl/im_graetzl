@@ -191,6 +191,14 @@ section.crowd_campaign {
       align-items: center;
       color: $color-ambient-mint-dark;
       transform: rotate(1.5deg) translate3d(0, 0, 0);
+      svg {
+        fill: $color-ambient-mint-dark;
+      }
+      a:hover {
+        svg {
+          fill: $color-ambient-rosa-dark;
+        }
+      }
     }
 
     .play-icon::before {
