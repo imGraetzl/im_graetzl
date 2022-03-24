@@ -61,12 +61,30 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         min: 15,
       });
 
+      function nestedOpener() {
+        $('.-toggle input').on("focus", function(event) {
+          if (!$(this).closest('.nested-fields').find('.-toggle').hasClass("-opened")) {
+            var $content = $(this).closest('.nested-fields').find('.toggle-content');
+            var $opener = $(this).closest('.nested-fields').find('.-toggle');
+            $content.slideDown(function(){
+              if($content.is(":visible")){$opener.addClass('-opened');}
+              else {$opener.removeClass('-opened');}
+            });
+          }
+          return false;
+        });
+      }
+
       $('.crowdfunding-form').on('cocoon:after-insert', function(e, insertedItem, originalEvent) {
         $('.datepicker').pickadate({
           formatSubmit: 'yyyy-mm-dd',
           hiddenName: true,
           min: true
         });
+
+        nestedOpener();
+        $(insertedItem).find('.-toggle input').focus();
+
       }).trigger('cocoon:after-insert');
 
       // max categories
