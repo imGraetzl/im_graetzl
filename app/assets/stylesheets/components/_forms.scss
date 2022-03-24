@@ -73,17 +73,24 @@ input, select, textarea {
     &:after {
       content: '';
       position: absolute;
-      width:30px;
-      height:30px;
+      width:28px;
+      height:28px;
       right: 10px;
-      top:15px;
+      top:5px;
+      z-index: 7;
       background-image: url(image_path('svg/icon-arrow-rosa.svg'));
       background-repeat: no-repeat;
+      @include respond-to(">=medium") {
+        top:15px;
+      }
     }
     &.-opened {
       &:after {
         display: none;
       }
+    }
+    input:focus {
+      z-index: 8;
     }
   }
 }
