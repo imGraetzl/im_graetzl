@@ -61,18 +61,26 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         min: 15,
       });
 
-      function nestedOpener() {
+      function initNestedOpener() {
         $('.-toggle input').on("focus", function(event) {
-          if (!$(this).closest('.nested-fields').find('.-toggle').hasClass("-opened")) {
-            var $content = $(this).closest('.nested-fields').find('.toggle-content');
-            var $opener = $(this).closest('.nested-fields').find('.-toggle');
-            $content.slideDown(function(){
-              if($content.is(":visible")){$opener.addClass('-opened');}
-              else {$opener.removeClass('-opened');}
-            });
-          }
-          return false;
+          nestedOpener($(this));
         });
+        $('.-toggle.disabled').on("click", function(event) {
+          nestedOpener($(this));
+        });
+      }
+
+      function nestedOpener(elem) {
+
+        if (!$(elem).closest('.nested-fields').find('.-toggle').hasClass("-opened")) {
+          var $content = $(elem).closest('.nested-fields').find('.toggle-content');
+          var $opener = $(elem).closest('.nested-fields').find('.-toggle');
+          $content.slideDown(function(){
+            if($content.is(":visible")){$opener.addClass('-opened');}
+            else {$opener.removeClass('-opened');}
+          });
+        }
+        return false;
       }
 
       $('.crowdfunding-form').on('cocoon:after-insert', function(e, insertedItem, originalEvent) {
@@ -82,7 +90,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
           min: true
         });
 
-        nestedOpener();
+        initNestedOpener();
         $(insertedItem).find('.-toggle input').focus();
 
       }).trigger('cocoon:after-insert');
