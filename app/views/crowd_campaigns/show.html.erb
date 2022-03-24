@@ -55,10 +55,10 @@
   <div class="navArea">
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
-        <li class="active"><a href="#tab-info">Projekt Infos</a></li>
-        <li><a href="#tab-posts">Projekt News <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
+        <li class="active"><a href="#tab-info">Über das Projekt</a></li>
+        <li><a href="#tab-posts">Projekt Updates <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
         <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
-        <li><a href="#tab-supporters">UnterstützerInnen <% if @crowd_campaign.crowd_pledges.authorized.present? %><small><%= @crowd_campaign.crowd_pledges.authorized.count %><% end %></small></a></li>
+        <li><a href="#tab-supporters">UnterstützerInnen</a></li>
       </ul>
     </div>
   </div>

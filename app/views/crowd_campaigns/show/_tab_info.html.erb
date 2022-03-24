@@ -3,11 +3,26 @@
   <div class="mainArea">
 
     <div class="content-block">
-      <h3 class="hl-main"><span>Worum</span> geht es bei dem Projekt</h3>
+      <!--<h3 class="hl-main"><span>Worum</span> geht es bei dem Projekt</h3>-->
       <p><%= @crowd_campaign.description %></p>
     </div>
 
+    <% if @crowd_campaign.crowd_campaign_posts.present? %>
+      <div class="content-block -updates">
+        <h3 class="hl-main">Neueste Projekt <span>Updates</span></h3>
+        <% @crowd_campaign.crowd_campaign_posts.order(created_at: :desc).first(3).each do |post| %>
+          <p>
+            <em><%= I18n.localize(post.created_at, format:'%d. %B') %>:</em>
+            <%= link_to [@crowd_campaign, target: dom_id(post)] do %><%= post.title.truncate(150) %><% end %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+
     <div class="content-block -facts">
+      <% if @crowd_campaign.crowd_campaign_posts.present? %>
+        <h3 class="hl-main block -full">Projekt <span>Infos</span></h3>
+      <% end %>
 
       <div class="block bigicontext-element -small">
         <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-round' %>
@@ -105,13 +120,13 @@
     </div>
 
     <div class="content-block">
-      <h3 class="hl-main"><span>Warum</span> sollte jemand dieses Projekt unterstützen?</h3>
-      <p><%= @crowd_campaign.support_description %></p>
+      <h3 class="hl-main -toggle"><span>Warum</span> sollte jemand dieses Projekt unterstützen?</h3>
+      <p class="toggle-content"><%= @crowd_campaign.support_description %></p>
     </div>
 
     <div class="content-block">
-      <h3 class="hl-main"><span>Wer</span> steht hinter dem Projekt?</h3>
-      <p><%= @crowd_campaign.about_description %></p>
+      <h3 class="hl-main -toggle"><span>Wer</span> steht hinter dem Projekt?</h3>
+      <p class="toggle-content"><%= @crowd_campaign.about_description %></p>
     </div>
 
   </div>

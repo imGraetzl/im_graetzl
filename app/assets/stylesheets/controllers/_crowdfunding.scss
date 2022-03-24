@@ -68,6 +68,19 @@ section.crowd_campaign {
       margin-bottom: 10px;
     }
   }
+  .content-block.-updates {
+    em {
+      color: $color-ambient-grey-dark;
+    }
+    a {
+      color: $color-ambient-mint-dark;
+      text-decoration: none;
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
   .content-block.-facts {
     display: flex;
     flex-wrap: wrap;
@@ -89,13 +102,16 @@ section.crowd_campaign {
       &.-full {
         width:100%;
       }
+      &.hl-main {
+        min-height: unset;
+      }
       h4, p {
         font-family: $font-primary;
         @include font-size-primaryFont('base');
         font-weight: normal;
       }
       h4 {
-        color: $color-ambient-grey;
+        color: $color-ambient-grey-dark;
         font-style: italic;
       }
       p.desc {color: $color-font-primary;}
@@ -116,7 +132,6 @@ section.crowd_campaign {
     display: grid;
     text-align: center;
   }
-
   .navArea {
     margin-bottom:60px;
   }

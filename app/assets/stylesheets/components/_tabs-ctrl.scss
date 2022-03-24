@@ -72,10 +72,12 @@
   .tabs-nav li a {
     //font-family: $font-tertiary;
     //@include font-size-primaryFont('largest');
+    display: flex;
+    justify-content: space-between;
     small {
-      position: absolute;
+      //position: absolute;
       font-family: $font-primary;
-      background-color: #edf7f5;
+      background-color: $color-ambient-grey-light;
       //background-color: $color-ambient-grey-light;
       color: $color-font-primary;
       border-radius: 15px;
@@ -84,8 +86,11 @@
       padding: 5px;
       z-index: 9;
       font-style: italic;
-      top:4px;
-      right:5px;
+      //top:4px;
+      //right:5px;
+      align-self: center;
+      margin-left: 5px;
+      margin-left:10px;
     }
   }
   .tabs-nav li:not(.active) a {

@@ -60,6 +60,17 @@ APP.controllers.crowd_campaigns = (function() {
         }
       });
 
+      $('.-toggle').on("click", function() {
+        var $content = $(this).closest('.content-block').find('.toggle-content');
+        var $opener = $(this);
+        $content.slideToggle(function(){
+          if($content.is(":visible")){$opener.addClass('-opened');}
+          else {$opener.removeClass('-opened');}
+        });
+      });
+
+      $('.-toggle').first().click();
+
     }
 
     return {
