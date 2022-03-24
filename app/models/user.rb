@@ -11,7 +11,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  enum role: { admin: 0 }
+  enum role: { admin: 0, beta: 1 }
 
   include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
@@ -79,6 +79,11 @@ class User < ApplicationRecord
 
   scope :business, -> { where(business: true) }
   scope :confirmed, -> { where("confirmed_at IS NOT NULL") }
+
+  def beta_user?
+    #true
+    admin? || beta?
+  end
 
   # Filter for Active Admin User Notification Settings
   def self.user_mail_setting_eq(notification)

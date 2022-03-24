@@ -1,12 +1,16 @@
 <% meta(
     title: t('.title', title: @crowd_campaign.title[0..55].gsub(/\s\w+\s*$/,'...')),
     description: t('.description', desc: @crowd_campaign.slogan),
-    robots: 'index, follow',
     og_title: t('.title', title: @crowd_campaign.title[0..80].gsub(/\s\w+\s*$/,'...')),
     og_description: t('.description', desc: @crowd_campaign.slogan),
     og_image: @crowd_campaign.cover_photo_url(:header, :large) || image_url("meta/#{current_region.id}/og_logo.png")
   )
 %>
+<% if @crowd_campaign.scope_public? %>
+  <% meta(robots: 'index, follow') %>
+<% else %>
+  <% meta(robots: 'noindex, follow') %>
+<% end %>
 
 <section class="crowd_campaign" data-preview="<%= @preview %>">
 

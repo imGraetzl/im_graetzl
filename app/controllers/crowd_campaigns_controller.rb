@@ -26,7 +26,6 @@ class CrowdCampaignsController < ApplicationController
 
     if @crowd_campaign.save
       #CrowdCampaignMailer.crowd_campaign_published(@crowd_campaign).deliver_later
-      #ActionProcessor.track(@crowd_campaign, :create)
       redirect_to edit_description_crowd_campaign_path(@crowd_campaign)
     else
       render :new

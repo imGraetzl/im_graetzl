@@ -5,6 +5,7 @@ ActiveAdmin.register User do
 
   scope :all, default: true
   scope :admin
+  scope :beta
   Region.all.each do |region|
     scope(region.name) { |scope| scope.where(region_id: region.id) }
   end

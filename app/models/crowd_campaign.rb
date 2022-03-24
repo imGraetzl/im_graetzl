@@ -35,8 +35,12 @@ class CrowdCampaign < ApplicationRecord
 
   validates_presence_of :title, :graetzl
 
-  scope :scope_public, -> { approved || funding || completed_successful }
+  scope :scope_public, -> { funding || completed_successful? || completed_unsuccessful? }
   scope :by_currentness, -> { order(created_at: :desc) }
+
+  def scope_public?
+    funding? || completed?
+  end
 
   def completed?
     completed_successful? || completed_unsuccessful?
