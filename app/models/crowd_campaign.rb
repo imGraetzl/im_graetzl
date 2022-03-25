@@ -110,7 +110,7 @@ class CrowdCampaign < ApplicationRecord
     when 3
       [funding_1_amount, funding_1_description].all?(&:present?)
     when 4
-      crowd_rewards.present? && crowd_rewards.all?(:ready_for_submit?)
+      crowd_rewards.present? && crowd_rewards.all?(&:ready_for_submit?)
     when 5
       [cover_photo_data].all?(&:present?)
     else
