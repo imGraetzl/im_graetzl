@@ -6,7 +6,9 @@
       <% if current_user %>
         Um fortzufahren, gib zunächst noch deine Daten bekannt.
       <% else %>
-        Wenn du bereits bei <%= t("region.#{current_region.id}.domain_full") %> registriert bist, <%= link_to 'melde dich zunächst hier an', login_crowd_pledges_path(crowd_campaign_id: params[:crowd_campaign_id], crowd_reward_id: params[:crowd_reward_id], amount: params[:amount]) %> und nutze deine hinterlegten Standarddaten.
+        Wenn du bereits bei <%= t("region.#{current_region.id}.domain_full") %> registriert bist,
+        <%= link_to 'melde dich zunächst hier an', login_crowd_pledges_path(crowd_pledge_login_params) %>
+        und nutze deine hinterlegten Standarddaten.
       <% end %>
     </p>
   </div>

@@ -87,4 +87,8 @@ module CrowdCampaignsHelper
     end
   end
 
+  def crowd_pledge_login_params
+    params.to_unsafe_h.slice(:crowd_campaign_id, :crowd_reward_id, :donation_amount)
+  end
+
 end

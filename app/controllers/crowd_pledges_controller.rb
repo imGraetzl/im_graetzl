@@ -38,14 +38,17 @@ class CrowdPledgesController < ApplicationController
 
   def choose_amount
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+    @crowd_pledge.calculate_price
   end
 
   def login
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+    @crowd_pledge.calculate_price
   end
 
   def choose_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
+    @crowd_pledge.calculate_price
     @setup_intent = CrowdPledgeService.new.create_setup_intent(@crowd_pledge)
   end
 
