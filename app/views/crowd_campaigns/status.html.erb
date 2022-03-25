@@ -1,0 +1,44 @@
+<% title('Crowdfunding Kampagne Finished') %>
+
+<section class="crowdfunding-form">
+
+  <%= render 'crowd_campaigns/form/navigation' %>
+
+  <% if @crowd_campaign.pending? %>
+
+    <div class="hl-subtext">
+      <h2><span>Gratulation,</span> der Anfang ist geschafft.</h2>
+      <p>Was tu jetzt unbedingt tun solltest ...</p>
+    </div>
+
+  <% elsif @crowd_campaign.approved? %>
+
+    <div class="hl-subtext">
+      <h2><span>Yeah, großartig,</span> der erste wichtige Schritt ist geschafft!</h2>
+      <p>Deine Kampagne steht nun in den Startlöchern - Wie gehts nun weiter?</p>
+    </div>
+
+  <% elsif @crowd_campaign.funding? %>
+
+    <div class="hl-subtext">
+      <h2><span>Wie aufregend,</span> deine Kampagne läuft gerade.</h2>
+      <p>Jetzt heissts unbedingt mit voller Kraft dran bleiben!</p>
+    </div>
+
+  <% elsif @crowd_campaign.completed_successful? %>
+
+    <div class="hl-subtext">
+      <h2><span>Herzlichen Glückwunsch</span> zu deiner erfolgreichen Kampagne!</h2>
+      <p>Puh, das war ein Ritt - Du hast es geschafft!</p>
+    </div>
+
+  <% elsif @crowd_campaign.completed_unsuccessful? %>
+
+    <div class="hl-subtext">
+      <h2><span>Deine Kampagne</span> ist abgeschlossen.</h2>
+      <p>Leider hats diesmal nicht geklappt ...</p>
+    </div>
+
+  <% end %>
+
+</section>
