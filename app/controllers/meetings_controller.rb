@@ -126,8 +126,6 @@ class MeetingsController < ApplicationController
     elsif params[:attended_user_id].present?
       user = User.find(params[:attended_user_id])
       user.attended_meetings
-    elsif params[:platform_meeting].present?
-      Meeting.where(platform_meeting: params[:platform_meeting])
     else
       Meeting.all
     end
@@ -146,9 +144,10 @@ class MeetingsController < ApplicationController
     graetzl_ids = params.dig(:filter, :graetzl_ids)
     if params[:favorites].present? && current_user
       favorite_ids = current_user.followed_graetzl_ids
-      meetings = meetings.where(graetzl_id: favorite_ids).or(meetings.online_meeting)
+      meetings = meetings.where(graetzl_id: favorite_ids)
+      #meetings = meetings.where(graetzl_id: favorite_ids).or(meetings.online_meeting)
     elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
-      meetings = meetings.where(graetzl_id: graetzl_ids).or(meetings.online_meeting)
+      meetings = meetings.where(graetzl_id: graetzl_ids)
     end
 
     if params[:special_category_id].present? && params[:special_category_id] == 'special-events'

@@ -25,7 +25,6 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign.clear_address if params[:no_address] == 'true'
 
     if @crowd_campaign.save
-      #CrowdCampaignMailer.crowd_campaign_published(@crowd_campaign).deliver_later
       redirect_to edit_description_crowd_campaign_path(@crowd_campaign)
     else
       render :new
@@ -100,6 +99,7 @@ class CrowdCampaignsController < ApplicationController
       elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
+        CrowdCampaignMailer.crowd_campaign_pending(@crowd_campaign).deliver_later
         redirect_to status_crowd_campaign_path(@crowd_campaign)
       else
         redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}"
@@ -152,6 +152,7 @@ class CrowdCampaignsController < ApplicationController
   def form_status_message?
     flash.now[:alert] = "Deine Kampagne wird gerade überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
     flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime} | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
+    flash.now[:alert] = "Deine Kampagne läuft gerade | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.funding?
     flash.now[:alert] = "Deine Kampagne ist abgeschlossen | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.completed?
   end
 

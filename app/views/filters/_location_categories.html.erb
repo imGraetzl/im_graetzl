@@ -15,6 +15,20 @@
         <% end %>
       </div>
     <!-- /Goodies -->
+    <% categories = LocationCategory.all.sort_by(&:position) %>
+    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
+    <% categories.each do |category| %>
+      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
+        <%= category_image(category, class: 'categoryImg') %>
+        <div class="cat -<%= category.icon %>">
+          <%= category_icon(category.icon, class: 'catimg', width:85, height:85) %>
+        </div>
+        <h3><%= link_to category.name, region_locations_path(category: category) %></h3>
+        <%= button_tag class: 'close-ico' do %>
+          <%= icon_tag "cross" %>
+        <% end %>
+      </div>
+    <% end %>
     <!-- Menus -->
       <div class="-category -special-category" data-id="menus" data-label="Tages- & Wochenmenü" data-slug="menus">
         <picture>
@@ -30,20 +44,6 @@
         <% end %>
       </div>
     <!-- /Menus -->
-    <% categories = LocationCategory.all.sort_by(&:position) %>
-    <% @category ? categories = categories.insert(0, @category).uniq : categories %>
-    <% categories.each do |category| %>
-      <div class="-category" data-id="<%= category.id %>" data-label="<%= category.name %>" data-slug="<%= category.slug %>">
-        <%= category_image(category, class: 'categoryImg') %>
-        <div class="cat -<%= category.icon %>">
-          <%= category_icon(category.icon, class: 'catimg', width:85, height:85) %>
-        </div>
-        <h3><%= link_to category.name, region_locations_path(category: category) %></h3>
-        <%= button_tag class: 'close-ico' do %>
-          <%= icon_tag "cross" %>
-        <% end %>
-      </div>
-    <% end %>
     <!-- Online Shops -->
       <div class="-category -special-category" data-id="online-shops" data-label="Online Shops" data-slug="online-shops">
         <picture>
