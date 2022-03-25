@@ -33,7 +33,7 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_campaign_funding(crowd_campaign)
+  def funding_started(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-funding")
@@ -44,7 +44,7 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_campaign_funding_1_successful(crowd_campaign)
+  def goal_1_reached(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-funding-1-successful")
@@ -55,7 +55,18 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_campaign_completed_successful(crowd_campaign)
+  def goal_2_reached(crowd_campaign)
+    @crowd_campaign = crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "notification-crowd-campaign-funding-2-successful")
+    mail(
+      subject: "Gratuliere, du hast dein Fundingziel erreicht!",
+      from: platform_email('no-reply'),
+      to: @crowd_campaign.user.email,
+    )
+  end
+
+  def completed_successful(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-completed-successful")
@@ -66,7 +77,7 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_campaign_completed_unsuccessful(crowd_campaign)
+  def completed_unsuccessful(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-completed-unsuccessful")
