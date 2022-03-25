@@ -90,7 +90,7 @@ module CrowdCampaignsHelper
     end
   end
 
-  def crowd_login_params
+  def crowd_pledge_login_params
     params.permit(:crowd_campaign_id, :crowd_reward_id, :donation_amount)
   end
 

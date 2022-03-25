@@ -1,13 +1,9 @@
 class CrowdPledgesController < ApplicationController
-  #before_action :authenticate_user!, except: [:choose_amount, :choose_payment, :new]
-
   def new
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
     redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
 
-    if user_signed_in?
-      @crowd_pledge.assign_attributes(current_user_params)
-    end
+    @crowd_pledge.assign_attributes(current_user_params) if current_user
     @crowd_pledge.calculate_price
   end
 

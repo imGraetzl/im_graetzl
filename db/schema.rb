@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_25_132451) do
+ActiveRecord::Schema.define(version: 2022_03_25_152426) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "postgis"
 
@@ -296,7 +297,7 @@ ActiveRecord::Schema.define(version: 2022_03_25_132451) do
     t.index ["crowd_campaign_id"], name: "index_crowd_donations_on_crowd_campaign_id"
   end
 
-  create_table "crowd_pledges", force: :cascade do |t|
+  create_table "crowd_pledges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "status", default: 0
     t.decimal "donation_amount", precision: 10, scale: 2
     t.string "contact_name"
