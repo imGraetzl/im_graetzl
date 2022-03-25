@@ -38,7 +38,8 @@ class ActionProcessor
 
     when [Meeting, :create]
       if subject.public?
-        Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
+        #Activity.add_public(subject, to: subject.online_meeting? ? :entire_region : subject.graetzl)
+        Activity.add_public(subject, to: subject.graetzl)
         Notifications::NewMeeting.generate(subject, to: user_ids(subject.graetzl),
           time_range: subject.notification_time_range)
       elsif subject.group_id
