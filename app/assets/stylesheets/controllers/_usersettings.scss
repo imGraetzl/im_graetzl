@@ -120,8 +120,21 @@ section.usersetup.-crowd_campaigns {
     margin: auto;
   }
   .guidelines {
-    margin-top:20px;
-    padding:40px;
+    margin-top:50px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    div {
+      width:47%;
+    }
+    div.-full {
+      width:100%;
+    }
+    @include respond-to("<=medium") {
+      div {
+        width:100%;
+      }
+    }
     h4 {
       font-style: italic;
       padding-bottom:10px;

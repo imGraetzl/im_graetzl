@@ -139,11 +139,11 @@ Rails.application.routes.draw do
     get 'edit_rewards', on: :member
     get 'edit_media', on: :member
     get 'edit_finish', on: :member
-    get 'edit_next_steps', on: :member
+    get 'status', on: :member
     get 'posts', on: :member
     get 'comments', on: :member
     get 'supporters', on: :member
-    get 'statistics', on: :member
+    get 'status', on: :member
   end
 
   resources :crowd_pledges, only: [:new, :create] do

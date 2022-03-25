@@ -62,7 +62,7 @@ class CrowdCampaignsController < ApplicationController
     form_status_message?
   end
 
-  def edit_next_steps
+  def status
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     form_status_message?
   end
@@ -100,7 +100,7 @@ class CrowdCampaignsController < ApplicationController
       elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
-        redirect_to edit_next_steps_crowd_campaign_path(@crowd_campaign)
+        redirect_to status_crowd_campaign_path(@crowd_campaign)
       else
         redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}"
       end
@@ -108,11 +108,6 @@ class CrowdCampaignsController < ApplicationController
       render :edit
     end
 
-  end
-
-  def statistics
-    @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    redirect_to @crowd_campaign and return unless @crowd_campaign.user == current_user
   end
 
   def add_post
@@ -157,6 +152,7 @@ class CrowdCampaignsController < ApplicationController
   def form_status_message?
     flash.now[:alert] = "Deine Kampagne wird gerade überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
     flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime} | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
+    flash.now[:alert] = "Deine Kampagne ist abgeschlossen | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.completed?
   end
 
   def show_status_message?
@@ -246,7 +242,15 @@ class CrowdCampaignsController < ApplicationController
 
   def noneditable_campaign_params
     params.require(:crowd_campaign).permit(
-      :title
+      :description, :support_description, :about_description, :benefit_description,
+      :location_id, :room_offer_id,
+      images_attributes: [:id, :file, :_destroy],
+      crowd_rewards_attributes: [
+        :id, :amount, :limit, :title, :description, :delivery_weeks, :delivery_address_required, :question, :avatar, :remove_avatar, :_destroy
+      ],
+      crowd_donations_attributes: [
+        :id, :donation_type, :limit, :title, :description, :question, :startdate, :enddate, :_destroy
+      ],
     )
   end
 end
