@@ -11,8 +11,8 @@ ActiveAdmin.register CrowdCampaign do
   scope :canceled
   scope :approved
   scope :funding
-  scope :completed_successful
-  scope :completed_unsuccessful
+  scope :completed
+  scope :successful
   scope :scope_public
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}

@@ -50,32 +50,35 @@ module CrowdCampaignsHelper
     ]
   end
 
+  def campaign_remaining_time(campaign)
+    if campaign.remaining_days > 1
+      return [campaign.remaining_days, "Tage"]
+    end
+
+    end_time = campaign.enddate.in_time_zone('Vienna').end_of_day
+    our_time = Time.current.in_time_zone('Vienna')
+    hours_left = ((end_time - our_time) / 1.hour).ceil
+
+    [hours_left, 'Stunden']
+  end
+
   def funding_percentage(c)
     c.crowd_pledges_sum / (c.funding_1_amount / 100)
   end
 
   def funding_bar_percentage(c)
-
-    if c.completed_successful?
-          100
-
-    elsif c.completed_unsuccessful?
-          c.crowd_pledges_sum / (c.funding_1_amount / 100)
-
+    if c.completed?
+      c.successful? ? 100 : (c.crowd_pledges_sum / c.funding_1_amount) * 100
     elsif c.funding_1?
-          c.crowd_pledges_sum / (c.funding_1_amount / 100)
-
+      (c.crowd_pledges_sum / c.funding_1_amount) * 100
     elsif c.over_funding_1?
-          percentage = (c.crowd_pledges_sum - c.funding_1_amount) / (c.funding_1_amount / 100)
-          percentage > 100 ? 85 : percentage
-
+      percentage = (c.crowd_pledges_sum - c.funding_1_amount) / c.funding_1_amount * 100
+      percentage > 100 ? 85 : percentage
     elsif c.funding_2?
-          (c.crowd_pledges_sum - c.funding_1_amount) / ((c.funding_2_amount - c.funding_1_amount) / 100)
-
+      (c.crowd_pledges_sum - c.funding_1_amount) / (c.funding_2_amount - c.funding_1_amount) * 100
     elsif c.over_funding_2?
-          percentage = (c.crowd_pledges_sum - c.funding_2_amount) / (c.funding_2_amount / 100)
-          percentage > 100 ? 85 : percentage
-
+      percentage = (c.crowd_pledges_sum - c.funding_2_amount) / c.funding_2_amount * 100
+      percentage > 100 ? 85 : percentage
     end
   end
 
@@ -87,8 +90,8 @@ module CrowdCampaignsHelper
     end
   end
 
-  def crowd_pledge_login_params
-    params.to_unsafe_h.slice(:crowd_campaign_id, :crowd_reward_id, :donation_amount)
+  def crowd_login_params
+    params.permit(:crowd_campaign_id, :crowd_reward_id, :donation_amount)
   end
 
 end

@@ -1,7 +1,8 @@
 <div class="nested-fields -line crowd-reward">
 
-  <% disabled = local_assigns[:disabled] && @crowd_campaign.crowd_pledges.where(:crowd_reward_id => f.object.id).present? %>
-  <% deleteable = !local_assigns[:disabled] || !@crowd_campaign.crowd_pledges.where(:crowd_reward_id => f.object.id).present? %>
+  <% already_pledged = @crowd_campaign.crowd_pledges.exists?(crowd_reward_id: f.object.id) %>
+  <% disabled = local_assigns[:disabled] && already_pledged %>
+  <% deleteable = !local_assigns[:disabled] || !already_pledged %>
 
   <div class="input-field -toggle">
     <%= f.label :title do %>

@@ -19,6 +19,13 @@ class CrowdPledgeService
       status: 'authorized',
     )
 
+    case crowd_pledge.crowd_campaign.check_funding
+    when :goal_1_reached
+      CrowdCampaignMailer.crowd_campaign_funding_1_successful(crowd_pledge.crowd_campaign).deliver_later
+    when :goal_2_reached
+      CrowdCampaignMailer.crowd_campaign_funding_2_successful(crowd_pledge.crowd_campaign).deliver_later
+    end
+
     { success: true }
   end
 

@@ -373,7 +373,6 @@ de:
           pending: In Freigabe
           approved: Freigegeben
           funding: Funding
-          completed_successful: Abgeschlossen
-          completed_unsuccessful: Abgeschlossen
+          completed: Abgeschlossen
       crowd_campaign_post:
         title: Titel

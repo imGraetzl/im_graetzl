@@ -710,7 +710,7 @@ section.locations .goodieteasertxt {
     font-style: italic;
     font-weight: bold;
   }
-  &.-approved, &.-funding, &.-completed_successful, &.-completed_unsuccessful {
+  &.-approved, &.-funding, &.-completed {
     background-color: #F0F7EB;
     color: $color-ambient-mint-dark;
   }
