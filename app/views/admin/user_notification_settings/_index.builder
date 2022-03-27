@@ -29,6 +29,8 @@ context.instance_eval do
       "<span class='mailtype'>New Discussion: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewGroupDiscussion)}'>#{u.enabled_mail_notification(Notifications::NewGroupDiscussion)}</span>",
       "<span class='mailtype'>New Meeting: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewGroupMeeting)}'>#{u.enabled_mail_notification(Notifications::NewGroupMeeting)}</span>",
       "<span class='mailtype'>New Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewGroupPost)}'>#{u.enabled_mail_notification(Notifications::NewGroupPost)}</span>",
+      "<span class='mailtype'>New Crowd Campaign: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewCrowdCampaign)}'>#{u.enabled_mail_notification(Notifications::NewCrowdCampaign)}</span>",
+      "<span class='mailtype'>New Crowd Post: </span><span class='status_tag #{u.enabled_mail_notification(Notifications::NewCrowdCampaignPost)}'>#{u.enabled_mail_notification(Notifications::NewCrowdCampaignPost)}</span>",
     ].join("<br>").html_safe
   }
 end
