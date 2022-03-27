@@ -27,7 +27,7 @@
           <%= icon_tag "slots" %>
           <span>Limitierung</span>
         <% end %>
-        <%= f.text_field :limit, placeholder: "Max. Stückzahl", required: !@crowd_campaign.draft?, disabled: disabled %>
+        <%= f.text_field :limit, placeholder: "Max. Stückzahl", disabled: disabled %>
       </div>
     </div>
 
@@ -46,7 +46,7 @@
       <%= icon_tag "layout-document" %>
       <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :description, placeholder: 'Beschreibung ...', required: !@crowd_campaign.draft?, disabled: disabled %>
+      <%= f.text_area :description, placeholder: 'Beschreibung ...', disabled: disabled %>
     </div>
 
     <div class="form-columns">
