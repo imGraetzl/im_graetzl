@@ -25,7 +25,8 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, through: :crowd_campaign_posts
   has_many :comments, as: :commentable, dependent: :destroy
 
-  enum status: { draft: 0, pending: 1, canceled: 2, approved: 3, funding: 4, completed_successful: 5, completed_unsuccessful: 6 }
+  enum status: { draft: 0, pending: 1, canceled: 2, approved: 3, funding: 4, completed: 5 }
+  enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
   enum billable: { no_bill: 0, bill: 1, bill_with_tax: 2 }
 
   include CoverImageUploader::Attachment(:cover_photo)
@@ -35,15 +36,16 @@ class CrowdCampaign < ApplicationRecord
 
   validates_presence_of :title, :graetzl
 
-  scope :scope_public, -> { funding || completed_successful? || completed_unsuccessful? }
+  scope :scope_public, -> { where(status: [:funding, :completed]) }
+  scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def scope_public?
     funding? || completed?
   end
 
-  def completed?
-    completed_successful? || completed_unsuccessful?
+  def successful?
+    goal_1_reached || goal_2_reached?
   end
 
   def editable?
@@ -62,39 +64,30 @@ class CrowdCampaign < ApplicationRecord
     @cached_crowd_pledge_sum ||= self.crowd_pledges.complete.sum(:total_price)
   end
 
-  def funding_status
-    if !self.funding_1_amount.nil?
-      if self.crowd_pledges_sum < self.funding_1_amount
-        :funding_1
-      elsif self.crowd_pledges_sum >= self.funding_1_amount && self.funding_2_amount.nil?
-        :over_funding_1
-      elsif self.crowd_pledges_sum < self.funding_2_amount
-        :funding_2
-      elsif self.crowd_pledges_sum >= self.funding_2_amount
-        :over_funding_2
-      end
+  def check_funding
+    if not_funded? && crowd_pledges_sum > funding_1_amount
+      update(funding_status: 'goal_1_reached')
+      return :goal_1_reached
+    elsif funding_2_amount.present? && goal_1_reached? && crowd_pledges_sum > funding_2_amount
+      update(funding_status: 'goal_2_reached')
+      return :goal_2_reached
     end
   end
 
   def funding_1?
-    self.funding_status == :funding_1
+    not_funded?
   end
 
   def over_funding_1?
-    self.funding_status == :over_funding_1
+    goal_1_reached? && funding_2_amount.nil?
   end
 
   def funding_2?
-    self.funding_status == :funding_2
+    goal_1_reached? && funding_2_amount.present?
   end
 
   def over_funding_2?
-    self.funding_status == :over_funding_2
-  end
-
-  # Needed if we want to inform Owner for Successfull Funding_Level 1 immediately... (or other users)
-  def funding_1_successful?(funding_status_before, funding_status_after)
-    [:over_funding_1, :funding_2].include?(funding_status_after) && funding_status_before != funding_status_after
+    goal_2_reached?
   end
 
   def all_steps_finished?
@@ -119,7 +112,8 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def remaining_days
-     (self.enddate - Date.today).to_i if self.enddate
+    # Using + 1 because the last day counts too
+    (self.enddate - Date.today + 1).to_i if self.enddate
   end
 
   def runtime

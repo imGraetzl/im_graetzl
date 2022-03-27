@@ -1,29 +1,20 @@
 class CrowdPledgesController < ApplicationController
-  #before_action :authenticate_user!, except: [:choose_amount, :choose_payment, :new]
-
   def new
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    if user_signed_in?
-      @crowd_pledge.assign_attributes(current_user_params)
-    end
+    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne ist nicht aktiv und kann daher nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+
+    @crowd_pledge.assign_attributes(current_user_params) if current_user
     @crowd_pledge.calculate_price
   end
 
   def create
-    @crowd_campaign = CrowdCampaign.find(params[:crowd_pledge][:crowd_campaign_id])
-    @crowd_pledge = @crowd_campaign.crowd_pledges.build(crowd_pledge_params)
+    @crowd_pledge = CrowdPledge.new(crowd_pledge_params)
+    redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
+
     @crowd_pledge.user_id = current_user.id if current_user
     @crowd_pledge.calculate_price
+
     if @crowd_pledge.save
-
-      #funding_status_before = @crowd_campaign.funding_status.to_sym
-      @crowd_pledge.authorized! # For Testing - authorize Payment
-      #funding_status_after = @crowd_campaign.funding_status.to_sym
-
-      #if @crowd_campaign.funding_1_successful?(funding_status_before, funding_status_after)
-      #  ActionProcessor.track(@crowd_campaign, :funding_1_successful, @crowd_pledge)
-      #end
-
       redirect_to [:choose_payment, @crowd_pledge]
     else
       render :new
@@ -38,16 +29,22 @@ class CrowdPledgesController < ApplicationController
 
   def choose_amount
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne ist nicht aktiv und kann daher nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+
     @crowd_pledge.calculate_price
   end
 
   def login
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+    redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
+
     @crowd_pledge.calculate_price
   end
 
   def choose_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
+    redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
+
     @crowd_pledge.calculate_price
     @setup_intent = CrowdPledgeService.new.create_setup_intent(@crowd_pledge)
   end

@@ -1,6 +1,6 @@
 <% funding_subtitle = "Fundingsumme" %>
 
-<% if @crowd_campaign.completed_successful? %>
+<% if @crowd_campaign.completed? && @crowd_campaign.successful? %>
 
   <div class="fundingBar">
     <div class="fundingBar_track fundingBar_track-finished">
@@ -9,7 +9,7 @@
     <div class="fundingBar_target fundingBar_target-success"></div>
   </div>
 
-<% elsif @crowd_campaign.completed_unsuccessful? %>
+<% elsif @crowd_campaign.completed? && !@crowd_campaign.successful? %>
 
   <div class="fundingBar">
     <div class="fundingBar_track fundingBar_track-finished">
@@ -92,8 +92,9 @@
   </div>
   <div class="right -ending">
     <% if !@crowd_campaign.completed? %>
-      <h2><%= @crowd_campaign.remaining_days %></h2>
-      <span class="full-view compact-view">Tage</span>
+      <% number, unit = campaign_remaining_time(@crowd_campaign) %>
+      <h2><%= number %></h2>
+      <span class="full-view compact-view"><%= unit %></span>
     <% end %>
   </div>
 </div>

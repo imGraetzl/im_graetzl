@@ -26,7 +26,7 @@
       <%= icon_tag "layout-document" %>
       <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :description, placeholder: 'Beschreibung ...', required: !@crowd_campaign.draft?, disabled: disabled %>
+      <%= f.text_area :description, placeholder: 'Beschreibung ...', disabled: disabled %>
     </div>
 
     <div class="form-columns">
@@ -40,7 +40,7 @@
                          value: (I18n.localize(f.object.startdate, format:'%A, %d. %B %Y') if f.object.startdate),
                          data: { value: (I18n.localize(f.object.startdate, format:'%Y-%m-%d') if f.object.startdate) },
                          class: 'datepicker',
-                         placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: disabled %>
+                         placeholder: 'wählen', disabled: disabled %>
       </div>
 
       <div class="input-field">
@@ -52,7 +52,7 @@
                          value: (I18n.localize(f.object.enddate, format:'%A, %d. %B %Y') if f.object.enddate),
                          data: { value: (I18n.localize(f.object.enddate, format:'%Y-%m-%d') if f.object.enddate) },
                          class: 'datepicker',
-                         placeholder: 'wählen', required: !@crowd_campaign.draft?, disabled: disabled %>
+                         placeholder: 'wählen', disabled: disabled %>
       </div>
 
     </div>

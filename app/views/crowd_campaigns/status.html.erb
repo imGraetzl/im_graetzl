@@ -25,20 +25,18 @@
       <p>Jetzt heissts unbedingt mit voller Kraft dran bleiben!</p>
     </div>
 
-  <% elsif @crowd_campaign.completed_successful? %>
-
-    <div class="hl-subtext">
-      <h2><span>Herzlichen Glückwunsch</span> zu deiner erfolgreichen Kampagne!</h2>
-      <p>Puh, das war ein Ritt - Du hast es geschafft!</p>
-    </div>
-
-  <% elsif @crowd_campaign.completed_unsuccessful? %>
-
-    <div class="hl-subtext">
-      <h2><span>Deine Kampagne</span> ist abgeschlossen.</h2>
-      <p>Leider hats diesmal nicht geklappt ...</p>
-    </div>
-
+  <% elsif @crowd_campaign.completed? %>
+    <% if @crowd_campaign.successful? %>
+      <div class="hl-subtext">
+        <h2><span>Herzlichen Glückwunsch</span> zu deiner erfolgreichen Kampagne!</h2>
+        <p>Puh, das war ein Ritt - Du hast es geschafft!</p>
+      </div>
+    <% else %>
+      <div class="hl-subtext">
+        <h2><span>Deine Kampagne</span> ist abgeschlossen.</h2>
+        <p>Leider hats diesmal nicht geklappt ...</p>
+      </div>
+    <% end %>
   <% end %>
 
 </section>
