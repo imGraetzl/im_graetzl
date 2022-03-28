@@ -27,7 +27,7 @@
       <div class="block bigicontext-element -small">
         <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-round' %>
         <div class="txt">
-          <h4>Projekt InhaberIn</h4>
+          <h4>Projekt Starter*in</h4>
           <p><strong><%= @crowd_campaign.contact_name %></strong></p>
         </div>
       </div>
@@ -72,7 +72,7 @@
       </div>
       <% end %>
 
-      <div class="block bigicontext-element -small">
+      <div class="block -full bigicontext-element -small">
         <%= icon_tag "archive-storage" %>
         <div class="txt">
           <h4>Projekt Kategorie</h4>
@@ -80,6 +80,7 @@
         </div>
       </div>
 
+      <!--
       <div class="block bigicontext-element -small">
         <%= icon_tag "map-location" %>
         <div class="txt">
@@ -87,37 +88,39 @@
           <p><strong><%= @crowd_campaign.graetzl.zip_name %></strong></p>
         </div>
       </div>
+      -->
 
     </div>
 
-    <div class="mediaSlider">
-      <ul id="media-slider" class="gallerySlider">
+    <% if @crowd_campaign.video? || @crowd_campaign.images.present? %>
 
-        <% if @crowd_campaign.video? %>
-          <li data-thumb="<%= image_path('svg/slider-thumbnail-video.svg') %>">
+      <div class="mediaSlider">
+        <ul id="media-slider" class="gallerySlider">
 
-              <div style="padding:56.25% 0 0 0;position:relative;">
-                <iframe id="galleryVideo" src="<%= @crowd_campaign.video %>"
-                  frameborder="0" allow="accelerometer; autoplay;
-                  encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                  style="position:absolute;top:0;left:0;
-                  width:100%;height:100%;">
-                </iframe>
-              </div>
+          <% if @crowd_campaign.video? %>
+            <li data-thumb="<%= image_path('svg/slider-thumbnail-video.svg') %>">
+                <div style="padding:56.25% 0 0 0;position:relative;">
+                  <iframe id="galleryVideo" src="<%= @crowd_campaign.video %>"
+                    frameborder="0" allow="accelerometer; autoplay;
+                    encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="position:absolute;top:0;left:0;
+                    width:100%;height:100%;">
+                  </iframe>
+                </div>
+            </li>
+          <% end %>
 
+          <% @crowd_campaign.images.each do |image| %>
+            <li data-thumb="<%= image.file_url(:thumb) %>">
+              <%= link_to image_tag(image.file_url(:cardbox, :large)), image.file_url, data: { jbox_image: "maingallery" } %>
+            </li>
+          <% end %>
 
-          </li>
-        <% end %>
+        </ul>
+      </div>
 
-        <% @crowd_campaign.images.each do |image| %>
-          <li data-thumb="<%= image.file_url(:thumb) %>">
-            <%= link_to image_tag(image.file_url(:cardbox, :large)), image.file_url, data: { jbox_image: "maingallery" } %>
-          </li>
-        <% end %>
-
-      </ul>
-    </div>
+    <% end %>
 
     <div class="content-block">
       <h3 class="hl-main -toggle"><span>Warum</span> sollte jemand dieses Projekt unterstützen?</h3>

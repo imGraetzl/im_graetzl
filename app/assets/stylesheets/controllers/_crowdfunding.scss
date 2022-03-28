@@ -120,7 +120,7 @@ section.crowd_campaign {
       }
     }
     .block:last-child {
-      margin-bottom: 0px;
+      //margin-bottom: 0px;
     }
   }
 
@@ -217,10 +217,9 @@ section.crowd_campaign {
 
   .coverImgBottom {
     position: relative;
-    left:-3px;
-    top:-18px;
-    margin-bottom: -18px;
-    min-height:30px;
+    margin-left:-30px;
+    top:-13px;
+    min-height:26px;
     z-index: 9;
     background-color: #ffffff;
     @include bg-url(

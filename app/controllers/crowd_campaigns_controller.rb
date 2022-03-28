@@ -10,6 +10,7 @@ class CrowdCampaignsController < ApplicationController
 
   def show
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
+    @crowd_pledges = @crowd_campaign.crowd_pledges
     @preview = params[:preview] == 'true' ?  true : false
     show_status_message?
   end

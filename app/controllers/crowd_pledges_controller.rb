@@ -1,7 +1,7 @@
 class CrowdPledgesController < ApplicationController
   def new
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne ist nicht aktiv und kann daher nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+    #redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne ist nicht aktiv und kann daher nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.assign_attributes(current_user_params) if current_user
     @crowd_pledge.calculate_price
@@ -9,7 +9,7 @@ class CrowdPledgesController < ApplicationController
 
   def create
     @crowd_pledge = CrowdPledge.new(crowd_pledge_params)
-    redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
+    #redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.user_id = current_user.id if current_user
     @crowd_pledge.calculate_price
@@ -29,21 +29,21 @@ class CrowdPledgesController < ApplicationController
 
   def choose_amount
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne ist nicht aktiv und kann daher nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+    #redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne ist nicht aktiv und kann daher nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.calculate_price
   end
 
   def login
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
+    #redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.calculate_price
   end
 
   def choose_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
-    redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
+    #redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.calculate_price
     @setup_intent = CrowdPledgeService.new.create_setup_intent(@crowd_pledge)
