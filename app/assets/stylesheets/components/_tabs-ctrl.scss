@@ -73,7 +73,7 @@
     //font-family: $font-tertiary;
     //@include font-size-primaryFont('largest');
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     small {
       //position: absolute;
       font-family: $font-primary;
@@ -90,7 +90,7 @@
       //right:5px;
       align-self: center;
       margin-left: 5px;
-      margin-left:10px;
+      margin-left:15px;
     }
   }
   .tabs-nav li:not(.active) a {

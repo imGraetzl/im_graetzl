@@ -29,6 +29,7 @@ class CrowdCampaign < ApplicationRecord
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
   enum billable: { no_bill: 0, bill: 1, bill_with_tax: 2 }
 
+  include AvatarUploader::Attachment(:avatar)
   include CoverImageUploader::Attachment(:cover_photo)
 
   has_many :images, as: :imageable, dependent: :destroy
