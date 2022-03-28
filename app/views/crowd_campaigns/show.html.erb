@@ -21,7 +21,7 @@
   </div>
 
   <div class="coverImg">
-    <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-round crowd-avatar' %>
+    <%= avatar_image @crowd_campaign, size: :thumb, class: 'img-round crowd-avatar' %>
 
     <% if @crowd_campaign.video? %>
       <%= link_to 'javascript:', class: 'play-icon jBoxVideo', rel: 'nofollow' do %>
@@ -43,19 +43,60 @@
       <%= render 'funding_bar' %>
     </div>
     <div class="sideArea">
-      <%= link_to 'Unterstützen', 'javascript:', class: 'btn-primary -rose -large -shadow btn-support' %>
+      <% if current_user == @crowd_campaign.user && !@preview %>
+        <%= link_to 'javascript:', class: 'btn-primary -rose -large -shadow -ico jBoxTooltip', data: {tooltip_id: "tt-crowdcampaign-#{@crowd_campaign.id}"} do %>
+          <span>Unterstützen</span>
+          <%= icon_tag "arrow-down-2" %>
+        <% end %>
+        <div class="jBoxHidden jBoxDropdown" id="<%= "tt-crowdcampaign-#{@crowd_campaign.id}" %>">
+          <%= link_to 'javascript:', class: 'btn-support' do %>
+            <%= icon_tag "crowd" %>
+            <div class="icontxt">Unterstützen</div>
+          <% end %>
+          <% if @crowd_campaign.scope_public? %>
+            <%= link_to status_crowd_campaign_path(@crowd_campaign) do %>
+              <%= icon_tag "bar-chart-growth" %>
+              <div class="icontxt">Kampagnen Statistiken</div>
+            <% end %>
+          <% end %>
+          <%= link_to edit_crowd_campaign_path(@crowd_campaign) do %>
+            <%= icon_tag "pencil" %>
+            <div class="icontxt">Kampagne bearbeiten</div>
+          <% end %>
+          <% if @crowd_campaign.draft? %>
+            <%= link_to crowd_campaign_path(@crowd_campaign), data: { confirm: 'Bist du dir sicher?' }, method: :delete do %>
+              <%= icon_tag "cross" %>
+              <div class="icontxt">Kampagne löschen</div>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to 'Unterstützen', 'javascript:', class: 'btn-primary -rose -large -shadow btn-support' %>
+      <% end %>
     </div>
   </div>
 
-  <div class="last-supporters">
-    <%= render 'crowd_campaigns/show/last_supporters' %>
-  </div>
+  <% if @crowd_campaign.crowd_pledges.authorized.visible.present? %>
+    <div class="last-supporters">
+      <% @crowd_campaign.crowd_pledges.authorized.visible.reverse.first(4).each do |crowd_pledge| %>
+        <div class="supporter">
+          <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+          <div>
+            <span><%= crowd_pledge.contact_name %></span><br>
+            <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
   <div class="navArea">
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
         <li class="active"><a href="#tab-info">Über das Projekt</a></li>
-        <li><a href="#tab-posts">Projekt Updates <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
+        <% if current_user == @crowd_campaign.user || @crowd_campaign.crowd_campaign_posts.present? %>
+          <li><a href="#tab-posts">Projekt Updates <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
+        <% end %>
         <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
         <li><a href="#tab-supporters">UnterstützerInnen</a></li>
       </ul>
