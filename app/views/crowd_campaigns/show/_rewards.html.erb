@@ -11,7 +11,7 @@
         <% end %>
         <%= link_to 'Auswählen', choose_amount_crowd_pledges_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), class: 'btn-primary -mint -shadow' %>
       </div>
-      <small class="trigger">2 <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
+      <small class="trigger"><%= @crowd_pledges.exists?(crowd_reward_id: crowd_reward.id) ? @crowd_pledges.where(crowd_reward_id: crowd_reward.id).count : '0' %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
     </div>
   </div>
   <div class="card"></div>
