@@ -201,6 +201,10 @@ section.crowd_campaign {
       }
     }
 
+    .play-icon {
+      display: flex;
+    }
+
     .play-icon::before {
       bottom:30px;
       top:unset;
