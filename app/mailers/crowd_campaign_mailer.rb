@@ -1,6 +1,6 @@
 class CrowdCampaignMailer < ApplicationMailer
 
-  def crowd_campaign_draft(crowd_campaign)
+  def draft(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-draft")
@@ -11,7 +11,7 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_campaign_pending(crowd_campaign)
+  def pending(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-pending")
@@ -22,7 +22,7 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_campaign_approved(crowd_campaign)
+  def approved(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-approved")

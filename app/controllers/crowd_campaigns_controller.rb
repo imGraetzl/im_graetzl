@@ -100,7 +100,7 @@ class CrowdCampaignsController < ApplicationController
       elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
-        CrowdCampaignMailer.crowd_campaign_pending(@crowd_campaign).deliver_later
+        CrowdCampaignMailer.pending(@crowd_campaign).deliver_later
         redirect_to status_crowd_campaign_path(@crowd_campaign)
       else
         redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Änderungen wurden gespeichert. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}"

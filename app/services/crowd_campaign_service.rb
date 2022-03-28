@@ -2,7 +2,8 @@ class CrowdCampaignService
 
   def start(campaign)
     campaign.update(status: :funding)
-    CrowdCampaignMailer.funding_started(crowd_campaign)
+    ActionProcessor.track(campaign, :create)
+    CrowdCampaignMailer.funding_started(campaign).deliver_later
   end
 
   def complete(campaign)
