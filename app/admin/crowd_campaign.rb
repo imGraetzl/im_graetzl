@@ -44,9 +44,7 @@ ActiveAdmin.register CrowdCampaign do
   member_action :approve, method: :put do
 
     if resource.approved!
-      #UsersMailer.crowd_campaign_approved(resource).deliver_now
-      ActionProcessor.track(resource, :create) # Move to Background Task (State Funding)
-
+      CrowdCampaignMailer.approved(resource).deliver_now
       flash[:success] = 'Crowdfunding Kampagne wurde freigeschalten.'
       redirect_to admin_crowd_campaigns_path
     else
