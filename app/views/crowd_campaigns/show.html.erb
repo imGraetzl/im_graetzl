@@ -78,7 +78,7 @@
 
   <% if @crowd_campaign.crowd_pledges.authorized.visible.present? %>
     <div class="last-supporters">
-      <% @crowd_campaign.crowd_pledges.authorized.visible.reverse.first(4).each do |crowd_pledge| %>
+      <% @crowd_campaign.crowd_pledges.authorized.visible.order(created_at: :desc).first(4).each do |crowd_pledge| %>
         <div class="supporter">
           <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <div>

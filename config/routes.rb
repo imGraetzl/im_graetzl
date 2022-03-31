@@ -144,6 +144,7 @@ Rails.application.routes.draw do
     get 'comments', on: :member
     get 'supporters', on: :member
     get 'status', on: :member
+    get 'download_supporters', on: :member
   end
 
   resources :crowd_pledges, only: [:new, :create] do

@@ -56,6 +56,9 @@ gem 'bb-ruby'
 gem 'stripe'
 gem 'prerender_rails'
 
+gem 'caxlsx'
+gem 'caxlsx_rails'
+
 group :development do
   # gem 'spring'
   gem 'letter_opener'

@@ -1,6 +1,6 @@
-<% title('Crowdfunding Kampagne Finished') %>
+<% title('Crowdfunding Kampagne Status Übersicht') %>
 
-<section class="crowdfunding-form">
+<section class="crowdfunding-form -statuspage">
 
   <%= render 'crowd_campaigns/form/navigation' %>
 
@@ -26,10 +26,11 @@
     </div>
 
   <% elsif @crowd_campaign.completed? %>
+
     <% if @crowd_campaign.successful? %>
       <div class="hl-subtext">
-        <h2><span>Herzlichen Glückwunsch</span> zu deiner erfolgreichen Kampagne!</h2>
-        <p>Puh, das war ein Ritt - Du hast es geschafft!</p>
+        <h2>Übersicht & <span>Fundingstatistik</span></h2>
+        <p>Herzlichen Glückwunsch zu deiner erfolgreichen Kampagne!</p>
       </div>
     <% else %>
       <div class="hl-subtext">
@@ -37,6 +38,87 @@
         <p>Leider hats diesmal nicht geklappt ...</p>
       </div>
     <% end %>
+
+    <div class="paperCard video -cord1RT">
+      <div class="wrp">
+        <div class="funding-stats">
+          <div class="header">
+            <h4 class="title">Dein festgelegtes Fundingziel</h4>
+            <h4 class="amount"><%= number_to_currency(@crowd_campaign.funding_1_amount, unit: "€") %></h4>
+          </div>
+          <% if @crowd_campaign.funding_2_amount %>
+          <div class="header">
+            <h4 class="title">Dein festgelegter Optimalbetrag</h4>
+            <h4 class="amount"><%= number_to_currency(@crowd_campaign.funding_2_amount, unit: "€") %></h4>
+          </div>
+          <% end %>
+          <br>
+          <div>
+            <h3 class="title">Deine erreichte Fundingsumme</h3>
+            <h3 class="amount"><%= number_to_currency(@crowd_campaign.crowd_pledges_sum, unit: "€") %></h3>
+          </div>
+          <% if @crowd_campaign.goal_1_reached? %>
+          <div>
+            <h4 class="title">Widerrufe</h4>
+            <h4 class="amount">-<%= number_to_currency('0', unit: "€") %></h4>
+          </div>
+          <div>
+            <h4 class="title">Transaktionsgebühren (4%)</h4>
+            <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_fee, unit: "€") %></h4>
+          </div>
+          <div>
+            <h3 class="title">Auszahlungssumme</h3>
+            <h3 class="amount"><%= number_to_currency(@crowd_campaign.crowd_pledges_payout, unit: "€") %></h3>
+          </div>
+          <% else %>
+          <div class="hint">
+            *) Du hast dein Fundingziel leider nicht erreicht.
+            Alle UnterstützerInnen bekommen daher ihre Beträge zurücküberwiesen.
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="card"></div>
+    </div>
+
+
+    <div class='tabs-ctrl -plain'>
+      <ul class="tabs-nav">
+        <li><a href="#tab-supporters">UnterstützerInnen</a></li>
+        <li><a href="#tab-material">Materialspenden</a></li>
+        <li><a href="#tab-time">Zeitspenden</a></li>
+      </ul>
+
+      <div id='tab-supporters'>
+
+        <div class="table-container -light" role="table">
+          <div class="flex-table header" role="rowgroup">
+            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen (<%= @crowd_pledges.count %>)</div>
+            <div class="flex-row medium" role="columnheader">Gesamt Unterstützung</div>
+            <div class="flex-row medium" role="columnheader">Freie Unterstützung</div>
+            <div class="flex-row xxlarge" role="columnheader">Dankeschön</div>
+          </div>
+
+          <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_pledge', collection: @crowd_pledges, as: 'crowd_pledge' %>
+
+        </div>
+
+        <%= link_to download_supporters_crowd_campaign_path(@crowd_campaign, format: :xlsx), class: 'btn-secondary -mint -ico' do %>
+          <span>Download UnterstützerInnen als Excel</span>
+          <%= icon_tag "download" %>
+        <% end %>
+
+      </div>
+
+      <div id='tab-material'>
+        Materialspenden ...
+      </div>
+
+      <div id='tab-time'>
+        Zeitspenden ...
+      </div>
+    </div>
+
   <% end %>
 
 </section>

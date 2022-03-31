@@ -28,16 +28,16 @@
   &.deleted, &.rejected, &.off, &.payment_failed, &.declined {
     background: red;
   }
-  &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.payment_pending {
+  &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.payment_pending, &.not_funded, &.draft {
     background: orange;
   }
-  &.approved, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.payment_success {
+  &.approved, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.payment_success, &.goal1_reached, &.goal2_reached, &.completed {
     background: green;
   }
   &.public_space, &.payment_refunded {
     background: LightCoral;
   }
-  &.weekly, &.processing {
+  &.weekly, &.processing, &.funding {
     background: LightBlue;
   }
   &.vacancy, &.daily {
