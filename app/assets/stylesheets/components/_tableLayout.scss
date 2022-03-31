@@ -44,6 +44,9 @@ $row-hover-bg : $color-ambient-mint-light;
       background: $row-hover-bg;
       transition: 500ms;
     }
+    &.toggable {
+      cursor: pointer;
+    }
   }
 
   .flex-row {
@@ -58,10 +61,34 @@ $row-hover-bg : $color-ambient-mint-light;
     &.small {width: 10%; justify-content: left;}
     &.medium {width: 15%; justify-content: left;}
     &.large {width: 20%; justify-content: left;}
+    &.xlarge {width: 30%; justify-content: left;}
+    &.xxlarge {width: 35%; justify-content: left;}
+    &.full {width: 100%; justify-content: left;}
     //width: calc(28% / 2);
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
       // IE Fix
       width: calc((40% / 3) - 1px);
+    }
+
+    &.toggle-cell {
+      display: none;
+      div {
+        width:65%;
+        float:left;
+        padding:5px;
+        font-style: italic;
+        strong {
+          font-style: normal;
+        }
+      }
+      div:first-of-type {
+        width:35%;
+      }
+      @include respond-to("<=medium") {
+        div, div:first-of-type {
+          width:100%;
+        }
+      }
     }
 
     .message {
@@ -90,11 +117,15 @@ $row-hover-bg : $color-ambient-mint-light;
         margin-top:2px;
       }
       .name {
+        width:100%;
         @include ellipsis();
       }
     }
     &.pending, &.canceled, &.return_pending{
       color: #cd891b;
+    }
+    .ellipsis {
+      @include ellipsis();
     }
   }
 
@@ -148,11 +179,11 @@ $row-hover-bg : $color-ambient-mint-light;
   // MEDIUM SIZE
   @include respond-to("<=medium") {
 
-    .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large {
+    .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large, .flex-row.xlarge {
       width: 50%; //1px = border right
       //justify-content: center;
     }
-    .column {
+    .column, .flex-row.xxlarge {
       width: 100%;
     }
 
@@ -177,7 +208,7 @@ $row-hover-bg : $color-ambient-mint-light;
       //.flex-row:not(.first) { display: none}
     }
 
-    .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large {
+    .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large, .flex-row.xlarge, .flex-row.xxlarge {
       width: 100%; //1px = border right
       //justify-content: center;
     }
@@ -194,5 +225,12 @@ $row-hover-bg : $color-ambient-mint-light;
     }
   }
 
-
+}
+.table-container.-light .header {
+  border-color: $color-ambient-mint-light;
+  .flex-row {
+    background-color: $color-ambient-mint-light;
+    border-color: $color-ambient-mint-light;
+    color: $color-font-primary;
+  }
 }

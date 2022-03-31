@@ -46,7 +46,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def successful?
-    goal_1_reached || goal_2_reached?
+    goal_1_reached? || goal_2_reached?
   end
 
   def editable?
@@ -63,6 +63,14 @@ class CrowdCampaign < ApplicationRecord
 
   def crowd_pledges_sum
     @cached_crowd_pledge_sum ||= self.crowd_pledges.complete.sum(:total_price)
+  end
+
+  def crowd_pledges_fee
+    (crowd_pledges_sum / 100) * 4
+  end
+
+  def crowd_pledges_payout
+    crowd_pledges_sum - crowd_pledges_fee
   end
 
   def check_funding

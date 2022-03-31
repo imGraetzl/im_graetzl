@@ -18,6 +18,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       APP.components.addressInput();
       APP.components.formValidation.init();
       APP.components.search.userAutocomplete();
+      APP.components.tabs.initTabs(".tabs-ctrl");
 
       $("textarea").autoResize();
 
@@ -59,6 +60,10 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         format: 'ddd, dd mmm, yyyy',
         hiddenName: true,
         min: 15,
+      });
+
+      $('.table-container .toggle').on("click", function(event) {
+        $(this).closest('.flex-table').find('.toggle-cell').slideToggle();
       });
 
       function initNestedOpener() {

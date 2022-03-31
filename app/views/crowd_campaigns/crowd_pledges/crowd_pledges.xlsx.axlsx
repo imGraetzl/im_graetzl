@@ -1,0 +1,45 @@
+wb = xlsx_package.workbook
+s = wb.styles
+date = s.add_style format_code: 'dd.mm.yyyy'
+euro = wb.styles.add_style(:format_code => "#,##0.00 [$€-2]")
+
+wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
+  sheet.add_row [
+    'Datum',
+    'Name',
+    'E-Mail',
+    'Summe (€)',
+    'Freie Unterstützung (€)',
+    'Dankeschön (€)',
+    'Dankeschön',
+    'Strasse',
+    'PLZ',
+    'Stadt',
+    'Anonym',
+    'Antwort',
+  ]
+  @crowd_pledges.each do |crowd_pledge|
+    sheet.add_row [
+      crowd_pledge.created_at,
+      crowd_pledge.contact_name,
+      crowd_pledge.email,
+      crowd_pledge.total_price,
+      crowd_pledge.donation_amount,
+      crowd_pledge.crowd_reward&.amount,
+      crowd_pledge.crowd_reward&.title,
+      crowd_pledge.address_street,
+      crowd_pledge.address_zip,
+      crowd_pledge.address_city,
+      crowd_pledge.anonym? ? 'Ja' : 'Nein',
+      crowd_pledge.answer,
+    ], style: [
+      date,
+      nil,
+      nil,
+      euro,
+      euro,
+      euro,
+      nil,
+    ]
+  end
+end

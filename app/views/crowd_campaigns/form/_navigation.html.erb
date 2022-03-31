@@ -70,8 +70,8 @@
     <% elsif @crowd_campaign.completed? %>
       <div class="step-line"></div>
       <%= active_link_to status_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-        <%= icon_tag "crowd" %>
-        <div class="txt">Projekt<br>abgeschlossen</div>
+        <%= icon_tag "bar-chart-growth" %>
+        <div class="txt">Projekt<br>Abschluss</div>
       <% end %>
     <% end %>
 

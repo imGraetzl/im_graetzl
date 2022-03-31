@@ -1,0 +1,41 @@
+<div class="flex-table row toggable" role="rowgroup">
+  <div class="flex-row xxlarge user toggle" role="cell">
+
+    <% if crowd_pledge.user&.username %>
+      <div><%= avatar_image_with_tooltip crowd_pledge.user, size: :thumb, class: 'img-round' %></div>
+      <div class="name">
+        <%= link_to crowd_pledge.user, crowd_pledge.user %><br>
+        <small><em><%= I18n.localize(crowd_pledge.created_at, format:'%a, %d. %B %Y, %H:%M') %></em></small>
+      </div>
+    <% else %>
+      <div><%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %></div>
+      <div class="name">
+        <%= crowd_pledge.contact_name %><br>
+        <small><em><%= I18n.localize(crowd_pledge.created_at, format:'%a, %d. %B %Y, %H:%M') %></em></small>
+      </div>
+    <% end %>
+
+  </div>
+  <div class="flex-row medium toggle" role="cell"><strong><%= number_to_currency(crowd_pledge.total_price, unit: "€") %></strong></div>
+  <div class="flex-row medium toggle" role="cell"><%= number_to_currency(crowd_pledge.donation_amount, unit: "€") %></div>
+  <div class="flex-row xxlarge toggle" role="cell">
+    <div class="ellipsis">
+      <%= number_to_currency(crowd_pledge.crowd_reward&.amount, unit: "€") %><br>
+      <em><%= "#{crowd_pledge.crowd_reward&.title}" if crowd_pledge.crowd_reward.present? %></em>
+    </div>
+  </div>
+  <div class="flex-row full toggle-cell" role="cell">
+    <div>
+      <strong>Adressdaten:</strong><br>
+      <%= crowd_pledge.contact_name %><small><em> <%= crowd_pledge.anonym ? '(anonym)' : '' %></em></small><br>
+      <%= crowd_pledge.address_street %><br>
+      <%= crowd_pledge.address_zip %> <%= crowd_pledge.address_city %>
+    </div>
+    <div>
+      <% if crowd_pledge.answer.present? %>
+        <strong>Antwort:</strong><br>
+        <%= crowd_pledge.answer %>
+      <% end %>
+    </div>
+  </div>
+</div>

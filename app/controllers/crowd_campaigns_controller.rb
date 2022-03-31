@@ -31,7 +31,6 @@ class CrowdCampaignsController < ApplicationController
       render :new
     end
   end
-
   def edit
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     form_status_message?
@@ -64,7 +63,18 @@ class CrowdCampaignsController < ApplicationController
 
   def status
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    @crowd_pledges = @crowd_campaign.crowd_pledges.authorized.order(created_at: :desc)
     form_status_message?
+  end
+
+  def download_supporters
+    respond_to do |format|
+      format.xlsx do
+        @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+        @crowd_pledges = @crowd_campaign.crowd_pledges.authorized.order(created_at: :desc)
+        render xlsx: 'UnterstützerInnen', template: 'crowd_campaigns/crowd_pledges/crowd_pledges'
+      end
+    end
   end
 
   def posts
@@ -79,7 +89,7 @@ class CrowdCampaignsController < ApplicationController
 
   def supporters
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.reverse
+    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.order(created_at: :desc)
   end
 
   def update
@@ -153,7 +163,7 @@ class CrowdCampaignsController < ApplicationController
   def form_status_message?
     flash.now[:alert] = "Deine Kampagne wird gerade überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
     flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime} | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
-    flash.now[:alert] = "Deine Kampagne läuft gerade | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.funding?
+    flash.now[:alert] = "Deine Kampagne läuft gerade und kann daher nur mehr eingeschränkt bearbeitet werden. | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.funding?
     flash.now[:alert] = "Deine Kampagne ist abgeschlossen | #{ActionController::Base.helpers.link_to('Kampagne ansehen', crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.completed?
   end
 

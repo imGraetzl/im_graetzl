@@ -1,6 +1,6 @@
 section.crowdfunding-form {
   @include cf;
-  max-width: 800px;
+  max-width: 850px;
   margin: 0 auto;
 
   div.hl-subtext {
@@ -91,6 +91,52 @@ section.crowdfunding-form {
     position: relative;
     top:-2px;
   }
+
+  &.-statuspage {
+    .tabs-ctrl {
+      margin-top:70px;
+    }
+
+    .funding-stats {
+      width:100%;
+      div {
+        display: flex;
+        h3, h4 {
+          width:50%;
+          padding: 5px;
+        }
+        h4 {
+          font-weight: normal;
+        }
+        h3 {
+          background-color: white;
+          color: $color-ambient-rosa-dark;
+        }
+        .amount {
+          text-align: right;
+        }
+        &.header h3, &.header h4 {
+          font-style: italic;
+        }
+      }
+      div:last-of-type {
+        h3 {
+          color:unset;
+          background-color:unset;
+          border:none;
+        }
+      }
+      .hint {
+        padding: 5px;
+        padding-top:10px;
+        font-style: italic;
+        @include font-size-primaryFont('small');
+      }
+
+    }
+
+  }
+
 }
 
 .jBoxCrowdPreview {
