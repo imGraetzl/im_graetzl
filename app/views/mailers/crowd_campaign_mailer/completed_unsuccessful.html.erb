@@ -1,1 +1,24 @@
-<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %> completed_unsuccessful!
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_campaign.user.first_name %>,
+        </p>
+        <p>
+          <strong>deine Crowdfunding Kampagne hat das erste Minimalziel diesmal leider nicht erreicht.</strong> Damit ist die Kampagne gescheitert und die Beträge werden nicht bei den Unterstützer*innen eingezogen und nicht ausbezahlt.
+        </p>
+        <p>
+          Viele erfolgreiche Crowdfunding Projekte haben beim ersten Mal das Ziel nicht erreicht, wir mit imGrätzl übrigens auch nicht, erst beim zweiten Versuch hat es dann geklappt. Mit etwas Abstand kann man besser beurteilen, woran es vielleicht noch gehapert hat.
+        </p>
+        <p>
+          Wir feiern auf jeden Fall deinen Mut, dass du es versucht hast und würden uns freuen, wenn es einen zweiten Anlauf gibt. Du kannst uns dann gerne vorab kontaktieren, damit wir einmal dein Vorhaben durchsprechen, vielleicht fällt uns etwas auf.
+        </p>
+        <p>
+          Liebe Grüße,<br>
+          dein Team von <%= t("region.#{@crowd_campaign.region.id}.domain_full") %><br>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

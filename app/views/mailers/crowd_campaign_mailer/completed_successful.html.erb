@@ -1,1 +1,24 @@
-<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %> completed_successful!
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_campaign.user.first_name %>,
+        </p>
+        <p>
+          <strong>deine Crowdfunding Kampagne ist erfolgreich und ist nun abgeschlossen!</strong> Dein Vorhaben kann damit bald in die Umsetzung gehen und das ist wirklich großartig!
+        </p>
+        <p>
+          Es dauert nun zwischen 3 - 4 Wochen bis der Zahlungsanbieter die Summe, abzüglich der Bearbeitungsgebühr, auf dein Konto überweist. Zunächst muss der Zahlungsanbieter aber noch das gesetzliche 14 tägige Rücktrittsrecht abwarten.
+        </p>
+        <p>
+          Sobald das gut über die Bühne gegangen ist, bekommst von uns im nächsten Schritt: die Rechnung über die Bearbeitungsgebühr, die Kontakte der Unterstützer*innen, Übersicht über die gebuchten Dankeschöns, Übersicht über andere Ressourcen, die zur Verfügung gestellt wurden. Damit du dann die Kampagne gut abwickeln kannst z.B. Zusendung der Dankeschöns an die Unterstützer*innen.
+        </p>
+        <p>
+          Liebe Grüße,<br>
+          dein Team von <%= t("region.#{@crowd_campaign.region.id}.domain_full") %><br>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
