@@ -33,11 +33,13 @@ class CrowdCampaignsController < ApplicationController
   end
   def edit
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    return redirect_to edit_crowd_campaign_path(@crowd_campaign) if params[:id] != @crowd_campaign.slug
     form_status_message?
   end
 
   def edit_description
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    return redirect_to edit_description_crowd_campaign_path(@crowd_campaign) if params[:id] != @crowd_campaign.slug
     form_status_message?
   end
 

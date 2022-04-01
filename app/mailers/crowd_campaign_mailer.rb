@@ -5,7 +5,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-draft")
     mail(
-      subject: "Brauchst du Hilfe bei deiner Crowdfundig Kampagne? ...",
+      subject: "Wie geht es deinem Vorhaben?",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -16,7 +16,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-pending")
     mail(
-      subject: "Deine Kampagne wird nun geprüft. Wichtige nächste Schritte ...",
+      subject: "Deine Kampagne wird geprüft plus wichtige Infos",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -27,7 +27,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-approved")
     mail(
-      subject: "Gratuliere, deine Kampagne wurde freigegeben. Wichtige nächste Schritte vor dem Start ...",
+      subject: "Deine Kampagne ist freigegeben, die nächsten Schritte",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -38,7 +38,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-funding")
     mail(
-      subject: "Yeah, deine Crowdfunding Kampagne ist nun aktiv. Auf was es jetzt ankommt!",
+      subject: "Es geht los, deine Kampagne ist online",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -49,7 +49,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-funding-1-successful")
     mail(
-      subject: "Gratuliere, du hast dein Fundingziel erreicht!",
+      subject: "Hurra, das erste Fundingziel ist erreicht!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -60,7 +60,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-funding-2-successful")
     mail(
-      subject: "Gratuliere, du hast dein Fundingziel erreicht!",
+      subject: "Es ist wieder etwas Schönes passiert, das zweite Fundingziel ist erreicht!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -71,7 +71,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-completed-successful")
     mail(
-      subject: "Gratuliere, du hast dein Fundingziel erreicht!",
+      subject: "Deine Kampagne ist erfolgreich beendet! Dein Vorhaben kann bald starten!",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -82,7 +82,7 @@ class CrowdCampaignMailer < ApplicationMailer
     @region = @crowd_campaign.region
     headers("X-MC-Tags" => "notification-crowd-campaign-completed-unsuccessful")
     mail(
-      subject: "Gratuliere, du hast dein Fundingziel erreicht!",
+      subject: "Diesmal hat es leider nicht geklappt",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
