@@ -54,14 +54,13 @@
   <% elsif @crowd_campaign.scope_public? %>
 
     <% if @crowd_campaign.funding? %>
-      <% number, unit = campaign_remaining_time(@crowd_campaign) %>
       <div class="hl-subtext">
         <h2>Deine Kampagne ist aktiv und <span>läuft gerade</span></h2>
         <p>
-          Restliche Laufzeit deiner Kampagne: <strong><%= number %> <%= unit %></strong>.<br>
           Wir drücken ganz fest die Daumen!
         </p>
       </div>
+      <%= render 'funding_bar' %>
     <% elsif @crowd_campaign.successful? %>
       <div class="hl-subtext">
         <h2>Übersicht & <span>Fundingstatistik</span></h2>
