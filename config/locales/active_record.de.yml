@@ -370,7 +370,7 @@ de:
       crowd_campaign:
         statuses:
           draft: In Bearbeitung
-          pending: In Freigabe
+          pending: In Prüfung
           approved: Freigegeben
           funding: Funding
           completed: Abgeschlossen

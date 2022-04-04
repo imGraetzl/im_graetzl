@@ -6,39 +6,75 @@
 
   <% if @crowd_campaign.pending? %>
 
-    <div class="hl-subtext">
-      <h2><span>Gratulation,</span> der Anfang ist geschafft.</h2>
-      <p>Was tu jetzt unbedingt tun solltest ...</p>
+    <div class="statuscontainer">
+      <div class="statustxt">
+        <div class="hl-subtext">
+          <h2><span>Deine Kampagne </span>wird nun geprüft.</h2>
+          <p>Sobald die Kampagne freigeschaltet ist, bekommst du ein Mail von uns.</p>
+        </div>
+        <p>
+          <strong>In der Zwischenzeit noch ein ganz wichtiger Tipp, was du jetzt tun könntest:</strong> Lege eine Liste mit Personen an, die du persönlich kontaktieren kannst und bei denen du dir relativ sicher bist, dass sie dein Vorhaben gerne unterstützen werden.
+        </p>
+        <p>
+          <strong>Speziell in den ersten Tagen der Kampagne ist es nämlich enorm wichtig, dass unterschiedliche Personen in deine Kampagne einzahlen: z.B. Familie, Freunde, Bekannte oder andere persönliche Kontakte.</strong>
+        </p>
+        <p>
+          Es gibt eine Formel: ca. 30 % deines Wunschbetrags kommen in den ersten Tagen auf diesem Wege zusammen und ziehen dann weitere Unterstützer*innen an. Die ersten Unterstützer*innen zu gewinnen ist das A und O einer erfolgreichen Kampagne.
+        </p>
+      </div>
+      <%= render @crowd_campaign, manage_buttons: true %>
     </div>
 
   <% elsif @crowd_campaign.approved? %>
 
-    <div class="hl-subtext">
-      <h2><span>Yeah, großartig,</span> der erste wichtige Schritt ist geschafft!</h2>
-      <p>Deine Kampagne steht nun in den Startlöchern - Wie gehts nun weiter?</p>
+    <div class="statuscontainer">
+      <div class="statustxt">
+        <div class="hl-subtext">
+          <h2><span>Deine Kampagne </span>ist freigegeben.</h2>
+          <p>
+            Deine Kampagne ist nun bereit und startet am <%= I18n.localize(@crowd_campaign.startdate, format:'%d. %b %Y') %>
+          </p>
+        </div>
+        <p>
+          <strong>Hast du die Listen mit den persönlichen Kontakten in der Zwischenzeit erstellt?</strong> Das ist der wichtigste Baustein, also falls du es noch nicht getan hast, dann los.
+        </p>
+        <p>
+          <strong>Der nächste Schritt:</strong> Überlege dir die verschiedene Texte und Bilder für Postings in den sozialen Netzwerken, je nachdem, wo du aktiv bist.
+        </p>
+        <p>
+          Hast du einen Newsletter, den du verschickst? Dort darf deine Kampagne und dein Vorhaben natürlich auch rein. Kennst du persönlich Menschen, die viele Kontakte und eine größere Reichweite haben, dann frage sie, ob sie dein Vorhaben unterstützen könnten, indem sie die Kampagne in den sozialen Netzwerken teilen oder in ihren Newsletter aufnehmen.
+        </p>
+        <p>
+          Du bekommst von uns eine Benachrichtigung, sobald deine Kampagne online ist.
+        </p>
+      </div>
+      <%= render @crowd_campaign, manage_buttons: true %>
     </div>
 
-  <% elsif @crowd_campaign.funding? %>
+  <% elsif @crowd_campaign.scope_public? %>
 
-    <div class="hl-subtext">
-      <h2><span>Wie aufregend,</span> deine Kampagne läuft gerade.</h2>
-      <p>Jetzt heissts unbedingt mit voller Kraft dran bleiben!</p>
-    </div>
-
-  <% elsif @crowd_campaign.completed? %>
-
-    <% if @crowd_campaign.successful? %>
+    <% if @crowd_campaign.funding? %>
+      <% number, unit = campaign_remaining_time(@crowd_campaign) %>
+      <div class="hl-subtext">
+        <h2>Deine Kampagne ist aktiv und <span>läuft gerade</span></h2>
+        <p>
+          Restliche Laufzeit deiner Kampagne: <strong><%= number %> <%= unit %></strong>.<br>
+          Wir drücken ganz fest die Daumen!
+        </p>
+      </div>
+    <% elsif @crowd_campaign.successful? %>
       <div class="hl-subtext">
         <h2>Übersicht & <span>Fundingstatistik</span></h2>
         <p>Herzlichen Glückwunsch zu deiner erfolgreichen Kampagne!</p>
       </div>
-    <% else %>
+    <% elsif @crowd_campaign.successful? %>
       <div class="hl-subtext">
         <h2><span>Deine Kampagne</span> ist abgeschlossen.</h2>
         <p>Leider hats diesmal nicht geklappt ...</p>
       </div>
     <% end %>
 
+    <% if @crowd_campaign.completed? %>
     <div class="paperCard video -cord1RT">
       <div class="wrp">
         <div class="funding-stats">
@@ -80,7 +116,7 @@
       </div>
       <div class="card"></div>
     </div>
-
+    <% end %>
 
     <div class='tabs-ctrl -plain'>
       <ul class="tabs-nav">
@@ -103,9 +139,11 @@
 
         </div>
 
-        <%= link_to download_supporters_crowd_campaign_path(@crowd_campaign, format: :xlsx), class: 'btn-secondary -mint -ico' do %>
-          <span>Download UnterstützerInnen als Excel</span>
-          <%= icon_tag "download" %>
+        <% if @crowd_campaign.completed? %>
+          <%= link_to download_supporters_crowd_campaign_path(@crowd_campaign, format: :xlsx), class: 'btn-secondary -mint -ico' do %>
+            <span>Download UnterstützerInnen als Excel</span>
+            <%= icon_tag "download" %>
+          <% end %>
         <% end %>
 
       </div>
