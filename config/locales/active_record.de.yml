@@ -376,3 +376,5 @@ de:
           completed: Abgeschlossen
       crowd_campaign_post:
         title: Titel
+      crowd_pledge:
+        contact_name: Name
