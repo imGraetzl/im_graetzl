@@ -93,6 +93,32 @@ section.crowdfunding-form {
   }
 
   &.-statuspage {
+
+    .statuscontainer {
+      margin-top:50px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      //align-items: center;
+      .cardBox {
+        width:35%;
+        max-width: 300px;
+      }
+      .statustxt {
+        width:60%;
+      }
+      p {
+        margin-bottom:30px;
+      }
+      @include respond-to("<=medium") {
+        margin-top:30px;
+        justify-content: center;
+        .cardBox, .statustxt {
+          width:100%;
+        }
+      }
+    }
+
     .tabs-ctrl {
       margin-top:70px;
     }

@@ -26,7 +26,7 @@
         <%= icon_tag "at-symbol" %>
         <span>E-Mail</span>
       <% end %>
-      <%= f.text_field :email, placeholder: 'E-Mail Adresse' %>
+      <%= f.text_field :email, placeholder: 'E-Mail Adresse', required: true %>
     </div>
 
     <div class="input-field">
@@ -34,7 +34,7 @@
         <%= icon_tag "user-avatar" %>
         <span>Name</span>
       <% end %>
-      <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname' %>
+      <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname', required: true %>
     </div>
 
     <div class="input-field">
@@ -42,7 +42,7 @@
         <%= icon_tag "map-location" %>
         <span>Strasse & Nr.</span>
       <% end %>
-      <%= f.text_field :address_street, placeholder: 'Strasse & Nr.' %>
+      <%= f.text_field :address_street, placeholder: 'Strasse & Nr.', required: @crowd_pledge.crowd_reward&.delivery_address_required? %>
     </div>
 
     <div class="form-columns">
@@ -52,7 +52,7 @@
           <%= icon_tag "map-location" %>
           <span>Postleitzahl</span>
         <% end %>
-        <%= f.text_field :address_zip, placeholder: 'PLZ' %>
+        <%= f.text_field :address_zip, placeholder: 'PLZ', required: @crowd_pledge.crowd_reward&.delivery_address_required? %>
       </div>
 
       <div class="input-field">
@@ -60,7 +60,7 @@
           <%= icon_tag "map-location" %>
           <span>Ort/Stadt</span>
         <% end %>
-        <%= f.text_field :address_city, placeholder: 'Stadt' %>
+        <%= f.text_field :address_city, placeholder: 'Stadt', required: @crowd_pledge.crowd_reward&.delivery_address_required? %>
       </div>
     </div>
 

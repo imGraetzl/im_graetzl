@@ -25,8 +25,7 @@
 
   <div class="hl-subtext">
     <h1><span>WeLocally gibt es</span> in diesen Gebieten:</h1>
-    <p class="mail-hint">Innovative Gemeinden sind herzlich eingeladen sich anzudocken! <%= link_to 'Zum Open Call 2022', call_2022_url(host: welocally_platform_host) %></p>
-    <!--<p class="mail-hint">Möchtest du, dass WeLocally auch in deine Region kommt? Dann melde dich bei uns: <%= mail_to "mailto:wir@welocally.at", 'wir@welocally.at' %></p>-->
+    <p class="mail-hint">Innovative Gemeinden sind herzlich eingeladen sich anzudocken! <%= link_to 'Zum Call', call_2022_url(host: welocally_platform_host) %></p>
   </div>
 
   <div class="region-switch-icons">
@@ -39,7 +38,7 @@
       <% end %>
     <% end %>
     <%= link_to call_2022_url(host: welocally_platform_host), class: 'badge -arrow' do %>
-      WeLocally Call 2022
+      WeLocally Call
     <% end %>
   </div>
 

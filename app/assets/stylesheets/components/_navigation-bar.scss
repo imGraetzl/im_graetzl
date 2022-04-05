@@ -181,6 +181,7 @@ body.desk .navigation-bar {
       text-align: center;
       padding-top:20px;
       margin-left: 0px;
+      white-space: nowrap;
     }
     @include respond-to("<medium") {
       height:100% !important;
