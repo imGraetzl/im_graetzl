@@ -60,7 +60,7 @@
           Wir drücken ganz fest die Daumen!
         </p>
       </div>
-      <%= render 'funding_bar' %>
+      <%= render 'funding_bar' rescue nil %>
     <% elsif @crowd_campaign.successful? %>
       <div class="hl-subtext">
         <h2>Übersicht & <span>Fundingstatistik</span></h2>
