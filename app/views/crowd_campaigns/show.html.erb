@@ -40,7 +40,7 @@
 
   <div class="layoutArea fundingArea">
     <div class="mainArea">
-      <%= render 'funding_bar' %>
+      <%= render 'funding_bar' rescue nil %>
     </div>
     <div class="sideArea">
       <% if current_user == @crowd_campaign.user && !@preview %>

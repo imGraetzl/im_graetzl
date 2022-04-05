@@ -24,7 +24,7 @@
       <p><%= crowd_campaign.slogan.truncate(110) %></p>
     </div>
 
-    <%= render 'crowd_campaigns/funding_bar' %>
+    <%= render 'crowd_campaigns/funding_bar' rescue nil %>
 
     <% if crowd_campaign_post = crowd_campaign.actual_newest_post %>
       <%= link_to [crowd_campaign, target: dom_id(crowd_campaign_post)], class: 'updateteaser' do %>
