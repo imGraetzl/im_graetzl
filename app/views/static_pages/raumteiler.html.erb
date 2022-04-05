@@ -106,8 +106,8 @@
     <article class="container" id="3">
       <h2 id="raumteiler-guide">Raumteiler Guide</h2>
       <h3>Deine Schritt-für-Schritt Anleitung zum Räume teilen.</h3>
-      <a href="https://blog.imgraetzl.at/wp-content/uploads/2019/02/RaumteilerGuide2019.pdf">
-        <%= image_tag'info/Raumteiler-Guide-2019-Deckblatt.png', class: 'guide' %>
+      <a href="<%= t("region.#{current_region.id}.raumteiler_guide_url") %>">
+        <%= image_tag "regions/#{current_region.id}/Raumteiler-Guide-Deckblatt.png", class: 'guide' %>
       </a>
       <p>
         Wenn du Fragen rund ums Räume teilen hast, der "Raumteiler Guide" erklärt Schritt für Schritt,
@@ -116,7 +116,7 @@
       </p>
       <br>
       <p>
-        <a href="https://blog.imgraetzl.at/wp-content/uploads/2019/02/RaumteilerGuide2019.pdf" class="btn-primary -mint -download" id="guide-download">Raumteiler Guide gratis downloaden</a>
+        <a href="<%= t("region.#{current_region.id}.raumteiler_guide_url") %>" class="btn-primary -mint -download" id="guide-download">Raumteiler Guide gratis downloaden</a>
       </p>
       <br style="clear:both;">
     </article>

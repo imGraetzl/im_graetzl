@@ -62,6 +62,8 @@
   </tbody>
 </table>
 
+<% if @room_offer.region.id == 'wien' || @room_offer.region.id == 'muehlviertler-kernland' %>
+
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
   <tr>
@@ -93,8 +95,8 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
-        <a href="https://blog.imgraetzl.at/wp-content/uploads/2019/02/RaumteilerGuide2019.pdf">
-          <img src="https://gallery.mailchimp.com/3accfa3feb5f05b82bd1fddc6/images/5cfdf3ab-5625-4d38-a5fd-11cea73ffeea.png" style="width:200px; padding-bottom:10px; padding-top:10px; padding-right:20px; float:left;" alt="" class="mcnImage">
+        <a href="<%= t("region.#{@room_offer.region.id}.raumteiler_guide_url") %>">
+          <%= image_tag "regions/#{@room_offer.region.id}/Raumteiler-Guide-Deckblatt.png", style: "width:200px; padding-bottom:10px; padding-top:10px; padding-right:20px; float:left;", class: "mcnImage" %>
         </a>
         <p>
           <strong>Deine Schritt-für-Schritt Anleitung zum Räume teilen.</strong>
@@ -102,7 +104,7 @@
         <p>
           Wenn du Fragen rund ums Räume teilen hast, der "Raumteiler Guide" erklärt Schritt
           für Schritt, was es beim Räume teilen und beim Andocken zu beachten gibt. Enthalten sind
-          außerdem Musterverträge und die wichtigsten Anlaufadresse in Wien.
+          außerdem Musterverträge und die wichtigsten Anlaufadressen <%= t("region.#{@room_offer.region.id}.in_your_region") %>.
         </p>
 
         <!-- BUTTON -->
@@ -114,7 +116,7 @@
                   <tbody>
                     <tr>
                       <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 10px;">
-                        <a class="mcnButton " title="Button" href="https://blog.imgraetzl.at/wp-content/uploads/2019/02/RaumteilerGuide2019.pdf" target="_blank" style="font-weight: normal;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Hier gratis downloaden</a>
+                        <a class="mcnButton " title="Button" href="<%= t("region.#{@room_offer.region.id}.raumteiler_guide_url") %>" target="_blank" style="font-weight: normal;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Hier gratis downloaden</a>
                       </td>
                     </tr>
                   </tbody>
@@ -131,3 +133,5 @@
     </tr>
   </tbody>
 </table>
+
+<% end %>
