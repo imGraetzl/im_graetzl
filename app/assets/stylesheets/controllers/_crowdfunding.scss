@@ -415,6 +415,7 @@ section.crowd_campaign {
       @include font-size-secondaryFont('small');
     }
     a {
+      color: $color-ambient-mint;
       display: block;
       font-style: italic;
       font-weight: bold;
