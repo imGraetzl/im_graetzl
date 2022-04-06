@@ -177,7 +177,7 @@ de:
 
   crowd_campaigns:
     show:
-      title: 'WeLocally Crowdfunding: %{title}'
+      title: 'Crowdfunding: %{title}'
       description: '%{desc}...'
 
   crowd_pledges:
