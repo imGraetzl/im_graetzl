@@ -52,6 +52,7 @@ APP.components.headerNavigation = (function() {
       menuLink.parents(".nav-dropdown-menu").find(".nav-dropdown-submenu.shown").removeClass("shown");
       submenu.addClass("shown");
       submenu.find(".nav-load-form").submit();
+      $('html, body').animate({ scrollTop: 0 }, 'fast'); // Scroll to top intoView
     }
 
     // Notifications
