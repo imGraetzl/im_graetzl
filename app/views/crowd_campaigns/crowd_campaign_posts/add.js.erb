@@ -5,7 +5,7 @@
     $streamForm.after("<%= j render 'crowd_campaigns/crowd_campaign_posts/post', post: @crowd_campaign_post %>");
     $streamForm.replaceWith("<%= j render 'crowd_campaigns/crowd_campaign_posts/post_form' %>");
     APP.components.stream.init();
-    APP.components.stream.initLinkify($("#crowd_campaign_post_" + <%= @crowd_campaign_post.id %> + " .txt"));
+    APP.components.stream.initLinkify($("#crowd_campaign_post_" + <%= @crowd_campaign_post.id %> + " .txtlinky"));
     APP.controllers.application.jBoxGallery();
   <% else %>
     alert('<%= @crowd_campaign_post.errors.full_messages.first %>');
