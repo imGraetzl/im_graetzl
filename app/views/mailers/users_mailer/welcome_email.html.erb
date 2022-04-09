@@ -43,7 +43,7 @@
 
         <strong>5.)</strong>
         <em>
-          <strong>Du kannst dich im Coop & Share Marktplatz mit Gleichgesinnten vernetzen.</strong> Finde Kooperationen, Tauschgeschäfte, entdecke Initiativen und Vereine oder docke dich  an Netzwerke, Teams und Mentor*innen zur gegenseitigen Unterstützung an (kostenlos)<br>
+          <strong>Du kannst dich im Coop & Share Marktplatz mit Gleichgesinnten vernetzen.</strong> Finde Kooperationen, Projektpartner*innen, entdecke Initiativen und Vereine oder stelle Schnuppersessions und Tauschgeschäfte rein (kostenlos).<br>
           <%= link_to new_coop_demand_url(host: @user.region.host), new_coop_demand_url(host: @user.region.host), target: '_blank' %>
         </em>
 
@@ -59,6 +59,16 @@
             <%= link_to zuckerls_user_url(host: @user.region.host), zuckerls_user_url(host: @user.region.host), target: '_blank' %>
           <% end %>
         </em>
+
+        <% if @user.beta_user? %>
+          <br><br>
+
+          <strong>7.)</strong>
+          <em>
+            <strong>Du hast ein Vorhaben, dass du in die Umsetzung bringen möchtest?</strong> Dann schau dir die <%= t("region.#{@user.region.id}.domain_short") %> Crowdfunding Tools an. Du kannst dein Vorhaben damit sichtbarer machen und für die Umsetzung Geld, Zeit-, Raum- & Sachspenden sammeln (nur bei einer erfolgreichen Kampagne fällt eine Service-Fee an)<br>
+            <%= link_to region_crowd_campaigns_url(host: @user.region.host), region_crowd_campaigns_url(host: @user.region.host), target: '_blank' %>
+          </em>
+        <% end %>
 
         <br><br>
 
