@@ -7,7 +7,12 @@ class MessengerController < ApplicationController
   end
 
   def start_thread
-    if params[:room_rental_id].present?
+
+    if !current_user.admin? && current_user.user_message_threads.where(created_at: 1.hours.ago..Time.now).count > 10
+      # Spam Filter
+      AdminMailer.messenger_spam_alert(current_user).deliver_later
+      redirect_to root_path, notice: 'Zu viele Messenger Unterhaltungen mit diesem User innerhalb kurzer Zeit ...' and return
+    elsif params[:room_rental_id].present?
       room_rental = RoomRental.find(params[:room_rental_id])
       thread = UserMessageThread.create_for_room_rental(room_rental)
     elsif params[:tool_rental_id].present?
