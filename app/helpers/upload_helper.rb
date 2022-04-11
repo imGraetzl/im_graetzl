@@ -22,6 +22,8 @@ module UploadHelper
         )
       end
 
+      concat(content_tag(:div, '', class: 'img-upload-error'))
+
       if f.object.public_send(field_name).present? || live_preview
         concat(content_tag(:div, class: "upload-previews #{field_name} #{f.object.class.name.downcase} #{f.object.public_send(field_name).present? ? 'show-hint' : ''}") do
           multiple ? uploaded_images_edit(f, field_name, disabled:disabled) : uploaded_image_edit(f, field_name, disabled:disabled)
@@ -32,7 +34,6 @@ module UploadHelper
           concat(content_tag(:small, 'Info: Dein Bild wird wie oberhalb dargestellt quadratrisch zugeschnitten.', class: 'img-upload-hint'))
         end
       end
-
     end
   end
 

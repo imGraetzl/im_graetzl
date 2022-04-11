@@ -10,6 +10,15 @@
   font-style: italic;
 }
 
+.img-upload-error {
+  background-color: #FEF6DF;
+  color: #cd891b;
+  margin-top:10px;
+  padding: 8px;
+  font-style: italic;
+  display: none;
+}
+
 .upload-preview {
   margin-top: 10px;
   display: flex;
