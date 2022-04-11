@@ -62,7 +62,7 @@ APP.components.fileUpload = (function() {
     }
 
     uppy.on('info-visible', function() {
-      const { info } = uppy.getState();
+      var { info } = uppy.getState();
       previewContainer.closest('.upload-container').find('.img-upload-error').html(info.message).slideDown();
     });
 
