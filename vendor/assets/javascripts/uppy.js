@@ -1660,8 +1660,8 @@
             1: 'Failed to add %{smart_count} files due to internal errors'
           },
           youCanOnlyUploadX: {
-            0: 'You can only upload %{smart_count} file',
-            1: 'You can only upload %{smart_count} files'
+            0: 'Es können maximal %{smart_count} Bilder hochegalden werden.',
+            1: 'Es können maximal %{smart_count} Bilder hochegalden werden.'
           },
           youHaveToAtLeastSelectX: {
             0: 'You have to select at least %{smart_count} file',
@@ -1673,11 +1673,11 @@
           // substitution.
           // TODO: In 2.0 `exceedsSize2` should be removed in and `exceedsSize` updated to use substitution.
           exceedsSize2: '%{backwardsCompat} %{size}',
-          exceedsSize: 'This file exceeds maximum allowed size of',
+          exceedsSize: 'Zu große Bilder können nicht hochgeladen werden. Maximale Dateigröße:',
           inferiorSize: 'This file is smaller than the allowed size of %{size}',
-          youCanOnlyUploadFileTypes: 'You can only upload: %{types}',
+          youCanOnlyUploadFileTypes: 'Es können nur folgende Formate hochgeladen werden: %{types}',
           noNewAlreadyUploading: 'Cannot add new files: already uploading',
-          noDuplicates: 'Cannot add the duplicate file \'%{fileName}\', it already exists',
+          noDuplicates: 'Folgende Datei existiert bereits: \'%{fileName}\'',
           companionError: 'Connection with Companion failed',
           companionUnauthorizeHint: 'To unauthorize to your %{provider} account, please go to %{url}',
           failedToUpload: 'Failed to upload %{file}',

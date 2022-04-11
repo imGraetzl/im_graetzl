@@ -24,6 +24,10 @@ APP.components.fileUpload = (function() {
       });
     });
 
+    uppy.on('file-added', function() {
+      previewContainer.closest('.upload-container').find('.img-upload-error').slideUp();
+    });
+
     uppy.on('upload-success', function(file, response) {
       var fileData = uploadedFileData(file, response, fileInput);
       var resultField = container.find(".direct-upload-result").last();
@@ -57,6 +61,11 @@ APP.components.fileUpload = (function() {
       });
     }
 
+    uppy.on('info-visible', function() {
+      const { info } = uppy.getState();
+      previewContainer.closest('.upload-container').find('.img-upload-error').html(info.message).slideDown();
+    });
+
     fileInput.addClass("uppy-setup");
   }
 
@@ -64,6 +73,8 @@ APP.components.fileUpload = (function() {
     var uppy = Uppy.Core({
       autoProceed: true,
       restrictions: {
+        maxFileSize: 5242880,
+        maxNumberOfFiles: 20,
         allowedFileTypes: fileInput.attr("accept").split(','),
       },
     })
