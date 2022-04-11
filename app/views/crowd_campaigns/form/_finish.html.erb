@@ -65,12 +65,12 @@
 
 <div class="form-block">
 
-  <p class="txt">Stellst du auch <span>Rechnungen für Dankeschöns</span> aus?</p>
+  <p class="txt">Kannst du <span>Rechnungen oder Spendenquittungen</span> ausstellen?</p>
 
   <div class="input-select">
     <%= label_tag :billable do %>
       <%= icon_tag "profile-vcard" %>
-      <span>Rechnung</span>
+      <span>Rechnung / Beleg</span>
     <% end %>
     <%= f.select :billable, billable_values, { include_blank: 'auswählen...' }, disabled: !@crowd_campaign.editable? %>
   </div>

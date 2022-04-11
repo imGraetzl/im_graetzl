@@ -44,9 +44,9 @@ module CrowdCampaignsHelper
 
   def billable_values
     [
-      ["Nein - Ich stelle keine Rechnungen aus", 'no_bill'],
-      ["Ja - Ich stelle Rechnungen ohne Ust. aus", 'bill'],
-      ["Ja - Ich stelle Rechnungen inkl. 20% Ust. aus", 'bill_with_tax']
+      ["Nein", 'no_bill'],
+      ["Ja, ich kann Rechnungen für Dankeschöns ausstellen", 'bill'],
+      ["Ja, ich kann Spendenquittungen ausstellen", 'donation_bill']
     ]
   end
 
