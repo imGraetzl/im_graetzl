@@ -7,7 +7,7 @@ APP.controllers_loggedin.room_demands = (function() {
   function initRoomForm() {
     APP.components.graetzlSelectFilter.init($('#area-select'));
     APP.components.search.userAutocomplete();
-    $("textarea").autoResize();
+    //$("textarea").autoResize();
 
     $('#custom-keywords').tagsInput({
       'defaultText':'Kurz in Stichworten ..'

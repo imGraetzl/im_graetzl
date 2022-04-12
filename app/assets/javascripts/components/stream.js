@@ -17,7 +17,7 @@ APP.components.stream = (function() {
         var $parent = $('.entryCreate').not('.js-initialized');
 
         if($parent.find('.postMessage').exists()) {
-            $parent.find('.postMessage').autoResize();
+            //$parent.find('.postMessage').autoResize();
             $parent.addClass('js-initialized')
                 .find('.postTitle, .postMessage')
                 .on("focusin", function() {
@@ -50,7 +50,6 @@ APP.components.stream = (function() {
         $parent
             .addClass('js-initialized')
             .find('textarea')
-            .autoResize()
             .on("focusin touch", function(){
                 (APP.utils.isLoggedIn()) ? $parent.addClass("is-focused") : injectFormBlocker($parent);
             });

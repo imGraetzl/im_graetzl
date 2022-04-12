@@ -29,7 +29,7 @@
 //= require lightslider
 //= require modernizr.custom
 //= require unscroll
-//= require autoresize
+//= require autoheight
 //= require jBox.min
 //= require cocoon
 //= require_directory ./utils

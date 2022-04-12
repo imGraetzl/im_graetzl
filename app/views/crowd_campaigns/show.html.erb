@@ -45,14 +45,10 @@
     <div class="sideArea">
       <% if current_user == @crowd_campaign.user && !@preview %>
         <%= link_to 'javascript:', class: 'btn-primary -rose -large -shadow -ico jBoxTooltip', data: {tooltip_id: "tt-crowdcampaign-#{@crowd_campaign.id}"} do %>
-          <span>Unterstützen</span>
+          <span>Kampagnen Optionen</span>
           <%= icon_tag "arrow-down-2" %>
         <% end %>
         <div class="jBoxHidden jBoxDropdown" id="<%= "tt-crowdcampaign-#{@crowd_campaign.id}" %>">
-          <%= link_to 'javascript:', class: 'btn-support' do %>
-            <%= icon_tag "crowd" %>
-            <div class="icontxt">Unterstützen</div>
-          <% end %>
           <% if @crowd_campaign.scope_public? %>
             <%= link_to status_crowd_campaign_path(@crowd_campaign) do %>
               <%= icon_tag "bar-chart-growth" %>
@@ -64,7 +60,7 @@
             <div class="icontxt">Kampagne bearbeiten</div>
           <% end %>
           <% if @crowd_campaign.draft? %>
-            <%= link_to crowd_campaign_path(@crowd_campaign), data: { confirm: 'Bist du dir sicher?' }, method: :delete do %>
+            <%= link_to crowd_campaign_path(@crowd_campaign), data: { confirm: 'Bist du dir wirklich sicher?' }, method: :delete do %>
               <%= icon_tag "cross" %>
               <div class="icontxt">Kampagne löschen</div>
             <% end %>

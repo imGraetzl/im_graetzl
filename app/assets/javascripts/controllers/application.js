@@ -7,6 +7,7 @@ APP.controllers.application = (function() {
 
     if($(".welocally").exists()) chooseRegionModal();
     $('.txtlinky').linkify({ target: "_blank"});
+    $('textarea').autoheight();
     jBoxGallery();
 
     // WeLocally Register and Login Choose Region Modal
@@ -36,6 +37,19 @@ APP.controllers.application = (function() {
         }
       });
     }
+
+    // Safari Fix - Disable Sumbit Buttons onClick (rails disable_with not working)
+    $('[data-disable-with]').on('click', function(){
+      $btn = $(this);
+      $btnOriginalText = $btn.text();
+      $btnDisabledText = $btn.data('disable-with');
+      $btn.addClass('-disabled');
+      $btn.text($btnDisabledText);
+      setTimeout(function(){
+        $btn.removeClass('-disabled');
+        $btn.text($btnOriginalText);
+      }, 500);
+    });
 
     // Set Screen Mode Class
     enquire

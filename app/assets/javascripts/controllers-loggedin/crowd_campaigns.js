@@ -20,7 +20,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       APP.components.search.userAutocomplete();
       APP.components.tabs.initTabs(".tabs-ctrl");
 
-      $("textarea").autoResize();
+      //$("textarea").autoResize();
 
       $('.crowdfunding-form').find(':disabled').closest("div[class^='input-']").addClass('disabled');
 
@@ -142,6 +142,9 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
           iframe.src = $("#cfpreview").data('url');
           iframe.style.width = iframewidth;
           iframe.style.height = iframeheight;
+        },
+        onClose: function() {
+          window.location.reload(); // Needed to prevent double nested form entries
         },
       });
 

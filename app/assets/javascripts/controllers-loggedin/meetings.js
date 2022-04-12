@@ -57,7 +57,7 @@ APP.controllers_loggedin.meetings = (function() {
         });
       }).trigger('cocoon:after-insert');
 
-      $("textarea").autoResize();
+      //$("textarea").autoResize();
 
       // online meeting switch
       $('.online-meeting-switch').on('change', function() {

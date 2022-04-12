@@ -14,7 +14,7 @@
     <div class="category-switch cardBox">
       <% CoopDemandCategory.all.each do |category| %>
         <div class="input-radio">
-          <%= f.radio_button :coop_demand_category_id, category.id, required: true, class: 'coop-category-switch' %>
+          <%= f.radio_button :coop_demand_category_id, category.id, class: 'coop-category-switch' %>
           <%= f.label :coop_demand_category_id, category.name, :value => category.id %>
         </div>
       <% end %>

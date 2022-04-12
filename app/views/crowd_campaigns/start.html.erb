@@ -7,7 +7,10 @@
 
   <%= render 'crowd_campaigns/form/intro_video' %>
 
-  <%= link_to "Starte jetzt dein Projekt", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow' %>
+  <div class="btns">
+    <%= link_to "Starte jetzt ein neues Projekt", new_crowd_campaign_path, class: 'btn-primary -rose -large -shadow' %>
+    <%= link_to "Zu deinen bestehenden Projekten", crowd_campaigns_user_path, class: 'btn-secondary -mint -large -shadow' if current_user.crowd_campaigns.present? %>
+  </div>
 
   <%= render 'crowd_campaigns/form/intro_guidelines' %>
 
