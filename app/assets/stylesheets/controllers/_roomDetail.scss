@@ -1,3 +1,25 @@
+.furtherRoomBlock {
+  clear: both;
+  margin-top:60px;
+  padding-top: 60px;
+  border-top: 1px solid $color-ambient-mint-light-lowsaturation;
+  .bigicontext-element {
+    .txt {
+      font-size: 1.2em;
+      margin-left: 24px;
+    }
+    a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  .wrp-hl {
+    margin-bottom: 30px;
+  }
+}
+
 section.roomDetail {
 
   .cardBox {
@@ -383,7 +405,7 @@ section.roomDetail {
     }
 
     @include respond-to(">=large") {
-      margin: 0 0 60px -25px;
+      margin: 0px 0px -30px -25px;
     }
     .cardBox.-zuckerl {
       margin-bottom: 40px;

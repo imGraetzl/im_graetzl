@@ -1,0 +1,11 @@
+<div class="wrp-hl">
+  <div class="bigicontext-element">
+    <%= icon_tag('raumteiler') %>
+    <div class="txt">
+      Weitere ähnliche Raumteiler (<%= link_to "zu allen Raumteilern", region_rooms_path %>)
+    </div>
+  </div>
+</div>
+<%= form_tag rooms_path(filter:{room_type: "offer", room_category_ids: [@room_offer.room_categories.map(&:id).join(", ")]}, exclude_room_offer: @room_offer.id, per_page: 3), method: :get, remote: true, class: 'autosubmit-stream' do; end %>
+<div class="cardBoxCollection -tripple" data-behavior="rooms-card-container"></div>
+<%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'rooms-paginate-link' }, rel: 'nofollow' %>
