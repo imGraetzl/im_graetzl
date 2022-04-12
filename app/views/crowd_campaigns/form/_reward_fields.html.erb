@@ -74,7 +74,7 @@
       <%= f.text_area :question, placeholder: 'Benötigst du weitere Infos der UnterstützerIn zu diesem Dankeschön? ...', disabled: disabled %>
     </div>
     <% if deleteable %>
-      <%= link_to_remove_association f, data: { confirm: 'Dankeschön entfernen?' } do %>
+      <%= link_to_remove_association f, data: { confirm: 'Dankeschön löschen?' } do %>
         <div class="btn-delete">
           <%= icon_tag "trash-delete-remove" %>
         </div>

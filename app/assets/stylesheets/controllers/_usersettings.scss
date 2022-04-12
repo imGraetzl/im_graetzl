@@ -115,9 +115,20 @@ section.user-settings {
 }
 
 section.usersetup.-crowd_campaigns {
-  .btn-primary.-large {
-    display: table;
-    margin: auto;
+  .btns {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    a {
+      margin-top:10px;
+      margin-left:10px;
+      margin-right:10px;
+      @include respond-to("<=small") {
+        width:100%;
+        margin-left:0px;
+        margin-right:0px;
+      }
+    }
   }
   .guidelines {
     margin-top:50px;
