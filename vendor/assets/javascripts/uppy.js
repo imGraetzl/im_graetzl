@@ -1660,8 +1660,8 @@
             1: 'Failed to add %{smart_count} files due to internal errors'
           },
           youCanOnlyUploadX: {
-            0: 'Es können maximal %{smart_count} Bilder hochegalden werden.',
-            1: 'Es können maximal %{smart_count} Bilder hochegalden werden.'
+            0: 'Es können maximal %{smart_count} Bilder gleichzeitig hochgeladen werden.',
+            1: 'Es können maximal %{smart_count} Bilder gleichzeitig hochgeladen werden.'
           },
           youHaveToAtLeastSelectX: {
             0: 'You have to select at least %{smart_count} file',
