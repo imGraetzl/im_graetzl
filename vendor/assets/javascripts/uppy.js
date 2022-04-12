@@ -1681,8 +1681,8 @@
           companionError: 'Connection with Companion failed',
           companionUnauthorizeHint: 'To unauthorize to your %{provider} account, please go to %{url}',
           failedToUpload: 'Failed to upload %{file}',
-          noInternetConnection: 'No Internet connection',
-          connectedToInternet: 'Connected to the Internet',
+          noInternetConnection: 'Fehlende Internetverbindung ...',
+          connectedToInternet: 'Internetverbindung hergestellt',
           // Strings for remote providers
           noFilesFound: 'You have no files or folders here',
           selectX: {
