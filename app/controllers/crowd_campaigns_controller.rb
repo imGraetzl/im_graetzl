@@ -98,10 +98,6 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_campaign.clear_address if params[:no_address] == 'true'
 
-    puts "----------------"
-    puts @crowd_campaign.crowd_donations.map(&:title)
-    puts editable_campaign_params
-
     if @crowd_campaign.editable?
       @crowd_campaign.assign_attributes(editable_campaign_params)
     else

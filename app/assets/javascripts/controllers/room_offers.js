@@ -77,6 +77,14 @@ APP.controllers.room_offers = (function() {
 
     if ($("#leafletMap").exists()) APP.components.leafletMap.init($('#leafletMap'));
 
+    // Submit Further Rooms & Hide Block if Empty
+    $('.autosubmit-stream').submit();
+    $(".autosubmit-stream").bind('ajax:complete', function() {
+      if ($("[data-behavior=rooms-card-container]").is(':empty')){
+        $(".furtherRoomBlock").hide();
+      }
+    });
+
   }
 
   return {

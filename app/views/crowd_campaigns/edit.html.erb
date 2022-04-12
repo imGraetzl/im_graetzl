@@ -12,7 +12,7 @@
 
   <div class="input-button">
     <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
-    <%= link_to 'Vorschau', 'javascript:', class: ["btn-secondary", "-mint", @crowd_campaign.editable? ? 'save-and-preview' : '-disabled'] %>
+    <%= link_to 'Vorschau', 'javascript:', data: { disable_with: 'speichert...' }, class: ["btn-secondary", "-mint", @crowd_campaign.editable? ? 'save-and-preview' : '-disabled'] %>
     <%= f.button 'Weiter zur Projekt Beschreibung', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: edit_description_crowd_campaign_path(@crowd_campaign) if !f.object.new_record? %>
   </div>
 
