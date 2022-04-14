@@ -47,6 +47,10 @@ section.crowd_campaign {
         display: none;
       }
     }
+    .supporter.-donation:not(:first-child) {
+      border-left: 1px dashed $color-ambient-mint-light;
+      padding-left:25px;
+    }
   }
 
   .hl-subtext {
@@ -302,6 +306,20 @@ section.crowd_campaign {
     }
   }
 
+}
+.crowd_campaign .-rewardBox.soldOut {
+  &::before {
+    opacity: 0.6;
+    content: 'Vergriffen';
+    position: absolute;
+    bottom:0px;
+    right:-15px;
+    z-index: 11;
+    transform: rotate(-17deg);
+    @include headlineBarbapapaMintDark();
+    @include font-size-secondaryFont('small');
+    filter: grayscale(1);
+  }
 }
 
 .crowd_campaign .-rewardBox, .crowd-pledges-page .-rewardBox {

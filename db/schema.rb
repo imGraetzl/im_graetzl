@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_28_095624) do
+ActiveRecord::Schema.define(version: 2022_04_13_091510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -285,6 +285,8 @@ ActiveRecord::Schema.define(version: 2022_03_28_095624) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
+    t.integer "donation_type"
     t.index ["crowd_campaign_id"], name: "index_crowd_donation_pledges_on_crowd_campaign_id"
     t.index ["crowd_donation_id"], name: "index_crowd_donation_pledges_on_crowd_donation_id"
     t.index ["region_id"], name: "index_crowd_donation_pledges_on_region_id"

@@ -1,14 +1,14 @@
-<div class="nested-fields -line crowd-donation-material">
-  <%= f.hidden_field :donation_type, value: 'material' %>
+<div class="nested-fields -line crowd-donation-room">
+  <%= f.hidden_field :donation_type, value: 'room' %>
   <% disabled = local_assigns[:disabled] %>
   <% deleteable = !local_assigns[:disabled] %>
 
   <div class="input-field -toggle">
     <%= f.label :title do %>
       <%= icon_tag "record" %>
-      <span>Benötigtes Material</span>
+      <span>Benötigte Räumlichkeiten</span>
     <% end %>
-    <%= f.text_field :title, placeholder: "Welches Material / Equipment benötigst du? ...", required: !@crowd_campaign.draft?, disabled: disabled %>
+    <%= f.text_field :title, placeholder: "Welche art von Räumlichkeiten benötigst du? ...", required: !@crowd_campaign.draft?, disabled: disabled %>
   </div>
 
   <div class="toggle-content">
@@ -16,9 +16,9 @@
     <div class="input-field">
       <%= f.label :limit do %>
         <%= icon_tag "slots" %>
-        <span>Benötigte Stückzahl</span>
+        <span>Benötigte Anzahl</span>
       <% end %>
-      <%= f.text_field :limit, placeholder: "Wieviel benötigst du maximal von diesem Material?", disabled: disabled %>
+      <%= f.text_field :limit, placeholder: "Wieviel dieser Räumlichkeiten benötigst du?", disabled: disabled %>
     </div>
 
     <div class="input-textarea">
@@ -59,12 +59,12 @@
     <div class="input-textarea">
       <%= f.label :question do %>
       <%= icon_tag "layout-document" %>
-      <span>Frage an die MaterialspenderIn</span>
+      <span>Frage an die RaumspenderIn</span>
       <% end %>
-      <%= f.text_area :question, placeholder: 'Benötigst du noch weitere Infos von der MaterialspenderIn? Stell hier deine Frage ...', disabled: disabled %>
+      <%= f.text_area :question, placeholder: 'Benötigst du noch weitere Infos von der RaumspenderIn? Stell hier deine Frage ...', disabled: disabled %>
     </div>
     <% if deleteable %>
-      <%= link_to_remove_association f, data: { confirm: 'Sachspende löschen?' } do %>
+      <%= link_to_remove_association f, data: { confirm: 'Raumspende löschen?' } do %>
         <div class="btn-delete">
           <%= icon_tag "trash-delete-remove" %>
         </div>

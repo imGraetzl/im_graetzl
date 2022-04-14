@@ -24,6 +24,7 @@ class CrowdCampaign < ApplicationRecord
   accepts_nested_attributes_for :crowd_donations, allow_destroy: true, reject_if: :all_blank
 
   has_many :crowd_pledges
+  has_many :crowd_donation_pledges
 
   has_many :crowd_campaign_posts, dependent: :destroy
   has_many :comments, through: :crowd_campaign_posts

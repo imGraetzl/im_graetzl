@@ -46,7 +46,7 @@
 
   <p class="txt">Benötigst du auch <span>Materialspenden</span>?</p>
 
-  <div class="crowd-donations-assistance">
+  <div class="crowd-donations-material">
     <%= f.fields_for :crowd_donations, f.object.crowd_donations.material do |field_form| %>
       <%= render 'crowd_campaigns/form/crowd_donation_material_fields', f: field_form, disabled: !@crowd_campaign.editable? if !f.object.crowd_donations.material.empty? %>
     <% end %>
@@ -67,6 +67,21 @@
     <% end %>
     <div>
       <%= link_to_add_association 'Zeitspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_assistance_fields', class: 'btn-primary -mint -small' %>
+    </div>
+  </div>
+
+</div>
+
+<div class="form-block donations">
+
+  <p class="txt">Benötigst du auch <span>Raumspenden</span>?</p>
+
+  <div class="crowd-donations-room">
+    <%= f.fields_for :crowd_donations, f.object.crowd_donations.room do |field_form| %>
+      <%= render 'crowd_campaigns/form/crowd_donation_room_fields', f: field_form, disabled: !@crowd_campaign.editable? if !f.object.crowd_donations.room.empty? %>
+    <% end %>
+    <div>
+      <%= link_to_add_association 'Raumspende hinzufügen', f, :crowd_donations, partial: 'crowd_campaigns/form/crowd_donation_room_fields', class: 'btn-primary -mint -small' %>
     </div>
   </div>
 

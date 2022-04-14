@@ -123,6 +123,9 @@ de:
       crowd_pledge:
         one: Crowdfunding Unterstützung
         other: Crowdfunding Unterstützungen
+      crowd_donation_pledge:
+        one: Crowdfunding Unterstützung
+        other: Crowdfunding Unterstützungen
       crowd_category:
         one: Crowdfunding Kategorie
         other: Crowdfunding Kategorien
@@ -376,5 +379,10 @@ de:
           completed: Abgeschlossen
       crowd_campaign_post:
         title: Titel
+      crowd_donation:
+        donation_type:
+          material: Materialspende
+          assistance: Zeitspende
+          room: Raumspende
       crowd_pledge:
         contact_name: Name

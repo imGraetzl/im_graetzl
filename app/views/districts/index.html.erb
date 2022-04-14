@@ -12,6 +12,18 @@
   <%= render 'map' %>
   <%= render 'navigation' %>
 
+  <% if @activity_sample.crowd_campaigns.present? %>
+    <div class="block-crowdcampaigns">
+      <div class="hl-subtext">
+        <h1>Lokales — <span>Crowdfunding</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
+        <p>Setze deine Vorhaben mit der Kraft der Gemeinschaft um.</p>
+      </div>
+      <div class="cardBoxCollection -tripple -morelink">
+        <%= render @activity_sample.crowd_campaigns %>
+        <%= render 'crowd_campaigns/action_card', district: @district, view_all: true %>
+      </div>
+    </div>
+  <% end %>
   <div class="block-meetings">
     <div class="hl-subtext">
       <h1>Mach mit - <span>Events &amp; Workshops</span> im <%= @district.numeric %>. Bezirk</h1>

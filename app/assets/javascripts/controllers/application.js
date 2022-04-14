@@ -40,16 +40,26 @@ APP.controllers.application = (function() {
 
     // Safari Fix - Disable Sumbit Buttons onClick (rails disable_with not working)
     $('[data-disable-with]').on('click', function(){
-      $btn = $(this);
-      $btnOriginalText = $btn.text();
-      $btnDisabledText = $btn.data('disable-with');
+      var $btn = $(this);
+      var btnOriginalText = $btn.text();
+      var btnDisabledText = $btn.data('disable-with');
       $btn.addClass('-disabled');
-      $btn.text($btnDisabledText);
+      $btn.text(btnDisabledText);
       setTimeout(function(){
         $btn.removeClass('-disabled');
-        $btn.text($btnOriginalText);
+        $btn.text(btnOriginalText);
       }, 500);
     });
+
+    /* Maybe try this one if above not working
+    $('form').submit(function (e) {
+       var form = this;
+       e.preventDefault();
+       setTimeout(function () {
+        form.submit();
+      }, 100);
+    });
+    */
 
     // Set Screen Mode Class
     enquire

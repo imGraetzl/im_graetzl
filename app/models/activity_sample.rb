@@ -36,6 +36,16 @@ class ActivitySample
     end
   end
 
+  def crowd_campaigns
+    if @graetzl
+      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
+    elsif @district
+      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
+    else
+      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
+    end
+  end
+
   def coop_demands
     if @graetzl
       @graetzl.coop_demands.in(@current_region).enabled.by_currentness.first(2)

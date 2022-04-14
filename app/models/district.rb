@@ -15,6 +15,7 @@ class District < ApplicationRecord
   has_many :room_demands, -> { distinct }, through: :graetzls
   has_many :tool_demands, -> { distinct }, through: :graetzls
   has_many :coop_demands, -> { distinct }, through: :graetzls
+  has_many :crowd_campaigns, -> { distinct }, through: :graetzls
   has_many :groups, -> { distinct }, through: :graetzls
 
   def self.all_memoized

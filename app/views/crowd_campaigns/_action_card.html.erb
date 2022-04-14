@@ -18,4 +18,14 @@
     </div>
     <div class="card"></div>
   </div>
+
+  <% if local_assigns[:view_all] %>
+    <% if local_assigns[:graetzl] %>
+      <%= link_to 'Alle Crowdfunding Projekte', crowd_campaigns_graetzl_path(graetzl), class: 'link-more' %>
+    <% elsif local_assigns[:district] %>
+      <%= link_to 'Alle Crowdfunding Projekte', district_crowd_campaigns_path(district), class: 'link-more' %>
+    <% else %>
+      <%= link_to 'Alle Crowdfunding Projekte', region_crowd_campaigns_path, class: 'link-more' %>
+    <% end %>
+  <% end %>
 </div>

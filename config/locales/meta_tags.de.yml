@@ -192,6 +192,16 @@ de:
     summary:
       title: 'Crowdfunding Untestützung - Zusammenfassung'
 
+  crowd_donation_pledges:
+    login:
+      title: 'Crowdfunding Untestützung - Einloggen'
+    choice:
+      title: 'Crowdfunding Untestützung - Auswahl bestätigen'
+    new:
+      title: 'Crowdfunding Untestützung - Adressangaben'
+    summary:
+      title: 'Crowdfunding Untestützung - Zusammenfassung'
+
   coop_demands:
     show:
       title: '%{slogan}'

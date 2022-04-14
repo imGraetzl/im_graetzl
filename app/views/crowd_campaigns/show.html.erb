@@ -72,14 +72,23 @@
     </div>
   </div>
 
-  <% if @crowd_campaign.crowd_pledges.authorized.visible.present? %>
+  <% if @crowd_campaign.crowd_pledges.authorized.visible.present? || @crowd_campaign.crowd_donation_pledges.present? %>
     <div class="last-supporters">
-      <% @crowd_campaign.crowd_pledges.authorized.visible.order(created_at: :desc).first(4).each do |crowd_pledge| %>
+      <% @crowd_campaign.crowd_pledges.authorized.visible.order(created_at: :desc).first(3).each do |crowd_pledge| %>
         <div class="supporter">
           <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <div>
             <span><%= crowd_pledge.contact_name %></span><br>
             <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+          </div>
+        </div>
+      <% end %>
+      <% @crowd_campaign.crowd_donation_pledges.order(created_at: :desc).first(1).each do |crowd_pledge| %>
+        <div class="supporter -donation">
+          <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+          <div>
+            <span><%= crowd_pledge.contact_name %></span><br>
+            <small><%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{crowd_pledge.donation_type}") %> vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
           </div>
         </div>
       <% end %>

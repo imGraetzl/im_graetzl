@@ -11,6 +11,7 @@ class CrowdCampaignsController < ApplicationController
   def show
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
     @crowd_pledges = @crowd_campaign.crowd_pledges
+    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges
     @preview = params[:preview] == 'true' ?  true : false
     show_status_message?
   end
@@ -91,7 +92,9 @@ class CrowdCampaignsController < ApplicationController
 
   def supporters
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    @supporters = @crowd_campaign.crowd_pledges.authorized.visible.order(created_at: :desc)
+    pledges = @crowd_campaign.crowd_pledges.authorized.visible
+    donation_pledges = @crowd_campaign.crowd_donation_pledges
+    @supporters = (pledges + donation_pledges).sort_by(&:created_at).reverse
   end
 
   def update

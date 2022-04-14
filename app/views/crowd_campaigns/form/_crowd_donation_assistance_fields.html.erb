@@ -56,6 +56,13 @@
       </div>
 
     </div>
+    <div class="input-textarea">
+      <%= f.label :question do %>
+      <%= icon_tag "layout-document" %>
+      <span>Frage an die ZeitspenderIn</span>
+      <% end %>
+      <%= f.text_area :question, placeholder: 'Benötigst du noch weitere Infos von der ZeitspenderIn? Stell hier deine Frage ...', disabled: disabled %>
+    </div>
     <% if deleteable %>
       <%= link_to_remove_association f, data: { confirm: 'Zeitspende löschen?' } do %>
         <div class="btn-delete">
