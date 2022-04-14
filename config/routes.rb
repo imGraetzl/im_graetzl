@@ -156,6 +156,12 @@ Rails.application.routes.draw do
     get 'summary', on: :member
   end
 
+  resources :crowd_donation_pledges, only: [:new, :create] do
+    get 'choice', on: :collection
+    get 'login', on: :collection
+    get 'summary', on: :member
+  end
+
   resources :rooms, only: [:index]
   resources :room_demands, path: 'raumsuche', except: [:index] do
     post 'toggle', on: :member

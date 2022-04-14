@@ -1,4 +1,4 @@
-<div class="paperCard -rewardBox -cord1RT">
+<div class="paperCard -rewardBox -cord1RT <%= crowd_reward.available? ? '' : 'soldOut' %>">
   <div class="wrp">
     <%= avatar_image crowd_reward, size: :small, class: 'reward-img trigger' %>
     <div class="facts">
@@ -9,9 +9,13 @@
         <% if crowd_reward.delivery_weeks %>
           <small>Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %></small>
         <% end %>
-        <%= link_to 'Auswählen', choose_amount_crowd_pledges_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), class: 'btn-primary -mint -shadow' %>
+        <% if crowd_reward.available? %>
+          <%= link_to 'Auswählen', choose_amount_crowd_pledges_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), class: 'btn-primary -mint -shadow' %>
+        <% else %>
+          <%= link_to 'Bereits ausgebucht', 'javascript:', class: 'btn-primary -disabled' %>
+        <% end %>
       </div>
-      <small class="trigger"><%= @crowd_pledges.exists?(crowd_reward_id: crowd_reward.id) ? @crowd_pledges.where(crowd_reward_id: crowd_reward.id).count : '0' %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
+      <small class="trigger"><%= crowd_reward.taken_count %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
     </div>
   </div>
   <div class="card"></div>

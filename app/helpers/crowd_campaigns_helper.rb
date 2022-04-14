@@ -94,4 +94,8 @@ module CrowdCampaignsHelper
     params.permit(:crowd_campaign_id, :crowd_reward_id, :donation_amount)
   end
 
+  def crowd_donation_login_params
+    params.permit(:crowd_campaign_id, :crowd_donation_id)
+  end
+
 end

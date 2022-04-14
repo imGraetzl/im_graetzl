@@ -1,0 +1,42 @@
+<div>
+
+  <div class="hl-subtext">
+    <h1>Deine Daten</h1>
+    <p>
+      <% if current_user %>
+        Um fortzufahren, gib zunächst noch deine Daten bekannt.
+      <% else %>
+        Wenn du bereits bei <%= t("region.#{current_region.id}.domain_full") %> registriert bist,
+        <%= link_to 'melde dich zunächst hier an', login_crowd_donation_pledges_path(crowd_donation_login_params) %>
+        und nutze deine hinterlegten Standarddaten.
+      <% end %>
+    </p>
+  </div>
+
+  <%= form_for @crowd_donation_pledge do |f| %>
+  <%= form_errors_for @crowd_donation_pledge %>
+
+    <%= f.hidden_field :answer %>
+    <%= f.hidden_field :crowd_donation_id %>
+    <%= f.hidden_field :crowd_campaign_id %>
+
+    <div class="input-field">
+      <%= f.label :email do %>
+        <%= icon_tag "at-symbol" %>
+        <span>E-Mail</span>
+      <% end %>
+      <%= f.text_field :email, placeholder: 'E-Mail Adresse', required: true %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :contact_name do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Name</span>
+      <% end %>
+      <%= f.text_field :contact_name, placeholder: 'Vor- & Nachname', required: true %>
+    </div>
+
+    <%= submit_tag "Meine #{I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}")} absenden", class: 'btn-primary' %>
+  <% end %>
+
+</div>

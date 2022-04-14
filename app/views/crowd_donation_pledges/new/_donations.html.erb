@@ -1,0 +1,33 @@
+<div class="paperCard -rewardBox -cord1RT">
+  <div class="wrp">
+    <div class="reward-img">
+      <% if crowd_donation.donation_type == 'material' %>
+        <%= icon_tag "label-tag" %>
+      <% elsif crowd_donation.donation_type == 'assistance' %>
+        <%= icon_tag "time-clock" %>
+      <% else %>
+        <%= icon_tag "pin" %>
+      <% end %>
+    </div>
+    <div class="facts">
+      <h4><%= crowd_donation.title %></h4>
+      <span><%= crowd_donation.description %></span>
+      <% if crowd_donation.startdate %>
+        <br>
+        <small><em>
+          Benötigt: Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d. %b %Y') %>
+          <% if crowd_donation.enddate %>
+            - Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d. %b %Y') %>
+          <% end %>
+        </em></small>
+      <% end %>
+      <% if crowd_donation.question.present? %>
+        <p class="question"><em><span>Beantworte bitte noch folgende Frage:</span> <%= crowd_donation.question %></em></p>
+        <div class="input-textarea">
+          <%= f.text_area :answer, placeholder: 'Gib hier deine Antwort ein ...', required: true %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="card"></div>
+</div>

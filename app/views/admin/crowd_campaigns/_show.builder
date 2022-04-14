@@ -86,6 +86,12 @@ context.instance_eval do
           column :created_at
         end
       end
+      panel 'Raumspenden' do
+        table_for crowd_campaign.crowd_donations.room do
+          column :title
+          column :created_at
+        end
+      end
     end
   end
 end

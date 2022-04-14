@@ -1,10 +1,25 @@
-<div class="paperCard -rewardBox -cord1RT">
+<div class="paperCard -rewardBox -cord1RT <%= crowd_donation.available? ? '' : 'soldOut' %>">
   <div class="wrp">
     <div class="reward-img trigger">
-      <%= icon_tag crowd_donation.material? ? "label-tag" : "time-clock" %>
+      <% if crowd_donation.donation_type == 'material' %>
+        <%= icon_tag "label-tag" %>
+      <% elsif crowd_donation.donation_type == 'assistance' %>
+        <%= icon_tag "time-clock" %>
+      <% else %>
+        <%= icon_tag "pin" %>
+      <% end %>
     </div>
     <div class="facts">
-      <strong class="trigger"><%= crowd_donation.limit %> <%= crowd_donation.material? ? "Stück" : "Personen" %></strong>
+      <strong class="trigger">
+        <%= crowd_donation.limit %>
+        <% if crowd_donation.donation_type == 'material' %>
+          Stück
+        <% elsif crowd_donation.donation_type == 'assistance' %>
+          <%= crowd_donation.limit > 1 ? 'Personen' : 'Person' %>
+        <% else %>
+          <%= crowd_donation.limit > 1 ? 'Räume' : 'Raum' %>
+        <% end %>
+      </strong>
       <h4 class="trigger"><%= crowd_donation.title %></h4>
       <div class="content">
         <div class="txt trigger">
@@ -19,9 +34,13 @@
             <% end %>
           </em></p>
         </div>
-        <%= link_to 'Auswählen', 'javascript:', class: 'btn-primary -mint -shadow' %>
+        <% if crowd_donation.available? %>
+          <%= link_to 'Auswählen', choice_crowd_donation_pledges_path(crowd_campaign_id: crowd_donation.crowd_campaign.id, crowd_donation_id: crowd_donation.id), class: 'btn-primary -mint -shadow' %>
+        <% else %>
+          <%= link_to 'Bereits ausgebucht', 'javascript:', class: 'btn-primary -disabled' %>
+        <% end %>
       </div>
-      <small class="trigger">0 <%= crowd_donation.limit ? "von #{crowd_donation.limit}" : "" %> gebucht</small>
+      <small class="trigger"><%= crowd_donation.taken_count %> <%= crowd_donation.limit ? "von #{crowd_donation.limit}" : "" %> gebucht</small>
     </div>
   </div>
   <div class="card"></div>

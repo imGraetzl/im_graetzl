@@ -1,0 +1,27 @@
+<div>
+
+  <div class="hl-subtext">
+    <h1>Deine <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %></h1>
+    <p>
+      Toll, dass du mit einer <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %> unterstützen kannst! Deine Auswahl:
+    </p>
+  </div>
+
+  <%= form_with url: new_crowd_donation_pledge_path, method: :get do |f| %>
+
+    <%= f.hidden_field :crowd_donation_id, value: params[:crowd_donation_id] %>
+    <%= f.hidden_field :crowd_campaign_id, value: params[:crowd_campaign_id] %>
+
+    <%= render 'crowd_donation_pledges/new/donations', crowd_donation: @crowd_donation_pledge.crowd_donation, f: f if @crowd_donation_pledge.crowd_donation %>
+
+    <%= submit_tag "Weiter", class: 'btn-primary' %>
+
+  <% end %>
+
+  <div class="footer-txt">
+    <strong>Du möchtest vor deiner Unterstützungszusage noch weitere Infos haben?</strong><br>
+    Wenn du eingeloggt bist, kannst du direkt <%= link_to 'im Messenger', messenger_start_thread_path(user_id: @crowd_donation_pledge.crowd_campaign.user.id) %> Kontakt aufnehmen.<br>
+    Oder schick deine Frage an <%= link_to @crowd_donation_pledge.crowd_campaign.contact_email, "mailto:#{@crowd_donation_pledge.crowd_campaign.contact_email}", target:'_blank' %>
+  </div>
+
+</div>

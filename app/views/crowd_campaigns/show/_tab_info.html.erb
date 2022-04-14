@@ -156,6 +156,12 @@
       <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.assistance, as: :crowd_donation %>
 
     <% end %>
+    <% if @crowd_campaign.crowd_donations.room.exists? %>
+
+      <h2 class="hl-main -rewards"><em>- Raumspenden -</em></h2>
+      <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.room, as: :crowd_donation %>
+
+    <% end %>
 
   </div>
 
