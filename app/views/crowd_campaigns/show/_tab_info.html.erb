@@ -25,7 +25,9 @@
       <% end %>
 
       <div class="block bigicontext-element -small">
-        <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-round' %>
+        <%= link_to user_path(@crowd_campaign.user), rel: 'nofollow' do %>
+          <%= avatar_image @crowd_campaign.user, size: :thumb, class: 'img-round' %>
+        <% end %>
         <div class="txt">
           <h4>Projekt Starter*in</h4>
           <p><strong><%= @crowd_campaign.contact_name %></strong></p>

@@ -59,6 +59,15 @@ active_admin_form_for [:admin, resource] do |f|
           o.input :limit
         end
       end
+      inputs 'Material- Zeit- Raumspenden' do
+        has_many :crowd_donations,
+                  allow_destroy: false,
+                  heading: false do |o|
+          o.input :title
+          o.input :description
+          o.input :question
+        end
+      end
     end
   end
 end

@@ -67,6 +67,7 @@ class CrowdCampaignsController < ApplicationController
   def status
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     @crowd_pledges = @crowd_campaign.crowd_pledges.authorized.order(created_at: :desc)
+    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(created_at: :desc)
     form_status_message?
   end
 
@@ -75,6 +76,7 @@ class CrowdCampaignsController < ApplicationController
       format.xlsx do
         @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
         @crowd_pledges = @crowd_campaign.crowd_pledges.authorized.order(created_at: :desc)
+        @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(created_at: :desc)
         render xlsx: 'UnterstützerInnen', template: 'crowd_campaigns/crowd_pledges/crowd_pledges'
       end
     end
@@ -240,7 +242,7 @@ class CrowdCampaignsController < ApplicationController
       .require(:crowd_campaign)
       .permit(
         :title, :slogan, :description, :support_description, :about_description, :benefit_description,
-        :startdate, :enddate, :runtime, :billable, :benefit,
+        :startdate, :enddate, :billable, :benefit,
         :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
         :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_email, :contact_phone,
         :location_id, :room_offer_id,
@@ -251,7 +253,7 @@ class CrowdCampaignsController < ApplicationController
           :id, :amount, :limit, :title, :description, :delivery_weeks, :delivery_address_required, :question, :avatar, :remove_avatar, :_destroy
         ],
         crowd_donations_attributes: [
-          :id, :donation_type, :limit, :title, :description, :question, :startdate, :enddate, :_destroy
+          :id, :donation_type, :title, :description, :question, :startdate, :enddate, :_destroy
         ],
         crowd_category_ids: [],
     )
@@ -266,7 +268,7 @@ class CrowdCampaignsController < ApplicationController
         :id, :amount, :limit, :title, :description, :delivery_weeks, :delivery_address_required, :question, :avatar, :remove_avatar, :_destroy
       ],
       crowd_donations_attributes: [
-        :id, :donation_type, :limit, :title, :description, :question, :startdate, :enddate, :_destroy
+        :id, :donation_type, :title, :description, :question, :startdate, :enddate, :_destroy
       ],
     )
   end

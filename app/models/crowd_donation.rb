@@ -6,18 +6,6 @@ class CrowdDonation < ApplicationRecord
 
   #validates_presence_of :title
 
-  def available?
-    if self.limit
-      self.limit > self.crowd_donation_pledges.count
-    else
-      true
-    end
-  end
-
-  def available_count
-    self.limit - self.crowd_donation_pledges.count
-  end
-
   def taken_count
     self.crowd_donation_pledges.count
   end

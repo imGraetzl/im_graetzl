@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_13_091510) do
+ActiveRecord::Schema.define(version: 2022_04_15_082219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -224,7 +224,6 @@ ActiveRecord::Schema.define(version: 2022_04_13_091510) do
     t.date "startdate"
     t.date "enddate"
     t.boolean "benefit"
-    t.integer "runtime", default: 30
     t.integer "billable"
     t.string "video"
     t.string "cover_photo_id"
@@ -295,7 +294,6 @@ ActiveRecord::Schema.define(version: 2022_04_13_091510) do
 
   create_table "crowd_donations", force: :cascade do |t|
     t.integer "donation_type", default: 0
-    t.integer "limit"
     t.string "title"
     t.text "description"
     t.date "startdate"

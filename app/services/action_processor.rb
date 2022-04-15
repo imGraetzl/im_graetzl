@@ -156,9 +156,8 @@ class ActionProcessor
       if subject.visible?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
-    when [CrowdCampaign, :funding_1_successful]
-      # Generate Success Notification for Owner and Pledge Users
-
+    when [CrowdDonationPledge, :create]
+      Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
     when [CrowdCampaign, :comment]
       Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
       notify_comment(subject, child)

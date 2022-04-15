@@ -16,20 +16,15 @@
     <% end %>
 
   </div>
-  <div class="flex-row medium toggle" role="cell"><strong><%= number_to_currency(crowd_pledge.total_price, unit: "€") %></strong></div>
-  <div class="flex-row medium toggle" role="cell"><%= number_to_currency(crowd_pledge.donation_amount, unit: "€") %></div>
-  <div class="flex-row xxlarge toggle" role="cell">
+  <div class="flex-row xxxlarge toggle" role="cell">
     <div class="ellipsis">
-      <%= number_to_currency(crowd_pledge.crowd_reward&.amount, unit: "€") %><br>
-      <em><%= "#{crowd_pledge.crowd_reward&.title}" if crowd_pledge.crowd_reward.present? %></em>
+      <em><%= "#{crowd_pledge.crowd_donation&.title}" %></em>
     </div>
   </div>
   <div class="flex-row full toggle-cell" role="cell">
     <div>
       <strong>Kontaktdaten:</strong><br>
-      <%= crowd_pledge.contact_name %><small><em> <%= crowd_pledge.anonym ? '(anonym)' : '' %></em></small><br>
-      <%= crowd_pledge.address_street %><br>
-      <%= crowd_pledge.address_zip %> <%= crowd_pledge.address_city %>
+      <%= crowd_pledge.contact_name %><br>
     </div>
     <div>
       <% if crowd_pledge.answer.present? %>

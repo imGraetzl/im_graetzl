@@ -48,6 +48,18 @@
           <span>unterstützt dieses Projekt.</span>
         </span>
       </div>
+    <% elsif local_assigns[:activity_crowd_donation_pledge] %>
+      <% user = local_assigns[:activity_crowd_donation_pledge].user %>
+      <% donation_type = local_assigns[:activity_crowd_donation_pledge].donation_type %>
+      <div class="userCreateInfo userPledge">
+        <%= link_to user, rel: 'nofollow' do %>
+          <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round' %>
+        <% end %>
+        <span class="userAndType">
+          <%= link_to user.username, user, rel: 'nofollow' %>
+          <span>unterstützt mit <%= I18n.t("activerecord.attributes.crowd_donation.donation_type_short.#{donation_type}") %></span>
+        </span>
+      </div>
     <% end %>
 
     <% if local_assigns[:activity_comment] %>
