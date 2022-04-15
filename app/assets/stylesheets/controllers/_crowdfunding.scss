@@ -357,6 +357,11 @@ section.crowd_campaign {
     scale:0.8;
     top:-25px;
   }
+  &.-donationBox {
+    .card:before {
+      top:-45px;
+    }
+  }
   .content {
     display: none;
   }

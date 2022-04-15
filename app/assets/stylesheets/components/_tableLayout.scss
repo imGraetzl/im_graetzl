@@ -63,6 +63,7 @@ $row-hover-bg : $color-ambient-mint-light;
     &.large {width: 20%; justify-content: left;}
     &.xlarge {width: 30%; justify-content: left;}
     &.xxlarge {width: 35%; justify-content: left;}
+    &.xxxlarge {width: 65%; justify-content: left;}
     &.full {width: 100%; justify-content: left;}
     //width: calc(28% / 2);
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -183,7 +184,7 @@ $row-hover-bg : $color-ambient-mint-light;
       width: 50%; //1px = border right
       //justify-content: center;
     }
-    .column, .flex-row.xxlarge {
+    .column, .flex-row.xxlarge, .flex-row.xxxlarge {
       width: 100%;
     }
 
@@ -208,7 +209,7 @@ $row-hover-bg : $color-ambient-mint-light;
       //.flex-row:not(.first) { display: none}
     }
 
-    .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large, .flex-row.xlarge, .flex-row.xxlarge {
+    .flex-row, .flex-row.small, .flex-row.medium, .flex-row.large, .flex-row.xlarge, .flex-row.xxlarge, .flex-row.xxxlarge {
       width: 100%; //1px = border right
       //justify-content: center;
     }

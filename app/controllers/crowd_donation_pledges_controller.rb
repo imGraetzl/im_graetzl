@@ -10,6 +10,7 @@ class CrowdDonationPledgesController < ApplicationController
     @crowd_donation_pledge.user_id = current_user.id if current_user
     if @crowd_donation_pledge.save
       redirect_to [:summary, @crowd_donation_pledge]
+      ActionProcessor.track(@crowd_donation_pledge, :create)
     else
       render :new
     end

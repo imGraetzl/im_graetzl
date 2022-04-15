@@ -1,4 +1,4 @@
-APP.controllers_loggedin.crowd_donation_pledges = (function() {
+APP.controllers.crowd_donation_pledges = (function() {
 
     function init() {
       if      ($(".crowd-pledges-page.choice-screen").exists())  {initChoiceScreen();}

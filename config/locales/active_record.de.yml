@@ -384,5 +384,9 @@ de:
           material: Materialspende
           assistance: Zeitspende
           room: Raumspende
+        donation_type_short:
+          material: Material
+          assistance: Zeit
+          room: Raum
       crowd_pledge:
         contact_name: Name
