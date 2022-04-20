@@ -44,6 +44,30 @@
         <% end %>
       </div>
     </div>
+
+    <% if @location.description_background.present? %>
+    <div class="descriptionBlock">
+      <div class="wrp-hl">
+        <div class="bigicontext-element">
+          <%= icon_tag('lightbulb') %>
+          <div class="txt">Wie bist du zu deinem Thema oder deiner Tätigkeit gekommen?</div>
+        </div>
+      </div>
+      <div class="txt txtlinky"><%= @location.description_background %></div>
+    </div>
+    <% end %>
+    <% if @location.description_favorite_place.present? %>
+    <div class="descriptionBlock">
+      <div class="wrp-hl">
+        <div class="bigicontext-element">
+          <%= icon_tag('pin') %>
+          <div class="txt">Was/wo ist dein liebster Ort bei dir ums Eck und warum?</div>
+        </div>
+      </div>
+      <div class="txt txtlinky"><%= @location.description_favorite_place %></div>
+    </div>
+    <% end %>
+
     <div class="category-tags">
       <% if @location.location_category.present? %>
         <div class="bigicontext-element">

@@ -16,6 +16,10 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.funding_started(CrowdCampaign.last)
   end
 
+  def keep_up
+    CrowdCampaignMailer.keep_up(CrowdCampaign.last)
+  end
+
   def goal_1_reached
     CrowdCampaignMailer.goal_1_reached(CrowdCampaign.last)
   end
@@ -30,6 +34,14 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
 
   def completed_unsuccessful
     CrowdCampaignMailer.completed_unsuccessful(CrowdCampaign.last)
+  end
+
+  def crowd_pledge_confirmation
+    CrowdCampaignMailer.crowd_pledge_confirmation(CrowdPledge.order(:created_at).last)
+  end
+
+  def crowd_pledge_completed_successful
+    CrowdCampaignMailer.crowd_pledge_completed_successful(CrowdPledge.order(:created_at).last)
   end
 
 end

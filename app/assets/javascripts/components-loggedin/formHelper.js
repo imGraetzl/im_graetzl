@@ -12,6 +12,28 @@ APP.components.formHelper = (function() {
     }
   }
 
+  // MAX Chars Input Counter
+  // add "data: { max_chars: 1500 }" to any text_area or input
+  // add <span class="charsLeft"></span> after textarea
+  $("[data-max-chars]").keyup(function() {
+    var maxLength = $(this).data('max-chars');
+    var lengthCount = $(this).val().length;
+    var lengthLeft = maxLength-lengthCount;
+    $(this).closest('div').css("position", "relative");
+    $(this).closest('div').find('.charsLeft').text(lengthLeft);
+  });
+
+  // MIN Chars Input Counter
+  // add "data: { min_chars: 1500 }" to any text_area or input
+  // add <span class="charsCount"></span> ... after textarea
+  $("[data-min-chars]").keyup(function() {
+    var minLength = $(this).data('min-chars');
+    var lengthCount = $(this).val().length;
+    $(this).closest('div').css("position", "relative");
+    $(this).closest('div').find('.charsCount').text(lengthCount);
+    $(this).closest('div').find('.charsMin').text("(mind. " + minLength + " Zeichen)");
+  });
+
   return {
     maxCategories: maxCategories
   };

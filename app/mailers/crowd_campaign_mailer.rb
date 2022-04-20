@@ -3,7 +3,7 @@ class CrowdCampaignMailer < ApplicationMailer
   def draft(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-draft")
+    headers("X-MC-Tags" => "crowd-campaign-draft")
     mail(
       subject: "Wie geht es deinem Vorhaben?",
       from: platform_email('no-reply'),
@@ -14,7 +14,7 @@ class CrowdCampaignMailer < ApplicationMailer
   def pending(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-pending")
+    headers("X-MC-Tags" => "crowd-campaign-pending")
     mail(
       subject: "Deine Kampagne wird geprüft plus wichtige Infos",
       from: platform_email('no-reply'),
@@ -25,7 +25,7 @@ class CrowdCampaignMailer < ApplicationMailer
   def approved(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-approved")
+    headers("X-MC-Tags" => "crowd-campaign-approved")
     mail(
       subject: "Deine Kampagne ist freigegeben, die nächsten Schritte",
       from: platform_email('no-reply'),
@@ -36,9 +36,20 @@ class CrowdCampaignMailer < ApplicationMailer
   def funding_started(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-funding")
+    headers("X-MC-Tags" => "crowd-campaign-funding")
     mail(
       subject: "Es geht los, deine Kampagne ist online",
+      from: platform_email('no-reply'),
+      to: @crowd_campaign.user.email,
+    )
+  end
+
+  def keep_up(crowd_campaign)
+    @crowd_campaign = crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-campaign-keep-up")
+    mail(
+      subject: "Jetzt dranbleiben",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
     )
@@ -47,7 +58,7 @@ class CrowdCampaignMailer < ApplicationMailer
   def goal_1_reached(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-funding-1-successful")
+    headers("X-MC-Tags" => "crowd-campaign-goal-1-reached")
     mail(
       subject: "Hurra, das erste Fundingziel ist erreicht!",
       from: platform_email('no-reply'),
@@ -58,7 +69,7 @@ class CrowdCampaignMailer < ApplicationMailer
   def goal_2_reached(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-funding-2-successful")
+    headers("X-MC-Tags" => "crowd-campaign-goal-2-reached")
     mail(
       subject: "Es ist wieder etwas Schönes passiert, das zweite Fundingziel ist erreicht!",
       from: platform_email('no-reply'),
@@ -69,7 +80,7 @@ class CrowdCampaignMailer < ApplicationMailer
   def completed_successful(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-completed-successful")
+    headers("X-MC-Tags" => "crowd-campaign-completed-successful")
     mail(
       subject: "Deine Kampagne ist erfolgreich beendet! Dein Vorhaben kann bald starten!",
       from: platform_email('no-reply'),
@@ -80,11 +91,35 @@ class CrowdCampaignMailer < ApplicationMailer
   def completed_unsuccessful(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "notification-crowd-campaign-completed-unsuccessful")
+    headers("X-MC-Tags" => "crowd-campaign-completed-unsuccessful")
     mail(
       subject: "Diesmal hat es leider nicht geklappt",
       from: platform_email('no-reply'),
       to: @crowd_campaign.user.email,
+    )
+  end
+
+  def crowd_pledge_confirmation(crowd_pledge)
+    @crowd_pledge = crowd_pledge
+    @crowd_campaign = @crowd_pledge.crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-pledge-confirmation")
+    mail(
+      subject: "Unterstützungsbestätigung für #{@crowd_campaign.title}",
+      from: platform_email('no-reply'),
+      to: @crowd_pledge.email,
+    )
+  end
+
+  def crowd_pledge_completed_successful(crowd_pledge)
+    @crowd_pledge = crowd_pledge
+    @crowd_campaign = @crowd_pledge.crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-pledge-completed-successful")
+    mail(
+      subject: "Unterstütztes Projekt ist erfolgreich: #{@crowd_campaign.title}",
+      from: platform_email('no-reply'),
+      to: @crowd_pledge.email,
     )
   end
 

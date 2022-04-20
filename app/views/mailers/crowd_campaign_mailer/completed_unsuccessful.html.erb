@@ -6,7 +6,7 @@
           Servus <%= @crowd_campaign.user.first_name %>,
         </p>
         <p>
-          <strong>deine Crowdfunding Kampagne hat das erste Minimalziel diesmal leider nicht erreicht.</strong> Damit ist die Kampagne gescheitert und die Beträge werden nicht bei den Unterstützer*innen eingezogen und nicht ausbezahlt.
+          <strong>deine Crowdfunding Kampagne "<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a; font-weight:bold;" %>" hat das erste Minimalziel diesmal leider nicht erreicht.</strong> Damit ist die Kampagne gescheitert und die Beträge werden nicht bei den Unterstützer*innen eingezogen und nicht ausbezahlt.
         </p>
         <p>
           Viele erfolgreiche Crowdfunding Projekte haben beim ersten Mal das Ziel nicht erreicht, wir mit imGrätzl übrigens auch nicht, erst beim zweiten Versuch hat es dann geklappt. Mit etwas Abstand kann man besser beurteilen, woran es vielleicht noch gehapert hat.

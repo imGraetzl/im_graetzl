@@ -123,8 +123,8 @@ de:
           existiert.
         many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
       taken: ist bereits vergeben
-      too_long: ist zu lang (mehr als %{count} Zeichen)
-      too_short: ist zu kurz (weniger als %{count} Zeichen)
+      too_long: ist zu lang (maximal %{count} Zeichen)
+      too_short: ist zu kurz (mindestens %{count} Zeichen)
       wrong_length: hat die falsche Länge (muss genau %{count} Zeichen haben)
       other_than: darf nicht gleich %{count} sein
     template:

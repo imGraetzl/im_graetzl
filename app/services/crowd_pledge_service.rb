@@ -19,6 +19,8 @@ class CrowdPledgeService
       status: 'authorized',
     )
 
+    CrowdCampaignMailer.crowd_pledge_confirmation(crowd_pledge).deliver_later
+
     case crowd_pledge.crowd_campaign.check_funding
     when :goal_1_reached
       CrowdCampaignMailer.goal_1_reached(crowd_pledge.crowd_campaign).deliver_later

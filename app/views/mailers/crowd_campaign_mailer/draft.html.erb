@@ -6,7 +6,10 @@
           Servus <%= @crowd_campaign.user.first_name %>,
         </p>
         <p>
-          bist du an deinem Vorhaben und der Planung deiner Crowdfunding Kampagne noch dran? <%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %>
+          bist du an deinem Vorhaben und der Planung deiner <strong>Crowdfunding Kampagne</strong> noch dran?
+        </p>
+        <p>
+          <em><%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %></em>
         </p>
         <p>
           Oder haben sich Fragen aufgetan? Können wir dich bei irgendetwas unterstützen?<br>

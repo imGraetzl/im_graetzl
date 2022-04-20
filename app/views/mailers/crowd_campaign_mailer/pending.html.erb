@@ -6,7 +6,7 @@
           Servus <%= @crowd_campaign.user.first_name %>,
         </p>
         <p>
-          deine Kampagne (<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %>) wird nun geprüft, ob sie den allgemeinen Vorgaben entspricht. Wir sind dran.
+          deine Kampagne <em>"<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %>"</em> wird nun geprüft, ob sie den allgemeinen Vorgaben entspricht. Wir sind dran.
         </p>
         <p>
           <strong>In der Zwischenzeit noch ein ganz wichtiger Tipp, was du jetzt tun könntest:</strong>

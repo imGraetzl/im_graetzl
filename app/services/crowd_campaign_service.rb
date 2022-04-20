@@ -12,6 +12,7 @@ class CrowdCampaignService
     if campaign.successful?
       campaign.crowd_pledges.find_each do |pledge|
         CrowdPledgeService.new.delay.charge(pledge)
+        CrowdCampaignMailer.crowd_pledge_completed_successful(pledge).deliver_later
       end
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else

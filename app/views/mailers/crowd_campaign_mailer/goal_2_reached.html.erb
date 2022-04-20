@@ -6,7 +6,7 @@
           Servus <%= @crowd_campaign.user.first_name %>,
         </p>
         <p>
-          <strong>großartig, deine Kampagne hat das zweite Ziel erreicht.</strong> Dein Vorhaben kommt bei den Menschen richtig gut an!
+          <strong>großartig, deine Kampagne "<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a; font-weight:bold;" %>" hat das zweite Ziel erreicht.</strong> Dein Vorhaben kommt bei den Menschen richtig gut an!
         </p>
         <p>
           Noch läuft die Kampagne, deshalb teile die gute Nachricht, denke dabei auch an deine bisherigen Unterstützer*innen. Sie freuen sich, wenn dein Vorhaben in die Umsetzung kommt.
@@ -15,6 +15,10 @@
           <strong>Genieße den Rückenwind und überlege, wen du vielleicht noch über dein Vorhaben und deine Kampagne informieren könntest.</strong>
           Es ist jetzt eine einmalige Gelegenheit auf Menschen zuzugehen und ihnen von deiner Idee zu erzählen.
           Dabei geht es nicht nur darum Geld einzusammeln, vielmehr geht es darum neue Kontakte für dein Vorhaben zu knüpfen und um die großartige Chance dein Vorhaben noch sichtbarer zu machen.
+        </p>
+        <p>
+          Hier nochmals der Link zu deiner Kampagne:<br>
+          <%= link_to crowd_campaign_url(@crowd_campaign), crowd_campaign_url(@crowd_campaign), style: "color:#ec776a;" %>
         </p>
         <p>
           Liebe Grüße,<br>

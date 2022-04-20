@@ -6,7 +6,7 @@
           Servus <%= @crowd_campaign.user.first_name %>,
         </p>
         <p>
-          <strong>deine Kampagne hat das erste Ziel erreicht,</strong> d.h. der Betrag und andere Ressourcen,
+          <strong>deine Kampagne "<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a; font-weight:bold;" %>" hat das erste Ziel erreicht,</strong> d.h. der Betrag und andere Ressourcen,
           die innerhalb der Kampagne gesammelt werden, kommen damit auf jeden Fall zur Ausschüttung. Gratulation!
         </p>
         <p>
