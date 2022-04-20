@@ -1,4 +1,13 @@
 section.location-form {
+
+  .hl-main + p {
+    margin-top:10px;
+    text-align: center;
+    &.-small {
+      @include font-size-primaryFont('small');
+    }
+  }
+
   @include cf;
   max-width: 700px;
   margin: 0 auto;

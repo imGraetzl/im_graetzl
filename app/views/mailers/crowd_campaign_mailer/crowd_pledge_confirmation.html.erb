@@ -1,0 +1,144 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_pledge.contact_name %>,
+        </p>
+        <p>
+          <strong>cool, du hast das Crowdfunding Projekt <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> unterstützt.</strong>
+        </p>
+        <p>
+          Das Projekt gilt als erfolgreich, wenn die Crowd dafür gesorgt hat, dass das Startlevel erreicht wurde und die Finanzierungsphase beendet ist. Erst dann wird das Geld auch von deinem Konto eingezogen.
+        </p>
+        <p>
+          Motiviere dein Netzwerk jetzt zu unterstützen und Teil der Crowd zu werden und teile diesen Link:<br>
+          <%= link_to crowd_campaign_url(@crowd_pledge.crowd_campaign), crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:10px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Deine Unterstützung:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+         <table>
+
+           <% if @crowd_pledge.crowd_reward.present? %>
+           <tr>
+             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.crowd_reward&.amount, unit: "€") %></strong></td>
+             <td><%= @crowd_pledge.crowd_reward&.title %></td>
+           </tr>
+
+           <% if @crowd_pledge.answer.present? %>
+            <tr>
+              <td></td>
+              <td>
+                <small>Deine Antwort: <em><%= @crowd_pledge.answer %></em>
+                </small>
+              </td>
+            </tr>
+           <% end %>
+
+           <tr>
+             <td></td>
+             <td></td>
+           </tr>
+           <% end %>
+
+           <% if @crowd_pledge.donation_amount.present? %>
+           <tr>
+             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.donation_amount, unit: "€") %></strong></td>
+             <td>Freie Unterstützung</td>
+           </tr>
+           <% end %>
+
+           <% if @crowd_pledge.crowd_reward.present? && @crowd_pledge.donation_amount.present? %>
+           <tr>
+             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></strong></td>
+             <td><strong>Gesamt</strong></td>
+           </tr>
+           <% end %>
+
+         </table>
+
+       </td>
+     </tr>
+   </tbody>
+ </table>
+
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+    <tr>
+      <td style="height:10px"> </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+          Deine Unterstützungsdaten:
+        </h4>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:9px; padding-right:9px;">
+        <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td>
+              <span></span>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+    <tbody>
+      <tr>
+        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+          <strong><%= @crowd_pledge.contact_name %><br></strong>
+          <%= @crowd_pledge.address_street %><br>
+          <%= @crowd_pledge.address_zip %> <%= @crowd_pledge.address_city %>
+
+          <br><br>
+
+          <p>
+            Wenn du mit Lastschrift oder Kreditkarte unterstützt hast, wird das Geld erst eingezogen, wenn das Projekt das Fundingziel erreicht hat und wir alle notwendigen Daten vom Starter für die Legitimation haben.
+          </p>
+
+          --
+
+          <p>
+            Liebe Grüße,<br>
+            dein Team von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %><br>
+          </p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>

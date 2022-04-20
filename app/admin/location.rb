@@ -90,6 +90,8 @@ ActiveAdmin.register Location do
     :slug,
     :slogan,
     :description,
+    :description_background,
+    :description_favorite_place,
     :allow_meetings,
     :avatar, :remove_avatar,
     :cover_photo, :remove_cover_photo,

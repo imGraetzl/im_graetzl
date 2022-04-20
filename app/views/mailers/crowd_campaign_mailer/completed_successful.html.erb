@@ -6,7 +6,7 @@
           Servus <%= @crowd_campaign.user.first_name %>,
         </p>
         <p>
-          <strong>deine Crowdfunding Kampagne ist erfolgreich und ist nun abgeschlossen!</strong> Dein Vorhaben kann damit bald in die Umsetzung gehen und das ist wirklich großartig!
+          <strong>deine Crowdfunding Kampagne "<%= link_to @crowd_campaign.title, crowd_campaign_url(@crowd_campaign), style: "color:#ec776a; font-weight:bold;" %>" ist erfolgreich und ist nun abgeschlossen!</strong> Dein Vorhaben kann damit bald in die Umsetzung gehen und das ist wirklich großartig!
         </p>
         <p>
           Es dauert nun zwischen 3 - 4 Wochen bis der Zahlungsanbieter die Summe, abzüglich der Bearbeitungsgebühr, auf dein Konto überweist. Zunächst muss der Zahlungsanbieter aber noch das gesetzliche 14 tägige Rücktrittsrecht abwarten.

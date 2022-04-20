@@ -340,6 +340,14 @@ input, select, textarea {
   }
 }
 
+.charCountContainer {
+  position: absolute;
+  bottom:5px;
+  right:8px;
+  @include font-size-primaryFont('small');
+  color: $color-ambient-mint-dark;
+}
+
 // ---------------------------------------------------------------------- checkbox & radios
 
 %checks {

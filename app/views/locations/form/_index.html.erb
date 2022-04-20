@@ -17,7 +17,8 @@
         <%= icon_tag "quotes" %>
         <span>Slogan</span>
       <% end %>
-      <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung' %>
+      <%= f.text_field :slogan, placeholder: 'Kurzer Slogan bzw. Beschreibung', data: { max_chars: 160 }, maxlength:160 %>
+      <span class="charCountContainer charsLeft"></span>
     </div>
 
     <div class="input-textarea -description">
@@ -25,7 +26,27 @@
         <%= icon_tag "layout-document" %>
         <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :description, placeholder: 'Ausführlichere Beschreibung. Was bietest du an? Worum gehts?' %>
+      <%= f.text_area :description, placeholder: 'Ausführlichere Beschreibung. Was bietest du an? Worum gehts?', data: { min_chars: 250 } %>
+      <div class="charCountContainer">
+        <span class="charsCount"></span>
+        <span class="charsMin"></span>
+      </div>
+    </div>
+
+    <div class="input-textarea -description">
+      <%= f.label :description_background do %>
+        <%= icon_tag "layout-document" %>
+        <span>Dein Background</span>
+      <% end %>
+      <%= f.text_area :description_background, placeholder: 'Wie bist du zu deinem Thema oder deiner Tätigkeit gekommen?' %>
+    </div>
+
+    <div class="input-textarea -description">
+      <%= f.label :description_favorite_place do %>
+        <%= icon_tag "layout-document" %>
+        <span>Lieblingsort ums Eck</span>
+      <% end %>
+      <%= f.text_area :description_favorite_place, placeholder: 'Was/wo ist dein liebster Ort bei dir ums Eck und warum?' %>
     </div>
 
     <div class="input-select" id="location-cat">

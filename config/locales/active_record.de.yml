@@ -118,17 +118,17 @@ de:
         one: Transaktion
         other: Transaktionen
       crowd_campaign:
-        one: Crowdfunding Kampagne
-        other: Crowdfunding Kampagnen
+        one: Kampagne
+        other: Kampagnen
       crowd_pledge:
-        one: Crowdfunding Unterstützung
-        other: Crowdfunding Unterstützungen
+        one: Unterstützung
+        other: Unterstützungen
       crowd_donation_pledge:
-        one: Crowdfunding Unterstützung
-        other: Crowdfunding Unterstützungen
+        one: Spende
+        other: Spenden
       crowd_category:
-        one: Crowdfunding Kategorie
-        other: Crowdfunding Kategorien
+        one: Kategorie
+        other: Kategorien
 
 
     attributes:
@@ -175,6 +175,8 @@ de:
         location_category: Kategorie
         cover_photo: Headerbild
         description: Beschreibung
+        description_background: Dein Background
+        description_favorite_place: Lieblingsort ums Eck
         phone: Telefon
         open_hours: Öffnungszeiten
         goodie: Goodie

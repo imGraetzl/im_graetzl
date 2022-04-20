@@ -195,6 +195,10 @@ section.location-page {
   .bigicontext-element {
     .txt {
       font-size: 1.2em;
+      margin-left: 20px;
+    }
+    .svg-icons.-location {
+      margin-right:-5px;
     }
   }
 
@@ -228,7 +232,7 @@ section.location-page {
     }
   }
 
-  .category-tags {
+  .category-tags, .descriptionBlock {
     margin-bottom: 50px;
     .bigicontext-element {
       margin-bottom: 20px;

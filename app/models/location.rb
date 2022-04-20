@@ -44,6 +44,7 @@ class Location < ApplicationRecord
 
 
   validates_presence_of :name, :slogan, :description, :cover_photo, :avatar, :location_category
+  validates :description, presence: true, length: { minimum: 250 }, on: :create
 
   before_create { |location| location.last_activity_at = Time.current }
 
