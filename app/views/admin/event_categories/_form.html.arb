@@ -7,6 +7,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :position
     input :css_ico_class
     input :slug
+    input :hidden
   end
 
   actions

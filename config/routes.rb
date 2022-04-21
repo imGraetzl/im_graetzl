@@ -85,7 +85,6 @@ Rails.application.routes.draw do
     get 'crowdfunding', action: 'crowd_campaigns', as: 'crowd_campaigns'
     get 'gruppen', action: 'groups', as: 'groups'
     get 'zuckerl', action: 'zuckerls', as: 'zuckerls'
-    get 'special-events', action: 'platform_meetings', as: 'platform_meetings'
   end
 
   scope controller: 'districts', as: 'district', path: 'bezirk/:id' do
@@ -253,6 +252,7 @@ Rails.application.routes.draw do
   post 'messenger/update_thread'
 
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
+  get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'info', to: 'static_pages#info'
   get 'info/coop-share', to: 'static_pages#coop_demands'
   get 'info/raumteiler', to: 'static_pages#raumteiler'
