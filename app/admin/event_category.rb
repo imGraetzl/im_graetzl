@@ -8,6 +8,6 @@ ActiveAdmin.register EventCategory do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :title, :main_photo, :remove_main_photo, :position, :css_ico_class, :slug
+  permit_params :title, :main_photo, :remove_main_photo, :position, :css_ico_class, :slug, :hidden
 
 end

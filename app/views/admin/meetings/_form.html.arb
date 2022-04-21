@@ -17,8 +17,6 @@ active_admin_form_for [:admin, resource] do |f|
         input :approved_for_api
         input :online_meeting
         input :online_description
-        input :platform_meeting
-        input :meeting_category, include_blank: true
         input :starts_at_date, as: :datepicker
         input :starts_at_time, ignore_date: true
         input :ends_at_time, ignore_date: true

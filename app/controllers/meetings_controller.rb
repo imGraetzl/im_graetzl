@@ -20,7 +20,6 @@ class MeetingsController < ApplicationController
   def new
     @meeting = current_user.initiated_meetings.build(group_id: params[:group_id], location_id: params[:location_id])
     @meeting.graetzl = params[:graetzl_id].present? ? Graetzl.find(params[:graetzl_id]) : user_home_graetzl
-    @meeting.build_platform_meeting_join_request
   end
 
   def create
@@ -42,9 +41,6 @@ class MeetingsController < ApplicationController
 
   def edit
     @meeting = find_user_meeting
-    if @meeting.platform_meeting_join_request.nil?
-      @meeting.build_platform_meeting_join_request
-    end
   end
 
   def update
@@ -150,16 +146,8 @@ class MeetingsController < ApplicationController
       meetings = meetings.where(graetzl_id: graetzl_ids)
     end
 
-    if params[:special_category_id].present? && params[:special_category_id] == 'special-events'
-      meetings = meetings.platform_meeting
-    end
-
     if params[:category_id].present?
       meetings = meetings.joins(:event_categories).where(event_categories: {id: params[:category_id]})
-    end
-
-    if params[:meeting_category_id].present?
-      meetings = meetings.where(meeting_category_id: params[:meeting_category_id])
     end
 
     meetings
@@ -168,18 +156,15 @@ class MeetingsController < ApplicationController
   def meeting_params
     params.require(:meeting).permit(
       :graetzl_id, :group_id, :location_id, :name, :description,
-      :meeting_category_id, :starts_at_date, :ends_at_date, :starts_at_time, :ends_at_time,
+      :starts_at_date, :ends_at_date, :starts_at_time, :ends_at_time,
       :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,
-      :platform_meeting, :online_meeting, :online_description, :online_url,
+      :online_meeting, :online_description, :online_url,
       :amount,
       images_attributes: [:id, :file, :_destroy],
       event_category_ids: [],
       meeting_additional_dates_attributes: [
         :id, :starts_at_date, :starts_at_time, :ends_at_time, :_destroy
-      ],
-      platform_meeting_join_request_attributes: [
-        :id, :status, :request_message, :_destroy
       ],
     )
   end

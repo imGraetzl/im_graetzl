@@ -837,3 +837,7 @@ input[type=url]:invalid + em::after {
     }
   }
 }
+
+.--hidden {
+  display:none;
+}

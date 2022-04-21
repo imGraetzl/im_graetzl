@@ -1680,7 +1680,7 @@
           noDuplicates: 'Folgende Datei existiert bereits: \'%{fileName}\'',
           companionError: 'Connection with Companion failed',
           companionUnauthorizeHint: 'To unauthorize to your %{provider} account, please go to %{url}',
-          failedToUpload: 'Failed to upload %{file}',
+          failedToUpload: 'Upload fehlgeschlagen für: %{file}',
           noInternetConnection: 'Fehlende Internetverbindung ...',
           connectedToInternet: 'Internetverbindung hergestellt',
           // Strings for remote providers

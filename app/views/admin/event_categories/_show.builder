@@ -4,6 +4,7 @@ context.instance_eval do
       attributes_table do
         row :id
         row :title
+        row :hidden
         row :position
         row :css_ico_class
         row :slug

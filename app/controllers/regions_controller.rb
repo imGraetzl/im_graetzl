@@ -51,7 +51,4 @@ class RegionsController < ApplicationController
   def zuckerls
   end
 
-  def platform_meetings
-    @meeting_category = MeetingCategory.find_by(id: params[:category])
-  end
 end

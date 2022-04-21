@@ -14,15 +14,11 @@ class Meeting < ApplicationRecord
   belongs_to :location, optional: true
   belongs_to :user, optional: true
   belongs_to :group, optional: true
-  belongs_to :meeting_category, optional: true
   has_and_belongs_to_many :event_categories
 
   has_many :going_tos, dependent: :nullify
   accepts_nested_attributes_for :going_tos, allow_destroy: true
   has_many :users, -> { distinct }, through: :going_tos
-
-  has_one :platform_meeting_join_request
-  accepts_nested_attributes_for :platform_meeting_join_request, allow_destroy: true, reject_if: :all_blank
 
   has_many :comments, as: :commentable, dependent: :destroy
 
@@ -34,19 +30,8 @@ class Meeting < ApplicationRecord
   enum state: { active: 0, disabled: 1 }
 
   scope :non_private, -> { where(private: false) }
-  scope :platform_meeting, -> { where(platform_meeting: true) }
   scope :online_meeting, -> { where(online_meeting: true) }
   scope :offline_meeting, -> { where(online_meeting: false) }
-
-  scope :platform_meeting_pending, -> {
-    where(platform_meeting: false).joins(:platform_meeting_join_request).merge(PlatformMeetingJoinRequest.pending)
-  }
-  scope :platform_meeting_processing, -> {
-    where(platform_meeting: false).joins(:platform_meeting_join_request).merge(PlatformMeetingJoinRequest.processing)
-  }
-  scope :platform_meeting_declined, -> {
-    where(platform_meeting: false).joins(:platform_meeting_join_request).merge(PlatformMeetingJoinRequest.declined)
-  }
 
   scope :by_currentness, -> {
     active.
@@ -86,10 +71,6 @@ class Meeting < ApplicationRecord
 
   def to_s
     name
-  end
-
-  def platform_meeting_pending?
-    !self.platform_meeting? && !self.platform_meeting_join_request.nil? && (self.platform_meeting_join_request.pending? || self.platform_meeting_join_request.processing?)
   end
 
   def past?
@@ -148,16 +129,6 @@ class Meeting < ApplicationRecord
     else
       [Time.current, nil]
     end
-  end
-
-  def approve_for_platform_meeting
-    update platform_meeting: true
-    self.platform_meeting_join_request.assign_attributes(status: :approved)
-  end
-
-  def decline_for_platform_meeting
-    update platform_meeting: false
-    self.platform_meeting_join_request.assign_attributes(status: :declined)
   end
 
   private

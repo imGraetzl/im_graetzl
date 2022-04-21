@@ -7,6 +7,9 @@ class EventCategory < ApplicationRecord
   include CategoryImageUploader::Attachment(:main_photo)
   validates_presence_of :main_photo
 
+  scope :visible, -> { where(hidden: false) }
+  scope :hidden, -> { where(hidden: true) }
+
   def to_s
     title
   end

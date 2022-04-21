@@ -58,7 +58,7 @@ Region.all.each do |region|
     end
 
     # Meeting Categories
-    EventCategory.find_each do |category|
+    EventCategory.visible.find_each do |category|
       add region_meetings_path(category: category), changefreq: 'daily', priority: 0.7
     end
 

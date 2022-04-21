@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_20_081720) do
+ActiveRecord::Schema.define(version: 2022_04_21_103003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -441,6 +441,7 @@ ActiveRecord::Schema.define(version: 2022_04_20_081720) do
     t.datetime "updated_at", null: false
     t.jsonb "main_photo_data"
     t.string "slug"
+    t.boolean "hidden", default: false
     t.index ["slug"], name: "index_event_categories_on_slug", unique: true
   end
 
@@ -699,17 +700,6 @@ ActiveRecord::Schema.define(version: 2022_04_20_081720) do
     t.index ["meeting_id"], name: "index_meeting_additional_dates_on_meeting_id"
   end
 
-  create_table "meeting_categories", force: :cascade do |t|
-    t.string "title"
-    t.string "icon"
-    t.date "starts_at_date"
-    t.date "ends_at_date"
-    t.bigint "meeting_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["meeting_id"], name: "index_meeting_categories_on_meeting_id"
-  end
-
   create_table "meetings", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.text "description"
@@ -729,10 +719,8 @@ ActiveRecord::Schema.define(version: 2022_04_20_081720) do
     t.integer "group_id"
     t.boolean "private", default: false
     t.integer "user_id"
-    t.boolean "platform_meeting", default: false
     t.decimal "amount", precision: 10, scale: 2
     t.boolean "online_meeting", default: false
-    t.integer "meeting_category_id"
     t.integer "address_id"
     t.text "online_description"
     t.jsonb "cover_photo_data"
@@ -748,7 +736,6 @@ ActiveRecord::Schema.define(version: 2022_04_20_081720) do
     t.index ["graetzl_id"], name: "index_meetings_on_graetzl_id"
     t.index ["group_id"], name: "index_meetings_on_group_id"
     t.index ["location_id"], name: "index_meetings_on_location_id"
-    t.index ["meeting_category_id"], name: "index_meetings_on_meeting_category_id"
     t.index ["region_id"], name: "index_meetings_on_region_id"
     t.index ["slug"], name: "index_meetings_on_slug"
     t.index ["user_id"], name: "index_meetings_on_user_id"
@@ -774,16 +761,6 @@ ActiveRecord::Schema.define(version: 2022_04_20_081720) do
     t.index ["region_id"], name: "index_notifications_on_region_id"
     t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
     t.index ["user_id", "notify_at"], name: "index_notifications_on_user_id_and_notify_at"
-  end
-
-  create_table "platform_meeting_join_requests", force: :cascade do |t|
-    t.bigint "meeting_id"
-    t.text "request_message"
-    t.boolean "wants_platform_meeting", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 0
-    t.index ["meeting_id"], name: "index_platform_meeting_join_requests_on_meeting_id"
   end
 
   create_table "region_calls", force: :cascade do |t|
@@ -1436,11 +1413,8 @@ ActiveRecord::Schema.define(version: 2022_04_20_081720) do
   add_foreign_key "location_menus", "graetzls", on_delete: :nullify
   add_foreign_key "location_menus", "locations", on_delete: :cascade
   add_foreign_key "meeting_additional_dates", "meetings", on_delete: :cascade
-  add_foreign_key "meeting_categories", "meetings", on_delete: :cascade
   add_foreign_key "meetings", "groups", on_delete: :nullify
-  add_foreign_key "meetings", "meeting_categories", on_delete: :nullify
   add_foreign_key "meetings", "users", on_delete: :nullify
-  add_foreign_key "platform_meeting_join_requests", "meetings", on_delete: :cascade
   add_foreign_key "room_call_fields", "room_calls", on_delete: :cascade
   add_foreign_key "room_call_modules", "room_calls", on_delete: :cascade
   add_foreign_key "room_call_modules", "room_modules", on_delete: :cascade
