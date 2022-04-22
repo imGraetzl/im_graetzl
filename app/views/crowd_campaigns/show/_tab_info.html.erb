@@ -2,10 +2,7 @@
 
   <div class="mainArea">
 
-    <div class="content-block">
-      <!--<h3 class="hl-main"><span>Worum</span> geht es bei dem Projekt</h3>-->
-      <p><%= @crowd_campaign.description %></p>
-    </div>
+    <div class="content-block bbcode"><%= @crowd_campaign.description.bbcode_to_html.html_safe %></div>
 
     <% if @crowd_campaign.crowd_campaign_posts.present? %>
       <div class="content-block -updates">
@@ -126,12 +123,12 @@
 
     <div class="content-block">
       <h3 class="hl-main -toggle"><span>Warum</span> sollte jemand dieses Projekt unterstützen?</h3>
-      <p class="toggle-content"><%= @crowd_campaign.support_description %></p>
+      <div class="toggle-content bbcode"><%= @crowd_campaign.support_description.bbcode_to_html.html_safe %></div>
     </div>
 
     <div class="content-block">
       <h3 class="hl-main -toggle"><span>Wer</span> steht hinter dem Projekt?</h3>
-      <p class="toggle-content"><%= @crowd_campaign.about_description %></p>
+      <div class="toggle-content bbcode"><%= @crowd_campaign.about_description.bbcode_to_html.html_safe %></div>
     </div>
 
   </div>

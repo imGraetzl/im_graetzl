@@ -49,3 +49,44 @@ div.bbcode {
     }
   }
 }
+
+.bbcodeField {
+  position: relative;
+  textarea {
+    padding-top: 2.5rem
+  }
+}
+.bbCodeOpener {
+  display: none;
+  position: absolute;
+  top:5px;
+  right:8px;
+  @include respond-to("<=medium") {
+    top:0px;
+    height:39px;
+    line-height: 39px !important;
+  }
+  @include font-size-primaryFont('small');
+  a {
+    color: $color-ambient-mint-dark;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+.bbcodeHelp {
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .input-textarea, .input-example {
+    width:49%;
+    margin-bottom:30px;
+  }
+  textarea {
+    min-height:300px;
+    height: 100% !important;
+  }
+}

@@ -19,6 +19,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       APP.components.formValidation.init();
       APP.components.search.userAutocomplete();
       APP.components.tabs.initTabs(".tabs-ctrl");
+      APP.components.formHelper.bbCodeHelp(); 
 
       //$("textarea").autoResize();
 
