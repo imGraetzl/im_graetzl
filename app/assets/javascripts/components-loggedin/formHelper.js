@@ -34,8 +34,36 @@ APP.components.formHelper = (function() {
     $(this).closest('div').find('.charsMin').text("(mind. " + minLength + " Zeichen)");
   });
 
+  function bbCodeHelp() {
+
+    $(".bbcodeField label").click(function(e) {
+      e.preventDefault();
+    });
+
+    $(".bbcodeField textarea").focus(function() {
+      $(this).closest('div').find('.bbCodeOpener').show();
+    });
+
+    $(".bbcodeField textarea").blur(function() {
+      $(this).closest('div').find('.bbCodeOpener').delay(100).fadeOut();
+    });
+
+    var bbCodeHelp = new jBox('Modal', {
+      attach: '.bbCodeOpener',
+      addClass:'jBox',
+      content: $('#bbCodeHelp'),
+      closeOnEsc:true,
+      closeOnClick:'body',
+      animation:{open: 'zoomIn', close: 'zoomOut'},
+      onClose: function() {
+        this.source.closest('div').find('textarea').focus();
+      }
+    });
+  }
+
   return {
-    maxCategories: maxCategories
+    maxCategories: maxCategories,
+    bbCodeHelp: bbCodeHelp,
   };
 
 })();

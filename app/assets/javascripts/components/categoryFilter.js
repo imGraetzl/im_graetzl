@@ -90,7 +90,10 @@ APP.components.categoryFilter = (function() {
 
      } else {
 
-         if ($(this).hasClass("-special-category")) {
+         if ($(this).hasClass("-href")) {
+           window.location.href = $(this).attr("data-href");
+           return;
+         } else if ($(this).hasClass("-special-category")) {
              // Special Filter Selected
              filterForm.find("[name=category_id]").val("");
              filterForm.find("[name=special_category_id]").val($(this).attr("data-id"));

@@ -39,28 +39,31 @@
 
   <p class="txt">Jetzt geht es um <span>dein Projekt</span></p>
 
-  <div class="input-textarea">
+  <div class="input-textarea bbcodeField">
     <%= f.label :description do %>
     <%= icon_tag "layout-document" %>
     <span>Worum geht es in deinem Projekt?</span>
     <% end %>
     <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...', required: !@crowd_campaign.draft? %>
+    <span class="bbCodeOpener"><a>Tipps</a></span>
   </div>
 
-  <div class="input-textarea">
+  <div class="input-textarea bbcodeField">
     <%= f.label :support_description do %>
     <%= icon_tag "layout-document" %>
     <span>Warum sollte man dich unterstützen?</span>
     <% end %>
     <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...', required: !@crowd_campaign.draft? %>
+    <span class="bbCodeOpener"><a>Tipps</a></span>
   </div>
 
-  <div class="input-textarea">
+  <div class="input-textarea bbcodeField">
     <%= f.label :about_description do %>
     <%= icon_tag "layout-document" %>
     <span>Warum brennst du für dein Projekt?</span>
     <% end %>
     <%= f.text_area :about_description, placeholder: 'Ein paar Infos über dich und den Projekt Hintergrund ...', required: !@crowd_campaign.draft? %>
+    <span class="bbCodeOpener"><a>Tipps</a></span>
   </div>
 
 </div>

@@ -3,6 +3,8 @@ ActiveAdmin.register CrowdPledge do
   includes :crowd_campaign, :user, :crowd_reward
   actions :all, except: [:new, :create, :destroy, :edit]
 
+  config.sort_order = 'created_at_desc'
+
   scope :all, default: true
   scope :incomplete
   scope :authorized
