@@ -43,8 +43,6 @@ APP.controllers_loggedin.locations = (function() {
         $('#location-cat').hide();
       }
 
-      //$("#location_description, #location_contact_attributes_hours").autoResize();
-
       $('#location_product_list').tagsInput({
           'defaultText':'Schlagworte / Tags'
       });

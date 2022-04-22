@@ -5,7 +5,6 @@ APP.controllers.static_pages = (function() {
       if($(".-mentoring-page").exists()) initMentoring();
       if($(".good-morning-dates").exists()) initGoodMorningDates();
       if($("#help_nav").exists()) initHelpScroller();
-      if($("#guide-download").exists()) initGuideDownload();
     }
 
 // ---------------------------------------------------------------------- Public
@@ -142,15 +141,6 @@ function initMentoring() {
   }
 
 }
-
-function initGuideDownload() {
-  $('#guide-download').on('click', function(){
-    gtag('event', 'Download', {
-      'event_category': 'Raumteiler-Guide'
-    });
-  });
-}
-
 
 
 // Dont scroll over the Footer Element

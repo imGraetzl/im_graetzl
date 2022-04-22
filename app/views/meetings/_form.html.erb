@@ -30,7 +30,6 @@
       </div>
     <% end %>
 
-    <% user_locations = current_user.locations.in(current_region) %>
     <% if user_locations.present? %>
       <div class="input-select">
         <%= f.label :location_id do %>
