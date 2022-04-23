@@ -70,15 +70,11 @@
     position: relative;
   }
   .tabs-nav li a {
-    //font-family: $font-tertiary;
-    //@include font-size-primaryFont('largest');
     display: flex;
     justify-content: center;
     small {
-      //position: absolute;
       font-family: $font-primary;
       background-color: $color-ambient-grey-light;
-      //background-color: $color-ambient-grey-light;
       color: $color-font-primary;
       border-radius: 15px;
       line-height: 1;
@@ -86,8 +82,6 @@
       padding: 5px;
       z-index: 9;
       font-style: italic;
-      //top:4px;
-      //right:5px;
       align-self: center;
       margin-left: 5px;
       margin-left:15px;
@@ -95,19 +89,5 @@
   }
   .tabs-nav li:not(.active) a {
     color: $color-font-primary;
-    //font-style: italic;
-    //font-weight: bold;
   }
-  /*
-  li:last-child {
-    &:after {
-      content: "";
-      position: absolute;
-      border-bottom: 1px solid $color-ambient-grey-light;
-      width: 100%;
-      bottom:0px;
-      left:1px;
-    }
-  }
-  */
 }
