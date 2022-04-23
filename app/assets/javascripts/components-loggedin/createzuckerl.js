@@ -20,8 +20,6 @@ APP.components.createzuckerl = (function() {
         $btnconfirm = $("[data-behavior=btn-confirm]");
         $btnsend = $("[data-behavior=btn-send]");
 
-        //$descriptioninput.autoResize();
-
         bindevents();
         updatetitle();
         updatedescription();

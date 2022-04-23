@@ -1,7 +1,6 @@
 APP.controllers_loggedin.registrations = (function() {
 
     function init() {
-      APP.components.inputTextareaMovingLabel();
       APP.components.addressInput();
 
       if ($(".register-personalInfo").exists()) {

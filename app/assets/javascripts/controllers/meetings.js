@@ -110,28 +110,36 @@ APP.controllers.meetings = (function() {
 
       // Analytics & Form Submit!
       $('.meeting-attend-btn').on('click', function() {
-        event.preventDefault();
         var form = $(this).closest("form");
-        gtag(
-          'event', 'Click :: Teilnehmen', {
-          'event_category': 'Meeting',
-          'event_callback': function() {
-            form.submit();
-          }
-        });
+        if (typeof gtag == 'undefined') {
+          form.submit();
+        } else {
+          event.preventDefault();
+          gtag(
+            'event', 'Click :: Teilnehmen', {
+            'event_category': 'Meeting',
+            'event_callback': function() {
+              form.submit();
+            }
+          });
+        }
       });
 
       // Analytics & Form Submit!
       $('.meeting-unattend-btn').on('click', function() {
-        event.preventDefault();
         var form = $(this).closest("form");
-        gtag(
-          'event', 'Click :: Nicht mehr teilnehmen', {
-          'event_category': 'Meeting',
-          'event_callback': function() {
-            form.submit();
-          }
-        });
+        if (typeof gtag == 'undefined') {
+          form.submit();
+        } else {
+          event.preventDefault();
+          gtag(
+            'event', 'Click :: Nicht mehr teilnehmen', {
+            'event_category': 'Meeting',
+            'event_callback': function() {
+              form.submit();
+            }
+          });
+        }
       });
 
     }
