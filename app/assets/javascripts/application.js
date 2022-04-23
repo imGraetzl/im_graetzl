@@ -28,7 +28,6 @@
 //= require jquery.remotipart
 //= require lightslider
 //= require modernizr.custom
-//= require unscroll
 //= require autoheight
 //= require jBox.min
 //= require cocoon

@@ -17,7 +17,6 @@ APP.components.stream = (function() {
         var $parent = $('.entryCreate').not('.js-initialized');
 
         if($parent.find('.postMessage').exists()) {
-            //$parent.find('.postMessage').autoResize();
             $parent.addClass('js-initialized')
                 .find('.postTitle, .postMessage')
                 .on("focusin", function() {

@@ -26,7 +26,6 @@ APP.controllers_loggedin.locations = (function() {
       // Edit Menu Inline Form
       $(".streamElement").on('click', '.edit-menu-link', function() {
         $(this).parents(".streamElement").addClass("editing");
-        //$(".edit-post-form textarea").autoResize();
       }).on('click', '.cancel-edit-link', function() {
         $(this).parents(".streamElement").removeClass("editing");
       });

@@ -73,27 +73,35 @@ APP.components.initUserTooltip = function() {
   function initTrackingLinks() {
     // Link - Messenger
     $('.user-tooltip-wrp .-messenger a').on('click', function(event){
-      event.preventDefault();
       var href = $(this).attr('href');
-      gtag(
-        'event', 'Click :: Nachricht senden', {
-        'event_category': 'User Tooltip',
-        'event_callback': function() {
-          location.href = href;
-        }
-      });
+      if (typeof gtag == 'undefined') {
+        location.href = href;
+      } else {
+        event.preventDefault();
+        gtag(
+          'event', 'Click :: Nachricht senden', {
+          'event_category': 'User Tooltip',
+          'event_callback': function() {
+            location.href = href;
+          }
+        });
+      }
     });
     // Link - Profile
     $('.user-tooltip-wrp .tt-img a, .user-tooltip-wrp a.username, .user-tooltip-wrp .-profile a').on('click', function(event){
-      event.preventDefault();
       var href = $(this).attr('href');
-      gtag(
-        'event', 'Click :: Profil anzeigen', {
-        'event_category': 'User Tooltip',
-        'event_callback': function() {
-          location.href = href;
-        }
-      });
+      if (typeof gtag == 'undefined') {
+        location.href = href;
+      } else {
+        event.preventDefault();
+        gtag(
+          'event', 'Click :: Profil anzeigen', {
+          'event_category': 'User Tooltip',
+          'event_callback': function() {
+            location.href = href;
+          }
+        });
+      }
     });
   }
 
