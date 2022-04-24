@@ -18,6 +18,10 @@
 
 <% end %>
 
+<% if @region.id == 'wien' && @period == 'weekly' %>
+  <%= render 'featured/good_morning_dates' %>
+<% end %>
+
 <% if @period == 'weekly' %>
   <!-- Insert 2 Random District Zuckerls in Weekly Mail if any exists -->
   <%= render "summary/new_zuckerl" %>
