@@ -10,63 +10,16 @@ APP.controllers.static_pages = (function() {
 // ---------------------------------------------------------------------- Public
 
 function initGoodMorningDates() {
-
   if ($('.cards-filter').exists()) {
     APP.components.cardBoxFilter.init();
   }
-
-  $('.locations').lightSlider({
-    item: 3,
-    autoWidth: false,
-    slideMove: 3, // slidemove will be 1 if loop is true
-    slideMargin: 15,
-    addClass: '',
-    mode: "slide",
-    useCSS: true,
-    cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-    easing: 'linear', //'for jquery animation',////
-    speed: 750, //ms'
-    auto: true,
-    loop: false,
-    slideEndAnimation: true,
-    pause: 10000,
-    keyPress: false,
-    controls: true,
-    prevHtml: '',
-    nextHtml: '',
-    adaptiveHeight:false,
-    pager: false,
-    enableTouch:true,
-    enableDrag:false,
-    freeMove:true,
-    swipeThreshold: 40,
-    responsive : [
-      {
-        breakpoint:850,
-        settings: {
-          item: 2,
-          slideMove: 2,
-        }
-      },
-      {
-        breakpoint:530,
-        settings: {
-          item: 1,
-          slideMove: 1,
-        }
-      }
-    ]
-  });
-
 }
 
 function initAboutPages() {
-
   $('.press-view-all').on('click', function(){
     $(this).closest(".presslist").find('.row').addClass('-show');
     $(this).hide();
   });
-
 };
 
 function initMentoring() {

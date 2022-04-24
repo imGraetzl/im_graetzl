@@ -1,9 +1,11 @@
 section.good-morning-dates {
-  .lightSliderWrapper {
+  .card-grid-container {
     margin-bottom:60px;
   }
-  .lightSlider {
-    height: unset !important;
+  .cardBox.-location {
+    .goodieteasertxt, .updateteaser, .event-teaser-box {
+      display: none;
+    }
   }
 }
 
