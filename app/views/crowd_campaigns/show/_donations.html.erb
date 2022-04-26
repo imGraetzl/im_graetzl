@@ -24,7 +24,7 @@
             <% end %>
           </em></p>
         </div>
-        <%= link_to 'Auswählen', choice_crowd_donation_pledges_path(crowd_campaign_id: crowd_donation.crowd_campaign.id, crowd_donation_id: crowd_donation.id), class: 'btn-primary -mint -shadow' %>
+        <%= link_to 'Auswählen', choice_crowd_donation_pledges_path(crowd_campaign_id: crowd_donation.crowd_campaign.id, crowd_donation_id: crowd_donation.id), class: 'btn-primary' %>
       </div>
       <small class="trigger"><%= crowd_donation.taken_count %> mal zugesagt.</small>
     </div>
