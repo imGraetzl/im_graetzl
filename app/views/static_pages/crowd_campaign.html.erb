@@ -1,0 +1,115 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow'
+  )
+%>
+
+<section class="info -detail">
+
+  <div class="hl-subtext">
+    <h1>Lokales <em>Crowdfunding</em></h1>
+    <p>Setze deine Vorhaben mit der Kraft der Gemeinschaft um.</p>
+  </div>
+
+  <div class="paperCard -cord1RT container -top" id="zero">
+    <div class="wrp">
+      <p>
+        <strong>Team work makes the dream works!</strong> Stelle ein kostenloses Gesuch im Coop & Share Marktplatz ein, wenn du dich mit Gleichgesinnten zusammenschließen möchtest.
+      </p>
+      <p>
+        <strong>Der Coop & Share Marktplatz ist für alle gedacht, die ein nicht kommerzielles  Angebot bereithalten</strong> (z.B. kostenlos, zum Selbstkostenpreis, gegen Spende, Vereins- und Mitgliedergebühr, Genossenschaftsbeitrag etc. ). Bitte schreibe dazu, ob und welche Kosten mit deinem Angebot verbunden sind.
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <aside>
+    <div id="help_nav">
+      <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
+      <a href="#kategorien" class="btn-primary -mint" id="nav-1">Infos zu den Kategorien</a>
+      <a href="#erstellen" class="btn-primary -mint" id="nav-2">Angebot erstellen</a>
+      <a href="#sichtbarkeit" class="btn-primary -mint" id="nav-3">Sichtbarkeit & Kontakt</a>
+      <a href="#tauschgeschaefte" class="btn-primary -mint" id="nav-4">Tauschgeschäfte</a>
+    </div>
+  </aside>
+
+  <div class="mainContent">
+
+    <article class="container" id="1">
+      <h2 id="kategorien">Infos zu den Kategorien</h2>
+      <h3>Motivation und Inspiration:</h3>
+      <p>
+        Startest du gerade ein Erfolgsteam und hast noch einen Platz frei? Gründest du gerade und suchst noch Wegbegleiter*innen? Oder möchtest du andere Macher*innen als Sparring Partner*in begleiten und deine Erfahrungen weitergeben? Dann stelle ein kostenloses Gesuch ein.
+      </p>
+
+      <h3>Kooperation und Kollaborationen:</h3>
+      <p>
+        Du suchst Projekt- und Kooperationspartner*innen, vielleicht auch Geschäftspartner*innen? Dann bist du in dieser Kategorie richtig, beschreibe dein Anliegen und was für eine Kooperation bzw. Zusammenarbeit du genau suchst.
+      </p>
+
+      <h3>Vereine und Initiativen:</h3>
+      <p>
+        Möchtet ihr zeigen, dass man sich noch an euch andocken kann und Mitgestalter*innen willkommen sind? Dann stellt euch vor und schreibt für wen und was eure Initiative bzw. Verein gedacht ist. Falls ihr gerade ein spezielles Anliegen habt z.B.  helfende Hände für ein Fest benötigt, auch solche Anliegen sind in dieser Kategorie willkommen.
+      </p>
+
+      <h3>Tauschgeschäfte:</h3>
+      <p>
+        Tausche eine Dienstleistung oder ein Produkt gegen eine gleichwertige andere Dienstleistung oder Produkt ein. Was es zu beachten gibt, findest du weiter unten ausführlicher beschrieben.
+      </p>
+
+      <h3>Gratis Kennenlernangebote:</h3>
+      <p>
+        Du möchtest anderen Menschen die Gelegenheit geben dein Angebot kennenzulernen und bietest z.B. kostenlose Erstberatungen oder Schnupper-Sessions an? Oder du befindest dich in Ausbildung und suchst Menschen, um an ihnen deine neuen Kenntnisse zu üben und anzuwenden. Dann mache dein Angebot hier sichtbar.
+      </p>
+    </article>
+
+    <article class="container" id="2">
+      <h2 id="erstellen">Angebot erstellen</h2>
+      <h3>Erstellung einen Angebotes im Coop & Share Marktplatz</h3>
+      <p>
+        Suchst du oder bietest du etwas an? Beide Varianten sind möglich. Die Erstellung deines Gesuchs oder Angebots geht ganz einfach, indem du das Formular ausfüllst und dann der passenden Kategorie zuordnest. Aus dem Formular entsteht eine interaktive Seite, die du auch in deinem eigenen Kanälen teilen kannst.
+        <br><br>
+        Es gibt aktuell folgende Kategorien: Tauschgeschäft, Kooperation, Interessierte für Verein & Initiative, Motivation und Unterstützung. Schreibe nicht nur Stichpunkte auf, sondern formuliere ganze Sätze. Wähle ein aussagekräftiges Bild. Verwende keinen Text im Bild, der wird unleserlich.
+      </p>
+    </article>
+
+    <article class="container" id="3">
+      <h2 id="sichtbarkeit">Sichtbarkeit deines Gesuch oder Angebot</h2>
+      <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
+      <h3>Kontaktaufnahme</h3>
+      <p>
+        Interessierten stehen drei Wege zur Kontaktaufnahme zur Verfügung: 1. über den internen Messenger 2. über deine angegebene Emailadresse 3. über das Kommentarfeld auf der Seite.
+      </p>
+    </article>
+
+    <article class="container" id="4">
+      <h2 id="tauschgeschaefte">Zu den Tauschgeschäften</h2>
+      <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
+      <p>
+        Viele NetzwerkerInnen tun es schon und in großen Konzernen gibt es häufig Abteilungen, die sich nur um die Abwicklung von Tauschgeschäften (Kompensationsgeschäfte, Barter-Deals, Gegengeschäfte) kümmern. Was liegt näher diese Möglichkeit auch für Dienstleister*innen und generell für lokale Anbieter*innen lokal einfacher zugänglich zu machen.
+      </p>
+      <h3>Folgende Varianten könnt ihr hier ausprobieren</h3>
+      <ol>
+        <li>Du brauchst ein Produkt oder eine Dienstleistung. Dann formuliere deine Anzeige folgendermaßen: Ich suche xyz und ich biete z.B. dies, dies und das dafür an (hier kannst du alles nennen, was du bereit bist dafür einzutauschen). Der Wert deines Angebotes sollte natürlich auch zum Produkt/Dienstleistung passen, dass du suchst. </li>
+        <br>
+        <li>Du hast gerade gar keine konkreten Wünsche, aber bist trotzdem offen für Tauschgeschäfte. Dann schreibe: Ich biete xyz an, was möchtest du dafür eintauschen?</li>
+      </ol>
+      <br>
+      <p>So praktisch Geld und die darauf basierende Geldwirtschaft sein mag: Unverzichtbar oder gar gesetzlich vorgeschrieben ist sie nicht: Die Tauschwirtschaft ist völlig legal.</p>
+
+      <h3>Was gilt es zu beachten:</h3>
+      <p>
+        Erstelle über deine Tauschleistung eine Rechnung mit ordnungsgemäß ausgewiesener Umsatzsteuer, so wie bei jedem anderen Geschäft auch. Entsprechend erhältst du vom Tauschpartner eine Rechnung mit ausgewiesener Umsatzsteuer über seine Leistung. Tauschgeschäfte sind buchhalterisch, finanztechnisch und steuerrechtlich genauso zu behandeln wie normale Geld-Geschäfte. Es gibt keine steuerlichen Nachteile aber auch keine steuerlichen Vorteile. Wer es genau wissen möchte, bitte auch noch beim SteuerberaterIn deines Vertrauens nachfragen. Mehr Infos und Beispiele gibt es dazu in diesem Blogbeitrag von <%= link_to 'Hellerconsult', 'https://blog.hellerconsult.com/gegenschaefte-wie-ist-das-eigentlich-steuerlich/', target: '_blank' %>.
+        <br><br>
+        Um auf Nummer sicher zu gehen, laß dich aber unbedingt auch noch einmal von eine*r Steuerberater*in beraten.
+      </p>
+    </article>
+
+  </div>
+
+  <div style="clear:both;"></div>
+
+</section>
+
+<%= render 'info_navigation' %>
