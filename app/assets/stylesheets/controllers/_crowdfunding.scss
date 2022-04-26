@@ -61,7 +61,7 @@ section.crowd_campaign {
     }
 
     .fundingBar {
-      background-color: white;
+      background-color: rgba($color-ambient-mint, 0.2);
     }
 
     &.-content {
@@ -100,13 +100,22 @@ section.crowd_campaign {
 
   .fundingArea {
     position: relative;
-    //align-items: top;
+  }
+
+  .btn-support-wrp {
+    @include respond-to("<=medium") {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 999;
+      width: 100%;
+      padding: 10px;
+      background-color: white;
+      border-top: 1px solid $color-ambient-mint-light;
+    }
   }
 
   .last-supporters {
-    //margin-top:20px;
-    //padding-top:20px;
-    //border-top: 1px dashed $color-ambient-mint-light;
     display: flex;
     position: relative;
     .img-round {margin-right:8px;}
@@ -114,20 +123,19 @@ section.crowd_campaign {
       display: flex;
       align-items: center;
       margin-right:25px;
+      white-space: nowrap;
     }
-    .btn-round-icon {
-      position: absolute;
-      right:0
-    }
+    /*
     @include respond-to("<medium") {
       .supporter:not(:first-child) {
-        display: none;
+        //display: none;
       }
     }
     .supporter.-donation:not(:first-child) {
-      border-left: 1px dashed $color-ambient-mint-light;
-      padding-left:25px;
+      //border-left: 1px dashed $color-ambient-mint-light;
+      //padding-left:25px;
     }
+    */
   }
 
   .hl-subtext {
@@ -204,9 +212,6 @@ section.crowd_campaign {
         width:100%;
       }
     }
-    .block:last-child {
-      //margin-bottom: 0px;
-    }
   }
 
   .layoutArea .hl-main {
@@ -214,17 +219,7 @@ section.crowd_campaign {
     @include font-size-secondaryFont('base');
   }
   .hl-main.-rewards {
-    //display: grid;
     text-align: center;
-    em {
-      @include headlineBarbapapaMintDark();
-      text-shadow: none;
-      opacity: 0.8;
-      filter: grayscale(0.5);
-      @include respond-to("<=medium") {
-        background-size: auto auto, 100% 100% !important;
-      }
-    }
   }
   .navArea {
     margin-top:40px;
@@ -244,7 +239,7 @@ section.crowd_campaign {
 
   .coverImg {
 
-    margin-top:50px; // 70 wenn avatarbild darüber liegt.
+    margin-top:50px;
     display: flex;
     justify-content: center;
     position: relative;

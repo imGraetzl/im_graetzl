@@ -5,14 +5,16 @@
     <%= icon_tag "record" %>
     <span>Projektname</span>
     <% end %>
-    <%= f.text_field :title, placeholder: 'Gib deiner Kampagne einen kurzen Titel ...', required: true, disabled: !@crowd_campaign.editable? %>
+    <%= f.text_field :title, placeholder: 'Gib deiner Kampagne einen kurzen Titel ...', required: true, data: { max_chars: 100 }, maxlength:100, disabled: !@crowd_campaign.editable? %>
+    <span class="charCountContainer charsLeft"></span>
   </div>
   <div class="input-textarea">
     <%= f.label :slogan do %>
     <%= icon_tag "layout-document" %>
     <span>Kurzbeschreibung</span>
     <% end %>
-    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
+    <%= f.text_area :slogan, placeholder: 'Dein Projekt in einem Satz beschrieben ...', required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable?, data: { max_chars: 250 }, maxlength:250 %>
+    <span class="charCountContainer charsLeft"></span>
   </div>
   <div class="benefit-checkbox">
     <div class="input-checkbox">
