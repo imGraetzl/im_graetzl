@@ -57,24 +57,34 @@
 .tabs-ctrl.-plain {
   position: relative;
   .tabs-nav {
-    @include respond-to(">=medium") {
-      display: flex;
-    }
+    margin-bottom: 0px;
+    width:100%;
+    border:none;
+    border-radius: unset;
   }
   .tabs-nav li {
-    @include respond-to(">=medium") {
-      width: 100%;
-      text-align: center;
-      white-space: nowrap;
+    &.active a {
+      color: unset;
+      background-color: unset;
+      border-bottom: solid 3px $color-ambient-grey-dark;
     }
-    position: relative;
   }
   .tabs-nav li a {
+    padding:13px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-right:20px;
     display: flex;
-    justify-content: center;
+    border-right:unset;
+    font-family: $font-primary;
+    font-weight: bold;
+    @include font-size-primaryFont('large');
+    @include respond-to("<=medium") {
+      padding:10px;
+      margin-right:0px;
+    }
     small {
-      font-family: $font-primary;
-      background-color: $color-ambient-grey-light;
+      background-color: $color-ambient-mint-light;
       color: $color-font-primary;
       border-radius: 15px;
       line-height: 1;
@@ -83,11 +93,14 @@
       z-index: 9;
       font-style: italic;
       align-self: center;
-      margin-left: 5px;
-      margin-left:15px;
+      margin-left:10px;
     }
+  }
+  .tabs-nav li:last-child a {
+    margin-right: 0;
   }
   .tabs-nav li:not(.active) a {
     color: $color-font-primary;
+    background-color: unset;
   }
 }
