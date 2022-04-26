@@ -125,17 +125,6 @@ section.crowd_campaign {
       margin-right:25px;
       white-space: nowrap;
     }
-    /*
-    @include respond-to("<medium") {
-      .supporter:not(:first-child) {
-        //display: none;
-      }
-    }
-    .supporter.-donation:not(:first-child) {
-      //border-left: 1px dashed $color-ambient-mint-light;
-      //padding-left:25px;
-    }
-    */
   }
 
   .hl-subtext {
