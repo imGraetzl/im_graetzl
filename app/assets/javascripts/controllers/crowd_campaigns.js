@@ -15,6 +15,21 @@ APP.controllers.crowd_campaigns = (function() {
       APP.components.tabs.initTabs(".tabs-ctrl", "#tabs-container");
       APP.components.tabs.initPageTab();
 
+      $('.mob .last-supporters').lightSlider({
+        item: 1,
+        slideMove: 1,
+        mode: "fade",
+        speed: 1000,
+        auto: true,
+        loop: true,
+        pause: 5000,
+        controls: false,
+        pager: false,
+        enableTouch:true,
+        enableDrag:false,
+        pauseOnHover: true,
+      });
+
       // Delete target param on manual tab change
       $('.tabs-ctrl a').on("click", function() {
         var urlParams = new URLSearchParams(window.location.search);
