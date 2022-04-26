@@ -1,4 +1,81 @@
+.crowd_campaigns #flash {
+  width: 100vw;
+  min-width: 100%;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  > div {
+    max-width:930px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  @include respond-to("<=medium") {
+    margin-bottom: 30px;
+  }
+}
 section.crowd_campaign {
+
+  .-fullwidth {
+    background-color: #eaf2f4;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding-top: 0;
+
+    margin-top: -30px;
+    margin-bottom:30px;
+    padding-top:30px;
+    padding-bottom:20px;
+
+    @include respond-to(">=medium") {
+      margin-top: -50px;
+      padding-top:30px;
+    }
+    @include respond-to(">=large") {
+      margin-top: -80px;
+      padding-top:60px;
+    }
+
+    > div {
+      max-width:930px;
+      margin-left: auto;
+      margin-right: auto;
+
+      padding-left: 18px;
+      padding-right: 18px;
+
+      @include respond-to(">=medium") {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+      @include respond-to(">=large") {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+
+    .fundingBar {
+      background-color: white;
+    }
+
+    &.-content {
+      background-color: #f9f9f9;
+      margin-top:0px;
+      padding-top:50px;
+      margin-bottom:-80px;
+      padding-bottom:80px;
+      @include respond-to("<=medium") {
+        padding-top:30px;
+      }
+    }
+
+  }
 
   .layoutArea {
     display: flex;
@@ -23,13 +100,13 @@ section.crowd_campaign {
 
   .fundingArea {
     position: relative;
-    align-items: center;
+    //align-items: top;
   }
 
   .last-supporters {
-    margin-top:20px;
-    padding-top:20px;
-    border-top: 1px dashed $color-ambient-mint-light;
+    //margin-top:20px;
+    //padding-top:20px;
+    //border-top: 1px dashed $color-ambient-mint-light;
     display: flex;
     position: relative;
     .img-round {margin-right:8px;}
@@ -72,15 +149,19 @@ section.crowd_campaign {
     }
   }
   .content-block.-updates {
+    margin-bottom:60px;
+    h3 {
+      margin-bottom: 0px;
+    }
     em {
-      color: $color-ambient-grey-dark;
+      color: $color-ambient-mint-dark;
+      font-weight: bold;
     }
     a {
-      color: $color-ambient-mint-dark;
-      text-decoration: none;
-      font-weight: bold;
+      @include font-size-primaryFont('large');
+      color: $color-ambient-grey-dark;
+      font-style: italic;
       &:hover {
-        text-decoration: underline;
       }
     }
   }
@@ -114,6 +195,7 @@ section.crowd_campaign {
         font-weight: normal;
       }
       h4 {
+        @include font-size-primaryFont('large');
         color: $color-ambient-grey-dark;
         font-style: italic;
       }
@@ -132,15 +214,26 @@ section.crowd_campaign {
     @include font-size-secondaryFont('base');
   }
   .hl-main.-rewards {
-    display: grid;
+    //display: grid;
     text-align: center;
+    em {
+      @include headlineBarbapapaMintDark();
+      text-shadow: none;
+      opacity: 0.8;
+      filter: grayscale(0.5);
+      @include respond-to("<=medium") {
+        background-size: auto auto, 100% 100% !important;
+      }
+    }
   }
   .navArea {
-    margin-top:50px;
-    margin-bottom:60px;
+    margin-top:40px;
+    @include respond-to("<=medium") {
+      margin-top:30px;
+    }
   }
 
-  .coverImg, .coverImgBottom, .fundingArea:after, .navArea {
+  .coverImg, .fundingArea:after {
     margin-left: -18px;
     margin-right: -18px;
     @include respond-to(">=medium") {
@@ -167,23 +260,6 @@ section.crowd_campaign {
       @include respond-to("<medium") {
         width:auto;
         height:250px;
-      }
-    }
-
-    .crowd-avatar {
-      width:120px;
-      height:120px;
-      position: absolute;
-      top:-60px;
-      border: 1px solid $color-ambient-rosa;
-      border-width: 1px 0px 0px 0px;
-      padding:6px;
-      z-index: 9;
-      @include respond-to("<medium") {
-        width:60px;
-        height:60px;
-        top:-40px;
-        padding:3px;
       }
     }
 
@@ -225,15 +301,18 @@ section.crowd_campaign {
 
   .coverImgBottom {
     position: relative;
-    margin-left:-30px;
     top:-13px;
     min-height:26px;
     z-index: 9;
-    background-color: #ffffff;
+    background-color: #eaf2f4;
+    max-width:100% !important;
+    //background-color: #ffffff;
+    /*
     @include bg-url(
       image_path('texture-alpha-stoff1.png'),
       $webp1x: image_path('texture-alpha-stoff1.webp'),
     );
+    */
   }
 
   .mediaSlider {
@@ -247,6 +326,7 @@ section.crowd_campaign {
     .jBoxTooltip svg {margin-left:10px;}
 
     .-supportBox {
+      padding:20px;
       .wrp {
         transform: rotate(1deg);
       }
@@ -259,7 +339,6 @@ section.crowd_campaign {
         top:-35px;
       }
       margin-bottom: 50px;
-      margin-top:-30px;
       p {margin-bottom:15px;}
       label {min-width:0px;}
       .btn-secondary, .btn-primary {

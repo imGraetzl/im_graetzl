@@ -1,11 +1,11 @@
 <!-- SUPPORT BOX -->
-<div class="paperCard -mint -cord1RT -supportBox">
+<div class="paperCard -cord1RT -supportBox">
   <div class="wrp">
     <div class="txt">
       <h2 class="hl-main"><span>Freie</span> Unterstützung</h2>
 
       <p>
-        Du kannst dieses Projekt mit einem Betrag deiner Wahl auch ohne Belohnung unterstützen.
+        Du kannst dieses Projekt mit einem freien Betrag deiner Wahl unterstützen, oder wähle eines der Dankeschöns.
       </p>
 
       <%= form_with url: new_crowd_pledge_path, html: { class: 'campaign_support_form', method: :get } do |f| %>
@@ -15,9 +15,9 @@
           <%= label_tag :donation_amount do %>
             <%= icon_tag "currency-euro" %>
           <% end %>
-          <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Betrag wählen', required: true %>
+          <%= f.number_field :donation_amount, class: 'amount', placeholder: 'Freier Betrag', required: true %>
         </div>
-        <%= f.submit 'Auswählen', class: 'btn-primary -mint' %>
+        <%= f.submit 'Jetzt unterstützen', class: 'btn-primary' %>
       <% end %>
 
     </div>

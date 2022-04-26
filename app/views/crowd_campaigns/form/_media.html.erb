@@ -36,7 +36,15 @@
 
 <div class="form-block">
 
-  <p class="txt">Wenn du auch noch ein <span>Video</span> hast</p>
+  <div class="hl-subtext">
+    <h2>Wenn du auch noch ein <span>Video</span> hast</h2>
+    <p>
+      Lade dein Video auf Youtube oder Vimeo hoch und trage hier die URL zu deinem Video ein.
+      <%= render 'shared/questionmark', hint_id: "video", hint_message: 'Bei der URL handelt es sich um die Einbettungs-URL deines Videos (Embed). Du findest diese meistens hinter der "Teilen > Einbetten" Funktion bei deinem Video.' %>
+    </p>
+    <p class="upload-hint"><small><i>Beispiel Youtube: https://www.youtube.com/embed/xyz</i></small></p>
+    <p class="upload-hint"><small><i>Beispiel Vimeo:  https://player.vimeo.com/video/xyz</i></small></p>
+  </div>
 
   <div class="input-field">
     <%= f.label :video do %>

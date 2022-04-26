@@ -4,22 +4,7 @@
 
     <div class="content-block bbcode"><%= @crowd_campaign.description.bbcode_to_html.html_safe if @crowd_campaign.description.present? %></div>
 
-    <% if @crowd_campaign.crowd_campaign_posts.present? %>
-      <div class="content-block -updates">
-        <h3 class="hl-main">Neueste Projekt <span>Updates</span></h3>
-        <% @crowd_campaign.crowd_campaign_posts.order(created_at: :desc).first(3).each do |post| %>
-          <p>
-            <em><%= I18n.localize(post.created_at, format:'%d. %B') %>:</em>
-            <%= link_to [@crowd_campaign, target: dom_id(post)] do %><%= post.title.truncate(150) %><% end %>
-          </p>
-        <% end %>
-      </div>
-    <% end %>
-
     <div class="content-block -facts">
-      <% if @crowd_campaign.crowd_campaign_posts.present? %>
-        <h3 class="hl-main block -full">Projekt <span>Infos</span></h3>
-      <% end %>
 
       <div class="block bigicontext-element -small">
         <%= link_to user_path(@crowd_campaign.user), rel: 'nofollow' do %>
@@ -79,17 +64,19 @@
         </div>
       </div>
 
-      <!--
-      <div class="block bigicontext-element -small">
-        <%= icon_tag "map-location" %>
-        <div class="txt">
-          <h4><%= t("region.#{current_region.id}.district_graetzl") %></h4>
-          <p><strong><%= @crowd_campaign.graetzl.zip_name %></strong></p>
-        </div>
-      </div>
-      -->
-
     </div>
+
+    <% if @crowd_campaign.crowd_campaign_posts.present? %>
+      <div class="content-block -updates">
+        <h3>Projekt Updates</h3>
+        <% @crowd_campaign.crowd_campaign_posts.order(created_at: :desc).first(3).each do |post| %>
+          <p>
+            <em><%= I18n.localize(post.created_at, format:'%A, %d. %B %Y') %></em>
+            <%= link_to [@crowd_campaign, target: dom_id(post)] do %><%= post.title.truncate(150) %><% end %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
 
     <% if @crowd_campaign.video? || @crowd_campaign.images.present? %>
 
@@ -122,13 +109,13 @@
     <% end %>
 
     <div class="content-block">
-      <h3 class="hl-main -toggle"><span>Warum</span> sollte jemand dieses Projekt unterstützen?</h3>
-      <div class="toggle-content bbcode"><%= @crowd_campaign.support_description.bbcode_to_html.html_safe if @crowd_campaign.support_description.present? %></div>
+      <h3 class="hl-main"><span>Warum</span> sollte jemand dieses Projekt unterstützen?</h3>
+      <div class="bbcode"><%= @crowd_campaign.support_description.bbcode_to_html.html_safe if @crowd_campaign.support_description.present? %></div>
     </div>
 
     <div class="content-block">
-      <h3 class="hl-main -toggle"><span>Wer</span> steht hinter dem Projekt?</h3>
-      <div class="toggle-content bbcode"><%= @crowd_campaign.about_description.bbcode_to_html.html_safe if @crowd_campaign.about_description.present? %></div>
+      <h3 class="hl-main"><span>Wer</span> steht hinter dem Projekt?</h3>
+      <div class="bbcode"><%= @crowd_campaign.about_description.bbcode_to_html.html_safe if @crowd_campaign.about_description.present? %></div>
     </div>
 
   </div>
@@ -139,25 +126,25 @@
 
     <% if @crowd_campaign.crowd_rewards.exists? %>
 
-      <h2 class="hl-main -rewards"><em>- Dankeschöns -</em></h2>
+      <h2 class="hl-main -rewards"><span>Danke</span>schöns</h2>
       <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
 
     <% end %>
     <% if @crowd_campaign.crowd_donations.material.exists? %>
 
-      <h2 class="hl-main -rewards"><em>- Materialspenden -</em></h2>
+      <h2 class="hl-main -rewards"><span>Material</span>spenden</h2>
       <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.material, as: :crowd_donation %>
 
     <% end %>
     <% if @crowd_campaign.crowd_donations.assistance.exists? %>
 
-      <h2 class="hl-main -rewards"><em>- Zeitspenden -</em></h2>
+      <h2 class="hl-main -rewards"><span>Zeit</span>spenden</h2>
       <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.assistance, as: :crowd_donation %>
 
     <% end %>
     <% if @crowd_campaign.crowd_donations.room.exists? %>
 
-      <h2 class="hl-main -rewards"><em>- Raumspenden -</em></h2>
+      <h2 class="hl-main -rewards"><span>Raum</span>spenden</h2>
       <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.room, as: :crowd_donation %>
 
     <% end %>

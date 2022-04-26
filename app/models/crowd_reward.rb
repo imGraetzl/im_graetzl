@@ -4,7 +4,7 @@ class CrowdReward < ApplicationRecord
 
   include AvatarUploader::Attachment(:avatar)
 
-  #validates_presence_of :title
+  validates_presence_of :title, :amount
 
   def available?
     if self.limit
