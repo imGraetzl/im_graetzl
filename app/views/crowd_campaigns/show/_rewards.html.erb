@@ -10,7 +10,7 @@
           <small>Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %></small>
         <% end %>
         <% if crowd_reward.available? %>
-          <%= link_to 'Auswählen', choose_amount_crowd_pledges_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), class: 'btn-primary -mint -shadow' %>
+          <%= link_to 'Auswählen', choose_amount_crowd_pledges_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), class: 'btn-primary -shadow' %>
         <% else %>
           <%= link_to 'Bereits ausgebucht', 'javascript:', class: 'btn-primary -disabled' %>
         <% end %>

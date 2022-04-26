@@ -181,7 +181,7 @@
     <p>Event <span>Kategorien</span> - Welche treffen zu?</p>
     <div class="event-categories cb-columns">
       <%= f.collection_check_boxes :event_category_ids, EventCategory.all, :id, :title do |b| %>
-      <div class="input-checkbox <%= b.object.hidden ? '--hidden' : '' %>">
+      <div class="input-checkbox <%= b.object.hidden && !current_user.admin? ? '--hidden' : '' %>">
         <%= b.check_box %>
         <%= b.label %>
       </div>
