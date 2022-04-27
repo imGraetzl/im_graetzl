@@ -92,7 +92,7 @@
             <h3 class="title">Deine erreichte Fundingsumme</h3>
             <h3 class="amount"><%= number_to_currency(@crowd_campaign.crowd_pledges_sum, unit: "€") %></h3>
           </div>
-          <% if @crowd_campaign.goal_1_reached? %>
+          <% if @crowd_campaign.successful? %>
           <div>
             <h4 class="title">Widerrufe</h4>
             <h4 class="amount">-<%= number_to_currency('0', unit: "€") %></h4>
