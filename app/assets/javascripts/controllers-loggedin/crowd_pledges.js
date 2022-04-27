@@ -9,20 +9,12 @@ APP.controllers_loggedin.crowd_pledges = (function() {
 
     function initAmountScreen() {
       APP.components.tabs.setTab('step1');
-
-      $(".calculate-price").on("focusout", function() {
-        var submit_url = $(this).data('action');
-        var donation_amount = $(this).val();
-        $.ajax({
-            type: "POST",
-            url: submit_url,
-            data: "donation_amount=" + donation_amount
-        });
-      });
+      initAmount();
     }
 
     function initAddressScreen() {
       APP.components.tabs.setTab('step2');
+      initAmount();
 
       // Change Wording of Notice Message for CrowdPledge Registrations
       if ($("#flash .notice").exists()) {
@@ -60,6 +52,18 @@ APP.controllers_loggedin.crowd_pledges = (function() {
     function initEpsPayment() {
       var epsForm = $(".eps-container .eps-form");
       APP.components.paymentEps.init(epsForm);
+    }
+
+    function initAmount() {
+      $(".calculate-price").on("focusout", function() {
+        var submit_url = $(this).data('action');
+        var donation_amount = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: submit_url,
+            data: "donation_amount=" + donation_amount
+        });
+      });
     }
 
     function initSummaryScreen() {
