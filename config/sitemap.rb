@@ -35,6 +35,7 @@ Region.all.each do |region|
     add region_rooms_path, changefreq: 'always', priority: 1.0
     add region_tools_path, changefreq: 'always', priority: 1.0
     add region_coop_demands_path, changefreq: 'always', priority: 1.0
+    #add region_crowd_campaigns_path, changefreq: 'always', priority: 1.0
     add region_groups_path, changefreq: 'daily', priority: 0.6
     add region_zuckerls_path, changefreq: 'weekly', priority: 0.6
 
@@ -58,7 +59,7 @@ Region.all.each do |region|
     end
 
     # Meeting Categories
-    EventCategory.find_each do |category|
+    EventCategory.visible.find_each do |category|
       add region_meetings_path(category: category), changefreq: 'daily', priority: 0.7
     end
 
@@ -119,6 +120,11 @@ Region.all.each do |region|
       end
     end
 
+    # CrowdCampaigns
+    CrowdCampaign.in(region).scope_public.find_each do |crowd_campaign|
+      add crowd_campaign_path(crowd_campaign), changefreq: 'daily', priority: 1.0
+    end
+
     # Raumteiler
     RoomOffer.in(region).enabled.find_each do |room_offer|
       add room_offer_path(room_offer), changefreq: 'daily', priority: 0.9
@@ -146,6 +152,9 @@ Region.all.each do |region|
       add group_path(group), changefreq: 'weekly', priority: 0.5
     end
 
+    # Static Pages
+    add good_morning_dates_path, changefreq: 'daily', priority: 0.9
+
     # Info Help Pages
     add info_path, changefreq: 'monthly', priority: 0.4
     add info_anbieter_und_locations_path, changefreq: 'monthly', priority: 0.4
@@ -153,6 +162,7 @@ Region.all.each do |region|
     add info_raumteiler_path, changefreq: 'monthly', priority: 0.4
     add info_toolteiler_path, changefreq: 'monthly', priority: 0.4
     add info_coop_share_path, changefreq: 'monthly', priority: 0.4
+    #add info_crowdfunding_path, changefreq: 'monthly', priority: 0.4
     add info_zuckerl_path, changefreq: 'never', priority: 0.4
 
     # Info Pages

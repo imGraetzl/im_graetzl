@@ -31,6 +31,22 @@
   border-radius: 8px;
   position: relative;
 
+  .userlist {
+    margin-top:10px;
+    margin-bottom:10px;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap:wrap;
+    span {
+      @include font-size-primaryFont('small');
+      font-style: italic;
+    }
+    .img-round {
+      margin-right:6px;
+      margin-bottom:6px;
+    }
+  }
+
   // -------------------------- Zuckerl Cardbox
   &.-zuckerl {
     .btn-userIcons {
@@ -88,21 +104,6 @@
     }
     p.infos {
       display: none;
-    }
-    .users {
-      margin-top:10px;
-      margin-bottom:10px;
-      display: flex;
-      align-items: flex-end;
-      flex-wrap:wrap;
-      span {
-        @include font-size-primaryFont('small');
-        font-style: italic;
-      }
-      .img-round {
-        margin-right:6px;
-        margin-bottom:6px;
-      }
     }
     .slogan {
       strong {

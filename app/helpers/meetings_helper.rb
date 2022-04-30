@@ -51,6 +51,12 @@ module MeetingsHelper
     )
   end
 
+  def user_locations
+    user_locations = current_user.locations.in(current_region)
+    user_locations += [@meeting.location] if @meeting.location.present?
+    user_locations.uniq
+  end
+
   private
 
   def map_link(coords)

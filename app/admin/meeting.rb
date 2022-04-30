@@ -6,16 +6,9 @@ ActiveAdmin.register Meeting do
 
   scope :all, default: true
   scope :upcoming
-  #scope 'Online Events', :online_meeting
-  #scope 'SFS approved', :platform_meeting
-  #scope 'SFS pending', :platform_meeting_pending
-  #scope 'SFS processing', :platform_meeting_processing
-  #scope 'SFS declined', :platform_meeting_declined
-  #scope :active
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :event_categories
-  filter :meeting_category, collection: proc { MeetingCategory.order(:starts_at_date).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :users, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -41,47 +34,6 @@ ActiveAdmin.register Meeting do
     redirect_to collection_path, alert: 'Die gewählten Treffen werden für die API nicht mehr genehmigt.'
   end
 
-  #batch_action :approve_for_platform_meetings do |ids|
-  #  batch_action_collection.find(ids).each do |meeting|
-  #    if meeting.platform_meeting_join_request
-  #      meeting.platform_meeting_join_request.assign_attributes(status: :approved)
-  #    end
-  #    meeting.platform_meeting = true
-  #    meeting.save
-  #  end
-  #  redirect_to collection_path, alert: 'Die gewählten Treffen wurden zu den Platform-Treffen hinzugefügt'
-  #end
-
-  batch_action :add_to_platform_meetings do |ids|
-    batch_action_collection.find(ids).each do |meeting|
-      meeting.platform_meeting = true
-      meeting.save
-    end
-    redirect_to collection_path, alert: 'Die gewählten Treffen wurden zu den Platform-Treffen hinzugefügt'
-  end
-
-  #batch_action :decline_for_platform_meetings do |ids|
-  #  batch_action_collection.find(ids).each do |meeting|
-  #    if meeting.platform_meeting_join_request
-  #      meeting.platform_meeting_join_request.assign_attributes(status: :declined)
-  #    end
-  #    meeting.platform_meeting = false
-  #    meeting.save
-  #  end
-  #  redirect_to collection_path, alert: 'Die gewählten Treffen wurden abgelehnt'
-  #end
-
-  #batch_action :process_for_platform_meetings do |ids|
-  #  batch_action_collection.find(ids).each do |meeting|
-  #    if meeting.platform_meeting_join_request
-  #      meeting.platform_meeting_join_request.assign_attributes(status: :processing)
-  #    end
-  #    meeting.platform_meeting = false
-  #    meeting.save
-  #  end
-  #  redirect_to collection_path, alert: 'Die gewählten Treffen wurden als in Bearbeitung markiert'
-  #end
-
   # action buttons
   action_item :approve_for_api, only: :show, if: proc{ !meeting.approved_for_api? } do
     link_to 'API genehmigen', approve_for_api_admin_meeting_path(meeting), { method: :put }
@@ -89,65 +41,6 @@ ActiveAdmin.register Meeting do
 
   action_item :disapprove_for_api, only: :show, if: proc{ meeting.approved_for_api? } do
     link_to 'API entfernen', disapprove_for_api_admin_meeting_path(meeting), { method: :put }
-  end
-
-  action_item :approve_for_platform_meeting, only: :show, if: proc{ meeting.platform_meeting_pending? } do
-    link_to 'Freischalten für SFS', approve_for_platform_meeting_admin_meeting_path(meeting), { method: :put }
-  end
-
-  action_item :decline_for_platform_meeting, only: :show, if: proc{ meeting.platform_meeting_pending? } do
-    link_to 'Ablehnen für SFS', decline_for_platform_meeting_admin_meeting_path(meeting), { method: :put }
-  end
-
-  action_item :process_for_platform_meeting, only: :show, if: proc{ meeting.platform_meeting_pending? } do
-    link_to 'In Bearbeitung für SFS', process_for_platform_meeting_admin_meeting_path(meeting), { method: :put }
-  end
-
-  action_item :add_to_platform_meeting, only: :show, if: proc{ !meeting.platform_meeting? } do
-    link_to 'Hinzufügen zu SFS', add_to_platform_meeting_admin_meeting_path(meeting), { method: :put }
-  end
-
-  action_item :remove_from_platform_meeting, only: :show, if: proc{ meeting.platform_meeting? } do
-    link_to 'Entfernen von SFS', remove_from_platform_meeting_admin_meeting_path(meeting), { method: :put }
-  end
-
-  # member actions
-  #member_action :approve_for_platform_meeting, method: :put do
-  #  resource.platform_meeting_join_request.assign_attributes(status: :approved)
-  #  resource.platform_meeting = true
-  #  resource.save
-  #  flash[:success] = 'Das Treffen wurde freigeschalten.'
-  #  redirect_to admin_meetings_path
-  #end
-
-  #member_action :decline_for_platform_meeting, method: :put do
-  #  resource.platform_meeting_join_request.assign_attributes(status: :declined)
-  #  resource.platform_meeting = false
-  #  resource.save
-  #  flash[:error] = 'Das Treffen wurde abgelehnt.'
-  #  redirect_to admin_meetings_path
-  #end
-
-  #member_action :process_for_platform_meeting, method: :put do
-  #  resource.platform_meeting_join_request.assign_attributes(status: :processing)
-  #  resource.platform_meeting = false
-  #  resource.save
-  #  flash[:success] = 'Das Treffen wurde als in Bearbeitung markiert.'
-  #  redirect_to admin_meetings_path
-  #end
-
-  member_action :add_to_platform_meeting, method: :put do
-    resource.platform_meeting = true
-    resource.save
-    flash[:success] = 'Das Treffen wurde zu SFS hinzugefügt'
-    redirect_to admin_meetings_path
-  end
-
-  member_action :remove_from_platform_meeting, method: :put do
-    resource.platform_meeting = false
-    resource.save
-    flash[:success] = 'Das Treffen wurde von SFS entfernt'
-    redirect_to admin_meetings_path
   end
 
   member_action :approve_for_api, method: :put do
@@ -184,7 +77,6 @@ ActiveAdmin.register Meeting do
     column(:full_name) {|m| m.user.full_name }
     column :user_id
     column :id
-    column(:category) {|m| m.meeting_category.title if m.meeting_category}
     column :name
     column(:going_tos) {|m| m.going_tos.count }
     column(:meeting_url) { |m| graetzl_meeting_url(m.graetzl, m)}
@@ -202,9 +94,7 @@ ActiveAdmin.register Meeting do
     :location_id,
     :group_id,
     :user_id,
-    :meeting_category_id,
     :approved_for_api,
-    :platform_meeting,
     :online_meeting,
     :online_description,
     :address_street,

@@ -61,6 +61,20 @@
       <h3><%= link_to meeting.name, [graetzl, meeting], :rel => (meeting.past? ? 'nofollow' : '') %></h3>
       <p><%= strip_tags(meeting.description.bbcode_to_html.html_safe).truncate(100) %></p>
     </div>
+
+    <% if params[:show_going_tos].present? %>
+      <div class="userlist">
+        <% meeting.attendees.map(&:user).last(10).each do |user| %>
+          <%= link_to user_path(user), rel: 'nofollow' do %>
+            <%= avatar_image user, size: :thumb, class: 'img-round' %>
+          <% end %>
+        <% end %>
+        <% if meeting.attendees.count > 10 %>
+          <span> + <%= meeting.attendees.count - 10 %> weitere</span>
+        <% end %>
+      </div>
+    <% end %>
+
     <%= link_to meeting_link_text(meeting), [graetzl, meeting], :rel => (meeting.past? ? 'nofollow' : ''), class: 'btn-primary -mint' %>
 
     <% if local_assigns[:activity_going_to] %>

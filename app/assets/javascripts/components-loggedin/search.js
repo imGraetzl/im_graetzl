@@ -69,14 +69,18 @@ APP.components.search = (function() {
         onClickEvent:function() {
           var url = $input.getSelectedItemData().url
           $input.val("");
-          gtag(
-            'event', 'Autocomplete :: Result Click', {
-            'event_category': 'Search',
-            'event_label': search_phrase,
-            'event_callback': function() {
-              location.href = url;
-            }
-          });
+          if (typeof gtag == 'undefined') {
+            location.href = url;
+          } else {
+            gtag(
+              'event', 'Autocomplete :: Result Click', {
+              'event_category': 'Search',
+              'event_label': search_phrase,
+              'event_callback': function() {
+                location.href = url;
+              }
+            });
+          }
         },
         onKeyEnterEvent:function() {
           var url = "/search?q=" + search_phrase;

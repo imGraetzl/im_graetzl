@@ -18,7 +18,7 @@
 
     <%= link_to group.title, group, class: 'title' %>
 
-    <div class="users">
+    <div class="userlist">
       <% group.admins.last(10).each do |user| %>
         <%= link_to user_path(user), rel: 'nofollow' do %>
           <%= avatar_image user, size: :thumb, class: 'img-round' %>

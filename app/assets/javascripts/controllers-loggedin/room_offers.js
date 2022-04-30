@@ -9,7 +9,6 @@ APP.controllers_loggedin.room_offers = (function() {
     APP.components.addressInput();
     APP.components.formValidation.init();
     APP.components.search.userAutocomplete();
-    //$("textarea").autoResize();
 
     $(".next-screen, .prev-screen").on("click", function() {
       $('.tabs-ctrl').trigger('show', '#' + $(this).data("tab"));

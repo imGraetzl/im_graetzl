@@ -26,7 +26,6 @@ APP.controllers_loggedin.locations = (function() {
       // Edit Menu Inline Form
       $(".streamElement").on('click', '.edit-menu-link', function() {
         $(this).parents(".streamElement").addClass("editing");
-        //$(".edit-post-form textarea").autoResize();
       }).on('click', '.cancel-edit-link', function() {
         $(this).parents(".streamElement").removeClass("editing");
       });
@@ -42,8 +41,6 @@ APP.controllers_loggedin.locations = (function() {
       if (typeof category !== "undefined" && category.indexOf("Spirit") >= 0) {
         $('#location-cat').hide();
       }
-
-      //$("#location_description, #location_contact_attributes_hours").autoResize();
 
       $('#location_product_list').tagsInput({
           'defaultText':'Schlagworte / Tags'

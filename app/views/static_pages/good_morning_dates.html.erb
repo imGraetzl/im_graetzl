@@ -1,0 +1,47 @@
+<% meta(
+    title: t('.title'),
+    description: t('.description'),
+    robots: 'index, follow',
+    og_title: t('.title'),
+    og_description: t('.description'),
+    og_image: image_url('meta/good-morning-dates.jpg')
+  )
+%>
+
+<section class="good-morning-dates">
+
+  <div class="hl-subtext">
+    <h1>Die <em>Good Morning</em> Dates</h1>
+    <p>
+      Du möchtest Macher*innen aus deinem Bezirk kennenlernen und erfahren, woran andere bei dir um die Ecke gerade tüfteln, was sie begeistert, wie sie ins Tun kommen? Und ausloten, ob es vielleicht Überschneidungen gibt?
+      <strong>Auf zum ersten Good Morning Date in deinem Bezirk!</strong>
+    </p>
+  </div>
+
+  <%= form_tag meetings_path(per_page: 15, show_going_tos: true), method: :get, remote: true, class: 'cards-filter' do %>
+    <%= hidden_field_tag :category_id, @category.try(:id) %>
+  <% end %>
+  <div class="card-grid-container">
+    <div class="card-grid" data-behavior="meetings-card-container"></div>
+    <div class="action-card-container" data-behavior="meetings-action-card-container">
+      <%= render 'good_morning_date_card' %>
+    </div>
+    <!-- Insert Featured Card -->
+    <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide preventInfiniteScroll -mint', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
+  </div>
+
+  <% if @locations.present? %>
+    <div class="hl-subtext">
+      <h1>Eure Good Morning Date <em>Gastgeber*innen</em></h1>
+      <p>
+        Ein Überblick über eure Gastgeber*innen.
+      </p>
+    </div>
+
+    <div class="cardBoxCollection -quart">
+      <%= render @locations %>
+    </div>
+
+  <% end %>
+
+</section>

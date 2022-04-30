@@ -1,0 +1,31 @@
+<%= render 'summary/block_header', title: "Die Good Morning Dates starten" %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+
+        <%= link_to 'https://www.imgraetzl.at/good-morning-dates', target:'_blank' do %>
+          <%= image_tag 'mailings/good-morning-dates.jpg', style: "width:264px; min-width:264px; float:left; margin-right:18px; margin-bottom:18px; margin-top:10px;", class: "mcnImage" %>
+        <% end %>
+
+        <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;">
+          <tr>
+            <td>
+              <p>
+                <strong>Du möchtest Macher*innen aus deinem Bezirk kennenlernen</strong> und erfahren, woran andere bei dir um die Ecke gerade tüfteln, was sie begeistert, wie sie ins Tun kommen?
+              </p>
+              <p>
+                Auf zum ersten Good Morning Date in deinem Bezirk!
+              </p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+    <tr>
+      <td><%= render 'mailers/shared/button', title: "Zu den Good Morning Dates", url: "https://www.imgraetzl.at/good-morning-dates", style: "width:100%;" %></td>
+    </tr>
+  </tbody>
+</table>

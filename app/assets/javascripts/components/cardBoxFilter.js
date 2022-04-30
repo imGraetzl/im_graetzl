@@ -365,7 +365,7 @@ APP.components.cardBoxFilter = (function() {
     var btn_link_load_clicked = false;
     $(window).scroll(function() {
       // Click Btn on bottom Scroll via JS if Btn & more Data exists (is not hidden)
-      if (cardGrid.exists() && !$('.link-load').hasClass('hide')) {
+      if (cardGrid.exists() && !$('.link-load').hasClass('hide') && !$('.link-load').hasClass('preventInfiniteScroll')) {
         var scrollTop = $(document).scrollTop();
         var windowHeight = $(window).height();
         var height = $(document).height() - windowHeight;

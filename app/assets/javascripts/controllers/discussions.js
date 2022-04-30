@@ -14,7 +14,6 @@ APP.controllers.discussions = (function() {
   function initControls() {
     $(".discussion-area").on('click', '.edit-post-link', function() {
       $(this).parents(".user-post").addClass("editing");
-      //$(".edit-post-form textarea").autoResize();
     }).on('click', '.cancel-edit-link', function() {
       $(this).parents(".user-post").removeClass("editing");
     });

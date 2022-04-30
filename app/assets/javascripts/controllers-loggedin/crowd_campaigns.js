@@ -19,8 +19,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       APP.components.formValidation.init();
       APP.components.search.userAutocomplete();
       APP.components.tabs.initTabs(".tabs-ctrl");
-
-      //$("textarea").autoResize();
+      APP.components.formHelper.bbCodeHelp();
 
       $('.crowdfunding-form').find(':disabled').closest("div[class^='input-']").addClass('disabled');
 

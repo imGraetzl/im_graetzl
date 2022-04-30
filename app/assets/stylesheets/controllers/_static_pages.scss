@@ -1,3 +1,14 @@
+section.good-morning-dates {
+  .card-grid-container {
+    margin-bottom:60px;
+  }
+  .cardBox.-location {
+    .goodieteasertxt, .updateteaser, .event-teaser-box {
+      display: none;
+    }
+  }
+}
+
 section.lp {
 
   .error-msg, .success-msg {

@@ -14,61 +14,65 @@
 
 <section class="crowd_campaign" data-preview="<%= @preview %>">
 
-  <div class="hl-subtext">
-    <h2><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h2>
-    <h1><%= @crowd_campaign.title %></h1>
-    <p><%= @crowd_campaign.slogan %></p>
-  </div>
+  <div class="-fullwidth">
 
-  <div class="coverImg">
-    <!--<%= avatar_image @crowd_campaign, size: :thumb, class: 'img-round crowd-avatar' %>-->
-
-    <% if @crowd_campaign.video? %>
-      <%= link_to 'javascript:', class: 'play-icon jBoxVideo', rel: 'nofollow' do %>
-        <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
-      <% end %>
-    <% else %>
-        <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
-    <% end %>
-
-    <div class="social-icons">
-      <em>Teilen auf:</em>
-      <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
+    <div class="hl-subtext">
+      <h2><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h2>
+      <h1><%= @crowd_campaign.title %></h1>
+      <p><%= @crowd_campaign.slogan %></p>
     </div>
-  </div>
-  <div class="coverImgBottom"></div>
 
-  <div class="layoutArea fundingArea">
-    <div class="mainArea">
-      <%= render 'funding_bar' rescue nil %>
-    </div>
-    <div class="sideArea">
-      <% if current_user == @crowd_campaign.user && !@preview %>
-        <%= link_to 'javascript:', class: 'btn-primary -rose -large -shadow -ico jBoxTooltip', data: {tooltip_id: "tt-crowdcampaign-#{@crowd_campaign.id}"} do %>
-          <span>Kampagnen Optionen</span>
-          <%= icon_tag "arrow-down-2" %>
+    <div class="coverImg">
+      <% if @crowd_campaign.video? %>
+        <%= link_to 'javascript:', class: 'play-icon jBoxVideo', rel: 'nofollow' do %>
+          <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
         <% end %>
-        <div class="jBoxHidden jBoxDropdown" id="<%= "tt-crowdcampaign-#{@crowd_campaign.id}" %>">
-          <% if @crowd_campaign.scope_public? %>
-            <%= link_to status_crowd_campaign_path(@crowd_campaign) do %>
-              <%= icon_tag "bar-chart-growth" %>
-              <div class="icontxt">Kampagnen Statistiken</div>
-            <% end %>
-          <% end %>
-          <%= link_to edit_crowd_campaign_path(@crowd_campaign) do %>
-            <%= icon_tag "pencil" %>
-            <div class="icontxt">Kampagne bearbeiten</div>
-          <% end %>
-          <% if @crowd_campaign.draft? %>
-            <%= link_to crowd_campaign_path(@crowd_campaign), data: { confirm: 'Bist du dir wirklich sicher?' }, method: :delete do %>
-              <%= icon_tag "cross" %>
-              <div class="icontxt">Kampagne löschen</div>
-            <% end %>
-          <% end %>
-        </div>
       <% else %>
-        <%= link_to 'Unterstützen', 'javascript:', class: 'btn-primary -rose -large -shadow btn-support' %>
+          <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
       <% end %>
+      <div class="social-icons">
+        <em>Teilen auf:</em>
+        <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
+      </div>
+    </div>
+    <div class="coverImgBottom"></div>
+
+    <div class="layoutArea fundingArea">
+      <div class="mainArea">
+        <%= render 'funding_bar' rescue nil %>
+      </div>
+      <div class="sideArea">
+        <% if current_user == @crowd_campaign.user && !@preview %>
+          <div class="btn-support-wrp">
+            <%= link_to 'javascript:', class: 'btn-primary -rose -large -shadow -ico jBoxTooltip', data: {tooltip_id: "tt-crowdcampaign-#{@crowd_campaign.id}"} do %>
+              <span>Kampagnen Optionen</span>
+              <%= icon_tag "arrow-down-2" %>
+            <% end %>
+          </div>
+          <div class="jBoxHidden jBoxDropdown" id="<%= "tt-crowdcampaign-#{@crowd_campaign.id}" %>">
+            <% if @crowd_campaign.scope_public? %>
+              <%= link_to status_crowd_campaign_path(@crowd_campaign) do %>
+                <%= icon_tag "bar-chart-growth" %>
+                <div class="icontxt">Kampagnen Statistiken</div>
+              <% end %>
+            <% end %>
+            <%= link_to edit_crowd_campaign_path(@crowd_campaign) do %>
+              <%= icon_tag "pencil" %>
+              <div class="icontxt">Kampagne bearbeiten</div>
+            <% end %>
+            <% if @crowd_campaign.draft? %>
+              <%= link_to crowd_campaign_path(@crowd_campaign), data: { confirm: 'Bist du dir wirklich sicher?' }, method: :delete do %>
+                <%= icon_tag "cross" %>
+                <div class="icontxt">Kampagne löschen</div>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+        <div class="btn-support-wrp">
+          <%= link_to 'Unterstützen', 'javascript:', class: 'btn-primary -rose -large -shadow btn-support' %>
+        </div>
+        <% end %>
+      </div>
     </div>
   </div>
 
@@ -103,12 +107,12 @@
           <li><a href="#tab-posts">Projekt Updates <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
         <% end %>
         <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
-        <li><a href="#tab-supporters">UnterstützerInnen</a></li>
+        <li><a href="#tab-supporters">Unterstützer*Innen<% if @crowd_campaign.crowd_pledges.authorized.present? %><small><%= @crowd_campaign.crowd_pledges.authorized.count %></small><% end %></a></li>
       </ul>
     </div>
   </div>
 
-  <div id="tabs-container">
+  <div id="tabs-container" class="-fullwidth -content">
     <%= render 'crowd_campaigns/show/tab_info' %>
     <%= render 'crowd_campaigns/show/tab_posts' %>
     <%= render 'crowd_campaigns/show/tab_comments' %>

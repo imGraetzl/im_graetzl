@@ -92,7 +92,7 @@
             <h3 class="title">Deine erreichte Fundingsumme</h3>
             <h3 class="amount"><%= number_to_currency(@crowd_campaign.crowd_pledges_sum, unit: "€") %></h3>
           </div>
-          <% if @crowd_campaign.goal_1_reached? %>
+          <% if @crowd_campaign.successful? %>
           <div>
             <h4 class="title">Widerrufe</h4>
             <h4 class="amount">-<%= number_to_currency('0', unit: "€") %></h4>
@@ -119,16 +119,16 @@
 
     <div class='tabs-ctrl -plain'>
       <ul class="tabs-nav">
-        <li><a href="#tab-supporters">UnterstützerInnen</a></li>
-        <li><a href="#tab-material">Materialspenden</a></li>
-        <li><a href="#tab-time">Zeitspenden</a></li>
-        <li><a href="#tab-room">Raumspenden</a></li>
+        <li><a href="#tab-supporters">UnterstützerInnen<small><%= @crowd_pledges.count %></small></a></li>
+        <li><a href="#tab-material">Materialspenden<small><%= @crowd_donation_pledges.material.count %></small></a></li>
+        <li><a href="#tab-time">Zeitspenden<small><%= @crowd_donation_pledges.assistance.count %></small></a></li>
+        <li><a href="#tab-room">Raumspenden<small><%= @crowd_donation_pledges.room.count %></small></a></li>
       </ul>
 
       <div id='tab-supporters'>
         <div class="table-container -light" role="table">
           <div class="flex-table header" role="rowgroup">
-            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen (<%= @crowd_pledges.count %>)</div>
+            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen</div>
             <div class="flex-row medium" role="columnheader">Gesamt Unterstützung</div>
             <div class="flex-row medium" role="columnheader">Freie Unterstützung</div>
             <div class="flex-row xxlarge" role="columnheader">Dankeschön</div>
@@ -146,7 +146,7 @@
       <div id='tab-material'>
         <div class="table-container -light" role="table">
           <div class="flex-table header" role="rowgroup">
-            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen (<%= @crowd_donation_pledges.material.count %>)</div>
+            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen</div>
             <div class="flex-row xxxlarge" role="columnheader">Materialspende</div>
           </div>
           <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_donation_pledge', collection: @crowd_donation_pledges.material, as: 'crowd_pledge' %>
@@ -156,7 +156,7 @@
       <div id='tab-time'>
         <div class="table-container -light" role="table">
           <div class="flex-table header" role="rowgroup">
-            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen (<%= @crowd_donation_pledges.assistance.count %>)</div>
+            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen</div>
             <div class="flex-row xxxlarge" role="columnheader">Zeitspende</div>
           </div>
           <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_donation_pledge', collection: @crowd_donation_pledges.assistance, as: 'crowd_pledge' %>
@@ -166,7 +166,7 @@
       <div id='tab-room'>
         <div class="table-container -light" role="table">
           <div class="flex-table header" role="rowgroup">
-            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen (<%= @crowd_donation_pledges.room.count %>)</div>
+            <div class="flex-row xxlarge first" role="columnheader">UnterstützerInnen</div>
             <div class="flex-row xxxlarge" role="columnheader">Raumspende</div>
           </div>
           <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_donation_pledge', collection: @crowd_donation_pledges.room, as: 'crowd_pledge' %>
