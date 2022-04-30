@@ -1,0 +1,35 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow'
+  )
+%>
+
+<section class="crowd-pledges-page change-payment-screen">
+
+  <div class="col-content">
+    <%= form_tag nil, id: "payment-form", data: {
+      intent: 'payment',
+      client_secret: @payment_intent.client_secret,
+      redirect: payment_changed_crowd_pledge_url(@crowd_pledge)
+    } do %>
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Pay now</span>
+      </button>
+      <div class="error-message"></div>
+    <% end %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'crowd_pledges/new/sidebar' %>
+  </div>
+
+</section>
+
+<%= javascript_include_tag "https://js.stripe.com/v3/" %>
+<script>
+  window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
+</script>

@@ -10,12 +10,12 @@ class CrowdCampaignService
     campaign.update(status: :completed)
 
     if campaign.successful?
-      campaign.crowd_pledges.find_each do |pledge|
+      campaign.crowd_pledges.authorized.find_each do |pledge|
         CrowdPledgeService.new.delay.charge(pledge)
-        CrowdCampaignMailer.crowd_pledge_completed_successful(pledge).deliver_later
       end
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else
+      campaign.crowd_pledges.update_all(status: :canceled)
       CrowdCampaignMailer.completed_unsuccessful(campaign).deliver_later
     end
   end

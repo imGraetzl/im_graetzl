@@ -15,7 +15,7 @@
           <%= link_to 'Bereits ausgebucht', 'javascript:', class: 'btn-primary -disabled' %>
         <% end %>
       </div>
-      <small class="trigger"><%= crowd_reward.taken_count %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
+      <small class="trigger"><%= crowd_reward.claimed %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
     </div>
   </div>
   <div class="card"></div>

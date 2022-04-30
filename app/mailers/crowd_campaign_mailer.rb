@@ -123,4 +123,13 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def crowd_pledge_payment_failed(crowd_pledge)
+    @crowd_pledge = crowd_pledge
+    mail(
+      subject: "Charge has failed, please change payment method",
+      from: platform_email('no-reply'),
+      to: @crowd_pledge.email,
+    )
+  end
+
 end

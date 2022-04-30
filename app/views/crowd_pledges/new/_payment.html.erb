@@ -7,19 +7,19 @@
     </p>
   </div>
 
-  <div class="paymentMethods">
-    <% CrowdPledge::PAYMENT_METHODS.each do |payment_method| %>
-      <div class="input-radio -<%= payment_method %>">
-        <%= radio_button_tag :payment_method, payment_method, payment_method == params[:payment_method] %>
-        <%= label_tag :"payment_method_#{payment_method}", payment_method_label(payment_method) %>
-      </div>
-    <% end %>
-  </div>
-
-  <% CrowdPledge::PAYMENT_METHODS.each do |payment_method| %>
-    <div class="payment-method-container <%= payment_method %>-container">
-      <%= render "crowd_pledges/new/payment_#{payment_method}" %>
+  <%= form_tag nil, id: "payment-form", data: {
+    intent: 'setup',
+    client_secret: @setup_intent.client_secret,
+    redirect: payment_authorized_crowd_pledge_url(@crowd_pledge)
+  } do %>
+    <div id="payment-element">
+      <!--Stripe.js injects the Payment Element-->
     </div>
+    <button id="submit" class="btn-primary">
+      <div class="spinner hidden" id="spinner"></div>
+      <span id="button-text">Pay now</span>
+    </button>
+    <div class="error-message"></div>
   <% end %>
 
   <div class="footer-txt">

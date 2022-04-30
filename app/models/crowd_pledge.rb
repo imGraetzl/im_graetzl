@@ -8,13 +8,13 @@ class CrowdPledge < ApplicationRecord
 
   validates_presence_of :email, :contact_name
 
-  enum status: { incomplete: 0, authorized: 1, debited: 2, failed: 3 }
+  enum status: { incomplete: 0, authorized: 1, debited: 2, failed: 3, canceled: 4 }
 
   scope :complete, -> { where.not(status: :incomplete)}
   scope :visible, -> { where(anonym: false) }
   scope :anonym, -> { where(anonym: true) }
 
-  PAYMENT_METHODS = ['card'].freeze
+  PAYMENT_METHODS = ['card', 'sepa_debit', 'sofort'].freeze
 
   def visible?
     !anonym
