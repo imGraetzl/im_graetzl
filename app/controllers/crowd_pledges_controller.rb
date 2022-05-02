@@ -62,7 +62,7 @@ class CrowdPledgesController < ApplicationController
     success, error = CrowdPledgeService.new.card_payment_authorized(@crowd_pledge, params[:setup_intent])
 
     if success
-      flash[:notice] = "Deine Zahlungsmethode wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
       redirect_to [:summary, @crowd_pledge]
     else
       flash[:error] = error
@@ -88,7 +88,7 @@ class CrowdPledgesController < ApplicationController
     success, error = CrowdPledgeService.new.payment_retried(@crowd_pledge, params[:payment_intent])
 
     if success
-      flash[:notice] = "Deine Zahlungsmethode wurde erfolgreich authorisiert."
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
       redirect_to [:summary, @crowd_pledge]
     else
       flash[:error] = error
