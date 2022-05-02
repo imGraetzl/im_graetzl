@@ -5,6 +5,19 @@ APP.components.stripePayment = (function() {
     const intent = form.data("intent");
     const clientSecret = form.data("client-secret");
     const redirectUri = form.data("redirect");
+    const options = {
+      terms: {
+        card: 'never',
+        //sepaDebit: 'never'
+        //sofort: 'never'
+      },
+      business: {
+        name: 'imGrätzl.at (morgenjungs GmbH)'
+      },
+      fields: {
+        //billingDetails: 'never'
+      },
+    }
     const appearance = {
       theme: 'flat',
       labels: 'floating',
@@ -46,7 +59,7 @@ APP.components.stripePayment = (function() {
 
     const elements = stripe.elements({ appearance, clientSecret });
 
-    const paymentElement = elements.create("payment");
+    const paymentElement = elements.create("payment", options);
     paymentElement.mount("#payment-element");
 
     form.on("submit", async function(e) {
