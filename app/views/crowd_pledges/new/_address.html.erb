@@ -81,6 +81,11 @@
       <%= f.label :anonym, 'Ich möchte anonym bleiben und nicht als Unterstützer gelistet werden.' %>
     </div>
 
+    <div class="input-checkbox">
+      <%= f.check_box :terms %>
+      <%= f.label :terms, ("Ich akzeptiere die #{link_to 'Nutzungsbestimmungen', info_agb_path} und bestätige, dass ich mindestens 16 Jahre alt bin.").html_safe %>
+    </div>
+
     <%= submit_tag "Weiter", class: 'btn-primary' %>
   <% end %>
 

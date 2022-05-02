@@ -7,6 +7,7 @@ class CrowdPledge < ApplicationRecord
   before_create :set_region
 
   validates_presence_of :email, :contact_name
+  validates :terms, acceptance: true
   validates :donation_amount, numericality: {only_integer: true, greater_than_or_equal_to: 5}, if: :donation_amount?
 
 

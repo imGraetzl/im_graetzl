@@ -114,7 +114,7 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
-      :crowd_campaign_id, :crowd_reward_id, :donation_amount, :anonym,
+      :crowd_campaign_id, :crowd_reward_id, :donation_amount, :anonym, :terms,
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer
     )
   end

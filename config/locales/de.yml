@@ -99,7 +99,7 @@ de:
   errors:
     format: "%{attribute} %{message}"
     messages:
-      accepted: muss akzeptiert werden
+      accepted: müssen akzeptiert werden
       required: muss ausgefüllt werden
       blank: muss ausgefüllt werden
       empty: muss ausgefüllt werden
