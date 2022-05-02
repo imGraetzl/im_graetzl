@@ -30,7 +30,7 @@ class CrowdCampaign < ApplicationRecord
   has_many :comments, through: :crowd_campaign_posts
   has_many :comments, as: :commentable, dependent: :destroy
 
-  enum status: { draft: 0, pending: 1, canceled: 2, approved: 3, funding: 4, completed: 5 }
+  enum status: { draft: 0, submit: 1, pending: 2, canceled: 3, approved: 4, funding: 5, completed: 6 }
   enum funding_status: { not_funded: 0, goal_1_reached: 1, goal_2_reached: 2 }
   enum billable: { no_bill: 0, bill: 1, donation_bill: 2 }
 
@@ -41,6 +41,7 @@ class CrowdCampaign < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   validates_presence_of :title, :graetzl
+  validates_presence_of :description, :slogan, :crowd_category_ids, :graetzl_id, if: :submit?
 
   scope :scope_public, -> { where(status: [:funding, :completed]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
@@ -55,7 +56,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def editable?
-    draft? || pending? || approved? # Remove approved maybe?
+    draft? || submit? || pending? || approved? # Remove approved maybe?
   end
 
   def owned_by?(a_user)

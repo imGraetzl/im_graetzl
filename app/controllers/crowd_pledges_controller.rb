@@ -13,7 +13,7 @@ class CrowdPledgesController < ApplicationController
     #redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
 
     if @crowd_pledge.crowd_reward&.fully_claimed?
-      redirect_to @crowd_pledge.crowd_campaign, notice: "Selected reward is not available."
+      redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
     end
 
     @crowd_pledge.user_id = current_user.id if current_user
@@ -62,7 +62,7 @@ class CrowdPledgesController < ApplicationController
     success, error = CrowdPledgeService.new.card_payment_authorized(@crowd_pledge, params[:setup_intent])
 
     if success
-      flash[:notice] = "Payment successful."
+      flash[:notice] = "Deine Zahlungsmethode wurde erfolgreich authorisiert."
       redirect_to [:summary, @crowd_pledge]
     else
       flash[:error] = error
@@ -88,7 +88,7 @@ class CrowdPledgesController < ApplicationController
     success, error = CrowdPledgeService.new.payment_retried(@crowd_pledge, params[:payment_intent])
 
     if success
-      flash[:notice] = "Payment changed successful."
+      flash[:notice] = "Deine Zahlungsmethode wurde erfolgreich authorisiert."
       redirect_to [:summary, @crowd_pledge]
     else
       flash[:error] = error

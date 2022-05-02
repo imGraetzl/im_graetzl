@@ -109,11 +109,17 @@ class CrowdCampaignsController < ApplicationController
       @crowd_campaign.assign_attributes(noneditable_campaign_params)
     end
 
+    if params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
+      @crowd_campaign.update_attribute(:status, :submit) # Needed for Model Validation if state submit?
+      flash.now[:alert] = 'Deine Kampagne konnte noch nicht zur Freigabe weitergeleitet werden. Bitte fülle die notwendigen Felder soweit aus, bis alle Schritte mit einem Häkchen gekennzeichnet sind.'
+    end
+
     if @crowd_campaign.save
       if params[:page]
         redirect_to params[:page]
-      elsif params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
-        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: 'Deine Crowdfundingkampagne konnte noch nicht zur Freigabe eingereicht werden. Bitte fülle alle Felder aus, bis alle Schritte mit einem Haken gekennzeichnet sind.'
+      #elsif params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
+      #  flash.now[:alert] = 'Deine Kampagne konnte noch nicht zur Freigabe weitergeleitet werden. Bitte fülle die Felder soweit aus, bis alle Schritte mit einem Häkchen gekennzeichnet sind.'
+      #  redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign)
       elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
@@ -176,11 +182,11 @@ class CrowdCampaignsController < ApplicationController
 
   def show_status_message?
     if @crowd_campaign.user == current_user
-      flash.now[:alert] = "Deine Kampagne ist noch im Bearbeitungsmodus. | #{ActionController::Base.helpers.link_to('Kampagne bearbeiten', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.draft?
+      flash.now[:alert] = "Deine Kampagne ist noch im Bearbeitungsmodus. | #{ActionController::Base.helpers.link_to('Kampagne bearbeiten', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.draft? || @crowd_campaign.submit?
       flash.now[:alert] = "Deine Kampagne wird überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
       flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime}. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
     else
-      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.pending?
+      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.submit? || @crowd_campaign.pending?
       flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne läuft von #{@crowd_campaign.runtime}." if @crowd_campaign.approved?
     end
   end

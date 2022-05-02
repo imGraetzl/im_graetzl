@@ -12,7 +12,7 @@ class CrowdPledgeService
   def card_payment_authorized(crowd_pledge, setup_intent_id)
     setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
     if !setup_intent.status.in?(["succeeded", "processing"])
-      return [false, "Your payment was not successful, please try again."]
+      return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
     crowd_pledge.update(
@@ -76,7 +76,7 @@ class CrowdPledgeService
   def payment_retried(crowd_pledge, payment_intent_id)
     payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
     if !payment_intent.status.in?(["succeeded", "processing"])
-      return [false, "Your payment was not successful, please try again."]
+      return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
     crowd_pledge.update(
