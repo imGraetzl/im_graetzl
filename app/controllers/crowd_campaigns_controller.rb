@@ -32,6 +32,7 @@ class CrowdCampaignsController < ApplicationController
       render :new
     end
   end
+
   def edit
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     return redirect_to edit_crowd_campaign_path(@crowd_campaign) if params[:id] != @crowd_campaign.slug
@@ -244,9 +245,7 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def editable_campaign_params
-    params
-      .require(:crowd_campaign)
-      .permit(
+    params.require(:crowd_campaign).permit(
         :title, :slogan, :description, :support_description, :about_description, :benefit_description,
         :startdate, :enddate, :billable, :benefit,
         :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
@@ -266,7 +265,7 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def noneditable_campaign_params
-    params.require(:crowd_campaign).permit(
+    campaign_params = params.require(:crowd_campaign).permit(
       :description, :support_description, :about_description, :benefit_description,
       :location_id, :room_offer_id,
       images_attributes: [:id, :file, :_destroy],
@@ -277,5 +276,11 @@ class CrowdCampaignsController < ApplicationController
         :id, :donation_type, :title, :description, :question, :startdate, :enddate, :_destroy
       ],
     )
+
+    if campaign_params[:crowd_rewards_attributes].present?
+      campaign_params[:crowd_rewards_attributes].reject!{|_, a| a[:id].present? }
+    end
+
+    campaign_params
   end
 end

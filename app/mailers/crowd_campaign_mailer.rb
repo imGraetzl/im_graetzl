@@ -125,6 +125,8 @@ class CrowdCampaignMailer < ApplicationMailer
 
   def crowd_pledge_payment_failed(crowd_pledge)
     @crowd_pledge = crowd_pledge
+    @crowd_campaign = @crowd_pledge.crowd_campaign
+    @region = @crowd_campaign.region
     headers("X-MC-Tags" => "crowd-pledge-payment-failed")
     mail(
       subject: "Deine Crowdfunding Unterstützung ist leider fehlgeschlagen, bitte ändere deine Zahlungsmethode.",

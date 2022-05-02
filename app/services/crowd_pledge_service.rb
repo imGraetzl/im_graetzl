@@ -18,14 +18,14 @@ class CrowdPledgeService
     crowd_pledge.update(
       stripe_payment_method_id: setup_intent.payment_method.id,
       payment_method: setup_intent.payment_method.type,
-      payment_card_last4: setup_intent.payment_method.card&.last4,
+      payment_card_last4: setup_intent.payment_method.type == 'card' ? setup_intent.payment_method.card.last4 : nil,
       status: 'authorized',
     )
 
     crowd_pledge.crowd_reward&.increment!(:claimed)
 
     CrowdCampaignMailer.crowd_pledge_confirmation(crowd_pledge).deliver_later
-    # ActionProcessor.track(@crowd_pledge, :create)
+    ActionProcessor.track(crowd_pledge, :create)
 
     case crowd_pledge.crowd_campaign.check_funding
     when :goal_1_reached

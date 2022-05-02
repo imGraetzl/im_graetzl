@@ -64,7 +64,7 @@ APP.components.stripePayment = (function() {
 
     form.on("submit", async function(e) {
       e.preventDefault();
-      setLoading(true);
+      setLoading(form, true);
 
       let result;
       if (intent == "setup") {
@@ -78,26 +78,21 @@ APP.components.stripePayment = (function() {
       }
 
       if (result.error.type === "card_error" || result.error.type === "validation_error") {
-        form.find(".error-message").text(error.message);
+        form.find(".error-message").text(result.error.message);
       } else {
         form.find(".error-message").text("An unexpected error occured.");
       }
 
-      setLoading(false);
+      setLoading(form, false);
     });
   }
 
-  // Show a spinner on payment submission
-  function setLoading(isLoading) {
+  function setLoading(form, isLoading) {
     if (isLoading) {
       // Disable the button and show a spinner
-      document.querySelector("#submit").disabled = true;
-      document.querySelector("#spinner").classList.remove("hidden");
-      document.querySelector("#button-text").classList.add("hidden");
+      form.find("#payment-submit").attr("disabled", true);
     } else {
-      document.querySelector("#submit").disabled = false;
-      document.querySelector("#spinner").classList.add("hidden");
-      document.querySelector("#button-text").classList.remove("hidden");
+      form.find("#payment-submit").removeAttr("disabled");
     }
   }
 
