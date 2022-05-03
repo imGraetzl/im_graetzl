@@ -424,13 +424,13 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     stripe (5.30.0)
+    terser (1.1.8)
+      execjs (>= 0.3.0, < 3)
     thor (1.1.0)
     tilt (2.0.10)
     ttfunk (1.7.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     unf (0.1.4)
       unf_ext
@@ -510,8 +510,8 @@ DEPENDENCIES
   shrine (~> 3.0)
   sitemap_generator
   stripe
+  terser
   tzinfo-data
-  uglifier
   underscore-rails
   webmock
 
