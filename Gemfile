@@ -43,7 +43,7 @@ gem 'marcel'
 gem 'mini_racer'
 
 gem 'sass-rails'
-gem 'uglifier'
+gem 'terser'
 gem 'jquery-rails'
 gem 'underscore-rails'
 gem 'autoprefixer-rails'
