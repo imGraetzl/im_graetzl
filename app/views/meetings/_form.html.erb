@@ -194,26 +194,16 @@
     <p><span>Admin</span> Funktionen</p>
 
     <div class="input-field">
-      <%= label_tag(:amount) do %>
-        <%= icon_tag "currency-euro" %>
-        <span>Ticket Preis</span>
+      <%= f.label :user_id do %>
+        <%= icon_tag "user-avatar" %>
+        <span>Treffen Ersteller</span>
       <% end %>
-      <%= f.number_field :amount, placeholder: 'Teilnahmegebühr (brutto)' %>
-    </div>
-
-    <% if f.object.new_record? %>
-      <div class="input-field">
-        <%= f.label :user_id do %>
-          <%= icon_tag "user-avatar" %>
-          <span>Treffen Ersteller</span>
-        <% end %>
-        <div class="user-autocomplete autocomplete-wrp">
-          <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
-          <%= hidden_field_tag :user_id, current_user.id, data:{behavior:"user-autocomplete-id"} %>
-          <%= text_field_tag :q, current_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
-        </div>
+      <div class="user-autocomplete autocomplete-wrp">
+        <%= image_tag 'svg/loading-input.svg', class: 'autocomplete-loading-spinner -hidden' %>
+        <%= hidden_field_tag :user_id, current_user.id, data:{behavior:"user-autocomplete-id"} %>
+        <%= text_field_tag :q, current_user.username, id: "user-autocomplete", data:{behavior:"user-autocomplete"} %>
       </div>
-    <% end %>
+    </div>
 
   </div>
   <% end %>

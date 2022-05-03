@@ -23,11 +23,7 @@ module MeetingsHelper
   end
 
   def meeting_link_text(meeting)
-    if meeting.paid?
-      'Infos & Tickets'
-    else
-      meeting.try(:starts_at_date).try(:past?) ? 'Ansehen' : 'Mitmachen'
-    end
+    meeting.try(:starts_at_date).try(:past?) ? 'Ansehen' : 'Mitmachen'
   end
 
   def localize_time(time, format)

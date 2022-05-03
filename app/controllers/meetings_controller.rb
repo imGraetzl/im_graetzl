@@ -160,7 +160,6 @@ class MeetingsController < ApplicationController
       :cover_photo, :remove_cover_photo,
       :address_street, :address_coords, :address_city, :address_zip, :address_description, :using_address,
       :online_meeting, :online_description, :online_url,
-      :amount,
       images_attributes: [:id, :file, :_destroy],
       event_category_ids: [],
       meeting_additional_dates_attributes: [
