@@ -118,9 +118,8 @@ class CrowdCampaignsController < ApplicationController
     if @crowd_campaign.save
       if params[:page]
         redirect_to params[:page]
-      #elsif params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
-      #  flash.now[:alert] = 'Deine Kampagne konnte noch nicht zur Freigabe weitergeleitet werden. Bitte fülle die Felder soweit aus, bis alle Schritte mit einem Häkchen gekennzeichnet sind.'
-      #  redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign)
+      elsif params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
+        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Kampagne konnte noch nicht zur Freigabe weitergeleitet werden. Bitte fülle die Felder soweit aus, bis alle Schritte mit einem Häkchen gekennzeichnet sind."
       elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
@@ -277,9 +276,10 @@ class CrowdCampaignsController < ApplicationController
       ],
     )
 
-    if campaign_params[:crowd_rewards_attributes].present?
-      campaign_params[:crowd_rewards_attributes].reject!{|_, a| a[:id].present? }
-    end
+    # Would be great just to reject if the reward is already claimed ...
+    #if campaign_params[:crowd_rewards_attributes].present?
+    #  campaign_params[:crowd_rewards_attributes].reject!{|_, a| a[:id].present? }
+    #end
 
     campaign_params
   end

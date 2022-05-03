@@ -1,14 +1,16 @@
 <div class="nested-fields -line crowd-donation-room">
   <%= f.hidden_field :donation_type, value: 'room' %>
-  <% disabled = local_assigns[:disabled] %>
-  <% deleteable = !local_assigns[:disabled] %>
+
+  <% already_pledged = @crowd_campaign.crowd_donation_pledges.exists?(crowd_donation_id: f.object.id) %>
+  <% disabled = local_assigns[:disabled] && already_pledged %>
+  <% deleteable = !local_assigns[:disabled] || !already_pledged %>
 
   <div class="input-field -toggle">
     <%= f.label :title do %>
       <%= icon_tag "record" %>
       <span>Benötigte Räumlichkeiten</span>
     <% end %>
-    <%= f.text_field :title, placeholder: "Welche art von Räumlichkeiten benötigst du? ...", required: !@crowd_campaign.draft?, disabled: disabled %>
+    <%= f.text_field :title, placeholder: "Welche art von Räumlichkeiten benötigst du? ...", required: true, disabled: disabled %>
   </div>
 
   <div class="toggle-content">
@@ -18,7 +20,7 @@
         <%= icon_tag "layout-document" %>
         <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :description, placeholder: 'Beschreibung ...', disabled: disabled %>
+      <%= f.text_area :description, placeholder: 'Beschreibung ...', required: true, disabled: disabled %>
     </div>
 
     <div class="form-columns">
