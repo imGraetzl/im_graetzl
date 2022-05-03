@@ -3,7 +3,7 @@ ActiveAdmin.register CrowdCampaign do
   menu parent: 'Crowdfunding'
 
   includes :location, :user, :comments
-  actions :all, except: [:new, :create]
+  actions :all, except: [:new, :create, :destroy]
 
   scope :all, default: true
   scope :draft
@@ -28,12 +28,6 @@ ActiveAdmin.register CrowdCampaign do
   index { render 'index', context: self }
   show { render 'show', context: self }
   form partial: 'form'
-
-  # batch actions
-  #batch_action :approve do |ids|
-  #  batch_action_collection.find(ids).map(&:approved!)
-  #  redirect_to collection_path, alert: 'Die ausgewählten Crowdfunding Kampagnen wurden freigeschalten.'
-  #end
 
   # action buttons
   action_item :approve, only: :show, if: proc{ crowd_campaign.pending? } do

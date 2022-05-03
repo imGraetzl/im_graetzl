@@ -21,6 +21,18 @@
     <%= f.hidden_field :crowd_reward_id %>
     <%= f.hidden_field :crowd_campaign_id %>
 
+    <% if @crowd_pledge.errors.details.include?(:donation_amount) %>
+      <div class="input-field">
+        <%= label_tag :donation_amount do %>
+          <%= icon_tag "currency-euro" %>
+          <span>Freie Unterstützung</span>
+        <% end %>
+        <%= f.text_field :donation_amount, class: 'amount', placeholder: 'Betrag eingeben ...',
+          class: 'calculate-price', maxlength: 6,
+          data: { action: calculate_price_crowd_pledges_url(crowd_campaign_id: @crowd_pledge.crowd_campaign.id, crowd_reward_id: @crowd_pledge.crowd_reward&.id)} %>
+      </div>
+    <% end %>
+
     <div class="input-field">
       <%= f.label :email do %>
         <%= icon_tag "at-symbol" %>
@@ -67,6 +79,11 @@
     <div class="input-checkbox">
       <%= f.check_box :anonym %>
       <%= f.label :anonym, 'Ich möchte anonym bleiben und nicht als Unterstützer gelistet werden.' %>
+    </div>
+
+    <div class="input-checkbox">
+      <%= f.check_box :terms %>
+      <%= f.label :terms, ("Ich akzeptiere die #{link_to 'Nutzungsbestimmungen', info_agb_path} und bestätige, dass ich mindestens 16 Jahre alt bin.").html_safe %>
     </div>
 
     <%= submit_tag "Weiter", class: 'btn-primary' %>

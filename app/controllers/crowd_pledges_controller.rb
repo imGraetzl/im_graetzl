@@ -1,6 +1,7 @@
 class CrowdPledgesController < ApplicationController
   def new
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+
     #redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne ist nicht aktiv und kann daher nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.assign_attributes(current_user_params) if current_user
@@ -10,6 +11,10 @@ class CrowdPledgesController < ApplicationController
   def create
     @crowd_pledge = CrowdPledge.new(crowd_pledge_params)
     #redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
+
+    if @crowd_pledge.crowd_reward&.fully_claimed?
+      redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
+    end
 
     @crowd_pledge.user_id = current_user.id if current_user
     @crowd_pledge.calculate_price
@@ -43,6 +48,7 @@ class CrowdPledgesController < ApplicationController
 
   def choose_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
+    redirect_to [:summary, @crowd_pledge] and return if !@crowd_pledge.incomplete?
     #redirect_to @crowd_pledge.crowd_campaign and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.calculate_price
@@ -51,14 +57,43 @@ class CrowdPledgesController < ApplicationController
 
   def payment_authorized
     @crowd_pledge = CrowdPledge.find(params[:id])
-    CrowdPledgeService.new.card_payment_authorized(@crowd_pledge, params[:payment_method_id])
-    ActionProcessor.track(@crowd_pledge, :create)
-    # CrowdMailer.new_pledge(@crowd_pledge)
-    redirect_to [:summary, @crowd_pledge]
+    redirect_to [:choose_payment, @crowd_pledge] if params[:setup_intent].blank?
+
+    success, error = CrowdPledgeService.new.card_payment_authorized(@crowd_pledge, params[:setup_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      redirect_to [:summary, @crowd_pledge]
+    else
+      flash[:error] = error
+      redirect_to [:choose_payment, @crowd_pledge]
+    end
   end
 
   def summary
     @crowd_pledge = CrowdPledge.find(params[:id])
+  end
+
+  def change_payment
+    @crowd_pledge = CrowdPledge.find(params[:id])
+    redirect_to [:summary, @crowd_pledge] if !@crowd_pledge.failed?
+
+    @payment_intent = CrowdPledgeService.new.create_payment_intent(@crowd_pledge)
+  end
+
+  def payment_changed
+    @crowd_pledge = CrowdPledge.find(params[:id])
+    redirect_to [:summary, @crowd_pledge] if params[:payment_intent].blank?
+
+    success, error = CrowdPledgeService.new.payment_retried(@crowd_pledge, params[:payment_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      redirect_to [:summary, @crowd_pledge]
+    else
+      flash[:error] = error
+      redirect_to [:change_payment, @crowd_pledge]
+    end
   end
 
   private
@@ -79,13 +114,9 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
-      :crowd_campaign_id, :crowd_reward_id, :donation_amount, :anonym,
+      :crowd_campaign_id, :crowd_reward_id, :donation_amount, :anonym, :terms,
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer
     )
-  end
-
-  def card_params
-    params.permit(:payment_method_id)
   end
 
 end

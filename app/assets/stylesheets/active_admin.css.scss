@@ -28,7 +28,7 @@
   &.deleted, &.rejected, &.off, &.payment_failed, &.declined {
     background: red;
   }
-  &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.payment_pending, &.not_funded, &.draft {
+  &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.payment_pending, &.not_funded {
     background: orange;
   }
   &.approved, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.payment_success, &.goal1_reached, &.goal2_reached, &.completed {
@@ -42,6 +42,9 @@
   }
   &.vacancy, &.daily {
     background: LightSeaGreen;
+  }
+  &.draft {
+    background: Grey;
   }
 }
 
