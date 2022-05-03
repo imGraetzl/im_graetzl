@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_120350) do
+ActiveRecord::Schema.define(version: 2022_05_03_122327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -474,18 +474,10 @@ ActiveRecord::Schema.define(version: 2022_05_03_120350) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.bigint "meeting_additional_date_id"
-    t.decimal "amount", precision: 10, scale: 2
-    t.integer "payment_status"
-    t.string "payment_method"
-    t.string "stripe_payment_intent_id"
-    t.string "invoice_number"
-    t.string "stripe_source_id"
-    t.string "stripe_charge_id"
     t.date "going_to_date"
     t.time "going_to_time"
     t.index ["meeting_additional_date_id"], name: "index_going_tos_on_meeting_additional_date_id"
     t.index ["meeting_id"], name: "index_going_tos_on_meeting_id"
-    t.index ["stripe_payment_intent_id"], name: "index_going_tos_on_stripe_payment_intent_id"
     t.index ["user_id"], name: "index_going_tos_on_user_id"
   end
 
