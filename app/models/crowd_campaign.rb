@@ -56,7 +56,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def editable?
-    draft? || submit? || pending? || approved? # Remove approved maybe?
+    draft? || submit? || pending?
   end
 
   def owned_by?(a_user)
@@ -106,7 +106,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def all_steps_finished?
-    (1..5).all?{|step| step_finished?(step)}
+    (1..6).all?{|step| step_finished?(step)}
   end
 
   def step_finished?(step)
@@ -121,6 +121,8 @@ class CrowdCampaign < ApplicationRecord
       crowd_rewards.present? && crowd_rewards.all?(&:ready_for_submit?)
     when 5
       [cover_photo_data].all?(&:present?)
+    when 6
+      [contact_name, contact_address, contact_zip, contact_city, contact_email, billable].all?(&:present?)
     else
       false
     end

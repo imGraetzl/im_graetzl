@@ -130,6 +130,7 @@ class CrowdCampaignsController < ApplicationController
       end
     else
       render :edit
+      @crowd_campaign.update_attribute(:status, :draft) if @crowd_campaign.submit?
     end
 
   end

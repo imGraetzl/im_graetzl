@@ -6,10 +6,10 @@
           Servus <%= @crowd_pledge.contact_name %>,
         </p>
         <p>
-          <strong>es gibt gute Nachrichten, das von dir unterstützte Projekt <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> hat die Finanzierungsphase erfolgreich beendet.</strong>
+          Du hast das Crowdfunding Projekt <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %> erfolgreich unterstützt.
         </p>
         <p>
-          Jetzt wird alles Bürokratische geprüft und wenn alles auf grün steht, wird deine Unterstützung eingezogen.
+          Nochmals vielen herzlichen Dank!
         </p>
       </td>
     </tr>
@@ -122,6 +122,10 @@
           <%= @crowd_pledge.address_zip %> <%= @crowd_pledge.address_city %>
 
           <br><br>
+
+          <p>
+            Dein Unterstützungsbetrag wird in Kürze von deiner ausgewählten Zahlunsform eingezogen uns das Projekt Team über deine Unterstützung informiert.
+          </p>
 
           --
 

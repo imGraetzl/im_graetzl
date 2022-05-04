@@ -83,7 +83,7 @@ class CrowdPledgeService
       stripe_payment_intent_id: payment_intent.id,
       status: 'debited',
     )
-    CrowdCampaignMailer.crowd_pledge_completed_successful(crowd_pledge).deliver_later
+    CrowdCampaignMailer.crowd_pledge_payment_successful_retried(crowd_pledge).deliver_later
     true
   end
 

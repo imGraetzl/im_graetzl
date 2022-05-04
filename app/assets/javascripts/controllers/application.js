@@ -51,16 +51,6 @@ APP.controllers.application = (function() {
       }, 500);
     });
 
-    /* Maybe try this one if above not working
-    $('form').submit(function (e) {
-       var form = this;
-       e.preventDefault();
-       setTimeout(function () {
-        form.submit();
-      }, 100);
-    });
-    */
-
     // Set Screen Mode Class
     enquire
         .register("screen and (max-width:" + APP.config.majorBreakpoints.medium + "px)", {

@@ -8,8 +8,7 @@ class CrowdPledge < ApplicationRecord
 
   validates_presence_of :email, :contact_name
   validates :terms, acceptance: true
-  validates :donation_amount, numericality: {only_integer: true, greater_than_or_equal_to: 5}, if: :donation_amount?
-
+  validates :donation_amount, numericality: {greater_than_or_equal_to: 5}, if: :donation_amount?
 
   enum status: { incomplete: 0, authorized: 1, debited: 2, failed: 3, canceled: 4 }
 

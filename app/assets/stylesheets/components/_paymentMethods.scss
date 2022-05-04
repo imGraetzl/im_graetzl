@@ -161,16 +161,17 @@
 
   .payment-method-container {
     display: none;
-
     label {
       min-width: 165px;
     }
+  }
 
-    .error-message {
-      color: red;
-      margin-bottom: 15px;
-    }
-
+  .error-message {
+    @include font-size-primaryFont('large');
+    font-style: italic;
+    text-align: center;
+    padding-top: 15px;
+    color: red;
   }
 
   .btn-primary {
