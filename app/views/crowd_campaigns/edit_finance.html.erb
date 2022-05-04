@@ -7,6 +7,7 @@
 
   <%= form_for(@crowd_campaign, html: { class: 'crowdfunding_form' }) do |f| %>
   <%= form_errors_for @crowd_campaign %>
+  <%= f.hidden_field :title %>
 
   <%= render 'crowd_campaigns/form/finance', f: f %>
 
@@ -17,5 +18,7 @@
   </div>
 
   <% end %>
+
+  <%= render 'crowd_campaigns/form/footer_text' %>
 
 </section>

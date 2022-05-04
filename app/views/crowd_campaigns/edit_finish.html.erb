@@ -14,7 +14,7 @@
     <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
     <%= link_to 'Vorschau', 'javascript:', data: { disable_with: 'speichert...' }, class: ["btn-secondary", "-mint", @crowd_campaign.editable? ? 'save-and-preview' : '-disabled'] %>
     <% if f.object.draft? || f.object.submit? %>
-      <%= f.button 'Projekt zur Freigabe einreichen', data: {confirm: 'Klicke auf "OK" um dein Projekt jetzt zur Freigabe einzureichen.',  disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: "submit_for_approve", value: 'approve' %>
+      <%= f.button 'Projekt zur Freigabe einreichen', data: {confirm: 'Bist du fertig mit deinem Projekt? Klicke auf "OK" um dein Projekt jetzt zur Freigabe einzureichen.',  disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: "submit_for_approve", value: 'approve' %>
     <% elsif f.object.completed? %>
       <%= link_to 'Weiter zum Projektabschluss', status_crowd_campaign_path(@crowd_campaign), class: 'btn-primary -mint btn-next' %>
     <% else %>
@@ -23,5 +23,7 @@
   </div>
 
   <% end %>
+
+  <%= render 'crowd_campaigns/form/footer_text' %>
 
 </section>

@@ -186,6 +186,8 @@ de:
       title: 'Crowdfunding Untestützung - Adressangaben'
     choose_payment:
       title: 'Crowdfunding Untestützung - Zahlungsart wählen'
+    change_payment:
+      title: 'Crowdfunding Untestützung - Zahlungsart ändern'
     summary:
       title: 'Crowdfunding Untestützung - Zusammenfassung'
 

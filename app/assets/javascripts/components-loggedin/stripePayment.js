@@ -62,6 +62,10 @@ APP.components.stripePayment = (function() {
     const paymentElement = elements.create("payment", options);
     paymentElement.mount("#payment-element");
 
+    paymentElement.on("ready", function(){
+      $('.stripe-spinner').hide();
+    });
+
     form.on("submit", async function(e) {
       e.preventDefault();
       setLoading(form, true);
@@ -80,11 +84,16 @@ APP.components.stripePayment = (function() {
       if (result.error.type === "card_error" || result.error.type === "validation_error") {
         form.find(".error-message").text(result.error.message);
       } else {
-        form.find(".error-message").text("An unexpected error occured.");
+        form.find(".error-message").text("Es ist ein Fehler aufgetreten, bitte versuche es erneut.");
       }
 
       setLoading(form, false);
     });
+
+    paymentElement.on('change', function(event) {
+      form.find(".error-message").text(""); // Clear Error Msg on Change
+    });
+
   }
 
   function setLoading(form, isLoading) {

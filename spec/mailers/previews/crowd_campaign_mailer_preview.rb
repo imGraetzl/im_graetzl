@@ -44,4 +44,12 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.crowd_pledge_completed_successful(CrowdPledge.order(:created_at).last)
   end
 
+  def crowd_pledge_payment_failed
+    CrowdCampaignMailer.crowd_pledge_payment_failed(CrowdPledge.order(:created_at).last)
+  end
+
+  def crowd_pledge_payment_successful_retried
+    CrowdCampaignMailer.crowd_pledge_payment_successful_retried(CrowdPledge.order(:created_at).last)
+  end
+
 end
