@@ -30,7 +30,7 @@ gem 'sitemap_generator'
 gem 'prawn'
 gem 'prawn-table'
 
-gem 'gibbon', '~> 3.0', '>= 3.0.2'
+gem 'gibbon', '~> 3.4'
 gem 'newrelic_rpm'
 gem 'rollbar'
 gem 'scout_apm'
