@@ -10,7 +10,8 @@
       <%= icon_tag "record" %>
       <span>Benötigtes Material</span>
     <% end %>
-    <%= f.text_field :title, placeholder: "Welches Material / Equipment benötigst du? ...", required: true, disabled: disabled %>
+    <%= f.text_field :title, placeholder: "Welches Material / Equipment benötigst du? ...", data: { max_chars: 100 }, maxlength:100, required: true, disabled: disabled %>
+    <span class="charCountContainer charsLeft"></span>
   </div>
 
   <div class="toggle-content">
@@ -20,7 +21,8 @@
         <%= icon_tag "layout-document" %>
         <span>Beschreibung</span>
       <% end %>
-      <%= f.text_area :description, placeholder: 'Beschreibung ...', required: true, disabled: disabled %>
+      <%= f.text_area :description, placeholder: 'Beschreibung ...', data: { max_chars: 500 }, maxlength:500, required: true, disabled: disabled %>
+      <span class="charCountContainer charsLeft"></span>
     </div>
 
     <div class="form-columns">

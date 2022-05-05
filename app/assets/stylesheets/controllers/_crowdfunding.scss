@@ -202,9 +202,6 @@ section.crowd_campaign {
     text-align: left;
     @include font-size-secondaryFont('base');
   }
-  .hl-main.-rewards {
-    text-align: center;
-  }
   .navArea {
     margin-top:40px;
     @include respond-to("<=medium") {

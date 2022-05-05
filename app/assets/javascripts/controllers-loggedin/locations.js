@@ -35,6 +35,7 @@ APP.controllers_loggedin.locations = (function() {
       APP.components.formValidation.init();
       APP.components.districtGraetzlInput();
       APP.components.addressInput();
+      APP.components.formHelper.maxChars();
 
       // User should not be able to change Category if "Spirit & Soul"
       var category = $('#location-cat select').find(":selected").text();

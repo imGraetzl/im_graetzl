@@ -33,9 +33,9 @@ section.crowdfunding-form {
     a {
       color: $color-ambient-grey-dark;
     }
-  }
-  .statusHint {
-    display: contents;
+    .statusHint {
+      display: contents;
+    }
   }
 
   .input-button {
@@ -98,6 +98,9 @@ section.crowdfunding-form {
     .nested-fields > .input-field {
       .icon-record { visibility: hidden;}
     }
+    .nested-fields > .input-field.-toggle {
+      input {padding-right:40px;}
+    }
     @include respond-to(">medium") {
       .btn-primary, .form-block .btn-secondary {
         width:33%;
@@ -124,10 +127,12 @@ section.crowdfunding-form {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      //align-items: center;
       .cardBox {
         width:35%;
         max-width: 300px;
+        .updateteaser {
+          display: none;
+        }
       }
       .statustxt {
         width:60%;
