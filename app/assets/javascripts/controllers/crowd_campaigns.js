@@ -48,6 +48,9 @@ APP.controllers.crowd_campaigns = (function() {
           }
       }).trigger('_after');
 
+      $('.-crowdRewardBox .left, .-crowdRewardBox .right').on("click", function() {
+        $(this).closest('.-crowdRewardBox').toggleClass('-open');
+      });
 
       $('.btn-support').on("click", function() {
         if($("#tab-info").is(":hidden")){

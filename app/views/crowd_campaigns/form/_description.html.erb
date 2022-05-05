@@ -49,6 +49,15 @@
   </div>
 
   <div class="input-textarea bbcodeField">
+    <%= f.label :aim_description do %>
+    <%= icon_tag "layout-document" %>
+    <span>Was sind die Projekt Ziele?</span>
+    <% end %>
+    <%= f.text_area :aim_description, placeholder: 'Was sind die Projekt Ziele und wer ist die Zielgruppe? ...', required: !@crowd_campaign.draft? %>
+    <span class="bbCodeOpener"><a>Tipps</a></span>
+  </div>
+
+  <div class="input-textarea bbcodeField">
     <%= f.label :support_description do %>
     <%= icon_tag "layout-document" %>
     <span>Warum sollte man dich unterstützen?</span>

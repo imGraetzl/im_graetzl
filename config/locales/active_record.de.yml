@@ -377,6 +377,7 @@ de:
         enddate: Enddatum
         description: Projekt Beschreibung
         support_description: Unterstützungsgrund
+        aim_description: Projekt Ziele
         about_description: Projekt Hintergrund
         funding_1_amount: Minimalbetrag
         funding_1_description: Minimalbetrag Beschreibung

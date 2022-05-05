@@ -184,6 +184,17 @@ APP.controllers.application = (function() {
     }
   });
 
+  // Toggable Headlines
+  $('.-toggable h3').on('click', function() {
+    $toggleContainer = $(this).closest('.-toggable');
+    $toggleContainer.find('div').slideToggle();
+    if ($toggleContainer.hasClass('-open')) {
+      $toggleContainer.removeClass('-open');
+    } else {
+      $toggleContainer.addClass('-open');
+    }
+  });
+
   // BETA FLASH for WeLocally
   /*
   if (!sessionStorage.getItem('betaflash')) {
