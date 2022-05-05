@@ -28,7 +28,8 @@
       <%= icon_tag "layout-document" %>
       <span>Vorteil für die Allgemeinheit</span>
       <% end %>
-      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...' %>
+      <%= f.text_area :benefit_description, placeholder: 'Beschreibe kurz warum auch andere von deinem Vorhaben profitieren ...', data: { max_chars: 1500 }, maxlength:1500 %>
+      <span class="charCountContainer charsLeft"></span>
     </div>
   </div>
 </div>

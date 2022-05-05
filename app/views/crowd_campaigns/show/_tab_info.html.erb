@@ -38,7 +38,7 @@
     </div>
 
     <div class="content-block -toggable">
-      <h3>Was sind die Projekt Ziele?</h3>
+      <h3>Was sind die Ziele?</h3>
       <div class="bbcode -toggle-content"><%= @crowd_campaign.aim_description.bbcode_to_html.html_safe if @crowd_campaign.aim_description.present? %></div>
     </div>
 
@@ -49,7 +49,7 @@
 
     <% if @crowd_campaign.benefit? %>
     <div class="content-block -toggable">
-      <h3>Warum profitieren auch andere von diesem Projekt?</h3>
+      <h3>Wie profitieren andere Menschen von diesem Vorhaben?</h3>
       <div class="bbcode -toggle-content"><%= @crowd_campaign.benefit_description %></div>
     </div>
     <% end %>
@@ -89,7 +89,7 @@
   <div class="sideArea">
 
     <%= render 'crowd_campaigns/show/support_box' %>
-    
+
     <% if @crowd_campaign.crowd_rewards.exists? %>
       <%= render partial: 'crowd_campaigns/show/rewards', collection: @crowd_campaign.crowd_rewards.sort_by(&:amount), as: :crowd_reward %>
     <% end %>
