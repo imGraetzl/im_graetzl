@@ -41,7 +41,7 @@ class CrowdCampaign < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true, reject_if: :all_blank
 
   validates_presence_of :title, :graetzl
-  validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
+  validates_presence_of :title, :slogan, :crowd_category_ids, :graetzl_id, :startdate, :enddate, :description, :support_description, :aim_description, :about_description, :funding_1_amount, :funding_1_description, :cover_photo_data, :crowd_reward_ids, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_email, :billable, if: :submit?
 
   scope :scope_public, -> { where(status: [:funding, :completed]) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
@@ -114,7 +114,7 @@ class CrowdCampaign < ApplicationRecord
     when 1
       [title, slogan, crowd_category_ids, graetzl_id].all?(&:present?)
     when 2
-      [startdate, enddate, description, support_description, about_description].all?(&:present?)
+      [startdate, enddate, description, support_description, aim_description, about_description].all?(&:present?)
     when 3
       [funding_1_amount, funding_1_description].all?(&:present?)
     when 4

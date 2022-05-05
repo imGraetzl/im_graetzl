@@ -1,0 +1,37 @@
+.-toggable {
+  h3 {
+    position: relative;
+    padding-bottom:20px;
+    padding-right:25px;
+    border-bottom: 1px solid $color-ambient-grey;
+    cursor: pointer;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height:100%;
+      width:25px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      background-image: url(image_path('svg/icon-arrow.svg'));
+      background-repeat: no-repeat;
+      background-position: right;
+    }
+  }
+  .-toggle-content {
+    display: none;
+    padding-bottom:30px;
+  }
+  &.-open {
+    h3 {
+      &::after {
+        transform: rotate(180deg);
+      }
+    }
+    .-toggle-content {
+      display: block;
+    }
+  }
+}

@@ -246,7 +246,7 @@ class CrowdCampaignsController < ApplicationController
 
   def editable_campaign_params
     params.require(:crowd_campaign).permit(
-        :title, :slogan, :description, :support_description, :about_description, :benefit_description,
+        :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit_description,
         :startdate, :enddate, :billable, :benefit,
         :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
         :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_email, :contact_phone,
@@ -266,7 +266,7 @@ class CrowdCampaignsController < ApplicationController
 
   def noneditable_campaign_params
     campaign_params = params.require(:crowd_campaign).permit(
-      :description, :support_description, :about_description, :benefit_description,
+      :description, :support_description, :aim_description, :about_description, :benefit_description,
       :location_id, :room_offer_id,
       images_attributes: [:id, :file, :_destroy],
       crowd_rewards_attributes: [

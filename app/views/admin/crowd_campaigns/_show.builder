@@ -34,6 +34,7 @@ context.instance_eval do
           row :address_city
           row :description
           row :support_description
+          row :aim_description
           row :about_description
           row :benefit
           row :benefit_description
