@@ -56,27 +56,6 @@ APP.controllers.meetings = (function() {
         });
       }
 
-      var ua_id = $("body").attr("data-uaid");
-      var buyTicket = new jBox('Modal', {
-        addClass:'jBox',
-        attach: '#buyTicket',
-        content: $('#jBoxBuyTicket'),
-        trigger: 'click',
-        closeOnEsc:true,
-        closeOnClick:'body',
-        blockScroll:true,
-        animation:{open: 'zoomIn', close: 'zoomOut'},
-        onOpen: function() {
-          var meeting_id = $('#meeting_id').val();
-          var page_title = 'Dein Ticket - Termin wählen - ' + document.title;
-          var page_path = '/going_tos/choose_date?meeting_id='+meeting_id;
-          gtag('config', ua_id, {
-            'page_title': page_title,
-            'page_path': page_path
-          });
-        }
-      });
-
       var attendMeeting = new jBox('Modal', {
         addClass:'jBox',
         attach: '#attendMeeting',
@@ -92,16 +71,6 @@ APP.controllers.meetings = (function() {
         addClass:'jBox',
         attach: '#meetingSettings',
         content: $('#jBoxMeetingSettings'),
-        trigger: 'click',
-        closeOnClick:true,
-        isolateScroll:true,
-        animation:{open: 'zoomIn', close: 'zoomOut'},
-      });
-
-      var meetingSettingsPaid = new jBox('Tooltip', {
-        addClass:'jBox',
-        attach: '#meetingSettingsPaid',
-        content: $('#jBoxMeetingSettingsPaid'),
         trigger: 'click',
         closeOnClick:true,
         isolateScroll:true,

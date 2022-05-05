@@ -32,6 +32,7 @@ class CrowdCampaignsController < ApplicationController
       render :new
     end
   end
+
   def edit
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     return redirect_to edit_crowd_campaign_path(@crowd_campaign) if params[:id] != @crowd_campaign.slug
@@ -109,11 +110,16 @@ class CrowdCampaignsController < ApplicationController
       @crowd_campaign.assign_attributes(noneditable_campaign_params)
     end
 
+    if params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
+      @crowd_campaign.update_attribute(:status, :submit) # Needed for Model Validation if state submit?
+      flash.now[:alert] = 'Deine Kampagne konnte noch nicht zur Freigabe weitergeleitet werden. Bitte fülle die notwendigen Felder soweit aus, bis alle Schritte mit einem Häkchen gekennzeichnet sind.'
+    end
+
     if @crowd_campaign.save
       if params[:page]
         redirect_to params[:page]
       elsif params[:submit_for_approve] && !@crowd_campaign.all_steps_finished?
-        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: 'Deine Crowdfundingkampagne konnte noch nicht zur Freigabe eingereicht werden. Bitte fülle alle Felder aus, bis alle Schritte mit einem Haken gekennzeichnet sind.'
+        redirect_back fallback_location: edit_crowd_campaign_path(@crowd_campaign), notice: "Deine Kampagne konnte noch nicht zur Freigabe weitergeleitet werden. Bitte fülle die Felder soweit aus, bis alle Schritte mit einem Häkchen gekennzeichnet sind."
       elsif params[:submit_for_approve] && @crowd_campaign.all_steps_finished?
         @crowd_campaign.status = :pending
         @crowd_campaign.save
@@ -124,6 +130,7 @@ class CrowdCampaignsController < ApplicationController
       end
     else
       render :edit
+      @crowd_campaign.update_attribute(:status, :draft) if @crowd_campaign.submit?
     end
 
   end
@@ -176,11 +183,11 @@ class CrowdCampaignsController < ApplicationController
 
   def show_status_message?
     if @crowd_campaign.user == current_user
-      flash.now[:alert] = "Deine Kampagne ist noch im Bearbeitungsmodus. | #{ActionController::Base.helpers.link_to('Kampagne bearbeiten', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.draft?
+      flash.now[:alert] = "Deine Kampagne ist noch im Bearbeitungsmodus. | #{ActionController::Base.helpers.link_to('Kampagne bearbeiten', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.draft? || @crowd_campaign.submit?
       flash.now[:alert] = "Deine Kampagne wird überprüft. Du erhältst eine Nachricht sobald sie genehmnigt wurde. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.pending?
       flash.now[:alert] = "Deine Kampagne wurde genehmigt und läuft ab #{@crowd_campaign.runtime}. | #{ActionController::Base.helpers.link_to('Zum Kampagnen-Setup', edit_crowd_campaign_path(@crowd_campaign))}" if @crowd_campaign.approved?
     else
-      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.pending?
+      flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne ist noch in Bearbeitung." if @crowd_campaign.draft? || @crowd_campaign.submit? || @crowd_campaign.pending?
       flash.now[:alert] = "Kampagnen Voransicht - Diese Kampagne läuft von #{@crowd_campaign.runtime}." if @crowd_campaign.approved?
     end
   end
@@ -238,10 +245,8 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def editable_campaign_params
-    params
-      .require(:crowd_campaign)
-      .permit(
-        :title, :slogan, :description, :support_description, :about_description, :benefit_description,
+    params.require(:crowd_campaign).permit(
+        :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit_description,
         :startdate, :enddate, :billable, :benefit,
         :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
         :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_email, :contact_phone,
@@ -260,8 +265,8 @@ class CrowdCampaignsController < ApplicationController
   end
 
   def noneditable_campaign_params
-    params.require(:crowd_campaign).permit(
-      :description, :support_description, :about_description, :benefit_description,
+    campaign_params = params.require(:crowd_campaign).permit(
+      :description, :support_description, :aim_description, :about_description, :benefit_description,
       :location_id, :room_offer_id,
       images_attributes: [:id, :file, :_destroy],
       crowd_rewards_attributes: [
@@ -271,5 +276,12 @@ class CrowdCampaignsController < ApplicationController
         :id, :donation_type, :title, :description, :question, :startdate, :enddate, :_destroy
       ],
     )
+
+    # Would be great just to reject if the reward is already claimed ...
+    #if campaign_params[:crowd_rewards_attributes].present?
+    #  campaign_params[:crowd_rewards_attributes].reject!{|_, a| a[:id].present? }
+    #end
+
+    campaign_params
   end
 end

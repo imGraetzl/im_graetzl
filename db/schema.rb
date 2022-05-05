@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_21_103003) do
+ActiveRecord::Schema.define(version: 2022_05_05_121011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -246,6 +246,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_103003) do
     t.bigint "room_offer_id"
     t.integer "funding_status", default: 0
     t.jsonb "avatar_data"
+    t.text "aim_description"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
@@ -302,6 +303,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_103003) do
     t.bigint "crowd_campaign_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "claimed", default: 0
     t.index ["crowd_campaign_id"], name: "index_crowd_donations_on_crowd_campaign_id"
   end
 
@@ -327,6 +329,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_103003) do
     t.string "stripe_payment_intent_id"
     t.string "payment_method"
     t.string "payment_card_last4"
+    t.boolean "terms", default: false
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
@@ -345,6 +348,7 @@ ActiveRecord::Schema.define(version: 2022_04_21_103003) do
     t.bigint "crowd_campaign_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "claimed", default: 0
     t.index ["crowd_campaign_id"], name: "index_crowd_rewards_on_crowd_campaign_id"
   end
 
@@ -471,18 +475,10 @@ ActiveRecord::Schema.define(version: 2022_04_21_103003) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.bigint "meeting_additional_date_id"
-    t.decimal "amount", precision: 10, scale: 2
-    t.integer "payment_status"
-    t.string "payment_method"
-    t.string "stripe_payment_intent_id"
-    t.string "invoice_number"
-    t.string "stripe_source_id"
-    t.string "stripe_charge_id"
     t.date "going_to_date"
     t.time "going_to_time"
     t.index ["meeting_additional_date_id"], name: "index_going_tos_on_meeting_additional_date_id"
     t.index ["meeting_id"], name: "index_going_tos_on_meeting_id"
-    t.index ["stripe_payment_intent_id"], name: "index_going_tos_on_stripe_payment_intent_id"
     t.index ["user_id"], name: "index_going_tos_on_user_id"
   end
 
@@ -719,7 +715,6 @@ ActiveRecord::Schema.define(version: 2022_04_21_103003) do
     t.integer "group_id"
     t.boolean "private", default: false
     t.integer "user_id"
-    t.decimal "amount", precision: 10, scale: 2
     t.boolean "online_meeting", default: false
     t.integer "address_id"
     t.text "online_description"

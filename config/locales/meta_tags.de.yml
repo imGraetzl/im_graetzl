@@ -186,6 +186,8 @@ de:
       title: 'Crowdfunding Untestützung - Adressangaben'
     choose_payment:
       title: 'Crowdfunding Untestützung - Zahlungsart wählen'
+    change_payment:
+      title: 'Crowdfunding Untestützung - Zahlungsart ändern'
     summary:
       title: 'Crowdfunding Untestützung - Zusammenfassung'
 
@@ -239,16 +241,6 @@ de:
   messenger:
     index:
       title: 'Messenger'
-
-  going_tos:
-    login:
-      title: 'Dein Ticket - Einloggen'
-    new:
-      title: 'Dein Ticket - Rechnungsadresse'
-    choose_payment:
-      title: 'Dein Ticket - Zahlungsart wählen'
-    summary:
-      title: 'Dein Ticket - Zusammenfassung'
 
   reports:
     index:

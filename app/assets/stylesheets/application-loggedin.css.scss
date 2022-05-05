@@ -89,6 +89,7 @@
 @import "components/notifications";
 @import "components/video";
 @import "components/fundingBar";
+@import "components/accordion";
 
 //---------------------------------------------------------------------------------------------*\
 // PAGES
@@ -124,7 +125,6 @@
 @import "controllers/tool_rentals";
 @import "controllers/room_rentals";
 @import "controllers/room_rentals_timetable";
-@import "controllers/going_tos";
 @import "controllers/group";
 @import "controllers/regions";
 @import "controllers/messenger";

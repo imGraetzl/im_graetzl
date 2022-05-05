@@ -20,12 +20,14 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       APP.components.search.userAutocomplete();
       APP.components.tabs.initTabs(".tabs-ctrl");
       APP.components.formHelper.bbCodeHelp();
+      APP.components.formHelper.maxChars();
 
       $('.crowdfunding-form').find(':disabled').closest("div[class^='input-']").addClass('disabled');
 
       $('input[name="crowd_campaign[benefit]"]').on("change", function() {
         if ($(this).is(':checked')) {
           $(".benefit-fields").show();
+          $('textarea').autoheight();
         }
         else {
           $(".benefit-fields").hide();
@@ -80,8 +82,15 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
           var $content = $(elem).closest('.nested-fields').find('.toggle-content');
           var $opener = $(elem).closest('.nested-fields').find('.-toggle');
           $content.slideDown(function(){
-            if($content.is(":visible")){$opener.addClass('-opened');}
-            else {$opener.removeClass('-opened');}
+            if($content.is(":visible")){
+              $opener.addClass('-opened');
+              $('textarea').autoheight();
+              APP.components.fileUpload.init();
+              APP.components.formHelper.maxChars();
+            }
+            else {
+              $opener.removeClass('-opened');
+            }
           });
         }
         return false;

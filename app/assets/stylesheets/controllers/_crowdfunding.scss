@@ -65,7 +65,7 @@ section.crowd_campaign {
     }
 
     &.-content {
-      background-color: #f9f9f9;
+      background-color: #f8f8f8;
       margin-top:0px;
       padding-top:50px;
       margin-bottom:-80px;
@@ -139,52 +139,41 @@ section.crowd_campaign {
     }
   }
 
+  h3.reward-headlines {
+    text-transform: uppercase;
+    margin-bottom:20px;
+  }
+
   .content-block {
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     h3 {
       margin-bottom: 10px;
     }
-  }
-  .content-block.-updates {
-    margin-bottom:60px;
-    h3 {
-      margin-bottom: 0px;
-    }
-    em {
-      color: $color-ambient-mint-dark;
-      font-weight: bold;
-    }
-    a {
-      @include font-size-primaryFont('large');
-      color: $color-ambient-grey-dark;
-      font-style: italic;
-      &:hover {
-      }
+    &.-toggable {
+      margin-bottom: 20px;
     }
   }
   .content-block.-facts {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin-bottom:10px;
+    margin-bottom:20px;
+    padding-left:20px;
+    padding-right:15px;
+    background-color: $color-ambient-mint-shine;
+    border-top:1px solid $color-ambient-mint-light;
+    border-bottom:1px solid $color-ambient-mint-light;
 
     .block {
-      width:45%;
-      margin-bottom: 40px;
+      width:47%;
+      margin-top: 15px;
+      margin-bottom: 15px;
       align-items: flex-start;
-      height:unset;
-      min-height: 50px;
       .icon {
         margin-top:10px;
       }
-      .txt {
-        margin-left: 20px;
-      }
       &.-full {
         width:100%;
-      }
-      &.hl-main {
-        min-height: unset;
       }
       h4, p {
         font-family: $font-primary;
@@ -192,11 +181,17 @@ section.crowd_campaign {
         font-weight: normal;
       }
       h4 {
-        @include font-size-primaryFont('large');
-        color: $color-ambient-grey-dark;
+        @include font-size-primaryFont('small');
         font-style: italic;
       }
-      p.desc {color: $color-font-primary;}
+      p strong {
+        @include font-size-primaryFont('larger');
+        color: $color-ambient-mint-dark;
+      }
+      p.desc {
+        margin-top: 5px;
+        color: $color-font-primary;
+      }
       @include respond-to("<medium") {
         width:100%;
       }
@@ -206,9 +201,6 @@ section.crowd_campaign {
   .layoutArea .hl-main {
     text-align: left;
     @include font-size-secondaryFont('base');
-  }
-  .hl-main.-rewards {
-    text-align: center;
   }
   .navArea {
     margin-top:40px;
@@ -290,13 +282,6 @@ section.crowd_campaign {
     z-index: 9;
     background-color: #eaf2f4;
     max-width:100% !important;
-    //background-color: #ffffff;
-    /*
-    @include bg-url(
-      image_path('texture-alpha-stoff1.png'),
-      $webp1x: image_path('texture-alpha-stoff1.webp'),
-    );
-    */
   }
 
   .mediaSlider {
@@ -311,11 +296,7 @@ section.crowd_campaign {
 
     .-supportBox {
       padding:20px;
-      .wrp {
-        transform: rotate(1deg);
-      }
       .hl-main {
-        text-align: center;
         margin-bottom: 10px;
       }
       .card:before {
@@ -328,6 +309,18 @@ section.crowd_campaign {
       .btn-secondary, .btn-primary {
         width:100%;
         margin-top:15px;
+      }
+      .input-field {
+        overflow: hidden;
+        @include respond-to("<medium") {
+          @include field-HorizontalLayout;
+          label {min-width:0px;}
+        }
+      }
+      small {
+        display: block;
+        margin-top:10px;
+        color : $color-ambient-grey;
       }
     }
 
@@ -370,25 +363,99 @@ section.crowd_campaign {
   }
 
 }
-.crowd_campaign .-rewardBox.soldOut {
-  &::before {
-    opacity: 0.6;
-    content: 'Vergriffen';
+
+// REWARD BOX ON CAMAIGN PAGE ----------------
+.crowd_campaign .-crowdRewardBox {
+  margin-bottom:40px;
+  padding:0px;
+  display: flex;
+  position: relative;
+  .left {
+    cursor: pointer;
+    width:35%;
+    position: relative;
+    .reward-img {
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+      background-color: $color-ambient-mint-light;
+      color:$color-ambient-mint-dark;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      object-position: 50% 50%;
+      transition: width 1s ease-in, height 1s ease-in;
+      svg {
+        padding:10px;
+        width:60px;
+        height:60px;
+      }
+    }
+  }
+  .right {
+    cursor: pointer;
+    width:65%;
+    padding:15px;
+    padding-bottom:65px;
+    small {
+      display: block;
+      padding-top:5px;
+      color: $color-ambient-grey;
+    }
+    .description {
+      max-height: 0;
+      overflow: hidden;
+      padding-top:5px;
+      @include font-size-primaryFont('small');
+    }
+  }
+  .priceContainer {
     position: absolute;
-    bottom:0px;
-    right:-15px;
-    z-index: 11;
-    transform: rotate(-17deg);
-    @include headlineBarbapapaMintDark();
-    @include font-size-secondaryFont('small');
-    filter: grayscale(1);
+    right:15px;
+    min-width:65%;
+    bottom:15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-ambient-mint-light;
+    border-radius: 0.2em;
+    border:1px solid white;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.12);
+    strong {
+      padding-left: 8px;
+      padding-right: 8px;
+      color:$color-ambient-mint-dark;
+    }
+  }
+  &.-crowdDonationBox {
+    .priceContainer {
+      min-width: unset;
+    }
+  }
+  &.-open {
+    .left {
+      min-height:100%;
+      transition: min-height 0.25s linear;
+    }
+    .description {
+      max-height: 100%;
+      transition: max-height 0.25s linear;
+    }
   }
 }
+.crowd_campaign .-crowdRewardBox.soldOut .left {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
 
-.crowd_campaign .-rewardBox, .crowd-pledges-page .-rewardBox {
+
+// REWARD BOX ON CHECKOUT PAGE ----------------
+.crowd-pledges-page .-rewardBox {
   margin-bottom:40px;
-  .wrp {
-    transform: rotate(1deg);
+  .card, .wrp {
+    transform: none;
     display: flex;
     align-items: stretch;
   }
@@ -411,84 +478,35 @@ section.crowd_campaign {
   }
   .facts {
     width:100%;
-    padding:5px;
-    padding-left:10px;
+    padding:20px;
     strong {color: $color-ambient-mint-dark; display: block;}
     small {color: $color-ambient-grey;}
+    h4 {
+      padding-bottom:5px;
+      @include font-size-primaryFont('large');
+    }
   }
   .card:before {
     scale:0.8;
     top:-25px;
   }
-  &.-donationBox {
-    .card:before {
-      top:-45px;
-    }
-  }
-  .content {
-    display: none;
-  }
-  .btn-primary {
+  .question {
+    @include font-size-primaryFont('large');
+    border-top: 1px solid $color-ambient-grey-light;
     margin-top:10px;
-  }
-  .trigger {
-    cursor: pointer;
-  }
-  &.-open {
-    .wrp {flex-wrap: wrap;}
-    .reward-img, .facts {
-      width:100%;
-      transition: all 0.5s ease;
-    }
-    .facts {
-      margin-left:0px;
-      padding:10px;
-    }
-    .reward-img {
-      padding:2px;
-    }
-    strong {@include font-size-primaryFont('large');}
-    h4 {@include font-size-primaryFont('large');}
-    .content {
+    padding-top: 10px;
+    span {
+      color: $color-ambient-mint-dark;
+      font-weight: bold;
       display: block;
-      margin-bottom:10px;
-      .txt {
-        padding-top:10px;
-      }
     }
-    .card:before {display: none;}
   }
-  &:hover {
-    .card {border:1px solid $color-ambient-mint-light;}
+  .input-textarea {
+    margin:10px 0px 0px 0px;
+    textarea {min-height:100px; width:100%;}
   }
 }
-.crowd-pledges-page .-rewardBox {
-  .card, .wrp {
-    transform: none;
-    .facts {
-      width: 100%;
-      padding:15px;
-      strong, h4 {
-        @include font-size-primaryFont('large');
-      }
-    }
-    .question {
-      @include font-size-primaryFont('large');
-      border-top: 1px solid $color-ambient-grey-light;
-      margin-top:10px;
-      padding-top: 10px;
-      span {
-        color: $color-ambient-mint-dark;
-        font-weight: bold;
-        display: block;
-      }
-    }
-    .input-textarea {
-      margin:10px 0px 0px 0px;
-      textarea {min-height:100px; width:100%;}
-    }
-  }
-}
+
 .crowd-pledges-page {
   .pricing-summary li div.cost {min-width:75px;}
   .share {
@@ -511,6 +529,11 @@ section.crowd_campaign {
       width:110px;
       height:110px;
       color: $color-ambient-rosa;
+    }
+  }
+  &.-donation {
+    .cardBox .updateteaser {
+      display: none;
     }
   }
 }

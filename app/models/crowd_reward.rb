@@ -7,19 +7,11 @@ class CrowdReward < ApplicationRecord
   validates_presence_of :title, :amount
 
   def available?
-    if self.limit
-      self.limit > self.crowd_pledges.complete.count
-    else
-      true
-    end
+    limit.nil? ? true : limit > claimed
   end
 
-  def available_count
-    self.limit - self.crowd_pledges.complete.count
-  end
-
-  def taken_count
-    self.crowd_pledges.complete.count
+  def fully_claimed?
+    !available?
   end
 
   def ready_for_submit?

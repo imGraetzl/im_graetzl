@@ -7,16 +7,17 @@ class CrowdPledge < ApplicationRecord
   before_create :set_region
 
   validates_presence_of :email, :contact_name
-  validates :donation_amount, numericality: {only_integer: true, greater_than_or_equal_to: 5}, if: :donation_amount?
+  validates :terms, acceptance: true
+  validates :donation_amount, numericality: {greater_than_or_equal_to: 5}, if: :donation_amount?
 
+  enum status: { incomplete: 0, authorized: 1, debited: 2, failed: 3, canceled: 4 }
 
-  enum status: { incomplete: 0, authorized: 1, debited: 2, failed: 3 }
-
-  scope :complete, -> { where.not(status: :incomplete)}
+  scope :complete, -> { where(status: [:authorized, :debited]) }
+  scope :donation, -> { where(crowd_reward_id: nil) }
   scope :visible, -> { where(anonym: false) }
   scope :anonym, -> { where(anonym: true) }
 
-  PAYMENT_METHODS = ['card'].freeze
+  PAYMENT_METHODS = ['card', 'sepa_debit', 'sofort'].freeze
 
   def visible?
     !anonym

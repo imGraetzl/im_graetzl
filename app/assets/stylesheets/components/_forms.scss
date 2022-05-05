@@ -341,6 +341,7 @@ input, select, textarea {
 }
 
 .charCountContainer {
+  z-index: 99;
   position: absolute;
   bottom:5px;
   right:8px;

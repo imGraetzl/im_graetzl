@@ -1,0 +1,42 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow'
+  )
+%>
+
+<section class="crowd-pledges-page change-payment-screen">
+
+  <div class="col-content">
+
+    <div class="hl-subtext">
+      <h1>Zahlungsart anpassen</h1>
+      <p>
+        Wähle deine bevorzugte Zahlungsart, um deine Crowdfunding Unterstützung erfolgreich abzuschließen.
+      </p>
+    </div>
+
+    <%= form_tag nil, id: "payment-form", data: {
+      intent: 'payment',
+      client_secret: @payment_intent.client_secret,
+      redirect: payment_changed_crowd_pledge_url(@crowd_pledge)
+    } do %>
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="payment-submit" class="btn-primary">
+        Unterstützung abschließen
+      </button>
+      <div class="error-message"></div>
+    <% end %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'crowd_pledges/new/sidebar' %>
+  </div>
+
+</section>
+
+<%= javascript_include_tag "https://js.stripe.com/v3/" %>
+<script>
+  window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
+</script>

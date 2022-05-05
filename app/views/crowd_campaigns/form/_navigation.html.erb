@@ -41,7 +41,7 @@
     <div class="step-line"></div>
 
     <%= active_link_to edit_finish_crowd_campaign_path(@crowd_campaign), class: "iconfilter" do %>
-      <% if @crowd_campaign.draft? %>
+      <% if @crowd_campaign.draft? || @crowd_campaign.submit? %>
         <%= icon_tag "flag" %>
       <% else %>
         <%= icon_tag "check" %>

@@ -57,9 +57,6 @@ de:
       meeting:
         one: Treffen
         other: Treffen
-      going_to:
-        one: Bezahlte Tickets
-        other: Bezahlte Tickets
       user:
         one: User
         other: User
@@ -117,6 +114,12 @@ de:
       crowd_campaign:
         one: Kampagne
         other: Kampagnen
+      crowd_reward:
+        one: Dankeschön
+        other: Dankeschöns
+      crowd_donation:
+        one: Spende
+        other: Spenden
       crowd_pledge:
         one: Unterstützung
         other: Unterstützungen
@@ -368,12 +371,36 @@ de:
         graetzl_ids: Grätzl
         default_joined: Automatisch Mitglied
       crowd_campaign:
+        title: Titel
+        slogan: Kurzbeschreibung
+        startdate: Startdatum
+        enddate: Enddatum
+        description: Projekt Beschreibung
+        support_description: Unterstützungsgrund
+        aim_description: Projekt Ziele
+        about_description: Projekt Hintergrund
+        funding_1_amount: Minimalbetrag
+        funding_1_description: Minimalbetrag Beschreibung
+        cover_photo_data: Coverphoto
+        crowd_category_ids: Projekt Kategorie
+        crowd_reward_ids: Mindestens ein Dankeschön
+        contact_name: Vor- & Nachname
+        contact_address: Adresse
+        contact_zip: Postleitzahl
+        contact_city: Stadt
+        contact_email: E-Mailadresse
+        billable: Rechnung/Beleg Auswahl
         statuses:
           draft: In Bearbeitung
+          submit: In Bearbeitung
           pending: In Prüfung
           approved: Freigegeben
           funding: Funding
           completed: Abgeschlossen
+      crowd_reward:
+        title: Dankeschön Titel
+        description: Dankeschön Beschreibung
+        amount: Dankeschön Betrag
       crowd_campaign_post:
         title: Titel
       crowd_donation:
@@ -388,3 +415,4 @@ de:
       crowd_pledge:
         contact_name: Name
         donation_amount: Freie Unterstützung
+        terms: Nutzungsbedingungen

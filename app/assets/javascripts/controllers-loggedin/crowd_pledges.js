@@ -5,6 +5,8 @@ APP.controllers_loggedin.crowd_pledges = (function() {
       else if ($(".crowd-pledges-page.address-screen").exists()) {initAddressScreen();}
       else if ($(".crowd-pledges-page.payment-screen").exists()) {initPaymentScreen();}
       else if ($(".crowd-pledges-page.summary-screen").exists()) {initSummaryScreen();}
+      else if ($(".crowd-pledges-page.change-payment-screen").exists()) {initPaymentChangeScreen();}
+
     }
 
     function initAmountScreen() {
@@ -27,31 +29,11 @@ APP.controllers_loggedin.crowd_pledges = (function() {
 
     function initPaymentScreen() {
       APP.components.tabs.setTab('step3');
-
-      var screen = $(".crowd-pledges-page.payment-screen");
-        screen.find(".paymentMethods input").on("click", function() {
-        screen.find(".payment-method-container").hide();
-        screen.find("." + $(this).val() + "-container").show();
-      });
-
-      screen.find(".paymentMethods input:checked").click();
-
-      if ($(".card-container").exists()) { initCardPayment(); }
-      if ($(".eps-container").exists()) { initEpsPayment(); }
-
+      APP.components.stripePayment.init();
     }
 
-    function initCardPayment() {
-      var cardForm = $(".card-container .card-form");
-      APP.components.paymentCardSetup.init(cardForm);
-      cardForm.on('payment:complete', function() {
-        location.href = $(this).data('success-url');
-      });
-    }
-
-    function initEpsPayment() {
-      var epsForm = $(".eps-container .eps-form");
-      APP.components.paymentEps.init(epsForm);
+    function initPaymentChangeScreen() {
+      APP.components.stripePayment.init();
     }
 
     function initAmount() {
