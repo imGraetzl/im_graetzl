@@ -47,6 +47,10 @@ class CrowdCampaign < ApplicationRecord
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
   scope :by_currentness, -> { order(created_at: :desc) }
 
+  def closed?
+    completed? & (enddate < 14.days.ago)
+  end
+
   def scope_public?
     funding? || completed?
   end
