@@ -68,15 +68,23 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def crowd_pledges_sum
-    @cached_crowd_pledge_sum ||= self.crowd_pledges.complete.sum(:total_price)
+    @cached_crowd_pledge_sum ||= self.crowd_pledges.potential.sum(:total_price)
+  end
+
+  def crowd_pledges_effective_sum
+    crowd_pledges.complete.sum(:total_price)
+  end
+
+  def crowd_pledges_failed_sum
+    crowd_pledges.failed.sum(:total_price)
   end
 
   def crowd_pledges_fee
-    (crowd_pledges_sum / 100) * 4
+    (crowd_pledges_effective_sum / 100) * 4
   end
 
   def crowd_pledges_payout
-    crowd_pledges_sum - crowd_pledges_fee
+    crowd_pledges_effective_sum - crowd_pledges_fee
   end
 
   def check_funding

@@ -15,7 +15,7 @@ class CrowdCampaignService
       end
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else
-      campaign.crowd_pledges.update_all(status: :canceled)
+      campaign.crowd_pledges.authorized.update_all(status: :canceled)
       CrowdCampaignMailer.completed_unsuccessful(campaign).deliver_later
     end
   end

@@ -12,6 +12,8 @@ class CrowdPledge < ApplicationRecord
 
   enum status: { incomplete: 0, authorized: 1, debited: 2, failed: 3, canceled: 4 }
 
+  scope :potential, -> { where.not(status: :incomplete) }
+  scope :failed, -> { where(status: :failed) }
   scope :complete, -> { where(status: [:authorized, :debited]) }
   scope :donation, -> { where(crowd_reward_id: nil) }
   scope :visible, -> { where(anonym: false) }
