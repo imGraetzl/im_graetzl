@@ -5,6 +5,7 @@ euro = wb.styles.add_style(:format_code => "#,##0.00 [$€-2]")
 
 wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
   sheet.add_row [
+    'Payment Status',
     'Datum',
     'Name',
     'E-Mail',
@@ -20,6 +21,7 @@ wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
   ]
   @crowd_pledges.each do |crowd_pledge|
     sheet.add_row [
+      crowd_pledge.status,
       crowd_pledge.created_at,
       crowd_pledge.contact_name,
       crowd_pledge.email,
@@ -33,6 +35,7 @@ wb.add_worksheet(name: "UnterstützerInnen") do |sheet|
       crowd_pledge.anonym? ? 'Ja' : 'Nein',
       crowd_pledge.answer,
     ], style: [
+      nil,
       date,
       nil,
       nil,
