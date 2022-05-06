@@ -1,5 +1,5 @@
 ActiveAdmin.register CrowdDonationPledge do
-  menu parent: 'Crowdfunding'
+  menu label: 'Material- & Zeitspenden', parent: 'Crowdfunding'
   includes :crowd_campaign, :user, :crowd_donation
   actions :all, except: [:new, :create, :destroy, :edit]
 
