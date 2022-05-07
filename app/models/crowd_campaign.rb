@@ -149,6 +149,10 @@ class CrowdCampaign < ApplicationRecord
     "#{I18n.localize(self.startdate, format:'%d. %b %Y')} bis #{I18n.localize(self.enddate, format:'%d. %b %Y')}"
   end
 
+  def notification_time_range
+    [startdate, enddate]
+  end
+
   def to_s
     title
   end

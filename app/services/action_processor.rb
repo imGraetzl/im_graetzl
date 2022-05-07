@@ -150,14 +150,16 @@ class ActionProcessor
     when [CrowdCampaign, :create]
       if subject.scope_public?
         Activity.add_public(subject, to: :entire_region)
-        Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
+        Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
       end
     when [CrowdPledge, :create]
-      if subject.visible?
+      if subject.visible? && subject.crowd_campaign.scope_public?
         Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
     when [CrowdDonationPledge, :create]
-      Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
+      if subject.crowd_campaign.scope_public?
+        Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
+      end
     when [CrowdCampaign, :comment]
       Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
       notify_comment(subject, child)
