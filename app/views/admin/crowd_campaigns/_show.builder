@@ -70,27 +70,23 @@ context.instance_eval do
     column do
       panel 'Dankeschöns' do
         table_for crowd_campaign.crowd_rewards do
-          column :amount
-          column :title
-          column :created_at
+          column 'Betrag', :amount
+          column 'Titel', :title
         end
       end
       panel 'Zeitspenden' do
         table_for crowd_campaign.crowd_donations.material do
           column :title
-          column :created_at
         end
       end
       panel 'Materialspenden' do
         table_for crowd_campaign.crowd_donations.assistance do
           column :title
-          column :created_at
         end
       end
       panel 'Raumspenden' do
         table_for crowd_campaign.crowd_donations.room do
           column :title
-          column :created_at
         end
       end
     end

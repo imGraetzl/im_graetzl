@@ -44,6 +44,11 @@ class CrowdPledgeService
       payment_method: crowd_pledge.stripe_payment_method_id,
       amount: (crowd_pledge.total_price * 100).to_i,
       currency: 'eur',
+      statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
+      metadata: {
+        pledge_id: crowd_pledge.id,
+        campaign_id: crowd_pledge.crowd_campaign
+      },
       off_session: true,
       confirm: true,
     )
@@ -69,7 +74,12 @@ class CrowdPledgeService
       customer: stripe_customer_id,
       amount: (crowd_pledge.total_price * 100).to_i,
       currency: 'eur',
+      statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
       payment_method_types: CrowdPledge::PAYMENT_METHODS,
+      metadata: {
+        pledge_id: crowd_pledge.id,
+        campaign_id: crowd_pledge.crowd_campaign
+      },
     )
   end
 
@@ -101,6 +111,10 @@ class CrowdPledgeService
     end
 
     crowd_pledge.stripe_customer_id
+  end
+
+  def statement_descriptor(crowd_campaign)
+    "#{crowd_campaign.region.host_id} Crowdfunding".upcase
   end
 
 end

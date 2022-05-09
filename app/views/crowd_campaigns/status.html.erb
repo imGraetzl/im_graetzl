@@ -67,7 +67,14 @@
       <% if @crowd_campaign.successful? %>
         <div class="hl-subtext">
           <h2>Übersicht & <span>Fundingstatistik</span></h2>
-          <p>Herzlichen Glückwunsch zu deiner erfolgreichen Kampagne!</p>
+          <% if @crowd_campaign.closed? %>
+            <p>Deine Kampagne wurde erfolgreich abgewickelt.</p>
+          <% else %>
+            <p>
+              Herzlichen Glückwunsch zu deiner erfolgreichen Kampagne!<br>
+              Die Abwicklung dauert nun bis zu 14 Tagen nach Kampagnenende.
+            </p>
+          <% end %>
         </div>
       <% else %>
         <div class="hl-subtext">
@@ -95,18 +102,29 @@
               <h3 class="amount"><%= number_to_currency(@crowd_campaign.crowd_pledges_sum, unit: "€") %></h3>
             </div>
             <% if @crowd_campaign.successful? %>
-            <div>
-              <h4 class="title">Fehlgeschlagen / Widerrufe</h4>
-              <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_failed_sum, unit: "€") %></h4>
-            </div>
-            <div>
-              <h4 class="title">Transaktionsgebühren (4%)</h4>
-              <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_fee, unit: "€") %></h4>
-            </div>
-            <div>
-              <h3 class="title">Auszahlungssumme</h3>
-              <h3 class="amount"><%= number_to_currency(@crowd_campaign.crowd_pledges_payout, unit: "€") %></h3>
-            </div>
+
+              <% if @crowd_campaign.closed? %>
+                <div>
+                  <h4 class="title">Fehlgeschlagen / Widerrufe</h4>
+                  <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_failed_sum, unit: "€") %></h4>
+                </div>
+                <div>
+                  <h4 class="title">Transaktionsgebühren (4%)</h4>
+                  <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_fee, unit: "€") %></h4>
+                </div>
+                <div>
+                  <h3 class="title">Auszahlungssumme</h3>
+                  <h3 class="amount"><%= number_to_currency(@crowd_campaign.crowd_pledges_payout, unit: "€") %></h3>
+                </div>
+              <% else %>
+                <div class="hint">
+                  <p>
+                    <strong>Es dauert nun bis zu 14 Tagen bis deine Kampagne vollständig abgewickelt wird.</strong><br>
+                    Danach erhältst du eine detaillierte Übersicht deiner Unterstützungen und bekommst deine tatsächlich erreichte Fundingsumme ausbezahlt.
+                  </p>
+                </div>
+              <% end %>
+
             <% else %>
             <div class="hint">
               Du hast dein Fundingziel leider nicht erreicht, daher kommt es auch zu keiner Auszahlung.<br>
@@ -118,14 +136,14 @@
         <div class="card"></div>
       </div>
 
-      <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
-
-      <% if @crowd_campaign.successful? %>
+      <% if @crowd_campaign.successful? && @crowd_campaign.closed? %>
         <%= link_to download_supporters_crowd_campaign_path(@crowd_campaign, format: :xlsx), class: 'btn-secondary -mint -ico' do %>
           <span>Download UnterstützerInnen als Excel</span>
           <%= icon_tag "download" %>
         <% end %>
       <% end %>
+
+      <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
 
   <% end %>
 

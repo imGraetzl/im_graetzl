@@ -15,12 +15,6 @@
         <div class="flex-row xxlarge" role="columnheader">Dankeschön</div>
       </div>
       <%= render partial: 'crowd_campaigns/crowd_pledges/crowd_pledge', collection: @crowd_pledges, as: 'crowd_pledge' %>
-      <div class="flex-table header" role="rowgroup">
-        <div class="flex-row xxlarge first" role="columnheader"></div>
-        <div class="flex-row medium" role="columnheader"><h3><%= number_to_currency(@crowd_campaign.crowd_pledges_sum, unit: "€") %></h3></div>
-        <div class="flex-row medium" role="columnheader"></div>
-        <div class="flex-row xxlarge" role="columnheader"></div>
-      </div>
     </div>
   </div>
 
