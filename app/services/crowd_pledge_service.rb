@@ -45,7 +45,10 @@ class CrowdPledgeService
       amount: (crowd_pledge.total_price * 100).to_i,
       currency: 'eur',
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
-      metadata: { pledge_id: crowd_pledge.id },
+      metadata: {
+        pledge_id: crowd_pledge.id,
+        campaign_id: crowd_pledge.crowd_campaign
+      },
       off_session: true,
       confirm: true,
     )
@@ -73,7 +76,10 @@ class CrowdPledgeService
       currency: 'eur',
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
       payment_method_types: CrowdPledge::PAYMENT_METHODS,
-      metadata: { pledge_id: crowd_pledge.id },
+      metadata: {
+        pledge_id: crowd_pledge.id,
+        campaign_id: crowd_pledge.crowd_campaign
+      },
     )
   end
 
