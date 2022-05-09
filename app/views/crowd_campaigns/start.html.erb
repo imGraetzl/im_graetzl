@@ -12,6 +12,13 @@
     <%= link_to "Zu deinen bestehenden Projekten", crowd_campaigns_user_path, class: 'btn-secondary -mint -large -shadow' if current_user.crowd_campaigns.present? %>
   </div>
 
-  <%= render 'crowd_campaigns/form/intro_guidelines' %>
+  <div class="guidelines">
+    <div class="-full">
+      <h4>Kosten:</h4>
+      <p>
+        Nur wenn deine Kampagne erfolgreich ist, behalten wir 4% von der eingegangenen Geldsumme ein, das ist für den Zahlungsanbieter und zur Deckung der internen Kosten. Es ist ein Selbstkostenpreis und für uns kein Geschäftsmodell. Wenn die Kampagne nicht erfolgreich ist, kostet sie dich nichts.
+      </p>
+    </div>
+  </div>
 
 </section>
