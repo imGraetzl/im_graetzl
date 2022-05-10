@@ -187,7 +187,7 @@ APP.controllers.application = (function() {
   // Toggable Headlines
   $('.-toggable h3').on('click', function() {
     $toggleContainer = $(this).closest('.-toggable');
-    $toggleContainer.find('div').slideToggle();
+    $toggleContainer.find('.-toggle-content').slideToggle();
     if ($toggleContainer.hasClass('-open')) {
       $toggleContainer.removeClass('-open');
     } else {

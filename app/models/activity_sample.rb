@@ -38,11 +38,11 @@ class ActivitySample
 
   def crowd_campaigns
     if @graetzl
-      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
+      #CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
     elsif @district
-      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
+      #CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
     else
-      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
+      #CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
     end
   end
 

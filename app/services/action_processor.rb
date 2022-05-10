@@ -103,7 +103,9 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzl)
 
     when [RoomOffer, :comment]
-      Activity.add_public(subject, child, to: subject.graetzl)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzl)
+      end
       notify_comment(subject, child)
 
     when [RoomDemand, :create]
@@ -114,7 +116,9 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzls)
 
     when [RoomDemand, :comment]
-      Activity.add_public(subject, child, to: subject.graetzls)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
       notify_comment(subject, child)
 
     when [ToolOffer, :create]
@@ -122,7 +126,9 @@ class ActionProcessor
       Notifications::NewToolOffer.generate(subject, to: user_ids(subject.graetzl))
 
     when [ToolOffer, :comment]
-      Activity.add_public(subject, child, to: subject.graetzl)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzl)
+      end
       notify_comment(subject, child)
 
     when [ToolDemand, :create]
@@ -133,7 +139,9 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzls)
 
     when [ToolDemand, :comment]
-      Activity.add_public(subject, child, to: subject.graetzls)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
       notify_comment(subject, child)
 
     when [CoopDemand, :create]
@@ -144,30 +152,32 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzls)
 
     when [CoopDemand, :comment]
-      Activity.add_public(subject, child, to: subject.graetzls)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
       notify_comment(subject, child)
 
     when [CrowdCampaign, :create]
       if subject.scope_public?
-        Activity.add_public(subject, to: :entire_region)
-        Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
+        #Activity.add_public(subject, to: :entire_region)
+        #Notifications::NewCrowdCampaign.generate(subject, to: User.in(subject.region).all.pluck(:id), time_range: subject.notification_time_range) # Notify all in Region
       end
     when [CrowdPledge, :create]
       if subject.visible? && subject.crowd_campaign.scope_public?
-        Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
+        #Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
     when [CrowdDonationPledge, :create]
       if subject.crowd_campaign.scope_public?
-        Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
+        #Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
     when [CrowdCampaign, :comment]
-      Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
+      #Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
       notify_comment(subject, child)
 
     when [CrowdCampaign, :post]
       if subject.scope_public?
-        Activity.add_public(subject, child, to: :entire_region)
-        Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
+        #Activity.add_public(subject, child, to: :entire_region)
+        #Notifications::NewCrowdCampaignPost.generate(subject, child, to: User.in(subject.region).all.pluck(:id)) # Notify all in Region
       end
     when [CrowdCampaignPost, :comment]
       notify_comment(subject, child)

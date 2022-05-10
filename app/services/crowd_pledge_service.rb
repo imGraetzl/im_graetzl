@@ -6,6 +6,10 @@ class CrowdPledgeService
       customer: stripe_customer_id,
       payment_method_types: CrowdPledge::PAYMENT_METHODS,
       usage: 'off_session',
+      metadata: {
+        pledge_id: crowd_pledge.id,
+        campaign_id: crowd_pledge.crowd_campaign.id
+      },
     )
   end
 
@@ -47,7 +51,7 @@ class CrowdPledgeService
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
       metadata: {
         pledge_id: crowd_pledge.id,
-        campaign_id: crowd_pledge.crowd_campaign
+        campaign_id: crowd_pledge.crowd_campaign.id
       },
       off_session: true,
       confirm: true,
@@ -78,7 +82,7 @@ class CrowdPledgeService
       payment_method_types: CrowdPledge::PAYMENT_METHODS,
       metadata: {
         pledge_id: crowd_pledge.id,
-        campaign_id: crowd_pledge.crowd_campaign
+        campaign_id: crowd_pledge.crowd_campaign.id
       },
     )
   end
