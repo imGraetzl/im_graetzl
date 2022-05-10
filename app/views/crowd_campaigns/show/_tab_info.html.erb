@@ -42,11 +42,6 @@
       <div class="bbcode -toggle-content"><%= @crowd_campaign.aim_description.bbcode_to_html.html_safe if @crowd_campaign.aim_description.present? %></div>
     </div>
 
-    <div class="content-block -toggable">
-      <h3>Wer steht hinter dem Projekt?</h3>
-      <div class="bbcode -toggle-content"><%= @crowd_campaign.about_description.bbcode_to_html.html_safe if @crowd_campaign.about_description.present? %></div>
-    </div>
-
     <% if @crowd_campaign.benefit? %>
     <div class="content-block -toggable">
       <h3>Wie profitieren andere Menschen von diesem Vorhaben?</h3>
@@ -54,34 +49,60 @@
     </div>
     <% end %>
 
-    <% if @crowd_campaign.video? || @crowd_campaign.images.present? %>
+    <div class="content-block -toggable">
+      <h3>Wer steht hinter dem Projekt?</h3>
+      <div class="bbcode -toggle-content"><%= @crowd_campaign.about_description.bbcode_to_html.html_safe if @crowd_campaign.about_description.present? %>
+        <div class="imprint">
+          <h3>Impressum</h3>
+          <div>
+            <p><%= @crowd_campaign.contact_company if @crowd_campaign.contact_company.present? %></p>
+            <p><%= @crowd_campaign.contact_name if @crowd_campaign.contact_name.present? %></p>
+            <p><%= @crowd_campaign.contact_address if @crowd_campaign.contact_address.present? %></p>
+            <p>
+              <%= @crowd_campaign.contact_zip if @crowd_campaign.contact_zip.present? %>
+              <%= @crowd_campaign.contact_city if @crowd_campaign.contact_city.present? %>
+            </p>
+          </div>
+          <div>
+            <%= link_to @crowd_campaign.user, class: 'user-wrp', rel: 'nofollow' do %>
+              <%= avatar_image_with_tooltip @crowd_campaign.user, size: :thumb, class: 'img-round' %>
+              <span class="name"><%= @crowd_campaign.user.full_name %></span>
+            <% end %>
+            <% if @crowd_campaign.contact_website.present? %>
+              <%= link_to @crowd_campaign.contact_website, class: 'icontxt', target: '_blank', rel: 'noopener' do %>
+                <%= icon_tag "globe" %>
+                <span><%= @crowd_campaign.contact_website.sub(/^https?\:\/\//,'') %></span>
+              <% end %>
+            <% end %>
+            <% if @crowd_campaign.contact_email.present? %>
+              <%= mail_to @crowd_campaign.contact_email, class: 'icontxt' do %>
+                <%= icon_tag "at-symbol" %>
+                <span><%= @crowd_campaign.contact_email %></span>
+              <% end %>
+            <% end %>
+          </div>
+        </div></div>
+    </div>
 
-      <div class="mediaSlider">
-        <ul id="media-slider" class="gallerySlider">
-
-          <% if @crowd_campaign.video? %>
-            <li data-thumb="<%= image_path('svg/slider-thumbnail-video.svg') %>">
-                <div style="padding:56.25% 0 0 0;position:relative;">
-                  <iframe id="galleryVideo" src="<%= @crowd_campaign.video %>"
-                    frameborder="0" allow="accelerometer; autoplay;
-                    encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                    style="position:absolute;top:0;left:0;
-                    width:100%;height:100%;">
-                  </iframe>
-                </div>
-            </li>
-          <% end %>
-
-          <% @crowd_campaign.images.each do |image| %>
-            <li data-thumb="<%= image.file_url(:thumb) %>">
-              <%= link_to image_tag(image.file_url(:cardbox, :large)), image.file_url, data: { jbox_image: "maingallery" } %>
-            </li>
-          <% end %>
-
-        </ul>
+    <% if @crowd_campaign.video? %>
+      <div class="entryImgUploads" style="padding:56.25% 0 0 0;position:relative;">
+        <iframe id="galleryVideo" src="<%= @crowd_campaign.video %>"
+          frameborder="0" allow="accelerometer; autoplay;
+          encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;top:0;left:0;
+          width:100%;height:100%;">
+        </iframe>
       </div>
+    <% end %>
 
+    <% if @crowd_campaign.images.present? %>
+      <div class="entryImgUploads -grid">
+        <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
+        <% @crowd_campaign.images.each do |image| %>
+          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+        <% end %>
+      </div>
     <% end %>
 
   </div>
