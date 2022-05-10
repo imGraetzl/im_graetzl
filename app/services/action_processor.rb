@@ -103,7 +103,9 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzl)
 
     when [RoomOffer, :comment]
-      Activity.add_public(subject, child, to: subject.graetzl)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzl)
+      end
       notify_comment(subject, child)
 
     when [RoomDemand, :create]
@@ -114,7 +116,9 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzls)
 
     when [RoomDemand, :comment]
-      Activity.add_public(subject, child, to: subject.graetzls)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
       notify_comment(subject, child)
 
     when [ToolOffer, :create]
@@ -122,7 +126,9 @@ class ActionProcessor
       Notifications::NewToolOffer.generate(subject, to: user_ids(subject.graetzl))
 
     when [ToolOffer, :comment]
-      Activity.add_public(subject, child, to: subject.graetzl)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzl)
+      end
       notify_comment(subject, child)
 
     when [ToolDemand, :create]
@@ -133,7 +139,9 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzls)
 
     when [ToolDemand, :comment]
-      Activity.add_public(subject, child, to: subject.graetzls)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
       notify_comment(subject, child)
 
     when [CoopDemand, :create]
@@ -144,7 +152,9 @@ class ActionProcessor
       Activity.add_public(subject, to: subject.graetzls)
 
     when [CoopDemand, :comment]
-      Activity.add_public(subject, child, to: subject.graetzls)
+      if subject.enabled?
+        Activity.add_public(subject, child, to: subject.graetzls)
+      end
       notify_comment(subject, child)
 
     when [CrowdCampaign, :create]
