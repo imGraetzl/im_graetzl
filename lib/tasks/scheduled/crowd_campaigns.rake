@@ -17,7 +17,7 @@ namespace :scheduled do
     # Close expired
     campaign_end = Date.today.in_time_zone("Vienna").end_of_day.utc
 
-    CrowdCampaign.funding.where(startdate: Date.today).find_each do |campaign|
+    CrowdCampaign.funding.where(enddate: Date.today).find_each do |campaign|
       CrowdCampaignService.new.delay(run_at: campaign_end).complete(campaign)
     end
   end
