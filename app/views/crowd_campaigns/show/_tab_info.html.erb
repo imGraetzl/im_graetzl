@@ -127,6 +127,8 @@
       <%= render partial: 'crowd_campaigns/show/donations', collection: @crowd_campaign.crowd_donations.room, as: :crowd_donation %>
     <% end %>
 
+    <%= link_to "Im Messenger kontaktieren", messenger_start_thread_path(user_id: @crowd_campaign.user.id), rel: 'nofollow', class: "btn-primary -mint", id: 'requestMessengerBtn', data: { category: "Crowdfunding", label: "Kampagne" } %>
+
   </div>
 
 </div>
