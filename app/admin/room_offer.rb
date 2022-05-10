@@ -47,6 +47,9 @@ ActiveAdmin.register RoomOffer do
       chain = super unless formats.include?(:json) || formats.include?(:csv)
       chain
     end
+    def apply_filtering(chain)
+        super(chain).distinct
+    end
   end
 
   csv do

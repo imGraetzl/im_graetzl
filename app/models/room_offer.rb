@@ -49,7 +49,7 @@ class RoomOffer < ApplicationRecord
   after_destroy { MailchimpRoomDeleteJob.perform_later(user) }
 
   scope :by_currentness, -> { order(last_activated_at: :desc) }
-  scope :reactivated, -> { enabled.where("last_activated_at > created_at") }
+  scope :reactivated, -> { enabled.where("last_activated_at > room_offers.created_at") }
   scope :rentable, -> { where(rental_enabled: true) }
 
   LIFETIME_MONTHS = 6
