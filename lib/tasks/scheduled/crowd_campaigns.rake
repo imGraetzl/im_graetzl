@@ -1,23 +1,24 @@
 namespace :scheduled do
 
-  desc 'Start Crowd Campaign Task'
-  task start_approved_crowd_campaigns: :environment do
-    CrowdCampaign.approved.where("startdate = ?", Date.today).find_each do |campaign|
-      CrowdCampaignService.new.start(campaign)
-    end
-  end
+  desc 'Daily update to Campaigns'
+  task crowd_campaigns_upkeep: :environment do
+    # Start scheduled campaigns
+    campaign_start = Date.tomorrow.in_time_zone("Vienna").beginning_of_day.utc
 
-  desc 'KeepUp Mailing Crowd Campaign Task'
-  task keep_up_crowd_campaigns: :environment do    
+    CrowdCampaign.approved.where(startdate: Date.tomorrow).find_each do |campaign|
+      CrowdCampaignService.new.delay(run_at: campaign_start).start(campaign)
+    end
+
+    # Send emails after 7 days
     CrowdCampaign.funding.where(startdate: 7.days.ago).find_each do |campaign|
       CrowdCampaignMailer.keep_up(campaign).deliver_later
     end
-  end
 
-  desc 'Close Crowd Campaign Task'
-  task close_expired_crowd_campaigns: :environment do
-    CrowdCampaign.funding.where("enddate < ?", Date.today).find_each do |campaign|
-      CrowdCampaignService.new.complete(campaign)
+    # Close expired
+    campaign_end = Date.today.in_time_zone("Vienna").end_of_day.utc
+
+    CrowdCampaign.funding.where(enddate: Date.today).find_each do |campaign|
+      CrowdCampaignService.new.delay(run_at: campaign_end).complete(campaign)
     end
   end
 
