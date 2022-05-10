@@ -419,14 +419,20 @@ section.crowd_campaign {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: $color-ambient-mint-light;
+    background-color: white;
     border-radius: 0.2em;
-    border:1px solid white;
+    border:1px solid $color-ambient-rosa;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.12);
     strong {
       padding-left: 8px;
       padding-right: 8px;
-      color:$color-ambient-mint-dark;
+      width: 100%;
+      text-align: center;
+      color:$color-ambient-rosa;
+      @include font-size-primaryFont('small');
+    }
+    .btn-primary {
+      border-radius: 0px;
     }
   }
   &.-crowdDonationBox {
@@ -445,9 +451,17 @@ section.crowd_campaign {
     }
   }
 }
-.crowd_campaign .-crowdRewardBox.soldOut .left {
-  filter: grayscale(1);
-  opacity: 0.5;
+.crowd_campaign .-crowdRewardBox.soldOut {
+  .left {
+    filter: grayscale(1);
+    opacity: 0.5;
+  }
+  .priceContainer {
+    border-color: $color-ambient-grey-light;
+    strong {
+      color: $color-ambient-grey;
+    }
+  }
 }
 
 
