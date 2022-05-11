@@ -92,10 +92,10 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def check_funding
-    if not_funded? && crowd_pledges_sum > funding_1_amount
+    if not_funded? && crowd_pledges_sum >= funding_1_amount
       update(funding_status: 'goal_1_reached')
       return :goal_1_reached
-    elsif funding_2_amount.present? && goal_1_reached? && crowd_pledges_sum > funding_2_amount
+    elsif funding_2_amount.present? && goal_1_reached? && crowd_pledges_sum >= funding_2_amount
       update(funding_status: 'goal_2_reached')
       return :goal_2_reached
     end
