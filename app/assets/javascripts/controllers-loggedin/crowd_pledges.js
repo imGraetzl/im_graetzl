@@ -22,7 +22,10 @@ APP.controllers_loggedin.crowd_pledges = (function() {
       if ($("#flash .notice").exists()) {
         var flashText = $("#flash .notice").text();
         if (flashText.indexOf('Vielen Dank für Deine Registrierung') >= 0){
-          $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst fortfahren..');
+          $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst mit deiner Crowdfunding Unterstützung fortfahren..');
+        }
+        else if (flashText.indexOf('Super, du bist nun registriert!') >= 0){
+          $("#flash .notice").text(flashText + ' Danach gehts weiter mit deiner Crowdfunding Unterstützung.');
         }
       }
     }

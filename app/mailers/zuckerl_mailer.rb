@@ -33,7 +33,7 @@ class ZuckerlMailer < ApplicationMailer
       subject: "Zahlungsbestätigung deines Zuckerls",
       from: platform_email("no-reply"),
       to: @zuckerl.user.email,
-      bcc_address: 'michael@imgraetzl.at',
+      bcc: 'michael@imgraetzl.at',
     )
   end
 

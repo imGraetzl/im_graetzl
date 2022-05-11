@@ -141,8 +141,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def remaining_days
-    # Using + 1 because the last day counts too
-    (self.enddate - Date.today + 1).to_i if self.enddate
+    (self.enddate - Date.today).to_i if self.enddate
   end
 
   def runtime

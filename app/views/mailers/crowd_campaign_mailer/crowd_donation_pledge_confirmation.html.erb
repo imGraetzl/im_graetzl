@@ -1,0 +1,136 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_donation_pledge.contact_name %>,
+        </p>
+        <p>
+          <strong>cool, dass du das Crowdfunding Projekt <%= link_to @crowd_donation_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_donation_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> mit einer <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@crowd_donation_pledge.donation_type}") %> unterstützen kannst.</strong>
+        </p>
+        <p>
+          Sobald die Crowdfunding Kampagne erfolgreich abgeschlossen wurde, werden sich die Projektstarter*innen bei dir melden.
+        </p>
+        <p>
+          Motiviere dein Netzwerk jetzt zu unterstützen und Teil der Crowd zu werden und teile diesen Link:<br>
+          <%= link_to crowd_campaign_url(@crowd_donation_pledge.crowd_campaign), crowd_campaign_url(@crowd_donation_pledge.crowd_campaign), style: "color:#ec776a;" %>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:10px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Deine <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@crowd_donation_pledge.donation_type}") %>:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+         <table>
+
+           <tr>
+             <td><strong><%= @crowd_donation_pledge.crowd_donation&.title %></strong></td>
+           </tr>
+
+           <% if @crowd_donation_pledge.crowd_donation.startdate || @crowd_donation_pledge.crowd_donation.enddate %>
+             <tr>
+               <td><em>Benötigt im Zeitraum:</em></td>
+             </tr>
+             <% if @crowd_donation_pledge.crowd_donation.startdate %>
+             <tr>
+               <td><em>Ab frühestens: <%= I18n.localize(@crowd_donation_pledge.crowd_donation.startdate, format:'%d.%m.%y') %></em></td>
+             </tr>
+             <% end %>
+             <% if @crowd_donation_pledge.crowd_donation.enddate %>
+             <tr>
+               <td><em>Bis spätestens: <%= I18n.localize(@crowd_donation_pledge.crowd_donation.enddate, format:'%d.%m.%y') %></em></td>
+             </tr>
+           <% end %>
+
+           <% if @crowd_donation_pledge.answer.present? %>
+            <tr>
+              <td>
+                <small>Deine Antwort: <em><%= @crowd_donation_pledge.answer %></em>
+                </small>
+              </td>
+            </tr>
+           <% end %>
+
+           <tr>
+             <td></td>
+           </tr>
+           <% end %>
+
+         </table>
+
+       </td>
+     </tr>
+   </tbody>
+ </table>
+
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+    <tr>
+      <td style="height:10px"> </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+          Deine Unterstützungsdaten:
+        </h4>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-left:9px; padding-right:9px;">
+        <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td>
+              <span></span>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+    <tbody>
+      <tr>
+        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+          <strong><%= @crowd_donation_pledge.contact_name %><br></strong>
+          <strong><%= @crowd_donation_pledge.email %><br></strong>
+
+          <br>
+
+          --
+
+          <p>
+            Liebe Grüße,<br>
+            dein Team von <%= t("region.#{@crowd_donation_pledge.crowd_campaign.region.id}.domain_full") %><br>
+          </p>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>

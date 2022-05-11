@@ -16,15 +16,17 @@
 
       <div class="description">
         <%= crowd_donation.description %><br>
-        <small>Benötigt im Zeitraum:</small>
-        <p><em>
-          <% if crowd_donation.startdate %>
-            Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d.%m.%y') %><br>
-          <% end %>
-          <% if crowd_donation.enddate %>
-            Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d.%m.%y') %>
-          <% end %>
-        </em></p>
+        <% if crowd_donation.startdate || crowd_donation.enddate %>
+          <small>Benötigt im Zeitraum:</small>
+          <p><em>
+            <% if crowd_donation.startdate %>
+              Ab frühestens: <%= I18n.localize(crowd_donation.startdate, format:'%d.%m.%y') %><br>
+            <% end %>
+            <% if crowd_donation.enddate %>
+              Bis spätestens: <%= I18n.localize(crowd_donation.enddate, format:'%d.%m.%y') %>
+            <% end %>
+          </em></p>
+        <% end %>
       </div>
 
   </div>

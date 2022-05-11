@@ -23,13 +23,14 @@
   </div>
   <div class="flex-row full toggle-cell" role="cell">
     <div>
-      <strong>Kontaktdaten:</strong><br>
-      <%= crowd_pledge.contact_name %><br>
+      <strong>Kontaktdaten:</strong>
+      <p><%= mail_to crowd_pledge.email %></p>
+      <p><%= crowd_pledge.contact_name %></p>
     </div>
     <div>
       <% if crowd_pledge.answer.present? %>
-        <strong>Antwort:</strong><br>
-        <%= crowd_pledge.answer %>
+        <strong>Antwort:</strong>
+        <p><%= crowd_pledge.answer %></p>
       <% end %>
     </div>
   </div>

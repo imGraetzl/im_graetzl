@@ -26,15 +26,16 @@
   </div>
   <div class="flex-row full toggle-cell" role="cell">
     <div>
-      <strong>Kontaktdaten:</strong><br>
-      <%= crowd_pledge.contact_name %><small><em> <%= crowd_pledge.anonym ? '(anonym)' : '' %></em></small><br>
-      <%= crowd_pledge.address_street %><br>
-      <%= crowd_pledge.address_zip %> <%= crowd_pledge.address_city %>
+      <strong>Kontaktdaten:</strong>
+      <p><%= mail_to crowd_pledge.email %></p>
+      <p><%= crowd_pledge.contact_name %><small><em> <%= crowd_pledge.anonym ? '(anonym)' : '' %></em></small></p>
+      <p><%= crowd_pledge.address_street %></p>
+      <p><%= crowd_pledge.address_zip %> <%= crowd_pledge.address_city %></p>
     </div>
     <div>
       <% if crowd_pledge.answer.present? %>
-        <strong>Antwort:</strong><br>
-        <%= crowd_pledge.answer %>
+        <strong>Antwort:</strong>
+        <p><%= crowd_pledge.answer %></p>
       <% end %>
     </div>
   </div>
