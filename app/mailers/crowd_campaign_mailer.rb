@@ -148,4 +148,16 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def crowd_donation_pledge_confirmation(crowd_donation_pledge)
+    @crowd_donation_pledge = crowd_donation_pledge
+    @crowd_campaign = @crowd_donation_pledge.crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-donation-pledge-confirmation")
+    mail(
+      subject: "Unterstützungsbestätigung für #{@crowd_campaign.title}",
+      from: platform_email('no-reply'),
+      to: @crowd_donation_pledge.email,
+    )
+  end
+
 end

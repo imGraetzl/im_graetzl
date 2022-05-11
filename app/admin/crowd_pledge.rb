@@ -13,10 +13,14 @@ ActiveAdmin.register CrowdPledge do
   scope :canceled
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :status, as: :select, collection: CrowdPledge.statuses.keys
   filter :crowd_campaign, collection: proc { CrowdCampaign.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_reward, collection: proc { CrowdReward.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :contact_name
+  filter :email
+  filter :payment_method
+  filter :stripe_customer_id
+  filter :stripe_payment_intent_id
   filter :created_at
   filter :updated_at
 

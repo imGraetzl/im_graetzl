@@ -11,6 +11,7 @@ class CrowdDonationPledgesController < ApplicationController
     if @crowd_donation_pledge.save
       @crowd_donation_pledge.crowd_donation.increment!(:claimed)
       redirect_to [:summary, @crowd_donation_pledge]
+      CrowdCampaignMailer.crowd_donation_pledge_confirmation(@crowd_donation_pledge).deliver_later
       ActionProcessor.track(@crowd_donation_pledge, :create)
     else
       render :new

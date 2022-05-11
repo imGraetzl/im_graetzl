@@ -25,19 +25,19 @@
 
   white-space: nowrap;
 
-  &.deleted, &.rejected, &.off, &.payment_failed, &.declined {
+  &.deleted, &.rejected, &.off, &.payment_failed, &.declined, &.failed {
     background: red;
   }
   &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.payment_pending, &.not_funded {
     background: orange;
   }
-  &.approved, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.payment_success, &.goal1_reached, &.goal2_reached, &.completed {
+  &.approved, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.payment_success, &.goal1_reached, &.goal2_reached, &.completed, &.debited {
     background: green;
   }
   &.public_space, &.payment_refunded {
     background: LightCoral;
   }
-  &.weekly, &.processing, &.funding {
+  &.weekly, &.processing, &.funding, &.authorized {
     background: LightBlue;
   }
   &.vacancy, &.daily {

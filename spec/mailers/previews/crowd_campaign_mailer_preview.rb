@@ -52,4 +52,8 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.crowd_pledge_payment_successful_retried(CrowdPledge.order(:created_at).last)
   end
 
+  def crowd_donation_pledge_confirmation
+    CrowdCampaignMailer.crowd_donation_pledge_confirmation(CrowdDonationPledge.order(:created_at).last)
+  end
+
 end

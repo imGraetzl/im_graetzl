@@ -69,7 +69,7 @@ class CrowdPledgeService
     crowd_pledge.update(status: 'failed')
     CrowdCampaignMailer.crowd_pledge_payment_failed(crowd_pledge).deliver_later
 
-    { success: false, error: "Charge failed." }
+    { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
   end
 
   def create_payment_intent(crowd_pledge)

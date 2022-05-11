@@ -1,6 +1,8 @@
 APP.components.stripePayment = (function() {
 
   function init() {
+    const region = $('body').data('region') || 'wien';
+    const business_name = region == 'wien' ? 'imGrätzl.at (morgenjungs GmbH)' : 'WeLocally.at (morgenjungs GmbH)'
     const form = $("#payment-form");
     const intent = form.data("intent");
     const clientSecret = form.data("client-secret");
@@ -12,7 +14,7 @@ APP.components.stripePayment = (function() {
         //sofort: 'never'
       },
       business: {
-        name: 'imGrätzl.at (morgenjungs GmbH)'
+        name: business_name
       },
       fields: {
         //billingDetails: 'never'
@@ -97,11 +99,12 @@ APP.components.stripePayment = (function() {
   }
 
   function setLoading(form, isLoading) {
+    var btntext = form.find("#payment-submit").data('btntext') || 'Jetzt unterstützen'
     if (isLoading) {
       // Disable the button and show a spinner
-      form.find("#payment-submit").attr("disabled", true);
+      form.find("#payment-submit").attr("disabled", true).text('Bitte warten ...');
     } else {
-      form.find("#payment-submit").removeAttr("disabled");
+      form.find("#payment-submit").removeAttr("disabled").text(btntext);
     }
   }
 
