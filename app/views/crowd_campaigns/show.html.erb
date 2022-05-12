@@ -7,7 +7,7 @@
   )
 %>
 <% if @crowd_campaign.scope_public? %>
-  <% meta(robots: 'index, follow') %>
+  <% meta(robots: 'noindex, follow') %>
 <% else %>
   <% meta(robots: 'noindex, follow') %>
 <% end %>
