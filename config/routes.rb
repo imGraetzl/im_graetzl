@@ -153,6 +153,7 @@ Rails.application.routes.draw do
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member
     get 'summary', on: :member
+    get 'details', on: :member
     get 'change_payment', on: :member
     get 'payment_changed', on: :member
   end

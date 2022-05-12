@@ -29,7 +29,7 @@
 
   <link rel="dns-prefetch" href="//welocally.at">
 
-  <% if user_signed_in? || controller_name == 'registrations' %>
+  <% if user_signed_in? || controller_name == 'registrations' || controller_name == 'crowd_pledges' %>
     <%= stylesheet_link_tag 'application-loggedin', media: 'all' %>
   <% else %>
     <%= stylesheet_link_tag 'application', media: 'all' %>

@@ -28,7 +28,7 @@ class CrowdPledgeService
 
     crowd_pledge.crowd_reward&.increment!(:claimed)
 
-    CrowdCampaignMailer.crowd_pledge_confirmation(crowd_pledge).deliver_later
+    CrowdCampaignMailer.crowd_pledge_authorized(crowd_pledge).deliver_later
     ActionProcessor.track(crowd_pledge, :create)
 
     case crowd_pledge.crowd_campaign.check_funding
@@ -62,12 +62,12 @@ class CrowdPledgeService
       status: 'debited',
     )
 
-    CrowdCampaignMailer.crowd_pledge_completed_successful(crowd_pledge).deliver_later
+    CrowdCampaignMailer.crowd_pledge_debited(crowd_pledge).deliver_later
 
     { success: true }
   rescue Stripe::CardError
     crowd_pledge.update(status: 'failed')
-    CrowdCampaignMailer.crowd_pledge_payment_failed(crowd_pledge).deliver_later
+    CrowdCampaignMailer.crowd_pledge_failed(crowd_pledge).deliver_later
 
     { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
   end
@@ -97,7 +97,7 @@ class CrowdPledgeService
       stripe_payment_intent_id: payment_intent.id,
       status: 'debited',
     )
-    CrowdCampaignMailer.crowd_pledge_payment_successful_retried(crowd_pledge).deliver_later
+    CrowdCampaignMailer.crowd_pledge_retried_debited(crowd_pledge).deliver_later
     true
   end
 

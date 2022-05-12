@@ -1,0 +1,144 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="crowd-pledges-page detail-screen">
+
+  <div class="col-content">
+
+    <div class="hl-subtext">
+      <h1>Deine Unterstützung</h1>
+      <p>
+        Hier findest du eine Übersicht und Informationen zu deiner Crowdfunding Unterstützung.
+      </p>
+    </div>
+
+    <div class="table-container -light" role="table">
+
+      <div class="flex-table header" role="rowgroup">
+        <div class="flex-row full first" role="columnheader">Zusammenfassung</div>
+      </div>
+
+      <div class="flex-table" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützes Projekt</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= link_to @crowd_pledge.crowd_campaign.title, @crowd_pledge.crowd_campaign, target: '_blank' %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungsdatum</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_pledge.created_at, format:'%a, %d. %B %Y, %H:%M') %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungsbetrag</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></div>
+      </div>
+
+    </div>
+
+    <%= link_to 'Details öffnen', 'javascript:', class: 'btn-primary -mint -pledge-details-toggle' %>
+
+    <div class="table-container -light -pledge-details" role="table">
+
+      <div class="flex-table header" role="rowgroup">
+        <div class="flex-row full first" role="columnheader">Unterstützungsdetails</div>
+      </div>
+
+      <div class="flex-table" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Deine Daten</strong></div>
+        <div class="flex-row xxxlarge" role="cell">
+          <%= @crowd_pledge.contact_name %><br>
+          <%= @crowd_pledge.address_street if @crowd_pledge.address_street.present? %><br>
+          <%= @crowd_pledge.address_zip if @crowd_pledge.address_zip.present? %> <%= @crowd_pledge.address_city if @crowd_pledge.address_city.present? %>
+        </div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Bezahlmethode</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.payment_method %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Transaktionsstatus</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.status %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Anonyme Unterstützung</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.anonym? ? 'Ja' : 'Nein' %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungs-ID</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.id %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Verwendungszweck</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %></div>
+      </div>
+
+    </div>
+
+    <div class="faqs">
+      <div class="content-block -toggable">
+        <h3>Wann wird das Geld deiner Unterstützung abgebucht?</h3>
+        <div class="-toggle-content">
+          <p>Dein Geld wird abgebucht, sobald diese drei Voraussetzungen erfüllt sind:</p>
+          <ol>
+            <li>Das Crowdfunding Projekt hat mindestens das Minimalziel erreicht</li>
+            <li>Die Kampagnenphase ist beendet</li>
+            <li>Das Projekt und das Auszahlungskonto wurden von den Starter*innen erfolgreich legitimiert</li>
+          </ol>
+          <p>Sobald diese 3 Voraussetzungen erfüllt sind, wird deine Unterstützung eingezogen. Wenn es soweit ist, bekommst dazu noch ein Informationsmail von uns.</p>
+        </div>
+      </div>
+      <div class="content-block -toggable">
+        <h3>Was passiert mit meinem Geld, wenn das Projekt nicht erfolgreich abgeschlossen wird?</h3>
+        <div class="-toggle-content">
+          <p>Deine Unterstützung wird nicht eingezogen d.h. das Geld wird nicht abgebucht und du erhälst kein Dankeschön.</p>
+          <p>Alle Unterstützungen werden storniert und evtl. vorgemerkte Beträge auf Kreditkarten nicht mehr angezeigt.</p>
+        </div>
+      </div>
+      <div class="content-block -toggable">
+        <h3>Wann bekomme ich mein Dankeschön?</h3>
+        <div class="-toggle-content">
+          <p>Die Dankeschöns werden nur bei erfolgreich abgeschlossenen Kampagnen ausgegeben. Falls die Kampagne nicht erfolgreich war, wird deine Unterstützung (Geld) nicht eingezogen.</p>
+          <p>Die Information zur Lieferzeit findest du bei der Beschreibung des Dankeschöns auf der Kampagnenseite oder auch in dem Unterstützungsbestätigungsmail. Schau auch bitte bei den Updates rein, die Starter*innen hinterlassen dort die neuesten Informationen oder schreiben die Unterstützer*innen per Messenger oder Mail an, um sie über die Lieferzeit zu informieren.</p>
+          <p>Du kannst die Starter*innen anschreiben und zu deinen Dankeschöns befragen z.B. über den internen Messenger oder per Mail. Die Mailadresse und den Kontakt findest du auf der Kampagnenseite im Impressum.</p>
+        </div>
+      </div>
+      <div class="content-block -toggable">
+        <h3>Wann kann ich eine Rechnung für mein Dankeschön bekommen?</h3>
+        <div class="-toggle-content">
+          <p>Die Rechnung für dein Dankeschön bekommst du: </p>
+          <p>wenn das unterstützte Projekt berechtigt ist Rechnungen oder Spendenquittungen auszustellen, diese Information findest du auf ihrer Kampagnenseite.</p>
+          <p>Sobald die Kampagne erfolgreich abgeschlossen ist und die Dankeschöns versendet werden, solltest du die Rechnung oder Spendenquittung von den Starter*innen bekommen, wenn sie diese Berechtigung haben. Die Rechnung wird entweder per Mail versendet oder liegt den Dankeschöns bei.</p>
+        </div>
+      </div>
+      <div class="content-block -toggable">
+        <h3>Wie kontaktiere ich die Starter*innen oder das Projekt?</h3>
+        <div class="-toggle-content">
+          <p>Du kannst die Starter*innen anschreiben z.B. über den internen Messenger oder per Mail. Die Mailadresse und andere Kontaktdaten findest du auf ihrer Kampagnenseite im Impressum.</p>
+        </div>
+      </div>
+      <% if @crowd_pledge.authorized? || @crowd_pledge.debited? %>
+        <div class="content-block -toggable">
+          <h3>Wie kann ich meine Unterstützung stornieren?</h3>
+          <div class="-toggle-content">
+            <p>Als Unterstützer*in kannst du deine Unterstützung bis zu 13 Tage nach Projekterfolg stornieren, dies unabhängig von der Frage, ob dir zusätzlich ein gesetzliches Widerrufsrecht (<%= link_to '§ 11 Fern- und Auswärtsgeschäftegesetz', 'https://www.ris.bka.gv.at/eli/bgbl/i/2014/33/P11/NOR40162337', target: '_blank' %>) zusteht.</p>
+            <p>Dieses vertragliche Rücktrittsrecht (nachfolgend "Stornierung") ist gegenüber dem oder der Starter*in zwingend über folgende E-Mail Adresse (inkl. der Angabe deiner persönlichen Daten und deiner Unterstützungs-ID) zu tätigen: <%= mail_to t("region.#{@crowd_pledge.crowd_campaign.region.id}.contact_email") %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'crowd_pledges/new/sidebar' %>
+  </div>
+
+</section>

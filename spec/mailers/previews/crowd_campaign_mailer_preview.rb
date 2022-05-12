@@ -36,24 +36,24 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.completed_unsuccessful(CrowdCampaign.last)
   end
 
-  def crowd_pledge_confirmation
-    CrowdCampaignMailer.crowd_pledge_confirmation(CrowdPledge.order(:created_at).last)
+  def crowd_pledge_authorized
+    CrowdCampaignMailer.crowd_pledge_authorized(CrowdPledge.order(:created_at).last)
   end
 
-  def crowd_pledge_completed_successful
-    CrowdCampaignMailer.crowd_pledge_completed_successful(CrowdPledge.order(:created_at).last)
+  def crowd_pledge_debited
+    CrowdCampaignMailer.crowd_pledge_debited(CrowdPledge.order(:created_at).last)
   end
 
-  def crowd_pledge_payment_failed
-    CrowdCampaignMailer.crowd_pledge_payment_failed(CrowdPledge.order(:created_at).last)
+  def crowd_pledge_failed
+    CrowdCampaignMailer.crowd_pledge_failed(CrowdPledge.order(:created_at).last)
   end
 
-  def crowd_pledge_payment_successful_retried
-    CrowdCampaignMailer.crowd_pledge_payment_successful_retried(CrowdPledge.order(:created_at).last)
+  def crowd_pledge_retried_debited
+    CrowdCampaignMailer.crowd_pledge_retried_debited(CrowdPledge.order(:created_at).last)
   end
 
-  def crowd_donation_pledge_confirmation
-    CrowdCampaignMailer.crowd_donation_pledge_confirmation(CrowdDonationPledge.order(:created_at).last)
+  def crowd_donation_pledge_info
+    CrowdCampaignMailer.crowd_donation_pledge_info(CrowdDonationPledge.order(:created_at).last)
   end
 
 end

@@ -72,6 +72,11 @@ class CrowdPledgesController < ApplicationController
     @crowd_pledge = CrowdPledge.find(params[:id])
   end
 
+  def details
+    @crowd_pledge = CrowdPledge.find(params[:id])
+    redirect_to @crowd_pledge.crowd_campaign if @crowd_pledge.incomplete?
+  end
+
   def change_payment
     @crowd_pledge = CrowdPledge.find(params[:id])
     redirect_to [:summary, @crowd_pledge] if !@crowd_pledge.failed?

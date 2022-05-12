@@ -6,10 +6,25 @@
           Servus <%= @crowd_pledge.contact_name %>,
         </p>
         <p>
-          Du hast das Crowdfunding Projekt <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %> erfolgreich unterstützt.
+          <strong>es gibt tolle Neuigkeiten, das von dir unterstützte Projekt <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> hat die Finanzierungsphase erfolgreich beendet.</strong>
         </p>
         <p>
-          Nochmals vielen herzlichen Dank!
+          Nochmals vielen herzlichen Dank für deine Unterstützung!
+        </p>
+        <p>
+          Deine Unterstützung wird nun vom Zahlungsdienstleister Stripe von deiner angegenenen Zahlungform eingezogen.
+        </p>
+        <p>
+          <% if @crowd_pledge.payment_method == 'card' %>
+            <strong>So wirst du den Einzug auf deiner Kreditkarte sehen:</strong><br><br>
+            <em>Betrag: <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
+            Verwendungszweck: <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
+          <% else %>
+            <strong>So wird der Einzug auf deinem Bankkonto erscheinen:</strong><br><br>
+            <em>Einzug von: morgenjungs GmbH (<%= @crowd_pledge.crowd_campaign.region.host_domain_name %>) by Stripe via PPRO<br>
+            Betrag: <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
+            Verwendungszweck: <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
+          <% end %>
         </p>
       </td>
     </tr>
@@ -23,7 +38,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Deine Unterstützung:
+         Deine Unterstützungsdetails:
        </h4>
      </td>
    </tr>
@@ -77,7 +92,7 @@
 
            <% if @crowd_pledge.crowd_reward.present? && @crowd_pledge.donation_amount.present? %>
            <tr>
-             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></strong></td>
+             <td style="text-align:right; padding-right:10px; white-space: nowrap;"><strong><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></strong></td>
              <td><strong>Gesamt</strong></td>
            </tr>
            <% end %>
@@ -122,17 +137,53 @@
           <%= @crowd_pledge.address_zip %> <%= @crowd_pledge.address_city %>
 
           <br><br>
+          <strong>Unterstützungs-ID: </strong><%= @crowd_pledge.id %>
+          <br><br>
 
-          <p>
-            Dein Unterstützungsbetrag wird in Kürze von deiner ausgewählten Zahlunsform eingezogen uns das Projekt Team über deine Unterstützung informiert.
-          </p>
-
-          --
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= render 'mailers/shared/button', title: "Zu den Unterstützungsdetails", url: details_crowd_pledge_url(@crowd_pledge) %>
+        </td>
+      </tr>
+      <tr>
+        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
           <p>
             Liebe Grüße,<br>
             dein Team von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %><br>
           </p>
+
+          ---
+
+          <br><br>
+
+          <table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer" width="100%">
+            <tr>
+              <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+                <small>
+                <strong>Verantwortlich für das Projekt:</strong><br>
+                <% if @crowd_pledge.crowd_campaign.contact_company.present? %>
+                  <%= @crowd_pledge.crowd_campaign.contact_company %><br>
+                <% end %>
+                <%= @crowd_pledge.crowd_campaign.contact_name %><br>
+                <%= @crowd_pledge.crowd_campaign.contact_address %><br>
+                <%= @crowd_pledge.crowd_campaign.contact_zip %> <%= @crowd_pledge.crowd_campaign.contact_city %><br>
+                </small>
+              </td>
+              <td width="10%"></td>
+              <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+                <small>
+                <strong>Verantwortlich für den Plattformbetrieb:</strong><br>
+                morgenjungs GmbH (<%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %>)<br>
+                Breitenfeldergasse 14/2A<br>
+                1080 Wien<br>
+                <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.contact_email") %><br>
+                </small>
+              </td>
+            </tr>
+          </table>
 
         </td>
       </tr>

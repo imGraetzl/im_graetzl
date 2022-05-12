@@ -100,11 +100,11 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_pledge_confirmation(crowd_pledge)
+  def crowd_pledge_authorized(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "crowd-pledge-confirmation")
+    headers("X-MC-Tags" => "crowd-pledge-authorized")
     mail(
       subject: "Unterstützungsbestätigung für #{@crowd_campaign.title}",
       from: platform_email('no-reply'),
@@ -112,47 +112,47 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
-  def crowd_pledge_completed_successful(crowd_pledge)
+  def crowd_pledge_debited(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "crowd-pledge-completed-successful")
+    headers("X-MC-Tags" => "crowd-pledge-debited")
     mail(
-      subject: "Unterstütztes Projekt ist erfolgreich: #{@crowd_campaign.title}",
+      subject: "Dein unterstütztes Projekt ist erfolgreich: #{@crowd_campaign.title}",
       from: platform_email('no-reply'),
       to: @crowd_pledge.email,
     )
   end
 
-  def crowd_pledge_payment_failed(crowd_pledge)
+  def crowd_pledge_failed(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "crowd-pledge-payment-failed")
+    headers("X-MC-Tags" => "crowd-pledge-failed")
     mail(
-      subject: "Fehler beim Einzug deiner Crowdfunding Unterstützung, bitte überprüfe deine Zahlungsmethode.",
+      subject: "Dein unterstütztes Projekt ist erfolgreich - Fehler beim Einzug deiner Unterstützung, bitte überprüfe deine Zahlungsmethode.",
       from: platform_email('no-reply'),
       to: @crowd_pledge.email,
     )
   end
 
-  def crowd_pledge_payment_successful_retried(crowd_pledge)
+  def crowd_pledge_retried_debited(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "crowd-pledge-payment-successful-retried")
+    headers("X-MC-Tags" => "crowd-pledge-retried-debited")
     mail(
-      subject: "Unterstützungsbestätigung für #{@crowd_campaign.title}",
+      subject: "Zahlungsbestätigung für deine Unterstützung.",
       from: platform_email('no-reply'),
       to: @crowd_pledge.email,
     )
   end
 
-  def crowd_donation_pledge_confirmation(crowd_donation_pledge)
+  def crowd_donation_pledge_info(crowd_donation_pledge)
     @crowd_donation_pledge = crowd_donation_pledge
     @crowd_campaign = @crowd_donation_pledge.crowd_campaign
     @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "crowd-donation-pledge-confirmation")
+    headers("X-MC-Tags" => "crowd-donation-pledge-info")
     mail(
       subject: "Unterstützungsbestätigung für #{@crowd_campaign.title}",
       from: platform_email('no-reply'),

@@ -6,22 +6,27 @@
           Servus <%= @crowd_pledge.contact_name %>,
         </p>
         <p>
-          Du hast das vor einiger Zeit das Crowdfunding Projekt <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %> unterstützt - Nochmals Danke!
+          das von dir unterstützte Projekt <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %> hat die Finanzierungsphase erfolgreich beendet - Das ist toll!
         </p>
         <p>
-          <strong>Der Einzug deiner Unterstützung konnte aber leider nicht durchgeführt werden, da deine ausgewählte Zahlungsform nicht belastet werden konnte.</strong>
+          <strong>Leider gab es aber nun beim Einzug deiner Unterstützung Probleme, da deine ausgewählte Zahlungsform nicht belastet werden konnte.</strong>
         </p>
         <p>
-          Wir würden dich daher bitte deine Zahlungsform zu überprüfen bzw. <%= link_to "diese hier zu ändern", change_payment_crowd_pledge_url(@crowd_pledge), style: "color:#ec776a; font-weight:bold;" %>.
-        </p>
-        <p>
-          Bei Fragen kannst du dich jederzeit gerne an uns wenden. Mail an: <%= t("region.#{@crowd_campaign.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
+          <strong>Wir würden dich daher bitten, deine Zahlungsform nochmals zu überprüfen bzw. hier anzupassen:</strong>
         </p>
       </td>
     </tr>
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Zahlungsmethode anpassen", url: change_payment_crowd_pledge_url(@crowd_pledge) %>
+        <%= render 'mailers/shared/button', title: "Zahlungsmethode jetzt anpassen", url: change_payment_crowd_pledge_url(@crowd_pledge) %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Bei Fragen kannst du dich gerne an uns wenden.<br>
+          E-Mail an: <%= t("region.#{@crowd_campaign.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
+        </p>
       </td>
     </tr>
   </tbody>
@@ -34,7 +39,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Deine Unterstützung:
+         Deine Unterstützungsdetails:
        </h4>
      </td>
    </tr>
@@ -88,11 +93,42 @@
 
            <% if @crowd_pledge.crowd_reward.present? && @crowd_pledge.donation_amount.present? %>
            <tr>
-             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></strong></td>
+             <td style="text-align:right; padding-right:10px; white-space: nowrap;"><strong><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></strong></td>
              <td><strong>Gesamt</strong></td>
            </tr>
            <% end %>
 
+         </table>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+         <br><br>
+
+         <table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer" width="100%">
+           <tr>
+             <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+               <small>
+               <strong>Verantwortlich für das Projekt:</strong><br>
+               <% if @crowd_pledge.crowd_campaign.contact_company.present? %>
+                 <%= @crowd_pledge.crowd_campaign.contact_company %><br>
+               <% end %>
+               <%= @crowd_pledge.crowd_campaign.contact_name %><br>
+               <%= @crowd_pledge.crowd_campaign.contact_address %><br>
+               <%= @crowd_pledge.crowd_campaign.contact_zip %> <%= @crowd_pledge.crowd_campaign.contact_city %><br>
+               </small>
+             </td>
+             <td width="10%"></td>
+             <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+               <small>
+               <strong>Verantwortlich für den Plattformbetrieb:</strong><br>
+               morgenjungs GmbH (<%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %>)<br>
+               Breitenfeldergasse 14/2A<br>
+               1080 Wien<br>
+               <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.contact_email") %><br>
+               </small>
+             </td>
+           </tr>
          </table>
 
        </td>
