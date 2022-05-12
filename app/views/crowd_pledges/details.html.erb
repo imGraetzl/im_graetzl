@@ -40,45 +40,78 @@
 
     <%= link_to 'Details öffnen', 'javascript:', class: 'btn-primary -mint -pledge-details-toggle' %>
 
-    <div class="table-container -light -pledge-details" role="table">
+    <div class="-pledge-details">
 
-      <div class="flex-table header" role="rowgroup">
-        <div class="flex-row full first" role="columnheader">Unterstützungsdetails</div>
-      </div>
+      <div class="table-container -light" role="table">
 
-      <div class="flex-table" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Deine Daten</strong></div>
-        <div class="flex-row xxxlarge" role="cell">
-          <%= @crowd_pledge.contact_name %><br>
-          <%= @crowd_pledge.address_street if @crowd_pledge.address_street.present? %><br>
-          <%= @crowd_pledge.address_zip if @crowd_pledge.address_zip.present? %> <%= @crowd_pledge.address_city if @crowd_pledge.address_city.present? %>
+        <div class="flex-table header" role="rowgroup">
+          <div class="flex-row full first" role="columnheader">Unterstützungsdetails</div>
         </div>
+
+        <div class="flex-table" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Deine Daten</strong></div>
+          <div class="flex-row xxxlarge" role="cell">
+            <%= @crowd_pledge.contact_name %><br>
+            <%= @crowd_pledge.address_street if @crowd_pledge.address_street.present? %><br>
+            <%= @crowd_pledge.address_zip if @crowd_pledge.address_zip.present? %> <%= @crowd_pledge.address_city if @crowd_pledge.address_city.present? %>
+          </div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Bezahlmethode</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.payment_method %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Transaktionsstatus</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.status %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Anonyme Unterstützung</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.anonym? ? 'Ja' : 'Nein' %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Unterstützungs-ID</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.id %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Verwendungszweck</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %></div>
+        </div>
+
       </div>
 
-      <div class="flex-table row" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Bezahlmethode</strong></div>
-        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.payment_method %></div>
-      </div>
+      <% if @crowd_pledge.crowd_reward %>
+      <div class="table-container -light" role="table">
 
-      <div class="flex-table row" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Transaktionsstatus</strong></div>
-        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.status %></div>
-      </div>
+        <div class="flex-table header" role="rowgroup">
+          <div class="flex-row full first" role="columnheader">Dankeschöndetails</div>
+        </div>
 
-      <div class="flex-table row" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Anonyme Unterstützung</strong></div>
-        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.anonym? ? 'Ja' : 'Nein' %></div>
-      </div>
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Deine Auswahl</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.crowd_reward.title %></div>
+        </div>
 
-      <div class="flex-table row" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungs-ID</strong></div>
-        <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.id %></div>
-      </div>
+        <% if @crowd_pledge.crowd_reward.delivery_weeks %>
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Lieferzeit</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= delivery_week_names(@crowd_pledge.crowd_reward.delivery_weeks) %> (nach Kampagnenende)</div>
+        </div>
+        <% end %>
 
-      <div class="flex-table row" role="rowgroup">
-        <div class="flex-row xxlarge" role="cell"><strong>Verwendungszweck</strong></div>
-        <div class="flex-row xxxlarge" role="cell"><%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %></div>
+        <% if @crowd_pledge.answer.present? %>
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Deine Antwort zum Dankeschön</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.answer %></div>
+        </div>
+        <% end %>
+
       </div>
+      <% end %>
 
     </div>
 
@@ -92,7 +125,7 @@
             <li>Die Kampagnenphase ist beendet</li>
             <li>Das Projekt und das Auszahlungskonto wurden von den Starter*innen erfolgreich legitimiert</li>
           </ol>
-          <p>Sobald diese 3 Voraussetzungen erfüllt sind, wird deine Unterstützung eingezogen. Wenn es soweit ist, bekommst dazu noch ein Informationsmail von uns.</p>
+          <p>Sobald diese 3 Voraussetzungen erfüllt sind, wird deine Unterstützung eingezogen. Wenn es soweit ist, bekommst du dazu noch ein Informationsmail von uns.</p>
         </div>
       </div>
       <div class="content-block -toggable">
@@ -116,12 +149,24 @@
           <p>Die Rechnung für dein Dankeschön bekommst du: </p>
           <p>wenn das unterstützte Projekt berechtigt ist Rechnungen oder Spendenquittungen auszustellen, diese Information findest du auf ihrer Kampagnenseite.</p>
           <p>Sobald die Kampagne erfolgreich abgeschlossen ist und die Dankeschöns versendet werden, solltest du die Rechnung oder Spendenquittung von den Starter*innen bekommen, wenn sie diese Berechtigung haben. Die Rechnung wird entweder per Mail versendet oder liegt den Dankeschöns bei.</p>
+          <p>
+            Rechnungsinfo zu deinem unterstützen Projekt:<br>
+            <em><strong>
+            <% if @crowd_pledge.crowd_campaign.bill? %>
+              *) Für deine Unterstützung kann eine Rechnung ausgestellt werden.
+            <% elsif @crowd_pledge.crowd_campaign.donation_bill? %>
+              *) Für deine Unterstützung kann eine Spendenquittung ausgestellt werden.
+            <% else %>
+              *) Für deine Unterstützung kann keine Rechnung ausgestellt werden.
+            <% end %>
+            </strong></em>
+          </p>
         </div>
       </div>
       <div class="content-block -toggable">
         <h3>Wie kontaktiere ich die Starter*innen oder das Projekt?</h3>
         <div class="-toggle-content">
-          <p>Du kannst die Starter*innen anschreiben z.B. über den internen Messenger oder per Mail. Die Mailadresse und andere Kontaktdaten findest du auf ihrer Kampagnenseite im Impressum.</p>
+          <p>Du kannst die Starter*innen anschreiben z.B. über den internen Messenger oder per Mail. Die Mailadresse und andere Kontaktdaten findest du auf ihrer Kampagnenseite im Impressum. Du kannst auch eine öffentliche Nachricht auf die Pinnwand im Projekt schreiben!</p>
         </div>
       </div>
       <% if @crowd_pledge.authorized? || @crowd_pledge.debited? %>
@@ -139,6 +184,8 @@
 
   <div class="col-sidebar">
     <%= render 'crowd_pledges/new/sidebar' %>
+    <br>
+    <%= link_to 'Starter*in im Messenger kontaktieren', messenger_start_thread_path(user_id: @crowd_pledge.crowd_campaign.user.id), class: 'btn-secondary -mint -small' %>
   </div>
 
 </section>

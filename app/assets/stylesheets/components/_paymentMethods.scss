@@ -108,6 +108,12 @@
       text-align: center;
       padding-bottom:15px;
     }
+    .footer-txt {
+      text-align: center;
+      border:none;
+      color:$color-ambient-grey-dark;
+      @include font-size-primaryFont('small');
+    }
   }
 
   .summarybox {
