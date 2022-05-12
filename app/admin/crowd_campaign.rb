@@ -47,7 +47,7 @@ ActiveAdmin.register CrowdCampaign do
     end
   end
 
-  permit_params :status, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
+  permit_params :active_state, :status, :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit, :benefit_description,
     :startdate, :enddate, :billable,
     :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
     :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_email, :contact_phone,
