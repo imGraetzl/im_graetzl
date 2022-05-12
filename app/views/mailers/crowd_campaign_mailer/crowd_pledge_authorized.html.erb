@@ -1,3 +1,26 @@
+<% def delivery_week_names(value)
+  case value
+  when 1
+    "innerhalb 1 Woche"
+  when 2
+    "innerhalb 2 Wochen"
+  when 3
+    "innerhalb 3 Wochen"
+  when 4
+    "innerhalb 1 Monat"
+  when 12
+    "innerhalb 3 Monate"
+  when 24
+    "innerhalb 6 Monate"
+  when 36
+    "innerhalb 9 Monate"
+  when 48
+    "innerhalb 1 Jahr"
+  else
+    false
+  end
+end %>
+
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
   <tbody>
     <tr>
@@ -56,14 +79,13 @@
              <td><%= @crowd_pledge.crowd_reward&.title %></td>
            </tr>
 
-           <% if @crowd_pledge.answer.present? %>
-            <tr>
-              <td></td>
-              <td>
-                <small>Deine Antwort: <em><%= @crowd_pledge.answer %></em>
-                </small>
-              </td>
-            </tr>
+           <% if @crowd_pledge.crowd_reward.delivery_weeks %>
+             <tr>
+               <td></td>
+               <td>
+                 <small>Voraussichtliche Lieferung: <em><%= delivery_week_names(@crowd_pledge.crowd_reward.delivery_weeks) %></em></small>
+               </td>
+             </tr>
            <% end %>
 
            <tr>
