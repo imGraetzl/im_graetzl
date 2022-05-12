@@ -190,6 +190,9 @@ de:
       title: 'Crowdfunding Untestützung - Zahlungsart ändern'
     summary:
       title: 'Crowdfunding Untestützung - Zusammenfassung'
+    details:
+      title: 'Crowdfunding Untestützung - Details'
+
 
   crowd_donation_pledges:
     login:

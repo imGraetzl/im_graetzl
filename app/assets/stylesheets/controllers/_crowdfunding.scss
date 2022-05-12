@@ -580,4 +580,28 @@ section.crowd_campaign {
       display: none;
     }
   }
+  .-pledge-details {
+    display: none;
+  }
+  .faqs {
+    margin-top:50px;
+    p {
+      margin-bottom:20px;
+      &:last-of-type { margin-bottom:0px; }
+    }
+    ol {
+      margin-bottom:20px;
+      margin-left:20px;
+    }
+  }
+  .content-block {
+    margin-bottom: 40px;
+    > h3 {
+      @include font-size-primaryFont('base');
+      margin-bottom: 10px;
+    }
+    &.-toggable {
+      margin-bottom: 20px;
+    }
+  }
 }
