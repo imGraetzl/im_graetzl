@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_05_121011) do
+ActiveRecord::Schema.define(version: 2022_05_12_151234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -247,6 +247,7 @@ ActiveRecord::Schema.define(version: 2022_05_05_121011) do
     t.integer "funding_status", default: 0
     t.jsonb "avatar_data"
     t.text "aim_description"
+    t.integer "active_state", default: 0
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
