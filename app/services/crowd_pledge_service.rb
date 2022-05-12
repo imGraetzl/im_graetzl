@@ -19,8 +19,16 @@ class CrowdPledgeService
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
+    if setup_intent.payment_method.type.in?(['sofort', 'bancontact', 'ideal'])
+      # These are one-time payment methods by default. When set up for future usage, they generate a
+      # sepa_debit reusable payment method type
+      payment_method_id = Stripe::PaymentMethod.list(customer: get_stripe_customer_id(crowd_pledge), type: 'sepa_debit').first.id
+    else
+      payment_method_id = setup_intent.payment_method.id
+    end
+
     crowd_pledge.update(
-      stripe_payment_method_id: setup_intent.payment_method.id,
+      stripe_payment_method_id: payment_method_id,
       payment_method: setup_intent.payment_method.type,
       payment_card_last4: setup_intent.payment_method.type == 'card' ? setup_intent.payment_method.card.last4 : nil,
       status: 'authorized',
@@ -45,6 +53,7 @@ class CrowdPledgeService
     # Test with 4000002500003155 for success, 4000008260003178 for failure
     payment_intent = Stripe::PaymentIntent.create(
       customer: crowd_pledge.stripe_customer_id,
+      payment_method_types: CrowdPledge::PAYMENT_METHODS,
       payment_method: crowd_pledge.stripe_payment_method_id,
       amount: (crowd_pledge.total_price * 100).to_i,
       currency: 'eur',
