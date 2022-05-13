@@ -87,7 +87,7 @@
     <small class="compact-view"><%= "(#{funding_percentage(@crowd_campaign).round}%)" rescue nil %></small>
   </div>
   <div class="middle -supporters">
-    <h2><%= @crowd_campaign.crowd_pledges.complete.count %></h2>
+    <h2><%= @crowd_campaign.pledges_and_donations_count %></h2>
     <span>UnterstützerInnen</span>
   </div>
   <div class="right -ending">

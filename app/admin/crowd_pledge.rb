@@ -5,12 +5,14 @@ ActiveAdmin.register CrowdPledge do
 
   config.sort_order = 'created_at_desc'
 
-  scope :all, default: true
-  scope :incomplete
+  scope :initialized, default: true
   scope :authorized
+  scope :processing
   scope :debited
   scope :failed
   scope :canceled
+  scope :incomplete
+  scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :crowd_campaign, collection: proc { CrowdCampaign.order(:title).pluck(:title, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}

@@ -37,10 +37,10 @@
   &.public_space, &.payment_refunded {
     background: LightCoral;
   }
-  &.weekly, &.processing, &.funding, &.authorized {
+  &.weekly, &.funding, &.authorized {
     background: LightBlue;
   }
-  &.vacancy, &.daily {
+  &.vacancy, &.daily, &.processing {
     background: LightSeaGreen;
   }
   &.draft {

@@ -3,7 +3,11 @@ context.instance_eval do
     column do
       panel 'Unterstützungs Details' do
         attributes_table_for crowd_pledge do
+          row :Details do
+            link_to('User Unterstützungsdetail Seite','/crowd_pledges/'+crowd_pledge.id+'/details', target: 'blank')
+          end
           row(:status){|r| status_tag(r.status)}
+          row :debited_at
           row :total_price
           row :donation_amount
         end

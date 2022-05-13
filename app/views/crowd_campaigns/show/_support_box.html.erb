@@ -19,9 +19,9 @@
         <%= f.submit 'Jetzt unterstützen', class: 'btn-primary' %>
       <% end %>
 
-      <% if @crowd_campaign.crowd_pledges.complete.donation.count > 0 %>
+      <% if @crowd_campaign.crowd_pledges.initialized.donation.count > 0 %>
       <small>
-        <%= @crowd_campaign.crowd_pledges.complete.donation.count %> haben mit freiem Betrag unterstützt.
+        <%= @crowd_campaign.crowd_pledges.initialized.donation.count %> haben mit freiem Betrag unterstützt.
       </small>
       <% end %>
 

@@ -73,7 +73,15 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def funding_sum
-    @cached_funding_sum ||= self.crowd_pledges.all_created.sum(:total_price)
+    @cached_funding_sum ||= self.crowd_pledges.initialized.sum(:total_price)
+  end
+
+  def funding_count
+    @cached_funding_count ||= self.crowd_pledges.initialized.count
+  end
+
+  def pledges_and_donations_count
+    @cached_pledges_and_donations_count ||= (self.crowd_pledges.initialized.count + self.crowd_donation_pledges.count)
   end
 
   def effective_funding_sum

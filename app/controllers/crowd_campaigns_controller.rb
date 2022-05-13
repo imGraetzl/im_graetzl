@@ -67,7 +67,7 @@ class CrowdCampaignsController < ApplicationController
 
   def status
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    @crowd_pledges = @crowd_campaign.crowd_pledges.complete.order(created_at: :desc)
+    @crowd_pledges = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc)
     @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(created_at: :desc)
     form_status_message?
   end
@@ -76,7 +76,7 @@ class CrowdCampaignsController < ApplicationController
     respond_to do |format|
       format.xlsx do
         @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-        @crowd_pledges = @crowd_campaign.crowd_pledges.all_created.order(status: :asc, created_at: :desc)
+        @crowd_pledges = @crowd_campaign.crowd_pledges.initialized.order(status: :asc, created_at: :desc)
         @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(created_at: :desc)
         render xlsx: 'UnterstützerInnen', template: 'crowd_campaigns/crowd_pledges/crowd_pledges'
       end
@@ -95,7 +95,7 @@ class CrowdCampaignsController < ApplicationController
 
   def supporters
     @crowd_campaign = CrowdCampaign.in(current_region).find(params[:id])
-    pledges = @crowd_campaign.crowd_pledges.complete.visible
+    pledges = @crowd_campaign.crowd_pledges.initialized.visible
     donation_pledges = @crowd_campaign.crowd_donation_pledges
     @supporters = (pledges + donation_pledges).sort_by(&:created_at).reverse
   end

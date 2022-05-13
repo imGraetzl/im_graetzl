@@ -82,6 +82,11 @@
           <div class="flex-row xxxlarge" role="cell"><%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %></div>
         </div>
 
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Buchungsdatum</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_pledge.debited_at, format:'%a, %d. %B %Y, %H:%M') if @crowd_pledge.debited_at %></div>
+        </div>
+
       </div>
 
       <% if @crowd_pledge.crowd_reward %>

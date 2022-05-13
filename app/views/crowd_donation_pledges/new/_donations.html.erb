@@ -26,7 +26,7 @@
 
 <% if !crowd_donation.question.empty? %>
 <div class="question">
-  <p class="title">Bitte beantworte noch folgende Frage zur <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %>:</p>
+  <p class="title">Beantworte bitte noch folgende Frage zur <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %>:</p>
   <p><%= crowd_donation.question %></p>
 </div>
   <div class="input-textarea">
