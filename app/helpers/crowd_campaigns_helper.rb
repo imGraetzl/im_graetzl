@@ -63,21 +63,21 @@ module CrowdCampaignsHelper
   end
 
   def funding_percentage(c)
-    c.crowd_pledges_sum / (c.funding_1_amount / 100)
+    c.funding_sum / (c.funding_1_amount / 100)
   end
 
   def funding_bar_percentage(c)
     if c.completed?
-      c.successful? ? 100 : (c.crowd_pledges_sum / c.funding_1_amount) * 100
+      c.successful? ? 100 : (c.funding_sum / c.funding_1_amount) * 100
     elsif c.funding_1?
-      (c.crowd_pledges_sum / c.funding_1_amount) * 100
+      (c.funding_sum / c.funding_1_amount) * 100
     elsif c.over_funding_1?
-      percentage = (c.crowd_pledges_sum - c.funding_1_amount) / c.funding_1_amount * 100
+      percentage = (c.funding_sum - c.funding_1_amount) / c.funding_1_amount * 100
       percentage > 100 ? 85 : percentage
     elsif c.funding_2?
-      (c.crowd_pledges_sum - c.funding_1_amount) / (c.funding_2_amount - c.funding_1_amount) * 100
+      (c.funding_sum - c.funding_1_amount) / (c.funding_2_amount - c.funding_1_amount) * 100
     elsif c.over_funding_2?
-      percentage = (c.crowd_pledges_sum - c.funding_2_amount) / c.funding_2_amount * 100
+      percentage = (c.funding_sum - c.funding_2_amount) / c.funding_2_amount * 100
       percentage > 100 ? 85 : percentage
     end
   end

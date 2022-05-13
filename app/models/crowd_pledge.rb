@@ -13,8 +13,8 @@ class CrowdPledge < ApplicationRecord
 
   string_enum status: ["incomplete", "authorized", "processing", "debited", "failed", "canceled"]
 
-  scope :potential, -> { where.not(status: :incomplete) }
-  scope :complete, -> { where(status: [:authorized, :debited]) }
+  scope :all_created, -> { where.not(status: :incomplete) }
+  scope :complete, -> { where(status: [:authorized, :processing, :debited]) }
   scope :donation, -> { where(crowd_reward_id: nil) }
   scope :visible, -> { where(anonym: false) }
   scope :anonym, -> { where(anonym: true) }
