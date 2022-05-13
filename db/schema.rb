@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_13_124615) do
+ActiveRecord::Schema.define(version: 2022_05_13_140110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2022_05_13_124615) do
   create_table "activities", id: :serial, force: :cascade do |t|
     t.integer "subject_id"
     t.string "subject_type", limit: 255
-    t.integer "child_id"
+    t.string "child_id"
     t.string "child_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -269,7 +269,7 @@ ActiveRecord::Schema.define(version: 2022_05_13_124615) do
     t.index ["slug"], name: "index_crowd_categories_on_slug"
   end
 
-  create_table "crowd_donation_pledges", force: :cascade do |t|
+  create_table "crowd_donation_pledges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "status", default: 0
     t.string "contact_name"
     t.string "region_id"
