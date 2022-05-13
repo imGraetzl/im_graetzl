@@ -20,8 +20,9 @@ class LocationsController < ApplicationController
     @stream = @stream.sort_by(&:created_at).reverse
 
     @zuckerls = @location.zuckerls.live
-    @room_offer = RoomOffer.where(location_id: @location).last
-    @room_demand = RoomDemand.where(location_id: @location).last
+    @crowd_campaign = @location.crowd_campaigns.funding.last
+    @room_offer = @location.room_offers.enabled.last
+    @room_demand = @location.room_demands.enabled.last
   end
 
   def new

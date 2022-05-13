@@ -32,7 +32,9 @@ class Location < ApplicationRecord
   has_many :meetings
   has_many :upcoming_meetings, -> { upcoming }, class_name: "Meeting"
   has_many :room_offers
+  has_many :room_demands
   has_many :tool_offers
+  has_many :crowd_campaigns
   has_many :zuckerls, dependent: :destroy
   has_many :live_zuckerls, -> { live }, class_name: "Zuckerl"
 
