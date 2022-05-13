@@ -168,10 +168,10 @@ class ActionProcessor
       end
     when [CrowdDonationPledge, :create]
       if subject.crowd_campaign.scope_public?
-        #Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
+        Activity.add_public(subject.crowd_campaign, subject, to: :entire_region)
       end
     when [CrowdCampaign, :comment]
-      #Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
+      Activity.add_public(subject, child, to: :entire_region) if subject.scope_public?
       notify_comment(subject, child)
 
     when [CrowdCampaign, :post]

@@ -17,6 +17,7 @@ class CrowdPledgesController < ApplicationController
 
     @crowd_pledge.user_id = current_user.id if current_user
     @crowd_pledge.calculate_price
+    @crowd_pledge.status = "incomplete"
 
     if @crowd_pledge.save
       redirect_to [:choose_payment, @crowd_pledge]
