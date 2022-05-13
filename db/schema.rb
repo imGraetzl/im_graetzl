@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_12_151234) do
+ActiveRecord::Schema.define(version: 2022_05_13_124615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 2022_05_12_151234) do
   end
 
   create_table "crowd_pledges", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "status", default: 0
+    t.string "status", default: "0"
     t.decimal "donation_amount", precision: 10, scale: 2
     t.string "contact_name"
     t.string "address_street"
@@ -324,6 +324,7 @@ ActiveRecord::Schema.define(version: 2022_05_12_151234) do
     t.string "payment_method"
     t.string "payment_card_last4"
     t.boolean "terms", default: false
+    t.datetime "debited_at"
     t.index ["crowd_campaign_id"], name: "index_crowd_pledges_on_crowd_campaign_id"
     t.index ["crowd_reward_id"], name: "index_crowd_pledges_on_crowd_reward_id"
     t.index ["region_id"], name: "index_crowd_pledges_on_region_id"
