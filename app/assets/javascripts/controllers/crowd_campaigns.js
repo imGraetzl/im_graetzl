@@ -61,10 +61,6 @@ APP.controllers.crowd_campaigns = (function() {
         }, 600);
       });
 
-      $('.-rewardBox .trigger').on("click", function() {
-        $(this).closest('.-rewardBox').toggleClass('-open');
-      });
-
       $('#media-slider').lightSlider({
           gallery: true,
           item: 1,

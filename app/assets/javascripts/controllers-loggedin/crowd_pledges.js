@@ -4,7 +4,6 @@ APP.controllers_loggedin.crowd_pledges = (function() {
       if      ($(".crowd-pledges-page.amount-screen").exists())  {initAmountScreen();}
       else if ($(".crowd-pledges-page.address-screen").exists()) {initAddressScreen();}
       else if ($(".crowd-pledges-page.payment-screen").exists()) {initPaymentScreen();}
-      else if ($(".crowd-pledges-page.summary-screen").exists()) {initSummaryScreen();}
       else if ($(".crowd-pledges-page.detail-screen").exists()) {initDetailScreen();}
       else if ($(".crowd-pledges-page.change-payment-screen").exists()) {initPaymentChangeScreen();}
 
@@ -13,6 +12,9 @@ APP.controllers_loggedin.crowd_pledges = (function() {
     function initAmountScreen() {
       APP.components.tabs.setTab('step1');
       initAmount();
+      $('.-crowdRewardBox .left, .-crowdRewardBox .right').on("click", function() {
+        $(this).closest('.-crowdRewardBox').toggleClass('-open');
+      });
     }
 
     function initAddressScreen() {

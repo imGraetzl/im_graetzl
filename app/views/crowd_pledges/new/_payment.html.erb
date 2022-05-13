@@ -22,8 +22,19 @@
     <div class="error-message"></div>
   <% end %>
 
-  <div class="footer-txt">
-    Der Gesamtbetrag deiner Unterstützung wird erst nach Ende der Finanzierungsphase dieses Crowdfundings und nur wenn das Mindestziel erreicht wurde, von deiner gewählten Zahlungsart abgebucht. Sollte die Kampagne scheitern, so wird dir auch nichts abgebucht.
+  <div class="footer-txt payment-method-info card">
+    <strong>Im ersten Schritt wird deine Kreditkarte registriert, indem 0 € reserviert werden.</strong><br>
+    Der Gesamtbetrag wird erst nach Ende der Finanzierungsphase und nur wenn das Mindestziel erreicht wurde, von deiner Kreditkarte abgebucht. Sollte die Crowdfundingkampagne scheitern, so wird dir auch nichts abgebucht.
+  </div>
+
+  <div class="footer-txt payment-method-info sepa_debit">
+    Der Gesamtbetrag deiner Unterstützung wird erst nach Ende der Finanzierungsphase und nur wenn das Mindestziel erreicht wurde, von deinem Konto eingezogen. Sollte die Crowdfundingkampagne scheitern, so wird dir auch nichts abgebucht.
+    <br>
+    <strong>Die Abbuchung erfolgt druch: morgenjungs GmbH (<%= @crowd_pledge.crowd_campaign.region.host_domain_name %>) by Stripe via PPRO</strong><br>
+    <div class="legal">
+      Durch Angabe der Zahlungsinformationen und Bestätigung der Zahlung ermächtigen Sie (A) imGrätzl.at (morgenjungs GmbH) und Stripe, unseren Zahlungsdienstleister und/oder PPRO, den lokalen Dienstleister, Zahlungen von Ihrem Konto mittels Lastschrift einzuziehen. Zugleich (B) weisen Sie Ihr Kreditinstitut gemäß diesen Anweisungen an, Ihr Konto entsprechend zu belasten. Sie haben im Rahmen Ihrer Rechte Anspruch auf Erstattung von Ihrem Kreditinstitut gemäß den vereinbarten Bedingungen mit Ihrem Kreditinstitut. Sie können innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit Ihrem Kreditinstitut vereinbarten Bedingungen. Weiterhin erklären Sie sich damit einverstanden, die Vorabankündigung bis spätestens zwei Tage vor Zahlungseinzug zu erhalten.
+    </div>
+    <%= link_to 'Mehr anzeigen', 'javascript:', class: 'open-legal' %>
   </div>
 
 </div>

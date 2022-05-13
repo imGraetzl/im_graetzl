@@ -72,12 +72,20 @@ class CrowdCampaign < ApplicationRecord
     crowd_campaign_posts.select{|p| p.created_at > 4.weeks.ago}.last
   end
 
-  def crowd_pledges_sum
-    @cached_crowd_pledge_sum ||= self.crowd_pledges.potential.sum(:total_price)
+  def funding_sum
+    @cached_funding_sum ||= self.crowd_pledges.initialized.sum(:total_price)
   end
 
-  def crowd_pledges_effective_sum
-    crowd_pledges.complete.sum(:total_price)
+  def funding_count
+    @cached_funding_count ||= self.crowd_pledges.initialized.count
+  end
+
+  def pledges_and_donations_count
+    @cached_pledges_and_donations_count ||= (self.crowd_pledges.initialized.count + self.crowd_donation_pledges.count)
+  end
+
+  def effective_funding_sum
+    crowd_pledges.debited.sum(:total_price)
   end
 
   def crowd_pledges_failed_sum
@@ -85,18 +93,18 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def crowd_pledges_fee
-    (crowd_pledges_effective_sum / 100) * 4
+    (effective_funding_sum / 100) * 4
   end
 
   def crowd_pledges_payout
-    crowd_pledges_effective_sum - crowd_pledges_fee
+    effective_funding_sum - crowd_pledges_fee
   end
 
   def check_funding
-    if not_funded? && crowd_pledges_sum >= funding_1_amount
+    if not_funded? && funding_sum >= funding_1_amount
       update(funding_status: 'goal_1_reached')
       return :goal_1_reached
-    elsif funding_2_amount.present? && goal_1_reached? && crowd_pledges_sum >= funding_2_amount
+    elsif funding_2_amount.present? && goal_1_reached? && funding_sum >= funding_2_amount
       update(funding_status: 'goal_2_reached')
       return :goal_2_reached
     end

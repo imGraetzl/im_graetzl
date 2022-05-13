@@ -76,9 +76,9 @@
     </div>
   </div>
 
-  <% if @crowd_campaign.crowd_pledges.complete.visible.present? || @crowd_campaign.crowd_donation_pledges.present? %>
+  <% if @crowd_campaign.crowd_pledges.initialized.visible.present? || @crowd_campaign.crowd_donation_pledges.present? %>
     <div class="last-supporters">
-      <% @crowd_campaign.crowd_pledges.complete.visible.order(created_at: :desc).first(3).each do |crowd_pledge| %>
+      <% @crowd_campaign.crowd_pledges.initialized.visible.order(created_at: :desc).first(3).each do |crowd_pledge| %>
         <div class="supporter">
           <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <div>
@@ -107,7 +107,7 @@
           <li><a href="#tab-posts">Projekt Updates <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
         <% end %>
         <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
-        <li><a href="#tab-supporters">Unterstützer*innen<% if @crowd_campaign.crowd_pledges.complete.present? %><small><%= @crowd_campaign.crowd_pledges.complete.count %></small><% end %></a></li>
+        <li><a href="#tab-supporters">Unterstützer*innen<% if @crowd_campaign.pledges_and_donations_count > 0 %><small><%= @crowd_campaign.pledges_and_donations_count %></small><% end %></a></li>
       </ul>
     </div>
   </div>

@@ -10,8 +10,7 @@ APP.components.stripePayment = (function() {
     const options = {
       terms: {
         card: 'never',
-        //sepaDebit: 'never'
-        //sofort: 'never'
+        sepaDebit: 'never'
       },
       business: {
         name: business_name
@@ -60,7 +59,6 @@ APP.components.stripePayment = (function() {
     };
 
     const elements = stripe.elements({ appearance, clientSecret });
-
     const paymentElement = elements.create("payment", options);
     paymentElement.mount("#payment-element");
 
@@ -94,6 +92,20 @@ APP.components.stripePayment = (function() {
 
     paymentElement.on('change', function(event) {
       form.find(".error-message").text(""); // Clear Error Msg on Change
+    });
+
+    // Show Payment Method Infos
+    paymentElement.on('change', function(event) {
+      $('.payment-method-info').hide();
+      if (event.value.type == 'card') {
+        $('.payment-method-info.card').show();
+      } else if (event.value.type == 'sepa_debit')  {
+        $('.payment-method-info.sepa_debit').show();
+      }
+    });
+
+    $(".open-legal").on().on("click", function() {
+      $(this).closest('.payment-method-info').find('.legal').slideToggle();
     });
 
   }

@@ -198,6 +198,20 @@
     text-align: center;
   }
 
+  .payment-method-info {
+    display: none;
+    font-style: normal;
+    text-align: justify;
+    .legal, .open-legal {
+      @include font-size-primaryFont('small');
+    }
+    .legal {
+      padding-top:20px;
+      padding-bottom:20px;
+      display: none;
+    }
+  }
+
 }
 
 #payment-element {
