@@ -16,12 +16,11 @@
   <%= form_for @crowd_pledge do |f| %>
   <%= form_errors_for @crowd_pledge %>
 
-    <%= f.hidden_field :donation_amount %>
     <%= f.hidden_field :answer %>
     <%= f.hidden_field :crowd_reward_id %>
     <%= f.hidden_field :crowd_campaign_id %>
 
-    <% if @crowd_pledge.errors.details.include?(:donation_amount) %>
+    <% if @crowd_pledge.errors.present? %>
       <div class="input-field">
         <%= label_tag :donation_amount do %>
           <%= icon_tag "currency-euro" %>
@@ -31,6 +30,8 @@
           class: 'calculate-price', maxlength: 6,
           data: { action: calculate_price_crowd_pledges_url(crowd_campaign_id: @crowd_pledge.crowd_campaign.id, crowd_reward_id: @crowd_pledge.crowd_reward&.id)} %>
       </div>
+    <% else %>
+      <%= f.hidden_field :donation_amount %>
     <% end %>
 
     <div class="input-field">

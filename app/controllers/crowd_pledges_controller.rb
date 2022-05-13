@@ -57,7 +57,7 @@ class CrowdPledgesController < ApplicationController
     @crowd_pledge = CrowdPledge.find(params[:id])
     redirect_to [:choose_payment, @crowd_pledge] if params[:setup_intent].blank?
 
-    success, error = CrowdPledgeService.new.card_payment_authorized(@crowd_pledge, params[:setup_intent])
+    success, error = CrowdPledgeService.new.payment_authorized(@crowd_pledge, params[:setup_intent])
 
     if success
       flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
