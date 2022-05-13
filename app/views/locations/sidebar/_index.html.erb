@@ -95,13 +95,19 @@
     </div>
   <% end %>
 
-  <% if @room_offer && !@room_offer.disabled? %>
+  <% if @crowd_campaign %>
+    <div class="sideBarbox crowdcampaign">
+      <%= render @crowd_campaign %>
+    </div>
+  <% end %>
+
+  <% if @room_offer %>
     <div class="sideBarbox roomoffer">
       <%= render @room_offer %>
     </div>
   <% end %>
 
-  <% if @room_demand && !@room_demand.disabled? %>
+  <% if @room_demand %>
     <div class="sideBarbox roomoffer">
       <%= render @room_demand %>
     </div>
