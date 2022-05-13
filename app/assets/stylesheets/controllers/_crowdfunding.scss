@@ -395,7 +395,7 @@ section.crowd_campaign {
 }
 
 // REWARD BOX ON CAMAIGN PAGE ----------------
-.crowd_campaign .-crowdRewardBox {
+.crowd_campaign .-crowdRewardBox, .crowd-pledges-page .-crowdRewardBox {
   margin-bottom:40px;
   padding:0px;
   display: flex;
@@ -497,63 +497,55 @@ section.crowd_campaign {
 
 
 // REWARD BOX ON CHECKOUT PAGE ----------------
-.crowd-pledges-page .-rewardBox {
-  margin-bottom:40px;
-  .card, .wrp {
-    transform: none;
-    display: flex;
-    align-items: stretch;
+
+.crowd-pledges-page .-crowdRewardBox {
+  margin-bottom: 20px;
+  .left {
+    //cursor: unset;
+    width:165px !important;
+    min-width:165px !important;
   }
-  .reward-img {
-    background-color: $color-ambient-mint-light;
-    color:$color-ambient-mint-dark;
-    min-width:100px;
-    width:100px;
-    height:auto;
-    object-fit: cover;
-    padding:1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg {
-      padding:10px;
-      width:60px;
-      height:60px;
-    }
+  .right {
+    //cursor: unset;
+    padding-bottom: unset;
+    padding: 15px;
   }
-  .facts {
-    width:100%;
-    padding:20px;
-    strong {color: $color-ambient-mint-dark; display: block;}
-    small {color: $color-ambient-grey;}
-    h4 {
-      padding-bottom:5px;
-      @include font-size-primaryFont('large');
-    }
+  .right small {
+    @include font-size-primaryFont('base');
   }
-  .card:before {
-    scale:0.8;
-    top:-25px;
-  }
-  .question {
+  .right h4 {
     @include font-size-primaryFont('large');
-    border-top: 1px solid $color-ambient-grey-light;
-    margin-top:10px;
-    padding-top: 10px;
-    span {
-      color: $color-ambient-mint-dark;
-      font-weight: bold;
-      display: block;
-    }
   }
-  .input-textarea {
-    margin:10px 0px 0px 0px;
-    textarea {min-height:100px; width:100%;}
+  .right .description {
+    @include font-size-primaryFont('base');
+    white-space: pre-wrap;
   }
 }
 
 .crowd-pledges-page {
   .pricing-summary li div.cost {min-width:75px;}
+  .-freeamount {
+    //padding-bottom:30px;
+    label {
+      min-width:165px;
+    }
+  }
+  .question {
+    margin-top:20px;
+    margin-bottom:10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    p {
+      display: inline-block;
+      padding-bottom:10px;
+      text-align: justify;
+    }
+    p.title {
+      text-align: center;
+      @include font-size-primaryFont('larger');
+    }
+  }
   .share {
     margin-top:30px;
     text-align: center;

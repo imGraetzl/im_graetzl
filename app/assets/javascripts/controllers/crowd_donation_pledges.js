@@ -7,6 +7,9 @@ APP.controllers.crowd_donation_pledges = (function() {
 
     function initChoiceScreen() {
       APP.components.tabs.setTab('step1');
+      $('.-crowdRewardBox .left, .-crowdRewardBox .right').on("click", function() {
+        $(this).closest('.-crowdRewardBox').toggleClass('-open');
+      });
     }
 
     function initAddressScreen() {

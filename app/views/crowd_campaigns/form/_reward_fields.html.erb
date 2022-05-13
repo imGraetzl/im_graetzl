@@ -73,7 +73,8 @@
       <%= icon_tag "layout-document" %>
       <span>Frage an die UnterstützerIn</span>
       <% end %>
-      <%= f.text_area :question, placeholder: 'Benötigst du weitere Infos der UnterstützerIn zu diesem Dankeschön? ...', disabled: disabled %>
+      <%= f.text_area :question, placeholder: 'Benötigst du weitere Infos der UnterstützerIn zu diesem Dankeschön? ...', data: { max_chars: 500 }, maxlength:500, disabled: disabled %>
+      <span class="charCountContainer charsLeft"></span>
     </div>
     <% if deleteable %>
       <%= link_to_remove_association f, data: { confirm: 'Dankeschön löschen?' } do %>

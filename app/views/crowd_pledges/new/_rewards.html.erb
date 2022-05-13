@@ -1,23 +1,27 @@
-<div class="paperCard -rewardBox -cord1RT">
-  <div class="wrp">
+<div class="cardBox -crowdRewardBox">
+  <div class="left">
     <% if crowd_reward.avatar.nil? %>
       <div class="reward-img"><%= icon_tag "label-tag" %></div>
     <% else %>
       <%= avatar_image crowd_reward, size: :large, class: 'reward-img' %>
     <% end %>
-    <div class="facts">
-      <h4><%= crowd_reward.title %></h4>
-      <span><%= crowd_reward.description %></span>
-      <% if crowd_reward.delivery_weeks %>
-        <br><em><small>Voraussichtliche Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %></small></em>
-      <% end %>
-      <% if !crowd_reward.question.empty? %>
-        <p class="question"><em><span>Beantworte bitte noch folgende Frage:</span> <%= crowd_reward.question %></em></p>
-        <div class="input-textarea">
-          <%= f.text_area :answer, placeholder: 'Gib hier deine Antwort ein ...', required: true %>
-        </div>
-      <% end %>
-    </div>
   </div>
-  <div class="card"></div>
+  <div class="right">
+    <h4><%= crowd_reward.title %></h4>
+    <small><%= crowd_reward.claimed %> <%= crowd_reward.limit ? "von #{crowd_reward.limit}" : "" %> gebucht</small>
+    <% if crowd_reward.delivery_weeks %>
+      <small>Voraussichtliche Lieferung: <%= delivery_week_names(crowd_reward.delivery_weeks) %></small>
+    <% end %>
+    <div class="description"><%= crowd_reward.description %></div>
+  </div>
 </div>
+
+<% if !crowd_reward.question.empty? %>
+<div class="question">
+  <p class="title">Bitte beantworte noch folgende Frage zu deinem ausgewählten Dankeschön:</p>
+  <p><%= crowd_reward.question %></p>
+</div>
+  <div class="input-textarea">
+    <%= f.text_area :answer, placeholder: 'Gib bitte hier deine Antwort ein ...', required: true %>
+  </div>
+<% end %>
