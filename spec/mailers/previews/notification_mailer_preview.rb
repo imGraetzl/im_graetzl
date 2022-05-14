@@ -1,7 +1,7 @@
 class NotificationMailerPreview < ActionMailer::Preview
 
   def send_immediate
-    notification = Notifications::NewCrowdCampaignPost.last
+    notification = Notifications::NewCrowdCampaign.first
     NotificationMailer.send_immediate(notification)
   end
 
