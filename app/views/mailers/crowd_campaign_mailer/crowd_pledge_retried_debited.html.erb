@@ -11,21 +11,26 @@
         <p>
           Nochmals vielen herzlichen Dank!
         </p>
-        <p>
-          Deine Unterstützung wird nun vom Zahlungsdienstleister Stripe von deiner angegenenen Zahlungform eingezogen.
-        </p>
-        <p>
-          <% if @crowd_pledge.payment_method == 'card' %>
+        <% if @crowd_pledge.payment_method == 'card' %>
+          <p>
+            Deine Unterstützung wird nun vom Zahlungsdienstleister Stripe von deiner Kreditkarte eingezogen.
+          </p>
+          <p>
             <strong>So wirst du den Einzug auf deiner Kreditkarte sehen:</strong><br><br>
             <em>Betrag: <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
             Verwendungszweck: <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
-          <% else %>
+          </p>
+        <% else %>
+          <p>
+            Deine Unterstützung wird nun vom Zahlungsdienstleister Stripe von deinem Bankkonto eingezogen. Du bekommst hierfür auch noch eine E-Mail mit dem Betreff "Lastschrift veranlasst von morgenjungs GmbH" zugesandt.
+          </p>
+          <p>
             <strong>So wird der Einzug auf deinem Bankkonto erscheinen:</strong><br><br>
-            <em>Einzug von: morgenjungs GmbH (<%= @crowd_pledge.crowd_campaign.region.host_domain_name %>) by Stripe via PPRO<br>
-            Betrag: <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
-            Verwendungszweck: <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
-          <% end %>
-        </p>
+            <em><strong>Einzug von:</strong> morgenjungs GmbH (<%= @crowd_pledge.crowd_campaign.region.host_domain_name %>) by Stripe via PPRO<br>
+            <strong>Betrag:</strong> <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
+            <strong>Verwendungszweck:</strong> <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
+          </p>
+        <% end %>
       </td>
     </tr>
   </tbody>
