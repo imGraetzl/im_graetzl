@@ -8,7 +8,7 @@
 
       <td valign="center" class="mcnTextContent" width="100%">
         <p>
-          <em><strong><%= notification.crowd_campaign.user.full_name %>:</strong></em>
+          <em><strong><%= notification.crowd_campaign.title %>:</strong></em>
         </p>
         <p>
           <%= link_to notification.crowd_campaign_post.title, crowd_campaign_url(notification.crowd_campaign, target: dom_id(notification.crowd_campaign_post)), style:"color:#ec776a; font-size:18px;" %>

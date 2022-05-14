@@ -4,6 +4,7 @@ context.instance_eval do
   column :email
   column(:status){|r| status_tag(r.status)}
   column :created_at
+  column :payment_method
   column :debited_at
   column :crowd_campaign
   actions

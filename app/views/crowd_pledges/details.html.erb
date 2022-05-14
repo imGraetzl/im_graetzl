@@ -58,16 +58,6 @@
         </div>
 
         <div class="flex-table row" role="rowgroup">
-          <div class="flex-row xxlarge" role="cell"><strong>Bezahlmethode</strong></div>
-          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.payment_method %></div>
-        </div>
-
-        <div class="flex-table row" role="rowgroup">
-          <div class="flex-row xxlarge" role="cell"><strong>Transaktionsstatus</strong></div>
-          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.status %></div>
-        </div>
-
-        <div class="flex-table row" role="rowgroup">
           <div class="flex-row xxlarge" role="cell"><strong>Anonyme Unterstützung</strong></div>
           <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.anonym? ? 'Ja' : 'Nein' %></div>
         </div>
@@ -75,6 +65,16 @@
         <div class="flex-table row" role="rowgroup">
           <div class="flex-row xxlarge" role="cell"><strong>Unterstützungs-ID</strong></div>
           <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.id %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Bezahlmethode</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.payment_method %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Bezahlstatus</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_pledge.status %></div>
         </div>
 
         <div class="flex-table row" role="rowgroup">
@@ -174,7 +174,18 @@
           <p>Du kannst die Starter*innen anschreiben z.B. über den internen Messenger oder per Mail. Die Mailadresse und andere Kontaktdaten findest du auf ihrer Kampagnenseite im Impressum. Du kannst auch eine öffentliche Nachricht auf die Pinnwand im Projekt schreiben!</p>
         </div>
       </div>
-      <% if @crowd_pledge.authorized? || @crowd_pledge.debited? %>
+      <div class="content-block -toggable">
+        <h3>Wie sieht die Abbuchung auf meiner Kreditkarte / meinem Konto aus?</h3>
+        <div class="-toggle-content">
+          <p>Bei <strong>Kreditkartenzahlungen</strong> erscheint die Abbuchung mit folgendem Buchungstext:<br>
+            <em><%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %></em>
+          </p>
+          <p>Bei <strong>Zahlungen mittels Bankeinzug</strong> erscheint die Abbuchung mit folgendem Buchungstext:
+            <em>morgenjungs GmbH (<%= @crowd_pledge.crowd_campaign.region.host_domain_name %>) by Stripe via PPRO</em>
+          </p>
+        </div>
+      </div>
+      <% if @crowd_pledge.authorized? || @crowd_pledge.processing? || @crowd_pledge.debited? %>
         <div class="content-block -toggable">
           <h3>Wie kann ich meine Unterstützung stornieren?</h3>
           <div class="-toggle-content">
@@ -183,6 +194,7 @@
           </div>
         </div>
       <% end %>
+
     </div>
 
   </div>
