@@ -9,9 +9,9 @@
   <div class="col-content">
 
     <div class="hl-subtext">
-      <h1>Zahlungsart anpassen</h1>
+      <h1>Deine Zahlung</h1>
       <p>
-        Wähle deine bevorzugte Zahlungsart, um deine Crowdfunding Unterstützung erfolgreich abzuschließen.
+        Fahre mit deiner Zahlung fort, um deine Crowdfunding Unterstützung erfolgreich abzuschließen.
       </p>
     </div>
 
@@ -28,6 +28,15 @@
       </button>
       <div class="error-message"></div>
     <% end %>
+
+    <div class="footer-txt payment-method-info sepa_debit">
+      <strong>Die Abbuchung erfolgt druch: morgenjungs GmbH (<%= @crowd_pledge.crowd_campaign.region.host_domain_name %>) by Stripe via PPRO</strong><br>
+      <div class="legal">
+        Durch Angabe der Zahlungsinformationen und Bestätigung der Zahlung ermächtigen Sie (A) imGrätzl.at (morgenjungs GmbH) und Stripe, unseren Zahlungsdienstleister und/oder PPRO, den lokalen Dienstleister, Zahlungen von Ihrem Konto mittels Lastschrift einzuziehen. Zugleich (B) weisen Sie Ihr Kreditinstitut gemäß diesen Anweisungen an, Ihr Konto entsprechend zu belasten. Sie haben im Rahmen Ihrer Rechte Anspruch auf Erstattung von Ihrem Kreditinstitut gemäß den vereinbarten Bedingungen mit Ihrem Kreditinstitut. Sie können innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit Ihrem Kreditinstitut vereinbarten Bedingungen. Weiterhin erklären Sie sich damit einverstanden, die Vorabankündigung bis spätestens zwei Tage vor Zahlungseinzug zu erhalten.
+      </div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', class: 'open-legal' %>
+    </div>
+
   </div>
 
   <div class="col-sidebar">

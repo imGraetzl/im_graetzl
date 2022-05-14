@@ -53,7 +53,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def scope_public?
-    funding? || completed?
+    enabled? && (funding? || completed?)
   end
 
   def successful?

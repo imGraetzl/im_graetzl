@@ -72,7 +72,7 @@
         <%= icon_tag "arrow-down-2" %>
       <% end %>
       <div class="jBoxHidden jBoxDropdown" id="<%= "tt-crowdcampaign-#{crowd_campaign.id}" %>">
-        <% if crowd_campaign.scope_public? %>
+        <% if crowd_campaign.funding? || crowd_campaign.completed? %>
           <%= link_to status_crowd_campaign_path(crowd_campaign) do %>
             <%= icon_tag "bar-chart-growth" %>
             <div class="icontxt">Kampagnen Statistiken</div>
