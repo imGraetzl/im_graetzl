@@ -2,7 +2,9 @@
   <tbody>
     <tr>
       <td valign="top" class="mcnTextContent" style="padding-left:18px; padding-right:18px; vertical-align:top;">
-        <%= cover_photo_image notification.crowd_campaign, size: :small, style: "width:250px; height:120px; border-radius: 10px; max-width:250px; min-width:250px;", class: "mcnImage" %>
+        <%= link_to crowd_campaign_url(notification.crowd_campaign), target: "_blank" do %>
+          <%= cover_photo_image notification.crowd_campaign, size: :small, style: "width:250px; height:120px; border-radius: 10px; max-width:250px; min-width:250px;", class: "mcnImage" %>
+        <% end %>
       </td>
       <td valign="center" class="mcnTextContent" width="100%">
 
@@ -18,7 +20,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="2" class="mcnTextContent" style="padding-bottom:9px;">
+      <td colspan="2" class="mcnTextContent" style="padding-top:9px; padding-bottom:9px; padding-left:18px; padding-right:18px;">
         <p>
           <em><%= notification.crowd_campaign.slogan %></em>
         </p>
