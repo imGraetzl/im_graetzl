@@ -9,7 +9,7 @@ class CrowdPledgesController < ApplicationController
 
   def create
     @crowd_pledge = CrowdPledge.new(crowd_pledge_params)
-    #redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
 
     if @crowd_pledge.crowd_reward&.fully_claimed?
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."

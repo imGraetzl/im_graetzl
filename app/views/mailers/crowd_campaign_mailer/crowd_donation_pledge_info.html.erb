@@ -6,7 +6,7 @@
           Servus <%= @crowd_donation_pledge.contact_name %>,
         </p>
         <p>
-          <strong>cool, dass du das Crowdfunding Projekt <%= link_to @crowd_donation_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_donation_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> mit einer <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@crowd_donation_pledge.donation_type}") %> unterstützen kannst.</strong>
+          <strong>wunderbar, dass du das Crowdfunding Projekt <%= link_to @crowd_donation_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_donation_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> mit einer <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@crowd_donation_pledge.donation_type}") %> unterstützen kannst.</strong>
         </p>
         <p>
           Sobald die Crowdfunding Kampagne erfolgreich abgeschlossen wurde, werden sich die Projektstarter*innen bei dir melden.

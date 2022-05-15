@@ -18,14 +18,4 @@
 
   <% end %>
 
-  <div class="footer-txt">
-    <strong>Du möchtest vor deiner Unterstützungszusage noch weitere Infos haben?</strong><br>
-    <% if user_signed_in? %>
-      Nimm direkt Kontakt <%= link_to 'im Messenger', messenger_start_thread_path(user_id: @crowd_donation_pledge.crowd_campaign.user.id) %> auf,
-    <% else %>
-      Wenn du eingeloggt bist, kannst du direkt <%= link_to 'im Messenger', messenger_start_thread_path(user_id: @crowd_donation_pledge.crowd_campaign.user.id) %> Kontakt aufnehmen,
-    <% end %>
-    oder schick deine Frage an <%= link_to @crowd_donation_pledge.crowd_campaign.contact_email, "mailto:#{@crowd_donation_pledge.crowd_campaign.contact_email}", target:'_blank' %>
-  </div>
-
 </div>

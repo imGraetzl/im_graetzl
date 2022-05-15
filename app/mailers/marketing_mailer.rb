@@ -13,4 +13,17 @@ class MarketingMailer < ApplicationMailer
     )
   end
 
+  def agb_change_and_crowdfunding(user)
+    @user = user
+    @region = @user.region
+
+    headers("X-MC-Tags" => "marketing-mail-crowdfunding")
+
+    mail(
+      subject: "Wichtige Änderungen: Crowdfunding kommt -> Änderungen der imGrätzl AGB",
+      from: platform_email("wir"),
+      to: @user.email,
+    )
+  end
+
 end

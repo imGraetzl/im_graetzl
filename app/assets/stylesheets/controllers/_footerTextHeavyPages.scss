@@ -36,3 +36,11 @@ section.datenschutz {
     padding-top:30px;
   }
 }
+section.agb {
+  p, h3, p:first-child {
+    //margin-bottom: 20px !important;
+  }
+  h3 {
+    @include font-size-primaryFont('larger');
+  }
+}
