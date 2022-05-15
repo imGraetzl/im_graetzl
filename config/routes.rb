@@ -162,6 +162,7 @@ Rails.application.routes.draw do
     get 'choice', on: :collection
     get 'login', on: :collection
     get 'summary', on: :member
+    get 'details', on: :member
   end
 
   resources :rooms, only: [:index]

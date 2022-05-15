@@ -33,6 +33,12 @@ class CrowdDonationPledgesController < ApplicationController
     @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
+  def details
+    @crowd_donation_pledge = CrowdDonationPledge.find(params[:id])
+    @crowd_donation = @crowd_donation_pledge.crowd_donation
+    @donation_type = @crowd_donation.donation_type
+  end
+
   private
 
   def initial_donation_pledge_params
