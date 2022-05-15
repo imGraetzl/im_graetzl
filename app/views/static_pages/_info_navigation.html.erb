@@ -21,11 +21,9 @@
       <div class="txt">Markt<br/>platz</div>
     <% end %>
 
-    <% if current_user&.beta_user? %>
-      <%= active_link_to info_crowdfunding_path, class: "iconfilter" do %>
-        <%= icon_tag "crowd" %>
-        <div class="txt">Crowd<br/>funding</div>
-      <% end %>
+    <%= active_link_to info_crowdfunding_path, class: "iconfilter" do %>
+      <%= icon_tag "crowd" %>
+      <div class="txt">Crowd<br/>funding</div>
     <% end %>
 
     <%= active_link_to info_raumteiler_path, class: "iconfilter" do %>

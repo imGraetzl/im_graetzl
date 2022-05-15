@@ -550,7 +550,7 @@ section.info {
         }
       }
     }
-    .milestone {
+    .milestone, .milestone a {
       color: $color-ambient-mint-dark;
     }
     .subline.-paragraph {
@@ -742,7 +742,7 @@ section.info {
       }
     }
     .pressemitteilungen {
-      .row:nth-child(n+2) {
+      .row:nth-child(n+3) {
         display: none;
       }
       .row.-show {

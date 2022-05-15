@@ -1,6 +1,6 @@
 namespace :scheduled do
   desc 'Marketing Mail - All imGrätzl (Region Wien) Users'
-  task agb_change_and_welocally: :environment do
+  task agb_change_and_crowdfunding: :environment do
 
     region = Region.get('wien')
 
@@ -10,7 +10,7 @@ namespace :scheduled do
 
     # user.find_each do |user|
     User.in(region).confirmed.find_each do |user|
-      MarketingMailer.agb_change_and_welocally(user).deliver_now
+      MarketingMailer.agb_change_and_crowdfunding(user).deliver_now
     end
 
   end

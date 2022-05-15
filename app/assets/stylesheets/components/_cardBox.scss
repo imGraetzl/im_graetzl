@@ -671,6 +671,10 @@ section.locations .goodieteasertxt {
     .coverImg {object-fit: contain;}
     a.btn-primary {background-color: #f2dd39; color: $color-font-primary}
   }
+  .-new {
+    color: $color-ambient-rosa;
+    font-weight: bold;
+  }
 }
 
 .homeRegion {

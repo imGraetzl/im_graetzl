@@ -21,11 +21,9 @@
       <div class="txt">Markt <br/>platz</div>
     <% end %>
 
-    <% if current_user&.beta_user? %>
-      <%= active_link_to crowd_campaigns_graetzl_path(@graetzl), class: "iconfilter" do %>
-        <%= icon_tag "crowd" %>
-        <div class="txt">Crowd<br/>funding</div>
-      <% end %>
+    <%= active_link_to crowd_campaigns_graetzl_path(@graetzl), class: "iconfilter" do %>
+      <%= icon_tag "crowd" %>
+      <div class="txt">Crowd<br/>funding</div>
     <% end %>
 
     <%= active_link_to rooms_graetzl_path(@graetzl), class: "iconfilter" do %>

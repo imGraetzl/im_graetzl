@@ -21,11 +21,9 @@
       <div class="txt">Markt <br/>platz</div>
     <% end %>
 
-    <% if current_user&.beta_user? %>
-      <%= active_link_to district_crowd_campaigns_path(@district), class: "iconfilter" do %>
-        <%= icon_tag "crowd" %>
-        <div class="txt">Crowd<br/>funding</div>
-      <% end %>
+    <%= active_link_to district_crowd_campaigns_path(@district), class: "iconfilter" do %>
+      <%= icon_tag "crowd" %>
+      <div class="txt">Crowd<br/>funding</div>
     <% end %>
 
     <%= active_link_to district_rooms_path(@district), class: "iconfilter" do %>

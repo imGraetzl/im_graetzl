@@ -6,14 +6,18 @@ ol.list-formal {
     display: block;
   }
   > li {
-    margin-bottom: 60px;
+    margin-bottom: 50px;
+  }
+  > li > h3 {
+    margin-bottom: 20px;
   }
   > li > ol {
-    padding-left: 20px;
+    padding-left: 30px;
+    margin-bottom: 10px;
     list-style: lower-latin;
   }
   > li > ul {
-    padding-left: 20px;
+    padding-left: 30px;
     list-style: disc;
     margin-bottom: 10px;
   }
@@ -21,13 +25,23 @@ ol.list-formal {
     margin-bottom: 15px;
   }
   > li > ol > li > ol {
-    padding-left: 20px;
+    padding-left: 30px;
+    li {
+      margin-top: 15px;
+    }
+  }
+  > li > ol > li > ol > li > ol {
+    padding-left: 30px;
     li {
       margin-top: 15px;
     }
   }
   p {
     margin-bottom: 10px;
+  }
+  ol.nested li:first-child {
+    font-weight: bold;
+    @include font-size-primaryFont('large');
   }
 }
 

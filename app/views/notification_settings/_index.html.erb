@@ -38,7 +38,6 @@
   <%= render 'notification_settings/slice', type: Notifications::NewCoopDemand %>
 </div>
 
-<% if current_user&.beta_user? %>
 <div class="notifications-block">
   <div class="settingHead">
     <div class="col1">
@@ -48,7 +47,6 @@
   <%= render 'notification_settings/slice', type: Notifications::NewCrowdCampaign %>
   <%= render 'notification_settings/slice', type: Notifications::NewCrowdCampaignPost %>
 </div>
-<% end %>
 
 <div class="notifications-block">
   <div class="settingHead">
