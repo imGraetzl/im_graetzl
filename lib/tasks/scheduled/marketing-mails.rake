@@ -4,12 +4,13 @@ namespace :scheduled do
 
     region = Region.get('wien')
 
-    # For Testing
-    # heroku rake scheduled:agb_change_and_welocally -a imgraetzl-staging
-    user = User.where(email: ['michael.walchhuetter@gmail.com'])
+    # heroku rake scheduled:agb_change_and_crowdfunding -a imgraetzl-staging
 
-    user.find_each do |user|
-    # User.in(region).confirmed.find_each do |user|
+    # For Testing
+    # user = User.where(email: ['michael.walchhuetter@gmail.com'])
+    # user.find_each do |user|
+
+    User.in(region).confirmed.find_each do |user|
       MarketingMailer.agb_change_and_crowdfunding(user).deliver_now
     end
 
