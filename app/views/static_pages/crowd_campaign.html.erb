@@ -1,7 +1,8 @@
 <% meta(
     title: t('.title'),
     description: t('.description'),
-    robots: 'index, follow'
+    robots: 'index, follow',
+    og_image: image_url("meta/#{current_region.id}/crowdfunding.png")
   )
 %>
 
@@ -9,16 +10,17 @@
 
   <div class="hl-subtext">
     <h1>Lokales <em>Crowdfunding</em></h1>
-    <p>Setze deine Vorhaben mit der Kraft der Gemeinschaft um.</p>
+    <p>Deine Vorhaben in die Umsetzung bringen</p>
   </div>
 
   <div class="paperCard -cord1RT container -top" id="zero">
     <div class="wrp">
       <p>
-        <strong>Team work makes the dream works!</strong> Stelle ein kostenloses Gesuch im Coop & Share Marktplatz ein, wenn du dich mit Gleichgesinnten zusammenschließen möchtest.
-      </p>
-      <p>
-        <strong>Der Coop & Share Marktplatz ist für alle gedacht, die ein nicht kommerzielles  Angebot bereithalten</strong> (z.B. kostenlos, zum Selbstkostenpreis, gegen Spende, Vereins- und Mitgliedergebühr, Genossenschaftsbeitrag etc. ). Bitte schreibe dazu, ob und welche Kosten mit deinem Angebot verbunden sind.
+        <strong>Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.</strong>
+        <br>
+        Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen,
+        aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.
+        Alle Vorhaben, von denen außerdem noch andere Menschen profitieren, bekommen auf ihre Kampagne einen extra Sichtbarkeitsboost.
       </p>
     </div>
     <div class="card"></div>
@@ -27,85 +29,86 @@
   <aside>
     <div id="help_nav">
       <%= link_to info_path, class: "btn-primary -grey -ico" do %><%= icon_tag "arrow-left-2" %> Services Übersicht<% end %>
-      <a href="#kategorien" class="btn-primary -mint" id="nav-1">Infos zu den Kategorien</a>
-      <a href="#erstellen" class="btn-primary -mint" id="nav-2">Angebot erstellen</a>
-      <a href="#sichtbarkeit" class="btn-primary -mint" id="nav-3">Sichtbarkeit & Kontakt</a>
-      <a href="#tauschgeschaefte" class="btn-primary -mint" id="nav-4">Tauschgeschäfte</a>
+      <a href="#was" class="btn-primary -mint" id="nav-1">Lokales Crowdfunding</a>
+      <a href="#kosten" class="btn-primary -mint" id="nav-2">Was kostet es?</a>
+      <a href="#wie" class="btn-primary -mint" id="nav-3">Wie funktioniert es?</a>
+      <a href="#warum" class="btn-primary -mint" id="nav-4">Warum Crowdfunding?</a>
+      <a href="#voraussetzungen" class="btn-primary -mint" id="nav-5">Voraussetzungen</a>
     </div>
   </aside>
 
   <div class="mainContent">
 
     <article class="container" id="1">
-      <h2 id="kategorien">Infos zu den Kategorien</h2>
-      <h3>Motivation und Inspiration:</h3>
-      <p>
-        Startest du gerade ein Erfolgsteam und hast noch einen Platz frei? Gründest du gerade und suchst noch Wegbegleiter*innen? Oder möchtest du andere Macher*innen als Sparring Partner*in begleiten und deine Erfahrungen weitergeben? Dann stelle ein kostenloses Gesuch ein.
-      </p>
+      <h2 id="was"><span>Was ist</span> lokales Crowdfunding?</h2>
+      <br>
+      <p><strong>Angenommen,</strong> du möchtest mit deinem Projekt einen Leerstand beziehen, aber dieser Raum ist sehr heruntergekommen und muss zuerst renoviert und hergerichtet werden. Oder ihr seid eine Initiative und möchtet im Stadtteil die Nachbarschaft bei einem Fest zusammenbringen. Egal, wie dein Vorhaben aussieht, ganz häufig fehlt zur Umsetzung der Vorhaben Geld, vielleicht auch helfende Hände, Sachspenden, Raum oder einfach gute Kontakte und Sichtbarkeit.</p>
+      <p><strong>Um diese Lücke zu schließen, wurde Crowdfunding erfunden.</strong> Das heißt: Viele Menschen tun sich zusammen (Crowd), um die Umsetzung eines Vorhabens zu ermöglichen.  Sie geben Geld, Sichtbarkeit, Kontakte, Zeit- oder Sachspenden, vielleicht auch Raum und ermöglichen so die Umsetzung  des Vorhabens (Funding).</p>
+      <p><strong>Die Kampagnenstarter*innen revanchieren sich im Gegenzug für die Unterstützung mit Dankeschöns.</strong> Damit das alles passieren kann, wird dafür eine Crowdfunding Kampagne aufgesetzt. Diese läuft eine bestimmte Zeit z.B. 30 Tage und in dieser Zeit wird so richtig für das Vorhaben getrommelt und dann hoffentlich auch das benötigte Geld und andere Unterstützung eingesammelt.</p>
+      <p><strong>Das hört sich fast zu schön an, um wahr zu sein, deshalb auch der wichtige Hinweis:</strong> Die Durchführung einer Crowdfunding Kampagne ist mit Arbeit verbunden und längst nicht jede Crowdfunding Kampagne erreicht das gesetzte Ziel. Aber es ist eine wirklich großartige Chance Vorhaben in die Umsetzung zu bringen. Manche sagen, und wir teilen diese Ansicht, dass das Sammeln von Geld beim Crowdfunding nicht im Mittelpunkt steht, sondern die Chance sich mit vielen Menschen (Crowd) verbinden zu können. Das ist langfristig gesehen nämlich wesentlich wertvoller.</p>
+      <p><strong>Nachdem du dir die Videos in unserem Crowdfunding Bereich angeschaut hast,</strong> sprich auf jeden Fall mit deiner Steuerexpert*in deines Vertrauens das Thema Crowdfunding durch. Was muss in deinem Fall versteuert werden? Kannst du Rechnungen ausstellen für die Dankeschöns? Das sind z.B. einige der wichtigen Fragen. Das Crowdfunding Modell, das wir anbieten, läuft unter dem Begriff: Reward- und Donation based Crowdfunding.</p>
+      <p>Bei uns können die Unterstützer*innen dein Projekt entweder mit einem von dir festgelegten Dankeschön (Gegenleistung) unterstützen oder einen Betrag in Form einer freien Unterstützung oder eine Spende (wenn du einen Nachweis der Gemeinnützigkeit hast) geben.</p>
 
-      <h3>Kooperation und Kollaborationen:</h3>
-      <p>
-        Du suchst Projekt- und Kooperationspartner*innen, vielleicht auch Geschäftspartner*innen? Dann bist du in dieser Kategorie richtig, beschreibe dein Anliegen und was für eine Kooperation bzw. Zusammenarbeit du genau suchst.
-      </p>
-
-      <h3>Vereine und Initiativen:</h3>
-      <p>
-        Möchtet ihr zeigen, dass man sich noch an euch andocken kann und Mitgestalter*innen willkommen sind? Dann stellt euch vor und schreibt für wen und was eure Initiative bzw. Verein gedacht ist. Falls ihr gerade ein spezielles Anliegen habt z.B.  helfende Hände für ein Fest benötigt, auch solche Anliegen sind in dieser Kategorie willkommen.
-      </p>
-
-      <h3>Tauschgeschäfte:</h3>
-      <p>
-        Tausche eine Dienstleistung oder ein Produkt gegen eine gleichwertige andere Dienstleistung oder Produkt ein. Was es zu beachten gibt, findest du weiter unten ausführlicher beschrieben.
-      </p>
-
-      <h3>Gratis Kennenlernangebote:</h3>
-      <p>
-        Du möchtest anderen Menschen die Gelegenheit geben dein Angebot kennenzulernen und bietest z.B. kostenlose Erstberatungen oder Schnupper-Sessions an? Oder du befindest dich in Ausbildung und suchst Menschen, um an ihnen deine neuen Kenntnisse zu üben und anzuwenden. Dann mache dein Angebot hier sichtbar.
-      </p>
     </article>
 
     <article class="container" id="2">
-      <h2 id="erstellen">Angebot erstellen</h2>
-      <h3>Erstellung einen Angebotes im Coop & Share Marktplatz</h3>
+      <h2 id="kosten"><span>Kostet</span> die Crowdfunding Kampagne etwas?</h2>
+      <br>
       <p>
-        Suchst du oder bietest du etwas an? Beide Varianten sind möglich. Die Erstellung deines Gesuchs oder Angebots geht ganz einfach, indem du das Formular ausfüllst und dann der passenden Kategorie zuordnest. Aus dem Formular entsteht eine interaktive Seite, die du auch in deinem eigenen Kanälen teilen kannst.
-        <br><br>
-        Es gibt aktuell folgende Kategorien: Tauschgeschäft, Kooperation, Interessierte für Verein & Initiative, Motivation und Unterstützung. Schreibe nicht nur Stichpunkte auf, sondern formuliere ganze Sätze. Wähle ein aussagekräftiges Bild. Verwende keinen Text im Bild, der wird unleserlich.
+        <strong>Nur wenn deine Kampagne erfolgreich abgeschlossen ist, behalten wir 4% von der eingegangenen Geldsumme ein.</strong> Das ist für den Zahlungsanbieter und zur Deckung der internen Kosten. Es ist ein Selbstkostenpreis und für uns kein Geschäftsmodell. Wenn die Kampagne nicht erfolgreich ist, kostet sie dich nichts.
       </p>
+
     </article>
 
     <article class="container" id="3">
-      <h2 id="sichtbarkeit">Sichtbarkeit deines Gesuch oder Angebot</h2>
-      <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
-      <h3>Kontaktaufnahme</h3>
-      <p>
-        Interessierten stehen drei Wege zur Kontaktaufnahme zur Verfügung: 1. über den internen Messenger 2. über deine angegebene Emailadresse 3. über das Kommentarfeld auf der Seite.
-      </p>
+      <h2 id="wie"><span>Wie funktioniert</span> eine Crowdfunding Kampagne?</h2>
+      <br>
+      <p>Du findest alle wichtigen Informationen zum Start deiner eigenen Crowdfunding Kampagne im <%= link_to 'Crowdfunding Bereich', start_crowd_campaigns_path %>.</p>
+      <p>Kurze Videos von unseren Partnern <%= link_to 'Crowdstrudel', 'https://www.crowdstrudel.com', target: '_blank' %> erklären dir Schritt für Schritt, wie du deine Kampagne einrichtest und wie eine Crowdfunding Kampagne grundsätzlich funktioniert. Zusätzlich gibt es Vorlagen, die dich bei den einzelnen Schritten unterstützen.</p>
+      <p>Wir schicken dir außerdem weitere Tipps per Mail zu - etwa, wie du vor Kampagnenstart deine Crowd aufbaust oder wie du deine Crowdfunding Kampagne ins Laufen bringst.</p>
     </article>
 
     <article class="container" id="4">
-      <h2 id="tauschgeschaefte">Zu den Tauschgeschäften</h2>
-      <p>Dein Coop & Share Gesuch oder Angebot wird auf <%= t("region.#{current_region.id}.domain_short") %> angezeigt und in das <%= t("region.#{current_region.id}.domain_short") %> Mail aufgenommen und an alle registrierten BewohnerInnen <%= t("region.#{current_region.id}.in_graetzl") %> verschickt.</p>
-      <p>
-        Viele NetzwerkerInnen tun es schon und in großen Konzernen gibt es häufig Abteilungen, die sich nur um die Abwicklung von Tauschgeschäften (Kompensationsgeschäfte, Barter-Deals, Gegengeschäfte) kümmern. Was liegt näher diese Möglichkeit auch für Dienstleister*innen und generell für lokale Anbieter*innen lokal einfacher zugänglich zu machen.
-      </p>
-      <h3>Folgende Varianten könnt ihr hier ausprobieren</h3>
-      <ol>
-        <li>Du brauchst ein Produkt oder eine Dienstleistung. Dann formuliere deine Anzeige folgendermaßen: Ich suche xyz und ich biete z.B. dies, dies und das dafür an (hier kannst du alles nennen, was du bereit bist dafür einzutauschen). Der Wert deines Angebotes sollte natürlich auch zum Produkt/Dienstleistung passen, dass du suchst. </li>
-        <br>
-        <li>Du hast gerade gar keine konkreten Wünsche, aber bist trotzdem offen für Tauschgeschäfte. Dann schreibe: Ich biete xyz an, was möchtest du dafür eintauschen?</li>
-      </ol>
+      <h2 id="warum"><span>Warum eine</span> Crowdfunding Kampagne auf <%= t("region.#{current_region.id}.domain_short") %> starten?</h2>
+      <h3>Wir erweitern das Thema Crowdfunding um ein paar Aspekte, damit noch mehr Vorhaben in die Umsetzung kommen:</h3>
+      <ul>
+        <li>Das Crowdfunding ist bei <%= t("region.#{current_region.id}.domain_short") %> bereits in eine lokale Community, bestehend aus kooperativen und unterstützenden Macher*innen, eingebettet. Also Menschen, die bei dir ums Eck leben und ein gesteigertes Interesse mitbringen, dass gute Dinge in ihrem Umfeld passieren - davon profitieren nämlich alle. Natürlich können aber auch alle anderen Menschen, egal woher, deine Kampagne unterstützen.</li>
+        <li>Bei uns kann nicht nur zu Geld-, sondern auch zu Raum, Zeit- und Sachspenden aufgerufen werden.</li>
+        <li>Die Crowdfunding Kampagnen werden in den Streams auf der Plattform angezeigt und in die Newsletter aufgenommen und verteilt. Das ist extra Sichtbarkeit.</li>
+        <li>Crowdfunding ist für uns kein Geschäftsmodell, daher sind uns kleine Kampagnen (unter 1000 €) genauso wichtig wie die größeren.</li>
+        <li>Und: Ein besonderes Augenmerk legen wir auf lokale Vorhaben, von denen die Allgemeinheit profitiert. Wenn du z.B. Geld benötigst, um einen Leerstand zu aktivieren, dann wirkt sich das auch auf die Umgebung positiv aus, weil du mit deinem Vorhaben Leben in den Stadtteil bringst. Oder du planst ein Parklett als Treffpunkt für die Nachbarschaft vor der Haustür, dann tut das dem Miteinander gut.  Es könnte auch sein, dass du ein Grätzlrad organisieren möchtest, dass dann alle im Grätzl nutzen können. Solche Vorhaben bekommen noch einmal einen extra Sichtbarkeits-Boost von uns.</li>
+      </ul>
+      <h3>Zur Inspiration nun ein paar Beispiele für Vorhaben, die über Crowdfunding in die Umsetzung kommen können:</h3>
+      <ul>
+        <li>Ein Stadtteilfest ist geplant und es fehlt Geld, um eine Bühne anzumieten oder Flyer zu drucken.</li>
+        <li>Drei Schmuck-Künstler*innen haben sich zusammengetan und es ist eine kleine Schmuck-Messe geplant, es fehlen noch ein Raum und Ausstellungstische.</li>
+        <li>Ein Malort soll entstehen - die Küche muss allerdings erneuert werden und dafür fehlt das Geld.</li>
+        <li>Es gibt weit und breit keine Räume in der Nachbarschaft für Vereine, Bewohner*innen und Macher*innen, um sich zu treffen, Kindergeburtstage zu feiern oder die Arbeitstreffen abzuhalten. So ein Raum soll entstehen, die Miete kann jedoch nur zu einem Teil aufgebracht werden.</li>
+        <li>Eine Pilatestrainerin hat ein spezielles Programm für ältere Menschen ausgearbeitet, allerdings müssten dafür die Räumlichkeiten barrierefrei umgebaut werden.</li>
+      </ul>
       <br>
-      <p>So praktisch Geld und die darauf basierende Geldwirtschaft sein mag: Unverzichtbar oder gar gesetzlich vorgeschrieben ist sie nicht: Die Tauschwirtschaft ist völlig legal.</p>
-
-      <h3>Was gilt es zu beachten:</h3>
       <p>
-        Erstelle über deine Tauschleistung eine Rechnung mit ordnungsgemäß ausgewiesener Umsatzsteuer, so wie bei jedem anderen Geschäft auch. Entsprechend erhältst du vom Tauschpartner eine Rechnung mit ausgewiesener Umsatzsteuer über seine Leistung. Tauschgeschäfte sind buchhalterisch, finanztechnisch und steuerrechtlich genauso zu behandeln wie normale Geld-Geschäfte. Es gibt keine steuerlichen Nachteile aber auch keine steuerlichen Vorteile. Wer es genau wissen möchte, bitte auch noch beim SteuerberaterIn deines Vertrauens nachfragen. Mehr Infos und Beispiele gibt es dazu in diesem Blogbeitrag von <%= link_to 'Hellerconsult', 'https://blog.hellerconsult.com/gegenschaefte-wie-ist-das-eigentlich-steuerlich/', target: '_blank' %>.
-        <br><br>
-        Um auf Nummer sicher zu gehen, laß dich aber unbedingt auch noch einmal von eine*r Steuerberater*in beraten.
+        Wenn du Fragen zum Crowdfunding hast und z.B. unsicher bist, ob sich dein Vorhaben dafür eignet, schreib uns doch an <%= t("region.#{current_region.id}.contact_email") %>
       </p>
     </article>
 
+    <article class="container" id="5">
+      <h2 id="voraussetzungen"><span>Voraussetzungen,</span> um eine lokale Crowdfunding Kampagne auf <%= t("region.#{current_region.id}.domain_short") %> zu starten</h2>
+
+      <h3>Voraussetzung, um eine Kampagne zu starten</h3>
+      <ol>
+        <li>Kampagnenstarter*in ist mind. 18 Jahre alt</li>
+        <li>Kapagnenstarter*in ist entweder in Wien, in einer der angedockten WeLocally Gemeinden in Kärnten oder in einer der 17 Gemeinden im Mühlviertler Kernland beheimatet.</li>
+        <li>Kampagnenstarter*innen sind bereit, ihre Identität und Kontodaten prüfen zu lassen.</li>
+        <li>Kampagnenstarter*innen treten mit Vor- und Nachname und einem persönlichen Foto auf der Kampagnenseite auf und agieren offen, ehrlich und transparent.</li>
+      </ol>
+
+      <h3>Folgendes wird nicht akzeptiert</h3>
+      <ol>
+        <li>Finanzierung von Studium, Ausbildung, privaten Veranstaltungen oder Reisen, Privateigentum, Wahlkampf sowie Parteifinanzierung.</li>
+        <li>Dankeschöns, die Lose, Unternehmensanteile oder Kapitalanlagen bzw. Kredite sind.</li>
+        <li>Finanzierung von Waffen und/oder vom Gesetzgeber als illegal eingestufte Drogen.</li>
+      </ol>
   </div>
 
   <div style="clear:both;"></div>

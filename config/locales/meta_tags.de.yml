@@ -52,6 +52,13 @@ de:
     zuckerls:
       title: 'Jeden Monat neu - Zuckerl & Angebote in %{region}'
       description: 'Gutscheine, Angebote & Rabattaktionen von Selbständigen, kleinen Unternehmen, Lokalen & Geschäften in %{region}.'
+    crowd_campaigns:
+      welocally:
+        title: 'Lokales Crowdfunding in %{region}'
+        description: 'Entdecke lokale Crowdfunding Kampagnen aus deiner Gemeinde in %{region} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+      imgraetzl:
+        title: 'Lokales Crowdfunding in %{region}'
+        description: 'Entdecke lokale Crowdfunding Kampagnen aus Wien oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
 
   districts:
     index:
@@ -84,6 +91,9 @@ de:
     coop_demands:
       title: 'Coop & Share Marktplatz Angebote in %{zip} %{region}'
       description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind.'
+    crowd_campaigns:
+      title: 'Lokales Crowdfunding in %{zip} %{region}'
+      description: 'Entdecke lokale Crowdfunding Kampagnen in %{region} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
 
   graetzls:
     show:
@@ -142,6 +152,13 @@ de:
       imgraetzl:
         title: 'Coop & Share Marktplatz Angebote im Grätzl %{graetzl}'
         description: 'Vernetze dich mit Gleichgesinnten für noch mehr Rückenwind & finde Kooperationspartner*innen für dein Vorhaben. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
+    crowd_campaigns:
+      welocally:
+        title: 'Lokales Crowdfunding aus der Gemeinde %{graetzl}'
+        description: 'Entdecke lokale Crowdfunding Kampagnen aus %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
+      imgraetzl:
+        title: 'Lokales Crowdfunding aus dem Grätzl %{graetzl}'
+        description: 'Entdecke lokale Crowdfunding Kampagnen aus dem Grätzl %{graetzl} oder starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen.'
 
   meetings:
     show:
@@ -174,7 +191,7 @@ de:
 
   crowd_campaigns:
     show:
-      title: 'Crowdfunding: %{title}'
+      title: 'Lokales Crowdfunding: %{title}'
       description: '%{desc}...'
 
   crowd_pledges:
@@ -309,6 +326,9 @@ de:
     good_morning_dates:
       title: 'Mehr reale Vernetzung in deinem Bezirk mit den Good Morning Dates'
       description: 'Du möchtest Macher*innen aus deinem Bezirk kennenlernen und erfahren, woran andere bei dir um die Ecke gerade tüfteln, was sie begeistert, wie sie ins Tun kommen? Und ausloten, ob es vielleicht Überschneidungen gibt? Auf zum ersten Good Morning Date in deinem Bezirk!'
+    crowd_campaign:
+      title: 'Lokales Crowdfunding - Deine Vorhaben in die Umsetzung bringen.'
+      description: 'Starte eine Crowdfunding Kampagne mitten in einer lokalen Community, um dein Vorhaben in die Umsetzung zu bringen. Die Crowdfunding Kampagne macht dein Vorhaben sichtbar, du kannst Geld, Zeit- & Sachspenden aufrufen, aber auch Räumlichkeiten, wenn du diese zur Realisierung deiner Vorhaben benötigst.'
 
   campaign_users:
     index:

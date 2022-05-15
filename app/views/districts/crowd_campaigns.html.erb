@@ -1,10 +1,10 @@
 <% meta(
-    title: t('.title', numeric: @district.numeric, region: current_region.name),
-    description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
+    title: t('.title', zip: @district.zip, region: current_region.name),
+    description: t('.description', zip: @district.zip, name: @district.name, region: current_region.name),
     robots: 'index, follow',
-    og_title: t('.title', numeric: @district.numeric, region: current_region.name),
-    og_description: t('.description', numeric: @district.numeric, name: @district.name, region: current_region.name),
-    og_image: image_url("meta/#{current_region.id}/og_logo.png")
+    og_title: t('.title', zip: @district.zip, region: current_region.name),
+    og_description: t('.description', zip: @district.zip, name: @district.name, region: current_region.name),
+    og_image: image_url("meta/#{current_region.id}/crowdfunding.png")
   )
 %>
 
