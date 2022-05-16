@@ -577,6 +577,7 @@ section.crowd_campaign {
       @include font-size-secondaryFont('small');
     }
     a {
+      word-wrap: break-word;
       color: $color-ambient-mint;
       display: block;
       font-style: italic;
