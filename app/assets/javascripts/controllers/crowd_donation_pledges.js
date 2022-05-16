@@ -3,6 +3,7 @@ APP.controllers.crowd_donation_pledges = (function() {
     function init() {
       if      ($(".crowd-pledges-page.choice-screen").exists())  {initChoiceScreen();}
       else if ($(".crowd-pledges-page.address-screen").exists()) {initAddressScreen();}
+      else if ($(".crowd-pledges-page.detail-screen").exists()) {initDetailScreen();}
     }
 
     function initChoiceScreen() {
@@ -22,6 +23,12 @@ APP.controllers.crowd_donation_pledges = (function() {
           $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst fortfahren..');
         }
       }
+    }
+
+    function initDetailScreen() {
+      $('.-pledge-details-toggle').on('click', function() {
+        $('.-pledge-details').slideToggle();
+      });
     }
 
     return {

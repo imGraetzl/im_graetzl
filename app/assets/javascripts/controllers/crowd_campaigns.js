@@ -60,20 +60,6 @@ APP.controllers.crowd_campaigns = (function() {
           scrollTop: $('.-supportBox').offset().top
         }, 600);
       });
-
-      $('#media-slider').lightSlider({
-          gallery: true,
-          item: 1,
-          loop: false,
-          slideMargin: 10,
-          thumbItem: 5,
-          controls: false,
-          onBeforeSlide: function(el) {
-            var vidsrc = $('#galleryVideo').attr('src');
-            $('#galleryVideo').attr('src', vidsrc);
-        }
-      });
-
     }
 
     return {

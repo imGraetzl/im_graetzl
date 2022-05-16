@@ -7,7 +7,7 @@ APP.controllers_loggedin.users = (function() {
 
         // User Profile
         if ($("section.userprofile").exists()) {
-          if (!$(".tabs-nav li").exists()) { $(".tabs-ctrl").hide(); } // Hide Taby if empty
+          if (!$(".tabs-nav li").exists()) { $(".tabs-ctrl").hide(); } // Hide Tab if empty
 
           // Find and Submit active Tab on Pageload
           if (formSubmit = $('.tabs-ctrl').find("li.active").data("submit")) {

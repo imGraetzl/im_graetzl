@@ -220,6 +220,9 @@ de:
       title: 'Crowdfunding Untestützung - Adressangaben'
     summary:
       title: 'Crowdfunding Untestützung - Zusammenfassung'
+    details:
+      title: 'Crowdfunding Untestützung - Details'
+
 
   coop_demands:
     show:

@@ -194,7 +194,7 @@ class CrowdCampaignsController < ApplicationController
 
   def collection_scope
     if params[:user_id].present?
-      CrowdCampaign.funding.where(user_id: params[:user_id])
+      CrowdCampaign.scope_public.where(user_id: params[:user_id])
     else
       CrowdCampaign.scope_public
     end

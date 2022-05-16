@@ -1,0 +1,131 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow'
+  )
+%>
+
+<section class="crowd-pledges-page -donation detail-screen">
+
+  <div class="col-content">
+    <div class="hl-subtext">
+      <h1>Deine Unterstützung</h1>
+      <p>
+        Hier findest du eine Übersicht und Informationen zu deiner Crowdfunding Unterstützung.
+      </p>
+    </div>
+
+    <div class="table-container -light" role="table">
+
+      <div class="flex-table header" role="rowgroup">
+        <div class="flex-row full first" role="columnheader">Zusammenfassung</div>
+      </div>
+
+      <div class="flex-table" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützes Projekt</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= link_to @crowd_donation_pledge.crowd_campaign.title, @crowd_donation_pledge.crowd_campaign, target: '_blank' %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Unterstützungsdatum</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_donation_pledge.created_at, format:'%a, %d. %B %Y, %H:%M') %></div>
+      </div>
+
+      <div class="flex-table row" role="rowgroup">
+        <div class="flex-row xxlarge" role="cell"><strong>Deine Unterstützung</strong></div>
+        <div class="flex-row xxxlarge" role="cell"><%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %></div>
+      </div>
+
+    </div>
+
+    <%= link_to 'Details öffnen', 'javascript:', class: 'btn-primary -mint -pledge-details-toggle' %>
+
+    <div class="-pledge-details">
+
+      <div class="table-container -light" role="table">
+
+        <div class="flex-table header" role="rowgroup">
+          <div class="flex-row full first" role="columnheader">Unterstützungsdetails</div>
+        </div>
+
+        <div class="flex-table" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Deine Daten</strong></div>
+          <div class="flex-row xxxlarge" role="cell">
+            <%= @crowd_donation_pledge.contact_name %><br>
+          </div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Unterstützungs-ID</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_donation_pledge.id %></div>
+        </div>
+
+      </div>
+
+      <div class="table-container -light" role="table">
+
+        <div class="flex-table header" role="rowgroup">
+          <div class="flex-row full first" role="columnheader"><%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %></div>
+        </div>
+
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Deine Auswahl</strong></div>
+          <div class="flex-row xxxlarge" role="cell">
+            <%= @crowd_donation.title %><br><br>
+            <%= @crowd_donation.description %>
+          </div>
+        </div>
+
+        <% if @crowd_donation.startdate %>
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Benötigt ab frühestens</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_donation.startdate, format:'%d. %b %Y') %></div>
+        </div>
+        <% end %>
+
+        <% if @crowd_donation.enddate %>
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Benötigt bis spätestens</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= I18n.localize(@crowd_donation.enddate, format:'%d. %b %Y') %></div>
+        </div>
+        <% end %>
+
+        <% if @crowd_donation_pledge.answer.present? %>
+        <div class="flex-table row" role="rowgroup">
+          <div class="flex-row xxlarge" role="cell"><strong>Deine Antwort zum Dankeschön</strong></div>
+          <div class="flex-row xxxlarge" role="cell"><%= @crowd_donation_pledge.answer %></div>
+        </div>
+        <% end %>
+
+      </div>
+
+    </div>
+
+    <div class="faqs">
+      <div class="content-block -toggable">
+        <h3>Wann wird meine Unterstützung (Raum, Zeit, Sachspenden) angefordert?</h3>
+        <div class="-toggle-content">
+          <p>
+            Sobald die Kampagne als erfolgreich abgeschlossen gilt und es zur Auszahlung der Beträge kommt, kontaktieren dich die Starter*innen, um Details mit dir zu klären.
+          </p>
+          <p>
+            Dafür gibt es keinen automatischen Prozess auf der Plattform, es ist eine persönliche Kontaktaufnahme und Austausch erforderlich, zwischen dir und den Kampagnenstarter*innen.
+          </p>
+        </div>
+      </div>
+      <div class="content-block -toggable">
+        <h3>Wie kontaktiere ich die Starter*innen oder das Projekt?</h3>
+        <div class="-toggle-content">
+          <p>Du kannst die Starter*innen anschreiben z.B. über den internen Messenger oder per Mail. Die Mailadresse und andere Kontaktdaten findest du auf ihrer Kampagnenseite im Impressum. Du kannst auch eine öffentliche Nachricht auf die Pinnwand im Projekt schreiben!</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sidebar">
+    <%= render @crowd_donation_pledge.crowd_campaign %>
+    <br>
+    <%= link_to 'Starter*in im Messenger kontaktieren', messenger_start_thread_path(user_id: @crowd_donation_pledge.crowd_campaign.user.id), class: 'btn-secondary -mint -small' %>
+  </div>
+
+</section>

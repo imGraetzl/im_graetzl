@@ -4,7 +4,7 @@
     <% if crowd_pledge.user&.username %>
       <div><%= avatar_image_with_tooltip crowd_pledge.user, size: :thumb, class: 'img-round' %></div>
       <div class="name">
-        <%= link_to crowd_pledge.user, crowd_pledge.user %><br>
+        <%= link_to crowd_pledge.contact_name, crowd_pledge.user %><br>
         <small><em><%= I18n.localize(crowd_pledge.created_at, format:'%a, %d. %B %Y, %H:%M') %></em></small>
       </div>
     <% else %>
