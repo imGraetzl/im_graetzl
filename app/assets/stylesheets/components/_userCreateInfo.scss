@@ -14,12 +14,14 @@
   }
   .userAndType {
     a {
-      margin-left: 3px;
       margin-right: 3px;
       text-decoration: none;
       &:hover {
         text-decoration: underline;
       }
+    }
+    span + a {
+      margin-left: 3px;
     }
   }
   .timeago {
