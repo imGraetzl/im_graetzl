@@ -31,8 +31,11 @@
           <%= cover_header_image(@crowd_campaign, class: 'titleImg') %>
       <% end %>
       <div class="social-icons">
-        <em>Teilen auf:</em>
+        <em>Erzähls weiter:</em>
+        <%= link_to image_tag("svg/icon-social-whatsapp.svg", class: 'icon whatsapp'), "whatsapp://send?text=#{@crowd_campaign.title}: #{crowd_campaign_url(@crowd_campaign)}", target: "_blank", :data => { :'action' => 'share/whatsapp/share' } %>
         <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
+        <%= link_to image_tag("svg/icon-social-twitter.svg", class: 'icon twitter'), "http://twitter.com/share?text=Crowdfunding: #{@crowd_campaign.title}&url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
+        <%= link_to image_tag("svg/icon-social-linkedin.svg", class: 'icon linkedin'), "https://www.linkedin.com/sharing/share-offsite/?url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
       </div>
     </div>
     <div class="coverImgBottom"></div>
