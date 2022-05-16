@@ -282,12 +282,31 @@ section.crowd_campaign {
       align-items: center;
       color: $color-ambient-mint-dark;
       transform: rotate(1.5deg) translate3d(0, 0, 0);
+      @include respond-to("<large") {
+        right:20px;
+      }
+      @include respond-to("<medium") {
+        top:-30px;
+        right:7px;
+      }
+      .whatsapp {
+        margin-left:8px;
+        @media screen and (min-width: 500px) {
+          display: none;
+        }
+      }
       svg {
         fill: $color-ambient-mint-dark;
       }
+      a {
+        display: block;
+        cursor: pointer;
+        margin-left:2px;
+        margin-right:2px;
+      }
       a:hover {
-        svg {
-          fill: $color-ambient-rosa-dark;
+        img, svg {
+          transform: scale(1.2);
         }
       }
     }
