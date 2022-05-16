@@ -582,12 +582,6 @@ section.crowd_campaign {
       font-style: italic;
       font-weight: bold;
     }
-    svg.icon {
-      margin:auto;
-      width:110px;
-      height:110px;
-      color: $color-ambient-rosa;
-    }
   }
   &.-donation {
     .cardBox .updateteaser {
@@ -618,4 +612,38 @@ section.crowd_campaign {
       margin-bottom: 20px;
     }
   }
+
+  .social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:20px;
+    color: $color-ambient-mint-dark;
+    svg.icon, .icon {
+      width:60px;
+      height:60px;
+    }
+    .whatsapp {
+      width: 55px;
+      height:55px;
+      @media screen and (min-width: 500px) {
+        display: none;
+      }
+    }
+    svg {
+      fill: $color-ambient-mint-dark;
+    }
+    a {
+      display: block;
+      cursor: pointer;
+      margin-right:5px;
+      &:last-of-type { margin-right:0px; }
+    }
+    a:hover {
+      img, svg {
+        transform: scale(1.2);
+      }
+    }
+  }
+
 }
