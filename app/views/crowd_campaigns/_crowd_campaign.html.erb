@@ -45,7 +45,7 @@
             <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <% end %>
           <span class="userAndType">
-            <%= link_to crowd_pledge.user.first_name, crowd_pledge.user, rel: 'nofollow' %>
+            <%= link_to crowd_pledge.contact_name, crowd_pledge.user, rel: 'nofollow' %>
             <span>unterstützt dieses Projekt.</span>
           </span>
         </div>
@@ -67,7 +67,7 @@
             <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <% end %>
           <span class="userAndType">
-            <%= link_to crowd_pledge.user.first_name, crowd_pledge.user, rel: 'nofollow' %>
+            <%= link_to crowd_pledge.contact_name, crowd_pledge.user, rel: 'nofollow' %>
             <span>unterstützt mit <%= I18n.t("activerecord.attributes.crowd_donation.donation_type_short.#{donation_type}") %></span>
           </span>
         </div>

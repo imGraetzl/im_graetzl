@@ -65,10 +65,10 @@
       }
     }
   }
-  // -------------------------- Room Demand Cardbox
+  // -------------------------- CrowdCampaign Cardbox
   &.-crowd_campaign {
     .sideflag {
-      bottom: 10px;
+      bottom: 8px;
       color: $color-ambient-rosa-dark;
       background-color: $color-ambient-rosa-light;
       &.-R {
@@ -418,7 +418,7 @@
 
   .streamElement .txt {
       margin-top:0px;
-      margin-left: 45px;
+      margin-left: 43px;
   }
 
   > .txt {
@@ -461,7 +461,7 @@
     font-size: 13px;
     text-decoration: none;
     margin-top: 8px;
-    margin-left: 45px;
+    margin-left: 43px;
     display: block;
     &:hover {
       text-decoration: underline;
