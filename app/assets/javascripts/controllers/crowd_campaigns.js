@@ -22,7 +22,7 @@ APP.controllers.crowd_campaigns = (function() {
         speed: 1000,
         auto: true,
         loop: true,
-        pause: 5000,
+        pause: 4000,
         controls: false,
         pager: false,
         enableTouch:true,
@@ -60,6 +60,16 @@ APP.controllers.crowd_campaigns = (function() {
           scrollTop: $('.-supportBox').offset().top
         }, 600);
       });
+
+      $('.crowd_campaign .fundingArea .-supporters').on("click", function() {
+        if($("#tab-supporters").is(":hidden")){
+          APP.components.tabs.openTab('supporters');
+        }
+        $('html, body').animate({
+          scrollTop: $('#tab-supporters').offset().top
+        }, 600);
+      });
+
     }
 
     return {
