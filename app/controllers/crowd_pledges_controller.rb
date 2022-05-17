@@ -1,7 +1,6 @@
 class CrowdPledgesController < ApplicationController
   def new
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    #redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
 
     @crowd_pledge.assign_attributes(current_user_params) if current_user
     @crowd_pledge.calculate_price
@@ -9,7 +8,7 @@ class CrowdPledgesController < ApplicationController
 
   def create
     @crowd_pledge = CrowdPledge.new(crowd_pledge_params)
-    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_pledge.crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
 
     if @crowd_pledge.crowd_reward&.fully_claimed?
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
@@ -34,15 +33,11 @@ class CrowdPledgesController < ApplicationController
 
   def choose_amount
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    #redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
-
     @crowd_pledge.calculate_price
   end
 
   def login
     @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    #redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
-
     @crowd_pledge.calculate_price
   end
 

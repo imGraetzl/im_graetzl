@@ -9,9 +9,14 @@ namespace :scheduled do
       CrowdCampaignService.new.delay(run_at: campaign_start).start(campaign)
     end
 
-    # Send emails after 7 days
+    # Send email to funding campaign after 7 days
     CrowdCampaign.funding.where(startdate: 7.days.ago).find_each do |campaign|
       CrowdCampaignMailer.keep_up(campaign).deliver_later
+    end
+
+    # Send email to draft campaign after 30 days
+    CrowdCampaign.draft.where(startdate: 30.days.ago).find_each do |campaign|
+      CrowdCampaignMailer.draft(campaign).deliver_later
     end
 
     # Close expired

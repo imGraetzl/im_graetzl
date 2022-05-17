@@ -7,6 +7,8 @@ class CrowdDonationPledgesController < ApplicationController
 
   def create
     @crowd_donation_pledge = CrowdDonationPledge.new(crowd_donation_pledge_params)
+    redirect_to @crowd_donation_pledge.crowd_donation.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_donation_pledge.crowd_donation.crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_donation_pledge.crowd_donation.crowd_campaign.funding?
+
     @crowd_donation_pledge.user_id = current_user.id if current_user
     if @crowd_donation_pledge.save
       @crowd_donation_pledge.crowd_donation.increment!(:claimed)
