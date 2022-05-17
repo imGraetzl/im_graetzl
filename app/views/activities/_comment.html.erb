@@ -2,7 +2,7 @@
   <div class="entryInitialContent">
     <div class="userCreateInfo">
       <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
-      <span class="userAndType">Kommentar von <%= link_to comment.user.username, comment.user, rel: 'nofollow' %></span>
+      <span class="userAndType"><span>Kommentar von </span><%= link_to comment.user.username, comment.user, rel: 'nofollow' %></span>
     </div>
     <div class="txt">
       <%= link_to comment.content.truncate(100), comment_url, rel: 'nofollow' %>

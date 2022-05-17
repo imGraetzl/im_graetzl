@@ -9,7 +9,7 @@ class ErrorsController < ApplicationController
 
   def internal_server_error
     respond_to do |format|
-      format.html { render 'errors/interval_server_error', status: 500 }
+      format.html { render 'errors/internal_server_error', status: 500 }
       format.all { head 500 }
     end
   end
