@@ -1,6 +1,8 @@
 class CrowdDonationPledgesController < ApplicationController
   def new
     @crowd_donation_pledge = CrowdDonationPledge.new(initial_donation_pledge_params)
+    redirect_back fallback_location: @crowd_donation_pledge.crowd_donation.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_donation_pledge.crowd_donation.crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_donation_pledge.crowd_donation.crowd_campaign.funding?
+
     @crowd_donation_pledge.assign_attributes(current_user_params) if current_user
     @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
