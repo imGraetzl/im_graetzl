@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<% if !crowd_donation.question.empty? %>
+<% if crowd_donation.question.present? %>
 <div class="question">
   <p class="title">Beantworte bitte noch folgende Frage zur <%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{@donation_type}") %>:</p>
   <p><%= crowd_donation.question %></p>
