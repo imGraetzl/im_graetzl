@@ -38,19 +38,6 @@ APP.controllers.application = (function() {
       });
     }
 
-    // Safari Fix - Disable Sumbit Buttons onClick (rails disable_with not working)
-    $('[data-disable-with]').on('click', function(){
-      var $btn = $(this);
-      var btnOriginalText = $btn.text();
-      var btnDisabledText = $btn.data('disable-with');
-      $btn.addClass('-disabled');
-      $btn.text(btnDisabledText);
-      setTimeout(function(){
-        $btn.removeClass('-disabled');
-        $btn.text(btnOriginalText);
-      }, 500);
-    });
-
     // Set Screen Mode Class
     enquire
         .register("screen and (max-width:" + APP.config.majorBreakpoints.medium + "px)", {
