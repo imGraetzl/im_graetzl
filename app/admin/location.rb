@@ -108,6 +108,7 @@ ActiveAdmin.register Location do
     :address_city,
     :address_coordinates,
     :address_description,
+    :user_id,
     images_attributes: [:id, :file, :_destroy]
 
   # Within app/admin/resource_name.rb

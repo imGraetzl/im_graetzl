@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<% if !crowd_reward.question.empty? %>
+<% if crowd_reward.question.present? %>
 <div class="question">
   <p class="title">Beantworte bitte noch folgende Frage zu deinem ausgewählten Dankeschön:</p>
   <p><%= crowd_reward.question %></p>
