@@ -14,6 +14,10 @@ class CrowdDonationPledge < ApplicationRecord
     user_id.nil?
   end
 
+  def email=(val)
+    super(val&.strip.presence)
+  end
+
   private
 
   def set_region_and_type

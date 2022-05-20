@@ -1,15 +1,14 @@
 class CrowdPledgesController < ApplicationController
-  def new
-    @crowd_pledge = CrowdPledge.new(initial_pledge_params)
-    redirect_back fallback_location: @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_pledge.crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+  before_action :load_active_campaign, on: [:new, :create, :calculate_price, :choose_amount]
 
+  def new
+    @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
     @crowd_pledge.assign_attributes(current_user_params) if current_user
     @crowd_pledge.calculate_price
   end
 
   def create
-    @crowd_pledge = CrowdPledge.new(crowd_pledge_params)
-    redirect_to @crowd_pledge.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_pledge.crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_pledge.crowd_campaign.funding?
+    @crowd_pledge = @crowd_campaign.crowd_pledges.build(crowd_pledge_params)
 
     if @crowd_pledge.crowd_reward&.fully_claimed?
       redirect_to @crowd_pledge.crowd_campaign, notice: "Dieses Dankeschön ist nicht mehr verfügbar."
@@ -28,17 +27,17 @@ class CrowdPledgesController < ApplicationController
 
   def calculate_price
     head :ok and return if browser.bot? && !request.format.js?
-    @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+    @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
     @crowd_pledge.calculate_price
   end
 
   def choose_amount
-    @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+    @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
     @crowd_pledge.calculate_price
   end
 
   def login
-    @crowd_pledge = CrowdPledge.new(initial_pledge_params)
+    @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
     @crowd_pledge.calculate_price
   end
 
@@ -98,8 +97,20 @@ class CrowdPledgesController < ApplicationController
 
   private
 
+  def load_active_campaign
+    redirect_to crowd_campaigns_url and return if params[:crowd_campaign_id].blank?
+
+    @crowd_campaign = CrowdCampaign.find(params[:crowd_campaign_id])
+
+    if !@crowd_campaign.funding?
+      redirect_back fallback_location: @crowd_campaign, flash: {
+        error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."
+      }
+    end
+  end
+
   def initial_pledge_params
-    params.permit(:crowd_campaign_id, :crowd_reward_id, :donation_amount, :answer)
+    params.permit(:crowd_reward_id, :donation_amount, :answer)
   end
 
   def current_user_params
@@ -114,7 +125,7 @@ class CrowdPledgesController < ApplicationController
 
   def crowd_pledge_params
     params.require(:crowd_pledge).permit(
-      :crowd_campaign_id, :crowd_reward_id, :donation_amount, :anonym, :terms,
+      :crowd_reward_id, :donation_amount, :anonym, :terms,
       :email, :contact_name, :address_street, :address_zip, :address_city, :answer
     )
   end

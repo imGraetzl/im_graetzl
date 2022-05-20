@@ -1,17 +1,16 @@
 class CrowdDonationPledgesController < ApplicationController
-  def new
-    @crowd_donation_pledge = CrowdDonationPledge.new(initial_donation_pledge_params)
-    redirect_back fallback_location: @crowd_donation_pledge.crowd_donation.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_donation_pledge.crowd_donation.crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_donation_pledge.crowd_donation.crowd_campaign.funding?
+  before_action :load_active_campaign, on: [:new, :create, :choice, :login]
 
+  def new
+    @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
     @crowd_donation_pledge.assign_attributes(current_user_params) if current_user
     @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
   def create
-    @crowd_donation_pledge = CrowdDonationPledge.new(crowd_donation_pledge_params)
-    redirect_to @crowd_donation_pledge.crowd_donation.crowd_campaign, flash: {error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_donation_pledge.crowd_donation.crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."} and return if !@crowd_donation_pledge.crowd_donation.crowd_campaign.funding?
-
+    @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(crowd_donation_pledge_params)
     @crowd_donation_pledge.user_id = current_user.id if current_user
+
     if @crowd_donation_pledge.save
       @crowd_donation_pledge.crowd_donation.increment!(:claimed)
       redirect_to [:summary, @crowd_donation_pledge]
@@ -23,12 +22,12 @@ class CrowdDonationPledgesController < ApplicationController
   end
 
   def choice
-    @crowd_donation_pledge = CrowdDonationPledge.new(initial_donation_pledge_params)
+    @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
     @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
   def login
-    @crowd_donation_pledge = CrowdDonationPledge.new(initial_donation_pledge_params)
+    @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
     @donation_type = @crowd_donation_pledge.crowd_donation.donation_type
   end
 
@@ -45,8 +44,20 @@ class CrowdDonationPledgesController < ApplicationController
 
   private
 
+  def load_active_campaign
+    redirect_to crowd_campaigns_url and return if params[:crowd_campaign_id].blank?
+
+    @crowd_campaign = CrowdCampaign.find(params[:crowd_campaign_id])
+
+    if !@crowd_campaign.funding?
+      redirect_back fallback_location: @crowd_campaign, flash: {
+        error: "Die Kampagne befindet sich gerade nicht im Finanzierungszeitraum (#{@crowd_campaign.runtime}) und kann daher jetzt nicht unterstützt werden."
+      }
+    end
+  end
+
   def initial_donation_pledge_params
-    params.permit(:crowd_campaign_id, :crowd_donation_id, :answer)
+    params.permit(:crowd_donation_id, :answer)
   end
 
   def current_user_params
@@ -58,8 +69,7 @@ class CrowdDonationPledgesController < ApplicationController
 
   def crowd_donation_pledge_params
     params.require(:crowd_donation_pledge).permit(
-      :crowd_campaign_id, :crowd_donation_id, :answer,
-      :email, :contact_name,
+      :crowd_donation_id, :answer, :email, :contact_name,
     )
   end
 
