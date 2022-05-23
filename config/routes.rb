@@ -113,6 +113,7 @@ Rails.application.routes.draw do
   resources :locations do
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
     post :add_post, on: :member
+    post :update_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
     post :add_menu, on: :member
@@ -130,6 +131,7 @@ Rails.application.routes.draw do
 
   resources :crowd_campaigns, path: 'crowdfunding' do
     post :add_post, on: :member
+    post :update_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
     get 'start', on: :collection

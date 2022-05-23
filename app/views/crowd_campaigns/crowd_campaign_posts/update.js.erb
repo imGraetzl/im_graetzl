@@ -1,0 +1,4 @@
+$("#crowd_campaign_post_<%= @crowd_campaign_post.id %>").replaceWith("<%= j render('crowd_campaigns/crowd_campaign_posts/post', post: @crowd_campaign_post) %>");
+APP.components.stream.init();
+APP.controllers.application.jBoxGallery();
+APP.components.stream.initLinkify($("#crowd_campaign_post_" + <%= @crowd_campaign_post.id %> + " .txt"));

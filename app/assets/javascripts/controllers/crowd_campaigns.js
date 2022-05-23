@@ -70,6 +70,14 @@ APP.controllers.crowd_campaigns = (function() {
         }, 600);
       });
 
+      // Edit Post Inline Form
+      $(".streamElement").on('click', '.edit-post-link', function() {
+        $(this).parents(".streamElement").addClass("editing");
+        $('textarea').autoheight();
+      }).on('click', '.cancel-edit-link', function() {
+        $(this).parents(".streamElement").removeClass("editing");
+      });
+
     }
 
     return {

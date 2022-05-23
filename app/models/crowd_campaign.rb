@@ -69,7 +69,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def actual_newest_post
-    crowd_campaign_posts.select{|p| p.created_at > 4.weeks.ago}.last
+    crowd_campaign_posts.select{|p| p.created_at > 1.weeks.ago}.last
   end
 
   def funding_sum

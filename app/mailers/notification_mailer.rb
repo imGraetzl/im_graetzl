@@ -26,14 +26,14 @@ class NotificationMailer < ApplicationMailer
     'Neue Crowdfunding Kampagnen wurden gestartet' => [
       Notifications::NewCrowdCampaign
     ],
-    'Neue Crowdfunding Kampagnen Updates' => [
-      Notifications::NewCrowdCampaignPost
-    ],
     'Neue Schaufenster' => [
       Notifications::NewLocation
     ],
     'Neue Treffen' => [
       Notifications::NewMeeting
+    ],
+    'Neue Crowdfunding Kampagnen Updates' => [
+      Notifications::NewCrowdCampaignPost
     ],
     'Neue Coop & Share Marktplatz Anbegote' => [
       Notifications::NewCoopDemand

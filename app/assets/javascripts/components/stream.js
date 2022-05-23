@@ -4,10 +4,19 @@ APP.components.stream = (function() {
 
         initEntryCreateForm();
         initCommentForm();
+        $('textarea').autoheight();
 
         $('.show-all-comments-link').on("click", function() {
           $(this).parents(".post-comments").find(".comment-container").show();
           $(this).hide();
+        });
+
+        // Edit Post Inline Form
+        $(".streamElement").on('click', '.edit-post-link', function() {
+          $(this).parents(".streamElement").addClass("editing");
+          $('textarea').autoheight();
+        }).on('click', '.cancel-edit-link', function() {
+          $(this).parents(".streamElement").removeClass("editing");
         });
 
     }
