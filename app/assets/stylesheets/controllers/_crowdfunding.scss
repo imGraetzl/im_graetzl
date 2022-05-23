@@ -410,6 +410,14 @@ section.crowd_campaign {
           color: $color-ambient-mint;
         }
       }
+      a {
+        color: $color-font-primary;
+        text-decoration: none;
+        &:hover {
+          color: $color-ambient-rosa;
+          text-decoration: underline;
+        }
+      }
       @include respond-to("<medium") {
         width: 100%;
       }

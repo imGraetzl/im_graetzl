@@ -2,5 +2,6 @@
   $(".posts-container").html("<%= j render 'crowd_campaigns/show/posts' %>");
   APP.components.stream.init();
   APP.controllers.application.jBoxGallery();
+  APP.components.initUserTooltip();
   $('.txtlinky').linkify({ target: "_blank"});
 })();

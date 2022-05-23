@@ -1,12 +1,27 @@
   <% @supporters.each do |crowd_pledge| %>
-    <div class="supporter cardBox">
-      <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
-      <div>
-        <span><%= crowd_pledge.contact_name %></span><br>
-        <% if crowd_pledge.is_a?(CrowdDonationPledge) %>
-          <small><em>(<%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{crowd_pledge.donation_type}") %>)</em></small><br>
+    <% if crowd_pledge.user %>
+      <div class="supporter cardBox">
+        <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
+          <%= avatar_image_with_tooltip crowd_pledge.user, size: :thumb, class: 'img-round' %>
         <% end %>
-        <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+        <div>
+          <span><%= link_to crowd_pledge.contact_name, crowd_pledge.user, rel: 'nofollow' %></span><br>
+          <% if crowd_pledge.is_a?(CrowdDonationPledge) %>
+            <small><em>(<%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{crowd_pledge.donation_type}") %>)</em></small><br>
+          <% end %>
+          <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class="supporter cardBox">
+        <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+        <div>
+          <span><%= crowd_pledge.contact_name %></span><br>
+          <% if crowd_pledge.is_a?(CrowdDonationPledge) %>
+            <small><em>(<%= I18n.t("activerecord.attributes.crowd_donation.donation_type.#{crowd_pledge.donation_type}") %>)</em></small><br>
+          <% end %>
+          <small>vor <%= time_ago_in_words(crowd_pledge.created_at) %></small>
+        </div>
+      </div>
+    <% end %>
   <% end %>
