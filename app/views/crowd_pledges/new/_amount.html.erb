@@ -5,10 +5,9 @@
     <p>Wenn du möchtest, kannst du auch noch einen freien Unterstützungsbetrag hinzufügen.</p>
   </div>
 
-  <%= form_with url: new_crowd_pledge_path, method: :get do |f| %>
+  <%= form_with url: [:new, @crowd_campaign, :crowd_pledge], method: :get do |f| %>
 
     <%= f.hidden_field :crowd_reward_id, value: params[:crowd_reward_id] %>
-    <%= f.hidden_field :crowd_campaign_id, value: params[:crowd_campaign_id] %>
 
     <%= render 'crowd_pledges/new/rewards', crowd_reward: @crowd_pledge.crowd_reward, f: f if @crowd_pledge.crowd_reward %>
 
@@ -18,7 +17,7 @@
       <% end %>
       <%= f.text_field :donation_amount, class: 'amount', placeholder: 'Dein Betrag',
         class: 'calculate-price', maxlength: 6,
-        data: { action: calculate_price_crowd_pledges_url(crowd_campaign_id: params[:crowd_campaign_id], crowd_reward_id: params[:crowd_reward_id])} %>
+        data: { action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, crowd_reward_id: params[:crowd_reward_id]])} %>
     </div>
 
     <%= submit_tag "Weiter", class: 'btn-primary' %>
