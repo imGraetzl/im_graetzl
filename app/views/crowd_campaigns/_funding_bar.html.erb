@@ -32,7 +32,7 @@
 
 <% elsif @crowd_campaign.over_funding_1? %>
 
-  <% funding_subtitle = "Fundingziel: #{number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€")}" %>
+  <% funding_subtitle = "Mindesbetrag: #{number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€")}" %>
 
   <div class="fundingBar">
     <div class="fundingBar_track fundingBar_track-only">
@@ -46,14 +46,16 @@
 
 <% elsif @crowd_campaign.funding_2? %>
 
-  <% funding_subtitle = "Nächstes Level: #{number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€")}" %>
+  <% funding_subtitle = "Optimalbetrag: #{number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€")}" %>
+  <% funding_track1_percentage = ((@crowd_campaign.funding_1_amount / @crowd_campaign.funding_2_amount) * 100) %>
+  <% funding_track2_percentage = 100 - funding_track1_percentage %>
 
   <div class="fundingBar">
-    <div class="fundingBar_track fundingBar_track-1st">
+    <div class="fundingBar_track fundingBar_track-1st" style="width:<%= funding_track1_percentage %>%">
       <div class="fundingBar_bar"></div>
     </div>
     <div title="<%= number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-success"></div>
-    <div class="fundingBar_track fundingBar_track-2nd">
+    <div class="fundingBar_track fundingBar_track-2nd" style="width:<%= funding_track2_percentage %>%">
       <div title="<%= number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width: calc(<%= funding_bar_percentage(@crowd_campaign) %>% + 0.5em);"></div>
     </div>
     <div title="<%= number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-animated"></div>
@@ -62,14 +64,16 @@
 
 <% elsif @crowd_campaign.over_funding_2? %>
 
-  <% funding_subtitle = "Fundingziel: #{number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€")}" %>
+  <% funding_subtitle = "Optimalbetrag: #{number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€")}" %>
+  <% funding_track1_percentage = ((@crowd_campaign.funding_1_amount / @crowd_campaign.funding_2_amount) * 100) %>
+  <% funding_track2_percentage = 100 - funding_track1_percentage %>
 
   <div class="fundingBar">
-    <div class="fundingBar_track fundingBar_track-1st">
+    <div class="fundingBar_track fundingBar_track-1st" style="width:<%= funding_track1_percentage %>%">
       <div title="<%= number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar"></div>
     </div>
     <div title="<%= number_to_currency(@crowd_campaign.funding_1_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-success"></div>
-    <div class="fundingBar_track fundingBar_track-2nd">
+    <div class="fundingBar_track fundingBar_track-2nd" style="width:<%= funding_track2_percentage %>%">
       <div title="<%= number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€") %>" class="fundingBar_bar" style="width: calc(100% + 0.5em);"></div>
     </div>
     <div title="<%= number_to_currency(@crowd_campaign.funding_2_amount, precision: 0 ,unit: "€") %>" class="fundingBar_target fundingBar_target-success"></div>

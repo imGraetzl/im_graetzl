@@ -7,18 +7,17 @@
         Um fortzufahren, gib zunächst noch deine Daten bekannt.
       <% else %>
         Wenn du bereits bei <%= t("region.#{current_region.id}.domain_full") %> registriert bist,
-        <%= link_to 'melde dich zunächst hier an', login_crowd_donation_pledges_path(crowd_donation_login_params) %>
+        <%= link_to 'melde dich zunächst hier an', [:login, @crowd_campaign, :crowd_donation_pledges, crowd_donation_id: params[:crowd_donation_id]] %>
         und nutze deine hinterlegten Standarddaten.
       <% end %>
     </p>
   </div>
 
-  <%= form_for @crowd_donation_pledge do |f| %>
-  <%= form_errors_for @crowd_donation_pledge %>
+  <%= form_for [@crowd_campaign, @crowd_donation_pledge] do |f| %>
+    <%= form_errors_for @crowd_donation_pledge %>
 
     <%= f.hidden_field :answer %>
     <%= f.hidden_field :crowd_donation_id %>
-    <%= f.hidden_field :crowd_campaign_id %>
 
     <div class="input-field">
       <%= f.label :email do %>

@@ -12,7 +12,7 @@
   <%= render 'crowd_campaigns/form/finance', f: f %>
 
   <div class="input-button">
-    <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint' %>
+    <%= f.button 'Speichern', data: { disable_with: 'speichert...' }, class: 'btn-secondary -mint -saving' %>
     <%= link_to 'Vorschau', 'javascript:', data: { disable_with: 'speichert...' }, class: ["btn-secondary", "-mint", @crowd_campaign.editable? ? 'save-and-preview' : '-disabled'] %>
     <%= f.button 'Weiter zu den Dankeschöns', data: { disable_with: 'speichert...' }, class: 'btn-primary btn-next', name: 'page', value: edit_rewards_crowd_campaign_path(@crowd_campaign) %>
   </div>

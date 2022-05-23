@@ -14,7 +14,8 @@
   <div class="priceContainer">
     <strong><%= number_to_currency(crowd_reward.amount, unit: "€") %></strong>
     <% if crowd_reward.available? %>
-      <%= link_to 'Auswählen', choose_amount_crowd_pledges_path(crowd_campaign_id: crowd_reward.crowd_campaign.id, crowd_reward_id: crowd_reward.id), rel: 'nofollow', class: 'btn-primary -small' %>
+      <%= link_to 'Auswählen', [:choose_amount, @crowd_campaign, :crowd_pledges, crowd_reward_id: crowd_reward.id],
+          rel: 'nofollow', class: 'btn-primary -small' %>
     <% else %>
       <%= link_to 'Ausgebucht', 'javascript:', class: 'btn-primary -disabled -small' %>
     <% end %>

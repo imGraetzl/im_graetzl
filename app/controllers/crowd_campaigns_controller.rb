@@ -151,6 +151,17 @@ class CrowdCampaignsController < ApplicationController
     render 'crowd_campaigns/crowd_campaign_posts/remove'
   end
 
+  def update_post
+    @crowd_campaign = fetch_user_crowd_campaign(params[:id])
+    @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.find(params[:post_id])
+    if @crowd_campaign_post && @crowd_campaign_post.edit_permission?(current_user)
+      @crowd_campaign_post.update(crowd_campaign_post_params)
+      render 'crowd_campaigns/crowd_campaign_posts/update'
+    else
+      head :ok
+    end
+  end
+
   def comment_post
     @crowd_campaign = CrowdCampaign.find(params[:id])
     @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.find(params[:post_id])

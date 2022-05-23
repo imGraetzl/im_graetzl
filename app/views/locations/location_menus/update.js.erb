@@ -1,4 +1,5 @@
 $("#location_menu_<%= @location_menu.id %>").replaceWith("<%= j render('locations/location_menus/menu', menu: @location_menu) %>");
+APP.components.stream.init();
 APP.controllers_loggedin.locations.initStreamForm();
 APP.controllers.application.jBoxGallery();
 APP.components.stream.initLinkify($("#location_menu_" + <%= @location_menu.id %> + " .txt"));

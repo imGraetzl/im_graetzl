@@ -7,18 +7,18 @@
         Um fortzufahren, gib zunächst noch deine Daten bekannt.
       <% else %>
         Wenn du bereits bei <%= t("region.#{current_region.id}.domain_full") %> registriert bist,
-        <%= link_to 'melde dich zunächst hier an', login_crowd_pledges_path(crowd_pledge_login_params) %>
+        <%= link_to 'melde dich zunächst hier an', [:login, @crowd_campaign, :crowd_pledges,
+          crowd_reward_id: params[:crowd_reward_id], donation_amount: params[:donation_amount]] %>
         und nutze deine hinterlegten Standarddaten.
       <% end %>
     </p>
   </div>
 
-  <%= form_for @crowd_pledge do |f| %>
-  <%= form_errors_for @crowd_pledge %>
+  <%= form_for [@crowd_campaign, @crowd_pledge] do |f| %>
+    <%= form_errors_for @crowd_pledge %>
 
     <%= f.hidden_field :answer %>
     <%= f.hidden_field :crowd_reward_id %>
-    <%= f.hidden_field :crowd_campaign_id %>
 
     <% if @crowd_pledge.errors.present? %>
       <div class="input-field">
@@ -28,7 +28,7 @@
         <% end %>
         <%= f.text_field :donation_amount, class: 'amount', placeholder: 'Betrag eingeben ...',
           class: 'calculate-price', maxlength: 6,
-          data: { action: calculate_price_crowd_pledges_url(crowd_campaign_id: @crowd_pledge.crowd_campaign.id, crowd_reward_id: @crowd_pledge.crowd_reward&.id)} %>
+          data: { action: url_for([:calculate_price, @crowd_campaign, :crowd_pledges, crowd_reward_id: @crowd_pledge.crowd_reward_id])} %>
       </div>
     <% else %>
       <%= f.hidden_field :donation_amount %>

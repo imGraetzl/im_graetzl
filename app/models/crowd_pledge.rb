@@ -30,6 +30,10 @@ class CrowdPledge < ApplicationRecord
     super if val.to_i >= 0
   end
 
+  def email=(val)
+    super(val&.strip.presence)
+  end
+
   def calculate_price
     self.total_price = crowd_reward&.amount.to_i + donation_amount.to_i
   end

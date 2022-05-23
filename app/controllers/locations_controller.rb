@@ -90,6 +90,17 @@ class LocationsController < ApplicationController
     render 'locations/location_menus/remove'
   end
 
+  def update_post
+    @location = fetch_user_location(params[:id])
+    @location_post = @location.location_posts.find(params[:post_id])
+    if @location_post && @location_post.edit_permission?(current_user)
+      @location_post.update(location_post_params)
+      render 'locations/location_posts/update'
+    else
+      head :ok
+    end
+  end
+
   def update_menu
     @location = fetch_user_location(params[:id])
     @location_menu = @location.location_menus.find(params[:menu_id])

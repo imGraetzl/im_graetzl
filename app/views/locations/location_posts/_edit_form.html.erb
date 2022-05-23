@@ -1,0 +1,20 @@
+<%= form_for post, url: update_post_location_path(@location, post_id: post.id), method: :post, remote: true, html: { class: 'edit-post-form menuEditor' } do |f| %>
+
+  <div class="input-field">
+    <%= f.text_field :title, placeholder: 'Neuigkeit (Titel)', class: 'input-plain postTitle' %>
+  </div>
+  <div class="input-textarea">
+    <%= f.text_area :content, placeholder: 'Beschreibung', class: 'input-plain postMessage' %>
+  </div>
+  <div class="upload-oldschool">
+
+    <div class="field-wrp">
+      <%= upload_image_input(f, :images, multiple: true, live_preview: false) %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Speichern', data: { disable_with: 'sendet...' }, class: 'btn-primary -mint' %>
+    <%= f.button 'Abbrechen', type: 'button', class: 'cancel-edit-link btn-secondary -mint' %>
+  </div>
+
+<% end %>

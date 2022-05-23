@@ -31,6 +31,6 @@
 
   </div>
   <div class="priceContainer">
-    <%= link_to 'Auswählen', choice_crowd_donation_pledges_path(crowd_campaign_id: crowd_donation.crowd_campaign.id, crowd_donation_id: crowd_donation.id), rel: 'nofollow', class: 'btn-primary -small' %>
+    <%= link_to 'Auswählen', [:choice, crowd_donation.crowd_campaign, :crowd_donation_pledges, crowd_donation_id: crowd_donation.id], rel: 'nofollow', class: 'btn-primary -small' %>
   </div>
 </div>

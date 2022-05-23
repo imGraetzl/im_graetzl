@@ -113,6 +113,7 @@ Rails.application.routes.draw do
   resources :locations do
     resources :zuckerls, path: 'zuckerl', except: [:index, :show]
     post :add_post, on: :member
+    post :update_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
     post :add_menu, on: :member
@@ -130,6 +131,7 @@ Rails.application.routes.draw do
 
   resources :crowd_campaigns, path: 'crowdfunding' do
     post :add_post, on: :member
+    post :update_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
     get 'start', on: :collection
@@ -144,12 +146,20 @@ Rails.application.routes.draw do
     get 'supporters', on: :member
     get 'status', on: :member
     get 'download_supporters', on: :member
+
+    resources :crowd_pledges, only: [:new, :create] do
+      get 'choose_amount', on: :collection
+      get 'login', on: :collection
+      post 'calculate_price', on: :collection
+    end
+
+    resources :crowd_donation_pledges, only: [:new, :create] do
+      get 'choice', on: :collection
+      get 'login', on: :collection
+    end
   end
 
-  resources :crowd_pledges, only: [:new, :create] do
-    post 'calculate_price', on: :collection
-    get 'choose_amount', on: :collection
-    get 'login', on: :collection
+  resources :crowd_pledges, only: [] do
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member
     get 'summary', on: :member
@@ -158,9 +168,7 @@ Rails.application.routes.draw do
     get 'payment_changed', on: :member
   end
 
-  resources :crowd_donation_pledges, only: [:new, :create] do
-    get 'choice', on: :collection
-    get 'login', on: :collection
+  resources :crowd_donation_pledges, only: [] do
     get 'summary', on: :member
     get 'details', on: :member
   end

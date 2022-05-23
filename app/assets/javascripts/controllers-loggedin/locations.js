@@ -22,13 +22,6 @@ APP.controllers_loggedin.locations = (function() {
         hiddenName: true,
         //min: true
       });
-
-      // Edit Menu Inline Form
-      $(".streamElement").on('click', '.edit-menu-link', function() {
-        $(this).parents(".streamElement").addClass("editing");
-      }).on('click', '.cancel-edit-link', function() {
-        $(this).parents(".streamElement").removeClass("editing");
-      });
     }
 
     function initLocationForm() {

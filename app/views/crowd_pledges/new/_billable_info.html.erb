@@ -1,9 +1,7 @@
-<% if @crowd_pledge.crowd_campaign %>
-  <div class="footer-txt">
-    <% if @crowd_pledge.crowd_campaign.bill? %>
-      *) Für deine Unterstützung kann eine Rechnung ausgestellt werden.
-    <% elsif @crowd_pledge.crowd_campaign.donation_bill? %>
-      *) Für deine Unterstützung kann eine Spendenquittung ausgestellt werden.
-    <% end %>
-  </div>
-<% end %>
+<div class="footer-txt">
+  <% if @crowd_pledge.crowd_campaign.bill? %>
+    *) Für deine Unterstützung kann eine Rechnung ausgestellt werden.
+  <% elsif @crowd_pledge.crowd_campaign.donation_bill? %>
+    *) Für deine Unterstützung kann eine Spendenquittung ausgestellt werden.
+  <% end %>
+</div>

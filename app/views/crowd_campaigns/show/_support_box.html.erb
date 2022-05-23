@@ -7,9 +7,7 @@
         Du kannst dieses Projekt mit einem freien Betrag deiner Wahl unterstützen, oder wähle eines der Dankeschöns unterhalb aus.
       </p>
 
-      <%= form_with url: new_crowd_pledge_path, html: { class: 'campaign_support_form', method: :get } do |f| %>
-      <%= f.hidden_field :crowd_campaign_id, value: @crowd_campaign.id %>
-
+      <%= form_with url: [:new, @crowd_campaign, :crowd_pledge], html: { class: 'campaign_support_form', method: :get } do |f| %>
         <div class="input-field">
           <%= label_tag :donation_amount do %>
             <%= icon_tag "currency-euro" %>

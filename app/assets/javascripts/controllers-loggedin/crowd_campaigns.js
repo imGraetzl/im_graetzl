@@ -131,6 +131,19 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         });
       });
 
+      // Safari Fix - Disable Sumbit Button onClick (rails disable_with not working)
+      $('.-saving').on('click', function(){
+        var $btn = $(this);
+        var btnOriginalText = $btn.text();
+        var btnDisabledText = $btn.data('disable-with');
+        $btn.addClass('-disabled');
+        $btn.text(btnDisabledText);
+        setTimeout(function(){
+          $btn.removeClass('-disabled');
+          $btn.text(btnOriginalText);
+        }, 500);
+      });
+
       // PreviewModal and ModalPreviewSize
       var iframewidth = $(window).width() + 'px';
       var iframeheight = $(window).height() - 100 + 'px';
