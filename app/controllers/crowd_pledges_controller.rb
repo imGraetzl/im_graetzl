@@ -1,5 +1,5 @@
 class CrowdPledgesController < ApplicationController
-  before_action :load_active_campaign, on: [:new, :create, :calculate_price, :choose_amount]
+  before_action :load_active_campaign, only: [:new, :create, :login, :calculate_price, :choose_amount]
 
   def new
     @crowd_pledge = @crowd_campaign.crowd_pledges.build(initial_pledge_params)
@@ -98,7 +98,7 @@ class CrowdPledgesController < ApplicationController
   private
 
   def load_active_campaign
-    redirect_to crowd_campaigns_url and return if params[:crowd_campaign_id].blank?
+    redirect_to root_url and return if params[:crowd_campaign_id].blank?
 
     @crowd_campaign = CrowdCampaign.find(params[:crowd_campaign_id])
 

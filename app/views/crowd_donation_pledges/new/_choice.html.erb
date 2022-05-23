@@ -7,10 +7,9 @@
     </p>
   </div>
 
-  <%= form_with url: new_crowd_donation_pledge_path, method: :get do |f| %>
+  <%= form_with url: [:new, @crowd_campaign, :crowd_donation_pledge], method: :get do |f| %>
 
     <%= f.hidden_field :crowd_donation_id, value: params[:crowd_donation_id] %>
-    <%= f.hidden_field :crowd_campaign_id, value: params[:crowd_campaign_id] %>
 
     <%= render 'crowd_donation_pledges/new/donations', crowd_donation: @crowd_donation_pledge.crowd_donation, f: f if @crowd_donation_pledge.crowd_donation %>
 

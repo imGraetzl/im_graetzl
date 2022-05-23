@@ -146,12 +146,20 @@ Rails.application.routes.draw do
     get 'supporters', on: :member
     get 'status', on: :member
     get 'download_supporters', on: :member
+
+    resources :crowd_pledges, only: [:new, :create] do
+      get 'choose_amount', on: :collection
+      get 'login', on: :collection
+      post 'calculate_price', on: :collection
+    end
+
+    resources :crowd_donation_pledges, only: [:new, :create] do
+      get 'choice', on: :collection
+      get 'login', on: :collection
+    end
   end
 
-  resources :crowd_pledges, only: [:new, :create] do
-    post 'calculate_price', on: :collection
-    get 'choose_amount', on: :collection
-    get 'login', on: :collection
+  resources :crowd_pledges, only: [] do
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member
     get 'summary', on: :member
@@ -160,9 +168,7 @@ Rails.application.routes.draw do
     get 'payment_changed', on: :member
   end
 
-  resources :crowd_donation_pledges, only: [:new, :create] do
-    get 'choice', on: :collection
-    get 'login', on: :collection
+  resources :crowd_donation_pledges, only: [] do
     get 'summary', on: :member
     get 'details', on: :member
   end

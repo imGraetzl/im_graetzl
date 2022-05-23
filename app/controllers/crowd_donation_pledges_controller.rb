@@ -1,5 +1,5 @@
 class CrowdDonationPledgesController < ApplicationController
-  before_action :load_active_campaign, on: [:new, :create, :choice, :login]
+  before_action :load_active_campaign, only: [:new, :create, :choice, :login]
 
   def new
     @crowd_donation_pledge = @crowd_campaign.crowd_donation_pledges.build(initial_donation_pledge_params)
