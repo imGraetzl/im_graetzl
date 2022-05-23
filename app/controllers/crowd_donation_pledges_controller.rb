@@ -45,7 +45,7 @@ class CrowdDonationPledgesController < ApplicationController
   private
 
   def load_active_campaign
-    redirect_to crowd_campaigns_url and return if params[:crowd_campaign_id].blank?
+    redirect_to root_url and return if params[:crowd_campaign_id].blank?
 
     @crowd_campaign = CrowdCampaign.find(params[:crowd_campaign_id])
 
