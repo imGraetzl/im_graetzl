@@ -160,4 +160,22 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def message_to_user(campaign, user, subject, message)
+    @crowd_campaign, @message = campaign, message
+    @region = @crowd_campaign.region
+    @reply_email = @crowd_campaign.contact_email
+    @sender_email = email_address_with_name("no-reply@#{@region.host_domain}", "#{@crowd_campaign.title} | über #{@region.host_domain_name}")
+    headers(
+      "X-MC-Tags" => "crowd-campaign-user-mail",
+      "X-MC-GoogleAnalytics" => @region.host,
+      "X-MC-GoogleAnalyticsCampaign" => "crowd-campaign-user-mail",
+    )
+    mail(
+      subject: "Crowdfunding Post für dich: #{subject}",
+      to: email_address_with_name(user.email,user.contact_name),
+      from: @sender_email,
+      reply_to: @reply_email,
+    )
+  end
+
 end

@@ -1,0 +1,43 @@
+<!-- --------------- USER HEADER ROW --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef; margin-bottom:18px;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
+        <%= avatar_image @crowd_campaign, size: :thumb, style: "width:60px; height:60px; border-radius: 30px; max-width:60px; min-width:60px;", class: "mcnImage" %>
+      </td>
+      <td class="mcnTextContent" style="padding-right:18px; width:100%;">
+        <p>
+          <em>
+            Neue Nachricht an dich von:
+            <strong><br><%= @crowd_campaign.title %></strong>
+          </em>
+          <br>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-bottom:9px;"></td>
+    </tr>
+  </tbody>
+</table>
+<!-- --------------- USER HEADER ROW --------------- -->
+
+<!-- MAIL CONTENT -->
+<p class="mcnTextContent">
+  <%= @message.gsub("\r\n", "<br/>").html_safe %>
+</p>
+<!-- /MAIL CONTENT -->
+
+<!-- BUTTON -->
+<%= render 'mailers/shared/button', title: "Zum Crowdfunding", url: crowd_campaign_url(@crowd_campaign, host: @crowd_campaign.region.host) %>
+
+<!-- MAIL FOOTER -->
+<p class="mcnTextContent">
+  <small><em>
+    --<br>
+    <%= @crowd_campaign.title %><br>
+    <%= @crowd_campaign.contact_name %><br>
+    <%= @reply_email %><br>
+  </em></small>
+</p>
+<!-- /MAIL FOOTER -->

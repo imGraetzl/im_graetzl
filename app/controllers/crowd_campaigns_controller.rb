@@ -74,15 +74,26 @@ class CrowdCampaignsController < ApplicationController
 
   def compose_mail
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    @crowd_pledges_donations = @crowd_campaign.crowd_pledges.initialized.donation.order(created_at: :desc).uniq { |s| s.email }
-    @crowd_pledges_rewards = @crowd_campaign.crowd_pledges.initialized.reward.order(:crowd_reward_id)
-    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(:donation_type)
-    @supporters = @crowd_pledges_donations += @crowd_pledges_rewards += @crowd_donation_pledges
+    crowd_pledges = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).uniq { |s| s.email }
+    crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(donation_type: :desc)
+    @supporters = crowd_pledges += crowd_donation_pledges
   end
 
   def send_mail
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    redirect_to @crowd_campaign, notice: 'Deine E-Mail wurde versendet ..'
+    crowd_pledges = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails])
+    crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
+
+    users = crowd_pledges += crowd_donation_pledges
+    users = users.uniq { |s| s.email }
+
+    users.each do |user|
+      CrowdCampaignMailer.message_to_user(
+        @crowd_campaign, user, params[:subject], params[:body]
+      ).deliver_later
+    end
+
+    redirect_to compose_mail_crowd_campaign_path(@crowd_campaign), notice: "E-Mail erfolgreich an #{users.count} Unterstützer*innen versendet ..."
   end
 
   def download_supporters
