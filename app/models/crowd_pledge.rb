@@ -40,7 +40,7 @@ class CrowdPledge < ApplicationRecord
   end
 
   def contact_name_and_type
-    "<strong>#{contact_name}</strong> <small class='type'>#{crowd_reward.present? ? crowd_reward.title : 'Freie Unterstützung'}</small>"
+    "#{contact_name} (#{email})"
   end
 
   private

@@ -19,7 +19,7 @@ class CrowdDonationPledge < ApplicationRecord
   end
 
   def contact_name_and_type
-    "<strong>#{contact_name}</strong> <small class='type'>#{I18n.t("activerecord.attributes.crowd_donation.donation_type.#{donation_type}")}</small>"
+    "#{contact_name} (#{email}) | #{I18n.t("activerecord.attributes.crowd_donation.donation_type.#{donation_type}")}"
   end
 
   private

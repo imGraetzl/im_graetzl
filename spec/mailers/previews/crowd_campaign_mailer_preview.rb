@@ -56,4 +56,8 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.crowd_donation_pledge_info(CrowdDonationPledge.order(:created_at).last)
   end
 
+  def message_to_user
+    CrowdCampaignMailer.message_to_user(CrowdCampaign.first, CrowdPledge.last, "Hello", "Hello world")
+  end
+
 end

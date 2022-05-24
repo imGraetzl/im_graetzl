@@ -16,7 +16,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
     function initComposeMail() {
       $('select#mail-user-select').SumoSelect({
         search: true,
-        searchText: 'Suche nach Unterstützer*in oder Dankeschön',
+        searchText: 'Suche nach Unterstützer*in',
         placeholder: 'Unterstützer*in auswählen',
         csvDispCount: 2,
         captionFormat: '{0} Unterstützer*innen',
