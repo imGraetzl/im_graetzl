@@ -83,17 +83,22 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     crowd_pledges = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails])
     crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
-
     users = crowd_pledges += crowd_donation_pledges
-    users = users.uniq { |s| s.email }
 
-    users.each do |user|
-      CrowdCampaignMailer.message_to_user(
-        @crowd_campaign, user, params[:subject], params[:body]
-      ).deliver_later
-    end
+    count = users.uniq { |s| s.email }.count
+    users = users.uniq { |s| s.email }.map(&:email).join(',')
+    CrowdCampaignMailer.message_to_user(
+      @crowd_campaign, users, params[:subject], params[:body]
+    ).deliver_later
 
-    redirect_to compose_mail_crowd_campaign_path(@crowd_campaign), notice: "E-Mail erfolgreich an #{users.count} Unterstützer*innen versendet ..."
+    #users = users.uniq { |s| s.email }
+    #users.each do |user|
+    #  CrowdCampaignMailer.message_to_user(
+    #    @crowd_campaign, user, params[:subject], params[:body]
+    #  ).deliver_later
+    #end
+
+    redirect_to compose_mail_crowd_campaign_path(@crowd_campaign), notice: "E-Mail erfolgreich an #{count} Unterstützer*innen versendet ..."
   end
 
   def download_supporters
