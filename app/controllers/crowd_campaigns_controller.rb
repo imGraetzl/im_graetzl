@@ -72,6 +72,19 @@ class CrowdCampaignsController < ApplicationController
     form_status_message?
   end
 
+  def compose_mail
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    @crowd_pledges_donations = @crowd_campaign.crowd_pledges.initialized.donation.order(created_at: :desc).uniq { |s| s.email }
+    @crowd_pledges_rewards = @crowd_campaign.crowd_pledges.initialized.reward.order(:crowd_reward_id)
+    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(:donation_type)
+    @supporters = @crowd_pledges_donations += @crowd_pledges_rewards += @crowd_donation_pledges
+  end
+
+  def send_mail
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    redirect_to @crowd_campaign, notice: 'Deine E-Mail wurde versendet ..'
+  end
+
   def download_supporters
     respond_to do |format|
       format.xlsx do

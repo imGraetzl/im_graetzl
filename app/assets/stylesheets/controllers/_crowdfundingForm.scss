@@ -192,6 +192,20 @@ section.crowdfunding-form {
 
   }
 
+  &.-compose-mail {
+    .options label {
+      width:unset;
+      display: flex;
+      justify-content: space-between;
+      .type {
+        font-style: italic;
+        padding-left:30px;
+        color: $color-ambient-grey-dark;
+        @include ellipsis();
+      }
+    }
+  }
+
 }
 
 .jBoxCrowdPreview {
