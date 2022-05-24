@@ -15,6 +15,7 @@ class CrowdPledge < ApplicationRecord
 
   scope :initialized, -> { where.not(status: :incomplete) }
   scope :donation, -> { where(crowd_reward_id: nil) }
+  scope :reward, -> { where.not(crowd_reward_id: nil) }
   scope :visible, -> { where(anonym: false) }
   scope :anonym, -> { where(anonym: true) }
 
@@ -36,6 +37,10 @@ class CrowdPledge < ApplicationRecord
 
   def calculate_price
     self.total_price = crowd_reward&.amount.to_i + donation_amount.to_i
+  end
+
+  def contact_name_and_type
+    "<strong>#{contact_name}</strong> <small class='type'>#{crowd_reward.present? ? crowd_reward.title : 'Freie Unterstützung'}</small>"
   end
 
   private

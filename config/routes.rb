@@ -134,17 +134,18 @@ Rails.application.routes.draw do
     post :update_post, on: :member
     post :remove_post, on: :member
     post :comment_post, on: :member
+    post :send_mail, on: :member
     get 'start', on: :collection
     get 'edit_description', on: :member
     get 'edit_finance', on: :member
     get 'edit_rewards', on: :member
     get 'edit_media', on: :member
     get 'edit_finish', on: :member
-    get 'status', on: :member
     get 'posts', on: :member
     get 'comments', on: :member
     get 'supporters', on: :member
     get 'status', on: :member
+    get 'compose_mail', on: :member
     get 'download_supporters', on: :member
 
     resources :crowd_pledges, only: [:new, :create] do

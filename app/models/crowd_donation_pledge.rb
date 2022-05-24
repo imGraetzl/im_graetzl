@@ -18,6 +18,10 @@ class CrowdDonationPledge < ApplicationRecord
     super(val&.strip.presence)
   end
 
+  def contact_name_and_type
+    "<strong>#{contact_name}</strong> <small class='type'>#{I18n.t("activerecord.attributes.crowd_donation.donation_type.#{donation_type}")}</small>"
+  end
+
   private
 
   def set_region_and_type

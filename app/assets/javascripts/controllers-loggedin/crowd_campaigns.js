@@ -2,6 +2,7 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
 
     function init() {
         if ($("section.crowdfunding-form").exists()) initCrowdfundingForm();
+        if ($("section.crowdfunding-form.-compose-mail").exists()) initComposeMail();
         if ($("section.crowdfunding-form.noteditable").exists()) initNoEditMode();
     }
 
@@ -9,6 +10,20 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
       $(".crowd-categories, .benefit-checkbox").find("input").each(function() {
         $(this).prop("disabled", true);
         $(this).parents(".input-checkbox").addClass("disabled");
+      });
+    }
+
+    function initComposeMail() {
+      $('select#mail-user-select').SumoSelect({
+        search: true,
+        searchText: 'Suche nach Unterstützer*in oder Dankeschön',
+        placeholder: 'Unterstützer*in auswählen',
+        csvDispCount: 2,
+        captionFormat: '{0} Unterstützer*innen',
+        captionFormatAllSelected: 'Alle Unterstützer*innen',
+        selectAll: true,
+        isClickAwayOk: true,
+        locale: ['OK', 'Abbrechen', 'Alle auswählen']
       });
     }
 
