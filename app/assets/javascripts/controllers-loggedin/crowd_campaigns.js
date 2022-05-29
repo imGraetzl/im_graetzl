@@ -1,9 +1,21 @@
 APP.controllers_loggedin.crowd_campaigns = (function() {
 
     function init() {
+        if ($("section.crowd_campaign").exists()) initCrowdCampaign();
         if ($("section.crowdfunding-form").exists()) initCrowdfundingForm();
-        if ($("section.crowdfunding-form.-compose-mail").exists()) initComposeMail();
         if ($("section.crowdfunding-form.noteditable").exists()) initNoEditMode();
+    }
+
+    function initCrowdCampaign() {
+      $('.crowd_campaign .-compose-mail').on("click", function(event) {
+        event.preventDefault();
+        if($("#tab-compose-mail").is(":hidden")){
+          APP.components.tabs.openTab('compose-mail');
+        }
+        $('html, body').animate({
+          scrollTop: $('#tab-compose-mail').offset().top
+        }, 600);
+      });
     }
 
     function initNoEditMode() {
@@ -23,7 +35,8 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
         captionFormatAllSelected: 'Alle Unterstützer*innen',
         selectAll: true,
         isClickAwayOk: true,
-        locale: ['OK', 'Abbrechen', 'Alle auswählen']
+        okCancelInMulti: true,
+        locale: ['Auswählen', 'Abbrechen', 'Alle auswählen']
       });
     }
 
@@ -187,7 +200,8 @@ APP.controllers_loggedin.crowd_campaigns = (function() {
     }
 
     return {
-      init: init
+      init: init,
+      initComposeMail: initComposeMail
     };
 
 })();

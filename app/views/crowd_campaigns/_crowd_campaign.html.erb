@@ -97,6 +97,10 @@
             <%= icon_tag "bar-chart-growth" %>
             <div class="icontxt">Kampagnen Statistiken</div>
           <% end %>
+          <%= link_to crowd_campaign_path(crowd_campaign, target:'compose-mail') do %>
+            <%= icon_tag "at-symbol" %>
+            <div class="icontxt">E-Mail an Unterstützer*innen</div>
+          <% end %>
         <% end %>
         <%= link_to edit_crowd_campaign_path(crowd_campaign) do %>
           <%= icon_tag "pencil" %>

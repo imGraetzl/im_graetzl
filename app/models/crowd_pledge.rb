@@ -43,6 +43,10 @@ class CrowdPledge < ApplicationRecord
     "#{contact_name} (#{email})"
   end
 
+  def full_name
+    contact_name
+  end
+
   private
 
   def set_region

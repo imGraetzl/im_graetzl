@@ -165,6 +165,14 @@ class CrowdCampaign < ApplicationRecord
     title
   end
 
+  def full_name
+    contact_name
+  end
+
+  def email
+    contact_email
+  end
+
   def graetzl=(value)
     super
     self.district ||= value.district if value.present?
