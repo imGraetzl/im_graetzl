@@ -5,7 +5,10 @@ namespace :db do
 
     Notification.where('created_at < ?', 2.weeks.ago).destroy_all
 
-    Activity.where('created_at < ?', 8.weeks.ago).destroy_all
+    # Delete WeLocally Activities after 6 Months and Vienna Activities after 8 Weeks
+    Activity.where('created_at < ?', 6.months.ago).destroy_all
+    Activity.where('region_id = ?', 'wien').where('created_at < ?', 8.weeks.ago).destroy_all
+
     Activity.where(subject_type: 'Meeting').find_each do |activity|
       if activity.subject.ends_at_date
         activity.destroy if activity.subject.ends_at_date < Date.yesterday

@@ -19,7 +19,8 @@
       <%= icon_tag "record" %>
       <span>Betreff</span>
       <% end %>
-      <%= text_field_tag :subject, params[:subject], placeholder: "Dein Betreff", required: true %>
+      <%= text_field_tag :subject, params[:subject], placeholder: "Dein Betreff", required: true, data: { max_chars: 100 }, maxlength:100 %>
+      <span class="charCountContainer charsLeft"></span>
     </div>
 
     <div class="input-textarea">
