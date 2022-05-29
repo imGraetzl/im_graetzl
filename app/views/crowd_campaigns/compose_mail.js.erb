@@ -1,4 +1,5 @@
 (function() {
   $(".compose-mail-container").html("<%= j render 'crowd_campaigns/show/compose_mail' %>");
   APP.controllers_loggedin.crowd_campaigns.initComposeMail();
+  APP.components.formHelper.maxChars();
 })();

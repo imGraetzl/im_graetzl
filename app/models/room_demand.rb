@@ -33,6 +33,8 @@ class RoomDemand < ApplicationRecord
 
   LIFETIME_MONTHS = 6
 
+  after_update :destroy_activity_and_notifications, if: -> { disabled? }
+
   def to_s
     slogan
   end
