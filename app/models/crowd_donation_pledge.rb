@@ -22,6 +22,10 @@ class CrowdDonationPledge < ApplicationRecord
     "#{contact_name} (#{email}) | #{I18n.t("activerecord.attributes.crowd_donation.donation_type.#{donation_type}")}"
   end
 
+  def full_name
+    contact_name
+  end
+
   private
 
   def set_region_and_type

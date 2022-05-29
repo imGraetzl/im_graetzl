@@ -1,0 +1,10 @@
+<div id="tab-compose-mail" class="layoutArea">
+
+  <%= form_tag compose_mail_crowd_campaign_path(@crowd_campaign), method: :get, remote: true, class: 'form-compose-mail' do %>
+  <% end %>
+
+  <div class="compose-mail-container" id="compose-mail">
+    <%= image_tag 'svg/loading.svg', class: 'loading-spinner -hidden', width:100, height:100 %>
+  </div>
+
+</div>

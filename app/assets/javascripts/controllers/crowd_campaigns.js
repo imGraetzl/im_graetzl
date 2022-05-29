@@ -45,6 +45,8 @@ APP.controllers.crowd_campaigns = (function() {
             $(".form-comments").submit();
           } else if ($("#tab-posts").is(":visible")) {
             $(".form-posts").submit();
+          } else if ($("#tab-compose-mail").is(":visible")) {
+            $(".form-compose-mail").submit();
           }
       }).trigger('_after');
 

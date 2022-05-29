@@ -37,6 +37,8 @@ APP.components.tabs = (function() {
           openTab('posts');
         } else if (target.startsWith('comment_crowd_campaign') || target.startsWith('comment_comment')) {
           openTab('comments');
+        } else if (target.includes('compose-mail')) {
+          openTab('compose-mail');
         }
       }
     }

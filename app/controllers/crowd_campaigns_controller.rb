@@ -72,35 +72,6 @@ class CrowdCampaignsController < ApplicationController
     form_status_message?
   end
 
-  def compose_mail
-    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    crowd_pledges = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).uniq { |s| s.email }
-    crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(donation_type: :desc)
-    @supporters = crowd_pledges += crowd_donation_pledges
-  end
-
-  def send_mail
-    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    crowd_pledges = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails])
-    crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
-    users = crowd_pledges += crowd_donation_pledges
-
-    count = users.uniq { |s| s.email }.count
-    users = users.uniq { |s| s.email }.map(&:email).join(',')
-    CrowdCampaignMailer.message_to_user(
-      @crowd_campaign, users, params[:subject], params[:body]
-    ).deliver_later
-
-    #users = users.uniq { |s| s.email }
-    #users.each do |user|
-    #  CrowdCampaignMailer.message_to_user(
-    #    @crowd_campaign, user, params[:subject], params[:body]
-    #  ).deliver_later
-    #end
-
-    redirect_to compose_mail_crowd_campaign_path(@crowd_campaign), notice: "E-Mail erfolgreich an #{count} Unterstützer*innen versendet ..."
-  end
-
   def download_supporters
     respond_to do |format|
       format.xlsx do
@@ -127,6 +98,34 @@ class CrowdCampaignsController < ApplicationController
     pledges = @crowd_campaign.crowd_pledges.initialized.visible
     donation_pledges = @crowd_campaign.crowd_donation_pledges
     @supporters = (pledges + donation_pledges).sort_by(&:created_at).reverse
+  end
+
+  def compose_mail
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    pledges = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).uniq { |s| s.email }
+    donation_pledges = @crowd_campaign.crowd_donation_pledges.order(donation_type: :desc)
+    @supporters = pledges += donation_pledges
+  end
+
+  def send_mail
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    pledges = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails])
+    donation_pledges = @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
+    users = pledges += donation_pledges
+    users = users.uniq { |s| s.email }
+    #emails = users.uniq { |s| s.email }.map(&:email).join(',')
+
+    users.each do |user|
+      CrowdCampaignMailer.message_to_user(
+        @crowd_campaign, user, params[:subject], params[:body]
+      ).deliver_later
+    end
+
+    if params[:self_copy] == '1'
+      CrowdCampaignMailer.message_to_user(@crowd_campaign, @crowd_campaign, params[:subject], params[:body]).deliver_later
+    end
+
+    redirect_to @crowd_campaign, notice: "E-Mail erfolgreich an #{users.count} Unterstützer*innen versendet ..."
   end
 
   def update

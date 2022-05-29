@@ -386,7 +386,12 @@ section.crowd_campaign {
       border-top:none;
     }
   }
-
+  .compose-mail-container {
+    width:100%;
+    .hl-subtext h1 {
+      text-align: center;
+    }
+  }
   .supporters-container {
     width:100%;
     display: flex;

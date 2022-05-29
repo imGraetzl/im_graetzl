@@ -86,7 +86,7 @@ APP.controllers.groups = (function() {
         captionFormatAllSelected: 'Alle Gruppenmitglieder',
         okCancelInMulti: true,
         selectAll: true,
-        locale: ['OK', 'Cancel', 'Alle auswählen']
+        locale: ['Auswählen', 'Abbrechen', 'Alle auswählen']
       });
 
     }
