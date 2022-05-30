@@ -1,0 +1,72 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+        <p>
+          Servus <%= @crowd_pledge.contact_name %>,
+        </p>
+
+        <p>
+          <strong>WOW! <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a; font-weight:bold;" %> hat Dank deiner Unterstützung gerade das Mindestziel von <%= number_to_currency(@crowd_pledge.crowd_campaign.funding_1_amount, unit: "€") %> erreicht</strong>, womit die Kampagne nun auf jeden Fall zur Auszahlung kommt, yeah!
+        </p>
+
+        <p>
+          Bitte unterstützt sie nun dabei auch den Optimalbetrag von <%= number_to_currency(@crowd_pledge.crowd_campaign.funding_2_amount, unit: "€") %> bis zum <%= I18n.localize(@crowd_pledge.crowd_campaign.enddate, format:'%d.%m.') %> zu erreichen.
+          Je mehr Unterstützung, desto größer die Chance auch noch diese Hürde zu packen! Bitte erzähl in deinem Umfeld von dem Vorhaben, teile es in deinen Netzwerken:
+        </p>
+
+        <p><%= link_to crowd_campaign_url(@crowd_pledge.crowd_campaign), crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %></p>
+        <br>
+
+        <p>
+          <strong>Mit der nächste Hürde von <%= number_to_currency(@crowd_pledge.crowd_campaign.funding_2_amount, unit: "€") %> soll folgendes realisiert werden:</strong><br>
+          <em>"<%= @crowd_pledge.crowd_campaign.funding_2_description %>"</em>
+        </p>
+        <br>
+
+        <p>
+          <strong>Dank deiner Unterstützung und der bisher erreichten <%= number_to_currency(@crowd_pledge.crowd_campaign.funding_1_amount, unit: "€") %>, ist schon mal folgendes sichergestellt:</strong><br>
+          <em>"<%= @crowd_pledge.crowd_campaign.funding_1_description %>"</em>
+        </p>
+        <br>
+
+        <p>
+          Lieben Dank für deine Unterstützung, gemeinsam packen wir auch das nächste Level!<br>
+          dein Team von <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %><br>
+        </p>
+
+        ---
+
+        <br><br>
+
+        <table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer" width="100%">
+          <tr>
+            <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+              <small>
+              <strong>Verantwortlich für das Projekt:</strong><br>
+              <% if @crowd_pledge.crowd_campaign.contact_company.present? %>
+                <%= @crowd_pledge.crowd_campaign.contact_company %><br>
+              <% end %>
+              <%= @crowd_pledge.crowd_campaign.contact_name %><br>
+              <%= @crowd_pledge.crowd_campaign.contact_address %><br>
+              <%= @crowd_pledge.crowd_campaign.contact_zip %> <%= @crowd_pledge.crowd_campaign.contact_city %><br>
+              </small>
+            </td>
+            <td width="10%"></td>
+            <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+              <small>
+              <strong>Verantwortlich für den Plattformbetrieb:</strong><br>
+              morgenjungs GmbH (<%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %>)<br>
+              Breitenfeldergasse 14/2A<br>
+              1080 Wien<br>
+              <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.contact_email") %><br>
+              </small>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </tbody>
+</table>

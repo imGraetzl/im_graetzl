@@ -112,6 +112,18 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def crowd_pledge_goal_1_reached(crowd_pledge)
+    @crowd_pledge = crowd_pledge
+    @crowd_campaign = @crowd_pledge.crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-pledge-goal-1-reached")
+    mail(
+      subject: "DANKE! '#{@crowd_campaign.title}' hat die erste Hürde gepackt! Mach mit beim Endspurt!",
+      from: platform_email('no-reply'),
+      to: @crowd_pledge.email,
+    )
+  end
+
   def crowd_pledge_debited(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign
@@ -155,6 +167,18 @@ class CrowdCampaignMailer < ApplicationMailer
     headers("X-MC-Tags" => "crowd-donation-pledge-info")
     mail(
       subject: "Unterstützungsbestätigung für #{@crowd_campaign.title}",
+      from: platform_email('no-reply'),
+      to: @crowd_donation_pledge.email,
+    )
+  end
+
+  def crowd_donation_pledge_success(crowd_donation_pledge)
+    @crowd_donation_pledge = crowd_donation_pledge
+    @crowd_campaign = @crowd_donation_pledge.crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-donation-pledge-success")
+    mail(
+      subject: "Dein unterstütztes Projekt ist erfolgreich: #{@crowd_campaign.title}",
       from: platform_email('no-reply'),
       to: @crowd_donation_pledge.email,
     )

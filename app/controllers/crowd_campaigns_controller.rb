@@ -163,6 +163,13 @@ class CrowdCampaignsController < ApplicationController
 
   end
 
+  def update_status
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    @crowd_campaign.update(active_state: params[:status])
+    flash[:notice] = t("activerecord.attributes.crowd_campaign.status_message.#{@crowd_campaign.active_state}")
+    redirect_back(fallback_location: crowd_campaigns_user_path)
+  end
+
   def add_post
     @crowd_campaign = fetch_user_crowd_campaign(params[:id])
     @crowd_campaign_post = @crowd_campaign.crowd_campaign_posts.build(crowd_campaign_post_params)
@@ -305,7 +312,6 @@ class CrowdCampaignsController < ApplicationController
 
   def noneditable_campaign_params
     campaign_params = params.require(:crowd_campaign).permit(
-      :description, :support_description, :aim_description, :about_description, :benefit_description,
       :location_id, :room_offer_id,
       images_attributes: [:id, :file, :_destroy],
       crowd_rewards_attributes: [
@@ -315,11 +321,6 @@ class CrowdCampaignsController < ApplicationController
         :id, :donation_type, :title, :description, :question, :startdate, :enddate, :_destroy
       ],
     )
-
-    # Would be great just to reject if the reward is already claimed ...
-    #if campaign_params[:crowd_rewards_attributes].present?
-    #  campaign_params[:crowd_rewards_attributes].reject!{|_, a| a[:id].present? }
-    #end
 
     campaign_params
   end

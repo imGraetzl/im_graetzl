@@ -397,6 +397,12 @@ de:
           approved: Freigegeben
           funding: Funding
           completed: Abgeschlossen
+        active_states:
+          enabled: Aktiviert
+          disabled: Deaktiviert
+        status_message:
+          enabled: Deine Kampagne ist nun öffentlich sichtbar.
+          disabled: Deine Kampagne ist nun deaktiviert und nicht mehr sichtbar.
       crowd_reward:
         title: Dankeschön Titel
         description: Dankeschön Beschreibung
