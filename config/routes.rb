@@ -147,6 +147,7 @@ Rails.application.routes.draw do
     get 'status', on: :member
     get 'compose_mail', on: :member
     get 'download_supporters', on: :member
+    patch 'update_status', on: :member
 
     resources :crowd_pledges, only: [:new, :create] do
       get 'choose_amount', on: :collection

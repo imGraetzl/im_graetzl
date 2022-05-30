@@ -40,6 +40,10 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.crowd_pledge_authorized(CrowdPledge.order(:created_at).last)
   end
 
+  def crowd_pledge_goal_1_reached
+    CrowdCampaignMailer.crowd_pledge_goal_1_reached(CrowdPledge.order(:created_at).last)
+  end
+
   def crowd_pledge_debited
     CrowdCampaignMailer.crowd_pledge_debited(CrowdPledge.order(:created_at).last)
   end
@@ -54,6 +58,10 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
 
   def crowd_donation_pledge_info
     CrowdCampaignMailer.crowd_donation_pledge_info(CrowdDonationPledge.order(:created_at).last)
+  end
+
+  def crowd_donation_pledge_success
+    CrowdCampaignMailer.crowd_donation_pledge_success(CrowdDonationPledge.order(:created_at).last)
   end
 
   def message_to_user

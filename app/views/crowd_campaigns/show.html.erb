@@ -115,7 +115,7 @@
         <% end %>
         <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
         <li><a href="#tab-supporters">Unterstützer*innen<% if @crowd_campaign.pledges_and_donations_count > 0 %><small><%= @crowd_campaign.pledges_and_donations_count %></small><% end %></a></li>
-        <% if current_user == @crowd_campaign.user %>
+        <% if current_user == @crowd_campaign.user && (@crowd_campaign.funding? || @crowd_campaign.completed?) %>
           <li><a href="#tab-compose-mail">E-Mail senden</a></li>
         <% end %>
       </ul>

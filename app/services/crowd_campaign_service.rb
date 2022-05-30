@@ -13,6 +13,9 @@ class CrowdCampaignService
       campaign.crowd_pledges.authorized.find_each do |pledge|
         CrowdPledgeService.new.delay.charge(pledge)
       end
+      campaign.crowd_donation_pledges.find_each do |pledge|
+        CrowdCampaignMailer.crowd_donation_pledge_success(pledge).deliver_later
+      end
       CrowdCampaignMailer.completed_successful(campaign).deliver_later
     else
       campaign.crowd_pledges.authorized.update_all(status: :canceled)

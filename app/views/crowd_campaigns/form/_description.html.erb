@@ -44,7 +44,7 @@
     <%= icon_tag "layout-document" %>
     <span>Worum geht es in deinem Projekt?</span>
     <% end %>
-    <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft? %>
+    <%= f.text_area :description, placeholder: 'Beschreibe dein Vorhaben ausführlicher ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="bbCodeOpener"><a>Tipps</a></span>
     <span class="charCountContainer charsLeft"></span>
   </div>
@@ -54,7 +54,7 @@
     <%= icon_tag "layout-document" %>
     <span>Was sind die Projekt Ziele?</span>
     <% end %>
-    <%= f.text_area :aim_description, placeholder: 'Was sind die Projekt Ziele und wer ist die Zielgruppe? ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft? %>
+    <%= f.text_area :aim_description, placeholder: 'Was sind die Projekt Ziele und wer ist die Zielgruppe? ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="bbCodeOpener"><a>Tipps</a></span>
     <span class="charCountContainer charsLeft"></span>
   </div>
@@ -64,7 +64,7 @@
     <%= icon_tag "layout-document" %>
     <span>Warum sollte man dich unterstützen?</span>
     <% end %>
-    <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft? %>
+    <%= f.text_area :support_description, placeholder: 'Was zeichnet dein Projekt aus, warum sollte es jemand unterstützen? ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="bbCodeOpener"><a>Tipps</a></span>
     <span class="charCountContainer charsLeft"></span>
   </div>
@@ -74,7 +74,7 @@
     <%= icon_tag "layout-document" %>
     <span>Warum brennst du für dein Projekt?</span>
     <% end %>
-    <%= f.text_area :about_description, placeholder: 'Ein paar Infos über dich und den Projekt Hintergrund ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft? %>
+    <%= f.text_area :about_description, placeholder: 'Ein paar Infos über dich und den Projekt Hintergrund ...', data: { max_chars: 1500 }, maxlength:1500, required: !@crowd_campaign.draft?, disabled: !@crowd_campaign.editable? %>
     <span class="bbCodeOpener"><a>Tipps</a></span>
     <span class="charCountContainer charsLeft"></span>
   </div>

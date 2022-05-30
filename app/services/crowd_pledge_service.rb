@@ -34,6 +34,15 @@ class CrowdPledgeService
     case crowd_pledge.crowd_campaign.check_funding
     when :goal_1_reached
       CrowdCampaignMailer.goal_1_reached(crowd_pledge.crowd_campaign).deliver_later
+
+      if crowd_pledge.crowd_campaign.funding_2_amount.present?
+        pledges = crowd_pledge.crowd_campaign.crowd_pledges.authorized
+        pledges = pledges.uniq { |s| s.email }
+        pledges.each do |pledge|
+          CrowdCampaignMailer.crowd_pledge_goal_1_reached(pledge).deliver_later
+        end
+      end
+
     when :goal_2_reached
       CrowdCampaignMailer.goal_2_reached(crowd_pledge.crowd_campaign).deliver_later
     end

@@ -87,6 +87,7 @@
     <% end %>
 
     <% if local_assigns[:manage_buttons].present? && current_user == crowd_campaign.user %>
+
       <%= link_to 'javascript:', class: 'btn-secondary -mint -ico -small jBoxTooltip', data: {tooltip_id: "tt-crowdcampaign-#{crowd_campaign.id}"} do %>
         <span>Kampagnen Optionen</span>
         <%= icon_tag "arrow-down-2" %>
@@ -113,9 +114,23 @@
           <% end %>
         <% end %>
       </div>
+
+      <% if crowd_campaign.completed? && !crowd_campaign.successful? %>
+        <%= link_to "javascript:", data: { jq_dropdown: "#crowd-campaign-update-dropdown-#{crowd_campaign.id}" }, class: "btn-secondary -mint -small -state-#{crowd_campaign.active_state} -update-state" do %>
+          Sichtbarkeit: <span><%= t("activerecord.attributes.crowd_campaign.active_states.#{crowd_campaign.active_state}") %></span>
+        <% end %>
+        <div id="crowd-campaign-update-dropdown-<%= crowd_campaign.id %>" class="jq-dropdown jq-dropdown-tip jq-dropdown-relative jq-dropdown-anchor-right dropdown-container">
+          <div class="jq-dropdown-panel">
+            <%= link_to 'Aktiviert', [:update_status, crowd_campaign, status: "enabled"], method: :patch %>
+            <%= link_to 'Deaktiviert', [:update_status, crowd_campaign, status: "disabled"], method: :patch %>
+          </div>
+        </div>
+      <% end %>
+
       <small class="statusHint -<%= crowd_campaign.status %>">
         Kampagnen Status: <span>&lt;<%= t("activerecord.attributes.crowd_campaign.statuses.#{crowd_campaign.status}") %>&gt;</span>
       </small>
+      
     <% end %>
 
   </div>
