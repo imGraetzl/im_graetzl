@@ -3,7 +3,8 @@ namespace :db do
   task cleanup: :environment do
     puts "Rake db:cleanup start at: #{Time.now}"
 
-    Notification.where('created_at < ?', 2.weeks.ago).destroy_all
+    #Notification.where('created_at < ?', 2.weeks.ago).destroy_all
+    Notification.where('created_at < ?', 2.weeks.ago).where.not("notify_before >= CURRENT_DATE").destroy_all
 
     # Delete WeLocally Activities after 6 Months and Vienna Activities after 8 Weeks
     Activity.where('created_at < ?', 6.months.ago).destroy_all

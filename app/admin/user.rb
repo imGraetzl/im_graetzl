@@ -47,7 +47,8 @@ ActiveAdmin.register User do
     :address_city,
     :address_coordinates,
     :address_description,
-    group_ids: []
+    group_ids: [],
+    favorite_graetzl_ids: []
 
     # Within app/admin/resource_name.rb
     # Controller pagination overrides

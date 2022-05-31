@@ -8,10 +8,26 @@ class Notification < ApplicationRecord
   belongs_to :subject, polymorphic: true
   belongs_to :child, optional: true, polymorphic: true
 
-  belongs_to :activity, optional: true # Remove after deployment
-
   scope :ready_to_be_sent, -> {
     where("notify_at <= CURRENT_DATE").where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
+    where(sent: false)
+  }
+
+  scope :next_wien, -> {
+    where(:user_id => 10612).where("notify_at <= CURRENT_DATE").
+    where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
+    where(sent: false)
+  }
+
+  scope :next_kaernten, -> {
+    where(:user_id => 10613).where("notify_at <= CURRENT_DATE").
+    where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
+    where(sent: false)
+  }
+
+  scope :next_muehlviertel, -> {
+    where(:user_id => 10614).where("notify_at <= CURRENT_DATE").
+    where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
     where(sent: false)
   }
 
