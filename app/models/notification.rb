@@ -13,6 +13,7 @@ class Notification < ApplicationRecord
     where(sent: false)
   }
 
+  ## user 66 for local testing, user 10612 for production
   scope :next_wien, -> {
     where(:user_id => 10612).where("notify_at <= CURRENT_DATE").
     where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
