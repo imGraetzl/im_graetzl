@@ -3,11 +3,11 @@ context.instance_eval do
     panel 'Notification Details' do
       attributes_table_for notifications do
         row :region
-        row :anzahl_empfänger do |n|
+        row :empfänger do |n|
           "#{Notification.where(:subject_type => n.subject_type).
             where(:subject_id => n.subject_id).
             where(:child_type => n.child_type).
-            where(:child_id => n.child_id).count}"
+            where(:child_id => n.child_id).count} potentielle Empfänger"
         end
         row :type
         row :ersteller do |n|

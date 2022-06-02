@@ -2,11 +2,11 @@ ActiveAdmin.register Notification, as: "Notifications" do
   menu parent: 'Users'
   actions :all, except: [:new, :create, :edit, :destroy]
 
+  #scope :ready_to_be_sent
   scope :all, default: true
-  scope :ready_to_be_sent
-  scope 'Next Wien Newsletter', :next_wien
-  scope 'Next Kärnten Newsletter',:next_kaernten
-  scope 'Next Mühlviertel Newsletter',:next_muehlviertel
+  scope 'Next Wien Mails', :next_wien
+  scope 'Next Kärnten Mails',:next_kaernten
+  scope 'Next Mühlviertel Mails',:next_muehlviertel
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :type, as: :select, include_blank: true, input_html: { class: 'admin-filter-select'}
@@ -17,7 +17,6 @@ ActiveAdmin.register Notification, as: "Notifications" do
   #filter :child_id, label: 'Child ID'
   filter :sent, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :seen, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :display_on_website, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :notify_at
   filter :notify_before
   filter :created_at
@@ -46,7 +45,8 @@ ActiveAdmin.register Notification, as: "Notifications" do
 
   # member actions
   member_action :delete_activity, method: :put do
-    Activity.where(:subject_type => resource.subject_type).
+    Activity.where(:type => resource.type).
+      where(:subject_type => resource.subject_type).
       where(:subject_id => resource.subject_id).
       where(:child_type => resource.child_type).
       where(:child_id => resource.child_id).delete_all
@@ -55,7 +55,8 @@ ActiveAdmin.register Notification, as: "Notifications" do
   end
 
   member_action :delete_all, method: :put do
-    notifications = Notification.where(:subject_type => resource.subject_type).
+    notifications = Notification.where(:type => resource.type).
+      where(:subject_type => resource.subject_type).
       where(:subject_id => resource.subject_id).
       where(:child_type => resource.child_type).
       where(:child_id => resource.child_id)
@@ -66,7 +67,8 @@ ActiveAdmin.register Notification, as: "Notifications" do
   end
 
   member_action :delete_without_owner, method: :put do
-    Notification.where(:subject_type => resource.subject_type).
+    Notification.where(:type => resource.type).
+      where(:subject_type => resource.subject_type).
       where(:subject_id => resource.subject_id).
       where(:child_type => resource.child_type).
       where(:child_id => resource.child_id).each do |notification|
