@@ -236,6 +236,7 @@ ActiveAdmin.setup do |config|
                                   :full_name,
                                   :name,
                                   :username,
+                                  :slogan,
                                   :login,
                                   :email,
                                   :to_s ]

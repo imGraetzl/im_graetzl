@@ -17,6 +17,7 @@ class User < ApplicationRecord
   include CoverImageUploader::Attachment(:cover_photo)
 
   belongs_to :graetzl, counter_cache: true
+  has_many :districts, through: :graetzl
   has_many :user_graetzls
   has_many :favorite_graetzls, through: :user_graetzls, source: :graetzl
 
