@@ -89,6 +89,15 @@ class CrowdPledgeService
     { success: true }
   end
 
+  def payment_failed(crowd_pledge, payment_intent)
+    return if !crowd_pledge.processing?
+
+    crowd_pledge.update(status: 'failed')
+    CrowdCampaignMailer.crowd_pledge_failed(crowd_pledge).deliver_later
+
+    { success: true }
+  end
+
   def create_payment_intent(crowd_pledge)
     stripe_customer_id = get_stripe_customer_id(crowd_pledge)
     Stripe::PaymentIntent.create(

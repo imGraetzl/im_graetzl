@@ -59,8 +59,7 @@
           Wir drücken ganz fest die Daumen!
         </p>
       </div>
-      <%= render 'funding_bar' rescue nil %>
-      <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
+      <%= render 'funding_bar' %>
 
   <% elsif @crowd_campaign.completed? %>
 
@@ -142,9 +141,18 @@
           <%= icon_tag "download" %>
         <% end %>
       <% end %>
+  <% end %>
 
-      <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
+  <% if !@crowd_campaign.user.stripe_connect_ready? %>
+    <p>
+    <br><br>
+      Please create your stripe account so we can transfer the money to you.
+      <%= link_to "Connect", stripe_connect_initiate_crowd_campaign_path(@crowd_campaign) %>
+    </p>
+  <% end %>
 
+  <% if @crowd_campaign.funding? || @crowd_campaign.completed? %>
+    <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
   <% end %>
 
 </section>

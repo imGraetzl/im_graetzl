@@ -67,9 +67,47 @@ class CrowdCampaignsController < ApplicationController
 
   def status
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    @crowd_pledges = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc)
-    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(created_at: :desc)
+    @crowd_pledges = @crowd_campaign.crowd_pledges.initialized.includes(:user, :crowd_reward).order(created_at: :desc)
+    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.includes(:user, :crowd_donation).order(created_at: :desc)
     form_status_message?
+  end
+
+  def stripe_connect_initiate
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    if current_user.stripe_connect_account_id.blank?
+      account = Stripe::Account.create(
+        type: 'custom',
+        email: current_user.email,
+        capabilities: {
+          card_payments: {requested: true},
+          transfers: {requested: true},
+        }
+      )
+      current_user.update(stripe_connect_account_id: account.id)
+    end
+
+    account_link = Stripe::AccountLink.create(
+      account: current_user.stripe_connect_account_id,
+      refresh_url: stripe_connect_initiate_crowd_campaign_url(@crowd_campaign),
+      return_url: stripe_connect_completed_crowd_campaign_url(@crowd_campaign),
+      type: 'account_onboarding',
+      collect: 'currently_due',
+    )
+
+    redirect_to account_link.url
+  end
+
+  def stripe_connect_completed
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+
+    stripe_account = Stripe::Account.retrieve(current_user.stripe_connect_account_id)
+    requirements_due = stripe_account.requirements.currently_due - ['external_account']
+    if requirements_due.blank?
+      current_user.update(stripe_connect_ready: true)
+      redirect_to [:status, @crowd_campaign], notice: "Hooray, your stripe account has been set up."
+    else
+      redirect_to [:status, @crowd_campaign], notice: "Your account details have been saved, you can come back later to complete them.  "
+    end
   end
 
   def download_supporters

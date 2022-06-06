@@ -145,6 +145,8 @@ Rails.application.routes.draw do
     get 'comments', on: :member
     get 'supporters', on: :member
     get 'status', on: :member
+    get 'stripe_connect_initiate', on: :member
+    get 'stripe_connect_completed', on: :member
     get 'compose_mail', on: :member
     get 'download_supporters', on: :member
     patch 'update_status', on: :member
