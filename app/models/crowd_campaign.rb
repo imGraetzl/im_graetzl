@@ -72,6 +72,10 @@ class CrowdCampaign < ApplicationRecord
     crowd_campaign_posts.select{|p| p.created_at > 1.weeks.ago}.last
   end
 
+  def funding_amount_set?
+    funding_1?
+  end
+
   def funding_sum
     @cached_funding_sum ||= self.crowd_pledges.initialized.sum(:total_price)
   end

@@ -53,7 +53,9 @@
       <% end %>
     </div>
 
-    <%= render partial: "regions/logos_#{current_region.id}" rescue nil %>
+      <% if lookup_context.template_exists?("regions/logos_#{current_region.id}") %>
+        <%= render "regions/logos_#{current_region.id}" %>
+      <% end %>
 
   </div>
 
