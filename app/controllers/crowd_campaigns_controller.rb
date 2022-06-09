@@ -145,12 +145,13 @@ class CrowdCampaignsController < ApplicationController
 
   def send_mail
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    emails = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails]).pluck(:email)
-    emails += @crowd_campaign.crowd_donation_pledges.where(email: params[:emails]).pluck(:email)
+    users = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails])
+    users += @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
+    users = users.uniq { |s| s.email }
 
-    emails.uniq.each do |email|
+    users.each do |user|
       CrowdCampaignMailer.message_to_user(
-        @crowd_campaign, email, params[:subject], params[:body]
+        @crowd_campaign, user, params[:subject], params[:body]
       ).deliver_later
     end
 
@@ -158,7 +159,7 @@ class CrowdCampaignsController < ApplicationController
       CrowdCampaignMailer.message_to_user(@crowd_campaign, @crowd_campaign, params[:subject], params[:body]).deliver_later
     end
 
-    redirect_to @crowd_campaign, notice: "E-Mail erfolgreich an #{emails.count} Unterstützer*innen versendet ..."
+    redirect_to @crowd_campaign, notice: "E-Mail erfolgreich an #{users.count} Unterstützer*innen versendet ..."
   end
 
   def update
