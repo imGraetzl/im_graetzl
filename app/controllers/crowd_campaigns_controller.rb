@@ -76,7 +76,7 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
     if current_user.stripe_connect_account_id.blank?
       account = Stripe::Account.create(
-        type: 'custom',
+        type: 'express',
         email: current_user.email,
         capabilities: {
           card_payments: {requested: true},
@@ -101,8 +101,7 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
 
     stripe_account = Stripe::Account.retrieve(current_user.stripe_connect_account_id)
-    requirements_due = stripe_account.requirements.currently_due - ['external_account']
-    if requirements_due.blank?
+    if stripe_account.requirements.currently_due.blank?
       current_user.update(stripe_connect_ready: true)
       redirect_to [:status, @crowd_campaign], notice: "Hooray, your stripe account has been set up."
     else
