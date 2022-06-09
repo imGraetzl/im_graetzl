@@ -27,9 +27,7 @@
         </a>
       </div>
 
-      <% if lookup_context.template_exists?("regions/logos_#{current_region.id}_footer") %>
-        <%= render partial: "regions/logos_#{current_region.id}_footer" rescue nil %>
-      <% end %>
+      <%= render partial: "regions/logos_#{current_region.id}_footer" rescue nil %>
 
     </div>
 
