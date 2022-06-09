@@ -38,6 +38,17 @@ section.crowdfunding-form {
     }
   }
 
+  .-stripeConnect {
+    margin-bottom: 50px;
+    background-color: #eaf2f4;
+    .btn-secondary {
+      @include respond-to(">=medium") {
+        width:50%;
+        margin: auto;
+      }
+    }
+  }
+
   .input-button {
     display: flex;
     justify-content: flex-end;

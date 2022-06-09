@@ -10,6 +10,8 @@ active_admin_form_for [:admin, resource] do |f|
     input :password if f.object.new_record?
     input :role, as: :select, collection: User.roles.keys
     input :business
+    input :stripe_connect_account_id
+    input :stripe_connect_ready
     input :bio
     input :website
     input :cover_photo, as: :file, hint: f.object.cover_photo && image_tag(f.object.cover_photo_url(:thumb))

@@ -7,6 +7,8 @@ context.instance_eval do
           row :region
           row :graetzl
           row :user
+          row(:stripe_connect_account_id){|l| l.user.stripe_connect_account_id}
+          row(:stripe_connect_ready){|l| l.user.stripe_connect_ready}
           row(:active_state){|l| status_tag(l.active_state)}
           row(:status){|l| status_tag(l.status)}
           row(:funding_status){|l| status_tag(l.funding_status)}
