@@ -73,7 +73,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def funding_amount_set?
-    funding_1?
+    funding_1_amount?
   end
 
   def funding_sum
