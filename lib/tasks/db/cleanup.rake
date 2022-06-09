@@ -4,6 +4,7 @@ namespace :db do
     puts "Rake db:cleanup start at: #{Time.now}"
 
     #Notification.where('created_at < ?', 2.weeks.ago).destroy_all
+    Notification.where('created_at < ?', 2.weeks.ago).where(notify_before: nil).destroy_all
     Notification.where('created_at < ?', 2.weeks.ago).where.not("notify_before >= CURRENT_DATE").destroy_all
 
     # Delete WeLocally Activities after 6 Months and Vienna Activities after 8 Weeks
@@ -39,8 +40,8 @@ namespace :db do
       Notification.where(subject: tool_demand).destroy_all
     end
 
-    # Delete not paid going_tos from deleted meeting
-    GoingTo.where(meeting_id: nil).where.not(role: 2).destroy_all
+    # Delete going_tos from deleted meeting
+    GoingTo.where(meeting_id: nil).destroy_all
 
     # Delete Meetings without User - Todo: Add to UserModel
     Meeting.where(user_id: nil).destroy_all
