@@ -4,6 +4,41 @@
 
   <%= render 'crowd_campaigns/form/navigation' %>
 
+  <% if !@crowd_campaign.user.stripe_connect_ready? %>
+    <div class="cardBox -stripeConnect">
+      <div class="hl-subtext">
+        <h2><span>Verifizierung</span> deines Auszahlungskontos</h2>
+        <p>
+          <strong>Damit deine Kampagne starten kann, muss zunächst noch dein Auszahlungskonto verifiziert werden. Für die Verifizierung setzen wir vertrauensvoll auf den Zahlungsanbieter <%= link_to 'Stripe', 'https://stripe.com/at/', target: '_blank' %>.</strong>
+        </p>
+      </div>
+      <%= link_to stripe_connect_initiate_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -ico' do %>
+        <span>Stripe Verifizierung jetzt durchführen</span>
+        <%= icon_tag "link" %>
+      <% end %>
+      <br>
+      <p><em>
+        Klicke auf den Button und mache den Prozess vollständig durch. Danach kann es 24 Stunden dauern, bis Stripe deine Legitimation geprüft und auf erfolgreich gesetzt hat.
+        Sobald du verifiziert bist, schicken wir dir eine E-Mail.
+        <br><br>
+        Verifizierung ist für Crowdfunding unumgänglich, weil es gesetzlich vorgeschrieben ist (Geldwäschegesetz §11) Identität und Kontodaten des Auszahlungskontos zu prüfen, um die Unterstützer:innen zu schützen. (Ohne einer erfolgreichen Verifizierung, kann deine Kampagne nicht starten.)
+      </em></p>
+    </div>
+  <% else %>
+    <div class="cardBox -stripeConnect">
+      <div class="hl-subtext">
+        <h2>Dein Auszahlungskonto <span>ist verifiziert</span></h2>
+        <p>
+          Du kannst deine Auszahlungsinformationen bei Stripe einsehen bzw. anpassen.
+        </p>
+      </div>
+      <%= link_to stripe_connect_initiate_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -mint -ico' do %>
+        <span>Zur Stripe Verifizierung</span>
+        <%= icon_tag "check" %>
+      <% end %>
+    </div>
+  <% end %>
+
   <% if @crowd_campaign.pending? %>
 
       <div class="statuscontainer">
@@ -141,14 +176,6 @@
           <%= icon_tag "download" %>
         <% end %>
       <% end %>
-  <% end %>
-
-  <% if !@crowd_campaign.user.stripe_connect_ready? %>
-    <p>
-    <br><br>
-      Please create your stripe account so we can transfer the money to you.
-      <%= link_to "Connect", stripe_connect_initiate_crowd_campaign_path(@crowd_campaign) %>
-    </p>
   <% end %>
 
   <% if @crowd_campaign.funding? || @crowd_campaign.completed? %>
