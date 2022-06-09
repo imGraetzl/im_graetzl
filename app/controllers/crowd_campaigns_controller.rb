@@ -103,9 +103,9 @@ class CrowdCampaignsController < ApplicationController
     stripe_account = Stripe::Account.retrieve(current_user.stripe_connect_account_id)
     if stripe_account.requirements.currently_due.blank?
       current_user.update(stripe_connect_ready: true)
-      redirect_to [:status, @crowd_campaign], notice: "Hooray, your stripe account has been set up."
+      redirect_to [:status, @crowd_campaign], notice: "Dein Auszahlungskonto wurde erfolgreich verifiziert!"
     else
-      redirect_to [:status, @crowd_campaign], notice: "Your account details have been saved, you can come back later to complete them.  "
+      redirect_to [:status, @crowd_campaign], notice: "Deine Daten wurden zur Verifizierung weitergeleitet - Wir informieren dich, sollten noch weitere Schritte notwendig sein."
     end
   end
 

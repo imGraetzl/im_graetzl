@@ -48,6 +48,8 @@ ActiveAdmin.register User do
     :address_city,
     :address_coordinates,
     :address_description,
+    :stripe_connect_account_id,
+    :stripe_connect_ready,
     group_ids: [],
     favorite_graetzl_ids: []
 
