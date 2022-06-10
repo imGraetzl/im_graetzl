@@ -1,4 +1,4 @@
-<% funding_subtitle = "Fundingsumme" %>
+<% funding_subtitle = "Erreichte Fundingsumme" %>
 
 <% if @crowd_campaign.completed? && @crowd_campaign.successful? %>
 
@@ -86,7 +86,7 @@
 
 <div class="fundingStats">
   <div class="left -amount">
-    <h2><%= number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€") %></h2>
+    <h2><%= number_to_currency(@crowd_campaign.funding_sum, precision: 0 ,unit: "€") %><span class="full-view -percent"><%= "(#{funding_percentage(@crowd_campaign).floor}%)" rescue nil %></span></h2>
     <span class="full-view"><%= funding_subtitle %></span>
     <small class="compact-view"><%= "(#{funding_percentage(@crowd_campaign).floor}%)" rescue nil %></small>
   </div>
@@ -95,7 +95,12 @@
     <span>UnterstützerInnen</span>
   </div>
   <div class="right -ending">
-    <% if !@crowd_campaign.completed? %>
+    <% if @crowd_campaign.completed? && @crowd_campaign.successful? %>
+      <h2 class="success"><%= icon_tag "check" %></h2>
+      <span class="full-view compact-view">Erfolgreich beendet</span>
+    <% elsif @crowd_campaign.completed? %>
+      <span class="full-view compact-view">Kampagne beendet</span>
+    <% else %>
       <% number, unit = campaign_remaining_time(@crowd_campaign) %>
       <h2><%= number %></h2>
       <span class="full-view compact-view"><%= unit %></span>
