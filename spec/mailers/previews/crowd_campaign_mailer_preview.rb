@@ -49,7 +49,7 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
   end
 
   def crowd_pledge_failed
-    CrowdCampaignMailer.crowd_pledge_failed(CrowdPledge.order(:created_at).last)
+    CrowdCampaignMailer.crowd_pledge_failed(CrowdPledge.failed.order(:created_at).last)
   end
 
   def crowd_pledge_retried_debited

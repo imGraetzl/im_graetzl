@@ -14,21 +14,22 @@ class Notification < ApplicationRecord
   }
 
   ## user 66 for local testing, user 10612 for production
+  next_tuesday = Date.today.next_occurring(:tuesday)
   scope :next_wien, -> {
-    where(:user_id => 10612).where("notify_at <= CURRENT_DATE").
-    where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
+    where(:user_id => 10612).where("notify_at <= ?", next_tuesday).
+    where("notify_before IS NULL OR notify_before >= ?", next_tuesday).
     where(sent: false)
   }
 
   scope :next_kaernten, -> {
-    where(:user_id => 10613).where("notify_at <= CURRENT_DATE").
-    where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
+    where(:user_id => 10613).where("notify_at <= ?", next_tuesday).
+    where("notify_before IS NULL OR notify_before >= ?", next_tuesday).
     where(sent: false)
   }
 
   scope :next_muehlviertel, -> {
-    where(:user_id => 10614).where("notify_at <= CURRENT_DATE").
-    where("notify_before IS NULL OR notify_before >= CURRENT_DATE").
+    where(:user_id => 10614).where("notify_at <= ?", next_tuesday).
+    where("notify_before IS NULL OR notify_before >= ?", next_tuesday).
     where(sent: false)
   }
 

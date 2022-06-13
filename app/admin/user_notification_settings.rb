@@ -8,9 +8,7 @@ ActiveAdmin.register User, as: "User Notification Settings" do
   scope :business
   scope :admin
 
-  filter :graetzl, collection: proc { Graetzl.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select' }
   filter :id, label: 'User', as: :select, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
-  filter :email
 
   filter :user_mail_setting, as: :select, collection: proc {[
     ['New Meeting - Weekly','weekly_NewMeeting'],['New Meeting - Daily','daily_NewMeeting'],['New Meeting - Immediate','immediate_NewMeeting'],['New Meeting - Off','off_NewMeeting'],
@@ -35,9 +33,9 @@ ActiveAdmin.register User, as: "User Notification Settings" do
 
     ['Commented on my Post - Weekly','weekly_ReplyOnComment'],['Commented on my Post - Daily','daily_ReplyOnComment'],['Commented on my Post - Immediate','immediate_ReplyOnComment'],['Commented on my Post - Off','off_ReplyOnComment'],
     ['Also Commented Post - Weekly','weekly_ReplyOnFollowedComment'],['Also Commented Post - Daily','daily_ReplyOnFollowedComment'],['Also Commented Post - Immediate','immediate_ReplyOnFollowedComment'],['Also Commented Post - Off','off_ReplyOnFollowedComment'],
+  ]}, include_blank: true, input_html: { class: 'admin-filter-select'}
 
-
-  ]}
+  filter :email
 
   index { render 'index', context: self }
 
