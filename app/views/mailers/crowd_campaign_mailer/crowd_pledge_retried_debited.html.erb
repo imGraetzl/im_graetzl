@@ -26,7 +26,7 @@
           </p>
           <p>
             <strong>So wird der Einzug auf deinem Bankkonto erscheinen:</strong><br><br>
-            <em><strong>Einzug von:</strong> morgenjungs GmbH (<%= @crowd_pledge.crowd_campaign.region.host_domain_name %>) by Stripe via PPRO<br>
+            <em><strong>Einzug von:</strong> PPRO Payment Services S.A. (<%= @crowd_pledge.crowd_campaign.region.host_domain_name.upcase %> by Stripe via PPRO)<br>
             <strong>Betrag:</strong> <%= number_to_currency(@crowd_pledge.total_price, unit: "EUR") %><br>
             <strong>Verwendungszweck:</strong> <%= "#{@crowd_pledge.crowd_campaign.region.host_id} Crowdfunding".upcase %><br></em>
           </p>
