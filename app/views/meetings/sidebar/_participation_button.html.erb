@@ -27,7 +27,7 @@
 
 <% elsif meeting.attending?(current_user) %>
   <div class="btn-going-to">
-    <%= button_to [:unattend, meeting], method: :post, class: 'btn-userCallToAction meeting-unattend-btn' do %>
+    <%= button_to [:unattend, meeting], method: :post, class: 'btn-userCallToAction' do %>
       <span>
         <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
         Nicht mehr teilnehmen
