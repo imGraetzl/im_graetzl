@@ -21,14 +21,14 @@ section.homeRegion {
 
   display: flex;
   margin-bottom: 50px;
-  width: 90%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
 
   .input-select {
     max-width: 550px;
     margin:auto;
-    width:70%;
+    width:60%;
 
   }
 
@@ -37,7 +37,7 @@ section.homeRegion {
     margin:auto;
     margin-top:-22px;
     max-width: 500px;
-    width:26%;
+    width:35%;
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -227,8 +227,8 @@ section.homeRegion {
     }
     @include respond-to(">=large") {
       font-size: 3.5rem;
-      top:100px;
-      left:150px;
+      top:90px;
+      left:140px;
     }
   }
 
