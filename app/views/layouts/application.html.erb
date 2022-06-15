@@ -27,6 +27,8 @@
     main {max-width: 980px;}
   </style>
 
+  <link rel="preload" href="<%= asset_url('lovedbytheking.woff2') %>" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="<%= asset_url('amatic-bold-webfont.woff2') %>" as="font" type="font/woff2" crossorigin>
   <link rel="dns-prefetch" href="//welocally.at">
 
   <% if user_signed_in? || controller_name == 'registrations' || controller_name == 'crowd_pledges' || controller_name == 'crowd_donation_pledges' %>
