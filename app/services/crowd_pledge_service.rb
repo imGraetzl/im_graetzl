@@ -146,6 +146,8 @@ class CrowdPledgeService
   def available_payment_methods(crowd_pledge)
     if crowd_pledge.total_price <= 200 && crowd_pledge.crowd_campaign.completed?
       ['card', 'sepa_debit', 'sofort']
+    elsif crowd_pledge.crowd_campaign.completed?
+      ['card', 'sofort']
     elsif crowd_pledge.total_price <= 200
       ['card', 'sepa_debit']
     else
