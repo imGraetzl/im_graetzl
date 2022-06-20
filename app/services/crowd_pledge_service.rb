@@ -121,6 +121,9 @@ class CrowdPledgeService
 
     crowd_pledge.update(
       stripe_payment_intent_id: payment_intent.id,
+      stripe_payment_method_id: payment_intent.charges.data[0].payment_method,
+      payment_method: payment_intent.charges.data[0].payment_method_details.type,
+      payment_card_last4: payment_method_last4(payment_intent.charges.data[0].payment_method_details),
       status: 'processing',
     )
     CrowdCampaignMailer.crowd_pledge_retried_debited(crowd_pledge).deliver_later
@@ -160,6 +163,8 @@ class CrowdPledgeService
       payment_method.card.last4
     elsif payment_method.type == 'sepa_debit'
       payment_method.sepa_debit.last4
+    elsif payment_method.type == 'sofort'
+      payment_method.sofort.iban_last4
     end
   end
 

@@ -32,10 +32,10 @@
       <% end %>
       <div class="social-icons">
         <em>Erzähls weiter:</em>
-        <%= link_to image_tag("svg/icon-social-whatsapp.svg", class: 'icon whatsapp'), "whatsapp://send?text=#{@crowd_campaign.title}: #{crowd_campaign_url(@crowd_campaign)}", target: "_blank", :data => { :'action' => 'share/whatsapp/share' } %>
-        <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
-        <%= link_to image_tag("svg/icon-social-twitter.svg", class: 'icon twitter'), "http://twitter.com/share?text=Crowdfunding: #{@crowd_campaign.title}&url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
-        <%= link_to image_tag("svg/icon-social-linkedin.svg", class: 'icon linkedin'), "https://www.linkedin.com/sharing/share-offsite/?url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
+        <%= link_to image_tag("svg/icon-social-whatsapp.svg", class: 'icon whatsapp', alt: 'Whats App'), "whatsapp://send?text=#{@crowd_campaign.title}: #{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Whats App', :data => { :'action' => 'share/whatsapp/share' } %>
+        <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Facebook' %>
+        <%= link_to image_tag("svg/icon-social-twitter.svg", class: 'icon twitter', alt: 'Twitter'), "http://twitter.com/share?text=Crowdfunding: #{@crowd_campaign.title}&url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Twitter' %>
+        <%= link_to image_tag("svg/icon-social-linkedin.svg", class: 'icon linkedin', alt: 'LinkedIn'), "https://www.linkedin.com/sharing/share-offsite/?url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'LinkedIn' %>
       </div>
     </div>
     <div class="coverImgBottom"></div>
