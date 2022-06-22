@@ -167,8 +167,8 @@ class CrowdPledgeService
       payment_method.card.last4
     elsif payment_method.type == 'sepa_debit'
       payment_method.sepa_debit.last4
-    elsif payment_method.type == 'sofort'
-      payment_method.sofort.iban_last4
+    else
+      nil
     end
   end
 
