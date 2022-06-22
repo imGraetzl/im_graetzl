@@ -180,7 +180,7 @@
     font-style: italic;
     @include font-size-primaryFont('small');
   }
-  h2.success {
+  div.success {
     display: inline-block;;
     svg {
       display: flex;
@@ -213,7 +213,7 @@
     font-size:15px;
   }
   .fundingStats {
-    .-supporters, h2.success {
+    .-supporters, div.success {
       display: none;
     }
     h2 {

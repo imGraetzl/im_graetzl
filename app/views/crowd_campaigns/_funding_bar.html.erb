@@ -96,7 +96,7 @@
   </div>
   <div class="right -ending">
     <% if @crowd_campaign.completed? && @crowd_campaign.successful? %>
-      <h2 class="success"><%= icon_tag "check" %></h2>
+      <div class="success"><%= icon_tag "check" %></div>
       <span class="full-view compact-view">Erfolgreich beendet</span>
     <% elsif @crowd_campaign.completed? %>
       <span class="full-view compact-view">Kampagne beendet</span>

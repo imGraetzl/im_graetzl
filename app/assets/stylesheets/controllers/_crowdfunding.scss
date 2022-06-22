@@ -133,8 +133,8 @@ section.crowd_campaign {
   .hl-subtext {
     text-align: center;
     h1 {@include font-size-secondaryFont('large');}
-    h2 {@include font-size-secondaryFont('small');}
-    h2 a {
+    h1.title {@include font-size-secondaryFont('small');}
+    h1.title a {
       color:white; text-decoration: none;
       &:hover {
         text-decoration: underline;

@@ -99,9 +99,9 @@
 
     <% if @crowd_campaign.images.present? %>
       <div class="entryImgUploads -grid">
-        <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb)), @crowd_campaign.cover_photo_url, alt: "Crowdfunding Gallery Foto", data: { jbox_image: "maingallery" } %>
+        <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb), alt: 'Gallery Foto'), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
         <% @crowd_campaign.images.each do |image| %>
-          <%= link_to gallery_thumb_image(image), image.file_url, alt: "Crowdfunding Gallery Foto", data: { jbox_image: "maingallery" } %>
+          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
         <% end %>
       </div>
     <% end %>
