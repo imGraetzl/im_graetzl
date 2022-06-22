@@ -77,7 +77,7 @@ class CrowdPledgesController < ApplicationController
     @crowd_pledge = CrowdPledge.find(params[:id])
     redirect_to [:summary, @crowd_pledge] if !@crowd_pledge.failed?
 
-    @payment_intent = CrowdPledgeService.new.create_payment_intent(@crowd_pledge)
+    @payment_intent = CrowdPledgeService.new.create_retry_intent(@crowd_pledge)
   end
 
   def payment_changed

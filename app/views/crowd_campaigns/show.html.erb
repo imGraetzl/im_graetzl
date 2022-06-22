@@ -17,7 +17,7 @@
   <div class="-fullwidth">
 
     <div class="hl-subtext">
-      <h2><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h2>
+      <h1 class="title"><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h1>
       <h1><%= @crowd_campaign.title %></h1>
       <p><%= @crowd_campaign.slogan %></p>
     </div>
@@ -109,14 +109,14 @@
   <div class="navArea">
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
-        <li class="active"><a href="#tab-info">Über das Projekt</a></li>
+        <li class="active"><a href="#tab-info"><h3>Über das Projekt</h3></a></li>
         <% if current_user == @crowd_campaign.user || @crowd_campaign.crowd_campaign_posts.present? %>
-          <li><a href="#tab-posts">Projekt Updates <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
+          <li><a href="#tab-posts"><h3>Projekt Updates</h3> <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
         <% end %>
-        <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
-        <li><a href="#tab-supporters">Unterstützer*innen<% if @crowd_campaign.pledges_and_donations_count > 0 %><small><%= @crowd_campaign.pledges_and_donations_count %></small><% end %></a></li>
+        <li><a href="#tab-comments"><h3>Pinnwand</h3> <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
+        <li><a href="#tab-supporters"><h3>Unterstützer*innen</h3><% if @crowd_campaign.pledges_and_donations_count > 0 %><small><%= @crowd_campaign.pledges_and_donations_count %></small><% end %></a></li>
         <% if current_user == @crowd_campaign.user && (@crowd_campaign.funding? || @crowd_campaign.completed?) %>
-          <li><a href="#tab-compose-mail">E-Mail senden</a></li>
+          <li><a href="#tab-compose-mail"><h3>E-Mail senden</h3></a></li>
         <% end %>
       </ul>
     </div>
