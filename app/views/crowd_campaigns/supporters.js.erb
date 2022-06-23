@@ -1,5 +1,5 @@
 (function() {
   $(".supporters-container").html("<%= j render 'crowd_campaigns/show/supporters' %>");
   $(".supporters-container").append("<%= j render 'crowd_campaigns/show/supporters_anonym' %>");
-  APP.components.initUserTooltip();
+  if ($('body.signed-in').exists()) APP.components.initUserTooltip();
 })();

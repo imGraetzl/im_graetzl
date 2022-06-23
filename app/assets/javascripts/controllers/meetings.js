@@ -39,7 +39,6 @@ APP.controllers.meetings = (function() {
           nextHtml: '',
           adaptiveHeight:false,
           pager: false,
-          //currentPagerPosition: 'middle',
           enableTouch:true,
           enableDrag:false,
           freeMove:true,
@@ -65,6 +64,12 @@ APP.controllers.meetings = (function() {
         closeOnClick:'body',
         blockScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
+        onOpen: function() {
+          gtag(
+            'event', 'Click :: Teilnehmen', {
+            'event_category': 'Meeting',
+          });
+        },
       });
 
       var meetingSettings = new jBox('Tooltip', {
@@ -75,40 +80,6 @@ APP.controllers.meetings = (function() {
         closeOnClick:true,
         isolateScroll:true,
         animation:{open: 'zoomIn', close: 'zoomOut'},
-      });
-
-      // Analytics & Form Submit!
-      $('.meeting-attend-btn').on('click', function() {
-        var form = $(this).closest("form");
-        if (typeof gtag == 'undefined') {
-          form.submit();
-        } else {
-          event.preventDefault();
-          gtag(
-            'event', 'Click :: Teilnehmen', {
-            'event_category': 'Meeting',
-            'event_callback': function() {
-              form.submit();
-            }
-          });
-        }
-      });
-
-      // Analytics & Form Submit!
-      $('.meeting-unattend-btn').on('click', function() {
-        var form = $(this).closest("form");
-        if (typeof gtag == 'undefined') {
-          form.submit();
-        } else {
-          event.preventDefault();
-          gtag(
-            'event', 'Click :: Nicht mehr teilnehmen', {
-            'event_category': 'Meeting',
-            'event_callback': function() {
-              form.submit();
-            }
-          });
-        }
       });
 
     }

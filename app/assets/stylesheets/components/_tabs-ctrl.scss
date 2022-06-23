@@ -69,6 +69,9 @@
       border-bottom: solid 3px $color-ambient-grey-dark;
     }
   }
+  .tabs-nav li h3 {
+    @include font-size-primaryFont('large');
+  }
   .tabs-nav li a {
     padding:13px;
     padding-left:5px;
