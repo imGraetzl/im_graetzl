@@ -37,7 +37,7 @@
   &.public_space, &.payment_refunded {
     background: LightCoral;
   }
-  &.weekly, &.funding, &.authorized {
+  &.weekly, &.authorized {
     background: LightBlue;
   }
   &.vacancy, &.daily, &.processing {
@@ -45,6 +45,9 @@
   }
   &.draft {
     background: Grey;
+  }
+  &.funding {
+    background: #6090DB;
   }
 }
 
