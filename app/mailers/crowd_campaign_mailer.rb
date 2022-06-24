@@ -148,6 +148,18 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def crowd_pledge_failed_reminder(crowd_pledge)
+    @crowd_pledge = crowd_pledge
+    @crowd_campaign = @crowd_pledge.crowd_campaign
+    @region = @crowd_campaign.region
+    headers("X-MC-Tags" => "crowd-pledge-failed-reminder")
+    mail(
+      subject: "Erinnerung: Fehlerhafte Crowdfunding Unterstützung für '#{@crowd_campaign.title}'.",
+      from: platform_email('no-reply'),
+      to: @crowd_pledge.email,
+    )
+  end
+
   def crowd_pledge_retried_debited(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign
