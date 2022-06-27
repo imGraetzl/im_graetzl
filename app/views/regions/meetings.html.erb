@@ -43,7 +43,7 @@
       <%= render 'meetings/action_card' %>
     </div>
     <!-- Insert Featured Card -->
-    <%= render "shared/featured_cards/crowdfunding" if current_region.id == 'wien' %>
+    <%= render "shared/featured_cards/umfrage" if current_region.id == 'wien' %>
 
     <%= link_to 'Mehr anzeigen', 'javascript:', remote: true, class: 'link-load hide', data: { disable_with: 'lädt...', behavior: 'meetings-paginate-link' }, rel: 'nofollow' %>
   </div>
