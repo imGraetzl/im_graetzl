@@ -49,7 +49,7 @@ class CrowdCampaign < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def closed?
-    completed? & (enddate < 14.days.ago) if enddate
+    completed? & (enddate < 15.days.ago) if enddate
   end
 
   def scope_public?
