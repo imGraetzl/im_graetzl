@@ -49,7 +49,7 @@ class CrowdCampaign < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def closed?
-    completed? & (enddate < 14.days.ago) if enddate
+    completed? & (enddate < 15.days.ago) if enddate
   end
 
   def scope_public?
@@ -154,7 +154,7 @@ class CrowdCampaign < ApplicationRecord
   end
 
   def remaining_days
-    (self.enddate - Date.today).to_i if self.enddate
+    ((self.enddate - Date.today) + 1).to_i if self.enddate
   end
 
   def runtime

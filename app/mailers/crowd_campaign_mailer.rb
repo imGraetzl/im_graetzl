@@ -100,6 +100,19 @@ class CrowdCampaignMailer < ApplicationMailer
     )
   end
 
+  def invoice(crowd_campaign)
+    @crowd_campaign = crowd_campaign
+    @region = @crowd_campaign.region
+    attachments["Rechnung.pdf"] = @crowd_campaign.invoice.get.body.read
+    headers("X-MC-Tags" => "crowd-campaign-invoice")
+
+    mail(
+      subject: "Rechnung",
+      from: platform_email("no-reply"),
+      to: @crowd_campaign.user.email,
+    )
+  end
+
   def crowd_pledge_authorized(crowd_pledge)
     @crowd_pledge = crowd_pledge
     @crowd_campaign = @crowd_pledge.crowd_campaign

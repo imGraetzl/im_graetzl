@@ -23,4 +23,9 @@ class CrowdCampaignService
     end
   end
 
+  def generate_invoice(campaign)
+    invoice = CrowdCampaignInvoice.new.invoice(campaign)
+    campaign.invoice.put(body: invoice)
+  end
+
 end
