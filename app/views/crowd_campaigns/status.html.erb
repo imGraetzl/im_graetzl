@@ -125,11 +125,11 @@
 
               <% if @crowd_campaign.closed? %>
                 <div>
-                  <h4 class="title">Fehlgeschlagen / Widerrufe</h4>
+                  <h4 class="title">Fehlgeschlagene Transaktionen</h4>
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_failed_sum, unit: "€") %></h4>
                 </div>
                 <div>
-                  <h4 class="title">Transaktionsgebühren (4%)</h4>
+                  <h4 class="title">4% Transaktionsgebühren (inkl. 20% MwSt)</h4>
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_fee, unit: "€") %></h4>
                 </div>
                 <div>

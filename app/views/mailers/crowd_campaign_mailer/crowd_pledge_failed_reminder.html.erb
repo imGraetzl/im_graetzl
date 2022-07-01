@@ -1,0 +1,142 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @crowd_pledge.contact_name %>,
+        </p>
+        <p>
+          wir wollten dich nochmals daran erinnern, dass deine Crowdfunding Unterstützung für das Projekt
+          <%= link_to @crowd_pledge.crowd_campaign.title, crowd_campaign_url(@crowd_pledge.crowd_campaign), style: "color:#ec776a;" %> <strong>nicht eingezogen werden konnte</strong>.
+        </p>
+        <p>
+          <strong>Aktualisiere bitte jetzt deine Zahlungsmethode, um deine Unterstützung für das Projekt aufrecht zu erhalten.</strong>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= render 'mailers/shared/button', title: "Aktualisierung deiner Zahlungsmethode", url: change_payment_crowd_pledge_url(@crowd_pledge) %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Möchtest du von deinem Rücktrittsrecht Gebrauch machen, dann antworte bitte auf dieses E-Mail mit dem Vermerk '<strong>Rücktritt</strong>'.
+        </p>
+        <p>
+          Bei Fragen kannst du dich gerne an uns wenden (<%= t("region.#{@crowd_campaign.region.id}.contact_email") %>).
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- --------------- BLOCK HEADLINE --------------- -->
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
+   <tr>
+     <td style="height:10px"> </td>
+   </tr>
+   <tr>
+     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
+       <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
+         Deine Unterstützungsdetails:
+       </h4>
+     </td>
+   </tr>
+   <tr>
+     <td style="padding-left:9px; padding-right:9px;">
+       <table class="mcnDividerContent" border="0" cellpadding="0" cellspacing="0" width="100%">
+         <tr>
+           <td>
+             <span></span>
+           </td>
+         </tr>
+       </table>
+     </td>
+   </tr>
+ </table>
+ <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+   <tbody>
+     <tr>
+       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+
+         <table>
+
+           <% if @crowd_pledge.crowd_reward.present? %>
+           <tr>
+             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.crowd_reward&.amount, unit: "€") %></strong></td>
+             <td><%= @crowd_pledge.crowd_reward&.title %></td>
+           </tr>
+
+           <% if @crowd_pledge.answer.present? %>
+            <tr>
+              <td></td>
+              <td>
+                <small>Deine Antwort: <em><%= @crowd_pledge.answer %></em>
+                </small>
+              </td>
+            </tr>
+           <% end %>
+
+           <tr>
+             <td></td>
+             <td></td>
+           </tr>
+           <% end %>
+
+           <% if @crowd_pledge.donation_amount.present? %>
+           <tr>
+             <td style="text-align:right; padding-right:10px;"><strong><%= number_to_currency(@crowd_pledge.donation_amount, unit: "€") %></strong></td>
+             <td>Freie Unterstützung</td>
+           </tr>
+           <% end %>
+
+           <% if @crowd_pledge.crowd_reward.present? && @crowd_pledge.donation_amount.present? %>
+           <tr>
+             <td style="text-align:right; padding-right:10px; white-space: nowrap;"><strong><%= number_to_currency(@crowd_pledge.total_price, unit: "€") %></strong></td>
+             <td><strong>Gesamt</strong></td>
+           </tr>
+           <% end %>
+
+         </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= render 'mailers/shared/button', title: "Zu deinen Unterstützungsdetails", url: details_crowd_pledge_url(@crowd_pledge) %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+         <br><br>
+
+         <table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer" width="100%">
+           <tr>
+             <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+               <small>
+               <strong>Verantwortlich für das Projekt:</strong><br>
+               <% if @crowd_pledge.crowd_campaign.contact_company.present? %>
+                 <%= @crowd_pledge.crowd_campaign.contact_company %><br>
+               <% end %>
+               <%= @crowd_pledge.crowd_campaign.contact_name %><br>
+               <%= @crowd_pledge.crowd_campaign.contact_address %><br>
+               <%= @crowd_pledge.crowd_campaign.contact_zip %> <%= @crowd_pledge.crowd_campaign.contact_city %><br>
+               </small>
+             </td>
+             <td width="10%"></td>
+             <td valign="top" class="mcnTextContent" width="45%" style="line-height: 100%; color:grey;">
+               <small>
+               <strong>Verantwortlich für den Plattformbetrieb:</strong><br>
+               morgenjungs GmbH (<%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.domain_full") %>)<br>
+               Breitenfeldergasse 14/2A<br>
+               1080 Wien<br>
+               <%= t("region.#{@crowd_pledge.crowd_campaign.region.id}.contact_email") %><br>
+               </small>
+             </td>
+           </tr>
+         </table>
+
+       </td>
+     </tr>
+   </tbody>
+ </table>

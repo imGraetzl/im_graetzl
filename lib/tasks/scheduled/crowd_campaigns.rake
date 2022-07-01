@@ -19,12 +19,25 @@ namespace :scheduled do
       CrowdCampaignMailer.draft(campaign).deliver_later
     end
 
-    # Close expired
+    # Complete expired
     campaign_end = Date.today.in_time_zone("Vienna").end_of_day.utc
 
     CrowdCampaign.funding.where(enddate: Date.today).find_each do |campaign|
       CrowdCampaignService.new.delay(run_at: campaign_end).complete(campaign)
     end
+
+    # Close and generate Invoice after 14 Days
+    CrowdCampaign.completed.successful.where(enddate: 14.days.ago).find_each do |campaign|
+      CrowdCampaignService.new.close(campaign)
+    end
+
+    # Send Reminder email to failed Pledges after 7 Days
+    CrowdCampaign.completed.where(enddate: 7.days.ago).find_each do |campaign|
+      campaign.crowd_pledges.failed.find_each do |pledge|
+        CrowdCampaignMailer.crowd_pledge_failed_reminder(pledge).deliver_later
+      end
+    end
+
   end
 
 end

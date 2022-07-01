@@ -71,6 +71,23 @@ context.instance_eval do
 
     end
     column do
+
+      if crowd_campaign.completed?
+        panel 'Auszahlungsstatistik' do
+          attributes_table_for crowd_campaign do
+            row :funding_sum
+            row :crowd_pledges_failed_sum
+            row :effective_funding_sum
+            row :crowd_pledges_fee_netto
+            row :crowd_pledges_fee_tax
+            row :crowd_pledges_fee
+            row :crowd_pledges_payout
+            row :invoice_number
+            row(:invoice) { |r| link_to "PDF", r.invoice.presigned_url(:get) }
+          end
+        end
+      end
+
       panel 'Dankeschöns' do
         table_for crowd_campaign.crowd_rewards do
           column 'Betrag', :amount

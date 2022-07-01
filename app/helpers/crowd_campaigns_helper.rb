@@ -51,7 +51,7 @@ module CrowdCampaignsHelper
   end
 
   def campaign_remaining_time(campaign)
-    if campaign.remaining_days > 1
+    if campaign.remaining_days > 2
       return [campaign.remaining_days, "Tage"]
     end
 
