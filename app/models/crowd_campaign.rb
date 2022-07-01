@@ -49,7 +49,7 @@ class CrowdCampaign < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def closed?
-    completed? & (enddate < 15.days.ago) if enddate
+    completed? & invoice_number.present?
   end
 
   def scope_public?
@@ -98,6 +98,14 @@ class CrowdCampaign < ApplicationRecord
 
   def crowd_pledges_fee
     (effective_funding_sum / 100) * 4
+  end
+
+  def crowd_pledges_fee_netto
+    (crowd_pledges_fee / 1.20).round(2)
+  end
+
+  def crowd_pledges_fee_tax
+    (crowd_pledges_fee_netto * 0.2).round(2)
   end
 
   def crowd_pledges_payout
@@ -151,6 +159,15 @@ class CrowdCampaign < ApplicationRecord
     else
       false
     end
+  end
+
+  def invoice
+    bucket = Aws::S3::Resource.new.bucket('invoices.imgraetzl.at')
+    bucket.object("#{Rails.env}/crowdfunding/#{id}-crowd_campaign.pdf")
+  end
+
+  def self.next_invoice_number
+    where("invoice_number IS NOT NULL").count + 1
   end
 
   def remaining_days

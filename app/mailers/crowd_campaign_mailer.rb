@@ -103,11 +103,10 @@ class CrowdCampaignMailer < ApplicationMailer
   def invoice(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
-    attachments["Rechnung.pdf"] = @crowd_campaign.invoice.get.body.read
+    attachments["#{@crowd_campaign.invoice_number}.pdf"] = @crowd_campaign.invoice.get.body.read
     headers("X-MC-Tags" => "crowd-campaign-invoice")
-
     mail(
-      subject: "Rechnung",
+      subject: "Deine Kampagne ist nun zur Auszahlung bereit.",
       from: platform_email("no-reply"),
       to: @crowd_campaign.user.email,
     )

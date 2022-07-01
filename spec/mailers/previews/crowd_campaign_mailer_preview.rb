@@ -36,6 +36,10 @@ class CrowdCampaignMailerPreview < ActionMailer::Preview
     CrowdCampaignMailer.completed_unsuccessful(CrowdCampaign.last)
   end
 
+  def invoice
+    CrowdCampaignMailer.invoice(CrowdCampaign.completed.first)
+  end
+
   def crowd_pledge_authorized
     CrowdCampaignMailer.crowd_pledge_authorized(CrowdPledge.order(:created_at).last)
   end

@@ -1,45 +1,91 @@
 class CrowdCampaignInvoice
 
-  def invoice(crowd_campaign)
+  def invoice(campaign)
     pdf = Prawn::Document.new
-    region = crowd_campaign.region
+    region = campaign.region
     add_header(pdf, region)
-    add_billing_address(pdf, crowd_campaign)
+    add_billing_address(pdf, campaign)
     add_company_info(pdf, region)
-    add_campaign_invoice(pdf, crowd_campaign)
+    add_campaign_stats(pdf, campaign)
+    add_campaign_invoice(pdf, campaign)
+    add_campaign_payout(pdf, campaign)
     pdf.render
   end
 
   private
 
   def add_header(pdf, region)
-    pdf.image "#{Rails.root}/app/assets/images/regions/#{region.id}/logo.png", width: 205, position: :right
-    pdf.move_down 10
+    pdf.image "#{Rails.root}/app/assets/images/regions/#{region.id}/logo.png", width: 200, position: :right
+    pdf.move_down 5
   end
 
-  def add_billing_address(pdf, crowd_campaign)
-    pdf.text "Rechnungsempfänger", style: :bold
-    pdf.text crowd_campaign.contact_company
-    pdf.text crowd_campaign.contact_name
-    pdf.text crowd_campaign.contact_address
-    pdf.text "#{crowd_campaign.zip} #{crowd_campaign.city}"
-    pdf.move_down 40
+  def add_billing_address(pdf, campaign)
+    pdf.text campaign.contact_company
+    pdf.text campaign.contact_name
+    pdf.text campaign.contact_address
+    pdf.text "#{campaign.address_zip} #{campaign.address_city}"
+    pdf.move_down 30
   end
 
   def add_company_info(pdf, region)
-    pdf.text "Rechnungssteller", style: :bold
-    pdf.text "#{I18n.t("region.#{region.id}.domain_full")} wird betrieben von:"
+    pdf.text "Betreff: Deine erfolgreiche Crowdfunding Kampagne auf #{I18n.t("region.#{region.id}.domain_full")}", style: :bold
     pdf.text "morgenjungs GmbH"
     pdf.text "Breitenfeldergasse 14/2A, 1080 Wien"
     pdf.text "UID: ATU 69461502"
-    pdf.move_down 40
+    pdf.move_down 20
   end
 
-  def add_campaign_invoice(pdf, crowd_campaign)
-    pdf.text "Rechnungsdatum: #{crowd_campaign.enddate + 14.days}"
+  def add_campaign_stats(pdf, campaign)
+    pdf.text "Rechnungsnummer: #{campaign.invoice_number}"
+    pdf.text "Rechnungsdatum: #{campaign.enddate + 15.days}"
+    pdf.text "Kampagne: '#{campaign.title}'"
     pdf.move_down 20
-    pdf.text "Rechnung", size: 20, style: :bold
-    pdf.move_down 20
+    pdf.text "Wir freuen uns, dir dein erfolgreiches Crowdfunding Projekt auf #{I18n.t("region.#{campaign.region.id}.domain_full")} und die Auszahlung deines Geldes zu bestätigen. Du hast insgesamt #{campaign.funding_count} Unterstützungen für dein Projekt erhalten, herzliche Gratulation! Die Auszahlungssumme (siehe unterhalb) wird dir in den nächsten Tagen auf dein verknüpftes Konto überwiesen. Im Abschnitt 'Rechnung', findest du die Rechnung über die angefallenen Transaktionsgebühren."
+    pdf.move_down 30
+
+    pdf.text "Fundingstatistik", size: 16, style: :bold
+    pdf.stroke_horizontal_rule
+    pdf.move_down 10
+
+    pdf.float { pdf.text "Festgelegtes Fundingziel", align: :left }
+    pdf.text "#{format_price(campaign.funding_1_amount)}", align: :right
+    pdf.float { pdf.text "Festgelegter Optimalbetrag", align: :left }
+    pdf.text "#{format_price(campaign.funding_2_amount)}", align: :right
+    pdf.move_down 10
+
+    pdf.float { pdf.text "Erreichte Fundingsumme", align: :left, style: :bold }
+    pdf.text "#{format_price(campaign.funding_sum)}", align: :right, style: :bold
+    pdf.float { pdf.text "Davon fehlgeschlagene Transaktionen (#{campaign.crowd_pledges.failed.count})", align: :left }
+    pdf.text "- #{format_price(campaign.crowd_pledges_failed_sum)}", align: :right
+    pdf.move_down 10
+
+    pdf.float { pdf.text "Tatsächlich erreichte Fundingsumme", align: :left, style: :bold }
+    pdf.text "#{format_price(campaign.effective_funding_sum)}", align: :right, style: :bold
+    pdf.move_down 25
+
+  end
+
+  def add_campaign_invoice(pdf, campaign)
+    pdf.text "Rechnung", size: 16, style: :bold
+    pdf.stroke_horizontal_rule
+    pdf.move_down 10
+
+    pdf.float { pdf.text "Transaktionsgebühren (Netto)", align: :left }
+    pdf.text "#{format_price(campaign.crowd_pledges_fee_netto)}", align: :right
+    pdf.float { pdf.text "20% MwSt.", align: :left }
+    pdf.text "#{format_price(campaign.crowd_pledges_fee_tax)}", align: :right
+    pdf.float { pdf.text "Transaktionsgebühren Gesamt (4,00%)", align: :left, style: :bold }
+    pdf.text "#{format_price(campaign.crowd_pledges_fee)}", align: :right, style: :bold
+    pdf.move_down 25
+
+  end
+
+  def add_campaign_payout(pdf, campaign)
+    pdf.text "Auszahlung", size: 16, style: :bold
+    pdf.stroke_horizontal_rule
+    pdf.move_down 10
+    pdf.float { pdf.text "Auszahlungssumme", align: :left, style: :bold }
+    pdf.text "#{format_price(campaign.crowd_pledges_payout)}", align: :right, style: :bold
   end
 
   def format_price(amount)
