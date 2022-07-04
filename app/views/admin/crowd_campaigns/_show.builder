@@ -83,7 +83,7 @@ context.instance_eval do
             row :crowd_pledges_fee
             row :crowd_pledges_payout
             row :invoice_number
-            row(:invoice) { |r| link_to "PDF", r.invoice.presigned_url(:get) } if crowd_campaign.closed?
+            row(:invoice) { |r| link_to "PDF", r.invoice.presigned_url(:get) } if crowd_campaign.invoice_number?
           end
         end
       end
