@@ -35,7 +35,7 @@ class CrowdPledgeService
     when :goal_1_reached
       CrowdCampaignMailer.goal_1_reached(crowd_pledge.crowd_campaign).deliver_later
 
-      if crowd_pledge.crowd_campaign.funding_2_amount.present?
+      if crowd_pledge.crowd_campaign.funding_2_amount.present? && (crowd_pledge.crowd_campaign.remaining_days > 1)
         pledges = crowd_pledge.crowd_campaign.crowd_pledges.authorized
         pledges = pledges.uniq { |s| s.email }
         pledges.each do |pledge|
