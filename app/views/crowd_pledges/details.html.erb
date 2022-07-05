@@ -203,6 +203,8 @@
     <%= render 'crowd_pledges/new/sidebar' %>
     <br>
     <%= link_to 'Starter*in im Messenger kontaktieren', messenger_start_thread_path(user_id: @crowd_pledge.crowd_campaign.user.id), class: 'btn-secondary -mint -small' %>
+    <br>
+    <%= link_to 'Zahlung abschließen', change_payment_crowd_pledge_url(@crowd_pledge), class: 'btn-secondary -small' if (@crowd_pledge.failed? && !@crowd_pledge.crowd_campaign.payment_closed?) %>
   </div>
 
 </section>

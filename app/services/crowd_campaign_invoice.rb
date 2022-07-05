@@ -37,7 +37,7 @@ class CrowdCampaignInvoice
 
   def add_campaign_stats(pdf, campaign)
     pdf.text "Rechnungsnummer: #{campaign.invoice_number}"
-    pdf.text "Rechnungsdatum: #{campaign.enddate + 15.days}"
+    pdf.text "Rechnungsdatum: #{Date.today.strftime('%d.%m.%Y')}"
     pdf.text "Kampagne: '#{campaign.title}'"
     pdf.move_down 20
     pdf.text "Wir freuen uns, dir dein erfolgreiches Crowdfunding Projekt auf #{I18n.t("region.#{campaign.region.id}.domain_full")} und die Auszahlung deines Geldes zu bestätigen. Du hast insgesamt #{campaign.funding_count} Unterstützungen für dein Projekt erhalten, herzliche Gratulation! Die Auszahlungssumme (siehe unterhalb) wird dir in den nächsten Tagen auf dein verknüpftes Konto überwiesen. Im Abschnitt 'Rechnung', findest du die Rechnung über die angefallenen Transaktionsgebühren."

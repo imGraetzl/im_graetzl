@@ -49,7 +49,15 @@ class CrowdCampaign < ApplicationRecord
   scope :by_currentness, -> { order(created_at: :desc) }
 
   def closed?
-    completed? & invoice_number.present?
+    completed? & (not_funded? || invoice_number.present?)
+  end
+
+  def payment_close_date
+    enddate + 10.days
+  end
+
+  def payment_closed?
+    payment_close_date.past?
   end
 
   def scope_public?
