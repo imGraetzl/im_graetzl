@@ -43,6 +43,12 @@
         Du hast die Anfrage abgelehnt. Bitte schreibe dem Mieter warum du den Raumteiler nicht vermieten konntest.
       </div>
 
+    <% elsif room_rental.expired? %>
+
+    <div class="note">
+      Diese Raumteiler Anfrage ist mittlerweile abgelaufen.
+    </div>
+
     <% end %>
 
   </div>

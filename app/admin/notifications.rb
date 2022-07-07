@@ -45,8 +45,7 @@ ActiveAdmin.register Notification, as: "Notifications" do
 
   # member actions
   member_action :delete_activity, method: :put do
-    Activity.where(:type => resource.type).
-      where(:subject_type => resource.subject_type).
+    Activity.where(:subject_type => resource.subject_type).
       where(:subject_id => resource.subject_id).
       where(:child_type => resource.child_type).
       where(:child_id => resource.child_id).delete_all

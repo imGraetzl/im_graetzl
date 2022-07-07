@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_01_085204) do
+ActiveRecord::Schema.define(version: 2022_07_06_113039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1078,6 +1078,8 @@ ActiveRecord::Schema.define(version: 2022_07_01_085204) do
     t.datetime "updated_at", null: false
     t.string "payment_card_last4"
     t.string "region_id"
+    t.string "stripe_payment_method_id"
+    t.datetime "debited_at"
     t.index ["region_id"], name: "index_room_rentals_on_region_id"
     t.index ["room_offer_id"], name: "index_room_rentals_on_room_offer_id"
     t.index ["stripe_payment_intent_id"], name: "index_room_rentals_on_stripe_payment_intent_id"
@@ -1225,6 +1227,8 @@ ActiveRecord::Schema.define(version: 2022_07_01_085204) do
     t.decimal "daily_price", precision: 10, scale: 2, default: "0.0"
     t.string "payment_card_last4"
     t.string "region_id"
+    t.string "stripe_payment_method_id"
+    t.datetime "debited_at"
     t.index ["region_id"], name: "index_tool_rentals_on_region_id"
     t.index ["stripe_payment_intent_id"], name: "index_tool_rentals_on_stripe_payment_intent_id"
     t.index ["tool_offer_id"], name: "index_tool_rentals_on_tool_offer_id"

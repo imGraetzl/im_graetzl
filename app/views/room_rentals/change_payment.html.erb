@@ -1,0 +1,56 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="room-rental-page change-payment-screen">
+
+  <div class="col-content">
+
+    <div class="hl-subtext">
+      <h1>Deine Zahlung</h1>
+      <p>
+        Fahre mit deiner Zahlung fort, um deine Raumteiler Miete erfolgreich abzuschließen.
+      </p>
+    </div>
+
+    <%= form_tag nil, id: "payment-form", data: {
+      intent: 'payment',
+      client_secret: @payment_intent.client_secret,
+      redirect: payment_changed_room_rental_url(@room_rental)
+    } do %>
+      <%= image_tag 'svg/loading.svg', class: 'loading-spinner stripe-spinner', width:100, height:100 %>
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="payment-submit" class="btn-primary" data-btntext="Buchung abschließen">
+        Buchung abschließen
+      </button>
+      <div class="error-message"></div>
+    <% end %>
+
+    <div class="footer-txt payment-method-info sepa_debit">
+      <strong>Die Abbuchung erfolgt druch: PPRO Payment Services S.A. (<%= @room_rental.room_offer.region.host_domain_name.upcase %> by Stripe via PPRO)</strong><br>
+      <div class="legal">
+        Durch Angabe der Zahlungsinformationen und Bestätigung der Zahlung ermächtigen Sie (A) imGrätzl.at (morgenjungs GmbH) und Stripe, unseren Zahlungsdienstleister und/oder PPRO, den lokalen Dienstleister, Zahlungen von Ihrem Konto mittels Lastschrift einzuziehen. Zugleich (B) weisen Sie Ihr Kreditinstitut gemäß diesen Anweisungen an, Ihr Konto entsprechend zu belasten. Sie haben im Rahmen Ihrer Rechte Anspruch auf Erstattung von Ihrem Kreditinstitut gemäß den vereinbarten Bedingungen mit Ihrem Kreditinstitut. Sie können innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es gelten dabei die mit Ihrem Kreditinstitut vereinbarten Bedingungen. Weiterhin erklären Sie sich damit einverstanden, die Vorabankündigung bis spätestens zwei Tage vor Zahlungseinzug zu erhalten.
+      </div>
+      <%= link_to 'Mehr anzeigen', 'javascript:', class: 'open-legal' %>
+    </div>
+
+    <div class="footer-txt payment-method-info sofort">
+      <strong>Die Abbuchung erfolgt druch: morgenjungs GmbH</strong> (Betreiber von <%= @room_rental.room_offer.region.host_domain_name %>)<br>
+    </div>
+
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'room_rentals/new/sidebar' %>
+  </div>
+
+</section>
+
+<%= javascript_include_tag "https://js.stripe.com/v3/" %>
+<script>
+  window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
+</script>
