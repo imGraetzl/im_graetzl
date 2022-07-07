@@ -30,14 +30,15 @@ class WebhooksController < ApplicationController
   private
 
   def payment_intent_succeded(payment_intent)
-    if payment_intent.metadata.pledge_id.present?
+
+    if payment_intent.metadata&.pledge_id.present?
       crowd_pledge = CrowdPledge.find_by(id: payment_intent.metadata.pledge_id)
       if crowd_pledge
         CrowdPledgeService.new.payment_succeeded(crowd_pledge, payment_intent)
       end
     end
 
-    if payment_intent.metadata.room_rental_id.present?
+    if payment_intent.metadata&.room_rental_id.present?
       room_rental = RoomRental.find_by(id: payment_intent.metadata.room_rental_id)
       RoomRentalService.new.payment_succeeded(room_rental, payment_intent) if room_rental
     end
@@ -50,12 +51,12 @@ class WebhooksController < ApplicationController
   end
 
   def payment_intent_failed(payment_intent)
-    if payment_intent.metadata.pledge_id.present?
+    if payment_intent.metadata&.pledge_id.present?
       crowd_pledge = CrowdPledge.find_by(id: payment_intent.metadata.pledge_id)
       CrowdPledgeService.new.payment_failed(crowd_pledge, payment_intent) if crowd_pledge
     end
 
-    if payment_intent.metadata.room_rental_id.present?
+    if payment_intent.metadata&.room_rental_id.present?
       room_rental = RoomRental.find_by(id: payment_intent.metadata.room_rental_id)
       RoomRentalService.new.payment_failed(room_rental, payment_intent) if room_rental
     end
