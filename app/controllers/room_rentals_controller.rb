@@ -54,27 +54,43 @@ class RoomRentalsController < ApplicationController
     if !@room_rental.incomplete?
       redirect_to messenger_url(thread_id: @room_rental.user_message_thread.id) and return
     end
+    @setup_intent = RoomRentalService.new.create_setup_intent(@room_rental)
   end
 
-  def initiate_card_payment
-    @room_rental = current_user.room_rentals.incomplete.find(params[:id])
-    result = RoomRentalService.new.initiate_card_payment(@room_rental, card_params)
-    render json: result, status: result[:error].present? ? :bad_request : :ok
-  end
-
-  def initiate_eps_payment
-    @room_rental = current_user.room_rentals.incomplete.find(params[:id])
-    result = RoomRentalService.new.initiate_eps_payment(@room_rental)
-    render json: result, status: result[:error].present? ? :bad_request : :ok
-  end
-
-  def complete_eps_payment
+  def payment_authorized
     @room_rental = current_user.room_rentals.find(params[:id])
-    if params[:redirect_status] == 'succeeded'
+    redirect_to [:choose_payment, @room_rental] if params[:setup_intent].blank?
+
+    success, error = RoomRentalService.new.payment_authorized(@room_rental, params[:setup_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
       redirect_to [:summary, @room_rental]
     else
-      flash[:error] = "EPS Überweisung gescheitert."
+      flash[:error] = error
       redirect_to [:choose_payment, @room_rental]
+    end
+  end
+
+  def change_payment
+    @room_rental = current_user.room_rentals.find(params[:id])
+    redirect_to [:summary, @room_rental] if !(@room_rental.failed? && @room_rental.approved?)
+
+    @payment_intent = RoomRentalService.new.create_retry_intent(@room_rental)
+  end
+
+  def payment_changed
+    @room_rental = current_user.room_rentals.find(params[:id])
+    redirect_to [:summary, @room_rental] if params[:payment_intent].blank?
+
+    success, error = RoomRentalService.new.payment_retried(@room_rental, params[:payment_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      redirect_to [:summary, @room_rental]
+    else
+      flash[:error] = error
+      redirect_to [:change_payment, @room_rental]
     end
   end
 
@@ -145,14 +161,6 @@ class RoomRentalsController < ApplicationController
       :renter_name, :renter_address, :renter_zip, :renter_city,
       room_rental_slots_attributes: [:id, :rent_date, :hour_from, :hour_to, :_destroy],
     )
-  end
-
-  def card_params
-    params.permit(:payment_method_id, :payment_intent_id)
-  end
-
-  def eps_params
-    params.permit(:payment_intent)
   end
 
 end

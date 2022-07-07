@@ -173,4 +173,17 @@ class RoomMailer < ApplicationMailer
     )
   end
 
+  def rental_payment_failed(room_rental)
+    @room_rental = room_rental
+    @region = @room_rental.region
+
+    headers("X-MC-Tags" => "room-rental-payment-failed")
+
+    mail(
+      subject: "Probleme bei deiner Zahlung",
+      from: platform_email('no-reply'),
+      to: @room_rental.owner.email,
+    )
+  end
+
 end

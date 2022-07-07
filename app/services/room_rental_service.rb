@@ -1,39 +1,29 @@
 class RoomRentalService
 
-  def initiate_card_payment(room_rental, payment_params)
-    if payment_params[:payment_method_id].blank?
-      return { error: "Missing payment method ID." }
-    end
-
+  def create_setup_intent(room_rental)
     stripe_customer_id = get_stripe_customer_id(room_rental.renter)
+    Stripe::SetupIntent.create(
+      customer: stripe_customer_id,
+      payment_method_types: available_payment_methods(room_rental),
+      usage: 'off_session',
+      metadata: {
+        room_rental_id: room_rental.id,
+        room_offer_id: room_rental.room_offer.id
+      },
+    )
+  end
 
-    if payment_params[:payment_intent_id].blank?
-      intent = Stripe::PaymentIntent.create(
-        customer: stripe_customer_id,
-        amount: (room_rental.total_price * 100).to_i,
-        currency: 'eur',
-        description: room_rental.room_offer.slogan,
-        payment_method: payment_params[:payment_method_id],
-        capture_method: 'manual',
-        confirmation_method: 'manual',
-        confirm: true,
-      )
-
-      if intent.status == 'requires_action'
-        return { requires_action: true, payment_intent_client_secret: intent.client_secret }
-      end
-
-      payment_params[:payment_intent_id] = intent.id
+  def payment_authorized(room_rental, setup_intent_id)
+    setup_intent = Stripe::SetupIntent.retrieve(id: setup_intent_id, expand: ['payment_method'])
+    if !setup_intent.status.in?(["succeeded", "processing"])
+      return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
-
-    card = Stripe::PaymentIntent.retrieve(
-      id: payment_params[:payment_intent_id], expand: ['payment_method']
-    ).payment_method.card
 
     room_rental.update(
-      stripe_payment_intent_id: payment_params[:payment_intent_id],
-      payment_method: 'card',
-      payment_card_last4: card.last4,
+      stripe_payment_method_id: setup_intent.payment_method.id,
+      payment_method: setup_intent.payment_method.type,
+      payment_card_last4: payment_method_last4(setup_intent.payment_method),
+      payment_status: :authorized,
       rental_status: :pending,
     )
 
@@ -41,54 +31,33 @@ class RoomRentalService
     RoomMailer.new_rental_request(room_rental).deliver_later
     Notifications::RoomRentalCreated.generate(room_rental, to: room_rental.owner.id)
     return { success: true }
-  end
 
-  def initiate_eps_payment(room_rental)
-    stripe_customer_id = get_stripe_customer_id(room_rental.renter)
-
-    intent = Stripe::PaymentIntent.create(
-      customer: stripe_customer_id,
-      amount: (room_rental.total_price * 100).to_i,
-      currency: 'eur',
-      payment_method_types: ['eps'],
-      description: room_rental.room_offer.slogan,
-    )
-
-    room_rental.update(
-      stripe_payment_intent_id: intent.id,
-    )
-
-    return { payment_intent_client_secret: intent.client_secret }
-  rescue Stripe::InvalidRequestError => e
-    return { error: e.json_body[:error][:message] }
-  end
-
-  def confirm_eps_payment(room_rental, payment_intent)
-    if payment_intent.status == 'succeeded'
-      room_rental.update(
-        payment_method: 'eps',
-        rental_status: :pending,
-      )
-      UserMessageThread.create_for_room_rental(room_rental)
-      RoomMailer.new_rental_request(room_rental).deliver_later
-      Notifications::RoomRentalCreated.generate(room_rental, to: room_rental.owner.id)
-    end
   end
 
   def approve(room_rental)
-    case room_rental.payment_method
-    when 'card'
-      Stripe::PaymentIntent.capture(room_rental.stripe_payment_intent_id)
-    when 'eps'
-      # Doesn't support delayed capture, we already charged the user.
-    when 'klarna'
-      Stripe::Charge.capture(room_rental.stripe_charge_id)
-    end
+    return if !room_rental.authorized?
+
+    room_rental.update(payment_status: :processing)
+
+    payment_intent = Stripe::PaymentIntent.create(
+      customer: room_rental.renter.stripe_customer_id,
+      payment_method_types: available_payment_methods(room_rental),
+      payment_method: room_rental.stripe_payment_method_id,
+      amount: (room_rental.total_price * 100).to_i,
+      currency: 'eur',
+      statement_descriptor: statement_descriptor(room_rental.room_offer),
+      metadata: {
+        room_rental_id: room_rental.id,
+        room_offer_id: room_rental.room_offer.id
+      },
+      off_session: true,
+      confirm: true,
+    )
 
     invoice_number = "#{Date.current.year}_RR-#{room_rental.id}_Nr-#{RoomRental.next_invoice_number}"
     room_rental.update(
+      stripe_payment_intent_id: payment_intent.id,
       rental_status: :approved,
-      payment_status: :payment_success,
       invoice_number: invoice_number
     )
 
@@ -96,31 +65,75 @@ class RoomRentalService
     RoomMailer.rental_approved_renter(room_rental).deliver_later
     RoomMailer.rental_approved_owner(room_rental).deliver_later
     Notifications::RoomRentalApproved.generate(room_rental, to: room_rental.renter.id)
-  rescue Stripe::InvalidRequestError
-    room_rental.update(rental_status: :rejected, payment_status: :payment_failed)
+
+    { success: true }
+  rescue Stripe::CardError
+    room_rental.update(payment_status: :failed)
+    RoomMailer.rental_payment_failed(room_rental).deliver_later
+
+    { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
+  end
+
+  def payment_succeeded(room_rental, payment_intent)
+    room_rental.update(payment_status: :debited, debited_at: Time.current)
+
+    { success: true }
+  end
+
+  def payment_failed(room_rental, payment_intent)
+    return if !room_rental.processing?
+
+    room_rental.update(payment_status: :failed)
+    RoomMailer.rental_payment_failed(room_rental).deliver_later
+
+    { success: true }
+  end
+
+  def create_retry_intent(room_rental)
+    stripe_customer_id = get_stripe_customer_id(room_rental.renter)
+    Stripe::PaymentIntent.create(
+      customer: stripe_customer_id,
+      amount: (room_rental.total_price * 100).to_i,
+      currency: 'eur',
+      statement_descriptor: statement_descriptor(room_rental.room_offer),
+      payment_method_types: retry_payment_methods(room_rental),
+      metadata: {
+        room_rental_id: room_rental.id,
+        room_offer_id: room_rental.room_offer.id
+      },
+    )
+  end
+
+  def payment_retried(room_rental, payment_intent_id)
+    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
+    if !payment_intent.status.in?(["succeeded", "processing"])
+      return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
+    end
+
+    room_rental.update(
+      stripe_payment_intent_id: payment_intent.id,
+      stripe_payment_method_id: payment_intent.payment_method.id,
+      payment_method: payment_intent.payment_method.type,
+      payment_card_last4: payment_method_last4(payment_intent.payment_method),
+      payment_status: :processing,
+    )
+    true
   end
 
   def reject(room_rental)
-    undo_payment(room_rental)
     room_rental.rejected!
-
     RoomMailer.rental_rejected(room_rental).deliver_later
     Notifications::RoomRentalRejected.generate(room_rental, to: room_rental.renter.id)
   end
 
   def cancel(room_rental)
-    undo_payment(room_rental)
     room_rental.canceled!
     RoomMailer.rental_canceled(room_rental).deliver_later
     Notifications::RoomRentalCanceled.generate(room_rental, to: room_rental.owner.id)
   end
 
   def expire(room_rental)
-    undo_payment(room_rental)
-    room_rental.update(
-      rental_status: :expired,
-      payment_status: :payment_canceled
-    )
+    room_rental.expired!
   end
 
   private
@@ -133,6 +146,36 @@ class RoomRentalService
     user.stripe_customer_id
   end
 
+  def available_payment_methods(room_rental)
+    if room_rental.total_price <= 200
+      ['card', 'sepa_debit']
+    else
+      ['card']
+    end
+  end
+
+  def retry_payment_methods(room_rental)
+    if room_rental.total_price <= 200
+      ['card', 'sepa_debit', 'sofort']
+    else
+      ['card', 'sofort']
+    end
+  end
+
+  def payment_method_last4(payment_method)
+    if payment_method.type == 'card'
+      payment_method.card.last4
+    elsif payment_method.type == 'sepa_debit'
+      payment_method.sepa_debit.last4
+    else
+      nil
+    end
+  end
+
+  def statement_descriptor(room_offer)
+    "#{room_offer.region.host_id} Raumteiler".upcase
+  end
+
   def generate_invoices(room_rental)
     renter_invoice = RoomRentalInvoice.new.generate_for_renter(room_rental)
     room_rental.renter_invoice.put(body: renter_invoice)
@@ -140,14 +183,4 @@ class RoomRentalService
     room_rental.owner_invoice.put(body: owner_invoice)
   end
 
-  def undo_payment(room_rental)
-    case room_rental.payment_method
-    when 'card'
-      Stripe::PaymentIntent.cancel(room_rental.stripe_payment_intent_id)
-    when 'eps'
-      Stripe::Refund.create(payment_intent: room_rental.stripe_payment_intent_id)
-    when 'klarna'
-      Stripe::Refund.create(charge: room_rental.stripe_charge_id)
-    end
-  end
 end

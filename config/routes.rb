@@ -202,9 +202,9 @@ Rails.application.routes.draw do
     get 'calculate_price', on: :collection
     get 'address', on: :collection
     get 'choose_payment', on: :member
-    post 'initiate_card_payment', on: :member
-    post 'initiate_eps_payment', on: :member
-    get 'complete_eps_payment', on: :member
+    get 'payment_authorized', on: :member
+    get 'change_payment', on: :member
+    get 'payment_changed', on: :member
     get 'summary', on: :member
     post 'cancel', on: :member
     post 'approve', on: :member
@@ -233,14 +233,6 @@ Rails.application.routes.draw do
     post 'reject', on: :member
     post 'confirm_return', on: :member
     post 'leave_rating', on: :member
-  end
-
-  resources :going_tos, only: [:new, :create] do
-    get 'choose_payment', on: :collection
-    get 'summary', on: :collection
-    post 'initiate_card_payment', on: :collection
-    post 'initiate_klarna_payment', on: :collection
-    post 'initiate_eps_payment', on: :collection
   end
 
   resources :groups do

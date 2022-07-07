@@ -11,14 +11,11 @@ class RoomRental < ApplicationRecord
   has_one :user_message_thread
 
   enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, expired: 5 }
-  enum payment_status: { payment_pending: 0, payment_success: 1, payment_failed: 2, payment_transfered: 3, payment_canceled: 4 }
+  enum payment_status: { payment_pending: 0, payment_success: 1, payment_failed: 2, payment_transfered: 3, payment_canceled: 4, authorized: 5, processing: 6, debited: 7, failed: 8 }
 
   scope :submitted, -> { where.not(rental_status: :incomplete) }
 
   before_create :set_region
-
-  #PAYMENT_METHODS = ['card', 'eps'].freeze
-  PAYMENT_METHODS = ['eps'].freeze
 
   def self.next_invoice_number
     where("invoice_number IS NOT NULL").count + 1

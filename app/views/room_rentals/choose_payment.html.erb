@@ -13,6 +13,14 @@
 
   <div class="col-sidebar">
     <%= render 'room_rentals/new/sidebar' %>
+
+    <div class="footer-txt">
+      <strong>Bist du noch unschlüssig und möchtest <%= @room_rental.owner.first_name %>
+      zuerst eine Frage stellen</strong>, so gehe direkt
+      <%= link_to 'zum Messenger', messenger_start_thread_path(room_rental_id: @room_rental.id) %>.
+      Du kannst deine Buchung auch nachher im Messenger starten.
+    </div>
+
   </div>
 
 </section>

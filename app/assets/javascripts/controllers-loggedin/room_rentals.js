@@ -7,6 +7,8 @@ APP.controllers_loggedin.room_rentals = (function() {
         initAddressScreen();
       } else if ($(".room-rental-page.payment-screen").exists()) {
         initPaymentScreen();
+      } else if ($(".room-rental-page.change-payment-screen").exists()) {
+        initPaymentChangeScreen();
       } else if ($(".room-rental-page.summary-screen").exists()) {
         initSummaryScreen();
       }
@@ -109,31 +111,11 @@ APP.controllers_loggedin.room_rentals = (function() {
 
     function initPaymentScreen() {
       APP.components.tabs.setTab('step3');
-
-      var screen = $(".room-rental-page.payment-screen");
-        screen.find(".paymentMethods input").on("click", function() {
-        screen.find(".payment-method-container").hide();
-        screen.find("." + $(this).val() + "-container").show();
-      });
-
-      screen.find(".paymentMethods input:checked").click();
-
-      if ($(".card-container").exists()) { initCardPayment(); }
-      if ($(".eps-container").exists()) { initEpsPayment(); }
-
+      APP.components.stripePayment.init();
     }
 
-    function initCardPayment() {
-      var cardForm = $(".card-container .card-form");
-      APP.components.paymentCard.init(cardForm);
-      cardForm.on('payment:complete', function() {
-        location.href = $(this).data('success-url');
-      });
-    }
-
-    function initEpsPayment() {
-      var epsForm = $(".eps-container .eps-form");
-      APP.components.paymentEps.init(epsForm);
+    function initPaymentChangeScreen() {
+      APP.components.stripePayment.init();
     }
 
     function initSummaryScreen() {
