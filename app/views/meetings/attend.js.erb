@@ -1,9 +1,0 @@
-(function() {
-  var $container = $("[data-behavior='participants-container']");
-
-  function updateComponent() {
-    $container.replaceWith("<%= j render 'meetings/participation', meeting: @meeting %>");
-  }
-
-  updateComponent();
-})();

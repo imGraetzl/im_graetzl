@@ -60,6 +60,9 @@
       <%= nav_submenu_link("coop-and-share", 'Coop & Share Marktplatz', 'nav-submenu-user-coop-shares') %>
       <%= nav_submenu_link("speech-bubble", 'Gruppen', 'nav-submenu-user-groups') %>
       <%= nav_menu_item("power", 'Abmelden', destroy_user_session_path, method: :delete) %>
+      <% if user_masquerade? %>
+        <%= nav_menu_item("power", "Abmelden als #{current_user.username}", back_masquerade_path(current_user)) %>
+      <% end %>
       <% if current_user.admin? %>
         <%= nav_menu_item("magic-wand", 'Admin', admin_root_path, class: 'half first last-row') %>
         <%= nav_menu_item("bar-chart-growth", 'Reports', "/reports", class: 'half last-row') %>

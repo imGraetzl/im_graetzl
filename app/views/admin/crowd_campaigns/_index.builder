@@ -6,5 +6,6 @@ context.instance_eval do
   column :user
   column(:status){|r| status_tag(r.status)}
   column(:funding_status){|r| status_tag(r.funding_status)}
+  column :closed?
   actions
 end

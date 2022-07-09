@@ -4,6 +4,11 @@ context.instance_eval do
       panel 'User Details' do
         attributes_table_for user do
           row :id
+          if current_user.email == 'michael.walchhuetter@gmail.com'
+            row "Login als User" do |u|
+              link_to "Login As", masquerade_path(user)
+            end
+          end
           row :region
           row :graetzl
           row :slug
@@ -17,6 +22,8 @@ context.instance_eval do
           row :business
           row(:newsletter){|u| status_tag(u.newsletter)}
           row(:role){|u| status_tag(u.role)}
+          row :stripe_connect_account_id
+          row :stripe_connect_ready
           row :location_category
           row :business_interests do |g|
             safe_join(

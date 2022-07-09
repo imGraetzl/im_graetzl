@@ -8,6 +8,8 @@ class WebhooksController < ApplicationController
     case event.type
     when "payment_intent.succeeded"
       payment_intent_succeded(event.data.object)
+    when "payment_intent.payment_failed"
+      payment_intent_failed(event.data.object)
     end
 
     head :ok
@@ -46,6 +48,14 @@ class WebhooksController < ApplicationController
       ToolRentalService.new.confirm_eps_payment(tool_rental, payment_intent)
       return
     end
+  end
+
+  def payment_intent_failed(payment_intent)
+    if payment_intent.metadata.pledge_id.present?
+      crowd_pledge = CrowdPledge.find_by(id: payment_intent.metadata.pledge_id)
+      CrowdPledgeService.new.payment_failed(crowd_pledge, payment_intent) if crowd_pledge
+    end
+
   end
 
 end

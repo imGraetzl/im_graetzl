@@ -7,6 +7,8 @@ context.instance_eval do
           row :region
           row :graetzl
           row :user
+          row(:stripe_connect_account_id){|l| l.user.stripe_connect_account_id}
+          row(:stripe_connect_ready){|l| l.user.stripe_connect_ready}
           row(:active_state){|l| status_tag(l.active_state)}
           row(:status){|l| status_tag(l.status)}
           row(:funding_status){|l| status_tag(l.funding_status)}
@@ -69,6 +71,23 @@ context.instance_eval do
 
     end
     column do
+
+      if crowd_campaign.completed?
+        panel 'Auszahlungsstatistik' do
+          attributes_table_for crowd_campaign do
+            row :funding_sum
+            row :crowd_pledges_failed_sum
+            row :effective_funding_sum
+            row :crowd_pledges_fee_netto
+            row :crowd_pledges_fee_tax
+            row :crowd_pledges_fee
+            row :crowd_pledges_payout
+            row :invoice_number
+            row(:invoice) { |r| link_to "PDF", r.invoice.presigned_url(:get) } if crowd_campaign.invoice_number?
+          end
+        end
+      end
+
       panel 'Dankeschöns' do
         table_for crowd_campaign.crowd_rewards do
           column 'Betrag', :amount

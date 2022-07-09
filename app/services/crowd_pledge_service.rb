@@ -35,7 +35,7 @@ class CrowdPledgeService
     when :goal_1_reached
       CrowdCampaignMailer.goal_1_reached(crowd_pledge.crowd_campaign).deliver_later
 
-      if crowd_pledge.crowd_campaign.funding_2_amount.present?
+      if crowd_pledge.crowd_campaign.funding_2_amount.present? && (crowd_pledge.crowd_campaign.remaining_days > 1)
         pledges = crowd_pledge.crowd_campaign.crowd_pledges.authorized
         pledges = pledges.uniq { |s| s.email }
         pledges.each do |pledge|
@@ -89,14 +89,23 @@ class CrowdPledgeService
     { success: true }
   end
 
-  def create_payment_intent(crowd_pledge)
+  def payment_failed(crowd_pledge, payment_intent)
+    return if !crowd_pledge.processing?
+
+    crowd_pledge.update(status: 'failed')
+    CrowdCampaignMailer.crowd_pledge_failed(crowd_pledge).deliver_later
+
+    { success: true }
+  end
+
+  def create_retry_intent(crowd_pledge)
     stripe_customer_id = get_stripe_customer_id(crowd_pledge)
     Stripe::PaymentIntent.create(
       customer: stripe_customer_id,
       amount: (crowd_pledge.total_price * 100).to_i,
       currency: 'eur',
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
-      payment_method_types: available_payment_methods(crowd_pledge),
+      payment_method_types: retry_payment_methods(crowd_pledge),
       metadata: {
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id
@@ -105,13 +114,16 @@ class CrowdPledgeService
   end
 
   def payment_retried(crowd_pledge, payment_intent_id)
-    payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
+    payment_intent = Stripe::PaymentIntent.retrieve(id: payment_intent_id, expand: ['payment_method'])
     if !payment_intent.status.in?(["succeeded", "processing"])
       return [false, "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut."]
     end
 
     crowd_pledge.update(
       stripe_payment_intent_id: payment_intent.id,
+      stripe_payment_method_id: payment_intent.payment_method.id,
+      payment_method: payment_intent.payment_method.type,
+      payment_card_last4: payment_method_last4(payment_intent.payment_method),
       status: 'processing',
     )
     CrowdCampaignMailer.crowd_pledge_retried_debited(crowd_pledge).deliver_later
@@ -142,11 +154,21 @@ class CrowdPledgeService
     end
   end
 
+  def retry_payment_methods(crowd_pledge)
+    if crowd_pledge.total_price <= 200
+      ['card', 'sepa_debit', 'sofort']
+    else
+      ['card', 'sofort']
+    end
+  end
+
   def payment_method_last4(payment_method)
     if payment_method.type == 'card'
       payment_method.card.last4
     elsif payment_method.type == 'sepa_debit'
       payment_method.sepa_debit.last4
+    else
+      nil
     end
   end
 

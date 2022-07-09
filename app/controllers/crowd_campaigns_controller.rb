@@ -67,9 +67,46 @@ class CrowdCampaignsController < ApplicationController
 
   def status
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    @crowd_pledges = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc)
-    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.order(created_at: :desc)
+    @crowd_pledges = @crowd_campaign.crowd_pledges.initialized.includes(:user, :crowd_reward).order(created_at: :desc)
+    @crowd_donation_pledges = @crowd_campaign.crowd_donation_pledges.includes(:user, :crowd_donation).order(created_at: :desc)
     form_status_message?
+  end
+
+  def stripe_connect_initiate
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+    if current_user.stripe_connect_account_id.blank?
+      account = Stripe::Account.create(
+        type: 'express',
+        email: current_user.email,
+        capabilities: {
+          card_payments: {requested: true},
+          transfers: {requested: true},
+        }
+      )
+      current_user.update(stripe_connect_account_id: account.id)
+    end
+
+    account_link = Stripe::AccountLink.create(
+      account: current_user.stripe_connect_account_id,
+      refresh_url: stripe_connect_initiate_crowd_campaign_url(@crowd_campaign),
+      return_url: stripe_connect_completed_crowd_campaign_url(@crowd_campaign),
+      type: 'account_onboarding',
+      collect: 'currently_due',
+    )
+
+    redirect_to account_link.url
+  end
+
+  def stripe_connect_completed
+    @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
+
+    stripe_account = Stripe::Account.retrieve(current_user.stripe_connect_account_id)
+    if stripe_account.requirements.currently_due.blank?
+      current_user.update(stripe_connect_ready: true)
+      redirect_to [:status, @crowd_campaign], notice: "Dein Auszahlungskonto wurde erfolgreich verifiziert!"
+    else
+      redirect_to [:status, @crowd_campaign], notice: "Deine Daten wurden zur Verifizierung weitergeleitet - Wir informieren dich, sollten noch weitere Schritte notwendig sein."
+    end
   end
 
   def download_supporters
@@ -102,18 +139,15 @@ class CrowdCampaignsController < ApplicationController
 
   def compose_mail
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    pledges = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).uniq { |s| s.email }
-    donation_pledges = @crowd_campaign.crowd_donation_pledges.order(donation_type: :desc)
-    @supporters = pledges += donation_pledges
+    @supporters = @crowd_campaign.crowd_pledges.initialized.order(created_at: :desc).uniq { |s| s.email }
+    @supporters += @crowd_campaign.crowd_donation_pledges.order(donation_type: :desc)
   end
 
   def send_mail
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    pledges = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails])
-    donation_pledges = @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
-    users = pledges += donation_pledges
+    users = @crowd_campaign.crowd_pledges.initialized.where(email: params[:emails])
+    users += @crowd_campaign.crowd_donation_pledges.where(email: params[:emails])
     users = users.uniq { |s| s.email }
-    #emails = users.uniq { |s| s.email }.map(&:email).join(',')
 
     users.each do |user|
       CrowdCampaignMailer.message_to_user(

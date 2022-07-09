@@ -6,7 +6,7 @@
       <% if current_user %>
         Um fortzufahren, gib zunächst noch deine Daten bekannt.
       <% else %>
-        Wenn du bereits bei <%= t("region.#{current_region.id}.domain_full") %> registriert bist,
+        Solltest du bei <%= t("region.#{current_region.id}.domain_full") %> registriert sein,
         <%= link_to 'melde dich zunächst hier an', [:login, @crowd_campaign, :crowd_donation_pledges, crowd_donation_id: params[:crowd_donation_id]] %>
         und nutze deine hinterlegten Standarddaten.
       <% end %>

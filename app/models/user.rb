@@ -9,7 +9,7 @@ class User < ApplicationRecord
   attr_accessor :login # virtual attribute to login with username or email
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable, :masqueradable
 
   enum role: { admin: 0, beta: 1 }
 
@@ -17,6 +17,7 @@ class User < ApplicationRecord
   include CoverImageUploader::Attachment(:cover_photo)
 
   belongs_to :graetzl, counter_cache: true
+  has_many :districts, through: :graetzl
   has_many :user_graetzls
   has_many :favorite_graetzls, through: :user_graetzls, source: :graetzl
 

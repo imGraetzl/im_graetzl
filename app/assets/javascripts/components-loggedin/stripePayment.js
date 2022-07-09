@@ -101,6 +101,8 @@ APP.components.stripePayment = (function() {
         $('.payment-method-info.card').show();
       } else if (event.value.type == 'sepa_debit')  {
         $('.payment-method-info.sepa_debit').show();
+      } else if (event.value.type == 'sofort')  {
+        $('.payment-method-info.sofort').show();
       }
     });
 

@@ -17,7 +17,7 @@
   <div class="-fullwidth">
 
     <div class="hl-subtext">
-      <h2><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h2>
+      <h1 class="title"><em>- <%= link_to 'Crowdfunding', region_crowd_campaigns_path %> -</em></h1>
       <h1><%= @crowd_campaign.title %></h1>
       <p><%= @crowd_campaign.slogan %></p>
     </div>
@@ -32,17 +32,17 @@
       <% end %>
       <div class="social-icons">
         <em>Erzähls weiter:</em>
-        <%= link_to image_tag("svg/icon-social-whatsapp.svg", class: 'icon whatsapp'), "whatsapp://send?text=#{@crowd_campaign.title}: #{crowd_campaign_url(@crowd_campaign)}", target: "_blank", :data => { :'action' => 'share/whatsapp/share' } %>
-        <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
-        <%= link_to image_tag("svg/icon-social-twitter.svg", class: 'icon twitter'), "http://twitter.com/share?text=Crowdfunding: #{@crowd_campaign.title}&url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
-        <%= link_to image_tag("svg/icon-social-linkedin.svg", class: 'icon linkedin'), "https://www.linkedin.com/sharing/share-offsite/?url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank" %>
+        <%= link_to image_tag("svg/icon-social-whatsapp.svg", class: 'icon whatsapp', alt: 'Whats App'), "whatsapp://send?text=#{@crowd_campaign.title}: #{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Whats App', :data => { :'action' => 'share/whatsapp/share' } %>
+        <%= link_to icon_tag("social-facebook"), "https://www.facebook.com/sharer/sharer.php?u=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Facebook' %>
+        <%= link_to image_tag("svg/icon-social-twitter.svg", class: 'icon twitter', alt: 'Twitter'), "http://twitter.com/share?text=Crowdfunding: #{@crowd_campaign.title}&url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'Twitter' %>
+        <%= link_to image_tag("svg/icon-social-linkedin.svg", class: 'icon linkedin', alt: 'LinkedIn'), "https://www.linkedin.com/sharing/share-offsite/?url=#{crowd_campaign_url(@crowd_campaign)}", target: "_blank", title: 'LinkedIn' %>
       </div>
     </div>
     <div class="coverImgBottom"></div>
 
     <div class="layoutArea fundingArea">
       <div class="mainArea">
-        <%= render 'funding_bar' rescue nil %>
+        <%= render 'funding_bar' if @crowd_campaign.funding_amount_set? %>
       </div>
       <div class="sideArea">
         <% if current_user == @crowd_campaign.user && !@preview %>
@@ -109,14 +109,14 @@
   <div class="navArea">
     <div class="tabs-ctrl -plain">
       <ul class="tabs-nav">
-        <li class="active"><a href="#tab-info">Über das Projekt</a></li>
+        <li class="active"><a href="#tab-info"><h3>Über das Projekt</h3></a></li>
         <% if current_user == @crowd_campaign.user || @crowd_campaign.crowd_campaign_posts.present? %>
-          <li><a href="#tab-posts">Projekt Updates <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
+          <li><a href="#tab-posts"><h3>Projekt Updates</h3> <% if @crowd_campaign.crowd_campaign_posts.present? %><small><%= @crowd_campaign.crowd_campaign_posts.count %></small><% end %></a></li>
         <% end %>
-        <li><a href="#tab-comments">Pinnwand <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
-        <li><a href="#tab-supporters">Unterstützer*innen<% if @crowd_campaign.pledges_and_donations_count > 0 %><small><%= @crowd_campaign.pledges_and_donations_count %></small><% end %></a></li>
+        <li><a href="#tab-comments"><h3>Pinnwand</h3> <% if @crowd_campaign.comments.present? %><small><%= @crowd_campaign.comments.count %><% end %></small></a></li>
+        <li><a href="#tab-supporters"><h3>Unterstützer*innen</h3><% if @crowd_campaign.pledges_and_donations_count > 0 %><small><%= @crowd_campaign.pledges_and_donations_count %></small><% end %></a></li>
         <% if current_user == @crowd_campaign.user && (@crowd_campaign.funding? || @crowd_campaign.completed?) %>
-          <li><a href="#tab-compose-mail">E-Mail senden</a></li>
+          <li><a href="#tab-compose-mail"><h3>E-Mail senden</h3></a></li>
         <% end %>
       </ul>
     </div>

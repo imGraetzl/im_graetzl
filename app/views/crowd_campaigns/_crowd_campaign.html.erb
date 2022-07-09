@@ -24,7 +24,9 @@
       <p><%= crowd_campaign.slogan.truncate(110) %></p>
     </div>
 
-    <%= render 'crowd_campaigns/funding_bar' rescue nil %>
+    <% if crowd_campaign.funding_amount_set? %>
+      <%= render 'crowd_campaigns/funding_bar' %>
+    <% end %>
 
     <% if crowd_campaign_post = crowd_campaign.actual_newest_post %>
       <%= link_to [crowd_campaign, target: dom_id(crowd_campaign_post)], class: 'updateteaser' do %>
@@ -130,7 +132,7 @@
       <small class="statusHint -<%= crowd_campaign.status %>">
         Kampagnen Status: <span>&lt;<%= t("activerecord.attributes.crowd_campaign.statuses.#{crowd_campaign.status}") %>&gt;</span>
       </small>
-      
+
     <% end %>
 
   </div>

@@ -4,6 +4,27 @@
 
   <%= render 'crowd_campaigns/form/navigation' %>
 
+  <% if !@crowd_campaign.user.stripe_connect_ready? %>
+    <div class="cardBox -stripeConnect">
+      <div class="hl-subtext">
+        <h2><span>Verifizierung</span> deines Auszahlungskontos</h2>
+        <p>
+          <strong>Damit deine Kampagne starten kann, muss zunächst noch dein Auszahlungskonto verifiziert werden. Für die Verifizierung setzen wir vertrauensvoll auf den Zahlungsanbieter <%= link_to 'Stripe', 'https://stripe.com/at/', target: '_blank' %>.</strong>
+        </p>
+      </div>
+      <%= link_to stripe_connect_initiate_crowd_campaign_path(@crowd_campaign), class: 'btn-secondary -ico' do %>
+        <span>Stripe Verifizierung jetzt durchführen</span>
+        <%= icon_tag "link" %>
+      <% end %>
+      <br>
+      <p><em>
+        Klicke auf den Button und mache den Prozess vollständig durch. Danach kann es 24 Stunden dauern, bis Stripe deine Legitimation geprüft und auf erfolgreich gesetzt hat.
+        <br><br>
+        Verifizierung ist für Crowdfunding unumgänglich, weil es gesetzlich vorgeschrieben ist (Geldwäschegesetz §11) Identität und Kontodaten des Auszahlungskontos zu prüfen, um die Unterstützer:innen zu schützen. (Ohne einer erfolgreichen Verifizierung, kann deine Kampagne nicht starten.)
+      </em></p>
+    </div>
+  <% end %>
+
   <% if @crowd_campaign.pending? %>
 
       <div class="statuscontainer">
@@ -59,8 +80,7 @@
           Wir drücken ganz fest die Daumen!
         </p>
       </div>
-      <%= render 'funding_bar' rescue nil %>
-      <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
+      <%= render 'funding_bar' %>
 
   <% elsif @crowd_campaign.completed? %>
 
@@ -105,11 +125,11 @@
 
               <% if @crowd_campaign.closed? %>
                 <div>
-                  <h4 class="title">Fehlgeschlagen / Widerrufe</h4>
+                  <h4 class="title">Fehlgeschlagene Transaktionen</h4>
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_failed_sum, unit: "€") %></h4>
                 </div>
                 <div>
-                  <h4 class="title">Transaktionsgebühren (4%)</h4>
+                  <h4 class="title">4% Transaktionsgebühren (inkl. 20% MwSt)</h4>
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_fee, unit: "€") %></h4>
                 </div>
                 <div>
@@ -142,9 +162,10 @@
           <%= icon_tag "download" %>
         <% end %>
       <% end %>
+  <% end %>
 
-      <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
-
+  <% if @crowd_campaign.funding? || @crowd_campaign.completed? %>
+    <%= render 'crowd_campaigns/crowd_pledges/crowd_pledges_table' %>
   <% end %>
 
 </section>

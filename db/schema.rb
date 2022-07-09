@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_13_140110) do
+ActiveRecord::Schema.define(version: 2022_07_01_085204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -248,6 +248,7 @@ ActiveRecord::Schema.define(version: 2022_05_13_140110) do
     t.jsonb "avatar_data"
     t.text "aim_description"
     t.integer "active_state", default: 0
+    t.string "invoice_number"
     t.index ["graetzl_id"], name: "index_crowd_campaigns_on_graetzl_id"
     t.index ["location_id"], name: "index_crowd_campaigns_on_location_id"
     t.index ["region_id"], name: "index_crowd_campaigns_on_region_id"
@@ -1324,6 +1325,8 @@ ActiveRecord::Schema.define(version: 2022_05_13_140110) do
     t.string "address_city"
     t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
     t.string "address_description"
+    t.string "stripe_connect_account_id"
+    t.boolean "stripe_connect_ready", default: false
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"

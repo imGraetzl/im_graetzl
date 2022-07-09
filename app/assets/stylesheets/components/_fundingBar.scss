@@ -168,7 +168,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  .left, .middle, .right {
+  .middle, .right {
     text-align:center;
   }
   h2 {
@@ -179,6 +179,21 @@
   span {
     font-style: italic;
     @include font-size-primaryFont('small');
+  }
+  div.success {
+    display: inline-block;;
+    svg {
+      display: flex;
+    }
+  }
+  .-percent {
+    font-style: normal;
+    display: inline-block;
+    font-weight: normal;
+    margin-left:8px;
+  }
+  .-supporters span {
+    display: block;
   }
 }
 
@@ -198,7 +213,7 @@
     font-size:15px;
   }
   .fundingStats {
-    .-supporters {
+    .-supporters, div.success {
       display: none;
     }
     h2 {

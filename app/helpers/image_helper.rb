@@ -100,10 +100,10 @@ module ImageHelper
     if File.extname(object.file_url(:thumb_webp)) == '.webp'
       content_tag :picture do
         tag(:source, srcset: object.file_url(:thumb_webp), type: "image/webp") +
-        image_tag(object.file_url(:thumb), loading: 'lazy', **options)
+        image_tag(object.file_url(:thumb), loading: 'lazy', alt: 'Gallery Foto', **options)
       end
     else
-      image_tag(object.file_url(:thumb), loading: 'lazy', **options)
+      image_tag(object.file_url(:thumb), loading: 'lazy', alt: 'Gallery Foto', **options)
     end
   end
 

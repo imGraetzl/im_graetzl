@@ -27,7 +27,7 @@
 
 <% elsif meeting.attending?(current_user) %>
   <div class="btn-going-to">
-    <%= button_to [:unattend, meeting], method: :post, class: 'btn-userCallToAction meeting-unattend-btn' do %>
+    <%= button_to [:unattend, meeting], method: :post, class: 'btn-userCallToAction' do %>
       <span>
         <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
         Nicht mehr teilnehmen
@@ -36,22 +36,11 @@
   </div>
 <% else %>
   <div class="btn-going-to">
-    <% if @meeting.meeting_additional_dates.present? %>
     <%= button_to 'javascript:', class: 'btn-userCallToAction', id: 'attendMeeting' do %>
       <span>
         <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
         Am Treffen teilnehmen
       </span>
-    <% end %>
-    <% else %>
-      <%= form_tag attend_meeting_path, method: :post do %>
-        <%= button_to 'javascript:', class: 'btn-userCallToAction meeting-attend-btn' do %>
-          <span>
-            <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
-            Am Treffen teilnehmen
-          </span>
-        <% end %>
-      <% end %>
     <% end %>
   </div>
 <% end %>
