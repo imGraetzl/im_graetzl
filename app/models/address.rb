@@ -33,7 +33,7 @@ module Address
   end
 
   def address_coords=(value)
-    if value.present?
+    if value.present? && value.count(",") == 1
       coordinates = value.split(",").map(&:to_f)
       self.address_coordinates = RGeo::Cartesian.factory(srid: 0).point(*coordinates)
     else

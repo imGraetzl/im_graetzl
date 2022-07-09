@@ -30,6 +30,8 @@ Rollbar.configure do |config|
   config.exception_level_filters.merge!(
     'ActionController::RoutingError' => 'ignore',
     'ActiveRecord::RecordNotFound' => 'ignore',
+    'ActionController::BadRequest' => 'ignore',
+    'ActionController::UnknownFormat' => 'ignore',
   )
 
   # Enable asynchronous reporting (uses girl_friday or Threading if girl_friday
