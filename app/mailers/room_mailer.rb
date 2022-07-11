@@ -180,7 +180,7 @@ class RoomMailer < ApplicationMailer
     headers("X-MC-Tags" => "room-rental-payment-failed")
 
     mail(
-      subject: "Probleme bei deiner Zahlung",
+      subject: "Probleme bei deiner Raumteiler Zahlung, bitte überprüfe deine Zahlungsmethode.",
       from: platform_email('no-reply'),
       to: @room_rental.owner.email,
     )

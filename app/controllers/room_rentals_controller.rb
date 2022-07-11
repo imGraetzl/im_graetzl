@@ -1,5 +1,5 @@
 class RoomRentalsController < ApplicationController
-  before_action :authenticate_user!, except: [:new]
+  before_action :authenticate_user!, except: [:new, :change_payment, :payment_changed, :summary]
 
   def new
     @room_rental = RoomRental.new(initial_rental_params)
@@ -73,14 +73,14 @@ class RoomRentalsController < ApplicationController
   end
 
   def change_payment
-    @room_rental = current_user.room_rentals.find(params[:id])
+    @room_rental = RoomRental.find(params[:id])
     redirect_to [:summary, @room_rental] if !(@room_rental.failed? && @room_rental.approved?)
 
     @payment_intent = RoomRentalService.new.create_retry_intent(@room_rental)
   end
 
   def payment_changed
-    @room_rental = current_user.room_rentals.find(params[:id])
+    @room_rental = RoomRental.find(params[:id])
     redirect_to [:summary, @room_rental] if params[:payment_intent].blank?
 
     success, error = RoomRentalService.new.payment_retried(@room_rental, params[:payment_intent])
@@ -95,7 +95,7 @@ class RoomRentalsController < ApplicationController
   end
 
   def summary
-    @room_rental = current_user.room_rentals.find(params[:id])
+    @room_rental = RoomRental.find(params[:id])
   end
 
   def cancel

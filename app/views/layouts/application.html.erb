@@ -29,14 +29,14 @@
 
   <link rel="dns-prefetch" href="//welocally.at">
 
-  <% if user_signed_in? || controller_name == 'registrations' || controller_name == 'crowd_pledges' || controller_name == 'crowd_donation_pledges' %>
+  <% if user_signed_in? || ['registrations', 'crowd_pledges', 'crowd_donation_pledges'].include?(controller_name)  %>
     <%= stylesheet_link_tag 'application-loggedin', media: 'all' %>
   <% else %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
   <% end %>
 
   <%= javascript_include_tag 'application', defer: true, onload: 'applicationLoadedInit();' %>
-  <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || controller_name == 'registrations' || controller_name == 'crowd_pledges' %>
+  <%= javascript_include_tag "application-loggedin", defer: true if user_signed_in? || ['registrations', 'crowd_pledges', 'room_rentals'].include?(controller_name) %>
 
   <!-- DNS Prefetch for better Performance -->
   <% if ['home', 'regions', 'districts', 'graetzls'].include? controller_name %>

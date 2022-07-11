@@ -11,9 +11,9 @@ class RoomRental < ApplicationRecord
   has_one :user_message_thread
 
   enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, expired: 5 }
-  enum payment_status: { payment_pending: 0, payment_success: 1, payment_failed: 2, payment_transfered: 3, payment_canceled: 4, authorized: 5, processing: 6, debited: 7, failed: 8 }
+  string_enum payment_status: ["authorized", "processing", "debited", "failed"]
 
-  scope :submitted, -> { where.not(rental_status: :incomplete) }
+  scope :initialized, -> { where.not(rental_status: :incomplete) }
 
   before_create :set_region
 
@@ -81,7 +81,7 @@ class RoomRental < ApplicationRecord
   end
 
   def invoice_ready?
-    payment_success? || payment_transfered?
+    authorized? || processing? || debited?
   end
 
   def owner_invoice

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_06_113039) do
+ActiveRecord::Schema.define(version: 2022_07_11_095614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1061,7 +1061,7 @@ ActiveRecord::Schema.define(version: 2022_07_06_113039) do
     t.string "renter_zip"
     t.string "renter_city"
     t.integer "rental_status", default: 0
-    t.integer "payment_status", default: 0
+    t.string "payment_status"
     t.string "payment_method"
     t.decimal "hourly_price", precision: 10, scale: 2, default: "0.0"
     t.decimal "basic_price", precision: 10, scale: 2, default: "0.0"

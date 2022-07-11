@@ -30,14 +30,14 @@ class UsersController < ApplicationController
   def rooms
     @user = current_user
     @rooms = @user.room_offers.in(current_region) + @user.room_demands.in(current_region) + @user.room_calls.in(current_region)
-    @owned_room_rentals = current_user.owned_room_rentals.in(current_region).submitted.includes(:room_offer, :user, :user_message_thread)
-    @room_rentals = current_user.room_rentals.in(current_region).submitted.includes(:user_message_thread, room_offer: :user)
+    @owned_room_rentals = current_user.owned_room_rentals.in(current_region).initialized.includes(:room_offer, :user, :user_message_thread)
+    @room_rentals = current_user.room_rentals.in(current_region).initialized.includes(:user_message_thread, room_offer: :user)
   end
 
   def tools
     @tools = current_user.tool_offers.in(current_region).non_deleted + current_user.tool_demands.in(current_region)
-    @owned_tool_rentals = current_user.owned_tool_rentals.in(current_region).submitted.includes(:tool_offer, :user, :user_message_thread )
-    @tool_rentals = current_user.tool_rentals.submitted.in(current_region).includes(:user_message_thread, tool_offer: :user)
+    @owned_tool_rentals = current_user.owned_tool_rentals.in(current_region).initialized.includes(:tool_offer, :user, :user_message_thread )
+    @tool_rentals = current_user.tool_rentals.initialized.in(current_region).includes(:user_message_thread, tool_offer: :user)
   end
 
   def zuckerls

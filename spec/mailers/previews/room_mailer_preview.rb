@@ -54,4 +54,8 @@ class RoomMailerPreview < ActionMailer::Preview
     RoomMailer.rental_canceled(RoomRental.canceled.last || RoomRental.last)
   end
 
+  def rental_payment_failed
+    RoomMailer.rental_payment_failed(RoomRental.failed.last || RoomRental.last)
+  end
+
 end
