@@ -23,7 +23,7 @@ class RoomRentalService
       stripe_payment_method_id: setup_intent.payment_method.id,
       payment_method: setup_intent.payment_method.type,
       payment_card_last4: payment_method_last4(setup_intent.payment_method),
-      payment_status: :authorized,
+      payment_status: 'authorized',
       rental_status: :pending,
     )
 
@@ -37,7 +37,7 @@ class RoomRentalService
   def approve(room_rental)
     return if !room_rental.authorized?
 
-    room_rental.update(payment_status: :processing)
+    room_rental.update(payment_status: 'processing')
 
     payment_intent = Stripe::PaymentIntent.create(
       customer: room_rental.renter.stripe_customer_id,
@@ -68,14 +68,14 @@ class RoomRentalService
 
     { success: true }
   rescue Stripe::CardError
-    room_rental.update(payment_status: :failed)
+    room_rental.update(payment_status: 'failed')
     RoomMailer.rental_payment_failed(room_rental).deliver_later
 
     { success: false, error: "Deine Zahlung ist fehlgeschlagen, bitte versuche es erneut." }
   end
 
   def payment_succeeded(room_rental, payment_intent)
-    room_rental.update(payment_status: :debited, debited_at: Time.current)
+    room_rental.update(payment_status: 'debited', debited_at: Time.current)
 
     { success: true }
   end
@@ -83,7 +83,7 @@ class RoomRentalService
   def payment_failed(room_rental, payment_intent)
     return if !room_rental.processing?
 
-    room_rental.update(payment_status: :failed)
+    room_rental.update(payment_status: 'failed')
     RoomMailer.rental_payment_failed(room_rental).deliver_later
 
     { success: true }
@@ -115,7 +115,7 @@ class RoomRentalService
       stripe_payment_method_id: payment_intent.payment_method.id,
       payment_method: payment_intent.payment_method.type,
       payment_card_last4: payment_method_last4(payment_intent.payment_method),
-      payment_status: :processing,
+      payment_status: 'processing',
     )
     true
   end

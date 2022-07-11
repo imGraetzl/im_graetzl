@@ -3,13 +3,13 @@ ActiveAdmin.register RoomRental do
   includes :room_offer, :user
   actions :all, except: [:new, :create, :destroy]
 
-  scope :all, default: true
-  scope :incomplete
+  scope :initialized, default: true
   scope :pending
   scope :approved
   scope :canceled
   scope :rejected
   scope :expired
+  scope :all
 
   filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :rental_status, as: :select, collection: RoomRental.rental_statuses.keys
