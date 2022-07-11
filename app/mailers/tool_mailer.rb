@@ -50,6 +50,7 @@ class ToolMailer < ApplicationMailer
       subject: "Neue Toolteiler Anfrage",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -64,6 +65,7 @@ class ToolMailer < ApplicationMailer
       subject: "Erinnerung: #{@tool_rental.renter.first_name} möchte deinen Toolteiler ausborgen.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -78,6 +80,7 @@ class ToolMailer < ApplicationMailer
       subject: "Deine Toolteiler Buchung wurde bestätigt",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -91,6 +94,7 @@ class ToolMailer < ApplicationMailer
       subject: "Deine Toolteiler Anfrage wurde leider abgelehnt.",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -104,6 +108,7 @@ class ToolMailer < ApplicationMailer
       subject: "#{@tool_rental.renter.first_name} hat die Toolteiler Anfrage zurückgezogen",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -117,6 +122,7 @@ class ToolMailer < ApplicationMailer
       subject: "Bitte bestätige die Rückgabe deines Toolteilers.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -144,6 +150,7 @@ class ToolMailer < ApplicationMailer
       subject: "Du hast die Rückgabe bestätigt. Deine Gutschrift.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 end
