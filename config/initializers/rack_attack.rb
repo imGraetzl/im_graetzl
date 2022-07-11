@@ -5,4 +5,8 @@ class Rack::Attack
     req.path&.start_with?('wp-content')
   end
 
+  blocklist('block blacklisted IPs') do |req|
+    req.ip == '185.242.85.222'
+  end
+
 end
