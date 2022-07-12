@@ -73,7 +73,7 @@ class ToolMailer < ApplicationMailer
     @tool_rental = tool_rental
     @region = @tool_rental.region
 
-    attachments["#{@tool_rental.invoice_number}.pdf"] = @tool_rental.renter_invoice.get.body.read
+    attachments["ToolRental_#{@tool_rental.invoice_number}.pdf"] = @tool_rental.renter_invoice.get.body.read
     headers("X-MC-Tags" => "tool-rental-approved")
 
     mail(
