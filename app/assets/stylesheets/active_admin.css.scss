@@ -24,21 +24,21 @@
 .status_tag {
 
   white-space: nowrap;
-  
+
   &.unset {
     display: none;
   }
 
-  &.deleted, &.rejected, &.off, &.declined, &.failed {
+  &.deleted, &.off, &.failed {
     background: red;
   }
   &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded {
     background: orange;
   }
-  &.approved, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited {
+  &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited {
     background: green;
   }
-  &.public_space {
+  &.public_space, &.rejected {
     background: LightCoral;
   }
   &.weekly, &.authorized {
@@ -50,7 +50,7 @@
   &.draft {
     background: Grey;
   }
-  &.funding, &.paid_out {
+  &.funding, &.approved  {
     background: #6090DB;
   }
 }
