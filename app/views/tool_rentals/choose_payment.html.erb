@@ -13,6 +13,14 @@
 
   <div class="col-sidebar">
     <%= render 'tool_rentals/new/sidebar' %>
+
+    <div class="footer-txt">
+      <strong>Bist du noch unschlüssig und möchtest <%= @tool_rental.owner.first_name %>
+      zuerst eine Frage stellen</strong>, so gehe direkt
+      <%= link_to 'zum Messenger', messenger_start_thread_path(tool_rental_id: @tool_rental.id) %>.
+      Du kannst deine Buchung auch nachher im Messenger starten.
+    </div>
+
   </div>
 
 </section>

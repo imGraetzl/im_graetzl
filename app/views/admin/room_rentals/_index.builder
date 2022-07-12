@@ -5,10 +5,10 @@ context.instance_eval do
   column :renter
   column :rental_period
   column :total_price
-  column :owner_payout_amount
   column(:rental_status){|r| status_tag(r.rental_status)}
-  column :payment_status
+  column(:payment_status){|r| status_tag(r.payment_status)}
   column :payment_method
+  column :payout_ready?
   column :created_at
   actions
 end

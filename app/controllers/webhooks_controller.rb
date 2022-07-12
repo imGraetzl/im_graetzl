@@ -43,11 +43,11 @@ class WebhooksController < ApplicationController
       RoomRentalService.new.payment_succeeded(room_rental, payment_intent) if room_rental
     end
 
-    tool_rental = ToolRental.find_by(stripe_payment_intent_id: payment_intent.id)
-    if tool_rental && payment_intent.payment_method_types.include?('eps')
-      ToolRentalService.new.confirm_eps_payment(tool_rental, payment_intent)
-      return
+    if payment_intent.metadata["tool_rental_id"]
+      tool_rental = ToolRental.find_by(id: payment_intent.metadata.tool_rental_id)
+      ToolRentalService.new.payment_succeeded(tool_rental, payment_intent) if tool_rental
     end
+
   end
 
   def payment_intent_failed(payment_intent)
@@ -59,6 +59,11 @@ class WebhooksController < ApplicationController
     if payment_intent.metadata["room_rental_id"]
       room_rental = RoomRental.find_by(id: payment_intent.metadata.room_rental_id)
       RoomRentalService.new.payment_failed(room_rental, payment_intent) if room_rental
+    end
+
+    if payment_intent.metadata["tool_rental_id"]
+      tool_rental = ToolRental.find_by(id: payment_intent.metadata.tool_rental_id)
+      ToolRentalService.new.payment_failed(tool_rental, payment_intent) if tool_rental
     end
 
   end

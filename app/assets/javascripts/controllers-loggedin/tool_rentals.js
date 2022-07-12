@@ -5,8 +5,23 @@ APP.controllers_loggedin.tool_rentals = (function() {
         initAddressScreen();
       } else if ($(".tool-rental-page.payment-screen").exists()) {
         initPaymentScreen();
+      } else if ($(".tool-rental-page.change-payment-screen").exists()) {
+        initPaymentChangeScreen();
       } else if ($(".tool-rental-page.summary-screen").exists()) {
         initSummaryScreen();
+      } else if ($(".tool-rental-page.login-screen").exists()) {
+        initLoginScreen();
+      }
+    }
+
+    function initLoginScreen() {
+      // Change Wording of Notice Message for Toolteiler Registrations
+      if ($("#flash .notice").exists()) {
+        var flashText = $("#flash .notice").text();
+        if (flashText.indexOf('Super, du bist nun registriert!') >= 0){
+          // Modifiy Message for Toolteiler Registrations
+          $("#flash .notice").text(flashText + ' Danach gehts weiter mit deiner Toolteiler Anfrage.');
+        }
       }
     }
 
@@ -26,31 +41,11 @@ APP.controllers_loggedin.tool_rentals = (function() {
 
     function initPaymentScreen() {
       APP.components.tabs.setTab('step2');
-
-      var screen = $(".tool-rental-page.payment-screen");
-        screen.find(".paymentMethods input").on("click", function() {
-        screen.find(".payment-method-container").hide();
-        screen.find("." + $(this).val() + "-container").show();
-      });
-
-      screen.find(".paymentMethods input:checked").click();
-
-      if ($(".card-container").exists()) { initCardPayment(); }
-      if ($(".eps-container").exists()) { initEpsPayment(); }
-
+      APP.components.stripePayment.init();
     }
 
-    function initCardPayment() {
-      var cardForm = $(".card-container .card-form");
-      APP.components.paymentCard.init(cardForm);
-      cardForm.on('payment:complete', function() {
-        location.href = $(this).data('success-url');
-      });
-    }
-
-    function initEpsPayment() {
-      var epsForm = $(".eps-container .eps-form");
-      APP.components.paymentEps.init(epsForm);
+    function initPaymentChangeScreen() {
+      APP.components.stripePayment.init();
     }
 
     function initSummaryScreen() {

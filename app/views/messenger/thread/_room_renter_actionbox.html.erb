@@ -50,7 +50,7 @@
         Probiere es mit einem anderen <%= link_to "Raumteiler", region_rooms_path %>.
       </div>
 
-      <% elsif room_rental.expired? %>
+    <% elsif room_rental.expired? %>
 
       <div class="note">
         Diese Anfrage ist leider abgelaufen, da der Vermieter nicht auf diese reagiert hat.<br>
@@ -58,7 +58,7 @@
         probiere es mit einem anderen <%= link_to "Raumteiler", region_rooms_path %>.
       </div>
 
-      <% end %>
+    <% end %>
 
   </div>
 </div>

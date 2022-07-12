@@ -1,5 +1,5 @@
 class ToolRentalsController < ApplicationController
-  before_action :authenticate_user!, except: [:new]
+  before_action :authenticate_user!, except: [:new, :change_payment, :payment_changed, :summary]
 
   def new
     @tool_rental = ToolRental.new(initial_rental_params)
@@ -43,32 +43,48 @@ class ToolRentalsController < ApplicationController
     if !@tool_rental.incomplete?
       redirect_to messenger_url(thread_id: @tool_rental.user_message_thread.id) and return
     end
+    @setup_intent = ToolRentalService.new.create_setup_intent(@tool_rental)
+  end
+
+  def payment_authorized
+    @tool_rental = current_user.tool_rentals.find(params[:id])
+    redirect_to [:choose_payment, @tool_rental] if params[:setup_intent].blank?
+
+    success, error = ToolRentalService.new.payment_authorized(@tool_rental, params[:setup_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      redirect_to [:summary, @tool_rental]
+    else
+      flash[:error] = error
+      redirect_to [:choose_payment, @tool_rental]
+    end
+  end
+
+  def change_payment
+    @tool_rental = ToolRental.find(params[:id])
+    redirect_to [:summary, @tool_rental] if !(@tool_rental.failed? && @tool_rental.approved?)
+
+    @payment_intent = ToolRentalService.new.create_retry_intent(@tool_rental)
+  end
+
+  def payment_changed
+    @tool_rental = ToolRental.find(params[:id])
+    redirect_to [:summary, @tool_rental] if params[:payment_intent].blank?
+
+    success, error = ToolRentalService.new.payment_retried(@tool_rental, params[:payment_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      redirect_to [:summary, @tool_rental]
+    else
+      flash[:error] = error
+      redirect_to [:change_payment, @tool_rental]
+    end
   end
 
   def summary
-    @tool_rental = current_user.tool_rentals.find(params[:id])
-  end
-
-  def initiate_card_payment
-    @tool_rental = current_user.tool_rentals.incomplete.find(params[:id])
-    result = ToolRentalService.new.initiate_card_payment(@tool_rental, card_params)
-    render json: result, status: result[:error].present? ? :bad_request : :ok
-  end
-
-  def initiate_eps_payment
-    @tool_rental = current_user.tool_rentals.incomplete.find(params[:id])
-    result = ToolRentalService.new.initiate_eps_payment(@tool_rental)
-    render json: result, status: result[:error].present? ? :bad_request : :ok
-  end
-
-  def complete_eps_payment
-    @tool_rental = current_user.tool_rentals.find(params[:id])
-    if params[:redirect_status] == 'succeeded'
-      redirect_to [:summary, @tool_rental]
-    else
-      flash[:error] = "EPS Überweisung gescheitert."
-      redirect_to [:choose_payment, @tool_rental]
-    end
+    @tool_rental = ToolRental.find(params[:id])
   end
 
   def cancel
@@ -131,14 +147,6 @@ class ToolRentalsController < ApplicationController
       :rent_from, :rent_to,
       :renter_name, :renter_address, :renter_zip, :renter_city,
     )
-  end
-
-  def card_params
-    params.permit(:payment_method_id, :payment_intent_id)
-  end
-
-  def eps_params
-    params.permit(:payment_intent)
   end
 
 end
