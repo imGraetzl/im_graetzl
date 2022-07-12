@@ -10,7 +10,7 @@ class RoomRental < ApplicationRecord
 
   has_one :user_message_thread
 
-  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, expired: 5 }
+  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, expired: 5, paid_out: 6 }
   string_enum payment_status: ["authorized", "processing", "debited", "failed"]
 
   scope :initialized, -> { where.not(rental_status: :incomplete) }
@@ -48,6 +48,10 @@ class RoomRental < ApplicationRecord
     room_rental_slots.map(&:rent_date).min
   end
 
+  def rental_end
+    room_rental_slots.map(&:rent_date).max
+  end
+
   def calculate_price
     self.hourly_price = room_offer.room_rental_price.price_per_hour
     self.basic_price = total_hours * hourly_price
@@ -82,6 +86,10 @@ class RoomRental < ApplicationRecord
 
   def invoice_ready?
     authorized? || processing? || debited?
+  end
+
+  def payout_ready?
+    approved? && debited? && rental_end < Date.today
   end
 
   def owner_invoice

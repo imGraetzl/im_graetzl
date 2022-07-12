@@ -323,10 +323,10 @@ de:
           return_confirmed: Rückgabe bestätigt
           expired: Anfrage abgelaufen
         payment_statuses:
-          payment_pending: Zahlung wartend
-          payment_success: Zahlung erfolgreich
-          payment_failed: Zahlung fehlgeschlagen
-          payment_transfered: Gutschrift überwiesen
+          authorized: authorisiert
+          processing: in Bearbeitung
+          debited: erfolgreich
+          failed: fehlgeschlagen
       user:
         avatar: Profilbild
         confirmed_at: Bestätigt am

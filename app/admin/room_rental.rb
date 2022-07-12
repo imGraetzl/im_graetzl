@@ -16,6 +16,10 @@ ActiveAdmin.register RoomRental do
   filter :payment_status, as: :select, collection: RoomRental.payment_statuses.keys
   filter :room_offer, collection: proc { RoomOffer.order(:slogan).pluck(:slogan, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :payment_method
+  filter :stripe_customer_id
+  filter :stripe_payment_intent_id
+  filter :debited_at
   filter :created_at
   filter :updated_at
 
@@ -23,6 +27,6 @@ ActiveAdmin.register RoomRental do
   show { render 'show', context: self }
   form partial: 'form'
 
-  permit_params :rental_status, :payment_status
+  permit_params :rental_status
 
 end

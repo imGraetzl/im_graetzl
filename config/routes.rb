@@ -224,10 +224,10 @@ Rails.application.routes.draw do
 
   resources :tool_rentals, only: [:new, :create, :edit, :update] do
     get 'choose_payment', on: :member
+    get 'payment_authorized', on: :member
+    get 'change_payment', on: :member
+    get 'payment_changed', on: :member
     get 'summary', on: :member
-    post 'initiate_card_payment', on: :member
-    post 'initiate_eps_payment', on: :member
-    get 'complete_eps_payment', on: :member
     post 'cancel', on: :member
     post 'approve', on: :member
     post 'reject', on: :member

@@ -1,16 +1,16 @@
 context.instance_eval do
   panel 'Tool Offer' do
-    attributes_table_for tool_rental.tool_offer do
-      row :title
-      row :user
-      row :iban
+    attributes_table_for tool_rental do
+      row :tool_offer
+      row(:owner) { |r| r.owner }
+      row(:iban) { |r| r.tool_offer.iban }
     end
   end
 
   panel 'Rent Request' do
     attributes_table_for tool_rental do
       row :id
-      row :user
+      row :renter
       row(:rental_status){|r| status_tag(r.rental_status)}
       row :rent_from
       row :rent_to
@@ -32,8 +32,9 @@ context.instance_eval do
       row :tax
       row :total_price
       row :owner_payout_amount
+      row(:payment_status){|r| status_tag(r.payment_status)}
       row :payment_method
-      row :payment_status
+      row :debited_at
     end
   end
 
@@ -43,6 +44,16 @@ context.instance_eval do
         row(:owner_invoice) { |r| link_to "PDF", r.owner_invoice.presigned_url(:get) }
         row(:renter_invoice) { |r| link_to "PDF", r.renter_invoice.presigned_url(:get) }
       end
+    end
+  end
+
+  panel 'Stripe Informationen' do
+    attributes_table_for tool_rental do
+      row :stripe_customer_id
+      row :stripe_payment_method_id
+      row :stripe_payment_intent_id
+      row :payment_method
+      row :payment_card_last4
     end
   end
 

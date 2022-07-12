@@ -50,6 +50,7 @@ class ToolMailer < ApplicationMailer
       subject: "Neue Toolteiler Anfrage",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -64,6 +65,7 @@ class ToolMailer < ApplicationMailer
       subject: "Erinnerung: #{@tool_rental.renter.first_name} möchte deinen Toolteiler ausborgen.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -78,6 +80,7 @@ class ToolMailer < ApplicationMailer
       subject: "Deine Toolteiler Buchung wurde bestätigt",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -91,6 +94,7 @@ class ToolMailer < ApplicationMailer
       subject: "Deine Toolteiler Anfrage wurde leider abgelehnt.",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -104,6 +108,21 @@ class ToolMailer < ApplicationMailer
       subject: "#{@tool_rental.renter.first_name} hat die Toolteiler Anfrage zurückgezogen",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
+    )
+  end
+
+  def rental_payment_failed(tool_rental)
+    @tool_rental = tool_rental
+    @region = @tool_rental.region
+
+    headers("X-MC-Tags" => "tool-rental-payment-failed")
+
+    mail(
+      subject: "Probleme bei deiner Toolteiler Zahlung, bitte überprüfe deine Zahlungsmethode.",
+      from: platform_email('no-reply'),
+      to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -117,6 +136,7 @@ class ToolMailer < ApplicationMailer
       subject: "Bitte bestätige die Rückgabe deines Toolteilers.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -130,6 +150,7 @@ class ToolMailer < ApplicationMailer
       subject: "#{@tool_rental.owner.first_name} hat die Rückgabe bestätigt. Bewerte nun den Verleihvorgang.",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 
@@ -144,6 +165,7 @@ class ToolMailer < ApplicationMailer
       subject: "Du hast die Rückgabe bestätigt. Deine Gutschrift.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
+      bcc: 'michael@imgraetzl.at',
     )
   end
 end

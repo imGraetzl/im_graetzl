@@ -5,15 +5,12 @@ class ToolRental < ApplicationRecord
 
   has_one :user_message_thread
 
-  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, return_pending: 5, return_confirmed: 6, expired: 7 }
-  enum payment_status: { payment_pending: 0, payment_success: 1, payment_failed: 2, payment_transfered: 3, payment_canceled: 4 }
+  enum rental_status: { incomplete: 0, pending: 1, canceled: 2, rejected: 3, approved: 4, return_pending: 5, return_confirmed: 6, expired: 7, paid_out: 8 }
+  string_enum payment_status: ["authorized", "processing", "debited", "failed"]
 
   scope :initialized, -> { where.not(rental_status: :incomplete) }
 
   before_create :set_region
-
-  #PAYMENT_METHODS = ['card', 'eps'].freeze
-  PAYMENT_METHODS = ['eps'].freeze
 
   def self.next_invoice_number
     where("invoice_number IS NOT NULL").count + 1
@@ -71,7 +68,11 @@ class ToolRental < ApplicationRecord
   end
 
   def invoice_ready?
-    payment_success? || payment_transfered?
+    authorized? || processing? || debited?
+  end
+
+  def payout_ready?
+    return_confirmed? && debited? && rent_to < Date.today
   end
 
   def owner_invoice
