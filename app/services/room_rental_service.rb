@@ -54,7 +54,7 @@ class RoomRentalService
       confirm: true,
     )
 
-    invoice_number = "#{Date.current.year}_RR-#{room_rental.id}_Nr-#{RoomRental.next_invoice_number}"
+    invoice_number = "#{Date.current.year}_RoomRental_#{RoomRental.next_invoice_number}"
     room_rental.update(
       stripe_payment_intent_id: payment_intent.id,
       rental_status: :approved,

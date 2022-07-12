@@ -24,6 +24,10 @@
 .status_tag {
 
   white-space: nowrap;
+  
+  &.unset {
+    display: none;
+  }
 
   &.deleted, &.rejected, &.off, &.declined, &.failed {
     background: red;

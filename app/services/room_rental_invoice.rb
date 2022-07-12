@@ -47,17 +47,18 @@ class RoomRentalInvoice
     pdf.text "Rechnung", size: 20, style: :bold
     pdf.move_down 10
     pdf.text "Rechnungsnummer: #{room_rental.invoice_number}"
+    pdf.text "Transaktionsnummer: #{room_rental.id}"
     pdf.text "Datum: #{room_rental.created_at.to_date}"
     pdf.move_down 20
 
     table_data = []
-    table_data << ["ID", "Raumteiler", "Miete", nil, "Preis"]
-    table_data << [room_rental.id, room_rental.room_offer.slogan, room_rental.rental_period, nil ,format_price(room_rental.basic_price)]
-    table_data << [nil, nil, nil, "Rabatt", format_price(-room_rental.discount)] if room_rental.discount?
-    table_data << [nil, nil, nil, "20% MwSt.", format_price(room_rental.tax)]
-    table_data << [nil, nil, nil, "Gesamt", format_price(room_rental.total_price)]
+    table_data << ["Raumteiler", "Miete", nil, "Preis"]
+    table_data << [room_rental.room_offer.slogan, room_rental.rental_period, nil ,format_price(room_rental.basic_price)]
+    table_data << [nil, nil, "Rabatt", format_price(-room_rental.discount)] if room_rental.discount?
+    table_data << [nil, nil, "20% MwSt.", format_price(room_rental.tax)]
+    table_data << [nil, nil, "Gesamt", format_price(room_rental.total_price)]
 
-    pdf.table(table_data, width: pdf.bounds.width, column_widths: {5 => 60}) do
+    pdf.table(table_data, width: pdf.bounds.width, column_widths: {3 => 80}) do
       cells.borders = []
       cells.border_color = "DDDDDD"
       row(0).background_color = "EEEEEE"
@@ -98,7 +99,7 @@ class RoomRentalInvoice
     table_data << [nil, "abzgl. Servicegebühr inkl. MwSt.", format_price(-room_rental.service_fee)]
     table_data << [nil, "Auszahlungsbetrag", format_price(room_rental.owner_payout_amount)]
 
-    pdf.table(table_data, width: pdf.bounds.width, column_widths: {3 => 100}) do
+    pdf.table(table_data, width: pdf.bounds.width, column_widths: {2 => 80}) do
       cells.borders = []
       cells.border_color = "DDDDDD"
       row(0).background_color = "EEEEEE"
@@ -115,18 +116,19 @@ class RoomRentalInvoice
     pdf.text "Rechnung", size: 20, style: :bold
     pdf.move_down 10
     pdf.text "Rechnungsnummer: #{room_rental.invoice_number}"
+    pdf.text "Transaktionsnummer: #{room_rental.id}"
     pdf.text "Datum: #{room_rental.created_at.to_date}"
     pdf.move_down 20
 
     table_data = []
 
-    table_data << ["ID", "Raumteiler", nil]
-    table_data << [room_rental.id, "#{room_rental.room_offer.slogan}\n#{room_rental.rental_period}\n#{format_price(room_rental.total_price)}", nil]
-    table_data << [nil, "Servicegebühr", format_price(room_rental.basic_service_fee)]
-    table_data << [nil, "20% MwSt.", format_price(room_rental.service_fee_tax)]
-    table_data << [nil, "Servicegebühr Gesamt", format_price(room_rental.service_fee)]
+    table_data << ["Raumteiler", nil]
+    table_data << ["#{room_rental.room_offer.slogan}\n#{room_rental.rental_period}\n#{format_price(room_rental.total_price)}", nil]
+    table_data << ["Servicegebühr", format_price(room_rental.basic_service_fee)]
+    table_data << ["20% MwSt.", format_price(room_rental.service_fee_tax)]
+    table_data << ["Servicegebühr Gesamt", format_price(room_rental.service_fee)]
 
-    pdf.table(table_data, width: pdf.bounds.width, column_widths: {5 => 60}) do
+    pdf.table(table_data, width: pdf.bounds.width, column_widths: {1 => 80}) do
       cells.borders = []
       cells.border_color = "DDDDDD"
       row(0).background_color = "EEEEEE"

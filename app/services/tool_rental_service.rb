@@ -54,7 +54,7 @@ class ToolRentalService
       confirm: true,
     )
 
-    invoice_number = "#{Date.current.year}_ToolRental-#{tool_rental.id}_Nr-#{ToolRental.next_invoice_number}"
+    invoice_number = "#{Date.current.year}_ToolRental_#{ToolRental.next_invoice_number}"
     tool_rental.update(
       stripe_payment_intent_id: payment_intent.id,
       rental_status: :approved,
