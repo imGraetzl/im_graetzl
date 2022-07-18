@@ -1,5 +1,5 @@
 class CrowdCampaignsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :supporters, :posts, :comments]
+  before_action :authenticate_user!, except: [:index, :show, :supporters, :posts, :comments, :start]
 
   def index
     head :ok and return if browser.bot? && !request.format.js?
@@ -24,7 +24,6 @@ class CrowdCampaignsController < ApplicationController
     @crowd_campaign = CrowdCampaign.new(editable_campaign_params)
     @crowd_campaign.user_id = current_user.admin? ? params[:user_id] : current_user.id
     @crowd_campaign.region_id = current_region.id
-    @crowd_campaign.clear_address if params[:no_address] == 'true'
 
     if @crowd_campaign.save
       redirect_to edit_description_crowd_campaign_path(@crowd_campaign)
@@ -164,7 +163,6 @@ class CrowdCampaignsController < ApplicationController
 
   def update
     @crowd_campaign = current_user.crowd_campaigns.find(params[:id])
-    @crowd_campaign.clear_address if params[:no_address] == 'true'
 
     if @crowd_campaign.editable?
       @crowd_campaign.assign_attributes(editable_campaign_params)
@@ -327,7 +325,7 @@ class CrowdCampaignsController < ApplicationController
   def editable_campaign_params
     params.require(:crowd_campaign).permit(
         :title, :slogan, :description, :support_description, :aim_description, :about_description, :benefit_description,
-        :startdate, :enddate, :billable, :benefit,
+        :startdate, :enddate, :billable, :benefit, :crowdfunding_call,
         :funding_1_amount, :funding_1_description, :funding_2_amount, :funding_2_description,
         :contact_company, :contact_name, :contact_address, :contact_zip, :contact_city, :contact_website, :contact_email, :contact_phone,
         :location_id, :room_offer_id,

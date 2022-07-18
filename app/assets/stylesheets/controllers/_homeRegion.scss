@@ -233,3 +233,11 @@ section.homeRegion {
   }
 
 }
+
+.region-kaernten {
+  .stage .badge {
+    @include respond-to(">=medium") {
+      left:100px;
+    }
+  }
+}

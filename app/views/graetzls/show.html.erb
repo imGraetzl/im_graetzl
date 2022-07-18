@@ -43,7 +43,21 @@
 
   <% else %>
 
-    <%= render "activity_sample" %>
+    <% if current_region.id == 'wien' %>
+      <%= render 'rooms' %>
+      <%= render 'crowd_campaigns' %>
+      <%= render 'meetings' %>
+      <%= render 'locations' %>
+      <%= render 'coop_demands' %>
+      <%= render 'tools' %>
+    <% else %>
+      <%= render 'meetings' %>
+      <%= render 'rooms' %>
+      <%= render 'crowd_campaigns' %>
+      <%= render 'locations' %>
+      <%= render 'coop_demands' %>
+      <%= render 'tools' %>
+    <% end %>
 
   <% end %>
 

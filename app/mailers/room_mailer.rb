@@ -124,7 +124,7 @@ class RoomMailer < ApplicationMailer
     @room_rental = room_rental
     @region = @room_rental.region
 
-    attachments["#{@room_rental.invoice_number}.pdf"] = @room_rental.renter_invoice.get.body.read
+    attachments["RoomRental_#{@room_rental.invoice_number}.pdf"] = @room_rental.renter_invoice.get.body.read
     headers("X-MC-Tags" => "room-rental-approved")
 
     mail(

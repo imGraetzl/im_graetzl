@@ -26,7 +26,7 @@ class ZuckerlMailer < ApplicationMailer
     @zuckerl = zuckerl
     @region = @zuckerl.region
 
-    attachments["#{@zuckerl.invoice_number}.pdf"] = @zuckerl.zuckerl_invoice.get.body.read
+    attachments["Zuckerl_#{@zuckerl.invoice_number}.pdf"] = @zuckerl.zuckerl_invoice.get.body.read
     headers("X-MC-Tags" => "zuckerl-paid")
 
     mail(

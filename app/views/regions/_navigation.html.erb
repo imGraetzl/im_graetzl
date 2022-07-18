@@ -1,44 +1,90 @@
 <div class="navigation-bar-wrp">
   <div class="navigation-bar -small overthrow">
 
-    <%= active_link_to region_index_path, class: "iconfilter" do %>
-      <%= icon_tag "map-location" %>
-      <div class="txt"><%= t("region.#{current_region.id}.region") %><br/>Übersicht</div>
-    <% end %>
+    <% if current_region.id == 'wien' %>
 
-    <%= active_link_to region_meetings_path, class: "iconfilter" do %>
-      <%= icon_tag "calendar-2" %>
-      <div class="txt">Events & <br/>Workshops</div>
-    <% end %>
+      <%= active_link_to region_index_path, class: "iconfilter" do %>
+        <%= icon_tag "map-location" %>
+        <div class="txt"><%= t("region.#{current_region.id}.region") %><br/>Übersicht</div>
+      <% end %>
 
-    <%= active_link_to region_locations_path, class: "iconfilter" do %>
-      <%= icon_tag "location" %>
-      <div class="txt">Anbieter &<br/>Macherinnen</div>
-    <% end %>
+      <%= active_link_to region_rooms_path, class: "iconfilter" do %>
+        <%= icon_tag "raumteiler" %>
+        <div class="txt">Raum<br/>teiler</div>
+      <% end %>
 
-    <%= active_link_to region_coop_demands_path, class: "iconfilter" do %>
-      <%= icon_tag "coop-and-share" %>
-      <div class="txt">Markt<br/>platz</div>
-    <% end %>
+      <%= active_link_to region_crowd_campaigns_path, class: "iconfilter" do %>
+        <%= icon_tag "crowd" %>
+        <div class="txt">Crowd<br/>funding</div>
+      <% end %>
 
-    <%= active_link_to region_crowd_campaigns_path, class: "iconfilter" do %>
-      <%= icon_tag "crowd" %>
-      <div class="txt">Crowd<br/>funding</div>
-    <% end %>
+      <%= active_link_to region_meetings_path, class: "iconfilter" do %>
+        <%= icon_tag "calendar-2" %>
+        <div class="txt">Events & <br/>Workshops</div>
+      <% end %>
 
-    <%= active_link_to region_rooms_path, class: "iconfilter" do %>
-      <%= icon_tag "raumteiler" %>
-      <div class="txt">Raum<br/>teiler</div>
-    <% end %>
+      <%= active_link_to region_locations_path, class: "iconfilter" do %>
+        <%= icon_tag "location" %>
+        <div class="txt">Anbieter &<br/>Macherinnen</div>
+      <% end %>
 
-    <%= active_link_to region_tools_path, class: "iconfilter" do %>
-      <%= icon_tag "tacker" %>
-      <div class="txt">Tool<br/>teiler</div>
-    <% end %>
+      <%= active_link_to region_coop_demands_path, class: "iconfilter" do %>
+        <%= icon_tag "coop-and-share" %>
+        <div class="txt">Markt<br/>platz</div>
+      <% end %>
 
-    <%= active_link_to region_zuckerls_path, class: "iconfilter" do %>
-      <%= icon_tag "shopping-bag" %>
-      <div class="txt">Zuckerl &<br/>Angebote</div>
+      <%= active_link_to region_tools_path, class: "iconfilter" do %>
+        <%= icon_tag "tacker" %>
+        <div class="txt">Tool<br/>teiler</div>
+      <% end %>
+
+      <%= active_link_to region_zuckerls_path, class: "iconfilter" do %>
+        <%= icon_tag "shopping-bag" %>
+        <div class="txt">Zuckerl &<br/>Angebote</div>
+      <% end %>
+
+    <% else %>
+
+      <%= active_link_to region_index_path, class: "iconfilter" do %>
+        <%= icon_tag "map-location" %>
+        <div class="txt"><%= t("region.#{current_region.id}.region") %><br/>Übersicht</div>
+      <% end %>
+
+      <%= active_link_to region_meetings_path, class: "iconfilter" do %>
+        <%= icon_tag "calendar-2" %>
+        <div class="txt">Events & <br/>Workshops</div>
+      <% end %>
+
+      <%= active_link_to region_rooms_path, class: "iconfilter" do %>
+        <%= icon_tag "raumteiler" %>
+        <div class="txt">Raum<br/>teiler</div>
+      <% end %>
+
+      <%= active_link_to region_crowd_campaigns_path, class: "iconfilter" do %>
+        <%= icon_tag "crowd" %>
+        <div class="txt">Crowd<br/>funding</div>
+      <% end %>
+
+      <%= active_link_to region_locations_path, class: "iconfilter" do %>
+        <%= icon_tag "location" %>
+        <div class="txt">Anbieter &<br/>Macherinnen</div>
+      <% end %>
+
+      <%= active_link_to region_coop_demands_path, class: "iconfilter" do %>
+        <%= icon_tag "coop-and-share" %>
+        <div class="txt">Markt<br/>platz</div>
+      <% end %>
+
+      <%= active_link_to region_tools_path, class: "iconfilter" do %>
+        <%= icon_tag "tacker" %>
+        <div class="txt">Tool<br/>teiler</div>
+      <% end %>
+
+      <%= active_link_to region_zuckerls_path, class: "iconfilter" do %>
+        <%= icon_tag "shopping-bag" %>
+        <div class="txt">Zuckerl &<br/>Angebote</div>
+      <% end %>
+
     <% end %>
 
   </div>

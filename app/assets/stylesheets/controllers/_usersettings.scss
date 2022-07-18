@@ -104,7 +104,6 @@ section.user-settings {
       justify-content: center;
     }
 
-
     li {
       width:100%;
       text-align: center;
@@ -112,51 +111,6 @@ section.user-settings {
     }
   }
 
-}
-
-section.usersetup.-crowd_campaigns {
-  .btns {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    a {
-      margin-top:10px;
-      margin-left:10px;
-      margin-right:10px;
-      @include respond-to("<=small") {
-        width:100%;
-        margin-left:0px;
-        margin-right:0px;
-      }
-    }
-  }
-  .guidelines {
-    margin-top:50px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    div {
-      width:47%;
-    }
-    div.-full {
-      width:100%;
-    }
-    @include respond-to("<=medium") {
-      div {
-        width:100%;
-      }
-    }
-    h4 {
-      font-style: italic;
-      padding-bottom:10px;
-    }
-    p, ul {
-      padding-bottom:30px;
-    }
-  }
-  .cardBox.-crowd_campaign {
-    .updateteaser {display: none;}
-  }
 }
 
 // ---------------------------------------------------------------------- personal settings
@@ -215,8 +169,6 @@ div.billing-settings {
   }
 
 }
-
-
 
 // ---------------------------------------------------------------------- notification settings
 

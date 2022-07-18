@@ -36,21 +36,22 @@ class ToolRentalInvoice
 
   def add_renter_price_info(pdf, tool_rental)
     pdf.text "Rechnungsnummer: #{tool_rental.invoice_number}"
+    pdf.text "Transaktionsnummer: #{tool_rental.id}"
     pdf.text "Datum: #{tool_rental.created_at.to_date}"
     pdf.move_down 10
     pdf.text "Rechnung", size: 20, style: :bold
     pdf.move_down 10
 
     table_data = []
-    table_data << ["ID", "Toolteiler", "Start", "Ende", "Vermieter", "Preis"]
-    table_data << [tool_rental.id, tool_rental.tool_offer.title, tool_rental.rent_from, tool_rental.rent_to, tool_rental.owner.full_name, format_price(tool_rental.basic_price)]
-    table_data << [nil, nil, nil, nil, "Rabatt", format_price(-tool_rental.discount)] if tool_rental.discount?
-    table_data << [nil, nil, nil, nil, "Servicegebühr", format_price(tool_rental.service_fee)]
-    table_data << [nil, nil, nil, nil, "(20% MwSt.)", format_price(tool_rental.tax)]
-    table_data << [nil, nil, nil, nil, "Servicegebühr Gesamt (Inkl. MwSt)", format_price(tool_rental.total_fee)]
-    table_data << [nil, nil, nil, nil, "Gesamt", format_price(tool_rental.total_price)]
+    table_data << ["Toolteiler", "Start", "Ende", "Vermieter", "Preis"]
+    table_data << [tool_rental.tool_offer.title, tool_rental.rent_from, tool_rental.rent_to, tool_rental.owner.full_name, format_price(tool_rental.basic_price)]
+    table_data << [nil, nil, nil, "Rabatt", format_price(-tool_rental.discount)] if tool_rental.discount?
+    table_data << [nil, nil, nil, "Servicegebühr", format_price(tool_rental.service_fee)]
+    table_data << [nil, nil, nil, "(20% MwSt.)", format_price(tool_rental.tax)]
+    table_data << [nil, nil, nil, "Servicegebühr Gesamt (Inkl. MwSt)", format_price(tool_rental.total_fee)]
+    table_data << [nil, nil, nil, "Gesamt", format_price(tool_rental.total_price)]
 
-    pdf.table(table_data, width: pdf.bounds.width, column_widths: {5 => 60}) do
+    pdf.table(table_data, width: pdf.bounds.width, column_widths: {4 => 80}) do
       cells.borders = []
       cells.border_color = "DDDDDD"
       row(0).background_color = "EEEEEE"
@@ -70,21 +71,22 @@ class ToolRentalInvoice
 
   def add_owner_price_info(pdf, tool_rental)
     pdf.text "Rechnungsnummer: #{tool_rental.invoice_number}"
+    pdf.text "Transaktionsnummer: #{tool_rental.id}"
     pdf.text "Datum: #{tool_rental.created_at.to_date}"
     pdf.move_down 10
     pdf.text "Gutschrift", size: 20, style: :bold
     pdf.move_down 10
 
     table_data = []
-    table_data << ["ID", "Toolteiler", "Start", "Ende", "Mieter", "Preis"]
-    table_data << [tool_rental.id, tool_rental.tool_offer.title, tool_rental.rent_from, tool_rental.rent_to, tool_rental.renter_name, format_price(tool_rental.basic_price)]
-    table_data << [nil, nil, nil, nil, "Rabatt", format_price(-tool_rental.discount)] if tool_rental.discount?
-    table_data << [nil, nil, nil, nil, "Servicegebühr", format_price(-tool_rental.service_fee)]
-    table_data << [nil, nil, nil, nil, "(20% MwSt.)", format_price(-tool_rental.tax)]
-    table_data << [nil, nil, nil, nil, "Servicegebühr Gesamt (Inkl. MwSt)", format_price(-tool_rental.service_fee - tool_rental.tax)]
-    table_data << [nil, nil, nil, nil, "Auszahlungsbetrag", format_price(tool_rental.owner_payout_amount)]
+    table_data << ["Toolteiler", "Start", "Ende", "Mieter", "Preis"]
+    table_data << [tool_rental.tool_offer.title, tool_rental.rent_from, tool_rental.rent_to, tool_rental.renter_name, format_price(tool_rental.basic_price)]
+    table_data << [nil, nil, nil, "Rabatt", format_price(-tool_rental.discount)] if tool_rental.discount?
+    table_data << [nil, nil, nil, "Servicegebühr", format_price(-tool_rental.service_fee)]
+    table_data << [nil, nil, nil, "(20% MwSt.)", format_price(-tool_rental.tax)]
+    table_data << [nil, nil, nil, "Servicegebühr Gesamt (Inkl. MwSt)", format_price(-tool_rental.service_fee - tool_rental.tax)]
+    table_data << [nil, nil, nil, "Auszahlungsbetrag", format_price(tool_rental.owner_payout_amount)]
 
-    pdf.table(table_data, width: pdf.bounds.width, column_widths: {5 => 60}) do
+    pdf.table(table_data, width: pdf.bounds.width, column_widths: {4 => 80}) do
       cells.borders = []
       cells.border_color = "DDDDDD"
       row(0).background_color = "EEEEEE"

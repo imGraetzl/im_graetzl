@@ -11,11 +11,11 @@
       <% if graetzl && graetzl.region == current_region || district %>
         <%= nav_submenu_link("home", (graetzl || district).name, 'nav-submenu-site-location') %>
       <% end %>
+      <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
+      <%= nav_menu_item("crowd", 'Crowdfunding', region_crowd_campaigns_path) %>
       <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
       <%= nav_menu_item("location", 'Anbieter & Macherinnen', region_locations_path) %>
       <%= nav_menu_item("coop-and-share", 'Coop & Share Marktplatz', region_coop_demands_path) %>
-      <%= nav_menu_item("crowd", 'Crowdfunding', region_crowd_campaigns_path) %>
-      <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
       <%= nav_menu_item("tacker", 'Toolteiler', region_tools_path) %>
       <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
       <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
@@ -37,22 +37,22 @@
       <% if graetzl %>
         <%= nav_submenu_back('nav-submenu-site-city') %>
         <%= nav_menu_item("home", " Home | #{graetzl.name}", graetzl_path(graetzl)) %>
+        <%= nav_menu_item("raumteiler", "Raumteiler", rooms_graetzl_path(graetzl)) %>
+        <%= nav_menu_item("crowd", 'Crowdfunding', crowd_campaigns_graetzl_path(graetzl)) %>
         <%= nav_menu_item("calendar-2", "Events & Workshops", meetings_graetzl_path(graetzl)) %>
         <%= nav_menu_item("location", "Anbieter & Macherinnen", locations_graetzl_path(graetzl)) %>
         <%= nav_menu_item("coop-and-share", 'Coop & Share Marktplatz', coop_demands_graetzl_path(graetzl)) %>
-        <%= nav_menu_item("crowd", 'Crowdfunding', crowd_campaigns_graetzl_path(graetzl)) %>
-        <%= nav_menu_item("raumteiler", "Raumteiler", rooms_graetzl_path(graetzl)) %>
         <%= nav_menu_item("tacker", "Toolteiler", tools_graetzl_path(graetzl)) %>
         <%= nav_menu_item("speech-bubble", "Gruppen", groups_graetzl_path(graetzl)) %>
         <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
       <% elsif district %>
         <%= nav_submenu_back('nav-submenu-site-city') %>
         <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_index_path(district)) %>
+        <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", district_rooms_path(district)) %>
+        <%= nav_menu_item("crowd", "Crowdfunding (#{district.numeric}. Bez.)", district_crowd_campaigns_path(district)) %>
         <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", district_meetings_path(district)) %>
         <%= nav_menu_item("location", "Anbieter & Macherinnen (#{district.numeric}. Bez.)", district_locations_path(district)) %>
         <%= nav_menu_item("coop-and-share", "Coop & Share Marktplatz (#{district.numeric}. Bez.)", district_coop_demands_path(district)) %>
-        <%= nav_menu_item("crowd", "Crowdfunding (#{district.numeric}. Bez.)", district_crowd_campaigns_path(district)) %>
-        <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", district_rooms_path(district)) %>
         <%= nav_menu_item("tacker", "Toolteiler (#{district.numeric}. Bez.)", district_tools_path(district)) %>
         <%= nav_menu_item("speech-bubble", "Gruppen (#{district.numeric}. Bez.)", district_groups_path(district)) %>
         <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", district_zuckerls_path(district)) %>
@@ -71,11 +71,11 @@
     <div class="nav-dropdown-submenu shown" id="nav-submenu-city-main">
         <%= nav_menu_item("region-#{current_region.id}", "#{t("region.#{current_region.id}.region")} Übersicht", region_index_path, class: 'half region-switch') %>
         <%= nav_submenu_link("globe", '', 'nav-submenu-desk-regions', class: 'half region-switch globe') %>
+        <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
+        <%= nav_menu_item("crowd", 'Crowdfunding', region_crowd_campaigns_path) %>
         <%= nav_menu_item("calendar-2", 'Events & Workshops', region_meetings_path) %>
         <%= nav_menu_item("location", 'Anbieter & Macherinnen', region_locations_path) %>
         <%= nav_menu_item("coop-and-share", 'Coop & Share Marktplatz', region_coop_demands_path) %>
-        <%= nav_menu_item("crowd", 'Crowdfunding', region_crowd_campaigns_path) %>
-        <%= nav_menu_item("raumteiler", 'Raumteiler', region_rooms_path) %>
         <%= nav_menu_item("tacker", 'Toolteiler', region_tools_path) %>
         <%= nav_menu_item("speech-bubble", 'Gruppen', region_groups_path) %>
         <%= nav_menu_item("shopping-bag", 'Zuckerl & Angebote', region_zuckerls_path) %>
@@ -110,21 +110,21 @@
   <div class="nav-dropdown-menu" id="nav-site-location">
     <% if graetzl %>
       <%= nav_menu_item("home", "#{graetzl.name}", graetzl_path(graetzl)) %>
+      <%= nav_menu_item("raumteiler", "Raumteiler", rooms_graetzl_path(graetzl)) %>
+      <%= nav_menu_item("crowd", 'Crowdfunding', crowd_campaigns_graetzl_path(graetzl)) %>
       <%= nav_menu_item("calendar-2", "Events & Workshops", meetings_graetzl_path(graetzl)) %>
       <%= nav_menu_item("location", "Anbieter & Macherinnen", locations_graetzl_path(graetzl)) %>
       <%= nav_menu_item("coop-and-share", "Coop & Share Marktplatz", coop_demands_graetzl_path(graetzl)) %>
-      <%= nav_menu_item("crowd", 'Crowdfunding', crowd_campaigns_graetzl_path(graetzl)) %>
-      <%= nav_menu_item("raumteiler", "Raumteiler", rooms_graetzl_path(graetzl)) %>
       <%= nav_menu_item("tacker", "Toolteiler", tools_graetzl_path(graetzl)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote", zuckerls_graetzl_path(graetzl)) %>
       <%= nav_menu_item("speech-bubble", "Gruppen", groups_graetzl_path(graetzl)) %>
     <% elsif district %>
       <%= nav_menu_item("home", "#{district.name} (#{district.numeric}. Bez.)", district_index_path(district)) %>
+      <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", district_rooms_path(district)) %>
+      <%= nav_menu_item("crowd", "Crowdfunding (#{district.numeric}. Bez.)", district_crowd_campaigns_path(district)) %>
       <%= nav_menu_item("calendar-2", "Events & Workshops (#{district.numeric}. Bez.)", district_meetings_path(district)) %>
       <%= nav_menu_item("location", "Anbieter & Macherinnen (#{district.numeric}. Bez.)", district_locations_path(district)) %>
       <%= nav_menu_item("coop-and-share", "Coop & Share Marktplatz (#{district.numeric}. Bez.)", district_coop_demands_path(district)) %>
-      <%= nav_menu_item("crowd", "Crowdfunding (#{district.numeric}. Bez.)", district_crowd_campaigns_path(district)) %>
-      <%= nav_menu_item("raumteiler", "Raumteiler (#{district.numeric}. Bez.)", district_rooms_path(district)) %>
       <%= nav_menu_item("tacker", "Toolteiler (#{district.numeric}. Bez.)", district_tools_path(district)) %>
       <%= nav_menu_item("speech-bubble", "Gruppen (#{district.numeric}. Bez.)", district_groups_path(district)) %>
       <%= nav_menu_item("shopping-bag", "Zuckerl & Angebote (#{district.numeric}. Bez.)", district_zuckerls_path(district)) %>

@@ -132,10 +132,11 @@
   );
 }
 .paperCard.-crowd_campaign .wrp {
-  @include bg-url(
+  background-image: url(image_path('mailings/call.png')) !important;
+  /*@include bg-url(
     image_path('illu/illu-crowd1.png'),
     $webp1x: image_path('illu/illu-crowd1.webp'),
-  );
+  );*/
 }
 .paperCard.-coop-demands .wrp {
   @include bg-url(

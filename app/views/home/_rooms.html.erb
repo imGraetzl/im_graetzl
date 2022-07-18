@@ -1,0 +1,10 @@
+<div class="block-rooms">
+  <div class="hl-subtext">
+    <h1>Entdecke — <span>Raumteiler</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
+    <p>Gewerbeflächen zum Teilen - Raumhabende und Raumsuchende finden sich</p>
+  </div>
+  <div class="cardBoxCollection -tripple -morelink">
+    <%= render @activity_sample.rooms %>
+    <%= render 'rooms/action_card', view_all: true %>
+  </div>
+</div>

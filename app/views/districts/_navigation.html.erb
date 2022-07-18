@@ -6,6 +6,16 @@
       <div class="txt"><%= @district.numeric %>. Bezirk <br/>Übersicht</div>
     <% end %>
 
+    <%= active_link_to district_rooms_path(@district), class: "iconfilter" do %>
+      <%= icon_tag "raumteiler" %>
+      <div class="txt">Raum<br/>teiler</div>
+    <% end %>
+
+    <%= active_link_to district_crowd_campaigns_path(@district), class: "iconfilter" do %>
+      <%= icon_tag "crowd" %>
+      <div class="txt">Crowd<br/>funding</div>
+    <% end %>
+
     <%= active_link_to district_meetings_path(@district), class: "iconfilter" do %>
       <%= icon_tag "calendar-2" %>
       <div class="txt">Events & <br/>Workshops</div>
@@ -20,17 +30,6 @@
       <%= icon_tag "coop-and-share" %>
       <div class="txt">Markt <br/>platz</div>
     <% end %>
-
-    <%= active_link_to district_crowd_campaigns_path(@district), class: "iconfilter" do %>
-      <%= icon_tag "crowd" %>
-      <div class="txt">Crowd<br/>funding</div>
-    <% end %>
-
-    <%= active_link_to district_rooms_path(@district), class: "iconfilter" do %>
-      <%= icon_tag "raumteiler" %>
-      <div class="txt">Raum<br/>teiler</div>
-    <% end %>
-
     <%= active_link_to district_tools_path(@district), class: "iconfilter" do %>
       <%= icon_tag "tacker" %>
       <div class="txt">Tool<br/>teiler</div>

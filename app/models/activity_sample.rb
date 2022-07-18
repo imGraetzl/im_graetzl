@@ -37,13 +37,10 @@ class ActivitySample
   end
 
   def crowd_campaigns
-    if @graetzl
-      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
-    elsif @district
-      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
-    else
-      CrowdCampaign.in(@current_region).scope_public.by_currentness.first(2)
-    end
+    funding_campaigns = CrowdCampaign.in(@current_region).funding.by_currentness.first(2)
+    public_campaigns = CrowdCampaign.in(@current_region).completed.enabled.all.sample(2)
+    campaigns = funding_campaigns + public_campaigns
+    campaigns.compact.first(2)
   end
 
   def coop_demands
