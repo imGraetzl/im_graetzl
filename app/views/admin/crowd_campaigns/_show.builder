@@ -75,6 +75,7 @@ context.instance_eval do
       if crowd_campaign.completed?
         panel 'Auszahlungsstatistik' do
           attributes_table_for crowd_campaign do
+            row :transaction_fee_percentage
             row :funding_sum
             row :crowd_pledges_failed_sum
             row :effective_funding_sum

@@ -129,7 +129,7 @@
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_failed_sum, unit: "€") %></h4>
                 </div>
                 <div>
-                  <h4 class="title">4% Transaktionsgebühren (inkl. 20% MwSt)</h4>
+                  <h4 class="title"><%= @crowd_campaign.transaction_fee_percentage %>% Transaktionsgebühren (inkl. 20% MwSt)</h4>
                   <h4 class="amount">-<%= number_to_currency(@crowd_campaign.crowd_pledges_fee, unit: "€") %></h4>
                 </div>
                 <div>

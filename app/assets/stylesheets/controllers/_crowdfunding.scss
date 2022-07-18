@@ -664,3 +664,59 @@ section.crowd_campaign {
   }
 
 }
+
+section.usersetup.-crowd_campaigns {
+  .btns {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom:50px;
+    .btn {
+      margin-top:10px;
+      margin-left:10px;
+      margin-right:10px;
+      @include respond-to("<=small") {
+        width:100%;
+        margin-left:0px;
+        margin-right:0px;
+      }
+    }
+    .input-checkbox {
+      margin-top:5px;
+    }
+  }
+  .-call {
+    margin-bottom:50px;
+    .call-box {
+      h3 {
+        padding-bottom: 15px;
+      }
+      margin-top:10px;
+      display: flex;
+      flex-wrap: wrap;
+      div {
+        width:100%;
+        @include respond-to(">medium") {
+          width:48%;
+        }
+      }
+      img {
+        width:100%;
+        height:auto;
+      }
+    }
+  }
+  .guidelines {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    h4 {
+      font-style: italic;
+      padding-bottom:10px;
+    }
+  }
+  .cardBox.-crowd_campaign {
+    .updateteaser {display: none;}
+  }
+}

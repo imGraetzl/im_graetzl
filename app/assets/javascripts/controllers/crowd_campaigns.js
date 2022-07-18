@@ -1,8 +1,20 @@
 APP.controllers.crowd_campaigns = (function() {
 
     function init() {
+        if ($("section.usersetup").exists()) initCrowdCampaignStart();
         if ($("section.crowd_campaign").exists()) initCrowdCampaign();
         if ($("section.crowd_campaign").data('preview')) initPreviewMode();
+    }
+
+    function initCrowdCampaignStart() {
+      var _href = $("#startproject").attr("href");
+      $(".btns input:checked").on("change", function() {
+        if ($(".btns input:checked").length >= 1) {
+          $("#startproject").attr("href", _href + '?crowdfunding_call=true');
+        } else {
+          $("#startproject").attr("href", _href);
+        }
+      }).change();
     }
 
     function initPreviewMode() {

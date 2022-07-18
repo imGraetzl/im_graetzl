@@ -74,7 +74,7 @@ class CrowdCampaignInvoice
     pdf.text "#{format_price(campaign.crowd_pledges_fee_netto)}", align: :right
     pdf.float { pdf.text "20% MwSt.", align: :left }
     pdf.text "#{format_price(campaign.crowd_pledges_fee_tax)}", align: :right
-    pdf.float { pdf.text "Transaktionsgebühren Gesamt (4,00%)", align: :left, style: :bold }
+    pdf.float { pdf.text "Transaktionsgebühren Gesamt (#{campaign.transaction_fee_percentage},00%)", align: :left, style: :bold }
     pdf.text "#{format_price(campaign.crowd_pledges_fee)}", align: :right, style: :bold
     pdf.move_down 25
 

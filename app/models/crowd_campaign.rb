@@ -104,8 +104,12 @@ class CrowdCampaign < ApplicationRecord
     crowd_pledges.failed.sum(:total_price)
   end
 
+  def transaction_fee_percentage
+    created_at.after?("2022-07-15".to_date) ? 5 : 4
+  end
+
   def crowd_pledges_fee
-    (effective_funding_sum / 100) * 4
+    (effective_funding_sum / 100) * transaction_fee_percentage
   end
 
   def crowd_pledges_fee_netto

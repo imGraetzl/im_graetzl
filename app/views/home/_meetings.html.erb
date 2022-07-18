@@ -1,0 +1,10 @@
+<div class="block-meetings">
+  <div class="hl-subtext">
+    <h1>Entdecke — <span>Events &amp; Workhops</span> <%= t("region.#{current_region.id}.in_your_graetzl") %></h1>
+    <p>Organisiert von Selbstständigen, kl. Unternehmen, Vereinen & Macher*innen.</p>
+  </div>
+  <div class="cardBoxCollection -tripple -morelink">
+    <%= render @activity_sample.meetings %>
+    <%= render 'meetings/action_card', view_all: true %>
+  </div>
+</div>

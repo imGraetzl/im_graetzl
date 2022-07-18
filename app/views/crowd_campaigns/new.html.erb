@@ -18,6 +18,7 @@
   <%= f.hidden_field :contact_city %>
   <%= f.hidden_field :contact_email %>
   <%= f.hidden_field :contact_website %>
+  <%= f.hidden_field :crowdfunding_call, value: params[:crowdfunding_call] %>
 
   <%= render 'crowd_campaigns/form/basic', f: f %>
 
