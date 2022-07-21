@@ -1,0 +1,24 @@
+<div class="cardBox featuredCard -static -hidden" data-behavior="masonry-card">
+
+  <div class="cardBoxHeader">
+    <%= link_to start_crowd_campaigns_path do %>
+      <div class="coverImgWrapper">
+        <%= image_tag('mailings/call.png', class: 'coverImg') %>
+      </div>
+    <% end %>
+    <div class="categoryicon">
+      <%= icon_tag "horn-promote" %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+    <div class="txt">
+      <h3>Wir begleiten dich bei deiner Crowdfunding Kampagne - Mach mit beim Call!</h3>
+      <p>
+        Es stehen zwei Plätze zur Verfügung. Die Anmeldung ist bis 05.09.2022 möglich.
+      </p>
+    </div>
+    <%= link_to 'Zum Crowdfunding Call', start_crowd_campaigns_path, class: 'btn-primary -mint' %>
+  </div>
+
+</div>
