@@ -279,6 +279,7 @@ de:
           canceled: Anfrage zurückgezogen
           rejected: Anfrage abgelehnt
           approved: Anfrage akzeptiert
+          paid_out: Abgeschlossen
       tool_offer:
         address: Adresse
         title: Titel
@@ -322,6 +323,7 @@ de:
           return_pending: Rückgabe noch nicht bestätigt
           return_confirmed: Rückgabe bestätigt
           expired: Anfrage abgelaufen
+          paid_out: Abgeschlossen
         payment_statuses:
           authorized: authorisiert
           processing: in Bearbeitung
