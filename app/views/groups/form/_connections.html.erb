@@ -1,5 +1,4 @@
-<% if current_user.room_offers.present? || current_user.room_demands.present? ||
-  current_user.room_calls.present? || current_user.locations.present? %>
+<% if current_user.room_offers.present? || current_user.room_demands.present? || current_user.locations.present? %>
 
   <h2 class="hl-main">Deine <span>Gruppe verknüpfen</span> mit</h2>
 
@@ -30,16 +29,6 @@
         <span>Raumsuche</span>
       <% end %>
       <%= f.collection_select(:room_demand_id, current_user.room_demands, :id, :slogan, {:include_blank => 'Raumteiler verknüpfen..'}) %>
-    </div>
-  <% end %>
-
-  <% if current_user.room_calls.present? %>
-    <div class="input-select">
-      <%= f.label :room_call_id do %>
-        <%= icon_tag "location" %>
-        <span>Open Call</span>
-      <% end %>
-      <%= f.collection_select(:room_call_id, current_user.room_calls, :id, :title, {:include_blank => 'Open Call verknüpfen..'}) %>
     </div>
   <% end %>
 

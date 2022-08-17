@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_18_115500) do
+ActiveRecord::Schema.define(version: 2022_08_17_124328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -558,7 +558,6 @@ ActiveRecord::Schema.define(version: 2022_07_18_115500) do
     t.boolean "private", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "room_call_id"
     t.integer "room_demand_id"
     t.integer "location_id"
     t.string "cover_photo_id"
@@ -572,7 +571,6 @@ ActiveRecord::Schema.define(version: 2022_07_18_115500) do
     t.string "region_id"
     t.index ["location_id"], name: "index_groups_on_location_id"
     t.index ["region_id"], name: "index_groups_on_region_id"
-    t.index ["room_call_id"], name: "index_groups_on_room_call_id"
     t.index ["room_demand_id"], name: "index_groups_on_room_demand_id"
     t.index ["room_offer_id"], name: "index_groups_on_room_offer_id"
   end
@@ -773,110 +771,6 @@ ActiveRecord::Schema.define(version: 2022_07_18_115500) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "message"
-  end
-
-  create_table "room_call_fields", id: :serial, force: :cascade do |t|
-    t.integer "room_call_id"
-    t.string "label"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_call_id"], name: "index_room_call_fields_on_room_call_id"
-  end
-
-  create_table "room_call_modules", id: :serial, force: :cascade do |t|
-    t.integer "room_call_id"
-    t.integer "room_module_id"
-    t.integer "quantity", default: 1
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "description"
-    t.index ["room_call_id"], name: "index_room_call_modules_on_room_call_id"
-    t.index ["room_module_id"], name: "index_room_call_modules_on_room_module_id"
-  end
-
-  create_table "room_call_price_modules", id: :serial, force: :cascade do |t|
-    t.integer "room_call_price_id"
-    t.integer "room_module_id"
-    t.index ["room_call_price_id"], name: "index_room_call_price_modules_on_room_call_price_id"
-    t.index ["room_module_id"], name: "index_room_call_price_modules_on_room_module_id"
-  end
-
-  create_table "room_call_prices", id: :serial, force: :cascade do |t|
-    t.integer "room_call_id"
-    t.string "name"
-    t.text "description"
-    t.decimal "amount", precision: 10, scale: 2
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "features"
-    t.index ["room_call_id"], name: "index_room_call_prices_on_room_call_id"
-  end
-
-  create_table "room_call_submission_fields", id: :serial, force: :cascade do |t|
-    t.integer "room_call_submission_id"
-    t.integer "room_call_field_id"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["room_call_field_id"], name: "index_room_call_submission_fields_on_room_call_field_id"
-    t.index ["room_call_submission_id"], name: "index_room_call_submission_fields_on_room_call_submission_id"
-  end
-
-  create_table "room_call_submissions", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "room_call_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "phone"
-    t.string "website"
-    t.index ["room_call_id"], name: "index_room_call_submissions_on_room_call_id"
-    t.index ["user_id"], name: "index_room_call_submissions_on_user_id"
-  end
-
-  create_table "room_calls", id: :serial, force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.date "starts_at"
-    t.date "ends_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "subtitle"
-    t.text "about_us"
-    t.text "about_partner"
-    t.date "opens_at"
-    t.string "slug"
-    t.integer "total_vacancies", default: 0
-    t.integer "graetzl_id"
-    t.integer "district_id"
-    t.integer "user_id"
-    t.integer "location_id"
-    t.string "first_name"
-    t.string "last_name"
-    t.string "website"
-    t.string "email"
-    t.string "phone"
-    t.string "avatar_id"
-    t.string "avatar_content_type"
-    t.string "cover_photo_id"
-    t.string "cover_photo_content_type"
-    t.integer "address_id"
-    t.jsonb "cover_photo_data"
-    t.jsonb "avatar_data"
-    t.string "region_id"
-    t.string "address_street"
-    t.string "address_zip"
-    t.string "address_city"
-    t.geometry "address_coordinates", limit: {:srid=>0, :type=>"geometry"}
-    t.string "address_description"
-    t.index ["address_id"], name: "index_room_calls_on_address_id"
-    t.index ["district_id"], name: "index_room_calls_on_district_id"
-    t.index ["graetzl_id"], name: "index_room_calls_on_graetzl_id"
-    t.index ["location_id"], name: "index_room_calls_on_location_id"
-    t.index ["region_id"], name: "index_room_calls_on_region_id"
-    t.index ["user_id"], name: "index_room_calls_on_user_id"
   end
 
   create_table "room_categories", id: :serial, force: :cascade do |t|
@@ -1412,7 +1306,6 @@ ActiveRecord::Schema.define(version: 2022_07_18_115500) do
   add_foreign_key "group_users", "groups", on_delete: :cascade
   add_foreign_key "group_users", "users", on_delete: :cascade
   add_foreign_key "groups", "locations", on_delete: :nullify
-  add_foreign_key "groups", "room_calls", on_delete: :nullify
   add_foreign_key "groups", "room_demands", on_delete: :nullify
   add_foreign_key "groups", "room_offers", on_delete: :nullify
   add_foreign_key "location_menus", "graetzls", on_delete: :nullify
@@ -1420,20 +1313,6 @@ ActiveRecord::Schema.define(version: 2022_07_18_115500) do
   add_foreign_key "meeting_additional_dates", "meetings", on_delete: :cascade
   add_foreign_key "meetings", "groups", on_delete: :nullify
   add_foreign_key "meetings", "users", on_delete: :nullify
-  add_foreign_key "room_call_fields", "room_calls", on_delete: :cascade
-  add_foreign_key "room_call_modules", "room_calls", on_delete: :cascade
-  add_foreign_key "room_call_modules", "room_modules", on_delete: :cascade
-  add_foreign_key "room_call_price_modules", "room_call_prices", on_delete: :cascade
-  add_foreign_key "room_call_price_modules", "room_modules", on_delete: :cascade
-  add_foreign_key "room_call_prices", "room_calls", on_delete: :cascade
-  add_foreign_key "room_call_submission_fields", "room_call_fields", on_delete: :cascade
-  add_foreign_key "room_call_submission_fields", "room_call_submissions", on_delete: :cascade
-  add_foreign_key "room_call_submissions", "room_calls", on_delete: :cascade
-  add_foreign_key "room_call_submissions", "users", on_delete: :nullify
-  add_foreign_key "room_calls", "districts", on_delete: :nullify
-  add_foreign_key "room_calls", "graetzls", on_delete: :nullify
-  add_foreign_key "room_calls", "locations", on_delete: :nullify
-  add_foreign_key "room_calls", "users", on_delete: :nullify
   add_foreign_key "room_demand_categories", "room_categories", on_delete: :cascade
   add_foreign_key "room_demand_categories", "room_demands", on_delete: :cascade
   add_foreign_key "room_demand_graetzls", "graetzls", on_delete: :cascade

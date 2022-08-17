@@ -16,7 +16,6 @@ module Notifications
     NewLocationPost,
     NewLocationMenu,
     NewMeeting,
-    NewRoomCall,
     NewRoomDemand,
     NewRoomOffer,
     NewToolOffer,

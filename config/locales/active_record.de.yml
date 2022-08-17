@@ -96,15 +96,6 @@ de:
       coop_suggested_tag:
         one: Default Tag
         other: Default Tags
-      room_call:
-        one: Call
-        other: Calls
-      room_module:
-        one: Call Modul
-        other: Call Module
-      room_call_submission:
-        one: Call Einreichung
-        other: Call Einreichungen
       room_rental:
         one: Transaktion
         other: Transaktionen

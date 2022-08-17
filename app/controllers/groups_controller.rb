@@ -18,7 +18,6 @@ class GroupsController < ApplicationController
       location_id: params[:location_id],
       room_offer_id: params[:room_offer_id],
       room_demand_id: params[:room_demand_id],
-      room_call_id: params[:room_call_id],
       graetzl_ids: Array(params[:graetzl_id]),
     )
     DiscussionDefaultCategory.all.each do |category|
@@ -197,7 +196,6 @@ class GroupsController < ApplicationController
         :private,
         :room_offer_id,
         :room_demand_id,
-        :room_call_id,
         :location_id,
         :cover_photo, :remove_cover_photo,
         graetzl_ids: [],

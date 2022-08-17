@@ -25,9 +25,6 @@
           <li><a href="#tab-members">Mitglieder</a></li>
         <% end %>
       <% end %>
-      <% if @group.room_call_readable_by?(current_user) %>
-        <li><a href="#tab-call">Call</a></li>
-      <% end %>
     </ul>
     <!-- /NAVIGATION -->
 
@@ -39,9 +36,6 @@
         <div id='tab-meetings'><%= render 'groups/show/meetings' %></div>
         <div id='tab-members'><%= render 'groups/show/members' %></div>
       <% end %>
-    <% end %>
-    <% if @group.room_call_readable_by?(current_user) %>
-      <div id='tab-call'><%= render 'groups/show/call' %></div>
     <% end %>
     <!-- /CONTENT -->
 

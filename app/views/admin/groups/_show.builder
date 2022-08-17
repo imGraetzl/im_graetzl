@@ -12,7 +12,6 @@ context.instance_eval do
           row :hidden
           row :room_offer
           row :room_demand
-          row :room_call
           row :location
           row :private
           row :created_at
