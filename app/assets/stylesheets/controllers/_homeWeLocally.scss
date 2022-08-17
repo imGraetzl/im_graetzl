@@ -109,8 +109,8 @@ section.homeWeLocally {
 
     }
 
-    a.region-button {
-      width:165px;
+    .region-button {
+      width:175px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -131,6 +131,12 @@ section.homeWeLocally {
         .title {
           //text-decoration: underline;
         }
+      }
+    }
+
+    .add-region {
+      .bigicontext-element {
+        color: $color-ambient-rosa;
       }
     }
 

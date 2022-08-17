@@ -1,4 +1,5 @@
 <div class="nav-guest">
-  <%= link_to 'Kostenlos registrieren', new_registration_path(origin: request.path), class: 'nav-top-link flare' %>
-  <%= link_to 'Anmelden', new_user_session_path, class: 'nav-top-link' %>
+  <%= link_to 'Für Nutzer*innen', info_path, class: 'nav-top-link nav-plain-link' %>
+  <%= link_to 'Registrieren', new_registration_path(origin: request.path), class: 'nav-top-link flare' %>
+  <%= link_to 'Einloggen', new_user_session_path, class: 'nav-top-link' %>
 </div>
