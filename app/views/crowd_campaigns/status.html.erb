@@ -157,10 +157,16 @@
       </div>
 
       <% if @crowd_campaign.successful? && @crowd_campaign.closed? %>
-        <%= link_to download_supporters_crowd_campaign_path(@crowd_campaign, format: :xlsx), class: 'btn-secondary -mint -ico' do %>
+      <div class="btns">
+        <%= link_to download_supporters_crowd_campaign_path(@crowd_campaign, format: :xlsx), class: 'btn-secondary -mint -ico btn' do %>
           <span>Download UnterstützerInnen als Excel</span>
           <%= icon_tag "download" %>
         <% end %>
+        <%= link_to @crowd_campaign.invoice.presigned_url(:get), class: 'btn-secondary -mint -ico btn' do %>
+          <span>Download Rechnung</span>
+          <%= icon_tag "download" %>
+        <% end %>
+      </div>
       <% end %>
   <% end %>
 

@@ -18,14 +18,14 @@
   </div>
 
   <p class="subline">
-    <strong>Entdecke spannende Events, Workshops und die lokalen Anbieter*innen und Initiativen.</strong><br>
-    Lerne andere lokalen Macher*innen kennen, finde Gleichgesinnte für Kooperationen und zur gegenseitigen
-    Unterstützung, teile Räume und Ressourcen, setze deine eigenen Vorhaben mit Rückenwind um!
+    <strong>Verbinde dich mit anderen lokalen Macher*innen! Teile Räume und Geräte oder starte ein Crowdfunding zur Realisierung deiner Ideen.</strong>
+    Entdecke spannende Events, Vereine, Kunst- und Kulturschaffende, lokale Produzent*innen und die Anbieter*innen bei dir ums Eck.
+    Finde Gleichgesinnte für Kooperationen und zur gegenseitigen Unterstützung und setze deine eigenen Vorhaben mit Rückenwind um!
   </p>
 
   <div class="hl-subtext">
     <h1><span>WeLocally gibt es</span> in diesen Gebieten:</h1>
-    <p class="mail-hint">Innovative Gemeinden sind herzlich eingeladen sich anzudocken! <%= link_to 'Zum Call', call_2022_url(host: welocally_platform_host) %></p>
+    <p class="mail-hint">Innovative Gemeinden sind herzlich eingeladen sich anzudocken! <%= link_to 'Mehr Infos', call_2022_url(host: welocally_platform_host) %></p>
   </div>
 
   <div class="region-switch-icons">
@@ -37,9 +37,13 @@
         <div class="title"><%= region.name %></div>
       <% end %>
     <% end %>
-    <%= link_to call_2022_url(host: welocally_platform_host), class: 'badge -arrow' do %>
-      WeLocally Call
+    <%= link_to call_2022_url(host: welocally_platform_host), class: 'region-button add-region' do %>
+      <div class="bigicontext-element">
+        <%= icon_tag "plus" %>
+      </div>
+      <div class="title">Gemeinde / Stadt andocken</div>
     <% end %>
+
   </div>
 
   <div class="section -fullwidth -fullwidth-welocally">

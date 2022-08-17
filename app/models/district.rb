@@ -8,7 +8,6 @@ class District < ApplicationRecord
   has_many :locations, through: :graetzls
   has_many :meetings, through: :graetzls
   has_many :room_offers, through: :graetzls
-  has_many :room_calls, through: :graetzls
   has_many :tool_offers, through: :graetzls
   has_many :location_posts, through: :graetzls
 

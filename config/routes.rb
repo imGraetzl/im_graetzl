@@ -193,10 +193,6 @@ Rails.application.routes.draw do
     post 'toggle_waitlist', on: :member
     post 'remove_from_waitlist', on: :member
   end
-  resources :room_calls, path: 'open-calls', except: [:index] do
-    get 'submission', on: :member
-    post 'add_submission', on: :member
-  end
 
   resources :room_rentals, only: [:new, :create, :edit, :update] do
     get 'calculate_price', on: :collection

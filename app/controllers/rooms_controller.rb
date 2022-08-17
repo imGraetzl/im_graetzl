@@ -3,9 +3,6 @@ class RoomsController < ApplicationController
   def index
     head :ok and return if browser.bot? && !request.format.js?
 
-    room_calls = room_calls_scope.in(current_region).includes(:user)
-    room_calls = filter_calls(room_calls)
-
     room_offers = room_offers_scope.in(current_region).includes(:user)
     room_offers = filter_offers(room_offers)
     room_offers = room_offers.by_currentness.page(params[:page]).per(params[:per_page] || 10)
@@ -16,7 +13,6 @@ class RoomsController < ApplicationController
     room_demands = room_demands.by_currentness.page(params[:page]).per(params[:per_page] || 10)
 
     @rooms = []
-    @rooms += room_calls.sort_by(&:ends_at).reverse if params[:page].blank?
     @rooms += (room_offers + room_demands).sort_by(&:last_activated_at).reverse
     @next_page = room_offers.next_page.present? || room_demands.next_page.present?
   end
@@ -44,10 +40,6 @@ class RoomsController < ApplicationController
     else
       RoomDemand.all
     end
-  end
-
-  def room_calls_scope
-    RoomCall.all
   end
 
   def filter_offers(offers)
@@ -119,21 +111,6 @@ class RoomsController < ApplicationController
     end
 
     demands
-  end
-
-  def filter_calls(calls)
-    room_type = params.dig(:filter, :room_type)
-    if room_type.present?
-      if room_type == 'with_group'
-        calls = calls.where(id: Group.distinct.pluck(:room_call_id).compact)
-      elsif room_type != 'call'
-        return RoomCall.none
-      end
-    end
-
-    calls = calls.open_calls
-
-    calls
   end
 
 end

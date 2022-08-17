@@ -17,29 +17,29 @@
             <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
             <%= nav_menu_item("users", 'Über Uns', info_ueber_uns_path) %>
             <%= nav_menu_item("layout-document", 'Presse', info_presse_path) %>
-            <%= nav_menu_item("horn-promote", 'WeLocally Call', call_2022_url(host: welocally_platform_host)) %>
+            <%= nav_menu_item("plus", 'Gemeinde / Stadt andocken', call_2022_url(host: welocally_platform_host)) %>
           </div>
         </div>
         <!-- /Mobile Menue -->
 
         <!-- Desktop Menue -->
         <%= link_to 'Home', root_path, class: 'nav-top-link nav-home-link' %>
-        <%= link_to 'javascript:', class: 'nav-top-link nav-about-link', data: { dropdown: "nav-site-about" } do %>
+        <%= link_to 'javascript:', class: 'nav-top-link nav-desk-link', data: { dropdown: "nav-site-about" } do %>
           <%= icon_tag "arrow-down-2" %><span>WeLocally</span>
         <% end %>
-        <%= link_to 'javascript:', class: 'nav-top-link nav-about-link', data: { dropdown: "nav-site-info" } do %>
+        <%= link_to 'javascript:', class: 'nav-top-link nav-desk-link', data: { dropdown: "nav-site-info" } do %>
           <%= icon_tag "arrow-down-2" %><span>Info</span>
         <% end %>
         <div class="nav-dropdown-menu" id="nav-site-about">
           <% Region.all.each do |region| %>
             <%= nav_menu_item("region-#{region.id}", "#{region.name}", region_root_url(region)) %>
           <% end %>
+          <%= nav_menu_item("plus", 'Gemeinde / Stadt andocken', call_2022_url(host: welocally_platform_host)) %>
         </div>
         <div class="nav-dropdown-menu" id="nav-site-info">
           <%= nav_menu_item("lightbulb", 'Infos & Services', info_path) %>
           <%= nav_menu_item("users", 'Über Uns', info_ueber_uns_path) %>
           <%= nav_menu_item("layout-document", 'Presse', info_presse_path) %>
-          <%= nav_menu_item("horn-promote", 'WeLocally Call', call_2022_url(host: welocally_platform_host)) %>
         </div>
         <!-- /Desktop Menue -->
 
@@ -55,8 +55,9 @@
 
 
       <div class="nav-guest">
-        <%= link_to 'Kostenlos registrieren', 'javascript:', class: 'nav-top-link flare region-select-link', data: {urlmethod: new_registration_path} %>
-        <%= link_to 'Anmelden', 'javascript:', class: 'nav-top-link region-select-link', data: {urlmethod: new_user_session_path} %>
+        <%= link_to 'Für Nutzer*innen', info_path, class: 'nav-top-link nav-plain-link' %>
+        <%= link_to 'Registrieren', 'javascript:', class: 'nav-top-link flare region-select-link', data: {urlmethod: new_registration_path} %>
+        <%= link_to 'Einloggen', 'javascript:', class: 'nav-top-link region-select-link', data: {urlmethod: new_user_session_path} %>
       </div>
 
 

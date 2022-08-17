@@ -27,7 +27,7 @@ namespace :scheduled do
     end
 
     # Close and generate Invoice after 14 Days
-    CrowdCampaign.completed.successful.where(enddate: 14.days.ago).find_each do |campaign|
+    CrowdCampaign.completed.successful.where(enddate: 13.days.ago).find_each do |campaign|
       CrowdCampaignService.new.close(campaign)
     end
 

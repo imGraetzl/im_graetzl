@@ -54,7 +54,6 @@ class ActivitySample
   end
 
   def rooms
-    room_call = RoomCall.in(@current_region).open_calls.first
     if @graetzl
       room_offer = @graetzl.room_offers.in(@current_region).enabled.by_currentness.first
       room_demand = @graetzl.room_demands.in(@current_region).enabled.by_currentness.first
@@ -65,7 +64,7 @@ class ActivitySample
       room_offer = RoomOffer.in(@current_region).enabled.by_currentness.first
       room_demand = RoomDemand.in(@current_region).enabled.by_currentness.first
     end
-    [room_call, room_offer, room_demand].compact.first(2)
+    [room_offer, room_demand].compact.first(2)
   end
 
   def tools

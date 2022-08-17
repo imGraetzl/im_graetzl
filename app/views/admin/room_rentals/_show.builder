@@ -38,7 +38,7 @@ context.instance_eval do
     end
   end
 
-  if room_rental.approved?
+  if room_rental.invoice_number?
     panel 'Invoices' do
       attributes_table_for room_rental do
         row(:owner_invoice) { |r| link_to "PDF", r.owner_invoice.presigned_url(:get) }

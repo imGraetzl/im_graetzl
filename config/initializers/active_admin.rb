@@ -191,7 +191,7 @@ ActiveAdmin.setup do |config|
   #
      config.namespace :admin do |admin|
        admin.build_menu :default do |menu|
-         menu.add label: "Reports", priority: 11, url: "/reports"
+         #menu.add label: "Reports", priority: 11, url: "/reports"
        end
      end
 

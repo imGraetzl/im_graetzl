@@ -18,8 +18,8 @@
 
 <% end %>
 
-<% if @region.id == 'wien' && @period == 'weekly' %>
-  <%= render 'featured/umfrage' %>
+<% if @period == 'weekly' %>
+  <%= render 'featured/crowdfunding_call' %>
 <% end %>
 
 <% if @period == 'weekly' %>

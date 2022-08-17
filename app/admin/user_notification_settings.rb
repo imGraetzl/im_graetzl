@@ -47,7 +47,6 @@ ActiveAdmin.register User, as: "User Notification Settings" do
     column(:new_location_post) { |u| u.enabled_mail_notification(Notifications::NewLocationPost) }
     column(:new_room_offer) { |u| u.enabled_mail_notification(Notifications::NewRoomOffer) }
     column(:new_room_demand) { |u| u.enabled_mail_notification(Notifications::NewRoomDemand) }
-    column(:new_room_call) { |u| u.enabled_mail_notification(Notifications::NewRoomCall) }
     column(:commented_content) { |u| u.enabled_mail_notification(Notifications::CommentOnOwnedContent) }
     column(:follow_commented_content) { |u| u.enabled_mail_notification(Notifications::CommentOnFollowedContent) }
     column(:commented_wall) { |u| u.enabled_mail_notification(Notifications::NewWallComment) }

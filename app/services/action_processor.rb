@@ -92,9 +92,6 @@ class ActionProcessor
       comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, child.user_id]
       Notifications::ReplyOnFollowedDiscussionPost.generate(subject, child, to: comment_followers)
 
-    when [RoomCall, :create]
-      Activity.add_public(subject, to: subject.graetzl)
-
     when [RoomOffer, :create]
       Activity.add_public(subject, to: subject.graetzl)
       Notifications::NewRoomOffer.generate(subject, to: user_ids(subject.graetzl))

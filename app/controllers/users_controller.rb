@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def rooms
     @user = current_user
-    @rooms = @user.room_offers.in(current_region) + @user.room_demands.in(current_region) + @user.room_calls.in(current_region)
+    @rooms = @user.room_offers.in(current_region) + @user.room_demands.in(current_region)
     @owned_room_rentals = current_user.owned_room_rentals.in(current_region).initialized.includes(:room_offer, :user, :user_message_thread)
     @room_rentals = current_user.room_rentals.in(current_region).initialized.includes(:user_message_thread, room_offer: :user)
   end
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
   end
 
   def groups
-    @groups = current_user.groups.in(current_region).includes(:room_offer, :room_call, :discussion_categories)
+    @groups = current_user.groups.in(current_region).includes(:room_offer, :discussion_categories)
   end
 
   def favorite_graetzls

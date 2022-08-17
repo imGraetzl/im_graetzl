@@ -1,7 +1,6 @@
 class Group < ApplicationRecord
   include Trackable
 
-  belongs_to :room_call, optional: true
   belongs_to :room_offer, optional: true
   belongs_to :room_demand, optional: true
   belongs_to :location, optional: true
@@ -59,7 +58,7 @@ class Group < ApplicationRecord
   end
 
   def parent
-    room_call || room_offer || room_demand || location
+    room_offer || room_demand || location
   end
 
   def last_active_members(size)
@@ -99,17 +98,8 @@ class Group < ApplicationRecord
     in_group?(user)
   end
 
-  def room_call_readable_by?(user)
-    room_call_id? && admin?(user)
-  end
-
   def user_join_request(group_user)
     group_join_requests.find{|jr| jr.user_id == group_user.user_id }
-  end
-
-  def user_room_call_submission(user_id)
-    return if !room_call
-    room_call.room_call_submissions.find{|jr| jr.user_id == user_id }
   end
 
   private

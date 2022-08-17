@@ -83,7 +83,7 @@
       @include respond-to("<large") { display: none; }
     }
 
-    .nav-city-link, .nav-location-link, .nav-about-link {
+    .nav-city-link, .nav-location-link, .nav-desk-link {
       @include respond-to("<large") { display: none; }
       span {
         @include ellipsis;
@@ -110,6 +110,15 @@
     .nav-top-link:last-of-type { padding-right: 0; }
     .nav-top-link {
       .icon { margin-right: 10px; }
+    }
+    // Use for Special Link on Right Side:
+    .nav-plain-link {
+      border-right: 1px dotted #c9e7e2;
+      &:last-of-type { border-right: none; }
+      margin-right:15px;
+      @include respond-to("<440px") {
+        display: none;
+      }
     }
   }
 

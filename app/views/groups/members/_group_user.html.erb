@@ -42,13 +42,6 @@
           <%= render 'groups/members/join_request_modal', join_request: join_request %>
         </p>
       <% end %>
-
-      <% room_call_submission = @group.user_room_call_submission(group_user.user_id) %>
-      <% if room_call_submission %>
-        <p class="date">
-          <%= link_to "Call Einreichung", submission_room_call_path(@group.room_call, submission_id: room_call_submission.id) %>
-        </p>
-      <% end %>
     <% end %>
   </div>
 
