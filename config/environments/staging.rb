@@ -36,7 +36,7 @@ Rails.application.configure do
   # Use welocally.at for assets
   # config.asset_host = 'https://staging.welocally.at'
 
-  config.action_controller.asset_host = Proc.new { |source, request|
+  config.asset_host = Proc.new { |source, request|
     "#{request.protocol}#{request.host_with_port}"
   }
 
