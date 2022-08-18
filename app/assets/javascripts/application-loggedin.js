@@ -1,3 +1,4 @@
+//= require jquery.sumoselect
 //= require jquery.tagsinput
 //= require jquery.easy-autocomplete
 //= require uppy
