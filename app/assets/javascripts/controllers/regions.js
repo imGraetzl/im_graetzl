@@ -11,10 +11,6 @@ APP.controllers.regions = (function() {
             window.location.href = $(this).val();
         });
 
-        if ($("#filter-modal-bezirk").exists()) {
-          APP.components.graetzlSelectFilter.init($("#filter-modal-bezirk"));
-        }
-
         if ($('.cards-filter').exists()) {
           APP.components.cardBoxFilter.init();
         }

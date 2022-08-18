@@ -19,9 +19,6 @@ APP.controllers.districts = (function() {
   }
 
   function initFilter() {
-    if ($("#filter-modal-bezirk").exists()) {
-      APP.components.graetzlSelectFilter.init($("#filter-modal-bezirk"));
-    }
 
     if ($('.cards-filter').exists()) {
       APP.components.cardBoxFilter.init();

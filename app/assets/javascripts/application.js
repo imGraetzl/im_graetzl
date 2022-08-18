@@ -21,7 +21,6 @@
 //= require picker.time
 //= require picker.de_DE
 //= require enquire
-//= require jquery.sumoselect
 //= require jquery.dropdown
 //= require masonry.pkgd.min
 //= require linkify-jquery.min
