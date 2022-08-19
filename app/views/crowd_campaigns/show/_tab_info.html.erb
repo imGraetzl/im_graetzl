@@ -86,7 +86,7 @@
 
     <% if @crowd_campaign.video? %>
       <div class="entryImgUploads" style="padding:56.25% 0 0 0;position:relative;">
-        <iframe id="galleryVideo" src="<%= @crowd_campaign.video %>"
+        <iframe id="galleryVideo" src="<%= video_embed_url(@crowd_campaign.video) %>"
           title="Crowdfunding Video"
           frameborder="0" allow="accelerometer; autoplay;
           encrypted-media; gyroscope; picture-in-picture"

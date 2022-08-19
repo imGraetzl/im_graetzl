@@ -90,4 +90,34 @@ module CrowdCampaignsHelper
     end
   end
 
+  def video_embed_url(url)
+    @url = url
+
+    youtube_formats = [
+      %r(https?://youtu\.be/(.+)),
+      %r(https?://www\.youtube\.com/watch\?v=(.*?)(&|#|$)),
+      %r(https?://www\.youtube\.com/embed/(.*?)(\?|$)),
+      %r(https?://www\.youtube\.com/v/(.*?)(#|\?|$)),
+      %r(https?://www\.youtube\.com/user/.*?#\w/\w/\w/\w/(.+)\b),
+    ]
+
+    vimeo_formats = [
+      %r(https?://vimeo.com\/(\d+)),
+      %r(https?:\/\/(www\.)?vimeo.com\/(\d+)),
+      %r(https?://player.vimeo.com/video\/(\d+))
+    ]
+
+    @url.strip!
+
+    if @url.include? "youtu"
+      youtube_formats.find { |format| @url =~ format } and $1
+      "https://www.youtube.com/embed/#{$1}"
+    elsif @url.include? "vimeo"
+      vimeo_formats.find { |format| @url =~ format } and $1
+      "https://player.vimeo.com/video/#{$1}"
+    else
+      @url
+    end
+  end
+
 end
