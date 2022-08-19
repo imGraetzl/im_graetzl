@@ -17,7 +17,7 @@ Rails.application.configure do
   config.hosts << config.imgraetzl_host
   config.hosts << ".#{config.welocally_host}"
 
-  config.action_controller.asset_host = Proc.new { |source, request|
+  config.asset_host = Proc.new { |source, request|
     "#{request.protocol}#{request.host_with_port}"
   }
 
