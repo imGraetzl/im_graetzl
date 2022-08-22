@@ -140,7 +140,7 @@
     }
   } // Group Cardbox
 
-  .entryInitialContent {
+  .entryContent {
     margin-bottom: 0px;
   }
 
@@ -242,7 +242,7 @@
   a.typelink {text-decoration: none !important;}
   a.typelink:hover {text-decoration: none !important;}
 
-  .entryInitialContent .txt a {
+  .entryContent .txt a {
     text-decoration: none;
   }
 
@@ -442,7 +442,7 @@
     border-left: 1px dotted $color-ambient-grey;
   }
 
-  .userCreateInfo .img-round {
+  .userEntry .img-round {
     width: 35px;
     height: 35px;
     padding: 1px;

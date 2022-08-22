@@ -42,7 +42,7 @@
     <% if local_assigns[:activity_crowd_pledge] %>
       <% crowd_pledge = local_assigns[:activity_crowd_pledge] %>
       <% if crowd_pledge.user %>
-        <div class="userCreateInfo userPledge">
+        <div class="userEntry userPledge">
           <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
             <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <% end %>
@@ -52,7 +52,7 @@
           </span>
         </div>
       <% else %>
-        <div class="userCreateInfo userPledge">
+        <div class="userEntry userPledge">
           <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <span class="userAndType">
             <strong><%= crowd_pledge.contact_name %></strong>
@@ -64,7 +64,7 @@
       <% crowd_pledge = local_assigns[:activity_crowd_donation_pledge] %>
       <% donation_type = local_assigns[:activity_crowd_donation_pledge].donation_type %>
       <% if crowd_pledge.user %>
-        <div class="userCreateInfo userPledge">
+        <div class="userEntry userPledge">
           <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
             <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <% end %>
@@ -74,7 +74,7 @@
           </span>
         </div>
       <% else %>
-        <div class="userCreateInfo userPledge">
+        <div class="userEntry userPledge">
           <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
           <span class="userAndType">
             <strong><%= crowd_pledge.contact_name %></strong>

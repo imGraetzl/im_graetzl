@@ -1,5 +1,5 @@
 <%= form_for Comment.new, url: comment_menu_location_path(@location, menu_id: menu.id), remote: true,
-    html: { class: 'entryCommentForm', data: { behavior: "comment-form-#{menu.id}" } } do |f| %>
+    html: { class: 'entryForm', data: { behavior: "comment-form-#{menu.id}" } } do |f| %>
   <label>
     <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
     <%= f.text_area :content, placeholder: 'Kommentieren' %>

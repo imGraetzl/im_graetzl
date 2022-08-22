@@ -1,4 +1,4 @@
-<%= form_for Comment.new(commentable: comment), html: { class: 'entryCommentForm', remote: true, data: { behavior: "comment-form-#{comment.id}" } } do |f| %>
+<%= form_for Comment.new(commentable: comment), html: { class: 'entryForm', remote: true, data: { behavior: "comment-form-#{comment.id}" } } do |f| %>
   <%= f.hidden_field :commentable_id %>
   <%= f.hidden_field :commentable_type %>
   <label>

@@ -6,7 +6,7 @@ APP.components.stream = (function() {
         initCommentForm();
         $('textarea').autoheight();
 
-        $('.show-all-comments-link').on("click", function() {
+        $('.show-all-comments').on("click", function() {
           $(this).parents(".post-comments").find(".comment-container").show();
           $(this).hide();
         });
@@ -48,7 +48,7 @@ APP.components.stream = (function() {
     }
 
     function initCommentForm() {
-        $('.entryCommentForm').not('.js-initialized').each(function() {
+        $('.entryForm').not('.js-initialized').each(function() {
             var $parent = $(this);
             initSingleTextarea($parent);
         })

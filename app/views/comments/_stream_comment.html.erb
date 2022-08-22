@@ -1,6 +1,6 @@
 <div id="<%= "comment_#{comment.commentable_type.underscore}_#{comment.id}" %>" class="comment streamElement">
 
-  <div class="entryInitialContent">
+  <div class="entryContent">
 
     <% if comment.edit_permission?(current_user) %>
       <div class="editControls">
@@ -12,7 +12,7 @@
       </div>
     <% end %>
 
-    <div class="userCreateInfo -parentComment">
+    <div class="userEntry -parentComment">
       <%= link_to comment.user, rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
       <% end %>
@@ -35,7 +35,7 @@
     <% end %>
 
     <div class="post-comments">
-      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments-link' if comment.comments.size > 3 %>
+      <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments' if comment.comments.size > 3 %>
       <% comment.comments.sort_by(&:created_at).each do |comment| %>
         <div class="comment-container">
           <%= render 'comments/nested_comments/comment', comment: comment %>

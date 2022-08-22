@@ -54,7 +54,7 @@
     }
   }
 
-  .entryCommentForm {
+  .entryForm {
     .img-round {display: none;}
     &.is-focused {
       .img-round { display: block; }
@@ -64,7 +64,7 @@
     margin-top:20px;
     .comment-container.hide { display: none; }
   }
-  .entryUserComment {
+  .entryComment {
     .entryImgUploads, .txt {
       margin-left: 50px;
     }
@@ -95,7 +95,7 @@
     }
   } // End User STYLING
 
-  .show-all-comments-link {
+  .show-all-comments {
     @include respond-to(">=medium") {
       margin-left: 0px !important;
     }
@@ -103,7 +103,7 @@
 
 }
 
-.userCreateInfo {
+.userEntry {
   .name {
     a {
       text-decoration: none;
@@ -125,7 +125,7 @@
   .comment-container:nth-last-child(-n+3) {
     display: block;
   }
-  .show-all-comments-link {
+  .show-all-comments {
     @include font-size-primaryFont('small');
     font-style: italic;
     color: #69a8a7;
@@ -210,7 +210,7 @@
 }
 
 .entryCreate.is-focused,
-.entryCommentForm.is-focused {
+.entryForm.is-focused {
   .hideBlock {
     height: auto;
     visibility: visible;
@@ -219,7 +219,7 @@
   }
 }
 
-.entryCommentForm {
+.entryForm {
   .hideBlock {
     padding-top: 10px;
     @include respond-to(">=large") {
@@ -274,7 +274,7 @@
   margin: 0 auto 80px auto;
 }
 
-.entryInitialContent {
+.entryContent {
   margin-bottom: 20px;
   position: relative;
   .headline {
@@ -296,7 +296,7 @@
   }
 }
 
-.entryUserComment {
+.entryComment {
   margin-bottom: 20px;
   .txt {
     margin-bottom: 1rem;
@@ -307,7 +307,7 @@
   }
 }
 .stream .streamElement {
-  .entryInitialContent .txt {
+  .entryContent .txt {
     white-space: pre-wrap;
   }
   @include respond-to(">=medium") {
@@ -317,10 +317,10 @@
       z-index: 5;
     }
     .entryImgUploads { padding-left: 60px; }
-    .entryUserComment { padding-left: 60px; }
-    .entryUserComment .txt { margin-left: 50px; }
-    .entryCommentForm { padding-left: 60px; }
-    .entryCommentForm.is-focused {
+    .entryComment { padding-left: 60px; }
+    .entryComment .txt { margin-left: 50px; }
+    .entryForm { padding-left: 60px; }
+    .entryForm.is-focused {
       .img-round { display: block; }
     }
   }
@@ -383,7 +383,7 @@
   }
 }
 
-.entryCommentForm {
+.entryForm {
   textarea {
     background-color: #ffffff;
     border: 1px solid $color-ambient-grey-light;
@@ -467,8 +467,8 @@
   opacity: 1 !important;
 }
 
-.entryUserComment,
-.entryInitialContent {
+.entryComment,
+.entryContent {
   position: relative;
   &:hover {
     .editControls {
@@ -487,15 +487,15 @@
 }
 
 
-.entryUserComment.inlineEdit-isVisible,
-.entryInitialContent.inlineEdit-isVisible {
+.entryComment.inlineEdit-isVisible,
+.entryContent.inlineEdit-isVisible {
   .editControls {
     display: none !important;
   }
 }
 
-.entryUserComment .txt form,
-.entryInitialContent .txt form {
+.entryComment .txt form,
+.entryContent .txt form {
   position: relative;
   display: block;
   overflow: hidden;
