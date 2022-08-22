@@ -20,29 +20,13 @@ APP.controllers.meetings = (function() {
       if ($(".additonal").exists()) {
         $('.dateTime').lightSlider({
           item: 2,
-          autoWidth: false,
           slideMove: 2, // slidemove will be 1 if loop is true
           slideMargin: 0,
           addClass: 'additionalSlider',
-          mode: "slide",
-          useCSS: true,
-          cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-          easing: 'linear', //'for jquery animation',////
-          speed: 750, //ms'
           auto: false,
-          loop: false,
-          slideEndAnimation: true,
           pause: 10000,
-          keyPress: false,
           controls: true,
-          prevHtml: '',
-          nextHtml: '',
-          adaptiveHeight:false,
           pager: false,
-          enableTouch:true,
-          enableDrag:false,
-          freeMove:true,
-          swipeThreshold: 40,
           responsive : [
             {
               breakpoint:APP.config.majorBreakpoints.large,

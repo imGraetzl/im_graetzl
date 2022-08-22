@@ -37,8 +37,6 @@ APP.controllers.crowd_campaigns = (function() {
         pause: 4000,
         controls: false,
         pager: false,
-        enableTouch:true,
-        enableDrag:false,
         pauseOnHover: true,
       });
 
