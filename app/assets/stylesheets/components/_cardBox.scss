@@ -233,17 +233,6 @@
     &.sticky {
       color:$color-ambient-rosa;
     }
-    &.-call {
-      &.-open {
-        top: 0px;
-        right: 0px;
-        background-color: $color-ambient-rosa;
-        color:white;
-        span {
-          font-weight:bold;
-        }
-      }
-    }
   }
 }
 
