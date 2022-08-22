@@ -163,13 +163,19 @@ APP.controllers.application = (function() {
     closeOnClick:true,
     animation:{open: 'zoomIn', close: 'zoomOut'},
     onOpen: function () {
-      vidsrc = $('#videoIframe').attr('src');
+      vidsrc = $('#videoIframe').attr('data-src');
       $('#videoIframe').attr('src',vidsrc + "?autoplay=1");
     },
     onClose: function () {
       $('#videoIframe').attr('src', vidsrc);
     }
   });
+
+  // VIDEO Embed
+  document.querySelectorAll(':is(vimeo-embed, youtube-embed) button').forEach(button => button.addEventListener('click', () => {
+    const video = button.previousElementSibling;
+    video.src = video.dataset.src;
+  }))
 
   // Toggable Headlines
   $('.-toggable h3').on('click', function() {
