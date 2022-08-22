@@ -15,10 +15,10 @@
 
   </div>
   <div class="btns">
-    <%= link_to accept_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-userIcons -small -mint' do %>
+    <%= link_to accept_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-icon -small -mint' do %>
       <%= icon_tag "check" %>
     <% end %>
-    <%= link_to reject_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-userIcons -small -grey' do %>
+    <%= link_to reject_request_group_path(@group, join_request_id: join_request.id), method: :post, class: 'btn-icon -small -grey' do %>
       <%= icon_tag "trash-delete-remove" %>
     <% end %>
   </div>

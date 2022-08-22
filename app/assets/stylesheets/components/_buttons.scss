@@ -124,7 +124,7 @@
   }
 }
 
-.btn-userCallToAction {
+.btn-avatar {
   @extend .btn-primary;
 
   &.-mint {
@@ -173,7 +173,7 @@
 }
 
 
-.btn-userIcons {
+.btn-icon {
   @extend .btn-primary;
   display: inline-flex;
   justify-content: center;

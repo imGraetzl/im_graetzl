@@ -113,7 +113,7 @@ section.meeting {
       padding: 10px;
       background-color: white;
       border-top: 1px solid $color-ambient-mint-light;
-      .btn-userCallToAction {
+      .btn-avatar {
         margin: 0px;
         justify-content: center;
         width: 100%;
@@ -121,7 +121,7 @@ section.meeting {
     }
   }
 
-  .btn-userCallToAction {
+  .btn-avatar {
     display: inline-flex;
     max-height: 48px;
     margin: 0 auto 2rem auto;

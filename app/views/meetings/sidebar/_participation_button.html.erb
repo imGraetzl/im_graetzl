@@ -1,13 +1,13 @@
 <% if !user_signed_in? %>
   <div class="btn-going-to">
-    <%= link_to new_user_session_path(redirect: request.original_url, origin: request.path), class: 'btn-userCallToAction' do %>
+    <%= link_to new_user_session_path(redirect: request.original_url, origin: request.path), class: 'btn-avatar' do %>
       <span><%= image_tag 'fallbacks/user_avatar.png', class: 'img-round' %> Am Treffen teilnehmen</span>
     <% end %>
   </div>
 <% elsif current_user == meeting.user %>
 
   <div class="btn-going-to">
-    <%= link_to 'javascript:', class: 'btn-userCallToAction', id: 'meetingSettings' do %>
+    <%= link_to 'javascript:', class: 'btn-avatar', id: 'meetingSettings' do %>
       <span>
         <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
         Treffen Optionen <%= icon_tag "arrow-down-2" %>
@@ -27,7 +27,7 @@
 
 <% elsif meeting.attending?(current_user) %>
   <div class="btn-going-to">
-    <%= button_to [:unattend, meeting], method: :post, class: 'btn-userCallToAction' do %>
+    <%= button_to [:unattend, meeting], method: :post, class: 'btn-avatar' do %>
       <span>
         <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
         Nicht mehr teilnehmen
@@ -36,7 +36,7 @@
   </div>
 <% else %>
   <div class="btn-going-to">
-    <%= button_to 'javascript:', class: 'btn-userCallToAction', id: 'attendMeeting' do %>
+    <%= button_to 'javascript:', class: 'btn-avatar', id: 'attendMeeting' do %>
       <span>
         <%= avatar_image current_user, size: :thumb, class: 'img-round avatar' %>
         Am Treffen teilnehmen

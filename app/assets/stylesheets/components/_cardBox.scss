@@ -49,7 +49,7 @@
 
   // -------------------------- Zuckerl Cardbox
   &.-zuckerl {
-    .btn-userIcons {
+    .btn-icon {
       width:100%;
       border-radius: 0px 0px 6px 6px;
       background-color: $color-ambient-rosa-dark;
@@ -180,10 +180,10 @@
 
 }
 
-.card-grid .btn-userIcons,
-.card-slider-container .btn-userIcons,
-.block-groups .btn-userIcons,
-.cardBoxCollection .btn-userIcons {
+.card-grid .btn-icon,
+.card-slider-container .btn-icon,
+.block-groups .btn-icon,
+.cardBoxCollection .btn-icon {
   display: flex;
 }
 

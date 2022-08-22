@@ -161,7 +161,7 @@
       <div class="wait-list-wrapper">
         <% if user_signed_in? && current_user != @room_offer.user %>
           <% if !@room_offer.waiting_users.include?(current_user) %>
-            <%= link_to [:toggle_waitlist, @room_offer], method: :post, class: 'btn-userIcons -mint' do %>
+            <%= link_to [:toggle_waitlist, @room_offer], method: :post, class: 'btn-icon -mint' do %>
               <span>
                 <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
                 Auf die Warteliste
@@ -169,7 +169,7 @@
             <% end %>
           <% end %>
         <% elsif !user_signed_in? %>
-          <%= link_to new_user_session_path(redirect: request.original_url), class: 'btn-userIcons -mint' do %>
+          <%= link_to new_user_session_path(redirect: request.original_url), class: 'btn-icon -mint' do %>
             <span><%= image_tag 'fallbacks/user_avatar.png', class: 'img-round' %> Auf die Warteliste</span>
           <% end %>
         <% end %>
