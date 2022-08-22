@@ -9,31 +9,12 @@
 .portraitCollection {
   display: flex;
   flex-wrap: wrap;
-  img, .dotdotdot {
+  img {
     float: left;
     display: block;
     margin-bottom: 5px;
     margin-left: 5px;
     margin-right: 5px;
-  }
-  .dotdotdot {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    position: relative;
-    border: 2px solid $color-ambient-mint;
-    background-color: $color-ambient-bright;
-    padding: 1px;
-    cursor: pointer;
-    z-index: 1;
-    .icon {
-      fill: $color-ambient-mint;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin: 0 auto;
-      transform: translate(-50%, -50%);
-    }
   }
 }
 
