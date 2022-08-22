@@ -90,8 +90,9 @@ module CrowdCampaignsHelper
     end
   end
 
-  def video_embed_url(url)
+  def video_embed_url(url, type)
     @url = url
+    @type = type
 
     youtube_formats = [
       %r(https?://youtu\.be/(.+)),
@@ -109,14 +110,26 @@ module CrowdCampaignsHelper
 
     @url.strip!
 
-    if @url.include? "youtu"
+    if (@url.include? "youtu") && (@type.include? "url")
       youtube_formats.find { |format| @url =~ format } and $1
       "https://www.youtube.com/embed/#{$1}"
-    elsif @url.include? "vimeo"
+    elsif (@url.include? "vimeo") && (@type.include? "url")
       vimeo_formats.find { |format| @url =~ format } and $1
       "https://player.vimeo.com/video/#{$1}"
-    else
-      @url
+    elsif (@url.include? "youtu") && (@type.include? "embed")
+      youtube_formats.find { |format| @url =~ format } and $1
+      "<youtube-embed>".html_safe +
+        "<img loading='lazy' src='https://i.ytimg.com/vi/#{$1}/hqdefault.jpg' alt='Video Description'>".html_safe +
+        "<iframe allow='autoplay' src='' data-src='https://www.youtube.com/embed/#{$1}?autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>".html_safe +
+        "<button aria-label='Play video'></button>".html_safe +
+      "</youtube-embed>".html_safe
+    elsif (@url.include? "vimeo") && (@type.include? "embed")
+      vimeo_formats.find { |format| @url =~ format } and $1
+      "<vimeo-embed>".html_safe +
+        "<img loading='lazy' src='https://vumbnail.com/131456792.jpg' alt='Video Description'>".html_safe +
+        "<iframe allow='autoplay' src='' data-src='https://player.vimeo.com/video/#{$1}?autoplay=1' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>".html_safe +
+        "<button aria-label='Play video'></button>".html_safe +
+      "</vimeo-embed>".html_safe
     end
   end
 
