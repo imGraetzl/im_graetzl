@@ -77,7 +77,7 @@
 
     <% if local_assigns[:activity_going_to] %>
       <% participant = local_assigns[:activity_going_to].user %>
-      <div class="userCreateInfo">
+      <div class="userEntry">
         <%= link_to participant, rel: 'nofollow' do %>
           <%= avatar_image_with_tooltip participant, size: :thumb, class: 'img-round' %>
         <% end %>

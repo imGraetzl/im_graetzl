@@ -1,6 +1,6 @@
 <!-- used for location post comments -->
 <div id="<%= "comment_#{comment.commentable_type.underscore}_#{comment.id}" %>" class="comment">
-  <div class="entryUserComment">
+  <div class="entryComment">
     <% if comment.edit_permission?(current_user) %>
       <div class="editControls">
         <%= link_to comment, { method: :delete, remote: true, data: { confirm: 'Kommentar wirklich löschen?', disable_with: 'lädt...' } } do %>
@@ -10,7 +10,7 @@
         <% end %>
       </div>
     <% end %>
-    <div class="userCreateInfo">
+    <div class="userEntry">
       <%= link_to comment.user, rel: 'nofollow' do %>
         <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
     <% end %>

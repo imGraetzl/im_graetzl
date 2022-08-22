@@ -49,7 +49,7 @@
 
   // -------------------------- Zuckerl Cardbox
   &.-zuckerl {
-    .btn-userIcons {
+    .btn-icon {
       width:100%;
       border-radius: 0px 0px 6px 6px;
       background-color: $color-ambient-rosa-dark;
@@ -140,7 +140,7 @@
     }
   } // Group Cardbox
 
-  .entryInitialContent {
+  .entryContent {
     margin-bottom: 0px;
   }
 
@@ -180,10 +180,10 @@
 
 }
 
-.card-grid .btn-userIcons,
-.card-slider-container .btn-userIcons,
-.block-groups .btn-userIcons,
-.cardBoxCollection .btn-userIcons {
+.card-grid .btn-icon,
+.card-slider-container .btn-icon,
+.block-groups .btn-icon,
+.cardBoxCollection .btn-icon {
   display: flex;
 }
 
@@ -233,17 +233,6 @@
     &.sticky {
       color:$color-ambient-rosa;
     }
-    &.-call {
-      &.-open {
-        top: 0px;
-        right: 0px;
-        background-color: $color-ambient-rosa;
-        color:white;
-        span {
-          font-weight:bold;
-        }
-      }
-    }
   }
 }
 
@@ -253,7 +242,7 @@
   a.typelink {text-decoration: none !important;}
   a.typelink:hover {text-decoration: none !important;}
 
-  .entryInitialContent .txt a {
+  .entryContent .txt a {
     text-decoration: none;
   }
 
@@ -453,7 +442,7 @@
     border-left: 1px dotted $color-ambient-grey;
   }
 
-  .userCreateInfo .img-round {
+  .userEntry .img-round {
     width: 35px;
     height: 35px;
     padding: 1px;

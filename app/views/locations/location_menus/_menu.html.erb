@@ -1,5 +1,5 @@
 <div id="<%= dom_id(menu) %>" class="menu streamElement">
-  <div class="entryInitialContent">
+  <div class="entryContent">
     <% if menu.edit_permission?(current_user) %>
       <div class="editControls">
         <%= link_to 'javascript:', class: 'edit-post-link' do %>
@@ -15,7 +15,7 @@
       </div>
     <% end %>
 
-    <div class="userCreateInfo">
+    <div class="userEntry">
       <%= image_tag 'svg/icon-flat-essentrinken.svg', alt: 'Wochenmenü', loading: 'lazy', class: 'img-square' %>
       <div>
         <span class="owner"><%= @location.name %></span><br>
@@ -37,7 +37,7 @@
       <% end %>
 
       <div class="post-comments">
-        <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments-link' if menu.comments.count > 3 %>
+        <%= link_to 'Ältere Kommentare zeigen', 'javascript:', class: 'show-all-comments' if menu.comments.count > 3 %>
         <% menu.comments.sort_by(&:created_at).each do |comment| %>
           <div class="comment-container" >
             <%= render comment %>

@@ -69,7 +69,7 @@ APP.controllers.application = (function() {
     var target = APP.controllers.application.getUrlVars()["target"];
     if (typeof target !== 'undefined') {
       // Open all Comments
-      $("#"+target).parents(".post-comments").find(".show-all-comments-link").click();
+      $("#"+target).parents(".post-comments").find(".show-all-comments").click();
       // Scroll to Comment
       $('html, body').animate({
         scrollTop: $('#'+target).offset().top
@@ -175,7 +175,7 @@ APP.controllers.application = (function() {
   document.querySelectorAll(':is(vimeo-embed, youtube-embed) button').forEach(button => button.addEventListener('click', () => {
     const video = button.previousElementSibling;
     video.src = video.dataset.src;
-  }))
+  }));
 
   // Toggable Headlines
   $('.-toggable h3').on('click', function() {

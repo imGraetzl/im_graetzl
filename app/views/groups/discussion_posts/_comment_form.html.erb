@@ -1,5 +1,5 @@
 <%= form_for [@group, discussion_post, Comment.new],
-  html: { class: 'entryCommentForm', remote: true, data: { behavior: "comment-form-#{discussion_post.id}" } } do |f| %>
+  html: { class: 'entryForm', remote: true, data: { behavior: "comment-form-#{discussion_post.id}" } } do |f| %>
   <label>
     <%= avatar_image current_user, size: :thumb, class: 'avatar img-round' %>
     <%= f.text_area :content, placeholder: 'Kommentieren' %>

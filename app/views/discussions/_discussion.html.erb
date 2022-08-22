@@ -61,8 +61,8 @@
 
     <% if last_post %>
     <div class="streamElement">
-      <div class="entryInitialContent">
-        <div class="userCreateInfo">
+      <div class="entryContent">
+        <div class="userEntry">
           <%= avatar_image last_post.user, size: :thumb, class: 'avatar img-round' %>
           <span class="userAndType"><%= link_to last_post.user.full_name, last_post.user, rel: 'nofollow' %> am <%= I18n.localize(last_post.created_at, format:'%d. %b %Y') %></span>
         </div>
