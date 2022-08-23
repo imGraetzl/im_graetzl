@@ -6,9 +6,9 @@ APP.controllers.application = (function() {
     APP.components.stream.init();
 
     if($(".welocally").exists()) chooseRegionModal();
+    if ($("[data-jbox-image]").exists()) jBoxGallery();
     $('.txtlinky').linkify({ target: "_blank"});
     $('textarea').autoheight();
-    jBoxGallery();
 
     // WeLocally Register and Login Choose Region Modal
     function chooseRegionModal() {
