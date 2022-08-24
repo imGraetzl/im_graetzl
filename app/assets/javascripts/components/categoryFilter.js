@@ -122,6 +122,7 @@ APP.components.categoryFilter = (function() {
          if (category.hasClass("activated")) {
            var label = category.attr("data-label");
            categorylink.text(label);
+           category.find(".catimg").attr("src",'');
            category.find(".catimg").attr("src",srcactive);
          } else {
            categorylink.text(categorylink.data("no-filter-label"));
