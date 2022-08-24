@@ -1,59 +1,3 @@
-.discussion-form {
-  .img-round {
-    margin-right:10px;
-    width:30px;
-    height:30px;
-  }
-  label {
-    min-width: 160px;
-  }
-  textarea {
-    min-height:150px;
-  }
-  .input-field, .input-textarea, .input-select, .upload-oldschool {
-    margin-bottom: 15px;
-  }
-  .btn-primary {
-    margin:auto;
-  }
-}
-
-.jBox-content .discussion-form {
-  textarea {
-    min-height:200px;
-    max-height: 200px;
-  }
-  .btn-primary {
-    display: none;
-  }
-}
-
-section.group-form-page {
-
-  max-width: 775px;
-  margin: 0 auto;
-  label {min-width:175px;}
-  textarea {min-height:150px;}
-
-  h2 {
-    @include font-size-secondaryFont;
-    margin: 40px 0 15px;
-    text-align: center;
-  }
-  div.hl-subtext {
-    p {
-      @include font-size-primaryFont('large');
-    }
-  }
-  .-permission {
-    margin-bottom:30px;
-  }
-  .add {
-    display: block;
-    margin-bottom:20px;
-  }
-}
-
 .group-page {
 
   h2 {
@@ -394,7 +338,7 @@ section.group-form-page {
 
   } // END PAGE
 
-  .member-section, .members-section, .call-section {
+  .member-section, .members-section {
     .user {
       img.user {
         margin:5px;
@@ -474,7 +418,7 @@ section.group-form-page {
   }
 
   // Members Page
-  .members-section, .call-section {
+  .members-section {
     .users {
       align-items: stretch;
       justify-content: center;

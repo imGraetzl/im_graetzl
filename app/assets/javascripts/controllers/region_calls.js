@@ -37,31 +37,13 @@ APP.controllers.region_calls = (function() {
 
         $('.card-slider').lightSlider({
           item: 5,
-          autoWidth: false,
           slideMove: 5, // slidemove will be 1 if loop is true
-          slideMargin: 15,
-          addClass: '',
-          mode: "slide",
-          useCSS: true,
-          cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-          easing: 'linear', //'for jquery animation',////
-          speed: 750, //ms'
           auto: false,
-          loop: false,
-          rtl:false,
-          slideEndAnimation: true,
           pause: 15000,
-          keyPress: false,
           controls: false,
           pager: true,
-          prevHtml: '',
-          nextHtml: '',
           adaptiveHeight:true,
           currentPagerPosition: 'middle',
-          enableTouch:true,
-          enableDrag:false,
-          freeMove:true,
-          swipeThreshold: 40,
           pauseOnHover: true,
           responsive : [
             {

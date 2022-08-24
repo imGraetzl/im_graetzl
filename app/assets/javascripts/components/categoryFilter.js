@@ -11,31 +11,12 @@ APP.components.categoryFilter = (function() {
 
     var slider = element.lightSlider({
       item: item_desk,
-      autoWidth: false,
       slideMove: item_desk, // slidemove will be 1 if loop is true
-      slideMargin: 15,
-      addClass: '',
-      mode: "slide",
-      useCSS: true,
-      cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',//
-      easing: 'linear', //'for jquery animation',////
-      speed: 750, //ms'
       auto: false,
-      loop: false,
-      rtl:false,
-      slideEndAnimation: true,
       pause: 15000,
-      keyPress: false,
       controls: true,
       pager: false,
-      prevHtml: '',
-      nextHtml: '',
-      adaptiveHeight:false,
       currentPagerPosition: 'middle',
-      enableTouch:true,
-      enableDrag:false,
-      freeMove:true,
-      swipeThreshold: 40,
       pauseOnHover: true,
       addClass: '-desktop',
       responsive : [
@@ -141,6 +122,7 @@ APP.components.categoryFilter = (function() {
          if (category.hasClass("activated")) {
            var label = category.attr("data-label");
            categorylink.text(label);
+           category.find(".catimg").attr("src",'');
            category.find(".catimg").attr("src",srcactive);
          } else {
            categorylink.text(categorylink.data("no-filter-label"));

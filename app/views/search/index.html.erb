@@ -15,7 +15,7 @@
       <%= text_field_tag :q, params[:q], placeholder: 'Suchbegriff (mind. 3 Zeichen) ...', data: { behavior:"searchinput" }, :required => true %>
     </div>
     <div class="filter-selection-text-jbox">
-      Zeig mir Ergebnisse aus <%= link_to 'allen Bereichen', '#filter-modal-searchtype', data: { no_filter_label: 'allen Bereichen'} %>
+      Zeige mir Ergebnisse aus <%= link_to 'allen Bereichen', '#filter-modal-searchtype', data: { no_filter_label: 'allen Bereichen'} %>
     </div>
     <div id="filter-modal-searchtype" class="filter-modal-jbox oneclick">
       <%= render 'filters/search_type' %>

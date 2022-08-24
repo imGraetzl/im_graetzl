@@ -54,7 +54,7 @@
 
     <div class="txt"><%= @coop_demand.demand_description %></div>
 
-    <div class="entryImgUploads">
+    <div class="entryImgUploads -grid">
       <% @coop_demand.images.each do |image| %>
         <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
       <% end %>

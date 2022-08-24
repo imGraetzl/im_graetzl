@@ -3,7 +3,7 @@
 
     <% if current_region.id == 'wien' %>
 
-      <%= active_link_to graetzl_path(@graetzl), class: "iconfilter" do %>
+      <%= active_link_to graetzl_path(@graetzl), active: :exact, class: "iconfilter" do %>
         <%= icon_tag "map-location" %>
         <div class="txt"><%= t("region.#{current_region.id}.graetzl") %> <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
       <% end %>
@@ -45,7 +45,7 @@
 
     <% else %>
 
-      <%= active_link_to graetzl_path(@graetzl), class: "iconfilter" do %>
+      <%= active_link_to graetzl_path(@graetzl), active: :exact, class: "iconfilter" do %>
         <%= icon_tag "map-location" %>
         <div class="txt"><%= t("region.#{current_region.id}.graetzl") %> <br/><%= user_signed_in? ? "Stream" : "Übersicht" %></div>
       <% end %>

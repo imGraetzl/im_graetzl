@@ -24,15 +24,6 @@
       }
     }
   }
-  &.-white {
-    a.player .icon {
-      fill: white;
-      opacity: 0.9;
-      &:hover {
-        opacity: 1.0;
-      }
-    }
-  }
   &.-rosa-dark {
     a.player .icon {
       fill: $color-ambient-rosa-dark;

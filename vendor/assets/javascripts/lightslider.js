@@ -4,13 +4,13 @@
         item: 3,
         autoWidth: false,
         slideMove: 1,
-        slideMargin: 10,
+        slideMargin: 15,
         addClass: '',
         mode: 'slide',
         useCSS: true,
         cssEasing: 'ease', //'cubic-bezier(0.25, 0, 0.25, 1)',
         easing: 'linear', //'for jquery animation',//
-        speed: 400, //ms'
+        speed: 750, //ms'
         auto: false,
         pauseOnHover: false,
         loop: false,

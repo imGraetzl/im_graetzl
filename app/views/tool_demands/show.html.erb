@@ -47,7 +47,7 @@
 
     <div class="txt"><%= @tool_demand.demand_description %></div>
 
-    <div class="entryImgUploads">
+    <div class="entryImgUploads -grid">
       <% @tool_demand.images.each do |image| %>
         <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
       <% end %>
