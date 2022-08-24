@@ -22,22 +22,6 @@ module ApplicationHelper
     end
   end
 
-  def active_link_to(*args, &block)
-    if block_given?
-      name = capture(&block)
-      options = args[0] || {}
-      html_options = args[1] || {}
-    else
-      name = args[0]
-      options = args[1] || {}
-      html_options = args[2] || {}
-    end
-
-    url = url_for(options)
-    html_options[:class] = ['active', html_options[:class]] if current_page?(url)
-    link_to(name, url, html_options)
-  end
-
   def form_errors_for(target, name=nil)
     if target.errors.any?
       name ||= target.model_name.human
