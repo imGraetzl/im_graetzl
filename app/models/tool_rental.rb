@@ -17,7 +17,7 @@ class ToolRental < ApplicationRecord
   end
 
   def owner
-    tool_offer.user
+    tool_offer.user if tool_offer
   end
 
   def renter
