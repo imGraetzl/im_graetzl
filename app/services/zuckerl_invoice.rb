@@ -32,8 +32,8 @@ class ZuckerlInvoice
     pdf.text "Rechnungssteller", style: :bold
     pdf.text "#{I18n.t("region.#{region.id}.domain_full")} wird betrieben von:"
     pdf.text "morgenjungs GmbH"
-    pdf.text "Breitenfeldergasse 14/2A"
-    pdf.text "A-1080 Wien"
+    pdf.text "Lassallestraße 13/38"
+    pdf.text "A-1020 Wien"
     pdf.text "UID: ATU 69461502"
     pdf.text "#{I18n.t("region.#{region.id}.contact_email")}"
     pdf.move_down 40
