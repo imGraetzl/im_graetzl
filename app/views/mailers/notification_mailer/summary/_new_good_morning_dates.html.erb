@@ -1,0 +1,89 @@
+<!-- Prepare GOOD MORDNING Dates, max 2 -->
+
+<% @category = EventCategory.where("title ILIKE :q", q: "%Good Morning%").last %>
+<% @meetings = Meeting.upcoming.in(@region).joins(:event_categories).where(event_categories: {id: @category.id}) %>
+
+<% if @meetings.any? %>
+
+  <%= render 'summary/block_header', title: "Aktuelle Good Morning & After Work Dates in Wien" %>
+
+  <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px;" class="mcnTextContentContainer">
+    <tr>
+      <td valign="center" class="mcnTextContent" width="100%" style="padding-left:18px; padding-right:18px; padding-bottom:18px;">
+        <p>
+          <strong>Du möchtest Macher*innen aus deinem Bezirk kennenlernen</strong> und erfahren, woran andere bei dir um die Ecke gerade tüfteln, was sie begeistert, wie sie ins Tun kommen? Auf zum ersten Good Morning & After Work Date in deinem Bezirk! <%= link_to 'Zu allen Good Morning Dates', good_morning_dates_url, style: "color:#ec776a;" %>
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <% @meetings.sample(2).each do |meeting| %>
+
+  <!-- Meeting Card-->
+  <table border="0" cellpadding="0" cellspacing="0" style="float:left; max-width:300px; margin-bottom:20px; border-bottom-width: 1px;border-bottom-style: dashed;border-bottom-color: #efefef;" width="100%" class="mcnTextContentContainer">
+    <tbody>
+
+      <tr>
+        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-right:18px;">
+          <table>
+            <tr>
+              <td>
+                <%= avatar_image meeting.user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+              </td>
+              <td> </td>
+              <td style="font-size:12px; line-height:16px;">
+                <%= link_to meeting.user.username, user_url(meeting.user), style: "color:#ec776a; font-size:12px;" %>
+                <br>
+                <% if meeting.ends_at_date.present? %>
+                  <%= I18n.localize(meeting.starts_at_date, format:'%A, %d. %b.') %>
+                  bis <%= I18n.localize(meeting.ends_at_date, format:'%d. %b. %Y') %>
+                <% else %>
+                  <%= I18n.localize(meeting.starts_at_date, format:'%A %d. %B') %>
+                  <% if meeting.meeting_additional_dates.present? %>
+                    <em>+ <%= meeting.meeting_additional_dates.count %> weitere</em>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+
+          <%= link_to graetzl_meeting_url(meeting.graetzl, meeting), target: "_blank" do %>
+            <%= cover_photo_image(meeting, size: :small, style: "width:100%; padding-bottom:10px; padding-top:10px;", class: "mcnImage") %>
+          <% end %>
+
+          <p style="min-height:55px; max-height:55px; overflow: hidden; text-overflow: ellipsis;"><%= meeting.name.truncate(70, separator: ' ') %></p>
+        </td>
+      </tr>
+
+      <% if meeting.attendees.any? %>
+      <tr>
+        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px;">
+          <% meeting.attendees.each do |attendee| %>
+            <table cellpadding="0" cellspacing="0" border="0" align="left" style="margin-right:10px; margin-bottom:10px;">
+              <tr>
+                <td>
+                  <%= avatar_image attendee.user, size: :thumb, style: "width:30px; height:30px; border-radius: 15px; max-width:30px; min-width:30px;", class: "mcnImage" %>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+
+      <tr>
+        <td>
+          <%= render 'mailers/shared/button', title: "Teilnehmen", url: graetzl_meeting_url(meeting.graetzl, meeting), style: "width:100%;" %>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- /Meeting Card-->
+
+  <% end %>
+
+  <%= render 'mailers/shared/button', title: "Alle Good Morning Dates anzeigen", url: good_morning_dates_url, style: "width:100%;" %>
+
+<% end %>

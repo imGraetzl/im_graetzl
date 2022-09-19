@@ -3,7 +3,7 @@ ActiveAdmin.register CrowdCampaign do
   menu parent: 'Crowdfunding'
 
   includes :location, :user, :comments
-  actions :all, except: [:new, :create, :destroy]
+  actions :all, except: [:new, :create]
 
   scope :all, default: true
   scope :draft

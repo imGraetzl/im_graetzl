@@ -18,8 +18,9 @@
 
 <% end %>
 
-<% if @period == 'weekly' %>
-  <%= render 'featured/crowdfunding_call' %>
+<% if @region.id == 'wien' && @period == 'weekly' %>
+  <!-- Insert 2 Random Good Mordning Dates in Weekly Mail if any exists -->
+  <%= render "summary/new_good_morning_dates" %>
 <% end %>
 
 <% if @period == 'weekly' %>

@@ -5,6 +5,8 @@ class CrowdCampaign < ApplicationRecord
   extend FriendlyId
   friendly_id :title, :use => :history
 
+  before_destroy :can_destroy?
+
   def should_generate_new_friendly_id?
     slug.blank? || title_changed? if self.draft?
   end
@@ -46,7 +48,11 @@ class CrowdCampaign < ApplicationRecord
 
   scope :scope_public, -> { where(status: [:funding, :completed]).and(where(active_state: :enabled)) }
   scope :successful, -> { where(funding_status: [:goal_1_reached, :goal_2_reached]) }
-  scope :by_currentness, -> { order(created_at: :desc) }
+
+  scope :by_currentness, -> {
+    order(Arel.sql('CASE WHEN enddate >= current_date THEN 0 ELSE 1 END')).
+    order(Arel.sql('(CASE WHEN enddate >= current_date THEN crowd_campaigns.enddate END) ASC, (CASE WHEN enddate < current_date THEN crowd_campaigns.enddate END) DESC'))
+  }
 
   def closed?
     completed? & (not_funded? || invoice_number.present?)
@@ -209,6 +215,14 @@ class CrowdCampaign < ApplicationRecord
   def graetzl=(value)
     super
     self.district ||= value.district if value.present?
+  end
+
+  private
+
+  def can_destroy?
+    if !(self.draft? || self.pending?)
+      throw :abort
+    end
   end
 
 end
