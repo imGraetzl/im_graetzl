@@ -1,6 +1,18 @@
 class CrowdCampaignsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :supporters, :posts, :comments, :start]
 
+  def redirect
+    # Take Location Slug and Redirect to CrowdCampaign if there is any
+    @location = Location.in(current_region).where(slug: params[:id]).last
+    if @location.user.crowd_campaigns.funding.any?
+      @crowd_campaign = @location.user.crowd_campaigns.funding.last
+      redirect_to crowd_campaign_path(@crowd_campaign)
+    else
+      @crowd_campaign = @location.user.crowd_campaigns.last
+      redirect_to crowd_campaign_path(@crowd_campaign)
+    end
+  end
+
   def index
     head :ok and return if browser.bot? && !request.format.js?
     @crowd_campaigns = collection_scope.in(current_region).includes(:user)
