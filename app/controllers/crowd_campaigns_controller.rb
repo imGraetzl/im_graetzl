@@ -1,5 +1,5 @@
 class CrowdCampaignsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :supporters, :posts, :comments, :start]
+  before_action :authenticate_user!, except: [:redirect, :index, :show, :supporters, :posts, :comments, :start]
 
   def redirect
     # Take Location Slug and Redirect to CrowdCampaign if there is any
