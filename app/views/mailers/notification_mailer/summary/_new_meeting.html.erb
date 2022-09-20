@@ -10,7 +10,7 @@
             </td>
             <td> </td>
             <td style="font-size:12px; line-height:16px;">
-              <%= link_to notification.meeting.user.username, user_url(notification.meeting.user), style: "color:#ec776a; font-size:12px;" %>
+              <%= link_to notification.meeting.user.username.truncate(30, separator: ''), user_url(notification.meeting.user), style: "color:#ec776a; font-size:12px;" %>
               <br>
               <% if notification.meeting.ends_at_date.present? %>
                 <%= I18n.localize(notification.meeting.starts_at_date, format:'%A, %d. %b.') %>
