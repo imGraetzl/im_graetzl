@@ -255,6 +255,7 @@ Rails.application.routes.draw do
   post 'messenger/post_message'
   post 'messenger/update_thread'
 
+  get 'cf/:id', to: 'crowd_campaigns#redirect'
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
   get 'info', to: 'static_pages#info'
