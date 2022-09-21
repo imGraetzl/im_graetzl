@@ -295,7 +295,7 @@ class CrowdCampaignsController < ApplicationController
     crowd_category_ids = params.dig(:filter, :crowd_category_ids)
 
     if crowd_category_ids.present? && crowd_category_ids.any?(&:present?)
-      collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids}).distinct
+      collection = collection.joins(:crowd_categories).where(crowd_categories: {id: crowd_category_ids})
     end
 
     # Always show ALL Crowd Campaigns
