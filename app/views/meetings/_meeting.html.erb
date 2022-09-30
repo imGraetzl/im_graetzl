@@ -50,7 +50,7 @@
       <% end %>
     <% elsif meeting.user %>
       <%= link_to meeting.user, class: 'initiator', rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip meeting.user, size: :thumb, class: 'img-round' %>
+        <%= avatar_image_with_tooltip meeting.user, size: :thumb, class: 'img-round show-badge' %>
         <span><%= meeting.user.username %></span>
       <% end %>
     <% end %>
@@ -64,7 +64,7 @@
       <div class="userlist">
         <% meeting.attendees.map(&:user).last(10).each do |user| %>
           <%= link_to user_path(user), rel: 'nofollow' do %>
-            <%= avatar_image user, size: :thumb, class: 'img-round' %>
+            <%= avatar_image user, size: :thumb, class: 'img-round show-badge' %>
           <% end %>
         <% end %>
         <% if meeting.attendees.count > 10 %>
@@ -79,7 +79,7 @@
       <% participant = local_assigns[:activity_going_to].user %>
       <div class="userEntry">
         <%= link_to participant, rel: 'nofollow' do %>
-          <%= avatar_image_with_tooltip participant, size: :thumb, class: 'img-round' %>
+          <%= avatar_image_with_tooltip participant, size: :thumb, class: 'img-round show-badge' %>
         <% end %>
         <span class="userAndType">
           <%= link_to participant.username, participant, rel: 'nofollow' %>

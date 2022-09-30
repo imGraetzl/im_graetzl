@@ -1,24 +1,27 @@
 module ImageHelper
 
   def avatar_image(object, size: nil, **options)
-    if object&.avatar.nil?
-      avatar_type = object.is_a?(Location) ? 'location' : 'user'
-      content_tag :picture do
-        tag(:source, srcset: "#{image_path("fallbacks/#{avatar_type}_avatar.webp")}", type: "image/webp") +
-        image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)
-      end
-    elsif size && File.extname(object.avatar_url("#{size}_webp")) == '.webp'
-      content_tag :picture do
-        tag(:source, srcset: object.avatar_url("#{size}_webp"), type: "image/webp") +
+
+    if options[:class].include?('show-badge')
+      abo = (object.is_a?(User) || object.is_a?(Location)) && object.subscribed? ? 'abo' : ''
+    end
+
+    content_tag(:picture, nil, class: abo) do
+      if object&.avatar.nil?
+        avatar_type = object.is_a?(Location) ? 'location' : 'user'
+          tag(:source, srcset: "#{image_path("fallbacks/#{avatar_type}_avatar.webp")}", type: "image/webp") +
+          image_tag("fallbacks/#{avatar_type}_avatar.png", loading: 'lazy', alt: object.to_s, **options)
+      elsif size && File.extname(object.avatar_url("#{size}_webp")) == '.webp'
+          tag(:source, srcset: object.avatar_url("#{size}_webp"), type: "image/webp") +
+          image_tag(object.avatar_url(size), loading: 'lazy', alt: object.to_s, **options)
+      elsif size
         image_tag(object.avatar_url(size), loading: 'lazy', alt: object.to_s, **options)
+      else
+        image_tag(object.avatar_url(:large), loading: 'lazy', srcset: {
+          object.avatar_url(:small) => '200w',
+          object.avatar_url(:large) => '400w',
+        }, sizes: "(min-width: 650px) 400px, 200px", alt: object.to_s, **options)
       end
-    elsif size
-      image_tag(object.avatar_url(size), loading: 'lazy', alt: object.to_s, **options)
-    else
-      image_tag(object.avatar_url(:large), loading: 'lazy', srcset: {
-        object.avatar_url(:small) => '200w',
-        object.avatar_url(:large) => '400w',
-      }, sizes: "(min-width: 650px) 400px, 200px", alt: object.to_s, **options)
     end
   end
 

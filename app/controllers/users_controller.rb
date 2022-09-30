@@ -18,6 +18,9 @@ class UsersController < ApplicationController
 
       if user_params[:favorite_graetzl_ids].present?
         redirect_back fallback_location: @user, notice: "Deine Favoriten wurden gespeichert!"
+
+      elsif user_params[:billing_address_attributes].present?
+        redirect_back fallback_location: @user, notice: "Deine Rechnungsdaten wurden gespeichert"
       else
         redirect_to @user, notice: "Profil gespeichert!"
       end
@@ -68,6 +71,38 @@ class UsersController < ApplicationController
   def favorite_graetzls
     @user = current_user
     @graetzls = current_region.graetzls.sort_by(&:zip).reverse
+  end
+
+  def subscription
+    if current_user.subscribed?
+      @subscription = current_user.subscription
+    else
+      @subscription = current_user.subscriptions.last
+    end
+  end
+
+  def billing_address
+    @user = current_user
+  end
+
+  def payment_method
+    @user = current_user
+    @setup_intent = UserService.new.create_setup_intent(current_user)
+  end
+
+  def payment_authorized
+    redirect_to payment_method_user_path if params[:setup_intent].blank?
+
+    success, error = UserService.new.payment_authorized(current_user, params[:setup_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlungsmethode wurde erfolgreich aktualisiert."
+    else
+      flash[:error] = error
+    end
+
+    redirect_to payment_method_user_path
+
   end
 
   def tooltip

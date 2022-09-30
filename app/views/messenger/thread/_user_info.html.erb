@@ -1,9 +1,9 @@
 <% user = thread_other_user(@thread) %>
 <div class="user-info">
   <%= link_to user do %>
-    <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round' %>
+    <%= avatar_image_with_tooltip user, size: :thumb, class: 'img-round show-badge' %>
   <% end %>
-  <div>
+  <div class="name">
     <strong><%= user.full_name %></strong><br>
     <em><%= Graetzl.memoized(user.graetzl_id).try(:name) %></em>
   </div>

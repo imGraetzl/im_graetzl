@@ -1,5 +1,5 @@
 // PAYMENT LAYOUT SCREENS
-.tool-rental-page, .room-rental-page, .crowd-pledges-page {
+.tool-rental-page, .room-rental-page, .crowd-pledges-page, .subscriptions-page {
 
   // Layout Grid
   display: flex;
@@ -173,7 +173,19 @@
       display: none;
     }
   }
+}
 
+.subscriptions-page {
+  &.summary-screen {
+    .img-round {
+      width:200px;
+      height:200px;
+    }
+    .btn-primary {
+      margin-top:20px;
+      display: inline-flex;
+    }
+  }
 }
 
 #payment-element {

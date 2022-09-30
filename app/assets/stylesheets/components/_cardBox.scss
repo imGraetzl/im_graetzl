@@ -41,9 +41,15 @@
       @include font-size-primaryFont('small');
       font-style: italic;
     }
-    .img-round {
+    a {
       margin-right:6px;
       margin-bottom:6px;
+    }
+  }
+
+  &.-subscription-plan {
+    &.active {
+      //border-color: $color-ambient-mint-light;
     }
   }
 

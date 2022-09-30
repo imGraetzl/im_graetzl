@@ -6,7 +6,7 @@
     <div class="iconlist">
 
       <%= link_to @room_offer.user, class: 'user-wrp', rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip @room_offer.user, size: :thumb, class: 'img-round' %>
+        <%= avatar_image_with_tooltip @room_offer.user, size: :thumb, class: 'img-round show-badge' %>
         <span class="name"><%= @room_offer.user.username %></span>
       <% end %>
 

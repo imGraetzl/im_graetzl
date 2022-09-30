@@ -105,13 +105,14 @@ a.iconMapLink:hover .icon {
   .iconMapLink {
     position: relative;
     float: left;
-    margin-right: 10px;
+    //margin-right: 10px;
     display: block;
   }
   img {
-    margin-right:10px;
+    //margin-right:10px;
   }
   .infotxt {
     overflow: auto;
+    margin-left: 10px;
   }
 }

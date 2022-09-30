@@ -6,6 +6,21 @@
   @include img-square;
 }
 
+.abo {
+  &::before {
+    content: '';
+    background-image: url(image_path('svg/icon-abo.svg'));
+    background-repeat: no-repeat;
+    background-size: cover;
+    width:40%;
+    height:40%;
+    top: -2px;
+    right: -5px;
+    position: absolute;
+    z-index: 9;
+  }
+}
+
 .portraitCollection {
   display: flex;
   flex-wrap: wrap;
@@ -13,6 +28,8 @@
     float: left;
     display: block;
     margin-bottom: 5px;
+  }
+  a {
     margin-left: 5px;
     margin-right: 5px;
   }
@@ -24,7 +41,7 @@
   img {
     width: 50px;
     height: 50px;
-    margin-right: 6px;
+    //margin-right: 6px;
   }
 }
 
@@ -37,12 +54,15 @@
   .img-round, .img-square {
     width:80px;
     height:80px;
-    margin-right: 10px;
+    //margin-right: 10px;
   }
   a.username {
     font-weight: bold;
     text-decoration: none;
     color:$color-font-primary;
+  }
+  .tt-img {
+    margin-right: 10px;
   }
   .tt-content {
     max-width: 180px;

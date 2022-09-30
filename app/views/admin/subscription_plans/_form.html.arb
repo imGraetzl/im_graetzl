@@ -1,0 +1,11 @@
+active_admin_form_for [:admin, resource] do |f|
+  inputs do
+    f.semantic_errors
+    input :name
+    input :amount
+    input :interval
+    input :stripe_id
+    input :description
+  end
+  actions
+end

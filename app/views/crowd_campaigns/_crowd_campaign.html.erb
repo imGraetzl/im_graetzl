@@ -44,7 +44,7 @@
       <% if crowd_pledge.user %>
         <div class="userEntry userPledge">
           <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
-            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
           <% end %>
           <span class="userAndType">
             <%= link_to crowd_pledge.contact_name, crowd_pledge.user, rel: 'nofollow' %>
@@ -66,7 +66,7 @@
       <% if crowd_pledge.user %>
         <div class="userEntry userPledge">
           <%= link_to crowd_pledge.user, rel: 'nofollow' do %>
-            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round' %>
+            <%= avatar_image crowd_pledge.user, size: :thumb, class: 'img-round show-badge' %>
           <% end %>
           <span class="userAndType">
             <%= link_to crowd_pledge.contact_name, crowd_pledge.user, rel: 'nofollow' %>

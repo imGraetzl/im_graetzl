@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_many :user_graetzls
   has_many :favorite_graetzls, through: :user_graetzls, source: :graetzl
 
+  has_many :subscriptions
+  has_many :subscription_invoices
+
   has_many :initiated_meetings, class_name: 'Meeting'
   has_many :going_tos, dependent: :destroy
   has_many :meeting_additional_dates, through: :going_tos, source: :meeting
@@ -81,6 +84,14 @@ class User < ApplicationRecord
   def beta_user?
     #true
     admin? || beta?
+  end
+
+  def subscribed?
+    subscription && subscription.active?
+  end
+
+  def subscription
+    subscriptions.last
   end
 
   # Filter for Active Admin User Notification Settings
@@ -184,6 +195,17 @@ class User < ApplicationRecord
 
   def mailchimp_member_id
     Digest::MD5.hexdigest(email.downcase)
+  end
+
+  def stripe_customer
+    if stripe_customer_id.blank?
+      stripe_customer = Stripe::Customer.create(
+        email: email,
+        name: full_name,
+      )
+      update(stripe_customer_id: stripe_customer.id)
+    end
+    stripe_customer_id
   end
 
   private

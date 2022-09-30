@@ -94,6 +94,10 @@ h1, h2 {
 
 picture {
   display: contents; // for webp container
+  &.abo {
+    display: inline-table;
+    position: relative;
+  }
 }
 
 .no-scroll {
@@ -124,4 +128,7 @@ picture {
   border: 15px solid white;
   border-radius: 10px;
   background-color: white;
+}
+.-hidden {
+  display: none;
 }

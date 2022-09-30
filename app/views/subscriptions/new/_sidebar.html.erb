@@ -1,0 +1,30 @@
+<div class="cardBox">
+
+  <div class="cardBoxHeader">
+    <div class="coverImgWrapper">
+      <%= image_tag('info/cardbox-abo.jpg', class: 'coverImg') %>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+    <ul class="pricing-summary -facts">
+      <p class="title"><%= @plan %></p>
+    </ul>
+    <ul class="pricing-summary">
+      <li>
+        <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
+        <div class="costname"><%= t("activerecord.attributes.subscription_plan.per_interval.#{@plan.interval}") %></div>
+      </li>
+      <li class="sum">
+        <div class="cost"><%= number_to_currency(@plan.amount, unit: "€") %></div>
+        <div class="costname">
+          Gesamtbetrag
+          <br>
+          <small>inkl. MwSt.</small>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+
+</div>

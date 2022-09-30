@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_17_124328) do
+ActiveRecord::Schema.define(version: 2022_09_05_110840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -981,6 +981,43 @@ ActiveRecord::Schema.define(version: 2022_08_17_124328) do
     t.index ["user_id"], name: "index_room_rentals_on_user_id"
   end
 
+  create_table "subscription_invoices", force: :cascade do |t|
+    t.string "status", default: "0"
+    t.string "stripe_id"
+    t.string "stripe_payment_intent_id"
+    t.string "invoice_number"
+    t.string "invoice_pdf"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_subscription_invoices_on_user_id"
+  end
+
+  create_table "subscription_plans", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "interval"
+    t.string "stripe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "status", default: "0"
+    t.string "stripe_id"
+    t.string "stripe_plan"
+    t.datetime "ends_at"
+    t.string "region_id"
+    t.bigint "user_id"
+    t.bigint "subscription_plan_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["region_id"], name: "index_subscriptions_on_region_id"
+    t.index ["subscription_plan_id"], name: "index_subscriptions_on_subscription_plan_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.integer "taggable_id"
@@ -1226,6 +1263,8 @@ ActiveRecord::Schema.define(version: 2022_08_17_124328) do
     t.string "address_description"
     t.string "stripe_connect_account_id"
     t.boolean "stripe_connect_ready", default: false
+    t.string "payment_method"
+    t.string "payment_card_last4"
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
@@ -1332,6 +1371,9 @@ ActiveRecord::Schema.define(version: 2022_08_17_124328) do
   add_foreign_key "room_rental_slots", "room_rentals", on_delete: :cascade
   add_foreign_key "room_rentals", "room_offers", on_delete: :nullify
   add_foreign_key "room_rentals", "users", on_delete: :nullify
+  add_foreign_key "subscription_invoices", "users", on_delete: :nullify
+  add_foreign_key "subscriptions", "subscription_plans", on_delete: :nullify
+  add_foreign_key "subscriptions", "users", on_delete: :nullify
   add_foreign_key "tool_demand_graetzls", "graetzls", on_delete: :cascade
   add_foreign_key "tool_demand_graetzls", "tool_demands", on_delete: :cascade
   add_foreign_key "tool_demands", "locations", on_delete: :nullify

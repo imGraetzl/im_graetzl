@@ -182,8 +182,8 @@
   .group-header {
 
     .user {
-      .img-round {
-        margin-right:10px;
+      .infos {
+        margin-left:10px;
       }
     }
 
@@ -552,7 +552,10 @@
       .img-round {
         width:60px;
         height:60px;
-        margin-right:10px;
+        //margin-right:10px;
+      }
+      .infos {
+        margin-left:10px;
       }
     }
 

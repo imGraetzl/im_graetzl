@@ -138,6 +138,61 @@ section.info {
   }
 
   // ----- SUPPORTER PAGE ------ //
+
+  .topBoxes, .allBoxes {
+    padding-top:155px;
+    padding-bottom:75px;
+    position: relative;
+
+    &::before {
+      content:'';
+      position: absolute;
+      text-align: center;
+      top:40px;
+      width:100%;
+      height:100px;
+      background-position: center top 0px;
+      background-size: auto 100px;
+      background-image: url(image_path('supporter/danke-top.png'));
+      background-repeat: no-repeat;
+      z-index: 999;
+    }
+
+  }
+
+  .allBoxes {
+
+    padding-top:100px;
+    &::before {
+      top:-45px;
+      background-image: url(image_path('supporter/danke-small.png'));
+    }
+
+    background-color: #eaf2f4;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+
+    .inner {
+      max-width: 980px;
+      position: relative;
+      margin: 0 auto;
+      padding-left: 18px;
+      padding-right: 18px;
+
+      @include respond-to(">=medium") {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+      @include respond-to(">=large") {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+  }
+
   &.-supporter {
     padding-bottom:0px;
     margin-bottom:-80px;
@@ -188,60 +243,6 @@ section.info {
       @include respond-to("<=small") {
         .txt {
           font-size: 1.4rem;
-        }
-      }
-    }
-
-    .topBoxes, .allBoxes {
-      padding-top:155px;
-      padding-bottom:75px;
-      position: relative;
-
-      &::before {
-        content:'';
-        position: absolute;
-        text-align: center;
-        top:40px;
-        width:100%;
-        height:100px;
-        background-position: center top 0px;
-        background-size: auto 100px;
-        background-image: url(image_path('supporter/danke-top.png'));
-        background-repeat: no-repeat;
-        z-index: 999;
-      }
-
-    }
-
-    .allBoxes {
-
-      padding-top:100px;
-      &::before {
-        top:-45px;
-        background-image: url(image_path('supporter/danke-small.png'));
-      }
-
-      background-color: #eaf2f4;
-      width: 100vw;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-
-      .inner {
-        max-width: 980px;
-        position: relative;
-        margin: 0 auto;
-        padding-left: 18px;
-        padding-right: 18px;
-
-        @include respond-to(">=medium") {
-          padding-left: 25px;
-          padding-right: 25px;
-        }
-        @include respond-to(">=large") {
-          padding-left: 0px;
-          padding-right: 0px;
         }
       }
     }
@@ -345,10 +346,7 @@ section.info {
 
   }
 
-
-  // ----- INFO STARTPAGE ------ //
-  &.-startpage {
-
+  &.-startpage, &.-subscription-page {
     .imgHeader {
       .wrp {
         height:100%;
@@ -357,7 +355,7 @@ section.info {
         align-items: center;
         justify-content: center;
       }
-      .coop-share-logo {
+      .header-logo {
         height:70%;
         margin-top:10px;
         @include respond-to(">=medium") {
@@ -366,7 +364,38 @@ section.info {
         }
       }
     }
+  }
 
+  &.-subscription-page {
+
+    padding-bottom: 0px;
+    margin-bottom: -80px;
+
+    .imgHeader::after {
+      background-image: url(image_path('info/header-abo.jpg'));
+      background-position: 30% 90%;
+    }
+    h1 {
+      margin:auto;
+      @include headlineBarbapapaMint;
+      @include font-size-secondaryFont('largest');
+      text-shadow: 2px 2px $color-ambient-mint-dark;
+    }
+
+    .allBoxes {
+      margin-top: 70px;
+      padding-top:100px;
+      .cardBoxCollection {
+        display:flex;
+        justify-content:center;
+        flex-wrap: wrap;
+      }
+    }
+
+  }
+
+  // ----- INFO STARTPAGE ------ //
+  &.-startpage {
 
     // -- GRID -- //
     div.txt {

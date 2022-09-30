@@ -68,7 +68,7 @@ section.usersetup {
       }
     }
 
-    .paperCard {
+    .paperCard, .cardBox {
       max-width: 300px;
       margin: 0 auto;
       @include respond-to(">=large") {
@@ -186,6 +186,17 @@ section.usersetup {
         .-wide { width: 60%; }
       }
 
+    }
+  }
+
+  &.-subscriptions {
+    .cardBox {
+      .btn-primary {
+        margin-bottom: 10px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 

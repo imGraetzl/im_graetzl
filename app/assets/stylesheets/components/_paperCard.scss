@@ -138,7 +138,7 @@
     $webp1x: image_path('illu/illu-crowd1.webp'),
   );
 }
-.paperCard.-coop-demands .wrp {
+.paperCard.-coop-demands .wrp, .paperCard.-subscriptions .wrp {
   @include bg-url(
     image_path('illu/illu-crowd.png'),
     $webp1x: image_path('illu/illu-crowd.webp'),

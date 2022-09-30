@@ -6,7 +6,7 @@
     <div class="iconlist">
 
       <%= link_to @coop_demand.user, class: 'user-wrp', rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip @coop_demand.user, size: :thumb, class: 'img-round' %>
+        <%= avatar_image_with_tooltip @coop_demand.user, size: :thumb, class: 'img-round show-badge' %>
         <span class="name"><%= @coop_demand.user.username %></span>
       <% end %>
 

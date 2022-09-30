@@ -121,12 +121,14 @@ section.crowd_campaign {
   .last-supporters {
     display: flex;
     position: relative;
-    .img-round {margin-right:8px;}
     .supporter {
       display: flex;
       align-items: center;
       margin-right:25px;
       white-space: nowrap;
+    }
+    .name {
+      margin-left:8px;
     }
   }
 
@@ -179,7 +181,9 @@ section.crowd_campaign {
       .img-round {
         width: 30px;
         height: 30px;
-        margin-right: 10px;
+      }
+      .name {
+        margin-left: 10px;
       }
     }
     a {
@@ -405,7 +409,6 @@ section.crowd_campaign {
       .img-round {
         width:80px;
         height:80px;
-        margin-right:10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -414,6 +417,9 @@ section.crowd_campaign {
           height:50%;
           color: $color-ambient-mint;
         }
+      }
+      .name {
+        margin-left:10px;
       }
       a {
         color: $color-font-primary;

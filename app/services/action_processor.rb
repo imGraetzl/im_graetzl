@@ -189,6 +189,9 @@ class ActionProcessor
       comment_followers = subject.comments.pluck(:user_id) - [subject.user_id, child.user_id]
       Notifications::ReplyOnFollowedComment.generate(subject.commentable, child, to: comment_followers)
 
+    when [Subscription, :create]
+      Activity.add_public(subject, to: :entire_region)
+
     else
       raise "Action not defined for #{subject.class} #{action}"
     end
