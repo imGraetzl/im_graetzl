@@ -265,6 +265,7 @@ input, select, textarea {
 
   select {
     -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    -webkit-appearance: none; /* hide 3d shadow */
     color: $color-ambient-mint-dark;
     option {
       color: $color-ambient-mint-dark;
