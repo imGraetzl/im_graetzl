@@ -50,10 +50,9 @@ context.instance_eval do
     column do
       panel 'TeilnehmerInnen' do
         table_for meeting.going_tos do
-          column(:id){|g| g.user.id}
-          column(:username){|g| g.user.username}
+          column(:id){|g| g.user}
           column(:going_to_date){|g| g.going_to_date}
-          column(''){|m| link_to 'User Anzeigen', admin_user_path(m.user) }
+          column(:created_at){|g| g.created_at}
         end
       end
       panel 'Additional Dates' do

@@ -51,6 +51,9 @@ de:
       group_join_request:
         one: Gruppen Beitrittsanfrage
         other: Gruppen Beitrittsanfragen
+      going_to:
+        one: Teilnehmer
+        other: Teilnehmer
       image:
         one: Bild
         other: Bilder
