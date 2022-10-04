@@ -48,11 +48,14 @@ context.instance_eval do
       end
     end
     column do
-      panel 'TeilnehmerInnen' do
-        table_for meeting.going_tos do
+      panel "#{meeting.attendees.count} TeilnehmerInnen" do
+        table_for meeting.attendees do
           column(:id){|g| g.user}
           column(:going_to_date){|g| g.going_to_date}
           column(:created_at){|g| g.created_at}
+        end
+        span do
+          link_to "Alle anzeigen",'/admin/going_tos?q[meeting_id_eq='+meeting.id.to_s+']', class: 'btn-light'
         end
       end
       panel 'Additional Dates' do
