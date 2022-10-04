@@ -154,6 +154,7 @@ Region.all.each do |region|
 
     # Static Pages
     add good_morning_dates_path, changefreq: 'daily', priority: 0.9
+    add balkonsolar_path, changefreq: 'daily', priority: 0.9
 
     # Info Help Pages
     add info_path, changefreq: 'monthly', priority: 0.4
