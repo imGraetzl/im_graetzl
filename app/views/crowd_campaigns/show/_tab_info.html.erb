@@ -84,18 +84,25 @@
         </div></div>
     </div>
 
-    <% if @crowd_campaign.video? %>
-      <%= video_embed_url(@crowd_campaign.video, 'embed') %>
-    <% end %>
+    <div class="content-block -toggable -open">
+      <h3><% if @crowd_campaign.video? %>Video und <% end %>Bilder zum Projekt</h3>
+      <div class="-toggle-content">
 
-    <% if @crowd_campaign.images.present? %>
-      <div class="entryImgUploads -grid">
-        <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb), alt: 'Gallery Foto'), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
-        <% @crowd_campaign.images.each do |image| %>
-          <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+        <% if @crowd_campaign.video? %>
+          <%= video_embed_url(@crowd_campaign.video, 'embed') %>
         <% end %>
+
+        <% if @crowd_campaign.images.present? %>
+          <div class="entryImgUploads -grid">
+            <%= link_to image_tag(@crowd_campaign.cover_photo_url(:thumb), alt: 'Gallery Foto'), @crowd_campaign.cover_photo_url, data: { jbox_image: "maingallery" } %>
+            <% @crowd_campaign.images.each do |image| %>
+              <%= link_to gallery_thumb_image(image), image.file_url, data: { jbox_image: "maingallery" } %>
+            <% end %>
+          </div>
+        <% end %>
+
       </div>
-    <% end %>
+    </div>
 
   </div>
 
