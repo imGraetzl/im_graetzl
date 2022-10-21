@@ -2,7 +2,7 @@
   <div id="category-slider" data-label="Events & Workshops" class="cS-hidden">
     <% categories = EventCategory.visible.sort_by(&:position) %>
     <% @category ? categories = categories.insert(0, @category).uniq : categories %>
-    <!-- Good Morning Dates -->
+
     <% if current_region.id == 'wien' %>
 
       <div class="-category -href" data-href="<%= balkonsolar_path %>" data-id="balkonsolar" data-label="Balkon-Solar" data-slug="balkonsolar">
@@ -19,6 +19,7 @@
         <% end %>
       </div>
 
+      <!--
       <div class="-category -href" data-href="<%= good_morning_dates_path %>" data-id="good-moring-dates" data-label="Good Morning & After Work Dates" data-slug="good-morning-dates">
         <picture>
           <source srcset="<%= image_path('categories/good-morning-dates.webp') %>" type="image/webp" />
@@ -32,9 +33,10 @@
           <%= icon_tag "cross" %>
         <% end %>
       </div>
+       -->
 
     <% end %>
-    <!-- /Good Morning Dates -->
+    
     <% categories.each do |category| %>
       <div class="-category" data-id="<%= category.id %>" data-label="<%= category.title %>" data-slug="<%= category.slug %>">
         <%= category_image(category, class: 'categoryImg') %>
