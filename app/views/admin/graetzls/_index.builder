@@ -4,5 +4,6 @@ context.instance_eval do
   column :region
   column :name
   column :users_count
+  column :neighborless
   actions
 end

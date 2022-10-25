@@ -56,4 +56,16 @@ class Graetzl < ApplicationRecord
     district&.id
   end
 
+  def neighbour_graetzls
+    if neighborless?
+      []
+    elsif region.use_districts?
+      district.graetzls - [self]
+    elsif region.graetzls.any?(&:neighborless?)
+      Graetzl.in(region).where(neighborless: false) - [self]
+    else
+      region.graetzls - [self]
+    end
+  end
+
 end

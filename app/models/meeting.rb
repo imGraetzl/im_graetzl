@@ -43,10 +43,9 @@ class Meeting < ApplicationRecord
     where("starts_at_date > :today OR ends_at_date > :today", today: Date.yesterday).
     order(:starts_at_date) }
 
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :starts_at_date, presence: true
-  validates :graetzl, presence: true
+  validates_presence_of :name, :description, :starts_at_date, :graetzl
+  validates :cover_photo, presence: true, on: :create
+  validates :description, presence: true, length: { minimum: 150 }, on: :create
   validate :starts_at_date_cannot_be_in_the_past, on: :create
 
   before_validation :set_graetzl
