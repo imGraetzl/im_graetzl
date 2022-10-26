@@ -33,7 +33,7 @@ APP.controllers.reports = (function() {
 
       var rooms = []; // Clean Room Array to work with
 
-      var tools = []; // Clean Toolteiler Array to work with
+      var tools = []; // Clean Geräteteiler Array to work with
 
       var meetings = []; // Clean Meetings Array to work with
 
@@ -774,7 +774,7 @@ APP.controllers.reports = (function() {
           showSpinner();
           var toolsChart = new TimeChart(initDate, initPeriod);
           Promise.resolve(toolsChart.requestTools()).then(function(res) {
-            toolsChart.drawChart(tools, "" + tools.length + " Toolteiler");
+            toolsChart.drawChart(tools, "" + tools.length + " Geräteteiler");
             stopSpinner();
             datatable_tools();
           });

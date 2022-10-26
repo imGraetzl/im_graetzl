@@ -25,7 +25,7 @@
   <%= render 'navigation' %>
 
   <div class="hl-subtext -cards">
-    <%= image_tag 'svg/toolteiler-headline.svg', class: 'toolteiler-headline', alt:'Toolteiler', width:340, height:85 %>
+    <%= image_tag 'svg/geraeteteiler-headline.svg', class: 'toolteiler-headline', alt:'Geräteteiler', width:340, height:85 %>
     <p><%= @category? "Arbeitsequipment aus der Kategorie „#{@category.name}“ leihen." : "Arbeitsequipment leihen & Geräte am Standort nutzen" %> <%= render 'shared/questionmarklink', hint_url: info_toolteiler_path %></p>
   </div>
 
@@ -34,7 +34,7 @@
   <%= form_tag tools_path, method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>
     <div class="filter-selection-text-jbox">
-      Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
+      Zeige mir Geräteteiler aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       in <%= link_to "ganz #{current_region}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas' %>
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">

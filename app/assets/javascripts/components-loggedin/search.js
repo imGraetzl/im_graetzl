@@ -37,7 +37,7 @@ APP.components.search = (function() {
         },
         {
           listLocation: "tools",
-          header: "Toolteiler"
+          header: "Geräteteiler"
         },
         {
           listLocation: "coop_demands",
@@ -119,7 +119,7 @@ APP.components.search = (function() {
               counts.RoomOffer ? count += counts.RoomOffer : count;
               counts.RoomDemand ? count += counts.RoomDemand : count;
               break;
-            case 'Toolteiler':
+            case 'Geräteteiler':
               type = 'tools'
               count = 0;
               counts.ToolOffer ? count += counts.ToolOffer : count;

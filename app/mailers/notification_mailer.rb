@@ -44,10 +44,10 @@ class NotificationMailer < ApplicationMailer
     'Aktuelle Menüpläne' => [
       Notifications::NewLocationMenu
     ],
-    'Neue Toolteiler' => [
+    'Neue Geräteteiler' => [
       Notifications::NewToolOffer
     ],
-    'Auf der Suche nach einem Tool' => [
+    'Auf der Suche nach einem Gerät' => [
       Notifications::NewToolDemand
     ],
     'Neue Räume zum Andocken' => [

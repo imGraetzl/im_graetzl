@@ -1,7 +1,7 @@
 class Notifications::ToolRentalCreated < Notifications::PlatformNotification
 
   def self.description
-    'Neue Toolteiler Anfrage'
+    'Neue Geräteteiler Anfrage'
   end
 
   def tool_rental

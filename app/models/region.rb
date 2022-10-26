@@ -31,14 +31,7 @@ class Region
   end
 
   def area
-    {
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": { "coordinates": @area_coordinates, "type": "Polygon" },
-        }
-      ]
-    }
+    @area_coordinates
   end
 
   def bounds

@@ -138,7 +138,7 @@ Region.all.each do |region|
       add coop_demand_path(coop_demand), changefreq: 'daily', priority: 0.8
     end
 
-    # Toolteiler
+    # Geräteteiler
     ToolOffer.in(region).enabled.find_each do |tool_offer|
       add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.8
     end

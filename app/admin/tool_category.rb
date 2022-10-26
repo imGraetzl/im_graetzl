@@ -1,5 +1,5 @@
 ActiveAdmin.register ToolCategory do
-  menu parent: 'Toolteiler'
+  menu parent: 'Geräteteiler'
 
   index { render 'index', context: self }
   form partial: 'form'

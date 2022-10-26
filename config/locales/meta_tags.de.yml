@@ -39,10 +39,10 @@ de:
       title_category: '%{category} einmieten in %{region} | Gewerbeflächen teilen - Kosten teilen'
       description_category: 'Finde passende Räume aus dem Bereich „%{category}“ in %{region}. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
     tools:
-      title: 'Toolteiler in %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
-      description: 'Du kannst über den Toolteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
-      title_category: 'Geräte für „%{category}“ ausleihen in %{region} | Toolteiler'
-      description_category: 'Du kannst über den „Toolteiler“ Geräte aus dem Bereich „%{category}“ ausleihen & verleihen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+      title: 'Geräteteiler in %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
+      description: 'Du kannst über den Geräteteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+      title_category: 'Geräte für „%{category}“ ausleihen in %{region} | Geräteteiler'
+      description_category: 'Du kannst über den „Geräteteiler“ Geräte aus dem Bereich „%{category}“ ausleihen & verleihen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
     coop_demands:
       title: '%{category}Coop & Share Marktplatz Angebote in %{region}'
       description: 'Finde Kooperationspartner*innen für dein Vorhaben%{category}. Docke dich an Gruppen und Teams zur gegenseitigen Unterstützung an, oder verbinde dich mit Mentor*innen.'
@@ -80,8 +80,8 @@ de:
       title_category: '%{category} einmieten in %{zip} %{region} | Gewerbeflächen teilen - Kosten teilen'
       description_category: 'Finde passende Räume aus dem Bereich „%{category}“ im %{numeric}. Bezirk. Mit dem „Raumteiler“ unterstützen wir dich dabei Kosten für Gewerbeflächen zu senken bzw. zu teilen.'
     tools:
-      title: 'Toolteiler in %{zip} %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
-      description: 'Du kannst über den Toolteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+      title: 'Geräteteiler in %{zip} %{region} | Arbeitsequipment leihen & Geräte am Standort nutzen'
+      description: 'Du kannst über den Geräteteiler Geräte ausleihen & verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
     groups:
       title: 'Gruppen im %{numeric}. Bezirk'
       description: 'Durchstöbere jetzt die Gruppen in %{region}. Neben Gruppen für ganz %{region} gibt es auch Gruppen nur für deinen Bezirk. Egal ob Kooperationen im Bezirk, Gegengeschäfte oder Gruppen für Aufträge & Zusammenarbeit. Schau mal rein ...'
@@ -126,11 +126,11 @@ de:
         description: 'Selbständige, Kreative und lokale Unternehmen teilen sich Gewerbeflächen um Kosten zu sparen. Jetzt neue Raumteiler aus dem Grätzl %{graetzl} im %{numeric}. Bezirk. finden ...'
     tools:
       welocally:
-        title: 'Toolteiler aus der Gemeinde %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-        description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+        title: 'Geräteteiler aus der Gemeinde %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
+        description: 'Du kannst über den Geräteteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
       imgraetzl:
-        title: 'Toolteiler im Grätzl %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
-        description: 'Du kannst über den Toolteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
+        title: 'Geräteteiler im Grätzl %{graetzl} - Arbeitsequipment leihen & Geräte am Standort nutzen'
+        description: 'Du kannst über den Geräteteiler Geräte verleihen oder auch den Zugang zur Ausstattung an deinem Arbeitsstandort ermöglichen. Indem du deine Geräte verleihst, verdienst du nicht nur, sondern schonst gleichzeitig Ressourcen.'
     groups:
       welocally:
         title: 'Gruppen in der Gemeinde %{graetzl}'
@@ -241,13 +241,13 @@ de:
 
   tool_rentals:
     login:
-      title: 'Toolteiler anfragen - Einloggen'
+      title: 'Geräteteiler anfragen - Einloggen'
     new:
-      title: 'Toolteiler anfragen - Rechnungsadresse'
+      title: 'Geräteteiler anfragen - Rechnungsadresse'
     choose_payment:
-      title: 'Toolteiler anfragen - Zahlungsart wählen'
+      title: 'Geräteteiler anfragen - Zahlungsart wählen'
     summary:
-      title: 'Toolteiler anfragen - Zusammenfassung'
+      title: 'Geräteteiler anfragen - Zusammenfassung'
 
   room_rentals:
     login:
@@ -288,8 +288,8 @@ de:
       title: 'Raumteiler – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Raumteiler / Teilen von Gewerbeflächen'
     toolteiler:
-      title: 'Toolteiler – Hilfe, Tipps & Tricks.'
-      description: 'Fragen & Antworten zum Toolteiler / Arbeitsequipment leihen & Geräte am Standort nutzen'
+      title: 'Geräteteiler – Hilfe, Tipps & Tricks.'
+      description: 'Fragen & Antworten zum Geräteteiler / Arbeitsequipment leihen & Geräte am Standort nutzen'
     location:
       title: 'Anbieter & Macherinnen – Hilfe, Tipps & Tricks.'
       description: 'Fragen & Antworten zum Schaufenster und weitere Funktionen für lokale Anbieter.'

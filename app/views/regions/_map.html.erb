@@ -1,5 +1,5 @@
 <div class="mapImgBlock">
-  <%= area_map(current_region.use_districts? ? current_region.districts : current_region.graetzls, 'APP.components.areaMap.init($("#area-map"), { interactive: true });') %>
+  <%= area_map(current_region.use_districts? ? current_region.districts : current_region.graetzls, 'APP.components.areaMap.init($("#area-map"), { interactive: true, zoomSnap:0.25 });') %>
 
   <div class="navBlock">
     <h1 class="region-title"><%= current_region %></h1>

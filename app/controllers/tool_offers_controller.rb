@@ -11,6 +11,7 @@ class ToolOffersController < ApplicationController
 
   def new
     @tool_offer = ToolOffer.new(current_user.slice(:first_name, :last_name, :iban))
+    @tool_offer.graetzl = user_home_graetzl
   end
 
   def create
