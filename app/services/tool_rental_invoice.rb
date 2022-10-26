@@ -43,7 +43,7 @@ class ToolRentalInvoice
     pdf.move_down 10
 
     table_data = []
-    table_data << ["Toolteiler", "Start", "Ende", "Vermieter", "Preis"]
+    table_data << ["Geräteteiler", "Start", "Ende", "Vermieter", "Preis"]
     table_data << [tool_rental.tool_offer.title, tool_rental.rent_from, tool_rental.rent_to, tool_rental.owner.full_name, format_price(tool_rental.basic_price)]
     table_data << [nil, nil, nil, "Rabatt", format_price(-tool_rental.discount)] if tool_rental.discount?
     table_data << [nil, nil, nil, "Servicegebühr", format_price(tool_rental.service_fee)]
@@ -78,7 +78,7 @@ class ToolRentalInvoice
     pdf.move_down 10
 
     table_data = []
-    table_data << ["Toolteiler", "Start", "Ende", "Mieter", "Preis"]
+    table_data << ["Geräteteiler", "Start", "Ende", "Mieter", "Preis"]
     table_data << [tool_rental.tool_offer.title, tool_rental.rent_from, tool_rental.rent_to, tool_rental.renter_name, format_price(tool_rental.basic_price)]
     table_data << [nil, nil, nil, "Rabatt", format_price(-tool_rental.discount)] if tool_rental.discount?
     table_data << [nil, nil, nil, "Servicegebühr", format_price(-tool_rental.service_fee)]

@@ -3,7 +3,7 @@
     <%= avatar_image notification.tool_rental.renter, size: :thumb, class: 'img-round' %>
     <div class="msg">
       <div class="timeago">vor <%= time_ago_in_words(notification.created_at) %></div>
-      <span class="username"><%= notification.tool_rental.renter.username %></span> möchte deinen Toolteiler ausborgen.
+      <span class="username"><%= notification.tool_rental.renter.username %></span> möchte deinen Geräteteiler ausborgen.
       Du kannst die <span class="matter">Anfrage akzeptieren oder ablehnen</span>.
     </div>
   <% end %>

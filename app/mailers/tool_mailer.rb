@@ -7,7 +7,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "notification-tool-online")
 
     mail(
-      subject: "Deine Toolsuche ist nun online",
+      subject: "Deine Gerätesuche ist nun online",
       from: platform_email('no-reply'),
       to: @tool_demand.user.email,
     )
@@ -20,7 +20,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "notification-tool-online")
 
     mail(
-      subject: "Dein Toolteiler ist nun online",
+      subject: "Dein Geräteteiler ist nun online",
       from: platform_email('no-reply'),
       to: @tool_offer.user.email,
     )
@@ -33,7 +33,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "notification-tool-expiring")
 
     mail(
-      subject: "Deine Toolsuche wurde deaktiviert. Möchtest du diese reaktivieren?",
+      subject: "Deine Gerätesuche wurde deaktiviert. Möchtest du diese reaktivieren?",
       from: platform_email('no-reply'),
       to: @tool_demand.user.email,
     )
@@ -47,7 +47,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "tool-rental-request")
 
     mail(
-      subject: "Neue Toolteiler Anfrage",
+      subject: "Neue Geräteteiler Anfrage",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
       bcc: 'michael@imgraetzl.at',
@@ -62,7 +62,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "tool-rental-request-reminder")
 
     mail(
-      subject: "Erinnerung: #{@tool_rental.renter.first_name} möchte deinen Toolteiler ausborgen.",
+      subject: "Erinnerung: #{@tool_rental.renter.first_name} möchte deinen Geräteteiler ausborgen.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
       bcc: 'michael@imgraetzl.at',
@@ -77,7 +77,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "tool-rental-approved")
 
     mail(
-      subject: "Deine Toolteiler Buchung wurde bestätigt",
+      subject: "Deine Geräteteiler Buchung wurde bestätigt",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
       bcc: 'michael@imgraetzl.at',
@@ -91,7 +91,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "tool-rental-rejected")
 
     mail(
-      subject: "Deine Toolteiler Anfrage wurde leider abgelehnt.",
+      subject: "Deine Geräteteiler Anfrage wurde leider abgelehnt.",
       from: platform_email('no-reply'),
       to: @tool_rental.renter.email,
       bcc: 'michael@imgraetzl.at',
@@ -105,7 +105,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "tool-rental-canceled")
 
     mail(
-      subject: "#{@tool_rental.renter.first_name} hat die Toolteiler Anfrage zurückgezogen",
+      subject: "#{@tool_rental.renter.first_name} hat die Geräteteiler Anfrage zurückgezogen",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
       bcc: 'michael@imgraetzl.at',
@@ -119,7 +119,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "tool-rental-payment-failed")
 
     mail(
-      subject: "Probleme bei deiner Toolteiler Zahlung, bitte überprüfe deine Zahlungsmethode.",
+      subject: "Probleme bei deiner Geräteteiler Zahlung, bitte überprüfe deine Zahlungsmethode.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
       bcc: 'michael@imgraetzl.at',
@@ -133,7 +133,7 @@ class ToolMailer < ApplicationMailer
     headers("X-MC-Tags" => "tool-rental-return-pending")
 
     mail(
-      subject: "Bitte bestätige die Rückgabe deines Toolteilers.",
+      subject: "Bitte bestätige die Rückgabe deines Geräteteilers.",
       from: platform_email('no-reply'),
       to: @tool_rental.owner.email,
       bcc: 'michael@imgraetzl.at',

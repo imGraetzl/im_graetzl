@@ -179,7 +179,7 @@ class ToolRentalService
   end
 
   def statement_descriptor(tool_offer)
-    "#{tool_offer.region.host_id} Toolteiler".upcase
+    "#{tool_offer.region.host_id} Geräteteiler".upcase
   end
 
   def generate_invoices(tool_rental)
