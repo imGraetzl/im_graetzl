@@ -3,7 +3,8 @@ active_admin_form_for [:admin, resource] do |f|
     f.semantic_errors
     input :name
     input :amount
-    input :interval
+    #input :interval
+    input :interval, collection: ['year', 'month'], include_blank: true, input_html: { :class => 'admin-filter-select'}
     input :stripe_id
     input :description
   end
