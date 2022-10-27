@@ -19,7 +19,7 @@
     <ul class="pricing-summary -facts">
       <p class="title"><%= subscription_plan %></p>
     </ul>
-    <% if subscription_plan.description %>
+    <% if subscription_plan.description.present? %>
     <ul class="pricing-summary -facts">
       <p class="desc"><%= subscription_plan.description %></p>
     </ul>
