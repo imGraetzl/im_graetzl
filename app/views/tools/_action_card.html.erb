@@ -14,17 +14,17 @@
         <% end %>
       </div>
       <h3>Vermiete deine ungenutzten Arbeitsgeräte, oder suche nach einem Gerät.</h3>
-      <%= link_to 'Neuen Toolteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
+      <%= link_to 'Neuen Geräteteiler erstellen', select_tool_offers_path, class: 'btn-primary' %>
     </div>
     <div class="card"></div>
   </div>
   <% if local_assigns[:view_all] %>
     <% if local_assigns[:graetzl] %>
-      <%= link_to 'Alle Toolteiler', tools_graetzl_path(graetzl), class: 'link-more' %>
+      <%= link_to 'Alle Geräteteiler', tools_graetzl_path(graetzl), class: 'link-more' %>
     <% elsif local_assigns[:district] %>
-      <%= link_to 'Alle Toolteiler', district_tools_path(district), class: 'link-more' %>
+      <%= link_to 'Alle Geräteteiler', district_tools_path(district), class: 'link-more' %>
     <% else %>
-      <%= link_to 'Alle Toolteiler', region_tools_path, class: 'link-more' %>
+      <%= link_to 'Alle Geräteteiler', region_tools_path, class: 'link-more' %>
     <% end %>
   <% end %>
 </div>

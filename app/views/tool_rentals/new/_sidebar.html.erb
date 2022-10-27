@@ -35,7 +35,7 @@
         </div>
         <div class="costname">
           <%= @tool_rental.days %> Tage x <%= number_to_currency(@tool_rental.daily_price, unit: "€") %>
-          <%= render 'shared/questionmark', hint_id: "1", hint_message: 'Das ist der Tagespreis für die Anzahl der Tage die du den Toolteiler mieten möchtest.' %>
+          <%= render 'shared/questionmark', hint_id: "1", hint_message: 'Das ist der Tagespreis für die Anzahl der Tage die du den Geräteteiler mieten möchtest.' %>
         </div>
       </li>
       <li>
@@ -45,13 +45,13 @@
         <div class="costname">
           Rabatt <%= @tool_rental.days %> Tage
           <% if @tool_rental.tool_offer.two_day_discount? && @tool_rental.tool_offer.weekly_discount? %>
-            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Toolteiler hat #{@tool_rental.tool_offer.two_day_discount}% Rabatt ab einer Miete von 2 Tagen und #{@tool_rental.tool_offer.weekly_discount}% ab einer Miete von einer Woche." %>
+            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Geräteteiler hat #{@tool_rental.tool_offer.two_day_discount}% Rabatt ab einer Miete von 2 Tagen und #{@tool_rental.tool_offer.weekly_discount}% ab einer Miete von einer Woche." %>
           <% elsif @tool_rental.tool_offer.two_day_discount? %>
-            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Toolteiler hat #{@tool_rental.tool_offer.two_day_discount}% Rabatt ab einer Miete von 2 Tagen." %>
+            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Geräteteiler hat #{@tool_rental.tool_offer.two_day_discount}% Rabatt ab einer Miete von 2 Tagen." %>
           <% elsif @tool_rental.tool_offer.weekly_discount? %>
-            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Toolteiler hat #{@tool_rental.tool_offer.weekly_discount}% Rabatt ab einer Miete von einer Woche." %>
+            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Geräteteiler hat #{@tool_rental.tool_offer.weekly_discount}% Rabatt ab einer Miete von einer Woche." %>
           <% else %>
-            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Toolteiler hat keinen Tages oder Wochenrabatt." %>
+            <%= render 'shared/questionmark', hint_id: "2", hint_message: "Dieser Geräteteiler hat keinen Tages oder Wochenrabatt." %>
           <% end %>
         </div>
       </li>

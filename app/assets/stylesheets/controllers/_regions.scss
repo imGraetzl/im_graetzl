@@ -58,3 +58,23 @@ section.region {
   }
 
 }
+
+.region-kaernten section.region {
+  .activeArea {
+    @include respond-to(">=medium") {
+      width: 60%;
+      height: 100%;
+    }
+    @include respond-to(">=large") {
+      width: 65%;
+      height: 100%;
+    }
+  }
+  .navBlock {
+    .links {
+      @include respond-to(">=medium") {
+        width: 350px;
+      }
+    }
+  }
+}

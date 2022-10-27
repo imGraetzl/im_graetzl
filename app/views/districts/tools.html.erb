@@ -15,7 +15,7 @@
   <%= render 'navigation' %>
 
   <h1 class="hl-main -cards">
-    <%= @category ? @category.name : 'Entdecke' %> <span>Toolteiler</span> im <%= @district.numeric %>. Bezirk
+    <%= @category ? @category.name : 'Entdecke' %> <span>Geräteteiler</span> im <%= @district.numeric %>. Bezirk
   </h1>
 
   <%= render 'filters/tool_categories' %>
@@ -23,7 +23,7 @@
   <%= form_tag tools_path, method: :get, remote: true, class: 'cards-filter' do %>
     <%= hidden_field_tag :category_id, @category.try(:id) %>
     <div class="filter-selection-text-jbox">
-      Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
+      Zeige mir Geräteteiler aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       in <%= link_to @district.zip_name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-areas filter-applied' %>
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">

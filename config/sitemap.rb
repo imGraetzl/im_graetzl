@@ -138,7 +138,7 @@ Region.all.each do |region|
       add coop_demand_path(coop_demand), changefreq: 'daily', priority: 0.8
     end
 
-    # Toolteiler
+    # Geräteteiler
     ToolOffer.in(region).enabled.find_each do |tool_offer|
       add tool_offer_path(tool_offer), changefreq: 'daily', priority: 0.8
     end
@@ -154,6 +154,7 @@ Region.all.each do |region|
 
     # Static Pages
     add good_morning_dates_path, changefreq: 'daily', priority: 0.9
+    add balkonsolar_path, changefreq: 'daily', priority: 0.9
 
     # Info Help Pages
     add info_path, changefreq: 'monthly', priority: 0.4

@@ -22,8 +22,8 @@ APP.controllers.tool_offers = (function() {
           $('.-disabled').hide();
           // Analytics Tracking
           gtag(
-            'event', 'Toolteiler :: Buchungsbox', {
-            'event_category': 'Toolteiler',
+            'event', 'Geräteteiler :: Buchungsbox', {
+            'event_category': 'Geräteteiler',
             'event_label': 'Auswahl :: Zeitraum'
           });
         }

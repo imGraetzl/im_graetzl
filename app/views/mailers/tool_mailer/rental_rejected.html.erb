@@ -9,7 +9,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Toolteiler: <%= link_to @tool_rental.tool_offer.title.truncate(45), tool_offer_url(@tool_rental.tool_offer), style: "color:#ec776a;" %>
+         Geräteteiler: <%= link_to @tool_rental.tool_offer.title.truncate(45), tool_offer_url(@tool_rental.tool_offer), style: "color:#ec776a;" %>
        </h4>
      </td>
    </tr>
@@ -35,10 +35,10 @@
       </td>
       <td class="mcnTextContent" style="padding-right:18px; width:100%;">
         <p>
-          <em><strong><%= @tool_rental.owner.full_name %> kann dir den Toolteiler leider nicht vermieten.</strong></em><br>
+          <em><strong><%= @tool_rental.owner.full_name %> kann dir den Geräteteiler leider nicht vermieten.</strong></em><br>
         </p>
         <p>
-          Klicke auf jetzt antworten, wenn du mit <%= @tool_rental.owner.first_name %> im Toolteiler-Messenger in Kontakt treten, und den genauen Grund erfahren möchtest.
+          Klicke auf jetzt antworten, wenn du mit <%= @tool_rental.owner.first_name %> im Geräteteiler-Messenger in Kontakt treten, und den genauen Grund erfahren möchtest.
         </p>
       </td>
     </tr>
@@ -71,7 +71,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Deine ursprüngliche Toolteiler Anfrage:
+         Deine ursprüngliche Geräteteiler Anfrage:
        </h4>
      </td>
    </tr>
@@ -99,7 +99,7 @@
       </td>
       <td valign="center" class="mcnTextContent" width="100%">
         <p>
-          <em>Toolteiler:</em><br>
+          <em>Geräteteiler:</em><br>
           <%= link_to @tool_rental.tool_offer.title, tool_offer_url(@tool_rental.tool_offer), style: "color:#ec776a;" %>
         </p>
         <p>

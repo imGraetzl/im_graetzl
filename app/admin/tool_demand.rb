@@ -1,6 +1,6 @@
 ActiveAdmin.register ToolDemand do
   include ViewInApp
-  menu parent: 'Toolteiler'
+  menu parent: 'Geräteteiler'
 
   includes :location, :user, :comments
   actions :all, except: [:new, :create]

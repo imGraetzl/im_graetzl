@@ -15,12 +15,12 @@ APP.controllers_loggedin.tool_rentals = (function() {
     }
 
     function initLoginScreen() {
-      // Change Wording of Notice Message for Toolteiler Registrations
+      // Change Wording of Notice Message for Geräteteiler Registrations
       if ($("#flash .notice").exists()) {
         var flashText = $("#flash .notice").text();
         if (flashText.indexOf('Super, du bist nun registriert!') >= 0){
-          // Modifiy Message for Toolteiler Registrations
-          $("#flash .notice").text(flashText + ' Danach gehts weiter mit deiner Toolteiler Anfrage.');
+          // Modifiy Message for Geräteteiler Registrations
+          $("#flash .notice").text(flashText + ' Danach gehts weiter mit deiner Geräteteiler Anfrage.');
         }
       }
     }
@@ -28,12 +28,12 @@ APP.controllers_loggedin.tool_rentals = (function() {
     function initAddressScreen() {
       APP.components.tabs.setTab('step1');
 
-      // Change Wording of Notice Message for Toolteiler Registrations
+      // Change Wording of Notice Message for Geräteteiler Registrations
       if ($("#flash .notice").exists()) {
         var flashText = $("#flash .notice").text();
         if (flashText.indexOf('Vielen Dank für Deine Registrierung') >= 0){
-          // Modifiy Message for Toolteiler Registrations
-          $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst mit deiner Toolteiler Anfrage fortfahren..');
+          // Modifiy Message for Geräteteiler Registrations
+          $("#flash .notice").text('Vielen Dank für Deine Registrierung. Du bist jetzt angemeldet und kannst mit deiner Geräteteiler Anfrage fortfahren..');
         }
       }
 

@@ -13,6 +13,7 @@ class RoomOffersController < ApplicationController
     @room_offer = RoomOffer.new
     @room_offer.room_offer_prices.build
     @room_offer.assign_attributes(current_user.slice(:first_name, :last_name, :email, :website))
+    @room_offer.graetzl = user_home_graetzl
   end
 
   def create

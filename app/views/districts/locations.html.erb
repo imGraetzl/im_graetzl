@@ -37,7 +37,7 @@
     <%= hidden_field_tag :category_id, @category.try(:id) %>
     <%= hidden_field_tag :special_category_id, @special_category %>
     <div class="filter-selection-text-jbox">
-      Zeige mir aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
+      Zeige mir Schaufenster aus <%= link_to 'allen Kategorien', 'javascript:', data: { no_filter_label: 'allen Kategorien'}, class: 'plain-link category-slider-label' %>,
       in <%= link_to @district.zip_name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region.name}"}, class: 'filter-modal-areas filter-applied' %>
     </div>
     <div id="filter-modal-areas" class="filter-modal-jbox-areas">

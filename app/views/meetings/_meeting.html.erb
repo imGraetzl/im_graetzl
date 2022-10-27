@@ -60,7 +60,7 @@
       <p><%= strip_tags(meeting.description.bbcode_to_html.html_safe).truncate(100) %></p>
     </div>
 
-    <% if params[:show_going_tos].present? %>
+    <% if params[:show_going_tos].present? || local_assigns[:show_going_tos] %>
       <div class="userlist">
         <% meeting.attendees.map(&:user).last(10).each do |user| %>
           <%= link_to user_path(user), rel: 'nofollow' do %>

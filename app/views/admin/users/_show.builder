@@ -71,7 +71,7 @@ context.instance_eval do
         end
       end
 
-      panel 'Toolteiler' do
+      panel 'Geräteteiler' do
         table_for user.tool_offers do
           column :id
           column :title

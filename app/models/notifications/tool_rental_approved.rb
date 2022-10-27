@@ -1,7 +1,7 @@
 class Notifications::ToolRentalApproved < Notifications::PlatformNotification
 
   def self.description
-    'Deine Toolteiler Anfrage wurde bestätigt'
+    'Deine Geräteteiler Anfrage wurde bestätigt'
   end
 
   def tool_rental

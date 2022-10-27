@@ -5,6 +5,7 @@ context.instance_eval do
         attributes_table_for graetzl do
           row :id
           row :region
+          row :neighborless
           row :zip
           row :name
           row :slug

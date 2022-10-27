@@ -98,6 +98,7 @@ class ActionProcessor
 
     when [RoomOffer, :update]
       Activity.add_public(subject, to: subject.graetzl)
+      Notifications::NewRoomOffer.generate(subject, to: user_ids(subject.graetzl))
 
     when [RoomOffer, :comment]
       if subject.enabled?

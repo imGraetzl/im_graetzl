@@ -41,7 +41,7 @@
 
     <% if @tool_demand.disabled? && current_user == @tool_demand.user %>
       <div class="inactive-msg">
-          Deine Toolsuche ist aktuell auf inaktiv gesetzt. Toolsuche jetzt <%= link_to 'wieder aktivieren', [:update_status, @tool_demand, status: "enabled"], method: :patch %>.
+          Deine Gerätesuche ist aktuell auf inaktiv gesetzt. Gerätesuche jetzt <%= link_to 'wieder aktivieren', [:update_status, @tool_demand, status: "enabled"], method: :patch %>.
       </div>
     <% end %>
 
@@ -72,7 +72,7 @@
         <!-- Contact Block -->
         <div class="contact-login-msg -show">
           <!-- Show Contact Link -->
-          <a href="#" id="show-contact-link" data-category="Toolteiler" data-label="Toolsuche">Kontaktinformationen einblenden</a>
+          <a href="#" id="show-contact-link" data-category="Geräteteiler" data-label="Gerätesuche">Kontaktinformationen einblenden</a>
           <!-- /Show Contact Link -->
 
           <div class="contact-infos" id="contact-infos-block">

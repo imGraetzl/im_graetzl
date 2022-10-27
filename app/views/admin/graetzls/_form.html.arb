@@ -6,6 +6,7 @@ active_admin_form_for [:admin, resource] do |f|
     input :slug unless f.object.new_record?
     input :area, as: :string
     input :zip
+    input :neighborless
   end
   actions
 end

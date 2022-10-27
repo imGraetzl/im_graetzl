@@ -1,5 +1,5 @@
 ActiveAdmin.register ToolRental do
-  menu parent: 'Toolteiler'
+  menu parent: 'Geräteteiler'
   includes :tool_offer, :user
   actions :all, except: [:new, :create, :destroy]
 

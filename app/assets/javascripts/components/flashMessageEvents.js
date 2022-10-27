@@ -102,18 +102,18 @@ APP.components.flashMsgEvents = (function() {
       }
 
       // Activate ToolDemand
-      else if (flashMsg('Deine Toolsuche ist nun aktiv')){
+      else if (flashMsg('Deine Gerätesuche ist nun aktiv')){
         gtag(
-          'event', 'Toolsuche :: Click :: Status Aktiv', {
-          'event_category': 'Toolteiler'
+          'event', 'Gerätesuche :: Click :: Status Aktiv', {
+          'event_category': 'Geräteteiler'
         });
       }
 
       // Deactivate ToolDemand
-      else if (flashMsg('Deine Toolsuche ist nun deaktiviert')){
+      else if (flashMsg('Deine Gerätesuche ist nun deaktiviert')){
         gtag(
-          'event', 'Toolsuche :: Click :: Status Inaktiv', {
-          'event_category': 'Toolteiler'
+          'event', 'Gerätesuche :: Click :: Status Inaktiv', {
+          'event_category': 'Geräteteiler'
         });
       }
 

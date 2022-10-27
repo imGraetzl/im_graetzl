@@ -258,6 +258,7 @@ Rails.application.routes.draw do
   get 'cf/:id', to: 'crowd_campaigns#redirect'
   get 'unterstuetzer-team', to: 'static_pages#mentoring'
   get 'good-morning-dates', to: 'static_pages#good_morning_dates'
+  get 'balkonsolar-workshops-in-wien', to: 'static_pages#balkonsolar', as: 'balkonsolar'
   get 'info', to: 'static_pages#info'
   get 'info/crowdfunding', to: 'static_pages#crowd_campaign'
   get 'info/coop-share', to: 'static_pages#coop_demands'

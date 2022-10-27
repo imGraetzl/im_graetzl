@@ -4,12 +4,19 @@ APP.controllers.static_pages = (function() {
       if($(".-about-pages").exists()) initAboutPages();
       if($(".-mentoring-page").exists()) initMentoring();
       if($(".good-morning-dates").exists()) initGoodMorningDates();
+      if($(".balkonsolar-page").exists()) initBalkonSolar();
       if($("#help_nav").exists()) initHelpScroller();
     }
 
 // ---------------------------------------------------------------------- Public
 
 function initGoodMorningDates() {
+  if ($('.cards-filter').exists()) {
+    APP.components.cardBoxFilter.init();
+  }
+}
+
+function initBalkonSolar() {
   if ($('.cards-filter').exists()) {
     APP.components.cardBoxFilter.init();
   }

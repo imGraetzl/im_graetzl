@@ -8,8 +8,8 @@
     <% if tool_rental.incomplete? %>
 
       <div class="note">
-        <strong><%= tool_rental.renter.full_name %> möchte deinen Toolteiler ausleihen, hat aber noch offene Fragen.</strong>
-        Sofern <%= tool_rental.renter.first_name %> nach Klärung der Fragen deinen Toolteiler weiterhin ausleihen möchte, bekommst du hier die Möglichkeit dies zu bestätigen oder abzulehnen.
+        <strong><%= tool_rental.renter.full_name %> möchte deinen Geräteteiler ausleihen, hat aber noch offene Fragen.</strong>
+        Sofern <%= tool_rental.renter.first_name %> nach Klärung der Fragen deinen Geräteteiler weiterhin ausleihen möchte, bekommst du hier die Möglichkeit dies zu bestätigen oder abzulehnen.
       </div>
 
     <% elsif tool_rental.pending? %>
@@ -50,14 +50,14 @@
     <% elsif tool_rental.rejected? %>
 
       <div class="note">
-        Du hast die Anfrage abgelehnt. Bitte schreibe dem Mieter warum du ihm den Toolteiler nicht vermieten konntest.
+        Du hast die Anfrage abgelehnt. Bitte schreibe dem Mieter warum du ihm den Geräteteiler nicht vermieten konntest.
       </div>
 
     <% elsif tool_rental.return_pending? %>
 
       <div class="note">
-        Wir hoffen die Verleihung deines Toolteilers war erfolgreich und es hat alles gepasst.
-        Bitte bestätige nun die Rückgabe deines Toolteilers.
+        Wir hoffen die Verleihung deines Geräteteilers war erfolgreich und es hat alles gepasst.
+        Bitte bestätige nun die Rückgabe deines Geräteteilers.
         Die Auszahlung deiner Mieteinnahmen auf dein Konto erfolgt innerhalb von 5 Tagen nach Bestätigung der Rückgabe.
       </div>
       <div class="buttons">

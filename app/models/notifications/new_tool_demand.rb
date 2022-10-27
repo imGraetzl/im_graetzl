@@ -3,11 +3,11 @@ class Notifications::NewToolDemand < Notification
   self.class_bitmask = 2**19
 
   def self.description
-    'Eine neue Toolsuche wurde veröffentlicht'
+    'Eine neue Gerätesuche wurde veröffentlicht'
   end
 
   def mail_subject
-    "Es gibt eine neue Toolsuche"
+    "Es gibt eine neue Gerätesuche"
   end
 
   def tool_demand

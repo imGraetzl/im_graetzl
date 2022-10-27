@@ -9,7 +9,7 @@
     <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
       <h4 style="color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic; text-align:left;">
         <%= link_to @notification.tool_offer.user.first_name, user_url(@notification.tool_offer.user), style: "color:#f48a85;" %>
-        hat einen neuen Toolteiler erstellt:
+        hat einen neuen Geräteteiler erstellt:
       </h4>
     </td>
   </tr>
@@ -54,7 +54,7 @@
 
     <tr>
       <td>
-        <%= render 'mailers/shared/button', title: "Toolteiler ausleihen", url: tool_offer_url(@notification.tool_offer), style: "width:100%;" %>
+        <%= render 'mailers/shared/button', title: "Geräteteiler ausleihen", url: tool_offer_url(@notification.tool_offer), style: "width:100%;" %>
       </td>
     </tr>
 
