@@ -238,6 +238,8 @@ section.homeRegion {
     .stage .badge {
       @include respond-to(">=medium") {
         left:70px;
+        top: 110px;
+        scale:0.9;
       }
     }
     .graetzl-switch-wrapper {

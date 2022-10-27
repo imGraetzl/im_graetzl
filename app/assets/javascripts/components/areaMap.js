@@ -143,6 +143,10 @@ APP.components.areaMap = (function() {
   function init(mapElement, options) {
     options = options || {};
 
+    if (options.mapLayer) {
+      mainLayer.options.id = options.mapLayer;
+    }
+
     var map = L.map(mapElement.attr('id'), {
         layers: [mainLayer],
         dragging: false,
