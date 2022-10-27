@@ -87,6 +87,10 @@ class Location < ApplicationRecord
     (menus + posts).max_by(&:created_at)
   end
 
+  def subscribed?
+    user_id.present? && user.subscribed?
+  end
+
   private
 
   def mailchimp_location_update

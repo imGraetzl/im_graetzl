@@ -17,7 +17,7 @@
 
     <div class="userEntry">
       <%= avatar_image @crowd_campaign, size: :thumb, class: 'img-square' %>
-      <div>
+      <div class="infos">
         <span class="owner"><%= @crowd_campaign.title %></span><br>
         <span>vor <%= time_ago_in_words(post.created_at) %></span>
       </div>

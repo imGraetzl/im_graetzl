@@ -1,0 +1,27 @@
+<table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Servus <%= @user.first_name %>,
+        </p>
+        <p>
+          Bitte überprüfe deine Zahlungsmethode
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= render 'mailers/shared/button', title: "Zahlungsmethode jetzt anpassen", url: change_payment_subscription_url(@subscription, payment_intent: @payment_intent.id) %>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
+        <p>
+          Bei Fragen kannst du dich gerne an uns wenden.<br>
+          E-Mail an: <%= t("region.#{@user.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>

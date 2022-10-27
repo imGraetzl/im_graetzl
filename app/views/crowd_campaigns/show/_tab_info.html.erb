@@ -65,7 +65,7 @@
           </div>
           <div>
             <%= link_to @crowd_campaign.user, class: 'user-wrp', rel: 'nofollow' do %>
-              <%= avatar_image_with_tooltip @crowd_campaign.user, size: :thumb, class: 'img-round' %>
+              <%= avatar_image_with_tooltip @crowd_campaign.user, size: :thumb, class: 'img-round show-badge' %>
               <span class="name"><%= @crowd_campaign.user.full_name %></span>
             <% end %>
             <% if @crowd_campaign.contact_website.present? %>

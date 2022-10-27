@@ -58,6 +58,7 @@
     .img-round {display: none;}
     &.is-focused {
       .img-round { display: block; }
+      textarea {margin-left: 8px;}
     }
   }
   .post-comments {
@@ -78,7 +79,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin-right: 10px;
+    //margin-right: 10px;
 
     .infos {
       .title {
@@ -165,8 +166,8 @@
     display: flex;
   }
   .img-round, .img-square {
-    margin-right: 1rem;
-    margin-top: 5px;
+    //margin-right: 1rem;
+    //margin-top: 5px;
     display: none;
     @include respond-to(">=medium") {
       flex: 0 0 auto;
@@ -229,6 +230,8 @@
 }
 
 .textEditor {
+  margin-top: -4px;
+  margin-left: 1rem;
   position: relative;
   width: 100%;
   @include respond-to(">=medium") {
@@ -322,6 +325,7 @@
     .entryForm { padding-left: 60px; }
     .entryForm.is-focused {
       .img-round { display: block; }
+      textarea {margin-left: 8px;}
     }
   }
 }
@@ -379,6 +383,7 @@
 
 .entryForm {
   textarea {
+    //margin-left: 8px;
     background-color: #ffffff;
     border: 1px solid $color-ambient-grey-light;
     outline: none;
@@ -405,7 +410,7 @@
     height: 40px;
     flex: 0 0 auto;
     display: none;
-    margin-right: 8px;
+    //margin-right: 8px;
   }
   button {
     @extend .btn-secondary;

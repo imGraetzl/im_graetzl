@@ -1,0 +1,53 @@
+<section class="usersetup -subscriptions">
+
+  <div class="introcontainer">
+    <div class="introtxt">
+      <div class="hl-subtext">
+        <h1><em>Dein UnterstützerInnen Abo</em></h1>
+        <% if current_user.subscribed? %>
+        <p>Vielen Dank für deine Unterstützung <%= current_user.first_name %>!</p>
+        <% else %>
+        <p>Das <%= t("region.#{current_region.id}.domain_full") %> UnterstützerInnen Abo - Für alle die unsere Arbeit wertschätzen. <%= render 'shared/questionmarklink', hint_url: subscription_plans_path %></p>
+        <% end %>
+      </div>
+
+      <% if current_user.subscribed? %>
+        <p>
+          Dein Abo ist natürlich jederzeit kündbar. Deine Rechnungen kannst du unterhalb downloaden.
+          Hier kannst du jederzeit deine <%= link_to 'Zahlungseinstellungen', payment_method_user_path %> oder <%= link_to 'Rechnungsanschrift', billing_address_user_path %> für dein aktuelles Abo anpassen.
+        </p>
+      <% else %>
+        <p>
+        </p>
+      <% end %>
+
+    </div>
+    <% if @subscription %>
+    <%= render 'users/subscription_plan', subscription_plan: @subscription.subscription_plan %>
+    <% else %>
+    <%= render 'subscriptions/action_card', user: @user %>
+    <% end %>
+  </div>
+
+  <% if current_user.subscription_invoices.any? %>
+    <h3>Deine Abo Rechnungen</h3>
+
+    <div class="table-container -light" role="table">
+      <div class="flex-table header" role="rowgroup">
+        <div class="flex-row medium first" role="columnheader">Datum</div>
+        <div class="flex-row large" role="columnheader">Rechnungsnummer</div>
+        <div class="flex-row xxxlarge" role="columnheader">Download PDF Rechnung</div>
+      </div>
+
+      <% current_user.subscription_invoices.order(created_at: :desc).each do |invoice| %>
+        <div class="flex-table" role="rowgroup">
+          <div class="flex-row medium" role="cell"><%= I18n.localize(invoice.created_at, format:'%B %Y') %></div>
+          <div class="flex-row large" role="cell"><%= invoice.invoice_number %></div>
+          <div class="flex-row xxxlarge" role="cell"><%= link_to 'Download', invoice.invoice_pdf %></div>
+        </div>
+      <% end %>
+
+    </div>
+  <% end %>
+
+</section>

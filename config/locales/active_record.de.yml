@@ -418,3 +418,13 @@ de:
         contact_name: Name
         donation_amount: Freie Unterstützung
         terms: Nutzungsbedingungen
+      subscription_plan:
+        intervals:
+          month: Monat
+          year: Jahr
+        per_interval:
+          month: pro Monat
+          year: pro Jahr
+      payment_method:
+        card: Kreditkarte
+        sepa_debit: Bankkonto

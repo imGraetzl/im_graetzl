@@ -65,6 +65,10 @@ Rails.application.routes.draw do
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     get 'locations'
     get 'tooltip'
+    get 'abo', action: 'subscription', as: 'subscription'
+    get 'rechnungsadresse', action: 'billing_address', as: 'billing_address'
+    get 'zahlungsmethode', action: 'payment_method', as: 'payment_method'
+    get 'payment_authorized', on: :member
     get 'raumteiler', action: 'rooms', as: 'rooms'
     get 'toolteiler', action: 'tools', as: 'tools'
     get 'coop-share', action: 'coop_demands', as: 'coop_demands'
@@ -207,6 +211,18 @@ Rails.application.routes.draw do
     post 'reject', on: :member
     post 'leave_rating', on: :member
   end
+
+  resource :subscription_plans, path: 'unterstuetzer-abo'
+  resources :subscriptions, path: 'abo' do
+    get 'choose_payment', on: :member
+    get 'payment_authorized', on: :member
+    get 'change_payment', on: :member
+    get 'payment_changed', on: :member
+    get 'summary', on: :member
+    patch :resume, on: :member
+  end
+  resources :subscription_invoices
+
 
   resources :tools, only: [:index]
   resources :tool_demands, path: 'toolsuche', except: [:index] do

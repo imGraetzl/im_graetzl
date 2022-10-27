@@ -29,7 +29,7 @@
     <div class="avatar-block">
       <% if discussion.user %>
         <%= link_to discussion.user, class: 'avatarImg', rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip discussion.user, size: :thumb, class: 'img-round' %>
+        <%= avatar_image_with_tooltip discussion.user, size: :thumb, class: 'img-round show-badge' %>
         <% end %>
       <% else %>
         <div class="avatarImg">
@@ -63,7 +63,7 @@
     <div class="streamElement">
       <div class="entryContent">
         <div class="userEntry">
-          <%= avatar_image last_post.user, size: :thumb, class: 'avatar img-round' %>
+          <%= avatar_image last_post.user, size: :thumb, class: 'avatar img-round show-badge' %>
           <span class="userAndType"><%= link_to last_post.user.full_name, last_post.user, rel: 'nofollow' %> am <%= I18n.localize(last_post.created_at, format:'%d. %b %Y') %></span>
         </div>
         <div class="txt">

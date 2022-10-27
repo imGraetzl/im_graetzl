@@ -10,6 +10,14 @@ class WebhooksController < ApplicationController
       payment_intent_succeded(event.data.object)
     when "payment_intent.payment_failed"
       payment_intent_failed(event.data.object)
+    when "customer.subscription.updated"
+      subscription_updated(event.data.object)
+    when "customer.subscription.deleted"
+      subscription_deleted(event.data.object)
+    when "invoice.payment_action_required"
+      payment_action_required(event.data.object)
+    when "invoice.paid"
+      invoice_paid(event.data.object)
     end
 
     head :ok
@@ -47,7 +55,6 @@ class WebhooksController < ApplicationController
       tool_rental = ToolRental.find_by(id: payment_intent.metadata.tool_rental_id)
       ToolRentalService.new.payment_succeeded(tool_rental, payment_intent) if tool_rental
     end
-
   end
 
   def payment_intent_failed(payment_intent)
@@ -65,7 +72,26 @@ class WebhooksController < ApplicationController
       tool_rental = ToolRental.find_by(id: payment_intent.metadata.tool_rental_id)
       ToolRentalService.new.payment_failed(tool_rental, payment_intent) if tool_rental
     end
+  end
 
+  def subscription_updated(object)
+    subscription = Subscription.find_by(stripe_id: object.id)
+    SubscriptionService.new.update_subscription(subscription, object) if subscription
+  end
+
+  def subscription_deleted(object)
+    subscription = Subscription.find_by(stripe_id: object.id)
+    SubscriptionService.new.delete_subscription(subscription, object) if subscription
+  end
+
+  def payment_action_required(object)
+    subscription = Subscription.find_by(stripe_id: object.subscription)
+    SubscriptionMailer.payment_action_required(object.payment_intent, subscription).deliver_later if subscription && subscription.past_due?
+  end
+
+  def invoice_paid(object)
+    subscription = Subscription.find_by(stripe_id: object.subscription)
+    SubscriptionService.new.invoice_paid(subscription, object) if subscription
   end
 
 end

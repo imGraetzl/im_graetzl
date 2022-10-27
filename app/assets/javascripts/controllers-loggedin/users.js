@@ -27,12 +27,13 @@ APP.controllers_loggedin.users = (function() {
                 $(formSubmit).submit();
               }
           });
-
         }
 
         // User Setup
-        if ($("section.usersetup.-favorite-graetzls").exists()) { initFavoriteGraetzls(); }
         if ($("section.usersetup").exists()) { addActionCard(); }
+        if ($("section.usersetup.-favorite-graetzls").exists()) { initFavoriteGraetzls(); }
+        if ($("section.usersetup.-payment-method").exists()) { initPaymentMethod(); }
+
         if ($("section.usersetup.-meetings").exists()) {
           $('.autosubmit-stream').submit();
           $(".autosubmit-stream").bind('ajax:complete', function() {
@@ -55,7 +56,6 @@ APP.controllers_loggedin.users = (function() {
         // Favorite Graetzl Setup Page
         function initFavoriteGraetzls() {
           APP.components.graetzlSelectFilter.init($('#area-select'));
-
           // Submit IDS
           $(".map-form").on("submit", function() {
             $(".fav-desktop .favorite-graetzls a").each(function() {
@@ -64,7 +64,6 @@ APP.controllers_loggedin.users = (function() {
               );
             })
           });
-
           // Remove Current Homegraetzl from Favorite Select Dropdown (Mobileversion)
           var current_home_graetzl_name = $("#current_home_graetzl").data('name');
           var current_home_graetzl_id = $("#current_home_graetzl").data('id');
@@ -74,6 +73,14 @@ APP.controllers_loggedin.users = (function() {
               }
           });
           $(".fav-mobile .fav_graetzls option[value="+current_home_graetzl_id+"]").remove();
+        }
+
+        // Payment Method
+        function initPaymentMethod() {
+          APP.components.stripePayment.init();
+          $('#change_payment').on("click", function() {
+            $("#payment-form").slideToggle();
+          });
         }
 
     }

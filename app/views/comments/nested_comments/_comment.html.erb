@@ -11,7 +11,7 @@
     <% end %>
     <div class="userEntry">
       <%= link_to comment.user, rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round' %>
+        <%= avatar_image_with_tooltip comment.user, size: :thumb, class: 'img-round show-badge' %>
       <% end %>
       <div class="infos">
         <div class="name"><%= link_to comment.user.full_name, comment.user, rel: 'nofollow' %></div>

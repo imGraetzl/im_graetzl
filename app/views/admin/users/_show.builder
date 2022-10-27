@@ -22,8 +22,6 @@ context.instance_eval do
           row :business
           row(:newsletter){|u| status_tag(u.newsletter)}
           row(:role){|u| status_tag(u.role)}
-          row :stripe_connect_account_id
-          row :stripe_connect_ready
           row :location_category
           row :business_interests do |g|
             safe_join(
@@ -59,10 +57,29 @@ context.instance_eval do
         end
       end
 
+      panel 'Payment Details' do
+        attributes_table_for user do
+          row :stripe_customer_id
+          row :payment_method
+          row :payment_card_last4
+          row :stripe_connect_account_id
+          row :stripe_connect_ready
+        end
+      end
+
     end
     column do
 
-      panel 'Locations' do
+      panel 'Subscriptions' do
+        table_for user.subscriptions do
+          column :id
+          column(:subscription_plan) {|p| p.subscription_plan.amount }
+          column(:status){|l| status_tag(l.status)}
+          column(''){|l| link_to 'Anzeigen', admin_subscription_path(l) }
+        end
+      end
+
+      panel 'Schaufenster' do
         table_for user.locations do
           column :id
           column :name

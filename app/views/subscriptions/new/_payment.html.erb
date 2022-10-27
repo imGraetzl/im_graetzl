@@ -1,0 +1,25 @@
+<div class="payment">
+
+  <div class="hl-subtext">
+    <h1>Deine Zahlung</h1>
+    <p>
+      Wähle deine gewünschte Zahlungsmethode.
+    </p>
+  </div>
+
+  <%= form_with url: subscriptions_path, local: true, id: "payment-form", data: {
+    intent: 'payment',
+    client_secret: @client_secret,
+    redirect: payment_authorized_subscription_url(@subscription)
+  } do %>
+    <%= image_tag 'svg/loading.svg', class: 'loading-spinner stripe-spinner', width:100, height:100 %>
+    <div id="payment-element">
+      <!--Stripe.js injects the Payment Element-->
+    </div>
+    <button id="payment-submit" class="btn-primary" data-btntext="Jetzt unterstützen">
+      Abbonieren
+    </button>
+    <div class="error-message"></div>
+  <% end %>
+
+</div>

@@ -35,7 +35,7 @@
   &.pending, &.nein, &.disabled, &.return_pending, &.cancelled, &.not_funded {
     background: orange;
   }
-  &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited {
+  &.active, &.paid_out, &.ja, &.paid, &.enabled, &.return_confirmed, &.live, &.immediate, &.goal1_reached, &.goal2_reached, &.completed, &.debited {
     background: green;
   }
   &.public_space, &.rejected {

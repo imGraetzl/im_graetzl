@@ -1,0 +1,40 @@
+<% title("#{@user.username} | Deine Zahlungsmethode") %>
+
+<section class="user-settings usersetup -payment-method">
+
+  <ul class="tabs-nav">
+    <li class="active"><a>Zahlungsmethode</a></li>
+    <li><%= link_to "Rechnungsadresse", billing_address_user_path %></li>
+  </ul>
+
+  <% if current_user.payment_card_last4? %>
+    <h3>Deine aktuelle Zahlungsmethode</h3>
+    <div>
+      <%= I18n.t("activerecord.attributes.payment_method.#{current_user.payment_method}") %> endet auf ****<%= current_user.payment_card_last4 %>
+       | <%= link_to 'Zahlungsmethode ändern', 'javascript:', id: 'change_payment' %>
+    </div>
+    <br><br>
+  <% end %>
+
+  <%= form_with url: payment_method_user_path, local: true, id: "payment-form", data: {
+    intent: 'setup',
+    client_secret: @setup_intent.client_secret,
+    redirect: payment_authorized_user_url
+  }, class: "#{current_user.payment_card_last4? ? '-hidden' : ''}" do %>
+
+    <%= image_tag 'svg/loading.svg', class: 'loading-spinner stripe-spinner', width:100, height:100 %>
+    <div id="payment-element">
+      <!--Stripe.js injects the Payment Element-->
+    </div>
+    <button id="payment-submit" class="btn-primary" data-btntext="Jetzt unterstützen">
+      Zahlungsmethode aktualisieren
+    </button>
+    <div class="error-message"></div>
+  <% end %>
+
+</section>
+
+<%= javascript_include_tag "https://js.stripe.com/v3/" %>
+<script>
+  window.stripe = Stripe("<%= Rails.configuration.stripe[:publishable_key] %>", { locale: 'de' });
+</script>

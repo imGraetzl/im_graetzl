@@ -5,7 +5,7 @@
         <%= image_tag 'fallbacks/user_avatar.png', class: 'attachment user avatar img-round' %>
       <% else %>
         <%= link_to post.user, rel: 'nofollow' do %>
-        <%= avatar_image_with_tooltip post.user, size: :thumb, class: 'img-round' %>
+        <%= avatar_image_with_tooltip post.user, size: :thumb, class: 'img-round show-badge' %>
         <% end %>
       <% end %>
     </div>

@@ -1,0 +1,34 @@
+<section class="info -subscription-page">
+  <div class="imgHeader -fullwidth">
+    <div class="wrp">
+      <h1>UnterstützerInnen Abo</h1>
+    </div>
+  </div>
+
+  <div class="paperCard -cord1RT -header -top">
+    <div class="wrp">
+      <p>
+        <strong>
+          Das <%= t("region.#{current_region ? current_region.id : 'default'}.domain_short") %> UnterstützerInnen Abo - Für alle die unsere Arbeit wertschätzen.
+        </strong>
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        <br><br>
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+    </div>
+    <div class="card"></div>
+  </div>
+
+  <div class="cardBoxCollection -tripple">
+    <%= render @plans %>
+  </div>
+
+  <div class="allBoxes">
+    <div class="inner cardBoxCollection">
+      Hier könnten wie die letzten UnterstützerInnen listen ...
+    </div>
+  </div>
+
+</section>

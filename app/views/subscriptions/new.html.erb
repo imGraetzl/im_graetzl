@@ -1,0 +1,18 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="subscriptions-page address-screen">
+
+  <div class="col-content">
+    <%= render "subscriptions/new/tabs_nav" %>
+    <%= render 'subscriptions/new/address' %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render 'subscriptions/new/sidebar' %>
+  </div>
+
+</section>
