@@ -19,8 +19,14 @@
       <% end %>
       <span class="userAndType">
         <%= link_to subscription.user.username, subscription.user, rel: 'nofollow' %>
-        <span>unterstützt <%= t("region.#{current_region.id}.domain_short") %> mit einem Abo</span>
+        <span>unterstützt <%= t("region.#{current_region.id}.domain_short") %> mit einer Fördermitgliedschaft</span>
       </span>
+    </div>
+
+    <div class="slogan">
+      <strong><%= Subscription.in(current_region).active.count %></strong>  Menschen unterstützen imGrätzl bereits mit einer Fördermitgliedschaft.
+      <br>
+      <strong>Unser nächstes Ziel: <%= Subscription::NEXT_GOAL %> Förder*innen.</strong>
     </div>
 
     <%= link_to 'Hier kannst du unterstützen', subscription_plans_path, class: 'btn-primary' %>

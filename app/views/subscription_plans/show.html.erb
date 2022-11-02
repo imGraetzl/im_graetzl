@@ -1,7 +1,7 @@
 <section class="info -subscription-page">
   <div class="imgHeader -fullwidth">
     <div class="wrp">
-      <h1>UnterstützerInnen Abo</h1>
+      <h1><%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft</h1>
     </div>
   </div>
 
@@ -9,13 +9,16 @@
     <div class="wrp">
       <p>
         <strong>
-          Das <%= t("region.#{current_region ? current_region.id : 'default'}.domain_short") %> UnterstützerInnen Abo - Für alle die unsere Arbeit wertschätzen.
+          Die <%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft - Für alle die unsere Arbeit wertschätzen.
         </strong>
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        <br><br>
-        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+        Um unsere imGrätzl Arbeit nachhaltig zu finanzieren, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!
+      </p>
+      <p>
+        <strong><%= Subscription.in(current_region).active.count %></strong> Menschen unterstützen imGrätzl bereits mit einer Fördermitgliedschaft.
+        <br>
+        <strong>Unser nächstes Ziel: <%= Subscription::NEXT_GOAL %> Förder*innen.</strong>
       </p>
     </div>
     <div class="card"></div>
@@ -27,7 +30,7 @@
 
   <div class="allBoxes">
     <div class="inner cardBoxCollection">
-      Hier könnten wie die letzten UnterstützerInnen listen ...
+      <%= render :partial => 'subscription_plans/subscribers', :collection => @subscriptions, :as => :subscription %>
     </div>
   </div>
 

@@ -1,6 +1,10 @@
 class SubscriptionsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    redirect_to subscription_plans_path
+  end
+
   def show
     redirect_to subscription_user_path
   end
@@ -94,17 +98,17 @@ class SubscriptionsController < ApplicationController
     @subscription = current_user.subscription
     @plan = SubscriptionPlan.find_by(id: params[:subscription_plan_id])
     @subscription.swap(@plan)
-    redirect_to subscription_path, notice: "Dein Abo wurde geändert."
+    redirect_to subscription_path, notice: "Deine Mitgliedschaft wurde geändert."
   end
 
   def destroy
     current_user.subscription.cancel
-    redirect_to subscription_path, notice: "Dein Abo wurde storniert."
+    redirect_to subscription_path, notice: "Deine Mitgliedschaft wurde storniert."
   end
 
   def resume
     current_user.subscription.resume
-    redirect_to subscription_path, notice: "Dein Abo wurde fortgesetzt."
+    redirect_to subscription_path, notice: "Deine Mitgliedschaft wurde fortgesetzt."
   end
 
   private

@@ -20,11 +20,11 @@
 
         <% if @subscription.on_grace_period? %>
         <li class="sum">
-        Du hast dein Abo storniert. Dieses läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>
+        Deine Mitgliedschaft läuft noch bis zum <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %>.
         </li>
         <% elsif @subscription.canceled? %>
         <li class="sum">
-        Dein Abo ist am <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %> abgelaufen.
+        Deine Mitgliedschaft ist am <%= I18n.localize(@subscription.ends_at, format:'%d. %B %Y') %> ausgelaufen.
         </li>
         <% end %>
 
@@ -32,16 +32,16 @@
 
     <% if @subscription.on_grace_period? %>
 
-      <%= link_to "Abo fortsetzen", resume_subscription_path(@subscription), method: :patch, class: 'btn-primary' %>
+      <%= link_to "Mitgliedschaft fortsetzen", resume_subscription_path(@subscription), method: :patch, class: 'btn-primary' %>
 
     <% elsif @subscription.active? %>
 
-      <%= link_to "Abo ändern", subscription_plans_path, class: 'btn-primary -mint' %>
-      <%= link_to "Abo stornieren", subscription_path(@subscription), method: :delete, data: { confirm: "Bist du sicher?" }, class: 'btn-primary -grey' if !@subscription.on_grace_period? %>
+      <%= link_to "Mitgliedschaft ändern", subscription_plans_path, class: 'btn-primary -mint' %>
+      <%= link_to "Mitgliedschaft stornieren", subscription_path(@subscription), method: :delete, data: { confirm: "Bist du sicher?" }, class: 'btn-primary -grey' if !@subscription.on_grace_period? %>
 
     <% elsif @subscription.canceled? %>
 
-      <%= link_to "Zur Abo Übersicht", subscription_plans_path, class: 'btn-primary -mint' %>
+      <%= link_to "Zur Mitgliedschaft Übersicht", subscription_plans_path, class: 'btn-primary -mint' %>
 
     <% end %>
 

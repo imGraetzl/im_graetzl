@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_24_091354) do
+ActiveRecord::Schema.define(version: 2022_10_31_123633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1002,6 +1002,11 @@ ActiveRecord::Schema.define(version: 2022_10_24_091354) do
     t.string "stripe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "benefit_1"
+    t.string "benefit_2"
+    t.string "benefit_3"
+    t.string "benefit_4"
+    t.string "benefit_5"
   end
 
   create_table "subscriptions", force: :cascade do |t|

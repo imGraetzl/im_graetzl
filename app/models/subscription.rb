@@ -6,6 +6,8 @@ class Subscription < ApplicationRecord
 
   string_enum status: ["incomplete", "active", "canceled", "past_due"]
 
+  NEXT_GOAL = 60
+
   def active?
     ["active"].include?(status) && ends_at.nil? || on_grace_period?
   end
