@@ -2,12 +2,18 @@
 
   <div class="tt-img">
     <%= link_to @user do %>
-      <%= avatar_image @user, size: :thumb, class: 'avatar img-round show-badge', width: 80, height: 80 %>
+      <%= avatar_image @user, size: :thumb, class: 'avatar img-round', width: 80, height: 80 %>
     <% end %>
   </div>
 
   <div class="tt-content">
     <%= link_to @user.full_name, @user, class:'username' %>
+    <% if @user.subscribed? %>
+      <div class="tt-line -subscription">
+        <%= icon_tag "abo" %>
+        <%= link_to "imGrätzl Fördermitglied", subscription_plans_path %>
+      </div>
+    <% end %>
     <% if current_user != @user %>
       <div class="tt-line -messenger">
         <%= icon_tag "mail-1" %>

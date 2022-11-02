@@ -390,6 +390,30 @@ section.info {
         justify-content:center;
         flex-wrap: wrap;
       }
+      .user-tooltip-wrp {
+        display: flex;
+        max-width: unset;
+        flex-wrap: nowrap;
+        width:100%;
+        margin: 5px;
+        .tt-content {
+          max-width: unset;
+        }
+        svg {
+          width:25px;
+          min-width: 25px;
+        }
+        a {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        @include respond-to(">=medium") {
+          width: 48%;
+        }
+        @include respond-to(">=large") {
+          width: 32%;
+        }
+      }
     }
 
   }

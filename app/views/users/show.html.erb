@@ -36,16 +36,26 @@
           <%= icon_tag "calendar-2" %>
           Beigetreten: <%= l(@user.created_at, format: "%b, %Y") %>
         </div>
+
+        <% if @user.subscribed? %>
+          <div class="icontxt">
+            <%= icon_tag "abo" %>
+            <%= link_to "imGrätzl Fördermitglied", subscription_plans_path %>
+          </div>
+        <% end %>
+
         <div class="icontxt">
           <%= icon_tag "mail-1" %>
           <%= link_to "Nachricht senden", messenger_start_thread_path(user_id: @user.id) %>
         </div>
+
         <% if !@user.website.blank? %>
           <%= link_to @user.website, class: 'icontxt', target: '_blank' do %>
             <%= icon_tag "globe" %>
             <%= @user.website.sub(/^https?\:\/\//,'') %>
           <% end %>
         <% end %>
+        
         <div class="icontxt">
           <%= icon_tag "map-location" %>
           <%= link_to @user.graetzl.name, graetzl_url(@user.graetzl, host: @user.region.host) %>

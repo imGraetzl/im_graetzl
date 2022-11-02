@@ -7,7 +7,7 @@
       <% if actual_plan %>
         <%= link_to image_tag('info/cardbox-abo.jpg', class: 'coverImg'), subscription_user_path %>
       <% elsif current_user&.subscribed? %>
-        <%= link_to image_tag('info/cardbox-abo.jpg', class: 'coverImg'), subscription_path(current_user.subscription, subscription_plan_id: subscription_plan.id), method: :patch, data: { confirm: "Bist du sicher, dass du auf dieses Abo wechseln möchtest?" } %>
+        <%= link_to image_tag('info/cardbox-abo.jpg', class: 'coverImg'), subscription_path(current_user.subscription, subscription_plan_id: subscription_plan.id), method: :patch, data: { confirm: "Bist du sicher, dass du auf diese Mitgliedschaft wechseln möchtest?" } %>
       <% else %>
         <%= link_to image_tag('info/cardbox-abo.jpg', class: 'coverImg'), new_subscription_path(subscription_plan_id: subscription_plan.id) %>
       <% end %>
@@ -19,9 +19,14 @@
     <ul class="pricing-summary -facts">
       <p class="title"><%= subscription_plan %></p>
     </ul>
-    <% if subscription_plan.description.present? %>
+    <% if subscription_plan.description.present? || subscription_plan.benefit_1.present? %>
     <ul class="pricing-summary -facts">
       <p class="desc"><%= subscription_plan.description %></p>
+      <% if subscription_plan.benefit_1.present? %><li class="benefit"><%= subscription_plan.benefit_1 %></li><% end %>
+      <% if subscription_plan.benefit_2.present? %><li class="benefit"><%= subscription_plan.benefit_2 %></li><% end %>
+      <% if subscription_plan.benefit_3.present? %><li class="benefit"><%= subscription_plan.benefit_3 %></li><% end %>
+      <% if subscription_plan.benefit_4.present? %><li class="benefit"><%= subscription_plan.benefit_4 %></li><% end %>
+      <% if subscription_plan.benefit_5.present? %><li class="benefit"><%= subscription_plan.benefit_5 %></li><% end %>
     </ul>
     <% end %>
     <ul class="pricing-summary">
@@ -32,11 +37,11 @@
     </ul>
 
     <% if actual_plan %>
-      <%= link_to "Dein aktuelles Abo", subscription_user_path, class: "btn-primary -grey" %>
+      <%= link_to "Deine aktuelle Mitgliedschaft", subscription_user_path, class: "btn-primary -grey" %>
     <% elsif current_user&.subscribed? && !current_user.payment_card_last4? %>
-      <%= link_to "Auf dieses Abo wechseln", new_subscription_path(subscription_plan_id: subscription_plan.id), class: 'btn-primary' %>
+      <%= link_to "Auf diese Mitgliedschaft wechseln", new_subscription_path(subscription_plan_id: subscription_plan.id), class: 'btn-primary' %>
     <% elsif current_user&.subscribed? %>
-      <%= link_to "Auf dieses Abo wechseln", subscription_path(current_user.subscription, subscription_plan_id: subscription_plan.id), method: :patch, class: "btn-primary", data: { confirm: "Bist du sicher, dass du auf dieses Abo wechseln möchtest?" } %>
+      <%= link_to "Auf diese Mitgliedschaft wechseln", subscription_path(current_user.subscription, subscription_plan_id: subscription_plan.id), method: :patch, class: "btn-primary", data: { confirm: "Bist du sicher, dass du auf diese Mitgliedschaft wechseln möchtest?" } %>
     <% else %>
       <%= link_to "Abbonieren", new_subscription_path(subscription_plan_id: subscription_plan.id), class: 'btn-primary' %>
     <% end %>

@@ -3,18 +3,18 @@
   <div class="introcontainer">
     <div class="introtxt">
       <div class="hl-subtext">
-        <h1><em>Dein UnterstützerInnen Abo</em></h1>
+        <h1><em><%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft</em></h1>
         <% if current_user.subscribed? %>
         <p>Vielen Dank für deine Unterstützung <%= current_user.first_name %>!</p>
         <% else %>
-        <p>Das <%= t("region.#{current_region.id}.domain_full") %> UnterstützerInnen Abo - Für alle die unsere Arbeit wertschätzen. <%= render 'shared/questionmarklink', hint_url: subscription_plans_path %></p>
+        <p>Dein Beitrag ermöglicht den Betrieb von imGrätzl und unterstützt die lokalen Macher*innen in Wien. <%= render 'shared/questionmarklink', hint_url: subscription_plans_path %></p>
         <% end %>
       </div>
 
       <% if current_user.subscribed? %>
         <p>
-          Dein Abo ist natürlich jederzeit kündbar. Deine Rechnungen kannst du unterhalb downloaden.
-          Hier kannst du jederzeit deine <%= link_to 'Zahlungseinstellungen', payment_method_user_path %> oder <%= link_to 'Rechnungsanschrift', billing_address_user_path %> für dein aktuelles Abo anpassen.
+          Deine Fördermitgliedschaft ist natürlich jederzeit kündbar. Deine Rechnungen kannst du unterhalb downloaden.
+          Hier kannst du deine <%= link_to 'Zahlungseinstellungen', payment_method_user_path %> oder <%= link_to 'Rechnungsanschrift', billing_address_user_path %> für deine aktuelle Mitgliedschaft anpassen.
         </p>
       <% else %>
         <p>
@@ -30,7 +30,7 @@
   </div>
 
   <% if current_user.subscription_invoices.any? %>
-    <h3>Deine Abo Rechnungen</h3>
+    <h3>Deine Rechnungen</h3>
 
     <div class="table-container -light" role="table">
       <div class="flex-table header" role="rowgroup">

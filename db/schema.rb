@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_05_110840) do
+ActiveRecord::Schema.define(version: 2022_10_31_123633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -495,6 +495,7 @@ ActiveRecord::Schema.define(version: 2022_09_05_110840) do
     t.integer "users_count", default: 0
     t.string "region_id"
     t.string "zip"
+    t.boolean "neighborless", default: false
     t.index ["region_id"], name: "index_graetzls_on_region_id"
     t.index ["slug"], name: "index_graetzls_on_slug"
   end
@@ -1001,6 +1002,11 @@ ActiveRecord::Schema.define(version: 2022_09_05_110840) do
     t.string "stripe_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "benefit_1"
+    t.string "benefit_2"
+    t.string "benefit_3"
+    t.string "benefit_4"
+    t.string "benefit_5"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -1265,6 +1271,7 @@ ActiveRecord::Schema.define(version: 2022_09_05_110840) do
     t.boolean "stripe_connect_ready", default: false
     t.string "payment_method"
     t.string "payment_card_last4"
+    t.boolean "guest", default: false
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"

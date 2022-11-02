@@ -7,6 +7,11 @@ active_admin_form_for [:admin, resource] do |f|
     input :interval, collection: ['year', 'month'], include_blank: true, input_html: { :class => 'admin-filter-select'}
     input :stripe_id
     input :description
+    input :benefit_1
+    input :benefit_2
+    input :benefit_3
+    input :benefit_4
+    input :benefit_5
   end
   actions
 end

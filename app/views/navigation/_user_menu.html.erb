@@ -50,7 +50,7 @@
       <%= nav_menu_item("user-avatar", 'Profil', user_path(current_user), class: 'half') %>
       <%= nav_menu_item("speech-bubbles", 'Messenger', messenger_path, class: 'half') %>
       <%= nav_submenu_link("gears", 'Einstellungen', 'nav-submenu-user-settings') %>
-      <%= nav_submenu_link("abo", 'UnterstützerInnen Abo', 'nav-submenu-user-abo') %>
+      <%= nav_submenu_link("abo", 'Fördermitgliedschaft', 'nav-submenu-user-abo') if current_region.id == 'wien' %>
       <%= nav_submenu_link("location", 'Mein Schaufenster', 'nav-submenu-user-locations') %>
       <%= nav_submenu_link("shopping-bag", 'Meine Zuckerln', 'nav-submenu-user-zuckerls') %>
       <%= nav_submenu_link("calendar-2", 'Meine Treffen', 'nav-submenu-user-meetings',
@@ -79,8 +79,8 @@
 
     <div class="nav-dropdown-submenu" id="nav-submenu-user-abo">
       <%= nav_submenu_back('nav-submenu-user-main') %>
-      <%= nav_menu_item("abo", 'Abo Übersicht', subscription_plans_path) %>
-      <%= nav_menu_item("abo", 'Mein Abo verwalten', subscription_user_path) if current_user.subscriptions %>
+      <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) %>
+      <%= nav_menu_item("abo", 'Mitgliedschaft verwalten', subscription_user_path) if current_user.subscriptions %>
       <%= nav_menu_item("credit-card", 'Zahlungseinstellungen', payment_method_user_path) %>
     </div>
 

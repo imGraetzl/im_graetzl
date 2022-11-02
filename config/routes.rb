@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   resource :user, only: [:edit], path_names: { edit: 'einstellungen' } do
     get 'locations'
     get 'tooltip'
-    get 'abo', action: 'subscription', as: 'subscription'
+    get 'foerdermitgliedschaft', action: 'subscription', as: 'subscription'
     get 'rechnungsadresse', action: 'billing_address', as: 'billing_address'
     get 'zahlungsmethode', action: 'payment_method', as: 'payment_method'
     get 'payment_authorized', on: :member
@@ -212,8 +212,8 @@ Rails.application.routes.draw do
     post 'leave_rating', on: :member
   end
 
-  resource :subscription_plans, path: 'unterstuetzer-abo'
-  resources :subscriptions, path: 'abo' do
+  resource :subscription_plans, path: 'foerdermitgliedschaft'
+  resources :subscriptions, path: 'mitgliedschaft' do
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member
     get 'change_payment', on: :member

@@ -1,0 +1,24 @@
+<%= render 'summary/block_header', title: "Danke an alle imGrätzl Fördermitglieder!" %>
+
+<table border="0" cellpadding="0" cellspacing="0" class="mcnTextContentContainer">
+    <tr>
+      <td class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:18px; padding-right:18px; text-align:center;">
+        Um unsere Arbeit an imGrätzl nachhaltig zu finanzieren, brauchen wir vor allem eines: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!
+      </td>
+    </tr>
+</table>
+
+<%= render partial: 'featured/subscriber', collection: Subscription.in(@region).active.all.sample(4), as: :subscription %>
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%; box-sizing: border-box; margin-bottom:20px;" class="mcnTextContentContainer">
+  <tbody>
+    <tr>
+      <td valign="top" align="center" class="mcnTextContent" style="padding-left:18px; padding-right:18px; padding-top:0; text-align:center;">
+        <strong><%= Subscription.in(@region).active.count %></strong> Menschen unterstützen imGrätzl bereits mit einer Fördermitgliedschaft.
+        <br><strong>Unser nächstes Ziel: <%= Subscription::NEXT_GOAL %> Förder*innen.</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<%= render 'mailers/shared/button', title: "Zur Fördermitgliedschaft", url: subscription_plans_url, style: "width:100%;" %>

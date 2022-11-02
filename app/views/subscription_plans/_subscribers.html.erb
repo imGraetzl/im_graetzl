@@ -1,0 +1,17 @@
+<div class="user-tooltip-wrp cardBox">
+  <div class="tt-img">
+    <%= link_to subscription.user, rel: 'nofollow' do %>
+      <%= avatar_image_with_tooltip subscription.user, size: :thumb, class: 'img-round show-badge' %>
+    <% end %>
+  </div>
+  <div class="tt-content">
+    <span><%= link_to subscription.user.full_name, subscription.user, rel: 'nofollow', class:'username' %></span><br>
+    <small>Fördermitglied seit <%= time_ago_in_words(subscription.created_at) %></small>
+    <% if subscription.user.locations.present? %>
+    <div class="tt-line">
+      <%= icon_tag "location" %>
+      <%= link_to subscription.user.locations.last, subscription.user.locations.last %>
+    </div>
+    <% end %>
+  </div>
+</div>

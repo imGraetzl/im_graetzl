@@ -2,7 +2,7 @@ module ImageHelper
 
   def avatar_image(object, size: nil, **options)
 
-    if options[:class].include?('show-badge')
+    if options[:class] && options[:class].include?('show-badge')
       abo = (object.is_a?(User) || object.is_a?(Location)) && object.subscribed? ? 'abo' : ''
     end
 

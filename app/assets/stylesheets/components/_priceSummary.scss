@@ -19,6 +19,16 @@
     font-style: italic;
   }
 
+  li.benefit {
+    margin-bottom:15px;
+    margin-left:10px;
+    font-style: italic;
+    display: list-item;
+    list-style:initial;
+    //@include font-size-primaryFont('small');
+    //background: url(image_path('svg/icon-arrow-right-blinky-mint-dark.svg')) no-repeat left center;
+  }
+
   li {
     display: flex;
     clear:both;
