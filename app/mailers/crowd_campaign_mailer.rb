@@ -1,16 +1,5 @@
 class CrowdCampaignMailer < ApplicationMailer
 
-  def draft(crowd_campaign)
-    @crowd_campaign = crowd_campaign
-    @region = @crowd_campaign.region
-    headers("X-MC-Tags" => "crowd-campaign-draft")
-    mail(
-      subject: "Wie geht es deinem Vorhaben?",
-      from: platform_email('no-reply'),
-      to: @crowd_campaign.user.email,
-    )
-  end
-
   def pending(crowd_campaign)
     @crowd_campaign = crowd_campaign
     @region = @crowd_campaign.region
