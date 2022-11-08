@@ -1,10 +1,10 @@
 class AddressSearch
 
-  def search(region, query)
+  def search(region, query, graetzl_id = nil)
     return [] if query.blank?
     query.strip!
     # search_wien_gv(region, query)
-    search_mapbox(region, query)
+    search_mapbox(region, query, graetzl_id)
     # search_opendata(region, query)
   end
 
@@ -32,7 +32,8 @@ class AddressSearch
 
   MAPBOX_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 
-  def search_mapbox(region, query)
+  def search_mapbox(region, query, graetzl_id)
+    # if needed add graetzl.proximity to db and in search
     response = HTTP.get(MAPBOX_URL + ERB::Util.url_encode(query) + ".json", params: {
       access_token: Rails.application.secrets.mapbox_token,
       country: "at",
@@ -41,6 +42,7 @@ class AddressSearch
       autocomplete: true,
       limit: 10,
       bbox: region.bounds.flatten.join(","),
+      proximity: region&.proximity ? region&.proximity : '',
     }).parse(:json)
 
     response['features'].filter_map do |address|

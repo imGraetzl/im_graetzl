@@ -20,7 +20,7 @@ class SearchController < ApplicationController
   end
 
   def address
-    render json: { suggestions: AddressSearch.new.search(current_region, params[:query]) }
+    render json: { suggestions: AddressSearch.new.search(current_region, params[:query], params[:graetzl_id]) }
   end
 
   private

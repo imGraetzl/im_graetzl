@@ -14,6 +14,13 @@ div.bbcode {
   ul, ol {
     white-space: normal;
     margin-left: 20px;
+    margin-bottom: 0px;
+    li {
+      margin-bottom: 15px;
+      &:last-child {
+        margin-bottom: 0px;
+      }
+    }
   }
   img {
     max-width: 230px;

@@ -5,7 +5,7 @@ Rails.application.configure do
   # Prerender Rails for Rendertron, needs PRERENDER_SERVICE_URL
   config.middleware.use Rack::Prerender, whitelist: [
     '^/region/', '/category/',
-    '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/zuckerl$'
+    '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/crowdfunding$', '/zuckerl$'
   ]
 
   # Settings specified here will take precedence over those in config/application.rb.
