@@ -7,7 +7,7 @@ class AddStripePaymentToZuckerls < ActiveRecord::Migration[6.1]
     add_column :zuckerls, :stripe_payment_method_id, :string
     add_column :zuckerls, :stripe_payment_intent_id, :string
 
-    rename_column :zuckerls, :debited_at, :debited_at
+    rename_column :zuckerls, :paid_at, :debited_at
     remove_column :zuckerls, :flyer
 
   end
