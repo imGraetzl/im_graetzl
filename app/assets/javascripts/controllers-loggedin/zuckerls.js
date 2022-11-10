@@ -17,6 +17,7 @@ APP.controllers_loggedin.zuckerls = (function() {
     function initFormScreen() {
       APP.components.tabs.setTab('step1');
       APP.components.createzuckerl.init();
+      APP.components.formHelper.maxChars();
     }
 
     function initAddressScreen() {

@@ -56,7 +56,7 @@ class ZuckerlsController < ApplicationController
 
   def change_payment
     @zuckerl = current_user.zuckerls.find(params[:id])
-    redirect_to [:summary, @zuckerl] if !(@zuckerl.failed?)
+    redirect_to zuckerls_user_path if !(@zuckerl.failed?)
 
     @payment_intent = ZuckerlService.new.create_retry_intent(@zuckerl)
   end
