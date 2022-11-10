@@ -16,7 +16,7 @@ class Zuckerl < ApplicationRecord
   validates :title, length: { in: 10..80 }
   validates :description, length: { in: 10..160 }
   validates :cover_photo, presence: true
-  validates :amount, presence: true
+  validates :amount, presence: true, on: :create
 
   string_enum payment_status: ["authorized", "processing", "debited", "failed"]
 
