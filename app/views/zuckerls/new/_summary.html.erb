@@ -1,0 +1,33 @@
+<div class="summary">
+
+  <% if @zuckerl.approved? %>
+
+    <div class="hl-subtext">
+      <h1>Danke für deine Buchung.</h1>
+      <p>
+        Deine Zahlung wurde durchgeführt und dein Zuckerl ist nun erfolgreich freigeschaltet mit folgender Laufzeit:
+      </p>
+    </div>
+
+  <% else %>
+
+    <div class="hl-subtext">
+      <h1>Warten auf Freischaltung</h1>
+      <p>
+        Lieben Dank für deine Buchung.<br>
+        Dein Zuckerl wird nun geprüft und nach erfolgreicher Freischaltung erhältst du ein Mail von uns.
+      </p>
+    </div>
+
+  <% end %>
+
+  <%= render 'zuckerls/new/key_data' %>
+
+  <div>
+    <br>
+    <p>Solltest du Fragen zu deiner Buchung haben, sende uns ein E-Mail an <%= mail_to t("region.#{current_region.id}.contact_email"), nil %></p>
+    <br>
+    <%= link_to 'Zur Zuckerl Übersicht', zuckerls_user_path(anchor: "zuckerl-verwalten"), class: 'btn-primary' %>
+  </div>
+
+</div>

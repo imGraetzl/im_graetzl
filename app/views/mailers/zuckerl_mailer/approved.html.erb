@@ -1,5 +1,5 @@
 <% content_for(:above_title, "Hallo #{@zuckerl.user.first_name}") %>
-<% content_for(:title, "Anbei findest du deine Zuckerl Rechnung als PDF") %>
+<% content_for(:title, "Dein Zuckerl wurde freigeschalten.") %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -32,19 +32,11 @@
     <td class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
 
       <p>
-        <strong>Deine Zahlung wurde erfolgreiche durchgeführt, angehängt findest du deine Rechnung als PDF.</strong>
+        <strong>Der Betrag in der Höhe von <%= @zuckerl.total_price_with_currency %> wird nun von deiner hinterlegten Zahlungsmethode abgebucht. Anschließend erhältst du eine Rechnung per E-Mail.</strong>
         Dein Zuckerl für das Schaufenster
         <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
-        ist somit im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform <%= t("region.#{@zuckerl.region_id}.domain_full") %> aktiv!
-      </p>
-
-      <p>
-        Rechnungsdatum: <%= Date.today.strftime('%d.%m.%Y') %><br/>
-        Rechnungsnummer: <%= @zuckerl.invoice_number %><br/>
-      </p>
-
-      <p>
-        Solltest du Fragen haben schick uns ein Mail an <%= t("region.#{@zuckerl.region_id}.contact_email") %>.
+        ist anschleßend im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform <%= t("region.#{@zuckerl.region_id}.domain_full") %> aktiv!
+        <br/><br/>Solltest du Fragen haben schick uns ein Mail an <%= t("region.#{@zuckerl.region_id}.contact_email") %>.
         <br/>
         Dein Team von <%= t("region.#{@zuckerl.region_id}.domain_full") %>
       </p>

@@ -18,13 +18,11 @@ class ZuckerlInvoice
   end
 
   def add_billing_address(pdf, zuckerl)
-    if zuckerl.location.billing_address.present?
-      pdf.text "Rechnungsempfänger", style: :bold
-      pdf.text zuckerl.location.billing_address.full_name
-      pdf.text zuckerl.location.billing_address.company
-      pdf.text zuckerl.location.billing_address.street
-      pdf.text "#{zuckerl.location.billing_address.zip} #{zuckerl.location.billing_address.city}"
-    end
+    pdf.text "Rechnungsempfänger", style: :bold
+    pdf.text zuckerl.company
+    pdf.text zuckerl.name
+    pdf.text zuckerl.address
+    pdf.text "#{zuckerl.zip} #{zuckerl.city}"
     pdf.move_down 40
   end
 

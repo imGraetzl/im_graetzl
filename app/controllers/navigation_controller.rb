@@ -7,7 +7,7 @@ class NavigationController < ApplicationController
     when 'locations'
       @locations = current_user.locations.in(current_region).approved.first(6)
     when 'zuckerls'
-      @zuckerls = Zuckerl.where(location: current_user.locations).in(current_region).where.not(aasm_state: :expired).where.not(aasm_state: :cancelled).order(created_at: :desc).first(6)
+      @zuckerls = current_user.zuckerls.initialized.in(current_region).order(created_at: :desc).first(6)
     when 'meetings'
       @meetings = current_user.attended_meetings.in(current_region).upcoming.first(6)
     when 'rooms'

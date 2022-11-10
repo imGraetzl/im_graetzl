@@ -10,9 +10,9 @@ de:
         approve_for_api: für API freischalten
         disapprove_for_api: für API ablehnen
         reject: Ablehnen
+        decline: Ablehnen
         destroy: Löschen
-        mark_as_paid: als bezahlt markieren
-        put_live: live stellen
+        live: live stellen
         expire: als abgelaufen markieren
         cancel: als gelöscht markieren
       link: erstellen

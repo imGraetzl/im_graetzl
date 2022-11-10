@@ -7,6 +7,7 @@ class CrowdPledgeService
       payment_method_types: available_payment_methods(crowd_pledge),
       usage: 'off_session',
       metadata: {
+        type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id
       },
@@ -63,6 +64,7 @@ class CrowdPledgeService
       currency: 'eur',
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
       metadata: {
+        type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id
       },
@@ -107,6 +109,7 @@ class CrowdPledgeService
       statement_descriptor: statement_descriptor(crowd_pledge.crowd_campaign),
       payment_method_types: retry_payment_methods(crowd_pledge),
       metadata: {
+        type: 'CrowdPledge',
         pledge_id: crowd_pledge.id,
         campaign_id: crowd_pledge.crowd_campaign.id
       },

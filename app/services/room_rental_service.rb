@@ -7,6 +7,7 @@ class RoomRentalService
       payment_method_types: available_payment_methods(room_rental),
       usage: 'off_session',
       metadata: {
+        type: 'RoomRental',
         room_rental_id: room_rental.id,
         room_offer_id: room_rental.room_offer.id
       },
@@ -47,6 +48,7 @@ class RoomRentalService
       currency: 'eur',
       statement_descriptor: statement_descriptor(room_rental.room_offer),
       metadata: {
+        type: 'RoomRental',
         room_rental_id: room_rental.id,
         room_offer_id: room_rental.room_offer.id
       },
@@ -98,6 +100,7 @@ class RoomRentalService
       statement_descriptor: statement_descriptor(room_rental.room_offer),
       payment_method_types: retry_payment_methods(room_rental),
       metadata: {
+        type: 'RoomRental',
         room_rental_id: room_rental.id,
         room_offer_id: room_rental.room_offer.id
       },

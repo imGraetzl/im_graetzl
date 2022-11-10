@@ -1,6 +1,6 @@
 APP.components.createzuckerl = (function() {
     var $titleinput, $descriptioninput, $imageinput, $districtinput, $titlepreview,
-        $descriptionpreview, $imagepreview, $pricepreview, $btnconfirm, $btnsend,
+        $descriptionpreview, $imagepreview, $pricepreview,
         $graetzlpreview, $alldistrictspreview;
 
     function init() {
@@ -17,15 +17,12 @@ APP.components.createzuckerl = (function() {
         $graetzlpreview = $("[data-behavior=graetzlpreview]");
         $alldistrictspreview = $("[data-behavior=alldistrictspreview]");
         $imagepreview = $("[data-behavior=imagepreview]");
-        $btnconfirm = $("[data-behavior=btn-confirm]");
-        $btnsend = $("[data-behavior=btn-send]");
 
         bindevents();
         updatetitle();
         updatedescription();
         updatelink();
         updatedistricts();
-        btnclickability();
         disabledistricts();
         $linkpreview.hide();
     }
@@ -36,12 +33,6 @@ APP.components.createzuckerl = (function() {
         $linkinput.on("keyup change", updatelink);
         $imageinput.on("upload:complete", function() { setTimeout(updateimage, 300) });
         $districtinput.on("change", updatedistricts);
-        $btnconfirm.on("click", btnstate);
-        $("[data-behavior=zuckerlform]").on("submit", submitzuckerlform);
-        $titleinput.add($descriptioninput).on("keyup change", function() {
-            btnclickability();
-            btnstate("reset");
-        });
     }
 
     function disabledistricts() {
@@ -88,33 +79,10 @@ APP.components.createzuckerl = (function() {
     function updateimage() {
       var src = $(".upload-preview-image").attr("src");
       $imagepreview.html($("<img>").attr("src", src));
-      btnclickability();
-      btnstate("reset");
     }
 
     function validatefields() {
         return ($titleinput.val().length > 0 && $descriptioninput.val().length > 0 && $imageinput.val().length > 0);
-    }
-
-    function btnclickability() {
-        if(validatefields()) $btnconfirm.removeClass('-disabled');
-        else $btnconfirm.addClass('-disabled', true);
-    }
-
-    function submitzuckerlform(e) {
-        if($btnsend.exists() && !$btnsend.hasClass("is-visible")) {
-            e.preventDefault();
-        }
-    }
-
-    function btnstate(mode) {
-        if(mode === "reset") {
-            $btnconfirm.show();
-            $btnsend.removeClass("is-visible");
-        } else {
-            $btnconfirm.hide();
-            $btnsend.addClass("is-visible");
-        }
     }
 
     function formatPrice(price) {

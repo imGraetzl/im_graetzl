@@ -2,7 +2,7 @@
   <div class="cardBoxHeader">
     <div class="imgpreview" data-behavior="imagepreview">
       <div class="coverImgWrapper">
-        <%= cover_photo_image(zuckerl, class: 'coverImg') if zuckerl.cover_photo %>
+        <%= cover_photo_image(@zuckerl, class: 'coverImg') if @zuckerl.cover_photo %>
       </div>
     </div>
     <div class="categoryicon">
@@ -12,15 +12,15 @@
   <div class="cardBoxContent">
     <div class="avatar-block">
       <div class="avatarImg">
-        <%= avatar_image location, size: :small, class: 'avatar img-square' %>
+        <%= avatar_image @zuckerl.location, size: :small, class: 'avatar img-square' %>
       </div>
       <div class="typetxt">
-        <div class="name"><%= location.name %></div>
-        <div class="category"><%= location.location_category.name if location.location_category %></div>
-        <% if location.using_address? %>
+        <div class="name"><%= @zuckerl.location.name %></div>
+        <div class="category"><%= @zuckerl.location.location_category.name if @zuckerl.location.location_category %></div>
+        <% if @zuckerl.location.using_address? %>
           <div class="address">
             <%= icon_tag "location" %>
-            <%= location.address_street %>
+            <%= @zuckerl.location.address_street %>
           </div>
         <% end %>
       </div>
@@ -37,15 +37,15 @@
   </div>
 </div>
 
-<div class="basicdata">
+<div class="zuckerl-keydata">
   <div class="headline">Eckdaten</div>
   <ul class="facts">
-    <li><strong>Laufzeit:</strong> <%= zuckerl_month_and_year(zuckerl) %></li>
+    <li><strong>Laufzeit:</strong> <%= zuckerl_month_and_year(@zuckerl) %></li>
     <li>
       <strong>Sichtbarkeit:</strong>
         <span data-behavior="graetzlpreview">
-          <%= location.graetzl.name %>
-          <% if current_region.use_districts? %> und gesamter <%= location.graetzl.district.numeric %>. Bezirk <% end %>
+          <%= @zuckerl.location.graetzl.name %>
+          <% if current_region.use_districts? %> und gesamter <%= @zuckerl.location.graetzl.district.numeric %>. Bezirk <% end %>
         </span>
         <span data-behavior="alldistrictspreview">
           Ganz <%= current_region %>

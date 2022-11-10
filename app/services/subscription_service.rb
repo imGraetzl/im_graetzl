@@ -9,6 +9,7 @@ class SubscriptionService
       expand: ['latest_invoice.payment_intent'],
       payment_behavior: 'default_incomplete',
       metadata: {
+        type: 'Subscription',
         subscription_id: subscription.id,
       },
     }.merge(options)
