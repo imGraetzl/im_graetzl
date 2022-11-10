@@ -38,7 +38,7 @@ class ZuckerlService
 
     zuckerl.approve! if zuckerl.may_approve?
     ZuckerlService.new.charge(zuckerl) if zuckerl.authorized?
-    ZuckerlMailer.approved(zuckerl).deliver_later
+    ZuckerlMailer.approved(zuckerl).deliver_later if zuckerl.authorized?
   end
 
   def invoice(zuckerl)
