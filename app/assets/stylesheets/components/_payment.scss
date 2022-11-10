@@ -1,5 +1,5 @@
 // PAYMENT LAYOUT SCREENS
-.tool-rental-page, .room-rental-page, .crowd-pledges-page, .subscriptions-page {
+.tool-rental-page, .room-rental-page, .crowd-pledges-page, .subscriptions-page, .zuckerl-page {
 
   // Layout Grid
   display: flex;
@@ -185,6 +185,24 @@
       margin-top:20px;
       display: inline-flex;
     }
+  }
+}
+
+.zuckerl-page.createzuckerl {
+  label {
+    @include respond-to(">=medium") {
+      min-width: 170px;
+    }
+  }
+}
+
+.zuckerl-page.summary-screen .summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .zuckerl-keydata {
+    margin-left:auto;
+    margin-right:auto;
   }
 }
 

@@ -12,7 +12,7 @@
       <div class="title"><%= zuckerl.title %></div>
       <div class="description"><%= zuckerl.description %></div>
     </div>
-    <% if zuckerl.link %>
+    <% if zuckerl.link.present? %>
       <%= link_to zuckerl.link, class: 'btn-icon', target: '_blank' do %>
         <%= icon_tag "globe" %>
         Mehr dazu

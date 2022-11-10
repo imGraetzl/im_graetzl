@@ -4,15 +4,16 @@
   )
 %>
 
-<section class="zuckerl-page createzuckerl">
+<section class="zuckerl-page address-screen">
 
   <div class="col-content">
     <%= render "zuckerls/new/tabs_nav" %>
-    <%= render 'zuckerls/new/new_zuckerl' %>
+    <%= render 'zuckerls/new/address' %>
   </div>
 
   <div class="col-sidebar">
-    <%= render 'zuckerls/zuckerl_preview' %>
+    <%= render @zuckerl %>
+    <%= render 'zuckerls/new/key_data' %>
   </div>
 
 </section>

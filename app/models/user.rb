@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
   has_many :locations, dependent: :destroy
+  has_many :zuckerls, through: :locations
   has_many :coop_demands, dependent: :destroy
   has_many :room_offers
   has_many :room_demands, dependent: :destroy

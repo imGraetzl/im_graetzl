@@ -1,42 +1,51 @@
 ActiveAdmin.register Zuckerl do
   menu parent: :locations
-  after_save do |zuckerl|
-    event = params[:zuckerl][:active_admin_requested_event]
-    zuckerl.send("#{event}!") unless event.blank?
-  end
 
-  filter :location
+  scope :initialized, default: true
+  scope :pending
+  scope :approved
+  scope :cancelled
+  scope :live
+  scope "#{I18n.localize Time.now.end_of_month+1.day, format: '%B'} Zuckerl", :next_month_live
+  scope :expired
+  scope "Bezahlt", :marked_as_paid
+  scope :all
+
+  filter :region_id, label: 'Region', as: :select, collection: proc { Region.all }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :user, collection: proc { User.admin_select_collection }, include_blank: true, input_html: { class: 'admin-filter-select'}
+  filter :location, collection: proc { Location.order(:name).pluck(:name, :id) }, include_blank: true, input_html: { class: 'admin-filter-select'}
   filter :title
   filter :description
-  filter :flyer
   filter :entire_region
   filter :aasm_state, as: :select, collection: Zuckerl.aasm.states_for_select
-  filter :paid_at
+  filter :payment_status, as: :select, collection: Zuckerl.payment_statuses.keys
+  filter :payment_method
+  filter :stripe_customer_id
+  filter :stripe_payment_intent_id
   filter :created_at
-
-  scope "Aktueller Monat", :live, default: true
-  scope "#{I18n.localize Time.now.end_of_month+1.day, format: '%B'} Zuckerl", :next_month_live
-  scope "Alle", :all
-  scope "Bezahlt", :marked_as_paid
-  scope :pending
-  scope :cancelled
-  scope :expired
+  filter :debited_at
 
   index { render 'index', context: self }
   show { render 'show', context: self }
   form partial: 'form'
 
-  batch_action :mark_as_paid do |ids|
+  batch_action :approve do |ids|
     batch_action_collection.find(ids).each do |zuckerl|
-      zuckerl.mark_as_paid! if zuckerl.may_mark_as_paid?
+      ZuckerlService.new.approve(zuckerl)
     end
-    redirect_to collection_path, alert: 'Die ausgewählten Zuckerl wurden als bezahlt markiert.'
+    redirect_to collection_path, alert: 'Die ausgewählten Zuckerl wurden freigeschalten.'
   end
-  batch_action :put_live do |ids|
+  batch_action :live do |ids|
     batch_action_collection.find(ids).each do |zuckerl|
-      zuckerl.put_live! if zuckerl.may_put_live?
+      zuckerl.live! if zuckerl.may_live?
     end
     redirect_to collection_path, alert: 'Die ausgewählten Zuckerl wurden live gestellt.'
+  end
+  batch_action :cancel do |ids|
+    batch_action_collection.find(ids).each do |zuckerl|
+      zuckerl.cancel!
+    end
+    redirect_to collection_path, alert: 'Die ausgewählten Zuckerl wurden als gelöscht markiert.'
   end
   batch_action :expire do |ids|
     batch_action_collection.find(ids).each do |zuckerl|
@@ -44,21 +53,14 @@ ActiveAdmin.register Zuckerl do
     end
     redirect_to collection_path, alert: 'Die ausgewählten Zuckerl wurden als abgelaufen markiert.'
   end
-  batch_action :cancel do |ids|
-    batch_action_collection.find(ids).each do |zuckerl|
-      zuckerl.cancel! if zuckerl.may_cancel?
-    end
-    redirect_to collection_path, alert: 'Die ausgewählten Zuckerl wurden als gelöscht markiert.'
-  end
 
   permit_params :location_id,
                 :title,
                 :description,
-                :flyer,
                 :entire_region,
                 :aasm_state,
                 :active_admin_requested_event,
-                :paid_at,
+                :debited_at,
                 :link,
                 :cover_photo, :remove_cover_photo
   # Within app/admin/resource_name.rb

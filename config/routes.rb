@@ -301,8 +301,13 @@ Rails.application.routes.draw do
 
   get 'navigation/load_content'
 
-  resources :zuckerls, path: 'zuckerl', only: [:new] do
-    resource :billing_address, only: [:show, :create, :update]
+  resources :zuckerls, path: 'zuckerl' do
+    get 'address', on: :member
+    get 'choose_payment', on: :member
+    get 'payment_authorized', on: :member
+    get 'change_payment', on: :member
+    get 'payment_changed', on: :member
+    get 'summary', on: :member
   end
 
   resources :comments, only: [:create, :destroy]

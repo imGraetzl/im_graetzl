@@ -1,0 +1,16 @@
+<div class="hl-subtext">
+  <h1><span>Zuckerl</span> bearbeiten</h1>
+  <p>
+    Bearbeite hier dein Zuckerl für den Monat <%= zuckerl_month(@zuckerl) %>.
+  </p>
+</div>
+
+<%= form_for [@location, @zuckerl], data: { behavior: 'zuckerlform' } do |f| %>
+<%= hidden_field_tag :edit_zuckerl, true %>
+  <div class="booking-block">
+    <div class="form-block">
+      <%= render 'zuckerls/new/form_fields', f: f %>
+      <%= f.button 'Zuckerl speichern', class: 'btn-primary' %>
+    </div>
+  </div>
+<% end %>

@@ -261,6 +261,20 @@ de:
     summary:
       title: 'Raumteiler anfragen - Zusammenfassung'
 
+  zuckerls:
+    new_location:
+      title: 'Zuckerl Buchung - Schaufenster auswählen'
+    new:
+      title: 'Zuckerl Buchung - Erstelle dein Zuckerl'
+    address:
+      title: 'Zuckerl Buchung - Rechnungsadresse'
+    choose_payment:
+      title: 'Zuckerl Buchung - Zahlungsart wählen'
+    change_payment:
+      title: 'Zuckerl Buchung - Zahlungsart ändern'
+    summary:
+      title: 'Zuckerl Buchung - Zusammenfassung'
+
   messenger:
     index:
       title: 'Messenger'

@@ -7,6 +7,7 @@ class ToolRentalService
       payment_method_types: available_payment_methods(tool_rental),
       usage: 'off_session',
       metadata: {
+        type: 'ToolRental',
         tool_rental_id: tool_rental.id,
         tool_offer_id: tool_rental.tool_offer.id
       },
@@ -47,6 +48,7 @@ class ToolRentalService
       currency: 'eur',
       statement_descriptor: statement_descriptor(tool_rental.tool_offer),
       metadata: {
+        type: 'ToolRental',
         tool_rental_id: tool_rental.id,
         tool_offer_id: tool_rental.tool_offer.id
       },
@@ -97,6 +99,7 @@ class ToolRentalService
       statement_descriptor: statement_descriptor(tool_rental.tool_offer),
       payment_method_types: retry_payment_methods(tool_rental),
       metadata: {
+        type: 'ToolRental',
         tool_rental_id: tool_rental.id,
         tool_offer_id: tool_rental.tool_offer.id
       },

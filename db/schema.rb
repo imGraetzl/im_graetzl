@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_31_123633) do
+ActiveRecord::Schema.define(version: 2022_11_04_130604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -1290,9 +1290,8 @@ ActiveRecord::Schema.define(version: 2022_10_31_123633) do
     t.text "description"
     t.string "image_id"
     t.string "image_content_type"
-    t.boolean "flyer", default: false
     t.string "aasm_state"
-    t.datetime "paid_at"
+    t.datetime "debited_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug"
@@ -1302,6 +1301,17 @@ ActiveRecord::Schema.define(version: 2022_10_31_123633) do
     t.jsonb "cover_photo_data"
     t.string "region_id"
     t.bigint "user_id"
+    t.string "payment_status"
+    t.string "payment_method"
+    t.string "payment_card_last4"
+    t.string "stripe_payment_method_id"
+    t.string "stripe_payment_intent_id"
+    t.decimal "amount", precision: 10, scale: 2
+    t.string "company"
+    t.string "name"
+    t.string "address"
+    t.string "zip"
+    t.string "city"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"

@@ -13,17 +13,78 @@ class ZuckerlsController < ApplicationController
   end
 
   def create
-    @location = Location.find(params[:location_id])
+    @location = current_user.locations.find(params[:location_id])
     @zuckerl = @location.zuckerls.new(zuckerl_params)
     @zuckerl.user = current_user
-    @zuckerl.region_id = current_region.id
+    @zuckerl.region_id = @location.region_id
+    @zuckerl.amount = @zuckerl.total_price / 100
 
     if @zuckerl.save
       @zuckerl.link ||= nil
-      redirect_to zuckerl_billing_address_path @zuckerl
+      redirect_to [:address, @zuckerl]
     else
       render :new
     end
+  end
+
+  def address
+    @zuckerl = current_user.zuckerls.find(params[:id])
+    @zuckerl.assign_attributes(current_user_params)
+  end
+
+  def choose_payment
+    @zuckerl = current_user.zuckerls.find(params[:id])
+    redirect_to [:summary, @zuckerl] and return if !@zuckerl.incomplete?
+
+    @setup_intent = ZuckerlService.new.create_setup_intent(@zuckerl)
+  end
+
+  def payment_authorized
+    @zuckerl = current_user.zuckerls.find(params[:id])
+    redirect_to [:choose_payment, @zuckerl] if params[:setup_intent].blank?
+
+    success, error = ZuckerlService.new.payment_authorized(@zuckerl, params[:setup_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+      redirect_to [:summary, @zuckerl]
+    else
+      flash[:error] = error
+      redirect_to [:choose_payment, @zuckerl]
+    end
+  end
+
+  def change_payment
+    @zuckerl = current_user.zuckerls.find(params[:id])
+    redirect_to [:summary, @zuckerl] if !(@zuckerl.failed?)
+
+    @payment_intent = ZuckerlService.new.create_retry_intent(@zuckerl)
+  end
+
+  def payment_changed
+    @zuckerl = current_user.zuckerls.find(params[:id])
+    redirect_to [:summary, @zuckerl] if params[:payment_intent].blank?
+
+    success, error = ZuckerlService.new.payment_retried(@zuckerl, params[:payment_intent])
+
+    if success
+      flash[:notice] = "Deine Zahlung wurde erfolgreich authorisiert."
+
+      # Publish Immediate if Zuckerl is Payed and booked for current month
+      last_month = Date.today.last_month
+      if @zuckerl.approved? && @zuckerl.created_at >= last_month.beginning_of_month && @zuckerl.created_at <= last_month.end_of_month
+        ZuckerlService.new.publish(@zuckerl)
+      end
+
+      redirect_to [:summary, @zuckerl]
+    else
+      flash[:error] = error
+      redirect_to [:change_payment, @zuckerl]
+    end
+  end
+
+  def summary
+    @zuckerl = current_user.zuckerls.find(params[:id])
   end
 
   def edit
@@ -34,8 +95,12 @@ class ZuckerlsController < ApplicationController
   def update
     set_location
     set_zuckerl_or_redirect or return
-    if @zuckerl.update zuckerl_params_edit
-      redirect_to zuckerls_user_path, notice: 'Zuckerl wurde aktualisiert'
+
+    if params[:edit_zuckerl].present?
+      @zuckerl.update zuckerl_params_edit
+      redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde aktualisiert'
+    elsif @zuckerl.update zuckerl_address_params
+      redirect_to [:choose_payment, @zuckerl]
     else
       render :edit
     end
@@ -44,7 +109,7 @@ class ZuckerlsController < ApplicationController
   def destroy
     set_location
     @location.zuckerls.find(params[:id]).cancel!
-    redirect_to zuckerls_user_path, notice: 'Zuckerl wurde gelöscht'
+    redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde gelöscht'
   end
 
   private
@@ -64,7 +129,7 @@ class ZuckerlsController < ApplicationController
   def set_location_for_new
     case
     when params[:location_id].present?
-      @location = Location.find(params[:location_id])
+      @location = current_user.locations.in(current_region).approved.find(params[:location_id])
     when current_user.locations.in(current_region).approved.count == 1
       @location = current_user.locations.in(current_region).approved.first
     else
@@ -74,23 +139,44 @@ class ZuckerlsController < ApplicationController
   end
 
   def set_location
-    @location = current_user.locations.find params[:location_id]
+  @location = current_user.zuckerls.find(params[:id]).location
   end
 
   def set_zuckerl_or_redirect
-    @zuckerl = @location.zuckerls.where(aasm_state: ['pending', 'paid']).find params[:id]
+    @zuckerl = @location.zuckerls.where(aasm_state: ['incomplete', 'pending']).find params[:id]
   rescue ActiveRecord::RecordNotFound
-    redirect_to zuckerls_user_path, alert: 'Zuckerl können leider nicht mehr bearbeitet werden wenn sie live sind.' and return
+    redirect_to zuckerls_user_path, alert: 'Bereits freigeschaltene Zuckerl können nicht mehr bearbeitet werden.' and return
+  end
+
+  def current_user_params
+    {
+      name: current_user.billing_address&.full_name || current_user.full_name,
+      company: current_user.billing_address&.company,
+      address: current_user.billing_address&.street || current_user.address_street,
+      zip: current_user.billing_address&.zip || current_user.address_zip,
+      city: current_user.billing_address&.city || current_user.address_city,
+    }
+  end
+
+  def zuckerl_address_params
+    params.require(:zuckerl).permit(
+      :name,
+      :company,
+      :address,
+      :zip,
+      :city,
+    )
   end
 
   def zuckerl_params
     params.require(:zuckerl).permit(
       :title,
+      :amount,
       :description,
       :cover_photo,
       :remove_cover_photo,
       :entire_region,
-      :link
+      :link,
     )
   end
 
@@ -100,7 +186,7 @@ class ZuckerlsController < ApplicationController
       :description,
       :cover_photo,
       :remove_cover_photo,
-      :link
+      :link,
     )
   end
 end

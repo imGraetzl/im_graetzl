@@ -44,8 +44,7 @@ class UsersController < ApplicationController
   end
 
   def zuckerls
-    @zuckerls = Zuckerl.where(location: current_user.locations).in(current_region).
-      where.not(aasm_state: :cancelled).order(created_at: :desc)
+    @zuckerls = current_user.zuckerls.initialized.in(current_region).order(created_at: :desc)
   end
 
   def locations

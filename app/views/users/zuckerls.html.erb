@@ -7,7 +7,7 @@
     <h2 class="hl-main" id="zuckerl-verwalten">Deine <span>Zuckerl</span> verwalten</h2>
 
     <div class="cardBoxCollection -tripple" data-behavior="zuckerls-card-container">
-      <%= render partial: 'users/zuckerl', collection: @zuckerls %>
+      <%= render @zuckerls, manage_buttons: true %>
     </div>
 
   <% end %>

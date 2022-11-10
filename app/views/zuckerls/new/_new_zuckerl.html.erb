@@ -1,0 +1,16 @@
+<div class="hl-subtext">
+  <h1>Neues <span>Zuckerl</span></h1>
+  <p>
+    Erstelle jetzt dein Zuckerl für den Monat <%= zuckerl_month(@zuckerl) %>.
+  </p>
+</div>
+
+<%= form_for [@location, @zuckerl], data: { behavior: 'zuckerlform' } do |f| %>
+
+  <div class="booking-block">
+    <div class="form-block">
+      <%= render 'zuckerls/new/form_fields', f: f %>
+      <%= f.button 'Weiter', class: 'btn-primary' %>
+    </div>
+  </div>
+<% end %>

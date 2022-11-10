@@ -7,8 +7,9 @@ de:
 
     events:
       zuckerl:
-        mark_as_paid: Als bezahlt markieren
-        put_live: Live stellen
+        approve: Freischalten
+        decline: Ablehnen
+        live: Live stellen
         expire: Als abgelaufen markieren
         cancel: Als gelöscht markieren
     models:
@@ -340,18 +341,17 @@ de:
         role: Admin
         origin: Registriert über URL
       zuckerl:
-        active_admin_requested_event: Status ändern
         aasm_state: Status
         aasm_state/pending: Pending
-        aasm_state/paid: Paid
         aasm_state/expired: Expired
         aasm_state/cancelled: Deleted
         created_at: Erstellt am
         title: Titel
         description: Beschreibung
+        cover_photo: Bild
         entire_region: Ganz Wien
         image: Bild
-        paid_at: Bezahlt am
+        debited_at: Bezahlt am
         payment_reference: Zahlungsreferenz
         visibility: Sichtbarkeit
         marked_as_paid: Als bezahlt markiert

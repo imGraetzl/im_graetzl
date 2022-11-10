@@ -38,7 +38,6 @@ class WebhooksController < ApplicationController
   private
 
   def payment_intent_succeded(payment_intent)
-
     if payment_intent.metadata["pledge_id"]
       crowd_pledge = CrowdPledge.find_by(id: payment_intent.metadata.pledge_id)
       if crowd_pledge
@@ -54,6 +53,11 @@ class WebhooksController < ApplicationController
     if payment_intent.metadata["tool_rental_id"]
       tool_rental = ToolRental.find_by(id: payment_intent.metadata.tool_rental_id)
       ToolRentalService.new.payment_succeeded(tool_rental, payment_intent) if tool_rental
+    end
+
+    if payment_intent.metadata["zuckerl_id"]
+      zuckerl = Zuckerl.find_by(id: payment_intent.metadata.zuckerl_id)
+      ZuckerlService.new.payment_succeeded(zuckerl, payment_intent) if zuckerl
     end
   end
 
@@ -71,6 +75,11 @@ class WebhooksController < ApplicationController
     if payment_intent.metadata["tool_rental_id"]
       tool_rental = ToolRental.find_by(id: payment_intent.metadata.tool_rental_id)
       ToolRentalService.new.payment_failed(tool_rental, payment_intent) if tool_rental
+    end
+
+    if payment_intent.metadata["zuckerl_id"]
+      zuckerl = Zuckerl.find_by(id: payment_intent.metadata.zuckerl_id)
+      ZuckerlService.new.payment_failed(zuckerl, payment_intent) if zuckerl
     end
   end
 

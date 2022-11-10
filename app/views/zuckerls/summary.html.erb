@@ -4,14 +4,14 @@
   )
 %>
 
-<section class="zuckerl-page createzuckerl -edit">
+<section class="zuckerl-page summary-screen">
 
   <div class="col-content">
-    <%= render 'zuckerls/new/edit_zuckerl' %>
+    <%= render 'zuckerls/new/summary' %>
   </div>
 
   <div class="col-sidebar">
-    <%= render 'zuckerls/zuckerl_preview' %>
+    <%= render @zuckerl %>
   </div>
 
 </section>
