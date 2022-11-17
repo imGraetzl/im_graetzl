@@ -11,6 +11,7 @@ class Zuckerl < ApplicationRecord
 
   belongs_to :location
   belongs_to :user
+  belongs_to :subscription, optional: true
   has_one :graetzl, through: :location
 
   validates :title, length: { in: 10..80 }
@@ -18,10 +19,11 @@ class Zuckerl < ApplicationRecord
   validates :cover_photo, presence: true
   validates :amount, presence: true, on: :create
 
-  string_enum payment_status: ["authorized", "processing", "debited", "failed"]
+  string_enum payment_status: ["free", "authorized", "processing", "debited", "failed"]
 
   scope :initialized, -> { where.not(aasm_state: :incomplete).where.not(aasm_state: :cancelled) }
   scope :entire_region, -> { where(entire_region: true) }
+  scope :graetzl, -> { where(entire_region: false) }
   scope :marked_as_paid, -> { where("debited_at IS NOT NULL") }
   scope :next_month_live, lambda {where("created_at > ? AND created_at < ? AND aasm_state = ? OR aasm_state = ?", Time.now.beginning_of_month, Time.now.end_of_month, 'pending', 'approved')}
 
@@ -99,6 +101,10 @@ class Zuckerl < ApplicationRecord
     basic_price + tax
   end
 
+  def amount_with_currency
+    number_to_currency(amount)
+  end
+
   def basic_price_with_currency
     number_to_currency(basic_price / 100)
   end
@@ -119,6 +125,10 @@ class Zuckerl < ApplicationRecord
     else
       graetzl.name
     end
+  end
+
+  def runtime
+    I18n.localize self.created_at.end_of_month+1.day, format: '%B %Y'
   end
 
   def zuckerl_invoice

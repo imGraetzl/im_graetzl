@@ -1,0 +1,13 @@
+<div class="cardBox -subscriptionzuckerls">
+  <div class="item">
+    <%= icon_tag "shopping-bag" %>
+    <div>
+      <% if current_user.open_region_zuckerl? %>
+        <strong><u><%= current_user.free_region_zuckerl %> Zuckerl</u> mit der Sichtbarkeit '<u><%= t("region.#{current_region.id}.zuckerl.region") %></u>'.</strong><br>
+      <% end %>
+      <% if current_user.open_graetzl_zuckerl? %>
+        <strong><u><%= current_user.free_graetzl_zuckerl %> Zuckerl</u> mit der Sichtbarkeit '<u><%= t("region.#{current_region.id}.zuckerl.graetzl") %></u>'.</strong><br>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -3,6 +3,8 @@ APP.controllers_loggedin.zuckerls = (function() {
     function init() {
       if ($(".zuckerl-page.createzuckerl").exists()) {
         initFormScreen();
+      } else if ($(".zuckerl-page.voucher-screen").exists()) {
+        initVoucherScreen();
       } else if ($(".zuckerl-page.address-screen").exists()) {
         initAddressScreen();
       } else if ($(".zuckerl-page.payment-screen").exists()) {
@@ -18,6 +20,10 @@ APP.controllers_loggedin.zuckerls = (function() {
       APP.components.tabs.setTab('step1');
       APP.components.createzuckerl.init();
       APP.components.formHelper.maxChars();
+    }
+
+    function initVoucherScreen() {
+      APP.components.tabs.setTab('step2');
     }
 
     function initAddressScreen() {

@@ -33,10 +33,12 @@
     <% if @subscription.on_grace_period? %>
 
       <%= link_to "Mitgliedschaft fortsetzen", resume_subscription_path(@subscription), method: :patch, class: 'btn-primary' %>
+      <%= link_to 'Zuckerl einlösen', new_zuckerl_path, class: 'btn-primary -mint' if @subscription.open_zuckerl? %>
 
     <% elsif @subscription.active? %>
 
       <%= link_to "Mitgliedschaft ändern", subscription_plans_path, class: 'btn-primary -mint' %>
+      <%= link_to 'Zuckerl einlösen', new_zuckerl_path, class: 'btn-primary -mint' if @subscription.open_zuckerl? %>
       <%= link_to "Mitgliedschaft stornieren", subscription_path(@subscription), method: :delete, data: { confirm: "Bist du sicher?" }, class: 'btn-primary -grey' if !@subscription.on_grace_period? %>
 
     <% elsif @subscription.canceled? %>

@@ -9,7 +9,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Dein Zuckerl - Laufzeit: <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %>
+         Dein Zuckerl - Laufzeit: <%= @zuckerl.runtime %>
        </h4>
      </td>
    </tr>
@@ -32,16 +32,26 @@
     <td class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
 
       <p>
-        <strong>Der Betrag in der Höhe von <%= @zuckerl.total_price_with_currency %> wird nun von deiner hinterlegten Zahlungsmethode abgebucht. Anschließend erhältst du eine Rechnung per E-Mail.</strong>
-        Dein Zuckerl für das Schaufenster
+        Dein Zuckerl <strong>'<%= @zuckerl.title %>'</strong> für das Schaufenster
         <%= link_to @zuckerl.location.name, graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
-        ist anschleßend im Monat <%= I18n.localize @zuckerl.created_at.end_of_month+1.day, format: '%B %Y' %> auf der Plattform <%= t("region.#{@zuckerl.region_id}.domain_full") %> aktiv!
-        <br/><br/>Solltest du Fragen haben schick uns ein Mail an <%= t("region.#{@zuckerl.region_id}.contact_email") %>.
-        <br/>
+        wurde freigeschalten und ist somit im Monat <%= @zuckerl.runtime %> auf der Plattform <%= t("region.#{@zuckerl.region_id}.domain_full") %> aktiv!
+      </p>
+
+      <% if !@zuckerl.free? %>
+      <p>
+        <strong>Der Betrag in der Höhe von <%= @zuckerl.total_price_with_currency %> wird nun von deiner hinterlegten Zahlungsmethode abgebucht. Anschließend erhältst du eine Rechnung per E-Mail.</strong>
+      </p>
+      <% end %>
+
+      <p>
+        Solltest du Fragen haben schick uns ein Mail an <%= t("region.#{@zuckerl.region_id}.contact_email") %>.
+      </p>
+
+      <p>
         Dein Team von <%= t("region.#{@zuckerl.region_id}.domain_full") %>
       </p>
 
-      <%= render 'mailers/shared/button', title: "Zum Zuckerl", url: zuckerls_user_url(host: @zuckerl.region.host) %>
+      <%= render 'mailers/shared/button', title: "Dein Zuckerl verwalten", url: zuckerls_user_url(host: @zuckerl.region.host) %>
     </td>
   </tr>
 </table>

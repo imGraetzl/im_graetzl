@@ -46,7 +46,7 @@ class ZuckerlInvoice
 
     table_data = []
     table_data << ["ID ", "Zuckerl für Schaufenster", "Laufzeit", "Sichtbarkeit", "Preis"]
-    table_data << [zuckerl.id, zuckerl.location.name, (I18n.localize zuckerl.created_at.end_of_month+1.day, format: '%B %Y'), zuckerl.visibility, zuckerl.basic_price_with_currency]
+    table_data << [zuckerl.id, zuckerl.location.name, zuckerl.runtime, zuckerl.visibility, zuckerl.basic_price_with_currency]
     table_data << [nil, nil, nil, "(20% MwSt.)", zuckerl.tax_with_currency]
     table_data << [nil, nil, nil, "Gesamt", zuckerl.total_price_with_currency]
 

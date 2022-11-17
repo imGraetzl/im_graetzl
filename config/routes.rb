@@ -302,6 +302,7 @@ Rails.application.routes.draw do
   get 'navigation/load_content'
 
   resources :zuckerls, path: 'zuckerl' do
+    get 'voucher', on: :member
     get 'address', on: :member
     get 'choose_payment', on: :member
     get 'payment_authorized', on: :member

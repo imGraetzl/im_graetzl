@@ -9,6 +9,8 @@ context.instance_eval do
               link_to "Login As", masquerade_path(user)
             end
           end
+          row :free_region_zuckerl
+          row :free_graetzl_zuckerl
           row :region
           row :graetzl
           row :slug

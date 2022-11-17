@@ -50,7 +50,7 @@
   <div class="wrp">
     <h3>Wo erscheint das Zuckerl?</h3>
     <p>
-      Je nach eingestellter Sichtbarkeit deines Zuckerls (<%= t("region.#{current_region.id}.zuckerl.graetzl") %> oder <%= t("region.#{current_region.id}.region") %>),
+      Je nach eingestellter Sichtbarkeit deines Zuckerls (<%= t("region.#{current_region.id}.zuckerl.graetzl") %> oder <%= t("region.#{current_region.id}.zuckerl.region") %>),
       erscheint dein Angebot <%= t("region.#{current_region.id}.zuckerl.visibility_graetzl") %> auf <%= t("region.#{current_region.id}.domain_full") %>, oder sogar in ganz <%= current_region %>.
       Ausserdem werden Zuckerln in die jeweiligen <%= t("region.#{current_region.id}.graetzl") %>-Streams gestreut und erscheinen auch in den wöchentlichen <%= t("region.#{current_region.id}.graetzl") %>-Newslettern an die NutzerInnen.
     </p>
@@ -60,7 +60,7 @@
     <h3>Was kostet das Zuckerl?</h3>
     <p>
       Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.graetzl") %>" kostet <%= number_to_currency(Zuckerl.price(current_region) / 100) %></strong> (inkl. 20% USt.).<br>
-      Ein Zuckerl mit der Sichtbarkeit <strong>"ganz <%= current_region %>" kostet <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong> (inkl. 20% USt.).
+      Ein Zuckerl mit der Sichtbarkeit <strong>"<%= t("region.#{current_region.id}.zuckerl.region") %>" kostet <%= number_to_currency(Zuckerl.region_price(current_region) / 100) %></strong> (inkl. 20% USt.).
     </p>
   </div>
 

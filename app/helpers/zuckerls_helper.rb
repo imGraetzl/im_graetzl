@@ -30,4 +30,8 @@ module ZuckerlsHelper
     I18n.localize time.end_of_month+1.day, format: '%B %Y'
   end
 
+  def valid_zuckerl_voucher_for(zuckerl)
+    zuckerl.user.valid_zuckerl_voucher_for(zuckerl) || zuckerl.user.subscription&.valid_zuckerl_voucher_for(zuckerl)
+  end
+
 end

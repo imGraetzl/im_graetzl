@@ -1,7 +1,7 @@
 class ToolRentalService
 
   def create_setup_intent(tool_rental)
-    stripe_customer_id = get_stripe_customer_id(tool_rental.renter)
+    stripe_customer_id = tool_rental.renter.stripe_customer
     Stripe::SetupIntent.create(
       customer: stripe_customer_id,
       payment_method_types: available_payment_methods(tool_rental),
@@ -91,7 +91,7 @@ class ToolRentalService
   end
 
   def create_retry_intent(tool_rental)
-    stripe_customer_id = get_stripe_customer_id(tool_rental.renter)
+    stripe_customer_id = tool_rental.renter.stripe_customer
     Stripe::PaymentIntent.create(
       customer: stripe_customer_id,
       amount: (tool_rental.total_price * 100).to_i,
@@ -146,14 +146,6 @@ class ToolRentalService
   end
 
   private
-
-  def get_stripe_customer_id(user)
-    if user.stripe_customer_id.blank?
-      stripe_customer = Stripe::Customer.create(email: user.email)
-      user.update(stripe_customer_id: stripe_customer.id)
-    end
-    user.stripe_customer_id
-  end
 
   def available_payment_methods(tool_rental)
     if tool_rental.total_price <= 200

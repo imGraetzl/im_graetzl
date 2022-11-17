@@ -83,8 +83,27 @@ class User < ApplicationRecord
   scope :confirmed, -> { where("confirmed_at IS NOT NULL") }
 
   def beta_user?
-    #true
     admin? || beta?
+  end
+
+  def valid_zuckerl_voucher_for(zuckerl)
+    if zuckerl.entire_region?
+      free_region_zuckerl.to_i > 0
+    else
+      free_graetzl_zuckerl.to_i > 0
+    end
+  end
+
+  def open_region_zuckerl?
+    free_region_zuckerl.to_i > 0
+  end
+
+  def open_graetzl_zuckerl?
+    free_graetzl_zuckerl.to_i > 0
+  end
+
+  def open_zuckerl?
+    free_region_zuckerl.to_i > 0 || free_graetzl_zuckerl.to_i > 0
   end
 
   def subscribed?
@@ -200,11 +219,28 @@ class User < ApplicationRecord
 
   def stripe_customer
     if stripe_customer_id.blank?
+      
       stripe_customer = Stripe::Customer.create(
         email: email,
         name: full_name,
       )
+
+      # Update Billing Address if already exists
+      if self.billing_address.present?
+        Stripe::Customer.update(stripe_customer.id, {
+          name: self.billing_address.full_name,
+          address: {
+            line1: self.billing_address.company,
+            line2: self.billing_address.street,
+            postal_code: self.billing_address.zip,
+            city: self.billing_address.city,
+            country: self.billing_address.country,
+          }
+        })
+      end
+
       update(stripe_customer_id: stripe_customer.id)
+
     end
     stripe_customer_id
   end

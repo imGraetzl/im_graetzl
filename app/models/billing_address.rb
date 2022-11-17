@@ -33,7 +33,8 @@ class BillingAddress < ApplicationRecord
     Stripe::Customer.update(self.user.stripe_customer_id, {
       name: self.full_name,
       address: {
-        line1: self.street,
+        line1: self.company,
+        line2: self.street,
         postal_code: self.zip,
         city: self.city,
         country: self.country,

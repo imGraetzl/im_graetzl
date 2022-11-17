@@ -24,7 +24,7 @@ class SubscriptionsController < ApplicationController
     )
     if @subscription.save
       current_user.update(user_params) if params[:user].present?
-      subscription = SubscriptionService.new.subscribe(@subscription) # Create Stripe Subscription
+      subscription = SubscriptionService.new.create(@subscription) # Create Stripe Subscription
       if subscription.latest_invoice.payment_intent
         redirect_to [:choose_payment, @subscription, client_secret: subscription.latest_invoice.payment_intent.client_secret]
       else
@@ -61,6 +61,8 @@ class SubscriptionsController < ApplicationController
 
       Activity.in(current_region).where(:subject_type => 'Subscription').delete_all # Delete Subscription Activities
       ActionProcessor.track(@subscription, :create)
+      SubscriptionMailer.created(@subscription).deliver_later
+
       redirect_to [:summary, @subscription]
     else
       flash[:error] = error

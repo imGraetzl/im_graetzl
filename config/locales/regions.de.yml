@@ -31,6 +31,7 @@ de:
         headline: "Das Zuckerl für eine ganze Region"
         subline: "Dieses wird in allen Gemeinden deiner Region angezeigt."
         graetzl: "Gemeinde"
+        region: "Ganze Region"
         visibility_graetzl: "in der Gemeinde"
         visibility_info: "in deiner Gemeinde & Region"
       info:
@@ -69,7 +70,8 @@ de:
       zuckerl:
         headline: "Das Zuckerl für ganz Wien"
         subline: "Dieses wird in allen Grätzln und Bezirken in ganz Wien angezeigt."
-        graetzl: "Bezirk"
+        graetzl: "Grätzl & Bezirk"
+        region: "Ganz Wien"
         visibility_graetzl: "im Bezirk und allen zugehörigen Grätzln"
         visibility_info: "in deinem Grätzl, Bezirk & Wien"
       info:

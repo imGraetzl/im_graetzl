@@ -1,7 +1,7 @@
 ActiveAdmin.register Group do
   include ViewInApp
   menu label: 'Gruppen'
-  menu priority: 5
+  menu priority: 8
 
   actions :index, :show, :edit, :update, :destroy
 

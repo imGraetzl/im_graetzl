@@ -1,7 +1,7 @@
 class ZuckerlService
 
   def create_setup_intent(zuckerl)
-    stripe_customer_id = get_stripe_customer_id(zuckerl.user)
+    stripe_customer_id = zuckerl.user.stripe_customer
     Stripe::SetupIntent.create(
       customer: stripe_customer_id,
       payment_method_types: available_payment_methods(zuckerl),
@@ -38,7 +38,8 @@ class ZuckerlService
 
     zuckerl.approve! if zuckerl.may_approve?
     ZuckerlService.new.charge(zuckerl) if zuckerl.authorized?
-    ZuckerlMailer.approved(zuckerl).deliver_later if zuckerl.authorized?
+    ZuckerlMailer.approved(zuckerl).deliver_later
+
   end
 
   def invoice(zuckerl)
@@ -102,7 +103,7 @@ class ZuckerlService
   end
 
   def create_retry_intent(zuckerl)
-    stripe_customer_id = get_stripe_customer_id(zuckerl.user)
+    stripe_customer_id = zuckerl.user.stripe_customer
     Stripe::PaymentIntent.create(
       customer: stripe_customer_id,
       amount: (zuckerl.amount * 100).to_i,
@@ -134,14 +135,6 @@ class ZuckerlService
   end
 
   private
-
-  def get_stripe_customer_id(user)
-    if user.stripe_customer_id.blank?
-      stripe_customer = Stripe::Customer.create(email: user.email)
-      user.update(stripe_customer_id: stripe_customer.id)
-    end
-    user.stripe_customer_id
-  end
 
   def available_payment_methods(zuckerl)
     ['card', 'sepa_debit']

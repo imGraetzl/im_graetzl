@@ -16,6 +16,11 @@ section.usersetup {
     &.-missing-location .introcontainer .btn-primary {
       display: none;
     }
+    .cardBox.-subscriptionzuckerls {
+      max-width: unset;
+      width:100%;
+      margin-bottom: 30px;
+    }
   }
 
   .introcontainer .introtxt, &.-toolteiler, &.-rooms {
@@ -190,6 +195,12 @@ section.usersetup {
   }
 
   &.-subscriptions {
+    .list-basic {
+      max-width: unset;
+      width:100%;
+      font-style: italic;
+      margin-bottom: 0px;
+    }
     .cardBox {
       .btn-primary {
         margin-bottom: 10px;
@@ -197,6 +208,11 @@ section.usersetup {
           margin-bottom: 0;
         }
       }
+    }
+    .cardBox.-subscriptionzuckerls {
+      max-width: unset;
+      width:100%;
+      margin-bottom: 30px;
     }
   }
 

@@ -206,6 +206,39 @@
   }
 }
 
+.cardBox.-subscriptionzuckerls {
+  color:$color-ambient-mint-dark;
+  font-style: italic;
+  span {
+    color:$color-font-primary;
+  }
+  span.zuckerl {
+    font-weight: bold;
+    color: $color-ambient-rosa;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    svg {
+      width:30px;
+      height:30px;
+      margin-right:10px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+.voucher-screen .cardBox.-subscriptionzuckerls .item {
+  @include respond-to("<=medium") {
+    svg {display: none;}
+  }
+  .btn-primary {
+    white-space: nowrap;
+  }
+}
+
 #payment-element {
   padding-bottom:20px;
 }

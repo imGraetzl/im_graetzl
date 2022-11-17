@@ -6,6 +6,10 @@ context.instance_eval do
     row :interval
     row :stripe_id
     row :description
+    row :free_region_zuckerl
+    row :free_region_zuckerl_monthly_interval
+    row :free_graetzl_zuckerl
+    row :free_graetzl_zuckerl_monthly_interval
     row :benefit_1
     row :benefit_2
     row :benefit_3

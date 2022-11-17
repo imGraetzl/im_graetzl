@@ -1,0 +1,19 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, nofollow'
+  )
+%>
+
+<section class="zuckerl-page voucher-screen">
+
+  <div class="col-content">
+    <%= render "zuckerls/new/tabs_nav" %>
+    <%= render 'zuckerls/new/voucher' %>
+  </div>
+
+  <div class="col-sidebar">
+    <%= render @zuckerl %>
+    <%= render 'zuckerls/new/key_data' %>
+  </div>
+
+</section>

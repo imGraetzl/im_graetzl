@@ -1,6 +1,6 @@
 class SubscriptionService
 
-  def subscribe(subscription, options={})
+  def create(subscription, options={})
     stripe_customer_id = subscription.user.stripe_customer
 
     args = {
@@ -12,6 +12,9 @@ class SubscriptionService
         type: 'Subscription',
         subscription_id: subscription.id,
       },
+      default_tax_rates: [
+        'txr_1M4kSpESnSu3ZRERpdKtMkh5',
+      ],
     }.merge(options)
 
     sub = Stripe::Subscription.create(args)
@@ -80,6 +83,7 @@ class SubscriptionService
     return if user.subscription_invoices.where(stripe_id: object.id).any?
 
     user.subscription_invoices.create(
+      subscription_id: subscription.id,
       stripe_id: object.id,
       status:object.status,
       created_at: Time.at(object.created),
