@@ -1,0 +1,52 @@
+<div class="hl-subtext">
+  <h1><span>Zuckerl</span> Guthaben einlösen?</h1>
+  <p>
+    Möchtest du jetzt dein Zuckerl Guthaben einlösen?
+  </p>
+</div>
+
+
+<% if @subscription&.valid_zuckerl_voucher_for(@zuckerl) %>
+  <%= form_for [@location, @zuckerl] do |f| %>
+    <%= f.hidden_field :subscription_id, value: current_user.subscription.id %>
+    <div class="cardBox -subscriptionzuckerls">
+      <div class="item">
+        <%= icon_tag "shopping-bag" %>
+          <div>
+            <strong>Zuckerl aus deiner Fördermitgliedschaft einlösen.</strong><br>
+            <% if @zuckerl.entire_region? %>
+              <span>Einlösbar bis <%= I18n.localize(@subscription.current_region_zuckerl_period_end, format:'%d. %B %Y') %>.</span>
+            <% else %>
+              <span>Einlösbar bis <%= I18n.localize(@subscription.current_graetzl_zuckerl_period_end, format:'%d. %B %Y') %>.</span>
+            <% end %>
+          </div>
+        <%= submit_tag "Jetzt einlösen", class: 'btn-primary', data: { confirm: "Zuckerl Guthaben jetzt einlösen?" } %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if current_user.valid_zuckerl_voucher_for(@zuckerl) %>
+  <%= form_for [@location, @zuckerl] do |f| %>
+    <%= f.hidden_field :user_zuckerl, value: true %>
+    <div class="cardBox -subscriptionzuckerls">
+      <div class="item">
+        <%= icon_tag "shopping-bag" %>
+        <div>
+          <strong>Zuckerl aus deiner Zuckerlgutschrift einlösen.</strong><br>
+        </div>
+        <%= submit_tag "Jetzt einlösen", class: 'btn-primary', data: { confirm: "Zuckerl Guthaben jetzt einlösen?" } %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="cardBox -subscriptionzuckerls">
+  <div class="item">
+    <%= icon_tag "shopping-bag" %>
+    <div>
+      <strong>Jetzt nicht, weiter zur Zahlung.</strong><br>
+    </div>
+    <%= link_to 'Nicht einlösen', address_zuckerl_path(@zuckerl), class: 'btn-primary -mint' %>
+  </div>
+</div>

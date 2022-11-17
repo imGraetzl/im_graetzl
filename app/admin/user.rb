@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
   include ViewInApp
-  menu priority: 1
+  menu priority: 2
   includes :graetzl, :location_category, :business_interests
 
   scope :all, default: true
@@ -50,6 +50,8 @@ ActiveAdmin.register User do
     :address_description,
     :stripe_connect_account_id,
     :stripe_connect_ready,
+    :free_region_zuckerl,
+    :free_graetzl_zuckerl,
     group_ids: [],
     favorite_graetzl_ids: []
 

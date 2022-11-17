@@ -266,6 +266,8 @@ de:
       title: 'Zuckerl Buchung - Schaufenster auswählen'
     new:
       title: 'Zuckerl Buchung - Erstelle dein Zuckerl'
+    voucher:
+      title: 'Zuckerl Buchung - Zuckerl Guthaben einlösen'
     address:
       title: 'Zuckerl Buchung - Rechnungsadresse'
     choose_payment:
@@ -274,6 +276,16 @@ de:
       title: 'Zuckerl Buchung - Zahlungsart ändern'
     summary:
       title: 'Zuckerl Buchung - Zusammenfassung'
+
+  subscriptions:
+    new:
+      title: 'Fördermitgliedschaft - Neue Mitgliedschaft erstellen'
+    choose_payment:
+      title: 'Fördermitgliedschaft - Zahlungsart wählen'
+    change_payment:
+      title: 'Fördermitgliedschaft - Zahlungsart ändern'
+    summary:
+      title: 'Fördermitgliedschaft - Danke'
 
   messenger:
     index:

@@ -45,6 +45,7 @@ class UsersController < ApplicationController
 
   def zuckerls
     @zuckerls = current_user.zuckerls.initialized.in(current_region).order(created_at: :desc)
+    @subscription = current_user.subscription
   end
 
   def locations
@@ -75,8 +76,13 @@ class UsersController < ApplicationController
   def subscription
     if current_user.subscribed?
       @subscription = current_user.subscription
+      #upcoming_invoice = Stripe::Invoice.list_upcoming_line_items({
+      #  customer: current_user.stripe_customer_id,
+      #  subscription: @subscription.stripe_id,
+      #})
+      #puts upcoming_invoice
     else
-      @subscription = current_user.subscriptions.last
+      @subscription = current_user.subscriptions.initialized.last
     end
   end
 

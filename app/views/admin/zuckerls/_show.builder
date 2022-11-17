@@ -5,6 +5,7 @@ context.instance_eval do
       link_to zuckerl.location.user.username, admin_user_path(zuckerl.location.user)
     end
     row :location
+    row :subscription
     row :created_at
     row(:aasm_state){|z| status_tag(z.aasm_state)}
     row :amount

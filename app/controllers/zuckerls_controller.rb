@@ -21,10 +21,48 @@ class ZuckerlsController < ApplicationController
 
     if @zuckerl.save
       @zuckerl.link ||= nil
-      redirect_to [:address, @zuckerl]
+      if valid_zuckerl_voucher_for(@zuckerl)
+        redirect_to [:voucher, @zuckerl]
+      else
+        redirect_to [:address, @zuckerl]
+      end
     else
       render :new
     end
+  end
+
+  def update
+    set_location
+    set_zuckerl_or_redirect or return
+
+    if params[:zuckerl][:subscription_id].present?
+      @zuckerl.update zuckerl_voucher_params
+      @zuckerl.pending!
+      @zuckerl.update(amount: 0, payment_status: 'free',)
+      redirect_to [:summary, @zuckerl], notice: 'Dein Zuckerl-Guthaben wurde eingelöst'
+
+    elsif params[:zuckerl][:user_zuckerl].present?
+
+      @zuckerl.entire_region? ? current_user&.decrement!(:free_region_zuckerl) : current_user&.decrement!(:free_graetzl_zuckerl)
+      @zuckerl.pending!
+      @zuckerl.update(amount: 0, payment_status: 'free',)
+      redirect_to [:summary, @zuckerl], notice: 'Dein Zuckerl-Guthaben wurde eingelöst'
+
+    elsif params[:edit_zuckerl].present?
+      @zuckerl.update zuckerl_params_edit
+      redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde aktualisiert'
+
+    elsif @zuckerl.update zuckerl_address_params
+      redirect_to [:choose_payment, @zuckerl]
+
+    else
+      render :edit
+    end
+  end
+
+  def voucher
+    @zuckerl = current_user.zuckerls.find(params[:id])
+    @subscription = current_user.subscription
   end
 
   def address
@@ -92,20 +130,6 @@ class ZuckerlsController < ApplicationController
     set_zuckerl_or_redirect
   end
 
-  def update
-    set_location
-    set_zuckerl_or_redirect or return
-
-    if params[:edit_zuckerl].present?
-      @zuckerl.update zuckerl_params_edit
-      redirect_to zuckerls_user_path, notice: 'Dein Zuckerl wurde aktualisiert'
-    elsif @zuckerl.update zuckerl_address_params
-      redirect_to [:choose_payment, @zuckerl]
-    else
-      render :edit
-    end
-  end
-
   def destroy
     set_location
     @location.zuckerls.find(params[:id]).cancel!
@@ -124,6 +148,10 @@ class ZuckerlsController < ApplicationController
     else
       Zuckerl.live
     end
+  end
+
+  def valid_zuckerl_voucher_for(zuckerl)
+    zuckerl.user.valid_zuckerl_voucher_for(zuckerl) || zuckerl.user.subscription&.valid_zuckerl_voucher_for(zuckerl)
   end
 
   def set_location_for_new
@@ -165,6 +193,12 @@ class ZuckerlsController < ApplicationController
       :address,
       :zip,
       :city,
+    )
+  end
+
+  def zuckerl_voucher_params
+    params.require(:zuckerl).permit(
+      :subscription_id,
     )
   end
 

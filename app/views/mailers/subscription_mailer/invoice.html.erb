@@ -1,5 +1,5 @@
-<% content_for(:above_title, "Hallo #{@zuckerl.user.first_name}") %>
-<% content_for(:title, "Anbei deine Zuckerl Rechnung als PDF") %>
+<% content_for(:above_title, "Hallo #{@subscription.user.first_name}") %>
+<% content_for(:title, "Deine #{t("region.#{@subscription.region_id}.domain_full")} Fördermitgliedschaft wurde bezahlt") %>
 
 <!-- --------------- BLOCK HEADLINE --------------- -->
 <table border="0" cellpadding="0" cellspacing="0" style="max-width:600px; margin-bottom:20px;" width="100%" class="mcnTextContentContainer">
@@ -9,7 +9,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Dein Zuckerl - Laufzeit: <%= @zuckerl.runtime %>
+         Deine Rechnung
        </h4>
      </td>
    </tr>
@@ -32,22 +32,19 @@
     <td class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
 
       <p>
-        <strong>Die Zahlung für dein Zuckerl wurde erfolgreich durchgeführt, angehängt findest du deine Rechnung als PDF.</strong>
+        Herzlichen Dank für deine Unterstützung <%= @subscription.user.first_name %>!<br>
+        Deine Zahlung wurde erfolgreich durchgeführt und du kannst deine <%= link_to 'Rechnung hier downloaden', @subscription.subscription_invoices.last.invoice_pdf, style: "color:#f48a85;" %>.
       </p>
-
-      <ul>
-        <li>Zuckerl: '<%= @zuckerl.title %>'</li>
-        <li>Rechnungsdatum: <%= Date.today.strftime('%d.%m.%Y') %></li>
-        <li>Rechnungsnummer: <%= @zuckerl.invoice_number %></li>
-      </ul>
+      <p>
+        Alle Infos zu deiner Mitgliedschaft findets du eingeloggt auf <%= t("region.#{@subscription.region_id}.domain_full") %> unter dem Menüpunkt <%= link_to 'Fördermitgliedschaft', subscription_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>.
+      </p>
 
       <p>
-        Solltest du Fragen haben schick uns ein Mail an <%= t("region.#{@zuckerl.region_id}.contact_email") %>.
-        <br/>
-        Dein Team von <%= t("region.#{@zuckerl.region_id}.domain_full") %>
+        Herzliche Grüße,<br>
+        Dein Team von <%= t("region.#{@subscription.region_id}.domain_full") %>
       </p>
 
-      <%= render 'mailers/shared/button', title: "Zuckerl verwalten", url: zuckerls_user_url(host: @zuckerl.region.host) %>
+      <%= render 'mailers/shared/button', title: "Fördermitgliedschaft verwalten", url: subscription_user_url(host: @subscription.region.host) %>
     </td>
   </tr>
 </table>

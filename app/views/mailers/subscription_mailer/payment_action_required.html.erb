@@ -6,7 +6,10 @@
           Servus <%= @user.first_name %>,
         </p>
         <p>
-          Bitte überprüfe deine Zahlungsmethode
+          <strong>Leider gab es bei der Abbuchung deiner Fördermitgliedschaft Probleme,</strong> da deine ausgewählte Zahlungsform nicht belastet werden konnte.
+        </p>
+        <p>
+          <strong>Wir würden dich daher bitten, deine Zahlungsmethode anzupassen,</strong> damit deine Mitgliedschaft verlängert werden kann.
         </p>
       </td>
     </tr>
@@ -19,7 +22,11 @@
       <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
         <p>
           Bei Fragen kannst du dich gerne an uns wenden.<br>
-          E-Mail an: <%= t("region.#{@user.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
+          E-Mail an: <%= t("region.#{@subscription.region.id}.contact_email") %> oder rufe an: 0664/132 14 99 (Michael)
+        </p>
+        <p>
+          Herzlichn Dank,<br>
+          Dein Team von <%= t("region.#{@subscription.region_id}.domain_full") %>
         </p>
       </td>
     </tr>

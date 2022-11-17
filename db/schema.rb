@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_04_130604) do
+ActiveRecord::Schema.define(version: 2022_11_14_131050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -991,6 +991,8 @@ ActiveRecord::Schema.define(version: 2022_11_04_130604) do
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "subscription_id"
+    t.index ["subscription_id"], name: "index_subscription_invoices_on_subscription_id"
     t.index ["user_id"], name: "index_subscription_invoices_on_user_id"
   end
 
@@ -1007,6 +1009,10 @@ ActiveRecord::Schema.define(version: 2022_11_04_130604) do
     t.string "benefit_3"
     t.string "benefit_4"
     t.string "benefit_5"
+    t.integer "free_region_zuckerl", default: 0
+    t.integer "free_graetzl_zuckerl", default: 0
+    t.integer "free_region_zuckerl_monthly_interval", default: 0
+    t.integer "free_graetzl_zuckerl_monthly_interval", default: 0
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -1272,6 +1278,8 @@ ActiveRecord::Schema.define(version: 2022_11_04_130604) do
     t.string "payment_method"
     t.string "payment_card_last4"
     t.boolean "guest", default: false
+    t.integer "free_region_zuckerl", default: 0
+    t.integer "free_graetzl_zuckerl", default: 0
     t.index ["address_id"], name: "index_users_on_address_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_at"], name: "index_users_on_created_at"
@@ -1312,9 +1320,11 @@ ActiveRecord::Schema.define(version: 2022_11_04_130604) do
     t.string "address"
     t.string "zip"
     t.string "city"
+    t.bigint "subscription_id"
     t.index ["location_id"], name: "index_zuckerls_on_location_id"
     t.index ["region_id"], name: "index_zuckerls_on_region_id"
     t.index ["slug"], name: "index_zuckerls_on_slug"
+    t.index ["subscription_id"], name: "index_zuckerls_on_subscription_id"
     t.index ["user_id"], name: "index_zuckerls_on_user_id"
   end
 

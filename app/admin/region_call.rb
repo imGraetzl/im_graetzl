@@ -1,5 +1,5 @@
 ActiveAdmin.register RegionCall do
-  menu parent: 'Regionen', label: "Call"
+  menu parent: 'Einstellungen', label: "Call Regionen"
 
   index { render 'index', context: self }
   form partial: 'form'

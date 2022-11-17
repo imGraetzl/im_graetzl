@@ -1,0 +1,22 @@
+<% if @subscription&.zuckerl_included? %>
+  <div class="cardBox -subscriptionzuckerls">
+    <% if @subscription&.region_zuckerl_included? %>
+      <div class="item">
+        <%= icon_tag "shopping-bag" %>
+        <div>
+          <strong><u><%= @subscription.subscription_plan.free_region_zuckerl %> Zuckerl</u> mit der Sichtbarkeit '<u><%= t("region.#{current_region.id}.zuckerl.region") %></u>' alle <%= @subscription.subscription_plan.free_region_zuckerl_monthly_interval %> Monate.</strong><br>
+          <span>Davon noch </span> <span class="zuckerl"><%= @subscription.open_zuckerl_count_entire_region %></span> <span>Zuckerl einlösbar bis <%= I18n.localize(@subscription.current_region_zuckerl_period_end, format:'%d. %B %Y') %>.</span>
+        </div>
+      </div>
+    <% end %>
+    <% if @subscription&.graetzl_zuckerl_included? %>
+      <div class="item">
+        <%= icon_tag "shopping-bag" %>
+        <div>
+          <strong><u><%= @subscription.subscription_plan.free_graetzl_zuckerl %> Zuckerl</u> mit der Sichtbarkeit '<u><%= t("region.#{current_region.id}.zuckerl.graetzl") %></u>' alle <%= @subscription.subscription_plan.free_graetzl_zuckerl_monthly_interval %> Monate.</strong><br>
+          <span>Davon noch </span> <span class="zuckerl"><%= @subscription.open_zuckerl_count_graetzl %></span> <span>Zuckerl einlösbar bis <%= I18n.localize(@subscription.current_graetzl_zuckerl_period_end, format:'%d. %B %Y') %>.</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

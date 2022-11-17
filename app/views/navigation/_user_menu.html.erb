@@ -80,7 +80,7 @@
     <div class="nav-dropdown-submenu" id="nav-submenu-user-abo">
       <%= nav_submenu_back('nav-submenu-user-main') %>
       <%= nav_menu_item("abo", "#{t("region.#{current_region.id}.domain_short")} Fördermitgliedschaft", subscription_plans_path) %>
-      <%= nav_menu_item("abo", 'Mitgliedschaft verwalten', subscription_user_path) if current_user.subscriptions %>
+      <%= nav_menu_item("abo", 'Deine Mitgliedschaft verwalten', subscription_user_path) if current_user.subscriptions %>
       <%= nav_menu_item("credit-card", 'Zahlungseinstellungen', payment_method_user_path) %>
     </div>
 

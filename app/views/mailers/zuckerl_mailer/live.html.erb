@@ -9,7 +9,7 @@
    <tr>
      <td valign="top" class="mcnTextContent" style="padding-top:0;  padding-bottom:9px; padding-left:18px; padding-right:18px;">
        <h4 style="text-align:left; color:#69a8a7; font-family:Georgia; font-size:125%; font-weight:normal; font-style:italic;">
-         Dein Zuckerl - <%= I18n.localize Date.today, format: '%B %Y' %>
+         Dein Zuckerl - <%= @zuckerl.runtime %>
        </h4>
      </td>
    </tr>
@@ -31,22 +31,35 @@
   <tr>
     <td class="mcnTextContent" style="padding-left:18px; padding-right:18px;">
 
-      Dein Zuckerl mit dem Titel "<strong><em><%= @zuckerl.title %></em></strong>" läuft nun für einen Monat auf <%= t("region.#{@zuckerl.region_id}.domain_full") %>
-      mit folgender Sichtbarkeit: "<strong><em><%= @zuckerl.visibility %></em></strong>"
-      <p>
-        <strong>Zu den Zuckerln im <%= @zuckerl.location.graetzl.name %>:</strong><br/>
-        <%= link_to zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), style: "color:#f48a85;" %>
-      </p>
+      Dein Zuckerl '<strong><%= @zuckerl.title %></strong>' läuft nun für einen Monat auf <%= t("region.#{@zuckerl.region_id}.domain_full") %>
+      mit folgender Sichtbarkeit: '<strong><%= @zuckerl.visibility %></strong>'.
+
+      <% if @zuckerl.entire_region %>
+        <p>
+          <strong>Zu den Zuckerln:</strong><br/>
+          <%= link_to region_zuckerls_url(host: @zuckerl.region.host), region_zuckerls_url(host: @zuckerl.region.host), style: "color:#f48a85;" %>
+        </p>
+      <% else %>
+        <p>
+          <strong>Zu den Zuckerln im <%= @zuckerl.location.graetzl.name %>:</strong><br/>
+          <%= link_to zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), zuckerls_graetzl_url(@zuckerl.location.graetzl, host: @zuckerl.region.host), style: "color:#f48a85;" %>
+        </p>
+      <% end %>
 
       <p>
-        <strong>Auf deiner Schaufenster-Seite:</strong><br/>
+        <strong>Auf deinem Schaufenster:</strong><br/>
         <%= link_to graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), graetzl_location_url(@zuckerl.location.graetzl, @zuckerl.location, host: @zuckerl.region.host), style: "color:#f48a85;" %>
       </p>
 
-      <p>
-        <strong>Tipp:</strong> Du möchtest dein Zuckerl gleich auf Facebook teilen -
-        Verwende dafür einfach einen der beiden Links oberhalb!
-      </p>
+      <% if @zuckerl.entire_region %>
+        <p>
+          Dein Zuckerl wird ausserdem den ganzen Monat <%= @zuckerl.runtime %> <strong>in alle wöchentlichen Newsletter in '<%= @zuckerl.visibility.camelize(:lower) %>'</strong> eingestreut.
+        </p>
+      <% else %>
+        <p>
+          Dein Zuckerl wird ausserdem den ganzen Monat <%= @zuckerl.runtime %> <strong>in alle wöchentlichen Newsletter im '<%= @zuckerl.visibility %>'</strong> eingestreut.
+        </p>
+      <% end %>
 
       <br>
 

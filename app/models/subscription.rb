@@ -3,8 +3,12 @@ class Subscription < ApplicationRecord
 
   belongs_to :user
   belongs_to :subscription_plan
+  has_many :subscription_invoices
+  has_many :zuckerls
 
   string_enum status: ["incomplete", "active", "canceled", "past_due"]
+
+  scope :initialized, -> { where.not(status: :incomplete) }
 
   NEXT_GOAL = 60
 
@@ -26,6 +30,69 @@ class Subscription < ApplicationRecord
 
   def has_incomplete_payment?
     ["past_due", "incomplete"].include?(status)
+  end
+
+  def last_invoice_date
+    subscription_invoices && subscription_invoices.last.created_at.to_date
+  end
+
+  def next_invoice_date
+    # Maybe get Infos from Stripe to be more exactly ?!
+    if subscription_invoices && subscription_plan.interval == 'year'
+      subscription_invoices.last.created_at.to_date + 1.year + 1.day
+    elsif subscription_invoices && subscription_plan.interval == 'month'
+      subscription_invoices.last.created_at.to_date + 1.month + 1.day
+    end
+  end
+
+  def region_zuckerl_included?
+    subscription_plan.free_region_zuckerl.to_i > 0
+  end
+
+  def graetzl_zuckerl_included?
+    subscription_plan.free_graetzl_zuckerl.to_i > 0
+  end
+
+  def zuckerl_included?
+    region_zuckerl_included? || graetzl_zuckerl_included?
+  end
+
+  def current_region_zuckerl_period
+    last_invoice_date..last_invoice_date + (subscription_plan.free_region_zuckerl_monthly_interval.to_i.months)
+  end
+
+  def current_region_zuckerl_period_end
+    last_invoice_date + (subscription_plan.free_region_zuckerl_monthly_interval.to_i.months)
+  end
+
+  def current_graetzl_zuckerl_period
+    last_invoice_date..last_invoice_date + (subscription_plan.free_graetzl_zuckerl_monthly_interval.to_i.months)
+  end
+
+  def current_graetzl_zuckerl_period_end
+    last_invoice_date + (subscription_plan.free_graetzl_zuckerl_monthly_interval.to_i.months)
+  end
+
+  def open_zuckerl?
+    active? && (open_zuckerl_count_entire_region > 0 || open_zuckerl_count_graetzl > 0)
+  end
+
+  def open_zuckerl_count_entire_region
+    count = subscription_plan.free_region_zuckerl.to_i - zuckerls.initialized.entire_region.where(created_at: current_region_zuckerl_period).count
+    count < 0 ? 0 : count
+  end
+
+  def open_zuckerl_count_graetzl
+    count = subscription_plan.free_graetzl_zuckerl.to_i - zuckerls.initialized.graetzl.where(created_at: current_graetzl_zuckerl_period).count
+    count < 0 ? 0 : count
+  end
+
+  def valid_zuckerl_voucher_for(zuckerl)
+    if zuckerl.entire_region?
+      open_zuckerl_count_entire_region > 0
+    else
+      open_zuckerl_count_graetzl > 0
+    end
   end
 
   def cancel

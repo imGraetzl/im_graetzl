@@ -101,6 +101,7 @@ class WebhooksController < ApplicationController
   def invoice_paid(object)
     subscription = Subscription.find_by(stripe_id: object.subscription)
     SubscriptionService.new.invoice_paid(subscription, object) if subscription
+    SubscriptionMailer.invoice(subscription).deliver_later if subscription
   end
 
 end

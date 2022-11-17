@@ -14,6 +14,14 @@
   <div class="col-sidebar">
     <%= render @zuckerl %>
     <%= render 'zuckerls/new/key_data' %>
+    <% if !valid_zuckerl_voucher_for(@zuckerl) %>
+      <div class="zuckerl-keydata">
+        <div class="headline">Zuckerl Guthaben einlösen?</div>
+        <ul class="facts">
+          <li>Du hast aktuell kein offenes Guthaben für ein Zuckerl mit der Sichtbarkeit '<%= @zuckerl.visibility %>'.</li>
+        </ul>
+      </div>
+    <% end %>
   </div>
 
 </section>

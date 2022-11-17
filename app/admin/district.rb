@@ -1,6 +1,6 @@
 ActiveAdmin.register District do
   include ViewInApp
-  menu label: 'Bezirke', parent: 'Regionen'
+  menu label: 'Bezirke', parent: 'Einstellungen'
   includes :graetzls
   actions :all, except: [:new, :create, :destroy]
 
