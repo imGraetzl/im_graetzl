@@ -219,15 +219,10 @@ class User < ApplicationRecord
 
   def stripe_customer
     if stripe_customer_id.blank?
-      
-      stripe_customer = Stripe::Customer.create(
-        email: email,
-        name: full_name,
-      )
 
       # Update Billing Address if already exists
       if self.billing_address.present?
-        Stripe::Customer.update(stripe_customer.id, {
+        billing_address_args = {
           name: self.billing_address.full_name,
           address: {
             line1: self.billing_address.company,
@@ -236,8 +231,17 @@ class User < ApplicationRecord
             city: self.billing_address.city,
             country: self.billing_address.country,
           }
-        })
+        }
+      else
+        billing_address_args = {}
       end
+
+      args = {
+        email: email,
+        name: full_name,
+      }.merge(billing_address_args)
+
+      stripe_customer = Stripe::Customer.create(args)
 
       update(stripe_customer_id: stripe_customer.id)
 
