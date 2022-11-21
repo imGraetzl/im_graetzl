@@ -1,16 +1,12 @@
 <!-- Prepare Zuckerls for User (Own Zuckerl and Others), max 2 -->
-<% zuckerls = Zuckerl.in(@region).live.in_area(@user.graetzl.id).include_for_box %>
-<% ownzuckerls = Zuckerl.in(@region).where(user_id: @user.id).live.in_area(@user.graetzl.id).include_for_box %>
+<% zuckerls = Zuckerl.live.in_area(@user.followed_graetzl_ids).include_for_box %>
+<% ownzuckerls = zuckerls.where(user_id: @user.id) %>
 <% zuckerls = (zuckerls - ownzuckerls).sample(2) %>
 <% zuckerls += ownzuckerls %>
 
 <% if zuckerls.any? %>
 
-  <% if @region == 'wien' %>
-    <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'} im #{@user.graetzl.numeric}. Bezirk und Wien" %>
-  <% else %>
-    <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'}" %>
-  <% end %>
+  <%= render 'summary/block_header', title: "Aktuelle Zuckerl im #{I18n.localize Time.now, format: '%B'}" %>
 
   <% zuckerls.last(2).each do |zuckerl| %>
   <% location = zuckerl.location %>
