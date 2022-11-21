@@ -17,7 +17,25 @@
     <p>Tolle Angebote, Gutscheine & Rabatte von Selbständigen & Geschäften ums Eck <%= render 'shared/questionmarklink', hint_url: info_zuckerl_path %></p>
   </div>
 
-  <%= form_tag zuckerls_path(graetzl_id: @graetzl), method: :get, remote: true, class: 'cards-filter' do; end %>
+  <%= form_tag zuckerls_path, method: :get, remote: true, class: 'cards-filter' do %>
+
+    <div class="filter-selection-text-jbox">
+      Zeige mir Zuckerl
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        in <%= link_to "#{@graetzl.name} & #{t("region.#{current_region.id}.favorite_graetzls")}", '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}" }, class: 'filter-modal-areas filter-applied' %>
+      <% else %>
+        in <%= link_to @graetzl.name, '#filter-modal-areas', data: { no_filter_label: "ganz #{current_region}"}, class: 'filter-modal-areas filter-applied' %>
+      <% end %>
+    </div>
+    <div id="filter-modal-areas" class="filter-modal-jbox-areas">
+      <% if @graetzl.id == current_user&.graetzl_id %>
+        <%= render 'filters/areas', favorites: current_user %>
+      <% else %>
+        <%= render 'filters/areas', graetzl: @graetzl %>
+      <% end %>
+    </div>
+
+  <% end %>
 
   <div class="card-grid-container">
     <div class="card-grid" data-behavior="zuckerls-card-container"></div>

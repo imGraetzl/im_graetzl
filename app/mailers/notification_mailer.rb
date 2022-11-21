@@ -58,6 +58,8 @@ class NotificationMailer < ApplicationMailer
     ],
   }
 
+  ZUCKERL_BLOCK_POSITION = 3
+
   def summary_graetzl(user, region, period)
     @user, @period = user, period
     @region = region

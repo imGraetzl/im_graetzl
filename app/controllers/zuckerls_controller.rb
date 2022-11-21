@@ -4,7 +4,9 @@ class ZuckerlsController < ApplicationController
   def index
     head :ok and return if browser.bot? && !request.format.js?
     @zuckerls = collection_scope.in(current_region).include_for_box
+    @zuckerls = filter_collection(@zuckerls)
     @zuckerls = @zuckerls.page(params[:page]).per(15).order(Arel.sql("RANDOM()"))
+
   end
 
   def new
@@ -139,15 +141,7 @@ class ZuckerlsController < ApplicationController
   private
 
   def collection_scope
-    if params[:graetzl_id].present?
-      graetzl = Graetzl.find(params[:graetzl_id])
-      Zuckerl.live.in_area(graetzl.id)
-    elsif params[:district_id].present?
-      district = District.find(params[:district_id])
-      Zuckerl.live.in_area(district.graetzl_ids)
-    else
-      Zuckerl.live
-    end
+    Zuckerl.live
   end
 
   def valid_zuckerl_voucher_for(zuckerl)
@@ -174,6 +168,24 @@ class ZuckerlsController < ApplicationController
     @zuckerl = @location.zuckerls.where(aasm_state: ['incomplete', 'pending']).find params[:id]
   rescue ActiveRecord::RecordNotFound
     redirect_to zuckerls_user_path, alert: 'Bereits freigeschaltene Zuckerl können nicht mehr bearbeitet werden.' and return
+  end
+
+  def filter_collection(collection)
+    graetzl_ids = params.dig(:filter, :graetzl_ids)
+    if params[:favorites].present? && current_user
+      favorite_ids = current_user.followed_graetzl_ids
+      collection.in_area(favorite_ids)
+
+    elsif graetzl_ids.present? && graetzl_ids.any?(&:present?)
+      collection.in_area(graetzl_ids.reject(&:empty?))
+
+    elsif params[:district_id].present?
+      district = District.find(params[:district_id])
+      collection.in_area(district.graetzl_ids)
+
+    else
+      collection
+    end
   end
 
   def current_user_params

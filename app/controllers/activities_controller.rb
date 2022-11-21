@@ -28,11 +28,12 @@ class ActivitiesController < ApplicationController
   def insert_zuckerls(activities, graetzl_ids)
     zuckerls = Zuckerl.live.in(current_region)
     zuckerls = zuckerls.in_area(graetzl_ids) if graetzl_ids.present?
-    zuckerls = zuckerls.include_for_box.random(2)
+    zuckerls = zuckerls.include_for_box.random(3)
 
     result = activities.to_a
     result.insert(3, zuckerls[0]) if zuckerls[0]
-    result.insert(6, zuckerls[1]) if zuckerls[1]
+    result.insert(7, zuckerls[1]) if zuckerls[1]
+    result.insert(12, zuckerls[2]) if zuckerls[2]
     result.compact
   end
 
