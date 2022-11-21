@@ -6,11 +6,11 @@ class NotificationMailerPreview < ActionMailer::Preview
   end
 
   def summary_graetzl
-    NotificationMailer.summary_graetzl(prepare_user, 'weekly')
+    NotificationMailer.summary_graetzl(prepare_user, prepare_user.region, 'weekly')
   end
 
   def summary_personal
-    NotificationMailer.summary_personal(prepare_user, 'weekly')
+    NotificationMailer.summary_personal(prepare_user, prepare_user.region, 'weekly')
   end
 
   private
