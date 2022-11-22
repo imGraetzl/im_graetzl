@@ -1,3 +1,9 @@
+<% meta(
+    title: t('.title'),
+    robots: 'noindex, follow',
+  )
+%>
+
 <section class="usersetup -subscriptions">
 
   <div class="introcontainer">
@@ -34,8 +40,10 @@
 
 
       <% else %>
-        <p>
-        </p>
+      <p>
+        Um unsere <%= t("region.#{current_region.id}.domain_short") %> Arbeit nachhaltig zu finanzieren, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen,
+        dass <%= t("region.#{current_region.id}.domain_short") %> allen lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %> kostenlos zur Verfügung steht! <%= link_to 'Hier gehts zu den Fördermitgliedschaften', subscription_plans_path %>
+      </p>
       <% end %>
 
     </div>

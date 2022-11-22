@@ -1,8 +1,11 @@
-<div class="cardBox">
+<div class="cardBox -subscription-plan">
 
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
       <%= image_tag("info/cardbox-abo#{@plan.image_url}.jpg", class: 'coverImg') %>
+    </div>
+    <div class="categoryicon">
+      <strong><%= @plan.short_name %></strong>
     </div>
   </div>
 
