@@ -4,7 +4,10 @@
 
   <div class="cardBoxHeader">
     <div class="coverImgWrapper">
-      <%= image_tag('info/cardbox-abo.jpg', class: 'coverImg') %>
+      <%= image_tag("info/cardbox-abo#{subscription_plan.image_url}.jpg", class: 'coverImg') %>
+    </div>
+    <div class="categoryicon">
+      <%= subscription_plan %>
     </div>
   </div>
 

@@ -9,14 +9,14 @@
     <div class="wrp">
       <p>
         <strong>
-          Die <%= t("region.#{current_region.id}.domain_short") %> Fördermitgliedschaft - Für alle die unsere Arbeit wertschätzen.
+          Dein Beitrag ermöglicht den Betrieb von <%= t("region.#{current_region.id}.domain_short") %> und unterstützt die lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %>.
         </strong>
       </p>
       <p>
-        Um unsere imGrätzl Arbeit nachhaltig zu finanzieren, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass imGrätzl allen lokalen Macher*innen in Wien kostenlos zur Verfügung steht!
+        Um unsere <%= t("region.#{current_region.id}.domain_short") %> Arbeit nachhaltig zu finanzieren, brauchen wir vor allem eins: Unsere Förder*innen. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen und es ermöglichen, dass <%= t("region.#{current_region.id}.domain_short") %> allen lokalen Macher*innen <%= t("region.#{current_region.id}.in_region") %> kostenlos zur Verfügung steht!
       </p>
       <p>
-        <strong><%= Subscription.in(current_region).active.count %></strong> Menschen unterstützen imGrätzl bereits mit einer Fördermitgliedschaft.
+        <strong><%= Subscription.in(current_region).active.count %></strong> Menschen unterstützen <%= t("region.#{current_region.id}.domain_short") %> bereits mit einer Fördermitgliedschaft.
         <br>
         <strong>Unser nächstes Ziel: <%= Subscription::NEXT_GOAL %> Förder*innen.</strong>
       </p>
@@ -26,6 +26,7 @@
 
   <div class="cardBoxCollection -tripple">
     <%= render @plans %>
+    <%= render 'subscription_plans/subscription_plan_premium' %>
   </div>
 
   <div class="allBoxes">

@@ -8,6 +8,9 @@ Rails.application.configure do
     '/treffen$', '/locations$', '/coop-share$', '/raumteiler$', '/toolteiler$', '/zuckerl$'
   ]
 
+  # Taxrates for Stripe
+  config.stripe_default_tax_rates = "txr_1M4kSpESnSu3ZRERpdKtMkh5"
+
   # Settings specified here will take precedence over those in config/application.rb.
   config.imgraetzl_host = "imgraetzl.at"
   config.welocally_host = "welocally.at"

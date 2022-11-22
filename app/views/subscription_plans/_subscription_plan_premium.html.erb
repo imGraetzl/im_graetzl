@@ -1,0 +1,34 @@
+<div class="cardBox -subscription-plan">
+
+  <div class="cardBoxHeader">
+    <div class="coverImgWrapper">
+      <%= mail_to t("region.#{current_region.id}.contact_email"), image_tag('info/cardbox-abo-wow.png', class: 'coverImg', style: 'object-fit: contain') %>
+    </div>
+    <div class="categoryicon">
+      <strong>WOW!</strong>
+    </div>
+  </div>
+
+  <div class="cardBoxContent">
+
+    <ul class="pricing-summary -facts">
+      <p class="title">Fördermitgliedschaft Wow!</p>
+    </ul>
+    <ul class="pricing-summary -facts">
+      <li class="benefit">Dein Logo auf der <%= t("region.#{current_region.id}.domain_short") %> Startseite verlinkt zu deiner Webseite.</li>
+      <li class="benefit">2 Zuckerl für ganz Wien.</li>
+      <li class="benefit">Begrenzt auf 3 Plätze!</li>
+      <li class="benefit">Schreib uns ein Mail an <%= mail_to t("region.#{current_region.id}.contact_email") %> wenn du mit einer Wow! Mitgliedschaft unterstützen möchtest. </li>
+    </ul>
+    <ul class="pricing-summary">
+      <li>
+        <div class="cost"><%= number_to_currency('1500', unit: "€") %></div>
+        <div class="costname">für ein Jahr</div>
+      </li>
+    </ul>
+
+    <%= mail_to t("region.#{current_region.id}.contact_email"), "Per Mail anfragen", class: "btn-primary -mint" %>
+
+  </div>
+
+</div>

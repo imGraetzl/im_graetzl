@@ -29,6 +29,12 @@ class NotificationMailer < ApplicationMailer
     'Neue Schaufenster' => [
       Notifications::NewLocation
     ],
+    'Neue Räume zum Andocken' => [
+      Notifications::NewRoomOffer
+    ],
+    'Auf der Suche nach Raum' => [
+      Notifications::NewRoomDemand
+    ],
     'Neue Treffen' => [
       Notifications::NewMeeting
     ],
@@ -49,12 +55,6 @@ class NotificationMailer < ApplicationMailer
     ],
     'Auf der Suche nach einem Tool' => [
       Notifications::NewToolDemand
-    ],
-    'Neue Räume zum Andocken' => [
-      Notifications::NewRoomOffer
-    ],
-    'Auf der Suche nach Raum' => [
-      Notifications::NewRoomDemand
     ],
   }
 

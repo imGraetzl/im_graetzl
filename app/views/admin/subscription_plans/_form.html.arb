@@ -2,10 +2,11 @@ active_admin_form_for [:admin, resource] do |f|
   inputs do
     f.semantic_errors
     input :name
+    input :short_name
     input :amount
     input :interval, collection: ['year', 'month'], include_blank: true, input_html: { :class => 'admin-filter-select'}
     input :stripe_id
-    input :description
+    input :image_url
     input :free_graetzl_zuckerl, as: :select, collection: [1, 2, 3], include_blank: 'Anzahl auswählen', input_html: { :class => 'admin-filter-select'}
     input :free_graetzl_zuckerl_monthly_interval, as: :select, collection: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], include_blank: 'Intervall auswählen', input_html: { :class => 'admin-filter-select'}
     input :free_region_zuckerl, as: :select, collection: [1, 2, 3], include_blank: 'Anzahl auswählen', input_html: { :class => 'admin-filter-select'}

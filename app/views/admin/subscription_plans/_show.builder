@@ -5,7 +5,8 @@ context.instance_eval do
     row :amount
     row :interval
     row :stripe_id
-    row :description
+    row :short_name
+    row :image_url
     row :free_region_zuckerl
     row :free_region_zuckerl_monthly_interval
     row :free_graetzl_zuckerl

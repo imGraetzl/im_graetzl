@@ -10,7 +10,7 @@ class Subscription < ApplicationRecord
 
   scope :initialized, -> { where.not(status: :incomplete) }
 
-  NEXT_GOAL = 60
+  NEXT_GOAL = 75
 
   def active?
     ["active"].include?(status) && ends_at.nil? || on_grace_period?
