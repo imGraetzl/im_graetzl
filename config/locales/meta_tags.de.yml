@@ -178,6 +178,32 @@ de:
       imgraetzl:
         title: '%{name} aus dem Grätzl %{graetzl}'
         description: '%{name}s Heimatgrätzl in %{region} ist das Grätzl %{graetzl}'
+    billing_address:
+      title: 'Meine Rechnungsdaten'
+    coop_demands:
+      title: 'Meine Coop & Share Angebote'
+    crowd_campaigns:
+      title: 'Meine Crowdfunding Projekte'
+    edit:
+      title: 'Profil Einstelungen'
+    favorite_graetzls:
+      title: 'Favorite Einstellungen'
+    groups:
+      title: 'Meine Gruppenmitgliedschaften'
+    locations:
+      title: 'Meine Schaufenster'
+    meetings:
+      title: 'Meine Treffen'
+    payment_method:
+      title: 'Meine Zahlungseinstellungen'
+    rooms:
+      title: 'Meine Raumteiler'
+    subscription:
+      title: 'Meine Fördermitgliedschaft'
+    tools:
+      title: 'Meine Geräteteiler'
+    zuckerls:
+      title: 'Meine Zuckerln'
 
   room_offers:
     show:
@@ -299,6 +325,11 @@ de:
   search:
     index:
       title: 'Suche'
+
+  subscription_plans:
+    show:
+     title: 'imGrätzl Fördermitgliedschaft'
+     description: 'Dein Beitrag ermöglicht den Betrieb von imGrätzl und unterstützt die lokalen Macher*innen in Wien. Danke an alle, die unsere Arbeit bereits mit einer Fördermitgliedschaft unterstützen.'
 
   static_pages:
     info:

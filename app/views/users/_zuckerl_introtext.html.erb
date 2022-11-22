@@ -26,7 +26,7 @@
         <h1>Dein <span>Zuckerl Guthaben</span></h1>
         <p></p>
       </div>
-      <%= render partial: 'users/zuckerl_voucher_subscription' if @subscription.open_zuckerl? %>
+      <%= render partial: 'users/zuckerl_voucher_subscription' if @subscription&.open_zuckerl? %>
       <%= render partial: 'users/zuckerl_voucher_user' if current_user.open_zuckerl? %>
     <% end %>
 

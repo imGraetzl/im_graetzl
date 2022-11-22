@@ -13,7 +13,7 @@ class SubscriptionService
         subscription_id: subscription.id,
       },
       default_tax_rates: [
-        'txr_1M4kSpESnSu3ZRERpdKtMkh5',
+        Rails.application.config.stripe_default_tax_rates,
       ],
     }.merge(options)
 
