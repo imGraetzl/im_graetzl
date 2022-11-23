@@ -41,11 +41,11 @@
       </p>
       <% end %>
 
-      <% if @subscription.subscription_plan.interval == 'month' %>
-        <p>Deine Fördermitglidschaft wird monatlich verlängert und ist jederzeit kündbar. Die nächste Verlängerung ist am <%= I18n.localize(@subscription.next_invoice_date, format:'%d. %B %Y') %>.</p>
-      <% elsif @subscription.subscription_plan.interval == 'year' %>
-        <p><strong>Deine Fördermitgliedschaft wird jährlich verlängert, die Verlängerung ist jederzeit kündbar, indem du auf stornieren klickst.</strong> (Eingeloggt unter <%= link_to 'Fördermitgliedschaft verwalten', subscription_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>). Die nächste Verlängerung ist am <%= I18n.localize(@subscription.next_invoice_date, format:'%d. %B %Y') %>.</p>
-      <% end %>
+      <p>
+        <strong>Deine Fördermitglidschaft wird <%= @subscription.subscription_plan.interval == 'month' ? 'monatlich' : 'jährlich' %> verlängert,
+        die Verlängerung ist jederzeit kündbar, indem du auf stornieren klickst.</strong> (Eingeloggt unter <%= link_to 'Fördermitgliedschaft verwalten', subscription_user_url(host: @subscription.region.host), style: "color:#f48a85;" %>).
+        Die nächste Verlängerung ist am <%= I18n.localize(@subscription.next_invoice_date, format:'%d. %B %Y') %>.
+      </p>
 
       <p>
         Herzliche Grüße,<br>
